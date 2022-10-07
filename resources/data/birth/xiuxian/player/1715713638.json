@@ -1,0 +1,28 @@
+{
+	"name": "2号",
+	"autograph": "无",
+	"race": 1,
+	"level_id": 1,
+	"Physique_id": 1,
+	"experience": 1,
+	"experiencemax": 1,
+	"lingshi": 1000,
+	"nowblood": 8040,
+	"talent": [
+		8,
+		7,
+		6
+	],
+	"talentshow": 1,
+	"talentsize": 1.3000000000000003,
+	"AllSorcery": [],
+	"occupation": [],
+	"power_place": 1,
+	"days": 0,
+	"nowattack": 4310,
+	"nowdefense": 4130,
+	"hpmax": 8040,
+	"burst": 0.08,
+	"speed": 1,
+	"bursthurt": 0
+}

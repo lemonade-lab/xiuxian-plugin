@@ -1,0 +1,17 @@
+{
+	"arms": {
+		"id": 1,
+		"class": "1",
+		"type": "1"
+	},
+	"huju": {
+		"id": 1,
+		"class": "2",
+		"type": "1"
+	},
+	"fabao": {
+		"id": 1,
+		"class": "3",
+		"type": "1"
+	}
+}
