@@ -127,14 +127,13 @@ export class MoneyOperation extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let isat = e.message.some((item) => item.type === "at");
-        if (!isat) {
+
+        let B = await Xiuxian.At(e);
+        if(B==0){
             return;
         }
-        let atItem = e.message.filter((item) => item.type === "at");//获取at信息
-        let B_qq = atItem[0].qq;//对方qq
-        let ifexistplay = await Xiuxian.existplayer(B_qq);
-        if (!ifexistplay) { e.reply(`此人尚未踏入仙途`); return; }
+
+
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("扣除", "");
         if (parseInt(lingshi) == parseInt(lingshi) && parseInt(lingshi) >= 1000) {
@@ -143,7 +142,7 @@ export class MoneyOperation extends plugin {
         else {
             return;
         }
-        let player = await Xiuxian.Read_player(B_qq);
+        let player = await Xiuxian.Read_player(B);
         if (player.lingshi < lingshi) {
             e.reply("他并没有这么多");
             return;
@@ -152,7 +151,7 @@ export class MoneyOperation extends plugin {
         if (player.lingshi == lingshi) {
             lingshi = lingshi - 1;
         }
-        await Xiuxian.Add_lingshi(B_qq, -lingshi);
+        await Xiuxian.Add_lingshi(B, -lingshi);
         e.reply("已强行扣除灵石" + lingshi);
         let Worldmoney = await redis.get("Xiuxian:Worldmoney");
         Worldmoney = Number(Worldmoney);
@@ -169,15 +168,12 @@ export class MoneyOperation extends plugin {
             return;
         }
         
-        let A_qq = e.user_id;
-        let isat = e.message.some((item) => item.type === "at");
-        if (!isat) {
+        let A = e.user_id;
+        let B = await Xiuxian.At(e);
+        if(B==0||B==A){
             return;
         }
-        let atItem = e.message.filter((item) => item.type === "at");//获取at信息
-        let B_qq = atItem[0].qq;//对方qq
-        ifexistplay = await Xiuxian.existplayer(B_qq);
-        if (!ifexistplay) { e.reply(`此人尚未踏入仙途`); return; }
+
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("赠送灵石", "");
         if (parseInt(lingshi) == parseInt(lingshi) && parseInt(lingshi) >= 1000) {
@@ -187,17 +183,17 @@ export class MoneyOperation extends plugin {
             e.reply(`这么点灵石你也好拿得出手吗?起码要1000灵石,已为您修改`);
             lingshi = 1000;
         }
-        let A_player = await data.getData("player", A_qq);
-        let B_player = await data.getData("player", B_qq);
+        let A_player = await data.getData("player", A);
+        let B_player = await data.getData("player", B);
         var cost = this.xiuxianConfigData.percentage.cost;
         let lastlingshi = lingshi + Math.trunc(lingshi * cost);
         if (A_player.lingshi < lastlingshi) {
-            e.reply([segment.at(A_qq), `你身上似乎没有${lastlingshi}灵石`]);
+            e.reply([segment.at(A), `你身上似乎没有${lastlingshi}灵石`]);
             return;
         }
         let now = new Date();
         let nowTime = now.getTime(); //获取当前时间戳
-        let lastgetbung_time = await redis.get("xiuxian:player:" + A_qq + ":last_getbung_time");
+        let lastgetbung_time = await redis.get("xiuxian:player:" + A + ":last_getbung_time");
         lastgetbung_time = parseInt(lastgetbung_time);
         let transferTimeout = parseInt(this.xiuxianConfigData.CD.transfer * 60000)
         if (nowTime < lastgetbung_time + transferTimeout) {
@@ -206,15 +202,15 @@ export class MoneyOperation extends plugin {
             e.reply(`每${transferTimeout / 1000 / 60}分钟赠送灵石一次，正在CD中，` + `剩余cd: ${waittime_m}分${waittime_s}秒`);
             return;
         }
-        await Xiuxian.Add_lingshi(A_qq, -lastlingshi);
-        await Xiuxian.Add_lingshi(B_qq, lingshi);
+        await Xiuxian.Add_lingshi(A, -lastlingshi);
+        await Xiuxian.Add_lingshi(B, lingshi);
         let Worldmoney = await redis.get("Xiuxian:Worldmoney");
         Worldmoney = Number(Worldmoney);
         Worldmoney = Worldmoney + lingshi * cost;
         Worldmoney = Number(Worldmoney);
         await redis.set("Xiuxian:Worldmoney", Worldmoney);
-        e.reply([segment.at(A_qq), segment.at(B_qq), `${B_player.name} 获得了由 ${A_player.name}赠送的${lingshi}灵石`])
-        await redis.set("xiuxian:player:" + A_qq + ":last_getbung_time", nowTime);
+        e.reply([segment.at(A), segment.at(B), `${B_player.name} 获得了由 ${A_player.name}赠送的${lingshi}灵石`])
+        await redis.set("xiuxian:player:" + A + ":last_getbung_time", nowTime);
         return;
     }
 

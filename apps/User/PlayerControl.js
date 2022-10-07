@@ -113,14 +113,19 @@ export class PlayerControl extends plugin {
             return;
         }
         let usr_qq = e.user_id;//用户qq
+
         if (!await Xiuxian.existplayer(usr_qq)) {
             return;
         }
+
+
         let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
         if (game_action == 0) {
-            e.reply("修仙：游戏进行中...");
+            e.reply("游戏进行中...");
             return;
         }
+
+
         let time = e.msg.replace("#", "");
         time = time.replace("降妖", "");
         time = time.replace("分", "");
