@@ -39,32 +39,33 @@ export class Exchange extends plugin {
     }
 
     async Offsell(e) {
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
+        /**
+         * 冷却检测
+         */
         let usr_qq = e.user_id;
 
+        let ClassCD = ":ExchangeCD";
+        let now_time = new Date().getTime();
+        let CDTime = 2;
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if (CD == 1) {
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
-        let Ex = await redis.get("xiuxian:player:" + usr_qq + ":Exchange");
+
+
+
+        let Ex = await redis.get("xiuxian:player:" + usr_qq + ClassCD);
         if (Ex != 1) {
             e.reply("没有上架物品！");
             return;
         }
-        var time0 = 2;
-        let now_time = new Date().getTime();
-        let ExchangeCD = await redis.get("xiuxian:player:" + usr_qq + ":ExchangeCD");
-        ExchangeCD = parseInt(ExchangeCD);
-        let transferTimeout = parseInt(60000 * time0)
-        if (now_time < ExchangeCD + transferTimeout) {
-            let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000);
-            let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000);
-            e.reply(`每${transferTimeout / 1000 / 60}操作一次，` + `CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
-            return;
-        }
 
-
-        await redis.set("xiuxian:player:" + usr_qq + ":ExchangeCD", now_time);
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level_id;
         now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
@@ -148,16 +149,31 @@ export class Exchange extends plugin {
 
     //上架
     async onsell(e) {
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
         let usr_qq = e.user_id;
+
+        let ClassCD = ":ExchangeCD";
+        let now_time = new Date().getTime();
+        let CDTime = 2;
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if (CD == 1) {
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+
+
+
         let Ex = await redis.get("xiuxian:player:" + usr_qq + ":Exchange");
         if (Ex == 1) {
             e.reply("已有上架物品");
             return;
         }
+
+
+
         let thing = e.msg.replace("#", '');
         thing = thing.replace("上架", '');
         let code = thing.split("\*");
@@ -168,8 +184,8 @@ export class Exchange extends plugin {
         /**
          * 强制修正至少为1
          */
-        thing_value=Xiuxian.Numbers(thing_value);
-        thing_acunot=Xiuxian.Numbers(thing_acunot);
+        thing_value = Xiuxian.Numbers(thing_value);
+        thing_acunot = Xiuxian.Numbers(thing_acunot);
         if (thing_acunot > 99) {
             return;
         }
@@ -254,7 +270,6 @@ export class Exchange extends plugin {
             await Write_Exchange([]);
             Exchange = await Read_Exchange();
         }
-        let now_time = new Date().getTime();
         let whole = thing_value * thing_acunot;
         whole = Math.trunc(whole);
         let time = 10;
@@ -314,22 +329,22 @@ export class Exchange extends plugin {
 
     async purchase(e) {
         let usr_qq = e.user_id;
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
-        var time0 = 2;
+
+        let ClassCD = ":ExchangeCD";
         let now_time = new Date().getTime();
-        let ExchangeCD = await redis.get("xiuxian:player:" + usr_qq + ":ExchangeCD");
-        ExchangeCD = parseInt(ExchangeCD);
-        let transferTimeout = parseInt(60000 * time0)
-        if (now_time < ExchangeCD + transferTimeout) {
-            let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000);
-            let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000);
-            e.reply(`每${transferTimeout / 1000 / 60}操作一次，` + `CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
+        let CDTime = 2;
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if (CD == 1) {
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ":ExchangeCD", now_time);
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+
+
+
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level_id;
         now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;

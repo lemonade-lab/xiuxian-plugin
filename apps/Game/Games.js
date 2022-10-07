@@ -65,7 +65,7 @@ export class Games extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
     async Refusecouple(e) {
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
@@ -77,7 +77,7 @@ export class Games extends plugin {
     }
 
     async Allowcouple(e) {
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
@@ -95,10 +95,22 @@ export class Games extends plugin {
         if (switchgame != true) {
             return;
         }
-        let Go=await Xiuxian.Go(e);
+
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
+
+        let CDTime =5;
+        let ClassCD = ":Xiuianplay";
+        let now_time = new Date().getTime();
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if (CD == 1) {
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+
+
         let usr_qq = e.user_id;
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level_id;
@@ -158,7 +170,7 @@ export class Games extends plugin {
         if (gameswitch != true) {
             return;
         }
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
@@ -167,27 +179,18 @@ export class Games extends plugin {
         var money = 10000;
         if (player.lingshi < money) {
             e.reply("掌柜：哪里的穷小子，滚一边去！");
-            e.reply("你摸了摸口袋，发现不足" + money + "灵石,你羞愧地离开了!");
-            return;
-        }
-        var time = this.xiuxianConfigData.CD.gambling;//
-        let now_time = new Date().getTime();
-        let last_game_time = await redis.get("xiuxian:player:" + usr_qq + ":last_game_time");
-        last_game_time = parseInt(last_game_time);
-        let transferTimeout = parseInt(60000 * time)
-        if (now_time < last_game_time + transferTimeout) {
-            let game_m = Math.trunc((last_game_time + transferTimeout - now_time) / 60 / 1000);
-            let game_s = Math.trunc(((last_game_time + transferTimeout - now_time) % 60000) / 1000);
-            e.reply(`每${transferTimeout / 1000 / 60}分钟游玩一次。` + `cd: ${game_m}分${game_s}秒`);
             return;
         }
 
-        await redis.set("xiuxian:player:" + usr_qq + ":last_game_time", now_time);
-        let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-        if (game_action == 0) {
-            e.reply(`媚娘：猜大小正在进行哦!`);
-            return true;
+        let CDTime =this.xiuxianConfigData.CD.gambling;
+        let ClassCD = ":last_game_time";
+        let now_time = new Date().getTime();
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if (CD == 1) {
+            return;
         }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        
         e.reply(`媚娘：发送[#押注+数字]或[#梭哈]`, true);
         await redis.set("xiuxian:player:" + usr_qq + ":game_action", 0);
         return true;
@@ -248,6 +251,7 @@ export class Games extends plugin {
         if (!e.isGroup) {
             return;
         }
+        
         let usr_qq = e.user_id;
         let now_time = new Date().getTime();
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
@@ -255,6 +259,8 @@ export class Games extends plugin {
         if (!ifexistplay || game_action == 1) {
             return;
         }
+
+
         if (isNaN(yazhu[usr_qq])) {
             return;
         }
@@ -338,7 +344,7 @@ export class Games extends plugin {
 
 
     async Moneyrecord(e) {
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
@@ -372,78 +378,42 @@ export class Games extends plugin {
         if (gameswitch != true) {
             return;
         }
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
         let A = e.user_id;
-        let isat = e.message.some((item) => item.type === "at");
-        if (!isat) {
+        let B = await Xiuxian.At(e);
+        if (B == 0 || B == A) {
             return;
         }
-        let atItem = e.message.filter((item) => item.type === "at");
-        let B = atItem[0].qq;
-        if (A == B) {
-            e.reply("你咋这么爱撸自己呢?");
-            return;
-        }
-        var Time = this.xiuxianConfigData.CD.couple;
-        let shuangxiuTimeout = parseInt(60000 * Time);
-        let now_Time = new Date().getTime();
-        let last_timeA = await redis.get("xiuxian:player:" + A + ":last_shuangxiu_time");//获得上次的时间戳,
-        last_timeA = parseInt(last_timeA);
-        if (now_Time < last_timeA + shuangxiuTimeout) {
-            let Couple_m = Math.trunc((last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000);
-            let Couple_s = Math.trunc(((last_timeA + shuangxiuTimeout - now_Time) % 60000) / 1000);
-            e.reply(`双修冷却:  ${Couple_m}分 ${Couple_s}秒`);
-            return;
-        }
-        let last_timeB = await redis.get("xiuxian:player:" + B + ":last_shuangxiu_time");//获得上次的时间戳,
-        last_timeB = parseInt(last_timeB);
-        if (now_Time < last_timeB + shuangxiuTimeout) {
-            let Couple_m = Math.trunc((last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000);
-            let Couple_s = Math.trunc(((last_timeB + shuangxiuTimeout - now_Time) % 60000) / 1000);
-            e.reply(`对方双修冷却:  ${Couple_m}分 ${Couple_s}秒`);
+        let UserGo = await Xiuxian.UserGo(B);
+        if (!UserGo) {
             return;
         }
         let ifexistplay_B = await Xiuxian.existplayer(B);
-        if (!ifexistplay_B) { 
-            e.reply("修仙者不可对凡人出手!"); 
-            return; 
+        if (!ifexistplay_B) {
+            e.reply("修仙者不可对凡人出手!");
+            return;
         }
-
         let couple = await redis.get("xiuxian:player:" + B + ":couple");
-
         if (couple != 0) {
             e.reply("哎哟，你干嘛...");
             return;
         }
-
-        let game_action = await redis.get("xiuxian:player:" + B + ":game_action");
-
-        if (game_action == 0) {
-            e.reply("修仙：游戏进行中...");
+        let ClassCD = ":Couple_time";
+        let now_time = new Date().getTime();
+        let CDTime = this.xiuxianConfigData.CD.couple;
+        let CDA = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
+        if (CDA == 1) {
             return;
         }
-
-        let B_action = await redis.get("xiuxian:player:" + B + ":action");
-
-        B_action = JSON.parse(B_action);
-
-        if (B_action != null) {
-            let now_time = new Date().getTime();
-            let B_action_end_time = B_action.end_time;
-            if (now_time <= B_action_end_time) {
-                let m = parseInt((B_action_end_time - now_time) / 1000 / 60);
-                let s = parseInt(((B_action_end_time - now_time) - m * 60 * 1000) / 1000);
-                e.reply("对方正在" + B_action.action + "中,剩余时间:" + m + "分" + s + "秒");
-                return;
-            }
+        let CDB = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
+        if (CDB == 1) {
+            return;
         }
-
-        await redis.set("xiuxian:player:" + A + ":last_shuangxiu_time", now_Time);
-        await redis.set("xiuxian:player:" + B + ":last_shuangxiu_time", now_Time);
-
+        await redis.set("xiuxian:player:" + A + ClassCD, now_time);
+        await redis.set("xiuxian:player:" + B + ClassCD, now_time);
         let option = Math.random();
         let x = 10000;
         let y = 0;
@@ -460,15 +430,15 @@ export class Games extends plugin {
             y = 1;
             e.reply('你们双方努力修炼，过程平稳，都增加了修为');
         }
-        else if(option > 0.7 && option <= 0.9) {
+        else if (option > 0.7 && option <= 0.9) {
             e.reply('你们双方默契不足，心也静不下来，并没有成功双修，只是聊了会天');
         }
-        else{
+        else {
             e.reply('你们双方默契不足，心也静不下来，并没有成功双修，只是聊了会天');
         }
         x = Math.trunc(y * x);
         await Xiuxian.Add_experience(A, x);
-        await Xiuxian.Add_experience(B,x);
+        await Xiuxian.Add_experience(B, x);
         return;
     }
 }

@@ -119,7 +119,6 @@ export async function Read_equipment(usr_qq) {
 
 //写入装备信息
 export async function Write_equipment(usr_qq, equipment) {
-    console.log(equipment);
     //攻击
     let equ_atk1 = data.wuqi_list.find(item => item.id == equipment.arms.id).atk;
     //防御
@@ -991,3 +990,59 @@ export async function Go(e) {
     }
     return true;
 }
+
+/**
+ * 状态封锁查询
+ */
+ export async function UserGo(usr_qq) {
+    if (!e.isGroup) {
+        return;
+    }
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
+    if (game_action == 0) {
+        e.reply("游戏进行中...");
+        return;
+    }
+    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    action = JSON.parse(action);
+    if (action != null) {
+        let action_end_time = action.end_time;
+        let now_time = new Date().getTime();
+        if (now_time <= action_end_time) {
+            let m = parseInt((action_end_time - now_time) / 1000 / 60);
+            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
+            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
+            return;
+        }
+    }
+    let player = await Read_player(usr_qq);
+    if (player.nowblood < 200) {
+        e.reply("你都伤成这样了,就不要出去浪了");
+        return;
+    }
+    return true;
+}
+
+
+/**
+ * 冷却检测
+ */
+ export async function GenerateCD(usr_qq,usr_class,now_time,time) {
+    var time0 = time;
+    let CD = await redis.get("xiuxian:player:" + usr_qq + usr_class);
+    CD = parseInt(CD);
+    let transferTimeout = parseInt(60000 * time0)
+    if (now_time < CD + transferTimeout) {
+        let CD_m = Math.trunc((CD + transferTimeout - now_time) / 60 / 1000);
+        let CD_s = Math.trunc(((CD + transferTimeout - now_time) % 60000) / 1000);
+        e.reply(`周期：${transferTimeout / 1000 / 60}` + `，CD: ${CD_m}分${CD_s}秒`);
+        return 1;
+    }
+    return 0;
+}
+
+
