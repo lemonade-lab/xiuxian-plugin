@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "逆天甲",
+        "class": "2",
+        "type": "1",
+        "atk": 200,
+        "def": 500000,
+        "HP": 200,
+        "bao": 0.1,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "price": 1
+    },
+    {
+        "id": 2,
+        "name": "琉璃伞",
+        "class": "2",
+        "type": "1",
+        "atk": 100000,
+        "def": 400000,
+        "HP": 100000,
+        "bao": 0.1,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "price": 1
+    }
+]

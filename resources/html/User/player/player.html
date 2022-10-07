@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/User/player/player.css" />
+</head>
+
+<body>
+  <div>
+    <!--上-->
+    <div class="user_top">
+      <div class="user_top_left">
+        <div class="user_top_img_bottom">
+          <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
+        </div>
+        <div class="user_top_left_qq">QQ:{{user_id}}</div>
+      </div>
+      <div class="user_top_right">
+        <div class="user_font user_font" style="padding-left: 15px;">道号:{{nickname}}</div>
+        <div class="user_font" style="padding-left: 15px;">血量:{{player_nowHP}}/{{player_maxHP}}</div>
+        <div class="user_font" style="padding-left: 15px;">法境:{{level}}</div>
+        <div class="user_font" style="padding-left: 15px;">修为:{{exp}}</div>
+        <div class="user_font" style="padding-left: 15px;">灵石:{{lingshi}}</div>
+      </div>
+    </div>
+
+    <div class="user_bottom0">
+
+    </div>
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[修心道宣]</div>
+          <div class="user_font">{{declaration}}</div>
+        </div>
+      </div>
+    </div>
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[基础信息]</div>
+          <div class="user_font">武器：{{wuqi_name}}</div>
+          <div class="user_font">护具：{{juju_name}}</div>
+          <div class="user_font">法宝：{{fabao_name}}</div>
+          <div class="user_font">灵根：{{linggenname}}</div>
+          <div class="user_font">天赋：+{{talent}}%</div>
+          <div class="user_font">状态：{{player_action}}</div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="user_bottom2">
+    </div>
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

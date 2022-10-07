@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/valuablesall/valuables_arms/valuables.css" />
+</head>
+
+<body>
+  <div>
+
+    <div class="user_float">
+      <div class="use_data0">
+          <div class="user_font_0">#护具楼</div>
+      </div>
+  </div>
+
+    <!--头部-->
+    <div class="user_bottom0">
+      
+    </div>
+
+     {{each huju_list item}}
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">{{item.name}}</div>
+          <div class="user_font">类型：{{item.type}}</div>
+          <div class="user_font">攻{{item.atk}}防{{item.def}}血{{item.HP}}暴{{item.bao}}</div>
+          <div class="user_font">价格：{{item.出售价}}</div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+     
+
+    <!--底部-->
+
+    <div class="user_bottom2">
+      
+    </div>
+
+
+
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>
