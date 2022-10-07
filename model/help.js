@@ -4,6 +4,7 @@ import xiuxianCfg from "./Config.js";
 export default class Help extends base {
   constructor(e) {
     super(e);
+    this.model0 = "help";
     this.model = "help";
   }
 
