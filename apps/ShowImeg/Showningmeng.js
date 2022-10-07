@@ -144,23 +144,30 @@ export async function get_ningmenghome_img(e) {
         return;
     }
     let commodities_list = data.commodities_list; 
-    for(var i=0;i<commodities_list.length;i++){
-        if(commodities_list[i].class="daoju"){
-            commodities_list[i].class="道具";
+    for(var i=0;i<commodities_list.length;i++){  
+        if(commodities_list[i].class=1){
+        commodities_list[i].class="武器";
         }
-        if(commodities_list[i].class="gonfa"){
-            commodities_list[i].class="功法";
-        }
-        if(commodities_list[i].class="fabao"){
-            commodities_list[i].class="法宝";
-        }
-        if(commodities_list[i].class="huju"){
+        if(commodities_list[i].class=2){
             commodities_list[i].class="护具";
         }
-        if(commodities_list[i].class="arms"){
-            commodities_list[i].class="武器";
+        if(commodities_list[i].class=3){
+            commodities_list[i].class="法宝";
         }
-        if(commodities_list[i].class="ring"){
+
+        if(commodities_list[i].class=4){
+            commodities_list[i].class="丹药";
+        }
+
+        if(commodities_list[i].class=5){
+            commodities_list[i].class="功法";
+        }
+
+        if(commodities_list[i].class=6){
+            commodities_list[i].class="道具";
+        }
+
+        if(commodities_list[i].class=7){
             commodities_list[i].class="戒指";
         }
     }
