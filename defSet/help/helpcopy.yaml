@@ -1,0 +1,69 @@
+- group: 
+  list:
+    - icon: help-icon_9
+      title: "#学习+功法名"
+      desc: "学习功法"
+    - icon: help-icon_9
+      title: "#消耗+道具名"
+      desc: "消耗道具"
+    - icon: help-icon_6
+      title: "#服用+丹药名"
+      desc: "服用"
+    - icon: help-icon_9
+      title: "#装备+装备名"
+      desc: "装备"
+
+- group: 谈心论道
+  list:
+    - icon: help-icon_9
+      title: "#有间客栈"
+      desc: "查看攻略"
+    - icon: help-icon_9
+      title: "#文章+标题*内容"
+      desc: "发布自己的看法"  
+
+- group: 君子爱财
+  list:
+    - icon: help-icon_10
+      title: "#打开钱包"
+      desc: "水脚脚的钱包"
+    - icon: help-icon_10
+      title: "#金银坊"
+      desc: "需要携带一定灵石"
+    - icon: help-icon_10
+      title: "#金银坊记录"
+      desc: "看看自己是欧皇还是冤种"
+
+- group: 修身养性
+  list:
+    - icon: help-icon_12
+      title: "@群友 双修"
+      desc: "年轻人要注意节制"
+    - icon: help-icon_12
+      title: "#怡红院"
+      desc: "未成年人请不要进入"
+    - icon: help-icon_12
+      title: "#允许双修"
+      desc: "不允许被双修"
+    - icon: help-icon_12
+      title: "#拒绝双修"
+      desc: "主动拒绝双修"
+
+
+- group: 唯我独尊
+  list:
+    - icon: help-icon_8
+      title: "#灵榜"
+      desc: "最富有的十位肥羊"
+    - icon: help-icon_9
+      title: "#天榜"
+      desc: "修为最高的十位大能"
+    - icon: help-icon_9
+      title: "#至尊榜"
+      desc: "凡人战力榜"
+    - icon: help-icon_9
+      title: "#封神榜"
+      desc: "仙人战力榜"
+
+      
+

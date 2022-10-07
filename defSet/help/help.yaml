@@ -1,0 +1,141 @@
+- group: 初来乍到
+  list:
+    - icon: help-icon_2
+      title: "#踏入仙途 #再入仙途"
+      desc: "创建存档，转世重生"
+    - icon: help-icon_3
+      title: "#改名张三 #设置道宣"
+      desc: "修改道号，个性签名"
+    - icon: help-icon_1
+      title: "#储物袋 #升级储物袋"
+      desc: "物品查询,容量提升"
+    - icon: help-icon_7
+      title: "#我的装备"
+      desc: "查看身上的装备"
+    - icon: help-icon_4
+      title: "#修仙签到"
+      desc: "修仙每日签到"
+    - icon: help-icon_8
+      title: "#存灵石123 #取灵石全部"
+      desc: "将灵石安全保存到纳戒"
+    - icon: help-icon_8
+      title: "#交税999"
+      desc: "主动交税"
+    - icon: help-icon_13
+      title: "#练气境界"
+      desc: "查看所有境界"
+    - icon: help-icon_13
+      title: "#炼体境界"
+      desc: "查看所有境界"
+    
+- group: 修行之路
+  list:
+    - icon: help-icon_13
+      title: "#修仙状态"
+      desc: "查看自己的时间动作"
+    - icon: help-icon_13
+      title: "#闭关N分钟 #出关"
+      desc: "进行N分钟的闭关,获取修为"
+    - icon: help-icon_13
+      title: "#降妖N分钟 #降妖归来"
+      desc: "进行N分钟,获取灵石"
+
+- group: 逆天改命
+  list:
+    - icon: help-icon_9
+      title: "#我的练气"
+      desc: "练气信息"
+    - icon: help-icon_9
+      title: "#我的炼体"
+      desc: "炼体信息"
+    - icon: help-icon_9
+      title: "#突破"
+      desc: "打破浩劫"
+    - icon: help-icon_9
+      title: "#破体"
+      desc: "提高体境"
+    - icon: help-icon_9
+      title: "#渡劫"
+      desc: "渡劫期经历的劫难"
+    - icon: help-icon_9
+      title: "#羽化登仙"
+      desc: "渡劫后前往仙界"
+
+- group: 交易往来
+  list:
+    - icon: help-icon_5
+      title: "#柠檬堂"
+      desc: "商店"
+    - icon: help-icon_5
+      title: "#万宝楼"
+      desc: "当铺"
+    - icon: help-icon_5
+      title: "#冲水堂"
+      desc: "交易"
+
+- group: 礼尚往来
+  list:
+    - icon: help-icon_7
+      title: "@群友 切磋"
+      desc: "相互切磋武艺,没有限制,没有奖励"
+    - icon: help-icon_10
+      title: "@群友 打劫"
+      desc: "与其搏斗,胜方获得败方部分灵石"   
+    - icon: help-icon_10
+      title: "@群友赠送灵石1000"
+      desc: "@群友孝敬前辈/@群友资助后辈"
+    - icon: help-icon_10
+      title: "#发红包10000*5"
+      desc: "灵石需要万的倍数"
+    - icon: help-icon_10
+      title: "#抢红包@对方"
+      desc: "艾特发红包的仔"
+
+- group: 气运之子
+  list:    
+    - icon: help-icon_11
+      title: "#秘境"
+      desc: "出门探险"
+    - icon: help-icon_11
+      title: "#降临秘境+地点名"
+      desc: "获得修为与稀有物品"
+    - icon: help-icon_11
+      title: "#禁地"
+      desc: "仙界陨落之地"
+    - icon: help-icon_11
+      title: "#前往禁地+禁地名"
+      desc: "扣除灵石和修为"
+    - icon: help-icon_11
+      title: "#逃离"
+      desc: "支持放弃状态"
+    - icon: help-icon_11
+      title: "#怪物状态"
+      desc: "显示BOSS的属性和状态"
+
+- group: 仙人之资
+  list:    
+    - icon: help-icon_11
+      title: "#仙境"
+      desc: "查看仙人镇守之地"
+    - icon: help-icon_11
+      title: "#镇守仙境+地点名"
+      desc: "获得修为与稀有物品"
+    - icon: help-icon_11
+      title: "#仙府"
+      desc: "仙帝府邸"
+    - icon: help-icon_11
+      title: "#探索仙府"
+      desc: "获得限时物品"
+
+
+- group: 帮助扩展
+  list:
+    - icon: help-icon_9
+      title: "#修仙扩展"
+      desc: "查看更多功能"
+    - icon: help-icon_9
+      title: "#修仙管理"
+      desc: "查看管理员功能"
+    - icon: help-icon_14
+      title: "#修仙版本"
+      desc: "查看版本动态"

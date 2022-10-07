@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "水脚脚的纳戒",
+        "class": "7",
+        "type": "1",
+        "atk": 1,
+        "def": 1,
+        "HP": 1,
+        "bao": 0,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "price": 1
+    }
+]

@@ -1,0 +1,495 @@
+[
+    {
+        "level": "凡人",
+        "exp": 500,
+        "level_id": 1,
+        "attack": 2000,
+        "defense": 2000,
+        "blood": 4000,
+        "burst": 0.01
+    },
+    {
+        "level": "练气初期",
+        "exp": 5000,
+        "level_id": 2,
+        "attack": 5000,
+        "defense": 5000,
+        "blood": 10000,
+        "burst": 0.05
+    },
+    {
+        "level": "练气中期",
+        "exp": 10000,
+        "level_id": 3,
+        "attack": 10000,
+        "defense": 10000,
+        "blood": 20000,
+        "burst": 0.05
+    },
+    {
+        "level": "练气后期",
+        "exp": 20000,
+        "level_id": 4,
+        "attack": 20000,
+        "defense": 20000,
+        "blood": 40000,
+        "burst": 0.05
+    },
+    {
+        "level": "练气巅峰",
+        "exp": 40000,
+        "level_id": 5,
+        "attack": 40000,
+        "defense": 40000,
+        "blood": 80000,
+        "burst": 0.05
+    },
+    {
+        "level": "练气圆满",
+        "exp": 50000,
+        "level_id": 6,
+        "attack": 50000,
+        "defense": 50000,
+        "blood": 100000,
+        "burst": 0.05
+    },
+    {
+        "level": "筑基初期",
+        "exp": 55000,
+        "level_id": 7,
+        "attack": 55000,
+        "defense": 55000,
+        "blood": 110000,
+        "burst": 0.08
+    },
+    {
+        "level": "筑基中期",
+        "exp": 60000,
+        "level_id": 8,
+        "attack": 60000,
+        "defense": 60000,
+        "blood": 120000,
+        "burst": 0.08
+    },
+    {
+        "level": "筑基后期",
+        "exp": 65000,
+        "level_id": 9,
+        "attack": 65000,
+        "defense": 65000,
+        "blood": 130000,
+        "burst": 0.08
+    },
+    {
+        "level": "筑基巅峰",
+        "exp": 70000,
+        "level_id": 10,
+        "attack": 70000,
+        "defense": 70000,
+        "blood": 140000,
+        "burst": 0.08
+    },
+    {
+        "level": "筑基圆满",
+        "exp": 75000,
+        "level_id": 11,
+        "attack": 75000,
+        "defense": 75000,
+        "blood": 155000,
+        "burst": 0.08
+    },
+    {
+        "level": "金丹初期",
+        "exp": 80000,
+        "level_id": 12,
+        "attack": 80000,
+        "defense": 80000,
+        "blood": 160000,
+        "burst": 0.10
+    },
+    {
+        "level": "金丹中期",
+        "exp": 100000,
+        "level_id": 13,
+        "attack": 100000,
+        "defense": 100000,
+        "blood": 200000,
+        "burst": 0.10
+    },
+    {
+        "level": "金丹后期",
+        "exp": 120000,
+        "level_id": 14,
+        "attack": 120000,
+        "defense": 120000,
+        "blood": 240000,
+        "burst": 0.10
+    },
+    {
+        "level": "金丹巅峰",
+        "exp": 140000,
+        "level_id": 15,
+        "attack": 140000,
+        "defense": 140000,
+        "blood": 280000,
+        "burst": 0.10
+    },
+    {
+        "level": "金丹圆满",
+        "exp": 170000,
+        "level_id": 16,
+        "attack": 170000,
+        "defense": 170000,
+        "blood": 340000,
+        "burst": 0.10
+    },
+    {
+        "level": "元婴初期",
+        "exp": 200000,
+        "level_id": 17,
+        "attack": 200000,
+        "defense": 200000,
+        "blood": 400000,
+        "burst": 0.12
+    },
+    {
+        "level": "元婴中期",
+        "exp": 220000,
+        "level_id": 18,
+        "attack": 220000,
+        "defense": 220000,
+        "blood": 440000,
+        "burst": 0.12
+    },
+    {
+        "level": "元婴后期",
+        "exp": 240000,
+        "level_id": 19,
+        "attack": 240000,
+        "defense": 240000,
+        "blood": 480000,
+        "burst": 0.12
+    },
+    {
+        "level": "元婴巅峰",
+        "exp": 270000,
+        "level_id": 20,
+        "attack": 270000,
+        "defense": 270000,
+        "blood": 540000,
+        "burst": 0.12
+    },
+    {
+        "level": "元婴圆满",
+        "exp": 300000,
+        "level_id": 21,
+        "attack": 300000,
+        "defense": 300000,
+        "blood": 600000,
+        "burst": 0.12
+    },
+    {
+        "level": "化神初期",
+        "exp": 320000,
+        "level_id": 22,
+        "attack": 320000,
+        "defense": 320000,
+        "blood": 640000,
+        "burst": 0.14
+    },
+    {
+        "level": "化神中期",
+        "exp": 340000,
+        "level_id": 23,
+        "attack": 340000,
+        "defense": 340000,
+        "blood": 680000,
+        "burst": 0.14
+    },
+    {
+        "level": "化神后期",
+        "exp": 370000,
+        "level_id": 24,
+        "attack": 370000,
+        "defense": 370000,
+        "blood": 740000,
+        "burst": 0.14
+    },
+    {
+        "level": "化神巅峰",
+        "exp": 400000,
+        "level_id": 25,
+        "attack": 400000,
+        "defense": 400000,
+        "blood": 800000,
+        "burst": 0.14
+    },
+    {
+        "level": "化神圆满",
+        "exp": 420000,
+        "level_id": 26,
+        "attack": 420000,
+        "defense": 420000,
+        "blood": 840000,
+        "burst": 0.14
+    },
+    {
+        "level": "洞虚初期",
+        "exp": 440000,
+        "level_id": 27,
+        "attack": 440000,
+        "defense": 440000,
+        "blood": 880000,
+        "burst": 0.16
+    },
+    {
+        "level": "洞虚中期",
+        "exp": 470000,
+        "level_id": 28,
+        "attack": 470000,
+        "defense": 470000,
+        "blood": 940000,
+        "burst": 0.16
+    },
+    {
+        "level": "洞虚后期",
+        "exp": 500000,
+        "level_id": 29,
+        "attack": 500000,
+        "defense": 500000,
+        "blood": 1000000,
+        "burst": 0.16
+    },
+    {
+        "level": "洞虚巅峰",
+        "exp": 520000,
+        "level_id": 30,
+        "attack": 520000,
+        "defense": 520000,
+        "blood": 1040000,
+        "burst": 0.16
+    },
+    {
+        "level": "洞虚圆满",
+        "exp": 540000,
+        "level_id": 31,
+        "attack": 540000,
+        "defense": 540000,
+        "blood": 1080000,
+        "burst": 0.16
+    },
+    {
+        "level": "合体初期",
+        "exp": 600000,
+        "level_id": 32,
+        "attack": 600000,
+        "defense": 600000,
+        "blood": 1200000,
+        "burst": 0.18
+    },
+    {
+        "level": "合体中期",
+        "exp": 680000,
+        "level_id": 33,
+        "attack": 800000,
+        "defense": 800000,
+        "blood": 1600000,
+        "burst": 0.18
+    },
+    {
+        "level": "合体后期",
+        "exp": 780000,
+        "level_id": 34,
+        "attack": 1000000,
+        "defense": 1000000,
+        "blood": 2000000,
+        "burst": 0.18
+    },
+
+    {
+        "level": "合体巅峰",
+        "exp": 900000,
+        "level_id": 35,
+        "attack": 1500000,
+        "defense": 1500000,
+        "blood": 3000000,
+        "burst": 0.18
+    },
+
+    {
+        "level": "合体圆满",
+        "exp": 1400000,
+        "level_id": 36,
+        "attack": 2000000,
+        "defense": 2000000,
+        "blood": 4000000,
+        "burst": 0.18
+    },
+
+    {
+        "level": "大乘初期",
+        "exp": 3000000,
+        "level_id": 37,
+        "attack": 2600000,
+        "defense": 2600000,
+        "blood": 5200000,
+        "burst": 0.20
+    },
+
+    {
+        "level": "大乘中期",
+        "exp": 5000000,
+        "level_id": 38,
+        "attack": 3400000,
+        "defense": 3400000,
+        "blood": 6800000,
+        "burst": 0.20
+    },
+ 
+    {
+        "level": "大乘后期",
+        "exp": 6000000,
+        "level_id": 39,
+        "attack": 4400000,
+        "defense": 4400000,
+        "blood": 4800000,
+        "burst": 0.20
+    },
+
+    {
+        "level": "大乘巅峰",
+        "exp": 7500000,
+        "level_id": 40,
+        "attack": 5600000,
+        "defense": 5600000,
+        "blood": 11200000,
+        "burst": 0.20
+    },
+    {
+        "level": "渡劫期",
+        "exp": 9000000,
+        "level_id": 41,
+        "attack": 7000000,
+        "defense": 7000000,
+        "blood": 14000000,
+        "burst": 0.25
+    },
+
+    {
+        "level": "地仙",
+        "exp": 20000000,
+        "level_id": 42,
+        "attack": 20000000,
+        "defense": 20000000,
+        "blood": 20000000,
+        "burst": 0.30
+    },
+    {
+        "level": "天仙",
+        "exp": 30000000,
+        "level_id": 43,
+        "attack": 30000000,
+        "defense": 30000000,
+        "blood": 30000000,
+        "burst": 0.35
+    },
+    {
+        "level": "灵仙",
+        "exp": 40000000,
+        "level_id": 44,
+        "attack": 40000000,
+        "defense": 40000000,
+        "blood": 40000000,
+        "burst": 0.40
+    },
+    {
+        "level": "玄仙",
+        "exp": 50000000,
+        "level_id": 45,
+        "attack": 50000000,
+        "defense": 50000000,
+        "blood": 50000000,
+        "burst": 0.45
+    },
+    {
+        "level": "金仙",
+        "exp": 60000000,
+        "level_id": 46,
+        "attack": 60000000,
+        "defense": 60000000,
+        "blood": 60000000,
+        "burst": 0.50
+    },
+    {
+        "level": "大罗金仙",
+        "exp": 70000000,
+        "level_id": 47,
+        "attack": 70000000,
+        "defense": 70000000,
+        "blood": 70000000,
+        "burst": 0.55
+    },
+    {
+        "level": "大道真仙",
+        "exp": 80000000,
+        "level_id": 48,
+        "attack": 80000000,
+        "defense": 80000000,
+        "blood": 80000000,
+        "burst": 0.60
+    },
+    {
+        "level": "不朽真仙",
+        "exp": 90000000,
+        "level_id": 49,
+        "attack": 90000000,
+        "defense": 90000000,
+        "blood": 90000000,
+        "burst": 0.65
+    },
+    {
+        "level": "究极仙王",
+        "exp": 100000000,
+        "level_id": 50,
+        "attack": 100000000,
+        "defense": 100000000,
+        "blood": 100000000,
+        "burst": 0.70
+    },
+    {
+        "level": "无极仙帝",
+        "exp": 150000000,
+        "level_id": 51,
+        "attack": 150000000,
+        "defense": 150000000,
+        "blood": 150000000,
+        "burst": 0.75
+    },
+    {
+        "level": "无上仙帝",
+        "exp": 180000000,
+        "level_id": 52,
+        "attack": 180000000,
+        "defense": 180000000,
+        "blood": 180000000,
+        "burst": 0.80
+    },
+    {
+        "level": "超凡入圣",
+        "exp": 300000000,
+        "level_id": 53,
+        "attack": 300000000,
+        "defense": 300000000,
+        "blood": 300000000,
+        "burst": 0.85
+    },
+    {
+        "level": "一介凡人",
+        "exp": 900000000,
+        "level_id": 54,
+        "attack": 900000000,
+        "defense": 900000000,
+        "blood": 900000000,
+        "burst": 0.90
+    }
+]
