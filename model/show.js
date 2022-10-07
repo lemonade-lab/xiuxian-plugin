@@ -9,7 +9,7 @@ export default class Game extends base {
 
   //练气存档
   async get_playerData(myData) {
-    this.model0 = "player";
+    this.model0 = "User/player";
     this.model = "player";
     return {
       ...this.screenData,
@@ -21,7 +21,7 @@ export default class Game extends base {
 
   //炼体存档
   async get_playercopyData(myData) {
-    this.model0 = "playercopy";
+    this.model0 = "User/playercopy";
     this.model = "playercopy";
     return {
       ...this.screenData,
@@ -33,7 +33,7 @@ export default class Game extends base {
 
   //装备
   async get_equipmnetData(myData) {
-    this.model0 = "equipment";
+    this.model0 = "User/equipment";
     this.model = "equipment";
     return {
       ...this.screenData,
@@ -45,7 +45,7 @@ export default class Game extends base {
 
   //纳戒
   async get_najieData(myData) {
-    this.model0 = "najie";
+    this.model0 = "User/najie";
     this.model = "najie";
     return {
       ...this.screenData,
@@ -79,16 +79,7 @@ export default class Game extends base {
 
 
 
-//柠檬堂
-async get_ningmenghomeData(myData) {
-  this.model = "ningmenghome";
-  this.model0 = "ningmenghome";
-  return {
-    ...this.screenData,
-    saveId: "ningmenghome",
-    ...myData,
-  };
-}
+
 
 
   //万宝楼
@@ -171,6 +162,19 @@ async get_ningmenghomeData(myData) {
   }
 
 
+
+  //柠檬堂
+async get_ningmenghomeData(myData) {
+  this.model = "ningmenghome";
+  this.model0 = "ningmenghome";
+  return {
+    ...this.screenData,
+    saveId: "ningmenghome",
+    ...myData,
+  };
+}
+
+
   //修为榜
   async get_ranking_powerData(myData) {
     this.model0 = "ranking_power";
@@ -193,6 +197,8 @@ async get_ningmenghomeData(myData) {
       ...myData,
     };
   }
+
+  
 
     //修仙版本
     async get_updataData(myData) {
