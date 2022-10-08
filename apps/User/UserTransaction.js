@@ -146,10 +146,9 @@ export class UserTransaction extends plugin {
         else if(najie_thing.class==7){ 
             await Xiuxian.Add_najie_thing_ring(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -quantity);
         }
-        
-        e.reply(`出售得${commodities_price}灵石 `);
 
         let commodities_price = searchsthing.price * quantity;
+        e.reply(`出售得${commodities_price}灵石 `);
         await Xiuxian.Add_lingshi(usr_qq, commodities_price);
         return;
     }
