@@ -183,10 +183,10 @@ export class Games extends plugin {
         let ClassCD = ":last_game_time";
         let now_time = new Date().getTime();
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if (CD == 1) {
+        if (CD != 0) {
+            e.reply(CD);
             return;
         }
-        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
         
         e.reply(`媚娘：发送[#押注+数字]或[#梭哈]`, true);
