@@ -2,13 +2,13 @@
   list:
     - icon: help-icon_8
       title: "#发福利999"
-      desc: "全服发放灵石"  
+      desc: "按人数发放全服福利"  
     - icon: help-icon_8
       title: "#发补偿999@群友"
-      desc: "单独发送灵石"  
+      desc: "单独补偿灵石"  
     - icon: help-icon_8
       title: "#扣除99999@群友"
-      desc: "强行扣指定灵石"
+      desc: "强行扣指定玩家灵石"
 
 - group: 怪物状态
   list:
@@ -22,13 +22,13 @@
 - group: 行为状态
   list:
     - icon: help-icon_9
-      title: "#解封@群友"
+      title: "#解封 @群友"
       desc: "解除秘境/打工/闭关等状态"
     - icon: help-icon_9
       title: "#解除所有"
       desc: "解除全体时间动作状态"
     - icon: help-icon_9
-      title: "#打入凡间@群友"
+      title: "#打入凡间 @群友"
       desc: "关闭群友仙门，永不得返"
 
 - group: 修仙管理

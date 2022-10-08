@@ -79,9 +79,6 @@
       title: "@群友 切磋"
       desc: "相互切磋武艺,没有限制,没有奖励"
     - icon: help-icon_10
-      title: "@群友 打劫"
-      desc: "与其搏斗,胜方获得败方部分灵石"   
-    - icon: help-icon_10
       title: "@群友赠送灵石1000"
       desc: "@群友孝敬前辈/@群友资助后辈"
     - icon: help-icon_10
@@ -90,43 +87,6 @@
     - icon: help-icon_10
       title: "#抢红包@对方"
       desc: "艾特发红包的仔"
-
-- group: 气运之子
-  list:    
-    - icon: help-icon_11
-      title: "#秘境"
-      desc: "出门探险"
-    - icon: help-icon_11
-      title: "#降临秘境+地点名"
-      desc: "获得修为与稀有物品"
-    - icon: help-icon_11
-      title: "#禁地"
-      desc: "仙界陨落之地"
-    - icon: help-icon_11
-      title: "#前往禁地+禁地名"
-      desc: "扣除灵石和修为"
-    - icon: help-icon_11
-      title: "#逃离"
-      desc: "支持放弃状态"
-    - icon: help-icon_11
-      title: "#怪物状态"
-      desc: "显示BOSS的属性和状态"
-
-- group: 仙人之资
-  list:    
-    - icon: help-icon_11
-      title: "#仙境"
-      desc: "查看仙人镇守之地"
-    - icon: help-icon_11
-      title: "#镇守仙境+地点名"
-      desc: "获得修为与稀有物品"
-    - icon: help-icon_11
-      title: "#仙府"
-      desc: "仙帝府邸"
-    - icon: help-icon_11
-      title: "#探索仙府"
-      desc: "获得限时物品"
-
 
 - group: 帮助扩展
   list:

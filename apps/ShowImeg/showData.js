@@ -143,7 +143,7 @@ export async function get_player_img(e) {
     let juju_name  = data.huju_list.find(item => item.id == equipment.huju.id).name;
     let fabao_name = data.fabao_list.find(item => item.id == equipment.fabao.id).name;
 
-    let player_status = await getPlayerAction(usr_qq);
+    let player_status = await Xiuxian.getPlayerAction(usr_qq);
 
     let status = "空闲";
     if (player_status.time != null) {
@@ -519,35 +519,4 @@ export async function get_ranking_money_img(e, Data, usr_paiming, thisplayer, th
         ...data1,
     });
     return img;
-}
-
-async function getPlayerAction(usr_qq) {
-    let arr = {};
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            arr.action = action.action;//当期那动作
-            arr.time = m + "分" + s + "秒";//剩余时间
-            return arr;
-        }
-    }
-    arr.action = "空闲";
-    return arr;
-}
-
-
-/**
- * 判断对象是否不为undefined且不为null
- * @param obj 对象
- * @returns obj==null/undefined,return false,other return true
- */
-function isNotNull(obj) {
-    if (obj == undefined || obj == null)
-        return false;
-    return true;
 }

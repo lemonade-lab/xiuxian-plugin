@@ -146,7 +146,6 @@ export async function Read_Forum() {
             return data;
         })
     }
-    
     Forum = JSON.parse(Forum);
     return Forum;
 }

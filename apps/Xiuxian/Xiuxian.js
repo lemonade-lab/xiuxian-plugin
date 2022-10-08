@@ -314,9 +314,6 @@ export async function battle(A, B) {
          */
         let hurtAA = hurtA;
         let hurtBB = hurtA;
-        if (cnt >= 30) {
-            break;
-        };
         /**
          * 先手
          */

@@ -27,23 +27,28 @@ export class ExchangeTask extends plugin {
     }
 
     async Exchangetask() {
-        let Exchange = await Read_Exchange();
-        for (var i = 0; i < Exchange.length; i++) {
-            //自我清除
-            Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
-            await Write_Exchange(Exchange);
-        }
-        let playerList = [];
-        let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
-            .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
-            playerList.push(file);
-        }
-        for (let player_id of playerList) {
-            await redis.set("xiuxian:player:" + player_id + ":Exchange", 0);
-        }
+        await offExchange();
         return;
     }
+}
+
+
+export async function offExchange() {
+    let Exchange = await Read_Exchange();
+    for (var i = 0; i < Exchange.length; i++) {
+        Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
+        await Write_Exchange(Exchange);
+    }
+    let playerList = [];
+    let files = fs
+        .readdirSync(Xiuxian.__PATH.player)
+        .filter((file) => file.endsWith(".json"));
+    for (let file of files) {
+        file = file.replace(".json", "");
+        playerList.push(file);
+    }
+    for (let player_id of playerList) {
+        await redis.set("xiuxian:player:" + player_id + ":Exchange", 0);
+    }
+    return;
 }
