@@ -352,7 +352,7 @@ export async function get_najie_img(e) {
         gonfa.push(await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].class));
     }
     for(var i=0;i<najie.ring.length;i++){
-        length.push(await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].class));
+        ring.push(await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].class));
     }
 
     var lingshi = Math.trunc(najie.lingshi);
