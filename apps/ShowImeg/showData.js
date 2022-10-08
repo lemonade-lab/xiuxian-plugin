@@ -330,25 +330,39 @@ export async function get_najie_img(e) {
     let ring=[];
     
     for(var i=0;i<najie.arms.length;i++){
-        arms.push(await Xiuxian.exist_thing(najie.arms[i].id,najie.arms[i].class));
+        let name=await Xiuxian.exist_thing(najie.arms[i].id,najie.arms[i].class);
+        name.acount=najie.arms[i].acount;
+        arms.push(name);
     }
     for(var i=0;i<najie.huju.length;i++){
-        huju.push(await Xiuxian.exist_thing(najie.huju[i].id,najie.huju[i].class));
+        let name=await Xiuxian.exist_thing(najie.huju[i].id,najie.huju[i].class)
+        name.acount=najie.huju[i].acount;
+        huju.push(name);
     }
     for(var i=0;i<najie.fabao.length;i++){
-        fabao.push(await Xiuxian.exist_thing(najie.fabao[i].id,najie.fabao[i].class));
+        let name=await Xiuxian.exist_thing(najie.fabao[i].id,najie.fabao[i].class)
+        name.acount=najie.fabao[i].acount;
+        fabao.push(name);
     }
     for(var i=0;i<najie.danyao.length;i++){
-        danyao.push(await Xiuxian.exist_thing(najie.danyao[i].id,najie.danyao[i].class));
+        let name=await Xiuxian.exist_thing(najie.danyao[i].id,najie.danyao[i].class);
+        name.acount=najie.danyao[i].acount;
+        danyao.push(name);
     }
     for(var i=0;i<najie.daoju.length;i++){
-        daoju.push(await Xiuxian.exist_thing(najie.daoju[i].id,najie.daoju[i].class));
+        let name=await Xiuxian.exist_thing(najie.daoju[i].id,najie.daoju[i].class);
+        name.acount=najie.daoju[i].acount;
+        daoju.push(name);
     }
     for(var i=0;i<najie.gonfa.length;i++){
-        gonfa.push(await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].class));
+        let name=await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].class);
+        name.acount=najie.gonfa[i].acount;
+        gonfa.push(name);
     }
     for(var i=0;i<najie.ring.length;i++){
-        ring.push(await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].class));
+        let name=await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].class);
+        name.acount=najie.ring[i].acount;
+        ring.push(name);
     }
 
     var lingshi = Math.trunc(najie.lingshi);
