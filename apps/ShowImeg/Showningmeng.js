@@ -341,3 +341,7 @@ export async function get_valuables_skill_img(e) {
     });
     return img;
 }
+
+
+
+

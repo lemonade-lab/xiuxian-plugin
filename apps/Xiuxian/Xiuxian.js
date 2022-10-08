@@ -1045,4 +1045,16 @@ export async function Go(e) {
     return 0;
 }
 
+/**
+ * 世界财富
+ * 
+ */
+ export async function Worldwealth(acount) {
+    let worldacount=await Numbers(acount);
+    let Worldmoney = await redis.get("Xiuxian:Worldmoney");
+    Worldmoney=await Numbers(Worldmoney);
+    Worldmoney+=worldacount;
+    await redis.set("Xiuxian:Worldmoney", Worldmoney);
+    return;
+}
 

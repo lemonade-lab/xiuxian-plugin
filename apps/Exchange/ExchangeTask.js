@@ -27,14 +27,7 @@ export class ExchangeTask extends plugin {
     }
 
     async Exchangetask() {
-        let Exchange;
-        try {
-            Exchange = await Read_Exchange();
-        }
-        catch {
-            await Write_Exchange([]);
-            Exchange = await Read_Exchange();
-        }
+        let Exchange = await Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
             //自我清除
             Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);

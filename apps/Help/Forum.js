@@ -30,14 +30,7 @@ export class Forum extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let Forum;
-        try {
-            Forum = await Read_Forum();
-        }
-        catch {
-            await Write_Forum([]);
-            Forum = await Read_Forum();
-        }
+        let Forum = await Read_Forum();
         let msg = [
             "___[有间客栈]___"
         ];
@@ -64,14 +57,7 @@ export class Forum extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let Forum;
-        try {
-            Forum = await Read_Forum();
-        }
-        catch {
-            await Write_Forum([]);
-            Forum = await Read_Forum();
-        }
+        let Forum = await Read_Forum();
         let title0 = e.msg.replace("#", '');
         title0 = title0.replace("文章", '');
         let code = title0.split("\*");
@@ -140,13 +126,27 @@ export async function Write_Forum(wupin) {
 //读取
 export async function Read_Forum() {
     let dir = path.join(`${Xiuxian.__PATH.Forum}/Forum.json`);
-    let Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            console.log(err)
-            return "error";
-        }
-        return data;
-    })
+    let Forum;
+    try{
+        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                console.log(err)
+                return "error";
+            }
+            return data;
+        })
+
+    }catch{
+        await Write_Forum([]);
+        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                console.log(err)
+                return "error";
+            }
+            return data;
+        })
+    }
+    
     Forum = JSON.parse(Forum);
     return Forum;
 }

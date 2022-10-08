@@ -188,14 +188,7 @@ export class AdminSuper extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let Forum;
-        try {
-            Forum = await Read_Forum();
-        }
-        catch {
-            await Write_Forum([]);
-            Forum = await Read_Forum();
-        }
+        let Forum = await Read_Forum();
         for (var i = 0; i < Forum.length; i++) {
             Forum = Forum.filter(item => item.qq != Forum[i].qq);
             Write_Forum(Forum);
@@ -242,14 +235,7 @@ export class AdminSuper extends plugin {
             return;
         }
         let x = 888888888;
-        let Exchange;
-        try {
-            Exchange = await Read_Exchange();
-        }
-        catch {
-            await Write_Exchange([]);
-            Exchange = await Read_Exchange();
-        }
+        let Exchange  = await Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
             if (Exchange[i].qq == thingqq) {
                 x = i;
@@ -276,14 +262,7 @@ export class AdminSuper extends plugin {
             return;
         }
         e.reply("开始清除！");
-        let Exchange;
-        try {
-            Exchange = await Read_Exchange();
-        }
-        catch {
-            await Write_Exchange([]);
-            Exchange = await Read_Exchange();
-        }
+        let Exchange  = await Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
             Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
             Write_Exchange(Exchange);

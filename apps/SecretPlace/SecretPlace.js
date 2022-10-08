@@ -61,12 +61,7 @@ export class SecretPlace extends plugin {
 
 
     async Xiuxianstate(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
-        Go(e);
-        allaction = false;
+        await Xiuxian.Go(e);
         return;
     }
 
