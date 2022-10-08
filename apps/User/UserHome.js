@@ -64,13 +64,13 @@ export class UserHome extends plugin {
             e.reply("没有" + thing_name);
             return;
         }
-        if (searchsthing.type == 1) {
+        if (searchsthing.class == 1) {
             await Xiuxian.instead_equipment_arms(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
-        if (searchsthing.type == 2) {
+        if (searchsthing.class == 2) {
             await Xiuxian.instead_equipment_huju(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
-        if (searchsthing.type == 3) {
+        if (searchsthing.class == 3) {
             await Xiuxian.instead_equipment_fabao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
         e.reply("成功装备" + thing_name);
