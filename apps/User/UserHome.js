@@ -42,11 +42,14 @@ export class UserHome extends plugin {
 
 
     async Take_lingshi(e) {
-        let usr_qq = e.user_id;
+
         let Go = await Go(e);
         if (!Go) {
             return;
         }
+
+        let usr_qq = e.user_id;
+
         var reg = new RegExp(/取|存/);
         let func = reg.exec(e.msg);
         let msg = e.msg.replace(reg, '');
@@ -225,11 +228,13 @@ export class UserHome extends plugin {
 
     //购买商品
     async Buy_comodities(e) {
-        let usr_qq = e.user_id;
         await Go(e);
         if (!Go) {
             return;
         }
+
+        let usr_qq = e.user_id;
+
         let thing = e.msg.replace("#", '');
         thing = thing.replace("购买", '');
         let code = thing.split("\*");
@@ -284,11 +289,12 @@ export class UserHome extends plugin {
 
     //出售商品
     async Sell_comodities(e) {
-        let usr_qq = e.user_id;
         await Go(e);
         if (!Go) {
             return;
         }
+        
+        let usr_qq = e.user_id;
         let thing = e.msg.replace("#", '');
         thing = thing.replace("出售", '');
         let code = thing.split("\*");

@@ -209,6 +209,11 @@ export async function get_player_img(e) {
  */
  export async function get_power_img(e) {
     let usr_qq = e.user_id;
+    let ifexistplay = data.existData("player", usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+
     let player = await data.getData("player", usr_qq);
     let lingshi = Math.trunc(player.lingshi);
     if (player.lingshi > 999999999999) {

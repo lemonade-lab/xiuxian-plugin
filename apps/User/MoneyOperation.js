@@ -92,6 +92,7 @@ export class MoneyOperation extends plugin {
         if (!Go) {
             return;
         }
+        
         let usr_qq = e.user_id;
         
         let lingshi = e.msg.replace("#", "");
@@ -124,6 +125,7 @@ export class MoneyOperation extends plugin {
         if (!e.isGroup) {
             return;
         }
+
         if (!e.isMaster) {
             return;
         }

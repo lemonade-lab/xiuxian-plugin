@@ -67,7 +67,6 @@ export class SecretPlace extends plugin {
 
     //秘境地点
     async Secretplace(e) {
-
         if (!e.isGroup) {
             return;
         }
@@ -78,7 +77,6 @@ export class SecretPlace extends plugin {
 
     //禁地
     async Forbiddenarea(e) {
-
         if (!e.isGroup) {
             return;
         }
@@ -89,7 +87,6 @@ export class SecretPlace extends plugin {
 
     //限定仙府
     async Timeplace(e) {
-
         if (!e.isGroup) {
             return;
         }
@@ -100,7 +97,6 @@ export class SecretPlace extends plugin {
 
     //仙境
     async Fairyrealm(e) {
-
         if (!e.isGroup) {
             return;
         }
@@ -119,7 +115,6 @@ export class SecretPlace extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        
         let player = await Xiuxian.Read_player(usr_qq);
         var didian = e.msg.replace("#降临秘境", '');
         didian = didian.trim();

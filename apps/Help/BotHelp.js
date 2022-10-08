@@ -74,6 +74,7 @@ export class BotHelp extends plugin {
 
 
     async cache(data) {
+        
         let tmp = md5(JSON.stringify(data));
         if (helpData.md5 == tmp) return helpData.img;
         helpData.img = await puppeteer.screenshot("help", data);
