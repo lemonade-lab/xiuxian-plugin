@@ -5,6 +5,7 @@
         "class": "5",
         "type": "1",
         "size": 0.03,
+        "acount": 1,
         "price": 30000
     },
     {
@@ -13,15 +14,16 @@
         "class": "5",
         "type": "1",
         "size": 0.03,
+        "acount": 1,
         "price": 30000
     },
     {
-        
         "id": 3,
         "name": "天罡录",
         "class": "5",
         "type": "1",
         "size": 0.03,
+        "acount": 1,
         "price": 30000
     },
     {
@@ -30,6 +32,7 @@
         "class": "5",
         "type": "1",
         "size": 0.04,
+        "acount": 1,
         "price": 40000
     },
     {
@@ -38,6 +41,7 @@
         "class": "5",
         "type": "1",
         "size": 0.04,
+        "acount": 1,
         "price": 40000
     },
     {
@@ -46,6 +50,7 @@
         "class": "5",
         "type": "1",
         "size": 0.04,
+        "acount": 1,
         "price": 40000
     },
     {
@@ -54,6 +59,7 @@
         "class": "5",
         "type": "1",
         "size": 0.05,
+        "acount": 1,
         "price": 50000
     },
     {
@@ -62,6 +68,7 @@
         "class": "5",
         "type": "1",
         "size": 0.05,
+        "acount": 1,
         "price": 50000
     },
     {
@@ -70,6 +77,7 @@
         "class": "5",
         "type": "1",
         "size": 0.05,
+        "acount": 1,
         "price": 50000
     },
     {
@@ -78,6 +86,7 @@
         "class": "5",
         "type": "1",
         "size": 0.06,
+        "acount": 1,
         "price": 60000
     },
     {
@@ -86,6 +95,7 @@
         "class": "5",
         "type": "1",
         "size": 0.06,
+        "acount": 1,
         "price": 60000
     },
     {
@@ -94,6 +104,7 @@
         "class": "5",
         "type": "1",
         "size": 0.06,
+        "acount": 1,
         "price": 60000
     },
     {
@@ -102,6 +113,7 @@
         "class": "5",
         "type": "1",
         "size": 0.13,
+        "acount": 1,
         "price": 130000
     },
     {
@@ -110,6 +122,7 @@
         "class": "5",
         "type": "1",
         "size": 0.13,
+        "acount": 1,
         "price": 130000
     },
     {
@@ -118,6 +131,7 @@
         "class": "5",
         "type": "1",
         "size": 0.15,
+        "acount": 1,
         "price": 150000
     },
     {
@@ -126,6 +140,7 @@
         "class": "5",
         "type": "1",
         "size": 0.15,
+        "acount": 1,
         "price": 150000
     },
     {
@@ -134,6 +149,7 @@
         "class": "5",
         "type": "1",
         "size": 0.15,
+        "acount": 1,
         "price": 150000
     },
     {
@@ -142,6 +158,7 @@
         "class": "5",
         "type": "1",
         "size": 0.18,
+        "acount": 1,
         "price": 180000
     },
     {
@@ -150,6 +167,7 @@
         "class": "5",
         "type": "1",
         "size": 0.18,
+        "acount": 1,
         "price": 180000
     },
     {
@@ -158,42 +176,43 @@
         "class": "5",
         "type": "1",
         "size": 0.18,
+        "acount": 1,
         "price": 180000
     },
     {
-        
         "id": 21,
         "name": "红楼梦",
         "class": "5",
         "type": "1",
         "size": 0.20,
+        "acount": 1,
         "price": 200000
     },
     {
-        
         "id": 22,
         "name": "西游记",
         "class": "5",
         "type": "1",
         "size": 0.20,
+        "acount": 1,
         "price": 200000
     },
     {
-        
         "id": 23,
         "name": "三国演义",
         "class": "5",
         "type": "1",
         "size": 0.20,
+        "acount": 1,
         "price": 200000
     },
     {
-        
         "id": 24,
         "name": "水浒传",
         "class": "5",
         "type": "1",
         "size": 0.20,
+        "acount": 1,
         "price": 200000
     },
     {
@@ -202,6 +221,7 @@
         "class": "5",
         "type": "1",
         "size": 0.28,
+        "acount": 1,
         "price": 280000
     },
     {
@@ -210,6 +230,7 @@
         "class": "5",
         "type": "1",
         "size": 0.28,
+        "acount": 1,
         "price": 280000
     },
     {
@@ -218,6 +239,7 @@
         "class": "5",
         "type": "1",
         "size": 0.28,
+        "acount": 1,
         "price": 280000
     },
     {
@@ -226,6 +248,7 @@
         "class": "5",
         "type": "1",
         "size": 0.35,
+        "acount": 1,
         "price": 350000
     },
     {
@@ -234,6 +257,7 @@
         "class": "5",
         "type": "1",
         "size": 0.35,
+        "acount": 1,
         "price": 350000
     },
     {
@@ -242,6 +266,7 @@
         "class": "5",
         "type": "1",
         "size": 0.35,
+        "acount": 1,
         "price": 350000
     }
 ]

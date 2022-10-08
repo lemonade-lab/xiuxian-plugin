@@ -5,14 +5,16 @@
         "class": "5",
         "type": "1",
         "size": 0.90,
+        "acount": 1,
         "price": 1
-    }, 
+    },
     {
         "id": 2,
         "name": "一指天道",
         "class": "5",
         "type": "1",
         "size": 1.00,
+        "acount": 1,
         "price": 1
     }
 ]

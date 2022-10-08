@@ -186,20 +186,24 @@ export class UserStart extends plugin {
         }
         let usr_qq = e.user_id;
         let lingshi = 1000;
-        player = await Xiuxian.Read_player(usr_qq);
-        if (player.lingshi < lingshi) {
-            e.reply("需"+lingshi+"灵石");
-            return;
-        }
+
         let new_name = e.msg.replace("#改名", '');
         if (new_name.length == 0) {
             e.reply("请输入正确名字");
             return;
         }
+
         if (new_name.length > 8) {
             e.reply("玩家名字最多八字");
             return;
         }
+
+        let player = await Xiuxian.Read_player(usr_qq);
+        if (player.lingshi < lingshi) {
+            e.reply("需"+lingshi+"灵石");
+            return;
+        }
+        
         let ClassCD = ":last_setname_time";
         let now_time = new Date().getTime();
         let CDTime = 60*24;
@@ -223,6 +227,7 @@ export class UserStart extends plugin {
         if (!Go) {
             return;
         }
+        let usr_qq = e.user_id;
         let player = await Xiuxian.Read_player(usr_qq);
         let new_msg = e.msg.replace("#设置道宣", '');
         new_msg = new_msg.replace(" ", '');

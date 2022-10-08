@@ -67,6 +67,7 @@ export class AdminSuper extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
+
     async deleteallusers(e){
         if (!e.isMaster) {
             return;
@@ -84,18 +85,12 @@ export class AdminSuper extends plugin {
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            fs.rmSync(`${Xiuxian.__PATH.player}/${player_id}.json`);
-            fs.rmSync(`${Xiuxian.__PATH.equipment}/${player_id}.json`);
-            fs.rmSync(`${Xiuxian.__PATH.najie}/${player_id}.json`);
             await Xiuxian.offaction(player_id);
+            fs.rmSync(`${Xiuxian.__PATH.player}/${player_id}.json`);
         }
         e.reply("世界已崩碎");
         return;
     }
-
-
-
-
 
     async synchronization(e) {
         if (!e.isMaster) {
@@ -265,8 +260,12 @@ export class AdminSuper extends plugin {
         if (thingqq == "") {
             return;
         }
+
         let x = 888888888;
+
+        
         let Exchange  = await Xiuxian.Read_Exchange();
+
         for (var i = 0; i < Exchange.length; i++) {
             if (Exchange[i].qq == thingqq) {
                 x = i;

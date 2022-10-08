@@ -248,7 +248,7 @@ export async function Add_najie_lingshi(usr_qq, acount) {
 //功法
 export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
     let player = await Read_player(usr_qq);
-    let id=gongfa_name_id;
+    let id = gongfa_name_id;
     player.AllSorcery.push(id);
     await Write_player(usr_qq, player);
     return;
@@ -476,48 +476,45 @@ export async function player_efficiency(usr_qq) {
 }
 
 /**
- * 根据名字查找物品信息和类型id去找
- */
-/**
  * 
  * 检查纳戒内物品是否存在
  */
- export async function exist_thing(thing_id, thing_class) {
+export async function exist_thing(thing_id, thing_class) {
     //要分限定和普通
     let ifexist;
     if (thing_class == 1) {
         ifexist = data.wuqi_list.find(item => item.id == thing_id);
-        if(ifexist==undefined){
+        if (ifexist == undefined) {
             ifexist = data.timewuqi_list.find(item => item.id == thing_id);
         }
     }
     if (thing_class == 2) {
         ifexist = data.huju_list.find(item => item.id == thing_id);
-        if(ifexist==undefined){
+        if (ifexist == undefined) {
             ifexist = data.timehuju_list.find(item => item.id == thing_id);
         }
     }
     if (thing_class == 3) {
         ifexist = data.fabao_list.find(item => item.id == thing_id);
-        if(ifexist==undefined){
+        if (ifexist == undefined) {
             ifexist = data.timefabao_list.find(item => item.id == thing_id);
         }
     }
     if (thing_class == 4) {
         ifexist = data.danyao_list.find(item => item.id == thing_id);
-        if(ifexist==undefined){
+        if (ifexist == undefined) {
             ifexist = data.timedanyao_list.find(item => item.id == thing_id);
         }
     }
     if (thing_class == 5) {
         ifexist = data.gongfa_list.find(item => item.id == thing_id);
-        if(ifexist==undefined){
+        if (ifexist == undefined) {
             ifexist = data.timefabao_list.find(item => item.id == thing_id);
         }
     }
     if (thing_class == 6) {
         ifexist = data.daoju_list.find(item => item.id == thing_id);
-        if(ifexist==undefined){
+        if (ifexist == undefined) {
             ifexist = data.timedanyao_list.find(item => item.id == thing_id);
         }
     }
@@ -537,29 +534,29 @@ export async function player_efficiency(usr_qq) {
 /**
  * 根据名字查找物品信息
  */
- export async function search_thing(thing_name) {
+export async function search_thing(thing_name) {
     let ifexist0 = data.fabao_list.find(item => item.name == thing_name);
-    if(ifexist0==undefined){
+    if (ifexist0 == undefined) {
         ifexist0 = data.wuqi_list.find(item => item.name == thing_name);
-        if(ifexist0==undefined){
+        if (ifexist0 == undefined) {
             ifexist0 = data.huju_list.find(item => item.name == thing_name);
-            if(ifexist0==undefined){
+            if (ifexist0 == undefined) {
                 ifexist0 = data.danyao_list.find(item => item.name == thing_name);
-                if(ifexist0==undefined){
+                if (ifexist0 == undefined) {
                     ifexist0 = data.daoju_list.find(item => item.name == thing_name);
-                    if(ifexist0==undefined){
+                    if (ifexist0 == undefined) {
                         ifexist0 = data.gongfa_list.find(item => item.name == thing_name);
-                        if(ifexist0==undefined){
+                        if (ifexist0 == undefined) {
                             ifexist0 = data.timegongfa_list.find(item => item.name == thing_name);
-                            if(ifexist0==undefined){
+                            if (ifexist0 == undefined) {
                                 ifexist0 = data.timedanyao_list.find(item => item.name == thing_name);
-                                if(ifexist0==undefined){
+                                if (ifexist0 == undefined) {
                                     ifexist0 = data.timefabao_list.find(item => item.name == thing_name);
-                                    if(ifexist0==undefined){
+                                    if (ifexist0 == undefined) {
                                         ifexist0 = data.timewuqi_list.find(item => item.name == thing_name);
-                                        if(ifexist0==undefined){
+                                        if (ifexist0 == undefined) {
                                             ifexist0 = data.timehuju_list.find(item => item.name == thing_name);
-                                            if(ifexist0==undefined){
+                                            if (ifexist0 == undefined) {
                                                 ifexist0 = data.ring_list.find(item => item.name == thing_name);
                                                 //还是找不到，就是不存在该物品
                                                 return 1;
@@ -620,181 +617,176 @@ export async function exist_najie_thing(usr_qq, thing_id, thing_class) {
  * 纳戒增减：减之前要判断有没有
  * 
  */
-export async function Add_najie_thing(usr_qq, thing_id, thing_class,thing_type, thing_acount) {
-    var a = thing_id;
-    var b = thing_class;
-    var c = thing_type;
-    var d = thing_acount;
-    if(d>-1&&d<1){
-        d=1;
-    }
+export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let equipment={
-        id:a,
-        class:b,
-        type:c,
-        acount:d
+    
+    let equipment = {
+        id: thing_id,
+        class: thing_class,
+        type: thing_type,
+        acount: thing_acount
     }
-    if(thing_class==1){
-        let thing= najie.arms.find(item => item.id == thing_id);
+    
+    if (thing_class == 1) {
+        let thing = await najie.arms.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-             najie.arms.push(equipment);
+        if (thing == undefined) {
+            await najie.arms.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
+        else {
+            acount = await thing.acount + thing_acount;
             najie.arms.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount < 1){
+        if (acount < 1) {
             najie.arms = await najie.arms.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    if(thing_class==2){
-        let thing= najie.huju.find(item => item.id == thing_id);
+
+    if (thing_class == 2) {
+        let thing = await najie.huju.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-             najie.huju.push(equipment);
+        if (thing == undefined) {
+            await najie.huju.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
-            najie.huju.find(item => item.id == thing_id).acount = acount;
+        else {
+            acount = await thing.acount + thing_acount;
+             najie.huju.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount< 1){
+        if (acount < 1) {
             najie.huju = await najie.huju.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    if(thing_class==3){
-        let thing= najie.fabao.find(item => item.id == thing_id);
+
+    if (thing_class == 3) {
+        let thing = await najie.fabao.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-             najie.fabao.push(equipment);
+        if (thing == undefined) {
+            await najie.fabao.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
-            najie.fabao.find(item => item.id == thing_id).acount = acount;
+        else {
+            acount = await thing.acount + thing_acount;
+             najie.fabao.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount< 1){
+        if (acount < 1) {
             najie.fabao = await najie.fabao.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    if(thing_class==4){
-        let thing= najie.danyao.find(item => item.id == thing_id);
+
+    if (thing_class == 4) {
+        let thing = await najie.danyao.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-              najie.danyao.push(equipment);
+        if (thing == undefined) {
+            await najie.danyao.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
-            najie.danyao.find(item => item.id == thing_id).acount = acount;
+        else {
+            acount = await thing.acount + thing_acount;
+             najie.danyao.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount< 1){
+        if (acount < 1) {
             najie.danyao = await najie.danyao.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    if(thing_class==5){
-        let thing= najie.gonfa.find(item => item.id == thing_id);
+    
+
+    if (thing_class == 5) {
+        let thing = await najie.gonfa.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-             najie.gonfa.push(equipment);
+        if (thing == undefined) {
+            await najie.gonfa.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
-            najie.gonfa.find(item => item.id == thing_id).acount = acount;
+        else {
+            acount = await thing.acount + thing_acount;
+             najie.gonfa.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount< 1){
+
+        if (acount < 1) {
             najie.gonfa = await najie.gonfa.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    if(thing_class==6){
-        let thing= najie.daoju.find(item => item.id == thing_id);
+
+    if (thing_class == 6) {
+        let thing = await najie.daoju.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-             najie.daoju.push(equipment);
+        if (thing == undefined) {
+            await najie.daoju.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
-            najie.daoju.find(item => item.id == thing_id).acount = acount;
+        else {
+            acount = await thing.acount + thing_acount;
+             najie.daoju.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount< 1){
+        if (acount < 1) {
             najie.daoju = await najie.daoju.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    if(thing_class==7){
-        let thing= najie.ring.find(item => item.id == thing_id);
+
+    if (thing_class == 7) {
+        let thing = await najie.ring.find(item => item.id == thing_id);
         let acount;
-        if(thing==undefined){
-             najie.ring.push(equipment);
+        if (thing == undefined) {
+            await najie.ring.push(equipment);
         }
-        else{
-            acount= thing.acount+d;
-            najie.ring.find(item => item.id == thing_id).acount = acount;
+        else {
+            acount = await thing.acount + thing_acount;
+             najie.ring.find(item => item.id == thing_id).acount = acount;
         }
-        if(acount < 1){
+        if (acount < 1) {
             najie.ring = await najie.ring.filter(item => item.id != thing_id);
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    await Write_najie(usr_qq, najie);
+
     return;
 }
 
 /**
  * 替换装备
  */
-export async function instead_equipment(usr_qq, thing_id,thing_class,thing_type) {
+export async function instead_equipment(usr_qq, thing_id, thing_class, thing_type) {
     let equipment = await Read_equipment(usr_qq);
     if (thing_type == 1) {
-        /**
-         * 写进纳戒
-         */
-        await Add_najie_thing(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);   
-        //避免重复装备同一把武器
-        if(equipment.arms.id == thing_id||equipment.arms.class == thing_class){
-            return 1;
-        } 
-        /**
-        * 直接覆盖
-        */
-         equipment.arms.id = thing_id;
-         equipment.arms.class = thing_class;
-         equipment.arms.type = thing_type;
+        await Add_najie_thing(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);
+        equipment.arms.id = thing_id;
+        equipment.arms.class = thing_class;
+        equipment.arms.type = thing_type;
+        equipment.arms.acount = 1;
+        await Write_equipment(usr_qq, equipment);
+        await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
+        return 0;
     }
-
     if (thing_type == 2) {
-        /**
-         * 写进纳戒
-         */
-         await Add_najie_thing(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
-         if(equipment.huju.id == thing_id||equipment.huju.class == thing_class){
-            return 1;
-        } 
-         /**
-         * 直接覆盖
-         */
-          equipment.huju.id = thing_id;
-          equipment.huju.class = thing_class;
-          equipment.huju.type = thing_type;
+        await Add_najie_thing(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
+        equipment.huju.id = thing_id;
+        equipment.huju.class = thing_class;
+        equipment.huju.type = thing_type;
+        equipment.huju.acount = 1; 
+        await Write_equipment(usr_qq, equipment);
+        await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
+        return 0;
     }
 
     if (thing_type == 3) {
-        /**
-         * 写进纳戒
-         */
-         await Add_najie_thing(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
-         if(equipment.fabao.id == thing_id||equipment.fabao.class == thing_class){
-            return 1;
-        } 
-         /**
-         * 直接覆盖
-         */
-          equipment.fabao.id = thing_id;
-          equipment.fabao.class = thing_class;
-          equipment.fabao.type = thing_type;
+        await Add_najie_thing(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
+        equipment.fabao.id = thing_id;
+        equipment.fabao.class = thing_class;
+        equipment.fabao.type = thing_type;
+        equipment.fabao.acount = 1;
+        await Write_equipment(usr_qq, equipment);
+        await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
+        return 0;
     }
-    await Write_equipment(usr_qq, equipment);
-    /**
-     * 从纳戒中删除
-     */
-    await Add_najie_thing(usr_qq, thing_id, thing_class,thing_type, -1);
     return 0;
 }
 
@@ -1036,7 +1028,7 @@ export async function Go(e) {
 /**
  * 状态封锁查询
  */
- export async function UserGo(usr_qq) {
+export async function UserGo(usr_qq) {
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
@@ -1067,7 +1059,7 @@ export async function Go(e) {
 /**
  * 冷却检测
  */
- export async function GenerateCD(usr_qq,usr_class,now_time,time) {
+export async function GenerateCD(usr_qq, usr_class, now_time, time) {
     var time0 = time;
     let CD = await redis.get("xiuxian:player:" + usr_qq + usr_class);
     CD = parseInt(CD);
@@ -1075,7 +1067,7 @@ export async function Go(e) {
     if (now_time < CD + transferTimeout) {
         let CD_m = Math.trunc((CD + transferTimeout - now_time) / 60 / 1000);
         let CD_s = Math.trunc(((CD + transferTimeout - now_time) % 60000) / 1000);
-        return   "T:"+transferTimeout / 1000 / 60+"------CD:"+CD_m+"s"+CD_s+"m";
+        return "[T:" + transferTimeout / 1000 / 60 + "m][CD:" + CD_m + "s" + CD_s + "sm]";
     }
     return 0;
 }
@@ -1084,11 +1076,11 @@ export async function Go(e) {
  * 世界财富
  * 
  */
- export async function Worldwealth(acount) {
-    let worldacount=await Numbers(acount);
+export async function Worldwealth(acount) {
+    let worldacount = await Numbers(acount);
     let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-    Worldmoney=await Numbers(Worldmoney);
-    Worldmoney+=worldacount;
+    Worldmoney = await Numbers(Worldmoney);
+    Worldmoney += worldacount;
     await redis.set("Xiuxian:Worldmoney", Worldmoney);
     return;
 }
@@ -1096,7 +1088,7 @@ export async function Go(e) {
 
 //写入
 export async function Write_Forum(wupin) {
-    let dir = path.join(Xiuxian.__PATH.Forum, `Forum.json`);
+    let dir = path.join(__PATH.Forum, `Forum.json`);
     let new_ARR = JSON.stringify(wupin, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         console.log('写入成功', err)
@@ -1107,9 +1099,9 @@ export async function Write_Forum(wupin) {
 
 //读取
 export async function Read_Forum() {
-    let dir = path.join(`${Xiuxian.__PATH.Forum}/Forum.json`);
+    let dir = path.join(`${__PATH.Forum}/Forum.json`);
     let Forum;
-    try{
+    try {
         Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
                 console.log(err)
@@ -1118,7 +1110,7 @@ export async function Read_Forum() {
             return data;
         })
 
-    }catch{
+    } catch {
         await Write_Forum([]);
         Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
@@ -1136,7 +1128,7 @@ export async function Read_Forum() {
 
 //写入交易表
 export async function Write_Exchange(wupin) {
-    let dir = path.join(Xiuxian.__PATH.Exchange, `Exchange.json`);
+    let dir = path.join(__PATH.Exchange, `Exchange.json`);
     let new_ARR = JSON.stringify(wupin, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         console.log('写入成功', err)
@@ -1148,25 +1140,27 @@ export async function Write_Exchange(wupin) {
 
 //读交易表
 export async function Read_Exchange() {
-    let dir = path.join(`${Xiuxian.__PATH.Exchange}/Exchange.json`);
-    let Exchange ;
-    try{
-        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => { 
+    let dir = path.join(`${__PATH.Exchange}/Exchange.json`);
+    let Exchange;
+    try {
+        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
                 return "error";
             }
             return data;
         })
-    }catch{
+    } 
+    catch
+     {
         await Write_Exchange([]);
-        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => { 
+        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
                 return "error";
             }
             return data;
         })
     }
-    Exchange = JSON.parse(Exchange);
+    Exchange = await JSON.parse(Exchange);
     return Exchange;
 }
 
@@ -1175,7 +1169,7 @@ export async function Read_Exchange() {
 export async function Search_Exchange(thing_qq) {
     let thingqq = thing_qq;
     let x = -1;
-    let Exchange  = await Read_Exchange();
+    let Exchange = await Read_Exchange();
     if (thingqq == "") {
         return x;
     }

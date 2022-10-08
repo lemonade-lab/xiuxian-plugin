@@ -25,6 +25,10 @@ export class UserAction extends plugin {
                     reg: '^#升级储物袋$',
                     fnc: 'Lv_up_najie'
                 },
+                {
+                    reg: '^#(存|取)灵石(.*)$',
+                    fnc: 'Take_lingshi'
+                }
             ]
         })
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
@@ -71,6 +75,62 @@ export class UserAction extends plugin {
         najie.grade += 1;
         await Xiuxian.Write_najie(usr_qq, najie);
         e.reply(`花了${najie_price[najie.grade - 1]}灵石升级,目前灵石存储上限为${najie.lingshimax}`)
+        return;
+    }
+
+    
+    async Take_lingshi(e) {
+        let Go = await Xiuxian.Go(e);
+        if (!Go) {
+            return;
+        }
+        let usr_qq = e.user_id;
+        var reg = new RegExp(/取|存/);
+        let func = reg.exec(e.msg);
+        let msg = e.msg.replace(reg, '');
+        msg = msg.replace("#", '');
+        let lingshi = msg.replace("灵石", '');
+        if (lingshi == "全部") {
+            let P = await Xiuxian.Read_player(usr_qq);
+            lingshi = P.lingshi;
+
+        }
+
+        lingshi=await Xiuxian.Numbers(lingshi);
+
+        if (func == "存") {
+            let player_lingshi = await Xiuxian.Read_player(usr_qq);
+            player_lingshi = player_lingshi.lingshi;
+            if (player_lingshi < lingshi) {
+                e.reply([segment.at(usr_qq), `灵石不足,你目前只有${player_lingshi}灵石`]);
+                return;
+            }
+            let najie = await Xiuxian.Read_najie(usr_qq);
+            if (najie.lingshimax < najie.lingshi + lingshi) {
+                await Xiuxian.Add_najie_lingshi(usr_qq, najie.lingshimax - najie.lingshi);
+                await Xiuxian.Add_lingshi(usr_qq, -najie.lingshimax + najie.lingshi);
+                e.reply([segment.at(usr_qq), `已为您放入${najie.lingshimax - najie.lingshi}灵石,储物袋存满了`]);
+                return;
+            }
+            await Xiuxian.Add_najie_lingshi(usr_qq, lingshi);
+            await Xiuxian.Add_lingshi(usr_qq, -lingshi);
+            e.reply([segment.at(usr_qq), `储存完毕,你目前还有${player_lingshi - lingshi}灵石,储物袋内有${najie.lingshi + lingshi}灵石`]);
+            return;
+        }
+
+        if (func == "取") {
+            let najie = await Xiuxian.Read_najie(usr_qq);
+            if (najie.lingshi < lingshi) {
+                e.reply([segment.at(usr_qq), `储物袋灵石不足,你目前最多取出${najie.lingshi}灵石`]);
+                return;
+            }
+            let player_lingshi = await Xiuxian.Read_player(usr_qq);
+            player_lingshi = player_lingshi.lingshi;
+            await Xiuxian.Add_najie_lingshi(usr_qq, -lingshi);
+            await Xiuxian.Add_lingshi(usr_qq, lingshi);
+            e.reply([segment.at(usr_qq), `本次取出灵石${lingshi},你的储物袋还剩余${najie.lingshi - lingshi}灵石`]);
+            return;
+        }
         return;
     }
 

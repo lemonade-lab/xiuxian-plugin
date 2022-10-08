@@ -12,6 +12,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 100
     },
     {
@@ -27,6 +28,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 100
     },
     {
@@ -42,6 +44,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 5000
     },
     {
@@ -57,6 +60,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 20000
     },
     {
@@ -72,6 +76,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 30000
     },
     {
@@ -87,6 +92,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 30000
     },
     {
@@ -102,6 +108,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 40000
     },
     {
@@ -117,6 +124,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 40000
     },
     {
@@ -132,6 +140,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 50000
     },
     {
@@ -147,6 +156,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 50000
     },
     {
@@ -162,6 +172,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 50000
     },
     {
@@ -177,6 +188,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 100000
     },
     {
@@ -192,6 +204,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 100000
     },
     {
@@ -207,6 +220,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 150000
     },
     {
@@ -222,6 +236,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 150000
     },
     {
@@ -237,6 +252,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 200000
     },
     {
@@ -252,6 +268,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 300000
     },
     {
@@ -267,6 +284,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 350000
     },
     {
@@ -282,6 +300,7 @@
         "atkpercentage": 0,
         "defpercentage": 0,
         "HPpercentage": 0,
+        "acount": 1,
         "price": 450000
     }
 ]
