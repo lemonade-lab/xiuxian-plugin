@@ -42,12 +42,10 @@ export class UserHome extends plugin {
 
 
     async Take_lingshi(e) {
-
-        let Go = await Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
-
         let usr_qq = e.user_id;
 
         var reg = new RegExp(/取|存/);
@@ -111,10 +109,12 @@ export class UserHome extends plugin {
             return;
         }
         let usr_qq = e.user_id;
+
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
+
         let player = await Xiuxian.Read_player(usr_qq);
 
 
@@ -228,12 +228,20 @@ export class UserHome extends plugin {
 
     //购买商品
     async Buy_comodities(e) {
-        await Go(e);
-        if (!Go) {
+        if (!e.isGroup) {
             return;
         }
-
+        
         let usr_qq = e.user_id;
+        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        }
+        let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
+         if (game_action == 0) {
+            e.reply("游戏进行中...");
+           return;
+        }
 
         let thing = e.msg.replace("#", '');
         thing = thing.replace("购买", '');
@@ -289,7 +297,7 @@ export class UserHome extends plugin {
 
     //出售商品
     async Sell_comodities(e) {
-        await Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
@@ -332,39 +340,4 @@ export class UserHome extends plugin {
         e.reply(`出售获得${commodities_price}灵石 `);
         return;
     }
-}
-
-
-
-/**
- * 状态
- */
-
-export async function Go(e) {
-    if (!e.isGroup) {
-        return;
-    }
-    let usr_qq = e.user_id;
-    let ifexistplay = await Xiuxian.existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    if (game_action == 0) {
-        e.reply("修仙：游戏进行中...");
-        return;
-    }
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-            return;
-        }
-    }
-    return true;
 }
