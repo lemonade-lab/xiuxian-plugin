@@ -90,6 +90,7 @@ export class UserTransaction extends plugin {
         e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
 
         await Xiuxian.Add_lingshi(usr_qq, -commodities_price);
+
         await Xiuxian.Worldwealth(commodities);
         return;
     }
@@ -125,7 +126,7 @@ export class UserTransaction extends plugin {
             return;
         }
 
-        if(najie_thing.clas==1){ 
+        if(najie_thing.class==1){ 
             await Xiuxian.Add_najie_thing_arms(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -quantity);
         }
         else if(najie_thing.class==2){ 
