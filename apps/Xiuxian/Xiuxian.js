@@ -263,15 +263,10 @@ export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
 export async function battle(A, B) {
     let A_qq = await A;
     let B_qq = await B;
-    //得到存档
     let playerA = await Read_player(A_qq);
     let playerB = await Read_player(B_qq);
-    //动态血量
     let bloodA = await playerA.nowblood;
     let bloodB = await playerB.nowblood;
-    /**
-    //基础伤害计算
-     */
     let hurtA = await playerA.nowattack - playerB.nowdefense;
     let hurtB = await playerB.nowattack - playerA.nowdefense;
     //伤害需要大于0
@@ -282,7 +277,6 @@ export async function battle(A, B) {
         hurtB = 0;//破不了防御，没伤害
     }
     let victory = await A_qq;
-    //消息
     let msg = [];
     let x = 0;
     /**
@@ -296,9 +290,6 @@ export async function battle(A, B) {
         x = 1;
     }
     while (bloodA >= 0 && bloodB >= 0) {
-        /**
-         * 判断血量够不够
-         */
         if (bloodA <= 0) {
             //A输了
             victory = await B_qq;
@@ -309,9 +300,6 @@ export async function battle(A, B) {
             msg.push("对方没血了");
             break;
         }
-        /**
-         * 临时伤害
-         */
         let hurtAA = hurtA;
         let hurtBB = hurtA;
         /**

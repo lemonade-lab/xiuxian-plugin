@@ -263,11 +263,8 @@ export class UserHome extends plugin {
             e.reply(`灵石不足`);
             return;
         }
-        let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        Worldmoney = await Xiuxian.Numbers(Worldmoney);
-        Worldmoney = Worldmoney + (ifexist.price * 0.2 * quantity);
-        Worldmoney = await Xiuxian.Numbers(Worldmoney);
-        await redis.set("Xiuxian:Worldmoney", Worldmoney);
+        let commodities = ifexist.price * 1.2 * quantity;
+        await Xiuxian.Worldwealth(commodities);
         /**
           * 一级类型
           * 武器：1  

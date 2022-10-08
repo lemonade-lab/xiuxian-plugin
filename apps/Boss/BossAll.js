@@ -64,12 +64,8 @@ export class BossAll extends plugin {
             return;
         }
         let player = await Xiuxian.Read_player(usr_qq);
-        let now_level_id;
-        now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-
+        let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id >= 42) {
-
-
             let ClassCD = ":BossTime";
             let now_time = new Date().getTime();
             let CDTime = 15;
@@ -110,12 +106,8 @@ export class BossAll extends plugin {
             return;
         }
         let player = await Xiuxian.Read_player(usr_qq);
-        let now_level_id;
-        now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-
+        let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id >= 21 && now_level_id < 42) {
-
-
             let ClassCD = ":BossTime";
             let now_time = new Date().getTime();
             let CDTime = 15;
@@ -124,9 +116,6 @@ export class BossAll extends plugin {
                 return;
             }
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
-
-
             let BossMax = await redis.get("xiuxian:BossMax");
             BossMax = JSON.parse(BossMax);
             if (BossMax != null) {
@@ -163,8 +152,6 @@ export class BossAll extends plugin {
         let now_level_id;
         now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id < 21) {
-
-
             let ClassCD = ":BossTime";
             let now_time = new Date().getTime();
             let CDTime = 15;
@@ -173,7 +160,6 @@ export class BossAll extends plugin {
                 return;
             }
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
             let BossMini = await redis.get("xiuxian:BossMini");
             BossMini = JSON.parse(BossMini);
             if (BossMini != null) {
