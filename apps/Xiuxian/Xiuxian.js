@@ -1024,8 +1024,7 @@ export async function Go(e) {
     if (now_time < CD + transferTimeout) {
         let CD_m = Math.trunc((CD + transferTimeout - now_time) / 60 / 1000);
         let CD_s = Math.trunc(((CD + transferTimeout - now_time) % 60000) / 1000);
-        e.reply(`周期：${transferTimeout / 1000 / 60}` + `，CD: ${CD_m}分${CD_s}秒`);
-        return 1;
+        return `周期：${transferTimeout / 1000 / 60}` + `，CD: ${CD_m}分${CD_s}秒`;
     }
     return 0;
 }

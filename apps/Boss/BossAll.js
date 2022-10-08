@@ -73,6 +73,7 @@ export class BossAll extends plugin {
             if (CD == 1) {
                 return;
             }
+            e.reply(CD);
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
 
@@ -115,6 +116,7 @@ export class BossAll extends plugin {
             if (CD == 1) {
                 return;
             }
+            e.reply(CD);
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
             let BossMax = await redis.get("xiuxian:BossMax");
             BossMax = JSON.parse(BossMax);
@@ -159,6 +161,7 @@ export class BossAll extends plugin {
             if (CD == 1) {
                 return;
             }
+            e.reply(CD);
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
             let BossMini = await redis.get("xiuxian:BossMini");
             BossMini = JSON.parse(BossMini);

@@ -108,6 +108,8 @@ export class Games extends plugin {
         if (CD == 1) {
             return;
         }
+        
+        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
 
@@ -185,6 +187,7 @@ export class Games extends plugin {
         if (CD == 1) {
             return;
         }
+        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
         
         e.reply(`媚娘：发送[#押注+数字]或[#梭哈]`, true);
@@ -404,10 +407,12 @@ export class Games extends plugin {
         if (CDA == 1) {
             return;
         }
+        e.reply(CDA);
         let CDB = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
         if (CDB == 1) {
             return;
         }
+        e.reply(CDB);
         await redis.set("xiuxian:player:" + A + ClassCD, now_time);
         await redis.set("xiuxian:player:" + B + ClassCD, now_time);
         let option = Math.random();

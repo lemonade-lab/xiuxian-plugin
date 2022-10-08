@@ -51,6 +51,7 @@ export class Exchange extends plugin {
         if (CD == 1) {
             return;
         }
+        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
         let Ex = await redis.get("xiuxian:player:" + usr_qq + ClassCD);
@@ -119,6 +120,7 @@ export class Exchange extends plugin {
         if (CD == 1) {
             return;
         }
+        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
         let Ex = await redis.get("xiuxian:player:" + usr_qq + ":Exchange");
@@ -221,6 +223,7 @@ export class Exchange extends plugin {
         if (CD == 1) {
             return;
         }
+        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
         let player = await Xiuxian.Read_player(usr_qq);
