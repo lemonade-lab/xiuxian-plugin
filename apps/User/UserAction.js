@@ -31,7 +31,7 @@ export class UserAction extends plugin {
     }
 
 
-    //#我的纳戒
+    //#储物袋
     async Show_najie(e) {
         if (!e.isGroup) {
             return;
@@ -47,19 +47,19 @@ export class UserAction extends plugin {
     }
 
 
+    //升级储物袋
     async Lv_up_najie(e) {
         let Go=await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
         let usr_qq = e.user_id;
-        
         let najie = await Xiuxian.Read_najie(usr_qq);
         let player = await Xiuxian.Read_player(usr_qq);
         let najie_num = this.xiuxianConfigData.najie_num
         let najie_price = this.xiuxianConfigData.najie_price
         if (najie.grade == najie_num.length) {
-            e.reply("你的纳戒已经是最高级的了")
+            e.reply("已经是最高级的了")
             return;
         }
         if (player.lingshi < najie_price[najie.grade]) {
@@ -70,7 +70,7 @@ export class UserAction extends plugin {
         najie.lingshimax = najie_num[najie.grade];
         najie.grade += 1;
         await Xiuxian.Write_najie(usr_qq, najie);
-        e.reply(`你的纳戒升级成功,花了${najie_price[najie.grade - 1]}灵石,目前纳戒灵石存储上限为${najie.lingshimax}`)
+        e.reply(`花了${najie_price[najie.grade - 1]}灵石升级,目前灵石存储上限为${najie.lingshimax}`)
         return;
     }
 

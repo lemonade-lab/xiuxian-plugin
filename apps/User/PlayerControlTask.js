@@ -51,13 +51,9 @@ export class PlayerControlTask extends plugin {
                         push_address = action.group_id;
                     }
                 }
-                //最后发送的消息
                 let msg = [segment.at(player_id)];
-                //动作结束时间
                 let end_time = action.end_time;
-                //现在的时间
                 let now_time = new Date().getTime();
-                //闭关状态
                 if (action.shutup == "0") {
                     end_time = end_time - 60000 * 2;
                     if (now_time > end_time) {
@@ -86,15 +82,7 @@ export class PlayerControlTask extends plugin {
                         if (action.acount == null) {
                             action.acount = 0;
                         }
-                        let arr = action;
-                        //把状态都关了
-                        arr.shutup = 1;//闭关状态
-                        arr.working = 1;//降妖状态
-                        arr.power_up = 1;//渡劫状态
-                        arr.Place_action = 1;//秘境
-                        arr.Place_actionplus = 1;//沉迷状态
-                        delete arr.group_id;//结算完去除group_id
-                        await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
+                        await Xiuxian.offaction(player_id);
                         msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
                         if (is_group) {
                             await this.pushInfo(push_address, is_group, msg)
@@ -108,11 +96,9 @@ export class PlayerControlTask extends plugin {
 
                 //降妖
                 if (action.working == "0") {
-                    //这里改一改,要在结束时间的前一分钟提前结算
                     end_time = end_time - 60000 * 2;
                     //时间过了
                     if (now_time > end_time) {
-                        //现在大于结算时间，即为结算
                         log_mag = log_mag + "当前人物未结算，结算状态";
                         let player = data.getData("player", player_id);
                         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
@@ -130,22 +116,13 @@ export class PlayerControlTask extends plugin {
                             other_lingshi = -1 * rand * time;
                             msg.push("\n由于你的疏忽,货物被人顺手牵羊,老板大发雷霆,灵石减少" + rand * time);
                         }
-                        let get_lingshi = lingshi * time + other_lingshi;//最后获取到的lingshi
+                        let get_lingshi = lingshi * time + other_lingshi;
                         get_lingshi=await Xiuxian.Numbers(get_lingshi);
-                        await this.setFileValue(player_id,get_lingshi, "lingshi");//添加lingshi
-                        //redis动作
+                        await this.setFileValue(player_id,get_lingshi, "lingshi");
                         if (action.acount == null) {
                             action.acount = 0;
                         }
-                        let arr = action;
-                        //把状态都关了
-                        arr.shutup = 1;//闭关状态
-                        arr.working = 1;//降妖状态
-                        arr.power_up = 1;//渡劫状态
-                        arr.Place_action = 1;//秘境
-                        arr.Place_actionplus = 1;//沉迷状态
-                        delete arr.group_id;//结算完去除group_id
-                        await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
+                        await Xiuxian.offaction(player_id);
                         msg.push("\n降妖得到" + get_lingshi);
                         log_mag += "收入" + get_lingshi;
                         if (is_group) {

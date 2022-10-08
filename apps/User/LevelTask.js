@@ -68,17 +68,9 @@ export class LevelTask extends plugin {
                             if (power_distortion >= variable) {
                                 if (aconut >= power_Grade) {
                                     msg.push("\n" + player.name + "成功度过了第" + aconut + "道雷劫！可以#羽化登仙，飞升仙界啦！");
-                                    let arr = action;
-                                    arr.shutup = 1;//闭关状态
-                                    arr.working = 1;//降妖状态
-                                    arr.power_up = 1;//渡劫状态
-                                    arr.Place_action = 1;//秘境
-                                    player.power_place = 0;
-                                    await Xiuxian.Write_player(player_id, player);
                                     await redis.set("xiuxian:player:" + player_id + ":power_aconut", 1);
-                                    arr.end_time = new Date().getTime();//结束的时间也修改为当前时间
-                                    delete arr.group_id;//结算完去除group_id
-                                    await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
+                                    await Xiuxian.Write_player(player_id, player);
+                                    await Xiuxian.offaction(player_id);
                                     if (is_group) {
                                         await this.pushInfo(push_address, is_group, msg)
                                     } else {
@@ -109,19 +101,12 @@ export class LevelTask extends plugin {
                                 player.experience = player.experience * 0.5;
                                 player.experience = Math.trunc(player.experience);
                                 player.power_place = 1;
-                                await Xiuxian.Write_player(player_id, player);
                                 variable = Number(variable);
                                 power_distortion = Number(power_distortion);
                                 msg.push("\n本次雷伤" + variable.toFixed(2) + "\n本次雷抗：" + power_distortion + "\n第" + aconut + "道雷劫落下了，可惜" + player.name + "未能抵挡，渡劫失败了！");
-                                let arr = action;
-                                arr.shutup = 1;//闭关状态
-                                arr.working = 1;//降妖状态
-                                arr.power_up = 1;//渡劫状态
-                                arr.Place_action = 1;//秘境
                                 await redis.set("xiuxian:player:" + player_id + ":power_aconut", 1);
-                                arr.end_time = new Date().getTime();//结束的时间也修改为当前时间
-                                delete arr.group_id;//结算完去除group_id
-                                await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
+                                await Xiuxian.Write_player(player_id, player);
+                                await Xiuxian.offaction(player_id);
                                 if (is_group) {
                                     await this.pushInfo(push_address, is_group, msg)
                                 } else {
@@ -135,16 +120,9 @@ export class LevelTask extends plugin {
                             player.experience = player.experience * 0.5;
                             player.experience = Math.trunc(player.experience);
                             player.power_place = 1;
-                            await Xiuxian.Write_player(player_id, player);
-                            let arr = action;
-                            arr.shutup = 1;//闭关状态
-                            arr.working = 1;//降妖状态
-                            arr.power_up = 1;//渡劫状态
-                            arr.Place_action = 1;//秘境
                             await redis.set("xiuxian:player:" + player_id + ":power_aconut", 1);
-                            arr.end_time = new Date().getTime();//结束的时间也修改为当前时间
-                            delete arr.group_id;//结算完去除group_id
-                            await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
+                            await Xiuxian.Write_player(player_id, player);
+                            await Xiuxian.offaction(player_id);
                             if (is_group) {
                                 await this.pushInfo(push_address, is_group, msg)
                             } else {
