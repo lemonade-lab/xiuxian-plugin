@@ -88,7 +88,7 @@ export default class Valuablesall extends base {
 
   //柠檬堂
   async get_ningmenghomeData(myData) {
-    this.model = "ningmenghome";
+    this.model = "valuablesall/ningmenghome";
     this.model0 = "ningmenghome";
     return {
       ...this.screenData,
