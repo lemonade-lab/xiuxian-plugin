@@ -475,6 +475,64 @@ export async function player_efficiency(usr_qq) {
     return;
 }
 
+/**
+ * 根据名字查找物品信息和类型id去找
+ */
+/**
+ * 
+ * 检查纳戒内物品是否存在
+ */
+ export async function exist_thing(thing_id, thing_class) {
+    //要分限定和普通
+    let ifexist;
+    if (thing_class == 1) {
+        ifexist = data.wuqi_list.find(item => item.id == thing_id);
+        if(ifexist==undefined){
+            ifexist = data.timewuqi_list.find(item => item.id == thing_id);
+        }
+    }
+    if (thing_class == 2) {
+        ifexist = data.huju_list.find(item => item.id == thing_id);
+        if(ifexist==undefined){
+            ifexist = data.timehuju_list.find(item => item.id == thing_id);
+        }
+    }
+    if (thing_class == 3) {
+        ifexist = data.fabao_list.find(item => item.id == thing_id);
+        if(ifexist==undefined){
+            ifexist = data.timefabao_list.find(item => item.id == thing_id);
+        }
+    }
+    if (thing_class == 4) {
+        ifexist = data.danyao_list.find(item => item.id == thing_id);
+        if(ifexist==undefined){
+            ifexist = data.timedanyao_list.find(item => item.id == thing_id);
+        }
+    }
+    if (thing_class == 5) {
+        ifexist = data.gongfa_list.find(item => item.id == thing_id);
+        if(ifexist==undefined){
+            ifexist = data.timefabao_list.find(item => item.id == thing_id);
+        }
+    }
+    if (thing_class == 6) {
+        ifexist = data.daoju_list.find(item => item.id == thing_id);
+        if(ifexist==undefined){
+            ifexist = data.timedanyao_list.find(item => item.id == thing_id);
+        }
+    }
+    if (thing_class == 7) {
+        ifexist = data.ring_list.find(item => item.id == thing_id);
+    }
+    /**
+     * 不存在
+     */
+    if (!ifexist) {
+        return 1;
+    }
+    return ifexist;
+}
+
 
 /**
  * 根据名字查找物品信息

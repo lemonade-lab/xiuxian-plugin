@@ -258,7 +258,9 @@ export async function get_player_img(e) {
 export async function get_equipment_img(e) {
 
     let usr_qq = e.user_id;
+
     let player = await data.getData("player", usr_qq);
+
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) {
         return;
@@ -322,29 +324,76 @@ export async function get_najie_img(e) {
     }
     let player = await data.getData("player", usr_qq);
 
+    
+
     let najie = await data.getData("najie", usr_qq);
+    
+    let arms=[];
+    let huju=[];
+    let fabao=[];
+    let danyao=[];
+    let daoju=[];
+    let gonfa=[];
+    let ring=[];
+
+    for(var i=0;i<najie.arms.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.arms[i].class,najie.arms[i].type);
+        thing.acount=najie.arms[i].acount;
+        arms.push(thing);
+    }
+    for(var i=0;i<najie.huju.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.huju[i].class,najie.huju[i].type);
+        thing.acount=najie.huju[i].acount;
+        huju.push(thing);
+    }
+    for(var i=0;i<najie.fabao.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.fabao[i].class,najie.fabao[i].type);
+        thing.acount=najie.fabao[i].acount;
+        fabao.push(thing);
+    }
+    for(var i=0;i<najie.danyao.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.danyao[i].class,najie.danyao[i].type);
+        thing.acount=najie.danyao[i].acount;
+        danyao.push(thing);
+    }
+    for(var i=0;i<najie.daoju.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.daoju[i].class,najie.daoju[i].type);
+        thing.acount=najie.daoju[i].acount;
+        daoju.push(thing);
+    }
+    for(var i=0;i<najie.gonfa.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.gonfa[i].class,najie.gonfa[i].type);
+        thing.acount=najie.gonfa[i].acount;
+        gonfa.push(thing);
+    }
+    for(var i=0;i<najie.ring.length;i++){
+        let thing=await Xiuxian.exist_thing(najie.ring[i].class,najie.ring[i].type);
+        thing.acount=najie.ring[i].acount;
+        length.push(thing);
+    }
 
     var lingshi = Math.trunc(najie.lingshi);
     var lingshi2 = Math.trunc(najie.lingshimax);
-
     let player_data = {
         user_id: usr_qq,
 
         nickname: player.name,
-        najie_lv: najie.grade,
-
         player_maxHP: player.hpmax,
-
         player_nowHP: player.nowblood,
 
+        najie_lv: najie.grade,
         najie_maxlingshi: lingshi2,
         najie_lingshi: lingshi,
-        arms: najie.arms,
-        huju: najie.huju,
-        fabao: najie.fabao,
-        najie_danyao: najie.danyao,
-        najie_daoju: najie.daoju,
-        najie_gongfa: najie.gonfa
+        /**
+         * 
+         */
+        najie_arms: arms,
+        najie_huju: huju,
+        najie_fabao: fabao,
+        najie_danyao: danyao,
+        najie_daoju: daoju,
+        najie_gongfa: gonfa,
+        najie_ring: ring
 
     }
     const data1 = await new Show(e).get_najieData(player_data);

@@ -31,7 +31,7 @@
     <div class="use_data">
       <div class="use_data_head">
         <div class="user_font" style="text-align: center;padding-left: 0px;">[武器]</div>
-        {{each arms item}}
+        {{each najie_arms item}}
         <div class="user_font">
           <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
           <div>类别:{{item.type}}</div>
@@ -50,7 +50,7 @@
     <div class="use_data">
       <div class="use_data_head">
         <div class="user_font" style="text-align: center;padding-left: 0px;">[护具]</div>
-        {{each huju item}}
+        {{each najie_huju item}}
         <div class="user_font">
           <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
           <div>类别:{{item.type}}</div>
@@ -69,7 +69,7 @@
     <div class="use_data">
       <div class="use_data_head">
         <div class="user_font" style="text-align: center;padding-left: 0px;">[法宝]</div>
-        {{each fabao item}}
+        {{each najie_fabao item}}
         <div class="user_font">
           <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
           <div>类别:{{item.type}}</div>
@@ -89,7 +89,7 @@
     <div class="use_data">
       <div class="use_data_head">
         <div class="user_font" style="text-align: center;padding-left: 0px;">[丹药]</div>
-        {{each najie_equipment item}}
+        {{each najie_danyao item}}
         <div class="user_font">
           <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
           <div>类别:{{item.type}}</div>
@@ -138,6 +138,12 @@
     <div class="use_data">
       <div class="use_data_head">
         <div class="user_font" style="text-align: center;padding-left: 0px;">[戒指]</div>
+        {{each najie_ring item}}
+        <div class="user_font">
+        <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
+        <div >数量:{{item.acount}}</div>
+        </div>
+        {{/each}}
       </div>
     </div>
   </div>

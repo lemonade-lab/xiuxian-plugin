@@ -100,7 +100,7 @@ export class Games extends plugin {
         if (!Go) {
             return;
         }
-
+        let usr_qq = e.user_id;
         let CDTime =5;
         let ClassCD = ":Xiuianplay";
         let now_time = new Date().getTime();
@@ -112,7 +112,6 @@ export class Games extends plugin {
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
 
-        let usr_qq = e.user_id;
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         var money = now_level_id * 1000;

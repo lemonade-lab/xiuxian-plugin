@@ -54,12 +54,12 @@ export class Level extends plugin {
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_LevelMaxup_time";
         let now_time = new Date().getTime();
-        let CD = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + A + ClassCD, now_time); 
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
 
         
         let rand = Math.random();
@@ -68,30 +68,30 @@ export class Level extends plugin {
             let bad_time = Math.random();
             if (bad_time > 0.9) {
                 await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.4);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
+                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "气血");
                 return;
             }
             else if (bad_time > 0.8) {
                 await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
+                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "气血");
                 return;
             }
             else if (bad_time > 0.7) {
                 await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.1);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
+                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "气血");
                 return;
             }
             else if (bad_time > 0.1) {
-                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
+                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`憋红了脸，境界突破失败,等到${Time}分钟后再尝试吧`);
                 return;
             }
             else {
                 await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
+                await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "气血");
                 return;
             }
@@ -105,7 +105,7 @@ export class Level extends plugin {
         await Xiuxian.Add_HP(usr_qq, 99999999);
         let level = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
         e.reply(`突破成功至${level}`);
-        await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
+        await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
 
         return;
 
@@ -156,12 +156,12 @@ export class Level extends plugin {
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_Levelup_time";
         let now_time = new Date().getTime();
-        let CD = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + A + ClassCD, now_time); 
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
 
 
         let rand = Math.random();
@@ -170,30 +170,30 @@ export class Level extends plugin {
             let bad_time = Math.random();//增加多种突破失败情况，顺滑突破丢失experience曲线
             if (bad_time > 0.9) {
                 await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.4);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
+                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "修为");
                 return;
             }
             else if (bad_time > 0.8) {
                 await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.2);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
+                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
                 return;
             }
             else if (bad_time > 0.7) {
                 await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.1);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
+                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "修为");
                 return;
             }
             else if (bad_time > 0.1) {
-                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
+                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`憋红了脸，境界突破失败,等到${Time}分钟后再尝试吧`);
                 return;
             }
             else {
                 await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.2);
-                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
+                await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
                 return;
             }
@@ -206,7 +206,7 @@ export class Level extends plugin {
         await Xiuxian.Add_HP(usr_qq, 99999999);
         let level = data.Level_list.find(item => item.level_id == player.level_id).level;
         e.reply(`突破成功,当前境界为${level}`);
-        await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);
+        await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);
         return;
     }
 

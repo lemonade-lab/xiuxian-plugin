@@ -134,6 +134,7 @@ export class UserHome extends plugin {
             e.reply(`世界没有[${thing_name}]`);
             return;
         }
+        
         let najie_thing = await Xiuxian.exist_najie_thing(usr_qq, searchsthing.id, searchsthing.class);
         if (najie_thing == 1) {
             e.reply(`你没有[${thing_name}]`);
