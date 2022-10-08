@@ -93,11 +93,23 @@
         <div class="user_font">
           <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
           <div>类别:{{item.type}}</div>
-          <div>攻击:{{item.atk}}</div>
-          <div>防御:{{item.def}}</div>
-          <div>血量:{{item.HP}}</div>
-          <div>暴击率:{{item.bao*100}}%</div>
+          <div>效果:{{item.HP}}</div>
           <div>数量:{{item.acount}}</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="use_data_head">
+        <div class="user_font" style="text-align: center;padding-left: 0px;">[功法]</div>
+        {{each najie_gongfa item}}
+        <div class="user_font">
+        <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
+        <div >天赋:{{item.size}}</div>
+        <div >数量:{{item.acount}}</div>
         </div>
         {{/each}}
       </div>
@@ -114,20 +126,6 @@
           <div  style="padding-left: 60px;"> >>名称:{{item.name}}</div>
           <div >类别:{{item.type}}</div>
           <div >数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[功法]</div>
-        {{each najie_gongfa item}}
-        <div class="user_font">
-        <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-        <div >数量:{{item.acount}}</div>
         </div>
         {{/each}}
       </div>

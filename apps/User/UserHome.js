@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
-import { get_equipment_img } from '../ShowImeg/showData.js'
+import ShowData from '../ShowImeg/showData.js'
 import { segment } from "oicq"
 /**
  * 全局变量
@@ -146,12 +146,12 @@ export class UserHome extends plugin {
         }
 
         if (func == "装备") {
-            let equipmen=await Xiuxian.instead_equipment(usr_qq,searchsthing.id,searchsthing.class,searchsthing.type);
+            let equipmen= await Xiuxian.instead_equipment(usr_qq,searchsthing.id,searchsthing.class,searchsthing.type);
             if(equipmen==1){
                 //重复装备
                 return;
             }
-            let img = await get_equipment_img(e);
+            let img = await ShowData.get_equipment_img(e);
             e.reply(img);
         }
         if (func == "服用") {

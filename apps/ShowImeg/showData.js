@@ -335,7 +335,7 @@ export async function get_najie_img(e) {
     let daoju=[];
     let gonfa=[];
     let ring=[];
-
+    
     for(var i=0;i<najie.arms.length;i++){
         let thing=await Xiuxian.exist_thing(najie.arms[i].id,najie.arms[i].class);
         thing.acount=najie.arms[i].acount;
