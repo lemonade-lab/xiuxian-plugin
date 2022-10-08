@@ -267,11 +267,7 @@ export async function get_equipment_img(e) {
     }
 
     var burst = Math.trunc(parseInt(player.burst * 100))
-
-    /**
-     * 查装备
-     */
-
+    
     let equipment = await data.getData("equipment", usr_qq);
     let arms = data.wuqi_list.find(item => item.id == equipment.arms.id);
     if (arms == undefined) {

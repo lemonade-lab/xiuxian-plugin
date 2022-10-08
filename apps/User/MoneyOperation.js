@@ -200,11 +200,11 @@ export class MoneyOperation extends plugin {
 
         await redis.set("xiuxian:player:" + B + ":honbaoacount", acount);
 
-        await Xiuxian.Add_lingshi(usr_qq, addlingshi);
+        await Xiuxian.Add_lingshi(A, addlingshi);
 
         e.reply(player.name + "抢到一个" + addlingshi + "灵石的红包！");
 
-        await redis.set("xiuxian:player:" + usr_qq + ":last_getbung_time", now_time);
+        await redis.set("xiuxian:player:" + A + ":last_getbung_time", now_time);
 
         return;
     }
