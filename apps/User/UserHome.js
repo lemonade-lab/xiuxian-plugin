@@ -78,7 +78,7 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let thing_name = e.msg.replace("#学习", '');
+        let thing_name = e.msg.replace("#服用", '');
         let code = thing_name.split("\*");
         thing_name=code[0];
         let thing_acount=code[1];
@@ -156,7 +156,7 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let thing_name = e.msg.replace("#学习", '');
+        let thing_name = e.msg.replace("#消耗", '');
         let searchsthing = await Xiuxian.search_thing(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
