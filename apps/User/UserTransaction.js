@@ -62,31 +62,32 @@ export class UserTransaction extends plugin {
             e.reply(`灵石不足`);
             return;
         }
-        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
+
         let commodities = ifexist.price * 1.2 * quantity;
 
-        if(ifexist.clas==1){ 
+        if(ifexist.class==1){ 
             await Xiuxian.Add_najie_thing_arms(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-        else if(ifexist.clas==2){ 
+        else if(ifexist.class==2){ 
             await Xiuxian.Add_najie_thing_huju(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-        else if(ifexist.clas==3){ 
+        else if(ifexist.class==3){ 
             await Xiuxian.Add_najie_thing_fabao(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-        else if(ifexist.clas==4){ 
+        else if(ifexist.class==4){ 
             await Xiuxian.Add_najie_thing_danyao(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-        else if(ifexist.clas==5){ 
+        else if(ifexist.class==5){ 
             await Xiuxian.Add_najie_thing_gonfa(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-        else if(ifexist.clas==6){ 
+        else if(ifexist.class==6){ 
             await Xiuxian.Add_najie_thing_daoju(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-        else if(ifexist.clas==7){ 
+        else if(ifexist.class==7){ 
             await Xiuxian.Add_najie_thing_ring(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
 
+        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
 
         await Xiuxian.Add_lingshi(usr_qq, -commodities_price);
         await Xiuxian.Worldwealth(commodities);
@@ -127,27 +128,29 @@ export class UserTransaction extends plugin {
         if(ifexist.clas==1){ 
             await Xiuxian.Add_najie_thing_arms(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
-        else if(ifexist.clas==2){ 
+        else if(ifexist.class==2){ 
             await Xiuxian.Add_najie_thing_huju(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
-        else if(ifexist.clas==3){ 
+        else if(ifexist.class==3){ 
             await Xiuxian.Add_najie_thing_fabao(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
-        else if(ifexist.clas==4){ 
+        else if(ifexist.class==4){ 
             await Xiuxian.Add_najie_thing_danyao(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
-        else if(ifexist.clas==5){ 
+        else if(ifexist.class==5){ 
             await Xiuxian.Add_najie_thing_gonfa(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
-        else if(ifexist.clas==6){ 
+        else if(ifexist.class==6){ 
             await Xiuxian.Add_najie_thing_daoju(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
-        else if(ifexist.clas==7){ 
+        else if(ifexist.class==7){ 
             await Xiuxian.Add_najie_thing_ring(usr_qq, ifexist.id, ifexist.class, ifexist.type, -quantity);
         }
+        
+        e.reply(`出售得${commodities_price}灵石 `);
+
         let commodities_price = searchsthing.price * quantity;
         await Xiuxian.Add_lingshi(usr_qq, commodities_price);
-        e.reply(`出售得${commodities_price}灵石 `);
         return;
     }
 }

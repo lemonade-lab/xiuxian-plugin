@@ -177,26 +177,25 @@ export class Exchange extends plugin {
             return;
         }
 
-
-        if(ifexist.clas==1){ 
+        if(ifexist.class==1){ 
             await Xiuxian.Add_najie_thing_arms(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
-        else if(ifexist.clas==2){ 
+        else if(ifexist.class==2){ 
             await Xiuxian.Add_najie_thing_huju(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
-        else if(ifexist.clas==3){ 
+        else if(ifexist.class==3){ 
             await Xiuxian.Add_najie_thing_fabao(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
-        else if(ifexist.clas==4){ 
+        else if(ifexist.class==4){ 
             await Xiuxian.Add_najie_thing_danyao(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
-        else if(ifexist.clas==5){ 
+        else if(ifexist.class==5){ 
             await Xiuxian.Add_najie_thing_gonfa(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
-        else if(ifexist.clas==6){ 
+        else if(ifexist.class==6){ 
             await Xiuxian.Add_najie_thing_daoju(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
-        else if(ifexist.clas==7){ 
+        else if(ifexist.class==7){ 
             await Xiuxian.Add_najie_thing_ring(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
         }
 
