@@ -619,14 +619,14 @@ export async function exist_najie_thing(usr_qq, thing_id, thing_class) {
  */
 export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    
+
     let equipment = {
         id: thing_id,
         class: thing_class,
         type: thing_type,
         acount: thing_acount
     }
-    
+
     if (thing_class == 1) {
         let thing = await najie.arms.find(item => item.id == thing_id);
         let acount;
@@ -652,7 +652,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         }
         else {
             acount = await thing.acount + thing_acount;
-             najie.huju.find(item => item.id == thing_id).acount = acount;
+            najie.huju.find(item => item.id == thing_id).acount = acount;
         }
         if (acount < 1) {
             najie.huju = await najie.huju.filter(item => item.id != thing_id);
@@ -669,7 +669,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         }
         else {
             acount = await thing.acount + thing_acount;
-             najie.fabao.find(item => item.id == thing_id).acount = acount;
+            najie.fabao.find(item => item.id == thing_id).acount = acount;
         }
         if (acount < 1) {
             najie.fabao = await najie.fabao.filter(item => item.id != thing_id);
@@ -686,7 +686,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         }
         else {
             acount = await thing.acount + thing_acount;
-             najie.danyao.find(item => item.id == thing_id).acount = acount;
+            najie.danyao.find(item => item.id == thing_id).acount = acount;
         }
         if (acount < 1) {
             najie.danyao = await najie.danyao.filter(item => item.id != thing_id);
@@ -694,7 +694,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         await Write_najie(usr_qq, najie);
         return;
     }
-    
+
 
     if (thing_class == 5) {
         let thing = await najie.gonfa.find(item => item.id == thing_id);
@@ -704,7 +704,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         }
         else {
             acount = await thing.acount + thing_acount;
-             najie.gonfa.find(item => item.id == thing_id).acount = acount;
+            najie.gonfa.find(item => item.id == thing_id).acount = acount;
         }
 
         if (acount < 1) {
@@ -722,7 +722,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         }
         else {
             acount = await thing.acount + thing_acount;
-             najie.daoju.find(item => item.id == thing_id).acount = acount;
+            najie.daoju.find(item => item.id == thing_id).acount = acount;
         }
         if (acount < 1) {
             najie.daoju = await najie.daoju.filter(item => item.id != thing_id);
@@ -739,7 +739,7 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
         }
         else {
             acount = await thing.acount + thing_acount;
-             najie.ring.find(item => item.id == thing_id).acount = acount;
+            najie.ring.find(item => item.id == thing_id).acount = acount;
         }
         if (acount < 1) {
             najie.ring = await najie.ring.filter(item => item.id != thing_id);
@@ -754,39 +754,45 @@ export async function Add_najie_thing(usr_qq, thing_id, thing_class, thing_type,
 /**
  * 替换装备
  */
-export async function instead_equipment(usr_qq, thing_id, thing_class, thing_type) {
+export async function instead_equipment_arms(usr_qq, thing_id, thing_class,thing_type) {
+    await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
     let equipment = await Read_equipment(usr_qq);
-    if (thing_type == 1) {
-        await Add_najie_thing(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);
-        equipment.arms.id = thing_id;
-        equipment.arms.class = thing_class;
-        equipment.arms.type = thing_type;
-        equipment.arms.acount = 1;
-        await Write_equipment(usr_qq, equipment);
-        await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
-        return 0;
-    }
-    if (thing_type == 2) {
-        await Add_najie_thing(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
-        equipment.huju.id = thing_id;
-        equipment.huju.class = thing_class;
-        equipment.huju.type = thing_type;
-        equipment.huju.acount = 1; 
-        await Write_equipment(usr_qq, equipment);
-        await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
-        return 0;
-    }
+    equipment.arms.id = thing_id;
+    equipment.arms.class = thing_class;
+    equipment.arms.type = thing_type;
+    equipment.arms.acount = 1;
+    await Write_equipment(usr_qq, equipment);
+    await Add_najie_thing(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);
+    return 0;
+}
 
-    if (thing_type == 3) {
-        await Add_najie_thing(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
-        equipment.fabao.id = thing_id;
-        equipment.fabao.class = thing_class;
-        equipment.fabao.type = thing_type;
-        equipment.fabao.acount = 1;
-        await Write_equipment(usr_qq, equipment);
-        await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
-        return 0;
-    }
+/**
+ * 替换装备
+ */
+export async function instead_equipment_fabao(usr_qq, thing_id, thing_class,thing_type) {
+    await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
+    let equipment = await Read_equipment(usr_qq);
+    equipment.fabao.id = thing_id;
+    equipment.fabao.class = thing_class;
+    equipment.fabao.type = thing_type;
+    equipment.fabao.acount = 1;
+    await Write_equipment(usr_qq, equipment);
+    await Add_najie_thing(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
+    return 0;
+}
+
+/**
+ * 替换护具
+ */
+export async function instead_equipment_huju(usr_qq, thing_id, thing_class,thing_type) {
+    await Add_najie_thing(usr_qq, thing_id, thing_class, thing_type, -1);
+    let equipment = await Read_equipment(usr_qq);
+    equipment.huju.id = thing_id;
+    equipment.huju.class = thing_class;
+    equipment.huju.type = thing_type;
+    equipment.huju.acount = 1;
+    await Write_equipment(usr_qq, equipment);
+    await Add_najie_thing(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
     return 0;
 }
 
@@ -1149,9 +1155,9 @@ export async function Read_Exchange() {
             }
             return data;
         })
-    } 
+    }
     catch
-     {
+    {
         await Write_Exchange([]);
         Exchange = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
