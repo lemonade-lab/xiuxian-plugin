@@ -394,7 +394,23 @@ export async function get_state_img(e) {
     if (!ifexistplay) {
         return;
     }
-    let Level_list = data.Level_list;
+    /**
+     * 根据玩家境界去显示境界
+     */
+
+    
+     let player = await data.getData("player", usr_qq);
+     let Level_id=player.level_id;
+     let Level_list = data.Level_list;
+
+    //循环删除表信息
+    for(var i=1;i<=60;i++){
+        if(i>Level_id-6&&i<Level_id+6){
+            continue;
+        }
+        Level_list = await Level_list.filter(item => item.level_id != i);
+    }
+
     let state_data = {
         user_id: usr_qq,
         Level_list: Level_list
@@ -407,8 +423,6 @@ export async function get_state_img(e) {
 
 }
 
-
-
 /**
  * 返回境界列表图片
  * @return image
@@ -420,7 +434,22 @@ export async function get_statemax_img(e) {
     if (!ifexistplay) {
         return;
     }
+
+    let player = await data.getData("player", usr_qq);
+
+    let Level_id=player.Physique_id;
+
     let LevelMax_list = data.LevelMax_list;
+
+   //循环删除表信息
+   for(var i=1;i<=60;i++){
+       if(i>Level_id-6&&i<Level_id+6){
+           continue;
+       }
+       LevelMax_list = await LevelMax_list.filter(item => item.level_id != i);
+   }
+
+
     let statemax_data = {
         user_id: usr_qq,
         LevelMax_list: LevelMax_list
