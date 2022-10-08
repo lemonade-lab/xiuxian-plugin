@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
-import ShowData from '../ShowImeg/showData.js'
+import * as ShowData from '../ShowImeg/showData.js'
 import { segment } from "oicq"
 /**
  * 全局变量
