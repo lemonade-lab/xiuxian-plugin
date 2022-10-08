@@ -89,7 +89,29 @@ export class Exchange extends plugin {
                 e.reply("下架物品至少上交1w");
                 return;
             }
-            await Xiuxian.Add_najie_thing(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+
+            if(Exchange[x].class==1){ 
+                await Xiuxian.Add_najie_thing_arms(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+            else if(Exchange[x].class==2){ 
+                await Xiuxian.Add_najie_thing_huju(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+            else if(Exchange[x].class==3){ 
+                await Xiuxian.Add_najie_thing_fabao(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+            else if(Exchange[x].class==4){ 
+                await Xiuxian.Add_najie_thing_danyao(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+            else if(Exchange[x].class==5){ 
+                await Xiuxian.Add_najie_thing_gonfa(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+            else if(Exchange[x].class==6){ 
+                await Xiuxian.Add_najie_thing_daoju(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+            else if(Exchange[x].class==7){ 
+                await Xiuxian.Add_najie_thing_ring(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+            }
+           
             Exchange = Exchange.filter(item => item.qq != thingqq);
             await Xiuxian.Write_Exchange(Exchange);
             await Xiuxian.Add_lingshi(usr_qq, -20000);
@@ -154,7 +176,30 @@ export class Exchange extends plugin {
             e.reply("数量不足，你只有" + najie_thing.acount);
             return;
         }
-        await Xiuxian.Add_najie_thing(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+
+
+        if(ifexist.clas==1){ 
+            await Xiuxian.Add_najie_thing_arms(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+        else if(ifexist.clas==2){ 
+            await Xiuxian.Add_najie_thing_huju(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+        else if(ifexist.clas==3){ 
+            await Xiuxian.Add_najie_thing_fabao(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+        else if(ifexist.clas==4){ 
+            await Xiuxian.Add_najie_thing_danyao(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+        else if(ifexist.clas==5){ 
+            await Xiuxian.Add_najie_thing_gonfa(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+        else if(ifexist.clas==6){ 
+            await Xiuxian.Add_najie_thing_daoju(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+        else if(ifexist.clas==7){ 
+            await Xiuxian.Add_najie_thing_ring(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
+        }
+
         let Exchange = await Xiuxian.Read_Exchange();
         let whole = thing_value * thing_acunot;
         whole = await Xiuxian.Numbers(whole);
@@ -249,7 +294,27 @@ export class Exchange extends plugin {
         if (time <= 0) {
             let thing_whole = Exchange[x].whole;
             if (player.lingshi > thing_whole) {
-                await Xiuxian.Add_najie_thing(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                if(Exchange[x].class==1){ 
+                    await Xiuxian.Add_najie_thing_arms(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
+                else if(Exchange[x].class==2){ 
+                    await Xiuxian.Add_najie_thing_huju(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
+                else if(Exchange[x].class==3){ 
+                    await Xiuxian.Add_najie_thing_fabao(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
+                else if(Exchange[x].class==4){ 
+                    await Xiuxian.Add_najie_thing_danyao(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
+                else if(Exchange[x].class==5){ 
+                    await Xiuxian.Add_najie_thing_gonfa(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
+                else if(Exchange[x].class==6){ 
+                    await Xiuxian.Add_najie_thing_daoju(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
+                else if(Exchange[x].class==7){ 
+                    await Xiuxian.Add_najie_thing_ring(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
+                }
                 await Xiuxian.Add_lingshi(usr_qq, -thing_whole);
                 let addWorldmoney = thing_whole * 0.1;
                 thing_whole = thing_whole * 0.9;

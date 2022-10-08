@@ -115,7 +115,7 @@ export class UserHome extends plugin {
             await Xiuxian.Add_experience(usr_qq, thing_acount * experience);
             e.reply("修为增加" + thing_acount * searchsthing.exp);
         }
-        await Xiuxian.Add_najie_thing(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -thing_acount);
+        await Xiuxian.Add_najie_thing_danyao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -thing_acount);
         return;
     }
 
@@ -148,7 +148,7 @@ export class UserHome extends plugin {
         await Xiuxian.Add_player_AllSorcery(usr_qq, searchsthing.id);
         await Xiuxian.player_efficiency(usr_qq);
         e.reply("成功学习" + thing_name);
-        await Xiuxian.Add_najie_thing(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
+        await Xiuxian.Add_najie_thing_gonfa(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
         return;
     }
 
@@ -200,7 +200,7 @@ export class UserHome extends plugin {
             await Xiuxian.Write_player(usr_qq, player);
             e.reply("显示成功");
         }
-        await Xiuxian.Add_najie_thing(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
+        await Xiuxian.Add_najie_thing_ring(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
         return;
     }
 }

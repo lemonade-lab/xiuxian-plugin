@@ -46,15 +46,11 @@ export class UserTransaction extends plugin {
         if (quantity > 99) {
             quantity = 99;
         }
-
         let ifexist = data.commodities_list.find(item => item.name == thing_name);
-        
-
         if (!ifexist) {
             e.reply(`柠檬堂不卖:${thing_name}`);
             return;
         }
-
         let player = await Xiuxian.Read_player(usr_qq);
         let lingshi = player.lingshi;
         if (lingshi <= 0) {
@@ -67,12 +63,8 @@ export class UserTransaction extends plugin {
             return;
         }
         e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
-        
         let commodities = ifexist.price * 1.2 * quantity;
-
-
         await Xiuxian.Add_najie_thing(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
-
         await Xiuxian.Add_lingshi(usr_qq, -commodities_price);
         await Xiuxian.Worldwealth(commodities);
         return;
@@ -85,7 +77,6 @@ export class UserTransaction extends plugin {
         if (!Go) {
             return;
         }
-
         let usr_qq = e.user_id;
         let thing = e.msg.replace("#", '');
         thing = thing.replace("出售", '');
@@ -95,7 +86,6 @@ export class UserTransaction extends plugin {
         if (quantity > 99) {
             quantity = 99;
         }
-
         let searchsthing = await Xiuxian.search_thing(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
@@ -110,12 +100,10 @@ export class UserTransaction extends plugin {
             e.reply("数量不足，你只有" + najie_thing.acount);
             return;
         }
-
         await Xiuxian.Add_najie_thing(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -quantity);
         let commodities_price = searchsthing.price * quantity;
         await Xiuxian.Add_lingshi(usr_qq, commodities_price);
-        e.reply(`出售获得${commodities_price}灵石 `);
-
+        e.reply(`出售得${commodities_price}灵石 `);
         return;
     }
 }
