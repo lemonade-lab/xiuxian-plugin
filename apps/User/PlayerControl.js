@@ -253,8 +253,8 @@ export class PlayerControl extends plugin {
 
     async biguan_jiesuan(user_id, time, is_random, group_id) {
         let usr_qq = user_id;
-        await Xiuxian.player_efficiency(usr_qq);
         let player = data.getData("player", usr_qq);
+        await Xiuxian.player_efficiency(usr_qq);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         var size = this.xiuxianConfigData.biguan.size;
         let xiuwei = parseInt((size * now_level_id) * (player.talentsize + 1));

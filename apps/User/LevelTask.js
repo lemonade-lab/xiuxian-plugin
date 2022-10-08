@@ -137,13 +137,6 @@ export class LevelTask extends plugin {
 
     }
 
-    /**
-     * 增加player文件某属性的值（在原本的基础上增加）
-     * @param user_qq 
-     * @param num 属性的value
-     * @param type 修改的属性
-     * @returns {Promise<void>}
-     */
     async setFileValue(user_qq, num, type) {
         let user_data = data.getData("player", user_qq);
         let current_num = user_data[type];//当前灵石数量
@@ -152,16 +145,10 @@ export class LevelTask extends plugin {
             new_num = user_data.hpmax;//治疗血量需要判读上限
         }
         user_data[type] = new_num;
-        await data.setData("player", user_qq, user_data);
+        data.setData("player", user_qq, user_data);
         return;
     }
 
-    /**
-     * 推送消息，群消息推送群，或者推送私人
-     * @param id
-     * @param is_group
-     * @returns {Promise<void>}
-     */
     async pushInfo(id, is_group, msg) {
         if (is_group) {
             await Bot.pickGroup(id)

@@ -902,7 +902,7 @@ export function isNotBlank(value) {
 /**
  * 强制修正至少为1
  */
-export function Numbers(value) {
+export async function Numbers(value) {
     let x = value;
     if (isNaN(parseFloat(x)) && !isFinite(x)) {
         x = 1;
@@ -1017,7 +1017,7 @@ export async function Go(e) {
     if (now_time < CD + transferTimeout) {
         let CD_m = Math.trunc((CD + transferTimeout - now_time) / 60 / 1000);
         let CD_s = Math.trunc(((CD + transferTimeout - now_time) % 60000) / 1000);
-        return   "周期："+transferTimeout / 1000 / 60+"，CD: "+CD_m+"分"+CD_s+"秒";
+        return   "T:"+transferTimeout / 1000 / 60+"------CD:"+CD_m+"s"+CD_s+"m";
     }
     return 0;
 }

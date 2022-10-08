@@ -25,9 +25,6 @@
 - group: 君子爱财
   list:
     - icon: help-icon_10
-      title: "#打开钱包"
-      desc: "水脚脚的钱包"
-    - icon: help-icon_10
       title: "#金银坊"
       desc: "需要携带一定灵石"
     - icon: help-icon_10

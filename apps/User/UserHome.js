@@ -47,28 +47,19 @@ export class UserHome extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-
         var reg = new RegExp(/取|存/);
         let func = reg.exec(e.msg);
         let msg = e.msg.replace(reg, '');
         msg = msg.replace("#", '');
         let lingshi = msg.replace("灵石", '');
-        if (func == "存" && lingshi == "全部") {
+        if (lingshi == "全部") {
             let P = await Xiuxian.Read_player(usr_qq);
             lingshi = P.lingshi;
+
         }
-        if (func == "取" && lingshi == "全部") {
-            let N = await Xiuxian.Read_najie(usr_qq);
-            lingshi = N.lingshi
-        }
-        if (parseInt(lingshi) != parseInt(lingshi)) {
-            return;
-        } else {
-            lingshi = parseInt(lingshi);
-            if (lingshi < 1) {
-                return;
-            }
-        }
+
+        lingshi=await Xiuxian.Numbers(lingshi);
+
         if (func == "存") {
             let player_lingshi = await Xiuxian.Read_player(usr_qq);
             player_lingshi = player_lingshi.lingshi;
@@ -80,27 +71,29 @@ export class UserHome extends plugin {
             if (najie.lingshimax < najie.lingshi + lingshi) {
                 await Xiuxian.Add_najie_lingshi(usr_qq, najie.lingshimax - najie.lingshi);
                 await Xiuxian.Add_lingshi(usr_qq, -najie.lingshimax + najie.lingshi);
-                e.reply([segment.at(usr_qq), `已为您放入${najie.lingshimax - najie.lingshi}灵石,纳戒存满了`]);
+                e.reply([segment.at(usr_qq), `已为您放入${najie.lingshimax - najie.lingshi}灵石,储物袋存满了`]);
                 return;
             }
             await Xiuxian.Add_najie_lingshi(usr_qq, lingshi);
             await Xiuxian.Add_lingshi(usr_qq, -lingshi);
-            e.reply([segment.at(usr_qq), `储存完毕,你目前还有${player_lingshi - lingshi}灵石,纳戒内有${najie.lingshi + lingshi}灵石`]);
+            e.reply([segment.at(usr_qq), `储存完毕,你目前还有${player_lingshi - lingshi}灵石,储物袋内有${najie.lingshi + lingshi}灵石`]);
             return;
         }
+
         if (func == "取") {
             let najie = await Xiuxian.Read_najie(usr_qq);
             if (najie.lingshi < lingshi) {
-                e.reply([segment.at(usr_qq), `纳戒灵石不足,你目前最多取出${najie.lingshi}灵石`]);
+                e.reply([segment.at(usr_qq), `储物袋灵石不足,你目前最多取出${najie.lingshi}灵石`]);
                 return;
             }
             let player_lingshi = await Xiuxian.Read_player(usr_qq);
             player_lingshi = player_lingshi.lingshi;
             await Xiuxian.Add_najie_lingshi(usr_qq, -lingshi);
             await Xiuxian.Add_lingshi(usr_qq, lingshi);
-            e.reply([segment.at(usr_qq), `本次取出灵石${lingshi},你的纳戒还剩余${najie.lingshi - lingshi}灵石`]);
+            e.reply([segment.at(usr_qq), `本次取出灵石${lingshi},你的储物袋还剩余${najie.lingshi - lingshi}灵石`]);
             return;
         }
+
         return;
     }
 
@@ -116,7 +109,6 @@ export class UserHome extends plugin {
         }
 
         let player = await Xiuxian.Read_player(usr_qq);
-
 
         var reg = new RegExp(/装备|服用|消耗|学习/);
         let func = reg.exec(e.msg);
@@ -177,7 +169,7 @@ export class UserHome extends plugin {
         if (func == "消耗") {
             //隐身水
             if (searchsthing.type == 1) {
-                e.reply([segment.at(usr_qq), "无法在纳戒中消耗"]);
+                e.reply([segment.at(usr_qq), "无法在储物袋中消耗"]);
                 return;
             }
             //洗根水
@@ -231,14 +223,16 @@ export class UserHome extends plugin {
         if (!e.isGroup) {
             return;
         }
-        
+
         let usr_qq = e.user_id;
+
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
+
         let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-         if (game_action == 0) {
+        if (game_action == 0) {
             e.reply("游戏进行中...");
            return;
         }
@@ -248,18 +242,13 @@ export class UserHome extends plugin {
         let code = thing.split("\*");
         let thing_name = code[0];
         let quantity = 0;
-        if (parseInt(code[1]) != parseInt(code[1])) {
-            quantity = 1;
-        }
-        else if (parseInt(code[1]) < 1) {
-            return;
-        }
-        else if (parseInt(code[1]) > 99) {
+
+        quantity=await Xiuxian.Numbers(code[1]);
+
+        if (quantity > 99) {
             quantity = 99;
         }
-        else {
-            quantity = parseInt(code[1]);
-        }
+
         let ifexist = data.commodities_list.find(item => item.name == thing_name);
         if (!ifexist) {
             e.reply(`柠檬堂不卖:${thing_name}`);
@@ -276,8 +265,14 @@ export class UserHome extends plugin {
             e.reply(`灵石不足`);
             return;
         }
+
         let commodities = ifexist.price * 1.2 * quantity;
         await Xiuxian.Worldwealth(commodities);
+        await Xiuxian.Add_najie_thing(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
+        await Xiuxian.Add_lingshi(usr_qq, -commodities_price);
+        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
+
+        
         /**
           * 一级类型
           * 武器：1  
@@ -288,9 +283,6 @@ export class UserHome extends plugin {
           * 道具：6   
           * 戒指：7
           */
-        await Xiuxian.Add_najie_thing(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
-        await Xiuxian.Add_lingshi(usr_qq, -commodities_price);
-        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
         return;
     }
 
@@ -308,14 +300,10 @@ export class UserHome extends plugin {
         let code = thing.split("\*");
         let thing_name = code[0];
         let quantity = 0;
-        if (parseInt(code[1]) != parseInt(code[1])) {
-            quantity = 1;
-        }
-        else if (parseInt(code[1]) < 1) {
-            quantity = 1;
-        }
-        else {
-            quantity = parseInt(code[1]);
+
+        quantity=await Xiuxian.Numbers(code[1]);
+        if (quantity > 99) {
+            quantity = 99;
         }
 
         let searchsthing = await Xiuxian.search_thing(thing_name);
@@ -332,7 +320,6 @@ export class UserHome extends plugin {
             e.reply("数量不足，你只有" + najie_thing.acount);
             return;
         }
-
 
         await Xiuxian.Add_najie_thing(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -quantity);
         let commodities_price = searchsthing.price * quantity;

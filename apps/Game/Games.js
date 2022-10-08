@@ -285,14 +285,9 @@ export class Games extends plugin {
             }
             let addWorldmoney = yazhu[usr_qq] * (1 - x);
             yazhu[usr_qq] = Math.trunc(yazhu[usr_qq] * x);
-            let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-            if (Worldmoney == null || Worldmoney == undefined || Worldmoney <= 0 || Worldmoney == NaN) {
-                Worldmoney = 1;
-            }
-            Worldmoney = Number(Worldmoney);
-            Worldmoney = Worldmoney + addWorldmoney;
-            Worldmoney = Number(Worldmoney);
-            await redis.set("Xiuxian:Worldmoney", Worldmoney);
+
+            await Xiuxian.Worldwealth(addWorldmoney);
+
             if (Xiuxian.isNotNull(player.金银坊胜场)) {
                 player.金银坊胜场 = parseInt(player.金银坊胜场) + 1;
                 player.金银坊收入 = parseInt(player.金银坊收入) + parseInt(yazhu[usr_qq]);

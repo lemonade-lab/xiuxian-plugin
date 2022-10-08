@@ -79,9 +79,6 @@ export class PlayerControlTask extends plugin {
                         blood=await Xiuxian.Numbers(blood * time);
                         await this.setFileValue(player_id, xiuwei + other_xiuwei, "experience");
                         await this.setFileValue(player_id, blood, "nowblood");
-                        if (action.acount == null) {
-                            action.acount = 0;
-                        }
                         await Xiuxian.offaction(player_id);
                         msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
                         if (is_group) {
@@ -119,9 +116,6 @@ export class PlayerControlTask extends plugin {
                         let get_lingshi = lingshi * time + other_lingshi;
                         get_lingshi=await Xiuxian.Numbers(get_lingshi);
                         await this.setFileValue(player_id,get_lingshi, "lingshi");
-                        if (action.acount == null) {
-                            action.acount = 0;
-                        }
                         await Xiuxian.offaction(player_id);
                         msg.push("\n降妖得到" + get_lingshi);
                         log_mag += "收入" + get_lingshi;
