@@ -388,6 +388,7 @@ export class Games extends plugin {
         }
         let UserGo = await Xiuxian.UserGo(B);
         if (!UserGo) {
+            e.reply(UserGo);
             return;
         }
         let ifexistplay_B = await Xiuxian.existplayer(B);
