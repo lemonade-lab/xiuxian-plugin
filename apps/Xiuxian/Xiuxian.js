@@ -805,7 +805,7 @@ export function get_random_fromARR(ARR) {
     let randindex = Math.trunc(Math.random() * ARR.length);
     return ARR[randindex];
 }
-//sleep
+//延迟
 export async function sleep(time) {
     return new Promise(resolve => {
         setTimeout(resolve, time);

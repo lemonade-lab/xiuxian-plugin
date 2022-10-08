@@ -105,11 +105,10 @@ export class Games extends plugin {
         let ClassCD = ":Xiuianplay";
         let now_time = new Date().getTime();
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if (CD == 1) {
+        if (CD != 0) {
+            e.reply(CD);
             return;
         }
-        
-        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
 
@@ -446,39 +445,43 @@ export class Games extends plugin {
 }
 
 
-
-//图开关
 export async function setu(e) {
-    e.reply(`玩命加载图片中,请稍后...   ` + "\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)")
-    let url;
-    url = "https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0";
+    let url= "https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0";
     let msg = [];
     let res;
-    //
     try {
         let response = await fetch(url);
         res = await response.json();
-    } catch (error) {
+    } 
+    catch (error) {
         console.log('Request Failed', error);
     }
-    if (res !== '{}') { console.log('res不为空'); } else { console.log('res为空'); }
+
     let link = res.data[0].urls.original;//获取图链
+
     link = link.replace('pixiv.cat', 'pixiv.re');//链接改为国内可访问的域名
+
     let pid = res.data[0].pid;//获取图片ID
     let uid = res.data[0].uid;//获取画师ID
     let title = res.data[0].title;//获取图片名称
     let author = res.data[0].author;//获取画师名称
     let px = res.data[0].width + '*' + res.data[0].height;//获取图片宽高
+
     msg.push("User: " + author +
         "\nUid: " + uid +
         "\nTitle: " + title +
         "\nPid: " + pid +
         "\nPx: " + px +
-        "\nLink: " + link);
+        "\nLink: " + link
+        );
+
     await Xiuxian.sleep(1000);
+
     e.reply(segment.image(link));
+
     await Xiuxian.ForwardMsg(e, msg);
-    return true;
+
+    return ;
 }
 
 

@@ -60,11 +60,44 @@ export class AdminSuper extends plugin {
                 {
                     reg: '^#修仙世界$',
                     fnc: 'Worldstatistics'
+                },
+                {
+                    reg: '^#删除世界$',
+                    fnc: 'deleteallusers'
                 }
             ],
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
+    async deleteallusers(e){
+        if (!e.isMaster) {
+            return;
+        }
+        if (!e.isGroup) {
+            return;
+        }
+        e.reply("开始崩碎世界");
+        let playerList = [];
+        let files = fs
+            .readdirSync(Xiuxian.__PATH.player)
+            .filter((file) => file.endsWith(".json"));
+        for (let file of files) {
+            file = file.replace(".json", "");
+            playerList.push(file);
+        }
+        for (let player_id of playerList) {
+            fs.rmSync(`${Xiuxian.__PATH.player}/${player_id}.json`);
+            fs.rmSync(`${Xiuxian.__PATH.equipment}/${player_id}.json`);
+            fs.rmSync(`${Xiuxian.__PATH.najie}/${player_id}.json`);
+            await Xiuxian.offaction(player_id);
+        }
+        e.reply("世界已崩碎");
+        return;
+    }
+
+
+
+
 
     async synchronization(e) {
         if (!e.isMaster) {

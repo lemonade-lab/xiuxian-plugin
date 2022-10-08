@@ -30,8 +30,12 @@ export class UserStart extends plugin {
                     fnc: 'Show_player'
                 },
                 {
-                    reg: '^#(改名.*)|(设置道宣.*)$',
+                    reg: '^#改名.*$',
                     fnc: 'Change_player_name'
+                },
+                {
+                    reg: '^#设置道宣.*$',
+                    fnc: 'Change_player_autograph'
                 },
                 {
                     reg: '^#修仙签到$',
@@ -63,52 +67,44 @@ export class UserStart extends plugin {
             "name": `${n}号`,//道号
             "autograph": "无",//道宣
             "race": 1,//种族
-
             "level_id": 1,//练气境界
             "Physique_id": 1,//练体境界 
             "experience": 1,//练气经验
             "experiencemax": 1,//练体经验
-
             "lingshi": 1000,//灵石
             "nowblood": 8040,//血量
-
             "talent": newtalent,//灵根
             "talentshow": 1,//显示0，隐藏1
             "talentsize": 0,//天赋
-
             "AllSorcery": [],//功法
             "occupation": [],//职业
-
             "power_place": 1,//仙界
-            
             "days": 0,//签到
         }
         await Xiuxian.Write_player(usr_qq, new_player);
 
         //初始化装备
         let new_equipment = {
-            "arms": 
-                {
+            "arms":
+            {
                 "id": 1,
                 "class": "1",
                 "type": "1"
-               },
-            "huju": 
-                {
+            },
+            "huju":
+            {
                 "id": 1,
                 "class": "2",
                 "type": "1"
-                },
-            "fabao": 
-                {
+            },
+            "fabao":
+            {
                 "id": 1,
                 "class": "3",
                 "type": "1"
-                }
+            }
         }
-
         await Xiuxian.Write_equipment(usr_qq, new_equipment);
-
         //初始化纳戒
         let new_najie = {
             "grade": 1,
@@ -122,79 +118,48 @@ export class UserStart extends plugin {
             "gonfa": [],
             "ring": []
         }
-
         await Xiuxian.Write_najie(usr_qq, new_najie);
-        await Xiuxian.Add_HP(usr_qq, 999999);
         this.Show_player(e);
-
         return;
     }
 
 
     //重新修仙
     async reCreate_player(e) {
-        let Go=await Xiuxian.Go(e);
+        let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
         let usr_qq = e.user_id;
-        
-        let now = new Date();
-        let nowTime = now.getTime(); //获取当前时间戳
-        let lastrestart_time = await redis.get("xiuxian:player:" + usr_qq + ":last_reCreate_time");//获得上次重生时间戳,
-        lastrestart_time = parseInt(lastrestart_time);
-        var time = this.xiuxianConfigData.CD.reborn;
-        let rebornTime = parseInt(60000 * time)
-        if (nowTime < lastrestart_time + rebornTime) {
-            let waittime_m = Math.trunc((lastrestart_time + rebornTime - nowTime) / 60 / 1000);
-            let waittime_s = Math.trunc(((lastrestart_time + rebornTime - nowTime) % 60000) / 1000);
-            e.reply(`每${rebornTime / 60 / 1000}分钟只能转世一次` + `剩余cd:${waittime_m}分 ${waittime_s}秒`);
-            return;
-        }
-        this.setContext('RE_xiuxian');
-        await e.reply('发送【转世】或者【罢了】进行二次确定', false, { at: true });
-        return;
-    }
 
+        let CDTime = this.xiuxianConfigData.CD.reborn;
+        let ClassCD = ":last_reCreate_time";
+        let now_time = new Date().getTime();
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if (CD != 0) {
+            e.reply(CD);
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
-    //重生方法
-    async RE_xiuxian(e) {
-        if (!e.isGroup) {
+        let acount = await redis.get("xiuxian:player:" + usr_qq + ":reCreate_acount");
+        if (acount >= 15) {
+            e.reply("灵魂虚弱，已不可转世！");
             return;
         }
-        let usr_qq = e.user_id;
-        let new_msg = this.e.message;
-        let choice = new_msg[0].text;
-        let now = new Date();
-        let nowTime = now.getTime(); //获取当前时间戳
-        if (choice == "罢了") {
-            this.finish('RE_xiuxian');
-            return;
-        }
-        else if (choice == "转世") {
-            let acount = await redis.get("xiuxian:player:" + usr_qq + ":reCreate_acount");
-            if (acount >= 15) {
-                e.reply("灵魂虚弱，已不可转世！");
-                return;
-            }
-            acount = Number(acount);
-            acount++;
-            fs.rmSync(`${Xiuxian.__PATH.player}/${usr_qq}.json`);
-            fs.rmSync(`${Xiuxian.__PATH.equipment}/${usr_qq}.json`);
-            fs.rmSync(`${Xiuxian.__PATH.najie}/${usr_qq}.json`);
-            e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
-            await this.Create_player(e);
-            await redis.set("xiuxian:player:" + usr_qq + ":last_reCreate_time", nowTime);//redis设置本次改名时间戳
-            await redis.set("xiuxian:player:" + usr_qq + ":reCreate_acount", acount);
 
-        }
-        else {
-            this.setContext('RE_xiuxian');
-            await this.reply('【转世】或者【罢了】进行选择', false, { at: true });
-            return;
-        }
-        /** 结束上下文 */
-        this.finish('RE_xiuxian');
+        acount = Xiuxian.Numbers(acount);
+        acount++;
+
+        fs.rmSync(`${Xiuxian.__PATH.player}/${usr_qq}.json`);
+        fs.rmSync(`${Xiuxian.__PATH.equipment}/${usr_qq}.json`);
+        fs.rmSync(`${Xiuxian.__PATH.najie}/${usr_qq}.json`);
+
+        e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
+
+        await this.Create_player(e);
+        await redis.set("xiuxian:player:" + usr_qq + ":last_reCreate_time", now_time);
+        await redis.set("xiuxian:player:" + usr_qq + ":reCreate_acount", acount);
         return;
     }
 
@@ -215,84 +180,73 @@ export class UserStart extends plugin {
 
     //改名
     async Change_player_name(e) {
-        if (!e.isGroup) {
+        let Go = await Xiuxian.Go(e);
+        if (!Go) {
             return;
         }
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
-        if (!ifexistplay) {
+        let lingshi = 1000;
+        player = await Xiuxian.Read_player(usr_qq);
+        if (player.lingshi < lingshi) {
+            e.reply("需"+lingshi+"灵石");
             return;
         }
-        //检索方法
-        var reg = new RegExp(/改名|设置道宣/);
-        let func = reg.exec(e.msg);
-        if (func == "改名") {
-            let new_name = e.msg.replace("#改名", '');
-            new_name = new_name.replace(" ", '');
-            new_name = new_name.replace("+", '');
-            if (new_name.length == 0) {
-                e.reply("请输入正确名字");
-                return;
-            }
-            else if (new_name.length > 8) {
-                e.reply("玩家名字最多八字");
-                return;
-            }
-            let player = {};
-            let now = new Date();
-            let nowTime = now.getTime(); //获取当前日期的时间戳
-            let Today = await Xiuxian.shijianc(nowTime);
-            let lastsetname_time = await redis.get("xiuxian:player:" + usr_qq + ":last_setname_time");//获得上次改名日期,
-            lastsetname_time = parseInt(lastsetname_time);
-            lastsetname_time = await Xiuxian.shijianc(lastsetname_time);
-            if (Today.Y == lastsetname_time.Y && Today.M == lastsetname_time.M && Today.D == lastsetname_time.D) {
-                e.reply("每日只能改名一次");
-                return;
-            }
-            player = await Xiuxian.Read_player(usr_qq);
-            if (player.lingshi < 1000) {
-                e.reply("改名需要1000lingshi");
-                return;
-            }
-            player.name = new_name;
-            redis.set("xiuxian:player:" + usr_qq + ":last_setname_time", nowTime);//redis设置本次改名时间戳
-            player.lingshi -= 1000;
-            await Xiuxian.Write_player(usr_qq, player);
-            this.Show_player(e);
+        let new_name = e.msg.replace("#改名", '');
+        if (new_name.length == 0) {
+            e.reply("请输入正确名字");
             return;
         }
-
-        //设置道宣
-        else if (func == "设置道宣") {
-            let new_msg = e.msg.replace("#设置道宣", '');
-            new_msg = new_msg.replace(" ", '');
-            new_msg = new_msg.replace("+", '');
-            if (new_msg.length == 0) {
-                return;
-            }
-            else if (new_msg.length > 50) {
-                e.reply("道宣最多50字符");
-                return;
-            }
-
-            let ClassCD = ":last_setxuanyan_time";
-            let now_time = new Date().getTime();
-            let CDTime = 60*24;
-            let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if(CD != 0) {
-                 e.reply(CD);
-                 return;
-            }
-            await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
-
-            player = await Xiuxian.Read_player(usr_qq);
-            player.autograph = new_msg;//
-            redis.set("xiuxian:player:" + usr_qq + ":last_setxuanyan_time", nowTime);//redis设置本次设道置宣时间戳
-            await Xiuxian.Write_player(usr_qq, player);
-            this.Show_player(e);
+        if (new_name.length > 8) {
+            e.reply("玩家名字最多八字");
             return;
         }
+        let ClassCD = ":last_setname_time";
+        let now_time = new Date().getTime();
+        let CDTime = 60*24;
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if(CD != 0) {
+            e.reply(CD);
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        player.name = new_name;
+        player.lingshi -= lingshi;
+        await Xiuxian.Write_player(usr_qq, player);
+        this.Show_player(e);
+        return;
+    }
+
+
+    //设置道宣
+    async Change_player_autograph(e) {
+        let Go = await Xiuxian.Go(e);
+        if (!Go) {
+            return;
+        }
+        let player = await Xiuxian.Read_player(usr_qq);
+        let new_msg = e.msg.replace("#设置道宣", '');
+        new_msg = new_msg.replace(" ", '');
+        new_msg = new_msg.replace("+", '');
+        if (new_msg.length == 0) {
+            return;
+        }
+        else if (new_msg.length > 50) {
+            e.reply("道宣最多50字符");
+            return;
+        }
+        let ClassCD = ":last_setxuanyan_time";
+        let now_time = new Date().getTime();
+        let CDTime = 60*12;
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if(CD != 0) {
+            e.reply(CD);
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        player.autograph = new_msg;
+        await Xiuxian.Write_player(usr_qq, player);
+        this.Show_player(e);
+        return;
     }
 
 
@@ -312,7 +266,6 @@ export class UserStart extends plugin {
         let Today = await Xiuxian.shijianc(nowTime);
         let lastsign_time = await Xiuxian.getLastsign(usr_qq);//获得上次签到日期
         if (Today.Y == lastsign_time.Y && Today.M == lastsign_time.M && Today.D == lastsign_time.D) {
-            e.reply(`今日已经签到过了`);
             return;
         }
         let Sign_Yesterday;        //昨日日是否签到
@@ -329,12 +282,11 @@ export class UserStart extends plugin {
         }
         player.days += 1;
         data.setData("player", usr_qq, player);
-        //给奖励
         let gift_xiuwei = player.days * 3000;
         await Xiuxian.Add_experience(usr_qq, gift_xiuwei);
         let msg = [
             segment.at(usr_qq),
-            `已经连续签到${player.days}天了，获得了${gift_xiuwei}修为`
+            `连续签到${player.days}天，获得了${gift_xiuwei}修为`
         ]
         e.reply(msg);
         return;
