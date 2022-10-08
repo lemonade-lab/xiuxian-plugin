@@ -3,6 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
 import { get_najie_img } from '../ShowImeg/showData.js'
+import { segment } from "oicq"
 /**
  * 交易系统
  */
