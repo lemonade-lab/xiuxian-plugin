@@ -76,8 +76,11 @@
 - group: 礼尚往来
   list:
     - icon: help-icon_7
-      title: "@群友 切磋"
+      title: "@群友 #切磋"
       desc: "相互切磋武艺,没有限制,没有奖励"
+    - icon: help-icon_7
+      title: "@群友 #打劫"
+      desc: "夺取对方财富"
     - icon: help-icon_10
       title: "@群友赠送灵石1000"
       desc: "@群友孝敬前辈/@群友资助后辈"

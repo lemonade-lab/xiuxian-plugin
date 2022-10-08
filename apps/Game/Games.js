@@ -49,7 +49,7 @@ export class Games extends plugin {
                     fnc: 'getOneCard'
                 },
                 {
-                    reg: '^双修$',
+                    reg: '^#双修$',
                     fnc: 'Couple'
                 },
                 {

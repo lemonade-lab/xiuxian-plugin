@@ -4,10 +4,10 @@
       title: "#发福利999"
       desc: "按人数发放全服福利"  
     - icon: help-icon_8
-      title: "#发补偿999@群友"
+      title: "#发补偿999 @群友"
       desc: "单独补偿灵石"  
     - icon: help-icon_8
-      title: "#扣除99999@群友"
+      title: "#扣除99999 @群友"
       desc: "强行扣指定玩家灵石"
 
 - group: 怪物状态
