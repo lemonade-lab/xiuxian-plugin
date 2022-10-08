@@ -1,7 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import fs from "fs"
-import path from "path"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
 /**
  * 攻略论坛
@@ -30,7 +28,7 @@ export class Forum extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let Forum = await Read_Forum();
+        let Forum = await Xiuxian.Read_Forum();
         let msg = [
             "___[有间客栈]___"
         ];
@@ -57,14 +55,12 @@ export class Forum extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let Forum = await Read_Forum();
+        let Forum = await Xiuxian.Read_Forum();
         let title0 = e.msg.replace("#", '');
         title0 = title0.replace("文章", '');
         let code = title0.split("\*");
         let title = code[0];//标题
         let content = code[1];//内容
-        console.log(title);
-        console.log(content);
         if (title.length == 0) {
             e.reply("未填写标题");
             return;
@@ -105,47 +101,11 @@ export class Forum extends plugin {
             "number": Mathrandom//编号
         };
         Forum.push(wupin);
-        await Write_Forum(Forum);
+        await Xiuxian.Write_Forum(Forum);
         e.reply("发布成功！");
         return;
     }
 
 }
 
-//写入
-export async function Write_Forum(wupin) {
-    let dir = path.join(Xiuxian.__PATH.Forum, `Forum.json`);
-    let new_ARR = JSON.stringify(wupin, "", "\t");
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        console.log('写入成功', err)
-    })
-    return;
-}
 
-
-//读取
-export async function Read_Forum() {
-    let dir = path.join(`${Xiuxian.__PATH.Forum}/Forum.json`);
-    let Forum;
-    try{
-        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                console.log(err)
-                return "error";
-            }
-            return data;
-        })
-
-    }catch{
-        await Write_Forum([]);
-        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                console.log(err)
-                return "error";
-            }
-            return data;
-        })
-    }
-    Forum = JSON.parse(Forum);
-    return Forum;
-}

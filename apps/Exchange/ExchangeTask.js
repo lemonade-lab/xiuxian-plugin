@@ -4,7 +4,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
-import { Read_Exchange, Write_Exchange } from './Exchange.js'
 /**
  * 定时任务
  */
@@ -34,10 +33,10 @@ export class ExchangeTask extends plugin {
 
 
 export async function offExchange() {
-    let Exchange = await Read_Exchange();
+    let Exchange = await Xiuxian.Read_Exchange();
     for (var i = 0; i < Exchange.length; i++) {
         Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
-        await Write_Exchange(Exchange);
+        await Xiuxian.Write_Exchange(Exchange);
     }
     let playerList = [];
     let files = fs

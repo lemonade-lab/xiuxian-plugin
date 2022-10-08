@@ -1035,3 +1035,98 @@ export async function Go(e) {
     return;
 }
 
+
+//写入
+export async function Write_Forum(wupin) {
+    let dir = path.join(Xiuxian.__PATH.Forum, `Forum.json`);
+    let new_ARR = JSON.stringify(wupin, "", "\t");
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        console.log('写入成功', err)
+    })
+    return;
+}
+
+
+//读取
+export async function Read_Forum() {
+    let dir = path.join(`${Xiuxian.__PATH.Forum}/Forum.json`);
+    let Forum;
+    try{
+        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                console.log(err)
+                return "error";
+            }
+            return data;
+        })
+
+    }catch{
+        await Write_Forum([]);
+        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                console.log(err)
+                return "error";
+            }
+            return data;
+        })
+    }
+    Forum = JSON.parse(Forum);
+    return Forum;
+}
+
+
+
+//写入交易表
+export async function Write_Exchange(wupin) {
+    let dir = path.join(Xiuxian.__PATH.Exchange, `Exchange.json`);
+    let new_ARR = JSON.stringify(wupin, "", "\t");
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        console.log('写入成功', err)
+    })
+    return;
+}
+
+
+
+//读交易表
+export async function Read_Exchange() {
+    let dir = path.join(`${Xiuxian.__PATH.Exchange}/Exchange.json`);
+    let Exchange ;
+    try{
+        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => { 
+            if (err) {
+                return "error";
+            }
+            return data;
+        })
+    }catch{
+        await Write_Exchange([]);
+        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => { 
+            if (err) {
+                return "error";
+            }
+            return data;
+        })
+    }
+    Exchange = JSON.parse(Exchange);
+    return Exchange;
+}
+
+
+//搜索物品
+export async function Search_Exchange(thing_qq) {
+    let thingqq = thing_qq;
+    let x = -1;
+    let Exchange  = await Read_Exchange();
+    if (thingqq == "") {
+        return x;
+    }
+    for (var i = 0; i < Exchange.length; i++) {
+        if (Exchange[i].qq == thingqq) {
+            x = i;
+            break;
+        }
+    }
+    return x;
+}
+

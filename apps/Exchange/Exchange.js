@@ -1,8 +1,6 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import fs from "fs"
-import path from "path"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
 /**
  * 交易系统
@@ -71,11 +69,11 @@ export class Exchange extends plugin {
         let thingqq = e.msg.replace("#", '');
         thingqq = thingqq.replace("下架", '');
 
-        let x = await Search_Exchange(thingqq);
+        let x = await Xiuxian.Search_Exchange(thingqq);
         if(x == -1){
             return;
         }
-        let Exchange  = await Read_Exchange();
+        let Exchange  = await Xiuxian.Read_Exchange();
 
 
         let nowtime = new Date().getTime();
@@ -93,7 +91,7 @@ export class Exchange extends plugin {
             }
             await Xiuxian.Add_najie_thing(usr_qq, Exchange[x].id, Exchange[x].class, Exchange[x].type,Exchange[x].aconut);
             Exchange = Exchange.filter(item => item.qq != thingqq);
-            await Write_Exchange(Exchange);
+            await Xiuxian.Write_Exchange(Exchange);
             await Xiuxian.Add_lingshi(usr_qq, -20000);
             await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
             e.reply(player.name + "赔20000保金！并下架" + thingqq + "成功！");
@@ -157,7 +155,7 @@ export class Exchange extends plugin {
             return;
         }
         await Xiuxian.Add_najie_thing(usr_qq, ifexist.id, ifexist.class, ifexist.type, -thing_acunot);
-        let Exchange = await Read_Exchange();
+        let Exchange = await Xiuxian.Read_Exchange();
         let whole = thing_value * thing_acunot;
         whole = await Xiuxian.Numbers(whole);
         let time = 10;
@@ -173,7 +171,7 @@ export class Exchange extends plugin {
             "end_time": now_time + 60000 * time
         };
         Exchange.push(wupin);
-        await Write_Exchange(Exchange);
+        await Xiuxian.Write_Exchange(Exchange);
         e.reply("上架成功！");
         await redis.set("xiuxian:player:" + usr_qq + ":Exchange", 1);
         return;
@@ -184,7 +182,7 @@ export class Exchange extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let Exchange = await Read_Exchange();
+        let Exchange = await Xiuxian.Read_Exchange();
         let nowtime = new Date().getTime();
         let msg = [
             "___[冲水堂]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
@@ -236,12 +234,12 @@ export class Exchange extends plugin {
         let thingqq = e.msg.replace("#", '');
         thingqq = thingqq.replace("选购", '');
         
-        let x = await Search_Exchange(thingqq);
+        let x = await Xiuxian.Search_Exchange(thingqq);
         if(x == -1){
             return;
         }
         
-        let Exchange  = await Read_Exchange();
+        let Exchange  = await Xiuxian.Read_Exchange();
 
         let nowtime = new Date().getTime();
         let end_time = Exchange[x].end_time;
@@ -258,7 +256,7 @@ export class Exchange extends plugin {
                 thing_whole = await Xiuxian.Numbers(thing_whole)
                 await Xiuxian.Add_lingshi(thingqq, thing_whole);
                 Exchange = Exchange.filter(item => item.qq != thingqq);
-                await Write_Exchange(Exchange);
+                await Xiuxian.Write_Exchange(Exchange);
                 await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
                 await Xiuxian.Worldwealth(addWorldmoney);
                 e.reply(player.name + "选购" + thingqq + "成功！");
@@ -275,57 +273,7 @@ export class Exchange extends plugin {
     }
 }
 
-//搜索物品
-export async function Search_Exchange(thing_qq) {
-    let thingqq = thing_qq;
-    let x = -1;
-    let Exchange  = await Read_Exchange();
-    if (thingqq == "") {
-        return x;
-    }
-    for (var i = 0; i < Exchange.length; i++) {
-        if (Exchange[i].qq == thingqq) {
-            x = i;
-            break;
-        }
-    }
-    return x;
-}
-
-
-//写入交易表
-export async function Write_Exchange(wupin) {
-    let dir = path.join(Xiuxian.__PATH.Exchange, `Exchange.json`);
-    let new_ARR = JSON.stringify(wupin, "", "\t");
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        console.log('写入成功', err)
-    })
-    return;
-}
 
 
 
-//读交易表
-export async function Read_Exchange() {
-    let dir = path.join(`${Xiuxian.__PATH.Exchange}/Exchange.json`);
-    let Exchange ;
-    try{
-        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => { 
-            if (err) {
-                return "error";
-            }
-            return data;
-        })
-    }catch{
-        await Write_Exchange([]);
-        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => { 
-            if (err) {
-                return "error";
-            }
-            return data;
-        })
-    }
-    Exchange = JSON.parse(Exchange);
-    return Exchange;
-}
 

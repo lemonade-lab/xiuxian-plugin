@@ -25,14 +25,7 @@ export class ForumTask extends plugin {
     }
 
     async Forumtask() {
-        let Forum;
-        try {
-            Forum = await Xiuxian.Read_Forum();
-        }
-        catch {
-            await Xiuxian.Write_Forum([]);
-            Forum = await Xiuxian.Read_Forum();
-        }
+        let Forum = await Xiuxian.Read_Forum();
         for (var i = 0; i < Forum.length; i++) {
             Forum = Forum.filter(item => item.qq != Forum[i].qq);
             Xiuxian.Write_Forum(Forum);

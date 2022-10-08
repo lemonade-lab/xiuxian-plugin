@@ -4,8 +4,6 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
-import { Read_Exchange, Write_Exchange } from '../Exchange/Exchange.js'
-import { Read_Forum, Write_Forum } from '../Help/Forum.js'
 /**
  * 全局变量
  */
@@ -221,10 +219,10 @@ export class AdminSuper extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let Forum = await Read_Forum();
+        let Forum = await Xiuxian.Read_Forum();
         for (var i = 0; i < Forum.length; i++) {
             Forum = Forum.filter(item => item.qq != Forum[i].qq);
-            Write_Forum(Forum);
+            Xiuxian.Write_Forum(Forum);
         }
         e.reply("已清理！");
         return;
@@ -268,7 +266,7 @@ export class AdminSuper extends plugin {
             return;
         }
         let x = 888888888;
-        let Exchange  = await Read_Exchange();
+        let Exchange  = await Xiuxian.Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
             if (Exchange[i].qq == thingqq) {
                 x = i;
@@ -280,7 +278,7 @@ export class AdminSuper extends plugin {
             return;
         }
         Exchange = Exchange.filter(item => item.qq != thingqq);
-        await Write_Exchange(Exchange);
+        await Xiuxian.Write_Exchange(Exchange);
         await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
         e.reply("清除" + thingqq);
         return;
@@ -295,10 +293,10 @@ export class AdminSuper extends plugin {
             return;
         }
         e.reply("开始清除！");
-        let Exchange  = await Read_Exchange();
+        let Exchange  = await Xiuxian.Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
             Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
-            Write_Exchange(Exchange);
+            Xiuxian.Write_Exchange(Exchange);
         }
         let playerList = [];
         let files = fs
