@@ -337,37 +337,37 @@ export async function get_najie_img(e) {
     let ring=[];
 
     for(var i=0;i<najie.arms.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.arms[i].id,najie.arms[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.arms[i].id,najie.arms[i].class);
         thing.acount=najie.arms[i].acount;
         arms.push(thing);
     }
     for(var i=0;i<najie.huju.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.huju[i].id,najie.huju[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.huju[i].id,najie.huju[i].class);
         thing.acount=najie.huju[i].acount;
         huju.push(thing);
     }
     for(var i=0;i<najie.fabao.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.fabao[i].id,najie.fabao[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.fabao[i].id,najie.fabao[i].class);
         thing.acount=najie.fabao[i].acount;
         fabao.push(thing);
     }
     for(var i=0;i<najie.danyao.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.danyao[i].id,najie.danyao[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.danyao[i].id,najie.danyao[i].class);
         thing.acount=najie.danyao[i].acount;
         danyao.push(thing);
     }
     for(var i=0;i<najie.daoju.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.daoju[i].id,najie.daoju[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.daoju[i].id,najie.daoju[i].class);
         thing.acount=najie.daoju[i].acount;
         daoju.push(thing);
     }
     for(var i=0;i<najie.gonfa.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].class);
         thing.acount=najie.gonfa[i].acount;
         gonfa.push(thing);
     }
     for(var i=0;i<najie.ring.length;i++){
-        let thing=await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].clss);
+        let thing=await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].class);
         thing.acount=najie.ring[i].acount;
         length.push(thing);
     }
