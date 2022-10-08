@@ -264,7 +264,6 @@ export async function get_equipment_img(e) {
         return;
     }
 
-
     var burst = Math.trunc(parseInt(player.burst * 100))
 
     /**

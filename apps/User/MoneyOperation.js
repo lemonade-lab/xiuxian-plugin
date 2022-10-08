@@ -92,9 +92,7 @@ export class MoneyOperation extends plugin {
         if (!Go) {
             return;
         }
-        
         let usr_qq = e.user_id;
-        
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("交税", "");
         lingshi = Number(lingshi);
@@ -125,17 +123,13 @@ export class MoneyOperation extends plugin {
         if (!e.isGroup) {
             return;
         }
-
         if (!e.isMaster) {
             return;
         }
-
         let B = await Xiuxian.At(e);
         if(B==0){
             return;
         }
-
-
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("扣除", "");
         if (parseInt(lingshi) == parseInt(lingshi) && parseInt(lingshi) >= 1000) {
@@ -149,17 +143,12 @@ export class MoneyOperation extends plugin {
             e.reply("他并没有这么多");
             return;
         }
-
         if (player.lingshi == lingshi) {
             lingshi = lingshi - 1;
         }
         await Xiuxian.Add_lingshi(B, -lingshi);
+        await Xiuxian.Worldwealth(lingshi);
         e.reply("已强行扣除灵石" + lingshi);
-        let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        Worldmoney = Number(Worldmoney);
-        Worldmoney = Worldmoney + lingshi;
-        Worldmoney = Number(Worldmoney);
-        await redis.set("Xiuxian:Worldmoney", Worldmoney);
         return;
     }
 
@@ -206,11 +195,7 @@ export class MoneyOperation extends plugin {
         }
         await Xiuxian.Add_lingshi(A, -lastlingshi);
         await Xiuxian.Add_lingshi(B, lingshi);
-        let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        Worldmoney = Number(Worldmoney);
-        Worldmoney = Worldmoney + lingshi * cost;
-        Worldmoney = Number(Worldmoney);
-        await redis.set("Xiuxian:Worldmoney", Worldmoney);
+        await Xiuxian.Worldwealth(lingshi * cost);
         e.reply([segment.at(A), segment.at(B), `${B_player.name} 获得了由 ${A_player.name}赠送的${lingshi}灵石`])
         await redis.set("xiuxian:player:" + A + ":last_getbung_time", nowTime);
         return;
@@ -270,14 +255,20 @@ export class MoneyOperation extends plugin {
 
     //抢红包
     async uer_honbao(e) {
-        if (!e.isGroup) {
-            return;
-        }
-        let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
-        if (!ifexistplay) {
-            return;
-        }
+
+
+        /**
+         * 状态
+         */
+
+
+        /**
+         * cd
+         */
+
+        
+
+
         let player = await data.getData("player", usr_qq);
         let now_time = new Date().getTime();
         let lastgetbung_time = await redis.get("xiuxian:player:" + usr_qq + ":last_getbung_time");
@@ -289,26 +280,24 @@ export class MoneyOperation extends plugin {
             e.reply(`每${transferTimeout / 1000 / 60}分钟抢一次，正在CD中，` + `剩余cd: ${waittime_m}分${waittime_s}秒`);
             return;
         }
-        let isat = e.message.some((item) => item.type === "at");
-        if (!isat) {
+
+
+
+        let B = await Xiuxian.At(e);
+        if(B==0){
             return;
         }
-        let atItem = e.message.filter((item) => item.type === "at");
-        let honbao_qq = atItem[0].qq;
-        let ifexistplay_honbao = await Xiuxian.existplayer(honbao_qq);
-        if (!ifexistplay_honbao) {
-            return;
-        }
-        var acount = await redis.get("xiuxian:player:" + honbao_qq + ":honbaoacount");
+
+        var acount = await redis.get("xiuxian:player:" + B + ":honbaoacount");
         acount = Number(acount);
         if (acount <= 0) {
             e.reply("他的红包被光啦！");
             return;
         }
-        var lingshi = await redis.get("xiuxian:player:" + honbao_qq + ":honbao");
+        var lingshi = await redis.get("xiuxian:player:" + B + ":honbao");
         var addlingshi = Math.trunc(lingshi);
         acount--;
-        await redis.set("xiuxian:player:" + honbao_qq + ":honbaoacount", acount);
+        await redis.set("xiuxian:player:" + B + ":honbaoacount", acount);
         await Xiuxian.Add_lingshi(usr_qq, addlingshi);
         e.reply(player.name + "抢到一个" + addlingshi + "灵石的红包！");
         await redis.set("xiuxian:player:" + usr_qq + ":last_getbung_time", now_time);
@@ -342,22 +331,9 @@ export class MoneyOperation extends plugin {
         let File = fs.readdirSync(Xiuxian.__PATH.player);
         File = File.filter(file => file.endsWith(".json"));
         let File_length = File.length;
-        let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        if (Worldmoney == null || Worldmoney == undefined || Worldmoney <= 0 || Worldmoney == NaN) {
-            Worldmoney = 1;
-        }
-        Worldmoney = Number(Worldmoney);
-        if (Worldmoney <= lingshi * File_length) {
-            e.reply("共有" + File_length + "名玩家，需要消耗" + lingshi * File_length + ",你的世界财富不足！");
-            return;
-        }
-        Worldmoney = Worldmoney - lingshi * File_length;
-        if (Worldmoney == null || Worldmoney == undefined || Worldmoney <= 0 || Worldmoney == NaN) {
-            Worldmoney = 1;
-        }
-        Worldmoney = Number(Worldmoney);
-        Math.trunc(Worldmoney);
-        await redis.set("Xiuxian:Worldmoney", Worldmoney);
+
+        await Xiuxian.Worldwealth(- lingshi * File_length);
+
         for (var i = 0; i < File_length; i++) {
             let this_qq = File[i].replace(".json", '');
             await Xiuxian.Add_lingshi(this_qq, lingshi);
@@ -392,6 +368,8 @@ export class MoneyOperation extends plugin {
         else {
             lingshi = 100;//没有输入正确数字或不是正数
         }
+
+
         let isat = e.message.some((item) => item.type === "at");
         if (!isat) {
             return;
@@ -403,21 +381,16 @@ export class MoneyOperation extends plugin {
             e.reply(`此人尚未踏入仙途`);
             return;
         }
+
+
+
         let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        if (Worldmoney == null || Worldmoney == undefined || Worldmoney <= 0 || Worldmoney == NaN) {
-            Worldmoney = 1;
-        }
-        Worldmoney = Number(Worldmoney);
+        Worldmoney = await Xiuxian.Numbers(Worldmoney);
         if (Worldmoney <= lingshi) {
             e.reply("世界财富不足！");
             return;
         }
-        Worldmoney = Worldmoney - lingshi;
-        if (Worldmoney == null || Worldmoney == undefined || Worldmoney <= 0 || Worldmoney == NaN) {
-            Worldmoney = 1;
-        }
-        Worldmoney = Number(Worldmoney);
-        await redis.set("Xiuxian:Worldmoney", Worldmoney);
+        await Xiuxian.Worldwealth(- lingshi);
         let player = await data.getData("player", this_qq);
         await Xiuxian.Add_lingshi(this_qq, lingshi);
         e.reply(` ${player.name} 获得${lingshi}灵石的补偿`);

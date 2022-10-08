@@ -70,10 +70,10 @@ export class BossAll extends plugin {
             let now_time = new Date().getTime();
             let CDTime = 15;
             let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if (CD == 1) {
+            if(CD != 0) {
+                e.reply(CD);
                 return;
             }
-            e.reply(CD);
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
 
@@ -113,10 +113,10 @@ export class BossAll extends plugin {
             let now_time = new Date().getTime();
             let CDTime = 15;
             let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if (CD == 1) {
+            if(CD != 0) {
+                e.reply(CD);
                 return;
             }
-            e.reply(CD);
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
             let BossMax = await redis.get("xiuxian:BossMax");
             BossMax = JSON.parse(BossMax);
@@ -158,10 +158,10 @@ export class BossAll extends plugin {
             let now_time = new Date().getTime();
             let CDTime = 15;
             let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if (CD == 1) {
+            if(CD != 0) {
+                e.reply(CD);
                 return;
             }
-            e.reply(CD);
             await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
             let BossMini = await redis.get("xiuxian:BossMini");
             BossMini = JSON.parse(BossMini);

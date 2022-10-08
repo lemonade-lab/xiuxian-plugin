@@ -48,10 +48,10 @@ export class Exchange extends plugin {
         let now_time = new Date().getTime();
         let CDTime = 2;
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if (CD == 1) {
+        if(CD != 0) {
+            e.reply(CD);
             return;
         }
-        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
         let Ex = await redis.get("xiuxian:player:" + usr_qq + ClassCD);
@@ -117,10 +117,10 @@ export class Exchange extends plugin {
         let now_time = new Date().getTime();
         let CDTime = 2;
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if (CD == 1) {
+        if(CD != 0) {
+            e.reply(CD);
             return;
         }
-        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
         let Ex = await redis.get("xiuxian:player:" + usr_qq + ":Exchange");
@@ -220,10 +220,10 @@ export class Exchange extends plugin {
         let now_time = new Date().getTime();
         let CDTime = 2;
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if (CD == 1) {
+        if(CD != 0) {
+            e.reply(CD);
             return;
         }
-        e.reply(CD);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
 
         let player = await Xiuxian.Read_player(usr_qq);

@@ -139,10 +139,6 @@ export class UserStart extends plugin {
         }
         let usr_qq = e.user_id;
         
-        let acount = await redis.get("xiuxian:player:" + usr_qq + ":reCreate_acount");
-        if (acount == undefined || acount == null || acount == NaN || acount <= 0) {
-            await redis.set("xiuxian:player:" + usr_qq + ":reCreate_acount", 1);
-        }
         let now = new Date();
         let nowTime = now.getTime(); //获取当前时间戳
         let lastrestart_time = await redis.get("xiuxian:player:" + usr_qq + ":last_reCreate_time");//获得上次重生时间戳,
@@ -278,17 +274,18 @@ export class UserStart extends plugin {
                 e.reply("道宣最多50字符");
                 return;
             }
-            let player = {};
-            let now = new Date();
-            let nowTime = now.getTime(); //获取当前日期的时间戳
-            let Today = await Xiuxian.shijianc(nowTime);
-            let lastsetxuanyan_time = await redis.get("xiuxian:player:" + usr_qq + ":last_setxuanyan_time");
-            lastsetxuanyan_time = parseInt(lastsetxuanyan_time);
-            lastsetxuanyan_time = await Xiuxian.shijianc(lastsetxuanyan_time);
-            if (Today.Y == lastsetxuanyan_time.Y && Today.M == lastsetxuanyan_time.M && Today.D == lastsetxuanyan_time.D) {
-                e.reply("每日仅可更改一次");
-                return;
+
+            let ClassCD = ":last_setxuanyan_time";
+            let now_time = new Date().getTime();
+            let CDTime = 60*24;
+            let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+            if(CD != 0) {
+                 e.reply(CD);
+                 return;
             }
+            await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+
+
             player = await Xiuxian.Read_player(usr_qq);
             player.autograph = new_msg;//
             redis.set("xiuxian:player:" + usr_qq + ":last_setxuanyan_time", nowTime);//redis设置本次设道置宣时间戳

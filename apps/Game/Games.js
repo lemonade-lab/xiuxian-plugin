@@ -405,15 +405,15 @@ export class Games extends plugin {
         let now_time = new Date().getTime();
         let CDTime = this.xiuxianConfigData.CD.couple;
         let CDA = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
-        if (CDA == 1) {
+        if (CDA != 0) {
+            e.reply(CDA);
             return;
         }
-        e.reply(CDA);
         let CDB = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
-        if (CDB == 1) {
+        if (CDB != 0) {
+            e.reply(CDB);
             return;
         }
-        e.reply(CDB);
         await redis.set("xiuxian:player:" + A + ClassCD, now_time);
         await redis.set("xiuxian:player:" + B + ClassCD, now_time);
         let option = Math.random();
