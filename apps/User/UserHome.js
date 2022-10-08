@@ -105,7 +105,7 @@ export class UserHome extends plugin {
         if (searchsthing.type == 2) {
             let experience = parseInt(searchsthing.exp);
             await Xiuxian.Add_experience(usr_qq, thing_acount * experience);
-            e.reply("修为增加"+thing_acount * this_danyao.exp);
+            e.reply("修为增加"+thing_acount * searchsthing.exp);
         }
         await Xiuxian.Add_najie_thing(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -thing_acount);
         return;
