@@ -56,10 +56,6 @@ export class AdminSuper extends plugin {
                     fnc: 'DeleteForum'
                 },
                 {
-                    reg: '^#修仙世界$',
-                    fnc: 'Worldstatistics'
-                },
-                {
                     reg: '^#删除世界$',
                     fnc: 'deleteallusers'
                 }
@@ -67,6 +63,7 @@ export class AdminSuper extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
+
 
     async deleteallusers(e){
         if (!e.isMaster) {
@@ -118,94 +115,6 @@ export class AdminSuper extends plugin {
         return;
     }
 
-    async Worldstatistics(e) {
-        if (!e.isGroup) {
-            return;
-        }
-        if (!e.isMaster) {
-            return;
-        }
-        let acount = 0;
-        let lower = 0;
-        let senior = 0;
-        lower = Number(lower);
-        senior = Number(senior);
-        let playerList = [];
-        let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
-            .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
-            playerList.push(file);
-        }
-        for (let player_id of playerList) {
-            let player = await Xiuxian.Read_player(player_id);
-            let now_level_id;
-            now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-            if (now_level_id <= 41) {
-                lower++;
-            }
-            else {
-                senior++;
-            }
-            acount++;
-        }
-        let msg = [];
-        var Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        if (Worldmoney == null || Worldmoney == undefined || Worldmoney <= 0 || Worldmoney == NaN) {
-            Worldmoney = 1;
-        }
-        Worldmoney = Number(Worldmoney);
-        if (Worldmoney < 10000) {
-            Worldmoney = Worldmoney.toFixed(2);
-            msg = [
-                "___[修仙世界]___" +
-                "\n人数：" + acount +
-                "\n修道者：" + senior +
-                "\n修仙者：" + lower +
-                "\n财富：" + Worldmoney +
-                "\n人均：" + (Worldmoney / acount).toFixed(3)
-            ];
-        }
-        else if (Worldmoney > 10000 && Worldmoney < 1000000) {
-            Worldmoney = Worldmoney / 10000;
-            Worldmoney = Worldmoney.toFixed(2);
-            msg = [
-                "___[修仙世界]___" +
-                "\n人数：" + acount +
-                "\n修道者：" + senior +
-                "\n修仙者：" + lower +
-                "\n财富：" + Worldmoney + "万" +
-                "\n人均：" + (Worldmoney / acount).toFixed(3) + "万"
-            ];
-        }
-        else if (Worldmoney > 1000000 && Worldmoney < 100000000) {
-            Worldmoney = Worldmoney / 1000000;
-            Worldmoney = Worldmoney.toFixed(2);
-            msg = [
-                "___[修仙世界]___" +
-                "\n人数：" + acount +
-                "\n修道者：" + senior +
-                "\n修仙者：" + lower +
-                "\n财富：" + Worldmoney + "百万" +
-                "\n人均：" + (Worldmoney / acount).toFixed(3) + "百万"
-            ];
-        }
-        else if (Worldmoney > 100000000) {
-            Worldmoney = Worldmoney / 100000000;
-            Worldmoney = Worldmoney.toFixed(2);
-            msg = [
-                "___[修仙世界]___" +
-                "\n人数：" + acount +
-                "\n修道者：" + senior +
-                "\n修仙者：" + lower +
-                "\n财富：" + Worldmoney + "亿" +
-                "\n人均：" + (Worldmoney / acount).toFixed(3) + "亿"
-            ];
-        }
-        await Xiuxian.ForwardMsg(e, msg);
-        return;
-    }
 
     async DeleteForum(e) {
         if (!e.isMaster) {
