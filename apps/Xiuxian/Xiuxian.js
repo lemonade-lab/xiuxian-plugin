@@ -933,7 +933,6 @@ export async function offaction(qq) {
         arr.end_time = new Date().getTime();//结束的时间也修改为当前时间
         delete arr.group_id;//结算完去除group_id
         await redis.set("xiuxian:player:" + qq + ":action", JSON.stringify(arr));
-        console.log(arr);
     }
     await redis.set("xiuxian:player:" + qq + ":game_action", 1);
     return;
