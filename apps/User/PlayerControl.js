@@ -17,7 +17,7 @@ export class PlayerControl extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '(^#*降妖$)|(^#*降妖(.*)(分|分钟)$)',
+                    reg: '(^#降妖$)|(^#降妖(.*)(分|分钟)$)',
                     fnc: 'Dagong'
                 },
                 {
