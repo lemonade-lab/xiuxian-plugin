@@ -29,7 +29,7 @@ export class PlayerControl extends plugin {
                     fnc: 'chuGuan'
                 },
                 {
-                    reg: '^#降妖归来$',
+                    reg: '^#归来$',
                     fnc: 'endWork'
                 }
             ]

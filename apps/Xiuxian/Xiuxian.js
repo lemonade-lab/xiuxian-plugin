@@ -743,7 +743,7 @@ export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing
         type: thing_type,
         acount: thing_acount
     }
-         najie.daoju.push(equipment);
+       najie.daoju.push(equipment);
     }
     else {
         acount =  thing.acount + thing_acount;
