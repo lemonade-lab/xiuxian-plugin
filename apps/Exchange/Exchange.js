@@ -114,10 +114,10 @@ export class Exchange extends plugin {
             await Xiuxian.Add_najie_thing_arms(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
         }
         else if(najie_thing.class==2){ 
-            await najie_thing.Add_najie_thing_huju(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+            await Xiuxian.Add_najie_thing_huju(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
         }
         else if(najie_thing.class==3){ 
-            await najie_thing.Add_najie_thing_fabao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+            await Xiuxian.Add_najie_thing_fabao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
         }
         else if(najie_thing.class==4){ 
             await Xiuxian.Add_najie_thing_danyao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
