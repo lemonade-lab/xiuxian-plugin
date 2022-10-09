@@ -18,7 +18,7 @@ export class showData extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: "^#我的装备$",
+                    reg: "^#修仙面板$",
                     fnc: "show_equipment",
                 },
                 {
@@ -60,25 +60,6 @@ export class showData extends plugin {
     }
 
 
-    async show_power(e) {
-        if (!e.isGroup) {
-            return;
-        }
-        let img = await get_power_img(e);
-        e.reply(img);
-        return;
-    }
-
-
-    async show_equipment(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
-        let img = await get_equipment_img(e);
-        e.reply(img);
-        return;
-    }
 
 
     async show_Level(e) {
@@ -114,7 +95,6 @@ export class showData extends plugin {
     }
 
 }
-
 
 /**
  * 返回该玩家的存档图片

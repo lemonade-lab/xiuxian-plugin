@@ -26,10 +26,6 @@ export class UserStart extends plugin {
                     fnc: 'reCreate_player'
                 },
                 {
-                    reg: '^#我的练气$',
-                    fnc: 'Show_player'
-                },
-                {
                     reg: '^#改名.*$',
                     fnc: 'Change_player_name'
                 },
