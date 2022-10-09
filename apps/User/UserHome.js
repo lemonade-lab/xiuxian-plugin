@@ -65,7 +65,7 @@ export class UserHome extends plugin {
             return;
         }
         if (searchsthing.class == 1) {
-            await Xiuxian.Add_najie_thing_arms(usr_qq, searchsthing.id, thing_class, searchsthing.type, -1);
+            await Xiuxian.Add_najie_thing_arms(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
             await Xiuxian.instead_equipment_arms(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
         if (searchsthing.class == 2) {

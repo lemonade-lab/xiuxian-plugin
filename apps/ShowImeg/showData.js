@@ -277,12 +277,12 @@ export async function get_najie_img(e) {
     }
     for(var i=0;i<najie.danyao.length;i++){
         let name=await Xiuxian.exist_thing(najie.danyao[i].id,najie.danyao[i].class);
-        name.acount=najie.danyao[i].acount;
         if(name.type==1){
-            name.type=="血量";
+            name.type == "血量";
         }else{
-            name.type=="修为";
+            name.type == "修为";
         }
+        name.acount=najie.danyao[i].acount;
         danyao.push(name);
     }
     for(var i=0;i<najie.daoju.length;i++){
@@ -323,7 +323,6 @@ export async function get_najie_img(e) {
     let img = await puppeteer.screenshot("najie", {
         ...data1,
     });
-
     return img;
 
 }
