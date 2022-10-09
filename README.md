@@ -1,10 +1,12 @@
 # xiuxian-emulator-plugin         
-Yunzai-BotV3"修仙模拟器V1.3.0"                   
+Yunzai-BotV3"修仙模拟器V1.3.0" 测试版                  
 
 ## 安装教程      
 
 > Yunzai-Bot/目录下执行      
-git clone  https://github.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plugins/xiuxian-emulator-plugin/             
+```
+git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plugins/xiuxian-emulator-plugin/   
+```
 > 查看具体功能  #修仙帮助      
 > 查看具体功能  #修仙扩展              
 > 查看管理指令  #修仙设置       
