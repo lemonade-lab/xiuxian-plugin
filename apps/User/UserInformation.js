@@ -52,6 +52,7 @@ export class UserInformation extends plugin {
         if (!e.isGroup) {
             return;
         }        
+        let usr_qq = e.user_id;
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {
             return;
@@ -66,6 +67,7 @@ export class UserInformation extends plugin {
         if (!e.isGroup) {
             return;
         }
+        let usr_qq = e.user_id;
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {
             return;
