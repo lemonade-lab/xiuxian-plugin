@@ -208,8 +208,10 @@ export async function get_player_img(e) {
         let ifexist2 = data.gongfa_list.find(item => item.id == player.AllSorcery[i]);
         if (ifexist2 == undefined) {
             ifexist2 = data.timegongfa_list.find(item => item.id == player.AllSorcery[i]);
+            if(ifexist2 != undefined){
+                AllSorcery.push(ifexist2.name);
+            }
         }
-        AllSorcery.push(ifexist2.name);
     }
 
     let playercopy = {
