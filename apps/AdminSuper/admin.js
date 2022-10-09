@@ -29,7 +29,6 @@ export class admin extends plugin {
         this.key = "xiuxian:restart";
     }
 
-
     async init() {
         let restart = await redis.get(this.key);
         if (restart) {
@@ -51,6 +50,7 @@ export class admin extends plugin {
         let msg = ["————[更新消息]————"];
         let command = "git  pull";
         msg.push("正在执行更新操作，请稍等");
+        const that = this;
         exec(
             command,
             { cwd: `${_path}/plugins/xiuxian-emulator-plugin/` },
@@ -79,17 +79,16 @@ export class admin extends plugin {
                             isGroup: !!e.isGroup,
                             id: e.isGroup ? e.group_id : e.user_id,
                         });
-                        await redis.set(this.key, data, { EX: 120 });
+                        await redis.set(that.key, data, { EX: 120 });
                         let cm = "npm run start";
                         if (process.argv[1].includes("pm2")) {
                             cm = "npm run restart";
                         } else {
                             msg.push("当前为前台运行，重启将转为后台...");
                         }
-
                         exec(cm, (error, stdout, stderr) => {
                             if (error) {
-                                redis.del(this.key);
+                                redis.del(that.key);
                                 msg.push(
                                     "自动重启失败，请手动重启以应用新版修仙插件。\nError code: " +
                                     error.code +
@@ -105,8 +104,9 @@ export class admin extends plugin {
                                 process.exit();
                             }
                         });
-                    } catch (error) {
-                        redis.del(this.key);
+                    } 
+                    catch (error) {
+                        redis.del(that.key);
                         let e = error.stack ?? error;
                         msg.push("重启云崽操作失败！\n" + e);
                     }

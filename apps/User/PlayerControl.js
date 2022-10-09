@@ -40,7 +40,8 @@ export class PlayerControl extends plugin {
 
     //闭关
     async Biguan(e) {
-        let Go = await Xiuxian.Go(e);
+        
+        let Go = await Xiuxian.Gomini(e);
         if (!Go) {
             return;
         }

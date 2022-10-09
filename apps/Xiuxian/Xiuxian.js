@@ -1047,6 +1047,40 @@ export async function offaction(qq) {
 /**
  * 状态封锁查询
  */
+ export async function Gomini(e) {
+    if (!e.isGroup) {
+        return;
+    }
+    let usr_qq = e.user_id;
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
+    if (game_action == 0) {
+        e.reply("游戏进行中...");
+        return;
+    }
+    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    action = JSON.parse(action);
+    if (action != null) {
+        let action_end_time = action.end_time;
+        let now_time = new Date().getTime();
+        if (now_time <= action_end_time) {
+            let m = parseInt((action_end_time - now_time) / 1000 / 60);
+            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
+            e.reply("[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]");
+            return;
+        }
+    }
+    return true;
+}
+
+
+
+/**
+ * 状态封锁查询
+ */
 export async function Go(e) {
     if (!e.isGroup) {
         return;
