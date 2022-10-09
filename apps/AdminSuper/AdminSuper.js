@@ -29,10 +29,38 @@ export class AdminSuper extends plugin {
                 {
                     reg: "^#打落凡间.*$",
                     fnc: "Knockdown",
+                },
+                {
+                    reg: "^#等级设置为.*$",
+                    fnc: "upuserlevel",
                 }
             ],
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    }
+
+    async upuserlevel(e) {
+        if (!e.isMaster) {
+            return;
+        }
+        if (!e.isGroup) {
+            return;
+        }
+        e.reply("开始提升");
+        let code = e.msg.replace("#", '');
+        code = code.replace("等级设置为", '');
+        let B = await Xiuxian.At(e);
+        if (B == 0) {
+            return;
+        }
+        let usr_qq = B;
+        let player = await Xiuxian.Read_player(usr_qq);
+        player.level=code;
+        await Xiuxian.Write_player(usr_qq, player);
+        let equipment = await Xiuxian.Read_equipment(usr_qq);
+        await Xiuxian.Write_equipment(usr_qq, equipment);
+        e.reply("已完成提升");
+        return;
     }
 
 
