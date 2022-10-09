@@ -79,7 +79,7 @@ export class admin extends plugin {
                             isGroup: !!e.isGroup,
                             id: e.isGroup ? e.group_id : e.user_id,
                         });
-                        await redis.set(key, data, { EX: 120 });
+                        await redis.set(this.key, data, { EX: 120 });
                         let cm = "npm run start";
                         if (process.argv[1].includes("pm2")) {
                             cm = "npm run restart";
@@ -89,7 +89,7 @@ export class admin extends plugin {
 
                         exec(cm, (error, stdout, stderr) => {
                             if (error) {
-                                redis.del(key);
+                                redis.del(this.key);
                                 msg.push(
                                     "自动重启失败，请手动重启以应用新版修仙插件。\nError code: " +
                                     error.code +
