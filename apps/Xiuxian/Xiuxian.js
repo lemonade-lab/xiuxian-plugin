@@ -625,11 +625,13 @@ export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_
     }
     else {
         acount =  thing.acount + thing_acount;
-        najie.arms.find(item => item.id == thing_id).acount = acount;
+        if (acount < 1) {
+            najie.arms =  najie.arms.filter(item => item.id != thing_id);
+        }else{
+            najie.arms.find(item => item.id == thing_id).acount = acount;
+        }
     }
-    if (acount < 1) {
-        najie.arms =  najie.arms.filter(item => item.id != thing_id);
-    }
+    
     await Write_najie(usr_qq, najie);
     return;
 }
@@ -649,11 +651,13 @@ export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_
     }
     else {
         acount =  thing.acount + thing_acount;
-        najie.huju.find(item => item.id == thing_id).acount = acount;
+        if (acount < 1) {
+            najie.huju =  najie.huju.filter(item => item.id != thing_id);
+        }else{
+            najie.huju.find(item => item.id == thing_id).acount = acount;
+        }
     }
-    if (acount < 1) {
-        najie.huju =  najie.huju.filter(item => item.id != thing_id);
-    }
+    
     await Write_najie(usr_qq, najie);
     return;
 }
@@ -673,11 +677,13 @@ export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing
     }
     else {
         acount =  thing.acount + thing_acount;
-        najie.fabao.find(item => item.id == thing_id).acount = acount;
+        if (acount < 1) {
+            najie.fabao =  najie.fabao.filter(item => item.id != thing_id);
+        }else{
+            najie.fabao.find(item => item.id == thing_id).acount = acount;
+        }
     }
-    if (acount < 1) {
-        najie.fabao =  najie.fabao.filter(item => item.id != thing_id);
-    }
+   
     await Write_najie(usr_qq, najie);
     return;
 }
@@ -697,11 +703,13 @@ export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thin
     }
     else {
         acount =  thing.acount + thing_acount;
-        najie.danyao.find(item => item.id == thing_id).acount = acount;
+        if (acount < 1) {
+            najie.danyao =  najie.danyao.filter(item => item.id != thing_id);
+        }else{
+            najie.danyao.find(item => item.id == thing_id).acount = acount;
+        }
     }
-    if (acount < 1) {
-        najie.danyao =  najie.danyao.filter(item => item.id != thing_id);
-    }
+    
     await Write_najie(usr_qq, najie);
     return;
 }
@@ -722,11 +730,13 @@ export async function Add_najie_thing_gonfa(usr_qq, thing_id, thing_class, thing
     }
     else {
         acount =  thing.acount + thing_acount;
-        najie.gonfa.find(item => item.id == thing_id).acount = acount;
+        if (acount < 1) {
+            najie.gonfa =  najie.gonfa.filter(item => item.id != thing_id);
+        }else{
+            najie.gonfa.find(item => item.id == thing_id).acount = acount;
+        }
     }
-    if (acount < 1) {
-        najie.gonfa =  najie.gonfa.filter(item => item.id != thing_id);
-    }
+   
     await Write_najie(usr_qq, najie);
     return;
 }
@@ -746,12 +756,14 @@ export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing
        najie.daoju.push(equipment);
     }
     else {
-        acount =  thing.acount + thing_acount;
-        najie.daoju.find(item => item.id == thing_id).acount = acount;
+        acount =  thing.acount + thing_acount; 
+        if (acount < 1) {
+            najie.daoju =  najie.daoju.filter(item => item.id != thing_id);
+        }else{
+            najie.daoju.find(item => item.id == thing_id).acount = acount;
+        }
     }
-    if (acount < 1) {
-        najie.daoju =  najie.daoju.filter(item => item.id != thing_id);
-    }
+   
     await Write_najie(usr_qq, najie);
     return;
 }
@@ -770,11 +782,12 @@ export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_
          najie.ring.push(equipment);
     }
     else {
-        acount =  thing.acount + thing_acount;
-        najie.ring.find(item => item.id == thing_id).acount = acount;
-    }
-    if (acount < 1) {
-        najie.ring =  najie.ring.filter(item => item.id != thing_id);
+        acount =  thing.acount + thing_acount;    
+        if (acount < 1) {
+            najie.ring =  najie.ring.filter(item => item.id != thing_id);
+        }else{
+            najie.ring.find(item => item.id == thing_id).acount = acount;
+        }
     }
     await Write_najie(usr_qq, najie);
     return;
