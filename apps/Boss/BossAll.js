@@ -48,17 +48,22 @@ export class BossAll extends plugin {
         ];
         for (var i = 0; i < 3; i++) {
             let Boss;
+            let x=0;
             if (i == 0) {
                 Boss = await redis.get("xiuxian:BossMaxplus");
+                x=await redis.get("BossMaxplus");
             }
             else if (i == 1) {
                 Boss = await redis.get("xiuxian:BossMax");
+                x=await redis.get("BossMax");
             } else {
                 Boss = await redis.get("xiuxian:BossMini");
+                x=await redis.get("BossMini");
             }
-            Boss = JSON.parse(Boss);
-            if (Boss != null) {
-                msg.push(
+            if(x==0){
+                Boss = JSON.parse(Boss);
+                if (Boss != null) {
+                    msg.push(
                     "怪物：" + Boss.name +
                     "\n攻击：" + Boss.nowattack +
                     "\n防御：" + Boss.nowdefense +
@@ -67,7 +72,8 @@ export class BossAll extends plugin {
                     "\n暴击：" + Boss.nowblood +
                     "\n暴伤：" + Boss.nowblood +
                     "\n掉落：" + Boss.money
-                );
+                   );
+                }
             }
         }
         await Xiuxian.ForwardMsg(e, msg);
@@ -235,8 +241,6 @@ export class BossAll extends plugin {
         }
         return;
     }
-
-
 }
 
 
