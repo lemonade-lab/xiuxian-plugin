@@ -29,6 +29,10 @@ export class AdminDelete extends plugin {
                 {
                     reg: '^#删除世界$',
                     fnc: 'deleteallusers'
+                },
+                {
+                    reg: '^#删除信息.*$',
+                    fnc: 'deleteuser'
                 }
             ],
         });
@@ -140,6 +144,25 @@ export class AdminDelete extends plugin {
             fs.rmSync(`${Xiuxian.__PATH.player}/${player_id}.json`);
         }
         e.reply("世界已崩碎");
+        return;
+    }
+
+
+    async deleteuser(e){
+        if (!e.isMaster) {
+            return;
+        }
+        if (!e.isGroup) {
+            return;
+        }
+        let B = await Xiuxian.At(e);
+        if(B==0||B==A){
+            return;
+        }
+        e.reply("开始崩碎信息");
+        await Xiuxian.offaction(B);
+        fs.rmSync(`${Xiuxian.__PATH.player}/${B}.json`);
+        e.reply("已崩碎");
         return;
     }
 

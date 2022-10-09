@@ -51,6 +51,12 @@
     - icon: help-icon_9
       title: "#修仙世界"
       desc: "修仙分析统计"
+    - icon: help-icon_9
+      title: "#删除世界"
+      desc: "删除玩家存档"
+    - icon: help-icon_9
+      title: "#删除信息 @群友"
+      desc: "删除指定玩家存档"
     - icon: help-icon_14
       title: "#修仙更新"
       desc: "更新修仙模拟器插件"

@@ -287,7 +287,7 @@ export async function get_najie_img(e) {
     }
     for(var i=0;i<najie.gonfa.length;i++){
         let name=await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].class);
-        name.acount=najie.gonfa[i].acount;
+        name.acount =await najie.gonfa[i].acount;
         gonfa.push(name);
     }
     for(var i=0;i<najie.ring.length;i++){
