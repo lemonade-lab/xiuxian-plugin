@@ -121,10 +121,10 @@ export class BossAll extends plugin {
                 }
                 if (Data_battle.victory == usr_qq) {
                     await Xiuxian.Add_lingshi(usr_qq, BossMaxplus.money);
-                    e.reply("你击败了，获得" + BossMaxplus.money);
+                    e.reply("你击败了"+BossMaxplus.name+"，获得" + BossMaxplus.money);
                 } else {
                     await Xiuxian.Add_lingshi(usr_qq, -BossMaxplus.money);
-                    e.reply("你被对方打败了，被抢走了" + BossMaxplus.money);
+                    e.reply("你被"+BossMaxplus.name+"打败了，被抢走了" + BossMaxplus.money);
                 }
             }
         }
@@ -172,10 +172,10 @@ export class BossAll extends plugin {
                 }
                 if (Data_battle.victory == usr_qq) {
                     await Xiuxian.Add_lingshi(usr_qq, BossMax.money);
-                    e.reply("你击败了，获得" + BossMax.money);
+                    e.reply("你击败了"+BossMax.name+"，获得" + BossMax.money);
                 } else {
                     await Xiuxian.Add_lingshi(usr_qq, -BossMax.money);
-                    e.reply("你被对方打败了，被抢走了" + BossMax.money);
+                    e.reply("你被"+BossMax.name+"打败了，被抢走了" + BossMax.money);
                 }
             }
         }
@@ -227,10 +227,10 @@ export class BossAll extends plugin {
                 }
                 if (Data_battle.victory == usr_qq) {
                     await Xiuxian.Add_lingshi(usr_qq, BossMini.money);
-                    e.reply("你击败了，获得" + BossMini.money);
+                    e.reply("你击败了"+BossMini.name+"，，获得" + BossMini.money);
                 } else {
                     await Xiuxian.Add_lingshi(usr_qq, -BossMini.money);
-                    e.reply("你被对方打败了，被抢走了" + BossMini.money);
+                    e.reply("你被"+BossMini.name+"打败了，被抢走了" + BossMini.money);
                 }
             }
         }
