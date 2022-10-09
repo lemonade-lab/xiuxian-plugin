@@ -460,8 +460,10 @@ export async function player_efficiency(usr_qq) {
             ifexist2 = data.gongfa_list.find(item => item.id == gongfa_id);
             if (ifexist2 == undefined) {
                 ifexist2 = data.timegongfa_list.find(item => item.id == gongfa_id);
+                if(ifexist2!=undefined){
+                  gongfa_efficiency += ifexist2.size;
+                }
             }
-            gongfa_efficiency += ifexist2.size;
         }
     }
     if (parseInt(player.talentsize) != parseInt(player.talentsize)) {
