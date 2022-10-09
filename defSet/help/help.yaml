@@ -43,10 +43,10 @@
 - group: 逆天改命
   list:
     - icon: help-icon_9
-      title: "#我的练气"
+      title: "#练气信息"
       desc: "练气信息"
     - icon: help-icon_9
-      title: "#我的炼体"
+      title: "#炼体信息"
       desc: "炼体信息"
     - icon: help-icon_9
       title: "#突破"

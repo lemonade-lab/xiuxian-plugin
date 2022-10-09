@@ -15,7 +15,7 @@ export class UserInformation extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#我的练气$',
+                    reg: '^#练气信息$',
                     fnc: 'Show_player'
                 },
                 {
@@ -23,7 +23,7 @@ export class UserInformation extends plugin {
                     fnc: "show_equipment",
                 },
                 {
-                    reg: "^#我的炼体$",
+                    reg: "^#炼体信息$",
                     fnc: "show_power",
                 }
             ]
