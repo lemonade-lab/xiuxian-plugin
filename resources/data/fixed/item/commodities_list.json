@@ -1,4 +1,80 @@
 [
-
+    
+    {
+        "id": 4205,
+        "name": "返命丹",
+        "class": "4",
+        "type": "1",
+        "HP": 50000,
+        "HPp": 0.5,
+        "acount": 1,
+        "price": 5000
+    },
+    {
+        "id": 4231,
+        "name": "十转神丹",
+        "class": "4",
+        "type": "2",
+        "exp": 400000,
+        "acount": 1,
+        "price": 260000
+    },
+    {
+        "id": 5130,
+        "name": "太白经",
+        "class": "5",
+        "type": "1",
+        "size": 0.35,
+        "acount": 1,
+        "price": 350000
+    },
+    {
+        "id": 1119,
+        "name": "饮血剑",
+        "class": "1",
+        "type": "1",
+        "atk": 300000,
+        "def": 20000,
+        "HP": 20000,
+        "bao": 0.15,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 450000
+    },
+    {
+        "id": 2116,
+        "name": "龙鳞",
+        "class": "2",
+        "type": "1",
+        "atk": 20000,
+        "def": 300000,
+        "HP": 20000,
+        "bao": 0.15,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 450000
+    },
+    {
+        "id": 3117,
+        "name": "封仙印",
+        "class": "3",
+        "type": "1",
+        "atk": 200000,
+        "def": 5000,
+        "HP": 5000,
+        "bao": 0.2,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 350000
+    }
     
 ]

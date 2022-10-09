@@ -69,12 +69,12 @@ export class UserHome extends plugin {
             await Xiuxian.instead_equipment_arms(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
         if (searchsthing.class == 2) {
-            await Xiuxian.instead_equipment_huju(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
             await Add_najie_thing_huju(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
+            await Xiuxian.instead_equipment_huju(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
         if (searchsthing.class == 3) {
-            await Xiuxian.instead_equipment_fabao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
             await Add_najie_thing_fabao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
+            await Xiuxian.instead_equipment_fabao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
         }
         e.reply("成功装备" + thing_name);
         return;

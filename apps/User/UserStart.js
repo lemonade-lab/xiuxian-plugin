@@ -85,19 +85,22 @@ export class UserStart extends plugin {
             {
                 "id": 1101,
                 "class": "1",
-                "type": "1"
+                "type": "1",
+                "acount":"1"
             },
             "huju":
             {
                 "id": 2101,
                 "class": "2",
-                "type": "1"
+                "type": "1",
+                "acount":"1"
             },
             "fabao":
             {
                 "id": 3101,
                 "class": "3",
-                "type": "1"
+                "type": "1",
+                "acount":"1"
             }
         }
         await Xiuxian.Write_equipment(usr_qq, new_equipment);
