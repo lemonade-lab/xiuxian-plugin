@@ -524,7 +524,7 @@ export async function exist_thing(thing_id, thing_class) {
     /**
      * 不存在
      */
-    if (!ifexist) {
+    if (ifexist==undefined) {
         return 1;
     }
     return ifexist;
@@ -799,13 +799,12 @@ export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_
  */
 export async function instead_equipment_arms(usr_qq, thing_id, thing_class,thing_type) {
     let equipment = await Read_equipment(usr_qq);
+    await Add_najie_thing_arms(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);
     equipment.arms.id = thing_id;
     equipment.arms.class = thing_class;
     equipment.arms.type = thing_type;
     equipment.arms.acount = 1;
     await Write_equipment(usr_qq, equipment);
-    await Add_najie_thing_arms(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);
-    await Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_type, -1);
     return 0;
 }
 
@@ -814,13 +813,12 @@ export async function instead_equipment_arms(usr_qq, thing_id, thing_class,thing
  */
 export async function instead_equipment_fabao(usr_qq, thing_id, thing_class,thing_type) {
     let equipment = await Read_equipment(usr_qq);
+    await Add_najie_thing_fabao(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
     equipment.fabao.id = thing_id;
     equipment.fabao.class = thing_class;
     equipment.fabao.type = thing_type;
     equipment.fabao.acount = 1;
     await Write_equipment(usr_qq, equipment);
-    await Add_najie_thing_fabao(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
-    await Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing_type, -1);
     return 0;
 }
 
@@ -829,13 +827,12 @@ export async function instead_equipment_fabao(usr_qq, thing_id, thing_class,thin
  */
 export async function instead_equipment_huju(usr_qq, thing_id, thing_class,thing_type) {
     let equipment = await Read_equipment(usr_qq);
+    await Add_najie_thing_huju(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
     equipment.huju.id = thing_id;
     equipment.huju.class = thing_class;
     equipment.huju.type = thing_type;
     equipment.huju.acount = 1;
     await Write_equipment(usr_qq, equipment);
-    await Add_najie_thing_huju(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
-    await Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_type, -1);
     return 0;
 }
 

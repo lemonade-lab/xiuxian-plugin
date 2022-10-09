@@ -65,6 +65,8 @@ export class UserTransaction extends plugin {
 
         let commodities = ifexist.price * 1.2 * quantity;
 
+        console.log(ifexist);
+
         if(ifexist.class==1){ 
             await Xiuxian.Add_najie_thing_arms(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
