@@ -91,8 +91,8 @@ export class Exchange extends plugin {
         let thing_name = code[0];//物品
         let thing_value = code[1];//价格
         let thing_acunot = code[2];//数量
-        thing_value = Xiuxian.Numbers(thing_value);
-        thing_acunot = Xiuxian.Numbers(thing_acunot);
+        thing_value = await Xiuxian.Numbers(thing_value);
+        thing_acunot = await Xiuxian.Numbers(thing_acunot);
         if ( thing_acunot < 1 || thing_acunot > 99) {
             thing_acunot=1;
         }
