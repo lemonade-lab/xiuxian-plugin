@@ -76,8 +76,7 @@ export class UserStart extends plugin {
             "talent": newtalent,//灵根
             "talentshow": 1,//显示0，隐藏1
             "talentsize": 0,//天赋
-            "AllSorcery": [""
-            ],//功法
+            "AllSorcery": [],//功法
             "occupation": [],//职业
             "power_place": 1,//仙界
             "days": 0,//签到

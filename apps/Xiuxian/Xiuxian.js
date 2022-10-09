@@ -450,25 +450,23 @@ export async function talentsize(player) {
  * 天赋综合计算
  */
 export async function player_efficiency(usr_qq) {
-
     let player = await data.getData("player", usr_qq);
     let gongfa_efficiency = 0;
     let ifexist2;
     let gongfa_id;
-
-    for (var i = 0; i < player.AllSorcery.length; i++) {
-        gongfa_id = player.AllSorcery[i];
-        ifexist2 = data.gongfa_list.find(item => item.id == gongfa_id);
-        if (ifexist2 == undefined) {
-            ifexist2 = data.timegongfa_list.find(item => item.id == gongfa_id);
+    if(player.AllSorcery.length!=undefined){
+        for (var i = 0; i < player.AllSorcery.length; i++) {
+            gongfa_id = player.AllSorcery[i];
+            ifexist2 = data.gongfa_list.find(item => item.id == gongfa_id);
+            if (ifexist2 == undefined) {
+                ifexist2 = data.timegongfa_list.find(item => item.id == gongfa_id);
+            }
+            gongfa_efficiency += ifexist2.size;
         }
-        gongfa_efficiency += ifexist2.size;
     }
-
     if (parseInt(player.talentsize) != parseInt(player.talentsize)) {
         player.talentsize = 0;
     }
-
     let linggen_efficiency = await talentsize(player);
     player.talentsize = linggen_efficiency + gongfa_efficiency;
     data.setData("player", usr_qq, player);

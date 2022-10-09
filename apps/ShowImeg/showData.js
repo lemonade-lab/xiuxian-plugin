@@ -123,38 +123,25 @@ export class showData extends plugin {
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-
     if (!ifexistplay) {
         return;
     }
-
     let player = await data.getData("player", usr_qq);
-
-    //得到数据
     let equipment = await data.getData("equipment", usr_qq);
-
-    //得名字
     let wuqi_name  = data.wuqi_list.find(item => item.id == equipment.arms.id).name;
     let juju_name  = data.huju_list.find(item => item.id == equipment.huju.id).name;
     let fabao_name = data.fabao_list.find(item => item.id == equipment.fabao.id).name;
-
     let player_status = await Xiuxian.getPlayerAction(usr_qq);
-
     let status = "空闲";
     if (player_status.time != null) {
         status = player_status.action + "(剩余时间:" + player_status.time + ")";
     }
-
     let lingshi = Math.trunc(player.lingshi);
-
     if (player.lingshi > 999999999999) {
         lingshi = 999999999999;
     }
-
-
     data.setData("player", usr_qq, player);
     await Xiuxian.player_efficiency(usr_qq);
-
     /**
      * 灵根
      */
@@ -207,7 +194,6 @@ export async function get_player_img(e) {
     if (!ifexistplay) {
         return;
     }
-
     let player = await data.getData("player", usr_qq);
     let lingshi = Math.trunc(player.lingshi);
     if (player.lingshi > 999999999999) {

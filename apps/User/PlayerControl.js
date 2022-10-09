@@ -46,7 +46,6 @@ export class PlayerControl extends plugin {
         }
         let usr_qq = e.user_id;
 
-
         let time = e.msg.replace("#", "");
         time = time.replace("闭关", "");
         time = time.replace("分", "");
