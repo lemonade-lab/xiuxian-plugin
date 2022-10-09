@@ -1239,7 +1239,7 @@ export async function Search_Exchange(thing_qq) {
 /**
  * 返回物品名字
  */
-export async function returnname(thing_class) {
+export async function classname(thing_class) {
     let name = thing_class;
     if(name==1){
         name="武器";

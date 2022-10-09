@@ -48,12 +48,12 @@ export class Exchange extends plugin {
             if (time <= 0) {
                 time = 0;
             }
-            let name= await Xiuxian.returnname(Exchange[i].class);
+            let classname = await Xiuxian.classname(Exchange[i].class);
             time = Math.trunc(time);
             msg.push(
                 "编号：" + Exchange[i].qq +
-                "\n物品：" + name +
-                "\n类型：" + Exchange[i].class +
+                "\n物品：" + Exchange[i].name +
+                "\n类型：" + classname +
                 "\n价格：" + Exchange[i].price +
                 "\n数量：" + Exchange[i].aconut +
                 "\n总价：" + Exchange[i].whole +
