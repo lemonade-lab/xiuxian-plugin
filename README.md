@@ -14,10 +14,8 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plu
 
 
 ## 配置与存档   
-xiuxian-emulator-plugin/config/          
->  配置地址       
-xiuxian-emulator-plugin/resources/data/birth/xiuxian/       
->  存档地址       
+xiuxian-emulator-plugin/config/            
+xiuxian-emulator-plugin/resources/data/birth/xiuxian/        
 
 ## 强制更新      
 > Yunzai-Bot/目录下执行      
