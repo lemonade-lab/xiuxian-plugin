@@ -278,8 +278,7 @@ export class Exchange extends plugin {
         let end_time = Exchange[x].end_time;
         let time = (end_time - nowtime) / 60000;
         time = await Xiuxian.Numbers(time);
-
-        if (time <= 0) {
+        if (time <= 1) {
             let thing_whole = Exchange[x].whole;
             if (player.lingshi > thing_whole) {
                 if(Exchange[x].class==1){ 
