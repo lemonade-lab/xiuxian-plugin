@@ -182,7 +182,7 @@ export class TopList extends plugin {
         let Data = [];
         if (File_length > 10) { File_length = 10; }//最多显示前十
         for (var i = 0; i < File_length; i++) {
-            temp[i].名次 = i + 1;
+            temp[i].position = i + 1;
             Data[i] = temp[i];
         }
         let thisplayer = await data.getData("player", usr_qq);
@@ -225,7 +225,7 @@ export class TopList extends plugin {
         usr_paiming = temp.findIndex(temp => temp.qq === usr_qq) + 1;
         if (File_length > 10) { File_length = 10; }//最多显示前十
         for (var i = 0; i < File_length; i++) {
-            temp[i].名次 = i + 1;
+            temp[i].position = i + 1;
             Data[i] = temp[i];
         }
         await Xiuxian.sleep(500);

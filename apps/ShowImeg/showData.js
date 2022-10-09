@@ -116,11 +116,6 @@ export class showData extends plugin {
 }
 
 
-
-
-
-
-
 /**
  * 返回该玩家的存档图片
  * @return image
@@ -204,8 +199,7 @@ export async function get_player_img(e) {
 
 
 /**
- * 返回该玩家的法体
- * @return image
+ * 返回该玩家体
  */
  export async function get_power_img(e) {
     let usr_qq = e.user_id;
@@ -253,7 +247,6 @@ export async function get_player_img(e) {
 
 /**
  * 返回该玩家的装备图片
- * @return image
  */
 export async function get_equipment_img(e) {
 
@@ -310,7 +303,6 @@ export async function get_equipment_img(e) {
 
 /**
  * 返回该玩家的纳戒图片
- * @return image
  */
 export async function get_najie_img(e) {
     let usr_qq = e.user_id;
@@ -395,7 +387,6 @@ export async function get_najie_img(e) {
 
 /**
  * 返回境界列表图片
- * @return image
  */
 
 export async function get_state_img(e) {
@@ -404,11 +395,7 @@ export async function get_state_img(e) {
     if (!ifexistplay) {
         return;
     }
-    /**
-     * 根据玩家境界去显示境界
-     */
 
-    
      let player = await data.getData("player", usr_qq);
      let Level_id=player.level_id;
      let Level_list = data.Level_list;
@@ -425,6 +412,7 @@ export async function get_state_img(e) {
         user_id: usr_qq,
         Level_list: Level_list
     }
+
     const data1 = await new Show(e).get_stateData(state_data);
     let img = await puppeteer.screenshot("state", {
         ...data1,
@@ -435,7 +423,6 @@ export async function get_state_img(e) {
 
 /**
  * 返回境界列表图片
- * @return image
  */
 
 export async function get_statemax_img(e) {
@@ -458,7 +445,6 @@ export async function get_statemax_img(e) {
        }
        LevelMax_list = await LevelMax_list.filter(item => item.level_id != i);
    }
-
 
     let statemax_data = {
         user_id: usr_qq,
