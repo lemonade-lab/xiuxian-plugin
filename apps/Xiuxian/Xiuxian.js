@@ -17,10 +17,13 @@ export const __PATH = {
     //限定
     Timelimit: path.join(__dirname, "/resources/data/fixed/Timelimit"),
 }
+
 let xiuxianSetFile = "./plugins/xiuxian-emulator-plugin/config/xiuxian/xiuxian.yaml";
+
 if (!fs.existsSync(xiuxianSetFile)) {
     fs.copyFileSync("./plugins/xiuxian-emulator-plugin/defSet/xiuxian/xiuxian.yaml", xiuxianSetFile);
 }
+
 //处理消息
 export class Xiuxian extends plugin {
     constructor() {

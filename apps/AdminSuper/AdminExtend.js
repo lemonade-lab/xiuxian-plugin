@@ -10,7 +10,7 @@ export class AdminExtend extends plugin {
             name: "AdminExtend",
             dsc: "AdminExtend",
             event: "message",
-            priority: 100,
+            priority: 400,
             rule: [
                 {
                     reg: '^#加载修仙职业$',

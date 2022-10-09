@@ -12,7 +12,7 @@ export class AdminDelete extends plugin {
             name: "AdminDelete",
             dsc: "AdminDelete",
             event: "message",
-            priority: 100,
+            priority: 400,
             rule: [
                 {
                     reg: "^#清除冲水堂$",
@@ -156,7 +156,7 @@ export class AdminDelete extends plugin {
             return;
         }
         let B = await Xiuxian.At(e);
-        if(B==0||B==A){
+        if(B==0){
             return;
         }
         e.reply("开始崩碎信息");

@@ -12,7 +12,7 @@ export class AdminSuper extends plugin {
             name: "AdminSuper",
             dsc: "AdminSuper",
             event: "message",
-            priority: 100,
+            priority: 400,
             rule: [
                 {
                     reg: "^#同步信息$",

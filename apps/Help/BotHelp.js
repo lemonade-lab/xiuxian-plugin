@@ -16,7 +16,7 @@ export class BotHelp extends plugin {
             name: 'BotHelp',
             dsc: 'BotHelp',
             event: 'message',
-            priority: 400,
+            priority: 600,
             rule: [
                 {
                     reg: '^#修仙帮助$',

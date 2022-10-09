@@ -17,7 +17,7 @@ export class AdminBoss extends plugin {
             name: "AdminBoss",
             dsc: "AdminBoss",
             event: "message",
-            priority: 100,
+            priority: 400,
             rule: [
                 {
                     reg: '^#放出怪物$',

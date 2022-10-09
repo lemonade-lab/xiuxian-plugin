@@ -31,14 +31,8 @@
       title: "#打入凡间 @群友"
       desc: "关闭群友仙门，永不得返"
 
-- group: 修仙管理
+- group: 世界管理
   list:
-    - icon: help-icon_9
-      title: "#修仙设置"
-      desc: "查看修仙配置"
-    - icon: help-icon_9
-      title: "#同步信息"
-      desc: "同步所有存档"
     - icon: help-icon_9
       title: "#清除冲水堂"
       desc: "全部回收物品"
@@ -49,20 +43,26 @@
       title: "#打扫客栈"
       desc: "手动清理客栈消息"
     - icon: help-icon_9
-      title: "#修仙世界"
-      desc: "修仙分析统计"
-    - icon: help-icon_9
       title: "#删除世界"
       desc: "删除玩家存档"
     - icon: help-icon_9
       title: "#删除信息 @群友"
       desc: "删除指定玩家存档"
+    - icon: help-icon_9
+      title: "#修仙世界"
+      desc: "修仙分析统计"
+
+- group: 修仙管理
+  list:
+    - icon: help-icon_9
+      title: "#修仙设置"
+      desc: "查看修仙配置"
+    - icon: help-icon_9
+      title: "#同步信息"
+      desc: "同步所有存档"
     - icon: help-icon_14
       title: "#修仙更新"
       desc: "更新修仙模拟器插件"
-    - icon: help-icon_14
-      title: "#修仙强制更新"
-      desc: "推荐使用强制更新"
 
 
       

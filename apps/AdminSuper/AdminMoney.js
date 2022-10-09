@@ -13,7 +13,7 @@ export class AdminMoney extends plugin {
             name: "AdminMoney",
             dsc: "AdminMoney",
             event: "message",
-            priority: 100,
+            priority: 400,
             rule: [
                 {
                     reg: '^#修仙世界$',
