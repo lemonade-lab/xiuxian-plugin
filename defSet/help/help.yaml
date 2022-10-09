@@ -9,9 +9,6 @@
     - icon: help-icon_1
       title: "#储物袋 #升级储物袋"
       desc: "物品查询,容量提升"
-    - icon: help-icon_7
-      title: "#面板信息"
-      desc: "查看身上装备信息"
     - icon: help-icon_4
       title: "#修仙签到"
       desc: "修仙每日签到"
@@ -21,18 +18,18 @@
     - icon: help-icon_8
       title: "#交税999"
       desc: "主动交税"
+    
+- group: 修行之路
+  list:
     - icon: help-icon_13
       title: "#练气境界"
       desc: "查看所有境界"
     - icon: help-icon_13
       title: "#炼体境界"
       desc: "查看所有境界"
-    
-- group: 修行之路
-  list:
     - icon: help-icon_13
       title: "#修仙状态"
-      desc: "查看自己的时间动作"
+      desc: "查看状态，无状态不提示"
     - icon: help-icon_13
       title: "#闭关N分钟 #出关"
       desc: "进行N分钟的闭关,获取修为"
@@ -42,6 +39,9 @@
 
 - group: 逆天改命
   list:
+    - icon: help-icon_7
+      title: "#面板信息"
+      desc: "查看身上装备信息"
     - icon: help-icon_9
       title: "#练气信息"
       desc: "练气信息"
@@ -77,18 +77,18 @@
   list:
     - icon: help-icon_7
       title: "@群友 #切磋"
-      desc: "相互切磋武艺,没有限制,没有奖励"
+      desc: "会掉血的"
     - icon: help-icon_7
       title: "@群友 #打劫"
       desc: "夺取对方财富"
     - icon: help-icon_10
       title: "@群友赠送灵石1000"
-      desc: "@群友孝敬前辈/@群友资助后辈"
+      desc: "转账灵石"
     - icon: help-icon_10
       title: "#发红包10000*5"
-      desc: "灵石需要万的倍数"
+      desc: "需要万的倍数"
     - icon: help-icon_10
-      title: "#抢红包@对方"
+      title: "#抢红包 @群友"
       desc: "艾特发红包的仔"
 
 - group: 帮助扩展

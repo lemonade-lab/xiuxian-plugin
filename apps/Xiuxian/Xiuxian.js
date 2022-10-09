@@ -259,6 +259,10 @@ export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
 
 
 
+
+
+
+
 /**
  * ***********************************************************
  * 战斗系统合集
@@ -370,6 +374,12 @@ export async function battle(A, B) {
     return battle;
 }
 
+
+
+
+
+
+
 /**
  * 随机取。判断是否暴
  */
@@ -386,6 +396,115 @@ export async function battlebursthurt(x) {
     //默认不暴
     return false;
 }
+
+
+
+export async function battlemax(A, battlemsg) {
+    let A_qq = await A;
+    let playerA = await Read_player(A_qq);
+    let playerB = battlemsg;
+    let bloodA = await playerA.nowblood;
+    let bloodB = await playerB.nowblood;
+    let hurtA = await playerA.nowattack - playerB.nowdefense;
+    let hurtB = await playerB.nowattack - playerA.nowdefense;
+    //伤害需要大于0
+    if (hurtA <= 0) {
+        hurtA = 0;//破不了防御，没伤害
+    }
+    if (hurtB <= 0) {
+        hurtB = 0;//破不了防御，没伤害
+    }
+    let victory = await A_qq;
+    let msg = [];
+    let x = 0;
+    /**
+     * 默认A为主动方，敏捷+5
+     */
+    if (playerA.speed + 5 >= playerB.speed) {
+        x = 0;
+        //确认敏捷足够A、先手
+    } else {
+        //B先手
+        x = 1;
+    }
+    while (bloodA >= 0 && bloodB >= 0) {
+        if (bloodA <= 0) {
+            //A输了
+            victory = await B_qq;
+            msg.push("你没血了");
+            break;
+        }
+        if (bloodB <= 0) {
+            msg.push("对方没血了");
+            break;
+        }
+        let hurtAA = hurtA;
+        let hurtBB = hurtA;
+        /**
+         * 先手
+         */
+        if (x == 0) {
+            if (await battlebursthurt(playerA.burst)) {
+                hurtAA = hurtAA * (playerA.bursthurt + 1);
+            }
+            bloodB = await bloodB - hurtAA;
+            if (bloodB <= 0) {
+                bloodB = 0;
+            }
+            msg.push("你向发对方动了攻击，对[" + playerB.name + "]造成了" + hurtAA + "伤害，对方血量剩余" + bloodB);
+            if (bloodB <= 0) {
+                break;
+            }
+            if (await battlebursthurt(playerB.burst)) {
+                hurtBB = hurtAA * (playerB.bursthurt + 1);
+            }
+            bloodA = await bloodA - hurtBB;
+            if (bloodA <= 0) {
+                victory = await B_qq;
+                bloodA = 0;
+            }
+            msg.push("对方向你发动了攻击，对[" + playerA.name + "]造成了" + hurtBB + "伤害，你血量剩余" + bloodA);
+            if (bloodA <= 0) {
+                break;
+            }
+        }
+        else {
+            if (await battlebursthurt(playerB.burst)) {
+                hurtBB = hurtAA * (playerB.bursthurt + 1);
+            }
+            bloodA = await bloodA - hurtBB;
+            if (bloodA <= 0) {
+                victory = await B_qq;
+                bloodA = 0;
+            }
+            msg.push("对方向你，发动了攻击，对[" + playerA.name + "]造成了" + hurtBB + "伤害，你血量剩余" + bloodA);
+            if (bloodA <= 0) {
+                break;
+            }
+            if (await battlebursthurt(playerA.burst)) {
+                hurtAA = hurtAA * (playerA.bursthurt + 1);
+            }
+            bloodB = await bloodB - hurtAA;
+            if (bloodB <= 0) {
+                bloodB = 0;
+            }
+            msg.push("你向对方发动了攻击，对[" + playerB.name + "]造成了" + hurtAA + "伤害，对方血量剩余" + bloodB);
+            if (bloodB <= 0) {
+                break;
+            }
+        }
+    }
+    bloodA = await playerA.nowblood - bloodA;
+    await Add_HP(A, -bloodA);
+    let battle = {
+        "msg": msg,
+        "victory": victory
+    }
+    return battle;
+}
+
+
+
 
 
 
@@ -624,7 +743,9 @@ export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_
         type: thing_type,
         acount: thing_acount
        }
-         najie.arms.push(equipment);
+       najie.arms.push(equipment);
+       await Write_najie(usr_qq, najie);
+       return;
     }
     else {
         acount =  thing.acount + thing_acount;
@@ -633,10 +754,9 @@ export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_
         }else{
             najie.arms.find(item => item.id == thing_id).acount = acount;
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    
-    await Write_najie(usr_qq, najie);
-    return;
 }
 
 export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
@@ -648,9 +768,11 @@ export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_
         id: thing_id,
         class: thing_class,
         type: thing_type,
-        acount: thing_acount
-    }
-         najie.huju.push(equipment);
+        acount: thing_acount  
+        };
+        najie.huju.push(equipment);
+        await Write_najie(usr_qq, najie);
+        return;
     }
     else {
         acount =  thing.acount + thing_acount;
@@ -659,10 +781,9 @@ export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_
         }else{
             najie.huju.find(item => item.id == thing_id).acount = acount;
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    
-    await Write_najie(usr_qq, najie);
-    return;
 }
 
 export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
@@ -677,6 +798,8 @@ export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing
             acount: thing_acount
         }
          najie.fabao.push(equipment);
+         await Write_najie(usr_qq, najie);
+         return;
     }
     else {
         acount =  thing.acount + thing_acount;
@@ -685,10 +808,9 @@ export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing
         }else{
             najie.fabao.find(item => item.id == thing_id).acount = acount;
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-   
-    await Write_najie(usr_qq, najie);
-    return;
 }
 
 export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
@@ -703,6 +825,8 @@ export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thin
             acount: thing_acount
         }
          najie.danyao.push(equipment);
+         await Write_najie(usr_qq, najie);
+         return;
     }
     else {
         acount =  thing.acount + thing_acount;
@@ -711,10 +835,9 @@ export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thin
         }else{
             najie.danyao.find(item => item.id == thing_id).acount = acount;
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    
-    await Write_najie(usr_qq, najie);
-    return;
 }
 
 
@@ -730,6 +853,8 @@ export async function Add_najie_thing_gonfa(usr_qq, thing_id, thing_class, thing
         acount: thing_acount
     }
          najie.gonfa.push(equipment);
+         await Write_najie(usr_qq, najie);
+         return;
     }
     else {
         acount =  thing.acount + thing_acount;
@@ -738,10 +863,9 @@ export async function Add_najie_thing_gonfa(usr_qq, thing_id, thing_class, thing
         }else{
             najie.gonfa.find(item => item.id == thing_id).acount = acount;
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-   
-    await Write_najie(usr_qq, najie);
-    return;
 }
 
 
@@ -756,7 +880,10 @@ export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing
         type: thing_type,
         acount: thing_acount
     }
-       najie.daoju.push(equipment);
+    najie.daoju.push(equipment);
+    
+       await Write_najie(usr_qq, najie);
+       return;
     }
     else {
         acount =  thing.acount + thing_acount; 
@@ -765,10 +892,10 @@ export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing
         }else{
             najie.daoju.find(item => item.id == thing_id).acount = acount;
         }
-    }
    
-    await Write_najie(usr_qq, najie);
-    return;
+        await Write_najie(usr_qq, najie);
+        return;
+    }
 }
 
 export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
@@ -782,7 +909,9 @@ export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_
         type: thing_type,
         acount: thing_acount
     }
-         najie.ring.push(equipment);
+    najie.ring.push(equipment);
+    await Write_najie(usr_qq, najie);
+    return;
     }
     else {
         acount =  thing.acount + thing_acount;    
@@ -791,9 +920,9 @@ export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_
         }else{
             najie.ring.find(item => item.id == thing_id).acount = acount;
         }
+        await Write_najie(usr_qq, najie);
+        return;
     }
-    await Write_najie(usr_qq, najie);
-    return;
 }
 
 

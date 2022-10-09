@@ -70,7 +70,7 @@ export class BossAll extends plugin {
             let now_time = new Date().getTime();
             let CDTime = 15;
             let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if(CD != 0) {
+            if (CD != 0) {
                 e.reply(CD);
                 return;
             }
@@ -80,10 +80,20 @@ export class BossAll extends plugin {
             let BossMaxplus = await redis.get("xiuxian:BossMaxplus");
             BossMaxplus = JSON.parse(BossMaxplus);
             if (BossMaxplus != null) {
-                /**
-                 * 等重写
-                 */
-
+                let Data_battle = await Xiuxian.battlemax(usr_qq, BossMax);
+                let msg = Data_battle.msg;
+                if (msg.length > 30) {
+                    e.reply("战斗过程略...");
+                } else {
+                    await Xiuxian.ForwardMsg(e, msg);
+                }
+                if (Data_battle.victory == usr_qq) {
+                    await Xiuxian.Add_lingshi(usr_qq, BossMaxplus.money);
+                    e.reply("你击败了，获得" + BossMaxplus.money);
+                } else {
+                    await Xiuxian.Add_lingshi(usr_qq, -BossMaxplus.money);
+                    e.reply("你被对方打败了，被抢走了" + BossMaxplus.money);
+                }
             }
         }
         else if (now_level_id <= 41) {
@@ -113,7 +123,7 @@ export class BossAll extends plugin {
             let now_time = new Date().getTime();
             let CDTime = 15;
             let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if(CD != 0) {
+            if (CD != 0) {
                 e.reply(CD);
                 return;
             }
@@ -121,10 +131,20 @@ export class BossAll extends plugin {
             let BossMax = await redis.get("xiuxian:BossMax");
             BossMax = JSON.parse(BossMax);
             if (BossMax != null) {
-                /**
-                 * 等待重写
-                 */
-
+                let Data_battle = await Xiuxian.battlemax(usr_qq, BossMax);
+                let msg = Data_battle.msg;
+                if (msg.length > 30) {
+                    e.reply("战斗过程略...");
+                } else {
+                    await Xiuxian.ForwardMsg(e, msg);
+                }
+                if (Data_battle.victory == usr_qq) {
+                    await Xiuxian.Add_lingshi(usr_qq, BossMax.money);
+                    e.reply("你击败了，获得" + BossMax.money);
+                } else {
+                    await Xiuxian.Add_lingshi(usr_qq, -BossMax.money);
+                    e.reply("你被对方打败了，被抢走了" + BossMax.money);
+                }
             }
         }
         else if (now_level_id > 33) {
@@ -158,7 +178,7 @@ export class BossAll extends plugin {
             let now_time = new Date().getTime();
             let CDTime = 15;
             let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if(CD != 0) {
+            if (CD != 0) {
                 e.reply(CD);
                 return;
             }
@@ -166,9 +186,20 @@ export class BossAll extends plugin {
             let BossMini = await redis.get("xiuxian:BossMini");
             BossMini = JSON.parse(BossMini);
             if (BossMini != null) {
-                /**
-                 * 待重写
-                 */
+                let Data_battle = await Xiuxian.battlemax(usr_qq, BossMini);
+                let msg = Data_battle.msg;
+                if (msg.length > 30) {
+                    e.reply("战斗过程略...");
+                } else {
+                    await Xiuxian.ForwardMsg(e, msg);
+                }
+                if (Data_battle.victory == usr_qq) {
+                    await Xiuxian.Add_lingshi(usr_qq, BossMini.money);
+                    e.reply("你击败了，获得" + BossMini.money);
+                } else {
+                    await Xiuxian.Add_lingshi(usr_qq, -BossMini.money);
+                    e.reply("你被对方打败了，被抢走了" + BossMini.money);
+                }
             }
         }
         else if (now_level_id >= 42) {
@@ -184,53 +215,32 @@ export class BossAll extends plugin {
 
 
 export async function Bossmsg(e) {
-    let bossMaxplus = await redis.get("BossMaxplus");
     let msg = [
         "《怪物时间》\n11:30——12:30\n18:30——19:30\n指令：#讨伐+怪物名"
     ];
-    if (bossMaxplus == 0) {
-        let BossMaxplus = await redis.get("xiuxian:BossMaxplus");
-        BossMaxplus = JSON.parse(BossMaxplus);
-        if (BossMaxplus != null) {
-            msg.push("【魔王】" +
-                "\n攻击：" + BossMaxplus.attack +
-                "\n防御：" + BossMaxplus.defense +
-                "\n血量：" + BossMaxplus.blood +
-                "\n掉落：" + BossMaxplus.money);
+    for (var i = 0; i < 3; i++) {
+        let Boss;
+        if (i == 0) {
+            Boss = await redis.get("xiuxian:BossMaxplus");
         }
-    }
-    else {
-        msg.push("魔王未开启！");
-    }
-    let bossMax = await redis.get("BossMax");
-    if (bossMax == 0) {
-        let BossMax = await redis.get("xiuxian:BossMax");
-        BossMax = JSON.parse(BossMax);
-        if (BossMax != null) {
-            msg.push("【金角大王】" +
-                "\n攻击：" + BossMax.attack +
-                "\n防御：" + BossMax.defense +
-                "\n血量：" + BossMax.blood +
-                "\n掉落：" + BossMax.money);
+        else if (i == 1) {
+            Boss = await redis.get("xiuxian:BossMax");
+        } else {
+            Boss = await redis.get("xiuxian:BossMini");
         }
-    }
-    else {
-        msg.push("金角大王未开启！");
-    }
-    let bossMini = await redis.get("BossMini");
-    if (bossMini == 0) {
-        let BossMini = await redis.get("xiuxian:BossMini");
-        BossMini = JSON.parse(BossMini);
-        if (BossMini != null) {
-            msg.push("【银角大王】" +
-                "\n攻击：" + BossMini.attack +
-                "\n防御：" + BossMini.defense +
-                "\n血量：" + BossMini.blood +
-                "\n掉落：" + BossMini.money);
+        Boss = JSON.parse(Boss);
+        if (Boss != null) {
+            msg.push(
+                "怪物：" + Boss.name +
+                "\n攻击：" + Boss.nowattack +
+                "\n防御：" + Boss.nowdefense +
+                "\n血量：" + Boss.nowblood +
+                "\n敏捷：" + Boss.nowblood +
+                "\n暴击：" + Boss.nowblood +
+                "\n暴伤：" + Boss.nowblood +
+                "\n掉落：" + Boss.money
+            );
         }
-    }
-    else {
-        msg.push("银角大王未开启！");
     }
     return msg;
 }

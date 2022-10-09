@@ -103,10 +103,12 @@ export async function monster() {
         if (User_maxplus != 1) {
             let BossMaxplus = {
                 "name": "魔王",
-                "attack": attack * User_maxplus * 3,
-                "defense": defense * User_maxplus * 3,
-                "blood": blood * User_maxplus * 3,
-                "probability": "0.7",
+                "nowattack": attack * User_maxplus * 3,
+                "nowdefense": defense * User_maxplus * 3,
+                "nowblood": blood * User_maxplus * 3,
+                "speed":User_maxplus,
+                "burst": "0.7",
+                "bursthurt": 3,
                 "money": money * User_maxplus * 3
             };
             await redis.set("xiuxian:BossMaxplus", JSON.stringify(BossMaxplus));
@@ -119,10 +121,12 @@ export async function monster() {
         if (User_max != 1) {
             let BossMax = {
                 "name": "金角大王",
-                "attack": attack * User_max * 2,
-                "defense": defense * User_max * 2,
-                "blood": blood * User_max * 2,
-                "probability": "0.5",
+                "nowattack": attack * User_max * 2,
+                "nowdefense": defense * User_max * 2,
+                "nowblood": blood * User_max * 2,
+                "speed":User_max,
+                "burst": "0.5",
+                "bursthurt": 2,
                 "money": money * User_max * 2
             };
             await redis.set("xiuxian:BossMax", JSON.stringify(BossMax));
@@ -135,11 +139,13 @@ export async function monster() {
         if (User_mini != 1) {
             let BossMini = {
                 "name": "银角大王",
-                "attack": attack * User_mini,
-                "defense": defense * User_mini,
-                "blood": blood * User_mini,
-                "probability": "0.3",
-                "money": money * User_mini
+                "nowattack": attack * User_mini * 2,
+                "nowdefense": defense * User_mini * 2,
+                "nowblood": blood * User_mini * 2,
+                "speed":User_mini,
+                "burst": "0.3",
+                "bursthurt": 2,
+                "money": money * User_mini * 2
             };
             await redis.set("xiuxian:BossMini", JSON.stringify(BossMini));
             await redis.set("BossMini", 0);

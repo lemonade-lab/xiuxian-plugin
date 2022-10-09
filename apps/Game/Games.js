@@ -450,17 +450,13 @@ export async function setu(e) {
     catch (error) {
         console.log('Request Failed', error);
     }
-
     let link = res.data[0].urls.original;//获取图链
-
     link = link.replace('pixiv.cat', 'pixiv.re');//链接改为国内可访问的域名
-
     let pid = res.data[0].pid;//获取图片ID
     let uid = res.data[0].uid;//获取画师ID
     let title = res.data[0].title;//获取图片名称
     let author = res.data[0].author;//获取画师名称
     let px = res.data[0].width + '*' + res.data[0].height;//获取图片宽高
-
     msg.push("User: " + author +
         "\nUid: " + uid +
         "\nTitle: " + title +
@@ -470,11 +466,8 @@ export async function setu(e) {
         );
 
     await Xiuxian.sleep(1000);
-
     e.reply(segment.image(link));
-
     await Xiuxian.ForwardMsg(e, msg);
-
     return ;
 }
 

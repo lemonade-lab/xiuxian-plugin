@@ -133,11 +133,7 @@ export class Exchange extends plugin {
         }
         let Exchange = await Xiuxian.Read_Exchange();
         let whole = thing_value * thing_acunot;
-        
-
         whole = await Xiuxian.Numbers(whole);
-        
-
         let time = 10;
         let wupin = {
             "qq": usr_qq,
@@ -192,12 +188,10 @@ export class Exchange extends plugin {
             return;
         }
         let Exchange  = await Xiuxian.Read_Exchange();
-
         let end_time = Exchange[x].end_time;
         let time = (end_time - now_time) / 60000;
         time = Math.trunc(time);
-
-        if (time <= 0) {
+        if (time <= 1) {
             if (thingqq != usr_qq) {
                 return;
             }
@@ -258,14 +252,12 @@ export class Exchange extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id < 9) {
             e.reply("境界过低");
             return;
         }
-
         let thingqq = e.msg.replace("#", '');
         thingqq = thingqq.replace("选购", '');
         let x = await Xiuxian.Search_Exchange(thingqq);
@@ -273,7 +265,6 @@ export class Exchange extends plugin {
             return;
         }
         let Exchange  = await Xiuxian.Read_Exchange();
-        
         let nowtime = new Date().getTime();
         let end_time = Exchange[x].end_time;
         let time = (end_time - nowtime) / 60000;

@@ -37,12 +37,12 @@ export class UserTransaction extends plugin {
             e.reply("游戏进行中...");
             return;
         }
-
         let thing = e.msg.replace("#", '');
         thing = thing.replace("购买", '');
         let code = thing.split("\*");
         let thing_name = code[0];
-        let quantity = await Xiuxian.Numbers(code[1]);
+        let acount=code[1];
+        let quantity = await Xiuxian.Numbers(acount);
         if (quantity > 99) {
             quantity = 99;
         }
@@ -53,17 +53,11 @@ export class UserTransaction extends plugin {
         }
         let player = await Xiuxian.Read_player(usr_qq);
         let lingshi = player.lingshi;
-        if (lingshi <= 0) {
-            e.reply(`掌柜：就你这穷酸样，也想来柠檬堂？走走走！`);
-            return;
-        }
-        let commodities_price = ifexist.price * 1.2 * quantity;
+        let commodities_price = ifexist.price * quantity;
         if (lingshi < commodities_price) {
             e.reply(`灵石不足`);
             return;
         }
-
-        let commodities = ifexist.price * 1.2 * quantity;
         if(ifexist.class==1){ 
             await Xiuxian.Add_najie_thing_arms(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
@@ -85,12 +79,8 @@ export class UserTransaction extends plugin {
         else if(ifexist.class==7){ 
             await Xiuxian.Add_najie_thing_ring(usr_qq, ifexist.id, ifexist.class, ifexist.type, quantity);
         }
-
-        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
-
         await Xiuxian.Add_lingshi(usr_qq, -commodities_price);
-
-        await Xiuxian.Worldwealth(commodities);
+        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
         return;
     }
 

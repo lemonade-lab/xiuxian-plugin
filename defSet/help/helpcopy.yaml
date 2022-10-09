@@ -11,7 +11,7 @@
       desc: "服用丹药"
     - icon: help-icon_9
       title: "#装备+装备名"
-      desc: "装备"
+      desc: "装备物品"
 
 - group: 谈心论道
   list:

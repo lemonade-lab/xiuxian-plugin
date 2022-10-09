@@ -36,6 +36,15 @@ export class Battle extends plugin {
         if(B==0||B==A){
             return;
         }
+        let ClassCD = ":Dajie";
+        let now_time = new Date().getTime();
+        let CDTime = 15;
+        let CD = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
+        if(CD != 0) {
+            e.reply(CD);
+            return;
+        }
+        await redis.set("xiuxian:player:" + A + ClassCD, now_time);
         let Data_battle = await Xiuxian.battle(A,B);
         let msg = Data_battle.msg;
         if (msg.length > 30) {
@@ -44,9 +53,11 @@ export class Battle extends plugin {
             await Xiuxian.ForwardMsg(e, msg);
         }
         if(Data_battle.victory==A){
-            e.reply("你击败了对手");
+            e.reply("你击败了对手，对手增加了100气血");
+            await Xiuxian.Add_experiencemax(B, 100);
         }else{
-            e.reply("你被对方打败了");
+            e.reply("你被对方打败了，你增加了100气血！");
+            await Xiuxian.Add_experiencemax(A, 100);
         }
         return;
     }
@@ -63,6 +74,17 @@ export class Battle extends plugin {
         if(B==0||B==A){
             return;
         }
+
+        let ClassCD = ":biwu";
+        let now_time = new Date().getTime();
+        let CDTime = 15;
+        let CD = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
+        if(CD != 0) {
+            e.reply(CD);
+            return;
+        }
+        await redis.set("xiuxian:player:" + A + ClassCD, now_time);
+
         let Data_battle = await Xiuxian.battle(A,B);
         let msg = Data_battle.msg;
         if (msg.length > 30) {
@@ -71,9 +93,11 @@ export class Battle extends plugin {
             await Xiuxian.ForwardMsg(e, msg);
         }
         if(Data_battle.victory==A){
-            e.reply("你击败了对手");
+            e.reply("你击败了对手，对手增加了100气血");
+            await Xiuxian.Add_experiencemax(B, 100);
         }else{
-            e.reply("你被对方打败了");
+            e.reply("你被对方打败了，你增加了100气血！");
+            await Xiuxian.Add_experiencemax(A, 100);
         }
         return;
     }

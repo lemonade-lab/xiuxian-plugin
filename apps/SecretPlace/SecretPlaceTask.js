@@ -57,10 +57,6 @@ export class SecretPlaceTask extends plugin {
                 if (action.Place_action == "0") {
                     end_time = end_time - 60000 * 2;
                     if (now_time > end_time) {
-
-
-
-
                         let arr = action;
                         arr.shutup = 1;//闭关状态
                         arr.working = 1;//降妖状态
@@ -70,7 +66,6 @@ export class SecretPlaceTask extends plugin {
                         arr.end_time = new Date().getTime();
                         delete arr.group_id;
                         await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
-                        
                         if (is_group) {
                             await this.pushInfo(push_address, is_group, msg)
                         } else {

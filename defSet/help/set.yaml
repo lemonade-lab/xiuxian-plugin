@@ -49,6 +49,9 @@
       title: "#删除信息 @群友"
       desc: "删除指定玩家存档"
     - icon: help-icon_9
+      title: "#修仙设置练气为9 @群友"
+      desc: "设置指定境界"
+    - icon: help-icon_9
       title: "#修仙世界"
       desc: "修仙分析统计"
 

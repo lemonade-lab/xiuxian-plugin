@@ -2,7 +2,12 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import * as AdminSuper from '../AdminSuper/AdminSuper.js'
+import * as AdminBoss from '../AdminSuper/AdminBoss.js'
+
+
+
+
+
 /**
  * 定时任务
  */
@@ -25,7 +30,7 @@ export class BossTask extends plugin {
     }
 
     async Bosstask() {
-        await AdminSuper.monster();
+        await AdminBoss.monster();
         return;
     }
 }
