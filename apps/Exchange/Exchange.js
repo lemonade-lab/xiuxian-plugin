@@ -49,7 +49,6 @@ export class Exchange extends plugin {
                 time = 0;
             }
             let classname = await Xiuxian.classname(Exchange[i].class);
-            console.log(Exchange);
             time = Math.trunc(time);
             msg.push(
                 "编号：" + Exchange[i].qq +
@@ -135,12 +134,9 @@ export class Exchange extends plugin {
         let Exchange = await Xiuxian.Read_Exchange();
         let whole = thing_value * thing_acunot;
         
-        console.log(thing_value);
-        console.log(thing_acunot);
 
         whole = await Xiuxian.Numbers(whole);
         
-        console.log(whole);
 
         let time = 10;
         let wupin = {
@@ -154,7 +150,6 @@ export class Exchange extends plugin {
             "whole": whole,
             "end_time": now_time + 60000 * time
         };
-        console.log(wupin);
         Exchange.push(wupin);
         await Xiuxian.Write_Exchange(Exchange);
         e.reply("上架成功！");
