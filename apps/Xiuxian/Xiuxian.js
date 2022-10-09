@@ -1235,3 +1235,39 @@ export async function Search_Exchange(thing_qq) {
     return x;
 }
 
+
+/**
+ * 返回物品名字
+ */
+export async function returnname(thing_class) {
+    let name = thing_class;
+    if(name==1){
+        name="武器";
+        return name;
+    }
+    if(name==2){
+        name="护具"
+        return name;
+    }
+    if(name==3){
+        name="法宝";
+        return name;
+    }
+    if(name==4){
+        Exchange[i].class="丹药";
+        return name;
+    }
+    if(name==5){
+        name="功法";
+        return name;
+    }
+    if(name==6){
+        name="道具";
+        return name;
+    }
+    if(name==7){
+        name="戒指";
+        return name;
+    }
+}
+

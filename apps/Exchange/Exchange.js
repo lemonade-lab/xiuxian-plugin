@@ -33,6 +33,128 @@ export class Exchange extends plugin {
         })
     }
 
+
+    async supermarket(e) {
+        if (!e.isGroup) {
+            return;
+        }
+        let Exchange = await Xiuxian.Read_Exchange();
+        let nowtime = new Date().getTime();
+        let msg = [
+            "___[冲水堂]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
+        ];
+        for (var i = 0; i < Exchange.length; i++) {
+            let time = (Exchange[i].end_time - nowtime) / 60000;
+            if (time <= 0) {
+                time = 0;
+            }
+            let name= await Xiuxian.returnname(Exchange[i].class);
+            time = Math.trunc(time);
+            msg.push(
+                "编号：" + Exchange[i].qq +
+                "\n物品：" + name +
+                "\n类型：" + Exchange[i].class +
+                "\n价格：" + Exchange[i].price +
+                "\n数量：" + Exchange[i].aconut +
+                "\n总价：" + Exchange[i].whole +
+                "\n冷却：" + time + "分钟");
+        }
+        await Xiuxian.ForwardMsg(e, msg);
+        return;
+    }
+
+   
+    //上架
+    async onsell(e) {
+        let Go = await Xiuxian.Go(e);
+        if (!Go) {
+            return;
+        }
+        let usr_qq = e.user_id;
+        let ClassCD = ":ExchangeCD";
+        let now_time = new Date().getTime();
+        let CDTime = 2;
+        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        if(CD != 0) {
+            e.reply(CD);
+            return;
+        }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        let Ex = await redis.get("xiuxian:player:" + usr_qq + ":Exchange");
+        if (Ex == 1) {
+            e.reply("已有上架物品");
+            return;
+        }
+        let thing = e.msg.replace("#", '');
+        thing = thing.replace("上架", '');
+        let code = thing.split("\*");
+        let thing_name = code[0];//物品
+        let thing_value = code[1];//价格
+        let thing_acunot = code[2];//数量
+        thing_value = Xiuxian.Numbers(thing_value);
+        thing_acunot = Xiuxian.Numbers(thing_acunot);
+        if ( thing_acunot < 1 || thing_acunot > 99) {
+            thing_acunot=1;
+        }
+        let searchsthing = await Xiuxian.search_thing(thing_name);
+        if (searchsthing == 1) {
+            e.reply(`世界没有[${thing_name}]`);
+            return;
+        }
+        let najie_thing = await Xiuxian.exist_najie_thing(usr_qq, searchsthing.id, searchsthing.class);
+        if (najie_thing == 1) {
+            e.reply(`你没有[${thing_name}]`);
+            return;
+        }
+        if (najie_thing.acount < thing_acunot) {
+            e.reply("数量不足，你只有" + najie_thing.acount);
+            return;
+        }
+        if(najie_thing.class==1){ 
+            await Xiuxian.Add_najie_thing_arms(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        else if(najie_thing.class==2){ 
+            await najie_thing.Add_najie_thing_huju(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        else if(najie_thing.class==3){ 
+            await najie_thing.Add_najie_thing_fabao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        else if(najie_thing.class==4){ 
+            await Xiuxian.Add_najie_thing_danyao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        else if(najie_thing.class==5){ 
+            await Xiuxian.Add_najie_thing_gonfa(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        else if(najie_thing.class==6){ 
+            await Xiuxian.Add_najie_thing_daoju(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        else if(najie_thing.class==7){ 
+            await Xiuxian.Add_najie_thing_ring(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
+        }
+        let Exchange = await Xiuxian.Read_Exchange();
+        let whole = thing_value * thing_acunot;
+        whole = await Xiuxian.Numbers(whole);
+        let time = 10;
+        let wupin = {
+            "qq": usr_qq,
+            "name": searchsthing.name,
+            "id": searchsthing.id,
+            "class": searchsthing.class,
+            "type": searchsthing.type,
+            "price": searchsthing.price,
+            "aconut": thing_acunot,
+            "whole": whole,
+            "end_time": now_time + 60000 * time
+        };
+        Exchange.push(wupin);
+        await Xiuxian.Write_Exchange(Exchange);
+        e.reply("上架成功！");
+        await redis.set("xiuxian:player:" + usr_qq + ":Exchange", 1);
+        return;
+    }
+
+
+
     async Offsell(e) {
         let Go = await Xiuxian.Go(e);
         if (!Go) {
@@ -113,144 +235,8 @@ export class Exchange extends plugin {
         return;
     }
 
-    //上架
-    async onsell(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
-            return;
-        }
-        let usr_qq = e.user_id;
-        let ClassCD = ":ExchangeCD";
-        let now_time = new Date().getTime();
-        let CDTime = 2;
-        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if(CD != 0) {
-            e.reply(CD);
-            return;
-        }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-        let Ex = await redis.get("xiuxian:player:" + usr_qq + ":Exchange");
-        if (Ex == 1) {
-            e.reply("已有上架物品");
-            return;
-        }
-        let thing = e.msg.replace("#", '');
-        thing = thing.replace("上架", '');
-        let code = thing.split("\*");
-        let thing_name = code[0];//物品
-        let thing_value = code[1];//价格
-        let thing_acunot = code[2];//数量
-        thing_value = Xiuxian.Numbers(thing_value);
-        thing_acunot = Xiuxian.Numbers(thing_acunot);
-        if (thing_acunot > 99) {
-            return;
-        }
-        let searchsthing = await Xiuxian.search_thing(thing_name);
-        if (searchsthing == 1) {
-            e.reply(`世界没有[${thing_name}]`);
-            return;
-        }
-        let najie_thing = await Xiuxian.exist_najie_thing(usr_qq, searchsthing.id, searchsthing.class);
-        if (najie_thing == 1) {
-            e.reply(`你没有[${thing_name}]`);
-            return;
-        }
-        if (najie_thing.acount < thing_acunot) {
-            e.reply("数量不足，你只有" + najie_thing.acount);
-            return;
-        }
-        if(najie_thing.class==1){ 
-            await Xiuxian.Add_najie_thing_arms(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        else if(najie_thing.class==2){ 
-            await najie_thing.Add_najie_thing_huju(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        else if(najie_thing.class==3){ 
-            await najie_thing.Add_najie_thing_fabao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        else if(najie_thing.class==4){ 
-            await Xiuxian.Add_najie_thing_danyao(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        else if(najie_thing.class==5){ 
-            await Xiuxian.Add_najie_thing_gonfa(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        else if(najie_thing.class==6){ 
-            await Xiuxian.Add_najie_thing_daoju(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        else if(najie_thing.class==7){ 
-            await Xiuxian.Add_najie_thing_ring(usr_qq, najie_thing.id, najie_thing.class, najie_thing.type, -thing_acunot);
-        }
-        let Exchange = await Xiuxian.Read_Exchange();
-        let whole = thing_value * thing_acunot;
-        whole = await Xiuxian.Numbers(whole);
-        let time = 10;
-        let wupin = {
-            "qq": usr_qq,
-            "name": searchsthing.name,
-            "id": searchsthing.id,
-            "class": searchsthing.class,
-            "type": searchsthing.type,
-            "price": searchsthing.price,
-            "aconut": thing_acunot,
-            "whole": whole,
-            "end_time": now_time + 60000 * time
-        };
-        Exchange.push(wupin);
-        await Xiuxian.Write_Exchange(Exchange);
-        e.reply("上架成功！");
-        await redis.set("xiuxian:player:" + usr_qq + ":Exchange", 1);
-        return;
-    }
 
-
-    async supermarket(e) {
-        if (!e.isGroup) {
-            return;
-        }
-        let Exchange = await Xiuxian.Read_Exchange();
-        let nowtime = new Date().getTime();
-        let msg = [
-            "___[冲水堂]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
-        ];
-        for (var i = 0; i < Exchange.length; i++) {
-            let time = (Exchange[i].end_time - nowtime) / 60000;
-            if (time <= 0) {
-                time = 0;
-            }
-            if(Exchange[i].class==1){
-                Exchange[i].class="武器"
-            }
-            if(Exchange[i].class==2){
-                Exchange[i].class="护具"
-            }
-            if(Exchange[i].class==3){
-                Exchange[i].class="法宝"
-            }
-            if(Exchange[i].class==4){
-                Exchange[i].class="丹药"
-            }
-            if(Exchange[i].class==5){
-                Exchange[i].class="功法"
-            }
-            if(Exchange[i].class==6){
-                Exchange[i].class="道具"
-            }
-            if(Exchange[i].class==5){
-                Exchange[i].class="戒指"
-            }
-            time = Math.trunc(time);
-            msg.push(
-                "编号：" + Exchange[i].qq +
-                "\n物品：" + Exchange[i].name +
-                "\n类型：" + Exchange[i].class +
-                "\n价格：" + Exchange[i].price +
-                "\n数量：" + Exchange[i].aconut +
-                "\n总价：" + Exchange[i].whole +
-                "\n冷却：" + time + "分钟");
-        }
-        await Xiuxian.ForwardMsg(e, msg);
-        return;
-    }
+  
 
 
     async purchase(e) {
