@@ -102,10 +102,6 @@ export class showData extends plugin {
  */
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
     let player = await data.getData("player", usr_qq);
     let equipment = await data.getData("equipment", usr_qq);
     let wuqi_name  = data.wuqi_list.find(item => item.id == equipment.arms.id).name;
@@ -122,9 +118,6 @@ export async function get_player_img(e) {
     }
     data.setData("player", usr_qq, player);
     await Xiuxian.player_efficiency(usr_qq);
-    /**
-     * 灵根
-     */
     let linggenname = "未知";
     linggenname = await Xiuxian.talentname(player);
     let name = "";
@@ -135,10 +128,6 @@ export async function get_player_img(e) {
         player.talentsize = "0";
         name = "未知";
     }
-    /**
-     * 境界
-     */
-
     let level = data.Level_list.find(item => item.level_id == player.level_id).level;
     let player_data = {
         user_id: usr_qq,
@@ -146,7 +135,6 @@ export async function get_player_img(e) {
         linggenname: name,
         declaration: player.autograph,
         exp: player.experience,
-
         level: level,
         lingshi: lingshi,
         wuqi_name:wuqi_name,
@@ -170,10 +158,6 @@ export async function get_player_img(e) {
  */
  export async function get_power_img(e) {
     let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
     let player = await data.getData("player", usr_qq);
     let lingshi = Math.trunc(player.lingshi);
     if (player.lingshi > 999999999999) {
@@ -182,7 +166,6 @@ export async function get_player_img(e) {
     data.setData("player", usr_qq, player);
     await Xiuxian.player_efficiency(usr_qq);
     let levelMax = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
-
     let AllSorcery=[];
     for(var i=0;i<player.AllSorcery.length;i++){
         let ifexist2 = data.gongfa_list.find(item => item.id == player.AllSorcery[i]);
@@ -193,7 +176,6 @@ export async function get_player_img(e) {
             }
         }
     }
-
     let playercopy = {
         user_id: usr_qq,
         nickname: player.name,
@@ -211,24 +193,13 @@ export async function get_player_img(e) {
     return img;
 }
 
-
-
 /**
  * 返回该玩家的装备图片
  */
 export async function get_equipment_img(e) {
-
     let usr_qq = e.user_id;
-
     let player = await data.getData("player", usr_qq);
-
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-
     var burst = Math.trunc(parseInt(player.burst * 100))
-    
     let equipment = await data.getData("equipment", usr_qq);
     let arms = data.wuqi_list.find(item => item.id == equipment.arms.id);
     if (arms == undefined) {

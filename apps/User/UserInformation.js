@@ -19,7 +19,7 @@ export class UserInformation extends plugin {
                     fnc: 'Show_player'
                 },
                 {
-                    reg: "^#修仙面板$",
+                    reg: "^#面板信息$",
                     fnc: "show_equipment",
                 },
                 {
