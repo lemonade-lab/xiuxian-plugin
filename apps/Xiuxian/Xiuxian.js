@@ -945,7 +945,7 @@ export async function getPlayerAction(usr_qq) {
             let m = parseInt((action_end_time - now_time) / 1000 / 60);
             let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
             arr.action = action.action;//当期那动作
-            arr.time = m + "分" + s + "秒";//剩余时间
+            arr.time = m + "m" + s + "s";//剩余时间
             return arr;
         }
     }
@@ -1049,13 +1049,13 @@ export async function Go(e) {
         if (now_time <= action_end_time) {
             let m = parseInt((action_end_time - now_time) / 1000 / 60);
             let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
+            e.reply("[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]");
             return;
         }
     }
     let player = await Read_player(usr_qq);
     if (player.nowblood < 200) {
-        e.reply("你都伤成这样了,就不要出去浪了");
+        e.reply("受伤了，出不来远门");
         return;
     }
     return true;
@@ -1081,7 +1081,7 @@ export async function UserGo(usr_qq) {
         if (now_time <= action_end_time) {
             let m = parseInt((action_end_time - now_time) / 1000 / 60);
             let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            return "正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒";
+            return "[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]";
         }
     }
     let player = await Read_player(usr_qq);
@@ -1103,7 +1103,7 @@ export async function GenerateCD(usr_qq, usr_class, now_time, time) {
     if (now_time < CD + transferTimeout) {
         let CD_m = Math.trunc((CD + transferTimeout - now_time) / 60 / 1000);
         let CD_s = Math.trunc(((CD + transferTimeout - now_time) % 60000) / 1000);
-        return "[T:" + transferTimeout / 1000 / 60 + "m][CD:" + CD_m + "s" + CD_s + "sm]";
+        return "[T:" + transferTimeout / 1000 / 60 + "m]:[CD:" + CD_m + "m" + CD_s + "s]";
     }
     return 0;
 }
