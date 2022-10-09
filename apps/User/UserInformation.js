@@ -6,11 +6,11 @@ import * as ShowData from '../ShowImeg/showData.js'
 /**
  * 信息模块
  */
-export class UserStart extends plugin {
+export class UserInformation extends plugin {
     constructor() {
         super({
-            name: 'UserStart',
-            dsc: 'UserStart',
+            name: 'UserInformation',
+            dsc: 'UserInformation',
             event: 'message',
             priority: 600,
             rule: [
