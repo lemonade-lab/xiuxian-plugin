@@ -43,7 +43,33 @@ export class BossAll extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let msg = Bossmsg();
+        let msg = [
+            "《怪物时间》\n11:30——12:30\n18:30——19:30\n指令：#讨伐+怪物名"
+        ];
+        for (var i = 0; i < 3; i++) {
+            let Boss;
+            if (i == 0) {
+                Boss = await redis.get("xiuxian:BossMaxplus");
+            }
+            else if (i == 1) {
+                Boss = await redis.get("xiuxian:BossMax");
+            } else {
+                Boss = await redis.get("xiuxian:BossMini");
+            }
+            Boss = JSON.parse(Boss);
+            if (Boss != null) {
+                msg.push(
+                    "怪物：" + Boss.name +
+                    "\n攻击：" + Boss.nowattack +
+                    "\n防御：" + Boss.nowdefense +
+                    "\n血量：" + Boss.nowblood +
+                    "\n敏捷：" + Boss.nowblood +
+                    "\n暴击：" + Boss.nowblood +
+                    "\n暴伤：" + Boss.nowblood +
+                    "\n掉落：" + Boss.money
+                );
+            }
+        }
         await Xiuxian.ForwardMsg(e, msg);
         return;
     }
@@ -211,38 +237,6 @@ export class BossAll extends plugin {
     }
 
 
-}
-
-
-export async function Bossmsg(e) {
-    let msg = [
-        "《怪物时间》\n11:30——12:30\n18:30——19:30\n指令：#讨伐+怪物名"
-    ];
-    for (var i = 0; i < 3; i++) {
-        let Boss;
-        if (i == 0) {
-            Boss = await redis.get("xiuxian:BossMaxplus");
-        }
-        else if (i == 1) {
-            Boss = await redis.get("xiuxian:BossMax");
-        } else {
-            Boss = await redis.get("xiuxian:BossMini");
-        }
-        Boss = JSON.parse(Boss);
-        if (Boss != null) {
-            msg.push(
-                "怪物：" + Boss.name +
-                "\n攻击：" + Boss.nowattack +
-                "\n防御：" + Boss.nowdefense +
-                "\n血量：" + Boss.nowblood +
-                "\n敏捷：" + Boss.nowblood +
-                "\n暴击：" + Boss.nowblood +
-                "\n暴伤：" + Boss.nowblood +
-                "\n掉落：" + Boss.money
-            );
-        }
-    }
-    return msg;
 }
 
 
