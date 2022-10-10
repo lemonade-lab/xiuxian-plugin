@@ -59,7 +59,6 @@ export class SecretPlace extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
-
     async Xiuxianstate(e) {
         await Xiuxian.Go(e);
         return;

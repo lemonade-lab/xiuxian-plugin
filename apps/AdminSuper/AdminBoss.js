@@ -4,13 +4,7 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
-/**
- * 全局变量
- */
 let xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
-/**
- * 修仙设置
- */
 export class AdminBoss extends plugin {
     constructor() {
         super({
@@ -140,7 +134,7 @@ export async function monster() {
             let BossMini = {
                 "name": "银角大王",
                 "nowattack": attack * User_mini * 2,
-                "nowdefense": defense * User_mini * 2,
+                "nowdefense": defense * User_mini * 2, 
                 "nowblood": blood * User_mini * 2,
                 "speed":User_mini,
                 "burst": "0.3",

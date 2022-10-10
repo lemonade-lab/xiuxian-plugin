@@ -734,7 +734,6 @@ export async function exist_najie_thing(usr_qq, thing_id, thing_class) {
 
 export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let acount;
     let thing =  najie.arms.find(item => item.id == thing_id);
     if (thing == undefined) {    
         let equipment = {
@@ -748,7 +747,7 @@ export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_
        return;
     }
     else {
-        acount =  thing.acount + thing_acount;
+        let acount =  thing.acount + thing_acount;
         if (acount < 1) {
             najie.arms =  najie.arms.filter(item => item.id != thing_id);
         }else{
@@ -761,7 +760,6 @@ export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_
 
 export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let acount;
     let thing =  najie.huju.find(item => item.id == thing_id);
     if (thing == undefined) {    
         let equipment = {
@@ -775,7 +773,7 @@ export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_
         return;
     }
     else {
-        acount =  thing.acount + thing_acount;
+        let acount =  thing.acount + thing_acount;
         if (acount < 1) {
             najie.huju =  najie.huju.filter(item => item.id != thing_id);
         }else{
@@ -788,7 +786,6 @@ export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_
 
 export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let acount;
     let thing =  najie.fabao.find(item => item.id == thing_id);
     if (thing == undefined) {
         let equipment = {
@@ -802,7 +799,7 @@ export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing
          return;
     }
     else {
-        acount =  thing.acount + thing_acount;
+        let acount =  thing.acount + thing_acount;
         if (acount < 1) {
             najie.fabao =  najie.fabao.filter(item => item.id != thing_id);
         }else{
@@ -815,7 +812,6 @@ export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing
 
 export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let acount;
     let thing =  najie.danyao.find(item => item.id == thing_id);
     if (thing == undefined) {
         let equipment = {
@@ -829,7 +825,7 @@ export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thin
          return;
     }
     else {
-        acount =  thing.acount + thing_acount;
+        let acount =  thing.acount + thing_acount;
         if (acount < 1) {
             najie.danyao =  najie.danyao.filter(item => item.id != thing_id);
         }else{
@@ -843,7 +839,6 @@ export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thin
 
 export async function Add_najie_thing_gonfa(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let acount;
     let thing =  najie.gonfa.find(item => item.id == thing_id);
     if (thing == undefined) {    
         let equipment = {
@@ -857,7 +852,7 @@ export async function Add_najie_thing_gonfa(usr_qq, thing_id, thing_class, thing
          return;
     }
     else {
-        acount =  thing.acount + thing_acount;
+        let acount =  thing.acount + thing_acount;
         if (acount < 1) {
             najie.gonfa =  najie.gonfa.filter(item => item.id != thing_id);
         }else{
@@ -880,19 +875,17 @@ export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing
         type: thing_type,
         acount: thing_acount
     }
-    najie.daoju.push(equipment);
-    
-       await Write_najie(usr_qq, najie);
-       return;
+    najie.daoju.push(equipment); 
+    await Write_najie(usr_qq, najie);
+    return;
     }
     else {
-        acount =  thing.acount + thing_acount; 
+        let acount =  thing.acount + thing_acount;
         if (acount < 1) {
             najie.daoju =  najie.daoju.filter(item => item.id != thing_id);
         }else{
             najie.daoju.find(item => item.id == thing_id).acount = acount;
         }
-   
         await Write_najie(usr_qq, najie);
         return;
     }
@@ -900,7 +893,6 @@ export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing
 
 export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
     let najie = await Read_najie(usr_qq);
-    let acount;
     let thing =  najie.ring.find(item => item.id == thing_id);
     if (thing == undefined) {    
         let equipment = {
@@ -914,7 +906,7 @@ export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_
     return;
     }
     else {
-        acount =  thing.acount + thing_acount;    
+        let acount =  thing.acount + thing_acount;   
         if (acount < 1) {
             najie.ring =  najie.ring.filter(item => item.id != thing_id);
         }else{
@@ -939,7 +931,7 @@ export async function instead_equipment_arms(usr_qq, thing_id, thing_class,thing
         "acount": 1 
     }
     await Write_equipment(usr_qq, equipment);
-    return 0;
+    return ;
 }
 
 /**

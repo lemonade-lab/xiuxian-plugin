@@ -31,7 +31,6 @@ export class ExchangeTask extends plugin {
     }
 }
 
-
 export async function offExchange() {
     let Exchange = await Xiuxian.Read_Exchange();
     for (var i = 0; i < Exchange.length; i++) {

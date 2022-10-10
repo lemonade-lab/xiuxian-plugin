@@ -33,7 +33,6 @@ export class Exchange extends plugin {
         })
     }
 
-
     async supermarket(e) {
         if (!e.isGroup) {
             return;
@@ -232,10 +231,6 @@ export class Exchange extends plugin {
         }
         return;
     }
-
-
-  
-
 
     async purchase(e) {
         let usr_qq = e.user_id;
