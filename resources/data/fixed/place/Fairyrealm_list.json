@@ -4,10 +4,10 @@
         "name": "蓬莱岛",
         "Grade": "丹药",
         "Best": [
-            "[道丹]"
+            "[]"
         ],
         "Price": 300000,
-        "experience": 200000,
+        "experience": 100000,
         "one": [
         ],
         "two": [
@@ -20,10 +20,10 @@
         "name": "昆仑山",
         "Grade": "装备",
         "Best": [
-            "[封仙印]"
+            "[]"
         ],
         "Price": 300000,
-        "experience": 200000,
+        "experience": 100000,
         "one": [
         ],
         "two": [
@@ -36,10 +36,10 @@
         "name": "方诸山",
         "Grade": "功法",
         "Best": [
-            "[太白经]"
+            "[]"
         ],
         "Price": 300000,
-        "experience": 200000,
+        "experience": 100000,
         "one": [
         ],
         "two": [

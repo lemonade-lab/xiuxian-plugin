@@ -57,32 +57,24 @@ export class SecretPlaceTask extends plugin {
                 if (action.Place_action == "0") {
                     end_time = end_time - 60000 * 2;
                     if (now_time > end_time) {
-                        let arr = action;
-                        /**
-                         * 01-10。共十个敌人。随机选取位置0-9位
-                         */
-                        let monster_list=data.monster_list[0];
+                        let variable = Math.random() * (9 - 0) + 0;
+                        let monster_list=data.monster_list[variable];
+                        monster_list.nowattack=player.nowattack*monster_list.nowattack;
+                        monster_list.nowdefense=player.nowdefense*monster_list.nowdefense;
+                        monster_list.nowblood=player.nowblood*monster_list.nowblood;
+                        monster_list.bursthurt=player.bursthurt*monster_list.bursthurt;
                         let Data_battle =  await Xiuxian.battlemax(player_id, monster_list);
-                        let msg = Data_battle.msg;
-                        if (msg.length > 30) {
-                            msg.push("战斗过程略...");
-                        } else {
-                            await Xiuxian.ForwardMsg(e, msg);
-                        }
+                        let msg0 = Data_battle.msg;
+                        if (msg0.length < 30) {
+                            await Xiuxian.ForwardMsg(e, msg0);
+                        } 
                         if (Data_battle.victory == player_id) {
-                            msg.push("你击败了对手，对手增加了100气血");
-                        } else {
-                            msg.push("你被对方打败了，你增加了100气血！");
+                            msg.push("你击败了对方，并夺走了他的宝物");
+                        } 
+                        else {
+                            msg.push("你被对方打败了！并被抢走了1灵石");
                         }
-
-                        arr.shutup = 1;//闭关状态
-                        arr.working = 1;//降妖状态
-                        arr.power_up = 1;//渡劫状态
-                        arr.Place_action = 1;//秘境
-                        arr.Place_actionplus = 1;//沉迷状态
-                        arr.end_time = new Date().getTime();
-                        delete arr.group_id;
-                        await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
+                        await Xiuxian.offaction(player_id);
                         if (is_group) {
                             await this.pushInfo(push_address, is_group, msg)
                         } else {
