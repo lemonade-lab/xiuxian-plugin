@@ -69,8 +69,8 @@ export class BossAll extends plugin {
                     "\n防御：" + Boss.nowdefense +
                     "\n血量：" + Boss.nowblood + 
                     "\n敏捷：" + Boss.speed +
-                    "\n暴击：" + Boss.burst +
-                    "\n暴伤：" + Boss.bursthurt +
+                    "\n暴击：" + (Boss.burst*100) +"%"+
+                    "\n暴伤：" + ((Boss.bursthurt+1)*100) +"%"+
                     "\n掉落：" + Boss.money
                    );
                 }

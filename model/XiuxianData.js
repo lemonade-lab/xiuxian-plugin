@@ -57,8 +57,10 @@ class XiuxianData {
         //限定
         this.Timelimit = this.filePathMap.fixedTimelimit;
 
-        //其他
+        //商品
         this.commodities_list = JSON.parse(fs.readFileSync(`${this.lib}/commodities_list.json`));
+        //怪物
+        this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         //境界
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));

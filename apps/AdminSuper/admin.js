@@ -33,11 +33,11 @@ export class admin extends plugin {
         this.key = "xiuxian:restart";
     }
 
-    async Xiuxiancheckout(e) {
+    async checkout(e) {
         if (!e.isMaster) {
             return;
         }
-        let msg = ["————[强制更新]————"];
+        let msg = ["————[更新消息]————"];
         let command = "git  pull";
         msg.push("正在强制更新...");
         const that = this;
@@ -122,7 +122,7 @@ export class admin extends plugin {
         }
     }
     
-    async checkout(e) {
+    async Xiuxiancheckout(e) {
         if (!e.isMaster) {
             return;
         }

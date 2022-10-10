@@ -371,7 +371,7 @@ export async function Goweizhi(e, weizhi, addres) {
         "***" + adr + "***"
     ];
     for (var i = 0; i < weizhi.length; i++) {
-        msg.push(weizhi[i].name + "\n" + "等级：" + weizhi[i].Grade + "\n" + "极品：" + weizhi[i].Best[0] + "\n" + "灵石：" + weizhi[i].Price + "灵石")
+        msg.push(weizhi[i].name + "\n" + "类型：" + weizhi[i].Grade + "\n" + "极品：" + weizhi[i].Best[0] + "\n" + "修为：" + weizhi[i].experience + "\n" +"灵石：" + weizhi[i].Price)
     }
     await Xiuxian.ForwardMsg(e, msg);
 }

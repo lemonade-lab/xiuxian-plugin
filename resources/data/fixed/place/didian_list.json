@@ -2,12 +2,12 @@
     {
         "id": 1,
         "name": "三清山",
-        "Grade": "人界*装备",
+        "Grade": "武器",
         "Best": [
-            "[玄黄塔]"
+            "[]"
         ],
-        "Price": 30000,
-        "experience": 200000,
+        "Price": 50000,
+        "experience": 50000,
         "one": [
         ],
         "two": [
@@ -18,12 +18,12 @@
     {
         "id": 2,
         "name": "张家界",
-        "Grade": "人界*功法",
+        "Grade": "护具",
         "Best": [
-            "[五形功]"
+            "[]"
         ],
-        "Price": 30000,
-        "experience": 200000,
+        "Price": 50000,
+        "experience": 50000,
         "one": [
         ],
         "two": [
@@ -34,12 +34,12 @@
     {
         "id": 3,
         "name": "九寨沟",
-        "Grade": "人界*丹药",
+        "Grade": "法宝",
         "Best": [
-            "[虚灵丹]"
+            "[]"
         ],
-        "Price": 30000,
-        "experience": 200000,
+        "Price": 50000,
+        "experience": 50000,
         "one": [
         ],
         "two": [
@@ -50,12 +50,12 @@
     {
         "id": 4,
         "name": "青城山",
-        "Grade": "灵界*装备",
+        "Grade": "丹药",
         "Best": [
-            "[捆仙绳]"
+            "[]"
         ],
-        "Price": 50000,
-        "experience": 200000,
+        "Price": 100000,
+        "experience": 50000,
         "one": [
         ],
         "two": [
@@ -66,76 +66,12 @@
     {
         "id": 5,
         "name": "龙虎山",
-        "Grade": "灵界*功法",
+        "Grade": "功法",
         "Best": [
-            "[万象诀]"
+            "[]"
         ],
-        "Price": 50000,
-        "experience": 200000,
-        "one": [
-        ],
-        "two": [
-        ],
-        "three": [
-        ]
-    },
-    {
-        "id": 6,
-        "name": "武当山",
-        "Grade": "灵界*丹药",
-        "Best": [
-            "[魔真丹]"
-        ],
-        "Price": 50000,
-        "experience": 200000,
-        "one": [
-        ],
-        "two": [
-        ],
-        "three": [
-        ]
-    },
-    {
-        "id": 7,
-        "name": "华山",
-        "Grade": "真界*装备",
-        "Best": [
-            "[伏魔塔]"
-        ],
-        "Price": 150000,
-        "experience": 200000,
-        "one": [
-        ],
-        "two": [
-        ],
-        "three": [
-        ]
-    },
-    {
-        "id": 8,
-        "name": "衡山",
-        "Grade": "真界*功法",
-        "Best": [
-            "[玉丹功]"
-        ],
-        "Price": 150000,
-        "experience": 200000,
-        "one": [
-        ],
-        "two": [
-        ],
-        "three": [
-        ]
-    },
-    {
-        "id": 9,
-        "name": "嵩山",
-        "Grade": "真界*丹药",
-        "Best": [
-            "[六转灵丹]"
-        ],
-        "Price": 150000,
-        "experience": 200000,
+        "Price": 100000,
+        "experience": 50000,
         "one": [
         ],
         "two": [

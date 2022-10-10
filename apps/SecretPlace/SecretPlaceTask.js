@@ -58,6 +58,23 @@ export class SecretPlaceTask extends plugin {
                     end_time = end_time - 60000 * 2;
                     if (now_time > end_time) {
                         let arr = action;
+                        /**
+                         * 01-10。共十个敌人。随机选取位置0-9位
+                         */
+                        let monster_list=data.monster_list[0];
+                        let Data_battle =  await Xiuxian.battlemax(player_id, monster_list);
+                        let msg = Data_battle.msg;
+                        if (msg.length > 30) {
+                            msg.push("战斗过程略...");
+                        } else {
+                            await Xiuxian.ForwardMsg(e, msg);
+                        }
+                        if (Data_battle.victory == player_id) {
+                            msg.push("你击败了对手，对手增加了100气血");
+                        } else {
+                            msg.push("你被对方打败了，你增加了100气血！");
+                        }
+
                         arr.shutup = 1;//闭关状态
                         arr.working = 1;//降妖状态
                         arr.power_up = 1;//渡劫状态

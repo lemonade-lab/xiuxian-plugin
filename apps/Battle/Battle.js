@@ -45,6 +45,7 @@ export class Battle extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + A + ClassCD, now_time);
+        
         let Data_battle = await Xiuxian.battle(A,B);
         let msg = Data_battle.msg;
         if (msg.length > 30) {
