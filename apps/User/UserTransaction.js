@@ -1,5 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
+import path from "path"
 import fs from "fs"
 
 import {Numbers} from '../Xiuxian/Xiuxian.js'
