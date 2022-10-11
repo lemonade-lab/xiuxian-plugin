@@ -10,6 +10,12 @@ import {exist_najie_thing} from '../Xiuxian/Xiuxian.js'
 import {search_thing} from '../Xiuxian/Xiuxian.js'
 import {existplayer} from '../Xiuxian/Xiuxian.js'
 
+const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
+export const __PATH = {
+    najie: path.join(__dirname, "/resources/data/birth/xiuxian/najie")
+}
+
+
 
 
 
