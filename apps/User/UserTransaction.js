@@ -55,7 +55,7 @@ export class UserTransaction extends plugin {
         ];
         let commodities_list = data.commodities_list; 
         for (var i = 0; i < commodities_list.length; i++) {
-            if(commodities_list[i]==1||commodities_list[i]==2||commodities_list[i]==3){
+            if(commodities_list[i].class==1||commodities_list[i].class==2||commodities_list[i].class==3){
                 msg.push(
                     "物品：" + commodities_list[i].name +
                     "\n攻击：+" + commodities_list[i].atk  +
