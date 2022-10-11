@@ -1,5 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
+import fs from "fs"
 
 import {Numbers} from '../Xiuxian/Xiuxian.js'
 import {Read_player} from '../Xiuxian/Xiuxian.js'
@@ -7,16 +8,7 @@ import {Add_lingshi} from '../Xiuxian/Xiuxian.js'
 import {exist_najie_thing} from '../Xiuxian/Xiuxian.js'
 import {search_thing} from '../Xiuxian/Xiuxian.js'
 import {existplayer} from '../Xiuxian/Xiuxian.js'
-import {Read_najie} from '../Xiuxian/Xiuxian.js'
-import {Write_najie} from '../Xiuxian/Xiuxian.js'
 
-import {Add_najie_thing_ring} from '../Xiuxian/Xiuxian.js'
-import {Add_najie_thing_daoju} from '../Xiuxian/Xiuxian.js'
-import {Add_najie_thing_danyao} from '../Xiuxian/Xiuxian.js'
-import {Add_najie_thing_fabao} from '../Xiuxian/Xiuxian.js'
-import {Add_najie_thing_huju} from '../Xiuxian/Xiuxian.js'
-import {Add_najie_thing_arms} from '../Xiuxian/Xiuxian.js'
-import {Add_najie_thing_gonfa} from '../Xiuxian/Xiuxian.js'
 
 
 
@@ -171,3 +163,193 @@ export class UserTransaction extends plugin {
         return;
     }
 }
+
+//写入纳戒信息
+export async function Write_najie(usr_qq, najie) {
+    let dir = path.join(__PATH.najie, `${usr_qq}.json`);
+    let new_ARR = JSON.stringify(najie, "", "\t");
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        console.log('写入成功', err)
+    })
+    return;
+}
+
+//读取纳戒信息
+export async function Read_najie(usr_qq) {
+    let dir = path.join(`${__PATH.najie}/${usr_qq}.json`);
+    let najie = fs.readFileSync(dir, 'utf8', (err, data) => {
+        if (err) {
+            console.log(err)
+            return "error";
+        }
+        return data;
+    })
+    //将字符串数据转变成数组格式
+    najie = JSON.parse(najie);
+    return najie;
+}
+
+
+export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
+    let thing =  najie.arms.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {    
+        let equipment = {
+        id: najie_thing.id,
+        class: najie_thing.class,
+        type: najie_thing.type,
+        acount: thing_acount
+       }
+       najie.arms.push(equipment);
+       return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.arms =  najie.arms.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.arms.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
+export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
+    let thing =  najie.huju.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {    
+        let equipment = {
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount  
+            };
+            najie.huju.push(equipment);
+            return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.huju =  najie.huju.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.huju.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
+export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
+    let thing =  najie.fabao.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
+        let equipment = {
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
+        }
+        najie.fabao.push(equipment);
+        return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.fabao =  najie.fabao.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.fabao.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
+export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
+    let thing =  najie.danyao.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
+        let equipment = {
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
+        }
+         najie.danyao.push(equipment);
+         return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.danyao =  najie.danyao.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.danyao.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
+
+export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
+    let thing =  najie.gonfa.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {    
+        let equipment = {
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
+         }
+         najie.gonfa.push(equipment);
+         return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.gonfa =  najie.gonfa.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.gonfa.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
+
+export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
+    let thing =  najie.daoju.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {    
+        let equipment = {
+        id: najie_thing.id,
+        class: najie_thing.class,
+        type: najie_thing.type,
+        acount: thing_acount
+        }
+        najie.daoju.push(equipment); 
+        return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.daoju =  najie.daoju.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.daoju.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
+export async function Add_najie_thing_ring(najie, najie_thing, thing_acount) {
+    let thing =  najie.ring.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {    
+        let equipment = {
+        id: najie_thing.id,
+        class: najie_thing.class,
+        type: najie_thing.type,
+        acount: thing_acount
+        }
+        najie.ring.push(equipment);
+        return najie;
+    }
+    else {
+        let acount =  thing.acount + thing_acount;   
+        if (acount < 1) {
+            najie.ring =  najie.ring.filter(item => item.id != najie_thing.id);
+        }else{
+            najie.ring.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }
+}
+
