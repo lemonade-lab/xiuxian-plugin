@@ -18,14 +18,6 @@ export class showData extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: "^#修仙面板$",
-                    fnc: "show_equipment",
-                },
-                {
-                    reg: "^#我的炼体$",
-                    fnc: "show_power",
-                },
-                {
                     reg: "^#练气境界$",
                     fnc: "show_Level",
                 },
@@ -45,8 +37,6 @@ export class showData extends plugin {
         })
     }
 
-
-    //修仙设置
     async show_adminset(e) {
         if (!e.isMaster) {
             return;
@@ -58,9 +48,6 @@ export class showData extends plugin {
         e.reply(img);
         return;
     }
-
-
-
 
     async show_Level(e) {
 
@@ -82,9 +69,6 @@ export class showData extends plugin {
         return;
     }
 
-
-
-
     async show_updata(e) {
         if (!e.isGroup) {
             return;
@@ -96,10 +80,6 @@ export class showData extends plugin {
 
 }
 
-/**
- * 返回该玩家的存档图片
- * @return image
- */
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
     let player = await data.getData("player", usr_qq);
@@ -152,10 +132,6 @@ export async function get_player_img(e) {
     return img;
 }
 
-
-/**
- * 返回该玩家体
- */
  export async function get_power_img(e) {
     let usr_qq = e.user_id;
     let player = await data.getData("player", usr_qq);
