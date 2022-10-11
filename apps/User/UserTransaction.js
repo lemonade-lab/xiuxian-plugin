@@ -16,9 +16,6 @@ export const __PATH = {
 }
 
 
-
-
-
 export class UserTransaction extends plugin {
     constructor() {
         super({

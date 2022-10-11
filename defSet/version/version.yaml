@@ -8,7 +8,6 @@
       [
       {line: 删除【#我的宗门】},
       {line: 删除【#宗门管理】},
-      {line: 删除【#秘境/禁地/仙府/仙境】},
       {line: 变动【#面板信息】},
       {line: 新增【#删除世界】},
       {line: 变动【#练气信息】},
@@ -17,6 +16,8 @@
       {line: 变动【#归来】    },
       {line: 新增【#删除信息 @群友】},
       {line: 新增【#修仙设置练气+等级 @群友】},
+      {line: 支持定义配置},
+      {line: 配置：config/xiuxain},
       {line: 支持定义帮助文案与帮助图},
       {line: 文案：config/help},
       {line: 图片：resources/help}
