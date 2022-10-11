@@ -47,6 +47,10 @@
         "acount": 1,
         "price": 20000
     },
+
+
+
+
     {
         "id": 2101,
         "name": "破铜护具",
@@ -95,6 +99,74 @@
         "acount": 1,
         "price": 20000
     },
+
+
+    {
+        "id": 1101,
+        "name": "烂铁匕首",
+        "class": "1",
+        "type": "1",
+        "atk": 100,
+        "def": 10,
+        "HP": 10,
+        "bao": 0.01,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 100
+    },
+    {
+        "id": 1102,
+        "name": "破铜烂铁",
+        "class": "1",
+        "type": "1",
+        "atk": 10,
+        "def": 10,
+        "HP": 10,
+        "bao": 0.01,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 100
+    },
+    {
+        "id": 1103,
+        "name": "咸鱼宝剑",
+        "class": "1",
+        "type": "1",
+        "atk": 1000,
+        "def": 100,
+        "HP": 100,
+        "bao": 0.02,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 5000
+    },
+    {
+        "id": 1104,
+        "name": "精制长剑",
+        "class": "1",
+        "type": "1",
+        "atk": 5000,
+        "def": 500,
+        "HP": 500,
+        "bao": 0.03,
+        "speed": 0,
+        "atkpercentage": 0,
+        "defpercentage": 0,
+        "HPpercentage": 0,
+        "acount": 1,
+        "price": 20000
+    },
+
+
     {
         "id": 5101,
         "name": "八卦诀",
@@ -121,5 +193,98 @@
         "size": 0.03,
         "acount": 1,
         "price": 30000
+    },
+    {
+        "id": 4201,
+        "name": "还春丹",
+        "class": "4",
+        "type": "1",
+        "HP": 10000,
+        "HPp": 0.02,
+        "acount": 1,
+        "price": 200
+    },
+    {
+        "id": 4202,
+        "name": "化淤丹",
+        "class": "4",
+        "type": "1",
+        "HP": 10000,
+        "HPp": 0.05,
+        "acount": 1,
+        "price": 1000
+    },
+    {
+        "id": 4203,
+        "name": "血莲丹",
+        "class": "4",
+        "type": "1",
+        "HP": 20000,
+        "HPp": 0.2,
+        "acount": 1,
+        "price": 2000
+    },
+    {
+        "id": 4204,
+        "name": "生骨丹",
+        "class": "4",
+        "type": "1",
+        "HP": 30000,
+        "HPp": 0.3,
+        "acount": 1,
+        "price": 3000
+    },
+    {
+        "id": 4205,
+        "name": "返命丹",
+        "class": "4",
+        "type": "1",
+        "HP": 50000,
+        "HPp": 0.5,
+        "acount": 1,
+        "price": 5000
+    },
+    {
+        "id": 4206,
+        "name": "玄元丹",
+        "class": "4",
+        "type": "2",
+        "exp": 5000,
+        "acount": 1,
+        "price": 5000
+    },
+    {
+        "id": 4207,
+        "name": "聚灵丹",
+        "class": "4",
+        "type": "2",
+        "exp": 10000,
+        "acount": 1,
+        "price": 10000
+    },
+    {
+        "id": 4208,
+        "name": "药王丹",
+        "class": "4",
+        "type": "2",
+        "exp": 10000,
+        "acount": 1,
+        "price": 10000
+    },
+    {
+        "id": 4209,
+        "name": "融灵丹",
+        "class": "4",
+        "type": "2",
+        "exp": 20000,
+        "acount": 1,
+        "price": 20000
     }
+
+
+
+
+
+
+
 ]
