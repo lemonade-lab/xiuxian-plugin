@@ -2,24 +2,22 @@ import YAML from "yaml";
 import fs from "node:fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
-
 /**
  * 配置
  */
  const config0=["xiuxian","task","help","help","help"];
  const config=["xiuxian","task","help","helpcopy","set"];
  for(var i=0;i<config0.length;i++){
-     let x='./plugins/xiuxian-emulator-plugin/config/'+config0[i]+'/'+config[i]+'.yaml'
+     let x='./plugins/xiuxian-emulator-plugin/config/'+config0[i]+'/'+config[i]+'.yaml';
+     let y='./plugins/xiuxian-emulator-plugin/defSet/'+config0[i]+'/'+config[i]+'.yaml';
      if (!fs.existsSync(x)) {
-         fs.cp('./plugins/xiuxian-emulator-plugin/defSet/'+config0[i]+'/'+config[i]+'.yaml', './plugins/xiuxian-emulator-plugin/config/'+config0[i]+'/'+config[i]+'.yaml', (err) => {
+         fs.cp(y, x, (err) => {
            if (err) {
              console.error(x);
            }
          });
      }
  }
-
-
 /** 配置文件 直接借鉴yunzai配置代码 */
 class Config {
     constructor() {

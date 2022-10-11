@@ -1,13 +1,13 @@
 body {
   transform: scale(1);
   width: 830px;
-
 }
 .container {
-  background: url(../../img/help/xiuxian.jpg) top left no-repeat;
+  background: url(../../help/help.jpg),url(../../img/help/help_config.jpg) top left no-repeat;
   background-size: 100% auto;
   width: 830px;
 }
+
 .label {
   font-family: Number, "微软雅黑", sans-serif;
 }

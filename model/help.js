@@ -1,5 +1,21 @@
 import base from "./base.js";
 import xiuxianCfg from "./Config.js";
+import fs from "node:fs";
+
+const config0=["help","help"];
+const config=["help","help_config"];
+for(var i=0;i<config0.length;i++){
+    let x='./plugins/xiuxian-emulator-plugin/resources/'+config0[i]+'/'+config[i]+'.jpg'
+    if (!fs.existsSync(x)) {
+        let y='./plugins/xiuxian-emulator-plugin/resources/img/'+config0[i]+'/'+config[i]+'.jpg'
+        fs.cp(y, x, 
+        (err) => {
+          if (err) {
+            console.error(x);
+          }
+        });
+    }
+}
 
 export default class Help extends base {
   constructor(e) {

@@ -732,188 +732,166 @@ export async function exist_najie_thing(usr_qq, thing_id, thing_class) {
 }
 
 
-export async function Add_najie_thing_arms(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let thing =  najie.arms.find(item => item.id == thing_id);
+export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
+    let thing =  najie.arms.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
         let equipment = {
-        id: thing_id,
-        class: thing_class,
-        type: thing_type,
+        id: najie_thing.id,
+        class: najie_thing.class,
+        type: najie_thing.type,
         acount: thing_acount
        }
        najie.arms.push(equipment);
-       await Write_najie(usr_qq, najie);
-       return;
+       return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.arms =  najie.arms.filter(item => item.id != thing_id);
+            najie.arms =  najie.arms.filter(item => item.id != najie_thing.id);
         }else{
-            najie.arms.find(item => item.id == thing_id).acount = acount;
+            najie.arms.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
-export async function Add_najie_thing_huju(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let thing =  najie.huju.find(item => item.id == thing_id);
+export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
+    let thing =  najie.huju.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
         let equipment = {
-        id: thing_id,
-        class: thing_class,
-        type: thing_type,
-        acount: thing_acount  
-        };
-        najie.huju.push(equipment);
-        await Write_najie(usr_qq, najie);
-        return;
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount  
+            };
+            najie.huju.push(equipment);
+            return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.huju =  najie.huju.filter(item => item.id != thing_id);
+            najie.huju =  najie.huju.filter(item => item.id != najie_thing.id);
         }else{
-            najie.huju.find(item => item.id == thing_id).acount = acount;
+            najie.huju.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
-export async function Add_najie_thing_fabao(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let thing =  najie.fabao.find(item => item.id == thing_id);
+export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
+    let thing =  najie.fabao.find(item => item.id == najie_thing.id);
     if (thing == undefined) {
         let equipment = {
-            id: thing_id,
-            class: thing_class,
-            type: thing_type,
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
             acount: thing_acount
         }
-         najie.fabao.push(equipment);
-         await Write_najie(usr_qq, najie);
-         return;
+        najie.fabao.push(equipment);
+        return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.fabao =  najie.fabao.filter(item => item.id != thing_id);
+            najie.fabao =  najie.fabao.filter(item => item.id != najie_thing.id);
         }else{
-            najie.fabao.find(item => item.id == thing_id).acount = acount;
+            najie.fabao.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
-export async function Add_najie_thing_danyao(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let thing =  najie.danyao.find(item => item.id == thing_id);
+export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
+    let thing =  najie.danyao.find(item => item.id == najie_thing.id);
     if (thing == undefined) {
         let equipment = {
-            id: thing_id,
-            class: thing_class,
-            type: thing_type,
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
             acount: thing_acount
         }
          najie.danyao.push(equipment);
-         await Write_najie(usr_qq, najie);
-         return;
+         return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.danyao =  najie.danyao.filter(item => item.id != thing_id);
+            najie.danyao =  najie.danyao.filter(item => item.id != najie_thing.id);
         }else{
-            najie.danyao.find(item => item.id == thing_id).acount = acount;
+            najie.danyao.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
 
-export async function Add_najie_thing_gonfa(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let thing =  najie.gonfa.find(item => item.id == thing_id);
+export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
+    let thing =  najie.gonfa.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
         let equipment = {
-        id: thing_id,
-        class: thing_class,
-        type: thing_type,
-        acount: thing_acount
-    }
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
+         }
          najie.gonfa.push(equipment);
-         await Write_najie(usr_qq, najie);
-         return;
+         return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.gonfa =  najie.gonfa.filter(item => item.id != thing_id);
+            najie.gonfa =  najie.gonfa.filter(item => item.id != najie_thing.id);
         }else{
-            najie.gonfa.find(item => item.id == thing_id).acount = acount;
+            najie.gonfa.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
 
-export async function Add_najie_thing_daoju(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let acount;
-    let thing =  najie.daoju.find(item => item.id == thing_id);
+export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
+    let thing =  najie.daoju.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
         let equipment = {
-        id: thing_id,
-        class: thing_class,
-        type: thing_type,
+        id: najie_thing.id,
+        class: najie_thing.class,
+        type: najie_thing.type,
         acount: thing_acount
-    }
-    najie.daoju.push(equipment); 
-    await Write_najie(usr_qq, najie);
-    return;
+        }
+        najie.daoju.push(equipment); 
+        return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.daoju =  najie.daoju.filter(item => item.id != thing_id);
+            najie.daoju =  najie.daoju.filter(item => item.id != najie_thing.id);
         }else{
-            najie.daoju.find(item => item.id == thing_id).acount = acount;
+            najie.daoju.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
-export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_type, thing_acount) {
-    let najie = await Read_najie(usr_qq);
-    let thing =  najie.ring.find(item => item.id == thing_id);
+export async function Add_najie_thing_ring(najie, najie_thing, thing_acount) {
+    let thing =  najie.ring.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
         let equipment = {
-        id: thing_id,
-        class: thing_class,
-        type: thing_type,
+        id: najie_thing.id,
+        class: najie_thing.class,
+        type: najie_thing.type,
         acount: thing_acount
-    }
-    najie.ring.push(equipment);
-    await Write_najie(usr_qq, najie);
-    return;
+        }
+        najie.ring.push(equipment);
+        return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;   
         if (acount < 1) {
-            najie.ring =  najie.ring.filter(item => item.id != thing_id);
+            najie.ring =  najie.ring.filter(item => item.id != najie_thing.id);
         }else{
-            najie.ring.find(item => item.id == thing_id).acount = acount;
+            najie.ring.find(item => item.id == najie_thing.id).acount = acount;
         }
-        await Write_najie(usr_qq, najie);
-        return;
+        return najie;
     }
 }
 
@@ -921,49 +899,40 @@ export async function Add_najie_thing_ring(usr_qq, thing_id, thing_class, thing_
 /**
  * 替换装备
  */
-export async function instead_equipment_arms(usr_qq, thing_id, thing_class,thing_type) {
-    let equipment = await Read_equipment(usr_qq);
-    await Add_najie_thing_arms(usr_qq, equipment.arms.id, equipment.arms.class, equipment.arms.type, 1);
+export async function instead_equipment_arms(equipment, searchsthing) {
     equipment.arms ={
-        "id": thing_id,
-        "class": thing_class,
-        "type": thing_type,
+        "id": searchsthing.id,
+        "class": searchsthing.class,
+        "type": searchsthing.type,
         "acount": 1 
     }
-    await Write_equipment(usr_qq, equipment);
-    return ;
+    return equipment;
 }
 
 /**
  * 替换护具
  */
- export async function instead_equipment_huju(usr_qq, thing_id, thing_class,thing_type) {
-    let equipment = await Read_equipment(usr_qq);
-    await Add_najie_thing_huju(usr_qq, equipment.huju.id, equipment.huju.class, equipment.huju.type, 1);
+ export async function instead_equipment_huju(equipment, searchsthing) {
     equipment.huju ={
-            "id": thing_id,
-            "class": thing_class,
-            "type": thing_type,
+        "id": searchsthing.id,
+        "class": searchsthing.class,
+        "type": searchsthing.type,
             "acount": 1 
         }
-    await Write_equipment(usr_qq, equipment);
-    return 0;
+    return equipment;
 }
 
 /**
  * 替换装备
  */
-export async function instead_equipment_fabao(usr_qq, thing_id, thing_class,thing_type) {
-    let equipment = await Read_equipment(usr_qq);
-    await Add_najie_thing_fabao(usr_qq, equipment.fabao.id, equipment.fabao.class, equipment.fabao.type, 1);
+export async function instead_equipment_fabao(equipment, searchsthing) {
     equipment.fabao ={
-        "id": thing_id,
-        "class": thing_class,
-        "type": thing_type,
+        "id": searchsthing.id,
+        "class": searchsthing.class,
+        "type": searchsthing.type,
         "acount": 1 
     }
-    await Write_equipment(usr_qq, equipment);
-    return 0;
+    return equipment;
 }
 
 

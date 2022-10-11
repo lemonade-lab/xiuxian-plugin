@@ -64,18 +64,27 @@ export class UserHome extends plugin {
             e.reply("没有" + thing_name);
             return;
         }
+        let najie = await Xiuxian.Read_najie(usr_qq);
+
+        let equipment = await Xiuxian.Read_equipment(usr_qq);
+
         if (searchsthing.class == 1) {
-            await Xiuxian.Add_najie_thing_arms(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
-            await Xiuxian.instead_equipment_arms(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
+            najie = await Xiuxian.Add_najie_thing_arms(najie, equipment.arms, 1);
+            equipment=await Xiuxian.instead_equipment_arms(equipment, searchsthing);
+            najie = await Xiuxian.Add_najie_thing_arms(najie, searchsthing, -1);
         }
         if (searchsthing.class == 2) {
-            await Xiuxian.Add_najie_thing_huju(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
-            await Xiuxian.instead_equipment_huju(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
+            najie = await Xiuxian.Add_najie_thing_huju(najie, equipment.huju, 1);
+            equipment=await Xiuxian.instead_equipment_huju(equipment, searchsthing);
+            najie = await Xiuxian.Add_najie_thing_huju(najie, searchsthing, -1);
         }
         if (searchsthing.class == 3) {
-            await Xiuxian.Add_najie_thing_fabao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
-            await Xiuxian.instead_equipment_fabao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type);
+            najie = await Xiuxian.Add_najie_thing_fabao(najie, equipment.fabao, 1);
+            equipment=await Xiuxian.instead_equipment_fabao(equipment, searchsthing);
+            najie = await Xiuxian.Add_najie_thing_fabao(najie, searchsthing, -1);
         }
+        await Xiuxian.Write_equipment(usr_qq, equipment);
+        await Xiuxian.Write_najie(usr_qq, najie);
         e.reply("成功装备" + thing_name);
         return;
     }
@@ -118,7 +127,10 @@ export class UserHome extends plugin {
             await Xiuxian.Add_experience(usr_qq, thing_acount * experience);
             e.reply("修为增加" + thing_acount * searchsthing.exp);
         }
-        await Xiuxian.Add_najie_thing_danyao(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -thing_acount);
+
+        let najie = await Read_najie(usr_qq);
+        najie = await Xiuxian.Add_najie_thing_danyao(najie, searchsthing, -thing_acount);
+        await Write_najie(usr_qq, najie);
         return;
     }
 
@@ -151,7 +163,10 @@ export class UserHome extends plugin {
         await Xiuxian.Add_player_AllSorcery(usr_qq, searchsthing.id);
         await Xiuxian.player_efficiency(usr_qq);
         e.reply("成功学习" + thing_name);
-        await Xiuxian.Add_najie_thing_gonfa(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
+        
+        let najie = await Read_najie(usr_qq);
+        najie = await Xiuxian.Add_najie_thing_gonfa(najie, searchsthing, -1);
+        await Write_najie(usr_qq, najie);
         return;
     }
 
@@ -203,7 +218,10 @@ export class UserHome extends plugin {
             await Xiuxian.Write_player(usr_qq, player);
             e.reply("显示成功");
         }
-        await Xiuxian.Add_najie_thing_ring(usr_qq, searchsthing.id, searchsthing.class, searchsthing.type, -1);
+        
+        let najie = await Xiuxian.Read_najie(usr_qq);
+        najie = await Xiuxian.Add_najie_thing_ring(najie, searchsthing, -1);
+        await Xiuxian.Write_najie(usr_qq, najie);
         return;
     }
 }
