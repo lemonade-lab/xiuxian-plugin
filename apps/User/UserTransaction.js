@@ -45,6 +45,7 @@ export class UserTransaction extends plugin {
         if (!e.isGroup) {
             return;
         }
+        let usr_qq = e.user_id;
         let ifexistplay = data.existData("player", usr_qq);
         if (!ifexistplay) {
             return;
