@@ -55,14 +55,22 @@ export class UserTransaction extends plugin {
         ];
         let commodities_list = data.commodities_list; 
         for (var i = 0; i < commodities_list.length; i++) {
-            msg.push(
-                "\n物品：" + commodities_list[i].name +
-                "\n攻击：" + commodities_list[i].atk  +
-                "\n防御：" + commodities_list[i].def +
-                "\n血量：" + commodities_list[i].HP +
-                "\n暴击：" + commodities_list[i].bao+
-                "\n天赋：" + commodities_list[i].size+
-                "\n修为：" + commodities_list[i].exp);
+            if(commodities_list[i]==1||commodities_list[i]==2||commodities_list[i]==3){
+                msg.push(
+                    "物品：" + commodities_list[i].name +
+                    "\n攻击：+" + commodities_list[i].atk  +
+                    "\n防御：+" + commodities_list[i].def +
+                    "\n血量：+" + commodities_list[i].HP +
+                    "\n暴击：+" + commodities_list[i].bao*100+"%"+
+                    "\n价格：" + commodities_list[i].price);
+            }
+            else{
+                msg.push(
+                    "天赋：+" + commodities_list[i].size*100+"%"+
+                    "\n血量：+" + commodities_list[i].HP+
+                    "\n修为：+" + commodities_list[i].exp+
+                    "\n价格：" + commodities_list[i].price);
+            }
         }
         await ForwardMsg(e, msg);
         return;
