@@ -127,10 +127,10 @@ export class UserHome extends plugin {
             await Xiuxian.Add_experience(usr_qq, thing_acount * experience);
             e.reply("修为增加" + thing_acount * searchsthing.exp);
         }
-
-        let najie = await Read_najie(usr_qq);
+        let najie = await Xiuxian.Read_najie(usr_qq);
         najie = await Xiuxian.Add_najie_thing_danyao(najie, searchsthing, -thing_acount);
-        await Write_najie(usr_qq, najie);
+        await Xiuxian.Write_najie(usr_qq, najie);
+        console.log("");
         return;
     }
 
@@ -154,6 +154,7 @@ export class UserHome extends plugin {
             e.reply(`你没有[${thing_name}]`);
             return;
         }
+        
         let player = await Xiuxian.Read_player(usr_qq);
         let islearned = player.AllSorcery.find(item => item == searchsthing.id);
         if (islearned) {
@@ -162,11 +163,10 @@ export class UserHome extends plugin {
         }
         await Xiuxian.Add_player_AllSorcery(usr_qq, searchsthing.id);
         await Xiuxian.player_efficiency(usr_qq);
-        e.reply("成功学习" + thing_name);
-        
-        let najie = await Read_najie(usr_qq);
+        let najie = await Xiuxian.Read_najie(usr_qq);
         najie = await Xiuxian.Add_najie_thing_gonfa(najie, searchsthing, -1);
-        await Write_najie(usr_qq, najie);
+        await Xiuxian.Write_najie(usr_qq, najie);
+        e.reply("成功学习" + thing_name);
         return;
     }
 
@@ -222,6 +222,7 @@ export class UserHome extends plugin {
         let najie = await Xiuxian.Read_najie(usr_qq);
         najie = await Xiuxian.Add_najie_thing_ring(najie, searchsthing, -1);
         await Xiuxian.Write_najie(usr_qq, najie);
+        console.log("");
         return;
     }
 }
