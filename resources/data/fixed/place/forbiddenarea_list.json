@@ -2,49 +2,458 @@
     {
         "id": 1,
         "name": "禁忌海",
-        "Grade": "禁地*丹药",
+        "Grade": "武器",
         "Best": [
             "[]"
         ],
-        "Price": 100000,
+        "Price": 200000,
         "experience": 200000,
         "one": [
+            {
+                "id": 1116,
+                "name": "混沌针",
+                "class": "1",
+                "type": "1",
+                "atk": 50000,
+                "def": 100000,
+                "HP": 5000,
+                "bao": 0.1,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 200000
+            }
         ],
         "two": [
+            {
+                "id": 1117,
+                "name": "墨刀",
+                "class": "1",
+                "type": "1",
+                "atk": 150000,
+                "def": 5000,
+                "HP": 5000,
+                "bao": 0.1,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 300000
+            }
         ],
         "three": [
+        {
+            "id": 1118,
+            "name": "碧鳞剑",
+            "class": "1",
+            "type": "1",
+            "atk": 200000,
+            "def": 5000,
+            "HP": 5000,
+            "bao": 0.1,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 350000
+        },
+        {
+            "id": 1119,
+            "name": "饮血剑",
+            "class": "1",
+            "type": "1",
+            "atk": 300000,
+            "def": 20000,
+            "HP": 20000,
+            "bao": 0.15,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 450000
+        }
         ]
     },
+
     {
-        "id": 334,
+        "id": 2,
+        "name": "死魂塔",
+        "Grade": "护具",
+        "Best": [
+            "[]"
+        ],
+        "Price": 200000,
+        "experience": 200000,
+        "one": [
+            {
+                "id": 2113,
+                "name": "混沌钟",
+                "class": "2",
+                "type": "1",
+                "atk": 5000,
+                "def": 100000,
+                "HP": 50000,
+                "bao": 0.1,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 200000
+            }
+        ],
+        "two": [
+            {
+                "id": 2114,
+                "name": "昊玄镜",
+                "class": "2",
+                "type": "1",
+                "atk": 5000,
+                "def": 150000,
+                "HP": 50000,
+                "bao": 0.1,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 300000
+            }
+        ],
+        "three": [
+                {
+                    "id": 2115,
+                    "name": "安魂甲",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 5000,
+                    "def": 200000,
+                    "HP": 50000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 350000
+                },
+                {
+                    "id": 2116,
+                    "name": "龙鳞",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 20000,
+                    "def": 300000,
+                    "HP": 20000,
+                    "bao": 0.15,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 450000
+                }
+        ]
+    },
+
+    {
+        "id": 3,
+        "name": "悬天窟",
+        "Grade": "法宝",
+        "Best": [
+            "[]"
+        ],
+        "Price": 200000,
+        "experience": 200000,
+        "one": [
+            {
+                "id": 3115,
+                "name": "混沌花",
+                "class": "3",
+                "type": "1",
+                "atk": 100000,
+                "def": 5000,
+                "HP": 5000,
+                "bao": 0.2,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 200000
+            }
+        ],
+        "two": [
+            {
+                "id": 3116,
+                "name": "玲珑塔",
+                "class": "3",
+                "type": "1",
+                "atk": 150000,
+                "def": 5000,
+                "HP": 5000,
+                "bao": 0.2,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 300000
+            }
+        ],
+        "three": [
+            {
+                "id": 3117,
+                "name": "封仙印",
+                "class": "3",
+                "type": "1",
+                "atk": 200000,
+                "def": 5000,
+                "HP": 5000,
+                "bao": 0.2,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 350000
+            },
+            {
+                "id": 3118,
+                "name": "破天莲",
+                "class": "3",
+                "type": "1",
+                "atk": 300000,
+                "def": 20000,
+                "HP": 20000,
+                "bao": 0.3,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 450000
+            }
+        ]
+    },
+
+    {
+        "id": 4,
         "name": "灭仙洞",
-        "Grade": "禁地*装备",
+        "Grade": "丹药",
         "Best": [
             "[]"
         ],
-        "Price": 100000,
+        "Price": 200000,
         "experience": 200000,
         "one": [
+            {
+                "id": 4225,
+                "name": "四转金丹",
+                "class": "4",
+                "type": "2",
+                "exp": 160000,
+                "acount": 1,
+                "price": 160000
+            },
+            {
+                "id": 4226,
+                "name": "五转金丹",
+                "class": "4",
+                "type": "2",
+                "exp": 180000,
+                "acount": 1,
+                "price": 180000
+            }
         ],
-        "two": [
+        "two": [{
+            "id": 4227,
+            "name": "六转灵丹",
+            "class": "4",
+            "type": "2",
+            "exp": 240000,
+            "acount": 1,
+            "price": 240000
+        },
+        {
+            "id": 4228,
+            "name": "七转灵丹",
+            "class": "4",
+            "type": "2",
+            "exp": 240000,
+            "acount": 1,
+            "price": 240000
+        },
+        {
+            "id": 4229,
+            "name": "八转灵丹",
+            "class": "4",
+            "type": "2",
+            "exp": 240000,
+            "acount": 1,
+            "price": 240000
+        }
         ],
         "three": [
+            
+            {
+                "id": 4230,
+                "name": "九转仙丹",
+                "class": "4",
+                "type": "2",
+                "exp": 260000,
+                "acount": 1,
+                "price": 260000
+            },
+            {
+                "id": 4231,
+                "name": "十转神丹",
+                "class": "4",
+                "type": "2",
+                "exp": 300000,
+                "acount": 1,
+                "price": 260000
+            },
+            {
+                "id": 4232,
+                "name": "道丹",
+                "class": "4",
+                "type": "2",
+                "exp": 500000,
+                "acount": 1,
+                "price": 300000
+            }
         ]
     },
     {
-        "id": 335,
+        "id": 5,
         "name": "雷风岛",
-        "Grade": "禁地*功法",
+        "Grade": "功法",
         "Best": [
             "[]"
         ],
-        "Price": 100000,
+        "Price": 200000,
         "experience": 200000,
         "one": [
+            {
+                "id": 5118,
+                "name": "归一决",
+                "class": "5",
+                "type": "1",
+                "size": 0.18,
+                "acount": 1,
+                "price": 180000
+            },
+            {
+                "id": 5119,
+                "name": "千浪决",
+                "class": "5",
+                "type": "1",
+                "size": 0.18,
+                "acount": 1,
+                "price": 180000
+            },
+            {
+                "id": 5120,
+                "name": "玉丹功",
+                "class": "5",
+                "type": "1",
+                "size": 0.18,
+                "acount": 1,
+                "price": 180000
+            },
+            {
+                "id": 5121,
+                "name": "红楼梦",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            },
+            {
+                "id": 5122,
+                "name": "西游记",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            },
+            {
+                "id": 5123,
+                "name": "三国演义",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            },
+            {
+                "id": 24,
+                "name": "水浒传",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            }
+            
         ],
-        "two": [
+        "two": [   
+        {
+            "id": 5126,
+            "name": "我佛慈悲",
+            "class": "5",
+            "type": "1",
+            "size": 0.28,
+            "acount": 1,
+            "price": 280000
+        },
+        {
+            "id": 5127,
+            "name": "立地成佛",
+            "class": "5",
+            "type": "1",
+            "size": 0.28,
+            "acount": 1,
+            "price": 280000
+        }
         ],
         "three": [
+        
+            {
+                "id": 5128,
+                "name": "太玄经",
+                "class": "5",
+                "type": "1",
+                "size": 0.35,
+                "acount": 1,
+                "price": 350000
+            },
+            {
+                "id": 5129,
+                "name": "太乙经",
+                "class": "5",
+                "type": "1",
+                "size": 0.35,
+                "acount": 1,
+                "price": 350000
+            },
+            {
+                "id": 5130,
+                "name": "太白经",
+                "class": "5",
+                "type": "1",
+                "size": 0.35,
+                "acount": 1,
+                "price": 350000
+            }
         ]
     }
 ]

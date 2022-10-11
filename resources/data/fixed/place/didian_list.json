@@ -9,10 +9,202 @@
         "Price": 100000,
         "experience": 50000,
         "one": [
+                {
+                    "id": 1105,
+                    "name": "寒龙刀",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 15000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 30000
+                },
+                {
+                    "id": 1106,
+                    "name": "煞血刀",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 15000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 30000
+                },
+                {
+                    "id": 1107,
+                    "name": "圣道之剑",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 20000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 40000
+                },
+                {
+                    "id": 1108,
+                    "name": "赤霄剑",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 20000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 40000
+                },
+                {
+                    "id": 1109,
+                    "name": "狂怒战刃",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 25000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                },
+                {
+                    "id": 1110,
+                    "name": "阿努比斯权杖",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 25000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                },
+                {
+                    "id": 1111,
+                    "name": "笼中雀",
+                    "class": "1",
+                    "type": "1",
+                    "atk": 25000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                }
         ],
         "two": [
-        ],
+        {
+            "id": 1112,
+            "name": "开天斧",
+            "class": "1",
+            "type": "1",
+            "atk": 50000,
+            "def": 8000,
+            "HP": 8000,
+            "bao": 0.1,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 100000
+        },
+        {
+            "id": 1113,
+            "name": "七星剑",
+            "class": "1",
+            "type": "1",
+            "atk": 50000,
+            "def": 8000,
+            "HP": 8000,
+            "bao": 0.1,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 100000
+        },
+        {
+            "id": 1114,
+            "name": "太阳剑",
+            "class": "1",
+            "type": "1",
+            "atk": 80000,
+            "def": 8000,
+            "HP": 8000,
+            "bao": 0.1,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 150000
+        },
+        {
+            "id": 1115,
+            "name": "太阴剑",
+            "class": "1",
+            "type": "1",
+            "atk": 80000,
+            "def": 8000,
+            "HP": 8000,
+            "bao": 0.1,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 150000
+        }
+    ],
         "three": [
+        {
+            "id": 1116,
+            "name": "混沌针",
+            "class": "1",
+            "type": "1",
+            "atk": 50000,
+            "def": 100000,
+            "HP": 5000,
+            "bao": 0.1,
+            "speed": 0,
+            "atkpercentage": 0,
+            "defpercentage": 0,
+            "HPpercentage": 0,
+            "acount": 1,
+            "price": 200000
+        }
         ]
     },
     {
@@ -25,10 +217,171 @@
         "Price": 100000,
         "experience": 50000,
         "one": [
+                {
+                    "id": 2104,
+                    "name": "金光天甲",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 1500,
+                    "def": 15000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 30000
+                },
+                {
+                    "id": 2105,
+                    "name": "金光圣盾",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 1500,
+                    "def": 15000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 30000
+                },
+                {
+                    "id": 2106,
+                    "name": "麒麟甲",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 5000,
+                    "def": 20000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 40000
+                },
+                {
+                    "id": 2107,
+                    "name": "穷奇盾",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 5000,
+                    "def": 20000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 40000
+                },
+                {
+                    "id": 2108,
+                    "name": "雨落护甲",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 8000,
+                    "def": 25000,
+                    "HP": 8000,
+                    "bao": 0.05,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                },
+                {
+                    "id": 2109,
+                    "name": "太极图",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 8000,
+                    "def": 25000,
+                    "HP": 8000,
+                    "bao": 0.05,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                },
+                {
+                    "id": 2110,
+                    "name": "耀炎之盾",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 8000,
+                    "def": 25000,
+                    "HP": 8000,
+                    "bao": 0.05,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                }
         ],
         "two": [
+                {
+                    "id": 2111,
+                    "name": "荷叶甲",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 5000,
+                    "def": 80000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 150000
+                },
+                {
+                    "id": 2112,
+                    "name": "万兽甲",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 5000,
+                    "def": 80000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 150000
+                }
         ],
         "three": [
+                {
+                    "id": 2113,
+                    "name": "混沌钟",
+                    "class": "2",
+                    "type": "1",
+                    "atk": 5000,
+                    "def": 100000,
+                    "HP": 50000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 200000
+                }
+
         ]
     },
     {
@@ -41,10 +394,207 @@
         "Price": 100000,
         "experience": 50000,
         "one": [
+                {
+                    "id": 3104,
+                    "name": "昊天印",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 15000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 30000
+                },
+                {
+                    "id": 3105,
+                    "name": "刑天扇",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 15000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 30000
+                },
+                {
+                    "id": 3106,
+                    "name": "风清叶",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 20000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 40000
+                },
+                {
+                    "id": 3107,
+                    "name": "炼雷根",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 20000,
+                    "def": 5000,
+                    "HP": 5000,
+                    "bao": 0.10,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 40000
+                },
+                {
+                    "id": 3108,
+                    "name": "玄黄塔",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 25000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.13,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                },
+                {
+                    "id": 3109,
+                    "name": "石鬼面",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 25000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.13,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                },
+                {
+                    "id": 3110,
+                    "name": "芭蕉扇",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 25000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.13,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 50000
+                }
+
+
+            
         ],
         "two": [
-        ],
+            
+                {
+                    "id": 3111,
+                    "name": "万花扇",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 50000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 100000
+                },
+                {
+                    "id": 3112,
+                    "name": "捆仙绳",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 50000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 100000
+                },
+                {
+                    "id": 3113,
+                    "name": "轮回钟",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 80000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 150000
+                },
+                {
+                    "id": 3114,
+                    "name": "伏魔塔",
+                    "class": "3",
+                    "type": "1",
+                    "atk": 80000,
+                    "def": 8000,
+                    "HP": 8000,
+                    "bao": 0.1,
+                    "speed": 0,
+                    "atkpercentage": 0,
+                    "defpercentage": 0,
+                    "HPpercentage": 0,
+                    "acount": 1,
+                    "price": 150000
+                }],
         "three": [
+            
+
+            {
+                "id": 3115,
+                "name": "混沌花",
+                "class": "3",
+                "type": "1",
+                "atk": 100000,
+                "def": 5000,
+                "HP": 5000,
+                "bao": 0.2,
+                "speed": 0,
+                "atkpercentage": 0,
+                "defpercentage": 0,
+                "HPpercentage": 0,
+                "acount": 1,
+                "price": 200000
+            }
         ]
     },
     {
@@ -57,10 +607,163 @@
         "Price": 100000,
         "experience": 50000,
         "one": [
+            {
+                "id": 4210,
+                "name": "小宝丹",
+                "class": "4",
+                "type": "2",
+                "exp": 30000,
+                "acount": 1,
+                "price": 30000
+            },
+            {
+                "id": 4211,
+                "name": "大宝丹",
+                "class": "4",
+                "type": "2",
+                "exp": 30000,
+                "acount": 1,
+                "price": 30000
+            },
+            {
+                "id": 4212,
+                "name": "巨宝丹",
+                "class": "4",
+                "type": "2",
+                "exp": 30000,
+                "acount": 1,
+                "price": 30000
+            },
+            {
+                "id": 4213,
+                "name": "虚法丹",
+                "class": "4",
+                "type": "2",
+                "exp": 40000,
+                "acount": 1,
+                "price": 40000
+            },
+            {
+                "id": 4214,
+                "name": "天法丹",
+                "class": "4",
+                "type": "2",
+                "exp": 40000,
+                "acount": 1,
+                "price": 40000
+            },
+            {
+                "id": 4215,
+                "name": "异法丹",
+                "class": "4",
+                "type": "2",
+                "exp": 40000,
+                "acount": 1,
+                "price": 40000
+            },
+            {
+                "id": 4216,
+                "name": "虚灵丹",
+                "class": "4",
+                "type": "2",
+                "exp": 50000,
+                "acount": 1,
+                "price": 50000
+            },
+            {
+                "id": 4217,
+                "name": "天灵丹",
+                "class": "4",
+                "type": "2",
+                "exp": 50000,
+                "acount": 1,
+                "price": 50000
+            },
+            {
+                "id": 4218,
+                "name": "异灵丹",
+                "class": "4",
+                "type": "2",
+                "exp": 50000,
+                "acount": 1,
+                "price": 50000
+            },
+            {
+                "id": 4219,
+                "name": "灵真丹",
+                "class": "4",
+                "type": "2",
+                "exp": 60000,
+                "acount": 1,
+                "price": 60000
+            },
+            {
+                "id": 4220,
+                "name": "妖真丹",
+                "class": "4",
+                "type": "2",
+                "exp": 60000,
+                "acount": 1,
+                "price": 60000
+            },
+            {
+                "id": 4221,
+                "name": "魔真丹",
+                "class": "4",
+                "type": "2",
+                "exp": 60000,
+                "acount": 1,
+                "price": 60000
+            }
         ],
         "two": [
+            {
+                "id": 4222,
+                "name": "一转金丹",
+                "class": "4",
+                "type": "2",
+                "exp": 100000,
+                "acount": 1,
+                "price": 100000
+            },
+            {
+                "id": 4223,
+                "name": "二转金丹",
+                "class": "4",
+                "type": "2",
+                "exp": 120000,
+                "acount": 1,
+                "price": 120000
+            },
+            {
+                "id": 4224,
+                "name": "三转金丹",
+                "class": "4",
+                "type": "2",
+                "exp": 140000,
+                "acount": 1,
+                "price": 140000
+            }
         ],
         "three": [
+        {
+            "id": 4225,
+            "name": "四转金丹",
+            "class": "4",
+            "type": "2",
+            "exp": 160000,
+            "acount": 1,
+            "price": 160000
+        },
+        {
+            "id": 4226,
+            "name": "五转金丹",
+            "class": "4",
+            "type": "2",
+            "exp": 180000,
+            "acount": 1,
+            "price": 180000
+        }
         ]
     },
     {
@@ -73,10 +776,199 @@
         "Price": 100000,
         "experience": 50000,
         "one": [
+            {
+                "id": 5104,
+                "name": "炼毒咒",
+                "class": "5",
+                "type": "1",
+                "size": 0.04,
+                "acount": 1,
+                "price": 40000
+            },
+            {
+                "id": 5105,
+                "name": "飘渺经",
+                "class": "5",
+                "type": "1",
+                "size": 0.04,
+                "acount": 1,
+                "price": 40000
+            },
+            {
+                "id": 5106,
+                "name": "魅魔经",
+                "class": "5",
+                "type": "1",
+                "size": 0.04,
+                "acount": 1,
+                "price": 40000
+            },
+            {
+                "id": 5107,
+                "name": "三千咒",
+                "class": "5",
+                "type": "1",
+                "size": 0.05,
+                "acount": 1,
+                "price": 50000
+            },
+            {
+                "id": 5108,
+                "name": "龙象诀",
+                "class": "5",
+                "type": "1",
+                "size": 0.05,
+                "acount": 1,
+                "price": 50000
+            },
+            {
+                "id": 5109,
+                "name": "五形功",
+                "class": "5",
+                "type": "1",
+                "size": 0.05,
+                "acount": 1,
+                "price": 50000
+            },
+            {
+                "id": 5110,
+                "name": "通宝决",
+                "class": "5",
+                "type": "1",
+                "size": 0.06,
+                "acount": 1,
+                "price": 60000
+            },
+            {
+                "id": 5111,
+                "name": "煞必功",
+                "class": "5",
+                "type": "1",
+                "size": 0.06,
+                "acount": 1,
+                "price": 60000
+            },
+            {
+                "id": 5112,
+                "name": "万象诀",
+                "class": "5",
+                "type": "1",
+                "size": 0.06,
+                "acount": 1,
+                "price": 60000
+            }
         ],
         "two": [
+            {
+                "id": 5113,
+                "name": "缠玉决",
+                "class": "5",
+                "type": "1",
+                "size": 0.13,
+                "acount": 1,
+                "price": 130000
+            },
+            {
+                "id": 5114,
+                "name": "青灵功",
+                "class": "5",
+                "type": "1",
+                "size": 0.13,
+                "acount": 1,
+                "price": 130000
+            },
+            {
+                "id": 5115,
+                "name": "引龙决",
+                "class": "5",
+                "type": "1",
+                "size": 0.15,
+                "acount": 1,
+                "price": 150000
+            },
+            {
+                "id": 5116,
+                "name": "玄冰决",
+                "class": "5",
+                "type": "1",
+                "size": 0.15,
+                "acount": 1,
+                "price": 150000
+            },
+            {
+                "id": 5117,
+                "name": "灵合决",
+                "class": "5",
+                "type": "1",
+                "size": 0.15,
+                "acount": 1,
+                "price": 150000
+            }
         ],
         "three": [
+            {
+                "id": 5118,
+                "name": "归一决",
+                "class": "5",
+                "type": "1",
+                "size": 0.18,
+                "acount": 1,
+                "price": 180000
+            },
+            {
+                "id": 5119,
+                "name": "千浪决",
+                "class": "5",
+                "type": "1",
+                "size": 0.18,
+                "acount": 1,
+                "price": 180000
+            },
+            {
+                "id": 5120,
+                "name": "玉丹功",
+                "class": "5",
+                "type": "1",
+                "size": 0.18,
+                "acount": 1,
+                "price": 180000
+            },
+            {
+                "id": 5121,
+                "name": "红楼梦",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            },
+            {
+                "id": 5122,
+                "name": "西游记",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            },
+            {
+                "id": 5123,
+                "name": "三国演义",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            },
+            {
+                "id": 24,
+                "name": "水浒传",
+                "class": "5",
+                "type": "1",
+                "size": 0.20,
+                "acount": 1,
+                "price": 200000
+            }
         ]
     }
 ]

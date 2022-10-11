@@ -6,21 +6,20 @@
       ],
     content: 
       [
-      {line: 删除【#我的宗门】},
-      {line: 删除【#宗门管理】},
       {line: 变动【#面板信息】},
       {line: 新增【#删除世界】},
       {line: 变动【#练气信息】},
       {line: 变动【#炼体信息】},
       {line: 变动【#降妖】    },
       {line: 变动【#归来】    },
-      {line: 新增【#删除信息 @群友】},
-      {line: 新增【#修仙设置练气+等级 @群友】},
       {line: 支持定义配置},
-      {line: 配置：config/xiuxain},
+      {line: 配置：config/xiuxian},
       {line: 支持定义帮助文案与帮助图},
       {line: 文案：config/help},
-      {line: 图片：resources/help}
+      {line: 图片：resources/help},
+      {line: 新增【#删除信息 @群友】},
+      {line: 新增【#发测试福利90000】},
+      {line: 新增【#修仙设置练气+ID @群友】}
       ],
     time: 2022-10-7-00:00
   }

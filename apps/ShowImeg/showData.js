@@ -263,7 +263,6 @@ export async function get_najie_img(e) {
     }
     for(var i=0;i<najie.daoju.length;i++){
         let name=await Xiuxian.exist_thing(najie.daoju[i].id,najie.daoju[i].class);
-        console.log(name);
         daoju.push(name);
     }
     for(var i=0;i<najie.gonfa.length;i++){

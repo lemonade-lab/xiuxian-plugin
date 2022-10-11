@@ -51,7 +51,7 @@ export class UserTransaction extends plugin {
             return;
         }
         let msg = [
-            "___[冲水堂]___\n#购买+物品名"
+            "___[冲水堂]___\n#购买+物品"
         ];
         let commodities_list = data.commodities_list; 
         for (var i = 0; i < commodities_list.length; i++) {
@@ -65,12 +65,18 @@ export class UserTransaction extends plugin {
                     "\n价格：" + commodities_list[i].price);
             }
             else{
-                msg.push(
-                    "物品：" + commodities_list[i].name +
-                    "天赋：+" + commodities_list[i].size*100+"%"+
-                    "\n血量：+" + commodities_list[i].HP+
-                    "\n修为：+" + commodities_list[i].exp+
-                    "\n价格：" + commodities_list[i].price);
+                if(commodities_list[i].size==undefined){
+                    msg.push(
+                        "物品：" + commodities_list[i].name +
+                        "\n血量：+" + commodities_list[i].HP+
+                        "\n价格：" + commodities_list[i].price);
+
+                }else{
+                    msg.push(
+                        "物品：" + commodities_list[i].name +
+                        "\n天赋：+" + commodities_list[i].size*100+"%"+
+                        "\n价格：" + commodities_list[i].price);
+                }
             }
         }
         await ForwardMsg(e, msg);
