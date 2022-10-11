@@ -3,12 +3,13 @@ import data from '../../model/XiuxianData.js'
 import path from "path"
 import fs from "fs"
 
-import {Numbers} from '../Xiuxian/Xiuxian.js'
-import {Read_player} from '../Xiuxian/Xiuxian.js'
-import {Add_lingshi} from '../Xiuxian/Xiuxian.js'
-import {exist_najie_thing} from '../Xiuxian/Xiuxian.js'
-import {search_thing} from '../Xiuxian/Xiuxian.js'
-import {existplayer} from '../Xiuxian/Xiuxian.js'
+import { Numbers } from '../Xiuxian/Xiuxian.js'
+import { Read_player } from '../Xiuxian/Xiuxian.js'
+import { Add_lingshi } from '../Xiuxian/Xiuxian.js'
+import { exist_najie_thing } from '../Xiuxian/Xiuxian.js'
+import { search_thing } from '../Xiuxian/Xiuxian.js'
+import { existplayer } from '../Xiuxian/Xiuxian.js'
+import { ForwardMsg } from '../Xiuxian/Xiuxian.js'
 
 const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
 export const __PATH = {
@@ -32,8 +33,39 @@ export class UserTransaction extends plugin {
                     reg: '^#出售((.*)|(.*)*(.*))$',
                     fnc: 'Sell_comodities'
                 },
+                {
+                    reg: "^#柠檬堂$",
+                    fnc: "ningmenghome",
+                },
             ]
         })
+    }
+
+    async ningmenghome(e) {
+        if (!e.isGroup) {
+            return;
+        }
+        let ifexistplay = data.existData("player", usr_qq);
+        if (!ifexistplay) {
+            return;
+        }
+        let msg = [
+            "___[冲水堂]___\n#购买+物品名"
+        ];
+        let commodities_list = data.commodities_list; 
+        for (var i = 0; i < commodities_list.length; i++) {
+            msg.push(
+                "\n物品：" + commodities_list[i].name +
+                "\n攻击：" + commodities_list[i].atk  +
+                "\n防御：" + commodities_list[i].def +
+                "\n血量：" + commodities_list[i].HP +
+                "\n暴击：" + commodities_list[i].bao+
+                "\n天赋：" + commodities_list[i].size+
+                "\n修为：" + commodities_list[i].exp);
+        }
+        await ForwardMsg(e, msg);
+        return;
+
     }
 
     //购买商品
@@ -55,7 +87,7 @@ export class UserTransaction extends plugin {
         thing = thing.replace("购买", '');
         let code = thing.split("\*");
         let thing_name = code[0];
-        let acount=code[1];
+        let acount = code[1];
         let quantity = await Numbers(acount);
         if (quantity > 99) {
             quantity = 99;
@@ -73,26 +105,26 @@ export class UserTransaction extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        if(ifexist.class==1){ 
-            najie=await Add_najie_thing_arms(najie, ifexist, quantity);
+        if (ifexist.class == 1) {
+            najie = await Add_najie_thing_arms(najie, ifexist, quantity);
         }
-        else if(ifexist.class==2){ 
-            najie=await Add_najie_thing_huju(najie, ifexist, quantity);
+        else if (ifexist.class == 2) {
+            najie = await Add_najie_thing_huju(najie, ifexist, quantity);
         }
-        else if(ifexist.class==3){ 
-            najie=await Add_najie_thing_fabao(najie, ifexist, quantity);
+        else if (ifexist.class == 3) {
+            najie = await Add_najie_thing_fabao(najie, ifexist, quantity);
         }
-        else if(ifexist.class==4){ 
-            najie=await Add_najie_thing_danyao(najie,ifexist, quantity);
+        else if (ifexist.class == 4) {
+            najie = await Add_najie_thing_danyao(najie, ifexist, quantity);
         }
-        else if(ifexist.class==5){ 
-            najie=await Add_najie_thing_gonfa(najie,ifexist, quantity);
+        else if (ifexist.class == 5) {
+            najie = await Add_najie_thing_gonfa(najie, ifexist, quantity);
         }
-        else if(ifexist.class==6){ 
-            najie=await Add_najie_thing_daoju(najie,ifexist, quantity);
+        else if (ifexist.class == 6) {
+            najie = await Add_najie_thing_daoju(najie, ifexist, quantity);
         }
-        else if(ifexist.class==7){ 
-            najie=await Add_najie_thing_ring(najie, ifexist, quantity);
+        else if (ifexist.class == 7) {
+            najie = await Add_najie_thing_ring(najie, ifexist, quantity);
         }
         await Add_lingshi(usr_qq, -commodities_price);
         await Write_najie(usr_qq, najie);
@@ -120,7 +152,7 @@ export class UserTransaction extends plugin {
         thing = thing.replace("出售", '');
         let code = thing.split("\*");
         let thing_name = code[0];
-        let quantity  = await Numbers(code[1]);
+        let quantity = await Numbers(code[1]);
         if (quantity > 99) {
             quantity = 99;
         }
@@ -139,26 +171,26 @@ export class UserTransaction extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        if(najie_thing.class==1){ 
-            najie=await Add_najie_thing_arms(najie, najie_thing, -quantity);
+        if (najie_thing.class == 1) {
+            najie = await Add_najie_thing_arms(najie, najie_thing, -quantity);
         }
-        else if(najie_thing.class==2){ 
-            najie=await Add_najie_thing_huju(najie, najie_thing, -quantity);
+        else if (najie_thing.class == 2) {
+            najie = await Add_najie_thing_huju(najie, najie_thing, -quantity);
         }
-        else if(najie_thing.class==3){ 
-            najie=await Add_najie_thing_fabao(najie, najie_thing, -quantity);
+        else if (najie_thing.class == 3) {
+            najie = await Add_najie_thing_fabao(najie, najie_thing, -quantity);
         }
-        else if(najie_thing.class==4){ 
-            najie=await Add_najie_thing_danyao(najie, najie_thing, -quantity);
+        else if (najie_thing.class == 4) {
+            najie = await Add_najie_thing_danyao(najie, najie_thing, -quantity);
         }
-        else if(najie_thing.class==5){ 
-            najie=await Add_najie_thing_gonfa(najie, najie_thing, -quantity);
+        else if (najie_thing.class == 5) {
+            najie = await Add_najie_thing_gonfa(najie, najie_thing, -quantity);
         }
-        else if(najie_thing.class==6){ 
-            najie=await Add_najie_thing_daoju(najie, najie_thing, -quantity);
+        else if (najie_thing.class == 6) {
+            najie = await Add_najie_thing_daoju(najie, najie_thing, -quantity);
         }
-        else if(najie_thing.class==7){ 
-            najie=await Add_najie_thing_ring(najie, najie_thing, -quantity);
+        else if (najie_thing.class == 7) {
+            najie = await Add_najie_thing_ring(najie, najie_thing, -quantity);
         }
         await Write_najie(usr_qq, najie);
         let commodities_price = searchsthing.price * quantity;
@@ -195,22 +227,22 @@ export async function Read_najie(usr_qq) {
 
 
 export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
-    let thing =  najie.arms.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
+    let thing = najie.arms.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
         let equipment = {
-        id: najie_thing.id,
-        class: najie_thing.class,
-        type: najie_thing.type,
-        acount: thing_acount
-       }
-       najie.arms.push(equipment);
-       return najie;
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
+        }
+        najie.arms.push(equipment);
+        return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.arms =  najie.arms.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.arms = najie.arms.filter(item => item.id != najie_thing.id);
+        } else {
             najie.arms.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
@@ -218,22 +250,22 @@ export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
 }
 
 export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
-    let thing =  najie.huju.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
+    let thing = najie.huju.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
         let equipment = {
             id: najie_thing.id,
             class: najie_thing.class,
             type: najie_thing.type,
-            acount: thing_acount  
-            };
-            najie.huju.push(equipment);
-            return najie;
+            acount: thing_acount
+        };
+        najie.huju.push(equipment);
+        return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.huju =  najie.huju.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.huju = najie.huju.filter(item => item.id != najie_thing.id);
+        } else {
             najie.huju.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
@@ -241,7 +273,7 @@ export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
 }
 
 export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
-    let thing =  najie.fabao.find(item => item.id == najie_thing.id);
+    let thing = najie.fabao.find(item => item.id == najie_thing.id);
     if (thing == undefined) {
         let equipment = {
             id: najie_thing.id,
@@ -253,10 +285,10 @@ export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
         return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.fabao =  najie.fabao.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.fabao = najie.fabao.filter(item => item.id != najie_thing.id);
+        } else {
             najie.fabao.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
@@ -264,7 +296,7 @@ export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
 }
 
 export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
-    let thing =  najie.danyao.find(item => item.id == najie_thing.id);
+    let thing = najie.danyao.find(item => item.id == najie_thing.id);
     if (thing == undefined) {
         let equipment = {
             id: najie_thing.id,
@@ -272,14 +304,14 @@ export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
             type: najie_thing.type,
             acount: thing_acount
         }
-         najie.danyao.push(equipment);
-         return najie;
+        najie.danyao.push(equipment);
+        return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.danyao =  najie.danyao.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.danyao = najie.danyao.filter(item => item.id != najie_thing.id);
+        } else {
             najie.danyao.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
@@ -288,22 +320,22 @@ export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
 
 
 export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
-    let thing =  najie.gonfa.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
+    let thing = najie.gonfa.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
         let equipment = {
             id: najie_thing.id,
             class: najie_thing.class,
             type: najie_thing.type,
             acount: thing_acount
-         }
-         najie.gonfa.push(equipment);
-         return najie;
+        }
+        najie.gonfa.push(equipment);
+        return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.gonfa =  najie.gonfa.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.gonfa = najie.gonfa.filter(item => item.id != najie_thing.id);
+        } else {
             najie.gonfa.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
@@ -312,22 +344,22 @@ export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
 
 
 export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
-    let thing =  najie.daoju.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
+    let thing = najie.daoju.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
         let equipment = {
-        id: najie_thing.id,
-        class: najie_thing.class,
-        type: najie_thing.type,
-        acount: thing_acount
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
         }
-        najie.daoju.push(equipment); 
+        najie.daoju.push(equipment);
         return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.daoju =  najie.daoju.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.daoju = najie.daoju.filter(item => item.id != najie_thing.id);
+        } else {
             najie.daoju.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
@@ -335,22 +367,22 @@ export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
 }
 
 export async function Add_najie_thing_ring(najie, najie_thing, thing_acount) {
-    let thing =  najie.ring.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
+    let thing = najie.ring.find(item => item.id == najie_thing.id);
+    if (thing == undefined) {
         let equipment = {
-        id: najie_thing.id,
-        class: najie_thing.class,
-        type: najie_thing.type,
-        acount: thing_acount
+            id: najie_thing.id,
+            class: najie_thing.class,
+            type: najie_thing.type,
+            acount: thing_acount
         }
         najie.ring.push(equipment);
         return najie;
     }
     else {
-        let acount =  thing.acount + thing_acount;   
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.ring =  najie.ring.filter(item => item.id != najie_thing.id);
-        }else{
+            najie.ring = najie.ring.filter(item => item.id != najie_thing.id);
+        } else {
             najie.ring.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;

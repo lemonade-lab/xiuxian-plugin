@@ -40,23 +40,11 @@ export class Showningmeng extends plugin {
                 {
                     reg: "^#道具楼$",
                     fnc: "show_valuables_prop",
-                },
-                {
-                    reg: "^#柠檬堂$",
-                    fnc: "show_ningmenghome",
-                },
+                }
             ]
         });
     }
-    //柠檬堂
-    async show_ningmenghome(e) {
-        if (!e.isGroup) {
-            return;
-        }
-        let img = await get_ningmenghome_img(e);
-        e.reply(img);
-        return;
-    }
+
     //万宝楼
     async show_valuables(e) {
 
@@ -132,29 +120,6 @@ export class Showningmeng extends plugin {
         return;
     }
 }
-/**
- * 返回柠檬堂
- * @return image
- */
-export async function get_ningmenghome_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let commodities_list = data.commodities_list; 
-    let ningmenghome_data = {
-        user_id: usr_qq,
-        commodities_list: commodities_list
-    }
-    const data1 = await new Valuablesall(e).get_ningmenghomeData(ningmenghome_data);
-    let img = await puppeteer.screenshot("ningmenghome", {
-        ...data1,
-    });
-    return img;
-
-}
-
 
 /**
  * 返回万宝楼
