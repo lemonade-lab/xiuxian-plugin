@@ -66,6 +66,7 @@ export class UserTransaction extends plugin {
             }
             else{
                 msg.push(
+                    "物品：" + commodities_list[i].name +
                     "天赋：+" + commodities_list[i].size*100+"%"+
                     "\n血量：+" + commodities_list[i].HP+
                     "\n修为：+" + commodities_list[i].exp+
