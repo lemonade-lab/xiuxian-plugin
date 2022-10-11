@@ -3,10 +3,6 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import * as Xiuxian from '../Xiuxian/Xiuxian.js'
 /**
- * 全局
- */
-let xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
-/**
  * 怪物
  */
 export class BossAll extends plugin {

@@ -3,17 +3,32 @@ import fs from "node:fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
 
+/**
+ * 配置
+ */
+ const config0=["xiuxian","task","help","help","help"];
+ const config=["xiuxian","task","help","helpcopy","set"];
+ for(var i=0;i<config0.length;i++){
+     let x='./plugins/xiuxian-emulator-plugin/config/'+config0[i]+'/'+config[i]+'.yaml'
+     if (!fs.existsSync(x)) {
+         fs.cp('./plugins/xiuxian-emulator-plugin/defSet/'+config0[i]+'/'+config[i]+'.yaml', './plugins/xiuxian-emulator-plugin/config/'+config0[i]+'/'+config[i]+'.yaml', (err) => {
+           if (err) {
+             console.error(x);
+           }
+         });
+     }
+ }
+
+
 /** 配置文件 直接借鉴yunzai配置代码 */
 class Config {
     constructor() {
         /** 默认配置文件路径 */
         this.defSetPath = "./plugins/xiuxian-emulator-plugin/defSet/";        
         this.defSet = {};
-
         /** 用户自己配置的配置文件路径 */
         this.configPath = "./plugins/xiuxian-emulator-plugin/config/";
         this.config = {};
-
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };
     }
@@ -89,9 +104,7 @@ class Config {
     /** 监听配置文件 */
     watch(file, app, name, type = "defSet") {
         let key = `${app}.${name}`;
-
         if (this.watcher[type][key]) return;
-
         const watcher = chokidar.watch(file);
         watcher.on("change", (path) => {
             delete this[type][key];
@@ -106,9 +119,6 @@ class Config {
     /**
      * 获取配置文件----结束
      */
-
-
-
     saveSet(app, name, type, data) {
         let file = this.getFilePath(app, name, type);
         if (lodash.isEmpty(data)) {

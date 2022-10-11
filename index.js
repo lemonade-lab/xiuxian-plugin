@@ -1,24 +1,6 @@
 import fs from "node:fs";
 import Config from "./model/Config.js";
-/**
- * 配置生成
-*/
-const task = './plugins/xiuxian-emulator-plugin/config/task/task.yaml';
-const xiuxian = './plugins/xiuxian-emulator-plugin/config/xiuxian/xiuxian.yaml';
-if (!fs.existsSync(task)) {
-  fs.cp('./plugins/xiuxian-emulator-plugin/defSet/task/task.yaml', './plugins/xiuxian-emulator-plugin/config/task/task.yaml', (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-}
-if (!fs.existsSync(xiuxian)) {
-  fs.cp('./plugins/xiuxian-emulator-plugin/defSet/xiuxian/xiuxian.yaml', './plugins/xiuxian-emulator-plugin/config/xiuxian/xiuxian.yaml', (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-}
+
 /**
  * 遍历获取
  */

@@ -6,6 +6,7 @@ export default class Help extends base {
     super(e);
     this.model0 = "help";
     this.model = "help";
+    this.versionData = xiuxianCfg.getdefSet("version", "version");
   }
 
   static async get(e) {
@@ -23,11 +24,9 @@ export default class Help extends base {
     return await html.Getset();
   }
 
-
   async getDatahelpcopy() {
-    let helpData = xiuxianCfg.getdefSet("help", "helpcopy");
-    let versionData = xiuxianCfg.getdefSet("version", "version");
-    const version =  versionData[0].version;
+    let helpData = xiuxianCfg.getConfig("help", "helpcopy");
+    const version =  this.versionData[0].version;
     return {
       ...this.screenData,
       saveId: "help",
@@ -35,13 +34,10 @@ export default class Help extends base {
       helpData,
     };
   }
-  
 
   async getData() {
-    let helpData = xiuxianCfg.getdefSet("help", "help");
-
-    let versionData = xiuxianCfg.getdefSet("version", "version");
-    const version =  versionData[0].version ;
+    let helpData = xiuxianCfg.getConfig("help", "help");
+    const version =  this.versionData[0].version ;
 
     return {
       ...this.screenData,
@@ -52,9 +48,8 @@ export default class Help extends base {
   }
 
   async Getset() {
-    let helpData = xiuxianCfg.getdefSet("help", "set");
-    let versionData = xiuxianCfg.getdefSet("version", "version");
-    const version =  versionData[0].version ;
+    let helpData = xiuxianCfg.getConfig("help", "set");
+    const version =  this.versionData[0].version ;
     return {
       ...this.screenData,
       saveId: "help",
@@ -62,7 +57,5 @@ export default class Help extends base {
       helpData,
     };
   }
-
-
 
 }
