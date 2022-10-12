@@ -17,7 +17,9 @@ class XiuxianData {
         this.filePathMap = {
             //用户数据表优化
             "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
+
             "equipment": path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
+            
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
             //出生
             "birthassociation": path.join(__dirname, "/resources/data/birth/association"),

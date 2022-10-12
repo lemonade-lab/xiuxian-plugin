@@ -51,7 +51,7 @@ export class UserTransaction extends plugin {
             return;
         }
         let msg = [
-            "___[冲水堂]___\n#购买+物品"
+            "___[柠檬堂]___\n#购买+物品"
         ];
         let commodities_list = data.commodities_list; 
         for (var i = 0; i < commodities_list.length; i++) {
