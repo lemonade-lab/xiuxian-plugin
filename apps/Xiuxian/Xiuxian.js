@@ -17,13 +17,10 @@ export const __PATH = {
     //限定
     Timelimit: path.join(__dirname, "/resources/data/fixed/Timelimit"),
 }
-
 let xiuxianSetFile = "./plugins/xiuxian-emulator-plugin/config/xiuxian/xiuxian.yaml";
-
 if (!fs.existsSync(xiuxianSetFile)) {
     fs.copyFileSync("./plugins/xiuxian-emulator-plugin/defSet/xiuxian/xiuxian.yaml", xiuxianSetFile);
 }
-
 //处理消息
 export class Xiuxian extends plugin {
     constructor() {
@@ -37,7 +34,6 @@ export class Xiuxian extends plugin {
         })
     }
 }
-
 //检查存档是否存在，存在返回true;
 export async function existplayer(usr_qq) {
     let exist_player;
@@ -47,12 +43,10 @@ export async function existplayer(usr_qq) {
     }
     return false;
 }
-
 /**
  * *****************************************************************************
  * 读写合集
  */
-
 //读取存档信息，返回成一个JavaScript对象
 export async function Read_player(usr_qq) {
     let dir = path.join(`${__PATH.player}/${usr_qq}.json`);
@@ -67,7 +61,6 @@ export async function Read_player(usr_qq) {
     player = JSON.parse(player);
     return player;
 }
-
 //写入存档信息,第二个参数是一个JavaScript对象
 export async function Write_player(usr_qq, player) {
     let dir = path.join(__PATH.player, `${usr_qq}.json`);
@@ -77,8 +70,6 @@ export async function Write_player(usr_qq, player) {
     })
     return;
 }
-
-
 //读取纳戒信息
 export async function Read_najie(usr_qq) {
     let dir = path.join(`${__PATH.najie}/${usr_qq}.json`);
@@ -93,7 +84,6 @@ export async function Read_najie(usr_qq) {
     najie = JSON.parse(najie);
     return najie;
 }
-
 //写入纳戒信息
 export async function Write_najie(usr_qq, najie) {
     let dir = path.join(__PATH.najie, `${usr_qq}.json`);
@@ -103,8 +93,6 @@ export async function Write_najie(usr_qq, najie) {
     })
     return;
 }
-
-
 //读取装备信息
 export async function Read_equipment(usr_qq) {
     let dir = path.join(`${__PATH.equipment}/${usr_qq}.json`);
@@ -119,7 +107,6 @@ export async function Read_equipment(usr_qq) {
     equipment = JSON.parse(equipment);
     return equipment;
 }
-
 //写入装备信息
 export async function Write_equipment(usr_qq, equipment) {
     //攻击
@@ -197,13 +184,17 @@ export async function Write_equipment(usr_qq, equipment) {
     })
     return;
 }
-
-
 /**
  * ***********************************************************
  * 增减合集
  */
-
+//声望
+export async function Add_prestige(usr_qq, prestige) {
+    let player = await Read_player(usr_qq);
+    player.prestige += Math.trunc(prestige);
+    await Write_player(usr_qq, player);
+    return;
+}
 //灵石
 export async function Add_lingshi(usr_qq, lingshi) {
     let player = await Read_player(usr_qq);
@@ -220,7 +211,6 @@ export async function Add_experience(usr_qq, experience) {
     await Write_player(usr_qq, player);
     return;
 }
-
 //气血
 export async function Add_experiencemax(usr_qq, qixue) {
     let player = await Read_player(usr_qq);
@@ -228,7 +218,6 @@ export async function Add_experiencemax(usr_qq, qixue) {
     await Write_player(usr_qq, player);
     return;
 }
-
 //血量
 export async function Add_HP(usr_qq, blood) {
     let player = await Read_player(usr_qq);
@@ -239,7 +228,6 @@ export async function Add_HP(usr_qq, blood) {
     await Write_player(usr_qq, player);
     return;
 }
-
 //纳戒灵石
 export async function Add_najie_lingshi(usr_qq, acount) {
     let najie = await Read_najie(usr_qq);
@@ -247,7 +235,6 @@ export async function Add_najie_lingshi(usr_qq, acount) {
     await Write_najie(usr_qq, najie);
     return;
 }
-
 //功法
 export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
     let player = await Read_player(usr_qq);
@@ -256,13 +243,6 @@ export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
     await Write_player(usr_qq, player);
     return;
 }
-
-
-
-
-
-
-
 /**
  * ***********************************************************
  * 战斗系统合集
@@ -373,13 +353,6 @@ export async function battle(A, B) {
     }
     return battle;
 }
-
-
-
-
-
-
-
 /**
  * 随机取。判断是否暴
  */
@@ -396,9 +369,6 @@ export async function battlebursthurt(x) {
     //默认不暴
     return false;
 }
-
-
-
 export async function battlemax(A, battlemsg) {
     let A_qq = await A;
     let playerA = await Read_player(A_qq);
@@ -502,12 +472,6 @@ export async function battlemax(A, battlemsg) {
     }
     return battle;
 }
-
-
-
-
-
-
 /**
  * **************************************************************
  * 灵根合集
@@ -596,7 +560,6 @@ export async function player_efficiency(usr_qq) {
     data.setData("player", usr_qq, player);
     return;
 }
-
 /**
  * 
  * 检查纳戒内物品是否存在
@@ -651,8 +614,6 @@ export async function exist_thing(thing_id, thing_class) {
     }
     return ifexist;
 }
-
-
 /**
  * 根据名字查找物品信息
  */
@@ -695,8 +656,6 @@ export async function search_thing(thing_name) {
     }
     return ifexist0;
 }
-
-
 /**
  * 
  * 检查纳戒内物品是否存在
@@ -730,8 +689,6 @@ export async function exist_najie_thing(usr_qq, thing_id, thing_class) {
     }
     return ifexist;
 }
-
-
 export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
     let thing =  najie.arms.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
@@ -754,7 +711,6 @@ export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
 export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
     let thing =  najie.huju.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
@@ -777,7 +733,6 @@ export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
 export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
     let thing =  najie.fabao.find(item => item.id == najie_thing.id);
     if (thing == undefined) {
@@ -800,7 +755,6 @@ export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
 export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
     let thing =  najie.danyao.find(item => item.id == najie_thing.id);
     if (thing == undefined) {
@@ -823,8 +777,6 @@ export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
-
 export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
     let thing =  najie.gonfa.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
@@ -847,8 +799,6 @@ export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
-
 export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
     let thing =  najie.daoju.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
@@ -871,7 +821,6 @@ export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
 export async function Add_najie_thing_ring(najie, najie_thing, thing_acount) {
     let thing =  najie.ring.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
@@ -894,8 +843,6 @@ export async function Add_najie_thing_ring(najie, najie_thing, thing_acount) {
         return najie;
     }
 }
-
-
 /**
  * 替换装备
  */
@@ -908,7 +855,6 @@ export async function instead_equipment_arms(equipment, searchsthing) {
     }
     return equipment;
 }
-
 /**
  * 替换护具
  */
@@ -921,7 +867,6 @@ export async function instead_equipment_arms(equipment, searchsthing) {
         }
     return equipment;
 }
-
 /**
  * 替换装备
  */
@@ -934,8 +879,6 @@ export async function instead_equipment_fabao(equipment, searchsthing) {
     }
     return equipment;
 }
-
-
 //发送转发消息
 export async function ForwardMsg(e, data) {
     let msgList = [];
@@ -1110,7 +1053,6 @@ export async function Numbers(value) {
     }
     return x;
 }
-
 /**
  * 关闭状态
  */
@@ -1133,7 +1075,6 @@ export async function offaction(qq) {
     await redis.set("xiuxian:player:" + qq + ":game_action", 1);
     return;
 }
-
 /**
  * 状态封锁查询
  */
@@ -1165,9 +1106,6 @@ export async function offaction(qq) {
     }
     return true;
 }
-
-
-
 /**
  * 状态封锁查询
  */
@@ -1199,12 +1137,11 @@ export async function Go(e) {
     }
     let player = await Read_player(usr_qq);
     if (player.nowblood < 200) {
-        e.reply("受伤了，出不来远门");
+        e.reply("你都伤成这样了，就不要出去浪了");
         return;
     }
     return true;
 }
-
 /**
  * 状态封锁查询
  */
@@ -1234,8 +1171,6 @@ export async function UserGo(usr_qq) {
     }
     return true;
 }
-
-
 /**
  * 冷却检测
  */
@@ -1251,7 +1186,6 @@ export async function GenerateCD(usr_qq, usr_class, now_time, time) {
     }
     return 0;
 }
-
 /**
  * 世界财富
  * 
@@ -1264,8 +1198,6 @@ export async function Worldwealth(acount) {
     await redis.set("Xiuxian:Worldmoney", Worldmoney);
     return;
 }
-
-
 //写入
 export async function Write_Forum(wupin) {
     let dir = path.join(__PATH.Forum, `Forum.json`);
@@ -1275,8 +1207,6 @@ export async function Write_Forum(wupin) {
     })
     return;
 }
-
-
 //读取
 export async function Read_Forum() {
     let dir = path.join(`${__PATH.Forum}/Forum.json`);
@@ -1303,9 +1233,6 @@ export async function Read_Forum() {
     Forum = JSON.parse(Forum);
     return Forum;
 }
-
-
-
 //写入交易表
 export async function Write_Exchange(wupin) {
     let dir = path.join(__PATH.Exchange, `Exchange.json`);
@@ -1315,9 +1242,6 @@ export async function Write_Exchange(wupin) {
     })
     return;
 }
-
-
-
 //读交易表
 export async function Read_Exchange() {
     let dir = path.join(`${__PATH.Exchange}/Exchange.json`);
@@ -1343,8 +1267,6 @@ export async function Read_Exchange() {
     Exchange = await JSON.parse(Exchange);
     return Exchange;
 }
-
-
 //搜索物品
 export async function Search_Exchange(thing_qq) {
     let thingqq = thing_qq;
@@ -1361,8 +1283,6 @@ export async function Search_Exchange(thing_qq) {
     }
     return x;
 }
-
-
 /**
  * 返回物品名字
  */

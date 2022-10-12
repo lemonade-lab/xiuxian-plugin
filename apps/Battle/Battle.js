@@ -45,7 +45,6 @@ export class Battle extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + A + ClassCD, now_time);
-        
         let Data_battle = await Xiuxian.battle(A,B);
         let msg = Data_battle.msg;
         if (msg.length > 30) {
@@ -54,12 +53,22 @@ export class Battle extends plugin {
             await Xiuxian.ForwardMsg(e, msg);
         }
         if(Data_battle.victory==A){
-            e.reply("你击败了对手，对手增加了100气血");
-            await Xiuxian.Add_experiencemax(B, 100);
+            let player = await Xiuxian.Read_player(B);
+            let msg="你击败了对方";
+            if(player.lingshi>=100){
+                let lingshi=player.lingshi*0.5;
+                lingshi=await Xiuxian.Numbers(lingshi);
+                await Xiuxian.Add_lingshi(A,lingshi);
+                await Xiuxian.Add_lingshi(B,-lingshi);
+                msg=msg+"并夺走了他的"+lingshi+"灵石"
+            }
+            e.reply(m);
+            await Xiuxian.Add_experiencemax(B, 500);
         }else{
-            e.reply("你被对方打败了，你增加了100气血！");
-            await Xiuxian.Add_experiencemax(A, 100);
+            e.reply("你被对方打败了");
+            await Xiuxian.Add_experiencemax(A, 500);
         }
+        await Xiuxian.Add_prestige(A, -5);
         return;
     }
 
@@ -78,7 +87,7 @@ export class Battle extends plugin {
 
         let ClassCD = ":biwu";
         let now_time = new Date().getTime();
-        let CDTime = 15;
+        let CDTime = 5;
         let CD = await Xiuxian.GenerateCD(A, ClassCD, now_time, CDTime);
         if(CD != 0) {
             e.reply(CD);

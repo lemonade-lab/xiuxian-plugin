@@ -33,6 +33,10 @@ export class AdminSuper extends plugin {
                 {
                     reg: "^#修仙设置练气为.*$",
                     fnc: "upuserlevel",
+                },
+                {
+                    reg: "^#修仙设置炼体为.*$",
+                    fnc: "upuserlevelmax",
                 }
             ],
         });
@@ -47,8 +51,7 @@ export class AdminSuper extends plugin {
             return;
         }
         e.reply("开始设置");
-        let code = e.msg.replace("#", '');
-        code = code.replace("修仙设置练气为", '');
+        let code = e.msg.replace("#修仙设置练气为", '');
         let B = await Xiuxian.At(e);
         if (B == 0) {
             return;
@@ -56,6 +59,30 @@ export class AdminSuper extends plugin {
         let usr_qq = B;
         let player = await Xiuxian.Read_player(usr_qq);
         player.level_id=code;
+        await Xiuxian.Write_player(usr_qq, player);
+        let equipment = await Xiuxian.Read_equipment(usr_qq);
+        await Xiuxian.Write_equipment(usr_qq, equipment);
+        e.reply("已完成设置");
+        return;
+    }
+
+    
+    async upuserlevelmax(e) {
+        if (!e.isMaster) {
+            return;
+        }
+        if (!e.isGroup) {
+            return;
+        }
+        e.reply("开始设置");
+        let code = e.msg.replace("#修仙设置练气为", '');
+        let B = await Xiuxian.At(e);
+        if (B == 0) {
+            return;
+        }
+        let usr_qq = B;
+        let player = await Xiuxian.Read_player(usr_qq);
+        player.Physique_id=code;
         await Xiuxian.Write_player(usr_qq, player);
         let equipment = await Xiuxian.Read_equipment(usr_qq);
         await Xiuxian.Write_equipment(usr_qq, equipment);

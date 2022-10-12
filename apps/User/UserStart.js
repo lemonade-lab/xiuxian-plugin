@@ -63,16 +63,21 @@ export class UserStart extends plugin {
             "name": `${n}号`,//道号
             "autograph": "无",//道宣
             "race": 1,//种族
+            "prestige": 100,//声望
+
             "level_id": 1,//练气境界
             "Physique_id": 1,//练体境界 
             "experience": 1,//练气经验
             "experiencemax": 1,//练体经验
+
             "lingshi": 1000,//灵石
             "nowblood": 8040,//血量
+
             "talent": newtalent,//灵根
             "talentshow": 1,//显示0，隐藏1
             "talentsize": 0,//天赋
             "AllSorcery": [],//功法
+
             "occupation": [],//职业
             "power_place": 1,//仙界
             "days": 0,//签到

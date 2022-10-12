@@ -41,7 +41,6 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level_id = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level_id;
         let now_exp = player.experiencemax;
@@ -50,7 +49,6 @@ export class Level extends plugin {
             e.reply(`气血不足,再积累${need_exp - now_exp}气血后方可突破`);
             return;
         }
-
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_LevelMaxup_time";
         let now_time = new Date().getTime();
@@ -60,8 +58,6 @@ export class Level extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
-
-        
         let rand = Math.random();
         let prob = 1 - now_level_id / 60;
         if (rand > prob) {
@@ -96,7 +92,6 @@ export class Level extends plugin {
                 return;
             }
         }
-
         player.Physique_id = now_level_id + 1;
         player.experiencemax -= need_exp;
         await Xiuxian.Write_player(usr_qq, player);
@@ -106,7 +101,6 @@ export class Level extends plugin {
         let level = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
         e.reply(`突破成功至${level}`);
         await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
-
         return;
 
     }
@@ -120,9 +114,6 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-
-
-
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
         if (now_level == "渡劫期") {
@@ -152,7 +143,6 @@ export class Level extends plugin {
             e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
             return;
         }
-
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_Levelup_time";
         let now_time = new Date().getTime();
@@ -162,8 +152,6 @@ export class Level extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
-
-
         let rand = Math.random();
         let prob = 1 - now_level_id / 60;
         if (rand > prob) {
@@ -219,19 +207,16 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
         if (now_level != "渡劫期") {
             e.reply(`你非渡劫期修士！`);
             return;
         }
-
         if (player.power_place == 0) {
             e.reply("你已度过雷劫，请感应仙门#羽化登仙");
             return;
         }
-
         let now_HP = player.nowblood;
         let list_HP = data.Level_list.find(item => item.level == now_level).基础血量;
         if (now_HP < list_HP * 0.9) {
@@ -306,23 +291,18 @@ export class Level extends plugin {
         if (!Go) {
             return;
         }
-
         let usr_qq = e.user_id;
         let player = await Xiuxian.Read_player(usr_qq);
         let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
-
         if (now_level != "渡劫期") {
             e.reply(`你非渡劫期修士！`);
             return;
         }
-
         if (player.power_place != 0) {
             e.reply("请先渡劫！");
             return;
         }
-
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-        
         let now_exp = player.experience;
         let need_exp = data.Level_list.find(item => item.level_id == player.level_id).exp;
         if (now_exp < need_exp) {
