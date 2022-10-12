@@ -60,7 +60,6 @@ export class showData extends plugin {
     }
 
     async show_LevelMax(e) {
-
         if (!e.isGroup) {
             return;
         }
@@ -139,19 +138,27 @@ export async function get_player_img(e) {
     if (player.lingshi > 999999999999) {
         lingshi = 999999999999;
     }
-    data.setData("player", usr_qq, player);
     await Xiuxian.player_efficiency(usr_qq);
+
     let levelMax = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
+
     let AllSorcery=[];
+
     for(var i=0;i<player.AllSorcery.length;i++){
         let ifexist2 = data.gongfa_list.find(item => item.id == player.AllSorcery[i]);
         if (ifexist2 == undefined) {
             ifexist2 = data.timegongfa_list.find(item => item.id == player.AllSorcery[i]);
             if(ifexist2 != undefined){
-                AllSorcery.push(ifexist2.name);
+                AllSorcery.push(ifexist2);
             }
+        }else{
+            AllSorcery.push(ifexist2);
         }
     }
+    
+    console.log(AllSorcery);
+
+
     let playercopy = {
         user_id: usr_qq,
         nickname: player.name,
@@ -160,6 +167,7 @@ export async function get_player_img(e) {
         lingshi: lingshi,
         player_maxHP: player.hpmax,
         player_nowHP: player.nowblood,
+
         learned_gongfa: AllSorcery,
     }
     const data1 = await new Show(e).get_playercopyData(playercopy);
@@ -349,13 +357,9 @@ export async function get_statemax_img(e) {
     if (!ifexistplay) {
         return;
     }
-
     let player = await data.getData("player", usr_qq);
-
     let Level_id=player.Physique_id;
-
     let LevelMax_list = data.LevelMax_list;
-
    //循环删除表信息
    for(var i=1;i<=60;i++){
        if(i>Level_id-6&&i<Level_id+6){
@@ -363,7 +367,6 @@ export async function get_statemax_img(e) {
        }
        LevelMax_list = await LevelMax_list.filter(item => item.level_id != i);
    }
-
     let statemax_data = {
         user_id: usr_qq,
         LevelMax_list: LevelMax_list
