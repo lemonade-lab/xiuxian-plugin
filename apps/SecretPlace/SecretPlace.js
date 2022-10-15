@@ -115,6 +115,7 @@ export class SecretPlace extends plugin {
         return;
     }
 
+
     //限定仙府
     async Timeplace(e) {
         if (!e.isGroup) {
@@ -156,7 +157,7 @@ export class SecretPlace extends plugin {
         }
         var didian = await e.msg.replace("#镇守仙境", '');
         didian = didian.trim();
-        let weizhi = await data.forbiddenarea_list.find(item => item.name == didian);
+        let weizhi = await data.Fairyrealm_list.find(item => item.name == didian);
         let level_id=42;
         let name="仙境";
         let time=5;
@@ -277,7 +278,7 @@ export async function Goweizhi(e, weizhi, addres) {
 
     await redis.set("xiuxian:player:" + usr_qq + ":action", JSON.stringify(arr));
 
-    e.reply(weizhi.name + "..." + time + "分钟后归来!");
+    e.reply(name + "..." + time + "分钟后归来!");
 
     return 0; 
 }
