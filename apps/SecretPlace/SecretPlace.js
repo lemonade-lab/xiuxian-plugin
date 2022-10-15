@@ -125,14 +125,12 @@ export class SecretPlace extends plugin {
         await Goweizhi(e, weizhi, addres);
     }
 
-    async Goforbiddenarea(e) {
+    async GoTimeplace(e) {
         let Go=await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
-        var didian = await e.msg.replace("#探索仙府", '');
-        didian = didian.trim();
-        let weizhi = await data.timeplace_list.find(item => item.name == didian);
+        let weizhi = "无欲天仙"
         let level_id=21;
         let name="仙府";
         let time=6;
