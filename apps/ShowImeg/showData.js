@@ -271,6 +271,7 @@ export async function get_najie_img(e) {
     }
     for(var i=0;i<najie.daoju.length;i++){
         let name=await Xiuxian.exist_thing_daoju(najie.daoju[i]);
+        name.acount = najie.daoju[i].acount;
         daoju.push(name);
     }
     for(var i=0;i<najie.gonfa.length;i++){
