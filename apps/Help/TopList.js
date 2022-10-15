@@ -62,7 +62,7 @@ export class TopList extends plugin {
         var i = 0;
         for (let player_id of playerList) {
             let player = await Xiuxian.Read_player(player_id);
-            prestige = Math.trunc(player.prestige);
+            let prestige = Math.trunc(player.prestige);
             temp[i] = {
                 "prestige": prestige,
                 "qq": player_id,
