@@ -29,9 +29,66 @@ export class TopList extends plugin {
                 {
                     reg: '^#至尊榜$',
                     fnc: 'TOP_genius'
+                },
+                {
+                    reg: '^#杀神榜$',
+                    fnc: 'TOP_prestige'
                 }
             ]
         })
+    }
+
+    async TOP_prestige(e){
+        if (!e.isGroup) {
+            return;
+        }
+        let usr_qq = e.user_id;
+        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        }
+        let msg = [
+            "___[杀神榜]___"
+        ];
+        let playerList = [];
+        let temp = [];
+        let files = fs
+            .readdirSync(Xiuxian.__PATH.player)
+            .filter((file) => file.endsWith(".json"));
+        for (let file of files) {
+            file = file.replace(".json", "");
+            playerList.push(file);
+        }
+        var i = 0;
+        for (let player_id of playerList) {
+            let player = await Xiuxian.Read_player(player_id);
+            prestige = Math.trunc(player.prestige);
+            temp[i] = {
+                "prestige": prestige,
+                "qq": player_id,
+                "name": player.name,
+                "level_id": player.level_id
+            }
+            i++;
+        }
+        temp.sort(Xiuxian.sortBy("prestige"));
+        var length;
+        if (temp.length > 10) {
+            length = 10;
+        }
+        else {
+            length = temp.length;
+        }
+        var j;
+        for (j = 0; j < length; j++) {
+            msg.push(
+                "第" + (j + 1) + "名" +
+                "\n道号：" + temp[j].name +
+                "\n魔力：" + temp[j].prestige +
+                "\nQQ:" + temp[j].qq);
+        }
+        await Xiuxian.ForwardMsg(e, msg);
+        return;
     }
 
     //封神榜

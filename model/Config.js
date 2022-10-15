@@ -2,6 +2,7 @@ import YAML from "yaml";
 import fs from "node:fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
+
 /**
  * 配置
  */
@@ -18,6 +19,7 @@ import lodash from "lodash";
          });
      }
  }
+
 /** 配置文件 直接借鉴yunzai配置代码 */
 class Config {
     constructor() {

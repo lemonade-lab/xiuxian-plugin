@@ -43,6 +43,37 @@ export class AdminSuper extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
+    async synchronization(e) {
+        if (!e.isMaster) {
+            return;
+        }
+        if (!e.isGroup) {
+            return;
+        }
+        e.reply("开始同步");
+        let playerList = [];
+        let x = 0;
+        let files = fs
+            .readdirSync(Xiuxian.__PATH.player)
+            .filter((file) => file.endsWith(".json"));
+        for (let file of files) {
+            file = file.replace(".json", "");
+            playerList.push(file);
+        }
+        for (let player_id of playerList) {
+            let usr_qq = player_id;
+            let player = await Xiuxian.Read_player(usr_qq);
+            if(player.prestige==undefined){
+                player.prestige=0;
+            }
+            await Write_player(usr_qq,player);
+            let equipment = await Xiuxian.Read_equipment(usr_qq);
+            await Xiuxian.Write_equipment(usr_qq, equipment);
+        }
+        e.reply("同步结束");
+        return;
+    }
+
     async upuserlevel(e) {
         if (!e.isMaster) {
             return;
@@ -91,31 +122,7 @@ export class AdminSuper extends plugin {
     }
 
 
-    async synchronization(e) {
-        if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
-            return;
-        }
-        e.reply("开始同步");
-        let playerList = [];
-        let x = 0;
-        let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
-            .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
-            playerList.push(file);
-        }
-        for (let player_id of playerList) {
-            let usr_qq = player_id;
-            let equipment = await Xiuxian.Read_equipment(usr_qq);
-            await Xiuxian.Write_equipment(usr_qq, equipment);
-        }
-        e.reply("同步结束");
-        return;
-    }
+
 
 
     async Allrelieve(e) {

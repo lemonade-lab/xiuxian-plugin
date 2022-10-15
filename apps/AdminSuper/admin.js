@@ -35,7 +35,7 @@ export class admin extends plugin {
         }
         let msg = ["————[更新消息]————"];
         let command = "git  pull";
-        msg.push("正在强制更新...");
+        msg.push("正在更新...");
         const that = this;
         exec(
             command,

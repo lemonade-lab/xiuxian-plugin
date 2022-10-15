@@ -245,22 +245,22 @@ export async function get_najie_img(e) {
     let ring=[];
     
     for(var i=0;i<najie.arms.length;i++){
-        let name=await Xiuxian.exist_thing(najie.arms[i].id,najie.arms[i].class);
+        let name=await Xiuxian.exist_thing_arms(najie.arms[i]);
         name.acount=najie.arms[i].acount;
         arms.push(name);
     }
     for(var i=0;i<najie.huju.length;i++){
-        let name=await Xiuxian.exist_thing(najie.huju[i].id,najie.huju[i].class)
+        let name=await Xiuxian.exist_thing_huju(najie.huju[i])
         name.acount=najie.huju[i].acount;
         huju.push(name);
     }
     for(var i=0;i<najie.fabao.length;i++){
-        let name=await Xiuxian.exist_thing(najie.fabao[i].id,najie.fabao[i].class)
+        let name=await Xiuxian.exist_thing_fabao(najie.fabao[i])
         name.acount=najie.fabao[i].acount;
         fabao.push(name);
     }
     for(var i=0;i<najie.danyao.length;i++){
-        let name=await Xiuxian.exist_thing(najie.danyao[i].id,najie.danyao[i].class);
+        let name=await Xiuxian.exist_thing_danyao(najie.danyao[i]);
         if(name.type==1){
             name.type == "血量";
         }else{
@@ -270,16 +270,16 @@ export async function get_najie_img(e) {
         danyao.push(name);
     }
     for(var i=0;i<najie.daoju.length;i++){
-        let name=await Xiuxian.exist_thing(najie.daoju[i].id,najie.daoju[i].class);
+        let name=await Xiuxian.exist_thing_daoju(najie.daoju[i]);
         daoju.push(name);
     }
     for(var i=0;i<najie.gonfa.length;i++){
-        let name=await Xiuxian.exist_thing(najie.gonfa[i].id,najie.gonfa[i].class);
+        let name=await Xiuxian.exist_thing_gonfa(najie.gonfa[i]);
         name.acount = najie.gonfa[i].acount;
         gonfa.push(name);
     }
     for(var i=0;i<najie.ring.length;i++){
-        let name=await Xiuxian.exist_thing(najie.ring[i].id,najie.ring[i].class);
+        let name=await Xiuxian.exist_thing_ring(najie.ring[i]);
         name.acount=najie.ring[i].acount;
         ring.push(name);
     }
