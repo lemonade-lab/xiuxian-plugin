@@ -52,10 +52,9 @@ export class AdminSuper extends plugin {
         }
         e.reply("开始同步");
         let playerList = [];
-        let x = 0;
         let files = fs
             .readdirSync(Xiuxian.__PATH.player)
-            .filter((file) => file.endsWith(".json"));
+            .filter((file) => file.endsWith(".json"));  
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
@@ -66,7 +65,7 @@ export class AdminSuper extends plugin {
             if(player.prestige==undefined){
                 player.prestige=0;
             }
-            await Write_player(usr_qq,player);
+            await Xiuxian.Write_player(usr_qq,player);
             let equipment = await Xiuxian.Read_equipment(usr_qq);
             await Xiuxian.Write_equipment(usr_qq, equipment);
         }

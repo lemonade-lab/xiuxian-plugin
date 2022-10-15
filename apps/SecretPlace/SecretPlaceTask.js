@@ -141,6 +141,8 @@ export class SecretPlaceTask extends plugin {
                                 msg.push("蹲在草丛中躲避妖兽，不巧撞见走在路上的" + monster_list.name + "，撒腿就跑！");
                             }
                         }
+                        
+                        await Xiuxian.Add_experiencemax(player_id, 800);
                         await Xiuxian.offaction(player_id);
                         if (is_group) {
                             await this.pushInfo(push_address, is_group, msg)
