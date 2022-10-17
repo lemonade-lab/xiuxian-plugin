@@ -62,14 +62,13 @@ export class Battle extends plugin {
                 await Xiuxian.Add_lingshi(B,-lingshi);
                 msg=msg+"并夺走了他的"+lingshi+"灵石"
             }
-            e.reply(msg);
-            await Xiuxian.Add_experiencemax(B, 500);
+            e.reply(msg+",魔力+2");
             await Xiuxian.Add_prestige(A, 2);
+            await Xiuxian.Add_experiencemax(B, 500);
         }else{
             e.reply("你被对方打败了");
             await Xiuxian.Add_experiencemax(A, 500);
         }
-        await Xiuxian.Add_prestige(A, -5);
         return;
     }
 
