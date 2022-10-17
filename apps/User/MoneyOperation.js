@@ -29,6 +29,14 @@ export class MoneyOperation extends plugin {
                 {
                     reg: '#交税.*$',
                     fnc: 'MoneyWord'
+                },
+                {
+                    reg: '#新手礼包$',
+                    fnc: 'Newuser'
+                },
+                {
+                    reg: '#境界礼包$',
+                    fnc: 'userLevel'
                 }
             ]
         })

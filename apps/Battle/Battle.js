@@ -64,7 +64,7 @@ export class Battle extends plugin {
             }
             e.reply(msg);
             await Xiuxian.Add_experiencemax(B, 500);
-            await Xiuxian.Add_prestige(A, 1);
+            await Xiuxian.Add_prestige(A, 2);
         }else{
             e.reply("你被对方打败了");
             await Xiuxian.Add_experiencemax(A, 500);

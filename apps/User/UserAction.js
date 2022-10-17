@@ -38,9 +38,6 @@ export class UserAction extends plugin {
 
     //#储物袋
     async Show_najie(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let usr_qq = e.user_id;
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {

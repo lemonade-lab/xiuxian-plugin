@@ -178,7 +178,7 @@ export class SecretPlace extends plugin {
         }
         let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
         if (game_action == 0) {
-            e.reply("修仙：游戏进行中...");
+            e.reply("游戏进行中...");
             return;
         }
         let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
@@ -250,8 +250,9 @@ export async function Goweizhi(e, weizhi, addres) {
     }
 
     let Price = weizhi.Price;
+    let experience = weizhi.experience;
     await Xiuxian.Add_lingshi(usr_qq, -Price);
-    await Xiuxian.Add_experience(usr_qq, -weizhi.experience);
+    await Xiuxian.Add_experience(usr_qq, -experience);
     let action_time = 60000 * time;//持续时间，单位毫秒
     let arr = {
         //动作

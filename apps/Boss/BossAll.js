@@ -36,9 +36,6 @@ export class BossAll extends plugin {
 
     //怪物状态
     async Bosstate(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let msg = [
             "《怪物时间》\n11:30——12:30\n18:30——19:30\n指令：#讨伐+怪物名"
         ];

@@ -47,9 +47,6 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         e.reply("开始同步");
         let playerList = [];
         let files = fs
@@ -77,9 +74,6 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         e.reply("开始设置");
         let code = e.msg.replace("#修仙设置练气为", '');
         let B = await Xiuxian.At(e);
@@ -99,9 +93,6 @@ export class AdminSuper extends plugin {
     
     async upuserlevelmax(e) {
         if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
             return;
         }
         e.reply("开始设置");
@@ -126,9 +117,6 @@ export class AdminSuper extends plugin {
 
     async Allrelieve(e) {
         if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
             return;
         }
         e.reply("开始行动！");

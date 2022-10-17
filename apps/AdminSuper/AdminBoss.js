@@ -31,9 +31,6 @@ export class AdminBoss extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         await offmonster();
         e.reply("关闭成功");
         return;
@@ -41,9 +38,6 @@ export class AdminBoss extends plugin {
 
     async OpenBoss(e) {
         if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
             return;
         }
         await monster();

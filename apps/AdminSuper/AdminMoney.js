@@ -42,9 +42,6 @@ export class AdminMoney extends plugin {
 
     
     async Deduction(e) {
-        if (!e.isGroup) {
-            return;
-        }
         if (!e.isMaster) {
             return;
         }
@@ -72,9 +69,6 @@ export class AdminMoney extends plugin {
 
 
     async Worldstatistics(e) {
-        if (!e.isGroup) {
-            return;
-        }
         if (!e.isMaster) {
             return;
         }
@@ -162,9 +156,6 @@ export class AdminMoney extends plugin {
 
     
     async ceshi(e) {
-        if (!e.isGroup) {
-            return;
-        }
         if (!e.isMaster) {
             return;
         }
@@ -196,9 +187,6 @@ export class AdminMoney extends plugin {
     
     //发福利
     async Allfuli(e) {
-        if (!e.isGroup) {
-            return;
-        }
         if (!e.isMaster) {
             return;
         }
@@ -232,9 +220,6 @@ export class AdminMoney extends plugin {
 
     //发补偿
     async Fuli(e) {
-        if (!e.isGroup) {
-            return;
-        }
         if (!e.isMaster) {
             return;
         }

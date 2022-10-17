@@ -45,9 +45,6 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         let Forum = await Xiuxian.Read_Forum();
         for (var i = 0; i < Forum.length; i++) {
             Forum = Forum.filter(item => item.qq != Forum[i].qq);
@@ -60,9 +57,6 @@ export class AdminDelete extends plugin {
 
     async Deletepurchase(e) {
         if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
             return;
         }
         let thingqq = e.msg.replace("#", '');
@@ -98,9 +92,6 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         e.reply("开始清除！");
         let Exchange  = await Xiuxian.Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
@@ -127,9 +118,6 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         e.reply("开始崩碎世界");
         let playerList = [];
         let files = fs
@@ -150,9 +138,6 @@ export class AdminDelete extends plugin {
 
     async deleteuser(e){
         if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
             return;
         }
         let B = await Xiuxian.At(e);

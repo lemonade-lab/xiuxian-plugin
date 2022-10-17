@@ -65,11 +65,12 @@ export class Games extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
     async Refusecouple(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
+
+        let usr_qq = e.user_id;
+        let ifexistplay = data.existData("player", usr_qq);
+        if (!ifexistplay) {
             return;
         }
-        let usr_qq = e.user_id;
         let player = await Xiuxian.Read_player(usr_qq);
         await redis.set("xiuxian:player:" + usr_qq + ":couple", 1);
         e.reply(player.name + "开启了拒绝模式");
@@ -77,11 +78,12 @@ export class Games extends plugin {
     }
 
     async Allowcouple(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
+
+        let usr_qq = e.user_id;
+        let ifexistplay = data.existData("player", usr_qq);
+        if (!ifexistplay) {
             return;
         }
-        let usr_qq = e.user_id;
         let player = await Xiuxian.Read_player(usr_qq);
         await redis.set("xiuxian:player:" + usr_qq + ":couple", 0);
         e.reply(player.name + "开启了允许模式");
@@ -95,13 +97,12 @@ export class Games extends plugin {
         if (switchgame != true) {
             return;
         }
-
         let Go = await Xiuxian.Go(e);
         if (!Go) {
             return;
         }
         let usr_qq = e.user_id;
-        let CDTime =5;
+        let CDTime = 5;
         let ClassCD = ":Xiuianplay";
         let now_time = new Date().getTime();
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
@@ -178,7 +179,7 @@ export class Games extends plugin {
             return;
         }
 
-        let CDTime =this.xiuxianConfigData.CD.gambling;
+        let CDTime = this.xiuxianConfigData.CD.gambling;
         let ClassCD = ":last_game_time";
         let now_time = new Date().getTime();
         let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
@@ -186,8 +187,8 @@ export class Games extends plugin {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
-        
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+
         e.reply(`媚娘：发送[#押注+数字]或[#梭哈]`, true);
         await redis.set("xiuxian:player:" + usr_qq + ":game_action", 0);
         return true;
@@ -248,7 +249,7 @@ export class Games extends plugin {
         if (!e.isGroup) {
             return;
         }
-        
+
         let usr_qq = e.user_id;
         let now_time = new Date().getTime();
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
@@ -440,13 +441,13 @@ export class Games extends plugin {
 
 
 export async function setu(e) {
-    let url= "https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0";
+    let url = "https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0";
     let msg = [];
     let res;
     try {
         let response = await fetch(url);
         res = await response.json();
-    } 
+    }
     catch (error) {
         console.log('Request Failed', error);
     }
@@ -463,12 +464,12 @@ export async function setu(e) {
         "\nPid: " + pid +
         "\nPx: " + px +
         "\nLink: " + link
-        );
+    );
 
     await Xiuxian.sleep(1000);
     e.reply(segment.image(link));
     await Xiuxian.ForwardMsg(e, msg);
-    return ;
+    return;
 }
 
 

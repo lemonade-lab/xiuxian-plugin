@@ -25,9 +25,6 @@ export class Forum extends plugin {
     }
 
     async Searchforum(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let Forum = await Xiuxian.Read_Forum();
         let msg = [
             "___[有间客栈]___"
@@ -44,9 +41,6 @@ export class Forum extends plugin {
     }
 
     async Pushforum(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let usr_qq = e.user_id;
         if (usr_qq == 80000000) {
             return;

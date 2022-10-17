@@ -47,10 +47,6 @@ export class Showningmeng extends plugin {
 
     //万宝楼
     async show_valuables(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_img(e);
         e.reply(img);
         return;
@@ -58,10 +54,6 @@ export class Showningmeng extends plugin {
 
     //法宝楼
     async show_valuables_fabao(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_fabao_img(e);
         e.reply(img);
         return;
@@ -69,10 +61,6 @@ export class Showningmeng extends plugin {
 
     //武器楼
     async show_valuables_wuqi(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_wuqi_img(e);
         e.reply(img);
         return;
@@ -80,10 +68,6 @@ export class Showningmeng extends plugin {
 
     //护具楼
     async show_valuables_huju(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_huju_img(e);
         e.reply(img);
         return;
@@ -91,19 +75,12 @@ export class Showningmeng extends plugin {
 
     //丹药楼
     async show_valuables_drug(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_drug_img(e);
         e.reply(img);
         return;
     }
     //功法楼
     async show_valuables_skill(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_skill_img(e);
         e.reply(img);
         return;
@@ -111,10 +88,6 @@ export class Showningmeng extends plugin {
 
     //道具楼
     async show_valuables_prop(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_valuables_prop_img(e);
         e.reply(img);
         return;

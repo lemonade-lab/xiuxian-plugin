@@ -28,18 +28,12 @@ export class AdminExtend extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         e.reply("待更新！");
         return;
     }
 
     async Xiuxianloadorganization(e) {
         if (!e.isMaster) {
-            return;
-        }
-        if (!e.isGroup) {
             return;
         }
         e.reply("待更新！");

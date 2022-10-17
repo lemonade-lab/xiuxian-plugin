@@ -35,9 +35,6 @@ export class BotHelp extends plugin {
     }
 
     async Xiuxianhelpcopy(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let data = await Help.gethelpcopy(e);
         if (!data) return;
         let img = await this.cache(data);
@@ -51,9 +48,6 @@ export class BotHelp extends plugin {
      * @returns
      */
     async Xiuxianhelp(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let data = await Help.get(e);
         if (!data) return;
         let img = await this.cache(data);
@@ -62,9 +56,6 @@ export class BotHelp extends plugin {
 
 
     async adminsuper(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let data = await Help.setup(e);
         if (!data) return;
         let img = await this.cache(data);
@@ -74,7 +65,6 @@ export class BotHelp extends plugin {
 
 
     async cache(data) {
-        
         let tmp = md5(JSON.stringify(data));
         if (helpData.md5 == tmp) return helpData.img;
         helpData.img = await puppeteer.screenshot("help", data);

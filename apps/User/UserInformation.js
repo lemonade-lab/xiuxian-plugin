@@ -34,9 +34,6 @@ export class UserInformation extends plugin {
 
     //#我的练气
     async Show_player(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let usr_qq = e.user_id;
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {
@@ -49,9 +46,6 @@ export class UserInformation extends plugin {
 
     //show_power
     async show_power(e) {
-        if (!e.isGroup) {
-            return;
-        }        
         let usr_qq = e.user_id;
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {
@@ -64,9 +58,6 @@ export class UserInformation extends plugin {
 
     //修仙面板
     async show_equipment(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let usr_qq = e.user_id;
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
         if (!ifexistplay) {

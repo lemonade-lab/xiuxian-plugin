@@ -34,9 +34,6 @@ export class Exchange extends plugin {
     }
 
     async supermarket(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let Exchange = await Xiuxian.Read_Exchange();
         let nowtime = new Date().getTime();
         let msg = [

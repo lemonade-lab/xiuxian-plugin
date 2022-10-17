@@ -41,37 +41,24 @@ export class showData extends plugin {
         if (!e.isMaster) {
             return;
         }
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_adminset_img(e);
         e.reply(img);
         return;
     }
 
     async show_Level(e) {
-
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_state_img(e);
         e.reply(img);
         return;
     }
 
     async show_LevelMax(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_statemax_img(e);
         e.reply(img);
         return;
     }
 
     async show_updata(e) {
-        if (!e.isGroup) {
-            return;
-        }
         let img = await get_updata_img(e);
         e.reply(img);
         return;
@@ -322,24 +309,20 @@ export async function get_state_img(e) {
     if (!ifexistplay) {
         return;
     }
-
      let player = await data.getData("player", usr_qq);
      let Level_id=player.level_id;
      let Level_list = data.Level_list;
-
     //循环删除表信息
     for(var i=1;i<=60;i++){
-        if(i>Level_id-6&&i<Level_id+6){
+        if(i>Level_id-3&&i<Level_id+6){
             continue;
         }
         Level_list = await Level_list.filter(item => item.level_id != i);
     }
-
     let state_data = {
         user_id: usr_qq,
         Level_list: Level_list
     }
-
     const data1 = await new Show(e).get_stateData(state_data);
     let img = await puppeteer.screenshot("state", {
         ...data1,

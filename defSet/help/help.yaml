@@ -23,10 +23,10 @@
   list:
     - icon: help-icon_13
       title: "#练气境界"
-      desc: "查看所有境界"
+      desc: "（可私聊）"
     - icon: help-icon_13
       title: "#炼体境界"
-      desc: "查看所有境界"
+      desc: "（可私聊）"
     - icon: help-icon_13
       title: "#修仙状态"
       desc: "查看状态，无状态不提示"
@@ -41,13 +41,13 @@
   list:
     - icon: help-icon_7
       title: "#面板信息"
-      desc: "查看身上装备信息"
+      desc: "（可私聊）"
     - icon: help-icon_9
       title: "#练气信息"
-      desc: "练气信息"
+      desc: "（可私聊）"
     - icon: help-icon_9
       title: "#炼体信息"
-      desc: "炼体信息"
+      desc: "（可私聊）"
     - icon: help-icon_9
       title: "#突破"
       desc: "打破浩劫"
@@ -65,13 +65,13 @@
   list:
     - icon: help-icon_5
       title: "#柠檬堂"
-      desc: "商店"
+      desc: "商店（可私聊）"
     - icon: help-icon_5
       title: "#万宝楼"
-      desc: "当铺"
+      desc: "当铺（可私聊）"
     - icon: help-icon_5
       title: "#冲水堂"
-      desc: "交易"
+      desc: "交易（可私聊）"
 
 - group: 礼尚往来
   list:
@@ -95,10 +95,10 @@
   list:
     - icon: help-icon_9
       title: "#修仙扩展"
-      desc: "查看更多功能"
+      desc: "扩展功能"
     - icon: help-icon_9
       title: "#修仙管理"
-      desc: "查看管理员功能"
+      desc: "管理员（可私聊）"
     - icon: help-icon_14
       title: "#修仙版本"
-      desc: "查看版本动态"
+      desc: "（可私聊）"
