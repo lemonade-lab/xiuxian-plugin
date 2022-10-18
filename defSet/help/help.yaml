@@ -1,12 +1,12 @@
 - group: 初来乍到
   list:
-    - icon: help-icon_2
+    - icon: help-icon_38
       title: "#踏入仙途 #再入仙途"
       desc: "创建存档，转世重生"
     - icon: help-icon_3
       title: "#改名张三 #设置道宣"
       desc: "修改道号，个性签名"
-    - icon: help-icon_1
+    - icon: help-icon_10
       title: "#储物袋 #升级储物袋"
       desc: "物品查询,容量提升"
     - icon: help-icon_4
@@ -15,7 +15,7 @@
     - icon: help-icon_8
       title: "#存灵石123 #取灵石全部"
       desc: "将灵石安全保存到纳戒"
-    - icon: help-icon_8
+    - icon: help-icon_10
       title: "#交税999"
       desc: "主动交税"
     
@@ -27,7 +27,7 @@
     - icon: help-icon_13
       title: "#炼体境界"
       desc: "（可私聊）"
-    - icon: help-icon_13
+    - icon: help-icon_17
       title: "#修仙状态"
       desc: "查看状态，无状态不提示"
     - icon: help-icon_15

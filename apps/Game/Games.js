@@ -454,7 +454,6 @@ export async function setu(e) {
         res = await response.json();
     }
     catch (error) {
-        console.log('Request Failed', error);
     }
     let link = res.data[0].urls.original;//获取图链
     link = link.replace('pixiv.cat', 'pixiv.re');//链接改为国内可访问的域名

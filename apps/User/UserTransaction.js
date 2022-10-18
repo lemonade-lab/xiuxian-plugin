@@ -218,7 +218,6 @@ export async function Write_najie(usr_qq, najie) {
     let dir = path.join(__PATH.najie, `${usr_qq}.json`);
     let new_ARR = JSON.stringify(najie, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        console.log('写入成功', err)
     })
     return;
 }
@@ -228,7 +227,6 @@ export async function Read_najie(usr_qq) {
     let dir = path.join(`${__PATH.najie}/${usr_qq}.json`);
     let najie = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
-            console.log(err)
             return "error";
         }
         return data;

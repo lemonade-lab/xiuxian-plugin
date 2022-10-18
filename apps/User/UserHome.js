@@ -130,7 +130,6 @@ export class UserHome extends plugin {
         let najie = await Xiuxian.Read_najie(usr_qq);
         najie = await Xiuxian.Add_najie_thing_danyao(najie, searchsthing, -thing_acount);
         await Xiuxian.Write_najie(usr_qq, najie);
-        console.log("");
         return;
     }
 
@@ -222,7 +221,6 @@ export class UserHome extends plugin {
         let najie = await Xiuxian.Read_najie(usr_qq);
         najie = await Xiuxian.Add_najie_thing_daoju(najie, searchsthing, -1);
         await Xiuxian.Write_najie(usr_qq, najie);
-        console.log("");
         return;
     }
 }

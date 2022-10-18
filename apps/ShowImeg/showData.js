@@ -143,7 +143,6 @@ export async function get_player_img(e) {
         }
     }
     
-    console.log(AllSorcery);
 
 
     let playercopy = {
