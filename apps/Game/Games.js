@@ -9,9 +9,7 @@ import { segment } from "oicq"
  * 全局变量
  */
 
-let gane_key_user = [];//怡红院限制
-var yazhu = [];//押注
-let gametime = [];//临时游戏CD
+var yazhu = 0;//押注
 
 /**
 * 修仙游戏模块
@@ -178,7 +176,6 @@ export class Games extends plugin {
             e.reply("掌柜：哪里的穷小子，滚一边去！");
             return;
         }
-
         let CDTime = this.xiuxianConfigData.CD.gambling;
         let ClassCD = ":last_game_time";
         let now_time = new Date().getTime();
@@ -188,18 +185,19 @@ export class Games extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
-        e.reply(`媚娘：发送[#押注+数字]或[#梭哈]`, true);
+        e.reply('媚娘：发送[#押注+数字]或[#梭哈]');
         await redis.set("xiuxian:player:" + usr_qq + ":game_action", 0);
-        return true;
+        return;
     }
 
 
     //梭哈|押注999
     async Moneycheck(e) {
+
         if (!e.isGroup) {
             return;
         }
+
         let usr_qq = e.user_id;
         let now_time = new Date().getTime();
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
@@ -207,40 +205,46 @@ export class Games extends plugin {
         if (!ifexistplay || game_action == 1) {
             return;
         }
+
         let es = e.msg.replace('#押注', "").trim();
         if (es == '#梭哈') {
             let player = await Xiuxian.Read_player(usr_qq);
-            yazhu[usr_qq] = player.lingshi - 1;
+            yazhu = player.lingshi - 1;
+            await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 0);
             e.reply("媚娘：梭哈完成,发送[大]或[小]");
-            return true;
+            return;
         }
-        if (parseInt(es) == parseInt(es)) {
-            let player = await Xiuxian.Read_player(usr_qq);
-            if (player.lingshi >= parseInt(es)) {
-                yazhu[usr_qq] = parseInt(es);
-                var money = 10000;
-                if (yazhu[usr_qq] >= money) {
-                    gane_key_user[usr_qq];
-                    e.reply("媚娘：押注完成,发送[大]或[小]");
-                    return;
-                }
-                else {
-                    gane_key_user[usr_qq];
-                    e.reply("至少押注" + money + "灵石!");
-                    return;
-                }
+
+        yazhu = await Xiuxian.Numbers(es);
+        if (yazhu >= 1 && yazhu < 10000) {
+            yazhu = 10000;
+        }
+
+        let player = await Xiuxian.Read_player(usr_qq);
+
+        if (player.lingshi >= es) {
+            var money = 10000;
+            if (yazhu >= money) {
+                e.reply("媚娘：押注完成,发送[大]或[小]");
+                await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 0);
+                return;
             }
             else {
                 await redis.set("xiuxian:player:" + usr_qq + ":last_game_time", now_time);//存入缓存
                 await redis.set("xiuxian:player:" + usr_qq + ":game_action", 1);
-                yazhu[usr_qq] = 0;
-                clearTimeout(gametime[usr_qq]);
-                e.reply("媚娘：灵石不够也想玩？");
+                await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 1);
+                e.reply("至少押注" + money + "灵石!");
                 return;
             }
         }
-
-        return;
+        else {
+            await redis.set("xiuxian:player:" + usr_qq + ":last_game_time", now_time);//存入缓存
+            await redis.set("xiuxian:player:" + usr_qq + ":game_action", 1);
+            await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 1);
+            yazhu = 0;
+            e.reply("媚娘：灵石不够也想玩？");
+            return;
+        }
     }
 
 
@@ -253,84 +257,85 @@ export class Games extends plugin {
         let usr_qq = e.user_id;
         let now_time = new Date().getTime();
         let ifexistplay = await Xiuxian.existplayer(usr_qq);
-        let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
+        let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action2");
+
         if (!ifexistplay || game_action == 1) {
             return;
         }
 
 
-        if (isNaN(yazhu[usr_qq])) {
-            return;
-        }
-        if (!gane_key_user) {
-            e.reply("媚娘：公子，你还没押注呢");
-            return;
-        }
         let player = await Xiuxian.Read_player(usr_qq);
         let es = e.msg
         let randtime = Math.trunc(Math.random() * 6) + 1;
         let touzi;
         var n;
+
         for (n = 1; n <= randtime; n++) {
             touzi = n;
         }
+
         e.reply(segment.dice(touzi));
+
         if (es == '大' && touzi > 3 || es == '小' && touzi < 4) {//赢了
             var x = this.xiuxianConfigData.percentage.Moneynumber;
             var y = 1;
             var z = this.xiuxianConfigData.size.Money * 10000;
-            if (yazhu[usr_qq] >= z) {
+            if (yazhu >= z) {
                 x = this.xiuxianConfigData.percentage.punishment;
                 y = 0;
             }
-            let addWorldmoney = yazhu[usr_qq] * (1 - x);
-            yazhu[usr_qq] = Math.trunc(yazhu[usr_qq] * x);
+            let addWorldmoney = yazhu * (1 - x);
+            yazhu = Math.trunc(yazhu * x);
 
             await Xiuxian.Worldwealth(addWorldmoney);
 
             if (Xiuxian.isNotNull(player.金银坊胜场)) {
                 player.金银坊胜场 = parseInt(player.金银坊胜场) + 1;
-                player.金银坊收入 = parseInt(player.金银坊收入) + parseInt(yazhu[usr_qq]);
+                player.金银坊收入 = parseInt(player.金银坊收入) + parseInt(yazhu);
             } else {
                 player.金银坊胜场 = 1
-                player.金银坊收入 = parseInt(yazhu[usr_qq]);
+                player.金银坊收入 = parseInt(yazhu);
             }
+
             data.setData("player", usr_qq, player);
-            Xiuxian.Add_lingshi(usr_qq, yazhu[usr_qq]);
+            Xiuxian.Add_lingshi(usr_qq, yazhu);
+
             if (y == 1) {
-                e.reply([segment.at(usr_qq), `骰子最终为 ${touzi} 你猜对了！`, '\n', `现在拥有灵石:${player.lingshi + yazhu[usr_qq]}`]);
+                e.reply([segment.at(usr_qq), `骰子最终为 ${touzi} 你猜对了！`, '\n', `现在拥有灵石:${player.lingshi + yazhu}`]);
             }
             else {
-                e.reply([segment.at(usr_qq), `骰子最终为 ${touzi} 你虽然猜对了，但是金银坊怀疑你出老千，准备打断你的腿的时候，你选择破财消灾。`, '\n', `现在拥有灵石:${player.lingshi + yazhu[usr_qq]}`]);
+                e.reply([segment.at(usr_qq), `骰子最终为 ${touzi} 你虽然猜对了，但是金银坊怀疑你出老千，准备打断你的腿的时候，你选择破财消灾。`, '\n', `现在拥有灵石:${player.lingshi + yazhu}`]);
             }
             await redis.set("xiuxian:player:" + usr_qq + ":last_game_time", now_time);//存入缓存
             await redis.set("xiuxian:player:" + usr_qq + ":game_action", 1);
-            yazhu[usr_qq] = 0;
-            clearTimeout(gametime[usr_qq]);
-            return true;
+            await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 1);
+
+            yazhu = 0;
+            return;
 
         }
         else if (es == '大' && touzi < 4 || es == '小' && touzi > 3) {//输了
             if (Xiuxian.isNotNull(player.金银坊败场)) {
                 player.金银坊败场 = parseInt(player.金银坊败场) + 1;
-                player.金银坊支出 = parseInt(player.金银坊支出) + parseInt(yazhu[usr_qq]);
+                player.金银坊支出 = parseInt(player.金银坊支出) + parseInt(yazhu);
             } else {
                 player.金银坊败场 = 1
-                player.金银坊支出 = parseInt(yazhu[usr_qq]);
+                player.金银坊支出 = parseInt(yazhu);
             }
             data.setData("player", usr_qq, player);
-            Xiuxian.Add_lingshi(usr_qq, -yazhu[usr_qq]);
-            let msg = [segment.at(usr_qq), `骰子最终为 ${touzi} 你猜错了！`, '\n', `现在拥有灵石:${player.lingshi - yazhu[usr_qq]}`];
-            let now_money = player.lingshi - yazhu[usr_qq];
+            Xiuxian.Add_lingshi(usr_qq, -yazhu);
+            let msg = [segment.at(usr_qq), `骰子最终为 ${touzi} 你猜错了！`, '\n', `现在拥有灵石:${player.lingshi - yazhu}`];
+            let now_money = player.lingshi - yazhu;
             await redis.set("xiuxian:player:" + usr_qq + ":last_game_time", now_time);//存入缓存
             await redis.set("xiuxian:player:" + usr_qq + ":game_action", 1);
-            yazhu[usr_qq] = 0;
-            clearTimeout(gametime[usr_qq]);
+            await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 1);
+            yazhu = 0;
             if (now_money <= 0) {
                 msg.push("\n媚娘：没钱了也想跟老娘耍？\n你已经裤衩都输光了...快去降妖赚钱吧！");
             }
             e.reply(msg);
-            return true;
+
+            return;
         }
     }
 

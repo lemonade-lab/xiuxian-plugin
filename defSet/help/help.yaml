@@ -30,7 +30,7 @@
     - icon: help-icon_13
       title: "#修仙状态"
       desc: "查看状态，无状态不提示"
-    - icon: help-icon_13
+    - icon: help-icon_15
       title: "#闭关N分钟 #出关"
       desc: "进行N分钟的闭关,获取修为"
     - icon: help-icon_13
