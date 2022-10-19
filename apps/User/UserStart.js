@@ -64,6 +64,7 @@ export class UserStart extends plugin {
             "autograph": "无",//道宣
             "race": 1,//种族
             "prestige": 0,//魔力
+            "life": 100,//寿命
             "level_id": 1,//练气境界
             "Physique_id": 1,//练体境界 
             "experience": 1,//练气经验

@@ -43,14 +43,6 @@ export class SecretPlace extends plugin {
                     fnc: 'GoTimeplace'
                 },
                 {
-                    reg: '^#仙境$',
-                    fnc: 'Fairyrealm'
-                },
-                {
-                    reg: '^#镇守仙境.*$',
-                    fnc: 'Gofairyrealm'
-                },
-                {
                     reg: '^#逃离',
                     fnc: 'Giveup'
                 }
@@ -138,33 +130,6 @@ export class SecretPlace extends plugin {
         await practice(e,weizhi,level_id,name,time);
         return;
     }
-
-    //仙境
-    async Fairyrealm(e) {
-        if (!e.isGroup) {
-            return;
-        }
-        let addres = "仙境";
-        let weizhi = data.Fairyrealm_list;
-        await Goweizhi(e, weizhi, addres);
-    }
-
-
-    async Gofairyrealm(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
-            return;
-        }
-        var didian = await e.msg.replace("#镇守仙境", '');
-        didian = didian.trim();
-        let weizhi = await data.Fairyrealm_list.find(item => item.name == didian);
-        let level_id=42;
-        let name="仙境";
-        let time=5;
-        await practice(e,weizhi,level_id,name,time);
-        return;
-    }
-
 
     async Giveup(e) {
         if (!e.isGroup) {

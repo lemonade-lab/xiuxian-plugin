@@ -22,6 +22,15 @@
 - group: 修行之路
   list:
     - icon: help-icon_13
+      title: "#秘境"
+      desc: "获取更多物品"
+    - icon: help-icon_13
+      title: "#禁地"
+      desc: "需一定境界"
+    - icon: help-icon_13
+      title: "#仙府"
+      desc: "需一定境界"
+    - icon: help-icon_13
       title: "#练气境界"
       desc: "（可私聊）"
     - icon: help-icon_13

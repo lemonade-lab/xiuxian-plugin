@@ -55,12 +55,11 @@ export class MoneyOperation extends plugin {
         lingshi = await Xiuxian.Numbers(lingshi);
         let player = await Xiuxian.Read_player(usr_qq);
         if (player.lingshi <= lingshi) {
-            e.reply("醒醒，你没有那么多");
             return;
         }
         await Xiuxian.Add_lingshi(usr_qq, -lingshi);
         await Xiuxian.Worldwealth(lingshi);
-        e.reply("成功交税" + lingshi);
+        e.reply("交税" + lingshi);
         return;
     }
 

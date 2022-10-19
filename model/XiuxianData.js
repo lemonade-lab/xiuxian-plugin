@@ -78,8 +78,6 @@ class XiuxianData {
         this.didian_list = JSON.parse(fs.readFileSync(`${this.place}/didian_list.json`));
         //禁地
         this.forbiddenarea_list = JSON.parse(fs.readFileSync(`${this.place}/forbiddenarea_list.json`));
-        //
-        this.Fairyrealm_list = JSON.parse(fs.readFileSync(`${this.place}/Fairyrealm_list.json`));
         //灵根
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
         //限定

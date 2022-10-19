@@ -49,12 +49,6 @@
 
 - group: 唯我独尊
   list:
-    - icon: help-icon_8
-      title: "#灵榜"
-      desc: "财富（可私聊）"
-    - icon: help-icon_9
-      title: "#天榜"
-      desc: "修为（可私聊）"
     - icon: help-icon_9
       title: "#至尊榜"
       desc: "凡人战力榜（可私聊）"
