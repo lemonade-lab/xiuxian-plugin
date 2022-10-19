@@ -287,6 +287,7 @@ export async function battle(A, B) {
         n++;
         if(n>=50){
             victory = await B_qq;
+            break;
         }
         /**
          * 先手
