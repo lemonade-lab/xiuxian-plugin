@@ -44,10 +44,12 @@ body {
   width: calc(100% + 30px);
   color: #fff;
 }
+
 .help-table .tr {
   display: flex;
   flex-wrap: wrap
 }
+
 .help-table .td,
 .help-table .th {
   font-size: 14px;
@@ -59,18 +61,23 @@ body {
   width: calc(100%/3);
   text-align: left;
 }
+
 .help-table .tr:nth-child(odd) {
   background: rgba(32, 42, 34, 0.6);
 }
+
 .help-table .tr:nth-child(even) {
   background: rgba(69, 75, 84, 0.3);
 }
+
 .help-table .tr:last-child .td {
   padding-bottom: 12px;
 }
+
 .help-table .th {
   background: rgba(34, 41, 51, 0.5);
 }
+
 .help-icon {
   width: 40px;
   height: 40px;
@@ -128,27 +135,27 @@ body {
 .help-icon_39{background-position:-400px -150px}
 .help-icon_40{background-position:-450px -150px}
 
-.help-icon_51{background-position:-0px -200px}
-.help-icon_52{background-position:-50px -200px}
-.help-icon_53{background-position:-100px -200px}
-.help-icon_54{background-position:-150px -200px}
-.help-icon_55{background-position:-200px -200px}
-.help-icon_56{background-position:-250px -200px}
-.help-icon_57{background-position:-300px -200px}
-.help-icon_58{background-position:-350px -200px}
-.help-icon_59{background-position:-400px -200px}
-.help-icon_60{background-position:-450px -200px}
+.help-icon_41{background-position:-0px -200px}
+.help-icon_42{background-position:-50px -200px}
+.help-icon_43{background-position:-100px -200px}
+.help-icon_44{background-position:-150px -200px}
+.help-icon_45{background-position:-200px -200px}
+.help-icon_46{background-position:-250px -200px}
+.help-icon_47{background-position:-300px -200px}
+.help-icon_48{background-position:-350px -200px}
+.help-icon_49{background-position:-400px -200px}
+.help-icon_50{background-position:-450px -200px}
 
-.help-icon_61{background-position:-0px -250px}
-.help-icon_62{background-position:-50px -250px}
-.help-icon_63{background-position:-100px -250px}
-.help-icon_64{background-position:-150px -250px}
-.help-icon_65{background-position:-200px -250px}
-.help-icon_66{background-position:-250px -250px}
-.help-icon_67{background-position:-300px -250px}
-.help-icon_68{background-position:-350px -250px}
-.help-icon_69{background-position:-400px -250px}
-.help-icon_70{background-position:-450px -250px}
+.help-icon_51{background-position:-0px -250px}
+.help-icon_52{background-position:-50px -250px}
+.help-icon_53{background-position:-100px -250px}
+.help-icon_54{background-position:-150px -250px}
+.help-icon_55{background-position:-200px -250px}
+.help-icon_56{background-position:-250px -250px}
+.help-icon_57{background-position:-300px -250px}
+.help-icon_58{background-position:-350px -250px}
+.help-icon_59{background-position:-400px -250px}
+.help-icon_60{background-position:-450px -250px}
 
 .help-title {
   display: block;

@@ -47,11 +47,13 @@ export class Battle extends plugin {
         await redis.set("xiuxian:player:" + A + ClassCD, now_time);
         let Data_battle = await Xiuxian.battle(A,B);
         let msg = Data_battle.msg;
+
         if (msg.length > 30) {
             e.reply("战斗过程略...");
         } else {
             await Xiuxian.ForwardMsg(e, msg);
         }
+
         if(Data_battle.victory==A){
             let player = await Xiuxian.Read_player(B);
             let msg="你击败了对方";
@@ -69,6 +71,7 @@ export class Battle extends plugin {
             e.reply("你被对方打败了");
             await Xiuxian.Add_experiencemax(A, 500);
         }
+        
         return;
     }
 

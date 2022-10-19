@@ -260,6 +260,7 @@ export async function battle(A, B) {
     let victory = await A_qq;
     let msg = [];
     let x = 0;
+    let n=0;
     /**
      * 默认A为主动方，敏捷+5
      */
@@ -283,6 +284,10 @@ export async function battle(A, B) {
         }
         let hurtAA = hurtA;
         let hurtBB = hurtA;
+        n++;
+        if(n>=50){
+            victory = await B_qq;
+        }
         /**
          * 先手
          */
