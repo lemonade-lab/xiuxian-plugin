@@ -100,11 +100,13 @@ export class Battle extends plugin {
 
         let Data_battle = await Xiuxian.battle(A,B);
         let msg = Data_battle.msg;
-        if (msg.length > 30) {
+        if (msg.length >= 30) {
             e.reply("战斗过程略...");
-        } else {
+        } 
+        else {
             await Xiuxian.ForwardMsg(e, msg);
         }
+        
         if(Data_battle.victory==A){
             e.reply("你击败了对手，对手增加了100气血");
             await Xiuxian.Add_experiencemax(B, 100);

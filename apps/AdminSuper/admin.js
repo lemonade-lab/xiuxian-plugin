@@ -1,7 +1,7 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
 import { createRequire } from "module"
+import { ForwardMsg } from '../Xiuxian/Xiuxian.js'
 /**
  * 全局
  */
@@ -43,7 +43,7 @@ export class admin extends plugin {
             function (error, stdout, stderr) {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push("最新版修仙插件了~");
-                    Xiuxian.ForwardMsg(e, msg);
+                    ForwardMsg(e, msg);
                     return;
                 }
                 if (error) {
@@ -54,7 +54,7 @@ export class admin extends plugin {
                         error.stack +
                         "\n 请稍后重试。"
                     );
-                    Xiuxian.ForwardMsg(e, msg);
+                    ForwardMsg(e, msg);
                     return;
                 }
                 msg.push("更新成功，正在重启更新...");
@@ -97,7 +97,7 @@ export class admin extends plugin {
                         msg.push("重启失败...\n" + e);
                     }
                 }, 1000);
-                Xiuxian.ForwardMsg(e, msg);
+                ForwardMsg(e, msg);
             }
         );
         return true;

@@ -250,32 +250,25 @@ export async function battle(A, B) {
     let bloodB = await playerB.nowblood;
     let hurtA = await playerA.nowattack - playerB.nowdefense;
     let hurtB = await playerB.nowattack - playerA.nowdefense;
-    //伤害需要大于0
     if (hurtA <= 0) {
-        hurtA = 0;//破不了防御，没伤害
+        hurtA = 0;
     }
     if (hurtB <= 0) {
-        hurtB = 0;//破不了防御，没伤害
+        hurtB = 0;
     }
     let victory = await A_qq;
     let msg = [];
     let x = 0;
     let n=0;
-    /**
-     * 默认A为主动方，敏捷+5
-     */
     if (playerA.speed + 5 >= playerB.speed) {
         x = 0;
-        //确认敏捷足够A、先手
     } else {
-        //B先手
         x = 1;
     }
     while (bloodA >= 0 && bloodB >= 0) {
-        if (bloodA <= 0) {
-            //A输了
+        n++;
+        if (bloodA <= 0||n>=30) {
             victory = await B_qq;
-            msg.push("你没血了");
             break;
         }
         if (bloodB <= 0) {
@@ -284,14 +277,6 @@ export async function battle(A, B) {
         }
         let hurtAA = hurtA;
         let hurtBB = hurtA;
-        n++;
-        if(n>=50){
-            victory = await B_qq;
-            break;
-        }
-        /**
-         * 先手
-         */
         if (x == 0) {
             if (await battlebursthurt(playerA.burst)) {
                 hurtAA = hurtAA * (playerA.bursthurt + 1);
