@@ -6,13 +6,13 @@
     - icon: help-icon_3
       title: "#改名张三 #设置道宣"
       desc: "修改道号，个性签名"
-    - icon: help-icon_10
-      title: "#储物袋 #升级储物袋"
-      desc: "物品查询,容量提升"
     - icon: help-icon_4
       title: "#修仙签到"
       desc: "修仙每日签到"
-    - icon: help-icon_8
+    - icon: help-icon_56
+      title: "#储物袋 #升级储物袋"
+      desc: "物品查询,容量提升"
+    - icon: help-icon_56
       title: "#存灵石123 #取灵石全部"
       desc: "将灵石安全保存到纳戒"
     - icon: help-icon_10
@@ -21,73 +21,64 @@
     
 - group: 修行之路
   list:
-    - icon: help-icon_13
-      title: "#秘境"
-      desc: "获取更多物品"
-    - icon: help-icon_13
-      title: "#禁地"
-      desc: "需一定境界"
-    - icon: help-icon_13
-      title: "#仙府"
-      desc: "需一定境界"
-    - icon: help-icon_13
+    - icon: help-icon_55
       title: "#练气境界"
       desc: "（可私聊）"
-    - icon: help-icon_13
+    - icon: help-icon_55
       title: "#炼体境界"
       desc: "（可私聊）"
-    - icon: help-icon_17
+    - icon: help-icon_38
       title: "#修仙状态"
       desc: "查看状态，无状态不提示"
-    - icon: help-icon_15
+    - icon: help-icon_44
       title: "#闭关N分钟 #出关"
       desc: "进行N分钟的闭关,获取修为"
-    - icon: help-icon_13
+    - icon: help-icon_51
       title: "#降妖N分钟 #归来"
       desc: "进行N分钟,获取灵石"
 
 - group: 逆天改命
   list:
-    - icon: help-icon_7
+    - icon: help-icon_38
       title: "#面板信息"
       desc: "（可私聊）"
-    - icon: help-icon_9
+    - icon: help-icon_38
       title: "#练气信息"
       desc: "（可私聊）"
-    - icon: help-icon_9
+    - icon: help-icon_38
       title: "#炼体信息"
       desc: "（可私聊）"
-    - icon: help-icon_9
+    - icon: help-icon_38
       title: "#突破"
       desc: "打破浩劫"
-    - icon: help-icon_9
+    - icon: help-icon_38
       title: "#破体"
       desc: "提高体境"
-    - icon: help-icon_9
+    - icon: help-icon_36
       title: "#渡劫"
       desc: "渡劫期经历的劫难"
-    - icon: help-icon_9
+    - icon: help-icon_59
       title: "#羽化登仙"
       desc: "渡劫后前往仙界"
 
 - group: 交易往来
   list:
-    - icon: help-icon_5
+    - icon: help-icon_53
       title: "#柠檬堂"
       desc: "商店（可私聊）"
-    - icon: help-icon_5
+    - icon: help-icon_52
       title: "#万宝楼"
       desc: "当铺（可私聊）"
-    - icon: help-icon_5
+    - icon: help-icon_53
       title: "#冲水堂"
       desc: "交易（可私聊）"
 
 - group: 礼尚往来
   list:
-    - icon: help-icon_7
+    - icon: help-icon_54
       title: "@群友 #切磋"
       desc: "会掉血的"
-    - icon: help-icon_7
+    - icon: help-icon_54
       title: "@群友 #打劫"
       desc: "夺取对方财富"
     - icon: help-icon_10
@@ -102,12 +93,12 @@
 
 - group: 帮助扩展
   list:
-    - icon: help-icon_9
+    - icon: help-icon_14
       title: "#修仙扩展"
       desc: "扩展功能"
-    - icon: help-icon_9
+    - icon: help-icon_58
       title: "#修仙管理"
       desc: "管理员（可私聊）"
-    - icon: help-icon_14
+    - icon: help-icon_55
       title: "#修仙版本"
       desc: "（可私聊）"

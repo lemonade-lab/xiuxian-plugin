@@ -1,69 +1,69 @@
 - group: 灵石设置
   list:
-    - icon: help-icon_8
+    - icon: help-icon_16
       title: "#发福利999"
       desc: "按人数发放全服福利"  
-    - icon: help-icon_8
+    - icon: help-icon_16
       title: "#发补偿999 @群友"
       desc: "单独补偿灵石"  
-    - icon: help-icon_8
+    - icon: help-icon_16
       title: "#扣除99999 @群友"
       desc: "强行扣指定玩家灵石"
 
 - group: 怪物状态
   list:
-    - icon: help-icon_8
+    - icon: help-icon_58
       title: "#放出怪物"
       desc: "手动开启"  
-    - icon: help-icon_8
+    - icon: help-icon_58
       title: "#关上怪物"
       desc: "手动关闭"  
 
 - group: 行为状态
   list:
-    - icon: help-icon_9
+    - icon: help-icon_58
       title: "#解封 @群友"
       desc: "解除秘境/打工/闭关等状态"
-    - icon: help-icon_9
+    - icon: help-icon_58
       title: "#解除所有"
       desc: "解除全体时间动作状态"
-    - icon: help-icon_9
+    - icon: help-icon_58
       title: "#打入凡间 @群友"
       desc: "关闭群友仙门，永不得返"
 
 - group: 世界管理
   list:
-    - icon: help-icon_9
+    - icon: help-icon_32
       title: "#清除冲水堂"
       desc: "全部回收物品"
-    - icon: help-icon_9
+    - icon: help-icon_32
       title: "#清除+编号"
       desc: "清除特定物品"
-    - icon: help-icon_9
+    - icon: help-icon_32
       title: "#打扫客栈"
       desc: "手动清理客栈消息"
-    - icon: help-icon_9
+    - icon: help-icon_32
       title: "#删除世界"
       desc: "删除玩家存档"
-    - icon: help-icon_9
+    - icon: help-icon_32
       title: "#删除信息 @群友"
       desc: "删除指定玩家存档"
-    - icon: help-icon_9
+    - icon: help-icon_32
       title: "#修仙设置练气为9 @群友"
       desc: "设置指定境界"
-    - icon: help-icon_9
+    - icon: help-icon_55
       title: "#修仙世界"
       desc: "修仙分析统计"
 
 - group: 修仙管理
   list:
-    - icon: help-icon_9
+    - icon: help-icon_58
       title: "#修仙设置"
       desc: "查看修仙配置"
-    - icon: help-icon_9
+    - icon: help-icon_58
       title: "#同步信息"
       desc: "同步所有存档"
-    - icon: help-icon_14
+    - icon: help-icon_58
       title: "#修仙更新"
       desc: "更新修仙模拟器插件"
 

@@ -1,61 +1,61 @@
 - group: 
   list:
-    - icon: help-icon_9
+    - icon: help-icon_44
       title: "#学习+功法名"
       desc: "学习功法"
-    - icon: help-icon_9
+    - icon: help-icon_42
       title: "#消耗+道具名"
       desc: "消耗道具"
     - icon: help-icon_6
       title: "#服用+丹药名"
       desc: "服用丹药"
-    - icon: help-icon_9
+    - icon: help-icon_46
       title: "#装备+装备名"
       desc: "装备物品"
 
 - group: 谈心论道
   list:
-    - icon: help-icon_9
+    - icon: help-icon_55
       title: "#有间客栈"
       desc: "查看攻略（可私聊）"
-    - icon: help-icon_9
+    - icon: help-icon_57
       title: "#文章+标题*内容"
       desc: "发布看法（可私聊）"  
 
 - group: 君子爱财
   list:
-    - icon: help-icon_10
+    - icon: help-icon_50
       title: "#金银坊"
       desc: "需要携带一定灵石"
-    - icon: help-icon_10
+    - icon: help-icon_50
       title: "#金银坊记录"
       desc: "看看自己是欧皇还是冤种"
 
 - group: 修身养性
   list:
-    - icon: help-icon_12
+    - icon: help-icon_49
       title: "@群友 #双修"
       desc: "年轻人要注意节制"
-    - icon: help-icon_12
+    - icon: help-icon_49
       title: "#怡红院"
       desc: "未成年人请不要进入"
-    - icon: help-icon_12
+    - icon: help-icon_49
       title: "#允许双修"
       desc: "不允许被双修（可私聊）"
-    - icon: help-icon_12
+    - icon: help-icon_49
       title: "#拒绝双修"
       desc: "主动拒绝双修（可私聊）"
 
 
 - group: 唯我独尊
   list:
-    - icon: help-icon_9
+    - icon: help-icon_60
       title: "#至尊榜"
       desc: "凡人战力榜（可私聊）"
-    - icon: help-icon_9
+    - icon: help-icon_60
       title: "#封神榜"
       desc: "仙人战力榜（可私聊）"
-    - icon: help-icon_9
+    - icon: help-icon_60
       title: "#杀神榜"
       desc: "罪恶魔力值（可私聊）"
 

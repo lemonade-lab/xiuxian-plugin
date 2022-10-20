@@ -18,10 +18,6 @@ export class BossAll extends plugin {
                     fnc: 'Bosstate'
                 },
                 {
-                    reg: '^#讨伐魔王$',
-                    fnc: 'BossMaxplus'
-                },
-                {
                     reg: '^#讨伐金角大王$',
                     fnc: 'BossMax'
                 },
@@ -42,11 +38,7 @@ export class BossAll extends plugin {
         for (var i = 0; i < 3; i++) {
             let Boss;
             let x=0;
-            if (i == 0) {
-                Boss = await redis.get("xiuxian:BossMaxplus");
-                x=await redis.get("BossMaxplus");
-            }
-            else if (i == 1) {
+            if (i == 1) {
                 Boss = await redis.get("xiuxian:BossMax");
                 x=await redis.get("BossMax");
             } else {
@@ -73,59 +65,6 @@ export class BossAll extends plugin {
         return;
     }
 
-    //讨伐魔王
-    async BossMaxplus(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
-            return;
-        }
-        let usr_qq = e.user_id;
-
-        let boss = await redis.get("BossMaxplus");
-        if (boss == 0) {
-        }
-        else {
-            e.reply("魔王未开启！");
-            return;
-        }
-        let player = await Xiuxian.Read_player(usr_qq);
-        let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-        if (now_level_id >= 42) {
-            let ClassCD = ":BossTime";
-            let now_time = new Date().getTime();
-            let CDTime = 15;
-            let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-            if (CD != 0) {
-                e.reply(CD);
-                return;
-            }
-            await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
-
-            let BossMaxplus = await redis.get("xiuxian:BossMaxplus");
-            BossMaxplus = JSON.parse(BossMaxplus);
-            if (BossMaxplus != null) {
-                let Data_battle = await Xiuxian.battlemax(usr_qq, BossMax);
-                let msg = Data_battle.msg;
-                if (msg.length > 30) {
-                    e.reply("战斗过程略...");
-                } else {
-                    await Xiuxian.ForwardMsg(e, msg);
-                }
-                if (Data_battle.victory == usr_qq) {
-                    await Xiuxian.Add_lingshi(usr_qq, BossMaxplus.money);
-                    e.reply("你击败了"+BossMaxplus.name+"，获得" + BossMaxplus.money);
-                } else {
-                    await Xiuxian.Add_lingshi(usr_qq, -BossMaxplus.money);
-                    e.reply("你被"+BossMaxplus.name+"打败了，被抢走了" + BossMaxplus.money);
-                }
-            }
-        }
-        else if (now_level_id <= 41) {
-            e.reply("凡人不可阶跃！");
-        }
-        return;
-    }
     //讨伐金角大王
     async BossMax(e) {
         let Go = await Xiuxian.Go(e);

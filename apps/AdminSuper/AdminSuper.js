@@ -19,6 +19,10 @@ export class AdminSuper extends plugin {
                     fnc: "synchronization",
                 },
                 {
+                    reg: "^#修仙重置配置$",
+                    fnc: "Againconfig",
+                },
+                {
                     reg: "^#解封.*$",
                     fnc: "relieve",
                 },
@@ -41,6 +45,18 @@ export class AdminSuper extends plugin {
             ],
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    }
+
+    async Againconfig(){
+        if (!e.isMaster) {
+            return;
+        }
+        e.reply("开始重置");
+
+
+
+        e.reply("重置结束");
+        return;
     }
 
     async synchronization(e) {

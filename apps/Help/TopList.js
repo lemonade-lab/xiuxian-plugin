@@ -15,14 +15,6 @@ export class TopList extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#天榜$',
-                    fnc: 'TOP_xiuwei'
-                },
-                {
-                    reg: '^#灵榜$',
-                    fnc: 'TOP_lingshi'
-                },
-                {
                     reg: '^#封神榜$',
                     fnc: 'TOP_Immortal'
                 },
@@ -197,84 +189,6 @@ export class TopList extends plugin {
                 "\nQQ:" + temp[j].qq);
         }
         await Xiuxian.ForwardMsg(e, msg);
-        return;
-    }
-
-    async TOP_xiuwei(e) {
-        let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
-        if (!ifexistplay) { return; }
-        let usr_paiming;
-        let File = fs.readdirSync(Xiuxian.__PATH.player);
-        File = File.filter(file => file.endsWith(".json"));
-        let File_length = File.length;
-        let temp = [];
-        for (var i = 0; i < File_length; i++) {
-            let this_qq = File[i].replace(".json", '');
-            this_qq = parseInt(this_qq);
-            let player = await Xiuxian.Read_player(this_qq);
-            let sum_exp = await Xiuxian.get_experience(this_qq);
-            let level = data.Level_list.find(item => item.level_id == player.level_id).level;
-            temp[i] = {
-                exp: sum_exp,
-                level: level,
-                name: player.name,
-                qq: this_qq
-            }
-        }
-        temp.sort(Xiuxian.sortBy("exp"));
-        usr_paiming = temp.findIndex(temp => temp.qq === usr_qq) + 1;
-        let Data = [];
-        if (File_length > 10) { File_length = 10; }//最多显示前十
-        for (var i = 0; i < File_length; i++) {
-            temp[i].position = i + 1;
-            Data[i] = temp[i];
-        }
-        let thisplayer = await data.getData("player", usr_qq);
-        let img = await ShowData.get_ranking_power_img(e, Data, usr_paiming, thisplayer);
-        e.reply(img);
-        return;
-    }
-
-
-
-    //TOP_lingshi
-    async TOP_lingshi(e) {
-        let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
-        if (!ifexistplay) { return; }
-        let usr_paiming;
-        let File = fs.readdirSync(Xiuxian.__PATH.player);
-        File = File.filter(file => file.endsWith(".json"));
-        let File_length = File.length;
-        let temp = [];
-        for (var i = 0; i < File_length; i++) {
-            let this_qq = File[i].replace(".json", '');
-            this_qq = parseInt(this_qq);
-            let player = await Xiuxian.Read_player(this_qq);
-            let najie = await Xiuxian.Read_najie(this_qq);
-            let lingshi = player.lingshi + najie.lingshi;
-            temp[i] = {
-                ls1: najie.lingshi,
-                ls2: player.lingshi,
-                lingshi: lingshi,
-                name: player.name,
-                qq: this_qq
-            }
-        }
-        temp.sort(Xiuxian.sortBy("lingshi"));
-        let Data = [];
-        usr_paiming = temp.findIndex(temp => temp.qq === usr_qq) + 1;
-        if (File_length > 10) { File_length = 10; }//最多显示前十
-        for (var i = 0; i < File_length; i++) {
-            temp[i].position = i + 1;
-            Data[i] = temp[i];
-        }
-        await Xiuxian.sleep(500);
-        let thisplayer = await data.getData("player", usr_qq);
-        let thisnajie = await data.getData("najie", usr_qq);
-        let img = await ShowData.get_ranking_money_img(e, Data, usr_paiming, thisplayer, thisnajie);
-        e.reply(img);
         return;
     }
 }

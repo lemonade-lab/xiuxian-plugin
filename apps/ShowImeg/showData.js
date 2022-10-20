@@ -142,9 +142,6 @@ export async function get_player_img(e) {
             AllSorcery.push(ifexist2);
         }
     }
-    
-
-
     let playercopy = {
         user_id: usr_qq,
         nickname: player.name,
@@ -297,7 +294,6 @@ export async function get_najie_img(e) {
 
 }
 
-
 /**
  * 返回境界列表图片
  */
@@ -362,7 +358,10 @@ export async function get_statemax_img(e) {
 
 }
 
+
+
 let updata = config.getdefSet("version", "version");
+
 
 /**
  * 返回修仙版本
@@ -380,8 +379,6 @@ export async function get_updata_img(e) {
     return img;
 
 }
-
-
 
 
 
@@ -441,41 +438,3 @@ export async function get_adminset_img(e) {
 
 }
 
-
-
-export async function get_ranking_power_img(e, Data, usr_paiming, thisplayer) {
-    let usr_qq = e.user_id;
-    let level = data.Level_list.find(item => item.level_id == thisplayer.level_id).level;
-    let ranking_power_data = {
-        user_id: usr_qq,
-        nickname: thisplayer.name,
-        exp: thisplayer.experience,
-        level: level,
-        usr_paiming: usr_paiming,
-        allplayer: Data
-    }
-    const data1 = await new Show(e).get_ranking_powerData(ranking_power_data);
-    let img = await puppeteer.screenshot("ranking_power", {
-        ...data1,
-    });
-    return img;
-}
-
-export async function get_ranking_money_img(e, Data, usr_paiming, thisplayer, thisnajie) {
-    let usr_qq = e.user_id;
-    var najie_lingshi = Math.trunc(thisnajie.lingshi);
-    var lingshi = Math.trunc(thisplayer.lingshi + thisnajie.lingshi);
-    let ranking_money_data = {
-        user_id: usr_qq,
-        nickname: thisplayer.name,
-        lingshi: lingshi,
-        najie_lingshi: najie_lingshi,
-        usr_paiming: usr_paiming,
-        allplayer: Data
-    }
-    const data1 = await new Show(e).get_ranking_moneyData(ranking_money_data);
-    let img = await puppeteer.screenshot("ranking_money", {
-        ...data1,
-    });
-    return img;
-}
