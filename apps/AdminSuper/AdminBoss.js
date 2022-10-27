@@ -3,8 +3,10 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import { __PATH,Read_player } from '../Xiuxian/Xiuxian.js'
 let xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+
+
 export class AdminBoss extends plugin {
     constructor() {
         super({
@@ -59,7 +61,7 @@ export async function monster() {
         User_mini = Number(User_mini);
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
@@ -67,7 +69,7 @@ export async function monster() {
         }
         for (let player_id of playerList) {
             let usr_qq = player_id;
-            let player = await Xiuxian.Read_player(usr_qq);
+            let player = await Read_player(usr_qq);
             let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
 
             if (now_level_id >= 42) {

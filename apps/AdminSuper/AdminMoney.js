@@ -3,7 +3,9 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import { ForwardMsg,Worldwealth,__PATH,At , Numbers,Add_lingshi ,Read_player } from '../Xiuxian/Xiuxian.js'
+
+
 /**
  * 修仙财富
  */
@@ -45,15 +47,15 @@ export class AdminMoney extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let B = await Xiuxian.At(e);
+        let B = await At(e);
         if(B==0){
             return;
         }
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("扣除", "");
-        lingshi = await Xiuxian.Numbers(lingshi);
+        lingshi = await Numbers(lingshi);
 
-        let player = await Xiuxian.Read_player(B);
+        let player = await Read_player(B);
         if (player.lingshi < lingshi) {
             e.reply("他并没有这么多");
             return;
@@ -61,8 +63,8 @@ export class AdminMoney extends plugin {
         if (player.lingshi == lingshi) {
             lingshi = lingshi - 1;
         }
-        await Xiuxian.Add_lingshi(B, -lingshi);
-        await Xiuxian.Worldwealth(lingshi);
+        await Add_lingshi(B, -lingshi);
+        await Worldwealth(lingshi);
         e.reply("已强行扣除灵石" + lingshi);
         return;
     }
@@ -79,14 +81,14 @@ export class AdminMoney extends plugin {
         senior = Number(senior);
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            let player = await Xiuxian.Read_player(player_id);
+            let player = await Read_player(player_id);
             let now_level_id;
             now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
             if (now_level_id <= 41) {
@@ -150,7 +152,7 @@ export class AdminMoney extends plugin {
                 "\n人均：" + (Worldmoney / acount).toFixed(3) + "亿"
             ];
         }
-        await Xiuxian.ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     }
 
@@ -170,14 +172,14 @@ export class AdminMoney extends plugin {
         }
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            await Xiuxian.Add_lingshi(player_id, lingshi);
+            await Add_lingshi(player_id, lingshi);
         }
         e.reply(`福利发放成功,每人增加${lingshi}灵石`);
         return;
@@ -194,21 +196,21 @@ export class AdminMoney extends plugin {
         lingshi = lingshi.replace("发", "");
         lingshi = lingshi.replace("福利", "");
 
-        lingshi =await Xiuxian.Numbers(lingshi);
+        lingshi =await Numbers(lingshi);
 
         if(lingshi<1000){
             return;
         }
 
-        let File = fs.readdirSync(Xiuxian.__PATH.player);
+        let File = fs.readdirSync(__PATH.player);
         File = File.filter(file => file.endsWith(".json"));
         let File_length = File.length;
         for (var i = 0; i < File_length; i++) {
             let B = File[i].replace(".json", '');
-            await Xiuxian.Add_lingshi(B, lingshi);
+            await Add_lingshi(B, lingshi);
         }
         
-        await Xiuxian.Worldwealth(- lingshi * File_length);
+        await Worldwealth(- lingshi * File_length);
 
         e.reply(`福利发放成功,${File_length}个玩家,每人增加${lingshi}灵石`);
 
@@ -227,27 +229,27 @@ export class AdminMoney extends plugin {
         lingshi = lingshi.replace("发", "");
         lingshi = lingshi.replace("补偿", "");
 
-        lingshi =await Xiuxian.Numbers(lingshi);
+        lingshi =await Numbers(lingshi);
         if(lingshi<1000){
             return;
         }
 
 
-        let B = await Xiuxian.At(e);
+        let B = await At(e);
         if(B==0){
             return;
         }
 
         let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-        Worldmoney = await Xiuxian.Numbers(Worldmoney);
+        Worldmoney = await Numbers(Worldmoney);
         if (Worldmoney <= lingshi) {
             e.reply("世界财富不足！");
             return;
         }
 
-        await Xiuxian.Worldwealth(- lingshi);
+        await Worldwealth(- lingshi);
 
-        await Xiuxian.Add_lingshi(B, lingshi);
+        await Add_lingshi(B, lingshi);
 
         e.reply(`${B}获得${lingshi}灵石的补偿`);
 

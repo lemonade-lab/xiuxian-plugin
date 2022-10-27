@@ -3,7 +3,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import { __PATH} from '../Xiuxian/Xiuxian.js'
+
 /**
  * 定时任务
  */
@@ -28,7 +29,7 @@ export class GamesTask extends plugin {
     async Gamestask() {
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");

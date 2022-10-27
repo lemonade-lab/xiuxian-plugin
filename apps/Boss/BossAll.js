@@ -1,7 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import { Go,GenerateCD,battlemax,ForwardMsg,__PATH,Add_lingshi ,Read_player} from '../Xiuxian/Xiuxian.js'
+
 /**
  * 怪物
  */
@@ -61,14 +62,14 @@ export class BossAll extends plugin {
                 }
             }
         }
-        await Xiuxian.ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     }
 
     //讨伐金角大王
     async BossMax(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
+        let good = await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
@@ -80,13 +81,13 @@ export class BossAll extends plugin {
             e.reply("金角大王未开启！");
             return;
         }
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id >= 21 && now_level_id < 42) {
             let ClassCD = ":BossTime";
             let now_time = new Date().getTime();
             let CDTime = 15;
-            let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+            let CD = await GenerateCD(usr_qq, ClassCD, now_time, CDTime);
             if (CD != 0) {
                 e.reply(CD);
                 return;
@@ -95,18 +96,18 @@ export class BossAll extends plugin {
             let BossMax = await redis.get("xiuxian:BossMax");
             BossMax = JSON.parse(BossMax);
             if (BossMax != null) {
-                let Data_battle = await Xiuxian.battlemax(usr_qq, BossMax);
+                let Data_battle = await battlemax(usr_qq, BossMax);
                 let msg = Data_battle.msg;
                 if (msg.length > 30) {
                     e.reply("战斗过程略...");
                 } else {
-                    await Xiuxian.ForwardMsg(e, msg);
+                    await ForwardMsg(e, msg);
                 }
                 if (Data_battle.victory == usr_qq) {
-                    await Xiuxian.Add_lingshi(usr_qq, BossMax.money);
+                    await Add_lingshi(usr_qq, BossMax.money);
                     e.reply("你击败了"+BossMax.name+"，获得" + BossMax.money);
                 } else {
-                    await Xiuxian.Add_lingshi(usr_qq, -BossMax.money);
+                    await Add_lingshi(usr_qq, -BossMax.money);
                     e.reply("你被"+BossMax.name+"打败了，被抢走了" + BossMax.money);
                 }
             }
@@ -122,8 +123,8 @@ export class BossAll extends plugin {
 
     //讨伐银角大王
     async BossMini(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
+        let good = await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
@@ -134,14 +135,14 @@ export class BossAll extends plugin {
             e.reply("银角大王未开启！");
             return;
         }
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level_id;
         now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id < 21) {
             let ClassCD = ":BossTime";
             let now_time = new Date().getTime();
             let CDTime = 15;
-            let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+            let CD = await GenerateCD(usr_qq, ClassCD, now_time, CDTime);
             if (CD != 0) {
                 e.reply(CD);
                 return;
@@ -150,18 +151,18 @@ export class BossAll extends plugin {
             let BossMini = await redis.get("xiuxian:BossMini");
             BossMini = JSON.parse(BossMini);
             if (BossMini != null) {
-                let Data_battle = await Xiuxian.battlemax(usr_qq, BossMini);
+                let Data_battle = await battlemax(usr_qq, BossMini);
                 let msg = Data_battle.msg;
                 if (msg.length > 30) {
                     e.reply("战斗过程略...");
                 } else {
-                    await Xiuxian.ForwardMsg(e, msg);
+                    await ForwardMsg(e, msg);
                 }
                 if (Data_battle.victory == usr_qq) {
-                    await Xiuxian.Add_lingshi(usr_qq, BossMini.money);
+                    await Add_lingshi(usr_qq, BossMini.money);
                     e.reply("你击败了"+BossMini.name+"，，获得" + BossMini.money);
                 } else {
-                    await Xiuxian.Add_lingshi(usr_qq, -BossMini.money);
+                    await Add_lingshi(usr_qq, -BossMini.money);
                     e.reply("你被"+BossMini.name+"打败了，被抢走了" + BossMini.money);
                 }
             }

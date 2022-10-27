@@ -2,7 +2,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {__PATH,At , offaction,Read_player,Write_player,Read_equipment,Write_equipment } from '../Xiuxian/Xiuxian.js'
+
 /**
  * 修仙设置
  */
@@ -66,7 +67,7 @@ export class AdminSuper extends plugin {
         e.reply("开始同步");
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));  
         for (let file of files) {
             file = file.replace(".json", "");
@@ -74,13 +75,13 @@ export class AdminSuper extends plugin {
         }
         for (let player_id of playerList) {
             let usr_qq = player_id;
-            let player = await Xiuxian.Read_player(usr_qq);
+            let player = await Read_player(usr_qq);
             if(player.prestige==undefined){
                 player.prestige=0;
             }
-            await Xiuxian.Write_player(usr_qq,player);
-            let equipment = await Xiuxian.Read_equipment(usr_qq);
-            await Xiuxian.Write_equipment(usr_qq, equipment);
+            await Write_player(usr_qq,player);
+            let equipment = await Read_equipment(usr_qq);
+            await Write_equipment(usr_qq, equipment);
         }
         e.reply("同步结束");
         return;
@@ -92,16 +93,16 @@ export class AdminSuper extends plugin {
         }
         e.reply("开始设置");
         let code = e.msg.replace("#修仙设置练气为", '');
-        let B = await Xiuxian.At(e);
+        let B = await At(e);
         if (B == 0) {
             return;
         }
         let usr_qq = B;
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         player.level_id=code;
-        await Xiuxian.Write_player(usr_qq, player);
-        let equipment = await Xiuxian.Read_equipment(usr_qq);
-        await Xiuxian.Write_equipment(usr_qq, equipment);
+        await Write_player(usr_qq, player);
+        let equipment = await Read_equipment(usr_qq);
+        await Write_equipment(usr_qq, equipment);
         e.reply("已完成设置");
         return;
     }
@@ -113,16 +114,16 @@ export class AdminSuper extends plugin {
         }
         e.reply("开始设置");
         let code = e.msg.replace("#修仙设置练气为", '');
-        let B = await Xiuxian.At(e);
+        let B = await At(e);
         if (B == 0) {
             return;
         }
         let usr_qq = B;
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         player.Physique_id=code;
-        await Xiuxian.Write_player(usr_qq, player);
-        let equipment = await Xiuxian.Read_equipment(usr_qq);
-        await Xiuxian.Write_equipment(usr_qq, equipment);
+        await Write_player(usr_qq, player);
+        let equipment = await Read_equipment(usr_qq);
+        await Write_equipment(usr_qq, equipment);
         e.reply("已完成设置");
         return;
     }
@@ -138,14 +139,14 @@ export class AdminSuper extends plugin {
         e.reply("开始行动！");
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            await Xiuxian.offaction(player_id);
+            await offaction(player_id);
         }
         e.reply("行动结束！");
     }
@@ -155,11 +156,11 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let qq=await Xiuxian.At(e);
+        let qq=await At(e);
         if(qq==0){
             return;
         }
-        await Xiuxian.offaction(qq);
+        await offaction(qq);
         e.reply("执行结束");
         return;
     }
@@ -168,13 +169,13 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let qq=await Xiuxian.At(e);
+        let qq=await At(e);
         if(qq==0){
             return;
         }
-        let player = await Xiuxian.Read_player(qq);
+        let player = await Read_player(qq);
         player.power_place = 1;
-        await Xiuxian.Write_player(usr_qq, player);
+        await Write_player(usr_qq, player);
         e.reply("已打落凡间！");
         return;
     }

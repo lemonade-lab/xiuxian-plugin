@@ -2,7 +2,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {Go,existplayer,ForwardMsg,Add_lingshi,Add_experience,isNotNull,Read_player} from '../Xiuxian/Xiuxian.js'
+
+
 /**
  * 秘境模块
  */
@@ -52,7 +54,7 @@ export class SecretPlace extends plugin {
     }
 
     async Xiuxianstate(e) {
-        await Xiuxian.Go(e);
+        await Go(e);
         return;
     }
 
@@ -67,8 +69,8 @@ export class SecretPlace extends plugin {
     }
 
     async Gosecretplace(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         var didian = await e.msg.replace("#降临秘境", '');
@@ -93,8 +95,8 @@ export class SecretPlace extends plugin {
     }
 
     async Goforbiddenarea(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         var didian = await e.msg.replace("#前往禁地", '');
@@ -119,8 +121,8 @@ export class SecretPlace extends plugin {
     }
 
     async GoTimeplace(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         let weizhi = "无欲天仙"
@@ -136,7 +138,7 @@ export class SecretPlace extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             e.reply("没存档你逃个锤子!");
             return;
@@ -180,7 +182,7 @@ export async function Goweizhi(e, weizhi, addres) {
     for (var i = 0; i < weizhi.length; i++) {
         msg.push(weizhi[i].name + "\n" + "类型：" + weizhi[i].Grade + "\n" + "极品：" + weizhi[i].Best[0] + "\n" + "修为：" + weizhi[i].experience + "\n" +"灵石：" + weizhi[i].Price)
     }
-    await Xiuxian.ForwardMsg(e, msg);
+    await ForwardMsg(e, msg);
 }
 
 
@@ -188,64 +190,44 @@ export async function Goweizhi(e, weizhi, addres) {
  * 历练
  */
  export async function practice(e,weizhi,level_id,name,time) {
-
     let usr_qq = e.user_id;
-
-    let player = await Xiuxian.Read_player(usr_qq);
-
+    let player = await Read_player(usr_qq);
     let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-
     if (now_level_id <= level_id) {
         e.reply("境界不足");
         return ;
     }
-
-    if (!Xiuxian.isNotNull(weizhi)) {
+    if (!isNotNull(weizhi)) {
         return ;
     }
-
     if (player.lingshi < weizhi.Price) {
         e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
         return ;
     }
-
     if (player.lingshi < weizhi.experience) {
         e.reply("你需要积累" + weizhi.experience + "修为才能抵御世界之力");
         return ;
     }
-
     let Price = weizhi.Price;
     let experience = weizhi.experience;
-    await Xiuxian.Add_lingshi(usr_qq, -Price);
-    await Xiuxian.Add_experience(usr_qq, -experience);
+    await Add_lingshi(usr_qq, -Price);
+    await Add_experience(usr_qq, -experience);
     let action_time = 60000 * time;//持续时间，单位毫秒
     let arr = {
-        //动作
         "action": name,
-        //结束时间
         "end_time": new Date().getTime() + action_time,
-        //持续时间
         "time": action_time,
-        //闭关
         "shutup": "1",
-        //降妖
         "working": "1",
-        //秘境状态---开启
         "Place_action": "0",
-        //渡劫状态--关闭
         "power_up": "1",
-        //地点
         "Place_address": weizhi,
     };
-
     if (e.isGroup) {
         arr.group_id = e.group_id
     }
-
     await redis.set("xiuxian:player:" + usr_qq + ":action", JSON.stringify(arr));
-
     e.reply(name + "..." + time + "分钟后归来!");
-
     return 0; 
 }
 

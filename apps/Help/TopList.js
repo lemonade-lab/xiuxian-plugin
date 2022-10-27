@@ -1,8 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../model/XiuxianData.js'
 import fs from "fs"
-import * as ShowData from '../ShowImeg/showData.js'
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {existplayer,__PATH,Read_player,sortBy,ForwardMsg} from '../Xiuxian/Xiuxian.js'
+
 /**
  * 所有榜单
  */
@@ -32,7 +31,7 @@ export class TopList extends plugin {
 
     async TOP_prestige(e){
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
@@ -42,7 +41,7 @@ export class TopList extends plugin {
         let playerList = [];
         let temp = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
@@ -50,7 +49,7 @@ export class TopList extends plugin {
         }
         var i = 0;
         for (let player_id of playerList) {
-            let player = await Xiuxian.Read_player(player_id);
+            let player = await Read_player(player_id);
             let prestige = Math.trunc(player.prestige);
             temp[i] = {
                 "prestige": prestige,
@@ -60,7 +59,7 @@ export class TopList extends plugin {
             }
             i++;
         }
-        temp.sort(Xiuxian.sortBy("prestige"));
+        temp.sort(sortBy("prestige"));
         var length;
         if (temp.length > 10) {
             length = 10;
@@ -76,14 +75,14 @@ export class TopList extends plugin {
                 "\n魔力：" + temp[j].prestige +
                 "\nQQ:" + temp[j].qq);
         }
-        await Xiuxian.ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     }
 
     //封神榜
     async TOP_Immortal(e) {
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
@@ -93,7 +92,7 @@ export class TopList extends plugin {
         let playerList = [];
         let temp = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
@@ -101,7 +100,7 @@ export class TopList extends plugin {
         }
         var i = 0;
         for (let player_id of playerList) {
-            let player = await Xiuxian.Read_player(player_id);
+            let player = await Read_player(player_id);
             let power = (player.nowattack + player.nowdefense * 0.8 + player.hpmax * 0.6) * player.burst;
             if (player.level_id < 42) {
                 continue;
@@ -115,7 +114,7 @@ export class TopList extends plugin {
             }
             i++;
         }
-        temp.sort(Xiuxian.sortBy("power"));
+        temp.sort(sortBy("power"));
         console.log(temp);
         var length;
         if (temp.length > 10) {
@@ -132,14 +131,14 @@ export class TopList extends plugin {
                 "\n战力：" + temp[j].power +
                 "\nQQ:" + temp[j].qq);
         }
-        await Xiuxian.ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     }
 
     //#至尊榜
     async TOP_genius(e) {
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
@@ -149,7 +148,7 @@ export class TopList extends plugin {
         let playerList = [];
         let temp = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
@@ -157,7 +156,7 @@ export class TopList extends plugin {
         }
         var i = 0;
         for (let player_id of playerList) {
-            let player = await Xiuxian.Read_player(player_id);
+            let player = await Read_player(player_id);
             let power = (player.nowattack + player.nowdefense * 0.8 + player.hpmax * 0.5) * player.burst;
             if (player.level_id >= 42) {
                 continue;
@@ -171,7 +170,7 @@ export class TopList extends plugin {
             }
             i++;
         }
-        temp.sort(Xiuxian.sortBy("power"));
+        temp.sort(sortBy("power"));
         console.log(temp);
         var length;
         if (temp.length > 10) {
@@ -188,7 +187,7 @@ export class TopList extends plugin {
                 "\n战力：" + temp[j].power +
                 "\nQQ:" + temp[j].qq);
         }
-        await Xiuxian.ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     }
 }

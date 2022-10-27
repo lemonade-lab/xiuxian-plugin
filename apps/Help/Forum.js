@@ -1,6 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {ForwardMsg,Read_Forum,existplayer,Read_player} from '../Xiuxian/Xiuxian.js'
+
+
 /**
  * 攻略论坛
  */
@@ -25,7 +27,7 @@ export class Forum extends plugin {
     }
 
     async Searchforum(e) {
-        let Forum = await Xiuxian.Read_Forum();
+        let Forum = await Read_Forum();
         let msg = [
             "___[有间客栈]___"
         ];
@@ -36,7 +38,7 @@ export class Forum extends plugin {
                 "\ntime:" + Forum[i].time +
                 "\nID:" + Forum[i].number);
         }
-        await Xiuxian.ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     }
 
@@ -45,11 +47,11 @@ export class Forum extends plugin {
         if (usr_qq == 80000000) {
             return;
         }
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
-        let Forum = await Xiuxian.Read_Forum();
+        let Forum = await Read_Forum();
         let title0 = e.msg.replace("#", '');
         title0 = title0.replace("文章", '');
         let code = title0.split("\*");
@@ -71,7 +73,7 @@ export class Forum extends plugin {
             e.reply("内容最多50个字");
             return;
         }
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level_id;
         now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id < 9) {
@@ -95,7 +97,7 @@ export class Forum extends plugin {
             "number": Mathrandom//编号
         };
         Forum.push(wupin);
-        await Xiuxian.Write_Forum(Forum);
+        await Write_Forum(Forum);
         e.reply("发布成功！");
         return;
     }
