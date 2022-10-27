@@ -3,7 +3,11 @@ import Show from "../../model/show.js"
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {getPlayerAction,player_efficiency,talentname} from '../Xiuxian/Xiuxian.js'
+import {exist_thing_ring,exist_thing_arms,exist_thing_huju,
+    exist_thing_fabao,exist_thing_gonfa,exist_thing_danyao} from '../Xiuxian/Xiuxian.js'
+
+
 /**
  * 生图模块
  * 
@@ -73,7 +77,7 @@ export async function get_player_img(e) {
     let wuqi_name  = data.wuqi_list.find(item => item.id == equipment.arms.id).name;
     let juju_name  = data.huju_list.find(item => item.id == equipment.huju.id).name;
     let fabao_name = data.fabao_list.find(item => item.id == equipment.fabao.id).name;
-    let player_status = await Xiuxian.getPlayerAction(usr_qq);
+    let player_status = await getPlayerAction(usr_qq);
     let status = "空闲";
     if (player_status.time != null) {
         status = player_status.action + "(剩余时间:" + player_status.time + ")";
@@ -83,9 +87,9 @@ export async function get_player_img(e) {
         lingshi = 999999999999;
     }
     data.setData("player", usr_qq, player);
-    await Xiuxian.player_efficiency(usr_qq);
+    await player_efficiency(usr_qq);
     let linggenname = "未知";
-    linggenname = await Xiuxian.talentname(player);
+    linggenname = await talentname(player);
     let name = "";
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
@@ -125,7 +129,7 @@ export async function get_player_img(e) {
     if (player.lingshi > 999999999999) {
         lingshi = 999999999999;
     }
-    await Xiuxian.player_efficiency(usr_qq);
+    await player_efficiency(usr_qq);
 
     let levelMax = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
 
@@ -228,22 +232,22 @@ export async function get_najie_img(e) {
     let ring=[];
     
     for(var i=0;i<najie.arms.length;i++){
-        let name=await Xiuxian.exist_thing_arms(najie.arms[i]);
+        let name=await exist_thing_arms(najie.arms[i]);
         name.acount=najie.arms[i].acount;
         arms.push(name);
     }
     for(var i=0;i<najie.huju.length;i++){
-        let name=await Xiuxian.exist_thing_huju(najie.huju[i])
+        let name=await exist_thing_huju(najie.huju[i])
         name.acount=najie.huju[i].acount;
         huju.push(name);
     }
     for(var i=0;i<najie.fabao.length;i++){
-        let name=await Xiuxian.exist_thing_fabao(najie.fabao[i])
+        let name=await exist_thing_fabao(najie.fabao[i])
         name.acount=najie.fabao[i].acount;
         fabao.push(name);
     }
     for(var i=0;i<najie.danyao.length;i++){
-        let name=await Xiuxian.exist_thing_danyao(najie.danyao[i]);
+        let name=await exist_thing_danyao(najie.danyao[i]);
         if(name.type==1){
             name.type == "血量";
         }else{
@@ -253,17 +257,17 @@ export async function get_najie_img(e) {
         danyao.push(name);
     }
     for(var i=0;i<najie.daoju.length;i++){
-        let name=await Xiuxian.exist_thing_daoju(najie.daoju[i]);
+        let name=await (najie.daoju[i]);
         name.acount = najie.daoju[i].acount;
         daoju.push(name);
     }
     for(var i=0;i<najie.gonfa.length;i++){
-        let name=await Xiuxian.exist_thing_gonfa(najie.gonfa[i]);
+        let name=await exist_thing_gonfa(najie.gonfa[i]);  
         name.acount = najie.gonfa[i].acount;
         gonfa.push(name);
     }
     for(var i=0;i<najie.ring.length;i++){
-        let name=await Xiuxian.exist_thing_ring(najie.ring[i]);
+        let name=await exist_thing_ring(najie.ring[i]);
         name.acount=najie.ring[i].acount;
         ring.push(name);
     }
@@ -291,7 +295,6 @@ export async function get_najie_img(e) {
         ...data1,
     });
     return img;
-
 }
 
 /**

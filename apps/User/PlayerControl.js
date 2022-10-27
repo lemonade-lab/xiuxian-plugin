@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {Gomini,Go,offaction,player_efficiency,Numbers} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 /**
  * 定时任务
@@ -40,38 +40,30 @@ export class PlayerControl extends plugin {
 
     //闭关
     async Biguan(e) {
-        
-        let Go = await Xiuxian.Gomini(e);
-        if (!Go) {
+        let good = await Gomini(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
-
         let time = e.msg.replace("#", "");
         time = time.replace("闭关", "");
         time = time.replace("分", "");
         time = time.replace("钟", "");
-
         if (parseInt(time) != parseInt(time)) {
             time = 30;
         }
-
         var y = 30;//时间
         var x = 24;//循环次数
         time = parseInt(time);
-
         for (var i = x; i > 0; i--) {
             if (time >= y * i) {
                 time = y * i;
                 break;
             }
         }
-
         if (time < 30) {
             time = 30;
         }
-
-        //持续时间，单位毫秒
         let action_time = time * 60 * 1000;
         let arr = {
             "action": "闭关",//动作
@@ -91,13 +83,10 @@ export class PlayerControl extends plugin {
         return true;
     }
 
-
-
-
     //降妖
     async Dagong(e) {
-        let Go = await Xiuxian.Go(e);
-        if (!Go) {
+        let good = await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
@@ -108,7 +97,6 @@ export class PlayerControl extends plugin {
         if (parseInt(time) != parseInt(time)) {
             time = 30;
         }
-
         time = parseInt(time);//你选择的时间
         var y = 15;//固定时间
         var x = 32;//循环次数
@@ -121,8 +109,6 @@ export class PlayerControl extends plugin {
         if (time < 15) {
             time = 15;
         }
-
-         //持续时间，单位毫秒
         let action_time = time * 60 * 1000;
         let arr = {
             "action": "降妖",//动作
@@ -147,26 +133,20 @@ export class PlayerControl extends plugin {
             return;
         }
         let user_id=e.user_id;
-
         let action = await this.getPlayerAction(user_id);
         let state = await this.getPlayerState(action);
-
         if (state == "空闲") {
             return;
         }
-
         if (action.action != "闭关") {
             return;
         }
-
         let end_time = action.end_time;
         let start_time = action.end_time - action.time;
         let now_time = new Date().getTime();
         let time;
         var y = this.xiuxianConfigData.biguan.time;//固定时间
         var x = this.xiuxianConfigData.biguan.cycle;//循环次数
-
-        //提前结算
         if (end_time > now_time) {
             time = parseInt((new Date().getTime() - start_time) / 1000 / 60);
             for (var i = x; i > 0; i--) {
@@ -179,7 +159,6 @@ export class PlayerControl extends plugin {
                 time = 0;
             }
         } 
-        //未结算
         else {
             time = parseInt((action.time) / 1000 / 60);
             for (var i = x; i > 0; i--) {
@@ -189,14 +168,12 @@ export class PlayerControl extends plugin {
                 }
             }
         }
-
-        //提前闭关结束---不触发随机事件
         if (e.isGroup) {
             await this.biguan_jiesuan(user_id, time, false, e.group_id);
         } else {
             await this.biguan_jiesuan(user_id, time, false);
         }
-        await Xiuxian.offaction(user_id);
+        await offaction(user_id);
         return;
     }
 
@@ -241,20 +218,19 @@ export class PlayerControl extends plugin {
                 }
             }
         }
-        //提前结束不会触发
         if (e.isGroup) {
             await this.dagong_jiesuan(user_id, time, false, e.group_id);
         } else {
             await this.dagong_jiesuan(user_id, time, false);
         }
-        await Xiuxian.offaction(user_id);
+        await offaction(user_id);
     }
 
 
     async biguan_jiesuan(user_id, time, is_random, group_id) {
         let usr_qq = user_id;
         let player = data.getData("player", usr_qq);
-        await Xiuxian.player_efficiency(usr_qq);
+        await player_efficiency(usr_qq);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         var size = this.xiuxianConfigData.biguan.size;
         let xiuwei = parseInt((size * now_level_id) * (player.talentsize + 1));
@@ -326,10 +302,8 @@ export class PlayerControl extends plugin {
         return;
     }
 
-
     async getPlayerAction(usr_qq) {
         let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-        //转为json格式数据
         action = JSON.parse(action);
         return action;
     }
@@ -340,8 +314,6 @@ export class PlayerControl extends plugin {
         }
         let now_time = new Date().getTime();
         let end_time = action.end_time;
-        //当前时间>=结束时间，并且未结算 属于已经完成任务，却并没有结算的
-        //当前时间<=完成时间，并且未结算 属于正在进行
         if (!((now_time >= end_time && (action.shutup == 0 || action.working == 0)) || (now_time <= end_time && (action.shutup == 0 || action.working == 0)))) {
             return "空闲";
         }
@@ -367,7 +339,7 @@ export class PlayerControl extends plugin {
         if (type == "nowblood" && new_num > user_data.hpmax) {
             new_num = user_data.hpmax;//治疗血量需要判读上限
         }
-        new_num = await Xiuxian.Numbers(new_num);
+        new_num = await Numbers(new_num);
         user_data[type] = new_num;
         data.setData("player", user_qq, user_data);
         return;

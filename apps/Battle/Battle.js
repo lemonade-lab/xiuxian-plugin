@@ -1,6 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import { Go,GenerateCD,battle,ForwardMsg,Add_prestige,Add_experiencemax,__PATH,At,Numbers,Add_lingshi ,Read_player } from '../Xiuxian/Xiuxian.js'
+import { Go,GenerateCD,battle,ForwardMsg,Add_prestige,
+    Add_experiencemax,__PATH,At,Numbers,Add_lingshi ,
+    Read_player } from '../Xiuxian/Xiuxian.js'
 
 /**
  * 战斗类

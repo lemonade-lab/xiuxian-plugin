@@ -2,7 +2,9 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {Go,Read_player,GenerateCD,Add_experiencemax,Read_equipment,
+    Write_equipment,Add_HP,Add_experience,__PATH} from '../Xiuxian/Xiuxian.js'
+
 /**
  * 境界模块
  */
@@ -36,12 +38,12 @@ export class Level extends plugin {
     }
 
     async LevelMax_up(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level_id = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level_id;
         let now_exp = player.experiencemax;
         let need_exp = data.LevelMax_list.find(item => item.level_id == player.Physique_id).exp;
@@ -52,7 +54,7 @@ export class Level extends plugin {
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_LevelMaxup_time";
         let now_time = new Date().getTime();
-        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        let CD = await GenerateCD(usr_qq, ClassCD, now_time, CDTime);
         if (CD != 0) {
             e.reply(CD);
             return;
@@ -63,19 +65,19 @@ export class Level extends plugin {
         if (rand > prob) {
             let bad_time = Math.random();
             if (bad_time > 0.9) {
-                await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.4);
+                await Add_experiencemax(usr_qq, -1 * need_exp * 0.4);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "气血");
                 return;
             }
             else if (bad_time > 0.8) {
-                await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
+                await Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "气血");
                 return;
             }
             else if (bad_time > 0.7) {
-                await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.1);
+                await Add_experiencemax(usr_qq, -1 * need_exp * 0.1);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "气血");
                 return;
@@ -86,7 +88,7 @@ export class Level extends plugin {
                 return;
             }
             else {
-                await Xiuxian.Xiuxian.Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
+                await Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "气血");
                 return;
@@ -94,10 +96,10 @@ export class Level extends plugin {
         }
         player.Physique_id = now_level_id + 1;
         player.experiencemax -= need_exp;
-        await Xiuxian.Write_player(usr_qq, player);
-        let equipment = await Xiuxian.Read_equipment(usr_qq);
-        await Xiuxian.Write_equipment(usr_qq, equipment);
-        await Xiuxian.Add_HP(usr_qq, 99999999);
+        await Write_player(usr_qq, player);
+        let equipment = await Read_equipment(usr_qq);
+        await Write_equipment(usr_qq, equipment);
+        await Add_HP(usr_qq, 99999999);
         let level = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
         e.reply(`突破成功至${level}`);
         await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
@@ -109,12 +111,12 @@ export class Level extends plugin {
 
     //突破
     async Level_up(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
         if (now_level == "渡劫期") {
             if (player.power_place == 0) {
@@ -146,7 +148,7 @@ export class Level extends plugin {
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_Levelup_time";
         let now_time = new Date().getTime();
-        let CD = await Xiuxian.GenerateCD(usr_qq, ClassCD, now_time, CDTime);
+        let CD = await GenerateCD(usr_qq, ClassCD, now_time, CDTime);
         if (CD != 0) {
             e.reply(CD);
             return;
@@ -157,19 +159,19 @@ export class Level extends plugin {
         if (rand > prob) {
             let bad_time = Math.random();//增加多种突破失败情况，顺滑突破丢失experience曲线
             if (bad_time > 0.9) {
-                await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.4);
+                await Add_experience(usr_qq, -1 * need_exp * 0.4);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "修为");
                 return;
             }
             else if (bad_time > 0.8) {
-                await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.2);
+                await Add_experience(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
                 return;
             }
             else if (bad_time > 0.7) {
-                await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.1);
+                await Add_experience(usr_qq, -1 * need_exp * 0.1);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "修为");
                 return;
@@ -180,7 +182,7 @@ export class Level extends plugin {
                 return;
             }
             else {
-                await Xiuxian.Add_experience(usr_qq, -1 * need_exp * 0.2);
+                await Add_experience(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
                 return;
@@ -188,10 +190,10 @@ export class Level extends plugin {
         }
         player.level_id = now_level_id + 1;
         player.experience -= need_exp;
-        await Xiuxian.Write_player(usr_qq, player);
-        let equipment = await Xiuxian.Read_equipment(usr_qq);
-        await Xiuxian.Write_equipment(usr_qq, equipment);
-        await Xiuxian.Add_HP(usr_qq, 99999999);
+        await Write_player(usr_qq, player);
+        let equipment = await Read_equipment(usr_qq);
+        await Write_equipment(usr_qq, equipment);
+        await Add_HP(usr_qq, 99999999);
         let level = data.Level_list.find(item => item.level_id == player.level_id).level;
         e.reply(`突破成功,当前境界为${level}`);
         await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);
@@ -202,12 +204,12 @@ export class Level extends plugin {
 
     //渡劫
     async fate_up(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
         if (now_level != "渡劫期") {
             e.reply(`你非渡劫期修士！`);
@@ -221,7 +223,7 @@ export class Level extends plugin {
         let list_HP = data.Level_list.find(item => item.level == now_level).基础血量;
         if (now_HP < list_HP * 0.9) {
             player.nowblood = 1;
-            await Xiuxian.Write_player(usr_qq, player);
+            await Write_player(usr_qq, player);
             e.reply(player.name + "血量亏损，强行渡劫后晕倒在地！");
             return;
         }
@@ -250,7 +252,7 @@ export class Level extends plugin {
         if (x <= n) {
             player.nowblood = 0;
             player.experience -= parseInt(need_exp / 4);
-            await Xiuxian.Write_player(usr_qq, player);
+            await Write_player(usr_qq, player);
             e.reply("天空一声巨响，未降下雷劫，就被天道的气势震死了。");
             return;
         }
@@ -287,12 +289,12 @@ export class Level extends plugin {
 
     //#羽化登仙
     async Level_up_Max(e) {
-        let Go=await Xiuxian.Go(e);
-        if (!Go) {
+        let good=await Go(e);
+        if (!good) {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Xiuxian.Read_player(usr_qq);
+        let player = await Read_player(usr_qq);
         let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
         if (now_level != "渡劫期") {
             e.reply(`你非渡劫期修士！`);
@@ -314,10 +316,10 @@ export class Level extends plugin {
             now_level_id = now_level_id + 1;
             player.level_id = now_level_id;
             player.experience -= need_exp;
-            await Xiuxian.Write_player(usr_qq, player);
-            let equipment = await Xiuxian.Read_equipment(usr_qq);
-            await Xiuxian.Write_equipment(usr_qq, equipment);
-            await Xiuxian.Add_HP(usr_qq, 99999999);
+            await Write_player(usr_qq, player);
+            let equipment = await Read_equipment(usr_qq);
+            await Write_equipment(usr_qq, equipment);
+            await Add_HP(usr_qq, 99999999);
             return;
         }
         return;
@@ -327,7 +329,7 @@ export class Level extends plugin {
 
 export async function dujie(user_qq) {
     let usr_qq = user_qq;
-    let player = await Xiuxian.Read_player(usr_qq);
+    let player = await Read_player(usr_qq);
     var new_blood = player.nowblood;
     var new_defense = player.nowdefense; 
     var new_attack = player.nowattack;
@@ -351,7 +353,7 @@ export async function dujie(user_qq) {
 export async function fanren() {
     let playerList = [];
     let files = fs
-        .readdirSync(Xiuxian.__PATH.player)
+        .readdirSync(__PATH.player)
         .filter((file) => file.endsWith(".json"));
     for (let file of files) {
         file = file.replace(".json", "");

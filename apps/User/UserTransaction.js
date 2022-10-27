@@ -3,19 +3,8 @@ import data from '../../model/XiuxianData.js'
 import path from "path"
 import fs from "fs"
 
-import { Numbers } from '../Xiuxian/Xiuxian.js'
-import { Read_player } from '../Xiuxian/Xiuxian.js'
-import { Add_lingshi } from '../Xiuxian/Xiuxian.js'
-import { exist_najie_thing } from '../Xiuxian/Xiuxian.js'
-import { search_thing } from '../Xiuxian/Xiuxian.js'
-import { existplayer } from '../Xiuxian/Xiuxian.js'
-import { ForwardMsg } from '../Xiuxian/Xiuxian.js'
-
-const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
-export const __PATH = {
-    najie: path.join(__dirname, "/resources/data/birth/xiuxian/najie")
-}
-
+import { Numbers,Read_player,Add_lingshi,exist_najie_thing,
+    search_thing,existplayer,ForwardMsg,__PATH } from '../Xiuxian/Xiuxian.js'
 
 export class UserTransaction extends plugin {
     constructor() {

@@ -4,8 +4,12 @@ import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import data from '../../model/XiuxianData.js'
-import {__PATH,isNotNull,Read_player,Numbers,battlemax,search_thing,offaction,Read_najie } from '../Xiuxian/Xiuxian.js'
-import { Add_najie_thing_ring,Add_najie_thing_arms,Add_najie_thing_huju,Add_najie_thing_fabao,Add_najie_thing_danyao,Add_najie_thing_gonfa,Add_najie_thing_daoju } from '../Xiuxian/Xiuxian.js'
+import {__PATH,isNotNull,Read_player,Numbers,
+    battlemax,search_thing,offaction,Read_najie,
+    Add_najie_thing_ring,Add_najie_thing_arms,
+    Add_najie_thing_huju,Add_najie_thing_fabao,
+    Add_najie_thing_danyao,Add_najie_thing_gonfa,
+    Add_najie_thing_daoju } from '../Xiuxian/Xiuxian.js'
 
 /**
  * 定时任务

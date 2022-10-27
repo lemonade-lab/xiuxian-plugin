@@ -1,8 +1,8 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
 import * as ShowData from '../ShowImeg/showData.js'
+import {existplayer } from '../Xiuxian/Xiuxian.js'
 /**
  * 信息模块
  */
@@ -35,7 +35,7 @@ export class UserInformation extends plugin {
     //#我的练气
     async Show_player(e) {
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
@@ -47,7 +47,7 @@ export class UserInformation extends plugin {
     //show_power
     async show_power(e) {
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
@@ -59,7 +59,7 @@ export class UserInformation extends plugin {
     //修仙面板
     async show_equipment(e) {
         let usr_qq = e.user_id;
-        let ifexistplay = await Xiuxian.existplayer(usr_qq);
+        let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }

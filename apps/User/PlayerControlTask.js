@@ -4,7 +4,7 @@ import common from "../../../../lib/common/common.js"
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {__PATH,isNotNull,Numbers,offaction} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 /**
  * 定时任务
@@ -31,7 +31,7 @@ export class PlayerControlTask extends plugin {
     async Playercontroltask() {
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
@@ -46,7 +46,7 @@ export class PlayerControlTask extends plugin {
                 let push_address;//消息推送地址
                 let is_group = false;//是否推送到群
                 if (action.hasOwnProperty("group_id")) {
-                    if (Xiuxian.isNotNull(action.group_id)) {
+                    if (isNotNull(action.group_id)) {
                         is_group = true;
                         push_address = action.group_id;
                     }
@@ -75,11 +75,11 @@ export class PlayerControlTask extends plugin {
                             other_xiuwei = -1 * rand * time;
                             msg.push("\n由于你闭关时隔壁装修,导致你差点走火入魔,修为下降" + rand * time);
                         }
-                        xiuwei=await Xiuxian.Numbers(xiuwei * time);
-                        blood=await Xiuxian.Numbers(blood * time);
+                        xiuwei=await Numbers(xiuwei * time);
+                        blood=await Numbers(blood * time);
                         await this.setFileValue(player_id, xiuwei + other_xiuwei, "experience");
                         await this.setFileValue(player_id, blood, "nowblood");
-                        await Xiuxian.offaction(player_id);
+                        await offaction(player_id);
                         msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
                         if (is_group) {
                             await this.pushInfo(push_address, is_group, msg)
@@ -114,9 +114,9 @@ export class PlayerControlTask extends plugin {
                             msg.push("\n由于你的疏忽,货物被人顺手牵羊,老板大发雷霆,灵石减少" + rand * time);
                         }
                         let get_lingshi = lingshi * time + other_lingshi;
-                        get_lingshi=await Xiuxian.Numbers(get_lingshi);
+                        get_lingshi=await Numbers(get_lingshi);
                         await this.setFileValue(player_id,get_lingshi, "lingshi");
-                        await Xiuxian.offaction(player_id);
+                        await offaction(player_id);
                         msg.push("\n降妖得到" + get_lingshi);
                         log_mag += "收入" + get_lingshi;
                         if (is_group) {
@@ -140,7 +140,7 @@ export class PlayerControlTask extends plugin {
         if (type == "nowblood" && new_num > user_data.hpmax) {
             new_num = user_data.hpmax;//治疗血量需要判读上限
         }
-        new_num=await Xiuxian.Numbers(new_num);
+        new_num=await Numbers(new_num);
         user_data[type] = new_num;
         data.setData("player", user_qq, user_data);
         return;

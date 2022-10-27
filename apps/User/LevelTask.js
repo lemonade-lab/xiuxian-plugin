@@ -4,7 +4,8 @@ import common from "../../../../lib/common/common.js"
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import * as Xiuxian from '../Xiuxian/Xiuxian.js'
+import {Read_player,__PATH,isNotNull,offaction} from '../Xiuxian/Xiuxian.js'
+
 import { segment } from "oicq"
 import { dujie } from "./Level.js"
 /**
@@ -31,7 +32,7 @@ export class LevelTask extends plugin {
     async LevelTask() {
         let playerList = [];
         let files = fs
-            .readdirSync(Xiuxian.__PATH.player)
+            .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
@@ -46,7 +47,7 @@ export class LevelTask extends plugin {
                 let push_address;//消息推送地址
                 let is_group = false;//是否推送到群
                 if (action.hasOwnProperty("group_id")) {
-                    if (Xiuxian.isNotNull(action.group_id)) {
+                    if (isNotNull(action.group_id)) {
                         is_group = true;
                         push_address = action.group_id;
                     }
@@ -54,7 +55,7 @@ export class LevelTask extends plugin {
                 let msg = [segment.at(player_id)];
                 let end_time = action.end_time;
                 let now_time = new Date().getTime();
-                let player = await Xiuxian.Read_player(player_id);
+                let player = await Read_player(player_id);
                 if (action.power_up == "0") {
                     if (player.power_place == "1") {
                         let power_n = action.power_n;
@@ -69,8 +70,8 @@ export class LevelTask extends plugin {
                                 if (aconut >= power_Grade) {
                                     msg.push("\n" + player.name + "成功度过了第" + aconut + "道雷劫！可以#羽化登仙，飞升仙界啦！");
                                     await redis.set("xiuxian:player:" + player_id + ":power_aconut", 1);
-                                    await Xiuxian.Write_player(player_id, player);
-                                    await Xiuxian.offaction(player_id);
+                                    await Write_player(player_id, player);
+                                    await offaction(player_id);
                                     if (is_group) {
                                         await this.pushInfo(push_address, is_group, msg)
                                     } else {
@@ -81,7 +82,7 @@ export class LevelTask extends plugin {
                                     act = act / (power_m - power_n);
                                     player.nowblood = player.nowblood - player.nowblood * act;
                                     player.nowblood = Math.trunc(player.nowblood);
-                                    await Xiuxian.Write_player(player_id, player);
+                                    await Write_player(player_id, player);
                                     variable = Number(variable);
                                     power_distortion = Number(power_distortion);
                                     msg.push("\n本次雷伤：" + variable.toFixed(2) + "\n本次雷抗：" + power_distortion.toFixed(2) + "\n" + player.name + "成功度过了第" + aconut + "道雷劫！\n下一道雷劫在一分钟后落下！");
@@ -105,8 +106,8 @@ export class LevelTask extends plugin {
                                 power_distortion = Number(power_distortion);
                                 msg.push("\n本次雷伤" + variable.toFixed(2) + "\n本次雷抗：" + power_distortion + "\n第" + aconut + "道雷劫落下了，可惜" + player.name + "未能抵挡，渡劫失败了！");
                                 await redis.set("xiuxian:player:" + player_id + ":power_aconut", 1);
-                                await Xiuxian.Write_player(player_id, player);
-                                await Xiuxian.offaction(player_id);
+                                await Write_player(player_id, player);
+                                await offaction(player_id);
                                 if (is_group) {
                                     await this.pushInfo(push_address, is_group, msg)
                                 } else {
@@ -121,8 +122,8 @@ export class LevelTask extends plugin {
                             player.experience = Math.trunc(player.experience);
                             player.power_place = 1;
                             await redis.set("xiuxian:player:" + player_id + ":power_aconut", 1);
-                            await Xiuxian.Write_player(player_id, player);
-                            await Xiuxian.offaction(player_id);
+                            await Write_player(player_id, player);
+                            await offaction(player_id);
                             if (is_group) {
                                 await this.pushInfo(push_address, is_group, msg)
                             } else {
