@@ -112,23 +112,38 @@ export async function Write_equipment(usr_qq, equipment) {
     await updata_equipment(usr_qq);
     return;
 }
+
+
 export async function updata_equipment(usr_qq) {
+    let attack=0;
+    let defense=0;
+    let blood=0;
+    let burst=0;
+    let burstmax=0;
+    let speed=0;
     let equipment = await Read_equipment(usr_qq);
-    let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
-    let huju  = data.huju_list.find(item => item.id == equipment.huju);
-    let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
+    equipment.forEach((item)=>{
+        attack=attack+item.attack;
+         defense=defense+item.defense;
+         blood=blood+item.blood;
+         burst=burst+item.burst;
+         burstmax=burstmax+item.burstmax;
+         speed=speed+item.speed;
+    })
+
     let level = await Read_level(usr_qq);
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
     let levelmax = data.LevelMax_list.find(item => item.id == level.Physique_id);
+
     let player=await Read_battle(usr_qq);
     player={
         nowblood: player.nowblood,
-        attack: wuqi.attack+huju.attack+fabao.attack+levelmini.attack+levelmax.attack,
-        defense: wuqi.defense+huju.defense+fabao.defense+levelmini.defense+levelmax.defense,
-        blood: wuqi.blood+huju.blood+fabao.blood+levelmini.blood+levelmax.blood,
-        burst: wuqi.burst+huju.burst+fabao.burst+levelmini.burst+levelmax.burst,
-        burstmax: wuqi.burstmax+huju.burstmax+fabao.burstmax+levelmini.burstmax+levelmax.burstmax,
-        speed: wuqi.speed+huju.speed+fabao.speed+levelmini.speed+levelmax.speed,
+        attack: levelmini.attack+levelmax.attack+attack,
+        defense: levelmini.defense+levelmax.defense+defense,
+        blood: levelmini.blood+levelmax.blood+blood,
+        burst: levelmini.burst+levelmax.burst+burst,
+        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax,
+        speed:levelmini.speed+levelmax.speed+speed,
     }
     await Write_battle(usr_qq,player);
     return;
@@ -180,14 +195,17 @@ export async function Add_najie_lingshi(usr_qq, acount) {
     await Write_najie(usr_qq, najie);
     return;
 }
+
 //功法
-export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
+export async function Add_player_AllSorcery(usr_qq, gongfa) {
     let player = await Read_talent(usr_qq);
-    let id = gongfa_name_id;
-    player.AllSorcery.push(id);
-    await Write_player(usr_qq, player);
+    player.AllSorcery.push(gongfa);
+    await Write_talent(usr_qq, player);
+    //计算天赋
+    await player_efficiency(usr_qq);
     return;
 }
+
 export async function battle(A, B) {
     let A_qq = await A;
     let B_qq = await B;
@@ -371,20 +389,9 @@ async function talentsize(player) {
 export async function player_efficiency(usr_qq) {
     let player = await Read_talent(usr_qq);
     let gongfa_efficiency = 0;
-    let ifexist2;
-    let gongfa_id;
-    if(player.AllSorcery.length!=undefined){
-        for (var i = 0; i < player.AllSorcery.length; i++) {
-            gongfa_id = player.AllSorcery[i];
-            ifexist2 = data.gongfa_list.find(item => item.id == gongfa_id);
-            if (ifexist2 == undefined) {
-                ifexist2 = data.timegongfa_list.find(item => item.id == gongfa_id);
-                if(ifexist2!=undefined){
-                  gongfa_efficiency += ifexist2.size;
-                }
-            }
-        }
-    }
+    player.AllSorcery.forEach((item)=>{
+        gongfa_efficiency=gongfa_efficiency+item.size;
+    });
     let linggen_efficiency = await talentsize(player);
     player.talentsize = linggen_efficiency + gongfa_efficiency;
     await  Write_talent(usr_qq,player);
@@ -423,6 +430,12 @@ export async function search_thing_id(thing_id) {
 export async function exist_najie_thing(usr_qq, thing_id) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.id == thing_id);
+    return ifexist;
+}
+
+export async function exist_najie_thingname(usr_qq, name) {
+    let najie = await Read_najie(usr_qq);
+    let ifexist  = najie.thing.find(item => item.name == name);
     return ifexist;
 }
 

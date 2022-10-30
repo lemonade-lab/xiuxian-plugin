@@ -77,11 +77,6 @@ export async function get_player_img(e) {
     let talent = await Read_talent(usr_qq);
     let level = await Read_level(usr_qq);
     let battle = await Read_battle(usr_qq);
-
-    let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
-    let huju  = data.huju_list.find(item => item.id == equipment.huju);
-    let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
-
     let linggenname = await talentname(talent);
 
     let name = "";
@@ -101,11 +96,9 @@ export async function get_player_img(e) {
         level: level,
         linggenname: name,
         battle:battle,
+        equipment:equipment,
         lingshi: Math.trunc(wealt.lingshi),
         xianshi: Math.trunc(wealt.xianshi),
-        wuqi_name:wuqi.name,
-        huju_name:huju.name,
-        fabao_name:fabao.name,
         talent: parseInt(talent.talentsize * 100)
     }
 
@@ -124,16 +117,11 @@ export async function get_player_img(e) {
 export async function get_equipment_img(e) {
     let usr_qq = e.user_id;
     let equipment = await Read_equipment(usr_qq);
-    let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
-    let huju  = data.huju_list.find(item => item.id == equipment.huju);
-    let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
     let battle = await Read_battle(usr_qq);
     let myData = {
         user_id: usr_qq,
         battle:battle,
-        wuqi:wuqi,
-        huju:huju,
-        fabao:fabao
+        equipment:equipment
     }
     const data1 = await new Show(e).get_Data("User/equipment","equipment",myData);
     let img = await puppeteer.screenshot("equipment", {

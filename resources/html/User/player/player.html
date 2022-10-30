@@ -72,17 +72,14 @@
           天赋：+{{talent}}%
         </div>
       </div>
-      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto;">
+      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto auto auto;">
+        {{each equipment item}}
         <div>
-          武器：{{wuqi_name}}
+          {{item.name}}
         </div>
-        <div>
-          护具：{{huju_name}}
-        </div>
+        {{/each}}
       </div>
-      <div class="user_top_right_font2" style="display:grid;grid-template-columns:auto auto;">
-        <div>法宝：{{fabao_name}}
-        </div>
+      <div class="user_top_right_font2">
         <div>战力：999999
         </div>
       </div>

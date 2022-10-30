@@ -5,7 +5,7 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import {__PATH,isNotNull,Numbers,offaction} from '../Xiuxian/Xiuxian.js'
-import { segment } from "oicq"
+import { segment } from "oicq";
 /**
  * 定时任务
  */

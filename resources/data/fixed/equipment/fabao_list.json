@@ -8,6 +8,8 @@
         "burst": 1,
         "burstmax": 1,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 1,
         "acount": 1,
         "price": 1
@@ -21,6 +23,8 @@
         "burst": 5,
         "burstmax": 5,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 2,
         "acount": 1,
         "price": 5
@@ -34,6 +38,8 @@
         "burst": 10,
         "burstmax": 10,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 1,
         "acount": 1,
         "price": 10
@@ -47,6 +53,8 @@
         "burst": 15,
         "burstmax": 15,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 4,
         "acount": 1,
         "price": 15
@@ -60,6 +68,8 @@
         "burst": 20,
         "burstmax": 20,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 5,
         "acount": 1,
         "price": 20
@@ -73,6 +83,8 @@
         "burst": 25,
         "burstmax": 25,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 6,
         "acount": 1,
         "price": 25
@@ -86,6 +98,8 @@
         "burst": 30,
         "burstmax": 30,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 7,
         "acount": 1,
         "price": 30
@@ -99,6 +113,8 @@
         "burst": 35,
         "burstmax": 35,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 8,
         "acount": 1,
         "price": 35
@@ -112,6 +128,8 @@
         "burst": 40,
         "burstmax": 40,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 9,
         "acount": 1,
         "price": 40
@@ -125,6 +143,8 @@
         "burst": 45,
         "burstmax": 45,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 10,
         "acount": 1,
         "price": 45
@@ -138,6 +158,8 @@
         "burst": 50,
         "burstmax": 50,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 11,
         "acount": 1,
         "price": 50
@@ -151,6 +173,8 @@
         "burst": 55,
         "burstmax": 55,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 12,
         "acount": 1,
         "price": 55
@@ -164,6 +188,8 @@
         "burst": 60,
         "burstmax": 60,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 13,
         "acount": 1,
         "price": 60
@@ -177,6 +203,8 @@
         "burst": 65,
         "burstmax": 65,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 14,
         "acount": 1,
         "price": 65
@@ -190,6 +218,8 @@
         "burst": 70,
         "burstmax": 70,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 15,
         "acount": 1,
         "price": 70
@@ -203,6 +233,8 @@
         "burst": 75,
         "burstmax": 75,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 16,
         "acount": 1,
         "price": 75
@@ -216,6 +248,8 @@
         "burst": 80,
         "burstmax": 80,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 17,
         "acount": 1,
         "price": 80
@@ -229,6 +263,8 @@
         "burst": 85,
         "burstmax": 85,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 18,
         "acount": 1,
         "price": 85
@@ -242,6 +278,8 @@
         "burst": 1,
         "burstmax": 1,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 1,
         "acount": 1,
         "price": 1
@@ -255,6 +293,8 @@
         "burst": 1,
         "burstmax": 1,
         "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
         "speed": 1,
         "acount": 1,
         "price": 1

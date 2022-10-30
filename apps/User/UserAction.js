@@ -5,7 +5,7 @@ import { get_najie_img } from '../ShowImeg/showData.js'
 import { segment } from "oicq"
 import {existplayer,Go,Read_najie,Read_player,
     Add_lingshi,Write_najie,
-    Numbers,Add_najie_lingshi} from '../Xiuxian/Xiuxian.js'
+    Numbers,Add_najie_lingshi, Read_wealth} from '../Xiuxian/Xiuxian.js'
 /**
  * 交易系统
  */
@@ -59,7 +59,7 @@ export class UserAction extends plugin {
         }
         let usr_qq = e.user_id;
         let najie = await Read_najie(usr_qq);
-        let player = await Read_player(usr_qq);
+        let player = await Read_wealth(usr_qq);
         let najie_num = this.xiuxianConfigData.najie_num
         let najie_price = this.xiuxianConfigData.najie_price
         if (najie.grade == najie_num.length) {
@@ -91,15 +91,14 @@ export class UserAction extends plugin {
         msg = msg.replace("#", '');
         let lingshi = msg.replace("灵石", '');
         if (lingshi == "全部") {
-            let P = await Read_player(usr_qq);
+            let P = await Read_wealth(usr_qq);
             lingshi = P.lingshi;
-
-        }
+        };
 
         lingshi=await Numbers(lingshi);
 
         if (func == "存") {
-            let player_lingshi = await Read_player(usr_qq);
+            let player_lingshi = await Read_wealth(usr_qq);
             player_lingshi = player_lingshi.lingshi;
             if (player_lingshi < lingshi) {
                 e.reply([segment.at(usr_qq), `灵石不足,你目前只有${player_lingshi}灵石`]);
@@ -124,13 +123,14 @@ export class UserAction extends plugin {
                 e.reply([segment.at(usr_qq), `储物袋灵石不足,你目前最多取出${najie.lingshi}灵石`]);
                 return;
             }
-            let player_lingshi = await Read_player(usr_qq);
+            let player_lingshi = await Read_wealth(usr_qq);
             player_lingshi = player_lingshi.lingshi;
             await Add_najie_lingshi(usr_qq, -lingshi);
             await Add_lingshi(usr_qq, lingshi);
             e.reply([segment.at(usr_qq), `本次取出灵石${lingshi},你的储物袋还剩余${najie.lingshi - lingshi}灵石`]);
             return;
         }
+
         return;
     }
 

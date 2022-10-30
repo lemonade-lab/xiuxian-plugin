@@ -29,49 +29,19 @@
 
   <div class="user_bottom1">
     <div class="use_data">
-      <div class="user_top_right_font0">{{wuqi.name}}</div>
+      {{each equipment item}}
+      <div class="user_top_right_font0">{{item.name}}</div>
       <div class="user_top_right_font1">
-        <div>攻击：{{wuqi.attack}}</div>
-        <div>防御：{{wuqi.defense}}</div>
-        <div>血量：{{wuqi.blood}}</div>
+        <div>攻击：{{item.attack}}</div>
+        <div>防御：{{item.defense}}</div>
+        <div>血量：{{item.blood}}</div>
       </div>
       <div class="user_top_right_font2">
-        <div>敏捷：{{wuqi.speed}}</div>
-        <div>暴击：{{wuqi.burst}}</div>
-        <div>暴伤：{{wuqi.burstmax}}</div>
+        <div>敏捷：{{item.speed}}</div>
+        <div>暴击：{{item.burst}}</div>
+        <div>暴伤：{{item.burstmax}}</div>
       </div>
-    </div>
-  </div>
-
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="user_top_right_font0">{{huju.name}}</div>
-      <div class="user_top_right_font1">
-        <div>攻击：{{huju.attack}}</div>
-        <div>防御：{{huju.defense}}</div>
-        <div>血量：{{huju.blood}}</div>
-      </div>
-      <div class="user_top_right_font2">
-        <div>敏捷：{{huju.speed}}</div>
-        <div>暴击：{{huju.burst}}</div>
-        <div>暴伤：{{huju.burstmax}}</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="user_top_right_font0">{{fabao.name}}</div>
-      <div class="user_top_right_font1">
-        <div>攻击：{{fabao.attack}}</div>
-        <div>防御：{{fabao.defense}}</div>
-        <div>血量：{{fabao.blood}}</div>
-      </div>
-      <div class="user_top_right_font2">
-        <div>敏捷：{{fabao.speed}}</div>
-        <div>暴击：{{fabao.burst}}</div>
-        <div>暴伤：{{fabao.burstmax}}</div>
-      </div>
+      {{/each}}
     </div>
   </div>
 

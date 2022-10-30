@@ -5,7 +5,6 @@ import config from "../../model/Config.js"
 import fs from "fs"
 import { segment } from "oicq"
 import {get_player_img} from '../ShowImeg/showData.js'
-
 import {existplayer,__PATH,Write_player,Go,GenerateCD,Numbers,
         Read_player,Add_experience,getLastsign,shijianc,get_talent,
         Write_najie,Write_talent,Write_battle,Write_level,Write_wealth,
@@ -82,6 +81,7 @@ export class UserStart extends plugin {
             "nowblood": data.Level_list.find(item => item.id == 1).blood,//血量
         }
         await Write_battle(usr_qq, new_battle);
+
         let new_level = {
             "prestige": 0,//魔力
             "Age":1,//年龄
@@ -93,25 +93,23 @@ export class UserStart extends plugin {
             "levelnamemax": data.LevelMax_list.find(item => item.id == 1).name,//练体名
             "experiencemax": 1//练体经验
         }
+
         await Write_level(usr_qq, new_level);
         let new_wealth = {
             "lingshi": 5,
             "xianshi": 0
         }
+
         await Write_wealth(usr_qq, new_wealth); 
         let new_action = {
             "power_place": 1,//仙界状态
             "game": 1,//游戏状态
             "Couple":1 //双修
         }
+
         await Write_action(usr_qq, new_action);
-        //初始化装备
-        let new_equipment = {
-            //装备不分
-            "wuqi":'1-1-1',
-            "huju":'2-1-1',
-            "fabao":'3-1-1'
-        }
+
+        let new_equipment = [];
         await Write_equipment(usr_qq, new_equipment);
 
         //初始化纳戒
@@ -160,7 +158,7 @@ export class UserStart extends plugin {
         return;
     }
 
-    //#我的练气
+    //#基础信息
     async Show_player(e) {
         if (!e.isGroup) {
             return;
@@ -183,30 +181,26 @@ export class UserStart extends plugin {
         }
         let usr_qq = e.user_id;
         let lingshi = 1000;
-
         let new_name = e.msg.replace("#改名", '');
         if (new_name.length == 0) {
             e.reply("请输入正确名字");
             return;
         }
-
         const name=['尼玛','妈的','他妈','卧槽','操','操蛋','麻痹','傻逼','妈逼'];
         //屏蔽某词
         for(var i=0;i<name.length;i++){
             new_name = new_name.replace(name[i], '');
         }
-
         if (new_name.length > 8) {
             e.reply("玩家名字最多八字");
             return;
         }
-
-        let player = await Read_wealth(usr_qq);
-        if (player.lingshi < lingshi) {
+        let wealth = await Read_wealth(usr_qq);
+        if (wealth.lingshi < lingshi) {
             e.reply("需"+lingshi+"灵石");
             return;
         }
-        
+
         let ClassCD = ":last_setname_time";
         let now_time = new Date().getTime();
         let CDTime = 60*24;
@@ -215,9 +209,11 @@ export class UserStart extends plugin {
             e.reply(CD);
             return;
         }
+        wealth.lingshi -= lingshi;
+        await Write_wealth(usr_qq);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        let player =await Read_player(usr_qq);
         player.name = new_name;
-        player.lingshi -= lingshi;
         await Write_player(usr_qq, player);
         this.Show_player(e);
         return;
@@ -234,9 +230,7 @@ export class UserStart extends plugin {
         let player = await Read_player(usr_qq);
         let new_msg = e.msg.replace("#设置道宣", '');
         new_msg = new_msg.replace(" ", '');
-
         const name=['尼玛','妈的','他妈','卧槽','操','操蛋','麻痹','傻逼','妈逼'];
-        //屏蔽某词
         for(var i=0;i<name.length;i++){
             new_msg = new_msg.replace(name[i], '');
         }
@@ -290,12 +284,12 @@ export class UserStart extends plugin {
             Sign_Yesterday = false;
         }
         await redis.set("xiuxian:player:" + usr_qq + ":lastsign_time", nowTime);//redis设置签到时间
-        let player = await data.getData("player", usr_qq);
+        let player = await Read_player(usr_qq);
         if (player.days == 7 || !Sign_Yesterday) {//签到连续7天或者昨天没有签到,连续签到天数清零
             player.days = 0;
         }
         player.days += 1;
-        data.setData("player", usr_qq, player);
+        await Write_player(usr_qq);
         let gift_xiuwei = player.days * 3000;
         await Add_experience(usr_qq, gift_xiuwei);
         let msg = [

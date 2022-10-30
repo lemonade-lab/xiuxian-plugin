@@ -8,6 +8,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -21,6 +23,8 @@
 		"burst": 5,
 		"burstmax": 5,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 2,
 		"acount": 1,
 		"price": 5
@@ -34,6 +38,8 @@
 		"burst": 10,
 		"burstmax": 10,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 10
@@ -47,6 +53,8 @@
 		"burst": 15,
 		"burstmax": 15,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 4,
 		"acount": 1,
 		"price": 15
@@ -60,6 +68,8 @@
 		"burst": 20,
 		"burstmax": 20,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 5,
 		"acount": 1,
 		"price": 20
@@ -73,6 +83,8 @@
 		"burst": 25,
 		"burstmax": 25,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 6,
 		"acount": 1,
 		"price": 25
@@ -86,6 +98,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -99,6 +113,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -112,6 +128,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -125,6 +143,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -138,6 +158,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -151,6 +173,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -164,6 +188,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -177,6 +203,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -190,6 +218,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -203,6 +233,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -216,6 +248,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -229,6 +263,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -242,6 +278,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -255,6 +293,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -268,6 +308,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -281,6 +323,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -294,6 +338,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -307,6 +353,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -320,6 +368,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -333,6 +383,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -346,6 +398,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -359,6 +413,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -372,6 +428,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -385,6 +443,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -398,6 +458,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -411,6 +473,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -424,6 +488,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
@@ -437,6 +503,8 @@
 		"burst": 1,
 		"burstmax": 1,
 		"size": 1,
+		"experience": 1,
+		"experiencemax": 1,
 		"speed": 1,
 		"acount": 1,
 		"price": 1
