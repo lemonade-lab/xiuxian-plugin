@@ -127,9 +127,7 @@ export async function get_equipment_img(e) {
     let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
     let huju  = data.huju_list.find(item => item.id == equipment.huju);
     let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
-
     let battle = await Read_battle(usr_qq);
-    console.log(battle);
     let myData = {
         user_id: usr_qq,
         battle:battle,

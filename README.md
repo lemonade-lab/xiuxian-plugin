@@ -1,4 +1,4 @@
-![输入图片说明](resources/help/log.jpg)
+![裂开了](resources/help/log.jpg)
 # xiuxian-emulator-plugin         
 Yunzai-BotV3"修仙模拟器V1.3.0"测试版                  
 

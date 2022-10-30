@@ -15,11 +15,6 @@ export const __PATH = {
     Exchange: path.join(__dirname, "/resources/data/birth/Exchange"),
     Forum: path.join(__dirname, "/resources/data/birth/Forum")
 }
-
-
-
-
-
 export class Xiuxian extends plugin {
     constructor() {
         super({
