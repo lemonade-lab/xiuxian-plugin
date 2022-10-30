@@ -89,7 +89,7 @@ export class UserStart extends plugin {
             "level_id": 1,//练气境界
             "levelname": data.Level_list.find(item => item.id == 1).name,//练气名
             "experience": 1,//练气经验
-            "Physique_id": 1,//练体境界 
+            "levelmax_id": 1,//练体境界 
             "levelnamemax": data.LevelMax_list.find(item => item.id == 1).name,//练体名
             "experiencemax": 1//练体经验
         }

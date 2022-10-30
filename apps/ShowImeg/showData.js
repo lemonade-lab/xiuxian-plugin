@@ -197,7 +197,7 @@ export async function get_statemax_img(e) {
         return;
     }
     let player = await Read_level(usr_qq);
-    let Level_id=player.Physique_id;
+    let Level_id=player.levelmax_id;
     let LevelMax_list = data.LevelMax_list;
    //循环删除表信息
    for(var i=1;i<=60;i++){

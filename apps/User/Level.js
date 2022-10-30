@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "fs"
 import {Go,Read_player,GenerateCD,Add_experiencemax,Read_equipment,
-    Write_equipment,Add_HP,Add_experience,__PATH} from '../Xiuxian/Xiuxian.js'
+    Write_equipment,Add_HP,Add_experience,__PATH, Read_level, Write_level, Read_battle, Write_battle} from '../Xiuxian/Xiuxian.js'
 
 /**
  * 境界模块
@@ -43,14 +43,7 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Read_player(usr_qq);
-        let now_level_id = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level_id;
-        let now_exp = player.experiencemax;
-        let need_exp = data.LevelMax_list.find(item => item.level_id == player.Physique_id).exp;
-        if (now_exp < need_exp) {
-            e.reply(`气血不足,再积累${need_exp - now_exp}气血后方可突破`);
-            return;
-        }
+
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_LevelMaxup_time";
         let now_time = new Date().getTime();
@@ -59,27 +52,39 @@ export class Level extends plugin {
             e.reply(CD);
             return;
         }
+
+        let player = await Read_level(usr_qq);
+        let LevelMax = data.LevelMax_list.find(item => item.level_id == player.levelmax_id);
+        if ( player.experiencemax< LevelMax.exp) {
+            e.reply(`气血不足,再积累${player.experiencemax - LevelMax.exp}气血后方可突破`);
+            return;
+        }
+
+        if (player.level_id >= 54) {
+            return;
+        }
+
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
         let rand = Math.random();
-        let prob = 1 - now_level_id / 60;
+        let prob = 1 - player.levelmax_id / 60;
         if (rand > prob) {
             let bad_time = Math.random();
             if (bad_time > 0.9) {
-                await Add_experiencemax(usr_qq, -1 * need_exp * 0.4);
+                await Add_experiencemax(usr_qq, -1 * LevelMax.exp * 0.4);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
-                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "气血");
+                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (LevelMax.exp) * 0.4 + "气血");
                 return;
             }
             else if (bad_time > 0.8) {
-                await Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
+                await Add_experiencemax(usr_qq, -1 * LevelMax.exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
-                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "气血");
+                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (LevelMax.exp) * 0.2 + "气血");
                 return;
             }
             else if (bad_time > 0.7) {
-                await Add_experiencemax(usr_qq, -1 * need_exp * 0.1);
+                await Add_experiencemax(usr_qq, -1 * LevelMax.exp * 0.1);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
-                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "气血");
+                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (LevelMax.exp) * 0.1 + "气血");
                 return;
             }
             else if (bad_time > 0.1) {
@@ -88,23 +93,19 @@ export class Level extends plugin {
                 return;
             }
             else {
-                await Add_experiencemax(usr_qq, -1 * need_exp * 0.2);
+                await Add_experiencemax(usr_qq, -1 * LevelMax.exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
-                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "气血");
+                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (LevelMax.exp) * 0.2 + "气血");
                 return;
             }
         }
-        player.Physique_id = now_level_id + 1;
-        player.experiencemax -= need_exp;
-        await Write_player(usr_qq, player);
-        let equipment = await Read_equipment(usr_qq);
-        await Write_equipment(usr_qq, equipment);
-        await Add_HP(usr_qq, 99999999);
-        let level = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
-        e.reply(`突破成功至${level}`);
+        player.levelmax_id = player.levelmax_id + 1;
+        player.experiencemax -= LevelMax.exp;
+        await Write_level(usr_qq, player);
+        await updata_equipment(usr_qq);
+        e.reply(`突破成功`);
         await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_time);
         return;
-
     }
 
 
@@ -116,35 +117,6 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Read_player(usr_qq);
-        let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
-        if (now_level == "渡劫期") {
-            if (player.power_place == 0) {
-                e.reply("你已度过雷劫，请感应仙门#羽化登仙");
-            }
-            else {
-                e.reply(`请先渡劫！`);
-            }
-            return;
-        }
-        let now_level_id;
-        now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-        if (now_level_id == 53) {
-            let LevelUP = await fanren();
-            if (LevelUP != 1) {
-                e.reply(`这方世界已有化凡！`);
-                return;
-            }
-        }
-        if (now_level_id == 54) {
-            return;
-        }
-        let now_exp = player.experience;
-        let need_exp = data.Level_list.find(item => item.level_id == player.level_id).exp;
-        if (now_exp < need_exp) {
-            e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
-            return;
-        }
         let CDTime = this.xiuxianConfigData.CD.level_up;
         let ClassCD = ":last_Levelup_time";
         let now_time = new Date().getTime();
@@ -153,27 +125,56 @@ export class Level extends plugin {
             e.reply(CD);
             return;
         }
+
+        let player = await Read_level(usr_qq);
+        let Level = data.Level_list.find(item => item.level_id == player.level_id);
+        if (Level.name == "渡劫期") {
+            if (player.power_place == 0) {
+                e.reply("你已度过雷劫，请感应仙门#羽化登仙");
+            }
+            else {
+                e.reply(`请先渡劫！`);
+            }
+            return;
+        }
+
+        if (player.level_id == 53) {
+            let LevelUP = await fanren();
+            if (LevelUP != 1) {
+                e.reply(`这方世界已有化凡！`);
+                return;
+            }
+        }
+        else if (player.level_id >= 54) {
+            return;
+        }
+
+        if (player.experience < Level.exp) {
+            e.reply(`修为不足,再积累${player.experience - Level.exp}修为后方可突破`);
+            return;
+        }
+
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
         let rand = Math.random();
-        let prob = 1 - now_level_id / 60;
+        let prob = 1 - player.level_id / 60;
         if (rand > prob) {
             let bad_time = Math.random();//增加多种突破失败情况，顺滑突破丢失experience曲线
             if (bad_time > 0.9) {
-                await Add_experience(usr_qq, -1 * need_exp * 0.4);
+                await Add_experience(usr_qq, -1 * Level.exp * 0.4);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
-                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "修为");
+                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (Level.exp) * 0.4 + "修为");
                 return;
             }
             else if (bad_time > 0.8) {
-                await Add_experience(usr_qq, -1 * need_exp * 0.2);
+                await Add_experience(usr_qq, -1 * Level.exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
-                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
+                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (Level.exp) * 0.2 + "修为");
                 return;
             }
             else if (bad_time > 0.7) {
-                await Add_experience(usr_qq, -1 * need_exp * 0.1);
+                await Add_experience(usr_qq, -1 * Level.exp * 0.1);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
-                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "修为");
+                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (Level.exp) * 0.1 + "修为");
                 return;
             }
             else if (bad_time > 0.1) {
@@ -182,20 +183,17 @@ export class Level extends plugin {
                 return;
             }
             else {
-                await Add_experience(usr_qq, -1 * need_exp * 0.2);
+                await Add_experience(usr_qq, -1 * Level.exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);//获得上次的时间戳
-                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
+                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (Level.exp) * 0.2 + "修为");
                 return;
             }
         }
-        player.level_id = now_level_id + 1;
-        player.experience -= need_exp;
-        await Write_player(usr_qq, player);
-        let equipment = await Read_equipment(usr_qq);
-        await Write_equipment(usr_qq, equipment);
-        await Add_HP(usr_qq, 99999999);
-        let level = data.Level_list.find(item => item.level_id == player.level_id).level;
-        e.reply(`突破成功,当前境界为${level}`);
+        player.level_id = player.level_id + 1;
+        player.experience -= Level.exp;
+        await Write_level(usr_qq, player);
+        await updata_equipment(usr_qq);
+        e.reply(`突破成功!`);
         await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_time);
         return;
     }
@@ -209,50 +207,42 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Read_player(usr_qq);
-        let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
-        if (now_level != "渡劫期") {
+
+        let player = await Read_level(usr_qq);
+        let battle = await Read_battle(usr_qq);
+
+        let level = data.Level_list.find(item => item.level_id == player.level_id);
+
+        if (level.name != "渡劫期") {
             e.reply(`你非渡劫期修士！`);
             return;
         }
+
         if (player.power_place == 0) {
             e.reply("你已度过雷劫，请感应仙门#羽化登仙");
             return;
         }
-        let now_HP = player.nowblood;
-        let list_HP = data.Level_list.find(item => item.level == now_level).基础血量;
-        if (now_HP < list_HP * 0.9) {
-            player.nowblood = 1;
-            await Write_player(usr_qq, player);
-            e.reply(player.name + "血量亏损，强行渡劫后晕倒在地！");
-            return;
-        }
-        let now_level_id = data.Level_list.find(item => item.level == now_level).level_id;
-        if (now_level_id == 54) {
+
+        if (player.level_id >= 54) {
             e.reply(`您已是此界凡人`);
             return;
         }
-        let now_exp = player.experience;
-        let need_exp;
-        try {
-            need_exp = data.Level_list.find(item => item.level == now_level).exp;
-        }
-        catch {
-            need_exp = data.Level_list.find(item => item.level_id == now_level_id).exp;
-        }
-        if (now_exp < need_exp) {
-            e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
+
+        if (player.experience < level.exp) {
+            e.reply(`修为不足,再积累${player.experience - level.exp}修为后方可突破`);
             return;
         }
+
         let x = await dujie(usr_qq);
         var y = 3;
         var n = 1380;//最低
         var p = 280;//变动
         var m = n + p;
         if (x <= n) {
-            player.nowblood = 0;
-            player.experience -= parseInt(need_exp / 4);
-            await Write_player(usr_qq, player);
+            battle.nowblood = 0;
+            player.experience -= parseInt(level.exp / 4);
+            await Write_battle(usr_qq, battle);
+            await Write_battle(usr_qq, player);
             e.reply("天空一声巨响，未降下雷劫，就被天道的气势震死了。");
             return;
         }
@@ -260,7 +250,7 @@ export class Level extends plugin {
         l = l * 100;
         l = l.toFixed(2);
         e.reply("天道：就你，也敢逆天改命？");
-        e.reply("[" + player.name + "]" + "\n雷抗：" + x + "\n成功率：" + l + "\n需渡" + y + "道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！");
+        e.reply("\n雷抗：" + x + "\n成功率：" + l + "\n需渡" + y + "道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！");
         var time = 60;//时间(分)九个雷，//60分钟。防延迟。
         let action_time = 60000 * time;//持续时间，单位毫秒
         let arr = {
@@ -294,32 +284,28 @@ export class Level extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        let player = await Read_player(usr_qq);
-        let now_level = data.Level_list.find(item => item.level_id == player.level_id).level;
-        if (now_level != "渡劫期") {
+        let player = await Read_level(usr_qq);
+        let Level = data.Level_list.find(item => item.level_id == player.level_id);
+        if (Level.name != "渡劫期") {
             e.reply(`你非渡劫期修士！`);
             return;
         }
+
         if (player.power_place != 0) {
             e.reply("请先渡劫！");
             return;
         }
-        let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-        let now_exp = player.experience;
-        let need_exp = data.Level_list.find(item => item.level_id == player.level_id).exp;
-        if (now_exp < need_exp) {
-            e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可成仙！`);
+        
+        if (player.experience < Level.exp) {
+            e.reply(`修为不足,再积累${player.experience - Level.exp}修为后方可成仙！`);
             return;
         }
         if (player.power_place == 0) {
-            e.reply("天空一声巨响，一道虚影从眼中浮现，突然身体微微颤抖，似乎感受到了什么，" + player.name + "来不及思索，立即向前飞去！只见万物仰头相望，似乎感觉到了，也似乎没有感觉，殊不知......");
-            now_level_id = now_level_id + 1;
-            player.level_id = now_level_id;
+            e.reply("天空一声巨响，一道虚影从眼中浮现，突然身体微微颤抖，似乎感受到了什么，来不及思索，立即向前飞去！只见万物仰头相望......");
+            player.level_id = player.level_id+1;
             player.experience -= need_exp;
-            await Write_player(usr_qq, player);
-            let equipment = await Read_equipment(usr_qq);
-            await Write_equipment(usr_qq, equipment);
-            await Add_HP(usr_qq, 99999999);
+            await Write_level(usr_qq, player);
+            await updata_equipment(usr_qq);
             return;
         }
         return;
@@ -329,13 +315,10 @@ export class Level extends plugin {
 
 export async function dujie(user_qq) {
     let usr_qq = user_qq;
-    let player = await Read_player(usr_qq);
-    var new_blood = player.nowblood;
-    var new_defense = player.nowdefense; 
-    var new_attack = player.nowattack;
-    new_blood = new_blood / 100000;
-    new_defense = new_defense / 100000;
-    new_attack = new_attack / 100000;
+    let player = await Read_battle(usr_qq);
+    var new_blood = player.blood / 100000;
+    var new_defense = player.defense / 100000;
+    var new_attack = player.attack / 100000;
     new_blood = (new_blood * 4) / 10;
     new_defense = (new_defense * 6) / 10;
     new_attack = (new_attack * 2) / 10;
@@ -361,7 +344,7 @@ export async function fanren() {
     }
     let x = "1";
     for (let player_id of playerList) {
-        let player = data.getData("player", player_id);
+        let player = await Read_level(player_id);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         if (now_level_id == 54) {
             x = "0";

@@ -123,7 +123,7 @@ export class AdminSuper extends plugin {
         }
         let usr_qq = B;
         let player = await Read_player(usr_qq);
-        player.Physique_id = code;
+        player.levelmax_id = code;
         await Write_player(usr_qq, player);
         let equipment = await Read_equipment(usr_qq);
         await Write_equipment(usr_qq, equipment);

@@ -133,7 +133,7 @@ export async function updata_equipment(usr_qq) {
 
     let level = await Read_level(usr_qq);
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
-    let levelmax = data.LevelMax_list.find(item => item.id == level.Physique_id);
+    let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
 
     let player=await Read_battle(usr_qq);
     player={
