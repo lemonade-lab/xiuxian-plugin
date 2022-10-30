@@ -4,155 +4,62 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/User/najie/najie.css" />
+  <link rel="stylesheet" type="text/css" href="najie.css" />
 </head>
 
 <body>
+  <!--上-->
+  <div style="height: 1px;"></div>
 
   <div class="user_top">
     <div class="user_top_left">
+      <div class="user_top_right_font0">账号：{{user_id}}</div>
+      <div class="user_top_right_font1">道号：{{player.name}}</div>
+      <div class="user_top_right_font"> 等级：{{najie.grade}}</div>
+      <div class="user_top_right_font2">
+        储量：{{najie.lingshi}}/{{najie.lingshimax}}
+      </div>
+    </div>
+    <div class="user_top_right">
       <div class="user_top_img_bottom">
         <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
       </div>
-      <div class="user_top_left_qq">QQ:{{user_id}}</div>
-    </div>
-    <div class="user_top_right">
-      <div class="user_font0">道号:{{nickname}}</div>
-      <div class="user_font0">血量:{{player_nowHP}}/{{player_maxHP}}</div>
-      <div class="user_font0">等级:{{najie_lv}}</div>
-      <div class="user_font0">储量:{{najie_lingshi}}/{{najie_maxlingshi}}</div>
-    </div>
-  </div>
-
-  <div class="user_bottom0">
-
-  </div>
-  
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[武器]</div>
-        {{each najie_arms item}}
-        <div class="user_font">
-          <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-          <div>类别:{{item.type}}</div>
-          <div>攻击:{{item.atk}}</div>
-          <div>防御:{{item.def}}</div>
-          <div>血量:{{item.HP}}</div>
-          <div>暴击率:{{item.bao*100}}%</div>
-          <div>数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[护具]</div>
-        {{each najie_huju item}}
-        <div class="user_font">
-          <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-          <div>类别:{{item.type}}</div>
-          <div>攻击:{{item.atk}}</div>
-          <div>防御:{{item.def}}</div>
-          <div>血量:{{item.HP}}</div>
-          <div>暴击率:{{item.bao*100}}%</div>
-          <div>数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-  
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[法宝]</div>
-        {{each najie_fabao item}}
-        <div class="user_font">
-          <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-          <div>类别:{{item.type}}</div>
-          <div>攻击:{{item.atk}}</div>
-          <div>防御:{{item.def}}</div>
-          <div>血量:{{item.HP}}</div>
-          <div>暴击率:{{item.bao*100}}%</div>
-          <div>数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-
-   
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[丹药]</div>
-        {{each najie_danyao item}}
-        <div class="user_font">
-          <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-          <div>类别:{{item.type}}</div>
-          <div>效果:{{item.HP}}{{item.exp}}</div>
-          <div>数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[功法]</div>
-        {{each najie_gongfa item}}
-        <div class="user_font">
-        <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-        <div >天赋:{{item.size}}</div>
-        <div >数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
     </div>
   </div>
 
 
   <div class="user_bottom1">
     <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[道具]</div>
-        {{each najie_daoju item}}
-        <div class="user_font">
-          <div  style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-          <div >数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
+      {{each najie.thing item}}
+      <div class="user_top_right_font0">{{item.name}}</div>
+      <div class="user_top_right_font1">
+        <div> 攻击:{{item.attack}}</div>
+        <div> 防御:{{item.defense}} </div>
+        <div> 血量:{{item.blood}} </div>
       </div>
+      <div class="user_top_right_font">
+        <div> 敏捷:{{item.speed}} </div>
+        <div> 天赋:{{item.size}}% </div>
+        <div> 暴击:{{item.burst}}% </div>
+      </div>
+      <div class="user_top_right_font2">
+        <div> 暴伤:{{item.burstmax}}% </div>
+        <div> 价格:{{item.price}} </div>
+        <div> 数量：{{item.acount}} </div>
+      </div>
+      {{/each}}
+
     </div>
   </div>
 
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="use_data_head">
-        <div class="user_font" style="text-align: center;padding-left: 0px;">[戒指]</div>
-        {{each najie_ring item}}
-        <div class="user_font">
-        <div style="padding-left: 60px;"> >>名称:{{item.name}}</div>
-        <div >数量:{{item.acount}}</div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
   </div>
-
-
-  <div class="user_bottom2">
-  </div>
-
   <style>
 
   </style>
 
 </body>
+
+<script>
+</script>
 
 </html>

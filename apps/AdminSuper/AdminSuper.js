@@ -1,9 +1,9 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
+import filecp from "../../model/filecp.js"
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import {__PATH,At , offaction,Read_player,Write_player,Read_equipment,Write_equipment } from '../Xiuxian/Xiuxian.js'
-
+import { __PATH, At, offaction, Read_player, Write_player, Read_equipment, Write_equipment } from '../Xiuxian/Xiuxian.js'
 /**
  * 修仙设置
  */
@@ -18,6 +18,10 @@ export class AdminSuper extends plugin {
                 {
                     reg: "^#同步信息$",
                     fnc: "synchronization",
+                },
+                {
+                    reg: "^#刷新修仙配置$",
+                    fnc: "Updataconfig",
                 },
                 {
                     reg: "^#修仙重置配置$",
@@ -48,14 +52,20 @@ export class AdminSuper extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
-    async Againconfig(){
+    async Updataconfig(e) {
+        if (!e.isMaster) {
+            return;
+        }
+        filecp.upfile();
+        e.reply("刷新结束");
+        return;
+    }
+
+    async Againconfig(e) {
         if (!e.isMaster) {
             return;
         }
         e.reply("开始重置");
-
-
-
         e.reply("重置结束");
         return;
     }
@@ -68,20 +78,13 @@ export class AdminSuper extends plugin {
         let playerList = [];
         let files = fs
             .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith(".json"));  
+            .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            let usr_qq = player_id;
-            let player = await Read_player(usr_qq);
-            if(player.prestige==undefined){
-                player.prestige=0;
-            }
-            await Write_player(usr_qq,player);
-            let equipment = await Read_equipment(usr_qq);
-            await Write_equipment(usr_qq, equipment);
+            //
         }
         e.reply("同步结束");
         return;
@@ -99,7 +102,7 @@ export class AdminSuper extends plugin {
         }
         let usr_qq = B;
         let player = await Read_player(usr_qq);
-        player.level_id=code;
+        player.level_id = code;
         await Write_player(usr_qq, player);
         let equipment = await Read_equipment(usr_qq);
         await Write_equipment(usr_qq, equipment);
@@ -107,7 +110,7 @@ export class AdminSuper extends plugin {
         return;
     }
 
-    
+
     async upuserlevelmax(e) {
         if (!e.isMaster) {
             return;
@@ -120,7 +123,7 @@ export class AdminSuper extends plugin {
         }
         let usr_qq = B;
         let player = await Read_player(usr_qq);
-        player.Physique_id=code;
+        player.Physique_id = code;
         await Write_player(usr_qq, player);
         let equipment = await Read_equipment(usr_qq);
         await Write_equipment(usr_qq, equipment);
@@ -156,8 +159,8 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let qq=await At(e);
-        if(qq==0){
+        let qq = await At(e);
+        if (qq == 0) {
             return;
         }
         await offaction(qq);
@@ -169,8 +172,8 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let qq=await At(e);
-        if(qq==0){
+        let qq = await At(e);
+        if (qq == 0) {
             return;
         }
         let player = await Read_player(qq);

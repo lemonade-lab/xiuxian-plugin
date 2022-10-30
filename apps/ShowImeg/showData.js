@@ -3,10 +3,9 @@ import Show from "../../model/show.js"
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import {getPlayerAction,player_efficiency,talentname} from '../Xiuxian/Xiuxian.js'
-import {exist_thing_ring,exist_thing_arms,exist_thing_huju,
-    exist_thing_fabao,exist_thing_gonfa,exist_thing_danyao} from '../Xiuxian/Xiuxian.js'
-
+import {talentname,Read_battle,
+    Read_player, Read_wealth,Read_talent,
+    Read_equipment,Read_level, Read_najie} from '../Xiuxian/Xiuxian.js'
 
 /**
  * 生图模块
@@ -72,139 +71,73 @@ export class showData extends plugin {
 
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
-    let player = await data.getData("player", usr_qq);
-    let equipment = await data.getData("equipment", usr_qq);
-    let wuqi_name  = data.wuqi_list.find(item => item.id == equipment.arms.id).name;
-    let juju_name  = data.huju_list.find(item => item.id == equipment.huju.id).name;
-    let fabao_name = data.fabao_list.find(item => item.id == equipment.fabao.id).name;
-    let player_status = await getPlayerAction(usr_qq);
-    let status = "空闲";
-    if (player_status.time != null) {
-        status = player_status.action + "(剩余时间:" + player_status.time + ")";
-    }
-    let lingshi = Math.trunc(player.lingshi);
-    if (player.lingshi > 999999999999) {
-        lingshi = 999999999999;
-    }
-    data.setData("player", usr_qq, player);
-    await player_efficiency(usr_qq);
-    let linggenname = "未知";
-    linggenname = await talentname(player);
+    let player = await Read_player(usr_qq);
+    let wealt = await Read_wealth(usr_qq);
+    let equipment = await Read_equipment(usr_qq);
+    let talent = await Read_talent(usr_qq);
+    let level = await Read_level(usr_qq);
+    let battle = await Read_battle(usr_qq);
+
+    let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
+    let huju  = data.huju_list.find(item => item.id == equipment.huju);
+    let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
+
+    let linggenname = await talentname(talent);
+
     let name = "";
+    
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
     }
-    if (await player.talentshow != 0) {
-        player.talentsize = "0";
+
+    if (await talent.talentshow != 0) {
+        talent.talentsize = "0";
         name = "未知";
     }
-    let level = data.Level_list.find(item => item.level_id == player.level_id).level;
-    let player_data = {
+
+    let myData = {
         user_id: usr_qq,
-        nickname: player.name,
-        linggenname: name,
-        declaration: player.autograph,
-        exp: player.experience,
+        player: player,
         level: level,
-        lingshi: lingshi,
-        wuqi_name:wuqi_name,
-        juju_name:juju_name,
-        fabao_name:fabao_name,
-        player_maxHP: player.hpmax,
-        player_nowHP: player.nowblood,
-        talent: parseInt(player.talentsize * 100),
-        player_action: status,
+        linggenname: name,
+        battle:battle,
+        lingshi: Math.trunc(wealt.lingshi),
+        xianshi: Math.trunc(wealt.xianshi),
+        wuqi_name:wuqi.name,
+        huju_name:huju.name,
+        fabao_name:fabao.name,
+        talent: parseInt(talent.talentsize * 100)
     }
-    const data1 = await new Show(e).get_playerData(player_data);
+
+    const data1 = await new Show(e).get_Data("User/player","player",myData);
     let img = await puppeteer.screenshot("player", {
         ...data1,
     });
     return img;
+
 }
 
- export async function get_power_img(e) {
-    let usr_qq = e.user_id;
-    let player = await data.getData("player", usr_qq);
-    let lingshi = Math.trunc(player.lingshi);
-    if (player.lingshi > 999999999999) {
-        lingshi = 999999999999;
-    }
-    await player_efficiency(usr_qq);
-
-    let levelMax = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
-
-    let AllSorcery=[];
-
-    for(var i=0;i<player.AllSorcery.length;i++){
-        let ifexist2 = data.gongfa_list.find(item => item.id == player.AllSorcery[i]);
-        if (ifexist2 == undefined) {
-            ifexist2 = data.timegongfa_list.find(item => item.id == player.AllSorcery[i]);
-            if(ifexist2 != undefined){
-                AllSorcery.push(ifexist2);
-            }
-        }else{
-            AllSorcery.push(ifexist2);
-        }
-    }
-    let playercopy = {
-        user_id: usr_qq,
-        nickname: player.name,
-        expMax: player.experiencemax,
-        levelMax: levelMax,
-        lingshi: lingshi,
-        player_maxHP: player.hpmax,
-        player_nowHP: player.nowblood,
-
-        learned_gongfa: AllSorcery,
-    }
-    const data1 = await new Show(e).get_playercopyData(playercopy);
-    let img = await puppeteer.screenshot("playercopy", {
-        ...data1,
-    });
-    return img;
-}
 
 /**
  * 返回该玩家的装备图片
  */
 export async function get_equipment_img(e) {
     let usr_qq = e.user_id;
-    let player = await data.getData("player", usr_qq);
-    var burst = Math.trunc(parseInt(player.burst * 100))
-    let equipment = await data.getData("equipment", usr_qq);
-    let arms = data.wuqi_list.find(item => item.id == equipment.arms.id);
-    if (arms == undefined) {
-        arms = data.timewuqi_list.find(item => item.id == equipment.arms.id);
-    }
-    let huju= data.huju_list.find(item => item.id ==  equipment.huju.id);
-    if (huju == undefined) {
-        huju = data.timehuju_list.find(item => item.id ==  equipment.huju.id);
-    }
-    let fabao= data.fabao_list.find(item => item.id == equipment.fabao.id  );
-    if (fabao == undefined) {
-        fabao = data.timefabao_list.find(item => item.id == equipment.fabao.id  );
-    }
+    let equipment = await Read_equipment(usr_qq);
+    let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
+    let huju  = data.huju_list.find(item => item.id == equipment.huju);
+    let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
 
-    let player_data = {
+    let battle = await Read_battle(usr_qq);
+    console.log(battle);
+    let myData = {
         user_id: usr_qq,
-        /**
-         * 装备面板
-         */
-        arms: arms,
-        huju: huju,
-        fabao: fabao,
-        /**
-         * 用户面板
-         */
-        nickname: player.name,
-        player_atk: player.nowattack,
-        player_def: player.nowdefense,
-        player_burst: burst,
-        player_maxHP: player.hpmax,
-        player_nowHP: player.nowblood
-
+        battle:battle,
+        wuqi:wuqi,
+        huju:huju,
+        fabao:fabao
     }
-    const data1 = await new Show(e).get_equipmnetData(player_data);
+    const data1 = await new Show(e).get_Data("User/equipment","equipment",myData);
     let img = await puppeteer.screenshot("equipment", {
         ...data1,
     });
@@ -220,77 +153,16 @@ export async function get_najie_img(e) {
     if (!ifexistplay) {
         return;
     }
-    let player = await data.getData("player", usr_qq);
-    let najie = await data.getData("najie", usr_qq);
-    
-    let arms=[];
-    let huju=[];
-    let fabao=[];
-    let danyao=[];
-    let daoju=[];
-    let gonfa=[];
-    let ring=[];
-    
-    for(var i=0;i<najie.arms.length;i++){
-        let name=await exist_thing_arms(najie.arms[i]);
-        name.acount=najie.arms[i].acount;
-        arms.push(name);
-    }
-    for(var i=0;i<najie.huju.length;i++){
-        let name=await exist_thing_huju(najie.huju[i])
-        name.acount=najie.huju[i].acount;
-        huju.push(name);
-    }
-    for(var i=0;i<najie.fabao.length;i++){
-        let name=await exist_thing_fabao(najie.fabao[i])
-        name.acount=najie.fabao[i].acount;
-        fabao.push(name);
-    }
-    for(var i=0;i<najie.danyao.length;i++){
-        let name=await exist_thing_danyao(najie.danyao[i]);
-        if(name.type==1){
-            name.type == "血量";
-        }else{
-            name.type == "修为";
-        }
-        name.acount=najie.danyao[i].acount;
-        danyao.push(name);
-    }
-    for(var i=0;i<najie.daoju.length;i++){
-        let name=await (najie.daoju[i]);
-        name.acount = najie.daoju[i].acount;
-        daoju.push(name);
-    }
-    for(var i=0;i<najie.gonfa.length;i++){
-        let name=await exist_thing_gonfa(najie.gonfa[i]);  
-        name.acount = najie.gonfa[i].acount;
-        gonfa.push(name);
-    }
-    for(var i=0;i<najie.ring.length;i++){
-        let name=await exist_thing_ring(najie.ring[i]);
-        name.acount=najie.ring[i].acount;
-        ring.push(name);
-    }
-
-    var lingshi = Math.trunc(najie.lingshi);
-    var lingshi2 = Math.trunc(najie.lingshimax);
-    let player_data = {
+    let player = await Read_player(usr_qq);
+    let najie = await Read_najie(usr_qq);
+    let battle = await Read_battle(usr_qq);
+    let myData = {
         user_id: usr_qq,
-        nickname: player.name,
-        player_maxHP: player.hpmax,
-        player_nowHP: player.nowblood,
-        najie_lv: najie.grade,
-        najie_maxlingshi: lingshi2,
-        najie_lingshi: lingshi,
-        najie_arms: arms,
-        najie_huju: huju,
-        najie_fabao: fabao,
-        najie_danyao: danyao,
-        najie_daoju: daoju,
-        najie_gongfa: gonfa,
-        najie_ring: ring
+        player: player,
+        battle:battle,
+        najie: najie
     }
-    const data1 = await new Show(e).get_najieData(player_data);
+    const data1 = await new Show(e).get_Data("User/najie", "najie",myData);
     let img = await puppeteer.screenshot("najie", {
         ...data1,
     });
@@ -298,30 +170,30 @@ export async function get_najie_img(e) {
 }
 
 /**
- * 返回境界列表图片
+ * 返回练气
  */
-
 export async function get_state_img(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) {
         return;
     }
-     let player = await data.getData("player", usr_qq);
+     let player = await Read_level(usr_qq);
      let Level_id=player.level_id;
      let Level_list = data.Level_list;
     //循环删除表信息
     for(var i=1;i<=60;i++){
-        if(i>Level_id-3&&i<Level_id+6){
+        if(i>Level_id-2&&i<Level_id+5){
+            console.log(i);
             continue;
         }
-        Level_list = await Level_list.filter(item => item.level_id != i);
+        Level_list = await Level_list.filter(item => item.id != i);
     }
-    let state_data = {
+    let myData = {
         user_id: usr_qq,
         Level_list: Level_list
     }
-    const data1 = await new Show(e).get_stateData(state_data);
+    const data1 = await new Show(e).get_Data("state", "state",myData);
     let img = await puppeteer.screenshot("state", {
         ...data1,
     });
@@ -332,50 +204,44 @@ export async function get_state_img(e) {
 /**
  * 返回境界列表图片
  */
-
 export async function get_statemax_img(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) {
         return;
     }
-    let player = await data.getData("player", usr_qq);
+    let player = await Read_level(usr_qq);
     let Level_id=player.Physique_id;
     let LevelMax_list = data.LevelMax_list;
    //循环删除表信息
    for(var i=1;i<=60;i++){
-       if(i>Level_id-6&&i<Level_id+6){
+       if(i>Level_id-2&&i<Level_id+5){
            continue;
        }
-       LevelMax_list = await LevelMax_list.filter(item => item.level_id != i);
+       LevelMax_list = await LevelMax_list.filter(item => item.id != i);
    }
-    let statemax_data = {
+    let myData = {
         user_id: usr_qq,
         LevelMax_list: LevelMax_list
     }
-    const data1 = await new Show(e).get_statemaxData(statemax_data);
+    const data1 = await new Show(e).get_Data("statemax", "statemax",myData);
     let img = await puppeteer.screenshot("statemax", {
         ...data1,
     });
     return img;
-
 }
 
-
-
 let updata = config.getdefSet("version", "version");
-
 
 /**
  * 返回修仙版本
  * @return image
  */
 export async function get_updata_img(e) {
-
-    let updata_data = {
+    let myData = {
         version:updata
     }
-    const data1 = await new Show(e).get_updataData(updata_data);
+    const data1 = await new Show(e).get_Data("updata", "updata",myData);
     let img = await puppeteer.screenshot("updata", {
         ...data1,
     });
@@ -390,7 +256,8 @@ export async function get_updata_img(e) {
  * @return image
  */
 export async function get_adminset_img(e) {
-    let adminset = {
+    let myData = {
+        xiuxianConfigData: xiuxianConfigData,
         //CD：分
         CDassociation: xiuxianConfigData.CD.association,
         CDjoinassociation: xiuxianConfigData.CD.joinassociation,
@@ -433,7 +300,7 @@ export async function get_adminset_img(e) {
         SecretPlacetwo: xiuxianConfigData.SecretPlace.two,
         SecretPlacethree: xiuxianConfigData.SecretPlace.three,
     }
-    const data1 = await new Show(e).get_adminsetData(adminset);
+    const data1 = await new Show(e).get_Data("adminset", "adminset",myData);
     let img = await puppeteer.screenshot("adminset", {
         ...data1,
     });

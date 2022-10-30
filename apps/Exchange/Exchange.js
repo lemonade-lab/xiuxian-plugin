@@ -2,13 +2,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import { Go,Read_Exchange,GenerateCD,
-    search_thing,ForwardMsg,__PATH,Numbers,
+    search_thing_name,ForwardMsg,__PATH,Numbers,
     Write_Exchange,Search_Exchange,
-    exist_najie_thing,Read_najie,
-    Add_najie_thing_ring,Add_najie_thing_arms,
-    Add_najie_thing_huju,Add_najie_thing_fabao,
-    Add_najie_thing_danyao,Add_najie_thing_gonfa,
-    Add_najie_thing_daoju } from '../Xiuxian/Xiuxian.js'
+    exist_najie_thing,Read_najie} from '../Xiuxian/Xiuxian.js'
 
 
 /**
@@ -101,7 +97,7 @@ export class Exchange extends plugin {
         if ( thing_acunot < 1 || thing_acunot > 99) {
             thing_acunot=1;
         }
-        let searchsthing = await search_thing(thing_name);
+        let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
             return;
@@ -116,27 +112,6 @@ export class Exchange extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        if(najie_thing.class==1){ 
-            najie = await Add_najie_thing_arms(najie, najie_thing, -thing_acunot);
-        }
-        else if(najie_thing.class==2){ 
-            najie = await Add_najie_thing_huju(najie, najie_thing, -thing_acunot);
-        }
-        else if(najie_thing.class==3){ 
-            najie = await Add_najie_thing_fabao(najie, najie_thing, -thing_acunot);
-        }
-        else if(najie_thing.class==4){ 
-            najie = await Add_najie_thing_danyao(najie, najie_thing, -thing_acunot);
-        }
-        else if(najie_thing.class==5){ 
-            najie = await Add_najie_thing_gonfa(najie, najie_thing, -thing_acunot);
-        }
-        else if(najie_thing.class==6){ 
-            najie = await Add_najie_thing_daoju(najie, najie_thing, -thing_acunot);
-        }
-        else if(najie_thing.class==7){ 
-            najie = await Add_najie_thing_ring(najie, najie_thing, -thing_acunot);
-        }
         await Write_najie(usr_qq, najie);
         let Exchange = await Read_Exchange();
         let whole = thing_value * thing_acunot;
@@ -208,27 +183,6 @@ export class Exchange extends plugin {
                 return;
             }
             let najie = await Read_najie(usr_qq);
-            if(Exchange[x].class==1){ 
-                najie =await Add_najie_thing_arms(najie, Exchange[x],Exchange[x].aconut);
-            }
-            else if(Exchange[x].class==2){ 
-                najie =await Add_najie_thing_huju(najie, Exchange[x],Exchange[x].aconut);
-            }
-            else if(Exchange[x].class==3){ 
-                najie =await Add_najie_thing_fabao(najie, Exchange[x],Exchange[x].aconut);
-            }
-            else if(Exchange[x].class==4){ 
-                najie =await Add_najie_thing_danyao(najie, Exchange[x],Exchange[x].aconut);
-            }
-            else if(Exchange[x].class==5){ 
-                najie =await Add_najie_thing_gonfa(najie, Exchange[x],Exchange[x].aconut);
-            }
-            else if(Exchange[x].class==6){ 
-                najie =await Add_najie_thing_daoju(najie, Exchange[x],Exchange[x].aconut);
-            }
-            else if(Exchange[x].class==7){ 
-                najie =await Add_najie_thing_ring(najie, Exchange[x],Exchange[x].aconut);
-            }
             Exchange = Exchange.filter(item => item.qq != thingqq);
             await Write_Exchange(Exchange);
             await Write_najie(usr_qq, najie);
@@ -279,27 +233,6 @@ export class Exchange extends plugin {
             let thing_whole = Exchange[x].whole;
             if (player.lingshi > thing_whole) {
                 let najie = await Read_najie(usr_qq);
-                if(Exchange[x].class==1){ 
-                    najie = await Add_najie_thing_arms(najie, Exchange[x],Exchange[x].aconut);
-                }
-                else if(Exchange[x].class==2){ 
-                    najie = await Add_najie_thing_huju(najie, Exchange[x],Exchange[x].aconut);
-                }
-                else if(Exchange[x].class==3){ 
-                    najie = await Add_najie_thing_fabao(najie, Exchange[x],Exchange[x].aconut);
-                }
-                else if(Exchange[x].class==4){ 
-                    najie = await Add_najie_thing_danyao(najie, Exchange[x], Exchange[x].aconut);
-                }
-                else if(Exchange[x].class==5){ 
-                    najie = await Add_najie_thing_gonfa(najie, Exchange[x], Exchange[x].aconut);
-                }
-                else if(Exchange[x].class==6){ 
-                    najie = await Add_najie_thing_daoju(najie, Exchange[x],Exchange[x].aconut);
-                }
-                else if(Exchange[x].class==7){ 
-                    najie = await Add_najie_thing_ring(najie, Exchange[x],Exchange[x].aconut);
-                }
                 await Add_lingshi(usr_qq, -thing_whole);
                 await Write_najie(usr_qq, najie);
                 let addWorldmoney = thing_whole * 0.1;

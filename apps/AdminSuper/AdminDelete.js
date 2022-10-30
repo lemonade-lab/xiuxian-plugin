@@ -3,8 +3,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At } from '../Xiuxian/Xiuxian.js'
-
-
 /**
  * 修仙设置
  */

@@ -9,7 +9,6 @@ import puppeteer from "puppeteer";
  * 数据校验相关：判断数据是否为空isNotNull、isNotBlank
  */
 class common{
-
     constructor() {
         //浏览器配置
         this.config = {

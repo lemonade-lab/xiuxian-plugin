@@ -4,6 +4,8 @@ action_task: 0 0/1 * * * ?
 GamesTask: 0 */5 * * * ?
 # 冲水堂清理
 ExchangeTask: 0 0 4 * * ?
+# 寿命清理
+LifeTask: 0 0 4 * * ?
 # 开启怪物
 BossTask: 0 30 11,18 * * ?
 #关闭怪物

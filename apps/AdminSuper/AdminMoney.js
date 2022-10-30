@@ -5,7 +5,6 @@ import config from "../../model/Config.js"
 import fs from "node:fs"
 import { ForwardMsg,Worldwealth,__PATH,At , Numbers,Add_lingshi ,Read_player } from '../Xiuxian/Xiuxian.js'
 
-
 /**
  * 修仙财富
  */
@@ -54,7 +53,6 @@ export class AdminMoney extends plugin {
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("扣除", "");
         lingshi = await Numbers(lingshi);
-
         let player = await Read_player(B);
         if (player.lingshi < lingshi) {
             e.reply("他并没有这么多");

@@ -5,7 +5,7 @@
       desc: "创建存档，转世重生"
     - icon: help-icon_3
       title: "#改名张三 #设置道宣"
-      desc: "修改道号，个性签名"
+      desc: "修改道号,个性签名"
     - icon: help-icon_4
       title: "#修仙签到"
       desc: "修仙每日签到"
@@ -16,7 +16,7 @@
       title: "#存灵石123 #取灵石全部"
       desc: "将灵石安全保存到纳戒"
     - icon: help-icon_10
-      title: "#交税999"
+      title: "#交税9999"
       desc: "主动交税"
     
 - group: 修行之路

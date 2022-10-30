@@ -104,10 +104,10 @@ export async function get_valuables_img(e) {
     if (!ifexistplay) {
         return;
     }
-    let valuables_data = {
+    let myData = {
         user_id: usr_qq
     }
-    const data1 = await new Valuablesall(e).get_valuablesData(valuables_data);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables", "valuables", myData);
     let img = await puppeteer.screenshot("valuables", {
         ...data1,
     });
@@ -126,11 +126,11 @@ export async function get_valuables_prop_img(e) {
         return;
     }
     let daoju_list = data.daoju_list;
-    let valuables_prop = {
+    let myData = {
         user_id: usr_qq,
         daoju_list: daoju_list,
     }
-    const data1 = await new Valuablesall(e).get_valuables_propData(valuables_prop);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_prop", "valuables_prop", myData);
     let img = await puppeteer.screenshot("valuables_prop", {
         ...data1,
     });
@@ -151,11 +151,11 @@ export async function get_valuables_fabao_img(e) {
         return;
     }
     let fabao_list = data.fabao_list;
-    let valuables_fabao = {
+    let myData = {
         user_id: usr_qq,
         fabao_list: fabao_list,
     }
-    const data1 = await new Valuablesall(e).get_valuables_fabaoData(valuables_fabao);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_fabao", "valuables_fabao", myData)
     let img = await puppeteer.screenshot("valuables_fabao", {
         ...data1,
     });
@@ -173,11 +173,11 @@ export async function get_valuables_wuqi_img(e) {
         return;
     }
     let wuqi_list = data.wuqi_list;
-    let valuables_wuqi = {
+    let myData = {
         user_id: usr_qq,
         wuqi_list: wuqi_list,
     }
-    const data1 = await new Valuablesall(e).get_valuables_wuqiData(valuables_wuqi);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_wuqi", "valuables_wuqi", myData);
     let img = await puppeteer.screenshot("valuables_wuqi", {
         ...data1,
     });
@@ -194,11 +194,11 @@ export async function get_valuables_huju_img(e) {
         return;
     }
     let huju_list = data.huju_list;
-    let valuables_huju = {
+    let myData = {
         user_id: usr_qq,
         huju_list: huju_list,
     }
-    const data1 = await new Valuablesall(e).get_valuables_hujuData(valuables_huju);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_huju", "valuables_huju", myData);
     let img = await puppeteer.screenshot("valuables_huju", {
         ...data1,
     });
@@ -219,11 +219,11 @@ export async function get_valuables_drug_img(e) {
         return;
     }
     let danyao_list = data.danyao_list;
-    let valuables_data = {
+    let myData = {
         user_id: usr_qq,
         danyao_list: danyao_list
     }
-    const data1 = await new Valuablesall(e).get_valuables_drugData(valuables_data);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_drug", "valuables_drug", myData);
     let img = await puppeteer.screenshot("valuables_drug", {
         ...data1,
     });
@@ -241,11 +241,11 @@ export async function get_valuables_skill_img(e) {
         return;
     }
     let gongfa_list = data.gongfa_list;
-    let valuables_data = {
+    let myData = {
         user_id: usr_qq,
         gongfa_list: gongfa_list
     }
-    const data1 = await new Valuablesall(e).get_valuables_skillData(valuables_data);
+    const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_skill", "valuables_skill", myData);
     let img = await puppeteer.screenshot("valuables_skill", {
         ...data1,
     });

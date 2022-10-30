@@ -6,7 +6,6 @@ import fs from "node:fs"
 import { __PATH,Read_player } from '../Xiuxian/Xiuxian.js'
 let xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
 
-
 export class AdminBoss extends plugin {
     constructor() {
         super({
@@ -28,7 +27,6 @@ export class AdminBoss extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
-
     async DeleteBoss(e) {
         if (!e.isMaster) {
             return;
@@ -46,9 +44,6 @@ export class AdminBoss extends plugin {
         e.reply("开启成功");
         return;
     }
-
-
-  
 }
 
 
@@ -71,7 +66,6 @@ export async function monster() {
             let usr_qq = player_id;
             let player = await Read_player(usr_qq);
             let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-
             if (now_level_id >= 42) {
                 User_maxplus++;
             }

@@ -20,22 +20,22 @@ export class BotHelp extends plugin {
             rule: [
                 {
                     reg: '^#修仙帮助$',
-                    fnc: 'Xiuxianhelp'
+                    fnc: 'Xiuxianhelp1'
+                },
+                {
+                    reg: "^#修仙扩展$",
+                    fnc: "Xiuxianhelp2",
                 },
                 {
                     reg: "^#修仙管理$",
                     fnc: "adminsuper",
-                },
-                {
-                    reg: "^#修仙扩展$",
-                    fnc: "Xiuxianhelpcopy",
                 }
             ]
         })
     }
 
-    async Xiuxianhelpcopy(e) {
-        let data = await Help.gethelpcopy(e);
+    async Xiuxianhelp2(e) {
+        let data = await Help.gethelp2(e);
         if (!data) return;
         let img = await this.cache(data);
         await e.reply(img);
@@ -47,8 +47,8 @@ export class BotHelp extends plugin {
      * rule - 修仙帮助
      * @returns
      */
-    async Xiuxianhelp(e) {
-        let data = await Help.get(e);
+    async Xiuxianhelp1(e) {
+        let data = await Help.gethelp1(e);
         if (!data) return;
         let img = await this.cache(data);
         await e.reply(img);
@@ -56,7 +56,7 @@ export class BotHelp extends plugin {
 
 
     async adminsuper(e) {
-        let data = await Help.setup(e);
+        let data = await Help.getadmin(e);
         if (!data) return;
         let img = await this.cache(data);
         await e.reply(img);

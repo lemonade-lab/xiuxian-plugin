@@ -2,203 +2,159 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import path from "path"
 import data from '../../model/XiuxianData.js'
-//插件根目录
 const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
-// 文件存放路径
 export const __PATH = {
-    //用户数据
     player: path.join(__dirname, "/resources/data/birth/xiuxian/player"),
+    action: path.join(__dirname, "/resources/data/birth/xiuxian/action"),
+    battle: path.join(__dirname, "/resources/data/birth/xiuxian/battle"),
     equipment: path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
+    level: path.join(__dirname, "/resources/data/birth/xiuxian/level"),
+    talent: path.join(__dirname, "/resources/data/birth/xiuxian/talent"),
+    wealth: path.join(__dirname, "/resources/data/birth/xiuxian/wealth"),
     najie: path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
-    //冲水
     Exchange: path.join(__dirname, "/resources/data/birth/Exchange"),
-    //论坛
-    Forum: path.join(__dirname, "/resources/data/birth/Forum"),
-    //限定
-    Timelimit: path.join(__dirname, "/resources/data/fixed/Timelimit"),
+    Forum: path.join(__dirname, "/resources/data/birth/Forum")
 }
-let xiuxianSetFile = "./plugins/xiuxian-emulator-plugin/config/xiuxian/xiuxian.yaml";
-if (!fs.existsSync(xiuxianSetFile)) {
-    fs.copyFileSync("./plugins/xiuxian-emulator-plugin/defSet/xiuxian/xiuxian.yaml", xiuxianSetFile);
-}
-//处理消息
+
+
+
+
+
 export class Xiuxian extends plugin {
     constructor() {
         super({
             name: 'Xiuxian',
             dsc: 'Xiuxian',
-            event: 'message',
+            event: 'message',   
             priority: 800,
-            rule: [
-            ]
+            rule: []
         })
     }
+
 }
-//检查存档是否存在，存在返回true;
-export async function existplayer(usr_qq) {
-    let exist_player;
-    exist_player = fs.existsSync(`${__PATH.player}/${usr_qq}.json`);
-    if (exist_player) {
-        return true;
-    }
-    return false;
-}
-/**
- * *****************************************************************************
- * 读写合集
- */
-//读取存档信息，返回成一个JavaScript对象
-export async function Read_player(usr_qq) {
-    let dir = path.join(`${__PATH.player}/${usr_qq}.json`);
+
+async function Read(usr_qq,PATH) {
+    let dir = path.join(`${PATH}/${usr_qq}.json`);
     let player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
             return "error";
         }
         return data;
     })
-    //将字符串数据转变成数组格式
     player = JSON.parse(player);
     return player;
 }
-//写入存档信息,第二个参数是一个JavaScript对象
-export async function Write_player(usr_qq, player) {
-    let dir = path.join(__PATH.player, `${usr_qq}.json`);
+async function Write(usr_qq,player,PATH){
+    let dir = path.join(PATH, `${usr_qq}.json`);
     let new_ARR = JSON.stringify(player, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
     })
     return;
 }
-//读取纳戒信息
-export async function Read_najie(usr_qq) {
-    let dir = path.join(`${__PATH.najie}/${usr_qq}.json`);
-    let najie = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            return "error";
-        }
-        return data;
-    })
-    //将字符串数据转变成数组格式
-    najie = JSON.parse(najie);
-    return najie;
+
+export async function Read_player(usr_qq) {
+    return await Read(usr_qq,__PATH.player);;
 }
-//写入纳戒信息
-export async function Write_najie(usr_qq, najie) {
-    let dir = path.join(__PATH.najie, `${usr_qq}.json`);
-    let new_ARR = JSON.stringify(najie, "", "\t");
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
+export async function Write_player(usr_qq, player) {
+    await Write(usr_qq,player,__PATH.player);
     return;
 }
-//读取装备信息
-export async function Read_equipment(usr_qq) {
-    let dir = path.join(`${__PATH.equipment}/${usr_qq}.json`);
-    let equipment = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            return "error";
-        }
-        return data;
-    })
-    //将字符串数据转变成数组格式
-    equipment = JSON.parse(equipment);
-    return equipment;
-}
-//写入装备信息
-export async function Write_equipment(usr_qq, equipment) {
-    //攻击
-    let equ_atk1 = data.wuqi_list.find(item => item.id == equipment.arms.id).atk;
-    //防御
-    let equ_def1 = data.wuqi_list.find(item => item.id == equipment.arms.id).def;
-    //血量
-    let equ_HP1 = data.wuqi_list.find(item => item.id == equipment.arms.id).HP;
-    //暴击率
-    let equ_bao1 = data.wuqi_list.find(item => item.id == equipment.arms.id).bao;
-    //敏捷
-    let speed1 = data.wuqi_list.find(item => item.id == equipment.arms.id).speed;
-    //攻击
-    let equ_atk2 = data.huju_list.find(item => item.id == equipment.huju.id).atk;
-    //防御
-    let equ_def2 = data.huju_list.find(item => item.id == equipment.huju.id).def;
-    //血量
-    let equ_HP2 = data.huju_list.find(item => item.id == equipment.huju.id).HP;
-    //暴击率
-    let equ_bao2 = data.huju_list.find(item => item.id == equipment.huju.id).bao;
-    //敏捷
-    let speed2 = data.huju_list.find(item => item.id == equipment.huju.id).speed;
-    //攻击
-    let equ_atk3 = data.fabao_list.find(item => item.id == equipment.fabao.id).atk;
-    //防御
-    let equ_def3 = data.fabao_list.find(item => item.id == equipment.fabao.id).def;
-    //血量
-    let equ_HP3 = data.fabao_list.find(item => item.id == equipment.fabao.id).HP;
-    //暴击率
-    let equ_bao3 = data.fabao_list.find(item => item.id == equipment.fabao.id).bao;
-    //敏捷
-    let speed3 = data.fabao_list.find(item => item.id == equipment.fabao.id).speed;
-    //装备总计
-    let equ_atk = equ_atk1 + equ_atk2 + equ_atk3;
-    let equ_def = equ_def1 + equ_def2 + equ_def3;
-    let equ_HP = equ_HP1 + equ_HP2 + equ_HP3;
-    let equ_bao = equ_bao1 + equ_bao2 + equ_bao3;
-    let equ_speed = speed1 + speed2 + speed3;
-    //得到存档
-    let player = await Read_player(usr_qq);
-    /**
-     * 基础数据
-     */
-    let attack = data.Level_list.find(item => item.level_id == player.level_id).attack;
-    attack = attack + data.LevelMax_list.find(item => item.level_id == player.Physique_id).attack;
-    let blood = data.Level_list.find(item => item.level_id == player.level_id).blood;
-    blood = blood + data.LevelMax_list.find(item => item.level_id == player.Physique_id).blood;
-    let defense = data.Level_list.find(item => item.level_id == player.level_id).defense;
-    defense = defense + data.LevelMax_list.find(item => item.level_id == player.Physique_id).defense;
-    let strike = data.Level_list.find(item => item.level_id == player.level_id).burst;
-    let speed = data.LevelMax_list.find(item => item.level_id == player.Physique_id).speed;
-    /**
-     * 境界距离
-     */
-    for (var i = 1; i <= 8; i++) {
-        if (player.level_id >= 6 * i) {
-            speed = speed * 2;
-        }
+//检查存档是否存在，存在返回true
+export async function existplayer(usr_qq) {
+    let exist_player = fs.existsSync(`${__PATH.player}/${usr_qq}.json`);
+    if (exist_player) {
+        return true;
     }
-    /**
-     * 当前面板计算
-     */
-    player["nowattack"] = equ_atk + attack;//当前攻击
-    player["nowdefense"] = equ_def + defense;//当前防御
-    player["hpmax"] = equ_HP + blood;//血量上限
-    player["burst"] = equ_bao + strike;//暴击率
-    player["speed"] = equ_speed + speed;//敏捷
-    player["bursthurt"] = 0;//暴伤
-    await Write_player(usr_qq, player);
-    //写入
-    let dir = path.join(__PATH.equipment, `${usr_qq}.json`);
-    let new_ARR = JSON.stringify(equipment, "", "\t");
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
+    return false;
+}
+export async function Read_talent(usr_qq) {
+    return await Read(usr_qq,__PATH.talent);
+}
+export async function Write_talent(usr_qq, player) {
+    await Write(usr_qq,player,__PATH.talent);
     return;
 }
-/**
- * ***********************************************************
- * 增减合集
- */
-//声望
+export async function Read_battle(usr_qq) {
+    return await Read(usr_qq,__PATH.battle);
+}
+export async function Write_battle(usr_qq, data) {
+    await Write(usr_qq,data,__PATH.battle);
+    return;
+}
+export async function Read_level(usr_qq) {
+    return await Read(usr_qq,__PATH.level);
+}
+export async function Write_level(usr_qq, data) {
+    await Write(usr_qq,data,__PATH.level);
+    return;
+}
+export async function Read_wealth(usr_qq) {
+    return await Read(usr_qq,__PATH.wealth);
+}
+export async function Write_wealth(usr_qq, data) {
+    await Write(usr_qq,data,__PATH.wealth);
+    return;
+}
+export async function Read_action(usr_qq) {
+    return await Read(usr_qq,__PATH.action);
+}
+export async function Write_action(usr_qq, data) {
+    await Write(usr_qq,data,__PATH.action);
+    return;
+}
+export async function Write_najie(usr_qq, najie) {
+    await Write(usr_qq,najie,__PATH.najie);
+    return;
+}
+export async function Read_najie(usr_qq) {
+    return await Read(usr_qq,__PATH.najie);
+}
+export async function Read_equipment(usr_qq) {
+    return await Read(usr_qq,__PATH.equipment);
+}
+export async function Write_equipment(usr_qq, equipment) {
+    await Write(usr_qq,equipment,__PATH.equipment);
+    await updata_equipment(usr_qq);
+    return;
+}
+export async function updata_equipment(usr_qq) {
+    let equipment = await Read_equipment(usr_qq);
+    let wuqi  = data.wuqi_list.find(item => item.id == equipment.wuqi);
+    let huju  = data.huju_list.find(item => item.id == equipment.huju);
+    let fabao = data.fabao_list.find(item => item.id == equipment.fabao);
+    let level = await Read_level(usr_qq);
+    let levelmini = data.Level_list.find(item => item.id == level.level_id);
+    let levelmax = data.LevelMax_list.find(item => item.id == level.Physique_id);
+    let player=await Read_battle(usr_qq);
+    player={
+        nowblood: player.nowblood,
+        attack: wuqi.attack+huju.attack+fabao.attack+levelmini.attack+levelmax.attack,
+        defense: wuqi.defense+huju.defense+fabao.defense+levelmini.defense+levelmax.defense,
+        blood: wuqi.blood+huju.blood+fabao.blood+levelmini.blood+levelmax.blood,
+        burst: wuqi.burst+huju.burst+fabao.burst+levelmini.burst+levelmax.burst,
+        burstmax: wuqi.burstmax+huju.burstmax+fabao.burstmax+levelmini.burstmax+levelmax.burstmax,
+        speed: wuqi.speed+huju.speed+fabao.speed+levelmini.speed+levelmax.speed,
+    }
+    await Write_battle(usr_qq,player);
+    return;
+}
+//魔力
 export async function Add_prestige(usr_qq, prestige) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_level(usr_qq);
     player.prestige += Math.trunc(prestige);
     await Write_player(usr_qq, player);
     return;
 }
 //灵石
 export async function Add_lingshi(usr_qq, lingshi) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_wealth(usr_qq);
     player.lingshi += Math.trunc(lingshi);
     await Write_player(usr_qq, player);
     return;
 }
 //修为
 export async function Add_experience(usr_qq, experience) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_level(usr_qq);
     let exp0 = await Numbers(player.experience);
     let exp1 = await Numbers(experience);
     player.experience = await exp0 + exp1;
@@ -207,14 +163,14 @@ export async function Add_experience(usr_qq, experience) {
 }
 //气血
 export async function Add_experiencemax(usr_qq, qixue) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_level(usr_qq);
     player.experiencemax += Math.trunc(qixue);
     await Write_player(usr_qq, player);
     return;
 }
 //血量
 export async function Add_HP(usr_qq, blood) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_battle(usr_qq);
     player.nowblood += Math.trunc(blood);
     if (player.nowblood > player.hpmax) {
         player.nowblood = player.hpmax;
@@ -231,25 +187,21 @@ export async function Add_najie_lingshi(usr_qq, acount) {
 }
 //功法
 export async function Add_player_AllSorcery(usr_qq, gongfa_name_id) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_talent(usr_qq);
     let id = gongfa_name_id;
     player.AllSorcery.push(id);
     await Write_player(usr_qq, player);
     return;
 }
-/**
- * ***********************************************************
- * 战斗系统合集
- */
 export async function battle(A, B) {
     let A_qq = await A;
     let B_qq = await B;
-    let playerA = await Read_player(A_qq);
-    let playerB = await Read_player(B_qq);
+    let playerA = await Read_battle(A_qq);
+    let playerB = await Read_battle(B_qq);
     let bloodA = await playerA.nowblood;
     let bloodB = await playerB.nowblood;
-    let hurtA = await playerA.nowattack - playerB.nowdefense;
-    let hurtB = await playerB.nowattack - playerA.nowdefense;
+    let hurtA = await playerA.attack - playerB.defense;
+    let hurtB = await playerB.attack - playerA.defense;
     if (hurtA <= 0) {
         hurtA = 0;
     }
@@ -279,7 +231,7 @@ export async function battle(A, B) {
         let hurtBB = hurtA;
         if (x == 0) {
             if (await battlebursthurt(playerA.burst)) {
-                hurtAA = hurtAA * (playerA.bursthurt + 1);
+                hurtAA = hurtAA * (playerA.burstmax + 1);
             }
             bloodB = await bloodB - hurtAA;
             if (bloodB <= 0) {
@@ -290,7 +242,7 @@ export async function battle(A, B) {
                 break;
             }
             if (await battlebursthurt(playerB.burst)) {
-                hurtBB = hurtAA * (playerB.bursthurt + 1);
+                hurtBB = hurtAA * (playerB.burstmax + 1);
             }
             bloodA = await bloodA - hurtBB;
             if (bloodA <= 0) {
@@ -304,7 +256,7 @@ export async function battle(A, B) {
         }
         else {
             if (await battlebursthurt(playerB.burst)) {
-                hurtBB = hurtAA * (playerB.bursthurt + 1);
+                hurtBB = hurtAA * (playerB.burstmax + 1);
             }
             bloodA = await bloodA - hurtBB;
             if (bloodA <= 0) {
@@ -316,7 +268,7 @@ export async function battle(A, B) {
                 break;
             }
             if (await battlebursthurt(playerA.burst)) {
-                hurtAA = hurtAA * (playerA.bursthurt + 1);
+                hurtAA = hurtAA * (playerA.burstmax + 1);
             }
             bloodB = await bloodB - hurtAA;
             if (bloodB <= 0) {
@@ -338,127 +290,25 @@ export async function battle(A, B) {
     }
     return battle;
 }
+
 /**
  * 随机取。判断是否暴
  */
-export async function battlebursthurt(x) {
+async function battlebursthurt(x) {
     let bursthurt = x;
-    if (bursthurt >= 1) {
-        //大于1，直接暴
+    if (bursthurt >= 100) {
+        //大于100，直接暴
         return true;
     }
     let y = Math.random();
-    if (bursthurt > y) {
+    if (bursthurt > y*100) {
         return true;
+    }else{
+        return false;
     }
-    //默认不暴
-    return false;
 }
-export async function battlemax(A, battlemsg) {
-    let A_qq = await A;
-    let playerA = await Read_player(A_qq);
-    let playerB = battlemsg;
-    let bloodA = await playerA.nowblood;
-    let bloodB = await playerB.nowblood;
-    let hurtA = await playerA.nowattack - playerB.nowdefense;
-    let hurtB = await playerB.nowattack - playerA.nowdefense;
-    //伤害需要大于0
-    if (hurtA <= 0) {
-        hurtA = 0;//破不了防御，没伤害
-    }
-    if (hurtB <= 0) {
-        hurtB = 0;//破不了防御，没伤害
-    }
-    let victory = await A_qq;
-    let msg = [];
-    let x = 0;
-    /**
-     * 默认A为主动方，敏捷+5
-     */
-    if (playerA.speed + 5 >= playerB.speed) {
-        x = 0;
-        //确认敏捷足够A、先手
-    } else {
-        //B先手
-        x = 1;
-    }
-    while (bloodA >= 0 && bloodB >= 0) {
-        if (bloodA <= 0) {
-            //A输了
-            victory = await B_qq;
-            msg.push("你没血了");
-            break;
-        }
-        if (bloodB <= 0) {
-            msg.push("对方没血了");
-            break;
-        }
-        let hurtAA = hurtA;
-        let hurtBB = hurtA;
-        /**
-         * 先手
-         */
-        if (x == 0) {
-            if (await battlebursthurt(playerA.burst)) {
-                hurtAA = hurtAA * (playerA.bursthurt + 1);
-            }
-            bloodB = await bloodB - hurtAA;
-            if (bloodB <= 0) {
-                bloodB = 0;
-            }
-            msg.push("你向发对方动了攻击，对[" + playerB.name + "]造成了" + hurtAA + "伤害，对方血量剩余" + bloodB);
-            if (bloodB <= 0) {
-                break;
-            }
-            if (await battlebursthurt(playerB.burst)) {
-                hurtBB = hurtAA * (playerB.bursthurt + 1);
-            }
-            bloodA = await bloodA - hurtBB;
-            if (bloodA <= 0) {
-                victory = await B_qq;
-                bloodA = 0;
-            }
-            msg.push("对方向你发动了攻击，对[" + playerA.name + "]造成了" + hurtBB + "伤害，你血量剩余" + bloodA);
-            if (bloodA <= 0) {
-                break;
-            }
-        }
-        else {
-            if (await battlebursthurt(playerB.burst)) {
-                hurtBB = hurtAA * (playerB.bursthurt + 1);
-            }
-            bloodA = await bloodA - hurtBB;
-            if (bloodA <= 0) {
-                victory = await B_qq;
-                bloodA = 0;
-            }
-            msg.push("对方向你，发动了攻击，对[" + playerA.name + "]造成了" + hurtBB + "伤害，你血量剩余" + bloodA);
-            if (bloodA <= 0) {
-                break;
-            }
-            if (await battlebursthurt(playerA.burst)) {
-                hurtAA = hurtAA * (playerA.bursthurt + 1);
-            }
-            bloodB = await bloodB - hurtAA;
-            if (bloodB <= 0) {
-                bloodB = 0;
-            }
-            msg.push("你向对方发动了攻击，对[" + playerB.name + "]造成了" + hurtAA + "伤害，对方血量剩余" + bloodB);
-            if (bloodB <= 0) {
-                break;
-            }
-        }
-    }
-    bloodA = await playerA.nowblood - bloodA;
-    await Add_HP(A, -bloodA);
-    let battle = {
-        "msg": msg,
-        "victory": victory
-    }
-    return battle;
-}
+
 /**
- * **************************************************************
  * 灵根合集
  */
 export async function get_talent() {
@@ -486,6 +336,7 @@ export async function get_talent() {
     }
     return newtalent;
 }
+
 /**
  * 灵根名字
  */
@@ -499,29 +350,31 @@ export async function talentname(player) {
     }
     return talentname;
 }
+
 /**
  * 计算天赋
  */
-export async function talentsize(player) {
-    let talentsize = 2.5;
+async function talentsize(player) {
+    let talentsize = 250;
     let talent = player.talent;
     //根据灵根数来判断
     for (var i = 0; i < talent.length; i++) {
         //循环加效率
         if (talent[i] <= 5) {
-            talentsize -= 0.5;
+            talentsize -= 50;
         }
         if (talent[i] >= 6) {
-            talentsize -= 0.4;
+            talentsize -= 40;
         }
     }
     return talentsize;
 }
+
 /**
  * 天赋综合计算
  */
 export async function player_efficiency(usr_qq) {
-    let player = await data.getData("player", usr_qq);
+    let player = await Read_talent(usr_qq);
     let gongfa_efficiency = 0;
     let ifexist2;
     let gongfa_id;
@@ -537,368 +390,76 @@ export async function player_efficiency(usr_qq) {
             }
         }
     }
-    if (parseInt(player.talentsize) != parseInt(player.talentsize)) {
-        player.talentsize = 0;
-    }
     let linggen_efficiency = await talentsize(player);
     player.talentsize = linggen_efficiency + gongfa_efficiency;
-    data.setData("player", usr_qq, player);
+    await  Write_talent(usr_qq,player);
     return;
 }
 
+/**
+ * 根据名字返回物品
+ */
+export async function search_thing_name(thing) {
+    let ifexist0 = data.all_list.find(item => item.name == thing);
+    if(ifexist0==undefined){
+        return  1;
+    }
+    else{
+        return ifexist0;
+    }
+}
 
 /**
- * 
- * 转换储物袋物品
+ * 根据id返回物品
  */
-export async function exist_thing_arms(thing) {
-    let ifexist;
-        ifexist = data.wuqi_list.find(item => item.id == thing.id);
-        if (ifexist == undefined) {
-            ifexist = data.timewuqi_list.find(item => item.id == thing.id);
-        }
-    if (ifexist==undefined) {
-        return 1;
+export async function search_thing_id(thing_id) {
+    let ifexist0 = data.all_list.find(item => item.id == thing_id);
+    if(ifexist0==undefined){
+        return  1;
     }
-    return ifexist;
+    else{
+        return ifexist0;
+    }
 }
-
-export async function exist_thing_huju(thing) {
-    let ifexist;
-    ifexist = data.huju_list.find(item => item.id == thing.id);
-    if (ifexist == undefined) {
-        ifexist = data.timehuju_list.find(item => item.id == thing.id);
-    }
-    if (ifexist==undefined) {
-        return 1;
-    }
-    return ifexist;
-}
-
-export async function exist_thing_fabao(thing) {
-    let ifexist;
-    ifexist = data.fabao_list.find(item => item.id == thing.id);
-    if (ifexist == undefined) {
-        ifexist = data.timefabao_list.find(item => item.id == thing.id);
-    }
-    if (ifexist==undefined) {
-        return 1;
-    }
-    return ifexist;
-}
-
-export async function exist_thing_danyao(thing) {
-    let ifexist;
-    ifexist = data.danyao_list.find(item => item.id == thing.id);
-    if (ifexist == undefined) {
-        ifexist = data.timedanyao_list.find(item => item.id == thing.id);
-    }
-    if (ifexist==undefined) {
-        return 1;
-    }
-    return ifexist;
-}
-
-export async function exist_thing_gonfa(thing) {
-    let ifexist;
-    ifexist = data.gongfa_list.find(item => item.id == thing.id);
-    if (ifexist == undefined) {
-        ifexist = data.timefabao_list.find(item => item.id == thing.id);
-    }
-    if (ifexist==undefined) {
-        return 1;
-    }
-    return ifexist;
-}
-
-export async function exist_thing_daoju(thing) {
-    let ifexist;
-    ifexist = data.daoju_list.find(item => item.id == thing.id);
-    if (ifexist == undefined) {
-        ifexist = data.timedanyao_list.find(item => item.id == thing.id);
-    }
-    if (ifexist==undefined) {
-        return 1;
-    }
-    return ifexist;
-}
-
-export async function exist_thing_ring(thing) {
-    let ifexist;
-    ifexist = data.ring_list.find(item => item.id == thing.id);
-    if (ifexist==undefined) {
-        return 1;
-    }
-    return ifexist;
-}
-
-
 
 /**
- * 根据名字查找物品信息
+ * 检查纳戒内物品是否存在：直接判断是否存在这个id
  */
-export async function search_thing(thing_name) {
-    let ifexist0 = data.fabao_list.find(item => item.name == thing_name);
-    if (ifexist0 == undefined) {
-        ifexist0 = data.wuqi_list.find(item => item.name == thing_name);
-        if (ifexist0 == undefined) {
-            ifexist0 = data.huju_list.find(item => item.name == thing_name);
-            if (ifexist0 == undefined) {
-                ifexist0 = data.danyao_list.find(item => item.name == thing_name);
-                if (ifexist0 == undefined) {
-                    ifexist0 = data.daoju_list.find(item => item.name == thing_name);
-                    if (ifexist0 == undefined) {
-                        ifexist0 = data.gongfa_list.find(item => item.name == thing_name);
-                        if (ifexist0 == undefined) {
-                            ifexist0 = data.timegongfa_list.find(item => item.name == thing_name);
-                            if (ifexist0 == undefined) {
-                                ifexist0 = data.timedanyao_list.find(item => item.name == thing_name);
-                                if (ifexist0 == undefined) {
-                                    ifexist0 = data.timefabao_list.find(item => item.name == thing_name);
-                                    if (ifexist0 == undefined) {
-                                        ifexist0 = data.timewuqi_list.find(item => item.name == thing_name);
-                                        if (ifexist0 == undefined) {
-                                            ifexist0 = data.timehuju_list.find(item => item.name == thing_name);
-                                            if (ifexist0 == undefined) {
-                                                ifexist0 = data.ring_list.find(item => item.name == thing_name);
-                                                //还是找不到，就是不存在该物品
-                                                return 1;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return ifexist0;
-}
-/**
- * 
- * 检查纳戒内物品是否存在
- */
-export async function exist_najie_thing(usr_qq, thing_id, thing_class) {
+export async function exist_najie_thing(usr_qq, thing_id) {
     let najie = await Read_najie(usr_qq);
-    let ifexist;
-    if (thing_class == 1) {
-        ifexist = najie.arms.find(item => item.id == thing_id);
-    }
-    if (thing_class == 2) {
-        ifexist = najie.huju.find(item => item.id == thing_id);
-    }
-    if (thing_class == 3) {
-        ifexist = najie.fabao.find(item => item.id == thing_id);
-    }
-    if (thing_class == 4) {
-        ifexist = najie.danyao.find(item => item.id == thing_id);
-    }
-    if (thing_class == 5) {
-        ifexist = najie.gonfa.find(item => item.id == thing_id);
-    }
-    if (thing_class == 6) {
-        ifexist = najie.daoju.find(item => item.id == thing_id);
-    }
-    if (thing_class == 7) {
-        ifexist = najie.ring.find(item => item.id == thing_id);
-    }
-    if (!ifexist) {
-        return 1;
-    }
+    let ifexist  = najie.thing.find(item => item.id == thing_id);
     return ifexist;
 }
-export async function Add_najie_thing_arms(najie, najie_thing, thing_acount) {
-    let thing =  najie.arms.find(item => item.id == najie_thing.id);
+
+export async function Add_najie_thing(najie, najie_thing, thing_acount) {
+    let thing =  najie.thing.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
-        let equipment = {
-        id: najie_thing.id,
-        class: najie_thing.class,
-        type: najie_thing.type,
-        acount: thing_acount
-       }
-       najie.arms.push(equipment);
+        najie_thing.acount=thing_acount;
+        najie.thing.push(najie_thing);
        return najie;
     }
     else {
         let acount =  thing.acount + thing_acount;
         if (acount < 1) {
-            najie.arms =  najie.arms.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.arms.find(item => item.id == najie_thing.id).acount = acount;
+            //删除
+            najie.thing =  najie.thing.filter(item => item.id != najie_thing.id);
+        }
+        else{
+            //更新
+            najie.thing.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
     }
 }
-export async function Add_najie_thing_huju(najie, najie_thing, thing_acount) {
-    let thing =  najie.huju.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
-        let equipment = {
-            id: najie_thing.id,
-            class: najie_thing.class,
-            type: najie_thing.type,
-            acount: thing_acount  
-            };
-            najie.huju.push(equipment);
-            return najie;
-    }
-    else {
-        let acount =  thing.acount + thing_acount;
-        if (acount < 1) {
-            najie.huju =  najie.huju.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.huju.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
-export async function Add_najie_thing_fabao(najie, najie_thing, thing_acount) {
-    let thing =  najie.fabao.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {
-        let equipment = {
-            id: najie_thing.id,
-            class: najie_thing.class,
-            type: najie_thing.type,
-            acount: thing_acount
-        }
-        najie.fabao.push(equipment);
-        return najie;
-    }
-    else {
-        let acount =  thing.acount + thing_acount;
-        if (acount < 1) {
-            najie.fabao =  najie.fabao.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.fabao.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
-export async function Add_najie_thing_danyao(najie, najie_thing, thing_acount) {
-    let thing =  najie.danyao.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {
-        let equipment = {
-            id: najie_thing.id,
-            class: najie_thing.class,
-            type: najie_thing.type,
-            acount: thing_acount
-        }
-         najie.danyao.push(equipment);
-         return najie;
-    }
-    else {
-        let acount =  thing.acount + thing_acount;
-        if (acount < 1) {
-            najie.danyao =  najie.danyao.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.danyao.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
-export async function Add_najie_thing_gonfa(najie, najie_thing, thing_acount) {
-    let thing =  najie.gonfa.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
-        let equipment = {
-            id: najie_thing.id,
-            class: najie_thing.class,
-            type: najie_thing.type,
-            acount: thing_acount
-         }
-         najie.gonfa.push(equipment);
-         return najie;
-    }
-    else {
-        let acount =  thing.acount + thing_acount;
-        if (acount < 1) {
-            najie.gonfa =  najie.gonfa.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.gonfa.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
-export async function Add_najie_thing_daoju(najie, najie_thing, thing_acount) {
-    let thing =  najie.daoju.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
-        let equipment = {
-        id: najie_thing.id,
-        class: najie_thing.class,
-        type: najie_thing.type,
-        acount: thing_acount
-        }
-        najie.daoju.push(equipment); 
-        return najie;
-    }
-    else {
-        let acount =  thing.acount + thing_acount;
-        if (acount < 1) {
-            najie.daoju =  najie.daoju.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.daoju.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
-export async function Add_najie_thing_ring(najie, najie_thing, thing_acount) {
-    let thing =  najie.ring.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
-        let equipment = {
-        id: najie_thing.id,
-        class: najie_thing.class,
-        type: najie_thing.type,
-        acount: thing_acount
-        }
-        najie.ring.push(equipment);
-        return najie;
-    }
-    else {
-        let acount =  thing.acount + thing_acount;   
-        if (acount < 1) {
-            najie.ring =  najie.ring.filter(item => item.id != najie_thing.id);
-        }else{
-            najie.ring.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
+
 /**
- * 替换装备
+ * 替换装备：只需要换id
  */
-export async function instead_equipment_arms(equipment, searchsthing) {
-    equipment.arms ={
-        "id": searchsthing.id,
-        "class": searchsthing.class,
-        "type": searchsthing.type,
-        "acount": 1 
-    }
+export async function instead_equipment(equipment, thing_id) {
+    equipment.arms = thing_id;
     return equipment;
 }
-/**
- * 替换护具
- */
- export async function instead_equipment_huju(equipment, searchsthing) {
-    equipment.huju ={
-        "id": searchsthing.id,
-        "class": searchsthing.class,
-        "type": searchsthing.type,
-            "acount": 1 
-        }
-    return equipment;
-}
-/**
- * 替换装备
- */
-export async function instead_equipment_fabao(equipment, searchsthing) {
-    equipment.fabao ={
-        "id": searchsthing.id,
-        "class": searchsthing.class,
-        "type": searchsthing.type,
-        "acount": 1 
-    }
-    return equipment;
-}
+
 //发送转发消息
 export async function ForwardMsg(e, data) {
     let msgList = [];
@@ -929,7 +490,7 @@ export function sortBy(field) {
 
 //获取总修为
 export async function get_experience(usr_qq) {
-    let player = await Read_player(usr_qq);
+    let player = await Read_level(usr_qq);
     let sum_exp = 0;
     let now_level_id = player.level_id;
     if (now_level_id < 46) {
@@ -940,7 +501,6 @@ export async function get_experience(usr_qq) {
     sum_exp += player.experience;
     return sum_exp;
 }
-
 /**
  * 输入概率随机返回布尔类型数据
  * @param P 概率
@@ -1155,7 +715,7 @@ export async function Go(e) {
             return;
         }
     }
-    let player = await Read_player(usr_qq);
+    let player = await Read_battle(usr_qq);
     if (player.nowblood < 200) {
         e.reply("你都伤成这样了，就不要出去浪了");
         return;
@@ -1185,12 +745,13 @@ export async function UserGo(usr_qq) {
             return "[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]";
         }
     }
-    let player = await Read_player(usr_qq);
+    let player = await Read_battle(usr_qq);
     if (player.nowblood < 200) {
         return "你都伤成这样了,就不要出去浪了";
     }
     return true;
 }
+
 /**
  * 冷却检测
  */
@@ -1237,7 +798,6 @@ export async function Read_Forum() {
             }
             return data;
         })
-
     } catch {
         await Write_Forum([]);
         Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
@@ -1250,6 +810,7 @@ export async function Read_Forum() {
     Forum = JSON.parse(Forum);
     return Forum;
 }
+
 //写入交易表
 export async function Write_Exchange(wupin) {
     let dir = path.join(__PATH.Exchange, `Exchange.json`);
@@ -1258,6 +819,7 @@ export async function Write_Exchange(wupin) {
     })
     return;
 }
+
 //读交易表
 export async function Read_Exchange() {
     let dir = path.join(`${__PATH.Exchange}/Exchange.json`);
@@ -1283,6 +845,7 @@ export async function Read_Exchange() {
     Exchange = await JSON.parse(Exchange);
     return Exchange;
 }
+
 //搜索物品
 export async function Search_Exchange(thing_qq) {
     let thingqq = thing_qq;
@@ -1299,38 +862,3 @@ export async function Search_Exchange(thing_qq) {
     }
     return x;
 }
-/**
- * 返回物品名字
- */
-export async function classname(thing_class) {
-    let name = thing_class;
-    if(name==1){
-        name="武器";
-        return name;
-    }
-    if(name==2){
-        name="护具"
-        return name;
-    }
-    if(name==3){
-        name="法宝";
-        return name;
-    }
-    if(name==4){
-        Exchange[i].class="丹药";
-        return name;
-    }
-    if(name==5){
-        name="功法";
-        return name;
-    }
-    if(name==6){
-        name="道具";
-        return name;
-    }
-    if(name==7){
-        name="戒指";
-        return name;
-    }
-}
-

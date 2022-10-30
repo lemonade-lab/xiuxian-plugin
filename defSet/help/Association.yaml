@@ -13,7 +13,7 @@
       title: "#玩家 任命+职位"
       desc: "给职位"
     - icon: help-icon_58
-      title: "#逐出门派+qq号"
+      title: "#逐出门派+QQ号"
       desc: "将玩家逐出宗门"
     - icon: help-icon_58
       title: "#宗门改名xxx"
@@ -31,13 +31,13 @@
       title: "#退出宗门"
       desc: "退宗"
     - icon: help-icon_55
-      title: "#查看简历+qq"
+      title: "#查看简历+QQ"
       desc: "查看申请加入玩家的信息"
     - icon: help-icon_55
-      title: "#批准录取+qq"
+      title: "#批准录取+QQ"
       desc: "同意该玩家加入宗门"
     - icon: help-icon_55
-      title: "#驳回申请+qq"
+      title: "#驳回申请+QQ"
       desc: "拒绝该玩家的入宗申请"
     - icon: help-icon_55
       title: "#清空志愿"

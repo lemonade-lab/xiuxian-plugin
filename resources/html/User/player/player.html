@@ -7,56 +7,92 @@
 </head>
 
 <body>
-  <div>
-    <!--上-->
-    <div class="user_top">
-      <div class="user_top_left">
-        <div class="user_top_img_bottom">
-          <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
-        </div>
-        <div class="user_top_left_qq">QQ:{{user_id}}</div>
-      </div>
-      <div class="user_top_right">
-        <div class="user_font user_font" style="padding-left: 15px;">道号:{{nickname}}</div>
-        <div class="user_font" style="padding-left: 15px;">血量:{{player_nowHP}}/{{player_maxHP}}</div>
-        <div class="user_font" style="padding-left: 15px;">法境:{{level}}</div>
-        <div class="user_font" style="padding-left: 15px;">修为:{{exp}}</div>
-        <div class="user_font" style="padding-left: 15px;">灵石:{{lingshi}}</div>
-      </div>
-    </div>
+  <!--上-->
+  <div style="height: 50px;">
 
-    <div class="user_bottom0">
-
-    </div>
-    <!--下-->
-    <div class="user_bottom1">
-      <div class="use_data">
-        <div class="use_data_head">
-          <div class="user_font" style="text-align: center;padding-left: 0px;">[修心道宣]</div>
-          <div class="user_font">{{declaration}}</div>
-        </div>
+  </div>
+  <div class="user_top">
+    <div class="user_top_left" >
+      <div class="user_top_right_font0">账号：{{user_id}}</div>
+      <div class="user_top_right_font"> 道号：{{player.name}}</div>
+      <div class="user_top_right_font1">寿命：{{level.life}}</div>
+      <div class="user_top_right_font2">
+        血量：{{battle.nowblood}}/{{battle.blood}}
       </div>
     </div>
-    <!--下-->
-    <div class="user_bottom1">
-      <div class="use_data">
-        <div class="use_data_head">
-          <div class="user_font" style="text-align: center;padding-left: 0px;">[基础信息]</div>
-          <div class="user_font">武器：{{wuqi_name}}</div>
-          <div class="user_font">护具：{{juju_name}}</div>
-          <div class="user_font">法宝：{{fabao_name}}</div>
-          <div class="user_font">灵根：{{linggenname}}</div>
-          <div class="user_font">天赋：+{{talent}}%</div>
-          <div class="user_font">状态：{{player_action}}</div>
+    <div class="user_top_right">
+      <div class="user_top_img_bottom">
+        <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!--下-->
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="user_top_right_font0">[修心道宣]</div>
+      <div class="user_top_right_font2">{{player.autograph}}</div>
+    </div>
+  </div>
+
+  <!--下-->
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="user_top_right_font0">[基础信息]</div>
+      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto;">
+        <div>
+          法境：{{level.levelname}}
+        </div>
+        <div>
+          修为：{{level.experience}}
         </div>
       </div>
+      <div class="user_top_right_font1" style="display:grid;grid-template-columns:auto auto;">
+        <div>
+          体境：{{level.levelnamemax}}
+        </div>
+        <div>
+          气血：{{level.experiencemax}}
+        </div>
+      </div>
+      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto;">
+        <div>
+          灵石：{{lingshi}}
+        </div>
+        <div>
+          仙石：{{xianshi}}
+        </div>
+      </div>
+      <div class="user_top_right_font1" style="display:grid;grid-template-columns:auto auto;">
+        <div>
+          灵根：{{linggenname}}
+        </div>
+        <div>
+          天赋：+{{talent}}%
+        </div>
+      </div>
+      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto;">
+        <div>
+          武器：{{wuqi_name}}
+        </div>
+        <div>
+          护具：{{huju_name}}
+        </div>
+      </div>
+      <div class="user_top_right_font2" style="display:grid;grid-template-columns:auto auto;">
+        <div>法宝：{{fabao_name}}
+        </div>
+        <div>战力：999999
+        </div>
+      </div>
     </div>
+  </div>
 
-
-
-
-
-    <div class="user_bottom2">
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="user_top_right_font0">[已学功法]</div>
+      <div class="user_top_right_font2">无</div>
     </div>
   </div>
   <style>
@@ -64,5 +100,8 @@
   </style>
 
 </body>
+
+<script>
+</script>
 
 </html>

@@ -1,11 +1,13 @@
 body {
   transform: scale(1);
-  width: 830px;
+  width: 100%;
+  background: url(../../help/help.jpg) top left no-repeat;
+  background-size: 100%;
 }
+
 .container {
-  background: url(../../help/help.jpg),url(../../img/help/help_config.jpg) top left no-repeat;
-  background-size: 100% auto;
-  width: 830px;
+  width: 100%;
+  padding: 40px !important;
 }
 
 .label {
@@ -26,7 +28,7 @@ body {
   overflow: hidden;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
   position: relative;
-  background: rgba(88, 107, 132, 0.8);
+  background: rgb(19 21 22 / 51%);
 }
 .help-group {
   color: #b8eef5;
@@ -63,11 +65,11 @@ body {
 }
 
 .help-table .tr:nth-child(odd) {
-  background: rgba(32, 42, 34, 0.6);
+  background: rgb(0 0 0 / 41%);
 }
 
 .help-table .tr:nth-child(even) {
-  background: rgba(69, 75, 84, 0.3);
+  background: rgba(19, 21, 22, 0.448);
 }
 
 .help-table .tr:last-child .td {

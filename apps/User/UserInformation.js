@@ -15,16 +15,12 @@ export class UserInformation extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#练气信息$',
+                    reg: '^#基础信息$',
                     fnc: 'Show_player'
                 },
                 {
                     reg: "^#面板信息$",
                     fnc: "show_equipment",
-                },
-                {
-                    reg: "^#炼体信息$",
-                    fnc: "show_power",
                 }
             ]
         })
@@ -44,17 +40,6 @@ export class UserInformation extends plugin {
         return;
     }
 
-    //show_power
-    async show_power(e) {
-        let usr_qq = e.user_id;
-        let ifexistplay = await existplayer(usr_qq);
-        if (!ifexistplay) {
-            return;
-        }
-        let img = await ShowData.get_power_img(e);
-        e.reply(img);
-        return;
-    }
 
     //修仙面板
     async show_equipment(e) {

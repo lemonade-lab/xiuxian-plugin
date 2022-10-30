@@ -1,14 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import {existplayer,search_thing,exist_najie_thing,
+import {existplayer,search_thing_name,exist_najie_thing,
     Read_najie,Read_equipment,
-    Add_najie_thing_arms,instead_equipment_arms,
-    Add_najie_thing_huju,instead_equipment_huju,
-    Add_najie_thing_fabao,instead_equipment_fabao,
     Write_equipment,Write_najie,Numbers,
-    Add_HP,Add_experience,Add_najie_thing_danyao,
-    Add_najie_thing_daoju,get_talent,
-    Add_najie_thing_gonfa,Add_player_AllSorcery,player_efficiency} from '../Xiuxian/Xiuxian.js'
+    Add_HP,Add_experience,get_talent,Add_player_AllSorcery,player_efficiency} from '../Xiuxian/Xiuxian.js'
 
 /**
   * 一级类型
@@ -62,7 +57,7 @@ export class UserHome extends plugin {
             return;
         }
         let thing_name = e.msg.replace("#装备", '');
-        let searchsthing = await search_thing(thing_name);
+        let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply("世界没有" + thing_name);
             return;
@@ -75,22 +70,6 @@ export class UserHome extends plugin {
         let najie = await Read_najie(usr_qq);
 
         let equipment = await Read_equipment(usr_qq);
-
-        if (searchsthing.class == 1) {
-            najie = await Add_najie_thing_arms(najie, equipment.arms, 1);
-            equipment=await instead_equipment_arms(equipment, searchsthing);
-            najie = await Add_najie_thing_arms(najie, searchsthing, -1);
-        }
-        if (searchsthing.class == 2) {
-            najie = await Add_najie_thing_huju(najie, equipment.huju, 1);
-            equipment=await instead_equipment_huju(equipment, searchsthing);
-            najie = await Add_najie_thing_huju(najie, searchsthing, -1);
-        }
-        if (searchsthing.class == 3) {
-            najie = await Add_najie_thing_fabao(najie, equipment.fabao, 1);
-            equipment=await instead_equipment_fabao(equipment, searchsthing);
-            najie = await Add_najie_thing_fabao(najie, searchsthing, -1);
-        }
         await Write_equipment(usr_qq, equipment);
         await Write_najie(usr_qq, najie);
         e.reply("成功装备" + thing_name);
@@ -111,7 +90,7 @@ export class UserHome extends plugin {
         thing_name = code[0];
         let thing_acount = code[1];
         thing_acount = await Numbers(thing_acount);
-        let searchsthing = await search_thing(thing_name);
+        let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply("世界没有" + thing_name);
             return;
@@ -136,7 +115,6 @@ export class UserHome extends plugin {
             e.reply("修为增加" + thing_acount * searchsthing.exp);
         }
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing_danyao(najie, searchsthing, -thing_acount);
         await Write_najie(usr_qq, najie);
         return;
     }
@@ -151,7 +129,7 @@ export class UserHome extends plugin {
             return;
         }
         let thing_name = e.msg.replace("#学习", '');
-        let searchsthing = await search_thing(thing_name);
+        let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
             return;
@@ -171,7 +149,6 @@ export class UserHome extends plugin {
         await Add_player_AllSorcery(usr_qq, searchsthing.id);
         await player_efficiency(usr_qq);
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing_gonfa(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
         e.reply("成功学习" + thing_name);
         return;
@@ -188,7 +165,7 @@ export class UserHome extends plugin {
             return;
         }
         let thing_name = e.msg.replace("#消耗", '');
-        let searchsthing = await search_thing(thing_name);
+        let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
             return;
@@ -227,7 +204,6 @@ export class UserHome extends plugin {
         }
         
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing_daoju(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
         return;
     }

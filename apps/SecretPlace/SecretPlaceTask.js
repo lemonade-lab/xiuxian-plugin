@@ -4,12 +4,9 @@ import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import data from '../../model/XiuxianData.js'
+
 import {__PATH,isNotNull,Read_player,Numbers,
-    battlemax,search_thing,offaction,Read_najie,
-    Add_najie_thing_ring,Add_najie_thing_arms,
-    Add_najie_thing_huju,Add_najie_thing_fabao,
-    Add_najie_thing_danyao,Add_najie_thing_gonfa,
-    Add_najie_thing_daoju } from '../Xiuxian/Xiuxian.js'
+    search_thing_name,offaction,Read_najie,Write_najie } from '../Xiuxian/Xiuxian.js'
 
 /**
  * 定时任务
@@ -71,7 +68,7 @@ export class SecretPlaceTask extends plugin {
                         monster_list.nowdefense = player.nowdefense * monster_list.nowdefense;
                         monster_list.nowblood = player.nowblood * monster_list.nowblood;
                         monster_list.bursthurt = player.bursthurt * monster_list.bursthurt;
-                        let Data_battle = await battlemax(player_id, monster_list);
+                        let Data_battle = 0;
                         let msg0 = Data_battle.msg;
                         if (msg0.length < 30) {
                             msg.push(msg0);
@@ -105,29 +102,10 @@ export class SecretPlaceTask extends plugin {
                                     msg.push("蹲在草丛中躲避妖兽，不巧撞见走在路上的" + monster_list.name + "，决定趁机打劫，并夺走了他的"+thing_name);
                                 }
                                 //得宝物
-                                let searchsthing = await search_thing(thing_name);
+                                //分局秘境地址来选择
+                                //直接获取整个物品
+                                let searchsthing = await search_thing_name(thing_name);
                                 let najie = await Read_najie(player_id);player_id
-                                if (searchsthing.class == 1) {
-                                    najie = await Add_najie_thing_arms(najie, searchsthing, 1);
-                                }
-                                else if (searchsthing.class == 2) {
-                                    najie = await Add_najie_thing_huju(najie, searchsthing, 1);
-                                }
-                                else if (searchsthing.class == 3) {
-                                    najie = await Add_najie_thing_fabao(najie, searchsthing, 1);
-                                }
-                                else if (searchsthing.class == 4) {
-                                    najie = await Add_najie_thing_danyao(najie, searchsthing, 1);
-                                }
-                                else if (searchsthing.class == 5) {
-                                    najie = await Add_najie_thing_gonfa(najie, searchsthing, 1);
-                                }
-                                else if (searchsthing.class == 6) {
-                                    najie = await Add_najie_thing_daoju(najie, searchsthing, 1);
-                                }
-                                else if (searchsthing.class == 7) {
-                                    najie = await Add_najie_thing_ring(najie, searchsthing, 1);
-                                }
                                 await Write_najie(player_id, najie);
                             }
                             else {

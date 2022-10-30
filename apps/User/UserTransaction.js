@@ -3,8 +3,8 @@ import data from '../../model/XiuxianData.js'
 import path from "path"
 import fs from "fs"
 
-import { Numbers,Read_player,Add_lingshi,exist_najie_thing,
-    search_thing,existplayer,ForwardMsg,__PATH } from '../Xiuxian/Xiuxian.js'
+import { Numbers,Read_wealth,Add_lingshi,exist_najie_thing,
+    search_thing_name,existplayer,ForwardMsg,__PATH } from '../Xiuxian/Xiuxian.js'
 
 export class UserTransaction extends plugin {
     constructor() {
@@ -15,11 +15,11 @@ export class UserTransaction extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#购买((.*)|(.*)*(.*))$',
+                    reg: '^#购买.*$',
                     fnc: 'Buy_comodities'
                 },
                 {
-                    reg: '^#出售((.*)|(.*)*(.*))$',
+                    reg: '^#出售.*$',
                     fnc: 'Sell_comodities'
                 },
                 {
@@ -39,7 +39,10 @@ export class UserTransaction extends plugin {
         let msg = [
             "___[柠檬堂]___\n#购买+物品"
         ];
-        let commodities_list = data.commodities_list; 
+        /**
+         * 合成装备表
+         */
+        let commodities_list = data.commodities_list;
         for (var i = 0; i < commodities_list.length; i++) {
             if(commodities_list[i].class==1||commodities_list[i].class==2||commodities_list[i].class==3){
                 msg.push(
@@ -85,12 +88,12 @@ export class UserTransaction extends plugin {
             e.reply("游戏进行中...");
             return;
         }
-        let thing = e.msg.replace("#", '');
-        thing = thing.replace("购买", '');
+        let thing = e.msg.replace("#购买", '');
         let code = thing.split("\*");
-        let thing_name = code[0];
-        let acount = code[1];
-        let quantity = await Numbers(acount);
+        let thing_class = code[0];//类型
+        let thing_name = code[1];//物品
+        let thing_acount = code[2];//数量
+        let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
         }
@@ -99,7 +102,7 @@ export class UserTransaction extends plugin {
             e.reply(`柠檬堂不卖:${thing_name}`);
             return;
         }
-        let player = await Read_player(usr_qq);
+        let player = await Read_wealth(usr_qq);
         let lingshi = player.lingshi;
         let commodities_price = ifexist.price * quantity;
         if (lingshi < commodities_price) {
@@ -150,15 +153,19 @@ export class UserTransaction extends plugin {
             e.reply("游戏进行中...");
             return;
         }
-        let thing = e.msg.replace("#", '');
-        thing = thing.replace("出售", '');
+
+        let thing = e.msg.replace("#出售", '');
         let code = thing.split("\*");
-        let thing_name = code[0];
-        let quantity = await Numbers(code[1]);
+        let thing_class = code[0];//类型
+        let thing_name = code[1];//物品
+        let thing_acount = code[2];//数量
+
+        let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
         }
-        let searchsthing = await search_thing(thing_name);
+        //找物品
+        let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
             return;

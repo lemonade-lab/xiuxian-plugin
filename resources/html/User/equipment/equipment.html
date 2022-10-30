@@ -4,54 +4,85 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/User/equipment/equipment.css" />
+  <link rel="stylesheet" type="text/css" href="equipment.css" />
 </head>
 
 <body>
-  <div class="user_width">
-    <div class="user_left">
-      <div class="user_left_top">
-        <div class="user_font_title">[武器]</div>
-        <div class="user_font">名称:{{arms.name}}</div>
-        <div class="user_font">攻击:{{arms.atk}}</div>
-        <div class="user_font">防御:{{arms.def}}</div>
-        <div class="user_font">血量:{{arms.HP}}</div>
-        <div class="user_font">暴击率:{{arms.bao*100}}%</div>
-      </div>
-      <div class="user_left_buttom">
-        <div class="user_font_title">[护具]</div>
-        <div class="user_font">名称:{{huju.name}}</div>
-        <div class="user_font">攻击:{{huju.atk}}</div>
-        <div class="user_font">防御:{{huju.def}}</div>
-        <div class="user_font">血量:{{huju.HP}}</div>
-        <div class="user_font">暴击率:{{huju.bao*100}}%</div>
+  <!--上-->
+  <div style="height: 1px;"></div>
+
+  <div class="user_top">
+    <div class="user_top_left">
+      <div class="user_top_right_font0">攻击：{{battle.attack}}</div>
+      <div class="user_top_right_font">防御：{{battle.defense}}</div>
+      <div class="user_top_right_font1">血量：{{battle.blood}}</div>
+      <div class="user_top_right_font">敏捷：{{battle.speed}}</div>
+      <div class="user_top_right_font1">暴击：{{battle.burst}}</div>
+      <div class="user_top_right_font2">暴伤：{{battle.burstmax}}</div>
+    </div>
+    <div class="user_top_right">
+      <div class="user_top_img_bottom">
+        <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
       </div>
     </div>
-    <div class="user_right">
-      <div class="user_right_top">
-        <div class="user_font_title">[法宝]</div>
-        <div class="user_font">名称:{{fabao.name}}</div>
-        <div class="user_font">攻击:{{fabao.atk}}</div>
-        <div class="user_font">防御:{{fabao.def}}</div>
-        <div class="user_font">血量:{{fabao.HP}}</div>
-        <div class="user_font">暴击率:{{fabao.bao*100}}%</div>
+  </div>
+
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="user_top_right_font0">{{wuqi.name}}</div>
+      <div class="user_top_right_font1">
+        <div>攻击：{{wuqi.attack}}</div>
+        <div>防御：{{wuqi.defense}}</div>
+        <div>血量：{{wuqi.blood}}</div>
       </div>
-      <div class="user_right_buttom">
-        <div class="user_font_title">[属性板]</div>
-        <div class="user_font2">道号:{{nickname}}</div>
-        <div class="user_font2">血量:{{player_nowHP}}/{{player_maxHP}}</div>
-        <div class="user_font2">攻击:{{player_atk}}</div>
-        <div class="user_font2">防御:{{player_def}}</div>
-        <div class="user_font2">暴击率:{{player_burst}}%</div>
+      <div class="user_top_right_font2">
+        <div>敏捷：{{wuqi.speed}}</div>
+        <div>暴击：{{wuqi.burst}}</div>
+        <div>暴伤：{{wuqi.burstmax}}</div>
       </div>
     </div>
-    <div class="user_head">
-      <div class="user_qq">QQ:{{user_id}}</div>
+  </div>
+
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="user_top_right_font0">{{huju.name}}</div>
+      <div class="user_top_right_font1">
+        <div>攻击：{{huju.attack}}</div>
+        <div>防御：{{huju.defense}}</div>
+        <div>血量：{{huju.blood}}</div>
+      </div>
+      <div class="user_top_right_font2">
+        <div>敏捷：{{huju.speed}}</div>
+        <div>暴击：{{huju.burst}}</div>
+        <div>暴伤：{{huju.burstmax}}</div>
+      </div>
     </div>
+  </div>
+
+  <div class="user_bottom1">
+    <div class="use_data">
+      <div class="user_top_right_font0">{{fabao.name}}</div>
+      <div class="user_top_right_font1">
+        <div>攻击：{{fabao.attack}}</div>
+        <div>防御：{{fabao.defense}}</div>
+        <div>血量：{{fabao.blood}}</div>
+      </div>
+      <div class="user_top_right_font2">
+        <div>敏捷：{{fabao.speed}}</div>
+        <div>暴击：{{fabao.burst}}</div>
+        <div>暴伤：{{fabao.burstmax}}</div>
+      </div>
+    </div>
+  </div>
+
   </div>
   <style>
 
   </style>
 
 </body>
+
+<script>
+</script>
 
 </html>

@@ -2,65 +2,43 @@ import fs from "node:fs"
 import Config from "./Config.js"
 import path from "path"
 
+let all = [];
+let commodities = [];
 /*
   数据封装
  */
-
 class XiuxianData {
     constructor() {
         //默认配置
         this.configData = Config.getdefSet("version", "version")
-        //文件路径参数
         //插件根目录
         const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin"
         //修仙配置
         this.filePathMap = {
-            //用户数据表优化
             "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
-
             "equipment": path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
-            
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
-            //出生
             "birthassociation": path.join(__dirname, "/resources/data/birth/association"),
-            //装备
             "fixedequipment": path.join(__dirname, "/resources/data/fixed/equipment"),
-            //物品
             "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
-            //其他
             "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
-            //境界
             "fixedLevel": path.join(__dirname, "/resources/data/fixed/Level"),
-            //职业
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
-            //地点
             "fixedplace": path.join(__dirname, "/resources/data/fixed/place"),
-            //灵根
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
-            //限定
-            "fixedTimelimit": path.join(__dirname, "/resources/data/fixed/Timelimit"),
+            "all": path.join(__dirname, "/resources/data/fixed/all"),
         }
-
         this.association = this.filePathMap.birthassociation;
-        //装备
         this.fixedequipment = this.filePathMap.fixedequipment;
-        //物品
         this.goods = this.filePathMap.fixedgoods;
-        //其他
         this.lib = this.filePathMap.fixedlib;
-        //境界
         this.Level = this.filePathMap.fixedLevel;
-        //职业
         this.occupation = this.filePathMap.fixedoccupation;
-        //地点
         this.place = this.filePathMap.fixedplace;
-        //灵根
         this.talent = this.filePathMap.fixedtalent;
-        //限定
-        this.Timelimit = this.filePathMap.fixedTimelimit;
+        this.all = this.filePathMap.all;
 
-        //商品
-        this.commodities_list = JSON.parse(fs.readFileSync(`${this.lib}/commodities_list.json`));
+
         //怪物
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         //境界
@@ -74,25 +52,79 @@ class XiuxianData {
         this.danyao_list = JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`));
         this.daoju_list = JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`));
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
+        this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
         //地点
         this.didian_list = JSON.parse(fs.readFileSync(`${this.place}/didian_list.json`));
-        //禁地
         this.forbiddenarea_list = JSON.parse(fs.readFileSync(`${this.place}/forbiddenarea_list.json`));
+        this.timeplace_list = JSON.parse(fs.readFileSync(`${this.place}/timeplace_list.json`));
         //灵根
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
-        //限定
-        this.timeplace_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/timeplace_list.json`));
-        //限定物品
-        this.timegongfa_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/timegongfa_list.json`));
-        this.timedanyao_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/timedanyao_list.json`));
-        //限定装备
-        this.timefabao_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/timefabao_list.json`));
-        this.timewuqi_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/timewuqi_list.json`));
-        this.timehuju_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/timehuju_list.json`));
-        //戒指
-        this.ring_list = JSON.parse(fs.readFileSync(`${this.Timelimit}/ring_list.json`));
+
+        //所有信息
+        this.all_list = JSON.parse(fs.readFileSync(`${this.all}/all.json`));
+        this.commodities_list = JSON.parse(fs.readFileSync(`${this.all}/commodities.json`));
+
+        this.deletelist('all');
+        this.list(this.fabao_list, all, 99);
+        this.list(this.wuqi_list, all, 99);
+        this.list(this.huju_list, all, 99);
+        this.list(this.danyao_list, all, 99);
+        this.list(this.daoju_list, all, 99);
+        this.list(this.gongfa_list, all, 99);
+        this.list(this.ring_list, all, 99);
+        this.add(all, 'all');
+        this.deletelist('commodities');
+        this.list(this.fabao_list, commodities, 6);
+        this.list(this.wuqi_list, commodities, 6);
+        this.list(this.huju_list, commodities, 6);
+        this.list(this.danyao_list, commodities, 6);
+        this.list(this.daoju_list, commodities, 6);
+        this.list(this.gongfa_list, commodities, 6);
+        this.list(this.ring_list, commodities, 6);
+        this.add(commodities, 'commodities');
     }
 
+    //删除
+    deletelist(name) {
+        let sum = [];
+        let dir = path.join(this.all, `${name}.json`);
+        let new_ARR = JSON.stringify(sum, "", "\t");
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        });
+    }
+
+
+    //存临时数组
+    list(add, sum, acount) {
+        add.forEach((item, index) => {
+            if (index < acount) {
+                sum.push(item);
+            }
+        });
+    }
+
+    //添加临时数组
+    add(sum, name) {
+        let dir = path.join(this.all, `${name}.json`);
+        let new_ARR = JSON.stringify(sum, "", "\t");
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        })
+            ;
+    }
+
+    //新增信息
+    addlist(sum, add, name, acount) {
+        add.forEach((item, index) => {
+            if (index < acount) {
+                sum.push(item);
+            }
+        });
+        let dir = path.join(this.all, `${name}.json`);
+        let new_ARR = JSON.stringify(sum, "", "\t");
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        })
+            ;
+    }
 
     /**
       * 检测存档存在
@@ -108,7 +140,6 @@ class XiuxianData {
         }
         return false;
     }
-
 
     /**
      * 获取文件数据(user_qq为空查询item下的file_name文件)
@@ -168,3 +199,4 @@ class XiuxianData {
 }
 
 export default new XiuxianData();
+

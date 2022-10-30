@@ -4,10 +4,13 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "fs"
 import { segment } from "oicq"
-import * as ShowData from '../ShowImeg/showData.js'
-import {existplayer,get_talent,__PATH,Write_player,
-        Write_equipment,Write_najie,Go,GenerateCD,Numbers,
-        Read_player,Add_experience,getLastsign,shijianc} from '../Xiuxian/Xiuxian.js'
+import {get_player_img} from '../ShowImeg/showData.js'
+
+import {existplayer,__PATH,Write_player,Go,GenerateCD,Numbers,
+        Read_player,Add_experience,getLastsign,shijianc,get_talent,
+        Write_najie,Write_talent,Write_battle,Write_level,Write_wealth,
+        player_efficiency,
+        Write_action,Write_equipment, Read_wealth} from '../Xiuxian/Xiuxian.js'
 /**
  * 信息模块
  */
@@ -55,76 +58,68 @@ export class UserStart extends plugin {
         }
         let ifexistplay = await existplayer(usr_qq);
         if (ifexistplay) {
-            this.Show_player(e);
             return;
         }
-        let newtalent = await get_talent();
         let File_msg = fs.readdirSync(__PATH.player);
         let n = File_msg.length + 1;
         let new_player = {
             "name": `${n}号`,//道号
             "autograph": "无",//道宣
-
-            "race": 1,//种族
-            "prestige": 0,//魔力
-            "Age":0,//年龄
-            "life": 100,//寿命
-
-            "level_id": 1,//练气境界
-            "Physique_id": 1,//练体境界 
-            "experience": 1,//练气经验
-            "experiencemax": 1,//练体经验
-
-            "lingshi": 1000,//灵石
-            "nowblood": 8040,//血量
+            "days": 0//签到
+        }
+        await Write_player(usr_qq, new_player);
+        let newtalent = await get_talent();
+        let new_talent = {
             "talent": newtalent,//灵根
             "talentshow": 1,//显示0，隐藏1
             "talentsize": 0,//天赋
-            
-            "AllSorcery": [],//功法
-            "occupation": [],//职业
-            "power_place": 1,//仙界
-            "days": 0,//签到
+            "AllSorcery": []//功法
         }
-        await Write_player(usr_qq, new_player);
+        await Write_talent(usr_qq, new_talent);
+        await player_efficiency(usr_qq);
 
+        let new_battle = {
+            "nowblood": data.Level_list.find(item => item.id == 1).blood,//血量
+        }
+        await Write_battle(usr_qq, new_battle);
+        let new_level = {
+            "prestige": 0,//魔力
+            "Age":1,//年龄
+            "life": 100,//寿命
+            "level_id": 1,//练气境界
+            "levelname": data.Level_list.find(item => item.id == 1).name,//练气名
+            "experience": 1,//练气经验
+            "Physique_id": 1,//练体境界 
+            "levelnamemax": data.LevelMax_list.find(item => item.id == 1).name,//练体名
+            "experiencemax": 1//练体经验
+        }
+        await Write_level(usr_qq, new_level);
+        let new_wealth = {
+            "lingshi": 5,
+            "xianshi": 0
+        }
+        await Write_wealth(usr_qq, new_wealth); 
+        let new_action = {
+            "power_place": 1,//仙界状态
+            "game": 1,//游戏状态
+            "Couple":1 //双修
+        }
+        await Write_action(usr_qq, new_action);
         //初始化装备
         let new_equipment = {
-            "arms":
-            {
-                "id": 1101,
-                "class": "1",
-                "type": "1",
-                "acount":"1"
-            },
-            "huju":
-            {
-                "id": 2101,
-                "class": "2",
-                "type": "1",
-                "acount":"1"
-            },
-            "fabao":
-            {
-                "id": 3101,
-                "class": "3",
-                "type": "1",
-                "acount":"1"
-            }
+            //装备不分
+            "wuqi":'1-1-1',
+            "huju":'2-1-1',
+            "fabao":'3-1-1'
         }
         await Write_equipment(usr_qq, new_equipment);
+
         //初始化纳戒
         let new_najie = {
             "grade": 1,
             "lingshimax": 50000,
             "lingshi": 0,
-            "arms": [],
-            "huju": [],
-            "fabao": [],
-            "danyao": [],
-            "daoju": [],
-            "gonfa": [],
-            "ring": []
+            "thing": []
         }
         await Write_najie(usr_qq, new_najie);
         this.Show_player(e);
@@ -139,7 +134,6 @@ export class UserStart extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-
         let CDTime = this.xiuxianConfigData.CD.reborn;
         let ClassCD = ":last_reCreate_time";
         let now_time = new Date().getTime();
@@ -149,22 +143,17 @@ export class UserStart extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
         let acount = await redis.get("xiuxian:player:" + usr_qq + ":reCreate_acount");
         if (acount >= 15) {
             e.reply("灵魂虚弱，已不可转世！");
             return;
         }
-
         acount = Numbers(acount);
         acount++;
-
         fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
         fs.rmSync(`${__PATH.equipment}/${usr_qq}.json`);
         fs.rmSync(`${__PATH.najie}/${usr_qq}.json`);
-
         e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
-
         await this.Create_player(e);
         await redis.set("xiuxian:player:" + usr_qq + ":last_reCreate_time", now_time);
         await redis.set("xiuxian:player:" + usr_qq + ":reCreate_acount", acount);
@@ -181,7 +170,7 @@ export class UserStart extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let img = await ShowData.get_player_img(e);
+        let img = await get_player_img(e);
         e.reply(img);
         return;
     }
@@ -201,12 +190,18 @@ export class UserStart extends plugin {
             return;
         }
 
+        const name=['尼玛','妈的','他妈','卧槽','操','操蛋','麻痹','傻逼','妈逼'];
+        //屏蔽某词
+        for(var i=0;i<name.length;i++){
+            new_name = new_name.replace(name[i], '');
+        }
+
         if (new_name.length > 8) {
             e.reply("玩家名字最多八字");
             return;
         }
 
-        let player = await Read_player(usr_qq);
+        let player = await Read_wealth(usr_qq);
         if (player.lingshi < lingshi) {
             e.reply("需"+lingshi+"灵石");
             return;
@@ -239,7 +234,13 @@ export class UserStart extends plugin {
         let player = await Read_player(usr_qq);
         let new_msg = e.msg.replace("#设置道宣", '');
         new_msg = new_msg.replace(" ", '');
-        new_msg = new_msg.replace("+", '');
+
+        const name=['尼玛','妈的','他妈','卧槽','操','操蛋','麻痹','傻逼','妈逼'];
+        //屏蔽某词
+        for(var i=0;i<name.length;i++){
+            new_msg = new_msg.replace(name[i], '');
+        }
+
         if (new_msg.length == 0) {
             return;
         }
