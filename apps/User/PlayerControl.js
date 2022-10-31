@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import {Gomini,Go,offaction, Read_battle, Read_level, Read_talent, Add_experience, Add_HP} from '../Xiuxian/Xiuxian.js'
+import {Gomini,Go,offaction, Read_battle, Read_level, Read_talent, Add_experience, Add_HP, Add_lingshi} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 /**
  * 定时任务
@@ -289,7 +289,7 @@ export class PlayerControl extends plugin {
             }
         }
         let get_lingshi = lingshi * Time + other_lingshi;//最后获取到的灵石
-        await add_lingshi(usr_qq, get_lingshi);
+        await Add_lingshi(usr_qq, get_lingshi);
         if (is_random) {
             msg.push("\n增加灵石" + get_lingshi);
         } else {
