@@ -269,7 +269,7 @@ export class PlayerControl extends plugin {
 
     async dagong_jiesuan(user_id, time, is_random, group_id) {
         let usr_qq = user_id;
-        let player =  await Read_level();
+        let player = await Read_level(usr_qq);
         var size = this.xiuxianConfigData.work.size;
         let lingshi = size * player.level_id;
         let other_lingshi = 0;//额外的灵石
