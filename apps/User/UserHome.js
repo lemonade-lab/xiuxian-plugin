@@ -3,7 +3,7 @@ import {
     existplayer, search_thing_name, exist_najie_thing,
     Read_najie, Read_equipment, Add_experiencemax,
     Write_equipment, Write_najie, Numbers, Add_najie_thing,
-    Add_HP, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, search_thing_id
+    Add_HP, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent
 } from '../Xiuxian/Xiuxian.js'
 /**
  * 货币与物品操作模块

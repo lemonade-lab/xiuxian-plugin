@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import {Go,Numbers,Read_player,Add_lingshi,Worldwealth,At,GenerateCD, Read_wealth} from '../Xiuxian/Xiuxian.js'
+import {Go,Numbers,Add_lingshi,Worldwealth,At,GenerateCD, Read_wealth} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 /**
  * 货币与物品操作模块
