@@ -43,10 +43,7 @@
       title: "#面板信息"
       desc: "（可私聊）"
     - icon: help-icon_38
-      title: "#练气信息"
-      desc: "（可私聊）"
-    - icon: help-icon_38
-      title: "#炼体信息"
+      title: "#基础信息"
       desc: "（可私聊）"
     - icon: help-icon_38
       title: "#突破"

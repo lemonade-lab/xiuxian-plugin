@@ -1,5 +1,4 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../model/XiuxianData.js'
 import {
     existplayer, search_thing_name, exist_najie_thing,
     Read_najie, Read_equipment, Add_experiencemax,

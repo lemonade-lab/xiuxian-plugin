@@ -12,7 +12,7 @@ let timer
 /**
  * 管理员
  */
-export class admin extends plugin {
+export class AdminAction extends plugin {
     constructor() {
         super({
             name: "admin",

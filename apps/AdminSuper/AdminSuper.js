@@ -20,10 +20,6 @@ export class AdminSuper extends plugin {
                     fnc: "synchronization",
                 },
                 {
-                    reg: "^#刷新修仙配置$",
-                    fnc: "Updataconfig",
-                },
-                {
                     reg: "^#修仙重置配置$",
                     fnc: "Againconfig",
                 },
@@ -52,20 +48,12 @@ export class AdminSuper extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
-    async Updataconfig(e) {
-        if (!e.isMaster) {
-            return;
-        }
-        filecp.upfile();
-        e.reply("刷新结束");
-        return;
-    }
-
     async Againconfig(e) {
         if (!e.isMaster) {
             return;
         }
         e.reply("开始重置");
+        filecp.upfile();
         e.reply("重置结束");
         return;
     }

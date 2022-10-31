@@ -11,7 +11,6 @@ import {
     Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
     player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life
 } from '../Xiuxian/Xiuxian.js'
-import console from 'console'
 /**
  * 信息模块
  */
@@ -116,11 +115,12 @@ export class UserStart extends plugin {
         let name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
         let name = name1[Math.floor((Math.random() * name1.length))] + name2[Math.floor((Math.random() * name2.length))];
         let life = await Read_Life();
+        //随机寿命
         life.push({
             "qq": usr_qq,
             "name": `${name}`,
             "Age": 1,//年龄
-            "life": 100//寿命
+            "life": Math.floor((Math.random() * (100-50)+50))//寿命
         })
         await Write_Life(life);
         this.Show_player(e);

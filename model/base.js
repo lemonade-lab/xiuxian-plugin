@@ -1,3 +1,4 @@
+
 export default class base {
   constructor(e = {}) {
     this.e = e;

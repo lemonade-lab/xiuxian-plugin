@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import Config from "./model/Config.js";
-
 /**
  * 遍历获取
  */

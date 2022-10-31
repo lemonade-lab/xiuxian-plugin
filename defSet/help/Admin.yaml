@@ -10,15 +10,6 @@
       title: "#扣除99999 @群友"
       desc: "强行扣指定玩家灵石"
 
-- group: 怪物状态
-  list:
-    - icon: help-icon_58
-      title: "#放出怪物"
-      desc: "手动开启"  
-    - icon: help-icon_58
-      title: "#关上怪物"
-      desc: "手动关闭"  
-
 - group: 行为状态
   list:
     - icon: help-icon_58
@@ -59,6 +50,9 @@
   list:
     - icon: help-icon_58
       title: "#修仙设置"
+      desc: "查看修仙配置"
+    - icon: help-icon_58
+      title: "#修仙重置配置"
       desc: "查看修仙配置"
     - icon: help-icon_58
       title: "#同步信息"

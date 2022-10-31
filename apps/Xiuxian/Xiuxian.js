@@ -857,7 +857,6 @@ export async function Write_Life(wupin) {
 
 //读寿命表
 export async function Read_Life() {
-    console.log("测试");
     let dir = path.join(`${__PATH.life}/life.json`);
     let Life = await newRead(dir);
     if(Life==1){

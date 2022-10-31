@@ -2,13 +2,13 @@ import YAML from "yaml";
 import fs from "node:fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
-import file from "./filecp.js";
+import file from './filecp.js';
+file.file();
+file.help();
 
 /** 配置文件 直接借鉴yunzai配置代码 */
 class Config {
     constructor() {
-        file.file();
-        file.help();
         /** 默认配置文件路径 */
         this.defSetPath = "./plugins/xiuxian-emulator-plugin/defSet/";
         this.defSet = {};
@@ -18,11 +18,9 @@ class Config {
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };
     }
-
     getdefSet(app, name) {
         return this.getYaml(app, name, "defSet");
     }
-
     getConfig(app, name) {
         let ignore = [];
         if (ignore.includes(`${app}.${name}`)) {
