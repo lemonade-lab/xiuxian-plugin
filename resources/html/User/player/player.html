@@ -67,7 +67,7 @@
           灵根：{{linggenname}}
         </div>
         <div>
-          天赋：+{{talent}}%
+          天赋：+{{talentsize}}%
         </div>
       </div>
       <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto auto auto;">
@@ -87,7 +87,13 @@
   <div class="user_bottom1">
     <div class="use_data">
       <div class="user_top_right_font0">[已学功法]</div>
-      <div class="user_top_right_font2">无</div>
+      <div class="user_top_right_font2" style="display:grid;grid-template-columns:auto auto auto auto;">
+        {{each talent.AllSorcery item}}
+        <div>
+          {{item.name}}
+        </div>
+        {{/each}}
+      </div>
     </div>
   </div>
   <style>

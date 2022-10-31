@@ -90,7 +90,6 @@ export class PlayerControlTask extends plugin {
                     }
                 }
 
-
                 //降妖
                 if (action.working == "0") {
                     end_time = end_time - 60000 * 2;

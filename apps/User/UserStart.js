@@ -75,7 +75,7 @@ export class UserStart extends plugin {
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
         let new_battle = {
-            "nowblood": data.Level_list.find(item => item.id == 1).blood,//血量
+            "nowblood": data.Level_list.find(item => item.id == 1).blood+data.LevelMax_list.find(item => item.id == 1).blood,//血量
         }
         await Write_battle(usr_qq, new_battle);
         let new_level = {
@@ -199,6 +199,7 @@ export class UserStart extends plugin {
             return;
         }
         let wealth = await Read_wealth(usr_qq);
+
         if (wealth.lingshi < lingshi) {
             e.reply("需" + lingshi + "灵石");
             return;
@@ -213,15 +214,16 @@ export class UserStart extends plugin {
             return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-
         wealth.lingshi -= lingshi;
-        await Write_wealth(usr_qq);
-
+        await Write_wealth(usr_qq,wealth);
         let life = await Read_Life();
-        life = life.find(item => item.qq == usr_qq);
-        life.name=new_name;
+        life.forEach((item)=>{
+            if(item.qq==usr_qq){
+                item.name=new_name;
+            }
+        });
+        console.log(life);
         await Write_Life(life);
-
         this.Show_player(e);
         return;
     }
@@ -291,13 +293,14 @@ export class UserStart extends plugin {
             Sign_Yesterday = false;
         }
         await redis.set("xiuxian:player:" + usr_qq + ":lastsign_time", nowTime);//redis设置签到时间
+
         let player = await Read_player(usr_qq);
         if (player.days == 7 || !Sign_Yesterday) {//签到连续7天或者昨天没有签到,连续签到天数清零
             player.days = 0;
         }
         player.days += 1;
-        await Write_player(usr_qq);
-        let gift_xiuwei = player.days * 3000;
+        await Write_player(usr_qq,player);
+        let gift_xiuwei = player.days * 5;
         await Add_experience(usr_qq, gift_xiuwei);
         let msg = [
             segment.at(usr_qq),

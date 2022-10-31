@@ -48,7 +48,7 @@ export class UserTransaction extends plugin {
                 "\n暴伤：+" + commodities_list[i].burstmax+"%"+
                 "\n天赋：+" + commodities_list[i].size+"%"+
                 "\n修为：+" + commodities_list[i].experience+"%"+
-                "\n气血：+" + commodities_list[i].levelnamemax+"%"+
+                "\n气血：+" + commodities_list[i].experiencemax+"%"+
                 "\n价格：" + commodities_list[i].price);
         }
         await ForwardMsg(e, msg);

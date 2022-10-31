@@ -101,14 +101,14 @@ export class UserAction extends plugin {
             let player_lingshi = await Read_wealth(usr_qq);
             player_lingshi = player_lingshi.lingshi;
             if (player_lingshi < lingshi) {
-                e.reply([segment.at(usr_qq), `灵石不足,你目前只有${player_lingshi}灵石`]);
+                e.reply([segment.at(usr_qq), `灵石不足,目前只有${player_lingshi}灵石`]);
                 return;
             }
             let najie = await Read_najie(usr_qq);
             if (najie.lingshimax < najie.lingshi + lingshi) {
                 await Add_najie_lingshi(usr_qq, najie.lingshimax - najie.lingshi);
                 await Add_lingshi(usr_qq, -najie.lingshimax + najie.lingshi);
-                e.reply([segment.at(usr_qq), `已为您放入${najie.lingshimax - najie.lingshi}灵石,储物袋存满了`]);
+                e.reply([segment.at(usr_qq), `已放入${najie.lingshimax - najie.lingshi}灵石,储物袋存满了`]);
                 return;
             }
             await Add_najie_lingshi(usr_qq, lingshi);
@@ -116,7 +116,6 @@ export class UserAction extends plugin {
             e.reply([segment.at(usr_qq), `储存完毕,你目前还有${player_lingshi - lingshi}灵石,储物袋内有${najie.lingshi + lingshi}灵石`]);
             return;
         }
-
         if (func == "取") {
             let najie = await Read_najie(usr_qq);
             if (najie.lingshi < lingshi) {
@@ -127,10 +126,9 @@ export class UserAction extends plugin {
             player_lingshi = player_lingshi.lingshi;
             await Add_najie_lingshi(usr_qq, -lingshi);
             await Add_lingshi(usr_qq, lingshi);
-            e.reply([segment.at(usr_qq), `本次取出灵石${lingshi},你的储物袋还剩余${najie.lingshi - lingshi}灵石`]);
+            e.reply([segment.at(usr_qq), `本次取出灵石${lingshi},储物袋还剩余${najie.lingshi - lingshi}灵石`]);
             return;
         }
-
         return;
     }
 

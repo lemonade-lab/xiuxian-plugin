@@ -72,9 +72,9 @@ export class showData extends plugin {
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
+
     let life=await Read_Life();
     life =life.find(item => item.qq == usr_qq);
-
     let wealt = await Read_wealth(usr_qq);
     let equipment = await Read_equipment(usr_qq);
     let talent = await Read_talent(usr_qq);
@@ -103,7 +103,8 @@ export async function get_player_img(e) {
         equipment:equipment,
         lingshi: Math.trunc(wealt.lingshi),
         xianshi: Math.trunc(wealt.xianshi),
-        talent: parseInt(talent.talentsize * 100)
+        talent:talent,
+        talentsize: parseInt(talent.talentsize * 100)
     }
 
     const data1 = await new Show(e).get_Data("User/player","player",myData);

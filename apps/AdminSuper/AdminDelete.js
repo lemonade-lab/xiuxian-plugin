@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At } from '../Xiuxian/Xiuxian.js'
+import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life } from '../Xiuxian/Xiuxian.js'
 /**
  * 修仙设置
  */
@@ -64,12 +64,8 @@ export class AdminDelete extends plugin {
         if (thingqq == "") {
             return;
         }
-
         let x = 888888888;
-
-        
         let Exchange  = await Read_Exchange();
-
         for (var i = 0; i < Exchange.length; i++) {
             if (Exchange[i].qq == thingqq) {
                 x = i;
@@ -130,6 +126,7 @@ export class AdminDelete extends plugin {
         for (let player_id of playerList) {
             await offaction(player_id);
             fs.rmSync(`${__PATH.player}/${player_id}.json`);
+            await Write_Life([]);
         }
         e.reply("世界已崩碎");
         return;

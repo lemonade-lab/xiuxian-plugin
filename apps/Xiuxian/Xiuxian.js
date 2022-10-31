@@ -158,14 +158,14 @@ export async function updata_equipment(usr_qq) {
 export async function Add_prestige(usr_qq, prestige) {
     let player = await Read_level(usr_qq);
     player.prestige += Math.trunc(prestige);
-    await Write_player(usr_qq, player);
+    await Write_level(usr_qq, player);
     return;
 }
 //灵石
 export async function Add_lingshi(usr_qq, lingshi) {
     let player = await Read_wealth(usr_qq);
     player.lingshi += Math.trunc(lingshi);
-    await Write_player(usr_qq, player);
+    await Write_wealth(usr_qq, player);
     return;
 }
 //修为
@@ -174,14 +174,14 @@ export async function Add_experience(usr_qq, experience) {
     let exp0 = await Numbers(player.experience);
     let exp1 = await Numbers(experience);
     player.experience = await exp0 + exp1;
-    await Write_player(usr_qq, player);
+    await Write_level(usr_qq, player);
     return;
 }
 //气血
 export async function Add_experiencemax(usr_qq, qixue) {
     let player = await Read_level(usr_qq);
     player.experiencemax += Math.trunc(qixue);
-    await Write_player(usr_qq, player);
+    await Write_level(usr_qq, player);
     return;
 }
 //血量
@@ -191,7 +191,7 @@ export async function Add_HP(usr_qq, blood) {
     if (player.nowblood > player.hpmax) {
         player.nowblood = player.hpmax;
     }
-    await Write_player(usr_qq, player);
+    await Write_battle(usr_qq, player);
     return;
 }
 //纳戒灵石
@@ -730,7 +730,7 @@ export async function Go(e) {
         }
     }
     let player = await Read_battle(usr_qq);
-    if (player.nowblood < 200) {
+    if (player.nowblood <= 1) {
         e.reply("你都伤成这样了，就不要出去浪了");
         return;
     }

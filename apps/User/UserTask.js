@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import {offaction, Read_Life, Write_Life, __PATH} from '../Xiuxian/Xiuxian.js'
+import { offaction, Read_Life, Write_Life, __PATH } from '../Xiuxian/Xiuxian.js'
 /**
  * 定时任务渡劫
  */
@@ -36,16 +36,20 @@ export class UserTask extends plugin {
         for (let player_id of playerList) {
             let life = await Read_Life();
             //每1小时+1
-             life =life.find(item => item.qq == player_id);
-             life.Age=life.Age+1;
-             if(life.Age>=life.life){
+            life = life.find(item => item.qq == player_id);
+            life.forEach((item) => {
+                if (item.qq == usr_qq) {
+                    item.Age = item.Age + 1;
+                }
+            });
+            if (life.Age >= life.life) {
                 //删信息，删账号
                 fs.rmSync(`${__PATH.player}/${player_id}.json`);
                 await offaction(player_id);
                 life = await life.filter(item => item.qq != player_id);
-             }
-             //保存新信息
-             await Write_Life(life);
+            }
+            //保存新信息
+            await Write_Life(life);
         }
 
     }

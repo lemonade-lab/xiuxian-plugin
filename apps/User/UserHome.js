@@ -3,7 +3,7 @@ import {
     existplayer, search_thing_name, exist_najie_thing,
     Read_najie, Read_equipment, Add_experiencemax,
     Write_equipment, Write_najie, Numbers, Add_najie_thing,
-    Add_HP, Add_experience, get_talent, Add_player_AllSorcery, player_efficiency, Read_talent, search_thing_id
+    Add_HP, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, search_thing_id
 } from '../Xiuxian/Xiuxian.js'
 /**
  * 货币与物品操作模块
@@ -187,12 +187,12 @@ export class UserHome extends plugin {
             return;
         }
         let talent = await Read_talent(usr_qq);
-        let islearned = talent.AllSorcery.find(item => item == searchsthing.id);
+        let islearned = talent.AllSorcery.find(item => item.id == searchsthing.id);
         if (islearned) {
             e.reply("学过了");
             return;
         }
-        if (AllSorcery.length < 21) {
+        if (talent.AllSorcery.length < 21) {
             talent.AllSorcery.push(searchsthing);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
@@ -218,23 +218,19 @@ export class UserHome extends plugin {
         }
         let thing_name = e.msg.replace("#忘掉", '');
         let talent = await Read_talent(usr_qq);
-
         let islearned = talent.AllSorcery.find(item => item.name == thing_name);
-
         if (islearned) {
-            talent = talent.AllSorcery.filter(item => item.name != thing_name);
+            talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
         } else {
             e.reply("没学过" + thing_name);
         }
-
         let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply(`世界没有[${thing_name}]`);
+            e.reply(`[${thing_name}]已从世界消失`);
             return;
         }
-
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(usr_qq, najie);
