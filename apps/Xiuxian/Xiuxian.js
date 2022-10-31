@@ -134,16 +134,22 @@ export async function updata_equipment(usr_qq) {
     let level = await Read_level(usr_qq);
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
     let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
-
     let player=await Read_battle(usr_qq);
+    attack=levelmini.attack+levelmax.attack+attack;
+    defense=levelmini.defense+levelmax.defense+defense;
+    blood=levelmini.blood+levelmax.blood+blood;
+    burst=levelmini.burst+levelmax.burst+burst;
+    burstmax=levelmini.burstmax+levelmax.burstmax+burstmax;
+    speed=levelmini.speed+levelmax.speed+speed;
     player={
         nowblood: player.nowblood,
-        attack: levelmini.attack+levelmax.attack+attack,
-        defense: levelmini.defense+levelmax.defense+defense,
-        blood: levelmini.blood+levelmax.blood+blood,
-        burst: levelmini.burst+levelmax.burst+burst,
-        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax,
-        speed:levelmini.speed+levelmax.speed+speed,
+        attack: attack,
+        defense: defense,
+        blood: blood,
+        burst: burst,
+        burstmax: burstmax,
+        speed:speed,
+        power:attack+defense+blood+burst+burstmax
     }
     await Write_battle(usr_qq,player);
     return;
@@ -824,14 +830,34 @@ export async function Read_Exchange() {
     return Exchange;
 }
 
+
+
+//搜索物品
+export async function Search_Exchange(thing_qq) {
+    let thingqq = thing_qq;
+    let x = -1;
+    let Exchange = await Read_Exchange();
+    if (thingqq == "") {
+        return x;
+    }
+    for (var i = 0; i < Exchange.length; i++) {
+        if (Exchange[i].qq == thingqq) {
+            x = i;
+            break;
+        }
+    }
+    return x;
+}
+
 //写入寿命表
 export async function Write_Life(wupin) {
-    await Write(`Exchange`,wupin,__PATH.Exchange);
+    await Write(`life`,wupin,__PATH.life);
     return;
 }
 
 //读寿命表
 export async function Read_Life() {
+    console.log("测试");
     let dir = path.join(`${__PATH.life}/life.json`);
     let Life = await newRead(dir);
     if(Life==1){
@@ -854,21 +880,4 @@ export async function newRead(dir) {
     }catch{
         return 1;
     }
-}
-
-//搜索物品
-export async function Search_Exchange(thing_qq) {
-    let thingqq = thing_qq;
-    let x = -1;
-    let Exchange = await Read_Exchange();
-    if (thingqq == "") {
-        return x;
-    }
-    for (var i = 0; i < Exchange.length; i++) {
-        if (Exchange[i].qq == thingqq) {
-            x = i;
-            break;
-        }
-    }
-    return x;
 }

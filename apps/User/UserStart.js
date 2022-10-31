@@ -11,6 +11,7 @@ import {
     Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
     player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life
 } from '../Xiuxian/Xiuxian.js'
+import console from 'console'
 /**
  * 信息模块
  */
@@ -56,17 +57,14 @@ export class UserStart extends plugin {
         if (usr_qq == 80000000) {
             return;
         }
-
         let ifexistplay = await existplayer(usr_qq);
         if (ifexistplay) {
             return;
         }
-
         let new_player = {
             "autograph": "无",//道宣
             "days": 0//签到
         }
-
         await Write_player(usr_qq, new_player);
         let newtalent = await get_talent();
         let new_talent = {
@@ -77,12 +75,10 @@ export class UserStart extends plugin {
         }
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
-
         let new_battle = {
             "nowblood": data.Level_list.find(item => item.id == 1).blood,//血量
         }
         await Write_battle(usr_qq, new_battle);
-
         let new_level = {
             "prestige": 0,//魔力
             "level_id": 1,//练气境界
@@ -90,27 +86,23 @@ export class UserStart extends plugin {
             "experience": 1,//练气经验
             "levelmax_id": 1,//练体境界 
             "levelnamemax": data.LevelMax_list.find(item => item.id == 1).name,//练体名
-            "experiencemax": 1//练体经验
+            "experiencemax": 1,//练体经验
+            "power":1
         }
-
         await Write_level(usr_qq, new_level);
         let new_wealth = {
             "lingshi": 5,
             "xianshi": 0
         }
-
         await Write_wealth(usr_qq, new_wealth);
         let new_action = {
             "power_place": 1,//仙界状态
             "game": 1,//游戏状态
             "Couple": 1 //双修
         }
-
         await Write_action(usr_qq, new_action);
-
         let new_equipment = [];
         await Write_equipment(usr_qq, new_equipment);
-
         //初始化纳戒
         let new_najie = {
             "grade": 1,
@@ -131,7 +123,6 @@ export class UserStart extends plugin {
             "life": 100//寿命
         })
         await Write_Life(life);
-
         this.Show_player(e);
         return;
     }

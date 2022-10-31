@@ -14,12 +14,9 @@
   <div class="user_top">
     <div class="user_top_left" >
       <div class="user_top_right_font0">账号：{{user_id}}</div>
-      <div class="user_top_right_font"> 道号：{{life.name}}</div>
-      <div class="user_top_right_font1">年龄：{{life.Age}}</div>
-      <div class="user_top_right_font1">寿命：{{life.life}}</div>
-      <div class="user_top_right_font2">
-        血量：{{battle.nowblood}}/{{battle.blood}}
-      </div>
+      <div class="user_top_right_font1"> 道号：{{life.name}}</div>
+      <div class="user_top_right_font">血量：{{battle.nowblood}}/{{battle.blood}}</div>
+      <div class="user_top_right_font2">寿龄：{{life.Age}}/{{life.life}}</div>
     </div>
     <div class="user_top_right">
       <div class="user_top_img_bottom">
@@ -81,7 +78,7 @@
         {{/each}}
       </div>
       <div class="user_top_right_font2">
-        <div>战力：999999
+        <div>战力：{{battle.power}}
         </div>
       </div>
     </div>

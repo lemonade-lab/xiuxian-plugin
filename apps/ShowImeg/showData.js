@@ -74,6 +74,7 @@ export async function get_player_img(e) {
     let player = await Read_player(usr_qq);
     let life=await Read_Life();
     life =life.find(item => item.qq == usr_qq);
+
     let wealt = await Read_wealth(usr_qq);
     let equipment = await Read_equipment(usr_qq);
     let talent = await Read_talent(usr_qq);
@@ -94,6 +95,7 @@ export async function get_player_img(e) {
 
     let myData = {
         user_id: usr_qq,
+        life:life,
         player: player,
         level: level,
         linggenname: name,
