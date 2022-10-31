@@ -5,7 +5,7 @@ import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import {talentname,Read_battle,
     Read_player, Read_wealth,Read_talent,
-    Read_equipment,Read_level, Read_najie} from '../Xiuxian/Xiuxian.js'
+    Read_equipment,Read_level, Read_najie, Read_Life} from '../Xiuxian/Xiuxian.js'
 
 /**
  * 生图模块
@@ -72,6 +72,8 @@ export class showData extends plugin {
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
+    let life=await Read_Life();
+    life =life.find(item => item.qq == usr_qq);
     let wealt = await Read_wealth(usr_qq);
     let equipment = await Read_equipment(usr_qq);
     let talent = await Read_talent(usr_qq);
@@ -116,11 +118,15 @@ export async function get_player_img(e) {
  */
 export async function get_equipment_img(e) {
     let usr_qq = e.user_id;
+    let life=await Read_Life();
+    life =life.find(item => item.qq == usr_qq);
+
     let equipment = await Read_equipment(usr_qq);
     let battle = await Read_battle(usr_qq);
     let myData = {
         user_id: usr_qq,
         battle:battle,
+        life:life,
         equipment:equipment
     }
     const data1 = await new Show(e).get_Data("User/equipment","equipment",myData);
@@ -139,12 +145,17 @@ export async function get_najie_img(e) {
     if (!ifexistplay) {
         return;
     }
+    
+    let life=await Read_Life();
+    life =life.find(item => item.qq == usr_qq);
+
     let player = await Read_player(usr_qq);
     let najie = await Read_najie(usr_qq);
     let battle = await Read_battle(usr_qq);
     let myData = {
         user_id: usr_qq,
         player: player,
+        life:life,
         battle:battle,
         najie: najie
     }
@@ -164,6 +175,7 @@ export async function get_state_img(e) {
     if (!ifexistplay) {
         return;
     }
+
      let player = await Read_level(usr_qq);
      let Level_id=player.level_id;
      let Level_list = data.Level_list;

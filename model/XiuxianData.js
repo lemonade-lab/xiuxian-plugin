@@ -73,14 +73,13 @@ class XiuxianData {
         this.list(this.gongfa_list, all, 99);
         this.list(this.ring_list, all, 99);
         this.add(all, 'all');
+
         this.deletelist('commodities');
         this.list(this.fabao_list, commodities, 6);
         this.list(this.wuqi_list, commodities, 6);
         this.list(this.huju_list, commodities, 6);
         this.list(this.danyao_list, commodities, 6);
-        this.list(this.daoju_list, commodities, 6);
         this.list(this.gongfa_list, commodities, 6);
-        this.list(this.ring_list, commodities, 6);
         this.add(commodities, 'commodities');
     }
 
@@ -92,7 +91,6 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     }
-
 
     //存临时数组
     list(add, sum, acount) {

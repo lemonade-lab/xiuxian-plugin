@@ -3,7 +3,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import {__PATH} from '../Xiuxian/Xiuxian.js'
-
 /**
  * 定时任务渡劫
  */

@@ -47,6 +47,8 @@ export class UserTransaction extends plugin {
                 "\n暴击：+" + commodities_list[i].burst+"%"+
                 "\n暴伤：+" + commodities_list[i].burstmax+"%"+
                 "\n天赋：+" + commodities_list[i].size+"%"+
+                "\n修为：+" + commodities_list[i].experience+"%"+
+                "\n气血：+" + commodities_list[i].levelnamemax+"%"+
                 "\n价格：" + commodities_list[i].price);
         }
         await ForwardMsg(e, msg);
@@ -79,7 +81,7 @@ export class UserTransaction extends plugin {
         }
         let ifexist = data.commodities_list.find(item => item.name == thing_name);
         if (!ifexist) {
-            e.reply(`柠檬堂不卖:${thing_name}`);
+            e.reply(`不卖:${thing_name}`);
             return;
         }
         let player = await Read_wealth(usr_qq);
@@ -93,7 +95,7 @@ export class UserTransaction extends plugin {
         najie = await Add_najie_thing(najie,ifexist,quantity);
         await Write_najie(usr_qq, najie);
         await Add_lingshi(usr_qq, -commodities_price);
-        e.reply(`你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
+        e.reply(`花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
         return;
     }
 
@@ -127,17 +129,14 @@ export class UserTransaction extends plugin {
         }
 
         let najie_thing = await exist_najie_thing(usr_qq, searchsthing.id);
-
         if (najie_thing == 1) {
             e.reply(`你没有[${thing_name}]`);
             return;
         }
-
         if (najie_thing.acount < quantity) {
             e.reply("数量不足");
             return;
         }
-
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie,searchsthing,-quantity);
         await Write_najie(usr_qq, najie);

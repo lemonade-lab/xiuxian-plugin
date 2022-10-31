@@ -13,7 +13,8 @@ export const __PATH = {
     wealth: path.join(__dirname, "/resources/data/birth/xiuxian/wealth"),
     najie: path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
     Exchange: path.join(__dirname, "/resources/data/birth/Exchange"),
-    Forum: path.join(__dirname, "/resources/data/birth/Forum")
+    Forum: path.join(__dirname, "/resources/data/birth/Forum"),
+    life: path.join(__dirname, "/resources/data/birth/xiuxian/life")
 }
 export class Xiuxian extends plugin {
     constructor() {
@@ -46,7 +47,6 @@ async function Write(usr_qq,player,PATH){
     })
     return;
 }
-
 export async function Read_player(usr_qq) {
     return await Read(usr_qq,__PATH.player);;
 }
@@ -787,33 +787,20 @@ export async function Worldwealth(acount) {
     await redis.set("Xiuxian:Worldmoney", Worldmoney);
     return;
 }
+
 //写入
 export async function Write_Forum(wupin) {
-    let dir = path.join(__PATH.Forum, `Forum.json`);
-    let new_ARR = JSON.stringify(wupin, "", "\t");
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
+    await Write(`Forum`,wupin,__PATH.Forum);
     return;
 }
+
 //读取
 export async function Read_Forum() {
     let dir = path.join(`${__PATH.Forum}/Forum.json`);
-    let Forum;
-    try {
-        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return "error";
-            }
-            return data;
-        })
-    } catch {
+    let Forum = await newRead(dir);
+    if(Forum==1){
         await Write_Forum([]);
-        Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return "error";
-            }
-            return data;
-        })
+        Forum = await newRead(dir);
     }
     Forum = JSON.parse(Forum);
     return Forum;
@@ -821,37 +808,52 @@ export async function Read_Forum() {
 
 //写入交易表
 export async function Write_Exchange(wupin) {
-    let dir = path.join(__PATH.Exchange, `Exchange.json`);
-    let new_ARR = JSON.stringify(wupin, "", "\t");
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
+    await Write(`Exchange`,wupin,__PATH.Exchange);
     return;
 }
 
 //读交易表
 export async function Read_Exchange() {
     let dir = path.join(`${__PATH.Exchange}/Exchange.json`);
-    let Exchange;
-    try {
-        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return "error";
-            }
-            return data;
-        })
-    }
-    catch
-    {
+    let Exchange = await newRead(dir);
+    if(Exchange==1){
         await Write_Exchange([]);
-        Exchange = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return "error";
-            }
-            return data;
-        })
+        Exchange = await newRead(dir);
     }
     Exchange = await JSON.parse(Exchange);
     return Exchange;
+}
+
+//写入寿命表
+export async function Write_Life(wupin) {
+    await Write(`Exchange`,wupin,__PATH.Exchange);
+    return;
+}
+
+//读寿命表
+export async function Read_Life() {
+    let dir = path.join(`${__PATH.life}/life.json`);
+    let Life = await newRead(dir);
+    if(Life==1){
+        await Write_Life([]);
+        Life = await newRead(dir);
+    }
+    Life = await JSON.parse(Life);
+    return Life;
+}
+
+export async function newRead(dir) {
+    try{
+        let newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                return "error";
+            }
+            return data;
+        })
+        return newdata;
+    }catch{
+        return 1;
+    }
 }
 
 //搜索物品

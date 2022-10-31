@@ -4,12 +4,13 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "fs"
 import { segment } from "oicq"
-import {get_player_img} from '../ShowImeg/showData.js'
-import {existplayer,__PATH,Write_player,Go,GenerateCD,Numbers,
-        Read_player,Add_experience,getLastsign,shijianc,get_talent,
-        Write_najie,Write_talent,Write_battle,Write_level,Write_wealth,
-        player_efficiency,
-        Write_action,Write_equipment, Read_wealth} from '../Xiuxian/Xiuxian.js'
+import { get_player_img } from '../ShowImeg/showData.js'
+import {
+    existplayer, __PATH, Write_player, Go, GenerateCD, Numbers,
+    Read_player, Add_experience, getLastsign, shijianc, get_talent,
+    Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
+    player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life
+} from '../Xiuxian/Xiuxian.js'
 /**
  * 信息模块
  */
@@ -55,17 +56,17 @@ export class UserStart extends plugin {
         if (usr_qq == 80000000) {
             return;
         }
+
         let ifexistplay = await existplayer(usr_qq);
         if (ifexistplay) {
             return;
         }
-        let File_msg = fs.readdirSync(__PATH.player);
-        let n = File_msg.length + 1;
+
         let new_player = {
-            "name": `${n}号`,//道号
             "autograph": "无",//道宣
             "days": 0//签到
         }
+
         await Write_player(usr_qq, new_player);
         let newtalent = await get_talent();
         let new_talent = {
@@ -84,8 +85,6 @@ export class UserStart extends plugin {
 
         let new_level = {
             "prestige": 0,//魔力
-            "Age":1,//年龄
-            "life": 100,//寿命
             "level_id": 1,//练气境界
             "levelname": data.Level_list.find(item => item.id == 1).name,//练气名
             "experience": 1,//练气经验
@@ -100,11 +99,11 @@ export class UserStart extends plugin {
             "xianshi": 0
         }
 
-        await Write_wealth(usr_qq, new_wealth); 
+        await Write_wealth(usr_qq, new_wealth);
         let new_action = {
             "power_place": 1,//仙界状态
             "game": 1,//游戏状态
-            "Couple":1 //双修
+            "Couple": 1 //双修
         }
 
         await Write_action(usr_qq, new_action);
@@ -120,6 +119,19 @@ export class UserStart extends plugin {
             "thing": []
         }
         await Write_najie(usr_qq, new_najie);
+        //随机名
+        let name1 = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+        let name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        let name = name1[Math.floor((Math.random() * name1.length))] + name2[Math.floor((Math.random() * name2.length))];
+        let life = await Read_Life();
+        life.push({
+            "qq": usr_qq,
+            "name": `${name}`,
+            "Age": 1,//年龄
+            "life": 100//寿命
+        })
+        await Write_Life(life);
+
         this.Show_player(e);
         return;
     }
@@ -180,15 +192,15 @@ export class UserStart extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        let lingshi = 1000;
+        let lingshi = 5;
         let new_name = e.msg.replace("#改名", '');
         if (new_name.length == 0) {
             e.reply("请输入正确名字");
             return;
         }
-        const name=['尼玛','妈的','他妈','卧槽','操','操蛋','麻痹','傻逼','妈逼'];
+        const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼'];
         //屏蔽某词
-        for(var i=0;i<name.length;i++){
+        for (var i = 0; i < name.length; i++) {
             new_name = new_name.replace(name[i], '');
         }
         if (new_name.length > 8) {
@@ -197,24 +209,28 @@ export class UserStart extends plugin {
         }
         let wealth = await Read_wealth(usr_qq);
         if (wealth.lingshi < lingshi) {
-            e.reply("需"+lingshi+"灵石");
+            e.reply("需" + lingshi + "灵石");
             return;
         }
 
         let ClassCD = ":last_setname_time";
         let now_time = new Date().getTime();
-        let CDTime = 60*24;
+        let CDTime = 60 * 24;
         let CD = await GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if(CD != 0) {
+        if (CD != 0) {
             e.reply(CD);
             return;
         }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+
         wealth.lingshi -= lingshi;
         await Write_wealth(usr_qq);
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-        let player =await Read_player(usr_qq);
-        player.name = new_name;
-        await Write_player(usr_qq, player);
+
+        let life = await Read_Life();
+        life = life.find(item => item.qq == usr_qq);
+        life.name=new_name;
+        await Write_Life(life);
+
         this.Show_player(e);
         return;
     }
@@ -230,8 +246,8 @@ export class UserStart extends plugin {
         let player = await Read_player(usr_qq);
         let new_msg = e.msg.replace("#设置道宣", '');
         new_msg = new_msg.replace(" ", '');
-        const name=['尼玛','妈的','他妈','卧槽','操','操蛋','麻痹','傻逼','妈逼'];
-        for(var i=0;i<name.length;i++){
+        const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼'];
+        for (var i = 0; i < name.length; i++) {
             new_msg = new_msg.replace(name[i], '');
         }
 
@@ -244,9 +260,9 @@ export class UserStart extends plugin {
         }
         let ClassCD = ":last_setxuanyan_time";
         let now_time = new Date().getTime();
-        let CDTime = 60*12;
+        let CDTime = 60 * 12;
         let CD = await GenerateCD(usr_qq, ClassCD, now_time, CDTime);
-        if(CD != 0) {
+        if (CD != 0) {
             e.reply(CD);
             return;
         }
