@@ -9,8 +9,8 @@ import {offaction, Read_Life, Write_Life, __PATH} from '../Xiuxian/Xiuxian.js'
 export class UserTask extends plugin {
     constructor() {
         super({
-            name: 'LevelTask',
-            dsc: 'LevelTask',
+            name: 'LifeTask',
+            dsc: 'LifeTask',
             event: 'message',
             priority: 300,
             rule: [
@@ -18,8 +18,8 @@ export class UserTask extends plugin {
         });
         this.set = config.getConfig('task', 'task')
         this.task = {
-            cron: this.set.action_task,
-            name: 'LevelTask',
+            cron: this.set.LifeTask,
+            name: 'LifeTask',
             fnc: () => this.LevelTask()
         }
     }
