@@ -232,9 +232,9 @@ export class PlayerControl extends plugin {
         let player = await Read_level(usr_qq);
         let ta=await Read_talent(usr_qq);
         let ba=await Read_battle(usr_qq);
-        let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
+        let level = data.Level_list.find(item => item.level_id == player.level_id);
         var size = this.xiuxianConfigData.biguan.size;
-        let xiuwei = parseInt((size * now_level_id) * (ta.talentsize + 1));
+        let xiuwei = parseInt((size * level.id) * (ta.talentsize + 1));
         let blood = parseInt(ba.blood * 0.02);
         let other_xiuwei = 0;
         let msg = [segment.at(usr_qq)];
@@ -270,9 +270,9 @@ export class PlayerControl extends plugin {
     async dagong_jiesuan(user_id, time, is_random, group_id) {
         let usr_qq = user_id;
         let player =  await Read_level();
-        let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
+        let level = data.Level_list.find(item => item.level_id == player.level_id);
         var size = this.xiuxianConfigData.work.size;
-        let lingshi = size * now_level_id;
+        let lingshi = size * level.id;
         let other_lingshi = 0;//额外的灵石
         let Time = time * 2;
         let msg = [segment.at(usr_qq)];
