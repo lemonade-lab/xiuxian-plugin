@@ -2,7 +2,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
-import data from '../../model/XiuxianData.js'
 import {Gomini,Go,offaction, Read_battle, Read_level, Read_talent, Add_experience, Add_HP, Add_lingshi} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 /**
