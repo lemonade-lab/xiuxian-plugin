@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import {Go,Numbers,Read_player,Add_lingshi,Worldwealth,At,GenerateCD} from '../Xiuxian/Xiuxian.js'
+import {Go,Numbers,Read_player,Add_lingshi,Worldwealth,At,GenerateCD, Read_wealth} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 /**
  * 货币与物品操作模块
@@ -53,7 +53,7 @@ export class MoneyOperation extends plugin {
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("交税", "");
         lingshi = await Numbers(lingshi);
-        let player = await Read_player(usr_qq);
+        let player = await Read_wealth(usr_qq);
         if (player.lingshi <= lingshi) {
             return;
         }
@@ -81,8 +81,8 @@ export class MoneyOperation extends plugin {
         if(lingshi<1000){
             lingshi=1000;
         }
-        let A_player = await data.getData("player", A);
-        let B_player = await data.getData("player", B);
+        let A_player = await  Read_wealth(A);
+        let B_player = await  Read_wealth(B);
         var cost = this.xiuxianConfigData.percentage.cost;
         let lastlingshi = await Numbers(lingshi*(1+cost));
         if (A_player.lingshi < lastlingshi) {

@@ -9,7 +9,7 @@ import {
     existplayer, __PATH, Write_player, Go, GenerateCD, Numbers,
     Read_player, Add_experience, getLastsign, shijianc, get_talent,
     Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
-    player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life
+    player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life,offaction
 } from '../Xiuxian/Xiuxian.js'
 /**
  * 信息模块
@@ -151,9 +151,13 @@ export class UserStart extends plugin {
         }
         acount = Numbers(acount);
         acount++;
+        //删档
         fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
-        fs.rmSync(`${__PATH.equipment}/${usr_qq}.json`);
-        fs.rmSync(`${__PATH.najie}/${usr_qq}.json`);
+        let life = await Read_Life();
+        await offaction(usr_qq);
+        life = await life.filter(item => item.qq != usr_qq);
+        await Write_Life(life);
+
         e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
         await this.Create_player(e);
         await redis.set("xiuxian:player:" + usr_qq + ":last_reCreate_time", now_time);

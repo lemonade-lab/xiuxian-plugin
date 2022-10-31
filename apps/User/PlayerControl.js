@@ -3,8 +3,9 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import {Gomini,Go,offaction,player_efficiency,Numbers} from '../Xiuxian/Xiuxian.js'
+import {Gomini,Go,offaction,player_efficiency,Numbers, Read_battle, Read_level, Read_talent, Write_battle, Add_experience, Add_HP} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
+import { add } from 'lodash'
 /**
  * 定时任务
  */
@@ -229,12 +230,13 @@ export class PlayerControl extends plugin {
 
     async biguan_jiesuan(user_id, time, is_random, group_id) {
         let usr_qq = user_id;
-        let player = data.getData("player", usr_qq);
-        await player_efficiency(usr_qq);
+        let player = await Read_level(usr_qq);
+        let ta=await Read_talent(usr_qq);
+        let ba=await Read_battle(usr_qq);
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         var size = this.xiuxianConfigData.biguan.size;
-        let xiuwei = parseInt((size * now_level_id) * (player.talentsize + 1));
-        let blood = parseInt(player.hpmax * 0.02);
+        let xiuwei = parseInt((size * now_level_id) * (ta.talentsize + 1));
+        let blood = parseInt(ba.blood * 0.02);
         let other_xiuwei = 0;
         let msg = [segment.at(usr_qq)];
         if (is_random) {
@@ -250,8 +252,8 @@ export class PlayerControl extends plugin {
                 msg.push("\n由于你闭关时隔壁装修,导致你差点走火入魔,修为下降" + rand * time);
             }
         }
-        await this.setFileValue(usr_qq, xiuwei * time + other_xiuwei, "experience");
-        await this.setFileValue(usr_qq, blood * time, "nowblood");
+        await Add_experience(usr_qq,xiuwei * time + other_xiuwei);
+        await Add_HP(usr_qq,blood * time);
         if (is_random) {
             msg.push("\n增加修为:" + xiuwei * time, "  获得治疗,血量增加:" + blood * time);
         } else {
@@ -268,7 +270,7 @@ export class PlayerControl extends plugin {
 
     async dagong_jiesuan(user_id, time, is_random, group_id) {
         let usr_qq = user_id;
-        let player = data.getData("player", usr_qq);
+        let player =  await Read_level();
         let now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         var size = this.xiuxianConfigData.work.size;
         let lingshi = size * now_level_id;
@@ -288,7 +290,7 @@ export class PlayerControl extends plugin {
             }
         }
         let get_lingshi = lingshi * Time + other_lingshi;//最后获取到的灵石
-        await this.setFileValue(usr_qq, get_lingshi, "lingshi");
+        await add_lingshi(usr_qq, get_lingshi);
         if (is_random) {
             msg.push("\n增加灵石" + get_lingshi);
         } else {
@@ -332,16 +334,4 @@ export class PlayerControl extends plugin {
         }
     }
 
-    async setFileValue(user_qq, num, type) {
-        let user_data = data.getData("player", user_qq);
-        let current_num = user_data[type];//当前灵石数量
-        let new_num = current_num + num;
-        if (type == "nowblood" && new_num > user_data.hpmax) {
-            new_num = user_data.hpmax;//治疗血量需要判读上限
-        }
-        new_num = await Numbers(new_num);
-        user_data[type] = new_num;
-        data.setData("player", user_qq, user_data);
-        return;
-    }
 }

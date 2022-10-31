@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life } from '../Xiuxian/Xiuxian.js'
+import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life } from '../Xiuxian/Xiuxian.js'
 /**
  * 修仙设置
  */
@@ -142,8 +142,13 @@ export class AdminDelete extends plugin {
             return;
         }
         e.reply("开始崩碎信息");
-        await offaction(B);
+
         fs.rmSync(`${__PATH.player}/${B}.json`);
+        let life = await Read_Life();
+        await offaction(B);
+        life = await life.filter(item => item.qq != B);
+        await Write_Life(life);
+
         e.reply("已崩碎");
         return;
     }
