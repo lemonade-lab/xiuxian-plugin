@@ -3,6 +3,9 @@
     - icon: help-icon_44
       title: "#学习+功法名"
       desc: "学习功法"
+    - icon: help-icon_44
+      title: "#忘掉+功法名"
+      desc: "忘掉功法"
     - icon: help-icon_42
       title: "#消耗+道具名"
       desc: "消耗道具"
@@ -12,6 +15,9 @@
     - icon: help-icon_46
       title: "#装备+装备名"
       desc: "装备物品"
+    - icon: help-icon_46
+      title: "#卸下+装备名"
+      desc: "卸下装备"
 
 - group: 谈心论道
   list:
