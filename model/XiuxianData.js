@@ -38,6 +38,8 @@ class XiuxianData {
         this.talent = this.filePathMap.fixedtalent;
         this.all = this.filePathMap.all;
 
+        this.deletelist('all');
+        this.deletelist('commodities');
 
         //怪物
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
@@ -64,7 +66,6 @@ class XiuxianData {
         this.all_list = JSON.parse(fs.readFileSync(`${this.all}/all.json`));
         this.commodities_list = JSON.parse(fs.readFileSync(`${this.all}/commodities.json`));
 
-        this.deletelist('all');
         this.list(this.fabao_list, all, 99);
         this.list(this.wuqi_list, all, 99);
         this.list(this.huju_list, all, 99);
@@ -74,7 +75,6 @@ class XiuxianData {
         this.list(this.ring_list, all, 99);
         this.add(all, 'all');
 
-        this.deletelist('commodities');
         this.list(this.fabao_list, commodities, 6);
         this.list(this.wuqi_list, commodities, 6);
         this.list(this.huju_list, commodities, 6);
