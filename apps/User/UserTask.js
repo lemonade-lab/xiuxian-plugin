@@ -3,9 +3,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { offaction, Read_Life, Write_Life, __PATH } from '../Xiuxian/Xiuxian.js'
-/**
- * 定时任务渡劫
- */
 export class UserTask extends plugin {
     constructor() {
         super({

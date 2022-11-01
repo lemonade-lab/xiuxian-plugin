@@ -118,6 +118,8 @@ export class Level extends plugin {
             e.reply(CD);
             return;
         }
+        
+
         let player = await Read_level(usr_qq);
         let Level = data.Level_list.find(item => item.id == player.level_id);
         if (Level.name == "渡劫期") {

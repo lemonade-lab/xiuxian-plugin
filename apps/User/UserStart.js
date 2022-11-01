@@ -11,9 +11,6 @@ import {
     Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
     player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life,offaction
 } from '../Xiuxian/Xiuxian.js'
-/**
- * 信息模块
- */
 export class UserStart extends plugin {
     constructor() {
         super({
