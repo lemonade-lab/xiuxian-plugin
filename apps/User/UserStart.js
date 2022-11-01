@@ -91,7 +91,9 @@ export class UserStart extends plugin {
         await Write_level(usr_qq, new_level);
         let new_wealth = {
             "lingshi": 5,
-            "xianshi": 0
+            "xianshi": 0,
+            "reward": 1,//新手礼包，只要满足条件就开启。开启后领取，关闭
+            "rewardmax": 1,//境界礼包，需要一定境界才能开启
         }
         await Write_wealth(usr_qq, new_wealth);
         let new_action = {

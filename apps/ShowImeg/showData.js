@@ -48,19 +48,16 @@ export class showData extends plugin {
         e.reply(img);
         return;
     }
-
     async show_Level(e) {
         let img = await get_state_img(e);
         e.reply(img);
         return;
     }
-
     async show_LevelMax(e) {
         let img = await get_statemax_img(e);
         e.reply(img);
         return;
     }
-
     async show_updata(e) {
         let img = await get_updata_img(e);
         e.reply(img);
@@ -72,7 +69,6 @@ export class showData extends plugin {
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
-
     let life=await Read_Life();
     life =life.find(item => item.qq == usr_qq);
     let wealt = await Read_wealth(usr_qq);
@@ -81,18 +77,14 @@ export async function get_player_img(e) {
     let level = await Read_level(usr_qq);
     let battle = await Read_battle(usr_qq);
     let linggenname = await talentname(talent);
-
     let name = "";
-    
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
     }
-
     if (await talent.talentshow != 0) {
         talent.talentsize = "0";
         name = "未知";
     }
-
     let myData = {
         user_id: usr_qq,
         life:life,
@@ -106,7 +98,6 @@ export async function get_player_img(e) {
         talent:talent,
         talentsize: parseInt(talent.talentsize * 100)
     }
-
     const data1 = await new Show(e).get_Data("User/player","player",myData);
     let img = await puppeteer.screenshot("player", {
         ...data1,
@@ -114,8 +105,6 @@ export async function get_player_img(e) {
     return img;
 
 }
-
-
 /**
  * 返回该玩家的装备图片
  */
@@ -123,7 +112,6 @@ export async function get_equipment_img(e) {
     let usr_qq = e.user_id;
     let life=await Read_Life();
     life =life.find(item => item.qq == usr_qq);
-
     let equipment = await Read_equipment(usr_qq);
     let battle = await Read_battle(usr_qq);
     let myData = {
@@ -148,10 +136,8 @@ export async function get_najie_img(e) {
     if (!ifexistplay) {
         return;
     }
-    
     let life=await Read_Life();
     life =life.find(item => item.qq == usr_qq);
-
     let player = await Read_player(usr_qq);
     let najie = await Read_najie(usr_qq);
     let battle = await Read_battle(usr_qq);
@@ -178,7 +164,6 @@ export async function get_state_img(e) {
     if (!ifexistplay) {
         return;
     }
-
      let player = await Read_level(usr_qq);
      let Level_id=player.level_id;
      let Level_list = data.Level_list;
@@ -249,8 +234,6 @@ export async function get_updata_img(e) {
     return img;
 
 }
-
-
 
 /**
  * 返回修仙设置

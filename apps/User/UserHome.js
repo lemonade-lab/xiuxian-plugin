@@ -66,7 +66,6 @@ export class UserHome extends plugin {
         }
         let equipment = await Read_equipment(usr_qq);
         if (equipment.length < 4) {
-            //推送装备
             equipment.push(searchsthing);
             await Write_equipment(usr_qq, equipment);
         } else {
@@ -99,7 +98,6 @@ export class UserHome extends plugin {
         } else {
             e.reply("未装备");
         }
-
         let searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply("世界没有" + thing_name);

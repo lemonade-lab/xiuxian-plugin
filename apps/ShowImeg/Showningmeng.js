@@ -138,8 +138,6 @@ export async function get_valuables_prop_img(e) {
 }
 
 
-
-
 /**
  * 法宝楼
  * @return image
@@ -151,9 +149,16 @@ export async function get_valuables_fabao_img(e) {
         return;
     }
     let fabao_list = data.fabao_list;
+
+    let list=[];
+    fabao_list.forEach((item,index) => {
+        if(index>5&&index<19){
+            list.push(item);
+        }
+    });
     let myData = {
         user_id: usr_qq,
-        fabao_list: fabao_list,
+        fabao_list: list,
     }
     const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_fabao", "valuables_fabao", myData)
     let img = await puppeteer.screenshot("valuables_fabao", {
@@ -173,9 +178,17 @@ export async function get_valuables_wuqi_img(e) {
         return;
     }
     let wuqi_list = data.wuqi_list;
+
+    let list=[];
+    wuqi_list.forEach((item,index) => {
+        if(index>5&&index<19){
+            list.push(item);
+        }
+    });
+
     let myData = {
         user_id: usr_qq,
-        wuqi_list: wuqi_list,
+        wuqi_list: list,
     }
     const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_wuqi", "valuables_wuqi", myData);
     let img = await puppeteer.screenshot("valuables_wuqi", {
@@ -194,9 +207,17 @@ export async function get_valuables_huju_img(e) {
         return;
     }
     let huju_list = data.huju_list;
+
+    let list=[];
+    huju_list.forEach((item,index) => {
+        if(index>5&&index<19){
+            list.push(item);
+        }
+    });
+
     let myData = {
         user_id: usr_qq,
-        huju_list: huju_list,
+        huju_list: list,
     }
     const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_huju", "valuables_huju", myData);
     let img = await puppeteer.screenshot("valuables_huju", {
@@ -219,9 +240,17 @@ export async function get_valuables_drug_img(e) {
         return;
     }
     let danyao_list = data.danyao_list;
+
+    let list=[];
+    danyao_list.forEach((item,index) => {
+        if(index>5&&index<19){
+            list.push(item);
+        }
+    });
+
     let myData = {
         user_id: usr_qq,
-        danyao_list: danyao_list
+        danyao_list: list
     }
     const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_drug", "valuables_drug", myData);
     let img = await puppeteer.screenshot("valuables_drug", {
@@ -241,9 +270,17 @@ export async function get_valuables_skill_img(e) {
         return;
     }
     let gongfa_list = data.gongfa_list;
+
+    let list=[];
+    gongfa_list.forEach((item,index) => {
+        if(index>5&&index<19){
+            list.push(item);
+        }
+    });
+
     let myData = {
         user_id: usr_qq,
-        gongfa_list: gongfa_list
+        gongfa_list: list
     }
     const data1 = await new Valuablesall(e).get_Data("valuablesall/valuables_skill", "valuables_skill", myData);
     let img = await puppeteer.screenshot("valuables_skill", {

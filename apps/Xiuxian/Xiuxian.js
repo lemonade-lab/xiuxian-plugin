@@ -417,6 +417,7 @@ export async function search_thing_name(thing) {
     }
 }
 
+
 /**
  * 根据id返回物品
  */
