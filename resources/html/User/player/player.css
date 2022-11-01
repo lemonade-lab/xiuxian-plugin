@@ -13,13 +13,13 @@ body {
   display:grid;
   padding: 20px;
   grid-template-columns:auto auto auto;
-  background-color: rgba(19, 21, 22, 0.486);
   border-top-right-radius:200px;
   border-bottom-right-radius:200px;
+  background-image: url('../../..//img/player/player-top-left.png');
+  background-size: 100% 100%;
 }
-
 .user_top_img_bottom {
-  background-image: url("../../..//img/state/user_state.png");
+  background-image: url("../../..//img/player/player-top-right.png");
   background-size: 100% 100%;
   width: 300px;
   height: 300px;
@@ -28,8 +28,8 @@ body {
 
 
 .user_top_img {
-  width: 172px;
-  height: 172px;
+  width: 195px;
+  height: 195px;
   border-radius: 100px;
   margin: auto;
   margin-top: 62px;
@@ -48,33 +48,33 @@ body {
 .user_top_right_font0{
   font-size: 25px;
   color: rgb(255, 255, 255);
-  padding: 10px;
+  padding: 15px;
   border-top-right-radius:25px;
   border-top-left-radius:25px;
-  background-color: rgba(19, 21, 22, 0.842);
+  background-color: rgba(76,148,130);
 }
 
 .user_top_right_font1{
   font-size: 25px;
   color: rgb(255, 255, 255);
-  padding: 20px;
-  background-color: rgba(19, 21, 22, 0.563);
+  padding: 15px;
+  background-color: rgb(172 190 161 / 41%);
 }
 
 .user_top_right_font{
   font-size: 25px;
   color: rgb(255, 255, 255);
-  padding: 20px;
-  background-color: rgba(19, 21, 22, 0.448);
+  padding: 15px;
+  background-color: rgb(172 190 161 / 84%);
 }
 
 .user_top_right_font2{
   font-size: 25px;
   color: rgb(255, 255, 255);
-  padding: 20px;
+  padding: 15px;
   border-bottom-right-radius:25px;
   border-bottom-left-radius:25px;
-  background-color: rgba(19, 21, 22, 0.666);
+  background-color: rgba(76, 148, 130, 0.795);
 }
 
 .use_data {
