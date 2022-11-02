@@ -1,11 +1,13 @@
-
+@font-face {
+  font-family: xiuxian;
+  src: url('../../../font/_GBK.TTF');
+}
 body {
   width: 100%;
   margin: auto;
   text-align: center;
   background-image: url('../../..//img/equipment/equipment.jpg');
   background-size: 100% auto;
-  font-family: cursive;
 }
 
 .user_top {

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: xiuxian;
+  src: url('../../../font/_GBK.TTF');
+}
+
 
 body {
   width: 100%;
@@ -5,9 +10,8 @@ body {
   text-align: center;
   background-image: url('../../..//img/player/player.jpg');
   background-size: 100% auto;
-  font-family: cursive;
+  font-family: xiuxain
 }
-
 .user_top {
   margin-right: 60px;
   margin-bottom: 20px;
@@ -59,14 +63,14 @@ body {
   font-size: 25px;
   color: rgb(255, 255, 255);
   padding: 15px;
-  background-color: rgb(172 190 161 / 41%);
+  background-color: #cee6c1d1;
 }
 
 .user_top_right_font{
   font-size: 25px;
   color: rgb(255, 255, 255);
   padding: 15px;
-  background-color: rgb(172 190 161 / 84%);
+  background-color: #cee6c1d1;
 }
 
 .user_top_right_font2{
@@ -75,7 +79,7 @@ body {
   padding: 15px;
   border-bottom-right-radius:25px;
   border-bottom-left-radius:25px;
-  background-color: rgba(76, 148, 130, 0.795);
+  background-color: #cee6c1d1;
 }
 
 .use_data {

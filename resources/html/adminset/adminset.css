@@ -1,5 +1,8 @@
 
-
+@font-face {
+  font-family: xiuxian;
+  src: url('../../../font/_GBK.TTF');
+}
 
 body {
   transform: scale(1);
@@ -7,7 +10,6 @@ body {
   text-align: center;
   background-image: url('../..//img/state/state.jpg');
   background-size: 100% auto;
-  font-family: cursive;
 }
 
 
