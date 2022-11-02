@@ -28,15 +28,6 @@
       title: "#文章+标题*内容"
       desc: "发布看法（可私聊）"  
 
-- group: 君子爱财
-  list:
-    - icon: help-icon_50
-      title: "#金银坊"
-      desc: "需要携带一定灵石"
-    - icon: help-icon_50
-      title: "#金银坊记录"
-      desc: "看看自己是欧皇还是冤种"
-
 - group: 修身养性
   list:
     - icon: help-icon_49

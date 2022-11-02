@@ -41,12 +41,6 @@ export class BotHelp extends plugin {
         await e.reply(img);
     }
 
-
-
-    /**
-     * rule - 修仙帮助
-     * @returns
-     */
     async Xiuxianhelp1(e) {
         let data = await Help.gethelp1(e);
         if (!data) return;
@@ -54,15 +48,12 @@ export class BotHelp extends plugin {
         await e.reply(img);
     }
 
-
     async adminsuper(e) {
         let data = await Help.getadmin(e);
         if (!data) return;
         let img = await this.cache(data);
         await e.reply(img);
     }
-
-
 
     async cache(data) {
         let tmp = md5(JSON.stringify(data));

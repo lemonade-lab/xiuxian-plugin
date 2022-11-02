@@ -1,19 +1,10 @@
 #操作cd,必须为整数,单位：分
 CD: 
 #宗门维护  
-  association: 10080  
-   #退宗   
-  joinassociation: 450   
-  #宗门大战  
-  associationbattle: 1440 
   #打劫    
   rob: 10    
-  #金银坊             
-  gambling: 3 
   #双修        
   couple: 360    
-  #药园           
-  garden: 3 
   #突破                
   level_up: 5   
   #秘境       
@@ -30,18 +21,6 @@ CD:
   honbao: 1 
   #boss    
   boss: 15        
-
-percentage: 
-  #手续费 
-  cost: 0.15 
-  #金银坊收益
-  Moneynumber: 0.65 
-  #出千收益
-  punishment: 0.5
-
-size:
-  #单位：万，出千控制
-  Money: 100 
 
 switch: 
   #怡红院开关

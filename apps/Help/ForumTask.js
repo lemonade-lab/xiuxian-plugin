@@ -3,8 +3,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import {Write_Forum,Read_Forum} from '../Xiuxian/Xiuxian.js'
-
-
 /**
  * 定时任务
  */

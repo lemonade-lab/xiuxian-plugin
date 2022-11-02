@@ -25,16 +25,16 @@ export class AdminMoney extends plugin {
                     fnc: 'Deduction'
                 },
                 {
-                    reg: '^#发测试福利$',
-                    fnc: 'ceshi'
-                },
-                {
                     reg: '^#发福利.*$',
                     fnc: 'Allfuli'
                 },
                 {
                     reg: '^#发补偿.*$',
                     fnc: 'Fuli'
+                },
+                {
+                    reg: '^#发测试福利$',
+                    fnc: 'ceshi'
                 }
             ],
         });

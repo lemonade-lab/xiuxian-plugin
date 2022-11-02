@@ -241,48 +241,10 @@ export async function get_updata_img(e) {
  */
 export async function get_adminset_img(e) {
     let myData = {
+        /**
+         * 改成数组展示
+         */
         xiuxianConfigData: xiuxianConfigData,
-        //CD：分
-        CDassociation: xiuxianConfigData.CD.association,
-        CDjoinassociation: xiuxianConfigData.CD.joinassociation,
-        CDassociationbattle: xiuxianConfigData.CD.associationbattle,
-        CDrob: xiuxianConfigData.CD.rob,
-        CDgambling: xiuxianConfigData.CD.gambling,
-        CDcouple: xiuxianConfigData.CD.couple,
-        CDgarden: xiuxianConfigData.CD.garden,
-        CDlevel_up: xiuxianConfigData.CD.level_up,
-        CDsecretplace: xiuxianConfigData.CD.secretplace,
-        CDtimeplace: xiuxianConfigData.CD.timeplace,
-        CDforbiddenarea: xiuxianConfigData.CD.forbiddenarea,
-        CDreborn: xiuxianConfigData.CD.reborn,
-        CDtransfer: xiuxianConfigData.CD.transfer,
-        CDhonbao: xiuxianConfigData.CD.honbao,
-        CDboss: xiuxianConfigData.CD.boss,
-        //手续费
-        percentagecost: xiuxianConfigData.percentage.cost,
-        percentageMoneynumber: xiuxianConfigData.percentage.Moneynumber,
-        percentagepunishment: xiuxianConfigData.percentage.punishment,
-        //出千控制
-        sizeMoney: xiuxianConfigData.size.Money,
-        //开关
-        switchplay: xiuxianConfigData.switch.play,
-        switchMoneynumber: xiuxianConfigData.switch.play,
-        switchcouple: xiuxianConfigData.switch.couple,
-        switchXiuianplay_key: xiuxianConfigData.switch.Xiuianplay_key,
-        //倍率
-        biguansize: xiuxianConfigData.biguan.size,
-        biguantime: xiuxianConfigData.biguan.time,
-        biguancycle: xiuxianConfigData.biguan.cycle,
-        //
-        worksize: xiuxianConfigData.work.size,
-        worktime: xiuxianConfigData.work.time,
-        workcycle: xiuxianConfigData.work.cycle,
-        //  
-        BossBoss: xiuxianConfigData.Boss.Boss,
-        //出金倍率
-        SecretPlaceone: xiuxianConfigData.SecretPlace.one,
-        SecretPlacetwo: xiuxianConfigData.SecretPlace.two,
-        SecretPlacethree: xiuxianConfigData.SecretPlace.three,
     }
     const data1 = await new Show(e).get_Data("adminset", "adminset",myData);
     let img = await puppeteer.screenshot("adminset", {

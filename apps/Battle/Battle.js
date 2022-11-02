@@ -18,10 +18,6 @@ export class Battle extends plugin {
                 {
                     reg: '^#打劫$',
                     fnc: 'Dajie'
-                },
-                {
-                    reg: '^#切磋$',
-                    fnc: 'biwu'
                 }
             ]
         })
@@ -75,47 +71,6 @@ export class Battle extends plugin {
             await Add_experiencemax(A, 500);
         }
         
-        return;
-    }
-
-
-    //切磋
-    async biwu(e) {
-        let good=await Go(e);
-        if (!good) {
-            return;
-        }
-        let A = e.user_id;
-        let B = await At(e);
-        if(B==0||B==A){
-            return;
-        }
-
-        let ClassCD = ":biwu";
-        let now_time = new Date().getTime();
-        let CDTime = 5;
-        let CD = await GenerateCD(A, ClassCD, now_time, CDTime);
-        if(CD != 0) {
-            e.reply(CD);
-            return;
-        }
-        await redis.set("xiuxian:player:" + A + ClassCD, now_time);
-
-        let Data_battle = await battle(A,B);
-        let msg = Data_battle.msg;
-        if (msg.length >= 30) {
-            e.reply("战斗过程略...");
-        } 
-        else {
-            await ForwardMsg(e, msg);
-        }
-        if(Data_battle.victory==A){
-            e.reply("你击败了对手，对手增加了100气血");
-            await Add_experiencemax(B, 100);
-        }else{
-            e.reply("你被对方打败了，你增加了100气血！");
-            await Add_experiencemax(A, 100);
-        }
         return;
     }
 

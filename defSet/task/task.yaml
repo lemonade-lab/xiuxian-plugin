@@ -6,8 +6,6 @@ GamesTask: 0 */5 * * * ?
 ExchangeTask: 0 0 4 * * ?
 # 寿命清理
 LifeTask: 0 0 4 * * ?
-# 开启怪物
-BossTask: 0 30 11,18 * * ?
 #关闭怪物
 BossEndTask: 0 30 12,19 * * ?
 # 修仙论坛

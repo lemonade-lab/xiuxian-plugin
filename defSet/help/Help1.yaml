@@ -73,9 +73,6 @@
 - group: 礼尚往来
   list:
     - icon: help-icon_54
-      title: "@群友 #切磋"
-      desc: "会掉血的"
-    - icon: help-icon_54
       title: "@群友 #打劫"
       desc: "夺取对方财富"
     - icon: help-icon_10
