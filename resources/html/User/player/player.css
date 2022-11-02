@@ -52,7 +52,8 @@ body {
 
 .user_top_right_font0{
   font-size: 25px;
-  color: rgb(255, 255, 255);
+  text-align: left;
+  color: #033026;
   padding: 15px;
   border-top-right-radius:25px;
   border-top-left-radius:25px;
@@ -61,21 +62,24 @@ body {
 
 .user_top_right_font1{
   font-size: 25px;
-  color: rgb(255, 255, 255);
+  text-align: left;
+  color: #033026;
   padding: 15px;
   background-color: #cee6c1d1;
 }
 
 .user_top_right_font{
   font-size: 25px;
-  color: rgb(255, 255, 255);
+  text-align: left;
+  color: #033026;
   padding: 15px;
   background-color: #cee6c1d1;
 }
 
 .user_top_right_font2{
   font-size: 25px;
-  color: rgb(255, 255, 255);
+  text-align: left;
+  color: #033026;
   padding: 15px;
   border-bottom-right-radius:25px;
   border-bottom-left-radius:25px;
@@ -93,7 +97,7 @@ body {
   padding: 15px;
   padding-left: 60px;
   font-weight: 600;
-  color: rgb(255, 255, 255);
+  color: #033026;
   border-radius: 20px;
   background-color: rgba(19, 21, 22, 0.486);
 }
