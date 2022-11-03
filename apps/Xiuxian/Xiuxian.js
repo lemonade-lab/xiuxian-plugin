@@ -439,13 +439,11 @@ export async function exist_najie_thing(usr_qq, thing_id) {
     let ifexist  = najie.thing.find(item => item.id == thing_id);
     return ifexist;
 }
-
 export async function exist_najie_thingname(usr_qq, name) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.name == name);
     return ifexist;
 }
-
 export async function Add_najie_thing(najie, najie_thing, thing_acount) {
     let thing =  najie.thing.find(item => item.id == najie_thing.id);
     if (thing == undefined) {    
@@ -474,7 +472,6 @@ export async function instead_equipment(equipment, thing_id) {
     equipment.arms = thing_id;
     return equipment;
 }
-
 //发送转发消息
 export async function ForwardMsg(e, data) {
     let msgList = [];
@@ -782,18 +779,7 @@ export async function GenerateCD(usr_qq, usr_class, now_time, time) {
     }
     return 0;
 }
-/**
- * 世界财富
- * 
- */
-export async function Worldwealth(acount) {
-    let worldacount = await Numbers(acount);
-    let Worldmoney = await redis.get("Xiuxian:Worldmoney");
-    Worldmoney = await Numbers(Worldmoney);
-    Worldmoney += worldacount;
-    await redis.set("Xiuxian:Worldmoney", Worldmoney);
-    return;
-}
+
 
 //写入
 export async function Write_Forum(wupin) {
@@ -830,8 +816,6 @@ export async function Read_Exchange() {
     Exchange = await JSON.parse(Exchange);
     return Exchange;
 }
-
-
 
 //搜索物品
 export async function Search_Exchange(thing_qq) {

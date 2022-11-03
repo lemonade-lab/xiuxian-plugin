@@ -1,7 +1,7 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import * as ShowData from '../ShowImeg/showData.js'
+import {get_equipment_img,get_player_img} from '../ShowImeg/showData.js'
 import {existplayer } from '../Xiuxian/Xiuxian.js'
 /**
  * 信息模块
@@ -35,7 +35,7 @@ export class UserInformation extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let img = await ShowData.get_player_img(e);
+        let img = await get_player_img(e);
         e.reply(img);
         return;
     }
@@ -48,7 +48,7 @@ export class UserInformation extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let img = await ShowData.get_equipment_img(e);
+        let img = await get_equipment_img(e);
         e.reply(img);
         return;
     }

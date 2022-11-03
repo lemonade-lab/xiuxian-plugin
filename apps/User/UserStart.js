@@ -55,6 +55,7 @@ export class UserStart extends plugin {
         }
         let ifexistplay = await existplayer(usr_qq);
         if (ifexistplay) {
+            this.Show_player(e);
             return;
         }
         let new_player = {

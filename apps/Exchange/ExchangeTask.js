@@ -25,7 +25,6 @@ export class ExchangeTask extends plugin {
             fnc: () => this.Exchangetask()
         }
     }
-
     async Exchangetask() {
         await offExchange();
         return;

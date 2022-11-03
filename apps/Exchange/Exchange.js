@@ -5,8 +5,6 @@ import { Go,Read_Exchange,GenerateCD,
     search_thing_name,ForwardMsg,__PATH,Numbers,
     Write_Exchange,Search_Exchange,
     exist_najie_thing,Read_najie} from '../Xiuxian/Xiuxian.js'
-
-
 /**
  * 交易系统
  */
@@ -172,7 +170,6 @@ export class Exchange extends plugin {
         let Exchange  = await Read_Exchange();
         let end_time = Exchange[x].end_time;
         let time = (end_time - now_time) / 60000;
-        
         time = Math.trunc(time);
         if (time <= 1) {
             if (thingqq != usr_qq) {
@@ -189,7 +186,6 @@ export class Exchange extends plugin {
             await Add_lingshi(usr_qq, -20000);
             await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
             e.reply(player.name + "赔20000保金！并下架" + thingqq + "成功！");
-            await Worldwealth(addWorldmoney);
         }
         else {
             e.reply("物品冷却中...");
@@ -235,14 +231,12 @@ export class Exchange extends plugin {
                 let najie = await Read_najie(usr_qq);
                 await Add_lingshi(usr_qq, -thing_whole);
                 await Write_najie(usr_qq, najie);
-                let addWorldmoney = thing_whole * 0.1;
                 thing_whole = thing_whole * 0.9;
                 thing_whole = await Numbers(thing_whole)
                 await Add_lingshi(thingqq, thing_whole);
                 Exchange = Exchange.filter(item => item.qq != thingqq);
                 await Write_Exchange(Exchange);
                 await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
-                await Worldwealth(addWorldmoney);
                 e.reply(player.name + "选购" + thingqq + "成功！");
             }
             else {

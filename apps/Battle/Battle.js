@@ -18,6 +18,10 @@ export class Battle extends plugin {
                 {
                     reg: '^#打劫$',
                     fnc: 'Dajie'
+                },
+                {
+                    reg: '^#攻击$',
+                    fnc: 'Dajie'
                 }
             ]
         })
