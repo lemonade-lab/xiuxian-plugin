@@ -28,7 +28,7 @@ body {
 
 .user_top_img_bottom {
   margin: auto;
-  background-image: url("../../img/state/user_state.png");
+  background-image: url("../../..//img/player/user_state.png");
   background-size: 100% auto;
   width: 280px;
   height: 280px;

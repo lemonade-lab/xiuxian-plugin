@@ -169,7 +169,7 @@ export async function get_state_img(e) {
      let Level_list = data.Level_list;
     //循环删除表信息
     for(var i=1;i<=60;i++){
-        if(i>Level_id-2&&i<Level_id+5){
+        if(i>Level_id&&i<Level_id+5){
             console.log(i);
             continue;
         }
@@ -201,7 +201,7 @@ export async function get_statemax_img(e) {
     let LevelMax_list = data.LevelMax_list;
    //循环删除表信息
    for(var i=1;i<=60;i++){
-       if(i>Level_id-2&&i<Level_id+5){
+       if(i>Level_id&&i<Level_id+5){
            continue;
        }
        LevelMax_list = await LevelMax_list.filter(item => item.id != i);
