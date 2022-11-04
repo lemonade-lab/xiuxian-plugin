@@ -7,44 +7,15 @@
 </head>
 
 <body>
-  <div>
-
- 
-    <div class="user_bottom1">
+    <div class="state-top">
       <div class="use_data">
-        <div class="use_data_head">
           <div class="user_font">#练气境界</div>
+          {{each LevelMax_list item}}
+          <div class="user_font"> 境界：{{item.name}}</div>
+          <div class="user_font">突破修为：{{item.exp}}</div>
+          {{/each}}
         </div>
-      </div>
     </div>
-
-     {{each LevelMax_list item}}
-    <div class="user_bottom1">
-      <div class="use_data">
-        <div class="use_data_head">
-          <div class="user_font">
-            <div> 境界：{{item.name}}</div>
-            <div> 突破修为：{{item.exp}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-
-
-    <!--底部-->
-
-    <div class="user_bottom2">
-    </div>
-
-
-
-
-  </div>
-  <style>
-
-  </style>
-
 </body>
 
 </html>

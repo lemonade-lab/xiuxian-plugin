@@ -31,23 +31,12 @@ export class showData extends plugin {
                 {
                     reg: "^#修仙版本$",
                     fnc: "show_updata",
-                },
-                {
-                    reg: "^#修仙设置$",
-                    fnc: "show_adminset",
                 }
             ]
         })
     }
 
-    async show_adminset(e) {
-        if (!e.isMaster) {
-            return;
-        }
-        let img = await get_adminset_img(e);
-        e.reply(img);
-        return;
-    }
+
     async show_Level(e) {
         let img = await get_state_img(e);
         e.reply(img);
@@ -234,23 +223,3 @@ export async function get_updata_img(e) {
     return img;
 
 }
-
-/**
- * 返回修仙设置
- * @return image
- */
-export async function get_adminset_img(e) {
-    let myData = {
-        /**
-         * 改成数组展示
-         */
-        xiuxianConfigData: xiuxianConfigData,
-    }
-    const data1 = await new Show(e).get_Data("adminset", "adminset",myData);
-    let img = await puppeteer.screenshot("adminset", {
-        ...data1,
-    });
-    return img;
-
-}
-

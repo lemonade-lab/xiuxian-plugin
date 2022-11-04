@@ -72,18 +72,9 @@
 
 - group: 礼尚往来
   list:
-    - icon: help-icon_54
-      title: "@群友 #打劫"
-      desc: "夺取对方财富"
     - icon: help-icon_10
       title: "@群友赠送灵石1000"
       desc: "转账灵石"
-    - icon: help-icon_10
-      title: "#发红包10000*5"
-      desc: "需要万的倍数"
-    - icon: help-icon_10
-      title: "#抢红包 @群友"
-      desc: "艾特发红包的仔"
 
 - group: 帮助扩展
   list:
