@@ -112,12 +112,7 @@ export async function Write_equipment(usr_qq, equipment) {
     return;
 }
 export async function updata_equipment(usr_qq) {
-    let attack=0;
-    let defense=0;
-    let blood=0;
-    let burst=0;
-    let burstmax=0;
-    let speed=0;
+    let attack=0,defense=0,blood=0,burst=0,burstmax=0,speed=0;
     let equipment = await Read_equipment(usr_qq);
     equipment.forEach((item)=>{
         attack=attack+item.attack;
@@ -131,22 +126,16 @@ export async function updata_equipment(usr_qq) {
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
     let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
     let player=await Read_battle(usr_qq);
-    attack=levelmini.attack+levelmax.attack+attack;
-    defense=levelmini.defense+levelmax.defense+defense;
-    blood=levelmini.blood+levelmax.blood+blood;
-    burst=levelmini.burst+levelmax.burst+burst;
-    burstmax=levelmini.burstmax+levelmax.burstmax+burstmax;
-    speed=levelmini.speed+levelmax.speed+speed;
     player={
         nowblood: player.nowblood,
-        attack: attack,
-        defense: defense,
-        blood: blood,
-        burst: burst,
-        burstmax: burstmax,
-        speed:speed,
-        power:attack+defense+blood+burst+burstmax
+        attack: levelmini.attack+levelmax.attack+attack,
+        defense: levelmini.defense+levelmax.defense+defense,
+        blood: levelmini.blood+levelmax.blood+blood,
+        burst: levelmini.burst+levelmax.burst+burst,
+        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax,
+        speed:levelmini.speed+levelmax.speed+speed
     }
+    player.power=player.attack+player.defense+player.blood+player.burst+player.burstmax+player.speed;
     await Write_battle(usr_qq,player);
     return;
 }
@@ -295,8 +284,6 @@ export async function search_thing_name(thing) {
         return ifexist0;
     }
 }
-
-
 /**
  * 根据id返回物品
  */
@@ -309,10 +296,6 @@ export async function search_thing_id(thing_id) {
         return ifexist0;
     }
 }
-
-/**
- * 检查纳戒内物品是否存在：直接判断是否存在这个id
- */
 export async function exist_najie_thing(usr_qq, thing_id) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.id == thing_id);
@@ -325,31 +308,20 @@ export async function exist_najie_thingname(usr_qq, name) {
 }
 export async function Add_najie_thing(najie, najie_thing, thing_acount) {
     let thing =  najie.thing.find(item => item.id == najie_thing.id);
-    if (thing == undefined) {    
+    if(thing){
+        let acount =  thing.acount + thing_acount;
+        if (acount < 1) {
+            najie.thing =  najie.thing.filter(item => item.id != najie_thing.id);
+        }
+        else{
+            najie.thing.find(item => item.id == najie_thing.id).acount = acount;
+        }
+        return najie;
+    }else{ 
         najie_thing.acount=thing_acount;
         najie.thing.push(najie_thing);
        return najie;
     }
-    else {
-        let acount =  thing.acount + thing_acount;
-        if (acount < 1) {
-            //删除
-            najie.thing =  najie.thing.filter(item => item.id != najie_thing.id);
-        }
-        else{
-            //更新
-            najie.thing.find(item => item.id == najie_thing.id).acount = acount;
-        }
-        return najie;
-    }
-}
-
-/**
- * 替换装备：只需要换id
- */
-export async function instead_equipment(equipment, thing_id) {
-    equipment.arms = thing_id;
-    return equipment;
 }
 //发送转发消息
 export async function ForwardMsg(e, data) {
@@ -379,43 +351,26 @@ export function sortBy(field) {
     }
 }
 
-//获取总修为
-export async function get_experience(usr_qq) {
-    let player = await Read_level(usr_qq);
-    let sum_exp = 0;
-    let now_level_id = player.level_id;
-    if (now_level_id < 46) {
-        for (var i = 1; i < now_level_id; i++) {
-            sum_exp = sum_exp + data.Level_list.find(temp => temp.level_id == i).exp;
-        }
-    }
-    sum_exp += player.experience;
-    return sum_exp;
-}
 /**
  * 输入概率随机返回布尔类型数据
- * @param P 概率
- * @returns 随机返回 false or true
  */
-export function get_random_res(P) {
-    if (P > 1) { P = 1; }
-    if (P < 0) { P = 0; }
-    let rand = Math.random();
+export function probability(P) {
+    //概率为1-100
+    if (P > 100) { P = 100; };
+    if (P < 0) { P = 0; };
+    let rand = Math.floor((Math.random() * (100-1)+1));
+    //命中
     if (rand < P) {
         return true;
     }
     return false;
 }
-/**
- * 输入数组随机返回其中一个
- * @param ARR 输入的数组
- * @returns 随机返回一个元素
- */
-export function get_random_fromARR(ARR) {
+
+export function Anyarray(ARR) {
     let randindex = Math.trunc(Math.random() * ARR.length);
     return ARR[randindex];
 }
-//延迟
+//沉睡
 export async function sleep(time) {
     return new Promise(resolve => {
         setTimeout(resolve, time);
@@ -444,7 +399,6 @@ export async function shijianc(time) {
     dateobj.m = date.getMinutes()
     dateobj.s = date.getSeconds()
     return dateobj;
-
 }
 //获取上次签到时间
 export async function getLastsign(usr_qq) {

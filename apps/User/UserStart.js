@@ -9,7 +9,7 @@ import {
     existplayer, __PATH, Write_player, Go, GenerateCD, Numbers,
     Read_player, Add_experience, getLastsign, shijianc, get_talent,
     Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
-    player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life,offaction
+    player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life,offaction, Anyarray
 } from '../Xiuxian/Xiuxian.js'
 export class UserStart extends plugin {
     constructor() {
@@ -79,10 +79,10 @@ export class UserStart extends plugin {
         let new_level = {
             "prestige": 0,//魔力
             "level_id": 1,//练气境界
-            "levelname": data.Level_list.find(item => item.id == 1).name,//练气名
+            "levelname": '凡人',//练气名
             "experience": 1,//练气经验
             "levelmax_id": 1,//练体境界 
-            "levelnamemax": data.LevelMax_list.find(item => item.id == 1).name,//练体名
+            "levelnamemax": '莽夫',//练体名
             "experiencemax": 1,//练体经验
             "power":1
         }
@@ -100,7 +100,9 @@ export class UserStart extends plugin {
             "Couple": 1 //双修
         }
         await Write_action(usr_qq, new_action);
-        let new_equipment = [];
+        let new_equipment = [
+
+        ];
         await Write_equipment(usr_qq, new_equipment);
         //初始化纳戒
         let new_najie = {
@@ -113,7 +115,7 @@ export class UserStart extends plugin {
         //随机名
         let name1 = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
         let name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-        let name = name1[Math.floor((Math.random() * name1.length))] + name2[Math.floor((Math.random() * name2.length))];
+        let name = await Anyarray(name1)+await Anyarray(name2);
         let life = await Read_Life();
         //随机寿命
         life.push({
