@@ -54,7 +54,6 @@ export async function Write_player(usr_qq, player) {
     await Write(usr_qq,player,__PATH.player);
     return;
 }
-//检查存档是否存在，存在返回true
 export async function existplayer(usr_qq) {
     let exist_player = fs.existsSync(`${__PATH.player}/${usr_qq}.json`);
     if (exist_player) {
@@ -112,8 +111,6 @@ export async function Write_equipment(usr_qq, equipment) {
     await updata_equipment(usr_qq);
     return;
 }
-
-
 export async function updata_equipment(usr_qq) {
     let attack=0;
     let defense=0;
@@ -130,7 +127,6 @@ export async function updata_equipment(usr_qq) {
          burstmax=burstmax+item.burstmax;
          speed=speed+item.speed;
     })
-
     let level = await Read_level(usr_qq);
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
     let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
@@ -154,21 +150,18 @@ export async function updata_equipment(usr_qq) {
     await Write_battle(usr_qq,player);
     return;
 }
-//魔力
 export async function Add_prestige(usr_qq, prestige) {
     let player = await Read_level(usr_qq);
     player.prestige += Math.trunc(prestige);
     await Write_level(usr_qq, player);
     return;
 }
-//灵石
 export async function Add_lingshi(usr_qq, lingshi) {
     let player = await Read_wealth(usr_qq);
     player.lingshi += Math.trunc(lingshi);
     await Write_wealth(usr_qq, player);
     return;
 }
-//修为
 export async function Add_experience(usr_qq, experience) {
     let player = await Read_level(usr_qq);
     let exp0 = await Numbers(player.experience);
@@ -177,14 +170,12 @@ export async function Add_experience(usr_qq, experience) {
     await Write_level(usr_qq, player);
     return;
 }
-//气血
 export async function Add_experiencemax(usr_qq, qixue) {
     let player = await Read_level(usr_qq);
     player.experiencemax += Math.trunc(qixue);
     await Write_level(usr_qq, player);
     return;
 }
-//血量
 export async function Add_HP(usr_qq, blood) {
     let player = await Read_battle(usr_qq);
     player.nowblood += Math.trunc(blood);
@@ -194,137 +185,25 @@ export async function Add_HP(usr_qq, blood) {
     await Write_battle(usr_qq, player);
     return;
 }
-//纳戒灵石
 export async function Add_najie_lingshi(usr_qq, acount) {
     let najie = await Read_najie(usr_qq);
     najie.lingshi += Math.trunc(acount);
     await Write_najie(usr_qq, najie);
     return;
 }
-
-//功法
 export async function Add_player_AllSorcery(usr_qq, gongfa) {
     let player = await Read_talent(usr_qq);
     player.AllSorcery.push(gongfa);
     await Write_talent(usr_qq, player);
-    //计算天赋
     await player_efficiency(usr_qq);
     return;
 }
-
 export async function battle(A, B) {
     let A_qq = await A;
     let B_qq = await B;
     let playerA = await Read_battle(A_qq);
     let playerB = await Read_battle(B_qq);
-    let bloodA = await playerA.nowblood;
-    let bloodB = await playerB.nowblood;
-    let hurtA = await playerA.attack - playerB.defense;
-    let hurtB = await playerB.attack - playerA.defense;
-    if (hurtA <= 0) {
-        hurtA = 0;
-    }
-    if (hurtB <= 0) {
-        hurtB = 0;
-    }
-    let victory = await A_qq;
-    let msg = [];
-    let x = 0;
-    let n=0;
-    if (playerA.speed + 5 >= playerB.speed) {
-        x = 0;
-    } else {
-        x = 1;
-    }
-    while (bloodA >= 0 && bloodB >= 0) {
-        n++;
-        if (bloodA <= 0||n>=30) {
-            victory = await B_qq;
-            break;
-        }
-        if (bloodB <= 0) {
-            msg.push("对方没血了");
-            break;
-        }
-        let hurtAA = hurtA;
-        let hurtBB = hurtA;
-        if (x == 0) {
-            if (await battlebursthurt(playerA.burst)) {
-                hurtAA = hurtAA * (playerA.burstmax + 1);
-            }
-            bloodB = await bloodB - hurtAA;
-            if (bloodB <= 0) {
-                bloodB = 0;
-            }
-            msg.push("你向发对方动了攻击，对[" + playerB.name + "]造成了" + hurtAA + "伤害，对方血量剩余" + bloodB);
-            if (bloodB <= 0) {
-                break;
-            }
-            if (await battlebursthurt(playerB.burst)) {
-                hurtBB = hurtAA * (playerB.burstmax + 1);
-            }
-            bloodA = await bloodA - hurtBB;
-            if (bloodA <= 0) {
-                victory = await B_qq;
-                bloodA = 0;
-            }
-            msg.push("对方向你发动了攻击，对[" + playerA.name + "]造成了" + hurtBB + "伤害，你血量剩余" + bloodA);
-            if (bloodA <= 0) {
-                break;
-            }
-        }
-        else {
-            if (await battlebursthurt(playerB.burst)) {
-                hurtBB = hurtAA * (playerB.burstmax + 1);
-            }
-            bloodA = await bloodA - hurtBB;
-            if (bloodA <= 0) {
-                victory = await B_qq;
-                bloodA = 0;
-            }
-            msg.push("对方向你，发动了攻击，对[" + playerA.name + "]造成了" + hurtBB + "伤害，你血量剩余" + bloodA);
-            if (bloodA <= 0) {
-                break;
-            }
-            if (await battlebursthurt(playerA.burst)) {
-                hurtAA = hurtAA * (playerA.burstmax + 1);
-            }
-            bloodB = await bloodB - hurtAA;
-            if (bloodB <= 0) {
-                bloodB = 0;
-            }
-            msg.push("你向对方发动了攻击，对[" + playerB.name + "]造成了" + hurtAA + "伤害，对方血量剩余" + bloodB);
-            if (bloodB <= 0) {
-                break;
-            }
-        }
-    }
-    bloodA = await playerA.nowblood - bloodA;
-    bloodB = await playerB.nowblood - bloodB;
-    await Add_HP(A, -bloodA);
-    await Add_HP(B, -bloodB);
-    let battle = {
-        "msg": msg,
-        "victory": victory
-    }
-    return battle;
-}
-
-/**
- * 随机取。判断是否暴
- */
-async function battlebursthurt(x) {
-    let bursthurt = x;
-    if (bursthurt >= 100) {
-        //大于100，直接暴
-        return true;
-    }
-    let y = Math.random();
-    if (bursthurt > y*100) {
-        return true;
-    }else{
-        return false;
-    }
+    return A_qq;
 }
 
 /**

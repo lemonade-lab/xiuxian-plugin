@@ -63,7 +63,7 @@ export class Games extends plugin {
             return;
         }
         let good = await Go(e);
-        if (!goodo) {
+        if (!good) {
             return;
         }
         let A = e.user_id;
