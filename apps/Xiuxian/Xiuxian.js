@@ -128,11 +128,11 @@ export async function updata_equipment(usr_qq) {
     let player=await Read_battle(usr_qq);
     player={
         nowblood: player.nowblood,
-        attack: levelmini.attack+levelmax.attack+attack,
-        defense: levelmini.defense+levelmax.defense+defense,
-        blood: levelmini.blood+levelmax.blood+blood,
-        burst: levelmini.burst+levelmax.burst+burst,
-        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax,
+        attack: Math.floor((levelmini.attack+levelmax.attack)*attack*0.01),
+        defense: Math.floor((levelmini.defense+levelmax.defense)*defense*0.01),
+        blood: Math.floor((levelmini.blood+levelmax.blood)*blood*0.01),
+        burst: Math.floor((levelmini.burst+levelmax.burst)*burst*0.01),
+        burstmax: Math.floor((levelmini.burstmax+levelmax.burstmax)*burstmax*0.01),
         speed:levelmini.speed+levelmax.speed+speed
     }
     player.power=player.attack+player.defense+player.blood+player.burst+player.burstmax+player.speed;

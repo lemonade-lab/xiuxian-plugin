@@ -56,9 +56,7 @@ class XiuxianData {
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
         //地点
-        this.didian_list = JSON.parse(fs.readFileSync(`${this.place}/didian_list.json`));
-        this.forbiddenarea_list = JSON.parse(fs.readFileSync(`${this.place}/forbiddenarea_list.json`));
-        this.timeplace_list = JSON.parse(fs.readFileSync(`${this.place}/timeplace_list.json`));
+        this.address_list = JSON.parse(fs.readFileSync(`${this.place}/address_list.json`));
         //灵根
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
 
@@ -106,8 +104,7 @@ class XiuxianData {
         let dir = path.join(this.all, `${name}.json`);
         let new_ARR = JSON.stringify(sum, "", "\t");
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        })
-            ;
+        });
     }
 
     //新增信息
@@ -120,8 +117,7 @@ class XiuxianData {
         let dir = path.join(this.all, `${name}.json`);
         let new_ARR = JSON.stringify(sum, "", "\t");
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        })
-            ;
+        });
     }
 
     /**
