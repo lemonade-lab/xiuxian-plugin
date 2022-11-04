@@ -1,4 +1,4 @@
-- group: 灵石设置
+- group: 
   list:
     - icon: help-icon_16
       title: "#发补偿9999 @群友"
@@ -7,7 +7,7 @@
       title: "#扣除99999 @群友"
       desc: "强行扣指定玩家灵石"
 
-- group: 世界管理
+- group: 
   list:
     - icon: help-icon_32
       title: "#清除冲水堂"
@@ -28,7 +28,7 @@
       title: "#修仙世界"
       desc: "修仙分析统计"
 
-- group: 修仙管理
+- group: 
   list:
     - icon: help-icon_58
       title: "#重置配置"

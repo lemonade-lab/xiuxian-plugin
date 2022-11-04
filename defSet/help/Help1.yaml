@@ -70,13 +70,13 @@
       title: "#冲水堂"
       desc: "交易（可私聊）"
 
-- group: 礼尚往来
+- group: 
   list:
     - icon: help-icon_10
       title: "@群友赠送灵石1000"
       desc: "转账灵石"
 
-- group: 帮助扩展
+- group: 
   list:
     - icon: help-icon_14
       title: "#修仙扩展"
