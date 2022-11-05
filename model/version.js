@@ -3,7 +3,7 @@ export default class Version extends base {
   constructor(e) {
     super(e);
     this.model = "version";
-  }
+  };
 
   /** 生成版本信息图片 */
   async getData(versionData) {
@@ -17,5 +17,5 @@ export default class Version extends base {
       versionData: versionData,
     };
     return data;
-  }
-}
+  };
+};

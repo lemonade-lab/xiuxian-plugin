@@ -128,11 +128,11 @@ export async function updata_equipment(usr_qq) {
     let player=await Read_battle(usr_qq);
     player={
         nowblood: player.nowblood,
-        attack: Math.floor((levelmini.attack+levelmax.attack)*attack*0.01),
-        defense: Math.floor((levelmini.defense+levelmax.defense)*defense*0.01),
-        blood: Math.floor((levelmini.blood+levelmax.blood)*blood*0.01),
-        burst: Math.floor((levelmini.burst+levelmax.burst)*burst*0.01),
-        burstmax: Math.floor((levelmini.burstmax+levelmax.burstmax)*burstmax*0.01),
+        attack: levelmini.attack+levelmax.attack+Math.floor((levelmini.attack+levelmax.attack)*attack*0.01),
+        defense: levelmini.defense+levelmax.defense+Math.floor((levelmini.defense+levelmax.defense)*defense*0.01),
+        blood: levelmini.blood+levelmax.blood+Math.floor((levelmini.blood+levelmax.blood)*blood*0.01),
+        burst: levelmini.burst+levelmax.burst+burst,
+        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax,
         speed:levelmini.speed+levelmax.speed+speed
     }
     player.power=player.attack+player.defense+player.blood+player.burst+player.burstmax+player.speed;
@@ -165,11 +165,16 @@ export async function Add_experiencemax(usr_qq, qixue) {
     await Write_level(usr_qq, player);
     return;
 }
+//血量按百分比恢复
 export async function Add_HP(usr_qq, blood) {
     let player = await Read_battle(usr_qq);
-    player.nowblood += Math.trunc(blood);
-    if (player.nowblood > player.hpmax) {
-        player.nowblood = player.hpmax;
+    let battle= await Read_battle(usr_qq);
+    if(player.nowblood<10){
+        player.nowblood=10;
+    }
+    player.nowblood += Math.floor(player.nowblood*blood*0.01)+1;
+    if (player.nowblood > battle.blood) {
+        player.nowblood=battle.blood;
     }
     await Write_battle(usr_qq, player);
     return;
@@ -276,7 +281,7 @@ export async function player_efficiency(usr_qq) {
  * 根据名字返回物品
  */
 export async function search_thing_name(thing) {
-    let ifexist0 = data.all_list.find(item => item.name == thing);
+    let ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.name == thing);
     if(ifexist0==undefined){
         return  1;
     }
@@ -288,7 +293,7 @@ export async function search_thing_name(thing) {
  * 根据id返回物品
  */
 export async function search_thing_id(thing_id) {
-    let ifexist0 = data.all_list.find(item => item.id == thing_id);
+    let ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.id == thing_id);
     if(ifexist0==undefined){
         return  1;
     }

@@ -80,7 +80,9 @@ export class UserStart extends plugin {
             "experience": 1,//练气经验
             "levelmax_id": 1,//练体境界 
             "levelnamemax": '莽夫',//练体名
-            "experiencemax": 1//练体经验
+            "experiencemax": 1,//练体经验
+            "rank_id":1,
+            "rank_name":"初期"
         }
         await Write_level(usr_qq, new_level);
         let new_wealth = {

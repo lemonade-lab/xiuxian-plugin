@@ -22,16 +22,16 @@ export class UserTask extends plugin {
     }
 
     async LevelTask() {
+        console.log("启动");
         let life = await Read_Life();
-        life.forEach((item) => {
+        life.forEach((item,index,arr) => {
             item.Age = item.Age + 1;
+            console.log(item);
             if (item.Age >= item.life) {
+                console.log("启动");
                 fs.rmSync(`${__PATH.player}/${item.qq}.json`);
                 offaction(item.qq);
-                //清除自己
-                item.qq =undefined;
-                item.Age =undefined;
-                item.life =undefined;
+                arr.splice(index,1);
             }
         });
         await Write_Life(life);

@@ -1,7 +1,14 @@
 import plugin from '../../../../lib/plugins/plugin.js'
+import fs from "node:fs"
 import data from '../../model/XiuxianData.js'
-import { Numbers,Read_wealth,Add_lingshi,exist_najie_thing_id,Add_najie_thing,
-    search_thing_name,existplayer,ForwardMsg,__PATH,Read_najie,Write_najie } from '../Xiuxian/Xiuxian.js'
+import {
+    Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, Add_najie_thing,
+    search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie
+} from '../Xiuxian/Xiuxian.js';
+
+
+
+
 
 export class UserTransaction extends plugin {
     constructor() {
@@ -36,20 +43,33 @@ export class UserTransaction extends plugin {
         let msg = [
             "___[凡仙堂]___\n#购买+物品名"
         ];
-        let commodities_list = data.commodities_list;
+        let commodities_list = JSON.parse(fs.readFileSync(`${data.all}/commodities.json`));
         commodities_list.forEach((item) => {
-            msg.push(
-                "物品：" + item.name +
-                "\n攻击：+" + item.attack  +
-                "\n防御：+" + item.defense +
-                "\n血量：+" + item.blood +
-                "\n敏捷：+" + item.speed+
-                "\n暴击：+" + item.burst+"%"+
-                "\n暴伤：+" + item.burstmax+"%"+
-                "\n天赋：+" + item.size+"%"+
-                "\n修为：+" + item.experience+"%"+
-                "\n气血：+" + item.experiencemax+"%"+
-                "\n价格：" + item.price);
+            let id = item.id.split('-');
+            if (id[0] == 4) {
+                msg.push(
+                    "物品：" + item.name +
+                    "\n修为：+" + item.experience + "%" +
+                    "\n气血：+" + item.experiencemax + "%" +
+                    "\n价格：" + item.price);
+            }
+            else if (id[0] == 5) {
+                msg.push(
+                    "物品：" + item.name +
+                    "\n天赋：+" + item.size + "%" +
+                    "\n价格：" + item.price);
+            }
+            else{
+                msg.push(
+                    "物品：" + item.name +
+                    "\n攻击：+" + item.attack +
+                    "\n防御：+" + item.defense +
+                    "\n血量：+" + item.blood +
+                    "\n敏捷：+" + item.speed +
+                    "\n暴击：+" + item.burst + "%" +
+                    "\n暴伤：+" + item.burstmax + "%" +
+                    "\n价格：" + item.price);
+            }
         });
         await ForwardMsg(e, msg);
         return;
@@ -66,11 +86,6 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-        if (game_action == 0) {
-            e.reply("游戏进行中...");
-            return;
-        }
         let thing = e.msg.replace("#购买", '');
         let code = thing.split("\*");
         let thing_name = code[0];//物品
@@ -79,7 +94,7 @@ export class UserTransaction extends plugin {
         if (quantity > 99) {
             quantity = 99;
         }
-        let ifexist = data.commodities_list.find(item => item.name == thing_name);
+        let ifexist = JSON.parse(fs.readFileSync(`${data.all}/commodities.json`)).find(item => item.name == thing_name);
         if (!ifexist) {
             e.reply(`不卖:${thing_name}`);
             return;
@@ -92,7 +107,7 @@ export class UserTransaction extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie,ifexist,quantity);
+        najie = await Add_najie_thing(najie, ifexist, quantity);
         await Write_najie(usr_qq, najie);
         await Add_lingshi(usr_qq, -commodities_price);
         e.reply(`花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
@@ -107,11 +122,6 @@ export class UserTransaction extends plugin {
         let usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
-            return;
-        }
-        let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-        if (game_action == 0) {
-            e.reply("游戏进行中...");
             return;
         }
         let thing = e.msg.replace("#出售", '');
@@ -138,7 +148,7 @@ export class UserTransaction extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie,searchsthing,-quantity);
+        najie = await Add_najie_thing(najie, searchsthing, -quantity);
         await Write_najie(usr_qq, najie);
         let commodities_price = searchsthing.price * quantity;
         await Add_lingshi(usr_qq, commodities_price);

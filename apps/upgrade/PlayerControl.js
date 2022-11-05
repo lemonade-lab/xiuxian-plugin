@@ -151,8 +151,8 @@ export class PlayerControl extends plugin {
         }
         if(name="闭关"){
             await Add_experience(usr_qq,other);
-            await Add_HP(usr_qq,9999);
-            msg.push("\n血量"+9999);
+            await Add_HP(usr_qq,100);
+            msg.push("\n血量恢复");
         }else{
             await Add_lingshi(usr_qq, other);
         }
