@@ -52,7 +52,6 @@ export class AdminSuper extends plugin {
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            //
             await updata_equipment(player_id);
         }
         e.reply("同步结束");

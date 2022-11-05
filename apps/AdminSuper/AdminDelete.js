@@ -142,13 +142,11 @@ export class AdminDelete extends plugin {
             return;
         }
         e.reply("开始崩碎信息");
-
         fs.rmSync(`${__PATH.player}/${B}.json`);
         let life = await Read_Life();
         await offaction(B);
         life = await life.filter(item => item.qq != B);
         await Write_Life(life);
-
         e.reply("已崩碎");
         return;
     }

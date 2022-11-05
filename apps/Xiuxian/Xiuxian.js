@@ -577,15 +577,14 @@ export async function UserGo(usr_qq) {
 
 //todo
 //now_time 和 time 两个参数没用了，但是调用该方法的地方过多，所以没删
-export async function GenerateCD(usr_qq, usr_class, now_time, time) {
-    var time0 = time;
+export async function GenerateCD(usr_qq, usr_class) {
     let exists = await redis.exists("xiuxian:player:" + usr_qq + usr_class);
+    //存在
     if(exists == 1){
         let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + usr_class);
         let actionName = await redis.get("xiuxian:player:" + usr_qq + usr_class);
-        return actionName+"cd中，剩余时间:"+remainTime+"秒";
+        return actionName+":CD:"+remainTime+"s";
     }
-
     return 0;
 }
 

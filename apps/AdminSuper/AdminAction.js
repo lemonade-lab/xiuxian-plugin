@@ -102,17 +102,14 @@ export class AdminAction extends plugin {
         );
         return true;
     }
-
-   
-
     async init() {
         let restart = await redis.get(this.key);
         if (restart) {
             restart = JSON.parse(restart);
             if (restart.isGroup) {
-                Bot.pickGroup(restart.id).sendMsg("重启成功，新版修仙插件已经生效\n每次更新后请主人【#同步信息】\n以确保正常使用");
+                Bot.pickGroup(restart.id).sendMsg("重启成功！\n主人需【#同步信息】\n以确保正常使用。");
             } else {
-                Bot.pickUser(restart.id).sendMsg("重启成功，新版修仙插件已经生效\n每次更新后请主人【#同步信息】\n以确保正常使用");
+                Bot.pickUser(restart.id).sendMsg("重启成功！\n主人需【#同步信息】\n以确保正常使用。");
             }
             redis.del(this.key);
         }

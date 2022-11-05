@@ -37,20 +37,20 @@ export class UserTransaction extends plugin {
             "___[柠檬堂]___\n#购买+物品名"
         ];
         let commodities_list = data.commodities_list;
-        for (var i = 0; i < commodities_list.length; i++) {
+        commodities_list.forEach((item) => {
             msg.push(
-                "物品：" + commodities_list[i].name +
-                "\n攻击：+" + commodities_list[i].attack  +
-                "\n防御：+" + commodities_list[i].defense +
-                "\n血量：+" + commodities_list[i].blood +
-                "\n敏捷：+" + commodities_list[i].speed+
-                "\n暴击：+" + commodities_list[i].burst+"%"+
-                "\n暴伤：+" + commodities_list[i].burstmax+"%"+
-                "\n天赋：+" + commodities_list[i].size+"%"+
-                "\n修为：+" + commodities_list[i].experience+"%"+
-                "\n气血：+" + commodities_list[i].experiencemax+"%"+
-                "\n价格：" + commodities_list[i].price);
-        }
+                "物品：" + item.name +
+                "\n攻击：+" + item.attack  +
+                "\n防御：+" + item.defense +
+                "\n血量：+" + item.blood +
+                "\n敏捷：+" + item.speed+
+                "\n暴击：+" + item.burst+"%"+
+                "\n暴伤：+" + item.burstmax+"%"+
+                "\n天赋：+" + item.size+"%"+
+                "\n修为：+" + item.experience+"%"+
+                "\n气血：+" + item.experiencemax+"%"+
+                "\n价格：" + item.price);
+        });
         await ForwardMsg(e, msg);
         return;
 

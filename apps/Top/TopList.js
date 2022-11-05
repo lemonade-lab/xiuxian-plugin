@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
-import {existplayer,__PATH,Read_player,sortBy,ForwardMsg} from '../Xiuxian/Xiuxian.js'
+import {existplayer,__PATH,Read_player,sortBy,ForwardMsg, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
 /**
  * 所有榜单
  */
@@ -40,39 +40,27 @@ export class TopList extends plugin {
         let playerList = [];
         let temp = [];
         let files = fs
-            .readdirSync(__PATH.player)
+            .readdirSync(__PATH.level)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
-        var i = 0;
         for (let player_id of playerList) {
-            let player = await Read_player(player_id);
-            let prestige = Math.trunc(player.prestige);
-            temp[i] = {
-                "prestige": prestige,
-                "qq": player_id,
-                "name": player.name,
-                "level_id": player.level_id
+            let newbattle= await Read_level(player_id);
+            let battle={
+                "QQ":player_id,
+                "prestige":newbattle.prestige
             }
-            i++;
+            temp.push(battle);
         }
         temp.sort(sortBy("prestige"));
-        var length;
-        if (temp.length > 10) {
-            length = 10;
-        }
-        else {
-            length = temp.length;
-        }
-        var j;
-        for (j = 0; j < length; j++) {
+        for (let item of temp) {
+            console.log(item);
             msg.push(
-                "第" + (j + 1) + "名" +
-                "\n道号：" + temp[j].name +
-                "\n魔力：" + temp[j].prestige +
-                "\nQQ:" + temp[j].qq);
+                "QQ"+item.QQ+"\n"+
+                "魔力"+item.prestige
+            );
         }
         await ForwardMsg(e, msg);
         return;
@@ -91,44 +79,32 @@ export class TopList extends plugin {
         let playerList = [];
         let temp = [];
         let files = fs
-            .readdirSync(__PATH.player)
+            .readdirSync(__PATH.level)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
-        var i = 0;
         for (let player_id of playerList) {
-            let player = await Read_player(player_id);
-            let power = (player.nowattack + player.nowdefense * 0.8 + player.hpmax * 0.6) * player.burst;
-            if (player.level_id < 42) {
+            let level= await Read_level(player_id);
+            if(level.level_id<11){
                 continue;
             }
-            power = Math.trunc(power);
-            temp[i] = {
-                "power": power,
-                "qq": player_id,
-                "name": player.name,
-                "level_id": player.level_id
+            let newbattle= await Read_battle(player_id);
+            let battle={
+                "QQ":player_id,
+                "power":newbattle.power
             }
-            i++;
+            temp.push(battle);
         }
         temp.sort(sortBy("power"));
-        console.log(temp);
-        var length;
-        if (temp.length > 10) {
-            length = 10;
-        }
-        else {
-            length = temp.length;
-        }
-        var j;
-        for (j = 0; j < length; j++) {
+        for (let item of temp) {
+            console.log(item);
             msg.push(
-                "第" + (j + 1) + "名" +
-                "\n道号：" + temp[j].name +
-                "\n战力：" + temp[j].power +
-                "\nQQ:" + temp[j].qq);
+                "QQ"+item.QQ+"\n"+
+                "战力"+item.power+"\n"
+                
+            );
         }
         await ForwardMsg(e, msg);
         return;
@@ -142,49 +118,37 @@ export class TopList extends plugin {
             return;
         }
         let msg = [
-            "___[至尊榜]___"
+            "___[封神榜]___"
         ];
         let playerList = [];
         let temp = [];
         let files = fs
-            .readdirSync(__PATH.player)
+            .readdirSync(__PATH.level)
             .filter((file) => file.endsWith(".json"));
         for (let file of files) {
             file = file.replace(".json", "");
             playerList.push(file);
         }
-        var i = 0;
         for (let player_id of playerList) {
-            let player = await Read_player(player_id);
-            let power = (player.nowattack + player.nowdefense * 0.8 + player.hpmax * 0.5) * player.burst;
-            if (player.level_id >= 42) {
+            let level= await Read_level(player_id);
+            if(level.level_id>=11){
                 continue;
             }
-            power = Math.trunc(power);
-            temp[i] = {
-                "power": power,
-                "qq": player_id,
-                "name": player.name,
-                "level_id": player.level_id
+            let newbattle= await Read_battle(player_id);
+            let battle={
+                "QQ":player_id,
+                "power":newbattle.power
             }
-            i++;
+            temp.push(battle);
         }
         temp.sort(sortBy("power"));
-        console.log(temp);
-        var length;
-        if (temp.length > 10) {
-            length = 10;
-        }
-        else {
-            length = temp.length;
-        }
-        var j;
-        for (j = 0; j < length; j++) {
+        for (let item of temp) {
+            console.log(item);
             msg.push(
-                "第" + (j + 1) + "名" +
-                "\n道号：" + temp[j].name +
-                "\n战力：" + temp[j].power +
-                "\nQQ:" + temp[j].qq);
+                "QQ"+item.QQ+"\n"+
+                "战力"+item.power+"\n"
+                
+            );
         }
         await ForwardMsg(e, msg);
         return;

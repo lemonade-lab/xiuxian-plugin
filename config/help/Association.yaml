@@ -1,0 +1,125 @@
+- group: 宗门管理
+  list:
+    - icon: help-icon_52
+      title: "#加载宗门玩法"
+      desc: "创建宗门玩法个人存档"
+    - icon: help-icon_52
+      title: "#开宗立派"
+      desc: "创建门派"
+    - icon: help-icon_52
+      title: "#宗门升级"
+      desc: "宗门升级"
+    - icon: help-icon_58
+      title: "#玩家 任命+职位"
+      desc: "给职位"
+    - icon: help-icon_58
+      title: "#逐出门派+QQ号"
+      desc: "将玩家逐出宗门"
+    - icon: help-icon_58
+      title: "#宗门改名xxx"
+      desc: "更改宗门的名称"
+    - icon: help-icon_81
+      title: "#鉴定令牌"
+      desc: "获得上中下等令牌的唯一途径"
+    
+- group: 宗门基础玩法
+  list:
+    - icon: help-icon_52
+      title: "#申请加入xxx"
+      desc: "向某宗门发出申请"
+    - icon: help-icon_52
+      title: "#退出宗门"
+      desc: "退宗"
+    - icon: help-icon_55
+      title: "#查看简历+QQ"
+      desc: "查看申请加入玩家的信息"
+    - icon: help-icon_55
+      title: "#批准录取+QQ"
+      desc: "同意该玩家加入宗门"
+    - icon: help-icon_55
+      title: "#驳回申请+QQ"
+      desc: "拒绝该玩家的入宗申请"
+    - icon: help-icon_55
+      title: "#清空志愿"
+      desc: "主动撤回提交的入宗申请"
+    - icon: help-icon_55
+      title: "#展示所有简历"
+      desc: "查看所有申请人的qq号"
+    - icon: help-icon_72
+      title: "#成为长老"
+      desc: "获取长老职位"
+    - icon: help-icon_69
+      title: "#发起职位挑战+qq"
+      desc: "抢夺该玩家的长老之位"
+
+- group: 宗门驻地玩法
+  list:
+    - icon: help-icon_59
+      title: "#洞天福地列表"
+      desc: "查看所有可以入驻的洞天"
+    - icon: help-icon_59
+      title: "#开采灵脉"
+      desc: "开采驻地中的灵脉换取贡献点"
+    - icon: help-icon_59
+      title: "#入驻洞天+地名"
+      desc: "将某地作为宗门的驻地"
+    - icon: help-icon_59
+      title: "#修建xxx"
+      desc: "修建宗门设施"
+    - icon: help-icon_55
+      title: "#查看宗门战力总和"
+      desc: "该值是抢夺洞天是否成功的重要依据"
+
+- group: 宗门神兽玩法
+  list:
+    - icon: help-icon_43
+      title: "#召唤神兽"
+      desc: "召唤护宗神兽"
+    - icon: help-icon_49
+      title: "#喂给神兽xxx"
+      desc: "喂食神兽获得好感度"
+    - icon: help-icon_77
+      title: "#神兽赐福"
+      desc: "每日一次，获得神兽的祝福"
+
+- group: 宗门秘境玩法
+  list:
+    - icon: help-icon_55
+      title: "#宗门秘境列表"
+      desc: "查看所有存在的宗门秘境"
+    - icon: help-icon_54
+      title: "#探索宗门秘境+地名"
+      desc: "前往某宗门秘境"
+    - icon: help-icon_58
+      title: "#设置宗门秘境价格+数字"
+      desc: "调整宗门秘境门票"
+    - icon: help-icon_58
+      title: "#设置宗门秘境价格+数字"
+      desc: "调整秘境所需修为"
+    - icon: help-icon_58
+      title: "#宗门秘境放入*物品名 *层数"
+      desc: "往秘境第几层放入某物品"
+    - icon: help-icon_58
+      title: "#宗门秘境取出xxx"
+      desc: "从秘境掉落物中去除某物品"
+    - icon: help-icon_58
+      title: "#宗门秘境更名xxx"
+      desc: "为宗门秘境改名"
+    - icon: help-icon_55
+      title: "#查看秘境详情"
+      desc: "查看自己的宗门秘境里都有什么"
+
+- group: 藏宝阁玩法
+  list:
+    - icon: help-icon_87
+      title: "#藏宝阁"
+      desc: "查看宗门藏宝阁有什么"
+    - icon: help-icon_87
+      title: "#兑换xxx"
+      desc: "从藏宝阁中买东西"
+    - icon: help-icon_58
+      title: "#藏宝阁回收xxx"
+      desc: "将物品卖给藏宝阁换取贡献点"
+    - icon: help-icon_55
+      title: "#我的贡献"
+      desc: "查看自己的贡献值"

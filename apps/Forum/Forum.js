@@ -29,13 +29,13 @@ export class Forum extends plugin {
         let msg = [
             "___[有间客栈]___"
         ];
-        for (var i = 0; i < Forum.length; i++) {
+        Forum.forEach((item)=>{
             msg.push(
-                "   [" + Forum[i].title + "]" +
-                "\n" + Forum[i].content +
-                "\ntime:" + Forum[i].time +
-                "\nID:" + Forum[i].number);
-        }
+                "   [" + item.title + "]" +
+                "\n" + item.content +
+                "\ntime:" + item.time +
+                "\nID:" + item.number);
+        });
         await ForwardMsg(e, msg);
         return;
     }
@@ -83,10 +83,14 @@ export class Forum extends plugin {
         Mathrandom = Mathrandom * 100000
         Mathrandom = Math.trunc(Mathrandom);
         var myDate = new Date();
-        var year = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
-        var month = myDate.getMonth() + 1;  //获取当前月份(1-12)
-        var day = myDate.getDate();  //获取当前日(1-31)
-        var newDay = year + '-' + month + '-' + day;//获取完整年月日
+        //获取完整的年份(4位,1970-????)
+        var year = myDate.getFullYear(); 
+         //获取当前月份(1-12)
+        var month = myDate.getMonth() + 1;
+          //获取当前日(1-31) 
+        var day = myDate.getDate();
+        //获取完整年月日
+        var newDay = year + '-' + month + '-' + day;
         let wupin = {
             "title": title,//发布名
             "qq": usr_qq,//发布名

@@ -138,7 +138,7 @@ export class UserHome extends plugin {
             e.reply("数量不足");
             return;
         }
-        //切割类型，看到类型对不对。
+        //切割类型，看到类型对不对
         let id = searchsthing.id.split('-');
         if (id[1] == 1) {
             let blood = parseInt(thing_acount * searchsthing.blood);

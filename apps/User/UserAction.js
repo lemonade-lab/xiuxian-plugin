@@ -94,9 +94,7 @@ export class UserAction extends plugin {
             let P = await Read_wealth(usr_qq);
             lingshi = P.lingshi;
         };
-
         lingshi=await Numbers(lingshi);
-
         if (func == "存") {
             let player_lingshi = await Read_wealth(usr_qq);
             player_lingshi = player_lingshi.lingshi;

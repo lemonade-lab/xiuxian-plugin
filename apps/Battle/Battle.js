@@ -40,11 +40,13 @@ export class Battle extends plugin {
         let ClassCD = ":Dajie";
         let now_time = new Date().getTime();
         let CDTime = 15;
-        let CD = await GenerateCD(A, ClassCD, now_time, CDTime);
+        let CD = await GenerateCD(A, ClassCD);
         if(CD != 0) {
             e.reply(CD);
             return;
         }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);
         e.reply("待重写")
         return;
     }
