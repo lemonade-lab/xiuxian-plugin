@@ -23,10 +23,6 @@ export class Games extends plugin {
 
     //双修
     async Couple(e) {
-        let gameswitch = this.xiuxianConfigData.switch.couple;
-        if (gameswitch != true) {
-            return;
-        }
         let good = await Go(e);
         if (!good) {
             return;

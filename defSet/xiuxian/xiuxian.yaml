@@ -3,34 +3,12 @@ CD:
 #宗门维护  
   #打劫    
   rob: 10    
-  #双修        
-  couple: 360    
   #突破                
-  level_up: 5   
-  #秘境       
-  secretplace: 5 
-  #仙府         
-  timeplace: 6    
-  #禁地            
-  forbiddenarea: 4   
+  level_up: 5     
   #重生         
   reborn: 360    
-  #转账             
+  #赠送             
   transfer: 360  
-  #抢红包            
-  honbao: 1 
-  #boss    
-  boss: 15        
-
-switch: 
-  #怡红院开关
-  play: true 
-  #金银坊开关
-  Moneynumber: true 
-  #双修开关
-  couple: true 
-  #怡红院卡图开关
-  Xiuianplay_key: false 
 
 biguan: 
   #闭关倍率！收益：倍率*境界数*天赋*时间
@@ -48,15 +26,6 @@ work:
   #打工周期
   cycle: 32 
 
-Boss:
-  #奖励倍率
-  Boss: 1 
-
-#秘境出金概率
-SecretPlace:  
-  one: 0.9   
-  two: 0.6  
-  three: 0.3   
 
 # 纳戒存储量
 najie_num: 

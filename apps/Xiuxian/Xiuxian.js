@@ -350,7 +350,6 @@ export function sortBy(field) {
         return a[field] - b[field];
     }
 }
-
 /**
  * 输入概率随机返回布尔类型数据
  */
@@ -365,7 +364,6 @@ export function probability(P) {
     }
     return false;
 }
-
 export function Anyarray(ARR) {
     let randindex = Math.trunc(Math.random() * ARR.length);
     return ARR[randindex];
@@ -400,36 +398,8 @@ export async function shijianc(time) {
     dateobj.s = date.getSeconds()
     return dateobj;
 }
-//获取上次签到时间
-export async function getLastsign(usr_qq) {
-    let time = await redis.get("xiuxian:player:" + usr_qq + ":lastsign_time");
-    if (time != null) {
-        let data = await shijianc(parseInt(time))
-        return data;
-    }
-    return false;
-}
-/**
- * 得到状态
- */
-export async function getPlayerAction(usr_qq) {
-    let arr = {};
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            arr.action = action.action;//当期那动作
-            arr.time = m + "m" + s + "s";//剩余时间
-            return arr;
-        }
-    }
-    arr.action = "空闲";
-    return arr;
-}
+
+
 /**
  * 艾特
  */
@@ -477,6 +447,28 @@ export async function Numbers(value) {
         x = 1;
     }
     return x;
+}
+
+/**
+ * 得到状态
+ */
+ export async function getPlayerAction(usr_qq) {
+    let arr = {};
+    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    action = JSON.parse(action);
+    if (action != null) {
+        let action_end_time = action.end_time;
+        let now_time = new Date().getTime();
+        if (now_time <= action_end_time) {
+            let m = parseInt((action_end_time - now_time) / 1000 / 60);
+            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
+            arr.action = action.action;//当期那动作
+            arr.time = m + "m" + s + "s";//剩余时间
+            return arr;
+        }
+    }
+    arr.action = "空闲";
+    return arr;
 }
 /**
  * 关闭状态
@@ -546,10 +538,11 @@ export async function Go(e) {
     }
     return true;
 }
+
 /**
  * 状态封锁查询
  */
-export async function UserGo(usr_qq) {
+export async function Gomax(usr_qq) {
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
@@ -563,10 +556,6 @@ export async function UserGo(usr_qq) {
             return "正在"+action.actionName;
         }
         return action.actionName+"中，剩余时间"+remainTime+"秒！";
-    }
-    let player = await Read_battle(usr_qq);
-    if (player.nowblood < 200) {
-        return "你都伤成这样了,就不要出去浪了";
     }
     return true;
 }
