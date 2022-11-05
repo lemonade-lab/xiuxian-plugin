@@ -482,22 +482,10 @@ export async function Numbers(value) {
  * 关闭状态
  */
 export async function offaction(qq) {
-    let action = await redis.get("xiuxian:player:" + qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
+    let exists = await redis.exists("xiuxian:player:" + qq + ":action");
+    if(exists == 1){
         await redis.del("xiuxian:player:" + qq + ":action");
-        let arr = action;
-        arr.is_jiesuan = 1;//结算状态
-        arr.shutup = 1;//闭关状态
-        arr.working = 1;//降妖状态
-        arr.power_up = 1;//渡劫状态
-        arr.Place_action = 1;//秘境
-        arr.Place_actionplus = 1;//沉迷状态
-        arr.end_time = new Date().getTime();//结束的时间也修改为当前时间
-        delete arr.group_id;//结算完去除group_id
-        await redis.set("xiuxian:player:" + qq + ":action", JSON.stringify(arr));
     }
-    await redis.set("xiuxian:player:" + qq + ":game_action", 1);
     return;
 }
 /**
@@ -512,22 +500,17 @@ export async function offaction(qq) {
     if (!ifexistplay) {
         return;
     }
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    if (game_action == 0) {
-        e.reply("游戏进行中...");
-        return;
-    }
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]");
-            return;
+    let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
+    if (exists == 1) {
+        let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+        action = JSON.parse(action);
+        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
+        if(remainTime == -1){
+            e.reply(`正在${action.actionName}中。。。`);
+            return false;
         }
+        e.reply(`${action.actionName}中，剩余时间${lastTime}秒！`);
+        return false;
     }
     return true;
 }
@@ -543,27 +526,23 @@ export async function Go(e) {
     if (!ifexistplay) {
         return;
     }
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    if (game_action == 0) {
-        e.reply("游戏进行中...");
-        return;
-    }
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]");
-            return;
+    let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
+    if (exists == 1) {
+        let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+        action = JSON.parse(action);
+        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
+        if(remainTime == -1){
+            e.reply(`正在${action.actionName}中。。。`);
+            return false;
         }
+        e.reply(`${action.actionName}中，剩余时间${remainTime}秒！`);
+        return false;
     }
+
     let player = await Read_battle(usr_qq);
     if (player.nowblood <= 1) {
         e.reply("你都伤成这样了，就不要出去浪了");
-        return;
+        return false;
     }
     return true;
 }
@@ -575,20 +554,15 @@ export async function UserGo(usr_qq) {
     if (!ifexistplay) {
         return;
     }
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    if (game_action == 0) {
-        return "游戏进行中...";
-    }
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            return "[ACTION:" + action.action + "]:[time:" + m + "m" + s + "s]";
+    let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
+    if (exists == 1) {
+        let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+        action = JSON.parse(action);
+        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
+        if(remainTime == -1){
+            return "正在"+action.actionName;
         }
+        return action.actionName+"中，剩余时间"+remainTime+"秒！";
     }
     let player = await Read_battle(usr_qq);
     if (player.nowblood < 200) {
@@ -600,16 +574,18 @@ export async function UserGo(usr_qq) {
 /**
  * 冷却检测
  */
+
+//todo
+//now_time 和 time 两个参数没用了，但是调用该方法的地方过多，所以没删
 export async function GenerateCD(usr_qq, usr_class, now_time, time) {
     var time0 = time;
-    let CD = await redis.get("xiuxian:player:" + usr_qq + usr_class);
-    CD = parseInt(CD);
-    let transferTimeout = parseInt(60000 * time0)
-    if (now_time < CD + transferTimeout) {
-        let CD_m = Math.trunc((CD + transferTimeout - now_time) / 60 / 1000);
-        let CD_s = Math.trunc(((CD + transferTimeout - now_time) % 60000) / 1000);
-        return "[T:" + transferTimeout / 1000 / 60 + "m]:[CD:" + CD_m + "m" + CD_s + "s]";
+    let exists = await redis.exists("xiuxian:player:" + usr_qq + usr_class);
+    if(exists == 1){
+        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + usr_class);
+        let actionName = await redis.get("xiuxian:player:" + usr_qq + usr_class);
+        return actionName+"cd中，剩余时间:"+remainTime+"秒";
     }
+
     return 0;
 }
 

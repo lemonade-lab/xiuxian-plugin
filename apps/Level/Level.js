@@ -87,7 +87,8 @@ export class Level extends plugin {
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (LevelMax.exp) * 0.2 + "气血");
             }
             await Add_experiencemax(usr_qq, -1 * LevelMax.exp * x);
-            await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
+            await redis.set("xiuxian:player:" + usr_qq + ClassCD ,now_time);
+            await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
             return;
         }
         player.levelmax_id = player.levelmax_id + 1;
@@ -96,7 +97,8 @@ export class Level extends plugin {
         await Write_level(usr_qq, player);
         await updata_equipment(usr_qq);
         e.reply(`突破成功至`+player.levelnamemax);
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
         return;
     }
 
@@ -170,7 +172,9 @@ export class Level extends plugin {
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (Level.exp) * 0.2 + "修为");
             }
             await Add_experience(usr_qq, -1 * Level.exp * x);
-            await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
+            await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+            await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
+
             return;
         }
         player.level_id = player.level_id + 1;
@@ -179,7 +183,8 @@ export class Level extends plugin {
         await Write_level(usr_qq, player);
         await updata_equipment(usr_qq);
         e.reply(`突破成功至`+player.levelname);
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time); 
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
         return;
     }
 
