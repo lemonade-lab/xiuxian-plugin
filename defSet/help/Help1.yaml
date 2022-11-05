@@ -12,18 +12,15 @@
     - icon: help-icon_56
       title: "#存灵石123 #取灵石全部"
       desc: "将灵石安全保存到纳戒"
-    - icon: help-icon_10
-      title: "#交税9999"
-      desc: "主动交税"
     
 - group: 修行之路
   list:
     - icon: help-icon_55
       title: "#练气境界"
-      desc: "（可私聊）"
+      desc: "(可私聊)"
     - icon: help-icon_55
       title: "#炼体境界"
-      desc: "（可私聊）"
+      desc: "(可私聊)"
     - icon: help-icon_38
       title: "#修仙状态"
       desc: "查看状态，无状态不提示"
@@ -38,10 +35,10 @@
   list:
     - icon: help-icon_38
       title: "#面板信息"
-      desc: "（可私聊）"
+      desc: "(可私聊)"
     - icon: help-icon_38
       title: "#基础信息"
-      desc: "（可私聊）"
+      desc: "(可私聊)"
     - icon: help-icon_38
       title: "#突破"
       desc: "打破浩劫"
@@ -59,13 +56,13 @@
   list:
     - icon: help-icon_53
       title: "凡仙堂#"
-      desc: "商店（可私聊）"
+      desc: "商店(可私聊)"
     - icon: help-icon_52
       title: "#万宝楼"
-      desc: "当铺（可私聊）"
+      desc: "当铺(可私聊)"
     - icon: help-icon_53
       title: "#弱水阁"
-      desc: "交易（可私聊）"
+      desc: "交易(可私聊)"
 
 - group: 
   list:
@@ -80,7 +77,7 @@
       desc: "扩展功能"
     - icon: help-icon_58
       title: "#修仙管理"
-      desc: "管理员（可私聊）"
+      desc: "管理员(可私聊)"
     - icon: help-icon_55
       title: "#修仙版本"
-      desc: "（可私聊）"
+      desc: "(可私聊)"

@@ -1,10 +1,6 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../model/XiuxianData.js'
-import { Go,Read_Exchange,GenerateCD,
-    search_thing_name,ForwardMsg,__PATH,Numbers,
-    Write_Exchange,Search_Exchange,
-    exist_najie_thing,Read_najie} from '../Xiuxian/Xiuxian.js'
+import { Read_Exchange,ForwardMsg,__PATH} from '../Xiuxian/Xiuxian.js'
 /**
  * 交易系统
  */

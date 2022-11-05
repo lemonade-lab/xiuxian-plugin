@@ -47,19 +47,19 @@ async function Write(usr_qq,player,PATH){
     })
     return;
 }
-export async function Read_player(usr_qq) {
-    return await Read(usr_qq,__PATH.player);;
-}
-export async function Write_player(usr_qq, player) {
-    await Write(usr_qq,player,__PATH.player);
-    return;
-}
 export async function existplayer(usr_qq) {
     let exist_player = fs.existsSync(`${__PATH.player}/${usr_qq}.json`);
     if (exist_player) {
         return true;
     }
     return false;
+}
+export async function Read_player(usr_qq) {
+    return await Read(usr_qq,__PATH.player);;
+}
+export async function Write_player(usr_qq, player) {
+    await Write(usr_qq,player,__PATH.player);
+    return;
 }
 export async function Read_talent(usr_qq) {
     return await Read(usr_qq,__PATH.talent);
@@ -296,12 +296,12 @@ export async function search_thing_id(thing_id) {
         return ifexist0;
     }
 }
-export async function exist_najie_thing(usr_qq, thing_id) {
+export async function exist_najie_thing_id(usr_qq, thing_id) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.id == thing_id);
     return ifexist;
 }
-export async function exist_najie_thingname(usr_qq, name) {
+export async function exist_najie_thing_name(usr_qq, name) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.name == name);
     return ifexist;

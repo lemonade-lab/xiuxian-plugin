@@ -1,10 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import {
-    existplayer, search_thing_name, exist_najie_thing,
-    Read_najie, Read_equipment, Add_experiencemax,
-    Write_equipment, Write_najie, Numbers, Add_najie_thing,
-    Add_HP, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent
-} from '../Xiuxian/Xiuxian.js'
+    existplayer, search_thing_name, exist_najie_thing_id,Read_najie, 
+    Read_equipment, Add_experiencemax,Write_equipment, Write_najie, Numbers, 
+    Add_najie_thing,Add_HP, Add_experience, get_talent, Write_talent, 
+    player_efficiency, Read_talent} from '../Xiuxian/Xiuxian.js'
 /**
  * 货币与物品操作模块
  */
@@ -59,7 +58,7 @@ export class UserHome extends plugin {
             e.reply("世界没有" + thing_name);
             return;
         }
-        let najie_thing = await exist_najie_thing(usr_qq, searchsthing.id);
+        let najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
             e.reply("没有" + thing_name);
             return;
@@ -129,7 +128,7 @@ export class UserHome extends plugin {
             e.reply("世界没有" + thing_name);
             return;
         }
-        let najie_thing = await exist_najie_thing(usr_qq, searchsthing.id);
+        let najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
             e.reply("没有" + thing_name);
             return;
@@ -179,7 +178,7 @@ export class UserHome extends plugin {
             e.reply(`世界没有[${thing_name}]`);
             return;
         }
-        let najie_thing = await exist_najie_thing(usr_qq, searchsthing.id);
+        let najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
             e.reply(`你没有[${thing_name}]`);
             return;
@@ -252,7 +251,7 @@ export class UserHome extends plugin {
             e.reply(`世界没有[${thing_name}]`);
             return;
         }
-        let najie_thing = await exist_najie_thing(usr_qq, searchsthing.id);
+        let najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
             e.reply(`你没有[${thing_name}]`);
             return;

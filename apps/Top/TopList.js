@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
-import {existplayer,__PATH,Read_player,sortBy,ForwardMsg, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
+import {existplayer,__PATH,sortBy,ForwardMsg, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
 /**
  * 所有榜单
  */

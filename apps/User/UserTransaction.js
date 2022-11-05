@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import { Numbers,Read_wealth,Add_lingshi,exist_najie_thing,Add_najie_thing,
+import { Numbers,Read_wealth,Add_lingshi,exist_najie_thing_id,Add_najie_thing,
     search_thing_name,existplayer,ForwardMsg,__PATH,Read_najie,Write_najie } from '../Xiuxian/Xiuxian.js'
 
 export class UserTransaction extends plugin {
@@ -128,7 +128,7 @@ export class UserTransaction extends plugin {
             return;
         }
 
-        let najie_thing = await exist_najie_thing(usr_qq, searchsthing.id);
+        let najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
             e.reply(`你没有[${thing_name}]`);
             return;

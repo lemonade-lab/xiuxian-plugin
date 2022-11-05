@@ -7,10 +7,9 @@ import { segment } from "oicq"
 import { get_player_img } from '../ShowImeg/showData.js'
 import {
     existplayer, __PATH, Write_player, Go, GenerateCD, Numbers,
-    Read_player, get_talent,
-    Write_najie, Write_talent, Write_battle, Write_level, Write_wealth,
-    player_efficiency, Write_action, Write_equipment, Read_wealth, Write_Life, Read_Life,offaction, Anyarray, Add_lingshi
-} from '../Xiuxian/Xiuxian.js'
+    Read_player, get_talent, Write_najie, Write_talent, Write_battle,
+    Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment, 
+    Read_wealth, Write_Life, Read_Life,offaction, Anyarray, Add_lingshi} from '../Xiuxian/Xiuxian.js'
 
 
 export class UserStart extends plugin {

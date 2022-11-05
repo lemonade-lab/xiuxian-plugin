@@ -1,9 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import fs from "fs"
 import {Go,GenerateCD,Add_experiencemax,Add_experience,
-    __PATH, Read_level, Write_level, Read_battle, Write_battle,updata_equipment} from '../Xiuxian/Xiuxian.js'
+    __PATH, Read_level, Write_level,updata_equipment} from '../Xiuxian/Xiuxian.js'
 
 /**
  * 境界模块
