@@ -17,7 +17,7 @@ export class Exchange extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#冲水堂$',
+                    reg: '^#弱水阁$',
                     fnc: 'supermarket'
                 },
                 {
@@ -40,7 +40,7 @@ export class Exchange extends plugin {
         let Exchange = await Read_Exchange();
         let nowtime = new Date().getTime();
         let msg = [
-            "___[冲水堂]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
+            "___[弱水阁]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
         ];
         Exchange.forEach(()=>{
             msg.push(nowtime);

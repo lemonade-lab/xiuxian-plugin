@@ -20,7 +20,7 @@ export class UserTransaction extends plugin {
                     fnc: 'Sell_comodities'
                 },
                 {
-                    reg: "^#柠檬堂$",
+                    reg: "^#凡仙堂$",
                     fnc: "ningmenghome",
                 },
             ]
@@ -34,7 +34,7 @@ export class UserTransaction extends plugin {
             return;
         }
         let msg = [
-            "___[柠檬堂]___\n#购买+物品名"
+            "___[凡仙堂]___\n#购买+物品名"
         ];
         let commodities_list = data.commodities_list;
         commodities_list.forEach((item) => {
