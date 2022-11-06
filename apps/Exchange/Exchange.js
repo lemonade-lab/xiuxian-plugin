@@ -80,7 +80,7 @@ export class Exchange extends plugin {
             return;
         };
         //看看可上架次数
-        let action=await Read_action(player_id); 
+        let action=await Read_action(usr_qq); 
         if(action.Exchange>=3){
             e.reply("有其他物品未售出")
             return;
@@ -100,7 +100,7 @@ export class Exchange extends plugin {
         }
         await Write_Exchange(exchange);
         action.Exchange=action.Exchange+1;
-        await Write_action(player_id,action);
+        await Write_action(usr_qq,action);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -quantity);
         await Write_najie(usr_qq, najie);
