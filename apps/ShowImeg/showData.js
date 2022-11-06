@@ -190,7 +190,7 @@ export async function get_statemax_img(e) {
    }
     let myData = {
         user_id: usr_qq,
-        LevelMax_list: LevelMax_list
+        Level_list: LevelMax_list
     }
     const data1 = await new Show(e).get_Data("state", "state",myData);
     let img = await puppeteer.screenshot("statemax", {
