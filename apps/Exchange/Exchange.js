@@ -39,13 +39,14 @@ export class Exchange extends plugin {
         let msg = [
             "___[弱水阁]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
         ];
+        console.log(Exchange);
         Exchange.forEach((item)=>{
             msg.push(
                 "编号:"+item.id+"\n"+
                 "物品:"+item.thing.name+"\n"+
                 "数量:"+item.thing.acount+"\n"+
                 "价格:"+item.money+"\n");
-        })
+        });
         await ForwardMsg(e, msg);
         return;
     }
@@ -86,24 +87,24 @@ export class Exchange extends plugin {
             return;
         }
         najie_thing.acount=quantity;
-        let exchange={
+        let exchange=await Read_Exchange();
+        exchange.push({
             "id":usr_qq+1,
             "QQ":usr_qq,
-            "thing":[
-                najie_thing
-            ],
+            "thing":najie_thing,
             //位面:读取
             "x":action.x,
             "y":action.y,
             "z":action.z,
             "money":money*quantity
-        }
+        })
         await Write_Exchange(exchange);
         action.Exchange=action.Exchange+1;
         await Write_action(usr_qq,action);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, najie_thing, -quantity);
         await Write_najie(usr_qq, najie);
+        e.reply("成功上架:"+najie_thing.name+"*"+najie_thing.acount);
         return;
     };
 
