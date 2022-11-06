@@ -500,6 +500,7 @@ export async function offaction(qq) {
     }
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
+        action = JSON.parse(action);
         e.reply(action.actionName+"中...")
         return false;
     }
@@ -519,6 +520,7 @@ export async function Go(e) {
     }
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
+        action = JSON.parse(action);
         e.reply(action.actionName+"中...")
         return false;
     }
