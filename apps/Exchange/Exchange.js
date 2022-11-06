@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { Read_Exchange,ForwardMsg,__PATH,existplayer, Write_Exchange, Write_najie,
         Read_action,Numbers,exist_najie_thing_name,Write_action,Read_najie,
-        Add_najie_thing,Write_najie} from '../Xiuxian/Xiuxian.js'
+        Add_najie_thing} from '../Xiuxian/Xiuxian.js'
 /**
  * 交易系统
  */
