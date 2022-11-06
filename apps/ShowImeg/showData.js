@@ -159,6 +159,7 @@ export async function get_state_img(e) {
         Level_list = await Level_list.filter(item => item.id != i);
     }
     let myData = {
+        name:"炼气境界",
         user_id: usr_qq,
         Level_list: Level_list
     }
@@ -189,6 +190,7 @@ export async function get_statemax_img(e) {
        LevelMax_list = await LevelMax_list.filter(item => item.id != i);
    }
     let myData = {
+        name:"炼体境界",
         user_id: usr_qq,
         Level_list: LevelMax_list
     }
