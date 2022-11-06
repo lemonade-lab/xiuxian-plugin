@@ -67,8 +67,8 @@ export class Exchange extends plugin {
             quantity = 99;
         };
         let money=await Numbers(thing_money);
-        if (quantity < 10) {
-            quantity = 10;
+        if (money < 10) {
+            money = 10;
         };
         let najie_thing = await exist_najie_thing_name(usr_qq,thing_name);
         if (najie_thing == 1) {
