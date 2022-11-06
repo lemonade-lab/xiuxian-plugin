@@ -81,7 +81,7 @@ export class UserStart extends plugin {
             "levelmax_id": 1,//练体境界 
             "levelnamemax": '莽夫',//练体名
             "experiencemax": 1,//练体经验
-            "rank_id":1,
+            "rank_id":0,//数组位置
             "rank_name":[
                 "初期","中期","后期","巅峰","圆满"
             ]
@@ -101,7 +101,7 @@ export class UserStart extends plugin {
             "Couple": 1, //双修
             "x":Math.floor((Math.random() * (199-100)+100)),
             "y":Math.floor((Math.random() * (499-400)+400)),
-            "z":1,//位面
+            "z":0,//位面为0
             "Exchange":0
         }
         await Write_action(usr_qq, new_action);

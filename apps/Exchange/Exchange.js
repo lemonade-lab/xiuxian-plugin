@@ -2,7 +2,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { Read_Exchange,ForwardMsg,__PATH,existplayer, Write_Exchange, Write_najie,
         Read_action,Numbers,exist_najie_thing_name,Write_action,Read_najie,
-        Add_najie_thing} from '../Xiuxian/Xiuxian.js'
+        Add_najie_thing,
+        Read_wealth,
+        Write_wealth} from '../Xiuxian/Xiuxian.js'
 /**
  * 交易系统
  */
@@ -109,12 +111,82 @@ export class Exchange extends plugin {
     };
 
     async Offsell(e) {
-        e.reply("待更新");
+        let usr_qq = e.user_id;
+        let ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        let thingid = e.msg.replace("#下架", '');
+        thingid = await Numbers(thingid);
+        let x = 888888888;
+        let exchange  = await Read_Exchange();
+        for (var i = 0; i < exchange.length; i++) {
+            if (exchange[i].id == thingid) {
+                x = i;
+                break;
+            }
+        };
+        if (x == 888888888) {
+            e.reply("找不到该商品编号！");
+            return;
+        };
+        //看看是不是自己的
+        if(exchange[x].QQ!=usr_qq){
+            return;
+        }
+        //推物品
+        let najie = await Read_najie(usr_qq);
+        najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].acount);
+        await Write_najie(usr_qq, najie);
+        //清编号
+        exchange = exchange.filter(item => item.id != thingid);
+        await Write_Exchange(exchange);
+        e.reply("成功下架"+thingid);
         return;
     };
 
     async purchase(e) {
-        e.reply("待更新");
+        let usr_qq = e.user_id;
+        let ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        let thingid = e.msg.replace("#选购", '');
+        thingid = await Numbers(thingid);
+        let x = 888888888;
+        let exchange  = await Read_Exchange();
+        for (var i = 0; i < exchange.length; i++) {
+            if (exchange[i].id == thingid) {
+                x = i;
+                break;
+            }
+        };
+        if (x == 888888888) {
+            e.reply("找不到该商品编号！");
+            return;
+        };
+        //看看钱
+        let wealth=await Read_wealth(usr_qq);
+        //对比一下
+        if(wealth.lingshi<exchange[x].thing.money){
+            e.reply("资金不足");
+            return;
+        };
+        //先扣钱
+        wealth.lingshi-=exchange[x].thing.money;
+        await Write_wealth(usr_qq,wealth);
+        //推物品
+        let najie = await Read_najie(usr_qq);
+        najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].acount);
+        await Write_najie(usr_qq, najie);
+        //清编号
+        exchange = exchange.filter(item => item.id != thingid);
+        await Write_Exchange(exchange);
+        e.reply("成功选购"+thingid);
+        //对方加钱
+        let newwealth=await Read_wealth(usr_qq);
+        newwealth.lingshi+=exchange[x].thing.money;
+        await Write_wealth(usr_qq,newwealth);
         return;
     };
 

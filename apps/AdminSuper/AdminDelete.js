@@ -2,7 +2,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
+import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,
+    offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
 /**
  * 修仙设置
  */
@@ -59,15 +60,15 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let thingqq = e.msg.replace("#", '');
-        thingqq = thingqq.replace("清除", '');
-        if (thingqq == "") {
+        let thingid = e.msg.replace("#", '');
+        thingid = thingid.replace("清除", '');
+        if (thingid == "") {
             return;
         }
         let x = 888888888;
         let Exchange  = await Read_Exchange();
         for (var i = 0; i < Exchange.length; i++) {
-            if (Exchange[i].qq == thingqq) {
+            if (Exchange[i].id == thingid) {
                 x = i;
                 break;
             }
@@ -76,11 +77,14 @@ export class AdminDelete extends plugin {
             e.reply("找不到该商品编号！");
             return;
         }
-        Exchange = Exchange.filter(item => item.qq != thingqq);
-        await Write_Exchange(Exchange);
         /*
         清楚玩家状态
         */
+        let action=await Read_action(Exchange[x].QQ); 
+        action.Exchange=action.Exchange-1;
+        await Write_action(player_id,action);
+        Exchange = Exchange.filter(item => item.id != thingid);
+        await Write_Exchange(Exchange);
         e.reply("清除" + thingqq);
         return;
     }

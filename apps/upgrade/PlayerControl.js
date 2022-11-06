@@ -87,7 +87,9 @@ export class PlayerControl extends plugin {
         if(action.actionName != "闭关"){
             return ;
         }
+        //开始时间
         let startTime = action.startTime;
+        //固定时间
         var timeUnit = this.xiuxianConfigData.biguan.time;
         let time = Math.trunc((new Date().getTime() - startTime) / 1000 / 60);
         let snippetNums = Math.trunc(time/timeUnit);

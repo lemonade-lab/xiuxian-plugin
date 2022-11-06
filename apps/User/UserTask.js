@@ -23,14 +23,19 @@ export class UserTask extends plugin {
 
     async LevelTask() {
         let life = await Read_Life();
+        let x=[];
         life.forEach((item,index,arr) => {
             item.Age = item.Age + 6;
             if (item.Age >= item.life) {
                 fs.rmSync(`${__PATH.player}/${item.qq}.json`);
-                offaction(item.qq);
+                x.push(item.qq)
                 arr.splice(index,1);
+                x.push()
             }
         });
+        for(var i=0;i<x.length;i++){
+            await offaction(x[i]);
+        }
         await Write_Life(life);
     }
 }
