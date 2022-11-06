@@ -59,7 +59,7 @@ export class Level extends plugin {
         let player = await Read_level(usr_qq);
         let LevelMax = data.LevelMax_list.find(item => item.id == player.levelmax_id);
         if ( player.experiencemax< LevelMax.exp) {
-            e.reply(`气血不足,再积累${player.experiencemax - LevelMax.exp}气血后方可突破`);
+            e.reply(`气血不足,再积累${ LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
         }
         if (player.level_id >= 54) {
@@ -130,7 +130,7 @@ export class Level extends plugin {
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
         await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
         if (player.experience < Level.exp) {
-            e.reply(`修为不足,再积累${player.experience - Level.exp}修为后方可突破`);
+            e.reply(`修为不足,再积累${Level.exp- player.experience }修为后方可突破`);
             return;
         }
         let rand = Math.random();
