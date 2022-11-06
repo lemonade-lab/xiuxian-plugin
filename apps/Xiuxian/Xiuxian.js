@@ -304,6 +304,9 @@ export async function search_thing_id(thing_id) {
 export async function exist_najie_thing_id(usr_qq, thing_id) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.id == thing_id);
+    if(ifexist==undefined){
+        return 1;
+    }
     return ifexist;
 }
 export async function exist_najie_thing_name(usr_qq, name) {
