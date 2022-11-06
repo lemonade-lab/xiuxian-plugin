@@ -102,7 +102,7 @@ export class Exchange extends plugin {
         action.Exchange=action.Exchange+1;
         await Write_action(usr_qq,action);
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, searchsthing, -quantity);
+        najie = await Add_najie_thing(najie, najie_thing, -quantity);
         await Write_najie(usr_qq, najie);
         return;
     };
