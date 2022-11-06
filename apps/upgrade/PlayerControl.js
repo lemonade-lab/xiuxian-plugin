@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import { segment } from "oicq"
-import {Gomini,Go,offaction, Add_experience, Add_HP, Add_lingshi,existplayer, Read_level} from '../Xiuxian/Xiuxian.js'
+import { Gomini, Go, offaction, Add_experience, Add_HP, Add_lingshi, existplayer, Read_level } from '../Xiuxian/Xiuxian.js'
 /**
  * 定时任务
  */
@@ -74,29 +74,34 @@ export class PlayerControl extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let usr_qq=e.user_id;
+        let usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
         let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-        if(action==undefined){
+        if (action == undefined) {
             return;
         }
         action = JSON.parse(action);
-        if(action.actionName != "闭关"){
-            return ;
+        if (action.actionName != "闭关") {
+            return;
         }
         //开始时间
         let startTime = action.startTime;
-        //固定时间
+        //最低收益时间
         var timeUnit = this.xiuxianConfigData.biguan.time;
-        let time = Math.trunc((new Date().getTime() - startTime) / 1000 / 60);
-        let snippetNums = Math.trunc(time/timeUnit);
+        //时间差值（）
+        let time = Math.floor((new Date().getTime() - startTime) / 60000);
+        //判断是否够最低收益时间
+        if (time < timeUnit) {
+            e.reply("你只是呆了一会儿，什么也没得到。");
+            return;
+        }
         if (e.isGroup) {
-            await this.upgrade(usr_qq, snippetNums,action.actionName, e.group_id);
+            await this.upgrade(usr_qq, time, action.actionName, e.group_id);
         } else {
-            await this.upgrade(usr_qq, snippetNums,action.actionName);
+            await this.upgrade(usr_qq, time, action.actionName);
         }
         await offaction(usr_qq);
         return;
@@ -107,71 +112,70 @@ export class PlayerControl extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let usr_qq=e.user_id;
+        let usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }
         let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-        if(action==undefined){
+        if (action == undefined) {
             return;
         }
         action = JSON.parse(action);
-        if(action.actionName != "降妖"){
+        if (action.actionName != "降妖") {
             return;
         }
+
         let startTime = action.startTime;
         var timeUnit = this.xiuxianConfigData.work.time;
-        let time = Math.trunc((new Date().getTime() - startTime) / 1000 / 60);
-        let snippetNums = Math.trunc(time/timeUnit);
+
+        //时间差值（）
+        let time = Math.floor((new Date().getTime() - startTime) / 60000);
+        //判断是否够最低收益时间
+        if (time < timeUnit) {
+            e.reply("你只是呆了一会儿，什么也没得到。");
+            return;
+        }
+
         if (e.isGroup) {
-            await this.upgrade(usr_qq, snippetNums,action.actionName, e.group_id);
+            await this.upgrade(usr_qq, time, action.actionName, e.group_id);
         } else {
-            await this.upgrade(usr_qq, snippetNums,action.actionName);
+            await this.upgrade(usr_qq, time, action.actionName);
         }
         await offaction(usr_qq);
         return;
     }
 
-    async upgrade(user_id,time,name,group_id){
+    async upgrade(user_id, time, name, group_id) {
         let usr_qq = user_id;
-        let level=await Read_level(usr_qq);
-        let other=0;
+        let level = await Read_level(usr_qq);
+        let other = 0;
         let msg = [segment.at(usr_qq)];
-        let rand = Math.random();
-        if (rand < 0.2) {
-            rand = Math.trunc(rand * 10) + 45;
-            other = rand * time*level.level_id;
-            if(other>0){
-               msg.push("\n"+name+"获得"+other);
-            }
-        }
-        else {
-            rand = Math.trunc(rand * 10) + 5;
-            other = -1 * rand * time*level.level_id;
-            if(other>0){
-                msg.push("\n"+name+"获得"+other);
-            }
-        }
-
-        if(name=="闭关"){
-            if(other>0){
-                await Add_experience(usr_qq,other);
-                await Add_HP(usr_qq,100);
-                msg.push("\n血量恢复");
-            }
+        let rand = Math.floor((Math.random() * (100-1)+1));
+        //收益
+        if(rand>30){
+            other =  Math.floor(rand * time * level.level_id/50);
+            msg.push("\n疏忽了,只得到了"+other);
         }
         else{
-            if(other>0){
-                await Add_lingshi(usr_qq, other);
-            }
+            other =  Math.floor(rand * time * level.level_id/10);
+            msg.push("\n得到了"+other);
         }
-        msg.push("\n"+name+"结束");
+        if (name == "闭关") {
+            await Add_experience(usr_qq, other);
+            await Add_HP(usr_qq, 100);
+            msg.push("\n血量恢复");
+        }
+        else {
+            await Add_lingshi(usr_qq, other);
+        }
+        msg.push("\n" + name + "结束");
         if (group_id) {
             await this.pushInfo(group_id, true, msg)
         } else {
             await this.pushInfo(usr_qq, false, msg);
         }
+
         return;
     }
 
