@@ -10,7 +10,7 @@
 - group: 
   list:
     - icon: help-icon_32
-      title: "#清除弱水阁"
+      title: "#清理弱水阁"
       desc: "全部回收物品"
     - icon: help-icon_32
       title: "#清除+编号"

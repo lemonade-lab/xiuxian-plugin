@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
+import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
 /**
  * 修仙设置
  */
@@ -15,7 +15,7 @@ export class AdminDelete extends plugin {
             priority: 400,
             rule: [
                 {
-                    reg: "^#清除冲水堂$",
+                    reg: "^#清理弱水阁$",
                     fnc: "Deleteexchange",
                 },
                 {
@@ -91,11 +91,7 @@ export class AdminDelete extends plugin {
             return;
         }
         e.reply("开始清除！");
-        let Exchange  = await Read_Exchange();
-        for (var i = 0; i < Exchange.length; i++) {
-            Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
-            Write_Exchange(Exchange);
-        }
+        await Write_Exchange([]);
         let playerList = [];
         let files = fs
             .readdirSync(__PATH.player)
