@@ -33,12 +33,6 @@
     - icon: help-icon_49
       title: "@群友 #双修"
       desc: "年轻人要注意节制"
-    - icon: help-icon_49
-      title: "#允许双修"
-      desc: "不允许被双修(可私聊)"
-    - icon: help-icon_49
-      title: "#拒绝双修"
-      desc: "主动拒绝双修(可私聊)"
 
 
 - group: 
@@ -51,7 +45,7 @@
       desc: "仙人战力榜(可私聊)"
     - icon: help-icon_60
       title: "#杀神榜"
-      desc: "罪恶魔力值(可私聊)"
+      desc: "罪恶魔力榜(可私聊)"
 
       
 

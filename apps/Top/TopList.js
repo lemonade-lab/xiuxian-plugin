@@ -48,6 +48,9 @@ export class TopList extends plugin {
         }
         for (let player_id of playerList) {
             let newbattle= await Read_level(player_id);
+            if(newbattle.prestige<=0){
+                continue;
+            }
             let battle={
                 "QQ":player_id,
                 "prestige":newbattle.prestige
@@ -118,7 +121,7 @@ export class TopList extends plugin {
             return;
         }
         let msg = [
-            "___[封神榜]___"
+            "___[至尊榜]___"
         ];
         let playerList = [];
         let temp = [];
