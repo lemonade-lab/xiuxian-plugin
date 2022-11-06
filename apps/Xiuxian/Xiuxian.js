@@ -2,6 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import path from "path"
 import data from '../../model/XiuxianData.js'
+import { fail } from 'assert';
 const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
 export const __PATH = {
     player: path.join(__dirname, "/resources/data/birth/xiuxian/player"),
@@ -497,16 +498,18 @@ export async function offaction(qq) {
     if (!ifexistplay) {
         return;
     }
-    let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
-    if (exists == 1) {
-        let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-        action = JSON.parse(action);
-        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
-        if(remainTime == -1){
-            e.reply(`正在${action.actionName}中。。。`);
-            return false;
+    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
+    if (remainTime != -1) {
+        let h=Math.floor(remainTime/60/60);
+        h=h<0?0:h;
+        let m=Math.floor((remainTime-h*60*60)/60);
+        m=m<0?0:m;
+        let s=Math.floor((remainTime-h*60*60-m*60));
+        s=s<0?0:s;
+        if(h==0&&m==0&&s==0){
+           return true;
         }
-        e.reply(`${action.actionName}中，剩余时间${lastTime}秒！`);
+        e.reply("时间:"+h+"h"+m+"m"+s+"s")
         return false;
     }
     return true;
@@ -534,7 +537,8 @@ export async function Go(e) {
         if(h==0&&m==0&&s==0){
            return true;
         }
-        return "时间:"+h+"h"+m+"m"+s+"s";
+        e.reply("时间:"+h+"h"+m+"m"+s+"s")
+        return false;
     }
     let player = await Read_battle(usr_qq);
     if (player.nowblood <= 1) {
@@ -543,31 +547,6 @@ export async function Go(e) {
     }
     return true;
 }
-
-/**
- * 状态封锁查询
- */
-export async function Gomax(usr_qq) {
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
-    if (remainTime != -1) {
-        let h=Math.floor(remainTime/60/60);
-        h=h<0?0:h;
-        let m=Math.floor((remainTime-h*60*60)/60);
-        m=m<0?0:m;
-        let s=Math.floor((remainTime-h*60*60-m*60));
-        s=s<0?0:s;
-        if(h==0&&m==0&&s==0){
-           return true;
-        }
-        return "时间:"+h+"h"+m+"m"+s+"s";
-    }
-    return true;
-}
-
 /**
  * 冷却检测
  */
