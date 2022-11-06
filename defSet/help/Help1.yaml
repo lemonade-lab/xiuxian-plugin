@@ -46,7 +46,7 @@
       title: "#破体"
       desc: "提高体境"
     - icon: help-icon_38
-      title: "#凝仙"
+      title: "#凝神"
       desc: "仙人化凡"
     - icon: help-icon_36
       title: "#渡劫"
@@ -57,9 +57,6 @@
     - icon: help-icon_53
       title: "凡仙堂#"
       desc: "商店(可私聊)"
-    - icon: help-icon_52
-      title: "#万宝楼"
-      desc: "当铺(可私聊)"
     - icon: help-icon_53
       title: "#弱水阁"
       desc: "交易(可私聊)"

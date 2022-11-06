@@ -152,7 +152,6 @@ export async function get_state_img(e) {
      let player = await Read_level(usr_qq);
      let Level_id=player.level_id;
      let Level_list = data.Level_list;
-    //循环删除表信息
     for(var i=1;i<=60;i++){
         if(i>Level_id&&i<Level_id+5){
             console.log(i);
@@ -184,7 +183,6 @@ export async function get_statemax_img(e) {
     let player = await Read_level(usr_qq);
     let Level_id=player.levelmax_id;
     let LevelMax_list = data.LevelMax_list;
-   //循环删除表信息
    for(var i=1;i<=60;i++){
        if(i>Level_id&&i<Level_id+5){
            continue;
@@ -195,7 +193,7 @@ export async function get_statemax_img(e) {
         user_id: usr_qq,
         LevelMax_list: LevelMax_list
     }
-    const data1 = await new Show(e).get_Data("statemax", "statemax",myData);
+    const data1 = await new Show(e).get_Data("state", "state",myData);
     let img = await puppeteer.screenshot("statemax", {
         ...data1,
     });

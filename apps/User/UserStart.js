@@ -199,6 +199,7 @@ export class UserStart extends plugin {
         let CD = await GenerateCD(usr_qq, ClassCD);
         if (CD != 0) {
             e.reply(CD);
+            return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
         await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);

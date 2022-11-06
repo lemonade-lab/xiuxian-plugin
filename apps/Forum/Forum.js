@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import {ForwardMsg,Read_Forum,existplayer,Read_player} from '../Xiuxian/Xiuxian.js'
+import {ForwardMsg,Read_Forum,existplayer,Read_player,Write_Forum} from '../Xiuxian/Xiuxian.js'
 /**
  * 攻略论坛
  */
