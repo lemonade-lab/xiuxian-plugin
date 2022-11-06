@@ -47,7 +47,7 @@ export class Level extends plugin {
         }
         let usr_qq = e.user_id;
         let CDTime = this.xiuxianConfigData.CD.level_up;
-        let ClassCD = ":last_LevelMaxup_time";
+        let ClassCD = ":破体";
         let now_time = new Date().getTime();
         let CD = await GenerateCD(usr_qq, ClassCD);
         if (CD != 0) {
@@ -114,7 +114,7 @@ export class Level extends plugin {
         }
         let usr_qq = e.user_id;
         let CDTime = this.xiuxianConfigData.CD.level_up;
-        let ClassCD = ":last_Levelup_time";
+        let ClassCD = ":突破";
         let now_time = new Date().getTime();
         let CD = await GenerateCD(usr_qq, ClassCD);
         if (CD != 0) {
