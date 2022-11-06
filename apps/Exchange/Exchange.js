@@ -70,7 +70,7 @@ export class Exchange extends plugin {
         if (quantity < 10) {
             quantity = 10;
         };
-        let najie_thing = await exist_najie_thing_name(thing_name);
+        let najie_thing = await exist_najie_thing_name(usr_qq,thing_name);
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`);
             return;
