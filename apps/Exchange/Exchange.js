@@ -136,7 +136,7 @@ export class Exchange extends plugin {
         }
         //推物品
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].acount);
+        najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
         //清编号
         exchange = exchange.filter(item => item.id != thingid);
@@ -177,7 +177,7 @@ export class Exchange extends plugin {
         await Write_wealth(usr_qq,wealth);
         //推物品
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].acount);
+        najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
         //清编号
         exchange = exchange.filter(item => item.id != thingid);
