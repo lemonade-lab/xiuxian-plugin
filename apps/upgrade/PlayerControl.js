@@ -74,7 +74,7 @@ export class PlayerControl extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let user_id=e.user_id;
+        let usr_qq=e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
@@ -92,11 +92,11 @@ export class PlayerControl extends plugin {
         let time = Math.trunc((new Date().getTime() - startTime) / 1000 / 60);
         let snippetNums = Math.trunc(time/timeUnit);
         if (e.isGroup) {
-            await this.upgrade(user_id, snippetNums,action.actionName, e.group_id);
+            await this.upgrade(usr_qq, snippetNums,action.actionName, e.group_id);
         } else {
-            await this.upgrade(user_id, snippetNums,action.actionName);
+            await this.upgrade(usr_qq, snippetNums,action.actionName);
         }
-        await offaction(user_id);
+        await offaction(usr_qq);
         return;
     }
 
@@ -105,7 +105,7 @@ export class PlayerControl extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let user_id=e.user_id;
+        let usr_qq=e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
@@ -123,11 +123,11 @@ export class PlayerControl extends plugin {
         let time = Math.trunc((new Date().getTime() - startTime) / 1000 / 60);
         let snippetNums = Math.trunc(time/timeUnit);
         if (e.isGroup) {
-            await this.upgrade(user_id, snippetNums,action.actionName, e.group_id);
+            await this.upgrade(usr_qq, snippetNums,action.actionName, e.group_id);
         } else {
-            await this.upgrade(user_id, snippetNums,action.actionName);
+            await this.upgrade(usr_qq, snippetNums,action.actionName);
         }
-        await offaction(user_id);
+        await offaction(usr_qq);
         return;
     }
 
