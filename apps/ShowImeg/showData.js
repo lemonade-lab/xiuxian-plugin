@@ -154,7 +154,6 @@ export async function get_state_img(e) {
      let Level_list = data.Level_list;
     for(var i=1;i<=60;i++){
         if(i>Level_id&&i<Level_id+5){
-            console.log(i);
             continue;
         }
         Level_list = await Level_list.filter(item => item.id != i);

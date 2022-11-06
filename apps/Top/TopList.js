@@ -59,7 +59,6 @@ export class TopList extends plugin {
         }
         temp.sort(sortBy("prestige"));
         for (let item of temp) {
-            console.log(item);
             msg.push(
                 "QQ"+item.QQ+"\n"+
                 "魔力"+item.prestige
@@ -102,7 +101,6 @@ export class TopList extends plugin {
         }
         temp.sort(sortBy("power"));
         for (let item of temp) {
-            console.log(item);
             msg.push(
                 "QQ"+item.QQ+"\n"+
                 "战力"+item.power+"\n"
@@ -146,7 +144,6 @@ export class TopList extends plugin {
         }
         temp.sort(sortBy("power"));
         for (let item of temp) {
-            console.log(item);
             msg.push(
                 "QQ"+item.QQ+"\n"+
                 "战力"+item.power+"\n"
