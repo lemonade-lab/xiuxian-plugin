@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
-import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life } from '../Xiuxian/Xiuxian.js'
+import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
 /**
  * 修仙设置
  */
@@ -105,9 +105,9 @@ export class AdminDelete extends plugin {
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            /*
-            清楚玩家状态
-            */
+           let action=await Read_action(player_id); 
+           action.Exchange=0;
+           await Write_action(player_id,action);
         }
         e.reply("清除完成！");
         return;

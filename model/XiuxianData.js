@@ -17,7 +17,6 @@ class XiuxianData {
             "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
             "fixedLevel": path.join(__dirname, "/resources/data/fixed/Level"),
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
-            "fixedplace": path.join(__dirname, "/resources/data/fixed/place"),
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
         };
 
@@ -27,7 +26,6 @@ class XiuxianData {
         this.lib = this.filePathMap.fixedlib;
         this.Level = this.filePathMap.fixedLevel;
         this.occupation = this.filePathMap.fixedoccupation;
-        this.place = this.filePathMap.fixedplace;
         this.talent = this.filePathMap.fixedtalent;
         this.all = this.filePathMap.all;
 
@@ -41,7 +39,6 @@ class XiuxianData {
         this.daoju_list = JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`));
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
-        this.address_list = JSON.parse(fs.readFileSync(`${this.place}/address_list.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
 
         this.deletelist('all');

@@ -23,10 +23,27 @@ export class Xiuxian extends plugin {
             dsc: 'Xiuxian',
             event: 'message',   
             priority: 800,
-            rule: []
+            rule: [
+                {
+                    reg: '^#测试$',
+                    fnc: 'Xiuxain'
+                }
+            ]
         })
     }
-
+    async Xiuxain(e){
+        let a={
+            "x":153,
+            "y":193,
+        }
+        let b={
+            "x":168,
+            "y":148,
+        }
+        let x= await interactive(a,b);
+        e.reply("测试"+x);
+        return;
+    }
 }
 
 async function Read(usr_qq,PATH) {
@@ -312,6 +329,9 @@ export async function exist_najie_thing_id(usr_qq, thing_id) {
 export async function exist_najie_thing_name(usr_qq, name) {
     let najie = await Read_najie(usr_qq);
     let ifexist  = najie.thing.find(item => item.name == name);
+    if(ifexist==undefined){
+        return 1;
+    }
     return ifexist;
 }
 export async function Add_najie_thing(najie, najie_thing, thing_acount) {
@@ -637,4 +657,31 @@ export async function newRead(dir) {
     }catch{
         return 1;
     }
+}
+
+    // 120/100=1.2。取1
+    // 199/100=1.99。取1
+    // 200/100=2。取2
+    // 999/100=9.99。取9
+
+//判断两者是否可以交互
+export async function interactive(A,B){
+    let a=A;
+    let b=B;
+    a.x=Math.floor(a.x);
+    a.y=Math.floor(a.y);
+    b.x=Math.floor(b.x);
+    b.y=Math.floor(b.y);
+    if(a.x==b.x&&b.x==b.y){
+        return true;
+    }
+    return false;
+}
+
+//根据距离，计算时间
+export async function distance(A,B){
+    let a=A;
+    let b=B;
+    let m=(a.x-b.x)+(a.y-b.y);
+    return false;
 }

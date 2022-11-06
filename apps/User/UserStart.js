@@ -82,7 +82,9 @@ export class UserStart extends plugin {
             "levelnamemax": '莽夫',//练体名
             "experiencemax": 1,//练体经验
             "rank_id":1,
-            "rank_name":"初期"
+            "rank_name":[
+                "初期","中期","后期","巅峰","圆满"
+            ]
         }
         await Write_level(usr_qq, new_level);
         let new_wealth = {
@@ -90,13 +92,17 @@ export class UserStart extends plugin {
             "xianshi": 0
         }
         await Write_wealth(usr_qq, new_wealth);
+        /**
+         * 100-199
+         * 400-499
+         */
         let new_action = {
             "game": 1,//游戏状态
             "Couple": 1, //双修
-            "x":0,
-            "y":0,
-            "z":0,//位面
-            "Exchange":[]
+            "x":Math.floor((Math.random() * (199-100)+100)),
+            "y":Math.floor((Math.random() * (499-400)+400)),
+            "z":1,//位面
+            "Exchange":0
         }
         await Write_action(usr_qq, new_action);
         await Write_equipment(usr_qq, []);
@@ -139,12 +145,10 @@ export class UserStart extends plugin {
             return;
         }
         fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
-
         let life = await Read_Life();
         await offaction(usr_qq);
         life = await life.filter(item => item.qq != usr_qq);
         await Write_Life(life);
-        
         e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
         await this.Create_player(e);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);

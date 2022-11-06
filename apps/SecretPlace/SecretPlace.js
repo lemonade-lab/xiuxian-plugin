@@ -16,6 +16,10 @@ export class SecretPlace extends plugin {
                 {
                     reg: '^#修仙状态$',
                     fnc: 'Xiuxianstate'
+                },
+                {
+                    reg: '^#击杀$',
+                    fnc: 'Kill'
                 }
             ]
         })

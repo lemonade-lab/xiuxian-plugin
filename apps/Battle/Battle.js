@@ -14,7 +14,7 @@ export class Battle extends plugin {
             rule: [
                 {
                     reg: '^#攻击.*$',
-                    fnc: 'kill'
+                    fnc: 'Attack'
                 }
             ]
         })
@@ -22,7 +22,7 @@ export class Battle extends plugin {
     }
 
     //打劫
-    async kill(e) {
+    async Attack(e) {
         let good=await Go(e);
         if (!good) {
             return;
