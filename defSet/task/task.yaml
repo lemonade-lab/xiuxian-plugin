@@ -1,3 +1,4 @@
+#
 ExchangeTask: 0 0 4 * * ?
 # 寿命清理
 LifeTask: 0 0 4,10,16,22 * * ?

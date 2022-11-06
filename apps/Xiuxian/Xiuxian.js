@@ -2,7 +2,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import path from "path"
 import data from '../../model/XiuxianData.js'
-import { fail } from 'assert';
 const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
 export const __PATH = {
     player: path.join(__dirname, "/resources/data/birth/xiuxian/player"),

@@ -1,7 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import { Go,GenerateCD,__PATH,At } from '../Xiuxian/Xiuxian.js'
-
 /**
  * 战斗类
  */
@@ -14,12 +13,8 @@ export class Battle extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#打劫$',
-                    fnc: 'Dajie'
-                },
-                {
-                    reg: '^#攻击$',
-                    fnc: 'Dajie'
+                    reg: '^#攻击.*$',
+                    fnc: 'kill'
                 }
             ]
         })
@@ -27,7 +22,7 @@ export class Battle extends plugin {
     }
 
     //打劫
-    async Dajie(e) {
+    async kill(e) {
         let good=await Go(e);
         if (!good) {
             return;

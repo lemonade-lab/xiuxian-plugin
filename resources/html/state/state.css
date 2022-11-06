@@ -6,7 +6,7 @@
 body {
   width: 100%;
   text-align: center;
-  background-image: url('../..//img/state/state.png');
+  background-image: url('state.png');
   background-size: 100% 100%;
   margin: auto;
 }

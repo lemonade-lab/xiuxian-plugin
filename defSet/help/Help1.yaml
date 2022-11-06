@@ -25,11 +25,11 @@
       title: "#修仙状态"
       desc: "查看状态，无状态不提示"
     - icon: help-icon_44
-      title: "#闭关N分钟 #出关"
-      desc: "进行N分钟的闭关,获取修为"
+      title: "#闭关 #出关"
+      desc: "进行闭关,获取修为"
     - icon: help-icon_51
-      title: "#降妖N分钟 #归来"
-      desc: "进行N分钟,获取灵石"
+      title: "#降妖 #归来"
+      desc: "进行降妖,获取灵石"
 
 - group: 逆天改命
   list:
@@ -68,7 +68,7 @@
   list:
     - icon: help-icon_10
       title: "@群友赠送灵石1000"
-      desc: "转账灵石"
+      desc: "赠送灵石"
 
 - group: 
   list:

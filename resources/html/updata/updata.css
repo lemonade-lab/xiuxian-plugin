@@ -12,14 +12,14 @@ body {
 .updata-top {
   height: 200px;
   width: 100%;
-  background-image: url('../..//img/updata/update-top.png');
+  background-image: url('update-top.png');
   background-size: 100% 100%;
 }
 
 .updata-head {
   width: 100%;
   height: 100%;
-  background-image: url("../../img/updata/update-head.png");
+  background-image: url("update-head.png");
   background-size: 100% 100%;
 }
 
@@ -54,6 +54,6 @@ body {
 .updata-buttom{
   height: 150px;
   width: 100%;
-  background-image: url("../../img/updata/update-buttom.png");
+  background-image: url("update-buttom.png");
   background-size: 100% 100%;
 }

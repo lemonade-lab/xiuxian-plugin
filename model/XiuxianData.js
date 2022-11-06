@@ -6,12 +6,12 @@ let commodities = [];
 class XiuxianData {
     constructor() {
         const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
-
         this.filePathMap = {
             "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
             "equipment": path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
             "birthassociation": path.join(__dirname, "/resources/data/birth/association"),
+            "all": path.join(__dirname, "/resources/data/birth/all"),
             "fixedequipment": path.join(__dirname, "/resources/data/fixed/equipment"),
             "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
             "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
@@ -19,7 +19,6 @@ class XiuxianData {
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
             "fixedplace": path.join(__dirname, "/resources/data/fixed/place"),
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
-            "all": path.join(__dirname, "/resources/data/fixed/all"),
         };
 
         this.association = this.filePathMap.birthassociation;
