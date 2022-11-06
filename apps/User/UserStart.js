@@ -6,7 +6,7 @@ import fs from "fs"
 import { segment } from "oicq"
 import { get_player_img } from '../ShowImeg/showData.js'
 import {
-    existplayer, __PATH, Write_player, Go, GenerateCD, Numbers,
+    existplayer, __PATH, Write_player, Go, GenerateCD,
     Read_player, get_talent, Write_najie, Write_talent, Write_battle,
     Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment, 
     Read_wealth, Write_Life, Read_Life,offaction, Anyarray, Add_lingshi} from '../Xiuxian/Xiuxian.js'
@@ -83,6 +83,10 @@ export class UserStart extends plugin {
             "experiencemax": 1,//练体经验
             "rank_id":0,//数组位置
             "rank_name":[
+                "初期","中期","后期","巅峰","圆满"
+            ],
+            "rankmax_id":0,//数组位置
+            "rankmax_name":[
                 "初期","中期","后期","巅峰","圆满"
             ]
         }
