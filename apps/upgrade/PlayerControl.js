@@ -137,7 +137,6 @@ export class PlayerControl extends plugin {
         let other=0;
         let msg = [segment.at(usr_qq)];
         let rand = Math.random();
-
         if (rand < 0.2) {
             rand = Math.trunc(rand * 10) + 45;
             other = rand * time*player.level_id;
@@ -149,7 +148,7 @@ export class PlayerControl extends plugin {
             msg.push("\n"+name+"获得"+other);
         }
 
-        if(name="闭关"){
+        if(name=="闭关"){
             await Add_experience(usr_qq,other);
             await Add_HP(usr_qq,100);
             msg.push("\n血量恢复");
