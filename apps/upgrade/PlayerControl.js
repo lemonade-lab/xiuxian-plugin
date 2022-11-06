@@ -155,9 +155,9 @@ export class PlayerControl extends plugin {
         if(name=="闭关"){
             if(other>0){
                 await Add_experience(usr_qq,other);
+                await Add_HP(usr_qq,100);
+                msg.push("\n血量恢复");
             }
-            await Add_HP(usr_qq,100);
-            msg.push("\n血量恢复");
         }
         else{
             if(other>0){

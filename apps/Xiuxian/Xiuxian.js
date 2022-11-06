@@ -186,13 +186,7 @@ export async function Add_experiencemax(usr_qq, qixue) {
 export async function Add_HP(usr_qq, blood) {
     let player = await Read_battle(usr_qq);
     let battle= await Read_battle(usr_qq);
-    if(player.nowblood<10){
-        player.nowblood=10;
-    }
-    player.nowblood += Math.floor(player.nowblood*blood*0.01)+1;
-    if (player.nowblood > battle.blood) {
-        player.nowblood=battle.blood;
-    }
+    player.nowblood = Math.floor(battle.blood*blood*0.01);
     await Write_battle(usr_qq, player);
     return;
 }

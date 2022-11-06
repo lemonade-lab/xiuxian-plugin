@@ -24,7 +24,7 @@ export class UserTask extends plugin {
     async LevelTask() {
         let life = await Read_Life();
         life.forEach((item,index,arr) => {
-            item.Age = item.Age + 5;
+            item.Age = item.Age + 6;
             if (item.Age >= item.life) {
                 fs.rmSync(`${__PATH.player}/${item.qq}.json`);
                 offaction(item.qq);
