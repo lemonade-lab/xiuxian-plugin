@@ -116,7 +116,7 @@ export class PlayerControl extends plugin {
         }
         action = JSON.parse(action);
         if(action.actionName != "降妖"){
-            return ;
+            return;
         }
         let startTime = action.startTime;
         var timeUnit = this.xiuxianConfigData.work.time;
@@ -137,23 +137,27 @@ export class PlayerControl extends plugin {
         let other=0;
         let msg = [segment.at(usr_qq)];
         let rand = Math.random();
+
         if (rand < 0.2) {
             rand = Math.trunc(rand * 10) + 45;
             other = rand * time*player.level_id;
-            msg.push("\n"+name+"获得"+123);
+            msg.push("\n"+name+"获得"+other);
         }
         else {
             rand = Math.trunc(rand * 10) + 5;
             other = -1 * rand * time*player.level_id;
-            msg.push("\n"+name+"获得"+123);
+            msg.push("\n"+name+"获得"+other);
         }
+
         if(name="闭关"){
             await Add_experience(usr_qq,other);
             await Add_HP(usr_qq,100);
             msg.push("\n血量恢复");
-        }else{
+        }
+        else{
             await Add_lingshi(usr_qq, other);
         }
+
         if (group_id) {
             await this.pushInfo(group_id, true, msg)
         } else {
