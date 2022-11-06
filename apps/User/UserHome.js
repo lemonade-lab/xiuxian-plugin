@@ -142,7 +142,7 @@ export class UserHome extends plugin {
         if (id[1] == 1) {
             let blood = parseInt(thing_acount * searchsthing.blood);
             await Add_HP(usr_qq, blood);
-            e.reply("血量恢复" + blood);
+            e.reply("血量恢复" + blood+"%");
         }
         else if (id[1] == 2) {
             let experience = parseInt(searchsthing.experience);

@@ -41,8 +41,7 @@ export class AdminMoney extends plugin {
         if(B==0){
             return;
         }
-        let lingshi = e.msg.replace("#", "");
-        lingshi = lingshi.replace("扣除", "");
+        let lingshi = e.msg.replace("#扣除", "");
         lingshi = await Numbers(lingshi);
         let player = await Read_wealth(B);
         if (player.lingshi < lingshi) {
@@ -83,8 +82,7 @@ export class AdminMoney extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let lingshi = e.msg.replace("#", "");
-        lingshi = lingshi.replace("补偿", "");
+        let lingshi = e.msg.replace("#补偿", "");
         lingshi =await Numbers(lingshi);
         if(lingshi<1000){
             return;

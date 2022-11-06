@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import { segment } from "oicq"
-import {Gomini,Go,offaction, Read_battle, Add_experience, Add_HP, Add_lingshi,existplayer} from '../Xiuxian/Xiuxian.js'
+import {Gomini,Go,offaction, Read_battle, Add_experience, Add_HP, Add_lingshi,existplayer, Read_level} from '../Xiuxian/Xiuxian.js'
 /**
  * 定时任务
  */
@@ -133,18 +133,18 @@ export class PlayerControl extends plugin {
 
     async upgrade(user_id,time,name,group_id){
         let usr_qq = user_id;
-        let player = await Read_battle(usr_qq);
+        let level=await Read_level(usr_qq);
         let other=0;
         let msg = [segment.at(usr_qq)];
         let rand = Math.random();
         if (rand < 0.2) {
             rand = Math.trunc(rand * 10) + 45;
-            other = rand * time*player.level_id;
+            other = rand * time*level.level_id;
             msg.push("\n"+name+"获得"+other);
         }
         else {
             rand = Math.trunc(rand * 10) + 5;
-            other = -1 * rand * time*player.level_id;
+            other = -1 * rand * time*level.level_id;
             msg.push("\n"+name+"获得"+other);
         }
 
