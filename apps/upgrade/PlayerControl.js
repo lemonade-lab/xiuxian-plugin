@@ -96,6 +96,7 @@ export class PlayerControl extends plugin {
         //判断是否够最低收益时间
         if (time < timeUnit) {
             e.reply("你只是呆了一会儿，什么也没得到。");
+            await offaction(usr_qq);
             return;
         }
         if (e.isGroup) {
@@ -125,18 +126,16 @@ export class PlayerControl extends plugin {
         if (action.actionName != "降妖") {
             return;
         }
-
         let startTime = action.startTime;
         var timeUnit = this.xiuxianConfigData.work.time;
-
         //时间差值（）
         let time = Math.floor((new Date().getTime() - startTime) / 60000);
         //判断是否够最低收益时间
         if (time < timeUnit) {
             e.reply("你只是呆了一会儿，什么也没得到。");
+            await offaction(usr_qq);
             return;
         }
-
         if (e.isGroup) {
             await this.upgrade(usr_qq, time, action.actionName, e.group_id);
         } else {
@@ -175,7 +174,6 @@ export class PlayerControl extends plugin {
         } else {
             await this.pushInfo(usr_qq, false, msg);
         }
-
         return;
     }
 
