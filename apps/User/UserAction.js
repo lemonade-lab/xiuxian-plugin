@@ -6,18 +6,13 @@ import { segment } from "oicq"
 import {existplayer,Go,Read_najie,
     Add_lingshi,Write_najie,
     Numbers,Add_najie_lingshi, Read_wealth} from '../Xiuxian/Xiuxian.js'
-/**
- * 交易系统
- */
+    
 export class UserAction extends plugin {
     constructor() {
         super({
-            /** 功能名称 */
             name: 'UserAction',
-            /** 功能描述 */
             dsc: 'UserAction',
             event: 'message',
-            /** 优先级，数字越小等级越高 */
             priority: 600,
             rule: [
                 {

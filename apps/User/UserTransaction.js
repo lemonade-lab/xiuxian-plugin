@@ -5,11 +5,6 @@ import {
     Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, Add_najie_thing,
     search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie
 } from '../Xiuxian/Xiuxian.js';
-
-
-
-
-
 export class UserTransaction extends plugin {
     constructor() {
         super({
@@ -62,10 +57,10 @@ export class UserTransaction extends plugin {
             else{
                 msg.push(
                     "物品：" + item.name +
-                    "\n攻击：+" + item.attack +
-                    "\n防御：+" + item.defense +
-                    "\n血量：+" + item.blood +
-                    "\n敏捷：+" + item.speed +
+                    "\n攻击：+" + item.attack + "%"+
+                    "\n防御：+" + item.defense + "%"+
+                    "\n血量：+" + item.blood + "%"+
+                    "\n敏捷：+" + item.speed + "%"+
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
                     "\n价格：" + item.price);

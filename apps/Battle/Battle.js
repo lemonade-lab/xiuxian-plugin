@@ -37,7 +37,7 @@ export class Battle extends plugin {
         if(B==0||B==A){
             return;
         }
-        let ClassCD = ":Dajie";
+        let ClassCD = ":抢劫";
         let now_time = new Date().getTime();
         let CDTime = 15;
         let CD = await GenerateCD(A, ClassCD);

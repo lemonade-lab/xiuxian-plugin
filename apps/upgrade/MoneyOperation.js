@@ -36,13 +36,12 @@ export class MoneyOperation extends plugin {
             lingshi=1000;
         }
         let A_player = await  Read_wealth(A);
-        let B_player = await  Read_wealth(B);
         if (A_player.lingshi < lingshi) {
             e.reply([segment.at(A), `你身上似乎没有${lingshi}灵石`]);
             return;
         }
         let CDTime = 60 ;
-        let ClassCD = ":last_getbung_time";
+        let ClassCD = ":赠送";
         let now_time = new Date().getTime();
         let CD = await GenerateCD(A, ClassCD);
         if (CD != 0) {

@@ -46,7 +46,7 @@ export async function offExchange() {
         playerList.push(file);
     }
     for (let player_id of playerList) {
-        await redis.set("xiuxian:player:" + player_id + ":Exchange", 0);
+        //出售状态
     }
     return;
 }

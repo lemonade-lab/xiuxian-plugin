@@ -54,6 +54,8 @@ export class Level extends plugin {
             e.reply(CD);
             return;
         }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD ,now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
         let player = await Read_level(usr_qq);
         let LevelMax = data.LevelMax_list.find(item => item.id == player.levelmax_id);
         if ( player.experiencemax< LevelMax.exp) {
@@ -125,6 +127,8 @@ export class Level extends plugin {
             e.reply(`请先渡劫！`);
             return;
         }
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${player.experience - Level.exp}修为后方可突破`);
             return;
@@ -163,9 +167,25 @@ export class Level extends plugin {
         player.experience -= Level.exp;
         await Write_level(usr_qq, player);
         await updata_equipment(usr_qq);
-        e.reply(`突破成功至`+player.levelname);
+        let life = await Read_Life();
+        life.forEach((item) => {
+            if(item.qq==usr_qq){
+                item.life+=Math.floor(item.life*player.level_id);
+                e.reply('突破成功至'+player.levelname+",寿命增加至"+item.life);
+            }
+        });
+        await Write_Life(life);
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
         await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
+        return;
+    };
+
+    async Level_up2(e){        
+        let good=await Go(e);
+        if (!good) {
+            return;
+        }
+        e.reply("待更新");
         return;
     }
 

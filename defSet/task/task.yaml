@@ -1,6 +1,6 @@
 ExchangeTask: 0 0 4 * * ?
 # 寿命清理
-LifeTask: 0 0 4,16 * * ?
+LifeTask: 0 0 4,10,16,22 * * ?
 # 修仙论坛
 ForumTask: 0 0 4,16 * * ?
 #Cron表达式

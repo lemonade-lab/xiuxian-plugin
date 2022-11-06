@@ -78,7 +78,9 @@ export class AdminDelete extends plugin {
         }
         Exchange = Exchange.filter(item => item.qq != thingqq);
         await Write_Exchange(Exchange);
-        await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
+        /*
+        清楚玩家状态
+        */
         e.reply("清除" + thingqq);
         return;
     }
@@ -103,7 +105,9 @@ export class AdminDelete extends plugin {
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            await redis.set("xiuxian:player:" + player_id + ":Exchange", 0);
+            /*
+            清楚玩家状态
+            */
         }
         e.reply("清除完成！");
         return;

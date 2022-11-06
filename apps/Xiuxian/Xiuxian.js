@@ -523,19 +523,19 @@ export async function Go(e) {
     if (!ifexistplay) {
         return;
     }
-    let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
-    if (exists == 1) {
-        let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-        action = JSON.parse(action);
-        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
-        if(remainTime == -1){
-            e.reply(`正在${action.actionName}中。。。`);
-            return false;
+    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
+    if (remainTime != -1) {
+        let h=Math.floor(remainTime/60/60);
+        h=h<0?0:h;
+        let m=Math.floor((remainTime-h*60*60)/60);
+        m=m<0?0:m;
+        let s=Math.floor((remainTime-h*60*60-m*60));
+        s=s<0?0:s;
+        if(h==0&&m==0&&s==0){
+           return true;
         }
-        e.reply(`${action.actionName}中，剩余时间${remainTime}秒！`);
-        return false;
+        return "时间:"+h+"h"+m+"m"+s+"s";
     }
-
     let player = await Read_battle(usr_qq);
     if (player.nowblood <= 1) {
         e.reply("你都伤成这样了，就不要出去浪了");
@@ -552,15 +552,18 @@ export async function Gomax(usr_qq) {
     if (!ifexistplay) {
         return;
     }
-    let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
-    if (exists == 1) {
-        let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-        action = JSON.parse(action);
-        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
-        if(remainTime == -1){
-            return "正在"+action.actionName;
+    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
+    if (remainTime != -1) {
+        let h=Math.floor(remainTime/60/60);
+        h=h<0?0:h;
+        let m=Math.floor((remainTime-h*60*60)/60);
+        m=m<0?0:m;
+        let s=Math.floor((remainTime-h*60*60-m*60));
+        s=s<0?0:s;
+        if(h==0&&m==0&&s==0){
+           return true;
         }
-        return action.actionName+"中，剩余时间"+remainTime+"秒！";
+        return "时间:"+h+"h"+m+"m"+s+"s";
     }
     return true;
 }
@@ -568,17 +571,20 @@ export async function Gomax(usr_qq) {
 /**
  * 冷却检测
  */
-
-//todo
-//now_time 和 time 两个参数没用了，但是调用该方法的地方过多，所以没删
-export async function GenerateCD(usr_qq, usr_class) {
-    let exists = await redis.exists("xiuxian:player:" + usr_qq + usr_class);
-    //存在
-    if(exists == 1){
-        let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + usr_class);
-        let actionName = await redis.get("xiuxian:player:" + usr_qq + usr_class);
-        return actionName+":CD:"+remainTime+"s";
-    }
+export async function GenerateCD(usr_qq, CDclass) {
+    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + CDclass);
+    if(remainTime != -1){
+        let h=Math.floor(remainTime/60/60);
+        h=h<0?0:h;
+        let m=Math.floor((remainTime-h*60*60)/60);
+        m=m<0?0:m;
+        let s=Math.floor((remainTime-h*60*60-m*60));
+        s=s<0?0:s;
+        if(h==0&&m==0&&s==0){
+           return 0;
+        }
+        return CDclass+"冷却:"+h+"h"+m+"m"+s+"s";
+    };
     return 0;
 }
 

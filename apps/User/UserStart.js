@@ -96,6 +96,7 @@ export class UserStart extends plugin {
             "x":0,
             "y":0,
             "z":0,//位面
+            "Exchange":[]
         }
         await Write_action(usr_qq, new_action);
         await Write_equipment(usr_qq, []);
@@ -130,31 +131,24 @@ export class UserStart extends plugin {
         }
         let usr_qq = e.user_id;
         let CDTime = this.xiuxianConfigData.CD.reborn;
-        let ClassCD = ":last_reCreate_time";
+        let ClassCD = ":转世";
         let now_time = new Date().getTime();
         let CD = await GenerateCD(usr_qq, ClassCD);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        let acount = await redis.get("xiuxian:player:" + usr_qq + ":reCreate_acount");
-        if (acount >= 15) {
-            e.reply("灵魂虚弱，已不可转世！");
-            return;
-        }
-        acount = Numbers(acount);
-        acount++;
-        //删档
         fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
+
         let life = await Read_Life();
         await offaction(usr_qq);
         life = await life.filter(item => item.qq != usr_qq);
         await Write_Life(life);
+        
         e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
         await this.Create_player(e);
-        await redis.set("xiuxian:player:" + usr_qq + ":last_reCreate_time", now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + ":last_reCreate_time", CDTime*60);
-        await redis.set("xiuxian:player:" + usr_qq + ":reCreate_acount", acount);
+        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);
         return;
     }
 
@@ -199,13 +193,12 @@ export class UserStart extends plugin {
             e.reply("需" + lingshi + "灵石");
             return;
         }
-        let ClassCD = ":last_setname_time";
+        let ClassCD = ":改名";
         let now_time = new Date().getTime();
-        let CDTime = 60 * 24;
+        let CDTime = 24*60;//单位：分
         let CD = await GenerateCD(usr_qq, ClassCD);
         if (CD != 0) {
             e.reply(CD);
-            return;
         }
         await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
         await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);
@@ -243,7 +236,7 @@ export class UserStart extends plugin {
             e.reply("道宣最多50字符");
             return;
         }
-        let ClassCD = ":last_setxuanyan_time";
+        let ClassCD = ":道宣";
         let now_time = new Date().getTime();
         let CDTime = 60 * 12;
         let CD = await GenerateCD(usr_qq, ClassCD);

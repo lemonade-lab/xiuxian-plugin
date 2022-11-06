@@ -2,16 +2,10 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { createRequire } from "module"
 import { ForwardMsg } from '../Xiuxian/Xiuxian.js'
-/**
- * 全局
- */
 const require = createRequire(import.meta.url)
 const { exec } = require("child_process")
 const _path = process.cwd()
 let timer
-/**
- * 管理员
- */
 export class AdminAction extends plugin {
     constructor() {
         super({
