@@ -37,7 +37,7 @@ export class Exchange extends plugin {
     async supermarket(e) {
         let Exchange = await Read_Exchange();
         let msg = [
-            "___[弱水阁]___\n#上架+物品名*价格*数量\n#选购+编号\n#下架+编号\n不填数量，默认为1"
+            "___[弱水阁]___\n#上架+物品名*数量*价格\n#选购+编号\n#下架+编号\n不填数量，默认为1"
         ];
         console.log(Exchange);
         Exchange.forEach((item)=>{
@@ -89,7 +89,7 @@ export class Exchange extends plugin {
         najie_thing.acount=quantity;
         let exchange=await Read_Exchange();
         exchange.push({
-            "id":usr_qq+1,
+            "id":usr_qq+Math.floor((Math.random() * (99-1)+1)),
             "QQ":usr_qq,
             "thing":najie_thing,
             //位面:读取
