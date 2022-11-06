@@ -1,7 +1,6 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import filecp from "../../model/filecp.js"
-import config from "../../model/Config.js"
 import fs from "node:fs"
 import { __PATH, updata_equipment } from '../Xiuxian/Xiuxian.js'
 /**
@@ -25,7 +24,6 @@ export class AdminSuper extends plugin {
                 }
             ],
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
     async Againconfig(e) {

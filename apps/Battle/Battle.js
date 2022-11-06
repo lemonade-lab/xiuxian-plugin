@@ -1,5 +1,4 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from "../../model/Config.js"
 import { Go,GenerateCD,__PATH,At } from '../Xiuxian/Xiuxian.js'
 /**
  * 战斗类
@@ -18,7 +17,6 @@ export class Battle extends plugin {
                 }
             ]
         })
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
     //打劫

@@ -1,6 +1,5 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from "../../model/Config.js"
 import fs from "node:fs"
 import { __PATH,At , Numbers,Add_lingshi , Add_experience, Add_experiencemax, Read_wealth } from '../Xiuxian/Xiuxian.js'
 
@@ -29,7 +28,6 @@ export class AdminMoney extends plugin {
                 }
             ],
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
     

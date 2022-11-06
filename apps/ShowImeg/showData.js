@@ -7,7 +7,6 @@ import {talentname,Read_battle,
     Read_player, Read_wealth,Read_talent,
     Read_equipment,Read_level, Read_najie, Read_Life} from '../Xiuxian/Xiuxian.js';
     
-let xiuxianConfigData = config.getConfig("xiuxian", "xiuxian")
 export class showData extends plugin {
     constructor(e) {
         super({

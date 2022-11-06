@@ -1,6 +1,5 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from "../../model/Config.js"
 import {get_equipment_img,get_player_img} from '../ShowImeg/showData.js'
 import {existplayer } from '../Xiuxian/Xiuxian.js'
 /**
@@ -24,7 +23,6 @@ export class UserInformation extends plugin {
                 }
             ]
         })
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
 
 

@@ -1,5 +1,4 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from "../../model/Config.js"
 import {Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 
@@ -17,7 +16,6 @@ export class MoneyOperation extends plugin {
                 }
             ]
         })
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     }
     
     async Give_lingshi(e) {
