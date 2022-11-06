@@ -79,11 +79,10 @@ export class PlayerControl extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
-        if (exists == 0) {
-           return ;
-        }
         let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+        if(action==undefined){
+            return;
+        }
         action = JSON.parse(action);
         if(action.actionName != "闭关"){
             return ;
@@ -111,11 +110,10 @@ export class PlayerControl extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let exists = await redis.exists("xiuxian:player:" + usr_qq + ":action");
-        if (exists == 0) {
-            return ;
-        }
         let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+        if(action==undefined){
+            return;
+        }
         action = JSON.parse(action);
         if(action.actionName != "降妖"){
             return ;

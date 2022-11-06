@@ -498,18 +498,9 @@ export async function offaction(qq) {
     if (!ifexistplay) {
         return;
     }
-    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
-    if (remainTime != -1) {
-        let h=Math.floor(remainTime/60/60);
-        h=h<0?0:h;
-        let m=Math.floor((remainTime-h*60*60)/60);
-        m=m<0?0:m;
-        let s=Math.floor((remainTime-h*60*60-m*60));
-        s=s<0?0:s;
-        if(h==0&&m==0&&s==0){
-           return true;
-        }
-        e.reply("时间:"+h+"h"+m+"m"+s+"s")
+    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    if (action != undefined) {
+        e.reply(action.actionName+"中...")
         return false;
     }
     return true;
@@ -526,18 +517,9 @@ export async function Go(e) {
     if (!ifexistplay) {
         return;
     }
-    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ":action");
-    if (remainTime != -1) {
-        let h=Math.floor(remainTime/60/60);
-        h=h<0?0:h;
-        let m=Math.floor((remainTime-h*60*60)/60);
-        m=m<0?0:m;
-        let s=Math.floor((remainTime-h*60*60-m*60));
-        s=s<0?0:s;
-        if(h==0&&m==0&&s==0){
-           return true;
-        }
-        e.reply("时间:"+h+"h"+m+"m"+s+"s")
+    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    if (action != undefined) {
+        e.reply(action.actionName+"中...")
         return false;
     }
     let player = await Read_battle(usr_qq);
