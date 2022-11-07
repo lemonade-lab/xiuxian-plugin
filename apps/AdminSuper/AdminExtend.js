@@ -15,9 +15,21 @@ export class AdminExtend extends plugin {
                 {
                     reg: '^#加载修仙宗门$',
                     fnc: 'Xiuxianloadorganization'
+                },
+                {
+                    reg: '^#修仙设置帮助$',
+                    fnc: 'Xiuxianhelp'
                 }
             ],
         });
+    }
+
+    async Xiuxianhelp(e){
+        if (!e.isMaster) {
+            return;
+        }
+        e.reply("待更新！");
+        return;
     }
 
     async Xiuxianloadoccupation(e) {
