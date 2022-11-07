@@ -43,5 +43,20 @@
         "speed": 1,
         "acount": 1,
         "price": 1
+    },
+    {
+        "id": "6-2-40",
+        "name": "宗门令牌",
+        "attack": 1,
+        "defense": 1,
+        "blood": 1,
+        "burst": 1,
+        "burstmax": 1,
+        "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
+        "speed": 1,
+        "acount": 1,
+        "price": 1
     }
 ]

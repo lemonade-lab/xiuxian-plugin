@@ -7,8 +7,9 @@ import { segment } from "oicq"
 import {
     existplayer, __PATH, Write_player, Go, GenerateCD,
     get_talent, Write_najie, Write_talent, Write_battle,
-    Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment, 
+    Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment,
      Write_Life, Read_Life,offaction, Anyarray} from '../Xiuxian/Xiuxian.js'
+import {get_player_img} from "../ShowImeg/showData.js";
 export class UserStart extends plugin {
     constructor() {
         super({
@@ -73,7 +74,7 @@ export class UserStart extends plugin {
             "level_id": 1,//练气境界
             "levelname": '凡人',//练气名
             "experience": 1,//练气经验
-            "levelmax_id": 1,//练体境界 
+            "levelmax_id": 1,//练体境界
             "levelnamemax": '莽夫',//练体名
             "experiencemax": 1,//练体经验
             "rank_id":0,//数组位置
@@ -128,6 +129,24 @@ export class UserStart extends plugin {
     }
 
 
+    //#我的练气
+    async Show_player(e) {
+        //不开放私聊功能
+        if (!e.isGroup) {
+            return;
+        }
+        let usr_qq = e.user_id;
+        //有无存档
+        let ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        }
+        let img = await get_player_img(e);
+        e.reply(img);
+        return;
+    }
+
+
     //重新修仙
     async reCreate_player(e) {
         let good = await Go(e);
@@ -155,3 +174,6 @@ export class UserStart extends plugin {
         return;
     }
 }
+
+
+

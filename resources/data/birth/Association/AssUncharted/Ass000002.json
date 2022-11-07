@@ -1,0 +1,33 @@
+{
+	"id": "Ass000002",
+	"Grade": "宗门秘境",
+	"Price": 500000,
+	"experience": 200000,
+	"one": [ {
+		"id": 5131,
+		"name": "特殊宗门用测试功法",
+		"class": "5",
+		"type": "1",
+		"size": 0.35,
+		"acount": 1,
+		"price": 350000
+	}],
+	"two": [ {
+		"id": 5131,
+		"name": "特殊宗门用测试功法",
+		"class": "5",
+		"type": "1",
+		"size": 0.35,
+		"acount": 1,
+		"price": 350000
+	}],
+	"three": [ {
+		"id": 5131,
+		"name": "特殊宗门用测试功法",
+		"class": "5",
+		"type": "1",
+		"size": 0.35,
+		"acount": 1,
+		"price": 350000
+	}]
+}

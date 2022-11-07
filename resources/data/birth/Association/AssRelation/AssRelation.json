@@ -1,0 +1,41 @@
+[
+	{
+		"id": "Ass000001",
+		"name": "剑神宗",
+		"elder": "长老",
+		"innerDisciple": "内门弟子",
+		"outDisciple": "外门弟子",
+		"miscellaneousLabor": "杂役",
+		"unchartedName": "剑神窟"
+	},
+	{
+		"id": "Ass000002",
+		"name": "药神谷",
+		"master": "宗主",
+		"elder": "长老",
+		"innerDisciple": "内门弟子",
+		"outDisciple": "外门弟子",
+		"miscellaneousLabor": "杂役",
+		"unchartedName": "神药庄园"
+	},
+	{
+		"id": "Ass000003",
+		"name": "雾隐门",
+		"master": "宗主",
+		"elder": "长老",
+		"innerDisciple": "内门弟子",
+		"outDisciple": "外门弟子",
+		"miscellaneousLabor": "杂役",
+		"unchartedName": "雾隐地堡"
+	},
+	{
+		"id": "Ass000004",
+		"name": "天机阁",
+		"master": "宗主",
+		"elder": "长老",
+		"innerDisciple": "内门弟子",
+		"outDisciple": "外门弟子",
+		"miscellaneousLabor": "杂役",
+		"unchartedName": "天机古楼"
+	}
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "id": 3000001,
+    "name": "天山",
+    "efficiency": 0.3,
+    "level": 3
+  },
+  {
+    "id": 2000001,
+    "name": "瑶池",
+    "efficiency": 0.2,
+    "level": 2
+  },
+  {
+    "id": 2000002,
+    "name": "罗浮山",
+    "efficiency": 0.2,
+    "level": 2
+  },
+  {
+    "id": 2000003,
+    "name": "方寸山",
+    "efficiency": 0.2,
+    "level": 2
+  }, {
+  "id": 1000001,
+  "name": "嵩山",
+  "efficiency": 0.1,
+  "level": 1
+},
+  {
+    "id": 1000002,
+    "name": "华山",
+    "efficiency": 0.1,
+    "level": 1
+  },
+  {
+    "id": 1000003,
+    "name": "衡山",
+    "efficiency": 0.1,
+    "level": 1
+  }, {
+  "id": 1000004,
+  "name": "黄山",
+  "efficiency": 0.1,
+  "level": 1
+},
+  {
+    "id": 1000005,
+    "name": "泰山",
+    "efficiency": 0.1,
+    "level": 1
+  }
+]
