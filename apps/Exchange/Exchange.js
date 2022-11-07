@@ -5,9 +5,6 @@ import { Read_Exchange,ForwardMsg,__PATH,existplayer, Write_Exchange, Write_naji
         Add_najie_thing,
         Read_wealth,
         Write_wealth} from '../Xiuxian/Xiuxian.js'
-/**
- * 交易系统
- */
 export class Exchange extends plugin {
     constructor() {
         super({

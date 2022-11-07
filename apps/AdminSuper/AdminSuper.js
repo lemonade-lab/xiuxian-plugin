@@ -3,9 +3,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import filecp from "../../model/filecp.js"
 import fs from "node:fs"
 import { __PATH, updata_equipment } from '../Xiuxian/Xiuxian.js'
-/**
- * 修仙设置
- */
 export class AdminSuper extends plugin {
     constructor() {
         super({
@@ -30,7 +27,6 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        e.reply("开始重置");
         filecp.upfile();
         e.reply("重置结束");
         return;
@@ -40,7 +36,6 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        e.reply("开始同步");
         let playerList = [];
         let files = fs
             .readdirSync(__PATH.player)

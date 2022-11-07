@@ -10,8 +10,6 @@ import {
     Read_player, get_talent, Write_najie, Write_talent, Write_battle,
     Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment, 
     Read_wealth, Write_Life, Read_Life,offaction, Anyarray, Add_lingshi} from '../Xiuxian/Xiuxian.js'
-
-
 export class UserStart extends plugin {
     constructor() {
         super({

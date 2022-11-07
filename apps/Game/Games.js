@@ -1,8 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { Go,__PATH } from '../Xiuxian/Xiuxian.js'
-/**
-* 修仙游戏模块
-*/
 export class Games extends plugin {
     constructor() {
         super({

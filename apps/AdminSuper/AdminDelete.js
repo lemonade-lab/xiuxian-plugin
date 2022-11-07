@@ -3,9 +3,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "node:fs"
 import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,
     offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
-/**
- * 修仙设置
- */
 export class AdminDelete extends plugin {
     constructor() {
         super({
@@ -71,7 +68,7 @@ export class AdminDelete extends plugin {
             Forum = Forum.filter(item => item.qq != Forum[i].qq);
             Write_Forum(Forum);
         }
-        e.reply("已清理！");
+        e.reply("已清理");
         return;
     }
 
@@ -114,7 +111,6 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         }
-        e.reply("开始清除！");
         await Write_Exchange([]);
         let playerList = [];
         let files = fs
@@ -129,7 +125,7 @@ export class AdminDelete extends plugin {
            action.Exchange=0;
            await Write_action(player_id,action);
         }
-        e.reply("清除完成！");
+        e.reply("清除完成");
         return;
     }
     
@@ -138,7 +134,6 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         }
-        e.reply("开始崩碎世界");
         let playerList = [];
         let files = fs
             .readdirSync(__PATH.player)
@@ -175,13 +170,12 @@ export class AdminDelete extends plugin {
         if(B==0){
             return;
         }
-        e.reply("开始崩碎信息");
         fs.rmSync(`${__PATH.player}/${B}.json`);
         let life = await Read_Life();
         await offaction(B);
         life = await life.filter(item => item.qq != B);
         await Write_Life(life);
-        e.reply("已崩碎");
+        e.reply("信息已崩碎");
         return;
     }
 

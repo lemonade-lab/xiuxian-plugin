@@ -1,9 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import {existplayer,__PATH,sortBy,ForwardMsg, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
-/**
- * 所有榜单
- */
 export class TopList extends plugin {
     constructor() {
         super({

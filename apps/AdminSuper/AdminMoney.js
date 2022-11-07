@@ -2,10 +2,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "node:fs"
 import { __PATH,At , Numbers,Add_lingshi , Add_experience, Add_experiencemax, Read_wealth } from '../Xiuxian/Xiuxian.js'
-
-/**
- * 修仙财富
- */
 export class AdminMoney extends plugin {
     constructor() {
         super({
@@ -35,7 +31,18 @@ export class AdminMoney extends plugin {
     }
 
     async gifts(e){
-        e.reply("等更新");
+        if (!e.isMaster) {
+            return;
+        }
+        let B = await At(e);
+        if(B==0){
+            return;
+        }
+        let thing = e.msg.replace("#馈赠", "");
+
+
+
+        e.reply(B+"获得馈赠：" + lingshi);
         return;
     }
 
@@ -59,7 +66,7 @@ export class AdminMoney extends plugin {
             lingshi = lingshi - 1;
         }
         await Add_lingshi(B, -lingshi);
-        e.reply("已强行扣除灵石" + lingshi);
+        e.reply("已扣除灵石" + lingshi);
         return;
     }
 
@@ -80,7 +87,7 @@ export class AdminMoney extends plugin {
             await Add_experience(player_id, 9999999);
             await Add_experiencemax(player_id, 9999999);
         }
-        e.reply(`福利发放成功,每人增加9999999灵石,9999999修为,9999999气血！`);
+        e.reply('每人增加\n9999999灵石\n9999999修为\n9999999气血！');
         return;
     }
 

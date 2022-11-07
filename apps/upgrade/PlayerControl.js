@@ -4,9 +4,6 @@ import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import { segment } from "oicq"
 import { Gomini, Go, offaction, Add_experience, Add_HP, Add_lingshi, existplayer, Read_level } from '../Xiuxian/Xiuxian.js'
-/**
- * 定时任务
- */
 export class PlayerControl extends plugin {
     constructor() {
         super({

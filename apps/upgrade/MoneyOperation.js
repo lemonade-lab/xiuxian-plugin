@@ -1,7 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import {Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
-
 export class MoneyOperation extends plugin {
     constructor() {
         super({
@@ -17,7 +16,6 @@ export class MoneyOperation extends plugin {
             ]
         })
     }
-    
     async Give_lingshi(e) {
         let good=await Go(e);
         if (!good) {

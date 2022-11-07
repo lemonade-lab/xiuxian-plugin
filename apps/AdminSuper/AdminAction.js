@@ -46,7 +46,7 @@ export class AdminAction extends plugin {
                         error.code +
                         "\n" +
                         error.stack +
-                        "\n 请稍后重试。"
+                        "\n 请稍后重试..."
                     );
                     ForwardMsg(e, msg);
                     return;
@@ -70,7 +70,7 @@ export class AdminAction extends plugin {
                             if (error) {
                                 redis.del(that.key);
                                 msg.push(
-                                    "重启失败...\nError code: " +
+                                    "重启失败了\nError code: " +
                                     error.code +
                                     "\n" +
                                     error.stack +
@@ -88,7 +88,7 @@ export class AdminAction extends plugin {
                     catch (error) {
                         redis.del(that.key);
                         let e = error.stack ?? error;
-                        msg.push("重启失败...\n" + e);
+                        msg.push("重启失败了\n" + e);
                     }
                 }, 1000);
                 ForwardMsg(e, msg);
@@ -101,9 +101,9 @@ export class AdminAction extends plugin {
         if (restart) {
             restart = JSON.parse(restart);
             if (restart.isGroup) {
-                Bot.pickGroup(restart.id).sendMsg("重启成功！\n主人需【#同步信息】\n以确保正常使用。");
+                Bot.pickGroup(restart.id).sendMsg("重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用。");
             } else {
-                Bot.pickUser(restart.id).sendMsg("重启成功！\n主人需【#同步信息】\n以确保正常使用。");
+                Bot.pickUser(restart.id).sendMsg("重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用。");
             }
             redis.del(this.key);
         }

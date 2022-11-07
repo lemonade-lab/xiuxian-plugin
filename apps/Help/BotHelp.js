@@ -3,9 +3,6 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
 import Help from "../../model/help.js";
 import md5 from "md5";
-/**
- * 修仙帮助模块
- */
 export class BotHelp extends plugin {
     constructor() {
         super({

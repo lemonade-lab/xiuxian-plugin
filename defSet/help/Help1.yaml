@@ -33,6 +33,12 @@
 
 - group: 
   list:
+    - icon: help-icon_10
+      title: "#攻击 @群友"
+      desc: "可掉装备"
+
+- group: 
+  list:
     - icon: help-icon_38
       title: "#面板信息"
       desc: "(可私聊)"

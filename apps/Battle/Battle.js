@@ -1,8 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { Go,GenerateCD,__PATH,At } from '../Xiuxian/Xiuxian.js'
-/**
- * 战斗类
- */
 export class Battle extends plugin {
     constructor() {
         super({
@@ -19,7 +16,7 @@ export class Battle extends plugin {
         })
     }
 
-    //打劫
+    //攻击
     async Attack(e) {
         let good=await Go(e);
         if (!good) {
@@ -32,7 +29,7 @@ export class Battle extends plugin {
         }
         let ClassCD = ":攻击";
         let now_time = new Date().getTime();
-        let CDTime = 15;
+        let CDTime = 5;
         let CD = await GenerateCD(A, ClassCD);
         if(CD != 0) {
             e.reply(CD);

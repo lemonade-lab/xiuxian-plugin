@@ -1,9 +1,5 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-/**
- * 修仙
- * 加载
- */
 export class AdminExtend extends plugin {
     constructor() {
         super({

@@ -1,9 +1,6 @@
 //插件加载
 import plugin from '../../../../lib/plugins/plugin.js'
 import {Go} from '../Xiuxian/Xiuxian.js'
-/**
- * 秘境模块
- */
 export class SecretPlace extends plugin {
     constructor() {
         super({

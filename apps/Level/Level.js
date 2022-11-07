@@ -3,10 +3,6 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import {Go,GenerateCD,Add_experiencemax,Add_experience,
     __PATH, Read_level, Write_level,updata_equipment,Read_Life,Write_Life} from '../Xiuxian/Xiuxian.js'
-
-/**
- * 境界模块
- */
 export class Level extends plugin {
     constructor() {
         super({
