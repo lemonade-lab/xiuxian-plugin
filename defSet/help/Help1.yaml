@@ -1,4 +1,4 @@
-- group: 初来乍到
+- group: 
   list:
     - icon: help-icon_38
       title: "#踏入仙途 #再入仙途"
@@ -13,7 +13,7 @@
       title: "#存灵石123 #取灵石全部"
       desc: "将灵石安全保存到纳戒"
     
-- group: 修行之路
+- group: 
   list:
     - icon: help-icon_55
       title: "#练气境界"
@@ -31,7 +31,7 @@
       title: "#降妖 #归来"
       desc: "进行降妖,获取灵石"
 
-- group: 逆天改命
+- group: 
   list:
     - icon: help-icon_38
       title: "#面板信息"
@@ -52,7 +52,7 @@
       title: "#渡劫"
       desc: "渡劫期经历的劫难"
 
-- group: 交易往来
+- group: 
   list:
     - icon: help-icon_53
       title: "#凡仙堂"

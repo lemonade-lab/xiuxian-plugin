@@ -31,9 +31,8 @@ export class Xiuxian extends plugin {
             ]
         })
     }
-    async Xiuxain(e){
+    async Xiuxain(e) {
         e.reply("测试");
-        await rediskey();
         return;
     }
 }
@@ -669,17 +668,5 @@ export async function distance(A,B){
     let a=A;
     let b=B;
     let m=(a.x-b.x)+(a.y-b.y);
-    return false;
-}
-
-//查询所有修仙数据
-
-export async function rediskey(){
-    let key=[];
-    redis.keys('xiuxian:*',(err,data)=>{
-        key.push(data);
-        console.log(data);
-    });
-    console.log(key);
-    return false;
+    return ;
 }

@@ -33,9 +33,31 @@ export class AdminDelete extends plugin {
                 {
                     reg: '^#删除信息.*$',
                     fnc: 'deleteuser'
+                },
+                {
+                    reg: '^#删除数据$',
+                    fnc: 'deleteredis'
                 }
             ],
         });
+    }
+
+    async deleteredis(e){
+        if (!e.isMaster) {
+            return;
+        }
+        let allkey = await redis.keys('xiuxian:*', (err, data) => {
+            console.log(err);
+        });
+        try{
+            allkey.forEach(async(item) => {
+                await redis.del(item);
+            });
+        }catch{
+            e.reply("出错啦");
+        }
+        e.reply("删除完成");
+        return;
     }
 
 
@@ -129,6 +151,16 @@ export class AdminDelete extends plugin {
             await offaction(player_id);
             fs.rmSync(`${__PATH.player}/${player_id}.json`);
             await Write_Life([]);
+        }
+        let allkey = await redis.keys('xiuxian:*', (err, data) => {
+            console.log(err);
+        });
+        try{
+            allkey.forEach(async(item) => {
+                await redis.del(item);
+            });
+        }catch{
+            e.reply("出错啦");
         }
         e.reply("世界已崩碎");
         return;
