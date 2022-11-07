@@ -10,7 +10,7 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plu
 ```
 > 查看具体功能  #修仙帮助      
 > 查看扩展功能  #修仙扩展              
-> 查看管理指令  #修仙设置               
+> 查看管理指令  #修仙管理               
 
 ## 配置-存档-帮助   
 xiuxian-emulator-plugin/config/            
@@ -26,7 +26,7 @@ xiuxian-emulator-plugin/resources/help/
 美工组  | 大仙  | 啵叽  |   | 
 脚本组  | 冬季巧克力  | 权学  | 妖妖 | 离散
 策划组  | 别那么骄傲  | 墨羽  | 大爱仙尊  | 越追越远
-测试组  |  就再氪两单嘛 | 雨晴  |   | 
+测试组  |  就再氪两单嘛 | 雨晴  | 秋雨  | 
 社交组  |  hasee舟舟 | 开阳  | DisgraceHiei  | 拾郎  
 
 
