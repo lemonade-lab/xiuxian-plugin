@@ -69,6 +69,12 @@ export class UserStart extends plugin {
         }
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
+
+        let newsorcery={
+            "sorcery":[]
+        }
+
+
         let new_battle = {
             "nowblood": data.Level_list.find(item => item.id == 1).blood+data.LevelMax_list.find(item => item.id == 1).blood,//血量
         }

@@ -2,10 +2,10 @@
     {
         "id": 1,
         "name": "凡人",
-        "exp": 1,
-        "attack": 1,
-        "defense": 1,
-        "blood": 1,
+        "exp": 8,
+        "attack": 8,
+        "defense": 8,
+        "blood": 8,
         "burst": 10,
         "burstmax": 50,
         "size": 1,
@@ -14,7 +14,7 @@
     {
         "id": 2,
         "name": "练气",
-        "exp": 10,
+        "exp": 40,
         "attack": 10,
         "defense": 10,
         "blood": 10,
@@ -26,7 +26,7 @@
     {
         "id": 3,
         "name": "筑基",
-        "exp": 100,
+        "exp": 200,
         "attack": 100,
         "defense": 100,
         "blood": 100,
@@ -50,7 +50,7 @@
     {
         "id": 5,
         "name": "元婴",
-        "exp": 10000,
+        "exp": 5000,
         "attack": 10000,
         "defense": 10000,
         "blood": 10000,
@@ -62,7 +62,7 @@
     {
         "id": 6,
         "name": "化神",
-        "exp": 100000,
+        "exp": 25000,
         "attack": 100000,
         "defense": 100000,
         "blood": 100000,
@@ -74,7 +74,7 @@
     {
         "id": 7,
         "name": "洞虚",
-        "exp": 1000000,
+        "exp": 125000,
         "attack": 1000000,
         "defense": 1000000,
         "blood": 1000000,
@@ -86,7 +86,7 @@
     {
         "id": 8,
         "name": "合体",
-        "exp": 10000000,
+        "exp": 125000,
         "attack": 10000000,
         "defense": 10000000,
         "blood": 10000000,
@@ -98,7 +98,7 @@
     {
         "id": 9,
         "name": "大乘",
-        "exp": 100000000,
+        "exp": 625000,
         "attack": 100000000,
         "defense": 100000000,
         "blood": 100000000,

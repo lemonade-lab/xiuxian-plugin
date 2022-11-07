@@ -39,6 +39,7 @@ class XiuxianData {
         this.daoju_list = JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`));
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
+        this.sorcery_list = JSON.parse(fs.readFileSync(`${this.goods}/sorcery.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
 
         this.deletelist('all');
@@ -49,6 +50,7 @@ class XiuxianData {
         this.list(this.daoju_list, all, 99);
         this.list(this.gongfa_list, all, 99);
         this.list(this.ring_list, all, 99);
+        this.list(this.sorcery_list, all, 99);
         this.add(all, 'all');
 
         this.deletelist('commodities');

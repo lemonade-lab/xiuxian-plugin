@@ -1,0 +1,17 @@
+[
+    {
+        "id": "8-1-1",
+        "name": "大剑术",
+        "attack": 1,
+        "defense": 1,
+        "blood": 1,
+        "burst": 1,
+        "burstmax": 1,
+        "size": 1,
+        "experience": 1,
+        "experiencemax": 1,
+        "speed": 1,
+        "acount": 1,
+        "price": 1
+    }
+]
