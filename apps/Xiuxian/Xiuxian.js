@@ -2,7 +2,9 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import path from "path"
 import data from '../../model/XiuxianData.js'
+
 const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
+
 export const __PATH = {
     player: path.join(__dirname, "/resources/data/birth/xiuxian/player"),
     action: path.join(__dirname, "/resources/data/birth/xiuxian/action"),
@@ -16,6 +18,7 @@ export const __PATH = {
     Forum: path.join(__dirname, "/resources/data/birth/Forum"),
     life: path.join(__dirname, "/resources/data/birth/xiuxian/life")
 }
+
 export class Xiuxian extends plugin {
     constructor() {
         super({
