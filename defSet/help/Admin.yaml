@@ -6,6 +6,9 @@
     - icon: help-icon_16
       title: "#扣除99999 @群友"
       desc: "强行扣指定玩家灵石"
+    - icon: help-icon_16
+      title: "#馈赠+物品名 @群友"
+      desc: "主人补偿物品"
 
 - group: 
   list:

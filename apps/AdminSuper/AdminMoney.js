@@ -23,11 +23,20 @@ export class AdminMoney extends plugin {
                     fnc: 'Fuli'
                 },
                 {
+                    reg: '^#馈赠.*$',
+                    fnc: 'gifts'
+                },
+                {
                     reg: '^#发测试福利$',
                     fnc: 'ceshi'
                 }
             ],
         });
+    }
+
+    async gifts(e){
+        e.reply("等更新");
+        return;
     }
 
     
