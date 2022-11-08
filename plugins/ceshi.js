@@ -14,7 +14,7 @@ export class ceshi extends plugin {
             ]
         })
     }
-
+    
     //攻击
     async newceshi(e) {
         e.reply("插件测试")
