@@ -5,7 +5,7 @@ import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import {talentname,Read_battle,
     Read_player, Read_wealth,Read_talent,
-    Read_equipment,Read_level, Read_najie, Read_Life} from '../Xiuxian/Xiuxian.js';
+    Read_equipment,Read_level, Read_najie, Read_Life,existplayer} from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
     constructor(e) {
         super({
@@ -115,7 +115,7 @@ export async function get_equipment_img(e) {
  */
 export async function get_najie_img(e) {
     let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
+    let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     }
@@ -143,7 +143,7 @@ export async function get_najie_img(e) {
  */
 export async function get_state_img(e) {
     let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
+    let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     }
@@ -174,7 +174,7 @@ export async function get_state_img(e) {
  */
 export async function get_statemax_img(e) {
     let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
+    let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     }
@@ -198,6 +198,27 @@ export async function get_statemax_img(e) {
     });
     return img;
 }
+
+
+/**
+ * 排名
+ */
+ export async function get_toplist_img(e,list) {
+    let usr_qq = e.user_id;
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let myData = {
+        list: list,
+    }
+    const data1 = await new Show(e).get_Data("toplist", "toplist",myData);
+    let img = await puppeteer.screenshot("toplist", {
+        ...data1,
+    });
+    return img;
+}
+
 
 let updata = config.getdefSet("version", "version");
 

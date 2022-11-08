@@ -23,13 +23,13 @@
       desc: "手动清理客栈消息"
     - icon: help-icon_32
       title: "#删除数据"
-      desc: "删除数据库数据"
+      desc: "删除缓存数据"
     - icon: help-icon_32
       title: "#删除世界"
       desc: "删除存档与数据"
     - icon: help-icon_32
       title: "#删除信息 @群友"
-      desc: "删除指定群友存档与数据"
+      desc: "删除群友存档与数据"
 
 - group: 
   list:

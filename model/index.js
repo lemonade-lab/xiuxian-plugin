@@ -12,20 +12,22 @@ class index {
       fs.readdirSync(dir).forEach((file) => {
         let model = dir.search("model");
         if(model==-1){
-          let temporary = file.search(".js");
-          if (temporary != -1) {
-            let y = file.replace(".js", "");
-            name.push(y);
-          }
-          var pathname = path.join(dir, file);
-          if (fs.statSync(pathname).isDirectory()) {
-            travel(pathname, callback);
-          }
-          else {
-            callback(pathname);
+          let json = file.search(".json");
+          if(json==-1){
+            let temporary = file.search(".js");
+            if (temporary != -1) {
+              let y = file.replace(".js", "");
+              name.push(y);
+            }
+            var pathname = path.join(dir, file);
+            if (fs.statSync(pathname).isDirectory()) {
+              travel(pathname, callback);
+            }
+            else {
+              callback(pathname);
+            }
           }
         }
-        //存在的，不要
       });
     };
     travel(filepath, (pathname) => {

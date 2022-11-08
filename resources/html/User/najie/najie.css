@@ -13,10 +13,10 @@ body {
 
 .user_top {
   display:grid;
-  padding: 20px;
   grid-template-columns:auto auto auto;
-  background-color: rgba(19, 21, 22, 0.486);
+  padding: 20px;
   margin: 40px;
+  background-color: rgba(19, 21, 22, 0.486);
   border-radius: 100px;
 }
 

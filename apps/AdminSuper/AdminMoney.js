@@ -1,7 +1,8 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "node:fs"
-import { __PATH,At , Numbers,Add_lingshi , Add_experience, Add_experiencemax, Read_wealth } from '../Xiuxian/Xiuxian.js'
+import { __PATH,At , Numbers,Add_lingshi , Add_experience, Add_experiencemax, 
+    Read_wealth,search_thing_name,Read_najie,Add_najie_thing,Write_najie } from '../Xiuxian/Xiuxian.js'
 export class AdminMoney extends plugin {
     constructor() {
         super({
@@ -38,11 +39,16 @@ export class AdminMoney extends plugin {
         if(B==0){
             return;
         }
-        let thing = e.msg.replace("#馈赠", "");
-
-
-
-        e.reply(B+"获得馈赠：" + lingshi);
+        let thing_name = e.msg.replace("#馈赠", "");
+        let searchsthing = await search_thing_name(thing_name);
+        if (searchsthing == 1) {
+            e.reply("世界没有" + thing_name);
+            return;
+        }
+        let najie = await Read_najie(usr_qq);
+        najie = await Add_najie_thing(najie, searchsthing, 1);
+        await Write_najie(usr_qq, najie);
+        e.reply(B+"获得馈赠：" + thing_name);
         return;
     }
 

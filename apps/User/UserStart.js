@@ -8,7 +8,7 @@ import {
     existplayer, __PATH, Write_player, Go, GenerateCD,
     get_talent, Write_najie, Write_talent, Write_battle,
     Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment,
-     Write_Life, Read_Life,offaction, Anyarray} from '../Xiuxian/Xiuxian.js'
+     Write_Life, Read_Life,offaction, Anyarray} from '../Xiuxian/Xiuxian.js';
 import {get_player_img} from "../ShowImeg/showData.js";
 export class UserStart extends plugin {
     constructor() {

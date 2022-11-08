@@ -1,6 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import {existplayer,__PATH,sortBy,ForwardMsg, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
+import {get_toplist_img} from "../ShowImeg/showData.js";
 export class TopList extends plugin {
     constructor() {
         super({
@@ -115,9 +116,6 @@ export class TopList extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let msg = [
-            "___[至尊榜]___"
-        ];
         let playerList = [];
         let temp = [];
         let files = fs
@@ -140,14 +138,8 @@ export class TopList extends plugin {
             temp.push(battle);
         }
         temp.sort(sortBy("power"));
-        for (let item of temp) {
-            msg.push(
-                "QQ"+item.QQ+"\n"+
-                "战力"+item.power+"\n"
-                
-            );
-        }
-        await ForwardMsg(e, msg);
+        let img = await get_toplist_img(e,temp);
+        e.reply(img);
         return;
     }
 }

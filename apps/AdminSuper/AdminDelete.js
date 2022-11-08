@@ -94,9 +94,6 @@ export class AdminDelete extends plugin {
             e.reply("找不到该商品编号！");
             return;
         }
-        /*
-        清楚玩家状态
-        */
         let action=await Read_action(Exchange[x].QQ); 
         action.Exchange=action.Exchange-1;
         await Write_action(player_id,action);
@@ -143,7 +140,6 @@ export class AdminDelete extends plugin {
             playerList.push(file);
         }
         for (let player_id of playerList) {
-            await offaction(player_id);
             fs.rmSync(`${__PATH.player}/${player_id}.json`);
             await Write_Life([]);
         }

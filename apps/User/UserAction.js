@@ -3,8 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import { get_najie_img } from '../ShowImeg/showData.js'
 import { segment } from "oicq"
-import {existplayer,Go,Read_najie,
-    Add_lingshi,Write_najie,
+import {existplayer,Go,Read_najie,Add_lingshi,Write_najie,
     Numbers,Add_najie_lingshi, Read_wealth} from '../Xiuxian/Xiuxian.js'
 export class UserAction extends plugin {
     constructor() {

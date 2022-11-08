@@ -37,7 +37,7 @@ export class Battle extends plugin {
         }
         await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
         await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid, CDTime*60);
-        e.reply("待重写")
+        e.reply("待更新")
         return;
     }
 
