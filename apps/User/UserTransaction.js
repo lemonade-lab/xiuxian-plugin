@@ -43,15 +43,15 @@ export class UserTransaction extends plugin {
             let id = item.id.split('-');
             //丹药
             if (id[0] == 4) {
-                if(id[0]==1){
+                if(id[1]==1){
                     msg.push(
                         "物品：" + item.name +
-                        "\n气血：+" + item.experiencemax + "%" +
+                        "\n气血：+" + item.blood + "%" +
                         "\n价格：" + item.price);
                 }else{
                     msg.push(
                         "物品：" + item.name +
-                        "\n修为：+" + item.experience + "%" +
+                        "\n修为：+" + item.experience +
                         "\n价格：" + item.price);
                 }
             }
@@ -66,9 +66,9 @@ export class UserTransaction extends plugin {
             else if (id[0] == 3) {
                 msg.push(
                     "物品：" + item.name +
-                    "\n敏捷：+" + item.speed + "%"+
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
+                    "\n敏捷：+" + item.speed+
                     "\n价格：" + item.price);
             }
             //武器
@@ -76,9 +76,9 @@ export class UserTransaction extends plugin {
                 msg.push(
                     "物品：" + item.name +
                     "\n攻击：+" + item.attack + "%"+
-                    "\n敏捷：+" + item.speed + "%"+
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
+                    "\n敏捷：+" + item.speed+
                     "\n价格：" + item.price);
             }
             else{
@@ -87,9 +87,9 @@ export class UserTransaction extends plugin {
                     "\n攻击：+" + item.attack + "%"+
                     "\n防御：+" + item.defense + "%"+
                     "\n血量：+" + item.blood + "%"+
-                    "\n敏捷：+" + item.speed + "%"+
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
+                    "\n敏捷：+" + item.speed+
                     "\n价格：" + item.price);
             }
         });

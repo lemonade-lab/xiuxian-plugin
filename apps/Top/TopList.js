@@ -48,11 +48,18 @@ export class TopList extends plugin {
             }
             let battle={
                 "QQ":player_id,
-                "power":newbattle.prestige
+                "power":newbattle.prestige,
+                "name":'MP'
             }
             temp.push(battle);
         }
         temp.sort(sortBy("power"));
+        let list=[];
+        temp.forEach((item,index)=>{
+            if(index<10){
+                list.push(item)
+            }
+        })
         let img = await get_toplist_img(e,temp);
         e.reply(img);
         return;
@@ -82,11 +89,18 @@ export class TopList extends plugin {
             let newbattle= await Read_battle(player_id);
             let battle={
                 "QQ":player_id,
-                "power":newbattle.power
+                "power":newbattle.power,
+                "name":'CE'
             }
             temp.push(battle);
         }
         temp.sort(sortBy("power"));
+        let list=[];
+        temp.forEach((item,index)=>{
+            if(index<10){
+                list.push(item)
+            }
+        })
         let img = await get_toplist_img(e,temp);
         e.reply(img);
         return;
@@ -116,11 +130,18 @@ export class TopList extends plugin {
             let newbattle= await Read_battle(player_id);
             let battle={
                 "QQ":player_id,
-                "power":newbattle.power
+                "power":newbattle.power,
+                "name":'CE'
             }
             temp.push(battle);
         }
         temp.sort(sortBy("power"));
+        let list=[];
+        temp.forEach((item,index)=>{
+            if(index<10){
+                list.push(item)
+            }
+        })
         let img = await get_toplist_img(e,temp);
         e.reply(img);
         return;
