@@ -25,9 +25,4 @@ export default class Help extends base {
     return await html.database("help",helpaddress);
   }
 
-  static async getassociation(e) {
-    let html = new Help(e);
-    return await html.database("help", "Association");
-  }
-
 }

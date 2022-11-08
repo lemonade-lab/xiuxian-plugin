@@ -64,6 +64,7 @@ let helpData = [{
     md5: "",
     img: "",
 }];
+
 async function cache(data,i){
     let tmp = md5(JSON.stringify(data));
     if (helpData[i].md5 == tmp) {
