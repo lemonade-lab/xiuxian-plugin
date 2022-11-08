@@ -11,8 +11,8 @@ class index {
     let newsum = [];
     function travel(dir, callback) {
       fs.readdirSync(dir).forEach(function (file) {
-        let x=file.search(".js");
-        if(x!=-1){
+        let temporary=file.search(".js");
+        if(temporary!=-1){
           let y=file.replace(".js", "");
           name.push(y);
         }
@@ -26,7 +26,10 @@ class index {
       });
     };
     travel(filepath, function (pathname) {
-      newsum.push(pathname);
+      let temporary=pathname.search(".js");
+      if(temporary!=-1){
+        newsum.push(pathname);
+      }
     });
     for (var j = 0; j < newsum.length; j++) {
       newsum[j] = newsum[j].replace(/\\/g, "/");

@@ -541,6 +541,8 @@ export async function Go(e) {
     }
     return true;
 }
+
+const CDname=['攻击','降妖','闭关','改名','道宣','赠送','突破','破体'];
 /**
  * 冷却检测
  */
