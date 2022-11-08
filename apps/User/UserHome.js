@@ -137,7 +137,7 @@ export class UserHome extends plugin {
         //切割类型，看到类型对不对
         let id = searchsthing.id.split('-');
         if (id[1] == 1) {
-            let blood = parseInt(thing_acount * searchsthing.blood);
+            let blood = parseInt(searchsthing.blood);
             await Add_blood(usr_qq, blood);
             e.reply("血量恢复" + blood+"%");
         }

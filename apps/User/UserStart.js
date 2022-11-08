@@ -60,10 +60,13 @@ export class UserStart extends plugin {
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
 
+        //新的战斗系统
         let newsorcery={
-            "sorcery":[]
-        }
+            //技能数：四个位置：技能类型：攻，盾，速度
+            "sorcery":[
 
+            ]
+        }
 
         let new_battle = {
             "nowblood": data.Level_list.find(item => item.id == 1).blood+data.LevelMax_list.find(item => item.id == 1).blood,//血量

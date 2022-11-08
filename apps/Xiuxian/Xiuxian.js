@@ -14,6 +14,7 @@ export const __PATH = {
     talent: path.join(__dirname, "/resources/data/birth/xiuxian/talent"),
     wealth: path.join(__dirname, "/resources/data/birth/xiuxian/wealth"),
     najie: path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
+    newsorcery: path.join(__dirname, "/resources/data/birth/xiuxian/newsorcery"),
     Exchange: path.join(__dirname, "/resources/data/birth/Exchange"),
     Forum: path.join(__dirname, "/resources/data/birth/Forum"),
     life: path.join(__dirname, "/resources/data/birth/xiuxian/life")
@@ -84,6 +85,13 @@ export async function Read_battle(usr_qq) {
 }
 export async function Write_battle(usr_qq, data) {
     await Write(usr_qq,data,__PATH.battle);
+    return;
+}
+export async function Read_newsorcery(usr_qq) {
+    return await Read(usr_qq,__PATH.newsorcery);
+}
+export async function Write_newsorcery(usr_qq, data) {
+    await Write(usr_qq,data,__PATH.newsorcery);
     return;
 }
 export async function Read_level(usr_qq) {
