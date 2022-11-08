@@ -62,7 +62,7 @@ export class UserStart extends plugin {
 
         //新的战斗系统
         let newsorcery={
-            //技能数：四个位置：技能类型：攻，盾，速度
+            //技能数：四个位置：技能类型：攻，盾，速度，
             "sorcery":[
 
             ]
@@ -99,6 +99,7 @@ export class UserStart extends plugin {
          * 100-199
          * 400-499
          */
+        //新手村随机位置
         let new_action = {
             "game": 1,//游戏状态
             "Couple": 1, //双修

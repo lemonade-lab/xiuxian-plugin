@@ -213,6 +213,29 @@ export async function battle(A, B) {
     let B_qq = await B;
     let playerA = await Read_battle(A_qq);
     let playerB = await Read_battle(B_qq);
+
+
+    //根据敏捷判断先手，
+
+    //主动方,即A方增加+3敏捷，若低，则视为被对方发现，攻击落空，换为对方先手
+
+    //攻击方根据技能循序发动技能
+
+    //技能发动后计算伤害：判断是否暴击
+
+    //对方血量-伤害=剩余血量
+
+    //判断是否血空
+
+    //另一方发动攻击，根据技能进行加成
+
+    //一次攻击仅有20回，每3分钟可以发动一次攻击，即技能冷却时间，
+
+    //双方将进入战斗状态，状态期间不可-------------
+
+    //在地图上，可以自由攻击对方，打死对方的，视为胜利，即，获取一定概率，让对方掉装备
+
+
     return A_qq;
 }
 
@@ -660,29 +683,25 @@ export async function newRead(dir) {
     }
 }
 
-    // 120/100=1.2。取1
-    // 199/100=1.99。取1
-    // 200/100=2。取2
-    // 999/100=9.99。取9
-
 //判断两者是否可以交互
 export async function interactive(A,B){
     let a=A;
     let b=B;
-    a.x=Math.floor(a.x);
-    a.y=Math.floor(a.y);
-    b.x=Math.floor(b.x);
-    b.y=Math.floor(b.y);
+    a.x=Math.floor(a.x/100);
+    a.y=Math.floor(a.y/100);
+    b.x=Math.floor(b.x/100);
+    b.y=Math.floor(b.y/100);
     if(a.x==b.x&&b.x==b.y){
         return true;
     }
     return false;
 }
 
-//根据距离，计算时间
+//判断两者距离
 export async function distance(A,B){
     let a=A;
     let b=B;
-    let m=(a.x-b.x)+(a.y-b.y);
-    return ;
+    let h=Math.pow(Math.pow((a.x-b.x),2)+Math.pow((a.y-b.y),2),1/2);
+    h==Math.floor(h);
+    return h;
 }

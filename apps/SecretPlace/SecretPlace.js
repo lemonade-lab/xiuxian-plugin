@@ -16,6 +16,10 @@ export class SecretPlace extends plugin {
                 {
                     reg: '^#击杀$',
                     fnc: 'Kill'
+                },
+                {
+                    reg: '^#前往.*$',
+                    fnc: 'move'
                 }
             ]
         })
@@ -23,6 +27,16 @@ export class SecretPlace extends plugin {
 
     async Xiuxianstate(e) {
         await Go(e);
+        return;
+    }
+
+    async Kill(e) {
+        e.reply("待更新");
+        return;
+    }
+    
+    async move(e) {
+        e.reply("待更新");
         return;
     }
 
