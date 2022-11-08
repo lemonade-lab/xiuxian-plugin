@@ -51,16 +51,16 @@ export class UserModify extends plugin {
             e.reply("需" + lingshi + "灵石");
             return;
         }
-        let ClassCD = ":改名";
+        let CDid = "3";
         let now_time = new Date().getTime();
         let CDTime = 24*60;//单位：分
-        let CD = await GenerateCD(usr_qq, ClassCD);
+        let CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);
+        await redis.set("xiuxian:player:" + usr_qq +':'+ CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid, CDTime*60);
         await Add_lingshi(usr_qq,-lingshi);
         let life = await Read_Life();
         life.forEach((item)=>{
@@ -95,16 +95,16 @@ export class UserModify extends plugin {
             e.reply("道宣最多50字符");
             return;
         }
-        let ClassCD = ":道宣";
+        let CDid = "4";
         let now_time = new Date().getTime();
         let CDTime = 60 * 12;
-        let CD = await GenerateCD(usr_qq, ClassCD);
+        let CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);
+        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid, CDTime*60);
         player.autograph = new_msg;
         await Write_player(usr_qq, player);
         this.Show_player(e);

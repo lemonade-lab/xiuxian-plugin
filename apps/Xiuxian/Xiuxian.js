@@ -541,13 +541,13 @@ export async function Go(e) {
     }
     return true;
 }
-
-const CDname=['攻击','降妖','闭关','改名','道宣','赠送','突破','破体'];
+               //0     1     2      3      4     5       6     7      8      9   10 11 12 13 14
+const CDname=['攻击','降妖','闭关','改名','道宣','赠送','突破','破体','转世','行为','','','','',''];
 /**
  * 冷却检测
  */
-export async function GenerateCD(usr_qq, CDclass) {
-    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq + CDclass);
+export async function GenerateCD(usr_qq, CDid) {
+    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq +':'+CDid);
     if(remainTime != -1){
         let h=Math.floor(remainTime/60/60);
         h=h<0?0:h;
@@ -558,7 +558,7 @@ export async function GenerateCD(usr_qq, CDclass) {
         if(h==0&&m==0&&s==0){
            return 0;
         }
-        return CDclass+"冷却:"+h+"h"+m+"m"+s+"s";
+        return CDname[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
     };
     return 0;
 }

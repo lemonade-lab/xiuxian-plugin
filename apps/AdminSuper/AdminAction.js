@@ -1,10 +1,10 @@
 
-import plugin from '../../../../lib/plugins/plugin.js'
-import { createRequire } from "module"
-import { ForwardMsg } from '../Xiuxian/Xiuxian.js'
-const require = createRequire(import.meta.url)
-const { exec } = require("child_process")
-const _path = process.cwd()
+import plugin from '../../../../lib/plugins/plugin.js';
+import { createRequire } from "module";
+import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
+const require = createRequire(import.meta.url);
+const { exec } = require("child_process");
+const _path = process.cwd();
 let timer
 export class AdminAction extends plugin {
     constructor() {

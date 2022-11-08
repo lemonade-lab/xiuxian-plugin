@@ -43,15 +43,15 @@ export class Level extends plugin {
         }
         let usr_qq = e.user_id;
         let CDTime = this.xiuxianConfigData.CD.level_up;
-        let ClassCD = ":破体";
+        let CDid = "7";
         let now_time = new Date().getTime();
-        let CD = await GenerateCD(usr_qq, ClassCD);
+        let CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD ,now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
+        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid ,now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ':'+CDid , CDTime * 60);
         let player = await Read_level(usr_qq);
         let LevelMax = data.LevelMax_list.find(item => item.id == player.levelmax_id);
         if ( player.experiencemax< LevelMax.exp) {
@@ -110,9 +110,9 @@ export class Level extends plugin {
         }
         let usr_qq = e.user_id;
         let CDTime = this.xiuxianConfigData.CD.level_up;
-        let ClassCD = ":突破";
+        let CDid = "6";
         let now_time = new Date().getTime();
-        let CD = await GenerateCD(usr_qq, ClassCD);
+        let CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);
             return;
@@ -123,8 +123,8 @@ export class Level extends plugin {
             e.reply(`请先渡劫！`);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + ClassCD , CDTime * 60);
+        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp- player.experience }修为后方可突破`);
             return;

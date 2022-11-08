@@ -27,16 +27,16 @@ export class Battle extends plugin {
         if(B==0||B==A){
             return;
         }
-        let ClassCD = ":攻击";
+        let CDid = "0";
         let now_time = new Date().getTime();
         let CDTime = 5;
-        let CD = await GenerateCD(A, ClassCD);
+        let CD = await GenerateCD(A, CDid);
         if(CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ClassCD, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + ClassCD, CDTime*60);
+        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid, CDTime*60);
         e.reply("待重写")
         return;
     }

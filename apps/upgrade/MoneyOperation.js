@@ -37,15 +37,15 @@ export class MoneyOperation extends plugin {
             return;
         }
         let CDTime = 60 ;
-        let ClassCD = ":赠送";
+        let CDid = "5";
         let now_time = new Date().getTime();
-        let CD = await GenerateCD(A, ClassCD);
+        let CD = await GenerateCD(A, CDid);
         if (CD != 0) {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + A + ClassCD, now_time);
-        await redis.expire("xiuxian:player:" + A + ClassCD, CDTime*60);
+        await redis.set("xiuxian:player:" + A +':'+ CDid, now_time);
+        await redis.expire("xiuxian:player:" + A +':'+ CDid, CDTime*60);
         await Add_lingshi(A, -lastlingshi);
         await Add_lingshi(B, lingshi);
         e.reply([segment.at(B), `你获得了由 ${A_player.name}赠送的${lingshi}灵石`])
