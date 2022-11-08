@@ -1,4 +1,4 @@
-![裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)
+![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)
 # xiuxian-emulator-plugin         
 Yunzai-BotV3"修仙模拟器V1.3.0"测试版                  
 
@@ -12,10 +12,11 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plu
 > 查看扩展功能  #修仙扩展              
 > 查看管理指令  #修仙管理               
 
-## 配置-存档-帮助   
+## 配置-存档-帮助-插件加载   
 xiuxian-emulator-plugin/config/            
 xiuxian-emulator-plugin/resources/data/birth/xiuxian/   
 xiuxian-emulator-plugin/resources/help/        
+xiuxian-emulator-plugin/plugins      
 
 ## 三点水
 
