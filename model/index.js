@@ -1,35 +1,38 @@
 import fs from "node:fs";
+import path from "path";
 class index {
   constructor() {
+    
   }
-  async toindex(x) {
-    const filepath='./plugins/xiuxian-emulator-plugin/'+x;
-    let sum = [""];
-    const readdirectory = (dir) => {
-      let files = fs.readdirSync(dir);
-      files.forEach(async (item) => {
-        let filepath1 = dir + '/' + item;
-        let stat = fs.statSync(filepath1);
-        if (stat.isFile()){}
+  async toindex(input) {
+    let filepath = './plugins/xiuxian-emulator-plugin/' + input;
+    let apps = {};
+    let name=[];
+    let newsum = [];
+    function travel(dir, callback) {
+      fs.readdirSync(dir).forEach(function (file) {
+        let x=file.search(".js");
+        if(x!=-1){
+          let y=file.replace(".js", "");
+          name.push(y);
+        }
+        var pathname = path.join(dir, file);
+        if (fs.statSync(pathname).isDirectory()) {
+          travel(pathname, callback);
+        } 
         else {
-          let file = filepath1.replace(filepath, "");
-          sum.push(file);
-        };
+          callback(pathname);
+        }
       });
     };
-    readdirectory(filepath);
-    let apps = {};
-    var bian = "";
-    for (var i = 0; i < sum.length; i++) {
-      bian = sum[i];
-      var files = fs
-        .readdirSync(filepath + bian)
-        .filter((file) => file.endsWith(".js"));
-      for (let file of files) {
-        let name = file.replace(".js", "");
-        apps[name] = (await import('../'+x + bian + '/' + file))[name];
-      }
-    }
+    travel(filepath, function (pathname) {
+      newsum.push(pathname);
+    });
+    for (var j = 0; j < newsum.length; j++) {
+      newsum[j] = newsum[j].replace(/\\/g, "/");
+      newsum[j] = newsum[j].replace('plugins/xiuxian-emulator-plugin', "");
+      apps[name[j]] = (await import('..'+newsum[j]))[name[j]];
+    };
     return apps;
   }
 }

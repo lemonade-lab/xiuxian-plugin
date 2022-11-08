@@ -3,6 +3,7 @@ import index from './model/index.js';
 let xiuxain = await index.toindex('apps');
 let plugin = await index.toindex('plugins');
 let apps={...xiuxain,...plugin};
+console.log(apps);
 export {apps};
 const versionData = Config.getdefSet("version", "version");
 logger.info(`__________________________`);
