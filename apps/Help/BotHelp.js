@@ -28,21 +28,21 @@ export class BotHelp extends plugin {
     }
 
     async Xiuxianhelp2(e) {
-        let data = await Help.gethelp2(e);
+        let data = await Help.gethelp(e,'Help2');
         if (!data) return;
         let img = await cache(data,2);
         await e.reply(img);
     }
 
     async Xiuxianhelp1(e) {
-        let data = await Help.gethelp1(e);
+        let data = await Help.gethelp(e,'Help1');
         if (!data) return;
         let img = await cache(data,1);
         await e.reply(img);
     }
 
     async adminsuper(e) {
-        let data = await Help.getadmin(e);
+        let data = await Help.gethelp(e,'Admin');
         if (!data) return;
         let img = await cache(data,0);
         await e.reply(img);
