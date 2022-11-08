@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import {
     existplayer, search_thing_name, exist_najie_thing_id,Read_najie, 
     Read_equipment, Add_experiencemax,Write_equipment, Write_najie, Numbers, 
-    Add_najie_thing,Add_HP, Add_experience, get_talent, Write_talent, 
+    Add_najie_thing,Add_blood, Add_experience, get_talent, Write_talent, 
     player_efficiency, Read_talent} from '../Xiuxian/Xiuxian.js'
 export class UserHome extends plugin {
     constructor() {
@@ -138,7 +138,7 @@ export class UserHome extends plugin {
         let id = searchsthing.id.split('-');
         if (id[1] == 1) {
             let blood = parseInt(thing_acount * searchsthing.blood);
-            await Add_HP(usr_qq, blood);
+            await Add_blood(usr_qq, blood);
             e.reply("血量恢复" + blood+"%");
         }
         else if (id[1] == 2) {

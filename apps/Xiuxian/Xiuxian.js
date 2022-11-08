@@ -177,10 +177,13 @@ export async function Add_experiencemax(usr_qq, qixue) {
     return;
 }
 //血量按百分比恢复
-export async function Add_HP(usr_qq, blood) {
+export async function Add_blood(usr_qq, blood) {
     let player = await Read_battle(usr_qq);
     let battle= await Read_battle(usr_qq);
-    player.nowblood = Math.floor(battle.blood*blood*0.01);
+    //判断百分比
+    if(player.nowblood<Math.floor(battle.blood*blood*0.01)){
+        player.nowblood = Math.floor(battle.blood*blood*0.01);
+    }
     await Write_battle(usr_qq, player);
     return;
 }

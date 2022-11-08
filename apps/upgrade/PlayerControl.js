@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import { segment } from "oicq"
-import { Gomini, Go, offaction, Add_experience, Add_HP, Add_lingshi, existplayer, Read_level } from '../Xiuxian/Xiuxian.js'
+import { Gomini, Go, offaction, Add_experience, Add_blood, Add_lingshi, existplayer, Read_level } from '../Xiuxian/Xiuxian.js'
 export class PlayerControl extends plugin {
     constructor() {
         super({
@@ -159,7 +159,7 @@ export class PlayerControl extends plugin {
         }
         if (name == "闭关") {
             await Add_experience(usr_qq, other);
-            await Add_HP(usr_qq, 100);
+            await Add_blood(usr_qq, 100);
             msg.push("\n血量恢复");
         }
         else {

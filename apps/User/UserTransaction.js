@@ -42,11 +42,18 @@ export class UserTransaction extends plugin {
         commodities_list.forEach((item) => {
             let id = item.id.split('-');
             if (id[0] == 4) {
-                msg.push(
-                    "物品：" + item.name +
-                    "\n修为：+" + item.experience + "%" +
-                    "\n气血：+" + item.experiencemax + "%" +
-                    "\n价格：" + item.price);
+                if(id[0]==1){
+                    msg.push(
+                        "物品：" + item.name +
+                        "\n气血：+" + item.experiencemax + "%" +
+                        "\n价格：" + item.price);
+                }else{
+                    msg.push(
+                        "物品：" + item.name +
+                        "\n修为：+" + item.experience + "%" +
+                        "\n价格：" + item.price);
+
+                }
             }
             else if (id[0] == 5) {
                 msg.push(
