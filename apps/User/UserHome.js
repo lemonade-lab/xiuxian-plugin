@@ -155,7 +155,7 @@ export class UserHome extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, searchsthing, -1);
+        najie = await Add_najie_thing(najie, searchsthing, -thing_acount);
         await Write_najie(usr_qq, najie);
         return;
     }
