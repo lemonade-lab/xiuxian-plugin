@@ -11,7 +11,7 @@ class index {
     const travel = (dir, callback) => {
       fs.readdirSync(dir).forEach((file) => {
         let model = dir.search("model");
-        if(model!=-1){
+        if(model==-1){
           let temporary = file.search(".js");
           if (temporary != -1) {
             let y = file.replace(".js", "");
