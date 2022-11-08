@@ -1,6 +1,6 @@
 ![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)
 # xiuxian-emulator-plugin         
-Yunzai-BotV3"修仙模拟器V1.3.0"测试版                  
+Yunzai-BotV3"修仙模拟器V1.3.0"开发者测试版                  
 
 ## 安装教程      
 
