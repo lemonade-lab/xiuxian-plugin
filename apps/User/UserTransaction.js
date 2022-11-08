@@ -41,6 +41,7 @@ export class UserTransaction extends plugin {
         let commodities_list = JSON.parse(fs.readFileSync(`${data.all}/commodities.json`));
         commodities_list.forEach((item) => {
             let id = item.id.split('-');
+            //丹药
             if (id[0] == 4) {
                 if(id[0]==1){
                     msg.push(
@@ -52,13 +53,32 @@ export class UserTransaction extends plugin {
                         "物品：" + item.name +
                         "\n修为：+" + item.experience + "%" +
                         "\n价格：" + item.price);
-
                 }
             }
+            //功法
             else if (id[0] == 5) {
                 msg.push(
                     "物品：" + item.name +
                     "\n天赋：+" + item.size + "%" +
+                    "\n价格：" + item.price);
+            }
+            //法宝
+            else if (id[0] == 3) {
+                msg.push(
+                    "物品：" + item.name +
+                    "\n敏捷：+" + item.speed + "%"+
+                    "\n暴击：+" + item.burst + "%" +
+                    "\n暴伤：+" + item.burstmax + "%" +
+                    "\n价格：" + item.price);
+            }
+            //武器
+            if (id[0] == 1) {
+                msg.push(
+                    "物品：" + item.name +
+                    "\n攻击：+" + item.attack + "%"+
+                    "\n敏捷：+" + item.speed + "%"+
+                    "\n暴击：+" + item.burst + "%" +
+                    "\n暴伤：+" + item.burstmax + "%" +
                     "\n价格：" + item.price);
             }
             else{
