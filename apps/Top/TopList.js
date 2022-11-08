@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
-import {existplayer,__PATH,sortBy,ForwardMsg, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
+import {existplayer,__PATH,sortBy, Read_level, Read_battle} from '../Xiuxian/Xiuxian.js'
 import {get_toplist_img} from "../ShowImeg/showData.js";
 export class TopList extends plugin {
     constructor() {
@@ -32,9 +32,6 @@ export class TopList extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let msg = [
-            "___[杀神榜]___"
-        ];
         let playerList = [];
         let temp = [];
         let files = fs
@@ -51,18 +48,13 @@ export class TopList extends plugin {
             }
             let battle={
                 "QQ":player_id,
-                "prestige":newbattle.prestige
+                "power":newbattle.prestige
             }
             temp.push(battle);
         }
-        temp.sort(sortBy("prestige"));
-        for (let item of temp) {
-            msg.push(
-                "QQ"+item.QQ+"\n"+
-                "魔力"+item.prestige
-            );
-        }
-        await ForwardMsg(e, msg);
+        temp.sort(sortBy("power"));
+        let img = await get_toplist_img(e,temp);
+        e.reply(img);
         return;
     }
 
@@ -73,9 +65,6 @@ export class TopList extends plugin {
         if (!ifexistplay) {
             return;
         }
-        let msg = [
-            "___[封神榜]___"
-        ];
         let playerList = [];
         let temp = [];
         let files = fs
@@ -98,14 +87,8 @@ export class TopList extends plugin {
             temp.push(battle);
         }
         temp.sort(sortBy("power"));
-        for (let item of temp) {
-            msg.push(
-                "QQ"+item.QQ+"\n"+
-                "战力"+item.power+"\n"
-                
-            );
-        }
-        await ForwardMsg(e, msg);
+        let img = await get_toplist_img(e,temp);
+        e.reply(img);
         return;
     }
 

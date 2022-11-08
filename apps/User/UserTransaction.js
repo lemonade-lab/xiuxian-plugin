@@ -72,7 +72,7 @@ export class UserTransaction extends plugin {
                     "\n价格：" + item.price);
             }
             //武器
-            if (id[0] == 1) {
+            else if (id[0] == 1) {
                 msg.push(
                     "物品：" + item.name +
                     "\n攻击：+" + item.attack + "%"+
