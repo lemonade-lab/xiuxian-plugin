@@ -61,6 +61,8 @@ export class Level extends plugin {
         if (player.level_id >= 54) {
             return;
         };
+        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
 
         if(player.rankmax_id<4){
             player.rankmax_id=player.rankmax_id+1;
@@ -102,9 +104,10 @@ export class Level extends plugin {
         player.levelmax_id = player.levelmax_id + 1;
         player.levelnamemax= data.LevelMax_list.find(item => item.id == player.levelmax_id).name;
         player.experiencemax -= LevelMax.exp;
+        player.rankmax_id=0;
         await Write_level(usr_qq, player);
         await updata_equipment(usr_qq);
-        e.reply(`突破成功至`+player.levelnamemax);
+        e.reply(`突破成功至`+player.levelnamemax+player.rank_name[player.rankmax_id]);
         await redis.set("xiuxian:player:" + usr_qq +":"+ CDid, now_time);
         await redis.expire("xiuxian:player:" + usr_qq +":"+ CDid , CDTime * 60);
         return;
@@ -131,16 +134,17 @@ export class Level extends plugin {
             e.reply(`请先渡劫！`);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp- player.experience }修为后方可突破`);
             return;
         };
-        //是小境界突破
+        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
+        //是小境界突破:不需随机事件
         if(player.rank_id<4){
             player.rank_id=player.rank_id+1;
             await Write_level(usr_qq, player);
+            await updata_equipment(usr_qq);
             e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]);
             return;
         }
@@ -176,13 +180,14 @@ export class Level extends plugin {
         player.level_id = player.level_id + 1;
         player.levelname= data.Level_list.find(item => item.id == player.level_id).name;
         player.experience -= Level.exp;
+        player.rank_id=0;
         await Write_level(usr_qq, player);
         await updata_equipment(usr_qq);
         let life = await Read_Life();
         life.forEach((item) => {
             if(item.qq==usr_qq){
                 item.life+=Math.floor(item.life*player.level_id);
-                e.reply('突破成功至'+player.levelname+",寿命增加至"+item.life);
+                e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]+",寿命增加至"+item.life);
             }
         });
         await Write_Life(life);

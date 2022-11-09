@@ -149,7 +149,7 @@ export async function updata_equipment(usr_qq) {
         defense: levelmini.defense+levelmax.defense+Math.floor((levelmini.defense+levelmax.defense)*defense*0.01),
         blood: levelmini.blood+levelmax.blood+Math.floor((levelmini.blood+levelmax.blood)*blood*0.01),
         burst: levelmini.burst+levelmax.burst+burst,
-        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax,
+        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax+level.rank_id*10,
         speed:levelmini.speed+levelmax.speed+speed
     }
     player.power=player.attack+player.defense+player.blood+player.burst+player.burstmax+player.speed;
