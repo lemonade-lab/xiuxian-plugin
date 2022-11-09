@@ -19,7 +19,7 @@ xiuxian-emulator-plugin/resources/help/
 xiuxian-emulator-plugin/plugins          
 >修仙扩展-宗门系统
 ```
-git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/xiuxian-emulator-plugin/plugins/   
+git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/xiuxian-emulator-plugin/plugins/xiuxian-association-pluging/      
 ```
 >修仙扩展-职业系统
 ```
