@@ -10,6 +10,10 @@ CD:
   #赠送             
   transfer: 360  
 
+group: 
+  #修仙白名单，设置后，仅该群聊生效可以建存档，默认为0
+  white: 0    
+
 biguan: 
   #倍率！
   size: 5 

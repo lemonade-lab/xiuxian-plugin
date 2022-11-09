@@ -33,6 +33,12 @@ export class UserStart extends plugin {
 
     //#踏入仙途
     async Create_player(e) {
+        let group= this.xiuxianConfigData.group.white;
+        if(group!=0){
+            if(e.group_id!=group){
+                return;
+            }
+        }
         if (!e.isGroup) {
             return;
         }
