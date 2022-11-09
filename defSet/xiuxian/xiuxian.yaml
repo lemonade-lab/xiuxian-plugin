@@ -1,14 +1,14 @@
 #操作cd,必须为整数,单位：分
 CD: 
 #宗门维护  
-  #打劫    
-  rob: 10    
   #突破                
   level_up: 5     
   #重生         
   reborn: 360    
   #赠送             
-  transfer: 360  
+  transfer: 60  
+  #道宣
+  autograph: 60
 
 group: 
   #修仙白名单，设置后，仅该群聊生效可以建存档，默认为0
@@ -16,13 +16,13 @@ group:
 
 biguan: 
   #倍率！
-  size: 5 
+  size: 1 
   #最低时间
   time: 10 
 
 work:
   #倍率！
-  size: 10 
+  size: 1 
   #最低时间
   time: 10 
 

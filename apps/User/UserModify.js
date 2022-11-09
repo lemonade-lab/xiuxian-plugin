@@ -97,7 +97,7 @@ export class UserModify extends plugin {
         }
         let CDid = "4";
         let now_time = new Date().getTime();
-        let CDTime = 60 * 12;
+        let CDTime = this.xiuxianConfigData.CD.autograph;
         let CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);

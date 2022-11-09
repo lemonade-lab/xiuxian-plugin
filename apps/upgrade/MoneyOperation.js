@@ -1,4 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
+import config from "../../model/Config.js"
 import {Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth} from '../Xiuxian/Xiuxian.js'
 import { segment } from "oicq"
 export class MoneyOperation extends plugin {
@@ -14,7 +15,8 @@ export class MoneyOperation extends plugin {
                     fnc: 'Give_lingshi'
                 }
             ]
-        })
+        });
+        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian") ;
     }
     async Give_lingshi(e) {
         let good=await Go(e);
@@ -36,7 +38,7 @@ export class MoneyOperation extends plugin {
             e.reply([segment.at(A), `你身上似乎没有${lingshi}灵石`]);
             return;
         }
-        let CDTime = 60 ;
+        let CDTime = this.xiuxianConfigData.CD.transfer;
         let CDid = "5";
         let now_time = new Date().getTime();
         let CD = await GenerateCD(A, CDid);

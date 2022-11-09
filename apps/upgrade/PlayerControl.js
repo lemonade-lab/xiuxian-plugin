@@ -158,11 +158,13 @@ export class PlayerControl extends plugin {
             msg.push("\n得到了"+other);
         }
         if (name == "闭关") {
+            other=Math.floor(other*this.xiuxianConfigData.biguan.size);
             await Add_experience(usr_qq, other);
             await Add_blood(usr_qq, 100);
             msg.push("\n血量恢复");
         }
         else {
+            other=Math.floor(other*this.xiuxianConfigData.work.size);
             await Add_lingshi(usr_qq, other);
         }
         msg.push("\n" + name + "结束");
