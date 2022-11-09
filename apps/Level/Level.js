@@ -57,10 +57,18 @@ export class Level extends plugin {
         if ( player.experiencemax< LevelMax.exp) {
             e.reply(`气血不足,再积累${ LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
-        }
+        };
         if (player.level_id >= 54) {
             return;
+        };
+
+        if(player.rankmax_id<4){
+            player.rankmax_id=player.rankmax_id+1;
+            await Write_level(usr_qq, player);
+            e.reply('突破成功至'+player.levelname+player.rank_name[player.rankmax_id]);
+            return;
         }
+
         let rand = Math.random();
         let prob = 1 - player.levelmax_id / 50;
         if (rand > prob) {
@@ -131,11 +139,11 @@ export class Level extends plugin {
         };
         //是小境界突破
         if(player.rank_id<4){
-            e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]+",寿命增加至"+item.life);
+            player.rank_id=player.rank_id+1;
+            await Write_level(usr_qq, player);
+            e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]);
             return;
         }
-
-
         let rand = Math.random();
         let prob = 1 - player.level_id / 25;
         if (rand > prob) {

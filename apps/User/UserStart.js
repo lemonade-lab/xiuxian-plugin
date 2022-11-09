@@ -86,10 +86,7 @@ export class UserStart extends plugin {
             "rank_name":[
                 "初期","中期","后期","巅峰","圆满"
             ],
-            "rankmax_id":0,//数组位置
-            "rankmax_name":[
-                "初期","中期","后期","巅峰","圆满"
-            ]
+            "rankmax_id":0//数组位置
         }
         await Write_level(usr_qq, new_level);
         let new_wealth = {
