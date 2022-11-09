@@ -1,6 +1,6 @@
 //插件加载
 import plugin from '../../../../lib/plugins/plugin.js'
-import {Go} from '../Xiuxian/Xiuxian.js'
+import {Go,Read_action} from '../Xiuxian/Xiuxian.js'
 export class SecretPlace extends plugin {
     constructor() {
         super({
