@@ -17,6 +17,7 @@ class XiuxianData {
             "fixedLevel": path.join(__dirname, "/resources/data/fixed/Level"),
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
+            "sorcery": path.join(__dirname, "/resources/data/fixed/sorcery"),
         };
 
         this.association = this.__PATH.birthassociation;
@@ -27,6 +28,7 @@ class XiuxianData {
         this.occupation = this.__PATH.fixedoccupation;
         this.talent = this.__PATH.fixedtalent;
         this.all = this.__PATH.all;
+        this.sorcery = this.__PATH.sorcery;
 
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
@@ -38,8 +40,16 @@ class XiuxianData {
         this.daoju_list = JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`));
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
-        this.sorcery_list = JSON.parse(fs.readFileSync(`${this.goods}/sorcery.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
+
+        
+        this.attack_list = JSON.parse(fs.readFileSync(`${this.sorcery}/attack_list.json`));
+        this.defense_list = JSON.parse(fs.readFileSync(`${this.sorcery}/defense_list.json`));
+        this.blood_list = JSON.parse(fs.readFileSync(`${this.sorcery}/blood_list.json`));
+        this.burst_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burst_list.json`));
+        this.burstmax_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burstmax_list.json`));
+        this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
+
 
         this.deletelist('all');
         this.list(this.fabao_list, all, 99);
@@ -50,6 +60,8 @@ class XiuxianData {
         this.list(this.gongfa_list, all, 99);
         this.list(this.ring_list, all, 99);
         this.list(this.sorcery_list, all, 99);
+
+        
         this.add(all, 'all');
 
         this.deletelist('commodities');

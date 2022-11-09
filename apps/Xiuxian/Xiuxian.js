@@ -206,11 +206,27 @@ export async function Add_player_AllSorcery(usr_qq, gongfa) {
     await player_efficiency(usr_qq);
     return;
 }
+
+
+
 export async function battle(A, B) {
     let A_qq = await A;
     let B_qq = await B;
-    let playerA = await Read_battle(A_qq);
-    let playerB = await Read_battle(B_qq);
+    let battleA = await Read_battle(A_qq);
+    let battleB = await Read_battle(B_qq);
+    if(battleA.speed+5>=battleB.speed?true:false){
+        //先手造成一次攻击
+
+
+    };
+    //循环回合，默认从B攻击开始
+    var x=0;
+    while(true){
+        x++;
+        if(x>20){
+            break;
+        }
+    }
 
 
     //根据敏捷判断先手，
@@ -235,6 +251,18 @@ export async function battle(A, B) {
 
 
     return A_qq;
+}
+
+export function probability(P) {
+    //概率为1-100
+    if (P > 100) { P = 100; };
+    if (P < 0) { P = 0; };
+    let rand = Math.floor((Math.random() * (100-1)+1));
+    //命中
+    if (rand < P) {
+        return true;
+    }
+    return false;
 }
 
 /**

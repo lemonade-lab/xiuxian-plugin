@@ -67,7 +67,7 @@ export class Level extends plugin {
         if(player.rankmax_id<4){
             player.rankmax_id=player.rankmax_id+1;
             await Write_level(usr_qq, player);
-            e.reply('突破成功至'+player.levelname+player.rank_name[player.rankmax_id]);
+            e.reply('突破成功至'+player.levelnamemax+player.rank_name[player.rankmax_id]);
             return;
         }
 

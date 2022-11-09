@@ -1,7 +1,7 @@
 [
     {
-        "id": "8-1-1",
-        "name": "小剑术",
+        "id": "8-4-1",
+        "name": "定魂法",
         "attack": 1,
         "defense": 1,
         "blood": 1,
@@ -15,8 +15,8 @@
         "price": 1
     },
     {
-        "id": "8-1-2",
-        "name": "大剑术",
+        "id": "8-4-2",
+        "name": "引魂法",
         "attack": 1,
         "defense": 1,
         "blood": 1,
@@ -30,8 +30,8 @@
         "price": 1
     },
     {
-        "id": "8-1-3",
-        "name": "巨剑术",
+        "id": "8-4-3",
+        "name": "极阴法",
         "attack": 1,
         "defense": 1,
         "blood": 1,
@@ -45,8 +45,8 @@
         "price": 1
     },
     {
-        "id": "8-1-4",
-        "name": "重剑术",
+        "id": "8-4-4",
+        "name": "修罗法",
         "attack": 1,
         "defense": 1,
         "blood": 1,
