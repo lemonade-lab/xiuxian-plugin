@@ -209,57 +209,95 @@ export async function Add_player_AllSorcery(usr_qq, gongfa) {
 
 
 
-export async function battle(A, B) {
-    let A_qq = await A;
-    let B_qq = await B;
+export async function battle(e,A, B) {
+    let A_qq = A;
+    let B_qq = B;
+    let qq=A_qq;
     let battleA = await Read_battle(A_qq);
     let battleB = await Read_battle(B_qq);
-    if(battleA.speed+5>=battleB.speed?true:false){
-        //先手造成一次攻击
-
-
+    let msg=[];
+    if(battleA.speed>=battleB.speed-5){
+        let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
+        if(await battle_probability(battleA.burst)){
+            hurt=Math.floor(hurt*battleA.burstmax);
+        };
+        battleB.nowblood=battleB.nowblood-hurt;
+        if(battleB.nowblood<1){
+            e.reply("你仅出一招，就击败了对方！");
+            battleB.nowblood=0;
+            await Write_battle(A_qq,battleB);
+            return qq;
+        }else{
+            msg.push("你个老六偷袭成功，造成"+hurt+"伤害");
+        };
+    }else{
+        msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
     };
     //循环回合，默认从B攻击开始
-    var x=0;
+    var x=1;
+    var y=0;
+    var z=1;
     while(true){
         x++;
-        if(x>20){
-            break;
+        z++;
+        //分片发送消息
+        if(x==15){
+            await ForwardMsg(e, msg);
+            msg=[];
+            x=0;
+            y++;
+            if(y==2){
+                //就打2轮回
+                break;
+            }
         }
-    }
-
-
-    //根据敏捷判断先手，
-
-    //主动方,即A方增加+3敏捷，若低，则视为被对方发现，攻击落空，换为对方先手
-
-    //攻击方根据技能循序发动技能
-
-    //技能发动后计算伤害：判断是否暴击
-
-    //对方血量-伤害=剩余血量
-
-    //判断是否血空
-
-    //另一方发动攻击，根据技能进行加成
-
-    //一次攻击仅有20回，每3分钟可以发动一次攻击，即技能冷却时间，
-
-    //双方将进入战斗状态，状态期间不可-------------
-
-    //在地图上，可以自由攻击对方，打死对方的，视为胜利，即，获取一定概率，让对方掉装备
-
-
-    return A_qq;
+        //B开始
+        let hurt=battleB.attack-battleA.defense>=0?battleB.attack-battleA.defense+1:0;
+        if(await battle_probability(battleB.burst)){
+            hurt=Math.floor(hurt*battleB.burstmax);
+        };
+        battleA.nowblood=battleA.nowblood-hurt;
+        if(battleA.nowblood<0){
+            msg.push("第"+z+"回合:对方造成"+hurt+"伤害，并击败了你！");
+            battleA.nowblood=0;
+            await ForwardMsg(e, msg);
+            qq=B_qq;
+            break;
+        }else{
+            msg.push("第"+z+"回合:对方造成"+hurt+"伤害");
+        };
+        //A开始 
+        hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
+        if(await battle_probability(battleA.burst)){
+            hurt=Math.floor(hurt*battleA.burstmax);
+        };
+        battleB.nowblood=battleB.nowblood-hurt;
+        if(battleB.nowblood<0){
+            msg.push("第"+z+"回合:你造成"+hurt+"伤害，并击败了对方！");
+            battleB.nowblood=0;
+            await ForwardMsg(e, msg);
+            break;
+        }else{
+            msg.push("第"+z+"回合:你造成"+hurt+"伤害");
+        };
+    };
+    //在这里结算一下
+    await Write_battle(A_qq,battleA);
+    await Read_battle(B_qq,battleB);
+    //返回赢家QQ
+    return qq;
 }
 
-export function probability(P) {
-    //概率为1-100
-    if (P > 100) { P = 100; };
-    if (P < 0) { P = 0; };
+export async function battle_probability(P) {
+    let newp=0;
+    if(P>100){
+        newp=100;
+    };
+    if(P<0){
+        newp=0;
+    }
     let rand = Math.floor((Math.random() * (100-1)+1));
-    //命中
-    if (rand < P) {
+    if (newp>rand) {
         return true;
     }
     return false;

@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { Go,GenerateCD,__PATH,At } from '../Xiuxian/Xiuxian.js'
+import { Go,GenerateCD,__PATH,At,battle } from '../Xiuxian/Xiuxian.js'
 export class Battle extends plugin {
     constructor() {
         super({
@@ -35,9 +35,14 @@ export class Battle extends plugin {
             e.reply(CD);
             return;
         }
-        await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid, CDTime*60);
-        e.reply("待更新")
+        let qq=await battle(e,A, B);
+        if(qq==A){
+            e.reply("你打败了对方");
+        }else{
+            e.reply("你被对方打败了");
+        }
+        await redis.set("xiuxian:player:" + A + ':'+CDid, now_time);
+        await redis.expire("xiuxian:player:" + A +':'+ CDid, CDTime*60);
         return;
     }
 

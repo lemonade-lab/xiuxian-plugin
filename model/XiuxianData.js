@@ -3,7 +3,7 @@ import path from "path";
 let all = [];
 let commodities = [];
 class XiuxianData {
-    constructor() {
+     constructor() {
         const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
         this.__PATH = {
             "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
@@ -19,7 +19,6 @@ class XiuxianData {
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
             "sorcery": path.join(__dirname, "/resources/data/fixed/sorcery"),
         };
-
         this.association = this.__PATH.birthassociation;
         this.fixedequipment = this.__PATH.fixedequipment;
         this.goods = this.__PATH.fixedgoods;
@@ -29,7 +28,6 @@ class XiuxianData {
         this.talent = this.__PATH.fixedtalent;
         this.all = this.__PATH.all;
         this.sorcery = this.__PATH.sorcery;
-
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
@@ -41,7 +39,6 @@ class XiuxianData {
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
-
         
         this.attack_list = JSON.parse(fs.readFileSync(`${this.sorcery}/attack_list.json`));
         this.defense_list = JSON.parse(fs.readFileSync(`${this.sorcery}/defense_list.json`));
@@ -49,7 +46,6 @@ class XiuxianData {
         this.burst_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burst_list.json`));
         this.burstmax_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burstmax_list.json`));
         this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
-
 
         this.deletelist('all');
         this.list(this.fabao_list, all, 99);
@@ -59,9 +55,6 @@ class XiuxianData {
         this.list(this.daoju_list, all, 99);
         this.list(this.gongfa_list, all, 99);
         this.list(this.ring_list, all, 99);
-        this.list(this.sorcery_list, all, 99);
-
-        
         this.add(all, 'all');
 
         this.deletelist('commodities');
