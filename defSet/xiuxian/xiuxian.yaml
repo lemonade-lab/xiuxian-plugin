@@ -14,13 +14,13 @@ biguan:
   #倍率！
   size: 5 
   #最低时间
-  time: 30 
+  time: 10 
 
 work:
   #倍率！
   size: 10 
   #最低时间
-  time: 15 
+  time: 10 
 
 
 # 纳戒存储量

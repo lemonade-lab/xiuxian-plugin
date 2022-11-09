@@ -66,13 +66,10 @@
     - icon: help-icon_53
       title: "#弱水阁"
       desc: "交易(可私聊)"
-
-- group: 
-  list:
     - icon: help-icon_10
       title: "@群友赠送灵石1000"
       desc: "赠送灵石"
-
+      
 - group: 
   list:
     - icon: help-icon_14

@@ -129,14 +129,18 @@ export async function get_najie_img(e) {
 
     let thing=najie.thing;
     let danyao_list=[];
-    //循环与awat将会消耗大量算力
+    let daoju_list=[];
+    //循环与await将会消耗大量算力
     thing.forEach((item,index) => {
         let id = item.id.split('-');
         if (id[0] == 4) {
             danyao_list.push(item);
-            //同时干掉
             thing.splice(index,1);
-        };
+        }
+        else if(id[0] == 6){
+            daoju_list.push(item);
+            thing.splice(index,1);
+        }
     });
     let myData = {
         user_id: usr_qq,
@@ -145,6 +149,7 @@ export async function get_najie_img(e) {
         battle: battle,
         najie: najie,
         thing:thing,
+        daoju_list:daoju_list,
         danyao_list:danyao_list
     }
     const data1 = await new Show(e).get_Data("User/najie", "najie", myData);
