@@ -143,7 +143,7 @@ export class Level extends plugin {
             player.rank_id=player.rank_id+1;
             await Write_level(usr_qq, player);
             await updata_equipment(usr_qq);
-            e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]);
+            e.reply('突破成功至'+player.levelname+player.rank_name[player.rank_id]);
             return;
         }
         let rand = Math.random();
@@ -185,7 +185,7 @@ export class Level extends plugin {
         life.forEach((item) => {
             if(item.qq==usr_qq){
                 item.life+=Math.floor(item.life*player.level_id);
-                e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]+",寿命增加至"+item.life);
+                e.reply('突破成功至'+player.levelname+player.rank_name[player.rank_id]+",寿命增加至"+item.life);
             }
         });
         await Write_Life(life);
