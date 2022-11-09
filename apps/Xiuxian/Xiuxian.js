@@ -751,8 +751,8 @@ export async function newRead(dir) {
 
 //判断两者是否可以交互
 export async function interactive(A,B){
-    let a=A;
-    let b=B;
+    let a=await Read_action(usr_qq);
+    let b=await Read_action(usr_qq);
     a.x=Math.floor(a.x/100);
     a.y=Math.floor(a.y/100);
     b.x=Math.floor(b.x/100);

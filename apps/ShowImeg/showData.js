@@ -25,6 +25,10 @@ export class showData extends plugin {
                     fnc: "show_LevelMax",
                 },
                 {
+                    reg: "^#修仙地图$",
+                    fnc: "show_map",
+                },
+                {
                     reg: "^#修仙版本$",
                     fnc: "show_updata",
                 }
@@ -43,6 +47,14 @@ export class showData extends plugin {
         e.reply(img);
         return;
     }
+
+    async show_map(e){
+        let img = await get_map_img(e);
+        e.reply(img);
+        return;
+    }
+
+
     async show_updata(e) {
         let img = await get_updata_img(e);
         e.reply(img);
@@ -235,6 +247,20 @@ export async function get_toplist_img(e, list) {
     }
     const data1 = await new Show(e).get_Data("toplist", "toplist", myData);
     let img = await puppeteer.screenshot("toplist", {
+        ...data1,
+    });
+    return img;
+}
+
+export async function get_map_img(e) {
+    let usr_qq = e.user_id;
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let myData = {};
+    const data1 = await new Show(e).get_Data("map", "map", myData);
+    let img = await puppeteer.screenshot("map", {
         ...data1,
     });
     return img;

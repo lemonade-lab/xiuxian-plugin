@@ -36,6 +36,9 @@
     - icon: help-icon_10
       title: "#攻击 @群友"
       desc: "可掉装备"
+    - icon: help-icon_10
+      title: "#修仙地图"
+      desc: "打开修仙世界大门"
 
 - group: 
   list:
