@@ -6,11 +6,10 @@
       ],
     content: 
       [
-      {line: 支持定义配置},
-      {line: 配置：config/xiuxian},
-      {line: 支持定义帮助文案与帮助图},
-      {line: 文案：config/help},
-      {line: 图片：resources/help},
+      {line: 支持附加插件以扩展plugins},
+      {line: 支持定义配置config/xiuxian},
+      {line: 支持定义帮助文案与帮助背景图},
+      {line: config/help&&resources/help},
       ],
-    time: 2022-11-15-00:00
+    time: 2022-12-01-00:00
   }

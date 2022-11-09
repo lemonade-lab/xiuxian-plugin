@@ -1,12 +1,11 @@
 import fs from "node:fs";
 import path from "path";
-
 let all = [];
 let commodities = [];
 class XiuxianData {
     constructor() {
         const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
-        this.filePathMap = {
+        this.__PATH = {
             "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
             "equipment": path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
@@ -20,14 +19,14 @@ class XiuxianData {
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
         };
 
-        this.association = this.filePathMap.birthassociation;
-        this.fixedequipment = this.filePathMap.fixedequipment;
-        this.goods = this.filePathMap.fixedgoods;
-        this.lib = this.filePathMap.fixedlib;
-        this.Level = this.filePathMap.fixedLevel;
-        this.occupation = this.filePathMap.fixedoccupation;
-        this.talent = this.filePathMap.fixedtalent;
-        this.all = this.filePathMap.all;
+        this.association = this.__PATH.birthassociation;
+        this.fixedequipment = this.__PATH.fixedequipment;
+        this.goods = this.__PATH.fixedgoods;
+        this.lib = this.__PATH.fixedlib;
+        this.Level = this.__PATH.fixedLevel;
+        this.occupation = this.__PATH.fixedoccupation;
+        this.talent = this.__PATH.fixedtalent;
+        this.all = this.__PATH.all;
 
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
@@ -100,15 +99,10 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
-
-    /**
-      * 检测存档存在
-      * @param file_path_type ["player" , "association" ]
-      * @param file_name 
-      */
+    
     existData(file_path_type, file_name) {
         let file_path;
-        file_path = this.filePathMap[file_path_type];
+        file_path = this.__PATH[file_path_type];
         let dir = path.join(file_path + '/' + file_name + '.json');
         if (fs.existsSync(dir)) {
             return true;
@@ -116,21 +110,16 @@ class XiuxianData {
         return false;
     };
 
-    /**
-     * 获取文件数据(user_qq为空查询item下的file_name文件)
-     * @param file_name  [player,equipment,najie]
-     * @param user_qq
-     */
     getData(file_name, user_qq) {
         let file_path;
         let dir;
         let data;
         if (user_qq) {//带user_qq的查询数据文件
-            file_path = this.filePathMap[file_name];
+            file_path = this.__PATH[file_name];
             dir = path.join(file_path + '/' + user_qq + '.json');
         }
         else {//不带参数的查询item下文件
-            file_path = this.filePathMap.lib;
+            file_path = this.__PATH.lib;
             dir = path.join(file_path + '/' + file_name + '.json');
         }
         try {
@@ -140,32 +129,23 @@ class XiuxianData {
             logger.error('读取文件错误：' + error);
             return "error";
         }
-        //将字符串数据转变成json格式
         data = JSON.parse(data);
         return data;
     }
 
-
-    /**
-     * 写入数据
-     * @param file_name [player,equipment,najie]
-     * @param user_qq
-     * @param data
-     */
     setData(file_name, user_qq, data) {
         let file_path;
         let dir;
         if (user_qq) {
-            file_path = this.filePathMap[file_name];
+            file_path = this.__PATH[file_name];
             dir = path.join(file_path + '/' + user_qq + '.json');
         } else {
-            file_path = this.filePathMap.lib;
+            file_path = this.__PATH.lib;
             dir = path.join(file_path + '/' + file_name + '.json');
         };
-        let new_ARR = JSON.stringify(data, "", "\t");//json转string
+        let new_ARR = JSON.stringify(data, "", "\t");
         if (fs.existsSync(dir)) {
             fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
-                console.log('写入成功', err);
             });
         };
         return;

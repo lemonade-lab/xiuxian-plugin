@@ -60,7 +60,7 @@ export class TopList extends plugin {
                 list.push(item)
             }
         })
-        let img = await get_toplist_img(e,temp);
+        let img = await get_toplist_img(e,list);
         e.reply(img);
         return;
     }
@@ -101,7 +101,7 @@ export class TopList extends plugin {
                 list.push(item)
             }
         })
-        let img = await get_toplist_img(e,temp);
+        let img = await get_toplist_img(e,list);
         e.reply(img);
         return;
     }
@@ -142,7 +142,7 @@ export class TopList extends plugin {
                 list.push(item)
             }
         })
-        let img = await get_toplist_img(e,temp);
+        let img = await get_toplist_img(e,list);
         e.reply(img);
         return;
     }

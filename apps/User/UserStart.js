@@ -8,7 +8,7 @@ import {
     existplayer, __PATH, Write_player, Go, GenerateCD,
     get_talent, Write_najie, Write_talent, Write_battle,
     Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment,
-     Write_Life, Read_Life,offaction, Anyarray} from '../Xiuxian/Xiuxian.js';
+     Write_Life, Read_Life,offaction, Anyarray, Write_newsorcery} from '../Xiuxian/Xiuxian.js';
 import {get_player_img} from "../ShowImeg/showData.js";
 export class UserStart extends plugin {
     constructor() {
@@ -59,15 +59,17 @@ export class UserStart extends plugin {
         }
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
-
-        //新的战斗系统
         let newsorcery={
-            //技能数：四个位置：技能类型：攻，盾，速度，
+            "soul":{
+                'id1':0,
+                'id2':0,
+                'id3':0,
+                'id4':0,
+            },
             "sorcery":[
-
             ]
         }
-
+        await Write_newsorcery(usr_qq, newsorcery);
         let new_battle = {
             "nowblood": data.Level_list.find(item => item.id == 1).blood+data.LevelMax_list.find(item => item.id == 1).blood,//血量
         }

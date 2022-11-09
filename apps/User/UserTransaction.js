@@ -84,7 +84,6 @@ export class UserTransaction extends plugin {
             else{
                 msg.push(
                     "物品：" + item.name +
-                    "\n攻击：+" + item.attack + "%"+
                     "\n防御：+" + item.defense + "%"+
                     "\n血量：+" + item.blood + "%"+
                     "\n暴击：+" + item.burst + "%" +
