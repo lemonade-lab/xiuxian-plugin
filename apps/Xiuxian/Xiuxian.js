@@ -751,12 +751,13 @@ export async function newRead(dir) {
 
 //判断两者是否可以交互
 export async function interactive(A,B){
-    let a=await Read_action(usr_qq);
-    let b=await Read_action(usr_qq);
+    let a=await Read_action(A);
+    let b=await Read_action(B);
     a.x=Math.floor(a.x/100);
     a.y=Math.floor(a.y/100);
     b.x=Math.floor(b.x/100);
     b.y=Math.floor(b.y/100);
+    console.log(a.x+","+a.y+","+b.x+","+b.y+",");
     if(a.x==b.x&&b.x==b.y){
         return true;
     }

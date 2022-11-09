@@ -19,10 +19,25 @@ export class SecretPlace extends plugin {
                 },
                 {
                     reg: '^#前往.*$',
+                    fnc: 'forward'
+                },
+                {
+                    reg: '^#移动.*$',
                     fnc: 'move'
+                },
+                {
+                    reg: '^#位置信息$',
+                    fnc: 'address'
                 }
             ]
         })
+    }
+
+    async address(e){
+        let usr_qq = e.user_id;
+        let action=await Read_action(usr_qq);
+        e.reply("坐标("+action.x+","+action.x+","+action.z+")");
+        return;
     }
 
     async Xiuxianstate(e) {
