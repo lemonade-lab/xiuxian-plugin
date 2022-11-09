@@ -87,8 +87,8 @@ export class Level extends plugin {
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (LevelMax.exp) * 0.2 + "气血");
             }
             await Add_experiencemax(usr_qq, -1 * LevelMax.exp * x);
-            await redis.set("xiuxian:player:" + usr_qq + CDid ,now_time);
-            await redis.expire("xiuxian:player:" + usr_qq + CDid , CDTime * 60);
+            await redis.set("xiuxian:player:" + usr_qq +":"+ CDid ,now_time);
+            await redis.expire("xiuxian:player:" + usr_qq +":"+ CDid , CDTime * 60);
             return;
         }
         player.levelmax_id = player.levelmax_id + 1;
@@ -97,8 +97,8 @@ export class Level extends plugin {
         await Write_level(usr_qq, player);
         await updata_equipment(usr_qq);
         e.reply(`突破成功至`+player.levelnamemax);
-        await redis.set("xiuxian:player:" + usr_qq + CDid, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + CDid , CDTime * 60);
+        await redis.set("xiuxian:player:" + usr_qq +":"+ CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +":"+ CDid , CDTime * 60);
         return;
     }
 
@@ -128,7 +128,14 @@ export class Level extends plugin {
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp- player.experience }修为后方可突破`);
             return;
+        };
+        //是小境界突破
+        if(player.rank_id<4){
+            e.reply('突破成功至'+player.levelname+rank_name[player.rank_id]+",寿命增加至"+item.life);
+            return;
         }
+
+
         let rand = Math.random();
         let prob = 1 - player.level_id / 25;
         if (rand > prob) {
@@ -154,8 +161,8 @@ export class Level extends plugin {
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (Level.exp) * 0.2 + "修为");
             }
             await Add_experience(usr_qq, -1 * Level.exp * x);
-            await redis.set("xiuxian:player:" + usr_qq + CDid, now_time);
-            await redis.expire("xiuxian:player:" + usr_qq + CDid , CDTime * 60);
+            await redis.set("xiuxian:player:" + usr_qq +":"+ CDid, now_time);
+            await redis.expire("xiuxian:player:" + usr_qq +":"+ CDid , CDTime * 60);
             return;
         }
         player.level_id = player.level_id + 1;
@@ -171,8 +178,8 @@ export class Level extends plugin {
             }
         });
         await Write_Life(life);
-        await redis.set("xiuxian:player:" + usr_qq + CDid, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq + CDid , CDTime * 60);
+        await redis.set("xiuxian:player:" + usr_qq +":"+ CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq +":"+ CDid , CDTime * 60);
         return;
     };
 
