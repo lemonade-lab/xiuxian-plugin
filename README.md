@@ -14,9 +14,25 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plu
 
 ## 配置-存档-帮助-插件加载   
 xiuxian-emulator-plugin/config/            
-xiuxian-emulator-plugin/resources/data/birth/xiuxian/   
-xiuxian-emulator-plugin/resources/help/        
-xiuxian-emulator-plugin/plugins        
+xiuxian-emulator-plugin/resources/data/birth/xiuxian/     
+xiuxian-emulator-plugin/resources/help/         
+xiuxian-emulator-plugin/plugins          
+>修仙扩展-宗门系统
+```
+git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/xiuxian-emulator-plugin/plugins/   
+```
+>修仙扩展-职业系统
+```
+待添加   
+```
+>修仙扩展-道侣系统
+```
+待添加   
+```
+>修仙扩展-种田系统
+```
+待添加   
+```
 
 ## 三点水
 
