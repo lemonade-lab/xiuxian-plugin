@@ -36,11 +36,6 @@ export class Battle extends plugin {
             return;
         }
         let qq=await battle(e,A, B);
-        if(qq==A){
-            e.reply("你打败了对方");
-        }else{
-            e.reply("你被对方打败了");
-        }
         await redis.set("xiuxian:player:" + A + ':'+CDid, now_time);
         await redis.expire("xiuxian:player:" + A +':'+ CDid, CDTime*60);
         return;

@@ -224,8 +224,8 @@ export async function battle(e,A, B) {
         battleB.nowblood=battleB.nowblood-hurt;
         if(battleB.nowblood<1){
             e.reply("你仅出一招，就击败了对方！");
-            battleB.nowblood=0;
             await Write_battle(A_qq,battleB);
+            battleB.nowblood=0;
             return qq;
         }else{
             msg.push("你个老六偷袭成功，造成"+hurt+"伤害");
@@ -258,9 +258,10 @@ export async function battle(e,A, B) {
         };
         battleA.nowblood=battleA.nowblood-hurt;
         if(battleA.nowblood<0){
-            msg.push("第"+z+"回合:对方造成"+hurt+"伤害，并击败了你！");
-            battleA.nowblood=0;
+            msg.push("第"+z+"回合:对方造成"+hurt+"伤害");
             await ForwardMsg(e, msg);
+            e.reply("你被对方击败了！");
+            battleA.nowblood=0;
             qq=B_qq;
             break;
         }else{
@@ -274,8 +275,9 @@ export async function battle(e,A, B) {
         battleB.nowblood=battleB.nowblood-hurt;
         if(battleB.nowblood<0){
             msg.push("第"+z+"回合:你造成"+hurt+"伤害，并击败了对方！");
-            battleB.nowblood=0;
             await ForwardMsg(e, msg);
+            e.reply("你被击败了对方！");
+            battleB.nowblood=0;
             break;
         }else{
             msg.push("第"+z+"回合:你造成"+hurt+"伤害");
