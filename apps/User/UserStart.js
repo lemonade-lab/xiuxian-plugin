@@ -108,8 +108,8 @@ export class UserStart extends plugin {
         let new_action = {
             "game": 1,//游戏状态
             "Couple": 1, //双修
-            "x":Math.floor((Math.random() * (199-100)+100)),
-            "y":Math.floor((Math.random() * (499-400)+400)),
+            "x":Math.floor((Math.random() * (199-100))) + Number(100),
+            "y":Math.floor((Math.random() * (499-400))) + Number(400),
             "z":0,//位面为0
             "Exchange":0
         }

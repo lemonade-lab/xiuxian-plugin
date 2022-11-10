@@ -18,6 +18,7 @@ class XiuxianData {
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
             "sorcery": path.join(__dirname, "/resources/data/fixed/sorcery"),
+            "position": path.join(__dirname, "/resources/data/fixed/position"),
         };
         this.association = this.__PATH.birthassociation;
         this.fixedequipment = this.__PATH.fixedequipment;
@@ -28,6 +29,9 @@ class XiuxianData {
         this.talent = this.__PATH.fixedtalent;
         this.all = this.__PATH.all;
         this.sorcery = this.__PATH.sorcery;
+
+        this.position = this.__PATH.position;
+
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
@@ -40,12 +44,16 @@ class XiuxianData {
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
         
+        this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
+        
         this.attack_list = JSON.parse(fs.readFileSync(`${this.sorcery}/attack_list.json`));
         this.defense_list = JSON.parse(fs.readFileSync(`${this.sorcery}/defense_list.json`));
         this.blood_list = JSON.parse(fs.readFileSync(`${this.sorcery}/blood_list.json`));
         this.burst_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burst_list.json`));
         this.burstmax_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burstmax_list.json`));
         this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
+
+        
 
         this.deletelist('all');
         this.list(this.fabao_list, all, 99);

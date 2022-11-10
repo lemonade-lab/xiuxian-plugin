@@ -16,7 +16,7 @@ export class Battle extends plugin {
                 }
             ]
         })
-    }
+    };
 
     //攻击
     async Attack(e) {
@@ -43,7 +43,8 @@ export class Battle extends plugin {
         if(qq==0){
             let h=await distance(A,B);
             e.reply("他离你"+Math.floor(h)+"里！");
-        }else{
+        }
+        else{
             //根据QQ掉落物品
             let p=Math.floor((Math.random() * (99-1)+1));
             //如果真，掉物品

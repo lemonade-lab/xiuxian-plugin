@@ -773,4 +773,9 @@ export async function distance(A,B){
     let b=await Read_action(B);
     let h=Math.pow(Math.pow((a.x-b.x),2)+Math.pow((a.y-b.y),2),1/2);
     return h;
+};
+
+export async function map_distance(A,B){
+    let h=Math.pow(Math.pow((A.x-B.x1),2)+Math.pow((A.y-B.y1),2),1/2);
+    return h;
 }
