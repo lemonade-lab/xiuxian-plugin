@@ -65,6 +65,7 @@ export class Level extends plugin {
         await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
         if(player.levelmax_id>1&&player.rankmax_id<4){
             player.rankmax_id=player.rankmax_id+1;
+            player.experiencemax -= LevelMax.exp;
             await Write_level(usr_qq, player);
             e.reply('突破成功至'+player.levelnamemax+player.rank_name[player.rankmax_id]);
             return;
@@ -92,9 +93,11 @@ export class Level extends plugin {
 
             }
             else {
+                x =0.2;
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (LevelMax.exp) * 0.2 + "气血");
             }
-            await Add_experiencemax(usr_qq, -1 * LevelMax.exp * x);
+            player.experiencemax -= LevelMax.exp * x;
+            await Write_level(usr_qq, player);
             await redis.set("xiuxian:player:" + usr_qq +':'+ CDid ,now_time);
             await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
             return;
@@ -141,6 +144,7 @@ export class Level extends plugin {
         //是小境界突破:不需随机事件
         if(player.level_id>1&&player.rank_id<4){
             player.rank_id=player.rank_id+1;
+            player.experience -= Level.exp;
             await Write_level(usr_qq, player);
             await updata_equipment(usr_qq);
             e.reply('突破成功至'+player.levelname+player.rank_name[player.rank_id]);
@@ -170,7 +174,8 @@ export class Level extends plugin {
                 x=0.2;
                 e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (Level.exp) * 0.2 + "修为");
             }
-            await Add_experience(usr_qq, -1 * Level.exp * x);
+            player.experience -= Level.exp * x;
+            await Write_level(usr_qq, player);
             await redis.set("xiuxian:player:" + usr_qq +':'+ CDid, now_time);
             await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
             return;
