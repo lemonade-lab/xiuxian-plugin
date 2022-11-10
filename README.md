@@ -9,17 +9,16 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plu
 ```
 >查看具体功能  #修仙帮助     
 
-## 配置-存档-帮助-插件   
+## 配置-存档-帮助   
 xiuxian-emulator-plugin/config/            
 xiuxian-emulator-plugin/resources/data/birth/xiuxian/     
 xiuxian-emulator-plugin/resources/help/         
-xiuxian-emulator-plugin/plugins          
 
 ## 扩展插件
 
 扩展名  | 作者 | 版本 | 状态
 ------------- | ------------- | ------------- | -------------
-| [宗门系统 (xiuxian-association-pluging)](https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 更新中 |
+| [宗门系统 (xiuxian-association-pluging)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 更新中 |
 
 ## 辅助资源
 
@@ -31,10 +30,10 @@ xiuxian-emulator-plugin/plugins
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
-| [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
-| [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |  
+| [修仙社区](https://jq.qq.com/?_wv=1027&k=Y5JZkqqu) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
+| [修仙宗门](https://jq.qq.com/?_wv=1027&k=NyBA8oBo) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |  
 | [修仙职业](https://afdian.net/a/ningmengchongshui) | 251776816 | [@零零零零](https://afdian.net/a/ningmengchongshui) |  
-| [云崽Help](https://afdian.net/a/ningmengchongshui) | 806943302 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
+| [云崽Help](https://jq.qq.com/?_wv=1027&k=KINRLUEy) | 806943302 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
 
 ## 三点水
 
