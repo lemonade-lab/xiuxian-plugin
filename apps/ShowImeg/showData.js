@@ -93,7 +93,7 @@ export async function get_player_img(e) {
         lingshi: Math.trunc(wealt.lingshi),
         xianshi: Math.trunc(wealt.xianshi),
         talent: talent,
-        talentsize: parseInt(talent.talentsize * 100)
+        talentsize: Math.trunc(talent.talentsize)
     }
     const data1 = await new Show(e).get_Data("User/player", "player", myData);
     let img = await puppeteer.screenshot("player", {
