@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import {
     existplayer, search_thing_name, exist_najie_thing_id,Read_najie, 
      Add_experiencemax, Write_najie, Numbers, Add_najie_thing,Add_blood,
-      Add_experience, get_talent, Write_talent,  player_efficiency, Read_talent} from '../Xiuxian/Xiuxian.js'
+      Add_experience, get_talent, Write_talent,  player_efficiency, Read_talent,Read_level} from '../Xiuxian/Xiuxian.js'
 export class UserHome extends plugin {
     constructor() {
         super({
@@ -188,18 +188,19 @@ export class UserHome extends plugin {
             e.reply("无法在储物袋中消耗");
             return;
         }else if(id[2]==2){
-            let player = await Read_level(user_id);
+            let player = await Read_level(usr_qq);
             if (player.level_id > 21) {
                 e.reply("灵根已定，不可洗髓");
                 return;
             }
-            let talent = await Read_talent(user_id);
+            let talent = await Read_talent(usr_qq);
             talent.talent = await get_talent();
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
             e.reply("使用成功");
         }
         else if(id[2]==3){
+            let talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
             e.reply("显示成功");
