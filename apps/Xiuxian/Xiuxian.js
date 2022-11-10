@@ -212,9 +212,9 @@ export async function Add_player_AllSorcery(usr_qq, gongfa) {
 export async function battle(e,A, B) {
     let A_qq = A;
     let B_qq = B;
-    let qq=A_qq;
     let battleA = await Read_battle(A_qq);
     let battleB = await Read_battle(B_qq);
+    let qq=A_qq;
     let msg=[];
     if(battleA.speed>=battleB.speed-5){
         let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
@@ -224,8 +224,8 @@ export async function battle(e,A, B) {
         battleB.nowblood=battleB.nowblood-hurt;
         if(battleB.nowblood<1){
             e.reply("你仅出一招，就击败了对方！");
-            await Write_battle(A_qq,battleB);
             battleB.nowblood=0;
+            await Write_battle(B_qq,battleB);
             return qq;
         }else{
             msg.push("你个老六偷袭成功，造成"+hurt+"伤害");
@@ -262,6 +262,7 @@ export async function battle(e,A, B) {
             await ForwardMsg(e, msg);
             e.reply("你被对方击败了！");
             battleA.nowblood=0;
+            battleB.nowblood=battleB.nowblood+1;
             qq=B_qq;
             break;
         }else{
@@ -276,8 +277,9 @@ export async function battle(e,A, B) {
         if(battleB.nowblood<0){
             msg.push("第"+z+"回合:你造成"+hurt+"伤害，并击败了对方！");
             await ForwardMsg(e, msg);
-            e.reply("你被击败了对方！");
+            e.reply("你击败了对方！");
             battleB.nowblood=0;
+            battleA.nowblood=battleA.nowblood+1;
             break;
         }else{
             msg.push("第"+z+"回合:你造成"+hurt+"伤害");
@@ -285,7 +287,7 @@ export async function battle(e,A, B) {
     };
     //在这里结算一下
     await Write_battle(A_qq,battleA);
-    await Read_battle(B_qq,battleB);
+    await Write_battle(B_qq,battleB);
     //返回赢家QQ
     return qq;
 }
@@ -753,22 +755,22 @@ export async function newRead(dir) {
 export async function interactive(A,B){
     let a=await Read_action(A);
     let b=await Read_action(B);
+    //198=1.98=1
     a.x=Math.floor(a.x/100);
     a.y=Math.floor(a.y/100);
+    //145/100=1.45=1
     b.x=Math.floor(b.x/100);
     b.y=Math.floor(b.y/100);
-    console.log(a.x+","+a.y+","+b.x+","+b.y+",");
-    if(a.x==b.x&&b.x==b.y){
+    if(a.x==b.x&&b.y==b.y){
         return true;
-    }
+    };
     return false;
 }
 
 //判断两者距离
 export async function distance(A,B){
-    let a=A;
-    let b=B;
+    let a=await Read_action(A);
+    let b=await Read_action(B);
     let h=Math.pow(Math.pow((a.x-b.x),2)+Math.pow((a.y-b.y),2),1/2);
-    h==Math.floor(h);
     return h;
 }

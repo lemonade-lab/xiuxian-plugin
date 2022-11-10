@@ -5,8 +5,7 @@ import lodash from "lodash";
 import file from './filecp.js';
 file.file();
 file.help();
-
-/** 配置文件 直接借鉴yunzai配置代码 */
+/** 配置文件*/
 class Config {
     constructor() {
         /** 默认配置文件路径 */

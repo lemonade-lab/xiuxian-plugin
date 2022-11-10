@@ -1,6 +1,8 @@
 import fs from "node:fs";
 class filecp {
-  constructor() { }
+  constructor() { 
+    
+  }
   upfile(){
     let cf = [];
     const filepath = "./plugins/xiuxian-emulator-plugin/defSet/";

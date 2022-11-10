@@ -14,8 +14,8 @@ export class SecretPlace extends plugin {
                     fnc: 'Xiuxianstate'
                 },
                 {
-                    reg: '^#击杀$',
-                    fnc: 'Kill'
+                    reg: '^#位置信息$',
+                    fnc: 'address'
                 },
                 {
                     reg: '^#前往.*$',
@@ -26,22 +26,22 @@ export class SecretPlace extends plugin {
                     fnc: 'move'
                 },
                 {
-                    reg: '^#位置信息$',
-                    fnc: 'address'
+                    reg: '^#击杀$',
+                    fnc: 'Kill'
                 }
             ]
         })
     }
 
-    async address(e){
-        let usr_qq = e.user_id;
-        let action=await Read_action(usr_qq);
-        e.reply("坐标("+action.x+","+action.x+","+action.z+")");
+    async Xiuxianstate(e) {
+        await Go(e);
         return;
     }
 
-    async Xiuxianstate(e) {
-        await Go(e);
+    async address(e){
+        let usr_qq = e.user_id;
+        let action=await Read_action(usr_qq);
+        e.reply("坐标("+action.x+","+action.y+","+action.z+")");
         return;
     }
 
