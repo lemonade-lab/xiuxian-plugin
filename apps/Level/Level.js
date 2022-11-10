@@ -58,12 +58,12 @@ export class Level extends plugin {
             e.reply(`气血不足,再积累${ LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
         };
-        if (player.level_id >= 54) {
+        if (player.levelmax_id >= 21) {
             return;
         };
         await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
         await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
-        if(player.rankmax_id<4){
+        if(player.levelmax_id>1&&player.rankmax_id<4){
             player.rankmax_id=player.rankmax_id+1;
             await Write_level(usr_qq, player);
             e.reply('突破成功至'+player.levelnamemax+player.rank_name[player.rankmax_id]);
@@ -139,7 +139,7 @@ export class Level extends plugin {
         await redis.set("xiuxian:player:" + usr_qq + ':'+CDid, now_time);
         await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid , CDTime * 60);
         //是小境界突破:不需随机事件
-        if(player.rank_id<4){
+        if(player.level_id>1&&player.rank_id<4){
             player.rank_id=player.rank_id+1;
             await Write_level(usr_qq, player);
             await updata_equipment(usr_qq);
