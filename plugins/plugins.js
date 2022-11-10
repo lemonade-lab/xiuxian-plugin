@@ -24,7 +24,7 @@ export class plugins extends plugin {
         //非主人拦截
         if (!e.isMaster) {
             return;
-        }
+        };
         //发送消息
         e.reply("#修仙插件测试")
         return;

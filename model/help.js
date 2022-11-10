@@ -1,6 +1,5 @@
 import base from "./base.js";
 import xiuxianCfg from "./Config.js";
-
 export default class Help extends base {
   constructor(e) {
     super(e);
@@ -8,7 +7,6 @@ export default class Help extends base {
     this.model = "help";
     this.versionData = xiuxianCfg.getdefSet("version", "version");
   }
-
   async database(data1, data2) {
     let helpData = xiuxianCfg.getConfig(data1, data2);
     const version = this.versionData[0].version;
@@ -19,10 +17,8 @@ export default class Help extends base {
       helpData,
     };
   }
-
   static async gethelp(e,helpaddress) {
     let html = new Help(e);
     return await html.database("help",helpaddress);
   }
-
 }
