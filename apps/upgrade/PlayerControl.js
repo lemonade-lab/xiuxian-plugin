@@ -147,24 +147,29 @@ export class PlayerControl extends plugin {
         let level = await Read_level(usr_qq);
         let other = 0;
         let msg = [segment.at(usr_qq)];
-        let rand = Math.floor((Math.random() * (100-1)+1));
-        //收益
-        if(rand>30){
-            other =  Math.floor(rand * time * level.level_id/50);
-            msg.push("\n疏忽了,只得到了"+other);
-        }
-        else{
-            other =  Math.floor(rand * time * level.level_id/10);
-            msg.push("\n得到了"+other);
-        }
+        let rand = Math.floor((Math.random() * (100 - 1) + 1));
         if (name == "闭关") {
-            other=Math.floor(other*this.xiuxianConfigData.biguan.size);
+            if (rand > 30) {
+                other = Math.floor(this.xiuxianConfigData.biguan.size*time * level.level_id / 2);
+                msg.push("\n你闭关迟迟无法入定,只得到了" + other+"修为");
+            }
+            else {
+                other = Math.floor(this.xiuxianConfigData.biguan.size*time * level.level_id);
+                msg.push("\n闭关结束,得到了" + other+"修为");
+            }
             await Add_experience(usr_qq, other);
             await Add_blood(usr_qq, 100);
-            msg.push("\n血量恢复");
+            msg.push("\n血量恢复至100%");
         }
         else {
-            other=Math.floor(other*this.xiuxianConfigData.work.size);
+            if (rand > 30) {
+                other = Math.floor(this.xiuxianConfigData.biguan.size*time * level.level_id / 2);
+                msg.push("\n你降妖不专心,只得到了" + other);
+            }
+            else {
+                other = Math.floor(this.xiuxianConfigData.biguan.size*time * level.level_id);
+                msg.push("\n降妖回来,得到了" + other);
+            }
             await Add_lingshi(usr_qq, other);
         }
         msg.push("\n" + name + "结束");

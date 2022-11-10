@@ -16,13 +16,13 @@ group:
 
 biguan: 
   #倍率！
-  size: 1 
+  size: 30 
   #最低时间
   time: 10 
 
 work:
   #倍率！
-  size: 1 
+  size: 30 
   #最低时间
   time: 10 
 
