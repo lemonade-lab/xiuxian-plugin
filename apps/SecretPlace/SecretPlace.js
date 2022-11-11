@@ -1,7 +1,7 @@
 //插件加载
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import { Go, Read_action, Read_level, Write_action, map_distance } from '../Xiuxian/Xiuxian.js'
+import { Go, Read_action, Read_level, Write_action} from '../Xiuxian/Xiuxian.js'
 export class SecretPlace extends plugin {
     constructor() {
         super({

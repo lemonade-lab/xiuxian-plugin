@@ -1,13 +1,19 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 //类名必须与文件名一致，即plugins跟plugins.js
 export class exampleplugin extends plugin {
+    //基础构造
     constructor() {
+        //
         super({
+            //
             name: 'exampleplugin',
+            //
             dsc: 'exampleplugin',
+            //
             event: 'message',
             //优先级，越小越高
             priority: 600,
+            //
             rule: [
                 {
                     //指令

@@ -36,7 +36,6 @@ export class showData extends plugin {
         })
     }
 
-
     async show_Level(e) {
         let img = await get_state_img(e);
         e.reply(img);
@@ -47,22 +46,104 @@ export class showData extends plugin {
         e.reply(img);
         return;
     }
-
     async show_map(e){
         let img = await get_map_img(e);
         e.reply(img);
         return;
     }
-
-
     async show_updata(e) {
         let img = await get_updata_img(e);
         e.reply(img);
         return;
     }
+}
+
+export async function get_state_img(e) {
+    let usr_qq = e.user_id;
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let player = await Read_level(usr_qq);
+    let Level_id = player.level_id;
+    let Level_list = data.Level_list;
+    for (var i = 1; i <= 60; i++) {
+        if (i > Level_id && i < Level_id + 5) {
+            continue;
+        }
+        Level_list = await Level_list.filter(item => item.id != i);
+    }
+    let myData = {
+        name: "炼气境界",
+        user_id: usr_qq,
+        Level_list: Level_list
+    }
+    const data1 = await new Show(e).get_Data("state", "state", myData);
+    let img = await puppeteer.screenshot("state", {
+        ...data1,
+    });
+    return img;
 
 }
 
+export async function get_statemax_img(e) {
+    let usr_qq = e.user_id;
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let player = await Read_level(usr_qq);
+    let Level_id = player.levelmax_id;
+    let LevelMax_list = data.LevelMax_list;
+    for (var i = 1; i <= 60; i++) {
+        if (i > Level_id && i < Level_id + 5) {
+            continue;
+        }
+        LevelMax_list = await LevelMax_list.filter(item => item.id != i);
+    }
+    let myData = {
+        name: "炼体境界",
+        user_id: usr_qq,
+        Level_list: LevelMax_list
+    }
+    const data1 = await new Show(e).get_Data("state", "state", myData);
+    let img = await puppeteer.screenshot("statemax", {
+        ...data1,
+    });
+    return img;
+}
+
+export async function get_map_img(e) {
+    let usr_qq = e.user_id;
+    let ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    }
+    let myData = {};
+    const data1 = await new Show(e).get_Data("map", "map", myData);
+    let img = await puppeteer.screenshot("map", {
+        ...data1,
+    });
+    return img;
+}
+
+let updata = config.getdefSet("version", "version");
+export async function get_updata_img(e) {
+    let myData = {
+        version: updata
+    }
+    const data1 = await new Show(e).get_Data("updata", "updata", myData);
+    let img = await puppeteer.screenshot("updata", {
+        ...data1,
+    });
+    return img;
+
+}
+
+
+/**
+ * 对外的
+ */
 export async function get_player_img(e) {
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
@@ -102,9 +183,7 @@ export async function get_player_img(e) {
     return img;
 
 }
-/**
- * 返回该玩家的装备图片
- */
+
 export async function get_equipment_img(e) {
     let usr_qq = e.user_id;
     let life = await Read_Life();
@@ -124,9 +203,6 @@ export async function get_equipment_img(e) {
     return img;
 }
 
-/**
- * 返回该玩家的纳戒图片
- */
 export async function get_najie_img(e) {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -171,71 +247,6 @@ export async function get_najie_img(e) {
     return img;
 }
 
-/**
- * 返回练气
- */
-export async function get_state_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let player = await Read_level(usr_qq);
-    let Level_id = player.level_id;
-    let Level_list = data.Level_list;
-    for (var i = 1; i <= 60; i++) {
-        if (i > Level_id && i < Level_id + 5) {
-            continue;
-        }
-        Level_list = await Level_list.filter(item => item.id != i);
-    }
-    let myData = {
-        name: "炼气境界",
-        user_id: usr_qq,
-        Level_list: Level_list
-    }
-    const data1 = await new Show(e).get_Data("state", "state", myData);
-    let img = await puppeteer.screenshot("state", {
-        ...data1,
-    });
-    return img;
-
-}
-
-/**
- * 返回境界列表图片
- */
-export async function get_statemax_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let player = await Read_level(usr_qq);
-    let Level_id = player.levelmax_id;
-    let LevelMax_list = data.LevelMax_list;
-    for (var i = 1; i <= 60; i++) {
-        if (i > Level_id && i < Level_id + 5) {
-            continue;
-        }
-        LevelMax_list = await LevelMax_list.filter(item => item.id != i);
-    }
-    let myData = {
-        name: "炼体境界",
-        user_id: usr_qq,
-        Level_list: LevelMax_list
-    }
-    const data1 = await new Show(e).get_Data("state", "state", myData);
-    let img = await puppeteer.screenshot("statemax", {
-        ...data1,
-    });
-    return img;
-}
-
-
-/**
- * 排名
- */
 export async function get_toplist_img(e, list) {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -250,37 +261,4 @@ export async function get_toplist_img(e, list) {
         ...data1,
     });
     return img;
-}
-
-export async function get_map_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let myData = {};
-    const data1 = await new Show(e).get_Data("map", "map", myData);
-    let img = await puppeteer.screenshot("map", {
-        ...data1,
-    });
-    return img;
-}
-
-
-let updata = config.getdefSet("version", "version");
-
-/**
- * 返回修仙版本
- * @return image
- */
-export async function get_updata_img(e) {
-    let myData = {
-        version: updata
-    }
-    const data1 = await new Show(e).get_Data("updata", "updata", myData);
-    let img = await puppeteer.screenshot("updata", {
-        ...data1,
-    });
-    return img;
-
 }

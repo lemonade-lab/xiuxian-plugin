@@ -84,13 +84,9 @@ export class PlayerControl extends plugin {
         if (action.actionName != "闭关") {
             return;
         }
-        //开始时间
         let startTime = action.startTime;
-        //最低收益时间
         var timeUnit = this.xiuxianConfigData.biguan.time;
-        //时间差值（）
         let time = Math.floor((new Date().getTime() - startTime) / 60000);
-        //判断是否够最低收益时间
         if (time < timeUnit) {
             e.reply("你只是呆了一会儿，什么也没得到。");
             await offaction(usr_qq);
@@ -125,9 +121,7 @@ export class PlayerControl extends plugin {
         }
         let startTime = action.startTime;
         var timeUnit = this.xiuxianConfigData.work.time;
-        //时间差值（）
         let time = Math.floor((new Date().getTime() - startTime) / 60000);
-        //判断是否够最低收益时间
         if (time < timeUnit) {
             e.reply("你只是呆了一会儿，什么也没得到。");
             await offaction(usr_qq);
