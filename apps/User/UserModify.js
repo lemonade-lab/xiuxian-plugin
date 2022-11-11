@@ -2,8 +2,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
 import {
-     __PATH, Write_player, Go, GenerateCD,Read_player, 
+    existplayer, Write_player, Go, GenerateCD,Read_player,
     Read_wealth, Write_Life, Read_Life, Add_lingshi} from '../Xiuxian/Xiuxian.js'
+import {get_player_img} from "../ShowImeg/showData.js";
 export class UserModify extends plugin {
     constructor() {
         super({
@@ -110,4 +111,22 @@ export class UserModify extends plugin {
         this.Show_player(e);
         return;
     }
+
+    //#我的练气
+    async Show_player(e) {
+        //不开放私聊功能
+        if (!e.isGroup) {
+            return;
+        }
+        let usr_qq = e.user_id;
+        //有无存档
+        let ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        }
+        let img = await get_player_img(e);
+        e.reply(img);
+        return;
+    }
 }
+
