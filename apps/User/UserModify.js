@@ -1,8 +1,7 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import {
-     __PATH, Write_player, Go, GenerateCD,Read_player, 
+import { __PATH, Write_player, Go, GenerateCD,Read_player, 
     Read_wealth, Write_Life, Read_Life, Add_lingshi} from '../Xiuxian/Xiuxian.js';
 import {get_player_img} from "../ShowImeg/showData.js";
 export class UserModify extends plugin {
@@ -112,6 +111,7 @@ export class UserModify extends plugin {
         return;
     }
 
+    //#我的练气
     async Show_player(e) {
         let img = await get_player_img(e);
         e.reply(img);
