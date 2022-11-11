@@ -19,7 +19,7 @@ export class Userequipment extends plugin {
                     fnc: 'delete_equipment'
                 },
                 {
-                    reg: '^#升级魂力.*$',
+                    reg: '^#升级魂力$',
                     fnc: 'upgrade_equipment'
                 }
             ]

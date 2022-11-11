@@ -138,18 +138,7 @@ export class UserStart extends plugin {
     }
 
 
-    //#我的练气
     async Show_player(e) {
-        //不开放私聊功能
-        if (!e.isGroup) {
-            return;
-        }
-        let usr_qq = e.user_id;
-        //有无存档
-        let ifexistplay = await existplayer(usr_qq);
-        if (!ifexistplay) {
-            return;
-        }
         let img = await get_player_img(e);
         e.reply(img);
         return;

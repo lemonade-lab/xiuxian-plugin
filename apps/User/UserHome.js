@@ -106,6 +106,11 @@ export class UserHome extends plugin {
             e.reply(`你没有[${thing_name}]`);
             return;
         }
+        //需要检查类型，是不是功法
+        let id = searchsthing.id.split('-');
+        if (id[0] != 5) {
+            return;
+        }
         let talent = await Read_talent(usr_qq);
         let islearned = talent.AllSorcery.find(item => item.id == searchsthing.id);
         if (islearned) {

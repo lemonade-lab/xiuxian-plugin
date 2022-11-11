@@ -23,7 +23,7 @@ export class UserInformation extends plugin {
     }
 
 
-    //#我的练气
+    //#基础信息
     async Show_player(e) {
         let usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
