@@ -1,7 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import plugin from '../../../../../lib/plugins/plugin.js'
 import { Read_Exchange,ForwardMsg,__PATH,existplayer, Write_Exchange, Write_najie,
         Read_action,Numbers,exist_najie_thing_name,Write_action,Read_najie,
-        Add_najie_thing,Read_wealth,Write_wealth} from '../../apps/Xiuxian/Xiuxian.js'
+        Add_najie_thing,Read_wealth,Write_wealth} from '../../../apps/Xiuxian/Xiuxian.js'
 export class Exchange extends plugin {
     constructor() {
         super({

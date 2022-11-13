@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import plugin from '../../../../../lib/plugins/plugin.js'
 import { segment } from "oicq"
 import os from 'os'
 import { ChildProcess, exec, execSync } from 'child_process'

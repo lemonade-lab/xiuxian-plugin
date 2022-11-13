@@ -1,6 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import plugin from '../../../../../lib/plugins/plugin.js'
 import fs from "node:fs"
-import { __PATH,Add_lingshi , Add_experience, Add_experiencemax} from '../../apps/Xiuxian/Xiuxian.js'
+import { __PATH,Add_lingshi , Add_experience, Add_experiencemax} from '../../../apps/Xiuxian/Xiuxian.js'
 export class XiuxianWorld extends plugin {
     constructor() {
         super({
