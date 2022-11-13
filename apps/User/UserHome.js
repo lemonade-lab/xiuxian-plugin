@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import {
-    existplayer, search_thing_name, exist_najie_thing_id,Read_najie, 
+    existplayer, search_thing_name, exist_najie_thing_id,Read_najie,
      Add_experiencemax, Write_najie, Numbers, Add_najie_thing,Add_blood,
       Add_experience, get_talent, Write_talent,  player_efficiency, Read_talent,Read_level} from '../Xiuxian/Xiuxian.js'
 export class UserHome extends plugin {
@@ -30,7 +30,7 @@ export class UserHome extends plugin {
             ]
         })
     }
-   
+
 
     async Player_use_danyao(e) {
         if (!e.isGroup) {
@@ -214,7 +214,7 @@ export class UserHome extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, searchsthing, 1);
+        najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
         return;
     }
