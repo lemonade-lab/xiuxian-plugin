@@ -2,6 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { createRequire } from "module";
 import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
+import {Read_Life, Write_Life} from "../Xiuxian/Xiuxian";
 const require = createRequire(import.meta.url);
 const { exec } = require("child_process");
 const _path = process.cwd();
@@ -21,10 +22,31 @@ export class AdminAction extends plugin {
                 {
                     reg: "^#修仙强制更新",
                     fnc: "forcecheckout",
+                },
+                {
+                    reg: "^#同步信息",
+                    fnc: "refreshToken",
                 }
             ],
         });
         this.key = "xiuxian:restart";
+    }
+
+
+    async refreshToken(e){
+        let life = await Read_Life();
+        let time = new Date();
+        for (let i = 0 ; i<life.length ;i++){
+
+            if(life[i].createTime == undefined){
+                life[i].createTime = time;
+            }
+
+            if (life[i].status == undefined){
+                life[i].status = 1 ;
+            }
+        }
+        await Write_Life(life);
     }
 
     async forcecheckout(e){
