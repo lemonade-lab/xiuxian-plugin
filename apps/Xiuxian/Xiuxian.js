@@ -29,6 +29,9 @@ export class Xiuxian extends plugin {
             ]
         })
     }
+
+
+
 }
 
 async function Read(usr_qq,PATH) {
@@ -800,3 +803,5 @@ export async function map_distance(A,B){
     let h=Math.pow(Math.pow((A.x-B.x1),2)+Math.pow((A.y-B.y1),2),1/2);
     return h;
 }
+
+//安全区判断，输入
