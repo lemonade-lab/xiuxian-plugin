@@ -26,16 +26,8 @@ export class Xiuxian extends plugin {
             event: 'message',
             priority: 800,
             rule: [
-                {
-                    reg: '^#测试$',
-                    fnc: 'Xiuxain'
-                }
             ]
         })
-    }
-    async Xiuxain(e) {
-        e.reply("测试");
-        return;
     }
 }
 
@@ -673,6 +665,23 @@ export async function GenerateCD(usr_qq, CDid) {
            return 0;
         }
         return CDname[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
+    };
+    return 0;
+}
+
+export async function GenerateCDplugin(usr_qq, CDid,CDnameplugin) {
+    let remainTime = await redis.ttl("xiuxian:player:" + usr_qq +':'+CDid);
+    if(remainTime != -1){
+        let h=Math.floor(remainTime/60/60);
+        h=h<0?0:h;
+        let m=Math.floor((remainTime-h*60*60)/60);
+        m=m<0?0:m;
+        let s=Math.floor((remainTime-h*60*60-m*60));
+        s=s<0?0:s;
+        if(h==0&&m==0&&s==0){
+           return 0;
+        }
+        return CDnameplugin[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
     };
     return 0;
 }
