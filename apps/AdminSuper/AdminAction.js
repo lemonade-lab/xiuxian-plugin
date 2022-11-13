@@ -47,6 +47,7 @@ export class AdminAction extends plugin {
             }
         }
         await Write_Life(life);
+        e.reply(`同步成功！！！`);
     }
 
     async forcecheckout(e){
