@@ -9,7 +9,7 @@ import {
     Read_equipment, Read_level, Read_najie, Read_Life, existplayer
 } from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
-    constructor(e) {
+    constructor() {
         super({
             name: "showData",
             dsc: "showData",

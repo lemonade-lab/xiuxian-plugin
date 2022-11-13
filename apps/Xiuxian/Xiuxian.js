@@ -60,7 +60,17 @@ async function Write(usr_qq,player,PATH){
 export async function existplayer(usr_qq) {
     let life = await this.Read_Life();
     let find = life.find(item => item.qq == usr_qq);
-
+    if(find == undefined){
+        return false;
+    }
+    if(find.state==0){
+        return false;
+    }
+    return find;
+}
+export async function existplayerplugins(usr_qq) {
+    let life = await this.Read_Life();
+    let find = life.find(item => item.qq == usr_qq);
     if(find == undefined){
         return false;
     }
