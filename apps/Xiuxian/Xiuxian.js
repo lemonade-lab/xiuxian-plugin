@@ -64,10 +64,7 @@ export async function existplayer(usr_qq) {
     if(find == undefined){
         return false;
     }
-    if(find.life == 0){
-        return 0;
-    }
-    return true;
+    return find;
 }
 export async function Read_player(usr_qq) {
     return await Read(usr_qq,__PATH.player);;

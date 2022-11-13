@@ -126,11 +126,14 @@ export class UserStart extends plugin {
         let name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
         let name = await Anyarray(name1)+await Anyarray(name2);
         let life = await Read_Life();
+        let time = new Date();
         life.push({
             "qq": usr_qq,
             "name": `${name}`,
             "Age": 1,//年龄
-            "life": Math.floor((Math.random() * (100-50)+50))//寿命
+            "life": Math.floor((Math.random() * (100-50)+50)), //寿命
+            "createTime":time,
+            "status":1
         })
         await Write_Life(life);
         this.Show_player(e);
