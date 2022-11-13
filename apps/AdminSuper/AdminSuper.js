@@ -36,24 +36,24 @@ export class AdminSuper extends plugin {
         if (!e.isMaster) {
             return;
         }
-        let playerList = [];
-        let files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
-            playerList.push(file);
-        }
-        for (let player_id of playerList) {
-            await updata_equipment(player_id);
-        }
+        // let playerList = [];
+        // let files = fs
+        //     .readdirSync(__PATH.player)
+        //     .filter((file) => file.endsWith(".json"));
+        // for (let file of files) {
+        //     file = file.replace(".json", "");
+        //     playerList.push(file);
+        // }
+        // for (let player_id of playerList) {
+        //     await updata_equipment(player_id);
+        // }
 
         let life = await Read_Life();
         let time = new Date();
         for (let i = 0 ; i<life.length ;i++){
 
             if(life[i].createTime == undefined){
-                life[i].createTime = time;
+                life[i].createTime = time.getTime();
             }
 
             if (life[i].status == undefined){

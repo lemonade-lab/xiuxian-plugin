@@ -132,7 +132,7 @@ export class UserStart extends plugin {
             "name": `${name}`,
             "Age": 1,//年龄
             "life": Math.floor((Math.random() * (100-50)+50)), //寿命
-            "createTime":time,
+            "createTime":time.getTime(),
             "status":1
         })
         await Write_Life(life);
