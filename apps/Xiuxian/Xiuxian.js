@@ -58,7 +58,7 @@ async function Write(usr_qq,player,PATH){
     return;
 }
 export async function existplayer(usr_qq) {
-    let life = await this.Read_Life(usr_qq);
+    let life = await Read_Life();
     let find = life.find(item => item.qq == usr_qq);
     if(find == undefined){
         return false;
@@ -69,7 +69,7 @@ export async function existplayer(usr_qq) {
     return find;
 }
 export async function existplayerplugins(usr_qq) {
-    let life = await this.Read_Life(usr_qq);
+    let life = await Read_Life();
     let find = life.find(item => item.qq == usr_qq);
     if(find == undefined){
         return false;
