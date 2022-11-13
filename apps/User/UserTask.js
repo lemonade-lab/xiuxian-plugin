@@ -29,7 +29,7 @@ export class UserTask extends plugin {
             if (item.Age >= item.life) {
                 fs.rmSync(`${__PATH.player}/${item.qq}.json`);
                 x.push(item.qq)
-                arr.splice(index,1);
+                item.life = 0 ;
                 x.push()
             }
         });

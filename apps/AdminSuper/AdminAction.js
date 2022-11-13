@@ -88,7 +88,7 @@ export class AdminAction extends plugin {
                                 process.exit();
                             }
                         });
-                    } 
+                    }
                     catch (error) {
                         redis.del(that.key);
                         let e = error.stack ?? error;
@@ -162,7 +162,7 @@ export class AdminAction extends plugin {
                                 process.exit();
                             }
                         });
-                    } 
+                    }
                     catch (error) {
                         redis.del(that.key);
                         let e = error.stack ?? error;

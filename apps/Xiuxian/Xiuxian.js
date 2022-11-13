@@ -23,7 +23,7 @@ export class Xiuxian extends plugin {
         super({
             name: 'Xiuxian',
             dsc: 'Xiuxian',
-            event: 'message',   
+            event: 'message',
             priority: 800,
             rule: [
                 {
@@ -58,11 +58,16 @@ async function Write(usr_qq,player,PATH){
     return;
 }
 export async function existplayer(usr_qq) {
-    let exist_player = fs.existsSync(`${__PATH.player}/${usr_qq}.json`);
-    if (exist_player) {
-        return true;
+    let life = await this.Read_Life();
+    let find = life.find(item => item.qq == usr_qq);
+
+    if(find == undefined){
+        return false;
     }
-    return false;
+    if(find.life == 0){
+        return 0;
+    }
+    return true;
 }
 export async function Read_player(usr_qq) {
     return await Read(usr_qq,__PATH.player);;
@@ -268,7 +273,7 @@ export async function battle(e,A, B) {
         }else{
             msg.push("第"+z+"回合:对方造成"+hurt+"伤害");
         };
-        //A开始 
+        //A开始
         hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
         if(await battle_probability(battleA.burst)){
             hurt=Math.floor(hurt*battleA.burstmax);
@@ -435,7 +440,7 @@ export async function Add_najie_thing(najie, najie_thing, thing_acount) {
             najie.thing.find(item => item.id == najie_thing.id).acount = acount;
         }
         return najie;
-    }else{ 
+    }else{
         najie_thing.acount=thing_acount;
         najie.thing.push(najie_thing);
        return najie;
