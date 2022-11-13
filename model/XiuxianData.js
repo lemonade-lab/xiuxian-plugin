@@ -29,7 +29,6 @@ class XiuxianData {
         this.talent = this.__PATH.fixedtalent;
         this.all = this.__PATH.all;
         this.sorcery = this.__PATH.sorcery;
-
         this.position = this.__PATH.position;
 
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
@@ -37,16 +36,8 @@ class XiuxianData {
         this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
 
-
-        this.fabao_list = JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`));
-        this.wuqi_list = JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`));
-        this.huju_list = JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`));
-        this.danyao_list = JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`));
-        this.daoju_list = JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`));
-        this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
-        this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
-
         this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
+
         this.attack_list = JSON.parse(fs.readFileSync(`${this.sorcery}/attack_list.json`));
         this.defense_list = JSON.parse(fs.readFileSync(`${this.sorcery}/defense_list.json`));
         this.blood_list = JSON.parse(fs.readFileSync(`${this.sorcery}/blood_list.json`));
@@ -54,41 +45,39 @@ class XiuxianData {
         this.burstmax_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burstmax_list.json`));
         this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
 
-
-
         this.deletelist('all');
-        this.list(this.fabao_list, all, 99);
-        this.list(this.wuqi_list, all, 99);
-        this.list(this.huju_list, all, 99);
-        this.list(this.danyao_list, all, 99);
-        this.list(this.daoju_list, all, 99);
-        this.list(this.gongfa_list, all, 99);
-        this.list(this.ring_list, all, 99);
+
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), all, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), all, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)), all, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)), all, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`)), all, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)), all, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`)), all, 99);
+
+        /**
+         * 不用的，暂时先清空，无关紧要的数组需要清掉
+         */
+        this.monster_list = [];
+        this.attack_list = [];
+        this.defense_list = [];
+        this.blood_list = [];
+        this.burst_list = [];
+        this.burstmax_list = [];
+        this.speed_list = [];
+
         this.add(all, 'all');
 
         this.deletelist('commodities');
-        this.list(this.fabao_list, commodities, 6);
-        this.list(this.wuqi_list, commodities, 6);
-        this.list(this.huju_list, commodities, 6);
-        this.list(this.danyao_list, commodities, 6);
-        this.list(this.gongfa_list, commodities, 6);
+
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), commodities, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), commodities, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)), commodities, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)), commodities, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)), commodities, 99);
+
         this.add(commodities, 'commodities');
 
-
-         this.fabao_list = [];
-         this.wuqi_list = [];
-         this.huju_list = [];
-         this.danyao_list = [];
-         this.daoju_list = [];
-         this.gongfa_list = [];
-         this.ring_list = [];
-         this.monster_list = [];
-         this.attack_list = [];
-         this.defense_list = [];
-         this.blood_list = [];
-         this.burst_list = [];
-         this.burstmax_list = [];
-         this.speed_list = [];
     }
 
     //删除

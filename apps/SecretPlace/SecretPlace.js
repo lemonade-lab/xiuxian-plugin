@@ -1,7 +1,7 @@
 //插件加载
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
-import { Go, Read_action, Read_level, Write_action} from '../Xiuxian/Xiuxian.js'
+import { Go, Gomini,Read_action, Read_level, Write_action} from '../Xiuxian/Xiuxian.js'
 export class SecretPlace extends plugin {
     constructor() {
         super({
@@ -47,6 +47,14 @@ export class SecretPlace extends plugin {
     }
 
     async Kill(e) {
+        //击杀需要判断状态
+        let good = await Gomini(e);
+        if (!good) {
+            return;
+        };
+        //判断是否为安全区:安全区就不能出手了，不是安全区都能出手，那如何标记安全区呢？
+        
+        
         e.reply("待更新");
         return;
     }

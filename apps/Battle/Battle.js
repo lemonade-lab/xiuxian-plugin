@@ -42,7 +42,7 @@ export class Battle extends plugin {
         }
         if(qq==0){
             let h=await distance(A,B);
-            e.reply("他离你"+Math.floor(h)+"里！");
+            e.reply("他离你"+Math.floor(h)+"千里！");
         }
         else{
             //根据QQ掉落物品
@@ -58,19 +58,14 @@ export class Battle extends plugin {
                 //随机获得里面的名字
                 if(equipment.length>0){
                 let thing=await Anyarray(equipment);
-                let thing_name=thing.name;
-                    equipment = equipment.filter(item => item.name != thing_name);
-                    await Write_equipment(B, equipment);
-                let searchsthing = await search_thing_name(thing_name);
-                if (searchsthing == 1) {
-                    e.reply("世界没有" + thing_name);
-                    return;
-                }
+                    equipment = equipment.filter(item => item.name != thing.name);
+                //更新
+                await Write_equipment(B, equipment);
                 //把物品丢给A
                 let najie = await Read_najie(A);
-                najie = await Add_najie_thing(najie, searchsthing, 1);
+                najie = await Add_najie_thing(najie, thing, 1);
                 await Write_najie(A, najie);
-                e.reply(A+"夺走了"+thing_name);
+                e.reply(A+"夺走了"+thing.name);
                 }
             }
         }
