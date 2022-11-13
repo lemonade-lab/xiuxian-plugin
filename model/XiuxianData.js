@@ -32,9 +32,12 @@ class XiuxianData {
 
         this.position = this.__PATH.position;
 
-        this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
+        this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
+        this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
+
+
         this.fabao_list = JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`));
         this.wuqi_list = JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`));
         this.huju_list = JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`));
@@ -42,10 +45,8 @@ class XiuxianData {
         this.daoju_list = JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`));
         this.gongfa_list = JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`));
         this.ring_list = JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`));
-        this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
-        
-        this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
-        
+
+        this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
         this.attack_list = JSON.parse(fs.readFileSync(`${this.sorcery}/attack_list.json`));
         this.defense_list = JSON.parse(fs.readFileSync(`${this.sorcery}/defense_list.json`));
         this.blood_list = JSON.parse(fs.readFileSync(`${this.sorcery}/blood_list.json`));
@@ -53,7 +54,7 @@ class XiuxianData {
         this.burstmax_list = JSON.parse(fs.readFileSync(`${this.sorcery}/burstmax_list.json`));
         this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
 
-        
+
 
         this.deletelist('all');
         this.list(this.fabao_list, all, 99);
@@ -72,6 +73,22 @@ class XiuxianData {
         this.list(this.danyao_list, commodities, 6);
         this.list(this.gongfa_list, commodities, 6);
         this.add(commodities, 'commodities');
+
+
+         this.fabao_list = [];
+         this.wuqi_list = [];
+         this.huju_list = [];
+         this.danyao_list = [];
+         this.daoju_list = [];
+         this.gongfa_list = [];
+         this.ring_list = [];
+         this.monster_list = [];
+         this.attack_list = [];
+         this.defense_list = [];
+         this.blood_list = [];
+         this.burst_list = [];
+         this.burstmax_list = [];
+         this.speed_list = [];
     }
 
     //删除
@@ -112,7 +129,7 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
-    
+
     existData(file_path_type, file_name) {
         let file_path;
         file_path = this.__PATH[file_path_type];
