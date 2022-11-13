@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { createRequire } from "module";
 import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
-import {Read_Life, Write_Life} from "../Xiuxian/Xiuxian";
+import {Read_Life, Write_Life} from "../Xiuxian/Xiuxian.js";
 const require = createRequire(import.meta.url);
 const { exec } = require("child_process");
 const _path = process.cwd();
