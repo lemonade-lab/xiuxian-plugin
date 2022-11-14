@@ -54,6 +54,15 @@ export class Userequipment extends plugin {
             e.reply("没有" + thing_name);
             return;
         }
+        let id=searchsthing.id.split('-')
+        if(id[0]!= 1 ){
+            if(id[0]!=2){
+                if (id[0]!=3){
+                    e.reply(`此物无法被装备`);
+                    return ;
+                }
+            }
+        }
         let equipment = await Read_equipment(usr_qq);
         if (equipment.length < 4) {
             equipment.push(searchsthing);

@@ -62,6 +62,10 @@ export class UserHome extends plugin {
         }
         //切割类型，看到类型对不对
         let id = searchsthing.id.split('-');
+        if(id[0] != 4){
+            e.reply(`什么东西你都吃啊`);
+            return ;
+        }
         if (id[1] == 1) {
             let blood = parseInt(searchsthing.blood);
             await Add_blood(usr_qq, blood);
@@ -72,7 +76,7 @@ export class UserHome extends plugin {
             await Add_experience(usr_qq, thing_acount * experience);
             e.reply("修为增加" + thing_acount * searchsthing.experience);
         }
-        else if (id[2] == 3) {
+        else if (id[1] == 3) {
             let experiencemax = parseInt(searchsthing.experiencemax);
             await Add_experiencemax(usr_qq, thing_acount * experiencemax);
             e.reply("气血增加" + thing_acount * searchsthing.experiencemax);
