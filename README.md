@@ -18,7 +18,10 @@ xiuxian-emulator-plugin/resources/help/
 
 扩展名  | 作者 | 版本 | 状态
 ------------- | ------------- | ------------- | -------------
-| [宗门系统 (xiuxian-association-pluging)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 更新中 |
+| [宗门系统 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 测试中 |
+| [家园系统 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | V1.0 | 测试中 |
+| [道侣系统 (xiuxian-lovers-plugin)](https://afdian.net/a/ningmengchongshui) | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |
+| [职业系统 (xiuxian-occupation-plugin)](https://afdian.net/a/ningmengchongshui) | [@零零零零](https://afdian.net/a/ningmengchongshui) | V1.0 | 测试中 |
 
 ## 辅助资源
 
@@ -33,19 +36,8 @@ xiuxian-emulator-plugin/resources/help/
 | [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
 | [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |  
 | [修仙职业](https://afdian.net/a/ningmengchongshui) | 251776816 | [@零零零零](https://afdian.net/a/ningmengchongshui) |  
+| [修仙道侣](https://afdian.net/a/ningmengchongshui) | 647028766 | [@水脚脚](https://gitee.com/waterfeet) |  
 | [云崽Help](https://afdian.net/a/ningmengchongshui) | 806943302 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
-
-## 三点水
-
-分组  | 成员 | 成员 | 成员 | 成员
-------------- | ------------- | ------------- | ------------- | -------------
-创始  | 咸咸咸鱼鱼  | 水脚脚  | 柠檬冲水  | 
-开发组  | 零零零零  | 汐颜  | DD斩首  | 湖中屋
-美工组  | 大仙  | 啵叽  |   | 
-脚本组  | 冬季巧克力  | 权学  | 妖妖 | 离散
-策划组  | 别那么骄傲  | 墨羽  | 大爱仙尊  | 越追越远
-测试组  |  就再氪两单嘛 | 雨晴  | 秋雨  | 
-社交组  |  hasee舟舟 | 开阳  | DisgraceHiei  | 拾郎  
   
 ## 免责声明       
 1. 功能仅限内部交流与小范围使用       
