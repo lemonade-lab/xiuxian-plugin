@@ -27,7 +27,7 @@ export class UserModify extends plugin {
 
     //改名
     async Change_name(e) {
-        let good = await Go(e);
+        const good = await Go(e);
         if (!good) {
             return;
         }
@@ -76,7 +76,7 @@ export class UserModify extends plugin {
 
     //设置道宣
     async Change_autograph(e) {
-        let good = await Go(e);
+        const good = await Go(e);
         if (!good) {
             return;
         }

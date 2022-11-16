@@ -37,7 +37,7 @@ export class Level extends plugin {
     }
 
     async LevelMax_up(e) {
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         }
@@ -116,7 +116,7 @@ export class Level extends plugin {
 
     //突破
     async Level_up(e) {
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         }
@@ -200,7 +200,7 @@ export class Level extends plugin {
     };
 
     async Level_up2(e){        
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         }
@@ -210,7 +210,7 @@ export class Level extends plugin {
 
     //渡劫
     async fate_up(e) {
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         }

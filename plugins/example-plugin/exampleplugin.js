@@ -36,7 +36,7 @@ export class exampleplugin extends plugin {
             return;
         };
         //发送消息
-        e.reply("#插件示例测试")
+        e.reply("#插件示例测试");
         return;
     }
 }

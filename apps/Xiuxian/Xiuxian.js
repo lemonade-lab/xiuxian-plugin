@@ -299,6 +299,7 @@ export async function battle(e,A, B) {
     return qq;
 }
 
+//整数
 export async function battle_probability(P) {
     let newp=0;
     if(P>100){
@@ -620,6 +621,10 @@ export async function offaction(qq) {
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
         action = JSON.parse(action);
+        if(action.actionName==undefined){
+            e.reply("存在旧版本残留，请联系主人使用#清除数据");
+            return false;
+        };
         e.reply(action.actionName+"中...")
         return false;
     }
@@ -640,6 +645,10 @@ export async function Go(e) {
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
         action = JSON.parse(action);
+        if(action.actionName==undefined){
+            e.reply("存在旧版本残留，请联系主人使用#清除数据");
+            return false;
+        };
         e.reply(action.actionName+"中...")
         return false;
     }

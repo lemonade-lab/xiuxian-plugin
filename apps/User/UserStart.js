@@ -150,7 +150,7 @@ export class UserStart extends plugin {
 
     //重新修仙
     async reCreate_player(e) {
-        let good = await Go(e);
+        const good = await Go(e);
         if (!good) {
             return;
         }

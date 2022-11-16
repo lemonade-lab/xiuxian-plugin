@@ -1,12 +1,15 @@
 @font-face {
-  font-family: xiuxian;
+  font-family:"xiuxian";
   src: url('../../../font/_GBK.TTF');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
   transform: scale(1);
   width: 100%;
   text-align: center;
+  font-family: xiuxian;
 }
 
 .updata-top {

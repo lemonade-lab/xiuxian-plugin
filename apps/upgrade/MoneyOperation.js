@@ -19,7 +19,7 @@ export class MoneyOperation extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian") ;
     }
     async Give_lingshi(e) {
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         }

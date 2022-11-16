@@ -35,7 +35,7 @@ export class PlayerControl extends plugin {
 
     //闭关
     async Biguan(e) {
-        let good = await Gomini(e);
+        const good = await Gomini(e);
         if (!good) {
             return;
         }
@@ -52,7 +52,7 @@ export class PlayerControl extends plugin {
 
     //降妖
     async Dagong(e) {
-        let good = await Go(e);
+        const good = await Go(e);
         if (!good) {
             return;
         }

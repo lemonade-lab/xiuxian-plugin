@@ -20,7 +20,7 @@ export class Battle extends plugin {
 
     //攻击
     async Attack(e) {
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         };

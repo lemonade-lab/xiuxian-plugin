@@ -1,6 +1,8 @@
 @font-face {
-  font-family: xiuxian;
+  font-family:"xiuxian";
   src: url('../../../font/_GBK.TTF');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
@@ -9,6 +11,7 @@ body {
   text-align: center;
   background-image: url('najie.jpg');
   background-size: 100% auto;
+  font-family: xiuxian;
 }
 
 .user_top {

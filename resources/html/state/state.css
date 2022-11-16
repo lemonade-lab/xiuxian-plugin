@@ -1,6 +1,8 @@
 @font-face {
-  font-family: xiuxian;
+  font-family:"xiuxian";
   src: url('../../../font/_GBK.TTF');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
@@ -9,6 +11,7 @@ body {
   background-image: url('state.png');
   background-size: 100% 100%;
   margin: auto;
+  font-family: xiuxian;
 }
 
 .state-top {

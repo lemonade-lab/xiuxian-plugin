@@ -46,7 +46,7 @@ export class UserAction extends plugin {
 
     //升级储物袋
     async Lv_up_najie(e) {
-        let good=await Go(e);
+        const good=await Go(e);
         if (!good) {
             return;
         }
@@ -73,7 +73,7 @@ export class UserAction extends plugin {
 
     
     async Take_lingshi(e) {
-        let good = await Go(e);
+        const good = await Go(e);
         if (!good) {
             return;
         }
