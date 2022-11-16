@@ -48,7 +48,7 @@ export class MoneyOperation extends plugin {
         }
         await redis.set("xiuxian:player:" + A +':'+ CDid, now_time);
         await redis.expire("xiuxian:player:" + A +':'+ CDid, CDTime*60);
-        await Add_lingshi(A, -lastlingshi);
+        await Add_lingshi(A, -lingshi);
         await Add_lingshi(B, lingshi);
         e.reply([segment.at(B), `你获得了由 ${A_player.name}赠送的${lingshi}灵石`])
         return;
