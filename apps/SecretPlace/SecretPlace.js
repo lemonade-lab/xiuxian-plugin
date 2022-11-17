@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import data from '../../model/XiuxianData.js'
-import { Go,  Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js'
+import data from '../../model/XiuxianData.js';
+import { Go,  Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class SecretPlace extends plugin {
     constructor() {
         super({

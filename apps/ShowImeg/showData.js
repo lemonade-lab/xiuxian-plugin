@@ -1,8 +1,8 @@
-import plugin from "../../../../lib/plugins/plugin.js"
-import Show from "../../model/show.js"
-import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
-import config from "../../model/Config.js"
-import data from '../../model/XiuxianData.js'
+import plugin from "../../../../lib/plugins/plugin.js";
+import Show from "../../model/show.js";
+import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
+import config from "../../model/Config.js";
+import data from '../../model/XiuxianData.js';
 import {
     talentname, Read_battle,Read_player, Read_wealth, Read_talent,
     Read_equipment, Read_level, Read_najie, Read_Life, existplayer
@@ -202,7 +202,6 @@ export async function get_najie_img(e) {
     const thing=najie.thing;
     const danyao_list=[];
     const daoju_list=[];
-    //循环与await将会消耗大量算力
     thing.forEach((item,index) => {
         let id = item.id.split('-');
         if (id[0] == 4) {
