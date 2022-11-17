@@ -44,7 +44,7 @@ export class BattleSite extends plugin {
                 "attack": LevelMax.attack,
                 "defense": LevelMax.defense,
                 "blood": LevelMax.blood,
-                "burst": LevelMax.burst+LevelMax.id*10,
+                "burst": LevelMax.burst+LevelMax.id*5,
                 "burstmax": LevelMax.burstmax+LevelMax.id*10,
                 "speed": LevelMax.speed+5
             }
