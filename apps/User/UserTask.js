@@ -1,4 +1,3 @@
-
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
 import { offaction, Read_Life, Write_Life, __PATH } from '../Xiuxian/Xiuxian.js';

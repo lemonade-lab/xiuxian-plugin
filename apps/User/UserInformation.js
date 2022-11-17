@@ -1,4 +1,3 @@
-
 import plugin from '../../../../lib/plugins/plugin.js';
 import {get_equipment_img,get_player_img} from '../ShowImeg/showData.js';
 import {existplayer } from '../Xiuxian/Xiuxian.js';

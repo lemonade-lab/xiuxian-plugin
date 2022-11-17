@@ -1,4 +1,3 @@
-
 import plugin from '../../../../lib/plugins/plugin.js';
 import filecp from "../../model/filecp.js";
 import fs from "node:fs";

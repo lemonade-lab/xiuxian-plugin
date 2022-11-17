@@ -1,4 +1,3 @@
-
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
 import { get_najie_img } from '../ShowImeg/showData.js';

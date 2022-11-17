@@ -1,4 +1,3 @@
-
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
 import { __PATH, Write_player, Go, GenerateCD,Read_player,Read_wealth, Write_Life, Read_Life, Add_lingshi} from '../Xiuxian/Xiuxian.js';

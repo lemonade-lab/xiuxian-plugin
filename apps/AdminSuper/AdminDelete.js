@@ -1,4 +1,3 @@
-
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from "node:fs";
 import {Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js';
