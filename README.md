@@ -23,13 +23,7 @@ xiuxian-emulator-plugin/resources/help/
 | [道侣系统 (xiuxian-lovers-plugin)](https://afdian.net/a/ningmengchongshui) | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |
 | [职业系统 (xiuxian-occupation-plugin)](https://afdian.net/a/ningmengchongshui) | [@零零零零](https://afdian.net/a/ningmengchongshui) | V1.0 | 测试中 |
 
-## 辅助资源
-
-仓库名  | 作者 | 版本 | 状态
-------------- | ------------- | ------------- | -------------
-| [一键安装 (Yunzai-Bot-Help)](https://gitee.com/ningmengchongshui/Yunzai-Bot-Help) | [@柠檬冲水](https://gitee.com/ningmengchongshui) | V1.2 | 更新中 |
- 
-## 企鹅聚集    
+## 企鹅聚集     
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
@@ -37,7 +31,13 @@ xiuxian-emulator-plugin/resources/help/
 | [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |  
 | [修仙职业](https://afdian.net/a/ningmengchongshui) | 251776816 | [@零零零零](https://afdian.net/a/ningmengchongshui) |  
 | [修仙道侣](https://afdian.net/a/ningmengchongshui) | 647028766 | [@水脚脚](https://gitee.com/waterfeet) |  
-| [云崽Help](https://afdian.net/a/ningmengchongshui) | 806943302 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
+| [BotHelp](https://afdian.net/a/ningmengchongshui) | 806943302 | [@冬季巧克力](https://gitee.com/ningmengchongshui) |  
+  
+## 辅助资源   
+
+仓库名  | 作者 | 版本 | 状态
+------------- | ------------- | ------------- | -------------
+| [一键安装 (Yunzai-Bot-Help)](https://gitee.com/ningmengchongshui/Yunzai-Bot-Help) | [@柠檬冲水](https://gitee.com/ningmengchongshui) | V1.2 | 更新中 |
   
 ## 免责声明       
 1. 功能仅限内部交流与小范围使用       
