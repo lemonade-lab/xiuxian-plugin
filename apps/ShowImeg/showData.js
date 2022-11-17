@@ -63,13 +63,12 @@ export async function get_state_img(e) {
     };
     const player = await Read_level(usr_qq);
     const Level_id = player.level_id;
-    let Level_list = data.Level_list;
-    for (var i = 1; i <= 60; i++) {
-        if (i > Level_id && i < Level_id + 5) {
-            continue;
+    const Level_list = data.Level_list;
+    Level_list.forEach(async(item,index,arr)=>{
+        if (item.id <= Level_id && item.id > Level_id + 2) {
+            arr.splice(index, 1);
         };
-        Level_list = await Level_list.filter(item => item.id != i);
-    };
+    });
     const myData = {
         name: "炼气境界",
         user_id: usr_qq,
@@ -89,13 +88,12 @@ export async function get_statemax_img(e) {
     }
     const player = await Read_level(usr_qq);
     const Level_id = player.levelmax_id;
-    let LevelMax_list = data.LevelMax_list;
-    for (var i = 1; i <= 60; i++) {
-        if (i > Level_id && i < Level_id + 5) {
-            continue;
+    const LevelMax_list = data.LevelMax_list;
+    LevelMax_list.forEach(async(item,index,arr)=>{
+        if (item.id <= Level_id && item.id > Level_id + 2) {
+            arr.splice(index, 1);
         };
-        LevelMax_list = await LevelMax_list.filter(item => item.id != i);
-    };
+    });
     const myData = {
         name: "炼体境界",
         user_id: usr_qq,

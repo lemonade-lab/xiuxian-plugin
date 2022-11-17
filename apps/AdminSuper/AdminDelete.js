@@ -92,7 +92,7 @@ export class AdminDelete extends plugin {
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         files.forEach((item,index,arr)=>{
-            let file = item.replace(".json", "");
+            const file = item.replace(".json", "");
             playerList.push(file);
         });
         playerList.forEach(async(item,index,arr)=>{
@@ -113,7 +113,7 @@ export class AdminDelete extends plugin {
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
         files.forEach((item,index,arr)=>{
-            let file = item.replace(".json", "");
+            const file = item.replace(".json", "");
             playerList.push(file);
         });
         playerList.forEach(async(item,index,arr)=>{

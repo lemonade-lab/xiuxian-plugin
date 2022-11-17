@@ -116,6 +116,9 @@ export class Level extends plugin {
             return;
         };
         const player = await Read_level(usr_qq);
+        if (player.level_id > 10) {
+            return;
+        };
         const Level = data.Level_list.find(item => item.id == player.level_id);
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp - player.experience}修为后方可突破`);
