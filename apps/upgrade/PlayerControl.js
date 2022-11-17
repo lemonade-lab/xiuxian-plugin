@@ -56,8 +56,8 @@ export class PlayerControl extends plugin {
         if (!good) {
             return;
         }
-        let usr_qq = e.user_id;
-        let now_time = new Date().getTime();
+        const usr_qq = e.user_id;
+        const now_time = new Date().getTime();
         let actionObject = {
             "actionName": "降妖",
             "startTime": now_time
@@ -71,7 +71,7 @@ export class PlayerControl extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let usr_qq = e.user_id;
+        const usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
@@ -106,7 +106,7 @@ export class PlayerControl extends plugin {
         if (!e.isGroup) {
             return;
         }
-        let usr_qq = e.user_id;
+        const usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
@@ -137,7 +137,7 @@ export class PlayerControl extends plugin {
     }
 
     async upgrade(user_id, time, name, group_id) {
-        let usr_qq = user_id;
+        const usr_qq = user_id;
         let level = await Read_level(usr_qq);
         let other = 0;
         let msg = [segment.at(usr_qq)];
