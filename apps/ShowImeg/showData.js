@@ -67,21 +67,20 @@ export async function get_state_img(e) {
     for (var i = 1; i <= 60; i++) {
         if (i > Level_id && i < Level_id + 5) {
             continue;
-        }
+        };
         Level_list = await Level_list.filter(item => item.id != i);
-    }
+    };
     const myData = {
         name: "炼气境界",
         user_id: usr_qq,
         Level_list: Level_list
-    }
+    };
     const data1 = await new Show(e).get_Data("state", "state", myData);
     const img = await puppeteer.screenshot("state", {
         ...data1,
     });
     return img;
-}
-
+};
 export async function get_statemax_img(e) {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
@@ -94,72 +93,65 @@ export async function get_statemax_img(e) {
     for (var i = 1; i <= 60; i++) {
         if (i > Level_id && i < Level_id + 5) {
             continue;
-        }
+        };
         LevelMax_list = await LevelMax_list.filter(item => item.id != i);
-    }
+    };
     const myData = {
         name: "炼体境界",
         user_id: usr_qq,
         Level_list: LevelMax_list
-    }
+    };
     const data1 = await new Show(e).get_Data("state", "state", myData);
     const img = await puppeteer.screenshot("statemax", {
         ...data1,
     });
     return img;
-}
-
+};
 export async function get_map_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
-    }
-    let myData = {};
+    };
+    const myData = {};
     const data1 = await new Show(e).get_Data("map", "map", myData);
-    let img = await puppeteer.screenshot("map", {
+    const img = await puppeteer.screenshot("map", {
         ...data1,
     });
     return img;
-}
-
-let updata = config.getdefSet("version", "version");
+};
+const updata = config.getdefSet("version", "version");
 export async function get_updata_img(e) {
-    let myData = {
+    const myData = {
         version: updata
-    }
+    };
     const data1 = await new Show(e).get_Data("updata", "updata", myData);
-    let img = await puppeteer.screenshot("updata", {
+    const img = await puppeteer.screenshot("updata", {
         ...data1,
     });
     return img;
 
-}
-
-
-/**
- * 对外的
- */
+};
 export async function get_player_img(e) {
-    let usr_qq = e.user_id;
-    let player = await Read_player(usr_qq);
+    const usr_qq = e.user_id;
+    const player = await Read_player(usr_qq);
+    const wealt = await Read_wealth(usr_qq);
+    const equipment = await Read_equipment(usr_qq);
+    const talent = await Read_talent(usr_qq);
+    const level = await Read_level(usr_qq);
+    const battle = await Read_battle(usr_qq);
+    const linggenname = await talentname(talent);
     let life = await Read_Life();
     life = life.find(item => item.qq == usr_qq);
-    let wealt = await Read_wealth(usr_qq);
-    let equipment = await Read_equipment(usr_qq);
-    let talent = await Read_talent(usr_qq);
-    let level = await Read_level(usr_qq);
-    let battle = await Read_battle(usr_qq);
-    let linggenname = await talentname(talent);
     let name = "";
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
-    }
+    };
     if (await talent.talentshow != 0) {
         talent.talentsize = "0";
         name = "未知";
-    }
-    let myData = {
+    };
+    const myData = {
         user_id: usr_qq,
         life: life,
         player: player,
@@ -173,47 +165,43 @@ export async function get_player_img(e) {
         talentsize: Math.trunc(talent.talentsize)
     }
     const data1 = await new Show(e).get_Data("User/player", "player", myData);
-    let img = await puppeteer.screenshot("player", {
+    const img = await puppeteer.screenshot("player", {
         ...data1,
     });
     return img;
-
-}
-
+};
 export async function get_equipment_img(e) {
-    let usr_qq = e.user_id;
+    const usr_qq = e.user_id;
+    const battle = await Read_battle(usr_qq);
+    const equipment = await Read_equipment(usr_qq);
     let life = await Read_Life();
     life = life.find(item => item.qq == usr_qq);
-    let equipment = await Read_equipment(usr_qq);
-    let battle = await Read_battle(usr_qq);
-    let myData = {
+    const myData = {
         user_id: usr_qq,
         battle: battle,
         life: life,
         equipment: equipment
     }
     const data1 = await new Show(e).get_Data("User/equipment", "equipment", myData);
-    let img = await puppeteer.screenshot("equipment", {
+    const img = await puppeteer.screenshot("equipment", {
         ...data1,
     });
     return img;
-}
-
+};
 export async function get_najie_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     }
     let life = await Read_Life();
     life = life.find(item => item.qq == usr_qq);
-    let player = await Read_player(usr_qq);
-    let battle = await Read_battle(usr_qq);
-    let najie = await Read_najie(usr_qq);
-
-    let thing=najie.thing;
-    let danyao_list=[];
-    let daoju_list=[];
+    const player = await Read_player(usr_qq);
+    const battle = await Read_battle(usr_qq);
+    const najie = await Read_najie(usr_qq);
+    const thing=najie.thing;
+    const danyao_list=[];
+    const daoju_list=[];
     //循环与await将会消耗大量算力
     thing.forEach((item,index) => {
         let id = item.id.split('-');
@@ -226,7 +214,7 @@ export async function get_najie_img(e) {
             thing.splice(index,1);
         }
     });
-    let myData = {
+    const myData = {
         user_id: usr_qq,
         player: player,
         life: life,
@@ -237,24 +225,23 @@ export async function get_najie_img(e) {
         danyao_list:danyao_list
     }
     const data1 = await new Show(e).get_Data("User/najie", "najie", myData);
-    let img = await puppeteer.screenshot("najie", {
+    const img = await puppeteer.screenshot("najie", {
         ...data1,
     });
     return img;
-}
-
+};
 export async function get_toplist_img(e, list) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
-    }
-    let myData = {
+    };
+    const myData = {
         list: list,
-    }
+    };
     const data1 = await new Show(e).get_Data("toplist", "toplist", myData);
-    let img = await puppeteer.screenshot("toplist", {
+    const img = await puppeteer.screenshot("toplist", {
         ...data1,
     });
     return img;
-}
+};
