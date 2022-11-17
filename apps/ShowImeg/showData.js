@@ -4,8 +4,7 @@ import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import {
-    talentname, Read_battle,
-    Read_player, Read_wealth, Read_talent,
+    talentname, Read_battle,Read_player, Read_wealth, Read_talent,
     Read_equipment, Read_level, Read_najie, Read_Life, existplayer
 } from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
@@ -33,39 +32,37 @@ export class showData extends plugin {
                     fnc: "show_updata",
                 }
             ]
-        })
-    }
-
+        });
+    };
     async show_Level(e) {
-        let img = await get_state_img(e);
+        const img = await get_state_img(e);
         e.reply(img);
         return;
-    }
+    };
     async show_LevelMax(e) {
-        let img = await get_statemax_img(e);
+        const img = await get_statemax_img(e);
         e.reply(img);
         return;
-    }
+    };
     async show_map(e){
-        let img = await get_map_img(e);
+        const img = await get_map_img(e);
         e.reply(img);
         return;
-    }
+    };
     async show_updata(e) {
-        let img = await get_updata_img(e);
+        const img = await get_updata_img(e);
         e.reply(img);
         return;
-    }
-}
-
+    };
+};
 export async function get_state_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay){
         return;
-    }
-    let player = await Read_level(usr_qq);
-    let Level_id = player.level_id;
+    };
+    const player = await Read_level(usr_qq);
+    const Level_id = player.level_id;
     let Level_list = data.Level_list;
     for (var i = 1; i <= 60; i++) {
         if (i > Level_id && i < Level_id + 5) {
@@ -73,27 +70,26 @@ export async function get_state_img(e) {
         }
         Level_list = await Level_list.filter(item => item.id != i);
     }
-    let myData = {
+    const myData = {
         name: "炼气境界",
         user_id: usr_qq,
         Level_list: Level_list
     }
     const data1 = await new Show(e).get_Data("state", "state", myData);
-    let img = await puppeteer.screenshot("state", {
+    const img = await puppeteer.screenshot("state", {
         ...data1,
     });
     return img;
-
 }
 
 export async function get_statemax_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = await existplayer(usr_qq);
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     }
-    let player = await Read_level(usr_qq);
-    let Level_id = player.levelmax_id;
+    const player = await Read_level(usr_qq);
+    const Level_id = player.levelmax_id;
     let LevelMax_list = data.LevelMax_list;
     for (var i = 1; i <= 60; i++) {
         if (i > Level_id && i < Level_id + 5) {
@@ -101,13 +97,13 @@ export async function get_statemax_img(e) {
         }
         LevelMax_list = await LevelMax_list.filter(item => item.id != i);
     }
-    let myData = {
+    const myData = {
         name: "炼体境界",
         user_id: usr_qq,
         Level_list: LevelMax_list
     }
     const data1 = await new Show(e).get_Data("state", "state", myData);
-    let img = await puppeteer.screenshot("statemax", {
+    const img = await puppeteer.screenshot("statemax", {
         ...data1,
     });
     return img;
