@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import filecp from "../../model/filecp.js";
 import fs from "node:fs";
-import { __PATH, updata_equipment,Read_Life, Write_Life } from '../Xiuxian/Xiuxian.js';
+import {__PATH, updata_equipment} from '../Xiuxian/Xiuxian.js';
 export class AdminSuper extends plugin {
     constructor() {
         super({

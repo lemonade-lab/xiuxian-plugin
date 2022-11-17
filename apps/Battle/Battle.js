@@ -1,7 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { Go,GenerateCD,__PATH,At,battle,interactive,distance,
-    Read_equipment,Anyarray,Write_equipment,Read_najie,
-    Add_najie_thing, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Go,GenerateCD,__PATH,At,battle,interactive,distance,Read_equipment,Anyarray,Write_equipment,Read_najie,Add_najie_thing, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class Battle extends plugin {
     constructor() {
         super({

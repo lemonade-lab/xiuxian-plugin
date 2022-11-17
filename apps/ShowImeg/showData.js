@@ -3,10 +3,7 @@ import Show from "../../model/show.js";
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
 import config from "../../model/Config.js";
 import data from '../../model/XiuxianData.js';
-import {
-    talentname, Read_battle,Read_player, Read_wealth, Read_talent,
-    Read_equipment, Read_level, Read_najie, Read_Life, existplayer
-} from '../Xiuxian/Xiuxian.js';
+import {talentname, Read_battle,Read_player, Read_wealth, Read_talent,Read_equipment, Read_level, Read_najie, Read_Life, existplayer} from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
     constructor() {
         super({
