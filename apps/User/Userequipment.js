@@ -1,5 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import {existplayer, search_thing_name, exist_najie_thing_id,Read_najie,Read_equipment, Write_equipment, Write_najie,Add_najie_thing} from '../Xiuxian/Xiuxian.js'
+import plugin from '../../../../lib/plugins/plugin.js';
+import {existplayer, search_thing_name, exist_najie_thing_id,Read_najie,Read_equipment, Write_equipment, Write_najie,Add_najie_thing} from '../Xiuxian/Xiuxian.js';
 export class Userequipment extends plugin {
     constructor() {
         super({
