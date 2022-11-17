@@ -1,7 +1,7 @@
 
-import plugin from '../../../../lib/plugins/plugin.js'
-import {get_equipment_img,get_player_img} from '../ShowImeg/showData.js'
-import {existplayer } from '../Xiuxian/Xiuxian.js'
+import plugin from '../../../../lib/plugins/plugin.js';
+import {get_equipment_img,get_player_img} from '../ShowImeg/showData.js';
+import {existplayer } from '../Xiuxian/Xiuxian.js';
 export class UserInformation extends plugin {
     constructor() {
         super({
@@ -19,33 +19,26 @@ export class UserInformation extends plugin {
                     fnc: "show_equipment",
                 }
             ]
-        })
-    }
-
-
-    //#基础信息
+        });
+    };
     async Show_player(e) {
-        let usr_qq = e.user_id;
-        let ifexistplay = await existplayer(usr_qq);
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
-        }
-        let img = await get_player_img(e);
+        };
+        const img = await get_player_img(e);
         e.reply(img);
         return;
-    }
-
-
-    //修仙面板
+    };
     async show_equipment(e) {
-        let usr_qq = e.user_id;
-        let ifexistplay = await existplayer(usr_qq);
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
-        }
-        let img = await get_equipment_img(e);
+        };
+        const img = await get_equipment_img(e);
         e.reply(img);
         return;
-    }
-
-}
+    };
+};
