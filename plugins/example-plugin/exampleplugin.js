@@ -1,9 +1,8 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import plugin from '../../../../lib/plugins/plugin.js';
 //类名必须与文件名一致，即plugins跟plugins.js
 export class exampleplugin extends plugin {
     //基础构造
     constructor() {
-        //
         super({
             //
             name: 'exampleplugin',
@@ -22,15 +21,14 @@ export class exampleplugin extends plugin {
                     fnc: 'xianxianceshi'
                 }
             ]
-        })
-    }
-
+        });
+    };
     // 异步  函数名（消息）
     async xianxianceshi(e){
         //非私聊拦截
         if (!e.isGroup) {
             return;
-        }
+        };
         //非主人拦截
         if (!e.isMaster) {
             return;
@@ -38,5 +36,5 @@ export class exampleplugin extends plugin {
         //发送消息
         e.reply("#插件示例测试");
         return;
-    }
-}
+    };
+};

@@ -1,7 +1,7 @@
-import plugin from '../../../../../lib/plugins/plugin.js'
-import { segment } from "oicq"
-import os from 'os'
-import { ChildProcess, exec, execSync } from 'child_process'
+import plugin from '../../../../../lib/plugins/plugin.js';
+import { segment } from "oicq";
+import os from 'os';
+import { ChildProcess, exec, execSync } from 'child_process';
 export class Statusplugin extends plugin {
     constructor() {
         super({
@@ -19,13 +19,13 @@ export class Statusplugin extends plugin {
                     fnc: 'cleancache'
                 }
             ]
-        })
-    }
+        });
+    };
     async getCPUSTATE(e) {
         //非私聊拦截
         if (!e.isGroup) {
             return;
-        }
+        };
         var dealTime = (seconds) => {
             var seconds = seconds | 0;
             var day = (seconds / (3600 * 24)) | 0;
@@ -95,9 +95,7 @@ export class Statusplugin extends plugin {
         // }
         e.reply(msg);
         return;
-    }
-
-
+    };
     async cleancache(e) {
         if(!e.isMaster){
             e.reply("仅主人可操作")
@@ -113,5 +111,5 @@ export class Statusplugin extends plugin {
         await e.reply("结束清理");
         await this.getCPUSTATE(e);
         return;
-    }
-}
+    };
+};
