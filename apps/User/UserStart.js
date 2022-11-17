@@ -33,31 +33,28 @@ export class UserStart extends plugin {
 
     //#踏入仙途
     async Create_player(e) {
-        let group= this.xiuxianConfigData.group.white;
+        const group= this.xiuxianConfigData.group.white;
         if(group!=0){
             if(e.group_id!=group){
                 return;
             }
         }
-        if (!e.isGroup) {
+        if(!e.isGroup||e.user_id==80000000){
             return;
         }
-        let usr_qq = e.user_id;
-        if (usr_qq == 80000000) {
-            return;
-        }
-        let ifexistplay = await existplayer(usr_qq);
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
         if (ifexistplay) {
             this.Show_player(e);
             return;
         }
-        let new_player = {
+        const new_player = {
             "autograph": "无",//道宣
             "days": 0//签到
         }
         await Write_player(usr_qq, new_player);
-        let newtalent = await get_talent();
-        let new_talent = {
+        const newtalent = await get_talent();
+        const new_talent = {
             "talent": newtalent,//灵根
             "talentshow": 1,//显示0，隐藏1
             "talentsize": 0,//天赋
@@ -65,7 +62,7 @@ export class UserStart extends plugin {
         }
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
-        let newsorcery={
+        const newsorcery={
             "soul":{
                 'id1':0,
                 'id2':0,
@@ -76,11 +73,11 @@ export class UserStart extends plugin {
             ]
         }
         await Write_newsorcery(usr_qq, newsorcery);
-        let new_battle = {
+        const new_battle = {
             "nowblood": data.Level_list.find(item => item.id == 1).blood+data.LevelMax_list.find(item => item.id == 1).blood,//血量
         }
         await Write_battle(usr_qq, new_battle);
-        let new_level = {
+        const new_level = {
             "prestige": 0,//魔力
             "level_id": 1,//练气境界
             "levelname": '凡人',//练气名
@@ -95,7 +92,7 @@ export class UserStart extends plugin {
             "rankmax_id":0//数组位置
         }
         await Write_level(usr_qq, new_level);
-        let new_wealth = {
+        const new_wealth = {
             "lingshi": 5,
             "xianshi": 0
         }
@@ -105,7 +102,7 @@ export class UserStart extends plugin {
          * 400-499
          */
         //新手村随机位置
-        let new_action = {
+        const new_action = {
             "game": 1,//游戏状态
             "Couple": 1, //双修
             "x":Math.floor((Math.random() * (199-100))) + Number(100),
@@ -115,18 +112,18 @@ export class UserStart extends plugin {
         }
         await Write_action(usr_qq, new_action);
         await Write_equipment(usr_qq, []);
-        let new_najie = {
+        const new_najie = {
             "grade": 1,
             "lingshimax": 50000,
             "lingshi": 0,
             "thing": []
         }
         await Write_najie(usr_qq, new_najie);
-        let name1 = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
-        let name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-        let name = await Anyarray(name1)+await Anyarray(name2);
-        let life = await Read_Life();
-        let time = new Date();
+        const name1 = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+        const name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        const name = await Anyarray(name1)+await Anyarray(name2);
+        const life = await Read_Life();
+        const time = new Date();
         life.push({
             "qq": usr_qq,
             "name": `${name}`,
@@ -142,7 +139,7 @@ export class UserStart extends plugin {
 
 
     async Show_player(e) {
-        let img = await get_player_img(e);
+        const img = await get_player_img(e);
         e.reply(img);
         return;
     }
@@ -154,7 +151,7 @@ export class UserStart extends plugin {
         if (!good) {
             return;
         }
-        let usr_qq = e.user_id;
+        const usr_qq = e.user_id;
         let CDTime = this.xiuxianConfigData.CD.reborn;
         //转世cd
         let CDid = "8";

@@ -36,8 +36,6 @@ class XiuxianData {
         this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
 
-        this.monster_list = JSON.parse(fs.readFileSync(`${this.lib}/monster_list.json`));
-
         this.attack_list = JSON.parse(fs.readFileSync(`${this.sorcery}/attack_list.json`));
         this.defense_list = JSON.parse(fs.readFileSync(`${this.sorcery}/defense_list.json`));
         this.blood_list = JSON.parse(fs.readFileSync(`${this.sorcery}/blood_list.json`));
@@ -58,7 +56,6 @@ class XiuxianData {
         /**
          * 不用的，暂时先清空，无关紧要的数组需要清掉
          */
-        this.monster_list = [];
         this.attack_list = [];
         this.defense_list = [];
         this.blood_list = [];

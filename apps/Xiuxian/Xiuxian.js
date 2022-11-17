@@ -1,4 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+
+import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs";
 import path from "path";
 import data from '../../model/XiuxianData.js';
@@ -17,7 +18,6 @@ export const __PATH = {
     Forum: path.join(__dirname, "/resources/data/birth/Forum"),
     life: path.join(__dirname, "/resources/data/birth/xiuxian/life")
 }
-
 export class Xiuxian extends plugin {
     constructor() {
         super({
@@ -29,13 +29,9 @@ export class Xiuxian extends plugin {
             ]
         })
     }
-
-
-
 }
-
 async function Read(usr_qq,PATH) {
-    let dir = path.join(`${PATH}/${usr_qq}.json`);
+    const dir = path.join(`${PATH}/${usr_qq}.json`);
     let player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
             return "error";
@@ -46,7 +42,7 @@ async function Read(usr_qq,PATH) {
     return player;
 }
 async function Write(usr_qq,player,PATH){
-    let dir = path.join(PATH, `${usr_qq}.json`);
+    const dir = path.join(PATH, `${usr_qq}.json`);
     let new_ARR = JSON.stringify(player, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
     })
@@ -212,6 +208,80 @@ export async function Add_player_AllSorcery(usr_qq, gongfa) {
     await Write_talent(usr_qq, player);
     await player_efficiency(usr_qq);
     return;
+}
+
+export async function monsterbattle(e,battleA, battleB) {
+    let msg=[];
+    let qq=1;
+    if(battleA.speed>=battleB.speed-5){
+        let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
+        if(await battle_probability(battleA.burst)){
+            hurt=Math.floor(hurt*battleA.burstmax);
+        };
+        battleB.nowblood=battleB.nowblood-hurt;
+        if(battleB.nowblood<1){
+            e.reply("你仅出一招，就击败了怪物！");
+            return qq;
+        }else{
+            msg.push("你个老六偷袭成功，造成"+hurt+"伤害");
+        };
+    }else{
+        msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
+    };
+    //循环回合，默认从B攻击开始
+    var x=1;
+    var y=0;
+    var z=1;
+    while(true){
+        x++;
+        z++;
+        //分片发送消息
+        if(x==15){
+            await ForwardMsg(e, msg);
+            msg=[];
+            x=0;
+            y++;
+            if(y==2){
+                //就打2轮回
+                break;
+            }
+        }
+        //B开始
+        let hurt=battleB.attack-battleA.defense>=0?battleB.attack-battleA.defense+1:0;
+        if(await battle_probability(battleB.burst)){
+            hurt=Math.floor(hurt*battleB.burstmax);
+        };
+        battleA.nowblood=battleA.nowblood-hurt;
+        if(battleA.nowblood<0){
+            msg.push("第"+z+"回合:怪物造成"+hurt+"伤害");
+            await ForwardMsg(e, msg);
+            e.reply("你被怪物击败了！");
+            battleA.nowblood=0;
+            battleB.nowblood=battleB.nowblood+1;
+            qq=0;
+            break;
+        }else{
+            msg.push("第"+z+"回合:怪物造成"+hurt+"伤害");
+        };
+        //A开始
+        hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
+        if(await battle_probability(battleA.burst)){
+            hurt=Math.floor(hurt*battleA.burstmax);
+        };
+        battleB.nowblood=battleB.nowblood-hurt;
+        if(battleB.nowblood<0){
+            msg.push("第"+z+"回合:你造成"+hurt+"伤害，并击败了怪物！");
+            await ForwardMsg(e, msg);
+            e.reply("你击败了怪物！");
+            battleB.nowblood=0;
+            battleA.nowblood=battleA.nowblood+1;
+            break;
+        }else{
+            msg.push("第"+z+"回合:你造成"+hurt+"伤害");
+        };
+    };
+    await Write_battle(e.user_id,battleA);
+    return qq;
 }
 
 

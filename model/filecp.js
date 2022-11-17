@@ -1,7 +1,8 @@
 import fs from "node:fs";
 class filecp {
   constructor() { 
-    
+    this.file();
+    this.help();
   }
   upfile(){
     let cf = [];

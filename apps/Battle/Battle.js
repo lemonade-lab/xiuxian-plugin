@@ -29,10 +29,10 @@ export class Battle extends plugin {
         if(B==0||B==A){
             return;
         };
-        let CDid = "0";
-        let now_time = new Date().getTime();
-        let CDTime = 5;
-        let CD = await GenerateCD(A, CDid);
+        const CDid = "0";
+        const now_time = new Date().getTime();
+        const CDTime = 5;
+        const CD = await GenerateCD(A, CDid);
         if(CD != 0) {
             e.reply(CD);
         };

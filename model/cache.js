@@ -1,26 +1,12 @@
 import puppeteer from "../../../lib/puppeteer/puppeteer.js";
 import md5 from "md5";
-let helpData = [{
-    md5: "",
-    img: "",
-},
-{
-    md5: "",
-    img: "",
-},
-{
-    md5: "",
-    img: "",
-}];
+const helpData = [];
 /**
  * 已占用位：0，1，2
  * 宗门系统：3
- * 
- * 请使用此位置之后的数字
  */
 class Cache {
-    constructor() {
-    }
+    constructor() {}
     /**
      * 
      * @param  data 数据
@@ -38,7 +24,7 @@ class Cache {
             } else {
                 break;
             }
-        }
+        };
         if (helpData[i].md5 == tmp) {
             return helpData[i].img
         };

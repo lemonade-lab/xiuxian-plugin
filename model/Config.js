@@ -2,9 +2,6 @@ import YAML from "yaml";
 import fs from "node:fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
-import file from './filecp.js';
-file.file();
-file.help();
 /** 配置文件*/
 class Config {
     constructor() {

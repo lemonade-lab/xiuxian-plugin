@@ -38,11 +38,11 @@ export class Forum extends plugin {
     }
 
     async Pushforum(e) {
-        let usr_qq = e.user_id;
+        const usr_qq = e.user_id;
         if (usr_qq == 80000000) {
             return;
         }
-        let ifexistplay = await existplayer(usr_qq);
+        const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         }

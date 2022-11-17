@@ -62,7 +62,8 @@ export class SecretPlace extends plugin {
             action.z=Math.floor(z/100)*100;
             await Write_action(usr_qq, action)
             e.reply("已到达传送阵");
-        }, 1000*60);
+        }, 1000*15);
+        e.reply("正在赶往传送阵...");
         return;
     }
 
@@ -87,7 +88,7 @@ export class SecretPlace extends plugin {
         const x = action.x;
         const y = action.y;
         const z = action.z;
-        if (x % 100 != 0 && y % 100 != 0 && z % 100 != 0) {
+        if (x % 100 != 0 || y % 100 != 0 || z % 100 != 0) {
             e.reply("请先#赶往传送阵");
             return;
         };
@@ -109,10 +110,9 @@ export class SecretPlace extends plugin {
             action.y = Math.floor((Math.random() * (place.y2 - place.y1))) + Number(place.y1);
             action.z = 0;
             await Write_action(usr_qq, action)
-            e.reply(usr_qq+"成功抵达"+place);
+            e.reply(usr_qq+"成功抵达"+place.name);
         }, 1000*time);
-        e.reply("传送阵启动中...");
+        e.reply("传送阵正在启动...");
         return;
     }
-
 }
