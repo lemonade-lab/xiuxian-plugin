@@ -5,10 +5,10 @@ export default class base {
     this.userId = e?.user_id;
     this.model = "xiuxian-emulator-plugin";
     this._path = process.cwd().replace(/\\/g, "/");
-  }
+  };
   get prefix() {
     return `Yz:xiuxian-emulator-plugin:${this.model}:`;
-  }
+  };
   /**
    * 截图默认数据
    * @param saveId html保存id
@@ -22,5 +22,5 @@ export default class base {
       /** 绝对路径 */
       pluResPath: `${this._path}/plugins/xiuxian-emulator-plugin/resources/`,
     };
-  }
-}
+  };
+};

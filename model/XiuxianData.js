@@ -76,7 +76,6 @@ class XiuxianData {
         this.add(commodities, 'commodities');
 
     }
-
     //删除
     deletelist(name) {
         let sum = [];
@@ -85,7 +84,6 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
-
     //存临时数组
     list(add, sum, acount) {
         add.forEach((item, index) => {
@@ -94,7 +92,6 @@ class XiuxianData {
             };
         });
     };
-
     //添加临时数组
     add(sum, name) {
         let dir = path.join(this.all, `${name}.json`);
@@ -102,7 +99,6 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
-
     //新增信息
     addlist(sum, add, name, acount) {
         add.forEach((item, index) => {
@@ -115,7 +111,6 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
-
     existData(file_path_type, file_name) {
         let file_path;
         file_path = this.__PATH[file_path_type];
@@ -125,7 +120,6 @@ class XiuxianData {
         };
         return false;
     };
-
     getData(file_name, user_qq) {
         let file_path;
         let dir;
@@ -147,8 +141,7 @@ class XiuxianData {
         }
         data = JSON.parse(data);
         return data;
-    }
-
+    };
     setData(file_name, user_qq, data) {
         let file_path;
         let dir;
@@ -166,8 +159,6 @@ class XiuxianData {
         };
         return;
     };
-
-}
-
+};
 export default new XiuxianData();
 

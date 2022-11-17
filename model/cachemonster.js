@@ -14,7 +14,7 @@ class Cachemonster {
             }
             else {
                 break;
-            }
+            };
         };
         const time = new Date();
         if (time.getHours() != alldata[i].label) {
@@ -26,13 +26,13 @@ class Cachemonster {
                     name: name1[Math.trunc(Math.random() * 9)] + name2[y],
                     level: y + 1
                 });
-            }
+            };
             return alldata[i].data;
         }
         else{
             return alldata[i].data;
-        }
-    }
+        };
+    };
     /**
      * 提前加载
      * (7,6)   (7,3)  (3,0)   (4,4)  (1,6)   (2,3)
@@ -60,9 +60,8 @@ class Cachemonster {
         }
         else if (x == 3 && y == 0 && z == 0) {
             return 2;
-        }
+        };
         return -1;
-    }
-
-}
+    };
+};
 export default new Cachemonster();

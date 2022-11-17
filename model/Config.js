@@ -16,20 +16,19 @@ class Config {
     }
     getdefSet(app, name) {
         return this.getYaml(app, name, "defSet");
-    }
+    };
     getConfig(app, name) {
         let ignore = [];
         if (ignore.includes(`${app}.${name}`)) {
             return this.getYaml(app, name, "config");
-        }
+        };
         return {
             //默认的
             ...this.getdefSet(app, name),
             //用户的
             ...this.getYaml(app, name, "config"),
         };
-    }
-
+    };
     getYaml(app, name, type) {
         let file = this.getFilePath(app, name, type);
         let key = `${app}.${name}`;
@@ -37,13 +36,12 @@ class Config {
         this[type][key] = YAML.parse(fs.readFileSync(file, "utf8"));
         this.watch(file, app, name, type);
         return this[type][key];
-    }
+    };
 
     getFilePath(app, name, type) {
         if (type == "defSet") return `${this.defSetPath}${app}/${name}.yaml`;
         else return `${this.configPath}${app}/${name}.yaml`;
-    }
-
+    };
     watch(file, app, name, type = "defSet") {
         let key = `${app}.${name}`;
         if (this.watcher[type][key]) return;
@@ -53,22 +51,21 @@ class Config {
             logger.mark(`[修改配置文件][${type}][${app}][${name}]`);
             if (this[`change_${app}${name}`]) {
                 this[`change_${app}${name}`]();
-            }
+            };
         });
         this.watcher[type][key] = watcher;
         return;
-    }
-
+    };
     saveSet(app, name, type, data) {
         let file = this.getFilePath(app, name, type);
         if (lodash.isEmpty(data)) {
             fs.existsSync(file) && fs.unlinkSync(file);
-        } else {
+        } 
+        else {
             let yaml = YAML.stringify(data);
             fs.writeFileSync(file, yaml, "utf8");
-        }
+        };
         return;
-    }
-}
-
+    };
+};
 export default new Config();

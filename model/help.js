@@ -6,7 +6,7 @@ export default class Help extends base {
     this.model0 = "help";
     this.model = "help";
     this.versionData = xiuxianCfg.getdefSet("version", "version");
-  }
+  };
   async database(data1, data2) {
     let helpData = xiuxianCfg.getConfig(data1, data2);
     const version = this.versionData[0].version;
@@ -16,9 +16,9 @@ export default class Help extends base {
       version: version,
       helpData,
     };
-  }
+  };
   static async gethelp(e,helpaddress) {
     let html = new Help(e);
     return await html.database("help",helpaddress);
-  }
-}
+  };
+};

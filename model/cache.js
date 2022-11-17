@@ -6,7 +6,7 @@ const helpData = [];
  * 宗门系统：3
  */
 class Cache {
-    constructor() {}
+    constructor() {};
     /**
      * 
      * @param  data 数据
@@ -31,6 +31,6 @@ class Cache {
         helpData[i].img = await puppeteer.screenshot("help", data);
         helpData[i].md5 = tmp;
         return helpData[i].img;
-    }
-}
+    };
+};
 export default  new Cache();

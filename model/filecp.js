@@ -11,15 +11,15 @@ class filecp {
     function readdirectory(dir) {
         let files = fs.readdirSync(dir);
         files.forEach(async item => {
-            let filepath1 = dir + '/' + item
-            let stat = fs.statSync(filepath1)
-            if (stat.isFile()) {
-            } else {
+            let filepath1 = dir + '/' + item;
+            let stat = fs.statSync(filepath1);
+            if (stat.isFile()) {} 
+            else {
                 let file = filepath1.replace(filepath + '/', "");
                 cf.push(file);
-            }
-        })
-    }
+            };
+        });
+    };
     readdirectory(filepath);
     const filepath0 = "./plugins/xiuxian-emulator-plugin/config/";
     for (var j = 0; j < cf.length; j++) {
@@ -28,15 +28,13 @@ class filecp {
             let y = filepath + cf[j] + '/' + config[i] + '.yaml';
             if (fs.existsSync(y)) {
                 fs.cp(y, x, (err) => {
-                    if (err) {
-
-                    }
+                    if (err) {};
                 });
-            }
-        }
-    }
+            };
+        };
+    };
     return;
-  }
+  };
   file() {
     let cf = [];
     const filepath = "./plugins/xiuxian-emulator-plugin/defSet/";
@@ -45,15 +43,15 @@ class filecp {
     function readdirectory(dir) {
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
-        let filepath1 = dir + '/' + item
-        let stat = fs.statSync(filepath1)
-        if (stat.isFile()) {
-        } else {
+        let filepath1 = dir + '/' + item;
+        let stat = fs.statSync(filepath1);
+        if (stat.isFile()) {} 
+        else {
           let file = filepath1.replace(filepath + '/', "");
           cf.push(file);
-        }
-      })
-    }
+        };
+      });
+    };
     readdirectory(filepath);
     const filepath0 = "./plugins/xiuxian-emulator-plugin/config/";
     for (var j = 0; j < cf.length; j++) {
@@ -62,16 +60,13 @@ class filecp {
         let y = filepath + cf[j] + '/' + config[i] + '.yaml';
         if (!fs.existsSync(x)) {
           fs.cp(y, x, (err) => {
-            if (err) {
-
-            }
+            if (err) {};
           });
-        }
-      }
-    }
+        };
+      };
+    };
     return;
-  }
-
+  };
   help() {
     //帮助图
     const config1 = ["help"];
@@ -85,14 +80,13 @@ class filecp {
             (err) => {
               if (err) {
                 console.error(x);
-              }
+              };
             });
-        }
-      }
+        };
+      };
     };
     cphelp(config1, config2);
     return;
-  }
-}
-
+  };
+};
 export default new filecp();

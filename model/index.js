@@ -27,9 +27,9 @@ class index {
             }
             else {
               callback(pathname);
-            }
-          }
-        }
+            };
+          };
+        };
       });
     };
     travel(filepath, (pathname) => {
@@ -44,7 +44,6 @@ class index {
       apps[name[j]] = (await import('..' + newsum[j]))[name[j]];
     };
     return apps;
-  }
-}
-
+  };
+};
 export default new index();
