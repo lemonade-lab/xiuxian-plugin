@@ -15,7 +15,6 @@ export class AdminExtend extends plugin {
             ],
         });
     };
-
     async Xiuxianhelp(e){
         if (!e.isMaster) {
             return;

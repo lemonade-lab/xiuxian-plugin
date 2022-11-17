@@ -5,7 +5,7 @@ import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
 const require = createRequire(import.meta.url);
 const { exec } = require("child_process");
 const _path = process.cwd();
-let timer
+let timer;
 export class AdminAction extends plugin {
     constructor() {
         super({
@@ -25,15 +25,13 @@ export class AdminAction extends plugin {
             ],
         });
         this.key = "xiuxian:restart";
-    }
-
-
+    };
     async forcecheckout(e){
         if (!e.isMaster) {
             return;
-        }
-        let msg = ["————[更新消息]————"];
-        let command = "git fetch --all && git reset --hard main && git  pull";
+        };
+        const msg = ["————[更新消息]————"];
+        const command = "git fetch --all && git reset --hard main && git  pull";
         msg.push("正在更新...");
         const that = this;
         exec(
@@ -44,7 +42,7 @@ export class AdminAction extends plugin {
                     msg.push("最新版修仙插件了~");
                     ForwardMsg(e, msg);
                     return;
-                }
+                };
                 if (error) {
                     msg.push(
                         "更新失败！\nError code: " +
@@ -55,7 +53,7 @@ export class AdminAction extends plugin {
                     );
                     ForwardMsg(e, msg);
                     return;
-                }
+                };
                 msg.push("更新成功，正在重启更新...");
                 timer && clearTimeout(timer);
                 timer = setTimeout(async () => {
@@ -68,9 +66,10 @@ export class AdminAction extends plugin {
                         let cm = "npm run start";
                         if (process.argv[1].includes("pm2")) {
                             cm = "npm run restart";
-                        } else {
+                        } 
+                        else {
                             msg.push("正在转为后台运行...");
-                        }
+                        };
                         exec(cm, (error, stdout, stderr) => {
                             if (error) {
                                 redis.del(that.key);
@@ -87,27 +86,26 @@ export class AdminAction extends plugin {
                                 logger.mark("查看日志请用命令：npm run log");
                                 logger.mark("停止后台运行命令：npm stop");
                                 process.exit();
-                            }
+                            };
                         });
                     }
                     catch (error) {
                         redis.del(that.key);
                         let e = error.stack ?? error;
                         msg.push("重启失败了\n" + e);
-                    }
+                    };
                 }, 1000);
                 ForwardMsg(e, msg);
             }
         );
         return true;
-    }
-
+    };
     async checkout(e) {
         if (!e.isMaster) {
             return;
         }
-        let msg = ["————[更新消息]————"];
-        let command = "git  pull";
+        const msg = ["————[更新消息]————"];
+        const command = "git  pull";
         msg.push("正在更新...");
         const that = this;
         exec(
@@ -118,7 +116,7 @@ export class AdminAction extends plugin {
                     msg.push("最新版修仙插件了~");
                     ForwardMsg(e, msg);
                     return;
-                }
+                };
                 if (error) {
                     msg.push(
                         "更新失败！\nError code: " +
@@ -129,7 +127,7 @@ export class AdminAction extends plugin {
                     );
                     ForwardMsg(e, msg);
                     return;
-                }
+                };
                 msg.push("更新成功，正在重启更新...");
                 timer && clearTimeout(timer);
                 timer = setTimeout(async () => {
@@ -142,9 +140,10 @@ export class AdminAction extends plugin {
                         let cm = "npm run start";
                         if (process.argv[1].includes("pm2")) {
                             cm = "npm run restart";
-                        } else {
+                        } 
+                        else {
                             msg.push("正在转为后台运行...");
-                        }
+                        };
                         exec(cm, (error, stdout, stderr) => {
                             if (error) {
                                 redis.del(that.key);
@@ -168,13 +167,13 @@ export class AdminAction extends plugin {
                         redis.del(that.key);
                         let e = error.stack ?? error;
                         msg.push("重启失败了\n" + e);
-                    }
+                    };
                 }, 1000);
                 ForwardMsg(e, msg);
             }
         );
         return true;
-    }
+    };
     async init() {
         let restart = await redis.get(this.key);
         if (restart) {
@@ -185,8 +184,6 @@ export class AdminAction extends plugin {
                 Bot.pickUser(restart.id).sendMsg("重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用。");
             }
             redis.del(this.key);
-        }
-    }
-}
-
-
+        };
+    };
+};

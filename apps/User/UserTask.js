@@ -27,6 +27,7 @@ export class UserTask extends plugin {
             item.Age = item.Age + 1;
             if (item.Age >= item.life) {
                 x.push(item.qq);
+                arr.splice(index,1);
                 item.status = 0;
             }
         });

@@ -1,8 +1,8 @@
 
-import plugin from '../../../../lib/plugins/plugin.js'
-import fs from "node:fs"
-import { Read_Forum,Write_Forum,Read_Exchange,Write_Exchange,__PATH,
-    offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js'
+import plugin from '../../../../lib/plugins/plugin.js';
+import fs from "node:fs";
+import {Write_Forum,Read_Exchange,Write_Exchange,__PATH,
+    offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js';
 export class AdminDelete extends plugin {
     constructor() {
         super({
@@ -37,144 +37,111 @@ export class AdminDelete extends plugin {
                 }
             ],
         });
-    }
-
+    };
     async deleteredis(e){
         if (!e.isMaster) {
             return;
-        }
-        let allkey = await redis.keys('xiuxian:*', (err, data) => {
+        };
+        const allkey = await redis.keys('xiuxian:*', (err, data) => {
             console.log(err);
         });
-        try{
+        if(allkey){
             allkey.forEach(async(item) => {
                 await redis.del(item);
             });
-        }catch{
-            e.reply("出错啦");
+            e.reply("删除完成");
         }
-        e.reply("删除完成");
+        else{
+            e.reply("世界无一花草");
+        };
         return;
-    }
-
-
-
+    };
     async DeleteForum(e) {
         if (!e.isMaster) {
             return;
-        }
-        let Forum = await Read_Forum();
-        for (var i = 0; i < Forum.length; i++) {
-            Forum = Forum.filter(item => item.qq != Forum[i].qq);
-            Write_Forum(Forum);
-        }
+        };
+        await Write_Forum([]);
         e.reply("已清理");
         return;
-    }
-
-
+    };
     async Deletepurchase(e) {
         if (!e.isMaster) {
             return;
-        }
-        let thingid = e.msg.replace("#", '');
-        thingid = thingid.replace("清除", '');
-        if (thingid == "") {
-            return;
-        }
-        let x = 888888888;
-        let Exchange  = await Read_Exchange();
-        for (var i = 0; i < Exchange.length; i++) {
-            if (Exchange[i].id == thingid) {
-                x = i;
-                break;
-            }
-        }
-        if (x == 888888888) {
-            e.reply("找不到该商品编号！");
-            return;
-        }
-        let action=await Read_action(Exchange[x].QQ); 
-        action.Exchange=action.Exchange-1;
-        await Write_action(player_id,action);
-        Exchange = Exchange.filter(item => item.id != thingid);
+        };
+        const thingid = e.msg.replace("#清除", '');
+        const Exchange  = await Read_Exchange();
+        Exchange.forEach(async(item,index,arr)=>{
+            if(item.id==thingid){
+                const action=await Read_action(item.QQ);
+                action.Exchange=action.Exchange-1;
+                await Write_action(item.QQ,action);
+                arr.splice(index, 1);
+                e.reply("清除" + thingid);
+            };
+        });
         await Write_Exchange(Exchange);
-        e.reply("清除" + thingqq);
         return;
-    }
-
-
+    };
     async Deleteexchange(e) {
         if (!e.isMaster) {
             return;
-        }
+        };
         await Write_Exchange([]);
-        let playerList = [];
-        let files = fs
+        const playerList = [];
+        const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
+        files.forEach((item,index,arr)=>{
+            let file = item.replace(".json", "");
             playerList.push(file);
-        }
-        for (let player_id of playerList) {
-           let action=await Read_action(player_id); 
-           action.Exchange=0;
-           await Write_action(player_id,action);
-        }
+        });
+        playerList.forEach(async(item,index,arr)=>{
+            const action=await Read_action(item); 
+            action.Exchange=0;
+            await Write_action(item,action);
+        });
         e.reply("清除完成");
         return;
-    }
-    
-
+    };
     async deleteallusers(e){
         if (!e.isMaster) {
             return;
-        }
-        let playerList = [];
-        let files = fs
+        };
+        await Write_Life([]);
+        const playerList = [];
+        const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
+        files.forEach((item,index,arr)=>{
+            let file = item.replace(".json", "");
             playerList.push(file);
-        }
-        for (let player_id of playerList) {
-            fs.rmSync(`${__PATH.player}/${player_id}.json`);
-            await Write_Life([]);
-        }
-        let allkey = await redis.keys('xiuxian:*', (err, data) => {
-            console.log(err);
         });
-        try{
-            allkey.forEach(async(item) => {
-                await redis.del(item);
-            });
-        }catch{
-            e.reply("出错啦");
-        }
+        playerList.forEach(async(item,index,arr)=>{
+            fs.rmSync(`${__PATH.player}/${item}.json`);
+        });
+        await this.deleteredis(e);
         e.reply("世界已崩碎");
         return;
-    }
-
-
+    };
     async deleteuser(e){
         if (!e.isMaster) {
             return;
-        }
-        let B = await At(e);
+        };
+        const B = await At(e);
         if(B==0){
             return;
-        }
+        };
         fs.rmSync(`${__PATH.player}/${B}.json`);
-        let life = await Read_Life();
         await offaction(B);
-        life = await life.filter(item => item.qq != B);
+        let life = await Read_Life();
+        life.forEach((item,index,arr)=>{
+            if(item.qq==B){
+                arr.splice(index, 1);
+            };
+        });
         await Write_Life(life);
-        e.reply("信息已崩碎");
+        e.reply("信息崩碎");
         return;
     }
-
-
-}
+};
 

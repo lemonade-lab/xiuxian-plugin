@@ -1,7 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import plugin from '../../../../lib/plugins/plugin.js';
 import { Go,GenerateCD,__PATH,At,battle,interactive,distance,
-    Read_equipment,Anyarray,Write_equipment,search_thing_name,Read_najie,
-    Add_najie_thing, Write_najie } from '../Xiuxian/Xiuxian.js'
+    Read_equipment,Anyarray,Write_equipment,Read_najie,
+    Add_najie_thing, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class Battle extends plugin {
     constructor() {
         super({
@@ -15,10 +15,8 @@ export class Battle extends plugin {
                     fnc: 'Attack'
                 }
             ]
-        })
+        });
     };
-
-    //攻击
     async Attack(e) {
         const good=await Go(e);
         if (!good) {
@@ -45,9 +43,7 @@ export class Battle extends plugin {
             e.reply("他离你"+Math.floor(h)+"千里！");
         }
         else{
-            //根据QQ掉落物品
-            let p=Math.floor((Math.random() * (99-1)+1));
-            //如果真，掉物品
+            const p=Math.floor((Math.random() * (99-1)+1));
             if(p>80){
                 if(qq!=A){
                     let C=A;
@@ -55,13 +51,10 @@ export class Battle extends plugin {
                     B=C;
                 }
                 let equipment = await Read_equipment(B);
-                //随机获得里面的名字
                 if(equipment.length>0){
                 let thing=await Anyarray(equipment);
                     equipment = equipment.filter(item => item.name != thing.name);
-                //更新
                 await Write_equipment(B, equipment);
-                //把物品丢给A
                 let najie = await Read_najie(A);
                 najie = await Add_najie_thing(najie, thing, 1);
                 await Write_najie(A, najie);
@@ -72,9 +65,5 @@ export class Battle extends plugin {
         await redis.set("xiuxian:player:" + A + ':'+CDid, now_time);
         await redis.expire("xiuxian:player:" + A +':'+ CDid, CDTime*60);
         return;
-    }
-}
-
-
-
-
+    };
+};
