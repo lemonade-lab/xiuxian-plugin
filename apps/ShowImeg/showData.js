@@ -85,7 +85,7 @@ export async function get_statemax_img(e) {
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
-    }
+    };
     const player = await Read_level(usr_qq);
     const Level_id = player.levelmax_id;
     const LevelMax_list = data.LevelMax_list;
@@ -128,7 +128,6 @@ export async function get_updata_img(e) {
         ...data1,
     });
     return img;
-
 };
 export async function get_player_img(e) {
     const usr_qq = e.user_id;
@@ -161,7 +160,7 @@ export async function get_player_img(e) {
         xianshi: Math.trunc(wealt.xianshi),
         talent: talent,
         talentsize: Math.trunc(talent.talentsize)
-    }
+    };
     const data1 = await new Show(e).get_Data("User/player", "player", myData);
     const img = await puppeteer.screenshot("player", {
         ...data1,
@@ -179,7 +178,7 @@ export async function get_equipment_img(e) {
         battle: battle,
         life: life,
         equipment: equipment
-    }
+    };
     const data1 = await new Show(e).get_Data("User/equipment", "equipment", myData);
     const img = await puppeteer.screenshot("equipment", {
         ...data1,
@@ -191,7 +190,7 @@ export async function get_najie_img(e) {
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
-    }
+    };
     let life = await Read_Life();
     life = life.find(item => item.qq == usr_qq);
     const player = await Read_player(usr_qq);
@@ -209,7 +208,7 @@ export async function get_najie_img(e) {
         else if(id[0] == 6){
             daoju_list.push(item);
             thing.splice(index,1);
-        }
+        };
     });
     const myData = {
         user_id: usr_qq,
@@ -220,7 +219,7 @@ export async function get_najie_img(e) {
         thing:thing,
         daoju_list:daoju_list,
         danyao_list:danyao_list
-    }
+    };
     const data1 = await new Show(e).get_Data("User/najie", "najie", myData);
     const img = await puppeteer.screenshot("najie", {
         ...data1,

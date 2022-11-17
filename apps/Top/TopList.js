@@ -61,7 +61,7 @@ export class TopList extends plugin {
         const img = await get_toplist_img(e, list);
         e.reply(img);
         return;
-    }
+    };
     async TOP_Immortal(e) {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
@@ -99,7 +99,7 @@ export class TopList extends plugin {
         const img = await get_toplist_img(e, list);
         e.reply(img);
         return;
-    }
+    };
     async TOP_genius(e) {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
