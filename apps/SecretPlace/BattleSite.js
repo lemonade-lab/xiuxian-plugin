@@ -26,13 +26,21 @@ export class BattleSite extends plugin {
         if (!good) {
             return;
         };
-
-        //todo 击杀cd
-        const name = e.msg.replace("#击杀", '');
+        const CDid = "10";
+        const now_time = new Date().getTime();
+        const CDTime = 5;
+        const CD = await GenerateCD(A, CDid);
+        if (CD != 0) {
+            e.reply(CD);
+        };
         const usr_qq = e.user_id;
+        const name = e.msg.replace("#击杀", '');
         const action = await Read_action(usr_qq);
+        //非安全区判断
         const p = await Cachemonster.monsters(action.x, action.y, action.z);
         if (p != -1) {
+            await redis.set("xiuxian:player:" + A + ':' + CDid, now_time);
+            await redis.expire("xiuxian:player:" + A + ':' + CDid, CDTime * 60);
             const monstersdata = await Cachemonster.monsterscache(p);
             const mon=monstersdata.find(item => item.name == name);
             const LevelMax = data.LevelMax_list.find(item => item.id == mon.level);
@@ -49,7 +57,9 @@ export class BattleSite extends plugin {
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
                 e.reply(usr_qq+"击败了"+mon.name);
-                //todo 按怪物等级进行掉落，或地点等级
+                //todo 按怪物等级进行掉落
+
+
             };
         };
         return;
