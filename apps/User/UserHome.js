@@ -63,7 +63,7 @@ export class UserHome extends plugin {
         if (id[1] == 1) {
             let blood = parseInt(searchsthing.blood);
             await Add_blood(usr_qq, blood);
-            e.reply("血量恢复" + blood+"%");
+            e.reply("血量恢复至" + blood+"%");
         }
         else if (id[1] == 2) {
             let experience = parseInt(searchsthing.experience);
@@ -141,13 +141,13 @@ export class UserHome extends plugin {
         const thing_name = e.msg.replace("#忘掉", '');
         const talent = await Read_talent(usr_qq);
         const islearned = talent.AllSorcery.find(item => item.name == thing_name);
-        if (islearned) {
-            talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name);
-            await Write_talent(usr_qq, talent);
-            await player_efficiency(usr_qq);
-        } else {
+        if (!islearned) {
             e.reply("没学过" + thing_name);
-        }
+            return;
+        };
+        talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name);
+        await Write_talent(usr_qq, talent);
+        await player_efficiency(usr_qq);
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`[${thing_name}]已从世界消失`);

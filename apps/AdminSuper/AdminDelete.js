@@ -48,10 +48,9 @@ export class AdminDelete extends plugin {
                 await redis.del(item);
             });
             e.reply("删除完成");
-        }
-        else{
-            e.reply("世界无一花草");
+            return;
         };
+        e.reply("世界无一花草");
         return;
     };
     async DeleteForum(e) {

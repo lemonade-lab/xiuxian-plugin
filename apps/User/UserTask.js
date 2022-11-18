@@ -11,7 +11,7 @@ export class UserTask extends plugin {
             rule: [
             ]
         });
-        this.set = config.getConfig('task', 'task')
+        this.set = config.getConfig('task', 'task');
         this.task = {
             cron: this.set.LifeTask,
             name: 'LifeTask',
@@ -26,7 +26,7 @@ export class UserTask extends plugin {
             if (item.Age >= item.life) {
                 x.push(item.qq);
                 item.status = 0;
-            }
+            };
         });
         for(var i=0;i<x.length;i++){
             await offaction(x[i]);

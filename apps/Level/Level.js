@@ -80,7 +80,7 @@ export class Level extends plugin {
             }
             else{
                 e.reply(`憋红了脸，境界突破失败,等到${CDTime}分钟后再尝试吧`);
-            }
+            };
             player.experiencemax -= LevelMax.exp * x;
             await Write_level(usr_qq, player);
             await redis.set("xiuxian:player:" + usr_qq + ':' + CDid, now_time);
@@ -152,7 +152,7 @@ export class Level extends plugin {
             }
             else{
                 e.reply(`憋红了脸，境界突破失败,等到${CDTime}分钟后再尝试吧`);
-            }
+            };
             player.experience -= Level.exp * x;
             await Write_level(usr_qq, player);
             await redis.set("xiuxian:player:" + usr_qq + ':' + CDid, now_time);

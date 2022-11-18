@@ -51,16 +51,16 @@ export class Forum extends plugin {
         if (title.length == 0) {
             e.reply("未填写标题");
             return;
-        }
-        else if (content == undefined) {
+        };
+        if (content == undefined) {
             e.reply("未填写内容");
             return;
-        }
-        else if (title.length > 8) {
+        };
+        if (title.length > 8) {
             e.reply("标题最多8个字");
             return;
-        }
-        else if (content.length > 50) {
+        };
+        if (content.length > 50) {
             e.reply("内容最多50个字");
             return;
         };

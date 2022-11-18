@@ -86,13 +86,12 @@ export class PlayerControl extends plugin {
             await offaction(usr_qq);
             return;
         };
+        await offaction(usr_qq);
         if (e.isGroup) {
             await this.upgrade(usr_qq, time, action.actionName, e.group_id);
+            return;
         }
-        else {
-            await this.upgrade(usr_qq, time, action.actionName);
-        };
-        await offaction(usr_qq);
+        await this.upgrade(usr_qq, time, action.actionName);
         return;
     };
     async endWork(e) {
@@ -120,13 +119,12 @@ export class PlayerControl extends plugin {
             await offaction(usr_qq);
             return;
         };
+        await offaction(usr_qq);
         if (e.isGroup) {
             await this.upgrade(usr_qq, time, action.actionName, e.group_id);
-        }
-        else {
-            await this.upgrade(usr_qq, time, action.actionName);
+            return;
         };
-        await offaction(usr_qq);
+        await this.upgrade(usr_qq, time, action.actionName);
         return;
     };
     async upgrade(user_id, time, name, group_id) {
@@ -161,11 +159,10 @@ export class PlayerControl extends plugin {
         };
         msg.push("\n" + name + "结束");
         if (group_id) {
-            await this.pushInfo(group_id, true, msg)
-        }
-        else {
-            await this.pushInfo(usr_qq, false, msg);
+            await this.pushInfo(group_id, true, msg);
+            return;
         };
+        await this.pushInfo(usr_qq, false, msg);
         return;
     };
     async pushInfo(id, is_group, msg) {
@@ -175,9 +172,9 @@ export class PlayerControl extends plugin {
                 .catch((err) => {
                     Bot.logger.mark(err);
                 });
-        }
-        else {
-            await common.relpyPrivate(id, msg);
+            return;
         };
+        await common.relpyPrivate(id, msg);
+        return;
     };
 };

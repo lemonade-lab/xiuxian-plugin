@@ -15,20 +15,9 @@ export class Userequipment extends plugin {
                 {
                     reg: '^#卸下.*$',
                     fnc: 'delete_equipment'
-                },
-                {
-                    reg: '^#升级魂力$',
-                    fnc: 'upgrade_equipment'
                 }
             ]
         });
-    };
-    async upgrade_equipment(e){
-        if (!e.isGroup) {
-            return;
-        };
-        e.reply("待更新");
-        return;
     };
     async add_equipment(e) {
         if (!e.isGroup) {
@@ -50,24 +39,12 @@ export class Userequipment extends plugin {
             e.reply("没有" + thing_name);
             return;
         };
-        const id=searchsthing.id.split('-')
-        if(id[0]!= 1 ){
-            if(id[0]!=2){
-                if (id[0]!=3){
-                    e.reply(`此物无法被装备`);
-                    return ;
-                };
-            };
-        };
         const equipment = await Read_equipment(usr_qq);
-        if (equipment.length < 4) {
-            equipment.push(searchsthing);
-            await Write_equipment(usr_qq, equipment);
-        } 
-        else {
-            e.reply("无法操控更多装备");
+        if (equipment.length >= 4) {
             return;
-        };
+        }; 
+        equipment.push(searchsthing);
+        await Write_equipment(usr_qq, equipment);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
@@ -86,13 +63,11 @@ export class Userequipment extends plugin {
         const thing_name = e.msg.replace("#卸下", '');
         let equipment = await Read_equipment(usr_qq);
         const islearned = equipment.find(item => item.name == thing_name);
-        if (islearned) {
-            equipment = equipment.filter(item => item.name != thing_name);
-            await Write_equipment(usr_qq, equipment);
-        } 
-        else {
-            e.reply("未装备");
+        if (!islearned) {
+            return;
         };
+        equipment = equipment.filter(item => item.name != thing_name);
+        await Write_equipment(usr_qq, equipment);
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply("世界没有" + thing_name);

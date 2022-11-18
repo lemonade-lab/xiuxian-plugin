@@ -30,7 +30,7 @@ export class UserTransaction extends plugin {
         const ifexistplay = data.existData("player", usr_qq);
         if (!ifexistplay) {
             return;
-        }
+        };
         const msg = [
             "___[凡仙堂]___\n#购买+物品名"
         ];
@@ -86,7 +86,7 @@ export class UserTransaction extends plugin {
                     "\n暴伤：+" + item.burstmax + "%" +
                     "\n敏捷：+" + item.speed+
                     "\n价格：" + item.price);
-            }
+            };
         });
         await ForwardMsg(e, msg);
         return;
