@@ -36,7 +36,7 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const thing_name = e.msg.replace("#服用", '');
+        let thing_name = e.msg.replace("#服用", '');
         const code = thing_name.split("\*");
         thing_name = code[0];
         let thing_acount = code[1];
@@ -79,7 +79,7 @@ export class UserHome extends plugin {
             e.reply("不可服用" + thing_name);
             return;
         };
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -thing_acount);
         await Write_najie(usr_qq, najie);
         return;
@@ -123,7 +123,7 @@ export class UserHome extends plugin {
             e.reply("脑子装不下了");
             return;
         };
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
         e.reply("学习" + thing_name);
@@ -153,7 +153,7 @@ export class UserHome extends plugin {
             e.reply(`[${thing_name}]已从世界消失`);
             return;
         }
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(usr_qq, najie);
         e.reply("忘了" + thing_name);
@@ -208,7 +208,7 @@ export class UserHome extends plugin {
         else{
             return;
         };
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
         return;

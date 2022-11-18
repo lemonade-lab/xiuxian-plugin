@@ -104,7 +104,7 @@ export class UserTransaction extends plugin {
         const code = thing.split("\*");
         const thing_name = code[0];//物品
         const thing_acount = code[1];//数量
-        const quantity = await Numbers(thing_acount);
+        let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
         };
@@ -120,7 +120,7 @@ export class UserTransaction extends plugin {
             e.reply(`灵石不足`);
             return;
         };
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, ifexist, quantity);
         await Write_najie(usr_qq, najie);
         await Add_lingshi(usr_qq, -commodities_price);
@@ -140,7 +140,7 @@ export class UserTransaction extends plugin {
         const code = thing.split("\*");
         const thing_name = code[0];//物品
         const thing_acount = code[1];//数量
-        const quantity = await Numbers(thing_acount);
+        let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
         };
@@ -158,7 +158,7 @@ export class UserTransaction extends plugin {
             e.reply("数量不足");
             return;
         }
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -quantity);
         await Write_najie(usr_qq, najie);
         const commodities_price = searchsthing.price * quantity;

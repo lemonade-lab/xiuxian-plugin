@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "path";
 let all = [];
+let dropsItem = [];
 let commodities = [];
 class XiuxianData {
      constructor() {
@@ -11,6 +12,7 @@ class XiuxianData {
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
             "birthassociation": path.join(__dirname, "/resources/data/birth/association"),
             "all": path.join(__dirname, "/resources/data/birth/all"),
+            "dropsItem": path.join(__dirname, "/resources/data/birth/all"),
             "fixedequipment": path.join(__dirname, "/resources/data/fixed/equipment"),
             "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
             "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
@@ -28,6 +30,7 @@ class XiuxianData {
         this.occupation = this.__PATH.fixedoccupation;
         this.talent = this.__PATH.fixedtalent;
         this.all = this.__PATH.all;
+        this.dropsItem = this.__PATH.dropsItem;
         this.sorcery = this.__PATH.sorcery;
         this.position = this.__PATH.position;
 
@@ -44,6 +47,7 @@ class XiuxianData {
         this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
 
         this.deletelist('all');
+        this.deletelist('dropsItem');
 
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), all, 99);
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), all, 99);

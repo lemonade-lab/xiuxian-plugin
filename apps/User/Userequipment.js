@@ -68,7 +68,7 @@ export class Userequipment extends plugin {
             e.reply("无法操控更多装备");
             return;
         };
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
         e.reply("装备" + thing_name);
@@ -84,7 +84,7 @@ export class Userequipment extends plugin {
             return;
         };
         const thing_name = e.msg.replace("#卸下", '');
-        const equipment = await Read_equipment(usr_qq);
+        let equipment = await Read_equipment(usr_qq);
         const islearned = equipment.find(item => item.name == thing_name);
         if (islearned) {
             equipment = equipment.filter(item => item.name != thing_name);
@@ -98,7 +98,7 @@ export class Userequipment extends plugin {
             e.reply("世界没有" + thing_name);
             return;
         };
-        const najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(usr_qq, najie);
         e.reply("已卸下" + thing_name);

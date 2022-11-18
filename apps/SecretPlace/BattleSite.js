@@ -26,6 +26,8 @@ export class BattleSite extends plugin {
         if (!good) {
             return;
         };
+
+        //todo 击杀cd
         const name = e.msg.replace("#击杀", '');
         const usr_qq = e.user_id;
         const action = await Read_action(usr_qq);
@@ -47,6 +49,7 @@ export class BattleSite extends plugin {
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
                 e.reply(usr_qq+"击败了"+mon.name);
+                //todo 按怪物等级进行掉落，或地点等级
             };
         };
         return;
