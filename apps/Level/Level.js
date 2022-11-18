@@ -185,7 +185,7 @@ export class Level extends plugin {
         const usr_qq = e.user_id;
         const player = await Read_level(usr_qq);
         if (player.level_id != 10) {
-            e.reply(`你非渡劫期修士！`);
+            e.reply(`非渡劫期修士！`);
             return;
         };
         e.reply("仙门未开！");

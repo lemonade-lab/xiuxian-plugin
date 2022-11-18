@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import plugin from '../../../../lib/plugins/plugin.js';
 import fs from "fs";
 import path from "path";
 import data from '../../model/XiuxianData.js';
@@ -27,109 +27,109 @@ export class Xiuxian extends plugin {
             rule: [
             ]
         })
-    }
-}
+    };
+};
 async function Read(usr_qq,PATH) {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
     let player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
             return "error";
-        }
+        };
         return data;
-    })
+    });
     player = JSON.parse(player);
     return player;
-}
+};
 async function Write(usr_qq,player,PATH){
     const dir = path.join(PATH, `${usr_qq}.json`);
     const new_ARR = JSON.stringify(player, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
+    });
     return;
-}
+};
 export async function existplayer(usr_qq) {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
     if(find == undefined){
         return false;
-    }
+    };
     if(find.state==0){
         return false;
-    }
+    };
     return find;
-}
+};
 export async function existplayerplugins(usr_qq) {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
     if(find == undefined){
         return false;
-    }
+    };
     return find;
-}
+};
 export async function Read_player(usr_qq) {
     return await Read(usr_qq,__PATH.player);;
-}
+};
 export async function Write_player(usr_qq, player) {
     await Write(usr_qq,player,__PATH.player);
     return;
-}
+};
 export async function Read_talent(usr_qq) {
     return await Read(usr_qq,__PATH.talent);
-}
+};
 export async function Write_talent(usr_qq, player) {
     await Write(usr_qq,player,__PATH.talent);
     return;
-}
+};
 export async function Read_battle(usr_qq) {
     return await Read(usr_qq,__PATH.battle);
-}
+};
 export async function Write_battle(usr_qq, data) {
     await Write(usr_qq,data,__PATH.battle);
     return;
-}
+};
 export async function Read_newsorcery(usr_qq) {
     return await Read(usr_qq,__PATH.newsorcery);
-}
+};
 export async function Write_newsorcery(usr_qq, data) {
     await Write(usr_qq,data,__PATH.newsorcery);
     return;
-}
+};
 export async function Read_level(usr_qq) {
     return await Read(usr_qq,__PATH.level);
-}
+};
 export async function Write_level(usr_qq, data) {
     await Write(usr_qq,data,__PATH.level);
     return;
-}
+};
 export async function Read_wealth(usr_qq) {
     return await Read(usr_qq,__PATH.wealth);
-}
+};
 export async function Write_wealth(usr_qq, data) {
     await Write(usr_qq,data,__PATH.wealth);
     return;
-}
+};
 export async function Read_action(usr_qq) {
     return await Read(usr_qq,__PATH.action);
-}
+};
 export async function Write_action(usr_qq, data) {
     await Write(usr_qq,data,__PATH.action);
     return;
-}
+};
 export async function Write_najie(usr_qq, najie) {
     await Write(usr_qq,najie,__PATH.najie);
     return;
-}
+};
 export async function Read_najie(usr_qq) {
     return await Read(usr_qq,__PATH.najie);
-}
+};
 export async function Read_equipment(usr_qq) {
     return await Read(usr_qq,__PATH.equipment);
-}
+};
 export async function Write_equipment(usr_qq, equipment) {
     await Write(usr_qq,equipment,__PATH.equipment);
     await updata_equipment(usr_qq);
     return;
-}
+};
 export async function updata_equipment(usr_qq) {
     let attack=0,defense=0,blood=0,burst=0,burstmax=0,speed=0;
     let equipment = await Read_equipment(usr_qq);
@@ -140,7 +140,7 @@ export async function updata_equipment(usr_qq) {
          burst=burst+item.burst;
          burstmax=burstmax+item.burstmax;
          speed=speed+item.speed;
-    })
+    });
     let level = await Read_level(usr_qq);
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
     let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
@@ -157,19 +157,19 @@ export async function updata_equipment(usr_qq) {
     player.power=player.attack+player.defense+player.blood+player.burst+player.burstmax+player.speed;
     await Write_battle(usr_qq,player);
     return;
-}
+};
 export async function Add_prestige(usr_qq, prestige) {
     const player = await Read_level(usr_qq);
     player.prestige += Math.trunc(prestige);
     await Write_level(usr_qq, player);
     return;
-}
+};
 export async function Add_lingshi(usr_qq, lingshi) {
     const player = await Read_wealth(usr_qq);
     player.lingshi += Math.trunc(lingshi);
     await Write_wealth(usr_qq, player);
     return;
-}
+};
 export async function Add_experience(usr_qq, experience) {
     const player = await Read_level(usr_qq);
     const exp0 = await Numbers(player.experience);
@@ -177,13 +177,13 @@ export async function Add_experience(usr_qq, experience) {
     player.experience = await exp0 + exp1;
     await Write_level(usr_qq, player);
     return;
-}
+};
 export async function Add_experiencemax(usr_qq, qixue) {
     const player = await Read_level(usr_qq);
     player.experiencemax += Math.trunc(qixue);
     await Write_level(usr_qq, player);
     return;
-}
+};
 //血量按百分比恢复
 export async function Add_blood(usr_qq, blood) {
     const player = await Read_battle(usr_qq);
@@ -191,24 +191,23 @@ export async function Add_blood(usr_qq, blood) {
     //判断百分比
     if(player.nowblood<Math.floor(battle.blood*blood*0.01)){
         player.nowblood = Math.floor(battle.blood*blood*0.01);
-    }
+    };
     await Write_battle(usr_qq, player);
     return;
-}
+};
 export async function Add_najie_lingshi(usr_qq, acount) {
     const najie = await Read_najie(usr_qq);
     najie.lingshi += Math.trunc(acount);
     await Write_najie(usr_qq, najie);
     return;
-}
+};
 export async function Add_player_AllSorcery(usr_qq, gongfa) {
     const player = await Read_talent(usr_qq);
     player.AllSorcery.push(gongfa);
     await Write_talent(usr_qq, player);
     await player_efficiency(usr_qq);
     return;
-}
-
+};
 export async function monsterbattle(e,battleA, battleB) {
     let msg=[];
     let qq=1;
@@ -243,8 +242,8 @@ export async function monsterbattle(e,battleA, battleB) {
             if(y==2){
                 //就打2轮回
                 break;
-            }
-        }
+            };
+        };
         //B开始
         let hurt=battleB.attack-battleA.defense>=0?battleB.attack-battleA.defense+1:0;
         if(await battle_probability(battleB.burst)){
@@ -275,16 +274,14 @@ export async function monsterbattle(e,battleA, battleB) {
             battleB.nowblood=0;
             battleA.nowblood=battleA.nowblood+1;
             break;
-        }else{
+        }
+        else{
             msg.push("第"+z+"回合:你造成"+hurt+"伤害");
         };
     };
     await Write_battle(e.user_id,battleA);
     return qq;
-}
-
-
-
+};
 export async function battle(e,A, B) {
     let A_qq = A;
     let B_qq = B;
@@ -325,8 +322,8 @@ export async function battle(e,A, B) {
             if(y==2){
                 //就打2轮回
                 break;
-            }
-        }
+            };
+        };
         //B开始
         let hurt=battleB.attack-battleA.defense>=0?battleB.attack-battleA.defense+1:0;
         if(await battle_probability(battleB.burst)){
@@ -341,7 +338,8 @@ export async function battle(e,A, B) {
             battleB.nowblood=battleB.nowblood+1;
             qq=B_qq;
             break;
-        }else{
+        }
+        else{
             msg.push("第"+z+"回合:对方造成"+hurt+"伤害");
         };
         //A开始
@@ -367,7 +365,6 @@ export async function battle(e,A, B) {
     //返回赢家QQ
     return qq;
 }
-
 //整数
 export async function battle_probability(P) {
     let newp=0;
@@ -376,14 +373,13 @@ export async function battle_probability(P) {
     };
     if(P<0){
         newp=0;
-    }
+    };
     const rand = Math.floor((Math.random() * (100-1)+1));
     if (newp>rand) {
         return true;
-    }
+    };
     return false;
-}
-
+};
 /**
  * 灵根合集
  */
@@ -395,23 +391,23 @@ export async function get_talent() {
         var y = newtalent.indexOf(x);
         if (y != -1) {
             continue;
-        }
+        };
         if (x <= 5) {
             var z = newtalent.indexOf(x + 5);
             if (z != -1) {
                 continue;
-            }
+            };
         }
         else {
             var z = newtalent.indexOf(x - 5);
             if (z != -1) {
                 continue;
-            }
-        }
+            };
+        };
         newtalent.push(x);
-    }
+    };
     return newtalent;
-}
+};
 
 /**
  * 灵根名字
@@ -423,9 +419,9 @@ export async function talentname(player) {
     for (var i = 0; i < talent.length; i++) {
         name = data.talent_list.find(item => item.id == talent[i]).name;
         talentname.push(name);
-    }
+    };
     return talentname;
-}
+};
 
 /**
  * 计算天赋
@@ -438,13 +434,13 @@ async function talentsize(player) {
         //循环加效率
         if (talent[i] <= 5) {
             talentsize -= 50;
-        }
+        };
         if (talent[i] >= 6) {
             talentsize -= 40;
-        }
-    }
+        };
+    };
     return talentsize;
-}
+};
 
 /**
  * 天赋综合计算
@@ -459,7 +455,7 @@ export async function player_efficiency(usr_qq) {
     player.talentsize = linggen_efficiency + gongfa_efficiency;
     await  Write_talent(usr_qq,player);
     return;
-}
+};
 
 /**
  * 根据名字返回物品
@@ -471,8 +467,8 @@ export async function search_thing_name(thing) {
     }
     else{
         return ifexist0;
-    }
-}
+    };
+};
 /**
  * 根据id返回物品
  */
@@ -483,24 +479,24 @@ export async function search_thing_id(thing_id) {
     }
     else{
         return ifexist0;
-    }
-}
+    };
+};
 export async function exist_najie_thing_id(usr_qq, thing_id) {
     const najie = await Read_najie(usr_qq);
     const ifexist  = najie.thing.find(item => item.id == thing_id);
     if(ifexist==undefined){
         return 1;
-    }
+    };
     return ifexist;
-}
+};
 export async function exist_najie_thing_name(usr_qq, name) {
     const najie = await Read_najie(usr_qq);
     const ifexist  = najie.thing.find(item => item.name == name);
     if(ifexist==undefined){
         return 1;
-    }
+    };
     return ifexist;
-}
+};
 export async function Add_najie_thing(najie, najie_thing, thing_acount) {
     const thing =  najie.thing.find(item => item.id == najie_thing.id);
     if(thing){
@@ -510,14 +506,14 @@ export async function Add_najie_thing(najie, najie_thing, thing_acount) {
         }
         else{
             najie.thing.find(item => item.id == najie_thing.id).acount = acount;
-        }
+        };
         return najie;
     }else{
         najie_thing.acount=thing_acount;
         najie.thing.push(najie_thing);
        return najie;
-    }
-}
+    };
+};
 //发送转发消息
 export async function ForwardMsg(e, data) {
     const msgList = [];
@@ -527,15 +523,15 @@ export async function ForwardMsg(e, data) {
             nickname: Bot.nickname,
             user_id: Bot.uin,
         });
-    }
+    };
     if (msgList.length == 1) {
         await e.reply(msgList[0].message);
     }
     else {
         await e.reply(await Bot.makeForwardMsg(msgList));
-    }
+    };
     return;
-}
+};
 /**
  * 对象数组排序
  * 从大到小
@@ -543,8 +539,8 @@ export async function ForwardMsg(e, data) {
 export function sortBy(field) {
     return function (b, a) {
         return a[field] - b[field];
-    }
-}
+    };
+};
 /**
  * 输入概率随机返回布尔类型数据
  */
@@ -556,19 +552,19 @@ export function probability(P) {
     //命中
     if (rand < P) {
         return true;
-    }
+    };
     return false;
-}
+};
 export function Anyarray(ARR) {
     const randindex = Math.trunc(Math.random() * ARR.length);
     return ARR[randindex];
-}
+};
 //沉睡
 export async function sleep(time) {
     return new Promise(resolve => {
         setTimeout(resolve, time);
-    })
-}
+    });
+};
 // 时间转换
 export function timestampToTime(timestamp) {
     //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -592,9 +588,7 @@ export async function shijianc(time) {
     dateobj.m = date.getMinutes()
     dateobj.s = date.getSeconds()
     return dateobj;
-}
-
-
+};
 /**
  * 艾特
  */
@@ -602,15 +596,15 @@ export async function At(e) {
     const isat = e.message.some((item) => item.type === "at");
     if (!isat) {
         return 0;
-    }
+    };
     const atItem = e.message.filter((item) => item.type === "at");
     const B = atItem[0].qq;
     const ifexistplay = await existplayer(B);
     if (!ifexistplay) {
         return 0;
-    }
+    };
     return B;
-}
+};
 /**
  * 判断对象是否不为undefined且不为null
  * @param obj 对象
@@ -620,14 +614,15 @@ export function isNotNull(obj) {
     if (obj == undefined || obj == null)
         return false;
     return true;
-}
+};
 export function isNotBlank(value) {
     if (value ?? '' !== '') {
         return true;
-    } else {
+    } 
+    else {
         return false;
-    }
-}
+    };
+};
 /**
  * 强制修正至少为1
  */
@@ -635,15 +630,14 @@ export async function Numbers(value) {
     let x = value;
     if (isNaN(parseFloat(x)) && !isFinite(x)) {
         x = 1;
-    }
+    };
     x = Math.trunc(x);
     x = Number(x);
     if (x == null || x == undefined || x < 1 || x == NaN) {
         x = 1;
-    }
+    };
     return x;
-}
-
+};
 /**
  * 得到状态
  */
@@ -660,11 +654,11 @@ export async function Numbers(value) {
             arr.action = action.action;//当期那动作
             arr.time = m + "m" + s + "s";//剩余时间
             return arr;
-        }
-    }
+        };
+    };
     arr.action = "空闲";
     return arr;
-}
+};
 /**
  * 关闭状态
  */
@@ -672,21 +666,21 @@ export async function offaction(qq) {
     const exists = await redis.exists("xiuxian:player:" + qq + ":action");
     if(exists == 1){
         await redis.del("xiuxian:player:" + qq + ":action");
-    }
+    };
     return;
-}
+};
 /**
  * 状态封锁查询
  */
  export async function Gomini(e) {
     if (!e.isGroup) {
         return;
-    }
+    };
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
-    }
+    };
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
         action = JSON.parse(action);
@@ -696,21 +690,21 @@ export async function offaction(qq) {
         };
         e.reply(action.actionName+"中...")
         return false;
-    }
+    };
     return true;
-}
+};
 /**
  * 状态封锁查询
  */
 export async function Go(e) {
     if (!e.isGroup) {
         return;
-    }
+    };
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
-    }
+    };
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
         action = JSON.parse(action);
@@ -720,14 +714,14 @@ export async function Go(e) {
         };
         e.reply(action.actionName+"中...")
         return false;
-    }
+    };
     const player = await Read_battle(usr_qq);
     if (player.nowblood <= 1) {
-        e.reply("你都伤成这样了，就不要出去浪了");
+        e.reply("血量不足...");
         return false;
-    }
+    };
     return true;
-}
+};
                //0     1     2      3      4     5       6     7      8      9     10    11   12   13   14
 const CDname=['攻击','降妖','闭关','改名','道宣','赠送','突破','破体','转世','行为','击杀','  ','  ','  ','  '];
 /**
@@ -748,8 +742,7 @@ export async function GenerateCD(usr_qq, CDid) {
         return CDname[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
     };
     return 0;
-}
-
+};
 export async function GenerateCDplugin(usr_qq, CDid,CDnameplugin) {
     const remainTime = await redis.ttl("xiuxian:player:" + usr_qq +':'+CDid);
     if(remainTime != -1){
@@ -765,15 +758,12 @@ export async function GenerateCDplugin(usr_qq, CDid,CDnameplugin) {
         return CDnameplugin[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
     };
     return 0;
-}
-
-
+};
 //写入
 export async function Write_Forum(wupin) {
     await Write(`Forum`,wupin,__PATH.Forum);
     return;
-}
-
+};
 //读取
 export async function Read_Forum() {
     const dir = path.join(`${__PATH.Forum}/Forum.json`);
@@ -781,17 +771,15 @@ export async function Read_Forum() {
     if(Forum==1){
         await Write_Forum([]);
         Forum = await newRead(dir);
-    }
+    };
     Forum = JSON.parse(Forum);
     return Forum;
-}
-
+};
 //写入交易表
 export async function Write_Exchange(wupin) {
     await Write(`Exchange`,wupin,__PATH.Exchange);
     return;
-}
-
+};
 //读交易表
 export async function Read_Exchange() {
     const dir = path.join(`${__PATH.Exchange}/Exchange.json`);
@@ -799,11 +787,10 @@ export async function Read_Exchange() {
     if(Exchange==1){
         await Write_Exchange([]);
         Exchange = await newRead(dir);
-    }
+    };
     Exchange = await JSON.parse(Exchange);
     return Exchange;
-}
-
+};
 //搜索物品
 export async function Search_Exchange(thing_qq) {
     const thingqq = thing_qq;
@@ -811,22 +798,20 @@ export async function Search_Exchange(thing_qq) {
     const Exchange = await Read_Exchange();
     if (thingqq == "") {
         return x;
-    }
+    };
     for (var i = 0; i < Exchange.length; i++) {
         if (Exchange[i].qq == thingqq) {
             x = i;
             break;
-        }
-    }
+        };
+    };
     return x;
-}
-
+};
 //写入寿命表
 export async function Write_Life(wupin) {
     await Write(`life`,wupin,__PATH.life);
     return;
-}
-
+};
 //读寿命表
 export async function Read_Life() {
     const dir = path.join(`${__PATH.life}/life.json`);
@@ -834,25 +819,23 @@ export async function Read_Life() {
     if(Life==1){
         await Write_Life([]);
         Life = await newRead(dir);
-    }
+    };
     Life = await JSON.parse(Life);
     return Life;
-}
-
+};
 export async function newRead(dir) {
     try{
         const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
                 return "error";
-            }
+            };
             return data;
-        })
+        });
         return newdata;
     }catch{
         return 1;
-    }
-}
-
+    };
+};
 //判断两者是否可以交互
 export async function interactive(A,B){
     const a=await Read_action(A);
@@ -867,8 +850,7 @@ export async function interactive(A,B){
         return true;
     };
     return false;
-}
-
+};
 //判断两者距离
 export async function distance(A,B){
     const a=await Read_action(A);
@@ -876,10 +858,7 @@ export async function distance(A,B){
     const h=Math.pow(Math.pow((a.x-b.x),2)+Math.pow((a.y-b.y),2),1/2);
     return h;
 };
-
 export async function map_distance(A,B){
     const h=Math.pow(Math.pow((A.x-B.x1),2)+Math.pow((A.y-B.y1),2),1/2);
     return h;
-}
-
-//安全区判断，输入
+};

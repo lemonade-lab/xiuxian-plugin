@@ -30,12 +30,14 @@ export class Battle extends plugin {
         //非安全区判断
         const pA = await Cachemonster.monsters(actionA.x, actionA.y, actionA.z);
         if (pA == -1) {
+            e.reply("修仙联盟的普通卫兵:城内不可出手！");
             return;
         };
         const actionB = await Read_action(B);
         //非安全区判断
         const pB = await Cachemonster.monsters(actionB.x, actionB.y, actionB.z);
         if (pB == -1) {
+            e.reply("修仙联盟的普通卫兵:城内不可出手！");
             return;
         };
         //攻击CD
@@ -57,7 +59,7 @@ export class Battle extends plugin {
         if (qq == 0) {
             //距离
             let h = await distance(A, B);
-            e.reply("他离你" + Math.floor(h) + "千里！");
+            e.reply("距离" + Math.floor(h) + "千里！");
             return;
         };
         const q = Math.floor((Math.random() * (99 - 1) + 1));

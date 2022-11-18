@@ -54,15 +54,6 @@
     - icon: help-icon_10
       title: "#探索怪物"
       desc: "查看所在地的怪物"
-    - icon: help-icon_10
-      title: "#移动+坐标"
-      desc: "#移动x*y*z"
-
-- group: 
-  list:
-    - icon: help-icon_38
-      title: "#升级魂力"
-      desc: "(可私聊)"
 
 - group: 
   list:
@@ -78,9 +69,6 @@
     - icon: help-icon_38
       title: "#破体"
       desc: "提高体境"
-    - icon: help-icon_38
-      title: "#凝神"
-      desc: "仙人化凡"
     - icon: help-icon_36
       title: "#渡劫"
       desc: "渡劫期经历的劫难"

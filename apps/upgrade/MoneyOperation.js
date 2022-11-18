@@ -35,7 +35,7 @@ export class MoneyOperation extends plugin {
         };
         const A_player = await  Read_wealth(A);
         if (A_player.lingshi < lingshi) {
-            e.reply([segment.at(A), `你身上似乎没有${lingshi}灵石`]);
+            e.reply([segment.at(A), `似乎没有${lingshi}灵石`]);
             return;
         };
         const CDTime = this.xiuxianConfigData.CD.transfer;

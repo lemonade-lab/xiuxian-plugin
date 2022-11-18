@@ -40,11 +40,11 @@ export class XiuxianWorld extends plugin {
             playerList.push(file);
         };
         for (let player_id of playerList) {
-            await Add_lingshi(player_id, 999);
-            await Add_experience(player_id, 999);
-            await Add_experiencemax(player_id, 999);
+            await Add_lingshi(player_id, 99999);
+            await Add_experience(player_id, 99999);
+            await Add_experiencemax(player_id, 99999);
         };
-        e.reply('每人增加\n999灵石\n999修为\n999气血！');
+        e.reply('每人增加\n99999灵石\n99999修为\n99999气血！');
         return;
     };
 };

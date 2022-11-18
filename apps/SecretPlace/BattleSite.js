@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import Cachemonster from "../../model/cachemonster.js";
-import { Gomini, Read_action, ForwardMsg, Read_battle, monsterbattle } from '../Xiuxian/Xiuxian.js';
+import { Gomini, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi } from '../Xiuxian/Xiuxian.js';
 export class BattleSite extends plugin {
     constructor() {
         super({
@@ -56,11 +56,29 @@ export class BattleSite extends plugin {
             const battle=await Read_battle(usr_qq);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
+                const msg = ["[击杀结果]"];
                 e.reply(usr_qq+"击败了"+mon.name);
                 //todo 按怪物等级进行掉落
-
-
+                const m=Math.floor((Math.random() * (100-1))) + Number(1);
+                //获得装备
+                if(m<mon.level*5){
+                    msg.push(usr_qq+"得到了装备");
+                }
+                //获得气血
+                else if(m<mon.level*8){
+                    msg.push(usr_qq+"得到99气血");
+                    await Add_experiencemax(usr_qq,99);
+                }
+                //获得修为and灵石
+                else if(m<mon.level*10){
+                    msg.push(usr_qq+"得到99灵石和99修为");
+                    await Add_experience(usr_qq,99);
+                    await Add_lingshi(usr_qq,99);
+                };
+                await ForwardMsg(e, msg);
+                return;
             };
+            return;
         };
         return;
     };
@@ -83,7 +101,10 @@ export class BattleSite extends plugin {
             });
             await ForwardMsg(e, msg);
             return;
-        };
+        }
+        else{
+            e.reply("修仙联盟的普通士兵:城里哪儿来的怪物？搞笑");
+        }
         return;
     };
 };

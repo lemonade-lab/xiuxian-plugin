@@ -42,11 +42,10 @@ class Cachemonster {
         const x = Math.floor(a / 100);
         const y = Math.floor(b / 100);
         const z = Math.floor(c / 100);
-        console.log(x,y,z);
-        if (x == 6 && y == 7 && z == 0) {
+        if (x == 7 && y == 6 && z == 0) {
             return 0;
         }
-        else if (x == 6 && y == 2 && z == 0) {
+        else if (x == 1 && y == 6 && z == 0) {
             return 4;
         }
         else if (x == 4 && y == 4 && z == 0) {

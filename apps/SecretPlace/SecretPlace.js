@@ -49,7 +49,7 @@ export class SecretPlace extends plugin {
         const y = action.y;
         const z = action.z;
         if (x % 100 == 0 && y % 100 == 0 && z % 100 == 0) {
-            e.reply("已经在传送阵");
+            e.reply("修仙联盟的守阵者:已经在传送阵了");
             return;
         };
         const setTime = setTimeout(async () => {
@@ -57,9 +57,9 @@ export class SecretPlace extends plugin {
             action.y=Math.floor(y/100)*100;
             action.z=Math.floor(z/100)*100;
             await Write_action(usr_qq, action)
-            e.reply("已到达传送阵");
+            e.reply(usr_qq+"已到达传送阵");
         }, 1000*15);
-        e.reply("正在赶往传送阵...");
+        e.reply(usr_qq+"正在赶往传送阵...");
         return;
     };
     async forward(e) {
@@ -75,6 +75,7 @@ export class SecretPlace extends plugin {
         const usr_qq = e.user_id;
         let level = await Read_level(usr_qq);
         if (level.level_id < place.grade) {
+            e.reply("修仙联盟的维护者:前面的区域，以后再来探索吧");
             return;
         };
         let action = await Read_action(usr_qq);
@@ -82,7 +83,7 @@ export class SecretPlace extends plugin {
         const y = action.y;
         const z = action.z;
         if (x % 100 != 0 || y % 100 != 0 || z % 100 != 0) {
-            e.reply("请先#赶往传送阵");
+            e.reply(usr_qq+"请先#赶往传送阵");
             return;
         };
         let wealt=await Read_wealth(usr_qq);
@@ -98,10 +99,10 @@ export class SecretPlace extends plugin {
             action.x = Math.floor((Math.random() * (place.x2 - place.x1))) + Number(place.x1);
             action.y = Math.floor((Math.random() * (place.y2 - place.y1))) + Number(place.y1);
             action.z = 0;
-            await Write_action(usr_qq, action)
+            await Write_action(usr_qq, action);
             e.reply(usr_qq+"成功抵达"+place.name);
         }, 1000*time);
-        e.reply("传送阵正在启动...");
+        e.reply("修仙联盟的守阵者:传送阵正在启动...");
         return;
     };
 };

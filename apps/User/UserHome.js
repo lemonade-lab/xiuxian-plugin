@@ -57,7 +57,7 @@ export class UserHome extends plugin {
         };
         const id = searchsthing.id.split('-');
         if(id[0] != 4){
-            e.reply(`什么东西你都吃啊`);
+            e.reply(`什么东西都吃啊？`);
             return ;
         };
         if (id[1] == 1) {
@@ -101,7 +101,7 @@ export class UserHome extends plugin {
         };
         const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
-            e.reply(`你没有[${thing_name}]`);
+            e.reply(`没有[${thing_name}]`);
             return;
         };
         const id = searchsthing.id.split('-');
@@ -176,7 +176,7 @@ export class UserHome extends plugin {
         };
         const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
-            e.reply(`你没有[${thing_name}]`);
+            e.reply(`没有[${thing_name}]`);
             return;
         };
         const id=searchsthing.id.split('-')

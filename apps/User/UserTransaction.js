@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from "node:fs";
 import data from '../../model/XiuxianData.js';
-import {Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, Add_najie_thing,search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie} from '../Xiuxian/Xiuxian.js';
+import { Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, Add_najie_thing, search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class UserTransaction extends plugin {
     constructor() {
         super({
@@ -27,7 +27,7 @@ export class UserTransaction extends plugin {
     };
     async ningmenghome(e) {
         const usr_qq = e.user_id;
-        const ifexistplay = data.existData("player", usr_qq);
+        const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         };
@@ -39,12 +39,12 @@ export class UserTransaction extends plugin {
             const id = item.id.split('-');
             //丹药
             if (id[0] == 4) {
-                if(id[1]==1){
+                if (id[1] == 1) {
                     msg.push(
                         "物品：" + item.name +
                         "\n气血：+" + item.blood + "%" +
                         "\n价格：" + item.price);
-                }else{
+                } else {
                     msg.push(
                         "物品：" + item.name +
                         "\n修为：+" + item.experience +
@@ -64,27 +64,27 @@ export class UserTransaction extends plugin {
                     "物品：" + item.name +
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
-                    "\n敏捷：+" + item.speed+
+                    "\n敏捷：+" + item.speed +
                     "\n价格：" + item.price);
             }
             //武器
             else if (id[0] == 1) {
                 msg.push(
                     "物品：" + item.name +
-                    "\n攻击：+" + item.attack + "%"+
+                    "\n攻击：+" + item.attack + "%" +
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
-                    "\n敏捷：+" + item.speed+
+                    "\n敏捷：+" + item.speed +
                     "\n价格：" + item.price);
             }
-            else{
+            else {
                 msg.push(
                     "物品：" + item.name +
-                    "\n防御：+" + item.defense + "%"+
-                    "\n血量：+" + item.blood + "%"+
+                    "\n防御：+" + item.defense + "%" +
+                    "\n血量：+" + item.blood + "%" +
                     "\n暴击：+" + item.burst + "%" +
                     "\n暴伤：+" + item.burstmax + "%" +
-                    "\n敏捷：+" + item.speed+
+                    "\n敏捷：+" + item.speed +
                     "\n价格：" + item.price);
             };
         });
@@ -151,7 +151,7 @@ export class UserTransaction extends plugin {
         };
         const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
-            e.reply(`你没有[${thing_name}]`);
+            e.reply(`没有[${thing_name}]`);
             return;
         }
         if (najie_thing.acount < quantity) {
@@ -167,5 +167,3 @@ export class UserTransaction extends plugin {
         return;
     };
 };
-
-

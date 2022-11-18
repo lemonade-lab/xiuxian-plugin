@@ -91,13 +91,13 @@ export class UserAction extends plugin {
             };
             await Add_najie_lingshi(usr_qq, lingshi);
             await Add_lingshi(usr_qq, -lingshi);
-            e.reply([segment.at(usr_qq), `储存完毕,你目前还有${player_lingshi.lingshi - lingshi}灵石,储物袋内有${najie.lingshi + lingshi}灵石`]);
+            e.reply([segment.at(usr_qq), `储存完毕,目前还有${player_lingshi.lingshi - lingshi}灵石,储物袋内有${najie.lingshi + lingshi}灵石`]);
             return;
         }
         if (func == "取") {
             const najie = await Read_najie(usr_qq);
             if (najie.lingshi < lingshi) {
-                e.reply([segment.at(usr_qq), `储物袋灵石不足,你目前最多取出${najie.lingshi}灵石`]);
+                e.reply([segment.at(usr_qq), `储物袋灵石不足,目前最多取出${najie.lingshi}灵石`]);
                 return;
             };
             await Add_najie_lingshi(usr_qq, -lingshi);

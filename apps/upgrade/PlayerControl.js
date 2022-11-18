@@ -43,7 +43,7 @@ export class PlayerControl extends plugin {
             "startTime": now_time
         };
         await redis.set("xiuxian:player:" + usr_qq + ":action", JSON.stringify(actionObject));
-        e.reply(`现在开始闭关,两耳不闻窗外事了`);
+        e.reply(`开始闭关,两耳不闻窗外事`);
         return true;
     };
     async Dagong(e) {
@@ -58,7 +58,7 @@ export class PlayerControl extends plugin {
             "startTime": now_time
         };
         await redis.set("xiuxian:player:" + usr_qq + ":action", JSON.stringify(actionObject));
-        e.reply(`现在开始外出降妖赚取灵石`);
+        e.reply(`开始外出降妖赚取灵石`);
         return true;
     };
     async chuGuan(e) {
@@ -82,7 +82,7 @@ export class PlayerControl extends plugin {
         const timeUnit = this.xiuxianConfigData.biguan.time;
         const time = Math.floor((new Date().getTime() - startTime) / 60000);
         if (time < timeUnit) {
-            e.reply("你只是呆了一会儿，什么也没得到。");
+            e.reply("只是呆了一会儿，什么也没得到。");
             await offaction(usr_qq);
             return;
         };
@@ -115,7 +115,7 @@ export class PlayerControl extends plugin {
         const timeUnit = this.xiuxianConfigData.work.time;
         const time = Math.floor((new Date().getTime() - startTime) / 60000);
         if (time < timeUnit) {
-            e.reply("你只是呆了一会儿，什么也没得到。");
+            e.reply("只是呆了一会儿，什么也没得到。");
             await offaction(usr_qq);
             return;
         };
@@ -136,7 +136,7 @@ export class PlayerControl extends plugin {
         if (name == "闭关") {
             if (rand > 30) {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * level.level_id / 2);
-                msg.push("\n你闭关迟迟无法入定,只得到了" + other + "修为");
+                msg.push("\n闭关迟迟无法入定,只得到了" + other + "修为");
             }
             else {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * level.level_id);
@@ -149,7 +149,7 @@ export class PlayerControl extends plugin {
         else {
             if (rand > 30) {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * level.level_id / 2);
-                msg.push("\n你降妖不专心,只得到了" + other);
+                msg.push("\n降妖不专心,只得到了" + other);
             }
             else {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * level.level_id);

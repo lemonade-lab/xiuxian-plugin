@@ -117,6 +117,11 @@ export async function get_map_img(e) {
 };
 const updata = config.getdefSet("version", "version");
 export async function get_updata_img(e) {
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+    };
     const myData = {
         version: updata
     };
@@ -128,6 +133,10 @@ export async function get_updata_img(e) {
 };
 export async function get_player_img(e) {
     const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+    };
     const player = await Read_player(usr_qq);
     const wealt = await Read_wealth(usr_qq);
     const equipment = await Read_equipment(usr_qq);
@@ -166,6 +175,10 @@ export async function get_player_img(e) {
 };
 export async function get_equipment_img(e) {
     const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+    };
     const battle = await Read_battle(usr_qq);
     const equipment = await Read_equipment(usr_qq);
     let life = await Read_Life();
