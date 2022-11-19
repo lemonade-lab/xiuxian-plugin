@@ -21,13 +21,33 @@ export class OneKey extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
+
     async OneKey_all(e) {
+        if (!e.isGroup) {
+            return;
+        };
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         };
         let najie=Read_najie(usr_qq);
+        e.reply("待更新...");
         return;
     };
+
+    async OneKey_wuqi(e) {
+        if (!e.isGroup) {
+            return;
+        };
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        let najie=Read_najie(usr_qq);
+        e.reply("待更新...");
+        return;
+    };
+    
 };

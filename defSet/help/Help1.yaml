@@ -37,6 +37,9 @@
       title: "#攻击 @群友"
       desc: "可掉装备"
     - icon: help-icon_10
+      title: "#洗手"
+      desc: "清魔力值"
+    - icon: help-icon_10
       title: "#修仙地图"
       desc: "打开修仙世界大门"
     - icon: help-icon_10

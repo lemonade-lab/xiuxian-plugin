@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import Cachemonster from "../../model/cachemonster.js";
-import { Go, Read_action, existplayer,GenerateCD, __PATH, At, battle, interactive, distance, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, existplayer,GenerateCD, __PATH, At, battle, interactive, distance, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class Battle extends plugin {
     constructor() {
         super({
@@ -14,12 +14,38 @@ export class Battle extends plugin {
                     fnc: 'Attack'
                 },
                 {
-                    reg: '^#洗手.*$',
+                    reg: '^#洗手$',
                     fnc: 'HandWashing'
                 }
             ]
         });
     };
+    
+    async HandWashing(e) {
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        const Level=await Read_level(usr_qq);
+        const money=10000*Level.level_id;
+        if(Level.prestig>0){
+            const wealt=await Read_wealth(usr_qq);
+            if(wealt.lingshi>money){
+                Level.prestige-=1;
+                wealt.lingshi-=money;
+                await Write_level(usr_qq,Level);
+                await Write_wealth(usr_qq,wealt);
+                e.reply("天机门的某位修士:你为你清除1点魔力值");
+                return;
+            }
+            e.reply("天机门的某位修士:清魔力需要"+money);
+            return;
+        };
+        return;
+    }
+
+
     async Attack(e) {
         const good = await Go(e);
         if (!good) {
