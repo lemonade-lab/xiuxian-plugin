@@ -63,7 +63,8 @@ export class Battle extends plugin {
             return;
         };
         const q = Math.floor((Math.random() * (99 - 1) + 1));
-        //根据魔力来判断概率
+        //自身魔力增加
+        //根据对手魔力来判断概率
         const MP=80;
         if (q > MP) {
             if (qq != A) {

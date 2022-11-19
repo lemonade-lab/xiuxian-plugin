@@ -51,6 +51,9 @@ export class TopList extends plugin {
                 temp.push(battle);
             };
         });
+        if(temp.length==0){
+            return;
+        };
         temp.sort(sortBy("power"));
         const list = [];
         temp.forEach((item, index) => {
@@ -89,6 +92,9 @@ export class TopList extends plugin {
                 temp.push(battle);
             };
         });
+        if(temp.length==0){
+            return;
+        };
         temp.sort(sortBy("power"));
         const list = [];
         temp.forEach((item, index) => {
@@ -127,6 +133,9 @@ export class TopList extends plugin {
                 temp.push(battle);
             };
         });
+        if(temp.length==0){
+            return;
+        };
         temp.sort(sortBy("power"));
         const list = [];
         temp.forEach((item, index) => {
@@ -134,6 +143,7 @@ export class TopList extends plugin {
                 list.push(item);
             };
         });
+        
         const img = await get_toplist_img(e, list);
         e.reply(img);
         return;

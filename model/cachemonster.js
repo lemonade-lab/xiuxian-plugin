@@ -2,6 +2,7 @@ const alldata = [];
 const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
 //妖兽的等级
 const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
+let addall=[];
 class Cachemonster {
     constructor() {}
     async monsterscache(i) {
@@ -84,6 +85,27 @@ class Cachemonster {
         alldata[i].data = monList;
         console.log(alldata[i].data);
         return ;
+    };
+
+    async add(i,num){
+        while (true) {
+            if (addall.length <= i) {
+                addall.push({
+                    acount: 0,
+                });
+            }
+            else {
+                break;
+            };
+        };
+        addall[i].acount+=num;
+        //累计随机
+        const p=Math.floor((Math.random() * (50-30))) + Number(30);
+        if(addall[i].acount>p){
+            addall[i].acount=0;
+            return 1;
+        }
+        return 0;
     };
 
 };

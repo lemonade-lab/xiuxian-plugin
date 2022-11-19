@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from "node:fs";
 import Cachemonster from "../../model/cachemonster.js";
-import { Gomini, isNotNull,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Gomini,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 
 
 export class BattleSite extends plugin {
@@ -47,67 +47,58 @@ export class BattleSite extends plugin {
             await redis.expire("xiuxian:player:" + usr_qq + ':' + CDid, CDTime * 60);
             const monstersdata = await Cachemonster.monsterscache(p);
             const mon=monstersdata.find(item => item.name == name);
-            if(!isNotNull(mon)){
+            if(!mon){
                 e.reply(`这里没有这样的怪物，去别处看看吧`);
                 return ;
-            }
-            await Cachemonster.addKillNum(p,name,1);
-            const LevelMax = data.LevelMax_list.find(item => item.id == mon.level);
-            const monsters = {
-                "nowblood": LevelMax.blood,
-                "attack": LevelMax.attack,
-                "defense": LevelMax.defense,
-                "blood": LevelMax.blood,
-                "burst": LevelMax.burst+LevelMax.id*5,
-                "burstmax": LevelMax.burstmax+LevelMax.id*10,
-                "speed": LevelMax.speed+5
             };
-            if(mon.killNum >= 11){
-                await Cachemonster.addKillNum(p,name,0);
-                const random = Math.floor(Math.random() * 9) + 1;
-                monsters.nowblood *= random;
-                monsters.attack *= random;
-                monsters.defense *= random;
-                monsters.blood *= random;
-                monsters.burst *= random;
-                monsters.burstmax *= random;
-                monsters.speed *= random;
-                mon.level += 2 ;
-                e.reply(`周围传来阵阵嘶吼，竟然遇见了精英级别的${mon.name}！！！`);
-            }
+            //击杀累计
+            const acount=await Cachemonster.add(p,1);
+            const msg = ["[击杀结果]"];
+            let buff=1;
+            if(acount==1){
+                buff=Math.floor((Math.random() * (20-5))) + Number(5);
+                msg.push("精英怪出现了！");
+            };
+            const LevelMax = data.LevelMax_list.find(item => item.id == mon.level+1);
+            const monsters = {
+                "nowblood": LevelMax.blood*buff,
+                "attack": LevelMax.attack*buff,
+                "defense": LevelMax.defense*buff,
+                "blood": LevelMax.blood*buff,
+                "burst": LevelMax.burst+LevelMax.id*5*buff,
+                "burstmax": LevelMax.burstmax+LevelMax.id*10*buff,
+                "speed": LevelMax.speed+5+buff
+            };
             const battle=await Read_battle(usr_qq);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
-                const msg = ["[击杀结果]"];
                 msg.push(usr_qq+"击败了"+mon.name);
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);
                 //获得装备
                 if(m<mon.level*5){
                     const dropsItemList = JSON.parse(fs.readFileSync(`${data.all}/dropsItem.json`));
-                    const length = dropsItemList.length;
-                    const random = Math.floor(Math.random() * length);
-                    let nacre = await Read_najie(usr_qq);
-                    nacre = await Add_najie_thing(nacre, dropsItemList[random], 1);
-                    await Write_najie(usr_qq, nacre);
+                    const random = Math.floor(Math.random() * dropsItemList.length);
+                    let najie = await Read_najie(usr_qq);
+                    najie = await Add_najie_thing(najie, dropsItemList[random], 1);
                     msg.push(usr_qq+`得到了装备[${dropsItemList[random].name}]`);
+                    await Write_najie(usr_qq, najie);
                 }
                 //获得气血
                 else if(m<mon.level*8){
-                    msg.push(usr_qq+"得到99气血");
-                    await Add_experiencemax(usr_qq,99);
+                    msg.push(usr_qq+"得到"+mon.level*8+"气血");
+                    await Add_experiencemax(usr_qq,mon.level*8);
                 }
                 //获得修为and灵石
                 else if(m<mon.level*10){
-                    msg.push(usr_qq+"得到99灵石和99修为");
-                    await Add_experience(usr_qq,99);
-                    await Add_lingshi(usr_qq,99);
-                }else {
-                    msg.push(usr_qq+"运气不好，什么也没得到");
-                }
-                await ForwardMsg(e, msg);
-                return;
+                    msg.push(usr_qq+"得到"+mon.level*10+"灵石和"+mon.level*10+"修为");
+                    await Add_experience(usr_qq,mon.level*10*5);
+                    await Add_lingshi(usr_qq,mon.level*10*2);
+                };
+            }
+            else{
+               msg.push(`你被怪物杀死了！！！`);
             };
-            e.reply(`你被怪物杀死了！！！`);
+            await ForwardMsg(e, msg);
             return;
         };
         return;

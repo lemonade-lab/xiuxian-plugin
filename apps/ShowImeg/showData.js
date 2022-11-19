@@ -61,15 +61,16 @@ export async function get_state_img(e) {
     const player = await Read_level(usr_qq);
     const Level_id = player.level_id;
     const Level_list = data.Level_list;
+    const list=[];
     Level_list.forEach(async(item,index,arr)=>{
-        if (item.id <= Level_id && item.id > Level_id + 2) {
-            arr.splice(index, 1);
+        if (item.id > Level_id && item.id <= Level_id+2) {
+            list.push(item);
         };
     });
     const myData = {
         name: "炼气境界",
         user_id: usr_qq,
-        Level_list: Level_list
+        Level_list: list
     };
     const data1 = await new Show(e).get_Data("state", "state", myData);
     const img = await puppeteer.screenshot("state", {
@@ -86,18 +87,19 @@ export async function get_statemax_img(e) {
     const player = await Read_level(usr_qq);
     const Level_id = player.levelmax_id;
     const LevelMax_list = data.LevelMax_list;
-    LevelMax_list.forEach(async(item,index,arr)=>{
-        if (item.id <= Level_id && item.id > Level_id + 2) {
-            arr.splice(index, 1);
+    const list=[];
+    LevelMax_list.forEach((item,index,arr)=>{
+        if (item.id > Level_id && item.id <= Level_id+2) {
+            list.push(item);
         };
     });
     const myData = {
         name: "炼体境界",
         user_id: usr_qq,
-        Level_list: LevelMax_list
+        Level_list: list
     };
     const data1 = await new Show(e).get_Data("state", "state", myData);
-    const img = await puppeteer.screenshot("statemax", {
+    const img = await puppeteer.screenshot("state", {
         ...data1,
     });
     return img;
