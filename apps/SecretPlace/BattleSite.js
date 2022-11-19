@@ -68,7 +68,6 @@ export class BattleSite extends plugin {
             const battle=await Read_battle(usr_qq);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
-                msg.push(usr_qq+"击败了"+mon.name);
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);
                 if(m<mon.level*5){
                     const dropsItemList = JSON.parse(fs.readFileSync(`${data.all}/dropsItem.json`));
