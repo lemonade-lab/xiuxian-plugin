@@ -3,8 +3,6 @@ import data from '../../model/XiuxianData.js';
 import fs from "node:fs";
 import Cachemonster from "../../model/cachemonster.js";
 import { Gomini,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
-
-
 export class BattleSite extends plugin {
     constructor() {
         super({
@@ -125,7 +123,7 @@ export class BattleSite extends plugin {
         }
         else{
             e.reply("修仙联盟的普通士兵:城里哪儿来的怪物？搞笑");
-        }
+        };
         return;
     };
 };

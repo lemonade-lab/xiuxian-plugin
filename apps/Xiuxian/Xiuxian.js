@@ -213,6 +213,13 @@ export async function monsterbattle(e,battleA, battleB) {
     let qq=1;
     if(battleA.speed>=battleB.speed-5){
         let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
+        if(hurt<=0){
+            e.reply("你个老六想偷袭，却连怪物的防御都破不了，被怪物一巴掌给拍死了！");
+            battleA.nowblood=0;
+            qq=0;
+            await Write_battle(e.user_id,battleA);
+            return;
+        };
         if(await battle_probability(battleA.burst)){
             hurt=Math.floor(hurt*battleA.burstmax);
         };
@@ -221,7 +228,7 @@ export async function monsterbattle(e,battleA, battleB) {
             e.reply("你仅出一招，就击败了怪物！");
             return qq;
         }else{
-            msg.push("你个老六偷袭成功，造成"+hurt+"伤害");
+            msg.push("你个老六偷袭，造成"+hurt+"伤害");
         };
     }else{
         msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
@@ -293,6 +300,13 @@ export async function battle(e,A, B) {
         let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
         if(await battle_probability(battleA.burst)){
             hurt=Math.floor(hurt*battleA.burstmax);
+        };
+        if(hurt<=0){
+            e.reply("你个老六想偷袭，却连对方的防御都破不了，被对方一巴掌给拍死了！");
+            battleA.nowblood=0;
+            qq=B_qq;
+            await Write_battle(e.user_id,battleA);
+            return;
         };
         battleB.nowblood=battleB.nowblood-hurt;
         if(battleB.nowblood<1){
