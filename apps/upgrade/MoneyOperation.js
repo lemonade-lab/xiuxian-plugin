@@ -51,7 +51,7 @@ export class MoneyOperation extends plugin {
         A_player.lingshi-=lingshi;
         await Write_wealth(A,A_player);
         await Add_lingshi(B, lingshi);
-        e.reply([segment.at(B), `你获得了由 ${A_player.name}赠送的${lingshi}灵石`]);
+        e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}灵石`]);
         return;
     };
 };
