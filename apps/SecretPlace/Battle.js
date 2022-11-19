@@ -63,7 +63,7 @@ export class Battle extends plugin {
         //自身魔力增加
         const Level=await Read_level(A);
         Level.prestige+=1;
-        await Write_level(Level);
+        await Write_level(A,Level);
         if (qq == 0) {
             //距离
             let h = await distance(A, B);
