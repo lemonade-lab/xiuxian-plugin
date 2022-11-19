@@ -52,7 +52,7 @@ export class BattleSite extends plugin {
                 return ;
             };
             //击杀累计
-            const acount=await Cachemonster.add(p,1);
+            const acount=await Cachemonster.add(p,Number(1));
             const msg = ["[击杀结果]"];
             let buff=1;
             if(acount==1){

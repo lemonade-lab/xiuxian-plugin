@@ -64,29 +64,6 @@ class Cachemonster {
         };
         return -1;
     };
-
-    async addKillNum(i,name,num){
-        let monList = [];
-        if(num == 1){
-            monList = alldata[i].data.map(item => {
-                if(item.name == name){
-                    item.killNum+=1;
-                }
-                return item;
-            });
-        }else {
-            monList = alldata[i].data.map(item => {
-                if(item.name == name){
-                    item.killNum=1;
-                }
-                return item;
-            });
-        }
-        alldata[i].data = monList;
-        console.log(alldata[i].data);
-        return ;
-    };
-
     async add(i,num){
         while (true) {
             if (addall.length <= i) {
@@ -99,14 +76,12 @@ class Cachemonster {
             };
         };
         addall[i].acount+=num;
-        //累计随机
         const p=Math.floor((Math.random() * (50-30))) + Number(30);
         if(addall[i].acount>p){
             addall[i].acount=0;
             return 1;
-        }
+        };
         return 0;
     };
-
 };
 export default new Cachemonster();

@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import Cachemonster from "../../model/cachemonster.js";
-import { Go,Read_action, GenerateCD, __PATH, At, battle, interactive, distance, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, existplayer,GenerateCD, __PATH, At, battle, interactive, distance, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level } from '../Xiuxian/Xiuxian.js';
 export class Battle extends plugin {
     constructor() {
         super({
@@ -9,6 +9,10 @@ export class Battle extends plugin {
             event: 'message',
             priority: 600,
             rule: [
+                {
+                    reg: '^#攻击.*$',
+                    fnc: 'Attack'
+                },
                 {
                     reg: '^#攻击.*$',
                     fnc: 'Attack'
@@ -56,6 +60,10 @@ export class Battle extends plugin {
         //先斩后奏
         await redis.set("xiuxian:player:" + A + ':' + CDid, now_time);
         await redis.expire("xiuxian:player:" + A + ':' + CDid, CDTime * 60);
+        //自身魔力增加
+        const Level=await Read_level(A);
+        Level.prestige+=1;
+        await Write_level(Level);
         if (qq == 0) {
             //距离
             let h = await distance(A, B);
@@ -63,10 +71,10 @@ export class Battle extends plugin {
             return;
         };
         const q = Math.floor((Math.random() * (99 - 1) + 1));
-        //自身魔力增加
         //根据对手魔力来判断概率
-        const MP=80;
-        if (q > MP) {
+        const LevelB=await Read_level(B);
+        const MP = LevelB.prestige;
+        if (q <= MP) {
             if (qq != A) {
                 let C = A;
                 A = B;

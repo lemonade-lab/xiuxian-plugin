@@ -49,10 +49,11 @@ export class SecretPlace extends plugin {
         const y = action.y;
         const z = action.z;
         if (x % 100 == 0 && y % 100 == 0 && z % 100 == 0) {
-            e.reply("修仙联盟的守阵者:已经在传送阵了");
+            e.reply("修仙联盟的守阵者:这里就是传送阵");
             return;
         };
         const setTime = setTimeout(async () => {
+            clearTimeout(setTime);
             action.x=Math.floor(x/100)*100;
             action.y=Math.floor(y/100)*100;
             action.z=Math.floor(z/100)*100;
@@ -96,6 +97,7 @@ export class SecretPlace extends plugin {
         await Write_wealth(usr_qq,wealt);
         const time=((x-place.x1)>0?x-place.x1:place.x1-x)/100+(y-place.y1>0?y-place.y1:place.y1-x)/100;
         const setTime = setTimeout(async () => {
+            clearTimeout(setTime);
             action.x = Math.floor((Math.random() * (place.x2 - place.x1))) + Number(place.x1);
             action.y = Math.floor((Math.random() * (place.y2 - place.y1))) + Number(place.y1);
             action.z = 0;
