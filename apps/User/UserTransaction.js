@@ -57,35 +57,6 @@ export class UserTransaction extends plugin {
                     "物品：" + item.name +
                     "\n天赋：+" + item.size + "%" +
                     "\n价格：" + item.price);
-            }
-            //法宝
-            else if (id[0] == 3) {
-                msg.push(
-                    "物品：" + item.name +
-                    "\n暴击：+" + item.burst + "%" +
-                    "\n暴伤：+" + item.burstmax + "%" +
-                    "\n敏捷：+" + item.speed +
-                    "\n价格：" + item.price);
-            }
-            //武器
-            else if (id[0] == 1) {
-                msg.push(
-                    "物品：" + item.name +
-                    "\n攻击：+" + item.attack + "%" +
-                    "\n暴击：+" + item.burst + "%" +
-                    "\n暴伤：+" + item.burstmax + "%" +
-                    "\n敏捷：+" + item.speed +
-                    "\n价格：" + item.price);
-            }
-            else {
-                msg.push(
-                    "物品：" + item.name +
-                    "\n防御：+" + item.defense + "%" +
-                    "\n血量：+" + item.blood + "%" +
-                    "\n暴击：+" + item.burst + "%" +
-                    "\n暴伤：+" + item.burstmax + "%" +
-                    "\n敏捷：+" + item.speed +
-                    "\n价格：" + item.price);
             };
         });
         await ForwardMsg(e, msg);

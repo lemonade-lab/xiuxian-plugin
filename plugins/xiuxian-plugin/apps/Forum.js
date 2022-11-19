@@ -28,8 +28,8 @@ export class Forum extends plugin {
             msg.push(
                 "   [" + item.title + "]" +
                 "\n" + item.content +
-                "\ntime:" + item.time +
-                "\nID:" + item.number);
+                "\nTime:" + item.time +
+                "\nId:" + item.number);
         });
         await ForwardMsg(e, msg);
         return;

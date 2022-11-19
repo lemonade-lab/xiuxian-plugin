@@ -1,6 +1,6 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
 import fs from "node:fs";
-import { __PATH,Add_lingshi , Add_experience, Add_experiencemax} from '../../../apps/Xiuxian/Xiuxian.js';
+import { __PATH,Add_lingshi ,ForwardMsg, Add_experience, Add_experiencemax, Read_Life} from '../../../apps/Xiuxian/Xiuxian.js';
 export class XiuxianWorld extends plugin {
     constructor() {
         super({
@@ -24,27 +24,30 @@ export class XiuxianWorld extends plugin {
         if (!e.isMaster) {
             return;
         };
-        e.reply("#修仙世界");
+        const life=Read_Life();
+        const msg=["--修仙世界---"];
+        msg.push("人数："+life.length);
+        await ForwardMsg(e,msg);
         return;
     };
     async ceshi(e) {
         if (!e.isMaster) {
             return;
         };
-        let playerList = [];
-        let files = fs
+        const playerList = [];
+        const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
+        files.forEach((item) => {
+            const file = item.replace(".json", "");
             playerList.push(file);
-        };
-        for (let player_id of playerList) {
-            await Add_lingshi(player_id, 99999);
-            await Add_experience(player_id, 99999);
-            await Add_experiencemax(player_id, 99999);
-        };
-        e.reply('每人增加\n99999灵石\n99999修为\n99999气血！');
+        });
+        playerList.forEach(async(item) => {
+            await Add_lingshi(item, 99999);
+            await Add_experience(item, 99999);
+            await Add_experiencemax(item, 99999);
+        });
+        e.reply('已发放');
         return;
     };
 };

@@ -61,7 +61,7 @@ export class Exchange extends plugin {
         if (money < 10) {
             money = 10;
         };
-        let najie_thing = await exist_najie_thing_name(usr_qq,thing_name);
+        const najie_thing = await exist_najie_thing_name(usr_qq,thing_name);
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`);
             return;
@@ -76,7 +76,7 @@ export class Exchange extends plugin {
             return;
         }
         najie_thing.acount=quantity;
-        let exchange=await Read_Exchange();
+        const exchange=await Read_Exchange();
         exchange.push({
             "id":usr_qq+Math.floor((Math.random() * (99-1)+1)),
             "QQ":usr_qq,
@@ -117,7 +117,7 @@ export class Exchange extends plugin {
         };
         if(exchange[x].QQ!=usr_qq){
             return;
-        }
+        };
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
@@ -128,7 +128,7 @@ export class Exchange extends plugin {
     };
     async purchase(e) {
         const usr_qq = e.user_id;
-        let ifexistplay = await existplayer(usr_qq);
+        const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         };
@@ -147,21 +147,21 @@ export class Exchange extends plugin {
             return;
         };
         let wealth=await Read_wealth(usr_qq);
-        if(wealth.lingshi<exchange[x].thing.money){
+        if(wealth.lingshi<exchange[x].money){
             e.reply("资金不足");
             return;
         };
-        wealth.lingshi-=exchange[x].thing.money;
+        wealth.lingshi-=exchange[x].money;
         await Write_wealth(usr_qq,wealth);
+        let newwealth=await Read_wealth(usr_qq);
+        newwealth.lingshi+=exchange[x].money;
+        await Write_wealth(usr_qq,newwealth);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
         exchange = exchange.filter(item => item.id != thingid);
         await Write_Exchange(exchange);
         e.reply("成功选购"+thingid);
-        let newwealth=await Read_wealth(usr_qq);
-        newwealth.lingshi+=exchange[x].thing.money;
-        await Write_wealth(usr_qq,newwealth);
         return;
     };
 };

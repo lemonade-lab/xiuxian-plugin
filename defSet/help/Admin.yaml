@@ -34,11 +34,17 @@
 - group: 
   list:
     - icon: help-icon_58
+      title: "#修仙世界"
+      desc: "查看修仙人数"
+    - icon: help-icon_58
       title: "#重置配置"
       desc: "重置修仙配置"
     - icon: help-icon_58
       title: "#同步信息"
       desc: "同步所有存档"
+      
+- group: 
+  list:
     - icon: help-icon_58
       title: "#修仙更新"
       desc: "更新修仙模拟器插件"
