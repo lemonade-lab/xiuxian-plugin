@@ -31,7 +31,7 @@ export class OneKey extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let najie=Read_najie(usr_qq);
+        let najie=await Read_najie(usr_qq);
         let money=0;
         for(let item of najie.thing){
             money+=item.acount*price;
