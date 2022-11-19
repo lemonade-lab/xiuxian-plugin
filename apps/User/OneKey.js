@@ -34,7 +34,7 @@ export class OneKey extends plugin {
         let najie=await Read_najie(usr_qq);
         let money=0;
         for(let item of najie.thing){
-            money+=item.acount*price;
+            money+=item.acount*item.price;
         };
         await Add_lingshi(usr_qq,money);
         najie.thing=[];
