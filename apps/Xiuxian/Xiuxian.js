@@ -210,7 +210,7 @@ export async function monsterbattle(e,battleA, battleB) {
             battleA.nowblood=0;
             qq=0;
             await Write_battle(e.user_id,battleA);
-            return;
+            return qq;
         };
         if(await battle_probability(battleA.burst)){
             hurt=Math.floor(hurt*battleA.burstmax);
@@ -298,7 +298,7 @@ export async function battle(e,A, B) {
             battleA.nowblood=0;
             qq=B_qq;
             await Write_battle(e.user_id,battleA);
-            return;
+            return qq;
         };
         battleB.nowblood=battleB.nowblood-hurt;
         if(battleB.nowblood<1){

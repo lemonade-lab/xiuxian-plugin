@@ -40,7 +40,7 @@ export class TopList extends plugin {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async (item, index, arr) => {
+        for(let item of playerList){
             const newbattle = await Read_level(item);
             if (newbattle.prestige > 0) {
                 const battle = {
@@ -50,7 +50,7 @@ export class TopList extends plugin {
                 };
                 temp.push(battle);
             };
-        });
+        };
         if(temp.length==0){
             return;
         };
@@ -80,7 +80,7 @@ export class TopList extends plugin {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async (item, index, arr) => {
+        for(let item of playerList){
             const level = await Read_level(item);
             if (level.level_id > 10) {
                 const newbattle = await Read_battle(item);
@@ -91,7 +91,7 @@ export class TopList extends plugin {
                 };
                 temp.push(battle);
             };
-        });
+        };
         if(temp.length==0){
             return;
         };
@@ -112,16 +112,16 @@ export class TopList extends plugin {
         if (!ifexistplay) {
             return;
         }
-        const playerList = [];
-        const temp = [];
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        files.forEach((item, index, arr) => {
+        const playerList = [];
+        files.forEach((item) => {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async (item, index, arr) => {
+        const temp = [];
+        for(let item of playerList){
             const level = await Read_level(item);
             if (level.level_id <= 10) {
                 const newbattle = await Read_battle(item);
@@ -132,18 +132,17 @@ export class TopList extends plugin {
                 };
                 temp.push(battle);
             };
-        });
+        };
         if(temp.length==0){
             return;
         };
         temp.sort(sortBy("power"));
         const list = [];
-        temp.forEach((item, index) => {
+        temp.forEach(async(item, index) => {
             if (index < 10) {
                 list.push(item);
             };
         });
-        
         const img = await get_toplist_img(e, list);
         e.reply(img);
         return;

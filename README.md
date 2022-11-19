@@ -1,5 +1,6 @@
 ![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)    
-# xiuxian-emulator-plugin-V2-开发版            
+# xiuxian-emulator-plugin-V2-测试版
+2022.12.1推送正式版
 
 ## 安装教程      
 

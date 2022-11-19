@@ -62,7 +62,7 @@ export async function get_state_img(e) {
     const Level_id = player.level_id;
     const Level_list = data.Level_list;
     const list=[];
-    Level_list.forEach(async(item,index,arr)=>{
+    Level_list.forEach(async(item)=>{
         if (item.id > Level_id && item.id <= Level_id+2) {
             list.push(item);
         };
