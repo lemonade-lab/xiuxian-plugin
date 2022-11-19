@@ -146,6 +146,7 @@ export class Exchange extends plugin {
             e.reply("找不到该商品编号！");
             return;
         };
+
         let wealth=await Read_wealth(usr_qq);
         if(wealth.lingshi<exchange[x].money){
             e.reply("资金不足");
@@ -153,14 +154,18 @@ export class Exchange extends plugin {
         };
         wealth.lingshi-=exchange[x].money;
         await Write_wealth(usr_qq,wealth);
-        let newwealth=await Read_wealth(usr_qq);
+
+        let newwealth=await Read_wealth(exchange[x].QQ);
         newwealth.lingshi+=exchange[x].money;
-        await Write_wealth(usr_qq,newwealth);
+        await Write_wealth(exchange[x].QQ,newwealth);
+
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
+
         exchange = exchange.filter(item => item.id != thingid);
         await Write_Exchange(exchange);
+        
         e.reply("成功选购"+thingid);
         return;
     };
