@@ -51,14 +51,15 @@ class XiuxianData {
         this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)), commodities, 10);
         this.add(commodities, 'commodities');
 
+        //怪物掉落
         this.deletelist('dropsItem');
-        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)).slice(11,99), dropsItem, 99);
-        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)).slice(11,99), dropsItem, 99);
-        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)).slice(11,99), dropsItem, 99);
-         this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11,99), commodities, 99);
-         this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)).slice(11,99), commodities, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), dropsItem, 19);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), dropsItem, 19);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)), dropsItem, 19);
+         this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11,19), commodities, 19);
+         this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)).slice(11,19), commodities, 19);
         this.add(dropsItem, 'dropsItem');
-
+        
         //动态生成点坐标表
 
         //动态生成区域坐标表

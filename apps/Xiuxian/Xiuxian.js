@@ -470,10 +470,8 @@ export async function search_thing_name(thing) {
     const ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.name == thing);
     if(ifexist0==undefined){
         return  1;
-    }
-    else{
-        return ifexist0;
     };
+    return ifexist0;
 };
 /**
  * 根据id返回物品
