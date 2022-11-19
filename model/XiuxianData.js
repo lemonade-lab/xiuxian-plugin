@@ -11,24 +11,27 @@ class XiuxianData {
             "equipment": path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
             "birthassociation": path.join(__dirname, "/resources/data/birth/association"),
+
             "all": path.join(__dirname, "/resources/data/birth/all"),
+
+            "fixedposition": path.join(__dirname, "/resources/data/fixed/position"),
             "fixedequipment": path.join(__dirname, "/resources/data/fixed/equipment"),
             "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
-            "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
             "fixedLevel": path.join(__dirname, "/resources/data/fixed/Level"),
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
             "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
-            "position": path.join(__dirname, "/resources/data/fixed/position"),
+            "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
         };
         this.association = this.__PATH.birthassociation;
+        this.all = this.__PATH.all;
+
+        this.position = this.__PATH.fixedposition;
         this.fixedequipment = this.__PATH.fixedequipment;
         this.goods = this.__PATH.fixedgoods;
-        this.lib = this.__PATH.fixedlib;
         this.Level = this.__PATH.fixedLevel;
         this.occupation = this.__PATH.fixedoccupation;
         this.talent = this.__PATH.fixedtalent;
-        this.all = this.__PATH.all;
-        this.position = this.__PATH.position;
+        this.lib = this.__PATH.fixedlib;
 
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
