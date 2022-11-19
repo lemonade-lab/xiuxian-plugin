@@ -37,9 +37,9 @@ export class AdminMoney extends plugin {
             e.reply("世界没有" + thing_name);
             return;
         };
-        let najie = await Read_najie(usr_qq);
+        let najie = await Read_najie(B);
         najie = await Add_najie_thing(najie, searchsthing, 1);
-        await Write_najie(usr_qq, najie);
+        await Write_najie(B, najie);
         e.reply(B+"获得馈赠：" + thing_name);
         return;
     };
