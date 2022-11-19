@@ -2,6 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import Cachemonster from "../../model/cachemonster.js";
 import { Gomini, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi } from '../Xiuxian/Xiuxian.js';
+import {Add_najie_thing, Read_najie, Write_najie} from "../Xiuxian/Xiuxian";
 export class BattleSite extends plugin {
     constructor() {
         super({
@@ -63,6 +64,12 @@ export class BattleSite extends plugin {
                 //获得装备
                 if(m<mon.level*5){
                     msg.push(usr_qq+"得到了装备");
+                    const dropsItemList = JSON.parse(fs.readFileSync(`${data.dropsItem}/dropsItem.json`));
+                    const length = dropsItemList.length;
+                    const random = Math.floor(Math.random() * length);
+                    let nacre = await Read_najie(usr_qq);
+                    nacre = await Add_najie_thing(nacre, dropsItemList[random], 1);
+                    await Write_najie(usr_qq, nacre);
                 }
                 //获得气血
                 else if(m<mon.level*8){

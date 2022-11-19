@@ -618,7 +618,7 @@ export function isNotNull(obj) {
 export function isNotBlank(value) {
     if (value ?? '' !== '') {
         return true;
-    } 
+    }
     else {
         return false;
     };

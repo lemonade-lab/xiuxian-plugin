@@ -12,7 +12,6 @@ class XiuxianData {
             "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
             "birthassociation": path.join(__dirname, "/resources/data/birth/association"),
             "all": path.join(__dirname, "/resources/data/birth/all"),
-            "dropsItem": path.join(__dirname, "/resources/data/birth/all"),
             "fixedequipment": path.join(__dirname, "/resources/data/fixed/equipment"),
             "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
             "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
@@ -30,7 +29,6 @@ class XiuxianData {
         this.occupation = this.__PATH.fixedoccupation;
         this.talent = this.__PATH.fixedtalent;
         this.all = this.__PATH.all;
-        this.dropsItem = this.__PATH.dropsItem;
         this.sorcery = this.__PATH.sorcery;
         this.position = this.__PATH.position;
 
@@ -47,7 +45,6 @@ class XiuxianData {
         this.speed_list = JSON.parse(fs.readFileSync(`${this.sorcery}/speed_list.json`));
 
         this.deletelist('all');
-        this.deletelist('dropsItem');
 
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), all, 99);
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), all, 99);
@@ -71,15 +68,23 @@ class XiuxianData {
 
         this.deletelist('commodities');
 
-        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), commodities, 99);
-        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), commodities, 99);
-        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)), commodities, 99);
-        this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)), commodities, 99);
-        this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)), commodities, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), commodities, 10);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), commodities, 10);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)), commodities, 10);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)), commodities, 10);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)), commodities, 10);
 
         this.add(commodities, 'commodities');
 
-    }
+        this.deletelist('dropsItem');
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)).slice(11,99), dropsItem, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)).slice(11,99), dropsItem, 99);
+        this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)).slice(11,99), dropsItem, 99);
+         this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11,99), commodities, 99);
+         this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)).slice(11,99), commodities, 99);
+        this.add(dropsItem, 'dropsItem');
+
+     }
     //删除
     deletelist(name) {
         let sum = [];
