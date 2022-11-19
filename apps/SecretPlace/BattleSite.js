@@ -2,7 +2,8 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from "node:fs";
 import Cachemonster from "../../model/cachemonster.js";
-import { Gomini, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Gomini, isNotNull,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+
 
 export class BattleSite extends plugin {
     constructor() {
@@ -46,6 +47,11 @@ export class BattleSite extends plugin {
             await redis.expire("xiuxian:player:" + usr_qq + ':' + CDid, CDTime * 60);
             const monstersdata = await Cachemonster.monsterscache(p);
             const mon=monstersdata.find(item => item.name == name);
+            if(!isNotNull(mon)){
+                e.reply(`这里没有这样的怪物，去别处看看吧`);
+                return ;
+            }
+            await Cachemonster.addKillNum(p,name,1);
             const LevelMax = data.LevelMax_list.find(item => item.id == mon.level);
             const monsters = {
                 "nowblood": LevelMax.blood,
@@ -56,12 +62,24 @@ export class BattleSite extends plugin {
                 "burstmax": LevelMax.burstmax+LevelMax.id*10,
                 "speed": LevelMax.speed+5
             };
+            if(mon.killNum >= 11){
+                await Cachemonster.addKillNum(p,name,0);
+                const random = Math.floor(Math.random() * 9) + 1;
+                monsters.nowblood *= random;
+                monsters.attack *= random;
+                monsters.defense *= random;
+                monsters.blood *= random;
+                monsters.burst *= random;
+                monsters.burstmax *= random;
+                monsters.speed *= random;
+                mon.level += 2 ;
+            }
+            e.reply(`周围传来阵阵嘶吼，竟然遇见了精英级别的${mon.name}！！！`);
             const battle=await Read_battle(usr_qq);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
                 const msg = ["[击杀结果]"];
-                e.reply(usr_qq+"击败了"+mon.name);
-                //todo 按怪物等级进行掉落
+                msg.push(usr_qq+"击败了"+mon.name);
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);
                 //获得装备
                 if(m<mon.level*5){
@@ -89,6 +107,7 @@ export class BattleSite extends plugin {
                 await ForwardMsg(e, msg);
                 return;
             };
+            e.reply(`你被怪物杀死了！！！`);
             return;
         };
         return;

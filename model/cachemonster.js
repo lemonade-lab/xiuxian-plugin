@@ -24,6 +24,7 @@ class Cachemonster {
                 y=y>9?9:y;
                 await alldata[i].data.push({
                     name: name1[Math.trunc(Math.random() * 9)] + name2[y],
+                    killNum : 1,
                     level: y + 1
                 });
             };
@@ -62,5 +63,27 @@ class Cachemonster {
         };
         return -1;
     };
+
+    async addKillNum(i,name,num){
+        if(num == 1){
+            const monList = alldata[i].data.map(item => {
+                if(item.name == name){
+                    item.killNum+=1;
+                }
+                return item;
+            });
+        }else {
+            const monList = alldata[i].data.map(item => {
+                if(item.name == name){
+                    item.killNum=1;
+                }
+                return item;
+            });
+        }
+        alldata[i].data = monList;
+        console.log(alldata[i].data);
+        return ;
+    };
+
 };
 export default new Cachemonster();
