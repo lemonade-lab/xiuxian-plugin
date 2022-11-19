@@ -19,8 +19,7 @@ class XiuxianData {
             "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
             "fixedLevel": path.join(__dirname, "/resources/data/fixed/Level"),
             "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
-            "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent"),
-            "fixedlib": path.join(__dirname, "/resources/data/fixed/item"),
+            "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent")
         };
         this.association = this.__PATH.birthassociation;
         this.all = this.__PATH.all;
@@ -31,7 +30,6 @@ class XiuxianData {
         this.Level = this.__PATH.fixedLevel;
         this.occupation = this.__PATH.fixedoccupation;
         this.talent = this.__PATH.fixedtalent;
-        this.lib = this.__PATH.fixedlib;
 
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
