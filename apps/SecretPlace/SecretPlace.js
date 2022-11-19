@@ -90,7 +90,7 @@ export class SecretPlace extends plugin {
         let wealt=await Read_wealth(usr_qq);
         const money=10000;
         if(wealt.lingshi<money){
-            e.reply("修仙联盟的守阵者:灵石不够，下次再来吧");
+            e.reply(`修仙联盟的守阵者:灵石不够，攒到${money}灵石再来吧`);
             return;
         };
         wealt.lingshi=wealt.lingshi-money;

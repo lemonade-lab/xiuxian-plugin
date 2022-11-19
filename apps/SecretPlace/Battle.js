@@ -14,8 +14,8 @@ export class Battle extends plugin {
                     fnc: 'Attack'
                 },
                 {
-                    reg: '^#攻击.*$',
-                    fnc: 'Attack'
+                    reg: '^#洗手.*$',
+                    fnc: 'HandWashing'
                 }
             ]
         });
