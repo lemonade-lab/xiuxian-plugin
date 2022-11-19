@@ -42,7 +42,7 @@ export class UserTransaction extends plugin {
                 if (id[1] == 1) {
                     msg.push(
                         "物品：" + item.name +
-                        "\n气血：+" + item.blood + "%" +
+                        "\n气血：" + item.blood + "%" +
                         "\n价格：" + item.price);
                 } else {
                     msg.push(
