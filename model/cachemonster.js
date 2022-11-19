@@ -1,10 +1,9 @@
 const alldata = [];
 const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
-//妖兽的等级
 const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
 let addall=[];
 class Cachemonster {
-    constructor() {}
+    constructor() {};
     async monsterscache(i) {
         while (true) {
             if (alldata.length <= i) {

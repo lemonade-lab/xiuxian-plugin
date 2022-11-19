@@ -50,9 +50,9 @@ export class Exchange extends plugin {
         };
         const thing = e.msg.replace("#上架", '');
         const code = thing.split("\*");
-        let thing_name = code[0];//物品
-        let thing_acount = code[1];//数量
-        let thing_money = code[2];//价格
+        const thing_name = code[0];//物品
+        const thing_acount = code[1];//数量
+        const thing_money = code[2];//价格
         let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
@@ -70,7 +70,7 @@ export class Exchange extends plugin {
             e.reply(`[${thing_name}]不够`);
             return;
         };
-        let action=await Read_action(usr_qq); 
+        const action=await Read_action(usr_qq); 
         if(action.Exchange>=3){
             e.reply("有其他物品未售出")
             return;
@@ -96,8 +96,8 @@ export class Exchange extends plugin {
         return;
     };
     async Offsell(e) {
-        let usr_qq = e.user_id;
-        let ifexistplay = await existplayer(usr_qq);
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
         };
@@ -127,7 +127,7 @@ export class Exchange extends plugin {
         return;
     };
     async purchase(e) {
-        let usr_qq = e.user_id;
+        const usr_qq = e.user_id;
         let ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;

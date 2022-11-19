@@ -2,13 +2,10 @@ import YAML from "yaml";
 import fs from "node:fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
-/** 配置文件*/
 class Config {
     constructor() {
-        /** 默认配置文件路径 */
         this.defSetPath = "./plugins/xiuxian-emulator-plugin/defSet/";
         this.defSet = {};
-        /** 用户自己配置的配置文件路径 */
         this.configPath = "./plugins/xiuxian-emulator-plugin/config/";
         this.config = {};
         /** 监听文件 */

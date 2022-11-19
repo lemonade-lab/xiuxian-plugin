@@ -1,5 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import {ForwardMsg,Read_Forum,existplayer,Write_Forum} from '../Xiuxian/Xiuxian.js';
+import plugin from '../../../../../lib/plugins/plugin.js';
+import {ForwardMsg,Read_Forum,existplayer,Write_Forum} from '../../../apps/Xiuxian/Xiuxian.js';
 export class Forum extends plugin {
     constructor() {
         super({
