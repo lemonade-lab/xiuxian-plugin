@@ -14,8 +14,8 @@ export class OneKey extends plugin {
                     fnc: 'OneKey_all'
                 },
                 {
-                    reg: '^#一键出售武器$',
-                    fnc: 'OneKey_wuqi'
+                    reg: '^#一键出售.*$',
+                    fnc: 'OneKey_key'
                 }
             ]
         });
@@ -43,7 +43,7 @@ export class OneKey extends plugin {
         return;
     };
 
-    async OneKey_wuqi(e) {
+    async OneKey_key(e) {
         if (!e.isGroup) {
             return;
         };
@@ -52,9 +52,6 @@ export class OneKey extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let najie=Read_najie(usr_qq);
-        e.reply("待更新...");
         return;
     };
-    
 };

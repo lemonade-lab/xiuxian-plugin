@@ -114,7 +114,7 @@ export class UserHome extends plugin {
             e.reply("学过了");
             return;
         };
-        if (talent.AllSorcery.length < 21) {
+        if (talent.AllSorcery.length < 20) {
             talent.AllSorcery.push(searchsthing);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);

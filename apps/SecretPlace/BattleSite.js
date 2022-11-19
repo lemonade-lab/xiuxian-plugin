@@ -38,7 +38,6 @@ export class BattleSite extends plugin {
         };
         const name = e.msg.replace("#击杀", '');
         const action = await Read_action(usr_qq);
-        //非安全区判断
         const p = await Cachemonster.monsters(action.x, action.y, action.z);
         if (p != -1) {
             await redis.set("xiuxian:player:" + usr_qq + ':' + CDid, now_time);
@@ -49,7 +48,6 @@ export class BattleSite extends plugin {
                 e.reply(`这里没有这样的怪物，去别处看看吧`);
                 return ;
             };
-            //击杀累计
             const acount=await Cachemonster.add(p,Number(1));
             const msg = ["[击杀结果]"];
             let buff=1;
@@ -72,7 +70,6 @@ export class BattleSite extends plugin {
             if(q!=0){
                 msg.push(usr_qq+"击败了"+mon.name);
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);
-                //获得装备
                 if(m<mon.level*5){
                     const dropsItemList = JSON.parse(fs.readFileSync(`${data.all}/dropsItem.json`));
                     const random = Math.floor(Math.random() * dropsItemList.length);
@@ -81,20 +78,15 @@ export class BattleSite extends plugin {
                     msg.push(usr_qq+`得到了装备[${dropsItemList[random].name}]`);
                     await Write_najie(usr_qq, najie);
                 }
-                //获得气血
                 else if(m<mon.level*8){
                     msg.push(usr_qq+"得到"+mon.level*8+"气血");
                     await Add_experiencemax(usr_qq,mon.level*8);
                 }
-                //获得修为and灵石
                 else if(m<mon.level*10){
                     msg.push(usr_qq+"得到"+mon.level*10+"灵石和"+mon.level*10+"修为");
                     await Add_experience(usr_qq,mon.level*10*5);
                     await Add_lingshi(usr_qq,mon.level*10*2);
                 };
-            }
-            else{
-               msg.push(`你被怪物杀死了！！！`);
             };
             await ForwardMsg(e, msg);
             return;
