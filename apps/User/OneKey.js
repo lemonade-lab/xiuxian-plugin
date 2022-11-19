@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
-import {existplayer, Read_najie} from '../Xiuxian/Xiuxian.js';
+import {Add_lingshi, existplayer, Read_najie, Write_najie} from '../Xiuxian/Xiuxian.js';
 export class OneKey extends plugin {
     constructor() {
         super({
@@ -32,7 +32,14 @@ export class OneKey extends plugin {
             return;
         };
         let najie=Read_najie(usr_qq);
-        e.reply("待更新...");
+        let money=0;
+        for(let item of najie.thing){
+            money+=item.acount*price;
+        };
+        await Add_lingshi(usr_qq,money);
+        najie.thing=[];
+        await Write_najie(usr_qq,najie);
+        e.reply("蜀山派弟子：你出售了所有物品，共获得"+money+"灵石");
         return;
     };
 

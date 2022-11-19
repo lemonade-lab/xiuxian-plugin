@@ -4,7 +4,7 @@ let all = [];
 let dropsItem = [];
 let commodities = [];
 class XiuxianData {
-     constructor() {
+    constructor() {
         const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
         this.__PATH = {
             "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
@@ -56,15 +56,15 @@ class XiuxianData {
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)), dropsItem, 19);
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)), dropsItem, 19);
         this.list(JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)), dropsItem, 19);
-         this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11,19), commodities, 19);
-         this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)).slice(11,19), commodities, 19);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11, 19), commodities, 19);
+        this.list(JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)).slice(11, 19), commodities, 19);
         this.add(dropsItem, 'dropsItem');
-        
+
         //动态生成点坐标表
 
         //动态生成区域坐标表
 
-     }
+    }
     //删除
     deletelist(name) {
         let sum = [];

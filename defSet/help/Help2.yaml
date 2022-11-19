@@ -21,6 +21,12 @@
 
 - group: 
   list:
+    - icon: help-icon_44
+      title: "#一键出售所有"
+      desc: "出售储物袋中所有物品"
+
+- group: 
+  list:
     - icon: help-icon_55
       title: "#有间客栈"
       desc: "查看攻略(可私聊)"
