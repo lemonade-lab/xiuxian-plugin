@@ -65,15 +65,16 @@ class Cachemonster {
     };
 
     async addKillNum(i,name,num){
+        let monList = [];
         if(num == 1){
-            const monList = alldata[i].data.map(item => {
+            monList = alldata[i].data.map(item => {
                 if(item.name == name){
                     item.killNum+=1;
                 }
                 return item;
             });
         }else {
-            const monList = alldata[i].data.map(item => {
+            monList = alldata[i].data.map(item => {
                 if(item.name == name){
                     item.killNum=1;
                 }

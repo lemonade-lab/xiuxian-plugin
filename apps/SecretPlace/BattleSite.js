@@ -73,8 +73,8 @@ export class BattleSite extends plugin {
                 monsters.burstmax *= random;
                 monsters.speed *= random;
                 mon.level += 2 ;
+                e.reply(`周围传来阵阵嘶吼，竟然遇见了精英级别的${mon.name}！！！`);
             }
-            e.reply(`周围传来阵阵嘶吼，竟然遇见了精英级别的${mon.name}！！！`);
             const battle=await Read_battle(usr_qq);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
