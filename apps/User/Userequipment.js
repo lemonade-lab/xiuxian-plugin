@@ -42,7 +42,7 @@ export class Userequipment extends plugin {
             return;
         };
         const equipment = await Read_equipment(usr_qq);
-        if (equipment.length >= this.xiuxianConfigData.config.equipment) {
+        if (equipment.length >= this.xiuxianConfigData.myconfig.equipment) {
             return;
         }; 
         equipment.push(searchsthing);

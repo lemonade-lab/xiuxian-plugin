@@ -116,7 +116,7 @@ export class UserHome extends plugin {
             e.reply("学过了");
             return;
         };
-        if (talent.AllSorcery.length <= this.xiuxianConfigData.config.gonfa) {
+        if (talent.AllSorcery.length <= this.xiuxianConfigData.myconfig.gonfa) {
             talent.AllSorcery.push(searchsthing);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);

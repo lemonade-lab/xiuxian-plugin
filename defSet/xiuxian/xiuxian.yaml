@@ -26,7 +26,7 @@ Age:
   #寿命增加数
   size: 1 
 
-config:
+myconfig:
   #功法最大学习数
   gonfa: 12
   #装备最大数
