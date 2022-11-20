@@ -15,7 +15,7 @@ export const __PATH = {
     Exchange: path.join(__dirname, "/resources/data/birth/Exchange"),
     Forum: path.join(__dirname, "/resources/data/birth/Forum"),
     life: path.join(__dirname, "/resources/data/birth/xiuxian/life")
-}
+};
 export class Xiuxian extends plugin {
     constructor() {
         super({
@@ -28,6 +28,9 @@ export class Xiuxian extends plugin {
         })
     };
 };
+/**
+ * 读取数据
+ */
 const Read = async (usr_qq, PATH) => {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
     let player = fs.readFileSync(dir, 'utf8', (err, data) => {
@@ -39,6 +42,7 @@ const Read = async (usr_qq, PATH) => {
     player = JSON.parse(player);
     return player;
 };
+//写入数据
 const Write = async (usr_qq, player, PATH) => {
     const dir = path.join(PATH, `${usr_qq}.json`);
     const new_ARR = JSON.stringify(player, "", "\t");
@@ -46,6 +50,7 @@ const Write = async (usr_qq, player, PATH) => {
     });
     return;
 };
+//基础存档
 export const existplayer = async (usr_qq) => {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
@@ -57,6 +62,7 @@ export const existplayer = async (usr_qq) => {
     };
     return find;
 };
+//插件存档检测
 export const existplayerplugins = async (usr_qq) => {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
@@ -862,6 +868,7 @@ export const distance = async (A, B) => {
     const h = Math.pow(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2), 1 / 2);
     return h;
 };
+//
 export const map_distance = async (A, B) => {
     const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2);
     return h;

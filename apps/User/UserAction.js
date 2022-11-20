@@ -61,7 +61,7 @@ export class UserAction extends plugin {
         await Write_najie(usr_qq, najie);
         e.reply(`花了${najie_price[najie.grade - 1]}灵石升级,目前灵石存储上限为${najie.lingshimax}`)
         return;
-    }
+    };
     Take_lingshi = async (e) => {
         const good = await Go(e);
         if (!good) {
