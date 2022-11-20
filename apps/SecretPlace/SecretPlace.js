@@ -52,15 +52,19 @@ export class SecretPlace extends plugin {
             e.reply("修仙联盟的守阵者:这里就是传送阵");
             return;
         };
+        const mx=Math.floor(x/100)*100;
+        const my=Math.floor(y/100)*100;
+        const mz=Math.floor(z/100)*100;
+        const time=Math.floor(((x-mx)>0?x-mx:mx-x)/100+(y-my>0?y-my:my-x)/100);
         const setTime = setTimeout(async () => {
             clearTimeout(setTime);
-            action.x=Math.floor(x/100)*100;
-            action.y=Math.floor(y/100)*100;
-            action.z=Math.floor(z/100)*100;
+            action.x=mx;
+            action.y=my;
+            action.z=mz;
             await Write_action(usr_qq, action)
             e.reply(usr_qq+"已到达传送阵");
-        }, 1000*15);
-        e.reply(usr_qq+"正在赶往传送阵...");
+        }, 1000*time);
+        e.reply(usr_qq+"正在赶往传送阵...\n需要"+time+"秒");
         return;
     };
     async forward(e) {
@@ -104,7 +108,7 @@ export class SecretPlace extends plugin {
             await Write_action(usr_qq, action);
             e.reply(usr_qq+"成功抵达"+place.name);
         }, 1000*time);
-        e.reply("修仙联盟的守阵者:传送阵正在启动...");
+        e.reply("修仙联盟的守阵者:传送阵正在启动...\n需要"+time+"秒");
         return;
     };
 };

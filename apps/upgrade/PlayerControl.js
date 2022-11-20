@@ -113,6 +113,7 @@ export class PlayerControl extends plugin {
         };
         const startTime = action.startTime;
         const timeUnit = this.xiuxianConfigData.work.time;
+        //分钟
         const time = Math.floor((new Date().getTime() - startTime) / 60000);
         if (time < timeUnit) {
             e.reply("只是呆了一会儿，什么也没得到。");
@@ -131,29 +132,30 @@ export class PlayerControl extends plugin {
         const usr_qq = user_id;
         const level = await Read_level(usr_qq);
         const talent=await Read_talent(usr_qq);
+        const mybuff=Math.floor(talent.talentsize/100);
         let other = 0;
         const msg = [segment.at(usr_qq)];
         const rand = Math.floor((Math.random() * (100 - 1) + 1));
         if (name == "闭关") {
-            if (rand > 30) {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time *(talent.talentsize/100)* level.level_id / 2);
+            if (rand > 50) {
+                other = Math.floor(this.xiuxianConfigData.biguan.size * time *mybuff* level.level_id / 2);
                 msg.push("\n闭关迟迟无法入定,只得到了" + other + "修为");
             }
             else {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time *(talent.talentsize/100)* level.level_id);
+                other = Math.floor(this.xiuxianConfigData.biguan.size * time *mybuff* level.level_id);
                 msg.push("\n闭关结束,得到了" + other + "修为");
             }
             await Add_experience(usr_qq, other);
-            await Add_blood(usr_qq, 100);
-            msg.push("\n血量恢复至100%");
+            await Add_blood(usr_qq, 90);
+            msg.push("\n血量恢复至90%");
         }
         else {
-            if (rand > 30) {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time *(talent.talentsize/100)* level.level_id / 2);
+            if (rand > 50) {
+                other = Math.floor(this.xiuxianConfigData.work.size * time *mybuff* level.level_id / 2);
                 msg.push("\n降妖不专心,只得到了" + other);
             }
             else {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time *(talent.talentsize/100)* level.level_id);
+                other = Math.floor(this.xiuxianConfigData.work.size * time *mybuff* level.level_id);
                 msg.push("\n降妖回来,得到了" + other);
             };
             await Add_lingshi(usr_qq, other);

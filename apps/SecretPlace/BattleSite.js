@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from "node:fs";
 import Cachemonster from "../../model/cachemonster.js";
-import { Gomini,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Gomini,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../Xiuxian/Xiuxian.js';
 export class BattleSite extends plugin {
     constructor() {
         super({
@@ -45,7 +45,7 @@ export class BattleSite extends plugin {
             const monstersdata = await Cachemonster.monsterscache(p);
             const mon=monstersdata.find(item => item.name == name);
             if(!mon){
-                e.reply(`这里没有这样的怪物，去别处看看吧`);
+                e.reply(`这里没有${name},去别处看看吧`);
                 return ;
             };
             const acount=await Cachemonster.add(p,Number(1));
@@ -53,7 +53,7 @@ export class BattleSite extends plugin {
             let buff=1;
             if(acount==1){
                 buff=Math.floor((Math.random() * (20-5))) + Number(5);
-                msg.push("精英怪出现了！");
+                msg.push("怪物突然变异了！");
             };
             const LevelMax = data.LevelMax_list.find(item => item.id == mon.level+1);
             const monsters = {
@@ -66,6 +66,8 @@ export class BattleSite extends plugin {
                 "speed": LevelMax.speed+5+buff
             };
             const battle=await Read_battle(usr_qq);
+            const talent=await Read_talent(usr_qq);
+            const mybuff=Math.floor(talent.talentsize/100);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);
@@ -77,14 +79,17 @@ export class BattleSite extends plugin {
                     msg.push(usr_qq+`得到了装备[${dropsItemList[random].name}]`);
                     await Write_najie(usr_qq, najie);
                 }
-                else if(m<mon.level*8){
-                    msg.push(usr_qq+"得到"+mon.level*8+"气血");
-                    await Add_experiencemax(usr_qq,mon.level*8);
+                else if(m<mon.level*6){
+                    msg.push(usr_qq+"得到"+mon.level*20*mybuff+"气血");
+                    await Add_experiencemax(usr_qq,mon.level*20*mybuff);
                 }
-                else if(m<mon.level*10){
-                    msg.push(usr_qq+"得到"+mon.level*10+"灵石和"+mon.level*10+"修为");
-                    await Add_experience(usr_qq,mon.level*10*5);
-                    await Add_lingshi(usr_qq,mon.level*10*2);
+                else if(m<mon.level*7){
+                    msg.push(usr_qq+"得到"+mon.level*50*mybuff+"灵石");
+                    await Add_lingshi(usr_qq,mon.level*50*mybuff);
+                }
+                else{
+                    msg.push(usr_qq+"得到"+mon.level*50*mybuff+"修为");
+                    await Add_experience(usr_qq,mon.level*50*mybuff);
                 };
             };
             await ForwardMsg(e, msg);
