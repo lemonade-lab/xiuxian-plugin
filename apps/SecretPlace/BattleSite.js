@@ -67,7 +67,7 @@ export class BattleSite extends plugin {
             };
             const battle=await Read_battle(usr_qq);
             const talent=await Read_talent(usr_qq);
-            const mybuff=Math.floor(talent.talentsize/100);
+            const mybuff=Math.floor(talent.talentsize/100)+Number(1);
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);

@@ -132,7 +132,7 @@ export class PlayerControl extends plugin {
         const usr_qq = user_id;
         const level = await Read_level(usr_qq);
         const talent=await Read_talent(usr_qq);
-        const mybuff=Math.floor(talent.talentsize/100);
+        const mybuff=Math.floor(talent.talentsize/100)+Number(1);
         let other = 0;
         const msg = [segment.at(usr_qq)];
         const rand = Math.floor((Math.random() * (100 - 1) + 1));
