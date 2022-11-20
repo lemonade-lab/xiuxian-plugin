@@ -105,17 +105,6 @@ export class AdminDelete extends plugin {
             return;
         };
         await Write_Life([]);
-        const playerList = [];
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith(".json"));
-        files.forEach((item, index, arr) => {
-            const file = item.replace(".json", "");
-            playerList.push(file);
-        });
-        playerList.forEach(async (item, index, arr) => {
-            fs.rmSync(`${__PATH.player}/${item}.json`);
-        });
         await this.deleteredis(e);
         e.reply("世界已崩碎");
         return;
@@ -128,7 +117,6 @@ export class AdminDelete extends plugin {
         if (B == 0) {
             return;
         };
-        fs.rmSync(`${__PATH.player}/${B}.json`);
         await offaction(B);
         let life = await Read_Life();
         life.forEach((item, index, arr) => {
