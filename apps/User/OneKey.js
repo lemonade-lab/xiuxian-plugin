@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
-import {Add_lingshi, existplayer, Read_najie, Write_najie} from '../Xiuxian/Xiuxian.js';
+import { Add_lingshi, existplayer, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class OneKey extends plugin {
     constructor() {
         super({
@@ -22,7 +22,7 @@ export class OneKey extends plugin {
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
 
-    async OneKey_all(e) {
+    OneKey_all = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -31,19 +31,19 @@ export class OneKey extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let najie=await Read_najie(usr_qq);
-        let money=0;
-        for(let item of najie.thing){
-            money+=item.acount*item.price;
+        let najie = await Read_najie(usr_qq);
+        let money = 0;
+        for (let item of najie.thing) {
+            money += item.acount * item.price;
         };
-        await Add_lingshi(usr_qq,money);
-        najie.thing=[];
-        await Write_najie(usr_qq,najie);
-        e.reply("蜀山派弟子：你出售了所有物品，共获得"+money+"灵石");
+        await Add_lingshi(usr_qq, money);
+        najie.thing = [];
+        await Write_najie(usr_qq, najie);
+        e.reply("蜀山派弟子：你出售了所有物品，共获得" + money + "灵石");
         return;
     };
 
-    async OneKey_key(e) {
+    OneKey_key = async (e) => {
         if (!e.isGroup) {
             return;
         };

@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "path";
 class index {
   constructor() { };
-  async toindex(input) {
+  toindex = async (input) => {
     let filepath = './plugins/xiuxian-emulator-plugin/' + input;
     let apps = {};
     let name = [];

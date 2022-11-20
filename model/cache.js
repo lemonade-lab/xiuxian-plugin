@@ -13,7 +13,7 @@ class Cache {
      * @param  i 占用位置
      * @returns 
      */
-    async helpcache(data, i) {
+     helpcache=async(data, i)=>{
         let tmp = md5(JSON.stringify(data));
         while (true) {
             if (helpData.length <= i) {

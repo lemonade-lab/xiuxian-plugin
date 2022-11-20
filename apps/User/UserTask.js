@@ -19,17 +19,17 @@ export class UserTask extends plugin {
             fnc: () => this.LevelTask()
         };
     };
-    async LevelTask() {
+    LevelTask = async () => {
         const life = await Read_Life();
-        const x=[];
-        life.forEach((item,index,arr) => {
+        const x = [];
+        life.forEach((item, index, arr) => {
             item.Age = item.Age + this.xiuxianConfigData.Age.size;
             if (item.Age >= item.life) {
                 x.push(item.qq);
                 item.status = 0;
             };
         });
-        for(var i=0;i<x.length;i++){
+        for (var i = 0; i < x.length; i++) {
             await offaction(x[i]);
         };
         await Write_Life(life);

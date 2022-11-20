@@ -1,5 +1,5 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
-import {ForwardMsg,Read_Forum,existplayer,Write_Forum} from '../../../apps/Xiuxian/Xiuxian.js';
+import { ForwardMsg, Read_Forum, existplayer, Write_Forum } from '../../../apps/Xiuxian/Xiuxian.js';
 export class Forum extends plugin {
     constructor() {
         super({
@@ -19,12 +19,12 @@ export class Forum extends plugin {
             ]
         });
     };
-    async Searchforum(e) {
+    Searchforum = async (e) => {
         const Forum = await Read_Forum();
         const msg = [
             "___[有间客栈]___"
         ];
-        Forum.forEach((item)=>{
+        Forum.forEach((item) => {
             msg.push(
                 "   [" + item.title + "]" +
                 "\n" + item.content +
@@ -34,7 +34,7 @@ export class Forum extends plugin {
         await ForwardMsg(e, msg);
         return;
     };
-    async Pushforum(e) {
+    Pushforum = async (e) => {
         const usr_qq = e.user_id;
         if (usr_qq == 80000000) {
             return;
@@ -65,7 +65,7 @@ export class Forum extends plugin {
             return;
         };
         const myDate = new Date();
-        const year = myDate.getFullYear(); 
+        const year = myDate.getFullYear();
         const month = myDate.getMonth() + 1;
         const day = myDate.getDate();
         const newDay = year + '-' + month + '-' + day;

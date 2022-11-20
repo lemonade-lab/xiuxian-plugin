@@ -25,7 +25,7 @@ export class UserTransaction extends plugin {
             ]
         });
     };
-    async ningmenghome(e) {
+    ningmenghome = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -62,7 +62,7 @@ export class UserTransaction extends plugin {
         await ForwardMsg(e, msg);
         return;
     };
-    async Buy_comodities(e) {
+    Buy_comodities = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -98,7 +98,7 @@ export class UserTransaction extends plugin {
         e.reply(`花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
         return;
     };
-    async Sell_comodities(e) {
+    Sell_comodities = async (e) => {
         if (!e.isGroup) {
             return;
         };

@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import filecp from "../../model/filecp.js";
 import fs from "node:fs";
-import {__PATH, updata_equipment} from '../Xiuxian/Xiuxian.js';
+import { __PATH, updata_equipment } from '../Xiuxian/Xiuxian.js';
 export class AdminSuper extends plugin {
     constructor() {
         super({
@@ -21,7 +21,7 @@ export class AdminSuper extends plugin {
             ],
         });
     };
-    async Againconfig(e) {
+    Againconfig = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -29,7 +29,7 @@ export class AdminSuper extends plugin {
         e.reply("重置结束");
         return;
     };
-    async synchronization(e) {
+    synchronization = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -37,12 +37,12 @@ export class AdminSuper extends plugin {
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        files.forEach((item,index,arr)=>{
+        files.forEach((item, index, arr) => {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async(item,index,arr)=>{
-              await updata_equipment(item);
+        playerList.forEach(async (item, index, arr) => {
+            await updata_equipment(item);
         });
         e.reply("同步结束");
         return;

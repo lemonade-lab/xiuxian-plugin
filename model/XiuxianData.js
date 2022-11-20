@@ -65,9 +65,9 @@ class XiuxianData {
 
         //动态生成区域坐标表
 
-    }
+    };
     //删除
-    deletelist(name) {
+    deletelist = (name) => {
         let sum = [];
         let dir = path.join(this.all, `${name}.json`);
         let new_ARR = JSON.stringify(sum, "", "\t");
@@ -75,7 +75,7 @@ class XiuxianData {
         });
     };
     //存临时数组
-    list(add, sum, acount) {
+    list = (add, sum, acount) => {
         add.forEach((item, index) => {
             if (index < acount) {
                 sum.push(item);
@@ -83,14 +83,14 @@ class XiuxianData {
         });
     };
     //添加临时数组
-    add(sum, name) {
+    add = (sum, name) => {
         let dir = path.join(this.all, `${name}.json`);
         let new_ARR = JSON.stringify(sum, "", "\t");
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
     //新增信息
-    addlist(sum, add, name, acount) {
+    addlist = (sum, add, name, acount) => {
         add.forEach((item, index) => {
             if (index < acount) {
                 sum.push(item);

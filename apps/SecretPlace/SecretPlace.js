@@ -28,17 +28,17 @@ export class SecretPlace extends plugin {
             ]
         });
     };
-    async Xiuxianstate(e) {
+     Xiuxianstate=async(e)=> {
         await Go(e);
         return;
     };
-    async xyzaddress(e) {
+     xyzaddress=async(e)=> {
         const usr_qq = e.user_id;
         let action = await Read_action(usr_qq);
         e.reply("坐标(" + action.x + "," + action.y + "," + action.z + ")");
         return;
     };
-    async delivery(e) {
+     delivery=async(e)=> {
         const good = await Go(e);
         if (!good) {
             return;
@@ -67,7 +67,7 @@ export class SecretPlace extends plugin {
         e.reply(usr_qq+"正在赶往传送阵...\n需要"+time+"秒");
         return;
     };
-    async forward(e) {
+     forward=async(e)=> {
         const good = await Go(e);
         if (!good) {
             return;

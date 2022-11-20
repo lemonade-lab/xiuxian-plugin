@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import {get_equipment_img,get_player_img} from '../ShowImeg/showData.js';
-import {existplayer } from '../Xiuxian/Xiuxian.js';
+import { get_equipment_img, get_player_img } from '../ShowImeg/showData.js';
+import { existplayer } from '../Xiuxian/Xiuxian.js';
 export class UserInformation extends plugin {
     constructor() {
         super({
@@ -20,7 +20,7 @@ export class UserInformation extends plugin {
             ]
         });
     };
-    async Show_player(e) {
+    Show_player = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -30,7 +30,7 @@ export class UserInformation extends plugin {
         e.reply(img);
         return;
     };
-    async show_equipment(e) {
+    show_equipment = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {

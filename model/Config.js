@@ -11,10 +11,10 @@ class Config {
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };
     }
-    getdefSet(app, name) {
+    getdefSet = (app, name) => {
         return this.getYaml(app, name, "defSet");
     };
-    getConfig(app, name) {
+    getConfig = (app, name) => {
         let ignore = [];
         if (ignore.includes(`${app}.${name}`)) {
             return this.getYaml(app, name, "config");
@@ -26,7 +26,7 @@ class Config {
             ...this.getYaml(app, name, "config"),
         };
     };
-    getYaml(app, name, type) {
+    getYaml = (app, name, type) => {
         let file = this.getFilePath(app, name, type);
         let key = `${app}.${name}`;
         if (this[type][key]) return this[type][key];
@@ -35,11 +35,11 @@ class Config {
         return this[type][key];
     };
 
-    getFilePath(app, name, type) {
+    getFilePath = (app, name, type) => {
         if (type == "defSet") return `${this.defSetPath}${app}/${name}.yaml`;
         else return `${this.configPath}${app}/${name}.yaml`;
     };
-    watch(file, app, name, type = "defSet") {
+    watch = (file, app, name, type = "defSet") => {
         let key = `${app}.${name}`;
         if (this.watcher[type][key]) return;
         const watcher = chokidar.watch(file);
@@ -53,11 +53,11 @@ class Config {
         this.watcher[type][key] = watcher;
         return;
     };
-    saveSet(app, name, type, data) {
+    saveSet = (app, name, type, data) => {
         let file = this.getFilePath(app, name, type);
         if (lodash.isEmpty(data)) {
             fs.existsSync(file) && fs.unlinkSync(file);
-        } 
+        }
         else {
             let yaml = YAML.stringify(data);
             fs.writeFileSync(file, yaml, "utf8");

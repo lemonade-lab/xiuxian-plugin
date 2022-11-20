@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { __PATH,At , Numbers,Add_lingshi , Read_wealth,search_thing_name,Read_najie,Add_najie_thing,Write_najie, Write_wealth } from '../Xiuxian/Xiuxian.js';
+import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_najie, Add_najie_thing, Write_najie, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class AdminMoney extends plugin {
     constructor() {
         super({
@@ -23,12 +23,12 @@ export class AdminMoney extends plugin {
             ],
         });
     };
-    async gifts(e){
+    gifts = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const B = await At(e);
-        if(B==0){
+        if (B == 0) {
             return;
         };
         const thing_name = e.msg.replace("#馈赠", "");
@@ -40,15 +40,15 @@ export class AdminMoney extends plugin {
         let najie = await Read_najie(B);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(B, najie);
-        e.reply(B+"获得馈赠：" + thing_name);
+        e.reply(B + "获得馈赠：" + thing_name);
         return;
     };
-    async Deduction(e) {
+    Deduction = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const B = await At(e);
-        if(B==0){
+        if (B == 0) {
             return;
         };
         let lingshi = e.msg.replace("#扣除", "");
@@ -58,19 +58,19 @@ export class AdminMoney extends plugin {
             e.reply("他好穷的");
             return;
         };
-        player.lingshi-=lingshi;
-        await Write_wealth(B,player);
+        player.lingshi -= lingshi;
+        await Write_wealth(B, player);
         e.reply("已扣除灵石" + lingshi);
         return;
     };
-    async Fuli(e) {
+    Fuli = async (e) => {
         if (!e.isMaster) {
             return;
         };
         let lingshi = e.msg.replace("#补偿", "");
-        lingshi =await Numbers(lingshi);
+        lingshi = await Numbers(lingshi);
         const B = await At(e);
-        if(B==0){
+        if (B == 0) {
             return;
         };
         await Add_lingshi(B, lingshi);
@@ -78,5 +78,3 @@ export class AdminMoney extends plugin {
         return;
     };
 };
-
-

@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
-import {existplayer, search_thing_name, exist_najie_thing_id,Read_najie,Add_experiencemax, Write_najie, Numbers, Add_najie_thing,Add_blood,Add_experience, get_talent, Write_talent,  player_efficiency, Read_talent,Read_level} from '../Xiuxian/Xiuxian.js';
+import { existplayer, search_thing_name, exist_najie_thing_id, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../Xiuxian/Xiuxian.js';
 export class UserHome extends plugin {
     constructor() {
         super({
@@ -23,13 +23,13 @@ export class UserHome extends plugin {
                 },
                 {
                     reg: '^#消耗.*$',
-                    fnc: 'Player_use_daoju' 
+                    fnc: 'Player_use_daoju'
                 }
             ]
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
-    async Player_use_danyao(e) {
+    Player_use_danyao = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -58,14 +58,14 @@ export class UserHome extends plugin {
             return;
         };
         const id = searchsthing.id.split('-');
-        if(id[0] != 4){
+        if (id[0] != 4) {
             e.reply(`什么东西都吃啊？`);
-            return ;
+            return;
         };
         if (id[1] == 1) {
             let blood = parseInt(searchsthing.blood);
             await Add_blood(usr_qq, blood);
-            e.reply("血量恢复至" + blood+"%");
+            e.reply("血量恢复至" + blood + "%");
         }
         else if (id[1] == 2) {
             let experience = parseInt(searchsthing.experience);
@@ -76,7 +76,7 @@ export class UserHome extends plugin {
             let experiencemax = parseInt(searchsthing.experiencemax);
             await Add_experiencemax(usr_qq, thing_acount * experiencemax);
             e.reply("气血增加" + thing_acount * searchsthing.experiencemax);
-        } 
+        }
         else {
             e.reply("不可服用" + thing_name);
             return;
@@ -86,7 +86,7 @@ export class UserHome extends plugin {
         await Write_najie(usr_qq, najie);
         return;
     };
-    async add_gonfa(e) {
+    add_gonfa = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -120,7 +120,7 @@ export class UserHome extends plugin {
             talent.AllSorcery.push(searchsthing);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
-        } 
+        }
         else {
             e.reply("脑子装不下了");
             return;
@@ -131,7 +131,7 @@ export class UserHome extends plugin {
         e.reply("学习" + thing_name);
         return;
     };
-    async delete_gonfa(e) {
+    delete_gonfa = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -161,7 +161,7 @@ export class UserHome extends plugin {
         e.reply("忘了" + thing_name);
         return;
     }
-    async Player_use_daoju(e) {
+    Player_use_daoju = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -181,15 +181,15 @@ export class UserHome extends plugin {
             e.reply(`没有[${thing_name}]`);
             return;
         };
-        const id=searchsthing.id.split('-')
-        if(id[0]!=6){
+        const id = searchsthing.id.split('-')
+        if (id[0] != 6) {
             return;
         };
-        if(id[2]==1){
+        if (id[2] == 1) {
             e.reply("无法在储物袋中消耗");
             return;
         }
-        else if(id[2]==2){
+        else if (id[2] == 2) {
             const player = await Read_level(usr_qq);
             if (player.level_id > 21) {
                 e.reply("灵根已定，不可洗髓");
@@ -201,13 +201,13 @@ export class UserHome extends plugin {
             await player_efficiency(usr_qq);
             e.reply("使用成功");
         }
-        else if(id[2]==3){
+        else if (id[2] == 3) {
             const talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
             e.reply("显示成功");
         }
-        else{
+        else {
             return;
         };
         let najie = await Read_najie(usr_qq);

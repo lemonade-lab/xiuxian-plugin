@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
-import {existplayer, search_thing_name, exist_najie_thing_id,Read_najie,Read_equipment, Write_equipment, Write_najie,Add_najie_thing} from '../Xiuxian/Xiuxian.js';
+import { existplayer, search_thing_name, exist_najie_thing_id, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../Xiuxian/Xiuxian.js';
 export class Userequipment extends plugin {
     constructor() {
         super({
@@ -21,7 +21,7 @@ export class Userequipment extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
-    async add_equipment(e) {
+    add_equipment = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -44,7 +44,7 @@ export class Userequipment extends plugin {
         const equipment = await Read_equipment(usr_qq);
         if (equipment.length >= this.xiuxianConfigData.myconfig.equipment) {
             return;
-        }; 
+        };
         equipment.push(searchsthing);
         await Write_equipment(usr_qq, equipment);
         let najie = await Read_najie(usr_qq);
@@ -53,7 +53,7 @@ export class Userequipment extends plugin {
         e.reply("装备" + thing_name);
         return;
     };
-    async delete_equipment(e) {
+    delete_equipment = async (e) => {
         if (!e.isGroup) {
             return;
         };

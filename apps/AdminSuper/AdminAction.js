@@ -25,7 +25,7 @@ export class AdminAction extends plugin {
         });
         this.key = "xiuxian:restart";
     };
-    async forcecheckout(e){
+    forcecheckout = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -65,7 +65,7 @@ export class AdminAction extends plugin {
                         let cm = "npm run start";
                         if (process.argv[1].includes("pm2")) {
                             cm = "npm run restart";
-                        } 
+                        }
                         else {
                             msg.push("正在转为后台运行...");
                         };
@@ -99,7 +99,7 @@ export class AdminAction extends plugin {
         );
         return true;
     };
-    async checkout(e) {
+    checkout = async (e) => {
         if (!e.isMaster) {
             return;
         }
@@ -139,7 +139,7 @@ export class AdminAction extends plugin {
                         let cm = "npm run start";
                         if (process.argv[1].includes("pm2")) {
                             cm = "npm run restart";
-                        } 
+                        }
                         else {
                             msg.push("正在转为后台运行...");
                         };
@@ -173,7 +173,7 @@ export class AdminAction extends plugin {
         );
         return true;
     };
-    async init() {
+    init = async () => {
         let restart = await redis.get(this.key);
         if (restart) {
             restart = JSON.parse(restart);

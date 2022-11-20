@@ -3,8 +3,8 @@ import data from '../../model/XiuxianData.js';
 import config from "../../model/Config.js";
 import fs from "fs";
 import { segment } from "oicq";
-import {existplayer, __PATH, Write_player, Go, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle,Write_level, Write_wealth,player_efficiency, Write_action, Write_equipment,Write_Life, Read_Life,offaction, Anyarray} from '../Xiuxian/Xiuxian.js';
-import {get_player_img} from "../ShowImeg/showData.js";
+import { existplayer, __PATH, Write_player, Go, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray } from '../Xiuxian/Xiuxian.js';
+import { get_player_img } from "../ShowImeg/showData.js";
 export class UserStart extends plugin {
     constructor() {
         super({
@@ -25,14 +25,14 @@ export class UserStart extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
-    async Create_player(e) {
-        const group= this.xiuxianConfigData.group.white;
-        if(group!=0){
-            if(e.group_id!=group){
+    Create_player = async (e) => {
+        const group = this.xiuxianConfigData.group.white;
+        if (group != 0) {
+            if (e.group_id != group) {
                 return;
             };
         };
-        if(!e.isGroup||e.user_id==80000000){
+        if (!e.isGroup || e.user_id == 80000000) {
             return;
         };
         const usr_qq = e.user_id;
@@ -56,7 +56,7 @@ export class UserStart extends plugin {
         await Write_talent(usr_qq, new_talent);
         await player_efficiency(usr_qq);
         const new_battle = {
-            "nowblood": data.Level_list.find(item => item.id == 1).blood+data.LevelMax_list.find(item => item.id == 1).blood,//血量
+            "nowblood": data.Level_list.find(item => item.id == 1).blood + data.LevelMax_list.find(item => item.id == 1).blood,//血量
         };
         await Write_battle(usr_qq, new_battle);
         const new_level = {
@@ -67,11 +67,11 @@ export class UserStart extends plugin {
             "levelmax_id": 1,//练体境界
             "levelnamemax": '莽夫',//练体名
             "experiencemax": 1,//练体经验
-            "rank_id":0,//数组位置
-            "rank_name":[
-                "初期","中期","后期","巅峰","圆满"
+            "rank_id": 0,//数组位置
+            "rank_name": [
+                "初期", "中期", "后期", "巅峰", "圆满"
             ],
-            "rankmax_id":0//数组位置
+            "rankmax_id": 0//数组位置
         };
         await Write_level(usr_qq, new_level);
         const new_wealth = {
@@ -82,10 +82,10 @@ export class UserStart extends plugin {
         const new_action = {
             "game": 1,//游戏状态
             "Couple": 1, //双修
-            "x":Math.floor((Math.random() * (199-100))) + Number(100),
-            "y":Math.floor((Math.random() * (499-400))) + Number(400),
-            "z":0,//位面为0
-            "Exchange":0
+            "x": Math.floor((Math.random() * (199 - 100))) + Number(100),
+            "y": Math.floor((Math.random() * (499 - 400))) + Number(400),
+            "z": 0,//位面为0
+            "Exchange": 0
         };
         await Write_action(usr_qq, new_action);
         await Write_equipment(usr_qq, []);
@@ -98,27 +98,27 @@ export class UserStart extends plugin {
         await Write_najie(usr_qq, new_najie);
         const name1 = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
         const name2 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-        const name = await Anyarray(name1)+await Anyarray(name2);
+        const name = await Anyarray(name1) + await Anyarray(name2);
         const life = await Read_Life();
         const time = new Date();
         life.push({
             "qq": usr_qq,
             "name": `${name}`,
             "Age": 1,//年龄
-            "life": Math.floor((Math.random() * (100-50)+50)), //寿命
-            "createTime":time.getTime(),
-            "status":1
+            "life": Math.floor((Math.random() * (100 - 50) + 50)), //寿命
+            "createTime": time.getTime(),
+            "status": 1
         });
         await Write_Life(life);
         this.Show_player(e);
         return;
     };
-    async Show_player(e) {
+    Show_player = async (e) => {
         const img = await get_player_img(e);
         e.reply(img);
         return;
     };
-    async reCreate_player(e) {
+    reCreate_player = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
@@ -139,8 +139,8 @@ export class UserStart extends plugin {
         await Write_Life(life);
         e.reply([segment.at(usr_qq), "来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断"]);
         await this.Create_player(e);
-        await redis.set("xiuxian:player:" + usr_qq +':'+ CDid, now_time);
-        await redis.expire("xiuxian:player:" + usr_qq +':'+ CDid, CDTime*60);
+        await redis.set("xiuxian:player:" + usr_qq + ':' + CDid, now_time);
+        await redis.expire("xiuxian:player:" + usr_qq + ':' + CDid, CDTime * 60);
         return;
     };
 };

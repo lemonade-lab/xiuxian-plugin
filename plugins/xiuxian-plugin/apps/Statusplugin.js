@@ -20,7 +20,7 @@ export class Statusplugin extends plugin {
             ]
         });
     };
-    async getCPUSTATE(e) {
+    getCPUSTATE = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -56,14 +56,14 @@ export class Statusplugin extends plugin {
         e.reply(msg);
         return;
     };
-    async cleancache(e) {
-        if(!e.isMaster){
+    cleancache = async (e) => {
+        if (!e.isMaster) {
             e.reply("仅主人可操作")
             return;
         }
         e.reply("开始清理")
         execSync('sh cleanCache.sh', function (err, sto) {
-            if(err){
+            if (err) {
                 e.reply("error:执行清理脚本失败!")
             };
         })

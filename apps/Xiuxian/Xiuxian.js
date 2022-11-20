@@ -28,7 +28,7 @@ export class Xiuxian extends plugin {
         })
     };
 };
-async function Read(usr_qq,PATH) {
+const Read = async (usr_qq, PATH) => {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
     let player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
@@ -39,130 +39,130 @@ async function Read(usr_qq,PATH) {
     player = JSON.parse(player);
     return player;
 };
-async function Write(usr_qq,player,PATH){
+const Write = async (usr_qq, player, PATH) => {
     const dir = path.join(PATH, `${usr_qq}.json`);
     const new_ARR = JSON.stringify(player, "", "\t");
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
     });
     return;
 };
-export async function existplayer(usr_qq) {
+export const existplayer = async (usr_qq) => {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
-    if(find == undefined){
+    if (find == undefined) {
         return false;
     };
-    if(find.state==0){
+    if (find.state == 0) {
         return false;
     };
     return find;
 };
-export async function existplayerplugins(usr_qq) {
+export const existplayerplugins = async (usr_qq) => {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
-    if(find == undefined){
+    if (find == undefined) {
         return false;
     };
     return find;
 };
-export async function Read_player(usr_qq) {
-    return await Read(usr_qq,__PATH.player);;
+export const Read_player = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.player);;
 };
-export async function Write_player(usr_qq, player) {
-    await Write(usr_qq,player,__PATH.player);
+export const Write_player = async (usr_qq, player) => {
+    await Write(usr_qq, player, __PATH.player);
     return;
 };
-export async function Read_talent(usr_qq) {
-    return await Read(usr_qq,__PATH.talent);
+export const Read_talent = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.talent);
 };
-export async function Write_talent(usr_qq, player) {
-    await Write(usr_qq,player,__PATH.talent);
+export const Write_talent = async (usr_qq, player) => {
+    await Write(usr_qq, player, __PATH.talent);
     return;
 };
-export async function Read_battle(usr_qq) {
-    return await Read(usr_qq,__PATH.battle);
+export const Read_battle = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.battle);
 };
-export async function Write_battle(usr_qq, data) {
-    await Write(usr_qq,data,__PATH.battle);
+export const Write_battle = async (usr_qq, data) => {
+    await Write(usr_qq, data, __PATH.battle);
     return;
 };
-export async function Read_level(usr_qq) {
-    return await Read(usr_qq,__PATH.level);
+export const Read_level = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.level);
 };
-export async function Write_level(usr_qq, data) {
-    await Write(usr_qq,data,__PATH.level);
+export const Write_level = async (usr_qq, data) => {
+    await Write(usr_qq, data, __PATH.level);
     return;
 };
-export async function Read_wealth(usr_qq) {
-    return await Read(usr_qq,__PATH.wealth);
+export const Read_wealth = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.wealth);
 };
-export async function Write_wealth(usr_qq, data) {
-    await Write(usr_qq,data,__PATH.wealth);
+export const Write_wealth = async (usr_qq, data) => {
+    await Write(usr_qq, data, __PATH.wealth);
     return;
 };
-export async function Read_action(usr_qq) {
-    return await Read(usr_qq,__PATH.action);
+export const Read_action = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.action);
 };
-export async function Write_action(usr_qq, data) {
-    await Write(usr_qq,data,__PATH.action);
+export const Write_action = async (usr_qq, data) => {
+    await Write(usr_qq, data, __PATH.action);
     return;
 };
-export async function Write_najie(usr_qq, najie) {
-    await Write(usr_qq,najie,__PATH.najie);
+export const Write_najie = async (usr_qq, najie) => {
+    await Write(usr_qq, najie, __PATH.najie);
     return;
 };
-export async function Read_najie(usr_qq) {
-    return await Read(usr_qq,__PATH.najie);
+export const Read_najie = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.najie);
 };
-export async function Read_equipment(usr_qq) {
-    return await Read(usr_qq,__PATH.equipment);
+export const Read_equipment = async (usr_qq) => {
+    return await Read(usr_qq, __PATH.equipment);
 };
-export async function Write_equipment(usr_qq, equipment) {
-    await Write(usr_qq,equipment,__PATH.equipment);
+export const Write_equipment = async (usr_qq, equipment) => {
+    await Write(usr_qq, equipment, __PATH.equipment);
     await updata_equipment(usr_qq);
     return;
 };
-export async function updata_equipment(usr_qq) {
-    let attack=0,defense=0,blood=0,burst=0,burstmax=0,speed=0;
+export const updata_equipment = async (usr_qq) => {
+    let attack = 0, defense = 0, blood = 0, burst = 0, burstmax = 0, speed = 0;
     let equipment = await Read_equipment(usr_qq);
-    equipment.forEach((item)=>{
-        attack=attack+item.attack;
-         defense=defense+item.defense;
-         blood=blood+item.blood;
-         burst=burst+item.burst;
-         burstmax=burstmax+item.burstmax;
-         speed=speed+item.speed;
+    equipment.forEach((item) => {
+        attack = attack + item.attack;
+        defense = defense + item.defense;
+        blood = blood + item.blood;
+        burst = burst + item.burst;
+        burstmax = burstmax + item.burstmax;
+        speed = speed + item.speed;
     });
     let level = await Read_level(usr_qq);
     let levelmini = data.Level_list.find(item => item.id == level.level_id);
     let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
-    let player=await Read_battle(usr_qq);
-    player={
+    let player = await Read_battle(usr_qq);
+    player = {
         nowblood: player.nowblood,
-        attack: levelmini.attack+levelmax.attack+Math.floor((levelmini.attack+levelmax.attack)*attack*0.01),
-        defense: levelmini.defense+levelmax.defense+Math.floor((levelmini.defense+levelmax.defense)*defense*0.01),
-        blood: levelmini.blood+levelmax.blood+Math.floor((levelmini.blood+levelmax.blood)*blood*0.01),
-        burst: levelmini.burst+levelmax.burst+burst,
-        burstmax: levelmini.burstmax+levelmax.burstmax+burstmax+level.rank_id*10,
-        speed:levelmini.speed+levelmax.speed+speed
+        attack: levelmini.attack + levelmax.attack + Math.floor((levelmini.attack + levelmax.attack) * attack * 0.01),
+        defense: levelmini.defense + levelmax.defense + Math.floor((levelmini.defense + levelmax.defense) * defense * 0.01),
+        blood: levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * blood * 0.01),
+        burst: levelmini.burst + levelmax.burst + burst,
+        burstmax: levelmini.burstmax + levelmax.burstmax + burstmax + level.rank_id * 10,
+        speed: levelmini.speed + levelmax.speed + speed
     }
-    player.power=player.attack+player.defense+player.blood+player.burst+player.burstmax+player.speed;
-    await Write_battle(usr_qq,player);
+    player.power = player.attack + player.defense + player.blood + player.burst + player.burstmax + player.speed;
+    await Write_battle(usr_qq, player);
     return;
 };
-export async function Add_prestige(usr_qq, prestige) {
+export const Add_prestige = async (usr_qq, prestige) => {
     const player = await Read_level(usr_qq);
     player.prestige += Math.trunc(prestige);
     await Write_level(usr_qq, player);
     return;
 };
-export async function Add_lingshi(usr_qq, lingshi) {
+export const Add_lingshi = async (usr_qq, lingshi) => {
     const player = await Read_wealth(usr_qq);
     player.lingshi += Math.trunc(lingshi);
     await Write_wealth(usr_qq, player);
     return;
 };
-export async function Add_experience(usr_qq, experience) {
+export const Add_experience = async (usr_qq, experience) => {
     const player = await Read_level(usr_qq);
     const exp0 = await Numbers(player.experience);
     const exp1 = await Numbers(experience);
@@ -170,218 +170,218 @@ export async function Add_experience(usr_qq, experience) {
     await Write_level(usr_qq, player);
     return;
 };
-export async function Add_experiencemax(usr_qq, qixue) {
+export const Add_experiencemax = async (usr_qq, qixue) => {
     const player = await Read_level(usr_qq);
     player.experiencemax += Math.trunc(qixue);
     await Write_level(usr_qq, player);
     return;
 };
 //血量按百分比恢复
-export async function Add_blood(usr_qq, blood) {
+export const Add_blood = async (usr_qq, blood) => {
     const player = await Read_battle(usr_qq);
-    const battle= await Read_battle(usr_qq);
+    const battle = await Read_battle(usr_qq);
     //判断百分比
-    if(player.nowblood<Math.floor(battle.blood*blood*0.01)){
-        player.nowblood = Math.floor(battle.blood*blood*0.01);
+    if (player.nowblood < Math.floor(battle.blood * blood * 0.01)) {
+        player.nowblood = Math.floor(battle.blood * blood * 0.01);
     };
     await Write_battle(usr_qq, player);
     return;
 };
-export async function Add_najie_lingshi(usr_qq, acount) {
+export const Add_najie_lingshi = async (usr_qq, acount) => {
     const najie = await Read_najie(usr_qq);
     najie.lingshi += Math.trunc(acount);
     await Write_najie(usr_qq, najie);
     return;
 };
-export async function Add_player_AllSorcery(usr_qq, gongfa) {
+export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
     const player = await Read_talent(usr_qq);
     player.AllSorcery.push(gongfa);
     await Write_talent(usr_qq, player);
     await player_efficiency(usr_qq);
     return;
 };
-export async function monsterbattle(e,battleA, battleB) {
-    let msg=[];
-    let qq=1;
-    if(battleA.speed>=battleB.speed-5){
-        let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
-        if(hurt<=0){
+export const monsterbattle = async (e, battleA, battleB) => {
+    let msg = [];
+    let qq = 1;
+    if (battleA.speed >= battleB.speed - 5) {
+        let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
+        if (hurt <= 0) {
             e.reply("你个老六想偷袭，却连怪物的防御都破不了，被怪物一巴掌给拍死了！");
-            battleA.nowblood=0;
-            qq=0;
-            await Write_battle(e.user_id,battleA);
+            battleA.nowblood = 0;
+            qq = 0;
+            await Write_battle(e.user_id, battleA);
             return qq;
         };
-        if(await battle_probability(battleA.burst)){
-            hurt=Math.floor(hurt*battleA.burstmax);
+        if (await battle_probability(battleA.burst)) {
+            hurt = Math.floor(hurt * battleA.burstmax);
         };
-        battleB.nowblood=battleB.nowblood-hurt;
-        if(battleB.nowblood<1){
+        battleB.nowblood = battleB.nowblood - hurt;
+        if (battleB.nowblood < 1) {
             e.reply("你仅出一招，就击败了怪物！");
             return qq;
-        }else{
-            msg.push("你个老六偷袭，造成"+hurt+"伤害");
+        } else {
+            msg.push("你个老六偷袭，造成" + hurt + "伤害");
         };
-    }else{
+    } else {
         msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
     };
     //循环回合，默认从B攻击开始
-    var x=1;
-    var y=0;
-    var z=1;
-    while(true){
+    var x = 1;
+    var y = 0;
+    var z = 1;
+    while (true) {
         x++;
         z++;
         //分片发送消息
-        if(x==15){
+        if (x == 15) {
             await ForwardMsg(e, msg);
-            msg=[];
-            x=0;
+            msg = [];
+            x = 0;
             y++;
-            if(y==2){
+            if (y == 2) {
                 //就打2轮回
                 break;
             };
         };
         //B开始
-        let hurt=battleB.attack-battleA.defense>=0?battleB.attack-battleA.defense+1:0;
-        if(await battle_probability(battleB.burst)){
-            hurt=Math.floor(hurt*battleB.burstmax);
+        let hurt = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0;
+        if (await battle_probability(battleB.burst)) {
+            hurt = Math.floor(hurt * battleB.burstmax);
         };
-        battleA.nowblood=battleA.nowblood-hurt;
-        if(battleA.nowblood<0){
-            msg.push("第"+z+"回合:怪物造成"+hurt+"伤害");
+        battleA.nowblood = battleA.nowblood - hurt;
+        if (battleA.nowblood < 0) {
+            msg.push("第" + z + "回合:怪物造成" + hurt + "伤害");
             await ForwardMsg(e, msg);
             e.reply("你被怪物击败了！");
-            battleA.nowblood=0;
-            battleB.nowblood=battleB.nowblood+1;
-            qq=0;
+            battleA.nowblood = 0;
+            battleB.nowblood = battleB.nowblood + 1;
+            qq = 0;
             break;
-        }else{
-            msg.push("第"+z+"回合:怪物造成"+hurt+"伤害");
+        } else {
+            msg.push("第" + z + "回合:怪物造成" + hurt + "伤害");
         };
         //A开始
-        hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
-        if(await battle_probability(battleA.burst)){
-            hurt=Math.floor(hurt*battleA.burstmax);
+        hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
+        if (await battle_probability(battleA.burst)) {
+            hurt = Math.floor(hurt * battleA.burstmax);
         };
-        battleB.nowblood=battleB.nowblood-hurt;
-        if(battleB.nowblood<0){
-            msg.push("第"+z+"回合:你造成"+hurt+"伤害，并击败了怪物！");
+        battleB.nowblood = battleB.nowblood - hurt;
+        if (battleB.nowblood < 0) {
+            msg.push("第" + z + "回合:你造成" + hurt + "伤害，并击败了怪物！");
             await ForwardMsg(e, msg);
             e.reply("你击败了怪物！");
-            battleB.nowblood=0;
-            battleA.nowblood=battleA.nowblood+1;
+            battleB.nowblood = 0;
+            battleA.nowblood = battleA.nowblood + 1;
             break;
         }
-        else{
-            msg.push("第"+z+"回合:你造成"+hurt+"伤害");
+        else {
+            msg.push("第" + z + "回合:你造成" + hurt + "伤害");
         };
     };
-    await Write_battle(e.user_id,battleA);
+    await Write_battle(e.user_id, battleA);
     return qq;
 };
-export async function battle(e,A, B) {
+export const battle = async (e, A, B) => {
     let A_qq = A;
     let B_qq = B;
     let battleA = await Read_battle(A_qq);
     let battleB = await Read_battle(B_qq);
-    let qq=A_qq;
-    let msg=[];
-    if(battleA.speed>=battleB.speed-5){
-        let hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
-        if(await battle_probability(battleA.burst)){
-            hurt=Math.floor(hurt*battleA.burstmax);
+    let qq = A_qq;
+    let msg = [];
+    if (battleA.speed >= battleB.speed - 5) {
+        let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
+        if (await battle_probability(battleA.burst)) {
+            hurt = Math.floor(hurt * battleA.burstmax);
         };
-        if(hurt<=0){
+        if (hurt <= 0) {
             e.reply("你个老六想偷袭，却连对方的防御都破不了，被对方一巴掌给拍死了！");
-            battleA.nowblood=0;
-            qq=B_qq;
-            await Write_battle(e.user_id,battleA);
+            battleA.nowblood = 0;
+            qq = B_qq;
+            await Write_battle(e.user_id, battleA);
             return qq;
         };
-        battleB.nowblood=battleB.nowblood-hurt;
-        if(battleB.nowblood<1){
+        battleB.nowblood = battleB.nowblood - hurt;
+        if (battleB.nowblood < 1) {
             e.reply("你仅出一招，就击败了对方！");
-            battleB.nowblood=0;
-            await Write_battle(B_qq,battleB);
+            battleB.nowblood = 0;
+            await Write_battle(B_qq, battleB);
             return qq;
-        }else{
-            msg.push("你个老六偷袭成功，造成"+hurt+"伤害");
+        } else {
+            msg.push("你个老六偷袭成功，造成" + hurt + "伤害");
         };
-    }else{
+    } else {
         msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
     };
     //循环回合，默认从B攻击开始
-    var x=1;
-    var y=0;
-    var z=1;
-    while(true){
+    var x = 1;
+    var y = 0;
+    var z = 1;
+    while (true) {
         x++;
         z++;
         //分片发送消息
-        if(x==15){
+        if (x == 15) {
             await ForwardMsg(e, msg);
-            msg=[];
-            x=0;
+            msg = [];
+            x = 0;
             y++;
-            if(y==2){
+            if (y == 2) {
                 //就打2轮回
                 break;
             };
         };
         //B开始
-        let hurt=battleB.attack-battleA.defense>=0?battleB.attack-battleA.defense+1:0;
-        if(await battle_probability(battleB.burst)){
-            hurt=Math.floor(hurt*battleB.burstmax);
+        let hurt = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0;
+        if (await battle_probability(battleB.burst)) {
+            hurt = Math.floor(hurt * battleB.burstmax);
         };
-        battleA.nowblood=battleA.nowblood-hurt;
-        if(battleA.nowblood<0){
-            msg.push("第"+z+"回合:对方造成"+hurt+"伤害");
+        battleA.nowblood = battleA.nowblood - hurt;
+        if (battleA.nowblood < 0) {
+            msg.push("第" + z + "回合:对方造成" + hurt + "伤害");
             await ForwardMsg(e, msg);
             e.reply("你被对方击败了！");
-            battleA.nowblood=0;
-            battleB.nowblood=battleB.nowblood+1;
-            qq=B_qq;
+            battleA.nowblood = 0;
+            battleB.nowblood = battleB.nowblood + 1;
+            qq = B_qq;
             break;
         }
-        else{
-            msg.push("第"+z+"回合:对方造成"+hurt+"伤害");
+        else {
+            msg.push("第" + z + "回合:对方造成" + hurt + "伤害");
         };
         //A开始
-        hurt=battleA.attack-battleB.defense>=0?battleA.attack-battleB.defense+1:0;
-        if(await battle_probability(battleA.burst)){
-            hurt=Math.floor(hurt*battleA.burstmax);
+        hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
+        if (await battle_probability(battleA.burst)) {
+            hurt = Math.floor(hurt * battleA.burstmax);
         };
-        battleB.nowblood=battleB.nowblood-hurt;
-        if(battleB.nowblood<0){
-            msg.push("第"+z+"回合:你造成"+hurt+"伤害，并击败了对方！");
+        battleB.nowblood = battleB.nowblood - hurt;
+        if (battleB.nowblood < 0) {
+            msg.push("第" + z + "回合:你造成" + hurt + "伤害，并击败了对方！");
             await ForwardMsg(e, msg);
             e.reply("你击败了对方！");
-            battleB.nowblood=0;
-            battleA.nowblood=battleA.nowblood+1;
+            battleB.nowblood = 0;
+            battleA.nowblood = battleA.nowblood + 1;
             break;
-        }else{
-            msg.push("第"+z+"回合:你造成"+hurt+"伤害");
+        } else {
+            msg.push("第" + z + "回合:你造成" + hurt + "伤害");
         };
     };
     //在这里结算一下
-    await Write_battle(A_qq,battleA);
-    await Write_battle(B_qq,battleB);
+    await Write_battle(A_qq, battleA);
+    await Write_battle(B_qq, battleB);
     //返回赢家QQ
     return qq;
 }
 //整数
-export async function battle_probability(P) {
-    let newp=0;
-    if(P>100){
-        newp=100;
+export const battle_probability = async (P) => {
+    let newp = 0;
+    if (P > 100) {
+        newp = 100;
     };
-    if(P<0){
-        newp=0;
+    if (P < 0) {
+        newp = 0;
     };
-    const rand = Math.floor((Math.random() * (100-1)+1));
-    if (newp>rand) {
+    const rand = Math.floor((Math.random() * (100 - 1) + 1));
+    if (newp > rand) {
         return true;
     };
     return false;
@@ -389,7 +389,7 @@ export async function battle_probability(P) {
 /**
  * 灵根合集
  */
-export async function get_talent() {
+export const get_talent = async () => {
     const newtalent = [];
     const talentacount = Math.round(Math.random() * (5 - 1)) + 1;
     for (var i = 0; i < talentacount; i++) {
@@ -418,7 +418,7 @@ export async function get_talent() {
 /**
  * 灵根名字
  */
-export async function talentname(player) {
+export const talentname = async (player) => {
     const talentname = [];
     let name = "";
     const talent = player.talent;
@@ -432,7 +432,7 @@ export async function talentname(player) {
 /**
  * 计算天赋
  */
-async function talentsize(player) {
+const talentsize = async (player) => {
     let talentsize = 250;
     const talent = player.talent;
     //根据灵根数来判断
@@ -451,75 +451,75 @@ async function talentsize(player) {
 /**
  * 天赋综合计算
  */
-export async function player_efficiency(usr_qq) {
+export const player_efficiency = async (usr_qq) => {
     const player = await Read_talent(usr_qq);
     let gongfa_efficiency = 0;
-    player.AllSorcery.forEach((item)=>{
-        gongfa_efficiency=gongfa_efficiency+item.size;
+    player.AllSorcery.forEach((item) => {
+        gongfa_efficiency = gongfa_efficiency + item.size;
     });
     let linggen_efficiency = await talentsize(player);
     player.talentsize = linggen_efficiency + gongfa_efficiency;
-    await  Write_talent(usr_qq,player);
+    await Write_talent(usr_qq, player);
     return;
 };
 
 /**
  * 根据名字返回物品
  */
-export async function search_thing_name(thing) {
+export const search_thing_name = async (thing) => {
     const ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.name == thing);
-    if(ifexist0==undefined){
-        return  1;
+    if (ifexist0 == undefined) {
+        return 1;
     };
     return ifexist0;
 };
 /**
  * 根据id返回物品
  */
-export async function search_thing_id(thing_id) {
+export const search_thing_id = async (thing_id) => {
     const ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.id == thing_id);
-    if(ifexist0==undefined){
-        return  1;
+    if (ifexist0 == undefined) {
+        return 1;
     }
-    else{
+    else {
         return ifexist0;
     };
 };
-export async function exist_najie_thing_id(usr_qq, thing_id) {
+export const exist_najie_thing_id = async (usr_qq, thing_id) => {
     const najie = await Read_najie(usr_qq);
-    const ifexist  = najie.thing.find(item => item.id == thing_id);
-    if(ifexist==undefined){
+    const ifexist = najie.thing.find(item => item.id == thing_id);
+    if (ifexist == undefined) {
         return 1;
     };
     return ifexist;
 };
-export async function exist_najie_thing_name(usr_qq, name) {
+export const exist_najie_thing_name = async (usr_qq, name) => {
     const najie = await Read_najie(usr_qq);
-    const ifexist  = najie.thing.find(item => item.name == name);
-    if(ifexist==undefined){
+    const ifexist = najie.thing.find(item => item.name == name);
+    if (ifexist == undefined) {
         return 1;
     };
     return ifexist;
 };
-export async function Add_najie_thing(najie, najie_thing, thing_acount) {
-    const thing =  najie.thing.find(item => item.id == najie_thing.id);
-    if(thing){
-        let acount =  thing.acount + thing_acount;
+export const Add_najie_thing = async (najie, najie_thing, thing_acount) => {
+    const thing = najie.thing.find(item => item.id == najie_thing.id);
+    if (thing) {
+        let acount = thing.acount + thing_acount;
         if (acount < 1) {
-            najie.thing =  najie.thing.filter(item => item.id != najie_thing.id);
+            najie.thing = najie.thing.filter(item => item.id != najie_thing.id);
         }
-        else{
+        else {
             najie.thing.find(item => item.id == najie_thing.id).acount = acount;
         };
         return najie;
-    }else{
-        najie_thing.acount=thing_acount;
+    } else {
+        najie_thing.acount = thing_acount;
         najie.thing.push(najie_thing);
-       return najie;
+        return najie;
     };
 };
 //发送转发消息
-export async function ForwardMsg(e, data) {
+export const ForwardMsg = async (e, data) => {
     const msgList = [];
     for (let i of data) {
         msgList.push({
@@ -540,7 +540,7 @@ export async function ForwardMsg(e, data) {
  * 对象数组排序
  * 从大到小
  */
-export function sortBy(field) {
+export const sortBy = (field) => {
     return function (b, a) {
         return a[field] - b[field];
     };
@@ -548,29 +548,29 @@ export function sortBy(field) {
 /**
  * 输入概率随机返回布尔类型数据
  */
-export function probability(P) {
+export const probability = (P) => {
     //概率为1-100
     if (P > 100) { P = 100; };
     if (P < 0) { P = 0; };
-    const rand = Math.floor((Math.random() * (100-1)+1));
+    const rand = Math.floor((Math.random() * (100 - 1) + 1));
     //命中
     if (rand < P) {
         return true;
     };
     return false;
 };
-export function Anyarray(ARR) {
+export const Anyarray = (ARR) => {
     const randindex = Math.trunc(Math.random() * ARR.length);
     return ARR[randindex];
 };
 //沉睡
-export async function sleep(time) {
+export const sleep = async (time) => {
     return new Promise(resolve => {
         setTimeout(resolve, time);
     });
 };
 // 时间转换
-export function timestampToTime(timestamp) {
+export const timestampToTime = (timestamp) => {
     //时间戳为10位需*1000，时间戳为13位的话不需乘1000
     const date = new Date(timestamp);
     var Y = date.getFullYear() + '-';
@@ -582,7 +582,7 @@ export function timestampToTime(timestamp) {
     return Y + M + D + h + m + s;
 }
 //根据时间戳获取年月日时分秒
-export async function shijianc(time) {
+export const shijianc = async (time) => {
     let dateobj = {}
     const date = new Date(time)
     dateobj.Y = date.getFullYear()
@@ -596,7 +596,7 @@ export async function shijianc(time) {
 /**
  * 艾特
  */
-export async function At(e) {
+export const At = async (e) => {
     const isat = e.message.some((item) => item.type === "at");
     if (!isat) {
         return 0;
@@ -614,12 +614,12 @@ export async function At(e) {
  * @param obj 对象
  * @returns obj==null/undefined,return false,other return true
  */
-export function isNotNull(obj) {
+export const isNotNull = (obj) => {
     if (obj == undefined || obj == null)
         return false;
     return true;
 };
-export function isNotBlank(value) {
+export const isNotBlank = (value) => {
     if (value ?? '' !== '') {
         return true;
     }
@@ -630,7 +630,7 @@ export function isNotBlank(value) {
 /**
  * 强制修正至少为1
  */
-export async function Numbers(value) {
+export const Numbers = async (value) => {
     let x = value;
     if (isNaN(parseFloat(x)) && !isFinite(x)) {
         x = 1;
@@ -645,7 +645,7 @@ export async function Numbers(value) {
 /**
  * 得到状态
  */
- export async function getPlayerAction(usr_qq) {
+export const getPlayerAction = async (usr_qq) => {
     let arr = {};
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     action = JSON.parse(action);
@@ -666,9 +666,9 @@ export async function Numbers(value) {
 /**
  * 关闭状态
  */
-export async function offaction(qq) {
+export const offaction = async (qq) => {
     const exists = await redis.exists("xiuxian:player:" + qq + ":action");
-    if(exists == 1){
+    if (exists == 1) {
         await redis.del("xiuxian:player:" + qq + ":action");
     };
     return;
@@ -676,7 +676,7 @@ export async function offaction(qq) {
 /**
  * 状态封锁查询
  */
- export async function Gomini(e) {
+export const Gomini = async (e) => {
     if (!e.isGroup) {
         return;
     };
@@ -688,11 +688,11 @@ export async function offaction(qq) {
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
         action = JSON.parse(action);
-        if(action.actionName==undefined){
+        if (action.actionName == undefined) {
             e.reply("存在旧版本残留，请联系主人使用#删除数据");
             return false;
         };
-        e.reply(action.actionName+"中...")
+        e.reply(action.actionName + "中...")
         return false;
     };
     return true;
@@ -700,7 +700,7 @@ export async function offaction(qq) {
 /**
  * 状态封锁查询
  */
-export async function Go(e) {
+export const Go = async (e) => {
     if (!e.isGroup) {
         return;
     };
@@ -712,11 +712,11 @@ export async function Go(e) {
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     if (action != undefined) {
         action = JSON.parse(action);
-        if(action.actionName==undefined){
+        if (action.actionName == undefined) {
             e.reply("存在旧版本残留，请联系主人使用#删除数据");
             return false;
         };
-        e.reply(action.actionName+"中...")
+        e.reply(action.actionName + "中...")
         return false;
     };
     const player = await Read_battle(usr_qq);
@@ -726,53 +726,53 @@ export async function Go(e) {
     };
     return true;
 };
-               //0     1     2      3      4     5       6     7      8      9     10    11   12   13   14
-const CDname=['攻击','降妖','闭关','改名','道宣','赠送','突破','破体','转世','行为','击杀','  ','  ','  ','  '];
+//0     1     2      3      4     5       6     7      8      9     10    11   12   13   14
+const CDname = ['攻击', '降妖', '闭关', '改名', '道宣', '赠送', '突破', '破体', '转世', '行为', '击杀', '  ', '  ', '  ', '  '];
 /**
  * 冷却检测
  */
-export async function GenerateCD(usr_qq, CDid) {
-    const remainTime = await redis.ttl("xiuxian:player:" + usr_qq +':'+CDid);
-    if(remainTime != -1){
-        let h=Math.floor(remainTime/60/60);
-        h=h<0?0:h;
-        let m=Math.floor((remainTime-h*60*60)/60);
-        m=m<0?0:m;
-        let s=Math.floor((remainTime-h*60*60-m*60));
-        s=s<0?0:s;
-        if(h==0&&m==0&&s==0){
-           return 0;
+export const GenerateCD = async (usr_qq, CDid) => {
+    const remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ':' + CDid);
+    if (remainTime != -1) {
+        let h = Math.floor(remainTime / 60 / 60);
+        h = h < 0 ? 0 : h;
+        let m = Math.floor((remainTime - h * 60 * 60) / 60);
+        m = m < 0 ? 0 : m;
+        let s = Math.floor((remainTime - h * 60 * 60 - m * 60));
+        s = s < 0 ? 0 : s;
+        if (h == 0 && m == 0 && s == 0) {
+            return 0;
         }
-        return CDname[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
+        return CDname[CDid] + "冷却:" + h + "h" + m + "m" + s + "s";
     };
     return 0;
 };
-export async function GenerateCDplugin(usr_qq, CDid,CDnameplugin) {
-    const remainTime = await redis.ttl("xiuxian:player:" + usr_qq +':'+CDid);
-    if(remainTime != -1){
-        let h=Math.floor(remainTime/60/60);
-        h=h<0?0:h;
-        let m=Math.floor((remainTime-h*60*60)/60);
-        m=m<0?0:m;
-        let s=Math.floor((remainTime-h*60*60-m*60));
-        s=s<0?0:s;
-        if(h==0&&m==0&&s==0){
-           return 0;
+export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
+    const remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ':' + CDid);
+    if (remainTime != -1) {
+        let h = Math.floor(remainTime / 60 / 60);
+        h = h < 0 ? 0 : h;
+        let m = Math.floor((remainTime - h * 60 * 60) / 60);
+        m = m < 0 ? 0 : m;
+        let s = Math.floor((remainTime - h * 60 * 60 - m * 60));
+        s = s < 0 ? 0 : s;
+        if (h == 0 && m == 0 && s == 0) {
+            return 0;
         }
-        return CDnameplugin[CDid]+"冷却:"+h+"h"+m+"m"+s+"s";
+        return CDnameplugin[CDid] + "冷却:" + h + "h" + m + "m" + s + "s";
     };
     return 0;
 };
 //写入
-export async function Write_Forum(wupin) {
-    await Write(`Forum`,wupin,__PATH.Forum);
+export const Write_Forum = async (wupin) => {
+    await Write(`Forum`, wupin, __PATH.Forum);
     return;
 };
 //读取
-export async function Read_Forum() {
+export const Read_Forum = async () => {
     const dir = path.join(`${__PATH.Forum}/Forum.json`);
     let Forum = await newRead(dir);
-    if(Forum==1){
+    if (Forum == 1) {
         await Write_Forum([]);
         Forum = await newRead(dir);
     };
@@ -780,15 +780,15 @@ export async function Read_Forum() {
     return Forum;
 };
 //写入交易表
-export async function Write_Exchange(wupin) {
-    await Write(`Exchange`,wupin,__PATH.Exchange);
+export const Write_Exchange = async (wupin) => {
+    await Write(`Exchange`, wupin, __PATH.Exchange);
     return;
 };
 //读交易表
-export async function Read_Exchange() {
+export const Read_Exchange = async () => {
     const dir = path.join(`${__PATH.Exchange}/Exchange.json`);
     let Exchange = await newRead(dir);
-    if(Exchange==1){
+    if (Exchange == 1) {
         await Write_Exchange([]);
         Exchange = await newRead(dir);
     };
@@ -796,7 +796,7 @@ export async function Read_Exchange() {
     return Exchange;
 };
 //搜索物品
-export async function Search_Exchange(thing_qq) {
+export const Search_Exchange = async (thing_qq) => {
     const thingqq = thing_qq;
     let x = -1;
     const Exchange = await Read_Exchange();
@@ -812,23 +812,23 @@ export async function Search_Exchange(thing_qq) {
     return x;
 };
 //写入寿命表
-export async function Write_Life(wupin) {
-    await Write(`life`,wupin,__PATH.life);
+export const Write_Life = async (wupin) => {
+    await Write(`life`, wupin, __PATH.life);
     return;
 };
 //读寿命表
-export async function Read_Life() {
+export const Read_Life = async () => {
     const dir = path.join(`${__PATH.life}/life.json`);
     let Life = await newRead(dir);
-    if(Life==1){
+    if (Life == 1) {
         await Write_Life([]);
         Life = await newRead(dir);
     };
     Life = await JSON.parse(Life);
     return Life;
 };
-export async function newRead(dir) {
-    try{
+export const newRead = async (dir) => {
+    try {
         const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
                 return "error";
@@ -836,33 +836,33 @@ export async function newRead(dir) {
             return data;
         });
         return newdata;
-    }catch{
+    } catch {
         return 1;
     };
 };
 //判断两者是否可以交互
-export async function interactive(A,B){
-    const a=await Read_action(A);
-    const b=await Read_action(B);
+export const interactive = async (A, B) => {
+    const a = await Read_action(A);
+    const b = await Read_action(B);
     //198=1.98=1
-    a.x=Math.floor(a.x/100);
-    a.y=Math.floor(a.y/100);
+    a.x = Math.floor(a.x / 100);
+    a.y = Math.floor(a.y / 100);
     //145/100=1.45=1
-    b.x=Math.floor(b.x/100);
-    b.y=Math.floor(b.y/100);
-    if(a.x==b.x&&b.y==b.y){
+    b.x = Math.floor(b.x / 100);
+    b.y = Math.floor(b.y / 100);
+    if (a.x == b.x && b.y == b.y) {
         return true;
     };
     return false;
 };
 //判断两者距离
-export async function distance(A,B){
-    const a=await Read_action(A);
-    const b=await Read_action(B);
-    const h=Math.pow(Math.pow((a.x-b.x),2)+Math.pow((a.y-b.y),2),1/2);
+export const distance = async (A, B) => {
+    const a = await Read_action(A);
+    const b = await Read_action(B);
+    const h = Math.pow(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2), 1 / 2);
     return h;
 };
-export async function map_distance(A,B){
-    const h=Math.pow(Math.pow((A.x-B.x1),2)+Math.pow((A.y-B.y1),2),1/2);
+export const map_distance = async (A, B) => {
+    const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2);
     return h;
 };

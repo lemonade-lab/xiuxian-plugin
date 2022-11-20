@@ -22,7 +22,7 @@ export class Battle extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
-    async HandWashing(e) {
+     HandWashing=async(e)=> {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -45,7 +45,7 @@ export class Battle extends plugin {
         };
         return;
     };
-    async Attack(e) {
+     Attack=async(e)=> {
         const good = await Go(e);
         if (!good) {
             return;

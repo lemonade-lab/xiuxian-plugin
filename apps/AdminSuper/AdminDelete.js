@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from "node:fs";
-import {Write_Forum,Read_Exchange,Write_Exchange,__PATH,offaction,At, Write_Life,Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js';
+import { Write_Forum, Read_Exchange, Write_Exchange, __PATH, offaction, At, Write_Life, Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js';
 export class AdminDelete extends plugin {
     constructor() {
         super({
@@ -36,15 +36,15 @@ export class AdminDelete extends plugin {
             ],
         });
     };
-    async deleteredis(e){
+    deleteredis = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const allkey = await redis.keys('xiuxian:*', (err, data) => {
             console.log(err);
         });
-        if(allkey){
-            allkey.forEach(async(item) => {
+        if (allkey) {
+            allkey.forEach(async (item) => {
                 await redis.del(item);
             });
             e.reply("删除完成");
@@ -53,7 +53,7 @@ export class AdminDelete extends plugin {
         e.reply("世界无一花草");
         return;
     };
-    async DeleteForum(e) {
+    DeleteForum = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -61,17 +61,17 @@ export class AdminDelete extends plugin {
         e.reply("已清理");
         return;
     };
-    async Deletepurchase(e) {
+    Deletepurchase = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const thingid = e.msg.replace("#清除", '');
-        const Exchange  = await Read_Exchange();
-        Exchange.forEach(async(item,index,arr)=>{
-            if(item.id==thingid){
-                const action=await Read_action(item.QQ);
-                action.Exchange=action.Exchange-1;
-                await Write_action(item.QQ,action);
+        const Exchange = await Read_Exchange();
+        Exchange.forEach(async (item, index, arr) => {
+            if (item.id == thingid) {
+                const action = await Read_action(item.QQ);
+                action.Exchange = action.Exchange - 1;
+                await Write_action(item.QQ, action);
                 arr.splice(index, 1);
                 e.reply("清除" + thingid);
             };
@@ -79,7 +79,7 @@ export class AdminDelete extends plugin {
         await Write_Exchange(Exchange);
         return;
     };
-    async Deleteexchange(e) {
+    Deleteexchange = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -88,19 +88,19 @@ export class AdminDelete extends plugin {
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        files.forEach((item,index,arr)=>{
+        files.forEach((item, index, arr) => {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async(item,index,arr)=>{
-            const action=await Read_action(item); 
-            action.Exchange=0;
-            await Write_action(item,action);
+        playerList.forEach(async (item, index, arr) => {
+            const action = await Read_action(item);
+            action.Exchange = 0;
+            await Write_action(item, action);
         });
         e.reply("清除完成");
         return;
     };
-    async deleteallusers(e){
+    deleteallusers = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -109,30 +109,30 @@ export class AdminDelete extends plugin {
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith(".json"));
-        files.forEach((item,index,arr)=>{
+        files.forEach((item, index, arr) => {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async(item,index,arr)=>{
+        playerList.forEach(async (item, index, arr) => {
             fs.rmSync(`${__PATH.player}/${item}.json`);
         });
         await this.deleteredis(e);
         e.reply("世界已崩碎");
         return;
     };
-    async deleteuser(e){
+    deleteuser = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const B = await At(e);
-        if(B==0){
+        if (B == 0) {
             return;
         };
         fs.rmSync(`${__PATH.player}/${B}.json`);
         await offaction(B);
         let life = await Read_Life();
-        life.forEach((item,index,arr)=>{
-            if(item.qq==B){
+        life.forEach((item, index, arr) => {
+            if (item.qq == B) {
                 arr.splice(index, 1);
             };
         });
@@ -141,4 +141,3 @@ export class AdminDelete extends plugin {
         return;
     }
 };
-

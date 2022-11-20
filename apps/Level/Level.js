@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import config from "../../model/Config.js";
-import {Go, GenerateCD, __PATH, Read_level, Write_level,updata_equipment, Read_Life, Write_Life} from '../Xiuxian/Xiuxian.js';
+import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../Xiuxian/Xiuxian.js';
 export class Level extends plugin {
     constructor() {
         super({
@@ -30,7 +30,7 @@ export class Level extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
-    async LevelMax_up(e) {
+    LevelMax_up = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
@@ -78,7 +78,7 @@ export class Level extends plugin {
                 e.reply(`突破瓶颈时突然想起后花园种有药草，强行打断突破，嘴角流血，丧失了` + (LevelMax.exp) * x + "气血");
 
             }
-            else{
+            else {
                 e.reply(`憋红了脸，境界突破失败,等到${CDTime}分钟后再尝试吧`);
             };
             player.experiencemax -= LevelMax.exp * x;
@@ -97,8 +97,8 @@ export class Level extends plugin {
         await redis.set("xiuxian:player:" + usr_qq + ':' + CDid, now_time);
         await redis.expire("xiuxian:player:" + usr_qq + ':' + CDid, CDTime * 60);
         return;
-    }
-    async Level_up(e) {
+    };
+    Level_up = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
@@ -144,13 +144,13 @@ export class Level extends plugin {
             }
             else if (bad_time > 0.8) {
                 x = 0.2;
-                e.reply(`突破瓶颈时想到鸡哥了,险些走火入魔，丧失了` + (Level.exp) * x+ "气血");
+                e.reply(`突破瓶颈时想到鸡哥了,险些走火入魔，丧失了` + (Level.exp) * x + "气血");
             }
             else if (bad_time > 0.7) {
                 x = 0.1;
                 e.reply(`突破瓶颈时突然想起后花园种有药草，强行打断突破，嘴角流血，丧失了` + (Level.exp) * x + "气血");
             }
-            else{
+            else {
                 e.reply(`憋红了脸，境界突破失败,等到${CDTime}分钟后再尝试吧`);
             };
             player.experience -= Level.exp * x;
@@ -177,7 +177,7 @@ export class Level extends plugin {
         await redis.expire("xiuxian:player:" + usr_qq + ':' + CDid, CDTime * 60);
         return;
     };
-    async fate_up(e) {
+    fate_up = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;

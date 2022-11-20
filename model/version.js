@@ -5,7 +5,7 @@ export default class Version extends base {
     this.model = "version";
   };
   /** 生成版本信息图片 */
-  async getData(versionData) {
+  getData = async (versionData) => {
     const version =
       (versionData && versionData.length && versionData[0].version);
     let data = {

@@ -25,7 +25,7 @@ export class TopList extends plugin {
             ]
         });
     };
-    async TOP_prestige(e) {
+    TOP_prestige = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -40,7 +40,7 @@ export class TopList extends plugin {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        for(let item of playerList){
+        for (let item of playerList) {
             const newbattle = await Read_level(item);
             if (newbattle.prestige > 0) {
                 const battle = {
@@ -51,7 +51,7 @@ export class TopList extends plugin {
                 temp.push(battle);
             };
         };
-        if(temp.length==0){
+        if (temp.length == 0) {
             return;
         };
         temp.sort(sortBy("power"));
@@ -65,7 +65,7 @@ export class TopList extends plugin {
         e.reply(img);
         return;
     };
-    async TOP_Immortal(e) {
+    TOP_Immortal = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -80,7 +80,7 @@ export class TopList extends plugin {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        for(let item of playerList){
+        for (let item of playerList) {
             const level = await Read_level(item);
             if (level.level_id > 10) {
                 const newbattle = await Read_battle(item);
@@ -92,7 +92,7 @@ export class TopList extends plugin {
                 temp.push(battle);
             };
         };
-        if(temp.length==0){
+        if (temp.length == 0) {
             return;
         };
         temp.sort(sortBy("power"));
@@ -106,7 +106,7 @@ export class TopList extends plugin {
         e.reply(img);
         return;
     };
-    async TOP_genius(e) {
+    TOP_genius = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -121,7 +121,7 @@ export class TopList extends plugin {
             playerList.push(file);
         });
         const temp = [];
-        for(let item of playerList){
+        for (let item of playerList) {
             const level = await Read_level(item);
             if (level.level_id <= 10) {
                 const newbattle = await Read_battle(item);
@@ -133,12 +133,12 @@ export class TopList extends plugin {
                 temp.push(battle);
             };
         };
-        if(temp.length==0){
+        if (temp.length == 0) {
             return;
         };
         temp.sort(sortBy("power"));
         const list = [];
-        temp.forEach(async(item, index) => {
+        temp.forEach(async (item, index) => {
             if (index < 10) {
                 list.push(item);
             };

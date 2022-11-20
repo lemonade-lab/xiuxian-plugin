@@ -24,28 +24,28 @@ export class BotHelp extends plugin {
             ]
         });
     };
-    async Xiuxianhelp2(e) {
-        const data = await Help.gethelp(e,'Help2');
+    Xiuxianhelp2 = async (e) => {
+        const data = await Help.gethelp(e, 'Help2');
         if (!data) {
             return
         };
-        const img = await Cache.helpcache(data,2);
+        const img = await Cache.helpcache(data, 2);
         await e.reply(img);
     };
-    async Xiuxianhelp1(e) {
-        const data = await Help.gethelp(e,'Help1');
+    Xiuxianhelp1 = async (e) => {
+        const data = await Help.gethelp(e, 'Help1');
         if (!data) {
             return
         };
-        const img = await Cache.helpcache(data,1);
+        const img = await Cache.helpcache(data, 1);
         await e.reply(img);
     };
-    async adminsuper(e) {
-        const data = await Help.gethelp(e,'Admin');
+    adminsuper = async (e) => {
+        const data = await Help.gethelp(e, 'Admin');
         if (!data) {
             return
         };
-        const img = await Cache.helpcache(data,0);
+        const img = await Cache.helpcache(data, 0);
         await e.reply(img);
     };
 };

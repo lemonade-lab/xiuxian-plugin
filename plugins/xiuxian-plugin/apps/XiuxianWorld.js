@@ -1,6 +1,6 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
 import fs from "node:fs";
-import { __PATH,Add_lingshi ,ForwardMsg, Add_experience, Add_experiencemax, Read_Life} from '../../../apps/Xiuxian/Xiuxian.js';
+import { __PATH, Add_lingshi, ForwardMsg, Add_experience, Add_experiencemax, Read_Life } from '../../../apps/Xiuxian/Xiuxian.js';
 export class XiuxianWorld extends plugin {
     constructor() {
         super({
@@ -20,17 +20,17 @@ export class XiuxianWorld extends plugin {
             ]
         });
     };
-    async XiuxianWorld(e){
+    XiuxianWorld = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        const life=Read_Life();
-        const msg=["--修仙世界---"];
-        msg.push("人数："+life.length);
-        await ForwardMsg(e,msg);
+        const life = await Read_Life();
+        const msg = ["--修仙世界---"];
+        msg.push("人数：" + life.length);
+        await ForwardMsg(e, msg);
         return;
     };
-    async ceshi(e) {
+    ceshi = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -42,7 +42,7 @@ export class XiuxianWorld extends plugin {
             const file = item.replace(".json", "");
             playerList.push(file);
         });
-        playerList.forEach(async(item) => {
+        playerList.forEach(async (item) => {
             await Add_lingshi(item, 99999);
             await Add_experience(item, 99999);
             await Add_experiencemax(item, 99999);

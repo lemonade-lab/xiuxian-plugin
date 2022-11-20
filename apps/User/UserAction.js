@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import config from "../../model/Config.js";
 import { get_najie_img } from '../ShowImeg/showData.js';
 import { segment } from "oicq";
-import {existplayer,Go,Read_najie,Add_lingshi,Write_najie,Numbers,Add_najie_lingshi, Read_wealth} from '../Xiuxian/Xiuxian.js';
+import { existplayer, Go, Read_najie, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../Xiuxian/Xiuxian.js';
 export class UserAction extends plugin {
     constructor() {
         super({
@@ -27,7 +27,7 @@ export class UserAction extends plugin {
         });
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
-    async Show_najie(e) {
+    Show_najie = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
@@ -37,8 +37,8 @@ export class UserAction extends plugin {
         e.reply(img);
         return;
     };
-    async Lv_up_najie(e) {
-        const good=await Go(e);
+    Lv_up_najie = async (e) => {
+        const good = await Go(e);
         if (!good) {
             return;
         };
@@ -62,7 +62,7 @@ export class UserAction extends plugin {
         e.reply(`花了${najie_price[najie.grade - 1]}灵石升级,目前灵石存储上限为${najie.lingshimax}`)
         return;
     }
-    async Take_lingshi(e) {
+    Take_lingshi = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
@@ -76,7 +76,7 @@ export class UserAction extends plugin {
         if (lingshi == "全部") {
             lingshi = player_lingshi.lingshi;
         };
-        lingshi=await Numbers(lingshi);
+        lingshi = await Numbers(lingshi);
         if (func == "存") {
             if (player_lingshi.lingshi < lingshi) {
                 e.reply([segment.at(usr_qq), `灵石不足,目前只有${player_lingshi.lingshi}灵石`]);

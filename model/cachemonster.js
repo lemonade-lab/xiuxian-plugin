@@ -1,10 +1,10 @@
 const alldata = [];
 const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
 const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
-let addall=[];
+let addall = [];
 class Cachemonster {
-    constructor() {};
-    async monsterscache(i) {
+    constructor() { };
+    monsterscache = async (i) => {
         while (true) {
             if (alldata.length <= i) {
                 alldata.push({
@@ -20,17 +20,17 @@ class Cachemonster {
         if (time.getHours() != alldata[i].label) {
             alldata[i].label = time.getHours();
             for (var j = 0; j < 5; j++) {
-                let y =  Math.trunc(Math.random() * ((i+2) * 2));
-                y=y>9?9:y;
+                let y = Math.trunc(Math.random() * ((i + 2) * 2));
+                y = y > 9 ? 9 : y;
                 await alldata[i].data.push({
                     name: name1[Math.trunc(Math.random() * 9)] + name2[y],
-                    killNum : 1,
+                    killNum: 1,
                     level: y + 1
                 });
             };
             return alldata[i].data;
         }
-        else{
+        else {
             return alldata[i].data;
         };
     };
@@ -39,7 +39,7 @@ class Cachemonster {
      * (7,6)   (7,3)  (3,0)   (4,4)  (1,6)   (2,3)
      * 极光0  朝阳1  兽台2  仙府3    灭仙4   雷鸣5
      */
-    async monsters(a, b, c) {
+    monsters = async (a, b, c) => {
         const x = Math.floor(a / 100);
         const y = Math.floor(b / 100);
         const z = Math.floor(c / 100);
@@ -63,7 +63,7 @@ class Cachemonster {
         };
         return -1;
     };
-    async add(i,num){
+    add = async (i, num) => {
         while (true) {
             if (addall.length <= i) {
                 addall.push({
@@ -74,10 +74,10 @@ class Cachemonster {
                 break;
             };
         };
-        addall[i].acount+=num;
-        const p=Math.floor((Math.random() * (50-30))) + Number(30);
-        if(addall[i].acount>p){
-            addall[i].acount=0;
+        addall[i].acount += num;
+        const p = Math.floor((Math.random() * (50 - 30))) + Number(30);
+        if (addall[i].acount > p) {
+            addall[i].acount = 0;
             return 1;
         };
         return 0;
