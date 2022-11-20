@@ -58,7 +58,7 @@ export class AdminDelete extends plugin {
             return;
         };
         await Write_Forum([]);
-        e.reply("已清理");
+        e.reply("已打扫");
         return;
     };
     Deletepurchase = async (e) => {
@@ -97,16 +97,18 @@ export class AdminDelete extends plugin {
             action.Exchange = 0;
             await Write_action(item, action);
         });
-        e.reply("清除完成");
+        e.reply("已清除");
         return;
     };
     deleteallusers = async (e) => {
         if (!e.isMaster) {
             return;
         };
+        await Write_Exchange([]);
+        await Write_Forum([]);
         await Write_Life([]);
         await this.deleteredis(e);
-        e.reply("世界已崩碎");
+        e.reply("已崩碎");
         return;
     };
     deleteuser = async (e) => {
