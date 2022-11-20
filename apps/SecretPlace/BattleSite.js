@@ -71,25 +71,28 @@ export class BattleSite extends plugin {
             const q=await monsterbattle(e,battle,monsters);
             if(q!=0){
                 const m=Math.floor((Math.random() * (100-1))) + Number(1);
-                if(m<mon.level*5){
+                if(m<mon.level*2){
                     const dropsItemList = JSON.parse(fs.readFileSync(`${data.all}/dropsItem.json`));
                     const random = Math.floor(Math.random() * dropsItemList.length);
                     let najie = await Read_najie(usr_qq);
                     najie = await Add_najie_thing(najie, dropsItemList[random], 1);
                     msg.push(usr_qq+`得到了装备[${dropsItemList[random].name}]`);
                     await Write_najie(usr_qq, najie);
-                }
-                else if(m<mon.level*6){
-                    msg.push(usr_qq+"得到"+mon.level*20*mybuff+"气血");
-                    await Add_experiencemax(usr_qq,mon.level*20*mybuff);
-                }
-                else if(m<mon.level*7){
-                    msg.push(usr_qq+"得到"+mon.level*50*mybuff+"灵石");
-                    await Add_lingshi(usr_qq,mon.level*50*mybuff);
-                }
-                else{
-                    msg.push(usr_qq+"得到"+mon.level*50*mybuff+"修为");
-                    await Add_experience(usr_qq,mon.level*50*mybuff);
+                };
+                if(m<mon.level*4){
+                    msg.push(usr_qq+"得到"+mon.level*5*mybuff+"气血");
+                    await Add_experiencemax(usr_qq,mon.level*5*mybuff);
+                };
+                if(m<mon.level*5){
+                    msg.push(usr_qq+"得到"+mon.level*10*mybuff+"灵石");
+                    await Add_lingshi(usr_qq,mon.level*10*mybuff);
+                };
+                if(m<mon.level*6){
+                    msg.push(usr_qq+"得到"+mon.level*20*mybuff+"修为");
+                    await Add_experience(usr_qq,mon.level*20*mybuff);
+                };
+                if(m>=mon.level*6){
+                    msg.push(usr_qq+"一无所获！");
                 };
             };
             await ForwardMsg(e, msg);

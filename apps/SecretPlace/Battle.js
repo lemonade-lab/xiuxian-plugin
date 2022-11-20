@@ -88,7 +88,7 @@ export class Battle extends plugin {
         };
         const q = Math.floor((Math.random() * (99 - 1) + 1));
         const LevelB=await Read_level(B);
-        const MP = LevelB.prestige*10;
+        const MP = LevelB.prestige*10+Number(50);
         if (q <= MP) {
             if (qq != A) {
                 let C = A;
