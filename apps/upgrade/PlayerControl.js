@@ -138,11 +138,11 @@ export class PlayerControl extends plugin {
         const rand = Math.floor((Math.random() * (100 - 1) + 1));
         if (name == "闭关") {
             if (rand > 50) {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time *mybuff* level.level_id / 2);
+                other = Math.floor(this.xiuxianConfigData.biguan.size * time *mybuff/2);
                 msg.push("\n闭关迟迟无法入定,只得到了" + other + "修为");
             }
             else {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time *mybuff* level.level_id);
+                other = Math.floor(this.xiuxianConfigData.biguan.size * time *mybuff);
                 msg.push("\n闭关结束,得到了" + other + "修为");
             }
             await Add_experience(usr_qq, other);
@@ -151,11 +151,11 @@ export class PlayerControl extends plugin {
         }
         else {
             if (rand > 50) {
-                other = Math.floor(this.xiuxianConfigData.work.size * time *mybuff* level.level_id / 2);
+                other = Math.floor(this.xiuxianConfigData.work.size * time *mybuff/2);
                 msg.push("\n降妖不专心,只得到了" + other);
             }
             else {
-                other = Math.floor(this.xiuxianConfigData.work.size * time *mybuff* level.level_id);
+                other = Math.floor(this.xiuxianConfigData.work.size * time *mybuff);
                 msg.push("\n降妖回来,得到了" + other);
             };
             await Add_lingshi(usr_qq, other);

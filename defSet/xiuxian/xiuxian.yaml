@@ -2,17 +2,35 @@
 CD: 
 #宗门维护  
   #突破                
-  level_up: 5     
-  #重生         
-  reborn: 360    
-  #赠送             
-  transfer: 60  
+  Level_up: 5
+  #破体
+  LevelMax_up: 5     
   #道宣
-  autograph: 60
+  Autograph: 60
+  #改名
+  Name: 1240
+  #重生         
+  Reborn: 360    
+  #赠送             
+  Transfer: 60  
+  #攻击
+  Attack: 5
+  #击杀
+  Kill: 5
 
 group: 
-  #修仙白名单，设置后，仅该群聊生效可以建存档，默认为0
+  #修仙白名单，设置后，仅该群可以踏入仙途，默认为0
   white: 0    
+
+Age: 
+  #寿命增加数
+  size: 1 
+
+config:
+  #功法最大学习数
+  gonfa: 12
+  #装备最大数
+  equipment: 4
 
 biguan: 
   #倍率！

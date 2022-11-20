@@ -1,7 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import data from '../../model/XiuxianData.js';
-import fs from "node:fs";
 import Cachemonster from "../../model/cachemonster.js";
+import data from '../../model/XiuxianData.js';
+import config from "../../model/Config.js";
+import fs from "node:fs";
 import { Gomini,Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi,GenerateCD,Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../Xiuxian/Xiuxian.js';
 export class BattleSite extends plugin {
     constructor() {
@@ -21,6 +22,7 @@ export class BattleSite extends plugin {
                 }
             ]
         });
+        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
     async Kill(e) {
         const good = await Gomini(e);
@@ -30,7 +32,7 @@ export class BattleSite extends plugin {
         const usr_qq = e.user_id;
         const CDid = "10";
         const now_time = new Date().getTime();
-        const CDTime = 5;
+        const CDTime = this.xiuxianConfigData.CD.Kill;
         const CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);

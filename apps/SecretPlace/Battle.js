@@ -1,5 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import Cachemonster from "../../model/cachemonster.js";
+import config from "../../model/Config.js";
 import { Go, Read_action, existplayer,GenerateCD, __PATH, At, battle, interactive, distance, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class Battle extends plugin {
     constructor() {
@@ -19,6 +20,7 @@ export class Battle extends plugin {
                 }
             ]
         });
+        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
     async HandWashing(e) {
         const usr_qq = e.user_id;
@@ -67,7 +69,7 @@ export class Battle extends plugin {
         };
         const CDid = "0";
         const now_time = new Date().getTime();
-        const CDTime = 5;
+        const CDTime = this.xiuxianConfigData.CD.Attack;
         const CD = await GenerateCD(A, CDid);
         if (CD != 0) {
             e.reply(CD);

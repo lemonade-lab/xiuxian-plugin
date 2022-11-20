@@ -1,4 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
+import config from "../../model/Config.js";
 import {existplayer, search_thing_name, exist_najie_thing_id,Read_najie,Read_equipment, Write_equipment, Write_najie,Add_najie_thing} from '../Xiuxian/Xiuxian.js';
 export class Userequipment extends plugin {
     constructor() {
@@ -18,6 +19,7 @@ export class Userequipment extends plugin {
                 }
             ]
         });
+        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
     async add_equipment(e) {
         if (!e.isGroup) {
@@ -40,7 +42,7 @@ export class Userequipment extends plugin {
             return;
         };
         const equipment = await Read_equipment(usr_qq);
-        if (equipment.length >= 4) {
+        if (equipment.length >= this.xiuxianConfigData.config.equipment) {
             return;
         }; 
         equipment.push(searchsthing);

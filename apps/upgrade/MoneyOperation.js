@@ -38,7 +38,7 @@ export class MoneyOperation extends plugin {
             e.reply([segment.at(A), `似乎没有${lingshi}灵石`]);
             return;
         };
-        const CDTime = this.xiuxianConfigData.CD.transfer;
+        const CDTime = this.xiuxianConfigData.CD.Transfer;
         const CDid = "5";
         const now_time = new Date().getTime();
         const CD = await GenerateCD(A, CDid);

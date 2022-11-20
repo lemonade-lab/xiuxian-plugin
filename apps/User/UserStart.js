@@ -124,7 +124,7 @@ export class UserStart extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        const CDTime = this.xiuxianConfigData.CD.reborn;
+        const CDTime = this.xiuxianConfigData.CD.Reborn;
         const CDid = "8";
         const now_time = new Date().getTime();
         const CD = await GenerateCD(usr_qq, CDid);

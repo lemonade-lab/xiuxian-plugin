@@ -36,7 +36,7 @@ export class Level extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        const CDTime = this.xiuxianConfigData.CD.level_up;
+        const CDTime = this.xiuxianConfigData.CD.LevelMax_up;
         const CDid = "7";
         const now_time = new Date().getTime();
         const CD = await GenerateCD(usr_qq, CDid);
@@ -104,7 +104,7 @@ export class Level extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        const CDTime = this.xiuxianConfigData.CD.level_up;
+        const CDTime = this.xiuxianConfigData.CD.Level_up;
         const CDid = "6";
         const now_time = new Date().getTime();
         const CD = await GenerateCD(usr_qq, CDid);

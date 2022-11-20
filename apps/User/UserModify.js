@@ -49,7 +49,7 @@ export class UserModify extends plugin {
         };
         const CDid = "3";
         const now_time = new Date().getTime();
-        const CDTime = 24*60;
+        const CDTime = this.xiuxianConfigData.CD.Name;
         const CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);
@@ -87,7 +87,7 @@ export class UserModify extends plugin {
         };
         const CDid = "4";
         const now_time = new Date().getTime();
-        const CDTime = this.xiuxianConfigData.CD.autograph;
+        const CDTime = this.xiuxianConfigData.CD.Autograph;
         const CD = await GenerateCD(usr_qq, CDid);
         if (CD != 0) {
             e.reply(CD);

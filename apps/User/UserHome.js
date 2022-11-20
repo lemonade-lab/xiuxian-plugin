@@ -1,4 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
+import config from "../../model/Config.js";
 import {existplayer, search_thing_name, exist_najie_thing_id,Read_najie,Add_experiencemax, Write_najie, Numbers, Add_najie_thing,Add_blood,Add_experience, get_talent, Write_talent,  player_efficiency, Read_talent,Read_level} from '../Xiuxian/Xiuxian.js';
 export class UserHome extends plugin {
     constructor() {
@@ -22,10 +23,11 @@ export class UserHome extends plugin {
                 },
                 {
                     reg: '^#消耗.*$',
-                    fnc: 'Player_use_daoju'
+                    fnc: 'Player_use_daoju' 
                 }
             ]
         });
+        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     };
     async Player_use_danyao(e) {
         if (!e.isGroup) {
@@ -114,7 +116,7 @@ export class UserHome extends plugin {
             e.reply("学过了");
             return;
         };
-        if (talent.AllSorcery.length <= 12) {
+        if (talent.AllSorcery.length <= this.xiuxianConfigData.config.gonfa) {
             talent.AllSorcery.push(searchsthing);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
