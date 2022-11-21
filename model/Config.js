@@ -15,16 +15,7 @@ class Config {
         return this.getYaml(app, name, 'defSet');
     };
     getConfig = (app, name) => {
-        let ignore = [];
-        if (ignore.includes(`${app}.${name}`)) {
             return this.getYaml(app, name, 'config');
-        };
-        return {
-            //默认的
-            ...this.getdefSet(app, name),
-            //用户的
-            ...this.getYaml(app, name, 'config'),
-        };
     };
     getYaml = (app, name, type) => {
         let file = this.getFilePath(app, name, type);

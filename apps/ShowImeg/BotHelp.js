@@ -14,26 +14,14 @@ export class BotHelp extends plugin {
                     fnc: 'Xiuxianhelp1'
                 },
                 {
-                    reg: '^#修仙扩展$',
-                    fnc: 'Xiuxianhelp2',
-                },
-                {
                     reg: '^#修仙管理$',
                     fnc: 'adminsuper',
                 }
             ]
         });
     };
-    Xiuxianhelp2 = async (e) => {
-        const data = await Help.gethelp(e, 'Help2');
-        if (!data) {
-            return
-        };
-        const img = await Cache.helpcache(data, 2);
-        await e.reply(img);
-    };
     Xiuxianhelp1 = async (e) => {
-        const data = await Help.gethelp(e, 'Help1');
+        const data = await Help.gethelp(e, 'Help');
         if (!data) {
             return
         };
