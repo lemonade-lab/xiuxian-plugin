@@ -18,16 +18,16 @@ class XiuxianData {
         };
         this.association = this.__PATH.birthassociation;
         this.all = this.__PATH.all;
-        this.position = this.__PATH.fixedposition;
-        this.fixedequipment = this.__PATH.fixedequipment;
-        this.goods = this.__PATH.fixedgoods;
-        this.Level = this.__PATH.fixedLevel;
         this.occupation = this.__PATH.fixedoccupation;
+        this.Level = this.__PATH.fixedLevel;
+        this.position = this.__PATH.fixedposition;
         this.talent = this.__PATH.fixedtalent;
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
         this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
+        this.fixedequipment = this.__PATH.fixedequipment;
+        this.goods = this.__PATH.fixedgoods;
         this.deletelist('all');
         this.addlist([
             ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)),
@@ -53,14 +53,12 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`))
         ], 'dropsItem');
     };
-    //删除
     deletelist = (name) => {
         const dir = path.join(this.all, `${name}.json`);
         const new_ARR = JSON.stringify([], '', '\t');
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
-    //添加
     addlist = (sum, name) => {
         const dir = path.join(this.all, `${name}.json`);
         const new_ARR = JSON.stringify(sum, '', '\t');

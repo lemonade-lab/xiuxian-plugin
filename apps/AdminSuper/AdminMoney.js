@@ -34,13 +34,13 @@ export class AdminMoney extends plugin {
         const thing_name = e.msg.replace('#馈赠', '');
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply('世界没有' + thing_name);
+            e.reply(`世界没有${thing_name}`);
             return;
         };
         let najie = await Read_najie(B);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(B, najie);
-        e.reply(B + '获得馈赠：' + thing_name);
+        e.reply(`${B}获得馈赠：${thing_name}`);
         return;
     };
     Deduction = async (e) => {
@@ -60,7 +60,7 @@ export class AdminMoney extends plugin {
         };
         player.lingshi -= lingshi;
         await Write_wealth(B, player);
-        e.reply('已扣除灵石' + lingshi);
+        e.reply(`已扣除灵石${lingshi}`);
         return;
     };
     Fuli = async (e) => {

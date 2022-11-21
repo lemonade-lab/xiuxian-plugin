@@ -46,8 +46,8 @@ export class MoneyOperation extends plugin {
             e.reply(CD);
             return;
         };
-        await redis.set('xiuxian:player:' + A +':'+ CDid, now_time);
-        await redis.expire('xiuxian:player:' + A +':'+ CDid, CDTime*60);
+        await redis.set(`xiuxian:player:${A}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60);
         A_player.lingshi-=lingshi;
         await Write_wealth(A,A_player);
         await Add_lingshi(B, lingshi);

@@ -139,8 +139,8 @@ export class UserStart extends plugin {
         await Write_Life(life);
         e.reply([segment.at(usr_qq), '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断']);
         await this.Create_player(e);
-        await redis.set('xiuxian:player:' + usr_qq + ':' + CDid, now_time);
-        await redis.expire('xiuxian:player:' + usr_qq + ':' + CDid, CDTime * 60);
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         return;
     };
 };

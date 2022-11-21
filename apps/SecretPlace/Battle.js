@@ -84,8 +84,8 @@ export class Battle extends plugin {
         if (await interactive(A, B)) {
             qq = await battle(e, A, B);
         };
-        await redis.set('xiuxian:player:' + A + ':' + CDid, now_time);
-        await redis.expire('xiuxian:player:' + A + ':' + CDid, CDTime * 60);
+        await redis.set(`xiuxian:player:${A}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60);
         const Level = await Read_level(A);
         Level.prestige += 1;
         await Write_level(A, Level);

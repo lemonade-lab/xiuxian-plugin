@@ -42,8 +42,8 @@ export class BattleSite extends plugin {
         const action = await Read_action(usr_qq);
         const p = await Cachemonster.monsters(action.x, action.y, action.z);
         if (p != -1) {
-            await redis.set('xiuxian:player:' + usr_qq + ':' + CDid, now_time);
-            await redis.expire('xiuxian:player:' + usr_qq + ':' + CDid, CDTime * 60);
+            await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time);
+            await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
             const monstersdata = await Cachemonster.monsterscache(p);
             const mon = monstersdata.find(item => item.name == name);
             if (!mon) {

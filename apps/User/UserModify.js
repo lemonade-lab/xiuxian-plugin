@@ -55,8 +55,8 @@ export class UserModify extends plugin {
             e.reply(CD);
             return;
         };
-        await redis.set('xiuxian:player:' + usr_qq + ':' + CDid, now_time);
-        await redis.expire('xiuxian:player:' + usr_qq + ':' + CDid, CDTime * 60);
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         await Add_lingshi(usr_qq, -lingshi);
         const life = await Read_Life();
         life.forEach((item) => {
@@ -93,8 +93,8 @@ export class UserModify extends plugin {
             e.reply(CD);
             return;
         };
-        await redis.set('xiuxian:player:' + usr_qq + ':' + CDid, now_time);
-        await redis.expire('xiuxian:player:' + usr_qq + ':' + CDid, CDTime * 60);
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         player.autograph = new_msg;
         await Write_player(usr_qq, player);
         this.Show_player(e);

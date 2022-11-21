@@ -73,7 +73,7 @@ export class AdminDelete extends plugin {
                 action.Exchange = action.Exchange - 1;
                 await Write_action(item.QQ, action);
                 arr.splice(index, 1);
-                e.reply('清除' + thingid);
+                e.reply(`清除${thingid}`);
             };
         });
         await Write_Exchange(Exchange);

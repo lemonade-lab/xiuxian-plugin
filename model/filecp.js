@@ -38,7 +38,6 @@ class filecp {
   file = () => {
     let cf = [];
     const filepath = './plugins/xiuxian-emulator-plugin/defSet/';
-    //文件名
     const config = ['xiuxian', 'task', 'Help1', 'Help2', 'Admin', 'Association'];
     function readdirectory(dir) {
       let files = fs.readdirSync(dir);
@@ -68,7 +67,6 @@ class filecp {
     return;
   };
   help = () => {
-    //帮助图
     const config1 = ['help'];
     const config2 = ['help'];
     const cphelp = (cf1, cf2) => {

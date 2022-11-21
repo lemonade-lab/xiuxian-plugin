@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'node:fs';
 import data from '../../model/XiuxianData.js';
-import { Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, Add_najie_thing, search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, exist_najie_thing_name,Add_najie_thing, search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class UserTransaction extends plugin {
     constructor() {
         super({
@@ -109,18 +109,12 @@ export class UserTransaction extends plugin {
         };
         const thing = e.msg.replace('#出售', '');
         const code = thing.split('\*');
-        const thing_name = code[0];//物品
-        const thing_acount = code[1];//数量
+        const [thing_name,thing_acount] = code;//数量
         let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
         };
-        const searchsthing = await search_thing_name(thing_name);
-        if (searchsthing == 1) {
-            e.reply(`世界没有[${thing_name}]`);
-            return;
-        };
-        const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
+        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name);
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`);
             return;
@@ -130,9 +124,9 @@ export class UserTransaction extends plugin {
             return;
         }
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, searchsthing, -quantity);
+        najie = await Add_najie_thing(najie, najie_thing, -quantity);
         await Write_najie(usr_qq, najie);
-        const commodities_price = searchsthing.price * quantity;
+        const commodities_price = najie_thing.price * quantity;
         await Add_lingshi(usr_qq, commodities_price);
         e.reply(`出售得${commodities_price}灵石 `);
         return;
