@@ -43,7 +43,7 @@ export class Battle extends plugin {
                 e.reply('天机门的某位修士:你为你清除1点魔力值');
                 return;
             }
-            e.reply('天机门的某位修士:清魔力需要' + money);
+            e.reply(`天机门的某位修士:清魔力需要${money}`);
             return;
         } 
         else {

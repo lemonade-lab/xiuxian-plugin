@@ -45,12 +45,12 @@ export class UserHome extends plugin {
         thing_acount = await Numbers(thing_acount);
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply('世界没有' + thing_name);
+            e.reply(`世界没有${thing_name}`);
             return;
         };
         const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
-            e.reply('没有' + thing_name);
+            e.reply(`没有${thing_name}`);
             return;
         };
         if (najie_thing.acount < thing_acount) {
@@ -65,20 +65,20 @@ export class UserHome extends plugin {
         if (id[1] == 1) {
             let blood = parseInt(searchsthing.blood);
             await Add_blood(usr_qq, blood);
-            e.reply('血量恢复至' + blood + '%');
+            e.reply(`血量恢复至${blood}%`);
         }
         else if (id[1] == 2) {
             let experience = parseInt(searchsthing.experience);
             await Add_experience(usr_qq, thing_acount * experience);
-            e.reply('修为增加' + thing_acount * searchsthing.experience);
+            e.reply(`修为增加${thing_acount * searchsthing.experience}`);
         }
         else if (id[1] == 3) {
             let experiencemax = parseInt(searchsthing.experiencemax);
             await Add_experiencemax(usr_qq, thing_acount * experiencemax);
-            e.reply('气血增加' + thing_acount * searchsthing.experiencemax);
+            e.reply(`气血增加${thing_acount * searchsthing.experiencemax}`);
         }
         else {
-            e.reply('不可服用' + thing_name);
+            e.reply(`不可服用${thing_name}`);
             return;
         };
         let najie = await Read_najie(usr_qq);
@@ -128,7 +128,7 @@ export class UserHome extends plugin {
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
-        e.reply('学习' + thing_name);
+        e.reply(`学习${thing_name}`);
         return;
     };
     delete_gonfa = async (e) => {
@@ -144,7 +144,7 @@ export class UserHome extends plugin {
         const talent = await Read_talent(usr_qq);
         const islearned = talent.AllSorcery.find(item => item.name == thing_name);
         if (!islearned) {
-            e.reply('没学过' + thing_name);
+            e.reply(`没学过${thing_name}`);
             return;
         };
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name);
@@ -158,7 +158,7 @@ export class UserHome extends plugin {
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(usr_qq, najie);
-        e.reply('忘了' + thing_name);
+        e.reply(`忘了${thing_name}`);
         return;
     }
     Player_use_daoju = async (e) => {

@@ -82,8 +82,8 @@ export class AdminAction extends plugin {
                                 logger.error(`重启失败\n${error.stack}`);
                             } else if (stdout) {
                                 logger.mark('重启成功，运行已转为后台');
-                                logger.mark('查看日志请用命令：npm run log');
-                                logger.mark('停止后台运行命令：npm stop');
+                                logger.mark('查看日志请用命令:npm run log');
+                                logger.mark('停止后台运行命令:npm stop');
                                 process.exit();
                             };
                         });
@@ -156,8 +156,8 @@ export class AdminAction extends plugin {
                                 logger.error(`重启失败\n${error.stack}`);
                             } else if (stdout) {
                                 logger.mark('重启成功，运行已转为后台');
-                                logger.mark('查看日志请用命令：npm run log');
-                                logger.mark('停止后台运行命令：npm stop');
+                                logger.mark('查看日志请用命令:npm run log');
+                                logger.mark('停止后台运行命令:npm stop');
                                 process.exit();
                             }
                         });

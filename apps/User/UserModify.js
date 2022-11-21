@@ -44,7 +44,7 @@ export class UserModify extends plugin {
         };
         const wealth = await Read_wealth(usr_qq);
         if (wealth.lingshi < lingshi) {
-            e.reply('需' + lingshi + '灵石');
+            e.reply(`需${lingshi}灵石`);
             return;
         };
         const CDid = '3';

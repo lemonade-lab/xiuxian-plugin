@@ -42,8 +42,8 @@ export class PlayerControl extends plugin {
             'actionName': '闭关',
             'startTime': now_time
         };
-        await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(actionObject));
-        e.reply(`开始闭关,两耳不闻窗外事`);
+        await redis.set(`xiuxian:player:${usr_qq}:action`, JSON.stringify(actionObject));
+        e.reply('开始闭关,两耳不闻窗外事');
         return true;
     };
     Dagong = async (e) => {
@@ -57,8 +57,8 @@ export class PlayerControl extends plugin {
             'actionName': '降妖',
             'startTime': now_time
         };
-        await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(actionObject));
-        e.reply(`开始外出降妖赚取灵石`);
+        await redis.set(`xiuxian:player:${usr_qq}:action`, JSON.stringify(actionObject));
+        e.reply('开始外出降妖赚取灵石');
         return true;
     };
     chuGuan = async (e) => {
@@ -70,7 +70,7 @@ export class PlayerControl extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+        let action = await redis.get(`xiuxian:player:${usr_qq}:action`);
         if (action == undefined) {
             return;
         };
@@ -82,7 +82,7 @@ export class PlayerControl extends plugin {
         const timeUnit = this.xiuxianConfigData.biguan.time;
         const time = Math.floor((new Date().getTime() - startTime) / 60000);
         if (time < timeUnit) {
-            e.reply('只是呆了一会儿，什么也没得到。');
+            e.reply('只是呆了一会儿...');
             await offaction(usr_qq);
             return;
         };
@@ -103,7 +103,7 @@ export class PlayerControl extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+        let action = await redis.get(`xiuxian:player:${usr_qq}:action`);
         if (action == undefined) {
             return;
         };
@@ -116,7 +116,7 @@ export class PlayerControl extends plugin {
         //分钟
         const time = Math.floor((new Date().getTime() - startTime) / 60000);
         if (time < timeUnit) {
-            e.reply('只是呆了一会儿，什么也没得到。');
+            e.reply('只是呆了一会儿...');
             await offaction(usr_qq);
             return;
         };
@@ -139,11 +139,11 @@ export class PlayerControl extends plugin {
         if (name == '闭关') {
             if (rand > 50) {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff / 2);
-                msg.push('\n闭关迟迟无法入定,只得到了' + other + '修为');
+                msg.push(`\n闭关迟迟无法入定,只得到了${other}修为`);
             }
             else {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff);
-                msg.push('\n闭关结束,得到了' + other + '修为');
+                msg.push(`\n闭关结束,得到了${other}修为`);
             }
             await Add_experience(usr_qq, other);
             await Add_blood(usr_qq, 90);
@@ -152,11 +152,11 @@ export class PlayerControl extends plugin {
         else {
             if (rand > 50) {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff / 2);
-                msg.push('\n降妖不专心,只得到了' + other+'气血');
+                msg.push(`\n降妖不专心,只得到了${other}气血`);
             }
             else {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff);
-                msg.push('\n降妖回来,得到了' + other+'气血');
+                msg.push(`\n降妖回来,得到了${other}气血`);
             };
             await Add_lingshi(usr_qq, other);
             await Add_experiencemax(usr_qq, other);

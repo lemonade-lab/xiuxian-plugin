@@ -35,7 +35,7 @@ export class SecretPlace extends plugin {
      xyzaddress=async(e)=> {
         const usr_qq = e.user_id;
         let action = await Read_action(usr_qq);
-        e.reply('坐标(' + action.x + ',' + action.y + ',' + action.z + ')');
+        e.reply(`坐标(${action.x},${action.y},${action.z})`);
         return;
     };
      delivery=async(e)=> {
@@ -64,7 +64,7 @@ export class SecretPlace extends plugin {
             await Write_action(usr_qq, action)
             e.reply(usr_qq+'已到达传送阵');
         }, 1000*time);
-        e.reply(usr_qq+'正在赶往传送阵...\n需要'+time+'秒');
+        e.reply(`${usr_qq}正在赶往传送阵...\n需要${time}秒`);
         return;
     };
      forward=async(e)=> {
@@ -106,9 +106,9 @@ export class SecretPlace extends plugin {
             action.y = Math.floor((Math.random() * (place.y2 - place.y1))) + Number(place.y1);
             action.z = 0;
             await Write_action(usr_qq, action);
-            e.reply(usr_qq+'成功抵达'+place.name);
+            e.reply(`${usr_qq}成功抵达${place.name}`);
         }, 1000*time);
-        e.reply('修仙联盟的守阵者:传送阵正在启动...\n需要'+time+'秒');
+        e.reply(`修仙联盟的守阵者:传送阵正在启动...\n需要${time}秒`);
         return;
     };
 };

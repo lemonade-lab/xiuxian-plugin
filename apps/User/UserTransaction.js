@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'node:fs';
 import data from '../../model/XiuxianData.js';
-import { Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, exist_najie_thing_name,Add_najie_thing, search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Numbers, Read_wealth, Add_lingshi,  exist_najie_thing_name,Add_najie_thing,  existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class UserTransaction extends plugin {
     constructor() {
         super({
@@ -40,23 +40,14 @@ export class UserTransaction extends plugin {
             //丹药
             if (id[0] == 4) {
                 if (id[1] == 1) {
-                    msg.push(
-                        '物品：' + item.name +
-                        '\n气血：' + item.blood + '%' +
-                        '\n价格：' + item.price);
+                    msg.push(`物品:${item.name}\n气血:${item.blood}%\n价格:${item.price}`);
                 } else {
-                    msg.push(
-                        '物品：' + item.name +
-                        '\n修为：+' + item.experience +
-                        '\n价格：' + item.price);
+                    msg.push(`物品:${item.name}\n修为:${item.experience}\n价格:${item.price}`);
                 }
             }
             //功法
             else if (id[0] == 5) {
-                msg.push(
-                    '物品：' + item.name +
-                    '\n天赋：+' + item.size + '%' +
-                    '\n价格：' + item.price);
+                msg.push(`物品:${item.name}\n天赋:${item.size}%\n价格:${item.price}`);
             };
         });
         await ForwardMsg(e, msg);

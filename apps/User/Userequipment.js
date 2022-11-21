@@ -33,12 +33,12 @@ export class Userequipment extends plugin {
         const thing_name = e.msg.replace('#装备', '');
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply('世界没有' + thing_name);
+            e.reply(`世界没有${thing_name}`);
             return;
         };
         const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
-            e.reply('没有' + thing_name);
+            e.reply(`没有${thing_name}`);
             return;
         };
         const equipment = await Read_equipment(usr_qq);
@@ -50,7 +50,7 @@ export class Userequipment extends plugin {
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
-        e.reply('装备' + thing_name);
+        e.reply(`装备${thing_name}`);
         return;
     };
     delete_equipment = async (e) => {
@@ -72,13 +72,13 @@ export class Userequipment extends plugin {
         await Write_equipment(usr_qq, equipment);
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply('世界没有' + thing_name);
+            e.reply(`世界没有${thing_name}`);
             return;
         };
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(usr_qq, najie);
-        e.reply('已卸下' + thing_name);
+        e.reply(`已卸下${thing_name}`);
         return;
     };
 };

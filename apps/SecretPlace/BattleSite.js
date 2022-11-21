@@ -82,19 +82,19 @@ export class BattleSite extends plugin {
                     await Write_najie(usr_qq, najie);
                 };
                 if (m < mon.level * 5) {
-                    msg.push(usr_qq + '得到' + mon.level * 5 * mybuff + '气血');
+                    msg.push(`得到${usr_qq}${mon.level * 5 * mybuff}气血`);
                     await Add_experiencemax(usr_qq, mon.level * 5 * mybuff);
                 };
                 if (m < mon.level * 6) {
-                    msg.push(usr_qq + '得到' + mon.level * 10 * mybuff + '灵石');
+                    msg.push(`得到${usr_qq}${mon.level * 10 * mybuff}灵石`);
                     await Add_lingshi(usr_qq, mon.level * 10 * mybuff);
                 };
                 if (m < mon.level * 7) {
-                    msg.push(usr_qq + '得到' + mon.level * 20 * mybuff + '修为');
+                    msg.push(`得到${usr_qq}${mon.level * 20 * mybuff}修为`);
                     await Add_experience(usr_qq, mon.level * 20 * mybuff);
                 };
                 if (m >= mon.level * 7) {
-                    msg.push(usr_qq + '一无所获！');
+                    msg.push(`${usr_qq}一无所获！`);
                 };
             };
             await ForwardMsg(e, msg);
@@ -115,15 +115,15 @@ export class BattleSite extends plugin {
             const monster = await Cachemonster.monsterscache(p);
             monster.forEach((item) => {
                 msg.push(
-                    '怪名：' + item.name + '\n' +
-                    '等级：' + item.level + '\n'
+                    '怪名:' + item.name + '\n' +
+                    '等级:' + item.level + '\n'
                 );
             });
             await ForwardMsg(e, msg);
             return;
         }
         else {
-            e.reply('修仙联盟的普通士兵:城里哪儿来的怪物？搞笑');
+            e.reply('修仙联盟的普通士兵:城里哪儿来的怪物');
         };
         return;
     };

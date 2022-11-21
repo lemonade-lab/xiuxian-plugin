@@ -26,7 +26,7 @@ export class XiuxianWorld extends plugin {
         };
         const life = await Read_Life();
         const msg = ['--修仙世界---'];
-        msg.push('人数：' + life.length);
+        msg.push('人数:' + life.length);
         await ForwardMsg(e, msg);
         return;
     };

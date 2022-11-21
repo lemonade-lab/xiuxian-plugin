@@ -40,7 +40,7 @@ export class AdminMoney extends plugin {
         let najie = await Read_najie(B);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(B, najie);
-        e.reply(`${B}获得馈赠：${thing_name}`);
+        e.reply(`${B}获得馈赠:${thing_name}`);
         return;
     };
     Deduction = async (e) => {

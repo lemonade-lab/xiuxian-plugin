@@ -47,12 +47,12 @@ export class Statusplugin extends plugin {
         };
         let msg = [];
         const pf = os.platform();
-        msg.push("平台：" + pf + '\n');
+        msg.push("平台:" + pf + '\n');
         const uptime = os.uptime();
-        msg.push("开机时间：" + dealTime(uptime) + '\n');
+        msg.push("开机时间:" + dealTime(uptime) + '\n');
         const totalMem = os.totalmem();
         const freeMem = os.freemem();
-        msg.push("内存大小：" + dealMem(totalMem) + "\n" + ' 空闲内存：' + dealMem(freeMem));
+        msg.push("内存大小:" + dealMem(totalMem) + "\n" + ' 空闲内存:' + dealMem(freeMem));
         e.reply(msg);
         return;
     };
