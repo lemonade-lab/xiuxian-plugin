@@ -45,13 +45,37 @@ class XiuxianData {
         ], 'commodities');
         this.deletelist('dropsItem');
         this.addlist([
-            ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)).slice(0, 19),
-            ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)).slice(0, 19),
-            ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)).slice(0, 19),
+            ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/wuqi_list.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)),
             ...JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)).slice(11, 19),
             ...JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11, 19),
             ...JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`))
         ], 'dropsItem');
+        /**
+         * id数据头规定
+         * 1武器
+         * 2护具
+         * 3法宝
+         * 4道具
+         * 5功法
+         * 6丹药
+         * 
+         * 1-19 为基础段
+         * 20-29 为扩展段
+         * 30-99  为预留段
+         * 100以后为玩家可用段
+         */
+        /**
+         * id数据尾规定：
+         * 1-19为常用物品
+         * 20-29为限定物品
+         * 30-99为宗门物品
+         * 100-199为药园物品
+         * 200-399为职业物品
+         * 400-999为三点水预留
+         * 1000后物品为玩家插件可用段
+         */
     };
     deletelist = (name) => {
         const dir = path.join(this.all, `${name}.json`);
@@ -65,5 +89,6 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
+    
 };
 export default new XiuxianData();

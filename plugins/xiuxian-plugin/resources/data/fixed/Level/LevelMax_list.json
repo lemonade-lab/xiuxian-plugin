@@ -1,0 +1,122 @@
+[
+    {
+        "id": 12,
+        "name": "天圣",
+        "exp": 50000000,
+        "attack": 50000000,
+        "defense": 50000000,
+        "blood": 1,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 12
+    },
+    {
+        "id": 13,
+        "name": "灵圣",
+        "exp": 100000000,
+        "attack": 100000000,
+        "defense": 100000000,
+        "blood": 100000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 13
+    },
+    {
+        "id": 14,
+        "name": "玄圣",
+        "exp": 500000000,
+        "attack": 500000000,
+        "defense": 500000000,
+        "blood": 500000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 14
+    },
+    {
+        "id": 15,
+        "name": "金圣",
+        "exp": 1000000000,
+        "attack": 1000000000,
+        "defense": 1000000000,
+        "blood": 1000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 15
+    },
+    {
+        "id": 16,
+        "name": "大圣",
+        "exp": 5000000000,
+        "attack": 5000000000,
+        "defense": 5000000000,
+        "blood": 5000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 16
+    },
+    {
+        "id": 17,
+        "name": "真圣",
+        "exp": 10000000000,
+        "attack": 10000000000,
+        "defense": 10000000000,
+        "blood": 10000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 17
+    },
+    {
+        "id": 18,
+        "name": "圣王",
+        "exp": 50000000000,
+        "attack": 50000000000,
+        "defense": 50000000000,
+        "blood": 50000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 18
+    },
+    {
+        "id": 19,
+        "name": "圣尊",
+        "exp": 100000000000,
+        "attack": 100000000000,
+        "defense": 100000000000,
+        "blood": 100000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 19
+    },
+    {
+        "id": 20,
+        "name": "出神入化",
+        "exp": 500000000000,
+        "attack": 500000000000,
+        "defense": 500000000000,
+        "blood": 500000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 20
+    },
+    {
+        "id": 21,
+        "name": "一介凡体",
+        "exp": 1000000000000,
+        "attack": 1000000000000,
+        "defense": 1000000000000,
+        "blood": 1000000000000,
+        "burst": 10,
+        "burstmax": 50,
+        "size": 1,
+        "speed": 21
+    }
+]

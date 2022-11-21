@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
-import { Gomini, Go, offaction, Add_experience, Add_blood, Add_lingshi, existplayer, Read_level, Read_talent, Add_experiencemax } from '../Xiuxian/Xiuxian.js';
+import { Gomini, Go, offaction, Add_experience, Add_blood,  existplayer, Read_level, Read_talent, Add_experiencemax } from '../Xiuxian/Xiuxian.js';
 export class PlayerControl extends plugin {
     constructor() {
         super({
@@ -43,7 +43,7 @@ export class PlayerControl extends plugin {
             'startTime': now_time
         };
         await redis.set(`xiuxian:player:${usr_qq}:action`, JSON.stringify(actionObject));
-        e.reply('开始闭关,两耳不闻窗外事');
+        e.reply('开始两耳不闻窗外事...');
         return true;
     };
     Dagong = async (e) => {
@@ -58,7 +58,7 @@ export class PlayerControl extends plugin {
             'startTime': now_time
         };
         await redis.set(`xiuxian:player:${usr_qq}:action`, JSON.stringify(actionObject));
-        e.reply('开始外出降妖赚取灵石');
+        e.reply('开始外出...');
         return true;
     };
     chuGuan = async (e) => {
@@ -137,7 +137,7 @@ export class PlayerControl extends plugin {
         const msg = [segment.at(usr_qq)];
         const rand = Math.floor((Math.random() * (100 - 1) + 1));
         if (name == '闭关') {
-            if (rand > 50) {
+            if (rand < 20) {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff / 2);
                 msg.push(`\n闭关迟迟无法入定,只得到了${other}修为`);
             }
@@ -150,7 +150,7 @@ export class PlayerControl extends plugin {
             msg.push('\n血量恢复至90%');
         }
         else {
-            if (rand > 50) {
+            if (rand < 20) {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff / 2);
                 msg.push(`\n降妖不专心,只得到了${other}气血`);
             }
@@ -158,7 +158,6 @@ export class PlayerControl extends plugin {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff);
                 msg.push(`\n降妖回来,得到了${other}气血`);
             };
-            await Add_lingshi(usr_qq, other);
             await Add_experiencemax(usr_qq, other);
             await Add_blood(usr_qq, 90);
             msg.push('\n血量恢复至90%');

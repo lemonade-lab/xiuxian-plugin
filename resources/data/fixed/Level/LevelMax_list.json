@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "莽夫",
-        "exp": 200,
+        "exp": 2200,
         "attack": 495,
         "defense": 404,
         "blood": 2000,
@@ -14,7 +14,7 @@
     {
         "id": 2,
         "name": "炼皮",
-        "exp": 1006,
+        "exp": 3300,
         "attack": 919,
         "defense": 1210,
         "blood": 3791,
@@ -26,7 +26,7 @@
     {
         "id": 3,
         "name": "炼肉",
-        "exp": 2573,
+        "exp": 4950,
         "attack": 1623,
         "defense": 2103,
         "blood": 6833,
@@ -38,7 +38,7 @@
     {
         "id": 4,
         "name": "炼筋",
-        "exp": 5257,
+        "exp": 7425,
         "attack": 2737,
         "defense": 3506,
         "blood": 11767,
@@ -50,7 +50,7 @@
     {
         "id": 5,
         "name": "炼骨",
-        "exp": 9357,
+        "exp": 11137,
         "attack": 4433,
         "defense": 5643,
         "blood": 19471,
@@ -62,7 +62,7 @@
     {
         "id": 6,
         "name": "炼血",
-        "exp": 15173,
+        "exp": 16706,
         "attack": 6934,
         "defense": 8827,
         "blood": 31131,
@@ -74,7 +74,7 @@
     {
         "id": 7,
         "name": "炼脏",
-        "exp": 23004,
+        "exp": 25059,
         "attack": 10546,
         "defense": 13514,
         "blood": 48425,
@@ -86,7 +86,7 @@
     {
         "id": 8,
         "name": "炼魂",
-        "exp": 33152,
+        "exp": 37588,
         "attack": 15714,
         "defense": 20404,
         "blood": 73829,
@@ -98,7 +98,7 @@
     {
         "id": 9,
         "name": "炼神",
-        "exp": 45916,
+        "exp": 56382,
         "attack": 23117,
         "defense": 30633,
         "blood": 111194,
@@ -110,7 +110,7 @@
     {
         "id": 10,
         "name": "破体",
-        "exp": 60000,
+        "exp": 84574,
         "attack": 33850,
         "defense": 33787,
         "blood": 166791,
@@ -122,133 +122,13 @@
     {
         "id": 11,
         "name": "地圣",
-        "exp": 10000000,
-        "attack": 10000000,
-        "defense": 10000000,
-        "blood": 10000000,
+        "exp": 200000,
+        "attack": 200000,
+        "defense": 200000,
+        "blood": 200000,
         "burst": 10,
         "burstmax": 50,
         "size": 1,
         "speed": 11
-    },
-    {
-        "id": 12,
-        "name": "天圣",
-        "exp": 50000000,
-        "attack": 50000000,
-        "defense": 50000000,
-        "blood": 1,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 12
-    },
-    {
-        "id": 13,
-        "name": "灵圣",
-        "exp": 100000000,
-        "attack": 100000000,
-        "defense": 100000000,
-        "blood": 100000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 13
-    },
-    {
-        "id": 14,
-        "name": "玄圣",
-        "exp": 500000000,
-        "attack": 500000000,
-        "defense": 500000000,
-        "blood": 500000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 14
-    },
-    {
-        "id": 15,
-        "name": "金圣",
-        "exp": 1000000000,
-        "attack": 1000000000,
-        "defense": 1000000000,
-        "blood": 1000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 15
-    },
-    {
-        "id": 16,
-        "name": "大圣",
-        "exp": 5000000000,
-        "attack": 5000000000,
-        "defense": 5000000000,
-        "blood": 5000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 16
-    },
-    {
-        "id": 17,
-        "name": "真圣",
-        "exp": 10000000000,
-        "attack": 10000000000,
-        "defense": 10000000000,
-        "blood": 10000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 17
-    },
-    {
-        "id": 18,
-        "name": "圣王",
-        "exp": 50000000000,
-        "attack": 50000000000,
-        "defense": 50000000000,
-        "blood": 50000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 18
-    },
-    {
-        "id": 19,
-        "name": "圣尊",
-        "exp": 100000000000,
-        "attack": 100000000000,
-        "defense": 100000000000,
-        "blood": 100000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 19
-    },
-    {
-        "id": 20,
-        "name": "出神入化",
-        "exp": 500000000000,
-        "attack": 500000000000,
-        "defense": 500000000000,
-        "blood": 500000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 20
-    },
-    {
-        "id": 21,
-        "name": "一介凡体",
-        "exp": 1000000000000,
-        "attack": 1000000000000,
-        "defense": 1000000000000,
-        "blood": 1000000000000,
-        "burst": 10,
-        "burstmax": 50,
-        "size": 1,
-        "speed": 21
     }
 ]
