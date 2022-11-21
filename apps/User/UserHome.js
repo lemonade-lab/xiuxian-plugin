@@ -191,7 +191,7 @@ export class UserHome extends plugin {
         }
         else if (id[2] == 2) {
             const player = await Read_level(usr_qq);
-            if (player.level_id > 21) {
+            if (player.level_id > 5) {
                 e.reply('灵根已定，不可洗髓');
                 return;
             }
