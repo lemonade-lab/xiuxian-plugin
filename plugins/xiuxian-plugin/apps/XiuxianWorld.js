@@ -19,7 +19,7 @@ export class XiuxianWorld extends plugin {
                     fnc: 'ceshi'
                 },
                 {
-                    reg: '^#发测试福利$',
+                    reg: '^#修仙存档升级$',
                     fnc: 'Xiuxiandataup'
                 }
             ]

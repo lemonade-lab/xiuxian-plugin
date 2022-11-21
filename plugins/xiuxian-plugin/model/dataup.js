@@ -9,28 +9,22 @@ class dataup {
         'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
         'birthassociation': path.join(__dirname, '/resources/data/birth/association'),
         'all': path.join(__dirname, '/resources/data/birth/all'),
-        'fixedposition': path.join(__dirname, '/resources/data/fixed/position'),
-        'fixedequipment': path.join(__dirname, '/resources/data/fixed/equipment'),
-        'fixedgoods': path.join(__dirname, '/resources/data/fixed/goods'),
-        'fixedLevel': path.join(__dirname, '/resources/data/fixed/Level'),
-        'fixedoccupation': path.join(__dirname, '/resources/data/fixed/occupation'),
-        'fixedtalent': path.join(__dirname, '/resources/data/fixed/talent')
+        'fixedposition': path.join(__dirname, '/resources/data/fixed/position')
     };
     this.association = this.__PATH.birthassociation;
     this.all = this.__PATH.all;
-    this.occupation = this.__PATH.fixedoccupation;
-    this.Level = this.__PATH.fixedLevel;
     this.position = this.__PATH.fixedposition;
-    this.talent = this.__PATH.fixedtalent;
   };
   mydata=()=>{
-    //检测存档
+    //检测插件存档
+
+    //插件的存档直接放入xiuxain-plugin/resources/data
 
     //把存档中的属性提取出来
 
     //对属性分类
 
-    //检测本地有无存档，无存档先创建
+    //检测本地有无存档，无存档先创建：必须先调用踏入仙途，不然存档无效！
 
     //开始插入新值
 
