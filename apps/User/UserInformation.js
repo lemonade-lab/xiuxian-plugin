@@ -14,8 +14,8 @@ export class UserInformation extends plugin {
                     fnc: 'Show_player'
                 },
                 {
-                    reg: "^#面板信息$",
-                    fnc: "show_equipment",
+                    reg: '^#面板信息$',
+                    fnc: 'show_equipment',
                 }
             ]
         });

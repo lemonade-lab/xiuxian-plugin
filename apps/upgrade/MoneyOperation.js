@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import config from "../../model/Config.js";
+import config from '../../model/Config.js';
 import {Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth} from '../Xiuxian/Xiuxian.js';
-import { segment } from "oicq";
+import { segment } from 'oicq';
 export class MoneyOperation extends plugin {
     constructor() {
         super({
@@ -16,7 +16,7 @@ export class MoneyOperation extends plugin {
                 }
             ]
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
      Give_lingshi=async(e)=> {
         const good=await Go(e);
@@ -28,7 +28,7 @@ export class MoneyOperation extends plugin {
         if(B==0||B==A){
             return;
         };
-        let lingshi = e.msg.replace("#赠送灵石", "");
+        let lingshi = e.msg.replace('#赠送灵石', '');
         lingshi = await Numbers(lingshi);
         if(lingshi<1000){
             lingshi=1000;
@@ -39,15 +39,15 @@ export class MoneyOperation extends plugin {
             return;
         };
         const CDTime = this.xiuxianConfigData.CD.Transfer;
-        const CDid = "5";
+        const CDid = '5';
         const now_time = new Date().getTime();
         const CD = await GenerateCD(A, CDid);
         if (CD != 0) {
             e.reply(CD);
             return;
         };
-        await redis.set("xiuxian:player:" + A +':'+ CDid, now_time);
-        await redis.expire("xiuxian:player:" + A +':'+ CDid, CDTime*60);
+        await redis.set('xiuxian:player:' + A +':'+ CDid, now_time);
+        await redis.expire('xiuxian:player:' + A +':'+ CDid, CDTime*60);
         A_player.lingshi-=lingshi;
         await Write_wealth(A,A_player);
         await Add_lingshi(B, lingshi);

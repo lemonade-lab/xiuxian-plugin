@@ -1,7 +1,7 @@
-import fs from "fs";
-import template from "art-template";
-import path from "path";
-import puppeteer from "puppeteer";
+import fs from 'fs';
+import template from 'art-template';
+import path from 'path';
+import puppeteer from 'puppeteer';
 /**
  * 公共方法模块，目前包含功能如下:
  * 模板相关：通过html模板生成html(generateHtml)，通过html文件生成图片(generateImgByHtml)，获取模板所在的文件根路径(getTemplatePath)
@@ -41,11 +41,11 @@ class common {
                     if (error) {//文件存储失败
                         logger.error(error);
                     } else {
-                        logger.info("generate html file success!");
+                        logger.info('generate html file success!');
                     };
                 })
             } else {
-                logger.error("文件读取错误,file_path=" + file_path + "；原因:" + error);
+                logger.error('文件读取错误,file_path=' + file_path + '；原因:' + error);
             };
         });
     };
@@ -55,7 +55,7 @@ class common {
      */
     getTemplatePath = async () => {
         //路径分隔符都使用 /
-        let file_path = path.resolve().replace(/\\/g, "/") + "/plugins/xiuxian-emulator-plugin/resources/template/";
+        let file_path = path.resolve().replace(/\\/g, '/') + '/plugins/xiuxian-emulator-plugin/resources/template/';
         return file_path;
     };
     /**
@@ -74,7 +74,7 @@ class common {
             };
         });
         let page = await browser.newPage();//获取一个新页面
-        await page.goto("file://" + file_path);//打开页面
+        await page.goto('file://' + file_path);//打开页面
         let body = await page.$('#container') || await page.$('body');//获取body
         //生成图片的参数
         if (!this.isNotBlank(param)) {
@@ -92,7 +92,7 @@ class common {
         };
         if (randData.type == 'png') delete randData.quality
         let img = await body.screenshot(randData);//生成图片
-        logger.info("generate img");
+        logger.info('generate img');
         await page.close().catch((err) => logger.error(err));//关闭页面
         await browser.close().catch((err) => logger.error(err));//关闭浏览器
         return img;
@@ -103,7 +103,7 @@ class common {
             return false;
         return true;
     };
-    //判断对象是否为""、null或者undefind
+    //判断对象是否为''、null或者undefind
     isNotBlank = (value) => {
         if (value ?? '' !== '') {
             return true;

@@ -30,14 +30,10 @@ export class Exchange extends plugin {
     supermarket = async (e) => {
         const Exchange = await Read_Exchange();
         const msg = [
-            "___[弱水阁]___\n#上架+物品名*数量*价格\n#选购+编号\n#下架+编号\n不填数量，默认为1"
+            '___[弱水阁]___\n#上架+物品名*数量*价格\n#选购+编号\n#下架+编号\n不填数量，默认为1'
         ];
         Exchange.forEach((item) => {
-            msg.push(
-                "编号:" + item.id + "\n" +
-                "物品:" + item.thing.name + "\n" +
-                "数量:" + item.thing.acount + "\n" +
-                "价格:" + item.money + "\n");
+            msg.push( `编号:${item.id}\n物品:${item.thing.name}\n数量:${item.thing.acount}\n价格:${item.money}\n`);
         });
         await ForwardMsg(e, msg);
         return;
@@ -48,11 +44,9 @@ export class Exchange extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const thing = e.msg.replace("#上架", '');
-        const code = thing.split("\*");
-        const thing_name = code[0];//物品
-        const thing_acount = code[1];//数量
-        const thing_money = code[2];//价格
+        const thing = e.msg.replace('#上架', '');
+        const code = thing.split('\*');
+        const [thing_name,thing_acount,thing_money] = code;//价格
         let quantity = await Numbers(thing_acount);
         if (quantity > 99) {
             quantity = 99;
@@ -72,19 +66,19 @@ export class Exchange extends plugin {
         };
         const action = await Read_action(usr_qq);
         if (action.Exchange >= 3) {
-            e.reply("有其他物品未售出")
+            e.reply('有其他物品未售出')
             return;
         }
         najie_thing.acount = quantity;
         const exchange = await Read_Exchange();
         exchange.push({
-            "id": usr_qq + Math.floor((Math.random() * (99 - 1) + 1)),
-            "QQ": usr_qq,
-            "thing": najie_thing,
-            "x": action.x,
-            "y": action.y,
-            "z": action.z,
-            "money": money * quantity
+            'id': usr_qq + Math.floor((Math.random() * (99 - 1) + 1)),
+            'QQ': usr_qq,
+            'thing': najie_thing,
+            'x': action.x,
+            'y': action.y,
+            'z': action.z,
+            'money': money * quantity
         });
         await Write_Exchange(exchange);
         action.Exchange = action.Exchange + 1;
@@ -92,7 +86,7 @@ export class Exchange extends plugin {
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, najie_thing, -quantity);
         await Write_najie(usr_qq, najie);
-        e.reply("成功上架:" + najie_thing.name + "*" + najie_thing.acount);
+        e.reply(`成功上架:${najie_thing.name}*${najie_thing.acount}`);
         return;
     };
     Offsell = async (e) => {
@@ -101,7 +95,7 @@ export class Exchange extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let thingid = e.msg.replace("#下架", '');
+        let thingid = e.msg.replace('#下架', '');
         thingid = await Numbers(thingid);
         let x = 888888888;
         let exchange = await Read_Exchange();
@@ -112,7 +106,7 @@ export class Exchange extends plugin {
             }
         };
         if (x == 888888888) {
-            e.reply("找不到该商品编号！");
+            e.reply('找不到该商品编号');
             return;
         };
         if (exchange[x].QQ != usr_qq) {
@@ -132,7 +126,7 @@ export class Exchange extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let thingid = e.msg.replace("#选购", '');
+        let thingid = e.msg.replace('#选购', '');
         thingid = await Numbers(thingid);
         let x = 888888888;
         let exchange = await Read_Exchange();
@@ -143,12 +137,12 @@ export class Exchange extends plugin {
             }
         };
         if (x == 888888888) {
-            e.reply("找不到该商品编号！");
+            e.reply('找不到该商品编号');
             return;
         };
         const wealth = await Read_wealth(usr_qq);
         if (wealth.lingshi < exchange[x].money) {
-            e.reply("资金不足");
+            e.reply('资金不足');
             return;
         };
         wealth.lingshi -= exchange[x].money;
@@ -161,7 +155,7 @@ export class Exchange extends plugin {
         await Write_najie(usr_qq, najie);
         exchange = exchange.filter(item => item.id != thingid);
         await Write_Exchange(exchange);
-        e.reply("成功选购" + thingid);
+        e.reply(`成功选购${thingid}`);
         return;
     };
 };

@@ -3,8 +3,8 @@ export default class base {
   constructor(e = {}) {
     this.e = e;
     this.userId = e?.user_id;
-    this.model = "xiuxian-emulator-plugin";
-    this._path = process.cwd().replace(/\\/g, "/");
+    this.model = 'xiuxian-emulator-plugin';
+    this._path = process.cwd().replace(/\\/g, '/');
   };
   get prefix() {
     return `Yz:xiuxian-emulator-plugin:${this.model}:`;

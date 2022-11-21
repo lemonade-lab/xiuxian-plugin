@@ -1,20 +1,20 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 import data from '../../model/XiuxianData.js';
-const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
+const __dirname = path.resolve() + path.sep + 'plugins' + path.sep + 'xiuxian-emulator-plugin';
 export const __PATH = {
-    player: path.join(__dirname, "/resources/data/birth/xiuxian/player"),
-    action: path.join(__dirname, "/resources/data/birth/xiuxian/action"),
-    battle: path.join(__dirname, "/resources/data/birth/xiuxian/battle"),
-    equipment: path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
-    level: path.join(__dirname, "/resources/data/birth/xiuxian/level"),
-    talent: path.join(__dirname, "/resources/data/birth/xiuxian/talent"),
-    wealth: path.join(__dirname, "/resources/data/birth/xiuxian/wealth"),
-    najie: path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
-    Exchange: path.join(__dirname, "/resources/data/birth/Exchange"),
-    Forum: path.join(__dirname, "/resources/data/birth/Forum"),
-    life: path.join(__dirname, "/resources/data/birth/xiuxian/life")
+    player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
+    action: path.join(__dirname, '/resources/data/birth/xiuxian/action'),
+    battle: path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
+    equipment: path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
+    level: path.join(__dirname, '/resources/data/birth/xiuxian/level'),
+    talent: path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
+    wealth: path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
+    najie: path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
+    Exchange: path.join(__dirname, '/resources/data/birth/Exchange'),
+    Forum: path.join(__dirname, '/resources/data/birth/Forum'),
+    life: path.join(__dirname, '/resources/data/birth/xiuxian/life')
 };
 export class Xiuxian extends plugin {
     constructor() {
@@ -35,7 +35,7 @@ const Read = async (usr_qq, PATH) => {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
     let player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
-            return "error";
+            return 'error';
         };
         return data;
     });
@@ -45,7 +45,7 @@ const Read = async (usr_qq, PATH) => {
 //写入数据
 const Write = async (usr_qq, player, PATH) => {
     const dir = path.join(PATH, `${usr_qq}.json`);
-    const new_ARR = JSON.stringify(player, "", "\t");
+    const new_ARR = JSON.stringify(player, '', '\t');
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
     });
     return;
@@ -212,7 +212,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
     if (battleA.speed >= battleB.speed - 5) {
         let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
         if (hurt <= 0) {
-            e.reply("你个老六想偷袭，却连怪物的防御都破不了，被怪物一巴掌给拍死了！");
+            e.reply('你个老六想偷袭，却连怪物的防御都破不了，被怪物一巴掌给拍死了！');
             battleA.nowblood = 0;
             qq = 0;
             await Write_battle(e.user_id, battleA);
@@ -223,13 +223,13 @@ export const monsterbattle = async (e, battleA, battleB) => {
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 1) {
-            e.reply("你仅出一招，就击败了怪物！");
+            e.reply('你仅出一招，就击败了怪物！');
             return qq;
         } else {
-            msg.push("你个老六偷袭，造成" + hurt + "伤害");
+            msg.push('你个老六偷袭，造成' + hurt + '伤害');
         };
     } else {
-        msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
+        msg.push('你个老六想偷袭，对方却一个转身就躲过去了');
     };
     //循环回合，默认从B攻击开始
     var x = 1;
@@ -256,15 +256,15 @@ export const monsterbattle = async (e, battleA, battleB) => {
         };
         battleA.nowblood = battleA.nowblood - hurt;
         if (battleA.nowblood < 0) {
-            msg.push("第" + z + "回合:怪物造成" + hurt + "伤害");
+            msg.push('第' + z + '回合:怪物造成' + hurt + '伤害');
             await ForwardMsg(e, msg);
-            e.reply("你被怪物击败了！");
+            e.reply('你被怪物击败了！');
             battleA.nowblood = 0;
             battleB.nowblood = battleB.nowblood + 1;
             qq = 0;
             break;
         } else {
-            msg.push("第" + z + "回合:怪物造成" + hurt + "伤害");
+            msg.push('第' + z + '回合:怪物造成' + hurt + '伤害');
         };
         //A开始
         hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
@@ -273,15 +273,15 @@ export const monsterbattle = async (e, battleA, battleB) => {
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 0) {
-            msg.push("第" + z + "回合:你造成" + hurt + "伤害，并击败了怪物！");
+            msg.push('第' + z + '回合:你造成' + hurt + '伤害，并击败了怪物！');
             await ForwardMsg(e, msg);
-            e.reply("你击败了怪物！");
+            e.reply('你击败了怪物！');
             battleB.nowblood = 0;
             battleA.nowblood = battleA.nowblood + 1;
             break;
         }
         else {
-            msg.push("第" + z + "回合:你造成" + hurt + "伤害");
+            msg.push('第' + z + '回合:你造成' + hurt + '伤害');
         };
     };
     await Write_battle(e.user_id, battleA);
@@ -300,7 +300,7 @@ export const battle = async (e, A, B) => {
             hurt = Math.floor(hurt * battleA.burstmax);
         };
         if (hurt <= 0) {
-            e.reply("你个老六想偷袭，却连对方的防御都破不了，被对方一巴掌给拍死了！");
+            e.reply('你个老六想偷袭，却连对方的防御都破不了，被对方一巴掌给拍死了！');
             battleA.nowblood = 0;
             qq = B_qq;
             await Write_battle(e.user_id, battleA);
@@ -308,15 +308,15 @@ export const battle = async (e, A, B) => {
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 1) {
-            e.reply("你仅出一招，就击败了对方！");
+            e.reply('你仅出一招，就击败了对方！');
             battleB.nowblood = 0;
             await Write_battle(B_qq, battleB);
             return qq;
         } else {
-            msg.push("你个老六偷袭成功，造成" + hurt + "伤害");
+            msg.push('你个老六偷袭成功，造成' + hurt + '伤害');
         };
     } else {
-        msg.push("你个老六想偷袭，对方却一个转身就躲过去了");
+        msg.push('你个老六想偷袭，对方却一个转身就躲过去了');
     };
     //循环回合，默认从B攻击开始
     var x = 1;
@@ -343,16 +343,16 @@ export const battle = async (e, A, B) => {
         };
         battleA.nowblood = battleA.nowblood - hurt;
         if (battleA.nowblood < 0) {
-            msg.push("第" + z + "回合:对方造成" + hurt + "伤害");
+            msg.push('第' + z + '回合:对方造成' + hurt + '伤害');
             await ForwardMsg(e, msg);
-            e.reply("你被对方击败了！");
+            e.reply('你被对方击败了！');
             battleA.nowblood = 0;
             battleB.nowblood = battleB.nowblood + 1;
             qq = B_qq;
             break;
         }
         else {
-            msg.push("第" + z + "回合:对方造成" + hurt + "伤害");
+            msg.push('第' + z + '回合:对方造成' + hurt + '伤害');
         };
         //A开始
         hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
@@ -361,14 +361,14 @@ export const battle = async (e, A, B) => {
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 0) {
-            msg.push("第" + z + "回合:你造成" + hurt + "伤害，并击败了对方！");
+            msg.push('第' + z + '回合:你造成' + hurt + '伤害，并击败了对方！');
             await ForwardMsg(e, msg);
-            e.reply("你击败了对方！");
+            e.reply('你击败了对方！');
             battleB.nowblood = 0;
             battleA.nowblood = battleA.nowblood + 1;
             break;
         } else {
-            msg.push("第" + z + "回合:你造成" + hurt + "伤害");
+            msg.push('第' + z + '回合:你造成' + hurt + '伤害');
         };
     };
     //在这里结算一下
@@ -426,7 +426,7 @@ export const get_talent = async () => {
  */
 export const talentname = async (player) => {
     const talentname = [];
-    let name = "";
+    let name = '';
     const talent = player.talent;
     for (var i = 0; i < talent.length; i++) {
         name = data.talent_list.find(item => item.id == talent[i]).name;
@@ -603,11 +603,11 @@ export const shijianc = async (time) => {
  * 艾特
  */
 export const At = async (e) => {
-    const isat = e.message.some((item) => item.type === "at");
+    const isat = e.message.some((item) => item.type === 'at');
     if (!isat) {
         return 0;
     };
-    const atItem = e.message.filter((item) => item.type === "at");
+    const atItem = e.message.filter((item) => item.type === 'at');
     const B = atItem[0].qq;
     const ifexistplay = await existplayer(B);
     if (!ifexistplay) {
@@ -653,7 +653,7 @@ export const Numbers = async (value) => {
  */
 export const getPlayerAction = async (usr_qq) => {
     let arr = {};
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
         let action_end_time = action.end_time;
@@ -662,20 +662,20 @@ export const getPlayerAction = async (usr_qq) => {
             let m = parseInt((action_end_time - now_time) / 1000 / 60);
             let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
             arr.action = action.action;//当期那动作
-            arr.time = m + "m" + s + "s";//剩余时间
+            arr.time = m + 'm' + s + 's';//剩余时间
             return arr;
         };
     };
-    arr.action = "空闲";
+    arr.action = '空闲';
     return arr;
 };
 /**
  * 关闭状态
  */
 export const offaction = async (qq) => {
-    const exists = await redis.exists("xiuxian:player:" + qq + ":action");
+    const exists = await redis.exists('xiuxian:player:' + qq + ':action');
     if (exists == 1) {
-        await redis.del("xiuxian:player:" + qq + ":action");
+        await redis.del('xiuxian:player:' + qq + ':action');
     };
     return;
 };
@@ -691,14 +691,14 @@ export const Gomini = async (e) => {
     if (!ifexistplay) {
         return;
     };
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     if (action != undefined) {
         action = JSON.parse(action);
         if (action.actionName == undefined) {
-            e.reply("存在旧版本残留，请联系主人使用#删除数据");
+            e.reply('存在旧版本残留，请联系主人使用#删除数据');
             return false;
         };
-        e.reply(action.actionName + "中...")
+        e.reply(action.actionName + '中...')
         return false;
     };
     return true;
@@ -715,19 +715,19 @@ export const Go = async (e) => {
     if (!ifexistplay) {
         return;
     };
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     if (action != undefined) {
         action = JSON.parse(action);
         if (action.actionName == undefined) {
-            e.reply("存在旧版本残留，请联系主人使用#删除数据");
+            e.reply('存在旧版本残留，请联系主人使用#删除数据');
             return false;
         };
-        e.reply(action.actionName + "中...")
+        e.reply(action.actionName + '中...')
         return false;
     };
     const player = await Read_battle(usr_qq);
     if (player.nowblood <= 1) {
-        e.reply("血量不足...");
+        e.reply('血量不足...');
         return false;
     };
     return true;
@@ -738,7 +738,7 @@ const CDname = ['攻击', '降妖', '闭关', '改名', '道宣', '赠送', '突
  * 冷却检测
  */
 export const GenerateCD = async (usr_qq, CDid) => {
-    const remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ':' + CDid);
+    const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
     if (remainTime != -1) {
         let h = Math.floor(remainTime / 60 / 60);
         h = h < 0 ? 0 : h;
@@ -749,12 +749,12 @@ export const GenerateCD = async (usr_qq, CDid) => {
         if (h == 0 && m == 0 && s == 0) {
             return 0;
         }
-        return CDname[CDid] + "冷却:" + h + "h" + m + "m" + s + "s";
+        return CDname[CDid] + '冷却:' + h + 'h' + m + 'm' + s + 's';
     };
     return 0;
 };
 export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
-    const remainTime = await redis.ttl("xiuxian:player:" + usr_qq + ':' + CDid);
+    const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
     if (remainTime != -1) {
         let h = Math.floor(remainTime / 60 / 60);
         h = h < 0 ? 0 : h;
@@ -765,7 +765,7 @@ export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
         if (h == 0 && m == 0 && s == 0) {
             return 0;
         }
-        return CDnameplugin[CDid] + "冷却:" + h + "h" + m + "m" + s + "s";
+        return CDnameplugin[CDid] + '冷却:' + h + 'h' + m + 'm' + s + 's';
     };
     return 0;
 };
@@ -806,7 +806,7 @@ export const Search_Exchange = async (thing_qq) => {
     const thingqq = thing_qq;
     let x = -1;
     const Exchange = await Read_Exchange();
-    if (thingqq == "") {
+    if (thingqq == '') {
         return x;
     };
     for (var i = 0; i < Exchange.length; i++) {
@@ -837,7 +837,7 @@ export const newRead = async (dir) => {
     try {
         const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
-                return "error";
+                return 'error';
             };
             return data;
         });

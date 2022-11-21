@@ -1,5 +1,5 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
-import fs from "node:fs";
+import fs from 'node:fs';
 import { __PATH, Add_lingshi, ForwardMsg, Add_experience, Add_experiencemax, Read_Life } from '../../../apps/Xiuxian/Xiuxian.js';
 export class XiuxianWorld extends plugin {
     constructor() {
@@ -25,8 +25,8 @@ export class XiuxianWorld extends plugin {
             return;
         };
         const life = await Read_Life();
-        const msg = ["--修仙世界---"];
-        msg.push("人数：" + life.length);
+        const msg = ['--修仙世界---'];
+        msg.push('人数：' + life.length);
         await ForwardMsg(e, msg);
         return;
     };
@@ -37,9 +37,9 @@ export class XiuxianWorld extends plugin {
         const playerList = [];
         const files = fs
             .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith(".json"));
+            .filter((file) => file.endsWith('.json'));
         files.forEach((item) => {
-            const file = item.replace(".json", "");
+            const file = item.replace('.json', '');
             playerList.push(file);
         });
         playerList.forEach(async (item) => {

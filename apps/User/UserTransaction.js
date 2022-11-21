@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import fs from "node:fs";
+import fs from 'node:fs';
 import data from '../../model/XiuxianData.js';
 import { Numbers, Read_wealth, Add_lingshi, exist_najie_thing_id, Add_najie_thing, search_thing_name, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class UserTransaction extends plugin {
@@ -19,8 +19,8 @@ export class UserTransaction extends plugin {
                     fnc: 'Sell_comodities'
                 },
                 {
-                    reg: "^#凡仙堂$",
-                    fnc: "ningmenghome",
+                    reg: '^#凡仙堂$',
+                    fnc: 'ningmenghome',
                 },
             ]
         });
@@ -32,7 +32,7 @@ export class UserTransaction extends plugin {
             return;
         };
         const msg = [
-            "___[凡仙堂]___\n#购买+物品名"
+            '___[凡仙堂]___\n#购买+物品名'
         ];
         const commodities_list = JSON.parse(fs.readFileSync(`${data.all}/commodities.json`));
         commodities_list.forEach((item) => {
@@ -41,22 +41,22 @@ export class UserTransaction extends plugin {
             if (id[0] == 4) {
                 if (id[1] == 1) {
                     msg.push(
-                        "物品：" + item.name +
-                        "\n气血：" + item.blood + "%" +
-                        "\n价格：" + item.price);
+                        '物品：' + item.name +
+                        '\n气血：' + item.blood + '%' +
+                        '\n价格：' + item.price);
                 } else {
                     msg.push(
-                        "物品：" + item.name +
-                        "\n修为：+" + item.experience +
-                        "\n价格：" + item.price);
+                        '物品：' + item.name +
+                        '\n修为：+' + item.experience +
+                        '\n价格：' + item.price);
                 }
             }
             //功法
             else if (id[0] == 5) {
                 msg.push(
-                    "物品：" + item.name +
-                    "\n天赋：+" + item.size + "%" +
-                    "\n价格：" + item.price);
+                    '物品：' + item.name +
+                    '\n天赋：+' + item.size + '%' +
+                    '\n价格：' + item.price);
             };
         });
         await ForwardMsg(e, msg);
@@ -71,8 +71,8 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const thing = e.msg.replace("#购买", '');
-        const code = thing.split("\*");
+        const thing = e.msg.replace('#购买', '');
+        const code = thing.split('\*');
         const thing_name = code[0];//物品
         const thing_acount = code[1];//数量
         let quantity = await Numbers(thing_acount);
@@ -107,8 +107,8 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const thing = e.msg.replace("#出售", '');
-        const code = thing.split("\*");
+        const thing = e.msg.replace('#出售', '');
+        const code = thing.split('\*');
         const thing_name = code[0];//物品
         const thing_acount = code[1];//数量
         let quantity = await Numbers(thing_acount);
@@ -126,7 +126,7 @@ export class UserTransaction extends plugin {
             return;
         }
         if (najie_thing.acount < quantity) {
-            e.reply("数量不足");
+            e.reply('数量不足');
             return;
         }
         let najie = await Read_najie(usr_qq);

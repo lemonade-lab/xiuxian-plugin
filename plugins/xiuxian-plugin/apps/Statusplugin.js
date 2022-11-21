@@ -58,16 +58,16 @@ export class Statusplugin extends plugin {
     };
     cleancache = async (e) => {
         if (!e.isMaster) {
-            e.reply("仅主人可操作")
+            e.reply('仅主人可操作')
             return;
         }
-        e.reply("开始清理")
+        e.reply('开始清理')
         execSync('sh cleanCache.sh', function (err, sto) {
             if (err) {
-                e.reply("error:执行清理脚本失败!")
+                e.reply('执行清理脚本失败')
             };
         })
-        await e.reply("结束清理");
+        await e.reply('结束清理');
         await this.getCPUSTATE(e);
         return;
     };

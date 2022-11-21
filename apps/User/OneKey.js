@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import config from "../../model/Config.js";
+import config from '../../model/Config.js';
 import { Add_lingshi, existplayer, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class OneKey extends plugin {
     constructor() {
@@ -19,7 +19,7 @@ export class OneKey extends plugin {
                 }
             ]
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
 
     OneKey_all = async (e) => {
@@ -39,7 +39,7 @@ export class OneKey extends plugin {
         await Add_lingshi(usr_qq, money);
         najie.thing = [];
         await Write_najie(usr_qq, najie);
-        e.reply("蜀山派弟子：你出售了所有物品，共获得" + money + "灵石");
+        e.reply('蜀山派弟子：你出售了所有物品，共获得' + money + '灵石');
         return;
     };
 

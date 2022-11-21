@@ -3,9 +3,9 @@ import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_
 export class AdminMoney extends plugin {
     constructor() {
         super({
-            name: "AdminMoney",
-            dsc: "AdminMoney",
-            event: "message",
+            name: 'AdminMoney',
+            dsc: 'AdminMoney',
+            event: 'message',
             priority: 400,
             rule: [
                 {
@@ -31,16 +31,16 @@ export class AdminMoney extends plugin {
         if (B == 0) {
             return;
         };
-        const thing_name = e.msg.replace("#馈赠", "");
+        const thing_name = e.msg.replace('#馈赠', '');
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply("世界没有" + thing_name);
+            e.reply('世界没有' + thing_name);
             return;
         };
         let najie = await Read_najie(B);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(B, najie);
-        e.reply(B + "获得馈赠：" + thing_name);
+        e.reply(B + '获得馈赠：' + thing_name);
         return;
     };
     Deduction = async (e) => {
@@ -51,23 +51,23 @@ export class AdminMoney extends plugin {
         if (B == 0) {
             return;
         };
-        let lingshi = e.msg.replace("#扣除", "");
+        let lingshi = e.msg.replace('#扣除', '');
         lingshi = await Numbers(lingshi);
         const player = await Read_wealth(B);
         if (player.lingshi < lingshi) {
-            e.reply("他好穷的");
+            e.reply('他好穷的');
             return;
         };
         player.lingshi -= lingshi;
         await Write_wealth(B, player);
-        e.reply("已扣除灵石" + lingshi);
+        e.reply('已扣除灵石' + lingshi);
         return;
     };
     Fuli = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        let lingshi = e.msg.replace("#补偿", "");
+        let lingshi = e.msg.replace('#补偿', '');
         lingshi = await Numbers(lingshi);
         const B = await At(e);
         if (B == 0) {

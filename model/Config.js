@@ -1,49 +1,49 @@
-import YAML from "yaml";
-import fs from "node:fs";
-import chokidar from "chokidar";
-import lodash from "lodash";
+import YAML from 'yaml';
+import fs from 'node:fs';
+import chokidar from 'chokidar';
+import lodash from 'lodash';
 class Config {
     constructor() {
-        this.defSetPath = "./plugins/xiuxian-emulator-plugin/defSet/";
+        this.defSetPath = './plugins/xiuxian-emulator-plugin/defSet/';
         this.defSet = {};
-        this.configPath = "./plugins/xiuxian-emulator-plugin/config/";
+        this.configPath = './plugins/xiuxian-emulator-plugin/config/';
         this.config = {};
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };
     }
     getdefSet = (app, name) => {
-        return this.getYaml(app, name, "defSet");
+        return this.getYaml(app, name, 'defSet');
     };
     getConfig = (app, name) => {
         let ignore = [];
         if (ignore.includes(`${app}.${name}`)) {
-            return this.getYaml(app, name, "config");
+            return this.getYaml(app, name, 'config');
         };
         return {
             //默认的
             ...this.getdefSet(app, name),
             //用户的
-            ...this.getYaml(app, name, "config"),
+            ...this.getYaml(app, name, 'config'),
         };
     };
     getYaml = (app, name, type) => {
         let file = this.getFilePath(app, name, type);
         let key = `${app}.${name}`;
         if (this[type][key]) return this[type][key];
-        this[type][key] = YAML.parse(fs.readFileSync(file, "utf8"));
+        this[type][key] = YAML.parse(fs.readFileSync(file, 'utf8'));
         this.watch(file, app, name, type);
         return this[type][key];
     };
 
     getFilePath = (app, name, type) => {
-        if (type == "defSet") return `${this.defSetPath}${app}/${name}.yaml`;
+        if (type == 'defSet') return `${this.defSetPath}${app}/${name}.yaml`;
         else return `${this.configPath}${app}/${name}.yaml`;
     };
-    watch = (file, app, name, type = "defSet") => {
+    watch = (file, app, name, type = 'defSet') => {
         let key = `${app}.${name}`;
         if (this.watcher[type][key]) return;
         const watcher = chokidar.watch(file);
-        watcher.on("change", (path) => {
+        watcher.on('change', (path) => {
             delete this[type][key];
             logger.mark(`[修改配置文件][${type}][${app}][${name}]`);
             if (this[`change_${app}${name}`]) {
@@ -60,7 +60,7 @@ class Config {
         }
         else {
             let yaml = YAML.stringify(data);
-            fs.writeFileSync(file, yaml, "utf8");
+            fs.writeFileSync(file, yaml, 'utf8');
         };
         return;
     };

@@ -22,14 +22,10 @@ export class Forum extends plugin {
     Searchforum = async (e) => {
         const Forum = await Read_Forum();
         const msg = [
-            "___[有间客栈]___"
+            '___[有间客栈]___'
         ];
         Forum.forEach((item) => {
-            msg.push(
-                "   [" + item.title + "]" +
-                "\n" + item.content +
-                "\nTime:" + item.time +
-                "\nId:" + item.number);
+            msg.push( `[${item.title}]\n${item.content}\nTime:${item.time}\nId:${item.number}\n`);
         });
         await ForwardMsg(e, msg);
         return;
@@ -44,24 +40,23 @@ export class Forum extends plugin {
             return;
         }
         const Forum = await Read_Forum();
-        const title0 = e.msg.replace("#文章", '');
-        const code = title0.split("\*");
-        const title = code[0];//标题
-        const content = code[1];//内容
+        const title0 = e.msg.replace('#文章', '');
+        const code = title0.split('\*');
+        const [title,content] = code;//内容
         if (title.length == 0) {
-            e.reply("未填写标题");
+            e.reply('未填写标题');
             return;
         };
         if (content == undefined) {
-            e.reply("未填写内容");
+            e.reply('未填写内容');
             return;
         };
         if (title.length > 8) {
-            e.reply("标题最多8个字");
+            e.reply('标题最多8个字');
             return;
         };
         if (content.length > 50) {
-            e.reply("内容最多50个字");
+            e.reply('内容最多50个字');
             return;
         };
         const myDate = new Date();
@@ -74,15 +69,15 @@ export class Forum extends plugin {
         Mathrandom = Mathrandom * 100000
         Mathrandom = Math.trunc(Mathrandom);
         const wupin = {
-            "title": title,//发布名
-            "qq": usr_qq,//发布名
-            "content": content,//发布内容
-            "time": newDay,//发布时间
-            "number": Mathrandom//编号
+            'title': title,//发布名
+            'qq': usr_qq,//发布名
+            'content': content,//发布内容
+            'time': newDay,//发布时间
+            'number': Mathrandom//编号
         };
         Forum.push(wupin);
         await Write_Forum(Forum);
-        e.reply("发布成功！");
+        e.reply('发布成功');
         return;
     };
 };

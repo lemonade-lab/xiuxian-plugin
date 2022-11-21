@@ -1,25 +1,25 @@
-import fs from "node:fs";
-import path from "path";
+import fs from 'node:fs';
+import path from 'path';
 let all = [];
 let dropsItem = [];
 let commodities = [];
 class XiuxianData {
     constructor() {
-        const __dirname = path.resolve() + path.sep + "plugins" + path.sep + "xiuxian-emulator-plugin";
+        const __dirname = path.resolve() + path.sep + 'plugins' + path.sep + 'xiuxian-emulator-plugin';
         this.__PATH = {
-            "player": path.join(__dirname, "/resources/data/birth/xiuxian/player"),
-            "equipment": path.join(__dirname, "/resources/data/birth/xiuxian/equipment"),
-            "najie": path.join(__dirname, "/resources/data/birth/xiuxian/najie"),
-            "birthassociation": path.join(__dirname, "/resources/data/birth/association"),
+            'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
+            'equipment': path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
+            'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
+            'birthassociation': path.join(__dirname, '/resources/data/birth/association'),
 
-            "all": path.join(__dirname, "/resources/data/birth/all"),
+            'all': path.join(__dirname, '/resources/data/birth/all'),
 
-            "fixedposition": path.join(__dirname, "/resources/data/fixed/position"),
-            "fixedequipment": path.join(__dirname, "/resources/data/fixed/equipment"),
-            "fixedgoods": path.join(__dirname, "/resources/data/fixed/goods"),
-            "fixedLevel": path.join(__dirname, "/resources/data/fixed/Level"),
-            "fixedoccupation": path.join(__dirname, "/resources/data/fixed/occupation"),
-            "fixedtalent": path.join(__dirname, "/resources/data/fixed/talent")
+            'fixedposition': path.join(__dirname, '/resources/data/fixed/position'),
+            'fixedequipment': path.join(__dirname, '/resources/data/fixed/equipment'),
+            'fixedgoods': path.join(__dirname, '/resources/data/fixed/goods'),
+            'fixedLevel': path.join(__dirname, '/resources/data/fixed/Level'),
+            'fixedoccupation': path.join(__dirname, '/resources/data/fixed/occupation'),
+            'fixedtalent': path.join(__dirname, '/resources/data/fixed/talent')
         };
         this.association = this.__PATH.birthassociation;
         this.all = this.__PATH.all;
@@ -70,7 +70,7 @@ class XiuxianData {
     deletelist = (name) => {
         let sum = [];
         let dir = path.join(this.all, `${name}.json`);
-        let new_ARR = JSON.stringify(sum, "", "\t");
+        let new_ARR = JSON.stringify(sum, '', '\t');
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
@@ -85,7 +85,7 @@ class XiuxianData {
     //添加临时数组
     add = (sum, name) => {
         let dir = path.join(this.all, `${name}.json`);
-        let new_ARR = JSON.stringify(sum, "", "\t");
+        let new_ARR = JSON.stringify(sum, '', '\t');
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };
@@ -97,7 +97,7 @@ class XiuxianData {
             };
         });
         let dir = path.join(this.all, `${name}.json`);
-        let new_ARR = JSON.stringify(sum, "", "\t");
+        let new_ARR = JSON.stringify(sum, '', '\t');
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });
     };

@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import config from "../../model/Config.js";
+import config from '../../model/Config.js';
 import { existplayer, search_thing_name, exist_najie_thing_id, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../Xiuxian/Xiuxian.js';
 export class UserHome extends plugin {
     constructor() {
@@ -27,7 +27,7 @@ export class UserHome extends plugin {
                 }
             ]
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Player_use_danyao = async (e) => {
         if (!e.isGroup) {
@@ -38,23 +38,23 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let thing_name = e.msg.replace("#服用", '');
-        const code = thing_name.split("\*");
+        let thing_name = e.msg.replace('#服用', '');
+        const code = thing_name.split('\*');
         thing_name = code[0];
         let thing_acount = code[1];
         thing_acount = await Numbers(thing_acount);
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
-            e.reply("世界没有" + thing_name);
+            e.reply('世界没有' + thing_name);
             return;
         };
         const najie_thing = await exist_najie_thing_id(usr_qq, searchsthing.id);
         if (najie_thing == 1) {
-            e.reply("没有" + thing_name);
+            e.reply('没有' + thing_name);
             return;
         };
         if (najie_thing.acount < thing_acount) {
-            e.reply("数量不足");
+            e.reply('数量不足');
             return;
         };
         const id = searchsthing.id.split('-');
@@ -65,20 +65,20 @@ export class UserHome extends plugin {
         if (id[1] == 1) {
             let blood = parseInt(searchsthing.blood);
             await Add_blood(usr_qq, blood);
-            e.reply("血量恢复至" + blood + "%");
+            e.reply('血量恢复至' + blood + '%');
         }
         else if (id[1] == 2) {
             let experience = parseInt(searchsthing.experience);
             await Add_experience(usr_qq, thing_acount * experience);
-            e.reply("修为增加" + thing_acount * searchsthing.experience);
+            e.reply('修为增加' + thing_acount * searchsthing.experience);
         }
         else if (id[1] == 3) {
             let experiencemax = parseInt(searchsthing.experiencemax);
             await Add_experiencemax(usr_qq, thing_acount * experiencemax);
-            e.reply("气血增加" + thing_acount * searchsthing.experiencemax);
+            e.reply('气血增加' + thing_acount * searchsthing.experiencemax);
         }
         else {
-            e.reply("不可服用" + thing_name);
+            e.reply('不可服用' + thing_name);
             return;
         };
         let najie = await Read_najie(usr_qq);
@@ -95,7 +95,7 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const thing_name = e.msg.replace("#学习", '');
+        const thing_name = e.msg.replace('#学习', '');
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
@@ -113,7 +113,7 @@ export class UserHome extends plugin {
         const talent = await Read_talent(usr_qq);
         const islearned = talent.AllSorcery.find(item => item.id == searchsthing.id);
         if (islearned) {
-            e.reply("学过了");
+            e.reply('学过了');
             return;
         };
         if (talent.AllSorcery.length <= this.xiuxianConfigData.myconfig.gonfa) {
@@ -122,13 +122,13 @@ export class UserHome extends plugin {
             await player_efficiency(usr_qq);
         }
         else {
-            e.reply("脑子装不下了");
+            e.reply('脑子装不下了');
             return;
         };
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, -1);
         await Write_najie(usr_qq, najie);
-        e.reply("学习" + thing_name);
+        e.reply('学习' + thing_name);
         return;
     };
     delete_gonfa = async (e) => {
@@ -140,11 +140,11 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         }
-        const thing_name = e.msg.replace("#忘掉", '');
+        const thing_name = e.msg.replace('#忘掉', '');
         const talent = await Read_talent(usr_qq);
         const islearned = talent.AllSorcery.find(item => item.name == thing_name);
         if (!islearned) {
-            e.reply("没学过" + thing_name);
+            e.reply('没学过' + thing_name);
             return;
         };
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name);
@@ -158,7 +158,7 @@ export class UserHome extends plugin {
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, searchsthing, 1);
         await Write_najie(usr_qq, najie);
-        e.reply("忘了" + thing_name);
+        e.reply('忘了' + thing_name);
         return;
     }
     Player_use_daoju = async (e) => {
@@ -170,7 +170,7 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const thing_name = e.msg.replace("#消耗", '');
+        const thing_name = e.msg.replace('#消耗', '');
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有[${thing_name}]`);
@@ -186,26 +186,26 @@ export class UserHome extends plugin {
             return;
         };
         if (id[2] == 1) {
-            e.reply("无法在储物袋中消耗");
+            e.reply('无法在储物袋中消耗');
             return;
         }
         else if (id[2] == 2) {
             const player = await Read_level(usr_qq);
             if (player.level_id > 21) {
-                e.reply("灵根已定，不可洗髓");
+                e.reply('灵根已定，不可洗髓');
                 return;
             }
             const talent = await Read_talent(usr_qq);
             talent.talent = await get_talent();
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
-            e.reply("使用成功");
+            e.reply('使用成功');
         }
         else if (id[2] == 3) {
             const talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
-            e.reply("显示成功");
+            e.reply('显示成功');
         }
         else {
             return;

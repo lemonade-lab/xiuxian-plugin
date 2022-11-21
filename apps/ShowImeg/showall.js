@@ -1,28 +1,28 @@
-import plugin from "../../../../lib/plugins/plugin.js";
-import { get_state_img,get_statemax_img,get_map_img,get_updata_img } from "../ShowImeg/showData.js";
+import plugin from '../../../../lib/plugins/plugin.js';
+import { get_state_img,get_statemax_img,get_map_img,get_updata_img } from '../ShowImeg/showData.js';
 export class showall extends plugin {
     constructor() {
         super({
-            name: "showall",
-            dsc: "showall",
-            event: "message",
+            name: 'showall',
+            dsc: 'showall',
+            event: 'message',
             priority: 600,
             rule: [
                 {
-                    reg: "^#练气境界$",
-                    fnc: "show_Level",
+                    reg: '^#练气境界$',
+                    fnc: 'show_Level',
                 },
                 {
-                    reg: "^#炼体境界$",
-                    fnc: "show_LevelMax",
+                    reg: '^#炼体境界$',
+                    fnc: 'show_LevelMax',
                 },
                 {
-                    reg: "^#修仙地图$",
-                    fnc: "show_map",
+                    reg: '^#修仙地图$',
+                    fnc: 'show_map',
                 },
                 {
-                    reg: "^#修仙版本$",
-                    fnc: "show_updata",
+                    reg: '^#修仙版本$',
+                    fnc: 'show_updata',
                 }
             ]
         });

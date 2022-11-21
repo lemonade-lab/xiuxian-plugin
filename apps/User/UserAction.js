@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import config from "../../model/Config.js";
+import config from '../../model/Config.js';
 import { get_najie_img } from '../ShowImeg/showData.js';
-import { segment } from "oicq";
+import { segment } from 'oicq';
 import { existplayer, Go, Read_najie, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../Xiuxian/Xiuxian.js';
 export class UserAction extends plugin {
     constructor() {
@@ -25,7 +25,7 @@ export class UserAction extends plugin {
                 }
             ]
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Show_najie = async (e) => {
         const usr_qq = e.user_id;
@@ -48,7 +48,7 @@ export class UserAction extends plugin {
         const najie_num = this.xiuxianConfigData.najie_num
         const najie_price = this.xiuxianConfigData.najie_price
         if (najie.grade == najie_num.length) {
-            e.reply("已经是最高级的了");
+            e.reply('已经是最高级的了');
             return;
         };
         if (player.lingshi < najie_price[najie.grade]) {
@@ -71,13 +71,13 @@ export class UserAction extends plugin {
         const reg = new RegExp(/取|存/);
         const func = reg.exec(e.msg);
         const msg = e.msg.replace(reg, '');
-        let lingshi = msg.replace("#灵石", '');
+        let lingshi = msg.replace('#灵石', '');
         const player_lingshi = await Read_wealth(usr_qq);
-        if (lingshi == "全部") {
+        if (lingshi == '全部') {
             lingshi = player_lingshi.lingshi;
         };
         lingshi = await Numbers(lingshi);
-        if (func == "存") {
+        if (func == '存') {
             if (player_lingshi.lingshi < lingshi) {
                 e.reply([segment.at(usr_qq), `灵石不足,目前只有${player_lingshi.lingshi}灵石`]);
                 return;
@@ -94,7 +94,7 @@ export class UserAction extends plugin {
             e.reply([segment.at(usr_qq), `储存完毕,目前还有${player_lingshi.lingshi - lingshi}灵石,储物袋内有${najie.lingshi + lingshi}灵石`]);
             return;
         }
-        if (func == "取") {
+        if (func == '取') {
             const najie = await Read_najie(usr_qq);
             if (najie.lingshi < lingshi) {
                 e.reply([segment.at(usr_qq), `储物袋灵石不足,目前最多取出${najie.lingshi}灵石`]);

@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import Help from "../../model/help.js";
-import Cache from "../../model/cache.js";
+import Help from '../../model/help.js';
+import Cache from '../../model/cache.js';
 export class BotHelp extends plugin {
     constructor() {
         super({
@@ -10,16 +10,16 @@ export class BotHelp extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#修仙帮助$',
+                    reg: '^#(修仙帮助|帮助)$',
                     fnc: 'Xiuxianhelp1'
                 },
                 {
-                    reg: "^#修仙扩展$",
-                    fnc: "Xiuxianhelp2",
+                    reg: '^#修仙扩展$',
+                    fnc: 'Xiuxianhelp2',
                 },
                 {
-                    reg: "^#修仙管理$",
-                    fnc: "adminsuper",
+                    reg: '^#修仙管理$',
+                    fnc: 'adminsuper',
                 }
             ]
         });

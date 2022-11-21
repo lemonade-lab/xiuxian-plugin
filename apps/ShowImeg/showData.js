@@ -1,15 +1,15 @@
-import plugin from "../../../../lib/plugins/plugin.js";
-import Show from "../../model/show.js";
-import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
-import config from "../../model/Config.js";
+import plugin from '../../../../lib/plugins/plugin.js';
+import Show from '../../model/show.js';
+import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
+import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
     constructor() {
         super({
-            name: "showData",
-            dsc: "showData",
-            event: "message",
+            name: 'showData',
+            dsc: 'showData',
+            event: 'message',
             priority: 600,
             rule: [
             ]
@@ -32,12 +32,12 @@ export const get_state_img = async (e) => {
         };
     });
     const myData = {
-        name: "炼气境界",
+        name: '炼气境界',
         user_id: usr_qq,
         Level_list: list
     };
-    const data1 = await new Show(e).get_Data("state", "state", myData);
-    const img = await puppeteer.screenshot("state", {
+    const data1 = await new Show(e).get_Data('state', 'state', myData);
+    const img = await puppeteer.screenshot('state', {
         ...data1,
     });
     return img;
@@ -58,12 +58,12 @@ export const get_statemax_img = async (e) => {
         };
     });
     const myData = {
-        name: "炼体境界",
+        name: '炼体境界',
         user_id: usr_qq,
         Level_list: list
     };
-    const data1 = await new Show(e).get_Data("state", "state", myData);
-    const img = await puppeteer.screenshot("state", {
+    const data1 = await new Show(e).get_Data('state', 'state', myData);
+    const img = await puppeteer.screenshot('state', {
         ...data1,
     });
     return img;
@@ -75,13 +75,13 @@ export const get_map_img = async (e) => {
         return;
     };
     const myData = {};
-    const data1 = await new Show(e).get_Data("map", "map", myData);
-    const img = await puppeteer.screenshot("map", {
+    const data1 = await new Show(e).get_Data('map', 'map', myData);
+    const img = await puppeteer.screenshot('map', {
         ...data1,
     });
     return img;
 };
-const updata = config.getdefSet("version", "version");
+const updata = config.getdefSet('version', 'version');
 export const get_updata_img = async (e) => {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
@@ -91,8 +91,8 @@ export const get_updata_img = async (e) => {
     const myData = {
         version: updata
     };
-    const data1 = await new Show(e).get_Data("updata", "updata", myData);
-    const img = await puppeteer.screenshot("updata", {
+    const data1 = await new Show(e).get_Data('updata', 'updata', myData);
+    const img = await puppeteer.screenshot('updata', {
         ...data1,
     });
     return img;
@@ -112,13 +112,13 @@ export const get_player_img = async (e) => {
     const linggenname = await talentname(talent);
     let life = await Read_Life();
     life = life.find(item => item.qq == usr_qq);
-    let name = "";
+    let name = '';
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
     };
     if (await talent.talentshow != 0) {
-        talent.talentsize = "0";
-        name = "未知";
+        talent.talentsize = '0';
+        name = '未知';
     };
     const myData = {
         user_id: usr_qq,
@@ -133,8 +133,8 @@ export const get_player_img = async (e) => {
         talent: talent,
         talentsize: Math.trunc(talent.talentsize)
     };
-    const data1 = await new Show(e).get_Data("User/player", "player", myData);
-    const img = await puppeteer.screenshot("player", {
+    const data1 = await new Show(e).get_Data('User/player', 'player', myData);
+    const img = await puppeteer.screenshot('player', {
         ...data1,
     });
     return img;
@@ -155,8 +155,8 @@ export const get_equipment_img = async (e) => {
         life: life,
         equipment: equipment
     };
-    const data1 = await new Show(e).get_Data("User/equipment", "equipment", myData);
-    const img = await puppeteer.screenshot("equipment", {
+    const data1 = await new Show(e).get_Data('User/equipment', 'equipment', myData);
+    const img = await puppeteer.screenshot('equipment', {
         ...data1,
     });
     return img;
@@ -196,8 +196,8 @@ export const get_najie_img = async (e) => {
         daoju_list: daoju_list,
         danyao_list: danyao_list
     };
-    const data1 = await new Show(e).get_Data("User/najie", "najie", myData);
-    const img = await puppeteer.screenshot("najie", {
+    const data1 = await new Show(e).get_Data('User/najie', 'najie', myData);
+    const img = await puppeteer.screenshot('najie', {
         ...data1,
     });
     return img;
@@ -211,8 +211,8 @@ export const get_toplist_img = async (e, list) => {
     const myData = {
         list: list,
     };
-    const data1 = await new Show(e).get_Data("toplist", "toplist", myData);
-    const img = await puppeteer.screenshot("toplist", {
+    const data1 = await new Show(e).get_Data('toplist', 'toplist', myData);
+    const img = await puppeteer.screenshot('toplist', {
         ...data1,
     });
     return img;

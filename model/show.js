@@ -1,9 +1,9 @@
-import base from "./base.js";
+import base from './base.js';
 export default class Game extends base {
   constructor(e) {
     super(e);
-    this.model0 = "show";
-    this.model = "show";
+    this.model0 = 'show';
+    this.model = 'show';
   };
   get_base = async (mod1, mode2, myData) => {
     this.model0 = mod1;

@@ -1,22 +1,22 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import filecp from "../../model/filecp.js";
-import fs from "node:fs";
+import filecp from '../../model/filecp.js';
+import fs from 'node:fs';
 import { __PATH, updata_equipment } from '../Xiuxian/Xiuxian.js';
 export class AdminSuper extends plugin {
     constructor() {
         super({
-            name: "AdminSuper",
-            dsc: "AdminSuper",
-            event: "message",
+            name: 'AdminSuper',
+            dsc: 'AdminSuper',
+            event: 'message',
             priority: 400,
             rule: [
                 {
-                    reg: "^#同步信息$",
-                    fnc: "synchronization",
+                    reg: '^#同步信息$',
+                    fnc: 'synchronization',
                 },
                 {
-                    reg: "^#重置配置$",
-                    fnc: "Againconfig",
+                    reg: '^#重置配置$',
+                    fnc: 'Againconfig',
                 }
             ],
         });
@@ -26,7 +26,7 @@ export class AdminSuper extends plugin {
             return;
         };
         filecp.upfile();
-        e.reply("重置结束");
+        e.reply('重置结束');
         return;
     };
     synchronization = async (e) => {
@@ -36,15 +36,15 @@ export class AdminSuper extends plugin {
         const playerList = [];
         const files = fs
             .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith(".json"));
+            .filter((file) => file.endsWith('.json'));
         files.forEach((item, index, arr) => {
-            const file = item.replace(".json", "");
+            const file = item.replace('.json', '');
             playerList.push(file);
         });
         playerList.forEach(async (item, index, arr) => {
             await updata_equipment(item);
         });
-        e.reply("同步结束");
+        e.reply('同步结束');
         return;
     };
 };

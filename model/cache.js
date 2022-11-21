@@ -1,5 +1,5 @@
-import puppeteer from "../../../lib/puppeteer/puppeteer.js";
-import md5 from "md5";
+import puppeteer from '../../../lib/puppeteer/puppeteer.js';
+import md5 from 'md5';
 const helpData = [];
 /**
  * 已占用位：0，1，2
@@ -18,8 +18,8 @@ class Cache {
         while (true) {
             if (helpData.length <= i) {
                 helpData.push({
-                    md5: "",
-                    img: "",
+                    md5: '',
+                    img: '',
                 });
             } else {
                 break;
@@ -28,7 +28,7 @@ class Cache {
         if (helpData[i].md5 == tmp) {
             return helpData[i].img
         };
-        helpData[i].img = await puppeteer.screenshot("help", data);
+        helpData[i].img = await puppeteer.screenshot('help', data);
         helpData[i].md5 = tmp;
         return helpData[i].img;
     };

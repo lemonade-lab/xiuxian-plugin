@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import config from "../../model/Config.js";
+import config from '../../model/Config.js';
 import { offaction, Read_Life, Write_Life, __PATH } from '../Xiuxian/Xiuxian.js';
 export class UserTask extends plugin {
     constructor() {
@@ -11,7 +11,7 @@ export class UserTask extends plugin {
             rule: [
             ]
         });
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
         this.set = config.getConfig('task', 'task');
         this.task = {
             cron: this.set.LifeTask,

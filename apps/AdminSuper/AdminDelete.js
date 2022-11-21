@@ -1,17 +1,17 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import fs from "node:fs";
+import fs from 'node:fs';
 import { Write_Forum, Read_Exchange, Write_Exchange, __PATH, offaction, At, Write_Life, Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js';
 export class AdminDelete extends plugin {
     constructor() {
         super({
-            name: "AdminDelete",
-            dsc: "AdminDelete",
-            event: "message",
+            name: 'AdminDelete',
+            dsc: 'AdminDelete',
+            event: 'message',
             priority: 400,
             rule: [
                 {
-                    reg: "^#清理弱水阁$",
-                    fnc: "Deleteexchange",
+                    reg: '^#清理弱水阁$',
+                    fnc: 'Deleteexchange',
                 },
                 {
                     reg: '^#清除.*$',
@@ -47,10 +47,10 @@ export class AdminDelete extends plugin {
             allkey.forEach(async (item) => {
                 await redis.del(item);
             });
-            e.reply("删除完成");
+            e.reply('删除完成');
             return;
         };
-        e.reply("世界无一花草");
+        e.reply('世界无一花草');
         return;
     };
     DeleteForum = async (e) => {
@@ -58,14 +58,14 @@ export class AdminDelete extends plugin {
             return;
         };
         await Write_Forum([]);
-        e.reply("已打扫");
+        e.reply('已打扫');
         return;
     };
     Deletepurchase = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        const thingid = e.msg.replace("#清除", '');
+        const thingid = e.msg.replace('#清除', '');
         const Exchange = await Read_Exchange();
         Exchange.forEach(async (item, index, arr) => {
             if (item.id == thingid) {
@@ -73,7 +73,7 @@ export class AdminDelete extends plugin {
                 action.Exchange = action.Exchange - 1;
                 await Write_action(item.QQ, action);
                 arr.splice(index, 1);
-                e.reply("清除" + thingid);
+                e.reply('清除' + thingid);
             };
         });
         await Write_Exchange(Exchange);
@@ -87,9 +87,9 @@ export class AdminDelete extends plugin {
         const playerList = [];
         const files = fs
             .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith(".json"));
+            .filter((file) => file.endsWith('.json'));
         files.forEach((item, index, arr) => {
-            const file = item.replace(".json", "");
+            const file = item.replace('.json', '');
             playerList.push(file);
         });
         playerList.forEach(async (item, index, arr) => {
@@ -97,7 +97,7 @@ export class AdminDelete extends plugin {
             action.Exchange = 0;
             await Write_action(item, action);
         });
-        e.reply("已清除");
+        e.reply('已清除');
         return;
     };
     deleteallusers = async (e) => {
@@ -108,7 +108,7 @@ export class AdminDelete extends plugin {
         await Write_Forum([]);
         await Write_Life([]);
         await this.deleteredis(e);
-        e.reply("已崩碎");
+        e.reply('已崩碎');
         return;
     };
     deleteuser = async (e) => {
@@ -127,7 +127,7 @@ export class AdminDelete extends plugin {
             };
         });
         await Write_Life(life);
-        e.reply("信息崩碎");
+        e.reply('信息崩碎');
         return;
     }
 };
