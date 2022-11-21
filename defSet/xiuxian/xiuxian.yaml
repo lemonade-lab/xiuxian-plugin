@@ -40,7 +40,7 @@ biguan:
 
 work:
   #倍率！
-  size: 10 
+  size: 2 
   #最低时间
   time: 10 
 
