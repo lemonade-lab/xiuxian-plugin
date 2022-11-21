@@ -8,7 +8,7 @@ class filecp {
   Pluginfile = (name,config) => {
     let cf = [];
     const filepath = './plugins/xiuxian-emulator-plugin/plugins/'+name+'/defSet/';
-    function readdirectory(dir) {
+    const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
         let filepath1 = dir + '/' + item;
@@ -70,7 +70,7 @@ class filecp {
   file = (config) => {
     let cf = [];
     const filepath = './plugins/xiuxian-emulator-plugin/defSet/';
-    function readdirectory(dir) {
+    const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
         let filepath1 = dir + '/' + item;
