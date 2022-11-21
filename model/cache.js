@@ -1,16 +1,12 @@
 import puppeteer from '../../../lib/puppeteer/puppeteer.js';
 import md5 from 'md5';
 const helpData = [];
-/**
- * 已占用位：0，1，2
- * 宗门系统：3
- */
 class Cache {
     constructor() {};
     /**
      * 
      * @param  data 数据
-     * @param  i 占用位置
+     * @param  i 占用位置,已占用位：0，1，管理2,宗门3
      * @returns 
      */
      helpcache=async(data, i)=>{
