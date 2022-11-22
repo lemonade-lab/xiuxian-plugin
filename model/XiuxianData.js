@@ -35,8 +35,7 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/huju_list.json`)),
             ...JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)),
             ...JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.goods}/ring_list.json`))
+            ...JSON.parse(fs.readFileSync(`${this.goods}/gongfa_list.json`))
         ], 'all');
         this.deletelist('commodities');
         this.addlist([
