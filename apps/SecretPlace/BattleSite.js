@@ -12,6 +12,7 @@ export class BattleSite extends plugin {
             event: 'message',
             priority: 600,
             rule: [
+                /*
                 {
                     reg: '^#击杀.*$',
                     fnc: 'Kill'
@@ -20,10 +21,12 @@ export class BattleSite extends plugin {
                     reg: '^#探索怪物$',
                     fnc: 'Exploremonsters'
                 }
+                */
             ]
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
+    /*
     Kill = async (e) => {
         const good = await Gomini(e);
         if (!good) {
@@ -78,19 +81,19 @@ export class BattleSite extends plugin {
                     const random = Math.floor(Math.random() * dropsItemList.length);
                     let najie = await Read_najie(usr_qq);
                     najie = await Add_najie_thing(najie, dropsItemList[random], 1);
-                    msg.push(usr_qq + `得到了装备[${dropsItemList[random].name}]`);
+                    msg.push(`得到[${dropsItemList[random].name}]`);
                     await Write_najie(usr_qq, najie);
                 };
                 if (m < mon.level * 5) {
-                    msg.push(`得到${usr_qq}${mon.level * 25 * mybuff}气血`);
+                    msg.push(`得到${mon.level * 25 * mybuff}气血`);
                     await Add_experiencemax(usr_qq, mon.level * 25 * mybuff);
                 };
                 if (m < mon.level * 7) {
-                    msg.push(`得到${usr_qq}${mon.level * 35 * mybuff}灵石`);
+                    msg.push(`得到${mon.level * 35 * mybuff}灵石`);
                     await Add_lingshi(usr_qq, mon.level * 35 * mybuff);
                 };
                 if (m < mon.level * 9) {
-                    msg.push(`得到${usr_qq}${mon.level * 50 * mybuff}修为`);
+                    msg.push(`${usr_qq}得到${mon.level * 50 * mybuff}修为`);
                     await Add_experience(usr_qq, mon.level * 50 * mybuff);
                 };
                 if (m >= mon.level * 9) {
@@ -127,4 +130,5 @@ export class BattleSite extends plugin {
         };
         return;
     };
+    */
 };

@@ -9,6 +9,8 @@ class XiuxianData {
             'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
             'birthassociation': path.join(__dirname, '/resources/data/birth/association'),
             'all': path.join(__dirname, '/resources/data/birth/all'),
+            'position': path.join(__dirname, '/resources/data/birth/position'),
+
             'fixedposition': path.join(__dirname, '/resources/data/fixed/position'),
             'fixedequipment': path.join(__dirname, '/resources/data/fixed/equipment'),
             'fixedgoods': path.join(__dirname, '/resources/data/fixed/goods'),
@@ -20,14 +22,14 @@ class XiuxianData {
         this.all = this.__PATH.all;
         this.occupation = this.__PATH.fixedoccupation;
         this.Level = this.__PATH.fixedLevel;
-        this.position = this.__PATH.fixedposition;
         this.talent = this.__PATH.fixedtalent;
         this.Level_list = JSON.parse(fs.readFileSync(`${this.Level}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.Level}/LevelMax_list.json`));
-        this.position_list = JSON.parse(fs.readFileSync(`${this.position}/position.json`));
         this.talent_list = JSON.parse(fs.readFileSync(`${this.talent}/talent.json`));
+
         this.fixedequipment = this.__PATH.fixedequipment;
         this.goods = this.__PATH.fixedgoods;
+
         this.deletelist('all');
         this.addlist([
             ...JSON.parse(fs.readFileSync(`${this.fixedequipment}/fabao_list.json`)),
@@ -51,6 +53,7 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.goods}/danyao_list.json`)).slice(11, 19),
             ...JSON.parse(fs.readFileSync(`${this.goods}/daoju_list.json`))
         ], 'dropsItem');
+        
         /**
          * id数据头规定
          * 1武器
@@ -75,6 +78,23 @@ class XiuxianData {
          * 400-999为三点水预留
          * 1000后物品为玩家插件可用段
          */
+        
+        this.fixedposition = this.__PATH.fixedposition;
+        this.position = this.__PATH.position;
+
+        this.deleteposition('position');
+        this.addposition([
+            ...JSON.parse(fs.readFileSync(`${this.fixedposition}/position.json`))
+        ], 'position');
+        this.deleteposition('point');
+        this.addposition([
+            ...JSON.parse(fs.readFileSync(`${this.fixedposition}/point.json`))
+        ], 'point');
+
+        /**
+         *  地点位置说明
+         */
+        
     };
     deletelist = (name) => {
         const dir = path.join(this.all, `${name}.json`);
@@ -84,6 +104,18 @@ class XiuxianData {
     };
     addlist = (sum, name) => {
         const dir = path.join(this.all, `${name}.json`);
+        const new_ARR = JSON.stringify(sum, '', '\t');
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        });
+    };
+    deleteposition = (name) => {
+        const dir = path.join(this.position, `${name}.json`);
+        const new_ARR = JSON.stringify([], '', '\t');
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+        });
+    };
+    addposition = (sum, name) => {
+        const dir = path.join(this.position, `${name}.json`);
         const new_ARR = JSON.stringify(sum, '', '\t');
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
         });

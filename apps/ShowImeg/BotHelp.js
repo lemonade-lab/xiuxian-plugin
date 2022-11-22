@@ -10,7 +10,7 @@ export class BotHelp extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#(修仙帮助|帮助)$',
+                    reg: '^#修仙帮助$',
                     fnc: 'Xiuxianhelp1'
                 },
                 {

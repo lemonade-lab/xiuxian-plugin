@@ -10,6 +10,7 @@ export class Battle extends plugin {
             event: 'message',
             priority: 600,
             rule: [
+                /*
                 {
                     reg: '^#攻击.*$',
                     fnc: 'Attack'
@@ -18,10 +19,12 @@ export class Battle extends plugin {
                     reg: '^#洗手$',
                     fnc: 'HandWashing'
                 }
+                */
             ]
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
+    /*
     HandWashing = async (e) => {
         if (!e.isGroup) {
             return;
@@ -116,4 +119,5 @@ export class Battle extends plugin {
         };
         return;
     };
+    */
 };

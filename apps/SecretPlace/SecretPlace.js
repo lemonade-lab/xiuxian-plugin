@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
-import { Go,  Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class SecretPlace extends plugin {
     constructor() {
         super({
@@ -14,23 +14,23 @@ export class SecretPlace extends plugin {
                     fnc: 'xyzaddress'
                 },
                 {
-                    reg: '^#赶往传送阵$',
-                    fnc: 'delivery'
-                },
-                {
                     reg: '^#前往.*$',
                     fnc: 'forward'
+                },
+                {
+                    reg: '^#传送.*$',
+                    fnc: 'delivery'
                 }
             ]
         });
     };
-     xyzaddress=async(e)=> {
+    xyzaddress = async (e) => {
         const usr_qq = e.user_id;
         let action = await Read_action(usr_qq);
         e.reply(`坐标(${action.x},${action.y},${action.z})`);
         return;
     };
-     delivery=async(e)=> {
+    forward = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
@@ -39,68 +39,41 @@ export class SecretPlace extends plugin {
         let action = await Read_action(usr_qq);
         const x = action.x;
         const y = action.y;
-        const z = action.z;
-        if (x % 100 == 0 && y % 100 == 0 && z % 100 == 0) {
-            e.reply('修仙联盟的守阵者:这里就是传送阵');
-            return;
-        };
-        const mx=Math.floor(x/100)*100;
-        const my=Math.floor(y/100)*100;
-        const mz=Math.floor(z/100)*100;
-        const time=Math.floor(((x-mx)>0?x-mx:mx-x)/100+(y-my>0?y-my:my-x)/100);
-        const setTime = setTimeout(async () => {
-            clearTimeout(setTime);
-            action.x=mx;
-            action.y=my;
-            action.z=mz;
-            await Write_action(usr_qq, action)
-            e.reply(usr_qq+'已到达传送阵');
-        }, 1000*time);
-        e.reply(`${usr_qq}正在赶往传送阵...\n需要${time}秒`);
-        return;
-    };
-     forward=async(e)=> {
-        const good = await Go(e);
-        if (!good) {
-            return;
-        };
         const address = e.msg.replace('#前往', '');
-        const place = data.position_list.find(item => item.name == address);
-        if (!place) {
+        //点位表：有各种点位置、传送阵
+        const point = JSON.parse(fs.readFileSync(`${data.position}/point.json`)).find(item => item.name == address);
+        let mx = point.x;
+        let my = point.y;
+        let name = point.name;
+        let grade = point.grade;
+        if (!point) {
+            //看他说的是不是区域地点
+            const position = JSON.parse(fs.readFileSync(`${data.position}/position.json`)).find(item => item.name == address);
+            if (!position) {
+                return;
+            };
+            //是区域的，就随机分配
+            mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
+            my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
+            name = position.name;
+            grade = position.grade;
+        };
+        //判断地点等级限制
+        const level = await Read_level();
+        if (level.level < grade) {
+            //境界不足
             return;
         };
-        const usr_qq = e.user_id;
-        let level = await Read_level(usr_qq);
-        if (level.level_id < place.grade) {
-            e.reply('修仙联盟的维护者:前面的区域，以后再来探索吧');
-            return;
-        };
-        let action = await Read_action(usr_qq);
-        const x = action.x;
-        const y = action.y;
-        const z = action.z;
-        if (x % 100 != 0 || y % 100 != 0 || z % 100 != 0) {
-            e.reply(usr_qq+'请先#赶往传送阵');
-            return;
-        };
-        let wealt=await Read_wealth(usr_qq);
-        const money=10000;
-        if(wealt.lingshi<money){
-            e.reply(`修仙联盟的守阵者:灵石不够，攒到${money}灵石再来吧`);
-            return;
-        };
-        wealt.lingshi=wealt.lingshi-money;
-        await Write_wealth(usr_qq,wealt);
-        const time=((x-place.x1)>0?x-place.x1:place.x1-x)/100+(y-place.y1>0?y-place.y1:place.y1-x)/100;
+        //计算时间
+        const time = Math.floor((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y));
         const setTime = setTimeout(async () => {
             clearTimeout(setTime);
-            action.x = Math.floor((Math.random() * (place.x2 - place.x1))) + Number(place.x1);
-            action.y = Math.floor((Math.random() * (place.y2 - place.y1))) + Number(place.y1);
-            action.z = 0;
+            action.x = mx;
+            action.y = my;
             await Write_action(usr_qq, action);
-            e.reply(`${usr_qq}成功抵达${place.name}`);
-        }, 1000*time);
-        e.reply(`修仙联盟的守阵者:传送阵正在启动...\n需要${time}秒`);
+            e.reply(`${usr_qq}成功抵达${name}`);
+        }, 1000 * time);
+        e.reply(`正在前往${name}`);
         return;
     };
 };
