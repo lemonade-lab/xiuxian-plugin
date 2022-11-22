@@ -1,19 +1,19 @@
 ![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)    
-# xiuxian-emulator-plugin-V2-测试版
+# Xiuxian-Plugin-Box-V2-测试版
 2022.12.1推送正式版
 
 ## 安装教程      
 
 >Yunzai-Bot/目录下执行      
 ```
-git clone  https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin.git ./plugins/xiuxian-emulator-plugin/   
+git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
 >查看具体功能  #修仙帮助     
 
 ## 配置-存档-帮助   
-xiuxian-emulator-plugin/config/            
-xiuxian-emulator-plugin/resources/data/birth/xiuxian/     
-xiuxian-emulator-plugin/resources/help/         
+Xiuxian-Plugin-Box/config/            
+Xiuxian-Plugin-Box/resources/data/birth/xiuxian/     
+Xiuxian-Plugin-Box/resources/help/         
 
 ## 扩展插件
 
