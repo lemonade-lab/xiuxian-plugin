@@ -21,9 +21,6 @@
     - icon: help-icon_55
       title: "#炼体境界"
       desc: "(可私聊)"
-    - icon: help-icon_38
-      title: "#修仙状态"
-      desc: "查看状态，无状态不提示"
     - icon: help-icon_44
       title: "#闭关 #出关"
       desc: "进行闭关,获取修为"

@@ -10,11 +10,11 @@ export class Statusplugin extends plugin {
             priority: 100,
             rule: [
                 {
-                    reg: '#修仙运行状态$',
+                    reg: '#修仙状态$',
                     fnc: 'getCPUSTATE'
                 },
                 {
-                    reg: '#清理系统缓存',
+                    reg: '#清理缓存',
                     fnc: 'cleancache'
                 }
             ]

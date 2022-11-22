@@ -10,10 +10,6 @@ export class SecretPlace extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#修仙状态$',
-                    fnc: 'Xiuxianstate'
-                },
-                {
                     reg: '^#位置信息$',
                     fnc: 'xyzaddress'
                 },
@@ -27,10 +23,6 @@ export class SecretPlace extends plugin {
                 }
             ]
         });
-    };
-     Xiuxianstate=async(e)=> {
-        await Go(e);
-        return;
     };
      xyzaddress=async(e)=> {
         const usr_qq = e.user_id;

@@ -151,7 +151,7 @@ export const updata_equipment = async (usr_qq) => {
         burst: levelmini.burst + levelmax.burst + burst,
         burstmax: levelmini.burstmax + levelmax.burstmax + burstmax + level.rank_id * 10,
         speed: levelmini.speed + levelmax.speed + speed
-    }
+    };
     player.power = player.attack + player.defense + player.blood + player.burst + player.burstmax + player.speed;
     await Write_battle(usr_qq, player);
     return;
