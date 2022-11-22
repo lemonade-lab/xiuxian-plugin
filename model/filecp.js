@@ -7,7 +7,7 @@ class filecp {
   
   Pluginfile = (name,config) => {
     let cf = [];
-    const filepath = './plugins/xiuxian-emulator-plugin/plugins/'+name+'/defSet/';
+    const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'+name+'/defSet/';
     const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
@@ -21,7 +21,7 @@ class filecp {
       });
     };
     readdirectory(filepath);
-    const filepath0 = './plugins/xiuxian-emulator-plugin/config/';
+    const filepath0 = './plugins/Xiuxian-Plugin-Box/config/';
     for (var j = 0; j < cf.length; j++) {
       for (var i = 0; i < config.length; i++) {
         let x = filepath0 + cf[j] + '/' + config[i] + '.yaml';
@@ -38,7 +38,7 @@ class filecp {
 
   upfile = () => {
     let cf = [];
-    const filepath = './plugins/xiuxian-emulator-plugin/defSet/';
+    const filepath = './plugins/Xiuxian-Plugin-Box/defSet/';
     const config = ['xiuxian', 'task', 'Help',  'Admin'];
     const readdirectory = (dir) => {
       let files = fs.readdirSync(dir);
@@ -53,7 +53,7 @@ class filecp {
       });
     };
     readdirectory(filepath);
-    const filepath0 = './plugins/xiuxian-emulator-plugin/config/';
+    const filepath0 = './plugins/Xiuxian-Plugin-Box/config/';
     for (var j = 0; j < cf.length; j++) {
       for (var i = 0; i < config.length; i++) {
         let x = filepath0 + cf[j] + '/' + config[i] + '.yaml';
@@ -69,7 +69,7 @@ class filecp {
   };
   file = (config) => {
     let cf = [];
-    const filepath = './plugins/xiuxian-emulator-plugin/defSet/';
+    const filepath = './plugins/Xiuxian-Plugin-Box/defSet/';
     const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
@@ -83,7 +83,7 @@ class filecp {
       });
     };
     readdirectory(filepath);
-    const filepath0 = './plugins/xiuxian-emulator-plugin/config/';
+    const filepath0 = './plugins/Xiuxian-Plugin-Box/config/';
     for (var j = 0; j < cf.length; j++) {
       for (var i = 0; i < config.length; i++) {
         let x = filepath0 + cf[j] + '/' + config[i] + '.yaml';
@@ -102,9 +102,9 @@ class filecp {
     const config2 = ['help'];
     const cphelp = (cf1, cf2) => {
       for (var i = 0; i < cf1.length; i++) {
-        let x = './plugins/xiuxian-emulator-plugin/resources/' + cf1[i] + '/' + cf2[i] + '.jpg'
+        let x = './plugins/Xiuxian-Plugin-Box/resources/' + cf1[i] + '/' + cf2[i] + '.jpg'
         if (!fs.existsSync(x)) {
-          let y = './plugins/xiuxian-emulator-plugin/resources/img/' + cf1[i] + '/' + cf2[i] + '.jpg'
+          let y = './plugins/Xiuxian-Plugin-Box/resources/img/' + cf1[i] + '/' + cf2[i] + '.jpg'
           fs.cp(y, x,
             (err) => {
               if (err) {

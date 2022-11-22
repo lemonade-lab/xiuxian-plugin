@@ -35,7 +35,7 @@ export class AdminAction extends plugin {
         const that = this;
         exec(
             command,
-            { cwd: `${_path}/plugins/xiuxian-emulator-plugin/` },
+            { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
             function (error, stdout, stderr) {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push('最新版修仙插件了~');
@@ -109,7 +109,7 @@ export class AdminAction extends plugin {
         const that = this;
         exec(
             command,
-            { cwd: `${_path}/plugins/xiuxian-emulator-plugin/` },
+            { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
             function (error, stdout, stderr) {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push('最新版修仙插件了~');

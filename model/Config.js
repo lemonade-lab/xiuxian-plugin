@@ -4,9 +4,9 @@ import chokidar from 'chokidar';
 import lodash from 'lodash';
 class Config {
     constructor() {
-        this.defSetPath = './plugins/xiuxian-emulator-plugin/defSet/';
+        this.defSetPath = './plugins/Xiuxian-Plugin-Box/defSet/';
         this.defSet = {};
-        this.configPath = './plugins/xiuxian-emulator-plugin/config/';
+        this.configPath = './plugins/Xiuxian-Plugin-Box/config/';
         this.config = {};
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };

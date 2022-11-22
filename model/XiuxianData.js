@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'path';
 class XiuxianData {
     constructor() {
-        const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}xiuxian-emulator-plugin`;
+        const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box`;
         this.__PATH = {
             'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
             'equipment': path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),

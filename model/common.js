@@ -50,12 +50,12 @@ class common {
         });
     };
     /**
-     * 获取模板文件所在路径(机器人目录/plugins/xiuxian-emulator-plugin/resources/template/)
-     * @returns 示例: 机器人目录/plugins/xiuxian-emulator-plugin/resources/template/
+     * 获取模板文件所在路径(机器人目录/plugins/Xiuxian-Plugin-Box/resources/template/)
+     * @returns 示例: 机器人目录/plugins/Xiuxian-Plugin-Box/resources/template/
      */
     getTemplatePath = async () => {
         //路径分隔符都使用 /
-        let file_path = path.resolve().replace(/\\/g, '/') + '/plugins/xiuxian-emulator-plugin/resources/template/';
+        let file_path = path.resolve().replace(/\\/g, '/') + '/plugins/Xiuxian-Plugin-Box/resources/template/';
         return file_path;
     };
     /**

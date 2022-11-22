@@ -3,7 +3,7 @@ import path from 'path';
 class index {
   constructor() { };
   toindex = async (input) => {
-    let filepath = './plugins/xiuxian-emulator-plugin/' + input;
+    let filepath = './plugins/Xiuxian-Plugin-Box/' + input;
     let apps = {};
     let name = [];
     let newsum = [];
@@ -37,7 +37,7 @@ class index {
     });
     for (var j = 0; j < newsum.length; j++) {
       newsum[j] = newsum[j].replace(/\\/g, '/');
-      newsum[j] = newsum[j].replace('plugins/xiuxian-emulator-plugin', '');
+      newsum[j] = newsum[j].replace('plugins/Xiuxian-Plugin-Box', '');
       apps[name[j]] = (await import('..' + newsum[j]))[name[j]];
     };
     return apps;

@@ -4,5 +4,5 @@ const versionData = Config.getdefSet("version", "version");
 const xiuxain = await index.toindex('apps');
 const plugin = await index.toindex('plugins');
 const apps={...xiuxain,...plugin};
-logger.info(`修仙插件盒[V${versionData[0].version}]`);
+logger.info(`Xiuxian-Plugin-Box[V${versionData[0].version}]`);
 export {apps};
