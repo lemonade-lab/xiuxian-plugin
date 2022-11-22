@@ -169,7 +169,7 @@ export class Level extends plugin {
         life.forEach((item) => {
             if (item.qq == usr_qq) {
                 item.life += Math.floor(item.life * player.level_id);
-                e.reply(`${player.levelname}${player.rank_name[player.rank_id]}${item.life}`+'突破成功至');
+                e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]},寿命至${item.life}`);
             };
         });
         await Write_Life(life);

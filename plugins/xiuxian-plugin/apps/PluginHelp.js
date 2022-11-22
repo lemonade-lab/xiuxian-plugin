@@ -1,8 +1,10 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
 import Help from '../../../model/help.js';
 import Cache from '../../../model/cache.js';
-import plugins from '../model/plugins.js';
-plugins.start();//激活
+import filecp from '../../../model/filecp.js';
+//配置文件------插件名/help/配置名
+//(插件名,[配置名])
+filecp.Pluginfile('xiuxian-plugin',['Plugin']);
 export class PluginHelp extends plugin {
     constructor() {
         super({

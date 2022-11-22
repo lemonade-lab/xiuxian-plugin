@@ -1,7 +1,7 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
 import { __PATH, Add_lingshi, ForwardMsg, Add_experience, Add_experiencemax, Read_Life } from '../../../apps/Xiuxian/Xiuxian.js';
 import fs from 'node:fs';
-import dataup from '../model/dataup.js';
+import pluginup from '../model/pluginup.js';
 export class XiuxianWorld extends plugin {
     constructor() {
         super({
@@ -15,12 +15,12 @@ export class XiuxianWorld extends plugin {
                     fnc: 'XiuxianWorld'
                 },
                 {
-                    reg: '^#发测试福利$',
-                    fnc: 'ceshi'
-                },
-                {
                     reg: '^#修仙存档升级$',
                     fnc: 'Xiuxiandataup'
+                },
+                {
+                    reg: '^#发测试福利$',
+                    fnc: 'ceshi'
                 }
             ]
         });
@@ -33,6 +33,18 @@ export class XiuxianWorld extends plugin {
         const msg = ['--修仙世界---'];
         msg.push('人数:' + life.length);
         await ForwardMsg(e, msg);
+        return;
+    };
+    Xiuxiandataup=(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        const the=pluginup.pluginupdata();
+        if(the!=1){
+            e.reply('出错了');
+            return;
+        };
+        e.reply('升级完成');
         return;
     };
     ceshi = async (e) => {
@@ -53,18 +65,6 @@ export class XiuxianWorld extends plugin {
             await Add_experiencemax(item, 99999);
         });
         e.reply('已发放');
-        return;
-    };
-    Xiuxiandataup=(e)=>{
-        if (!e.isMaster) {
-            return;
-        };
-        const the=dataup.mydata();
-        if(the!=1){
-            e.reply('出错了');
-            return;
-        };
-        e.reply('升级完成');
         return;
     };
 };
