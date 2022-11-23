@@ -15,11 +15,11 @@ export class UserHome extends plugin {
                 },
                 {
                     reg: '^#学习.*$',
-                    fnc: 'add_gonfa'
+                    fnc: 'add_gongfa'
                 },
                 {
                     reg: '^#忘掉.*$',
-                    fnc: 'delete_gonfa'
+                    fnc: 'delete_gongfa'
                 },
                 {
                     reg: '^#消耗.*$',
@@ -80,7 +80,7 @@ export class UserHome extends plugin {
         await Write_najie(usr_qq, najie);
         return;
     };
-    add_gonfa = async (e) => {
+    add_gongfa = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -105,7 +105,7 @@ export class UserHome extends plugin {
             e.reply('学过了');
             return;
         };
-        if (talent.AllSorcery.length <= this.xiuxianConfigData.myconfig.gonfa) {
+        if (talent.AllSorcery.length <= this.xiuxianConfigData.myconfig.gongfa) {
             talent.AllSorcery.push(najie_thing);
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
@@ -120,7 +120,7 @@ export class UserHome extends plugin {
         e.reply(`学习${thing_name}`);
         return;
     };
-    delete_gonfa = async (e) => {
+    delete_gongfa = async (e) => {
         if (!e.isGroup) {
             return;
         };

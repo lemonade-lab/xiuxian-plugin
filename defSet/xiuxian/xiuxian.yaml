@@ -28,7 +28,7 @@ Age:
 
 myconfig:
   #功法最大学习数
-  gonfa: 12
+  gongfa: 12
   #装备最大数
   equipment: 4
 
