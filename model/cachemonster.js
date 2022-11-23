@@ -3,8 +3,7 @@ const addall = [];
 const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
 const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
 class Cachemonster {
-    constructor() { };
-    monsterscache = async (i) => {
+    constructor() { }; monsterscache = async (i) => {
         while (true) {
             if (alldata.length <= i) {
                 alldata.push({
@@ -18,14 +17,49 @@ class Cachemonster {
         };
         const time = new Date();
         if (time.getHours() != alldata[i].label) {
+            /**
+             * 如何根据区域分配怪物？  id=1，2，3，4，5，6  城池，都是一级怪
+             * 7，8，9  秘境，有怪   
+             * 10，11   禁地，高级怪   
+             * 12-16  荒地            
+             * 17-20   海域  海域。怪物范围。
+             */
+            let mini = 0;
+            let max = 0;
+            if (i > 6 &&i <= 9) {
+                //是秘境 2-6：秘境是特殊的，有特殊奖励
+                mini = 2;
+                max = 6;
+            }
+            else if (i > 9 && i <= 11) {
+                //禁地  8-10
+                mini = 8;
+                max = 10;
+            }
+            else if (i > 11 && i <= 16) {
+                //荒地  1-3
+                mini = 1;
+                max = 3;
+            } else if (i > 16 && i <= 20) {
+                //海域  5-8
+                mini = 5;
+                max = 8;
+            } else {
+                //城里，分配一级怪
+                mini = 1;
+                max = 1;
+            };
             alldata[i].label = time.getHours();
-            for (var j = 0; j < 5; j++) {
-                let y = Math.trunc(Math.random() * ((i + 2) * 2));
-                y = y > 9 ? 9 : y;
+            //怪物数量
+            for (var j = 0; j < max; j++) {
+                let y = Math.floor(Math.random() * (max - mini+1) + mini);
                 await alldata[i].data.push({
-                    name: name1[Math.trunc(Math.random() * 9)] + name2[y],
+                    //怪名
+                    name: name1[Math.floor(Math.random() * 10)] + name2[y-1],
+                    //累计  
                     killNum: 1,
-                    level: y + 1
+                    //境界
+                    level: y
                 });
             };
             return alldata[i].data;
@@ -33,34 +67,6 @@ class Cachemonster {
         else {
             return alldata[i].data;
         };
-    };
-    /**
-     * (7,6)   (7,3)  (3,0)   (4,4)  (1,6)   (2,3)
-     * 极光0  朝阳1  兽台2  仙府3    灭仙4   雷鸣5
-     */
-    monsters = async (a, b, c) => {
-        const x = Math.floor(a / 100);
-        const y = Math.floor(b / 100);
-        const z = Math.floor(c / 100);
-        if (x == 7 && y == 6 && z == 0) {
-            return 0;
-        }
-        else if (x == 1 && y == 6 && z == 0) {
-            return 4;
-        }
-        else if (x == 4 && y == 4 && z == 0) {
-            return 3;
-        }
-        else if (x == 7 && y == 3 && z == 0) {
-            return 1;
-        }
-        else if (x == 2 && y == 3 && z == 0) {
-            return 5;
-        }
-        else if (x == 3 && y == 0 && z == 0) {
-            return 2;
-        };
-        return -1;
     };
     add = async (i, num) => {
         while (true) {
