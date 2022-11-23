@@ -2,7 +2,6 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'fs';
 import path from 'path';
 import data from '../../model/XiuxianData.js';
-import config from '../../model/Config.js';
 //插件地址
 export const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box`;
 //插件地址链
@@ -20,7 +19,6 @@ export const __PATH = {
     life: path.join(__dirname, '/resources/data/birth/xiuxian/life')
 };
 //配置地址
-export const xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
 export class Xiuxian extends plugin {
     constructor() {
         super({
@@ -731,16 +729,6 @@ export const Gomini = async (e) => {
         };
         e.reply(action.actionName + '中...')
         return false;
-    };
-    return true;
-};
-//白名单控制
-export const Gogroup=async(e)=>{
-    const group = xiuxianConfigData.group.white;
-    if (group != 0) {
-        if (e.group_id != group) {
-            return false;
-        };
     };
     return true;
 };
