@@ -2,6 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'fs';
 import path from 'path';
 import data from '../../model/XiuxianData.js';
+import config from '../../model/Config.js';
 const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box`;
 export const __PATH = {
     player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -26,6 +27,7 @@ export class Xiuxian extends plugin {
             rule: [
             ]
         })
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
 };
 /**
@@ -473,7 +475,7 @@ export const player_efficiency = async (usr_qq) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    const ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.name == thing);
+    const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.name == thing);
     if (ifexist0 == undefined) {
         return 1;
     };
@@ -483,7 +485,7 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    const ifexist0 = JSON.parse(fs.readFileSync(`${data.all}/all.json`)).find(item => item.id == thing_id);
+    const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.id == thing_id);
     if (ifexist0 == undefined) {
         return 1;
     }
@@ -684,12 +686,12 @@ export const offaction = async (qq) => {
  */
 export const Gomini = async (e) => {
     if (!e.isGroup) {
-        return;
+        return false;
     };
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-        return;
+        return false;
     };
     let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     if (action != undefined) {
@@ -703,17 +705,28 @@ export const Gomini = async (e) => {
     };
     return true;
 };
+
+export const Gogroup=async(e)=>{
+    const group = this.xiuxianConfigData.group.white;
+    if (group != 0) {
+        if (e.group_id != group) {
+            return false;
+        };
+    };
+    return true;
+};
+
 /**
  * 状态封锁查询
  */
 export const Go = async (e) => {
     if (!e.isGroup) {
-        return;
+        return false;
     };
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-        return;
+        return false;
     };
     let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     if (action != undefined) {

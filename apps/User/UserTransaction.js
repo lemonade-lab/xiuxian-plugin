@@ -34,7 +34,7 @@ export class UserTransaction extends plugin {
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量，默认为1'
         ];
-        const commodities_list = JSON.parse(fs.readFileSync(`${data.all}/commodities.json`));
+        const commodities_list = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`));
         commodities_list.forEach((item) => {
             const id = item.id.split('-');
             //丹药
@@ -70,7 +70,7 @@ export class UserTransaction extends plugin {
         if (quantity > 99) {
             quantity = 99;
         };
-        const ifexist = JSON.parse(fs.readFileSync(`${data.all}/commodities.json`)).find(item => item.name == thing_name);
+        const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`)).find(item => item.name == thing_name);
         if (!ifexist) {
             e.reply(`不卖:${thing_name}`);
             return;

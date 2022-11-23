@@ -1,7 +1,6 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
-import { __PATH, Add_lingshi, ForwardMsg, Add_experience, Add_experiencemax, Read_Life } from '../../../apps/Xiuxian/Xiuxian.js';
-import fs from 'node:fs';
 import pluginup from '../model/pluginup.js';
+import { __PATH, ForwardMsg,Read_Life } from '../../../apps/Xiuxian/Xiuxian.js';
 export class XiuxianWorld extends plugin {
     constructor() {
         super({
@@ -17,10 +16,6 @@ export class XiuxianWorld extends plugin {
                 {
                     reg: '^#修仙存档升级$',
                     fnc: 'Xiuxiandataup'
-                },
-                {
-                    reg: '^#发测试福利$',
-                    fnc: 'ceshi'
                 }
             ]
         });
@@ -45,26 +40,6 @@ export class XiuxianWorld extends plugin {
             return;
         };
         e.reply('升级完成');
-        return;
-    };
-    ceshi = async (e) => {
-        if (!e.isMaster) {
-            return;
-        };
-        const playerList = [];
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'));
-        files.forEach((item) => {
-            const file = item.replace('.json', '');
-            playerList.push(file);
-        });
-        playerList.forEach(async (item) => {
-            await Add_lingshi(item, 99999);
-            await Add_experience(item, 99999);
-            await Add_experiencemax(item, 99999);
-        });
-        e.reply('已发放');
         return;
     };
 };

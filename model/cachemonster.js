@@ -1,10 +1,10 @@
 const alldata = [];
 const addall = [];
+const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
+const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
 class Cachemonster {
     constructor() { };
     monsterscache = async (i) => {
-        const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
-        const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
         while (true) {
             if (alldata.length <= i) {
                 alldata.push({

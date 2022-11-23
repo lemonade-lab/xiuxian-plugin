@@ -41,26 +41,28 @@ export class SecretPlace extends plugin {
         const y = action.y;
         const address = e.msg.replace('#前往', '');
         //点位表：有各种点位置、传送阵
-        const point = JSON.parse(fs.readFileSync(`${data.position}/point.json`)).find(item => item.name == address);
+        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address);
         let mx = point.x;
         let my = point.y;
+        const PointId=point.id.split('-');
         let name = point.name;
-        let grade = point.grade;
+        let grade = PointId[3];
         if (!point) {
             //看他说的是不是区域地点
-            const position = JSON.parse(fs.readFileSync(`${data.position}/position.json`)).find(item => item.name == address);
+            const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address);
             if (!position) {
                 return;
             };
+            const PositionId=position.id.split('-');
             //是区域的，就随机分配
             mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
             my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
             name = position.name;
-            grade = position.grade;
+            grade = PositionId[3];
         };
         //判断地点等级限制
         const level = await Read_level();
-        if (level.level < grade) {
+        if (level.level_id < grade) {
             //境界不足
             return;
         };
@@ -74,6 +76,68 @@ export class SecretPlace extends plugin {
             e.reply(`${usr_qq}成功抵达${name}`);
         }, 1000 * time);
         e.reply(`正在前往${name}`);
+        return;
+    };
+
+    delivery = async (e) => {
+        const good = await Go(e);
+        if (!good) {
+            return;
+        };
+        const usr_qq = e.user_id;
+        let action = await Read_action(usr_qq);
+        const x = action.x;
+        const y = action.y;
+        const address = e.msg.replace('#传送', '');
+        const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address);
+        if (!position) {
+            return;
+        };
+        const positionID=position.id.split('-');
+        //判断地点等级限制
+        const level = await Read_level(usr_qq);
+        if (level.level_id < positionID[3]) {
+            //境界不足
+            return;
+        };
+        const wealth=await Read_wealth(usr_qq);
+        if(wealth.lingshi<10000){
+            return;
+        };
+        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
+        let key=0;
+        //看看地点
+        point.forEach((item) => {
+            //看看在不在传送阵:传送阵点固定id=1-6
+            const pointID=item.id.split('-');
+            //id需要重设定
+            //位面、区域、属性、等级、编号2为传送阵
+            if(pointID[4]==2){
+                if(item.x==x){
+                    if(item.y=y){
+                        key=1;
+                    };
+                };
+            };
+        });
+        if(key==0){
+            return;
+        };
+        wealth.lingshi-=10000;
+        await Write_wealth(usr_qq,wealth);
+        //是区域的，就随机分配
+        const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
+        const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
+        //计算时间
+        const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y))/10);
+        const setTime = setTimeout(async () => {
+            clearTimeout(setTime);
+            action.x = mx;
+            action.y = my;
+            await Write_action(usr_qq, action);
+            e.reply(`${usr_qq}成功传送至${position.name}`);
+        }, 1000 * time);
+        e.reply(`正在传送${position.name}`);
         return;
     };
 };

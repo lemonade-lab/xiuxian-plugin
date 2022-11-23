@@ -77,7 +77,7 @@ export class BattleSite extends plugin {
             if (q != 0) {
                 const m = Math.floor((Math.random() * (100 - 1))) + Number(1);
                 if (m < mon.level * 4) {
-                    const dropsItemList = JSON.parse(fs.readFileSync(`${data.all}/dropsItem.json`));
+                    const dropsItemList = JSON.parse(fs.readFileSync(`${data.__PATH.all}/dropsItem.json`));
                     const random = Math.floor(Math.random() * dropsItemList.length);
                     let najie = await Read_najie(usr_qq);
                     najie = await Add_najie_thing(najie, dropsItemList[random], 1);
