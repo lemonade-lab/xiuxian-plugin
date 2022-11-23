@@ -81,12 +81,14 @@ export class UserStart extends plugin {
         await Write_wealth(usr_qq, new_wealth);
         const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西');
         const positionID=position.id.split('-');
+        const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
+        const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //是区域的，就随机分配
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
-            'x': position.x,
-            'y': position.y,
+            'x': mx,
+            'y': my,
             'z': positionID[0],//位面
             'region':positionID[1],//区域
             'adress':positionID[2],//属性
