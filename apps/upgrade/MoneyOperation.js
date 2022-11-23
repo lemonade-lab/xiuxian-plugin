@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
 import fs from 'node:fs';
-import {Read_action, Read_level,Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth} from '../Xiuxian/Xiuxian.js';
+import {Read_action, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth} from '../Xiuxian/Xiuxian.js';
 export class MoneyOperation extends plugin {
     constructor() {
         super({
@@ -37,10 +37,18 @@ export class MoneyOperation extends plugin {
         const action=await Read_action(usr_qq);
         //看看是不是极西联盟
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == '极西联盟');
-        if(action.x!=point.x&&action.y!=point.y){
+        if(action.x!=point.x||action.y!=point.y){
             return;
         };
-        e.reply('[修仙联盟]方正:看你骨骼惊奇，就送你...');
+        const equipment_name='烂铁匕首';
+        const money=Number(5);
+        const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`)).find(item => item.name == equipment_name);
+        let najie = await Read_najie(usr_qq);
+        najie = await Add_najie_thing(najie, ifexist, quantity);
+        await Write_najie(usr_qq, najie);
+        await Add_lingshi(usr_qq,money);
+        e.reply(`[修仙联盟]\n方正:看你骨骼惊奇\n就送你一把${equipment_name}吧\n还有这${money}灵石\n可在必要的时候用到`);
+        e.reply(`你对此高兴万分\n把${equipment_name}放进了#储物袋`)
         return;
     };
      Give_lingshi=async(e)=> {

@@ -298,6 +298,14 @@ export const monsterbattle = async (e, battleA, battleB) => {
         if (await battle_probability(battleA.burst)) {
             hurt = Math.floor(hurt * battleA.burstmax);
         };
+        if (hurt <= 0) {
+            e.reply('你再次攻击，却连怪物的防御都破不了，被怪物一巴掌给拍死了！');
+            battleA.nowblood = 0;
+            qq = 0;
+            await Write_battle(e.user_id, battleA);
+            await ForwardMsg(e, msg);
+            return qq;
+        };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 0) {
             msg.push('第' + z + '回合:你造成' + hurt + '伤害，并击败了怪物！');

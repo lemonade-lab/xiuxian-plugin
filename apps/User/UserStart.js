@@ -75,7 +75,7 @@ export class UserStart extends plugin {
         };
         await Write_level(usr_qq, new_level);
         const new_wealth = {
-            'lingshi': 5,
+            'lingshi': 0,
             'xianshi': 0
         };
         await Write_wealth(usr_qq, new_wealth);
