@@ -43,11 +43,8 @@
       title: "#位置信息"
       desc: "查看自己的位置"
     - icon: help-icon_10
-      title: "#赶往传送阵"
-      desc: "赶往自己所在区域传送阵"
-    - icon: help-icon_10
       title: "#前往+位置名"
-      desc: "随机降落"
+      desc: "前往指定位置"
     - icon: help-icon_10
       title: "#击杀+怪物名"
       desc: "随机掉落物品"

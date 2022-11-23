@@ -4,10 +4,9 @@ class pluginup {
     //插件名
     const __pluginname='xiuxian-plugin';
     //直接使用
-    const __PATH=XiuxianData.__PATH;
+    this.__PATH=XiuxianData.__PATH;
   };
   pluginupdata=()=>{
-    
     return 1;
   };
 };

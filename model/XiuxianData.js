@@ -30,9 +30,9 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/huju2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/danyao1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/danyao2.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/daoju1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa1.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa2.json`))
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa2.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/daoju1.json`))
         ], 'all');
         this.deletelist('commodities');
         this.addlist([

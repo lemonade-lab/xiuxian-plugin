@@ -2,34 +2,34 @@
   list:
     - icon: help-icon_16
       title: "#补偿9999 @群友"
-      desc: "单独补偿灵石"  
+      desc: "补偿指定玩家灵石"  
     - icon: help-icon_16
       title: "#扣除99999 @群友"
-      desc: "强行扣指定玩家灵石"
+      desc: "扣指定玩家灵石"
     - icon: help-icon_16
       title: "#馈赠+物品名 @群友"
-      desc: "主人补偿物品"
+      desc: "补偿指定玩家物品"
 
 - group: 
   list:
     - icon: help-icon_32
       title: "#清理弱水阁"
-      desc: "全部回收物品"
+      desc: "清除全部物品"
     - icon: help-icon_32
       title: "#清除+编号"
       desc: "清除特定物品"
     - icon: help-icon_32
       title: "#打扫客栈"
-      desc: "手动清理客栈消息"
+      desc: "清理客栈消息"
     - icon: help-icon_32
       title: "#删除数据"
-      desc: "删除缓存数据"
+      desc: "删除错误数据"
     - icon: help-icon_32
       title: "#删除世界"
-      desc: "删除存档与数据"
+      desc: "删除全部信息"
     - icon: help-icon_32
       title: "#删除信息 @群友"
-      desc: "删除群友存档与数据"
+      desc: "删除群友信息"
 
 - group: 
   list:
