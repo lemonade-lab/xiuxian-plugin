@@ -116,7 +116,16 @@ export class UserStart extends plugin {
             'status': 1
         });
         await Write_Life(life);
-        e.reply('你来到一个修仙世界\n你对修仙充满了好奇\n你可以#前往极西联盟\n以得到修仙联盟的帮助\n更快的成为一名练气修士\n你也可以#基础信息\n查看自己的身世');
+        e.reply(
+            `你来到一个修仙世界\n
+            你对修仙充满了好奇\n
+            你可以#前往极西联盟\n
+            以得到修仙联盟的帮助\n
+            更快的成为一名练气修士\n
+            你也可以#基础信息\n
+            查看自己的身世\n
+            若像快速去往天山\n
+            建议使用#传送天山`);
         return;
     };
     Show_player = async (e) => {

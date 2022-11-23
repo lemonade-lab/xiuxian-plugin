@@ -95,6 +95,11 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position19.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position20.json`))
         ], 'position');
+        /**
+         * id含义：位面-区域-属性-等级-编号
+         * 编号：1市中心、2传送阵、3联盟位置
+         * 
+         */
         this.deleteposition('point');
         this.addposition([
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point1.json`)),
