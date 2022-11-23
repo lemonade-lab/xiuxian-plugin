@@ -89,7 +89,11 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position13.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position14.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position15.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position16.json`))
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position16.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position17.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position18.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position19.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position20.json`))
         ], 'position');
         this.deleteposition('point');
         this.addposition([
@@ -108,7 +112,11 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point13.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point14.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point15.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point16.json`))
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point16.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point17.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point18.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point19.json`)),
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point20.json`))
         ], 'point');
     };
     /**

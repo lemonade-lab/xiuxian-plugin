@@ -1,5 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
+import fs from 'node:fs';
 import { Go, Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class SecretPlace extends plugin {
     constructor() {
@@ -42,25 +43,15 @@ export class SecretPlace extends plugin {
         const address = e.msg.replace('#前往', '');
         //点位表：有各种点位置、传送阵
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address);
-        let mx = point.x;
-        let my = point.y;
+        const mx = point.x;
+        const my = point.y;
         const PointId=point.id.split('-');
-        let grade = PointId[3];
         if (!point) {
-            //看他说的是不是区域地点
-            const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address);
-            if (!position) {
-                return;
-            };
-            const PositionId=position.id.split('-');
-            //是区域的，就随机分配
-            mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
-            my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-            grade = PositionId[3];
+            return;
         };
         //判断地点等级限制
-        const level = await Read_level();
-        if (level.level_id < grade) {
+        const level = await Read_level(usr_qq);
+        if (level.level_id < PointId[3]) {
             //境界不足
             e.reply('前面的区域以后再来探索吧');
             return;
@@ -71,10 +62,12 @@ export class SecretPlace extends plugin {
             clearTimeout(setTime);
             action.x = mx;
             action.y = my;
+            action.region=PointId[1];
+            action.adress=PointId[2];
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功抵达${address}`);
         }, 1000 * time);
-        e.reply(`正在前往${address}`);
+        e.reply(`正在前往${address}...\n需要${time}秒`);
         return;
     };
 
@@ -134,10 +127,12 @@ export class SecretPlace extends plugin {
             clearTimeout(setTime);
             action.x = mx;
             action.y = my;
+            action.region=positionID[1];
+            action.address=positionID[2];
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功传送至${address}`);
         }, 1000 * time);
-        e.reply(`正在传送${address}`);
+        e.reply(`正在传送${address}\n需要${time}秒`);
         return;
     };
 };

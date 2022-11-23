@@ -14,7 +14,7 @@ export class UserStart extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#踏入仙途$',
+                    reg: '^#降临世界$',
                     fnc: 'Create_player'
                 },
                 {
@@ -79,12 +79,18 @@ export class UserStart extends plugin {
             'xianshi': 0
         };
         await Write_wealth(usr_qq, new_wealth);
+        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == '极西');
+        const PointID = point.id.split('-');
+        //是区域的，就随机分配
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
-            'x': Math.floor((Math.random() * (199 - 100))) + Number(100),
-            'y': Math.floor((Math.random() * (499 - 400))) + Number(400),
-            'z': 0,//位面为0
+            'x': point.x,
+            'y': point.y,
+            'z': PointID[0],//位面
+            'region':PointID[1],//区域
+            'adress':PointID[2],//地点属性
+            //缺少属性：是城池还是禁地
             'Exchange': 0
         };
         await Write_action(usr_qq, new_action);
@@ -110,7 +116,7 @@ export class UserStart extends plugin {
             'status': 1
         });
         await Write_Life(life);
-        this.Show_player(e);
+        e.reply('你来到一个修仙世界\n你对修仙充满了好奇\n你可以#前往极西联盟\n以得到修仙联盟的帮助\n更快的成为一名练气修士\n你也可以#基础信息\n查看自己的身世');
         return;
     };
     Show_player = async (e) => {
@@ -139,7 +145,7 @@ export class UserStart extends plugin {
         await Write_Life(life);
         e.reply([segment.at(usr_qq), '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断']);
         await this.Create_player(e);
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time);
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         return;
     };

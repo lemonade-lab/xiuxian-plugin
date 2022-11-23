@@ -11,7 +11,7 @@ export class MoneyOperation extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^赠送灵石.*$',
+                    reg: '^#赠送灵石.*$',
                     fnc: 'Give_lingshi'
                 }
             ]

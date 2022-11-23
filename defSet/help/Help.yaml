@@ -1,7 +1,7 @@
 - group: 
   list:
     - icon: help-icon_38
-      title: "#踏入仙途 #再入仙途"
+      title: "#降临世界 #再入仙途"
       desc: "创建存档，转世重生"
     - icon: help-icon_3
       title: "#改名张三 #设置道宣"
@@ -79,7 +79,7 @@
       title: "#弱水阁"
       desc: "交易(可私聊)"
     - icon: help-icon_10
-      title: "@群友赠送灵石1000"
+      title: "#赠送灵石1000 @群友"
       desc: "赠送灵石"
       
 - group: 

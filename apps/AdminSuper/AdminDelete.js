@@ -108,7 +108,6 @@ export class AdminDelete extends plugin {
         await Write_Forum([]);
         await Write_Life([]);
         await this.deleteredis(e);
-        e.reply('已崩碎');
         return;
     };
     deleteuser = async (e) => {
