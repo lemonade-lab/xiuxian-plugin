@@ -1,10 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import config from '../../model/Config.js';
-import {Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth} from '../Xiuxian/Xiuxian.js';
 import data from '../../model/XiuxianData.js';
-import fs from 'node:fs';
-import {  Read_action, Read_level,Write_action } from '../Xiuxian/Xiuxian.js';
+import config from '../../model/Config.js';
 import { segment } from 'oicq';
+import fs from 'node:fs';
+import {Read_action, Read_level,Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth} from '../Xiuxian/Xiuxian.js';
 export class MoneyOperation extends plugin {
     constructor() {
         super({
