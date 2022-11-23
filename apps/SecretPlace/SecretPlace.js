@@ -10,7 +10,7 @@ export class SecretPlace extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#位置信息$',
+                    reg: '^#坐标信息$',
                     fnc: 'xyzaddress'
                 },
                 {
@@ -45,7 +45,6 @@ export class SecretPlace extends plugin {
         let mx = point.x;
         let my = point.y;
         const PointId=point.id.split('-');
-        let name = point.name;
         let grade = PointId[3];
         if (!point) {
             //看他说的是不是区域地点
@@ -57,13 +56,13 @@ export class SecretPlace extends plugin {
             //是区域的，就随机分配
             mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
             my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-            name = position.name;
             grade = PositionId[3];
         };
         //判断地点等级限制
         const level = await Read_level();
         if (level.level_id < grade) {
             //境界不足
+            e.reply('前面的区域以后再来探索吧');
             return;
         };
         //计算时间
@@ -73,9 +72,9 @@ export class SecretPlace extends plugin {
             action.x = mx;
             action.y = my;
             await Write_action(usr_qq, action);
-            e.reply(`${usr_qq}成功抵达${name}`);
+            e.reply(`${usr_qq}成功抵达${address}`);
         }, 1000 * time);
-        e.reply(`正在前往${name}`);
+        e.reply(`正在前往${address}`);
         return;
     };
 
@@ -98,10 +97,7 @@ export class SecretPlace extends plugin {
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
             //境界不足
-            return;
-        };
-        const wealth=await Read_wealth(usr_qq);
-        if(wealth.lingshi<10000){
+            e.reply('前面的区域以后再来探索吧');
             return;
         };
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
@@ -123,6 +119,10 @@ export class SecretPlace extends plugin {
         if(key==0){
             return;
         };
+        const wealth=await Read_wealth(usr_qq);
+        if(wealth.lingshi<10000){
+            return;
+        };
         wealth.lingshi-=10000;
         await Write_wealth(usr_qq,wealth);
         //是区域的，就随机分配
@@ -135,9 +135,9 @@ export class SecretPlace extends plugin {
             action.x = mx;
             action.y = my;
             await Write_action(usr_qq, action);
-            e.reply(`${usr_qq}成功传送至${position.name}`);
+            e.reply(`${usr_qq}成功传送至${address}`);
         }, 1000 * time);
-        e.reply(`正在传送${position.name}`);
+        e.reply(`正在传送${address}`);
         return;
     };
 };

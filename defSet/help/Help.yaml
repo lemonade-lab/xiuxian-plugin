@@ -40,8 +40,8 @@
       title: "#修仙地图"
       desc: "打开修仙世界大门"
     - icon: help-icon_10
-      title: "#位置信息"
-      desc: "查看自己的位置"
+      title: "#坐标信息"
+      desc: "查看自己的坐标"
     - icon: help-icon_10
       title: "#前往+位置名"
       desc: "前往指定位置"
