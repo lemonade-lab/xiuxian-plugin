@@ -87,6 +87,7 @@ export class UserStart extends plugin {
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
+            'newnoe': 1, //新人
             'x': mx,
             'y': my,
             'z': positionID[0],//位面
@@ -118,18 +119,7 @@ export class UserStart extends plugin {
             'status': 1
         });
         await Write_Life(life);
-        e.reply(`
-    你来到一个修仙世界
-    你对修仙充满了好奇
-    你可以#前往极西联盟
-    进行#修仙报道
-    会修仙联盟的帮助
-    更快的成为练气修士
-    也可以#基础信息
-    查看自己的身世
-    若想快速去往天山
-    建议#前往极西传送阵
-            `);
+        e.reply(`你来到一个修仙世界\n你对修仙充满了好奇\n你可以#前往极西联盟\n进行#联盟报道\n会得到修仙联盟的帮助\n更快的成为练气修士\n也可以#基础信息\n查看自己的身世\n若想快速去往天山\n建议#前往极西传送阵\n进行#传送天山`);
         return;
     };
     Show_player = async (e) => {
