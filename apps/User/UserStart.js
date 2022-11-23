@@ -79,17 +79,17 @@ export class UserStart extends plugin {
             'xianshi': 0
         };
         await Write_wealth(usr_qq, new_wealth);
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == '极西');
-        const PointID = point.id.split('-');
+        const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西');
+        const positionID=position.id.split('-');
         //是区域的，就随机分配
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
             'x': point.x,
             'y': point.y,
-            'z': PointID[0],//位面
-            'region':PointID[1],//区域
-            'adress':PointID[2],//地点属性
+            'z': positionID[0],//位面
+            'region':positionID[1],//区域
+            'adress':positionID[2],//属性
             //缺少属性：是城池还是禁地
             'Exchange': 0
         };
