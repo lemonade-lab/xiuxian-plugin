@@ -93,7 +93,7 @@ export class Battle extends plugin {
         };
         const Level = await Read_level(usr_qq);
         const money = 10000 * Level.level_id;
-        if (Level.prestig > 0) {
+        if (Level.prestige > 0) {
             const wealt = await Read_wealth(usr_qq);
             if (wealt.lingshi > money) {
                 Level.prestige -= 1;
