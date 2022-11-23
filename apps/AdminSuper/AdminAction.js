@@ -178,9 +178,9 @@ export class AdminAction extends plugin {
         if (restart) {
             restart = JSON.parse(restart);
             if (restart.isGroup) {
-                Bot.pickGroup(restart.id).sendMsg('重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用。');
+                Bot.pickGroup(restart.id).sendMsg('重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用\nV2不再区分版本号\n更新都将是新设计推出\n请谨慎考虑后更新\n以免造成严重后果');
             } else {
-                Bot.pickUser(restart.id).sendMsg('重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用。');
+                Bot.pickGroup(restart.id).sendMsg('重启成功！\n【#同步信息】\n【#重置配置】\n以确保正常使用\nV2不再区分版本号\n更新都将是新设计推出\n请谨慎考虑后更新\n以免造成严重后果');
             }
             redis.del(this.key);
         };

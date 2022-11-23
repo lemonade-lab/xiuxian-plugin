@@ -1,6 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
 import {Go,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth} from '../Xiuxian/Xiuxian.js';
+import data from '../../model/XiuxianData.js';
+import fs from 'node:fs';
+import {  Read_action, Read_level,Write_action } from '../Xiuxian/Xiuxian.js';
 import { segment } from 'oicq';
 export class MoneyOperation extends plugin {
     constructor() {
@@ -13,10 +16,33 @@ export class MoneyOperation extends plugin {
                 {
                     reg: '^#赠送灵石.*$',
                     fnc: 'Give_lingshi'
+                },
+                {
+                    reg: '^#联盟报道$',
+                    fnc: 'New_lingshi'
                 }
             ]
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
+    };
+    New_lingshi=async(e)=>{
+        const good=await Go(e);
+        if (!good) {
+            return;
+        };
+        const usr_qq = e.user_id;
+        const level=await Read_level(usr_qq);
+        if(level.level_id!=1){
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        //看看是不是极西联盟
+        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == '极西联盟');
+        if(action.x!=point.x&&action.y!=point.y){
+            return;
+        };
+        e.reply('[修仙联盟]方正:看你骨骼惊奇，就送你...');
+        return;
     };
      Give_lingshi=async(e)=> {
         const good=await Go(e);
