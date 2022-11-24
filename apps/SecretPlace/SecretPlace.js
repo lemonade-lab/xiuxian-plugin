@@ -61,7 +61,8 @@ export class SecretPlace extends plugin {
         //计算时间
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
-        const time = Math.floor(a + b);
+        const the = Math.floor(a + b);
+        const time =the>0?the:1;
         forwardsetTime[usr_qq] = setTimeout(async () => {
             clearTimeout(forwardsetTime[usr_qq]);
             action.x = mx;
@@ -126,7 +127,8 @@ export class SecretPlace extends plugin {
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //计算时间
-        const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 10);
+        const the=Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
+        const time =the>0?the:1;
         deliverysetTime[usr_qq] = setTimeout(async () => {
             clearTimeout(deliverysetTime[usr_qq]);
             action.x = mx;
