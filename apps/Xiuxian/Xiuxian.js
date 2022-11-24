@@ -342,7 +342,7 @@ export const battle = async (e, A, B) => {
             battleA.nowblood = 0;
             qq = B_qq;
             await ForwardMsg(e, msg);
-            await Write_battle(e.user_id, battleA);
+            await Write_battle(A_qq, battleA);
             return qq;
         };
         battleB.nowblood = battleB.nowblood - hurt;
@@ -386,7 +386,6 @@ export const battle = async (e, A, B) => {
             if (battleA.nowblood < 0) {
                 msg.push('第' + z + '回合:对方造成' + hurt + '伤害');
                 battleA.nowblood = 0;
-                battleB.nowblood = battleB.nowblood + 1;
                 qq = B_qq;
                 await ForwardMsg(e, msg);
                 break;
@@ -413,7 +412,6 @@ export const battle = async (e, A, B) => {
             msg.push('第' + z + '回合:你造成' + hurt + '伤害，并击败了对方！');
             msg.push('你击败了对方！');
             battleB.nowblood = 0;
-            battleA.nowblood = battleA.nowblood + 1;
             await ForwardMsg(e, msg);
             break;
         } else {
