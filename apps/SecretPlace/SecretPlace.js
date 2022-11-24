@@ -74,7 +74,7 @@ export class SecretPlace extends plugin {
             action.region = PointId[1];
             action.adress = PointId[2];
             await Write_action(usr_qq, action);
-            e.reply([segment.at(usr_qq),`${usr_qq}成功抵达${address}`]);
+            e.reply([segment.at(usr_qq),`成功抵达${address}`]);
         }, 1000 * time);
         forwardsetTime[usr_qq]=1;
         e.reply(`正在前往${address}...\n需要${time}秒`);
@@ -145,7 +145,7 @@ export class SecretPlace extends plugin {
             action.region = positionID[1];
             action.address = positionID[2];
             await Write_action(usr_qq, action);
-            e.reply([segment.at(usr_qq),`${usr_qq}成功传送至${address}`]);
+            e.reply([segment.at(usr_qq),`成功传送至${address}`]);
         }, 1000 * time);
         deliverysetTime[usr_qq]=1;
         e.reply(`正在传送${address}\n需要${time}秒`);
