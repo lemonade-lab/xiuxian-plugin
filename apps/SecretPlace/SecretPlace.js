@@ -2,6 +2,8 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { Go, Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
+const forwardsetTime = []
+const deliverysetTime = [];
 export class SecretPlace extends plugin {
     constructor() {
         super({
@@ -60,15 +62,15 @@ export class SecretPlace extends plugin {
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const time = Math.floor(a + b);
-        const setTime = setTimeout(async () => {
-             clearTimeout(setTime);
+        forwardsetTime[usr_qq] = setTimeout(async () => {
+            clearTimeout(forwardsetTime[usr_qq]);
             action.x = mx;
             action.y = my;
             action.region = PointId[1];
             action.adress = PointId[2];
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功抵达${address}`);
-        }, 1000 * time);
+        }, 1000 * time)
         e.reply(`正在前往${address}...\n需要${time}秒`);
         return;
     };
@@ -125,8 +127,8 @@ export class SecretPlace extends plugin {
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //计算时间
         const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 10);
-        const setTime = setTimeout(async () => {
-            clearTimeout(setTime);
+        deliverysetTime[usr_qq] = setTimeout(async () => {
+            clearTimeout(deliverysetTime[usr_qq]);
             action.x = mx;
             action.y = my;
             action.region = positionID[1];

@@ -17,13 +17,6 @@ class Cachemonster {
         };
         const time = new Date();
         if (time.getHours() != alldata[i].label) {
-            /**
-             * 如何根据区域分配怪物？  id=1，2，3，4，5，6  城池，都是一级怪
-             * 7，8，9  秘境，有怪   
-             * 10，11   禁地，高级怪   
-             * 12-16  荒地            
-             * 17-20   海域  海域。怪物范围。
-             */
             let mini = 0;
             let max = 0;
             if (i > 6 &&i <= 9) {
