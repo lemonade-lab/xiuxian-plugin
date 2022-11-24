@@ -92,8 +92,8 @@ export class BattleSite extends plugin {
                 await Add_experience(usr_qq, mon.level * 50 * mybuff);
             };
             if (m >= mon.level * 8) {
-                msg.push(`得到${mon.level * 20}灵石`);
-                await Add_lingshi(usr_qq, mon.level * 20);
+                msg.push(`得到${mon.level * 30}灵石`);
+                await Add_lingshi(usr_qq, mon.level * 30);
             };
         };
         await ForwardMsg(e, msg);
