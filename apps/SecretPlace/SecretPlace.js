@@ -39,12 +39,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(!forwardsetTime[usr_qq]){
-            //不存在？
-            forwardsetTime[usr_qq]=1;//假
-        };
-        if(forwardsetTime[usr_qq]!=0){
-            //不为真
+        if(forwardsetTime[usr_qq]==1){
             return;
         };
         let action = await Read_action(usr_qq);
@@ -71,7 +66,7 @@ export class SecretPlace extends plugin {
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const the = Math.floor(a + b);
         const time =the>0?the:1;
-        forwardsetTime[usr_qq] = setTimeout(async () => {
+        setTimeout(async () => {
             forwardsetTime[usr_qq]=0;
             action.x = mx;
             action.y = my;
@@ -79,7 +74,8 @@ export class SecretPlace extends plugin {
             action.adress = PointId[2];
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功抵达${address}`);
-        }, 1000 * time)
+        }, 1000 * time);
+        forwardsetTime[usr_qq]=1;
         e.reply(`正在前往${address}...\n需要${time}秒`);
         return;
     };
@@ -90,12 +86,8 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(!deliverysetTime[usr_qq]){
-            //不存在？
-            deliverysetTime[usr_qq]=1;//假
-        };
-        if(deliverysetTime[usr_qq]!=0){
-            //不为真
+        //为1,还在，返回
+        if(deliverysetTime[usr_qq]==1){
             return;
         };
         let action = await Read_action(usr_qq);
@@ -145,7 +137,7 @@ export class SecretPlace extends plugin {
         //计算时间
         const the=Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
         const time =the>0?the:1;
-        deliverysetTime[usr_qq] = setTimeout(async () => {
+        setTimeout(async () => {
             deliverysetTime[usr_qq]=0;
             action.x = mx;
             action.y = my;
@@ -154,6 +146,7 @@ export class SecretPlace extends plugin {
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功传送至${address}`);
         }, 1000 * time);
+        deliverysetTime[usr_qq]=1;
         e.reply(`正在传送${address}\n需要${time}秒`);
         return;
     };
