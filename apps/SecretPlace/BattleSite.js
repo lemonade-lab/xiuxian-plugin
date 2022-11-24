@@ -71,7 +71,7 @@ export class BattleSite extends plugin {
         const q = await monsterbattle(e, battle, monsters);
         if (q != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1);
-            if (m < mon.level * 4) {
+            if (m < mon.level * 5) {
                 const dropsItemList = JSON.parse(fs.readFileSync(`${data.__PATH.all}/dropsItem.json`));
                 const random = Math.floor(Math.random() * dropsItemList.length);
                 let najie = await Read_najie(usr_qq);
@@ -79,7 +79,7 @@ export class BattleSite extends plugin {
                 msg.push(`得到[${dropsItemList[random].name}]`);
                 await Write_najie(usr_qq, najie);
             };
-            if (m < mon.level * 5) {
+            if (m < mon.level * 6) {
                 msg.push(`得到${mon.level * 25 * mybuff}气血`);
                 await Add_experiencemax(usr_qq, mon.level * 25 * mybuff);
             };
@@ -87,11 +87,11 @@ export class BattleSite extends plugin {
                 msg.push(`得到${mon.level * 35 * mybuff}灵石`);
                 await Add_lingshi(usr_qq, mon.level * 35 * mybuff);
             };
-            if (m < mon.level * 9) {
+            if (m < mon.level * 8) {
                 msg.push(`${usr_qq}得到${mon.level * 50 * mybuff}修为`);
                 await Add_experience(usr_qq, mon.level * 50 * mybuff);
             };
-            if (m >= mon.level * 9) {
+            if (m >= mon.level * 8) {
                 msg.push(`${usr_qq}一无所获！`);
             };
         };
