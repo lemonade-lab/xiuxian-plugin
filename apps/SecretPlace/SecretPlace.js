@@ -60,8 +60,8 @@ export class SecretPlace extends plugin {
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const time = Math.floor(a + b);
-        usr_qq.setTime = setTimeout(async () => {
-            clearTimeout(usr_qq.setTime);
+        const setTime = setTimeout(async () => {
+             clearTimeout(setTime);
             action.x = mx;
             action.y = my;
             action.region = PointId[1];
@@ -125,8 +125,8 @@ export class SecretPlace extends plugin {
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //计算时间
         const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 10);
-        usr_qq.setTime = setTimeout(async () => {
-            clearTimeout(usr_qq.setTime);
+        const setTime = setTimeout(async () => {
+            clearTimeout(setTime);
             action.x = mx;
             action.y = my;
             action.region = positionID[1];
