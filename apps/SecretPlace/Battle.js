@@ -33,6 +33,7 @@ export class Battle extends plugin {
             return;
         };
         const actionA = await Read_action(A);
+        const actionB = await Read_action(B);
         if(actionA.region!=actionB.region){
             e.reply('没找到此人');
             return;
@@ -41,7 +42,6 @@ export class Battle extends plugin {
             e.reply('修仙联盟的普通卫兵:城内不可出手！');
             return;
         };
-        const actionB = await Read_action(B);
         if(actionB.adress==1){
             e.reply('修仙联盟的普通卫兵:城内不可出手！');
             return;
