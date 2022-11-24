@@ -26,10 +26,10 @@
       desc: "(可私聊)"
     - icon: help-icon_44
       title: "#闭关 #出关"
-      desc: "进行闭关,获取修为"
+      desc: "进行闭关,增加修为"
     - icon: help-icon_51
       title: "#降妖 #归来"
-      desc: "进行降妖,获取灵石"
+      desc: "进行降妖,锻炼气血"
 
 - group: 
   list:
