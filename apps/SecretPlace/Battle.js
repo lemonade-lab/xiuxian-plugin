@@ -38,11 +38,11 @@ export class Battle extends plugin {
             e.reply('没找到此人');
             return;
         };
-        if(actionA.adress==1){
+        if(actionA.address==1){
             e.reply('[修仙联盟]普通卫兵:城内不可出手！');
             return;
         };
-        if(actionB.adress==1){
+        if(actionB.address==1){
             e.reply('[修仙联盟]普通卫兵:城内不可出手！');
             return;
         };

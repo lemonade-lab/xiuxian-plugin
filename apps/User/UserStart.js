@@ -92,7 +92,7 @@ export class UserStart extends plugin {
             'y': my,
             'z': positionID[0],//位面
             'region':positionID[1],//区域
-            'adress':positionID[2],//属性
+            'address':positionID[2],//属性
             //缺少属性：是城池还是禁地
             'Exchange': 0
         };

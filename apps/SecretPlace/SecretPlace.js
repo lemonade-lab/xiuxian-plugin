@@ -79,6 +79,7 @@ export class SecretPlace extends plugin {
         const mx = point.x;
         const my = point.y;
         const PointId = point.id.split('-');
+        console.log(PointId);
         //判断地点等级限制
         const level = await Read_level(usr_qq);
         if (level.level_id < PointId[3]) {
@@ -96,7 +97,7 @@ export class SecretPlace extends plugin {
                 action.x = mx;
                 action.y = my;
                 action.region = PointId[1];
-                action.adress = PointId[2];
+                action.address = PointId[2];
                 await Write_action(usr_qq, action);
                 e.reply([segment.at(usr_qq),`成功抵达${address}`]);
         }, 1000 * time);
@@ -119,10 +120,12 @@ export class SecretPlace extends plugin {
         const y = action.y;
         const address = e.msg.replace('#传送', '');
         const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address);
+        console.log(position);
         if (!position) {
             return;
         };
         const positionID = position.id.split('-');
+        console.log(positionID);
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
             e.reply('[修仙联盟]守境者\n前面的区域以后再探索吧');
@@ -134,12 +137,14 @@ export class SecretPlace extends plugin {
         point.forEach((item) => {
             //看看在不在传送阵:传送阵点固定id=1-6
             const pointID = item.id.split('-');
+            console.log(pointID);
             //id需要重设定
             //位面、区域、属性、等级、编号2为传送阵
             if (pointID[4] == 2) {
                 if (item.x == x) {
                     if (item.y = y) {
                         key = 1;
+                        console.log(1);
                     };
                 };
             };
@@ -165,6 +170,7 @@ export class SecretPlace extends plugin {
             action.y = my;
             action.region = positionID[1];
             action.address = positionID[2];
+            console.log(positionID[2]);
             await Write_action(usr_qq, action);
             e.reply([segment.at(usr_qq),`成功传送至${address}`]);
         }, 1000 * time);
