@@ -52,7 +52,7 @@
       title: "#传送+区域名"
       desc: "随机降临区域"
     - icon: help-icon_10
-      title: "#回到原点"
+      title: "#回到原地"
       desc: "取消走路行为"
     - icon: help-icon_10
       title: "#击杀+怪物名"
