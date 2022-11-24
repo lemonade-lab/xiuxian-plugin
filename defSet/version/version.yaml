@@ -10,6 +10,11 @@
       {line: 支持定义配置config/xiuxian},
       {line: 支持定义帮助文案与帮助背景图},
       {line: config/help&&resources/help},
+      {line: 版本更新不再以版本号区分},
+      {line: 若是修仙社区版本时间变动},
+      {line: 即自己的版本不再支持更新},
+      {line: 强行更新，必报错，必重开},
+      {line: 在更新前对比时间节点},
       ],
-    time: 2022-12-01-00:00
+    time: 2022-11-24-08:00
   }
