@@ -43,12 +43,12 @@ export class SecretPlace extends plugin {
         const address = e.msg.replace('#前往', '');
         //点位表：有各种点位置、传送阵
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address);
-        const mx = point.x;
-        const my = point.y;
-        const PointId = point.id.split('-');
         if (!point) {
             return;
         };
+        const mx = point.x;
+        const my = point.y;
+        const PointId = point.id.split('-');
         //判断地点等级限制
         const level = await Read_level(usr_qq);
         if (level.level_id < PointId[3]) {
@@ -60,8 +60,8 @@ export class SecretPlace extends plugin {
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const time = Math.floor(a + b);
-        const setTime = setTimeout(async () => {
-            clearTimeout(setTime);
+        usr_qq.setTime = setTimeout(async () => {
+            clearTimeout(usr_qq.setTime);
             action.x = mx;
             action.y = my;
             action.region = PointId[1];
@@ -125,8 +125,8 @@ export class SecretPlace extends plugin {
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //计算时间
         const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 10);
-        const setTime = setTimeout(async () => {
-            clearTimeout(setTime);
+        usr_qq.setTime = setTimeout(async () => {
+            clearTimeout(usr_qq.setTime);
             action.x = mx;
             action.y = my;
             action.region = positionID[1];
