@@ -69,8 +69,8 @@ export class MoneyOperation extends plugin {
         };
         let lingshi = e.msg.replace('#赠送灵石', '');
         lingshi = await Numbers(lingshi);
-        if(lingshi<1000){
-            lingshi=1000;
+        if(lingshi<50){
+            lingshi=50;
         };
         const A_player = await  Read_wealth(A);
         if (A_player.lingshi < lingshi) {

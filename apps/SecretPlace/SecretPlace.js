@@ -83,7 +83,7 @@ export class SecretPlace extends plugin {
         const level = await Read_level(usr_qq);
         if (level.level_id < PointId[3]) {
             //境界不足
-            e.reply('[修仙联盟]守境者\n前面的区域以后再来探索吧');
+            e.reply('[修仙联盟]守境者\n前面的区域以后再探索吧');
             return;
         };
         //计算时间
@@ -125,7 +125,7 @@ export class SecretPlace extends plugin {
         const positionID = position.id.split('-');
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
-            e.reply('[修仙联盟]守境者\n前面的区域以后再来探索吧');
+            e.reply('[修仙联盟]守境者\n前面的区域以后再探索吧');
             return;
         };
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
@@ -148,7 +148,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const wealth = await Read_wealth(usr_qq);
-        const lingshi=10000;
+        const lingshi=1000;
         if (wealth.lingshi < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}灵石`);
             return;
