@@ -1,6 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
+import { segment } from 'oicq';
 import { Go, Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
 const forwardsetTime = []
 const deliverysetTime = [];
