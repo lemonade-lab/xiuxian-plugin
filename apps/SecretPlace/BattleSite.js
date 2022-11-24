@@ -40,14 +40,14 @@ export class BattleSite extends plugin {
         };
         const name = e.msg.replace('#击杀', '');
         const action = await Read_action(usr_qq);
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         const monstersdata = await Cachemonster.monsterscache(action.region);
         const mon = monstersdata.find(item => item.name == name);
         if (!mon) {
             e.reply(`这里没有${name},去别处看看吧`);
             return;
         };
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
+        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         const acount = await Cachemonster.add(action.region, Number(1));
         const msg = ['[击杀结果]'];
         let buff = 1;
@@ -92,12 +92,11 @@ export class BattleSite extends plugin {
                 await Add_experience(usr_qq, mon.level * 50 * mybuff);
             };
             if (m >= mon.level * 8) {
-                msg.push(`得到${mon.level * 30}灵石`);
-                await Add_lingshi(usr_qq, mon.level * 30);
+                msg.push(`得到${mon.level * 25}灵石`);
+                await Add_lingshi(usr_qq, mon.level * 25);
             };
         };
         await ForwardMsg(e, msg);
-        return;
         return;
     };
 
