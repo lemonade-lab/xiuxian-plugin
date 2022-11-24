@@ -45,7 +45,7 @@ export class SecretPlace extends plugin {
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address);
         const mx = point.x;
         const my = point.y;
-        const PointId=point.id.split('-');
+        const PointId = point.id.split('-');
         if (!point) {
             return;
         };
@@ -57,13 +57,15 @@ export class SecretPlace extends plugin {
             return;
         };
         //计算时间
-        const time = Math.floor((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y));
+        const a = (x - mx) > 0 ? (x - mx) : (mx - x);
+        const b = (y - my) > 0 ? (y - my) : (my - y);
+        const time = Math.floor(a + b);
         const setTime = setTimeout(async () => {
             clearTimeout(setTime);
             action.x = mx;
             action.y = my;
-            action.region=PointId[1];
-            action.adress=PointId[2];
+            action.region = PointId[1];
+            action.adress = PointId[2];
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功抵达${address}`);
         }, 1000 * time);
@@ -85,7 +87,7 @@ export class SecretPlace extends plugin {
         if (!position) {
             return;
         };
-        const positionID=position.id.split('-');
+        const positionID = position.id.split('-');
         //判断地点等级限制
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
@@ -94,41 +96,41 @@ export class SecretPlace extends plugin {
             return;
         };
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
-        let key=0;
+        let key = 0;
         //看看地点
         point.forEach((item) => {
             //看看在不在传送阵:传送阵点固定id=1-6
-            const pointID=item.id.split('-');
+            const pointID = item.id.split('-');
             //id需要重设定
             //位面、区域、属性、等级、编号2为传送阵
-            if(pointID[4]==2){
-                if(item.x==x){
-                    if(item.y=y){
-                        key=1;
+            if (pointID[4] == 2) {
+                if (item.x == x) {
+                    if (item.y = y) {
+                        key = 1;
                     };
                 };
             };
         });
-        if(key==0){
+        if (key == 0) {
             return;
         };
-        const wealth=await Read_wealth(usr_qq);
-        if(wealth.lingshi<10000){
+        const wealth = await Read_wealth(usr_qq);
+        if (wealth.lingshi < 10000) {
             return;
         };
-        wealth.lingshi-=10000;
-        await Write_wealth(usr_qq,wealth);
+        wealth.lingshi -= 10000;
+        await Write_wealth(usr_qq, wealth);
         //是区域的，就随机分配
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //计算时间
-        const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y))/10);
+        const time = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 10);
         const setTime = setTimeout(async () => {
             clearTimeout(setTime);
             action.x = mx;
             action.y = my;
-            action.region=positionID[1];
-            action.address=positionID[2];
+            action.region = positionID[1];
+            action.address = positionID[2];
             await Write_action(usr_qq, action);
             e.reply(`${usr_qq}成功传送至${address}`);
         }, 1000 * time);

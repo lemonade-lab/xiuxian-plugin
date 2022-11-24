@@ -39,11 +39,11 @@ export class Battle extends plugin {
             return;
         };
         if(actionA.adress==1){
-            e.reply('修仙联盟的普通卫兵:城内不可出手！');
+            e.reply('[修仙联盟]普通卫兵:城内不可出手！');
             return;
         };
         if(actionB.adress==1){
-            e.reply('修仙联盟的普通卫兵:城内不可出手！');
+            e.reply('[修仙联盟]普通卫兵:城内不可出手！');
             return;
         };
         const CDid = '0';
