@@ -72,21 +72,21 @@ export class UserTransaction extends plugin {
         };
         const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`)).find(item => item.name == thing_name);
         if (!ifexist) {
-            e.reply(`不卖:${thing_name}`);
+            e.reply(`[凡仙堂]小二\n不卖:${thing_name}`);
             return;
         };
         const player = await Read_wealth(usr_qq);
         const lingshi = player.lingshi;
         const commodities_price = ifexist.price * quantity;
         if (lingshi < commodities_price) {
-            e.reply(`灵石不足`);
+            e.reply(`[凡仙堂]小二\n灵石不足`);
             return;
         };
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, ifexist, quantity);
         await Write_najie(usr_qq, najie);
         await Add_lingshi(usr_qq, -commodities_price);
-        e.reply(`花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
+        e.reply(`[凡仙堂]小二\n你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
         return;
     };
     Sell_comodities = async (e) => {
@@ -107,11 +107,11 @@ export class UserTransaction extends plugin {
         };
         const najie_thing = await exist_najie_thing_name(usr_qq, thing_name);
         if (najie_thing == 1) {
-            e.reply(`没有[${thing_name}]`);
+            e.reply(`[凡仙堂]小二\n你没[${thing_name}]`);
             return;
         }
         if (najie_thing.acount < quantity) {
-            e.reply('数量不足');
+            e.reply('[凡仙堂]小二\n数量不足');
             return;
         }
         let najie = await Read_najie(usr_qq);
@@ -119,7 +119,7 @@ export class UserTransaction extends plugin {
         await Write_najie(usr_qq, najie);
         const commodities_price = najie_thing.price * quantity;
         await Add_lingshi(usr_qq, commodities_price);
-        e.reply(`出售得${commodities_price}灵石 `);
+        e.reply(`[凡仙堂]小二\n出售得${commodities_price}灵石 `);
         return;
     };
 };

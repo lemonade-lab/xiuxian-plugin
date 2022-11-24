@@ -39,7 +39,7 @@ export class UserModify extends plugin {
             new_name = new_name.replace(item, '');
         });
         if (new_name.length > 8) {
-            e.reply('玩家名字最多八字');
+            e.reply('名字最多八字');
             return;
         };
         const wealth = await Read_wealth(usr_qq);

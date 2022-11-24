@@ -1,6 +1,5 @@
 ![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)    
-# Xiuxian-Plugin-Box-V2-测试版
-2022.12.1推送正式版
+# Xiuxian-Plugin-Box-V2
 
 ## 安装教程      
 
@@ -8,7 +7,9 @@
 ```
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
->查看具体功能  #修仙帮助     
+>查看具体功能  #修仙帮助  
+>查看扩展功能  #修仙扩展   
+>查看版本说明  #修仙版本    
 
 ## 配置-存档-帮助   
 Xiuxian-Plugin-Box/config/            
@@ -21,17 +22,13 @@ Xiuxian-Plugin-Box/resources/help/
 ------------- | ------------- | ------------- | -------------
 | [宗门系统 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 测试中 |
 | [家园系统 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | V1.0 | 测试中 |
-| [道侣系统 (xiuxian-lovers-plugin)](https://afdian.net/a/ningmengchongshui) | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |
-| [职业系统 (xiuxian-occupation-plugin)](https://afdian.net/a/ningmengchongshui) | [@零零零零](https://afdian.net/a/ningmengchongshui) | V1.0 | 测试中 |
 
 ## 企鹅聚集     
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
 | [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
-| [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |  
-| [修仙职业](https://afdian.net/a/ningmengchongshui) | 251776816 | [@零零零零](https://afdian.net/a/ningmengchongshui) |  
-| [修仙道侣](https://afdian.net/a/ningmengchongshui) | 647028766 | [@水脚脚](https://gitee.com/waterfeet) |  
+| [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
 | [BotHelp](https://afdian.net/a/ningmengchongshui) | 806943302 | [@冬季巧克力](https://gitee.com/ningmengchongshui) |  
   
 ## 辅助资源   

@@ -100,14 +100,14 @@ export class Battle extends plugin {
                 wealt.lingshi -= money;
                 await Write_level(usr_qq, Level);
                 await Write_wealth(usr_qq, wealt);
-                e.reply('天机门的某位修士:你为你清除1点魔力值');
+                e.reply('[天机门]某位修士\n为你清除1点魔力值');
                 return;
             }
-            e.reply(`天机门的某位修士:清魔力需要${money}`);
+            e.reply(`[天机门]某位修士\n清魔力需要${money}`);
             return;
         } 
         else {
-            e.reply('一身清廉');
+            e.reply('[天机门]某位修士\n你一身清廉');
         };
         return;
     };
