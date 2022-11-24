@@ -46,6 +46,7 @@ class Cachemonster {
             //怪物数量
             for (var j = 0; j < max; j++) {
                 let y = Math.floor(Math.random() * (max - mini+1) + mini);
+                alldata[i].data=[];
                 await alldata[i].data.push({
                     //怪名
                     name: name1[Math.floor(Math.random() * 10)] + name2[y-1],
