@@ -31,7 +31,6 @@ export class UserModify extends plugin {
         const lingshi = 5;
         let new_name = e.msg.replace('#改名', '');
         if (new_name.length == 0) {
-            e.reply('请输入正确名字');
             return;
         };
         const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼'];
@@ -39,7 +38,7 @@ export class UserModify extends plugin {
             new_name = new_name.replace(item, '');
         });
         if (new_name.length > 8) {
-            e.reply('名字最多八字');
+            e.reply('[修仙联盟]白老\n小友的这名可真是稀奇');
             return;
         };
         const wealth = await Read_wealth(usr_qq);

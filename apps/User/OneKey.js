@@ -39,7 +39,7 @@ export class OneKey extends plugin {
         await Add_lingshi(usr_qq, money);
         najie.thing = [];
         await Write_najie(usr_qq, najie);
-        e.reply(`[蜀山派]某弟子\n你出售了所有物品，共获得${money}灵石`);
+        e.reply(`[蜀山派]叶铭\n这是${money}灵石,道友慢走`);
         return;
     };
 

@@ -84,7 +84,7 @@ export class SecretPlace extends plugin {
         const level = await Read_level(usr_qq);
         if (level.level_id < PointId[3]) {
             //境界不足
-            e.reply('[修仙联盟]守境者\n前面的区域以后再探索吧');
+            e.reply('[修仙联盟]守境者\n道友请留步');
             return;
         };
         //计算时间
@@ -128,7 +128,7 @@ export class SecretPlace extends plugin {
         console.log(positionID);
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
-            e.reply('[修仙联盟]守境者\n前面的区域以后再探索吧');
+            e.reply('[修仙联盟]守境者\n道友请留步');
             return;
         };
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));

@@ -52,10 +52,6 @@ export class UserHome extends plugin {
             return;
         };
         const id = najie_thing.id.split('-');
-        if (id[0] != 4) {
-            e.reply(`什么东西都吃啊？`);
-            return;
-        };
         if (id[1] == 1) {
             let blood = parseInt(najie_thing.blood);
             await Add_blood(usr_qq, blood);
@@ -111,7 +107,7 @@ export class UserHome extends plugin {
             await player_efficiency(usr_qq);
         }
         else {
-            e.reply('脑子装不下了');
+            e.reply('你反复看了又看,却怎么也学不进');
             return;
         };
         let najie = await Read_najie(usr_qq);
@@ -167,9 +163,9 @@ export class UserHome extends plugin {
         if (id[2] == 1) {
             const player = await Read_level(usr_qq);
             if (player.level_id > 5) {
-                e.reply('灵根已定，不可洗髓');
+                e.reply('[天机门]石昊\n你灵根已定\n此生不可再洗髓');
                 return;
-            }
+            };
             const talent = await Read_talent(usr_qq);
             talent.talent = await get_talent();
             await Write_talent(usr_qq, talent);

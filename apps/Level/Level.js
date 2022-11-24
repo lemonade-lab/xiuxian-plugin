@@ -50,7 +50,7 @@ export class Level extends plugin {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
         };
-        if (player.levelmax_id >= 21) {
+        if (player.levelmax_id >= 11) {
             return;
         };
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time);
@@ -113,7 +113,7 @@ export class Level extends plugin {
             return;
         };
         const player = await Read_level(usr_qq);
-        if (player.level_id > 10) {
+        if (player.level_id >= 11) {
             return;
         };
         const Level = data.Level_list.find(item => item.id == player.level_id);
@@ -188,7 +188,7 @@ export class Level extends plugin {
             e.reply(`非渡劫期修士！`);
             return;
         };
-        e.reply('仙门未开！');
+        e.reply('修仙地图待更新...');
         return;
     };
 };

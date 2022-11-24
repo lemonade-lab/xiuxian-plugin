@@ -86,7 +86,7 @@ export class UserTransaction extends plugin {
         najie = await Add_najie_thing(najie, ifexist, quantity);
         await Write_najie(usr_qq, najie);
         await Add_lingshi(usr_qq, -commodities_price);
-        e.reply(`[凡仙堂]小二\n你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
+        e.reply(`[凡仙堂]薛仁贵\n你花[${commodities_price}]灵石购买了[${thing_name}]*${quantity},`);
         return;
     };
     Sell_comodities = async (e) => {
@@ -119,7 +119,7 @@ export class UserTransaction extends plugin {
         await Write_najie(usr_qq, najie);
         const commodities_price = najie_thing.price * quantity;
         await Add_lingshi(usr_qq, commodities_price);
-        e.reply(`[凡仙堂]小二\n出售得${commodities_price}灵石 `);
+        e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `);
         return;
     };
 };

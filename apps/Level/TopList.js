@@ -52,6 +52,7 @@ export class TopList extends plugin {
             };
         };
         if (temp.length == 0) {
+            e.reply('此界皆是良民');
             return;
         };
         temp.sort(sortBy('power'));
@@ -93,6 +94,7 @@ export class TopList extends plugin {
             };
         };
         if (temp.length == 0) {
+            e.reply('无一人成仙');
             return;
         };
         temp.sort(sortBy('power'));
