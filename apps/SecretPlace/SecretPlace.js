@@ -39,6 +39,9 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
+        if(forwardsetTime[usr_qq]){
+            return;
+        };
         let action = await Read_action(usr_qq);
         const x = action.x;
         const y = action.y;
@@ -82,6 +85,9 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
+        if(deliverysetTime[usr_qq]){
+            return;
+        };
         let action = await Read_action(usr_qq);
         const x = action.x;
         const y = action.y;
