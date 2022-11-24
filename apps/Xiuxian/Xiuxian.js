@@ -234,14 +234,15 @@ export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
 };
 //怪物战斗
 export const monsterbattle = async (e, battleA, battleB) => {
-    let msg = [];
+    let msg = ['[战斗统计]'];
     let qq = 1;
     if (battleA.speed >= battleB.speed - 5) {
         let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
-        if (hurt <= 0) {
-            e.reply('你个老六想偷袭，却连怪物的防御都破不了，被怪物一巴掌给拍死了！');
+        if (hurt <= 1) {
+            msg.push('你个老六想偷袭，却连怪物的防御都破不了，被怪物一巴掌给拍死了！');
             battleA.nowblood = 0;
             qq = 0;
+            await ForwardMsg(e, msg);
             await Write_battle(e.user_id, battleA);
             return qq;
         };
@@ -250,13 +251,15 @@ export const monsterbattle = async (e, battleA, battleB) => {
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 1) {
-            e.reply('你仅出一招，就击败了怪物！');
+            msg.push('你仅出一招，就击败了怪物！');
+            await ForwardMsg(e, msg);
             return qq;
         } else {
             msg.push('你个老六偷袭，造成' + hurt + '伤害');
         };
-    } else {
-        msg.push('你个老六想偷袭，对方却一个转身就躲过去了');
+    } 
+    else {
+        msg.push('你个老六想偷袭，对方一个转身就躲过去了');
     };
     //循环回合，默认从B攻击开始
     var x = 1;
@@ -281,18 +284,17 @@ export const monsterbattle = async (e, battleA, battleB) => {
         if (await battle_probability(battleB.burst)) {
             hurt = Math.floor(hurt * battleB.burstmax);
         };
-
         battleA.nowblood = battleA.nowblood - hurt;
-        if (hurt > 0) {
-            if (battleA.nowblood < 0) {
+        if (hurt > 1) {
+            if (battleA.nowblood < 1) {
                 msg.push('第' + z + '回合:怪物造成' + hurt + '伤害');
-                await ForwardMsg(e, msg);
-                e.reply('你被怪物击败了！');
+                msg.push('你被怪物击败了！');
                 battleA.nowblood = 0;
-                battleB.nowblood = battleB.nowblood + 1;
-                qq = 0;
+                qq = 0;  
+                await ForwardMsg(e, msg);
                 break;
-            } else {
+            } 
+            else {
                 msg.push('第' + z + '回合:怪物造成' + hurt + '伤害');
             };
         };
@@ -301,21 +303,18 @@ export const monsterbattle = async (e, battleA, battleB) => {
         if (await battle_probability(battleA.burst)) {
             hurt = Math.floor(hurt * battleA.burstmax);
         };
-        if (hurt <= 0) {
+        if (hurt <= 1) {
             msg.push('你再次攻击，却连怪物的防御都破不了，被怪物一巴掌给拍死了！');
             battleA.nowblood = 0;
             qq = 0;
-            await Write_battle(e.user_id, battleA);
             await ForwardMsg(e, msg);
-            return qq;
+            break;
         };
         battleB.nowblood = battleB.nowblood - hurt;
-        if (battleB.nowblood < 0) {
+        if (battleB.nowblood < 1) {
             msg.push('第' + z + '回合:你造成' + hurt + '伤害，并击败了怪物！');
+            msg.push('你击败了怪物！');
             await ForwardMsg(e, msg);
-            e.reply('你击败了怪物！');
-            battleB.nowblood = 0;
-            battleA.nowblood = battleA.nowblood + 1;
             break;
         }
         else {
@@ -338,17 +337,19 @@ export const battle = async (e, A, B) => {
         if (await battle_probability(battleA.burst)) {
             hurt = Math.floor(hurt * battleA.burstmax);
         };
-        if (hurt <= 0) {
-            e.reply('你个老六想偷袭，却连对方的防御都破不了，被对方一巴掌给拍死了！');
+        if (hurt <= 1) {
+            msg.push('你个老六想偷袭，却连对方的防御都破不了，被对方一巴掌给拍死了！');
             battleA.nowblood = 0;
             qq = B_qq;
+            await ForwardMsg(e, msg);
             await Write_battle(e.user_id, battleA);
             return qq;
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 1) {
-            e.reply('你仅出一招，就击败了对方！');
+            msg.push('你仅出一招，就击败了对方！');
             battleB.nowblood = 0;
+            await ForwardMsg(e, msg);
             await Write_battle(B_qq, battleB);
             return qq;
         } else {
@@ -381,14 +382,13 @@ export const battle = async (e, A, B) => {
             hurt = Math.floor(hurt * battleB.burstmax);
         };
         battleA.nowblood = battleA.nowblood - hurt;
-        if (hurt > 0) {
+        if (hurt > 1) {
             if (battleA.nowblood < 0) {
                 msg.push('第' + z + '回合:对方造成' + hurt + '伤害');
-                await ForwardMsg(e, msg);
-                e.reply('你被对方击败了！');
                 battleA.nowblood = 0;
                 battleB.nowblood = battleB.nowblood + 1;
                 qq = B_qq;
+                await ForwardMsg(e, msg);
                 break;
             }
         }
@@ -400,22 +400,21 @@ export const battle = async (e, A, B) => {
         if (await battle_probability(battleA.burst)) {
             hurt = Math.floor(hurt * battleA.burstmax);
         };
-        if (hurt <= 0) {
+        if (hurt <= 1) {
             //没伤害
             msg.push('你连对方的防御都破不了，被对方一巴掌给拍死了！');
-            await ForwardMsg(e, msg);
             battleA.nowblood = 0;
             qq = B_qq;
-            await Write_battle(e.user_id, battleA);
-            return qq;
+            await ForwardMsg(e, msg);
+            break;
         };
         battleB.nowblood = battleB.nowblood - hurt;
         if (battleB.nowblood < 0) {
             msg.push('第' + z + '回合:你造成' + hurt + '伤害，并击败了对方！');
-            await ForwardMsg(e, msg);
-            e.reply('你击败了对方！');
+            msg.push('你击败了对方！');
             battleB.nowblood = 0;
             battleA.nowblood = battleA.nowblood + 1;
+            await ForwardMsg(e, msg);
             break;
         } else {
             msg.push('第' + z + '回合:你造成' + hurt + '伤害');
