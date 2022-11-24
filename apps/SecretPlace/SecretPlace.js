@@ -39,7 +39,12 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(forwardsetTime[usr_qq]||forwardsetTime[usr_qq]!=0){
+        if(!forwardsetTime[usr_qq]){
+            //不存在？
+            forwardsetTime[usr_qq]=1;//假
+        };
+        if(forwardsetTime[usr_qq]!=0){
+            //不为真
             return;
         };
         let action = await Read_action(usr_qq);
@@ -85,7 +90,12 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(deliverysetTime[usr_qq]||deliverysetTime[usr_qq]!=0){
+        if(!deliverysetTime[usr_qq]){
+            //不存在？
+            deliverysetTime[usr_qq]=1;//假
+        };
+        if(deliverysetTime[usr_qq]!=0){
+            //不为真
             return;
         };
         let action = await Read_action(usr_qq);
