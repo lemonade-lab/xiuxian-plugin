@@ -39,7 +39,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(forwardsetTime[usr_qq]){
+        if(forwardsetTime[usr_qq]||forwardsetTime[usr_qq]!=0){
             return;
         };
         let action = await Read_action(usr_qq);
@@ -67,7 +67,7 @@ export class SecretPlace extends plugin {
         const the = Math.floor(a + b);
         const time =the>0?the:1;
         forwardsetTime[usr_qq] = setTimeout(async () => {
-            clearTimeout(forwardsetTime[usr_qq]);
+            forwardsetTime[usr_qq]=0;
             action.x = mx;
             action.y = my;
             action.region = PointId[1];
@@ -85,7 +85,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(deliverysetTime[usr_qq]){
+        if(deliverysetTime[usr_qq]||deliverysetTime[usr_qq]!=0){
             return;
         };
         let action = await Read_action(usr_qq);
@@ -136,7 +136,7 @@ export class SecretPlace extends plugin {
         const the=Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
         const time =the>0?the:1;
         deliverysetTime[usr_qq] = setTimeout(async () => {
-            clearTimeout(deliverysetTime[usr_qq]);
+            deliverysetTime[usr_qq]=0;
             action.x = mx;
             action.y = my;
             action.region = positionID[1];
