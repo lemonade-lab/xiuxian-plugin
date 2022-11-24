@@ -11,7 +11,7 @@ export class UserHome extends plugin {
             rule: [
                 {
                     reg: '^#服用.*$',
-                    fnc: 'Player_use_danyao'
+                    fnc: 'consumption_danyao'
                 },
                 {
                     reg: '^#学习.*$',
@@ -23,13 +23,13 @@ export class UserHome extends plugin {
                 },
                 {
                     reg: '^#消耗.*$',
-                    fnc: 'Player_use_daoju'
+                    fnc: 'consumption_daoju'
                 }
             ]
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
-    Player_use_danyao = async (e) => {
+    consumption_danyao = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -145,7 +145,7 @@ export class UserHome extends plugin {
         e.reply(`忘了${thing_name}`);
         return;
     }
-    Player_use_daoju = async (e) => {
+    consumption_daoju = async (e) => {
         if (!e.isGroup) {
             return;
         };
@@ -165,10 +165,6 @@ export class UserHome extends plugin {
             return;
         };
         if (id[2] == 1) {
-            e.reply('无法在储物袋中消耗');
-            return;
-        }
-        else if (id[2] == 2) {
             const player = await Read_level(usr_qq);
             if (player.level_id > 5) {
                 e.reply('灵根已定，不可洗髓');
@@ -180,7 +176,7 @@ export class UserHome extends plugin {
             await player_efficiency(usr_qq);
             e.reply('使用成功');
         }
-        else if (id[2] == 3) {
+        else if (id[2] == 2) {
             const talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
