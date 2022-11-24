@@ -7,20 +7,18 @@
 ```
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
->查看具体功能  #修仙帮助  
->查看扩展功能  #修仙扩展   
->查看版本说明  #修仙版本    
-
-## 修仙-配置  
-Yunzai-Bot/plugins/Xiuxian-Plugin-Box/config/   
-## 修仙-帮助           
-Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/help/   
-## 修仙-存档               
-Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/data/birth/xiuxian/  
- 
-## 云崽-配置   
-Yunzai-Bot/config/config/         
->可屏蔽云崽功能和禁用私聊等
+>查看具体功能  #修仙帮助     
+>查看扩展功能  #修仙扩展     
+>查看版本说明  #修仙版本     
+>更改修仙配置     
+Yunzai-Bot/plugins/Xiuxian-Plugin-Box/config/     
+>查看帮助图片            
+Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/help/      
+>查看修仙存档                 
+Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/data/birth/xiuxian/     
+>更改云崽配置     
+Yunzai-Bot/config/config/           
+>可屏蔽云崽功能和禁用私聊     
 
 ## 扩展插件
 
