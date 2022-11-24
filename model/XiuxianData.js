@@ -97,7 +97,7 @@ class XiuxianData {
         ], 'position');
         /**
          * id含义：位面-区域-属性-等级-编号
-         * 编号：1市中心、2传送阵、3联盟位置
+         * 编号：0区域、1中心、2传送阵、3联盟、凡仙堂4、弱水阁5、
          * 
          */
         this.deleteposition('point');

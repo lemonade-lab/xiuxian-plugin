@@ -2,9 +2,10 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
-import { Go, Read_action, Read_level, Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, Read_level, existplayer,Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
 const forwardsetTime = []
 const deliverysetTime = [];
+const useraction=[];
 export class SecretPlace extends plugin {
     constructor() {
         super({
@@ -22,14 +23,38 @@ export class SecretPlace extends plugin {
                     fnc: 'forward'
                 },
                 {
+                    reg: '^#回到原地$',
+                    fnc: 'returnpiont'
+                },
+                {
                     reg: '^#传送.*$',
                     fnc: 'delivery'
                 }
             ]
         });
     };
-    xyzaddress = async (e) => {
+
+    returnpiont=async(e)=>{
+        const good = await Go(e);
+        if (!good) {
+            return;
+        };
         const usr_qq = e.user_id;
+        forwardsetTime[usr_qq]=0;
+        clearTimeout(useraction[usr_qq]);
+        e.reply('你回到了原地');
+        return;
+    };
+
+    xyzaddress = async (e) => {
+        if (!e.isGroup) {
+            return;
+        };
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
         let action = await Read_action(usr_qq);
         e.reply(`坐标(${action.x},${action.y},${action.z})`);
         return;
@@ -47,7 +72,6 @@ export class SecretPlace extends plugin {
         const x = action.x;
         const y = action.y;
         const address = e.msg.replace('#前往', '');
-        //点位表：有各种点位置、传送阵
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address);
         if (!point) {
             return;
@@ -59,7 +83,7 @@ export class SecretPlace extends plugin {
         const level = await Read_level(usr_qq);
         if (level.level_id < PointId[3]) {
             //境界不足
-            e.reply('前面的区域以后再来探索吧');
+            e.reply('[修仙联盟]守境者\n前面的区域以后再来探索吧');
             return;
         };
         //计算时间
@@ -67,14 +91,14 @@ export class SecretPlace extends plugin {
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const the = Math.floor(a + b);
         const time =the>0?the:1;
-        setTimeout(async () => {
-            forwardsetTime[usr_qq]=0;
-            action.x = mx;
-            action.y = my;
-            action.region = PointId[1];
-            action.adress = PointId[2];
-            await Write_action(usr_qq, action);
-            e.reply([segment.at(usr_qq),`成功抵达${address}`]);
+        useraction[usr_qq]=setTimeout(async () => {
+                forwardsetTime[usr_qq]=0;
+                action.x = mx;
+                action.y = my;
+                action.region = PointId[1];
+                action.adress = PointId[2];
+                await Write_action(usr_qq, action);
+                e.reply([segment.at(usr_qq),`成功抵达${address}`]);
         }, 1000 * time);
         forwardsetTime[usr_qq]=1;
         e.reply(`正在前往${address}...\n需要${time}秒`);
@@ -87,7 +111,6 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        //为1,还在，返回
         if(deliverysetTime[usr_qq]==1){
             return;
         };
@@ -100,11 +123,9 @@ export class SecretPlace extends plugin {
             return;
         };
         const positionID = position.id.split('-');
-        //判断地点等级限制
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
-            //境界不足
-            e.reply('前面的区域以后再来探索吧');
+            e.reply('[修仙联盟]守境者\n前面的区域以后再来探索吧');
             return;
         };
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
@@ -127,15 +148,15 @@ export class SecretPlace extends plugin {
             return;
         };
         const wealth = await Read_wealth(usr_qq);
-        if (wealth.lingshi < 10000) {
+        const lingshi=10000;
+        if (wealth.lingshi < lingshi) {
+            e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}灵石`);
             return;
         };
-        wealth.lingshi -= 10000;
+        wealth.lingshi -= lingshi;
         await Write_wealth(usr_qq, wealth);
-        //是区域的，就随机分配
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-        //计算时间
         const the=Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
         const time =the>0?the:1;
         setTimeout(async () => {
@@ -148,7 +169,7 @@ export class SecretPlace extends plugin {
             e.reply([segment.at(usr_qq),`成功传送至${address}`]);
         }, 1000 * time);
         deliverysetTime[usr_qq]=1;
-        e.reply(`正在传送${address}\n需要${time}秒`);
+        e.reply(`[修仙联盟]守阵者\n传送${address}\n需要${time}秒`);
         return;
     };
 };
