@@ -63,7 +63,15 @@ export class Userequipment extends plugin {
         if (!islearned) {
             return;
         };
-        equipment = equipment.filter(item => item.name != thing_name);
+        const q={
+            "x":0
+        };
+        equipment.forEach((item,index,arr)=>{
+            if(item.name==thing_name&&q.x==0){
+                q.x=1;
+                arr.splice(index, 1);
+            };
+        });
         await Write_equipment(usr_qq, equipment);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, islearned, 1);
