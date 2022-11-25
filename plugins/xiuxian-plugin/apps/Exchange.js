@@ -30,7 +30,7 @@ export class Exchange extends plugin {
     supermarket = async (e) => {
         const Exchange = await Read_Exchange();
         const msg = [
-            '___[弱水阁]___\n#上架+物品名*数量*价格\n#选购+编号\n#下架+编号\n不填数量，默认为1'
+            '___[弱水阁]___\n#上架+物品名*数量*价格\n#选购+编号\n#下架+编号\n不填数量,默认为1'
         ];
         Exchange.forEach((item) => {
             msg.push( `编号:${item.id}\n物品:${item.thing.name}\n数量:${item.thing.acount}\n价格:${item.money}\n`);

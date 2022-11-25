@@ -44,7 +44,7 @@ export class AdminAction extends plugin {
                 };
                 if (error) {
                     msg.push(
-                        '更新失败！\nError code: ' +
+                        '更新失败!\nError code: ' +
                         error.code +
                         '\n' +
                         error.stack +
@@ -53,7 +53,7 @@ export class AdminAction extends plugin {
                     ForwardMsg(e, msg);
                     return;
                 };
-                msg.push('更新成功，正在重启更新...');
+                msg.push('更新成功,正在重启更新...');
                 timer && clearTimeout(timer);
                 timer = setTimeout(async () => {
                     try {
@@ -81,7 +81,7 @@ export class AdminAction extends plugin {
                                 );
                                 logger.error(`重启失败\n${error.stack}`);
                             } else if (stdout) {
-                                logger.mark('重启成功，运行已转为后台');
+                                logger.mark('重启成功,运行已转为后台');
                                 logger.mark('查看日志请用命令:npm run log');
                                 logger.mark('停止后台运行命令:npm stop');
                                 process.exit();
@@ -118,7 +118,7 @@ export class AdminAction extends plugin {
                 };
                 if (error) {
                     msg.push(
-                        '更新失败！\nError code: ' +
+                        '更新失败!\nError code: ' +
                         error.code +
                         '\n' +
                         error.stack +
@@ -127,7 +127,7 @@ export class AdminAction extends plugin {
                     ForwardMsg(e, msg);
                     return;
                 };
-                msg.push('更新成功，正在重启更新...');
+                msg.push('更新成功,正在重启更新...');
                 timer && clearTimeout(timer);
                 timer = setTimeout(async () => {
                     try {
@@ -155,7 +155,7 @@ export class AdminAction extends plugin {
                                 );
                                 logger.error(`重启失败\n${error.stack}`);
                             } else if (stdout) {
-                                logger.mark('重启成功，运行已转为后台');
+                                logger.mark('重启成功,运行已转为后台');
                                 logger.mark('查看日志请用命令:npm run log');
                                 logger.mark('停止后台运行命令:npm stop');
                                 process.exit();
@@ -178,9 +178,9 @@ export class AdminAction extends plugin {
         if (restart) {
             restart = JSON.parse(restart);
             if (restart.isGroup) {
-                Bot.pickGroup(restart.id).sendMsg('重启成功！\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
+                Bot.pickGroup(restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
             } else {
-                Bot.pickGroup(restart.id).sendMsg('重启成功！\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
+                Bot.pickGroup(restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
             }
             redis.del(this.key);
         };

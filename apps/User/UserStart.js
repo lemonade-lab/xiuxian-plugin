@@ -49,7 +49,7 @@ export class UserStart extends plugin {
         const newtalent = await get_talent();
         const new_talent = {
             'talent': newtalent,//灵根
-            'talentshow': 1,//显示0，隐藏1
+            'talentshow': 1,//显示0,隐藏1
             'talentsize': 0,//天赋
             'AllSorcery': []//功法
         };
@@ -83,7 +83,7 @@ export class UserStart extends plugin {
         const positionID=position.id.split('-');
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-        //是区域的，就随机分配
+        //是区域的,就随机分配
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
@@ -146,7 +146,7 @@ export class UserStart extends plugin {
         await offaction(usr_qq);
         life = await life.filter(item => item.qq != usr_qq);
         await Write_Life(life);
-        e.reply([segment.at(usr_qq), '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断']);
+        e.reply([segment.at(usr_qq), '来世,信则有,不信则无,岁月悠悠,世间终会出现两朵相同的花,千百年的回眸,一花凋零,一花绽。是否为同一朵,任后人去评断']);
         await this.Create_player(e);
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);

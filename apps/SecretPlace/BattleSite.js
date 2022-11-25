@@ -53,7 +53,7 @@ export class BattleSite extends plugin {
         let buff = 1;
         if (acount == 1) {
             buff = Math.floor((Math.random() * (20 - 5))) + Number(5);
-            msg.push('怪物突然变异了！');
+            msg.push('怪物突然变异了!');
         };
         const LevelMax = data.LevelMax_list.find(item => item.id == mon.level+1);
         const monsters = {
@@ -68,8 +68,12 @@ export class BattleSite extends plugin {
         const battle = await Read_battle(usr_qq);
         const talent = await Read_talent(usr_qq);
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1);
-        const q = await monsterbattle(e, battle, monsters);
-        if (q != 0) {
+        const battle_msg = await monsterbattle(e, battle, monsters);
+        //把战斗消息丢出来
+        battle_msg.msg.forEach((item)=>{
+            msg.push(item);
+        });
+        if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1);
             if (m < mon.level * 5) {
                 const dropsItemList = JSON.parse(fs.readFileSync(`${data.__PATH.all}/dropsItem.json`));

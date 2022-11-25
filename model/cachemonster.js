@@ -20,7 +20,7 @@ class Cachemonster {
             let mini = 0;
             let max = 0;
             if (i > 6 &&i <= 9) {
-                //是秘境 2-6：秘境是特殊的，有特殊奖励
+                //是秘境 2-6：秘境是特殊的,有特殊奖励
                 mini = 2;
                 max = 6;
             }
@@ -38,7 +38,7 @@ class Cachemonster {
                 mini = 5;
                 max = 8;
             } else {
-                //城里，分配一级怪
+                //城里,分配一级怪
                 mini = 1;
                 max = 1;
             };

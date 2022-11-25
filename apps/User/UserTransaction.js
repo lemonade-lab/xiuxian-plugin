@@ -32,7 +32,7 @@ export class UserTransaction extends plugin {
             return;
         };
         const msg = [
-            '___[凡仙堂]___\n#购买+物品名*数量\n不填数量，默认为1'
+            '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ];
         const commodities_list = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`));
         commodities_list.forEach((item) => {

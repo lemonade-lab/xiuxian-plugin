@@ -3,8 +3,8 @@ import template from 'art-template';
 import path from 'path';
 import puppeteer from 'puppeteer';
 /**
- * 公共方法模块，目前包含功能如下:
- * 模板相关:通过html模板生成html(generateHtml)，通过html文件生成图片(generateImgByHtml)，获取模板所在的文件根路径(getTemplatePath)
+ * 公共方法模块,目前包含功能如下:
+ * 模板相关:通过html模板生成html(generateHtml),通过html文件生成图片(generateImgByHtml),获取模板所在的文件根路径(getTemplatePath)
  * 数据校验相关:判断数据是否为空isNotNull、isNotBlank
  */
 class common {
@@ -26,7 +26,7 @@ class common {
     /**
      * 通过模板生成html文件
      * @param file_name 文件路径  (示例:D:/template.html)
-     * @param save_name 模板生成的html文件存储路径(使用文件全路径，如:D:/aaa.html)
+     * @param save_name 模板生成的html文件存储路径(使用文件全路径,如:D:/aaa.html)
      * @param data  文件渲染数据(json格式)
      * @returns {Promise<void>}
      */
@@ -70,7 +70,7 @@ class common {
         let browser = await puppeteer.launch(this.config).catch((err) => {
             logger.error(err.toString())
             if (String(err).includes('correct Chromium')) {
-                logger.error('没有正确安装Chromium，可以尝试执行安装命令:node ./node_modules/puppeteer/install.js')
+                logger.error('没有正确安装Chromium,可以尝试执行安装命令:node ./node_modules/puppeteer/install.js')
             };
         });
         let page = await browser.newPage();//获取一个新页面
@@ -81,7 +81,7 @@ class common {
             param = {};
         };
         let randData = {
-            type: this.isNotBlank(param.type) ? param.type : 'jpeg',//可以是jpeg或者png，默认是png
+            type: this.isNotBlank(param.type) ? param.type : 'jpeg',//可以是jpeg或者png,默认是png
             omitBackground: this.isNotBlank(param.omitBackground) ? param.omitBackground : false,//隐藏默认的白色背景并允许以透明度捕捉屏幕截图。默认为 false.
             quality: this.isNotBlank(param.quality) ? param.quality : 100,//图片质量1-100
             fullPage: this.isNotBlank(param.fullPage) ? param.fullPage : false,//截取完整的可滚动页面. 默认为 false
