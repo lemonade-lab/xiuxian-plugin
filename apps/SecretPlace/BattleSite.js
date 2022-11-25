@@ -49,7 +49,7 @@ export class BattleSite extends plugin {
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         const acount = await Cachemonster.add(action.region, Number(1));
-        const msg = [`${usr_qq}的[击杀结果]`];
+        const msg = [`${usr_qq}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`];
         const buff={
             "msg":1
         };
