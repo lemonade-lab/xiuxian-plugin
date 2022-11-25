@@ -49,21 +49,23 @@ export class BattleSite extends plugin {
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         const acount = await Cachemonster.add(action.region, Number(1));
-        const msg = ['[击杀结果]'];
-        let buff = 1;
+        const msg = [`${usr_qq}的[击杀结果]`];
+        const buff={
+            "msg":1
+        };
         if (acount == 1) {
-            buff = Math.floor((Math.random() * (20 - 5))) + Number(5);
+            buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5);
             msg.push('怪物突然变异了!');
         };
         const LevelMax = data.LevelMax_list.find(item => item.id == mon.level+1);
         const monsters = {
-            'nowblood': LevelMax.blood * buff,
-            'attack': LevelMax.attack * buff,
-            'defense': LevelMax.defense * buff,
-            'blood': LevelMax.blood * buff,
-            'burst': LevelMax.burst + LevelMax.id * 5 * buff,
-            'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff,
-            'speed': LevelMax.speed + 5 + buff
+            'nowblood': LevelMax.blood * buff.msg,
+            'attack': LevelMax.attack * buff.msg,
+            'defense': LevelMax.defense * buff.msg,
+            'blood': LevelMax.blood * buff.msg,
+            'burst': LevelMax.burst + LevelMax.id * 5 * buff.msg,
+            'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
+            'speed': LevelMax.speed + 5 + buff.msg
         };
         const battle = await Read_battle(usr_qq);
         const talent = await Read_talent(usr_qq);
