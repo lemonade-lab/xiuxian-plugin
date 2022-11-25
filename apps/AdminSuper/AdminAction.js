@@ -4,7 +4,9 @@ import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
 const require = createRequire(import.meta.url);
 const { exec } = require('child_process');
 const _path = process.cwd();
-let timer;
+const the = {
+    'timer': ''
+};
 export class AdminAction extends plugin {
     constructor() {
         super({
@@ -54,8 +56,8 @@ export class AdminAction extends plugin {
                     return;
                 };
                 msg.push('更新成功,正在重启更新...');
-                timer && clearTimeout(timer);
-                timer = setTimeout(async () => {
+                the.timer && clearTimeout(the.timer);
+                the.timer = setTimeout(async () => {
                     try {
                         let data = JSON.stringify({
                             isGroup: !!e.isGroup,
@@ -128,8 +130,8 @@ export class AdminAction extends plugin {
                     return;
                 };
                 msg.push('更新成功,正在重启更新...');
-                timer && clearTimeout(timer);
-                timer = setTimeout(async () => {
+                the.timer && clearTimeout(the.timer);
+                the.timer = setTimeout(async () => {
                     try {
                         let data = JSON.stringify({
                             isGroup: !!e.isGroup,
@@ -174,13 +176,14 @@ export class AdminAction extends plugin {
         return true;
     };
     init = async () => {
-        let restart = await redis.get(this.key);
-        if (restart) {
-            restart = JSON.parse(restart);
-            if (restart.isGroup) {
-                Bot.pickGroup(restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
+        const the = { 'restart': '' };
+        the.restart = await redis.get(this.key);
+        if (the.restart) {
+            the.restart = JSON.parse(the.restart);
+            if (the.restart.isGroup) {
+                Bot.pickGroup(the.restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
             } else {
-                Bot.pickGroup(restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
+                Bot.pickGroup(the.restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
             }
             redis.del(this.key);
         };

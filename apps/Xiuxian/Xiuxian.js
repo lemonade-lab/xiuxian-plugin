@@ -235,15 +235,15 @@ export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
 //怪物战斗
 export const monsterbattle = async (e, battleA, battleB) => {
     const battle_msg = {
-        "msg": [],
-        "QQ": 1
+        'msg': [],
+        'QQ': 1
     };
     const battle = {
-        "Z": 1
+        'Z': 1
     };
     const battle_hurt = {
-        "hurtA": 0,
-        "hurtB": 0
+        'hurtA': 0,
+        'hurtB': 0
     };
     if (battleA.speed >= battleB.speed - 5) {
         battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
@@ -311,17 +311,17 @@ export const monsterbattle = async (e, battleA, battleB) => {
 //战斗模型
 export const battle = async (e, A, B) => {
     const battle_msg = {
-        "msg": [],
-        "QQ": 1
+        'msg': [],
+        'QQ': 1
     };
     const battle = {
-        "X": 1,
-        "Y": 0,
-        "Z": 1
+        'X': 1,
+        'Y': 0,
+        'Z': 1
     };
     const battle_hurt = {
-        "hurtA": 0,
-        "hurtB": 0
+        'hurtA': 0,
+        'hurtB': 0
     };
     const battleA = await Read_battle(A);
     const battleB = await Read_battle(B);
@@ -417,15 +417,17 @@ export const battle = async (e, A, B) => {
 }
 //暴击率
 export const battle_probability = async (P) => {
-    let newp = 0;
+    const q={
+        'newp':0
+    }
     if (P > 100) {
-        newp = 100;
+        q.newp = 100;
     };
     if (P < 0) {
-        newp = 0;
+        q.newp = 0;
     };
     const rand = Math.floor((Math.random() * (100 - 1) + 1));
-    if (newp > rand) {
+    if (q.newp > rand) {
         return true;
     };
     return false;
@@ -461,11 +463,13 @@ export const get_talent = async () => {
  */
 export const talentname = async (player) => {
     const talentname = [];
-    let name = '';
+    const thetalent={
+        'name':''
+    };
     const talent = player.talent;
     for (var i = 0; i < talent.length; i++) {
-        name = data.talent_list.find(item => item.id == talent[i]).name;
-        talentname.push(name);
+        thetalent.name = data.talent_list.find(item => item.id == talent[i]).name;
+        talentname.push(thetalent.name);
     };
     return talentname;
 };
