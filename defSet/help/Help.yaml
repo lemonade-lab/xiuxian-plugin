@@ -33,31 +33,31 @@
 
 - group: 
   list:
-    - icon: help-icon_10
+    - icon: help-icon_54
       title: "#攻击 @群友"
       desc: "可掉装备"
-    - icon: help-icon_10
+    - icon: help-icon_107
       title: "#洗手"
       desc: "清魔力值"
-    - icon: help-icon_10
+    - icon: help-icon_98
       title: "#修仙地图"
       desc: "打开修仙世界大门"
-    - icon: help-icon_10
+    - icon: help-icon_98
       title: "#坐标信息"
       desc: "查看自己的坐标"
-    - icon: help-icon_10
+    - icon: help-icon_98
       title: "#前往+位置名"
       desc: "前往指定位置"
-    - icon: help-icon_10
+    - icon: help-icon_98
       title: "#传送+区域名"
       desc: "随机降临区域"
-    - icon: help-icon_10
+    - icon: help-icon_98
       title: "#回到原地"
       desc: "取消走路行为"
-    - icon: help-icon_10
+    - icon: help-icon_63
       title: "#击杀+怪物名"
       desc: "随机掉落物品"
-    - icon: help-icon_10
+    - icon: help-icon_98
       title: "#探索怪物"
       desc: "查看所在地的怪物"
 
