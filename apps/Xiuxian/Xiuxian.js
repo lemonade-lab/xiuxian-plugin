@@ -234,7 +234,7 @@ export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
 };
 //怪物战斗
 export const monsterbattle = async (e, battleA, battleB) => {
-    let msg = ['[战斗统计]'];
+    let msg = ['[战斗统计]\n注:怪物伤害为0不统计'];
     let qq = 1;
     if (battleA.speed >= battleB.speed - 5) {
         let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
