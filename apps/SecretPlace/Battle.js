@@ -59,8 +59,6 @@ export class Battle extends plugin {
         if (CD != 0) {
             e.reply(CD);
         };
-        await redis.set(`xiuxian:player:${user.A}:${CDid}`,now_time);
-        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
         user.QQ  = await battle(e, user.A, user.B);
         const Level = await Read_level(user.A);
         Level.prestige += 1;
@@ -84,6 +82,8 @@ export class Battle extends plugin {
                 e.reply(`${user.A}夺走了${thing.name}`);
             };
         };
+        await redis.set(`xiuxian:player:${user.A}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
         return;
     };
 

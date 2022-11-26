@@ -46,8 +46,6 @@ export class BattleSite extends plugin {
             e.reply(`这里没有${name},去别处看看吧`);
             return;
         };
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         const acount = await Cachemonster.add(action.region, Number(1));
         const msg = [`${usr_qq}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`];
         const buff={
@@ -101,6 +99,8 @@ export class BattleSite extends plugin {
                 await Add_lingshi(usr_qq, mon.level * 25);
             };
         };
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
+        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         await ForwardMsg(e, msg);
         return;
     };
