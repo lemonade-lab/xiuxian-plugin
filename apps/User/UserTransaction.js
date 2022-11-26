@@ -120,8 +120,8 @@ export class UserTransaction extends plugin {
             return;
         };
         the.najie = await Read_najie(usr_qq);
-        the.najie = await Add_najie_thing(najie, najie_thing, -the.quantity);
-        await Write_najie(usr_qq, najie);
+        the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity);
+        await Write_najie(usr_qq, the.najie);
         const commodities_price = najie_thing.price * the.quantity;
         await Add_lingshi(usr_qq, commodities_price);
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `);

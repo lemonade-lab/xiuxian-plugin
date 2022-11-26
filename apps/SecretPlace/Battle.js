@@ -27,9 +27,15 @@ export class Battle extends plugin {
         if (!good) {
             return;
         };
-        let A = e.user_id;
-        let B = await At(e);
-        if (B == 0 || B == A) {
+        const user={
+            A: 0,
+            B: 0,
+            QQ: 0,
+            p: Math.floor((Math.random() * (99 - 1) + 1))
+        };
+        user.A = e.user_id;
+        user.B = await At(e);
+        if (user.B == 0 || user.B == user.A) {
             return;
         };
         const actionA = await Read_action(A);
@@ -55,15 +61,14 @@ export class Battle extends plugin {
         };
         await redis.set(`xiuxian:player:${A}:${CDid}`,now_time);
         await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60);
-        let qq  = await battle(e, A, B);
+        user.QQ  = await battle(e, A, B);
         const Level = await Read_level(A);
         Level.prestige += 1;
         await Write_level(A, Level);
-        const q = Math.floor((Math.random() * (99 - 1) + 1));
         const LevelB = await Read_level(B);
         const MP = LevelB.prestige * 10 + Number(50);
-        if (q <= MP) {
-            if (qq != A) {
+        if (user.p <= MP) {
+            if (user.QQ != A) {
                 let C = A;
                 A = B;
                 B = C;
