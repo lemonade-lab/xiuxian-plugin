@@ -47,20 +47,25 @@ export class Exchange extends plugin {
         const thing = e.msg.replace('#上架', '');
         const code = thing.split('\*');
         const [thing_name,thing_acount,thing_money] = code;//价格
-        let quantity = await Numbers(thing_acount);
-        if (quantity > 99) {
-            quantity = 99;
+        const the={
+            quantity,
+            money,
+            najie
         };
-        let money = await Numbers(thing_money);
-        if (money < 10) {
-            money = 10;
+        the.quantity = await Numbers(thing_acount);
+        if (the.quantity > 99) {
+            the.quantity = 99;
+        };
+        the.money = await Numbers(thing_money);
+        if (the.money < 10) {
+            the.money = 10;
         };
         const najie_thing = await exist_najie_thing_name(usr_qq, thing_name);
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`);
             return;
         };
-        if (najie_thing.acount < quantity) {
+        if (najie_thing.acount < the.quantity) {
             e.reply(`[${thing_name}]不够`);
             return;
         };
@@ -69,7 +74,7 @@ export class Exchange extends plugin {
             e.reply('有其他物品未售出')
             return;
         };
-        najie_thing.acount = quantity;
+        najie_thing.acount = the.quantity;
         const exchange = await Read_Exchange();
         exchange.push({
             'id': usr_qq + Math.floor((Math.random() * (99 - 1) + 1)),
@@ -78,14 +83,14 @@ export class Exchange extends plugin {
             'x': action.x,
             'y': action.y,
             'z': action.z,
-            'money': money * quantity
+            'money': the.money * the.quantity
         });
         await Write_Exchange(exchange);
         action.Exchange = action.Exchange + 1;
         await Write_action(usr_qq, action);
-        let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, najie_thing, -quantity);
-        await Write_najie(usr_qq, najie);
+        the.najie = await Read_najie(usr_qq);
+        the.najie = await Add_najie_thing(the.najie, najie_thing, -quantity);
+        await Write_najie(usr_qq, the.najie);
         e.reply(`成功上架:${najie_thing.name}*${najie_thing.acount}`);
         return;
     };

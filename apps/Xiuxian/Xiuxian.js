@@ -36,14 +36,17 @@ export class Xiuxian extends plugin {
  */
 const Read = async (usr_qq, PATH) => {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
-    let player = fs.readFileSync(dir, 'utf8', (err, data) => {
+    const the = {
+        'player': ''
+    };
+    the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
             return 'error';
         };
         return data;
     });
-    player = JSON.parse(player);
-    return player;
+    the.player = JSON.parse(the.player);
+    return the.player;
 };
 //写入数据
 const Write = async (usr_qq, player, PATH) => {
@@ -147,33 +150,40 @@ export const Write_equipment = async (usr_qq, equipment) => {
     await updata_equipment(usr_qq);
     return;
 };
-//更新装备
+//计算面板
 export const updata_equipment = async (usr_qq) => {
-    let attack = 0, defense = 0, blood = 0, burst = 0, burstmax = 0, speed = 0;
-    let equipment = await Read_equipment(usr_qq);
-    equipment.forEach((item) => {
-        attack = attack + item.attack;
-        defense = defense + item.defense;
-        blood = blood + item.blood;
-        burst = burst + item.burst;
-        burstmax = burstmax + item.burstmax;
-        speed = speed + item.speed;
-    });
-    let level = await Read_level(usr_qq);
-    let levelmini = data.Level_list.find(item => item.id == level.level_id);
-    let levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
-    let player = await Read_battle(usr_qq);
-    player = {
-        nowblood: player.nowblood,
-        attack: levelmini.attack + levelmax.attack + Math.floor((levelmini.attack + levelmax.attack) * attack * 0.01),
-        defense: levelmini.defense + levelmax.defense + Math.floor((levelmini.defense + levelmax.defense) * defense * 0.01),
-        blood: levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * blood * 0.01),
-        burst: levelmini.burst + levelmax.burst + burst,
-        burstmax: levelmini.burstmax + levelmax.burstmax + burstmax + level.rank_id * 10,
-        speed: levelmini.speed + levelmax.speed + speed
+    const the = {
+        attack,
+        defense,
+        blood,
+        burst,
+        burstmax,
+        speed,
+        player
     };
-    player.power = player.attack + player.defense + player.blood + player.burst + player.burstmax + player.speed;
-    await Write_battle(usr_qq, player);
+    const equipment = await Read_equipment(usr_qq);
+    equipment.forEach((item) => {
+        the.attack = the.attack + item.attack;
+        the.defense = the.defense + item.defense;
+        the.blood = the.blood + item.blood;
+        the.burst = the.burst + item.burst;
+        the.burstmax = the.burstmax + item.burstmax;
+        the.speed = the.speed + item.speed;
+    });
+    const level = await Read_level(usr_qq);
+    const levelmini = data.Level_list.find(item => item.id == level.level_id);
+    const levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
+    the.player = {
+        nowblood: the.player.nowblood,
+        attack: levelmini.attack + levelmax.attack + Math.floor((levelmini.attack + levelmax.attack) * the.attack * 0.01),
+        defense: levelmini.defense + levelmax.defense + Math.floor((levelmini.defense + levelmax.defense) * the.defense * 0.01),
+        blood: levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * the.blood * 0.01),
+        burst: levelmini.burst + levelmax.burst + the.burst,
+        burstmax: levelmini.burstmax + levelmax.burstmax + the.burstmax + level.rank_id * 10,
+        speed: levelmini.speed + levelmax.speed + the.speed
+    };
+    the.player.power = the.player.attack + the.player.defense + the.player.blood + the.player.burst + the.player.burstmax + the.player.speed;
+    await Write_battle(usr_qq, the.player);
     return;
 };
 //魔力操作
@@ -417,17 +427,17 @@ export const battle = async (e, A, B) => {
 }
 //暴击率
 export const battle_probability = async (P) => {
-    const q={
-        'newp':0
-    }
+    const the = {
+        'newp': 0
+    };
     if (P > 100) {
-        q.newp = 100;
+        the.newp = 100;
     };
     if (P < 0) {
-        q.newp = 0;
+        the.newp = 0;
     };
     const rand = Math.floor((Math.random() * (100 - 1) + 1));
-    if (q.newp > rand) {
+    if (the.newp > rand) {
         return true;
     };
     return false;
@@ -436,20 +446,20 @@ export const battle_probability = async (P) => {
 export const get_talent = async () => {
     const newtalent = [];
     const talentacount = Math.round(Math.random() * (5 - 1)) + 1;
-    for (var i = 0; i < talentacount; i++) {
-        var x = Math.round(Math.random() * (10 - 1)) + 1;
-        var y = newtalent.indexOf(x);
+    for (let i = 0; i < talentacount; i++) {
+        const x = Math.round(Math.random() * (10 - 1)) + 1;
+        const y = newtalent.indexOf(x);
         if (y != -1) {
             continue;
         };
         if (x <= 5) {
-            var z = newtalent.indexOf(x + 5);
+            const z = newtalent.indexOf(x + 5);
             if (z != -1) {
                 continue;
             };
         }
         else {
-            var z = newtalent.indexOf(x - 5);
+            const z = newtalent.indexOf(x - 5);
             if (z != -1) {
                 continue;
             };
@@ -463,11 +473,11 @@ export const get_talent = async () => {
  */
 export const talentname = async (player) => {
     const talentname = [];
-    const thetalent={
-        'name':''
+    const thetalent = {
+        'name': ''
     };
     const talent = player.talent;
-    for (var i = 0; i < talent.length; i++) {
+    for (let i = 0; i < talent.length; i++) {
         thetalent.name = data.talent_list.find(item => item.id == talent[i]).name;
         talentname.push(thetalent.name);
     };
@@ -478,19 +488,21 @@ export const talentname = async (player) => {
  * 计算天赋
  */
 const talentsize = async (player) => {
-    let talentsize = 250;
-    const talent = player.talent;
+    const talent = {
+        'player': player.talent,
+        'talentsize': 250
+    };
     //根据灵根数来判断
-    for (var i = 0; i < talent.length; i++) {
+    for (let i = 0; i < talent.player.length; i++) {
         //循环加效率
-        if (talent[i] <= 5) {
-            talentsize -= 50;
+        if (talent.player[i] <= 5) {
+            talent.talentsize -= 50;
         };
-        if (talent[i] >= 6) {
-            talentsize -= 40;
+        if (talent.player[i] >= 6) {
+            talent.talentsize -= 40;
         };
     };
-    return talentsize;
+    return talent.talentsize;
 };
 
 /**
@@ -498,12 +510,16 @@ const talentsize = async (player) => {
  */
 export const player_efficiency = async (usr_qq) => {
     const player = await Read_talent(usr_qq);
-    let gongfa_efficiency = 0;
+    const the = {
+        gongfa_efficiency,
+        linggen_efficiency
+    };
+    the.gongfa_efficiency = 0;
     player.AllSorcery.forEach((item) => {
-        gongfa_efficiency = gongfa_efficiency + item.size;
+        the.gongfa_efficiency = the.gongfa_efficiency + item.size;
     });
-    let linggen_efficiency = await talentsize(player);
-    player.talentsize = linggen_efficiency + gongfa_efficiency;
+    the.linggen_efficiency = await talentsize(player);
+    player.talentsize = the.linggen_efficiency + the.gongfa_efficiency;
     await Write_talent(usr_qq, player);
     return;
 };
@@ -513,7 +529,7 @@ export const player_efficiency = async (usr_qq) => {
  */
 export const search_thing_name = async (thing) => {
     const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.name == thing);
-    if (ifexist0 == undefined) {
+    if (!ifexist0) {
         return 1;
     };
     return ifexist0;
@@ -523,7 +539,7 @@ export const search_thing_name = async (thing) => {
  */
 export const search_thing_id = async (thing_id) => {
     const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.id == thing_id);
-    if (ifexist0 == undefined) {
+    if (!ifexist0) {
         return 1;
     }
     else {
@@ -534,7 +550,7 @@ export const search_thing_id = async (thing_id) => {
 export const exist_najie_thing_id = async (usr_qq, thing_id) => {
     const najie = await Read_najie(usr_qq);
     const ifexist = najie.thing.find(item => item.id == thing_id);
-    if (ifexist == undefined) {
+    if (!ifexist) {
         return 1;
     };
     return ifexist;
@@ -543,7 +559,7 @@ export const exist_najie_thing_id = async (usr_qq, thing_id) => {
 export const exist_najie_thing_name = async (usr_qq, name) => {
     const najie = await Read_najie(usr_qq);
     const ifexist = najie.thing.find(item => item.name == name);
-    if (ifexist == undefined) {
+    if (!ifexist) {
         return 1;
     };
     return ifexist;
@@ -622,17 +638,17 @@ export const sleep = async (time) => {
 export const timestampToTime = (timestamp) => {
     //时间戳为10位需*1000,时间戳为13位的话不需乘1000
     const date = new Date(timestamp);
-    var Y = date.getFullYear() + '-';
-    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-    var D = date.getDate() + ' ';
-    var h = date.getHours() + ':';
-    var m = date.getMinutes() + ':';
-    var s = date.getSeconds();
+    const Y = date.getFullYear() + '-';
+    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    const D = date.getDate() + ' ';
+    const h = date.getHours() + ':';
+    const m = date.getMinutes() + ':';
+    const s = date.getSeconds();
     return Y + M + D + h + m + s;
 }
 //根据时间戳获取年月日时分秒
 export const shijianc = async (time) => {
-    let dateobj = {}
+    const dateobj = {}
     const date = new Date(time)
     dateobj.Y = date.getFullYear()
     dateobj.M = date.getMonth() + 1
@@ -680,35 +696,36 @@ export const isNotBlank = (value) => {
  * 强制修正至少为1
  */
 export const Numbers = async (value) => {
-    let x = value;
-    if (isNaN(parseFloat(x)) && !isFinite(x)) {
-        x = 1;
+    const the={};
+    the.value = value;
+    if (isNaN(parseFloat(the.value)) && !isFinite(the.value)) {
+        the.value = 1;
     };
-    x = Math.trunc(x);
-    x = Number(x);
-    if (x == null || x == undefined || x < 1 || x == NaN) {
-        x = 1;
+    the.value = Math.trunc(the.value);
+    the.value = Number(the.value);
+    if (the.value == null || the.value == undefined || the.value < 1 || the.value == NaN) {
+        the.value = 1;
     };
-    return x;
+    return the.value;
 };
 /**
  * 得到状态
  */
 export const getPlayerAction = async (usr_qq) => {
-    let arr = {};
+    const arr = {};
     let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
+        const action_end_time = action.end_time;
+        const now_time = new Date().getTime();
         if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
+            const m = parseInt((action_end_time - now_time) / 1000 / 60);
+            const s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
             arr.action = action.action;//当期那动作
             arr.time = m + 'm' + s + 's';//剩余时间
             return arr;
         };
-    };
+    }; 
     arr.action = '空闲';
     return arr;
 };
@@ -783,34 +800,44 @@ const CDname = ['攻击', '降妖', '闭关', '改名', '道宣', '赠送', '突
  */
 export const GenerateCD = async (usr_qq, CDid) => {
     const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
+    const time={
+        h,
+        m,
+        s
+    };
     if (remainTime != -1) {
-        let h = Math.floor(remainTime / 60 / 60);
-        h = h < 0 ? 0 : h;
-        let m = Math.floor((remainTime - h * 60 * 60) / 60);
-        m = m < 0 ? 0 : m;
-        let s = Math.floor((remainTime - h * 60 * 60 - m * 60));
-        s = s < 0 ? 0 : s;
-        if (h == 0 && m == 0 && s == 0) {
+        time.h = Math.floor(remainTime / 60 / 60);
+        time.h = time.h < 0 ? 0 : time.h;
+        time.m = Math.floor((remainTime - time.h * 60 * 60) / 60);
+        time.m = time.m < 0 ? 0 : time.m;
+        time.s = Math.floor((remainTime - time.h * 60 * 60 - time.m * 60));
+        time.s = time.s < 0 ? 0 : time.s;
+        if (time.h == 0 && time.m == 0 && time.s == 0) {
             return 0;
-        }
-        return CDname[CDid] + '冷却:' + h + 'h' + m + 'm' + s + 's';
+        };
+        return CDname[CDid] + '冷却:' + time.h + 'h' + time.m + 'm' + time.s + 's';
     };
     return 0;
 };
 //插件CD检测
 export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
     const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
+    const time={
+        h,
+        m,
+        s
+    };
     if (remainTime != -1) {
-        let h = Math.floor(remainTime / 60 / 60);
-        h = h < 0 ? 0 : h;
-        let m = Math.floor((remainTime - h * 60 * 60) / 60);
-        m = m < 0 ? 0 : m;
-        let s = Math.floor((remainTime - h * 60 * 60 - m * 60));
-        s = s < 0 ? 0 : s;
-        if (h == 0 && m == 0 && s == 0) {
+        time.h = Math.floor(remainTime / 60 / 60);
+        time.h = time.h < 0 ? 0 : time.h;
+        time.m = Math.floor((remainTime - time.h * 60 * 60) / 60);
+        time.m = time.m < 0 ? 0 : time.m;
+        time.s = Math.floor((remainTime - time.h * 60 * 60 - time.m * 60));
+        time.s = time.s < 0 ? 0 : time.s;
+        if (time.h == 0 && time.m == 0 && time.s == 0) {
             return 0;
-        }
-        return CDnameplugin[CDid] + '冷却:' + h + 'h' + m + 'm' + s + 's';
+        };
+        return CDnameplugin[CDid] + '冷却:' + time.h + 'h' + time.m + 'm' + time.s + 's';
     };
     return 0;
 };
@@ -848,19 +875,21 @@ export const Read_Exchange = async () => {
 };
 //搜索物品
 export const Search_Exchange = async (thing_qq) => {
-    const thingqq = thing_qq;
-    let x = -1;
-    const Exchange = await Read_Exchange();
-    if (thingqq == '') {
-        return x;
+    const the={
+        qq:thing_qq,
+        x:-1
     };
-    for (var i = 0; i < Exchange.length; i++) {
-        if (Exchange[i].qq == thingqq) {
-            x = i;
+    const Exchange = await Read_Exchange();
+    if (the.thingqq == '') {
+        return the.x;
+    };
+    for (let i = 0; i < Exchange.length; i++) {
+        if (Exchange[i].qq == the.thingqq) {
+            the.x = i;
             break;
         };
     };
-    return x;
+    return the.x;
 };
 //写入寿命表
 export const Write_Life = async (wupin) => {
