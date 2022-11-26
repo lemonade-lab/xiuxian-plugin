@@ -121,7 +121,7 @@ export const get_player_img = async (e) => {
         size = '未知';
         name = '未知';
     }else{
-        size+='%';
+        size=`+${size}%`;
     };
     const myData = {
         user_id: usr_qq,
