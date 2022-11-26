@@ -26,8 +26,8 @@ export class Statusplugin extends plugin {
             return;
         };
         const life = await Read_Life();
-        const dealTime = (seconds) => {
-            let seconds = seconds | 0;
+        const dealTime = (theseconds) => {
+            let seconds = theseconds | 0;
             let day = (seconds / (3600 * 24)) | 0;
             let hours = ((seconds - day * 3600) / 3600) | 0;
             let minutes = ((seconds - day * 3600 * 24 - hours * 3600) / 60) | 0;
