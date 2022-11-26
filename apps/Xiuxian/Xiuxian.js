@@ -954,7 +954,7 @@ export const point_map = async (action, addressName) => {
         //存在模糊
         if (item.id.includes(addressName)) {
             //且位置配对
-            if (action.x == arr.x && action.y == arr.y) {
+            if (action.x == item.x && action.y == item.y) {
                 T = true;
             };
         };
