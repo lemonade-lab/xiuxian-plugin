@@ -45,20 +45,9 @@ export class UserStart extends plugin {
             'autograph': '无',//道宣
             'days': 0//签到
         };
-        await Write_player(usr_qq, new_player);
-        const newtalent = await get_talent();
-        const new_talent = {
-            'talent': newtalent,//灵根
-            'talentshow': 1,//显示0,隐藏1
-            'talentsize': 0,//天赋
-            'AllSorcery': []//功法
-        };
-        await Write_talent(usr_qq, new_talent);
-        await player_efficiency(usr_qq);
         const new_battle = {
             'nowblood': data.Level_list.find(item => item.id == 1).blood + data.LevelMax_list.find(item => item.id == 1).blood,//血量
         };
-        await Write_battle(usr_qq, new_battle);
         const new_level = {
             'prestige': 0,//魔力
             'level_id': 1,//练气境界
@@ -73,21 +62,16 @@ export class UserStart extends plugin {
             ],
             'rankmax_id': 0//数组位置
         };
-        await Write_level(usr_qq, new_level);
         const new_wealth = {
             'lingshi': 0,
             'xianshi': 0
         };
-        await Write_wealth(usr_qq, new_wealth);
         const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西');
-        const positionID=position.id.split('-');
-        const the={
-            mx:0,
-            my:0
+        const positionID = position.id.split('-');
+        const the = {
+            mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
+            my: Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         };
-        the.mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
-        the.my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-        //是区域的,就随机分配
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
@@ -95,23 +79,26 @@ export class UserStart extends plugin {
             'x': the.mx,
             'y': the.my,
             'z': positionID[0],//位面
-            'region':positionID[1],//区域
-            'address':positionID[2],//属性
-            //缺少属性：是城池还是禁地
+            'region': positionID[1],//区域
+            'address': positionID[2],//属性
             'Exchange': 0
         };
-        await Write_action(usr_qq, new_action);
-        await Write_equipment(usr_qq, []);
         const new_najie = {
             'grade': 1,
             'lingshimax': 50000,
             'lingshi': 0,
             'thing': []
         };
-        await Write_najie(usr_qq, new_najie);
-        const thename={
-            name1:['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
-            name2:['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+        const newtalent = await get_talent();
+        const new_talent = {
+            'talent': newtalent,//灵根
+            'talentshow': 1,//显示0,隐藏1
+            'talentsize': 0,//天赋
+            'AllSorcery': []//功法
+        };
+        const thename = {
+            name1: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+            name2: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
         };
         const name = await Anyarray(thename.name1) + await Anyarray(thename.name2);
         const life = await Read_Life();
@@ -124,6 +111,15 @@ export class UserStart extends plugin {
             'createTime': time.getTime(),
             'status': 1
         });
+        await Write_player(usr_qq, new_player);
+        await Write_talent(usr_qq, new_talent);
+        await player_efficiency(usr_qq);
+        await Write_battle(usr_qq, new_battle);
+        await Write_level(usr_qq, new_level);
+        await Write_wealth(usr_qq, new_wealth);
+        await Write_action(usr_qq, new_action);
+        await Write_equipment(usr_qq, []);
+        await Write_najie(usr_qq, new_najie);
         await Write_Life(life);
         e.reply(`你来到一个修仙世界\n你对修仙充满了好奇\n你可以#前往极西联盟\n进行#联盟报道\n会得到[修仙联盟]的帮助\n更快的成为练气修士\n也可以#基础信息\n查看自己的身世\n若想快速去往天山\n建议#前往极西传送阵\n进行#传送天山`);
         return;
