@@ -101,7 +101,7 @@ export class UserHome extends plugin {
             e.reply('学过了');
             return;
         };
-        if (talent.AllSorcery.length > this.xiuxianConfigData.myconfig.gongfa) {
+        if (talent.AllSorcery.length >= this.xiuxianConfigData.myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进');
             return;
         };
