@@ -116,9 +116,12 @@ export const get_player_img = async (e) => {
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
     };
+    let size=Math.trunc(talent.talentsize);
     if (await talent.talentshow != 0) {
-        talent.talentsize = '0';
+        size = '未知';
         name = '未知';
+    }else{
+        size+='%';
     };
     const myData = {
         user_id: usr_qq,
@@ -131,7 +134,7 @@ export const get_player_img = async (e) => {
         lingshi: Math.trunc(wealt.lingshi),
         xianshi: Math.trunc(wealt.xianshi),
         talent: talent,
-        talentsize: Math.trunc(talent.talentsize)
+        talentsize: size
     };
     const data1 = await new Show(e).get_Data('User/player', 'player', myData);
     const img = await puppeteer.screenshot('player', {
