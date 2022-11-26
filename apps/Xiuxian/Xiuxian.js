@@ -471,7 +471,7 @@ export const get_talent = async () => {
  */
 export const talentname = async (player) => {
     const talentname = [];
-    const name = '';
+    let name = '';
     const talent = player.talent;
     for (let i = 0; i < talent.length; i++) {
         name = data.talent_list.find(item => item.id == talent[i]).name;

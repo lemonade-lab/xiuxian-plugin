@@ -88,7 +88,7 @@ export class Exchange extends plugin {
         action.Exchange = action.Exchange + 1;
         await Write_action(usr_qq, action);
         let najie = await Read_najie(usr_qq);
-        najie = await Add_najie_thing(najie, najie_thing, -quantity);
+        najie = await Add_najie_thing(najie, najie_thing, -the.quantity);
         await Write_najie(usr_qq, najie);
         e.reply(`成功上架:${najie_thing.name}*${najie_thing.acount}`);
         return;
