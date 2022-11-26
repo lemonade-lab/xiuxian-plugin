@@ -152,6 +152,10 @@ export const Write_equipment = async (usr_qq, equipment) => {
 };
 //计算面板
 export const updata_equipment = async (usr_qq) => {
+    const equipment = await Read_equipment(usr_qq);
+    const level = await Read_level(usr_qq);
+    const levelmini = data.Level_list.find(item => item.id == level.level_id);
+    const levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
     const the = {
         attack:0,
         defense:0,
@@ -161,7 +165,6 @@ export const updata_equipment = async (usr_qq) => {
         speed:0,
         player:0
     };
-    const equipment = await Read_equipment(usr_qq);
     equipment.forEach((item) => {
         the.attack = the.attack + item.attack;
         the.defense = the.defense + item.defense;
@@ -170,9 +173,6 @@ export const updata_equipment = async (usr_qq) => {
         the.burstmax = the.burstmax + item.burstmax;
         the.speed = the.speed + item.speed;
     });
-    const level = await Read_level(usr_qq);
-    const levelmini = data.Level_list.find(item => item.id == level.level_id);
-    const levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
     the.player = {
         nowblood: the.player.nowblood,
         attack: levelmini.attack + levelmax.attack + Math.floor((levelmini.attack + levelmax.attack) * the.attack * 0.01),
