@@ -49,8 +49,7 @@ export class Exchange extends plugin {
         const [thing_name,thing_acount,thing_money] = code;//价格
         const the={
             quantity:0,
-            money:0,
-            najie:{}
+            money:0
         };
         the.quantity = await Numbers(thing_acount);
         if (the.quantity > 99) {
@@ -88,9 +87,9 @@ export class Exchange extends plugin {
         await Write_Exchange(exchange);
         action.Exchange = action.Exchange + 1;
         await Write_action(usr_qq, action);
-        the.najie = await Read_najie(usr_qq);
-        the.najie = await Add_najie_thing(the.najie, najie_thing, -quantity);
-        await Write_najie(usr_qq, the.najie);
+        let najie = await Read_najie(usr_qq);
+        najie = await Add_najie_thing(najie, najie_thing, -quantity);
+        await Write_najie(usr_qq, najie);
         e.reply(`成功上架:${najie_thing.name}*${najie_thing.acount}`);
         return;
     };
