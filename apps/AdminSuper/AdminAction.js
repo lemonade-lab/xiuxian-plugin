@@ -1,6 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { createRequire } from 'module';
 import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
+import filecp from '../../model/filecp.js';
 const require = createRequire(import.meta.url);
 const { exec } = require('child_process');
 const _path = process.cwd();
@@ -176,14 +177,15 @@ export class AdminAction extends plugin {
         return true;
     };
     init = async () => {
+        filecp.upfile();
         const the = { restart: '' };
         the.restart = await redis.get(this.key);
         if (the.restart) {
             the.restart = JSON.parse(the.restart);
             if (the.restart.isGroup) {
-                Bot.pickGroup(the.restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
+                Bot.pickGroup(the.restart.id).sendMsg('重启成功!\n【#修仙版本】\n以确保正常使用\n');
             } else {
-                Bot.pickGroup(the.restart.id).sendMsg('重启成功!\n【#同步信息】\n【#重置配置】\n【#修仙版本】\n以确保正常使用\n');
+                Bot.pickGroup(the.restart.id).sendMsg('重启成功!\n【#修仙版本】\n以确保正常使用\n');
             }
             redis.del(this.key);
         };

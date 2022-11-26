@@ -37,7 +37,7 @@ export class Exchange extends plugin {
         });
         await ForwardMsg(e, msg);
         return;
-    }
+    };
     onsell = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
@@ -116,11 +116,9 @@ export class Exchange extends plugin {
         if (exchange[x].QQ != usr_qq) {
             return;
         };
-
         const action = await Read_action(usr_qq);
         action.Exchange = action.Exchange - 1;
         await Write_action(usr_qq, action);
-
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
@@ -155,21 +153,16 @@ export class Exchange extends plugin {
             return;
         };
         wealth.lingshi -= exchange[x].money;
-
         await Write_wealth(usr_qq, wealth);
         const newwealth = await Read_wealth(exchange[x].QQ);
         newwealth.lingshi += exchange[x].money;
         await Write_wealth(exchange[x].QQ, newwealth);
-
-        
         const action = await Read_action(exchange[x].QQ);
         action.Exchange = action.Exchange - 1;
         await Write_action(exchange[x].QQ, action);
-
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
-
         exchange = exchange.filter(item => item.id != thingid);
         await Write_Exchange(exchange);
         e.reply(`成功选购${thingid}`);

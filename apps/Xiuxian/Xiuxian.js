@@ -427,11 +427,11 @@ export const battle = async (e, A, B) => {
 }
 //暴击率
 export const battle_probability = async (P) => {
-    const newp = 0;
-    if (P > 100) {
+    let newp = P;
+    if (newp > 100) {
         newp = 100;
     };
-    if (P < 0) {
+    if (newp < 0) {
         newp = 0;
     };
     const rand = Math.floor((Math.random() * (100 - 1) + 1));

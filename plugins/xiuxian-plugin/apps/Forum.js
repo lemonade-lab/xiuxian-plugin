@@ -34,11 +34,11 @@ export class Forum extends plugin {
         const usr_qq = e.user_id;
         if (usr_qq == 80000000) {
             return;
-        }
+        };
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
-        }
+        };
         const Forum = await Read_Forum();
         const title0 = e.msg.replace('#文章', '');
         const code = title0.split('\*');

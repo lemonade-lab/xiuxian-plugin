@@ -31,17 +31,6 @@
       title: "#删除信息 @群友"
       desc: "删除群友信息"
 
-- group: 
-  list:
-    - icon: help-icon_58
-      title: "#修仙世界"
-      desc: "查看修仙人数"
-    - icon: help-icon_58
-      title: "#重置配置"
-      desc: "重置修仙配置"
-    - icon: help-icon_58
-      title: "#同步信息"
-      desc: "同步所有存档"
       
 - group: 
   list:
