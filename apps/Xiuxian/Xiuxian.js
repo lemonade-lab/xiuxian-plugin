@@ -952,7 +952,7 @@ export const point_map = async (action, addressName) => {
     let T = false;
     point.forEach((item,index,arr) => {
         //存在模糊
-        if (item.id.includes(addressName)) {
+        if (item.name.includes(addressName)) {
             //且位置配对
             if (action.x == item.x && action.y == item.y) {
                 T = true;
