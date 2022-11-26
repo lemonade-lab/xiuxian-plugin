@@ -37,7 +37,7 @@ export class Xiuxian extends plugin {
 const Read = async (usr_qq, PATH) => {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
     const the = {
-        'player': ''
+        player: ''
     };
     the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
@@ -153,13 +153,13 @@ export const Write_equipment = async (usr_qq, equipment) => {
 //计算面板
 export const updata_equipment = async (usr_qq) => {
     const the = {
-        attack,
-        defense,
-        blood,
-        burst,
-        burstmax,
-        speed,
-        player
+        attack:0,
+        defense:0,
+        blood:0,
+        burst:0,
+        burstmax:0,
+        speed:0,
+        player:0
     };
     const equipment = await Read_equipment(usr_qq);
     equipment.forEach((item) => {
@@ -245,15 +245,15 @@ export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
 //怪物战斗
 export const monsterbattle = async (e, battleA, battleB) => {
     const battle_msg = {
-        'msg': [],
-        'QQ': 1
+        msg: [],
+        QQ: 1
     };
     const battle = {
-        'Z': 1
+        Z: 1
     };
     const battle_hurt = {
-        'hurtA': 0,
-        'hurtB': 0
+        hurtA: 0,
+        hurtB: 0
     };
     if (battleA.speed >= battleB.speed - 5) {
         battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
@@ -321,13 +321,13 @@ export const monsterbattle = async (e, battleA, battleB) => {
 //战斗模型
 export const battle = async (e, A, B) => {
     const battle_msg = {
-        'msg': [],
-        'QQ': 1
+        msg: [],
+        QQ: 1
     };
     const battle = {
-        'X': 1,
-        'Y': 0,
-        'Z': 1
+        X: 1,
+        Y: 0,
+        Z: 1
     };
     const battle_hurt = {
         'hurtA': 0,
@@ -427,17 +427,15 @@ export const battle = async (e, A, B) => {
 }
 //暴击率
 export const battle_probability = async (P) => {
-    const the = {
-        'newp': 0
-    };
+    const newp = 0;
     if (P > 100) {
-        the.newp = 100;
+        newp = 100;
     };
     if (P < 0) {
-        the.newp = 0;
+        newp = 0;
     };
     const rand = Math.floor((Math.random() * (100 - 1) + 1));
-    if (the.newp > rand) {
+    if (newp > rand) {
         return true;
     };
     return false;
@@ -473,13 +471,11 @@ export const get_talent = async () => {
  */
 export const talentname = async (player) => {
     const talentname = [];
-    const thetalent = {
-        'name': ''
-    };
+    const name = '';
     const talent = player.talent;
     for (let i = 0; i < talent.length; i++) {
-        thetalent.name = data.talent_list.find(item => item.id == talent[i]).name;
-        talentname.push(thetalent.name);
+        name = data.talent_list.find(item => item.id == talent[i]).name;
+        talentname.push(name);
     };
     return talentname;
 };
@@ -489,8 +485,8 @@ export const talentname = async (player) => {
  */
 const talentsize = async (player) => {
     const talent = {
-        'player': player.talent,
-        'talentsize': 250
+        player: player.talent,
+        talentsize: 250
     };
     //根据灵根数来判断
     for (let i = 0; i < talent.player.length; i++) {
@@ -511,8 +507,8 @@ const talentsize = async (player) => {
 export const player_efficiency = async (usr_qq) => {
     const player = await Read_talent(usr_qq);
     const the = {
-        gongfa_efficiency,
-        linggen_efficiency
+        gongfa_efficiency:0,
+        linggen_efficiency:0
     };
     the.gongfa_efficiency = 0;
     player.AllSorcery.forEach((item) => {
@@ -801,9 +797,9 @@ const CDname = ['攻击', '降妖', '闭关', '改名', '道宣', '赠送', '突
 export const GenerateCD = async (usr_qq, CDid) => {
     const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
     const time={
-        h,
-        m,
-        s
+        h:0,
+        m:0,
+        s:0
     };
     if (remainTime != -1) {
         time.h = Math.floor(remainTime / 60 / 60);
@@ -823,9 +819,9 @@ export const GenerateCD = async (usr_qq, CDid) => {
 export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
     const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
     const time={
-        h,
-        m,
-        s
+        h:0,
+        m:0,
+        s:0
     };
     if (remainTime != -1) {
         time.h = Math.floor(remainTime / 60 / 60);

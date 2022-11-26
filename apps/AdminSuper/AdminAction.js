@@ -176,7 +176,7 @@ export class AdminAction extends plugin {
         return true;
     };
     init = async () => {
-        const the = { 'restart': '' };
+        const the = { restart: '' };
         the.restart = await redis.get(this.key);
         if (the.restart) {
             the.restart = JSON.parse(the.restart);

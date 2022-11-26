@@ -81,15 +81,19 @@ export class UserStart extends plugin {
         await Write_wealth(usr_qq, new_wealth);
         const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西');
         const positionID=position.id.split('-');
-        const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
-        const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
+        const the={
+            mx:0,
+            my:0
+        };
+        the.mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
+        the.my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
         //是区域的,就随机分配
         const new_action = {
             'game': 1,//游戏状态
             'Couple': 1, //双修
             'newnoe': 1, //新人
-            'x': mx,
-            'y': my,
+            'x': the.mx,
+            'y': the.my,
             'z': positionID[0],//位面
             'region':positionID[1],//区域
             'address':positionID[2],//属性
@@ -105,9 +109,11 @@ export class UserStart extends plugin {
             'thing': []
         };
         await Write_najie(usr_qq, new_najie);
-        const name1 = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-        const name2 = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
-        const name = await Anyarray(name1) + await Anyarray(name2);
+        const thename={
+            name1:['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+            name2:['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+        };
+        const name = await Anyarray(thename.name1) + await Anyarray(thename.name2);
         const life = await Read_Life();
         const time = new Date();
         life.push({
