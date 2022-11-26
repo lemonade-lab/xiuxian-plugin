@@ -1,5 +1,5 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
-import { Read_Exchange, ForwardMsg, __PATH, existplayer, Write_Exchange, Write_najie, Read_action, Numbers, exist_najie_thing_name, Write_action, Read_najie, Add_najie_thing, Read_wealth, Write_wealth } from '../../../apps/Xiuxian/Xiuxian.js';
+import { Read_Exchange, ForwardMsg, __PATH, existplayer, Write_Exchange, Write_najie, Read_action, Numbers, exist_najie_thing_name, Write_action, Read_najie, Add_najie_thing, Read_wealth, Write_wealth, point_map } from '../../../apps/Xiuxian/Xiuxian.js';
 export class Exchange extends plugin {
     constructor() {
         super({
@@ -34,6 +34,18 @@ export class Exchange extends plugin {
 
 
     supermarket = async (e) => {
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const address_name='弱水阁';
+        const map=await point_map(action,address_name);
+        if(!map){
+            e.reply(`需回${address_name}`);
+            return;
+        };
         const Exchange = await Read_Exchange();
         const msg = [
             '___[弱水阁]___\n#上架+物品名*数量*价格\n#选购+编号\n#下架+编号\n不填数量,默认为1'
@@ -48,6 +60,13 @@ export class Exchange extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const address_name='弱水阁';
+        const map=await point_map(action,address_name);
+        if(!map){
+            e.reply(`需回${address_name}`);
             return;
         };
         const thing = e.msg.replace('#上架', '');
@@ -74,7 +93,6 @@ export class Exchange extends plugin {
             e.reply(`[${thing_name}]不够`);
             return;
         };
-        const action = await Read_action(usr_qq);
         if (action.Exchange >= 3) {
             e.reply('有其他物品未售出')
             return;
@@ -106,6 +124,13 @@ export class Exchange extends plugin {
         if (!ifexistplay) {
             return;
         };
+        const action=await Read_action(usr_qq);
+        const address_name='弱水阁';
+        const map=await point_map(action,address_name);
+        if(!map){
+            e.reply(`需回${address_name}`);
+            return;
+        };
         let thingid = e.msg.replace('#下架', '');
         thingid = await Numbers(thingid);
         let x = 888888888;
@@ -123,7 +148,6 @@ export class Exchange extends plugin {
         if (exchange[x].QQ != usr_qq) {
             return;
         };
-        const action = await Read_action(usr_qq);
         action.Exchange = action.Exchange - 1;
         await Write_action(usr_qq, action);
         let najie = await Read_najie(usr_qq);
@@ -138,6 +162,13 @@ export class Exchange extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const address_name='弱水阁';
+        const map=await point_map(action,address_name);
+        if(!map){
+            e.reply(`需回${address_name}`);
             return;
         };
         let thingid = e.msg.replace('#选购', '');
@@ -164,9 +195,9 @@ export class Exchange extends plugin {
         const newwealth = await Read_wealth(exchange[x].QQ);
         newwealth.lingshi += exchange[x].money;
         await Write_wealth(exchange[x].QQ, newwealth);
-        const action = await Read_action(exchange[x].QQ);
-        action.Exchange = action.Exchange - 1;
-        await Write_action(exchange[x].QQ, action);
+        const actionqq = await Read_action(exchange[x].QQ);
+        actionqq.Exchange = actionqq.Exchange - 1;
+        await Write_action(exchange[x].QQ, actionqq);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
