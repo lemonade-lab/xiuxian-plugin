@@ -48,9 +48,9 @@ export class Exchange extends plugin {
         const code = thing.split('\*');
         const [thing_name,thing_acount,thing_money] = code;//价格
         const the={
-            quantity,
-            money,
-            najie
+            quantity:0,
+            money:0,
+            najie:{}
         };
         the.quantity = await Numbers(thing_acount);
         if (the.quantity > 99) {
