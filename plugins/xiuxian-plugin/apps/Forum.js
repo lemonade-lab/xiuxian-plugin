@@ -1,5 +1,5 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
-import { ForwardMsg, Read_Forum, existplayer, Write_Forum } from '../../../apps/Xiuxian/Xiuxian.js';
+import { ForwardMsg, point_map,Read_action,Read_Forum, existplayer, Write_Forum } from '../../../apps/Xiuxian/Xiuxian.js';
 export class Forum extends plugin {
     constructor() {
         super({
@@ -26,7 +26,19 @@ export class Forum extends plugin {
 
 
     Searchforum = async (e) => {
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const address_name='有间客栈';
+        const map=await point_map(action,address_name);
         const Forum = await Read_Forum();
+        if(!map){
+            e.reply(`需回${address_name}`);
+            return;
+        };
         const msg = [
             '___[有间客栈]___'
         ];
