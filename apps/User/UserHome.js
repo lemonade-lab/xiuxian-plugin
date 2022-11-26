@@ -101,15 +101,13 @@ export class UserHome extends plugin {
             e.reply('学过了');
             return;
         };
-        if (talent.AllSorcery.length <= this.xiuxianConfigData.myconfig.gongfa) {
-            talent.AllSorcery.push(najie_thing);
-            await Write_talent(usr_qq, talent);
-            await player_efficiency(usr_qq);
-        }
-        else {
+        if (talent.AllSorcery.length > this.xiuxianConfigData.myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进');
             return;
         };
+        talent.AllSorcery.push(najie_thing);
+        await Write_talent(usr_qq, talent);
+        await player_efficiency(usr_qq);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, najie_thing, -1);
         await Write_najie(usr_qq, najie);
