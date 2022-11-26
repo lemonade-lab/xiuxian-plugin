@@ -49,6 +49,7 @@ export class SecretPlace extends plugin {
         const action=await Read_action(usr_qq);
         if(action.address!=1){
             e.reply('你对这里并不了解...');
+            return;
         };
         const addressId=`${action.z}-${action.region}-${action.address}`;
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
