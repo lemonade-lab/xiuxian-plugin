@@ -31,9 +31,10 @@ export class MoneyOperation extends plugin {
         };
         const usr_qq = e.user_id;
         const action=await Read_action(usr_qq);
-        const map=await point_map(action,'联盟');
+        const address_name='联盟';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回联盟');
+            e.reply(`需回${address_name}`);
             return;
         };
         const level=await Read_level(usr_qq);

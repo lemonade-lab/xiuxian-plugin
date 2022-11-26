@@ -49,10 +49,11 @@ export class UserAction extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        const action =await Read_action(usr_qq);
-        const map=await point_map(action,'炼器师协会');
+        const action=await Read_action(usr_qq);
+        const address_name='炼器师协会';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回炼器师协会');
+            e.reply(`需回${address_name}`);
             return;
         };
         const najie = await Read_najie(usr_qq);

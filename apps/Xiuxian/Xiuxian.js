@@ -948,14 +948,13 @@ export const map_distance = async (A, B) => {
 
 //输入：模糊搜索名字并判断是否在此地
 export const point_map = async (action, addressName) => {
-    const addressId = `${action.z}-${action.region}-${action.address}`;
     const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
     let T = false;
-    point.forEach((item) => {
+    point.forEach((item,index,arr) => {
         //存在模糊
         if (item.id.includes(addressName)) {
             //且位置配对
-            if (action.x == point.x && action.y == point.y) {
+            if (action.x == arr.x && action.y == arr.y) {
                 T = true;
             };
         };

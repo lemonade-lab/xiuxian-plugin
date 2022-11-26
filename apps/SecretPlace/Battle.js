@@ -103,9 +103,10 @@ export class Battle extends plugin {
             return;
         };
         const action=await Read_action(usr_qq);
-        const map=await point_map(action,'天机门');
+        const address_name='天机门';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回天机门');
+            e.reply(`需回${address_name}`);
             return;
         };
         const Level = await Read_level(usr_qq);

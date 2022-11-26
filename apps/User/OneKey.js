@@ -36,10 +36,11 @@ export class OneKey extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const action =await Read_action(usr_qq);
-        const map=await point_map(action,'万宝楼');
+        const action=await Read_action(usr_qq);
+        const address_name='万宝楼';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回万宝楼');
+            e.reply(`需回${address_name}`);
             return;
         };
         let najie = await Read_najie(usr_qq);

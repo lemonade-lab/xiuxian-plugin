@@ -25,12 +25,6 @@ export class UserTransaction extends plugin {
             ]
         });
     };
-
-    /**
-     * 
-     * 此功能需要回城池中的  #城池名+凡仙堂
-     */
-
     ningmenghome = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
@@ -38,9 +32,10 @@ export class UserTransaction extends plugin {
             return;
         };
         const action =await Read_action(usr_qq);
-        const map=await point_map(action,'凡仙堂');
+        const address_name='凡仙堂';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回凡仙堂看今天物价');
+            e.reply(`需回${address_name}`);
             return;
         };
         const msg = [
@@ -73,9 +68,10 @@ export class UserTransaction extends plugin {
             return;
         };
         const action =await Read_action(usr_qq);
-        const map=await point_map(action,'凡仙堂');
+        const address_name='凡仙堂';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回凡仙堂');
+            e.reply(`需回${address_name}`);
             return;
         };
         const thing = e.msg.replace('#购买', '');
@@ -118,9 +114,10 @@ export class UserTransaction extends plugin {
             return;
         };
         const action =await Read_action(usr_qq);
-        const map=await point_map(action,'凡仙堂');
+        const address_name='凡仙堂';
+        const map=await point_map(action,address_name);
         if(!map){
-            e.reply('需回凡仙堂');
+            e.reply(`需回${address_name}`);
             return;
         };
         const thing = e.msg.replace('#出售', '');
