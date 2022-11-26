@@ -75,8 +75,9 @@ export class Exchange extends plugin {
         };
         najie_thing.acount = the.quantity;
         const exchange = await Read_Exchange();
+        const sum=Math.floor((Math.random() * (99 - 1) + 1));
         exchange.push({
-            'id': usr_qq + Math.floor((Math.random() * (99 - 1) + 1)),
+            'id': `${usr_qq}${sum}`,
             'QQ': usr_qq,
             'thing': najie_thing,
             'x': action.x,

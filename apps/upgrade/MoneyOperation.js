@@ -38,7 +38,6 @@ export class MoneyOperation extends plugin {
         if(action.newnoe!=1){
             return;
         };
-        //看看是不是极西联盟
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == '极西联盟');
         if(action.x!=point.x||action.y!=point.y){
             return;
@@ -48,7 +47,6 @@ export class MoneyOperation extends plugin {
         const equipment_name='烂铁匕首';
         const money=Number(5);
         const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.name == equipment_name);
-        console.log(ifexist);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, ifexist, Number(1));
         await Write_najie(usr_qq, najie);

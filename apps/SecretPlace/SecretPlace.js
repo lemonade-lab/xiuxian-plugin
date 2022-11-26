@@ -55,7 +55,7 @@ export class SecretPlace extends plugin {
         if (!ifexistplay) {
             return;
         };
-        let action = await Read_action(usr_qq);
+        const action = await Read_action(usr_qq);
         e.reply(`坐标(${action.x},${action.y},${action.z})`);
         return;
     };
@@ -68,7 +68,7 @@ export class SecretPlace extends plugin {
         if(forwardsetTime[usr_qq]==1){
             return;
         };
-        let action = await Read_action(usr_qq);
+        const action = await Read_action(usr_qq);
         const x = action.x;
         const y = action.y;
         const address = e.msg.replace('#前往', '');
@@ -79,15 +79,11 @@ export class SecretPlace extends plugin {
         const mx = point.x;
         const my = point.y;
         const PointId = point.id.split('-');
-        console.log(PointId);
-        //判断地点等级限制
         const level = await Read_level(usr_qq);
         if (level.level_id < PointId[3]) {
-            //境界不足
             e.reply('[修仙联盟]守境者\n道友请留步');
             return;
         };
-        //计算时间
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const the = Math.floor(a + b);
@@ -115,17 +111,15 @@ export class SecretPlace extends plugin {
         if(deliverysetTime[usr_qq]==1){
             return;
         };
-        let action = await Read_action(usr_qq);
+        const action = await Read_action(usr_qq);
         const x = action.x;
         const y = action.y;
         const address = e.msg.replace('#传送', '');
         const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address);
-        console.log(position);
         if (!position) {
             return;
         };
         const positionID = position.id.split('-');
-        console.log(positionID);
         const level = await Read_level(usr_qq);
         if (level.level_id < positionID[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步');
@@ -133,18 +127,12 @@ export class SecretPlace extends plugin {
         };
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
         let key = 0;
-        //看看地点
         point.forEach((item) => {
-            //看看在不在传送阵:传送阵点固定id=1-6
             const pointID = item.id.split('-');
-            console.log(pointID);
-            //id需要重设定
-            //位面、区域、属性、等级、编号2为传送阵
             if (pointID[4] == 2) {
                 if (item.x == x) {
                     if (item.y = y) {
                         key = 1;
-                        console.log(1);
                     };
                 };
             };
@@ -170,7 +158,6 @@ export class SecretPlace extends plugin {
             action.y = my;
             action.region = positionID[1];
             action.address = positionID[2];
-            console.log(positionID[2]);
             await Write_action(usr_qq, action);
             e.reply([segment.at(usr_qq),`成功传送至${address}`]);
         }, 1000 * time);

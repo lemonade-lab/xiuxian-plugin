@@ -33,6 +33,7 @@ export class TopList extends plugin {
         };
         const playerList = [];
         const temp = [];
+        const list = [];
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith('.json'));
@@ -56,7 +57,6 @@ export class TopList extends plugin {
             return;
         };
         temp.sort(sortBy('power'));
-        const list = [];
         temp.forEach((item, index) => {
             if (index < 10) {
                 list.push(item);
@@ -74,6 +74,7 @@ export class TopList extends plugin {
         };
         const playerList = [];
         const temp = [];
+        const list = [];
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith('.json'));
@@ -98,7 +99,6 @@ export class TopList extends plugin {
             return;
         };
         temp.sort(sortBy('power'));
-        const list = [];
         temp.forEach((item, index) => {
             if (index < 10) {
                 list.push(item);
@@ -113,16 +113,17 @@ export class TopList extends plugin {
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
             return;
-        }
+        };
+        const list = [];
+        const temp = [];
+        const playerList = [];
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith('.json'));
-        const playerList = [];
         files.forEach((item) => {
             const file = item.replace('.json', '');
             playerList.push(file);
         });
-        const temp = [];
         for (let item of playerList) {
             const level = await Read_level(item);
             if (level.level_id <= 10) {
@@ -139,7 +140,6 @@ export class TopList extends plugin {
             return;
         };
         temp.sort(sortBy('power'));
-        const list = [];
         temp.forEach(async (item, index) => {
             if (index < 10) {
                 list.push(item);

@@ -40,9 +40,7 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         };
-        const allkey = await redis.keys('xiuxian:*', (err, data) => {
-            console.log(err);
-        });
+        const allkey = await redis.keys('xiuxian:*', (err, data) => {});
         if (allkey) {
             allkey.forEach(async (item) => {
                 await redis.del(item);

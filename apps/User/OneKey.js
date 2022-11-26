@@ -21,7 +21,6 @@ export class OneKey extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
-
     OneKey_all = async (e) => {
         if (!e.isGroup) {
             return;
@@ -42,7 +41,6 @@ export class OneKey extends plugin {
         e.reply(`[蜀山派]叶铭\n这是${money}灵石,道友慢走`);
         return;
     };
-
     OneKey_key = async (e) => {
         if (!e.isGroup) {
             return;

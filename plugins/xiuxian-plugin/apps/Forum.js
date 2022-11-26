@@ -64,16 +64,13 @@ export class Forum extends plugin {
         const month = myDate.getMonth() + 1;
         const day = myDate.getDate();
         const newDay = year + '-' + month + '-' + day;
-        let Mathrandom = Math.random();
-        Mathrandom = usr_qq + Mathrandom
-        Mathrandom = Mathrandom * 100000
-        Mathrandom = Math.trunc(Mathrandom);
+        const Mathrandom=Math.floor((Math.random() * (99 - 1) + 1));
         const wupin = {
             'title': title,//发布名
             'qq': usr_qq,//发布名
             'content': content,//发布内容
             'time': newDay,//发布时间
-            'number': Mathrandom//编号
+            'number': `${usr_qq}${Mathrandom}`//编号
         };
         Forum.push(wupin);
         await Write_Forum(Forum);

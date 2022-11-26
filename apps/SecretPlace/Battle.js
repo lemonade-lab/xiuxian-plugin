@@ -28,13 +28,12 @@ export class Battle extends plugin {
             return;
         };
         const user={
-            A: 0,
+            A: e.user_id,
             B: 0,
             C: 0,
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         };
-        user.A = e.user_id;
         user.B = await At(e);
         if (user.B == 0 || user.B == user.A) {
             return;
