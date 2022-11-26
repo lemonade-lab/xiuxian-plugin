@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
-import { Add_lingshi, existplayer, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
 export class OneKey extends plugin {
     constructor() {
         super({
@@ -34,6 +34,12 @@ export class OneKey extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action =await Read_action(usr_qq);
+        const map=await point_map(action,'万宝楼');
+        if(!map){
+            e.reply('需回万宝楼');
             return;
         };
         let najie = await Read_najie(usr_qq);

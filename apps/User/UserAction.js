@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
 import { get_najie_img } from '../ShowImeg/showData.js';
 import { segment } from 'oicq';
-import { existplayer, Go, Read_najie, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../Xiuxian/Xiuxian.js';
+import { existplayer, Go, Read_najie, point_map,Read_action,Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../Xiuxian/Xiuxian.js';
 export class UserAction extends plugin {
     constructor() {
         super({
@@ -49,6 +49,12 @@ export class UserAction extends plugin {
             return;
         };
         const usr_qq = e.user_id;
+        const action =await Read_action(usr_qq);
+        const map=await point_map(action,'炼器师协会');
+        if(!map){
+            e.reply('需回炼器师协会');
+            return;
+        };
         const najie = await Read_najie(usr_qq);
         const player = await Read_wealth(usr_qq);
         const najie_num = this.xiuxianConfigData.najie_num

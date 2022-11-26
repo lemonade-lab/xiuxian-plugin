@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
-import { Go, Read_action, Read_level, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, Read_level, ForwardMsg,existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../Xiuxian/Xiuxian.js';
 const forwardsetTime = []
 const deliverysetTime = [];
 const useraction = [];
@@ -31,22 +31,40 @@ export class SecretPlace extends plugin {
                     fnc: 'delivery'
                 },
                 {
-                    reg: '^#.*城$',
+                    reg: '^#位置信息$',
                     fnc: 'show_city'
                 }
             ]
         });
     };
-
-    /**
-     * 显示城池内所有地点
-     */
-
     show_city = async (e) => {
-        e.reply('updata');
+        if (!e.isGroup) {
+            return;
+        };
+        const usr_qq = e.user_id;
+        const ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        if(action.address!=1){
+            e.reply('你对这里并不了解...');
+        };
+        const addressId=`${action.z}-${action.region}-${action.address}`;
+        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
+        const address=[];
+        const msg=[];
+        point.forEach((item)=>{
+            if(item.id.includes(addressId)){
+                address.push(item);
+            };
+        });
+        address.forEach((item)=>{
+            msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
+        });
+        await ForwardMsg(e,msg);
         return;
     };
-
     returnpiont = async (e) => {
         const good = await Go(e);
         if (!good) {
@@ -58,7 +76,6 @@ export class SecretPlace extends plugin {
         e.reply('你回到了原地');
         return;
     };
-
     xyzaddress = async (e) => {
         if (!e.isGroup) {
             return;
@@ -101,9 +118,6 @@ export class SecretPlace extends plugin {
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const battle = Read_battle(usr_qq);
         const the = Math.floor(a + b - battle.speed * 10);
-        /**
-         * 需要根据敏捷减少s数。1敏捷少10s。
-         */
         const time = the > 0 ? the : 1;
         useraction[usr_qq] = setTimeout(async () => {
             forwardsetTime[usr_qq] = 0;
@@ -118,7 +132,6 @@ export class SecretPlace extends plugin {
         e.reply(`正在前往${address}...\n需要${time}秒`);
         return;
     };
-
     delivery = async (e) => {
         const good = await Go(e);
         if (!good) {

@@ -157,13 +157,13 @@ export const updata_equipment = async (usr_qq) => {
     const levelmini = data.Level_list.find(item => item.id == level.level_id);
     const levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
     const the = {
-        attack:0,
-        defense:0,
-        blood:0,
-        burst:0,
-        burstmax:0,
-        speed:0,
-        player:0
+        attack: 0,
+        defense: 0,
+        blood: 0,
+        burst: 0,
+        burstmax: 0,
+        speed: 0,
+        player: 0
     };
     equipment.forEach((item) => {
         the.attack = the.attack + item.attack;
@@ -507,8 +507,8 @@ const talentsize = async (player) => {
 export const player_efficiency = async (usr_qq) => {
     const player = await Read_talent(usr_qq);
     const the = {
-        gongfa_efficiency:0,
-        linggen_efficiency:0
+        gongfa_efficiency: 0,
+        linggen_efficiency: 0
     };
     the.gongfa_efficiency = 0;
     player.AllSorcery.forEach((item) => {
@@ -692,7 +692,7 @@ export const isNotBlank = (value) => {
  * 强制修正至少为1
  */
 export const Numbers = async (value) => {
-    const the={};
+    const the = {};
     the.value = value;
     if (isNaN(parseFloat(the.value)) && !isFinite(the.value)) {
         the.value = 1;
@@ -721,7 +721,7 @@ export const getPlayerAction = async (usr_qq) => {
             arr.time = m + 'm' + s + 's';//剩余时间
             return arr;
         };
-    }; 
+    };
     arr.action = '空闲';
     return arr;
 };
@@ -796,10 +796,10 @@ const CDname = ['攻击', '降妖', '闭关', '改名', '道宣', '赠送', '突
  */
 export const GenerateCD = async (usr_qq, CDid) => {
     const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
-    const time={
-        h:0,
-        m:0,
-        s:0
+    const time = {
+        h: 0,
+        m: 0,
+        s: 0
     };
     if (remainTime != -1) {
         time.h = Math.floor(remainTime / 60 / 60);
@@ -818,10 +818,10 @@ export const GenerateCD = async (usr_qq, CDid) => {
 //插件CD检测
 export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
     const remainTime = await redis.ttl('xiuxian:player:' + usr_qq + ':' + CDid);
-    const time={
-        h:0,
-        m:0,
-        s:0
+    const time = {
+        h: 0,
+        m: 0,
+        s: 0
     };
     if (remainTime != -1) {
         time.h = Math.floor(remainTime / 60 / 60);
@@ -871,9 +871,9 @@ export const Read_Exchange = async () => {
 };
 //搜索物品
 export const Search_Exchange = async (thing_qq) => {
-    const the={
-        qq:thing_qq,
-        x:-1
+    const the = {
+        qq: thing_qq,
+        x: -1
     };
     const Exchange = await Read_Exchange();
     if (the.thingqq == '') {
@@ -943,4 +943,22 @@ export const distance = async (A, B) => {
 export const map_distance = async (A, B) => {
     const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2);
     return h;
+};
+
+
+//输入：模糊搜索名字并判断是否在此地
+export const point_map = async (action, addressName) => {
+    const addressId = `${action.z}-${action.region}-${action.address}`;
+    const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
+    let T = false;
+    point.forEach((item) => {
+        //存在模糊
+        if (item.id.includes(addressName)) {
+            //且位置配对
+            if (action.x == point.x && action.y == point.y) {
+                T = true;
+            };
+        };
+    });
+    return T;
 };

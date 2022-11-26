@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'fs';
-import { existplayer, __PATH, sortBy, Read_level, Read_battle } from '../Xiuxian/Xiuxian.js';
+import { existplayer, __PATH, Read_action,point_map,sortBy, Read_level, Read_battle } from '../Xiuxian/Xiuxian.js';
 import { get_toplist_img } from '../ShowImeg/showData.js';
 export class TopList extends plugin {
     constructor() {
@@ -34,6 +34,12 @@ export class TopList extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const map=await point_map(action,'天机门');
+        if(!map){
+            e.reply('需回天机门');
             return;
         };
         const playerList = [];
@@ -77,6 +83,12 @@ export class TopList extends plugin {
         if (!ifexistplay) {
             return;
         };
+        const action=await Read_action(usr_qq);
+        const map=await point_map(action,'天机门');
+        if(!map){
+            e.reply('需回天机门');
+            return;
+        };
         const playerList = [];
         const temp = [];
         const list = [];
@@ -117,6 +129,12 @@ export class TopList extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const map=await point_map(action,'天机门');
+        if(!map){
+            e.reply('需回天机门');
             return;
         };
         const list = [];

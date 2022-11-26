@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
 import fs from 'node:fs';
-import {Read_action, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../Xiuxian/Xiuxian.js';
+import {Read_action,point_map, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../Xiuxian/Xiuxian.js';
 export class MoneyOperation extends plugin {
     constructor() {
         super({
@@ -30,16 +30,17 @@ export class MoneyOperation extends plugin {
             return;
         };
         const usr_qq = e.user_id;
+        const action=await Read_action(usr_qq);
+        const map=await point_map(action,'联盟');
+        if(!map){
+            e.reply('需回联盟');
+            return;
+        };
         const level=await Read_level(usr_qq);
         if(level.level_id!=1){
             return;
         };
-        const action=await Read_action(usr_qq);
         if(action.newnoe!=1){
-            return;
-        };
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == '极西联盟');
-        if(action.x!=point.x||action.y!=point.y){
             return;
         };
         action.newnoe=0;

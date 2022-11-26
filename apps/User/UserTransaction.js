@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
-import { Numbers, Read_wealth, Add_lingshi,  exist_najie_thing_name,Add_najie_thing,  existplayer, ForwardMsg, __PATH, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name,Add_najie_thing,  existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../Xiuxian/Xiuxian.js';
 export class UserTransaction extends plugin {
     constructor() {
         super({
@@ -37,6 +37,12 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         };
+        const action =await Read_action(usr_qq);
+        const map=await point_map(action,'凡仙堂');
+        if(!map){
+            e.reply('需回凡仙堂看今天物价');
+            return;
+        };
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ];
@@ -64,6 +70,12 @@ export class UserTransaction extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action =await Read_action(usr_qq);
+        const map=await point_map(action,'凡仙堂');
+        if(!map){
+            e.reply('需回凡仙堂');
             return;
         };
         const thing = e.msg.replace('#购买', '');
@@ -103,6 +115,12 @@ export class UserTransaction extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action =await Read_action(usr_qq);
+        const map=await point_map(action,'凡仙堂');
+        if(!map){
+            e.reply('需回凡仙堂');
             return;
         };
         const thing = e.msg.replace('#出售', '');

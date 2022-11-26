@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
-import { Go, Read_action, existplayer, GenerateCD, __PATH, At, battle,  Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, point_map,existplayer, GenerateCD, __PATH, At, battle,  Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../Xiuxian/Xiuxian.js';
 export class Battle extends plugin {
     constructor() {
         super({
@@ -100,6 +100,12 @@ export class Battle extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
+            return;
+        };
+        const action=await Read_action(usr_qq);
+        const map=await point_map(action,'天机门');
+        if(!map){
+            e.reply('需回天机门');
             return;
         };
         const Level = await Read_level(usr_qq);

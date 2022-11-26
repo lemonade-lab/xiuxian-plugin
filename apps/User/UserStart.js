@@ -78,7 +78,7 @@ export class UserStart extends plugin {
             'newnoe': 1, //新人
             'x': the.mx,
             'y': the.my,
-            'z': positionID[0],//位面
+            'z': positionID[0],//位面 
             'region': positionID[1],//区域
             'address': positionID[2],//属性
             'Exchange': 0

@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
-import { __PATH, Write_player, Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../Xiuxian/Xiuxian.js';
+import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../Xiuxian/Xiuxian.js';
 import { get_player_img } from '../ShowImeg/showData.js';
 export class UserModify extends plugin {
     constructor() {
@@ -34,6 +34,12 @@ export class UserModify extends plugin {
             return;
         };
         const usr_qq = e.user_id;
+        const action =await Read_action(usr_qq);
+        const map=await point_map(action,'联盟');
+        if(!map){
+            e.reply('需回联盟');
+            return;
+        };
         const lingshi = 5;
         let new_name = e.msg.replace('#改名', '');
         if (new_name.length == 0) {
