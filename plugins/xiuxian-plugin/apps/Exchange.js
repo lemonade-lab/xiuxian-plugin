@@ -27,6 +27,12 @@ export class Exchange extends plugin {
             ]
         });
     };
+
+    /**
+     * 此功能需要回  #弱水阁
+     */
+
+
     supermarket = async (e) => {
         const Exchange = await Read_Exchange();
         const msg = [

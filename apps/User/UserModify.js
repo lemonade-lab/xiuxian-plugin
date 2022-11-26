@@ -22,6 +22,12 @@ export class UserModify extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
+
+     /**
+     * 
+     * 此功能需要修仙联盟
+     */
+
     Change_name = async (e) => {
         const good = await Go(e);
         if (!good) {

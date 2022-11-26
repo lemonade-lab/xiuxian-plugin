@@ -25,6 +25,12 @@ export class UserTransaction extends plugin {
             ]
         });
     };
+
+    /**
+     * 
+     * 此功能需要回城池中的  #城池名+凡仙堂
+     */
+
     ningmenghome = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);

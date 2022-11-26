@@ -25,6 +25,11 @@ export class TopList extends plugin {
             ]
         });
     };
+    
+    /**
+     * 此功能需要回  天机门
+     */
+
     TOP_prestige = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);

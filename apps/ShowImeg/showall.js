@@ -13,6 +13,10 @@ export class showall extends plugin {
                     fnc: 'show_Level',
                 },
                 {
+                    reg: '^#练气境界$',
+                    fnc: 'show_Level',
+                },
+                {
                     reg: '^#炼体境界$',
                     fnc: 'show_LevelMax',
                 },

@@ -22,6 +22,7 @@ export class Battle extends plugin {
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
 
+
     Attack = async (e) => {
         const good = await Go(e);
         if (!good) {
@@ -86,6 +87,11 @@ export class Battle extends plugin {
         await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
         return;
     };
+
+    
+    /**
+     * 此功能需要回  天机门
+     */
 
     HandWashing = async (e) => {
         if (!e.isGroup) {

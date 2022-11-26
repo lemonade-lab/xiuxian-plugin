@@ -27,6 +27,12 @@ export class UserAction extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
+
+
+    /**
+     * 此功能需要去   #炼器师协会
+     */
+
     Show_najie = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);

@@ -16,6 +16,10 @@ export class UserInformation extends plugin {
                 {
                     reg: '^#面板信息$',
                     fnc: 'show_equipment',
+                },
+                {
+                    reg: '^#功法信息$',
+                    fnc: 'show_gongfa',
                 }
             ]
         });

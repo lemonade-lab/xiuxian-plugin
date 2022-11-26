@@ -27,11 +27,11 @@ export class Statusplugin extends plugin {
         };
         const life = await Read_Life();
         const dealTime = (seconds) => {
-            var seconds = seconds | 0;
-            var day = (seconds / (3600 * 24)) | 0;
-            var hours = ((seconds - day * 3600) / 3600) | 0;
-            var minutes = ((seconds - day * 3600 * 24 - hours * 3600) / 60) | 0;
-            var second = seconds % 60;
+            let seconds = seconds | 0;
+            let day = (seconds / (3600 * 24)) | 0;
+            let hours = ((seconds - day * 3600) / 3600) | 0;
+            let minutes = ((seconds - day * 3600 * 24 - hours * 3600) / 60) | 0;
+            let second = seconds % 60;
             (day < 10) && (day = '0' + day);
             (hours < 10) && (hours = '0' + hours);
             (minutes < 10) && (minutes = '0' + minutes);
@@ -39,9 +39,7 @@ export class Statusplugin extends plugin {
             return [day, hours, minutes, second].join(':');
         };
         const dealMem = (mem) => {
-            var G = 0,
-                M = 0,
-                KB = 0;
+            let G = 0,M = 0,KB = 0;
             (mem > (1 << 30)) && (G = (mem / (1 << 30)).toFixed(2));
             (mem > (1 << 20)) && (mem < (1 << 30)) && (M = (mem / (1 << 20)).toFixed(2));
             (mem > (1 << 10)) && (mem > (1 << 20)) && (KB = (mem / (1 << 10)).toFixed(2));

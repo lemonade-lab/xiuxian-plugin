@@ -2,10 +2,10 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
-import { Go, Read_action, Read_level, existplayer,Read_wealth, Write_action, Write_wealth } from '../Xiuxian/Xiuxian.js';
+import { Go, Read_action, Read_level, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../Xiuxian/Xiuxian.js';
 const forwardsetTime = []
 const deliverysetTime = [];
-const useraction=[];
+const useraction = [];
 export class SecretPlace extends plugin {
     constructor() {
         super({
@@ -29,18 +29,31 @@ export class SecretPlace extends plugin {
                 {
                     reg: '^#传送.*$',
                     fnc: 'delivery'
+                },
+                {
+                    reg: '^#.*城$',
+                    fnc: 'show_city'
                 }
             ]
         });
     };
 
-    returnpiont=async(e)=>{
+    /**
+     * 显示城池内所有地点
+     */
+
+    show_city = async (e) => {
+        e.reply('updata');
+        return;
+    };
+
+    returnpiont = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
         };
         const usr_qq = e.user_id;
-        forwardsetTime[usr_qq]=0;
+        forwardsetTime[usr_qq] = 0;
         clearTimeout(useraction[usr_qq]);
         e.reply('你回到了原地');
         return;
@@ -65,7 +78,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(forwardsetTime[usr_qq]==1){
+        if (forwardsetTime[usr_qq] == 1) {
             return;
         };
         const action = await Read_action(usr_qq);
@@ -86,18 +99,22 @@ export class SecretPlace extends plugin {
         };
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
-        const the = Math.floor(a + b);
-        const time =the>0?the:1;
-        useraction[usr_qq]=setTimeout(async () => {
-                forwardsetTime[usr_qq]=0;
-                action.x = mx;
-                action.y = my;
-                action.region = PointId[1];
-                action.address = PointId[2];
-                await Write_action(usr_qq, action);
-                e.reply([segment.at(usr_qq),`成功抵达${address}`]);
+        const battle = Read_battle(usr_qq);
+        const the = Math.floor(a + b - battle.speed * 10);
+        /**
+         * 需要根据敏捷减少s数。1敏捷少10s。
+         */
+        const time = the > 0 ? the : 1;
+        useraction[usr_qq] = setTimeout(async () => {
+            forwardsetTime[usr_qq] = 0;
+            action.x = mx;
+            action.y = my;
+            action.region = PointId[1];
+            action.address = PointId[2];
+            await Write_action(usr_qq, action);
+            e.reply([segment.at(usr_qq), `成功抵达${address}`]);
         }, 1000 * time);
-        forwardsetTime[usr_qq]=1;
+        forwardsetTime[usr_qq] = 1;
         e.reply(`正在前往${address}...\n需要${time}秒`);
         return;
     };
@@ -108,7 +125,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        if(deliverysetTime[usr_qq]==1){
+        if (deliverysetTime[usr_qq] == 1) {
             return;
         };
         const action = await Read_action(usr_qq);
@@ -141,7 +158,7 @@ export class SecretPlace extends plugin {
             return;
         };
         const wealth = await Read_wealth(usr_qq);
-        const lingshi=1000;
+        const lingshi = 1000;
         if (wealth.lingshi < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}灵石`);
             return;
@@ -150,18 +167,18 @@ export class SecretPlace extends plugin {
         await Write_wealth(usr_qq, wealth);
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-        const the=Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
-        const time =the>0?the:1;
+        const the = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
+        const time = the > 0 ? the : 1;
         setTimeout(async () => {
-            deliverysetTime[usr_qq]=0;
+            deliverysetTime[usr_qq] = 0;
             action.x = mx;
             action.y = my;
             action.region = positionID[1];
             action.address = positionID[2];
             await Write_action(usr_qq, action);
-            e.reply([segment.at(usr_qq),`成功传送至${address}`]);
+            e.reply([segment.at(usr_qq), `成功传送至${address}`]);
         }, 1000 * time);
-        deliverysetTime[usr_qq]=1;
+        deliverysetTime[usr_qq] = 1;
         e.reply(`[修仙联盟]守阵者\n传送${address}\n需要${time}秒`);
         return;
     };
