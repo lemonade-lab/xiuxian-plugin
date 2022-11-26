@@ -30,6 +30,7 @@ export class Battle extends plugin {
         const user={
             A: 0,
             B: 0,
+            C: 0,
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         };
@@ -38,8 +39,8 @@ export class Battle extends plugin {
         if (user.B == 0 || user.B == user.A) {
             return;
         };
-        const actionA = await Read_action(A);
-        const actionB = await Read_action(B);
+        const actionA = await Read_action(user.A);
+        const actionB = await Read_action(user.B);
         if(actionA.region!=actionB.region){
             e.reply('没找到此人');
             return;
@@ -59,29 +60,29 @@ export class Battle extends plugin {
         if (CD != 0) {
             e.reply(CD);
         };
-        await redis.set(`xiuxian:player:${A}:${CDid}`,now_time);
-        await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60);
-        user.QQ  = await battle(e, A, B);
-        const Level = await Read_level(A);
+        await redis.set(`xiuxian:player:${user.A}:${CDid}`,now_time);
+        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
+        user.QQ  = await battle(e, user.A, user.B);
+        const Level = await Read_level(user.A);
         Level.prestige += 1;
-        await Write_level(A, Level);
-        const LevelB = await Read_level(B);
+        await Write_level(user.A, Level);
+        const LevelB = await Read_level(user.B);
         const MP = LevelB.prestige * 10 + Number(50);
         if (user.p <= MP) {
-            if (user.QQ != A) {
-                let C = A;
-                A = B;
-                B = C;
+            if (user.QQ != user.A) {
+                user.C = user.A;
+                user.A = user.B;
+                user.B = user.C;
             };
-            let equipment = await Read_equipment(B);
+            let equipment = await Read_equipment(user.B);
             if (equipment.length > 0) {
                 const thing = await Anyarray(equipment);
                 equipment = equipment.filter(item => item.name != thing.name);
-                await Write_equipment(B, equipment);
-                let najie = await Read_najie(A);
+                await Write_equipment(user.B, equipment);
+                let najie = await Read_najie(user.A);
                 najie = await Add_najie_thing(najie, thing, 1);
-                await Write_najie(A, najie);
-                e.reply(`${A}夺走了${thing.name}`);
+                await Write_najie(user.A, najie);
+                e.reply(`${user.A}夺走了${thing.name}`);
             };
         };
         return;
