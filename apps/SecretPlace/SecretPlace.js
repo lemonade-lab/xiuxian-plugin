@@ -115,8 +115,8 @@ export class SecretPlace extends plugin {
             e.reply('[修仙联盟]守境者\n道友请留步');
             return;
         };
-        const a = (x - mx) >= 0 ? (x - mx) : (mx - x);
-        const b = (y - my) >= 0 ? (y - my) : (my - y);
+        const a = x - mx >= 0 ? x - mx : mx - x;
+        const b = y - my >= 0 ? y - my : my - y;
         const battle = Read_battle(usr_qq);
         const the = Math.floor(a + b - battle.speed * 1.5);
         const time = the > 0 ? the : 1;
@@ -181,7 +181,7 @@ export class SecretPlace extends plugin {
         await Write_wealth(usr_qq, wealth);
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1);
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1);
-        const the = Math.floor(((x - mx) > 0 ? (x - mx) : (mx - x) + (y - my) > 0 ? (y - my) : (my - y)) / 100);
+        const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100);
         const time = the > 0 ? the : 1;
         setTimeout(async () => {
             deliverysetTime[usr_qq] = 0;
