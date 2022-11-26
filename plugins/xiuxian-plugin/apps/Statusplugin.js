@@ -52,10 +52,11 @@ export class Statusplugin extends plugin {
         const totalMem = os.totalmem();
         const freeMem = os.freemem();
         const uptime = os.uptime();
-        msg.push("System:" + pf + '\n');
-        msg.push("OpenTime:" + dealTime(uptime) + '\n');
-        msg.push("内存:" + dealMem(totalMem) + "\n" + ' 空闲:' + dealMem(freeMem));
-        msg.push('人数:' + life.length);
+        msg.push('System:' + pf);
+        msg.push('\nOpenTime:' + dealTime(uptime));
+        msg.push('\n内存:' + dealMem(totalMem));
+        msg.push('\n空闲:' + dealMem(freeMem));
+        msg.push('\n人数:' + life.length);
         e.reply(msg);
         return;
     };

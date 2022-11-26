@@ -71,7 +71,6 @@ export class BattleSite extends plugin {
         const talent = await Read_talent(usr_qq);
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1);
         const battle_msg = await monsterbattle(e, battle, monsters);
-        //把战斗消息丢出来
         battle_msg.msg.forEach((item)=>{
             msg.push(item);
         });
@@ -94,7 +93,7 @@ export class BattleSite extends plugin {
                 await Add_lingshi(usr_qq, mon.level * 35 * mybuff);
             };
             if (m < mon.level * 8) {
-                msg.push(`${usr_qq}得到${mon.level * 50 * mybuff}修为`);
+                msg.push(`得到${mon.level * 50 * mybuff}修为`);
                 await Add_experience(usr_qq, mon.level * 50 * mybuff);
             };
             if (m >= mon.level * 8) {
