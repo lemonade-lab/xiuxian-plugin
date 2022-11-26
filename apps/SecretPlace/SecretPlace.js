@@ -118,7 +118,7 @@ export class SecretPlace extends plugin {
         const a = (x - mx) > 0 ? (x - mx) : (mx - x);
         const b = (y - my) > 0 ? (y - my) : (my - y);
         const battle = Read_battle(usr_qq);
-        const the = Math.floor(a + b - battle.speed * 3);
+        const the = Math.floor(a + b - battle.speed * 1.5);
         const time = the > 0 ? the : 1;
         useraction[usr_qq] = setTimeout(async () => {
             forwardsetTime[usr_qq] = 0;
