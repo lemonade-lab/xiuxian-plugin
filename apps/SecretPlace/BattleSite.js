@@ -55,7 +55,7 @@ export class BattleSite extends plugin {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5);
             msg.push('怪物突然变异了!');
         };
-        const LevelMax = data.LevelMax_list.find(item => item.id == mon.level+1);
+        const LevelMax = data.Level_list.find(item => item.id == mon.level+1);
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
             'attack': LevelMax.attack * buff.msg,
