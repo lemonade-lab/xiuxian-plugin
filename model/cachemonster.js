@@ -1,7 +1,7 @@
 const alldata = [];
 const addall = [];
-const name1 = ['麒麟', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙'];
-const name2 = ['兵', '将', '兽', '妖', '王兽', '大妖', '王', '皇', '帝', '神'];
+const name1 = ['蜥', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙','鲲','鸡','蛇','狼','鼠','鹿','貂','猴','狗','熊','羊','牛','象','兔','猪'];
+const name2 = ['兵', '将', '兽', '魔', '妖', '大妖', '王', '皇', '帝', '神'];
 class Cachemonster {
     constructor() { }; monsterscache = async (i) => {
         while (true) {
@@ -49,7 +49,7 @@ class Cachemonster {
                 let y = Math.floor(Math.random() * (max - mini+1) + mini);
                 await alldata[i].data.push({
                     //怪名
-                    name: name1[Math.floor(Math.random() * 10)] + name2[y-1],
+                    name: name1[Math.floor(Math.random() * 25)] + name2[y-1],
                     //累计  
                     killNum: 1,
                     //境界

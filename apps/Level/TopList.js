@@ -36,7 +36,7 @@ export class TopList extends plugin {
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith('.json'));
-        files.forEach((item, index, arr) => {
+        files.forEach((item) => {
             const file = item.replace('.json', '');
             playerList.push(file);
         });
@@ -77,7 +77,7 @@ export class TopList extends plugin {
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith('.json'));
-        files.forEach((item, index, arr) => {
+        files.forEach((item) => {
             const file = item.replace('.json', '');
             playerList.push(file);
         });

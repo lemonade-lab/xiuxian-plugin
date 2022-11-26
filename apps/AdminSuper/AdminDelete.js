@@ -88,11 +88,11 @@ export class AdminDelete extends plugin {
         const files = fs
             .readdirSync(__PATH.player)
             .filter((file) => file.endsWith('.json'));
-        files.forEach((item, index, arr) => {
+        files.forEach((item) => {
             const file = item.replace('.json', '');
             playerList.push(file);
         });
-        playerList.forEach(async (item, index, arr) => {
+        playerList.forEach(async (item) => {
             const action = await Read_action(item);
             action.Exchange = 0;
             await Write_action(item, action);

@@ -22,7 +22,7 @@ export class UserTask extends plugin {
     LevelTask = async () => {
         const life = await Read_Life();
         const x = [];
-        life.forEach((item, index, arr) => {
+        life.forEach((item) => {
             item.Age = item.Age + this.xiuxianConfigData.Age.size;
             if (item.Age >= item.life) {
                 x.push(item.qq);

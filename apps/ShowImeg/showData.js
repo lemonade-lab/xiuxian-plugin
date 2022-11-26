@@ -52,7 +52,7 @@ export const get_statemax_img = async (e) => {
     const Level_id = player.levelmax_id;
     const LevelMax_list = data.LevelMax_list;
     const list = [];
-    LevelMax_list.forEach((item, index, arr) => {
+    LevelMax_list.forEach((item) => {
         if (item.id > Level_id && item.id <= Level_id + 2) {
             list.push(item);
         };
