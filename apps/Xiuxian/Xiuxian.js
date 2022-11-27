@@ -316,6 +316,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
             break;
         };
     };
+    battle_msg.msg.push(`血量剩余:${battleA.nowblood}`);
     await Write_battle(e.user_id, battleA);
     return battle_msg;
 };
@@ -422,6 +423,7 @@ export const battle = async (e, A, B) => {
             battle_msg.msg.push('第' + battle.Z + '回合:你造成' + battle_hurt.hurtA + '伤害');
         };
     };
+    battle_msg.msg.push(`血量剩余:${battleA.nowblood}`);
     await Write_battle(A, battleA);
     await Write_battle(B, battleB);
     return battle_msg.QQ;

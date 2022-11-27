@@ -97,6 +97,7 @@ export class AdminAction extends plugin {
                         msg.push('重启失败了\n' + e);
                     };
                 }, 1000);
+                filecp.upfile();
                 ForwardMsg(e, msg);
             }
         );
@@ -171,13 +172,13 @@ export class AdminAction extends plugin {
                         msg.push('重启失败了\n' + e);
                     };
                 }, 1000);
+                filecp.upfile();
                 ForwardMsg(e, msg);
             }
         );
         return true;
     };
     init = async () => {
-        filecp.upfile();
         const the = { restart: '' };
         the.restart = await redis.get(this.key);
         if (the.restart) {
