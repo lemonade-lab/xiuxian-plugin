@@ -10,4 +10,4 @@ class pluginup {
     return 1;
   };
 };
-export default new pluginup();z
+export default new pluginup();

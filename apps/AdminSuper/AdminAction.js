@@ -23,6 +23,10 @@ export class AdminAction extends plugin {
                 {
                     reg: '^#修仙强制更新',
                     fnc: 'forcecheckout',
+                },
+                {
+                    reg: '^#修仙全部更新',
+                    fnc: 'Allforcecheckout',
                 }
             ],
         });
