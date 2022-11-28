@@ -174,11 +174,12 @@ export const updata_equipment = async (usr_qq) => {
         the.burstmax = the.burstmax + item.burstmax;
         the.speed = the.speed + item.speed;
     });
+    const bloodLimit = levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * the.blood * 0.01);
     the.player = {
-        nowblood: battle.nowblood,
+        nowblood: battle.nowblood > bloodLimit ? bloodLimit : battle.nowblood,
         attack: levelmini.attack + levelmax.attack + Math.floor((levelmini.attack + levelmax.attack) * the.attack * 0.01),
         defense: levelmini.defense + levelmax.defense + Math.floor((levelmini.defense + levelmax.defense) * the.defense * 0.01),
-        blood: levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * the.blood * 0.01),
+        blood: bloodLimit,
         burst: levelmini.burst + levelmax.burst + the.burst,
         burstmax: levelmini.burstmax + levelmax.burstmax + the.burstmax + level.rank_id * 10,
         speed: levelmini.speed + levelmax.speed + the.speed
