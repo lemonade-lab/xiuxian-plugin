@@ -63,7 +63,7 @@ export const existplayer = async (usr_qq) => {
     if (find == undefined) {
         return false;
     };
-    if (find.state == 0) {
+    if (find.status == 0) {
         return false;
     };
     return find;
