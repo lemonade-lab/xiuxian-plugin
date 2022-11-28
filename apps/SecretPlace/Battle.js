@@ -56,7 +56,7 @@ export class Battle extends plugin {
         const CDid = '0';
         const now_time = new Date().getTime();
         const CDTime = this.xiuxianConfigData.CD.Attack;
-        const CD = await GenerateCD(A, CDid);
+        const CD = await GenerateCD(user.A, CDid);
         if (CD != 0) {
             e.reply(CD);
         };
