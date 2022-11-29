@@ -130,10 +130,6 @@ export class UserStart extends plugin {
         return;
     };
     reCreate_player = async (e) => {
-        const good = await Go(e);
-        if (!good) {
-            return;
-        };
         const usr_qq = e.user_id;
         const CDTime = this.xiuxianConfigData.CD.Reborn;
         const CDid = '8';
@@ -143,9 +139,9 @@ export class UserStart extends plugin {
             e.reply(CD);
             return;
         };
+        await offaction(usr_qq);
         fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
         let life = await Read_Life();
-        await offaction(usr_qq);
         life = await life.filter(item => item.qq != usr_qq);
         await Write_Life(life);
         e.reply([segment.at(usr_qq), '来世,信则有,不信则无,岁月悠悠,世间终会出现两朵相同的花,千百年的回眸,一花凋零,一花绽。是否为同一朵,任后人去评断']);
