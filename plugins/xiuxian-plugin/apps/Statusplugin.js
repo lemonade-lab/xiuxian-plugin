@@ -15,7 +15,7 @@ export class Statusplugin extends plugin {
                     fnc: 'getCPUSTATE'
                 },
                 {
-                    reg: '#清理缓存',
+                    reg: '#清理修仙缓存$',
                     fnc: 'cleancache'
                 }
             ]
