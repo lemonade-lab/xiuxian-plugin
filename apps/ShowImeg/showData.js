@@ -176,17 +176,21 @@ export const get_najie_img = async (e) => {
     const battle = await Read_battle(usr_qq);
     const najie = await Read_najie(usr_qq);
     const thing = najie.thing;
+    const thing_list = [];
     const danyao_list = [];
     const daoju_list = [];
     thing.forEach((item, index) => {
         let id = item.id.split('-');
         if (id[0] == 4) {
             danyao_list.push(item);
-            thing.splice(index, 1);
+            // thing.splice(index, 1);
         }
         else if (id[0] == 6) {
             daoju_list.push(item);
-            thing.splice(index, 1);
+            // thing.splice(index, 1);
+        }
+        else {
+            thing_list.push(item);
         };
     });
     const myData = {
@@ -195,7 +199,8 @@ export const get_najie_img = async (e) => {
         life: life,
         battle: battle,
         najie: najie,
-        thing: thing,
+        // thing: thing,
+        thing: thing_list,
         daoju_list: daoju_list,
         danyao_list: danyao_list
     };
