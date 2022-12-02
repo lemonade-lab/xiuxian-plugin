@@ -30,6 +30,11 @@ class filecp {
           fs.cp(y, x, (err) => {
             if (err) { };
           });
+        }else {
+          fs.rmSync(`${x}`);
+          fs.cp(y, x, (err) => {
+            if (err) { };
+          });
         };
       };
     };
