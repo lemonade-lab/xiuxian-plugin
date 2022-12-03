@@ -25,7 +25,10 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 ------------- | -------------  | -------------   
 | [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
 | [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
-| [BotHelp](https://afdian.net/a/ningmengchongshui) | 806943302 | [@冬季巧克力](https://gitee.com/ningmengchongshui) |  
+| [修仙家园](https://afdian.net/a/ningmengchongshui) | 130862237 | [@秋雨](https://gitee.com/mmmmmddddd) |  
+| [修仙怡红院](https://afdian.net/a/ningmengchongshui) | 708094317 | [@水脚脚](https://gitee.com/waterfeet) |  
+| [修仙职业](https://afdian.net/a/ningmengchongshui) | 646947737 | [@零零零零](https://gitee.com/mg1105194437) |  
+| [BotHelp](https://afdian.net/a/WinterChocolates) | 806943302 | [@冬季巧克力](https://gitee.com/djqkl_znje) |  
   
 ## 辅助资源   
 
