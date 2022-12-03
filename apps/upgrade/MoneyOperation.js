@@ -17,7 +17,7 @@ export class MoneyOperation extends plugin {
                     fnc: 'Give_lingshi'
                 },
                 {
-                    reg: '^#联盟报道$',
+                    reg: '^#联盟报到$',
                     fnc: 'New_lingshi'
                 }
             ]
