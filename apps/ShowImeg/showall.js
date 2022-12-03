@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { get_state_img,get_statemax_img,get_map_img,get_updata_img } from '../ShowImeg/showData.js';
+import { get_state_img,get_statemax_img,get_map_img,get_updata_img,get_bulletin_img } from '../ShowImeg/showData.js';
 export class showall extends plugin {
     constructor() {
         super({
@@ -25,6 +25,10 @@ export class showall extends plugin {
                     fnc: 'show_map',
                 },
                 {
+                    reg: '^#修仙公告$',
+                    fnc: 'show_bulletin',
+                },
+                {
                     reg: '^#修仙版本$',
                     fnc: 'show_updata',
                 }
@@ -48,6 +52,11 @@ export class showall extends plugin {
     };
     show_updata = async (e) => {
         const img = await get_updata_img(e);
+        e.reply(img);
+        return;
+    };
+    show_bulletin = async (e) => {
+        const img = await get_bulletin_img(e);
         e.reply(img);
         return;
     };

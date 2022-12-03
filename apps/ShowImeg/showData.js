@@ -97,6 +97,25 @@ export const get_updata_img = async (e) => {
     });
     return img;
 };
+
+const bulletin = config.getdefSet('version', 'bulletin');
+export const get_bulletin_img = async (e) => {
+    const usr_qq = e.user_id;
+    const ifexistplay = await existplayer(usr_qq);
+    if (!ifexistplay) {
+        return;
+    };
+    const myData = {
+        version: bulletin
+    };
+    const data1 = await new Show(e).get_Data('updata', 'updata', myData);
+    const img = await puppeteer.screenshot('updata', {
+        ...data1,
+    });
+    return img;
+};
+
+
 export const get_player_img = async (e) => {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
