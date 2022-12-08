@@ -10,10 +10,12 @@ class Config {
         this.config = {};
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };
-    }
+    };
+    //原始固定配置
     getdefSet = (app, name) => {
         return this.getYaml(app, name, 'defSet');
     };
+    //动态生成配置
     getConfig = (app, name) => {
             return this.getYaml(app, name, 'config');
     };

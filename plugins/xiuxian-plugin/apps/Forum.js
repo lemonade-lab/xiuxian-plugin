@@ -19,12 +19,6 @@ export class Forum extends plugin {
             ]
         });
     };
-
-    /**
-     * 此功能需要回 有间客栈
-     */
-
-
     Searchforum = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);

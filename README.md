@@ -16,18 +16,19 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 
 扩展名  | 作者 | 版本 | 状态
 ------------- | ------------- | ------------- | -------------
-| [宗门系统 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 测试中 |
-| [家园系统 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | V1.0 | 测试中 |
+| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 更新中 |
+| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | V1.0 | 更新中 |
+| [怡红院 (xiuxian-yihongyuan-plugin)]() | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |
 
 ## 企鹅聚集     
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
 | [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
-| [修仙宗门](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
-| [修仙家园](https://afdian.net/a/ningmengchongshui) | 130862237 | [@秋雨](https://gitee.com/mmmmmddddd) |  
+| [修仙宗门群](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
+| [修仙家园群](https://afdian.net/a/ningmengchongshui) | 130862237 | [@秋雨](https://gitee.com/mmmmmddddd) |  
 | [修仙怡红院](https://afdian.net/a/ningmengchongshui) | 708094317 | [@水脚脚](https://gitee.com/waterfeet) |  
-| [修仙职业](https://afdian.net/a/ningmengchongshui) | 646947737 | [@零零零零](https://gitee.com/mg1105194437) |  
+| [修仙职业群](https://afdian.net/a/ningmengchongshui) | 646947737 | [@零零零零](https://gitee.com/mg1105194437) |  
 | [BotHelp](https://afdian.net/a/WinterChocolates) | 806943302 | [@冬季巧克力](https://gitee.com/djqkl_znje) |  
   
 ## 辅助资源   

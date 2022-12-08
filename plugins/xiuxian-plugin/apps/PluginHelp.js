@@ -2,7 +2,9 @@ import plugin from '../../../../../lib/plugins/plugin.js';
 import Help from '../../../model/help.js';
 import Cache from '../../../model/cache.js';
 import filecp from '../../../model/filecp.js';
-filecp.Pluginfile('xiuxian-plugin', ['Plugin']);
+import config from '../../../model/Config.js';
+//配置文件启动
+filecp.Pluginfile('xiuxian-plugin', ['Plugin','plugin']);
 export class PluginHelp extends plugin {
     constructor() {
         super({
@@ -21,9 +23,12 @@ export class PluginHelp extends plugin {
                 }
             ]
         });
+        //xiuxain配置下的plugin
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'plugin');
     };
     PluginhelpBack = async (e) => {
-        e.reply('Updata...');
+        //配置生成示例
+        console.log('测试'+this.xiuxianConfigData.CD.plugin);
         return;
     };
     Pluginhelp = async (e) => {

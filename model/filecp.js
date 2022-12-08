@@ -4,7 +4,7 @@ class filecp {
     this.file(['xiuxian', 'task', 'Help',  'Admin']);
     this.help();
   };
-  
+  //插件配置
   Pluginfile = (name,config) => {
     let cf = [];
     const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'+name+'/defSet/';
@@ -40,7 +40,7 @@ class filecp {
     };
     return;
   };
-
+  //重置配置
   upfile = () => {
     let cf = [];
     const filepath = './plugins/Xiuxian-Plugin-Box/defSet/';
@@ -72,6 +72,7 @@ class filecp {
     };
     return;
   };
+  //
   file = (config) => {
     let cf = [];
     const filepath = './plugins/Xiuxian-Plugin-Box/defSet/';
@@ -102,6 +103,7 @@ class filecp {
     };
     return;
   };
+  //
   help = () => {
     const config1 = ['help'];
     const config2 = ['help'];
@@ -122,6 +124,5 @@ class filecp {
     cphelp(config1, config2);
     return;
   };
-
 };
 export default new filecp();

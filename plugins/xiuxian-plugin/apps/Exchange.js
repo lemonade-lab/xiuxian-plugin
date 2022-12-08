@@ -27,12 +27,6 @@ export class Exchange extends plugin {
             ]
         });
     };
-
-    /**
-     * 此功能需要回  #弱水阁
-     */
-
-
     supermarket = async (e) => {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
