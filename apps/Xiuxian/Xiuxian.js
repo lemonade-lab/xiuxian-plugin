@@ -268,7 +268,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
         };
         const T = await battle_probability(battleA.burst);
         if (T) {
-            battle_hurt.hurtA = Math.floor(battle_hurt.hurtA * battleA.burstmax / 100) + 1;
+            battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100);
         };
         battleB.nowblood = battleB.nowblood - battle_hurt.hurtA;
         if (battleB.nowblood < 1) {
@@ -289,7 +289,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
         battle_hurt.hurtB = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0;
         const F = await battle_probability(battleB.burst);
         if (F) {
-            battle_hurt.hurtB = Math.floor(battle_hurt.hurtB * battleB.burstmax / 100) + 1;
+            battle_hurt.hurtB += Math.floor(battle_hurt.hurtB * battleB.burstmax / 100);
         };
         battleA.nowblood = battleA.nowblood - battle_hurt.hurtB;
         if (battle_hurt.hurtB > 1) {
@@ -303,7 +303,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
         battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
         const T = await battle_probability(battleA.burst);
         if (T) {
-            battle_hurt.hurtA = Math.floor(battle_hurt.hurtA * battleA.burstmax / 100) + 1;
+            battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100);
         };
         if (battle_hurt.hurtA <= 1) {
             battle_msg.msg.push('你再次攻击,却连怪物的防御都破不了,被怪物一巴掌给拍死了!');
@@ -343,7 +343,7 @@ export const battle = async (e, A, B) => {
         battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
         const T = await battle_probability(battleA.burst);
         if (T) {
-            battle_hurt.hurtA = Math.floor(battle_hurt.hurtA * battleA.burstmax / 100) + 1;
+            battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100);
         };
         if (battle_hurt.hurtA <= 1) {
             battle_msg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!');
@@ -384,7 +384,7 @@ export const battle = async (e, A, B) => {
         battle_hurt.hurtB = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0;
         const F = await battle_probability(battleB.burst);
         if (F) {
-            battle_hurt.hurtB = Math.floor(battle_hurt.hurtB * battleB.burstmax / 100) + 1;
+            battle_hurt.hurtB += Math.floor(battle_hurt.hurtB * battleB.burstmax / 100);
         };
         battleA.nowblood = battleA.nowblood - battle_hurt.hurtB;
         if (battle_hurt.hurtB > 1) {
@@ -403,7 +403,7 @@ export const battle = async (e, A, B) => {
         battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0;
         const T = await battle_probability(battleA.burst);
         if (T) {
-            battle_hurt.hurtA = Math.floor(battle_hurt.hurtA * battleA.burstmax / 100) + 1;
+            battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100);
         };
         if (battle_hurt.hurtA <= 1) {
             //没伤害
