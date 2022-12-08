@@ -53,7 +53,7 @@ class XiuxianData {
         ], 'dropsItem');
         /**
          * id数据头规定
-         * 1武器2护具3法宝4道具5功法6丹药
+         * 1武器2护具3法宝4丹药5功法6道具
          * -----------------------------
          * 1-19   为基础段
          * 20-29  为扩展段
@@ -125,20 +125,24 @@ class XiuxianData {
         ], 'point');
     };
     /**
-     * 
+     * 删除物品数据
      */
     deletelist = (name) => {
         const dir = path.join(this.__PATH.all, `${name}.json`);
         const new_ARR = JSON.stringify([], '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        });
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
     };
+    /**
+     * 重写物品数据
+     */
     addlist = (sum, name) => {
         const dir = path.join(this.__PATH.all, `${name}.json`);
         const new_ARR = JSON.stringify(sum, '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        });
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
     };
+    /**
+     * 新增物品数据，sum为你的新数据
+     */
     allAddArr = (sum, name) => {
         const dir = path.join(this.__PATH.all, `${name}.json`);
         const new_ARR = JSON.stringify(
@@ -146,24 +150,27 @@ class XiuxianData {
             '',
             '\t'
         );
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        });
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
     };
     /**
-     * 
+     * 清空position
      */
     deleteposition = (name) => {
         const dir = path.join(this.__PATH.position, `${name}.json`);
         const new_ARR = JSON.stringify([], '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        });
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
     };
+    /**
+     * 重新写入position，sun为初始数组
+     */
     addposition = (sum, name) => {
         const dir = path.join(this.__PATH.position, `${name}.json`);
         const new_ARR = JSON.stringify(sum, '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        });
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
     };
+    /**
+     * 新增position，sum为你的新posion
+     */
     positionAddArr = (sum, name) => {
         const dir = path.join(this.__PATH.position, `${name}.json`);
         const new_ARR = JSON.stringify(
@@ -171,8 +178,7 @@ class XiuxianData {
             '',
             '\t'
         );
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-        });
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
     };
 };
 export default new XiuxianData();
