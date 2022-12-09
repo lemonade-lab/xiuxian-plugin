@@ -13,7 +13,7 @@ export class AdminRobot extends plugin {
                     fnc: 'CloseRobot',
                 },
                 {
-                    reg: '^#修仙设置帮助',
+                    reg: '^#修仙关闭云崽帮助',
                     fnc: 'CloseRobothelp',
                 },
                 {
@@ -23,10 +23,31 @@ export class AdminRobot extends plugin {
                 {
                     reg: '^#修仙删除主人.*',
                     fnc: 'DeleteMaster',
+                },
+                {
+                    reg: '^#修仙开启云崽私聊',
+                    fnc: 'OnGroup',
+                },
+                {
+                    reg: '^#修仙关闭云崽私聊',
+                    fnc: 'OffGroup',
                 }
             ],
         });
-        this.key = 'xiuxian:restart';
+    };
+    OffGroup=async(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        e.reply(defSet.OffGroup());
+        return ;
+    };
+    OnGroup=async(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        e.reply(defSet.OnGroup());
+        return ;
     };
     AddMaster=async(e)=>{
         if (!e.isMaster) {
@@ -34,7 +55,7 @@ export class AdminRobot extends plugin {
         };
         const QQ = e.msg.replace('#修仙添加主人', '');
         e.reply(defSet.AddMaster(QQ));
-        return true;
+        return ;
     };
     DeleteMaster=async(e)=>{
         if (!e.isMaster) {
@@ -42,20 +63,20 @@ export class AdminRobot extends plugin {
         };
         const QQ = e.msg.replace('#修仙删除主人', '');
         e.reply(defSet.DeleteMaster(QQ));
-        return true;
+        return ;
     }
     CloseRobot=async(e)=>{
         if (!e.isMaster) {
             return;
         };
         e.reply(defSet.ReadConfig());
-        return true;
+        return ;
     };
     CloseRobothelp=async(e)=>{
         if (!e.isMaster) {
             return;
         };
         e.reply(defSet.ReadConfighelp());
-        return true;
+        return ;
     }
 };

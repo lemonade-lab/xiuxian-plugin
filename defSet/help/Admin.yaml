@@ -37,15 +37,15 @@
       title: "#修仙关闭云崽"
       desc: "屏蔽云崽的所有功能"
     - icon: help-icon_58
-      title: "#修仙设置帮助"
+      title: "#修仙关闭云崽帮助"
       desc: "关闭云崽帮助"
     - icon: help-icon_58
-      title: "#修仙添加主人+QQ"
-      desc: "添加主人管理权限"
+      title: "#修仙关闭云崽私聊"
+      desc: "#修仙开启云崽私聊"
     - icon: help-icon_58
-      title: "#修仙删除主人+QQ"
-      desc: "删除主人管理权限"
-
+      title: "#修仙添加主人+QQ"
+      desc: "#修仙删除主人+QQ"
+      
 - group: 
   list:
     - icon: help-icon_58

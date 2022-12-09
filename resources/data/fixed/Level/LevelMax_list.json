@@ -7,7 +7,7 @@
         "defense": 404,
         "blood": 2000,
         "burst": 8,
-        "burstmax": 50,
+        "burstmax": 25,
         "size": 1,
         "speed": 1
     },

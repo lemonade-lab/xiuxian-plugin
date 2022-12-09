@@ -1,7 +1,6 @@
 import fs from 'node:fs';
-import { createRequire } from 'module';
 import path from 'path';
-import { ifError } from 'node:assert';
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const YAML = require('yamljs');
 const yaml = require('js-yaml');
@@ -40,6 +39,7 @@ class defSet {
     fs.writeFileSync(__dirname, yamlStr, 'utf8');
     return '添加成功';
   };
+  //删除主人QQ
   DeleteMaster = (mastername) => {
     const QQ = Number(mastername);
     const __dirname = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`;
@@ -54,6 +54,24 @@ class defSet {
     const yamlStr = yaml.dump(data);
     fs.writeFileSync(__dirname, yamlStr, 'utf8');
     return '删除成功';
+  };
+  //关闭云崽私聊
+  OffGroup = () => {
+    const __dirname = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`;
+    const data = YAML.load(__dirname);
+    data.disablePrivate=true;
+    const yamlStr = yaml.dump(data);
+    fs.writeFileSync(__dirname, yamlStr, 'utf8');
+    return '关闭成功';
+  };
+  //开启云崽私聊
+  OnGroup = () => {
+    const __dirname = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`;
+    const data = YAML.load(__dirname);
+    data.disablePrivate=false;
+    const yamlStr = yaml.dump(data);
+    fs.writeFileSync(__dirname, yamlStr, 'utf8');
+    return '开启成功';
   };
 };
 export default new defSet();
