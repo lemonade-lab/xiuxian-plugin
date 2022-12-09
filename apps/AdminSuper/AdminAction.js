@@ -48,21 +48,21 @@ export class AdminAction extends plugin {
         ForwardMsg(e, sum);
         const msg = ['————[更新消息]————'];
         msg.push('正在更新...');
+        const command = 'git  pull';
         sum.forEach((item) => {
             if (item != 'plugins/xiuxain-plugin') {
-                const command = 'git  pull';
                 exec(
                     command,
                     { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/${item}` },
                     (error, stdout, stderr) => {
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                            msg.push(`${item}已是最新版`);
+                            msg.push(`${item.replace('plugins/', '')}已是最新版`);
                         }
                         else if (error) {
                             msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                         }
                         else {
-                            msg.push(`更新${item}成功`);
+                            msg.push(`更新${item.replace('plugins/', '')}成功`);
                         };
                     }
                 );
