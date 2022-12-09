@@ -1,0 +1,62 @@
+@font-face {
+  font-family:"xiuxian";
+  src: url('../../../font/_GBK.TTF');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  transform: scale(1);
+  width: 100%;
+  text-align: center;
+  font-family: xiuxian;
+}
+
+.updata-top {
+  height: 200px;
+  width: 100%;
+  background-image: url('update-top.png');
+  background-size: 100% 100%;
+}
+
+.updata-head {
+  width: 100%;
+  height: 100%;
+  background-image: url("update-head.png");
+  background-size: 100% 100%;
+}
+
+.updata-head-w {
+  margin: auto;
+  width: 65%;
+}
+
+.updata-head-color{
+  background-color: rgba(245, 229, 85, 0.356);
+  padding: 15px;
+  border-top-right-radius:50px;
+  border-top-left-radius:50px;
+
+}
+
+.updata-head-color0{
+  background-color: rgba(138, 71, 245, 0.323);
+  padding: 15px;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.updata_font {
+  font-size: 35px;
+}
+
+.updata_font0 {
+  font-size: 28px;
+}
+
+.updata-buttom{
+  height: 150px;
+  width: 100%;
+  background-image: url("update-buttom.png");
+  background-size: 100% 100%;
+}

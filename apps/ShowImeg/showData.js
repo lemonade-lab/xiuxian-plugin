@@ -97,7 +97,21 @@ export const get_updata_img = async (e) => {
     });
     return img;
 };
-
+const xiuxain = config.getConfig('xiuxian', 'xiuxian');
+export const get_config_img = async (e) => {
+    if (!e.isMaster) {
+        return;
+    };
+    console.log(xiuxain);
+    const myData = {
+        xiuxain: xiuxain
+    };
+    const data1 = await new Show(e).get_Data('config', 'config', myData);
+    const img = await puppeteer.screenshot('config', {
+        ...data1,
+    });
+    return img;
+};
 const bulletin = config.getdefSet('version', 'bulletin');
 export const get_bulletin_img = async (e) => {
     const usr_qq = e.user_id;
@@ -114,8 +128,6 @@ export const get_bulletin_img = async (e) => {
     });
     return img;
 };
-
-
 export const get_player_img = async (e) => {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
@@ -202,11 +214,9 @@ export const get_najie_img = async (e) => {
         let id = item.id.split('-');
         if (id[0] == 4) {
             danyao_list.push(item);
-            // thing.splice(index, 1);
         }
         else if (id[0] == 6) {
             daoju_list.push(item);
-            // thing.splice(index, 1);
         }
         else {
             thing_list.push(item);
@@ -218,7 +228,6 @@ export const get_najie_img = async (e) => {
         life: life,
         battle: battle,
         najie: najie,
-        // thing: thing,
         thing: thing_list,
         daoju_list: daoju_list,
         danyao_list: danyao_list

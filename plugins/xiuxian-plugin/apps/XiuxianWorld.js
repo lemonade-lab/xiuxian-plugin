@@ -11,10 +11,21 @@ export class XiuxianWorld extends plugin {
                 {
                     reg: '^#修仙存档升级$',
                     fnc: 'Xiuxiandataup'
+                },
+                {
+                    reg: '^#修仙备份$',
+                    fnc: 'Xiuxianbackups'
                 }
             ]
         });
     };
+    Xiuxianbackups=(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        e.reply('待更新');
+        return;
+    }
     Xiuxiandataup=(e)=>{
         if (!e.isMaster) {
             return;
