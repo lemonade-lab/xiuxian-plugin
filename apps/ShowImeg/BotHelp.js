@@ -10,8 +10,8 @@ export class BotHelp extends plugin {
             priority: 600,
             rule: [
                 {
-                    reg: '^#修仙帮助$',
-                    fnc: 'Xiuxianhelp1'
+                    reg: '^#(修仙帮助|帮助)$',
+                    fnc: 'Xiuxianhelp'
                 },
                 {
                     reg: '^#修仙管理$',
@@ -20,7 +20,7 @@ export class BotHelp extends plugin {
             ]
         });
     };
-    Xiuxianhelp1 = async (e) => {
+    Xiuxianhelp = async (e) => {
         const data = await Help.gethelp(e, 'Help');
         if (!data) {
             return

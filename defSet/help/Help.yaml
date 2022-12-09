@@ -103,6 +103,9 @@
     - icon: help-icon_14
       title: "#修仙扩展"
       desc: "扩展功能"
+    - icon: help-icon_14
+      title: "#扩展名+帮助"
+      desc: "如：#宗门帮助"
     - icon: help-icon_58
       title: "#修仙管理"
       desc: "管理员(可私聊)"
