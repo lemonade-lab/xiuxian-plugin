@@ -46,11 +46,11 @@ export class AdminAction extends plugin {
             };
         });
         ForwardMsg(e, sum);
+        const msg = ['————[更新消息]————'];
+        msg.push('正在更新...');
         sum.forEach((item) => {
             if (item != 'plugins/xiuxain-plugin') {
-                const msg = ['————[更新消息]————'];
                 const command = 'git  pull';
-                msg.push('正在更新...');
                 exec(
                     command,
                     { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/${item}` },
@@ -64,11 +64,11 @@ export class AdminAction extends plugin {
                         else {
                             msg.push(`更新${item}成功`);
                         };
-                        ForwardMsg(e, msg);
                     }
                 );
             };
         });
+        ForwardMsg(e, msg);
         return;
     };
     checkout = async (e) => {
