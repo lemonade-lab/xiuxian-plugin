@@ -18,7 +18,7 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 ------------- | ------------- | ------------- | -------------
 | [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 更新中 |
 | [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | V1.0 | 更新中 |
-| [怡红院 (xiuxian-yihongyuan-plugin)]() | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |  
+| [怡红院 (xiuxian-yihongyuan-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |  
 
 >快速安装指令  #修仙安装+插件名     
 

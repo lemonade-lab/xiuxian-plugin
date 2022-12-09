@@ -45,7 +45,7 @@ export class AdminAction extends plugin {
                 sum.push(`plugins/${file}`);
             };
         });
-        e.replace(sum);
+        ForwardMsg(e, sum);
         sum.forEach((item) => {
             if (item != 'plugins/xiuxain-plugin') {
                 const msg = ['————[更新消息]————'];

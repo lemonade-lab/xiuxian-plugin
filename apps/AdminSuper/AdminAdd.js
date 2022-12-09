@@ -34,9 +34,12 @@ export class AdminAdd extends plugin {
         if (name == '宗门系统') {
             command = 'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/';
         } else if (name == '家园系统') {
-            command='git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/';
+            command = 'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/';
         } else if (name == '怡红院') {
-            msg.push('未上线...');
+            command = 'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/';
+            ForwardMsg(e, msg);
+        } else if (name == '职业系统') {
+            const msg = ['待上线'];
             ForwardMsg(e, msg);
             return;
         } else {
