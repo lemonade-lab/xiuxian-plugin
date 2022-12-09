@@ -8,7 +8,7 @@ const _path = process.cwd();
 const the = {
     'timer': ''
 };
-export class AdminAction extends plugin {
+export class AdminAdd extends plugin {
     constructor() {
         super({
             name: 'admin',
@@ -17,32 +17,38 @@ export class AdminAction extends plugin {
             priority: 400,
             rule: [
                 {
-                    reg: '^#修仙更新',
-                    fnc: 'checkout',
-                },
-                {
-                    reg: '^#修仙强制更新',
-                    fnc: 'forcecheckout',
-                },
-                {
-                    reg: '^#修仙全部更新',
-                    fnc: 'Allforcecheckout',
+                    reg: '^#修仙安装.*',
+                    fnc: 'xiuxianSystem',
                 }
             ],
         });
         this.key = 'xiuxian:restart';
     };
-    forcecheckout = async (e) => {
+    xiuxianSystem = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        const msg = ['————[更新消息]————'];
-        const command = 'git fetch --all && git reset --hard main && git  pull';
-        msg.push('正在更新...');
+        const msg = ['————[安装消息]————'];
+        let command = '';
+        const name = e.msg.replace('#修仙安装', '');
+        if (name == '宗门系统') {
+            command = 'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/';
+        } else if (name == '家园系统') {
+            command='git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/';
+        } else if (name == '怡红院系统') {
+            msg.push('未上线...');
+            ForwardMsg(e, msg);
+            return;
+        } else {
+            msg.push('非【三点水】提供的玩法无法使用指令安装');
+            ForwardMsg(e, msg);
+            return;
+        };
+        msg.push('正在安装...');
         const that = this;
         exec(
             command,
-            { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
+            { cwd: `${_path}` },
             (error, stdout, stderr) => {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push('最新版修仙插件了~');
@@ -54,70 +60,7 @@ export class AdminAction extends plugin {
                     ForwardMsg(e, msg);
                     return;
                 };
-                msg.push('更新成功,正在重启更新...');
-                the.timer && clearTimeout(the.timer);
-                the.timer = setTimeout(async () => {
-                    try {
-                        const data = JSON.stringify({
-                            isGroup: !!e.isGroup,
-                            id: e.isGroup ? e.group_id : e.user_id,
-                        });
-                        await redis.set(that.key, data, { EX: 120 });
-                        let cm = 'npm run start';
-                        if (process.argv[1].includes('pm2')) {
-                            cm = 'npm run restart';
-                        }
-                        else {
-                            msg.push('正在转为后台运行...');
-                        };
-                        exec(cm, (error, stdout, stderr) => {
-                            if (error) {
-                                redis.del(that.key);
-                                msg.push(`重启失败\nError code: ${error.code}\n${error.stack}\n`);
-                                logger.error(`重启失败\n${error.stack}`);
-                            } else if (stdout) {
-                                logger.mark('重启成功,运行已转为后台');
-                                logger.mark('查看日志请用命令:npm run log');
-                                logger.mark('停止后台运行命令:npm stop');
-                                process.exit();
-                            };
-                        });
-                    }
-                    catch (error) {
-                        redis.del(that.key);
-                        const e = error.stack ?? error;
-                        msg.push('重启失败了\n' + e);
-                    };
-                }, 1000);
-                filecp.upfile();
-                ForwardMsg(e, msg);
-            }
-        );
-        return true;
-    };
-    checkout = async (e) => {
-        if (!e.isMaster) {
-            return;
-        };
-        const msg = ['————[更新消息]————'];
-        const command = 'git  pull';
-        msg.push('正在更新...');
-        const that = this;
-        exec(
-            command,
-            { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
-            (error, stdout, stderr) => {
-                if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                    msg.push('最新版修仙插件了~');
-                    ForwardMsg(e, msg);
-                    return;
-                };
-                if (error) {
-                    msg.push(`安装失败!\nError code: ${error.code}\n${error.stack}\n`);
-                    ForwardMsg(e, msg);
-                    return;
-                };
-                msg.push('更新成功,正在重启更新...');
+                msg.push('安装成功,正在重启更新...');
                 the.timer && clearTimeout(the.timer);
                 the.timer = setTimeout(async () => {
                     try {

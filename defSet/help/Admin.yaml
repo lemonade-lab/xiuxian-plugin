@@ -31,12 +31,23 @@
       title: "#删除信息 @群友"
       desc: "删除群友信息"
 
+- group: 
+  list:
       
 - group: 
   list:
     - icon: help-icon_58
       title: "#修仙更新"
       desc: "更新修仙模拟器插件"
+    - icon: help-icon_58
+      title: "#修仙强制更新"
+      desc: "待上线"
+    - icon: help-icon_58
+      title: "#修仙全部更新"
+      desc: "待上线"
+    - icon: help-icon_58
+      title: "#修仙安装+插件名"
+      desc: "#修仙安装宗门系统"
     - icon: help-icon_58
       title: "#修仙状态"
       desc: "查看修仙运行"
