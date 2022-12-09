@@ -27,7 +27,7 @@ export class AdminRobot extends plugin {
         e.reply(defSet.ReadConfig('group'));
         return true;
     };
-    CloseRobot=async(e)=>{
+    CloseRobothelp=async(e)=>{
         if (!e.isMaster) {
             return;
         };
