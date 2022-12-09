@@ -57,11 +57,9 @@ export class AdminAction extends plugin {
                     (error, stdout, stderr) => {
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                             msg.push(`${item}已是最新版`);
-                            ForwardMsg(e, msg);
                         }
                         else if (error) {
                             msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
-                            ForwardMsg(e, msg);
                         }
                         else {
                             msg.push(`更新${item}成功`);
