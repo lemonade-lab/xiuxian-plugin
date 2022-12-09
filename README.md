@@ -15,8 +15,9 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 npm i js-yaml -w
 npm i yamljs -w
 ```  
->部分用户出现缺少module依赖      
->是pnpm还是cnpm的自己看着用    
+>部分出现缺少module依赖      
+>请自行根据云崽安装情况       
+>把npm更改为pnpm或cnpm等    
 
 ## 扩展插件
 
