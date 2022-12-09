@@ -45,7 +45,6 @@ export class AdminAction extends plugin {
                 sum.push(`plugins/${file}`);
             };
         });
-        ForwardMsg(e, sum);
         const msg = ['————[更新消息]————'];
         msg.push('正在更新...');
         const command = 'git  pull';
