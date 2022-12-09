@@ -33,33 +33,48 @@ export class AdminAction extends plugin {
         if (!e.isMaster) {
             return;
         };
-        const sum = [''];
+        const msg = ['————[更新消息]————'];
+        const sum = [];
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
+        const command = 'git  pull';
+        msg.push('正在更新...');
         files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
             const stat = fs.statSync(newfilepath);
             if (stat.isFile()) { }
             else {
                 const file = newfilepath.replace(filepath + '/', '');
-                sum.push(`plugins/${file}`);
+                sum.push(`${file}`);
             };
         });
-        const msg = ['————[更新消息]————'];
-        msg.push('正在更新...');
-        const command = 'git  pull';
+        //更新xiuxain
+        exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
+            (error, stdout, stderr) => {
+                if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
+                    msg.push(`Xiuxian-Plugin-Box已是最新版`);
+                }
+                else if (error) {
+                    msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
+                }
+                else {
+                    msg.push(`更新Xiuxian-Plugin-Box成功`);
+                };
+            }
+        );
+        //更新扩展
         sum.forEach((item) => {
-            if (item != 'plugins/xiuxain-plugin') {
-                exec(command,{ cwd: `${_path}/plugins/Xiuxian-Plugin-Box/${item}` },
+            if (item != 'xiuxain-plugin') {
+                exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
                     (error, stdout, stderr) => {
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                            msg.push(`${item.replace('plugins/', '')}已是最新版`);
+                            msg.push(`${item}已是最新版`);
                         }
                         else if (error) {
                             msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                         }
                         else {
-                            msg.push(`更新${item.replace('plugins/', '')}成功`);
+                            msg.push(`更新${item}成功`);
                         };
                     }
                 );
@@ -76,7 +91,7 @@ export class AdminAction extends plugin {
         const command = 'git  pull';
         msg.push('正在更新...');
         const that = this;
-        exec(command,{ cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
+        exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
             (error, stdout, stderr) => {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push('最新版修仙插件了~');
