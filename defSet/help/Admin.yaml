@@ -30,9 +30,6 @@
     - icon: help-icon_32
       title: "#删除信息 @群友"
       desc: "删除群友信息"
-
-- group: 
-  list:
       
 - group: 
   list:
@@ -43,7 +40,7 @@
       title: "#修仙全部更新"
       desc: "更新所有扩展功能"
     - icon: help-icon_58
-      title: "#修仙安装+插件名"
+      title: "#修仙安装+扩展名"
       desc: "#修仙安装宗门系统"
     - icon: help-icon_58
       title: "#修仙状态"
