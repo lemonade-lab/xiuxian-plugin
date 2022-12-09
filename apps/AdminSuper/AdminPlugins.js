@@ -8,17 +8,21 @@ const _path = process.cwd();
 const the = {
     'timer': ''
 };
-export class AdminAdd extends plugin {
+export class AdminPlugins extends plugin {
     constructor() {
         super({
-            name: 'admin',
-            dsc: 'admin',
+            name: 'AdminPlugins',
+            dsc: 'AdminPlugins',
             event: 'message',
             priority: 400,
             rule: [
                 {
                     reg: '^#修仙安装.*',
                     fnc: 'xiuxianSystem',
+                },
+                {
+                    reg: '^#修仙卸载.*',
+                    fnc: 'xiuxianDeleteSystem',
                 }
             ],
         });
@@ -97,6 +101,81 @@ export class AdminAdd extends plugin {
         );
         return true;
     };
+
+    xiuxianDeleteSystem=async(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        const msg = ['————[卸载消息]————'];
+        let command = '';
+        const name = e.msg.replace('#修仙卸载', '');
+        if (name == '宗门') {
+            command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/';
+        } else if (name == '家园') {
+            command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-pluging/';
+        } else if (name == '怡红院') {
+            command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-pluging/';
+            ForwardMsg(e, msg);
+        } else if (name == '职业') {
+            const msg = ['待上线'];
+            ForwardMsg(e, msg);
+            return;
+        } else {
+            msg.push('非【三点水】提供的玩法无法使用指令卸载');
+            ForwardMsg(e, msg);
+            return;
+        };
+        msg.push('正在卸载...');
+        const that = this;
+        exec(command,{ cwd: `${_path}` },
+            (error, stdout, stderr) => {
+                if (error) {
+                    msg.push(`卸载失败\nError code: ${error.code}\n${error.stack}\n`);
+                    ForwardMsg(e, msg);
+                    return;
+                };
+                msg.push('卸载成功,正在重启更新...');
+                the.timer && clearTimeout(the.timer);
+                the.timer = setTimeout(async () => {
+                    try {
+                        const data = JSON.stringify({
+                            isGroup: !!e.isGroup,
+                            id: e.isGroup ? e.group_id : e.user_id,
+                        });
+                        await redis.set(that.key, data, { EX: 120 });
+                        let cm = 'npm run start';
+                        if (process.argv[1].includes('pm2')) {
+                            cm = 'npm run restart';
+                        }
+                        else {
+                            msg.push('正在转为后台运行...');
+                        };
+                        exec(cm, (error, stdout, stderr) => {
+                            if (error) {
+                                redis.del(that.key);
+                                msg.push(`重启失败\nError code: ${error.code}\n${error.stack}\n`);
+                                logger.error(`重启失败\n${error.stack}`);
+                            } else if (stdout) {
+                                logger.mark('重启成功,运行已转为后台');
+                                logger.mark('查看日志请用命令:npm run log');
+                                logger.mark('停止后台运行命令:npm stop');
+                                process.exit();
+                            }
+                        });
+                    }
+                    catch (error) {
+                        redis.del(that.key);
+                        const e = error.stack ?? error;
+                        msg.push('重启失败了\n' + e);
+                    };
+                }, 1000);
+                filecp.upfile();
+                ForwardMsg(e, msg);
+            }
+        );
+        return true;
+    };
+
     init = async () => {
         const the = { restart: '' };
         the.restart = await redis.get(this.key);
