@@ -3,8 +3,8 @@ import { createRequire } from 'module';
 import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
 import filecp from '../../model/filecp.js';
 import fs from 'node:fs';
-const { exec } = require('child_process');
 const require = createRequire(import.meta.url);
+const { exec } = require('child_process');
 const _path = process.cwd();
 const the = {
     'timer': ''
@@ -38,8 +38,6 @@ export class AdminAction extends plugin {
         if (!e.isMaster) {
             return;
         };
-        //全部更新需要遍历插件位置  
-        //`${_path}/plugins/Xiuxian-Plugin-Box/plugins`下所有插件名：xiuxain-plugin除外
         let sum = [];
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
