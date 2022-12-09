@@ -2,8 +2,9 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import { createRequire } from 'module';
 import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
 import filecp from '../../model/filecp.js';
-const require = createRequire(import.meta.url);
+import fs from 'node:fs';
 const { exec } = require('child_process');
+const require = createRequire(import.meta.url);
 const _path = process.cwd();
 const the = {
     'timer': ''
@@ -32,6 +33,53 @@ export class AdminAction extends plugin {
         });
         this.key = 'xiuxian:restart';
     };
+
+    Allforcecheckout = async (e) => {
+        if (!e.isMaster) {
+            return;
+        };
+        //全部更新需要遍历插件位置  
+        //`${_path}/plugins/Xiuxian-Plugin-Box/plugins`下所有插件名：xiuxain-plugin除外
+        let sum = [];
+        const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
+        const files = fs.readdirSync(filepath);
+        files.forEach(async (item) => {
+            const newfilepath = filepath + '/' + item;
+            const stat = fs.statSync(newfilepath);
+            if (stat.isFile()) { }
+            else {
+                const file = newfilepath.replace(filepath + '/', '');
+                sum.push(file);
+            };
+        });
+        sum.forEach((item) => {
+            if (item != 'xiuxain-plugin' && item != 'xiuxain-plugin/') {
+                const msg = ['————[更新消息]————'];
+                const command = 'git fetch --all && git reset --hard main && git  pull';
+                msg.push('正在更新...');
+                exec(
+                    command,
+                    { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
+                    (error, stdout, stderr) => {
+                        if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
+                            msg.push(`${item}已是最新版`);
+                            ForwardMsg(e, msg);
+                            return;
+                        };
+                        if (error) {
+                            msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
+                            ForwardMsg(e, msg);
+                            return;
+                        };
+                        msg.push(`更新${item}成功`);
+                        ForwardMsg(e, msg);
+                    }
+                );
+            };
+        });
+        return;
+    };
+
     forcecheckout = async (e) => {
         if (!e.isMaster) {
             return;
@@ -50,7 +98,7 @@ export class AdminAction extends plugin {
                     return;
                 };
                 if (error) {
-                    msg.push(`安装失败\nError code: ${error.code}\n${error.stack}\n`);
+                    msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                     ForwardMsg(e, msg);
                     return;
                 };
