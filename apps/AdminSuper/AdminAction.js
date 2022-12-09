@@ -36,7 +36,7 @@ export class AdminAction extends plugin {
         const sum = [''];
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
-        files.forEach(async (item) => {
+        files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
             const stat = fs.statSync(newfilepath);
             if (stat.isFile()) { }
@@ -85,7 +85,7 @@ export class AdminAction extends plugin {
                     return;
                 };
                 if (error) {
-                    msg.push(`安装失败!\nError code: ${error.code}\n${error.stack}\n`);
+                    msg.push(`更新失败!\nError code: ${error.code}\n${error.stack}\n`);
                     ForwardMsg(e, msg);
                     return;
                 };
