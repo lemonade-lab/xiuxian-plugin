@@ -5,4 +5,4 @@ const xiuxain = await index.toindex('apps');
 const plugin = await index.toindex('plugins');
 const apps={...xiuxain,...plugin};
 logger.info(`Xiuxian-Plugin-Box[V${versionData[0].version}]`);
-export {apps};
+export {apps}; 

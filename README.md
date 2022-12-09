@@ -15,8 +15,8 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 npm i js-yaml -w
 npm i yamljs -w
 ```  
->部分用户出现缺少model依赖
->是pnpm还是cnpm的自己看着用
+>部分用户出现缺少model依赖      
+>是pnpm还是cnpm的自己看着用    
 
 ## 扩展插件
 
