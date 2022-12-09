@@ -49,9 +49,7 @@ export class AdminAdd extends plugin {
         };
         msg.push('正在安装...');
         const that = this;
-        exec(
-            command,
-            { cwd: `${_path}` },
+        exec(command,{ cwd: `${_path}` },
             (error, stdout, stderr) => {
                 if (error) {
                     msg.push(`安装失败\nError code: ${error.code}\n${error.stack}\n`);

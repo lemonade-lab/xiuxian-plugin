@@ -33,7 +33,7 @@ export class AdminAction extends plugin {
         if (!e.isMaster) {
             return;
         };
-        let sum = [''];
+        const sum = [''];
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
         files.forEach(async (item) => {
@@ -51,9 +51,7 @@ export class AdminAction extends plugin {
         const command = 'git  pull';
         sum.forEach((item) => {
             if (item != 'plugins/xiuxain-plugin') {
-                exec(
-                    command,
-                    { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/${item}` },
+                exec(command,{ cwd: `${_path}/plugins/Xiuxian-Plugin-Box/${item}` },
                     (error, stdout, stderr) => {
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                             msg.push(`${item.replace('plugins/', '')}已是最新版`);
@@ -79,9 +77,7 @@ export class AdminAction extends plugin {
         const command = 'git  pull';
         msg.push('正在更新...');
         const that = this;
-        exec(
-            command,
-            { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
+        exec(command,{ cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
             (error, stdout, stderr) => {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push('最新版修仙插件了~');
