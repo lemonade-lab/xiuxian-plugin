@@ -33,23 +33,22 @@ export class AdminAction extends plugin {
         if (!e.isMaster) {
             return;
         };
-        const msg = ['————[更新消息]————'];
         const sum = [];
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
         const command = 'git  pull';
-        msg.push('正在更新...');
         files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
             const stat = fs.statSync(newfilepath);
-            if (!stat.isFile()){
+            if (!stat.isFile()) {
                 const file = newfilepath.replace(filepath + '/', '');
                 sum.push(`${file}`);
             };
         });
         //更新xiuxain
         exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
-            (error, stdout, stderr) => {
+            async(error, stdout, stderr) => {
+                const msg = ['————[更新消息]————'];
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push(`Xiuxian-Plugin-Box已是最新版`);
                 }
@@ -59,27 +58,29 @@ export class AdminAction extends plugin {
                 else {
                     msg.push(`更新Xiuxian-Plugin-Box成功`);
                 };
+                await ForwardMsg(e, msg);
             }
         );
         //更新扩展
-        sum.forEach((item) => {
-            if (item != 'xiuxain-plugin') {
-                 exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
-                    (error, stdout, stderr) => {
+        sum.forEach(async (item) => {
+            if (item != 'xiuxian-plugin') {
+                exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
+                    async(error, stdout, stderr) => {
+                        const newmsg = ['————[更新消息]————']
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                            msg.push(`${item}已是最新版`);
+                            newmsg.push(`${item}已是最新版`);
                         }
                         else if (error) {
-                            msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
+                            newmsg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                         }
                         else {
-                            msg.push(`更新${item}成功`);
+                            newmsg.push(`更新${item}成功`);
                         };
+                        await ForwardMsg(e, newmsg);
                     }
                 );
             };
         });
-        await ForwardMsg(e, msg);
         return;
     };
     checkout = async (e) => {
