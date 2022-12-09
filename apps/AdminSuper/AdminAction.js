@@ -42,8 +42,7 @@ export class AdminAction extends plugin {
         files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
             const stat = fs.statSync(newfilepath);
-            if (stat.isFile()) { }
-            else {
+            if (!stat.isFile()){
                 const file = newfilepath.replace(filepath + '/', '');
                 sum.push(`${file}`);
             };
@@ -65,7 +64,7 @@ export class AdminAction extends plugin {
         //更新扩展
         sum.forEach((item) => {
             if (item != 'xiuxain-plugin') {
-                exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
+                 exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
                     (error, stdout, stderr) => {
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                             msg.push(`${item}已是最新版`);
@@ -80,7 +79,7 @@ export class AdminAction extends plugin {
                 );
             };
         });
-        ForwardMsg(e, msg);
+        await ForwardMsg(e, msg);
         return;
     };
     checkout = async (e) => {

@@ -13,8 +13,7 @@ class filecp {
       files.forEach(async item => {
         let filepath1 = dir + '/' + item;
         let stat = fs.statSync(filepath1);
-        if (stat.isFile()) { }
-        else {
+        if (!stat.isFile()) {
           let file = filepath1.replace(filepath + '/', '');
           cf.push(file);
         };
@@ -50,8 +49,7 @@ class filecp {
       files.forEach(async item => {
         let filepath1 = dir + '/' + item;
         let stat = fs.statSync(filepath1);
-        if (stat.isFile()) { }
-        else {
+        if (!stat.isFile()) {
           let file = filepath1.replace(filepath + '/', '');
           cf.push(file);
         };
@@ -81,8 +79,7 @@ class filecp {
       files.forEach(async item => {
         let filepath1 = dir + '/' + item;
         let stat = fs.statSync(filepath1);
-        if (stat.isFile()) { }
-        else {
+        if (!stat.isFile()) {
           let file = filepath1.replace(filepath + '/', '');
           cf.push(file);
         };
