@@ -39,6 +39,12 @@
     - icon: help-icon_58
       title: "#修仙设置帮助"
       desc: "关闭云崽帮助"
+    - icon: help-icon_58
+      title: "#修仙添加主人+QQ"
+      desc: "添加主人管理权限"
+    - icon: help-icon_58
+      title: "#修仙删除主人+QQ"
+      desc: "删除主人管理权限"
 
 - group: 
   list:

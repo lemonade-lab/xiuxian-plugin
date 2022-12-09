@@ -15,23 +15,47 @@ export class AdminRobot extends plugin {
                 {
                     reg: '^#修仙设置帮助',
                     fnc: 'CloseRobothelp',
+                },
+                {
+                    reg: '^#修仙添加主人.*',
+                    fnc: 'AddMaster',
+                },
+                {
+                    reg: '^#修仙删除主人.*',
+                    fnc: 'DeleteMaster',
                 }
             ],
         });
         this.key = 'xiuxian:restart';
     };
+    AddMaster=async(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        const QQ = e.msg.replace('#修仙添加主人', '');
+        e.reply(defSet.AddMaster(QQ));
+        return true;
+    };
+    DeleteMaster=async(e)=>{
+        if (!e.isMaster) {
+            return;
+        };
+        const QQ = e.msg.replace('#修仙删除主人', '');
+        e.reply(defSet.DeleteMaster(QQ));
+        return true;
+    }
     CloseRobot=async(e)=>{
         if (!e.isMaster) {
             return;
         };
-        e.reply(defSet.ReadConfig('group'));
+        e.reply(defSet.ReadConfig());
         return true;
     };
     CloseRobothelp=async(e)=>{
         if (!e.isMaster) {
             return;
         };
-        e.reply(defSet.ReadConfighelp('group'));
+        e.reply(defSet.ReadConfighelp());
         return true;
     }
 };
