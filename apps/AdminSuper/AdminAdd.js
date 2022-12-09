@@ -31,14 +31,14 @@ export class AdminAdd extends plugin {
         const msg = ['————[安装消息]————'];
         let command = '';
         const name = e.msg.replace('#修仙安装', '');
-        if (name == '宗门系统') {
+        if (name == '宗门') {
             command = 'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/';
-        } else if (name == '家园系统') {
+        } else if (name == '家园') {
             command = 'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/';
         } else if (name == '怡红院') {
             command = 'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/';
             ForwardMsg(e, msg);
-        } else if (name == '职业系统') {
+        } else if (name == '职业') {
             const msg = ['待上线'];
             ForwardMsg(e, msg);
             return;
