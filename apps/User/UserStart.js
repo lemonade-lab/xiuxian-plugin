@@ -69,8 +69,8 @@ export class UserStart extends plugin {
         const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西');
         const positionID = position.id.split('-');
         const the = {
-            mx: Math.floor((Math.random() * ((position.x2-50) - (position.x1+50)))) + Number((position.x1+50)),
-            my: Math.floor((Math.random() * ((position.y2-50) - (position.y1+50)))) + Number((position.y1+50))
+            mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
+            my: Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         };
         const new_action = {
             'game': 1,//游戏状态

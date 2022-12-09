@@ -43,7 +43,7 @@ export class AdminPlugins extends plugin {
             command = 'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/';
             ForwardMsg(e, msg);
         } else if (name == '职业') {
-            const msg = ['待上线'];
+            msg.push('待上线');
             ForwardMsg(e, msg);
             return;
         } else {
@@ -117,7 +117,7 @@ export class AdminPlugins extends plugin {
             command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-pluging/';
             ForwardMsg(e, msg);
         } else if (name == '职业') {
-            const msg = ['待上线'];
+            msg.push('待上线');
             ForwardMsg(e, msg);
             return;
         } else {
