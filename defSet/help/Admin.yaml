@@ -34,6 +34,9 @@
 - group: 
   list:
     - icon: help-icon_58
+      title: "#修仙配置"
+      desc: "查看当前配置"
+    - icon: help-icon_58
       title: "#修仙关闭云崽"
       desc: "屏蔽云崽的所有功能"
     - icon: help-icon_58
