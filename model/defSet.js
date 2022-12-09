@@ -17,7 +17,7 @@ class defSet {
     fs.writeFileSync(__dirname, yamlStr, 'utf8');
     return '关闭成功';
   };
-  ReadConfighelp = () => {
+  ReadConfighelp = (filename) => {
     const __dirname = `${path.resolve()}${path.sep}config${path.sep}config/${filename}.yaml`;
     const data = YAML.load(__dirname);
     const sum = ['云崽帮助']
