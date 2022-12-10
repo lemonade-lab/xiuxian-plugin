@@ -56,7 +56,7 @@ export class AdminAction extends plugin {
                     msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                 }
                 else {
-                    msg.push(`更新Xiuxian-Plugin-Box成功`);
+                    msg.push(`更新Xiuxian-Plugin-Box成功,需要#重启`);
                 };
                 await ForwardMsg(e, msg);
             }
@@ -74,7 +74,7 @@ export class AdminAction extends plugin {
                             newmsg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                         }
                         else {
-                            newmsg.push(`更新${item}成功`);
+                            newmsg.push(`更新${item}成功,需要#重启`);
                         };
                         await ForwardMsg(e, newmsg);
                     }
