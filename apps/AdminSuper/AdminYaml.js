@@ -26,7 +26,6 @@ export class AdminYaml extends plugin {
         const config = e.msg.replace('#修仙冷却更改', '');
         const code = config.split('\*');
         const [name,size] = code;
-        console.log(code);
         if(name=='突破'){
             e.reply(XiuxianYaml.UPdataCD('Level_up',size));
             return;
