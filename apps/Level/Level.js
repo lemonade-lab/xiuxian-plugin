@@ -63,7 +63,7 @@ export class Level extends plugin {
             e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`);
             return;
         };
-        if (Math.random() >= 1 - player.levelmax_id / 50) {
+        if (Math.random() >= 1 - player.levelmax_id / 30) {
             const bad_time = Math.random();
             let x = 0;
             if (bad_time > 0.9) {
