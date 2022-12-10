@@ -21,12 +21,6 @@ export class OneKey extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
-
-    /**
-     * 此功能需要去#万宝楼
-     * 装备物品个数需要控制！
-     */
-
     OneKey_all = async (e) => {
         if (!e.isGroup) {
             return;

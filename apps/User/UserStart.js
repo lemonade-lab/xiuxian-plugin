@@ -38,7 +38,8 @@ export class UserStart extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (ifexistplay) {
-            this.Show_player(e);
+            const img = await get_player_img(e);
+            e.reply(img);
             return;
         };
         const new_player = {
@@ -122,11 +123,6 @@ export class UserStart extends plugin {
         await Write_najie(usr_qq, new_najie);
         await Write_Life(life);
         e.reply(`成功降临修仙世界\n你可以#前往极西联盟\n进行#联盟报到\n会得到[修仙联盟]的帮助\n也可以使用#位置信息\n查看城市信息\n若想了解自己的身世\n可以#基础信息`);
-        return;
-    };
-    Show_player = async (e) => {
-        const img = await get_player_img(e);
-        e.reply(img);
         return;
     };
     reCreate_player = async (e) => {
