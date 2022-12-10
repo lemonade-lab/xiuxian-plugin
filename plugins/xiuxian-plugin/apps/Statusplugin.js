@@ -62,10 +62,9 @@ export class Statusplugin extends plugin {
         if (!e.isMaster) {
             return;
         };
-        e.reply('开始清理');
         execSync('sh cleanCache.sh', function (err, sto) {
             if (err) {
-                e.reply('执行清理脚本失败')
+                e.reply('执行启动失败');
             };
         });
         await e.reply('结束清理');

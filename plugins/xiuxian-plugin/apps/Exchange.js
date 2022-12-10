@@ -1,5 +1,5 @@
 import plugin from '../../../../../lib/plugins/plugin.js';
-import { Read_Exchange, ForwardMsg, __PATH, existplayer, Write_Exchange, Write_najie, Read_action, Numbers, exist_najie_thing_name, Write_action, Read_najie, Add_najie_thing, Read_wealth, Write_wealth, point_map } from '../../../apps/Xiuxian/Xiuxian.js';
+import { Read_Exchange, ForwardMsg, __PATH, existplayer, Write_Exchange, Write_najie, Read_action, Numbers, exist_najie_thing_name, Read_najie, Add_najie_thing, Read_wealth, Write_wealth, point_map } from '../../../apps/Xiuxian/Xiuxian.js';
 export class Exchange extends plugin {
     constructor() {
         super({
@@ -87,10 +87,6 @@ export class Exchange extends plugin {
             e.reply(`[${thing_name}]不够`);
             return;
         };
-        if (action.Exchange >= 3) {
-            e.reply('有其他物品未售出')
-            return;
-        };
         najie_thing.acount = the.quantity;
         const exchange = await Read_Exchange();
         const sum=Math.floor((Math.random() * (99 - 1) + 1));
@@ -104,8 +100,6 @@ export class Exchange extends plugin {
             'money': the.money * the.quantity
         });
         await Write_Exchange(exchange);
-        action.Exchange = action.Exchange + 1;
-        await Write_action(usr_qq, action);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, najie_thing, -the.quantity);
         await Write_najie(usr_qq, najie);
@@ -142,8 +136,6 @@ export class Exchange extends plugin {
         if (exchange[x].QQ != usr_qq) {
             return;
         };
-        action.Exchange = action.Exchange - 1;
-        await Write_action(usr_qq, action);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
@@ -189,9 +181,6 @@ export class Exchange extends plugin {
         const newwealth = await Read_wealth(exchange[x].QQ);
         newwealth.lingshi += exchange[x].money;
         await Write_wealth(exchange[x].QQ, newwealth);
-        const actionqq = await Read_action(exchange[x].QQ);
-        actionqq.Exchange = actionqq.Exchange - 1;
-        await Write_action(exchange[x].QQ, actionqq);
         let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
