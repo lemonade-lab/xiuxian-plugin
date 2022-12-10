@@ -155,8 +155,8 @@ export const updata_equipment = async (usr_qq) => {
     const battle =await Read_battle(usr_qq);
     const equipment = await Read_equipment(usr_qq);
     const level = await Read_level(usr_qq);
-    const levelmini = data.Level_list.find(item => item.id == level.level_id);
-    const levelmax = data.LevelMax_list.find(item => item.id == level.levelmax_id);
+    const levelmini = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == level.level_id);
+    const levelmax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == level.levelmax_id);
     const the = {
         attack: 0,
         defense: 0,

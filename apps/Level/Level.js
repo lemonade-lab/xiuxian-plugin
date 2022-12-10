@@ -1,6 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
+import fs from 'node:fs';
 import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../Xiuxian/Xiuxian.js';
 export class Level extends plugin {
     constructor() {
@@ -45,7 +46,7 @@ export class Level extends plugin {
             return;
         };
         const player = await Read_level(usr_qq);
-        const LevelMax = data.LevelMax_list.find(item => item.id == player.levelmax_id);
+        const LevelMax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == player.levelmax_id);
         if (player.experiencemax < LevelMax.exp) {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
@@ -88,7 +89,7 @@ export class Level extends plugin {
             return;
         };
         player.levelmax_id = player.levelmax_id + 1;
-        player.levelnamemax = data.LevelMax_list.find(item => item.id == player.levelmax_id).name;
+        player.levelnamemax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == player.levelmax_id).name;
         player.experiencemax -= LevelMax.exp;
         player.rankmax_id = 0;
         await Write_level(usr_qq, player);
@@ -116,7 +117,7 @@ export class Level extends plugin {
         if (player.level_id >= 11) {
             return;
         };
-        const Level = data.Level_list.find(item => item.id == player.level_id);
+        const Level = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == player.level_id);
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp - player.experience}修为后方可突破`);
             return;
@@ -160,7 +161,7 @@ export class Level extends plugin {
             return;
         };
         player.level_id = player.level_id + 1;
-        player.levelname = data.Level_list.find(item => item.id == player.level_id).name;
+        player.levelname = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == player.level_id).name;
         player.experience -= Level.exp;
         player.rank_id = 0;
         await Write_level(usr_qq, player);

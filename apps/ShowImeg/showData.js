@@ -3,6 +3,7 @@ import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
+import fs from 'node:fs';
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
     constructor() {
@@ -24,7 +25,7 @@ export const get_state_img = async (e) => {
     };
     const player = await Read_level(usr_qq);
     const Level_id = player.level_id;
-    const Level_list = data.Level_list;
+    const Level_list = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`));
     const list = [];
     Level_list.forEach(async (item) => {
         if (item.id > Level_id && item.id <= Level_id + 2) {
@@ -50,7 +51,7 @@ export const get_statemax_img = async (e) => {
     };
     const player = await Read_level(usr_qq);
     const Level_id = player.levelmax_id;
-    const LevelMax_list = data.LevelMax_list;
+    const LevelMax_list = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`));
     const list = [];
     LevelMax_list.forEach((item) => {
         if (item.id > Level_id && item.id <= Level_id + 2) {

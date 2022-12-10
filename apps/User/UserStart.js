@@ -47,7 +47,7 @@ export class UserStart extends plugin {
             'days': 0//签到
         };
         const new_battle = {
-            'nowblood': data.Level_list.find(item => item.id == 1).blood + data.LevelMax_list.find(item => item.id == 1).blood,//血量
+            'nowblood': JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == 1).blood + JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == 1).blood,//血量
         };
         const new_level = {
             'prestige': 0,//魔力

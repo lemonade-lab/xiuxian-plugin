@@ -13,15 +13,26 @@ class XiuxianData {
             'fixedtalent': path.join(__dirname, '/resources/data/fixed/talent'),
             //生成
             'all': path.join(__dirname, '/resources/data/birth/all'),
-            'position': path.join(__dirname, '/resources/data/birth/position')
+            'position': path.join(__dirname, '/resources/data/birth/position'),
+            'Level': path.join(__dirname, '/resources/data/birth/Level'),
         };
         //固定不变
+        this.talent_list = JSON.parse(fs.readFileSync(`${this.__PATH.fixedtalent}/talent_list.json`));
+        //动态生成境界
         this.Level_list = JSON.parse(fs.readFileSync(`${this.__PATH.fixedLevel}/Level_list.json`));
         this.LevelMax_list = JSON.parse(fs.readFileSync(`${this.__PATH.fixedLevel}/LevelMax_list.json`));
-        this.talent_list = JSON.parse(fs.readFileSync(`${this.__PATH.fixedtalent}/talent_list.json`));
+        this.list(this.__PATH.Level, 'Level_list', [], []);
+        this.list(this.__PATH.Level, 'Level_list', [], [
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedLevel}/Level_list.json`))
+        ]);
+        this.list(this.__PATH.Level, 'LevelMax_list', [], []);
+        this.list(this.__PATH.Level, 'LevelMax_list', [], [
+            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedLevel}/LevelMax_list.json`))
+        ]);
+        //删除操作
+        this.list(this.__PATH.all, 'all', [], []);
         //动态生成
-        this.deletelist('all');
-        this.addlist([
+        this.list(this.__PATH.all, 'all', [], [
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/fabao1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/fabao2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/wuqi1.json`)),
@@ -33,14 +44,15 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/daoju1.json`))
-        ], 'all');
-        this.deletelist('commodities');
-        this.addlist([
+        ]);
+
+        this.list(this.__PATH.all, 'commodities', [], []);
+        this.list(this.__PATH.all, 'commodities', [], [
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/danyao1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa1.json`))
-        ], 'commodities');
-        this.deletelist('dropsItem');
-        this.addlist([
+        ]);
+
+        this.list(this.__PATH.all, 'dropsItem', [], [
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/wuqi1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/wuqi2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedequipment}/huju1.json`)),
@@ -50,7 +62,7 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/danyao2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/daoju1.json`))
-        ], 'dropsItem');
+        ]);
         /**
          * id数据头规定
          * 1武器2护具3法宝4丹药5功法6道具
@@ -72,8 +84,8 @@ class XiuxianData {
          * 1000后  插件1
          * 2000后  插件2
          */
-        this.deleteposition('position');
-        this.addposition([
+        this.list(this.__PATH.position, 'position', [], []);
+        this.list(this.__PATH.position, 'position', [], [
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position3.json`)),
@@ -94,14 +106,14 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position18.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position19.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/position20.json`))
-        ], 'position');
+        ]);
         /**
          * id含义：位面-区域-属性-等级-编号
          * 编号：0区域、1中心、2传送阵、3联盟、凡仙堂4、弱水阁5、
          * 
          */
-        this.deleteposition('point');
-        this.addposition([
+        this.list(this.__PATH.position, 'point', [], []);
+        this.list(this.__PATH.position, 'point', [], [
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point1.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point2.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point3.json`)),
@@ -122,63 +134,19 @@ class XiuxianData {
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point18.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point19.json`)),
             ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedposition}/point20.json`))
-        ], 'point');
+        ]);
     };
     /**
-     * 删除物品数据
+     * 
+     * @param {地址} path 
+     * @param {表名} name 
+     * @param {原数据} sum 
+     * @param {新数据} newsum 
      */
-    deletelist = (name) => {
-        const dir = path.join(this.__PATH.all, `${name}.json`);
-        const new_ARR = JSON.stringify([], '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
-    };
-    /**
-     * 重写物品数据
-     */
-    addlist = (sum, name) => {
-        const dir = path.join(this.__PATH.all, `${name}.json`);
-        const new_ARR = JSON.stringify(sum, '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
-    };
-    /**
-     * 新增物品数据，sum为你的新数据
-     */
-    allAddArr = (sum, name) => {
-        const dir = path.join(this.__PATH.all, `${name}.json`);
-        const new_ARR = JSON.stringify(
-            [...JSON.parse(fs.readFileSync(`${this.__PATH.all}/${name}.json`)),...sum],
-            '',
-            '\t'
-        );
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
-    };
-    /**
-     * 清空position
-     */
-    deleteposition = (name) => {
-        const dir = path.join(this.__PATH.position, `${name}.json`);
-        const new_ARR = JSON.stringify([], '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
-    };
-    /**
-     * 重新写入position，sun为初始数组
-     */
-    addposition = (sum, name) => {
-        const dir = path.join(this.__PATH.position, `${name}.json`);
-        const new_ARR = JSON.stringify(sum, '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
-    };
-    /**
-     * 新增position，sum为你的新posion
-     */
-    positionAddArr = (sum, name) => {
-        const dir = path.join(this.__PATH.position, `${name}.json`);
-        const new_ARR = JSON.stringify(
-            [...JSON.parse(fs.readFileSync(`${this.__PATH.position}/${name}.json`)),...sum],
-            '',
-            '\t'
-        );
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {});
+    list = (PATH, name, sum, newsum) => {
+        const dir = path.join(PATH, `${name}.json`);
+        const new_ARR = JSON.stringify([...sum, ...newsum], '', '\t');
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { });
     };
 };
 export default new XiuxianData();
