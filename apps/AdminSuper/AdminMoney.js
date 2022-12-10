@@ -9,15 +9,15 @@ export class AdminMoney extends plugin {
             priority: 400,
             rule: [
                 {
-                    reg: '^#扣除.*$',
+                    reg: '^#修仙扣除.*$',
                     fnc: 'Deduction'
                 },
                 {
-                    reg: '^#补偿.*$',
+                    reg: '^#修仙补偿.*$',
                     fnc: 'Fuli'
                 },
                 {
-                    reg: '^#馈赠.*$',
+                    reg: '^#修仙馈赠.*$',
                     fnc: 'gifts'
                 }
             ],
@@ -31,7 +31,7 @@ export class AdminMoney extends plugin {
         if (B == 0) {
             return;
         };
-        const thing_name = e.msg.replace('#馈赠', '');
+        const thing_name = e.msg.replace('#修仙馈赠', '');
         const searchsthing = await search_thing_name(thing_name);
         if (searchsthing == 1) {
             e.reply(`世界没有${thing_name}`);
@@ -51,7 +51,7 @@ export class AdminMoney extends plugin {
         if (B == 0) {
             return;
         };
-        let lingshi = e.msg.replace('#扣除', '');
+        let lingshi = e.msg.replace('#修仙扣除', '');
         lingshi = await Numbers(lingshi);
         const player = await Read_wealth(B);
         if (player.lingshi < lingshi) {
@@ -67,7 +67,7 @@ export class AdminMoney extends plugin {
         if (!e.isMaster) {
             return;
         };
-        let lingshi = e.msg.replace('#补偿', '');
+        let lingshi = e.msg.replace('#修仙补偿', '');
         lingshi = await Numbers(lingshi);
         const B = await At(e);
         if (B == 0) {

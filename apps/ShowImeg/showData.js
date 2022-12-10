@@ -81,13 +81,13 @@ export const get_map_img = async (e) => {
     });
     return img;
 };
-const updata = config.getdefSet('version', 'version');
 export const get_updata_img = async (e) => {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     };
+    const updata = config.getdefSet('version', 'version');
     const myData = {
         version: updata
     };
@@ -97,12 +97,11 @@ export const get_updata_img = async (e) => {
     });
     return img;
 };
-const xiuxain = config.getConfig('xiuxian', 'xiuxian');
 export const get_config_img = async (e) => {
     if (!e.isMaster) {
         return;
     };
-    console.log(xiuxain);
+    const xiuxain = config.getConfig('xiuxian', 'xiuxian');
     const myData = {
         xiuxain: xiuxain
     };
@@ -112,13 +111,13 @@ export const get_config_img = async (e) => {
     });
     return img;
 };
-const bulletin = config.getdefSet('version', 'bulletin');
 export const get_bulletin_img = async (e) => {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
         return;
     };
+    const bulletin = config.getdefSet('version', 'bulletin');
     const myData = {
         version: bulletin
     };

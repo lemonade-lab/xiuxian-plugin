@@ -10,27 +10,27 @@ export class AdminDelete extends plugin {
             priority: 400,
             rule: [
                 {
-                    reg: '^#清理弱水阁$',
+                    reg: '^#修仙清理弱水阁$',
                     fnc: 'Deleteexchange',
                 },
                 {
-                    reg: '^#清除.*$',
+                    reg: '^#修仙清除.*$',
                     fnc: 'Deletepurchase'
                 },
                 {
-                    reg: '^#打扫客栈$',
+                    reg: '^#修仙打扫客栈$',
                     fnc: 'DeleteForum'
                 },
                 {
-                    reg: '^#删除世界$',
+                    reg: '^#修仙删除世界$',
                     fnc: 'deleteallusers'
                 },
                 {
-                    reg: '^#删除信息.*$',
+                    reg: '^#修仙删除信息.*$',
                     fnc: 'deleteuser'
                 },
                 {
-                    reg: '^#删除数据$',
+                    reg: '^#修仙删除数据$',
                     fnc: 'deleteredis'
                 }
             ],
@@ -63,7 +63,7 @@ export class AdminDelete extends plugin {
         if (!e.isMaster) {
             return;
         };
-        const thingid = e.msg.replace('#清除', '');
+        const thingid = e.msg.replace('#修仙清除', '');
         const Exchange = await Read_Exchange();
         Exchange.forEach(async (item, index, arr) => {
             if (item.id == thingid) {
