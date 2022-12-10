@@ -30,7 +30,7 @@ class defSet {
       const data = this.YAML.load(group);
       const sum = ['云崽帮助']
       data.default.disable.push(...sum);
-      const yamlStr = this.yaml.dump(data);0
+      const yamlStr = this.yaml.dump(data);
       fs.writeFileSync(group, yamlStr, 'utf8');
       return '设置成功';
     } catch {
