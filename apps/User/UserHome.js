@@ -1,5 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
+import { get_player_img } from '../ShowImeg/showData.js';
 import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../Xiuxian/Xiuxian.js';
 export class UserHome extends plugin {
     constructor() {
@@ -160,7 +161,7 @@ export class UserHome extends plugin {
         };
         if (id[2] == 1) {
             const player = await Read_level(usr_qq);
-            if (player.level_id > 5) {
+            if (player.level_id > 8) {
                 e.reply('[天机门]石昊\n你灵根已定\n此生不可再洗髓');
                 return;
             };
@@ -168,13 +169,15 @@ export class UserHome extends plugin {
             talent.talent = await get_talent();
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
-            e.reply('使用成功');
+            const img = await get_player_img(e);
+            e.reply(img);
         }
         else if (id[2] == 2) {
             const talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
-            e.reply('显示成功');
+            const img = await get_player_img(e);
+            e.reply(img);
         }
         else {
             return;

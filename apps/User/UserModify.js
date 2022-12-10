@@ -71,7 +71,8 @@ export class UserModify extends plugin {
             };
         });
         await Write_Life(life);
-        this.Show_player(e);
+        const img = await get_player_img(e);
+        e.reply(img);
         return;
     };
     Change_autograph = async (e) => {
@@ -103,10 +104,6 @@ export class UserModify extends plugin {
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         player.autograph = new_msg;
         await Write_player(usr_qq, player);
-        this.Show_player(e);
-        return;
-    };
-    Show_player = async (e) => {
         const img = await get_player_img(e);
         e.reply(img);
         return;
