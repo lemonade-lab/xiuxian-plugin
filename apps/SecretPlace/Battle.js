@@ -21,8 +21,6 @@ export class Battle extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
-
-
     Attack = async (e) => {
         const good = await Go(e);
         if (!good) {

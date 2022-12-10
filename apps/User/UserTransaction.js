@@ -98,6 +98,10 @@ export class UserTransaction extends plugin {
             return;
         };
         the.najie = await Read_najie(usr_qq);
+        if(the.najie.thing.length>21){
+            e.reply('储物袋已满');
+            return;
+        }
         the.najie = await Add_najie_thing(the.najie, ifexist, the.quantity);
         await Write_najie(usr_qq, the.najie);
         await Add_lingshi(usr_qq, -commodities_price);

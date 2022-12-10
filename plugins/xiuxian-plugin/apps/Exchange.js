@@ -137,6 +137,10 @@ export class Exchange extends plugin {
             return;
         };
         let najie = await Read_najie(usr_qq);
+        if(najie.thing.length>21){
+        e.reply("储物袋已满");
+            return;
+        };
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
         exchange = exchange.filter(item => item.id != thingid);
@@ -176,12 +180,16 @@ export class Exchange extends plugin {
             e.reply('资金不足');
             return;
         };
+        let najie = await Read_najie(usr_qq);
+        if(najie.thing.length>21){
+        e.reply("储物袋已满");
+            return;
+        };
         wealth.lingshi -= exchange[x].money;
         await Write_wealth(usr_qq, wealth);
         const newwealth = await Read_wealth(exchange[x].QQ);
         newwealth.lingshi += exchange[x].money;
         await Write_wealth(exchange[x].QQ, newwealth);
-        let najie = await Read_najie(usr_qq);
         najie = await Add_najie_thing(najie, exchange[x].thing, exchange[x].thing.acount);
         await Write_najie(usr_qq, najie);
         exchange = exchange.filter(item => item.id != thingid);
