@@ -8,55 +8,35 @@
 body {
   transform: scale(1);
   width: 100%;
+  height: 100%;
   text-align: center;
   font-family: xiuxian;
 }
-
-.updata-top {
-  height: 200px;
-  width: 100%;
-  background-image: url('update-top.png');
-  background-size: 100% 100%;
-}
-
-.updata-head {
+.config{
   width: 100%;
   height: 100%;
-  background-image: url("update-head.png");
+  background-image: url('config.jpg');
   background-size: 100% 100%;
 }
-
-.updata-head-w {
-  margin: auto;
-  width: 65%;
-}
-
-.updata-head-color{
-  background-color: rgba(245, 229, 85, 0.356);
-  padding: 15px;
-  border-top-right-radius:50px;
-  border-top-left-radius:50px;
-
-}
-
-.updata-head-color0{
-  background-color: rgba(138, 71, 245, 0.323);
-  padding: 15px;
-  border-bottom-right-radius: 50px;
-  border-bottom-left-radius: 50px;
-}
-
-.updata_font {
-  font-size: 35px;
-}
-
-.updata_font0 {
-  font-size: 28px;
-}
-
-.updata-buttom{
-  height: 150px;
+.config-head {
   width: 100%;
-  background-image: url("update-buttom.png");
-  background-size: 100% 100%;
+  height: 300px;
+}
+.config-body {
+  width: 100%;
+  height: 1100px;
+}
+.config-body-title{
+  width: 80%;
+  font-size: 30px;
+  padding: 5px;
+  margin: auto;
+  border-radius: 20px;
+  background-color: rgba(255, 228, 196, 0.808);
+}
+.config-body-font{
+  width: 80%;
+  font-size: 30px;
+  margin: auto;
+  padding: 10px;
 }
