@@ -32,15 +32,18 @@ export class AdminMoney extends plugin {
             return;
         };
         const thing_name = e.msg.replace('#修仙馈赠', '');
-        const searchsthing = await search_thing_name(thing_name);
+        const code = thing_name.split('\*');
+        const [name,acount] = code;//内容
+        const searchsthing = await search_thing_name(name);
         if (searchsthing == 1) {
-            e.reply(`世界没有${thing_name}`);
+            e.reply(`世界没有${name}`);
             return;
         };
+        const quantity=await Numbers(acount);
         let najie = await Read_najie(B);
-        najie = await Add_najie_thing(najie, searchsthing, 1);
+        najie = await Add_najie_thing(najie, searchsthing, quantity);
         await Write_najie(B, najie);
-        e.reply(`${B}获得馈赠:${thing_name}`);
+        e.reply(`${B}获得馈赠:${name}`);
         return;
     };
     Deduction = async (e) => {
