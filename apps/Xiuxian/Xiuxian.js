@@ -275,7 +275,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
             battle_msg.msg.push('你仅出一招,就击败了怪物!');
             return battle_msg;
         } else {
-            battle_msg.msg.push('你个老六偷袭,造成' + battle_hurt.hurtA + '伤害');
+            battle_msg.msg.push(`你个老六偷袭,造成${battle_hurt.hurtA}伤害`);
         };
     }
     else {
@@ -294,7 +294,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
         battleA.nowblood = battleA.nowblood - battle_hurt.hurtB;
         if (battle_hurt.hurtB > 1) {
             if (battleA.nowblood < 1) {
-                battle_msg.msg.push('经过' + battle.Z + '回合,' + '你被怪物击败了!');
+                battle_msg.msg.push(`经过${battle.Z}回合,你被怪物击败了!`);
                 battleA.nowblood = 0;
                 battle_msg.QQ = 0;
                 break;
@@ -313,7 +313,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
         };
         battleB.nowblood = battleB.nowblood - battle_hurt.hurtA;
         if (battleB.nowblood < 1) {
-            battle_msg.msg.push('经过' + battle.Z + '回合,' + '你击败了怪物!');
+            battle_msg.msg.push(`经过${battle.Z}回合,你击败了怪物!`);
             break;
         };
     };
@@ -796,15 +796,15 @@ export const Go = async (e) => {
 const CDname={
     '0':'攻击',
     '1':'降妖',
-    '3':'闭关',
-    '4':'改名',
-    '5':'道宣',
-    '6':'赠送',
-    '7':'突破',
-    '8':'破体',
-    '9':'转世',
-    '10':'行为',
-    '11':'击杀'
+    '2':'闭关',
+    '3':'改名',
+    '4':'道宣',
+    '5':'赠送',
+    '6':'突破',
+    '7':'破体',
+    '8':'转世',
+    '9':'行为',
+    '10':'击杀'
 }
 /**
  * 冷却检测
