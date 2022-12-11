@@ -17,7 +17,7 @@ class Config {
     };
     //动态生成配置
     getConfig = (app, name) => {
-            return this.getYaml(app, name, 'config');
+        return this.getYaml(app, name, 'config');
     };
     getYaml = (app, name, type) => {
         let file = this.getFilePath(app, name, type);
@@ -28,8 +28,11 @@ class Config {
         return this[type][key];
     };
     getFilePath = (app, name, type) => {
-        if (type == 'defSet') return `${this.defSetPath}${app}/${name}.yaml`;
-        else return `${this.configPath}${app}/${name}.yaml`;
+        if (type == 'defSet') {
+            return `${this.defSetPath}${app}/${name}.yaml`
+        } else {
+            return `${this.configPath}${app}/${name}.yaml`
+        };
     };
     watch = (file, app, name, type = 'defSet') => {
         let key = `${app}.${name}`;
@@ -49,8 +52,7 @@ class Config {
         let file = this.getFilePath(app, name, type);
         if (lodash.isEmpty(data)) {
             fs.existsSync(file) && fs.unlinkSync(file);
-        }
-        else {
+        } else {
             let yaml = YAML.stringify(data);
             fs.writeFileSync(file, yaml, 'utf8');
         };

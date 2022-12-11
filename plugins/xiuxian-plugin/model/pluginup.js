@@ -42,8 +42,7 @@ class pluginup {
         var pathname = path.join(dir, file);
         if (fs.statSync(pathname).isDirectory()) {
           travel(pathname, callback);
-        }
-        else {
+        } else {
           callback(pathname);
         };
       });
