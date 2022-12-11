@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+const pluginname='Xiuxian-Plugin-Box'
 class filecp {
   constructor() {
     this.file(['xiuxian', 'task', 'Help',  'Admin']);
@@ -6,24 +7,24 @@ class filecp {
   };
   Pluginfile = (name,config) => {
     let cf = [];
-    const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'+name+'/defSet/';
+    const filepath = `./plugins/${pluginname}/plugins/${name}/defSet/`;
     const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
-        let filepath1 = dir + '/' + item;
+        let filepath1 = `${dir}/${item}`;
         let stat = fs.statSync(filepath1);
         if (!stat.isFile()) {
-          let file = filepath1.replace(filepath + '/', '');
+          let file = filepath1.replace(`${filepath}/`, '');
           cf.push(file);
         };
       });
     };
     readdirectory(filepath);
-    const filepath0 = './plugins/Xiuxian-Plugin-Box/config/';
+    const filepath0 = `./plugins/${pluginname}/config/`;
     for (var j = 0; j < cf.length; j++) {
       for (var i = 0; i < config.length; i++) {
-        let x = filepath0 + cf[j] + '/' + config[i] + '.yaml';
-        let y = filepath + cf[j] + '/' + config[i] + '.yaml';
+        let x = `${filepath0}${cf[j]}/${config[i]}.yaml`;
+        let y = `${filepath}${cf[j]}/${config[i]}.yaml`;
         if (!fs.existsSync(x)) {
           fs.cp(y, x, (err) => {
             if (err) { };
@@ -40,25 +41,25 @@ class filecp {
   };
   upfile = () => {
     let cf = [];
-    const filepath = './plugins/Xiuxian-Plugin-Box/defSet/';
+    const filepath = `./plugins/${pluginname}/defSet/`;
     const config = ['xiuxian', 'task', 'Help',  'Admin'];
     const readdirectory = (dir) => {
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
-        let filepath1 = dir + '/' + item;
+        let filepath1 = `${dir}/${item}`;
         let stat = fs.statSync(filepath1);
         if (!stat.isFile()) {
-          let file = filepath1.replace(filepath + '/', '');
+          let file = filepath1.replace(`${filepath}/`, '');
           cf.push(file);
         };
       });
     };
     readdirectory(filepath);
-    const filepath0 = './plugins/Xiuxian-Plugin-Box/config/';
+    const filepath0 = `./plugins/${pluginname}/config/`;
     for (var j = 0; j < cf.length; j++) {
       for (var i = 0; i < config.length; i++) {
-        let x = filepath0 + cf[j] + '/' + config[i] + '.yaml';
-        let y = filepath + cf[j] + '/' + config[i] + '.yaml';
+        let x = `${filepath0}${cf[j]}/${config[i]}.yaml`;
+        let y = `${filepath}${cf[j]}/${config[i]}.yaml`;
         if (fs.existsSync(y)) {
           fs.cp(y, x, (err) => {
             if (err) { };
@@ -70,24 +71,24 @@ class filecp {
   };
   file = (config) => {
     let cf = [];
-    const filepath = './plugins/Xiuxian-Plugin-Box/defSet/';
+    const filepath = `./plugins/${pluginname}/defSet/`;
     const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir);
       files.forEach(async item => {
-        let filepath1 = dir + '/' + item;
+        let filepath1 = `${dir}/${item}`;
         let stat = fs.statSync(filepath1);
         if (!stat.isFile()) {
-          let file = filepath1.replace(filepath + '/', '');
+          let file = filepath1.replace(`${filepath}/`, '');
           cf.push(file);
         };
       });
     };
     readdirectory(filepath);
-    const filepath0 = './plugins/Xiuxian-Plugin-Box/config/';
+    const filepath0 = `./plugins/${pluginname}/config/`;
     for (var j = 0; j < cf.length; j++) {
       for (var i = 0; i < config.length; i++) {
-        let x = filepath0 + cf[j] + '/' + config[i] + '.yaml';
-        let y = filepath + cf[j] + '/' + config[i] + '.yaml';
+        let x = `${filepath0}${cf[j]}/${config[i]}.yaml`;
+        let y = `${filepath}${cf[j]}/${config[i]}.yaml`;
         if (!fs.existsSync(x)) {
           fs.cp(y, x, (err) => {
             if (err) { };
@@ -102,9 +103,9 @@ class filecp {
     const config2 = ['help'];
     const cphelp = (cf1, cf2) => {
       for (var i = 0; i < cf1.length; i++) {
-        let x = './plugins/Xiuxian-Plugin-Box/resources/' + cf1[i] + '/' + cf2[i] + '.jpg'
+        let x = `./plugins/${pluginname}/resources/${cf1[i]}/${cf2[i]}.jpg`
         if (!fs.existsSync(x)) {
-          let y = './plugins/Xiuxian-Plugin-Box/resources/img/' + cf1[i] + '/' + cf2[i] + '.jpg'
+          let y = `./plugins/${pluginname}/resources/img/${cf1[i]}/${cf2[i]}.jpg`
           fs.cp(y, x,
             (err) => {
               if (err) {

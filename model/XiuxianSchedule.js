@@ -16,9 +16,7 @@ class XiuxianSchedule {
             const h = myDate.getHours();
             const m = myDate.getMinutes();
             const s = myDate.getSeconds();
-            //复制所有文件
             const PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}xiuxian`;
-            //复制到哪里？同等级目录下，并命名为
             const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${Y}${M}${D}${h}${m}${s}`;
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) {

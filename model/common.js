@@ -45,7 +45,7 @@ class common {
                     };
                 })
             } else {
-                logger.error('文件读取错误,file_path=' + file_path + '；原因:' + error);
+                logger.error(`文件读取错误,file_path=${file_path}；原因:${error}`);
             };
         });
     };

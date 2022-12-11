@@ -17,42 +17,37 @@ class Cachemonster {
         };
         const time = new Date();
         if (time.getHours() != alldata[i].label) {
-            let mini = 0;
-            let max = 0;
-            if (i > 6 &&i <= 9) {
-                //是秘境 2-6：秘境是特殊的,有特殊奖励
-                mini = 2;
-                max = 6;
-            }
-            else if (i > 9 && i <= 11) {
-                //禁地  8-10
-                mini = 8;
-                max = 10;
-            }
-            else if (i > 11 && i <= 16) {
-                //荒地  1-3
-                mini = 1;
-                max = 3;
-            } else if (i > 16 && i <= 20) {
-                //海域  5-8
-                mini = 5;
-                max = 8;
-            } else {
-                //城里,分配一级怪
-                mini = 1;
-                max = 1;
+            const map={
+                '1':'1.1',
+                '2':'1.1',
+                '3':'1.1',
+                '4':'1.1',
+                '5':'1.1',
+                '6':'2.6',
+                '7':'2.6',
+                '8':'2.6',
+                '9':'2.6',
+                '10':'8.10',
+                '11':'8.10',
+                '12':'1.3',
+                '13':'1.3',
+                '14':'1.3',
+                '15':'1.3',
+                '16':'1.3',
+                '17':'5.8',
+                '18':'5.8',
+                '19':'5.8',
+                '20':'5.8',
             };
+            const [mini,max]=map[i].split('.');
             alldata[i].label = time.getHours();
-            //怪物数量
+            //清空前一个怪物数据
             alldata[i].data=[];
             for (var j = 0; j < max; j++) {
                 let y = Math.floor(Math.random() * (max - mini+1) + mini);
                 await alldata[i].data.push({
-                    //怪名
                     name: name1[Math.floor(Math.random() * 25)] + name2[y-1],
-                    //累计  
                     killNum: 1,
-                    //境界
                     level: y
                 });
             };
