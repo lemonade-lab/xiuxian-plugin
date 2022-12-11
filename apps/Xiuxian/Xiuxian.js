@@ -755,7 +755,7 @@ export const Gomini = async (e) => {
     if (action != undefined) {
         action = JSON.parse(action);
         if (action.actionName == undefined) {
-            e.reply('存在旧版本残留,请联系主人使用#删除数据');
+            e.reply('存在旧版本残留,请联系主人使用#修仙删除数据');
             return false;
         };
         e.reply(action.actionName + '中...')
