@@ -37,7 +37,7 @@ export class AdminAction extends plugin {
         const that = this;
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
-        const command = 'git  pull';
+        const command = 'git  pull --rebase';
         let stata=1;
         files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
@@ -131,7 +131,7 @@ export class AdminAction extends plugin {
             return;
         };
         const msg = ['————[更新消息]————'];
-        const command = 'git  pull';
+        const command = 'git  pull --rebase';
         msg.push('正在更新...');
         const that = this;
         exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
