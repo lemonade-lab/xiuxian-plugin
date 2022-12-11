@@ -38,7 +38,7 @@ export class AdminAction extends plugin {
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
         const command = 'git  pull';
-        let stata=1;
+        let stata = 1;
         files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
             const stat = fs.statSync(newfilepath);
@@ -49,16 +49,14 @@ export class AdminAction extends plugin {
         });
         //更新xiuxain
         exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
-            async(error, stdout, stderr) => {
+            async (error, stdout, stderr) => {
                 const msg = ['————[更新消息]————'];
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push(`Xiuxian-Plugin-Box已是最新版`);
-                }
-                else if (error) {
+                } else if (error) {
                     msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
-                }
-                else {
-                    stata=0;
+                } else {
+                    stata = 0;
                     msg.push(`更新Xiuxian-Plugin-Box成功`);
                 };
                 await ForwardMsg(e, msg);
@@ -68,16 +66,14 @@ export class AdminAction extends plugin {
         sum.forEach(async (item) => {
             if (item != 'xiuxian-plugin') {
                 exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
-                    async(error, stdout, stderr) => {
+                    async (error, stdout, stderr) => {
                         const newmsg = ['————[更新消息]————']
                         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                             newmsg.push(`${item}已是最新版`);
-                        }
-                        else if (error) {
+                        } else if (error) {
                             newmsg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
-                        }
-                        else {
-                            stata=0;
+                        } else {
+                            stata = 0;
                             newmsg.push(`更新${item}成功`);
                         };
                         await ForwardMsg(e, newmsg);
@@ -85,8 +81,8 @@ export class AdminAction extends plugin {
                 );
             };
         });
-        if(stata==0){
-            const msg=[];
+        if (stata == 0) {
+            const msg = [];
             the.timer && clearTimeout(the.timer);
             the.timer = setTimeout(async () => {
                 try {
@@ -98,8 +94,7 @@ export class AdminAction extends plugin {
                     let cm = 'npm run start';
                     if (process.argv[1].includes('pm2')) {
                         cm = 'npm run restart';
-                    }
-                    else {
+                    } else {
                         msg.push('正在转为后台运行...');
                     };
                     exec(cm, (error, stdout, stderr) => {
@@ -158,8 +153,7 @@ export class AdminAction extends plugin {
                         let cm = 'npm run start';
                         if (process.argv[1].includes('pm2')) {
                             cm = 'npm run restart';
-                        }
-                        else {
+                        } else {
                             msg.push('正在转为后台运行...');
                         };
                         exec(cm, (error, stdout, stderr) => {

@@ -57,18 +57,15 @@ export class UserHome extends plugin {
             let blood = parseInt(najie_thing.blood);
             await Add_blood(usr_qq, blood);
             e.reply(`血量恢复至${blood}%`);
-        }
-        else if (id[1] == 2) {
+        } else if (id[1] == 2) {
             let experience = parseInt(najie_thing.experience);
             await Add_experience(usr_qq, thing_acount * experience);
             e.reply(`修为增加${thing_acount * najie_thing.experience}`);
-        }
-        else if (id[1] == 3) {
+        } else if (id[1] == 3) {
             let experiencemax = parseInt(najie_thing.experiencemax);
             await Add_experiencemax(usr_qq, thing_acount * experiencemax);
             e.reply(`气血增加${thing_acount * najie_thing.experiencemax}`);
-        }
-        else {
+        } else {
             e.reply(`不可服用${thing_name}`);
             return;
         };
@@ -171,15 +168,13 @@ export class UserHome extends plugin {
             await player_efficiency(usr_qq);
             const img = await get_player_img(e);
             e.reply(img);
-        }
-        else if (id[2] == 2) {
+        } else if (id[2] == 2) {
             const talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
             const img = await get_player_img(e);
             e.reply(img);
-        }
-        else {
+        } else {
             return;
         };
         let najie = await Read_najie(usr_qq);

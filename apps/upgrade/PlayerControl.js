@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
-import { Gomini, Go, offaction, Add_experience, Add_blood,  existplayer, Read_level, Read_talent, Add_experiencemax } from '../Xiuxian/Xiuxian.js';
+import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../Xiuxian/Xiuxian.js';
 export class PlayerControl extends plugin {
     constructor() {
         super({
@@ -140,21 +140,18 @@ export class PlayerControl extends plugin {
             if (rand < 20) {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff / 2);
                 msg.push(`\n闭关迟迟无法入定,只得到了${other}修为`);
-            }
-            else {
+            } else {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff);
                 msg.push(`\n闭关结束,得到了${other}修为`);
             }
             await Add_experience(usr_qq, other);
             await Add_blood(usr_qq, 90);
             msg.push('\n血量恢复至90%');
-        }
-        else {
+        } else {
             if (rand < 20) {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff / 2);
                 msg.push(`\n降妖不专心,只得到了${other}气血`);
-            }
-            else {
+            } else {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff);
                 msg.push(`\n降妖回来,得到了${other}气血`);
             };

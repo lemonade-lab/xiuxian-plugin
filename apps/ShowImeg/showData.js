@@ -147,12 +147,12 @@ export const get_player_img = async (e) => {
     for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i];
     };
-    let size=Math.trunc(talent.talentsize);
+    let size = Math.trunc(talent.talentsize);
     if (await talent.talentshow != 0) {
         size = '未知';
         name = '未知';
-    }else{
-        size=`+${size}%`;
+    } else {
+        size = `+${size}%`;
     };
     const myData = {
         user_id: usr_qq,
@@ -214,11 +214,9 @@ export const get_najie_img = async (e) => {
         let id = item.id.split('-');
         if (id[0] == 4) {
             danyao_list.push(item);
-        }
-        else if (id[0] == 6) {
+        } else if (id[0] == 6) {
             daoju_list.push(item);
-        }
-        else {
+        } else {
             thing_list.push(item);
         };
     });

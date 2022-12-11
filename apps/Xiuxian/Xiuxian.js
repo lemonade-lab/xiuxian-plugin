@@ -152,7 +152,7 @@ export const Write_equipment = async (usr_qq, equipment) => {
 };
 //计算面板
 export const updata_equipment = async (usr_qq) => {
-    const battle =await Read_battle(usr_qq);
+    const battle = await Read_battle(usr_qq);
     const equipment = await Read_equipment(usr_qq);
     const level = await Read_level(usr_qq);
     const levelmini = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == level.level_id);
@@ -395,8 +395,7 @@ export const battle = async (e, A, B) => {
                 await ForwardMsg(e, battle_msg.msg);
                 break;
             }
-        }
-        else {
+        } else {
             battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`);
         };
         //A开始
@@ -459,8 +458,7 @@ export const get_talent = async () => {
             if (z != -1) {
                 continue;
             };
-        }
-        else {
+        } else {
             const z = newtalent.indexOf(x - 5);
             if (z != -1) {
                 continue;
@@ -541,8 +539,7 @@ export const search_thing_id = async (thing_id) => {
     const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.id == thing_id);
     if (!ifexist0) {
         return 1;
-    }
-    else {
+    } else {
         return ifexist0;
     };
 };
@@ -571,8 +568,7 @@ export const Add_najie_thing = async (najie, najie_thing, thing_acount) => {
         let acount = thing.acount + thing_acount;
         if (acount < 1) {
             najie.thing = najie.thing.filter(item => item.id != najie_thing.id);
-        }
-        else {
+        } else {
             najie.thing.find(item => item.id == najie_thing.id).acount = acount;
         };
         return najie;
@@ -594,8 +590,7 @@ export const ForwardMsg = async (e, data) => {
     };
     if (msgList.length == 1) {
         await e.reply(msgList[0].message);
-    }
-    else {
+    } else {
         await e.reply(await Bot.makeForwardMsg(msgList));
     };
     return;
@@ -687,8 +682,7 @@ export const isNotNull = (obj) => {
 export const isNotBlank = (value) => {
     if (value ?? '' !== '') {
         return true;
-    }
-    else {
+    } else {
         return false;
     };
 };
@@ -793,18 +787,18 @@ export const Go = async (e) => {
     };
     return true;
 };
-const CDname={
-    '0':'攻击',
-    '1':'降妖',
-    '2':'闭关',
-    '3':'改名',
-    '4':'道宣',
-    '5':'赠送',
-    '6':'突破',
-    '7':'破体',
-    '8':'转世',
-    '9':'行为',
-    '10':'击杀'
+const CDname = {
+    '0': '攻击',
+    '1': '降妖',
+    '2': '闭关',
+    '3': '改名',
+    '4': '道宣',
+    '5': '赠送',
+    '6': '突破',
+    '7': '破体',
+    '8': '转世',
+    '9': '行为',
+    '10': '击杀'
 }
 /**
  * 冷却检测
@@ -965,7 +959,7 @@ export const map_distance = async (A, B) => {
 export const point_map = async (action, addressName) => {
     const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
     let T = false;
-    point.forEach((item,index,arr) => {
+    point.forEach((item, index, arr) => {
         //存在模糊
         if (item.name.includes(addressName)) {
             //且位置配对

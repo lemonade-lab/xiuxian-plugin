@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
-import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name,Add_najie_thing,  existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../Xiuxian/Xiuxian.js';
+import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../Xiuxian/Xiuxian.js';
 export class UserTransaction extends plugin {
     constructor() {
         super({
@@ -31,10 +31,10 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const action =await Read_action(usr_qq);
-        const address_name='凡仙堂';
-        const map=await point_map(action,address_name);
-        if(!map){
+        const action = await Read_action(usr_qq);
+        const address_name = '凡仙堂';
+        const map = await point_map(action, address_name);
+        if (!map) {
             e.reply(`需回${address_name}`);
             return;
         };
@@ -50,8 +50,7 @@ export class UserTransaction extends plugin {
                 } else {
                     msg.push(`物品:${item.name}\n修为:${item.experience}\n价格:${item.price}`);
                 }
-            }
-            else if (id[0] == 5) {
+            } else if (id[0] == 5) {
                 msg.push(`物品:${item.name}\n天赋:${item.size}%\n价格:${item.price}`);
             };
         });
@@ -67,19 +66,19 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const action =await Read_action(usr_qq);
-        const address_name='凡仙堂';
-        const map=await point_map(action,address_name);
-        if(!map){
+        const action = await Read_action(usr_qq);
+        const address_name = '凡仙堂';
+        const map = await point_map(action, address_name);
+        if (!map) {
             e.reply(`需回${address_name}`);
             return;
         };
         const thing = e.msg.replace('#购买', '');
         const code = thing.split('\*');
-        const [thing_name,thing_acount] = code;
-        const the={
-            "quantity":99,
-            "najie":{}
+        const [thing_name, thing_acount] = code;
+        const the = {
+            "quantity": 99,
+            "najie": {}
         };
         the.quantity = await Numbers(thing_acount);
         if (the.quantity > 99) {
@@ -98,7 +97,7 @@ export class UserTransaction extends plugin {
             return;
         };
         the.najie = await Read_najie(usr_qq);
-        if(the.najie.thing.length>21){
+        if (the.najie.thing.length > 21) {
             e.reply('储物袋已满');
             return;
         }
@@ -117,19 +116,19 @@ export class UserTransaction extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const action =await Read_action(usr_qq);
-        const address_name='凡仙堂';
-        const map=await point_map(action,address_name);
-        if(!map){
+        const action = await Read_action(usr_qq);
+        const address_name = '凡仙堂';
+        const map = await point_map(action, address_name);
+        if (!map) {
             e.reply(`需回${address_name}`);
             return;
         };
         const thing = e.msg.replace('#出售', '');
         const code = thing.split('\*');
-        const [thing_name,thing_acount] = code;//数量
-        const the={
-            "quantity":99,
-            "najie":{}
+        const [thing_name, thing_acount] = code;//数量
+        const the = {
+            "quantity": 99,
+            "najie": {}
         };
         the.quantity = await Numbers(thing_acount);
         if (the.quantity > 99) {

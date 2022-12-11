@@ -27,7 +27,6 @@ class Config {
         this.watch(file, app, name, type);
         return this[type][key];
     };
-
     getFilePath = (app, name, type) => {
         if (type == 'defSet') return `${this.defSetPath}${app}/${name}.yaml`;
         else return `${this.configPath}${app}/${name}.yaml`;

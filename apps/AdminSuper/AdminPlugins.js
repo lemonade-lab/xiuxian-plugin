@@ -53,7 +53,7 @@ export class AdminPlugins extends plugin {
         };
         msg.push('正在安装...');
         const that = this;
-        exec(command,{ cwd: `${_path}` },
+        exec(command, { cwd: `${_path}` },
             (error, stdout, stderr) => {
                 if (error) {
                     msg.push(`安装失败\nError code: ${error.code}\n${error.stack}\n`);
@@ -72,8 +72,7 @@ export class AdminPlugins extends plugin {
                         let cm = 'npm run start';
                         if (process.argv[1].includes('pm2')) {
                             cm = 'npm run restart';
-                        }
-                        else {
+                        } else {
                             msg.push('正在转为后台运行...');
                         };
                         exec(cm, (error, stdout, stderr) => {
@@ -102,7 +101,7 @@ export class AdminPlugins extends plugin {
         return true;
     };
 
-    xiuxianDeleteSystem=async(e)=>{
+    xiuxianDeleteSystem = async (e) => {
         if (!e.isMaster) {
             return;
         };
@@ -127,7 +126,7 @@ export class AdminPlugins extends plugin {
         };
         msg.push('正在卸载...');
         const that = this;
-        exec(command,{ cwd: `${_path}` },
+        exec(command, { cwd: `${_path}` },
             (error, stdout, stderr) => {
                 if (error) {
                     msg.push(`卸载失败\nError code: ${error.code}\n${error.stack}\n`);
@@ -146,8 +145,7 @@ export class AdminPlugins extends plugin {
                         let cm = 'npm run start';
                         if (process.argv[1].includes('pm2')) {
                             cm = 'npm run restart';
-                        }
-                        else {
+                        } else {
                             msg.push('正在转为后台运行...');
                         };
                         exec(cm, (error, stdout, stderr) => {
