@@ -41,7 +41,6 @@ class XiuxianData {
             ...this.getlist(this.__PATH.fixedequipment, 'json'),
             ...this.getlist(this.__PATH.fixedgoods, 'json')
         ]);
-
         this.newlist(this.__PATH.position, 'position', []);
         this.newlist(this.__PATH.position, 'position', [
             ...this.getlist(this.__PATH.fixedposition, 'json')
@@ -52,7 +51,6 @@ class XiuxianData {
         ]);
     };
     /**
-     * 
      * @param {地址} path 
      * @param {表名} name 
      * @param {原数据} sum 
@@ -74,7 +72,6 @@ class XiuxianData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { });
     };
     /**
-     * 
      * @param {地址} PATH 
      * @param {文件类型} type 
      */
