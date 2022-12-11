@@ -35,48 +35,48 @@ export class AdminRobot extends plugin {
             ],
         });
     };
-    OffGroup=async(e)=>{
+    OffGroup = async (e) => {
         if (!e.isMaster) {
             return;
         };
         e.reply(defSet.OffGroup());
-        return ;
+        return;
     };
-    OnGroup=async(e)=>{
+    OnGroup = async (e) => {
         if (!e.isMaster) {
             return;
         };
         e.reply(defSet.OnGroup());
-        return ;
+        return;
     };
-    AddMaster=async(e)=>{
+    AddMaster = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const QQ = e.msg.replace('#修仙添加主人', '');
         e.reply(defSet.AddMaster(QQ));
-        return ;
+        return;
     };
-    DeleteMaster=async(e)=>{
+    DeleteMaster = async (e) => {
         if (!e.isMaster) {
             return;
         };
         const QQ = e.msg.replace('#修仙删除主人', '');
         e.reply(defSet.DeleteMaster(QQ));
-        return ;
+        return;
     }
-    CloseRobot=async(e)=>{
+    CloseRobot = async (e) => {
         if (!e.isMaster) {
             return;
         };
         e.reply(defSet.ReadConfig());
-        return ;
+        return;
     };
-    CloseRobothelp=async(e)=>{
+    CloseRobothelp = async (e) => {
         if (!e.isMaster) {
             return;
         };
         e.reply(defSet.ReadConfighelp());
-        return ;
+        return;
     }
 };
