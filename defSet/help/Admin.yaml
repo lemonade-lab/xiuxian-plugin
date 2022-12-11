@@ -61,6 +61,9 @@
       title: "#修仙安装+扩展名"
       desc: "#修仙安装宗门"
     - icon: help-icon_58
+      title: "#修仙升级版本"
+      desc: "了解V1.2升级V2.0方法"
+    - icon: help-icon_58
       title: "#修仙状态"
       desc: "查看修仙运行"
     - icon: help-icon_58

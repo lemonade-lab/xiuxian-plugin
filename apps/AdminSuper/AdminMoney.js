@@ -33,7 +33,7 @@ export class AdminMoney extends plugin {
         };
         const thing_name = e.msg.replace('#修仙馈赠', '');
         const code = thing_name.split('\*');
-        const [name,acount] = code;//内容
+        const [name,acount] = code;
         const searchsthing = await search_thing_name(name);
         if (searchsthing == 1) {
             e.reply(`世界没有${name}`);
