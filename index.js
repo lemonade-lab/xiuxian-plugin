@@ -1,8 +1,10 @@
 import Config from "./model/Config.js";
 import index from './model/index.js';
+import Xiuxianschedule from "./model/Xiuxianschedule.js";
+Xiuxianschedule.scheduleJobflie('0 0 */1 * * ?');
 const versionData = Config.getdefSet("version", "version");
 const xiuxain = await index.toindex('apps');
 const plugin = await index.toindex('plugins');
-const apps={...xiuxain,...plugin};
+const apps = { ...xiuxain, ...plugin };
 logger.info(`Xiuxian-Plugin-Box[V${versionData[0].version}]`);
-export {apps}; 
+export { apps }; 
