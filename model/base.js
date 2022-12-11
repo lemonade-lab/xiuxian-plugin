@@ -1,4 +1,4 @@
-
+const dirname='plugins/Xiuxian-Plugin-Box/resources';
 export default class base {
   constructor(e = {}) {
     this.e = e;
@@ -14,10 +14,10 @@ export default class base {
       //html保存id
       saveId: this.userId,
       //模板html路径
-      tplFile: `./plugins/Xiuxian-Plugin-Box/resources/html/${this.model0}/${this.model}.html`,
+      tplFile: `./${dirname}/html/${this.model0}/${this.model}.html`,
       /** 绝对路径 */
       //插件资源路径
-      pluResPath: `${this._path}/plugins/Xiuxian-Plugin-Box/resources/`,
+      pluResPath: `${this._path}/${dirname}/`,
     };
   };
 };

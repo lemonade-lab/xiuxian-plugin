@@ -12,7 +12,8 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 >查看扩展功能  #修仙扩展     
 >查看版本说明  #修仙版本   
 ```
-npm i js-yaml -w && npm i yamljs -w
+npm i js-yaml -w
+npm i yamljs -w
 ```  
 >部分出现缺少module依赖      
 >请自行根据云崽安装情况       

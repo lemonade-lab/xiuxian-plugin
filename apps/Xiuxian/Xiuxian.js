@@ -810,7 +810,7 @@ const CDname={
  * 冷却检测
  */
 export const GenerateCD = async (usr_qq, CDid) => {
-    const remainTime = await redis.ttl(`xiuxian:player:${usr_qq}':'${CDid}`);
+    const remainTime = await redis.ttl(`xiuxian:player:${usr_qq}:${CDid}`);
     const time = {
         h: 0,
         m: 0,
@@ -832,7 +832,7 @@ export const GenerateCD = async (usr_qq, CDid) => {
 };
 //插件CD检测
 export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
-    const remainTime = await redis.ttl(`xiuxian:player:${usr_qq}':'${CDid}`);
+    const remainTime = await redis.ttl(`xiuxian:player:${usr_qq}:${CDid}`);
     const time = {
         h: 0,
         m: 0,
