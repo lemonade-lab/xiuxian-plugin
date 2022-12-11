@@ -26,7 +26,7 @@ export class XiuxianWorld extends plugin {
         e.reply(pluginup.pluginupdata('xiuxian-emulator-plugin'));
         return;
     };
-    Xiuxiandataupexplain=async()=>{
+    Xiuxiandataupexplain=async(e)=>{
         if (!e.isMaster) {
             return;
         };
