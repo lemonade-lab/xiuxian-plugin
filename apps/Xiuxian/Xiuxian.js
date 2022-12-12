@@ -708,14 +708,12 @@ export const isNotBlank = (value) => {
  * 强制修正至少为1
  */
 export const Numbers = async (value) => {
-    const the = {};
-    the.value = value;
-    if (isNaN(parseFloat(the.value)) && !isFinite(the.value)) {
-        the.value = 1;
+    let size=value;
+    if (isNaN(parseFloat(size)) && !isFinite(size)) {
+        size = 1;
     };
-    the.value = Math.trunc(the.value);
-    the.value = Number(the.value);
-    if (the.value == null || the.value == undefined || the.value < 1 || the.value == NaN) {
+    size = Number(Math.trunc(size));
+    if (the.value == null || the.value == undefined || the.value < 1 || isNaN(size)) {
         the.value = 1;
     };
     return Number(the.value);
