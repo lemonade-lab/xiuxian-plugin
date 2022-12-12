@@ -104,13 +104,13 @@ export class AdminAction extends plugin {
                     }
                 });
                 filecp.upfile();
-                ForwardMsg(e, msg);
+                await ForwardMsg(e, msg);
             }
             catch (error) {
                 redis.del(that.key);
                 const ise = error.stack ?? error;
                 msg.push('重启失败了\n' + ise);
-                ForwardMsg(e, msg);
+                await ForwardMsg(e, msg);
             };
         }, 1000);
         return;
