@@ -713,10 +713,10 @@ export const Numbers = async (value) => {
         size = 1;
     };
     size = Number(Math.trunc(size));
-    if (the.value == null || the.value == undefined || the.value < 1 || isNaN(size)) {
-        the.value = 1;
+    if (size == null || size == undefined || size < 1 || isNaN(size)) {
+        size = 1;
     };
-    return Number(the.value);
+    return Number(size);
 };
 /**
  * 得到状态
