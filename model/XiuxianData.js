@@ -20,11 +20,11 @@ class XiuxianData {
         this.talent_list = JSON.parse(fs.readFileSync(`${this.__PATH.fixedtalent}/talent_list.json`));
         this.newlist(this.__PATH.Level, 'Level_list', []);
         this.newlist(this.__PATH.Level, 'Level_list', [
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedLevel}/Level_list.json`))
+            ...this.getlist(this.__PATH.fixedLevel, 'Level_list.json')
         ]);
         this.newlist(this.__PATH.Level, 'LevelMax_list', []);
         this.newlist(this.__PATH.Level, 'LevelMax_list', [
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedLevel}/LevelMax_list.json`))
+            ...this.getlist(this.__PATH.fixedLevel, 'LevelMax_list.json')
         ]);
         this.newlist(this.__PATH.all, 'all', []);
         this.newlist(this.__PATH.all, 'all', [
@@ -33,8 +33,7 @@ class XiuxianData {
         ]);
         this.newlist(this.__PATH.all, 'commodities', []);
         this.newlist(this.__PATH.all, 'commodities', [
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/danyao1.json`)),
-            ...JSON.parse(fs.readFileSync(`${this.__PATH.fixedgoods}/gongfa1.json`))
+            ...this.getlist(this.__PATH.fixedgoods, '0.json')
         ]);
         this.newlist(this.__PATH.all, 'dropsItem', []);
         this.newlist(this.__PATH.all, 'dropsItem', [
@@ -73,7 +72,7 @@ class XiuxianData {
     };
     /**
      * @param {地址} PATH 
-     * @param {文件类型} type 
+     * @param {检索条件} type 
      */
     getlist = (PATH, type) => {
         const newsum = [];

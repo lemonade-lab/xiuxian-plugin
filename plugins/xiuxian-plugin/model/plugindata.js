@@ -12,11 +12,11 @@ class plugindata {
     //新增境界
     XiuxianData.newlist(XiuxianData.__PATH.Level, 'Level_list', [
       ...JSON.parse(fs.readFileSync(`${XiuxianData.__PATH.Level}/Level_list.json`)),
-      ...JSON.parse(fs.readFileSync(`${this.NEW__PATH.Level}/Level_list.json`))
+      ...XiuxianData.getlist(this.NEW__PATH.Level,'Level_list.json')
     ]);
     XiuxianData.newlist(XiuxianData.__PATH.Level, 'LevelMax_list', [
       ...JSON.parse(fs.readFileSync(`${XiuxianData.__PATH.Level}/LevelMax_list.json`)),
-      ...JSON.parse(fs.readFileSync(`${this.NEW__PATH.Level}/LevelMax_list.json`))
+      ...XiuxianData.getlist(this.NEW__PATH.Level,'LevelMax_list.json')
     ]);
   };
   start = () => {

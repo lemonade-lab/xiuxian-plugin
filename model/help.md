@@ -22,3 +22,7 @@ id数据尾规定：
 ## 位置数据       
 id含义：位面-区域-属性-等级-编号        
 编号：0区域、1中心、2传送阵、3联盟、凡仙堂4、弱水阁5    
+
+## 玩家新增物品方法
+Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\data\fixed\goods
+在此目录中新增.json文件即可
