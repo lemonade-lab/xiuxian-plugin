@@ -78,7 +78,6 @@ export class AdminAction extends plugin {
         });
         the.timer && clearTimeout(the.timer);
         the.timer = setTimeout(async () => {
-            const msg = [];
             try {
                 const data = JSON.stringify({
                     isGroup: !!e.isGroup,
@@ -88,13 +87,11 @@ export class AdminAction extends plugin {
                 let cm = 'npm run start';
                 if (process.argv[1].includes('pm2')) {
                     cm = 'npm run restart';
-                } else {
-                    msg.push('正在转为后台运行...');
                 };
                 exec(cm, (error, stdout, stderr) => {
                     if (error) {
                         redis.del(that.key);
-                        msg.push(`重启失败\nError code: ${error.code}\n${error.stack}\n`);
+                        e.reply(`重启失败\nError code: ${error.code}\n${error.stack}\n`);
                         logger.error(`重启失败\n${error.stack}`);
                     } else if (stdout) {
                         logger.mark('重启成功,运行已转为后台');
@@ -104,13 +101,11 @@ export class AdminAction extends plugin {
                     }
                 });
                 filecp.upfile();
-                await ForwardMsg(e, msg);
             }
             catch (error) {
                 redis.del(that.key);
                 const ise = error.stack ?? error;
-                msg.push('重启失败了\n' + ise);
-                await ForwardMsg(e, msg);
+                e.reply(`重启失败了\n${ise}`);
             };
         }, 1000);
         return;
