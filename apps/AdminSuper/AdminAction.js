@@ -108,8 +108,8 @@ export class AdminAction extends plugin {
             }
             catch (error) {
                 redis.del(that.key);
-                const e = error.stack ?? error;
-                msg.push('重启失败了\n' + e);
+                const ise = error.stack ?? error;
+                msg.push('重启失败了\n' + ise);
                 ForwardMsg(e, msg);
             };
         }, 1000);
