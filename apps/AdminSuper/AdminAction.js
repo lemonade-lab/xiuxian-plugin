@@ -78,8 +78,8 @@ export class AdminAction extends plugin {
         });
         the.timer && clearTimeout(the.timer);
         the.timer = setTimeout(async () => {
+            const msg = [];
             try {
-                const msg = [];
                 const data = JSON.stringify({
                     isGroup: !!e.isGroup,
                     id: e.isGroup ? e.group_id : e.user_id,
