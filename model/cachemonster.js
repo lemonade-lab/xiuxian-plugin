@@ -43,7 +43,7 @@ class Cachemonster {
             //清空前一个怪物数据
             alldata[i].data = [];
             for (var j = 0; j < max; j++) {
-                let y = Math.floor(Math.random() * (max - mini + 1) + mini);
+                let y = Math.floor(Math.random() * (max - mini + 1) + Number(mini));
                 await alldata[i].data.push({
                     name: name1[Math.floor(Math.random() * name1.length)] + name2[y - 1],
                     killNum: 1,
