@@ -67,11 +67,8 @@ export class MoneyOperation extends plugin {
         if(B==0||B==A){
             return;
         };
-        let lingshi = e.msg.replace('#赠送灵石', '');
-        lingshi = await Numbers(lingshi);
-        if(lingshi<50){
-            lingshi=50;
-        };
+        let islingshi = e.msg.replace('#赠送灵石', '');
+        const lingshi = await Numbers(islingshi);
         const A_player = await  Read_wealth(A);
         if (A_player.lingshi < lingshi) {
             e.reply([segment.at(A), `似乎没有${lingshi}灵石`]);

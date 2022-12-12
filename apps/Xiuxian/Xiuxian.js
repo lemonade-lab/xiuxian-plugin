@@ -700,7 +700,7 @@ export const Numbers = async (value) => {
     if (the.value == null || the.value == undefined || the.value < 1 || the.value == NaN) {
         the.value = 1;
     };
-    return the.value;
+    return Number(the.value);
 };
 /**
  * 得到状态
