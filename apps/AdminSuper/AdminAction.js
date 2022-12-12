@@ -76,10 +76,10 @@ export class AdminAction extends plugin {
                 );
             };
         });
-        const msg = [];
         the.timer && clearTimeout(the.timer);
         the.timer = setTimeout(async () => {
             try {
+                const msg = [];
                 const data = JSON.stringify({
                     isGroup: !!e.isGroup,
                     id: e.isGroup ? e.group_id : e.user_id,
@@ -103,15 +103,16 @@ export class AdminAction extends plugin {
                         process.exit();
                     }
                 });
+                filecp.upfile();
+                ForwardMsg(e, msg);
             }
             catch (error) {
                 redis.del(that.key);
                 const e = error.stack ?? error;
                 msg.push('重启失败了\n' + e);
+                ForwardMsg(e, msg);
             };
         }, 1000);
-        filecp.upfile();
-        ForwardMsg(e, msg);
         return;
     };
     checkout = async (e) => {
