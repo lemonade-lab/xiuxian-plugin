@@ -92,7 +92,7 @@ export const existplayerplugins = async (usr_qq) => {
     if (find == undefined) {
         return false;
     }else{
-        return true;
+        return find;
     };
 };
 //读取存档
