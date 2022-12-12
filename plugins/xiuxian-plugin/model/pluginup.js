@@ -18,7 +18,7 @@ class pluginup {
         level.level_id = await Numbers(player.level_id / 5);
         level.levelmax_id = await Numbers(player.Physique_id / 5);
         level.experience = await Numbers(player.修为);
-        level.levelmax_id = await Numbers(player.血气);
+        level.experiencemax = await Numbers(player.血气);
         await Write_level(user_qq, level);
         let wealth = await Read_wealth(user_qq);
         wealth.lingshi = await Numbers(player.灵石);
