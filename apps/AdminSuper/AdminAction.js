@@ -38,7 +38,6 @@ export class AdminAction extends plugin {
         const filepath = './plugins/Xiuxian-Plugin-Box/plugins/'
         const files = fs.readdirSync(filepath);
         const command = 'git  pull';
-        let stata = 1;
         files.forEach((item) => {
             const newfilepath = filepath + '/' + item;
             const stat = fs.statSync(newfilepath);
@@ -47,7 +46,6 @@ export class AdminAction extends plugin {
                 sum.push(`${file}`);
             };
         });
-        //更新xiuxain
         exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/` },
             async (error, stdout, stderr) => {
                 const msg = ['————[更新消息]————'];
@@ -56,13 +54,11 @@ export class AdminAction extends plugin {
                 } else if (error) {
                     msg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                 } else {
-                    stata = 0;
                     msg.push(`更新Xiuxian-Plugin-Box成功`);
                 };
                 await ForwardMsg(e, msg);
             }
         );
-        //更新扩展
         sum.forEach(async (item) => {
             if (item != 'xiuxian-plugin') {
                 exec(command, { cwd: `${_path}/plugins/Xiuxian-Plugin-Box/plugins/${item}` },
@@ -73,7 +69,6 @@ export class AdminAction extends plugin {
                         } else if (error) {
                             newmsg.push(`更新失败\nError code: ${error.code}\n${error.stack}\n`);
                         } else {
-                            stata = 0;
                             newmsg.push(`更新${item}成功`);
                         };
                         await ForwardMsg(e, newmsg);
@@ -81,44 +76,42 @@ export class AdminAction extends plugin {
                 );
             };
         });
-        if (stata == 0) {
-            const msg = [];
-            the.timer && clearTimeout(the.timer);
-            the.timer = setTimeout(async () => {
-                try {
-                    const data = JSON.stringify({
-                        isGroup: !!e.isGroup,
-                        id: e.isGroup ? e.group_id : e.user_id,
-                    });
-                    await redis.set(that.key, data, { EX: 120 });
-                    let cm = 'npm run start';
-                    if (process.argv[1].includes('pm2')) {
-                        cm = 'npm run restart';
-                    } else {
-                        msg.push('正在转为后台运行...');
-                    };
-                    exec(cm, (error, stdout, stderr) => {
-                        if (error) {
-                            redis.del(that.key);
-                            msg.push(`重启失败\nError code: ${error.code}\n${error.stack}\n`);
-                            logger.error(`重启失败\n${error.stack}`);
-                        } else if (stdout) {
-                            logger.mark('重启成功,运行已转为后台');
-                            logger.mark('查看日志请用命令:npm run log');
-                            logger.mark('停止后台运行命令:npm stop');
-                            process.exit();
-                        }
-                    });
-                }
-                catch (error) {
-                    redis.del(that.key);
-                    const e = error.stack ?? error;
-                    msg.push('重启失败了\n' + e);
+        const msg = [];
+        the.timer && clearTimeout(the.timer);
+        the.timer = setTimeout(async () => {
+            try {
+                const data = JSON.stringify({
+                    isGroup: !!e.isGroup,
+                    id: e.isGroup ? e.group_id : e.user_id,
+                });
+                await redis.set(that.key, data, { EX: 120 });
+                let cm = 'npm run start';
+                if (process.argv[1].includes('pm2')) {
+                    cm = 'npm run restart';
+                } else {
+                    msg.push('正在转为后台运行...');
                 };
-            }, 1000);
-            filecp.upfile();
-            ForwardMsg(e, msg);
-        }
+                exec(cm, (error, stdout, stderr) => {
+                    if (error) {
+                        redis.del(that.key);
+                        msg.push(`重启失败\nError code: ${error.code}\n${error.stack}\n`);
+                        logger.error(`重启失败\n${error.stack}`);
+                    } else if (stdout) {
+                        logger.mark('重启成功,运行已转为后台');
+                        logger.mark('查看日志请用命令:npm run log');
+                        logger.mark('停止后台运行命令:npm stop');
+                        process.exit();
+                    }
+                });
+            }
+            catch (error) {
+                redis.del(that.key);
+                const e = error.stack ?? error;
+                msg.push('重启失败了\n' + e);
+            };
+        }, 1000);
+        filecp.upfile();
+        ForwardMsg(e, msg);
         return;
     };
     checkout = async (e) => {
