@@ -56,17 +56,34 @@ const Write = async (usr_qq, player, PATH) => {
     });
     return;
 };
+
+//初次使用
+export const exist = async (usr_qq) => {
+    const life = await Read_Life();
+    const find = life.find(item => item.qq == usr_qq);
+    if (find == undefined) {
+        return true;
+    } else {
+        //不管死没死，有存档就不能降临
+        //必须再入仙途
+        return false;
+    };
+};
+
 //基础存档
 export const existplayer = async (usr_qq) => {
     const life = await Read_Life();
     const find = life.find(item => item.qq == usr_qq);
+    //不存在，指令不生效
     if (find == undefined) {
         return false;
     };
-    if (find.status == 0) {
+    //存在，没有死
+    if(find.status != 0){
+        return true;
+    }else{
         return false;
-    };
-    return find;
+    }
 };
 //插件存档检测
 export const existplayerplugins = async (usr_qq) => {
@@ -74,8 +91,9 @@ export const existplayerplugins = async (usr_qq) => {
     const find = life.find(item => item.qq == usr_qq);
     if (find == undefined) {
         return false;
+    }else{
+        return true;
     };
-    return find;
 };
 //读取存档
 export const Read_player = async (usr_qq) => {
@@ -774,7 +792,7 @@ export const Go = async (e) => {
     if (action != undefined) {
         action = JSON.parse(action);
         if (action.actionName == undefined) {
-            e.reply('存在旧版本残留,请联系主人使用#删除数据');
+            e.reply('旧版数据残留,请联系主人使用#修仙删除数据');
             return false;
         };
         e.reply(`${action.actionName}中...`)

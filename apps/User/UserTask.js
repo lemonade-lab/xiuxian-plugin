@@ -25,8 +25,8 @@ export class UserTask extends plugin {
         life.forEach((item) => {
             item.Age = item.Age + this.xiuxianConfigData.Age.size;
             if (item.Age >= item.life) {
-                x.push(item.qq);
                 item.status = 0;
+                x.push(item.qq);
             };
         });
         for (var i = 0; i < x.length; i++) {

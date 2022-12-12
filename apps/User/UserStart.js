@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
 import { segment } from 'oicq';
-import { existplayer, __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray } from '../Xiuxian/Xiuxian.js';
+import { existplayer, __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../Xiuxian/Xiuxian.js';
 import { get_player_img } from '../ShowImeg/showData.js';
 export class UserStart extends plugin {
     constructor() {
@@ -25,6 +25,7 @@ export class UserStart extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
+    
     Create_player = async (e) => {
         const group = this.xiuxianConfigData.group.white;
         if (group != 0) {
@@ -36,12 +37,44 @@ export class UserStart extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        const ifexistplay = await existplayer(usr_qq);
-        if (ifexistplay) {
+        const ifexistplay = await exist(usr_qq);
+        if (!ifexistplay) {
             const img = await get_player_img(e);
-            e.reply(img);
+            if(img==undefined){
+                e.reply('已死亡，需要#再入仙途');
+            }else{
+                e.reply(img);
+            }
             return;
         };
+        this.player(e);
+        return;
+    };
+
+    reCreate_player = async (e) => {
+        const usr_qq = e.user_id;
+        const CDTime = this.xiuxianConfigData.CD.Reborn;
+        const CDid = '8';
+        const now_time = new Date().getTime();
+        const CD = await GenerateCD(usr_qq, CDid);
+        if (CD != 0) {
+            e.reply(CD);
+            return;
+        };
+        await offaction(usr_qq);
+        fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
+        let life = await Read_Life();
+        life = await life.filter(item => item.qq != usr_qq);
+        await Write_Life(life);
+        e.reply([segment.at(usr_qq), '岁月悠悠\n世间终会出现两朵相同的花\n千百年的回眸\n一花凋零\n一花绽\n是否为同一朵\n任后人去评断']);
+        this.player(e);
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
+        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
+        return;
+    };
+
+    player = async (e) => {
+        const usr_qq = e.user_id;
         const new_player = {
             'autograph': '无',//道宣
             'days': 0//签到
@@ -123,27 +156,6 @@ export class UserStart extends plugin {
         await Write_najie(usr_qq, new_najie);
         await Write_Life(life);
         e.reply(`成功降临修仙世界\n你可以#前往极西联盟\n进行#联盟报到\n会得到[修仙联盟]的帮助\n也可以使用#位置信息\n查看城市信息\n若想了解自己的身世\n可以#基础信息`);
-        return;
-    };
-    reCreate_player = async (e) => {
-        const usr_qq = e.user_id;
-        const CDTime = this.xiuxianConfigData.CD.Reborn;
-        const CDid = '8';
-        const now_time = new Date().getTime();
-        const CD = await GenerateCD(usr_qq, CDid);
-        if (CD != 0) {
-            e.reply(CD);
-            return;
-        };
-        await offaction(usr_qq);
-        fs.rmSync(`${__PATH.player}/${usr_qq}.json`);
-        let life = await Read_Life();
-        life = await life.filter(item => item.qq != usr_qq);
-        await Write_Life(life);
-        e.reply([segment.at(usr_qq), '岁月悠悠\n世间终会出现两朵相同的花\n千百年的回眸\n一花凋零\n一花绽\n是否为同一朵\n任后人去评断']);
-        await this.Create_player(e);
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         return;
     };
 };
