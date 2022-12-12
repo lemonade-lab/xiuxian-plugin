@@ -68,13 +68,13 @@ export class Level extends plugin {
             let x = 0;
             if (bad_time > 0.9) {
                 x = 0.4;
-                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了${(LevelMax.exp) * x}气血`);
+                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了${Math.ceil(LevelMax.exp) * x}气血`);
             } else if (bad_time > 0.8) {
                 x = 0.2;
-                e.reply(`突破瓶颈时想到鸡哥了,险些走火入魔,丧失了${(LevelMax.exp) * x}气血`);
+                e.reply(`突破瓶颈时想到鸡哥了,险些走火入魔,丧失了${Math.ceil(LevelMax.exp) * x}气血`);
             } else if (bad_time > 0.7) {
                 x = 0.1;
-                e.reply(`突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了${(LevelMax.exp) * x}气血`);
+                e.reply(`突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了${Math.ceil(LevelMax.exp) * x}气血`);
 
             } else {
                 e.reply(`憋红了脸,境界突破失败,等到${CDTime}分钟后再尝试吧`);
@@ -138,13 +138,13 @@ export class Level extends plugin {
             let x = 0;
             if (bad_time > 0.9) {
                 x = 0.4;
-                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了${(Level.exp) * x}修为`);
+                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了${Math.ceil((Level.exp) * x)}修为`);
             } else if (bad_time > 0.8) {
                 x = 0.2;
-                e.reply(`突破瓶颈时想到鸡哥了,险些走火入魔,丧失了${(Level.exp) * x}修为`);
+                e.reply(`突破瓶颈时想到鸡哥了,险些走火入魔,丧失了${Math.ceil(Level.exp) * x}修为`);
             } else if (bad_time > 0.7) {
                 x = 0.1;
-                e.reply(`突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了${(Level.exp) * x}修为`);
+                e.reply(`突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了${Math.ceil(Level.exp) * x}修为`);
             } else {
                 e.reply(`憋红了脸,境界突破失败,等到${CDTime}分钟后再尝试吧`);
             };
