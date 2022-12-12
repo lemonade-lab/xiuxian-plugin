@@ -1,6 +1,6 @@
 import Config from './model/Config.js';
 import index from './model/index.js';
-import Xiuxianschedule from './model/Xiuxianschedule.js';
+import Xiuxianschedule from './model/XiuxianSchedule.js';
 Xiuxianschedule.scheduleJobflie('0 0 */1 * * ?');
 const versionData = Config.getdefSet('version', 'version');
 const xiuxain = await index.toindex('apps');
