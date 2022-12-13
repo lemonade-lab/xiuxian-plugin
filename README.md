@@ -26,8 +26,8 @@ npm i yamljs -w
 
 扩展名  | 作者  | 介绍
 ------------- | -------------  | -------------
-| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜  ](https://gitee.com/mg1105194437)  | 天山地下，唯我独尊 |
-| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨  ](https://gitee.com/mmmmmddddd) | 道友，来偷菜吗 |
+| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜    ](https://gitee.com/mg1105194437)  | 天山地下，唯我独尊 |
+| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨    ](https://gitee.com/mmmmmddddd) | 道友，来偷菜吗 |
 | [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | 怡红院、金银坊、万花坊、有间客栈、弱水阁 |  
 
 >快速安装指令  #修仙安装+扩展名       
