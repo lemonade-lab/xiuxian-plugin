@@ -1,5 +1,5 @@
 - {
-    version: 2.0,
+    version: 2.0.0,
     data:
       [
         Third edition,
@@ -17,6 +17,8 @@
       {line: Yunzai-Bot/config/config/},
       {line: 修改存档可移步此目录进行},
       {line: resources/data/birth/xiuxian},
+      {line: 自动备份数据移步此目录查看},
+      {line: Yunzai-Bot/XiuxianData},
       {line: 若修仙社区版本时间变动},
       {line: 即框架版本不再支持更新},
       {line: 强行更新，必报错，必重开},
