@@ -82,9 +82,6 @@
     - icon: help-icon_38
       title: "#破体"
       desc: "提高体境"
-    - icon: help-icon_36
-      title: "#渡劫"
-      desc: "渡劫期经历的劫难"
 
 - group: 
   list:
@@ -105,7 +102,7 @@
       desc: "扩展功能"
     - icon: help-icon_14
       title: "#扩展名+帮助"
-      desc: "如：#宗门帮助"
+      desc: "#宗门帮助"
     - icon: help-icon_58
       title: "#修仙管理"
       desc: "管理员(可私聊)"

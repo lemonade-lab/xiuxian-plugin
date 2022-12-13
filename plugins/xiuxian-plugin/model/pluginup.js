@@ -24,10 +24,10 @@ class pluginup {
         wealth.lingshi = await Numbers(player.灵石);
         await Write_wealth(user_qq, wealth);
       });
+      return `共${data.length}名获得前世记忆`;
     } catch {
       return '升级失败';
     };
-    return '升级成功';
   }
   /**
    * 

@@ -18,15 +18,7 @@ export class Level extends plugin {
                 {
                     reg: '^#破体$',
                     fnc: 'LevelMax_up'
-                },
-                {
-                    reg: '^#渡劫$',
-                    fnc: 'fate_up'
-                },
-                {
-                    reg: '^#羽化登仙$',
-                    fnc: 'Level_up_Max'
-                },
+                }
             ]
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
@@ -170,20 +162,6 @@ export class Level extends plugin {
         await Write_Life(life);
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
-        return;
-    };
-    fate_up = async (e) => {
-        const good = await Go(e);
-        if (!good) {
-            return;
-        };
-        const usr_qq = e.user_id;
-        const player = await Read_level(usr_qq);
-        if (player.level_id != 10) {
-            e.reply(`非渡劫期修士!`);
-            return;
-        };
-        e.reply('修仙地图待更新...');
         return;
     };
 };
