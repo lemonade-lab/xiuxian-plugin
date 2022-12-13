@@ -34,7 +34,7 @@ export class MoneyOperation extends plugin {
         const address_name='联盟';
         const map=await point_map(action,address_name);
         if(!map){
-            e.reply(`需回${address_name}`);
+            e.reply(`需[#城池名+${address_name}]`);
             return;
         };
         const level=await Read_level(usr_qq);

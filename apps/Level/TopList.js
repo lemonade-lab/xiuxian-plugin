@@ -40,7 +40,7 @@ export class TopList extends plugin {
         const address_name='天机门';
         const map=await point_map(action,address_name);
         if(!map){
-            e.reply(`需回${address_name}`);
+            e.reply(`需[#城池名+${address_name}]`);
             return;
         };
         const playerList = [];
@@ -88,7 +88,7 @@ export class TopList extends plugin {
         const address_name='天机门';
         const map=await point_map(action,address_name);
         if(!map){
-            e.reply(`需回${address_name}`);
+            e.reply(`需[#城池名+${address_name}]`);
             return;
         };
         const playerList = [];
@@ -137,7 +137,7 @@ export class TopList extends plugin {
         const address_name='天机门';
         const map=await point_map(action,address_name);
         if(!map){
-            e.reply(`需回${address_name}`);
+            e.reply(`需[#城池名+${address_name}]`);
             return;
         };
         const list = [];

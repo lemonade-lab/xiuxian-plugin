@@ -43,9 +43,6 @@ export class Level extends plugin {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
         };
-        if (player.levelmax_id >= 11) {
-            return;
-        };
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         if (player.levelmax_id > 1 && player.rankmax_id < 4) {
@@ -103,16 +100,13 @@ export class Level extends plugin {
             return;
         };
         const player = await Read_level(usr_qq);
-        if (player.level_id >= 11) {
-            return;
-        };
         const Level = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == player.level_id);
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp - player.experience}修为后方可突破`);
             return;
         };
         if (Level.id == 10) {
-            e.reply(`请先渡劫!`);
+            e.reply(`渡劫期修士需[#渡劫]后,方能[#羽化登仙]`);
             return;
         };
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
