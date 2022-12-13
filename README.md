@@ -37,9 +37,9 @@ npm i yamljs -w
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
-| [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
-| [修仙体验](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
-| [BotHelp](https://afdian.net/a/WinterChocolates) | 806943302 | [@冬季巧克力](https://gitee.com/djqkl_znje) |  
+| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437)  | 天山地下，唯我独尊 |
+| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | 道友，来偷菜吗 |
+| [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | 怡红院、金银坊、万花坊、有间客栈、弱水阁 |  
   
 ## 辅助资源   
 
