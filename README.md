@@ -24,11 +24,11 @@ npm i yamljs -w
 
 ## 扩展插件
 
-扩展名  | 作者 | 版本 | 状态
-------------- | ------------- | ------------- | -------------
-| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437) | V1.0 | 更新中 |
-| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | V1.0 | 更新中 |
-| [亿达广场 (xiuxian-yihongyuan-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | V1.0 | 测试中 |  
+扩展名  | 作者  | 介绍
+------------- | -------------  | -------------
+| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437)  | 开宗立派你值得拥有 |
+| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | 道友，来偷菜吗 |
+| [亿达广场 (xiuxian-yihongyuan-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | 修仙里的黑市 |  
 
 >快速安装指令  #修仙安装+扩展名       
 >稳定更新指令  #修仙全部更新  
