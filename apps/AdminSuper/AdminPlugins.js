@@ -33,31 +33,21 @@ export class AdminPlugins extends plugin {
             return;
         };
         const msg = ['————[安装消息]————'];
-        let command = '';
         const name = e.msg.replace('#修仙安装', '');
-        if (name == '宗门') {
-            command = 'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/';
-        } else if (name == '家园') {
-            command = 'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/';
-        } else if (name == '怡红院') {
-            command = 'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/';
-            ForwardMsg(e, msg);
-        } else if (name == '职业') {
-            msg.push('待上线');
-            ForwardMsg(e, msg);
-            return;
-        } else {
-            msg.push('非【三点水】提供的玩法无法使用指令安装');
-            ForwardMsg(e, msg);
-            return;
-        };
-        msg.push('正在安装...');
+        const MAP={
+            '宗门':'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
+            '家园':'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/',
+            '黑市':'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/'
+        }
+        if(!MAP.hasOwnProperty(name)){
+            e.reply('扩展名错误')
+            return 
+        }
         const that = this;
-        exec(command, { cwd: `${_path}` },
+        exec(MAP[name], { cwd: `${_path}` },
             (error, stdout, stderr) => {
                 if (error) {
-                    msg.push(`安装失败\nError code: ${error.code}\n${error.stack}\n`);
-                    ForwardMsg(e, msg);
+                    e.reply(`安装失败\nError code: ${error.code}\n${error.stack}\n`)
                     return;
                 };
                 msg.push('安装成功,正在重启更新...');
