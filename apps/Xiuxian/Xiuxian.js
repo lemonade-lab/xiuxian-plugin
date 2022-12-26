@@ -216,14 +216,12 @@ export const Read_battle = async (usr_qq) => {
     extend = Object.values(extend);
     for(let i =0;i<extend.length;i++){
         //永久属性计算
-        extend[i]["perpetual"].forEach((item)=>{
-            equ.attack = equ.attack + item.attack;
-            equ.defense = equ.defense + item.defense;
-            equ.blood = equ.blood + item.blood;
-            equ.burst = equ.burst + item.burst;
-            equ.burstmax = equ.burstmax + item.burstmax;
-            equ.speed = equ.speed + item.speed;
-        });
+        equ.attack = equ.attack + extend[i]["perpetual"].attack;
+        equ.defense = equ.defense + extend[i]["perpetual"].defense;
+        equ.blood = equ.blood + extend[i]["perpetual"].blood;
+        equ.burst = equ.burst + extend[i]["perpetual"].burst;
+        equ.burstmax = equ.burstmax + extend[i]["perpetual"].burstmax;
+        equ.speed = equ.speed + extend[i]["perpetual"].speed;
         //临时属性计算
         for(let j in extend[i]["times"]){
             if(extend[i]["times"][j].timeLimit > new Date().getTime()){
