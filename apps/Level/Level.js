@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
-import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../Xiuxian/Xiuxian.js';
+import { Go, GenerateCD, __PATH, Read_level, Write_level, Read_Life, Write_Life } from '../Xiuxian/Xiuxian.js';
 export class Level extends plugin {
     constructor() {
         super({
@@ -45,14 +45,8 @@ export class Level extends plugin {
         };
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
-        if (player.levelmax_id > 1 && player.rankmax_id < 4) {
-            player.rankmax_id = player.rankmax_id + 1;
-            player.experiencemax -= LevelMax.exp;
-            await Write_level(usr_qq, player);
-            e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`);
-            return;
-        };
-        if (Math.random() >= 1 - player.levelmax_id / 30) {
+
+        if (Math.random() >= 1 - player.levelmax_id / 20) {
             const bad_time = Math.random();
             let x = 0;
             if (bad_time > 0.9) {
@@ -79,7 +73,6 @@ export class Level extends plugin {
         player.experiencemax -= LevelMax.exp;
         player.rankmax_id = 0;
         await Write_level(usr_qq, player);
-        await updata_equipment(usr_qq);
         e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`);
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
@@ -111,15 +104,7 @@ export class Level extends plugin {
         };
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
-        if (player.level_id > 1 && player.rank_id < 4) {
-            player.rank_id = player.rank_id + 1;
-            player.experience -= Level.exp;
-            await Write_level(usr_qq, player);
-            await updata_equipment(usr_qq);
-            e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]}`);
-            return;
-        };
-        if (Math.random() > 1 - player.level_id / 25) {
+        if (Math.random() > 1 - player.level_id / 20) {
             const bad_time = Math.random();
             let x = 0;
             if (bad_time > 0.9) {
@@ -145,7 +130,6 @@ export class Level extends plugin {
         player.experience -= Level.exp;
         player.rank_id = 0;
         await Write_level(usr_qq, player);
-        await updata_equipment(usr_qq);
         const life = await Read_Life();
         life.forEach((item) => {
             if (item.qq == usr_qq) {

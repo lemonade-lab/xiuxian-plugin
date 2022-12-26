@@ -87,19 +87,19 @@ export class BattleSite extends plugin {
                 }
             };
             if (m < mon.level * 6) {
-                msg.push(`得到${mon.level * 25 * mybuff}气血`);
+                msg.push(`得到${mon.level * 35 * mybuff}气血`);
                 await Add_experiencemax(usr_qq, mon.level * 25 * mybuff);
             };
             if (m < mon.level * 7) {
-                msg.push(`得到${mon.level * 35 * mybuff}灵石`);
+                msg.push(`得到${mon.level * 20 * mybuff}灵石`);
                 await Add_lingshi(usr_qq, mon.level * 35 * mybuff);
             };
             if (m < mon.level * 8) {
-                msg.push(`得到${mon.level * 50 * mybuff}修为`);
+                msg.push(`得到${mon.level * 30 * mybuff}修为`);
                 await Add_experience(usr_qq, mon.level * 50 * mybuff);
             };
             if (m >= mon.level * 8) {
-                msg.push(`得到${mon.level * 25}灵石`);
+                msg.push(`得到${mon.level * 15}灵石`);
                 await Add_lingshi(usr_qq, mon.level * 25);
             };
         };
