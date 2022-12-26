@@ -7,6 +7,7 @@ export const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-
 //插件地址链
 export const __PATH = {
     player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
+    extend: path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
     action: path.join(__dirname, '/resources/data/birth/xiuxian/action'),
     battle: path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
     equipment: path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
@@ -97,11 +98,25 @@ export const existplayerplugins = async (usr_qq) => {
 };
 //读取存档
 export const Read_player = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.player);;
+    return await Read(usr_qq, __PATH.player);
 };
 //写入存档
 export const Write_player = async (usr_qq, player) => {
     await Write(usr_qq, player, __PATH.player);
+    return;
+};
+//读取拓展
+export const Read_extend = async (usr_qq) => {
+    const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
+    let player ;
+    if (!fs.existsSync(dir)) {
+        await Write_extend(usr_qq,{});
+    }
+    return await Read(usr_qq, __PATH.extend);
+};
+//写入拓展
+export const Write_extend = async (usr_qq, player) => {
+    await Write(usr_qq, player, __PATH.extend);
     return;
 };
 //读取灵根
@@ -112,10 +127,6 @@ export const Read_talent = async (usr_qq) => {
 export const Write_talent = async (usr_qq, player) => {
     await Write(usr_qq, player, __PATH.talent);
     return;
-};
-//读取战斗
-export const Read_battle = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.battle);
 };
 //写入新战斗
 export const Write_battle = async (usr_qq, data) => {
@@ -165,46 +176,73 @@ export const Read_equipment = async (usr_qq) => {
 //写入新装备
 export const Write_equipment = async (usr_qq, equipment) => {
     await Write(usr_qq, equipment, __PATH.equipment);
-    await updata_equipment(usr_qq);
     return;
 };
-//计算面板
-export const updata_equipment = async (usr_qq) => {
-    const battle = await Read_battle(usr_qq);
+//计算双境界*装备
+export const Read_battle = async (usr_qq) => {
     const equipment = await Read_equipment(usr_qq);
     const level = await Read_level(usr_qq);
     const levelmini = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == level.level_id);
     const levelmax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == level.levelmax_id);
-    const the = {
+    //双境界面板之和
+    let the = {
+        attack: levelmini.attack + levelmax.attack,
+        defense: levelmini.defense + levelmax.defense,
+        blood: levelmini.blood + levelmax.blood,
+        burst: levelmini.burst + levelmax.burst,
+        burstmax: levelmini.burstmax + levelmax.burstmax,
+        speed: levelmini.speed + levelmax.speed,
+        power: 0
+    };
+    //计算装备倍化
+    const equ = {
         attack: 0,
         defense: 0,
         blood: 0,
         burst: 0,
         burstmax: 0,
         speed: 0,
-        player: 0
     };
     equipment.forEach((item) => {
-        the.attack = the.attack + item.attack;
-        the.defense = the.defense + item.defense;
-        the.blood = the.blood + item.blood;
-        the.burst = the.burst + item.burst;
-        the.burstmax = the.burstmax + item.burstmax;
-        the.speed = the.speed + item.speed;
+        equ.attack = equ.attack + item.attack;
+        equ.defense = equ.defense + item.defense;
+        equ.blood = equ.blood + item.blood;
+        equ.burst = equ.burst + item.burst;
+        equ.burstmax = equ.burstmax + item.burstmax;
+        equ.speed = equ.speed + item.speed;
     });
+    //计算插件临时属性及永久属性
+    let extend =await Read_extend(usr_qq);
+    extend = Object.values(extend);
+    for(let i =0;i<extend.length;i++){
+        //永久属性计算
+        extend[i]["perpetual"].forEach((item)=>{
+            equ.attack = equ.attack + item.attack;
+            equ.defense = equ.defense + item.defense;
+            equ.blood = equ.blood + item.blood;
+            equ.burst = equ.burst + item.burst;
+            equ.burstmax = equ.burstmax + item.burstmax;
+            equ.speed = equ.speed + item.speed;
+        });
+        //临时属性计算
+        for(let j in extend[i]["times"]){
+            if(extend[i]["times"][j].timeLimit > new Date().getTime()){
+                equ[extend[i]["times"][j].type]+= extend[i]["times"][j].value;
+            }
+        }
+    }
+    //血量上限 换装导致血量溢出时需要
     const bloodLimit = levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * the.blood * 0.01);
-    the.player = {
-        nowblood: battle.nowblood > bloodLimit ? bloodLimit : battle.nowblood,
-        attack: levelmini.attack + levelmax.attack + Math.floor((levelmini.attack + levelmax.attack) * the.attack * 0.01),
-        defense: levelmini.defense + levelmax.defense + Math.floor((levelmini.defense + levelmax.defense) * the.defense * 0.01),
-        blood: bloodLimit,
-        burst: levelmini.burst + levelmax.burst + the.burst,
-        burstmax: levelmini.burstmax + levelmax.burstmax + the.burstmax + level.rank_id * 10,
-        speed: levelmini.speed + levelmax.speed + the.speed
-    };
-    the.player.power = the.player.attack + the.player.defense + the.player.blood + the.player.burst + the.player.burstmax + the.player.speed;
-    await Write_battle(usr_qq, the.player);
-    return;
+    const player =await Read(usr_qq, __PATH.battle);
+    the.attack =Math.floor(the.attack * (Math.floor(equ.attack *0.01) + 1));
+    the.defense =Math.floor(the.defense * (Math.floor(equ.defense *0.01) + 1));
+    the.blood = bloodLimit;
+    the.nowblood = player.nowblood > bloodLimit ? bloodLimit : player.nowblood;
+    the.burst += equ.burst;
+    the.burstmax += equ.burstmax;
+    the.speed += equ.speed;
+    the.power = the.attack + the.defense + bloodLimit/2 + the.burst*100 + the.burstmax*10 + the.speed*50;
+    return the;
 };
 //魔力操作
 export const Add_prestige = async (usr_qq, prestige) => {
@@ -262,6 +300,35 @@ export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
     await player_efficiency(usr_qq);
     return;
 };
+
+export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
+    const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
+    let player ;
+    if (!fs.existsSync(dir)) {
+        player = {};
+    }else {
+        player =await Read_extend(usr_qq);
+    }
+    if(!isNotNull(player[flag])){
+        const extend ={
+            "time":[],
+            "perpetual":{
+                "attack": 0,
+                "defence": 0,
+                "blood": 0,
+                "burst": 0,
+                "burstMax": 0,
+                "speed": 0,
+                "efficiency": 0
+            }
+        };
+        player[flag]=extend;
+    }
+    player[flag].perpetual[type]=value;
+    await Write_extend(usr_qq,player);
+    return;
+};
+
 //怪物战斗
 export const monsterbattle = async (e, battleA, battleB) => {
     const battle_msg = {
@@ -535,7 +602,13 @@ export const player_efficiency = async (usr_qq) => {
         the.gongfa_efficiency = the.gongfa_efficiency + item.size;
     });
     the.linggen_efficiency = await talentsize(player);
-    player.talentsize = the.linggen_efficiency + the.gongfa_efficiency;
+    let promise =await Read_extend(usr_qq);
+    promise = Object.values(promise);
+    let extend=0;
+    for (let i in promise){
+        extend += promise[i].perpetual.efficiency;
+    }
+    player.talentsize = the.linggen_efficiency + the.gongfa_efficiency + extend;
     await Write_talent(usr_qq, player);
     return;
 };
