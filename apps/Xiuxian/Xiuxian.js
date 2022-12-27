@@ -227,15 +227,17 @@ export const Read_battle = async (usr_qq) => {
         for(let j in extend[i]["times"]){
             console.log(extend[i]["times"][j].timeLimit);
             if(extend[i]["times"][j].timeLimit > new Date().getTime()){
+                console.log(equ[extend[i]["times"][j].type]);
                 equ[extend[i]["times"][j].type]+= extend[i]["times"][j].value;
+                console.log(equ[extend[i]["times"][j].type]);
             }
         }
     }
     //血量上限 换装导致血量溢出时需要
     const bloodLimit = levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * equ.blood * 0.01);
     const player =await Read(usr_qq, __PATH.battle);
-    the.attack =Math.floor(the.attack * (Math.floor(equ.attack *0.01) + 1));
-    the.defense =Math.floor(the.defense * (Math.floor(equ.defense *0.01) + 1));
+    the.attack =Math.floor(the.attack * ((equ.attack *0.01) + 1));
+    the.defense =Math.floor(the.defense * ((equ.defense *0.01) + 1));
     the.blood = bloodLimit;
     the.nowblood = player.nowblood > bloodLimit ? bloodLimit : player.nowblood;
     the.burst += equ.burst;
