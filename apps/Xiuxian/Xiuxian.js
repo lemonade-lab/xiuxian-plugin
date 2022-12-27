@@ -223,7 +223,9 @@ export const Read_battle = async (usr_qq) => {
         equ.burstmax = equ.burstmax + extend[i]["perpetual"].burstmax;
         equ.speed = equ.speed + extend[i]["perpetual"].speed;
         //临时属性计算
+        console.log(new Date().getTime());
         for(let j in extend[i]["times"]){
+            console.log(extend[i]["times"][j].timeLimit);
             if(extend[i]["times"][j].timeLimit > new Date().getTime()){
                 equ[extend[i]["times"][j].type]+= extend[i]["times"][j].value;
             }
@@ -309,7 +311,7 @@ export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
     }
     if(!isNotNull(player[flag])){
         const extend ={
-            "time":[],
+            "times":[],
             "perpetual":{
                 "attack": 0,
                 "defence": 0,
