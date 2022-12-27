@@ -364,7 +364,7 @@ export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
     if(find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value >= value){
         await Write_extend(usr_qq,player);
         return;
-    }else if(find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value < value){
+    }else if(find != -1 && player[flag].times[find].value < value){
         player[flag].times[find].value=value;
         player[flag].times[find].timeLimit=endTime;
         await Write_extend(usr_qq,player);
