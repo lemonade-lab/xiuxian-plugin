@@ -604,7 +604,7 @@ export const player_efficiency = async (usr_qq) => {
     promise = Object.values(promise);
     let extend=0;
     for (let i in promise){
-        extend += promise[i].perpetual.efficiency;
+        extend += (promise[i].perpetual.efficiency * 100);
     }
     player.talentsize = the.linggen_efficiency + the.gongfa_efficiency + extend;
     await Write_talent(usr_qq, player);
