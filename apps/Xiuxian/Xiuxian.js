@@ -314,10 +314,10 @@ export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
             "times":[],
             "perpetual":{
                 "attack": 0,
-                "defence": 0,
+                "defense": 0,
                 "blood": 0,
                 "burst": 0,
-                "burstMax": 0,
+                "burstmax": 0,
                 "speed": 0,
                 "efficiency": 0
             }
