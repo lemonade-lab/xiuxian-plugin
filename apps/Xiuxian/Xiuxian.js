@@ -329,6 +329,46 @@ export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
     return;
 };
 
+//限时属性
+export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
+    const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
+    let player ;
+    if (!fs.existsSync(dir)) {
+        player = {};
+    }else {
+        player =await Read_extend(usr_qq);
+    }
+    if(!isNotNull(player[flag])){
+        const extend ={
+            "times":[],
+            "perpetual":{
+                "attack": 0,
+                "defense": 0,
+                "blood": 0,
+                "burst": 0,
+                "burstmax": 0,
+                "speed": 0,
+                "efficiency": 0
+            }
+        };
+        player[flag]=extend;
+    }
+    const find = player[flag].times.findIndex(item => item.type == type);
+    const timExtend = {
+        "type": type,
+        "value": value,
+        "timeLimit": endTime
+    };
+    if(find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value > value){
+        await Write_extend(usr_qq,player);
+        return;
+    }else {
+        player[flag].times.push(timExtend);
+        await Write_extend(usr_qq,player);
+        return;
+    }
+};
+
 //怪物战斗
 export const monsterbattle = async (e, battleA, battleB) => {
     const battle_msg = {
