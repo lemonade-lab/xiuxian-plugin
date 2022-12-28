@@ -136,7 +136,6 @@ export class Level extends plugin {
             player.rank_id = player.rank_id + 1;
             player.experience -= Level.exp;
             await Write_level(usr_qq, player);
-            await updata_equipment(usr_qq);
             e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]}`);
             return;
         };
