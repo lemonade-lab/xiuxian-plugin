@@ -68,6 +68,13 @@ export class Level extends plugin {
             await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
             return;
         };
+        if (player.levelmax_id > 1 && player.rankmax_id < 4) {
+            player.rankmax_id = player.rankmax_id + 1;
+            player.experiencemax -= LevelMax.exp;
+            await Write_level(usr_qq, player);
+            e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`);
+            return;
+        };
         player.levelmax_id = player.levelmax_id + 1;
         player.levelnamemax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == player.levelmax_id).name;
         player.experiencemax -= LevelMax.exp;
@@ -123,6 +130,14 @@ export class Level extends plugin {
             await Write_level(usr_qq, player);
             await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
             await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
+            return;
+        };
+        if (player.level_id > 1 && player.rank_id < 4) {
+            player.rank_id = player.rank_id + 1;
+            player.experience -= Level.exp;
+            await Write_level(usr_qq, player);
+            await updata_equipment(usr_qq);
+            e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]}`);
             return;
         };
         player.level_id = player.level_id + 1;
