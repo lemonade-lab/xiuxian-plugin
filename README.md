@@ -12,32 +12,28 @@
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
 >查看具体功能  #修仙帮助     
->查看扩展功能  #修仙扩展     
->查看版本说明  #修仙版本   
-```
-npm i js-yaml -w
-npm i yamljs -w
-```  
->部分出现缺少module依赖      
->请自行根据云崽安装情况       
->把npm更改为pnpm或cnpm等    
+>查看版本说明  #修仙版本       
+>稳定更新指令  #修仙全部更新  
+>快速安装指令  #修仙安装+扩展名   
 
 ## 扩展插件
 
-扩展名  | 作者  | 介绍
-------------- | -------------  | -------------
-| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜    ](https://gitee.com/mg1105194437)  | 天上地下，唯我独尊 |
-| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨    ](https://gitee.com/mmmmmddddd) | 道友，来偷菜吗 |
-| [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | 怡红院、金银坊、万花坊、有间客栈、弱水阁 |  
+扩展名  | 作者  | 帮助 | 介绍
+------------- | -------------  | -------------  | -------------
+| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜    ](https://gitee.com/mg1105194437)  | #宗门帮助 |  天上地下，唯我独尊 |
+| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨    ](https://gitee.com/mmmmmddddd) | #家园帮助 |  道友，来偷菜吗 |
+| [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | #黑市帮助 | 怡红院、金银坊、万花坊、有间客栈、弱水阁 |  
+| [口袋 (xiuxian-Pokemon-plugin)]() | [@汐颜]() | #口袋帮助 | 测试中... |  
+| [仙界 (xiuxian-fairyland-plugin)]() | [@咸咸咸鱼鱼]() | #仙界帮助 | 施工中... |  
+| [职业 (xiuxian-occupation-plugin)]() | [@零零零零]() | #职业帮助 | 施工中... |  
+| [活动 (xiuxian-activity-plugin)]() | [@DD斩首]() | #活动帮助 | 施工中... |  
 
->快速安装指令  #修仙安装+扩展名       
->稳定更新指令  #修仙全部更新  
 
 ## 企鹅聚集     
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
-| [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@柠檬冲水](https://gitee.com/ningmengchongshui) |  
+| [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@拾郎]() |  
 | [修仙体验](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
 | [BotHelp](https://afdian.net/a/WinterChocolates) | 806943302 | [@冬季巧克力](https://gitee.com/djqkl_znje) |  
   
@@ -45,7 +41,7 @@ npm i yamljs -w
 
 仓库名  | 作者 | 版本 | 状态
 ------------- | ------------- | ------------- | -------------
-| [一键安装 (Yunzai-Bot-Help)](https://gitee.com/ningmengchongshui/Yunzai-Bot-Help) | [@柠檬冲水](https://gitee.com/ningmengchongshui) | V1.2 | 更新中 |
+| [一键安装 (Yunzai-Bot-Help)](https://gitee.com/ningmengchongshui/Yunzai-Bot-Help) | [@柠檬冲水](https://gitee.com/ningmengchongshui) | V1.4 | 更新中 |
   
 ## 免责声明       
 1. 功能仅限内部交流与小范围使用       
