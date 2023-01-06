@@ -23,7 +23,7 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 | [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜    ](https://gitee.com/mg1105194437)  | #宗门帮助 |  天上地下，唯我独尊 |
 | [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨    ](https://gitee.com/mmmmmddddd) | #家园帮助 |  道友，来偷菜吗 |
 | [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | #黑市帮助 | 怡红院、金银坊、万花坊、有间客栈、弱水阁 |  
-| [口袋 (xiuxian-Pokemon-plugin)]() | [@汐颜]() | #口袋帮助 | 测试中... |  
+| [口袋 (xiuxian-Pokemon-plugin)](https://gitee.com/mg1105194437/xiuxian-pokemon-plugin) | [@汐颜]() | #口袋帮助 | 测试中... |  
 | [仙界 (xiuxian-fairyland-plugin)]() | [@咸咸咸鱼鱼]() | #仙界帮助 | 施工中... |  
 | [职业 (xiuxian-occupation-plugin)]() | [@零零零零]() | #职业帮助 | 施工中... |  
 | [活动 (xiuxian-activity-plugin)]() | [@DD斩首]() | #活动帮助 | 施工中... |  
