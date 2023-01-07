@@ -1,6 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import fs from 'node:fs';
-import { Write_Forum, Read_Exchange, Write_Exchange, __PATH, offaction, At, Write_Life, Read_Life, Read_action, Write_action } from '../Xiuxian/Xiuxian.js';
+import {  __PATH, offaction, At, Write_Life, Read_Life } from '../Xiuxian/Xiuxian.js';
 export class AdminDelete extends plugin {
     constructor() {
         super({
@@ -10,16 +9,8 @@ export class AdminDelete extends plugin {
             priority: 400,
             rule: [
                 {
-                    reg: '^#修仙清理弱水阁$',
-                    fnc: 'Deleteexchange',
-                },
-                {
-                    reg: '^#修仙清除.*$',
-                    fnc: 'Deletepurchase'
-                },
-                {
-                    reg: '^#修仙打扫客栈$',
-                    fnc: 'DeleteForum'
+                    reg: '^#修仙删除数据$',
+                    fnc: 'deleteredis'
                 },
                 {
                     reg: '^#修仙删除世界$',
@@ -28,10 +19,6 @@ export class AdminDelete extends plugin {
                 {
                     reg: '^#修仙删除信息.*$',
                     fnc: 'deleteuser'
-                },
-                {
-                    reg: '^#修仙删除数据$',
-                    fnc: 'deleteredis'
                 }
             ],
         });
@@ -51,59 +38,10 @@ export class AdminDelete extends plugin {
         e.reply('世界无一花草');
         return;
     };
-    DeleteForum = async (e) => {
-        if (!e.isMaster) {
-            return;
-        };
-        await Write_Forum([]);
-        e.reply('已打扫');
-        return;
-    };
-    Deletepurchase = async (e) => {
-        if (!e.isMaster) {
-            return;
-        };
-        const thingid = e.msg.replace('#修仙清除', '');
-        const Exchange = await Read_Exchange();
-        Exchange.forEach(async (item, index, arr) => {
-            if (item.id == thingid) {
-                const action = await Read_action(item.QQ);
-                action.Exchange = action.Exchange - 1;
-                await Write_action(item.QQ, action);
-                arr.splice(index, 1);
-                e.reply(`清除${thingid}`);
-            };
-        });
-        await Write_Exchange(Exchange);
-        return;
-    };
-    Deleteexchange = async (e) => {
-        if (!e.isMaster) {
-            return;
-        };
-        await Write_Exchange([]);
-        const playerList = [];
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'));
-        files.forEach((item) => {
-            const file = item.replace('.json', '');
-            playerList.push(file);
-        });
-        playerList.forEach(async (item) => {
-            const action = await Read_action(item);
-            action.Exchange = 0;
-            await Write_action(item, action);
-        });
-        e.reply('已清除');
-        return;
-    };
     deleteallusers = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        await Write_Exchange([]);
-        await Write_Forum([]);
         await Write_Life([]);
         await this.deleteredis(e);
         return;
@@ -126,5 +64,5 @@ export class AdminDelete extends plugin {
         await Write_Life(life);
         e.reply('信息崩碎');
         return;
-    }
+    };
 };
