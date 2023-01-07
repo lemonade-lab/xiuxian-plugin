@@ -1,4 +1,12 @@
 node_modules
 config
-resources/help/help.jpg
+plugins/xiuxian-association-plugin
+plugins/xiuxian-home-plugin
+plugins/xiuxian-dark-plugin
+plugins/xiuxian-pokemon-plugin
+plugins/xiuxian-activity-plugin
+plugins/xiuxian-pagoda-plugin
+plugins/xiuxian-fairyland-plugin
+plugins/xiuxian-occupation-plugin
 resources/data/birth
+resources/help/help.jpg
