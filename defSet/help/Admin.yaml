@@ -53,7 +53,7 @@
   list:
     - icon: help-icon_58
       title: "#修仙更新"
-      desc: "更新修仙模拟器插件"
+      desc: "请阅读#修仙版本"
     - icon: help-icon_58
       title: "#修仙全部更新"
       desc: "更新后需#重启"
@@ -63,9 +63,3 @@
     - icon: help-icon_58
       title: "#修仙升级版本"
       desc: "了解V1.2升级V2.0方法"
-    - icon: help-icon_58
-      title: "#修仙状态"
-      desc: "查看修仙运行"
-    - icon: help-icon_58
-      title: "#修仙清理缓存"
-      desc: "清理修仙系统缓存"
