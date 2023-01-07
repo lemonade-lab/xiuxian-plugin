@@ -20,10 +20,10 @@
   list:
     - icon: help-icon_55
       title: "#练气境界"
-      desc: "(可私聊)"
+      desc: "当前境界"
     - icon: help-icon_55
       title: "#炼体境界"
-      desc: "(可私聊)"
+      desc: "当前境界"
     - icon: help-icon_44
       title: "#闭关 #出关"
       desc: "进行闭关,增加修为"
@@ -72,10 +72,10 @@
   list:
     - icon: help-icon_38
       title: "#面板信息"
-      desc: "(可私聊)"
+      desc: "查看"
     - icon: help-icon_38
       title: "#基础信息"
-      desc: "(可私聊)"
+      desc: "你的身世"
     - icon: help-icon_38
       title: "#突破"
       desc: "打破浩劫"
@@ -85,27 +85,51 @@
 
 - group: 
   list:
-    - icon: help-icon_53
-      title: "#凡仙堂"
-      desc: "商店(可私聊)"
-    - icon: help-icon_53
-      title: "#弱水阁"
-      desc: "交易(可私聊)"
+    - icon: help-icon_44
+      title: "#学习+功法名"
+      desc: "学习功法"
+    - icon: help-icon_44
+      title: "#忘掉+功法名"
+      desc: "忘掉功法"
+    - icon: help-icon_42
+      title: "#消耗+道具名"
+      desc: "消耗道具"
+    - icon: help-icon_6
+      title: "#服用+丹药名"
+      desc: "服用丹药"
+    - icon: help-icon_46
+      title: "#装备+装备名"
+      desc: "装备物品"
+    - icon: help-icon_46
+      title: "#卸下+装备名"
+      desc: "卸下装备"
+
+- group: 
+  list:
+    - icon: help-icon_44
+      title: "#一键出售所有"
+      desc: "出售储物袋中所有物品"
     - icon: help-icon_10
       title: "#赠送灵石1000 @群友"
       desc: "赠送灵石"
+
+- group: 
+  list:
+    - icon: help-icon_60
+      title: "#至尊榜"
+      desc: "凡人战力榜"
+    - icon: help-icon_60
+      title: "#封神榜"
+      desc: "仙人战力榜"
+    - icon: help-icon_60
+      title: "#杀神榜"
+      desc: "罪恶魔力榜"
       
 - group: 
   list:
-    - icon: help-icon_14
-      title: "#修仙扩展"
-      desc: "扩展功能"
-    - icon: help-icon_14
-      title: "#扩展名+帮助"
-      desc: "#宗门帮助"
     - icon: help-icon_58
       title: "#修仙管理"
-      desc: "管理员(可私聊)"
+      desc: "管理员"
     - icon: help-icon_55
       title: "#修仙版本"
-      desc: "(可私聊)"
+      desc: "查看更新说明"
