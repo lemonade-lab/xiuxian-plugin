@@ -24,6 +24,6 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 | [修仙体验](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
 | [云崽帮助](https://afdian.net/a/WinterChocolates) | 806943302 | [@柠檬冲水](https://gitee.com/djqkl_znje) |  
 
-## 免责声明       
+## 免责声明☞[安装云崽](https://gitee.com/Le-niao/Yunzai-Bot)             
 1. 功能仅限内部交流与小范围使用       
 2. 请勿用于任何以盈利为目的的场景    
