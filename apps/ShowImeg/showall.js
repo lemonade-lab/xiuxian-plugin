@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { get_state_img,get_statemax_img,get_map_img,get_updata_img,get_bulletin_img,get_config_img } from '../ShowImeg/showData.js';
+import { get_map_img,get_updata_img,get_bulletin_img,get_config_img } from '../ShowImeg/showData.js';
 export class showall extends plugin {
     constructor() {
         super({
@@ -8,18 +8,6 @@ export class showall extends plugin {
             event: 'message',
             priority: 600,
             rule: [
-                {
-                    reg: '^#练气境界$',
-                    fnc: 'show_Level',
-                },
-                {
-                    reg: '^#练气境界$',
-                    fnc: 'show_Level',
-                },
-                {
-                    reg: '^#炼体境界$',
-                    fnc: 'show_LevelMax',
-                },
                 {
                     reg: '^#修仙地图$',
                     fnc: 'show_map',
@@ -38,16 +26,6 @@ export class showall extends plugin {
                 }
             ]
         });
-    };
-    show_Level = async (e) => {
-        const img = await get_state_img(e);
-        e.reply(img);
-        return;
-    };
-    show_LevelMax = async (e) => {
-        const img = await get_statemax_img(e);
-        e.reply(img);
-        return;
     };
     show_map = async (e) => {
         const img = await get_map_img(e);

@@ -1,26 +1,17 @@
 - group: 
   list:
     - icon: help-icon_16
-      title: "#修仙补偿9999 @群友"
-      desc: "补偿指定玩家灵石"  
+      title: "#修仙补偿9999 @道友"
+      desc: "补偿指定道友灵石"  
     - icon: help-icon_16
-      title: "#修仙扣除99999 @群友"
-      desc: "扣指定玩家灵石"
+      title: "#修仙扣除9999 @道友"
+      desc: "扣指定道友灵石"
     - icon: help-icon_16
-      title: "#修仙馈赠+物品名 @群友"
-      desc: "补偿指定玩家物品"
+      title: "#修仙馈赠+物品名 @道友"
+      desc: "补偿指定道友物品"
 
 - group: 
   list:
-    - icon: help-icon_32
-      title: "#修仙清理弱水阁"
-      desc: "清除全部物品"
-    - icon: help-icon_32
-      title: "#修仙清除+编号"
-      desc: "清除特定物品"
-    - icon: help-icon_32
-      title: "#修仙打扫客栈"
-      desc: "清理客栈消息"
     - icon: help-icon_32
       title: "#修仙删除数据"
       desc: "删除错误数据"
@@ -28,7 +19,7 @@
       title: "#修仙删除世界"
       desc: "删除全部信息"
     - icon: help-icon_32
-      title: "#修仙删除信息 @群友"
+      title: "#修仙删除信息 @道友"
       desc: "删除群友信息"
       
 - group: 
@@ -52,6 +43,9 @@
 - group: 
   list:
     - icon: help-icon_58
+      title: "#修仙安装+扩展名"
+      desc: "#修仙安装宗门"
+    - icon: help-icon_58
       title: "#修仙数据升级"
       desc: "请阅读#修仙升级版本"
     - icon: help-icon_58
@@ -59,10 +53,4 @@
       desc: "请阅读#修仙版本"
     - icon: help-icon_58
       title: "#修仙全部更新"
-      desc: "更新后需#重启"
-    - icon: help-icon_58
-      title: "#修仙安装+扩展名"
-      desc: "#修仙安装宗门"
-    - icon: help-icon_58
-      title: "#修仙升级版本"
-      desc: "了解V1.2升级V2.0方法"
+      desc: "请阅读#修仙版"

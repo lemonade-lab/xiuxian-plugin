@@ -18,12 +18,6 @@
     
 - group: 
   list:
-    - icon: help-icon_55
-      title: "#练气境界"
-      desc: "当前境界"
-    - icon: help-icon_55
-      title: "#炼体境界"
-      desc: "当前境界"
     - icon: help-icon_44
       title: "#闭关 #出关"
       desc: "进行闭关,增加修为"

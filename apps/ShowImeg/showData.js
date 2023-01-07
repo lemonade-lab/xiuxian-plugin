@@ -2,8 +2,6 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import config from '../../model/Config.js';
-import data from '../../model/XiuxianData.js';
-import fs from 'node:fs';
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../Xiuxian/Xiuxian.js';
 export class showData extends plugin {
     constructor() {
@@ -16,58 +14,6 @@ export class showData extends plugin {
             ]
         });
     };
-};
-export const get_state_img = async (e) => {
-    const usr_qq = e.user_id;
-    const ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    };
-    const player = await Read_level(usr_qq);
-    const Level_id = player.level_id;
-    const Level_list = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`));
-    const list = [];
-    Level_list.forEach(async (item) => {
-        if (item.id > Level_id && item.id <= Level_id + 2) {
-            list.push(item);
-        };
-    });
-    const myData = {
-        name: '炼气境界',
-        user_id: usr_qq,
-        Level_list: list
-    };
-    const data1 = await new Show(e).get_Data('state', 'state', myData);
-    const img = await puppeteer.screenshot('state', {
-        ...data1,
-    });
-    return img;
-};
-export const get_statemax_img = async (e) => {
-    const usr_qq = e.user_id;
-    const ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    };
-    const player = await Read_level(usr_qq);
-    const Level_id = player.levelmax_id;
-    const LevelMax_list = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`));
-    const list = [];
-    LevelMax_list.forEach((item) => {
-        if (item.id > Level_id && item.id <= Level_id + 2) {
-            list.push(item);
-        };
-    });
-    const myData = {
-        name: '炼体境界',
-        user_id: usr_qq,
-        Level_list: list
-    };
-    const data1 = await new Show(e).get_Data('state', 'state', myData);
-    const img = await puppeteer.screenshot('state', {
-        ...data1,
-    });
-    return img;
 };
 export const get_map_img = async (e) => {
     const usr_qq = e.user_id;
