@@ -113,9 +113,6 @@
       title: "#至尊榜"
       desc: "凡人战力榜"
     - icon: help-icon_60
-      title: "#封神榜"
-      desc: "仙人战力榜"
-    - icon: help-icon_60
       title: "#杀神榜"
       desc: "罪恶魔力榜"
       
@@ -127,3 +124,6 @@
     - icon: help-icon_55
       title: "#修仙版本"
       desc: "查看更新说明"
+    - icon: help-icon_58
+      title: "#修仙全部更新"
+      desc: "请阅读#修仙版"
