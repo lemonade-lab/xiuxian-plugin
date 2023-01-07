@@ -30,15 +30,14 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 | [职业 (xiuxian-occupation-plugin)]() | [@零零零零]() | #职业帮助 | 绝世天才 |  施工中 |  
 
 
-## 企鹅聚集     
+## 企鹅聚集☞[查看赞助](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/plugins/xiuxian-plugin/%20README.md)      
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
 | [修仙社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@拾郎](https://afdian.net/a/ningmengchongshui) |  
 | [修仙体验](https://afdian.net/a/ningmengchongshui) | 908754863 | [@汐颜](https://gitee.com/mg1105194437) |   
-| [云崽帮助](https://afdian.net/a/WinterChocolates) | 806943302 | [@冬季巧克力](https://gitee.com/djqkl_znje) |  
-
-## [赞助记录](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/plugins/xiuxian-plugin/%20README-SPONSOR.md)     
+| [云崽帮助](https://afdian.net/a/WinterChocolates) | 806943302 | [@柠檬冲水](https://gitee.com/djqkl_znje) |  
+ 
 
 ## 免责声明       
 1. 功能仅限内部交流与小范围使用       
