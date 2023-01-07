@@ -6,7 +6,7 @@ import {
   Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency,
   Write_action, Write_equipment, Write_Life, Read_Life, Anyarray,
   Read_level, Read_wealth, Numbers
-} from '../apps/Xiuxian/Xiuxian.j';
+} from '../apps/Xiuxian/Xiuxian.js';
 const __dirname = `${path.resolve()}${path.sep}plugins`;
 class pluginup {
   constructor() { };
