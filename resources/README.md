@@ -18,4 +18,4 @@
 | NyoSothep | 爱发电 | ￥648 | 
 | 黄锦涛 | 爱发电 | ￥30 | 
 
-# [点击赞助](https://afdian.net/a/ningmengchongshui)
+# [☞点击赞助](https://afdian.net/a/ningmengchongshui)
