@@ -108,7 +108,6 @@ export class BattleSite extends plugin {
         await ForwardMsg(e, msg);
         return;
     };
-
     Exploremonsters = async (e) => {
         const good = await Gomini(e);
         if (!good) {

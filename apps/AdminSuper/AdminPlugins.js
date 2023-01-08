@@ -90,7 +90,6 @@ export class AdminPlugins extends plugin {
         );
         return true;
     };
-
     xiuxianDeleteSystem = async (e) => {
         if (!e.isMaster) {
             return;
@@ -110,7 +109,7 @@ export class AdminPlugins extends plugin {
             ForwardMsg(e, msg);
             return;
         } else {
-            msg.push('非【三点水】提供的玩法无法使用指令卸载');
+            msg.push('无法使用指令卸载未知扩展');
             ForwardMsg(e, msg);
             return;
         };

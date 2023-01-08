@@ -25,7 +25,6 @@ export class UserStart extends plugin {
         });
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
-    
     Create_player = async (e) => {
         const group = this.xiuxianConfigData.group.white;
         if (group != 0) {
