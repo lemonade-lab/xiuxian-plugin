@@ -43,10 +43,15 @@ export class Level extends plugin {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
         };
+        
+        const Level = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == player.level_id);
+        if(Level.level_id<=10&&LevelMax.levelmax_id>=11){
+            e.reply(`[#羽化登仙]后,方能探索更高境界`);
+            return
+        }
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
-
-        if (Math.random() >= 1 - player.levelmax_id / 20) {
+        if (Math.random() >= 1 - player.levelmax_id / 23) {
             const bad_time = Math.random();
             let x = 0;
             if (bad_time > 0.9) {
@@ -106,12 +111,12 @@ export class Level extends plugin {
             return;
         };
         if (Level.id == 10) {
-            e.reply(`渡劫期修士需[#渡劫]后,方能[#羽化登仙]`);
+            e.reply(`渡劫期修士需[#渡劫]后[#羽化登仙]`);
             return;
         };
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time);
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
-        if (Math.random() > 1 - player.level_id / 20) {
+        if (Math.random() > 1 - player.level_id / 23) {
             const bad_time = Math.random();
             let x = 0;
             if (bad_time > 0.9) {
