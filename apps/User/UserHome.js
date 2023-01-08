@@ -166,13 +166,13 @@ export class UserHome extends plugin {
             talent.talent = await get_talent();
             await Write_talent(usr_qq, talent);
             await player_efficiency(usr_qq);
-            const img = await get_player_img(e);
+            const img = await get_player_img(e.user_id);
             e.reply(img);
         } else if (id[2] == 2) {
             const talent = await Read_talent(usr_qq);
             talent.talentshow = 0;
             await Write_talent(usr_qq, talent);
-            const img = await get_player_img(e);
+            const img = await get_player_img(e.user_id);
             e.reply(img);
         } else {
             return;

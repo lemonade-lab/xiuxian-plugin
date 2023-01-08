@@ -33,7 +33,7 @@ export class UserAction extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const img = await get_najie_img(e);
+        const img = await get_najie_img(e.user_id);
         e.reply(img);
         return;
     };

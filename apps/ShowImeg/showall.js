@@ -28,22 +28,22 @@ export class showall extends plugin {
         });
     };
     show_map = async (e) => {
-        const img = await get_map_img(e);
+        const img = await get_map_img(e.user_id);
         e.reply(img);
         return;
     };
     show_updata = async (e) => {
-        const img = await get_updata_img(e);
+        const img = await get_updata_img(e.user_id);
         e.reply(img);
         return;
     };
     show_config = async (e) => {
-        const img = await get_config_img(e);
+        const img = await get_config_img(e.user_id);
         e.reply(img);
         return;
     };
     show_bulletin = async (e) => {
-        const img = await get_bulletin_img(e);
+        const img = await get_bulletin_img(e.user_id);
         e.reply(img);
         return;
     };

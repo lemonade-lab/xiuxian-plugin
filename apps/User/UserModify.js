@@ -71,7 +71,7 @@ export class UserModify extends plugin {
             };
         });
         await Write_Life(life);
-        const img = await get_player_img(e);
+        const img = await get_player_img(e.user_id);
         e.reply(img);
         return;
     };
@@ -104,7 +104,7 @@ export class UserModify extends plugin {
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60);
         player.autograph = new_msg;
         await Write_player(usr_qq, player);
-        const img = await get_player_img(e);
+        const img = await get_player_img(e.user_id);
         e.reply(img);
         return;
     };

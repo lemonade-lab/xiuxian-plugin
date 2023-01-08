@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
 import { segment } from 'oicq';
-import { existplayer, __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../../model/public.js';
+import {  __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../../model/public.js';
 import { get_player_img } from '../../model/showdata.js';
 export class UserStart extends plugin {
     constructor() {
@@ -39,7 +39,7 @@ export class UserStart extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await exist(usr_qq);
         if (!ifexistplay) {
-            const img = await get_player_img(e);
+            const img = await get_player_img(e.user_id);
             if(img==undefined){
                 e.reply('已死亡，需要#再入仙途');
             }else{

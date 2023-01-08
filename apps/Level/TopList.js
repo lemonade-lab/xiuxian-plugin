@@ -69,7 +69,7 @@ export class TopList extends plugin {
                 list.push(item);
             };
         });
-        const img = await get_toplist_img(e, list);
+        const img = await get_toplist_img(e.user_id, list);
         e.reply(img);
         return;
     };
@@ -117,7 +117,7 @@ export class TopList extends plugin {
                 list.push(item);
             };
         });
-        const img = await get_toplist_img(e, list);
+        const img = await get_toplist_img(e.user_id, list);
         e.reply(img);
         return;
     };

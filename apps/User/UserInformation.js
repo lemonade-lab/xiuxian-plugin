@@ -30,7 +30,7 @@ export class UserInformation extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const img = await get_player_img(e);
+        const img = await get_player_img(e.user_id);
         e.reply(img);
         return;
     };
@@ -40,7 +40,7 @@ export class UserInformation extends plugin {
         if (!ifexistplay) {
             return;
         };
-        const img = await get_equipment_img(e);
+        const img = await get_equipment_img(e.user_id);
         e.reply(img);
         return;
     };
