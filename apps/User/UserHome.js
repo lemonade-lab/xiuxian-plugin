@@ -159,7 +159,7 @@ export class UserHome extends plugin {
         if (id[2] == 1) {
             const player = await Read_level(usr_qq);
             if (player.level_id >= 10) {
-                e.reply('[天机门]石昊\n你灵根已定\n此生不可再洗髓');
+                e.reply('灵根已定\n此生不可再洗髓');
                 return;
             };
             const talent = await Read_talent(usr_qq);

@@ -43,13 +43,6 @@ export class UserAction extends plugin {
             return;
         };
         const usr_qq = e.user_id;
-        const action=await Read_action(usr_qq);
-        const address_name='炼器师协会';
-        const map=await point_map(action,address_name);
-        if(!map){
-            e.reply(`需[#城池名+${address_name}]`);
-            return;
-        };
         const najie = await Read_najie(usr_qq);
         const player = await Read_wealth(usr_qq);
         const najie_num = this.xiuxianConfigData.najie_num

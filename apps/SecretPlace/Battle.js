@@ -87,10 +87,6 @@ export class Battle extends plugin {
     };
 
 
-    /**
-     * 此功能需要回  天机门
-     */
-
     HandWashing = async (e) => {
         if (!e.isGroup) {
             return;
@@ -98,13 +94,6 @@ export class Battle extends plugin {
         const usr_qq = e.user_id;
         const ifexistplay = await existplayer(usr_qq);
         if (!ifexistplay) {
-            return;
-        };
-        const action = await Read_action(usr_qq);
-        const address_name = '天机门';
-        const map = await point_map(action, address_name);
-        if (!map) {
-            e.reply(`需[#城池名+${address_name}]`);
             return;
         };
         const Level = await Read_level(usr_qq);

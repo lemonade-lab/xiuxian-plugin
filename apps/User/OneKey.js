@@ -34,7 +34,7 @@ export class OneKey extends plugin {
         const address_name='万宝楼';
         const map=await point_map(action,address_name);
         if(!map){
-            e.reply(`需[#城池名+${address_name}]`);
+            e.reply(`需[#前往+城池名+${address_name}]`);
             return;
         };
         let najie = await Read_najie(usr_qq);
