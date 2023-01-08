@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
-import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../Xiuxian/Xiuxian.js';
+import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../model/public.js';
 export class Userequipment extends plugin {
     constructor() {
         super({

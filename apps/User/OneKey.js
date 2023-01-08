@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
-import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../Xiuxian/Xiuxian.js';
+import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/public.js';
 export class OneKey extends plugin {
     constructor() {
         super({

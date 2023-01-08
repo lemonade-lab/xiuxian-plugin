@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
-import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../Xiuxian/Xiuxian.js';
-import { get_player_img } from '../ShowImeg/showData.js';
+import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../model/public.js';
+import { get_player_img } from '../../model/showdata.js';
 export class UserModify extends plugin {
     constructor() {
         super({

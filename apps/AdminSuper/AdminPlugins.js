@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { createRequire } from 'module';
-import { ForwardMsg } from '../Xiuxian/Xiuxian.js';
+import { ForwardMsg } from '../../model/public.js';
 import filecp from '../../model/filecp.js';
 const require = createRequire(import.meta.url);
 const { exec } = require('child_process');

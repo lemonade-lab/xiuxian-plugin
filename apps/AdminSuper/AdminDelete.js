@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import {  __PATH, offaction, At, Write_Life, Read_Life } from '../Xiuxian/Xiuxian.js';
+import {  __PATH, offaction, At, Write_Life, Read_Life } from '../../model/public.js';
 export class AdminDelete extends plugin {
     constructor() {
         super({

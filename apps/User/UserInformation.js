@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { get_equipment_img, get_player_img } from '../ShowImeg/showData.js';
-import { existplayer } from '../Xiuxian/Xiuxian.js';
+import { get_equipment_img, get_player_img } from '../../model/showdata.js';
+import { existplayer } from '../../model/public.js';
 export class UserInformation extends plugin {
     constructor() {
         super({

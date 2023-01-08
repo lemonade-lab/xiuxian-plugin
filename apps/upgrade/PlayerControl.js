@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
-import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../Xiuxian/Xiuxian.js';
+import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/public.js';
 export class PlayerControl extends plugin {
     constructor() {
         super({

@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
-import { Go, GenerateCD, __PATH, Read_level, Write_level, Read_Life, Write_Life } from '../Xiuxian/Xiuxian.js';
+import { Go, GenerateCD, __PATH, Read_level, Write_level, Read_Life, Write_Life } from '../../model/public.js';
 export class Level extends plugin {
     constructor() {
         super({

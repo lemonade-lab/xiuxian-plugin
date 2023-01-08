@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'fs';
-import { existplayer, __PATH, Read_action,point_map,sortBy, Read_level, Read_battle } from '../Xiuxian/Xiuxian.js';
-import { get_toplist_img } from '../ShowImeg/showData.js';
+import { existplayer, __PATH, Read_action,point_map,sortBy, Read_level, Read_battle } from '../../model/public.js';
+import { get_toplist_img } from '../../model/showdata.js';
 export class TopList extends plugin {
     constructor() {
         super({

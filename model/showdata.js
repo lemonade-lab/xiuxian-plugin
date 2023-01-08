@@ -1,20 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import Show from '../../model/show.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import config from '../../model/Config.js';
-import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../Xiuxian/Xiuxian.js';
-export class showData extends plugin {
-    constructor() {
-        super({
-            name: 'showData',
-            dsc: 'showData',
-            event: 'message',
-            priority: 600,
-            rule: [
-            ]
-        });
-    };
-};
+import Show from './show.js'
+import puppeteer from '../../../lib/puppeteer/puppeteer.js';
+import config from './Config.js'
+import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from './public.js';
 export const get_map_img = async (e) => {
     const usr_qq = e.user_id;
     const ifexistplay = await existplayer(usr_qq);
