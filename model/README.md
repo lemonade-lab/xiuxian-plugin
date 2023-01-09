@@ -55,4 +55,4 @@
 
 >Yunzai-Bot/XiuxianData
 
-## 开发者[☞文档](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/resources/DEVELOPER.md) 
+## 开发者[☞文档](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/model/DEVELOPER.md) 
