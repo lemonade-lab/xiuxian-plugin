@@ -50,6 +50,7 @@
 ## 修改存档  
 
 >Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources/data/birth/xiuxian
+
 建议使用VScode软件进行编辑,以免带来破坏性影响
 
 ## 数据备份
