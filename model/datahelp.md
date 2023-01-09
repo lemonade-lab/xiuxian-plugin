@@ -27,7 +27,3 @@ id含义：位面-区域-属性-等级-编号
 属性：城池1、荒地2、海洋3、秘境4、禁地5、岛屿6
 等级: 等级限制
 编号：0区域、1中心、2传送阵、3联盟、凡仙堂4  
-
-## 玩家新增物品方法
-Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\data\fixed\goods
-在此目录中新增.json文件即可

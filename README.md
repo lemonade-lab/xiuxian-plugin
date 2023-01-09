@@ -1,5 +1,5 @@
 ![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)       
-# Xiuxian-Plugin-Box:2022-12-01
+## Xiuxian-Plugin-Box:2022-12-01[☞新版特性](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/model/README.md)
 - 2022年12月 Xiuxian-Plugin-Box V2.0
 - 2022年09月 xiuxian-emulator-plugin V1.2
 - 2022年08月 xiuxian-emulator-plugin V1.1
