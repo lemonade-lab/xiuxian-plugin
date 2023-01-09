@@ -21,7 +21,7 @@ export class BotHelp extends plugin {
         });
     };
     Xiuxianhelp = async (e) => {
-        const data = await Help.gethelp(e, 'Help');
+        const data = await Help.getboxhelp('Help');
         if (!data) {
             return
         };
@@ -29,7 +29,7 @@ export class BotHelp extends plugin {
         await e.reply(img);
     };
     adminsuper = async (e) => {
-        const data = await Help.gethelp(e, 'Admin');
+        const data = await Help.getboxhelp('Admin');
         if (!data) {
             return
         };
