@@ -15,8 +15,6 @@ export const __PATH = {
     talent: path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
     wealth: path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     najie: path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    Exchange: path.join(__dirname, '/resources/data/birth/Exchange'),
-    Forum: path.join(__dirname, '/resources/data/birth/Forum'),
     life: path.join(__dirname, '/resources/data/birth/xiuxian/life')
 };
 /**

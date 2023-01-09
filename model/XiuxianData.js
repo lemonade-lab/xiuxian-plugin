@@ -26,20 +26,25 @@ class XiuxianData {
         this.newlist(this.__PATH.Level, 'LevelMax_list', [
             ...this.getlist(this.__PATH.fixedLevel, 'LevelMax_list.json')
         ]);
+        //全物品表
         this.newlist(this.__PATH.all, 'all', []);
         this.newlist(this.__PATH.all, 'all', [
             ...this.getlist(this.__PATH.fixedequipment, 'json'),
             ...this.getlist(this.__PATH.fixedgoods, 'json')
         ]);
+        //商品数据
         this.newlist(this.__PATH.all, 'commodities', []);
         this.newlist(this.__PATH.all, 'commodities', [
             ...this.getlist(this.__PATH.fixedgoods, '0.json')
         ]);
+        //怪物掉落表
         this.newlist(this.__PATH.all, 'dropsItem', []);
         this.newlist(this.__PATH.all, 'dropsItem', [
             ...this.getlist(this.__PATH.fixedequipment, 'json'),
             ...this.getlist(this.__PATH.fixedgoods, 'json')
         ]);
+
+        //地图系统数据
         this.newlist(this.__PATH.position, 'position', []);
         this.newlist(this.__PATH.position, 'position', [
             ...this.getlist(this.__PATH.fixedposition, 'json')
