@@ -4,7 +4,7 @@ Time：2022-11-27
 ### 1.定义插件名并创建目录以文件
 ```
 plugins/xiuxian-my-plugin/                                #插件名为xiuxian-my-plugin
-                apss/index.js                     #功能文件夹
+                apss/myindex.js                     #功能文件夹
                 defSet/help/myhelp.yaml           #配置文件夹
                 model/mymodel.js                  #封装js文件夹
                 resources/                        #资源文件夹
@@ -16,17 +16,17 @@ plugins/xiuxian-my-plugin/                                #插件名为xiuxian-m
 ```
 ### 2.简单的命令打印及其输出
 ```
-//index.js
-//引入Yunzai插件功能
-//注意路径（常识）
+//myindex.js
+//js文件名字的前缀最好带上插件名,如黑市插件为darkindex.js或darkmain.js
+//引入Yunzai插件功能(注意路径)
 import plugin from '../../../../../lib/plugins/plugin.js
 //导出  类  类名:与文件名一致 继承  插件类  
-export class index extends plugin {
+export class myindex extends plugin {
     constructor() {
         super({
             //后端信息
-            name: 'index',
-            dsc: 'index',
+            name: 'myindex',
+            dsc: 'myindex',
             event: 'message',
             //优先级：数值越低越悠闲
             priority: 600,
@@ -67,8 +67,7 @@ export class index extends plugin {
 ```
 ##### 2.编写js文件
 ```
-//apps目录下创建gethelp.js
-//gethelp.js
+//mygethelp.js
 //注意路径（常识）
 import plugin from '../../../../../lib/plugins/plugin.js';
 //导入帮助对象
@@ -79,11 +78,11 @@ import Cache from '../../../model/cache.js';
 import filecp from '../../../model/filecp.js';
 //xiuxian-my-plugin发送了myhelp.yaml文件
 filecp.Pluginfile('xiuxian-my-plugin', ['myhelp']);
-export class gethelp extends plugin {
+export class mygethelp extends plugin {
     constructor() {
         super({
-            name: 'gethelp',
-            dsc: 'gethelp',
+            name: 'mygethelp',
+            dsc: 'mygethelp',
             event: 'message',
             priority: 600,
             rule: [
@@ -111,3 +110,18 @@ export class gethelp extends plugin {
 };
 ```
 ### （二）数据推送
+##### 1.编写地点数据文件
+>resources/data/fixed
+>mypoint.json
+```
+[
+    {
+        "id":"0-1-1-1-10",
+        "name":"我的地点",
+        "x":"66",
+        "y":"666"
+    }
+]
+```
+>id字段详细请看model中的datahelp.md说明
+>[☞数据字段说明](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/model/datahelp.md) 
