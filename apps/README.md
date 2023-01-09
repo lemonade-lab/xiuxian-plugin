@@ -19,7 +19,7 @@ plugins/xiuxian-my-plugin/                                #插件名为xiuxian-m
 //myindex.js
 //js文件名字的前缀最好带上插件名,如黑市插件为darkindex.js或darkmain.js
 //引入Yunzai插件功能(注意路径)
-import plugin from '../../../../../lib/plugins/plugin.js
+import plugin from '../../../../../lib/plugins/plugin.js'
 //导出  类  类名:与文件名一致 继承  插件类  
 export class myindex extends plugin {
     constructor() {
