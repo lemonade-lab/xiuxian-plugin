@@ -45,8 +45,10 @@
 
 >Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\data\fixed\goods
 
-在此目录中新增.json文件即可   
- 
+在此目录中新增xxx.json文件即可     
+若新增`凡仙堂`物品,只需要命名xx0即可     
+默认最后一个字符为0可购买   
+
 ## 修改存档  
 
 >Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources/data/birth/xiuxian
