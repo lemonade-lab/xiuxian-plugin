@@ -969,56 +969,6 @@ export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
     };
     return 0;
 };
-//写入
-export const Write_Forum = async (wupin) => {
-    await Write(`Forum`, wupin, __PATH.Forum);
-    return;
-};
-//读取
-export const Read_Forum = async () => {
-    const dir = path.join(`${__PATH.Forum}/Forum.json`);
-    let Forum = await newRead(dir);
-    if (Forum == 1) {
-        await Write_Forum([]);
-        Forum = await newRead(dir);
-    };
-    Forum = JSON.parse(Forum);
-    return Forum;
-};
-//写入交易表
-export const Write_Exchange = async (wupin) => {
-    await Write(`Exchange`, wupin, __PATH.Exchange);
-    return;
-};
-//读交易表
-export const Read_Exchange = async () => {
-    const dir = path.join(`${__PATH.Exchange}/Exchange.json`);
-    let Exchange = await newRead(dir);
-    if (Exchange == 1) {
-        await Write_Exchange([]);
-        Exchange = await newRead(dir);
-    };
-    Exchange = await JSON.parse(Exchange);
-    return Exchange;
-};
-//搜索物品
-export const Search_Exchange = async (thing_qq) => {
-    const the = {
-        qq: thing_qq,
-        x: -1
-    };
-    const Exchange = await Read_Exchange();
-    if (the.thingqq == '') {
-        return the.x;
-    };
-    for (let i = 0; i < Exchange.length; i++) {
-        if (Exchange[i].qq == the.thingqq) {
-            the.x = i;
-            break;
-        };
-    };
-    return the.x;
-};
 //写入寿命表
 export const Write_Life = async (wupin) => {
     await Write(`life`, wupin, __PATH.life);
@@ -1076,8 +1026,6 @@ export const map_distance = async (A, B) => {
     const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2);
     return h;
 };
-
-
 //输入：模糊搜索名字并判断是否在此地
 export const point_map = async (action, addressName) => {
     const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
