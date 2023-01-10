@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import XiuxianYaml from '../../model/XiuxianYaml.js';
 export class AdminYaml extends Robotapi {
     constructor() {

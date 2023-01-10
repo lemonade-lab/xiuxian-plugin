@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import { get_map_img,get_updata_img,get_config_img } from '../../model/showdata.js';
 export class showall extends Robotapi {
     constructor() {

@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { Go, Read_action, existplayer, GenerateCD, __PATH, At, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../model/public.js';
 export class Battle extends Robotapi {

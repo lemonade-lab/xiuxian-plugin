@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';

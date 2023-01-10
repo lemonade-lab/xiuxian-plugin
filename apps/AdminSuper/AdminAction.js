@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import { createRequire } from 'module';
 import { ForwardMsg } from '../../model/public.js';
 import filecp from '../../model/filecp.js';

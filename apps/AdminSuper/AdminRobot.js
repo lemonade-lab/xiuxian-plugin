@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import defSet from '../../model/defSet.js';
 export class AdminRobot extends Robotapi {
     constructor() {

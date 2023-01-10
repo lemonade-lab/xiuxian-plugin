@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { get_najie_img } from '../../model/showdata.js';
 import { segment } from 'oicq';

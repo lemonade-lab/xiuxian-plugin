@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import { get_equipment_img, get_player_img } from '../../model/showdata.js';
 import { existplayer } from '../../model/public.js';
 export class UserInformation extends Robotapi {

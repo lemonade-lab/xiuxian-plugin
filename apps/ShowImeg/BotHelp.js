@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import Help from '../../model/help.js';
 import Cache from '../../model/cache.js';
 export class BotHelp extends Robotapi {

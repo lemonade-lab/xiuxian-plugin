@@ -1,4 +1,4 @@
-import Robotapi from "../../model/Robotapi.js";
+import Robotapi from "../../model/robotapi.js";
 import pluginup from '../../model/pluginup.js';
 export class adminwork extends Robotapi {
     constructor() {
