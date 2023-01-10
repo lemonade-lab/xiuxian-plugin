@@ -2,7 +2,7 @@
 >Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\goods
 ### 定义新物品
 
->新建议文件名为mygoods.json   
+>新建文件名为mygoods.json的文件   
 
 名字随意,最好自己分类,免得记不起来    
 
@@ -18,7 +18,7 @@
         "burst": 0,
         "burstmax": 0,
         "size": 0,
-        "experience": 4454,
+        "experience": 9999,
         "experiencemax": 0,
         "speed": 0,
         "acount": 1,
@@ -26,7 +26,7 @@
     }
 ]
 ```
-保存后重启生效  
+保存后重启机器方能生效  
 
 酱紫玩家就可以在怪物身上有一定概率打落该物品了
 
