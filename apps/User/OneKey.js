@@ -1,24 +1,19 @@
 import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
+import { superIndex } from "../../model/robotapi.js";
 import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/public.js';
 export class OneKey extends Robotapi {
     constructor() {
-        super({
-            name: 'OneKey',
-            dsc: 'OneKey',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#一键出售所有$',
-                    fnc: 'OneKey_all'
-                },
-                {
-                    reg: '^#一键出售.*$',
-                    fnc: 'OneKey_key'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#一键出售所有$',
+                fnc: 'OneKey_all'
+            },
+            {
+                reg: '^#一键出售.*$',
+                fnc: 'OneKey_key'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     OneKey_all = async (e) => {

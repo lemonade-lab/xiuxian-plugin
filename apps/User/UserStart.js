@@ -5,24 +5,19 @@ import fs from 'fs';
 import { segment } from 'oicq';
 import {  __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../../model/public.js';
 import { get_player_img } from '../../model/showdata.js';
+import { superIndex } from "../../model/robotapi.js";
 export class UserStart extends Robotapi {
     constructor() {
-        super({
-            name: 'UserStart',
-            dsc: 'UserStart',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#降临世界$',
-                    fnc: 'Create_player'
-                },
-                {
-                    reg: '^#再入仙途$',
-                    fnc: 'reCreate_player'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#降临世界$',
+                fnc: 'Create_player'
+            },
+            {
+                reg: '^#再入仙途$',
+                fnc: 'reCreate_player'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Create_player = async (e) => {

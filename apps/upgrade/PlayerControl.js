@@ -1,34 +1,29 @@
 import Robotapi from "../../model/robotapi.js";
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
+import { superIndex } from "../../model/robotapi.js";
 import { segment } from 'oicq';
 import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/public.js';
 export class PlayerControl extends Robotapi {
     constructor() {
-        super({
-            name: 'PlayerControl',
-            dsc: 'PlayerControl',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '#降妖$',
-                    fnc: 'Dagong'
-                },
-                {
-                    reg: '#闭关$',
-                    fnc: 'Biguan'
-                },
-                {
-                    reg: '^#出关$',
-                    fnc: 'chuGuan'
-                },
-                {
-                    reg: '^#归来$',
-                    fnc: 'endWork'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '#降妖$',
+                fnc: 'Dagong'
+            },
+            {
+                reg: '#闭关$',
+                fnc: 'Biguan'
+            },
+            {
+                reg: '^#出关$',
+                fnc: 'chuGuan'
+            },
+            {
+                reg: '^#归来$',
+                fnc: 'endWork'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Biguan = async (e) => {

@@ -1,33 +1,28 @@
 import Robotapi from "../../model/robotapi.js";
-import {  __PATH, offaction, At, Write_Life, Read_Life } from '../../model/public.js';
+import { __PATH, offaction, At, Write_Life, Read_Life } from '../../model/public.js';
+import { superIndex } from "../../model/robotapi.js";
 export class AdminDelete extends Robotapi {
     constructor() {
-        super({
-            name: 'AdminDelete',
-            dsc: 'AdminDelete',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙删除数据$',
-                    fnc: 'deleteredis'
-                },
-                {
-                    reg: '^#修仙删除世界$',
-                    fnc: 'deleteallusers'
-                },
-                {
-                    reg: '^#修仙删除信息.*$',
-                    fnc: 'deleteuser'
-                }
-            ],
-        });
+        super(superIndex([
+            {
+                reg: '^#修仙删除数据$',
+                fnc: 'deleteredis'
+            },
+            {
+                reg: '^#修仙删除世界$',
+                fnc: 'deleteallusers'
+            },
+            {
+                reg: '^#修仙删除信息.*$',
+                fnc: 'deleteuser'
+            }
+        ]));
     };
     deleteredis = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        const allkey = await redis.keys('xiuxian:*', (err, data) => {});
+        const allkey = await redis.keys('xiuxian:*', (err, data) => { });
         if (allkey) {
             allkey.forEach(async (item) => {
                 await redis.del(item);

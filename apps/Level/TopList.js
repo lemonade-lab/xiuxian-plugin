@@ -1,25 +1,20 @@
 import Robotapi from "../../model/robotapi.js";
 import fs from 'fs';
-import { existplayer, __PATH,sortBy, Read_level, Read_battle } from '../../model/public.js';
+import { existplayer, __PATH, sortBy, Read_level, Read_battle } from '../../model/public.js';
 import { get_toplist_img } from '../../model/showdata.js';
+import { superIndex } from "../../model/robotapi.js";
 export class TopList extends Robotapi {
     constructor() {
-        super({
-            name: 'TopList',
-            dsc: 'TopList',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#至尊榜$',
-                    fnc: 'TOP_genius'
-                },
-                {
-                    reg: '^#杀神榜$',
-                    fnc: 'TOP_prestige'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#至尊榜$',
+                fnc: 'TOP_genius'
+            },
+            {
+                reg: '^#杀神榜$',
+                fnc: 'TOP_prestige'
+            }
+        ]));
     };
     TOP_prestige = async (e) => {
         const usr_qq = e.user_id;

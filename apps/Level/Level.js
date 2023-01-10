@@ -1,26 +1,21 @@
 import Robotapi from "../../model/robotapi.js";
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
+import { superIndex } from "../../model/robotapi.js";
 import fs from 'node:fs';
 import { Go, GenerateCD, __PATH, Read_level, Write_level, Read_Life, Write_Life } from '../../model/public.js';
 export class Level extends Robotapi {
     constructor() {
-        super({
-            name: 'Level',
-            dsc: 'Level',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#突破$',
-                    fnc: 'Level_up'
-                },
-                {
-                    reg: '^#破体$',
-                    fnc: 'LevelMax_up'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#突破$',
+                fnc: 'Level_up'
+            },
+            {
+                reg: '^#破体$',
+                fnc: 'LevelMax_up'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     LevelMax_up = async (e) => {
@@ -43,9 +38,9 @@ export class Level extends Robotapi {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`);
             return;
         };
-        
+
         const Level = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == player.level_id);
-        if(Level.level_id<=10&&LevelMax.levelmax_id>=11){
+        if (Level.level_id <= 10 && LevelMax.levelmax_id >= 11) {
             e.reply(`[#羽化登仙]后,方能探索更高境界`);
             return
         }

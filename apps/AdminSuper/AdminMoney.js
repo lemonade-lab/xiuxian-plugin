@@ -1,27 +1,22 @@
 import Robotapi from "../../model/robotapi.js";
 import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_najie, Add_najie_thing, Write_najie, Write_wealth } from '../../model/public.js';
+import { superIndex } from "../../model/robotapi.js";
 export class AdminMoney extends Robotapi {
     constructor() {
-        super({
-            name: 'AdminMoney',
-            dsc: 'AdminMoney',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙扣除.*$',
-                    fnc: 'Deduction'
-                },
-                {
-                    reg: '^#修仙补偿.*$',
-                    fnc: 'Fuli'
-                },
-                {
-                    reg: '^#修仙馈赠.*$',
-                    fnc: 'gifts'
-                }
-            ],
-        });
+        super(superIndex([
+            {
+                reg: '^#修仙扣除.*$',
+                fnc: 'Deduction'
+            },
+            {
+                reg: '^#修仙补偿.*$',
+                fnc: 'Fuli'
+            },
+            {
+                reg: '^#修仙馈赠.*$',
+                fnc: 'gifts'
+            }
+        ]));
     };
     gifts = async (e) => {
         if (!e.isMaster) {
@@ -33,13 +28,13 @@ export class AdminMoney extends Robotapi {
         };
         const thing_name = e.msg.replace('#修仙馈赠', '');
         const code = thing_name.split('\*');
-        const [name,acount] = code;
+        const [name, acount] = code;
         const searchsthing = await search_thing_name(name);
         if (searchsthing == 1) {
             e.reply(`世界没有${name}`);
             return;
         };
-        const quantity=await Numbers(acount);
+        const quantity = await Numbers(acount);
         let najie = await Read_najie(B);
         najie = await Add_najie_thing(najie, searchsthing, quantity);
         await Write_najie(B, najie);

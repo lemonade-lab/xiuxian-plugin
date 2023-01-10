@@ -1,29 +1,24 @@
 import Robotapi from "../../model/robotapi.js";
 import data from '../../model/XiuxianData.js';
+import { superIndex } from "../../model/robotapi.js";
 import fs from 'node:fs';
 import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../../model/public.js';
 export class UserTransaction extends Robotapi {
     constructor() {
-        super({
-            name: 'UserTransaction',
-            dsc: 'UserTransaction',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#购买.*$',
-                    fnc: 'Buy_comodities'
-                },
-                {
-                    reg: '^#出售.*$',
-                    fnc: 'Sell_comodities'
-                },
-                {
-                    reg: '^#凡仙堂$',
-                    fnc: 'ningmenghome',
-                },
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#购买.*$',
+                fnc: 'Buy_comodities'
+            },
+            {
+                reg: '^#出售.*$',
+                fnc: 'Sell_comodities'
+            },
+            {
+                reg: '^#凡仙堂$',
+                fnc: 'ningmenghome',
+            },
+        ]));
     };
     ningmenghome = async (e) => {
         const usr_qq = e.user_id;

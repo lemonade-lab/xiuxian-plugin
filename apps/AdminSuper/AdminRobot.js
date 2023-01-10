@@ -1,52 +1,47 @@
 import Robotapi from "../../model/robotapi.js";
 import defSet from '../../model/defSet.js';
+import { superIndex } from "../../model/robotapi.js";
 export class AdminRobot extends Robotapi {
     constructor() {
-        super({
-            name: 'AdminRobot',
-            dsc: 'AdminRobot',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙关闭云崽',
-                    fnc: 'closeRobot',
-                },
-                {
-                    reg: '^#修仙开启云崽',
-                    fnc: 'openRobot',
-                },
+        super(superIndex([
+            {
+                reg: '^#修仙关闭云崽',
+                fnc: 'closeRobot',
+            },
+            {
+                reg: '^#修仙开启云崽',
+                fnc: 'openRobot',
+            },
 
-                {
-                    reg: '^#修仙关闭云崽帮助',
-                    fnc: 'CloseRobothelp',
-                },
-                {
-                    reg: '^#修仙开启云崽帮助',
-                    fnc: 'openRobothelp',
-                },
+            {
+                reg: '^#修仙关闭云崽帮助',
+                fnc: 'CloseRobothelp',
+            },
+            {
+                reg: '^#修仙开启云崽帮助',
+                fnc: 'openRobothelp',
+            },
 
 
-                {
-                    reg: '^#修仙添加主人.*',
-                    fnc: 'AddMaster',
-                },
-                {
-                    reg: '^#修仙删除主人.*',
-                    fnc: 'DeleteMaster',
-                },
+            {
+                reg: '^#修仙添加主人.*',
+                fnc: 'AddMaster',
+            },
+            {
+                reg: '^#修仙删除主人.*',
+                fnc: 'DeleteMaster',
+            },
 
 
-                {
-                    reg: '^#修仙开启云崽私聊',
-                    fnc: 'OnGroup',
-                },
-                {
-                    reg: '^#修仙关闭云崽私聊',
-                    fnc: 'OffGroup',
-                }
-            ],
-        });
+            {
+                reg: '^#修仙开启云崽私聊',
+                fnc: 'OnGroup',
+            },
+            {
+                reg: '^#修仙关闭云崽私聊',
+                fnc: 'OffGroup',
+            }
+        ]));
     };
 
     closeRobot = async (e) => {

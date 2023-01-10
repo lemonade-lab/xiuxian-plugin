@@ -2,24 +2,19 @@ import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../model/public.js';
 import { get_player_img } from '../../model/showdata.js';
+import { superIndex } from "../../model/robotapi.js";
 export class UserModify extends Robotapi {
     constructor() {
-        super({
-            name: 'UserModify',
-            dsc: 'UserModify',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#改名.*$',
-                    fnc: 'Change_name'
-                },
-                {
-                    reg: '^#设置道宣.*$',
-                    fnc: 'Change_autograph'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#改名.*$',
+                fnc: 'Change_name'
+            },
+            {
+                reg: '^#设置道宣.*$',
+                fnc: 'Change_autograph'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Change_name = async (e) => {

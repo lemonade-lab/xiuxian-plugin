@@ -1,30 +1,25 @@
 import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { get_najie_img } from '../../model/showdata.js';
+import { superIndex } from "../../model/robotapi.js";
 import { segment } from 'oicq';
 import { existplayer, Go, Read_najie, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../model/public.js';
 export class UserAction extends Robotapi {
     constructor() {
-        super({
-            name: 'UserAction',
-            dsc: 'UserAction',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#储物袋$',
-                    fnc: 'Show_najie'
-                },
-                {
-                    reg: '^#升级储物袋$',
-                    fnc: 'Lv_up_najie'
-                },
-                {
-                    reg: '^#(存|取)灵石(.*)$',
-                    fnc: 'Take_lingshi'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#储物袋$',
+                fnc: 'Show_najie'
+            },
+            {
+                reg: '^#升级储物袋$',
+                fnc: 'Lv_up_najie'
+            },
+            {
+                reg: '^#(存|取)灵石(.*)$',
+                fnc: 'Take_lingshi'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Show_najie = async (e) => {

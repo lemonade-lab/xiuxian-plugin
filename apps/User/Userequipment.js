@@ -1,24 +1,19 @@
 import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
+import { superIndex } from "../../model/robotapi.js";
 import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../model/public.js';
 export class Userequipment extends Robotapi {
     constructor() {
-        super({
-            name: 'Userequipment',
-            dsc: 'Userequipment',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#装备.*$',
-                    fnc: 'add_equipment'
-                },
-                {
-                    reg: '^#卸下.*$',
-                    fnc: 'delete_equipment'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#装备.*$',
+                fnc: 'add_equipment'
+            },
+            {
+                reg: '^#卸下.*$',
+                fnc: 'delete_equipment'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     add_equipment = async (e) => {

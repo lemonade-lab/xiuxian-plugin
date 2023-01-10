@@ -1,33 +1,28 @@
 import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { get_player_img } from '../../model/showdata.js';
+import { superIndex } from "../../model/robotapi.js";
 import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../model/public.js';
 export class UserHome extends Robotapi {
     constructor() {
-        super({
-            name: 'UserHome',
-            dsc: 'UserHome',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#服用.*$',
-                    fnc: 'consumption_danyao'
-                },
-                {
-                    reg: '^#学习.*$',
-                    fnc: 'add_gongfa'
-                },
-                {
-                    reg: '^#忘掉.*$',
-                    fnc: 'delete_gongfa'
-                },
-                {
-                    reg: '^#消耗.*$',
-                    fnc: 'consumption_daoju'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#服用.*$',
+                fnc: 'consumption_danyao'
+            },
+            {
+                reg: '^#学习.*$',
+                fnc: 'add_gongfa'
+            },
+            {
+                reg: '^#忘掉.*$',
+                fnc: 'delete_gongfa'
+            },
+            {
+                reg: '^#消耗.*$',
+                fnc: 'consumption_daoju'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     consumption_danyao = async (e) => {

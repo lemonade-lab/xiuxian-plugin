@@ -1,24 +1,19 @@
 import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
+import { superIndex } from "../../model/robotapi.js";
 import { Go, Read_action, existplayer, GenerateCD, __PATH, At, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../model/public.js';
 export class Battle extends Robotapi {
     constructor() {
-        super({
-            name: 'Battle',
-            dsc: 'Battle',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#攻击.*$',
-                    fnc: 'Attack'
-                },
-                {
-                    reg: '^#洗手$',
-                    fnc: 'HandWashing'
-                }
-            ]
-        });
+        super(superIndex([
+            {
+                reg: '^#攻击.*$',
+                fnc: 'Attack'
+            },
+            {
+                reg: '^#洗手$',
+                fnc: 'HandWashing'
+            }
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
     Attack = async (e) => {

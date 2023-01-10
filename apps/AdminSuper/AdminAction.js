@@ -4,6 +4,7 @@ import { ForwardMsg } from '../../model/public.js';
 import filecp from '../../model/filecp.js';
 import fs from 'node:fs';
 import { get_updata_img } from '../../model/showdata.js';
+import { superIndex } from "../../model/robotapi.js";
 const require = createRequire(import.meta.url);
 const { exec } = require('child_process');
 const _path = process.cwd();
@@ -12,18 +13,12 @@ const the = {
 };
 export class AdminAction extends Robotapi {
     constructor() {
-        super({
-            name: 'admin',
-            dsc: 'admin',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙更新',
-                    fnc: 'Allforcecheckout',
-                }
-            ],
-        });
+        super(superIndex([
+            {
+                reg: '^#修仙更新',
+                fnc: 'Allforcecheckout',
+            }
+        ]));
         this.key = 'xiuxian:restart';
     };
     Allforcecheckout = async (e) => {

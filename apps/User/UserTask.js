@@ -1,16 +1,11 @@
 import Robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { offaction, Read_Life, Write_Life, __PATH } from '../../model/public.js';
+import { superIndex } from "../../model/robotapi.js";
 export class UserTask extends Robotapi {
     constructor() {
-        super({
-            name: 'LifeTask',
-            dsc: 'LifeTask',
-            event: 'message',
-            priority: 300,
-            rule: [
-            ]
-        });
+        super(superIndex([
+        ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
         this.set = config.getConfig('task', 'task');
         this.task = {

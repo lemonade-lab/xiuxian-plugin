@@ -2,6 +2,7 @@ import Robotapi from "../../model/robotapi.js";
 import { createRequire } from 'module';
 import { ForwardMsg } from '../../model/public.js';
 import filecp from '../../model/filecp.js';
+import { superIndex } from "../../model/robotapi.js";
 const require = createRequire(import.meta.url);
 const { exec } = require('child_process');
 const _path = process.cwd();
@@ -10,22 +11,16 @@ const the = {
 };
 export class AdminPlugins extends Robotapi {
     constructor() {
-        super({
-            name: 'AdminPlugins',
-            dsc: 'AdminPlugins',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙安装.*',
-                    fnc: 'xiuxianSystem',
-                },
-                {
-                    reg: '^#修仙卸载.*',
-                    fnc: 'xiuxianDeleteSystem',
-                }
-            ],
-        });
+        super(superIndex([
+            {
+                reg: '^#修仙安装.*',
+                fnc: 'xiuxianSystem',
+            },
+            {
+                reg: '^#修仙卸载.*',
+                fnc: 'xiuxianDeleteSystem',
+            }
+        ]));
         this.key = 'xiuxian:restart';
     };
     xiuxianSystem = async (e) => {
@@ -34,14 +29,14 @@ export class AdminPlugins extends Robotapi {
         };
         const msg = ['————[安装消息]————'];
         const name = e.msg.replace('#修仙安装', '');
-        const MAP={
-            '宗门':'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
-            '家园':'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/',
-            '黑市':'git clone  https://gitee.com/mmmmmddddd/xiuxian-dark-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-dark-plugin/'
+        const MAP = {
+            '宗门': 'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
+            '家园': 'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/',
+            '黑市': 'git clone  https://gitee.com/mmmmmddddd/xiuxian-dark-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-dark-plugin/'
         }
-        if(!MAP.hasOwnProperty(name)){
+        if (!MAP.hasOwnProperty(name)) {
             e.reply('扩展名错误')
-            return 
+            return
         }
         const that = this;
         exec(MAP[name], { cwd: `${_path}` },
