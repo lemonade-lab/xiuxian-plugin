@@ -1,4 +1,4 @@
-## 该文件不可改动
+## 文档说明
 >Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\goods
 ### 定义新物品
 
