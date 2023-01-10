@@ -43,11 +43,9 @@
 
 ## 新增物品   
 
->Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\data\fixed\goods
+>Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\goods
 
-在此目录中新增xxx.json文件即可     
-若新增`凡仙堂`物品,只需要命名xx0即可     
-默认最后一个字符为0可购买   
+此目录中查看[☞说明](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/resources/goods/README.md) 
 
 ## 修改存档  
 

@@ -12,6 +12,8 @@ class XiuxianData {
             'fixedLevel': path.join(__dirname, '/resources/data/fixed/Level'),
             'fixedoccupation': path.join(__dirname, '/resources/data/fixed/occupation'),
             'fixedtalent': path.join(__dirname, '/resources/data/fixed/talent'),
+            //新增
+            'newgoods':path.join(__dirname, '/resources/goods'),
             //生成
             'all': path.join(__dirname, '/resources/data/birth/all'),
             'position': path.join(__dirname, '/resources/data/birth/position'),
@@ -30,20 +32,22 @@ class XiuxianData {
         this.newlist(this.__PATH.all, 'all', []);
         this.newlist(this.__PATH.all, 'all', [
             ...this.getlist(this.__PATH.fixedequipment, 'json'),
-            ...this.getlist(this.__PATH.fixedgoods, 'json')
+            ...this.getlist(this.__PATH.fixedgoods, 'json'),
+            ...this.getlist(this.__PATH.newgoods, 'json')
         ]);
         //商品数据
         this.newlist(this.__PATH.all, 'commodities', []);
         this.newlist(this.__PATH.all, 'commodities', [
-            ...this.getlist(this.__PATH.fixedgoods, '0.json')
+            ...this.getlist(this.__PATH.fixedgoods, '0.json'),
+            ...this.getlist(this.__PATH.newgoods, '0.json')
         ]);
         //怪物掉落表
         this.newlist(this.__PATH.all, 'dropsItem', []);
         this.newlist(this.__PATH.all, 'dropsItem', [
             ...this.getlist(this.__PATH.fixedequipment, 'json'),
-            ...this.getlist(this.__PATH.fixedgoods, 'json')
+            ...this.getlist(this.__PATH.fixedgoods, 'json'),
+            ...this.getlist(this.__PATH.newgoods, '.json')
         ]);
-
         //地图系统数据
         this.newlist(this.__PATH.position, 'position', []);
         this.newlist(this.__PATH.position, 'position', [
