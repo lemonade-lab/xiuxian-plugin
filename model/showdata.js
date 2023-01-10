@@ -2,11 +2,7 @@ import Show from './show.js'
 import puppeteer from '../../../lib/puppeteer/puppeteer.js';
 import config from './Config.js'
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from './public.js';
-export const get_map_img = async (usr_qq) => {
-    const ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    };
+export const get_map_img = async () => {
     const myData = {};
     const data1 = await  Show.get_Data('map', 'map', myData);
     const img = await puppeteer.screenshot('map', {
@@ -14,11 +10,7 @@ export const get_map_img = async (usr_qq) => {
     });
     return img;
 };
-export const get_updata_img = async (usr_qq) => {
-    const ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    };
+export const get_updata_img = async () => {
     const updata = config.getdefSet('version', 'version');
     const myData = {
         version: updata
@@ -29,28 +21,13 @@ export const get_updata_img = async (usr_qq) => {
     });
     return img;
 };
-export const get_config_img = async (usr_qq) => {
+export const get_config_img = async () => {
     const xiuxain = config.getConfig('xiuxian', 'xiuxian');
     const myData = {
         xiuxain: xiuxain
     };
     const data1 = await  Show.get_Data('config', 'config', myData);
     const img = await puppeteer.screenshot('config', {
-        ...data1,
-    });
-    return img;
-};
-export const get_bulletin_img = async (usr_qq) => {
-    const ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    };
-    const bulletin = config.getdefSet('version', 'bulletin');
-    const myData = {
-        version: bulletin
-    };
-    const data1 = await  Show.get_Data('updata', 'updata', myData);
-    const img = await puppeteer.screenshot('updata', {
         ...data1,
     });
     return img;

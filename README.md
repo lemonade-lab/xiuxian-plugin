@@ -15,8 +15,9 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 ```
 >查看具体功能  #修仙帮助     
 >查看版本说明  #修仙版本       
->稳定更新指令  #修仙全部更新  
 >快速安装扩展  #修仙安装+扩展名   
+>稳定更新指令  #修仙更新  
+>不可通过云崽的`#全部更新`进行更新
 
 ## 企鹅聚集[☞查看赞助](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/resources/README.md)      
 

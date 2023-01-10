@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { get_map_img,get_updata_img,get_bulletin_img,get_config_img } from '../../model/showdata.js';
+import { get_map_img,get_updata_img,get_config_img } from '../../model/showdata.js';
 export class showall extends plugin {
     constructor() {
         super({
@@ -13,10 +13,6 @@ export class showall extends plugin {
                     fnc: 'show_map',
                 },
                 {
-                    reg: '^#修仙公告$',
-                    fnc: 'show_bulletin',
-                },
-                {
                     reg: '^#修仙版本$',
                     fnc: 'show_updata',
                 },
@@ -28,22 +24,17 @@ export class showall extends plugin {
         });
     };
     show_map = async (e) => {
-        const img = await get_map_img(e.user_id);
+        const img = await get_map_img();
         e.reply(img);
         return;
     };
     show_updata = async (e) => {
-        const img = await get_updata_img(e.user_id);
+        const img = await get_updata_img();
         e.reply(img);
         return;
     };
     show_config = async (e) => {
-        const img = await get_config_img(e.user_id);
-        e.reply(img);
-        return;
-    };
-    show_bulletin = async (e) => {
-        const img = await get_bulletin_img(e.user_id);
+        const img = await get_config_img();
         e.reply(img);
         return;
     };

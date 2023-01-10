@@ -120,10 +120,10 @@
   list:
     - icon: help-icon_58
       title: "#修仙管理"
-      desc: "管理员"
-    - icon: help-icon_55
-      title: "#修仙版本"
-      desc: "查看更新说明"
+      desc: "管理员指令"
     - icon: help-icon_58
-      title: "#修仙全部更新"
+      title: "#修仙更新"
       desc: "请阅读#修仙版本"
+    - icon: help-icon_58
+      title: "#修仙安装+扩展名"
+      desc: "#修仙安装宗门"
