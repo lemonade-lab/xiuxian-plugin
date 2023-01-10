@@ -6,7 +6,7 @@ Time：2022-11-27
 plugins/xiuxian-my-plugin/                                #插件名为xiuxian-my-plugin
                 apss/myindex.js                     #功能文件夹
                 defSet/help/myhelp.yaml           #配置文件夹
-                model/mymodel.js                  #封装js文件夹
+                model/mymain.js                  #封装js文件夹
                 resources/                        #资源文件夹
                           html/html.md              #页面资源
                           img/img.md                #图片资源
@@ -15,8 +15,8 @@ plugins/xiuxian-my-plugin/                                #插件名为xiuxian-m
                                fixed/fixed.md            #静态文件
 ```
 ### 2.简单的命令打印及其输出
+>myindex.js
 ```
-//myindex.js
 //js文件名字的前缀最好带上插件名,如黑市插件为darkindex.js或darkmain.js
 //引入Yunzai插件功能(注意路径)
 import plugin from '../../../../../lib/plugins/plugin.js'
@@ -66,8 +66,8 @@ export class myindex extends plugin {
       desc: "调用我的插件帮助"
 ```
 ##### 2.编写js文件
+>mygethelp.js
 ```
-//mygethelp.js
 //注意路径（常识）
 import plugin from '../../../../../lib/plugins/plugin.js';
 //导入帮助对象
@@ -109,7 +109,22 @@ export class mygethelp extends plugin {
     };
 };
 ```
-### （二）数据推送
+### （四）模板
+>model/mymain.js
+```
+//引入盒子名与盒子数据位
+import {appname,dirname} from '../../../model/main.js'
+//定义自己的插件名
+export const pluginname ='xiuxian-my-plugin'
+//定义自己的数据位置
+export const pluginresources=`plugins/${appname}/plugins/${pluginname}/resources`
+```
+>model/mypublic.js
+```
+//引入隔壁自己定义的插件名
+import {pluginname} from './mymain.js'
+```
+### （三）数据推送
 ##### 1.编写地点数据文件
 >resources/data/fixed
 >mypoint.json
