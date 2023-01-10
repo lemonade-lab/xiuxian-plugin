@@ -93,8 +93,8 @@ export class AdminPlugins extends robotapi {
         const msg = ['————[卸载消息]————'];
         const MAP = {
             '宗门': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
-            '家园': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-pluging/',
-            '黑市': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-dark-pluging/'
+            '家园': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/',
+            '黑市': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-dark-plugin/'
         }
         if (!MAP.hasOwnProperty(name)) {
             e.reply('扩展名错误')
