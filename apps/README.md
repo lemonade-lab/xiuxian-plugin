@@ -19,10 +19,10 @@ plugins/xiuxian-my-plugin/                                #插件名为xiuxian-m
 ```
 //js文件名字的前缀最好带上插件名,如黑市插件为darkindex.js或darkmain.js
 //引入Yunzai插件功能(注意路径)
-import Robotipa from '../../../model/robotapi.js'
+import roborapi from '../../../model/robotapi.js'
 import { superIndex } from '../../../model/robotapi.js'
 //导出  类  类名:与文件名一致 继承  插件类  
-export class myindex extends Robotipa {
+export class myindex extends roborapi {
     constructor() {
         super(superIndex([
                 {
@@ -62,7 +62,7 @@ export class myindex extends Robotipa {
 >myhelp.js
 ```
 //注意路径（常识）
-import Robotipa from '../../../model/robotapi.js'
+import roborapi from '../../../model/robotapi.js'
 import { superIndex } from '../../../model/robotapi.js'
 //导入帮助对象
 import Help from '../../../model/help.js';
@@ -72,7 +72,7 @@ import Cache from '../../../model/cache.js';
 import filecp from '../../../model/filecp.js';
 //xiuxian-my-plugin发送了myhelp.yaml文件
 filecp.Pluginfile('xiuxian-my-plugin', ['myhelp']);
-export class myhelp extends Robotipa {
+export class myhelp extends roborapi {
     constructor() {
         super(superIndex([
                 {
