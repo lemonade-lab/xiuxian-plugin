@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import data from './XiuxianData.js';
-export const appname = `Xiuxian-Plugin-Box`;
+import {appname} from './main.js'
 //插件地址
 export const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}`;
 //插件地址链

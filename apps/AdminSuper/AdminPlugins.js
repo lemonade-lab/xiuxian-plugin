@@ -36,8 +36,7 @@ export class AdminPlugins extends plugin {
         const name = e.msg.replace('#修仙安装', '');
         const MAP={
             '宗门':'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
-            '家园':'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/',
-            '黑市':'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/'
+            '家园':'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/'
         }
         if(!MAP.hasOwnProperty(name)){
             e.reply('扩展名错误')

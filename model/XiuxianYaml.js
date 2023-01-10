@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'path';
 import { createRequire } from 'module';
+import { appname } from './main.js';
 const require = createRequire(import.meta.url);
-const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box${path.sep}config${path.sep}xiuxian${path.sep}xiuxian.yaml`;
+const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}${path.sep}config${path.sep}xiuxian${path.sep}xiuxian.yaml`;
 class XiuxianYaml {
   constructor() {
     try {

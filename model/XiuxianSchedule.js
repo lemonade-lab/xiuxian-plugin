@@ -1,9 +1,10 @@
 import fs from 'node:fs';
 import path from 'path';
 import { createRequire } from 'module';
+import { appname } from './main.js';
 const require = createRequire(import.meta.url);
 const schedule = require('node-schedule');
-const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box`;
+const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}`;
 class XiuxianSchedule {
     constructor() {
     };

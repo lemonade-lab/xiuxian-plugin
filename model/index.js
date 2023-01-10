@@ -1,9 +1,10 @@
 import fs from 'node:fs';
 import path from 'path';
+import { appname } from './main.js';
 class index {
   constructor() { };
   toindex = async (input) => {
-    let filepath = './plugins/Xiuxian-Plugin-Box/' + input;
+    let filepath = `./plugins/${appname}/${input}`;
     let apps = {};
     let name = [];
     let newsum = [];
@@ -36,7 +37,7 @@ class index {
     });
     for (var j = 0; j < newsum.length; j++) {
       newsum[j] = newsum[j].replace(/\\/g, '/');
-      newsum[j] = newsum[j].replace('plugins/Xiuxian-Plugin-Box', '');
+      newsum[j] = newsum[j].replace(`plugins/${appname}` , '');
       apps[name[j]] = (await import(`..${newsum[j]}`))[name[j]];
     };
     return apps;

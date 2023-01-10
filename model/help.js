@@ -1,5 +1,5 @@
 import xiuxianCfg from './Config.js';
-const appname = 'Xiuxian-Plugin-Box'
+import { appname } from './main.js';
 const dirname = `plugins/${appname}/resources`
 class Help {
   gethelp = async (e, filename) => {

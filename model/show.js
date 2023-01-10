@@ -1,5 +1,4 @@
-const appname = 'Xiuxian-Plugin-Box'
-const dirname = `plugins/${appname}/resources`
+import { dirname } from "./main.js"
 class Show {
   /**
    * @param {地址} path 

@@ -2,11 +2,12 @@ import YAML from 'yaml';
 import fs from 'node:fs';
 import chokidar from 'chokidar';
 import lodash from 'lodash';
+import { appname } from './main.js';
 class Config {
     constructor() {
-        this.defSetPath = './plugins/Xiuxian-Plugin-Box/defSet/';
+        this.defSetPath = `./plugins/${appname}/defSet/`;
         this.defSet = {};
-        this.configPath = './plugins/Xiuxian-Plugin-Box/config/';
+        this.configPath = `./plugins/${appname}/config/`;
         this.config = {};
         /** 监听文件 */
         this.watcher = { config: {}, defSet: {} };
