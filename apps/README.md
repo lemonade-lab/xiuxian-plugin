@@ -66,7 +66,7 @@ export class myindex extends plugin {
       desc: "调用我的插件帮助"
 ```
 ##### 2.编写js文件
->mygethelp.js
+>myhelp.js
 ```
 //注意路径（常识）
 import plugin from '../../../../../lib/plugins/plugin.js';
@@ -78,11 +78,11 @@ import Cache from '../../../model/cache.js';
 import filecp from '../../../model/filecp.js';
 //xiuxian-my-plugin发送了myhelp.yaml文件
 filecp.Pluginfile('xiuxian-my-plugin', ['myhelp']);
-export class mygethelp extends plugin {
+export class myhelp extends plugin {
     constructor() {
         super({
-            name: 'mygethelp',
-            dsc: 'mygethelp',
+            name: 'myhelp',
+            dsc: 'myhelp',
             event: 'message',
             priority: 600,
             rule: [
@@ -109,7 +109,7 @@ export class mygethelp extends plugin {
     };
 };
 ```
-### （四）模板
+### （二）模板
 >model/mymain.js
 ```
 //引入盒子名与盒子数据位
