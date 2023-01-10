@@ -1,10 +1,10 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
 import { segment } from 'oicq';
 import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/public.js';
-export class PlayerControl extends Robotapi {
+export class PlayerControl extends robotapi {
     constructor() {
         super(superIndex([
             {

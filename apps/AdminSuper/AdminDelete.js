@@ -1,7 +1,7 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import { __PATH, offaction, At, Write_Life, Read_Life } from '../../model/public.js';
 import { superIndex } from "../../model/robotapi.js";
-export class AdminDelete extends Robotapi {
+export class AdminDelete extends robotapi {
     constructor() {
         super(superIndex([
             {

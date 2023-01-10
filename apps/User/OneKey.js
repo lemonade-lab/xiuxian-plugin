@@ -1,8 +1,8 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
 import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/public.js';
-export class OneKey extends Robotapi {
+export class OneKey extends robotapi {
     constructor() {
         super(superIndex([
             {

@@ -1,11 +1,11 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import Cachemonster from '../../model/cachemonster.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
 import fs from 'node:fs';
 import { Gomini, Go, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../model/public.js';
-export class BattleSite extends Robotapi {
+export class BattleSite extends robotapi {
     constructor() {
         super(superIndex([
             {

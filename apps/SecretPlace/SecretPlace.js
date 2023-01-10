@@ -1,4 +1,4 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
@@ -7,7 +7,7 @@ import { Go, Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Writ
 const forwardsetTime = []
 const deliverysetTime = [];
 const useraction = [];
-export class SecretPlace extends Robotapi {
+export class SecretPlace extends robotapi {
     constructor() {
         super(superIndex([
             {

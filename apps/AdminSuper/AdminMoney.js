@@ -1,7 +1,7 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_najie, Add_najie_thing, Write_najie, Write_wealth } from '../../model/public.js';
 import { superIndex } from "../../model/robotapi.js";
-export class AdminMoney extends Robotapi {
+export class AdminMoney extends robotapi {
     constructor() {
         super(superIndex([
             {

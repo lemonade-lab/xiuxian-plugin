@@ -1,11 +1,11 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
 import { segment } from 'oicq';
 import fs from 'node:fs';
 import {Read_action,point_map, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../../model/public.js';
-export class MoneyOperation extends Robotapi {
+export class MoneyOperation extends robotapi {
     constructor() {
         super(superIndex([
             {

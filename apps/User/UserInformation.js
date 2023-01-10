@@ -1,8 +1,8 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import { get_equipment_img, get_player_img } from '../../model/showdata.js';
 import { existplayer } from '../../model/public.js';
 import { superIndex } from "../../model/robotapi.js";
-export class UserInformation extends Robotapi {
+export class UserInformation extends robotapi {
     constructor() {
         super(superIndex([
             {

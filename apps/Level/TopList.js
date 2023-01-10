@@ -1,9 +1,9 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import fs from 'fs';
 import { existplayer, __PATH, sortBy, Read_level, Read_battle } from '../../model/public.js';
 import { get_toplist_img } from '../../model/showdata.js';
 import { superIndex } from "../../model/robotapi.js";
-export class TopList extends Robotapi {
+export class TopList extends robotapi {
     constructor() {
         super(superIndex([
             {

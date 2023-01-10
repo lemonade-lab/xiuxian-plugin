@@ -1,4 +1,4 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import { createRequire } from 'module';
 import { ForwardMsg } from '../../model/public.js';
 import filecp from '../../model/filecp.js';
@@ -9,7 +9,7 @@ const _path = process.cwd();
 const the = {
     'timer': ''
 };
-export class AdminPlugins extends Robotapi {
+export class AdminPlugins extends robotapi {
     constructor() {
         super(superIndex([
             {

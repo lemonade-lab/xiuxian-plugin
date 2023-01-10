@@ -1,10 +1,10 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { get_najie_img } from '../../model/showdata.js';
 import { superIndex } from "../../model/robotapi.js";
 import { segment } from 'oicq';
 import { existplayer, Go, Read_najie, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../model/public.js';
-export class UserAction extends Robotapi {
+export class UserAction extends robotapi {
     constructor() {
         super(superIndex([
             {

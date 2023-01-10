@@ -1,7 +1,7 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import pluginup from '../../model/pluginup.js';
 import { superIndex } from "../../model/robotapi.js";
-export class adminwork extends Robotapi {
+export class adminwork extends robotapi {
     constructor() {
         super(superIndex([
             {

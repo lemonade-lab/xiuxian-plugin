@@ -19,26 +19,19 @@ plugins/xiuxian-my-plugin/                                #插件名为xiuxian-m
 ```
 //js文件名字的前缀最好带上插件名,如黑市插件为darkindex.js或darkmain.js
 //引入Yunzai插件功能(注意路径)
-import plugin from '../../../../../lib/plugins/plugin.js'
+import Robotipa from '../../../model/robotapi.js'
+import { superIndex } from '../../../model/robotapi.js'
 //导出  类  类名:与文件名一致 继承  插件类  
-export class myindex extends plugin {
+export class myindex extends Robotipa {
     constructor() {
-        super({
-            //后端信息
-            name: 'myindex',
-            dsc: 'myindex',
-            event: 'message',
-            //优先级：数值越低越悠闲
-            priority: 600,
-            rule: [
+        super(superIndex([
                 {
                     //正则
                     reg: '^#看看我$',
                     //函数
                     fnc: 'indeLlook'
                 }
-            ]
-        });
+            ]));
     };
     //函数名  箭头函数，接受一个e消息
     indeLlook = async (e) => {
@@ -69,7 +62,8 @@ export class myindex extends plugin {
 >myhelp.js
 ```
 //注意路径（常识）
-import plugin from '../../../../../lib/plugins/plugin.js';
+import Robotipa from '../../../model/robotapi.js'
+import { superIndex } from '../../../model/robotapi.js'
 //导入帮助对象
 import Help from '../../../model/help.js';
 //导入缓存对象
@@ -78,20 +72,14 @@ import Cache from '../../../model/cache.js';
 import filecp from '../../../model/filecp.js';
 //xiuxian-my-plugin发送了myhelp.yaml文件
 filecp.Pluginfile('xiuxian-my-plugin', ['myhelp']);
-export class myhelp extends plugin {
+export class myhelp extends Robotipa {
     constructor() {
-        super({
-            name: 'myhelp',
-            dsc: 'myhelp',
-            event: 'message',
-            priority: 600,
-            rule: [
+        super(superIndex([
                 {
                     reg: '^#我的插件帮助$',
                     fnc: 'theMyHelp'
                 }
-            ]
-        });
+            ]));
     };
     theMyHelp = async (e) => {
         //help对象的gerhelp方法，可以接收一个yaml文件进行配置

@@ -1,7 +1,7 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import defSet from '../../model/defSet.js';
 import { superIndex } from "../../model/robotapi.js";
-export class AdminRobot extends Robotapi {
+export class AdminRobot extends robotapi {
     constructor() {
         super(superIndex([
             {

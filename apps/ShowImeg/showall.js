@@ -1,7 +1,7 @@
-import Robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js";
 import { get_map_img,get_updata_img,get_config_img } from '../../model/showdata.js';
 import { superIndex } from "../../model/robotapi.js";
-export class showall extends Robotapi {
+export class showall extends robotapi {
     constructor() {
         super(superIndex([
             {
