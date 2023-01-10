@@ -1,9 +1,8 @@
 import fs from 'node:fs';
 import path from 'path';
-import { appname } from './main.js';
+import { __dirname } from './main.js';
 class XiuxianData {
     constructor() {
-        const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}`;
         this.__PATH = {
             //基础
             'fixepoint': path.join(__dirname, '/resources/data/fixed/point'),

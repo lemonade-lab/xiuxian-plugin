@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import data from './XiuxianData.js';
-import {appname} from './main.js'
+import {__dirname} from './main.js'
 //插件地址
-export const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}`;
 //插件地址链
 export const __PATH = {
     player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
