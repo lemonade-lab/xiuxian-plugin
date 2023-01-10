@@ -10,12 +10,23 @@ export class AdminRobot extends plugin {
             rule: [
                 {
                     reg: '^#修仙关闭云崽',
-                    fnc: 'CloseRobot',
+                    fnc: 'closeRobot',
                 },
+                {
+                    reg: '^#修仙开启云崽',
+                    fnc: 'openRobot',
+                },
+
                 {
                     reg: '^#修仙关闭云崽帮助',
                     fnc: 'CloseRobothelp',
                 },
+                {
+                    reg: '^#修仙开启云崽帮助',
+                    fnc: 'openRobothelp',
+                },
+
+
                 {
                     reg: '^#修仙添加主人.*',
                     fnc: 'AddMaster',
@@ -24,6 +35,8 @@ export class AdminRobot extends plugin {
                     reg: '^#修仙删除主人.*',
                     fnc: 'DeleteMaster',
                 },
+
+
                 {
                     reg: '^#修仙开启云崽私聊',
                     fnc: 'OnGroup',
@@ -35,20 +48,40 @@ export class AdminRobot extends plugin {
             ],
         });
     };
-    OffGroup = async (e) => {
+
+    closeRobot = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        e.reply(defSet.OffGroup());
+        e.reply(defSet.ReadConfig());
         return;
     };
-    OnGroup = async (e) => {
+    openRobot = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        e.reply(defSet.OnGroup());
+        e.reply(defSet.openReadConfig());
         return;
     };
+
+
+    CloseRobothelp = async (e) => {
+        if (!e.isMaster) {
+            return;
+        };
+        e.reply(defSet.ReadConfighelp());
+        return;
+    }
+
+    openRobothelp = async (e) => {
+        if (!e.isMaster) {
+            return;
+        };
+        e.reply(defSet.openReadConfighelp());
+        return;
+    }
+
+
     AddMaster = async (e) => {
         if (!e.isMaster) {
             return;
@@ -65,18 +98,24 @@ export class AdminRobot extends plugin {
         e.reply(defSet.DeleteMaster(QQ));
         return;
     }
-    CloseRobot = async (e) => {
+
+
+
+
+
+
+    OffGroup = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        e.reply(defSet.ReadConfig());
+        e.reply(defSet.OffGroup());
         return;
     };
-    CloseRobothelp = async (e) => {
+    OnGroup = async (e) => {
         if (!e.isMaster) {
             return;
         };
-        e.reply(defSet.ReadConfighelp());
+        e.reply(defSet.OnGroup());
         return;
-    }
+    };
 };
