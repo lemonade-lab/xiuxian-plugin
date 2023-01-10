@@ -89,28 +89,19 @@ export class AdminPlugins extends robotapi {
         if (!e.isMaster) {
             return;
         };
-        const msg = ['————[卸载消息]————'];
-        let command = '';
         const name = e.msg.replace('#修仙卸载', '');
-        if (name == '宗门') {
-            command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/';
-        } else if (name == '家园') {
-            command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-pluging/';
-        } else if (name == '怡红院') {
-            command = 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-pluging/';
-            ForwardMsg(e, msg);
-        } else if (name == '职业') {
-            msg.push('待上线');
-            ForwardMsg(e, msg);
-            return;
-        } else {
-            msg.push('无法使用指令卸载未知扩展');
-            ForwardMsg(e, msg);
-            return;
-        };
-        msg.push('正在卸载...');
+        const msg = ['————[卸载消息]————'];
+        const MAP = {
+            '宗门': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
+            '家园': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-pluging/',
+            '黑市': 'rm -rf plugins/Xiuxian-Plugin-Box/plugins/xiuxian-dark-pluging/'
+        }
+        if (!MAP.hasOwnProperty(name)) {
+            e.reply('扩展名错误')
+            return
+        }
         const that = this;
-        exec(command, { cwd: `${_path}` },
+        exec(MAP[name], { cwd: `${_path}` },
             (error, stdout, stderr) => {
                 if (error) {
                     msg.push(`卸载失败\nError code: ${error.code}\n${error.stack}\n`);
