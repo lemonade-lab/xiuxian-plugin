@@ -3,7 +3,6 @@ config
 plugins/xiuxian-association-plugin
 plugins/xiuxian-home-plugin
 plugins/xiuxian-dark-plugin
-plugins/xiuxian-yihongyuan-plugin
 plugins/xiuxian-pokemon-plugin
 plugins/xiuxian-activity-plugin
 plugins/xiuxian-pagoda-plugin
