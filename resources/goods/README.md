@@ -1,5 +1,5 @@
 ## 该文件不可改动
-
+>Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\goods
 ### 定义新物品
 
 >新建议文件名为mygoods.json   
