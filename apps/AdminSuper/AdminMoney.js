@@ -1,6 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_najie, Add_najie_thing, Write_najie, Write_wealth } from '../../model/public.js';
-export class AdminMoney extends plugin {
+export class AdminMoney extends Robotapi {
     constructor() {
         super({
             name: 'AdminMoney',

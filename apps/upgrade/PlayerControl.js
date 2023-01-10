@@ -1,9 +1,9 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
 import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/public.js';
-export class PlayerControl extends plugin {
+export class PlayerControl extends Robotapi {
     constructor() {
         super({
             name: 'PlayerControl',

@@ -1,7 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import { get_equipment_img, get_player_img } from '../../model/showdata.js';
 import { existplayer } from '../../model/public.js';
-export class UserInformation extends plugin {
+export class UserInformation extends Robotapi {
     constructor() {
         super({
             name: 'UserInformation',

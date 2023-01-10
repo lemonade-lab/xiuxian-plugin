@@ -1,7 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import config from '../../model/Config.js';
 import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/public.js';
-export class OneKey extends plugin {
+export class OneKey extends Robotapi {
     constructor() {
         super({
             name: 'OneKey',

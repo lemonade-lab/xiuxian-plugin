@@ -1,8 +1,8 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import config from '../../model/Config.js';
 import { get_player_img } from '../../model/showdata.js';
 import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../model/public.js';
-export class UserHome extends plugin {
+export class UserHome extends Robotapi {
     constructor() {
         super({
             name: 'UserHome',

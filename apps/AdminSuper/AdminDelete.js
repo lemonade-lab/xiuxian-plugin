@@ -1,6 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import {  __PATH, offaction, At, Write_Life, Read_Life } from '../../model/public.js';
-export class AdminDelete extends plugin {
+export class AdminDelete extends Robotapi {
     constructor() {
         super({
             name: 'AdminDelete',

@@ -1,6 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import XiuxianYaml from '../../model/XiuxianYaml.js';
-export class AdminYaml extends plugin {
+export class AdminYaml extends Robotapi {
     constructor() {
         super({
             name: 'AdminYaml',

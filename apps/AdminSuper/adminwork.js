@@ -1,6 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import pluginup from '../../model/pluginup.js';
-export class adminwork extends plugin {
+export class adminwork extends Robotapi {
     constructor() {
         super({
             name: 'adminwork',

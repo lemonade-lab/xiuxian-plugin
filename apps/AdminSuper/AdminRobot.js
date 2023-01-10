@@ -1,6 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import defSet from '../../model/defSet.js';
-export class AdminRobot extends plugin {
+export class AdminRobot extends Robotapi {
     constructor() {
         super({
             name: 'AdminRobot',

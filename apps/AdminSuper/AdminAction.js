@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import { createRequire } from 'module';
 import { ForwardMsg } from '../../model/public.js';
 import filecp from '../../model/filecp.js';
@@ -10,7 +10,7 @@ const _path = process.cwd();
 const the = {
     'timer': ''
 };
-export class AdminAction extends plugin {
+export class AdminAction extends Robotapi {
     constructor() {
         super({
             name: 'admin',

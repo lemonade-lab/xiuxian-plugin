@@ -1,7 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import Help from '../../model/help.js';
 import Cache from '../../model/cache.js';
-export class BotHelp extends plugin {
+export class BotHelp extends Robotapi {
     constructor() {
         super({
             name: 'BotHelp',

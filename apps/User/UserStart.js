@@ -1,11 +1,11 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
 import { segment } from 'oicq';
 import {  __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../../model/public.js';
 import { get_player_img } from '../../model/showdata.js';
-export class UserStart extends plugin {
+export class UserStart extends Robotapi {
     constructor() {
         super({
             name: 'UserStart',

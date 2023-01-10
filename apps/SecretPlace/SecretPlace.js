@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
@@ -6,7 +6,7 @@ import { Go, Read_action, Read_level, ForwardMsg,existplayer, Read_wealth, Write
 const forwardsetTime = []
 const deliverysetTime = [];
 const useraction = [];
-export class SecretPlace extends plugin {
+export class SecretPlace extends Robotapi {
     constructor() {
         super({
             name: 'SecretPlace',

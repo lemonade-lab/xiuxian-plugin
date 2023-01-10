@@ -1,9 +1,9 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
 import { Go, GenerateCD, __PATH, Read_level, Write_level, Read_Life, Write_Life } from '../../model/public.js';
-export class Level extends plugin {
+export class Level extends Robotapi {
     constructor() {
         super({
             name: 'Level',

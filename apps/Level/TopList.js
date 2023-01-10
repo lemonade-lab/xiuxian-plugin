@@ -1,8 +1,8 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import Robotapi from "../../model/Robotapi.js";
 import fs from 'fs';
 import { existplayer, __PATH,sortBy, Read_level, Read_battle } from '../../model/public.js';
 import { get_toplist_img } from '../../model/showdata.js';
-export class TopList extends plugin {
+export class TopList extends Robotapi {
     constructor() {
         super({
             name: 'TopList',
