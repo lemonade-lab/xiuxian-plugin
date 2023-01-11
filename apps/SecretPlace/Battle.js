@@ -1,22 +1,43 @@
 import robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
-import { Go, Read_action, existplayer, GenerateCD, __PATH, At, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../model/public.js';
+import {
+    Go,
+    Read_action,
+    existplayer,
+    GenerateCD,
+    __PATH,
+    exist_najie_thing_name,
+    At,
+    battle,
+    Read_equipment,
+    Anyarray,
+    Write_equipment,
+    Read_najie, Add_najie_thing,
+    Write_najie,
+    Read_level,
+    Write_level,
+    Read_wealth, Write_wealth
+} from '../../model/public.js';
 export class Battle extends robotapi {
     constructor() {
         super(superIndex([
             {
+                reg: '^#决斗.*$',
+                fnc: 'duel'
+            },
+            {
                 reg: '^#攻击.*$',
-                fnc: 'Attack'
+                fnc: 'attack'
             },
             {
                 reg: '^#洗手$',
-                fnc: 'HandWashing'
+                fnc: 'handWashing'
             }
         ]));
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
     };
-    Attack = async (e) => {
+    duel = async (e) => {
         const good = await Go(e);
         if (!good) {
             return;
@@ -35,7 +56,73 @@ export class Battle extends robotapi {
         const actionA = await Read_action(user.A);
         const actionB = await Read_action(user.B);
         if (actionA.region != actionB.region) {
-            e.reply('没找到此人');
+            e.reply('此地未找到此人');
+            return;
+        };
+        const CDid = '11';
+        const now_time = new Date().getTime();
+        const CDTime = this.xiuxianConfigData.CD.Attack;
+        const CD = await GenerateCD(user.A, CDid);
+        if (CD != 0) {
+            e.reply(CD);
+        };
+        
+        const najie_thing = await exist_najie_thing_name(A, '决斗令');
+        if (najie_thing == 1) {
+            e.reply(`没有决斗令`)
+            return;
+        };
+        let najie = await Read_najie(A);
+        najie = await Add_najie_thing(najie, najie_thing, -1);
+        await Write_najie(A, najie);
+
+        user.QQ = await battle(e, user.A, user.B);
+        const Level = await Read_level(user.A);
+        Level.prestige += 1;
+        await Write_level(user.A, Level);
+        const LevelB = await Read_level(user.B);
+        const MP = LevelB.prestige * 10 + Number(50);
+        if (user.p <= MP) {
+            if (user.QQ != user.A) {
+                user.C = user.A;
+                user.A = user.B;
+                user.B = user.C;
+            };
+            let equipment = await Read_equipment(user.B);
+            if (equipment.length > 0) {
+                const thing = await Anyarray(equipment);
+                equipment = equipment.filter(item => item.name != thing.name);
+                await Write_equipment(user.B, equipment);
+                let najie = await Read_najie(user.A);
+                najie = await Add_najie_thing(najie, thing, 1);
+                await Write_najie(user.A, najie);
+                e.reply(`${user.A}夺走了${thing.name}`);
+            };
+        };
+        await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time);
+        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
+        return;
+    };
+    attack = async (e) => {
+        const good = await Go(e);
+        if (!good) {
+            return;
+        };
+        const user = {
+            A: e.user_id,
+            B: 0,
+            C: 0,
+            QQ: 0,
+            p: Math.floor((Math.random() * (99 - 1) + 1))
+        };
+        user.B = await At(e);
+        if (user.B == 0 || user.B == user.A) {
+            return;
+        };
+        const actionA = await Read_action(user.A);
+        const actionB = await Read_action(user.B);
+        if (actionA.region != actionB.region) {
+            e.reply('此地未找到此人');
             return;
         };
         if (actionA.address == 1) {
@@ -80,7 +167,7 @@ export class Battle extends robotapi {
         await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
         return;
     };
-    HandWashing = async (e) => {
+    handWashing = async (e) => {
         if (!e.isGroup) {
             return;
         };

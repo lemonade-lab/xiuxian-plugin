@@ -1,5 +1,20 @@
 [
     {
+        "id": "6-1-0",
+        "name": "灵石",
+        "attack": 0,
+        "defense": 0,
+        "blood": 0,
+        "burst": 0,
+        "burstmax": 0,
+        "size": 0,
+        "experience": 1,
+        "experiencemax": 0,
+        "speed": 0,
+        "acount": 1,
+        "price": 1
+    },
+    {
         "id": "6-1-1",
         "name": "洗根水",
         "attack": 0,
@@ -11,7 +26,7 @@
         "experience": 0,
         "experiencemax": 0,
         "speed": 0,
-        "acount": 0,
+        "acount": 1,
         "price": 10800
     },
     {
@@ -26,7 +41,7 @@
         "experience": 0,
         "experiencemax": 0,
         "speed": 0,
-        "acount": 0,
+        "acount": 1,
         "price": 3800
     },
     {
@@ -41,7 +56,7 @@
         "experience": 0,
         "experiencemax": 0,
         "speed": 0,
-        "acount": 0,
+        "acount": 1,
         "price": 3800
     }
 ]
