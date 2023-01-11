@@ -30,6 +30,9 @@ export const returnPosirion = async () => {
 export const returnPoint = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.position}/point.json`))
 }
+export const returnAll = async () => {
+    return JSON.parse(fs.readFileSync(`${__PATH.all}/all.json`))
+}
 export const returnCommodities = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.all}/commodities.json`))
 }
