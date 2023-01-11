@@ -5,16 +5,17 @@ import { __dirname } from './main.js'
 //插件地址
 //插件地址链
 export const __PATH = {
-    player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
-    extend: path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
-    action: path.join(__dirname, '/resources/data/birth/xiuxian/action'),
-    battle: path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
-    equipment: path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
-    level: path.join(__dirname, '/resources/data/birth/xiuxian/level'),
-    talent: path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
-    wealth: path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
-    najie: path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    life: path.join(__dirname, '/resources/data/birth/xiuxian/life')
+    'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
+    'extend': path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
+    'action': path.join(__dirname, '/resources/data/birth/xiuxian/action'),
+    'battle': path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
+    'equipment': path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
+    'level': path.join(__dirname, '/resources/data/birth/xiuxian/level'),
+    'talent': path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
+    'wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
+    'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
+    'Level': path.join(__dirname, '/resources/data/birth/Level'),
+    'life': path.join(__dirname, '/resources/data/birth/xiuxian/life')
 };
 /**
  * 从dropsItem表中随机丢出一键物品
@@ -25,11 +26,14 @@ export const randomThing=async()=>{
     const random = Math.floor(Math.random() * dropsItemList.length);
     return dropsItemList[random]
 }
-/**
- * 动态json统一写在这里
- */
 
+export const returnLevel=async(id)=>{
+    return JSON.parse(fs.readFileSync(`${__PATH.Level}/Level_list.json`)).find(item => item.id == id)
+}
 
+export const returnLevelMax=async(id)=>{
+    return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`)).find(item => item.id == id)
+}
 
 /**
  * 读取数据
