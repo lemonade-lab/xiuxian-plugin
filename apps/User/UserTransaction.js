@@ -1,6 +1,6 @@
 import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
-import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg,  Read_najie, Write_najie, Read_action, returnCommodities } from '../../model/public.js'
+import { Numbers, Read_wealth, addLingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg,  Read_najie, Write_najie, Read_action, returnCommodities } from '../../model/public.js'
 export class UserTransaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -96,7 +96,7 @@ export class UserTransaction extends robotapi {
         }
         the.najie = await Add_najie_thing(the.najie, ifexist, the.quantity)
         await Write_najie(usr_qq, the.najie)
-        await Add_lingshi(usr_qq, -commodities_price)
+        await addLingshi(usr_qq, -commodities_price)
         e.reply(`[凡仙堂]薛仁贵\n你花[${commodities_price}]灵石购买了[${thing_name}]*${the.quantity},`)
         return
     }
@@ -140,7 +140,7 @@ export class UserTransaction extends robotapi {
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
         await Write_najie(usr_qq, the.najie)
         const commodities_price = najie_thing.price * the.quantity
-        await Add_lingshi(usr_qq, commodities_price)
+        await addLingshi(usr_qq, commodities_price)
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `)
         return
     }

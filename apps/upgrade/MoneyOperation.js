@@ -11,7 +11,7 @@ import {
     Add_najie_thing,
     Write_najie,
     Numbers,
-    Add_lingshi,
+    addLingshi,
     At,
     GenerateCD,
     Read_wealth,
@@ -63,7 +63,7 @@ export class MoneyOperation extends robotapi {
         let najie = await Read_najie(usr_qq)
         najie = await Add_najie_thing(najie, randomthing, Number(1))
         await Write_najie(usr_qq, najie)
-        await Add_lingshi(usr_qq, money)
+        await addLingshi(usr_qq, money)
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${randomthing.name}]吧\n还有这${money}灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n把[${randomthing.name}]放进了#储物袋`)
         return
@@ -97,7 +97,7 @@ export class MoneyOperation extends robotapi {
         await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60)
         A_player.lingshi -= lingshi
         await Write_wealth(A, A_player)
-        await Add_lingshi(B, lingshi)
+        await addLingshi(B, lingshi)
         e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}灵石`])
         return
     }

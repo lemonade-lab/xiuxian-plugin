@@ -2,7 +2,7 @@ import robotapi from "../../model/robotapi.js"
 import config from '../../model/Config.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
-    Add_lingshi,
+    addLingshi,
     existplayer,
     point_map,
     Read_action,
@@ -44,7 +44,7 @@ export class OneKey extends robotapi {
         for (let item of najie.thing) {
             money += item.acount * item.price
         }
-        await Add_lingshi(usr_qq, money)
+        await addLingshi(usr_qq, money)
         najie.thing = []
         await Write_najie(usr_qq, najie)
         e.reply(`[蜀山派]叶铭\n这是${money}灵石,道友慢走`)

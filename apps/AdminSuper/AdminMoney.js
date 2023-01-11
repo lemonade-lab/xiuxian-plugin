@@ -2,7 +2,7 @@ import robotapi from "../../model/robotapi.js"
 import {
     At,
     Numbers,
-    Add_lingshi,
+    addLingshi,
     Read_wealth,
     search_thing_name,
     Read_najie,
@@ -81,7 +81,7 @@ export class AdminMoney extends robotapi {
         if (B == 0) {
             return
         }
-        await Add_lingshi(B, lingshi)
+        await addLingshi(B, lingshi)
         e.reply(`${B}获得${lingshi}灵石的补偿`)
         return
     }

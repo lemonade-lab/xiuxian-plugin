@@ -253,6 +253,16 @@ export const Add_prestige = async (usr_qq, prestige) => {
     await Write_level(usr_qq, player)
     return
 }
+
+export const addLingshi=async(uid,lingshi)=>{
+    const najie_thing=await search_thing_name('下品灵石')
+    let najie = await Read_najie(uid)
+    najie = await Add_najie_thing(najie, najie_thing, lingshi)
+    await Write_najie(uid, najie)
+    return
+}
+
+
 //灵石操作
 export const Add_lingshi = async (usr_qq, lingshi) => {
     const player = await Read_wealth(usr_qq)

@@ -11,7 +11,7 @@ import {
     monsterbattle, 
     Add_experiencemax, 
     Add_experience, 
-    Add_lingshi, 
+    addLingshi,
     GenerateCD, 
     Add_najie_thing, 
     Read_najie, 
@@ -101,15 +101,15 @@ export class BattleSite extends robotapi {
             }
             if (m < mon.level * 7) {
                 msg.push(`得到${mon.level * 35 * mybuff}灵石`)
-                await Add_lingshi(usr_qq, mon.level * 35 * mybuff)
+                await addLingshi(usr_qq, mon.level * 35 * mybuff)
             }
             if (m < mon.level * 8) {
                 msg.push(`得到${mon.level * 50 * mybuff}修为`)
                 await Add_experience(usr_qq, mon.level * 50 * mybuff)
             }
             if (m >= mon.level * 8) {
-                msg.push(`得到${mon.level * 15}灵石`)
-                await Add_lingshi(usr_qq, mon.level * 25)
+                msg.push(`得到${mon.level * 25}灵石`)
+                await addLingshi(usr_qq, mon.level * 35 * mybuff)
             }
         }
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)

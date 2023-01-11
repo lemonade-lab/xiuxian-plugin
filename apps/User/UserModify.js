@@ -1,6 +1,6 @@
 import robotapi from "../../model/robotapi.js"
 import config from '../../model/Config.js'
-import { Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../model/public.js'
+import { Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, addLingshi } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
 export class UserModify extends robotapi {
@@ -58,7 +58,7 @@ export class UserModify extends robotapi {
         }
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time)
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
-        await Add_lingshi(usr_qq, -lingshi)
+        await addLingshi(usr_qq, -lingshi)
         const life = await Read_Life()
         life.forEach((item) => {
             if (item.qq == usr_qq) {

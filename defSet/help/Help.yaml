@@ -9,12 +9,6 @@
     - icon: help-icon_56
       title: "#储物袋 #升级储物袋"
       desc: "物品查询,容量提升"
-    - icon: help-icon_56
-      title: "#存灵石123"
-      desc: "将灵石存入储物袋"
-    - icon: help-icon_56
-      title: "#取灵石全部"
-      desc: "从储物袋中取出灵石"
     
 - group: 
   list:
