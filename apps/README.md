@@ -151,6 +151,7 @@ import { existplayerplugins } from '../../../model/public.js'
 export const __PATH = {
     Exchange: path.join(pluginDirname, '/resources/data/birth/Exchange'),
     Forum: path.join(pluginDirname, '/resources/data/birth/Forum'),
+    my: path.join(pluginDirname, '/resources/data/birth/my'),
     //存档位置
     my_user: path.join(pluginDirname, '/resources/data/birth/my/user'),
     //时间搓位置
@@ -331,7 +332,19 @@ export class myuser extends robotapi {
 }
 ```
 ### （三）数据推送
-##### 1.编写地点数据文件
+##### 1.激活数据备份
+>myhelp.js
+```
+import Xiuxianschedule from '../../../model/XiuxianSchedule.js';
+import {__PATH} from '../model/mypublic.js';
+/**
+    插件名
+    备份的时间点（整点备份一次）
+    需要备份的数据数据地址
+ */
+Xiuxianschedule.scheduleJobflie('my','0 0 */1 * * ?',__PATH.my);
+```
+##### 2.编写数据文件
 >resources/data/fixed
 >mypoint.json
 ```
