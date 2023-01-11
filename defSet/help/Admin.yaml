@@ -20,7 +20,7 @@
       desc: "删除全部信息"
     - icon: help-icon_32
       title: "#修仙删除信息 @道友"
-      desc: "删除群友信息"
+      desc: "删除道友信息"
       
 - group: 
   list:

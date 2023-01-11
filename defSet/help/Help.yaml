@@ -28,8 +28,11 @@
 - group: 
   list:
     - icon: help-icon_54
-      title: "#攻击 @群友"
+      title: "#攻击 @道友"
       desc: "可掉装备"
+    - icon: help-icon_54
+      title: "#决斗 @道友"
+      desc: "可掉装备,需决斗令"
     - icon: help-icon_107
       title: "#洗手"
       desc: "清魔力值"
@@ -104,7 +107,7 @@
       title: "#一键出售所有"
       desc: "出售储物袋中所有物品"
     - icon: help-icon_10
-      title: "#赠送灵石1000 @群友"
+      title: "#赠送灵石1000 @道友"
       desc: "赠送灵石"
 
 - group: 
