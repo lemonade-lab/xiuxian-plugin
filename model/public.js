@@ -182,8 +182,8 @@ export const Write_equipment = async (usr_qq, equipment) => {
 export const Read_battle = async (usr_qq) => {
     const equipment = await Read_equipment(usr_qq)
     const level = await Read_level(usr_qq)
-    const levelmini =  await returnLevel().find(item => item.id == level.level_id)
-    const levelmax =  await returnLevelMax().find(item => item.id == level.levelmax_id)
+    const levelmini =  await returnLevel(usr_qq).find(item => item.id == level.level_id)
+    const levelmax =  await returnLevelMax(usr_qq).find(item => item.id == level.levelmax_id)
     //双境界面板之和
     let the = {
         attack: levelmini.attack + levelmax.attack,
