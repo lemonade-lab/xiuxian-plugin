@@ -67,14 +67,14 @@ export class Battle extends robotapi {
             e.reply(CD);
         };
         
-        const najie_thing = await exist_najie_thing_name(A, '决斗令');
+        const najie_thing = await exist_najie_thing_name(user.A, '决斗令');
         if (najie_thing == 1) {
             e.reply(`没有决斗令`)
             return;
         };
-        let najie = await Read_najie(A);
+        let najie = await Read_najie(user.A);
         najie = await Add_najie_thing(najie, najie_thing, -1);
-        await Write_najie(A, najie);
+        await Write_najie(user.A, najie);
 
         user.QQ = await battle(e, user.A, user.B);
         const Level = await Read_level(user.A);
