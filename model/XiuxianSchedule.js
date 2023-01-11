@@ -6,9 +6,7 @@ const require = createRequire(import.meta.url);
 const schedule = require('node-schedule');
 const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}`;
 class XiuxianSchedule {
-    constructor() {
-    };
-    scheduleJobflie = (time) => {
+    scheduleJobflie = (name,time,newpath) => {
         schedule.scheduleJob(time, () => {
             const myDate = new Date();
             const Y = myDate.getFullYear();
@@ -17,8 +15,14 @@ class XiuxianSchedule {
             const h = myDate.getHours();
             const m = myDate.getMinutes();
             const s = myDate.getSeconds();
-            const PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}xiuxian`;
-            const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${Y}${M}${D}${h}${m}${s}`;
+            //数据位置
+            let PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${name}`;
+            if(newpath!=undefined){
+                //新数据位置
+                PATH=newpath
+            }
+            //备份位置不变
+            const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${name}${Y}${M}${D}${h}${m}${s}`;
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) {
                     console.error(err);

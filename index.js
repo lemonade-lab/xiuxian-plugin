@@ -1,6 +1,6 @@
 import index from './model/index.js';
 import Xiuxianschedule from './model/XiuxianSchedule.js';
-Xiuxianschedule.scheduleJobflie('0 0 */1 * * ?');
+Xiuxianschedule.scheduleJobflie('xiuxian','0 0 */1 * * ?');
 const xiuxain = await index.toindex('apps');
 const plugin = await index.toindex('plugins');
 const apps = { ...xiuxain, ...plugin };
