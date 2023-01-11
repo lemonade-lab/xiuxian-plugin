@@ -1,7 +1,15 @@
 import robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
-import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../model/public.js';
+import {
+    existplayer,
+    exist_najie_thing_name,
+    Read_najie,
+    Read_equipment,
+    Write_equipment,
+    Write_najie,
+    Add_najie_thing
+} from '../../model/public.js';
 export class Userequipment extends robotapi {
     constructor() {
         super(superIndex([
@@ -58,12 +66,12 @@ export class Userequipment extends robotapi {
         if (!islearned) {
             return;
         };
-        const q={
-            "x":0
+        const q = {
+            "x": 0
         };
-        equipment.forEach((item,index,arr)=>{
-            if(item.name==thing_name&&q.x==0){
-                q.x=1;
+        equipment.forEach((item, index, arr) => {
+            if (item.name == thing_name && q.x == 0) {
+                q.x = 1;
                 arr.splice(index, 1);
             };
         });
