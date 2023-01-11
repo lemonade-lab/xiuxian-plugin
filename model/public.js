@@ -57,8 +57,7 @@ export const Read = async (usr_qq, PATH) => {
 export const Write = async (usr_qq, player, PATH) => {
     const dir = path.join(PATH, `${usr_qq}.json`)
     const new_ARR = JSON.stringify(player, '', '\t')
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {})
     return
 }
 //初次使用
@@ -183,8 +182,8 @@ export const Write_equipment = async (usr_qq, equipment) => {
 export const Read_battle = async (usr_qq) => {
     const equipment = await Read_equipment(usr_qq)
     const level = await Read_level(usr_qq)
-    const levelmini = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == level.level_id)
-    const levelmax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == level.levelmax_id)
+    const levelmini =  await returnLevel().find(item => item.id == level.level_id)
+    const levelmax =  await returnLevelMax().find(item => item.id == level.levelmax_id)
     //双境界面板之和
     let the = {
         attack: levelmini.attack + levelmax.attack,
@@ -665,7 +664,7 @@ export const player_efficiency = async (usr_qq) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.name == thing)
+    const ifexist0 = await returnAll().find(item => item.name == thing)
     if (!ifexist0) {
         return 1
     }
@@ -675,7 +674,7 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.id == thing_id)
+    const ifexist0 = await returnAll().find(item => item.id == thing_id)
     if (!ifexist0) {
         return 1
     } else {
@@ -1103,7 +1102,7 @@ export const map_distance = async (A, B) => {
 }
 //输入：模糊搜索名字并判断是否在此地
 export const point_map = async (action, addressName) => {
-    const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`))
+    const point = await returnPoint()
     let T = false
     point.forEach((item, index, arr) => {
         //存在模糊
