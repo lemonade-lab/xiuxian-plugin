@@ -35,7 +35,7 @@ export class UserStart extends robotapi {
         if (!ifexistplay) {
             const img = await get_player_img(e.user_id);
             if(img==undefined){
-                e.reply('已死亡，需要#再入仙途');
+                e.reply('已死亡');
             }else{
                 e.reply(img);
             }

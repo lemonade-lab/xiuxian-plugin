@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import data from './XiuxianData.js';
-import {__dirname} from './main.js'
+import { __dirname } from './main.js'
 //插件地址
 //插件地址链
 export const __PATH = {
@@ -64,9 +64,9 @@ export const existplayer = async (usr_qq) => {
         return false;
     };
     //存在，没有死
-    if(find.status != 0){
+    if (find.status != 0) {
         return true;
-    }else{
+    } else {
         return false;
     }
 };
@@ -76,7 +76,7 @@ export const existplayerplugins = async (usr_qq) => {
     const find = life.find(item => item.qq == usr_qq);
     if (find == undefined) {
         return false;
-    }else{
+    } else {
         return find;
     };
 };
@@ -92,9 +92,9 @@ export const Write_player = async (usr_qq, player) => {
 //读取拓展
 export const Read_extend = async (usr_qq) => {
     const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
-    let player ;
+    let player;
     if (!fs.existsSync(dir)) {
-        await Write_extend(usr_qq,{});
+        await Write_extend(usr_qq, {});
     }
     return await Read(usr_qq, __PATH.extend);
 };
@@ -196,9 +196,9 @@ export const Read_battle = async (usr_qq) => {
         equ.speed = equ.speed + item.speed;
     });
     //计算插件临时属性及永久属性
-    let extend =await Read_extend(usr_qq);
+    let extend = await Read_extend(usr_qq);
     extend = Object.values(extend);
-    for(let i =0;i<extend.length;i++){
+    for (let i = 0; i < extend.length; i++) {
         //永久属性计算
         equ.attack = equ.attack + extend[i]["perpetual"].attack;
         equ.defense = equ.defense + extend[i]["perpetual"].defense;
@@ -208,26 +208,26 @@ export const Read_battle = async (usr_qq) => {
         equ.speed = equ.speed + extend[i]["perpetual"].speed;
         //临时属性计算
         console.log(new Date().getTime());
-        for(let j in extend[i]["times"]){
+        for (let j in extend[i]["times"]) {
             console.log(extend[i]["times"][j].timeLimit);
-            if(extend[i]["times"][j].timeLimit > new Date().getTime()){
+            if (extend[i]["times"][j].timeLimit > new Date().getTime()) {
                 console.log(equ[extend[i]["times"][j].type]);
-                equ[extend[i]["times"][j].type]+= extend[i]["times"][j].value;
+                equ[extend[i]["times"][j].type] += extend[i]["times"][j].value;
                 console.log(equ[extend[i]["times"][j].type]);
             }
         }
     }
     //血量上限 换装导致血量溢出时需要
     const bloodLimit = levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * equ.blood * 0.01);
-    const player =await Read(usr_qq, __PATH.battle);
-    the.attack =Math.floor(the.attack * ((equ.attack *0.01) + 1));
-    the.defense =Math.floor(the.defense * ((equ.defense *0.01) + 1));
+    const player = await Read(usr_qq, __PATH.battle);
+    the.attack = Math.floor(the.attack * ((equ.attack * 0.01) + 1));
+    the.defense = Math.floor(the.defense * ((equ.defense * 0.01) + 1));
     the.blood = bloodLimit;
     the.nowblood = player.nowblood > bloodLimit ? bloodLimit : player.nowblood;
     the.burst += equ.burst;
     the.burstmax += equ.burstmax;
     the.speed += equ.speed;
-    the.power = the.attack + the.defense + bloodLimit/2 + the.burst*100 + the.burstmax*10 + the.speed*50;
+    the.power = the.attack + the.defense + bloodLimit / 2 + the.burst * 100 + the.burstmax * 10 + the.speed * 50;
     return the;
 };
 //魔力操作
@@ -289,16 +289,16 @@ export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
 
 export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
     const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
-    let player ;
+    let player;
     if (!fs.existsSync(dir)) {
         player = {};
-    }else {
-        player =await Read_extend(usr_qq);
+    } else {
+        player = await Read_extend(usr_qq);
     }
-    if(!isNotNull(player[flag])){
-        const extend ={
-            "times":[],
-            "perpetual":{
+    if (!isNotNull(player[flag])) {
+        const extend = {
+            "times": [],
+            "perpetual": {
                 "attack": 0,
                 "defense": 0,
                 "blood": 0,
@@ -308,26 +308,26 @@ export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
                 "efficiency": 0
             }
         };
-        player[flag]=extend;
+        player[flag] = extend;
     }
-    player[flag].perpetual[type]=value;
-    await Write_extend(usr_qq,player);
+    player[flag].perpetual[type] = value;
+    await Write_extend(usr_qq, player);
     return;
 };
 
 //限时属性
 export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
     const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
-    let player ;
+    let player;
     if (!fs.existsSync(dir)) {
         player = {};
-    }else {
-        player =await Read_extend(usr_qq);
+    } else {
+        player = await Read_extend(usr_qq);
     }
-    if(!isNotNull(player[flag])){
-        const extend ={
-            "times":[],
-            "perpetual":{
+    if (!isNotNull(player[flag])) {
+        const extend = {
+            "times": [],
+            "perpetual": {
                 "attack": 0,
                 "defense": 0,
                 "blood": 0,
@@ -337,7 +337,7 @@ export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
                 "efficiency": 0
             }
         };
-        player[flag]=extend;
+        player[flag] = extend;
     }
     const find = player[flag].times.findIndex(item => item.type == type);
     const timExtend = {
@@ -345,17 +345,17 @@ export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
         "value": value,
         "timeLimit": endTime
     };
-    if(find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value >= value){
-        await Write_extend(usr_qq,player);
+    if (find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value >= value) {
+        await Write_extend(usr_qq, player);
         return;
-    }else if(find != -1 && (player[flag].times[find].timeLimit <= new Date().getTime() || player[flag].times[find].value < value)){
-        player[flag].times[find].value=value;
-        player[flag].times[find].timeLimit=endTime;
-        await Write_extend(usr_qq,player);
+    } else if (find != -1 && (player[flag].times[find].timeLimit <= new Date().getTime() || player[flag].times[find].value < value)) {
+        player[flag].times[find].value = value;
+        player[flag].times[find].timeLimit = endTime;
+        await Write_extend(usr_qq, player);
         return;
-    }else {
+    } else {
         player[flag].times.push(timExtend);
-        await Write_extend(usr_qq,player);
+        await Write_extend(usr_qq, player);
         return;
     }
 };
@@ -633,10 +633,10 @@ export const player_efficiency = async (usr_qq) => {
         the.gongfa_efficiency = the.gongfa_efficiency + item.size;
     });
     the.linggen_efficiency = await talentsize(player);
-    let promise =await Read_extend(usr_qq);
+    let promise = await Read_extend(usr_qq);
     promise = Object.values(promise);
-    let extend=0;
-    for (let i in promise){
+    let extend = 0;
+    for (let i in promise) {
         extend += (promise[i].perpetual.efficiency * 100);
     }
     player.talentsize = the.linggen_efficiency + the.gongfa_efficiency + extend;
@@ -812,7 +812,7 @@ export const isNotBlank = (value) => {
  * 强制修正至少为1
  */
 export const Numbers = async (value) => {
-    let size=value;
+    let size = value;
     if (isNaN(parseFloat(size)) && !isFinite(size)) {
         size = 1;
     };
@@ -907,6 +907,66 @@ export const Go = async (e) => {
     };
     return true;
 };
+
+export const pluginGo = async (usr_qq) => {
+    let action = await redis.get(`xiuxian:player:${usr_qq}:action`);
+    if (action != undefined) {
+        action = JSON.parse(action);
+        if (action.actionName == undefined) {
+            return {
+                'actoin': '1',
+                'msg': `旧版数据残留,请联系主人使用[#修仙删除数据]`
+            }
+        };
+        return {
+            'actoin': '1',
+            'msg': `${action.actionName}中...`
+        };
+    };
+    const player = await Read_battle(usr_qq);
+    if (player.nowblood <= 1) {
+        return {
+            'actoin': '1',
+            'msg': `血量不足`
+        };
+    };
+    return {
+        'actoin': '0',
+        'msg': ``
+    };
+};
+
+export const pluginGoMini = async (usr_qq) => {
+    let action = await redis.get(`xiuxian:player:${usr_qq}:action`);
+    if (action != undefined) {
+        action = JSON.parse(action);
+        if (action.actionName == undefined) {
+            return {
+                'actoin': '1',
+                'msg': `旧版数据残留,请联系主人使用[#修仙删除数据]`
+            }
+        };
+        return {
+            'actoin': '1',
+            'msg': `${action.actionName}中...`
+        };
+    };
+    const player = await Read_battle(usr_qq);
+    if (player.nowblood <= 1) {
+        return {
+            'actoin': '1',
+            'msg': `血量不足`
+        };
+    };
+    return {
+        'actoin': '0',
+        'msg': ``
+    };
+};
+
+
+
+
 const CDname = {
     '0': '攻击',
     '1': '降妖',
