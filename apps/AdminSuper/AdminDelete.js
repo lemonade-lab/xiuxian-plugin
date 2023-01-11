@@ -1,6 +1,5 @@
 import robotapi from "../../model/robotapi.js";
 import {
-    __PATH,
     offaction,
     At,
     Write_Life,

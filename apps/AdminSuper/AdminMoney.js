@@ -1,6 +1,5 @@
 import robotapi from "../../model/robotapi.js";
 import {
-    __PATH,
     At,
     Numbers,
     Add_lingshi,

@@ -6,7 +6,6 @@ import {
     Read_action,
     existplayer,
     GenerateCD,
-    __PATH,
     exist_najie_thing_name,
     At,
     battle,

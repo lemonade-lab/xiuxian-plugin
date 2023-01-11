@@ -1,6 +1,6 @@
 import robotapi from "../../model/robotapi.js";
 import config from '../../model/Config.js';
-import { offaction, Read_Life, Write_Life, __PATH } from '../../model/public.js';
+import { offaction, Read_Life, Write_Life} from '../../model/public.js';
 import { superIndex } from "../../model/robotapi.js";
 export class UserTask extends robotapi {
     constructor() {

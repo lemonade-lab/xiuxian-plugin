@@ -1,11 +1,10 @@
 import fs from 'node:fs';
 import path from 'path';
-import data from './XiuxianData.js';
 import {
-  existplayer, __PATH, Write_player, get_talent, Write_najie,
+  existplayer, Write_player, get_talent, Write_najie,
   Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency,
-  Write_action, Write_equipment, Write_Life, Read_Life, Anyarray,
-  Read_level, Read_wealth, Numbers
+  Write_action, Write_equipment, Write_Life, Read_Life, Anyarray, Read,
+  Read_level, Read_wealth, Numbers, returnLevel, returnPosirion
 } from './public.js';
 const __dirname = `${path.resolve()}${path.sep}plugins`;
 class pluginup {
@@ -18,7 +17,7 @@ class pluginup {
       data.forEach(async (item) => {
         const user_qq = item.replace(`${NEW__PATH}${path.sep}`, '').replace('.json', '');
         await this.Create_player(user_qq);
-        const player = await this.Read(item);
+        const player = await Read(item);
         let level = await Read_level(user_qq);
         level.level_id = await Numbers(player.level_id / 5);
         level.levelmax_id = await Numbers(player.Physique_id / 5);
@@ -73,7 +72,7 @@ class pluginup {
       'days': 0//签到
     };
     const new_battle = {
-      'nowblood': JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == 1).blood + JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == 1).blood,//血量
+      'nowblood': await returnLevel().find(item => item.id == 1).blood + await returnLevel().find(item => item.id == 1).blood
     };
     const new_level = {
       'prestige': 0,//魔力
@@ -93,7 +92,7 @@ class pluginup {
       'lingshi': 0,
       'xianshi': 0
     };
-    const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西');
+    const position = await returnPosirion().find(item => item.name == '极西');
     const positionID = position.id.split('-');
     const the = {
       mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
@@ -149,20 +148,6 @@ class pluginup {
     await Write_najie(usr_qq, new_najie);
     await Write_Life(life);
     return;
-  };
-  /**
-   * 读取数据
-   */
-  Read = async (PATH) => {
-    const dir = path.join(`${PATH}`);
-    let player = fs.readFileSync(dir, 'utf8', (err, data) => {
-      if (err) {
-        return 'error';
-      };
-      return data;
-    });
-    player = JSON.parse(player);
-    return player;
   };
 };
 export default new pluginup();

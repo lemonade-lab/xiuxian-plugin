@@ -4,7 +4,6 @@ import { superIndex } from "../../model/robotapi.js";
 import {
     Go,
     GenerateCD,
-    __PATH,
     Read_level,
     Write_level,
     Read_Life,

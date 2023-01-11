@@ -2,42 +2,19 @@ import fs from 'fs';
 import path from 'path';
 import data from './XiuxianData.js';
 import { __dirname } from './main.js'
-//插件地址
-//插件地址链
-export const __PATH = {
-    'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
-    'extend': path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
-    'action': path.join(__dirname, '/resources/data/birth/xiuxian/action'),
-    'battle': path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
-    'equipment': path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
-    'level': path.join(__dirname, '/resources/data/birth/xiuxian/level'),
-    'talent': path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
-    'wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
-    'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    'life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
-    'all': path.join(__dirname, '/resources/data/birth/all'),
-    'position': path.join(__dirname, '/resources/data/birth/position'),
-    'Level': path.join(__dirname, '/resources/data/birth/Level')
-};
-/**
- * 从dropsItem表中随机丢出一键物品 
- */
-
-export const randomThing=async()=>{
+import { __PATH } from './XiuxianData.js';
+export const randomThing = async () => {
     const dropsItemList = JSON.parse(fs.readFileSync(`${__PATH.all}/dropsItem.json`));
     const random = Math.floor(Math.random() * dropsItemList.length);
     return dropsItemList[random]
 }
-
-export const returnLevel=async(id)=>{
+export const returnLevel = async (id) => {
     return JSON.parse(fs.readFileSync(`${__PATH.Level}/Level_list.json`)).find(item => item.id == id)
 }
-
-export const returnLevelMax=async(id)=>{
+export const returnLevelMax = async (id) => {
     return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`)).find(item => item.id == id)
 }
-
-export const returnUid=async()=>{
+export const returnUid = async () => {
     const playerList = [];
     const files = fs
         .readdirSync(__PATH.player)
@@ -45,22 +22,18 @@ export const returnUid=async()=>{
     files.forEach((item) => {
         const file = item.replace('.json', '');
         playerList.push(file);
-    }); 
+    });
     return playerList
 }
-
-export const returnPosirion=async()=>{
+export const returnPosirion = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.position}/position.json`));
 }
-
-export const returnPoint=async()=>{
+export const returnPoint = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.position}/point.json`));
 }
-
-export const returnCommodities=async()=>{
+export const returnCommodities = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.all}/commodities.json`))
 }
-
 /**
  * 读取数据
  */
@@ -86,7 +59,6 @@ export const Write = async (usr_qq, player, PATH) => {
     });
     return;
 };
-
 //初次使用
 export const exist = async (usr_qq) => {
     const life = await Read_Life();
@@ -99,7 +71,6 @@ export const exist = async (usr_qq) => {
         return false;
     };
 };
-
 //基础存档
 export const existplayer = async (usr_qq) => {
     const life = await Read_Life();
@@ -125,9 +96,6 @@ export const existplayerplugins = async (usr_qq) => {
         return find;
     };
 };
-
-
-
 //读取存档
 export const Read_player = async (usr_qq) => {
     return await Read(usr_qq, __PATH.player);
@@ -140,7 +108,6 @@ export const Write_player = async (usr_qq, player) => {
 //读取拓展
 export const Read_extend = async (usr_qq) => {
     const dir = path.join(`${__PATH.extend}/${usr_qq}.json`);
-    let player;
     if (!fs.existsSync(dir)) {
         await Write_extend(usr_qq, {});
     }

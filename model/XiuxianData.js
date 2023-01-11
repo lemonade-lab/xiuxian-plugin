@@ -1,61 +1,71 @@
 import fs from 'node:fs';
 import path from 'path';
 import { __dirname } from './main.js';
+export const __PATH = {
+    'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
+    'extend': path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
+    'action': path.join(__dirname, '/resources/data/birth/xiuxian/action'),
+    'battle': path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
+    'equipment': path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
+    'level': path.join(__dirname, '/resources/data/birth/xiuxian/level'),
+    'talent': path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
+    'wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
+    'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
+    'life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+    //基础
+    'fixepoint': path.join(__dirname, '/resources/data/fixed/point'),
+    'fixedposition': path.join(__dirname, '/resources/data/fixed/position'),
+    'fixedequipment': path.join(__dirname, '/resources/data/fixed/equipment'),
+    'fixedgoods': path.join(__dirname, '/resources/data/fixed/goods'),
+    'fixedLevel': path.join(__dirname, '/resources/data/fixed/Level'),
+    'fixedoccupation': path.join(__dirname, '/resources/data/fixed/occupation'),
+    'fixedtalent': path.join(__dirname, '/resources/data/fixed/talent'),
+    //新增
+    'newgoods': path.join(__dirname, '/resources/goods'),
+    //生成
+    'all': path.join(__dirname, '/resources/data/birth/all'),
+    'position': path.join(__dirname, '/resources/data/birth/position'),
+    'Level': path.join(__dirname, '/resources/data/birth/Level'),
+};
 class XiuxianData {
     constructor() {
-        this.__PATH = {
-            //基础
-            'fixepoint': path.join(__dirname, '/resources/data/fixed/point'),
-            'fixedposition': path.join(__dirname, '/resources/data/fixed/position'),
-            'fixedequipment': path.join(__dirname, '/resources/data/fixed/equipment'),
-            'fixedgoods': path.join(__dirname, '/resources/data/fixed/goods'),
-            'fixedLevel': path.join(__dirname, '/resources/data/fixed/Level'),
-            'fixedoccupation': path.join(__dirname, '/resources/data/fixed/occupation'),
-            'fixedtalent': path.join(__dirname, '/resources/data/fixed/talent'),
-            //新增
-            'newgoods':path.join(__dirname, '/resources/goods'),
-            //生成
-            'all': path.join(__dirname, '/resources/data/birth/all'),
-            'position': path.join(__dirname, '/resources/data/birth/position'),
-            'Level': path.join(__dirname, '/resources/data/birth/Level'),
-        };
-        this.talent_list = JSON.parse(fs.readFileSync(`${this.__PATH.fixedtalent}/talent_list.json`));
-        this.newlist(this.__PATH.Level, 'Level_list', []);
-        this.newlist(this.__PATH.Level, 'Level_list', [
-            ...this.getlist(this.__PATH.fixedLevel, 'Level_list.json')
+        this.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixedtalent}/talent_list.json`));
+        this.newlist(__PATH.Level, 'Level_list', []);
+        this.newlist(__PATH.Level, 'Level_list', [
+            ...this.getlist(__PATH.fixedLevel, 'Level_list.json')
         ]);
-        this.newlist(this.__PATH.Level, 'LevelMax_list', []);
-        this.newlist(this.__PATH.Level, 'LevelMax_list', [
-            ...this.getlist(this.__PATH.fixedLevel, 'LevelMax_list.json')
+        this.newlist(__PATH.Level, 'LevelMax_list', []);
+        this.newlist(__PATH.Level, 'LevelMax_list', [
+            ...this.getlist(__PATH.fixedLevel, 'LevelMax_list.json')
         ]);
         //全物品表
-        this.newlist(this.__PATH.all, 'all', []);
-        this.newlist(this.__PATH.all, 'all', [
-            ...this.getlist(this.__PATH.fixedequipment, 'json'),
-            ...this.getlist(this.__PATH.fixedgoods, 'json'),
-            ...this.getlist(this.__PATH.newgoods, 'json')
+        this.newlist(__PATH.all, 'all', []);
+        this.newlist(__PATH.all, 'all', [
+            ...this.getlist(__PATH.fixedequipment, 'json'),
+            ...this.getlist(__PATH.fixedgoods, 'json'),
+            ...this.getlist(__PATH.newgoods, 'json')
         ]);
         //商品数据
-        this.newlist(this.__PATH.all, 'commodities', []);
-        this.newlist(this.__PATH.all, 'commodities', [
-            ...this.getlist(this.__PATH.fixedgoods, '0.json'),
-            ...this.getlist(this.__PATH.newgoods, '0.json')
+        this.newlist(__PATH.all, 'commodities', []);
+        this.newlist(__PATH.all, 'commodities', [
+            ...this.getlist(__PATH.fixedgoods, '0.json'),
+            ...this.getlist(__PATH.newgoods, '0.json')
         ]);
         //怪物掉落表
-        this.newlist(this.__PATH.all, 'dropsItem', []);
-        this.newlist(this.__PATH.all, 'dropsItem', [
-            ...this.getlist(this.__PATH.fixedequipment, 'json'),
-            ...this.getlist(this.__PATH.fixedgoods, 'json'),
-            ...this.getlist(this.__PATH.newgoods, '.json')
+        this.newlist(__PATH.all, 'dropsItem', []);
+        this.newlist(__PATH.all, 'dropsItem', [
+            ...this.getlist(__PATH.fixedequipment, 'json'),
+            ...this.getlist(__PATH.fixedgoods, 'json'),
+            ...this.getlist(__PATH.newgoods, '.json')
         ]);
         //地图系统数据
-        this.newlist(this.__PATH.position, 'position', []);
-        this.newlist(this.__PATH.position, 'position', [
-            ...this.getlist(this.__PATH.fixedposition, 'json')
+        this.newlist(__PATH.position, 'position', []);
+        this.newlist(__PATH.position, 'position', [
+            ...this.getlist(__PATH.fixedposition, 'json')
         ]);
-        this.newlist(this.__PATH.position, 'point', []);
-        this.newlist(this.__PATH.position, 'point', [
-            ...this.getlist(this.__PATH.fixepoint, 'json')
+        this.newlist(__PATH.position, 'point', []);
+        this.newlist(__PATH.position, 'point', [
+            ...this.getlist(__PATH.fixepoint, 'json')
         ]);
     };
     /**
