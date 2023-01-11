@@ -5,31 +5,33 @@ const name2 = ['兵', '将', '兽', '魔', '妖', '大妖', '王', '皇', '帝',
 class Cachemonster {
     constructor() { };
     monsterscache = async (i) => {
-        /**
-         * 看看i存在不存在，不存在就需要初始化
-         */
-        if (alldata.hasOwnProperty(i)) {
-            alldata[i].label == 99  //time
-            alldata[i].data = []   //data
+        if (!alldata.hasOwnProperty(i)) {
+            console.log('不存在')
+            alldata[i] = {
+                'label': 99,
+                'data': []
+            }
         }
         //看看现在就时间
         const time = new Date();
         //不相等就需要委派怪物
         if (time.getHours() != alldata[i].label) {
-            const data = await generateMonster()
+            const data = await this.generateMonster(i)
             return data
         } else {
             //万一相等也没有怪物数据呢？
             if (alldata[i].data.length != 0) {
                 return alldata[i].data;
             }
-            const data = await generateMonster()
+            const data = await this.generateMonster(i)
             return data
         };
     };
     add = async (i, num) => {
-        if (addall.hasOwnProperty(i)) {
-            addall[i].acount = 0;
+        if (!addall.hasOwnProperty(i)) {
+            addall[i] = {
+                'acount': 0
+            };
         }
         addall[i].acount += num;
         const p = Math.floor((Math.random() * (50 - 30))) + Number(30);
@@ -39,7 +41,7 @@ class Cachemonster {
         };
         return 0;
     };
-    generateMonster = async () => {
+    generateMonster = async (i) => {
         const time = new Date();
         const map = {
             '1': '1.3',
