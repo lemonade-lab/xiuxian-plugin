@@ -1,20 +1,16 @@
 import puppeteer from '../../../lib/puppeteer/puppeteer.js';
 import md5 from 'md5';
-const helpData = [];
+const helpData = {};
 class Cache {
     constructor() {};
      helpcache=async(data, i)=>{
-        let tmp = md5(JSON.stringify(data));
-        while (true) {
-            if (helpData.length <= i) {
-                helpData.push({
-                    md5: '',
-                    img: '',
-                });
-            } else {
-                break;
+        const tmp = md5(JSON.stringify(data));
+        if(!helpData.hasOwnProperty(i)){
+            helpData[i]={
+                'md5':'',
+                'img':''
             }
-        };
+        }
         if (helpData[i].md5 == tmp) {
             return helpData[i].img
         };
