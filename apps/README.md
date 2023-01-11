@@ -17,7 +17,7 @@ plugins/xiuxian-my-plugin/                                #插件名为xiuxian-m
 ### 2.简单的命令打印及其输出
 >myindex.js
 ```
-//js文件名字的前缀最好带上插件名,如黑市插件为darkindex.js或darkmain.js
+//js文件名字的前缀最好带上插件名,如黑市插件为myindex.js或mymain.js
 //引入Yunzai插件功能(注意路径)
 import roborapi from '../../../model/robotapi.js'
 import { superIndex } from '../../../model/robotapi.js'
@@ -98,19 +98,237 @@ export class myhelp extends roborapi {
 };
 ```
 ### （二）模板
+###### 1.定义全局
+>model/myfs.js
+```
+import fs from 'fs';
+import path from 'path';
+//新的写入
+export const newRead = async (dir) => {
+    try {
+        const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                return 'error';
+            };
+            return data;
+        });
+        return newdata;
+    } catch {
+        return 1;
+    };
+};
+//写入数据
+export const Write = async (usr_qq, data, PATH) => {
+    const dir = path.join(PATH, `${usr_qq}.json`);
+    const new_ARR = JSON.stringify(data, '', '\t');
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+    });
+    return;
+};
+```
 >model/mymain.js
 ```
 //引入盒子名与盒子数据位
-import {appname,dirname} from '../../../model/main.js'
+import path from 'path';
+import {appname} from '../../../model/main.js'
 //定义自己的插件名
 export const pluginname ='xiuxian-my-plugin'
+export const pluginDirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}${path.sep}plugins${path.sep}${pluginname}`;
 //定义自己的数据位置
-export const pluginresources=`plugins/${appname}/plugins/${pluginname}/resources`
+export const pluginResources=`plugins/${appname}/plugins/${pluginname}/resources`
 ```
+##### 2.存档机制
 >model/mypublic.js
 ```
-//引入隔壁自己定义的插件名
-import {pluginname} from './mymain.js'
+import path from 'path';
+//插件地址
+import { pluginDirname } from './mymain.js';
+//自定义的
+import { Write, newRead } from './myfs.js';
+//插件检测机制
+import { existplayerplugins } from '../../../model/public.js'
+//插件地址链
+export const __PATH = {
+    Exchange: path.join(pluginDirname, '/resources/data/birth/Exchange'),
+    Forum: path.join(pluginDirname, '/resources/data/birth/Forum'),
+    //存档位置
+    my_user: path.join(pluginDirname, '/resources/data/birth/my/user'),
+    //时间搓位置
+    my_life: path.join(pluginDirname, '/resources/data/birth/my/life')
+};
+/**
+*写入存档
+ */
+export const writemyPlayer = async (uid, data) => {
+    await Write(uid, data, __PATH.my_user)
+    return
+}
+/**
+*写入life
+ */
+export const writemyLife = async (data) => {
+    await Write(`mylife`, data, __PATH.my_life);
+    return
+}
+/**
+读取life
+ */
+export const readmyLife = async () => {
+    const dir = path.join(`${__PATH.my_life}/mylife.json`)
+    let life = await newRead(dir)
+    if (life == 1) {
+        //首次需要初始化
+        await writemyLife([])
+        return []
+    }
+    life = await JSON.parse(life)
+    return life
+}
+/**
+ * 创建存档
+ */
+export const myCreatePlayer = async (uid, time) => {
+    try {
+        /**
+         * my存档需要什么？
+         */
+        const myUser = {
+            'qq': uid
+        }
+        /**
+         * 写入存档
+         */
+        await writemyPlayer(uid, myUser)
+        /**
+         * 初始化一个life
+         */
+        const newmy = {
+            'uid': uid,
+            'createTime': time  //时间搓
+        }
+        /**
+         * 读取mylife.json
+         */
+        const myLife = await readmyLife()
+        myLife.push(newmy)
+        /**
+         * 写入新数据
+         */
+        await writemyLife(myLife)
+        return true
+    } catch {
+        return false
+    }
+}
+/**
+ * 检测my是否存档
+ */
+export const myExistPlayer = async (uid) => {
+    /**
+     * 就是找mylife里面有没有这个uid
+     */
+    const myLife = await readmyLife()
+    const find = myLife.find(item => item.uid == uid);
+    if (find == undefined) {
+        return false;
+    } else {
+        return find;
+    };
+}
+//这里要写一个存档检测机制
+export const myGo = async (uid) => {
+    //先检查box存档
+    const box = await existplayerplugins(uid)
+    if (!box) {
+        /**
+         * 不存在box存档就是undifined---false
+         */
+        console.log('不存在box存档')
+        return false
+    }
+    let my = await myExistPlayer(uid)
+    if (!my) {
+        /**
+         * 不存在my存档
+         * 需要直接初始化my存档
+         */
+        console.log('不存在my存档')
+        const myGo = await myCreatePlayer(uid, box.createTime)
+        if (!myGo) {
+            /**
+             * 初始化my失败
+             */
+            console.log('初始化my失败')
+            return false
+        }
+        //初始化成功要返回新数据
+        my = await myExistPlayer(uid)
+    }
+    
+    if (box.createTime != my.createTime) {
+        console.log('不是同一个人')
+        /**
+         * 需要把life中的那个时间给干掉
+         */
+        let mylife = await readmyLife();
+        mylife = await mylife.filter(item => item.uid != uid);
+        await writemyLife(mylife);
+        /**
+         * 初始化
+         */
+        const myGo = await myCreatePlayer(uid, box.createTime)
+        if (!myGo) {
+            /**
+             * 初始化my失败
+             */
+            console.log('初始化my失败')
+            return false
+        }
+    }
+    /**
+     * 死没死不是my说了算，而是box说了算
+     */
+    if (box.status == 0) {
+        /**
+         * 死了,需要清除全局aciton状态
+         */
+        return false
+    }
+    return true;
+}
+```
+##### 3.存档检测
+>apps/myuser.js
+```
+import robotapi from '../../../model/robotapi.js'
+import { superIndex } from '../../../model/robotapi.js'
+//插件专用GO
+import { pluginGo } from "../../../model/public.js";
+//我的Go
+import { myGo } from '../model/mypublic.js';
+export class myuser extends robotapi {
+    constructor() {
+        super(superIndex([
+            {
+                reg: '^#检测存档$',
+                fnc: 'myUser'
+            }
+        ]));
+    };
+    myUser = async (e) => {
+        const ifexistplay = await myGo(e.user_id);
+        if (!ifexistplay) {
+            return;
+        }
+        const good = await pluginGo(e.user_id);
+        if (good.actoin == 1) {
+            e.reply(good.msg)
+            return;
+        };
+        e.reply('成功通过')
+        return;
+    }
+}
 ```
 ### （三）数据推送
 ##### 1.编写地点数据文件
