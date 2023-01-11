@@ -3,7 +3,16 @@ import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
 import { superIndex } from "../../model/robotapi.js";
-import { Go, Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../model/public.js';
+import { Go, 
+    Read_action, 
+    Read_level, 
+    ForwardMsg, 
+    existplayer, 
+    Read_wealth, 
+    Write_action, 
+    Write_wealth, 
+    Read_battle 
+} from '../../model/public.js';
 const forwardsetTime = []
 const deliverysetTime = [];
 const useraction = [];

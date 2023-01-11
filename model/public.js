@@ -17,9 +17,24 @@ export const __PATH = {
     life: path.join(__dirname, '/resources/data/birth/xiuxian/life')
 };
 /**
+ * 从dropsItem表中随机丢出一键物品
+ */
+
+export const randomThing=async()=>{
+    const dropsItemList = JSON.parse(fs.readFileSync(`${__PATH.all}/dropsItem.json`));
+    const random = Math.floor(Math.random() * dropsItemList.length);
+    return dropsItemList[random]
+}
+/**
+ * 动态json统一写在这里
+ */
+
+
+
+/**
  * 读取数据
  */
-const Read = async (usr_qq, PATH) => {
+export const Read = async (usr_qq, PATH) => {
     const dir = path.join(`${PATH}/${usr_qq}.json`);
     const the = {
         player: ''
@@ -34,7 +49,7 @@ const Read = async (usr_qq, PATH) => {
     return the.player;
 };
 //写入数据
-const Write = async (usr_qq, player, PATH) => {
+export const Write = async (usr_qq, player, PATH) => {
     const dir = path.join(PATH, `${usr_qq}.json`);
     const new_ARR = JSON.stringify(player, '', '\t');
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
@@ -80,6 +95,9 @@ export const existplayerplugins = async (usr_qq) => {
         return find;
     };
 };
+
+
+
 //读取存档
 export const Read_player = async (usr_qq) => {
     return await Read(usr_qq, __PATH.player);

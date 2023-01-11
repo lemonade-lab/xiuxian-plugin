@@ -3,7 +3,15 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
 import fs from 'node:fs';
-import { Go, GenerateCD, __PATH, Read_level, Write_level, Read_Life, Write_Life } from '../../model/public.js';
+import {
+    Go,
+    GenerateCD,
+    __PATH,
+    Read_level,
+    Write_level,
+    Read_Life,
+    Write_Life
+} from '../../model/public.js';
 export class Level extends robotapi {
     constructor() {
         super(superIndex([

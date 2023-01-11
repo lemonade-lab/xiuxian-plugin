@@ -4,7 +4,23 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
 import fs from 'node:fs';
-import { Gomini, Go, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../model/public.js';
+import { 
+    Gomini, 
+    Go, 
+    Read_action, 
+    ForwardMsg, 
+    Read_battle, 
+    monsterbattle, 
+    Add_experiencemax, 
+    Add_experience, 
+    Add_lingshi, 
+    GenerateCD, 
+    Add_najie_thing, 
+    Read_najie, 
+    Write_najie, 
+    Read_talent, 
+    randomThing
+} from '../../model/public.js';
 export class BattleSite extends robotapi {
     constructor() {
         super(superIndex([
@@ -70,12 +86,11 @@ export class BattleSite extends robotapi {
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1);
             if (m < mon.level * 5) {
-                const dropsItemList = JSON.parse(fs.readFileSync(`${data.__PATH.all}/dropsItem.json`));
-                const random = Math.floor(Math.random() * dropsItemList.length);
+                const randomthinf=await randomThing()
                 let najie = await Read_najie(usr_qq);
                 if (najie.thing.length <= 21) {
-                    najie = await Add_najie_thing(najie, dropsItemList[random], 1);
-                    msg.push(`得到[${dropsItemList[random].name}]`);
+                    najie = await Add_najie_thing(najie, randomthinf, 1);
+                    msg.push(`得到[${randomthinf.name}]`);
                     await Write_najie(usr_qq, najie);
                 }else{
                     e.reply('储物袋已满');
