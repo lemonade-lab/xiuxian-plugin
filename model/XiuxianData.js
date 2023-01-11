@@ -1,6 +1,6 @@
-import fs from 'node:fs';
-import path from 'path';
-import { __dirname } from './main.js';
+import fs from 'node:fs'
+import path from 'path'
+import { __dirname } from './main.js'
 export const __PATH = {
     'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
     'extend': path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
@@ -26,48 +26,48 @@ export const __PATH = {
     'all': path.join(__dirname, '/resources/data/birth/all'),
     'position': path.join(__dirname, '/resources/data/birth/position'),
     'Level': path.join(__dirname, '/resources/data/birth/Level'),
-};
+}
 class XiuxianData {
     constructor() {
-        this.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixedtalent}/talent_list.json`));
-        this.newlist(__PATH.Level, 'Level_list', []);
+        this.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixedtalent}/talent_list.json`))
+        this.newlist(__PATH.Level, 'Level_list', [])
         this.newlist(__PATH.Level, 'Level_list', [
             ...this.getlist(__PATH.fixedLevel, 'Level_list.json')
-        ]);
-        this.newlist(__PATH.Level, 'LevelMax_list', []);
+        ])
+        this.newlist(__PATH.Level, 'LevelMax_list', [])
         this.newlist(__PATH.Level, 'LevelMax_list', [
             ...this.getlist(__PATH.fixedLevel, 'LevelMax_list.json')
-        ]);
+        ])
         //全物品表
-        this.newlist(__PATH.all, 'all', []);
+        this.newlist(__PATH.all, 'all', [])
         this.newlist(__PATH.all, 'all', [
             ...this.getlist(__PATH.fixedequipment, 'json'),
             ...this.getlist(__PATH.fixedgoods, 'json'),
             ...this.getlist(__PATH.newgoods, 'json')
-        ]);
+        ])
         //商品数据
-        this.newlist(__PATH.all, 'commodities', []);
+        this.newlist(__PATH.all, 'commodities', [])
         this.newlist(__PATH.all, 'commodities', [
             ...this.getlist(__PATH.fixedgoods, '0.json'),
             ...this.getlist(__PATH.newgoods, '0.json')
-        ]);
+        ])
         //怪物掉落表
-        this.newlist(__PATH.all, 'dropsItem', []);
+        this.newlist(__PATH.all, 'dropsItem', [])
         this.newlist(__PATH.all, 'dropsItem', [
             ...this.getlist(__PATH.fixedequipment, 'json'),
             ...this.getlist(__PATH.fixedgoods, 'json'),
             ...this.getlist(__PATH.newgoods, '.json')
-        ]);
+        ])
         //地图系统数据
-        this.newlist(__PATH.position, 'position', []);
+        this.newlist(__PATH.position, 'position', [])
         this.newlist(__PATH.position, 'position', [
             ...this.getlist(__PATH.fixedposition, 'json')
-        ]);
-        this.newlist(__PATH.position, 'point', []);
+        ])
+        this.newlist(__PATH.position, 'point', [])
         this.newlist(__PATH.position, 'point', [
             ...this.getlist(__PATH.fixepoint, 'json')
-        ]);
-    };
+        ])
+    }
     /**
      * @param {地址} path 
      * @param {表名} name 
@@ -75,47 +75,47 @@ class XiuxianData {
      * @param {新数据} newsum 
      */
     list = (PATH, name, sum, newsum) => {
-        const dir = path.join(PATH, `${name}.json`);
-        const new_ARR = JSON.stringify([...sum, ...newsum], '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { });
-    };
+        const dir = path.join(PATH, `${name}.json`)
+        const new_ARR = JSON.stringify([...sum, ...newsum], '', '\t')
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
+    }
     /**
      * @param {地址} path 
      * @param {表名} name 
      * @param {数据} sum 
      */
     newlist = (PATH, name, sum) => {
-        const dir = path.join(PATH, `${name}.json`);
-        const new_ARR = JSON.stringify(sum, '', '\t');
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { });
-    };
+        const dir = path.join(PATH, `${name}.json`)
+        const new_ARR = JSON.stringify(sum, '', '\t')
+        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
+    }
     /**
      * @param {地址} PATH 
      * @param {检索条件} type 
      */
     getlist = (PATH, type) => {
-        const newsum = [];
-        const data = [];
+        const newsum = []
+        const data = []
         const travel = (dir, callback) => {
             fs.readdirSync(dir).forEach((file) => {
-                var pathname = path.join(dir, file);
+                var pathname = path.join(dir, file)
                 if (fs.statSync(pathname).isDirectory()) {
-                    travel(pathname, callback);
+                    travel(pathname, callback)
                 } else {
-                    callback(pathname);
-                };
-            });
-        };
+                    callback(pathname)
+                }
+            })
+        }
         travel(PATH, (pathname) => {
-            let temporary = pathname.search(type);
+            let temporary = pathname.search(type)
             if (temporary != -1) {
-                newsum.push(pathname);
+                newsum.push(pathname)
             }
-        });
+        })
         newsum.forEach((file) => {
             data.push(...JSON.parse(fs.readFileSync(file)))
         })
-        return data;
-    };
-};
-export default new XiuxianData();
+        return data
+    }
+}
+export default new XiuxianData()

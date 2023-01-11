@@ -1,4 +1,4 @@
-import plugin from '../../../lib/plugins/plugin.js';
+import plugin from '../../../lib/plugins/plugin.js'
 export default class Robotapi extends plugin {}
 export const superIndex = (arr) => {
     return {

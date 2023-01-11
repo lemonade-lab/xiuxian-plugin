@@ -1,10 +1,10 @@
-import puppeteer from '../../../lib/puppeteer/puppeteer.js';
-import md5 from 'md5';
-const helpData = {};
+import puppeteer from '../../../lib/puppeteer/puppeteer.js'
+import md5 from 'md5'
+const helpData = {}
 class Cache {
-    constructor() {};
+    constructor() {}
      helpcache=async(data, i)=>{
-        const tmp = md5(JSON.stringify(data));
+        const tmp = md5(JSON.stringify(data))
         if(!helpData.hasOwnProperty(i)){
             helpData[i]={
                 'md5':'',
@@ -13,10 +13,10 @@ class Cache {
         }
         if (helpData[i].md5 == tmp) {
             return helpData[i].img
-        };
-        helpData[i].img = await puppeteer.screenshot('help', data);
-        helpData[i].md5 = tmp;
-        return helpData[i].img;
-    };
-};
-export default  new Cache();
+        }
+        helpData[i].img = await puppeteer.screenshot('help', data)
+        helpData[i].md5 = tmp
+        return helpData[i].img
+    }
+}
+export default  new Cache()

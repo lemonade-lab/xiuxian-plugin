@@ -1,6 +1,6 @@
-import robotapi from "../../model/robotapi.js";
-import config from '../../model/Config.js';
-import { superIndex } from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js"
+import config from '../../model/Config.js'
+import { superIndex } from "../../model/robotapi.js"
 import {
     Go,
     Read_action,
@@ -17,7 +17,7 @@ import {
     Read_level,
     Write_level,
     Read_wealth, Write_wealth
-} from '../../model/public.js';
+} from '../../model/public.js'
 export class Battle extends robotapi {
     constructor() {
         super(superIndex([
@@ -33,165 +33,165 @@ export class Battle extends robotapi {
                 reg: '^#洗手$',
                 fnc: 'handWashing'
             }
-        ]));
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    };
+        ]))
+        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+    }
     duel = async (e) => {
-        const good = await Go(e);
+        const good = await Go(e)
         if (!good) {
-            return;
-        };
+            return
+        }
         const user = {
             A: e.user_id,
             B: 0,
             C: 0,
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
-        };
-        user.B = await At(e);
+        }
+        user.B = await At(e)
         if (user.B == 0 || user.B == user.A) {
-            return;
-        };
-        const actionA = await Read_action(user.A);
-        const actionB = await Read_action(user.B);
+            return
+        }
+        const actionA = await Read_action(user.A)
+        const actionB = await Read_action(user.B)
         if (actionA.region != actionB.region) {
-            e.reply('此地未找到此人');
-            return;
-        };
-        const CDid = '11';
-        const now_time = new Date().getTime();
-        const CDTime = this.xiuxianConfigData.CD.Attack;
-        const CD = await GenerateCD(user.A, CDid);
+            e.reply('此地未找到此人')
+            return
+        }
+        const CDid = '11'
+        const now_time = new Date().getTime()
+        const CDTime = this.xiuxianConfigData.CD.Attack
+        const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
-            e.reply(CD);
-        };
+            e.reply(CD)
+        }
         
-        const najie_thing = await exist_najie_thing_name(user.A, '决斗令');
+        const najie_thing = await exist_najie_thing_name(user.A, '决斗令')
         if (najie_thing == 1) {
             e.reply(`没有决斗令`)
-            return;
-        };
-        let najie = await Read_najie(user.A);
-        najie = await Add_najie_thing(najie, najie_thing, -1);
-        await Write_najie(user.A, najie);
+            return
+        }
+        let najie = await Read_najie(user.A)
+        najie = await Add_najie_thing(najie, najie_thing, -1)
+        await Write_najie(user.A, najie)
 
-        user.QQ = await battle(e, user.A, user.B);
-        const Level = await Read_level(user.A);
-        Level.prestige += 1;
-        await Write_level(user.A, Level);
-        const LevelB = await Read_level(user.B);
-        const MP = LevelB.prestige * 10 + Number(50);
+        user.QQ = await battle(e, user.A, user.B)
+        const Level = await Read_level(user.A)
+        Level.prestige += 1
+        await Write_level(user.A, Level)
+        const LevelB = await Read_level(user.B)
+        const MP = LevelB.prestige * 10 + Number(50)
         if (user.p <= MP) {
             if (user.QQ != user.A) {
-                user.C = user.A;
-                user.A = user.B;
-                user.B = user.C;
-            };
-            let equipment = await Read_equipment(user.B);
+                user.C = user.A
+                user.A = user.B
+                user.B = user.C
+            }
+            let equipment = await Read_equipment(user.B)
             if (equipment.length > 0) {
-                const thing = await Anyarray(equipment);
-                equipment = equipment.filter(item => item.name != thing.name);
-                await Write_equipment(user.B, equipment);
-                let najie = await Read_najie(user.A);
-                najie = await Add_najie_thing(najie, thing, 1);
-                await Write_najie(user.A, najie);
-                e.reply(`${user.A}夺走了${thing.name}`);
-            };
-        };
-        await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time);
-        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
-        return;
-    };
+                const thing = await Anyarray(equipment)
+                equipment = equipment.filter(item => item.name != thing.name)
+                await Write_equipment(user.B, equipment)
+                let najie = await Read_najie(user.A)
+                najie = await Add_najie_thing(najie, thing, 1)
+                await Write_najie(user.A, najie)
+                e.reply(`${user.A}夺走了${thing.name}`)
+            }
+        }
+        await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60)
+        return
+    }
     attack = async (e) => {
-        const good = await Go(e);
+        const good = await Go(e)
         if (!good) {
-            return;
-        };
+            return
+        }
         const user = {
             A: e.user_id,
             B: 0,
             C: 0,
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
-        };
-        user.B = await At(e);
+        }
+        user.B = await At(e)
         if (user.B == 0 || user.B == user.A) {
-            return;
-        };
-        const actionA = await Read_action(user.A);
-        const actionB = await Read_action(user.B);
+            return
+        }
+        const actionA = await Read_action(user.A)
+        const actionB = await Read_action(user.B)
         if (actionA.region != actionB.region) {
-            e.reply('此地未找到此人');
-            return;
-        };
+            e.reply('此地未找到此人')
+            return
+        }
         if (actionA.address == 1) {
-            e.reply('[修仙联盟]普通卫兵:城内不可出手!');
-            return;
-        };
+            e.reply('[修仙联盟]普通卫兵:城内不可出手!')
+            return
+        }
         if (actionB.address == 1) {
-            e.reply('[修仙联盟]普通卫兵:城内不可出手!');
-            return;
-        };
-        const CDid = '0';
-        const now_time = new Date().getTime();
-        const CDTime = this.xiuxianConfigData.CD.Attack;
-        const CD = await GenerateCD(user.A, CDid);
+            e.reply('[修仙联盟]普通卫兵:城内不可出手!')
+            return
+        }
+        const CDid = '0'
+        const now_time = new Date().getTime()
+        const CDTime = this.xiuxianConfigData.CD.Attack
+        const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
-            e.reply(CD);
-        };
-        user.QQ = await battle(e, user.A, user.B);
-        const Level = await Read_level(user.A);
-        Level.prestige += 1;
-        await Write_level(user.A, Level);
-        const LevelB = await Read_level(user.B);
-        const MP = LevelB.prestige * 10 + Number(50);
+            e.reply(CD)
+        }
+        user.QQ = await battle(e, user.A, user.B)
+        const Level = await Read_level(user.A)
+        Level.prestige += 1
+        await Write_level(user.A, Level)
+        const LevelB = await Read_level(user.B)
+        const MP = LevelB.prestige * 10 + Number(50)
         if (user.p <= MP) {
             if (user.QQ != user.A) {
-                user.C = user.A;
-                user.A = user.B;
-                user.B = user.C;
-            };
-            let equipment = await Read_equipment(user.B);
+                user.C = user.A
+                user.A = user.B
+                user.B = user.C
+            }
+            let equipment = await Read_equipment(user.B)
             if (equipment.length > 0) {
-                const thing = await Anyarray(equipment);
-                equipment = equipment.filter(item => item.name != thing.name);
-                await Write_equipment(user.B, equipment);
-                let najie = await Read_najie(user.A);
-                najie = await Add_najie_thing(najie, thing, 1);
-                await Write_najie(user.A, najie);
-                e.reply(`${user.A}夺走了${thing.name}`);
-            };
-        };
-        await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time);
-        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60);
-        return;
-    };
+                const thing = await Anyarray(equipment)
+                equipment = equipment.filter(item => item.name != thing.name)
+                await Write_equipment(user.B, equipment)
+                let najie = await Read_najie(user.A)
+                najie = await Add_najie_thing(najie, thing, 1)
+                await Write_najie(user.A, najie)
+                e.reply(`${user.A}夺走了${thing.name}`)
+            }
+        }
+        await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60)
+        return
+    }
     handWashing = async (e) => {
         if (!e.isGroup) {
-            return;
-        };
-        const usr_qq = e.user_id;
-        const ifexistplay = await existplayer(usr_qq);
+            return
+        }
+        const usr_qq = e.user_id
+        const ifexistplay = await existplayer(usr_qq)
         if (!ifexistplay) {
-            return;
-        };
-        const Level = await Read_level(usr_qq);
-        const money = 10000 * Level.level_id;
+            return
+        }
+        const Level = await Read_level(usr_qq)
+        const money = 10000 * Level.level_id
         if (Level.prestige > 0) {
-            const wealt = await Read_wealth(usr_qq);
+            const wealt = await Read_wealth(usr_qq)
             if (wealt.lingshi > money) {
-                Level.prestige -= 1;
-                wealt.lingshi -= money;
-                await Write_level(usr_qq, Level);
-                await Write_wealth(usr_qq, wealt);
-                e.reply('[天机门]南宫问天\n为你清除1点魔力值');
-                return;
+                Level.prestige -= 1
+                wealt.lingshi -= money
+                await Write_level(usr_qq, Level)
+                await Write_wealth(usr_qq, wealt)
+                e.reply('[天机门]南宫问天\n为你清除1点魔力值')
+                return
             }
-            e.reply(`[天机门]韩立\n清魔力需要${money}`);
-            return;
+            e.reply(`[天机门]韩立\n清魔力需要${money}`)
+            return
         } else {
-            e.reply('[天机门]李逍遥\n你一身清廉');
-        };
-        return;
-    };
-};
+            e.reply('[天机门]李逍遥\n你一身清廉')
+        }
+        return
+    }
+}

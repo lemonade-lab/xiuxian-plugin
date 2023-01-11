@@ -1,10 +1,10 @@
-import robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js"
 import { 
     get_map_img,
     get_updata_img,
     get_config_img 
-} from '../../model/showdata.js';
-import { superIndex } from "../../model/robotapi.js";
+} from '../../model/showdata.js'
+import { superIndex } from "../../model/robotapi.js"
 export class showall extends robotapi {
     constructor() {
         super(superIndex([
@@ -20,21 +20,21 @@ export class showall extends robotapi {
                 reg: '^#修仙配置$',
                 fnc: 'show_config',
             }
-        ]));
-    };
+        ]))
+    }
     show_map = async (e) => {
-        const img = await get_map_img();
-        e.reply(img);
-        return;
-    };
+        const img = await get_map_img()
+        e.reply(img)
+        return
+    }
     show_updata = async (e) => {
-        const img = await get_updata_img();
-        e.reply(img);
-        return;
-    };
+        const img = await get_updata_img()
+        e.reply(img)
+        return
+    }
     show_config = async (e) => {
-        const img = await get_config_img();
-        e.reply(img);
-        return;
-    };
-};
+        const img = await get_config_img()
+        e.reply(img)
+        return
+    }
+}

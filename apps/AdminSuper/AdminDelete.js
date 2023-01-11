@@ -1,11 +1,11 @@
-import robotapi from "../../model/robotapi.js";
+import robotapi from "../../model/robotapi.js"
 import {
     offaction,
     At,
     Write_Life,
     Read_Life
-} from '../../model/public.js';
-import { superIndex } from "../../model/robotapi.js";
+} from '../../model/public.js'
+import { superIndex } from "../../model/robotapi.js"
 export class AdminDelete extends robotapi {
     constructor() {
         super(superIndex([
@@ -21,48 +21,48 @@ export class AdminDelete extends robotapi {
                 reg: '^#修仙删除信息.*$',
                 fnc: 'deleteuser'
             }
-        ]));
-    };
+        ]))
+    }
     deleteredis = async (e) => {
         if (!e.isMaster) {
-            return;
-        };
-        const allkey = await redis.keys('xiuxian:*', (err, data) => { });
+            return
+        }
+        const allkey = await redis.keys('xiuxian:*', (err, data) => { })
         if (allkey) {
             allkey.forEach(async (item) => {
-                await redis.del(item);
-            });
-            e.reply('删除完成');
-            return;
-        };
-        e.reply('世界无一花草');
-        return;
-    };
+                await redis.del(item)
+            })
+            e.reply('删除完成')
+            return
+        }
+        e.reply('世界无一花草')
+        return
+    }
     deleteallusers = async (e) => {
         if (!e.isMaster) {
-            return;
-        };
-        await Write_Life([]);
-        await this.deleteredis(e);
-        return;
-    };
+            return
+        }
+        await Write_Life([])
+        await this.deleteredis(e)
+        return
+    }
     deleteuser = async (e) => {
         if (!e.isMaster) {
-            return;
-        };
-        const B = await At(e);
+            return
+        }
+        const B = await At(e)
         if (B == 0) {
-            return;
-        };
-        await offaction(B);
-        let life = await Read_Life();
+            return
+        }
+        await offaction(B)
+        let life = await Read_Life()
         life.forEach((item, index, arr) => {
             if (item.qq == B) {
-                arr.splice(index, 1);
-            };
-        });
-        await Write_Life(life);
-        e.reply('信息崩碎');
-        return;
-    };
-};
+                arr.splice(index, 1)
+            }
+        })
+        await Write_Life(life)
+        e.reply('信息崩碎')
+        return
+    }
+}
