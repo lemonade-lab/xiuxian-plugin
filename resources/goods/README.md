@@ -30,6 +30,8 @@
 
 酱紫玩家就可以在怪物身上有一定概率打落该物品了
 
+ID含义请翻阅开发者文档的数据字段[☞文档](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/apps/README.md) 
+
 ### 如何让玩家购买?
 
 `凡仙堂`原则上只卖丹药,也只显示丹药属性
