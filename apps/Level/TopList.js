@@ -1,10 +1,10 @@
 import robotapi from "../../model/robotapi.js";
-import fs from 'fs';
 import {
     existplayer,
-    __PATH, sortBy,
+    sortBy,
     Read_level,
-    Read_battle
+    Read_battle,
+    returnUid
 } from '../../model/public.js';
 import { get_toplist_img } from '../../model/showdata.js';
 import { superIndex } from "../../model/robotapi.js";
@@ -27,16 +27,9 @@ export class TopList extends robotapi {
         if (!ifexistplay) {
             return;
         };
-        const playerList = [];
+        const playerList = await returnUid()
         const temp = [];
         const list = [];
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'));
-        files.forEach((item) => {
-            const file = item.replace('.json', '');
-            playerList.push(file);
-        });
         for (let item of playerList) {
             const newbattle = await Read_level(item);
             if (newbattle.prestige > 0) {
@@ -70,14 +63,7 @@ export class TopList extends robotapi {
         };
         const list = [];
         const temp = [];
-        const playerList = [];
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'));
-        files.forEach((item) => {
-            const file = item.replace('.json', '');
-            playerList.push(file);
-        });
+        const playerList = await returnUid()
         for (let item of playerList) {
             const level = await Read_level(item);
             if (level.level_id <= 10) {

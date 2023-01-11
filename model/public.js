@@ -14,11 +14,13 @@ export const __PATH = {
     'talent': path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
     'wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     'najie': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    'Level': path.join(__dirname, '/resources/data/birth/Level'),
-    'life': path.join(__dirname, '/resources/data/birth/xiuxian/life')
+    'life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+    'all': path.join(__dirname, '/resources/data/birth/all'),
+    'position': path.join(__dirname, '/resources/data/birth/position'),
+    'Level': path.join(__dirname, '/resources/data/birth/Level')
 };
 /**
- * 从dropsItem表中随机丢出一键物品
+ * 从dropsItem表中随机丢出一键物品 
  */
 
 export const randomThing=async()=>{
@@ -33,6 +35,30 @@ export const returnLevel=async(id)=>{
 
 export const returnLevelMax=async(id)=>{
     return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`)).find(item => item.id == id)
+}
+
+export const returnUid=async()=>{
+    const playerList = [];
+    const files = fs
+        .readdirSync(__PATH.player)
+        .filter((file) => file.endsWith('.json'));
+    files.forEach((item) => {
+        const file = item.replace('.json', '');
+        playerList.push(file);
+    }); 
+    return playerList
+}
+
+export const returnPosirion=async()=>{
+    return JSON.parse(fs.readFileSync(`${__PATH.position}/position.json`));
+}
+
+export const returnPoint=async()=>{
+    return JSON.parse(fs.readFileSync(`${__PATH.position}/point.json`));
+}
+
+export const returnCommodities=async()=>{
+    return JSON.parse(fs.readFileSync(`${__PATH.all}/commodities.json`))
 }
 
 /**

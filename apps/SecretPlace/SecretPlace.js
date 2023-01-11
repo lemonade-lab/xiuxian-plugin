@@ -1,6 +1,4 @@
 import robotapi from "../../model/robotapi.js";
-import data from '../../model/XiuxianData.js';
-import fs from 'node:fs';
 import { segment } from 'oicq';
 import { superIndex } from "../../model/robotapi.js";
 import { Go, 
@@ -11,7 +9,9 @@ import { Go,
     Read_wealth, 
     Write_action, 
     Write_wealth, 
-    Read_battle 
+    Read_battle, 
+    returnPosirion,
+    returnPoint
 } from '../../model/public.js';
 const forwardsetTime = []
 const deliverysetTime = [];
@@ -56,7 +56,7 @@ export class SecretPlace extends robotapi {
             return;
         };
         const addressId = `${action.z}-${action.region}-${action.address}`;
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
+        const point =  await returnPoint()
         const address = [];
         const msg = [];
         point.forEach((item) => {
@@ -107,7 +107,7 @@ export class SecretPlace extends robotapi {
         const x = action.x;
         const y = action.y;
         const address = e.msg.replace('#前往', '');
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address);
+        const point =  await returnPoint().find(item => item.name == address);
         if (!point) {
             return;
         };
@@ -150,7 +150,7 @@ export class SecretPlace extends robotapi {
         const x = action.x;
         const y = action.y;
         const address = e.msg.replace('#传送', '');
-        const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address);
+        const position = await returnPosirion().find(item => item.name == address);
         if (!position) {
             return;
         };
@@ -160,7 +160,7 @@ export class SecretPlace extends robotapi {
             e.reply('[修仙联盟]守境者\n道友请留步');
             return;
         };
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`));
+        const point =  await returnPoint()
         let key = 0;
         point.forEach((item) => {
             const pointID = item.id.split('-');

@@ -1,9 +1,7 @@
 import robotapi from "../../model/robotapi.js";
 import Cachemonster from '../../model/cachemonster.js';
-import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { superIndex } from "../../model/robotapi.js";
-import fs from 'node:fs';
 import { 
     Gomini, 
     Go, 
@@ -19,7 +17,8 @@ import {
     Read_najie, 
     Write_najie, 
     Read_talent, 
-    randomThing
+    randomThing,
+    returnLevel
 } from '../../model/public.js';
 export class BattleSite extends robotapi {
     constructor() {
@@ -66,7 +65,7 @@ export class BattleSite extends robotapi {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5);
             msg.push('怪物突然变异了!');
         };
-        const LevelMax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == mon.level + 1);
+        const LevelMax =  await returnLevel(mon.level + 1)
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
             'attack': LevelMax.attack * buff.msg,

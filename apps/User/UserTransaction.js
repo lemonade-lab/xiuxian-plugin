@@ -1,8 +1,6 @@
 import robotapi from "../../model/robotapi.js";
-import data from '../../model/XiuxianData.js';
 import { superIndex } from "../../model/robotapi.js";
-import fs from 'node:fs';
-import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../../model/public.js';
+import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action, returnCommodities } from '../../model/public.js';
 export class UserTransaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -36,7 +34,7 @@ export class UserTransaction extends robotapi {
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ];
-        const commodities_list = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`));
+        const commodities_list = await returnCommodities()
         commodities_list.forEach((item) => {
             const id = item.id.split('-');
             if (id[0] == 4) {
@@ -79,7 +77,7 @@ export class UserTransaction extends robotapi {
         if (the.quantity > 99) {
             the.quantity = 99;
         };
-        const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`)).find(item => item.name == thing_name);
+        const ifexist = await returnCommodities().find(item => item.name == thing_name);
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`);
             return;
