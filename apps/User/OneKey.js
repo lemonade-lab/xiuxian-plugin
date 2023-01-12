@@ -13,12 +13,12 @@ export class OneKey extends robotapi {
     constructor() {
         super(superIndex([
             {
-                reg: '^#一键出售所有$',
+                reg: '^#置换所有物品$',
                 fnc: 'OneKey_all'
             },
             {
                 reg: '^#一键出售.*$',
-                fnc: 'OneKey_key'
+                fnc: 'OneKey_type'
             }
         ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
@@ -41,17 +41,17 @@ export class OneKey extends robotapi {
         }
         let najie = await Read_najie(usr_qq)
         let money = 0
-        for (let item of najie.thing) {
+        najie.thing.forEach((item) => {
             money += item.acount * item.price
-        }
+        });
         najie.thing = []
         await Write_najie(usr_qq, najie)
-        //先把物品都清除了,再把灵石兑换成下品灵石
+        //先把物品都清除了,再兑换成下品灵石
         await addLingshi(usr_qq, money)
-        e.reply(`[蜀山派]叶铭\n这是${money}灵石,道友慢走`)
+        e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
-    OneKey_key = async (e) => {
+    OneKey_type = async (e) => {
         if (!e.isGroup) {
             return
         }
@@ -59,6 +59,25 @@ export class OneKey extends robotapi {
         const ifexistplay = await existplayer(usr_qq)
         if (!ifexistplay) {
             return
+        }
+        const action = await Read_action(usr_qq)
+        const address_name = '万宝楼'
+        const map = await point_map(action, address_name)
+        if (!map) {
+            e.reply(`需[#前往+城池名+${address_name}]`)
+            return
+        }
+        const type = e.msg.replace('#一键出售', '')
+        const maptype = {
+            '武器': '1',
+            '护具': '2',
+            '法宝': '3',
+            '丹药': '4',
+            '功法': '5',
+            '道具': '6'
+        }
+        if (!maptype.hasOwnProperty(type)) {
+            e.reply(`[蜀山派]叶凡\n此处不收${type}`)
         }
         return
     }

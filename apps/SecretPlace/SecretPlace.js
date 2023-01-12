@@ -181,7 +181,7 @@ export class SecretPlace extends robotapi {
         const wealth = await Read_wealth(usr_qq)
         const lingshi = 1000
         if (wealth.lingshi < lingshi) {
-            e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}灵石`)
+            e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}下品灵石`)
             return
         }
         wealth.lingshi -= lingshi

@@ -45,7 +45,7 @@ export class UserAction extends robotapi {
         const najie_price = this.xiuxianConfigData.najie_price[najie.grade]
         let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
         if (thing == 1 || thing.acount < najie_price) {
-            e.reply(`灵石不足,需要准备${najie_price}灵石`)
+            e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
             return
         }
         //扣灵石
@@ -54,7 +54,7 @@ export class UserAction extends robotapi {
         najie.grade += 1
         //记录等级
         await Write_najie(usr_qq, najie)
-        e.reply(`花了${najie_price}灵石升级,目前储物袋为${najie.grade}`)
+        e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
         return
     }
 }

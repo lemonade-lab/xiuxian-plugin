@@ -47,7 +47,7 @@ export class UserModify extends robotapi {
         }
         let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
         if (thing == 1 || thing.acount < lingshi) {
-            e.reply([segment.at(usr_qq), `似乎没有${lingshi}灵石`])
+            e.reply([segment.at(usr_qq), `似乎没有${lingshi}下品灵石`])
             return
         }
         const CDid = '3'

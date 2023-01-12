@@ -98,7 +98,7 @@
 - group: 
   list:
     - icon: help-icon_44
-      title: "#一键出售所有"
+      title: "#置换所有物品"
       desc: "出售储物袋中所有物品"
     - icon: help-icon_10
       title: "#赠送灵石1000 @道友"

@@ -102,7 +102,7 @@ export class UserTransaction extends robotapi {
         let najie = await Read_najie(usr_qq)
         najie = await Add_najie_thing(najie, ifexist, quantity)
         await Write_najie(usr_qq, najie)
-        e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]灵石购买了[${thing_name}]*${quantity},`)
+        e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
     Sell_comodities = async (e) => {
@@ -146,7 +146,7 @@ export class UserTransaction extends robotapi {
         await Write_najie(usr_qq, the.najie)
         const commodities_price = najie_thing.price * the.quantity
         await addLingshi(usr_qq, commodities_price)
-        e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `)
+        e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
     }
 }

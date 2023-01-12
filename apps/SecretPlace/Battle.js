@@ -180,7 +180,7 @@ export class Battle extends robotapi {
         if (Level.prestige > 0) {
             let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
             if (thing == 1 || thing.acount < money) {
-                e.reply(`[天机门]韩立\n清魔力需要${money}`)
+                e.reply(`[天机门]韩立\n清魔力需要${money}下品灵石`)
                 return
             }
             await addLingshi(uid, -money)

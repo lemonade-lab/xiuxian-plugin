@@ -102,7 +102,7 @@ export class BattleSite extends robotapi {
             }
             if (m < mon.level * 7) {
                 const lingshi = await Numbers(mon.level * 35 * mybuff)
-                msg.push(`得到${lingshi}灵石`)
+                msg.push(`得到${lingshi}下品灵石`)
                 await addLingshi(usr_qq, lingshi)
             }
             if (m < mon.level * 8) {
@@ -111,7 +111,7 @@ export class BattleSite extends robotapi {
             }
             if (m >= mon.level * 8) {
                 const lingshi = await Numbers(mon.level * 20 * mybuff)
-                msg.push(`得到${lingshi}灵石`)
+                msg.push(`得到${lingshi}下品灵石`)
                 await addLingshi(usr_qq, lingshi)
             }
         }

@@ -77,7 +77,7 @@ export class MoneyOperation extends robotapi {
         const lingshi = await Numbers(islingshi)
         let thing = await exist_najie_thing_name(A, '下品灵石')
         if (thing == 1 || thing.acount < lingshi) {
-            e.reply([segment.at(A), `似乎没有${lingshi}灵石`])
+            e.reply([segment.at(A), `似乎没有${lingshi}下品灵石`])
             return
         }
         const CDTime = this.xiuxianConfigData.CD.Transfer
@@ -92,7 +92,7 @@ export class MoneyOperation extends robotapi {
         await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60)
         await addLingshi(A, -lingshi)   
         await addLingshi(B, lingshi)        
-        e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}灵石`])
+        e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
         return
     }
 }
