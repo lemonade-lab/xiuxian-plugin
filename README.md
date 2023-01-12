@@ -38,6 +38,7 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 2.优化更新机制（#修仙全部更新更改为#修仙更新）
 
 3.优化**自定义物品**机制（开了专门的接口）
+
 4.新增物品自定义说明、新增插件开发说明、新版特性说明、组织人员说明、赞助列表、V1.2升级V2.0说明
 
 5.整合帮助图（删除#修仙扩展）（删除非必要功能）
