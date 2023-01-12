@@ -9,9 +9,7 @@ import {
     exist_najie_thing_name,
     At,
     battle,
-    Read_equipment,
     Anyarray,
-    Write_equipment,
     Read_najie, Add_najie_thing,
     Write_najie,
     Read_level,
@@ -87,15 +85,15 @@ export class boxbattle extends robotapi {
                 user.A = user.B
                 user.B = user.C
             }
-            let equipment = await Read_equipment(user.B)
-            if (equipment.length > 0) {
-                const thing = await Anyarray(equipment)
-                equipment = equipment.filter(item => item.name != thing.name)
-                await Write_equipment(user.B, equipment)
+            let najieB = await Read_najie(user.B)
+            if (najieB.thing.length != 0) {
+                const thing = await Anyarray(najieB.thing)
+                najieB.thing = najieB.thing.filter(item => item.name != thing.name)
+                await Write_najie(user.B, najieB)
                 let najie = await Read_najie(user.A)
-                najie = await Add_najie_thing(najie, thing, 1)
+                najie = await Add_najie_thing(najie, thing, thing.acount)
                 await Write_najie(user.A, najie)
-                e.reply(`${user.A}夺走了${thing.name}`)
+                e.reply(`${user.A}夺走了${thing.name}*${thing.acount}`)
             }
         }
         await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
@@ -151,15 +149,15 @@ export class boxbattle extends robotapi {
                 user.A = user.B
                 user.B = user.C
             }
-            let equipment = await Read_equipment(user.B)
-            if (equipment.length > 0) {
-                const thing = await Anyarray(equipment)
-                equipment = equipment.filter(item => item.name != thing.name)
-                await Write_equipment(user.B, equipment)
+            let najieB = await Read_najie(user.B)
+            if (najieB.thing.length != 0) {
+                const thing = await Anyarray(najieB.thing)
+                najieB.thing = najieB.thing.filter(item => item.name != thing.name)
+                await Write_najie(user.B, najieB)
                 let najie = await Read_najie(user.A)
-                najie = await Add_najie_thing(najie, thing, 1)
+                najie = await Add_najie_thing(najie, thing, thing.acount)
                 await Write_najie(user.A, najie)
-                e.reply(`${user.A}夺走了${thing.name}`)
+                e.reply(`${user.A}夺走了${thing.name}*${thing.acount}`)
             }
         }
         await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
