@@ -18,7 +18,7 @@ import {
     Write_action,
     randomThing
 } from '../../model/public.js'
-export class MoneyOperation extends robotapi {
+export class boxmoneyoperation extends robotapi {
     constructor() {
         super(superIndex([
             {

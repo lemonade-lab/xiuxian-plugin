@@ -10,7 +10,7 @@ import {
     Write_najie
 } from '../../model/public.js'
 import { superIndex } from "../../model/robotapi.js"
-export class AdminMoney extends robotapi {
+export class boxadminmoney extends robotapi {
     constructor() {
         super(superIndex([
             {

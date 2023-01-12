@@ -5,7 +5,7 @@ import {
     get_config_img 
 } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
-export class showall extends robotapi {
+export class boxshowall extends robotapi {
     constructor() {
         super(superIndex([
             {

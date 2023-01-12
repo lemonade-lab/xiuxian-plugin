@@ -3,8 +3,17 @@ import common from '../../../../lib/common/common.js'
 import config from '../../model/Config.js'
 import { superIndex } from "../../model/robotapi.js"
 import { segment } from 'oicq'
-import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/public.js'
-export class PlayerControl extends robotapi {
+import {
+    Gomini,
+    Go,
+    offaction,
+    Add_experience,
+    Add_blood,
+    existplayer,
+    Read_talent,
+    Add_experiencemax
+} from '../../model/public.js'
+export class boxplayercontrol extends robotapi {
     constructor() {
         super(superIndex([
             {

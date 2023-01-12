@@ -1,7 +1,7 @@
 import robotapi from "../../model/robotapi.js"
 import XiuxianYaml from '../../model/XiuxianYaml.js'
 import { superIndex } from "../../model/robotapi.js"
-export class AdminYaml extends robotapi {
+export class boxadminyaml extends robotapi {
     constructor() {
         super(superIndex([
             {

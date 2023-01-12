@@ -9,7 +9,7 @@ const _path = process.cwd()
 const the = {
     'timer': ''
 }
-export class AdminPlugins extends robotapi {
+export class boxadminplugins extends robotapi {
     constructor() {
         super(superIndex([
             {

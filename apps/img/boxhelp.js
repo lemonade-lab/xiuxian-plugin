@@ -2,7 +2,7 @@ import robotapi from "../../model/robotapi.js"
 import Help from '../../model/help.js'
 import Cache from '../../model/cache.js'
 import { superIndex } from "../../model/robotapi.js"
-export class BotHelp extends robotapi {
+export class boxhelp extends robotapi {
     constructor() {
         super(superIndex([
             {

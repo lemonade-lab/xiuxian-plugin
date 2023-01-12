@@ -11,7 +11,7 @@ const _path = process.cwd()
 const the = {
     'timer': ''
 }
-export class AdminAction extends robotapi {
+export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([
             {

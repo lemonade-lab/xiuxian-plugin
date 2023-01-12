@@ -6,7 +6,7 @@ import {
     Read_Life
 } from '../../model/public.js'
 import { superIndex } from "../../model/robotapi.js"
-export class AdminDelete extends robotapi {
+export class boxadmindelete extends robotapi {
     constructor() {
         super(superIndex([
             {
