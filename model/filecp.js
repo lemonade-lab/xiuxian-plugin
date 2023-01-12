@@ -108,9 +108,7 @@ class filecp {
           let y = `./plugins/${appname}/resources/img/${cf1[i]}/${cf2[i]}.jpg`
           fs.cp(y, x,
             (err) => {
-              if (err) {
-                console.error(x)
-              }
+              if (err) {}
             })
         }
       }

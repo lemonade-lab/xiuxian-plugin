@@ -6,7 +6,6 @@ class Cachemonster {
     constructor() { }
     monsterscache = async (i) => {
         if (!alldata.hasOwnProperty(i)) {
-            console.log('不存在')
             alldata[i] = {
                 'label': 99,
                 'data': []

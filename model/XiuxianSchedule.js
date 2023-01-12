@@ -24,9 +24,7 @@ class XiuxianSchedule {
             //备份位置不变
             const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${name}${Y}${M}${D}${h}${m}${s}`
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
-                if (err) {
-                    console.error(err)
-                }
+                if (err) {}
             })
         })
     }

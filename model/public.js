@@ -240,13 +240,9 @@ export const Read_battle = async (usr_qq) => {
         equ.burstmax = equ.burstmax + extend[i]["perpetual"].burstmax
         equ.speed = equ.speed + extend[i]["perpetual"].speed
         //临时属性计算
-        console.log(new Date().getTime())
         for (let j in extend[i]["times"]) {
-            console.log(extend[i]["times"][j].timeLimit)
             if (extend[i]["times"][j].timeLimit > new Date().getTime()) {
-                console.log(equ[extend[i]["times"][j].type])
                 equ[extend[i]["times"][j].type] += extend[i]["times"][j].value
-                console.log(equ[extend[i]["times"][j].type])
             }
         }
     }
