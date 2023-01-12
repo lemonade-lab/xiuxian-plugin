@@ -7,9 +7,9 @@ import {
     Read_level,
     ForwardMsg,
     existplayer,
-    Read_wealth,
     Write_action,
-    Write_wealth,
+    exist_najie_thing_name,
+    addLingshi,
     Read_battle,
     returnPosirion,
     returnPoint
@@ -178,14 +178,16 @@ export class boxsecretplace extends robotapi {
         if (key == 0) {
             return
         }
-        const wealth = await Read_wealth(usr_qq)
         const lingshi = 1000
-        if (wealth.lingshi < lingshi) {
+        let money = await exist_najie_thing_name(usr_qq, '下品灵石')
+        if (money == 1 || money.acount < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}下品灵石`)
             return
         }
-        wealth.lingshi -= lingshi
-        await Write_wealth(usr_qq, wealth)
+        //先扣钱
+        await addLingshi(usr_qq, -lingshi)
+
+
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)
