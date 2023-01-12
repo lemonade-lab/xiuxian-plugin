@@ -4,7 +4,7 @@ import {
   existplayer, Write_player, get_talent, Write_najie,
   Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency,
   Write_action, Write_equipment, Write_Life, Read_Life, Anyarray, Read,
-  Read_level, Read_wealth, Numbers, returnLevel, returnPosirion
+  Read_level, Read_wealth, Numbers, returnLevel, returnPosirion, returnLevelMax
 } from './public.js'
 const __dirname = `${path.resolve()}${path.sep}plugins`
 class pluginup {
@@ -72,7 +72,7 @@ class pluginup {
       'days': 0//签到
     }
     const new_battle = {
-      'nowblood': await returnLevel().find(item => item.id == 1).blood + await returnLevel().find(item => item.id == 1).blood
+      'nowblood': await returnLevel(1).blood + await returnLevelMax(1).blood,//血量
     }
     const new_level = {
       'prestige': 0,//魔力
@@ -92,7 +92,8 @@ class pluginup {
       'lingshi': 0,
       'xianshi': 0
     }
-    const position = await returnPosirion().find(item => item.name == '极西')
+    const Posirion = await returnPosirion()
+    const position = Posirion.find(item => item.name == '极西')
     const positionID = position.id.split('-')
     const the = {
       mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),

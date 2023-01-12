@@ -1,15 +1,16 @@
 import robotapi from "../../model/robotapi.js"
 import { segment } from 'oicq'
 import { superIndex } from "../../model/robotapi.js"
-import { Go, 
-    Read_action, 
-    Read_level, 
-    ForwardMsg, 
-    existplayer, 
-    Read_wealth, 
-    Write_action, 
-    Write_wealth, 
-    Read_battle, 
+import {
+    Go,
+    Read_action,
+    Read_level,
+    ForwardMsg,
+    existplayer,
+    Read_wealth,
+    Write_action,
+    Write_wealth,
+    Read_battle,
     returnPosirion,
     returnPoint
 } from '../../model/public.js'
@@ -56,7 +57,7 @@ export class SecretPlace extends robotapi {
             return
         }
         const addressId = `${action.z}-${action.region}-${action.address}`
-        const point =  await returnPoint()
+        const point = await returnPoint()
         const address = []
         const msg = []
         point.forEach((item) => {
@@ -107,7 +108,8 @@ export class SecretPlace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
-        const point =  await returnPoint().find(item => item.name == address)
+        const Point = await returnPoint()
+        const point = Point.find(item => item.name == address)
         if (!point) {
             return
         }
@@ -150,7 +152,8 @@ export class SecretPlace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
-        const position = await returnPosirion().find(item => item.name == address)
+        const Posirion = await returnPosirion()
+        const position = Posirion.find(item => item.name == address)
         if (!position) {
             return
         }
@@ -160,7 +163,7 @@ export class SecretPlace extends robotapi {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
-        const point =  await returnPoint()
+        const point = await returnPoint()
         let key = 0
         point.forEach((item) => {
             const pointID = item.id.split('-')

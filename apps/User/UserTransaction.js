@@ -85,7 +85,8 @@ export class UserTransaction extends robotapi {
         if (quantity > 99) {
             quantity = 99
         }
-        const ifexist = await returnCommodities().find(item => item.name == thing_name)
+        const Commodities=await returnCommodities()
+        const ifexist = Commodities.find(item => item.name == thing_name)
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
             return

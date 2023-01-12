@@ -1,7 +1,7 @@
 import robotapi from "../../model/robotapi.js"
 import config from '../../model/Config.js'
 import { segment } from 'oicq'
-import {  Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist, returnPosirion, returnLevel, returnLevelMax } from '../../model/public.js'
+import { Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist, returnPosirion, returnLevel, returnLevelMax } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
 export class UserStart extends robotapi {
@@ -71,7 +71,7 @@ export class UserStart extends robotapi {
             'days': 0//签到
         }
         const new_battle = {
-            'nowblood': await returnLevel().find(item => item.id == 1).blood + await returnLevelMax().find(item => item.id == 1).blood,//血量
+            'nowblood': await returnLevel(1).blood + await returnLevelMax(1).blood,//血量
         }
         const new_level = {
             'prestige': 0,//魔力
@@ -91,7 +91,8 @@ export class UserStart extends robotapi {
             'lingshi': 0,
             'xianshi': 0
         }
-        const position = await returnPosirion().find(item => item.name == '极西')
+        const Posirion = await returnPosirion()
+        const position = Posirion.find(item => item.name == '极西')
         const positionID = position.id.split('-')
         const the = {
             mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
