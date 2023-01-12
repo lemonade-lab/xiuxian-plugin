@@ -52,6 +52,13 @@ export class boxlevel extends robotapi {
             e.reply(`[#羽化登仙]后,方能探索更高境界`)
             return
         }
+        const map = {
+            '0': '初成',
+            '1': '小成',
+            '2': '大成',
+            '3': '巅峰',
+            '4': '圆满'
+        }
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
         if (Math.random() >= 1 - player.levelmax_id / 23) {
@@ -80,7 +87,7 @@ export class boxlevel extends robotapi {
             player.rankmax_id = player.rankmax_id + 1
             player.experiencemax -= LevelMax.exp
             await Write_level(usr_qq, player)
-            e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`)
+            e.reply(`突破成功至${player.levelnamemax}${map[player.rankmax_id]}`)
             return
         }
         player.levelmax_id = player.levelmax_id + 1
@@ -88,7 +95,7 @@ export class boxlevel extends robotapi {
         player.experiencemax -= LevelMax.exp
         player.rankmax_id = 0
         await Write_level(usr_qq, player)
-        e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`)
+        e.reply(`突破成功至${player.levelnamemax}${map[player.rankmax_id]}`)
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
         return
@@ -118,6 +125,13 @@ export class boxlevel extends robotapi {
             e.reply(`渡劫期修士需[#渡劫]后[#羽化登仙]`)
             return
         }
+        const map = {
+            '0': '初期',
+            '1': '中期',
+            '2': '后期',
+            '3': '巅峰',
+            '4': '圆满'
+        }
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
         if (Math.random() > 1 - player.level_id / 23) {
@@ -145,7 +159,7 @@ export class boxlevel extends robotapi {
             player.rank_id = player.rank_id + 1
             player.experience -= Level.exp
             await Write_level(usr_qq, player)
-            e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]}`)
+            e.reply(`突破成功至${player.levelname}${map[player.rank_id]}`)
             return
         }
         player.level_id = player.level_id + 1
@@ -157,7 +171,7 @@ export class boxlevel extends robotapi {
         life.forEach((item) => {
             if (item.qq == usr_qq) {
                 item.life += Math.floor(item.life * player.level_id / 3)
-                e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]},寿命至${item.life}`)
+                e.reply(`突破成功至${player.levelname}${map[player.rank_id]},寿命至${item.life}`)
             }
         })
         await Write_Life(life)
