@@ -2,6 +2,20 @@ import fs from 'fs'
 import path from 'path'
 import data from './XiuxianData.js'
 import { __PATH } from './XiuxianData.js'
+const CDname = {
+    '0': '攻击',
+    '1': '降妖',
+    '2': '闭关',
+    '3': '改名',
+    '4': '道宣',
+    '5': '赠送',
+    '6': '突破',
+    '7': '破体',
+    '8': '转世',
+    '9': '行为',
+    '10': '击杀',
+    '11': '决斗'
+}
 export const randomThing = async () => {
     const dropsItemList = JSON.parse(fs.readFileSync(`${__PATH.all}/dropsItem.json`))
     const random = Math.floor(Math.random() * dropsItemList.length)
@@ -995,20 +1009,7 @@ export const pluginGoMini = async (usr_qq) => {
 
 
 
-const CDname = {
-    '0': '攻击',
-    '1': '降妖',
-    '2': '闭关',
-    '3': '改名',
-    '4': '道宣',
-    '5': '赠送',
-    '6': '突破',
-    '7': '破体',
-    '8': '转世',
-    '9': '行为',
-    '10': '击杀',
-    '11': '决斗'
-}
+
 /**
  * 冷却检测
  */

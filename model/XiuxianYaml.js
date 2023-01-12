@@ -1,9 +1,8 @@
 import fs from 'node:fs'
-import path from 'path'
 import { createRequire } from 'module'
-import { appname } from './main.js'
+import { __dirname } from './main.js'
 const require = createRequire(import.meta.url)
-const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${appname}${path.sep}config${path.sep}xiuxian${path.sep}xiuxian.yaml`
+const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
 class XiuxianYaml {
   constructor() {
     try {
@@ -35,10 +34,10 @@ class XiuxianYaml {
     if (map.hasOwnProperty(name)) {
       const [name0, name1] = map[name].split('.')
       try {
-        const data = this.YAML.load(`${__dirname}`)
+        const data = this.YAML.load(`${__diryaml}`)
         data[name0][name1] = Number(size)
         const yamlStr = this.yaml.dump(data)
-        fs.writeFileSync(`${__dirname}`, yamlStr, 'utf8')
+        fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
         return `修改${name}为${size}`
       } catch {
         return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'

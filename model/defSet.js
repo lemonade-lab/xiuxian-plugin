@@ -13,8 +13,6 @@ class defSet {
       this.yaml = require('js-yaml')
     } catch {}
   }
-
-
   ReadConfig = () => {
     try {
       const data = this.YAML.load(group)
@@ -27,7 +25,6 @@ class defSet {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-
   openReadConfig = () => {
     try {
       const data = this.YAML.load(group)
@@ -39,7 +36,6 @@ class defSet {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-
   ReadConfighelp = () => {
     try {
       const data = this.YAML.load(group)
@@ -52,7 +48,6 @@ class defSet {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-
   openReadConfighelp = () => {
     try {
       const data = this.YAML.load(group)
@@ -70,7 +65,6 @@ class defSet {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-
   AddMaster = (mastername) => {
     try {
       const QQ = Number(mastername)
@@ -102,9 +96,6 @@ class defSet {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-
-
-
   OffGroup = () => {
     try {
       const data = this.YAML.load(other)
