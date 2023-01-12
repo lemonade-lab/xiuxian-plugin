@@ -67,20 +67,20 @@ export class boxuserhome extends robotapi {
         }
         const id = najie_thing.id.split('-')
         switch (id[1]) {
-            case 1: {
+            case '1': {
                 let blood = parseInt(najie_thing.blood)
                 await Add_blood(usr_qq, blood)
                 e.reply(`血量恢复至${blood}%`)
                 break
             }
-            case 2: {
+            case '2': {
                 let experience = parseInt(najie_thing.experience)
                 //如果是灵石(道具第二类)
-                if (id[0] == 6 && id[1] == 2) {
+                if (id[0] == '6') {
                     //根据类型执行效果
                     switch (id[3]) {
                         //下品
-                        case 1: {
+                        case '1': {
                             const player = await Read_level(usr_qq)
                             if (player.level_id >= 3) {
                                 experience = 0
@@ -88,7 +88,7 @@ export class boxuserhome extends robotapi {
                             break
                         }
                         //中品
-                        case 2: {
+                        case '2': {
                             const player = await Read_level(usr_qq)
                             if (player.level_id >= 5) {
                                 experience = 0
@@ -96,7 +96,7 @@ export class boxuserhome extends robotapi {
                             break
                         }
                         //上品
-                        case 3: {
+                        case '3': {
                             const player = await Read_level(usr_qq)
                             if (player.level_id >= 7) {
                                 experience = 0
@@ -104,7 +104,7 @@ export class boxuserhome extends robotapi {
                             break
                         }
                         //极品
-                        case 4: {
+                        case '4': {
                             const player = await Read_level(usr_qq)
                             if (player.level_id >= 9) {
                                 experience = 0
@@ -118,7 +118,7 @@ export class boxuserhome extends robotapi {
                 e.reply(`修为增加${thing_acount * experience}`)
                 break
             }
-            case 3: {
+            case '3': {
                 let experiencemax = parseInt(najie_thing.experiencemax)
                 await Add_experiencemax(usr_qq, thing_acount * experiencemax)
                 e.reply(`气血增加${thing_acount * experiencemax}`)
@@ -222,7 +222,7 @@ export class boxuserhome extends robotapi {
         //属性1为特效道具
         if (id[1] == 1) {
             switch (id[2]) {
-                case 1: {
+                case '1': {
                     const player = await Read_level(usr_qq)
                     if (player.level_id >= 10) {
                         e.reply('灵根已定\n此生不可再洗髓')
@@ -236,7 +236,7 @@ export class boxuserhome extends robotapi {
                     e.reply(img)
                     break
                 }
-                case 2: {
+                case '2': {
                     const talent = await Read_talent(usr_qq)
                     talent.talentshow = 0
                     await Write_talent(usr_qq, talent)
