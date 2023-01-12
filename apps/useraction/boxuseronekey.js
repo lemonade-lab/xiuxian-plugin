@@ -27,27 +27,27 @@ export class boxuseronekey extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(uid)
         const address_name = '万宝楼'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(uid)
         let money = 0
         najie.thing.forEach((item) => {
             money += item.acount * item.price
         });
         najie.thing = []
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         //先把物品都清除了,再兑换成下品灵石
-        await addLingshi(usr_qq, money)
+        await addLingshi(uid, money)
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
@@ -55,12 +55,12 @@ export class boxuseronekey extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(uid)
         const address_name = '万宝楼'
         const map = await point_map(action, address_name)
         if (!map) {

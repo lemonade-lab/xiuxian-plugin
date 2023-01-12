@@ -31,12 +31,12 @@ export class boxusertransaction extends robotapi {
         ]))
     }
     ningmenghome = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(uid)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -74,12 +74,12 @@ export class boxusertransaction extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(uid)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -99,17 +99,17 @@ export class boxusertransaction extends robotapi {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
             return
         }
-        let money = await exist_najie_thing_name(usr_qq, '下品灵石')
+        let money = await exist_najie_thing_name(uid, '下品灵石')
         if (money == 1 || money.acount < ifexist.price * quantity) {
             e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
             return
         }
         //先扣钱
-        await addLingshi(usr_qq, -ifexist.price * quantity)
+        await addLingshi(uid, -ifexist.price * quantity)
         //重新把东西丢回去
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, ifexist, quantity)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
@@ -117,12 +117,12 @@ export class boxusertransaction extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(uid)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -140,7 +140,7 @@ export class boxusertransaction extends robotapi {
         if (the.quantity > 99) {
             the.quantity = 99
         }
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(uid, thing_name)
         if (najie_thing == 1) {
             e.reply(`[凡仙堂]小二\n你没[${thing_name}]`)
             return
@@ -149,11 +149,11 @@ export class boxusertransaction extends robotapi {
             e.reply('[凡仙堂]小二\n数量不足')
             return
         }
-        the.najie = await Read_najie(usr_qq)
+        the.najie = await Read_najie(uid)
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
-        await Write_najie(usr_qq, the.najie)
+        await Write_najie(uid, the.najie)
         const commodities_price = najie_thing.price * the.quantity
-        await addLingshi(usr_qq, commodities_price)
+        await addLingshi(uid, commodities_price)
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
     }

@@ -22,8 +22,8 @@ export class boxtoplist extends robotapi {
         ]))
     }
     TOP_prestige = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
@@ -56,8 +56,8 @@ export class boxtoplist extends robotapi {
         return
     }
     TOP_genius = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }

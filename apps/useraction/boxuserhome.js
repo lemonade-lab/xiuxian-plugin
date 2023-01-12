@@ -47,8 +47,8 @@ export class boxuserhome extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
@@ -56,7 +56,7 @@ export class boxuserhome extends robotapi {
         const code = thing.split('\*')
         let [thing_name, thing_acount] = code
         thing_acount = await Numbers(thing_acount)
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(uid, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
             return
@@ -69,7 +69,7 @@ export class boxuserhome extends robotapi {
         switch (id[1]) {
             case '1': {
                 let blood = parseInt(najie_thing.blood)
-                await Add_blood(usr_qq, blood)
+                await Add_blood(uid, blood)
                 e.reply(`血量恢复至${blood}%`)
                 break
             }
@@ -78,7 +78,7 @@ export class boxuserhome extends robotapi {
                 //如果是灵石(道具第二类)
                 if (id[0] == '6') {
                     //根据类型执行效果
-                    const player = await Read_level(usr_qq)
+                    const player = await Read_level(uid)
                     switch (id[3]) {
                         //下品
                         case '1': {
@@ -111,35 +111,35 @@ export class boxuserhome extends robotapi {
                         default: { }
                     }
                 }
-                await Add_experience(usr_qq, thing_acount * experience)
+                await Add_experience(uid, thing_acount * experience)
                 e.reply(`修为增加${thing_acount * experience}`)
                 break
             }
             case '3': {
                 let experiencemax = parseInt(najie_thing.experiencemax)
-                await Add_experiencemax(usr_qq, thing_acount * experiencemax)
+                await Add_experiencemax(uid, thing_acount * experiencemax)
                 e.reply(`气血增加${thing_acount * experiencemax}`)
                 break
             }
             default: {
             }
         }
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, najie_thing, -thing_acount)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         return
     }
     add_gongfa = async (e) => {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#学习', '')
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(uid, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`)
             return
@@ -148,7 +148,7 @@ export class boxuserhome extends robotapi {
         if (id[0] != 5) {
             return
         }
-        const talent = await Read_talent(usr_qq)
+        const talent = await Read_talent(uid)
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
             e.reply('学过了')
@@ -159,11 +159,11 @@ export class boxuserhome extends robotapi {
             return
         }
         talent.AllSorcery.push(najie_thing)
-        await Write_talent(usr_qq, talent)
-        await player_efficiency(usr_qq)
-        let najie = await Read_najie(usr_qq)
+        await Write_talent(uid, talent)
+        await player_efficiency(uid)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         e.reply(`学习${thing_name}`)
         return
     }
@@ -171,24 +171,24 @@ export class boxuserhome extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#忘掉', '')
-        const talent = await Read_talent(usr_qq)
+        const talent = await Read_talent(uid)
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
             e.reply(`没学过${thing_name}`)
             return
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
-        await Write_talent(usr_qq, talent)
-        await player_efficiency(usr_qq)
-        let najie = await Read_najie(usr_qq)
+        await Write_talent(uid, talent)
+        await player_efficiency(uid)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         e.reply(`忘了${thing_name}`)
         return
     }
@@ -196,21 +196,21 @@ export class boxuserhome extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#消耗', '')
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(uid, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`)
             return
         }
         const id = najie_thing.id.split('-')
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         //类型0  1  编号2
         if (id[0] != 6) {
             e.reply(`${thing_name}损坏`)
@@ -220,23 +220,23 @@ export class boxuserhome extends robotapi {
         if (id[1] == 1) {
             switch (id[2]) {
                 case '1': {
-                    const player = await Read_level(usr_qq)
+                    const player = await Read_level(uid)
                     if (player.level_id >= 10) {
                         e.reply('灵根已定\n此生不可再洗髓')
                         break
                     }
-                    const talent = await Read_talent(usr_qq)
+                    const talent = await Read_talent(uid)
                     talent.talent = await get_talent()
-                    await Write_talent(usr_qq, talent)
-                    await player_efficiency(usr_qq)
+                    await Write_talent(uid, talent)
+                    await player_efficiency(uid)
                     const img = await get_player_img(e.user_id)
                     e.reply(img)
                     break
                 }
                 case '2': {
-                    const talent = await Read_talent(usr_qq)
+                    const talent = await Read_talent(uid)
                     talent.talentshow = 0
-                    await Write_talent(usr_qq, talent)
+                    await Write_talent(uid, talent)
                     const img = await get_player_img(e.user_id)
                     e.reply(img)
                     break

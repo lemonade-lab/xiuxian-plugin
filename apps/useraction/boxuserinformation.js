@@ -23,8 +23,8 @@ export class boxuserinformation extends robotapi {
         ]))
     }
     Show_player = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
@@ -33,8 +33,8 @@ export class boxuserinformation extends robotapi {
         return
     }
     show_equipment = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }

@@ -25,8 +25,8 @@ export class boxuseraction extends robotapi {
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Show_najie = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
@@ -39,21 +39,21 @@ export class boxuseraction extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        const najie = await Read_najie(usr_qq)
+        const uid = e.user_id
+        const najie = await Read_najie(uid)
         //根据戒指等级分配价格
         const najie_price = this.xiuxianConfigData.najie_price[najie.grade]
-        let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
+        let thing = await exist_najie_thing_name(uid, '下品灵石')
         if (thing == 1 || thing.acount < najie_price) {
             e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
             return
         }
         //扣灵石
-        await addLingshi(usr_qq, -najie_price)
+        await addLingshi(uid, -najie_price)
         //等级+1
         najie.grade += 1
         //记录等级
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
         return
     }

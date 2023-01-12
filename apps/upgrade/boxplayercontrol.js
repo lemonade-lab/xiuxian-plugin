@@ -40,13 +40,13 @@ export class boxplayercontrol extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
+        const uid = e.user_id
         const now_time = new Date().getTime()
         const actionObject = {
             'actionName': '闭关',
             'startTime': now_time
         }
-        await redis.set(`xiuxian:player:${usr_qq}:action`, JSON.stringify(actionObject))
+        await redis.set(`xiuxian:player:${uid}:action`, JSON.stringify(actionObject))
         e.reply('开始两耳不闻窗外事...')
         return true
     }
@@ -55,13 +55,13 @@ export class boxplayercontrol extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
+        const uid = e.user_id
         const now_time = new Date().getTime()
         const actionObject = {
             'actionName': '降妖',
             'startTime': now_time
         }
-        await redis.set(`xiuxian:player:${usr_qq}:action`, JSON.stringify(actionObject))
+        await redis.set(`xiuxian:player:${uid}:action`, JSON.stringify(actionObject))
         e.reply('开始外出...')
         return true
     }
@@ -69,12 +69,12 @@ export class boxplayercontrol extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+        let action = await redis.get(`xiuxian:player:${uid}:action`)
         if (action == undefined) {
             return
         }
@@ -87,27 +87,27 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await offaction(usr_qq)
+            await offaction(uid)
             return
         }
-        await offaction(usr_qq)
+        await offaction(uid)
         if (e.isGroup) {
-            await this.upgrade(usr_qq, time, action.actionName, e.group_id)
+            await this.upgrade(uid, time, action.actionName, e.group_id)
             return
         }
-        await this.upgrade(usr_qq, time, action.actionName)
+        await this.upgrade(uid, time, action.actionName)
         return
     }
     endWork = async (e) => {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+        let action = await redis.get(`xiuxian:player:${uid}:action`)
         if (action == undefined) {
             return
         }
@@ -121,23 +121,23 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await offaction(usr_qq)
+            await offaction(uid)
             return
         }
-        await offaction(usr_qq)
+        await offaction(uid)
         if (e.isGroup) {
-            await this.upgrade(usr_qq, time, action.actionName, e.group_id)
+            await this.upgrade(uid, time, action.actionName, e.group_id)
             return
         }
-        await this.upgrade(usr_qq, time, action.actionName)
+        await this.upgrade(uid, time, action.actionName)
         return
     }
     upgrade = async (user_id, time, name, group_id) => {
-        const usr_qq = user_id
-        const talent = await Read_talent(usr_qq)
+        const uid = user_id
+        const talent = await Read_talent(uid)
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         let other = 0
-        const msg = [segment.at(usr_qq)]
+        const msg = [segment.at(uid)]
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         if (name == '闭关') {
             if (rand < 20) {
@@ -147,8 +147,8 @@ export class boxplayercontrol extends robotapi {
                 other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff)
                 msg.push(`\n闭关结束,得到了${other}修为`)
             }
-            await Add_experience(usr_qq, other)
-            await Add_blood(usr_qq, 90)
+            await Add_experience(uid, other)
+            await Add_blood(uid, 90)
             msg.push('\n血量恢复至90%')
         } else {
             if (rand < 20) {
@@ -158,8 +158,8 @@ export class boxplayercontrol extends robotapi {
                 other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff)
                 msg.push(`\n降妖回来,得到了${other}气血`)
             }
-            await Add_experiencemax(usr_qq, other)
-            await Add_blood(usr_qq, 90)
+            await Add_experiencemax(uid, other)
+            await Add_blood(uid, 90)
             msg.push('\n血量恢复至90%')
         }
         msg.push('\n' + name + '结束')
@@ -167,7 +167,7 @@ export class boxplayercontrol extends robotapi {
             await this.pushInfo(group_id, true, msg)
             return
         }
-        await this.pushInfo(usr_qq, false, msg)
+        await this.pushInfo(uid, false, msg)
         return
     }
     pushInfo = async (id, is_group, msg) => {

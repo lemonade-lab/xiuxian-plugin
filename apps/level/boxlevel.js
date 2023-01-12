@@ -30,16 +30,16 @@ export class boxlevel extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
+        const uid = e.user_id
         const CDTime = this.xiuxianConfigData.CD.LevelMax_up
         const CDid = '7'
         const now_time = new Date().getTime()
-        const CD = await GenerateCD(usr_qq, CDid)
+        const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)
             return
         }
-        const player = await Read_level(usr_qq)
+        const player = await Read_level(uid)
         const Levelmaxlist = await returnLevelMax()
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (player.experiencemax < LevelMax.exp) {
@@ -59,8 +59,8 @@ export class boxlevel extends robotapi {
             '3': '巅峰',
             '4': '圆满'
         }
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
         if (Math.random() >= 1 - player.levelmax_id / 23) {
             const bad_time = Math.random()
             let x = 0
@@ -78,15 +78,15 @@ export class boxlevel extends robotapi {
                 e.reply(`憋红了脸,境界突破失败,等到${CDTime}分钟后再尝试吧`)
             }
             player.experiencemax -= Math.ceil(LevelMax.exp * x)
-            await Write_level(usr_qq, player)
-            await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-            await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+            await Write_level(uid, player)
+            await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+            await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
             return
         }
         if (player.levelmax_id > 1 && player.rankmax_id < 4) {
             player.rankmax_id = player.rankmax_id + 1
             player.experiencemax -= LevelMax.exp
-            await Write_level(usr_qq, player)
+            await Write_level(uid, player)
             e.reply(`突破成功至${player.levelnamemax}${map[player.rankmax_id]}`)
             return
         }
@@ -94,10 +94,10 @@ export class boxlevel extends robotapi {
         player.levelnamemax = Levelmaxlist.find(item => item.id == player.levelmax_id).name
         player.experiencemax -= LevelMax.exp
         player.rankmax_id = 0
-        await Write_level(usr_qq, player)
+        await Write_level(uid, player)
         e.reply(`突破成功至${player.levelnamemax}${map[player.rankmax_id]}`)
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
         return
     }
     Level_up = async (e) => {
@@ -105,16 +105,16 @@ export class boxlevel extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
+        const uid = e.user_id
         const CDTime = this.xiuxianConfigData.CD.Level_up
         const CDid = '6'
         const now_time = new Date().getTime()
-        const CD = await GenerateCD(usr_qq, CDid)
+        const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)
             return
         }
-        const player = await Read_level(usr_qq)
+        const player = await Read_level(uid)
         const Levellist = await returnLevel()
         const Level = Levellist.find(item => item.id == player.level_id)
         if (player.experience < Level.exp) {
@@ -132,8 +132,8 @@ export class boxlevel extends robotapi {
             '3': '巅峰',
             '4': '圆满'
         }
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
         if (Math.random() > 1 - player.level_id / 23) {
             const bad_time = Math.random()
             let x = 0
@@ -150,15 +150,15 @@ export class boxlevel extends robotapi {
                 e.reply(`憋红了脸,境界突破失败,等到${CDTime}分钟后再尝试吧`)
             }
             player.experience -= Math.ceil(Level.exp * x)
-            await Write_level(usr_qq, player)
-            await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-            await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+            await Write_level(uid, player)
+            await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+            await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
             return
         }
         if (player.level_id > 1 && player.rank_id < 4) {
             player.rank_id = player.rank_id + 1
             player.experience -= Level.exp
-            await Write_level(usr_qq, player)
+            await Write_level(uid, player)
             e.reply(`突破成功至${player.levelname}${map[player.rank_id]}`)
             return
         }
@@ -166,17 +166,17 @@ export class boxlevel extends robotapi {
         player.levelname = Levellist.find(item => item.id == player.level_id).name
         player.experience -= Level.exp
         player.rank_id = 0
-        await Write_level(usr_qq, player)
+        await Write_level(uid, player)
         const life = await Read_Life()
         life.forEach((item) => {
-            if (item.qq == usr_qq) {
+            if (item.qq == uid) {
                 item.life += Math.floor(item.life * player.level_id / 3)
                 e.reply(`突破成功至${player.levelname}${map[player.rank_id]},寿命至${item.life}`)
             }
         })
         await Write_Life(life)
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
         return
     }
 }

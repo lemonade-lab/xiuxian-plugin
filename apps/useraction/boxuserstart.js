@@ -35,8 +35,8 @@ export class boxuserstart extends robotapi {
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await exist(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await exist(uid)
         if (!ifexistplay) {
             const img = await get_player_img(e.user_id)
             if (img == undefined) {
@@ -51,23 +51,23 @@ export class boxuserstart extends robotapi {
         return
     }
     reCreate_player = async (e) => {
-        const usr_qq = e.user_id
+        const uid = e.user_id
         const CDTime = this.xiuxianConfigData.CD.Reborn
         const CDid = '8'
         const now_time = new Date().getTime()
-        const CD = await GenerateCD(usr_qq, CDid)
+        const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)
             return
         }
-        await offaction(usr_qq)
+        await offaction(uid)
         let life = await Read_Life()
-        life = await life.filter(item => item.qq != usr_qq)
+        life = await life.filter(item => item.qq != uid)
         await Write_Life(life)
         await createBoxPlayer(e.user_id)
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
-        e.reply([segment.at(usr_qq), '岁月悠悠\n世间终会出现两朵相同的花\n千百年的回眸\n一花凋零\n一花绽\n是否为同一朵\n任后人去评断'])
+        await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
+        e.reply([segment.at(uid), '岁月悠悠\n世间终会出现两朵相同的花\n千百年的回眸\n一花凋零\n一花绽\n是否为同一朵\n任后人去评断'])
         return
     }
 }

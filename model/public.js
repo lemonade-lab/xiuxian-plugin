@@ -20,9 +20,8 @@ const CDname = {
  * 
  * 创建存档
  */
-
-export const createBoxPlayer=async(usr_qq)=>{
-    try{
+export const createBoxPlayer = async (uid) => {
+    try {
         const new_player = {
             'autograph': '无',//道宣
             'days': 0//签到
@@ -88,29 +87,57 @@ export const createBoxPlayer=async(usr_qq)=>{
         const life = await Read_Life()
         const time = new Date()
         life.push({
-            'qq': usr_qq,
+            'qq': uid,
             'name': `${name}`,
             'Age': 1,//年龄
             'life': Math.floor((Math.random() * (100 - 50) + 50)), //寿命
             'createTime': time.getTime(),
             'status': 1
         })
-        await Write_player(usr_qq, new_player)
-        await Write_talent(usr_qq, new_talent)
-        await player_efficiency(usr_qq)
-        await Write_battle(usr_qq, new_battle)
-        await Write_level(usr_qq, new_level)
-        await Write_wealth(usr_qq, new_wealth)
-        await Write_action(usr_qq, new_action)
-        await Write_equipment(usr_qq, [])
-        await Write_najie(usr_qq, new_najie)
+        await Write_player(uid, new_player)
+        await Write_talent(uid, new_talent)
+        await player_efficiency(uid)
+        await Write_battle(uid, new_battle)
+        await Write_level(uid, new_level)
+        await Write_wealth(uid, new_wealth)
+        await Write_action(uid, new_action)
+        await Write_equipment(uid, [])
+        await Write_najie(uid, new_najie)
         await Write_Life(life)
         return ture
-    }catch{
-        return  false
+    } catch {
+        return false
     }
 }
 
+//基础存档
+export const existplayer = async (uid) => {
+    let life = await Read_Life()
+    let find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        const Go = await createBoxPlayer(uid)
+        if (!Go) {
+            return false
+        }
+        life = await Read_Life()
+        find = life.find(item => item.qq == uid)
+    }
+    if (find.status == 0) {
+        return false
+    }
+    return true
+}
+
+//插件存档检测
+export const existplayerplugins = async (uid) => {
+    const life = await Read_Life()
+    const find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        return false
+    } else {
+        return find
+    }
+}
 
 export const randomThing = async () => {
     const dropsItemList = JSON.parse(fs.readFileSync(`${__PATH.all}/dropsItem.json`))
@@ -122,17 +149,6 @@ export const returnLevel = async () => {
 }
 export const returnLevelMax = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`))
-}
-export const returnUid = async () => {
-    const playerList = []
-    const files = fs
-        .readdirSync(__PATH.player)
-        .filter((file) => file.endsWith('.json'))
-    files.forEach((item) => {
-        const file = item.replace('.json', '')
-        playerList.push(file)
-    })
-    return playerList
 }
 export const returnPosirion = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.position}/position.json`))
@@ -146,11 +162,19 @@ export const returnAll = async () => {
 export const returnCommodities = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.all}/commodities.json`))
 }
+export const returnUid = async () => {
+    const playerList = []
+    const life=await Read_Life()
+    life.forEach((item)=>{
+        playerList.push(item.qq)
+    })
+    return playerList
+}
 /**
  * 读取数据
  */
-export const Read = async (usr_qq, PATH) => {
-    const dir = path.join(`${PATH}/${usr_qq}.json`)
+export const Read = async (uid, PATH) => {
+    const dir = path.join(`${PATH}/${uid}.json`)
     const the = {
         player: ''
     }
@@ -164,16 +188,16 @@ export const Read = async (usr_qq, PATH) => {
     return the.player
 }
 //写入数据
-export const Write = async (usr_qq, player, PATH) => {
-    const dir = path.join(PATH, `${usr_qq}.json`)
+export const Write = async (uid, player, PATH) => {
+    const dir = path.join(PATH, `${uid}.json`)
     const new_ARR = JSON.stringify(player, '', '\t')
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     return
 }
 //初次使用
-export const exist = async (usr_qq) => {
+export const exist = async (uid) => {
     const life = await Read_Life()
-    const find = life.find(item => item.qq == usr_qq)
+    const find = life.find(item => item.qq == uid)
     if (find == undefined) {
         return true
     } else {
@@ -182,116 +206,92 @@ export const exist = async (usr_qq) => {
         return false
     }
 }
-//基础存档
-export const existplayer = async (usr_qq) => {
-    const life = await Read_Life()
-    const find = life.find(item => item.qq == usr_qq)
-    //不存在，指令不生效
-    if (find == undefined) {
-        return false
-    }
-    //存在，没有死
-    if (find.status != 0) {
-        return true
-    } else {
-        return false
-    }
-}
-//插件存档检测
-export const existplayerplugins = async (usr_qq) => {
-    const life = await Read_Life()
-    const find = life.find(item => item.qq == usr_qq)
-    if (find == undefined) {
-        return false
-    } else {
-        return find
-    }
-}
+
 //读取存档
-export const Read_player = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.player)
+export const Read_player = async (uid) => {
+    return await Read(uid, __PATH.player)
 }
 //写入存档
-export const Write_player = async (usr_qq, player) => {
-    await Write(usr_qq, player, __PATH.player)
+export const Write_player = async (uid, player) => {
+    await Write(uid, player, __PATH.player)
     return
 }
 //读取拓展
-export const Read_extend = async (usr_qq) => {
-    const dir = path.join(`${__PATH.extend}/${usr_qq}.json`)
+export const Read_extend = async (uid) => {
+    const dir = path.join(`${__PATH.extend}/${uid}.json`)
     if (!fs.existsSync(dir)) {
-        await Write_extend(usr_qq, {})
+        await Write_extend(uid, {})
     }
-    return await Read(usr_qq, __PATH.extend)
+    return await Read(uid, __PATH.extend)
 }
 //写入拓展
-export const Write_extend = async (usr_qq, player) => {
-    await Write(usr_qq, player, __PATH.extend)
+export const Write_extend = async (uid, player) => {
+    await Write(uid, player, __PATH.extend)
     return
 }
 //读取灵根
-export const Read_talent = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.talent)
+export const Read_talent = async (uid) => {
+    return await Read(uid, __PATH.talent)
 }
 //写入新灵根
-export const Write_talent = async (usr_qq, player) => {
-    await Write(usr_qq, player, __PATH.talent)
+export const Write_talent = async (uid, player) => {
+    await Write(uid, player, __PATH.talent)
     return
 }
 //写入新战斗
-export const Write_battle = async (usr_qq, data) => {
-    await Write(usr_qq, data, __PATH.battle)
+export const Write_battle = async (uid, data) => {
+    await Write(uid, data, __PATH.battle)
     return
 }
 //读取境界
-export const Read_level = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.level)
+export const Read_level = async (uid) => {
+    return await Read(uid, __PATH.level)
 }
 //写入新境界
-export const Write_level = async (usr_qq, data) => {
-    await Write(usr_qq, data, __PATH.level)
+export const Write_level = async (uid, data) => {
+    await Write(uid, data, __PATH.level)
     return
 }
 //读取财富
-export const Read_wealth = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.wealth)
+export const Read_wealth = async (uid) => {
+    return await Read(uid, __PATH.wealth)
 }
 //写入新财富
-export const Write_wealth = async (usr_qq, data) => {
-    await Write(usr_qq, data, __PATH.wealth)
+export const Write_wealth = async (uid, data) => {
+    await Write(uid, data, __PATH.wealth)
     return
 }
 //读取状态
-export const Read_action = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.action)
+export const Read_action = async (uid) => {
+    return await Read(uid, __PATH.action)
 }
 //写入新状态
-export const Write_action = async (usr_qq, data) => {
-    await Write(usr_qq, data, __PATH.action)
+export const Write_action = async (uid, data) => {
+    await Write(uid, data, __PATH.action)
     return
 }
 //读取储物袋
-export const Write_najie = async (usr_qq, najie) => {
-    await Write(usr_qq, najie, __PATH.najie)
+export const Write_najie = async (uid, najie) => {
+    await Write(uid, najie, __PATH.najie)
     return
 }
 //写入新储物袋
-export const Read_najie = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.najie)
+export const Read_najie = async (uid) => {
+    return await Read(uid, __PATH.najie)
 }
 //读取装备
-export const Read_equipment = async (usr_qq) => {
-    return await Read(usr_qq, __PATH.equipment)
+export const Read_equipment = async (uid) => {
+    return await Read(uid, __PATH.equipment)
 }
 //写入新装备
-export const Write_equipment = async (usr_qq, equipment) => {
-    await Write(usr_qq, equipment, __PATH.equipment)
+export const Write_equipment = async (uid, equipment) => {
+    await Write(uid, equipment, __PATH.equipment)
     return
 }
 //计算双境界*装备
-export const Read_battle = async (usr_qq) => {
-    const equipment = await Read_equipment(usr_qq)
-    const level = await Read_level(usr_qq)
+export const Read_battle = async (uid) => {
+    const equipment = await Read_equipment(uid)
+    const level = await Read_level(uid)
 
     const Levellist = await returnLevel()
     const Levelmaxlist = await returnLevelMax()
@@ -325,7 +325,7 @@ export const Read_battle = async (usr_qq) => {
         equ.speed = equ.speed + item.speed
     })
     //计算插件临时属性及永久属性
-    let extend = await Read_extend(usr_qq)
+    let extend = await Read_extend(uid)
     extend = Object.values(extend)
     for (let i = 0; i < extend.length; i++) {
         //永久属性计算
@@ -344,7 +344,7 @@ export const Read_battle = async (usr_qq) => {
     }
     //血量上限 换装导致血量溢出时需要
     const bloodLimit = levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * equ.blood * 0.01)
-    const player = await Read(usr_qq, __PATH.battle)
+    const player = await Read(uid, __PATH.battle)
     the.attack = Math.floor(the.attack * ((equ.attack * 0.01) + 1))
     the.defense = Math.floor(the.defense * ((equ.defense * 0.01) + 1))
     the.blood = bloodLimit
@@ -356,10 +356,10 @@ export const Read_battle = async (usr_qq) => {
     return the
 }
 //魔力操作
-export const Add_prestige = async (usr_qq, prestige) => {
-    const player = await Read_level(usr_qq)
+export const Add_prestige = async (uid, prestige) => {
+    const player = await Read_level(uid)
     player.prestige += Math.trunc(prestige)
-    await Write_level(usr_qq, player)
+    await Write_level(uid, player)
     return
 }
 
@@ -373,62 +373,62 @@ export const addLingshi = async (uid, lingshi) => {
 
 
 //灵石操作
-export const Add_lingshi = async (usr_qq, lingshi) => {
-    const player = await Read_wealth(usr_qq)
+export const Add_lingshi = async (uid, lingshi) => {
+    const player = await Read_wealth(uid)
     player.lingshi += Math.trunc(lingshi)
-    await Write_wealth(usr_qq, player)
+    await Write_wealth(uid, player)
     return
 }
 //修为操作
-export const Add_experience = async (usr_qq, experience) => {
-    const player = await Read_level(usr_qq)
+export const Add_experience = async (uid, experience) => {
+    const player = await Read_level(uid)
     const exp0 = await Numbers(player.experience)
     const exp1 = await Numbers(experience)
     player.experience = await exp0 + exp1
-    await Write_level(usr_qq, player)
+    await Write_level(uid, player)
     return
 }
 //气血操作
-export const Add_experiencemax = async (usr_qq, qixue) => {
-    const player = await Read_level(usr_qq)
+export const Add_experiencemax = async (uid, qixue) => {
+    const player = await Read_level(uid)
     player.experiencemax += Math.trunc(qixue)
-    await Write_level(usr_qq, player)
+    await Write_level(uid, player)
     return
 }
 //血量按百分比恢复
-export const Add_blood = async (usr_qq, blood) => {
-    const player = await Read_battle(usr_qq)
-    const battle = await Read_battle(usr_qq)
+export const Add_blood = async (uid, blood) => {
+    const player = await Read_battle(uid)
+    const battle = await Read_battle(uid)
     //判断百分比
     if (player.nowblood < Math.floor(battle.blood * blood * 0.01)) {
         player.nowblood = Math.floor(battle.blood * blood * 0.01)
     }
-    await Write_battle(usr_qq, player)
+    await Write_battle(uid, player)
     return
 }
 //储物袋灵石操作
-export const Add_najie_lingshi = async (usr_qq, acount) => {
-    const najie = await Read_najie(usr_qq)
+export const Add_najie_lingshi = async (uid, acount) => {
+    const najie = await Read_najie(uid)
     najie.lingshi += Math.trunc(acount)
-    await Write_najie(usr_qq, najie)
+    await Write_najie(uid, najie)
     return
 }
 //新增功法
-export const Add_player_AllSorcery = async (usr_qq, gongfa) => {
-    const player = await Read_talent(usr_qq)
+export const Add_player_AllSorcery = async (uid, gongfa) => {
+    const player = await Read_talent(uid)
     player.AllSorcery.push(gongfa)
-    await Write_talent(usr_qq, player)
-    await player_efficiency(usr_qq)
+    await Write_talent(uid, player)
+    await player_efficiency(uid)
     return
 }
 
-export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
-    const dir = path.join(`${__PATH.extend}/${usr_qq}.json`)
+export const Add_extend_perpetual = async (uid, flag, type, value) => {
+    const dir = path.join(`${__PATH.extend}/${uid}.json`)
     let player
     if (!fs.existsSync(dir)) {
         player = {}
     } else {
-        player = await Read_extend(usr_qq)
+        player = await Read_extend(uid)
     }
     if (!isNotNull(player[flag])) {
         const extend = {
@@ -446,18 +446,18 @@ export const Add_extend_perpetual = async (usr_qq, flag, type, value) => {
         player[flag] = extend
     }
     player[flag].perpetual[type] = value
-    await Write_extend(usr_qq, player)
+    await Write_extend(uid, player)
     return
 }
 
 //限时属性
-export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
-    const dir = path.join(`${__PATH.extend}/${usr_qq}.json`)
+export const Add_extend_times = async (uid, flag, type, value, endTime) => {
+    const dir = path.join(`${__PATH.extend}/${uid}.json`)
     let player
     if (!fs.existsSync(dir)) {
         player = {}
     } else {
-        player = await Read_extend(usr_qq)
+        player = await Read_extend(uid)
     }
     if (!isNotNull(player[flag])) {
         const extend = {
@@ -481,16 +481,16 @@ export const Add_extend_times = async (usr_qq, flag, type, value, endTime) => {
         "timeLimit": endTime
     }
     if (find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value >= value) {
-        await Write_extend(usr_qq, player)
+        await Write_extend(uid, player)
         return
     } else if (find != -1 && (player[flag].times[find].timeLimit <= new Date().getTime() || player[flag].times[find].value < value)) {
         player[flag].times[find].value = value
         player[flag].times[find].timeLimit = endTime
-        await Write_extend(usr_qq, player)
+        await Write_extend(uid, player)
         return
     } else {
         player[flag].times.push(timExtend)
-        await Write_extend(usr_qq, player)
+        await Write_extend(uid, player)
         return
     }
 }
@@ -757,8 +757,8 @@ const talentsize = async (player) => {
 /**
  * 天赋综合计算
  */
-export const player_efficiency = async (usr_qq) => {
-    const player = await Read_talent(usr_qq)
+export const player_efficiency = async (uid) => {
+    const player = await Read_talent(uid)
     const the = {
         gongfa_efficiency: 0,
         linggen_efficiency: 0
@@ -768,14 +768,14 @@ export const player_efficiency = async (usr_qq) => {
         the.gongfa_efficiency = the.gongfa_efficiency + item.size
     })
     the.linggen_efficiency = await talentsize(player)
-    let promise = await Read_extend(usr_qq)
+    let promise = await Read_extend(uid)
     promise = Object.values(promise)
     let extend = 0
     for (let i in promise) {
         extend += (promise[i].perpetual.efficiency * 100)
     }
     player.talentsize = the.linggen_efficiency + the.gongfa_efficiency + extend
-    await Write_talent(usr_qq, player)
+    await Write_talent(uid, player)
     return
 }
 
@@ -803,8 +803,8 @@ export const search_thing_id = async (thing_id) => {
     }
 }
 //根据id搜储物袋物品
-export const exist_najie_thing_id = async (usr_qq, thing_id) => {
-    const najie = await Read_najie(usr_qq)
+export const exist_najie_thing_id = async (uid, thing_id) => {
+    const najie = await Read_najie(uid)
     const ifexist = najie.thing.find(item => item.id == thing_id)
     if (!ifexist) {
         return 1
@@ -812,8 +812,8 @@ export const exist_najie_thing_id = async (usr_qq, thing_id) => {
     return ifexist
 }
 //根据名字搜储物袋物品
-export const exist_najie_thing_name = async (usr_qq, name) => {
-    const najie = await Read_najie(usr_qq)
+export const exist_najie_thing_name = async (uid, name) => {
+    const najie = await Read_najie(uid)
     const ifexist = najie.thing.find(item => item.name == name)
     if (!ifexist) {
         return 1
@@ -962,9 +962,9 @@ export const Numbers = async (value) => {
 /**
  * 得到状态
  */
-export const getPlayerAction = async (usr_qq) => {
+export const getPlayerAction = async (uid) => {
     const arr = {}
-    let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+    let action = await redis.get(`xiuxian:player:${uid}:action`)
     action = JSON.parse(action)
     if (action != null) {
         const action_end_time = action.end_time
@@ -997,12 +997,12 @@ export const Gomini = async (e) => {
     if (!e.isGroup) {
         return false
     }
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const uid = e.user_id
+    const ifexistplay = await existplayer(uid)
     if (!ifexistplay) {
         return false
     }
-    let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+    let action = await redis.get(`xiuxian:player:${uid}:action`)
     if (action != undefined) {
         action = JSON.parse(action)
         if (action.actionName == undefined) {
@@ -1022,12 +1022,12 @@ export const Go = async (e) => {
     if (!e.isGroup) {
         return false
     }
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const uid = e.user_id
+    const ifexistplay = await existplayer(uid)
     if (!ifexistplay) {
         return false
     }
-    let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+    let action = await redis.get(`xiuxian:player:${uid}:action`)
     if (action != undefined) {
         action = JSON.parse(action)
         if (action.actionName == undefined) {
@@ -1037,7 +1037,7 @@ export const Go = async (e) => {
         e.reply(`${action.actionName}中...`)
         return false
     }
-    const player = await Read_battle(usr_qq)
+    const player = await Read_battle(uid)
     if (player.nowblood <= 1) {
         e.reply('血量不足...')
         return false
@@ -1045,8 +1045,8 @@ export const Go = async (e) => {
     return true
 }
 
-export const pluginGo = async (usr_qq) => {
-    let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+export const pluginGo = async (uid) => {
+    let action = await redis.get(`xiuxian:player:${uid}:action`)
     if (action != undefined) {
         action = JSON.parse(action)
         if (action.actionName == undefined) {
@@ -1060,7 +1060,7 @@ export const pluginGo = async (usr_qq) => {
             'msg': `${action.actionName}中...`
         }
     }
-    const player = await Read_battle(usr_qq)
+    const player = await Read_battle(uid)
     if (player.nowblood <= 1) {
         return {
             'actoin': '1',
@@ -1073,8 +1073,8 @@ export const pluginGo = async (usr_qq) => {
     }
 }
 
-export const pluginGoMini = async (usr_qq) => {
-    let action = await redis.get(`xiuxian:player:${usr_qq}:action`)
+export const pluginGoMini = async (uid) => {
+    let action = await redis.get(`xiuxian:player:${uid}:action`)
     if (action != undefined) {
         action = JSON.parse(action)
         if (action.actionName == undefined) {
@@ -1088,7 +1088,7 @@ export const pluginGoMini = async (usr_qq) => {
             'msg': `${action.actionName}中...`
         }
     }
-    const player = await Read_battle(usr_qq)
+    const player = await Read_battle(uid)
     if (player.nowblood <= 1) {
         return {
             'actoin': '1',
@@ -1108,8 +1108,8 @@ export const pluginGoMini = async (usr_qq) => {
 /**
  * 冷却检测
  */
-export const GenerateCD = async (usr_qq, CDid) => {
-    const remainTime = await redis.ttl(`xiuxian:player:${usr_qq}:${CDid}`)
+export const GenerateCD = async (uid, CDid) => {
+    const remainTime = await redis.ttl(`xiuxian:player:${uid}:${CDid}`)
     const time = {
         h: 0,
         m: 0,
@@ -1130,8 +1130,8 @@ export const GenerateCD = async (usr_qq, CDid) => {
     return 0
 }
 //插件CD检测
-export const GenerateCDplugin = async (usr_qq, CDid, CDnameplugin) => {
-    const remainTime = await redis.ttl(`xiuxian:player:${usr_qq}:${CDid}`)
+export const GenerateCDplugin = async (uid, CDid, CDnameplugin) => {
+    const remainTime = await redis.ttl(`xiuxian:player:${uid}:${CDid}`)
     const time = {
         h: 0,
         m: 0,

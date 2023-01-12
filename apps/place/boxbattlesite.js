@@ -40,17 +40,17 @@ export class boxbattlesite extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
+        const uid = e.user_id
         const CDid = '10'
         const now_time = new Date().getTime()
         const CDTime = this.xiuxianConfigData.CD.Kill
-        const CD = await GenerateCD(usr_qq, CDid)
+        const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)
             return
         }
         const name = e.msg.replace('#击杀', '')
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(uid)
         const monstersdata = await Cachemonster.monsterscache(action.region)
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
@@ -58,7 +58,7 @@ export class boxbattlesite extends robotapi {
             return
         }
         const acount = await Cachemonster.add(action.region, Number(1))
-        const msg = [`${usr_qq}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`]
+        const msg = [`${uid}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`]
         const buff = {
             "msg": 1
         }
@@ -77,8 +77,8 @@ export class boxbattlesite extends robotapi {
             'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
             'speed': LevelMax.speed + 5 + buff.msg
         }
-        const battle = await Read_battle(usr_qq)
-        const talent = await Read_talent(usr_qq)
+        const battle = await Read_battle(uid)
+        const talent = await Read_talent(uid)
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         const battle_msg = await monsterbattle(e, battle, monsters)
         battle_msg.msg.forEach((item) => {
@@ -88,36 +88,36 @@ export class boxbattlesite extends robotapi {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < mon.level * 5) {
                 const randomthinf = await randomThing()
-                let najie = await Read_najie(usr_qq)
+                let najie = await Read_najie(uid)
                 if (najie.thing.length <= najie.grade * 10) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
                     msg.push(`得到[${randomthinf.name}]`)
-                    await Write_najie(usr_qq, najie)
+                    await Write_najie(uid, najie)
                 } else {
                     msg.push('储物袋已满')
                 }
             }
             if (m < mon.level * 6) {
                 msg.push(`得到${mon.level * 25 * mybuff}气血`)
-                await Add_experiencemax(usr_qq, mon.level * 25 * mybuff)
+                await Add_experiencemax(uid, mon.level * 25 * mybuff)
             }
             if (m < mon.level * 7) {
                 const lingshi = await Numbers(mon.level * 35 * mybuff)
                 msg.push(`得到${lingshi}下品灵石`)
-                await addLingshi(usr_qq, lingshi)
+                await addLingshi(uid, lingshi)
             }
             if (m < mon.level * 8) {
                 msg.push(`得到${mon.level * 50 * mybuff}修为`)
-                await Add_experience(usr_qq, mon.level * 50 * mybuff)
+                await Add_experience(uid, mon.level * 50 * mybuff)
             }
             if (m >= mon.level * 8) {
                 const lingshi = await Numbers(mon.level * 20 * mybuff)
                 msg.push(`得到${lingshi}下品灵石`)
-                await addLingshi(usr_qq, lingshi)
+                await addLingshi(uid, lingshi)
             }
         }
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+        await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
         await ForwardMsg(e, msg)
         return
     }
@@ -126,8 +126,8 @@ export class boxbattlesite extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        const action = await Read_action(usr_qq)
+        const uid = e.user_id
+        const action = await Read_action(uid)
         const msg = []
         const monster = await Cachemonster.monsterscache(action.region)
         monster.forEach((item) => {

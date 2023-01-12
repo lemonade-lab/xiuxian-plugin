@@ -28,26 +28,26 @@ export class boxuserequipment extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#装备', '')
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(uid, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
             return
         }
-        const equipment = await Read_equipment(usr_qq)
+        const equipment = await Read_equipment(uid)
         if (equipment.length >= this.xiuxianConfigData.myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)
-        await Write_equipment(usr_qq, equipment)
-        let najie = await Read_najie(usr_qq)
+        await Write_equipment(uid, equipment)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         e.reply(`装备${thing_name}`)
         return
     }
@@ -55,13 +55,13 @@ export class boxuserequipment extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#卸下', '')
-        let equipment = await Read_equipment(usr_qq)
+        let equipment = await Read_equipment(uid)
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
             return
@@ -75,10 +75,10 @@ export class boxuserequipment extends robotapi {
                 arr.splice(index, 1)
             }
         })
-        await Write_equipment(usr_qq, equipment)
-        let najie = await Read_najie(usr_qq)
+        await Write_equipment(uid, equipment)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(uid, najie)
         e.reply(`已卸下${thing_name}`)
         return
     }

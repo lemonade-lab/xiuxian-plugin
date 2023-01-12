@@ -168,22 +168,22 @@ export class boxbattle extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const uid = e.user_id
+        const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
             return
         }
-        const Level = await Read_level(usr_qq)
+        const Level = await Read_level(uid)
         const money = 10000 * Level.level_id
         if (Level.prestige > 0) {
-            let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
+            let thing = await exist_najie_thing_name(uid, '下品灵石')
             if (thing == 1 || thing.acount < money) {
                 e.reply(`[天机门]韩立\n清魔力需要${money}下品灵石`)
                 return
             }
             await addLingshi(uid, -money)
             Level.prestige -= 1
-            await Write_level(usr_qq, Level)
+            await Write_level(uid, Level)
             e.reply('[天机门]南宫问天\n为你清除1点魔力值')
             return
         } else {

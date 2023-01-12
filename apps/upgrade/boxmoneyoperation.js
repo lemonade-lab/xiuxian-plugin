@@ -37,15 +37,15 @@ export class boxmoneyoperation extends robotapi {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        const action = await Read_action(usr_qq)
+        const uid = e.user_id
+        const action = await Read_action(uid)
         const address_name = '联盟'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const level = await Read_level(usr_qq)
+        const level = await Read_level(uid)
         if (level.level_id != 1) {
             return
         }
@@ -53,12 +53,12 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         action.newnoe = 0
-        await Write_action(usr_qq, action)
+        await Write_action(uid, action)
         const randomthing = await randomThing()
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, randomthing, Number(1))
-        await Write_najie(usr_qq, najie)
-        await addLingshi(usr_qq, Number(10))
+        await Write_najie(uid, najie)
+        await addLingshi(uid, Number(10))
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${randomthing.name}]吧\n还有这${Number(10)}灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n还放进了#储物袋`)
         return

@@ -61,12 +61,12 @@ class pluginup {
   /**
    * 这里需要一个专门用来给升级写的初始化存档
    */
-  Create_player = async (usr_qq) => {
-    const ifexistplay = await existplayer(usr_qq)
+  Create_player = async (uid) => {
+    const ifexistplay = await existplayer(uid)
     if (ifexistplay) {
       return
     }
-    await createBoxPlayer(usr_qq)
+    await createBoxPlayer(uid)
     return
   }
 }
