@@ -2,23 +2,24 @@ import robotapi from "../../model/robotapi.js"
 import Cachemonster from '../../model/cachemonster.js'
 import config from '../../model/Config.js'
 import { superIndex } from "../../model/robotapi.js"
-import { 
-    Gomini, 
-    Go, 
-    Read_action, 
-    ForwardMsg, 
-    Read_battle, 
-    monsterbattle, 
-    Add_experiencemax, 
-    Add_experience, 
+import {
+    Gomini,
+    Go,
+    Read_action,
+    ForwardMsg,
+    Read_battle,
+    monsterbattle,
+    Add_experiencemax,
+    Add_experience,
     addLingshi,
-    GenerateCD, 
-    Add_najie_thing, 
-    Read_najie, 
-    Write_najie, 
-    Read_talent, 
+    GenerateCD,
+    Add_najie_thing,
+    Read_najie,
+    Write_najie,
+    Read_talent,
     randomThing,
-    returnLevel
+    returnLevel,
+    Numbers
 } from '../../model/public.js'
 export class BattleSite extends robotapi {
     constructor() {
@@ -65,7 +66,7 @@ export class BattleSite extends robotapi {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
             msg.push('怪物突然变异了!')
         }
-        const LevelMax =  await returnLevel(mon.level + 1)
+        const LevelMax = await returnLevel(mon.level + 1)
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
             'attack': LevelMax.attack * buff.msg,
@@ -85,13 +86,13 @@ export class BattleSite extends robotapi {
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < mon.level * 5) {
-                const randomthinf=await randomThing()
+                const randomthinf = await randomThing()
                 let najie = await Read_najie(usr_qq)
                 if (najie.thing.length <= 21) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
                     msg.push(`得到[${randomthinf.name}]`)
                     await Write_najie(usr_qq, najie)
-                }else{
+                } else {
                     e.reply('储物袋已满')
                 }
             }
@@ -100,16 +101,18 @@ export class BattleSite extends robotapi {
                 await Add_experiencemax(usr_qq, mon.level * 25 * mybuff)
             }
             if (m < mon.level * 7) {
-                msg.push(`得到${mon.level * 35 * mybuff}灵石`)
-                await addLingshi(usr_qq, mon.level * 35 * mybuff)
+                const lingshi = await Numbers(mon.level * 35 * mybuff)
+                msg.push(`得到${lingshi}灵石`)
+                await addLingshi(usr_qq, lingshi)
             }
             if (m < mon.level * 8) {
                 msg.push(`得到${mon.level * 50 * mybuff}修为`)
                 await Add_experience(usr_qq, mon.level * 50 * mybuff)
             }
             if (m >= mon.level * 8) {
-                msg.push(`得到${mon.level * 25}灵石`)
-                await addLingshi(usr_qq, mon.level * 35 * mybuff)
+                const lingshi = await Numbers(mon.level * 20 * mybuff)
+                msg.push(`得到${lingshi}灵石`)
+                await addLingshi(usr_qq, lingshi)
             }
         }
         await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)

@@ -256,7 +256,6 @@ export const Add_prestige = async (usr_qq, prestige) => {
 
 export const addLingshi=async(uid,lingshi)=>{
     const najie_thing=await search_thing_name('下品灵石')
-    console.log(najie_thing)
     let najie = await Read_najie(uid)
     najie = await Add_najie_thing(najie, najie_thing, lingshi)
     await Write_najie(uid, najie)
