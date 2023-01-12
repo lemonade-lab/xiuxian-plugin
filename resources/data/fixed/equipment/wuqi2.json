@@ -2,7 +2,7 @@
     {
         "id": "1-1-10",
         "name": "阿努比斯权杖",
-        "attack": 10,
+        "attack": 13,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -17,7 +17,7 @@
     {
         "id": "1-1-11",
         "name": "笼中雀",
-        "attack": 11,
+        "attack": 14,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -32,7 +32,7 @@
     {
         "id": "1-1-12",
         "name": "开天斧",
-        "attack": 12,
+        "attack": 15,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -47,7 +47,7 @@
     {
         "id": "1-1-13",
         "name": "七星剑",
-        "attack": 13,
+        "attack": 16,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -62,7 +62,7 @@
     {
         "id": "1-1-14",
         "name": "太阳剑",
-        "attack": 14,
+        "attack": 17,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -77,7 +77,7 @@
     {
         "id": "1-1-15",
         "name": "太阴剑",
-        "attack": 15,
+        "attack": 18,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -92,7 +92,7 @@
     {
         "id": "1-1-16",
         "name": "混沌针",
-        "attack": 16,
+        "attack": 19,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -107,7 +107,7 @@
     {
         "id": "1-1-17",
         "name": "墨刀",
-        "attack": 17,
+        "attack": 20,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -122,7 +122,7 @@
     {
         "id": "1-1-18",
         "name": "碧鳞剑",
-        "attack": 18,
+        "attack": 21,
         "defense": 0,
         "blood": 0,
         "burst": 0,
@@ -137,7 +137,7 @@
     {
         "id": "1-1-19",
         "name": "饮血剑",
-        "attack": 19,
+        "attack": 22,
         "defense": 0,
         "blood": 0,
         "burst": 0,
