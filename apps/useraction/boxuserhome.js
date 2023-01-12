@@ -22,10 +22,12 @@ export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
             {
+                //  血量、修为、气血、
                 reg: '^#服用.*$',
                 fnc: 'consumption_danyao'
             },
             {
+                //天赋
                 reg: '^#学习.*$',
                 fnc: 'add_gongfa'
             },
@@ -34,6 +36,7 @@ export class boxuserhome extends robotapi {
                 fnc: 'delete_gongfa'
             },
             {
+                //
                 reg: '^#消耗.*$',
                 fnc: 'consumption_daoju'
             }
@@ -63,21 +66,66 @@ export class boxuserhome extends robotapi {
             return
         }
         const id = najie_thing.id.split('-')
-        if (id[1] == 1) {
-            let blood = parseInt(najie_thing.blood)
-            await Add_blood(usr_qq, blood)
-            e.reply(`血量恢复至${blood}%`)
-        } else if (id[1] == 2) {
-            let experience = parseInt(najie_thing.experience)
-            await Add_experience(usr_qq, thing_acount * experience)
-            e.reply(`修为增加${thing_acount * najie_thing.experience}`)
-        } else if (id[1] == 3) {
-            let experiencemax = parseInt(najie_thing.experiencemax)
-            await Add_experiencemax(usr_qq, thing_acount * experiencemax)
-            e.reply(`气血增加${thing_acount * najie_thing.experiencemax}`)
-        } else {
-            e.reply(`不可服用${thing_name}`)
-            return
+        switch (id[1]) {
+            case 1: {
+                let blood = parseInt(najie_thing.blood)
+                await Add_blood(usr_qq, blood)
+                e.reply(`血量恢复至${blood}%`)
+                break
+            }
+            case 2: {
+                let experience = parseInt(najie_thing.experience)
+                //如果是灵石(道具第二类)
+                if (id[0] == 6 && id[1] == 2) {
+                    //根据类型执行效果
+                    switch (id[3]) {
+                        //下品
+                        case 1: {
+                            const player = await Read_level(usr_qq)
+                            if (player.level_id >= 3) {
+                                experience = 0
+                            }
+                            break
+                        }
+                        //中品
+                        case 2: {
+                            const player = await Read_level(usr_qq)
+                            if (player.level_id >= 5) {
+                                experience = 0
+                            }
+                            break
+                        }
+                        //上品
+                        case 3: {
+                            const player = await Read_level(usr_qq)
+                            if (player.level_id >= 7) {
+                                experience = 0
+                            }
+                            break
+                        }
+                        //极品
+                        case 4: {
+                            const player = await Read_level(usr_qq)
+                            if (player.level_id >= 9) {
+                                experience = 0
+                            }
+                            break
+                        }
+                        default: { }
+                    }
+                }
+                await Add_experience(usr_qq, thing_acount * experience)
+                e.reply(`修为增加${thing_acount * experience}`)
+                break
+            }
+            case 3: {
+                let experiencemax = parseInt(najie_thing.experiencemax)
+                await Add_experiencemax(usr_qq, thing_acount * experiencemax)
+                e.reply(`气血增加${thing_acount * experiencemax}`)
+                break
+            }
+            default: {
+            }
         }
         let najie = await Read_najie(usr_qq)
         najie = await Add_najie_thing(najie, najie_thing, -thing_acount)
@@ -163,33 +211,42 @@ export class boxuserhome extends robotapi {
             return
         }
         const id = najie_thing.id.split('-')
-        if (id[0] != 6) {
-            return
-        }
-        if (id[2] == 1) {
-            const player = await Read_level(usr_qq)
-            if (player.level_id >= 10) {
-                e.reply('灵根已定\n此生不可再洗髓')
-                return
-            }
-            const talent = await Read_talent(usr_qq)
-            talent.talent = await get_talent()
-            await Write_talent(usr_qq, talent)
-            await player_efficiency(usr_qq)
-            const img = await get_player_img(e.user_id)
-            e.reply(img)
-        } else if (id[2] == 2) {
-            const talent = await Read_talent(usr_qq)
-            talent.talentshow = 0
-            await Write_talent(usr_qq, talent)
-            const img = await get_player_img(e.user_id)
-            e.reply(img)
-        } else {
-            return
-        }
         let najie = await Read_najie(usr_qq)
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await Write_najie(usr_qq, najie)
+        //类型0  1  编号2
+        if (id[0] != 6) {
+            e.reply(`${thing_name}损坏`)
+            return
+        }
+        //属性1为特效道具
+        if (id[1] == 1) {
+            switch (id[2]) {
+                case 1: {
+                    const player = await Read_level(usr_qq)
+                    if (player.level_id >= 10) {
+                        e.reply('灵根已定\n此生不可再洗髓')
+                        break
+                    }
+                    const talent = await Read_talent(usr_qq)
+                    talent.talent = await get_talent()
+                    await Write_talent(usr_qq, talent)
+                    await player_efficiency(usr_qq)
+                    const img = await get_player_img(e.user_id)
+                    e.reply(img)
+                    break
+                }
+                case 2: {
+                    const talent = await Read_talent(usr_qq)
+                    talent.talentshow = 0
+                    await Write_talent(usr_qq, talent)
+                    const img = await get_player_img(e.user_id)
+                    e.reply(img)
+                    break
+                }
+                default: { }
+            }
+        }
         return
     }
 }
