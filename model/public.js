@@ -674,7 +674,8 @@ export const player_efficiency = async (usr_qq) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    const ifexist0 = await returnAll().find(item => item.name == thing)
+    let all=await returnAll()
+    const ifexist0 = all.find(item => item.name == thing)
     if (!ifexist0) {
         return 1
     }
@@ -684,7 +685,8 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    const ifexist0 = await returnAll().find(item => item.id == thing_id)
+    let all=await returnAll()
+    const ifexist0 = all.find(item => item.id == thing_id)
     if (!ifexist0) {
         return 1
     } else {
