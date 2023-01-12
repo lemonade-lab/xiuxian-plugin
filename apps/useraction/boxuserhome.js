@@ -78,10 +78,10 @@ export class boxuserhome extends robotapi {
                 //如果是灵石(道具第二类)
                 if (id[0] == '6') {
                     //根据类型执行效果
+                    const player = await Read_level(usr_qq)
                     switch (id[3]) {
                         //下品
                         case '1': {
-                            const player = await Read_level(usr_qq)
                             if (player.level_id >= 3) {
                                 experience = 0
                             }
@@ -89,7 +89,6 @@ export class boxuserhome extends robotapi {
                         }
                         //中品
                         case '2': {
-                            const player = await Read_level(usr_qq)
                             if (player.level_id >= 5) {
                                 experience = 0
                             }
@@ -97,7 +96,6 @@ export class boxuserhome extends robotapi {
                         }
                         //上品
                         case '3': {
-                            const player = await Read_level(usr_qq)
                             if (player.level_id >= 7) {
                                 experience = 0
                             }
@@ -105,7 +103,6 @@ export class boxuserhome extends robotapi {
                         }
                         //极品
                         case '4': {
-                            const player = await Read_level(usr_qq)
                             if (player.level_id >= 9) {
                                 experience = 0
                             }

@@ -49,14 +49,22 @@ export class boxusertransaction extends robotapi {
         const commodities_list = await returnCommodities()
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
-            if (id[0] == 4) {
-                if (id[1] == 1) {
-                    msg.push(`物品:${item.name}\n气血:${item.blood}%\n价格:${item.price}`)
-                } else {
-                    msg.push(`物品:${item.name}\n修为:${item.experience}\n价格:${item.price}`)
+            switch(id[0]){
+                case '4':{
+                    if (id[1] == 1) {
+                        msg.push(`物品:${item.name}\n气血:${item.blood}%\n价格:${item.price}`)
+                    } else {
+                        msg.push(`物品:${item.name}\n修为:${item.experience}\n价格:${item.price}`)
+                    }
+                    break
                 }
-            } else if (id[0] == 5) {
-                msg.push(`物品:${item.name}\n天赋:${item.size}%\n价格:${item.price}`)
+                case '5':{
+                    msg.push(`物品:${item.name}\n天赋:${item.size}%\n价格:${item.price}`)
+                    break
+                }
+                default:{
+                    break
+                }
             }
         })
         await ForwardMsg(e, msg)

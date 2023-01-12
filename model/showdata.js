@@ -113,12 +113,19 @@ export const get_najie_img = async (usr_qq) => {
     const daoju_list = []
     thing.forEach((item, index) => {
         let id = item.id.split('-')
-        if (id[0] == 4) {
-            danyao_list.push(item)
-        } else if (id[0] == 6) {
-            daoju_list.push(item)
-        } else {
-            thing_list.push(item)
+        switch(id[0]){
+            case '4':{
+                danyao_list.push(item)
+                break
+            }
+            case '6':{
+                daoju_list.push(item)
+                break
+            }
+            default:{
+                thing_list.push(item)
+                break
+            }
         }
     })
     const myData = {
