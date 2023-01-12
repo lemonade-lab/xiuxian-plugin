@@ -71,8 +71,12 @@ class pluginup {
       'autograph': '无',//道宣
       'days': 0//签到
     }
+    const Levellist = await returnLevel()
+    const Level = Levellist.find(item => item.id == 1)
+    const Levelmaxlist = await returnLevelMax()
+    const LevelMax = Levelmaxlist.find(item => item.id == 1)
     const new_battle = {
-      'nowblood': await returnLevel(1).blood + await returnLevelMax(1).blood,//血量
+      'nowblood': Level.blood + LevelMax.blood,//血量
     }
     const new_level = {
       'prestige': 0,//魔力

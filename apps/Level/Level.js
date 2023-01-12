@@ -40,13 +40,14 @@ export class Level extends robotapi {
             return
         }
         const player = await Read_level(usr_qq)
-        const LevelMax = await returnLevelMax(player.levelmax_id)
+        const Levelmaxlist = await returnLevelMax()
+        const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (player.experiencemax < LevelMax.exp) {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`)
             return
         }
-
-        const Level = await returnLevel(player.level_id)
+        const Levellist = await returnLevel()
+        const Level = Levellist.find(item => item.id == player.level_id)
         if (Level.level_id <= 10 && LevelMax.levelmax_id >= 11) {
             e.reply(`[#羽化登仙]后,方能探索更高境界`)
             return
@@ -83,7 +84,7 @@ export class Level extends robotapi {
             return
         }
         player.levelmax_id = player.levelmax_id + 1
-        player.levelnamemax =  await returnLevelMax(player.levelmax_id).name
+        player.levelnamemax = Levelmaxlist.find(item => item.id == player.levelmax_id).name
         player.experiencemax -= LevelMax.exp
         player.rankmax_id = 0
         await Write_level(usr_qq, player)
@@ -107,7 +108,8 @@ export class Level extends robotapi {
             return
         }
         const player = await Read_level(usr_qq)
-        const Level =  await returnLevel(player.level_id)
+        const Levellist = await returnLevel()
+        const Level = Levellist.find(item => item.id == player.level_id)
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp - player.experience}修为后方可突破`)
             return
@@ -147,7 +149,7 @@ export class Level extends robotapi {
             return
         }
         player.level_id = player.level_id + 1
-        player.levelname =  await returnLevel(player.level_id).name
+        player.levelname = Levellist.find(item => item.id == player.level_id).name
         player.experience -= Level.exp
         player.rank_id = 0
         await Write_level(usr_qq, player)

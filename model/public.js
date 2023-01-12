@@ -21,11 +21,11 @@ export const randomThing = async () => {
     const random = Math.floor(Math.random() * dropsItemList.length)
     return dropsItemList[random]
 }
-export const returnLevel = async (id) => {
-    return JSON.parse(fs.readFileSync(`${__PATH.Level}/Level_list.json`)).find(item => item.id == id)
+export const returnLevel = async () => {
+    return JSON.parse(fs.readFileSync(`${__PATH.Level}/Level_list.json`))
 }
-export const returnLevelMax = async (id) => {
-    return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`)).find(item => item.id == id)
+export const returnLevelMax = async () => {
+    return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`))
 }
 export const returnUid = async () => {
     const playerList = []
@@ -71,7 +71,7 @@ export const Read = async (usr_qq, PATH) => {
 export const Write = async (usr_qq, player, PATH) => {
     const dir = path.join(PATH, `${usr_qq}.json`)
     const new_ARR = JSON.stringify(player, '', '\t')
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {})
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     return
 }
 //初次使用
@@ -196,8 +196,11 @@ export const Write_equipment = async (usr_qq, equipment) => {
 export const Read_battle = async (usr_qq) => {
     const equipment = await Read_equipment(usr_qq)
     const level = await Read_level(usr_qq)
-    const levelmini =  await returnLevel(level.level_id)
-    const levelmax =  await returnLevelMax(level.levelmax_id)
+
+    const Levellist = await returnLevel()
+    const Levelmaxlist = await returnLevelMax()
+    const levelmini = Levellist.find(item => item.id == level.level_id)
+    const levelmax = Levelmaxlist.find(item => item.id == level.levelmax_id)
     //双境界面板之和
     let the = {
         attack: levelmini.attack + levelmax.attack,
@@ -228,7 +231,7 @@ export const Read_battle = async (usr_qq) => {
     //计算插件临时属性及永久属性
     let extend = await Read_extend(usr_qq)
     extend = Object.values(extend)
-    for (let i = 0 ;i < extend.length ;i++) {
+    for (let i = 0; i < extend.length; i++) {
         //永久属性计算
         equ.attack = equ.attack + extend[i]["perpetual"].attack
         equ.defense = equ.defense + extend[i]["perpetual"].defense
@@ -268,8 +271,8 @@ export const Add_prestige = async (usr_qq, prestige) => {
     return
 }
 
-export const addLingshi=async(uid,lingshi)=>{
-    const najie_thing=await search_thing_name('下品灵石')
+export const addLingshi = async (uid, lingshi) => {
+    const najie_thing = await search_thing_name('下品灵石')
     let najie = await Read_najie(uid)
     najie = await Add_najie_thing(najie, najie_thing, lingshi)
     await Write_najie(uid, najie)
@@ -603,7 +606,7 @@ export const battle_probability = async (P) => {
 export const get_talent = async () => {
     const newtalent = []
     const talentacount = Math.round(Math.random() * (5 - 1)) + 1
-    for (let i = 0 ;i < talentacount; i++) {
+    for (let i = 0; i < talentacount; i++) {
         const x = Math.round(Math.random() * (10 - 1)) + 1
         const y = newtalent.indexOf(x)
         if (y != -1) {
@@ -631,7 +634,7 @@ export const talentname = async (player) => {
     const talentname = []
     let name = ''
     const talent = player.talent
-    for (let i = 0; i < talent.length ;i++) {
+    for (let i = 0; i < talent.length; i++) {
         name = data.talent_list.find(item => item.id == talent[i]).name
         talentname.push(name)
     }
@@ -647,7 +650,7 @@ const talentsize = async (player) => {
         talentsize: 250
     }
     //根据灵根数来判断
-    for (let i = 0 ;i < talent.player.length; i++) {
+    for (let i = 0; i < talent.player.length; i++) {
         //循环加效率
         if (talent.player[i] <= 5) {
             talent.talentsize -= 50
@@ -688,7 +691,7 @@ export const player_efficiency = async (usr_qq) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    let all=await returnAll()
+    let all = await returnAll()
     const ifexist0 = all.find(item => item.name == thing)
     if (!ifexist0) {
         return 1
@@ -699,7 +702,7 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    let all=await returnAll()
+    let all = await returnAll()
     const ifexist0 = all.find(item => item.id == thing_id)
     if (!ifexist0) {
         return 1

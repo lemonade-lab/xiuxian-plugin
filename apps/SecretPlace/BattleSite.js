@@ -66,7 +66,8 @@ export class BattleSite extends robotapi {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
             msg.push('怪物突然变异了!')
         }
-        const LevelMax = await returnLevel(mon.level + 1)
+        const Levellist = await returnLevel()
+        const LevelMax = Levellist.find(item => item.id == mon.level + 1)
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
             'attack': LevelMax.attack * buff.msg,
@@ -88,7 +89,7 @@ export class BattleSite extends robotapi {
             if (m < mon.level * 5) {
                 const randomthinf = await randomThing()
                 let najie = await Read_najie(usr_qq)
-                if (najie.thing.length <= najie.grade*10) {
+                if (najie.thing.length <= najie.grade * 10) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
                     msg.push(`得到[${randomthinf.name}]`)
                     await Write_najie(usr_qq, najie)
