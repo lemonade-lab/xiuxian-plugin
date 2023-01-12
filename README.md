@@ -33,8 +33,6 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 
 ## 近期更新说明
 
-## 新版修仙近期更新内容
-
 1.删除非必要实体限制（**弱水阁**、**有间客栈**、**炼器协会**等）和减少地图板块（旧地方丢失后需前往新地方）以提高玩家活跃度
 
 2.优化更新机制（#修仙全部更新更改为#修仙更新）
