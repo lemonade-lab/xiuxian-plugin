@@ -11,7 +11,7 @@ import {
     returnLevel,
     returnLevelMax
 } from '../../model/public.js'
-export class Level extends robotapi {
+export class boxlevel extends robotapi {
     constructor() {
         super(superIndex([
             {

@@ -18,7 +18,7 @@ import {
     addLingshi,
     Write_level
 } from '../../model/public.js'
-export class Battle extends robotapi {
+export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([
             {

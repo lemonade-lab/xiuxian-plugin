@@ -17,7 +17,7 @@ import {
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
-export class SecretPlace extends robotapi {
+export class boxsecretplace extends robotapi {
     constructor() {
         super(superIndex([
             {

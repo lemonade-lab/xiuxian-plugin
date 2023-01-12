@@ -21,7 +21,7 @@ import {
     returnLevel,
     Numbers
 } from '../../model/public.js'
-export class BattleSite extends robotapi {
+export class boxbattlesite extends robotapi {
     constructor() {
         super(superIndex([
             {

@@ -8,7 +8,7 @@ import {
 } from '../../model/public.js'
 import { get_toplist_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
-export class TopList extends robotapi {
+export class boxtoplist extends robotapi {
     constructor() {
         super(superIndex([
             {
