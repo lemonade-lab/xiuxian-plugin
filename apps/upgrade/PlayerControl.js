@@ -125,7 +125,6 @@ export class PlayerControl extends robotapi {
     }
     upgrade = async (user_id, time, name, group_id) => {
         const usr_qq = user_id
-        const level = await Read_level(usr_qq)
         const talent = await Read_talent(usr_qq)
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         let other = 0

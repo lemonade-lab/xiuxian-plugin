@@ -110,9 +110,9 @@ export class UserStart extends robotapi {
             'Exchange': 0
         }
         const new_najie = {
-            'grade': 1,
-            'lingshimax': 50000,
-            'lingshi': 0,
+            'grade': 1,  
+            'lingshimax': 50000,  //废弃
+            'lingshi': 0,  //废弃
             'thing': []
         }
         const newtalent = await get_talent()

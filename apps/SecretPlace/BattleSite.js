@@ -88,12 +88,12 @@ export class BattleSite extends robotapi {
             if (m < mon.level * 5) {
                 const randomthinf = await randomThing()
                 let najie = await Read_najie(usr_qq)
-                if (najie.thing.length <= 21) {
+                if (najie.thing.length <= najie.grade*10) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
                     msg.push(`得到[${randomthinf.name}]`)
                     await Write_najie(usr_qq, najie)
                 } else {
-                    e.reply('储物袋已满')
+                    msg.push('储物袋已满')
                 }
             }
             if (m < mon.level * 6) {
