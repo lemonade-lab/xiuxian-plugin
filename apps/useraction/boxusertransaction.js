@@ -101,7 +101,7 @@ export class boxusertransaction extends robotapi {
         }
         let money = await exist_najie_thing_name(usr_qq, '下品灵石')
         if (money == 1 || money.acount < ifexist.price * quantity) {
-            e.reply([segment.at(usr_qq), `似乎没有${ifexist.price * quantity}下品灵石`])
+            e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
             return
         }
         //先扣钱
