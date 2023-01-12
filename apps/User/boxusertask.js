@@ -1,8 +1,12 @@
 import robotapi from "../../model/robotapi.js"
 import config from '../../model/Config.js'
-import { offaction, Read_Life, Write_Life} from '../../model/public.js'
+import {
+    offaction,
+    Read_Life,
+    Write_Life
+} from '../../model/public.js'
 import { superIndex } from "../../model/robotapi.js"
-export class UserTask extends robotapi {
+export class boxusertask extends robotapi {
     constructor() {
         super(superIndex([
         ]))
@@ -24,7 +28,7 @@ export class UserTask extends robotapi {
                 x.push(item.qq)
             }
         })
-        for (var i = 0; i < x.length ;i++) {
+        for (var i = 0; i < x.length; i++) {
             await offaction(x[i])
         }
         await Write_Life(life)

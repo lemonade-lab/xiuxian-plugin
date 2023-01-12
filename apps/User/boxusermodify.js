@@ -12,7 +12,7 @@ import {
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
-export class UserModify extends robotapi {
+export class boxusermodify extends robotapi {
     constructor() {
         super(superIndex([
             {

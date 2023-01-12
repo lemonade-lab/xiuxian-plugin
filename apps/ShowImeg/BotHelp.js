@@ -6,7 +6,7 @@ export class BotHelp extends robotapi {
     constructor() {
         super(superIndex([
             {
-                reg: '^#(修仙帮助|帮助)$',
+                reg: '^#修仙(帮助|菜单|help|列表)$',
                 fnc: 'Xiuxianhelp'
             },
             {

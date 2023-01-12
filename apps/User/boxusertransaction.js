@@ -13,7 +13,7 @@ import {
     Read_action,
     returnCommodities
 } from '../../model/public.js'
-export class UserTransaction extends robotapi {
+export class boxusertransaction extends robotapi {
     constructor() {
         super(superIndex([
             {

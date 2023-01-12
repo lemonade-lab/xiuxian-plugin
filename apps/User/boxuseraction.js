@@ -10,7 +10,7 @@ import {
     exist_najie_thing_name,
     Write_najie
 } from '../../model/public.js'
-export class UserAction extends robotapi {
+export class boxuseraction extends robotapi {
     constructor() {
         super(superIndex([
             {

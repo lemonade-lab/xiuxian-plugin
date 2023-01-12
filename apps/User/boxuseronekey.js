@@ -9,7 +9,7 @@ import {
     Read_najie,
     Write_najie
 } from '../../model/public.js'
-export class OneKey extends robotapi {
+export class boxuseronekey extends robotapi {
     constructor() {
         super(superIndex([
             {
