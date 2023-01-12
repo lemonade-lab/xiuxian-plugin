@@ -10,7 +10,6 @@ import {
     Read_battle,
     monsterbattle,
     Add_experiencemax,
-    Add_experience,
     addLingshi,
     GenerateCD,
     Add_najie_thing,
@@ -102,13 +101,13 @@ export class boxbattlesite extends robotapi {
                 await Add_experiencemax(uid, mon.level * 25 * mybuff)
             }
             if (m < mon.level * 7) {
-                const lingshi = await Numbers(mon.level * 35 * mybuff)
-                msg.push(`得到${lingshi}下品灵石`)
-                await addLingshi(uid, lingshi)
+                msg.push(`得到${mon.level * 20 * mybuff}气血`)
+                await Add_experiencemax(uid, mon.level * 20 * mybuff)
             }
             if (m < mon.level * 8) {
-                msg.push(`得到${mon.level * 50 * mybuff}修为`)
-                await Add_experience(uid, mon.level * 50 * mybuff)
+                const lingshi = await Numbers(mon.level * 25 * mybuff)
+                msg.push(`得到${lingshi}下品灵石`)
+                await addLingshi(uid, lingshi)
             }
             if (m >= mon.level * 8) {
                 const lingshi = await Numbers(mon.level * 20 * mybuff)
