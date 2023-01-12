@@ -62,7 +62,7 @@ export class AdminMoney extends robotapi {
             return
         }
         await addLingshi(uid, -lingshi)
-        e.reply(`已扣除灵石${lingshi}`)
+        e.reply(`已扣除${lingshi}下品灵石`)
         return
     }
 }
