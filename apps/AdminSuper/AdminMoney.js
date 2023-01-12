@@ -3,12 +3,11 @@ import {
     At,
     Numbers,
     addLingshi,
-    Read_wealth,
     search_thing_name,
+    exist_najie_thing_name,
     Read_najie,
     Add_najie_thing,
-    Write_najie,
-    Write_wealth
+    Write_najie
 } from '../../model/public.js'
 import { superIndex } from "../../model/robotapi.js"
 export class AdminMoney extends robotapi {
@@ -17,10 +16,6 @@ export class AdminMoney extends robotapi {
             {
                 reg: '^#修仙扣除.*$',
                 fnc: 'Deduction'
-            },
-            {
-                reg: '^#修仙补偿.*$',
-                fnc: 'Fuli'
             },
             {
                 reg: '^#修仙馈赠.*$',
@@ -55,34 +50,19 @@ export class AdminMoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const B = await At(e)
-        if (B == 0) {
+        const uid = await At(e)
+        if (uid == 0) {
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
         lingshi = await Numbers(lingshi)
-        const player = await Read_wealth(B)
-        if (player.lingshi < lingshi) {
+        let thing = await exist_najie_thing_name(uid, '下品灵石')
+        if (thing == 1 || thing.acount < lingshi) {
             e.reply('他好穷的')
             return
         }
-        player.lingshi -= lingshi
-        await Write_wealth(B, player)
+        await addLingshi(uid, -lingshi)
         e.reply(`已扣除灵石${lingshi}`)
-        return
-    }
-    Fuli = async (e) => {
-        if (!e.isMaster) {
-            return
-        }
-        let lingshi = e.msg.replace('#修仙补偿', '')
-        lingshi = await Numbers(lingshi)
-        const B = await At(e)
-        if (B == 0) {
-            return
-        }
-        await addLingshi(B, lingshi)
-        e.reply(`${B}获得${lingshi}灵石的补偿`)
         return
     }
 }

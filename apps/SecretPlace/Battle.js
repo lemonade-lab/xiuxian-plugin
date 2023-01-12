@@ -15,8 +15,8 @@ import {
     Read_najie, Add_najie_thing,
     Write_najie,
     Read_level,
-    Write_level,
-    Read_wealth, Write_wealth
+    addLingshi,
+    Write_level
 } from '../../model/public.js'
 export class Battle extends robotapi {
     constructor() {
@@ -65,7 +65,7 @@ export class Battle extends robotapi {
         if (CD != 0) {
             e.reply(CD)
         }
-        
+
         const najie_thing = await exist_najie_thing_name(user.A, '决斗令')
         if (najie_thing == 1) {
             e.reply(`没有决斗令`)
@@ -178,16 +178,15 @@ export class Battle extends robotapi {
         const Level = await Read_level(usr_qq)
         const money = 10000 * Level.level_id
         if (Level.prestige > 0) {
-            const wealt = await Read_wealth(usr_qq)
-            if (wealt.lingshi > money) {
-                Level.prestige -= 1
-                wealt.lingshi -= money
-                await Write_level(usr_qq, Level)
-                await Write_wealth(usr_qq, wealt)
-                e.reply('[天机门]南宫问天\n为你清除1点魔力值')
+            let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
+            if (thing == 1 || thing.acount < money) {
+                e.reply(`[天机门]韩立\n清魔力需要${money}`)
                 return
             }
-            e.reply(`[天机门]韩立\n清魔力需要${money}`)
+            await addLingshi(uid, -money)
+            Level.prestige -= 1
+            await Write_level(usr_qq, Level)
+            e.reply('[天机门]南宫问天\n为你清除1点魔力值')
             return
         } else {
             e.reply('[天机门]李逍遥\n你一身清廉')

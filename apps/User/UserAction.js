@@ -7,8 +7,8 @@ import {
     Go,
     Read_najie,
     addLingshi,
-    Write_najie,
-    Read_wealth
+    exist_najie_thing_name,
+    Write_najie
 } from '../../model/public.js'
 export class UserAction extends robotapi {
     constructor() {
@@ -41,22 +41,20 @@ export class UserAction extends robotapi {
         }
         const usr_qq = e.user_id
         const najie = await Read_najie(usr_qq)
-        const player = await Read_wealth(usr_qq)
-        const najie_num = this.xiuxianConfigData.najie_num
-        const najie_price = this.xiuxianConfigData.najie_price
-        if (najie.grade == najie_num.length) {
-            e.reply('已经是最高级的了')
+        //根据戒指等级分配价格
+        const najie_price = this.xiuxianConfigData.najie_price[najie.grade]
+        let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
+        if (thing == 1 || thing.acount < najie_price) {
+            e.reply(`灵石不足,需要准备${najie_price}灵石`)
             return
         }
-        if (player.lingshi < najie_price[najie.grade]) {
-            e.reply(`灵石不足,还需要准备${najie_price[najie.grade] - player.lingshi}灵石`)
-            return
-        }
-        await addLingshi(usr_qq, -najie_price[najie.grade])
-        najie.lingshimax = najie_num[najie.grade]
+        //扣灵石
+        await addLingshi(usr_qq, -najie_price)
+        //等级+1
         najie.grade += 1
+        //记录等级
         await Write_najie(usr_qq, najie)
-        e.reply(`花了${najie_price[najie.grade - 1]}灵石升级,目前灵石存储上限为${najie.lingshimax}`)
+        e.reply(`花了${najie_price}灵石升级,目前储物袋为${najie.grade}`)
         return
     }
 }

@@ -44,9 +44,10 @@ export class OneKey extends robotapi {
         for (let item of najie.thing) {
             money += item.acount * item.price
         }
-        await addLingshi(usr_qq, money)
         najie.thing = []
         await Write_najie(usr_qq, najie)
+        //先把物品都清除了,再把灵石兑换成下品灵石
+        await addLingshi(usr_qq, money)
         e.reply(`[蜀山派]叶铭\n这是${money}灵石,道友慢走`)
         return
     }

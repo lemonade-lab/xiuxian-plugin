@@ -1,6 +1,15 @@
 import robotapi from "../../model/robotapi.js"
 import config from '../../model/Config.js'
-import { Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, addLingshi } from '../../model/public.js'
+import {
+    Write_player,
+    Go,
+    GenerateCD,
+    exist_najie_thing_name,
+    Read_player,
+    Write_Life,
+    Read_Life,
+    addLingshi
+} from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
 export class UserModify extends robotapi {
@@ -23,13 +32,6 @@ export class UserModify extends robotapi {
             return
         }
         const usr_qq = e.user_id
-        const action =await Read_action(usr_qq)
-        const address_name='联盟'
-        const map=await point_map(action,address_name)
-        if(!map){
-            e.reply(`需[#前往+城池名+${address_name}]`)
-            return
-        }
         const lingshi = 5
         let new_name = e.msg.replace('#改名', '')
         if (new_name.length == 0) {
@@ -40,12 +42,12 @@ export class UserModify extends robotapi {
             new_name = new_name.replace(item, '')
         })
         if (new_name.length > 8) {
-            e.reply('[修仙联盟]白老\n小友的这名可真是稀奇')
+            e.reply('这名可真是稀奇')
             return
         }
-        const wealth = await Read_wealth(usr_qq)
-        if (wealth.lingshi < lingshi) {
-            e.reply(`需${lingshi}灵石`)
+        let thing = await exist_najie_thing_name(usr_qq, '下品灵石')
+        if (thing == 1 || thing.acount < lingshi) {
+            e.reply([segment.at(usr_qq), `似乎没有${lingshi}灵石`])
             return
         }
         const CDid = '3'
@@ -56,7 +58,7 @@ export class UserModify extends robotapi {
             e.reply(CD)
             return
         }
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time)
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
         await addLingshi(usr_qq, -lingshi)
         const life = await Read_Life()
@@ -95,7 +97,7 @@ export class UserModify extends robotapi {
             e.reply(CD)
             return
         }
-        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`,now_time)
+        await redis.set(`xiuxian:player:${usr_qq}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${usr_qq}:${CDid}`, CDTime * 60)
         player.autograph = new_msg
         await Write_player(usr_qq, player)

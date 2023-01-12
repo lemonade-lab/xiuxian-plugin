@@ -1,9 +1,6 @@
 - group: 
   list:
     - icon: help-icon_16
-      title: "#修仙补偿9999 @道友"
-      desc: "补偿指定道友灵石"  
-    - icon: help-icon_16
       title: "#修仙扣除9999 @道友"
       desc: "扣指定道友灵石"
     - icon: help-icon_16

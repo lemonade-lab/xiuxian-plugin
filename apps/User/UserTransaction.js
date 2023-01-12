@@ -1,6 +1,18 @@
 import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
-import { Numbers, Read_wealth, addLingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg,  Read_najie, Write_najie, Read_action, returnCommodities } from '../../model/public.js'
+import {
+    Numbers,
+    addLingshi,
+    point_map,
+    exist_najie_thing_name,
+    Add_najie_thing,
+    existplayer,
+    ForwardMsg,
+    Read_najie,
+    Write_najie,
+    Read_action,
+    returnCommodities
+} from '../../model/public.js'
 export class UserTransaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -69,35 +81,27 @@ export class UserTransaction extends robotapi {
         const thing = e.msg.replace('#购买', '')
         const code = thing.split('\*')
         const [thing_name, thing_acount] = code
-        const the = {
-            "quantity": 99,
-            "najie": {}
-        }
-        the.quantity = await Numbers(thing_acount)
-        if (the.quantity > 99) {
-            the.quantity = 99
+        let quantity = await Numbers(thing_acount)
+        if (quantity > 99) {
+            quantity = 99
         }
         const ifexist = await returnCommodities().find(item => item.name == thing_name)
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
             return
         }
-        const player = await Read_wealth(usr_qq)
-        const lingshi = player.lingshi
-        const commodities_price = ifexist.price * the.quantity
-        if (lingshi < commodities_price) {
-            e.reply(`[凡仙堂]小二\n灵石不足`)
+        let money = await exist_najie_thing_name(usr_qq, '下品灵石')
+        if (money == 1 || money.acount < ifexist.price * quantity) {
+            e.reply([segment.at(usr_qq), `似乎没有${ifexist.price * quantity}下品灵石`])
             return
         }
-        the.najie = await Read_najie(usr_qq)
-        if (the.najie.thing.length > 21) {
-            e.reply('储物袋已满')
-            return
-        }
-        the.najie = await Add_najie_thing(the.najie, ifexist, the.quantity)
-        await Write_najie(usr_qq, the.najie)
-        await addLingshi(usr_qq, -commodities_price)
-        e.reply(`[凡仙堂]薛仁贵\n你花[${commodities_price}]灵石购买了[${thing_name}]*${the.quantity},`)
+        //先扣钱
+        await addLingshi(usr_qq, -ifexist.price * quantity)
+        //重新把东西丢回去
+        let najie = await Read_najie(usr_qq)
+        najie = await Add_najie_thing(najie, ifexist, quantity)
+        await Write_najie(usr_qq, najie)
+        e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]灵石购买了[${thing_name}]*${quantity},`)
         return
     }
     Sell_comodities = async (e) => {

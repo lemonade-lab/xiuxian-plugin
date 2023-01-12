@@ -14,8 +14,7 @@ import {
     addLingshi,
     At,
     GenerateCD,
-    Read_wealth,
-    Write_wealth,
+    exist_najie_thing_name,
     Write_action,
     randomThing
 } from '../../model/public.js'
@@ -55,17 +54,13 @@ export class MoneyOperation extends robotapi {
         }
         action.newnoe = 0
         await Write_action(usr_qq, action)
-        /**
-         * 随机从all表中随机丢出一键物品
-         */
-        const money = Number(10)
         const randomthing = await randomThing()
         let najie = await Read_najie(usr_qq)
         najie = await Add_najie_thing(najie, randomthing, Number(1))
         await Write_najie(usr_qq, najie)
-        await addLingshi(usr_qq, money)
-        e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${randomthing.name}]吧\n还有这${money}灵石\n可在必要的时候用到`)
-        e.reply(`你对此高兴万分\n把[${randomthing.name}]放进了#储物袋`)
+        await addLingshi(usr_qq, Number(10))
+        e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${randomthing.name}]吧\n还有这${Number(10)}灵石\n可在必要的时候用到`)
+        e.reply(`你对此高兴万分\n还放进了#储物袋`)
         return
     }
     Give_lingshi = async (e) => {
@@ -80,8 +75,8 @@ export class MoneyOperation extends robotapi {
         }
         let islingshi = e.msg.replace('#赠送灵石', '')
         const lingshi = await Numbers(islingshi)
-        const A_player = await Read_wealth(A)
-        if (A_player.lingshi < lingshi) {
+        let thing = await exist_najie_thing_name(A, '下品灵石')
+        if (thing == 1 || thing.acount < lingshi) {
             e.reply([segment.at(A), `似乎没有${lingshi}灵石`])
             return
         }
@@ -95,9 +90,8 @@ export class MoneyOperation extends robotapi {
         }
         await redis.set(`xiuxian:player:${A}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60)
-        A_player.lingshi -= lingshi
-        await Write_wealth(A, A_player)
-        await addLingshi(B, lingshi)
+        await addLingshi(A, -lingshi)   
+        await addLingshi(B, lingshi)        
         e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}灵石`])
         return
     }
