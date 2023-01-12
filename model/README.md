@@ -61,4 +61,16 @@ linux建议需要学习一些命令行等的基础知识
 >Yunzai-Bot/XiuxianData
 linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑
 
+## 新版升级
+
+如果你是V1.2的玩家,确想升级肿么办？
+
+无需担心,新版支持数据旧版数据迁移
+
+>需要同时安装两个版本
+
+管理员使用指令`#修仙数据升级`即可完成
+
+注意:已有新版存档玩家将会以旧版数据为准
+
 ## 开发者[☞文档](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/apps/README.md) 

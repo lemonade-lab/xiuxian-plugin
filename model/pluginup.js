@@ -4,7 +4,7 @@ import {
   existplayer, Write_player, get_talent, Write_najie,
   Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency,
   Write_action, Write_equipment, Write_Life, Read_Life, Anyarray, Read,
-  Read_level, Read_wealth, Numbers, returnLevel, returnPosirion, returnLevelMax
+  Read_level, Numbers, returnLevel, returnPosirion, returnLevelMax
 } from './public.js'
 const __dirname = `${path.resolve()}${path.sep}plugins`
 class pluginup {
@@ -24,9 +24,6 @@ class pluginup {
         level.experience = await Numbers(player.修为)
         level.experiencemax = await Numbers(player.血气)
         await Write_level(user_qq, level)
-        let wealth = await Read_wealth(user_qq)
-        wealth.lingshi = await Numbers(player.灵石)
-        await Write_wealth(user_qq, wealth)
       })
       return `共${data.length}名获得前世记忆`
     } catch {
