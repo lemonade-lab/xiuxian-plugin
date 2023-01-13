@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import defset from '../../model/defsetxx.js'
+import defset from '../../model/defset.js'
 import { superIndex } from "../../model/robotapi.js"
 export class boxadminrobot extends robotapi {
     constructor() {
