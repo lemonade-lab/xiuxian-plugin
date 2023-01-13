@@ -123,7 +123,7 @@ group:
 import roborapi from '../../../model/robotapi.js'
 import { superIndex } from '../../../model/robotapi.js'
 //引用配置读取
-import config from '../../../model/Config.js';
+import config from '../../../model/config.js';
 //xiuxian-my-plugin发送了myconfig.yaml文件
 import filecp from '../../../model/filecp.js';
 filecp.Pluginfile('xiuxian-my-plugin', ['myconfig']);
@@ -132,7 +132,7 @@ export class myhelp extends roborapi {
         super(superIndex([
                 {
                     reg: '^#我的配置$',
-                    fnc: 'theMyConfig'
+                    fnc: 'theMyconfig'
                 }
             ]));
     };
@@ -140,9 +140,9 @@ export class myhelp extends roborapi {
         /**
           读取配置
          */
-         const myconfig= config.getConfig('xiuxian', 'myconfig')
+         const myconfig= config.getconfig('xiuxian', 'myconfig')
          /**
-           *   task配置同理  config.getConfig('task', 'mytask')
+           *   task配置同理  config.getconfig('task', 'mytask')
           */
         //发送消息
         e.reply(myconfig);
