@@ -31,7 +31,7 @@ class Schedule {
         })
     }
     //查看备份目录,并以转发的形式丢出
-    viewbackups = (name) => {
+    viewbackups = () => {
         const NEW_PATH = `${plugins__dirname}${path.sep}boxdada`
         if (!fs.existsSync(NEW_PATH)) {
             return ['无备份数据']

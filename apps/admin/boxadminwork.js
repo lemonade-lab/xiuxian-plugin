@@ -32,7 +32,7 @@ export class boxadminwork extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const msg = schedule.viewbackups('xiuxian')
+        const msg = schedule.viewbackups()
         await ForwardMsg(e, msg)
         return
     }
