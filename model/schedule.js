@@ -48,8 +48,6 @@ class Schedule {
         if (!fs.existsSync(namefile)) {
             return ['无此备份']
         }
-        const msg = []
-        const sum = BoxFs.returnMenu(NEW_PATH)
         /**
          * 切割名字,根据名字来分配,如果是dark
          */
@@ -60,17 +58,48 @@ class Schedule {
             'home': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
             'association': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
         }
-        const newsum = BoxFs.returnfilepath(ThePath[pluginname],'.json')
-        newsum.forEach((item)=>{
+        //得到底下所有的json文件地址
+        const newsum = BoxFs.returnfilepath(ThePath[pluginname], '.json')
+        newsum.forEach((item) => {
             //循环删除数据
+            fs.unlink(item, (err) => {
+                console.log(err)
+            })
         })
         /**
-         * 获取备份地址的下的所有json
+         * 获得备份下的所有子目录
          */
-
-
-        console.log(newsum)
-        return msg
+        const namefile_subdirectory = BoxFs.returnMenu(namefile)
+        /**
+         * 获得备份目录下的所有json的文件名
+         */
+        namefile_subdirectory.forEach((itempath) => {
+            //当前目录下的json文件名
+            const jsonName = [];
+            const files = fs
+                .readdirSync(`${namefile}/${itempath}`)
+                .filter(file => file.endsWith('.json'));
+            for (let file of files) {
+                file = file.replace('.json', '');
+                jsonName.push(file);
+            }
+            //这里是qq号？
+            jsonName.forEach((uid) => {
+                /**
+                 * 原理是？这个文件地址，复制到那个文件地址
+                 */
+                let y = `${namefile}/${itempath}/${uid}.json`
+                let x = `${ThePath[pluginname]}/${itempath}/${uid}.json`
+                //不存在就复制
+                if (!fs.existsSync(x)) {
+                    //要复制
+                    fs.cp(y, x, (err) => {
+                        if (err) { }
+                    })
+                }
+            })
+        })
+        return ['恢复成功']
     }
 }
 export default new Schedule()
