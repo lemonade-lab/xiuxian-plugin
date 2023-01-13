@@ -4,18 +4,22 @@ Time：2022-11-27
 ### 1.定义插件名并创建目录以文件
 ```
 plugins/xiuxian-my-plugin/                                #插件名为xiuxian-my-plugin
-                apss/myindex.js                     #功能文件夹
-                defSet/help/myhelp.yaml           #配置文件夹
-                model/mymain.js                  #封装js文件夹
+                apps/myindex.js                     #功能文件夹
+                defSet/help/myhelp.yaml           #帮助
+                    /task/myconfig.yaml         #定时任务
+                    /xiuxian/myconfig.yaml      #配置
+                model/mymain.js                  #封装
+                     /myfs.js                  
+                    /mypublic.js                  
                 resources/                        #资源文件夹
-                          html/html.md              #页面资源
-                          img/img.md                #图片资源
-                          data/                      #存档文件夹
-                               birth/birth.md            #动态文件
-                               fixed/fixed.md            #静态文件
+                    html/html.md              #页面资源
+                    img/img.md                #图片资源
+                    data/                      #存档文件夹
+                        birth/birth.md            #动态文件
+                        fixed/fixed.md            #静态文件
 ```
 ### 2.简单的命令打印及其输出
->myindex.js
+>apps/myindex.js
 ```
 //js文件名字的前缀最好带上插件名,如黑市插件为myindex.js或mymain.js
 //引入Yunzai插件功能(注意路径)
@@ -47,7 +51,7 @@ export class myindex extends roborapi {
 ```
 ## 二、具体实现
 ### （一）扩展帮助图
-##### 1.编辑myhelp.yaml文件
+##### 编辑myhelp.yaml文件
 ```
 - group: 
   list:
@@ -58,8 +62,8 @@ export class myindex extends roborapi {
       title: "#我的插件帮助"
       desc: "调用我的插件帮助"
 ```
-##### 2.编写js文件
->myhelp.js
+##### 发送我的帮助
+>apps/myhelp.js
 ```
 //注意路径（常识）
 import roborapi from '../../../model/robotapi.js'
@@ -83,7 +87,7 @@ export class myhelp extends roborapi {
     };
     theMyHelp = async (e) => {
         //help对象的gerhelp方法，可以接收一个yaml文件进行配置
-        const data = await Help.getboxhelp( 'myhelp');
+        const data = await Help.getboxhelp('myhelp');
         //判断存不存在
         if (!data) {
             return
@@ -97,6 +101,56 @@ export class myhelp extends roborapi {
     };
 };
 ```
+##### 编辑myconfig.yaml文件
+```
+#操作cd,必须为整数,单位：分
+CD: 
+  Level_up: 5
+  LevelMax_up: 5     
+  Autograph: 60
+  Name: 1240
+  Reborn: 360    
+  Transfer: 60  
+  Attack: 5
+  Kill: 3
+
+group: 
+  white: 0  
+```
+##### 动态读取配置
+>apps/myconfig.js
+```
+import roborapi from '../../../model/robotapi.js'
+import { superIndex } from '../../../model/robotapi.js'
+//引用配置读取
+import config from '../../../model/Config.js';
+//xiuxian-my-plugin发送了myconfig.yaml文件
+import filecp from '../../../model/filecp.js';
+filecp.Pluginfile('xiuxian-my-plugin', ['myconfig']);
+export class myhelp extends roborapi {
+    constructor() {
+        super(superIndex([
+                {
+                    reg: '^#我的配置$',
+                    fnc: 'theMyConfig'
+                }
+            ]));
+    };
+    theMyHelp = async (e) => {
+        /**
+          读取配置
+         */
+         const myconfig= config.getConfig('xiuxian', 'myconfig')
+         /**
+           *   task配置同理  config.getConfig('task', 'mytask')
+          */
+        //发送消息
+        e.reply(myconfig);
+        return;
+    };
+};
+```
+
 ### （二）模板
 ###### 1.定义全局
 >model/myfs.js
@@ -332,9 +386,10 @@ export class myuser extends robotapi {
 }
 ```
 ### （三）数据推送
-##### 1.激活数据备份
+##### 激活数据备份
 >myhelp.js
 ```
+//放进myhelp.js以激活
 import Xiuxianschedule from '../../../model/XiuxianSchedule.js';
 import {__PATH} from '../model/mypublic.js';
 /**
@@ -344,7 +399,7 @@ import {__PATH} from '../model/mypublic.js';
  */
 Xiuxianschedule.scheduleJobflie('my','0 0 */1 * * ?',__PATH.my);
 ```
-##### 2.编写数据文件
+##### 生成物品数据
 >resources/data/fixed
 >mypoint.json
 ```
@@ -383,4 +438,13 @@ id数据尾规定:
 属性：城池1、荒地2、海洋3、秘境4、禁地5、岛屿6   
 等级: 等级限制（1-10）   
 编号：0区域、1中心、2传送阵、3联盟、凡仙堂4...     
+```
+##### 推送物品数据
+>model/mydata.js
+``` 
+     
+class MyData{
+
+
+}     
 ```
