@@ -117,6 +117,19 @@ export const createBoxPlayer = async (uid) => {
     }
 }
 
+//初次使用
+export const exist = async (uid) => {
+    const life = await Read_Life()
+    const find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        return true
+    } else {
+        //不管死没死，有存档就不能降临
+        //必须再入仙途
+        return false
+    }
+}
+
 //基础存档
 export const existplayer = async (uid) => {
     let life = await Read_Life()
@@ -201,18 +214,7 @@ export const Write = async (uid, player, PATH) => {
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     return
 }
-//初次使用
-export const exist = async (uid) => {
-    const life = await Read_Life()
-    const find = life.find(item => item.qq == uid)
-    if (find == undefined) {
-        return true
-    } else {
-        //不管死没死，有存档就不能降临
-        //必须再入仙途
-        return false
-    }
-}
+
 
 //读取存档
 export const Read_player = async (uid) => {
