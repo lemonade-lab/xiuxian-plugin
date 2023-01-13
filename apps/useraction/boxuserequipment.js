@@ -25,9 +25,6 @@ export class boxuserequipment extends robotapi {
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     add_equipment = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -52,9 +49,6 @@ export class boxuserequipment extends robotapi {
         return
     }
     delete_equipment = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {

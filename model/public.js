@@ -1003,9 +1003,6 @@ export const offaction = async (qq) => {
  * 状态封锁查询
  */
 export const Gomini = async (e) => {
-    if (!e.isGroup) {
-        return false
-    }
     const uid = e.user_id
     const ifexistplay = await existplayer(uid)
     if (!ifexistplay) {
@@ -1028,9 +1025,6 @@ export const Gomini = async (e) => {
  * 状态封锁查询
  */
 export const Go = async (e) => {
-    if (!e.isGroup) {
-        return false
-    }
     const uid = e.user_id
     const ifexistplay = await existplayer(uid)
     if (!ifexistplay) {

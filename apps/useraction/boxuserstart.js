@@ -51,6 +51,9 @@ export class boxuserstart extends robotapi {
         return
     }
     reCreate_player = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const uid = e.user_id
         const CDTime = this.xiuxianconfigData.CD.Reborn
         const CDid = '8'

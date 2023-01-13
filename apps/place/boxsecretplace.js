@@ -43,9 +43,6 @@ export class boxsecretplace extends robotapi {
         ]))
     }
     show_city = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -72,6 +69,9 @@ export class boxsecretplace extends robotapi {
         return
     }
     returnpiont = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -96,6 +96,9 @@ export class boxsecretplace extends robotapi {
         return
     }
     forward = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -140,6 +143,9 @@ export class boxsecretplace extends robotapi {
         return
     }
     delivery = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -186,8 +192,6 @@ export class boxsecretplace extends robotapi {
         }
         //先扣钱
         await addLingshi(uid, -lingshi)
-
-
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)

@@ -36,6 +36,9 @@ export class boxplayercontrol extends robotapi {
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Biguan = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Gomini(e)
         if (!good) {
             return
@@ -51,6 +54,9 @@ export class boxplayercontrol extends robotapi {
         return true
     }
     Dagong = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -66,9 +72,6 @@ export class boxplayercontrol extends robotapi {
         return true
     }
     chuGuan = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -99,9 +102,6 @@ export class boxplayercontrol extends robotapi {
         return
     }
     endWork = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {

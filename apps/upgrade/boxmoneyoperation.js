@@ -33,6 +33,9 @@ export class boxmoneyoperation extends robotapi {
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     New_lingshi = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -64,6 +67,9 @@ export class boxmoneyoperation extends robotapi {
         return
     }
     Give_lingshi = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return

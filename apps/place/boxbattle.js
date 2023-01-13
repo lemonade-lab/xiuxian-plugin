@@ -35,6 +35,9 @@ export class boxbattle extends robotapi {
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     duel = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -101,6 +104,9 @@ export class boxbattle extends robotapi {
         return
     }
     attack = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -165,9 +171,6 @@ export class boxbattle extends robotapi {
         return
     }
     handWashing = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {

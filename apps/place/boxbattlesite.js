@@ -35,6 +35,9 @@ export class boxbattlesite extends robotapi {
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Kill = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Go(e)
         if (!good) {
             return
@@ -113,6 +116,9 @@ export class boxbattlesite extends robotapi {
         return
     }
     Exploremonsters = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const good = await Gomini(e)
         if (!good) {
             return

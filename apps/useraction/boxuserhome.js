@@ -44,9 +44,6 @@ export class boxuserhome extends robotapi {
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     consumption_danyao = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -130,9 +127,6 @@ export class boxuserhome extends robotapi {
         return
     }
     add_gongfa = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -168,9 +162,6 @@ export class boxuserhome extends robotapi {
         return
     }
     delete_gongfa = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -193,9 +184,6 @@ export class boxuserhome extends robotapi {
         return
     }
     consumption_daoju = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
