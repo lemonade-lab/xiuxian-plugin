@@ -12,4 +12,4 @@
 | [妖塔 (xiuxian-pagoda-plugin)]() | [ @DD斩首]() | #妖塔帮助 | 最强修士 | 施工中 |  
 | [职业 (xiuxian-occupation-plugin)]() | [@零零零零]() | #职业帮助 | 绝世天才 |  施工中 |  
 
-# [☞组织名单](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/resources/defSet/README.md)
+# [☞组织名单](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/resources/defset/README.md)
