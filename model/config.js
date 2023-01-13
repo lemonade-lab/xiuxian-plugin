@@ -2,7 +2,7 @@ import YAML from 'yaml'
 import fs from 'node:fs'
 import chokidar from 'chokidar'
 import { appname } from './main.js'
-class Config {
+class config {
     constructor() {
         //固定配置地址
         this.defsetPath = `./plugins/${appname}/resources/defset`
@@ -18,7 +18,7 @@ class Config {
         return this.getYaml(app, name, 'defset')
     }
     //动态生成配置读取
-    getConfig = (app, name) => {
+    getconfig = (app, name) => {
         //地址名，文件名
         return this.getYaml(app, name, 'config')
     }
@@ -77,4 +77,4 @@ class Config {
         return
     }
 }
-export default new Config()
+export default new config()
