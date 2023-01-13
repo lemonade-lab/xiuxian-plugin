@@ -61,16 +61,21 @@ linux建议需要学习一些命令行等的基础知识
 >Yunzai-Bot/XiuxianData
 linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑
 
-## 自定义帮助
+## 素材替换
 
->Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/help
+>Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/img
 
-帮助图片支持替换
+图片支持全部替换
+
+## 配置修改
 
 >Yunzai-Bot/plugins/Xiuxian-Plugin-Box/config/help
 
 帮助内容支持替换
 
+>Yunzai-Bot/plugins/Xiuxian-Plugin-Box/config/xiuxian
+
+支持参数配置手动设置,指令设置请发送`#修仙配置`
 
 ## 新版升级
 
