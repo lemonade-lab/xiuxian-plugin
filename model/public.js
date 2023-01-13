@@ -97,7 +97,7 @@ export const createBoxPlayer = async (uid) => {
             'qq': uid,
             'name': `${name}`,
             'Age': 1,//年龄
-            'life': Math.floor((Math.random() * (100 - 50) + 50)), //寿命
+            'life': Math.floor((Math.random() * (84 - 60) + 60)), //寿命
             'createTime': time.getTime(),
             'status': 1
         })

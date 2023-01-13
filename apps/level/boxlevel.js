@@ -170,7 +170,7 @@ export class boxlevel extends robotapi {
         const life = await Read_Life()
         life.forEach((item) => {
             if (item.qq == uid) {
-                item.life += Math.floor(item.life * player.level_id / 3)
+                item.life += Math.floor(item.life * player.level_id / 5+50)
                 e.reply(`突破成功至${player.levelname}${map[player.rank_id]},寿命至${item.life}`)
             }
         })

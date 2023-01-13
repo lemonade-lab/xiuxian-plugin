@@ -33,7 +33,7 @@ class Cachemonster {
             }
         }
         addall[i].acount += num
-        const p = Math.floor((Math.random() * (50 - 30))) + Number(30)
+        const p = Math.floor((Math.random() * (30 - 10))) + Number(10)
         if (addall[i].acount > p) {
             addall[i].acount = 0
             return 1

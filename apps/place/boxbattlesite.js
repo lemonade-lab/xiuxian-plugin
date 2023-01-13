@@ -96,20 +96,12 @@ export class boxbattlesite extends robotapi {
                     msg.push('储物袋已满')
                 }
             }
-            if (m < mon.level * 6) {
-                msg.push(`得到${mon.level * 25 * mybuff}气血`)
-                await Add_experiencemax(uid, mon.level * 25 * mybuff)
-            }
             if (m < mon.level * 7) {
-                msg.push(`得到${mon.level * 20 * mybuff}气血`)
-                await Add_experiencemax(uid, mon.level * 20 * mybuff)
+                const qixue=mon.level * 20 * mybuff
+                msg.push(`得到${qixue}气血`)
+                await Add_experiencemax(uid, qixue)
             }
-            if (m < mon.level * 8) {
-                const lingshi = await Numbers(mon.level * 25 * mybuff)
-                msg.push(`得到${lingshi}下品灵石`)
-                await addLingshi(uid, lingshi)
-            }
-            if (m >= mon.level * 8) {
+            if (m < mon.level * 9) {
                 const lingshi = await Numbers(mon.level * 20 * mybuff)
                 msg.push(`得到${lingshi}下品灵石`)
                 await addLingshi(uid, lingshi)
