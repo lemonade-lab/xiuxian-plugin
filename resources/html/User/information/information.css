@@ -1,17 +1,9 @@
-@font-face {
-  font-family:"xiuxian";
-  src: url('../../../font/_GBK.TTF');
-  font-weight: normal;
-  font-style: normal;
-}
-
 body {
   width: 100%;
   margin: auto;
   text-align: center;
   background-image: url('../../../img/user/information/information.png');
   background-size: 100% auto;
-  font-family: xiuxain;
 }
 .user_top {
   display:grid;
