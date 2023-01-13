@@ -6,7 +6,7 @@ Time：2022-11-27
 plugins/xiuxian-my-plugin/                                #插件名为xiuxian-my-plugin
                 apps/myindex.js                     #功能文件夹
                 defSet/help/myhelp.yaml           #帮助
-                    /task/myconfig.yaml         #定时任务
+                    /task/mytask.yaml         #定时任务
                     /xiuxian/myconfig.yaml      #配置
                 model/mymain.js                  #封装
                      /myfs.js                  
