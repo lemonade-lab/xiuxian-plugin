@@ -3,7 +3,7 @@ import { appname } from './main.js'
 import BoxFs from './boxfs.js'
 class filecp {
   constructor() {
-    this.defsetpath = `./plugins/${appname}/resources/defSet/`
+    this.defsetpath = `./plugins/${appname}/resources/defset/`
     this.configpath = `./plugins/${appname}/config/`
     this.configarr = ['xiuxian', 'task', 'Help', 'Admin']
     const path = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
@@ -12,7 +12,7 @@ class filecp {
     this.file()
   }
   Pluginfile = (name, config) => {
-    const defsetpath = `./plugins/${appname}/plugins/${name}/defSet/`
+    const defsetpath = `./plugins/${appname}/plugins/${name}/defset/`
     const path = BoxFs.returnMenu(defsetpath)
     path.forEach((itempath) => {
       config.forEach((itemconfig) => {

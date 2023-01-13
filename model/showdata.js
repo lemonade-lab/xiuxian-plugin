@@ -8,7 +8,7 @@ export const get_map_img = async () => {
     return img
 }
 export const get_updata_img = async () => {
-    const updata = config.getdefSet('version', 'version')
+    const updata = config.getdefset('version', 'version')
     const myData = {
         version: updata
     }

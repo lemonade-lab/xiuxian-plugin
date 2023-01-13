@@ -5,17 +5,17 @@ import { appname } from './main.js'
 class Config {
     constructor() {
         //固定配置地址
-        this.defSetPath = `./plugins/${appname}/resources/defSet`
-        this.defSet = {}
+        this.defsetPath = `./plugins/${appname}/resources/defset`
+        this.defset = {}
         //动态配置地址
         this.configPath = `./plugins/${appname}/config`
         this.config = {}
         /** 监听文件 */
-        this.watcher = { config: {}, defSet: {} }
+        this.watcher = { config: {}, defset: {} }
     }
     //原始固定配置读取
-    getdefSet = (app, name) => {
-        return this.getYaml(app, name, 'defSet')
+    getdefset = (app, name) => {
+        return this.getYaml(app, name, 'defset')
     }
     //动态生成配置读取
     getConfig = (app, name) => {
@@ -39,7 +39,7 @@ class Config {
         this.watch(file, app, name, type)
         return this[type][key]
     }
-    //如果类型是defSet就返回defSet类型地址
+    //如果类型是defset就返回defset类型地址
     /**
      * 
      * @param {地址名} app 
@@ -49,8 +49,8 @@ class Config {
      */
 
     getFilePath = (app, name, type) => {
-        if (type == 'defSet') {
-            return `${this.defSetPath}/${app}/${name}.yaml`
+        if (type == 'defset') {
+            return `${this.defsetPath}/${app}/${name}.yaml`
         } else {
             return `${this.configPath}/${app}/${name}.yaml`
         }
@@ -62,7 +62,7 @@ class Config {
      * @param {类型地址} type 
      * @returns 
      */
-    watch = (file, app, name, type = 'defSet') => {
+    watch = (file, app, name, type = 'defset') => {
         let key = `${app}.${name}`
         if (this.watcher[type][key]) return
         const watcher = chokidar.watch(file)

@@ -4,7 +4,7 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const other = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`
 const group = `${path.resolve()}${path.sep}config${path.sep}config/group.yaml`
-class defSet {
+class defset {
   constructor() {
     try {
       this.YAML = require('yamljs')
@@ -119,4 +119,4 @@ class defSet {
     }
   }
 }
-export default new defSet()
+export default new defset()

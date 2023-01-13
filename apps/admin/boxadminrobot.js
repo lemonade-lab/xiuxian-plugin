@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import defSet from '../../model/defSet.js'
+import defset from '../../model/defset.js'
 import { superIndex } from "../../model/robotapi.js"
 export class boxadminrobot extends robotapi {
     constructor() {
@@ -47,28 +47,28 @@ export class boxadminrobot extends robotapi {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.ReadConfig())
+        e.reply(defset.ReadConfig())
         return
     }
     openRobot = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.openReadConfig())
+        e.reply(defset.openReadConfig())
         return
     }
     CloseRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.ReadConfighelp())
+        e.reply(defset.ReadConfighelp())
         return
     }
     openRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.openReadConfighelp())
+        e.reply(defset.openReadConfighelp())
         return
     }
     AddMaster = async (e) => {
@@ -76,7 +76,7 @@ export class boxadminrobot extends robotapi {
             return
         }
         const QQ = e.msg.replace('#修仙添加主人', '')
-        e.reply(defSet.AddMaster(QQ))
+        e.reply(defset.AddMaster(QQ))
         return
     }
     DeleteMaster = async (e) => {
@@ -84,21 +84,21 @@ export class boxadminrobot extends robotapi {
             return
         }
         const QQ = e.msg.replace('#修仙删除主人', '')
-        e.reply(defSet.DeleteMaster(QQ))
+        e.reply(defset.DeleteMaster(QQ))
         return
     }
     OffGroup = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.OffGroup())
+        e.reply(defset.OffGroup())
         return
     }
     OnGroup = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.OnGroup())
+        e.reply(defset.OnGroup())
         return
     }
 }
