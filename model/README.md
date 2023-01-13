@@ -44,13 +44,13 @@
 
 ## 新增物品   
 
->Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources\goods
+>Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/goods
 
 此目录中查看[☞说明](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/resources/goods/README.md) 
 
 ## 修改存档  
 
->Yunzai-Bot\plugins\Xiuxian-Plugin-Box\resources/data/birth/xiuxian
+>Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/data/birth/xiuxian
 
 windows建议使用VScode软件进行编辑,以免带来破坏性影响
 
@@ -60,6 +60,17 @@ linux建议需要学习一些命令行等的基础知识
 
 >Yunzai-Bot/XiuxianData
 linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑
+
+## 自定义帮助
+
+>Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/help
+
+帮助图片支持替换
+
+>Yunzai-Bot/plugins/Xiuxian-Plugin-Box/config/help
+
+帮助内容支持替换
+
 
 ## 新版升级
 
