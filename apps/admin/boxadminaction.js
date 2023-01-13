@@ -4,14 +4,11 @@ import { ForwardMsg } from '../../model/public.js'
 import { get_updata_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
 import { appname } from "../../model/main.js"
+import { restart } from "../../model/public.js"
 import filecp from '../../model/filecp.js'
 import boxfs from "../../model/boxfs.js"
 const require = createRequire(import.meta.url)
 const { exec } = require('child_process')
-const the = {
-    'timer': '',
-    'restart': ''
-}
 export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -60,8 +57,8 @@ export class boxadminaction extends robotapi {
                 )
             }
         })
-        the.timer && clearTimeout(the.timer)
-        the.timer = setTimeout(async () => {
+        restart.timer && clearTimeout(restart.timer)
+        restart.timer = setTimeout(async () => {
             try {
                 const data = JSON.stringify({
                     isGroup: !!e.isGroup,
@@ -95,14 +92,14 @@ export class boxadminaction extends robotapi {
         return
     }
     init = async () => {
-        the.restart = await redis.get(this.key)
-        if (the.restart) {
-            the.restart = JSON.parse(the.restart)
+        restart.restart = await redis.get(this.key)
+        if (restart.restart) {
+            restart.restart = JSON.parse(restart.restart)
             const img = await get_updata_img()
-            if (the.restart.isGroup) {
-                Bot.pickGroup(the.restart.id).sendMsg(img)
+            if (restart.restart.isGroup) {
+                Bot.pickGroup(restart.restart.id).sendMsg(img)
             } else {
-                Bot.pickGroup(the.restart.id).sendMsg(img)
+                Bot.pickGroup(restart.restart.id).sendMsg(img)
             }
             redis.del(this.key)
         }

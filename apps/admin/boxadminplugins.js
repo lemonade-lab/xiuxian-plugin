@@ -3,11 +3,9 @@ import { createRequire } from 'module'
 import { ForwardMsg } from '../../model/public.js'
 import filecp from '../../model/filecp.js'
 import { superIndex } from "../../model/robotapi.js"
+import { restart } from "../../model/public.js"
 const require = createRequire(import.meta.url)
 const { exec } = require('child_process')
-const the = {
-    'timer': ''
-}
 export class boxadminplugins extends robotapi {
     constructor() {
         super(superIndex([
@@ -45,8 +43,8 @@ export class boxadminplugins extends robotapi {
                     return
                 }
                 msg.push('安装成功,正在重启更新...')
-                the.timer && clearTimeout(the.timer)
-                the.timer = setTimeout(async () => {
+                restart.timer && clearTimeout(restart.timer)
+                restart.timer = setTimeout(async () => {
                     try {
                         const data = JSON.stringify({
                             isGroup: !!e.isGroup,
@@ -108,8 +106,8 @@ export class boxadminplugins extends robotapi {
                     return
                 }
                 msg.push('卸载成功,正在重启更新...')
-                the.timer && clearTimeout(the.timer)
-                the.timer = setTimeout(async () => {
+                restart.timer && clearTimeout(restart.timer)
+                restart.timer = setTimeout(async () => {
                     try {
                         const data = JSON.stringify({
                             isGroup: !!e.isGroup,

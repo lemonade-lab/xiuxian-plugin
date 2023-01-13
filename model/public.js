@@ -17,6 +17,13 @@ const CDname = {
     '11': '决斗'
 }
 /**
+ * 重启控制
+ */
+export const restart = {
+    'timer': '',
+    'restart': ''
+}
+/**
  * 
  * 创建存档
  */
