@@ -24,7 +24,7 @@ class Schedule {
                 PATH = newpath
             }
             //备份位置不变
-            const NEW_PATH = `${plugins__dirname}${path.sep}boxdada${path.sep}${name}.${Y}${M}${D}${h}${m}${s}`
+            const NEW_PATH = `${plugins__dirname}${path.sep}boxdada${path.sep}${name}.${Y}.${M}.${D}.${h}.${m}.${s}`
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) { }
             })
