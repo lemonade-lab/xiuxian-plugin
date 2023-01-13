@@ -5,7 +5,6 @@ import filecp from '../../model/filecp.js'
 import { superIndex } from "../../model/robotapi.js"
 const require = createRequire(import.meta.url)
 const { exec } = require('child_process')
-const _path = process.cwd()
 const the = {
     'timer': ''
 }
@@ -39,7 +38,7 @@ export class boxadminplugins extends robotapi {
             return
         }
         const that = this
-        exec(MAP[name], { cwd: `${_path}` },
+        exec(MAP[name], { cwd: `${process.cwd()}` },
             (error, stdout, stderr) => {
                 if (error) {
                     e.reply(`安装失败\nError code: ${error.code}\n${error.stack}\n`)
@@ -101,7 +100,7 @@ export class boxadminplugins extends robotapi {
             return
         }
         const that = this
-        exec(MAP[name], { cwd: `${_path}` },
+        exec(MAP[name], { cwd: `${process.cwd()}` },
             (error, stdout, stderr) => {
                 if (error) {
                     msg.push(`卸载失败\nError code: ${error.code}\n${error.stack}\n`)

@@ -43,7 +43,6 @@ export class boxadminrobot extends robotapi {
             }
         ]))
     }
-
     closeRobot = async (e) => {
         if (!e.isMaster) {
             return
@@ -58,8 +57,6 @@ export class boxadminrobot extends robotapi {
         e.reply(defSet.openReadConfig())
         return
     }
-
-
     CloseRobothelp = async (e) => {
         if (!e.isMaster) {
             return
@@ -67,7 +64,6 @@ export class boxadminrobot extends robotapi {
         e.reply(defSet.ReadConfighelp())
         return
     }
-
     openRobothelp = async (e) => {
         if (!e.isMaster) {
             return
@@ -75,8 +71,6 @@ export class boxadminrobot extends robotapi {
         e.reply(defSet.openReadConfighelp())
         return
     }
-
-
     AddMaster = async (e) => {
         if (!e.isMaster) {
             return
@@ -93,12 +87,6 @@ export class boxadminrobot extends robotapi {
         e.reply(defSet.DeleteMaster(QQ))
         return
     }
-
-
-
-
-
-
     OffGroup = async (e) => {
         if (!e.isMaster) {
             return
