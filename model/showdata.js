@@ -61,7 +61,7 @@ export const get_player_img = async (uid) => {
         talent: talent,
         talentsize: size
     }
-    const img = await showPuppeteer('User/player', 'player', myData)
+    const img = await showPuppeteer('user/information', 'information', myData)
     return img
 }
 export const get_equipment_img = async (uid) => {
@@ -79,7 +79,7 @@ export const get_equipment_img = async (uid) => {
         life: life,
         equipment: equipment
     }
-    const img = await showPuppeteer('User/equipment', 'equipment', myData)
+    const img = await showPuppeteer('user/equipment', 'equipment', myData)
     return img
 }
 export const get_najie_img = async (uid) => {
@@ -123,7 +123,7 @@ export const get_najie_img = async (uid) => {
         daoju_list: daoju_list,
         danyao_list: danyao_list
     }
-    const img = await showPuppeteer('User/najie', 'najie', myData)
+    const img = await showPuppeteer('user/bag', 'bag', myData)
     return img
 }
 

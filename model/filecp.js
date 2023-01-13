@@ -6,7 +6,9 @@ class filecp {
     this.defsetpath = `./plugins/${appname}/defSet/`
     this.configpath = `./plugins/${appname}/config/`
     this.configarr = ['xiuxian', 'task', 'Help', 'Admin']
-    this.help(['help'], ['help.jpg','icon.png'])
+    const path = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
+    const name = ['help.png', 'icon.png','map.png','toplist.png','update-buttom.png','bag.png','equipment.png','head.png','information.png','left.png','right.png']
+    this.help(path, name)
     this.file()
   }
   Pluginfile = (name, config) => {
@@ -65,10 +67,10 @@ class filecp {
   //复制两个文件
   help = (path, name) => {
     path.forEach((itempath) => {
-      name.forEach((itemname)=>{
-        let x = `./plugins/${appname}/resources/${itempath}/${itemname}`
+      name.forEach((itemname) => {
+        let x = `./plugins/${appname}/resources/img/${itempath}/${itemname}`
         if (!fs.existsSync(x)) {
-          let y = `./plugins/${appname}/resources/img/${itempath}/${itemname}`
+          let y = `./plugins/${appname}/resources/html/allimg/${itempath}/${itemname}`
           fs.cp(y, x,
             (err) => {
               if (err) { }

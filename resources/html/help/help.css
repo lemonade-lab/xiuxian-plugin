@@ -1,7 +1,7 @@
 body {
   transform: scale(1);
   width: 100%;
-  background: url(../../help/help.jpg) top left no-repeat;
+  background: url('../../img/help/help.png') top left no-repeat;
   background-size: 100%;
 }
 
@@ -85,7 +85,7 @@ body {
   height: 40px;
   display: block;
   position: absolute;
-  background: url("../../help/icon.png") 0 0 no-repeat;
+  background: url('../../img/help/icon.png') 0 0 no-repeat;
   background-size: 500px auto;
   border-radius: 5px;
   left: 6px;

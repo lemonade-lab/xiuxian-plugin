@@ -9,7 +9,7 @@ body {
   width: 100%;
   margin: auto;
   text-align: center;
-  background-image: url('./equipment.jpg');
+  background-image: url('../../../img/user/equipment/equipment.png');
   background-size: 100% auto;
   font-family: xiuxian;
 
@@ -25,7 +25,7 @@ body {
 }
 
 .user_top_img_bottom {
-  background-image: url("../../..//img/player/user_state.png");
+  background-image: url("../../../img/user/head/head.png");
   background-size: 100% 100%;
   width: 320px;
   height: 320px;
