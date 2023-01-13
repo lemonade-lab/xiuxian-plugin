@@ -62,7 +62,7 @@ linux建议需要学习一些命令行等的基础知识
 
 ## 数据备份
 
->Yunzai-Bot/XiuxianData 
+>Yunzai-Bot/boxdada 
 
 linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑  
 

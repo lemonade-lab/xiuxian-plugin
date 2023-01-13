@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import data from './XiuxianData.js'
-import { __PATH } from './XiuxianData.js'
+import data from './boxdada.js'
+import { __PATH } from './boxdada.js'
 const CDname = {
     '0': '攻击',
     '1': '降妖',

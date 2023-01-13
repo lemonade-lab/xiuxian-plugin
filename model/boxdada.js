@@ -27,7 +27,7 @@ export const __PATH = {
     'position': path.join(__dirname, '/resources/data/birth/position'),
     'Level': path.join(__dirname, '/resources/data/birth/Level'),
 }
-class XiuxianData {
+class boxdada {
     constructor() {
         this.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixedtalent}/talent_list.json`))
         this.newlist(__PATH.Level, 'Level_list', [])
@@ -118,4 +118,4 @@ class XiuxianData {
         return data
     }
 }
-export default new XiuxianData()
+export default new boxdada()

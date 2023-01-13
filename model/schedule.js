@@ -23,7 +23,7 @@ class Schedule {
                 PATH = newpath
             }
             //备份位置不变
-            const NEW_PATH = `${plugins__dirname}${path.sep}XiuxianData${path.sep}${name}${Y}${M}${D}${h}${m}${s}`
+            const NEW_PATH = `${plugins__dirname}${path.sep}boxdada${path.sep}${name}${Y}${M}${D}${h}${m}${s}`
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) { }
             })
@@ -35,7 +35,7 @@ class Schedule {
         /**
          * 判断目录是否存在,不存就是不存在备份
          */
-        const NEW_PATH = `${plugins__dirname}${path.sep}XiuxianData`
+        const NEW_PATH = `${plugins__dirname}${path.sep}boxdada`
         if (!fs.existsSync(NEW_PATH)) {
             msg.push('无备份数据')
             return msg
@@ -64,7 +64,7 @@ class Schedule {
         /**
          * 判断目录是否存在,不存就是不存在备份
          */
-        const NEW_PATH = `${plugins__dirname}${path.sep}XiuxianData`
+        const NEW_PATH = `${plugins__dirname}${path.sep}boxdada`
         if (!fs.existsSync(NEW_PATH)) {
             msg.push('无备份数据')
             return msg

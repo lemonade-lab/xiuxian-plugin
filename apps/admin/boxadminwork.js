@@ -8,7 +8,7 @@ export class boxadminwork extends robotapi {
         super(superIndex([
             {
                 reg: '^#修仙升级$',
-                fnc: 'Xiuxiandataup'
+                fnc: 'boxdadaup'
             },
             {
                 reg: '^#修仙数据$',
@@ -20,7 +20,7 @@ export class boxadminwork extends robotapi {
             }
         ]))
     }
-    Xiuxiandataup = async (e) => {
+    boxdadaup = async (e) => {
         if (!e.isMaster) {
             return
         }
