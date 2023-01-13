@@ -1,0 +1,53 @@
+- group: 
+  list:
+    - icon: help-icon_16
+      title: "#修仙扣除9999 @道友"
+      desc: "扣指定道友灵石"
+    - icon: help-icon_16
+      title: "#修仙馈赠+物品名 @道友"
+      desc: "补偿指定道友物品"
+
+- group: 
+  list:
+    - icon: help-icon_32
+      title: "#修仙删除数据"
+      desc: "删除错误数据"
+    - icon: help-icon_32
+      title: "#修仙删除世界"
+      desc: "删除全部信息"
+    - icon: help-icon_32
+      title: "#修仙删除信息 @道友"
+      desc: "删除道友信息"
+      
+- group: 
+  list:
+    - icon: help-icon_58
+      title: "#修仙关闭云崽"
+      desc: "#修仙开启云崽"
+    - icon: help-icon_58
+      title: "#修仙关闭云崽帮助"
+      desc: "#修仙开启云崽帮助"
+    - icon: help-icon_58
+      title: "#修仙关闭云崽私聊"
+      desc: "#修仙开启云崽私聊"
+    - icon: help-icon_58
+      title: "#修仙添加主人+QQ"
+      desc: "#修仙删除主人+QQ"
+    - icon: help-icon_58
+      title: "#修仙配置"
+      desc: "查看当前配置"
+      
+- group: 
+  list:
+    - icon: help-icon_58
+      title: "#修仙数据"
+      desc: "查看数据备份"
+    - icon: help-icon_58
+      title: "#修仙复原+数据名"
+      desc: "请先查看#修仙数据"
+    - icon: help-icon_58
+      title: "#修仙升级"
+      desc: "请阅读#修仙版本"
+    - icon: help-icon_58
+      title: "#修仙卸载+扩展名"
+      desc: "#修仙卸载宗门"

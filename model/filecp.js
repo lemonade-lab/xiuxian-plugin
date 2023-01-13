@@ -3,7 +3,7 @@ import { appname } from './main.js'
 import BoxFs from './boxfs.js'
 class filecp {
   constructor() {
-    this.defsetpath = `./plugins/${appname}/defSet/`
+    this.defsetpath = `./plugins/${appname}/resources/defSet/`
     this.configpath = `./plugins/${appname}/config/`
     this.configarr = ['xiuxian', 'task', 'Help', 'Admin']
     const path = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']

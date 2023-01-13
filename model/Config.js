@@ -5,7 +5,7 @@ import { appname } from './main.js'
 class Config {
     constructor() {
         //固定配置地址
-        this.defSetPath = `./plugins/${appname}/defSet`
+        this.defSetPath = `./plugins/${appname}/resources/defSet`
         this.defSet = {}
         //动态配置地址
         this.configPath = `./plugins/${appname}/config`

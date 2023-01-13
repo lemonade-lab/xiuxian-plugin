@@ -1,0 +1,126 @@
+- group: 
+  list:
+    - icon: help-icon_38
+      title: "#降临世界 #再入仙途"
+      desc: "创建存档，转世重生"
+    - icon: help-icon_3
+      title: "#改名张三 #设置道宣"
+      desc: "修改道号,个性签名"
+    - icon: help-icon_56
+      title: "#储物袋 #升级储物袋"
+      desc: "物品查询,容量提升"
+    
+- group: 
+  list:
+    - icon: help-icon_44
+      title: "#闭关 #出关"
+      desc: "进行闭关,增加修为"
+    - icon: help-icon_51
+      title: "#降妖 #归来"
+      desc: "进行降妖,锻炼气血"
+
+- group: 
+  list:
+    - icon: help-icon_54
+      title: "#攻击 @道友"
+      desc: "可掉装备"
+    - icon: help-icon_54
+      title: "#决斗 @道友"
+      desc: "可掉装备,需决斗令"
+    - icon: help-icon_107
+      title: "#洗手"
+      desc: "清魔力值"
+    - icon: help-icon_63
+      title: "#击杀+怪物名"
+      desc: "随机掉落物品"
+    - icon: help-icon_98
+      title: "#探索怪物"
+      desc: "查看所在地的怪物"
+
+
+- group: 
+  list:
+    - icon: help-icon_98
+      title: "#修仙地图"
+      desc: "打开修仙世界大门"
+    - icon: help-icon_98
+      title: "#坐标信息"
+      desc: "查看自己的坐标"
+    - icon: help-icon_98
+      title: "#位置信息"
+      desc: "神识搜索位置"
+    - icon: help-icon_98
+      title: "#前往+位置名"
+      desc: "前往指定位置"
+    - icon: help-icon_98
+      title: "#传送+区域名"
+      desc: "随机降临区域"
+    - icon: help-icon_98
+      title: "#回到原地"
+      desc: "取消走路行为"
+
+- group: 
+  list:
+    - icon: help-icon_38
+      title: "#面板信息"
+      desc: "查看面板"
+    - icon: help-icon_38
+      title: "#基础信息"
+      desc: "你的身世"
+    - icon: help-icon_38
+      title: "#突破"
+      desc: "打破浩劫"
+    - icon: help-icon_38
+      title: "#破体"
+      desc: "提高体境"
+
+- group: 
+  list:
+    - icon: help-icon_44
+      title: "#学习+功法名"
+      desc: "学习功法"
+    - icon: help-icon_44
+      title: "#忘掉+功法名"
+      desc: "忘掉功法"
+    - icon: help-icon_42
+      title: "#消耗+道具名"
+      desc: "消耗道具"
+    - icon: help-icon_6
+      title: "#服用+丹药名"
+      desc: "服用丹药"
+    - icon: help-icon_46
+      title: "#装备+装备名"
+      desc: "装备物品"
+    - icon: help-icon_46
+      title: "#卸下+装备名"
+      desc: "卸下装备"
+
+- group: 
+  list:
+    - icon: help-icon_44
+      title: "#置换所有物品"
+      desc: "出售储物袋中所有物品"
+    - icon: help-icon_10
+      title: "#赠送灵石1000 @道友"
+      desc: "赠送灵石"
+
+- group: 
+  list:
+    - icon: help-icon_60
+      title: "#至尊榜"
+      desc: "凡人战力榜"
+    - icon: help-icon_60
+      title: "#杀神榜"
+      desc: "罪恶魔力榜"
+      
+- group: 
+  list:
+    - icon: help-icon_58
+      title: "#修仙更新"
+      desc: "请阅读#修仙版本"
+    - icon: help-icon_58
+      title: "#修仙安装+扩展名"
+      desc: "#修仙安装宗门"
+    - icon: help-icon_58
+      title: "#修仙管理"
+      desc: "管理员指令"
