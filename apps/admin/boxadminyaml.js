@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import XiuxianYaml from '../../model/XiuxianYaml.js'
+import configyaml from '../../model/configyaml.js'
 import { superIndex } from "../../model/robotapi.js"
 export class boxadminyaml extends robotapi {
     constructor() {
@@ -17,7 +17,7 @@ export class boxadminyaml extends robotapi {
         const config = e.msg.replace('#修仙配置更改', '')
         const code = config.split('\*')
         const [name, size] = code
-        e.reply(XiuxianYaml.config(name, size))
+        e.reply(configyaml.config(name, size))
         return
     }
 }

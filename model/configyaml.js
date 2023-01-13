@@ -3,7 +3,7 @@ import { createRequire } from 'module'
 import { __dirname } from './main.js'
 const require = createRequire(import.meta.url)
 const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
-class XiuxianYaml {
+class configyaml {
   constructor() {
     try {
       this.YAML = require('yamljs')
@@ -47,4 +47,4 @@ class XiuxianYaml {
     }
   }
 }
-export default new XiuxianYaml()
+export default new configyaml()
