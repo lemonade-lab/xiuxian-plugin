@@ -5,18 +5,17 @@ class filecp {
   constructor() {
     this.defsetpath = `./plugins/${appname}/defSet/`
     this.configpath = `./plugins/${appname}/config/`
-    this.file(['xiuxian', 'task', 'Help', 'Admin'])
+    this.configarr = ['xiuxian', 'task', 'Help', 'Admin']
     this.help(['help'], ['help.jpg'])
+    this.file()
   }
   Pluginfile = (name, config) => {
-
     const defsetpath = `./plugins/${appname}/plugins/${name}/defSet/`
-
     const path = BoxFs.returnMenu(defsetpath)
-    for (var j = 0; j < path.length; j++) {
-      for (var i = 0; i < config.length; i++) {
-        let x = `${this.configpath}${path[j]}/${config[i]}.yaml`
-        let y = `${defsetpath}${path[j]}/${config[i]}.yaml`
+    path.forEach((itempath) => {
+      config.forEach((itemconfig) => {
+        let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
+        let y = `${defsetpath}${itempath}/${itemconfig}.yaml`
         if (!fs.existsSync(x)) {
           fs.cp(y, x, (err) => {
             if (err) { }
@@ -27,55 +26,55 @@ class filecp {
             if (err) { }
           })
         }
-      }
-    }
+
+      })
+    })
     return
   }
   upfile = () => {
-    const config = ['xiuxian', 'task', 'Help', 'Admin']
     const path = BoxFs.returnMenu(this.defsetpath)
-    for (var j = 0; j < path.length; j++) {
-      for (var i = 0; i < config.length; i++) {
-        let x = `${this.configpath}${path[j]}/${config[i]}.yaml`
-        let y = `${this.defsetpath}${path[j]}/${config[i]}.yaml`
-        //是
+    path.forEach((itempath) => {
+      this.configarr.forEach((itemconfig) => {
+        let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
+        let y = `${this.defsetpath}${itempath}/${itemconfig}.yaml`
+        //存在就复制,需要替换原文件
         if (fs.existsSync(y)) {
           fs.cp(y, x, (err) => {
             if (err) { }
           })
         }
-      }
-    }
+      })
+    })
     return
   }
-  file = (config) => {
+  file = () => {
     const path = BoxFs.returnMenu(this.defsetpath)
-    for (var j = 0; j < path.length; j++) {
-      for (var i = 0; i < config.length; i++) {
-        let x = `${this.configpath}${path[j]}/${config[i]}.yaml`
-        let y = `${this.defsetpath}${path[j]}/${config[i]}.yaml`
-        //非
+    path.forEach((itempath) => {
+      this.configarr.forEach((itemconfig) => {
+        let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
+        let y = `${this.defsetpath}${itempath}/${itemconfig}.yaml`
+        //不存在就复制
         if (!fs.existsSync(x)) {
           fs.cp(y, x, (err) => {
             if (err) { }
           })
         }
-      }
-    }
+      })
+    })
     return
   }
   //复制两个文件
   help = (path, name) => {
-    for (var i = 0; i < path.length; i++) {
-      let x = `./plugins/${appname}/resources/${path[i]}/${name[i]}`
+    path.forEach((item) => {
+      let x = `./plugins/${appname}/resources/${item}/${name}`
       if (!fs.existsSync(x)) {
-        let y = `./plugins/${appname}/resources/img/${path[i]}/${name[i]}`
+        let y = `./plugins/${appname}/resources/img/${item}/${name}`
         fs.cp(y, x,
           (err) => {
             if (err) { }
           })
       }
-    }
+    })
     return
   }
 }
