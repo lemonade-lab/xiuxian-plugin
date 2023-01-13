@@ -96,7 +96,7 @@ export const get_najie_img = async (uid) => {
     const thing_list = []
     const danyao_list = []
     const daoju_list = []
-    thing.forEach((item, index) => {
+    thing.forEach((item) => {
         let id = item.id.split('-')
         switch (id[0]) {
             case '4': {

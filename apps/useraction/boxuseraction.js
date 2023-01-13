@@ -48,12 +48,12 @@ export class boxuseraction extends robotapi {
             e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
             return
         }
-        //扣灵石
-        await addLingshi(uid, -najie_price)
         //等级+1
         najie.grade += 1
         //记录等级
         await Write_najie(uid, najie)
+        //扣灵石
+        await addLingshi(uid, -Number(najie_price))
         e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
         return
     }
