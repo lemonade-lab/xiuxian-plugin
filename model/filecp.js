@@ -7,7 +7,7 @@ class filecp {
     this.configpath = `./plugins/${appname}/config/`
     this.configarr = ['xiuxian', 'task', 'Help', 'Admin']
     const path = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
-    const name = ['help.png', 'icon.png','map.png','toplist.png','update-buttom.png','bag.png','equipment.png','head.png','information.png','left.png','right.png']
+    const name = ['help.png', 'icon.png','map.png','toplist.png','update-buttom.png','update-head.png','update-top.png','bag.png','equipment.png','head.png','information.png','left.png','right.png']
     this.help(path, name)
     this.file()
   }
