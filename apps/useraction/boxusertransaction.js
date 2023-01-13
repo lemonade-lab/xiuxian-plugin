@@ -87,8 +87,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         const thing = e.msg.replace('#购买', '')
-        const code = thing.split('\*')
-        const [thing_name, thing_acount] = code
+        const [thing_name, thing_acount] = thing.split('\*')
         let quantity = await Numbers(thing_acount)
         if (quantity > 99) {
             quantity = 99

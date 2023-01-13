@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'path'
 import { createRequire } from 'module'
 import { appname } from './main.js'
+import BoxFs from './boxfs.js'
 const require = createRequire(import.meta.url)
 const schedule = require('node-schedule')
 const plugins__dirname = `${path.resolve()}${path.sep}plugins`
@@ -23,7 +24,7 @@ class Schedule {
                 PATH = newpath
             }
             //备份位置不变
-            const NEW_PATH = `${plugins__dirname}${path.sep}boxdada${path.sep}${name}${Y}${M}${D}${h}${m}${s}`
+            const NEW_PATH = `${plugins__dirname}${path.sep}boxdada${path.sep}${name}.${Y}${M}${D}${h}${m}${s}`
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) { }
             })
@@ -31,79 +32,44 @@ class Schedule {
     }
     //查看备份目录,并以转发的形式丢出
     viewbackups = (name) => {
-        const msg = []
-        /**
-         * 判断目录是否存在,不存就是不存在备份
-         */
         const NEW_PATH = `${plugins__dirname}${path.sep}boxdada`
         if (!fs.existsSync(NEW_PATH)) {
-            msg.push('无备份数据')
-            return msg
+            return ['无备份数据']
         }
-        /**
-         * 返回该目录下子目录名
-         */
-        const readdirectory = (dir) => {
-            let files = fs.readdirSync(dir)
-            files.forEach(async item => {
-                let filepath1 = `${dir}/${item}`
-                let stat = fs.statSync(filepath1)
-                if (!stat.isFile()) {
-                    let file = filepath1.replace(`${NEW_PATH}/`, '')
-                    msg.push(file)
-                }
-            })
-        }
-        readdirectory(NEW_PATH)
-        //检索
-        console.log(name)
+        const msg = BoxFs.returnMenu(NEW_PATH)
         return msg
     }
     backuprecovery = (name) => {
-        const msg = []
-        /**
-         * 判断目录是否存在,不存就是不存在备份
-         */
         const NEW_PATH = `${plugins__dirname}${path.sep}boxdada`
         if (!fs.existsSync(NEW_PATH)) {
-            msg.push('无备份数据')
-            return msg
+            return ['无备份数据']
         }
         const namefile = `${NEW_PATH}${path.sep}${name}`
         if (!fs.existsSync(namefile)) {
-            msg.push('无此备份')
-            return msg
+            return ['无此备份']
         }
-
-        /*
-
-        //循环拿到子目录名
-        const sum=[]
-        const readdirectory = (dir) => {
-            let files = fs.readdirSync(dir)
-            files.forEach(async item => {
-                let filepath1 = `${dir}/${item}`
-                let stat = fs.statSync(filepath1)
-                if (!stat.isFile()) {
-                    let file = filepath1.replace(`${NEW_PATH}/`, '')
-                    sum.push(file)
-                }
-            })
+        const msg = []
+        const sum = BoxFs.returnMenu(NEW_PATH)
+        /**
+         * 切割名字,根据名字来分配,如果是dark
+         */
+        const [pluginname, time] = name.split('.');
+        const ThePath = {
+            'xiuxian': `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
+            'dark': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
+            'home': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
+            'association': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
         }
-        readdirectory(NEW_PATH)
-        sum.forEach((item)=>{
-            const newfile=`${namefile}${path.sep}${item}`
+        const newsum = BoxFs.returnfilepath(ThePath[pluginname],'.json')
+        newsum.forEach((item)=>{
+            //循环删除数据
         })
-
-        let y=''
-        let x=''
-        fs.cp(y, x, (err) => {
-            if (err) { }
-          })
-
-           */
+        /**
+         * 获取备份地址的下的所有json
+         */
 
 
+        console.log(newsum)
         return msg
     }
 }

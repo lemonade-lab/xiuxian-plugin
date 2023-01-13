@@ -40,7 +40,7 @@ export class boxadminwork extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const msg = schedule.backuprecovery('xiuxian')
+        const msg = schedule.backuprecovery(e.msg.replace('#修仙复原', ''))
         await ForwardMsg(e, msg)
         return
     }

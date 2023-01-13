@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import path from 'node:path'
 class BoxFs {
     /**
      * @param {地址} path 
@@ -23,6 +24,26 @@ class BoxFs {
             }
         })
         return sum
+    }
+    returnfilepath=(menupath,type)=>{
+        const newsum = []
+        const travel = (dir, callback) => {
+            fs.readdirSync(dir).forEach((file) => {
+                var pathname = path.join(dir, file)
+                if (fs.statSync(pathname).isDirectory()) {
+                    travel(pathname, callback)
+                } else {
+                    callback(pathname)
+                }
+            })
+        }
+        travel(menupath, (pathname) => {
+            let temporary = pathname.search(type)
+            if (temporary != -1) {
+                newsum.push(pathname)
+            }
+        })
+        return newsum
     }
 }
 export default new BoxFs()
