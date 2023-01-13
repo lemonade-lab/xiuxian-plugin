@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
     Go,
@@ -23,7 +23,7 @@ export class boxlevel extends robotapi {
                 fnc: 'LevelMax_up'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     LevelMax_up = async (e) => {
         const good = await Go(e)
@@ -31,7 +31,7 @@ export class boxlevel extends robotapi {
             return
         }
         const uid = e.user_id
-        const CDTime = this.xiuxianConfigData.CD.LevelMax_up
+        const CDTime = this.xiuxianconfigData.CD.LevelMax_up
         const CDid = '7'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(uid, CDid)
@@ -106,7 +106,7 @@ export class boxlevel extends robotapi {
             return
         }
         const uid = e.user_id
-        const CDTime = this.xiuxianConfigData.CD.Level_up
+        const CDTime = this.xiuxianconfigData.CD.Level_up
         const CDid = '6'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(uid, CDid)

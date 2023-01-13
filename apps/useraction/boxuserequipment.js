@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
     existplayer,
@@ -22,7 +22,7 @@ export class boxuserequipment extends robotapi {
                 fnc: 'delete_equipment'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     add_equipment = async (e) => {
         if (!e.isGroup) {
@@ -40,7 +40,7 @@ export class boxuserequipment extends robotapi {
             return
         }
         const equipment = await Read_equipment(uid)
-        if (equipment.length >= this.xiuxianConfigData.myconfig.equipment) {
+        if (equipment.length >= this.xiuxianconfigData.myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)

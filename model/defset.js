@@ -13,7 +13,7 @@ class defset {
       this.yaml = require('js-yaml')
     } catch {}
   }
-  ReadConfig = () => {
+  Readconfig = () => {
     try {
       const data = this.YAML.load(group)
       const sum = ['十连', '角色查询', '体力查询', '用户绑定', '抽卡记录', '添加表情', '欢迎新人', '退群通知', '云崽帮助', '角色素材', '今日素材', '养成计算', '米游社公告']
@@ -25,7 +25,7 @@ class defset {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-  openReadConfig = () => {
+  openReadconfig = () => {
     try {
       const data = this.YAML.load(group)
       data.default.disable=[]
@@ -36,7 +36,7 @@ class defset {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-  ReadConfighelp = () => {
+  Readconfighelp = () => {
     try {
       const data = this.YAML.load(group)
       const sum = ['云崽帮助']
@@ -48,7 +48,7 @@ class defset {
       return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
-  openReadConfighelp = () => {
+  openReadconfighelp = () => {
     try {
       const data = this.YAML.load(group)
       const sum = []

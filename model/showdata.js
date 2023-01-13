@@ -1,6 +1,6 @@
 import Show from './show.js'
 import puppeteer from '../../../lib/puppeteer/puppeteer.js'
-import config from './Config.js'
+import config from './config.js'
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from './public.js'
 export const get_map_img = async () => {
     const myData = {}
@@ -16,7 +16,7 @@ export const get_updata_img = async () => {
     return img
 }
 export const get_config_img = async () => {
-    const xiuxain = config.getConfig('xiuxian', 'xiuxian')
+    const xiuxain = config.getconfig('xiuxian', 'xiuxian')
     const myData = {
         xiuxain: xiuxain
     }

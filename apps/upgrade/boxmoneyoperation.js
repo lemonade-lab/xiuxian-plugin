@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import { segment } from 'oicq'
 import {
@@ -30,7 +30,7 @@ export class boxmoneyoperation extends robotapi {
                 fnc: 'New_lingshi'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     New_lingshi = async (e) => {
         const good = await Go(e)
@@ -80,7 +80,7 @@ export class boxmoneyoperation extends robotapi {
             e.reply([segment.at(A), `似乎没有${lingshi}下品灵石`])
             return
         }
-        const CDTime = this.xiuxianConfigData.CD.Transfer
+        const CDTime = this.xiuxianconfigData.CD.Transfer
         const CDid = '5'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(A, CDid)

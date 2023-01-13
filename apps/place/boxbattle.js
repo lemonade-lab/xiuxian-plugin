@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
     Go,
@@ -32,7 +32,7 @@ export class boxbattle extends robotapi {
                 fnc: 'handWashing'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     duel = async (e) => {
         const good = await Go(e)
@@ -58,7 +58,7 @@ export class boxbattle extends robotapi {
         }
         const CDid = '11'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Attack
+        const CDTime = this.xiuxianconfigData.CD.Attack
         const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
             e.reply(CD)
@@ -132,7 +132,7 @@ export class boxbattle extends robotapi {
         }
         const CDid = '0'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Attack
+        const CDTime = this.xiuxianconfigData.CD.Attack
         const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
             e.reply(CD)

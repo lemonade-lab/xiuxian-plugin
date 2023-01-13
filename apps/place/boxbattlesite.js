@@ -1,6 +1,6 @@
 import robotapi from "../../model/robotapi.js"
 import Cachemonster from '../../model/cachemonster.js'
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
     Gomini,
@@ -32,7 +32,7 @@ export class boxbattlesite extends robotapi {
                 fnc: 'Exploremonsters'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Kill = async (e) => {
         const good = await Go(e)
@@ -42,7 +42,7 @@ export class boxbattlesite extends robotapi {
         const uid = e.user_id
         const CDid = '10'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Kill
+        const CDTime = this.xiuxianconfigData.CD.Kill
         const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)

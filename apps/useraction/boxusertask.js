@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import {
     offaction,
     Read_Life,
@@ -10,8 +10,8 @@ export class boxusertask extends robotapi {
     constructor() {
         super(superIndex([
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-        this.set = config.getConfig('task', 'task')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
+        this.set = config.getconfig('task', 'task')
         this.task = {
             cron: this.set.LifeTask,
             name: 'LifeTask',
@@ -22,7 +22,7 @@ export class boxusertask extends robotapi {
         const life = await Read_Life()
         const x = []
         life.forEach((item) => {
-            item.Age = item.Age + this.xiuxianConfigData.Age.size
+            item.Age = item.Age + this.xiuxianconfigData.Age.size
             if (item.Age >= item.life) {
                 item.status = 0
                 x.push(item.qq)

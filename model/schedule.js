@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url)
 const schedule = require('node-schedule')
 const plugins__dirname = `${path.resolve()}${path.sep}plugins`
 const __dirname = `${plugins__dirname}${path.sep}${appname}`
-class schedule {
+class Schedule {
     scheduleJobflie = (name, time, newpath) => {
         schedule.scheduleJob(time, () => {
             const myDate = new Date()
@@ -107,4 +107,4 @@ class schedule {
         return msg
     }
 }
-export default new schedule()
+export default new Schedule()

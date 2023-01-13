@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import {
     Write_player,
     Go,
@@ -24,7 +24,7 @@ export class boxusermodify extends robotapi {
                 fnc: 'Change_autograph'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Change_name = async (e) => {
         const good = await Go(e)
@@ -52,7 +52,7 @@ export class boxusermodify extends robotapi {
         }
         const CDid = '3'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Name
+        const CDTime = this.xiuxianconfigData.CD.Name
         const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)
@@ -91,7 +91,7 @@ export class boxusermodify extends robotapi {
         }
         const CDid = '4'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Autograph
+        const CDTime = this.xiuxianconfigData.CD.Autograph
         const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)

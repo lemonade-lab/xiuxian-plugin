@@ -1,6 +1,6 @@
 import robotapi from "../../model/robotapi.js"
 import common from '../../../../lib/common/common.js'
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import { segment } from 'oicq'
 import {
@@ -33,7 +33,7 @@ export class boxplayercontrol extends robotapi {
                 fnc: 'endWork'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Biguan = async (e) => {
         const good = await Gomini(e)
@@ -83,7 +83,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const startTime = action.startTime
-        const timeUnit = this.xiuxianConfigData.biguan.time
+        const timeUnit = this.xiuxianconfigData.biguan.time
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
@@ -116,7 +116,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const startTime = action.startTime
-        const timeUnit = this.xiuxianConfigData.work.time
+        const timeUnit = this.xiuxianconfigData.work.time
         //分钟
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
@@ -141,10 +141,10 @@ export class boxplayercontrol extends robotapi {
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         if (name == '闭关') {
             if (rand < 20) {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff / 2)
+                other = Math.floor(this.xiuxianconfigData.biguan.size * time * mybuff / 2)
                 msg.push(`\n闭关迟迟无法入定,只得到了${other}修为`)
             } else {
-                other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff)
+                other = Math.floor(this.xiuxianconfigData.biguan.size * time * mybuff)
                 msg.push(`\n闭关结束,得到了${other}修为`)
             }
             await Add_experience(uid, other)
@@ -152,10 +152,10 @@ export class boxplayercontrol extends robotapi {
             msg.push('\n血量恢复至90%')
         } else {
             if (rand < 20) {
-                other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff / 2)
+                other = Math.floor(this.xiuxianconfigData.work.size * time * mybuff / 2)
                 msg.push(`\n降妖不专心,只得到了${other}气血`)
             } else {
-                other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff)
+                other = Math.floor(this.xiuxianconfigData.work.size * time * mybuff)
                 msg.push(`\n降妖回来,得到了${other}气血`)
             }
             await Add_experiencemax(uid, other)

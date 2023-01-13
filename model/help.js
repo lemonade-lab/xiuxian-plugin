@@ -1,9 +1,9 @@
-import xiuxianCfg from './Config.js'
+import xiuxianCfg from './config.js'
 import { appname } from './main.js'
 const dirname = `plugins/${appname}/resources`
 class Help {
   gethelp = async (e, filename) => {
-    const helpData = xiuxianCfg.getConfig('help', filename)
+    const helpData = xiuxianCfg.getconfig('help', filename)
     return {
       saveId: 'help',//这里其实是文件名
       //模板html路径  
@@ -17,7 +17,7 @@ class Help {
     }
   }
   getboxhelp = async (filename) => {
-    const helpData = xiuxianCfg.getConfig('help', filename)
+    const helpData = xiuxianCfg.getconfig('help', filename)
     return {
       saveId: 'help',//这里其实是文件名
       //模板html路径  

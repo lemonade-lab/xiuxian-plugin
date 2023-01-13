@@ -47,28 +47,28 @@ export class boxadminrobot extends robotapi {
         if (!e.isMaster) {
             return
         }
-        e.reply(defset.ReadConfig())
+        e.reply(defset.Readconfig())
         return
     }
     openRobot = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defset.openReadConfig())
+        e.reply(defset.openReadconfig())
         return
     }
     CloseRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defset.ReadConfighelp())
+        e.reply(defset.Readconfighelp())
         return
     }
     openRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defset.openReadConfighelp())
+        e.reply(defset.openReadconfighelp())
         return
     }
     AddMaster = async (e) => {

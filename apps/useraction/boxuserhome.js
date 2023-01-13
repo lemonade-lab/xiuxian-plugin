@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { get_player_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
@@ -41,7 +41,7 @@ export class boxuserhome extends robotapi {
                 fnc: 'consumption_daoju'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     consumption_danyao = async (e) => {
         if (!e.isGroup) {
@@ -154,7 +154,7 @@ export class boxuserhome extends robotapi {
             e.reply('学过了')
             return
         }
-        if (talent.AllSorcery.length >= this.xiuxianConfigData.myconfig.gongfa) {
+        if (talent.AllSorcery.length >= this.xiuxianconfigData.myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进')
             return
         }

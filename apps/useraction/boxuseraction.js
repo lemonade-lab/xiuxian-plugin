@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { get_najie_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
@@ -22,7 +22,7 @@ export class boxuseraction extends robotapi {
                 fnc: 'Lv_up_najie'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Show_najie = async (e) => {
         const uid = e.user_id
@@ -42,7 +42,7 @@ export class boxuseraction extends robotapi {
         const uid = e.user_id
         const najie = await Read_najie(uid)
         //根据戒指等级分配价格
-        const najie_price = this.xiuxianConfigData.najie_price[najie.grade]
+        const najie_price = this.xiuxianconfigData.najie_price[najie.grade]
         let thing = await exist_najie_thing_name(uid, '下品灵石')
         if (thing == 1 || thing.acount < najie_price) {
             e.reply(`灵石不足,需要准备${najie_price}下品灵石`)

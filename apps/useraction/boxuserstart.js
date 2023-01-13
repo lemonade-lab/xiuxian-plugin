@@ -1,5 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import config from '../../model/Config.js'
+import config from '../../model/config.js'
 import { segment } from 'oicq'
 import {
     GenerateCD,
@@ -23,10 +23,10 @@ export class boxuserstart extends robotapi {
                 fnc: 'reCreate_player'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
+        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Create_player = async (e) => {
-        const group = this.xiuxianConfigData.group.white
+        const group = this.xiuxianconfigData.group.white
         if (group != 0) {
             if (e.group_id != group) {
                 return
@@ -52,7 +52,7 @@ export class boxuserstart extends robotapi {
     }
     reCreate_player = async (e) => {
         const uid = e.user_id
-        const CDTime = this.xiuxianConfigData.CD.Reborn
+        const CDTime = this.xiuxianconfigData.CD.Reborn
         const CDid = '8'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(uid, CDid)
