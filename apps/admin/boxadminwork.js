@@ -1,7 +1,7 @@
 import robotapi from "../../model/robotapi.js"
 import pluginup from '../../model/pluginup.js'
 import { superIndex } from "../../model/robotapi.js"
-import XiuxianSchedule from "../../model/XiuxianSchedule.js"
+import schedule from "../../model/schedule.js"
 import { ForwardMsg } from '../../model/public.js'
 export class boxadminwork extends robotapi {
     constructor() {
@@ -32,7 +32,7 @@ export class boxadminwork extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const msg = XiuxianSchedule.viewbackups('xiuxian')
+        const msg = schedule.viewbackups('xiuxian')
         await ForwardMsg(e, msg)
         return
     }
@@ -40,7 +40,7 @@ export class boxadminwork extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const msg = XiuxianSchedule.backuprecovery('xiuxian')
+        const msg = schedule.backuprecovery('xiuxian')
         await ForwardMsg(e, msg)
         return
     }

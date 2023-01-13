@@ -390,14 +390,14 @@ export class myuser extends robotapi {
 >myhelp.js
 ```
 //放进myhelp.js以激活
-import Xiuxianschedule from '../../../model/XiuxianSchedule.js';
+import schedule from '../../../model/schedule.js';
 import {__PATH} from '../model/mypublic.js';
 /**
     插件名
     备份的时间点（整点备份一次）
     需要备份的数据数据地址
  */
-Xiuxianschedule.scheduleJobflie('my','0 0 */1 * * ?',__PATH.my);
+schedule.scheduleJobflie('my','0 0 */1 * * ?',__PATH.my);
 ```
 ##### 生成物品数据
 >resources/data/fixed
