@@ -29,7 +29,7 @@ export class boxsecretplace extends robotapi {
                 fnc: 'forward'
             },
             {
-                reg: '^#停止传送$',
+                reg: '^#回到原地$',
                 fnc: 'returnpiont'
             },
             {
@@ -202,7 +202,7 @@ export class boxsecretplace extends robotapi {
             e.reply([segment.at(uid), `成功传送至${address}`])
         }, 1000 * time)
         deliverysetTime[uid] = 1
-        e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒\n[#停止传送]`)
+        e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)
         return
     }
 }
