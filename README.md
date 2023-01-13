@@ -1,7 +1,7 @@
 
  [![](https://profile-counter.glitch.me/Xiuxian-Plugin-Box/count.svg)](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box)
 ## 修仙插件[☞新版特性](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/blob/main/model/README.md)
-- 2022年12月 Xiuxian-Plugin-Box 2022-12-01
+- 2022年12月 Xiuxian-Plugin-Box 2023-1-16
 - 2022年09月 xiuxian-emulator-plugin V1.2
 - 2022年08月 xiuxian-emulator-plugin V1.1
 - 2022年07月 xiuxian-emulator-plugin V1.0
