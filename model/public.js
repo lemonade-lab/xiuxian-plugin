@@ -28,6 +28,7 @@ export const restart = {
  * 创建存档
  */
 export const createBoxPlayer = async (uid) => {
+    try {
         const new_player = {
             'autograph': '无',//道宣
             'days': 0//签到
@@ -101,26 +102,19 @@ export const createBoxPlayer = async (uid) => {
             'status': 1
         })
         await Write_player(uid, new_player)
-        console.log(1)
         await Write_talent(uid, new_talent)
-        console.log(2)
         await player_efficiency(uid)
-        console.log(3)
         await Write_battle(uid, new_battle)
-        console.log(4)
         await Write_level(uid, new_level)
-        console.log(5)
         await Write_wealth(uid, new_wealth)
-        console.log(6)
         await Write_action(uid, new_action)
-        console.log(7)
         await Write_equipment(uid, [])
-        console.log(8)
         await Write_najie(uid, new_najie)
-        console.log(9)
         await Write_Life(life)
-        console.log(10)
         return ture
+    } catch {
+        return false
+    }
 }
 
 //初次使用
