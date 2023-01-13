@@ -70,7 +70,7 @@ export class boxuserhome extends robotapi {
             case '1': {
                 let blood = parseInt(najie_thing.blood)
                 await Add_blood(uid, blood)
-                e.reply(`血量恢复至${blood}%`)
+                e.reply(`血量至${blood}%`)
                 break
             }
             case '2': {
@@ -112,13 +112,13 @@ export class boxuserhome extends robotapi {
                     }
                 }
                 await Add_experience(uid, thing_acount * experience)
-                e.reply(`修为增加${thing_acount * experience}`)
+                e.reply(`修为+${thing_acount * experience}`)
                 break
             }
             case '3': {
                 let experiencemax = parseInt(najie_thing.experiencemax)
                 await Add_experiencemax(uid, thing_acount * experiencemax)
-                e.reply(`气血增加${thing_acount * experiencemax}`)
+                e.reply(`气血+${thing_acount * experiencemax}`)
                 break
             }
             default: {
