@@ -56,14 +56,15 @@
 
 >Yunzai-Bot/plugins/Xiuxian-Plugin-Box/resources/data/birth/xiuxian
 
-windows建议使用VScode软件进行编辑,以免带来破坏性影响
+windows建议使用VScode软件进行编辑,以免带来破坏性影响    
 
-linux建议需要学习一些命令行等的基础知识
+linux建议需要学习一些命令行等的基础知识    
 
 ## 数据备份
 
->Yunzai-Bot/XiuxianData
-linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑
+>Yunzai-Bot/XiuxianData 
+
+linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑  
 
 ## 素材替换
 
