@@ -88,7 +88,7 @@ export class boxuserhome extends robotapi {
                     const CD = await GenerateCD(uid, CDid)
                     if (CD != 0) {
                         e.reply(CD)
-                        experience=0
+                        experience=1
                     }
                     await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
                     await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
@@ -97,28 +97,28 @@ export class boxuserhome extends robotapi {
                         //下品
                         case '1': {
                             if (player.level_id >= 3) {
-                                experience = 0
+                                experience = 1
                             }
                             break
                         }
                         //中品
                         case '2': {
                             if (player.level_id >= 5) {
-                                experience = 0
+                                experience = 1
                             }
                             break
                         }
                         //上品
                         case '3': {
                             if (player.level_id >= 7) {
-                                experience = 0
+                                experience = 1
                             }
                             break
                         }
                         //极品
                         case '4': {
                             if (player.level_id >= 9) {
-                                experience = 0
+                                experience = 1
                             }
                             break
                         }
