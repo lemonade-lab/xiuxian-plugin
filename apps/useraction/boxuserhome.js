@@ -90,8 +90,8 @@ export class boxuserhome extends robotapi {
                         e.reply(CD)
                         experience=0
                     }
-                    await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
-                    await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60)
+                    await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
+                    await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
                     const player = await Read_level(uid)
                     switch (id[2]) {
                         //下品
