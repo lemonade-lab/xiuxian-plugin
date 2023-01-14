@@ -74,8 +74,8 @@ export class boxuserhome extends robotapi {
             case '2': {
                 let experience = parseInt(najie_thing.experience)
                 if (id[0] == '6') {
-                    if(thing_acount>1000){
-                        thing_acount=1000
+                    if(thing_acount>2200){
+                        thing_acount=2200
                     }
                     const CDTime = this.xiuxianconfigData.CD.Practice
                     const CDid = '12'

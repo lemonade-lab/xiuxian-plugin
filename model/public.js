@@ -373,8 +373,12 @@ export const Add_prestige = async (uid, prestige) => {
     return
 }
 
-export const addLingshi = async (uid, lingshi) => {
-    const najie_thing = await search_thing_name('下品灵石')
+export const addLingshi = async (uid, lingshi,name) => {
+    let najieName='下品灵石'
+    if(name!=undefined){
+        najieName=name
+    }
+    const najie_thing = await search_thing_name(najieName)
     let najie = await Read_najie(uid)
     najie = await Add_najie_thing(najie, najie_thing, lingshi)
     await Write_najie(uid, najie)
@@ -394,7 +398,7 @@ export const Add_experience = async (uid, experience) => {
     const player = await Read_level(uid)
     const exp0 = await Numbers(player.experience)
     const exp1 = await Numbers(experience)
-    player.experience = await exp0 + exp1
+    player.experience = await (exp0 + exp1)
     await Write_level(uid, player)
     return
 }

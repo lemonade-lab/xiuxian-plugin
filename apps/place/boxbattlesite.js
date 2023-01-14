@@ -88,7 +88,7 @@ export class boxbattlesite extends robotapi {
         })
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
-            if (m < mon.level * 5) {
+            if (m < (mon.level+1) * 5) {
                 const randomthinf = await randomThing()
                 let najie = await Read_najie(uid)
                 if (najie.thing.length <= najie.grade * 10) {
@@ -99,17 +99,22 @@ export class boxbattlesite extends robotapi {
                     msg.push('储物袋已满')
                 }
             }
-            if (m < mon.level * 7) {
+            if (m < (mon.level+1) * 6) {
                 const qixue=mon.level * 25 * mybuff
                 msg.push(`得到${qixue}气血`)
                 await Add_experiencemax(uid, qixue)
             }
-            if (m < mon.level * 8) {
-                const lingshi = await Numbers(mon.level * 25 * mybuff)
-                msg.push(`得到${lingshi}下品灵石`)
-                await addLingshi(uid, lingshi)
+            if (m < (mon.level+1) * 7) {
+                const lingshi = await Numbers(mon.level * 20 * mybuff)
+                msg.push(`得到${lingshi}上品灵石`)
+                await addLingshi(uid, lingshi,'上品灵石')
             }
-            if (m >= mon.level * 9) {
+            if (m < (mon.level+1) * 8) {
+                const lingshi = await Numbers(mon.level * 20 * mybuff)
+                msg.push(`得到${lingshi}中品灵石`)
+                await addLingshi(uid, lingshi,'中品灵石')
+            }
+            if (m >= (mon.level+1) * 9) {
                 const lingshi = await Numbers(mon.level * 15 * mybuff)
                 msg.push(`得到${lingshi}下品灵石`)
                 await addLingshi(uid, lingshi)
