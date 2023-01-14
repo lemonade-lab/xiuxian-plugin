@@ -76,7 +76,7 @@ export class boxuserhome extends robotapi {
                 if (id[0] == '6') {
                     //根据类型执行效果
                     const player = await Read_level(uid)
-                    switch (id[3]) {
+                    switch (id[2]) {
                         //下品
                         case '1': {
                             if (player.level_id >= 3) {
