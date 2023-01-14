@@ -73,22 +73,17 @@ export class boxuserhome extends robotapi {
             }
             case '2': {
                 let experience = parseInt(najie_thing.experience)
-                //如果是灵石(道具第二类)
                 if (id[0] == '6') {
-                    //根据类型执行效果
                     if(thing_acount>1000){
                         thing_acount=1000
                     }
-                    /**
-                     * 新增修行冷却，5分钟
-                     */
                     const CDTime = this.xiuxianconfigData.CD.Practice
                     const CDid = '12'
                     const now_time = new Date().getTime()
                     const CD = await GenerateCD(uid, CDid)
                     if (CD != 0) {
+                        experience = 0
                         e.reply(CD)
-                        experience=1
                     }
                     await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
                     await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
@@ -97,35 +92,37 @@ export class boxuserhome extends robotapi {
                         //下品
                         case '1': {
                             if (player.level_id >= 3) {
-                                experience = 1
+                                experience = 0
                             }
                             break
                         }
                         //中品
                         case '2': {
                             if (player.level_id >= 5) {
-                                experience = 1
+                                experience = 0
                             }
                             break
                         }
                         //上品
                         case '3': {
                             if (player.level_id >= 7) {
-                                experience = 1
+                                experience = 0
                             }
                             break
                         }
                         //极品
                         case '4': {
                             if (player.level_id >= 9) {
-                                experience = 1
+                                experience = 0
                             }
                             break
                         }
                         default: { }
                     }
                 }
-                await Add_experience(uid, thing_acount * experience)
+                if(experience>0){
+                    await Add_experience(uid, thing_acount * experience)
+                }
                 e.reply(`修为+${thing_acount * experience}`)
                 break
             }
