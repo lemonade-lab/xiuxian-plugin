@@ -205,6 +205,7 @@ import { existplayerplugins } from '../../../model/public.js'
 export const __PATH = {
     Exchange: path.join(pluginDirname, '/resources/data/birth/Exchange'),
     Forum: path.join(pluginDirname, '/resources/data/birth/Forum'),
+    //注意名字必须是xiuxian-my-plugin中的my,用于激活和统一识别数据恢复
     my: path.join(pluginDirname, '/resources/data/birth/my'),
     //存档位置
     my_user: path.join(pluginDirname, '/resources/data/birth/my/user'),
