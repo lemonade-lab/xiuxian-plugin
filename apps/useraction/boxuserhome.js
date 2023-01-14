@@ -11,6 +11,7 @@ import {
     Numbers,
     Add_najie_thing,
     Add_blood,
+    GenerateCD,
     Add_experience,
     get_talent,
     Write_talent,
@@ -78,6 +79,19 @@ export class boxuserhome extends robotapi {
                     if(thing_acount>1000){
                         thing_acount=1000
                     }
+                    /**
+                     * 新增修行冷却，5分钟
+                     */
+                    const CDTime = this.xiuxianconfigData.CD.Practice
+                    const CDid = '12'
+                    const now_time = new Date().getTime()
+                    const CD = await GenerateCD(uid, CDid)
+                    if (CD != 0) {
+                        e.reply(CD)
+                        experience=0
+                    }
+                    await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
+                    await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60)
                     const player = await Read_level(uid)
                     switch (id[2]) {
                         //下品
