@@ -2,9 +2,9 @@
 
 扩展名  | 作者  | 帮助 | 介绍 | 状态
 ------------- | -------------  | -------------  | ------------- | -------------
+| [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-dark-plugin) | [@水脚脚](https://gitee.com/waterfeet) | #黑市帮助 | 怡红院、金银坊、万花坊、虚空栈、虚空镜 | 已推送 |
 | [宗门 (xiuxian-association-plugin)]() | [@汐颜    ](https://gitee.com/mg1105194437)  | #宗门帮助 |  唯我独尊 | 已推送 | 
 | [家园 (xiuxian-home-plugin)]() | [@秋雨    ](https://gitee.com/mmmmmddddd) | #家园帮助 |  道友，来偷菜吗 | 已推送 |
-| [黑市 (xiuxian-dark-plugin)]() | [@水脚脚](https://gitee.com/waterfeet) | #黑市帮助 | 怡红院、金银坊、万花坊、有间客栈、弱水阁 | 已推送 |
 | [口袋 (xiuxian-pokemon-plugin)]() | [@汐颜](https://gitee.com/mg1105194437) | #口袋帮助 | 去吧，皮卡丘 | 测试中 |  
 | [仙界 (xiuxian-fairyland-plugin)]() | [@汐颜](https://gitee.com/mg1105194437) | #仙界帮助 | 大道之行 |  测试中 |  
 | [活动 (xiuxian-activity-plugin)]() | [@逍遥]() | #活动帮助 | 年兽来袭 | 施工中 |  

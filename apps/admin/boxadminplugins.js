@@ -26,7 +26,9 @@ export class boxadminplugins extends robotapi {
         }
         const msg = ['————[安装消息]————']
         const name = e.msg.replace('#修仙安装', '')
-        const MAP = {}
+        const MAP = {
+            '黑市':'git clone  https://gitee.com/waterfeet/xiuxian-dark-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-dark-plugin/'
+        }
         if (!MAP.hasOwnProperty(name)) {
             e.reply('扩展名错误或暂时下架')
             return
