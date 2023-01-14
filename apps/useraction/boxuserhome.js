@@ -75,6 +75,9 @@ export class boxuserhome extends robotapi {
                 //如果是灵石(道具第二类)
                 if (id[0] == '6') {
                     //根据类型执行效果
+                    if(thing_acount>1000){
+                        thing_acount=1000
+                    }
                     const player = await Read_level(uid)
                     switch (id[2]) {
                         //下品
