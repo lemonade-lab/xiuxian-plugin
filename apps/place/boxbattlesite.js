@@ -105,17 +105,17 @@ export class boxbattlesite extends robotapi {
                 await Add_experiencemax(uid, qixue)
             }
             if (m < (mon.level+1) * 7) {
-                const lingshi = await Numbers(mon.level  * mybuff)
+                const lingshi = await Numbers(mon.level*2)
                 msg.push(`得到${lingshi}上品灵石`)
                 await addLingshi(uid, lingshi,'上品灵石')
             }
             if (m < (mon.level+1) * 8) {
-                const lingshi = await Numbers(mon.level * 5 * mybuff)
+                const lingshi = await Numbers(mon.level * 20 )
                 msg.push(`得到${lingshi}中品灵石`)
                 await addLingshi(uid, lingshi,'中品灵石')
             }
             if (m >= (mon.level+1) * 9) {
-                const lingshi = await Numbers(mon.level * 20 * mybuff)
+                const lingshi = await Numbers(mon.level * 200 )
                 msg.push(`得到${lingshi}下品灵石`)
                 await addLingshi(uid, lingshi)
             }

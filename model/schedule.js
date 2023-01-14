@@ -48,8 +48,8 @@ class Schedule {
         if (!fs.existsSync(namefile)) {
             return ['无此备份']
         }
-        const returnpath = (pluginname) => {
-            return `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
+        const returnpath=(pluginname)=>{
+            return  
         }
         /**
          * 切割名字,根据名字来分配,如果是dark
@@ -57,9 +57,9 @@ class Schedule {
         const [pluginname, time] = name.split('.');
         const ThePath = {
             'xiuxian': `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
-            'dark': returnpath(pluginname),
-            'home': returnpath(pluginname),
-            'association': returnpath(pluginname)
+            'dark': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
+            'home': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
+            'association': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-pluging${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
         }
         //得到底下所有的json文件地址
         const newsum = BoxFs.returnfilepath(ThePath[pluginname], '.json')
