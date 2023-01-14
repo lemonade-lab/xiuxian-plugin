@@ -65,8 +65,8 @@ export class boxbattle extends robotapi {
         const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
             e.reply(CD)
+            return
         }
-
         const najie_thing = await exist_najie_thing_name(user.A, '决斗令')
         if (najie_thing == 1) {
             e.reply(`没有决斗令`)
@@ -75,7 +75,6 @@ export class boxbattle extends robotapi {
         let najie = await Read_najie(user.A)
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await Write_najie(user.A, najie)
-
         user.QQ = await battle(e, user.A, user.B)
         const Level = await Read_level(user.A)
         Level.prestige += 1
@@ -142,6 +141,7 @@ export class boxbattle extends robotapi {
         const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
             e.reply(CD)
+            return
         }
         user.QQ = await battle(e, user.A, user.B)
         const Level = await Read_level(user.A)
