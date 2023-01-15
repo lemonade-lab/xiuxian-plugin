@@ -140,13 +140,11 @@ export const existUser = async (UID) => {
     return life.find(item => item.qq == UID)
 }
 
-
-
 /**
  * 
+ * @param {表名} NAME 
  * @param {地址选择} CHOICE 
- * @param {表名} listname 
- * @param {数据} data 
+ * @param {数据} DATA 
  * @returns 若无data则是读取操作，返回data
  */
 
@@ -167,9 +165,9 @@ export const listAction = async (parameter) => {
 }
 /**
  * 
+ * @param {表名} NAME 
  * @param {地址选择} CHOICE 
- * @param {表名} listname 
- * @param {数据} data 
+ * @param {数据} DATA 
  * @returns 若无data则是读取操作(若读取失败则初始化为[])
  */
 export const listActionArr = async (parameter) => {
@@ -216,7 +214,7 @@ export const returnUserBagName = async (parameter) => {
 
 /**
  * @param {属性选择} CHOICE 
- * @param {表名} listname 
+ * @param {表名} NAME 
  * @returns 随机返回该表的子元素
  */
 export const randomListThing = async (parameter) => {

@@ -73,36 +73,34 @@ class BoxFs {
         return data
     }
 
+
     /**
-     * 
-     * @param {表名} NAME 
-     * @param {数据} DATA 
-     * @param {地址} PATH 
-     * @returns 
+     * {表名,地址,数据}
+     * @param {对象} parameter 
+     * @returns 若存在不存在数据参数则是读取操作
      */
-    write = async (NAME, DATA, PATH) => {
-        const dir = path.join(PATH, `${NAME}.json`)
-        const new_ARR = JSON.stringify(DATA, '', '\t')
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
-        return
-    }
-    /**
-     * 
-     * @param {表名} NAME 
-     * @param {地址} PATH 
-     * @returns 
-     */
-    read = async (NAME, PATH) => {
-        const dir = path.join(`${PATH}/${NAME}.json`)
-        let msg = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return 'error'
-            }
+    dataActionNew=async(parameter)=>{
+        const {NAME,PATH,DATA}=parameter
+        const DIR = path.join(`${PATH}/${NAME}.json`)
+        if(DATA){
+            fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
+            return
+        }
+        try{
+            const data = JSON.parse(fs.readFileSync(DIR, 'utf8', (err, data) => {
+                if (err) {
+                    return 'error'
+                }
+                return data
+            }))
             return data
-        })
-        msg = JSON.parse(msg)
-        return msg
+        }catch{
+            false
+        }        
     }
+    
+
+    
     newRead = async (NAME, PATH) => {
         const dir = path.join(`${PATH}/${NAME}.json`)
         try {
