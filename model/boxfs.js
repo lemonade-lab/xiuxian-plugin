@@ -95,5 +95,14 @@ class BoxFs {
             false
         }
     }
+    /**
+     * 判断目前是否存在
+     */
+    existsSync = (PATJ) => {
+        if (fs.existsSync(PATJ)) {
+            return true
+        }
+        return false
+    }
 }
 export default new BoxFs()
