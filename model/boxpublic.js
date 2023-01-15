@@ -7,7 +7,7 @@ import boxfs from './boxfs.js'
  * @returns 不存在则undifind
  */
 export const existUser = async (UID) => {
-    const life = await listActionArr({ CHOICE: 'user_life', NAME: 'life' })
+    const life = await  listActionArr({ CHOICE: 'user_life', NAME: 'life' })
     return life.find(item => item.qq == UID)
 }
 
@@ -138,7 +138,7 @@ export const createBoxPlayer = async (UID) => {
         await listActionArr({ CHOICE: 'user_life', NAME: 'life', DATA: life })
         await userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: [] })
         await updataUserEfficiency(UID)
-        return ture
+        return true
     } catch {
         return false
     }
@@ -203,12 +203,12 @@ export const listActionArr = async (parameter) => {
     if (!Data) {
         await boxfs.dataAction({
             NAME: NAME,
-            PATH: [],
-            DATA: Data
+            PATH: __PATH[CHOICE],
+            DATA: []
         })
         return []
     }
-    return DATA
+    return Data
 }
 
 
@@ -466,7 +466,7 @@ export const readPanel = async (UID) => {
  * @returns 返回信息
  */
 export const searchThing = async (parameter) => {
-    let [CHOICE, NAME, condition, name] = parameter
+    let { CHOICE, NAME, condition, name } = parameter
     if (!CHOICE) {
         //默认检索all表
         CHOICE = 'generate_all',
@@ -494,7 +494,7 @@ export const userBag = async (UID, name, acount) => {
         let bag = await userMsgAction({ CHOICE: 'user_bag', NAME: UID })
         bag = await userbagAction(bag, thing, acount)
         await userMsgAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
-        return ture
+        return true
     }
     return false
 }
@@ -570,7 +570,7 @@ export const userAt = async (e) => {
     }
     const atItem = e.message.filter((item) => item.type === 'at')
     //艾特对方会为对方创建游戏信息
-    const exist = await existUserSatus(atItem[0].qq)
+    const exist = await existUserSatus(atItem[0]['qq'])
     if (exist) {
         return atItem[0].qq
     }

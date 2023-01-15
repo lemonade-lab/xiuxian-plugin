@@ -1,5 +1,6 @@
 import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
+import { At } from "../../model/public.js"
 import {
     leastOne,
     userBagSearch,
@@ -23,16 +24,16 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const B = await userAt(e)
-        if (B == 0) {
+        const UID = await userAt(e)
+        if (!UID) {
             return
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
         const [name, acount] = thing_name.split('\*')
         const quantity = await leastOne(acount)
-        const bag = await userBag(B, name, quantity)
+        const bag = await userBag(UID, name, quantity)
         if (bag) {
-            e.reply(`${B}获得馈赠:${name}`)
+            e.reply(`${UID}获得馈赠:${name}`)
         } else {
             e.reply(`馈赠[${name}]失败`)
         }
@@ -43,7 +44,7 @@ export class boxadminmoney extends robotapi {
             return
         }
         const uid = await userAt(e)
-        if (uid == 0) {
+        if (!uid) {
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
