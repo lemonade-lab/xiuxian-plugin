@@ -1,15 +1,11 @@
 import robotapi from "../../model/robotapi.js"
-import {
-    At,
-    Numbers,
-    addAll,
-    search_thing_name,
-    exist_najie_thing_name,
-    Read_najie,
-    Add_najie_thing,
-    Write_najie
-} from '../../model/public.js'
 import { superIndex } from "../../model/robotapi.js"
+import {
+    leastOne,
+    userBagSearch,
+    userAt,
+    userBag
+} from "../../model/boxpublic.js"
 export class boxadminmoney extends robotapi {
     constructor() {
         super(superIndex([
@@ -27,41 +23,37 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const B = await At(e)
+        const B = await userAt(e)
         if (B == 0) {
             return
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
-        const code = thing_name.split('\*')
-        const [name, acount] = code
-        const searchsthing = await search_thing_name(name)
-        if (searchsthing == 1) {
-            e.reply(`世界没有${name}`)
-            return
+        const [name, acount] = thing_name.split('\*')
+        const quantity = await leastOne(acount)
+        const bag = await userBag(B, name, quantity)
+        if (bag) {
+            e.reply(`${B}获得馈赠:${name}`)
+        } else {
+            e.reply(`馈赠[${name}]失败`)
         }
-        const quantity = await Numbers(acount)
-        let najie = await Read_najie(B)
-        najie = await Add_najie_thing(najie, searchsthing, quantity)
-        await Write_najie(B, najie)
-        e.reply(`${B}获得馈赠:${name}`)
         return
     }
     Deduction = async (e) => {
         if (!e.isMaster) {
             return
         }
-        const uid = await At(e)
+        const uid = await userAt(e)
         if (uid == 0) {
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
-        lingshi = await Numbers(lingshi)
-        let thing = await exist_najie_thing_name(uid, '下品灵石')
-        if (thing == 1 || thing.acount < lingshi) {
+        lingshi = await leastOne(lingshi)
+        const thing = await userBagSearch(uid, '下品灵石')
+        if (!thing || thing.acount < lingshi) {
             e.reply('他好穷的')
             return
         }
-        await addAll(uid, -lingshi)
+        await userBag(uid, '下品灵石', -lingshi)
         e.reply(`已扣除${lingshi}下品灵石`)
         return
     }

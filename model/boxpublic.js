@@ -490,10 +490,13 @@ export const userBag = async (UID, name, acount) => {
         condition: 'name',
         name: name
     })
-    let bag = await userMsgAction({ CHOICE: 'user_bag', NAME: UID })
-    bag = await userbagAction(bag, thing, acount)
-    await userMsgAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
-    return
+    if (thing) {
+        let bag = await userMsgAction({ CHOICE: 'user_bag', NAME: UID })
+        bag = await userbagAction(bag, thing, acount)
+        await userMsgAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
+        return ture
+    }
+    return false
 }
 
 //给储物袋添加物品
@@ -513,6 +516,13 @@ export const userbagAction = async (najie, najie_thing, thing_acount) => {
         return najie
     }
 }
+
+export const userBagSearch = async (uid, name) => {
+    const najie = await userMsgAction({ CHOICE: 'user_bag', NAME: uid })
+    const ifexist = najie.thing.find(item => item.name == name)
+    return ifexist
+}
+
 
 /**
  * @param {消息内容} data 
@@ -632,4 +642,19 @@ export const deleteReids = async () => {
         })
         return
     }
+}
+
+/**
+ * 强制修正至少为1
+ */
+export const leastOne = async (value) => {
+    let size = value
+    if (isNaN(parseFloat(size)) && !isFinite(size)) {
+        size = 1
+    }
+    size = Number(Math.trunc(size))
+    if (size == null || size == undefined || size < 1 || isNaN(size)) {
+        size = 1
+    }
+    return Number(size)
 }
