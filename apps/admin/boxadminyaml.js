@@ -31,9 +31,9 @@ export class boxadminyaml extends robotapi {
             return
         }
         const NPM = e.msg.replace('#修仙加载依赖', '')
-        const npm = [`${NPM} install yamljs -w`, `${NPM} install  js-yaml -w`]
+        const npm = [`${NPM} install yamljs -W`, `${NPM} install  js-yaml -W`]
         npm.forEach(async (item) => {
-            await boxexec.start(item, process.cwd(), appname, e)
+            await boxexec.start(item, `${process.cwd()}`, appname, e)
         })
         return
     }
