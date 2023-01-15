@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import data from './boxdada.js'
 import { __PATH } from './boxdada.js'
-const CDname = {
+export const CDname = {
     '0': '攻击',
     '1': '降妖',
     '2': '闭关',
@@ -373,7 +373,7 @@ export const returnUserBagName = async (uid, name) => {
 
 
 
-
+////////存档检测不分
 
 /**
  * 
@@ -391,69 +391,6 @@ export const exist = async (uid) => {
         return false
     }
 }
-
-
-/////////////////////////////////////////boxpublic.js////////////////////
-///////////////boxfs.js////////
-
-
-/**
- * 读取数据
- */
-export const Read = async (uid, PATH) => {
-    const dir = path.join(`${PATH}/${uid}.json`)
-    const the = {
-        player: ''
-    }
-    the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            return 'error'
-        }
-        return data
-    })
-    the.player = JSON.parse(the.player)
-    return the.player
-}
-/**
- * 
- * @param {UID} uid 
- * @param {数据} data 
- * @param {地址} PATH 
- * @returns 
- */
-export const Write = async (uid, data, PATH) => {
-    const dir = path.join(PATH, `${uid}.json`)
-    const new_ARR = JSON.stringify(data, '', '\t')
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
-    return
-}
-
-
-
-//新的写入
-export const newRead = async (dir) => {
-    try {
-        const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return 'error'
-            }
-            return data
-        })
-        return newdata
-    } catch {
-        return 1
-    }
-}
-
-///////////////boxfs.js////////
-
-
-
-
-
-
-
-
 
 /**
  * 
@@ -476,6 +413,7 @@ export const existplayer = async (uid) => {
     }
     return true
 }
+
 /**
  * 
  * @param {UID} uid 
@@ -492,7 +430,6 @@ export const existplayerplugins = async (uid) => {
 }
 
 
-
 /**
  * 
  * @returns 返回所有用户UID
@@ -506,13 +443,7 @@ export const returnUid = async () => {
     return playerList
 }
 
-
-
-
-
-
-
-
+//////////////
 
 
 //计算双境界*装备
@@ -585,7 +516,7 @@ export const Read_battle = async (uid) => {
 
 
 
-
+////
 
 
 //魔力操作
@@ -595,54 +526,6 @@ export const Add_prestige = async (uid, prestige) => {
     await Write_level(uid, player)
     return
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const addAll = async (uid, acount, newname) => {
-    //默认下品灵石
-    let name = '下品灵石'
-    if (newname != undefined) {
-        name = newname
-    }
-    //搜索物品信息
-    const najie_thing = await search_thing_name(name)
-    let najie = await Read_najie(uid)
-    najie = await Add_najie_thing(najie, najie_thing, acount)
-    await Write_najie(uid, najie)
-    return
-}
-
-export const addLingshi = async (uid, lingshi, name) => {
-    let najieName = '下品灵石'
-    if (name != undefined) {
-        najieName = name
-    }
-    const najie_thing = await search_thing_name(najieName)
-    let najie = await Read_najie(uid)
-    najie = await Add_najie_thing(najie, najie_thing, lingshi)
-    await Write_najie(uid, najie)
-    return
-}
-
-
-
-
-
-
-
-
-
-
 
 
 //灵石操作
@@ -694,6 +577,117 @@ export const Add_player_AllSorcery = async (uid, gongfa) => {
     await player_efficiency(uid)
     return
 }
+
+
+
+//////
+export const addAll = async (uid, acount, newname) => {
+    //默认下品灵石
+    let name = '下品灵石'
+    if (newname != undefined) {
+        name = newname
+    }
+    //搜索物品信息
+    const najie_thing = await search_thing_name(name)
+    let najie = await Read_najie(uid)
+    najie = await Add_najie_thing(najie, najie_thing, acount)
+    await Write_najie(uid, najie)
+    return
+}
+
+export const addLingshi = async (uid, lingshi, name) => {
+    let najieName = '下品灵石'
+    if (name != undefined) {
+        najieName = name
+    }
+    const najie_thing = await search_thing_name(najieName)
+    let najie = await Read_najie(uid)
+    najie = await Add_najie_thing(najie, najie_thing, lingshi)
+    await Write_najie(uid, najie)
+    return
+}
+
+
+
+
+
+
+/////////////////////////////////////////boxpublic.js////////////////////
+///////////////boxfs.js////////
+
+
+/**
+ * 读取数据
+ */
+export const Read = async (uid, PATH) => {
+    const dir = path.join(`${PATH}/${uid}.json`)
+    const the = {
+        player: ''
+    }
+    the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
+        if (err) {
+            return 'error'
+        }
+        return data
+    })
+    the.player = JSON.parse(the.player)
+    return the.player
+}
+/**
+ * 
+ * @param {UID} uid 
+ * @param {数据} data 
+ * @param {地址} PATH 
+ * @returns 
+ */
+export const Write = async (uid, data, PATH) => {
+    const dir = path.join(PATH, `${uid}.json`)
+    const new_ARR = JSON.stringify(data, '', '\t')
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
+    return
+}
+
+
+
+//新的写入
+export const newRead = async (dir) => {
+    try {
+        const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                return 'error'
+            }
+            return data
+        })
+        return newdata
+    } catch {
+        return 1
+    }
+}
+
+///////////////boxfs.js////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const Add_extend_perpetual = async (uid, flag, type, value) => {
     const dir = path.join(`${__PATH.extend}/${uid}.json`)
@@ -992,6 +986,11 @@ export const search_thing_id = async (thing_id) => {
         return ifexist0
     }
 }
+
+
+
+
+
 //根据id搜储物袋物品
 export const exist_najie_thing_id = async (uid, thing_id) => {
     const najie = await Read_najie(uid)
@@ -1236,13 +1235,16 @@ export const pluginGo = async (uid) => {
     if (action != undefined) {
         action = JSON.parse(action)
         if (action.actionName == undefined) {
+            //根据判断msg存不存在来识别是否成功
             return {
                 'actoin': '1',
+                'MSG': `旧版数据残留,请联系主人使用[#修仙删除数据]`,
                 'msg': `旧版数据残留,请联系主人使用[#修仙删除数据]`
             }
         }
         return {
             'actoin': '1',
+            'MSG': `${action.actionName}中...`,
             'msg': `${action.actionName}中...`
         }
     }
@@ -1250,6 +1252,7 @@ export const pluginGo = async (uid) => {
     if (player.nowblood <= 1) {
         return {
             'actoin': '1',
+            'MSG': `血量不足`,
             'msg': `血量不足`
         }
     }
@@ -1353,6 +1356,7 @@ export const interactive = async (A, B) => {
     }
     return false
 }
+
 //判断两者距离
 export const distance = async (A, B) => {
     const a = await Read_action(A)
@@ -1360,11 +1364,15 @@ export const distance = async (A, B) => {
     const h = Math.pow(Math.pow((a.x - b.x), 2) + Math.pow((a.y - b.y), 2), 1 / 2)
     return h
 }
+
 //两者距离
 export const map_distance = async (A, B) => {
     const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2)
     return h
 }
+
+
+
 //输入：模糊搜索名字并判断是否在此地
 export const point_map = async (action, addressName) => {
     const point = await returnPoint()
