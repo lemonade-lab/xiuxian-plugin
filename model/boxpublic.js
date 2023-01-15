@@ -2,17 +2,17 @@ import { __PATH } from './boxdada.js'
 import boxfs from './boxfs.js'
 /**
  * 
- * @param {UID} uid 
+ * @param {UID} UID 
  * @returns 初始化玩家，不成功则false
  */
-export const createBoxPlayer = async (uid) => {
+export const createBoxPlayer = async (UID) => {
     try {
         const new_player = {
             'autograph': '无',//道宣
             'days': 0//签到
         }
-        const LevelList = await listAction('generate_level', 'Level_list')
-        const LevelMaxList = await listAction('generate_level', 'LevelMax_list')
+        const LevelList = await listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
+        const LevelMaxList = await listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
         const new_battle = {
             'nowblood': LevelList.find(item => item.id == 1).blood + await LevelMaxList.find(item => item.id == 1).blood,//血量
         }
@@ -31,7 +31,7 @@ export const createBoxPlayer = async (uid) => {
             'lingshi': 0,
             'xianshi': 0
         }
-        const PosirionList = await listAction('generate_position', 'position')
+        const PosirionList = await listAction({ CHOICE: 'generate_position', NAME: 'position' })
         const position = PosirionList.find(item => item.name == '极西')
         const positionID = position.id.split('-')
         const the = {
@@ -71,30 +71,30 @@ export const createBoxPlayer = async (uid) => {
         /**
          * 寿命生成
          */
-        const life = await listActionArr('user_life', 'life')
+        const life = await listActionArr({ CHOICE: 'user_life', NAME: 'life' })
         const time = new Date()
         life.push({
-            'qq': uid,
+            'qq': UID,
             'name': `${name}`,
             'Age': 1,//年龄
             'life': Math.floor((Math.random() * (84 - 60) + 60)), //寿命
             'createTime': time.getTime(),
             'status': 1
         })
-        await listActionArr('user_life', 'life', life)
+        await listActionArr({ CHOICE: 'user_life', NAME: 'life', DATA: life })
 
-        await userMsgAction(uid, 'user_playser', new_player)
-        await userMsgAction(uid, 'user_talent', new_talent)
-        await userMsgAction(uid, 'user_battle', new_battle)
-        await userMsgAction(uid, 'user_level', new_level)
-        await userMsgAction(uid, 'user_wealth', new_wealth)
-        await userMsgAction(uid, 'user_action', new_action)
-        await userMsgAction(uid, 'user_equipment', [])
-        await userMsgAction(uid, 'user_bag', new_najie)
+        await userMsgAction({ NAME: UID, CHOICE: 'user_playser', DATA: new_player })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: new_talent })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_battle', DATA: new_battle })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: new_level })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_wealth', DATA: new_wealth })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_action', DATA: new_action })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: [] })
+        await userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: new_najie })
         /**
          * 更新天赋
          */
-        await updataUserEfficiency(uid)
+        await updataUserEfficiency(UID)
         return ture
     } catch {
         return false
@@ -112,33 +112,18 @@ export const Anyarray = (ARR) => {
 
 
 /**
- * @param {UID} uid 
- * @returns 有存档则false
- */
-export const exist = async (uid) => {
-    const life = await readlife()  //todo
-    const find = life.find(item => item.qq == uid)
-    if (!find) {
-        return true
-    }
-    return false
-}
-
-
-
-/**
- * @param {UID} uid 
+ * @param {UID} UID 
  * @returns 若不存在则先初始化后通过
  */
-export const existplayer = async (uid) => {
-    let find = await existUser(uid)
+export const existplayer = async (UID) => {
+    let find = await existUser(UID)
     if (!find) {
-        const Go = await createBoxPlayer(uid)
+        const Go = await createBoxPlayer(UID)
         if (!Go) {
             return false
         }
         life = await readlife()
-        find = life.find(item => item.qq == uid)
+        find = life.find(item => item.qq == UID)
     }
     if (find.status == 0) {
         return false
@@ -147,64 +132,66 @@ export const existplayer = async (uid) => {
 }
 
 /**
- * @param {UID} uid 
+ * @param {UID} UID 
  * @returns 检测是否存在
  */
-export const existUser = async (uid) => {
+export const existUser = async (UID) => {
     const life = await readLife()
-    return life.find(item => item.qq == uid)
+    return life.find(item => item.qq == UID)
 }
 
 
 
 /**
  * 
- * @param {地址选择} attribute 
+ * @param {地址选择} CHOICE 
  * @param {表名} listname 
  * @param {数据} data 
  * @returns 若无data则是读取操作，返回data
  */
 
-export const listAction = async (attribute, listname, data) => {
-    if (data) {
+export const listAction = async (parameter) => {
+    const { NAME, CHOICE, DATA } = parameter
+    if (DATA) {
         await boxfs.dataAction({
-            NAME: listname,
-            PATH: __PATH[attribute],
-            DATA: data
+            NAME: NAME,
+            PATH: __PATH[CHOICE],
+            DATA: DATA
         })
         return
     }
     return await boxfs.dataAction({
-        NAME: listname,
-        PATH: __PATH[attribute]
+        NAME: NAME,
+        PATH: __PATH[CHOICE]
     })
 }
 /**
  * 
- * @param {地址选择} attribute 
+ * @param {地址选择} CHOICE 
  * @param {表名} listname 
  * @param {数据} data 
  * @returns 若无data则是读取操作(若读取失败则初始化为[])
  */
-export const listActionArr = async (attribute, listname, data) => {
-    if (data) {
+export const listActionArr = async (parameter) => {
+    const { NAME, CHOICE, DATA } = parameter
+    if (DATA) {
         await boxfs.dataAction({
-            NAME: listname,
-            PATH: __PATH[attribute],
-            DATA: data
+            NAME: NAME,
+            PATH: __PATH[CHOICE],
+            DATA: DATA
         })
         return
     }
     //读取的时候需要检查
-    const DATA = await boxfs.dataAction({
-        NAME: listname,
-        PATH: __PATH[attribute]
+    const Data = await boxfs.dataAction({
+        NAME: NAME,
+        PATH: __PATH[CHOICE]
     })
-    if (!DATA) {
+    if (!Data) {
         await boxfs.dataAction({
-            NAME: listname,
+            NAME: NAME,
             PATH: [],
-            DATA: data
+            DATA: Data
         })
         return []
     }
@@ -214,60 +201,64 @@ export const listActionArr = async (attribute, listname, data) => {
 
 
 /**
- * @param {UID} uid 
+ * @param {UID} UID 
  * @param {物品名} name 
  * @returns 若背包存在即返回物品信息,若不存在则undifind
  */
 export const returnUserBagName = async (parameter) => {
-    const { NAME, ATTRIBUTE, THING } = parameter
-    const najie = await userMsgAction({
+    const { NAME, CHOICE, THING } = parameter
+    const bag = await userMsgAction({
         NAME: NAME,
-        ATTRIBUTE: ATTRIBUTE
+        CHOICE: CHOICE
     })
-    return najie.thing.find(item => item.name == THING)
+    return bag.thing.find(item => item.name == THING)
 }
 
 /**
- * @param {属性选择} attribute 
+ * @param {属性选择} CHOICE 
  * @param {表名} listname 
  * @returns 随机返回该表的子元素
  */
 export const randomListThing = async (parameter) => {
-    const { NAME, ATTRIBUTE, DATA } = parameter
+    const { NAME, CHOICE } = parameter
     const LIST = await boxfs.dataAction({
         NAME: NAME,
-        PATH: __PATH[ATTRIBUTE]
+        PATH: __PATH[CHOICE]
     })
     return LIST[Math.floor(Math.random() * LIST.length)]
 }
 
 /**
  * @param {UID} UID 
- * @param {地址选择} ATTRIBUTE 
+ * @param {地址选择} CHOICE 
  * @param {数据} DATA 
  * @returns 若无数据输入则为读取操作，并返回数据
  */
 export const userMsgAction = async (parameter) => {
-    const { NAME, ATTRIBUTE, DATA } = parameter
+    const { NAME, CHOICE, DATA } = parameter
     if (DATA) {
         await boxfs.dataAction({
             NAME: NAME,
-            PATH: __PATH[ATTRIBUTE],
+            PATH: __PATH[CHOICE],
             DATA: DATA
         })
         return
     }
     return await boxfs.dataAction({
         NAME: NAME,
-        PATH: __PATH[ATTRIBUTE]
+        PATH: __PATH[CHOICE]
     })
 }
+
 
 /**
  * 天赋综合计算
  */
-export const updataUserEfficiency = async (uid) => {
-    const talent = await userMsgAction(uid, 'user_talent')
+export const updataUserEfficiency = async (UID) => {
+    const talent = await userMsgAction({
+        NAME: UID,
+        CHOICE: 'user_talent'
+    })
     const talent_sise = {
         'gonfa': 0,
         'talent': 0
@@ -276,14 +267,21 @@ export const updataUserEfficiency = async (uid) => {
         talent_sise.gonfa += item.size
     })
     talent_sise.talent = await talentSize(talent)
-    let promise = await userMsgAction(uid, 'user_extend')
+    let promise = await userMsgAction({
+        NAME: UID,
+        CHOICE: 'user_extend'
+    })
     promise = Object.values(promise)
     let extend = 0
     for (let i in promise) {
         extend += (promise[i].perpetual.efficiency * 100)
     }
     talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend
-    await userMsgAction(uid, 'user_talent', talent)
+    await userMsgAction({
+        NAME: UID,
+        CHOICE: 'user_talent',
+        DATA: talent
+    })
     return
 }
 
