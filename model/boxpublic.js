@@ -1,5 +1,37 @@
 import { __PATH } from './boxdada.js'
 import boxfs from './boxfs.js'
+
+/**
+ * 返回UID的寿命信息
+ * @param {UID} UID 
+ * @returns 不存在则undifind
+ */
+export const existUser = async (UID) => {
+    const life = await await listActionArr({ CHOICE: 'user_life', NAME: 'life' })
+    return life.find(item => item.qq == UID)
+}
+
+/**
+ * 判断是否死亡
+ * @param {UID} UID 
+ * @returns 
+ */
+export const existUserSatus = async (UID) => {
+    let find = await existUser(UID)
+    if (find == undefined) {
+        const CreateGO = await createBoxPlayer(UID)
+        if (!CreateGO) {
+            return false
+        }
+        find = await existUser(UID)
+    }
+    if (find.status == 0) {
+        return false
+    }
+    return true
+}
+
+
 /**
  * @param {UID} UID 
  * @returns 初始化玩家，不成功则false
@@ -108,34 +140,6 @@ export const Anyarray = (ARR) => {
 }
 
 
-/**
- * @param {UID} UID 
- * @returns 若不存在则先初始化后通过
- */
-export const existplayer = async (UID) => {
-    let find = await existUser(UID)
-    if (!find) {
-        const Go = await createBoxPlayer(UID)
-        if (!Go) {
-            return false
-        }
-        life = await readlife()
-        find = life.find(item => item.qq == UID)
-    }
-    if (find.status == 0) {
-        return false
-    }
-    return true
-}
-
-/**
- * @param {UID} UID 
- * @returns 检测是否存在
- */
-export const existUser = async (UID) => {
-    const life = await readLife()
-    return life.find(item => item.qq == UID)
-}
 
 /**
  * 
@@ -200,13 +204,12 @@ export const listActionArr = async (parameter) => {
  * @param {物品名} name 
  * @returns 若背包存在即返回物品信息,若不存在则undifind
  */
-export const returnUserBagName = async (parameter) => {
-    const { NAME, CHOICE, THING } = parameter
+export const returnUserBagName = async (NAME, THING_NAME) => {
     const bag = await userMsgAction({
         NAME: NAME,
-        CHOICE: CHOICE
+        CHOICE: 'user_bag'
     })
-    return bag.thing.find(item => item.name == THING)
+    return bag.thing.find(item => item.name == THING_NAME)
 }
 
 /**
@@ -250,34 +253,39 @@ export const userMsgAction = async (parameter) => {
  * 天赋综合计算
  */
 export const updataUserEfficiency = async (UID) => {
-    const talent = await userMsgAction({
-        NAME: UID,
-        CHOICE: 'user_talent'
-    })
-    const talent_sise = {
-        'gonfa': 0,
-        'talent': 0
+    try {
+        const talent = await userMsgAction({
+            NAME: UID,
+            CHOICE: 'user_talent'
+        })
+        const talent_sise = {
+            'gonfa': 0,
+            'talent': 0
+        }
+        talent.AllSorcery.forEach((item) => {
+            talent_sise.gonfa += item.size
+        })
+        talent_sise.talent = await talentSize(talent)
+        let promise = await userMsgAction({
+            NAME: UID,
+            CHOICE: 'user_extend'
+        })
+        promise = Object.values(promise)
+        let extend = 0
+        for (let i in promise) {
+            extend += (promise[i].perpetual.efficiency * 100)
+        }
+        talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend
+        await userMsgAction({
+            NAME: UID,
+            CHOICE: 'user_talent',
+            DATA: talent
+        })
+        return true
+    } catch {
+        return false
     }
-    talent.AllSorcery.forEach((item) => {
-        talent_sise.gonfa += item.size
-    })
-    talent_sise.talent = await talentSize(talent)
-    let promise = await userMsgAction({
-        NAME: UID,
-        CHOICE: 'user_extend'
-    })
-    promise = Object.values(promise)
-    let extend = 0
-    for (let i in promise) {
-        extend += (promise[i].perpetual.efficiency * 100)
-    }
-    talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend
-    await userMsgAction({
-        NAME: UID,
-        CHOICE: 'user_talent',
-        DATA: talent
-    })
-    return
+
 }
 
 /**

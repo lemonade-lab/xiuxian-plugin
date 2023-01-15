@@ -365,12 +365,32 @@ export const player_efficiency = async (uid) => {
 export const returnUserBagName = async (uid, name) => {
     const najie = await Read_najie(uid)
     const ifexist = najie.thing.find(item => item.name == name)
-    if (!ifexist) {
+    if (!ifexist) { 
         return 1
     }
     return ifexist
 }
 
+
+
+
+
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 有存档则false
+ */
+export const exist = async (uid) => {
+    const life = await Read_Life()
+    const find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        return true
+    } else {
+        //不管死没死，有存档就不能降临
+        //必须再入仙途
+        return false
+    }
+}
 
 
 /////////////////////////////////////////boxpublic.js////////////////////
@@ -429,31 +449,7 @@ export const newRead = async (dir) => {
 
 
 
-/**
- * 重启控制
- */
-export const restart = {
-    'timer': '',
-    'restart': ''
-}
 
-
-/**
- * 
- * @param {UID} uid 
- * @returns 有存档则false
- */
-export const exist = async (uid) => {
-    const life = await Read_Life()
-    const find = life.find(item => item.qq == uid)
-    if (find == undefined) {
-        return true
-    } else {
-        //不管死没死，有存档就不能降临
-        //必须再入仙途
-        return false
-    }
-}
 
 
 

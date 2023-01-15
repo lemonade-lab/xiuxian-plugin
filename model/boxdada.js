@@ -29,6 +29,10 @@ export const __PATH = {
     'generate_level': path.join(__dirname, '/resources/data/birth/Level'),
 
 
+    /**
+     * 以下旧命名已废弃
+     */
+
     //玩家存档
     'player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
     'extend': path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
