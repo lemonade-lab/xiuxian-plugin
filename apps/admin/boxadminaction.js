@@ -6,6 +6,7 @@ import filecp from '../../model/filecp.js'
 import boxfs from "../../model/boxfs.js"
 import boxexec from "../../model/boxexec.js"
 import { forwardMsg } from '../../model/boxpublic.js'
+import { ForwardMsg } from "../../model/public.js"
 export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -33,6 +34,7 @@ export class boxadminaction extends robotapi {
         const command = 'git  pull'
         const sum = boxfs.returnMenu(filepath)
         const msg = boxexec.start(command, `${process.cwd()}/plugins/${appname}/`, appname)
+        await ForwardMsg(msg)
         e.reply(await forwardMsg(msg))
         sum.forEach(async (item) => {
             const msg = boxexec.start(command, `${process.cwd()}/plugins/${appname}/plugins/${item}`, item)
