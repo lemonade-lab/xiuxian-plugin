@@ -5,8 +5,6 @@ import { appname } from "../../model/main.js"
 import filecp from '../../model/filecp.js'
 import boxfs from "../../model/boxfs.js"
 import boxexec from "../../model/boxexec.js"
-import { forwardMsg } from '../../model/boxpublic.js'
-import { ForwardMsg } from "../../model/public.js"
 export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -33,12 +31,9 @@ export class boxadminaction extends robotapi {
         const filepath = `./plugins/${appname}/plugins/`
         const command = 'git  pull'
         const sum = boxfs.returnMenu(filepath)
-        const msg = boxexec.start(command, `${process.cwd()}/plugins/${appname}/`, appname)
-        await ForwardMsg(msg)
-        e.reply(await forwardMsg(msg))
+        await boxexec.start(command, `${process.cwd()}/plugins/${appname}/`, appname, e)
         sum.forEach(async (item) => {
-            const msg = boxexec.start(command, `${process.cwd()}/plugins/${appname}/plugins/${item}`, item)
-            e.reply(await forwardMsg(msg))
+            await boxexec.start(command, `${process.cwd()}/plugins/${appname}/plugins/${item}`, item, e)
         })
         filecp.upfile()
         const img = await get_updata_img()
@@ -60,8 +55,7 @@ export class boxadminaction extends robotapi {
             e.reply('扩展名错误或暂时下架')
             return
         }
-        const msg = boxexec.start(command, `${process.cwd()}`, MAP[name])
-        e.reply(await forwardMsg(msg))
+        await boxexec.start(command, `${process.cwd()}`, MAP[name], e)
         filecp.upfile()
         const img = await get_updata_img()
         e.reply(img)
@@ -82,8 +76,7 @@ export class boxadminaction extends robotapi {
             e.reply('扩展名错误')
             return
         }
-        const msg = boxexec.start(command, `${process.cwd()}`, MAP[name])
-        e.reply(await forwardMsg(msg))
+        await boxexec.start(command, `${process.cwd()}`, MAP[name], e)
         filecp.upfile()
         const img = await get_updata_img()
         e.reply(img)

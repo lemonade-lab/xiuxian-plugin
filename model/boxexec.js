@@ -1,12 +1,13 @@
 
 import { createRequire } from 'module'
+import { ForwardMsg } from './public.js'
 const require = createRequire(import.meta.url)
 const { exec } = require('child_process')
 class BoxExex {
-    start = (cmd, cwd, name) => {
-        const msg = []
+    start = async (cmd, cwd, name, e) => {
         exec(cmd, { cwd: cwd },
-            (error, stdout, stderr) => {
+            async (error, stdout, stderr) => {
+                const msg = []
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push(`${name}已是最新版`)
                 }
@@ -15,9 +16,10 @@ class BoxExex {
                     return
                 }
                 msg.push(`${name}执行成功,请[#重启]`)
+                await ForwardMsg(e, msg)
             }
         )
-        return msg
+        return
     }
 }
 export default new BoxExex()
