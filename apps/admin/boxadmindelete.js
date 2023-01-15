@@ -1,10 +1,5 @@
 import robotapi from "../../model/robotapi.js"
-import {
-    offaction,
-    At,
-    Write_Life,
-    Read_Life
-} from '../../model/public.js'
+import { deleteReids, userMsgAction } from "../../model/boxpublic.js"
 import { superIndex } from "../../model/robotapi.js"
 export class boxadmindelete extends robotapi {
     constructor() {
@@ -16,10 +11,6 @@ export class boxadmindelete extends robotapi {
             {
                 reg: '^#修仙删除世界$',
                 fnc: 'deleteallusers'
-            },
-            {
-                reg: '^#修仙删除信息.*$',
-                fnc: 'deleteuser'
             }
         ]))
     }
@@ -27,42 +18,17 @@ export class boxadmindelete extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const allkey = await redis.keys('xiuxian:*', (err, data) => { })
-        if (allkey) {
-            allkey.forEach(async (item) => {
-                await redis.del(item)
-            })
-            e.reply('删除完成')
-            return
-        }
-        e.reply('世界无一花草')
+        await deleteReids()
+        e.reply('删除完成')
         return
     }
     deleteallusers = async (e) => {
         if (!e.isMaster) {
             return
         }
-        await Write_Life([])
-        await this.deleteredis(e)
-        return
-    }
-    deleteuser = async (e) => {
-        if (!e.isMaster) {
-            return
-        }
-        const B = await At(e)
-        if (B == 0) {
-            return
-        }
-        await offaction(B)
-        let life = await Read_Life()
-        life.forEach((item, index, arr) => {
-            if (item.qq == B) {
-                arr.splice(index, 1)
-            }
-        })
-        await Write_Life(life)
-        e.reply('信息崩碎')
+        await userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: [] })
+        await deleteReids()
+        e.reply('删除完成')
         return
     }
 }

@@ -623,3 +623,13 @@ export const userCD = async (uid, CDid, CDMAP) => {
     }
     return 0
 }
+
+export const deleteReids = async () => {
+    const allkey = await redis.keys('xiuxian:*', (err, data) => { })
+    if (allkey) {
+        allkey.forEach(async (item) => {
+            await redis.del(item)
+        })
+        return
+    }
+}
