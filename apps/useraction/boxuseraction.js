@@ -6,7 +6,7 @@ import {
     existplayer,
     Go,
     Read_najie,
-    addLingshi,
+    addAll,
     exist_najie_thing_name,
     Write_najie
 } from '../../model/public.js'
@@ -53,7 +53,7 @@ export class boxuseraction extends robotapi {
         //记录等级
         await Write_najie(uid, najie)
         //扣灵石
-        await addLingshi(uid, -Number(najie_price))
+        await addAll(uid, -Number(najie_price))
         e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
         return
     }

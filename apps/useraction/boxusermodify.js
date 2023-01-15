@@ -8,7 +8,7 @@ import {
     Read_player,
     Write_Life,
     Read_Life,
-    addLingshi
+    addAll
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import { superIndex } from "../../model/robotapi.js"
@@ -60,7 +60,7 @@ export class boxusermodify extends robotapi {
         }
         await redis.set(`xiuxian:player:${uid}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${uid}:${CDid}`, CDTime * 60)
-        await addLingshi(uid, -lingshi)
+        await addAll(uid, -lingshi)
         const life = await Read_Life()
         life.forEach((item) => {
             if (item.qq == uid) {

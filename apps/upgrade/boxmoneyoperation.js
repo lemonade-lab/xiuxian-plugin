@@ -11,7 +11,7 @@ import {
     Add_najie_thing,
     Write_najie,
     Numbers,
-    addLingshi,
+    addAll,
     At,
     GenerateCD,
     exist_najie_thing_name,
@@ -61,7 +61,7 @@ export class boxmoneyoperation extends robotapi {
         let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, randomthing, Number(1))
         await Write_najie(uid, najie)
-        await addLingshi(uid, Number(10))
+        await addAll(uid, Number(10))
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${randomthing.name}]吧\n还有这${Number(10)}灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n还放进了#储物袋`)
         return
@@ -96,8 +96,8 @@ export class boxmoneyoperation extends robotapi {
         }
         await redis.set(`xiuxian:player:${A}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60)
-        await addLingshi(A, -lingshi)   
-        await addLingshi(B, lingshi)        
+        await addAll(A, -lingshi)   
+        await addAll(B, lingshi)        
         e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
         return
     }

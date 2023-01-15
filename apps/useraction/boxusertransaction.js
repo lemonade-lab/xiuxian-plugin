@@ -2,7 +2,7 @@ import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
 import {
     Numbers,
-    addLingshi,
+    addAll,
     point_map,
     exist_najie_thing_name,
     Add_najie_thing,
@@ -120,7 +120,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         //先扣钱
-        await addLingshi(uid, -ifexist.price * quantity)
+        await addAll(uid, -ifexist.price * quantity)
         //重新把东西丢回去
         let najie = await Read_najie(uid)
         najie = await Add_najie_thing(najie, ifexist, quantity)
@@ -168,7 +168,7 @@ export class boxusertransaction extends robotapi {
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
         await Write_najie(uid, the.najie)
         const commodities_price = najie_thing.price * the.quantity
-        await addLingshi(uid, commodities_price)
+        await addAll(uid, commodities_price)
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
     }

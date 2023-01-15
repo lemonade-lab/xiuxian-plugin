@@ -13,7 +13,7 @@ import {
     Read_najie, Add_najie_thing,
     Write_najie,
     Read_level,
-    addLingshi,
+    addAll,
     Write_level
 } from '../../model/public.js'
 export class boxbattle extends robotapi {
@@ -184,7 +184,7 @@ export class boxbattle extends robotapi {
                 e.reply(`[天机门]韩立\n清魔力需要${money}下品灵石`)
                 return
             }
-            await addLingshi(uid, -money)
+            await addAll(uid, -money)
             Level.prestige -= 1
             await Write_level(uid, Level)
             e.reply('[天机门]南宫问天\n为你清除1点魔力值')

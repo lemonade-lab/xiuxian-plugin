@@ -2,7 +2,7 @@ import robotapi from "../../model/robotapi.js"
 import {
     At,
     Numbers,
-    addLingshi,
+    addAll,
     search_thing_name,
     exist_najie_thing_name,
     Read_najie,
@@ -61,7 +61,7 @@ export class boxadminmoney extends robotapi {
             e.reply('他好穷的')
             return
         }
-        await addLingshi(uid, -lingshi)
+        await addAll(uid, -lingshi)
         e.reply(`已扣除${lingshi}下品灵石`)
         return
     }

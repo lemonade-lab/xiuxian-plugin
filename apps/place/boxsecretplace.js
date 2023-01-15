@@ -9,7 +9,7 @@ import {
     existplayer,
     Write_action,
     exist_najie_thing_name,
-    addLingshi,
+    addAll,
     Read_battle,
     returnPosirion,
     returnPoint
@@ -191,7 +191,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         //先扣钱
-        await addLingshi(uid, -lingshi)
+        await addAll(uid, -lingshi)
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)

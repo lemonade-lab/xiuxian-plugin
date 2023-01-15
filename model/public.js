@@ -160,6 +160,7 @@ export const existplayerplugins = async (uid) => {
     }
 }
 
+
 export const randomThing = async () => {
     const dropsItemList = JSON.parse(fs.readFileSync(`${__PATH.all}/dropsItem.json`))
     const random = Math.floor(Math.random() * dropsItemList.length)
@@ -370,6 +371,20 @@ export const Add_prestige = async (uid, prestige) => {
     const player = await Read_level(uid)
     player.prestige += Math.trunc(prestige)
     await Write_level(uid, player)
+    return
+}
+
+export const addAll = async (uid, acount,newname) => {
+    //默认下品灵石
+    let name='下品灵石'
+    if(newname!=undefined){
+        name=newname
+    }
+    //搜索物品信息
+    const najie_thing = await search_thing_name(name)
+    let najie = await Read_najie(uid)
+    najie = await Add_najie_thing(najie, najie_thing, acount)
+    await Write_najie(uid, najie)
     return
 }
 

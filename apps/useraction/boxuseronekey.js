@@ -2,7 +2,7 @@ import robotapi from "../../model/robotapi.js"
 import config from '../../model/config.js'
 import { superIndex } from "../../model/robotapi.js"
 import {
-    addLingshi,
+    addAll,
     existplayer,
     point_map,
     Read_action,
@@ -47,7 +47,7 @@ export class boxuseronekey extends robotapi {
         najie.thing = []
         await Write_najie(uid, najie)
         //先把物品都清除了,再兑换成下品灵石
-        await addLingshi(uid, money)
+        await addAll(uid, money)
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
