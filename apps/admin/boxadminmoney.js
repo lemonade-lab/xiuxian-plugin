@@ -1,6 +1,5 @@
 import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
-import { At } from "../../model/public.js"
 import {
     leastOne,
     userBagSearch,
@@ -33,7 +32,7 @@ export class boxadminmoney extends robotapi {
         const quantity = await leastOne(acount)
         const bag = await userBag(UID, name, quantity)
         if (bag) {
-            e.reply(`${UID}获得馈赠:${name}`)
+            e.reply(`${UID}获得馈赠:${name}*${quantity}`)
         } else {
             e.reply(`馈赠[${name}]失败`)
         }
