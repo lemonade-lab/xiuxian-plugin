@@ -19,7 +19,7 @@ class Schedule {
             const s = myDate.getSeconds()
             //数据位置
             let PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${name}`
-            if (newpath != undefined) {
+            if (newpath!= undefined) {
                 //新数据位置
                 PATH = newpath
             }
@@ -48,8 +48,8 @@ class Schedule {
         if (!fs.existsSync(namefile)) {
             return ['无此备份']
         }
-        const returnpath=(pluginname)=>{
-            return  
+        const returnpath = (pluginname) => {
+            return
         }
         /**
          * 切割名字,根据名字来分配,如果是dark

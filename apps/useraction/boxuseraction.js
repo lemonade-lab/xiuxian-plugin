@@ -15,16 +15,16 @@ export class boxuseraction extends robotapi {
         super(superIndex([
             {
                 reg: '^#储物袋$',
-                fnc: 'Show_najie'
+                fnc: 'showBag'
             },
             {
                 reg: '^#升级储物袋$',
-                fnc: 'Lv_up_najie'
+                fnc: 'bagUp'
             }
         ]))
         this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
-    Show_najie = async (e) => {
+    showBag = async (e) => {
         const uid = e.user_id
         const ifexistplay = await existplayer(uid)
         if (!ifexistplay) {
@@ -34,7 +34,7 @@ export class boxuseraction extends robotapi {
         e.reply(img)
         return
     }
-    Lv_up_najie = async (e) => {
+    bagUp = async (e) => {
         const good = await Go(e)
         if (!good) {
             return
@@ -43,6 +43,9 @@ export class boxuseraction extends robotapi {
         const najie = await Read_najie(uid)
         //根据戒指等级分配价格
         const najie_price = this.xiuxianconfigData.najie_price[najie.grade]
+        if (!najie_price) {
+            return
+        }
         let thing = await exist_najie_thing_name(uid, '下品灵石')
         if (thing == 1 || thing.acount < najie_price) {
             e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
