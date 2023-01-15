@@ -22,7 +22,7 @@ class defset {
       fs.writeFileSync(group, yamlStr, 'utf8')
       return '关闭成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
   openReadconfig = () => {
@@ -33,7 +33,7 @@ class defset {
       fs.writeFileSync(group, yamlStr, 'utf8')
       return '开启成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
   Readconfighelp = () => {
@@ -45,7 +45,7 @@ class defset {
       fs.writeFileSync(group, yamlStr, 'utf8')
       return '设置成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
   openReadconfighelp = () => {
@@ -62,7 +62,7 @@ class defset {
       fs.writeFileSync(group, yamlStr, 'utf8')
       return '设置成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
   AddMaster = (mastername) => {
@@ -75,7 +75,7 @@ class defset {
       fs.writeFileSync(other, yamlStr, 'utf8')
       return '添加成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
   DeleteMaster = (mastername) => {
@@ -93,7 +93,7 @@ class defset {
       fs.writeFileSync(other, yamlStr, 'utf8')
       return '删除成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
   OffGroup = () => {
@@ -115,7 +115,7 @@ class defset {
       fs.writeFileSync(other, yamlStr, 'utf8')
       return '开启成功'
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
     }
   }
 }

@@ -40,7 +40,7 @@ class configyaml {
         fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
         return `修改${name}为${size}`
       } catch {
-        return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+        return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
       }
     } else {
       return '无次项配置信息'
