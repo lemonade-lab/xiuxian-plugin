@@ -9,16 +9,17 @@ class BoxExex {
             async (error, stdout, stderr) => {
                 const msg = []
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                    msg.push(`${name}已是最新版`)
+                    msg.push(`${name}|已是最新版`)
                     await ForwardMsg(e, msg)
+                    return
                 }
                 if (error) {
                     msg.push(`${name}执行失败\nError code: ${error.code}\n${error.stack}\n`)
-                    return
-                }else{
+                } else {
                     msg.push(`${name}执行成功,请[#重启]`)
                 }
                 await ForwardMsg(e, msg)
+                return
             }
         )
         return
