@@ -51,16 +51,15 @@ class BoxFs {
         })
         return newsum
     }
-
     /**
      * {表名,地址,数据}
      * @param {对象} parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
-    dataAction=async(parameter)=>{
-        const {NAME,PATH,DATA}=parameter
+    dataAction = async (parameter) => {
+        const { NAME, PATH, DATA } = parameter
         const DIR = path.join(`${PATH}/${NAME}.json`)
-        if(DATA){
+        if (DATA) {
             fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
             return
         }
@@ -72,21 +71,19 @@ class BoxFs {
         }))
         return data
     }
-
-
     /**
      * {表名,地址,数据}
      * @param {对象} parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
-    dataActionNew=async(parameter)=>{
-        const {NAME,PATH,DATA}=parameter
+    dataActionNew = async (parameter) => {
+        const { NAME, PATH, DATA } = parameter
         const DIR = path.join(`${PATH}/${NAME}.json`)
-        if(DATA){
+        if (DATA) {
             fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
             return
         }
-        try{
+        try {
             const data = JSON.parse(fs.readFileSync(DIR, 'utf8', (err, data) => {
                 if (err) {
                     return 'error'
@@ -94,25 +91,8 @@ class BoxFs {
                 return data
             }))
             return data
-        }catch{
-            false
-        }        
-    }
-    
-
-    
-    newRead = async (NAME, PATH) => {
-        const dir = path.join(`${PATH}/${NAME}.json`)
-        try {
-            const newData = fs.readFileSync(dir, 'utf8', (err, data) => {
-                if (err) {
-                    return 'error'
-                }
-                return data
-            })
-            return newData
         } catch {
-            return false
+            false
         }
     }
 }

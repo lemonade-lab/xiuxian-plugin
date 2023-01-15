@@ -1,7 +1,6 @@
 import { __PATH } from './boxdada.js'
 import boxfs from './boxfs.js'
 /**
- * 
  * @param {UID} UID 
  * @returns 初始化玩家，不成功则false
  */
@@ -181,7 +180,7 @@ export const listActionArr = async (parameter) => {
         return
     }
     //读取的时候需要检查
-    const Data = await boxfs.dataAction({
+    const Data = await boxfs.dataActionNew({
         NAME: NAME,
         PATH: __PATH[CHOICE]
     })

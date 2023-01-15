@@ -17,13 +17,8 @@ const CDname = {
     '11': '决斗',
     '12': '修行'
 }
-/**
- * 重启控制
- */
-export const restart = {
-    'timer': '',
-    'restart': ''
-}
+
+/////////////////////////////////////////////////boxpublic.js////////////////
 /**
  * 
  * @param {UID} uid 
@@ -121,73 +116,6 @@ export const createBoxPlayer = async (uid) => {
 
 /**
  * 
- * @param {UID} uid 
- * @returns 有存档则false
- */
-export const exist = async (uid) => {
-    const life = await Read_Life()
-    const find = life.find(item => item.qq == uid)
-    if (find == undefined) {
-        return true
-    } else {
-        //不管死没死，有存档就不能降临
-        //必须再入仙途
-        return false
-    }
-}
-/**
- * 
- * @param {UID} uid 
- * @returns 若不存在则先初始化后通过
- */
-export const existplayer = async (uid) => {
-    let life = await Read_Life()
-    let find = life.find(item => item.qq == uid)
-    if (find == undefined) {
-        const Go = await createBoxPlayer(uid)
-        if (!Go) {
-            return false
-        }
-        life = await Read_Life()
-        find = life.find(item => item.qq == uid)
-    }
-    if (find.status == 0) {
-        return false
-    }
-    return true
-}
-/**
- * 
- * @param {UID} uid 
- * @returns 检测是否存在
- */
-export const existplayerplugins = async (uid) => {
-    const life = await Read_Life()
-    const find = life.find(item => item.qq == uid)
-    if (find == undefined) {
-        return false
-    } else {
-        return find
-    }
-}
-
-/**
- * 
- * @param {UID} uid 
- * @param {物品名} name 
- * @returns 若背包存在即返回物品信息,若不存在则返回
- */
-export const returnUserBagName=async(uid,name)=>{
-    const najie = await Read_najie(uid)
-    const ifexist = najie.thing.find(item => item.name == name)
-    if (!ifexist) {
-        return 1
-    }
-    return ifexist
-}
-
-/**
- * 
  * @returns 随机返回一个物品
  */
 export const randomThing = async () => {
@@ -237,48 +165,6 @@ export const returnAll = async () => {
 export const returnCommodities = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.all}/commodities.json`))
 }
-/**
- * 
- * @returns 返回所有用户UID
- */
-export const returnUid = async () => {
-    const playerList = []
-    const life=await Read_Life()
-    life.forEach((item)=>{
-        playerList.push(item.qq)
-    })
-    return playerList
-}
-/**
- * 读取数据
- */
-export const Read = async (uid, PATH) => {
-    const dir = path.join(`${PATH}/${uid}.json`)
-    const the = {
-        player: ''
-    }
-    the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            return 'error'
-        }
-        return data
-    })
-    the.player = JSON.parse(the.player)
-    return the.player
-}
-/**
- * 
- * @param {UID} uid 
- * @param {数据} data 
- * @param {地址} PATH 
- * @returns 
- */
-export const Write = async (uid, data, PATH) => {
-    const dir = path.join(PATH, `${uid}.json`)
-    const new_ARR = JSON.stringify(data, '', '\t')
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
-    return
-}
 
 
 //读取境界
@@ -323,11 +209,6 @@ export const Write_battle = async (uid, data) => {
 }
 
 
-
-
-
-
-
 //写入新境界
 export const Write_level = async (uid, data) => {
     await Write(uid, data, __PATH.level)
@@ -369,6 +250,275 @@ export const Write_equipment = async (uid, equipment) => {
     await Write(uid, equipment, __PATH.equipment)
     return
 }
+
+
+//写入寿命表
+export const Write_Life = async (wupin) => {
+    await Write(`life`, wupin, __PATH.life)
+    return
+}
+//读寿命表
+export const Read_Life = async () => {
+    const dir = path.join(`${__PATH.life}/life.json`)
+    let Life = await newRead(dir)
+    if (Life == 1) {
+        await Write_Life([])
+        Life = await newRead(dir)
+    }
+    Life = await JSON.parse(Life)
+    return Life
+}
+
+//得到灵根
+export const get_talent = async () => {
+    const newtalent = []
+    const talentacount = Math.round(Math.random() * (5 - 1)) + 1
+    for (let i = 0; i < talentacount; i++) {
+        const x = Math.round(Math.random() * (10 - 1)) + 1
+        const y = newtalent.indexOf(x)
+        if (y != -1) {
+            continue
+        }
+        if (x <= 5) {
+            const z = newtalent.indexOf(x + 5)
+            if (z != -1) {
+                continue
+            }
+        } else {
+            const z = newtalent.indexOf(x - 5)
+            if (z != -1) {
+                continue
+            }
+        }
+        newtalent.push(x)
+    }
+    return newtalent
+}
+/**
+ * 得到灵根名字
+ */
+export const talentname = async (player) => {
+    const talentname = []
+    let name = ''
+    const talent = player.talent
+    for (let i = 0; i < talent.length; i++) {
+        name = data.talent_list.find(item => item.id == talent[i]).name
+        talentname.push(name)
+    }
+    return talentname
+}
+
+/**
+ * 计算天赋
+ */
+const talentsize = async (player) => {
+    const talent = {
+        player: player.talent,
+        talentsize: 250
+    }
+    //根据灵根数来判断
+    for (let i = 0; i < talent.player.length; i++) {
+        //循环加效率
+        if (talent.player[i] <= 5) {
+            talent.talentsize -= 50
+        }
+        if (talent.player[i] >= 6) {
+            talent.talentsize -= 40
+        }
+    }
+    return talent.talentsize
+}
+
+/**
+ * 天赋综合计算
+ */
+export const player_efficiency = async (uid) => {
+    const player = await Read_talent(uid)
+    const the = {
+        gongfa_efficiency: 0,
+        linggen_efficiency: 0
+    }
+    the.gongfa_efficiency = 0
+    player.AllSorcery.forEach((item) => {
+        the.gongfa_efficiency = the.gongfa_efficiency + item.size
+    })
+    the.linggen_efficiency = await talentsize(player)
+    let promise = await Read_extend(uid)
+    promise = Object.values(promise)
+    let extend = 0
+    for (let i in promise) {
+        extend += (promise[i].perpetual.efficiency * 100)
+    }
+    player.talentsize = the.linggen_efficiency + the.gongfa_efficiency + extend
+    await Write_talent(uid, player)
+    return
+}
+
+
+
+/**
+ * 
+ * @param {UID} uid 
+ * @param {物品名} name 
+ * @returns 若背包存在即返回物品信息,若不存在则返回
+ */
+export const returnUserBagName = async (uid, name) => {
+    const najie = await Read_najie(uid)
+    const ifexist = najie.thing.find(item => item.name == name)
+    if (!ifexist) {
+        return 1
+    }
+    return ifexist
+}
+
+
+
+/////////////////////////////////////////boxpublic.js////////////////////
+///////////////boxfs.js////////
+
+
+/**
+ * 读取数据
+ */
+export const Read = async (uid, PATH) => {
+    const dir = path.join(`${PATH}/${uid}.json`)
+    const the = {
+        player: ''
+    }
+    the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
+        if (err) {
+            return 'error'
+        }
+        return data
+    })
+    the.player = JSON.parse(the.player)
+    return the.player
+}
+/**
+ * 
+ * @param {UID} uid 
+ * @param {数据} data 
+ * @param {地址} PATH 
+ * @returns 
+ */
+export const Write = async (uid, data, PATH) => {
+    const dir = path.join(PATH, `${uid}.json`)
+    const new_ARR = JSON.stringify(data, '', '\t')
+    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
+    return
+}
+
+
+
+//新的写入
+export const newRead = async (dir) => {
+    try {
+        const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
+            if (err) {
+                return 'error'
+            }
+            return data
+        })
+        return newdata
+    } catch {
+        return 1
+    }
+}
+
+///////////////boxfs.js////////
+
+
+
+/**
+ * 重启控制
+ */
+export const restart = {
+    'timer': '',
+    'restart': ''
+}
+
+
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 有存档则false
+ */
+export const exist = async (uid) => {
+    const life = await Read_Life()
+    const find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        return true
+    } else {
+        //不管死没死，有存档就不能降临
+        //必须再入仙途
+        return false
+    }
+}
+
+
+
+
+
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 若不存在则先初始化后通过
+ */
+export const existplayer = async (uid) => {
+    let life = await Read_Life()
+    let find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        const Go = await createBoxPlayer(uid)
+        if (!Go) {
+            return false
+        }
+        life = await Read_Life()
+        find = life.find(item => item.qq == uid)
+    }
+    if (find.status == 0) {
+        return false
+    }
+    return true
+}
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 检测是否存在
+ */
+export const existplayerplugins = async (uid) => {
+    const life = await Read_Life()
+    const find = life.find(item => item.qq == uid)
+    if (find == undefined) {
+        return false
+    } else {
+        return find
+    }
+}
+
+
+
+/**
+ * 
+ * @returns 返回所有用户UID
+ */
+export const returnUid = async () => {
+    const playerList = []
+    const life = await Read_Life()
+    life.forEach((item) => {
+        playerList.push(item.qq)
+    })
+    return playerList
+}
+
+
+
+
+
+
+
+
+
+
 //计算双境界*装备
 export const Read_battle = async (uid) => {
     const equipment = await Read_equipment(uid)
@@ -436,6 +586,12 @@ export const Read_battle = async (uid) => {
     the.power = the.attack + the.defense + bloodLimit / 2 + the.burst * 100 + the.burstmax * 10 + the.speed * 50
     return the
 }
+
+
+
+
+
+
 //魔力操作
 export const Add_prestige = async (uid, prestige) => {
     const player = await Read_level(uid)
@@ -444,11 +600,23 @@ export const Add_prestige = async (uid, prestige) => {
     return
 }
 
-export const addAll = async (uid, acount,newname) => {
+
+
+
+
+
+
+
+
+
+
+
+
+export const addAll = async (uid, acount, newname) => {
     //默认下品灵石
-    let name='下品灵石'
-    if(newname!=undefined){
-        name=newname
+    let name = '下品灵石'
+    if (newname != undefined) {
+        name = newname
     }
     //搜索物品信息
     const najie_thing = await search_thing_name(name)
@@ -458,10 +626,10 @@ export const addAll = async (uid, acount,newname) => {
     return
 }
 
-export const addLingshi = async (uid, lingshi,name) => {
-    let najieName='下品灵石'
-    if(name!=undefined){
-        najieName=name
+export const addLingshi = async (uid, lingshi, name) => {
+    let najieName = '下品灵石'
+    if (name != undefined) {
+        najieName = name
     }
     const najie_thing = await search_thing_name(najieName)
     let najie = await Read_najie(uid)
@@ -469,6 +637,16 @@ export const addLingshi = async (uid, lingshi,name) => {
     await Write_najie(uid, najie)
     return
 }
+
+
+
+
+
+
+
+
+
+
 
 
 //灵石操作
@@ -793,90 +971,7 @@ export const battle_probability = async (P) => {
     }
     return false
 }
-//得到灵根
-export const get_talent = async () => {
-    const newtalent = []
-    const talentacount = Math.round(Math.random() * (5 - 1)) + 1
-    for (let i = 0; i < talentacount; i++) {
-        const x = Math.round(Math.random() * (10 - 1)) + 1
-        const y = newtalent.indexOf(x)
-        if (y != -1) {
-            continue
-        }
-        if (x <= 5) {
-            const z = newtalent.indexOf(x + 5)
-            if (z != -1) {
-                continue
-            }
-        } else {
-            const z = newtalent.indexOf(x - 5)
-            if (z != -1) {
-                continue
-            }
-        }
-        newtalent.push(x)
-    }
-    return newtalent
-}
-/**
- * 得到灵根名字
- */
-export const talentname = async (player) => {
-    const talentname = []
-    let name = ''
-    const talent = player.talent
-    for (let i = 0; i < talent.length; i++) {
-        name = data.talent_list.find(item => item.id == talent[i]).name
-        talentname.push(name)
-    }
-    return talentname
-}
 
-/**
- * 计算天赋
- */
-const talentsize = async (player) => {
-    const talent = {
-        player: player.talent,
-        talentsize: 250
-    }
-    //根据灵根数来判断
-    for (let i = 0; i < talent.player.length; i++) {
-        //循环加效率
-        if (talent.player[i] <= 5) {
-            talent.talentsize -= 50
-        }
-        if (talent.player[i] >= 6) {
-            talent.talentsize -= 40
-        }
-    }
-    return talent.talentsize
-}
-
-/**
- * 天赋综合计算
- */
-export const player_efficiency = async (uid) => {
-    const player = await Read_talent(uid)
-    const the = {
-        gongfa_efficiency: 0,
-        linggen_efficiency: 0
-    }
-    the.gongfa_efficiency = 0
-    player.AllSorcery.forEach((item) => {
-        the.gongfa_efficiency = the.gongfa_efficiency + item.size
-    })
-    the.linggen_efficiency = await talentsize(player)
-    let promise = await Read_extend(uid)
-    promise = Object.values(promise)
-    let extend = 0
-    for (let i in promise) {
-        extend += (promise[i].perpetual.efficiency * 100)
-    }
-    player.talentsize = the.linggen_efficiency + the.gongfa_efficiency + extend
-    await Write_talent(uid, player)
-    return
-}
 
 /**
  * 根据名字返回物品
@@ -1246,36 +1341,7 @@ export const GenerateCDplugin = async (uid, CDid, CDnameplugin) => {
     }
     return 0
 }
-//写入寿命表
-export const Write_Life = async (wupin) => {
-    await Write(`life`, wupin, __PATH.life)
-    return
-}
-//读寿命表
-export const Read_Life = async () => {
-    const dir = path.join(`${__PATH.life}/life.json`)
-    let Life = await newRead(dir)
-    if (Life == 1) {
-        await Write_Life([])
-        Life = await newRead(dir)
-    }
-    Life = await JSON.parse(Life)
-    return Life
-}
-//新的写入
-export const newRead = async (dir) => {
-    try {
-        const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
-            if (err) {
-                return 'error'
-            }
-            return data
-        })
-        return newdata
-    } catch {
-        return 1
-    }
-}
+
 //判断两者是否可以交互
 export const interactive = async (A, B) => {
     const a = await Read_action(A)
