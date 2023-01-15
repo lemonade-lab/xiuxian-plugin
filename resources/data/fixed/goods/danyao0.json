@@ -3,7 +3,7 @@
         "id": "4-1-1",
         "name": "还春丹",
         "attack": 0,
-        "defense": 0,
+        "defense": 0, 
         "blood": 40,
         "burst": 0,
         "burstmax": 0,

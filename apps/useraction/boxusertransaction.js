@@ -51,15 +51,15 @@ export class boxusertransaction extends robotapi {
             const id = item.id.split('-')
             switch(id[0]){
                 case '1':{
-                    msg.push(`物品:${item.name}\n攻击:${item.size}%\n价格:${item.price}`)
+                    msg.push(`物品:${item.name}\n攻击:${item.attack}%\n价格:${item.price}`)
                     break
                 }
                 case '2':{
-                    msg.push(`物品:${item.name}\n防御:${item.size}%\n价格:${item.price}`)
+                    msg.push(`物品:${item.name}\n防御:${item.defense}%\n价格:${item.price}`)
                     break
                 }
                 case '3':{
-                    msg.push(`物品:${item.name}\n暴伤:${item.size}%\n价格:${item.price}`)
+                    msg.push(`物品:${item.name}\n暴伤:${item.burstmax}%\n价格:${item.price}`)
                     break
                 }
                 case '4':{
