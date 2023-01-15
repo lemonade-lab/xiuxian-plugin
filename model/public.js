@@ -26,7 +26,8 @@ export const restart = {
 }
 /**
  * 
- * 创建存档
+ * @param {UID} uid 
+ * @returns 初始化玩家，不成功则false
  */
 export const createBoxPlayer = async (uid) => {
     try {
@@ -118,7 +119,11 @@ export const createBoxPlayer = async (uid) => {
     }
 }
 
-//初次使用
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 有存档则false
+ */
 export const exist = async (uid) => {
     const life = await Read_Life()
     const find = life.find(item => item.qq == uid)
@@ -130,8 +135,11 @@ export const exist = async (uid) => {
         return false
     }
 }
-
-//基础存档
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 若不存在则先初始化后通过
+ */
 export const existplayer = async (uid) => {
     let life = await Read_Life()
     let find = life.find(item => item.qq == uid)
@@ -148,8 +156,11 @@ export const existplayer = async (uid) => {
     }
     return true
 }
-
-//插件存档检测
+/**
+ * 
+ * @param {UID} uid 
+ * @returns 检测是否存在
+ */
 export const existplayerplugins = async (uid) => {
     const life = await Read_Life()
     const find = life.find(item => item.qq == uid)
@@ -160,30 +171,76 @@ export const existplayerplugins = async (uid) => {
     }
 }
 
+/**
+ * 
+ * @param {UID} uid 
+ * @param {物品名} name 
+ * @returns 若背包存在即返回物品信息,若不存在则返回
+ */
+export const returnUserBagName=async(uid,name)=>{
+    const najie = await Read_najie(uid)
+    const ifexist = najie.thing.find(item => item.name == name)
+    if (!ifexist) {
+        return 1
+    }
+    return ifexist
+}
 
+/**
+ * 
+ * @returns 随机返回一个物品
+ */
 export const randomThing = async () => {
     const dropsItemList = JSON.parse(fs.readFileSync(`${__PATH.all}/dropsItem.json`))
     const random = Math.floor(Math.random() * dropsItemList.length)
     return dropsItemList[random]
 }
+/**
+ * 
+ * @returns 返回练气境界表
+ */
 export const returnLevel = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.Level}/Level_list.json`))
 }
+/**
+ * 
+ * @returns 返回炼体境界表
+ */
 export const returnLevelMax = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.Level}/LevelMax_list.json`))
 }
+/**
+ * 
+ * @returns 返回地图区域表
+ */
 export const returnPosirion = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.position}/position.json`))
 }
+/**
+ * 
+ * @returns 返回地图点位表
+ */
 export const returnPoint = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.position}/point.json`))
 }
+/**
+ * 
+ * @returns 返回所有物品信息
+ */
 export const returnAll = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.all}/all.json`))
 }
+/**
+ * 
+ * @returns 返回商品信息
+ */
 export const returnCommodities = async () => {
     return JSON.parse(fs.readFileSync(`${__PATH.all}/commodities.json`))
 }
+/**
+ * 
+ * @returns 返回所有用户UID
+ */
 export const returnUid = async () => {
     const playerList = []
     const life=await Read_Life()
@@ -209,23 +266,28 @@ export const Read = async (uid, PATH) => {
     the.player = JSON.parse(the.player)
     return the.player
 }
-//写入数据
-export const Write = async (uid, player, PATH) => {
+/**
+ * 
+ * @param {UID} uid 
+ * @param {数据} data 
+ * @param {地址} PATH 
+ * @returns 
+ */
+export const Write = async (uid, data, PATH) => {
     const dir = path.join(PATH, `${uid}.json`)
-    const new_ARR = JSON.stringify(player, '', '\t')
+    const new_ARR = JSON.stringify(data, '', '\t')
     fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     return
 }
 
 
+//读取境界
+export const Read_level = async (uid) => {
+    return await Read(uid, __PATH.level)
+}
 //读取存档
 export const Read_player = async (uid) => {
     return await Read(uid, __PATH.player)
-}
-//写入存档
-export const Write_player = async (uid, player) => {
-    await Write(uid, player, __PATH.player)
-    return
 }
 //读取拓展
 export const Read_extend = async (uid) => {
@@ -235,14 +297,19 @@ export const Read_extend = async (uid) => {
     }
     return await Read(uid, __PATH.extend)
 }
+//读取灵根
+export const Read_talent = async (uid) => {
+    return await Read(uid, __PATH.talent)
+}
+//写入存档
+export const Write_player = async (uid, player) => {
+    await Write(uid, player, __PATH.player)
+    return
+}
 //写入拓展
 export const Write_extend = async (uid, player) => {
     await Write(uid, player, __PATH.extend)
     return
-}
-//读取灵根
-export const Read_talent = async (uid) => {
-    return await Read(uid, __PATH.talent)
 }
 //写入新灵根
 export const Write_talent = async (uid, player) => {
@@ -254,10 +321,13 @@ export const Write_battle = async (uid, data) => {
     await Write(uid, data, __PATH.battle)
     return
 }
-//读取境界
-export const Read_level = async (uid) => {
-    return await Read(uid, __PATH.level)
-}
+
+
+
+
+
+
+
 //写入新境界
 export const Write_level = async (uid, data) => {
     await Write(uid, data, __PATH.level)
@@ -840,6 +910,8 @@ export const exist_najie_thing_id = async (uid, thing_id) => {
     }
     return ifexist
 }
+
+
 //根据名字搜储物袋物品
 export const exist_najie_thing_name = async (uid, name) => {
     const najie = await Read_najie(uid)
