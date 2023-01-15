@@ -12,12 +12,12 @@ import {
     Write_najie,
     Numbers,
     addAll,
-    At,
     GenerateCD,
     exist_najie_thing_name,
     Write_action,
     randomThing
 } from '../../model/public.js'
+import { userAt } from "../../model/boxpublic.js"
 export class boxmoneyoperation extends robotapi {
     constructor() {
         super(superIndex([
@@ -75,8 +75,8 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         const A = e.user_id
-        const B = await At(e)
-        if (B == 0 || B == A) {
+        const B = await userAt(e)
+        if (!B || B == A) {
             return
         }
         let islingshi = e.msg.replace('#赠送灵石', '')
@@ -96,8 +96,8 @@ export class boxmoneyoperation extends robotapi {
         }
         await redis.set(`xiuxian:player:${A}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60)
-        await addAll(A, -lingshi)   
-        await addAll(B, lingshi)        
+        await addAll(A, -lingshi)
+        await addAll(B, lingshi)
         e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
         return
     }

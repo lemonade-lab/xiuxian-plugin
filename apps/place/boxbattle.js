@@ -7,7 +7,6 @@ import {
     existplayer,
     GenerateCD,
     exist_najie_thing_name,
-    At,
     battle,
     Anyarray,
     Read_najie, Add_najie_thing,
@@ -16,6 +15,9 @@ import {
     addAll,
     Write_level
 } from '../../model/public.js'
+import {
+    userAt
+} from "../../model/boxpublic.js"
 export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([
@@ -44,13 +46,12 @@ export class boxbattle extends robotapi {
         }
         const user = {
             A: e.user_id,
-            B: 0,
             C: 0,
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
-        user.B = await At(e)
-        if (user.B == 0 || user.B == user.A) {
+        user['B'] = await userAt(e)
+        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const actionA = await Read_action(user.A)
@@ -112,13 +113,12 @@ export class boxbattle extends robotapi {
         }
         const user = {
             A: e.user_id,
-            B: 0,
             C: 0,
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
-        user.B = await At(e)
-        if (user.B == 0 || user.B == user.A) {
+        user['B'] = await userAt(e)
+        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const actionA = await Read_action(user.A)
