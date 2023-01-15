@@ -11,8 +11,8 @@ export const createBoxPlayer = async (uid) => {
             'autograph': '无',//道宣
             'days': 0//签到
         }
-        const LevelList = await fsActionList('generate_level', 'Level_list')
-        const LevelMaxList = await fsActionList('generate_level', 'LevelMax_list')
+        const LevelList = await listAction('generate_level', 'Level_list')
+        const LevelMaxList = await listAction('generate_level', 'LevelMax_list')
         const new_battle = {
             'nowblood': LevelList.find(item => item.id == 1).blood + await LevelMaxList.find(item => item.id == 1).blood,//血量
         }
@@ -31,7 +31,7 @@ export const createBoxPlayer = async (uid) => {
             'lingshi': 0,
             'xianshi': 0
         }
-        const PosirionList = await fsActionList('generate_position', 'position')
+        const PosirionList = await listAction('generate_position', 'position')
         const position = PosirionList.find(item => item.name == '极西')
         const positionID = position.id.split('-')
         const the = {
@@ -71,7 +71,7 @@ export const createBoxPlayer = async (uid) => {
         /**
          * 寿命生成
          */
-        const life = await fsActionListArr('user_life', 'life')
+        const life = await listActionArr('user_life', 'life')
         const time = new Date()
         life.push({
             'qq': uid,
@@ -81,7 +81,7 @@ export const createBoxPlayer = async (uid) => {
             'createTime': time.getTime(),
             'status': 1
         })
-        await fsActionListArr('user_life', 'life', life)
+        await listActionArr('user_life', 'life', life)
 
         await userMsgAction(uid, 'user_playser', new_player)
         await userMsgAction(uid, 'user_talent', new_talent)
@@ -124,45 +124,7 @@ export const exist = async (uid) => {
     return false
 }
 
-/**
- * 
- * @param {地址选择} attribute 
- * @param {表名} listname 
- * @param {数据} data 
- * @returns 若无data则是读取操作，返回data
- */
 
-export const fsActionList = async (attribute, listname, data) => {
-    if (data) {
-        await boxfs.dataAction({
-            NAME: listname,
-            PATH: __PATH[attribute],
-            DATA: data
-        })
-        return
-    }
-    return await boxfs.read(listname, __PATH[attribute])
-}
-/**
- * 
- * @param {地址选择} attribute 
- * @param {表名} listname 
- * @param {数据} data 
- * @returns 若无data则是读取操作(若读取失败则初始化为[])
- */
-export const fsActionListArr = async (attribute, listname, data) => {
-    if (data) {
-        await boxfs.write(listname, data, __PATH[attribute])
-        return
-    }
-    //读取的时候需要检查
-    const DATA = boxfs.newRead(listname, __PATH[attribute])
-    if (!DATA) {
-        await boxfs.write(listname, [], __PATH[attribute])
-        return []
-    }
-    return DATA
-}
 
 /**
  * @param {UID} uid 
@@ -193,14 +155,76 @@ export const existUser = async (uid) => {
     return life.find(item => item.qq == uid)
 }
 
+
+
+/**
+ * 
+ * @param {地址选择} attribute 
+ * @param {表名} listname 
+ * @param {数据} data 
+ * @returns 若无data则是读取操作，返回data
+ */
+
+export const listAction = async (attribute, listname, data) => {
+    if (data) {
+        await boxfs.dataAction({
+            NAME: listname,
+            PATH: __PATH[attribute],
+            DATA: data
+        })
+        return
+    }
+    return await boxfs.dataAction({
+        NAME: listname,
+        PATH: __PATH[attribute]
+    })
+}
+/**
+ * 
+ * @param {地址选择} attribute 
+ * @param {表名} listname 
+ * @param {数据} data 
+ * @returns 若无data则是读取操作(若读取失败则初始化为[])
+ */
+export const listActionArr = async (attribute, listname, data) => {
+    if (data) {
+        await boxfs.dataAction({
+            NAME: listname,
+            PATH: __PATH[attribute],
+            DATA: data
+        })
+        return
+    }
+    //读取的时候需要检查
+    const DATA = await boxfs.dataAction({
+        NAME: listname,
+        PATH: __PATH[attribute]
+    })
+    if (!DATA) {
+        await boxfs.dataAction({
+            NAME: listname,
+            PATH: [],
+            DATA: data
+        })
+        return []
+    }
+    return DATA
+}
+
+
+
 /**
  * @param {UID} uid 
  * @param {物品名} name 
  * @returns 若背包存在即返回物品信息,若不存在则undifind
  */
-export const returnUserBagName = async (uid, name) => {
-    const najie = await userMsgAction(uid, 'user_bag')
-    return najie.thing.find(item => item.name == name)
+export const returnUserBagName = async (parameter) => {
+    const { NAME, ATTRIBUTE, THING } = parameter
+    const najie = await userMsgAction({
+        NAME: NAME,
+        ATTRIBUTE: ATTRIBUTE
+    })
+    return najie.thing.find(item => item.name == THING)
 }
 
 /**
@@ -208,23 +232,35 @@ export const returnUserBagName = async (uid, name) => {
  * @param {表名} listname 
  * @returns 随机返回该表的子元素
  */
-export const randomListThing = async (attribute, listname) => {
-    const LIST = await boxfs.read(listname, __PATH[attribute])
+export const randomListThing = async (parameter) => {
+    const { NAME, ATTRIBUTE, DATA } = parameter
+    const LIST = await boxfs.dataAction({
+        NAME: NAME,
+        PATH: __PATH[ATTRIBUTE]
+    })
     return LIST[Math.floor(Math.random() * LIST.length)]
 }
 
 /**
  * @param {UID} UID 
- * @param {地址选择} attribute 
- * @param {数据} data 
+ * @param {地址选择} ATTRIBUTE 
+ * @param {数据} DATA 
  * @returns 若无数据输入则为读取操作，并返回数据
  */
-export const userMsgAction = async (UID, attribute, data) => {
-    if (data) {
-        await boxfs.write(UID, player, __PATH[attribute])
+export const userMsgAction = async (parameter) => {
+    const { NAME, ATTRIBUTE, DATA } = parameter
+    if (DATA) {
+        await boxfs.dataAction({
+            NAME: NAME,
+            PATH: __PATH[ATTRIBUTE],
+            DATA: DATA
+        })
         return
     }
-    return await boxfs.read(UID, __PATH[attribute])
+    return await boxfs.dataAction({
+        NAME: NAME,
+        PATH: __PATH[ATTRIBUTE]
+    })
 }
 
 /**
