@@ -3,11 +3,11 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const { exec } = require('child_process')
 class BoxExex {
-    start = async (cmd, cwd, name) => {
+    start = (cmd, cwd, name) => {
         const msg = []
         try {
             exec(cmd, { cwd: cwd },
-                async (error, stdout, stderr) => {
+                (error, stdout, stderr) => {
                     if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                         msg.push(`${name}已是最新版`)
                     }

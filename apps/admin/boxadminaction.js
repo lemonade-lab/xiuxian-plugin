@@ -32,10 +32,10 @@ export class boxadminaction extends robotapi {
         const filepath = `./plugins/${appname}/plugins/`
         const command = 'git  pull'
         const sum = boxfs.returnMenu(filepath)
-        const msg = await boxexec.start(command, `${process.cwd()}/plugins/${appname}/`, appname)
+        const msg = boxexec.start(command, `${process.cwd()}/plugins/${appname}/`, appname)
         e.reply(await forwardMsg(msg))
         sum.forEach(async (item) => {
-            const msg = await boxexec.start(command, `${process.cwd()}/plugins/${appname}/plugins/${item}`, item)
+            const msg = boxexec.start(command, `${process.cwd()}/plugins/${appname}/plugins/${item}`, item)
             e.reply(await forwardMsg(msg))
         })
         filecp.upfile()
@@ -58,7 +58,7 @@ export class boxadminaction extends robotapi {
             e.reply('扩展名错误或暂时下架')
             return
         }
-        const msg = await boxexec.start(command, `${process.cwd()}`, MAP[name])
+        const msg = boxexec.start(command, `${process.cwd()}`, MAP[name])
         e.reply(await forwardMsg(msg))
         filecp.upfile()
         const img = await get_updata_img()
@@ -80,7 +80,7 @@ export class boxadminaction extends robotapi {
             e.reply('扩展名错误')
             return
         }
-        const msg = await boxexec.start(command, `${process.cwd()}`, MAP[name])
+        const msg = boxexec.start(command, `${process.cwd()}`, MAP[name])
         e.reply(await forwardMsg(msg))
         filecp.upfile()
         const img = await get_updata_img()
