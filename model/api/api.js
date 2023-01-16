@@ -4,8 +4,8 @@ class GameApi {
     /**
      * 用户类
      */
-    userMsgAction=async()=>{
-        return userAction.userMsgAction()
+    userMsgAction=async(parameter)=>{
+        return userAction.userMsgAction(parameter)
     }
     /**
      * 公共类
