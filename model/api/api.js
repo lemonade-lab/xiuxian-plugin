@@ -14,6 +14,9 @@ class GameApi {
     userBag = async (parameter) => {
         return await userAction.userBag(parameter)
     }
+    userBagSearch = async (parameter)=>{
+        return await userAction.userBagSearch(parameter)
+    }
     /**
      * 公共类
      * @returns 

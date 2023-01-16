@@ -1,6 +1,5 @@
 import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
-import { userBagSearch } from "../../model/boxpublic.js"
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 export class boxadminmoney extends robotapi {
@@ -45,7 +44,7 @@ export class boxadminmoney extends robotapi {
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
         lingshi = await gameApi.leastOne({ value: lingshi })
-        const thing = await userBagSearch(UID, '下品灵石')
+        const thing = await gameApi.userBagSearch({ UID, name: '下品灵石' })
         if (!thing || thing.acount < lingshi) {
             e.reply('他好穷的')
             return
