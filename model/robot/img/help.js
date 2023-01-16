@@ -6,7 +6,7 @@ import { appname } from '../../main.js'
 class Help {
   getboxhelp = async (parameter) => {
     const { name } = parameter
-    const helpData = config.getConfig('help', name)
+    const helpData = config.getConfig({ app: 'help', name })
     return {
       /** 文件名 */
       saveId: 'help',

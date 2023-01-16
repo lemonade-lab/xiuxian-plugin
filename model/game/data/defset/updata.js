@@ -5,14 +5,16 @@ import NodeJS from '../../../node/node.js'
 const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
 class DefsetUpdata {
     //动态生成配置读取
-    getConfig = (app, name) => {
+    getConfig = (parameter) => {
+        const { app, name } = parameter
         //获得配置地址
-        let file = `${__dirname}/config/${app}/${name}.yaml`
+        const file = `${__dirname}/config/${app}/${name}.yaml`
         //读取配置
         const data = YAML.parse(fs.readFileSync(file, 'utf8'))
         return data
     }
-    updataConfig = (name, size) => {
+    updataConfig = (parameter) => {
+        const { name, size } = parameter
         const map = {
             '突破冷却': 'CD.Level_up',
             '破体冷却': 'CD.LevelMax_up',
@@ -47,4 +49,4 @@ class DefsetUpdata {
         }
     }
 }
-export default   new DefsetUpdata()
+export default new DefsetUpdata()

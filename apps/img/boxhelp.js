@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import Help from '../../model/help.js'
-import Cache from '../../model/cache.js'
+import botapi from '../../model/robot/api/botapi.js'
 export class boxhelp extends robotapi {
     constructor() {
         super(superIndex([
@@ -16,19 +15,19 @@ export class boxhelp extends robotapi {
         ]))
     }
     Xiuxianhelp = async (e) => {
-        const data = await Help.getboxhelp('Help')
+        const data = await botapi.getHelp({ name: 'Help' })
         if (!data) {
             return
         }
-        const img = await Cache.helpcache(data, 1)
+        const img = await botapi.cacheHelp({ i: 1, data })
         await e.reply(img)
     }
     adminsuper = async (e) => {
-        const data = await Help.getboxhelp('Admin')
+        const data = await botapi.getHelp({ name: 'Admin' })
         if (!data) {
             return
         }
-        const img = await Cache.helpcache(data, 0)
+        const img = await botapi.cacheHelp({ i: 0, data })
         await e.reply(img)
     }
 }

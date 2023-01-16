@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import configyaml from '../../model/configyaml.js'
+import gameApi from '../../model/api/api.js'
 export class boxadminyaml extends robotapi {
     constructor() {
         super(superIndex([
@@ -17,7 +17,7 @@ export class boxadminyaml extends robotapi {
         const config = e.msg.replace('#修仙配置更改', '')
         const code = config.split('\*')
         const [name, size] = code
-        e.reply(configyaml.config(name, size))
+        e.reply(gameApi.updateConfig({ name, size }))
         return
     }
 }

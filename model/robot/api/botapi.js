@@ -35,11 +35,11 @@ class botapi {
     exec = (parameter) => {
         return exec.start(parameter)
     }
-    cacheHelp = (parameter) => {
-        return cache.helpcache(parameter)
+    cacheHelp = async (parameter) => {
+        return await cache.helpcache(parameter)
     }
-    getHelp = (parameter) => {
-        return help.getboxhelp(parameter)
+    getHelp = async (parameter) => {
+        return await help.getboxhelp(parameter)
     }
 
 }
