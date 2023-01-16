@@ -1,6 +1,7 @@
 import imgindex from '../img/index.js'
 import Modifi from '../data/defset/modify.js'
 import exec from '../exec/exex.js'
+import cache from '../img/cache.js'
 class botapi {
     showPuppeteer = async (parameter) => {
         return await imgindex.showPuppeteer(parameter)
@@ -32,6 +33,9 @@ class botapi {
     }
     exec = (parameter) => {
         return exec.start(parameter)
+    }
+    cacheHelp = (parameter) => {
+        return cache.helpcache(parameter)
     }
 }
 export default new botapi()
