@@ -1,5 +1,5 @@
 
-import { ForwardMsg } from '../../public.js'
+import userAction from '../user/action.js'
 import NodeJS from '../../node/node.js'
 const { exec } = NodeJS.returnexec()
 class Exec {
@@ -9,7 +9,7 @@ class Exec {
                 const msg = []
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
                     msg.push(`${name}|已是最新版`)
-                    await ForwardMsg(e, msg)
+                    await userAction.forwardMsg(e, msg)
                     return
                 }
                 if (error) {
@@ -17,7 +17,7 @@ class Exec {
                 } else {
                     msg.push(`${name}执行成功,请[#重启]`)
                 }
-                await ForwardMsg(e, msg)
+                await userAction.forwardMsg(e, msg)
                 return
             }
         )
