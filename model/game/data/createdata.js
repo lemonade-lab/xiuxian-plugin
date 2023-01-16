@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { appname } from '../../main.js'
-import BoxFs from '../../boxfs.js'
+import Algorithm from './algorithm.js'
 class CreateData {
   constructor() {
     this.defsetpath = `./plugins/${appname}/resources/defset/`
@@ -13,7 +13,7 @@ class CreateData {
   }
   Pluginfile = (name, config) => {
     const defsetpath = `./plugins/${appname}/plugins/${name}/defset/`
-    const path = BoxFs.returnMenu(defsetpath)
+    const path = Algorithm.returnMenu(defsetpath)
     path.forEach((itempath) => {
       config.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
@@ -33,7 +33,7 @@ class CreateData {
     return
   }
   upfile = () => {
-    const path = BoxFs.returnMenu(this.defsetpath)
+    const path = Algorithm.returnMenu(this.defsetpath)
     path.forEach((itempath) => {
       this.configarr.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
@@ -49,7 +49,7 @@ class CreateData {
     return
   }
   file = () => {
-    const path = BoxFs.returnMenu(this.defsetpath)
+    const path = Algorithm.returnMenu(this.defsetpath)
     path.forEach((itempath) => {
       this.configarr.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
@@ -80,6 +80,11 @@ class CreateData {
     })
     return
   }
+  /**
+   * 循环创建指定目录
+   * @param {*} arr 
+   * @returns 
+   */
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {

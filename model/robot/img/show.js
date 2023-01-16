@@ -15,9 +15,9 @@ class Show {
     const userId = UID  //用户id
     const htmlname=name = name//文件名
     return {
-      //html保存id
+      /** 文件名 */
       saveId: userId,
-      //模板html路径  
+      /** 相对路径 */
       tplFile: `./${dirname}/html/${path}/${htmlname}.html`,
       /** 绝对路径 */
       pluResPath: `${process.cwd().replace(/\\/g, '/')}/${dirname}/`,
