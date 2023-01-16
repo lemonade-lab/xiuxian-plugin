@@ -1,5 +1,4 @@
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../../public.js'
-import { showPuppeteer } from '../../robot/show.js'
 //tudo
 class information {
     get_player_img = async (uid) => {
@@ -40,7 +39,11 @@ class information {
             talent: talent,
             talentsize: size
         }
-        return await showPuppeteer('user/information', 'information', myData)
+        return {
+            path:'user/information', 
+            name:'information', 
+            data: myData
+        }
     }
     get_equipment_img = async (uid) => {
         const ifexistplay = await existplayer(uid)
@@ -57,7 +60,11 @@ class information {
             life: life,
             equipment: equipment
         }
-        return await showPuppeteer('user/equipment', 'equipment', myData)
+        return {
+            path:'user/equipment', 
+            name:'equipment', 
+            data: myData
+        }
     }
     get_najie_img = async (uid) => {
         const ifexistplay = await existplayer(uid)
@@ -100,7 +107,11 @@ class information {
             daoju_list: daoju_list,
             danyao_list: danyao_list
         }
-        return await showPuppeteer('user/bag', 'bag', myData)
+        return {
+            path:'user/bag', 
+            name:'bag', 
+            data: myData
+        }
     }
 }
 export default   new information()

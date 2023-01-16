@@ -3,10 +3,11 @@ class Show {
   /**
    * @param {地址} path 
    * @param {文件名} name 
-   * @param {数据} myData 
+   * @param {数据} data 
    * @returns 
    */
-  get_Data = async (path, name, myData) => {
+  get_Data = async (parameter) => {
+    const { path, name, data } = parameter
     return {
       /** 文件名 */
       saveId: name,
@@ -15,7 +16,7 @@ class Show {
       /** 绝对路径 */
       pluResPath: `${process.cwd().replace(/\\/g, '/')}/plugins/${appname}/resources/`,
       /** 数据 */
-      ...myData,
+      ...data,
     }
   }
 }
