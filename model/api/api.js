@@ -1,31 +1,20 @@
-/**
- * 引入多个对象行为
- */
-
-/**
- * 统一开放接口
- */
+import gamePublic from '../game/public/public.js'
+import userAction from '../game/user/user.js'
 class GameApi {
     /**
-     * 创建用户
-     * @param {*} UID 
-     * @returns 
+     * 用户类
      */
-    userCreare = async (UID) => {
+    userMsgAction=async()=>{
+        return userAction.userMsgAction()
     }
     /**
-     * 用户是否存在
-     * @param {*} UID 
+     * 公共类
      * @returns 
      */
-    userFile = async (UID) => {
+
+    deleteReids=async()=>{
+        return await gamePublic.deleteReids()
     }
-    /**
-     * 用户是否死亡
-     * @param {*} UID 
-     * @returns 
-     */
-    userFileState = async (UID) => {
-    }
+
 }
 export default   new GameApi()
