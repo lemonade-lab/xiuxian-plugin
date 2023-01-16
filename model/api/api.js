@@ -1,4 +1,3 @@
-import { createBoxPlayer, existUser, existUserSatus } from "../boxpublic.js"
 /**
  * 引入多个对象行为
  */
@@ -13,7 +12,6 @@ class GameApi {
      * @returns 
      */
     userCreare = async (UID) => {
-        return await createBoxPlayer(UID)
     }
     /**
      * 用户是否存在
@@ -21,7 +19,6 @@ class GameApi {
      * @returns 
      */
     userFile = async (UID) => {
-        return await existUser(UID)
     }
     /**
      * 用户是否死亡
@@ -29,10 +26,6 @@ class GameApi {
      * @returns 
      */
     userFileState = async (UID) => {
-        return await existUserSatus(UID)
     }
-
-
-
 }
 module.exports = new GameApi()

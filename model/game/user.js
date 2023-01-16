@@ -1,3 +1,6 @@
+/***
+ * 游戏用户行为
+ */
 class GameUser{
     
 
