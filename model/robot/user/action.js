@@ -1,3 +1,4 @@
+import { existUserSatus } from "../../boxpublic.js"
 class UserAction {
     forwardMsg = async (parameter) => {
         const { e, data } = parameter

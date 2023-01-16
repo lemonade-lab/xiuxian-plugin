@@ -9,7 +9,10 @@ class GameApi {
      * 用户类
      */
     userMsgAction = async (parameter) => {
-        return userAction.userMsgAction(parameter)
+        return await userAction.userMsgAction(parameter)
+    }
+    userBag = async (parameter) => {
+        return await userAction.userBag(parameter)
     }
     /**
      * 公共类
@@ -18,6 +21,9 @@ class GameApi {
 
     deleteReids = async () => {
         return await gamePublic.deleteReids()
+    }
+    leastOne = async (parameter) => {
+        return await gamePublic.leastOne(parameter)
     }
     /**
      * 配置类

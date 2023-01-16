@@ -28,7 +28,8 @@ class GamePublic {
      * @param {*} value 
      * @returns 
      */
-    leastOne = async (value) => {
+    leastOne = async (parameter) => {
+        const { value } = parameter
         let size = value
         if (isNaN(parseFloat(size)) && !isFinite(size)) {
             size = 1

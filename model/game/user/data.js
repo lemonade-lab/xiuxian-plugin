@@ -85,7 +85,7 @@ class ListData {
             CHOICE = 'generate_all',
                 NAME = 'all'
         }
-        const all = await listdata.listAction({ CHOICE: CHOICE, NAME: NAME })
+        const all = await this.listAction({ CHOICE: CHOICE, NAME: NAME })
         const ifexist = all.find(item => item[condition] == name)
         return ifexist
     }

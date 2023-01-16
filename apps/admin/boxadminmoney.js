@@ -1,11 +1,8 @@
 import robotapi from "../../model/robotapi.js"
 import { superIndex } from "../../model/robotapi.js"
-import {
-    leastOne,
-    userBagSearch,
-    userAt,
-    userBag
-} from "../../model/boxpublic.js"
+import { userBagSearch } from "../../model/boxpublic.js"
+import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxadminmoney extends robotapi {
     constructor() {
         super(superIndex([
@@ -23,14 +20,14 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const UID = await userAt(e)
+        const UID = await botApi.at({ e })
         if (!UID) {
             return
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
         const [name, acount] = thing_name.split('\*')
-        const quantity = await leastOne(acount)
-        const bag = await userBag(UID, name, quantity)
+        const quantity = await gameApi.leastOne({ value: acount })
+        const bag = await gameApi.userBag({ UID, name, ACOUNT: quantity })
         if (bag) {
             e.reply(`${UID}获得馈赠:${name}*${quantity}`)
         } else {
@@ -42,18 +39,18 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const uid = await userAt(e)
-        if (!uid) {
+        const UID = await botApi.at({ e })
+        if (!UID) {
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
-        lingshi = await leastOne(lingshi)
-        const thing = await userBagSearch(uid, '下品灵石')
+        lingshi = await gameApi.leastOne({ value: lingshi })
+        const thing = await userBagSearch(UID, '下品灵石')
         if (!thing || thing.acount < lingshi) {
             e.reply('他好穷的')
             return
         }
-        await userBag(uid, '下品灵石', -lingshi)
+        await gameApi.userBag({ UID, name: '下品灵石', ACOUNT: -lingshi })
         e.reply(`已扣除${lingshi}下品灵石`)
         return
     }
