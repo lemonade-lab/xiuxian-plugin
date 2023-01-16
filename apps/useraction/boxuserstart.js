@@ -1,4 +1,5 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import config from '../../model/config.js'
 import { segment } from 'oicq'
 import {
@@ -10,7 +11,6 @@ import {
     createBoxPlayer
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
-import { superIndex } from "../../model/robotapi.js"
 export class boxuserstart extends robotapi {
     constructor() {
         super(superIndex([

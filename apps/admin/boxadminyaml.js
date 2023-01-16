@@ -1,6 +1,6 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import configyaml from '../../model/configyaml.js'
-import { superIndex } from "../../model/robotapi.js"
 export class boxadminyaml extends robotapi {
     constructor() {
         super(superIndex([

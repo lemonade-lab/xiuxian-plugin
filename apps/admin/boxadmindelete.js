@@ -1,6 +1,6 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import { deleteReids, userMsgAction } from "../../model/boxpublic.js"
-import { superIndex } from "../../model/robotapi.js"
 export class boxadmindelete extends robotapi {
     constructor() {
         super(superIndex([

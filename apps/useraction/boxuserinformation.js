@@ -1,10 +1,10 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import {
     get_equipment_img,
     get_player_img
 } from '../../model/showdata.js'
 import { existplayer } from '../../model/public.js'
-import { superIndex } from "../../model/robotapi.js"
 export class boxuserinformation extends robotapi {
     constructor() {
         super(superIndex([

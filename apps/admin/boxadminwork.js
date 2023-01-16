@@ -1,6 +1,6 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import pluginup from '../../model/pluginup.js'
-import { superIndex } from "../../model/robotapi.js"
 import schedule from "../../model/schedule.js"
 import { ForwardMsg } from '../../model/public.js'
 export class boxadminwork extends robotapi {

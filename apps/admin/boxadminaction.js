@@ -1,5 +1,5 @@
-import robotapi from "../../model/robotapi.js"
-import { superIndex } from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import { get_updata_img } from '../../model/showdata.js'
 import { appname } from "../../model/main.js"
 import filecp from '../../model/filecp.js'

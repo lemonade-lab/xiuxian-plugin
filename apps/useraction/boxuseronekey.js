@@ -1,6 +1,6 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import config from '../../model/config.js'
-import { superIndex } from "../../model/robotapi.js"
 import {
     addAll,
     existplayer,

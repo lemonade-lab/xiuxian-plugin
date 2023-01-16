@@ -1,4 +1,5 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import {
     existplayer,
     sortBy,
@@ -7,7 +8,6 @@ import {
     returnUid
 } from '../../model/public.js'
 import { get_toplist_img } from '../../model/showdata.js'
-import { superIndex } from "../../model/robotapi.js"
 export class boxtoplist extends robotapi {
     constructor() {
         super(superIndex([

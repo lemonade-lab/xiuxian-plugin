@@ -1,7 +1,7 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import config from '../../model/config.js'
 import { get_najie_img } from '../../model/showdata.js'
-import { superIndex } from "../../model/robotapi.js"
 import {
     existplayer,
     Go,

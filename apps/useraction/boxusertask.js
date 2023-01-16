@@ -1,11 +1,11 @@
-import robotapi from "../../model/robotapi.js"
+import robotapi from "../../model/robot/api/api.js"
+import { superIndex } from "../../model/robot/api/api.js"
 import config from '../../model/config.js'
 import {
     offaction,
     Read_Life,
     Write_Life
 } from '../../model/public.js'
-import { superIndex } from "../../model/robotapi.js"
 export class boxusertask extends robotapi {
     constructor() {
         super(superIndex([
