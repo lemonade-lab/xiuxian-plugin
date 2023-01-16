@@ -2,7 +2,7 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import pluginup from '../../model/pluginup.js'
 import schedule from "../../model/schedule.js"
-import { ForwardMsg } from '../../model/public.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxadminwork extends robotapi {
     constructor() {
         super(superIndex([
@@ -25,7 +25,7 @@ export class boxadminwork extends robotapi {
             return
         }
         const msg = pluginup.pluginupdata('xiuxian-emulator-plugin')
-        await ForwardMsg(e, msg)
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
     dataBackups = async (e) => {
@@ -33,7 +33,7 @@ export class boxadminwork extends robotapi {
             return
         }
         const msg = schedule.viewbackups()
-        await ForwardMsg(e, msg)
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
     datarecovery = async (e) => {
@@ -41,7 +41,7 @@ export class boxadminwork extends robotapi {
             return
         }
         const msg = schedule.backuprecovery(e.msg.replace('#修仙复原', ''))
-        await ForwardMsg(e, msg)
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
 }

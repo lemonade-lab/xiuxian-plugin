@@ -19,7 +19,7 @@ class UserAction {
     /**
     * 艾特并返回QQ
     */
-    userAt = async (parameter) => {
+    at = async (parameter) => {
         const { e } = parameter
         const isat = e.message.some((item) => item.type === 'at')
         if (!isat) {

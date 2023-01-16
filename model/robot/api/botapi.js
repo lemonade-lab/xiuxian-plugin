@@ -3,6 +3,7 @@ import Modifi from '../data/defset/modify.js'
 import exec from '../exec/exex.js'
 import cache from '../img/cache.js'
 import help from '../img/help.js'
+import user from '../user/action.js'
 class botapi {
     showPuppeteer = async (parameter) => {
         return await imgindex.showPuppeteer(parameter)
@@ -41,6 +42,11 @@ class botapi {
     getHelp = async (parameter) => {
         return await help.getboxhelp(parameter)
     }
-
+    forwardMsg = async (parameter) => {
+        return await user.forwardMsg(parameter)
+    }
+    at = async (parameter) => {
+        return await user.at(parameter)
+    }
 }
 export default new botapi()
