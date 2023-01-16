@@ -15,6 +15,15 @@ const MapCd = {
 }
 class GamePublic {
     /**
+ * 
+ * @param {数组} ARR 
+ * @returns 随机一个元素
+ */
+    Anyarray = (ARR) => {
+        const randindex = Math.trunc(Math.random() * ARR.length)
+        return ARR[randindex]
+    }
+    /**
      * 强制修正至少为1
      * @param {*} value 
      * @returns 

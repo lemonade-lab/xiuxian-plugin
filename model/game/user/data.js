@@ -1,16 +1,7 @@
-class UserData {
+import { __PATH } from '../data/index.js'
+import algorithm from '../data/algorithm.js'
+class ListData {
     /**
-     * 
-     * @param {数组} ARR 
-     * @returns 随机一个元素
-     */
-    Anyarray = (ARR) => {
-        const randindex = Math.trunc(Math.random() * ARR.length)
-        return ARR[randindex]
-    }
-
-    /**
-     * 
      * @param {表名} NAME 
      * @param {地址选择} CHOICE 
      * @param {数据} DATA 
@@ -19,14 +10,14 @@ class UserData {
     listAction = async (parameter) => {
         const { NAME, CHOICE, DATA } = parameter
         if (DATA) {
-            await boxfs.dataAction({
+            await algorithm.dataAction({
                 NAME: NAME,
                 PATH: __PATH[CHOICE],
                 DATA: DATA
             })
             return
         }
-        return await boxfs.dataAction({
+        return await algorithm.dataAction({
             NAME: NAME,
             PATH: __PATH[CHOICE]
         })
@@ -41,7 +32,7 @@ class UserData {
     listActionArr = async (parameter) => {
         const { NAME, CHOICE, DATA } = parameter
         if (DATA) {
-            await boxfs.dataAction({
+            await algorithm.dataAction({
                 NAME: NAME,
                 PATH: __PATH[CHOICE],
                 DATA: DATA
@@ -49,12 +40,12 @@ class UserData {
             return
         }
         //读取的时候需要检查
-        const Data = await boxfs.dataActionNew({
+        const Data = await algorithm.dataActionNew({
             NAME: NAME,
             PATH: __PATH[CHOICE]
         })
         if (!Data) {
-            await boxfs.dataAction({
+            await algorithm.dataAction({
                 NAME: NAME,
                 PATH: __PATH[CHOICE],
                 DATA: []
@@ -71,7 +62,7 @@ class UserData {
      */
     randomListThing = async (parameter) => {
         const { NAME, CHOICE } = parameter
-        const LIST = await boxfs.dataAction({
+        const LIST = await algorithm.dataAction({
             NAME: NAME,
             PATH: __PATH[CHOICE]
         })
@@ -79,4 +70,4 @@ class UserData {
     }
 
 }
-module.exports = new UserData()
+module.exports = new ListData()
