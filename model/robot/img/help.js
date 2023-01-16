@@ -4,7 +4,8 @@ import { appname } from '../../main.js'
  * 生成帮助图
  */
 class Help {
-  getboxhelp = async (name) => {
+  getboxhelp = async (parameter) => {
+    const { name } = parameter
     const helpData = config.getconfig('help', name)
     return {
       /** 文件名 */
