@@ -1,12 +1,10 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-
 import { get_updata_img } from '../../model/showdata.js'
 import { appname } from "../../model/main.js"
 import filecp from '../../model/filecp.js'
 import boxfs from "../../model/boxfs.js"
 import boxexec from "../../model/boxexec.js"
-
 export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([

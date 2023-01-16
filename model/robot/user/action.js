@@ -1,5 +1,6 @@
 class UserAction {
-    forwardMsg = async (e, data) => {
+    forwardMsg = async (parameter) => {
+        const { e, data } = parameter
         const msgList = []
         for (let i of data) {
             msgList.push({
@@ -18,7 +19,8 @@ class UserAction {
     /**
     * 艾特并返回QQ
     */
-    userAt = async (e) => {
+    userAt = async (parameter) => {
+        const { e } = parameter
         const isat = e.message.some((item) => item.type === 'at')
         if (!isat) {
             return false
@@ -33,4 +35,4 @@ class UserAction {
         return false
     }
 }
-export default   new UserAction()
+export default new UserAction()
