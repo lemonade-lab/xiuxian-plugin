@@ -62,8 +62,8 @@ export class boxmoneyoperation extends robotapi {
         najie = await Add_najie_thing(najie, randomthing, Number(1))
         await Write_najie(uid, najie)
         await addAll(uid, Number(10))
-        e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${randomthing.name}]吧\n还有这${Number(10)}灵石\n可在必要的时候用到`)
-        e.reply(`你对此高兴万分\n还放进了#储物袋`)
+        e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗下品灵石\n可在必要的时候用到`)
+        e.reply(`你对此高兴万分\n并放进了#储物袋`)
         return
     }
     Give_lingshi = async (e) => {
