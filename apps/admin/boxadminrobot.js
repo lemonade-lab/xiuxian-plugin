@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import botapi from '../../model/robot/api/botapi.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxadminrobot extends robotapi {
     constructor() {
         super(superIndex([
@@ -43,37 +43,36 @@ export class boxadminrobot extends robotapi {
         if (!e.isMaster) {
             return
         }
-        e.reply(botapi.readConfig())
+        e.reply(botApi.readConfig())
         return
     }
     openRobot = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(botapi.openConfig())
+        e.reply(botApi.openConfig())
         return
     }
     CloseRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(botapi.readConfigHelp())
+        e.reply(botApi.readConfigHelp())
         return
     }
     openRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(botapi.openConfigHelp())
+        e.reply(botApi.openConfigHelp())
         return
     }
     AddMaster = async (e) => {
         if (!e.isMaster) {
             return
         }
-        const QQ = e.msg.replace('#修仙添加主人', '')
-        e.reply(botapi.addMaster({
-            mastername: QQ
+        e.reply(botApi.addMaster({
+            mastername: e.msg.replace('#修仙添加主人', '')
         }))
         return
     }
@@ -81,9 +80,8 @@ export class boxadminrobot extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const QQ = e.msg.replace('#修仙删除主人', '')
-        e.reply(botapi.deleteMaster({
-            mastername: QQ
+        e.reply(botApi.deleteMaster({
+            mastername: e.msg.replace('#修仙删除主人', '')
         }))
         return
     }
@@ -91,14 +89,14 @@ export class boxadminrobot extends robotapi {
         if (!e.isMaster) {
             return
         }
-        e.reply(botapi.offGroup())
+        e.reply(botApi.offGroup())
         return
     }
     OnGroup = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(botapi.onGroup())
+        e.reply(botApi.onGroup())
         return
     }
 }
