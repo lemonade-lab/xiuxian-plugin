@@ -69,5 +69,26 @@ class ListData {
         return LIST[Math.floor(Math.random() * LIST.length)]
     }
 
+
+    /**
+     * 根据条件搜索
+     * @param {属性选择} CHOICE 
+     * @param {表名} NAME 
+     * @param {item[condition]} condition 
+     * @param {==name} name 
+     * @returns 返回信息
+     */
+    searchThing = async (parameter) => {
+        let { CHOICE, NAME, condition, name } = parameter
+        if (!CHOICE) {
+            //默认检索all表
+            CHOICE = 'generate_all',
+                NAME = 'all'
+        }
+        const all = await listdata.listAction({ CHOICE: CHOICE, NAME: NAME })
+        const ifexist = all.find(item => item[condition] == name)
+        return ifexist
+    }
+
 }
 module.exports = new ListData()

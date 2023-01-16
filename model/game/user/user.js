@@ -110,70 +110,70 @@ class GameUser {
         }
     }
 
-
     /**
-     * 根据条件搜索
-     * @param {*} parameter 
-     * @returns 返回信息
-     */
-    searchThing = async (parameter) => {
-        let { CHOICE, NAME, condition, name } = parameter
-        if (!CHOICE) {
-            //默认检索all表
-            CHOICE = 'generate_all',
-                NAME = 'all'
-        }
-        const all = await listdata.listAction({ CHOICE: CHOICE, NAME: NAME })
-        const ifexist = all.find(item => item[condition] == name)
-        return ifexist
-    }
-
-    /**
-     * 
+     * 给UID添加物品name的数量为account
      * @param {UID} UID 
      * @param {物品名} name 
-     * @param {数量} acount 
+     * @param {数量} ACOUNT 
      * @returns 
      */
-    userBag = async (UID, name, acount) => {
+    userBag = async (parameter) => {
+        const { UID, name, ACOUNT } = parameter
         //搜索物品信息
-        const thing = await searchThing({
+        const thing = await listdata.searchThing({
             condition: 'name',
             name: name
         })
         if (thing) {
             let bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
-            bag = await userbagAction(bag, thing, acount)
+            bag = await this.userbagAction({
+                BAG: bag, THING: thing, ACCOUNT: ACOUNT
+            })
             await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
             return true
         }
         return false
     }
 
-    //给储物袋添加物品
-    userbagAction = async (najie, najie_thing, thing_acount) => {
-        const thing = najie.thing.find(item => item.id == najie_thing.id)
+    /**
+     * 给储物袋添加物品
+     * @param {用户的背包} BAG 
+     * @param {物品资料} THING 
+     * @param {数量} ACCOUNT 
+     * @returns 
+     */
+    userbagAction = async (parameter) => {
+        const { BAG, THING, ACCOUNT } = parameter
+        const thing = BAG.thing.find(item => item.id == THING.id)
         if (thing) {
-            let acount = thing.acount + thing_acount
+            let acount = thing.acount + ACCOUNT
             if (acount < 1) {
-                najie.thing = najie.thing.filter(item => item.id != najie_thing.id)
+                BAG.thing = BAG.thing.filter(item => item.id != THING.id)
             } else {
-                najie.thing.find(item => item.id == najie_thing.id).acount = acount
+                BAG.thing.find(item => item.id == THING.id).acount = acount
             }
-            return najie
+            return BAG
         } else {
-            najie_thing.acount = thing_acount
-            najie.thing.push(najie_thing)
-            return najie
+            THING.acount = ACCOUNT
+            BAG.thing.push(THING)
+            return BAG
         }
     }
 
-    userBagSearch = async (uid, name) => {
-        const najie = await this.userMsgAction({ CHOICE: 'user_bag', NAME: uid })
-        const ifexist = najie.thing.find(item => item.name == name)
+
+    /**
+     * 搜索UID的背包有没有物品名为NAME
+     * @param {UID} UID 
+     * @param {物品名} name 
+     * @returns 返回该物品
+     */
+
+    userBagSearch = async (parameter) => {
+        const { UID, name } = parameter
+        const bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
+        const ifexist = bag.thing.find(item => item.name == name)
         return ifexist
     }
-
 
 
     /**
@@ -188,7 +188,6 @@ class GameUser {
         const levelmax = LevelMaxList.find(item => item.id == level.levelmax_id)
         const UserBattle = await this.userMsgAction({ CHOICE: 'user_battle', NAME: UID })
         let extend = await this.userMsgAction({ CHOICE: 'user_extend', NAME: UID })
-
         const panel = {
             attack: levelmini.attack + levelmax.attack,
             defense: levelmini.defense + levelmax.defense,
@@ -198,7 +197,6 @@ class GameUser {
             speed: levelmini.speed + levelmax.speed,
             power: 0
         }
-
         //计算装备倍化
         const equ = {
             attack: 0,
@@ -208,7 +206,6 @@ class GameUser {
             burstmax: 0,
             speed: 0,
         }
-
         equipment.forEach((item) => {
             equ.attack = equ.attack + item.attack
             equ.defense = equ.defense + item.defense
@@ -217,7 +214,6 @@ class GameUser {
             equ.burstmax = equ.burstmax + item.burstmax
             equ.speed = equ.speed + item.speed
         })
-
         //计算插件临时属性及永久属性
         extend = Object.values(extend)
         extend.forEach((item) => {
@@ -267,7 +263,7 @@ class GameUser {
             talent.AllSorcery.forEach((item) => {
                 talent_sise.gonfa += item.size
             })
-            talent_sise.talent = await talentSize(talent)
+            talent_sise.talent = await this.talentSize(talent)
             let promise = await this.userMsgAction({
                 NAME: UID,
                 CHOICE: 'user_extend'
@@ -379,6 +375,8 @@ class GameUser {
             PATH: __PATH[CHOICE]
         })
     }
+
+
     /**
      * @param {1-100的暴击率} P 
      * @returns 暴击则true
@@ -412,19 +410,14 @@ class GameUser {
     }
 
 
-
-
-
-
-
     /**
      * 返回UID的寿命信息
      * @param {UID} UID 
      * @returns 不存在则undifind
      */
     existUser = async (UID) => {
-        const life = await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life' })
-        return life.find(item => item.qq == UID)
+        const LIFE = await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life' })
+        return LIFE.find(item => item.qq == UID)
     }
 
     /**
@@ -433,14 +426,14 @@ class GameUser {
      * @returns 
      */
     existUserSatus = async (UID) => {
-        let find = await existUser(UID)
+        let find = await this.existUser(UID)
         if (find) {
             if (find.status == 0) {
                 return false
             }
             return true
         }
-        const CreateGO = await createBoxPlayer(UID)
+        const CreateGO = await this.createBoxPlayer(UID)
         if (!CreateGO) {
             return false
         }
