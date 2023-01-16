@@ -5,6 +5,11 @@ import cache from '../img/cache.js'
 import help from '../img/help.js'
 import user from '../user/action.js'
 class botapi {
+    /**
+     * 得到图片
+     * @param {} parameter 
+     * @returns 
+     */
     showPuppeteer = async (parameter) => {
         return await imgindex.showPuppeteer(parameter)
     }

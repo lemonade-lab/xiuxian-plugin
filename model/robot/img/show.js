@@ -6,13 +6,13 @@ class Show {
    * @param {数据} data 
    * @returns 
    */
-  get_Data = async (parameter) => {
+  getData = async (parameter) => {
     const { path, name, data } = parameter
     return {
       /** 文件名 */
       saveId: name,
       /** 相对路径 */
-      tplFile: `./plugins/${appname}/resources/html/${path}/${htmlname}.html`,
+      tplFile: `./plugins/${appname}/resources/html/${path}/${name}.html`,
       /** 绝对路径 */
       pluResPath: `${process.cwd().replace(/\\/g, '/')}/plugins/${appname}/resources/`,
       /** 数据 */

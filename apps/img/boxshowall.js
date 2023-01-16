@@ -1,10 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { 
-    get_map_img,
-    get_updata_img,
-    get_config_img 
-} from '../../model/showdata.js'
+import botApi from '../../model/robot/api/botapi.js'
+import gameApi from '../../model/api/api.js'
 export class boxshowall extends robotapi {
     constructor() {
         super(superIndex([
@@ -23,17 +20,29 @@ export class boxshowall extends robotapi {
         ]))
     }
     show_map = async (e) => {
-        const img = await get_map_img()
+        const img = await botApi.showPuppeteer({ path: 'map', name: 'map' })
         e.reply(img)
         return
     }
     show_updata = async (e) => {
-        const img = await get_updata_img()
+        const data = {
+            version: await gameApi.getConfig({
+                app: 'version',
+                name: 'version'
+            })
+        }
+        const img = await botApi.showPuppeteer({ path: 'updata', name: 'updata', data })
         e.reply(img)
         return
     }
     show_config = async (e) => {
-        const img = await get_config_img()
+        const data = {
+            xiuxain: await gameApi.getConfig({
+                app: 'xiuxian',
+                name: 'xiuxian'
+            })
+        }
+        const img = await botApi.showPuppeteer({ path: 'config', name: 'config', data })
         e.reply(img)
         return
     }

@@ -3,7 +3,7 @@ import Show from "./show.js"
 class ImgIndex {
     showPuppeteer = async (parameter) => {
         const { path, name, data } = parameter
-        const mydata = await Show.get_Data({
+        const mydata = await Show.getData({
             path, name, data
         })
         const img = await puppeteer.screenshot(name, {
