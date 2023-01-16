@@ -1,5 +1,6 @@
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../../public.js'
 import { showPuppeteer } from '../../robot/show.js'
+//tudo
 class Message {
     get_player_img = async (uid) => {
         const ifexistplay = await existplayer(uid)
