@@ -1,4 +1,4 @@
-import config from '../../game/data/configaction.js'
+import config from '../../game/data/defset/updata.js'
 import { appname } from '../../main.js'
 /**
  * 生成帮助图
@@ -6,7 +6,7 @@ import { appname } from '../../main.js'
 class Help {
   getboxhelp = async (parameter) => {
     const { name } = parameter
-    const helpData = config.getconfig('help', name)
+    const helpData = config.getConfig('help', name)
     return {
       /** 文件名 */
       saveId: 'help',

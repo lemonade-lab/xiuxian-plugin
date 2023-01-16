@@ -14,23 +14,23 @@ class botapi {
         return Modifi.openReadconfig()
     }
     readConfigHelp = () => {
-        return Modifi.readConfigHelp()
+        return Modifi.Readconfighelp()
     }
     openConfigHelp = () => {
         return Modifi.openReadconfighelp()
     }
     addMaster = (parameter) => {
-        return Modifi.addMaster(parameter)
+        return Modifi.AddMaster(parameter)
     }
     deleteMaster = (parameter) => {
-        return Modifi.deleteMaster(parameter)
+        return Modifi.DeleteMaster(parameter)
     }
     offGroup = () => {
-        return Modifi.offGroup()
+        return Modifi.OffGroup()
 
     }
     onGroup = () => {
-        return Modifi.onGroup()
+        return Modifi.OnGroup()
     }
     exec = (parameter) => {
         return exec.start(parameter)

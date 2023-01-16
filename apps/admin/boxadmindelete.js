@@ -26,6 +26,7 @@ export class boxadmindelete extends robotapi {
         if (!e.isMaster) {
             return
         }
+        //删除用户，也就是给用户的数据写入空数组
         await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: [] })
         await gameApi.deleteReids()
         e.reply('删除完成')
