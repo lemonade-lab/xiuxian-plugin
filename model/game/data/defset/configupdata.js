@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { createRequire } from 'module'
-import { __dirname } from '../../main.js'
+import { __dirname } from '../../../main.js'
 const require = createRequire(import.meta.url)
 const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
 class YamlUpdata {

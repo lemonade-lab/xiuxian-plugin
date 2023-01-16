@@ -1,6 +1,6 @@
 import YAML from 'yaml'
 import fs from 'node:fs'
-import { appname } from '../../main.js'
+import { appname } from '../../../main.js'
 /**
  * 配置读取行为
  */
