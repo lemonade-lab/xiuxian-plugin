@@ -1,11 +1,7 @@
 
-import { createRequire } from 'module'
 import { ForwardMsg } from '../../public.js'
-const require = createRequire(import.meta.url)
-const { exec } = require('child_process')
-/**
- * 
- */
+import NodeJS from '../../node/node.js'
+const { exec } = NodeJS.returnexec()
 class Exec {
     start = async (cmd, cwd, name, e) => {
         exec(cmd, { cwd: cwd },

@@ -5,7 +5,14 @@ class NodeJs{
     returnSchedele=()=>{
         return require('node-schedule')
     }
-
-    
+    returnyamljs=()=>{
+        return require('yamljs')
+    }
+    returnjsyaml=()=>{
+        return require('js-yaml')
+    }
+    returnexec=()=>{
+        return require('child_process')
+    }
 }
 module.exports = new NodeJs()

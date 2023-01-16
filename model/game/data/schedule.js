@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'path'
 import Algorithm from './algorithm.js'
-import NodeJs from './node.js'
+import NodeJs from '../../node/node.js'
 import { __dirname } from '../../main.js'
 /**
  * 数据备份
