@@ -4,6 +4,7 @@ import gamePublic from '../game/public/public.js'
 import userAction from '../game/user/user.js'
 //配置类
 import defsetUpdata from '../game/data/defset/updata.js'
+import schedule from '../game/data/schedule.js'
 class GameApi {
     /**
      * 用户类
@@ -36,6 +37,15 @@ class GameApi {
     }
     updateConfig = (parameter) => {
         return defsetUpdata.updataConfig(parameter)
+    }
+    /**
+     * 备份类
+     */
+    viewbackups=()=>{
+        return schedule.viewbackups()
+    }
+    backuprecovery=(parameter)=>{
+        return schedule.viewbackups(parameter)
     }
 
 }

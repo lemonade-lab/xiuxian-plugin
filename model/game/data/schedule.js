@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'path'
-import Algorithm from './algorithm.js'
+import algorithm from './algorithm.js'
 import NodeJs from '../../node/node.js'
 import { __dirname } from '../../main.js'
 /**
@@ -8,7 +8,7 @@ import { __dirname } from '../../main.js'
  */
 class Schedule {
     scheduleJobflie = (name, time, newpath) => {
-        NodeJs.returnSchedele.scheduleJob(time, () => {
+        NodeJs.returnSchedele().scheduleJob(time, () => {
             const myDate = new Date()
             const Y = myDate.getFullYear()
             const M = myDate.getMonth() + 1
@@ -35,10 +35,11 @@ class Schedule {
         if (!fs.existsSync(NEW_PATH)) {
             return ['无备份数据']
         }
-        const msg = Algorithm.returnMenu(NEW_PATH)
+        const msg = algorithm.returnMenu(NEW_PATH)
         return msg
     }
-    backuprecovery = (name) => {
+    backuprecovery = (parameter) => {
+        const { name } = parameter
         const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}boxdada`
         if (!fs.existsSync(NEW_PATH)) {
             return ['无备份数据']
@@ -58,7 +59,7 @@ class Schedule {
             'association': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-pluging${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
         }
         //得到底下所有的json文件地址
-        const newsum = Algorithm.returnfilepath(ThePath[pluginname], '.json')
+        const newsum = algorithm.returnfilepath(ThePath[pluginname], '.json')
         newsum.forEach((item) => {
             //循环删除数据
             fs.unlink(item, (err) => {
@@ -68,7 +69,7 @@ class Schedule {
         /**
          * 获得备份下的所有子目录
          */
-        const namefile_subdirectory = Algorithm.returnMenu(namefile)
+        const namefile_subdirectory = algorithm.returnMenu(namefile)
         /**
          * 获得备份目录下的所有json的文件名
          */
