@@ -56,7 +56,8 @@ class ConfigModify {
             return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
         }
     }
-    AddMaster = (mastername) => {
+    AddMaster = (parameter) => {
+        const { mastername } = parameter
         try {
             const QQ = Number(mastername)
             const data = NodeJS.returnyamljs().load(other)
@@ -69,7 +70,8 @@ class ConfigModify {
             return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
         }
     }
-    DeleteMaster = (mastername) => {
+    DeleteMaster = (parameter) => {
+        const { mastername } = parameter
         try {
             const QQ = Number(mastername)
             const data = NodeJS.returnyamljs().load(other)
@@ -110,4 +112,4 @@ class ConfigModify {
         }
     }
 }
-export default  new ConfigModify()
+export default new ConfigModify()

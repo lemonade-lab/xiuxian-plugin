@@ -19,11 +19,11 @@ class botapi {
     openConfigHelp = () => {
         return Modifi.openReadconfighelp()
     }
-    addMaster = () => {
-        return Modifi.addMaster()
+    addMaster = (parameter) => {
+        return Modifi.addMaster(parameter)
     }
-    deleteMaster = () => {
-        return Modifi.deleteMaster()
+    deleteMaster = (parameter) => {
+        return Modifi.deleteMaster(parameter)
     }
     offGroup = () => {
         return Modifi.offGroup()
