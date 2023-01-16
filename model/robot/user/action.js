@@ -33,4 +33,4 @@ class UserAction {
         return false
     }
 }
-module.exports = new UserAction()
+export default   new UserAction()

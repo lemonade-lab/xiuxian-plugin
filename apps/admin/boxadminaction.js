@@ -1,10 +1,12 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+
 import { get_updata_img } from '../../model/showdata.js'
 import { appname } from "../../model/main.js"
 import filecp from '../../model/filecp.js'
 import boxfs from "../../model/boxfs.js"
 import boxexec from "../../model/boxexec.js"
+
 export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -46,15 +48,17 @@ export class boxadminaction extends robotapi {
             return
         }
         const name = e.msg.replace('#修仙安装', '')
-        const install = (name) => {
-            return `git clone  https://gitee.com/mmmmmddddd/${name}.git ./plugins/Xiuxian-Plugin-Box/plugins/${name}/`
-        }
         const NAME = {
             '宗门': 'xiuxian-association-pluging',
-            '黑市': 'xiuxian-dark-plugin',
-            '家园': 'xiuxian-home-plugin'
+            '家园': 'xiuxian-home-plugin',
+            '黑市': 'xiuxian-dark-plugin'
         }
-        if (!MAP.hasOwnProperty(name)) {
+        const MAP = {
+            '宗门': `git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/${appname}/plugins/xiuxian-association-pluging/`,
+            '黑市': `git clone  https://gitee.com/waterfeet/xiuxian-dark-plugin.git ./plugins/${appname}/plugins/xiuxian-dark-plugin/`,
+            '家园': `git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/${appname}/plugins/xiuxian-home-plugin/`
+        }
+        if (!NAME.hasOwnProperty(name)) {
             e.reply('扩展名错误或暂时下架')
             return
         }
@@ -62,7 +66,7 @@ export class boxadminaction extends robotapi {
             e.reply(`${NAME[name]}已安装`)
             return
         }
-        await boxexec.start(install(NAME['宗门']), `${process.cwd()}`, NAME[name], e)
+        await boxexec.start(MAP['宗门'], `${process.cwd()}`, NAME[name], e)
         filecp.upfile()
         const img = await get_updata_img()
         e.reply(img)
@@ -74,20 +78,20 @@ export class boxadminaction extends robotapi {
             return
         }
         const name = e.msg.replace('#修仙卸载', '')
-        const install = (name) => {
-            return `rm -rf plugins/Xiuxian-Plugin-Box/plugins/${name}/`
-        }
         const NAME = {
             '宗门': 'xiuxian-association-pluging',
-            '黑市': 'xiuxian-dark-plugin',
-            '家园': 'xiuxian-home-plugin'
+            '家园': 'xiuxian-home-plugin',
+            '黑市': 'xiuxian-dark-plugin'
+        }
+        const install = (name) => {
+            return `rm -rf plugins/${appname}/plugins/${name}/`
         }
         const MAP = {
-            '宗门': install('xiuxian-association-pluging'),
-            '家园': install('xiuxian-home-plugin'),
-            '黑市': install('xiuxian-dark-plugin')
+            '宗门': install(NAME['宗门']),
+            '家园': install(NAME['家园']),
+            '黑市': install(NAME['黑市'])
         }
-        if (!MAP.hasOwnProperty(name)) {
+        if (!NAME.hasOwnProperty(name)) {
             e.reply('扩展名错误')
             return
         }

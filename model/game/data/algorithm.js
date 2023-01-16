@@ -108,4 +108,4 @@ class Algorithm {
         return false
     }
 }
-module.exports = new Algorithm()
+export default   new Algorithm()

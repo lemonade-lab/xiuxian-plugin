@@ -92,4 +92,4 @@ class CreateData {
     return true
   }
 }
-module.exports = new CreateData()
+export default   new CreateData()

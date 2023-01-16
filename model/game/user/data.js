@@ -91,4 +91,4 @@ class ListData {
     }
 
 }
-module.exports = new ListData()
+export default   new ListData()

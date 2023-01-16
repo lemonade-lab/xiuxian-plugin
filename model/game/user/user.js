@@ -455,4 +455,4 @@ class GameUser {
     }
 
 }
-module.exports = new GameUser()
+export default   new GameUser()

@@ -87,4 +87,4 @@ class DateIndex {
         ])
     }
 }
-module.exports = new DateIndex()
+export default   new DateIndex()

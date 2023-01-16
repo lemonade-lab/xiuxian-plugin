@@ -1,6 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { deleteReids, userMsgAction } from "../../model/boxpublic.js"
+import { userMsgAction } from "../../model/boxpublic.js"
+import gamepublic from '../../model/game/public/public.js'
 export class boxadmindelete extends robotapi {
     constructor() {
         super(superIndex([
@@ -18,7 +19,7 @@ export class boxadmindelete extends robotapi {
         if (!e.isMaster) {
             return
         }
-        await deleteReids()
+        await gamepublic.deleteReids()
         e.reply('删除完成')
         return
     }
@@ -27,7 +28,7 @@ export class boxadmindelete extends robotapi {
             return
         }
         await userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: [] })
-        await deleteReids()
+        await gamepublic.deleteReids()
         e.reply('删除完成')
         return
     }

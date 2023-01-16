@@ -110,4 +110,4 @@ class ConfigModify {
         }
     }
 }
-module.exports = new ConfigModify()
+export default  new ConfigModify()

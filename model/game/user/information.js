@@ -103,4 +103,4 @@ class information {
         return await showPuppeteer('user/bag', 'bag', myData)
     }
 }
-module.exports = new information()
+export default   new information()

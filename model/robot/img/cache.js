@@ -18,4 +18,4 @@ class Cache {
         return helpData[i].img
     }
 }
-module.exports = new Cache()
+export default   new Cache()

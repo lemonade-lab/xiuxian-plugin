@@ -54,4 +54,4 @@ class GenerateData {
         return data
     }
 }
-module.exports = new GenerateData()
+export default   new GenerateData()

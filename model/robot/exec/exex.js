@@ -24,4 +24,4 @@ class Exec {
         return
     }
 }
-module.exports = new Exec()
+export default   new Exec()

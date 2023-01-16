@@ -15,4 +15,4 @@ class NodeJs{
         return require('child_process')
     }
 }
-module.exports = new NodeJs()
+export default   new NodeJs()

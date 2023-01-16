@@ -28,4 +28,4 @@ class GameApi {
     userFileState = async (UID) => {
     }
 }
-module.exports = new GameApi()
+export default   new GameApi()

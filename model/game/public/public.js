@@ -152,4 +152,4 @@ class GamePublic {
     }
 
 }
-module.exports = new GamePublic()
+export default new GamePublic()

@@ -76,4 +76,4 @@ class GameMonster {
         return alldata[i].data
     }
 }
-module.exports = new GameMonster()
+export default   new GameMonster()

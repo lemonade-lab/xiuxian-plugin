@@ -47,4 +47,4 @@ class DefsetUpdata {
         }
     }
 }
-module.exports = new DefsetUpdata()
+export default   new DefsetUpdata()
