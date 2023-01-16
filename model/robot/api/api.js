@@ -1,5 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-export default class Botapi extends plugin {}
+import plugin from '../../../../../lib/plugins/plugin.js'
+export default class RebotApi extends plugin { }
 export const superIndex = (arr) => {
     return {
         name: 'xiuxian',

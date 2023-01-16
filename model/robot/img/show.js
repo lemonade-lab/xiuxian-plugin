@@ -1,4 +1,3 @@
-import puppeteer from "../../../../../lib/puppeteer/puppeteer.js"
 import { appname } from "../../main.js"
 class Show {
   /**
@@ -21,10 +20,3 @@ class Show {
   }
 }
 export default new Show()
-export const showPuppeteer = async (path, name, data) => {
-  const mydata = await Show.get_Data(path, name, data)
-  const img = await puppeteer.screenshot(name, {
-    ...mydata,
-  })
-  return img
-}

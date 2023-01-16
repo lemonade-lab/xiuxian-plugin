@@ -1,11 +1,7 @@
 import puppeteer from '../../../../../lib/puppeteer/puppeteer.js'
 import md5 from 'md5'
 const helpData = {}
-/**
- * 
- */
 class Cache {
-    constructor() { }
     helpcache = async (data, i) => {
         const tmp = md5(JSON.stringify(data))
         if (!helpData.hasOwnProperty(i)) {
