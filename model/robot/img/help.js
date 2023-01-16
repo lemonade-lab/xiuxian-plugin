@@ -1,5 +1,5 @@
-import xiuxianCfg from '../config.js'
-import { appname } from '../main.js'
+import xiuxianCfg from '../../config.js'
+import { appname } from '../../main.js'
 const dirname = `plugins/${appname}/resources`
 /**
  * 

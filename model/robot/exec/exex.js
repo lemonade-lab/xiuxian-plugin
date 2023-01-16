@@ -1,12 +1,12 @@
 
 import { createRequire } from 'module'
-import { ForwardMsg } from '../public.js'
+import { ForwardMsg } from '../../public.js'
 const require = createRequire(import.meta.url)
 const { exec } = require('child_process')
 /**
  * 
  */
-class exex {
+class Exec {
     start = async (cmd, cwd, name, e) => {
         exec(cmd, { cwd: cwd },
             async (error, stdout, stderr) => {
@@ -28,4 +28,4 @@ class exex {
         return
     }
 }
-module.exports = new exex()
+module.exports = new Exec()

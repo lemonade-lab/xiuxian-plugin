@@ -1,5 +1,5 @@
-import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
-import { dirname } from "../main.js"
+import puppeteer from "../../../../../lib/puppeteer/puppeteer.js"
+import { dirname } from "../../main.js"
 /**
  * 
  */

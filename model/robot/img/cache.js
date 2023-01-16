@@ -1,4 +1,4 @@
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js'
+import puppeteer from '../../../../../lib/puppeteer/puppeteer.js'
 import md5 from 'md5'
 const helpData = {}
 /**
