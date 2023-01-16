@@ -2,6 +2,9 @@
 import createdata from './createdata.js'
 //物品数据
 import genertate from './generate.js'
+import { __dirname } from '../../main.js'
+import fs from 'node:fs'
+import path from 'node:path'
 export const __PATH = {
     //玩家存档
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
