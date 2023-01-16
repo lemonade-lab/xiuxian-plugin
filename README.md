@@ -13,7 +13,7 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 >稳定更新指令 `#修仙更新`  
 >不可通过`#全部更新`进行更新
 
-[☞开发者文档](https://afdian.net/a/ningmengchongshui)
+[☞开发者文档](https://gitee.com/ningmengchongshui/xiuxian-extensions)
 
 ## 免责声明        
 1. 功能仅限内部交流与小范围使用       
