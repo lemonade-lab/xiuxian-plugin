@@ -1,18 +1,18 @@
 import fs from 'node:fs'
-import { createRequire } from 'module'
+import YAML from 'yaml'
 import { __dirname } from '../../../main.js'
-const require = createRequire(import.meta.url)
+import NodeJS from '../../../node/node.js'
 const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
-class YamlUpdata {
-    constructor() {
-        try {
-            this.YAML = require('yamljs')
-        } catch { }
-        try {
-            this.yaml = require('js-yaml')
-        } catch { }
+class DefsetUpdata {
+    //动态生成配置读取
+    getConfig = (app, name) => {
+        //获得配置地址
+        let file = `${__dirname}/config/${app}/${name}.yaml`
+        //读取配置
+        const data = YAML.parse(fs.readFileSync(file, 'utf8'))
+        return data
     }
-    config = (name, size) => {
+    updataConfig = (name, size) => {
         const map = {
             '突破冷却': 'CD.Level_up',
             '破体冷却': 'CD.LevelMax_up',
@@ -34,9 +34,9 @@ class YamlUpdata {
         if (map.hasOwnProperty(name)) {
             const [name0, name1] = map[name].split('.')
             try {
-                const data = this.YAML.load(`${__diryaml}`)
+                const data = NodeJS.returnyamljs().load(`${__diryaml}`)
                 data[name0][name1] = Number(size)
-                const yamlStr = this.yaml.dump(data)
+                const yamlStr = NodeJS.returnjsyaml().dump(data)
                 fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
                 return `修改${name}为${size}`
             } catch {
@@ -47,4 +47,4 @@ class YamlUpdata {
         }
     }
 }
-module.exports = new YamlUpdata()
+module.exports = new DefsetUpdata()
