@@ -1,7 +1,7 @@
 //公共类
 import gamePublic from '../game/public/public.js'
 //用户类
-import userAction from '../game/user/user.js'
+import gameUser from '../game/user/user.js'
 //配置类
 import defsetUpdata from '../game/data/defset/updata.js'
 
@@ -10,22 +10,31 @@ import schedule from '../game/data/schedule.js'
 import algorithm from '../game/data/algorithm.js'
 
 import createdata from '../game/data/createdata.js'
+
+import userAction from '../game/user/action.js'
 class GameApi {
     /**
      * 用户类
      */
     returnUserUID = async () => {
-        return await userAction.returnUserUID()
+        return await gameUser.returnUserUID()
     }
     userMsgAction = async (parameter) => {
-        return await userAction.userMsgAction(parameter)
+        return await gameUser.userMsgAction(parameter)
     }
     userBag = async (parameter) => {
-        return await userAction.userBag(parameter)
+        return await gameUser.userBag(parameter)
     }
     userBagSearch = async (parameter) => {
-        return await userAction.userBagSearch(parameter)
+        return await gameUser.userBagSearch(parameter)
     }
+    /**
+     * 行为类
+     */
+    userLevelUp=async(parameter)=>{
+        return await userAction.userLevelUp(parameter)
+    }
+
     /**
      * 公共类
      * @returns 
