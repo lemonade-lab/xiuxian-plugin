@@ -1,4 +1,4 @@
-const MapCd = {
+const MYCD = {
     '0': '攻击',
     '1': '降妖',
     '2': '闭关',
@@ -87,8 +87,9 @@ class GamePublic {
      * @param {*} CDMAP 
      * @returns 
      */
-    cooling = async (uid, CDid, CDMAP) => {
-        const remainTime = await redis.ttl(`xiuxian:player:${uid}:${CDid}`)
+    cooling = async (parameter) => {
+        const { UID, CDID, CDMAP } = parameter
+        const remainTime = await redis.ttl(`xiuxian:player:${UID}:${CDID}`)
         const time = {
             h: 0,
             m: 0,
@@ -105,12 +106,11 @@ class GamePublic {
                 return 0
             }
             if (CDMAP) {
-                return `${CDMAP[CDid]}冷却${time.h}h${time.m}m${time.s}s`
+                return { CDMSG: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
             }
-            return `${MapCd[CDid]}冷却${time.h}h${time.m}m${time.s}s`
-
+            return { CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
         }
-        return 0
+        return {}
     }
     /**
      * 进程沉睡

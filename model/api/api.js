@@ -52,6 +52,9 @@ class GameApi {
     sleep = async (parameter) => {
         return await gamePublic.sleep(parameter)
     }
+    cooling= async (parameter)=>{
+        return await gamePublic.cooling(parameter)
+    }
     /**
      * 配置类
      */

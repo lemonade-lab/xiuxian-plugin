@@ -1,7 +1,7 @@
-import {
-    GenerateCD
-} from "../../public.js"
 import defset from '../data/defset/updata.js'
+import user from './user.js'
+import data from './data.js'
+import gamePublic from '../public/public.js'
 const CopywritingLevel = {
     '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了sizename',
     '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
@@ -22,8 +22,6 @@ const LevelMiniName = {
     '3': '巅峰',
     '4': '圆满'
 }
-import user from './user.js'
-import data from './data.js'
 class userAction {
     /**
      * 突破
@@ -32,10 +30,10 @@ class userAction {
         const { UID, choise } = parameter
         const ifexistplay = await user.existUserSatus({ UID })
         if (!ifexistplay) {
-            return `已死亡`
+            return { UserLevelUpMSG: `已死亡` }
         }
         const player = await user.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
-        let CDid = '6'
+        let CDID = '6'
         let CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Level_up
         let name = '修为'
         const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
@@ -43,30 +41,30 @@ class userAction {
         const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
         const Level = Levellist.find(item => item.id == player.level_id)
         if (choise) {
-            CDid = '7'
+            CDID = '7'
             CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.LevelMax_up
             name = '气血'
             if (player.experiencemax < LevelMax.exp) {
-                return `再积累${LevelMax.exp - player.experiencemax}气血后方可突破`
+                return { UserLevelUpMSG: `再积累${LevelMax.exp - player.experiencemax}气血后方可突破` }
             }
             if (Level.level_id <= 10 && LevelMax.levelmax_id >= 11) {
-                return `[#羽化登仙]后,方能探索更高境界`
+                return { UserLevelUpMSG: `[#羽化登仙]后,方能探索更高境界` }
             }
         } else {
             if (player.experience < Level.exp) {
-                return `再积累${Level.exp - player.experience}修为后方可突破`
+                return { UserLevelUpMSG: `再积累${Level.exp - player.experience}修为后方可突破` }
             }
             if (Level.id == 10) {
-                return `[#羽化登仙]后,方能探索更高境界`
+                return { UserLevelUpMSG: `[#羽化登仙]后,方能探索更高境界` }
             }
         }
         const now_time = new Date().getTime()
-        const CD = await GenerateCD(UID, CDid)
-        if (CD != 0) {
-            return `${CD}`
+        const { CDMSG } = await gamePublic.cooling({ UID, CDID })
+        if (CDMSG) {
+            return { UserLevelUpMSG: `${CDMSG}` }
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
+        await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         if (Math.random() >= 1 - player.levelmax_id / 22) {
             let size = ''
             if (choise) {
@@ -77,9 +75,11 @@ class userAction {
                 player.experience -= size
             }
             await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
-            return CopywritingLevel[
-                Math.floor(Math.random() * Object.keys(CopywritingLevel).length)
-            ].replace(/name/g, name).replace(/size/g, size)
+            return {
+                UserLevelUpMSG: `${CopywritingLevel[
+                    Math.floor(Math.random() * Object.keys(CopywritingLevel).length)
+                ].replace(/name/g, name).replace(/size/g, size)}`
+            }
         }
         let returnTXT = ''
         if (choise) {
@@ -114,7 +114,9 @@ class userAction {
             player.experience -= Level.exp
         }
         await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
-        return returnTXT
+        return {
+            UserLevelUpMSG: `${returnTXT}`
+        }
     }
 }
 export default new userAction()
