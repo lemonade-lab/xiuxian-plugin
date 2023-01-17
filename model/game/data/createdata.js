@@ -36,7 +36,7 @@ class CreateData {
   }
   moveConfig = (parameter) => {
     const path = algorithm.returnMenu(this.defsetpath)
-    const configarr = ['xiuxian.yaml', 'task.yaml', 'Help.yaml', 'Admin.yaml']
+    const configarr = ['xiuxian.yaml', 'task.yaml', 'version.yaml', 'Help.yaml', 'Admin.yaml']
     path.forEach((itempath) => {
       configarr.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}`
