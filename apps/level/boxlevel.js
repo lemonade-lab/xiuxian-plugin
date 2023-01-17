@@ -41,6 +41,7 @@ export class boxlevel extends robotapi {
             return
         }
         const UID = e.user_id
+
         const player = await Read_level(UID)
         const Levelmaxlist = await returnLevelMax()
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
@@ -72,14 +73,14 @@ export class boxlevel extends robotapi {
          */
         if (Math.random() >= 1 - player.levelmax_id / 22) {
             const size = Math.floor(Math.random() * LevelMax.exp)
-            const name = '气血'
             player.experiencemax -= size
             await Write_level(UID, player)
             e.reply(this.CopywritingLevel[
                 Math.floor(Math.random() * Object.keys(this.CopywritingLevel).length)
-            ].replace(/name/g, name).replace(/size/g, size))
+            ].replace(/name/g, '气血').replace(/size/g, size))
             return
         }
+
         const LevelMiniName = {
             '0': '初成',
             '1': '小成',
@@ -116,6 +117,8 @@ export class boxlevel extends robotapi {
         if (!good) {
             return
         }
+        const UID = e.user_id
+
         const player = await Read_level(UID)
         const Levellist = await returnLevel()
         const Level = Levellist.find(item => item.id == player.level_id)
@@ -127,9 +130,7 @@ export class boxlevel extends robotapi {
             e.reply(`渡劫期修士需[#渡劫]后[#羽化登仙]`)
             return
         }
-
-
-        const UID = e.user_id
+        
         const CDTime = config.getconfig('xiuxian', 'xiuxian').CD.Level_up
         const CDid = '6'
         const now_time = new Date().getTime()
@@ -143,12 +144,11 @@ export class boxlevel extends robotapi {
 
         if (Math.random() > 1 - player.level_id / 22) {
             const size = Math.floor(Math.random() * Level.exp)
-            const name = '修为'
             player.experience -= size
             await Write_level(UID, player)
             e.reply(this.CopywritingLevel[
                 Math.floor(Math.random() * Object.keys(this.CopywritingLevel).length)
-            ].replace(/name/g, name).replace(/size/g, size))
+            ].replace(/name/g, '修为').replace(/size/g, size))
             return
         }
 
