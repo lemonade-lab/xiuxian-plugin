@@ -1,6 +1,9 @@
 import fs from 'node:fs'
 import path from 'path'
 import { appname } from './main.js'
+/**
+ * 机器人入口
+ */
 class index {
   constructor() { }
   toindex = async (input) => {
