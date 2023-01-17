@@ -40,13 +40,13 @@ const CopywritingLevel = {
     '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
     '2': '突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了sizename,',
     '3': '突破失败,丧失了sizename',
-    '4':'突破失败,你刚刚气沉丹田就被一口老痰差点噎死,丧失了sizename',
-    '5':'噗～你一口老血喷了出,突破失败,丧失了sizename',
-    '6':'砰!你突破时身后的柜子动了一下,吓得你一时不敢突破并丧失了sizename',
-    '7':'突破失败,你也不知道为啥,并且丧失了sizename',
-    '8':'突破失败,可能是因为姿势不对吧,你尝试换了个姿势,发现丧失了sizename',
-    '9':'突破失败,你差一点就成功了,你决定再试一次,可惜刚入定就被反噬,丧失了sizename',
-    '10':'突破失败,你到瓶颈期,却因为今天是KFC疯狂星期四,决定不突破了去吃了KFC,回来直接变身喷射战士,并丧失了sizename'
+    '4': '突破失败,你刚刚气沉丹田就被一口老痰差点噎死,丧失了sizename',
+    '5': '噗～你一口老血喷了出,突破失败,丧失了sizename',
+    '6': '砰!你突破时身后的柜子动了一下,吓得你一时不敢突破并丧失了sizename',
+    '7': '突破失败,你也不知道为啥,并且丧失了sizename',
+    '8': '突破失败,可能是因为姿势不对吧,你尝试换了个姿势,发现丧失了sizename',
+    '9': '突破失败,你差一点就成功了,你决定再试一次,可惜刚入定就被反噬,丧失了sizename',
+    '10': '突破失败,你到瓶颈期,却因为今天是KFC疯狂星期四,决定不突破了去吃了KFC,回来直接变身喷射战士,并丧失了sizename'
 }
 const LevelMiniName = {
     '0': '初期',
@@ -125,7 +125,7 @@ export const userLevel = async (UID, choise) => {
             returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]}`
         } else {
             player.rank_id = 0
-            player.level_id = player.level_id+1
+            player.level_id = player.level_id + 1
             player.levelname = Levellist.find(item => item.id == player.level_id).name
             let lifesize = 0
             const life = await Read_Life()
