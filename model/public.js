@@ -298,13 +298,14 @@ export const get_talent = async () => {
  * 得到灵根名字
  */
 export const talentname = async (player) => {
+    console.log(player)
     const talentname = []
     let name = ''
     const talent = player.talent
-    for (let i = 0; i < talent.length; i++) {
-        name = data.talent_list.find(item => item.id == talent[i]).name
+    talent.forEach((talentitem) => {
+        name = data.talent_list.find(item => item.id == talentitem).name
         talentname.push(name)
-    }
+    })
     return talentname
 }
 
@@ -365,7 +366,7 @@ export const player_efficiency = async (uid) => {
 export const returnUserBagName = async (uid, name) => {
     const najie = await Read_najie(uid)
     const ifexist = najie.thing.find(item => item.name == name)
-    if (!ifexist) { 
+    if (!ifexist) {
         return 1
     }
     return ifexist
