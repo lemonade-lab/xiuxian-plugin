@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import { __dirname } from '../../main.js'
-import Algorithm from './algorithm.js'
+import algorithm from './algorithm.js'
 class CreateData {
   constructor() {
     this.defsetpath = `${__dirname}/resources/defset/`
@@ -15,7 +15,7 @@ class CreateData {
    */
   movePluginConfig = (parameter) => {
     const { PATH, CONFIG } = parameter
-    const path = Algorithm.returnMenu(PATH)
+    const path = algorithm.returnMenu(PATH)
     path.forEach((itempath) => {
       CONFIG.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}`
@@ -35,7 +35,7 @@ class CreateData {
     return
   }
   moveConfig = (parameter) => {
-    const path = Algorithm.returnMenu(this.defsetpath)
+    const path = algorithm.returnMenu(this.defsetpath)
     const configarr = ['xiuxian.yaml', 'task.yaml', 'Help.yaml', 'Admin.yaml']
     path.forEach((itempath) => {
       configarr.forEach((itemconfig) => {

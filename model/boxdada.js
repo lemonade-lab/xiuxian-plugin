@@ -61,6 +61,7 @@ export const __PATH = {
 }
 class boxdada {
     constructor() {
+        /*
         this.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixedtalent}/talent_list.json`))
         this.newlist(__PATH.Level, 'Level_list', [])
         this.newlist(__PATH.Level, 'Level_list', [
@@ -99,6 +100,7 @@ class boxdada {
         this.newlist(__PATH.position, 'point', [
             ...this.getlist(__PATH.fixepoint, 'json')
         ])
+        */
     }
     /**
      * @param {地址} path 
