@@ -9,7 +9,7 @@ import schedule from '../game/data/schedule.js'
 
 import algorithm from '../game/data/algorithm.js'
 
-import createdata from './game/data/createdata.js'
+import createdata from '../game/data/createdata.js'
 class GameApi {
     /**
      * 用户类
