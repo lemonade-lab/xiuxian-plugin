@@ -31,12 +31,19 @@ export const __PATH = {
     'generate_all': path.join(__dirname, '/resources/data/birth/all'),
     'generate_position': path.join(__dirname, '/resources/data/birth/position'),
     'generate_level': path.join(__dirname, '/resources/data/birth/Level'),
+    'generate_plugins': path.join(__dirname, '/plugins'),
+    'generate_config': path.join(__dirname, '/plugins'),
 }
 /**
  * 生成游戏数据
  */
 class DateIndex {
     constructor() {
+        /**
+         * 生成特定目录
+         */
+
+
         /**
          * 图片数据
          */

@@ -103,7 +103,7 @@ class Algorithm {
      */
     existsSync = (parameter) => {
         const { PATH } = parameter
-        if (fs.existsSync(PATJ)) {
+        if (fs.existsSync(PATH)) {
             return true
         }
         return false
