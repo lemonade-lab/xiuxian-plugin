@@ -3,7 +3,7 @@ import userAction from '../user/action.js'
 import NodeJS from '../../node/node.js'
 const { exec } = NodeJS.returnexec()
 class Exec {
-    start = async (parameter) => {
+    execStart = async (parameter) => {
         const { cmd, cwd, name, e } = parameter
         exec(cmd, { cwd: cwd },
             async (error, stdout, stderr) => {

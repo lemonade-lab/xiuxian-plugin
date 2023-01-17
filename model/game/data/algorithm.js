@@ -101,11 +101,12 @@ class Algorithm {
     /**
      * 判断目前是否存在
      */
-    existsSync = (PATJ) => {
+    existsSync = (parameter) => {
+        const { PATH } = parameter
         if (fs.existsSync(PATJ)) {
             return true
         }
         return false
     }
 }
-export default   new Algorithm()
+export default new Algorithm()

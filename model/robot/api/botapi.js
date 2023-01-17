@@ -38,8 +38,8 @@ class botapi {
     onGroup = () => {
         return Modifi.OnGroup()
     }
-    exec = (parameter) => {
-        return exec.start(parameter)
+    execStart = (parameter) => {
+        return exec.execStart(parameter)
     }
     cacheHelp = async (parameter) => {
         return await cache.helpcache(parameter)

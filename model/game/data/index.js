@@ -46,7 +46,7 @@ class DateIndex {
         /**
          * 生成yaml配置数据
          */
-        createdata.file()
+        createdata.moveConfig()
         /**
          * 生成jsoon数据
          */

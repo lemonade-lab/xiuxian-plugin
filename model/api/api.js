@@ -4,7 +4,12 @@ import gamePublic from '../game/public/public.js'
 import userAction from '../game/user/user.js'
 //配置类
 import defsetUpdata from '../game/data/defset/updata.js'
+
 import schedule from '../game/data/schedule.js'
+
+import algorithm from '../game/data/algorithm.js'
+
+import createdata from './game/data/createdata.js'
 class GameApi {
     /**
      * 用户类
@@ -15,7 +20,7 @@ class GameApi {
     userBag = async (parameter) => {
         return await userAction.userBag(parameter)
     }
-    userBagSearch = async (parameter)=>{
+    userBagSearch = async (parameter) => {
         return await userAction.userBagSearch(parameter)
     }
     /**
@@ -41,11 +46,29 @@ class GameApi {
     /**
      * 备份类
      */
-    viewbackups=()=>{
+    viewbackups = () => {
         return schedule.viewbackups()
     }
-    backuprecovery=(parameter)=>{
+    backuprecovery = (parameter) => {
         return schedule.viewbackups(parameter)
+    }
+
+    /**
+     * 算法类
+     */
+    returnMenu = (parameter) => {
+        return algorithm.returnMenu(parameter)
+    }
+
+    existsSync=(parameter)=>{
+        return algorithm.existsSync(parameter)
+    }
+
+    /**
+     * 数据
+     */
+    moveConfig = (parameter) => {
+        return createdata.moveConfig(parameter)
     }
 
 }

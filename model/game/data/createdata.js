@@ -28,33 +28,28 @@ class CreateData {
     })
     return
   }
-  upfile = () => {
+  moveConfig = (parameter) => {
     const path = Algorithm.returnMenu(this.defsetpath)
     path.forEach((itempath) => {
       this.configarr.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
         let y = `${this.defsetpath}${itempath}/${itemconfig}.yaml`
-        //存在就复制,需要替换原文件
-        if (fs.existsSync(y)) {
-          fs.cp(y, x, (err) => {
-            if (err) { }
-          })
-        }
-      })
-    })
-    return
-  }
-  file = () => {
-    const path = Algorithm.returnMenu(this.defsetpath)
-    path.forEach((itempath) => {
-      this.configarr.forEach((itemconfig) => {
-        let x = `${this.configpath}${itempath}/${itemconfig}.yaml`
-        let y = `${this.defsetpath}${itempath}/${itemconfig}.yaml`
-        //不存在就复制
-        if (!fs.existsSync(x)) {
-          fs.cp(y, x, (err) => {
-            if (err) { }
-          })
+        //刷新控制
+        if (parameter) {
+          //存在就复制,需要替换原文件
+          if (fs.existsSync(y)) {
+            fs.cp(y, x, (err) => {
+              if (err) { }
+            })
+          }
+
+        } else {
+          //不存在就复制
+          if (!fs.existsSync(x)) {
+            fs.cp(y, x, (err) => {
+              if (err) { }
+            })
+          }
         }
       })
     })
@@ -92,4 +87,4 @@ class CreateData {
     return true
   }
 }
-export default   new CreateData()
+export default new CreateData()

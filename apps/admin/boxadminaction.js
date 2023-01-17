@@ -1,10 +1,8 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { get_updata_img } from '../../model/showdata.js'
 import { appname } from "../../model/main.js"
-import filecp from '../../model/filecp.js'
-import boxfs from "../../model/boxfs.js"
-import boxexec from "../../model/boxexec.js"
+import gameApi from '../../model/api/api.js'
+import botApi from "../../model/robot/api/botapi.js"
 export class boxadminaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -30,13 +28,29 @@ export class boxadminaction extends robotapi {
         }
         const filepath = `./plugins/${appname}/plugins/`
         const cmd = 'git  pull'
-        const sum = boxfs.returnMenu(filepath)
-        await boxexec.start(cmd, `${process.cwd()}/plugins/${appname}/`, appname, e)
-        sum.forEach(async (item) => {
-            await boxexec.start(cmd, `${process.cwd()}/plugins/${appname}/plugins/${item}`, item, e)
+        const sum = gameApi.returnMenu(filepath)
+        await botApi.execStart({
+            cmd,
+            cwd: `${process.cwd()}/plugins/${appname}/`,
+            name: appname,
+            e
         })
-        filecp.upfile()
-        const img = await get_updata_img()
+        sum.forEach(async (item) => {
+            await botApi.execStart({
+                cmd,
+                cwd: `${process.cwd()}/plugins/${appname}/plugins/${item}`,
+                name: item,
+                e
+            })
+        })
+        gameApi.moveConfig('updata')
+        const data = {
+            version: await gameApi.getConfig({
+                app: 'version',
+                name: 'version'
+            })
+        }
+        const img = await botApi.showPuppeteer({ path: 'updata', name: 'updata', data })
         e.reply(img)
         return
     }
@@ -60,13 +74,24 @@ export class boxadminaction extends robotapi {
             e.reply('扩展名错误或暂时下架')
             return
         }
-        if (boxfs.existsSync(`${process.cwd()}/plugins/${appname}/plugins/${NAME[name]}/apps`)) {
+        if (gameApi.existsSync({ PATH: `${process.cwd()}/plugins/${appname}/plugins/${NAME[name]}/apps` })) {
             e.reply(`${NAME[name]}已安装`)
             return
         }
-        await boxexec.start(MAP['宗门'], `${process.cwd()}`, NAME[name], e)
-        filecp.upfile()
-        const img = await get_updata_img()
+        await botApi.execStart({
+            cmd: MAP[name],
+            cwd: `${process.cwd()}`,
+            name: NAME[name],
+            e
+        })
+        gameApi.moveConfig('updata')
+        const data = {
+            version: await gameApi.getConfig({
+                app: 'version',
+                name: 'version'
+            })
+        }
+        const img = await botApi.showPuppeteer({ path: 'updata', name: 'updata', data })
         e.reply(img)
         return true
     }
@@ -93,9 +118,20 @@ export class boxadminaction extends robotapi {
             e.reply('扩展名错误')
             return
         }
-        await boxexec.start(MAP[name], `${process.cwd()}`, NAME[name], e)
-        filecp.upfile()
-        const img = await get_updata_img()
+        await botApi.execStart({
+            cmd: MAP[name],
+            cwd: `${process.cwd()}`,
+            name: NAME[name],
+            e
+        })
+        gameApi.moveConfig('updata')
+        const data = {
+            version: await gameApi.getConfig({
+                app: 'version',
+                name: 'version'
+            })
+        }
+        const img = await botApi.showPuppeteer({ path: 'updata', name: 'updata', data })
         e.reply(img)
         return true
     }

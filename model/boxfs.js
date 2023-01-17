@@ -96,7 +96,7 @@ class BoxFs {
         }
     }
     /**
-     * 判断目前是否存在
+     * 判断目录是否存在
      */
     existsSync = (PATJ) => {
         if (fs.existsSync(PATJ)) {
