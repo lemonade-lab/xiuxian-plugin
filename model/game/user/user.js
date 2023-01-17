@@ -361,7 +361,6 @@ class GameUser {
      * @returns 若无数据输入则为读取操作，并返回数据
      */
     userMsgAction = async (parameter) => {
-        console.log(parameter)
         const { NAME, CHOICE, DATA } = parameter
         if (DATA) {
             await algorithm.dataAction({

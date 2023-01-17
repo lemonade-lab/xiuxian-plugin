@@ -14,6 +14,9 @@ class GameApi {
     /**
      * 用户类
      */
+    returnUserUID = async () => {
+        return await userAction.returnUserUID()
+    }
     userMsgAction = async (parameter) => {
         return await userAction.userMsgAction(parameter)
     }
@@ -33,6 +36,12 @@ class GameApi {
     }
     leastOne = async (parameter) => {
         return await gamePublic.leastOne(parameter)
+    }
+    sortBy = (parameter) => {
+        return gamePublic.sortBy()
+    }
+    sleep = async (parameter) => {
+        return await gamePublic.sleep(parameter)
     }
     /**
      * 配置类
@@ -60,7 +69,7 @@ class GameApi {
         return algorithm.returnMenu(parameter)
     }
 
-    existsSync=(parameter)=>{
+    existsSync = (parameter) => {
         return algorithm.existsSync(parameter)
     }
 

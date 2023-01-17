@@ -44,6 +44,12 @@ class botapi {
     cacheHelp = async (parameter) => {
         return await cache.helpcache(parameter)
     }
+    addCahe=(parameter)=>{
+        return cache.addCahe(parameter)
+    }
+    readCahe=(parameter)=>{
+        return cache.readCahe(parameter)
+    }
     getHelp = async (parameter) => {
         return await help.getboxhelp(parameter)
     }
