@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import Cachemonster from '../../model/cachemonster.js'
-import config from '../../model/config.js'
 import {
     Gomini,
     Go,
@@ -20,6 +19,7 @@ import {
     returnLevel,
     Numbers
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
 export class boxbattlesite extends robotapi {
     constructor() {
         super(superIndex([
@@ -32,7 +32,6 @@ export class boxbattlesite extends robotapi {
                 fnc: 'Exploremonsters'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Kill = async (e) => {
         if (!e.isGroup) {
@@ -45,7 +44,7 @@ export class boxbattlesite extends robotapi {
         const uid = e.user_id
         const CDid = '10'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianconfigData.CD.Kill
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Kill
         const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)

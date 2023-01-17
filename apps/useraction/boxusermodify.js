@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import {
     Write_player,
     Go,
@@ -12,6 +11,7 @@ import {
     addAll
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
+import gameApi from '../../model/api/api.js'
 export class boxusermodify extends robotapi {
     constructor() {
         super(superIndex([
@@ -24,7 +24,6 @@ export class boxusermodify extends robotapi {
                 fnc: 'Change_autograph'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Change_name = async (e) => {
         const good = await Go(e)
@@ -52,7 +51,7 @@ export class boxusermodify extends robotapi {
         }
         const CDid = '3'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianconfigData.CD.Name
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Name
         const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)
@@ -91,7 +90,7 @@ export class boxusermodify extends robotapi {
         }
         const CDid = '4'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianconfigData.CD.Autograph
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Autograph
         const CD = await GenerateCD(uid, CDid)
         if (CD != 0) {
             e.reply(CD)

@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import {
     addAll,
     existplayer,
@@ -21,7 +20,6 @@ export class boxuseronekey extends robotapi {
                 fnc: 'OneKey_type'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     OneKey_all = async (e) => {
         if (!e.isGroup) {

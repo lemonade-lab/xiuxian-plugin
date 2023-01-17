@@ -16,9 +16,9 @@ export class boxtoplist extends robotapi {
         ]))
     }
     TOP_prestige = async (e) => {
-        const img = await botApi.readCahe({ name: 'TOP_prestige' })
-        if (img) {
-            e.reply(img)
+        const { CacheMSG } = await botApi.readCahe({ name: 'TOP_prestige' })
+        if (CacheMSG) {
+            e.reply(CacheMSG)
             return
         }
         const userList = await gameApi.returnUserUID()
@@ -47,9 +47,9 @@ export class boxtoplist extends robotapi {
             }
         })
         const newimg = await botApi.showPuppeteer({
-            path:'toplist', 
-            name:'toplist', 
-            data: {list:list},
+            path: 'toplist',
+            name: 'toplist',
+            data: { list: list },
         })
         //添加缓存
         await botApi.addCahe({
@@ -60,9 +60,9 @@ export class boxtoplist extends robotapi {
         return
     }
     TOP_genius = async (e) => {
-        const img = await botApi.readCahe({ name: 'TOP_genius' })
-        if (img) {
-            e.reply(img)
+        const { CacheMSG } = await botApi.readCahe({ name: 'TOP_genius' })
+        if (CacheMSG) {
+            e.reply(CacheMSG)
             return
         }
         const list = []
@@ -90,9 +90,9 @@ export class boxtoplist extends robotapi {
             }
         })
         const newimg = await botApi.showPuppeteer({
-            path:'toplist', 
-            name:'toplist', 
-            data: {list:list},
+            path: 'toplist',
+            name: 'toplist',
+            data: { list: list },
         })
         e.reply(newimg)
         //添加缓存

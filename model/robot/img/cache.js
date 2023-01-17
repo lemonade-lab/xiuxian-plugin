@@ -23,13 +23,13 @@ class Cache {
     readCahe = async (parameter) => {
         const { name } = parameter
         if (!allData.hasOwnProperty(name)) {
-            return false
+            return {}
         }
         const time = new Date().getMinutes()
         if (allData[name]['time'] + 5 <= time) {
-            return allData[name]['data']
+            return { CacheMSG: allData[name]['data'] }
         }
-        return false
+        return {}
     }
     //添加缓存
     addCahe = async (parameter) => {
@@ -43,7 +43,7 @@ class Cache {
         }
         allData[name]['time'] = time
         allData[name]['data'] = data
-        return allData[name]['data']
+        return { CacheMSG: allData[name]['data'] }
     }
 }
 export default new Cache()

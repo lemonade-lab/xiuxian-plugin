@@ -1,19 +1,17 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import {
     offaction,
     Read_Life,
     Write_Life
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
 export class boxusertask extends robotapi {
     constructor() {
         super(superIndex([
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
-        this.set = config.getconfig('task', 'task')
         this.task = {
-            cron: this.set.LifeTask,
+            cron: gameApi.getConfig({ app: 'task', name: 'task' }).LifeTask,
             name: 'LifeTask',
             fnc: () => this.LevelTask()
         }
@@ -22,7 +20,7 @@ export class boxusertask extends robotapi {
         const life = await Read_Life()
         const x = []
         life.forEach((item) => {
-            item.Age = item.Age + this.xiuxianconfigData.Age.size
+            item.Age = item.Age + gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).Age.size
             if (item.Age >= item.life) {
                 item.status = 0
                 x.push(item.qq)

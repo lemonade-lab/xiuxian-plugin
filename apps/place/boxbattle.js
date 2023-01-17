@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import {
     Go,
     Read_action,
@@ -15,9 +14,8 @@ import {
     addAll,
     Write_level
 } from '../../model/public.js'
-import {
-    userAt
-} from "../../model/boxpublic.js"
+import botApi from '../../model/robot/api/botapi.js'
+import gameApi from '../../model/api/api.js'
 export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([
@@ -34,7 +32,6 @@ export class boxbattle extends robotapi {
                 fnc: 'handWashing'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     duel = async (e) => {
         if (!e.isGroup) {
@@ -50,7 +47,7 @@ export class boxbattle extends robotapi {
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
-        user['B'] = await userAt(e)
+        user['B'] = await botApi.at({ e })
         if (!user['B'] || user['B'] == user['A']) {
             return
         }
@@ -62,7 +59,7 @@ export class boxbattle extends robotapi {
         }
         const CDid = '11'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianconfigData.CD.Attack
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Attack
         const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
             e.reply(CD)
@@ -117,7 +114,7 @@ export class boxbattle extends robotapi {
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
-        user['B'] = await userAt(e)
+        user['B'] = await botApi.at({ e })
         if (!user['B'] || user['B'] == user['A']) {
             return
         }
@@ -137,7 +134,7 @@ export class boxbattle extends robotapi {
         }
         const CDid = '0'
         const now_time = new Date().getTime()
-        const CDTime = this.xiuxianconfigData.CD.Attack
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Attack
         const CD = await GenerateCD(user.A, CDid)
         if (CD != 0) {
             e.reply(CD)

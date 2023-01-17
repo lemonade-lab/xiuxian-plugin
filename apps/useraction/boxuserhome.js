@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import { get_player_img } from '../../model/showdata.js'
 import {
     existplayer,
@@ -19,6 +18,7 @@ import {
     Read_talent,
     Read_level
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
 export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
@@ -42,7 +42,6 @@ export class boxuserhome extends robotapi {
                 fnc: 'consumption_daoju'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     consumption_danyao = async (e) => {
         const uid = e.user_id
@@ -77,7 +76,7 @@ export class boxuserhome extends robotapi {
                     if(thing_acount>2200){
                         thing_acount=2200
                     }
-                    const CDTime = this.xiuxianconfigData.CD.Practice
+                    const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Practice
                     const CDid = '12'
                     const now_time = new Date().getTime()
                     const CD = await GenerateCD(uid, CDid)
@@ -162,7 +161,7 @@ export class boxuserhome extends robotapi {
             e.reply('学过了')
             return
         }
-        if (talent.AllSorcery.length >= this.xiuxianconfigData.myconfig.gongfa) {
+        if (talent.AllSorcery.length >= gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进')
             return
         }

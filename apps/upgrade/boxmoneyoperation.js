@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import { segment } from 'oicq'
 import {
     Read_action,
@@ -18,6 +17,7 @@ import {
     randomThing
 } from '../../model/public.js'
 import { userAt } from "../../model/boxpublic.js"
+import gameApi from '../../model/api/api.js'
 export class boxmoneyoperation extends robotapi {
     constructor() {
         super(superIndex([
@@ -30,7 +30,6 @@ export class boxmoneyoperation extends robotapi {
                 fnc: 'New_lingshi'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     New_lingshi = async (e) => {
         if (!e.isGroup) {
@@ -86,7 +85,7 @@ export class boxmoneyoperation extends robotapi {
             e.reply([segment.at(A), `似乎没有${lingshi}下品灵石`])
             return
         }
-        const CDTime = this.xiuxianconfigData.CD.Transfer
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Transfer
         const CDid = '5'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(A, CDid)

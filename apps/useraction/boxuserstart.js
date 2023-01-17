@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import { segment } from 'oicq'
 import {
     GenerateCD,
@@ -11,6 +10,7 @@ import {
     createBoxPlayer
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
+import gameApi from '../../model/api/api.js'
 export class boxuserstart extends robotapi {
     constructor() {
         super(superIndex([
@@ -23,10 +23,9 @@ export class boxuserstart extends robotapi {
                 fnc: 'reCreate_player'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     Create_player = async (e) => {
-        const group = this.xiuxianconfigData.group.white
+        const group = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).group.white
         if (group != 0) {
             if (e.group_id != group) {
                 return
@@ -55,7 +54,7 @@ export class boxuserstart extends robotapi {
             return
         }
         const uid = e.user_id
-        const CDTime = this.xiuxianconfigData.CD.Reborn
+        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Reborn
         const CDid = '8'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(uid, CDid)

@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import {
     existplayer,
     exist_najie_thing_name,
@@ -10,6 +9,7 @@ import {
     Write_najie,
     Add_najie_thing
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
 export class boxuserequipment extends robotapi {
     constructor() {
         super(superIndex([
@@ -22,7 +22,6 @@ export class boxuserequipment extends robotapi {
                 fnc: 'delete_equipment'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     add_equipment = async (e) => {
         const uid = e.user_id
@@ -37,7 +36,7 @@ export class boxuserequipment extends robotapi {
             return
         }
         const equipment = await Read_equipment(uid)
-        if (equipment.length >= this.xiuxianconfigData.myconfig.equipment) {
+        if (equipment.length >= gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)

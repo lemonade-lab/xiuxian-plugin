@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import config from '../../model/config.js'
 import { get_najie_img } from '../../model/showdata.js'
 import {
     existplayer,
@@ -10,6 +9,7 @@ import {
     exist_najie_thing_name,
     Write_najie
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
 export class boxuserbag extends robotapi {
     constructor() {
         super(superIndex([
@@ -22,7 +22,6 @@ export class boxuserbag extends robotapi {
                 fnc: 'bagUp'
             }
         ]))
-        this.xiuxianconfigData = config.getconfig('xiuxian', 'xiuxian')
     }
     showBag = async (e) => {
         const uid = e.user_id
@@ -42,7 +41,7 @@ export class boxuserbag extends robotapi {
         const uid = e.user_id
         const najie = await Read_najie(uid)
         //根据戒指等级分配价格
-        const najie_price = this.xiuxianconfigData.najie_price[najie.grade]
+        const najie_price = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).najie_price[najie.grade]
         if (!najie_price) {
             return
         }
