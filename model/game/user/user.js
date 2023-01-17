@@ -425,7 +425,8 @@ class GameUser {
      * @param {UID} UID 
      * @returns 
      */
-    existUserSatus = async (UID) => {
+    existUserSatus = async (parameter) => {
+        const {UID}=parameter
         let find = await this.existUser(UID)
         if (find) {
             if (find.status == 0) {

@@ -1,14 +1,9 @@
 import {
     GenerateCD,
-    Read_level,
-    Write_level,
     Read_Life,
-    Write_Life,
-    returnLevel,
-    returnLevelMax,
-    existplayer
+    Write_Life
 } from "../../public.js"
-import config from '../../config.js'
+import defset from '../data/defset/updata.js'
 const CopywritingLevel = {
     '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了sizename',
     '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
@@ -29,27 +24,29 @@ const LevelMiniName = {
     '3': '巅峰',
     '4': '圆满'
 }
+import user from './user.js'
+import data from './data.js'
 class userAction {
     /**
      * 突破
      */
     userLevelUp = async (parameter) => {
         const { UID, choise } = parameter
-        const ifexistplay = await existplayer(UID)
+        const ifexistplay = await user.existUserSatus({ UID })
         if (!ifexistplay) {
-            return `无存档`
+            return `已死亡`
         }
-        const player = await Read_level(UID)
+        const player = await user.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
         let CDid = '6'
-        let CDTime = config.getconfig('xiuxian', 'xiuxian').CD.Level_up
+        let CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Level_up
         let name = '修为'
-        const Levelmaxlist = await returnLevelMax()
+        const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
-        const Levellist = await returnLevel()
+        const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
         const Level = Levellist.find(item => item.id == player.level_id)
         if (choise) {
             CDid = '7'
-            CDTime = config.getconfig('xiuxian', 'xiuxian').CD.LevelMax_up
+            CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.LevelMax_up
             name = '气血'
             if (player.experiencemax < LevelMax.exp) {
                 return `再积累${LevelMax.exp - player.experiencemax}气血后方可突破`
@@ -81,7 +78,7 @@ class userAction {
                 size = Math.floor(Math.random() * player.experience)
                 player.experience -= size
             }
-            await Write_level(UID, player)
+            await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
             return CopywritingLevel[
                 Math.floor(Math.random() * Object.keys(CopywritingLevel).length)
             ].replace(/name/g, name).replace(/size/g, size)
@@ -118,7 +115,7 @@ class userAction {
             }
             player.experience -= Level.exp
         }
-        await Write_level(UID, player)
+        await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
         return returnTXT
     }
 }
