@@ -62,7 +62,8 @@ class CreateData {
     return
   }
   //复制两个文件
-  generateImg = (path, name) => {
+  generateImg = (parameter) => {
+    const {path,name}=parameter
     path.forEach((itempath) => {
       name.forEach((itemname) => {
         let x = `${__dirname}/resources/img/${itempath}/${itemname}`

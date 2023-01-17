@@ -45,14 +45,15 @@ class DateIndex {
 
 
         /**
-         * 图片数据
-         */
-        const path = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
-        /**
          * 这里遍历底下所有.png文件名？
          */
-        const name = ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
-        createdata.generateImg(path, name)
+        /**
+         * 图片数据
+         */
+        createdata.generateImg({
+            path: ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information'],
+            name: ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
+        })
         /**
          * 生成yaml配置数据
          */
