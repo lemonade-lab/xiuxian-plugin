@@ -25,6 +25,12 @@ export class boxlevel extends robotapi {
                 fnc: 'LevelMax_up'
             }
         ]))
+        this.CopywritingLevel = {
+            '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了sizename',
+            '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
+            '2': '突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了sizename,',
+            '3': '突破失败,丧失了sizename',
+        }
     }
     LevelMax_up = async (e) => {
         /**
@@ -65,18 +71,12 @@ export class boxlevel extends robotapi {
          * 突破门槛
          */
         if (Math.random() >= 1 - player.levelmax_id / 22) {
-            const CopywritingLevel = {
-                '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了sizename',
-                '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
-                '2': '突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了sizename,',
-                '3': '突破失败,丧失了sizename',
-            }
             const size = Math.floor(Math.random() * LevelMax.exp)
             const name = '气血'
             player.experiencemax -= size
             await Write_level(UID, player)
-            e.reply(CopywritingLevel[
-                Math.floor(Math.random() * Object.keys(CopywritingLevel).length)
+            e.reply(this.CopywritingLevel[
+                Math.floor(Math.random() * Object.keys(this.CopywritingLevel).length)
             ].replace(/name/g, name).replace(/size/g, size))
             return
         }
@@ -142,18 +142,12 @@ export class boxlevel extends robotapi {
         await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
 
         if (Math.random() > 1 - player.level_id / 22) {
-            const CopywritingLevel = {
-                '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了sizename',
-                '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
-                '2': '突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了sizename,',
-                '3': '突破失败,丧失了sizename',
-            }
             const size = Math.floor(Math.random() * Level.exp)
             const name = '修为'
             player.experience -= size
             await Write_level(UID, player)
-            e.reply(CopywritingLevel[
-                Math.floor(Math.random() * Object.keys(CopywritingLevel).length)
+            e.reply(this.CopywritingLevel[
+                Math.floor(Math.random() * Object.keys(this.CopywritingLevel).length)
             ].replace(/name/g, name).replace(/size/g, size))
             return
         }
