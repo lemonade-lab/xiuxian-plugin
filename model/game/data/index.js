@@ -1,10 +1,10 @@
+import fs from 'node:fs'
+import path from 'node:path'
 //配置数据
 import createdata from './createdata.js'
 //物品数据
 import genertate from './generate.js'
 import { __dirname } from '../../main.js'
-import fs from 'node:fs'
-import path from 'node:path'
 export const __PATH = {
     //玩家存档
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -41,8 +41,11 @@ class DateIndex {
          * 图片数据
          */
         const path = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
+        /**
+         * 这里遍历底下所有.png文件名？
+         */
         const name = ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
-        createdata.help(path, name)
+        createdata.generateImg(path, name)
         /**
          * 生成yaml配置数据
          */
@@ -90,4 +93,4 @@ class DateIndex {
         ])
     }
 }
-export default   new DateIndex()
+export default new DateIndex()
