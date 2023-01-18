@@ -14,7 +14,7 @@ class DefsetUpdata {
         return data
     }
     updataConfig = (parameter) => {
-        const { name, size } = parameter
+        const { name, size, path, tomap } = parameter
         const map = {
             '突破冷却': 'CD.Level_up',
             '破体冷却': 'CD.LevelMax_up',
@@ -35,14 +35,15 @@ class DefsetUpdata {
         }
         if (map.hasOwnProperty(name)) {
             const [name0, name1] = map[name].split('.')
+            const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
             try {
-                const data = NodeJS.returnyamljs().load(`${__diryaml}`)
+                // const data = NodeJS.returnyamljs().load(`${__diryaml}`)
                 data[name0][name1] = Number(size)
                 const yamlStr = NodeJS.returnjsyaml().dump(data)
                 fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
                 return `修改${name}为${size}`
             } catch {
-                return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i yamljs -w\npnpm i  js-yaml -w'
+                return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i  js-yaml -w'
             }
         } else {
             return '无次项配置信息'

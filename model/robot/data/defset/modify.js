@@ -1,12 +1,13 @@
 import fs from 'node:fs'
 import path from 'path'
+import YAML from 'yaml'
 import NodeJS from '../../../node/node.js'
 const other = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`
 const group = `${path.resolve()}${path.sep}config${path.sep}config/group.yaml`
 class ConfigModify {
     Readconfig = () => {
         try {
-            const data = NodeJS.returnyamljs().load(group)
+            const data = YAML.parse(fs.readFileSync(`${group}`, 'utf8'))
             const sum = ['十连', '角色查询', '体力查询', '用户绑定', '抽卡记录', '添加表情', '欢迎新人', '退群通知', '云崽帮助', '角色素材', '今日素材', '养成计算', '米游社公告']
             data.default.disable.push(...sum)
             const yamlStr = NodeJS.returnjsyaml().dump(data)
@@ -18,7 +19,7 @@ class ConfigModify {
     }
     openReadconfig = () => {
         try {
-            const data = NodeJS.returnyamljs().load(group)
+            const data = YAML.parse(fs.readFileSync(`${group}`, 'utf8'))
             data.default.disable = []
             const yamlStr = NodeJS.returnjsyaml().dump(data)
             fs.writeFileSync(group, yamlStr, 'utf8')
@@ -29,7 +30,7 @@ class ConfigModify {
     }
     Readconfighelp = () => {
         try {
-            const data = NodeJS.returnyamljs().load(group)
+            const data = YAML.parse(fs.readFileSync(`${group}`, 'utf8'))
             const sum = ['云崽帮助']
             data.default.disable.push(...sum)
             const yamlStr = NodeJS.returnjsyaml().dump(data)
@@ -41,7 +42,7 @@ class ConfigModify {
     }
     openReadconfighelp = () => {
         try {
-            const data = NodeJS.returnyamljs().load(group)
+            const data = YAML.parse(fs.readFileSync(`${group}`, 'utf8'))
             const sum = []
             data.default.disable.forEach((item) => {
                 if (item != '云崽帮助') {
@@ -60,7 +61,7 @@ class ConfigModify {
         const { mastername } = parameter
         try {
             const QQ = Number(mastername)
-            const data = NodeJS.returnyamljs().load(other)
+            const data = YAML.parse(fs.readFileSync(`${other}`, 'utf8'))
             const sum = [QQ]
             data.masterQQ.push(...sum)
             const yamlStr = NodeJS.returnjsyaml().dump(data)
@@ -74,7 +75,7 @@ class ConfigModify {
         const { mastername } = parameter
         try {
             const QQ = Number(mastername)
-            const data = NodeJS.returnyamljs().load(other)
+            const data = YAML.parse(fs.readFileSync(`${other}`, 'utf8'))
             const sum = []
             data.masterQQ.forEach((item) => {
                 if (item != QQ) {
@@ -91,7 +92,7 @@ class ConfigModify {
     }
     OffGroup = () => {
         try {
-            const data = NodeJS.returnyamljs().load(other)
+            const data = YAML.parse(fs.readFileSync(`${other}`, 'utf8'))
             data.disablePrivate = true
             const yamlStr = NodeJS.returnjsyaml().dump(data)
             fs.writeFileSync(other, yamlStr, 'utf8')
@@ -102,7 +103,7 @@ class ConfigModify {
     }
     OnGroup = () => {
         try {
-            const data = NodeJS.returnyamljs().load(other)
+            const data = YAML.parse(fs.readFileSync(`${other}`, 'utf8'))
             data.disablePrivate = false
             const yamlStr = NodeJS.returnjsyaml().dump(data)
             fs.writeFileSync(other, yamlStr, 'utf8')
