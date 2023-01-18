@@ -58,7 +58,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const { MSG } = await gameApi.Go({ UID: e.user_id })
-        if (!MSG) {
+        if (MSG) {
             e.reply(MSG)
             return
         }
