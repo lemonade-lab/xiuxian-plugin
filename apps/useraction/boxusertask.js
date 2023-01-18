@@ -14,7 +14,7 @@ export class boxusertask extends robotapi {
         }
     }
     LevelTask = async () => {
-        const life = await gameApi.userMsgAction({ NAME: 'life', CHIOCE: 'user_life' })
+        const life = await gameApi.listActionArr({ NAME: 'life', CHIOCE: 'user_life' })
         const x = []
         life.forEach((item) => {
             item.Age = item.Age + gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).Age.size

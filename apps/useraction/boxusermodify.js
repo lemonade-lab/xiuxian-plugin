@@ -54,13 +54,13 @@ export class boxusermodify extends robotapi {
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
-        const life = await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige' })
+        const life = await gameApi.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         life.forEach((item) => {
             if (item.qq == UID) {
                 item.name = new_name
             }
         })
-        await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige', DATA: life })
+        await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         const img = await get_player_img(e.user_id)
         e.reply(img)
         return
