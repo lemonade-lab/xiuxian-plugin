@@ -14,18 +14,18 @@ export class boxlevel extends robotapi {
             }
         ]))
     }
-    LevelMax_up = async (e) => {
-        const { UserLevelUpMSG } = await gameApi.userLevelUp({
-            UID: e.user_id,
-            choise: 'max'
-        })
+    Level_up = async (e) => {
+        const { UserLevelUpMSG } = await gameApi.userLevelUp({ UID: e.user_id })
         if (UserLevelUpMSG) {
             e.reply(UserLevelUpMSG)
         }
         return
     }
-    Level_up = async (e) => {
-        const { UserLevelUpMSG } = await gameApi.userLevelUp({ UID: e.user_id })
+    LevelMax_up = async (e) => {
+        const { UserLevelUpMSG } = await gameApi.userLevelUp({
+            UID: e.user_id,
+            choise: 'max'
+        })
         if (UserLevelUpMSG) {
             e.reply(UserLevelUpMSG)
         }

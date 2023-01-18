@@ -36,10 +36,10 @@ class userAction {
         let CDID = '6'
         let CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Level_up
         let name = '修为'
-        const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
-        const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
-        const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
+        const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
+        const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
         const Level = Levellist.find(item => item.id == player.level_id)
+        const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (choise) {
             CDID = '7'
             CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.LevelMax_up
