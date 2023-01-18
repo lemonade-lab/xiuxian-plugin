@@ -29,14 +29,14 @@ export class boxplayercontrol extends robotapi {
         ]))
     }
     Biguan = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
         const { MSG } = await gameApi.GoMini({ UID: e.user_id })
-        if (!MSG) {
+        if (MSG) {
             e.reply(MSG)
             return
         }
@@ -51,7 +51,7 @@ export class boxplayercontrol extends robotapi {
         return true
     }
     Dagong = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')

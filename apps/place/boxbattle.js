@@ -32,7 +32,7 @@ export class boxbattle extends robotapi {
             return
         }
         const { MSG } = await gameApi.Go({ UID: e.user_id })
-        if (!MSG) {
+        if (MSG) {
             e.reply(MSG)
             return
         }
@@ -110,7 +110,7 @@ export class boxbattle extends robotapi {
             return
         }
         const { MSG } = await gameApi.Go({ UID: e.user_id })
-        if (!MSG) {
+        if (MSG) {
             e.reply(MSG)
             return
         }
