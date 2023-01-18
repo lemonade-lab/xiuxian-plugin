@@ -298,7 +298,6 @@ export const get_talent = async () => {
  * 得到灵根名字
  */
 export const talentname = async (player) => {
-    console.log(player)
     const talentname = []
     let name = ''
     const talent = player.talent

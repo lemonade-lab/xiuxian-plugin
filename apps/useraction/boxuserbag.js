@@ -31,6 +31,12 @@ export class boxuserbag extends robotapi {
         return
     }
     bagUp = async (e) => {
+        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
         const { MSG } = await gameApi.Go({ UID: e.user_id })
         if (!MSG) {
             e.reply(MSG)

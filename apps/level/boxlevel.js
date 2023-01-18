@@ -15,6 +15,12 @@ export class boxlevel extends robotapi {
         ]))
     }
     Level_up = async (e) => {
+        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
         const { UserLevelUpMSG } = await gameApi.userLevelUp({ UID: e.user_id })
         if (UserLevelUpMSG) {
             e.reply(UserLevelUpMSG)
@@ -22,6 +28,12 @@ export class boxlevel extends robotapi {
         return
     }
     LevelMax_up = async (e) => {
+        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
         const { UserLevelUpMSG } = await gameApi.userLevelUp({
             UID: e.user_id,
             choise: 'max'

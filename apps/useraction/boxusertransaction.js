@@ -25,7 +25,7 @@ export class boxusertransaction extends robotapi {
     }
     ningmenghome = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
+        const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')

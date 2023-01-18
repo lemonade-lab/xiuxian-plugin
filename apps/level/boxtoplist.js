@@ -16,6 +16,12 @@ export class boxtoplist extends robotapi {
         ]))
     }
     TOP_prestige = async (e) => {
+        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
         const { CacheMSG } = await botApi.readCahe({ name: 'TOP_prestige' })
         if (CacheMSG) {
             e.reply(CacheMSG)
@@ -60,6 +66,12 @@ export class boxtoplist extends robotapi {
         return
     }
     TOP_genius = async (e) => {
+        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
         const { CacheMSG } = await botApi.readCahe({ name: 'TOP_genius' })
         if (CacheMSG) {
             e.reply(CacheMSG)
