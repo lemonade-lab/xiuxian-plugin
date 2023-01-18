@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'path'
-import { appname } from './main.js'
+import { appname } from '../main.js'
 /**
  * 机器人入口
  */
@@ -50,7 +50,7 @@ class index {
       //替换前缀
       newsum[j] = newsum[j].replace(`plugins/${appname}`, '')
       //随深度的增加而增加
-      apps[name[j]] = (await import(`..${newsum[j]}`))[name[j]]
+      apps[name[j]] = (await import(`../..${newsum[j]}`))[name[j]]
     }
     return apps
   }

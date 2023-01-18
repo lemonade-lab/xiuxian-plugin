@@ -1,4 +1,4 @@
-import index from './model/index.js';
+import index from './model/robot/index.js';
 import schedule from './model/game/data/schedule.js';
 schedule.scheduleJobflie('xiuxian', '0 0 */1 * * ?');
 const xiuxain = await index.toindex({ indexName: 'apps', offArr: ['model', 'resources'] });
