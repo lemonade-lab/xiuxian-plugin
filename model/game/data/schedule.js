@@ -17,13 +17,13 @@ class Schedule {
             const m = myDate.getMinutes()
             const s = myDate.getSeconds()
             //数据位置
-            let PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${name}`
+            let PATH = `${__dirname}/resources/data/birth/${name}`
             if (newpath != undefined) {
                 //新数据位置
                 PATH = newpath
             }
             //备份位置不变
-            const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}boxdada${path.sep}${name}.${Y}.${M}.${D}.${h}.${m}.${s}`
+            const NEW_PATH = `${path.resolve()}/plugins/boxdada/${name}.${Y}-${M}-${D}-${h}-${m}-${s}`
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) { }
             })
@@ -31,7 +31,7 @@ class Schedule {
     }
     //查看备份目录,并以转发的形式丢出
     viewbackups = () => {
-        const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}boxdada`
+        const NEW_PATH = `${path.resolve()}/plugins/boxdada`
         if (!fs.existsSync(NEW_PATH)) {
             return ['无备份数据']
         }
@@ -40,23 +40,20 @@ class Schedule {
     }
     backuprecovery = (parameter) => {
         const { name } = parameter
-        const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}boxdada`
+        const NEW_PATH = `${path.resolve()}/plugins/boxdada`
         if (!fs.existsSync(NEW_PATH)) {
             return ['无备份数据']
         }
-        const namefile = `${NEW_PATH}${path.sep}${name}`
+        const namefile = `${NEW_PATH}/${name}`
         if (!fs.existsSync(namefile)) {
             return ['无此备份']
         }
-        const returnpath = (pluginname) => {
-            return `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-plugin${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
-        }
         const [pluginname, time] = name.split('.');
         const ThePath = {
-            'xiuxian': `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`,
-            'dark': returnpath(pluginname),
-            'home': returnpath(pluginname),
-            'association': `${__dirname}${path.sep}plugins${path.sep}xiuxian-${pluginname}-pluging${path.sep}resources${path.sep}data${path.sep}birth${path.sep}${pluginname}`
+            'xiuxian': `${__dirname}/resources/data/birth/${pluginname}`,
+            'dark': `${__dirname}/plugins/xiuxian-${pluginname}-plugin/resources/data/birth/${pluginname}`,
+            'home': `${__dirname}/plugins/xiuxian-${pluginname}-plugin/resources/data/birth/${pluginname}`,
+            'association': `${__dirname}/plugins/xiuxian-${pluginname}-pluging/resources/data/birth/${pluginname}`
         }
         //得到底下所有的json文件地址
         const newsum = algorithm.returnfilepath(ThePath[pluginname], '.json')
