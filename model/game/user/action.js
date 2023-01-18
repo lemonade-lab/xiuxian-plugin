@@ -100,16 +100,8 @@ class userAction {
                 player.rank_id = 0
                 player.level_id = player.level_id + 1
                 player.levelname = Levellist.find(item => item.id == player.level_id).name
-                let lifesize = 0
-                const life = await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
-                life.forEach((item) => {
-                    if (item.qq == UID) {
-                        item.life += Math.floor(item.life * player.level_id / 5 + 50)
-                        lifesize = item.life
-                    }
-                })
-                await await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
-                returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${lifesize}`
+                const size = this.userLifeUp({ UID, level_id: player.level_id })
+                returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
             }
             player.experience -= Level.exp
         }
@@ -117,6 +109,24 @@ class userAction {
         return {
             UserLevelUpMSG: `${returnTXT}`
         }
+    }
+    //升级寿命
+    userLifeUp = async (parameter) => {
+        const { UID, level_id, acount } = parameter
+        let size = 0
+        const life = await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
+        life.forEach((item) => {
+            if (item.qq == UID) {
+                if (acount) {
+                    item.life += acount
+                } else {
+                    item.life += Math.floor(item.life * level_id / 5 + 50)
+                }
+                size = item.life
+            }
+        })
+        await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
+        return { size: size }
     }
 }
 export default new userAction()
