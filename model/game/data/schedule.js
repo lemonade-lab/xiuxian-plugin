@@ -7,6 +7,9 @@ import { __dirname } from '../../main.js'
  * 数据备份
  */
 class Schedule {
+    constructor() {
+        this.NEW_PATH = `${path.resolve()}/plugins/boxdata`
+    }
     scheduleJobflie = (parameter) => {
         const { name, time, newpath } = parameter
         NodeJs.returnSchedele().scheduleJob(time, () => {
@@ -24,28 +27,29 @@ class Schedule {
                 PATH = newpath
             }
             //备份位置不变
-            const NEW_PATH = `${path.resolve()}/plugins/boxdada/${name}.${Y}-${M}-${D}-${h}-${m}-${s}`
-            fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
+            const THE_PATH = `${this.NEW_PATH}/${name}.${Y}-${M}-${D}-${h}-${m}-${s}`
+            fs.cp(PATH, THE_PATH, { recursive: true }, (err) => {
                 if (err) { }
             })
         })
     }
     //查看备份目录,并以转发的形式丢出
     viewbackups = () => {
-        const NEW_PATH = `${path.resolve()}/plugins/boxdada`
-        if (!fs.existsSync(NEW_PATH)) {
+        if (!fs.existsSync(this.NEW_PATH)) {
             return ['无备份数据']
         }
-        const msg = algorithm.returnMenu(NEW_PATH)
+        const msg = algorithm.returnMenu(this.NEW_PATH)
+        if (msg.length > 50) {
+            return ['当前备份数大于50\n请自行查看备份名称', this.NEW_PATH]
+        }
         return msg
     }
     backuprecovery = (parameter) => {
         const { name } = parameter
-        const NEW_PATH = `${path.resolve()}/plugins/boxdada`
-        if (!fs.existsSync(NEW_PATH)) {
+        if (!fs.existsSync(this.NEW_PATH)) {
             return ['无备份数据']
         }
-        const namefile = `${NEW_PATH}/${name}`
+        const namefile = `${this.NEW_PATH}/${name}`
         if (!fs.existsSync(namefile)) {
             return ['无此备份']
         }
