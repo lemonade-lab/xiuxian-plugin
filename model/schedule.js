@@ -65,9 +65,7 @@ class Schedule {
         const newsum = BoxFs.returnfilepath(ThePath[pluginname], '.json')
         newsum.forEach((item) => {
             //循环删除数据
-            fs.unlink(item, (err) => {
-                console.log(err)
-            })
+            fs.unlink(item, (err) => {})
         })
         /**
          * 获得备份下的所有子目录

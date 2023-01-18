@@ -14,7 +14,6 @@ export const get_player_img = async (uid) => {
     const talent = await Read_talent(uid)
     const level = await Read_level(uid)
     const battle = await Read_battle(uid)
-    console.log(talent)
     const linggenname = await talentname(talent)
     let life = await Read_Life()
     life = life.find(item => item.qq == uid)

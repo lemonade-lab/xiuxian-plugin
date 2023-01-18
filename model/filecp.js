@@ -86,9 +86,7 @@ class filecp {
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => {
-          console.log(err)
-        })
+        fs.mkdir(item, (err) => {})
       }
     }
     return true
