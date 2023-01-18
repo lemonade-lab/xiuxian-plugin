@@ -74,7 +74,7 @@ class GameApi {
         return schedule.viewbackups()
     }
     backuprecovery = (parameter) => {
-        return schedule.viewbackups(parameter)
+        return schedule.backuprecovery(parameter)
     }
 
     /**
