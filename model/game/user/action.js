@@ -101,14 +101,14 @@ class userAction {
                 player.level_id = player.level_id + 1
                 player.levelname = Levellist.find(item => item.id == player.level_id).name
                 let lifesize = 0
-                const life = await user.userMsgAction({ NAME: UID, CHOICE: 'user_life' })
+                const life = await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
                 life.forEach((item) => {
                     if (item.qq == UID) {
                         item.life += Math.floor(item.life * player.level_id / 5 + 50)
                         lifesize = item.life
                     }
                 })
-                await await user.userMsgAction({ NAME: UID, CHOICE: 'user_life', DATA: life })
+                await await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
                 returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${lifesize}`
             }
             player.experience -= Level.exp
