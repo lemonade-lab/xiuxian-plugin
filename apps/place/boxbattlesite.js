@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import Cachemonster from '../../model/cachemonster.js'
-import { Add_experiencemax, Add_najie_thing} from '../../model/public.js'
+import { Add_experiencemax, Add_najie_thing } from '../../model/public.js'
 import { monsterbattle } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
@@ -80,7 +80,7 @@ export class boxbattlesite extends robotapi {
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < (mon.level + 1) * 5) {
-                const randomthinf = await   gameApi.randomThing()
+                const randomthinf = await gameApi.randomThing()
                 let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
@@ -96,17 +96,17 @@ export class boxbattlesite extends robotapi {
                 await Add_experiencemax(UID, qixue)
             }
             if (m < (mon.level + 1) * 7) {
-                const lingshi = await gameApi.leastOne(mon.level * 2)
+                const lingshi = await gameApi.leastOne({ value: mon.level * 2 })
                 msg.push(`得到${lingshi}上品灵石`)
                 await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: -lingshi })
             }
             if (m < (mon.level + 1) * 8) {
-                const lingshi = await gameApi.leastOne(mon.level * 20)
+                const lingshi = await gameApi.leastOne({ value: mon.level * 20 })
                 msg.push(`得到${lingshi}中品灵石`)
                 await gameApi.userBag({ UID, name: '中品灵石', ACCOUNT: -lingshi })
             }
             if (m >= (mon.level + 1) * 9) {
-                const lingshi = await gameApi.leastOne(mon.level * 200)
+                const lingshi = await gameApi.leastOne({ value: mon.level * 200 })
                 msg.push(`得到${lingshi}下品灵石`)
                 await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
             }

@@ -25,7 +25,7 @@ export class boxusertransaction extends robotapi {
     }
     ningmenghome = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')
@@ -33,7 +33,7 @@ export class boxusertransaction extends robotapi {
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '凡仙堂'
-        const map = await gameApi.mapExistence({action, addressName:address_name})
+        const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -41,7 +41,7 @@ export class boxusertransaction extends robotapi {
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ]
-        const commodities_list = await  gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
+        const commodities_list = await gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
             switch (id[0]) {
@@ -94,18 +94,18 @@ export class boxusertransaction extends robotapi {
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '凡仙堂'
-        const map = await gameApi.mapExistence({action, addressName:address_name})
+        const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
         const thing = e.msg.replace('#购买', '')
         const [thing_name, thing_acount] = thing.split('\*')
-        let quantity = await gameApi.leastOne(thing_acount)
+        let quantity = await gameApi.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99
         }
-        const Commodities =  await  gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
+        const Commodities = await gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         const ifexist = Commodities.find(item => item.name == thing_name)
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
@@ -138,7 +138,7 @@ export class boxusertransaction extends robotapi {
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '凡仙堂'
-        const map = await  gameApi.mapExistence({action, addressName:address_name})
+        const map = await gameApi.mapExistence({ action, addressName: address_name })
 
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
@@ -151,7 +151,7 @@ export class boxusertransaction extends robotapi {
             "quantity": 99,
             "najie": {}
         }
-        the.quantity = await gameApi.leastOne(thing_acount)
+        the.quantity = await gameApi.leastOne({ value: thing_acount })
         if (the.quantity > 99) {
             the.quantity = 99
         }

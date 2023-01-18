@@ -44,7 +44,7 @@ export class boxuserhome extends robotapi {
         let thing = e.msg.replace('#服用', '')
         const code = thing.split('\*')
         let [thing_name, thing_acount] = code
-        thing_acount = await gameApi.leastOne(thing_acount)
+        thing_acount = await gameApi.leastOne({ value: thing_acount })
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
@@ -161,7 +161,7 @@ export class boxuserhome extends robotapi {
         }
         talent.AllSorcery.push(najie_thing)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-        await gameApi.updataUserEfficiency({UID})
+        await gameApi.updataUserEfficiency({ UID })
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
@@ -185,7 +185,7 @@ export class boxuserhome extends robotapi {
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-        await gameApi.updataUserEfficiency({UID})
+        await gameApi.updataUserEfficiency({ UID })
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
@@ -227,7 +227,7 @@ export class boxuserhome extends robotapi {
                     const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talent = await gameApi.getTalent()
                     await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-                    await gameApi.updataUserEfficiency({UID})
+                    await gameApi.updataUserEfficiency({ UID })
                     const img = await get_player_img(e.user_id)
                     e.reply(img)
                     break

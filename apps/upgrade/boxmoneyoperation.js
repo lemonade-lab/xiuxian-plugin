@@ -86,7 +86,7 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         let islingshi = e.msg.replace('#赠送灵石', '')
-        const lingshi = await gameApi.leastOne(islingshi)
+        const lingshi = await gameApi.leastOne({ value: islingshi })
         let thing = await exist_najie_thing_name(A, '下品灵石')
         if (thing == 1 || thing.acount < lingshi) {
             e.reply([botApi.segmentAt(A), `似乎没有${lingshi}下品灵石`])
