@@ -5,7 +5,6 @@ import {
     exist_najie_thing_name,
     Read_equipment,
     Write_equipment,
-    Write_najie,
     Add_najie_thing
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
@@ -43,7 +42,7 @@ export class boxuserequipment extends robotapi {
         await Write_equipment(UID, equipment)
         let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         e.reply(`装备${thing_name}`)
         return
     }
@@ -71,7 +70,7 @@ export class boxuserequipment extends robotapi {
         await Write_equipment(UID, equipment)
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         e.reply(`已卸下${thing_name}`)
         return
     }

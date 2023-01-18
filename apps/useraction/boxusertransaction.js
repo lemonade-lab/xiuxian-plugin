@@ -7,7 +7,6 @@ import {
     exist_najie_thing_name,
     Add_najie_thing,
     existplayer,
-    Write_najie,
     returnCommodities
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
@@ -123,7 +122,7 @@ export class boxusertransaction extends robotapi {
         //重新把东西丢回去
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, ifexist, quantity)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
@@ -165,7 +164,7 @@ export class boxusertransaction extends robotapi {
         }
         the.najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
-        await Write_najie(UID, the.najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         const commodities_price = najie_thing.price * the.quantity
         await addAll(UID, commodities_price)
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)

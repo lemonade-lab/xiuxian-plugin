@@ -5,7 +5,6 @@ import {
     existplayer,
     exist_najie_thing_name,
     Add_experiencemax,
-    Write_najie,
     Numbers,
     Add_najie_thing,
     Add_blood,
@@ -136,7 +135,7 @@ export class boxuserhome extends robotapi {
         }
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -thing_acount)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         return
     }
     add_gongfa = async (e) => {
@@ -170,7 +169,7 @@ export class boxuserhome extends robotapi {
         await player_efficiency(UID)
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         e.reply(`学习${thing_name}`)
         return
     }
@@ -192,7 +191,7 @@ export class boxuserhome extends robotapi {
         await player_efficiency(UID)
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         e.reply(`忘了${thing_name}`)
         return
     }
@@ -211,7 +210,7 @@ export class boxuserhome extends robotapi {
         const id = najie_thing.id.split('-')
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         //类型0  1  编号2
         if (id[0] != 6) {
             e.reply(`${thing_name}损坏`)

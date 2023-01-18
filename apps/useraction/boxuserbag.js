@@ -5,8 +5,7 @@ import {
     existplayer,
     Go,
     addAll,
-    exist_najie_thing_name,
-    Write_najie
+    exist_najie_thing_name
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
@@ -53,7 +52,7 @@ export class boxuserbag extends robotapi {
         //等级+1
         najie.grade += 1
         //记录等级
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         //扣灵石
         await addAll(UID, -Number(najie_price))
         e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)

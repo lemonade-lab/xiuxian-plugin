@@ -3,8 +3,7 @@ import { superIndex } from "../../model/robot/api/api.js"
 import {
     addAll,
     existplayer,
-    point_map,
-    Write_najie
+    point_map
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
@@ -43,7 +42,7 @@ export class boxuseronekey extends robotapi {
             money += item.acount * item.price
         });
         najie.thing = []
-        await Write_najie(UID, najie)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         //先把物品都清除了,再兑换成下品灵石
         await addAll(UID, money)
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)

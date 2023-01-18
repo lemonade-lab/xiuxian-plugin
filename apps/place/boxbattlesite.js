@@ -10,7 +10,6 @@ import {
     addAll,
     GenerateCD,
     Add_najie_thing,
-    Write_najie,
     Read_talent,
     randomThing,
     returnLevel,
@@ -91,7 +90,7 @@ export class boxbattlesite extends robotapi {
                 if (najie.thing.length <= najie.grade * 10) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
                     msg.push(`得到[${randomthinf.name}]`)
-                    await Write_najie(UID, najie)
+                    await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
                 } else {
                     msg.push('储物袋已满')
                 }
