@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
 import { __dirname } from '../../../main.js'
-import NodeJS from '../../../node/node.js'
 const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
 class DefsetUpdata {
     //动态生成配置读取
@@ -36,15 +35,12 @@ class DefsetUpdata {
         if (map.hasOwnProperty(name)) {
             const [name0, name1] = map[name].split('.')
             const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
-            try {
-                // const data = NodeJS.returnyamljs().load(`${__diryaml}`)
-                data[name0][name1] = Number(size)
-                const yamlStr = NodeJS.returnjsyaml().dump(data)
-                fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
-                return `修改${name}为${size}`
-            } catch {
-                return '[缺少必要依赖]\nYunzai-Bot目录下\n执行以下两条指令\npnpm i  js-yaml -w'
-            }
+            // const data = NodeJS.returnyamljs().load(`${__diryaml}`)
+            data[name0][name1] = Number(size)
+            // const yamlStr = NodeJS.returnjsyaml().dump(data)
+            const yamlStr = YAML.stringify(data)
+            fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
+            return `修改${name}为${size}`
         } else {
             return '无次项配置信息'
         }
