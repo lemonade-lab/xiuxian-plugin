@@ -44,8 +44,8 @@ class GameApi {
     randomThing = async () => {
         return await gameUser.randomThing()
     }
-    listActionArr = async () => {
-        return await gameUser.listActionArr()
+    listActionArr = async (parameter) => {
+        return await gameUser.listActionArr(parameter)
     }
     /**
      * 地图
