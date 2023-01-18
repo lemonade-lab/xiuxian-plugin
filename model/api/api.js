@@ -28,10 +28,13 @@ class GameApi {
     userBagSearch = async (parameter) => {
         return await gameUser.userBagSearch(parameter)
     }
+    existUserSatus = async (parameter) => {
+        return await gameUser.existUserSatus(parameter)
+    }
     /**
      * 行为类
      */
-    userLevelUp=async(parameter)=>{
+    userLevelUp = async (parameter) => {
         return await userAction.userLevelUp(parameter)
     }
 
@@ -52,7 +55,7 @@ class GameApi {
     sleep = async (parameter) => {
         return await gamePublic.sleep(parameter)
     }
-    cooling= async (parameter)=>{
+    cooling = async (parameter) => {
         return await gamePublic.cooling(parameter)
     }
     /**

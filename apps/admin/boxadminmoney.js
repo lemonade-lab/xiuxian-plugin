@@ -19,9 +19,15 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
+        //得到UID
         const UID = await botApi.at({ e })
         if (!UID) {
-            return
+            const exist = await gameApi.existUserSatus({ UID })
+            if (!exist) {
+                //如果死了，就直接返回
+                e.reply('已死亡')
+                return 
+            }
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
         const [name, acount] = thing_name.split('\*')
@@ -40,6 +46,11 @@ export class boxadminmoney extends robotapi {
         }
         const UID = await botApi.at({ e })
         if (!UID) {
+            const exist = await gameApi.existUserSatus({ UID })
+            if (exist) {
+                //如果死了，就直接返回
+                return
+            }
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')

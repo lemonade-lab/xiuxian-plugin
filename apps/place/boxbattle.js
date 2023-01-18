@@ -48,6 +48,10 @@ export class boxbattle extends robotapi {
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
         user['B'] = await botApi.at({ e })
+        const exist = await gameApi.existUserSatus({ UID: user['B'] })
+        if (!exist) {
+            return
+        }
         if (!user['B'] || user['B'] == user['A']) {
             return
         }
@@ -115,6 +119,11 @@ export class boxbattle extends robotapi {
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
         user['B'] = await botApi.at({ e })
+        const exist = await gameApi.existUserSatus({ UID: user['B'] })
+        if (!exist) {
+            e.reply('已死亡')
+            return
+        }
         if (!user['B'] || user['B'] == user['A']) {
             return
         }
