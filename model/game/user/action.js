@@ -100,7 +100,7 @@ class userAction {
                 player.rank_id = 0
                 player.level_id = player.level_id + 1
                 player.levelname = Levellist.find(item => item.id == player.level_id).name
-                const size = await this.userLifeUp({ UID, level_id: player.level_id })
+                const { size } = await this.userLifeUp({ UID, level_id: player.level_id })
                 returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
             }
             player.experience -= Level.exp
@@ -126,7 +126,7 @@ class userAction {
             }
         })
         await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
-        return { size: size }
+        return { size }
     }
 }
 export default new userAction()
