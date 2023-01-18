@@ -5,9 +5,6 @@ import {
     Go,
     GenerateCD,
     exist_najie_thing_name,
-    Read_player,
-    Write_Life,
-    Read_Life,
     addAll
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
@@ -61,13 +58,13 @@ export class boxusermodify extends robotapi {
         await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
         await addAll(UID, -lingshi)
-        const life = await Read_Life()
+        const life = await gameApi.userMsgAction({NAME:'life',CHOICE:'user_lige'})
         life.forEach((item) => {
             if (item.qq == UID) {
                 item.name = new_name
             }
         })
-        await Write_Life(life)
+        await gameApi.userMsgAction({NAME:'life',CHOICE:'user_lige',DATA:life})
         const img = await get_player_img(e.user_id)
         e.reply(img)
         return
@@ -78,7 +75,7 @@ export class boxusermodify extends robotapi {
             return
         }
         const UID = e.user_id
-        const player = await Read_player(UID)
+        const player =  gameApi.userMsgAction({NAME:UID,CHOICE:'user_player'})
         let new_msg = e.msg.replace('#设置道宣', '')
         new_msg = new_msg.replace(' ', '')
         const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']

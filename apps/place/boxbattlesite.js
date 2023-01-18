@@ -4,13 +4,11 @@ import Cachemonster from '../../model/cachemonster.js'
 import {
     Gomini,
     Go,
-    Read_battle,
     monsterbattle,
     Add_experiencemax,
     addAll,
     GenerateCD,
     Add_najie_thing,
-    Read_talent,
     randomThing,
     returnLevel,
     Numbers
@@ -75,8 +73,8 @@ export class boxbattlesite extends robotapi {
             'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
             'speed': LevelMax.speed + 5 + buff.msg
         }
-        const battle = await Read_battle(UID)
-        const talent = await Read_talent(UID)
+        const battle =   await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        const talent =  await gameApi.userMsgAction({ NAME: UID , CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         const battle_msg = await monsterbattle(e, battle, monsters)
         battle_msg.msg.forEach((item) => {

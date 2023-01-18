@@ -3,8 +3,6 @@ import { superIndex } from "../../model/robot/api/api.js"
 import { segment } from 'oicq'
 import {
     GenerateCD,
-    Write_Life,
-    Read_Life,
     offaction,
     exist,
     createBoxPlayer
@@ -64,9 +62,9 @@ export class boxuserstart extends robotapi {
             return
         }
         await offaction(UID)
-        let life = await Read_Life()
+        let life = await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige' })
         life = await life.filter(item => item.qq != UID)
-        await Write_Life(life)
+        await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige', DATA: life })
         await createBoxPlayer(e.user_id)
         await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)

@@ -11,13 +11,12 @@ import {
     GenerateCD,
     Add_experience,
     get_talent,
-    Write_talent,
-    player_efficiency,
-    Read_talent,
-    Read_level
+    player_efficiency
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
+
+
 export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
@@ -72,8 +71,8 @@ export class boxuserhome extends robotapi {
             case '2': {
                 let experience = parseInt(najie_thing.experience)
                 if (id[0] == '6') {
-                    if(thing_acount>2200){
-                        thing_acount=2200
+                    if (thing_acount > 2200) {
+                        thing_acount = 2200
                     }
                     const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Practice
                     const CDid = '12'
@@ -85,7 +84,7 @@ export class boxuserhome extends robotapi {
                     }
                     await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
                     await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
-                    const player = await Read_level(UID)
+                    const player = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     switch (id[2]) {
                         //下品
                         case '1': {
@@ -118,7 +117,7 @@ export class boxuserhome extends robotapi {
                         default: { }
                     }
                 }
-                if(experience>0){
+                if (experience > 0) {
                     await Add_experience(UID, thing_acount * experience)
                 }
                 e.reply(`修为+${thing_acount * experience}`)
@@ -154,7 +153,7 @@ export class boxuserhome extends robotapi {
         if (id[0] != 5) {
             return
         }
-        const talent = await Read_talent(UID)
+        const talent = await gameApi.userMsgAction({NAME:UID,CHOICE:'user_talent'})
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
             e.reply('学过了')
@@ -165,7 +164,7 @@ export class boxuserhome extends robotapi {
             return
         }
         talent.AllSorcery.push(najie_thing)
-        await Write_talent(UID, talent)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await player_efficiency(UID)
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
@@ -180,14 +179,14 @@ export class boxuserhome extends robotapi {
             return
         }
         const thing_name = e.msg.replace('#忘掉', '')
-        const talent = await Read_talent(UID)
+        const talent = await gameApi.userMsgAction({NAME:UID,CHOICE:'user_talent'})
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
             e.reply(`没学过${thing_name}`)
             return
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
-        await Write_talent(UID, talent)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await player_efficiency(UID)
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
@@ -220,23 +219,23 @@ export class boxuserhome extends robotapi {
         if (id[1] == 1) {
             switch (id[2]) {
                 case '1': {
-                    const player = await Read_level(UID)
+                    const player = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     if (player.level_id >= 10) {
                         e.reply('灵根已定\n此生不可再洗髓')
                         break
                     }
-                    const talent = await Read_talent(UID)
+                    const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talent = await get_talent()
-                    await Write_talent(UID, talent)
+                    await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await player_efficiency(UID)
                     const img = await get_player_img(e.user_id)
                     e.reply(img)
                     break
                 }
                 case '2': {
-                    const talent = await Read_talent(UID)
+                    const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talentshow = 0
-                    await Write_talent(UID, talent)
+                    await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     const img = await get_player_img(e.user_id)
                     e.reply(img)
                     break

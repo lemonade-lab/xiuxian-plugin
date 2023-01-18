@@ -9,7 +9,6 @@ import {
     Add_experience,
     Add_blood,
     existplayer,
-    Read_talent,
     Add_experiencemax
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
@@ -134,7 +133,7 @@ export class boxplayercontrol extends robotapi {
     }
     upgrade = async (user_id, time, name, group_id) => {
         const UID = user_id
-        const talent = await Read_talent(UID)
+        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         let other = 0
         const msg = [segment.at(UID)]

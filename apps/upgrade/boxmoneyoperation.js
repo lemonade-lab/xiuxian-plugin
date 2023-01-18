@@ -3,14 +3,12 @@ import { superIndex } from "../../model/robot/api/api.js"
 import { segment } from 'oicq'
 import {
     point_map,
-    Read_level,
     Go,
     Add_najie_thing,
     Numbers,
     addAll,
     GenerateCD,
     exist_najie_thing_name,
-    Write_action,
     randomThing
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
@@ -44,7 +42,7 @@ export class boxmoneyoperation extends robotapi {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const level = await Read_level(UID)
+        const level = gameApi.userMsgAction({NAME:UID,CHOICE:"user_level"})
         if (level.level_id != 1) {
             return
         }
@@ -52,7 +50,7 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         action.newnoe = 0
-        await Write_action(UID, action)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
         const randomthing = await randomThing()
         let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, randomthing, Number(1))

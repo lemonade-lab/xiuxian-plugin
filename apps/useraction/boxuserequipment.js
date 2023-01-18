@@ -3,8 +3,6 @@ import { superIndex } from "../../model/robot/api/api.js"
 import {
     existplayer,
     exist_najie_thing_name,
-    Read_equipment,
-    Write_equipment,
     Add_najie_thing
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
@@ -34,12 +32,12 @@ export class boxuserequipment extends robotapi {
             e.reply(`没有${thing_name}`)
             return
         }
-        const equipment = await Read_equipment(UID)
+        const equipment = await gameApi.userMsgAction({NAME:UID,CHOICE:'user_equipment'})
         if (equipment.length >= gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)
-        await Write_equipment(UID, equipment)
+        await gameApi.userMsgAction({NAME:UID,CHOICE:'user_equipment',DATA:equipment})
         let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
@@ -53,7 +51,7 @@ export class boxuserequipment extends robotapi {
             return
         }
         const thing_name = e.msg.replace('#卸下', '')
-        let equipment = await Read_equipment(UID)
+        let equipment =await gameApi.userMsgAction({NAME:UID,CHOICE:'user_equipment'})
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
             return
@@ -67,7 +65,8 @@ export class boxuserequipment extends robotapi {
                 arr.splice(index, 1)
             }
         })
-        await Write_equipment(UID, equipment)
+        await gameApi.userMsgAction({NAME:UID,CHOICE:'user_equipment',DATA:equipment})
+        
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
