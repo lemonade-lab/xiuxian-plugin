@@ -1,13 +1,12 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import common from '../../../../lib/common/common.js'
-import { segment } from 'oicq'
 import {
     Add_experience,
     Add_blood,
     Add_experiencemax
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxplayercontrol extends robotapi {
     constructor() {
         super(superIndex([
@@ -89,11 +88,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         await gameApi.offAction({ UID })
-        if (e.isGroup) {
-            await this.upgrade(UID, time, action.actionName, e.group_id)
-            return
-        }
-        await this.upgrade(UID, time, action.actionName)
+        await this.upgrade(UID, time, action.actionName, e)
         return
     }
     endWork = async (e) => {
@@ -125,19 +120,16 @@ export class boxplayercontrol extends robotapi {
             return
         }
         await gameApi.offAction({ UID })
-        if (e.isGroup) {
-            await this.upgrade(UID, time, action.actionName, e.group_id)
-            return
-        }
-        await this.upgrade(UID, time, action.actionName)
+        await this.upgrade(UID, time, action.actionName, e)
         return
     }
-    upgrade = async (user_id, time, name, group_id) => {
+    upgrade = async (user_id, time, name, e) => {
         const UID = user_id
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         let other = 0
-        const msg = [segment.at(UID)]
+        e.reply([botApi.segmentAt(UID)])
+        const msg = []
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         if (name == '闭关') {
             if (rand < 20) {
@@ -163,23 +155,7 @@ export class boxplayercontrol extends robotapi {
             msg.push('\n血量恢复至90%')
         }
         msg.push('\n' + name + '结束')
-        if (group_id) {
-            await this.pushInfo(group_id, true, msg)
-            return
-        }
-        await this.pushInfo(UID, false, msg)
-        return
-    }
-    pushInfo = async (id, is_group, msg) => {
-        if (is_group) {
-            await Bot.pickGroup(id)
-                .sendMsg(msg)
-                .catch((err) => {
-                    Bot.logger.mark(err)
-                })
-            return
-        }
-        await common.relpyPrivate(id, msg)
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
 }

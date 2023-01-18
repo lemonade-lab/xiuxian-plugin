@@ -1,9 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { segment } from 'oicq'
-import {
-    exist_najie_thing_name
-} from '../../model/public.js'
+import { exist_najie_thing_name } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 const forwardsetTime = []
@@ -146,7 +143,7 @@ export class boxsecretplace extends robotapi {
             action.region = PointId[1]
             action.address = PointId[2]
             await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-            e.reply([segment.at(UID), `成功抵达${address}`])
+            e.reply([botApi.segmentAt(UID), `成功抵达${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
         e.reply(`正在前往${address}...\n需要${time}秒`)
@@ -175,7 +172,7 @@ export class boxsecretplace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
-        const Posirion = await  gameApi.listAction({ NAME: 'position', CHOICE: 'generate_position' })
+        const Posirion = await gameApi.listAction({ NAME: 'position', CHOICE: 'generate_position' })
         const position = Posirion.find(item => item.name == address)
         if (!position) {
             return
@@ -220,7 +217,7 @@ export class boxsecretplace extends robotapi {
             action.region = positionID[1]
             action.address = positionID[2]
             await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-            e.reply([segment.at(UID), `成功传送至${address}`])
+            e.reply([botApi.segmentAt(UID), `成功传送至${address}`])
         }, 1000 * time)
         deliverysetTime[UID] = 1
         e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)

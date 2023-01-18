@@ -4,7 +4,14 @@ import exec from '../exec/exex.js'
 import cache from '../img/cache.js'
 import help from '../img/help.js'
 import user from '../user/action.js'
+import { segment } from 'oicq'
 class botapi {
+    /**
+     * 
+     */
+    segmentAt = (parameter) => {
+        return segment.at(parameter)
+    }
     /**
      * 得到图片
      * @param {} parameter 
@@ -44,10 +51,10 @@ class botapi {
     cacheHelp = async (parameter) => {
         return await cache.helpcache(parameter)
     }
-    addCahe=(parameter)=>{
+    addCahe = (parameter) => {
         return cache.addCahe(parameter)
     }
-    readCahe=(parameter)=>{
+    readCahe = (parameter) => {
         return cache.readCahe(parameter)
     }
     getHelp = async (parameter) => {

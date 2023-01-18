@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { segment } from 'oicq'
 import {
     Add_najie_thing,
     exist_najie_thing_name
@@ -90,7 +89,7 @@ export class boxmoneyoperation extends robotapi {
         const lingshi = await gameApi.leastOne(islingshi)
         let thing = await exist_najie_thing_name(A, '下品灵石')
         if (thing == 1 || thing.acount < lingshi) {
-            e.reply([segment.at(A), `似乎没有${lingshi}下品灵石`])
+            e.reply([botApi.segmentAt(A), `似乎没有${lingshi}下品灵石`])
             return
         }
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Transfer
@@ -105,7 +104,7 @@ export class boxmoneyoperation extends robotapi {
         await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60)
         await gameApi.userBag({ UID: A, name: '下品灵石', ACCOUNT: -lingshi })
         await gameApi.userBag({ UID: B, name: '下品灵石', ACCOUNT: lingshi })
-        e.reply([segment.at(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
+        e.reply([botApi.segmentAt(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
         return
     }
 }
