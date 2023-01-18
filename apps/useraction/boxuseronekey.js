@@ -4,10 +4,10 @@ import {
     addAll,
     existplayer,
     point_map,
-    Read_action,
-    Read_najie,
     Write_najie
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxuseronekey extends robotapi {
     constructor() {
         super(superIndex([
@@ -25,27 +25,27 @@ export class boxuseronekey extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(uid)
+        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        let najie = await Read_najie(uid)
+        let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = 0
         najie.thing.forEach((item) => {
             money += item.acount * item.price
         });
         najie.thing = []
-        await Write_najie(uid, najie)
+        await Write_najie(UID, najie)
         //先把物品都清除了,再兑换成下品灵石
-        await addAll(uid, money)
+        await addAll(UID, money)
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
@@ -53,12 +53,12 @@ export class boxuseronekey extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(uid)
+        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await point_map(action, address_name)
         if (!map) {

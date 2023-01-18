@@ -4,12 +4,12 @@ import { get_najie_img } from '../../model/showdata.js'
 import {
     existplayer,
     Go,
-    Read_najie,
     addAll,
     exist_najie_thing_name,
     Write_najie
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxuserbag extends robotapi {
     constructor() {
         super(superIndex([
@@ -24,8 +24,8 @@ export class boxuserbag extends robotapi {
         ]))
     }
     showBag = async (e) => {
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
@@ -38,14 +38,14 @@ export class boxuserbag extends robotapi {
         if (!good) {
             return
         }
-        const uid = e.user_id
-        const najie = await Read_najie(uid)
+        const UID = e.user_id
+        const najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         //根据戒指等级分配价格
         const najie_price = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).najie_price[najie.grade]
         if (!najie_price) {
             return
         }
-        let thing = await exist_najie_thing_name(uid, '下品灵石')
+        let thing = await exist_najie_thing_name(UID, '下品灵石')
         if (thing == 1 || thing.acount < najie_price) {
             e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
             return
@@ -53,9 +53,9 @@ export class boxuserbag extends robotapi {
         //等级+1
         najie.grade += 1
         //记录等级
-        await Write_najie(uid, najie)
+        await Write_najie(UID, najie)
         //扣灵石
-        await addAll(uid, -Number(najie_price))
+        await addAll(UID, -Number(najie_price))
         e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
         return
     }

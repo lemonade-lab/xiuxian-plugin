@@ -3,13 +3,13 @@ import { superIndex } from "../../model/robot/api/api.js"
 import {
     existplayer,
     exist_najie_thing_name,
-    Read_najie,
     Read_equipment,
     Write_equipment,
     Write_najie,
     Add_najie_thing
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxuserequipment extends robotapi {
     constructor() {
         super(superIndex([
@@ -24,37 +24,37 @@ export class boxuserequipment extends robotapi {
         ]))
     }
     add_equipment = async (e) => {
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#装备', '')
-        const najie_thing = await exist_najie_thing_name(uid, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
             return
         }
-        const equipment = await Read_equipment(uid)
+        const equipment = await Read_equipment(UID)
         if (equipment.length >= gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)
-        await Write_equipment(uid, equipment)
-        let najie = await Read_najie(uid)
+        await Write_equipment(UID, equipment)
+        let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(uid, najie)
+        await Write_najie(UID, najie)
         e.reply(`装备${thing_name}`)
         return
     }
     delete_equipment = async (e) => {
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#卸下', '')
-        let equipment = await Read_equipment(uid)
+        let equipment = await Read_equipment(UID)
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
             return
@@ -68,10 +68,10 @@ export class boxuserequipment extends robotapi {
                 arr.splice(index, 1)
             }
         })
-        await Write_equipment(uid, equipment)
-        let najie = await Read_najie(uid)
+        await Write_equipment(UID, equipment)
+        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(uid, najie)
+        await Write_najie(UID, najie)
         e.reply(`已卸下${thing_name}`)
         return
     }

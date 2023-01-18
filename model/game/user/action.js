@@ -23,9 +23,6 @@ const LevelMiniName = {
     '4': '圆满'
 }
 class userAction {
-    /**
-     * 突破
-     */
     userLevelUp = async (parameter) => {
         const { UID, choise } = parameter
         const ifexistplay = await user.existUserSatus({ UID })

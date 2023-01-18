@@ -7,12 +7,11 @@ import {
     exist_najie_thing_name,
     Add_najie_thing,
     existplayer,
-    ForwardMsg,
-    Read_najie,
     Write_najie,
-    Read_action,
     returnCommodities
 } from '../../model/public.js'
+import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxusertransaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -31,12 +30,12 @@ export class boxusertransaction extends robotapi {
         ]))
     }
     ningmenghome = async (e) => {
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(uid)
+        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -49,20 +48,20 @@ export class boxusertransaction extends robotapi {
         const commodities_list = await returnCommodities()
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
-            switch(id[0]){
-                case '1':{
+            switch (id[0]) {
+                case '1': {
                     msg.push(`物品:${item.name}\n攻击:${item.attack}%\n价格:${item.price}`)
                     break
                 }
-                case '2':{
+                case '2': {
                     msg.push(`物品:${item.name}\n防御:${item.defense}%\n价格:${item.price}`)
                     break
                 }
-                case '3':{
+                case '3': {
                     msg.push(`物品:${item.name}\n暴伤:${item.burstmax}%\n价格:${item.price}`)
                     break
                 }
-                case '4':{
+                case '4': {
                     if (id[1] == 1) {
                         msg.push(`物品:${item.name}\n气血:${item.blood}%\n价格:${item.price}`)
                     } else {
@@ -70,32 +69,32 @@ export class boxusertransaction extends robotapi {
                     }
                     break
                 }
-                case '5':{
+                case '5': {
                     msg.push(`物品:${item.name}\n天赋:${item.size}%\n价格:${item.price}`)
                     break
                 }
-                case '6':{
+                case '6': {
                     msg.push(`物品:${item.name}\n价格:${item.price}`)
                     break
                 }
-                default:{
+                default: {
                     break
                 }
             }
         })
-        await ForwardMsg(e, msg)
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
     Buy_comodities = async (e) => {
         if (!e.isGroup) {
             return
         }
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(uid)
+        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -108,23 +107,23 @@ export class boxusertransaction extends robotapi {
         if (quantity > 99) {
             quantity = 99
         }
-        const Commodities=await returnCommodities()
+        const Commodities = await returnCommodities()
         const ifexist = Commodities.find(item => item.name == thing_name)
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
             return
         }
-        let money = await exist_najie_thing_name(uid, '下品灵石')
+        let money = await exist_najie_thing_name(UID, '下品灵石')
         if (money == 1 || money.acount < ifexist.price * quantity) {
             e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
             return
         }
         //先扣钱
-        await addAll(uid, -ifexist.price * quantity)
+        await addAll(UID, -ifexist.price * quantity)
         //重新把东西丢回去
-        let najie = await Read_najie(uid)
+        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, ifexist, quantity)
-        await Write_najie(uid, najie)
+        await Write_najie(UID, najie)
         e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
@@ -132,12 +131,12 @@ export class boxusertransaction extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const uid = e.user_id
-        const ifexistplay = await existplayer(uid)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(uid)
+        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -155,7 +154,7 @@ export class boxusertransaction extends robotapi {
         if (the.quantity > 99) {
             the.quantity = 99
         }
-        const najie_thing = await exist_najie_thing_name(uid, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`[凡仙堂]小二\n你没[${thing_name}]`)
             return
@@ -164,11 +163,11 @@ export class boxusertransaction extends robotapi {
             e.reply('[凡仙堂]小二\n数量不足')
             return
         }
-        the.najie = await Read_najie(uid)
+        the.najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
-        await Write_najie(uid, the.najie)
+        await Write_najie(UID, the.najie)
         const commodities_price = najie_thing.price * the.quantity
-        await addAll(uid, commodities_price)
+        await addAll(UID, commodities_price)
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
     }

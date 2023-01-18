@@ -2,10 +2,8 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { segment } from 'oicq'
 import {
-    Read_action,
     point_map,
     Read_level,
-    Read_najie,
     Go,
     Add_najie_thing,
     Write_najie,
@@ -39,15 +37,15 @@ export class boxmoneyoperation extends robotapi {
         if (!good) {
             return
         }
-        const uid = e.user_id
-        const action = await Read_action(uid)
+        const UID = e.user_id
+        const action =await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
         const address_name = '联盟'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const level = await Read_level(uid)
+        const level = await Read_level(UID)
         if (level.level_id != 1) {
             return
         }
@@ -55,12 +53,12 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         action.newnoe = 0
-        await Write_action(uid, action)
+        await Write_action(UID, action)
         const randomthing = await randomThing()
-        let najie = await Read_najie(uid)
+        let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, randomthing, Number(1))
-        await Write_najie(uid, najie)
-        await addAll(uid, Number(10))
+        await Write_najie(UID, najie)
+        await addAll(UID, Number(10))
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗下品灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n并放进了#储物袋`)
         return
