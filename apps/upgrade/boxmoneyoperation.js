@@ -16,8 +16,8 @@ import {
     Write_action,
     randomThing
 } from '../../model/public.js'
-import { userAt } from "../../model/boxpublic.js"
 import gameApi from '../../model/api/api.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxmoneyoperation extends robotapi {
     constructor() {
         super(superIndex([
@@ -74,7 +74,7 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         const A = e.user_id
-        const B = await userAt(e)
+        const B = await botApi.at({e})
         if (!B || B == A) {
             return
         }
