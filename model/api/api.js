@@ -76,6 +76,9 @@ class GameApi {
     backuprecovery = (parameter) => {
         return schedule.backuprecovery(parameter)
     }
+    scheduleJobflie = (parameter)=>{
+        return schedule.scheduleJobflie(parameter)
+    }
 
     /**
      * 算法类

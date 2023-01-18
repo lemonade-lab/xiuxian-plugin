@@ -7,7 +7,8 @@ import { __dirname } from '../../main.js'
  * 数据备份
  */
 class Schedule {
-    scheduleJobflie = (name, time, newpath) => {
+    scheduleJobflie = (parameter) => {
+        const { name, time, newpath } = parameter
         NodeJs.returnSchedele().scheduleJob(time, () => {
             const myDate = new Date()
             const Y = myDate.getFullYear()
@@ -81,12 +82,12 @@ class Schedule {
                 jsonName.push(file);
             }
             //这里是qq号？
-            jsonName.forEach((uid) => {
+            jsonName.forEach((item) => {
                 /**
                  * 原理是？这个文件地址，复制到那个文件地址
                  */
-                let y = `${namefile}/${itempath}/${uid}.json`
-                let x = `${ThePath[pluginname]}/${itempath}/${uid}.json`
+                let y = `${namefile}/${itempath}/${item}.json`
+                let x = `${ThePath[pluginname]}/${itempath}/${item}.json`
                 //不存在就复制
                 if (!fs.existsSync(x)) {
                     //要复制
