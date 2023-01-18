@@ -1,15 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { segment } from 'oicq'
-import {
-    GenerateCD,
-    offaction,
-    exist,
-    createBoxPlayer
-} from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxuserstart extends robotapi {
     constructor() {
         super(superIndex([
@@ -24,28 +16,16 @@ export class boxuserstart extends robotapi {
         ]))
     }
     Create_player = async (e) => {
-        const group = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).group.white
-        if (group != 0) {
-            if (e.group_id != group) {
-                return
-            }
-        }
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
-        const UID = e.user_id
-        const ifexistplay = await exist(UID)
-        if (!ifexistplay) {
-            const img = await get_player_img(e.user_id)
-            if (img == undefined) {
-                e.reply('已死亡')
-            } else {
-                e.reply(img)
-            }
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!exist) {
+            e.reply('已死亡')
             return
         }
-        await createBoxPlayer(e.user_id)
-        e.reply(`成功降临修仙世界\n你可以#前往极西联盟\n进行#联盟报到\n会得到[修仙联盟]的帮助\n也可以使用#位置信息\n查看城市信息\n若想了解自己的身世\n可以#基础信息`)
+        const img = await get_player_img(e.user_id)
+        e.reply(img)
         return
     }
     reCreate_player = async (e) => {
@@ -54,21 +34,22 @@ export class boxuserstart extends robotapi {
         }
         const UID = e.user_id
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Reborn
-        const CDid = '8'
+        const CDID = '8'
         const now_time = new Date().getTime()
-        const CD = await GenerateCD(UID, CDid)
-        if (CD != 0) {
-            e.reply(CD)
+        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        if (CDMSG) {
+            e.reply(CDMSG)
             return
         }
-        await offaction(UID)
+        await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
+        await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
+        await gameApi.offAction(UID)
         let life = await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige' })
         life = await life.filter(item => item.qq != UID)
         await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige', DATA: life })
-        await createBoxPlayer(e.user_id)
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
-        e.reply([segment.at(UID), '岁月悠悠\n世间终会出现两朵相同的花\n千百年的回眸\n一花凋零\n一花绽\n是否为同一朵\n任后人去评断'])
+        await gameApi.createBoxPlayer({ UID: e.user_id })
+        const img = await get_player_img(e.user_id)
+        e.reply(img)
         return
     }
 }

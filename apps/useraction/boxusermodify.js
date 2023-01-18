@@ -1,15 +1,10 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import {
-    Write_player,
-    Go,
-    GenerateCD,
-    exist_najie_thing_name,
-    addAll
+    exist_najie_thing_name
 } from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxusermodify extends robotapi {
     constructor() {
         super(superIndex([
@@ -24,8 +19,9 @@ export class boxusermodify extends robotapi {
         ]))
     }
     Change_name = async (e) => {
-        const good = await Go(e)
-        if (!good) {
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -47,35 +43,36 @@ export class boxusermodify extends robotapi {
             e.reply([segment.at(UID), `似乎没有${lingshi}下品灵石`])
             return
         }
-        const CDid = '3'
+        const CDID = '3'
         const now_time = new Date().getTime()
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Name
-        const CD = await GenerateCD(UID, CDid)
-        if (CD != 0) {
-            e.reply(CD)
+        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        if (CDMSG) {
+            e.reply(CDMSG)
             return
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
-        await addAll(UID, -lingshi)
-        const life = await gameApi.userMsgAction({NAME:'life',CHOICE:'user_lige'})
+        await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
+        await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
+        const life = await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige' })
         life.forEach((item) => {
             if (item.qq == UID) {
                 item.name = new_name
             }
         })
-        await gameApi.userMsgAction({NAME:'life',CHOICE:'user_lige',DATA:life})
+        await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_lige', DATA: life })
         const img = await get_player_img(e.user_id)
         e.reply(img)
         return
     }
     Change_autograph = async (e) => {
-        const good = await Go(e)
-        if (!good) {
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
-        const player =  gameApi.userMsgAction({NAME:UID,CHOICE:'user_player'})
+        const player = gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
         let new_msg = e.msg.replace('#设置道宣', '')
         new_msg = new_msg.replace(' ', '')
         const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
@@ -86,18 +83,18 @@ export class boxusermodify extends robotapi {
             e.reply('请正确设置,且道宣最多50字符')
             return
         }
-        const CDid = '4'
+        const CDID = '4'
         const now_time = new Date().getTime()
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Autograph
-        const CD = await GenerateCD(UID, CDid)
-        if (CD != 0) {
-            e.reply(CD)
+        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        if (CDMSG) {
+            e.reply(CDMSG)
             return
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
+        await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
+        await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         player.autograph = new_msg
-        await Write_player(UID, player)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
         const img = await get_player_img(e.user_id)
         e.reply(img)
         return

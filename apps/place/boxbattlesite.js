@@ -1,18 +1,8 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import Cachemonster from '../../model/cachemonster.js'
-import {
-    Gomini,
-    Go,
-    monsterbattle,
-    Add_experiencemax,
-    addAll,
-    GenerateCD,
-    Add_najie_thing,
-    randomThing,
-    returnLevel,
-    Numbers
-} from '../../model/public.js'
+import { Add_experiencemax, Add_najie_thing} from '../../model/public.js'
+import { monsterbattle } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 export class boxbattlesite extends robotapi {
@@ -32,17 +22,24 @@ export class boxbattlesite extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const good = await Go(e)
-        if (!good) {
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
-        const CDid = '10'
+        const CDID = '10'
         const now_time = new Date().getTime()
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Kill
-        const CD = await GenerateCD(UID, CDid)
-        if (CD != 0) {
-            e.reply(CD)
+        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        if (CDMSG) {
+            e.reply(CDMSG)
             return
         }
         const name = e.msg.replace('#击杀', '')
@@ -62,7 +59,7 @@ export class boxbattlesite extends robotapi {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
             msg.push('怪物突然变异了!')
         }
-        const Levellist = await returnLevel()
+        const Levellist = await gameApi.listAction({ NAME: 'Level_list', CHOICE: 'generate_level' })
         const LevelMax = Levellist.find(item => item.id == mon.level + 1)
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
@@ -73,8 +70,8 @@ export class boxbattlesite extends robotapi {
             'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
             'speed': LevelMax.speed + 5 + buff.msg
         }
-        const battle =   await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
-        const talent =  await gameApi.userMsgAction({ NAME: UID , CHOICE: 'user_talent' })
+        const battle = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         const battle_msg = await monsterbattle(e, battle, monsters)
         battle_msg.msg.forEach((item) => {
@@ -82,8 +79,8 @@ export class boxbattlesite extends robotapi {
         })
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
-            if (m < (mon.level+1) * 5) {
-                const randomthinf = await randomThing()
+            if (m < (mon.level + 1) * 5) {
+                const randomthinf = await   gameApi.randomThing()
                 let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
                     najie = await Add_najie_thing(najie, randomthinf, 1)
@@ -93,38 +90,45 @@ export class boxbattlesite extends robotapi {
                     msg.push('储物袋已满')
                 }
             }
-            if (m < (mon.level+1) * 6) {
-                const qixue=mon.level * 25 * mybuff
+            if (m < (mon.level + 1) * 6) {
+                const qixue = mon.level * 25 * mybuff
                 msg.push(`得到${qixue}气血`)
                 await Add_experiencemax(UID, qixue)
             }
-            if (m < (mon.level+1) * 7) {
-                const lingshi = await Numbers(mon.level*2)
+            if (m < (mon.level + 1) * 7) {
+                const lingshi = await gameApi.leastOne(mon.level * 2)
                 msg.push(`得到${lingshi}上品灵石`)
-                await addAll(UID, lingshi,'上品灵石')
+                await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: -lingshi })
             }
-            if (m < (mon.level+1) * 8) {
-                const lingshi = await Numbers(mon.level * 20 )
+            if (m < (mon.level + 1) * 8) {
+                const lingshi = await gameApi.leastOne(mon.level * 20)
                 msg.push(`得到${lingshi}中品灵石`)
-                await addAll(UID, lingshi,'中品灵石')
+                await gameApi.userBag({ UID, name: '中品灵石', ACCOUNT: -lingshi })
             }
-            if (m >= (mon.level+1) * 9) {
-                const lingshi = await Numbers(mon.level * 200 )
+            if (m >= (mon.level + 1) * 9) {
+                const lingshi = await gameApi.leastOne(mon.level * 200)
                 msg.push(`得到${lingshi}下品灵石`)
-                await addAll(UID, lingshi)
+                await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
             }
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
-        await botApi.forwardMsg({e,data:msg}) 
+        await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
+        await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
     Exploremonsters = async (e) => {
         if (!e.isGroup) {
             return
         }
-        const good = await Gomini(e)
-        if (!good) {
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
+        const { MSG } = await gameApi.GoMini({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -137,7 +141,7 @@ export class boxbattlesite extends robotapi {
                 '等级:' + item.level + '\n'
             )
         })
-        await botApi.forwardMsg({e,data:msg}) 
+        await botApi.forwardMsg({ e, data: msg })
         return
     }
 }

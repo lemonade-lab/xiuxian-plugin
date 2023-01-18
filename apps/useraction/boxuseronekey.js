@@ -1,12 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import {
-    addAll,
-    existplayer,
-    point_map
-} from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxuseronekey extends robotapi {
     constructor() {
         super(superIndex([
@@ -25,18 +19,20 @@ export class boxuseronekey extends robotapi {
             return
         }
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
+        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await point_map(action, address_name)
+        const map = await gameApi.mapExistence({action, addressName:address_name})
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        let najie =await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = 0
         najie.thing.forEach((item) => {
             money += item.acount * item.price
@@ -44,7 +40,7 @@ export class boxuseronekey extends robotapi {
         najie.thing = []
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         //先把物品都清除了,再兑换成下品灵石
-        await addAll(UID, money)
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: money })
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
@@ -53,13 +49,15 @@ export class boxuseronekey extends robotapi {
             return
         }
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME:UID, CHOICE: 'user_action' })
+        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await point_map(action, address_name)
+        const map = await gameApi.mapExistence({action, addressName:address_name})
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return

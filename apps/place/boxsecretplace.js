@@ -2,12 +2,7 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { segment } from 'oicq'
 import {
-    Go,
-    existplayer,
-    exist_najie_thing_name,
-    addAll,
-    returnPosirion,
-    returnPoint
+    exist_najie_thing_name
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
@@ -41,8 +36,10 @@ export class boxsecretplace extends robotapi {
     }
     show_city = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
@@ -51,7 +48,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         const addressId = `${action.z}-${action.region}-${action.address}`
-        const point = await returnPoint()
+        const point = await gameApi.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         const address = []
         const msg = []
         point.forEach((item) => {
@@ -69,8 +66,15 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const good = await Go(e)
-        if (!good) {
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -84,8 +88,10 @@ export class boxsecretplace extends robotapi {
             return
         }
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
@@ -96,8 +102,15 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const good = await Go(e)
-        if (!good) {
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -108,7 +121,7 @@ export class boxsecretplace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
-        const Point = await returnPoint()
+        const Point = await gameApi.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         const point = Point.find(item => item.name == address)
         if (!point) {
             return
@@ -143,8 +156,15 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const good = await Go(e)
-        if (!good) {
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -155,7 +175,7 @@ export class boxsecretplace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
-        const Posirion = await returnPosirion()
+        const Posirion = await  gameApi.listAction({ NAME: 'position', CHOICE: 'generate_position' })
         const position = Posirion.find(item => item.name == address)
         if (!position) {
             return
@@ -166,7 +186,7 @@ export class boxsecretplace extends robotapi {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
-        const point = await returnPoint()
+        const point = await gameApi.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         let key = 0
         point.forEach((item) => {
             const pointID = item.id.split('-')
@@ -188,7 +208,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         //先扣钱
-        await addAll(UID, -lingshi)
+        await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: -lingshi })
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)

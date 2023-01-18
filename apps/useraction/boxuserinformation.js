@@ -4,9 +4,7 @@ import {
     get_equipment_img,
     get_player_img
 } from '../../model/showdata.js'
-import { existplayer } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxuserinformation extends robotapi {
     constructor() {
         super(superIndex([
@@ -26,8 +24,10 @@ export class boxuserinformation extends robotapi {
     }
     Show_player = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const img = await get_player_img(e.user_id)
@@ -36,8 +36,10 @@ export class boxuserinformation extends robotapi {
     }
     show_equipment = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const img = await get_equipment_img(e.user_id)

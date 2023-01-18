@@ -7,7 +7,8 @@ class GameUser {
     * @param {UID} UID 
     * @returns 初始化数据，不成功则false
     */
-    createBoxPlayer = async (UID) => {
+    createBoxPlayer = async (parameter) => {
+        const { UID } = parameter
         try {
             await this.userMsgAction({
                 NAME: UID, CHOICE: 'user_playser', DATA: {
@@ -82,7 +83,7 @@ class GameUser {
                 'full': ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
                 'name': ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
             }
-            const name = await gamepublic.Anyarray(FullName['name1']) + await gamepublic.Anyarray(FullName['name'])
+            const name = await gamepublic.Anyarray({ ARR: FullName['name1'] }) + await gamepublic.Anyarray({ ARR: FullName['name'] })
             const life = await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life' })
             life.push({
                 'qq': UID,
@@ -103,7 +104,7 @@ class GameUser {
             /**
              * 更新天赋面板
              */
-            await this.updataUserEfficiency(UID)
+            await this.updataUserEfficiency({ UID })
             return true
         } catch {
             return false
@@ -114,11 +115,11 @@ class GameUser {
      * 给UID添加物品name的数量为account
      * @param {UID} UID 
      * @param {物品名} name 
-     * @param {数量} ACOUNT 
+     * @param {数量} ACOUNT  account
      * @returns 
      */
     userBag = async (parameter) => {
-        const { UID, name, ACOUNT } = parameter
+        const { UID, name, ACCOUNT } = parameter
         //搜索物品信息
         const thing = await listdata.searchThing({
             condition: 'name',
@@ -127,7 +128,7 @@ class GameUser {
         if (thing) {
             let bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
             bag = await this.userbagAction({
-                BAG: bag, THING: thing, ACCOUNT: ACOUNT
+                BAG: bag, THING: thing, ACCOUNT: ACCOUNT
             })
             await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
             return true
@@ -250,7 +251,8 @@ class GameUser {
      * @param {} UID 
      * @returns 
      */
-    updataUserEfficiency = async (UID) => {
+    updataUserEfficiency = async (parameter) => {
+        const { UID } = parameter
         try {
             const talent = await this.userMsgAction({
                 NAME: UID,
@@ -426,7 +428,7 @@ class GameUser {
      * @returns 
      */
     existUserSatus = async (parameter) => {
-        const {UID}=parameter
+        const { UID } = parameter
         let find = await this.existUser(UID)
         if (find) {
             if (find.status == 0) {
@@ -434,7 +436,7 @@ class GameUser {
             }
             return true
         }
-        const CreateGO = await this.createBoxPlayer(UID)
+        const CreateGO = await this.createBoxPlayer({ UID })
         if (!CreateGO) {
             return false
         }
@@ -455,5 +457,10 @@ class GameUser {
         return playerList
     }
 
+    randomThing = async () => {
+        const dropsItemList = await listdata.listAction({ NAME: 'dropsItem', CHOICE: 'generate_all' })
+        return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
+    }
+
 }
-export default   new GameUser()
+export default new GameUser()

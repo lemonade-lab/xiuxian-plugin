@@ -12,6 +12,10 @@ import algorithm from '../game/data/algorithm.js'
 import createdata from '../game/data/createdata.js'
 
 import userAction from '../game/user/action.js'
+
+import userData from '../game/user/data.js'
+
+import gameMap from '../game/public/map.js'
 class GameApi {
     /**
      * 用户类
@@ -31,11 +35,50 @@ class GameApi {
     existUserSatus = async (parameter) => {
         return await gameUser.existUserSatus(parameter)
     }
+    createBoxPlayer = async (parameter) => {
+        return await gameUser.createBoxPlayer(parameter)
+    }
+    updataUserEfficiency = async (parameter) => {
+        return await gameUser.updataUserEfficiency(parameter)
+    }
+    randomThing = async () => {
+        return await gameUser.randomThing()
+    }
+    /**
+     * 地图
+     */
+    interactive = async (parameter) => {
+        return await gameMap.interactive(parameter)
+    }
+
+    mapDistance = async (parameter) => {
+        return await gameMap.mapDistance(parameter)
+    }
+
+    mapExistence = async (parameter) => {
+        return await gameMap.mapExistence(parameter)
+    }
+
+
+    /**
+     * 得到灵根
+     * @returns 
+     */
+    getTalent = async () => {
+        return await gameUser.getTalent()
+    }
     /**
      * 行为类
      */
     userLevelUp = async (parameter) => {
         return await userAction.userLevelUp(parameter)
+    }
+
+    /**
+     * 查表行为
+     */
+    listAction = async (parameter) => {
+        return await userData.listAction(parameter)
     }
 
     /**
@@ -58,6 +101,23 @@ class GameApi {
     cooling = async (parameter) => {
         return await gamePublic.cooling(parameter)
     }
+    Go = async (parameter) => {
+        return await gamePublic.Go(parameter)
+    }
+    GoMini = async (parameter) => {
+        return await gamePublic.Go(parameter)
+    }
+    offAction = async (parameter) => {
+        return await gamePublic.offAction(parameter)
+    }
+    /**
+     * 
+     * @param {*} parameter 
+     * @returns 
+     */
+    Anyarray = async (parameter) => {
+        return await gamePublic.Anyarray(parameter)
+    }
     /**
      * 配置类
      */
@@ -76,7 +136,7 @@ class GameApi {
     backuprecovery = (parameter) => {
         return schedule.backuprecovery(parameter)
     }
-    scheduleJobflie = (parameter)=>{
+    scheduleJobflie = (parameter) => {
         return schedule.scheduleJobflie(parameter)
     }
 

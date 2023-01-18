@@ -1206,7 +1206,7 @@ export const Gomini = async (e) => {
 
 /**
  * 状态封锁查询
- */
+ */ 
 export const Go = async (e) => {
     const uid = e.user_id
     const ifexistplay = await existplayer(uid)

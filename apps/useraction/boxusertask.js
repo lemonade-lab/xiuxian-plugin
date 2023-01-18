@@ -1,8 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { offaction } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxusertask extends robotapi {
     constructor() {
         super(superIndex([]))
@@ -26,7 +24,7 @@ export class boxusertask extends robotapi {
             }
         })
         for (var i = 0; i < x.length; i++) {
-            await offaction(x[i])
+            await gameApi.offAction({ UID: [x[i]] })
         }
         await gameApi.userMsgAction({ NAME: 'life', CHIOCE: 'user_life', DATA: life })
     }

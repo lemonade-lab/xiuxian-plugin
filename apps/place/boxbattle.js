@@ -1,14 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import {
-    Go,
-    existplayer,
-    exist_najie_thing_name,
-    battle,
-    Anyarray,
-    Add_najie_thing,
-    addAll
-} from '../../model/public.js'
+import { exist_najie_thing_name, Add_najie_thing } from '../../model/public.js'
+import { battle } from '../../model/public.js'
 import botApi from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxbattle extends robotapi {
@@ -32,15 +25,17 @@ export class boxbattle extends robotapi {
         if (!e.isGroup) {
             return
         }
-
-
-
-        const good = await Go(e)
-        if (!good) {
+        const existA = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!existA) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
-
-
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
+            return
+        }
         const user = {
             A: e.user_id,
             C: 0,
@@ -48,8 +43,8 @@ export class boxbattle extends robotapi {
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
         user['B'] = await botApi.at({ e })
-        const exist = await gameApi.existUserSatus({ UID: user['B'] })
-        if (!exist) {
+        const existB = await gameApi.existUserSatus({ UID: user['B'] })
+        if (!existB) {
             return
         }
         if (!user['B'] || user['B'] == user['A']) {
@@ -64,9 +59,9 @@ export class boxbattle extends robotapi {
         const CDID = '11'
         const now_time = new Date().getTime()
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Attack
-        const CD = await gameApi.cooling({ UID: user.A, CDID })
-        if (CD != 0) {
-            e.reply(CD)
+        const { CDMSG } = await gameApi.cooling({ UID: user.A, CDID })
+        if (CDMSG) {
+            e.reply(CDMSG)
             return
         }
         const najie_thing = await exist_najie_thing_name(user.A, '决斗令')
@@ -91,7 +86,7 @@ export class boxbattle extends robotapi {
             }
             let najieB = await gameApi.userMsgAction({ NAME: user.B, CHOICE: 'user_bag' })
             if (najieB.thing.length != 0) {
-                const thing = await Anyarray(najieB.thing)
+                const thing = await gameApi.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await gameApi.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
                 let najie = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag' })
@@ -108,8 +103,15 @@ export class boxbattle extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const good = await Go(e)
-        if (!good) {
+        const existA = await gameApi.existUserSatus({ UID: e.user_id })
+        if (!existA) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
+        }
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const user = {
@@ -119,8 +121,8 @@ export class boxbattle extends robotapi {
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
         user['B'] = await botApi.at({ e })
-        const exist = await gameApi.existUserSatus({ UID: user['B'] })
-        if (!exist) {
+        const existB = await gameApi.existUserSatus({ UID: user['B'] })
+        if (!existB) {
             e.reply('已死亡')
             return
         }
@@ -144,9 +146,9 @@ export class boxbattle extends robotapi {
         const CDID = '0'
         const now_time = new Date().getTime()
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Attack
-        const CD = await gameApi.cooling({ UID: user.A, CDID })
-        if (CD != 0) {
-            e.reply(CD)
+        const { CDMSG } = await gameApi.cooling({ UID: user.A, CDID })
+        if (CDMSG) {
+            e.reply(CDMSG)
             return
         }
         user.QQ = await battle(e, user.A, user.B)
@@ -163,7 +165,7 @@ export class boxbattle extends robotapi {
             }
             let najieB = await gameApi.userMsgAction({ NAME: user.B, CHOICE: 'user_bag' })
             if (najieB.thing.length != 0) {
-                const thing = await Anyarray(najieB.thing)
+                const thing = await gameApi.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await gameApi.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
                 let najie = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag' })
@@ -178,8 +180,10 @@ export class boxbattle extends robotapi {
     }
     handWashing = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const Level = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
@@ -190,7 +194,7 @@ export class boxbattle extends robotapi {
                 e.reply(`[天机门]韩立\n清魔力需要${money}下品灵石`)
                 return
             }
-            await addAll(UID, -money)
+            await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -money })
             Level.prestige -= 1
             await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: Level })
             e.reply('[天机门]南宫问天\n为你清除1点魔力值')

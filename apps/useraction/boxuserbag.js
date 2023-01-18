@@ -2,13 +2,9 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { get_najie_img } from '../../model/showdata.js'
 import {
-    existplayer,
-    Go,
-    addAll,
     exist_najie_thing_name
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxuserbag extends robotapi {
     constructor() {
         super(superIndex([
@@ -24,8 +20,10 @@ export class boxuserbag extends robotapi {
     }
     showBag = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const img = await get_najie_img(e.user_id)
@@ -33,8 +31,9 @@ export class boxuserbag extends robotapi {
         return
     }
     bagUp = async (e) => {
-        const good = await Go(e)
-        if (!good) {
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -54,7 +53,7 @@ export class boxuserbag extends robotapi {
         //记录等级
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         //扣灵石
-        await addAll(UID, -Number(najie_price))
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -Number(najie_price) })
         e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
         return
     }

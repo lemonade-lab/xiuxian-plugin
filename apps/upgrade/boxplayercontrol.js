@@ -3,16 +3,11 @@ import { superIndex } from "../../model/robot/api/api.js"
 import common from '../../../../lib/common/common.js'
 import { segment } from 'oicq'
 import {
-    Gomini,
-    Go,
-    offaction,
     Add_experience,
     Add_blood,
-    existplayer,
     Add_experiencemax
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
 export class boxplayercontrol extends robotapi {
     constructor() {
         super(superIndex([
@@ -35,8 +30,9 @@ export class boxplayercontrol extends robotapi {
         ]))
     }
     Biguan = async (e) => {
-        const good = await Gomini(e)
-        if (!good) {
+        const { MSG } = await gameApi.GoMini({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -50,8 +46,9 @@ export class boxplayercontrol extends robotapi {
         return true
     }
     Dagong = async (e) => {
-        const good = await Go(e)
-        if (!good) {
+        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        if (!MSG) {
+            e.reply(MSG)
             return
         }
         const UID = e.user_id
@@ -69,8 +66,10 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         let action = await redis.get(`xiuxian:player:${UID}:action`)
@@ -86,10 +85,10 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await offaction(UID)
+            await gameApi.offAction({ UID })
             return
         }
-        await offaction(UID)
+        await gameApi.offAction({ UID })
         if (e.isGroup) {
             await this.upgrade(UID, time, action.actionName, e.group_id)
             return
@@ -102,8 +101,10 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         let action = await redis.get(`xiuxian:player:${UID}:action`)
@@ -120,10 +121,10 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await offaction(UID)
+            await gameApi.offAction({ UID })
             return
         }
-        await offaction(UID)
+        await gameApi.offAction({ UID })
         if (e.isGroup) {
             await this.upgrade(UID, time, action.actionName, e.group_id)
             return

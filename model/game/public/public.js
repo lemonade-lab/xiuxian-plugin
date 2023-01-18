@@ -1,3 +1,4 @@
+import gameUer from '../user/user.js'
 const MYCD = {
     '0': '攻击',
     '1': '降妖',
@@ -19,7 +20,8 @@ class GamePublic {
  * @param {数组} ARR 
  * @returns 随机一个元素
  */
-    Anyarray = (ARR) => {
+    Anyarray = (parameter) => {
+        const {ARR}=parameter
         const randindex = Math.trunc(Math.random() * ARR.length)
         return ARR[randindex]
     }
@@ -53,13 +55,24 @@ class GamePublic {
             return
         }
     }
+
+    offAction = async (parameter) => {
+        const { UID } = parameter
+        const exists = await redis.exists(`xiuxian:player:${UID}:action`)
+        if (exists == 1) {
+            await redis.del(`xiuxian:player:${UID}:action`)
+        }
+        return
+    }
+
     /**
      * 行为检测
-     * @param {*} uid 
+     * @param {*} UID 
      * @returns 若存在对象MSG则为flase
      */
-    Go = async (uid) => {
-        let action = await redis.get(`xiuxian:player:${uid}:action`)
+    Go = async (parameter) => {
+        const { UID } = parameter
+        let action = await redis.get(`xiuxian:player:${UID}:action`)
         if (action != undefined) {
             action = JSON.parse(action)
             if (action.actionName == undefined) {
@@ -72,7 +85,7 @@ class GamePublic {
                 'MSG': `${action.actionName}中...`
             }
         }
-        const player = await Read_battle(uid)
+        const player = await gameUer.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
         if (player.nowblood <= 1) {
             return {
                 'MSG': `血量不足`
@@ -80,6 +93,27 @@ class GamePublic {
         }
         return {}
     }
+
+    GoMini = async (parameter) => {
+        const { UID } = parameter
+        let action = await redis.get(`xiuxian:player:${UID}:action`)
+        if (action != undefined) {
+            action = JSON.parse(action)
+            if (action.actionName == undefined) {
+                //根据判断msg存不存在来识别是否成功
+                return {
+                    'MSG': `旧版数据残留,请联系主人使用[#修仙删除数据]`
+                }
+            }
+            return {
+                'MSG': `${action.actionName}中...`
+            }
+        }
+        return {}
+    }
+
+
+
     /**
      * 检测CD
      * @param {*} uid 

@@ -2,21 +2,13 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { get_player_img } from '../../model/showdata.js'
 import {
-    existplayer,
     exist_najie_thing_name,
     Add_experiencemax,
-    Numbers,
     Add_najie_thing,
     Add_blood,
-    GenerateCD,
-    Add_experience,
-    get_talent,
-    player_efficiency
+    Add_experience
 } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
-
-
 export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
@@ -43,14 +35,16 @@ export class boxuserhome extends robotapi {
     }
     consumption_danyao = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         let thing = e.msg.replace('#服用', '')
         const code = thing.split('\*')
         let [thing_name, thing_acount] = code
-        thing_acount = await Numbers(thing_acount)
+        thing_acount = await gameApi.leastOne(thing_acount)
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
@@ -75,15 +69,15 @@ export class boxuserhome extends robotapi {
                         thing_acount = 2200
                     }
                     const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Practice
-                    const CDid = '12'
+                    const CDID = '12'
                     const now_time = new Date().getTime()
-                    const CD = await GenerateCD(UID, CDid)
-                    if (CD != 0) {
+                    const { CDMSG } = await gameApi.cooling({ UID, CDID })
+                    if (CDMSG) {
                         experience = 0
-                        e.reply(CD)
+                        e.reply(CDMSG)
                     }
-                    await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-                    await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
+                    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
+                    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
                     const player = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     switch (id[2]) {
                         //下品
@@ -139,8 +133,10 @@ export class boxuserhome extends robotapi {
     }
     add_gongfa = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#学习', '')
@@ -153,7 +149,7 @@ export class boxuserhome extends robotapi {
         if (id[0] != 5) {
             return
         }
-        const talent = await gameApi.userMsgAction({NAME:UID,CHOICE:'user_talent'})
+        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
             e.reply('学过了')
@@ -165,7 +161,7 @@ export class boxuserhome extends robotapi {
         }
         talent.AllSorcery.push(najie_thing)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-        await player_efficiency(UID)
+        await gameApi.updataUserEfficiency({UID})
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
@@ -174,12 +170,14 @@ export class boxuserhome extends robotapi {
     }
     delete_gongfa = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#忘掉', '')
-        const talent = await gameApi.userMsgAction({NAME:UID,CHOICE:'user_talent'})
+        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
             e.reply(`没学过${thing_name}`)
@@ -187,7 +185,7 @@ export class boxuserhome extends robotapi {
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-        await player_efficiency(UID)
+        await gameApi.updataUserEfficiency({UID})
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, islearned, 1)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
@@ -196,8 +194,10 @@ export class boxuserhome extends robotapi {
     }
     consumption_daoju = async (e) => {
         const UID = e.user_id
-        const ifexistplay = await existplayer(UID)
-        if (!ifexistplay) {
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#消耗', '')
@@ -225,9 +225,9 @@ export class boxuserhome extends robotapi {
                         break
                     }
                     const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
-                    talent.talent = await get_talent()
+                    talent.talent = await gameApi.getTalent()
                     await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-                    await player_efficiency(UID)
+                    await gameApi.updataUserEfficiency({UID})
                     const img = await get_player_img(e.user_id)
                     e.reply(img)
                     break
