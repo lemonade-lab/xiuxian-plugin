@@ -3,9 +3,6 @@ import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 import { monsterbattle } from '../../model/game/public/battel.js'
-
-//tudo
-import { Add_experiencemax } from '../../model/public.js'
 export class boxbattlesite extends robotapi {
     constructor() {
         super(superIndex([
@@ -91,9 +88,9 @@ export class boxbattlesite extends robotapi {
                 }
             }
             if (m < (mon.level + 1) * 6) {
-                const qixue = mon.level * 25 * mybuff
-                msg.push(`得到${qixue}气血`)
-                await Add_experiencemax(UID, qixue)
+                const SIZE = mon.level * 25 * mybuff
+                msg.push(`得到${SIZE}气血`)
+                await gameApi.updataUser({ UID, CHOICE: 'user_level',ATTRIBUTE:'experiencemax', SIZE })
             }
             if (m < (mon.level + 1) * 7) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 2 })

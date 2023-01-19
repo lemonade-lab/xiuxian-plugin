@@ -2,14 +2,6 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
-
-
-//tudo
-import {
-    Add_experience,
-    Add_blood,
-    Add_experiencemax
-} from '../../model/public.js'
 export class boxplayercontrol extends robotapi {
     constructor() {
         super(superIndex([
@@ -154,9 +146,7 @@ export class boxplayercontrol extends robotapi {
                 other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).biguan.size * time * mybuff)
                 msg.push(`\n闭关结束,得到了${other}修为`)
             }
-            await Add_experience(UID, other)
-            await Add_blood(UID, 90)
-            msg.push('\n血量恢复至90%')
+            await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: other })
         } else {
             if (rand < 20) {
                 other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).work.size * time * mybuff / 2)
@@ -165,10 +155,10 @@ export class boxplayercontrol extends robotapi {
                 other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).work.size * time * mybuff)
                 msg.push(`\n降妖回来,得到了${other}气血`)
             }
-            await Add_experiencemax(UID, other)
-            await Add_blood(UID, 90)
-            msg.push('\n血量恢复至90%')
+            await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: other })
         }
+        await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
+        msg.push('\n血量恢复至90%')
         msg.push('\n' + name + '结束')
         await botApi.forwardMsg({ e, data: msg })
         return

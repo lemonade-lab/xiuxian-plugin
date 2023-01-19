@@ -46,9 +46,12 @@ class GameApi {
     randomThing = async () => {
         return await gameUser.randomThing()
     }
-
-
-
+    updataUser=async(parameter)=>{
+        return await gameUser.updataUser(parameter)
+    }
+    updataUserBlood=async(parameter)=>{
+        return  await gameUser.updataUserBlood(parameter)
+    }
     /**
      * 查表行为
      */

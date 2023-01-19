@@ -5,11 +5,6 @@ import gameApi from '../../model/api/api.js'
 
 //tudo
 import { get_player_img } from '../../model/showdata.js'
-import {
-    Add_experiencemax,
-    Add_blood,
-    Add_experience
-} from '../../model/public.js'
 export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
@@ -59,7 +54,7 @@ export class boxuserhome extends robotapi {
         switch (id[1]) {
             case '1': {
                 let blood = parseInt(najie_thing.blood)
-                await Add_blood(UID, blood)
+                await gameApi.updataUserBlood({ UID, SIZE: Number(blood) })
                 e.reply(`血量至${blood}%`)
                 break
             }
@@ -113,14 +108,14 @@ export class boxuserhome extends robotapi {
                     }
                 }
                 if (experience > 0) {
-                    await Add_experience(UID, thing_acount * experience)
+                    await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: thing_acount * experience })
                 }
                 e.reply(`修为+${thing_acount * experience}`)
                 break
             }
             case '3': {
                 let experiencemax = parseInt(najie_thing.experiencemax)
-                await Add_experiencemax(UID, thing_acount * experiencemax)
+                await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: thing_acount * experiencemax })
                 e.reply(`气血+${thing_acount * experiencemax}`)
                 break
             }

@@ -401,16 +401,16 @@ class GameUser {
     }
 
     /**
-     * 更新玩家的数值
-     * @param {*} parameter 
+     * 表名，地址，属性，大小
+     * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter 
      * @returns 
      */
     updataUser = async (parameter) => {
         const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
         //读取原数据
-        const data = await this.userMsgAction({ CHOICE: CHOICE, NAME: UID })
+        const data = await this.userMsgAction({ NAME: UID, CHOICE: CHOICE })
         data[ATTRIBUTE] += Math.trunc(SIZE)
-        await this.userMsgAction({ CHOICE: CHOICE, NAME: UID, DATA: data })
+        await this.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
         return
     }
 
@@ -463,6 +463,14 @@ class GameUser {
     randomThing = async () => {
         const dropsItemList = await listdata.listAction({ NAME: 'dropsItem', CHOICE: 'generate_all' })
         return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
+    }
+
+    updataUserBlood = async (parameter) => {
+        const { UID, SIZE } = parameter
+        const battle = await this.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        battle.nowblood = Math.floor(battle.blood * SIZE * 0.01)
+        await await this.userMsgAction({ NAME: UID, CHOICE: 'user_battle', DATA: battle })
+        return
     }
 
 }
