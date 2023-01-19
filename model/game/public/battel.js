@@ -98,8 +98,8 @@ class gameBattle {
             'hurtA': 0,
             'hurtB': 0
         }
-        const battleA = await Read_battle(A)
-        const battleB = await Read_battle(B)
+        const battleA = await gameUser.userMsgAction({ NAME: A, CHOICE: 'user_battle' })
+        const battleB = await gameUser.userMsgAction({ NAME: B, CHOICE: 'user_battle' })
         battle_msg.QQ = A
         if (battleA.speed >= battleB.speed - 5) {
             battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
