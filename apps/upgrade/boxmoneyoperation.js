@@ -56,7 +56,7 @@ export class boxmoneyoperation extends robotapi {
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, randomthing, Number(1))
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
-        await gameApi.userBag({ UID: A, name: '下品灵石', ACCOUNT: Number(10) })
+        await gameApi.userBag({ UID: UID, name: '下品灵石', ACCOUNT: Number(10) })
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗下品灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n并放进了#储物袋`)
         return
