@@ -99,7 +99,7 @@ class GameApi {
     monsterbattle = async (parameter) => {
         return await gameBattle.monsterbattle(parameter)
     }
-    monsterscache = async (parameter) => {
+    battle = async (parameter) => {
         return await gameBattle.battle(parameter)
     }
 
