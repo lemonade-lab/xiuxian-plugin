@@ -43,11 +43,11 @@ export class boxmoneyoperation extends robotapi {
         }
         const level = await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id != 1) {
-            console.log(level)
+            e.reply('[修仙联盟]方正\n前辈莫要开玩笑')
             return
         }
         if (action.newnoe != 1) {
-            console.log(action)
+            e.reply('[修仙联盟]方正\n道友要不仔细看看自己的储物袋')
             return
         }
         action.newnoe = 0
