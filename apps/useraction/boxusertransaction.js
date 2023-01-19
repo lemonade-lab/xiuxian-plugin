@@ -161,9 +161,9 @@ export class boxusertransaction extends robotapi {
             return
         }
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
+        najie = await Add_najie_thing(najie, najie_thing, -quantity)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
-        const commodities_price = najie_thing.price * the.quantity
+        const commodities_price = najie_thing.price * quantity
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: commodities_price })
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
