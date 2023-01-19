@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { exist_najie_thing_name, Add_najie_thing } from '../../model/public.js'
-import { battle } from '../../model/public.js'
+import { battle } from '../../model/game/public/battel.js'
 import botApi from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxbattle extends robotapi {
@@ -68,14 +67,12 @@ export class boxbattle extends robotapi {
             e.reply(CDMSG)
             return
         }
-        const najie_thing = await exist_najie_thing_name(user.A, '决斗令')
-        if (najie_thing == 1) {
+        const najie_thing = await gameApi.userBagSearch({ UID, name: '决斗令' })
+        if (!najie_thing) {
             e.reply(`没有决斗令`)
             return
         }
-        let bag = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag' })
-        bag = await Add_najie_thing(bag, najie_thing, -1)
-        await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag', DATA: bag })
+        await gameApi.userBag({ UID: user.A, name: najie_thing.name, ACCOUNT: -1 })
         user.QQ = await battle(e, user.A, user.B)
         const Level = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_level' })
         Level.prestige += 1
@@ -93,9 +90,7 @@ export class boxbattle extends robotapi {
                 const thing = await gameApi.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await gameApi.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
-                let najie = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag' })
-                najie = await Add_najie_thing(najie, thing, thing.acount)
-                await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag', DATA: najie })
+                await gameApi.userBag({ UID: user.A, name: thing.name, ACCOUNT: thing.acount })
                 e.reply(`${user.A}夺走了${thing.name}*${thing.acount}`)
             }
         }
@@ -175,9 +170,7 @@ export class boxbattle extends robotapi {
                 const thing = await gameApi.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await gameApi.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
-                let najie = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag' })
-                najie = await Add_najie_thing(najie, thing, thing.acount)
-                await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_bag', DATA: najie })
+                await gameApi.userBag({ UID: user.A, name: thing.name, ACCOUNT: thing.acount })
                 e.reply(`${user.A}夺走了${thing.name}*${thing.acount}`)
             }
         }
@@ -196,8 +189,8 @@ export class boxbattle extends robotapi {
         const Level = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
         const money = 10000 * Level.level_id
         if (Level.prestige > 0) {
-            let thing = await exist_najie_thing_name(UID, '下品灵石')
-            if (thing == 1 || thing.acount < money) {
+            const thing = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+            if (!thing || thing.acount < money) {
                 e.reply(`[天机门]韩立\n清魔力需要${money}下品灵石`)
                 return
             }

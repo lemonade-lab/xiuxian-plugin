@@ -1,9 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { get_najie_img } from '../../model/showdata.js'
-import {
-    exist_najie_thing_name
-} from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 export class boxuserbag extends robotapi {
     constructor() {
@@ -31,7 +28,7 @@ export class boxuserbag extends robotapi {
         return
     }
     bagUp = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')
@@ -49,8 +46,8 @@ export class boxuserbag extends robotapi {
         if (!najie_price) {
             return
         }
-        let thing = await exist_najie_thing_name(UID, '下品灵石')
-        if (thing == 1 || thing.acount < najie_price) {
+        const thing = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+        if (!thing || thing.acount < najie_price) {
             e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
             return
         }

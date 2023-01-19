@@ -1,9 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import {
-    exist_najie_thing_name,
-    Add_najie_thing
-} from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 export class boxuserequipment extends robotapi {
     constructor() {
@@ -27,8 +23,8 @@ export class boxuserequipment extends robotapi {
             return
         }
         const thing_name = e.msg.replace('#装备', '')
-        const najie_thing = await exist_najie_thing_name(UID, thing_name)
-        if (najie_thing == 1) {
+        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        if (!najie_thing) {
             e.reply(`没有${thing_name}`)
             return
         }
@@ -38,9 +34,7 @@ export class boxuserequipment extends robotapi {
         }
         equipment.push(najie_thing)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, najie_thing, -1)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await gameApi.userBag({ UID, name: thing_name, ACCOUNT: -1 })
         e.reply(`装备${thing_name}`)
         return
     }
@@ -68,10 +62,7 @@ export class boxuserequipment extends robotapi {
             }
         })
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
-
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, islearned, 1)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await gameApi.userBag({ UID, name: thing_name, ACCOUNT: 1 })
         e.reply(`已卸下${thing_name}`)
         return
     }

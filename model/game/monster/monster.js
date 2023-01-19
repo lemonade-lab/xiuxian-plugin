@@ -6,8 +6,8 @@ const name2 = ['兵', '将', '兽', '魔', '妖', '大妖', '王', '皇', '帝',
  * 怪物生成
  */
 class GameMonster {
-    constructor() { }
-    monsterscache = async (i) => {
+    monsterscache = async (parameter) => {
+        const { i } = parameter
         if (!alldata.hasOwnProperty(i)) {
             alldata[i] = {
                 'label': 99,
@@ -29,7 +29,8 @@ class GameMonster {
             return data
         }
     }
-    add = async (i, num) => {
+    add = async (parameter) => {
+        const { i, num } = parameter
         if (!addall.hasOwnProperty(i)) {
             addall[i] = {
                 'acount': 0
@@ -43,7 +44,8 @@ class GameMonster {
         }
         return 0
     }
-    generateMonster = async (i) => {
+    generateMonster = async (parameter) => {
+        const { i } = parameter
         const time = new Date()
         const map = {
             '1': '1.3',
@@ -76,4 +78,4 @@ class GameMonster {
         return alldata[i].data
     }
 }
-export default   new GameMonster()
+export default new GameMonster()

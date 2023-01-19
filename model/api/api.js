@@ -16,6 +16,8 @@ import userAction from '../game/user/action.js'
 import userData from '../game/user/data.js'
 
 import gameMap from '../game/public/map.js'
+
+import gameMonster from '../game/monster/monster.js'
 class GameApi {
     /**
      * 用户类
@@ -73,6 +75,17 @@ class GameApi {
         return await gameMap.mapExistence(parameter)
     }
 
+
+    /**
+     * 怪物
+     */
+
+    add = async (parameter) => {
+        return await gameMonster.add(parameter)
+    }
+    monsterscache = async (parameter) => {
+        return await gameMonster.monsterscache(parameter)
+    }
 
     /**
      * 得到灵根

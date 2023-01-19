@@ -1,6 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { exist_najie_thing_name } from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 const forwardsetTime = []
@@ -199,8 +198,8 @@ export class boxsecretplace extends robotapi {
             return
         }
         const lingshi = 1000
-        let money = await exist_najie_thing_name(UID, '下品灵石')
-        if (money == 1 || money.acount < lingshi) {
+        const money = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+        if (!money|| money.acount < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}下品灵石`)
             return
         }

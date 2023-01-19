@@ -1,8 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import {
-    exist_najie_thing_name
-} from '../../model/public.js'
 import { get_player_img } from '../../model/showdata.js'
 import gameApi from '../../model/api/api.js'
 export class boxusermodify extends robotapi {
@@ -44,9 +41,9 @@ export class boxusermodify extends robotapi {
             e.reply('这名可真是稀奇')
             return
         }
-        let thing = await exist_najie_thing_name(UID, '下品灵石')
-        if (thing == 1 || thing.acount < lingshi) {
-            e.reply([segment.at(UID), `似乎没有${lingshi}下品灵石`])
+        const thing = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+        if (!thing|| thing.acount < lingshi) {
+            e.reply(`似乎没有${lingshi}下品灵石`)
             return
         }
         const CDID = '3'

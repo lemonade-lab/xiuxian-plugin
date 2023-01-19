@@ -1,8 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import Cachemonster from '../../model/cachemonster.js'
-import { Add_experiencemax, Add_najie_thing } from '../../model/public.js'
-import { monsterbattle } from '../../model/public.js'
+import { Add_experiencemax } from '../../model/public.js'
+import { monsterbattle } from '../../model/game/public/battel.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 export class boxbattlesite extends robotapi {
@@ -44,13 +43,13 @@ export class boxbattlesite extends robotapi {
         }
         const name = e.msg.replace('#击杀', '')
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        const monstersdata = await Cachemonster.monsterscache(action.region)
+        const monstersdata = await gameApi.monsterscache({ i: action.region })
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
             e.reply(`这里没有${name},去别处看看吧`)
             return
         }
-        const acount = await Cachemonster.add(action.region, Number(1))
+        const acount = await gameApi.add({ i: action.region, num: Number(1) })
         const msg = [`${UID}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`]
         const buff = {
             "msg": 1
@@ -83,9 +82,8 @@ export class boxbattlesite extends robotapi {
                 const randomthinf = await gameApi.randomThing()
                 let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
-                    najie = await Add_najie_thing(najie, randomthinf, 1)
+                    await gameApi.userBag({ UID, name: randomthinf.name, ACCOUNT: randomthinf.acount })
                     msg.push(`得到[${randomthinf.name}]`)
-                    await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
                 } else {
                     msg.push('储物袋已满')
                 }
@@ -134,7 +132,7 @@ export class boxbattlesite extends robotapi {
         const UID = e.user_id
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const msg = []
-        const monster = await Cachemonster.monsterscache(action.region)
+        const monster = await gameApi.monsterscache({ i: action.region })
         monster.forEach((item) => {
             msg.push(
                 '怪名:' + item.name + '\n' +

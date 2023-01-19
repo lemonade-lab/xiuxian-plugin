@@ -1,9 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import {
-    Add_najie_thing,
-    exist_najie_thing_name
-} from '../../model/public.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
 export class boxmoneyoperation extends robotapi {
@@ -53,10 +49,8 @@ export class boxmoneyoperation extends robotapi {
         action.newnoe = 0
         await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
         const randomthing = await gameApi.randomThing()
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, randomthing, Number(1))
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
-        await gameApi.userBag({ UID: UID, name: '下品灵石', ACCOUNT: Number(10) })
+        await gameApi.userBag({ UID, name: randomthing.name, ACCOUNT: randomthing.acount })
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: Number(10) })
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗下品灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n并放进了#储物袋`)
         return
@@ -91,9 +85,9 @@ export class boxmoneyoperation extends robotapi {
         }
         let islingshi = e.msg.replace('#赠送灵石', '')
         const lingshi = await gameApi.leastOne({ value: islingshi })
-        let thing = await exist_najie_thing_name(A, '下品灵石')
-        if (thing == 1 || thing.acount < lingshi) {
-            e.reply([botApi.segmentAt(A), `似乎没有${lingshi}下品灵石`])
+        const money = await gameApi.userBagSearch({ UID:A, name: '下品灵石' })
+        if (!money|| thing.acount < lingshi) {
+            e.reply(`似乎没有${lingshi}下品灵石`)
             return
         }
         const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Transfer

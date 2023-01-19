@@ -2,9 +2,7 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { get_player_img } from '../../model/showdata.js'
 import {
-    exist_najie_thing_name,
     Add_experiencemax,
-    Add_najie_thing,
     Add_blood,
     Add_experience
 } from '../../model/public.js'
@@ -45,8 +43,8 @@ export class boxuserhome extends robotapi {
         const code = thing.split('\*')
         let [thing_name, thing_acount] = code
         thing_acount = await gameApi.leastOne({ value: thing_acount })
-        const najie_thing = await exist_najie_thing_name(UID, thing_name)
-        if (najie_thing == 1) {
+        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        if (!najie_thing) {
             e.reply(`没有${thing_name}`)
             return
         }
@@ -126,9 +124,7 @@ export class boxuserhome extends robotapi {
             default: {
             }
         }
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, najie_thing, -thing_acount)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -thing_acount })
         return
     }
     add_gongfa = async (e) => {
@@ -140,9 +136,9 @@ export class boxuserhome extends robotapi {
             return
         }
         const thing_name = e.msg.replace('#学习', '')
-        const najie_thing = await exist_najie_thing_name(UID, thing_name)
-        if (najie_thing == 1) {
-            e.reply(`没有[${thing_name}]`)
+        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        if (!najie_thing) {
+            e.reply(`没有${thing_name}`)
             return
         }
         const id = najie_thing.id.split('-')
@@ -162,9 +158,7 @@ export class boxuserhome extends robotapi {
         talent.AllSorcery.push(najie_thing)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await gameApi.updataUserEfficiency({ UID })
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, najie_thing, -1)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         e.reply(`学习${thing_name}`)
         return
     }
@@ -186,9 +180,7 @@ export class boxuserhome extends robotapi {
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await gameApi.updataUserEfficiency({ UID })
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, islearned, 1)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await gameApi.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
         e.reply(`忘了${thing_name}`)
         return
     }
@@ -201,15 +193,13 @@ export class boxuserhome extends robotapi {
             return
         }
         const thing_name = e.msg.replace('#消耗', '')
-        const najie_thing = await exist_najie_thing_name(UID, thing_name)
-        if (najie_thing == 1) {
-            e.reply(`没有[${thing_name}]`)
+        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        if (!najie_thing) {
+            e.reply(`没有${thing_name}`)
             return
         }
+        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         const id = najie_thing.id.split('-')
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, najie_thing, -1)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         //类型0  1  编号2
         if (id[0] != 6) {
             e.reply(`${thing_name}损坏`)
