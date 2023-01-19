@@ -1,10 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-
-
-//tudo
-import { get_player_img } from '../../model/showdata.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxuserstart extends robotapi {
     constructor() {
         super(superIndex([
@@ -27,7 +24,8 @@ export class boxuserstart extends robotapi {
             e.reply('已死亡')
             return
         }
-        const img = await get_player_img(e.user_id)
+        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const img = await botApi.showPuppeteer({ path, name, data })
         e.reply(img)
         return
     }
@@ -51,7 +49,8 @@ export class boxuserstart extends robotapi {
         life = await life.filter(item => item.qq != UID)
         await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         await gameApi.createBoxPlayer({ UID: e.user_id })
-        const img = await get_player_img(e.user_id)
+        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const img = await botApi.showPuppeteer({ path, name, data })
         e.reply(img)
         return
     }

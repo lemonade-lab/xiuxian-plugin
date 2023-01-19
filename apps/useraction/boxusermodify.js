@@ -1,10 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-
-
-//tudo
-import { get_player_img } from '../../model/showdata.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxusermodify extends robotapi {
     constructor() {
         super(superIndex([
@@ -19,7 +16,7 @@ export class boxusermodify extends robotapi {
         ]))
     }
     Change_name = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')
@@ -36,8 +33,8 @@ export class boxusermodify extends robotapi {
         if (new_name.length == 0) {
             return
         }
-        const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
-        name.forEach((item) => {
+        const keyname = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
+        keyname.forEach((item) => {
             new_name = new_name.replace(item, '')
         })
         if (new_name.length > 8) {
@@ -45,7 +42,7 @@ export class boxusermodify extends robotapi {
             return
         }
         const thing = await gameApi.userBagSearch({ UID, name: '下品灵石' })
-        if (!thing|| thing.acount < lingshi) {
+        if (!thing || thing.acount < lingshi) {
             e.reply(`似乎没有${lingshi}下品灵石`)
             return
         }
@@ -67,12 +64,13 @@ export class boxusermodify extends robotapi {
             }
         })
         await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
-        const img = await get_player_img(e.user_id)
+        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const img = await botApi.showPuppeteer({ path, name, data })
         e.reply(img)
         return
     }
     Change_autograph = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             //如果死了，就直接返回
             e.reply('已死亡')
@@ -87,8 +85,8 @@ export class boxusermodify extends robotapi {
         const player = gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
         let new_msg = e.msg.replace('#设置道宣', '')
         new_msg = new_msg.replace(' ', '')
-        const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
-        name.forEach((item) => {
+        const keyname = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
+        keyname.forEach((item) => {
             new_msg = new_msg.replace(item, '')
         })
         if (new_msg.length == 0 || new_msg.length > 50) {
@@ -107,7 +105,8 @@ export class boxusermodify extends robotapi {
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         player.autograph = new_msg
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
-        const img = await get_player_img(e.user_id)
+        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const img = await botApi.showPuppeteer({ path, name, data })
         e.reply(img)
         return
     }

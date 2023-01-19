@@ -341,6 +341,17 @@ class GameUser {
         return newtalent
     }
 
+    getTalentName = async (parameter) => {
+        const { data } = parameter
+        const nameArr = []
+        data.talent.forEach(async (talentitem) => {
+            const talentList = await listdata.listAction({ NAME: 'talent_list', CHOICE: 'fixed_talent' })
+            const name = talentList.find(item => item.id == talentitem).name
+            nameArr.push(name)
+        })
+        return nameArr
+    }
+
 
 
 

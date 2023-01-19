@@ -1,10 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-
-
-//tudo
-import { get_player_img } from '../../model/showdata.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
@@ -216,7 +213,8 @@ export class boxuserhome extends robotapi {
                     talent.talent = await gameApi.getTalent()
                     await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await gameApi.updataUserEfficiency({ UID })
-                    const img = await get_player_img(e.user_id)
+                    const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+                    const img = await botApi.showPuppeteer({ path, name, data })
                     e.reply(img)
                     break
                 }
@@ -224,7 +222,8 @@ export class boxuserhome extends robotapi {
                     const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talentshow = 0
                     await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-                    const img = await get_player_img(e.user_id)
+                    const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+                    const img = await botApi.showPuppeteer({ path, name, data })
                     e.reply(img)
                     break
                 }

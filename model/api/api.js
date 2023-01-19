@@ -20,6 +20,8 @@ import gameMap from '../game/public/map.js'
 import gameMonster from '../game/monster/monster.js'
 
 import gameBattle from '../game/public/battel.js'
+
+import information from '../game/user/information.js'
 class GameApi {
     /**
      * 用户类
@@ -64,6 +66,25 @@ class GameApi {
         return await userData.listActionArr(parameter)
     }
 
+    /**
+     * 数据合集
+     */
+
+    userBagShow = async (parameter) => {
+        return await information.userBagShow(parameter)
+    }
+
+    userEquipmentShow = async (parameter) => {
+        return await information.userEquipmentShow(parameter)
+    }
+
+    userDataShow = async (parameter) => {
+        return await information.userDataShow(parameter)
+    }
+
+
+    
+
 
     /**
      * 地图
@@ -79,6 +100,8 @@ class GameApi {
     mapExistence = async (parameter) => {
         return await gameMap.mapExistence(parameter)
     }
+
+
 
 
     /**

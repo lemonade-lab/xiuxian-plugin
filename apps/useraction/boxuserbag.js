@@ -1,10 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-
-
-//tudo
-import { get_najie_img } from '../../model/showdata.js'
+import botApi from '../../model/robot/api/botapi.js'
 export class boxuserbag extends robotapi {
     constructor() {
         super(superIndex([
@@ -26,8 +23,9 @@ export class boxuserbag extends robotapi {
             e.reply('已死亡')
             return
         }
-        const img = await get_najie_img(e.user_id)
-        e.reply(img)
+        const { path, name, data } = await gameApi.userBagShow({ UID })
+        const img = await botApi.showPuppeteer({ path, name, data })
+        await e.reply(img)
         return
     }
     bagUp = async (e) => {
