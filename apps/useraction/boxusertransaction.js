@@ -18,7 +18,7 @@ export class boxusertransaction extends robotapi {
                 fnc: 'Sell_comodities'
             },
             {
-                reg: '^#凡仙堂$',
+                reg: '^#万宝楼$',
                 fnc: 'ningmenghome',
             },
         ]))
@@ -32,14 +32,14 @@ export class boxusertransaction extends robotapi {
             return
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        const address_name = '凡仙堂'
+        const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
         const msg = [
-            '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
+            '___[万宝楼]___\n#购买+物品名*数量\n不填数量,默认为1'
         ]
         const commodities_list = await gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         commodities_list.forEach((item) => {
@@ -93,7 +93,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        const address_name = '凡仙堂'
+        const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
@@ -108,7 +108,7 @@ export class boxusertransaction extends robotapi {
         const Commodities = await gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         const ifexist = Commodities.find(item => item.name == thing_name)
         if (!ifexist) {
-            e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
+            e.reply(`[万宝楼]小二\n不卖:${thing_name}`)
             return
         }
         let money = await exist_najie_thing_name(UID, '下品灵石')
@@ -122,7 +122,7 @@ export class boxusertransaction extends robotapi {
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, ifexist, quantity)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
-        e.reply(`[凡仙堂]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
+        e.reply(`[万宝楼]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
     Sell_comodities = async (e) => {
@@ -137,7 +137,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        const address_name = '凡仙堂'
+        const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
 
         if (!map) {
@@ -153,11 +153,11 @@ export class boxusertransaction extends robotapi {
         }
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
-            e.reply(`[凡仙堂]小二\n你没[${thing_name}]`)
+            e.reply(`[万宝楼]小二\n你没[${thing_name}]`)
             return
         }
         if (najie_thing.acount < quantity) {
-            e.reply('[凡仙堂]小二\n数量不足')
+            e.reply('[万宝楼]小二\n数量不足')
             return
         }
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
@@ -165,7 +165,7 @@ export class boxusertransaction extends robotapi {
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         const commodities_price = najie_thing.price * quantity
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: commodities_price })
-        e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}下品灵石 `)
+        e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
     }
 }
