@@ -147,25 +147,21 @@ export class boxusertransaction extends robotapi {
         const thing = e.msg.replace('#出售', '')
         const code = thing.split('\*')
         const [thing_name, thing_acount] = code//数量
-        const the = {
-            "quantity": 99,
-            "najie": {}
-        }
-        the.quantity = await gameApi.leastOne({ value: thing_acount })
-        if (the.quantity > 99) {
-            the.quantity = 99
+        let quantity = await gameApi.leastOne({ value: thing_acount })
+        if (quantity > 99) {
+            quantity = 99
         }
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`[凡仙堂]小二\n你没[${thing_name}]`)
             return
         }
-        if (najie_thing.acount < the.quantity) {
+        if (najie_thing.acount < quantity) {
             e.reply('[凡仙堂]小二\n数量不足')
             return
         }
-        the.najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
+        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         const commodities_price = najie_thing.price * the.quantity
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: commodities_price })
