@@ -98,17 +98,17 @@ export class boxbattlesite extends robotapi {
             if (m < (mon.level + 1) * 7) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 2 })
                 msg.push(`得到${lingshi}上品灵石`)
-                await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: -lingshi })
+                await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: lingshi })
             }
             if (m < (mon.level + 1) * 8) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 20 })
                 msg.push(`得到${lingshi}中品灵石`)
-                await gameApi.userBag({ UID, name: '中品灵石', ACCOUNT: -lingshi })
+                await gameApi.userBag({ UID, name: '中品灵石', ACCOUNT: lingshi })
             }
             if (m >= (mon.level + 1) * 9) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 200 })
                 msg.push(`得到${lingshi}下品灵石`)
-                await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
+                await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: lingshi })
             }
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)

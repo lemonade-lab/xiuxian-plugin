@@ -44,9 +44,20 @@ class GameApi {
     randomThing = async () => {
         return await gameUser.randomThing()
     }
-    listActionArr = async (parameter) => {
-        return await gameUser.listActionArr(parameter)
+
+
+
+    /**
+     * 查表行为
+     */
+    listAction = async (parameter) => {
+        return await userData.listAction(parameter)
     }
+    listActionArr = async (parameter) => {
+        return await userData.listActionArr(parameter)
+    }
+
+
     /**
      * 地图
      */
@@ -77,12 +88,6 @@ class GameApi {
         return await userAction.userLevelUp(parameter)
     }
 
-    /**
-     * 查表行为
-     */
-    listAction = async (parameter) => {
-        return await userData.listAction(parameter)
-    }
 
     /**
      * 公共类
