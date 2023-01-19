@@ -73,8 +73,8 @@ export class boxuseronekey extends robotapi {
         }
         if (!maptype.hasOwnProperty(type)) {
             e.reply(`[蜀山派]叶凡\n此处不收${type}`)
+            return
         }
-
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = 0
         najie.thing.forEach((item) => {
