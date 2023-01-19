@@ -27,7 +27,7 @@ export class boxuseronekey extends robotapi {
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({action, addressName:address_name})
+        const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -57,7 +57,7 @@ export class boxuseronekey extends robotapi {
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({action, addressName:address_name})
+        const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -74,6 +74,21 @@ export class boxuseronekey extends robotapi {
         if (!maptype.hasOwnProperty(type)) {
             e.reply(`[蜀山派]叶凡\n此处不收${type}`)
         }
+
+        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let money = 0
+        najie.thing.forEach((item) => {
+            const id = item.id.split('-')
+            //计算所有这个类型的物品价格
+            if (id[0] == maptype[type]) {
+                money += item.acount * item.price
+                //把这个物品去掉
+                item = undefined
+            }
+        });
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+        e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
 }
