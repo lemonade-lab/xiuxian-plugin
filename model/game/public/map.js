@@ -4,7 +4,7 @@ class GameMap {
     mapExistence = async (paramater) => {
         const { action, addressName } = paramater
         const point = await userData.listAction({ NAME: 'point', CHOICE: 'generate_position' })
-        for (let item in point) {
+        for (let item of point) {
             if (item.name.includes(addressName)) {
                 if (action.x == item.x && action.y == item.y) {
                     return true

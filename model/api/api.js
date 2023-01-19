@@ -113,7 +113,7 @@ class GameApi {
         return await gamePublic.Go(parameter)
     }
     GoMini = async (parameter) => {
-        return await gamePublic.Go(parameter)
+        return await gamePublic.GoMini(parameter)
     }
     offAction = async (parameter) => {
         return await gamePublic.offAction(parameter)
