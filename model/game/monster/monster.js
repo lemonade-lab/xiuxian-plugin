@@ -18,14 +18,14 @@ class GameMonster {
         const time = new Date()
         //不相等就需要委派怪物
         if (time.getHours() != alldata[i].label) {
-            const data = await this.generateMonster(i)
+            const data = await this.generateMonster({ i })
             return data
         } else {
             //万一相等也没有怪物数据呢？
             if (alldata[i].data.length != 0) {
                 return alldata[i].data
             }
-            const data = await this.generateMonster(i)
+            const data = await this.generateMonster({ i })
             return data
         }
     }
