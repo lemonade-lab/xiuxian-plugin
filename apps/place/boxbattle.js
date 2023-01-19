@@ -2,8 +2,6 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import botApi from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
-//tudo
-import { battle } from '../../model/game/public/battel.js'
 export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([
@@ -74,7 +72,7 @@ export class boxbattle extends robotapi {
             return
         }
         await gameApi.userBag({ UID: user.A, name: najie_thing.name, ACCOUNT: -1 })
-        user.QQ = await battle(e, user.A, user.B)
+        user.QQ = await gameApi.battle({ e, A: user.A, B: user.B })
         const Level = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_level' })
         Level.prestige += 1
         await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_level', DATA: Level })
@@ -154,7 +152,7 @@ export class boxbattle extends robotapi {
             e.reply(CDMSG)
             return
         }
-        user.QQ = await battle(e, user.A, user.B)
+        user.QQ = await gameApi.battle({ e, A: user.A, B: user.B })
         const Level = await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_level' })
         Level.prestige += 1
         await gameApi.userMsgAction({ NAME: user.A, CHOICE: 'user_level', DATA: Level })

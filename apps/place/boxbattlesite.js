@@ -2,7 +2,6 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
-import { monsterbattle } from '../../model/game/public/battel.js'
 export class boxbattlesite extends robotapi {
     constructor() {
         super(superIndex([
@@ -71,7 +70,7 @@ export class boxbattlesite extends robotapi {
         const battle = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-        const battle_msg = await monsterbattle(e, battle, monsters)
+        const battle_msg = await gameApi.monsterbattle({ e, battleA: battle, battleB: monsters })
         battle_msg.msg.forEach((item) => {
             msg.push(item)
         })
@@ -90,7 +89,7 @@ export class boxbattlesite extends robotapi {
             if (m < (mon.level + 1) * 6) {
                 const SIZE = mon.level * 25 * mybuff
                 msg.push(`得到${SIZE}气血`)
-                await gameApi.updataUser({ UID, CHOICE: 'user_level',ATTRIBUTE:'experiencemax', SIZE })
+                await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
             }
             if (m < (mon.level + 1) * 7) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 2 })

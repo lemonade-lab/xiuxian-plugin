@@ -18,6 +18,8 @@ import userData from '../game/user/data.js'
 import gameMap from '../game/public/map.js'
 
 import gameMonster from '../game/monster/monster.js'
+
+import gameBattle from '../game/public/battel.js'
 class GameApi {
     /**
      * 用户类
@@ -89,6 +91,20 @@ class GameApi {
     monsterscache = async (parameter) => {
         return await gameMonster.monsterscache(parameter)
     }
+
+    /**
+     * 战斗模型
+     */
+
+    monsterbattle = async (parameter) => {
+        return await gameBattle.monsterbattle(parameter)
+    }
+    monsterscache = async (parameter) => {
+        return await gameBattle.battle(parameter)
+    }
+
+    
+
 
     /**
      * 得到灵根
