@@ -78,6 +78,9 @@ export class boxmoneyoperation extends robotapi {
         }
         const A = e.user_id
         const B = await botApi.at({ e })
+        if (!B) {
+            return
+        }
         const existB = await gameApi.existUserSatus({ UID: B })
         if (!existB) {
             e.reply('已死亡')

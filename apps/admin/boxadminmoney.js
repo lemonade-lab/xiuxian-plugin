@@ -22,17 +22,18 @@ export class boxadminmoney extends robotapi {
         //得到UID
         const UID = await botApi.at({ e })
         if (!UID) {
-            const exist = await gameApi.existUserSatus({ UID })
-            if (!exist) {
-                //如果死了，就直接返回
-                e.reply('已死亡')
-                return 
-            }
+            return
+        }
+        const exist = await gameApi.existUserSatus({ UID })
+        if (!exist) {
+            //如果死了，就直接返回
+            e.reply('已死亡')
+            return
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
         const [name, acount] = thing_name.split('\*')
         const quantity = await gameApi.leastOne({ value: acount })
-        const bag = await gameApi.userBag({ UID, name, ACOUNT: quantity })
+        const bag = await gameApi.userBag({ UID, name, ACCOUNT: quantity })
         if (bag) {
             e.reply(`${UID}获得馈赠:${name}*${quantity}`)
         } else {
@@ -46,11 +47,11 @@ export class boxadminmoney extends robotapi {
         }
         const UID = await botApi.at({ e })
         if (!UID) {
-            const exist = await gameApi.existUserSatus({ UID })
-            if (exist) {
-                //如果死了，就直接返回
-                return
-            }
+            return
+        }
+        const exist = await gameApi.existUserSatus({ UID })
+        if (exist) {
+            e.reply('已死亡')
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
@@ -60,7 +61,7 @@ export class boxadminmoney extends robotapi {
             e.reply('他好穷的')
             return
         }
-        await gameApi.userBag({ UID, name: '下品灵石', ACOUNT: -lingshi })
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
         e.reply(`已扣除${lingshi}下品灵石`)
         return
     }

@@ -119,9 +119,9 @@ export class boxusertransaction extends robotapi {
         //先扣钱
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -ifexist.price * quantity })
         //重新把东西丢回去
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, ifexist, quantity)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        let bag = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        bag = await Add_najie_thing(bag, ifexist, quantity)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
         e.reply(`[万宝楼]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
@@ -160,9 +160,9 @@ export class boxusertransaction extends robotapi {
             e.reply('[万宝楼]小二\n数量不足')
             return
         }
-        let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        najie = await Add_najie_thing(najie, najie_thing, -quantity)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        let bag = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        bag = await Add_najie_thing(bag, najie_thing, -quantity)
+        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
         const commodities_price = najie_thing.price * quantity
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: commodities_price })
         e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}下品灵石 `)
