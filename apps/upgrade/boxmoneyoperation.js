@@ -52,7 +52,7 @@ export class boxmoneyoperation extends robotapi {
         }
         action.newnoe = 0
         await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-        const randomthing = await gameApi.andomThing()
+        const randomthing = await gameApi.randomThing()
         let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         najie = await Add_najie_thing(najie, randomthing, Number(1))
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
