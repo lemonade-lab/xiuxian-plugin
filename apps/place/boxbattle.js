@@ -1,8 +1,9 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { battle } from '../../model/game/public/battel.js'
 import botApi from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
+//tudo
+import { battle } from '../../model/game/public/battel.js'
 export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([

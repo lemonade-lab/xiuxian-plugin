@@ -1,9 +1,11 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { Add_experiencemax } from '../../model/public.js'
-import { monsterbattle } from '../../model/game/public/battel.js'
 import gameApi from '../../model/api/api.js'
 import botApi from '../../model/robot/api/botapi.js'
+import { monsterbattle } from '../../model/game/public/battel.js'
+
+//tudo
+import { Add_experiencemax } from '../../model/public.js'
 export class boxbattlesite extends robotapi {
     constructor() {
         super(superIndex([
