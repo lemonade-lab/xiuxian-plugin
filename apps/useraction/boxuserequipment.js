@@ -35,6 +35,7 @@ export class boxuserequipment extends robotapi {
         equipment.push(najie_thing)
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await gameApi.userBag({ UID, name: thing_name, ACCOUNT: -1 })
+        await gameApi.readPanel({ UID })
         e.reply(`装备${thing_name}`)
         return
     }
@@ -63,6 +64,7 @@ export class boxuserequipment extends robotapi {
         })
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await gameApi.userBag({ UID, name: thing_name, ACCOUNT: 1 })
+        await gameApi.readPanel({ UID })
         e.reply(`已卸下${thing_name}`)
         return
     }

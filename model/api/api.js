@@ -56,6 +56,9 @@ class GameApi {
     updataUserBlood=async(parameter)=>{
         return  await gameUser.updataUserBlood(parameter)
     }
+    readPanel=async(parameter)=>{
+        return await gameUser.readPanel(parameter)
+    }
     /**
      * 查表行为
      */

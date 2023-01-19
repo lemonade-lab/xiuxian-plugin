@@ -9,109 +9,108 @@ class GameUser {
     */
     createBoxPlayer = async (parameter) => {
         const { UID } = parameter
-        try {
 
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_player', DATA: {
-                    'autograph': '无',//道宣
-                    'days': 0//签到
-                }
-            })
-            const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
-            const LevelMaxList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_battle', DATA: {
-                    'nowblood': LevelList.find(item => item.id == 1).blood + LevelMaxList.find(item => item.id == 1).blood,//血量
-                }
-            })
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_level', DATA: {
-                    'prestige': 0,//魔力
-                    'level_id': 1,//练气境界
-                    'levelname': LevelList.find(item => item.id == 1).name,//练气名
-                    'experience': 1,//练气经验
-                    'levelmax_id': 1,//练体境界
-                    'levelnamemax': LevelMaxList.find(item => item.id == 1).name,//练体名
-                    'experiencemax': 1,//练体经验
-                    'rank_id': 0,//数组位置
-                    'rankmax_id': 0//数组位置
-                }
-            })
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_wealth', DATA: {
-                    'lingshi': 0,
-                    'xianshi': 0
-                }
-            })
-            const PosirionList = await listdata.listAction({ CHOICE: 'generate_position', NAME: 'position' })
-            const position = PosirionList.find(item => item.name == '极西')
-            const positionID = position.id.split('-')
-            const coordinate = {
-                mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
-                my: Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_player', DATA: {
+                'autograph': '无',//道宣
+                'days': 0//签到
             }
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_action', DATA: {
-                    'game': 1,//游戏状态
-                    'Couple': 1, //双修
-                    'newnoe': 1, //新人
-                    'x': coordinate.mx,
-                    'y': coordinate.my,
-                    'z': positionID[0],//位面 
-                    'region': positionID[1],//区域
-                    'address': positionID[2],//属性
-                    'Exchange': 0
-                }
-            })
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_bag', DATA: {
-                    'grade': 1,
-                    'lingshimax': 50000,  //废弃
-                    'lingshi': 0,  //废弃
-                    'thing': []
-                }
-            })
-            const newtalent = await this.getTalent()
-            await this.userMsgAction({
-                NAME: UID, CHOICE: 'user_talent', DATA: {
-                    'talent': newtalent,//灵根
-                    'talentshow': 1,//显示0,隐藏1
-                    'talentsize': 0,//天赋
-                    'AllSorcery': []//功法
-                }
-            })
-            const FullName = {
-                'full': ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
-                'name': ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+        })
+        const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
+        const LevelMaxList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_battle', DATA: {
+                'nowblood': LevelList.find(item => item.id == 1).blood + LevelMaxList.find(item => item.id == 1).blood,//血量
             }
-            const name = await gamepublic.Anyarray({ ARR: FullName['full'] }) + await gamepublic.Anyarray({ ARR: FullName['name'] })
-            const life = await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life' })
-            life.push({
-                'qq': UID,
-                'name': `${name}`,
-                'Age': 1,//年龄
-                'life': Math.floor((Math.random() * (84 - 60) + 60)), //寿命
-                'createTime': new Date().getTime(),
-                'status': 1
-            })
-            /**
-             * 更新用户表
-             */
-            await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life', DATA: life })
-            /**
-             * 更新装备
-             */
-            await this.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: [] })
-            /**
-             * 更新天赋面板
-             */
-            await this.updataUserEfficiency({ UID })
-            return true
-
+        })
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_level', DATA: {
+                'prestige': 0,//魔力
+                'level_id': 1,//练气境界
+                'levelname': LevelList.find(item => item.id == 1).name,//练气名
+                'experience': 1,//练气经验
+                'levelmax_id': 1,//练体境界
+                'levelnamemax': LevelMaxList.find(item => item.id == 1).name,//练体名
+                'experiencemax': 1,//练体经验
+                'rank_id': 0,//数组位置
+                'rankmax_id': 0//数组位置
+            }
+        })
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_wealth', DATA: {
+                'lingshi': 0,
+                'xianshi': 0
+            }
+        })
+        const PosirionList = await listdata.listAction({ CHOICE: 'generate_position', NAME: 'position' })
+        const position = PosirionList.find(item => item.name == '极西')
+        const positionID = position.id.split('-')
+        const coordinate = {
+            mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
+            my: Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         }
-        catch {
-            return false
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_action', DATA: {
+                'game': 1,//游戏状态
+                'Couple': 1, //双修
+                'newnoe': 1, //新人
+                'x': coordinate.mx,
+                'y': coordinate.my,
+                'z': positionID[0],//位面 
+                'region': positionID[1],//区域
+                'address': positionID[2],//属性
+                'Exchange': 0
+            }
+        })
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_bag', DATA: {
+                'grade': 1,
+                'lingshimax': 50000,  //废弃
+                'lingshi': 0,  //废弃
+                'thing': []
+            }
+        })
+        const newtalent = await this.getTalent()
+        await this.userMsgAction({
+            NAME: UID, CHOICE: 'user_talent', DATA: {
+                'talent': newtalent,//灵根
+                'talentshow': 1,//显示0,隐藏1
+                'talentsize': 0,//天赋
+                'AllSorcery': []//功法
+            }
+        })
+        const FullName = {
+            'full': ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+            'name': ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
         }
+        const name = await gamepublic.Anyarray({ ARR: FullName['full'] }) + await gamepublic.Anyarray({ ARR: FullName['name'] })
+        const life = await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life' })
+        life.push({
+            'qq': UID,
+            'name': `${name}`,
+            'Age': 1,//年龄
+            'life': Math.floor((Math.random() * (84 - 60) + 60)), //寿命
+            'createTime': new Date().getTime(),
+            'status': 1
+        })
+        await this.userMsgAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
+        /**
+         * 更新用户表
+         */
+        await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life', DATA: life })
+        /**
+         * 更新装备
+         */
+        await this.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: [] })
+        /**
+         * 更新天赋面板
+         */
+        await this.updataUserEfficiency({ UID })
+        /**
+         * 
+         */
+        await this.readPanel({ UID })
+        return true
     }
 
     /**
@@ -183,7 +182,8 @@ class GameUser {
     /**
      * @param {*} UID 
      * @returns 返回UID的面板
-     */ readPanel = async (UID) => {
+     */ readPanel = async (parameter) => {
+        const { UID } = parameter
         const equipment = await this.userMsgAction({ CHOICE: 'user_equipment', NAME: UID })
         const level = await this.userMsgAction({ CHOICE: 'user_level', NAME: UID })
         const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
@@ -246,7 +246,9 @@ class GameUser {
         panel.burstmax += equ.burstmax
         panel.speed += equ.speed
         panel.power = panel.attack + panel.defense + bloodLimit / 2 + panel.burst * 100 + panel.burstmax * 10 + panel.speed * 50
-        return panel
+        //不是返回,而是直接写入
+        await this.userMsgAction({ NAME: UID, CHOICE: 'user_battle', DATA: panel })
+        return
     }
 
     /**
