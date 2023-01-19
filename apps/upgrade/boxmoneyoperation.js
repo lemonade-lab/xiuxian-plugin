@@ -25,7 +25,6 @@ export class boxmoneyoperation extends robotapi {
         }
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -42,11 +41,13 @@ export class boxmoneyoperation extends robotapi {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const level = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+        const level = await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id != 1) {
+            console.log(level)
             return
         }
         if (action.newnoe != 1) {
+            console.log(action)
             return
         }
         action.newnoe = 0
