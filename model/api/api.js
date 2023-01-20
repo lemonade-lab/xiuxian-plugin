@@ -20,7 +20,7 @@ import dataIndex from '../game/data/index.js'
 // }
 
 
-import {user} from '.../'
+// import {user} from '.../'
 
 
 
