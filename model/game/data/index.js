@@ -21,7 +21,7 @@ export const __PATH = {
     'fixed_position': path.join(__dirname, '/resources/data/fixed/position'),
     'fixed_equipment': path.join(__dirname, '/resources/data/fixed/equipment'),
     'fixed_goods': path.join(__dirname, '/resources/data/fixed/goods'),
-    'fixed_level': path.join(__dirname, '/resources/data/fixed/Level'),
+    'fixed_level': path.join(__dirname, '/resources/data/fixed/level'),
     'fixed_occupation': path.join(__dirname, '/resources/data/fixed/occupation'),
     'fixed_talent': path.join(__dirname, '/resources/data/fixed/talent'),
     //管理员自定义表
@@ -29,7 +29,7 @@ export const __PATH = {
     //生成信息
     'generate_all': path.join(__dirname, '/resources/data/birth/all'),
     'generate_position': path.join(__dirname, '/resources/data/birth/position'),
-    'generate_level': path.join(__dirname, '/resources/data/birth/Level'),
+    'generate_level': path.join(__dirname, '/resources/data/birth/level'),
     'generate_plugins': path.join(__dirname, '/plugins'),
     'generate_config': path.join(__dirname, '/plugins'),
 }
