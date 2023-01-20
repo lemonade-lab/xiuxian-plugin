@@ -195,13 +195,9 @@ class gameBattle {
     //暴击率
     probability = async (P) => {
         if (P > 100) {
-            return false
+            return true
         }
-        if (P < 0) {
-            return false
-        }
-        const rand = Math.floor((Math.random() * (100 - 1) + 1))
-        if (P > rand) {
+        if (P > Math.floor((Math.random() * (100 - 1) + 1))) {
             return true
         }
         return false

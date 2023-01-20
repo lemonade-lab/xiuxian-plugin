@@ -396,24 +396,6 @@ class GameUser {
 
 
     /**
-     * @param {1-100的暴击率} P 
-     * @returns 暴击则true
-     */
-    battleProbability = async (P) => {
-        if (P > 100) {
-            return true
-        }
-        if (P < 0) {
-            return false
-        }
-        const rand = Math.floor((Math.random() * (100 - 1) + 1))
-        if (P > rand) {
-            return true
-        }
-        return false
-    }
-
-    /**
      * 表名，地址，属性，大小
      * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter 
      * @returns 
