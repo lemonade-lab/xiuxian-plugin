@@ -6,15 +6,15 @@ export class boxuserequipment extends robotapi {
         super(superIndex([
             {
                 reg: '^#装备.*$',
-                fnc: 'add_equipment'
+                fnc: 'addEquipment'
             },
             {
                 reg: '^#卸下.*$',
-                fnc: 'delete_equipment'
+                fnc: 'deleteEquipment'
             }
         ]))
     }
-    add_equipment = async (e) => {
+    addEquipment = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
@@ -38,7 +38,7 @@ export class boxuserequipment extends robotapi {
         e.reply(`装备${thing_name}`)
         return
     }
-    delete_equipment = async (e) => {
+    deleteEquipment = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {

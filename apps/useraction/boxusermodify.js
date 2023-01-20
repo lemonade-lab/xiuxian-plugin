@@ -7,15 +7,15 @@ export class boxusermodify extends robotapi {
         super(superIndex([
             {
                 reg: '^#改名.*$',
-                fnc: 'Change_name'
+                fnc: 'changeName'
             },
             {
                 reg: '^#设置道宣.*$',
-                fnc: 'Change_autograph'
+                fnc: 'changeAutograph'
             }
         ]))
     }
-    Change_name = async (e) => {
+    changeName = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
@@ -68,7 +68,7 @@ export class boxusermodify extends robotapi {
         e.reply(img)
         return
     }
-    Change_autograph = async (e) => {
+    changeAutograph = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')

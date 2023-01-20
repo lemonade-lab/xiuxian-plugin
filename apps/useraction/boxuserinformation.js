@@ -7,19 +7,19 @@ export class boxuserinformation extends robotapi {
         super(superIndex([
             {
                 reg: '^#基础信息$',
-                fnc: 'Show_player'
+                fnc: 'showUserMsg'
             },
             {
                 reg: '^#面板信息$',
-                fnc: 'show_equipment',
+                fnc: 'showQquipment',
             },
             {
                 reg: '^#功法信息$',
-                fnc: 'show_gongfa',
+                fnc: 'showTalent',
             }
         ]))
     }
-    Show_player = async (e) => {
+    showUserMsg = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
@@ -31,7 +31,7 @@ export class boxuserinformation extends robotapi {
         e.reply(img)
         return
     }
-    show_equipment = async (e) => {
+    showQquipment = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {

@@ -7,15 +7,15 @@ export class boxmoneyoperation extends robotapi {
         super(superIndex([
             {
                 reg: '^#赠送灵石.*$',
-                fnc: 'Give_lingshi'
+                fnc: 'giveMoney'
             },
             {
                 reg: '^#联盟报到$',
-                fnc: 'New_lingshi'
+                fnc: 'userCheckin'
             }
         ]))
     }
-    New_lingshi = async (e) => {
+    userCheckin = async (e) => {
         if (!e.isGroup) {
             return
         }
@@ -55,7 +55,7 @@ export class boxmoneyoperation extends robotapi {
         e.reply(`你对此高兴万分\n并放进了#储物袋`)
         return
     }
-    Give_lingshi = async (e) => {
+    giveMoney = async (e) => {
         if (!e.isGroup) {
             return
         }
@@ -84,8 +84,8 @@ export class boxmoneyoperation extends robotapi {
         }
         let islingshi = e.msg.replace('#赠送灵石', '')
         const lingshi = await gameApi.leastOne({ value: islingshi })
-        const money = await gameApi.userBagSearch({ UID:A, name: '下品灵石' })
-        if (!money|| thing.acount < lingshi) {
+        const money = await gameApi.userBagSearch({ UID: A, name: '下品灵石' })
+        if (!money || thing.acount < lingshi) {
             e.reply(`似乎没有${lingshi}下品灵石`)
             return
         }

@@ -7,19 +7,19 @@ export class boxusertransaction extends robotapi {
         super(superIndex([
             {
                 reg: '^#购买.*$',
-                fnc: 'Buy_comodities'
+                fnc: 'buyComodities'
             },
             {
                 reg: '^#出售.*$',
-                fnc: 'Sell_comodities'
+                fnc: 'sellComodities'
             },
             {
                 reg: '^#万宝楼$',
-                fnc: 'ningmenghome',
+                fnc: 'showComodities',
             },
         ]))
     }
-    ningmenghome = async (e) => {
+    showComodities = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
@@ -76,7 +76,7 @@ export class boxusertransaction extends robotapi {
         await botApi.forwardMsg({ e, data: msg })
         return
     }
-    Buy_comodities = async (e) => {
+    buyComodities = async (e) => {
         if (!e.isGroup) {
             return
         }
@@ -115,7 +115,7 @@ export class boxusertransaction extends robotapi {
         e.reply(`[万宝楼]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
-    Sell_comodities = async (e) => {
+    sellComodities = async (e) => {
         if (!e.isGroup) {
             return
         }

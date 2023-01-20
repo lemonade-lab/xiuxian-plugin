@@ -6,15 +6,15 @@ export class boxadmindelete extends robotapi {
         super(superIndex([
             {
                 reg: '^#修仙删除数据$',
-                fnc: 'deleteredis'
+                fnc: 'deleteRedis'
             },
             {
                 reg: '^#修仙删除世界$',
-                fnc: 'deleteallusers'
+                fnc: 'deleteAllusers'
             }   
         ]))
     }
-    deleteredis = async (e) => {
+    deleteRedis = async (e) => {
         if (!e.isMaster) {
             return
         }
@@ -22,7 +22,7 @@ export class boxadmindelete extends robotapi {
         e.reply('删除完成')
         return
     }
-    deleteallusers = async (e) => {
+    deleteAllusers = async (e) => {
         if (!e.isMaster) {
             return
         }

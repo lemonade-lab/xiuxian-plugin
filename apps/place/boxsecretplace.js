@@ -18,7 +18,7 @@ export class boxsecretplace extends robotapi {
             },
             {
                 reg: '^#回到原地$',
-                fnc: 'returnpiont'
+                fnc: 'returnPiont'
             },
             {
                 reg: '^#传送.*$',
@@ -26,11 +26,11 @@ export class boxsecretplace extends robotapi {
             },
             {
                 reg: '^#位置信息$',
-                fnc: 'show_city'
+                fnc: 'showCity'
             }
         ]))
     }
-    show_city = async (e) => {
+    showCity = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
@@ -57,7 +57,7 @@ export class boxsecretplace extends robotapi {
         await botApi.forwardMsg({ e, data: msg })
         return
     }
-    returnpiont = async (e) => {
+    returnPiont = async (e) => {
         if (!e.isGroup) {
             return
         }

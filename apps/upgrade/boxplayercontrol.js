@@ -7,11 +7,11 @@ export class boxplayercontrol extends robotapi {
         super(superIndex([
             {
                 reg: '#降妖$',
-                fnc: 'Dagong'
+                fnc: 'dagong'
             },
             {
                 reg: '#闭关$',
-                fnc: 'Biguan'
+                fnc: 'biguan'
             },
             {
                 reg: '^#出关$',
@@ -23,7 +23,7 @@ export class boxplayercontrol extends robotapi {
             }
         ]))
     }
-    Biguan = async (e) => {
+    biguan = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
@@ -44,7 +44,7 @@ export class boxplayercontrol extends robotapi {
         e.reply('开始两耳不闻窗外事...')
         return true
     }
-    Dagong = async (e) => {
+    dagong = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')

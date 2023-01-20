@@ -7,7 +7,7 @@ export class boxadminmoney extends robotapi {
         super(superIndex([
             {
                 reg: '^#修仙扣除.*$',
-                fnc: 'Deduction'
+                fnc: 'deduction'
             },
             {
                 reg: '^#修仙馈赠.*$',
@@ -39,7 +39,7 @@ export class boxadminmoney extends robotapi {
         }
         return
     }
-    Deduction = async (e) => {
+    deduction = async (e) => {
         if (!e.isMaster) {
             return
         }

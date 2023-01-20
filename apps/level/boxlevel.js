@@ -6,15 +6,15 @@ export class boxlevel extends robotapi {
         super(superIndex([
             {
                 reg: '^#突破$',
-                fnc: 'Level_up'
+                fnc: 'levelUp'
             },
             {
                 reg: '^#破体$',
-                fnc: 'LevelMax_up'
+                fnc: 'levelMaxUp'
             }
         ]))
     }
-    Level_up = async (e) => {
+    levelUp = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')
@@ -26,7 +26,7 @@ export class boxlevel extends robotapi {
         }
         return
     }
-    LevelMax_up = async (e) => {
+    levelMaxUp = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')

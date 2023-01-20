@@ -7,15 +7,15 @@ export class boxuserstart extends robotapi {
         super(superIndex([
             {
                 reg: '^#降临世界$',
-                fnc: 'Create_player'
+                fnc: 'createMsg'
             },
             {
                 reg: '^#再入仙途$',
-                fnc: 'reCreate_player'
+                fnc: 'reCreateMsg'
             }
         ]))
     }
-    Create_player = async (e) => {
+    createMsg = async (e) => {
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
@@ -29,7 +29,7 @@ export class boxuserstart extends robotapi {
         e.reply(img)
         return
     }
-    reCreate_player = async (e) => {
+    reCreateMsg = async (e) => {
         if (!e.isGroup) {
             return
         }

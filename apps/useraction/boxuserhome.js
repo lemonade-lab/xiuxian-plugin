@@ -7,23 +7,23 @@ export class boxuserhome extends robotapi {
         super(superIndex([
             {
                 reg: '^#服用.*$',
-                fnc: 'consumption_danyao'
+                fnc: 'take'
             },
             {
                 reg: '^#学习.*$',
-                fnc: 'add_gongfa'
+                fnc: 'study'
             },
             {
                 reg: '^#忘掉.*$',
-                fnc: 'delete_gongfa'
+                fnc: 'forget'
             },
             {
                 reg: '^#消耗.*$',
-                fnc: 'consumption_daoju'
+                fnc: 'consumption'
             }
         ]))
     }
-    consumption_danyao = async (e) => {
+    take = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
@@ -114,7 +114,7 @@ export class boxuserhome extends robotapi {
         await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -thing_acount })
         return
     }
-    add_gongfa = async (e) => {
+    study = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
@@ -148,7 +148,7 @@ export class boxuserhome extends robotapi {
         e.reply(`学习${thing_name}`)
         return
     }
-    delete_gongfa = async (e) => {
+    forget = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
@@ -169,7 +169,7 @@ export class boxuserhome extends robotapi {
         e.reply(`忘了${thing_name}`)
         return
     }
-    consumption_daoju = async (e) => {
+    consumption = async (e) => {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {

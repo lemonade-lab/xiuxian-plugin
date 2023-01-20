@@ -6,15 +6,15 @@ export class boxuseronekey extends robotapi {
         super(superIndex([
             {
                 reg: '^#置换所有物品$',
-                fnc: 'OneKey_all'
+                fnc: 'substitution'
             },
             {
                 reg: '^#一键出售.*$',
-                fnc: 'OneKey_type'
+                fnc: 'shellAllType'
             }
         ]))
     }
-    OneKey_all = async (e) => {
+    substitution = async (e) => {
         if (!e.isGroup) {
             return
         }
@@ -45,7 +45,7 @@ export class boxuseronekey extends robotapi {
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
-    OneKey_type = async (e) => {
+    shellAllType = async (e) => {
         if (!e.isGroup) {
             return
         }

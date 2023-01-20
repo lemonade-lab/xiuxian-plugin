@@ -7,21 +7,21 @@ export class boxtoplist extends robotapi {
         super(superIndex([
             {
                 reg: '^#杀神榜$',
-                fnc: 'TOP_prestige'
+                fnc: 'showTopPrestige'
             },
             {
                 reg: '^#至尊榜$',
-                fnc: 'TOP_genius'
+                fnc: 'showTopGenius'
             }
         ]))
     }
-    TOP_prestige = async (e) => {
+    showTopPrestige = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
         }
-        const { CacheMSG } = await botApi.readCahe({ name: 'TOP_prestige' })
+        const { CacheMSG } = await botApi.readCahe({ name: 'showTopPrestige' })
         if (CacheMSG) {
             e.reply(CacheMSG)
             return
@@ -56,19 +56,19 @@ export class boxtoplist extends robotapi {
             data: { list: list },
         })
         await botApi.addCahe({
-            name: 'TOP_prestige',
+            name: 'showTopPrestige',
             data: newimg
         })
         e.reply(newimg)
         return
     }
-    TOP_genius = async (e) => {
+    showTopGenius = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
         }
-        const { CacheMSG } = await botApi.readCahe({ name: 'TOP_genius' })
+        const { CacheMSG } = await botApi.readCahe({ name: 'showTopGenius' })
         if (CacheMSG) {
             e.reply(CacheMSG)
             return
@@ -104,7 +104,7 @@ export class boxtoplist extends robotapi {
         })
         e.reply(newimg)
         await botApi.addCahe({
-            name: 'TOP_genius',
+            name: 'showTopGenius',
             data: newimg
         })
         return

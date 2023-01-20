@@ -7,15 +7,15 @@ export class boxbattlesite extends robotapi {
         super(superIndex([
             {
                 reg: '^#击杀.*$',
-                fnc: 'Kill'
+                fnc: 'userKill'
             },
             {
                 reg: '^#探索怪物$',
-                fnc: 'Exploremonsters'
+                fnc: 'userExploremonsters'
             }
         ]))
     }
-    Kill = async (e) => {
+    userKill = async (e) => {
         if (!e.isGroup) {
             return
         }
@@ -111,7 +111,7 @@ export class boxbattlesite extends robotapi {
         await botApi.forwardMsg({ e, data: msg })
         return
     }
-    Exploremonsters = async (e) => {
+    userExploremonsters = async (e) => {
         if (!e.isGroup) {
             return
         }

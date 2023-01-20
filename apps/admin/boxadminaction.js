@@ -8,12 +8,12 @@ export class boxadminaction extends robotapi {
         super(superIndex([
             {
                 reg: '^#修仙更新',
-                fnc: 'Allforcecheckout',
+                fnc: 'allForcecheckout',
             }
         ]))
         this.key = 'xiuxian:restart'
     }
-    Allforcecheckout = async (e) => {
+    allForcecheckout = async (e) => {
         if (!e.isMaster) {
             return
         }

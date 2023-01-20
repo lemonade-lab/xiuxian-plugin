@@ -7,19 +7,19 @@ export class boxshowall extends robotapi {
         super(superIndex([
             {
                 reg: '^#修仙地图$',
-                fnc: 'show_map',
+                fnc: 'showMap',
             },
             {
                 reg: '^#修仙版本$',
-                fnc: 'show_updata',
+                fnc: 'showEdition',
             },
             {
                 reg: '^#修仙配置$',
-                fnc: 'show_config',
+                fnc: 'showConfig',
             }
         ]))
     }
-    show_map = async (e) => {
+    showMap = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')
@@ -29,7 +29,7 @@ export class boxshowall extends robotapi {
         e.reply(img)
         return
     }
-    show_updata = async (e) => {
+    showEdition = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')
@@ -45,7 +45,7 @@ export class boxshowall extends robotapi {
         e.reply(img)
         return
     }
-    show_config = async (e) => {
+    showConfig = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
             e.reply('已死亡')

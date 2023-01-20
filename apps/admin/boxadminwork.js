@@ -11,7 +11,7 @@ export class boxadminwork extends robotapi {
             },
             {
                 reg: '^#修仙复原.*$',
-                fnc: 'datarecovery'
+                fnc: 'dataRecovery'
             }
         ]))
     }
@@ -23,7 +23,7 @@ export class boxadminwork extends robotapi {
         await botApi.forwardMsg({ e, data: msg })
         return
     }
-    datarecovery = async (e) => {
+    dataRecovery = async (e) => {
         if (!e.isMaster) {
             return
         }

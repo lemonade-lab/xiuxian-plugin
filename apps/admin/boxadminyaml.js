@@ -6,11 +6,11 @@ export class boxadminyaml extends robotapi {
         super(superIndex([
             {
                 reg: '^#修仙配置更改.*',
-                fnc: 'configupdata',
+                fnc: 'configUpdata',
             }
         ]))
     }
-    configupdata = async (e) => {
+    configUpdata = async (e) => {
         if (!e.isMaster) {
             return
         }
