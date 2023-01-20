@@ -1,4 +1,7 @@
 import gameUer from '../user/user.js'
+/**
+ * 自定义冷却反馈
+ */
 const MYCD = {
     '0': '攻击',
     '1': '降妖',
@@ -14,6 +17,10 @@ const MYCD = {
     '11': '决斗',
     '12': '修行'
 }
+/**
+ * 自定义插件redis字段
+ */
+const ReadiName='xiuxian:player'
 class GamePublic {
     /**
     * 
@@ -47,7 +54,7 @@ class GamePublic {
      * @returns 
      */
     deleteReids = async () => {
-        const allkey = await redis.keys('xiuxian:*', (err, data) => { })
+        const allkey = await redis.keys(`${ReadiName}:*`, (err, data) => { })
         if (allkey) {
             allkey.forEach(async (item) => {
                 await redis.del(item)
@@ -58,9 +65,9 @@ class GamePublic {
 
     offAction = async (parameter) => {
         const { UID } = parameter
-        const exists = await redis.exists(`xiuxian:player:${UID}:action`)
+        const exists = await redis.exists(`${ReadiName}:${UID}:action`)
         if (exists == 1) {
-            await redis.del(`xiuxian:player:${UID}:action`)
+            await redis.del(`${ReadiName}:${UID}:action`)
         }
         return
     }
@@ -72,7 +79,7 @@ class GamePublic {
      */
     Go = async (parameter) => {
         const { UID } = parameter
-        let action = await redis.get(`xiuxian:player:${UID}:action`)
+        let action = await redis.get(`${ReadiName}:${UID}:action`)
         if (action != undefined) {
             action = JSON.parse(action)
             if (action.actionName == undefined) {
@@ -96,7 +103,7 @@ class GamePublic {
 
     GoMini = async (parameter) => {
         const { UID } = parameter
-        let action = await redis.get(`xiuxian:player:${UID}:action`)
+        let action = await redis.get(`${ReadiName}:${UID}:action`)
         if (action != undefined) {
             action = JSON.parse(action)
             if (action.actionName == undefined) {
@@ -121,7 +128,7 @@ class GamePublic {
      */
     cooling = async (parameter) => {
         const { UID, CDID, CDMAP } = parameter
-        const remainTime = await redis.ttl(`xiuxian:player:${UID}:${CDID}`)
+        const remainTime = await redis.ttl(`${ReadiName}:${UID}:${CDID}`)
         const time = {
             h: 0,
             m: 0,

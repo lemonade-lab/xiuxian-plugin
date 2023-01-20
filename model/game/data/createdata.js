@@ -1,48 +1,28 @@
 import fs from 'node:fs'
 import { __dirname } from '../../main.js'
 import algorithm from './algorithm.js'
+/**
+ * 自定义配置
+ */
+const configarr = ['xiuxian.yaml', 'task.yaml', 'version.yaml', 'help.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
     this.defsetpath = `${__dirname}/resources/defset/`
     this.configpath = `${__dirname}/config/`
   }
   /**
-   * 路径是绝对路径地址 {appname}/defset/help/help.yaml
-   * 配置的路径和要配置的文件名数组 如darkhelp.yaml
-   * 需要带上后缀,支持多样的配置文件
-   * @param {PATH,CONFIG} parameter 
+   * @param {name} parameter 
    * @returns 
    */
-  movePluginConfig = (parameter) => {
-    const { PATH, CONFIG } = parameter
-    const path = algorithm.returnMenu(PATH)
-    path.forEach((itempath) => {
-      CONFIG.forEach((itemconfig) => {
-        let x = `${this.configpath}${itempath}/${itemconfig}`
-        let y = `${PATH}${itempath}/${itemconfig}`
-        if (!fs.existsSync(x)) {
-          fs.cp(y, x, (err) => {
-            if (err) { }
-          })
-        } else {
-          fs.rmSync(`${x}`)
-          fs.cp(y, x, (err) => {
-            if (err) { }
-          })
-        }
-      })
-    })
-    return
-  }
   moveConfig = (parameter) => {
+    const { name } = parameter
     const path = algorithm.returnMenu(this.defsetpath)
-    const configarr = ['xiuxian.yaml', 'task.yaml', 'version.yaml', 'Help.yaml', 'Admin.yaml']
     path.forEach((itempath) => {
       configarr.forEach((itemconfig) => {
         let x = `${this.configpath}${itempath}/${itemconfig}`
         let y = `${this.defsetpath}${itempath}/${itemconfig}`
         //刷新控制
-        if (parameter) {
+        if (name) {
           //存在就复制,需要替换原文件,已达到更新的目的
           if (fs.existsSync(y)) {
             fs.cp(y, x, (err) => {
@@ -63,7 +43,7 @@ class CreateData {
   }
   //复制两个文件
   generateImg = (parameter) => {
-    const {path,name}=parameter
+    const { path, name } = parameter
     path.forEach((itempath) => {
       name.forEach((itemname) => {
         let x = `${__dirname}/resources/img/${itempath}/${itemname}`
@@ -80,13 +60,13 @@ class CreateData {
   }
   /**
    * 循环创建指定目录
-   * @param {*} arr 
+   * @param {arr} arr 
    * @returns 
    */
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => {})
+        fs.mkdir(item, (err) => { })
       }
     }
     return true

@@ -1,13 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
-//配置数据
 import createdata from './createdata.js'
-//物品数据
 import genertate from './generate.js'
 import { __dirname } from '../../main.js'
-
 import ListAction from './listaction.js'
-
 export const __PATH = {
     //玩家存档
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -50,6 +46,8 @@ class DateIndex {
         /**
          * 这里遍历底下所有.png文件名？
          */
+
+
         /**
          * 图片数据
          */
@@ -60,7 +58,7 @@ class DateIndex {
         /**
          * 生成yaml配置数据
          */
-        createdata.moveConfig()
+        createdata.moveConfig({})
         /**
          * 生成jsoon数据
          */
@@ -111,12 +109,7 @@ class DateIndex {
     addListArr = async (parameter) => {
         const { PATH, CHOICE, NAME } = parameter
         const data = await ListAction.listAction({ NAME, CHOICE })
-        genertate.newlist(__PATH[CHOICE], NAME, [
-            //这里需要读取原来的数据
-            ...data,
-            //这里放进对方要插件的数据地址
-            ...genertate.getlist(PATH, 'json')
-        ])
+        genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
         return
     }
 

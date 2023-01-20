@@ -21,7 +21,7 @@ export class boxhelp extends robotapi {
             e.reply('已死亡')
             return
         }
-        const data = await botApi.getHelp({ name: 'Help' })
+        const data = await botApi.getHelp({ name: 'help' })
         if (!data) {
             return
         }
@@ -34,7 +34,7 @@ export class boxhelp extends robotapi {
             e.reply('已死亡')
             return
         }
-        const data = await botApi.getHelp({ name: 'Admin' })
+        const data = await botApi.getHelp({ name: 'admin' })
         if (!data) {
             return
         }

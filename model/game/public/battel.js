@@ -2,7 +2,6 @@
 
 import gameUser from '../user/user.js'
 import botApi from '../../robot/api/botapi.js'
-
 class gameBattle {
     //怪物战斗
     monsterbattle = async (parameter) => {

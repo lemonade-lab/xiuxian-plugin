@@ -24,7 +24,7 @@ export class boxadminaction extends robotapi {
             name: appname,
             e
         })
-        gameApi.moveConfig('updata')
+        gameApi.moveConfig({ name: 'updata' })
         const data = {
             version: await gameApi.getConfig({
                 app: 'version',
