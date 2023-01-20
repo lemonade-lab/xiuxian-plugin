@@ -9,6 +9,6 @@
 ```
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
->查看具体功能  `#修仙帮助`     
->稳定更新指令 `#修仙更新`  
->不可通过`#全部更新`进行更新
+>查看具体功能  `#修仙帮助`   
+>查看管理功能  `#修仙管理`     
+>修仙更新指令 `#修仙更新`  

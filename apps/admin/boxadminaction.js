@@ -13,27 +13,16 @@ export class boxadminaction extends robotapi {
         ]))
         this.key = 'xiuxian:restart'
     }
-
     Allforcecheckout = async (e) => {
         if (!e.isMaster) {
             return
         }
-        const filepath = `./plugins/${appname}/plugins/`
         const cmd = 'git  pull'
-        const sum = gameApi.returnMenu(filepath)
         await botApi.execStart({
             cmd,
             cwd: `${process.cwd()}/plugins/${appname}/`,
             name: appname,
             e
-        })
-        sum.forEach(async (item) => {
-            await botApi.execStart({
-                cmd,
-                cwd: `${process.cwd()}/plugins/${appname}/plugins/${item}`,
-                name: item,
-                e
-            })
         })
         gameApi.moveConfig('updata')
         const data = {
