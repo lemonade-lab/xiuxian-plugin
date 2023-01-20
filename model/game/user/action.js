@@ -103,10 +103,12 @@ class userAction {
             player.experience -= Level.exp
         }
         await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
+        user.readPanel({UID})
         return {
             UserLevelUpMSG: `${returnTXT}`
         }
     }
+    
     //升级寿命
     userLifeUp = async (parameter) => {
         const { UID, level_id, acount } = parameter

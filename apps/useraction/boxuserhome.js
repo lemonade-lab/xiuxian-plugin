@@ -18,7 +18,6 @@ export class boxuserhome extends robotapi {
                 fnc: 'delete_gongfa'
             },
             {
-                //
                 reg: '^#消耗.*$',
                 fnc: 'consumption_daoju'
             }
