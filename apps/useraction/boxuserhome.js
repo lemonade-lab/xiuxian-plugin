@@ -6,12 +6,10 @@ export class boxuserhome extends robotapi {
     constructor() {
         super(superIndex([
             {
-                //  血量、修为、气血、
                 reg: '^#服用.*$',
                 fnc: 'consumption_danyao'
             },
             {
-                //天赋
                 reg: '^#学习.*$',
                 fnc: 'add_gongfa'
             },
@@ -30,7 +28,6 @@ export class boxuserhome extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -73,28 +70,24 @@ export class boxuserhome extends robotapi {
                     await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
                     const player = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     switch (id[2]) {
-                        //下品
                         case '1': {
                             if (player.level_id >= 3) {
                                 experience = 0
                             }
                             break
                         }
-                        //中品
                         case '2': {
                             if (player.level_id >= 5) {
                                 experience = 0
                             }
                             break
                         }
-                        //上品
                         case '3': {
                             if (player.level_id >= 7) {
                                 experience = 0
                             }
                             break
                         }
-                        //极品
                         case '4': {
                             if (player.level_id >= 9) {
                                 experience = 0
@@ -126,7 +119,6 @@ export class boxuserhome extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -161,7 +153,6 @@ export class boxuserhome extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -183,7 +174,6 @@ export class boxuserhome extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -195,12 +185,10 @@ export class boxuserhome extends robotapi {
         }
         await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         const id = najie_thing.id.split('-')
-        //类型0  1  编号2
         if (id[0] != 6) {
             e.reply(`${thing_name}损坏`)
             return
         }
-        //属性1为特效道具
         if (id[1] == 1) {
             switch (id[2]) {
                 case '1': {

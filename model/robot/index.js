@@ -13,8 +13,10 @@ class index {
     let newsum = []
     const travel = (dir, callback) => {
       fs.readdirSync(dir).forEach((file) => {
+        //屏蔽model
         let model = dir.search('model')
         if (model == -1) {
+          //resources
           let resources = dir.search('resources')
           if (resources == -1) {
             let temporary = file.search('.js')

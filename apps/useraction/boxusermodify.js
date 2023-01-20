@@ -18,7 +18,6 @@ export class boxusermodify extends robotapi {
     Change_name = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -72,7 +71,6 @@ export class boxusermodify extends robotapi {
     Change_autograph = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }

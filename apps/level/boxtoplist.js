@@ -18,7 +18,6 @@ export class boxtoplist extends robotapi {
     TOP_prestige = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -47,7 +46,6 @@ export class boxtoplist extends robotapi {
         }
         temp.sort(gameApi.sortBy('power'))
         temp.forEach((item, index) => {
-            //只要前10位
             if (index < 10) {
                 list.push(item)
             }
@@ -57,7 +55,6 @@ export class boxtoplist extends robotapi {
             name: 'toplist',
             data: { list: list },
         })
-        //添加缓存
         await botApi.addCahe({
             name: 'TOP_prestige',
             data: newimg
@@ -68,7 +65,6 @@ export class boxtoplist extends robotapi {
     TOP_genius = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -107,7 +103,6 @@ export class boxtoplist extends robotapi {
             data: { list: list },
         })
         e.reply(newimg)
-        //添加缓存
         await botApi.addCahe({
             name: 'TOP_genius',
             data: newimg

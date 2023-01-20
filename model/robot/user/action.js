@@ -1,4 +1,9 @@
 class UserAction {
+    /**
+     * 
+     * @param {e, data} parameter 
+     * @returns 
+     */
     forwardMsg = async (parameter) => {
         const { e, data } = parameter
         const msgList = []

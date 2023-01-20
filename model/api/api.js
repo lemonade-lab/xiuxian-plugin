@@ -1,28 +1,15 @@
-//公共类
 import gamePublic from '../game/public/public.js'
-//用户类
 import gameUser from '../game/user/user.js'
-//配置类
 import defsetUpdata from '../game/data/defset/updata.js'
-
 import schedule from '../game/data/schedule.js'
-
 import algorithm from '../game/data/algorithm.js'
-
 import createdata from '../game/data/createdata.js'
-
 import userAction from '../game/user/action.js'
-
 import userData from '../game/user/data.js'
-
 import gameMap from '../game/public/map.js'
-
 import gameMonster from '../game/monster/monster.js'
-
 import gameBattle from '../game/public/battel.js'
-
 import information from '../game/user/information.js'
-
 import dataIndex from '../game/data/index.js'
 class GameApi {
     /**
@@ -88,9 +75,6 @@ class GameApi {
     }
 
 
-
-
-
     /**
      * 地图
      */
@@ -105,8 +89,6 @@ class GameApi {
     mapExistence = async (parameter) => {
         return await gameMap.mapExistence(parameter)
     }
-
-
 
 
     /**
@@ -130,8 +112,6 @@ class GameApi {
     battle = async (parameter) => {
         return await gameBattle.battle(parameter)
     }
-
-
 
 
     /**
@@ -178,14 +158,12 @@ class GameApi {
     offAction = async (parameter) => {
         return await gamePublic.offAction(parameter)
     }
-    /**
-     * 
-     * @param {*} parameter 
-     * @returns 
-     */
+
+
     Anyarray = async (parameter) => {
         return await gamePublic.Anyarray(parameter)
     }
+
     /**
      * 配置类
      */
@@ -195,6 +173,7 @@ class GameApi {
     updateConfig = (parameter) => {
         return defsetUpdata.updataConfig(parameter)
     }
+
     /**
      * 备份类
      */
@@ -229,6 +208,7 @@ class GameApi {
     addListArr = async (parameter) => {
         return await dataIndex.addListArr(parameter)
     }
+    
 
 }
 export default new GameApi()

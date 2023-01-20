@@ -21,7 +21,6 @@ export class boxuseronekey extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -42,7 +41,6 @@ export class boxuseronekey extends robotapi {
         }
         bag.thing = []
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
-        //先把物品都清除了,再兑换成下品灵石
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: money })
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
@@ -54,7 +52,6 @@ export class boxuseronekey extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -83,10 +80,8 @@ export class boxuseronekey extends robotapi {
         const arr = []
         bag.thing.forEach((item, index) => {
             const id = item.id.split('-')
-            //计算所有这个类型的物品价格
             if (id[0] == maptype[type]) {
                 money += Number(item.acount * item.price)
-                //把这个物品去掉
             } else {
                 arr.push(item)
             }

@@ -14,14 +14,11 @@ class GameMonster {
                 'data': []
             }
         }
-        //看看现在就时间
         const time = new Date()
-        //不相等就需要委派怪物
         if (time.getHours() != alldata[i].label) {
             const data = await this.generateMonster({ i })
             return data
         } else {
-            //万一相等也没有怪物数据呢？
             if (alldata[i].data.length != 0) {
                 return alldata[i].data
             }
@@ -62,10 +59,8 @@ class GameMonster {
             '12': '2.5',
             '13': '7.10'
         }
-        //根据地图id来控制怪物范围
         const [mini, max] = map[i].split('.')
         alldata[i].label = time.getHours()
-        //清空前一个怪物数据
         alldata[i].data = []
         for (var j = 0; j < max; j++) {
             let y = Math.floor(Math.random() * (max - mini + 1) + Number(mini))

@@ -4,9 +4,6 @@ import gameApi from '../../model/api/api.js'
 export class boxusertask extends robotapi {
     constructor() {
         super(superIndex([]))
-        //意思就是继承过来的机器人函数在配置task后会执行指定函数？
-        //这个配置其实可以自己写
-        //tudo
         this.task = {
             cron: gameApi.getConfig({ app: 'task', name: 'task' }).LifeTask,
             name: 'LifeTask',

@@ -26,7 +26,6 @@ export class boxplayercontrol extends robotapi {
     Biguan = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -48,7 +47,6 @@ export class boxplayercontrol extends robotapi {
     Dagong = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -74,7 +72,6 @@ export class boxplayercontrol extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -105,7 +102,6 @@ export class boxplayercontrol extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -119,7 +115,6 @@ export class boxplayercontrol extends robotapi {
         }
         const startTime = action.startTime
         const timeUnit = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).work.time
-        //分钟
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')

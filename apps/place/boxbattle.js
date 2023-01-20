@@ -25,7 +25,6 @@ export class boxbattle extends robotapi {
         }
         const existA = await gameApi.existUserSatus({ UID: e.user_id })
         if (!existA) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -103,7 +102,6 @@ export class boxbattle extends robotapi {
         }
         const existA = await gameApi.existUserSatus({ UID: e.user_id })
         if (!existA) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -181,7 +179,6 @@ export class boxbattle extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }

@@ -9,7 +9,6 @@ class GameUser {
     */
     createBoxPlayer = async (parameter) => {
         const { UID } = parameter
-
         await this.userMsgAction({
             NAME: UID, CHOICE: 'user_player', DATA: {
                 'autograph': '无',//道宣
@@ -294,10 +293,11 @@ class GameUser {
 
 
     /**
- * 
- * @param {灵根数据} data 
- * @returns 灵根天赋值
- */talentSize = async (data) => {
+    * 
+    * @param {灵根数据} data 
+    * @returns 灵根天赋值
+    */
+    talentSize = async (data) => {
         let talent_size = 250
         //根据灵根数来判断
         for (let i = 0; i < data.length; i++) {
@@ -312,10 +312,11 @@ class GameUser {
         return talent_size
     }
 
-/**
- * 
- * @returns 随机生成灵根
- */getTalent = async () => {
+    /**
+     * 
+     * @returns 随机生成灵根
+     */
+    getTalent = async () => {
         //存储灵根
         const newtalent = []
         //初始灵根数

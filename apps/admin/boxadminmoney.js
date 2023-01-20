@@ -19,14 +19,12 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        //得到UID
         const UID = await botApi.at({ e })
         if (!UID) {
             return
         }
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }

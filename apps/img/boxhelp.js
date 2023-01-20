@@ -18,7 +18,6 @@ export class boxhelp extends robotapi {
     Xiuxianhelp = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -32,7 +31,6 @@ export class boxhelp extends robotapi {
     adminsuper = async (e) => {
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }

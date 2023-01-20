@@ -16,12 +16,12 @@ const MYCD = {
 }
 class GamePublic {
     /**
- * 
- * @param {数组} ARR 
- * @returns 随机一个元素
- */
+    * 
+    * @param {数组} ARR 
+    * @returns 随机一个元素
+    */
     Anyarray = (parameter) => {
-        const {ARR}=parameter
+        const { ARR } = parameter
         const randindex = Math.trunc(Math.random() * ARR.length)
         return ARR[randindex]
     }
@@ -112,8 +112,6 @@ class GamePublic {
         return {}
     }
 
-
-
     /**
      * 检测CD
      * @param {*} uid 
@@ -158,9 +156,10 @@ class GamePublic {
     }
 
     /**
- * 对象数组排序
- * 从大到小
- */ sortBy = (field) => {
+    * 对象数组排序
+    * 从大到小
+    */
+    sortBy = (field) => {
         return (b, a) => {
             return a[field] - b[field]
         }
@@ -168,10 +167,11 @@ class GamePublic {
 
 
 
-/**
- * @param {消息内容} data 
- * @returns 
- */ forwardMsg = async (data) => {
+    /**
+     * @param {消息内容} data 
+     * @returns 
+      */
+    forwardMsg = async (data) => {
         const msgList = []
         data.forEach((item) => {
             msgList.push({

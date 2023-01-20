@@ -1,5 +1,4 @@
 import config from '../data/defset/updata.js'
-//跟yunzai需要一个自己的读取
 import { appname } from '../../main.js'
 /**
  * 生成帮助图

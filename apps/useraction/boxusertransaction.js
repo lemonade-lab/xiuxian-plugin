@@ -23,7 +23,6 @@ export class boxusertransaction extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -84,7 +83,6 @@ export class boxusertransaction extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -112,7 +110,6 @@ export class boxusertransaction extends robotapi {
             e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
             return
         }
-        //先扣钱
         await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -ifexist.price * quantity })
         await gameApi.userBag({ UID, name: ifexist.name, ACCOUNT: quantity })
         e.reply(`[万宝楼]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
@@ -125,7 +122,6 @@ export class boxusertransaction extends robotapi {
         const UID = e.user_id
         const exist = await gameApi.existUserSatus({ UID })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -139,7 +135,7 @@ export class boxusertransaction extends robotapi {
         }
         const thing = e.msg.replace('#出售', '')
         const code = thing.split('\*')
-        const [thing_name, thing_acount] = code//数量
+        const [thing_name, thing_acount] = code
         let quantity = await gameApi.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99

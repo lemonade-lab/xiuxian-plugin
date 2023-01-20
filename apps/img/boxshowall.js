@@ -22,7 +22,6 @@ export class boxshowall extends robotapi {
     show_map = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -33,7 +32,6 @@ export class boxshowall extends robotapi {
     show_updata = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
@@ -50,7 +48,6 @@ export class boxshowall extends robotapi {
     show_config = async (e) => {
         const exist = await gameApi.existUserSatus({ UID:e.user_id })
         if (!exist) {
-            //如果死了，就直接返回
             e.reply('已死亡')
             return
         }
