@@ -1,7 +1,10 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
 import { __dirname } from '../../../main.js'
-const __diryaml = `${__dirname}/config/xiuxian/xiuxian.yaml`
+/**
+ * 自定义配置地址
+ */
+const __diryaml = `${__dirname}/config/parameter/cooling.yaml`
 class DefsetUpdata {
     //动态生成配置读取
     getConfig = (parameter) => {
