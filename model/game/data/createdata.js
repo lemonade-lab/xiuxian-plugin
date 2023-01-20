@@ -4,7 +4,7 @@ import algorithm from './algorithm.js'
 /**
  * 自定义配置
  */
-const configarr = ['xiuxian.yaml', 'task.yaml', 'version.yaml', 'help.yaml', 'admin.yaml']
+const configarr = ['cooling.yaml', 'task.yaml', 'version.yaml', 'help.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
     this.defsetpath = `${__dirname}/resources/defset/`

@@ -14,7 +14,7 @@ export class boxusertask extends robotapi {
         const life = await gameApi.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         const x = []
         life.forEach((item) => {
-            item.Age = item.Age + gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).Age.size
+            item.Age = item.Age + gameApi.getConfig({ app: 'parameter', name: 'cooling' }).Age.size
             if (item.Age >= item.life) {
                 item.status = 0
                 x.push(item.qq)

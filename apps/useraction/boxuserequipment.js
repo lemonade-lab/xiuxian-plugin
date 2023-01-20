@@ -28,7 +28,7 @@ export class boxuserequipment extends robotapi {
             return
         }
         const equipment = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
-        if (equipment.length >= gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).myconfig.equipment) {
+        if (equipment.length >= gameApi.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)

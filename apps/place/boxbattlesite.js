@@ -32,7 +32,7 @@ export class boxbattlesite extends robotapi {
         const UID = e.user_id
         const CDID = '10'
         const now_time = new Date().getTime()
-        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Kill
+        const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Kill
         const { CDMSG } = await gameApi.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)

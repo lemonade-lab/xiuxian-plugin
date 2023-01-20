@@ -57,7 +57,7 @@ export class boxuserhome extends robotapi {
                     if (thing_acount > 2200) {
                         thing_acount = 2200
                     }
-                    const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Practice
+                    const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Practice
                     const CDID = '12'
                     const now_time = new Date().getTime()
                     const { CDMSG } = await gameApi.cooling({ UID, CDID })
@@ -137,7 +137,7 @@ export class boxuserhome extends robotapi {
             e.reply('学过了')
             return
         }
-        if (talent.AllSorcery.length >= gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).myconfig.gongfa) {
+        if (talent.AllSorcery.length >= gameApi.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进')
             return
         }

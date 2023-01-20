@@ -135,19 +135,19 @@ export class boxplayercontrol extends robotapi {
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         if (name == '闭关') {
             if (rand < 20) {
-                other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).biguan.size * time * mybuff / 2)
+                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff / 2)
                 msg.push(`\n闭关迟迟无法入定,只得到了${other}修为`)
             } else {
-                other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).biguan.size * time * mybuff)
+                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff)
                 msg.push(`\n闭关结束,得到了${other}修为`)
             }
             await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: other })
         } else {
             if (rand < 20) {
-                other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).work.size * time * mybuff / 2)
+                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff / 2)
                 msg.push(`\n降妖不专心,只得到了${other}气血`)
             } else {
-                other = Math.floor(gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).work.size * time * mybuff)
+                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff)
                 msg.push(`\n降妖回来,得到了${other}气血`)
             }
             await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: other })

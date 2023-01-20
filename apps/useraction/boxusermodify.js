@@ -47,7 +47,7 @@ export class boxusermodify extends robotapi {
         }
         const CDID = '3'
         const now_time = new Date().getTime()
-        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Name
+        const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Name
         const { CDMSG } = await gameApi.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
@@ -93,7 +93,7 @@ export class boxusermodify extends robotapi {
         }
         const CDID = '4'
         const now_time = new Date().getTime()
-        const CDTime = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Autograph
+        const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Autograph
         const { CDMSG } = await gameApi.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)

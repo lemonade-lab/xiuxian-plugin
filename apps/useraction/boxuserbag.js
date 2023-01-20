@@ -40,7 +40,7 @@ export class boxuserbag extends robotapi {
         }
         const UID = e.user_id
         const najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
-        const najie_price = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).najie_price[najie.grade]
+        const najie_price = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).najie_price[najie.grade]
         if (!najie_price) {
             return
         }

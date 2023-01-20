@@ -23,7 +23,6 @@ class DefsetUpdata {
             '赠送冷却': 'CD.Transfer',
             '攻击冷却': 'CD.Attack',
             '击杀冷却': 'CD.Kill',
-            '白名单群': 'group.white',
             '年龄每小时增加': 'Age.size',
             '最多功法持有数': 'myconfig.gongfa',
             '最多装备持有数': 'myconfig.equipment',

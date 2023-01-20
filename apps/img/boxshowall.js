@@ -53,8 +53,8 @@ export class boxshowall extends robotapi {
         }
         const data = {
             xiuxain: await gameApi.getConfig({
-                app: 'xiuxian',
-                name: 'xiuxian'
+                app: 'parameter',
+                name: 'cooling'
             })
         }
         const img = await botApi.showPuppeteer({ path: 'config', name: 'config', data })
