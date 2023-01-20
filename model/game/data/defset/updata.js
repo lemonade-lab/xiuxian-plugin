@@ -16,7 +16,7 @@ class DefsetUpdata {
         return data
     }
     updataConfig = (parameter) => {
-        const { name, size, path, tomap } = parameter
+        const { name, size } = parameter
         const map = {
             '突破冷却': 'CD.Level_up',
             '破体冷却': 'CD.LevelMax_up',
@@ -37,9 +37,7 @@ class DefsetUpdata {
         if (map.hasOwnProperty(name)) {
             const [name0, name1] = map[name].split('.')
             const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
-            // const data = NodeJS.returnyamljs().load(`${__diryaml}`)
             data[name0][name1] = Number(size)
-            // const yamlStr = NodeJS.returnjsyaml().dump(data)
             const yamlStr = YAML.stringify(data)
             fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
             return `修改${name}为${size}`
