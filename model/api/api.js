@@ -22,6 +22,8 @@ import gameMonster from '../game/monster/monster.js'
 import gameBattle from '../game/public/battel.js'
 
 import information from '../game/user/information.js'
+
+import dataIndex from '../game/data/index.js'
 class GameApi {
     /**
      * 用户类
@@ -50,13 +52,13 @@ class GameApi {
     randomThing = async () => {
         return await gameUser.randomThing()
     }
-    updataUser=async(parameter)=>{
+    updataUser = async (parameter) => {
         return await gameUser.updataUser(parameter)
     }
-    updataUserBlood=async(parameter)=>{
-        return  await gameUser.updataUserBlood(parameter)
+    updataUserBlood = async (parameter) => {
+        return await gameUser.updataUserBlood(parameter)
     }
-    readPanel=async(parameter)=>{
+    readPanel = async (parameter) => {
         return await gameUser.readPanel(parameter)
     }
     /**
@@ -86,7 +88,7 @@ class GameApi {
     }
 
 
-    
+
 
 
     /**
@@ -129,7 +131,7 @@ class GameApi {
         return await gameBattle.battle(parameter)
     }
 
-    
+
 
 
     /**
@@ -222,6 +224,11 @@ class GameApi {
      */
     moveConfig = (parameter) => {
         return createdata.moveConfig(parameter)
+    }
+
+    addListArr = async (parameter) => {
+        console.log(parameter)
+        return await dataIndex.addListArr(parameter)
     }
 
 }

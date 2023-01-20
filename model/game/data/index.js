@@ -4,7 +4,10 @@ import path from 'node:path'
 import createdata from './createdata.js'
 //物品数据
 import genertate from './generate.js'
-import { __dirname } from '../../main.js' 
+import { __dirname } from '../../main.js'
+
+import ListAction from './listaction.js'
+
 export const __PATH = {
     //玩家存档
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -100,5 +103,22 @@ class DateIndex {
             ...genertate.getlist(__PATH.fixed_point, 'json')
         ])
     }
+    /**
+     * 你的地址,要选择的box地址,操作表名,要插入的数据地址
+     * @param {PATH, CHOICE, NAME, DATA} parameter 
+     * @returns 
+     */
+    addListArr = async (parameter) => {
+        const { PATH, CHOICE, NAME } = parameter
+        const data = await ListAction.listAction({ NAME, CHOICE })
+        genertate.newlist(__PATH[CHOICE], NAME, [
+            //这里需要读取原来的数据
+            ...data,
+            //这里放进对方要插件的数据地址
+            ...genertate.getlist(PATH, 'json')
+        ])
+        return
+    }
+
 }
 export default new DateIndex()
