@@ -15,21 +15,6 @@
     - icon: help-icon_32
       title: "#修仙删除世界"
       desc: "删除全部信息"
-      
-- group: 
-  list:
-    - icon: help-icon_58
-      title: "#修仙关闭云崽"
-      desc: "#修仙开启云崽"
-    - icon: help-icon_58
-      title: "#修仙关闭云崽帮助"
-      desc: "#修仙开启云崽帮助"
-    - icon: help-icon_58
-      title: "#修仙关闭云崽私聊"
-      desc: "#修仙开启云崽私聊"
-    - icon: help-icon_58
-      title: "#修仙添加主人+QQ"
-      desc: "#修仙删除主人+QQ"
     - icon: help-icon_58
       title: "#修仙配置"
       desc: "查看当前配置"
