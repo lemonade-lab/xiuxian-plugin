@@ -227,7 +227,6 @@ class GameApi {
     }
 
     addListArr = async (parameter) => {
-        console.log(parameter)
         return await dataIndex.addListArr(parameter)
     }
 
