@@ -1,12 +1,4 @@
 node_modules
 config
-plugins/xiuxian-association-pluging
-plugins/xiuxian-home-plugin
-plugins/xiuxian-dark-plugin
-plugins/xiuxian-pokemon-plugin
-plugins/xiuxian-activity-plugin
-plugins/xiuxian-pagoda-plugin
-plugins/xiuxian-fairyland-plugin
-plugins/xiuxian-occupation-plugin
 resources/data/birth
 resources/img
