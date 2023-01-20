@@ -447,7 +447,7 @@ class GameUser {
      * 
      * @returns 返回所有用户UID
      */
-    returnUserUID = async () => {
+    getUserUID = async () => {
         const playerList = []
         const life = await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life' })
         life.forEach((item) => {

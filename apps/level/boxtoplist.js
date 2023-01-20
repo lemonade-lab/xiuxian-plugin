@@ -26,7 +26,7 @@ export class boxtoplist extends robotapi {
             e.reply(CacheMSG)
             return
         }
-        const userList = await gameApi.returnUserUID()
+        const userList = await gameApi.getUserUID()
         const temp = []
         const list = []
         for (let item of userList) {
@@ -75,7 +75,7 @@ export class boxtoplist extends robotapi {
         }
         const list = []
         const temp = []
-        const playerList = await gameApi.returnUserUID()
+        const playerList = await gameApi.getUserUID()
         for (let item of playerList) {
             const level = await gameApi.userMsgAction({ NAME: item, CHOICE: 'user_level' })
             if (level.level_id <= 10) {
