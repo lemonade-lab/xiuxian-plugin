@@ -104,8 +104,8 @@ class DateIndex {
         ])
     }
     /**
-     * 你的地址,要选择的box地址,操作表名,要插入的数据地址
-     * @param {PATH, CHOICE, NAME, DATA} parameter 
+     * 你的地址,要选择的box地址,操作表名
+     * @param {PATH, CHOICE, NAME} parameter 
      * @returns 
      */
     addListArr = async (parameter) => {
