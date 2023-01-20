@@ -7,49 +7,50 @@ import { appname } from '../main.js'
 class index {
   toindex = async (parameter) => {
     const { indexName } = parameter
-    let filepath = `./plugins/${appname}/${indexName}`
+    const filepath = `./plugins/${appname}/${indexName}`
     let apps = {}
-    let name = []
-    let newsum = []
+    const name = []
+    const sum = []
     const travel = (dir, callback) => {
       fs.readdirSync(dir).forEach((file) => {
-        //屏蔽model
-        let model = dir.search('model')
-        if (model == -1) {
-          //resources
-          let resources = dir.search('resources')
-          if (resources == -1) {
-            let temporary = file.search('.js')
-            if (temporary != -1) {
-              let y = file.replace('.js', '')
-              name.push(y)
-            }
-            var pathname = path.join(dir, file)
-            if (fs.statSync(pathname).isDirectory()) {
-              travel(pathname, callback)
-            } else {
-              callback(pathname)
-            }
-          }
+        let temporary = file.search('.js')
+        if (temporary != -1) {
+          let y = file.replace('.js', '')
+          name.push(y)
+        }
+        var pathname = path.join(dir, file)
+        if (fs.statSync(pathname).isDirectory()) {
+          travel(pathname, callback)
+        } else {
+          callback(pathname)
         }
       })
     }
-    travel(filepath, (pathname) => {
+    travel(filepath, (path) => {
       //屏蔽非js文件的目录
-      let temporary = pathname.search('.js')
+      let temporary = path.search('.js')
       if (temporary != -1) {
         //收集目录
-        newsum.push(pathname)
+        sum.push(path)
       }
     })
-    //合成引入
-    for (let j = 0; j < newsum.length; j++) {
-      //替换\\为/
-      newsum[j] = newsum[j].replace(/\\/g, '/')
-      //替换前缀
-      newsum[j] = newsum[j].replace(`plugins/${appname}`, '')
+    for (let item of sum) {
+      let address = item.replace(/\\/g, '/').replace(`plugins/${appname}`, '')
       //随深度的增加而增加
-      apps[name[j]] = (await import(`../..${newsum[j]}`))[name[j]]
+      let allExport = (await import(`../..${address}`));
+      let keys = Object.keys(allExport);
+      keys.forEach((key) => {
+        // 只挑选class导出
+        if (allExport[key].prototype) {
+          // 如果有重复的class名称，不要进行覆盖
+          if (apps.hasOwnProperty(key)) {
+            logger.info(`Template detection:已经存在同名导出\nclass ${key}../..${address}`);
+          }
+          apps[key] = allExport[key];
+        } else {
+          logger.info(`Template detection:存在非class属性${key}导出\n../..${address}`);
+        }
+      });
     }
     return apps
   }
