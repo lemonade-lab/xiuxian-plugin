@@ -84,7 +84,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const startTime = action.startTime
-        const timeUnit = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).biguan.time
+        const timeUnit = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.time
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
@@ -114,7 +114,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const startTime = action.startTime
-        const timeUnit = gameApi.getConfig({ app: 'xiuxian', name: 'xiuxian' }).work.time
+        const timeUnit = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.time
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
