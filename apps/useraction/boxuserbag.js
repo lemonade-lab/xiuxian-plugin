@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxuserbag extends robotapi {
     constructor() {
         super(superIndex([
@@ -23,7 +23,7 @@ export class boxuserbag extends robotapi {
             return
         }
         const { path, name, data } = await gameApi.userBagShow({ UID })
-        const img = await botApi.showPuppeteer({ path, name, data })
+        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
         await e.reply(img)
         return
     }

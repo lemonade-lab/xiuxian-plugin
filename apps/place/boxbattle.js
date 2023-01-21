@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxbattle extends robotapi {
     constructor() {
@@ -39,7 +39,7 @@ export class boxbattle extends robotapi {
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
-        user['B'] = await botApi.at({ e })
+        user['B'] = await BotApi.User.at({ e })
         if (!user['B']) {
             return
         }
@@ -116,7 +116,7 @@ export class boxbattle extends robotapi {
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
-        user['B'] = await botApi.at({ e })
+        user['B'] = await BotApi.User.at({ e })
         if (!user['B']) {
             return
         }

@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxmoneyoperation extends robotapi {
     constructor() {
         super(superIndex([
@@ -70,7 +70,7 @@ export class boxmoneyoperation extends robotapi {
             return
         }
         const A = e.user_id
-        const B = await botApi.at({ e })
+        const B = await BotApi.User.at({ e })
         if (!B) {
             return
         }
@@ -101,7 +101,7 @@ export class boxmoneyoperation extends robotapi {
         await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60)
         await gameApi.userBag({ UID: A, name: '下品灵石', ACCOUNT: -lingshi })
         await gameApi.userBag({ UID: B, name: '下品灵石', ACCOUNT: lingshi })
-        e.reply([botApi.segmentAt(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
+        e.reply([BotApi.segment(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
         return
     }
 }

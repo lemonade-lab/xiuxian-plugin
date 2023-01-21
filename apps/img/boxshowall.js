@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxshowall extends robotapi {
     constructor() {
@@ -20,17 +20,17 @@ export class boxshowall extends robotapi {
         ]))
     }
     showMap = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
         }
-        const img = await botApi.showPuppeteer({ path: 'map', name: 'map' })
+        const img = await BotApi.Imgindex.showPuppeteer({ path: 'map', name: 'map' })
         e.reply(img)
         return
     }
     showEdition = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
@@ -41,12 +41,12 @@ export class boxshowall extends robotapi {
                 name: 'version'
             })
         }
-        const img = await botApi.showPuppeteer({ path: 'updata', name: 'updata', data })
+        const img = await BotApi.Imgindex.showPuppeteer({ path: 'updata', name: 'updata', data })
         e.reply(img)
         return
     }
     showConfig = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
@@ -57,7 +57,7 @@ export class boxshowall extends robotapi {
                 name: 'cooling'
             })
         }
-        const img = await botApi.showPuppeteer({ path: 'config', name: 'config', data })
+        const img = await BotApi.Imgindex.showPuppeteer({ path: 'config', name: 'config', data })
         e.reply(img)
         return
     }

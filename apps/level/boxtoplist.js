@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxtoplist extends robotapi {
     constructor() {
@@ -16,12 +16,12 @@ export class boxtoplist extends robotapi {
         ]))
     }
     showTopPrestige = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
         }
-        const { CacheMSG } = await botApi.readCahe({ name: 'showTopPrestige' })
+        const { CacheMSG } = await BotApi.Cache.readCahe({ name: 'showTopPrestige' })
         if (CacheMSG) {
             e.reply(CacheMSG)
             return
@@ -50,12 +50,12 @@ export class boxtoplist extends robotapi {
                 list.push(item)
             }
         })
-        const newimg = await botApi.showPuppeteer({
+        const newimg = await BotApi.Imgindex.showPuppeteer({
             path: 'toplist',
             name: 'toplist',
             data: { list: list },
         })
-        await botApi.addCahe({
+        await BotApi.Cache.addCahe({
             name: 'showTopPrestige',
             data: newimg
         })
@@ -63,12 +63,12 @@ export class boxtoplist extends robotapi {
         return
     }
     showTopGenius = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID:e.user_id })
+        const exist = await gameApi.existUserSatus({ UID: e.user_id })
         if (!exist) {
             e.reply('已死亡')
             return
         }
-        const { CacheMSG } = await botApi.readCahe({ name: 'showTopGenius' })
+        const { CacheMSG } = await BotApi.Cache.readCahe({ name: 'showTopGenius' })
         if (CacheMSG) {
             e.reply(CacheMSG)
             return
@@ -97,13 +97,13 @@ export class boxtoplist extends robotapi {
                 list.push(item)
             }
         })
-        const newimg = await botApi.showPuppeteer({
+        const newimg = await BotApi.Imgindex.showPuppeteer({
             path: 'toplist',
             name: 'toplist',
             data: { list: list },
         })
         e.reply(newimg)
-        await botApi.addCahe({
+        await BotApi.Cache.addCahe({
             name: 'showTopGenius',
             data: newimg
         })

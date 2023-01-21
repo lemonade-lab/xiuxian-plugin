@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxbattlesite extends robotapi {
     constructor() {
         super(superIndex([
@@ -108,7 +108,7 @@ export class boxbattlesite extends robotapi {
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
-        await botApi.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: msg })
         return
     }
     userExploremonsters = async (e) => {
@@ -135,7 +135,7 @@ export class boxbattlesite extends robotapi {
                 '等级:' + item.level + '\n'
             )
         })
-        await botApi.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: msg })
         return
     }
 }

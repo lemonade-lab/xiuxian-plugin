@@ -11,40 +11,6 @@ import gameMonster from '../game/monster/monster.js'
 import gameBattle from '../game/public/battel.js'
 import information from '../game/user/information.js'
 import dataIndex from '../game/data/index.js'
-
-
-// export default {
-//     User: gameUser,
-//     Schedule: schedule,
-//     Monster: gameMonster
-// }
-
-
-// import {user} from '.../'
-
-
-
-
-// // 方法1
-// let GameApi = require('@xiuxian');
-
-// await GameApi.User.getUserUID();
-
-// // 方法2
-
-// let { User } = require('@xiuxian');
-
-// await User.getUserUID();
-
-// // 简约
-// await User.getUid();
-
-// GameApi.getUserUID();
-
-// GameApi.getMonsterID();
-
-
-
 class GameApi {
     /**
      * 用户类
@@ -239,6 +205,11 @@ class GameApi {
         return createdata.moveConfig(parameter)
     }
 
+    /**
+     * 你的地址,要选择的box地址,操作表名
+     * @param {PATH, CHOICE, NAME} parameter 
+     * @returns 
+     */
     addListArr = async (parameter) => {
         return await dataIndex.addListArr(parameter)
     }

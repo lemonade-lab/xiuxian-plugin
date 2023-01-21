@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
@@ -54,7 +54,7 @@ export class boxsecretplace extends robotapi {
         address.forEach((item) => {
             msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
         })
-        await botApi.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: msg })
         return
     }
     returnPiont = async (e) => {
@@ -138,7 +138,7 @@ export class boxsecretplace extends robotapi {
             action.region = PointId[1]
             action.address = PointId[2]
             await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-            e.reply([botApi.segmentAt(UID), `成功抵达${address}`])
+            e.reply([BotApi.segment(UID), `成功抵达${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
         e.reply(`正在前往${address}...\n需要${time}秒`)
@@ -194,7 +194,7 @@ export class boxsecretplace extends robotapi {
         }
         const lingshi = 1000
         const money = await gameApi.userBagSearch({ UID, name: '下品灵石' })
-        if (!money|| money.acount < lingshi) {
+        if (!money || money.acount < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}下品灵石`)
             return
         }
@@ -211,7 +211,7 @@ export class boxsecretplace extends robotapi {
             action.region = positionID[1]
             action.address = positionID[2]
             await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-            e.reply([botApi.segmentAt(UID), `成功传送至${address}`])
+            e.reply([BotApi.segment(UID), `成功传送至${address}`])
         }, 1000 * time)
         deliverysetTime[UID] = 1
         e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)

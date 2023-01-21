@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxhelp extends robotapi {
     constructor() {
@@ -21,11 +21,11 @@ export class boxhelp extends robotapi {
             e.reply('已死亡')
             return
         }
-        const data = await botApi.getHelp({ name: 'help' })
+        const data = await BotApi.Help.getboxhelp({ name: 'help' })
         if (!data) {
             return
         }
-        const img = await botApi.cacheHelp({ i: 1, data })
+        const img = await BotApi.Cache.helpcache({ i: 1, data })
         await e.reply(img)
     }
     adminSuper = async (e) => {
@@ -34,11 +34,11 @@ export class boxhelp extends robotapi {
             e.reply('已死亡')
             return
         }
-        const data = await botApi.getHelp({ name: 'admin' })
+        const data = await BotApi.Help.getboxhelp({ name: 'admin' })
         if (!data) {
             return
         }
-        const img = await botApi.cacheHelp({ i: 0, data })
+        const img = await BotApi.Cache.helpcache({ i: 0, data })
         await e.reply(img)
     }
 }

@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxadminwork extends robotapi {
     constructor() {
@@ -20,7 +20,7 @@ export class boxadminwork extends robotapi {
             return
         }
         const msg = gameApi.viewbackups()
-        await botApi.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: msg })
         return
     }
     dataRecovery = async (e) => {
@@ -28,7 +28,7 @@ export class boxadminwork extends robotapi {
             return
         }
         const msg = gameApi.backuprecovery({ name: e.msg.replace('#修仙复原', '') })
-        await botApi.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: msg })
         return
     }
 }

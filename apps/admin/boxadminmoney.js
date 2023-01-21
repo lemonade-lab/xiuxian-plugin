@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxadminmoney extends robotapi {
     constructor() {
         super(superIndex([
@@ -19,7 +19,7 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const UID = await botApi.at({ e })
+        const UID = await BotApi.User.at({ e })
         if (!UID) {
             return
         }
@@ -43,7 +43,7 @@ export class boxadminmoney extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const UID = await botApi.at({ e })
+        const UID = await BotApi.User.at({ e })
         if (!UID) {
             return
         }

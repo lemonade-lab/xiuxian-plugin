@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import gameApi from '../../model/api/api.js'
-import botApi from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxusertransaction extends robotapi {
     constructor() {
         super(superIndex([
@@ -73,7 +73,7 @@ export class boxusertransaction extends robotapi {
                 }
             }
         })
-        await botApi.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: msg })
         return
     }
     buyComodities = async (e) => {
@@ -128,7 +128,6 @@ export class boxusertransaction extends robotapi {
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
-
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
