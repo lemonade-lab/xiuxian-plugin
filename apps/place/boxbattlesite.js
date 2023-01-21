@@ -75,7 +75,7 @@ export class boxbattlesite extends robotapi {
         })
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
-            if (m < (mon.level + 1) * 5) {
+            if (m < (mon.level + 1) * 6) {
                 const randomthinf = await gameApi.randomThing()
                 let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
@@ -85,17 +85,17 @@ export class boxbattlesite extends robotapi {
                     msg.push('储物袋已满')
                 }
             }
-            if (m < (mon.level + 1) * 6) {
+            if (m < (mon.level + 1) * 7) {
                 const SIZE = mon.level * 25 * mybuff
                 msg.push(`得到${SIZE}气血`)
                 await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
             }
-            if (m < (mon.level + 1) * 7) {
+            if (m < (mon.level + 1) * 8) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 2 })
                 msg.push(`得到${lingshi}上品灵石`)
                 await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: lingshi })
             }
-            if (m < (mon.level + 1) * 8) {
+            if (m < (mon.level + 1) * 9) {
                 const lingshi = await gameApi.leastOne({ value: mon.level * 20 })
                 msg.push(`得到${lingshi}中品灵石`)
                 await gameApi.userBag({ UID, name: '中品灵石', ACCOUNT: lingshi })
