@@ -1,7 +1,7 @@
 
 
 import gameUser from '../user/user.js'
-import botApi from '../../robot/api/botapi.js'
+import { BotApi } from '../../robot/api/botapi.js'
 class gameBattle {
     //怪物战斗
     monsterbattle = async (parameter) => {
@@ -112,7 +112,7 @@ class gameBattle {
                 battle_msg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
                 battleA.nowblood = 0
                 battle_msg.QQ = B
-                await botApi.forwardMsg({ e, data: battle_msg.msg })
+                await BotApi.User.forwardMsg({ e, data: battle_msg.msg })
                 await gameUser.userMsgAction({ NAME: A, CHOICE: 'user_battle', DATA: battleA })
                 return battle_msg.QQ
             }
@@ -120,7 +120,7 @@ class gameBattle {
             if (battleB.nowblood < 1) {
                 battle_msg.msg.push('你仅出一招,就击败了对方!')
                 battleB.nowblood = 0
-                await botApi.forwardMsg({ e, data: battle_msg.msg })
+                await BotApi.User.forwardMsg({ e, data: battle_msg.msg })
                 await gameUser.userMsgAction({ NAME: B, CHOICE: 'user_battle', DATA: battleB })
                 return battle_msg.QQ
             } else {
@@ -155,7 +155,7 @@ class gameBattle {
                     battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
                     battleA.nowblood = 0
                     battle_msg.QQ = B
-                    await botApi.forwardMsg({ e, data: battle_msg.msg })
+                    await BotApi.User.forwardMsg({ e, data: battle_msg.msg })
                     break
                 }
             } else {
@@ -172,7 +172,7 @@ class gameBattle {
                 battle_msg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
                 battleA.nowblood = 0
                 battle_msg.QQ = B
-                await botApi.forwardMsg({ e, data: battle_msg.msg })
+                await BotApi.User.forwardMsg({ e, data: battle_msg.msg })
                 break
             }
             battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
@@ -180,7 +180,7 @@ class gameBattle {
                 battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害,并击败了对方!`)
                 battle_msg.msg.push('你击败了对方!')
                 battleB.nowblood = 0
-                await botApi.forwardMsg({ e, data: battle_msg.msg })
+                await BotApi.User.forwardMsg({ e, data: battle_msg.msg })
                 break
             } else {
                 battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害`)
