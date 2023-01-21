@@ -56,9 +56,6 @@ class Schedule {
         const [pluginname, time] = name.split('.');
         const ThePath = {
             'xiuxian': `${__dirname}/resources/data/birth/${pluginname}`,
-            'dark': `${__dirname}/plugins/xiuxian-${pluginname}-plugin/resources/data/birth/${pluginname}`,
-            'home': `${__dirname}/plugins/xiuxian-${pluginname}-plugin/resources/data/birth/${pluginname}`,
-            'association': `${__dirname}/plugins/xiuxian-${pluginname}-pluging/resources/data/birth/${pluginname}`
         }
         //得到底下所有的json文件地址
         const newsum = algorithm.returnfilepath(ThePath[pluginname], '.json')
