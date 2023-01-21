@@ -31,7 +31,7 @@ class userAction {
         }
         const player = await user.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
         let CDID = '6'
-        let CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.Level_up
+        let CDTime = defset.getConfig({ app: 'parameter', name: 'cooling' }).CD.Level_up
         let name = '修为'
         const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
         const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
@@ -39,7 +39,7 @@ class userAction {
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (choise) {
             CDID = '7'
-            CDTime = defset.getConfig({ app: 'xiuxian', name: 'xiuxian' }).CD.LevelMax_up
+            CDTime = defset.getConfig({ app: 'parameter', name: 'cooling' }).CD.LevelMax_up
             name = '气血'
             if (player.experiencemax < LevelMax.exp) {
                 return { UserLevelUpMSG: `再积累${LevelMax.exp - player.experiencemax}气血后方可突破` }
