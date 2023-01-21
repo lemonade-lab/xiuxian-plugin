@@ -40,15 +40,13 @@ class index {
       let allExport = (await import(`../..${address}`));
       let keys = Object.keys(allExport);
       keys.forEach((key) => {
-        // 只挑选class导出
         if (allExport[key].prototype) {
-          // 如果有重复的class名称，不要进行覆盖
           if (apps.hasOwnProperty(key)) {
-            logger.info(`Template detection:已经存在同名导出\nclass ${key}../..${address}`);
+            logger.info(`Template detection:已经存在class ${key}同名导出\n    ../..${address}`);
           }
           apps[key] = allExport[key];
         } else {
-          logger.info(`Template detection:存在非class属性${key}导出\n../..${address}`);
+          logger.info(`Template detection:存在非class属性${key}导出\n    ../..${address}`);
         }
       });
     }
