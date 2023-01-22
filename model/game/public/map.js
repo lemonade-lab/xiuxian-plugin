@@ -1,8 +1,8 @@
 import userData from '../data/listaction.js'
 class GameMap {
     //输入：模糊搜索名字并判断是否在此地
-    mapExistence = async (paramater) => {
-        const { action, addressName } = paramater
+    mapExistence = async (parameter) => {
+        const { action, addressName } = parameter
         const point = await userData.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         for (let item of point) {
             if (item.name.includes(addressName)) {
