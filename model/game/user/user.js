@@ -148,7 +148,7 @@ class GameUser {
         const { BAG, THING, ACCOUNT } = parameter
         const thing = BAG.thing.find(item => item.id == THING.id)
         if (thing) {
-            let acount = thing.acount + ACCOUNT
+            let acount = Number(thing.acount) + Number(ACCOUNT)
             if (acount < 1) {
                 BAG.thing = BAG.thing.filter(item => item.id != THING.id)
             } else {
@@ -156,7 +156,7 @@ class GameUser {
             }
             return BAG
         } else {
-            THING.acount = ACCOUNT
+            THING.acount = Number(ACCOUNT)
             BAG.thing.push(THING)
             return BAG
         }
