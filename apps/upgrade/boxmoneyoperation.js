@@ -101,7 +101,7 @@ export class boxmoneyoperation extends robotapi {
         await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60)
         await gameApi.userBag({ UID: A, name: '下品灵石', ACCOUNT: -lingshi })
         await gameApi.userBag({ UID: B, name: '下品灵石', ACCOUNT: lingshi })
-        e.reply([BotApi.segment(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
+        e.reply([BotApi.segment.at(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
         return
     }
 }

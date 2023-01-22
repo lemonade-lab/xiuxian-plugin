@@ -130,7 +130,7 @@ export class boxplayercontrol extends robotapi {
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         let other = 0
-        e.reply([BotApi.segment(UID)])
+        e.reply([BotApi.segment.at(UID)])
         const msg = []
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         if (name == '闭关') {
