@@ -138,7 +138,7 @@ export class boxsecretplace extends robotapi {
             action.region = PointId[1]
             action.address = PointId[2]
             await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-            e.reply([BotApi.segmen.at(UID), `成功抵达${address}`])
+            e.reply([BotApi.segment.at(UID), `成功抵达${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
         e.reply(`正在前往${address}...\n需要${time}秒`)
