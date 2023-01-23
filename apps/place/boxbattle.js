@@ -65,7 +65,7 @@ export class boxbattle extends robotapi {
             e.reply(CDMSG)
             return
         }
-        const najie_thing = await gameApi.userBagSearch({ UID, name: '决斗令' })
+        const najie_thing = await gameApi.userBagSearch({ UID: user.A, name: '决斗令' })
         if (!najie_thing) {
             e.reply(`没有决斗令`)
             return
