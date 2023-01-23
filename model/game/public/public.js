@@ -40,10 +40,7 @@ class GamePublic {
     leastOne = async (parameter) => {
         const { value } = parameter
         let size = value
-        if (isNaN(parseFloat(size))) {
-            return Number(1)
-        }
-        if (isFinite(size)) {
+        if (isNaN(parseFloat(size))&&!isFinite(size)) {
             return Number(1)
         }
         size = Number(Math.trunc(size))
