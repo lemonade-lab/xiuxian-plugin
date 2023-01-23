@@ -19,14 +19,12 @@ export class boxuserstart extends robotapi {
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (! await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
     reCreateMsg = async (e) => {
@@ -50,8 +48,7 @@ export class boxuserstart extends robotapi {
         await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         await gameApi.createBoxPlayer({ UID: e.user_id })
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
 }

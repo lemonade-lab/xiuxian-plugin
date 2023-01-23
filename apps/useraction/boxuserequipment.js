@@ -16,8 +16,7 @@ export class boxuserequipment extends robotapi {
     }
     addEquipment = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -40,8 +39,7 @@ export class boxuserequipment extends robotapi {
     }
     deleteEquipment = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (! await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }

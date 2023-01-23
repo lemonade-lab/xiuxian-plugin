@@ -16,8 +16,7 @@ export class boxusermodify extends robotapi {
         ]))
     }
     changeName = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -64,13 +63,11 @@ export class boxusermodify extends robotapi {
         })
         await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
     changeAutograph = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -104,8 +101,7 @@ export class boxusermodify extends robotapi {
         player.autograph = new_msg
         await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
 }

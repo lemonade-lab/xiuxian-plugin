@@ -14,9 +14,7 @@ export class boxadminyaml extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const config = e.msg.replace('#修仙配置更改', '')
-        const code = config.split('\*')
-        const [name, size] = code
+        const [name, size] = e.msg.replace('#修仙配置更改', '').split('\*')
         e.reply(gameApi.updateConfig({ name, size }))
         return
     }

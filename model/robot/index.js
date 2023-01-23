@@ -6,16 +6,14 @@ class index {
     const { indexName } = parameter
     const firstName = `plugins/${appname}`
     const filepath = `./${firstName}/${indexName}`
-    let apps = {}
     const name = []
     const sum = []
     const travel = (dir, callback) => {
       fs.readdirSync(dir).forEach((file) => {
-        let temporary = file.search('.js')
-        if (temporary != -1) {
+        if (file.search('.js') != -1) {
           name.push(file.replace('.js', ''))
         }
-        var pathname = path.join(dir, file)
+        let pathname = path.join(dir, file)
         if (fs.statSync(pathname).isDirectory()) {
           travel(pathname, callback)
         } else {
@@ -24,11 +22,11 @@ class index {
       })
     }
     travel(filepath, (path) => {
-      let temporary = path.search('.js')
-      if (temporary != -1) {
+      if (path.search('.js') != -1) {
         sum.push(path)
       }
     })
+    let apps = {}
     for (let item of sum) {
       let address = `../..${item.replace(/\\/g, '/').replace(`${firstName}`, '')}`
       let allExport = (await import(address))

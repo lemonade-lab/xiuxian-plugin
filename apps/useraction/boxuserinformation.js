@@ -21,26 +21,22 @@ export class boxuserinformation extends robotapi {
     }
     showUserMsg = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
     showQquipment = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const { path, name, data } = await gameApi.userEquipmentShow({ UID: e.user_id })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
 }

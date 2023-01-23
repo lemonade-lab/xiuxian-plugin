@@ -19,16 +19,14 @@ export class boxadminwork extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const msg = gameApi.viewbackups()
-        await BotApi.User.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: gameApi.viewbackups() })
         return
     }
     dataRecovery = async (e) => {
         if (!e.isMaster) {
             return
         }
-        const msg = gameApi.backuprecovery({ name: e.msg.replace('#修仙复原', '') })
-        await BotApi.User.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsg({ e, data: gameApi.backuprecovery({ name: e.msg.replace('#修仙复原', '') }) })
         return
     }
 }

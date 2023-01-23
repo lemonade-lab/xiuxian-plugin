@@ -17,19 +17,16 @@ export class boxuserbag extends robotapi {
     }
     showBag = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const { path, name, data } = await gameApi.userBagShow({ UID })
-        const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-        await e.reply(img)
+        await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         return
     }
     bagUp = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }

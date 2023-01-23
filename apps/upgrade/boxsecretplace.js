@@ -32,8 +32,7 @@ export class boxsecretplace extends robotapi {
     }
     showCity = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -61,8 +60,7 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (! await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -82,8 +80,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -95,8 +92,7 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -148,8 +144,7 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }

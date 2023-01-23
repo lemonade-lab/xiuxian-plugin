@@ -20,45 +20,41 @@ export class boxshowall extends robotapi {
         ]))
     }
     showMap = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
-        const img = await BotApi.Imgindex.showPuppeteer({ path: 'map', name: 'map' })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({ path: 'map', name: 'map' }))
         return
     }
     showEdition = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
-        const data = {
-            version: await gameApi.getConfig({
-                app: 'version',
-                name: 'version'
-            })
-        }
-        const img = await BotApi.Imgindex.showPuppeteer({ path: 'updata', name: 'updata', data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({
+            path: 'updata', name: 'updata', data: {
+                version: await gameApi.getConfig({
+                    app: 'version',
+                    name: 'version'
+                })
+            }
+        }))
         return
     }
     showConfig = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
-        const data = {
-            xiuxain: await gameApi.getConfig({
-                app: 'parameter',
-                name: 'cooling'
-            })
-        }
-        const img = await BotApi.Imgindex.showPuppeteer({ path: 'config', name: 'config', data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({
+            path: 'config', name: 'config', data: {
+                xiuxain: await gameApi.getConfig({
+                    app: 'parameter',
+                    name: 'cooling'
+                })
+            }
+        }))
         return
     }
 }

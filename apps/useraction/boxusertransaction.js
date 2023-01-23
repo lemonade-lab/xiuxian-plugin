@@ -21,8 +21,7 @@ export class boxusertransaction extends robotapi {
     }
     showComodities = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -81,8 +80,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -93,8 +91,7 @@ export class boxusertransaction extends robotapi {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const thing = e.msg.replace('#购买', '')
-        const [thing_name, thing_acount] = thing.split('\*')
+        const [thing_name, thing_acount] = e.msg.replace('#购买', '').split('\*')
         let quantity = await gameApi.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99
@@ -120,8 +117,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -132,9 +128,7 @@ export class boxusertransaction extends robotapi {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const thing = e.msg.replace('#出售', '')
-        const code = thing.split('\*')
-        const [thing_name, thing_acount] = code
+        const [thing_name, thing_acount] = e.msg.replace('#出售', '').split('\*')
         let quantity = await gameApi.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99

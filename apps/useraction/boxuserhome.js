@@ -25,14 +25,11 @@ export class boxuserhome extends robotapi {
     }
     take = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        let thing = e.msg.replace('#服用', '')
-        const code = thing.split('\*')
-        let [thing_name, thing_acount] = code
+        let [thing_name, thing_acount] = e.msg.replace('#服用', '').split('\*')
         thing_acount = await gameApi.leastOne({ value: thing_acount })
         const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
@@ -116,8 +113,7 @@ export class boxuserhome extends robotapi {
     }
     study = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -150,8 +146,7 @@ export class boxuserhome extends robotapi {
     }
     forget = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -171,8 +166,7 @@ export class boxuserhome extends robotapi {
     }
     consumption = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -201,8 +195,7 @@ export class boxuserhome extends robotapi {
                     await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await gameApi.updataUserEfficiency({ UID })
                     const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-                    const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-                    e.reply(img)
+                    e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
                     break
                 }
                 case '2': {
@@ -210,8 +203,7 @@ export class boxuserhome extends robotapi {
                     talent.talentshow = 0
                     await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-                    const img = await BotApi.Imgindex.showPuppeteer({ path, name, data })
-                    e.reply(img)
+                    e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
                     break
                 }
                 default: { }

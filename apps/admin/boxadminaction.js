@@ -17,22 +17,21 @@ export class boxadminaction extends robotapi {
         if (!e.isMaster) {
             return
         }
-        const cmd = 'git  pull'
         await BotApi.Exec.execStart({
-            cmd,
+            cmd: 'git  pull',
             cwd: `${process.cwd()}/plugins/${appname}/`,
             name: appname,
             e
         })
         gameApi.moveConfig({ name: 'updata' })
-        const data = {
-            version: await gameApi.getConfig({
-                app: 'version',
-                name: 'version'
-            })
-        }
-        const img = await BotApi.Imgindex.showPuppeteer({ path: 'updata', name: 'updata', data })
-        e.reply(img)
+        e.reply(await BotApi.Imgindex.showPuppeteer({
+            path: 'updata', name: 'updata', data: {
+                version: await gameApi.getConfig({
+                    app: 'version',
+                    name: 'version'
+                })
+            }
+        }))
         return
     }
 }

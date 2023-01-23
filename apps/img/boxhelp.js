@@ -16,8 +16,7 @@ export class boxhelp extends robotapi {
         ]))
     }
     boxhelp = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -25,12 +24,10 @@ export class boxhelp extends robotapi {
         if (!data) {
             return
         }
-        const img = await BotApi.Cache.helpcache({ i: 1, data })
-        await e.reply(img)
+        await e.reply(await BotApi.Cache.helpcache({ i: 1, data }))
     }
     adminSuper = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -38,7 +35,6 @@ export class boxhelp extends robotapi {
         if (!data) {
             return
         }
-        const img = await BotApi.Cache.helpcache({ i: 0, data })
-        await e.reply(img)
+        await e.reply(await BotApi.Cache.helpcache({ i: 0, data }))
     }
 }

@@ -19,8 +19,7 @@ export class boxmoneyoperation extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -59,8 +58,7 @@ export class boxmoneyoperation extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const existA = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!existA) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }

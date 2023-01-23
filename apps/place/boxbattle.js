@@ -23,8 +23,7 @@ export class boxbattle extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const existA = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!existA) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -100,8 +99,7 @@ export class boxbattle extends robotapi {
         if (!e.isGroup) {
             return
         }
-        const existA = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!existA) {
+        if (! await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -177,8 +175,7 @@ export class boxbattle extends robotapi {
     }
     handWashing = async (e) => {
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }

@@ -23,8 +23,7 @@ export class boxadminmoney extends robotapi {
         if (!UID) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -47,8 +46,7 @@ export class boxadminmoney extends robotapi {
         if (!UID) {
             return
         }
-        const exist = await gameApi.existUserSatus({ UID })
-        if (exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }

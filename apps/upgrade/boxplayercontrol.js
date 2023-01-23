@@ -24,8 +24,7 @@ export class boxplayercontrol extends robotapi {
         ]))
     }
     biguan = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -45,8 +44,7 @@ export class boxplayercontrol extends robotapi {
         return true
     }
     dagong = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -70,8 +68,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -100,8 +97,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = e.user_id
-        const exist = await gameApi.existUserSatus({ UID })
-        if (!exist) {
+        if (! await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }

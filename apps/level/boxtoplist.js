@@ -16,8 +16,7 @@ export class boxtoplist extends robotapi {
         ]))
     }
     showTopPrestige = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -63,8 +62,7 @@ export class boxtoplist extends robotapi {
         return
     }
     showTopGenius = async (e) => {
-        const exist = await gameApi.existUserSatus({ UID: e.user_id })
-        if (!exist) {
+        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
