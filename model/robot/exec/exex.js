@@ -1,11 +1,10 @@
 
 import userAction from '../user/action.js'
-import NodeJS from '../../node/node.js'
-const { exec } = NodeJS.returnexec()
+import process from 'child_process';
 class Exec {
     execStart = async (parameter) => {
         const { cmd, cwd, name, e } = parameter
-        exec(cmd, { cwd: cwd },
+        process.exec(cmd, { cwd: cwd },
             async (error, stdout, stderr) => {
                 const msg = []
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {

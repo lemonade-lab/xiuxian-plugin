@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'path'
 import algorithm from './algorithm.js'
-import NodeJs from '../../node/node.js'
 import { __dirname } from '../../main.js'
+import schedule from 'node-schedule';
 /**
  * 数据备份
  */
@@ -12,7 +12,7 @@ class Schedule {
     }
     scheduleJobflie = (parameter) => {
         const { name, time, newpath } = parameter
-        NodeJs.returnSchedele().scheduleJob(time, () => {
+        schedule.scheduleJob(time, () => {
             const myDate = new Date()
             const Y = myDate.getFullYear()
             const M = myDate.getMonth() + 1

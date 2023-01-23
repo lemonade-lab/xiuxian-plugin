@@ -2,14 +2,14 @@ import algorithm from '../data/algorithm.js'
 import listdata from '../data/listaction.js'
 import gamepublic from '../public/public.js'
 import { __PATH } from '../data/index.js'
-import NodeJs from '../../node/node.js'
 import config from '../data/defset/updata.js'
+import schedule from 'node-schedule';
 class GameUser {
     constructor() {
         /**
          * 寿命机制
          */
-        NodeJs.returnSchedele().scheduleJob(config.getConfig({ app: 'task', name: 'task' }).LifeTask, async () => {
+        schedule.scheduleJob(config.getConfig({ app: 'task', name: 'task' }).LifeTask, async () => {
             const life = await listdata.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
             const die = []
             life.forEach((item) => {
