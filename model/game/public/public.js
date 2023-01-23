@@ -20,7 +20,7 @@ const MYCD = {
 /**
  * 自定义插件redis字段
  */
-const ReadiName='xiuxian:player'
+const ReadiName = 'xiuxian:player'
 class GamePublic {
     /**
     * 
@@ -40,12 +40,15 @@ class GamePublic {
     leastOne = async (parameter) => {
         const { value } = parameter
         let size = value
-        if (isNaN(parseFloat(size)) && !isFinite(size)) {
-            size = 1
+        if (isNaN(parseFloat(size))) {
+            return Number(1)
+        }
+        if (isFinite(size)) {
+            return Number(1)
         }
         size = Number(Math.trunc(size))
         if (size == null || size == undefined || size < 1 || isNaN(size)) {
-            size = 1
+            Number(1)
         }
         return Number(size)
     }

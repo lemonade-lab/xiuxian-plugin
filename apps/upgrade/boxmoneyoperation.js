@@ -71,7 +71,7 @@ export class boxmoneyoperation extends robotapi {
         }
         const A = e.user_id
         const B = await BotApi.User.at({ e })
-        if (!B) {
+        if (!B || B == A) {
             return
         }
         const existB = await gameApi.existUserSatus({ UID: B })
@@ -79,14 +79,11 @@ export class boxmoneyoperation extends robotapi {
             e.reply('已死亡')
             return
         }
-        if (!B || B == A) {
-            return
-        }
         let islingshi = e.msg.replace('#赠送灵石', '')
-        const lingshi = await gameApi.leastOne({ value: islingshi })
+        islingshi = await gameApi.leastOne({ value: islingshi })
         const money = await gameApi.userBagSearch({ UID: A, name: '下品灵石' })
-        if (!money || thing.acount < lingshi) {
-            e.reply(`似乎没有${lingshi}下品灵石`)
+        if (!money || thing.acount < islingshi) {
+            e.reply(`似乎没有${islingshi}下品灵石`)
             return
         }
         const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Transfer
@@ -99,9 +96,9 @@ export class boxmoneyoperation extends robotapi {
         }
         await redis.set(`xiuxian:player:${A}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60)
-        await gameApi.userBag({ UID: A, name: '下品灵石', ACCOUNT: -lingshi })
-        await gameApi.userBag({ UID: B, name: '下品灵石', ACCOUNT: lingshi })
-        e.reply([BotApi.segment.at(B), `你获得了由 ${A}赠送的${lingshi}下品灵石`])
+        await gameApi.userBag({ UID: A, name: '下品灵石', ACCOUNT: -islingshi })
+        await gameApi.userBag({ UID: B, name: '下品灵石', ACCOUNT: islingshi })
+        e.reply([BotApi.segment.at(B), `你获得了由 ${A}赠送的${islingshi}下品灵石`])
         return
     }
 }
