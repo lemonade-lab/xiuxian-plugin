@@ -6,19 +6,19 @@ class UserAction {
      */
     forwardMsg = async (parameter) => {
         const { e, data } = parameter
+        if (data.length == 1) {
+            await e.reply(data[0])
+            return
+        }
         const msgList = []
-        for (let i of data) {
+        for (let item of data) {
             msgList.push({
-                message: i,
+                message: item,
                 nickname: Bot.nickname,
                 user_id: Bot.uin,
             })
         }
-        if (msgList.length == 1) {
-            await e.reply(msgList[0].message)
-        } else {
-            await e.reply(await Bot.makeForwardMsg(msgList))
-        }
+        await e.reply(await Bot.makeForwardMsg(msgList))
         return
     }
     /**
@@ -26,12 +26,10 @@ class UserAction {
     */
     at = async (parameter) => {
         const { e } = parameter
-        const isat = e.message.some((item) => item.type === 'at')
-        if (!isat) {
+        if (!e.message.some((item) => item.type === 'at')) {
             return false
         }
-        const atItem = e.message.filter((item) => item.type === 'at')
-        if (atItem[0]['qq']) {
+        if (e.message.filter((item) => item.type === 'at')[0]['qq']) {
             return atItem[0]['qq']
         }
         return false

@@ -14,6 +14,11 @@ export class boxuserstart extends robotapi {
                 fnc: 'reCreateMsg'
             }
         ]))
+        this.task = {
+            cron: gameApi.getConfig({ app: 'task', name: 'task' }).LifeTask,
+            name: 'LifeTask',
+            fnc: () => { gameApi.startLife() }
+        }
     }
     createMsg = async (e) => {
         if (!e.isGroup || e.user_id == 80000000) {

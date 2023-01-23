@@ -59,6 +59,7 @@ class DateIndex {
          * 生成yaml配置数据
          */
         createdata.moveConfig({})
+
         /**
          * 生成jsoon数据
          */
@@ -112,6 +113,8 @@ class DateIndex {
         genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
         return
     }
+
+
 
 }
 export default new DateIndex()

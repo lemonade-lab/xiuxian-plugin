@@ -3,27 +3,21 @@ import listdata from '../data/listaction.js'
 import gamepublic from '../public/public.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset/updata.js'
-import schedule from 'node-schedule';
 class GameUser {
-    constructor() {
-        /**
-         * 寿命机制
-         */
-        schedule.scheduleJob(config.getConfig({ app: 'task', name: 'task' }).LifeTask, async () => {
-            const life = await listdata.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
-            const die = []
-            life.forEach((item) => {
-                item.Age = item.Age + config.getConfig({ app: 'parameter', name: 'cooling' }).Age.size
-                if (item.Age >= item.life) {
-                    item.status = 0
-                    die.push(item.qq)
-                }
-            })
-            await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
-            for (let item of die) {
-                await gamepublic.offAction({ UID: item })
+    startLife = async () => {
+        const life = await listdata.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
+        const die = []
+        life.forEach((item) => {
+            item.Age = item.Age + config.getConfig({ app: 'parameter', name: 'cooling' }).Age.size
+            if (item.Age >= item.life) {
+                item.status = 0
+                die.push(item.qq)
             }
         })
+        await this.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
+        for (let item of die) {
+            await gamepublic.offAction({ UID: item })
+        }
     }
     /**
     * @param {UID} UID 

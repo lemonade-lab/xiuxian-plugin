@@ -15,6 +15,9 @@ class GameApi {
     /**
      * 用户类
      */
+    startLife = async () => {
+        return await gameUser.startLife()
+    }
     getUserUID = async () => {
         return await gameUser.getUserUID()
     }
@@ -213,7 +216,7 @@ class GameApi {
     addListArr = async (parameter) => {
         return await dataIndex.addListArr(parameter)
     }
-    
+
 
 }
 export default new GameApi()
