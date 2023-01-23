@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'path'
 import algorithm from './algorithm.js'
 import { __dirname } from '../../main.js'
-import schedule from 'node-schedule';
+import schedule from 'node-schedule'
 /**
  * 数据备份
  */

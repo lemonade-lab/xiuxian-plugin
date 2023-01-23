@@ -1,6 +1,6 @@
 
 import userAction from '../user/action.js'
-import process from 'child_process';
+import process from 'child_process'
 class Exec {
     execStart = async (parameter) => {
         const { cmd, cwd, name, e } = parameter
