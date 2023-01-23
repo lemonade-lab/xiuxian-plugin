@@ -128,7 +128,7 @@ class GameUser {
          */
         await this.updataUserEfficiency({ UID })
         /**
-         * 
+         * 更新战斗面板
          */
         await this.readPanel({ UID })
         return true
@@ -171,10 +171,10 @@ class GameUser {
         const thing = BAG.thing.find(item => item.id == THING.id)
         if (thing) {
             let acount = Number(thing.acount) + Number(ACCOUNT)
-            if (acount < 1) {
+            if (Number(acount) < 1) {
                 BAG.thing = BAG.thing.filter(item => item.id != THING.id)
             } else {
-                BAG.thing.find(item => item.id == THING.id).acount = acount
+                BAG.thing.find(item => item.id == THING.id).acount = Number(acount)
             }
             return BAG
         } else {
@@ -195,8 +195,7 @@ class GameUser {
     userBagSearch = async (parameter) => {
         const { UID, name } = parameter
         const bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
-        const ifexist = bag.thing.find(item => item.name == name)
-        return ifexist
+        return bag.thing.find(item => item.name == name)
     }
 
 
