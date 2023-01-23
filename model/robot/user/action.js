@@ -29,7 +29,8 @@ class UserAction {
         if (!e.message.some((item) => item.type === 'at')) {
             return false
         }
-        if (e.message.filter((item) => item.type === 'at')[0]['qq']) {
+        const atItem=e.message.filter((item) => item.type === 'at')
+        if (atItem[0]['qq']) {
             return atItem[0]['qq']
         }
         return false
