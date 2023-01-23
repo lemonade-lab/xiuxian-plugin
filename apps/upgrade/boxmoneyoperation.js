@@ -82,7 +82,7 @@ export class boxmoneyoperation extends robotapi {
         let islingshi = e.msg.replace('#赠送灵石', '')
         islingshi = await gameApi.leastOne({ value: islingshi })
         const money = await gameApi.userBagSearch({ UID: A, name: '下品灵石' })
-        if (!money || thing.acount < islingshi) {
+        if (!money || money.acount < islingshi) {
             e.reply(`似乎没有${islingshi}下品灵石`)
             return
         }
