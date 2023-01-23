@@ -11,7 +11,7 @@ export class boxadmindelete extends robotapi {
             {
                 reg: '^#修仙删除世界$',
                 fnc: 'deleteAllusers'
-            }   
+            }
         ]))
     }
     deleteRedis = async (e) => {
