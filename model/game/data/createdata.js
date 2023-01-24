@@ -7,8 +7,9 @@ import algorithm from './algorithm.js'
 const configarr = ['cooling.yaml', 'task.yaml', 'version.yaml', 'help.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
-    this.defsetpath = `${__dirname}/resources/defset/`
-    this.configpath = `${__dirname}/config/`
+    this.resources = `${__dirname}/resources`
+    this.defsetpath = `${__dirname}/resources/defset`
+    this.configpath = `${__dirname}/config`
   }
   /**
    * @param {name} parameter 
@@ -19,8 +20,8 @@ class CreateData {
     const path = algorithm.returnMenu(this.defsetpath)
     path.forEach((itempath) => {
       configarr.forEach((itemconfig) => {
-        let x = `${this.configpath}${itempath}/${itemconfig}`
-        let y = `${this.defsetpath}${itempath}/${itemconfig}`
+        let x = `${this.configpath}/${itempath}/${itemconfig}`
+        let y = `${this.defsetpath}/${itempath}/${itemconfig}`
         //刷新控制
         if (name) {
           //存在就复制,需要替换原文件,已达到更新的目的
@@ -46,9 +47,25 @@ class CreateData {
     const { path, name } = parameter
     path.forEach((itempath) => {
       name.forEach((itemname) => {
-        let x = `${__dirname}/resources/img/${itempath}/${itemname}`
+        let x = `${this.resources}/img/${itempath}/${itemname}`
         if (!fs.existsSync(x)) {
-          let y = `${__dirname}/resources/html/allimg/${itempath}/${itemname}`
+          let y = `${this.resources}/html/allimg/${itempath}/${itemname}`
+          fs.cp(y, x,
+            (err) => {
+              if (err) { }
+            })
+        }
+      })
+    })
+    return
+  }
+  reImg = (parameter) => {
+    const { path, name } = parameter
+    path.forEach((itempath) => {
+      name.forEach((itemname) => {
+        let x = `${this.resources}/img/${itempath}/${itemname}`
+        if (fs.existsSync(x)) {
+          let y = `${this.resources}/html/allimg/${itempath}/${itemname}`
           fs.cp(y, x,
             (err) => {
               if (err) { }
