@@ -13,13 +13,16 @@ body {
 .label {
   font-family: Number, "微软雅黑", sans-serif;
 }
+
 .head-box {
   margin: 60px 0 0 0;
   padding-bottom: 0;
 }
+
 .head-box .title {
   font-size: 50px;
 }
+
 .cont-box {
   border-radius: 15px;
   margin-top: 20px;
@@ -28,14 +31,16 @@ body {
   overflow: hidden;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
   position: relative;
-  background: rgb(19 21 22 / 51%);
+  background: rgb(221 239 250 / 28%);
 }
+
 .help-group {
-  color: #b8eef5;
+  color: #000000;
   font-size: 18px;
   font-weight: bold;
   padding: 8px 0 5px 10px;
 }
+
 .help-table {
   text-align: center;
   border-collapse: collapse;
@@ -65,11 +70,11 @@ body {
 }
 
 .help-table .tr:nth-child(odd) {
-  background: rgb(0 0 0 / 41%);
+  background: rgb(221 239 250 / 28%);
 }
 
 .help-table .tr:nth-child(even) {
-  background: rgba(19, 21, 22, 0.448);
+  background: rgb(221 239 250 / 28%);
 }
 
 .help-table .tr:last-child .td {
@@ -93,102 +98,335 @@ body {
   transform: scale(0.85);
 }
 
-.help-icon_1{background-position:-0px -0px}
-.help-icon_2{background-position:-50px -0px}
-.help-icon_3{background-position:-100px -0px}
-.help-icon_4{background-position:-150px -0px}
-.help-icon_5{background-position:-200px -0px}
-.help-icon_6{background-position:-250px -0px}
-.help-icon_7{background-position:-300px -0px}
-.help-icon_8{background-position:-350px -0px}
-.help-icon_9{background-position:-400px -0px}
-.help-icon_10{background-position:-450px -0px}
+.help-icon_1 {
+  background-position: -0px -0px
+}
 
-.help-icon_11{background-position:-0px -50px}
-.help-icon_12{background-position:-50px -50px}
-.help-icon_13{background-position:-100px -50px}
-.help-icon_14{background-position:-150px -50px}
-.help-icon_15{background-position:-200px -50px}
-.help-icon_16{background-position:-250px -50px}
-.help-icon_17{background-position:-300px -50px}
-.help-icon_18{background-position:-350px -50px}
-.help-icon_19{background-position:-400px -50px}
-.help-icon_20{background-position:-450px -50px}
+.help-icon_2 {
+  background-position: -50px -0px
+}
 
-.help-icon_21{background-position:-0px -100px}
-.help-icon_22{background-position:-50px -100px}
-.help-icon_23{background-position:-100px -100px}
-.help-icon_24{background-position:-150px -100px}
-.help-icon_25{background-position:-200px -100px}
-.help-icon_26{background-position:-250px -100px}
-.help-icon_27{background-position:-300px -100px}
-.help-icon_28{background-position:-350px -100px}
-.help-icon_29{background-position:-400px -100px}
-.help-icon_30{background-position:-450px -100px}
+.help-icon_3 {
+  background-position: -100px -0px
+}
 
-.help-icon_31{background-position:-0px -150px}
-.help-icon_32{background-position:-50px -150px}
-.help-icon_33{background-position:-100px -150px}
-.help-icon_34{background-position:-150px -150px}
-.help-icon_35{background-position:-200px -150px}
-.help-icon_36{background-position:-250px -150px}
-.help-icon_37{background-position:-300px -150px}
-.help-icon_38{background-position:-350px -150px}
-.help-icon_39{background-position:-400px -150px}
-.help-icon_40{background-position:-450px -150px}
+.help-icon_4 {
+  background-position: -150px -0px
+}
 
-.help-icon_41{background-position:-0px -200px}
-.help-icon_42{background-position:-50px -200px}
-.help-icon_43{background-position:-100px -200px}
-.help-icon_44{background-position:-150px -200px}
-.help-icon_45{background-position:-200px -200px}
-.help-icon_46{background-position:-250px -200px}
-.help-icon_47{background-position:-300px -200px}
-.help-icon_48{background-position:-350px -200px}
-.help-icon_49{background-position:-400px -200px}
-.help-icon_50{background-position:-450px -200px}
+.help-icon_5 {
+  background-position: -200px -0px
+}
 
-.help-icon_51{background-position:-0px -250px}
-.help-icon_52{background-position:-50px -250px}
-.help-icon_53{background-position:-100px -250px}
-.help-icon_54{background-position:-150px -250px}
-.help-icon_55{background-position:-200px -250px}
-.help-icon_56{background-position:-250px -250px}
-.help-icon_57{background-position:-300px -250px}
-.help-icon_58{background-position:-350px -250px}
-.help-icon_59{background-position:-400px -250px}
-.help-icon_60{background-position:-450px -250px}
+.help-icon_6 {
+  background-position: -250px -0px
+}
 
-.help-icon_61{background-position:-0px -300px}
-.help-icon_62{background-position:-50px -300px}
-.help-icon_63{background-position:-100px -300px}
-.help-icon_64{background-position:-150px -300px}
-.help-icon_65{background-position:-200px -300px}
-.help-icon_66{background-position:-250px -300px}
-.help-icon_67{background-position:-300px -300px}
-.help-icon_68{background-position:-350px -300px}
-.help-icon_69{background-position:-400px -300px}
-.help-icon_70{background-position:-450px -300px}
+.help-icon_7 {
+  background-position: -300px -0px
+}
+
+.help-icon_8 {
+  background-position: -350px -0px
+}
+
+.help-icon_9 {
+  background-position: -400px -0px
+}
+
+.help-icon_10 {
+  background-position: -450px -0px
+}
+
+.help-icon_11 {
+  background-position: -0px -50px
+}
+
+.help-icon_12 {
+  background-position: -50px -50px
+}
+
+.help-icon_13 {
+  background-position: -100px -50px
+}
+
+.help-icon_14 {
+  background-position: -150px -50px
+}
+
+.help-icon_15 {
+  background-position: -200px -50px
+}
+
+.help-icon_16 {
+  background-position: -250px -50px
+}
+
+.help-icon_17 {
+  background-position: -300px -50px
+}
+
+.help-icon_18 {
+  background-position: -350px -50px
+}
+
+.help-icon_19 {
+  background-position: -400px -50px
+}
+
+.help-icon_20 {
+  background-position: -450px -50px
+}
+
+.help-icon_21 {
+  background-position: -0px -100px
+}
+
+.help-icon_22 {
+  background-position: -50px -100px
+}
+
+.help-icon_23 {
+  background-position: -100px -100px
+}
+
+.help-icon_24 {
+  background-position: -150px -100px
+}
+
+.help-icon_25 {
+  background-position: -200px -100px
+}
+
+.help-icon_26 {
+  background-position: -250px -100px
+}
+
+.help-icon_27 {
+  background-position: -300px -100px
+}
+
+.help-icon_28 {
+  background-position: -350px -100px
+}
+
+.help-icon_29 {
+  background-position: -400px -100px
+}
+
+.help-icon_30 {
+  background-position: -450px -100px
+}
+
+.help-icon_31 {
+  background-position: -0px -150px
+}
+
+.help-icon_32 {
+  background-position: -50px -150px
+}
+
+.help-icon_33 {
+  background-position: -100px -150px
+}
+
+.help-icon_34 {
+  background-position: -150px -150px
+}
+
+.help-icon_35 {
+  background-position: -200px -150px
+}
+
+.help-icon_36 {
+  background-position: -250px -150px
+}
+
+.help-icon_37 {
+  background-position: -300px -150px
+}
+
+.help-icon_38 {
+  background-position: -350px -150px
+}
+
+.help-icon_39 {
+  background-position: -400px -150px
+}
+
+.help-icon_40 {
+  background-position: -450px -150px
+}
+
+.help-icon_41 {
+  background-position: -0px -200px
+}
+
+.help-icon_42 {
+  background-position: -50px -200px
+}
+
+.help-icon_43 {
+  background-position: -100px -200px
+}
+
+.help-icon_44 {
+  background-position: -150px -200px
+}
+
+.help-icon_45 {
+  background-position: -200px -200px
+}
+
+.help-icon_46 {
+  background-position: -250px -200px
+}
+
+.help-icon_47 {
+  background-position: -300px -200px
+}
+
+.help-icon_48 {
+  background-position: -350px -200px
+}
+
+.help-icon_49 {
+  background-position: -400px -200px
+}
+
+.help-icon_50 {
+  background-position: -450px -200px
+}
+
+.help-icon_51 {
+  background-position: -0px -250px
+}
+
+.help-icon_52 {
+  background-position: -50px -250px
+}
+
+.help-icon_53 {
+  background-position: -100px -250px
+}
+
+.help-icon_54 {
+  background-position: -150px -250px
+}
+
+.help-icon_55 {
+  background-position: -200px -250px
+}
+
+.help-icon_56 {
+  background-position: -250px -250px
+}
+
+.help-icon_57 {
+  background-position: -300px -250px
+}
+
+.help-icon_58 {
+  background-position: -350px -250px
+}
+
+.help-icon_59 {
+  background-position: -400px -250px
+}
+
+.help-icon_60 {
+  background-position: -450px -250px
+}
+
+.help-icon_61 {
+  background-position: -0px -300px
+}
+
+.help-icon_62 {
+  background-position: -50px -300px
+}
+
+.help-icon_63 {
+  background-position: -100px -300px
+}
+
+.help-icon_64 {
+  background-position: -150px -300px
+}
+
+.help-icon_65 {
+  background-position: -200px -300px
+}
+
+.help-icon_66 {
+  background-position: -250px -300px
+}
+
+.help-icon_67 {
+  background-position: -300px -300px
+}
+
+.help-icon_68 {
+  background-position: -350px -300px
+}
+
+.help-icon_69 {
+  background-position: -400px -300px
+}
+
+.help-icon_70 {
+  background-position: -450px -300px
+}
 
 
-.help-icon_71{background-position:-0px -350px}
-.help-icon_72{background-position:-50px -350px}
-.help-icon_73{background-position:-100px -350px}
-.help-icon_74{background-position:-150px -350px}
-.help-icon_75{background-position:-200px -350px}
-.help-icon_76{background-position:-250px -350px}
-.help-icon_77{background-position:-300px -350px}
-.help-icon_78{background-position:-350px -350px}
-.help-icon_79{background-position:-400px -350px}
-.help-icon_80{background-position:-450px -350px}
+.help-icon_71 {
+  background-position: -0px -350px
+}
+
+.help-icon_72 {
+  background-position: -50px -350px
+}
+
+.help-icon_73 {
+  background-position: -100px -350px
+}
+
+.help-icon_74 {
+  background-position: -150px -350px
+}
+
+.help-icon_75 {
+  background-position: -200px -350px
+}
+
+.help-icon_76 {
+  background-position: -250px -350px
+}
+
+.help-icon_77 {
+  background-position: -300px -350px
+}
+
+.help-icon_78 {
+  background-position: -350px -350px
+}
+
+.help-icon_79 {
+  background-position: -400px -350px
+}
+
+.help-icon_80 {
+  background-position: -450px -350px
+}
 
 
 .help-title {
   display: block;
-  color: #daf9ff;
+  color: #000000;
   font-size: 16px;
   line-height: 24px;
 }
+
 .help-desc {
   display: block;
   font-size: 13px;
