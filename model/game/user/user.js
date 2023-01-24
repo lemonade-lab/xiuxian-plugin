@@ -249,8 +249,8 @@ class GameUser {
                 }
             })
         })
-        //血量上限 换装导致血量溢出时需要
-        const bloodLimit = levelmini.blood + levelmax.blood + Math.floor((levelmini.blood + levelmax.blood) * equ.blood * 0.01)
+        //血量上限 换装导致血量溢出时需要----------------计算错误：不能增加血量上限
+        const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
         //双境界面板之和
         panel.attack = Math.floor(panel.attack * ((equ.attack * 0.01) + 1))
         panel.defense = Math.floor(panel.defense * ((equ.defense * 0.01) + 1))
@@ -260,7 +260,6 @@ class GameUser {
         panel.burstmax += equ.burstmax
         panel.speed += equ.speed
         panel.power = panel.attack + panel.defense + bloodLimit / 2 + panel.burst * 100 + panel.burstmax * 10 + panel.speed * 50
-        //不是返回,而是直接写入
         await this.userMsgAction({ NAME: UID, CHOICE: 'user_battle', DATA: panel })
         return
     }
