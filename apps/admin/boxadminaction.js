@@ -24,14 +24,7 @@ export class boxadminaction extends robotapi {
             e
         })
         gameApi.moveConfig({ name: 'updata' })
-        e.reply(await BotApi.Imgindex.showPuppeteer({
-            path: 'updata', name: 'updata', data: {
-                version: await gameApi.getConfig({
-                    app: 'version',
-                    name: 'version'
-                })
-            }
-        }))
+        e.reply('配置已重置')
         return
     }
 }

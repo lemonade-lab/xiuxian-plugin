@@ -3,10 +3,10 @@
     - icon: help-icon_38
       title: "#降临世界 #再入仙途"
       desc: "创建存档，转世重生"
-    - icon: help-icon_3
+    - icon: help-icon_44
       title: "#改名张三 #设置道宣"
       desc: "修改道号,个性签名"
-    - icon: help-icon_56
+    - icon: help-icon_82
       title: "#储物袋 #升级储物袋"
       desc: "物品查询,容量提升"
     
@@ -21,16 +21,16 @@
 
 - group: 
   list:
-    - icon: help-icon_54
+    - icon: help-icon_51
       title: "#攻击 @道友"
       desc: "可掉装备"
-    - icon: help-icon_54
+    - icon: help-icon_51
       title: "#决斗 @道友"
       desc: "可掉装备,需决斗令"
-    - icon: help-icon_107
+    - icon: help-icon_82
       title: "#洗手"
       desc: "清魔力值"
-    - icon: help-icon_63
+    - icon: help-icon_69
       title: "#击杀+怪物名"
       desc: "随机掉落物品"
     - icon: help-icon_98
@@ -40,70 +40,61 @@
 
 - group: 
   list:
-    - icon: help-icon_98
+    - icon: help-icon_81
       title: "#修仙地图"
       desc: "打开修仙世界大门"
-    - icon: help-icon_98
+    - icon: help-icon_73
       title: "#坐标信息"
       desc: "查看自己的坐标"
     - icon: help-icon_98
       title: "#位置信息"
       desc: "神识搜索位置"
-    - icon: help-icon_98
+    - icon: help-icon_63
       title: "#前往+位置名"
       desc: "前往指定位置"
-    - icon: help-icon_98
+    - icon: help-icon_63
       title: "#传送+区域名"
       desc: "随机降临区域"
-    - icon: help-icon_98
+    - icon: help-icon_63
       title: "#回到原地"
       desc: "取消走路行为"
 
 - group: 
   list:
     - icon: help-icon_38
+      title: "#基础信息"
+      desc: "你的身世"
+    - icon: help-icon_46
       title: "#面板信息"
       desc: "查看面板"
     - icon: help-icon_38
-      title: "#基础信息"
-      desc: "你的身世"
-    - icon: help-icon_38
       title: "#突破"
-      desc: "打破浩劫"
-    - icon: help-icon_38
-      title: "#破体"
-      desc: "提高体境"
+      desc: "#破体"
 
 - group: 
   list:
-    - icon: help-icon_44
+    - icon: help-icon_89
       title: "#学习+功法名"
-      desc: "学习功法"
-    - icon: help-icon_44
-      title: "#忘掉+功法名"
-      desc: "忘掉功法"
-    - icon: help-icon_42
+      desc: "#忘掉+功法名"
+    - icon: help-icon_74
       title: "#消耗+道具名"
       desc: "消耗道具"
-    - icon: help-icon_6
+    - icon: help-icon_42
       title: "#服用+丹药名"
       desc: "服用丹药"
     - icon: help-icon_46
       title: "#装备+装备名"
-      desc: "装备物品"
-    - icon: help-icon_46
-      title: "#卸下+装备名"
-      desc: "卸下装备"
+      desc: "#卸下+装备名"
 
 - group: 
   list:
-    - icon: help-icon_44
+    - icon: help-icon_82
       title: "#置换所有物品"
       desc: "出售储物袋中所有物品"
-    - icon: help-icon_44
+    - icon: help-icon_82
       title: "#一键出售+物品类型"
       desc: "出售指定类型物品"
-    - icon: help-icon_10
+    - icon: help-icon_104
       title: "#赠送灵石1000 @道友"
       desc: "赠送灵石"
 

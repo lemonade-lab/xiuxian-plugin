@@ -1,9 +1,9 @@
 - group: 
   list:
-    - icon: help-icon_16
+    - icon: help-icon_22
       title: "#修仙扣除9999 @道友"
-      desc: "扣指定道友灵石"
-    - icon: help-icon_16
+      desc: "扣指定道友灵石" 
+    - icon: help-icon_26
       title: "#修仙馈赠+物品名 @道友"
       desc: "补偿指定道友物品"
 
@@ -15,18 +15,18 @@
     - icon: help-icon_32
       title: "#修仙删除世界"
       desc: "删除全部信息"
-    - icon: help-icon_58
+    - icon: help-icon_21
       title: "#修仙配置"
-      desc: "查看当前配置"
+      desc: "#修仙配置重置"
       
 - group: 
   list:
-    - icon: help-icon_58
+    - icon: help-icon_28
       title: "#修仙数据"
       desc: "查看数据备份"
-    - icon: help-icon_58
+    - icon: help-icon_28
       title: "#修仙复原+数据名"
       desc: "请先查看#修仙数据"
-    - icon: help-icon_58
+    - icon: help-icon_28
       title: "#修仙更新"
       desc: "请阅读#修仙版本"

@@ -7,6 +7,10 @@ export class boxadminyaml extends robotapi {
             {
                 reg: '^#修仙配置更改.*',
                 fnc: 'configUpdata',
+            },
+            {
+                reg: '^#修仙配置重置',
+                fnc: 'configReUpdata',
             }
         ]))
     }
@@ -16,6 +20,14 @@ export class boxadminyaml extends robotapi {
         }
         const [name, size] = e.msg.replace('#修仙配置更改', '').split('\*')
         e.reply(gameApi.updateConfig({ name, size }))
+        return
+    }
+    configReUpdata = async (e) => {
+        if (!e.isMaster) {
+            return
+        }
+        gameApi.moveConfig({ name: 'updata' })
+        e.reply('配置已重置')
         return
     }
 }
