@@ -7,8 +7,7 @@ class ListAction {
      * @param {数据} DATA 
      * @returns 若无data则是读取操作，返回data
      */
-    listAction = async (parameter) => {
-        const { NAME, CHOICE, DATA } = parameter
+    listAction = async ({ NAME, CHOICE, DATA }) => {
         if (DATA) {
             await algorithm.dataAction({
                 NAME: NAME,
@@ -29,8 +28,7 @@ class ListAction {
      * @param {数据} DATA 
      * @returns 若无data则是读取操作(若读取失败则初始化为[])
      */
-    listActionArr = async (parameter) => {
-        const { NAME, CHOICE, DATA } = parameter
+    listActionArr = async ({ NAME, CHOICE, DATA }) => {
         if (DATA) {
             await algorithm.dataAction({
                 NAME: NAME,
@@ -60,8 +58,7 @@ class ListAction {
      * @param {表名} NAME 
      * @returns 随机返回该表的子元素
      */
-    randomListThing = async (parameter) => {
-        const { NAME, CHOICE } = parameter
+    randomListThing = async ({ NAME, CHOICE }) => {
         const LIST = await algorithm.dataAction({
             NAME: NAME,
             PATH: __PATH[CHOICE]

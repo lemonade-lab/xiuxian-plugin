@@ -1,11 +1,9 @@
 class UserAction {
     /**
      * 
-     * @param {e, data} parameter 
      * @returns 
      */
-    forwardMsg = async (parameter) => {
-        const { e, data } = parameter
+    forwardMsg = async ({ e, data }) => {
         if (data.length == 1) {
             await e.reply(data[0])
             return
@@ -24,8 +22,7 @@ class UserAction {
     /**
     * 艾特并返回QQ
     */
-    at = async (parameter) => {
-        const { e } = parameter
+    at = async ({ e }) => {
         if (!e.message.some((item) => item.type === 'at')) {
             return false
         }
@@ -38,11 +35,9 @@ class UserAction {
 
     /**
      *测回消息
-     * @param {e,isreply} parameter 
      * @returns 
      */
-    surveySet = async (parameter) => {
-        const { e, isreply } = parameter
+    surveySet = async ({ e, isreply }) => {
         if (!e.group) {
             return
         }

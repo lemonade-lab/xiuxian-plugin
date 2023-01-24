@@ -12,11 +12,9 @@ class CreateData {
     this.configpath = `${__dirname}/config`
   }
   /**
-   * @param {name} parameter 
    * @returns 
    */
-  moveConfig = (parameter) => {
-    const { name } = parameter
+  moveConfig = ({ name }) => {
     const path = algorithm.returnMenu(this.defsetpath)
     path.forEach((itempath) => {
       configarr.forEach((itemconfig) => {
@@ -43,8 +41,7 @@ class CreateData {
     return
   }
   //复制两个文件
-  generateImg = (parameter) => {
-    const { path, name } = parameter
+  generateImg = ({ path, name }) => {
     path.forEach((itempath) => {
       name.forEach((itemname) => {
         let x = `${this.resources}/img/${itempath}/${itemname}`
@@ -59,8 +56,7 @@ class CreateData {
     })
     return
   }
-  reImg = (parameter) => {
-    const { path, name } = parameter
+  reImg = ({ path, name }) => {
     path.forEach((itempath) => {
       name.forEach((itemname) => {
         let x = `${this.resources}/img/${itempath}/${itemname}`

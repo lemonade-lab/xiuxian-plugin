@@ -18,8 +18,7 @@ const name2 = [
  * 怪物生成
  */
 class GameMonster {
-    monsterscache = async (parameter) => {
-        const { i } = parameter
+    monsterscache = async ({ i }) => {
         if (!alldata.hasOwnProperty(i)) {
             alldata[i] = {
                 'label': 99,
@@ -38,8 +37,7 @@ class GameMonster {
             return data
         }
     }
-    add = async (parameter) => {
-        const { i, num } = parameter
+    add = async ({ i, num }) => {
         if (!addall.hasOwnProperty(i)) {
             addall[i] = {
                 'acount': 0
@@ -53,8 +51,7 @@ class GameMonster {
         }
         return 0
     }
-    generateMonster = async (parameter) => {
-        const { i } = parameter
+    generateMonster = async ({ i }) => {
         const time = new Date()
         const map = {
             '1': '1.3',

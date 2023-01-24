@@ -59,8 +59,7 @@ class Algorithm {
      * @param {对象} parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
-    dataAction = async (parameter) => {
-        const { NAME, PATH, DATA } = parameter
+    dataAction = async ({ NAME, PATH, DATA }) => {
         const DIR = path.join(`${PATH}/${NAME}.json`)
         if (DATA) {
             fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
@@ -79,8 +78,7 @@ class Algorithm {
      * @param {对象} parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
-    dataActionNew = async (parameter) => {
-        const { NAME, PATH, DATA } = parameter
+    dataActionNew = async ({ NAME, PATH, DATA }) => {
         const DIR = path.join(`${PATH}/${NAME}.json`)
         if (DATA) {
             fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
@@ -101,8 +99,7 @@ class Algorithm {
     /**
      * 判断目前是否存在
      */
-    existsSync = (parameter) => {
-        const { PATH } = parameter
+    existsSync = ({ PATH }) => {
         if (fs.existsSync(PATH)) {
             return true
         }

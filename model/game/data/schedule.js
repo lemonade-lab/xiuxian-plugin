@@ -10,8 +10,7 @@ class Schedule {
     constructor() {
         this.NEW_PATH = `${path.resolve()}/plugins/boxdata`
     }
-    scheduleJobflie = (parameter) => {
-        const { name, time, newpath } = parameter
+    scheduleJobflie = ({ name, time, newpath }) => {
         schedule.scheduleJob(time, () => {
             const myDate = new Date()
             const Y = myDate.getFullYear()
