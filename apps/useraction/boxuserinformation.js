@@ -26,7 +26,8 @@ export class boxuserinformation extends robotapi {
             return
         }
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
-        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        await BotApi.User.surveySet({ e, isreply })
         return
     }
     showQquipment = async (e) => {
@@ -36,7 +37,8 @@ export class boxuserinformation extends robotapi {
             return
         }
         const { path, name, data } = await gameApi.userEquipmentShow({ UID: e.user_id })
-        e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        await BotApi.User.surveySet({ e, isreply })
         return
     }
 }

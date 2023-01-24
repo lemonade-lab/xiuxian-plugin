@@ -85,7 +85,8 @@ export class boxsecretplace extends robotapi {
             return
         }
         const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        e.reply(`坐标(${action.x},${action.y},${action.z})`)
+        const isreply = await e.reply(`坐标(${action.x},${action.y},${action.z})`)
+        await BotApi.User.surveySet({ e, isreply })
         return
     }
     forward = async (e) => {

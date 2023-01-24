@@ -22,7 +22,8 @@ export class boxtoplist extends robotapi {
         }
         const { CacheMSG } = await BotApi.Cache.readCahe({ name: 'showTopPrestige' })
         if (CacheMSG) {
-            e.reply(CacheMSG)
+            const isreply = await e.reply(CacheMSG)
+            await BotApi.User.surveySet({ e, isreply })
             return
         }
         const userList = await gameApi.getUserUID()
@@ -58,7 +59,8 @@ export class boxtoplist extends robotapi {
             name: 'showTopPrestige',
             data: newimg
         })
-        e.reply(newimg)
+        const isreply = await e.reply(newimg)
+        await BotApi.User.surveySet({ e, isreply })
         return
     }
     showTopGenius = async (e) => {
@@ -68,7 +70,8 @@ export class boxtoplist extends robotapi {
         }
         const { CacheMSG } = await BotApi.Cache.readCahe({ name: 'showTopGenius' })
         if (CacheMSG) {
-            e.reply(CacheMSG)
+            const isreply = await e.reply(CacheMSG)
+            await BotApi.User.surveySet({ e, isreply })
             return
         }
         const list = []
@@ -100,7 +103,8 @@ export class boxtoplist extends robotapi {
             name: 'toplist',
             data: { list: list },
         })
-        e.reply(newimg)
+        const isreply = await e.reply(newimg)
+        await BotApi.User.surveySet({ e, isreply })
         await BotApi.Cache.addCahe({
             name: 'showTopGenius',
             data: newimg

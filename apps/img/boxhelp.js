@@ -24,7 +24,8 @@ export class boxhelp extends robotapi {
         if (!data) {
             return
         }
-        await e.reply(await BotApi.Cache.helpcache({ i: 1, data }))
+        const isreply = await e.reply(await BotApi.Cache.helpcache({ i: 1, data }))
+        await BotApi.User.surveySet({ e, isreply })
     }
     adminSuper = async (e) => {
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
@@ -35,6 +36,7 @@ export class boxhelp extends robotapi {
         if (!data) {
             return
         }
-        await e.reply(await BotApi.Cache.helpcache({ i: 0, data }))
+        const isreply = await e.reply(await BotApi.Cache.helpcache({ i: 0, data }))
+        await BotApi.User.surveySet({ e, isreply })
     }
 }
