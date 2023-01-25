@@ -125,33 +125,32 @@ export class boxplayercontrol extends robotapi {
         const UID = user_id
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-        let other = 0
-        e.reply([BotApi.segment.at(UID)])
-        const msg = []
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
+        let other = 0
+        let msg = `${[BotApi.segment.at(UID)]}`
         if (name == '闭关') {
             if (rand < 20) {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff / 2)
-                msg.push(`\n闭关迟迟无法入定,只得到了${other}修为`)
+                msg += `\n闭关迟迟无法入定,只得到了${other}修为`
             } else {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff)
-                msg.push(`\n闭关结束,得到了${other}修为`)
+                msg += `\n闭关结束,得到了${other}修为`
             }
             await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: other })
         } else {
             if (rand < 20) {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff / 2)
-                msg.push(`\n降妖不专心,只得到了${other}气血`)
+                msg += `\n降妖不专心,只得到了${other}气血`
             } else {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff)
-                msg.push(`\n降妖回来,得到了${other}气血`)
+                msg += `\n降妖回来,得到了${other}气血`
             }
             await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: other })
         }
         await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
-        msg.push('\n血量恢复至90%')
-        msg.push('\n' + name + '结束')
-        await BotApi.User.forwardMsg({ e, data: msg })
+        msg += '\n血量恢复至90%'
+        msg += `\n${name}结束`
+        e.reply(msg)
         return
     }
 }
