@@ -85,11 +85,12 @@ class DateIndex {
             ...genertate.getlist(__PATH.fixed_goods, '0.json'),
             ...genertate.getlist(__PATH.custom_goods, '0.json')
         ])
-        //怪物掉落表
+        //怪物掉落表：部分稀有的不能放进去，所有需要有所控制：只放1级物品、二级物品获取途径待增加？
         genertate.newlist(__PATH.generate_all, 'dropsItem', [])
         genertate.newlist(__PATH.generate_all, 'dropsItem', [
-            ...genertate.getlist(__PATH.fixed_equipment, 'json'),
-            ...genertate.getlist(__PATH.fixed_goods, 'json'),
+            //只放一级装备和物品
+            ...genertate.getlist(__PATH.fixed_equipment, '1.json'),
+            ...genertate.getlist(__PATH.fixed_goods, '1.json'),
             ...genertate.getlist(__PATH.custom_goods, '.json')
         ])
         //地图系统数据
