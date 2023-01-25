@@ -127,7 +127,7 @@ export class boxplayercontrol extends robotapi {
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         let other = 0
-        let msg = `${[BotApi.segment.at(UID)]}`
+        let msg = ``
         if (name == '闭关') {
             if (rand < 20) {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff / 2)
@@ -150,7 +150,7 @@ export class boxplayercontrol extends robotapi {
         await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
         msg += '\n血量恢复至90%'
         msg += `\n${name}结束`
-        e.reply(msg)
+        e.reply([BotApi.segment.at(UID), msg])
         return
     }
 }
