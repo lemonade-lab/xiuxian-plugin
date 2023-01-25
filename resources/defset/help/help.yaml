@@ -97,12 +97,3 @@
     - icon: help-icon_74
       title: "#赠送灵石1000 @道友"
       desc: "赠送灵石"
-
-- group: 
-  list:
-    - icon: help-icon_30
-      title: "#至尊榜"
-      desc: "凡人战力榜"
-    - icon: help-icon_30
-      title: "#杀神榜"
-      desc: "罪恶魔力榜"
