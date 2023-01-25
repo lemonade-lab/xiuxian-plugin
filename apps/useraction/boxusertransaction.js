@@ -72,7 +72,7 @@ export class boxusertransaction extends robotapi {
                 }
             }
         })
-        await BotApi.User.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsgSurveySet({ e, data: msg })
         return
     }
     buyComodities = async (e) => {

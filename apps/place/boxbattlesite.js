@@ -133,7 +133,7 @@ export class boxbattlesite extends robotapi {
                 '等级:' + item.level + '\n'
             )
         })
-        await BotApi.User.forwardMsg({ e, data: msg })
+        await BotApi.User.forwardMsgSurveySet({ e, data: msg })
         return
     }
 }

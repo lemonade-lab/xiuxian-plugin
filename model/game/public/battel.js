@@ -84,8 +84,6 @@ class gameBattle {
     //战斗模型
     battle = async (parameter) => {
         const { e, A, B } = parameter
-        console.log(A)
-        console.log(B)
         const battle_msg = {
             msg: [],
             QQ: 1

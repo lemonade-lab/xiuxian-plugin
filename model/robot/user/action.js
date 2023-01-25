@@ -19,6 +19,33 @@ class UserAction {
         await e.reply(await Bot.makeForwardMsg(msgList))
         return
     }
+    
+
+    /**
+     * 转发的消息也需要一个测回机制
+     */
+
+    forwardMsgSurveySet = async ({ e, data }) => {
+        if (data.length == 1) {
+            const isreply = await e.reply(data[0])
+            this.surveySet({ e, isreply })
+            return
+        }
+        const msgList = []
+        for (let item of data) {
+            msgList.push({
+                message: item,
+                nickname: Bot.nickname,
+                user_id: Bot.uin,
+            })
+        }
+        const isreply = await e.reply(await Bot.makeForwardMsg(msgList))
+        this.surveySet({ e, isreply })
+        return
+    }
+
+
+
     /**
     * 艾特并返回QQ
     */

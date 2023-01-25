@@ -16,6 +16,11 @@ export const __PATH = {
     'user_wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     'user_bag': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
     'user_life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+
+    /**
+     * 新增玩家概率事件存档
+     */
+
     //基础信息
     'fixed_point': path.join(__dirname, '/resources/data/fixed/point'),
     'fixed_position': path.join(__dirname, '/resources/data/fixed/position'),
