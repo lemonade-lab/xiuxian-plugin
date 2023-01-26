@@ -45,7 +45,7 @@ class GamePublic {
         }
         size = Number(Math.trunc(size))
         if (size == null || size == undefined || size < 1 || isNaN(size)) {
-            Number(1)
+            return Number(1)
         }
         return Number(size)
     }
