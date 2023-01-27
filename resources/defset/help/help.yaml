@@ -22,6 +22,9 @@
 - group: 
   list:
     - icon: help-icon_21
+      title: "#打劫+QQ"
+      desc: "知QQ即可打劫"
+    - icon: help-icon_21
       title: "#攻击 @道友"
       desc: "可掉装备"
     - icon: help-icon_21
