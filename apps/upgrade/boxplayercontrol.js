@@ -124,21 +124,21 @@ export class boxplayercontrol extends robotapi {
     upgrade = async (user_id, time, name, e) => {
         const UID = user_id
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
-        const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
+        const buff = Math.floor(talent.talentsize / 100) + Number(1)
         const appSize = gameApi.getConfig({ app: 'parameter', name: 'cooling' })
         let map = {
             '闭关': 'biguan',
             '降妖': 'work'
         }
-        let other = Math.floor(appSize[map[name]]['size'] * time * mybuff)
-        if (Math.floor((Math.random() * (100 - 1) + 1)) < 20) {
+        let other = Math.floor(appSize[map[name]]['size'] * time * buff)
+        if ((Math.random() * (100 - 1) + 1) < 20) {
             other -= other / 3
         }
         let othername = 'experience'
         let msg = `闭关结束,获得${other}修为`
         if (name != '闭关') {
             othername = 'experiencemax'
-            msg = `降妖结束,获得${other}气血`
+            msg = `降妖归来,获得${other}气血`
         }
         await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: othername, SIZE: other })
         await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
