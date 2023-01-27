@@ -125,27 +125,20 @@ export class boxplayercontrol extends robotapi {
         const UID = user_id
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-        const rand = Math.floor((Math.random() * (100 - 1) + 1))
-        let other = 0
-        let msg = ``
+        const appSize = gameApi.getConfig({ app: 'parameter', name: 'cooling' })
+        let map = {
+            '闭关': 'biguan',
+            '降妖': 'work'
+        }
+        let other = Math.floor(appSize[map[name]]['size'] * time * mybuff)
+        if (Math.floor((Math.random() * (100 - 1) + 1)) < 20) {
+            other -= other / 3
+        }
         let othername = 'experience'
-        if (name == '闭关') {
-            if (rand < 20) {
-                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff)
-                msg += `\n闭关迟迟无法入定,只得到了${other}修为`
-            } else {
-                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff)
-                msg += `\n闭关结束,得到了${other}修为`
-            }
-        } else {
+        let msg = `闭关结束,获得${other}修为`
+        if (name != '闭关') {
             othername = 'experiencemax'
-            if (rand < 20) {
-                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff)
-                msg += `\n降妖不专心,只得到了${other}气血`
-            } else {
-                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff)
-                msg += `\n降妖回来,得到了${other}气血`
-            }
+            msg = `降妖结束,获得${other}气血`
         }
         await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: othername, SIZE: other })
         await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
