@@ -1,4 +1,4 @@
-# Xiuxian-Plugin-Box<a  href='https://gitee.com/ningmengchongshui/develop-plugins/stargazers'><img src='https://gitee.com/ningmengchongshui/develop-plugins/badge/star.svg?theme=dark'  alt='star'></img></a>
+# Xiuxian-Plugin-Box<a  href='https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/stargazers'><img src='https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/badge/star.svg?theme=dark'  alt='star'></img></a>
 #### 访问量：2022.12.1 00:00
  [![](https://profile-counter.glitch.me/Xiuxian-Plugin-Box/count.svg)](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box)  
 
