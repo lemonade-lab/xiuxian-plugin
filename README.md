@@ -12,5 +12,5 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 >查看管理功能  `#修仙管理`     
 >修仙更新指令 `#修仙更新`  
 
-# 游戏开发
-[☞开发共享](https://gitee.com/ningmengchongshui/xiuxian-extensions)
+## 游戏开发
+[☞查看教程](https://gitee.com/ningmengchongshui/game-development)
