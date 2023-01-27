@@ -195,7 +195,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         //先扣钱
-        await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: -lingshi })
+        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)
