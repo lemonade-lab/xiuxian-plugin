@@ -32,13 +32,13 @@ myconfig:
 
 biguan: 
   #倍率！
-  size: 6
+  size: 2
   #最低时间
   time: 10 
 
 work:
   #倍率！
-  size: 3
+  size: 1
   #最低时间
   time: 10 
 

@@ -128,25 +128,26 @@ export class boxplayercontrol extends robotapi {
         const rand = Math.floor((Math.random() * (100 - 1) + 1))
         let other = 0
         let msg = ``
+        let name = 'experience'
         if (name == '闭关') {
             if (rand < 20) {
-                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff / 2)
+                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff)
                 msg += `\n闭关迟迟无法入定,只得到了${other}修为`
             } else {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).biguan.size * time * mybuff)
                 msg += `\n闭关结束,得到了${other}修为`
             }
-            await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: other })
         } else {
+            name = 'experiencemax'
             if (rand < 20) {
-                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff / 2)
+                other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff)
                 msg += `\n降妖不专心,只得到了${other}气血`
             } else {
                 other = Math.floor(gameApi.getConfig({ app: 'parameter', name: 'cooling' }).work.size * time * mybuff)
                 msg += `\n降妖回来,得到了${other}气血`
             }
-            await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: other })
         }
+        await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: name, SIZE: other })
         await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
         msg += '\n血量恢复至90%'
         msg += `\n${name}结束`
