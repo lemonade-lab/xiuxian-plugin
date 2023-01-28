@@ -483,5 +483,86 @@ class GameUser {
         return
     }
 
+
+    /**
+     * 
+     * @param {*} uid 
+     * @param {*} flag 
+     * @param {*} type 
+     * @param {*} value 
+     * @returns 
+     */
+    addExtendPerpetual = async (uid, flag, type, value) => {
+        const dir = path.join(`${__PATH.extend}/${uid}.json`)
+        let player
+        if (!fs.existsSync(dir)) {
+            player = {}
+        } else {
+            player = await Read_extend(uid)
+        }
+        if (!isNotNull(player[flag])) {
+            const extend = {
+                "times": [],
+                "perpetual": {
+                    "attack": 0,
+                    "defense": 0,
+                    "blood": 0,
+                    "burst": 0,
+                    "burstmax": 0,
+                    "speed": 0,
+                    "efficiency": 0
+                }
+            }
+            player[flag] = extend
+        }
+        player[flag].perpetual[type] = value
+        await Write_extend(uid, player)
+        return
+    }
+
+    addExtendTimes = async (uid, flag, type, value, endTime) => {
+        const dir = path.join(`${__PATH.extend}/${uid}.json`)
+        let player
+        if (!fs.existsSync(dir)) {
+            player = {}
+        } else {
+            player = await Read_extend(uid)
+        }
+        if (!isNotNull(player[flag])) {
+            const extend = {
+                "times": [],
+                "perpetual": {
+                    "attack": 0,
+                    "defense": 0,
+                    "blood": 0,
+                    "burst": 0,
+                    "burstmax": 0,
+                    "speed": 0,
+                    "efficiency": 0
+                }
+            }
+            player[flag] = extend
+        }
+        const find = player[flag].times.findIndex(item => item.type == type)
+        const timExtend = {
+            "type": type,
+            "value": value,
+            "timeLimit": endTime
+        }
+        if (find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value >= value) {
+            await Write_extend(uid, player)
+            return
+        } else if (find != -1 && (player[flag].times[find].timeLimit <= new Date().getTime() || player[flag].times[find].value < value)) {
+            player[flag].times[find].value = value
+            player[flag].times[find].timeLimit = endTime
+            await Write_extend(uid, player)
+            return
+        } else {
+            player[flag].times.push(timExtend)
+            await Write_extend(uid, player)
+            return
+        }
+    }
+
 }
 export default new GameUser()
