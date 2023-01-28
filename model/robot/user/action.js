@@ -1,3 +1,4 @@
+import config from '../data/defset/updata.js'
 class UserAction {
     /**
      * 
@@ -19,7 +20,7 @@ class UserAction {
         await e.reply(await Bot.makeForwardMsg(msgList))
         return
     }
-    
+
 
     /**
      * 转发的消息也需要一个测回机制
@@ -68,8 +69,12 @@ class UserAction {
         if (!e.group) {
             return
         }
-        const timeout = 30
-        if (timeout > 0 && isreply && isreply.message_id) {
+        const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+        let timeout = 60
+        if (cf.timeout) {
+            timeout = cf.timeout
+        }
+        if (timeout > 15 && isreply && isreply.message_id) {
             setTimeout(async () => {
                 await e.group.recallMsg(isreply.message_id)
             }, timeout * 1000)
