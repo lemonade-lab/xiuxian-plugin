@@ -6,17 +6,17 @@ export class boxusertransaction extends robotapi {
     constructor() {
         super(superIndex([
             {
+                reg: '^#万宝楼$',
+                fnc: 'showComodities',
+            },
+            {
                 reg: '^#购买.*$',
                 fnc: 'buyComodities'
             },
             {
                 reg: '^#出售.*$',
                 fnc: 'sellComodities'
-            },
-            {
-                reg: '^#万宝楼$',
-                fnc: 'showComodities',
-            },
+            }
         ]))
     }
     showComodities = async (e) => {
