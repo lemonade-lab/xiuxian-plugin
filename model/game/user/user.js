@@ -386,7 +386,6 @@ class GameUser {
         return bag.thing.find(item => item.name == THING_NAME)
     }
 
-
     /**
      * @param {UID} UID 
      * @param {地址选择} CHOICE 
@@ -470,6 +469,30 @@ class GameUser {
         return playerList
     }
 
+    getTypeThing=async(position,type)=>{
+        const dropsItemList = await listdata.listAction({ NAME: 'all', CHOICE: 'generate_all' })
+        const sum=[]
+        dropsItemList.forEach((item)=>{
+            const id=item.id.split('-')
+            if(id[position]==type){
+                sum.push(item)
+            }
+        })
+        return sum
+    }
+
+    randomTypeThing=async(position,type)=>{
+        const dropsItemList = await listdata.listAction({ NAME: 'all', CHOICE: 'generate_all' })
+        const sum=[]
+        dropsItemList.forEach((item)=>{
+            const id=item.id.split('-')
+            if(id[position]==type){
+                sum.push(item)
+            }
+        })
+        return sum[Math.floor(Math.random() * sum.length)]
+    }
+
     randomThing = async () => {
         const dropsItemList = await listdata.listAction({ NAME: 'dropsItem', CHOICE: 'generate_all' })
         return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
@@ -498,7 +521,7 @@ class GameUser {
         if (!fs.existsSync(dir)) {
             player = {}
         } else {
-            player = await Read_extend(uid)
+            player = await this.userMsgAction({NAME:uid,CHOICE:'user_extend'})
         }
         if (!isNotNull(player[flag])) {
             const extend = {
@@ -516,7 +539,7 @@ class GameUser {
             player[flag] = extend
         }
         player[flag].perpetual[type] = value
-        await Write_extend(uid, player)
+        await this.userMsgAction({NAME:uid,CHOICE:'user_extend',DATA:player})
         return
     }
 

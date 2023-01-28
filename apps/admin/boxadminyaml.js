@@ -33,7 +33,6 @@ export class boxadminyaml extends robotapi {
         }
         gameApi.moveConfig({ name: 'updata' })
         e.reply('配置已重置')
-
         return
     }
     imgReUpdata = async (e) => {
