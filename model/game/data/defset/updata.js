@@ -7,7 +7,7 @@ import { __dirname } from '../../../main.js'
 const __diryaml = `${__dirname}/config/parameter/cooling.yaml`
 class DefsetUpdata {
     //动态生成配置读取
-    getConfig = ({ app, name } ) => {
+    getConfig = ({ app, name }) => {
         //获得配置地址
         const file = `${__dirname}/config/${app}/${name}.yaml`
         //读取配置
@@ -31,6 +31,7 @@ class DefsetUpdata {
             '闭关时间': 'biguan.time',
             '降妖倍率': 'work.size',
             '降妖时间': 'work.time',
+            '测回时间': 'timeout.size'
         }
         if (map.hasOwnProperty(name)) {
             const [name0, name1] = map[name].split('.')

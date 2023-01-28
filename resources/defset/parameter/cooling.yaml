@@ -20,7 +20,8 @@ CD:
   #修行
   Practice: 5
 
-timeout: 60
+timeout: 
+    size: 60
 
 Age: 
   #寿命增加数

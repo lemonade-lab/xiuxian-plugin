@@ -71,8 +71,8 @@ class UserAction {
         }
         const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
         let timeout = 60
-        if (cf.timeout) {
-            timeout = cf.timeout
+        if (cf['timeout']) {
+            timeout = cf.timeout.size
         }
         if (timeout > 15 && isreply && isreply.message_id) {
             setTimeout(async () => {
