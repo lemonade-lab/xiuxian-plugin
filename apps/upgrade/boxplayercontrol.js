@@ -132,7 +132,7 @@ export class boxplayercontrol extends robotapi {
         }
         let other = Math.floor(appSize[map[name]]['size'] * time * buff)
         if ((Math.random() * (100 - 1) + 1) < 20) {
-            other -= other / 3
+            other -=  Math.floor(other / 3)
         }
         let othername = 'experience'
         let msg = `闭关结束,获得${other}修为`
