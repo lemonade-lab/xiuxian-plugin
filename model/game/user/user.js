@@ -249,7 +249,7 @@ class GameUser {
                 }
             })
         })
-        //血量上限 换装导致血量溢出时需要----------------计算错误：不能增加血量上限
+        //血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限
         const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
         //双境界面板之和
         panel.attack = Math.floor(panel.attack * ((equ.attack * 0.01) + 1))
