@@ -5,15 +5,13 @@
 
 ## 使用方法
 
-#### 安装教程
-
-一、选择其中一种机器人
+#### 选择其中一种机器人
 
 （1）安装Yunzai-Bot[☞查看教程](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
 
 （2）安装Alemon-Bot[☞查看教程]()
 
-二、机器人根目录下执行      
+#### 机器人根目录下执行      
 ```
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
