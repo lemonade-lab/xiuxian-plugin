@@ -3,13 +3,24 @@
  [![](https://profile-counter.glitch.me/Xiuxian-Plugin-Box/count.svg)](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box)  
 
 
-## 安装教程
->Yunzai-Bot/目录下执行      
+## 使用方法
+
+#### 安装教程
+
+一、选择其中一种机器人
+
+（1）安装Yunzai-Bot[☞查看教程](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
+
+（2）安装Alemon-Bot[☞查看教程]()
+
+二、机器人根目录下执行      
 ```
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
 >查看具体功能  `#修仙帮助`   
->查看管理功能  `#修仙管理`     
+
+>查看管理功能  `#修仙管理`    
+
 >修仙更新指令 `#修仙更新`  
 
 ## 游戏开发
