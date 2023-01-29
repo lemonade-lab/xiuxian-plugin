@@ -23,8 +23,7 @@ class GameUser {
     * @param {UID} UID 
     * @returns 初始化数据，不成功则false
     */
-    createBoxPlayer = async (parameter) => {
-        const { UID } = parameter
+    createBoxPlayer = async ({ UID }) => {
         await this.userMsgAction({
             NAME: UID, CHOICE: 'user_player', DATA: {
                 'autograph': '无',//道宣
@@ -135,12 +134,11 @@ class GameUser {
      * @param {数量} ACOUNT  account
      * @returns 
      */
-    userBag = async (parameter) => {
-        const { UID, name, ACCOUNT } = parameter
+    userBag = async ({ UID, name, ACCOUNT }) => {
         //搜索物品信息
         const thing = await listdata.searchThing({
             condition: 'name',
-            name: name
+            name
         })
         if (thing) {
             let bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
@@ -186,8 +184,7 @@ class GameUser {
      * @returns 返回该物品
      */
 
-    userBagSearch = async (parameter) => {
-        const { UID, name } = parameter
+    userBagSearch = async ({ UID, name }) => {
         const bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
         return bag.thing.find(item => item.name == name)
     }
@@ -196,8 +193,7 @@ class GameUser {
     /**
      * @param {*} UID 
      * @returns 返回UID的面板
-     */ readPanel = async (parameter) => {
-        const { UID } = parameter
+     */ readPanel = async ({ UID }) => {
         const equipment = await this.userMsgAction({ CHOICE: 'user_equipment', NAME: UID })
         const level = await this.userMsgAction({ CHOICE: 'user_level', NAME: UID })
         const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
@@ -269,8 +265,7 @@ class GameUser {
      * @param {} UID 
      * @returns 
      */
-    updataUserEfficiency = async (parameter) => {
-        const { UID } = parameter
+    updataUserEfficiency = async ({ UID }) => {
         try {
             const talent = await this.userMsgAction({
                 NAME: UID,
@@ -373,18 +368,7 @@ class GameUser {
 
 
 
-    /**
-     * @param {UID} UID 
-     * @param {物品名} name 
-     * @returns 若背包存在即返回物品信息,若不存在则undifind
-     */
-    returnUserBagName = async (NAME, THING_NAME) => {
-        const bag = await this.userMsgAction({
-            NAME: NAME,
-            CHOICE: 'user_bag'
-        })
-        return bag.thing.find(item => item.name == THING_NAME)
-    }
+ 
 
     /**
      * @param {UID} UID 
@@ -392,18 +376,17 @@ class GameUser {
      * @param {数据} DATA 
      * @returns 若无数据输入则为读取操作，并返回数据
      */
-    userMsgAction = async (parameter) => {
-        const { NAME, CHOICE, DATA } = parameter
+    userMsgAction = async ({ NAME, CHOICE, DATA }) => {
         if (DATA) {
             await algorithm.dataAction({
-                NAME: NAME,
+                NAME,
                 PATH: __PATH[CHOICE],
-                DATA: DATA
+                DATA
             })
             return
         }
         return await algorithm.dataAction({
-            NAME: NAME,
+            NAME,
             PATH: __PATH[CHOICE]
         })
     }
@@ -414,12 +397,11 @@ class GameUser {
      * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter 
      * @returns 
      */
-    updataUser = async (parameter) => {
-        const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
+    updataUser = async ({ UID, CHOICE, ATTRIBUTE, SIZE } ) => {
         //读取原数据
-        const data = await this.userMsgAction({ NAME: UID, CHOICE: CHOICE })
+        const data = await this.userMsgAction({ NAME: UID, CHOICE })
         data[ATTRIBUTE] += Math.trunc(SIZE)
-        await this.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
+        await this.userMsgAction({ NAME: UID, CHOICE, DATA: data })
         return
     }
 
@@ -439,8 +421,7 @@ class GameUser {
      * @param {UID} UID 
      * @returns 
      */
-    existUserSatus = async (parameter) => {
-        const { UID } = parameter
+    existUserSatus = async ({ UID }) => {
         let find = await this.existUser(UID)
         if (find) {
             if (find.status == 0) {
@@ -498,8 +479,7 @@ class GameUser {
         return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
     }
 
-    updataUserBlood = async (parameter) => {
-        const { UID, SIZE } = parameter
+    updataUserBlood = async ({ UID, SIZE }) => {
         const battle = await this.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
         battle.nowblood = Math.floor(battle.blood * SIZE * 0.01)
         await await this.userMsgAction({ NAME: UID, CHOICE: 'user_battle', DATA: battle })

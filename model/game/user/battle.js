@@ -12,10 +12,7 @@ class UserBattle {
         const { A, B } = parameter
         const battleA = await gameUser.userMsgAction({ NAME: A, CHOICE: 'user_battle' })
         const battleB = await gameUser.userMsgAction({ NAME: B, CHOICE: 'user_battle' })
-        
-
     }
-
 
 }
 export default new UserBattle()

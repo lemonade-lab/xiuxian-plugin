@@ -1,7 +1,6 @@
 import gameUser from '../user/user.js'
 class information {
-    userDataShow = async (parameter) => {
-        const { UID } = parameter
+    userDataShow = async ({ UID }) => {
         const player = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
         const equipment = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
         const talent = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
@@ -37,8 +36,7 @@ class information {
             }
         }
     }
-    userEquipmentShow = async (parameter) => {
-        const { UID } = parameter
+    userEquipmentShow = async ({ UID }) => {
         const battle = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
         const equipment = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
         //tudo
@@ -55,8 +53,7 @@ class information {
             }
         }
     }
-    userBagShow = async (parameter) => {
-        const { UID } = parameter
+    userBagShow = async ({ UID }) => {
         let life = await gameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
         life = life.find(item => item.qq == UID)
         const player = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player' })

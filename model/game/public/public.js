@@ -27,8 +27,7 @@ class GamePublic {
     * @param {数组} ARR 
     * @returns 随机一个元素
     */
-    Anyarray = (parameter) => {
-        const { ARR } = parameter
+    Anyarray = ({ ARR }) => {
         const randindex = Math.trunc(Math.random() * ARR.length)
         return ARR[randindex]
     }
@@ -37,8 +36,7 @@ class GamePublic {
      * @param {*} value 
      * @returns 
      */
-    leastOne = async (parameter) => {
-        const { value } = parameter
+    leastOne = async ({ value }) => {
         let size = value
         if (isNaN(parseFloat(size))&&!isFinite(size)) {
             return Number(1)
@@ -63,8 +61,7 @@ class GamePublic {
         }
     }
 
-    offAction = async (parameter) => {
-        const { UID } = parameter
+    offAction = async ({ UID }) => {
         const exists = await redis.exists(`${ReadiName}:${UID}:action`)
         if (exists == 1) {
             await redis.del(`${ReadiName}:${UID}:action`)
@@ -77,8 +74,7 @@ class GamePublic {
      * @param {*} UID 
      * @returns 若存在对象MSG则为flase
      */
-    Go = async (parameter) => {
-        const { UID } = parameter
+    Go = async ({ UID }) => {
         let action = await redis.get(`${ReadiName}:${UID}:action`)
         if (action != undefined) {
             action = JSON.parse(action)
@@ -101,8 +97,7 @@ class GamePublic {
         return {}
     }
 
-    GoMini = async (parameter) => {
-        const { UID } = parameter
+    GoMini = async ({ UID }) => {
         let action = await redis.get(`${ReadiName}:${UID}:action`)
         if (action != undefined) {
             action = JSON.parse(action)
@@ -126,8 +121,7 @@ class GamePublic {
      * @param {*} CDMAP 
      * @returns 
      */
-    cooling = async (parameter) => {
-        const { UID, CDID, CDMAP } = parameter
+    cooling = async ({ UID, CDID, CDMAP }) => {
         const remainTime = await redis.ttl(`${ReadiName}:${UID}:${CDID}`)
         const time = {
             h: 0,

@@ -110,8 +110,7 @@ class userAction {
     }
 
     //升级寿命
-    userLifeUp = async (parameter) => {
-        const { UID, level_id, acount } = parameter
+    userLifeUp = async ({ UID, level_id, acount }) => {
         let size = 0
         const life = await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
         life.forEach((item) => {
