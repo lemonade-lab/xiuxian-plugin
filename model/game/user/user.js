@@ -8,7 +8,8 @@ class GameUser {
         const life = await listdata.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         const die = []
         life.forEach((item) => {
-            item.Age = item.Age + config.getConfig({ app: 'parameter', name: 'cooling' }).Age.size
+            const cf=config.getConfig({ app: 'parameter', name: 'cooling' })
+            item.Age = item.Age + cf['Age']['size']?cf['Age']['size']:1
             if (item.Age >= item.life) {
                 item.status = 0
                 die.push(item.qq)

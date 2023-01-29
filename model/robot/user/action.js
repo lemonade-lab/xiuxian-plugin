@@ -44,6 +44,24 @@ class UserAction {
         this.surveySet({ e, isreply })
         return
     }
+    
+
+    /**
+     *测回消息
+     * @returns 
+     */
+     surveySet = async ({ e, isreply }) => {
+        if (!e.group) {
+            return
+        }
+        const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+        let timeout = cf['timeout'] ? cf.timeout.size : 60
+        if (timeout > 15 && isreply && isreply.message_id) {
+            setTimeout(async () => {
+                await e.group.recallMsg(isreply.message_id)
+            }, timeout * 1000)
+        }
+    }
 
 
 
@@ -59,26 +77,6 @@ class UserAction {
             return atItem[0]['qq']
         }
         return false
-    }
-
-    /**
-     *测回消息
-     * @returns 
-     */
-    surveySet = async ({ e, isreply }) => {
-        if (!e.group) {
-            return
-        }
-        const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
-        let timeout = 60
-        if (cf['timeout']) {
-            timeout = cf.timeout.size
-        }
-        if (timeout > 15 && isreply && isreply.message_id) {
-            setTimeout(async () => {
-                await e.group.recallMsg(isreply.message_id)
-            }, timeout * 1000)
-        }
     }
 }
 export default new UserAction()

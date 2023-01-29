@@ -84,7 +84,8 @@ export class boxmoneyoperation extends robotapi {
             e.reply(`似乎没有${islingshi}下品灵石`)
             return
         }
-        const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Transfer
+        const cf=gameApi.getConfig({ app: 'parameter', name: 'cooling' })
+        const CDTime = cf['CD']['Transfer']?cf['CD']['Transfer']:5
         const CDID = '5'
         const now_time = new Date().getTime()
         const { CDMSG } = await gameApi.cooling({ UID: A, CDID })

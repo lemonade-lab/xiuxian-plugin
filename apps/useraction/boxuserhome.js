@@ -54,7 +54,8 @@ export class boxuserhome extends robotapi {
                     if (thing_acount > 2200) {
                         thing_acount = 2200
                     }
-                    const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Practice
+                    const cf = gameApi.getConfig({ app: 'parameter', name: 'cooling' })
+                    const CDTime = cf['CD']['Practice'] ? cf['CD']['Practice'] : 5
                     const CDID = '12'
                     const now_time = new Date().getTime()
                     const { CDMSG } = await gameApi.cooling({ UID, CDID })

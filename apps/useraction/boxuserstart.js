@@ -38,7 +38,8 @@ export class boxuserstart extends robotapi {
             return
         }
         const UID = e.user_id
-        const CDTime = gameApi.getConfig({ app: 'parameter', name: 'cooling' }).CD.Reborn
+        const cf=gameApi.getConfig({ app: 'parameter', name: 'cooling' })
+        const CDTime = cf['CD']['Reborn']?cf['CD']['Reborn']:850
         const CDID = '8'
         const now_time = new Date().getTime()
         const { CDMSG } = await gameApi.cooling({ UID, CDID })

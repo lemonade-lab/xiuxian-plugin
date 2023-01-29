@@ -1,4 +1,4 @@
-import defset from '../data/defset/updata.js'
+import config from '../data/defset/updata.js'
 import user from './user.js'
 import data from '../data/listaction.js'
 import gamePublic from '../public/public.js'
@@ -31,7 +31,8 @@ class userAction {
         }
         const player = await user.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
         let CDID = '6'
-        let CDTime = defset.getConfig({ app: 'parameter', name: 'cooling' }).CD.Level_up
+        const cf=config.getConfig({ app: 'parameter', name: 'cooling' })
+        let CDTime = cf['CD']['Level_up']?cf['CD']['Level_up']:5
         let name = '修为'
         const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
         const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
@@ -39,7 +40,7 @@ class userAction {
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (choise) {
             CDID = '7'
-            CDTime = defset.getConfig({ app: 'parameter', name: 'cooling' }).CD.LevelMax_up
+            CDTime =  cf['CD']['LevelMax_up']?cf['CD']['LevelMax_up']:5 
             name = '气血'
             if (player.experiencemax < LevelMax.exp) {
                 return { UserLevelUpMSG: `再积累${LevelMax.exp - player.experiencemax}气血后方可突破` }
