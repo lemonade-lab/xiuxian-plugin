@@ -21,5 +21,4 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 
 >修仙更新指令 `#修仙更新`  
 
-## 游戏开发
-[☞查看教程](https://gitee.com/ningmengchongshui/game-development)
+>探索更多玩法 [`☞点击了解` ](https://gitee.com/ningmengchongshui/game-development)
