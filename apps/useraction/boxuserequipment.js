@@ -15,6 +15,9 @@ export class boxuserequipment extends robotapi {
         ]))
     }
     addEquipment = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
@@ -38,6 +41,9 @@ export class boxuserequipment extends robotapi {
         return
     }
     deleteEquipment = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (! await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')

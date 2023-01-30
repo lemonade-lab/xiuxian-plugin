@@ -24,6 +24,9 @@ export class boxplayercontrol extends robotapi {
         ]))
     }
     biguan = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -44,6 +47,9 @@ export class boxplayercontrol extends robotapi {
         return true
     }
     dagong = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -124,6 +130,9 @@ export class boxplayercontrol extends robotapi {
         return
     }
     upgrade = async (user_id, time, name, e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = user_id
         const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const buff = Math.floor(talent.talentsize / 100) + Number(1)

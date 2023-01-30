@@ -20,6 +20,9 @@ export class boxusertransaction extends robotapi {
         ]))
     }
     showComodities = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')

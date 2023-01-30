@@ -24,6 +24,9 @@ export class boxuserhome extends robotapi {
         ]))
     }
     take = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
@@ -113,6 +116,9 @@ export class boxuserhome extends robotapi {
         return
     }
     study = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
@@ -146,6 +152,9 @@ export class boxuserhome extends robotapi {
         return
     }
     forget = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
@@ -166,6 +175,9 @@ export class boxuserhome extends robotapi {
         return
     }
     consumption = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')

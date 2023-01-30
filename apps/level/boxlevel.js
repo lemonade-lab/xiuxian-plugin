@@ -15,6 +15,9 @@ export class boxlevel extends robotapi {
         ]))
     }
     levelUp = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -26,6 +29,9 @@ export class boxlevel extends robotapi {
         return
     }
     levelMaxUp = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return

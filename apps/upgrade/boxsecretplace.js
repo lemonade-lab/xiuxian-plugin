@@ -31,6 +31,9 @@ export class boxsecretplace extends robotapi {
         ]))
     }
     showCity = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')

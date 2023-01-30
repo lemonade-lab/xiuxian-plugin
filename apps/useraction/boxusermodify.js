@@ -16,6 +16,9 @@ export class boxusermodify extends robotapi {
         ]))
     }
     changeName = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -69,6 +72,9 @@ export class boxusermodify extends robotapi {
         return
     }
     changeAutograph = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return

@@ -16,6 +16,9 @@ export class boxuserbag extends robotapi {
         ]))
     }
     showBag = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         const UID = e.user_id
         if (!await gameApi.existUserSatus({ UID })) {
             e.reply('已死亡')
@@ -27,6 +30,9 @@ export class boxuserbag extends robotapi {
         return
     }
     bagUp = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return

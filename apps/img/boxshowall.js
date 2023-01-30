@@ -20,6 +20,9 @@ export class boxshowall extends robotapi {
         ]))
     }
     showMap = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -29,6 +32,9 @@ export class boxshowall extends robotapi {
         return
     }
     showEdition = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -45,6 +51,9 @@ export class boxshowall extends robotapi {
         return
     }
     showConfig = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return

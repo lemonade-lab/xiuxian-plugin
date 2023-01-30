@@ -16,6 +16,9 @@ export class boxhelp extends robotapi {
         ]))
     }
     boxhelp = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -28,6 +31,9 @@ export class boxhelp extends robotapi {
         await BotApi.User.surveySet({ e, isreply })
     }
     adminSuper = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
         if (!await gameApi.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
