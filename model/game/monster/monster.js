@@ -28,15 +28,17 @@ class GameMonster {
             }
         }
         const time = new Date()
+        /*时间变了*/
         if (time.getHours() != alldata[i].label) {
-            const data = await this.generateMonster({ i })
-            return data
+            alldata[i].data = await this.generateMonster({ i })
+            return alldata[i].data
         } else {
+            /* 时间没变 */
             if (alldata[i].data.length != 0) {
                 return alldata[i].data
             }
-            const data = await this.generateMonster({ i })
-            return data
+            alldata[i].data = await this.generateMonster({ i })
+            return alldata[i].data
         }
     }
     /**
@@ -64,10 +66,10 @@ class GameMonster {
     generateMonster = async ({ i }) => {
         const time = new Date()
         const map = {
-            '1': '1.3',
-            '2': '1.4',
-            '3': '2.5',
-            '4': '3.6',
+            '1': '1.2',
+            '2': '1.3',
+            '3': '2.4',
+            '4': '3.5',
             '5': '4.6',
             '6': '5.7',
             '7': '1.3',
