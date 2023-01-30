@@ -1,19 +1,24 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
 import { __dirname } from '../../../main.js'
-/**
- * 自定义配置地址
- */
+/**自定义配置地址*/
 const __diryaml = `${__dirname}/config/parameter/cooling.yaml`
 class DefsetUpdata {
-    //动态生成配置读取
+    /**
+     * @param { app, name } param0 
+     * @returns 
+     */
     getConfig = ({ app, name }) => {
-        //获得配置地址
+        /*获得配置地址*/
         const file = `${__dirname}/config/${app}/${name}.yaml`
-        //读取配置
+        /*读取配置*/
         const data = YAML.parse(fs.readFileSync(file, 'utf8'))
         return data
     }
+    /**
+     * @param { name, size }param0 
+     * @returns 
+     */
     updataConfig = ({ name, size }) => {
         const map = {
             '突破冷却': 'CD.Level_up',

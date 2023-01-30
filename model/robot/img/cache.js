@@ -3,8 +3,11 @@ import md5 from 'md5'
 const helpData = {}
 const allData = {}
 class Cache {
-    helpcache = async (parameter) => {
-        const { data, i } = parameter
+    /**
+     * @param { data, i } param0 
+     * @returns 
+     */
+    helpcache = async ({ data, i }) => {
         const tmp = md5(JSON.stringify(data))
         if (!helpData.hasOwnProperty(i)) {
             helpData[i] = {
@@ -19,9 +22,11 @@ class Cache {
         helpData[i].md5 = tmp
         return helpData[i].img
     }
-    //查看缓存
-    readCahe = async (parameter) => {
-        const { name } = parameter
+    /**
+     * @param { name } param0 
+     * @returns 
+     */
+    readCahe = async ({ name }) => {
         if (!allData.hasOwnProperty(name)) {
             return {}
         }
@@ -31,9 +36,11 @@ class Cache {
         }
         return {}
     }
-    //添加缓存
-    addCahe = async (parameter) => {
-        const { name, data } = parameter
+    /**
+     * @param { name, data }  param0 
+     * @returns 
+     */
+    addCahe = async ({ name, data } ) => {
         const time = new Date().getMinutes()
         if (!allData.hasOwnProperty(name)) {
             allData[name] = {

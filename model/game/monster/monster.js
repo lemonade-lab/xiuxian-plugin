@@ -14,10 +14,12 @@ const name2 = [
     '妖', '大妖', '王', '皇',
     '帝', '神'
 ]
-/**
- * 怪物生成
- */
+/**怪物生成*/
 class GameMonster {
+    /**
+     * @param { i } param0 
+     * @returns 
+     */
     monsterscache = async ({ i }) => {
         if (!alldata.hasOwnProperty(i)) {
             alldata[i] = {
@@ -37,6 +39,10 @@ class GameMonster {
             return data
         }
     }
+    /**
+     * @param { i, num } param0 
+     * @returns 
+     */
     add = async ({ i, num }) => {
         if (!addall.hasOwnProperty(i)) {
             addall[i] = {
@@ -51,6 +57,10 @@ class GameMonster {
         }
         return 0
     }
+    /**
+     * @param { i } param0 
+     * @returns 
+     */
     generateMonster = async ({ i }) => {
         const time = new Date()
         const map = {

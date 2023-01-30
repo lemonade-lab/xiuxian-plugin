@@ -3,7 +3,7 @@
 import gameUser from '../user/user.js'
 import { BotApi } from '../../robot/api/botapi.js'
 class gameBattle {
-    //怪物战斗
+    /*怪物战斗*/
     monsterbattle = async (parameter) => {
         const { e, battleA, battleB } = parameter
         const battle_msg = {
@@ -81,7 +81,7 @@ class gameBattle {
         await gameUser.userMsgAction({ NAME: e.user_id, CHOICE: 'user_battle', DATA: battleA })
         return battle_msg
     }
-    //战斗模型
+    /*战斗模型*/
     battle = async (parameter) => {
         const { e, A, B } = parameter
         const battle_msg = {
@@ -130,18 +130,15 @@ class gameBattle {
         while (true) {
             battle.X++
             battle.Z++
-            //分片发送消息
             if (battle.X == 15) {
                 await ForwardMsg(e, battle_msg.msg)
                 battle_msg.msg = []
                 battle.X = 0
                 battle.Y++
                 if (battle.Y == 2) {
-                    //就打2轮回
                     break
                 }
             }
-            //B开始
             battle_hurt.hurtB = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0
             const F = await this.probability(battleB.burst)
             if (F) {
@@ -159,14 +156,12 @@ class gameBattle {
             } else {
                 battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
             }
-            //A开始
             battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
             const T = await this.probability(battleA.burst)
             if (T) {
                 battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100)
             }
             if (battle_hurt.hurtA <= 1) {
-                //没伤害
                 battle_msg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
                 battleA.nowblood = 0
                 battle_msg.QQ = B
@@ -189,7 +184,7 @@ class gameBattle {
         await gameUser.userMsgAction({ NAME: B, CHOICE: 'user_battle', DATA: battleB })
         return battle_msg.QQ
     }
-    //暴击率
+    /*暴击率*/
     probability = async (P) => {
         if (P > 100) {
             return true

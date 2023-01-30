@@ -1,17 +1,17 @@
 import fs from 'node:fs'
 import { __dirname } from '../../main.js'
 import algorithm from './algorithm.js'
-/**
- * 自定义配置
- */
+/** 自定义配置*/
 const configarr = ['cooling.yaml', 'task.yaml', 'version.yaml', 'help.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
+
     this.resources = `${__dirname}/resources`
     this.defsetpath = `${__dirname}/resources/defset`
     this.configpath = `${__dirname}/config`
   }
   /**
+   * @param { name } param0 
    * @returns 
    */
   moveConfig = ({ name }) => {
@@ -40,7 +40,10 @@ class CreateData {
     })
     return
   }
-  //复制两个文件
+  /**
+   * @param { path, name } param0 
+   * @returns 
+   */
   generateImg = ({ path, name }) => {
     path.forEach((itempath) => {
       name.forEach((itemname) => {
@@ -56,6 +59,10 @@ class CreateData {
     })
     return
   }
+  /**
+   * @param { path, name } param0 
+   * @returns 
+   */
   reImg = ({ path, name }) => {
     path.forEach((itempath) => {
       name.forEach((itemname) => {

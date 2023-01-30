@@ -1,7 +1,5 @@
 import gameUer from '../user/user.js'
-/**
- * 自定义冷却反馈
- */
+/**自定义冷却反馈*/
 const MYCD = {
     '0': '攻击',
     '1': '降妖',
@@ -17,14 +15,11 @@ const MYCD = {
     '11': '决斗',
     '12': '修行'
 }
-/**
- * 自定义插件redis字段
- */
+/**自定义插件redis字段*/
 const ReadiName = 'xiuxian:player'
 class GamePublic {
     /**
-    * 
-    * @param {数组} ARR 
+    * @param { ARR } ARR 
     * @returns 随机一个元素
     */
     Anyarray = ({ ARR }) => {
@@ -33,7 +28,7 @@ class GamePublic {
     }
     /**
      * 强制修正至少为1
-     * @param {*} value 
+     * @param { value } value 
      * @returns 
      */
     leastOne = async ({ value }) => {
@@ -60,7 +55,10 @@ class GamePublic {
             return
         }
     }
-
+    /**
+     * @param { UID } param0 
+     * @returns 
+     */
     offAction = async ({ UID }) => {
         const exists = await redis.exists(`${ReadiName}:${UID}:action`)
         if (exists == 1) {
@@ -68,10 +66,9 @@ class GamePublic {
         }
         return
     }
-
     /**
      * 行为检测
-     * @param {*} UID 
+     * @param { UID } UID 
      * @returns 若存在对象MSG则为flase
      */
     Go = async ({ UID }) => {
@@ -96,7 +93,10 @@ class GamePublic {
         }
         return {}
     }
-
+    /**
+     * @param { UID } param0 
+     * @returns 
+     */
     GoMini = async ({ UID }) => {
         let action = await redis.get(`${ReadiName}:${UID}:action`)
         if (action != undefined) {
@@ -113,12 +113,8 @@ class GamePublic {
         }
         return {}
     }
-
     /**
-     * 检测CD
-     * @param {*} uid 
-     * @param {*} CDid 
-     * @param {*} CDMAP 
+     * @param { UID, CDID, CDMAP } param0 
      * @returns 
      */
     cooling = async ({ UID, CDID, CDMAP }) => {
@@ -155,7 +151,6 @@ class GamePublic {
             setTimeout(resolve, time)
         })
     }
-
     /**
     * 对象数组排序
     * 从大到小
@@ -165,8 +160,6 @@ class GamePublic {
             return a[field] - b[field]
         }
     }
-
-
 
     /**
      * @param {消息内容} data 

@@ -2,8 +2,7 @@
 import userAction from '../user/action.js'
 import process from 'child_process'
 class Exec {
-    execStart = async (parameter) => {
-        const { cmd, cwd, name, e } = parameter
+    execStart = async ({ cmd, cwd, name, e }) => {
         process.exec(cmd, { cwd: cwd },
             async (error, stdout, stderr) => {
                 const msg = []

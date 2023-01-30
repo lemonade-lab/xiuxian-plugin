@@ -1,7 +1,7 @@
 import config from '../data/defset/updata.js'
 class UserAction {
     /**
-     * 
+     * @param { e, data } param0 
      * @returns 
      */
     forwardMsg = async ({ e, data }) => {
@@ -20,12 +20,10 @@ class UserAction {
         await e.reply(await Bot.makeForwardMsg(msgList))
         return
     }
-
-
     /**
-     * 转发的消息也需要一个测回机制
+     * @param { e, data } param0 
+     * @returns 
      */
-
     forwardMsgSurveySet = async ({ e, data }) => {
         if (data.length == 1) {
             const isreply = await e.reply(data[0])
@@ -44,10 +42,8 @@ class UserAction {
         this.surveySet({ e, isreply })
         return
     }
-    
-
     /**
-     *测回消息
+     * @param { e, isreply } param0
      * @returns 
      */
      surveySet = async ({ e, isreply }) => {
@@ -62,12 +58,10 @@ class UserAction {
             }, timeout * 1000)
         }
     }
-
-
-
     /**
-    * 艾特并返回QQ
-    */
+     * @param { e } param0 
+     * @returns 
+     */
     at = async ({ e }) => {
         if (!e.message.some((item) => item.type === 'at')) {
             return false

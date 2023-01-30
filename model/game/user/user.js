@@ -8,8 +8,8 @@ class GameUser {
         const life = await listdata.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         const die = []
         life.forEach((item) => {
-            const cf=config.getConfig({ app: 'parameter', name: 'cooling' })
-            item.Age = item.Age + cf['Age']['size']?cf['Age']['size']:1
+            const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+            item.Age = item.Age + cf['Age']['size'] ? cf['Age']['size'] : 1
             if (item.Age >= item.life) {
                 item.status = 0
                 die.push(item.qq)
@@ -21,9 +21,9 @@ class GameUser {
         }
     }
     /**
-    * @param {UID} UID 
-    * @returns 初始化数据，不成功则false
-    */
+     * @param { UID } param0 
+     * @returns 
+     */
     createBoxPlayer = async ({ UID }) => {
         await this.userMsgAction({
             NAME: UID, CHOICE: 'user_player', DATA: {
@@ -109,30 +109,20 @@ class GameUser {
             'status': 1
         })
         await this.userMsgAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
-        /**
-         * 更新用户表
-         */
+        /**更新用户表*/
         await listdata.listActionArr({ CHOICE: 'user_life', NAME: 'life', DATA: life })
-        /**
-         * 更新装备
-         */
+        /**更新装备*/
         await this.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: [] })
-        /**
-         * 更新天赋面板
-         */
+        /**更新天赋面板*/
         await this.updataUserEfficiency({ UID })
-        /**
-         * 更新战斗面板
-         */
+        /**更新战斗面板 */
         await this.readPanel({ UID })
         return true
     }
 
     /**
      * 给UID添加物品name的数量为account
-     * @param {UID} UID 
-     * @param {物品名} name 
-     * @param {数量} ACOUNT  account
+     * @param { UID, name, ACCOUNT } param0 
      * @returns 
      */
     userBag = async ({ UID, name, ACCOUNT }) => {
@@ -154,9 +144,7 @@ class GameUser {
 
     /**
      * 给储物袋添加物品
-     * @param {用户的背包} BAG 
-     * @param {物品资料} THING 
-     * @param {数量} ACCOUNT 
+     * @param { BAG, THING, ACCOUNT } param0 
      * @returns 
      */
     userbagAction = async (parameter) => {
@@ -180,8 +168,7 @@ class GameUser {
 
     /**
      * 搜索UID的背包有没有物品名为NAME
-     * @param {UID} UID 
-     * @param {物品名} name 
+     * @param { UID, name } param0 
      * @returns 返回该物品
      */
 
@@ -192,7 +179,7 @@ class GameUser {
 
 
     /**
-     * @param {*} UID 
+     * @param { UID } param0 
      * @returns 返回UID的面板
      */ readPanel = async ({ UID }) => {
         const equipment = await this.userMsgAction({ CHOICE: 'user_equipment', NAME: UID })
@@ -212,7 +199,6 @@ class GameUser {
             speed: levelmini.speed + levelmax.speed,
             power: 0
         }
-        //计算装备倍化
         const equ = {
             attack: 0,
             defense: 0,
@@ -229,26 +215,26 @@ class GameUser {
             equ.burstmax = equ.burstmax + item.burstmax
             equ.speed = equ.speed + item.speed
         })
-        //计算插件临时属性及永久属性
+        /*计算插件临时属性及永久属性*/
         extend = Object.values(extend)
         extend.forEach((item) => {
-            //永久属性计算
+            /*永久属性计算*/
             equ.attack = equ.attack + item["perpetual"].attack
             equ.defense = equ.defense + item["perpetual"].defense
             equ.blood = equ.blood + item["perpetual"].blood
             equ.burst = equ.burst + item["perpetual"].burst
             equ.burstmax = equ.burstmax + item["perpetual"].burstmax
             equ.speed = equ.speed + item["perpetual"].speed
-            //临时属性计算
+            /*临时属性计算*/
             item["times"].forEach((timesitem) => {
                 if (item["times"][timesitem].timeLimit > new Date().getTime()) {
                     equ[item["times"][timesitem].type] += item["times"][timesitem].value
                 }
             })
         })
-        //血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限
+        /*血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限*/
         const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
-        //双境界面板之和
+        /*双境界面板之和*/
         panel.attack = Math.floor(panel.attack * ((equ.attack * 0.01) + 1))
         panel.defense = Math.floor(panel.defense * ((equ.defense * 0.01) + 1))
         panel.blood = bloodLimit
@@ -263,7 +249,7 @@ class GameUser {
 
     /**
      * 计算天赋
-     * @param {} UID 
+     * @param { UID } param0 
      * @returns 
      */
     updataUserEfficiency = async ({ UID }) => {
@@ -301,17 +287,15 @@ class GameUser {
         }
     }
 
-
     /**
-    * 
     * @param {灵根数据} data 
     * @returns 灵根天赋值
     */
     talentSize = async (data) => {
         let talent_size = 250
-        //根据灵根数来判断
+        /*根据灵根数来判断*/
         for (let i = 0; i < data.length; i++) {
-            //循环加效率
+            /*循环加效率*/
             if (data[i] <= 5) {
                 talent_size -= 50
             }
@@ -323,18 +307,14 @@ class GameUser {
     }
 
     /**
-     * 
      * @returns 随机生成灵根
      */
     getTalent = async () => {
-        //存储灵根
         const newtalent = []
-        //初始灵根数
         const talentacount = Math.round(Math.random() * (5 - 1)) + 1
         for (let i = 0; i < talentacount; i++) {
             const x = Math.round(Math.random() * (10 - 1)) + 1
             const y = newtalent.indexOf(x)
-            //删减灵根
             if (y != -1) {
                 continue
             }
@@ -353,9 +333,11 @@ class GameUser {
         }
         return newtalent
     }
-
-    getTalentName = async (parameter) => {
-        const { data } = parameter
+    /**
+     * @param { data } param0 
+     * @returns 
+     */
+    getTalentName = async ({ data }) => {
         const nameArr = []
         data.talent.forEach(async (talentitem) => {
             const talentList = await listdata.listAction({ NAME: 'talent_list', CHOICE: 'fixed_talent' })
@@ -365,16 +347,8 @@ class GameUser {
         return nameArr
     }
 
-
-
-
-
- 
-
     /**
-     * @param {UID} UID 
-     * @param {地址选择} CHOICE 
-     * @param {数据} DATA 
+     * @param { NAME, CHOICE, DATA } param0 
      * @returns 若无数据输入则为读取操作，并返回数据
      */
     userMsgAction = async ({ NAME, CHOICE, DATA }) => {
@@ -395,10 +369,10 @@ class GameUser {
 
     /**
      * 表名，地址，属性，大小
-     * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter 
+     * @param {UID, CHOICE, ATTRIBUTE, SIZE} param0 
      * @returns 
      */
-    updataUser = async ({ UID, CHOICE, ATTRIBUTE, SIZE } ) => {
+    updataUser = async ({ UID, CHOICE, ATTRIBUTE, SIZE }) => {
         //读取原数据
         const data = await this.userMsgAction({ NAME: UID, CHOICE })
         data[ATTRIBUTE] += Math.trunc(SIZE)
@@ -439,7 +413,6 @@ class GameUser {
 
 
     /**
-     * 
      * @returns 返回所有用户UID
      */
     getUserUID = async () => {
@@ -451,24 +424,24 @@ class GameUser {
         return playerList
     }
 
-    getTypeThing=async(position,type)=>{
+    getTypeThing = async (position, type) => {
         const dropsItemList = await listdata.listAction({ NAME: 'all', CHOICE: 'generate_all' })
-        const sum=[]
-        dropsItemList.forEach((item)=>{
-            const id=item.id.split('-')
-            if(id[position]==type){
+        const sum = []
+        dropsItemList.forEach((item) => {
+            const id = item.id.split('-')
+            if (id[position] == type) {
                 sum.push(item)
             }
         })
         return sum
     }
 
-    randomTypeThing=async(position,type)=>{
+    randomTypeThing = async (position, type) => {
         const dropsItemList = await listdata.listAction({ NAME: 'all', CHOICE: 'generate_all' })
-        const sum=[]
-        dropsItemList.forEach((item)=>{
-            const id=item.id.split('-')
-            if(id[position]==type){
+        const sum = []
+        dropsItemList.forEach((item) => {
+            const id = item.id.split('-')
+            if (id[position] == type) {
                 sum.push(item)
             }
         })
@@ -489,23 +462,13 @@ class GameUser {
 
 
     /**
-     * 
-     * @param {*} uid 
-     * @param {*} flag 
-     * @param {*} type 
-     * @param {*} value 
+     * @param { NAME, FLAG, TYPE, VALUE } param0 
      * @returns 
      */
-    addExtendPerpetual = async (uid, flag, type, value) => {
-        const dir = path.join(`${__PATH.extend}/${uid}.json`)
-        let player
-        if (!fs.existsSync(dir)) {
-            player = {}
-        } else {
-            player = await this.userMsgAction({NAME:uid,CHOICE:'user_extend'})
-        }
-        if (!isNotNull(player[flag])) {
-            const extend = {
+    addExtendPerpetual = async ({ NAME, FLAG, TYPE, VALUE }) => {
+        const extend = await listdata.listActionInitial({ NAME, CHOICE: 'user_extend', INITIAL: {} })
+        if (!extend[FLAG]) {
+            extend[FLAG] = {
                 "times": [],
                 "perpetual": {
                     "attack": 0,
@@ -517,23 +480,19 @@ class GameUser {
                     "efficiency": 0
                 }
             }
-            player[flag] = extend
         }
-        player[flag].perpetual[type] = value
-        await this.userMsgAction({NAME:uid,CHOICE:'user_extend',DATA:player})
+        extend[FLAG]['perpetual'][TYPE] = VALUE
+        await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
         return
     }
-
-    addExtendTimes = async (uid, flag, type, value, endTime) => {
-        const dir = path.join(`${__PATH.extend}/${uid}.json`)
-        let player
-        if (!fs.existsSync(dir)) {
-            player = {}
-        } else {
-            player = await Read_extend(uid)
-        }
-        if (!isNotNull(player[flag])) {
-            const extend = {
+    /**
+     * @param { NAME, FLAG, TYPE, VALUE, ENDTIME } param0 
+     * @returns 
+     */
+    addExtendTimes = async ({ NAME, FLAG, TYPE, VALUE, ENDTIME }) => {
+        const extend = await listdata.listActionInitial({ NAME, CHOICE: 'user_extend', INITIAL: {} })
+        if (!extend[FLAG]) {
+            extend[FLAG] = {
                 "times": [],
                 "perpetual": {
                     "attack": 0,
@@ -545,25 +504,24 @@ class GameUser {
                     "efficiency": 0
                 }
             }
-            player[flag] = extend
         }
-        const find = player[flag].times.findIndex(item => item.type == type)
-        const timExtend = {
-            "type": type,
-            "value": value,
-            "timeLimit": endTime
-        }
-        if (find != -1 && player[flag].times[find].timeLimit > new Date().getTime() && player[flag].times[find].value >= value) {
-            await Write_extend(uid, player)
+        const find = extend[FLAG]['times'].findIndex(item => item.type == TYPE)
+        const time = new Date().getTime()
+        if (find != -1 && extend[FLAG]['times'][find].timeLimit > time && extend[FLAG]['times'][find]['value'] >= VALUE) {
+            await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
             return
-        } else if (find != -1 && (player[flag].times[find].timeLimit <= new Date().getTime() || player[flag].times[find].value < value)) {
-            player[flag].times[find].value = value
-            player[flag].times[find].timeLimit = endTime
-            await Write_extend(uid, player)
+        } else if (find != -1 && (extend[FLAG]['times'][find].timeLimit <= time || extend[FLAG]['times'][find]['value'] < VALUE)) {
+            extend[FLAG]['times'][find]['value'] = VALUE
+            extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
+            await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
             return
         } else {
-            player[flag].times.push(timExtend)
-            await Write_extend(uid, player)
+            extend[FLAG]['times'].push({
+                "type": TYPE,
+                "value": VALUE,
+                "timeLimit": ENDTIME
+            })
+            await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
             return
         }
     }

@@ -1,8 +1,6 @@
 import fs from 'node:fs'
 import path from 'path'
-/**
- * 游戏数据生成
- */
+/**游戏数据生成*/
 class GenerateData {
     /**
      * @param {地址} path 

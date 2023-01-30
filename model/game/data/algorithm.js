@@ -1,8 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-/**
- * fs算法
- */
+/**fs算法*/
 class Algorithm {
     /**
      * @param {地址} path 
@@ -29,7 +27,6 @@ class Algorithm {
         return sum
     }
     /**
-     * 
      * @param {*} menupath 
      * @param {类型} type 
      * @returns 
@@ -55,8 +52,7 @@ class Algorithm {
         return newsum
     }
     /**
-     * {表名,地址,数据}
-     * @param {对象} parameter 
+     * @param { NAME, PATH, DATA } parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
     dataAction = async ({ NAME, PATH, DATA }) => {
@@ -74,8 +70,7 @@ class Algorithm {
         return data
     }
     /**
-     * {表名,地址,数据}
-     * @param {对象} parameter 
+     * @param { NAME, PATH, DATA } parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
     dataActionNew = async ({ NAME, PATH, DATA }) => {
@@ -98,6 +93,8 @@ class Algorithm {
     }
     /**
      * 判断目前是否存在
+     * @param { PATH } param0 
+     * @returns 
      */
     existsSync = ({ PATH }) => {
         if (fs.existsSync(PATH)) {

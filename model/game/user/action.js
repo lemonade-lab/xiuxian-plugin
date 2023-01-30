@@ -23,8 +23,11 @@ const LevelMiniName = {
     '4': '圆满'
 }
 class userAction {
-    userLevelUp = async (parameter) => {
-        const { UID, choise } = parameter
+    /**
+     * @param { UID, choise } param0 
+     * @returns 
+     */
+    userLevelUp = async ({ UID, choise }) => {
         const ifexistplay = await user.existUserSatus({ UID })
         if (!ifexistplay) {
             return { UserLevelUpMSG: `已死亡` }
@@ -109,8 +112,10 @@ class userAction {
             UserLevelUpMSG: `${returnTXT}`
         }
     }
-
-    //升级寿命
+    /**
+     * @param { UID, level_id, acount } param0 
+     * @returns 
+     */
     userLifeUp = async ({ UID, level_id, acount }) => {
         let size = 0
         const life = await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
@@ -127,9 +132,7 @@ class userAction {
         await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         return { size }
     }
-
-
-    //战斗模型
+    /*战斗模型*/
     battleUser = async (battleA, battleB) => {
         const battle_msg = {
             msg: [],
@@ -240,10 +243,7 @@ class userAction {
             battleB
         }
     }
-
-
-
-    //怪物战斗
+    /*怪物战斗*/
     battleMonster = async (battleA, battleB) => {
         const battle_msg = {
             msg: [],

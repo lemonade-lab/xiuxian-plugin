@@ -22,7 +22,6 @@ class ListAction {
         })
     }
     /**
-     * 
      * @param {表名} NAME 
      * @param {地址选择} CHOICE 
      * @param {数据} DATA 
@@ -49,6 +48,34 @@ class ListAction {
                 DATA: []
             })
             return []
+        }
+        return Data
+    }
+    /**
+     * @param { NAME, CHOICE, DATA, INITIAL } param0 
+     * @returns 
+     */
+    listActionInitial = async ({ NAME, CHOICE, DATA, INITIAL }) => {
+        if (DATA) {
+            await algorithm.dataAction({
+                NAME,
+                PATH: __PATH[CHOICE],
+                DATA
+            })
+            return
+        }
+        //读取的时候需要检查
+        const Data = await algorithm.dataActionNew({
+            NAME,
+            PATH: __PATH[CHOICE]
+        })
+        if (!Data) {
+            await algorithm.dataAction({
+                NAME,
+                PATH: __PATH[CHOICE],
+                DATA: INITIAL
+            })
+            return INITIAL
         }
         return Data
     }

@@ -1,11 +1,8 @@
 import config from '../data/defset/updata.js'
 import { appname } from '../../main.js'
-/**
- * 生成帮助图
- */
+/** 生成帮助图*/
 class Help {
-  getboxhelp = async (parameter) => {
-    const { name } = parameter
+  getboxhelp = async ({ name }) => {
     const helpData = config.getConfig({ app: 'help', name })
     return {
       /** 文件名 */

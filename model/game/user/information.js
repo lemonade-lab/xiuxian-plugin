@@ -1,5 +1,9 @@
 import gameUser from '../user/user.js'
 class information {
+    /**
+     * @param { UID } param0 
+     * @returns 
+     */
     userDataShow = async ({ UID }) => {
         const player = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
         const equipment = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
