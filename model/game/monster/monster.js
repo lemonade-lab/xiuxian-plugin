@@ -1,6 +1,6 @@
 const alldata = {}
 const addall = {}
-const name1 = [
+const full = [
     '蜥', '狮', '鹏', '雕',
     '雀', '豹', '虎', '龟',
     '猫', '龙', '鲲', '鸡',
@@ -9,11 +9,33 @@ const name1 = [
     '羊', '牛', '象', '兔',
     '猪'
 ]
-const name2 = [
-    '兵', '将', '兽', '魔',
-    '妖', '大妖', '王', '皇',
-    '帝', '神'
-]
+const name = {
+    '1': '兵',
+    '2': '将',
+    '3': '兽',
+    '4': '魔',
+    '5': '妖',
+    '6': '爵',
+    '7': '王',
+    '8': '皇',
+    '9': '帝',
+    '10': '神'
+}
+const map = {
+    '1': '1.3',
+    '2': '1.3',
+    '3': '1.4',
+    '4': '2.5',
+    '5': '3.6',
+    '6': '4.7',
+    '7': '1.3',
+    '8': '5.8',
+    '9': '5.8',
+    '10': '5.8',
+    '11': '6.9',
+    '12': '2.5',
+    '13': '7.10'
+}
 /**怪物生成*/
 class GameMonster {
     /**
@@ -27,9 +49,8 @@ class GameMonster {
                 'data': []
             }
         }
-        const time = new Date()
         /*时间变了*/
-        if (time.getHours() != alldata[i].label) {
+        if (new Date().getHours() != alldata[i].label) {
             alldata[i].data = await this.generateMonster({ i })
             return alldata[i].data
         } else {
@@ -64,31 +85,15 @@ class GameMonster {
      * @returns 
      */
     generateMonster = async ({ i }) => {
-        const time = new Date()
-        const map = {
-            '1': '1.2',
-            '2': '1.3',
-            '3': '2.4',
-            '4': '3.5',
-            '5': '4.6',
-            '6': '5.7',
-            '7': '1.3',
-            '8': '5.8',
-            '9': '5.8',
-            '10': '5.8',
-            '11': '5.9',
-            '12': '2.5',
-            '13': '7.10'
-        }
         const [mini, max] = map[i].split('.')
-        alldata[i].label = time.getHours()
+        alldata[i].label = new Date().getHours()
         alldata[i].data = []
-        for (var j = 0; j < max; j++) {
-            let y = Math.floor(Math.random() * (max - mini + 1) + Number(mini))
-            await alldata[i].data.push({
-                name: name1[Math.floor(Math.random() * name1.length)] + name2[y - 1],
+        for (let j = 0; j < max; j++) {
+            const alevel = Math.floor(Math.random() * (max - mini + 1) + Number(mini))
+            alldata[i].data.push({
+                name: full[Math.floor(Math.random() * full.length)] + name[alevel],
                 killNum: 1,
-                level: y
+                level: alevel
             })
         }
         return alldata[i].data
