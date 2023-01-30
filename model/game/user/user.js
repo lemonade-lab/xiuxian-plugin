@@ -460,7 +460,6 @@ class GameUser {
         return
     }
 
-
     /**
      * @param { NAME, FLAG, TYPE, VALUE } param0 
      * @returns 
@@ -483,6 +482,8 @@ class GameUser {
         }
         extend[FLAG]['perpetual'][TYPE] = VALUE
         await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+        await this.readPanel({UID:NAME})
+        await this.updataUserEfficiency({UID:NAME})
         return
     }
     /**
@@ -509,11 +510,13 @@ class GameUser {
         const time = new Date().getTime()
         if (find != -1 && extend[FLAG]['times'][find].timeLimit > time && extend[FLAG]['times'][find]['value'] >= VALUE) {
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+            await this.readPanel({UID:NAME})
             return
         } else if (find != -1 && (extend[FLAG]['times'][find].timeLimit <= time || extend[FLAG]['times'][find]['value'] < VALUE)) {
             extend[FLAG]['times'][find]['value'] = VALUE
             extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+            await this.readPanel({UID:NAME})
             return
         } else {
             extend[FLAG]['times'].push({
@@ -522,6 +525,7 @@ class GameUser {
                 "timeLimit": ENDTIME
             })
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+            await this.readPanel({UID:NAME})
             return
         }
     }
