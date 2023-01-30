@@ -483,7 +483,6 @@ class GameUser {
         extend[FLAG]['perpetual'][TYPE] = VALUE
         await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
         await this.readPanel({UID:NAME})
-        await this.updataUserEfficiency({UID:NAME})
         return
     }
     /**
