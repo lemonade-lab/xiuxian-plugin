@@ -10,10 +10,6 @@ export class boxshowall extends robotapi {
                 fnc: 'showMap',
             },
             {
-                reg: '^#修仙版本$',
-                fnc: 'showEdition',
-            },
-            {
                 reg: '^#修仙配置$',
                 fnc: 'showConfig',
             }
@@ -28,25 +24,6 @@ export class boxshowall extends robotapi {
             return
         }
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path: 'map', name: 'map' }))
-        await BotApi.User.surveySet({ e, isreply })
-        return
-    }
-    showEdition = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
-            e.reply('已死亡')
-            return
-        }
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({
-            path: 'updata', name: 'updata', data: {
-                version: await gameApi.getConfig({
-                    app: 'version',
-                    name: 'version'
-                })
-            }
-        }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }
