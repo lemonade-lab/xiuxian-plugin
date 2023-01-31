@@ -9,7 +9,7 @@ class GameUser {
         const die = []
         life.forEach((item) => {
             const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
-            item.Age = item.Age + cf['Age']['size'] ? cf['Age']['size'] : 1
+            item.Age = Number(cf['Age']['size'] ? cf['Age']['size'] : 1) + item.Age
             if (item.Age >= item.life) {
                 item.status = 0
                 die.push(item.qq)
@@ -482,7 +482,7 @@ class GameUser {
         }
         extend[FLAG]['perpetual'][TYPE] = VALUE
         await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-        await this.readPanel({UID:NAME})
+        await this.readPanel({ UID: NAME })
         return
     }
     /**
@@ -509,13 +509,13 @@ class GameUser {
         const time = new Date().getTime()
         if (find != -1 && extend[FLAG]['times'][find].timeLimit > time && extend[FLAG]['times'][find]['value'] >= VALUE) {
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-            await this.readPanel({UID:NAME})
+            await this.readPanel({ UID: NAME })
             return
         } else if (find != -1 && (extend[FLAG]['times'][find].timeLimit <= time || extend[FLAG]['times'][find]['value'] < VALUE)) {
             extend[FLAG]['times'][find]['value'] = VALUE
             extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-            await this.readPanel({UID:NAME})
+            await this.readPanel({ UID: NAME })
             return
         } else {
             extend[FLAG]['times'].push({
@@ -524,7 +524,7 @@ class GameUser {
                 "timeLimit": ENDTIME
             })
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-            await this.readPanel({UID:NAME})
+            await this.readPanel({ UID: NAME })
             return
         }
     }
