@@ -3,7 +3,6 @@ import { superIndex } from "../../model/robot/api/api.js"
 import { BotApi } from '../../model/robot/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
-import { GameApi } from "../../model/api/gameapi.js"
 export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([

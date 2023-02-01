@@ -1,8 +1,8 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
+import gameApi from '../../model/api/api.js'
 export class boxuserinformation extends robotapi {
     constructor() {
         super(superIndex([
@@ -29,8 +29,11 @@ export class boxuserinformation extends robotapi {
             e.reply('已死亡')
             return
         }
+        console.log('1')
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        console.log('2')
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        console.log('3')
         await BotApi.User.surveySet({ e, isreply })
         return
     }

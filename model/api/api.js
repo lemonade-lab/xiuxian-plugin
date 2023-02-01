@@ -11,7 +11,7 @@ import gameMonster from '../game/monster/monster.js'
 import gameBattle from '../game/public/battel.js'
 import information from '../game/user/information.js'
 import dataIndex from '../game/data/index.js'
-class GameApi {
+class gameapi {
     /**
      * 用户类
      */
@@ -219,4 +219,4 @@ class GameApi {
 
 
 }
-export default new GameApi()
+export default new gameapi()
