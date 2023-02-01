@@ -23,7 +23,7 @@ export class boxadminaction extends robotapi {
             name: appname,
             e
         })
-        GameApi.DefsetUpdata.moveConfig({ name: 'updata' })
+        GameApi.Createdata.moveConfig({ name: 'updata' })
         e.reply('配置已重置')
         return
     }
