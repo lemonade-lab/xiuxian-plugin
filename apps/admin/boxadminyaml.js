@@ -9,7 +9,7 @@ export class boxadminyaml extends robotapi {
                 fnc: 'configUpdata',
             },
             {
-                reg: '^#修仙配置重置',
+                reg: '^#修仙重置配置',
                 fnc: 'configReUpdata',
             },
             {
