@@ -4,7 +4,7 @@ import DefsetUpdata from '../game/data/defset/updata.js'
 import Schedule from '../game/data/schedule.js'
 import Algorithm from '../game/data/algorithm.js'
 import Createdata from '../game/data/createdata.js'
-import IserAction from '../game/user/action.js'
+import UserAction from '../game/user/action.js'
 import UserData from '../game/data/listaction.js'
 import GameMap from '../game/public/map.js'
 import GameMonster from '../game/monster/monster.js'
@@ -18,7 +18,7 @@ export const GameApi = {
     Schedule,
     Algorithm,
     Createdata,
-    IserAction,
+    UserAction,
     UserData,
     GameMap,
     GameMonster,

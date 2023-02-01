@@ -1,7 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import { BotApi } from '../../model/robot/api/botapi.js'
-import gameApi from '../../model/api/api.js'
 export class boxmove extends robotapi {
     constructor() {
         super(superIndex([
@@ -26,28 +24,28 @@ export class boxmove extends robotapi {
     /**
      * 前进
      */
-    mapW=async(e)=>{
+    mapW = async (e) => {
         e.reply('待更新')
         return
     }
     /**
      * 向左移动
      */
-    mapA=async(e)=>{
+    mapA = async (e) => {
         e.reply('待更新')
         return
     }
     /**
      * 后退
      */
-    mapS=async(e)=>{
+    mapS = async (e) => {
         e.reply('待更新')
         return
     }
     /**
      * 向右移动
      */
-    mapD=async(e)=>{
+    mapD = async (e) => {
         e.reply('待更新')
         return
     }

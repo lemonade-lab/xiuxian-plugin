@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxbattlesite extends robotapi {
@@ -19,7 +20,7 @@ export class boxbattlesite extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -31,15 +32,15 @@ export class boxbattlesite extends robotapi {
         const UID = e.user_id
         const CDID = '10'
         const now_time = new Date().getTime()
-        const cf=gameApi.getConfig({ app: 'parameter', name: 'cooling' })
-        const CDTime = cf['CD']['Kill']?cf['CD']['Kill']:5
+        const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+        const CDTime = cf['CD']['Kill'] ? cf['CD']['Kill'] : 5
         const { CDMSG } = await gameApi.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
         }
         const name = e.msg.replace('#击杀', '')
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const monstersdata = await gameApi.monsterscache({ i: action.region })
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
@@ -66,8 +67,8 @@ export class boxbattlesite extends robotapi {
             'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
             'speed': LevelMax.speed + 5 + buff.msg
         }
-        const battle = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
-        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const battle = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         const battle_msg = await gameApi.monsterbattle({ e, battleA: battle, battleB: monsters })
         battle_msg.msg.forEach((item) => {
@@ -77,9 +78,9 @@ export class boxbattlesite extends robotapi {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < (mon.level + 1) * 6) {
                 const randomthinf = await gameApi.randomThing()
-                let najie = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+                let najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
-                    await gameApi.userBag({ UID, name: randomthinf.name, ACCOUNT: randomthinf.acount })
+                    await GameApi.GameUser.userBag({ UID, name: randomthinf.name, ACCOUNT: randomthinf.acount })
                     msg.push(`得到[${randomthinf.name}]`)
                 } else {
                     msg.push('储物袋已满')
@@ -91,19 +92,19 @@ export class boxbattlesite extends robotapi {
                 await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
             }
             if (m < (mon.level + 1) * 8) {
-                const lingshi = await gameApi.leastOne({ value: mon.level * 2 })
+                const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 2 })
                 msg.push(`得到${lingshi}上品灵石`)
-                await gameApi.userBag({ UID, name: '上品灵石', ACCOUNT: lingshi })
+                await GameApi.GameUser.userBag({ UID, name: '上品灵石', ACCOUNT: lingshi })
             }
             if (m < (mon.level + 1) * 9) {
-                const lingshi = await gameApi.leastOne({ value: mon.level * 20 })
+                const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 20 })
                 msg.push(`得到${lingshi}中品灵石`)
-                await gameApi.userBag({ UID, name: '中品灵石', ACCOUNT: lingshi })
+                await GameApi.GameUser.userBag({ UID, name: '中品灵石', ACCOUNT: lingshi })
             }
             if (m >= (mon.level + 1) * 9) {
-                const lingshi = await gameApi.leastOne({ value: mon.level * 200 })
+                const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 200 })
                 msg.push(`得到${lingshi}下品灵石`)
-                await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: lingshi })
+                await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: lingshi })
             }
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
@@ -115,7 +116,7 @@ export class boxbattlesite extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -125,7 +126,7 @@ export class boxbattlesite extends robotapi {
             return
         }
         const UID = e.user_id
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const msg = []
         const monster = await gameApi.monsterscache({ i: action.region })
         monster.forEach((item) => {

@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 const forwardsetTime = []
@@ -35,11 +36,11 @@ export class boxsecretplace extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         if (action.address != 1) {
             e.reply('你对这里并不了解...')
             return
@@ -63,7 +64,7 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (! await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (! await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -83,11 +84,11 @@ export class boxsecretplace extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const isreply = await e.reply(`坐标(${action.x},${action.y},${action.z})`)
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -96,7 +97,7 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -109,7 +110,7 @@ export class boxsecretplace extends robotapi {
         if (forwardsetTime[UID] == 1) {
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
@@ -121,14 +122,14 @@ export class boxsecretplace extends robotapi {
         const mx = point.x
         const my = point.y
         const PointId = point.id.split('-')
-        const level = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+        const level = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id < PointId[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
         const a = x - mx >= 0 ? x - mx : mx - x
         const b = y - my >= 0 ? y - my : my - y
-        const battle = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        const battle = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
         const the = Math.floor((a + b) - (a + b) * battle.speed * 0.01)
         const time = the >= 0 ? the : 1
         useraction[UID] = setTimeout(async () => {
@@ -137,7 +138,7 @@ export class boxsecretplace extends robotapi {
             action.y = my
             action.region = PointId[1]
             action.address = PointId[2]
-            await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
+            await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
             e.reply([BotApi.segment.at(UID), `成功抵达${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
@@ -148,7 +149,7 @@ export class boxsecretplace extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -161,7 +162,7 @@ export class boxsecretplace extends robotapi {
         if (deliverysetTime[UID] == 1) {
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
@@ -171,7 +172,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         const positionID = position.id.split('-')
-        const level = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+        const level = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id < positionID[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
@@ -192,13 +193,13 @@ export class boxsecretplace extends robotapi {
             return
         }
         const lingshi = 1000
-        const money = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+        const money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!money || money.acount < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}下品灵石`)
             return
         }
         //先扣钱
-        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)
@@ -209,7 +210,7 @@ export class boxsecretplace extends robotapi {
             action.y = my
             action.region = positionID[1]
             action.address = positionID[2]
-            await gameApi.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
+            await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
             e.reply([BotApi.segment.at(UID), `成功传送至${address}`])
         }, 1000 * time)
         deliverysetTime[UID] = 1

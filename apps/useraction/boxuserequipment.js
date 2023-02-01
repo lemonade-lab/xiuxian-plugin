@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxuserequipment extends robotapi {
     constructor() {
@@ -19,23 +20,23 @@ export class boxuserequipment extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#装备', '')
-        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
             e.reply(`没有${thing_name}`)
             return
         }
-        const equipment = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
-        if (equipment.length >= gameApi.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.equipment) {
+        const equipment = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
+        if (equipment.length >= GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
-        await gameApi.userBag({ UID, name: thing_name, ACCOUNT: -1 })
+        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
+        await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
         await gameApi.readPanel({ UID })
         e.reply(`装备${thing_name}`)
         return
@@ -45,12 +46,12 @@ export class boxuserequipment extends robotapi {
             return
         }
         const UID = e.user_id
-        if (! await gameApi.existUserSatus({ UID })) {
+        if (! await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#卸下', '')
-        let equipment = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
+        let equipment = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
             return
@@ -64,8 +65,8 @@ export class boxuserequipment extends robotapi {
                 arr.splice(index, 1)
             }
         })
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
-        await gameApi.userBag({ UID, name: thing_name, ACCOUNT: 1 })
+        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
+        await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
         await gameApi.readPanel({ UID })
         e.reply(`已卸下${thing_name}`)
         return

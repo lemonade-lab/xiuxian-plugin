@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxplayercontrol extends robotapi {
@@ -27,7 +28,7 @@ export class boxplayercontrol extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -50,7 +51,7 @@ export class boxplayercontrol extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -74,7 +75,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -87,8 +88,8 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const startTime = action.startTime
-        const cf=gameApi.getConfig({ app: 'parameter', name: 'cooling' })
-        const timeUnit = cf['biguan']['time']?cf['biguan']['time']:5
+        const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+        const timeUnit = cf['biguan']['time'] ? cf['biguan']['time'] : 5
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
@@ -104,7 +105,7 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = e.user_id
-        if (! await gameApi.existUserSatus({ UID })) {
+        if (! await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
@@ -117,8 +118,8 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const startTime = action.startTime
-        const cf=gameApi.getConfig({ app: 'parameter', name: 'cooling' })
-        const timeUnit = cf['work']['time']?cf['work']['time']:5
+        const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+        const timeUnit = cf['work']['time'] ? cf['work']['time'] : 5
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
@@ -134,16 +135,16 @@ export class boxplayercontrol extends robotapi {
             return
         }
         const UID = user_id
-        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const buff = Math.floor(talent.talentsize / 100) + Number(1)
-        const appSize = gameApi.getConfig({ app: 'parameter', name: 'cooling' })
+        const appSize = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         let map = {
             '闭关': 'biguan',
             '降妖': 'work'
         }
         let other = Math.floor(appSize[map[name]]['size'] * time * buff)
         if ((Math.random() * (100 - 1) + 1) < 20) {
-            other -=  Math.floor(other / 3)
+            other -= Math.floor(other / 3)
         }
         let othername = 'experience'
         let msg = `闭关结束,获得${other}修为`

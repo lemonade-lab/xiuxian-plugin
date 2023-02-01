@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { BotApi } from '../../model/robot/api/botapi.js'
-import gameApi from '../../model/api/api.js'
+import { GameApi } from '../../model/api/gameapi.js'
 export class boxhelp extends robotapi {
     constructor() {
         super(superIndex([
@@ -19,7 +19,7 @@ export class boxhelp extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -34,7 +34,7 @@ export class boxhelp extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }

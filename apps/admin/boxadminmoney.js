@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import gameApi from '../../model/api/api.js'
+import { GameApi } from '../../model/api/gameapi.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxadminmoney extends robotapi {
     constructor() {
@@ -23,14 +23,14 @@ export class boxadminmoney extends robotapi {
         if (!UID) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
         const [name, acount] = thing_name.split('\*')
-        const quantity = await gameApi.leastOne({ value: acount })
-        const bag = await gameApi.userBag({ UID, name, ACCOUNT: quantity })
+        const quantity = await GameApi.GamePublic.leastOne({ value: acount })
+        const bag = await GameApi.GameUser.userBag({ UID, name, ACCOUNT: quantity })
         if (bag) {
             e.reply(`${UID}获得馈赠:${name}*${quantity}`)
         } else {
@@ -46,18 +46,18 @@ export class boxadminmoney extends robotapi {
         if (!UID) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
-        lingshi = await gameApi.leastOne({ value: lingshi })
-        const thing = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+        lingshi = await GameApi.GamePublic.leastOne({ value: lingshi })
+        const thing = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!thing || thing.acount < lingshi) {
             e.reply('他好穷的')
             return
         }
-        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
         e.reply(`已扣除${lingshi}下品灵石`)
         return
     }

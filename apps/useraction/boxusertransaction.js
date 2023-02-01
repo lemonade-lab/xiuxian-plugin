@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxusertransaction extends robotapi {
@@ -24,11 +25,11 @@ export class boxusertransaction extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -83,11 +84,11 @@ export class boxusertransaction extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -95,7 +96,7 @@ export class boxusertransaction extends robotapi {
             return
         }
         const [thing_name, thing_acount] = e.msg.replace('#购买', '').split('\*')
-        let quantity = await gameApi.leastOne({ value: thing_acount })
+        let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99
         }
@@ -105,13 +106,13 @@ export class boxusertransaction extends robotapi {
             e.reply(`[万宝楼]小二\n不卖:${thing_name}`)
             return
         }
-        const money = await gameApi.userBagSearch({ UID, name: '下品灵石' })
+        const money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!money || money.acount < ifexist.price * quantity) {
             e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
             return
         }
-        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: -ifexist.price * quantity })
-        await gameApi.userBag({ UID, name: ifexist.name, ACCOUNT: quantity })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -ifexist.price * quantity })
+        await GameApi.GameUser.userBag({ UID, name: ifexist.name, ACCOUNT: quantity })
         e.reply(`[万宝楼]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
@@ -120,11 +121,11 @@ export class boxusertransaction extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -132,11 +133,11 @@ export class boxusertransaction extends robotapi {
             return
         }
         const [thing_name, thing_acount] = e.msg.replace('#出售', '').split('\*')
-        let quantity = await gameApi.leastOne({ value: thing_acount })
+        let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99
         }
-        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
             e.reply(`[万宝楼]小二\n你没[${thing_name}]`)
             return
@@ -145,9 +146,9 @@ export class boxusertransaction extends robotapi {
             e.reply('[万宝楼]小二\n数量不足')
             return
         }
-        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -quantity })
+        await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -quantity })
         const commodities_price = najie_thing.price * quantity
-        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: commodities_price })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: commodities_price })
         e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}下品灵石 `)
         return
     }

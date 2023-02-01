@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxuserstart extends robotapi {
@@ -15,7 +16,7 @@ export class boxuserstart extends robotapi {
             }
         ]))
         this.task = {
-            cron: gameApi.getConfig({ app: 'task', name: 'task' }).LifeTask,
+            cron: GameApi.DefsetUpdata.getConfig({ app: 'task', name: 'task' }).LifeTask,
             name: 'LifeTask',
             fnc: () => { gameApi.startLife() }
         }
@@ -24,7 +25,7 @@ export class boxuserstart extends robotapi {
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
-        if (! await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (! await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
@@ -38,8 +39,8 @@ export class boxuserstart extends robotapi {
             return
         }
         const UID = e.user_id
-        const cf=gameApi.getConfig({ app: 'parameter', name: 'cooling' })
-        const CDTime = cf['CD']['Reborn']?cf['CD']['Reborn']:850
+        const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+        const CDTime = cf['CD']['Reborn'] ? cf['CD']['Reborn'] : 850
         const CDID = '8'
         const now_time = new Date().getTime()
         const { CDMSG } = await gameApi.cooling({ UID, CDID })
@@ -52,7 +53,7 @@ export class boxuserstart extends robotapi {
         await gameApi.offAction(UID)
         let life = await gameApi.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         life = await life.filter(item => item.qq != UID)
-        await gameApi.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
+        await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         await gameApi.createBoxPlayer({ UID: e.user_id })
         const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
@@ -63,7 +64,7 @@ export class boxuserstart extends robotapi {
 // Bot.on("notice.group.increase", async (e) => {
 //     const UID = e.user_id
 //     Bot.on("message", async (e) => {
-//         if (!await gameApi.existUserSatus({ UID })) {
+//         if (!await GameApi.GameUser.existUserSatus({ UID })) {
 //             e.reply([BotApi.segment.at(UID), '降临失败...\n天道:请降临者[#再入仙途]后步入轮回!'])
 //             return
 //         }

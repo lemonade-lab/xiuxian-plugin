@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import gameApi from '../../model/api/api.js'
+import { GameApi } from '../../model/api/gameapi.js'
 import { GameApi } from "../../model/api/gameapi.js"
 export class boxadminyaml extends robotapi {
     constructor() {
@@ -24,14 +24,14 @@ export class boxadminyaml extends robotapi {
             return
         }
         const [name, size] = e.msg.replace('#修仙配置更改', '').split('\*')
-        e.reply(gameApi.updateConfig({ name, size }))
+        e.reply(GameApi.DefsetUpdata.updateConfig({ name, size }))
         return
     }
     configReUpdata = async (e) => {
         if (!e.isMaster) {
             return
         }
-        gameApi.moveConfig({ name: 'updata' })
+        GameApi.Createdata.moveConfig({ name: 'updata' })
         e.reply('配置已重置')
         return
     }

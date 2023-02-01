@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 export class boxuseronekey extends robotapi {
     constructor() {
@@ -19,18 +20,18 @@ export class boxuseronekey extends robotapi {
             return
         }
         const UID = e.user_id
-        if (! await gameApi.existUserSatus({ UID })) {
+        if (! await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        let bag = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let bag = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = Number(0)
         bag.thing.forEach((item) => {
             money += item.acount * item.price
@@ -39,8 +40,8 @@ export class boxuseronekey extends robotapi {
             return
         }
         bag.thing = []
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
-        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }
@@ -49,11 +50,11 @@ export class boxuseronekey extends robotapi {
             return
         }
         const UID = e.user_id
-        if (! await gameApi.existUserSatus({ UID })) {
+        if (! await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
-        const action = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await gameApi.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -73,7 +74,7 @@ export class boxuseronekey extends robotapi {
             e.reply(`[蜀山派]叶凡\n此处不收${type}`)
             return
         }
-        let bag = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let bag = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = Number(0)
         const arr = []
         bag.thing.forEach((item, index) => {
@@ -88,8 +89,8 @@ export class boxuseronekey extends robotapi {
             return
         }
         bag.thing = arr
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
-        await gameApi.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
         e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
         return
     }

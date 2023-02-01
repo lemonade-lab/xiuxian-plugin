@@ -1,6 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
-import gameApi from '../../model/api/api.js'
+import { GameApi } from '../../model/api/gameapi.js'
 export class boxlevel extends robotapi {
     constructor() {
         super(superIndex([
@@ -18,11 +18,11 @@ export class boxlevel extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
-        const { UserLevelUpMSG } = await gameApi.userLevelUp({ UID: e.user_id })
+        const { UserLevelUpMSG } = await GameApi.UserAction.userLevelUp({ UID: e.user_id })
         if (UserLevelUpMSG) {
             e.reply(UserLevelUpMSG)
         }
@@ -32,11 +32,11 @@ export class boxlevel extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await gameApi.existUserSatus({ UID: e.user_id })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
         }
-        const { UserLevelUpMSG } = await gameApi.userLevelUp({
+        const { UserLevelUpMSG } = await GameApi.UserAction.userLevelUp({
             UID: e.user_id,
             choise: 'max'
         })

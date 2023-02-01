@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
+import { GameApi } from '../../model/api/gameapi.js'
 import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxuserhome extends robotapi {
@@ -28,13 +29,13 @@ export class boxuserhome extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         let [thing_name, thing_acount] = e.msg.replace('#服用', '').split('\*')
-        thing_acount = await gameApi.leastOne({ value: thing_acount })
-        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        thing_acount = await GameApi.GamePublic.leastOne({ value: thing_acount })
+        const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
             e.reply(`没有${thing_name}`)
             return
@@ -57,7 +58,7 @@ export class boxuserhome extends robotapi {
                     if (thing_acount > 2200) {
                         thing_acount = 2200
                     }
-                    const cf = gameApi.getConfig({ app: 'parameter', name: 'cooling' })
+                    const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
                     const CDTime = cf['CD']['Practice'] ? cf['CD']['Practice'] : 5
                     const CDID = '12'
                     const now_time = new Date().getTime()
@@ -68,7 +69,7 @@ export class boxuserhome extends robotapi {
                     }
                     await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
                     await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
-                    const player = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+                    const player = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     switch (id[2]) {
                         case '1': {
                             if (player.level_id >= 3) {
@@ -112,7 +113,7 @@ export class boxuserhome extends robotapi {
             default: {
             }
         }
-        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -thing_acount })
+        await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -thing_acount })
         return
     }
     study = async (e) => {
@@ -120,12 +121,12 @@ export class boxuserhome extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#学习', '')
-        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
             e.reply(`没有${thing_name}`)
             return
@@ -134,20 +135,20 @@ export class boxuserhome extends robotapi {
         if (id[0] != 5) {
             return
         }
-        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
             e.reply('学过了')
             return
         }
-        if (talent.AllSorcery.length >= gameApi.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa) {
+        if (talent.AllSorcery.length >= GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进')
             return
         }
         talent.AllSorcery.push(najie_thing)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await gameApi.updataUserEfficiency({ UID })
-        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
+        await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         e.reply(`学习${thing_name}`)
         return
     }
@@ -156,21 +157,21 @@ export class boxuserhome extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#忘掉', '')
-        const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
             e.reply(`没学过${thing_name}`)
             return
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
-        await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await gameApi.updataUserEfficiency({ UID })
-        await gameApi.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
+        await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
         e.reply(`忘了${thing_name}`)
         return
     }
@@ -179,17 +180,17 @@ export class boxuserhome extends robotapi {
             return
         }
         const UID = e.user_id
-        if (!await gameApi.existUserSatus({ UID })) {
+        if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
             return
         }
         const thing_name = e.msg.replace('#消耗', '')
-        const najie_thing = await gameApi.userBagSearch({ UID, name: thing_name })
+        const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
             e.reply(`没有${thing_name}`)
             return
         }
-        await gameApi.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
+        await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         const id = najie_thing.id.split('-')
         if (id[0] != 6) {
             e.reply(`${thing_name}损坏`)
@@ -198,14 +199,14 @@ export class boxuserhome extends robotapi {
         if (id[1] == 1) {
             switch (id[2]) {
                 case '1': {
-                    const player = gameApi.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+                    const player = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     if (player.level_id >= 10) {
                         e.reply('灵根已定\n此生不可再洗髓')
                         break
                     }
-                    const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+                    const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talent = await gameApi.getTalent()
-                    await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+                    await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await gameApi.updataUserEfficiency({ UID })
                     const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
@@ -213,9 +214,9 @@ export class boxuserhome extends robotapi {
                     break
                 }
                 case '2': {
-                    const talent = await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+                    const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talentshow = 0
-                    await gameApi.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+                    await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })
