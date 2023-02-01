@@ -6,12 +6,15 @@ import schedule from 'node-schedule'
 /**数据备份*/
 class Schedule {
     constructor() {
-        this.NEW_PATH = `${path.resolve()}/plugins/boxdata`
+        /*机器人根目录下统一叫做xiuxiandata */
+        this.BACKUPS_PATH = `${path.resolve()}/xiuxiandata/boxdata`
+        /*存档数值位置 */
+        this.DATA_PATH = `${__dirname}/resources/data/birth/xiuxian`
     }
     /**
-     * @param { name, time, newpath } param0 
+     * @param {  time } param0 
      */
-    scheduleJobflie = ({ name, time, newpath }) => {
+    scheduleJobflie = ({ time }) => {
         schedule.scheduleJob(time, () => {
             const myDate = new Date()
             const Y = myDate.getFullYear()
@@ -20,26 +23,17 @@ class Schedule {
             const h = myDate.getHours()
             const m = myDate.getMinutes()
             const s = myDate.getSeconds()
-            /*数据位置*/
-            let PATH = `${__dirname}/resources/data/birth/${name}`
-            if (newpath != undefined) {
-                /*新数据位置*/
-                PATH = newpath
-            }
-            const THE_PATH = `${this.NEW_PATH}/${name}.${Y}-${M}-${D}-${h}-${m}-${s}`
-            fs.cp(PATH, THE_PATH, { recursive: true }, (err) => {
-                if (err) { }
-            })
+            fs.cp(this.DATA_PATH, `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`, { recursive: true }, (err) => { })
         })
     }
     /*查看备份目录,并以转发的形式丢出*/
     viewbackups = () => {
-        if (!fs.existsSync(this.NEW_PATH)) {
+        if (!fs.existsSync(this.BACKUPS_PATH)) {
             return ['无备份数据']
         }
-        const msg = algorithm.returnMenu(this.NEW_PATH)
+        const msg = algorithm.returnMenu(this.BACKUPS_PATH)
         if (msg.length > 50) {
-            return ['当前备份数大于50\n请自行查看备份名称', this.NEW_PATH]
+            return ['当前备份数大于50\n请自行查看备份名称', this.BACKUPS_PATH]
         }
         return msg
     }
@@ -48,49 +42,44 @@ class Schedule {
      * @returns 
      */
     backuprecovery = ({ name }) => {
-        if (!fs.existsSync(this.NEW_PATH)) {
+        /*查看自己的地址在不在？我的叫做boxdata*/
+        if (!fs.existsSync(this.BACKUPS_PATH)) {
             return ['无备份数据']
         }
-        const namefile = `${this.NEW_PATH}/${name}`
-        if (!fs.existsSync(namefile)) {
+        /*查看这个备份名字在不在*/
+        console.log(`${this.BACKUPS_PATH}/${name}`)
+        if (!fs.existsSync(`${this.BACKUPS_PATH}/${name}`)) {
             return ['无此备份']
         }
-        const [pluginname, time] = name.split('.');
-        const ThePath = {
-            'xiuxian': `${__dirname}/resources/data/birth/${pluginname}`,
-        }
-        /*得到底下所有的json文件地址*/
-        const newsum = algorithm.returnfilepath(ThePath[pluginname], '.json')
+        /*得到存档的json文件地址*/
+        const newsum = algorithm.returnfilepath(this.DATA_PATH, '.json')
         newsum.forEach((item) => {
             /*/循环删除数据*/
-            fs.unlink(item, (err) => {})
+            fs.unlink(item, (err) => { })
         })
-        /**获得备份下的所有子目录 */
-        const namefile_subdirectory = algorithm.returnMenu(namefile)
+        /**获得这个备份下的所有子目录 */
+        const namefile_subdirectory = algorithm.returnMenu(`${this.BACKUPS_PATH}/${name}`)
         /**获得备份目录下的所有json的文件名*/
-        namefile_subdirectory.forEach((itempath) => {
-            /*当前目录下的json文件名*/
+        namefile_subdirectory.forEach((itemname) => {
+            /*得到所有json名*/
             const jsonName = [];
             const files = fs
-                .readdirSync(`${namefile}/${itempath}`)
+                .readdirSync(`${this.BACKUPS_PATH}/${name}/${itemname}`)
                 .filter(file => file.endsWith('.json'));
             for (let file of files) {
                 file = file.replace('.json', '');
                 jsonName.push(file);
             }
-            /*这里是qq号？*/
             jsonName.forEach((item) => {
                 /**原理是？这个文件地址，复制到那个文件地址*/
-                let y = `${namefile}/${itempath}/${item}.json`
-                let x = `${ThePath[pluginname]}/${itempath}/${item}.json`
+                let y = `${this.BACKUPS_PATH}/${name}/${itemname}/${item}.json`
+                let x = `${this.DATA_PATH}/${itemname}/${item}.json`
                 /*不存在就复制*/
                 if (!fs.existsSync(x)) {
-                    /*要复制*/
-                    fs.cp(y, x, (err) => {
-                        if (err) { }
-                    })
+                    fs.cp(y, x, (err) => { })
                 }
             })
+
         })
         return ['恢复成功']
     }

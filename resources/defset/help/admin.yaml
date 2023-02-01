@@ -25,11 +25,11 @@
 - group: 
   list:
     - icon: help-icon_5
-      title: "#修仙数据"
+      title: "#修仙更新"
+      desc: "已支持#全部更新"
+    - icon: help-icon_5
+      title: "#盒子数据"
       desc: "查看数据备份"
     - icon: help-icon_5
-      title: "#修仙复原+数据名"
-      desc: "请先查看#修仙数据"
-    - icon: help-icon_5
-      title: "#修仙更新"
-      desc: "请阅读#修仙版本"
+      title: "#盒子复原+数据名"
+      desc: "请先查看#盒子数据"

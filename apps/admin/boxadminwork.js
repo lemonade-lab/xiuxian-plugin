@@ -6,11 +6,11 @@ export class boxadminwork extends robotapi {
     constructor() {
         super(superIndex([
             {
-                reg: '^#修仙数据$',
+                reg: '^#盒子数据$',
                 fnc: 'dataBackups'
             },
             {
-                reg: '^#修仙复原.*$',
+                reg: '^#盒子复原.*$',
                 fnc: 'dataRecovery'
             }
         ]))
@@ -26,7 +26,7 @@ export class boxadminwork extends robotapi {
         if (!e.isMaster) {
             return
         }
-        await BotApi.User.forwardMsg({ e, data: GameApi.Schedule.backuprecovery({ name: e.msg.replace('#修仙复原', '') }) })
+        await BotApi.User.forwardMsg({ e, data: GameApi.Schedule.backuprecovery({ name: e.msg.replace('#盒子复原', '') }) })
         return
     }
 }
