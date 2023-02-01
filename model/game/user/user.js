@@ -143,6 +143,45 @@ class GameUser {
     }
 
     /**
+     * 材料仓库物品增减
+     * @param { UID, name, ACCOUNT } param0
+     * @returns
+     */
+    userMaterial = async ({ UID, name, ACCOUNT }) => {
+        //搜索物品信息
+        const thing = await listdata.searchThing(
+            { CHOICE : 'fixed_material', NAME :'MaterialGuide', condition:'name', name })
+        if (thing) {
+            let bag = await this.userMsgAction({ CHOICE: 'user_material', NAME: UID })
+            bag = await this.userMaterialAction({
+                BAG: bag, THING: thing, ACCOUNT
+            })
+            await this.userMsgAction({ CHOICE: 'user_material', NAME: UID, DATA: bag })
+            return true
+        }
+        return false
+    }
+
+    userMaterialAction = async (parameter) =>{
+        let { BAG, THING, ACCOUNT } = parameter
+        const thing = BAG.find(item => item.id == THING.id)
+        if (thing) {
+            let acount = Number(thing.acount) + Number(ACCOUNT)
+            if (Number(acount) < 1) {
+                BAG = BAG.filter(item => item.id != THING.id)
+            } else {
+                BAG.find(item => item.id == THING.id).acount = Number(acount)
+            }
+            return BAG
+        } else {
+            THING.acount = Number(ACCOUNT)
+            BAG.thing.push(THING)
+            return BAG
+        }
+
+
+    }
+    /**
      * 给储物袋添加物品
      * @param { BAG, THING, ACCOUNT } param0 
      * @returns 
@@ -175,6 +214,11 @@ class GameUser {
     userBagSearch = async ({ UID, name }) => {
         const bag = await this.userMsgAction({ CHOICE: 'user_bag', NAME: UID })
         return bag.thing.find(item => item.name == name)
+    }
+
+    userMaterialSearch = async ({ UID, name }) => {
+        const bag = await this.userMsgAction({ CHOICE: 'user_material', NAME: UID })
+        return bag.find(item => item.name == name)
     }
 
 
@@ -529,5 +573,36 @@ class GameUser {
         }
     }
 
+    synthesisResult = async ({ ans, type}) => {
+//这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
+        let drawingList = await listdata.listAction({ NAME : 'AllDrawing' , CHOICE :'fixed_material'});
+        drawingList = drawingList.filter(item =>item.type == type && item.gold <= ans.gold && item.wood <= ans.wood && item.water <= ans.water && item.fire <= ans.fire && item.earth <= ans.earth);
+
+        if(drawingList.length == 0){
+            // 没有对应图纸
+            const res = {name: "无用的残渣"};
+            return res;
+        }else if(drawingList.length > 3) {
+            // 可能的结果过多，取三个最好的
+            drawingList.sort(sortRule);
+            const slice = drawingList.slice(0,3);
+            //随机取一个
+            return randomArr(slice);
+        }else {
+            //直接随机取
+            return randomArr(drawingList);
+        }
+    }
+
+
+}
+
+function sortRule(a, b) {
+    return a.rank - b.rank; // 如果a>=b，返回自然数，不用交换位置
+}
+
+function randomArr(array) {
+    const location = Math.floor(Math.random() * array.length);
+    return array[location];
 }
 export default new GameUser()

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "8-1-1",
+    "name": "极品材料",
+    "gold": 2,
+    "wood": 2,
+    "water": 2,
+    "fire": 2,
+    "earth": 2,
+    "elixirPercent": 0,
+    "equipPercent": 0,
+    "acount": 1,
+    "quality": 0.9,
+    "price": 100
+  },
+  {
+    "id": "8-1-2",
+    "name": "次品材料",
+    "gold": 0,
+    "wood": 0,
+    "water": 0,
+    "fire": 1,
+    "earth": 1,
+    "elixirPercent": 0,
+    "equipPercent": 0,
+    "acount": 1,
+    "quality": 0.9,
+    "price": 100
+  },
+  {
+    "id": "8-1-3",
+    "name": "中品材料",
+    "gold": 1,
+    "wood": 1,
+    "water": 2,
+    "fire": 2,
+    "earth": 2,
+    "elixirPercent": 0,
+    "equipPercent": 0,
+    "acount": 1,
+    "quality": 0.1,
+    "price": 100
+  }
+]

@@ -30,6 +30,9 @@ class gameapi {
     userBagSearch = async (parameter) => {
         return await gameUser.userBagSearch(parameter)
     }
+    userMaterialSearch = async (parameter) => {
+        return await gameUser.userMaterialSearch(parameter)
+    }
     existUserSatus = async (parameter) => {
         return await gameUser.existUserSatus(parameter)
     }
@@ -77,6 +80,13 @@ class gameapi {
         return await information.userDataShow(parameter)
     }
 
+    /**
+     * 炼制
+     */
+    synthesisResult= async (parameter) => {
+        return await gameUser.synthesisResult(parameter)
+
+    }
 
     /**
      * 地图

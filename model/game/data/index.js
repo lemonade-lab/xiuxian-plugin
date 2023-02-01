@@ -16,6 +16,7 @@ export const __PATH = {
     'user_wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     'user_bag': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
     'user_life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+    'user_material': path.join(__dirname, '/resources/data/birth/xiuxian/material'),
     /**新增玩家概率事件存档*/
     /*基础信息*/
     'fixed_point': path.join(__dirname, '/resources/data/fixed/point'),
@@ -25,6 +26,7 @@ export const __PATH = {
     'fixed_level': path.join(__dirname, '/resources/data/fixed/level'),
     'fixed_occupation': path.join(__dirname, '/resources/data/fixed/occupation'),
     'fixed_talent': path.join(__dirname, '/resources/data/fixed/talent'),
+    'fixed_material': path.join(__dirname, '/resources/data/fixed/material'),
     /*管理员自定义表*/
     'custom_goods': path.join(__dirname, '/resources/goods'),
     /*生成信息*/
