@@ -23,7 +23,7 @@ export class boxshowall extends robotapi {
             e.reply('已死亡')
             return
         }
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path: 'map', name: 'map' }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }
@@ -35,7 +35,7 @@ export class boxshowall extends robotapi {
             e.reply('已死亡')
             return
         }
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({
             path: 'config', name: 'config', data: {
                 xiuxain: await GameApi.DefsetUpdata.getConfig({
                     app: 'parameter',

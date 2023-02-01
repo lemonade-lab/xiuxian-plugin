@@ -31,7 +31,7 @@ export class boxuserinformation extends robotapi {
         console.log('1')
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         console.log('2')
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         console.log('3')
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -46,7 +46,7 @@ export class boxuserinformation extends robotapi {
             return
         }
         const { path, name, data } = await GameApi.Information.userEquipmentShow({ UID: e.user_id })
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }

@@ -208,7 +208,7 @@ export class boxuserhome extends robotapi {
                     await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await GameApi.GameUser.updataUserEfficiency({ UID })
                     const { path, name, data } = await  GameApi.Information.userDataShow({ UID: e.user_id })
-                    const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+                    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })
                     break
                 }
@@ -217,7 +217,7 @@ export class boxuserhome extends robotapi {
                     talent.talentshow = 0
                     await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
-                    const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+                    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })
                     break
                 }

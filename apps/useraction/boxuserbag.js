@@ -25,7 +25,7 @@ export class boxuserbag extends robotapi {
             return
         }
         const { path, name, data } = await GameApi.Information.userBagShow({ UID })
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }

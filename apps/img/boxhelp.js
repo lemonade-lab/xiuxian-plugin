@@ -23,11 +23,11 @@ export class boxhelp extends robotapi {
             e.reply('已死亡')
             return
         }
-        const data = await BotApi.Help.getboxhelp({ name: 'help' })
+        const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
         if (!data) {
             return
         }
-        const isreply = await e.reply(await BotApi.Cache.helpcache({ i: 1, data }))
+        const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
         await BotApi.User.surveySet({ e, isreply })
     }
     adminSuper = async (e) => {
@@ -38,11 +38,11 @@ export class boxhelp extends robotapi {
             e.reply('已死亡')
             return
         }
-        const data = await BotApi.Help.getboxhelp({ name: 'admin' })
+        const data = await BotApi.ImgHelp.getboxhelp({ name: 'admin' })
         if (!data) {
             return
         }
-        const isreply = await e.reply(await BotApi.Cache.helpcache({ i: 0, data }))
+        const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
         await BotApi.User.surveySet({ e, isreply })
     }
 }

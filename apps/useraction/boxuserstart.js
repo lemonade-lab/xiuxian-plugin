@@ -29,7 +29,7 @@ export class boxuserstart extends robotapi {
             return
         }
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }
@@ -55,7 +55,7 @@ export class boxuserstart extends robotapi {
         await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         await GameApi.GameUser.createBoxPlayer({ UID: e.user_id })
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }

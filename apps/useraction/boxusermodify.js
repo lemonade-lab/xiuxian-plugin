@@ -67,7 +67,7 @@ export class boxusermodify extends robotapi {
         })
         await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }
@@ -110,7 +110,7 @@ export class boxusermodify extends robotapi {
         player.autograph = new_msg
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
-        const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
+        const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }
