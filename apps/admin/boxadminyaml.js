@@ -13,7 +13,7 @@ export class boxadminyaml extends robotapi {
                 fnc: 'configReUpdata',
             },
             {
-                reg: '^#修仙图片重置',
+                reg: '^#修仙重置图片',
                 fnc: 'imgReUpdata',
             }
         ]))

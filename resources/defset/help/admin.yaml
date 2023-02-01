@@ -20,10 +20,10 @@
       desc: "查看配置"
     - icon: help-icon_2
       title: "#修仙重置配置"
-      desc: "#修仙配置重置"
+      desc: "#恢复初始图配置"
     - icon: help-icon_2
-      title: "#修仙图片重置"
-      desc: "#修仙配置重置"
+      title: "#修仙重置图片"
+      desc: "恢复初始图片"
       
 - group: 
   list:
