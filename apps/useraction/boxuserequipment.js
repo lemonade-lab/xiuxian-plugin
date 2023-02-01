@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 export class boxuserequipment extends robotapi {
     constructor() {
         super(superIndex([
@@ -37,7 +36,7 @@ export class boxuserequipment extends robotapi {
         equipment.push(najie_thing)
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
-        await gameApi.readPanel({ UID })
+        await  GameApi.GameUser.readPanel({ UID })
         e.reply(`装备${thing_name}`)
         return
     }
@@ -67,7 +66,7 @@ export class boxuserequipment extends robotapi {
         })
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
-        await gameApi.readPanel({ UID })
+        await GameApi.GameUser.readPanel({ UID })
         e.reply(`已卸下${thing_name}`)
         return
     }

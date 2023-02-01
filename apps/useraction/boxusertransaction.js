@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxusertransaction extends robotapi {
     constructor() {
@@ -31,7 +30,7 @@ export class boxusertransaction extends robotapi {
         }
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({ action, addressName: address_name })
+        const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -39,7 +38,7 @@ export class boxusertransaction extends robotapi {
         const msg = [
             '___[万宝楼]___\n#购买+物品名*数量\n不填数量,默认为1'
         ]
-        const commodities_list = await gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
+        const commodities_list = await GameApi.UserData.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
             switch (id[0]) {
@@ -90,7 +89,7 @@ export class boxusertransaction extends robotapi {
         }
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({ action, addressName: address_name })
+        const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -100,7 +99,7 @@ export class boxusertransaction extends robotapi {
         if (quantity > 99) {
             quantity = 99
         }
-        const Commodities = await gameApi.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
+        const Commodities = await GameApi.UserData.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         const ifexist = Commodities.find(item => item.name == thing_name)
         if (!ifexist) {
             e.reply(`[万宝楼]小二\n不卖:${thing_name}`)
@@ -127,7 +126,7 @@ export class boxusertransaction extends robotapi {
         }
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({ action, addressName: address_name })
+        const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return

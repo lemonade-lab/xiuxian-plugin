@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 export class boxuseronekey extends robotapi {
     constructor() {
         super(superIndex([
@@ -26,7 +25,7 @@ export class boxuseronekey extends robotapi {
         }
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({ action, addressName: address_name })
+        const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -56,7 +55,7 @@ export class boxuseronekey extends robotapi {
         }
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
-        const map = await gameApi.mapExistence({ action, addressName: address_name })
+        const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return

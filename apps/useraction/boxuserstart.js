@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxuserstart extends robotapi {
     constructor() {
@@ -18,7 +17,7 @@ export class boxuserstart extends robotapi {
         this.task = {
             cron: GameApi.DefsetUpdata.getConfig({ app: 'task', name: 'task' }).LifeTask,
             name: 'LifeTask',
-            fnc: () => { gameApi.startLife() }
+            fnc: () => {  GameApi.GameUser.startLife() }
         }
     }
     createMsg = async (e) => {
@@ -29,7 +28,7 @@ export class boxuserstart extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -50,12 +49,12 @@ export class boxuserstart extends robotapi {
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
-        await gameApi.offAction(UID)
-        let life = await gameApi.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
+        await GameApi.GamePublic.offAction(UID)
+        let life = await GameApi.UserData.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         life = await life.filter(item => item.qq != UID)
         await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
-        await gameApi.createBoxPlayer({ UID: e.user_id })
-        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        await GameApi.GameUser.createBoxPlayer({ UID: e.user_id })
+        const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return

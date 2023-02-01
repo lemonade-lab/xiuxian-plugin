@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxuserhome extends robotapi {
     constructor() {
@@ -48,7 +47,7 @@ export class boxuserhome extends robotapi {
         switch (id[1]) {
             case '1': {
                 let blood = parseInt(najie_thing.blood)
-                await gameApi.updataUserBlood({ UID, SIZE: Number(blood) })
+                await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) })
                 e.reply(`血量至${blood}%`)
                 break
             }
@@ -99,14 +98,14 @@ export class boxuserhome extends robotapi {
                     }
                 }
                 if (experience > 0) {
-                    await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: thing_acount * experience })
+                    await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: thing_acount * experience })
                 }
                 e.reply(`修为+${thing_acount * experience}`)
                 break
             }
             case '3': {
                 let experiencemax = parseInt(najie_thing.experiencemax)
-                await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: thing_acount * experiencemax })
+                await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: thing_acount * experiencemax })
                 e.reply(`气血+${thing_acount * experiencemax}`)
                 break
             }
@@ -147,7 +146,7 @@ export class boxuserhome extends robotapi {
         }
         talent.AllSorcery.push(najie_thing)
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-        await gameApi.updataUserEfficiency({ UID })
+        await GameApi.GameUser.updataUserEfficiency({ UID })
         await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         e.reply(`学习${thing_name}`)
         return
@@ -170,7 +169,7 @@ export class boxuserhome extends robotapi {
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-        await gameApi.updataUserEfficiency({ UID })
+        await GameApi.GameUser.updataUserEfficiency({ UID })
         await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
         e.reply(`忘了${thing_name}`)
         return
@@ -205,10 +204,10 @@ export class boxuserhome extends robotapi {
                         break
                     }
                     const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
-                    talent.talent = await gameApi.getTalent()
+                    talent.talent = await GameApi.GameUser.getTalent()
                     await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-                    await gameApi.updataUserEfficiency({ UID })
-                    const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+                    await GameApi.GameUser.updataUserEfficiency({ UID })
+                    const { path, name, data } = await  GameApi.Information.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })
                     break
@@ -217,7 +216,7 @@ export class boxuserhome extends robotapi {
                     const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talentshow = 0
                     await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
-                    const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+                    const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })
                     break

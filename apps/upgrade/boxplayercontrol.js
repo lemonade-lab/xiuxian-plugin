@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxplayercontrol extends robotapi {
     constructor() {
@@ -93,10 +92,10 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await gameApi.offAction({ UID })
+            await   GameApi.GamePublic.offAction({ UID })
             return
         }
-        await gameApi.offAction({ UID })
+        await GameApi.GamePublic.offAction({ UID })
         await this.upgrade(UID, time, action.actionName, e)
         return
     }
@@ -123,10 +122,10 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await gameApi.offAction({ UID })
+            await GameApi.GamePublic.offAction({ UID })
             return
         }
-        await gameApi.offAction({ UID })
+        await GameApi.GamePublic.offAction({ UID })
         await this.upgrade(UID, time, action.actionName, e)
         return
     }
@@ -152,8 +151,8 @@ export class boxplayercontrol extends robotapi {
             othername = 'experiencemax'
             msg = `降妖归来,获得${other}气血`
         }
-        await gameApi.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: othername, SIZE: other })
-        await gameApi.updataUserBlood({ UID, SIZE: Number(90) })
+        await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: othername, SIZE: other })
+        await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(90) })
         msg += '\n血量恢复至90%'
         msg += `\n${name}结束`
         e.reply([BotApi.segment.at(UID), msg])

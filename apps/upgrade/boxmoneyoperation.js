@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxmoneyoperation extends robotapi {
     constructor() {
@@ -32,7 +31,7 @@ export class boxmoneyoperation extends robotapi {
         const UID = e.user_id
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '联盟'
-        const map = await gameApi.mapExistence({ action, addressName: address_name })
+        const map = await   GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
@@ -48,7 +47,7 @@ export class boxmoneyoperation extends robotapi {
         }
         action.newnoe = 0
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
-        const randomthing = await gameApi.randomThing()
+        const randomthing = await GameApi.GameUser.randomThing()
         await GameApi.GameUser.userBag({ UID, name: randomthing.name, ACCOUNT: randomthing.acount })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: Number(10) })
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗下品灵石\n可在必要的时候用到`)

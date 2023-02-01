@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxusermodify extends robotapi {
     constructor() {
@@ -60,14 +59,14 @@ export class boxusermodify extends robotapi {
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
-        const life = await gameApi.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
+        const life = await GameApi.UserData.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
         life.forEach((item) => {
             if (item.qq == UID) {
                 item.name = new_name
             }
         })
         await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
-        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -110,7 +109,7 @@ export class boxusermodify extends robotapi {
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         player.autograph = new_msg
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
-        const { path, name, data } = await gameApi.userDataShow({ UID: e.user_id })
+        const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return

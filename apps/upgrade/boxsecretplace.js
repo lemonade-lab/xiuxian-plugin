@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 const forwardsetTime = []
 const deliverysetTime = []
@@ -46,7 +45,7 @@ export class boxsecretplace extends robotapi {
             return
         }
         const addressId = `${action.z}-${action.region}-${action.address}`
-        const point = await gameApi.listAction({ NAME: 'point', CHOICE: 'generate_position' })
+        const point = await GameApi.UserData.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         const address = []
         const msg = []
         point.forEach((item) => {
@@ -114,7 +113,7 @@ export class boxsecretplace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
-        const Point = await gameApi.listAction({ NAME: 'point', CHOICE: 'generate_position' })
+        const Point = await GameApi.UserData.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         const point = Point.find(item => item.name == address)
         if (!point) {
             return
@@ -166,7 +165,7 @@ export class boxsecretplace extends robotapi {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
-        const Posirion = await gameApi.listAction({ NAME: 'position', CHOICE: 'generate_position' })
+        const Posirion = await GameApi.UserData.listAction({ NAME: 'position', CHOICE: 'generate_position' })
         const position = Posirion.find(item => item.name == address)
         if (!position) {
             return
@@ -177,7 +176,7 @@ export class boxsecretplace extends robotapi {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
-        const point = await gameApi.listAction({ NAME: 'point', CHOICE: 'generate_position' })
+        const point = await GameApi.UserData.listAction({ NAME: 'point', CHOICE: 'generate_position' })
         let key = 0
         point.forEach((item) => {
             const pointID = item.id.split('-')
