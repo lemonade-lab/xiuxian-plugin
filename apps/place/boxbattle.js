@@ -2,7 +2,6 @@ import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { BotApi } from '../../model/robot/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([
@@ -38,7 +37,7 @@ export class boxbattle extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -76,12 +75,12 @@ export class boxbattle extends robotapi {
         const now_time = new Date().getTime()
         const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const CDTime = cf['CD']['Attack'] ? cf['CD']['Attack'] : 5
-        const { CDMSG } = await gameApi.cooling({ UID: user.A, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID: user.A, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
         }
-        user.QQ = await gameApi.battle({ e, A: user.A, B: user.B })
+        user.QQ = await  GameApi.GameBattle.battle({ e, A: user.A, B: user.B })
         const Level = await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_level' })
         Level.prestige += 1
         await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_level', DATA: Level })
@@ -95,7 +94,7 @@ export class boxbattle extends robotapi {
             }
             let najieB = await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag' })
             if (najieB.thing.length != 0) {
-                const thing = await gameApi.Anyarray({ ARR: najieB.thing })
+                const thing = await GameApi.GamePublic.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
                 await GameApi.GameUser.userBag({ UID: user.A, name: thing.name, ACCOUNT: thing.acount })
@@ -114,7 +113,7 @@ export class boxbattle extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -146,7 +145,7 @@ export class boxbattle extends robotapi {
         const CDID = '11'
         const now_time = new Date().getTime()
         const CDTime = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).CD.Attack
-        const { CDMSG } = await gameApi.cooling({ UID: user.A, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID: user.A, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
@@ -157,7 +156,7 @@ export class boxbattle extends robotapi {
             return
         }
         await GameApi.GameUser.userBag({ UID: user.A, name: najie_thing.name, ACCOUNT: -1 })
-        user.QQ = await gameApi.battle({ e, A: user.A, B: user.B })
+        user.QQ = await GameApi.GameBattle.battle({ e, A: user.A, B: user.B })
         const Level = await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_level' })
         Level.prestige += 1
         await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_level', DATA: Level })
@@ -171,7 +170,7 @@ export class boxbattle extends robotapi {
             }
             let najieB = await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag' })
             if (najieB.thing.length != 0) {
-                const thing = await gameApi.Anyarray({ ARR: najieB.thing })
+                const thing = await GameApi.GamePublic.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
                 await GameApi.GameUser.userBag({ UID: user.A, name: thing.name, ACCOUNT: thing.acount })
@@ -190,7 +189,7 @@ export class boxbattle extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -231,12 +230,12 @@ export class boxbattle extends robotapi {
         const now_time = new Date().getTime()
         const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const CDTime = cf['CD']['Attack'] ? cf['CD']['Attack'] : 5
-        const { CDMSG } = await gameApi.cooling({ UID: user.A, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID: user.A, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
         }
-        user.QQ = await gameApi.battle({ e, A: user.A, B: user.B })
+        user.QQ = await GameApi.GameBattle.battle({ e, A: user.A, B: user.B })
         const Level = await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_level' })
         Level.prestige += 1
         await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_level', DATA: Level })
@@ -250,7 +249,7 @@ export class boxbattle extends robotapi {
             }
             let najieB = await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag' })
             if (najieB.thing.length != 0) {
-                const thing = await gameApi.Anyarray({ ARR: najieB.thing })
+                const thing = await GameApi.GamePublic.Anyarray({ ARR: najieB.thing })
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
                 await GameApi.GameUser.userBag({ UID: user.A, name: thing.name, ACCOUNT: thing.acount })

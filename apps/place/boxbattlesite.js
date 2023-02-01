@@ -24,7 +24,7 @@ export class boxbattlesite extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -34,20 +34,20 @@ export class boxbattlesite extends robotapi {
         const now_time = new Date().getTime()
         const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const CDTime = cf['CD']['Kill'] ? cf['CD']['Kill'] : 5
-        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
         }
         const name = e.msg.replace('#击杀', '')
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        const monstersdata = await gameApi.monsterscache({ i: action.region })
+        const monstersdata = await  GameApi.GameMonster.monsterscache({ i: action.region })
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
             e.reply(`这里没有${name},去别处看看吧`)
             return
         }
-        const acount = await gameApi.add({ i: action.region, num: Number(1) })
+        const acount = await GameApi.GameMonster.add({ i: action.region, num: Number(1) })
         const msg = [`${UID}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`]
         const buff = {
             "msg": 1
@@ -120,7 +120,7 @@ export class boxbattlesite extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.GoMini({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.GoMini({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -128,7 +128,7 @@ export class boxbattlesite extends robotapi {
         const UID = e.user_id
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const msg = []
-        const monster = await gameApi.monsterscache({ i: action.region })
+        const monster = await GameApi.GameMonster.monsterscache({ i: action.region })
         monster.forEach((item) => {
             msg.push(
                 '怪名:' + item.name + '\n' +

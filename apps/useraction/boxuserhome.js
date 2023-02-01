@@ -62,7 +62,7 @@ export class boxuserhome extends robotapi {
                     const CDTime = cf['CD']['Practice'] ? cf['CD']['Practice'] : 5
                     const CDID = '12'
                     const now_time = new Date().getTime()
-                    const { CDMSG } = await gameApi.cooling({ UID, CDID })
+                    const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
                     if (CDMSG) {
                         experience = 0
                         e.reply(CDMSG)

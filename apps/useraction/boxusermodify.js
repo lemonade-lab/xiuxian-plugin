@@ -24,7 +24,7 @@ export class boxusermodify extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -52,7 +52,7 @@ export class boxusermodify extends robotapi {
         const now_time = new Date().getTime()
         const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const CDTime = cf['CD']['Name'] ? cf['CD']['Name'] : 5
-        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
@@ -80,7 +80,7 @@ export class boxusermodify extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -101,7 +101,7 @@ export class boxusermodify extends robotapi {
         const now_time = new Date().getTime()
         const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const CDTime = cf['CD']['Autograph'] ? cf['CD']['Autograph'] : 5
-        const { CDMSG } = await gameApi.cooling({ UID, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return

@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
-import gameApi from '../../model/api/api.js'
 import { BotApi } from '../../model/robot/api/botapi.js'
 export class boxuserbag extends robotapi {
     constructor() {
@@ -25,7 +24,7 @@ export class boxuserbag extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { path, name, data } = await GameApi.GameUser.userBagShow({ UID })
+        const { path, name, data } = await GameApi.Information.userBagShow({ UID })
         const isreply = await e.reply(await BotApi.Imgindex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -38,7 +37,7 @@ export class boxuserbag extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return

@@ -24,7 +24,7 @@ export class boxmoneyoperation extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -63,7 +63,7 @@ export class boxmoneyoperation extends robotapi {
             e.reply('已死亡')
             return
         }
-        const { MSG } = await gameApi.Go({ UID: e.user_id })
+        const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
         if (MSG) {
             e.reply(MSG)
             return
@@ -89,7 +89,7 @@ export class boxmoneyoperation extends robotapi {
         const CDTime = cf['CD']['Transfer'] ? cf['CD']['Transfer'] : 5
         const CDID = '5'
         const now_time = new Date().getTime()
-        const { CDMSG } = await gameApi.cooling({ UID: A, CDID })
+        const { CDMSG } = await GameApi.GamePublic.cooling({ UID: A, CDID })
         if (CDMSG) {
             e.reply(CDMSG)
             return
