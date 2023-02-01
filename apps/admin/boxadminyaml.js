@@ -23,7 +23,7 @@ export class boxadminyaml extends robotapi {
             return
         }
         const [name, size] = e.msg.replace('#修仙配置更改', '').split('\*')
-        e.reply(GameApi.DefsetUpdata.updateConfig({ name, size }))
+        e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
         return
     }
     configReUpdata = async (e) => {
