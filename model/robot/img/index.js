@@ -1,4 +1,4 @@
-import puppeteer from "../../../../../lib/puppeteer/puppeteer.js"
+import puppeteer from "../puppeteer/puppeteer.js"
 import { appname } from "../../main.js"
 /**中间返回show与yunzai的图片方法进行对接*/
 class ImgIndex {
