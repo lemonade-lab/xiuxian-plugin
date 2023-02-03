@@ -260,22 +260,24 @@ class GameUser {
             equ.speed = equ.speed + item.speed
         })
         /*计算插件临时属性及永久属性*/
-        extend = Object.values(extend)
-        extend.forEach((item) => {
-            /*永久属性计算*/
-            equ.attack = equ.attack + item["perpetual"].attack
-            equ.defense = equ.defense + item["perpetual"].defense
-            equ.blood = equ.blood + item["perpetual"].blood
-            equ.burst = equ.burst + item["perpetual"].burst
-            equ.burstmax = equ.burstmax + item["perpetual"].burstmax
-            equ.speed = equ.speed + item["perpetual"].speed
-            /*临时属性计算*/
-            item["times"].forEach((timesitem) => {
-                if (item["times"][timesitem].timeLimit > new Date().getTime()) {
-                    equ[item["times"][timesitem].type] += item["times"][timesitem].value
-                }
+        if (extend != {}) {
+            extend = Object.values(extend)
+            extend.forEach((item) => {
+                /*永久属性计算*/
+                equ.attack = equ.attack + item["perpetual"].attack
+                equ.defense = equ.defense + item["perpetual"].defense
+                equ.blood = equ.blood + item["perpetual"].blood
+                equ.burst = equ.burst + item["perpetual"].burst
+                equ.burstmax = equ.burstmax + item["perpetual"].burstmax
+                equ.speed = equ.speed + item["perpetual"].speed
+                /*临时属性计算*/
+                item["times"].forEach((timesitem) => {
+                    if (item["times"][timesitem].timeLimit > new Date().getTime()) {
+                        equ[item["times"][timesitem].type] += item["times"][timesitem].value
+                    }
+                })
             })
-        })
+        }
         /*血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限*/
         const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
         /*双境界面板之和*/
