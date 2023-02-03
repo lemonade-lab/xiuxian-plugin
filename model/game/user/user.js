@@ -233,7 +233,7 @@ class GameUser {
         const levelmini = LevelList.find(item => item.id == level.level_id)
         const levelmax = LevelMaxList.find(item => item.id == level.levelmax_id)
         const UserBattle = await this.userMsgAction({ CHOICE: 'user_battle', NAME: UID })
-        let extend = await listdata.listActionInitial({ NAME, CHOICE: 'user_extend', INITIAL: {} })
+        let extend = await listdata.listActionInitial({ NAME: UID, CHOICE: 'user_extend', INITIAL: {} })
         const panel = {
             attack: levelmini.attack + levelmax.attack,
             defense: levelmini.defense + levelmax.defense,
