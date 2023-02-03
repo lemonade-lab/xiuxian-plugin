@@ -271,11 +271,13 @@ class GameUser {
                 equ.burstmax = equ.burstmax + item["perpetual"].burstmax
                 equ.speed = equ.speed + item["perpetual"].speed
                 /*临时属性计算*/
-                item["times"].forEach((timesitem) => {
-                    if (item["times"][timesitem].timeLimit > new Date().getTime()) {
-                        equ[item["times"][timesitem].type] += item["times"][timesitem].value
-                    }
-                })
+                if (item["times"].length != 0) {
+                    item["times"].forEach((timesitem) => {
+                        if (timesitem.timeLimit > new Date().getTime()) {
+                            equ[timesitem.type] += timesitem.value
+                        }
+                    })
+                }
             })
         }
         /*血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限*/
@@ -553,11 +555,11 @@ class GameUser {
         }
         const find = extend[FLAG]['times'].findIndex(item => item.type == TYPE)
         const time = new Date().getTime()
-        if (find != -1 && extend[FLAG]['times'][find].timeLimit > time && extend[FLAG]['times'][find]['value'] >= VALUE) {
+        if (find != -1 && extend[FLAG]['times'][find]['timeLimit'] > time && extend[FLAG]['times'][find]['value'] >= VALUE) {
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
             await this.readPanel({ UID: NAME })
             return
-        } else if (find != -1 && (extend[FLAG]['times'][find].timeLimit <= time || extend[FLAG]['times'][find]['value'] < VALUE)) {
+        } else if (find != -1 && (extend[FLAG]['times'][find]['timeLimit'] <= time || extend[FLAG]['times'][find]['value'] < VALUE)) {
             extend[FLAG]['times'][find]['value'] = VALUE
             extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
             await this.userMsgAction({ NAME, CHOICE: 'user_extend', DATA: extend })
