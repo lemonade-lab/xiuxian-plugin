@@ -2,6 +2,13 @@
 
 import gameUser from '../user/user.js'
 import { BotApi } from '../../robot/api/botapi.js'
+const Sneakattack = [
+    '你个老六偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!',
+    '你找准时机,突然暴起冲向怪物,但是怪物及时反应,转眼被怪物咬死!',
+    '你突然一个左勾拳,谁料怪物揭化发',
+    '一拳挥出,如流云遁日般迅疾轻捷,风声呼啸,草飞沙走,看似灵巧散漫,其实就是!你被怪物打得口吐鲜血,身影急退,掉落山崖而亡',
+    '拳之上凝结了庞大的气势,金色的光芒遮天蔽日,一条宛若黄金浇铸的真龙形成,浩浩荡荡地冲向怪物,但招式过于花里胡哨,怪物一个喷嚏就把你吹晕了'
+]
 class gameBattle {
     /*怪物战斗*/
     monsterbattle = async (parameter) => {
@@ -20,7 +27,7 @@ class gameBattle {
         if (battleA.speed >= battleB.speed - 5) {
             battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
             if (battle_hurt.hurtA <= 1) {
-                battle_msg.msg.push('你个老六想偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!')
+                battle_msg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
                 battleA.nowblood = 0
                 battle_msg.QQ = 0
                 await gameUser.userMsgAction({ NAME: e.user_id, CHOICE: 'user_battle', DATA: battleA })
