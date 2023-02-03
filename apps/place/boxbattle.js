@@ -28,11 +28,6 @@ export class boxbattle extends robotapi {
             return
         }
         const UID = e.msg.replace('#打劫', '')
-        const find = GameApi.GameUser.existUser({ UID })
-        if (!find) {
-            e.reply('无存档')
-            return
-        }
         if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
             e.reply('已死亡')
             return
@@ -49,12 +44,12 @@ export class boxbattle extends robotapi {
             QQ: 0,
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
+        if ( user['B'] == user['A']) {
+            return
+        }
         const existB = await GameApi.GameUser.existUserSatus({ UID: user['B'] })
         if (!existB) {
             e.reply('已死亡')
-            return
-        }
-        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const actionA = await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_action' })
@@ -125,15 +120,12 @@ export class boxbattle extends robotapi {
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
         user['B'] = await BotApi.User.at({ e })
-        if (!user['B']) {
+        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const existB = await GameApi.GameUser.existUserSatus({ UID: user['B'] })
         if (!existB) {
             e.reply('已死亡')
-            return
-        }
-        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const actionA = await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_action' })
@@ -201,15 +193,12 @@ export class boxbattle extends robotapi {
             p: Math.floor((Math.random() * (99 - 1) + 1))
         }
         user['B'] = await BotApi.User.at({ e })
-        if (!user['B']) {
+        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const existB = await GameApi.GameUser.existUserSatus({ UID: user['B'] })
         if (!existB) {
             e.reply('已死亡')
-            return
-        }
-        if (!user['B'] || user['B'] == user['A']) {
             return
         }
         const actionA = await GameApi.GameUser.userMsgAction({ NAME: user.A, CHOICE: 'user_action' })
