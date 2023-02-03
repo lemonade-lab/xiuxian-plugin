@@ -6,7 +6,7 @@ export class boxbattle extends robotapi {
     constructor() {
         super(superIndex([
             {
-                reg: '^#打架.*$',
+                reg: '^#死斗.*$',
                 fnc: 'duel'
             },
             {
