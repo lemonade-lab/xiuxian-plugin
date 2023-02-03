@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { __dirname } from '../../main.js'
 import algorithm from './algorithm.js'
 /** 自定义配置*/
-const configarr = ['cooling.yaml', 'task.yaml', 'version.yaml', 'help.yaml', 'admin.yaml']
+const configarr = ['cooling.yaml', 'task.yaml', 'help.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
 
