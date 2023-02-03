@@ -150,7 +150,7 @@ class GameUser {
     userMaterial = async ({ UID, name, ACCOUNT }) => {
         //搜索物品信息
         const thing = await listdata.searchThing(
-            { CHOICE : 'fixed_material', NAME :'MaterialGuide', condition:'name', name })
+            { CHOICE: 'fixed_material', NAME: 'MaterialGuide', condition: 'name', name })
         if (thing) {
             let bag = await this.userMsgAction({ CHOICE: 'user_material', NAME: UID })
             bag = await this.userMaterialAction({
@@ -162,7 +162,7 @@ class GameUser {
         return false
     }
 
-    userMaterialAction = async (parameter) =>{
+    userMaterialAction = async (parameter) => {
         let { BAG, THING, ACCOUNT } = parameter
         const thing = BAG.find(item => item.id == THING.id)
         if (thing) {
@@ -233,7 +233,7 @@ class GameUser {
         const levelmini = LevelList.find(item => item.id == level.level_id)
         const levelmax = LevelMaxList.find(item => item.id == level.levelmax_id)
         const UserBattle = await this.userMsgAction({ CHOICE: 'user_battle', NAME: UID })
-        let extend = await this.userMsgAction({ CHOICE: 'user_extend', NAME: UID })
+        let extend = await listdata.listActionInitial({ NAME, CHOICE: 'user_extend', INITIAL: {} })
         const panel = {
             attack: levelmini.attack + levelmax.attack,
             defense: levelmini.defense + levelmax.defense,
@@ -573,22 +573,22 @@ class GameUser {
         }
     }
 
-    synthesisResult = async ({ ans, type}) => {
-//这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
-        let drawingList = await listdata.listAction({ NAME : 'AllDrawing' , CHOICE :'fixed_material'});
-        drawingList = drawingList.filter(item =>item.type == type && item.gold <= ans.gold && item.wood <= ans.wood && item.water <= ans.water && item.fire <= ans.fire && item.earth <= ans.earth);
+    synthesisResult = async ({ ans, type }) => {
+        //这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
+        let drawingList = await listdata.listAction({ NAME: 'AllDrawing', CHOICE: 'fixed_material' });
+        drawingList = drawingList.filter(item => item.type == type && item.gold <= ans.gold && item.wood <= ans.wood && item.water <= ans.water && item.fire <= ans.fire && item.earth <= ans.earth);
 
-        if(drawingList.length == 0){
+        if (drawingList.length == 0) {
             // 没有对应图纸
-            const res = {name: "无用的残渣"};
+            const res = { name: "无用的残渣" };
             return res;
-        }else if(drawingList.length > 3) {
+        } else if (drawingList.length > 3) {
             // 可能的结果过多，取三个最好的
             drawingList.sort(sortRule);
-            const slice = drawingList.slice(0,3);
+            const slice = drawingList.slice(0, 3);
             //随机取一个
             return randomArr(slice);
-        }else {
+        } else {
             //直接随机取
             return randomArr(drawingList);
         }
