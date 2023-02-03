@@ -19,10 +19,6 @@ export class boxhelp extends robotapi {
         if (!e.isGroup) {
             return
         }
-        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
-            e.reply('已死亡')
-            return
-        }
         const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
         if (!data) {
             return
@@ -32,10 +28,6 @@ export class boxhelp extends robotapi {
     }
     adminSuper = async (e) => {
         if (!e.isGroup) {
-            return
-        }
-        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
-            e.reply('已死亡')
             return
         }
         const data = await BotApi.ImgHelp.getboxhelp({ name: 'admin' })
