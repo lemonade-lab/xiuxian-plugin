@@ -66,7 +66,7 @@ export class boxuserequipment extends robotapi {
         const random = Math.random();
         if(random > quality){
             //失败
-            e.reply(`boom！炼制失败，炸炉啦`)
+            e.reply(`boom!炼制失败,炸炉啦`)
             return ;
         }
         let resThing ;
@@ -78,11 +78,11 @@ export class boxuserequipment extends robotapi {
             resThing = await GameApi.GameUser.synthesisResult({ans : ans ,type :1})
         }else {
             //烂
-            e.reply(`材料的属性产生了冲突，不知道变成即无法成丹，也无法成器，你获得了无用的残渣`);
+            e.reply(`材料的属性产生了冲突,不知道变成即无法成丹,也无法成器,你获得了无用的残渣`);
             await GameApi.GameUser.userBag({ UID: UID, name: '无用的残渣', ACCOUNT: 1 })
             return
         }
-        e.reply(`炼制成功，你获得了${resThing.name}`);
+        e.reply(`炼制成功,你获得了${resThing.name}`);
         await GameApi.GameUser.userBag({ UID: UID, name: resThing.name, ACCOUNT: 1 })
         return
     }

@@ -16,7 +16,7 @@
         <div class="tr">
           {{each val.list item}}
           <div class="td">
-            <span class="help-icon {{item.icon}}"></span>
+            <span class="help-icon help-icon-{{item.icon}}"></span>
             <strong class="help-title">{{item.title}}</strong>
             <span class="help-desc">{{item.desc}}</span>
           </div>
@@ -26,8 +26,10 @@
       </div>
     </div>
     {{/each}}
-    <div class="copyright">Xiuxian-Plugin<span class="version">{{version}}</span>& 文游社区<span
-        class="version">685979617</span></div>
+    <div class="copyright">
+      Xiuxian-Plugin<span class="version">{{version}}</span>
+      & 文游社区<span class="version">685979617</span>
+    </div>
   </div>
 </body>
 
