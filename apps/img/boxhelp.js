@@ -16,9 +16,6 @@ export class boxhelp extends robotapi {
         ]))
     }
     boxhelp = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
         const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
         if (!data) {
             return

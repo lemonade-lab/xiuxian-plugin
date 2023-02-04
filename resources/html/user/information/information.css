@@ -1,31 +1,4 @@
-body {
-  width: 100%;
-  margin: auto;
-  text-align: center;
-  background-image: url('../../../img/user/information/information.png');
-  background-size: 100% auto;
-}
-.user_top {
-  display:grid;
-  grid-template-columns:auto auto;
-  background-image: url('../../../img/user/information/left.png');
-  background-size: 100% 100%;
-}
 
-.user_right{
-  margin: auto;
-  width: 100%;
-  height: 100%;
-}
-
-
-.user_top_img_bottom {
-  background-image: url("../../../img/user/information/right.png");
-  background-size: 100% 100%;
-  width: 300px;
-  height: 300px;
-  margin: auto;
-}
 
 
 .user_top_img {

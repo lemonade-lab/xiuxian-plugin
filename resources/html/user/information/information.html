@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="{{pluResPath}}/resources/html/user/information/information.css" />
 </head>
+
 <body>
-  <!--上-->
   <div style="height: 10px;">
   </div>
   <div style="display:grid;grid-template-columns:auto auto;">
@@ -90,4 +91,36 @@
     </div>
   </div>
 </body>
+
+<style>
+  body {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    background-image: url('{{pluResPath}}/resources/img/user/information/information.png');
+    background-size: 100% auto;
+  }
+
+  .user_top {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-image: url('{{pluResPath}}/resources/img/user/information/left.png');
+    background-size: 100% 100%;
+  }
+
+  .user_right {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .user_top_img_bottom {
+    background-image: url("{{pluResPath}}/resources/img/user/information/right.png");
+    background-size: 100% 100%;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+  }
+</style>
+
 </html>

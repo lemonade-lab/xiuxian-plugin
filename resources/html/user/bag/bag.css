@@ -1,27 +1,4 @@
-body {
-  width: 100%;
-  margin: auto;
-  text-align: center;
-  background-image: url('../../../img/user/bag/bag.png');
-  background-size: 100% auto;
-}
 
-.user_top {
-  display:grid;
-  grid-template-columns:auto auto auto;
-  padding: 20px;
-  margin: 40px;
-  background-color: rgba(19, 21, 22, 0.486);
-  border-radius: 100px;
-}
-
-.user_top_img_bottom {
-  background-image: url("../../../img/user/head/head.png");
-  background-size: 100% 100%;
-  width: 320px;
-  height: 320px;
-  margin: auto;
-}
 
 
 .user_top_img {
