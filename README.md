@@ -21,4 +21,8 @@ git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/
 
 >修仙更新指令 `#修仙更新`  
 
->探索更多玩法 [`☞点击了解` ](https://gitee.com/ningmengchongshui/game-development)
+#### 机器人根目录下执行
+
+☞[插件索引](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/plugins/README.md)
+☞[新版特性](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/characteristic/README.md)
+☞[日常使用](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/administrators/README.md)
