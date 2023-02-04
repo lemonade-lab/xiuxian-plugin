@@ -5,11 +5,9 @@
 
 ## 使用方法
 
-#### 选择其中一种机器人
+#### 安装机器人
 
-（1）安装Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
-
-（2）安装Alemon-Bot[`☞查看教程`](https://gitee.com/ningmengchongshui)
+安装Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
 
 #### 机器人根目录下执行      
 ```
