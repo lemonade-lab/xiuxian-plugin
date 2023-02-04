@@ -52,7 +52,7 @@ class DefsetUpdata {
             '闭关时间': 'biguan.time',
             '降妖倍率': 'work.size',
             '降妖时间': 'work.time',
-            '测回时间': 'timeout.size'
+            '撤回时间': 'timeout.size'
         }
         if (!map.hasOwnProperty(name)) {
             return '无次项配置信息'
