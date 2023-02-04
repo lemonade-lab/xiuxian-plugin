@@ -29,7 +29,7 @@ export class boxuserinstall extends robotapi {
             e.reply([BotApi.segment.at(UID), '降临失败...\n天道:请降临者[#再入仙途]后步入轮回!'])
             return
         }
-        e.reply([BotApi.segment.at(UID), '降临成功...\n天道:欢迎降临修仙世界\n请降临者[#寻找NPC]以获得\n仙缘与《凡人是如何修仙成功的之修仙生存手册之先抱大腿》'])
+        e.reply([BotApi.segment.at(UID), '降临成功...\n天道:欢迎降临修仙世界\n请降临者[#修仙帮助]以获得\n《凡人是如何修仙成功的之修仙生存手册之先抱大腿》'])
         return
     }
 }
