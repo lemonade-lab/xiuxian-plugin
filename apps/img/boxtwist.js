@@ -7,7 +7,7 @@ export class BoxtWist extends robotapi {
             name: 'xiuxian',
             dsc: 'BoxtWist',
             event: 'notice.group.poke',
-            priority: 3000,
+            priority: 99999,
             rule: [
                 {
                     fnc: 'helpWist'
