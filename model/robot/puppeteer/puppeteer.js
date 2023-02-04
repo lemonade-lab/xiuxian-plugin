@@ -149,12 +149,11 @@ class Puppeteer {
         logger.error(`加载html错误:${tplFile}`)
         return false
       }
-      /*存在,监控这个文件,当更之后？重新赋值,达到动态生成的效果? 好处应该就是不用总是fs？*/
+      /*存在,监控这个文件*/
       this.watch(tplFile)
     }
-    /** 运用template进行html内容 */
+    /*将模板源代码编译成函数并立刻执行*/
     let tmpHtml = template.render(this.html[tplFile], data)
-    /** 保存模板：如果文件存在,则替换内容  为什么要替换呢？这个文件内容就是一个预存的，随便被替代的html文件，替代完了之后会读取   */
     fs.writeFileSync(savePath, tmpHtml)
     logger.debug(`[xiuxian][html模板] ${savePath}`)
     return savePath
@@ -175,15 +174,11 @@ class Puppeteer {
   restart() {
     /** 截图超过重启数时，自动关闭重启浏览器，避免生成速度越来越慢 */
     if (this.renderNum % this.restartNum == 0) {
-      /*如果没有name.html？？？*/
       if (this.shoting.length <= 0) {
         setTimeout(async () => {
-          /*初始化存在*/
           if (this.browser) {
-            /*关闭*/
             await this.browser.close().catch((err) => logger.error(err))
           }
-          /*同时更换状态*/
           this.browser = false
           logger.mark('puppeteer 关闭重启...')
         }, 100)
