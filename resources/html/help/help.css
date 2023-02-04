@@ -7,7 +7,6 @@ body {
 
 .container {
   width: 100%;
-  padding: 40px !important;
 }
 
 .label {
@@ -27,6 +26,8 @@ body {
   border-radius: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
   padding: 5px 15px;
   overflow: hidden;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
@@ -62,7 +63,7 @@ body {
   font-size: 14px;
   display: table-cell;
   box-shadow: 0 0 1px 0 #888 inset;
-  padding: 12px 0 12px 50px;
+  padding: 12px 0 12px;
   line-height: 24px;
   position: relative;
   width: calc(100%/3);
@@ -419,9 +420,25 @@ body {
   background-position: -450px -350px
 }
 
+.copyright {
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  padding-left: 10px;
+  text-shadow: 1px 1px 1px #000;
+  margin: 10px 0;
+}
+.copyright .version {
+  font-size: 13px;
+  color: #d3bc8e;
+  display: inline-block;
+  padding: 0 3px;
+}
 
 .help-title {
   display: block;
+  padding-left: 50px;
   color: #000000;
   font-size: 16px;
   line-height: 24px;
@@ -429,6 +446,7 @@ body {
 
 .help-desc {
   display: block;
+  padding-left: 50px;
   font-size: 13px;
   line-height: 18px;
   color: black;
