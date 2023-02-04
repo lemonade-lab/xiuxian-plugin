@@ -15,15 +15,15 @@
     - icon: help-icon_2
       title: "#修仙删除世界"
       desc: "删除全部信息"
+
+- group: 
+  list:
     - icon: help-icon_2
       title: "#修仙配置"
       desc: "查看配置"
     - icon: help-icon_2
-      title: "#修仙重置配置"
-      desc: "#恢复初始图配置"
-    - icon: help-icon_2
-      title: "#修仙重置图片"
-      desc: "恢复初始图片"
+      title: "#盒子开关"
+      desc: "修仙功能阀门"
       
 - group: 
   list:

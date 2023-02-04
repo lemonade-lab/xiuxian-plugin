@@ -23,6 +23,10 @@ CD:
 timeout: 
     size: 60
 
+switch:
+    twist: true
+    come: true
+
 Age: 
   #寿命增加数
   size: 1 

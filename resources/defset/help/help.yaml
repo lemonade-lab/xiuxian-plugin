@@ -22,14 +22,8 @@
 - group: 
   list:
     - icon: help-icon_21
-      title: "#打劫+QQ"
-      desc: "知QQ即可攻击道友"
-    - icon: help-icon_21
-      title: "#攻击 @道友"
-      desc: "可掉装备"
-    - icon: help-icon_21
-      title: "#死斗 @道友"
-      desc: "可掉装备,需决斗令"
+      title: "#死斗+QQ/@道友"
+      desc: "若在城里需决斗令"
     - icon: help-icon_22
       title: "#洗手"
       desc: "清魔力值"

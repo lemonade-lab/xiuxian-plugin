@@ -1,5 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { BotApi } from '../../model/robot/api/botapi.js'
+import { GameApi } from '../../model/api/gameapi.js'
 export class BoxtWist extends robotapi {
     constructor() {
         super({
@@ -15,8 +16,12 @@ export class BoxtWist extends robotapi {
         })
     }
     helpWist = async (e) => {
-        logger.info('[戳一戳生效]')
         if (!e.isGroup) {
+            return
+        }
+        const cf = await GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+        const T = cf['switch'] ? cf['switch']['twist'] : true
+        if (!T) {
             return
         }
         const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })

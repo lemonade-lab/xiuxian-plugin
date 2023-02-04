@@ -19,6 +19,11 @@ export class boxuserinstall extends robotapi {
         if (!e.isGroup) {
             return
         }
+        const cf = await GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+        const T = cf['switch'] ? cf['switch']['come'] : true
+        if (!T) {
+            return
+        }
         const UID = e.user_id
         if (! await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply([BotApi.segment.at(UID), '降临失败...\n天道:请降临者[#再入仙途]后步入轮回!'])

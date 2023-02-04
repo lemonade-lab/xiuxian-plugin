@@ -15,6 +15,21 @@ class DefsetUpdata {
         const data = YAML.parse(fs.readFileSync(file, 'utf8'))
         return data
     }
+    updataSwich = ({ name, swich }) => {
+        const map = {
+            '戳一戳': 'switch.twist',
+            '自动降临': 'switch.come',
+        }
+        if (!map.hasOwnProperty(name)) {
+            return '无此开关选项'
+        }
+        const [name0, name1] = map[name].split('.')
+        const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
+        data[name0][name1] = swich
+        const yamlStr = YAML.stringify(data)
+        fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
+        return `${name}${swich ? '开启' : '关闭'}`
+    }
     /**
      * @param { name, size }param0 
      * @returns 
@@ -39,16 +54,15 @@ class DefsetUpdata {
             '降妖时间': 'work.time',
             '测回时间': 'timeout.size'
         }
-        if (map.hasOwnProperty(name)) {
-            const [name0, name1] = map[name].split('.')
-            const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
-            data[name0][name1] = Number(size)
-            const yamlStr = YAML.stringify(data)
-            fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
-            return `修改${name}为${size}`
-        } else {
+        if (!map.hasOwnProperty(name)) {
             return '无次项配置信息'
         }
+        const [name0, name1] = map[name].split('.')
+        const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
+        data[name0][name1] = Number(size)
+        const yamlStr = YAML.stringify(data)
+        fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
+        return `修改${name}为${size}`
     }
 }
 export default new DefsetUpdata()
