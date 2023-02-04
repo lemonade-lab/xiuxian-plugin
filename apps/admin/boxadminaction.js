@@ -1,7 +1,6 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { appname } from "../../model/main.js"
-import { GameApi } from '../../model/api/gameapi.js'
 import { BotApi } from "../../model/robot/api/botapi.js"
 export class boxadminaction extends robotapi {
     constructor() {
@@ -23,8 +22,6 @@ export class boxadminaction extends robotapi {
             name: appname,
             e
         })
-        GameApi.Createdata.moveConfig({ name: 'updata' })
-        e.reply('配置已重置')
         return
     }
 }
