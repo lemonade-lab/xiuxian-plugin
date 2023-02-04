@@ -143,6 +143,9 @@ class Puppeteer {
     let savePath = `${process.cwd()}/data/html/${name}/${saveId}.html`
     /** 读取html模板 */
     if (!this.html[tplFile]) {
+      if (!fs.existsSync(`${process.cwd()}/data/html/${name}`)) {
+        fs.mkdirSync(`${process.cwd()}/data/html/${name}`)
+      }
       try {
         this.html[tplFile] = fs.readFileSync(tplFile, 'utf8')
       } catch (error) {
