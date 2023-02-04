@@ -1,9 +1,23 @@
 import fs from 'node:fs'
 import path from 'path'
 import YAML from 'yaml'
-const other = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`
-const group = `${path.resolve()}${path.sep}config${path.sep}config/group.yaml`
+const PATH_TAML = `${path.resolve()}${path.sep}config${path.sep}config/`
+const bot = `${PATH_TAML}bot.yaml`
+const group = `${PATH_TAML}group.yaml`
+const other = `${PATH_TAML}other.yaml`
+const qq = `${PATH_TAML}qq.yaml`
+const redis = `${PATH_TAML}redis.yaml`
 class ConfigModify {
+    gitConfig = (name) => {
+        const map = {
+            'bot': bot,
+            'group': group,
+            'other': other,
+            'qq': qq,
+            'redis': redis
+        }
+        return YAML.parse(fs.readFileSync(`${map[name]}`, 'utf8'))
+    }
     Readconfig = () => {
         const data = YAML.parse(fs.readFileSync(`${group}`, 'utf8'))
         const sum = ['十连', '角色查询', '体力查询', '用户绑定', '抽卡记录', '添加表情', '欢迎新人', '退群通知', '云崽帮助', '角色素材', '今日素材', '养成计算', '米游社公告']
