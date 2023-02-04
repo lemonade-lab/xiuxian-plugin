@@ -110,8 +110,8 @@ export class boxusertransaction extends robotapi {
             e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
             return
         }
-        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -ifexist.price * quantity })
-        await GameApi.GameUser.userBag({ UID, name: ifexist.name, ACCOUNT: quantity })
+        await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -Number(ifexist.price * quantity) })
+        await GameApi.GameUser.userBag({ UID, name: ifexist.name, ACCOUNT: Number(quantity) })
         e.reply(`[万宝楼]薛仁贵\n你花[${ifexist.price * quantity}]下品灵石购买了[${thing_name}]*${quantity},`)
         return
     }
