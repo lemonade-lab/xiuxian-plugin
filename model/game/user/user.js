@@ -154,7 +154,7 @@ class GameUser {
         if (thing) {
             let bag = await this.userMsgAction({ CHOICE: 'user_material', NAME: UID })
             bag = await this.userMaterialAction({
-                BAG: bag, THING: thing, ACCOUNT
+                BAG: bag, THING: thing, ACCOUNT: Number(ACCOUNT)
             })
             await this.userMsgAction({ CHOICE: 'user_material', NAME: UID, DATA: bag })
             return true
