@@ -101,7 +101,7 @@ export class boxusertransaction extends plugin {
         const Commodities = await GameApi.UserData.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         const ifexist = Commodities.find(item => item.name == thing_name)
         if (!ifexist) {
-            e.reply(`[万宝楼]小二\n不卖:${thing_name}`)
+            e.reply(`[万宝楼]小二\n不卖[${thing_name}]`)
             return
         }
         const money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })

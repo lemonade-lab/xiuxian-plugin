@@ -35,7 +35,7 @@ export class boxuserhome extends plugin {
         thing_acount = await GameApi.GamePublic.leastOne({ value: thing_acount })
         const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
-            e.reply(`没有${thing_name}`)
+            e.reply(`没有[${thing_name}]`)
             return
         }
         if (najie_thing.acount < thing_acount) {
@@ -126,7 +126,7 @@ export class boxuserhome extends plugin {
         const thing_name = e.msg.replace('#学习', '')
         const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
-            e.reply(`没有${thing_name}`)
+            e.reply(`没有[${thing_name}]`)
             return
         }
         const id = najie_thing.id.split('-')
@@ -147,7 +147,7 @@ export class boxuserhome extends plugin {
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await GameApi.GameUser.updataUserEfficiency({ UID })
         await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
-        e.reply(`学习${thing_name}`)
+        e.reply(`学习[${thing_name}]`)
         return
     }
     forget = async (e) => {
@@ -163,14 +163,14 @@ export class boxuserhome extends plugin {
         const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
-            e.reply(`没学过${thing_name}`)
+            e.reply(`没学过[${thing_name}]`)
             return
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await GameApi.GameUser.updataUserEfficiency({ UID })
         await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
-        e.reply(`忘了${thing_name}`)
+        e.reply(`忘了[${thing_name}]`)
         return
     }
     consumption = async (e) => {
@@ -185,13 +185,13 @@ export class boxuserhome extends plugin {
         const thing_name = e.msg.replace('#消耗', '')
         const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
-            e.reply(`没有${thing_name}`)
+            e.reply(`没有[${thing_name}]`)
             return
         }
         await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         const id = najie_thing.id.split('-')
         if (id[0] != 6) {
-            e.reply(`${thing_name}损坏`)
+            e.reply(`[${thing_name}]损坏`)
             return
         }
         if (id[1] == 1) {

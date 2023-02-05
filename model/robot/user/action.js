@@ -1,6 +1,22 @@
 import config from '../data/defset/updata.js'
 class UserAction {
     /**
+     * 折合消息
+     */
+    makeMsg = ({ data }) => {
+        const msgList = []
+        for (let item of data) {
+            msgList.push({
+                message: item,
+                /*我的昵称*/
+                nickname: Bot.nickname,
+                /*我的账号*/
+                user_id: Bot.uin,
+            })
+        }
+        return msgList
+    }
+    /**
      * @param { e, data } param0 
      * @returns 
      */
@@ -9,15 +25,8 @@ class UserAction {
             await e.reply(data[0])
             return
         }
-        const msgList = []
-        for (let item of data) {
-            msgList.push({
-                message: item,
-                nickname: Bot.nickname,
-                user_id: Bot.uin,
-            })
-        }
-        await e.reply(await Bot.makeForwardMsg(msgList))
+        /*制作合并转发消息以备发送*/
+        await e.reply(await Bot.makeForwardMsg(this.makeMsg({ data })))
         return
     }
     /**
@@ -30,15 +39,7 @@ class UserAction {
             this.surveySet({ e, isreply })
             return
         }
-        const msgList = []
-        for (let item of data) {
-            msgList.push({
-                message: item,
-                nickname: Bot.nickname,
-                user_id: Bot.uin,
-            })
-        }
-        const isreply = await e.reply(await Bot.makeForwardMsg(msgList))
+        const isreply = await e.reply(await Bot.makeForwardMsg(this.makeMsg({ data })))
         this.surveySet({ e, isreply })
         return
     }
@@ -46,7 +47,7 @@ class UserAction {
      * @param { e, isreply } param0
      * @returns 
      */
-     surveySet = async ({ e, isreply }) => {
+    surveySet = async ({ e, isreply }) => {
         if (!e.group) {
             return
         }
@@ -72,5 +73,19 @@ class UserAction {
         }
         return false
     }
+    /**
+     * 私聊发送消息
+     * @param { UID, msg } param0 
+     */
+    privateChat = ({ UID, msg }) => {
+        Bot.pickUser(UID).sendMsg(msg)
+        return
+    }
 }
 export default new UserAction()
+/**
+ * pickGroup()	得到一个群对象
+ * pickFriend()	得到一个好友对象
+ * pickMember()	得到一个群员对象
+ * pickUser() 得到一个用户对象
+ */

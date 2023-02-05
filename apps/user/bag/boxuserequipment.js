@@ -99,7 +99,7 @@ export class boxuserequipment extends plugin {
         const thing_name = e.msg.replace('#装备', '')
         const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
-            e.reply(`没有${thing_name}`)
+            e.reply(`没有[${thing_name}]`)
             return
         }
         const equipment = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
@@ -110,7 +110,7 @@ export class boxuserequipment extends plugin {
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
         await GameApi.GameUser.readPanel({ UID })
-        e.reply(`装备${thing_name}`)
+        e.reply(`装备[${thing_name}]`)
         return
     }
     deleteEquipment = async (e) => {
@@ -140,7 +140,7 @@ export class boxuserequipment extends plugin {
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
         await GameApi.GameUser.readPanel({ UID })
-        e.reply(`已卸下${thing_name}`)
+        e.reply(`已卸下[${thing_name}]`)
         return
     }
 }
