@@ -16,32 +16,17 @@ export class boxshowall extends robotapi {
         ]))
     }
     showMap = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
-            e.reply('已死亡')
-            return
-        }
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }
     showConfig = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        if (!await GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
-            e.reply('已死亡')
-            return
-        }
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({
-            path: 'config', name: 'config', data: {
-                xiuxain: await GameApi.DefsetUpdata.getConfig({
+            path: 'config', name: 'config', data:
+                await GameApi.DefsetUpdata.getConfig({
                     app: 'parameter',
                     name: 'cooling'
                 })
-            }
         }))
         await BotApi.User.surveySet({ e, isreply })
         return

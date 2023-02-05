@@ -24,7 +24,7 @@ export class boxhelp extends robotapi {
         await BotApi.User.surveySet({ e, isreply })
     }
     adminSuper = async (e) => {
-        if (!e.isGroup) {
+        if (!e.isMaster) {
             return
         }
         const data = await BotApi.ImgHelp.getboxhelp({ name: 'admin' })

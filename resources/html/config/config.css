@@ -2,11 +2,13 @@
   width: 100%;
   height: 300px;
 }
+
 .config-body {
   width: 100%;
   height: 1100px;
 }
-.config-body-title{
+
+.config-body-title {
   width: 80%;
   font-size: 30px;
   padding: 5px;
@@ -14,7 +16,13 @@
   border-radius: 20px;
   background-color: rgba(249, 228, 204, 0.808);
 }
-.config-body-font{
+
+.config-body-title-re {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.config-body-font {
   width: 80%;
   font-size: 30px;
   margin: auto;
