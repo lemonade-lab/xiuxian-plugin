@@ -4,7 +4,7 @@ import { exec } from 'child_process'
 import { appname, __dirname } from '../../main.js'
 class Exec {
     execStart = async ({ cmd, e }) => {
-        exec(cmd, { cwd: `${appname}` },
+        exec(cmd, { cwd: __dirname },
             async (error, stdout) => {
                 const msg = []
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
