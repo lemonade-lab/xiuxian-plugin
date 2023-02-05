@@ -1,5 +1,4 @@
 import { BotApi, GameApi, plugin } from '../../model/api/api.js'
-import { appname } from "../../model/main.js"
 export class boxadminaction extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
@@ -52,12 +51,7 @@ export class boxadminaction extends plugin {
         if (!e.isMaster) {
             return
         }
-        await BotApi.Exec.execStart({
-            cmd: 'git  pull',
-            cwd: `${process.cwd()}/plugins/${appname}/`,
-            name: appname,
-            e
-        })
+        await BotApi.Exec.execStart({ cmd: 'git  pull', e })
         return
     }
     deleteRedis = async (e) => {

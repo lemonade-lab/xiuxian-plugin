@@ -1,12 +1,6 @@
 class UsperIndex {
-    getUser = ({ name, dsc, event, priority, rule }) => {
-        return {
-            name: name ? name : 'xiuxian',
-            dsc: dsc ? dsc : 'xiuxian',
-            event: event ? event : 'message',
-            priority: priority ? priority : 400,
-            rule
-        }
+    getUser = ({ name = 'xiuxian', dsc = 'xiuxian', event = 'message', priority = 400, rule }) => {
+        return { name, dsc, event, priority, rule }
     }
 }
 export default new UsperIndex()

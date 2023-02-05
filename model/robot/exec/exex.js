@@ -1,22 +1,21 @@
 
 import userAction from '../user/action.js'
-import process from 'child_process'
+import { exec } from 'child_process'
+import { appname, __dirname } from '../../main.js'
 class Exec {
-    execStart = async ({ cmd, cwd, name, e }) => {
-        process.exec(cmd, { cwd: cwd },
-            async (error, stdout, stderr) => {
+    execStart = async ({ cmd, e }) => {
+        exec(cmd, { cwd: `${appname}` },
+            async (error, stdout) => {
                 const msg = []
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                    msg.push(`${name}|已是最新版`)
-                    await userAction.forwardMsg({
-                        e, data: msg
-                    })
+                    msg.push(`${appname}|已是最新版`)
+                    await userAction.forwardMsg({ e, data: msg })
                     return
                 }
                 if (error) {
-                    msg.push(`${name}执行失败\nError code: ${error.code}\n${error.stack}\n`)
+                    msg.push(`${appname}执行失败\nError code: ${error.code}\n${error.stack}\n`)
                 } else {
-                    msg.push(`${name}执行成功,请[#重启]`)
+                    msg.push(`${appname}执行成功,请[#重启]`)
                 }
                 await userAction.forwardMsg({ e, data: msg })
                 return
