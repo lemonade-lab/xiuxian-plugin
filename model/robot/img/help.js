@@ -7,8 +7,6 @@ class Help {
     return {
       /** heml路径 */
       tplFile: `${__dirname}/resources/html/help/help.html`,
-      /** css路径 */
-
       /*需要转义 */
       pluResPath: `${__dirname.replace(/\\/g, '/')}`,
       /** 版本 */
