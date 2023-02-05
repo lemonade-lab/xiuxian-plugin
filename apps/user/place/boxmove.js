@@ -1,8 +1,8 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
+import { BotApi } from "../../../model/api/botapi.js"
 export class boxmove extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#mapw$',
                 fnc: 'mapW'
@@ -19,7 +19,7 @@ export class boxmove extends robotapi {
                 reg: '^#mapd$',
                 fnc: 'mapD'
             }
-        ]))
+        ]}))
     }
     /**
      * 前进

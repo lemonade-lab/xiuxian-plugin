@@ -1,9 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
+import { BotApi } from "../../../model/api/botapi.js"
 export class boxuseronekey extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#置换所有物品$',
                 fnc: 'substitution'
@@ -12,7 +12,7 @@ export class boxuseronekey extends robotapi {
                 reg: '^#一键出售.*$',
                 fnc: 'shellAllType'
             }
-        ]))
+        ]}))
     }
     substitution = async (e) => {
         if (!e.isGroup) {

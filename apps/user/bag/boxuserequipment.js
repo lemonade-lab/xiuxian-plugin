@@ -1,9 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
+import { BotApi } from "../../../model/api/botapi.js"
 export class boxuserequipment extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#装备.*$',
                 fnc: 'addEquipment'
@@ -17,7 +17,7 @@ export class boxuserequipment extends robotapi {
             //     reg: '^#炼制.*$',
             //     fnc: 'synthesis'
             // }
-        ]))
+        ]}))
     }
 
     synthesis = async (e) => {

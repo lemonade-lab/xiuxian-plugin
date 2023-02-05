@@ -1,10 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxplayercontrol extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '#降妖$',
                 fnc: 'dagong'
@@ -21,7 +20,7 @@ export class boxplayercontrol extends robotapi {
                 reg: '^#归来$',
                 fnc: 'endWork'
             }
-        ]))
+        ]}))
     }
     biguan = async (e) => {
         if (!e.isGroup) {

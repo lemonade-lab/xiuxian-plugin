@@ -3,17 +3,15 @@ import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxuserinstall extends robotapi {
     constructor() {
-        super({
-            name: 'xiuxian',
-            dsc: 'BoxtWist',
+        super(BotApi.SuperIndex.getUser({
             event: 'notice.group.increase',
-            priority: 3000,
+            priority: 99999,
             rule: [
                 {
                     fnc: 'createinstall'
                 }
             ]
-        })
+        }))
     }
     createinstall = async (e) => {
         if (!e.isGroup) {

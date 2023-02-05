@@ -1,23 +1,24 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxuserstart extends robotapi {
     constructor() {
-        super(superIndex([
-            {
-                reg: '^#降临世界$',
-                fnc: 'createMsg'
-            },
-            {
-                reg: '^#再入仙途$',
-                fnc: 'reCreateMsg'
-            }
-        ]))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#降临世界$',
+                    fnc: 'createMsg'
+                },
+                {
+                    reg: '^#再入仙途$',
+                    fnc: 'reCreateMsg'
+                }
+            ]
+        }))
         this.task = {
             cron: GameApi.DefsetUpdata.getConfig({ app: 'task', name: 'task' }).LifeTask,
             name: 'LifeTask',
-            fnc: () => {  GameApi.GameUser.startLife() }
+            fnc: () => { GameApi.GameUser.startLife() }
         }
     }
     createMsg = async (e) => {

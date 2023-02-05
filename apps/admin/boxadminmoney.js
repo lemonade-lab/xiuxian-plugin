@@ -1,19 +1,20 @@
 import robotapi from "../../model/robot/api/api.js"
-import { superIndex } from "../../model/robot/api/api.js"
 import { GameApi } from '../../model/api/gameapi.js'
 import { BotApi } from '../../model/api/botapi.js'
 export class boxadminmoney extends robotapi {
     constructor() {
-        super(superIndex([
-            {
-                reg: '^#修仙扣除.*$',
-                fnc: 'deduction'
-            },
-            {
-                reg: '^#修仙馈赠.*$',
-                fnc: 'gifts'
-            }
-        ]))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#修仙扣除.*$',
+                    fnc: 'deduction'
+                },
+                {
+                    reg: '^#修仙馈赠.*$',
+                    fnc: 'gifts'
+                }
+            ]
+        }))
     }
     gifts = async (e) => {
         if (!e.isMaster) {

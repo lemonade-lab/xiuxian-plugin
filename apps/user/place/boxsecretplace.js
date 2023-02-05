@@ -1,5 +1,4 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 const forwardsetTime = []
@@ -7,7 +6,7 @@ const deliverysetTime = []
 const useraction = []
 export class boxsecretplace extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#坐标信息$',
                 fnc: 'xyzaddress'
@@ -28,7 +27,7 @@ export class boxsecretplace extends robotapi {
                 reg: '^#位置信息$',
                 fnc: 'showCity'
             }
-        ]))
+        ]}))
     }
     showCity = async (e) => {
         if (!e.isGroup) {

@@ -1,10 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxbattlesite extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#击杀.*$',
                 fnc: 'userKill'
@@ -13,7 +12,7 @@ export class boxbattlesite extends robotapi {
                 reg: '^#探索怪物$',
                 fnc: 'userExploremonsters'
             }
-        ]))
+        ]}))
     }
     userKill = async (e) => {
         if (!e.isGroup) {

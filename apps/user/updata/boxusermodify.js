@@ -1,19 +1,20 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxusermodify extends robotapi {
     constructor() {
-        super(superIndex([
-            {
-                reg: '^#改名.*$',
-                fnc: 'changeName'
-            },
-            {
-                reg: '^#设置道宣.*$',
-                fnc: 'changeAutograph'
-            }
-        ]))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#改名.*$',
+                    fnc: 'changeName'
+                },
+                {
+                    reg: '^#设置道宣.*$',
+                    fnc: 'changeAutograph'
+                }
+            ]
+        }))
     }
     changeName = async (e) => {
         if (!e.isGroup) {

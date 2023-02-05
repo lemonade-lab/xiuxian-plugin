@@ -1,10 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { BotApi } from '../../../model/api/botapi.js'
 import { GameApi } from '../../../model/api/gameapi.js'
 export class boxbattle extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#死斗.*$',
                 fnc: 'duel'
@@ -13,7 +12,7 @@ export class boxbattle extends robotapi {
                 reg: '^#洗手$',
                 fnc: 'handWashing'
             }
-        ]))
+        ]}))
     }
     duel = async (e) => {
         if (!e.isGroup) {

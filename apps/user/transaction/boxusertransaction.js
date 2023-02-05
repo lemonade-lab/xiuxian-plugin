@@ -1,10 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxusertransaction extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#万宝楼$',
                 fnc: 'showComodities',
@@ -17,7 +16,7 @@ export class boxusertransaction extends robotapi {
                 reg: '^#出售.*$',
                 fnc: 'sellComodities'
             }
-        ]))
+        ]}))
     }
     showComodities = async (e) => {
         if (!e.isGroup) {

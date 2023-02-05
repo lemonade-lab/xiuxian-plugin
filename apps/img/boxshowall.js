@@ -1,27 +1,28 @@
 import robotapi from "../../model/robot/api/api.js"
-import { superIndex } from "../../model/robot/api/api.js"
 import { BotApi } from '../../model/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
 export class boxshowall extends robotapi {
     constructor() {
-        super(superIndex([
-            {
-                reg: '^#修仙地图$',
-                fnc: 'showMap',
-            },
-            {
-                reg: '^#修仙配置$',
-                fnc: 'showConfig',
-            },
-            {
-                reg: '^#修仙(帮助|菜单|help|列表)$',
-                fnc: 'boxhelp'
-            },
-            {
-                reg: '^#修仙管理$',
-                fnc: 'adminSuper',
-            }
-        ]))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#修仙地图$',
+                    fnc: 'showMap',
+                },
+                {
+                    reg: '^#修仙配置$',
+                    fnc: 'showConfig',
+                },
+                {
+                    reg: '^#修仙(帮助|菜单|help|列表)$',
+                    fnc: 'boxhelp'
+                },
+                {
+                    reg: '^#修仙管理$',
+                    fnc: 'adminSuper',
+                }
+            ]
+        }))
     }
     showMap = async (e) => {
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))

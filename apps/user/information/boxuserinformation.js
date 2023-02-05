@@ -1,10 +1,9 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 export class boxuserinformation extends robotapi {
     constructor() {
-        super(superIndex([
+        super(BotApi.SuperIndex.getUser({rule:[
             {
                 reg: '^#基础信息$',
                 fnc: 'showUserMsg'
@@ -17,7 +16,7 @@ export class boxuserinformation extends robotapi {
                 reg: '^#功法信息$',
                 fnc: 'showTalent',
             }
-        ]))
+        ]}))
     }
     showUserMsg = async (e) => {
         if (!e.isGroup) {

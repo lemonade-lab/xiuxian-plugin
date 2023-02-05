@@ -1,18 +1,20 @@
 import robotapi from "../../../model/robot/api/api.js"
-import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
+import { BotApi } from "../../../model/api/botapi.js"
 export class boxlevel extends robotapi {
     constructor() {
-        super(superIndex([
-            {
-                reg: '^#突破$',
-                fnc: 'levelUp'
-            },
-            {
-                reg: '^#破体$',
-                fnc: 'levelMaxUp'
-            }
-        ]))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#突破$',
+                    fnc: 'levelUp'
+                },
+                {
+                    reg: '^#破体$',
+                    fnc: 'levelMaxUp'
+                }
+            ]
+        }))
     }
     levelUp = async (e) => {
         if (!e.isGroup) {

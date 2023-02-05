@@ -3,6 +3,7 @@ import ImgCache from '../robot/img/cache.js'
 import ImgHelp from '../robot/img/help.js'
 import User from '../robot/user/action.js'
 import Exec from '../robot/exec/exex.js'
+import SuperIndex from '../robot/super/index.js'
 import { segment } from 'oicq'
 /**全局导出robot机器人机制*/
-export const BotApi = { ImgIndex, ImgCache, ImgHelp, User, Exec, segment }
+export const BotApi = { ImgIndex, ImgCache, ImgHelp, User, Exec, segment, SuperIndex }

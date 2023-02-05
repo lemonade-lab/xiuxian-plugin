@@ -3,9 +3,7 @@ import { BotApi } from '../../model/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
 export class BoxtWist extends robotapi {
     constructor() {
-        super({
-            name: 'xiuxian',
-            dsc: 'BoxtWist',
+        super(BotApi.SuperIndex.getUser({
             event: 'notice.group.poke',
             priority: 99999,
             rule: [
@@ -13,7 +11,7 @@ export class BoxtWist extends robotapi {
                     fnc: 'helpWist'
                 }
             ]
-        })
+        }))
     }
     helpWist = async (e) => {
         if (!e.isGroup) {
