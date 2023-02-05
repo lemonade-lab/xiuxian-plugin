@@ -1,25 +1,27 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { BotApi } from "../../../model/api/botapi.js"
-export class boxmove extends robotapi {
+export class boxmove extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#mapw$',
-                fnc: 'mapW'
-            },
-            {
-                reg: '^#mapa$',
-                fnc: 'mapA'
-            },
-            {
-                reg: '^#maps$',
-                fnc: 'mapS'
-            },
-            {
-                reg: '^#mapd$',
-                fnc: 'mapD'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#mapw$',
+                    fnc: 'mapW'
+                },
+                {
+                    reg: '^#mapa$',
+                    fnc: 'mapA'
+                },
+                {
+                    reg: '^#maps$',
+                    fnc: 'mapS'
+                },
+                {
+                    reg: '^#mapd$',
+                    fnc: 'mapD'
+                }
+            ]
+        }))
     }
     /**
      * 前进

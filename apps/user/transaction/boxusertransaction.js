@@ -1,22 +1,24 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxusertransaction extends robotapi {
+export class boxusertransaction extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#万宝楼$',
-                fnc: 'showComodities',
-            },
-            {
-                reg: '^#购买.*$',
-                fnc: 'buyComodities'
-            },
-            {
-                reg: '^#出售.*$',
-                fnc: 'sellComodities'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#万宝楼$',
+                    fnc: 'showComodities',
+                },
+                {
+                    reg: '^#购买.*$',
+                    fnc: 'buyComodities'
+                },
+                {
+                    reg: '^#出售.*$',
+                    fnc: 'sellComodities'
+                }
+            ]
+        }))
     }
     showComodities = async (e) => {
         if (!e.isGroup) {

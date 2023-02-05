@@ -1,18 +1,20 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from "../../../model/api/botapi.js"
-export class boxuseronekey extends robotapi {
+export class boxuseronekey extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#置换所有物品$',
-                fnc: 'substitution'
-            },
-            {
-                reg: '^#一键出售.*$',
-                fnc: 'shellAllType'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#置换所有物品$',
+                    fnc: 'substitution'
+                },
+                {
+                    reg: '^#一键出售.*$',
+                    fnc: 'shellAllType'
+                }
+            ]
+        }))
     }
     substitution = async (e) => {
         if (!e.isGroup) {

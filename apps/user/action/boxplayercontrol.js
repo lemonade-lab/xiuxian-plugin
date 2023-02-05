@@ -1,26 +1,28 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxplayercontrol extends robotapi {
+export class boxplayercontrol extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '#降妖$',
-                fnc: 'dagong'
-            },
-            {
-                reg: '#闭关$',
-                fnc: 'biguan'
-            },
-            {
-                reg: '^#出关$',
-                fnc: 'chuGuan'
-            },
-            {
-                reg: '^#归来$',
-                fnc: 'endWork'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '#降妖$',
+                    fnc: 'dagong'
+                },
+                {
+                    reg: '#闭关$',
+                    fnc: 'biguan'
+                },
+                {
+                    reg: '^#出关$',
+                    fnc: 'chuGuan'
+                },
+                {
+                    reg: '^#归来$',
+                    fnc: 'endWork'
+                }
+            ]
+        }))
     }
     biguan = async (e) => {
         if (!e.isGroup) {
@@ -91,7 +93,7 @@ export class boxplayercontrol extends robotapi {
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
             e.reply('只是呆了一会儿...')
-            await   GameApi.GamePublic.offAction({ UID })
+            await GameApi.GamePublic.offAction({ UID })
             return
         }
         await GameApi.GamePublic.offAction({ UID })

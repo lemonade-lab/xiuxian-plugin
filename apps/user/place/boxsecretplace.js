@@ -1,33 +1,35 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
-export class boxsecretplace extends robotapi {
+export class boxsecretplace extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#坐标信息$',
-                fnc: 'xyzaddress'
-            },
-            {
-                reg: '^#前往.*$',
-                fnc: 'forward'
-            },
-            {
-                reg: '^#回到原地$',
-                fnc: 'returnPiont'
-            },
-            {
-                reg: '^#传送.*$',
-                fnc: 'delivery'
-            },
-            {
-                reg: '^#位置信息$',
-                fnc: 'showCity'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#坐标信息$',
+                    fnc: 'xyzaddress'
+                },
+                {
+                    reg: '^#前往.*$',
+                    fnc: 'forward'
+                },
+                {
+                    reg: '^#回到原地$',
+                    fnc: 'returnPiont'
+                },
+                {
+                    reg: '^#传送.*$',
+                    fnc: 'delivery'
+                },
+                {
+                    reg: '^#位置信息$',
+                    fnc: 'showCity'
+                }
+            ]
+        }))
     }
     showCity = async (e) => {
         if (!e.isGroup) {

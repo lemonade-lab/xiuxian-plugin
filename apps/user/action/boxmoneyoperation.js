@@ -1,18 +1,20 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxmoneyoperation extends robotapi {
+export class boxmoneyoperation extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#赠送灵石.*$',
-                fnc: 'giveMoney'
-            },
-            {
-                reg: '^#联盟报到$',
-                fnc: 'userCheckin'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#赠送灵石.*$',
+                    fnc: 'giveMoney'
+                },
+                {
+                    reg: '^#联盟报到$',
+                    fnc: 'userCheckin'
+                }
+            ]
+        }))
     }
     userCheckin = async (e) => {
         if (!e.isGroup) {
@@ -30,7 +32,7 @@ export class boxmoneyoperation extends robotapi {
         const UID = e.user_id
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '联盟'
-        const map = await   GameApi.GameMap.mapExistence({ action, addressName: address_name })
+        const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return

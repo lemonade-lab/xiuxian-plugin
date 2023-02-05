@@ -1,26 +1,28 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxuserhome extends robotapi {
+export class boxuserhome extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#服用.*$',
-                fnc: 'take'
-            },
-            {
-                reg: '^#学习.*$',
-                fnc: 'study'
-            },
-            {
-                reg: '^#忘掉.*$',
-                fnc: 'forget'
-            },
-            {
-                reg: '^#消耗.*$',
-                fnc: 'consumption'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#服用.*$',
+                    fnc: 'take'
+                },
+                {
+                    reg: '^#学习.*$',
+                    fnc: 'study'
+                },
+                {
+                    reg: '^#忘掉.*$',
+                    fnc: 'forget'
+                },
+                {
+                    reg: '^#消耗.*$',
+                    fnc: 'consumption'
+                }
+            ]
+        }))
     }
     take = async (e) => {
         if (!e.isGroup) {
@@ -206,7 +208,7 @@ export class boxuserhome extends robotapi {
                     talent.talent = await GameApi.GameUser.getTalent()
                     await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await GameApi.GameUser.updataUserEfficiency({ UID })
-                    const { path, name, data } = await  GameApi.Information.userDataShow({ UID: e.user_id })
+                    const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })
                     break

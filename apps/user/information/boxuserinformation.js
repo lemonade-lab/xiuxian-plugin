@@ -1,22 +1,24 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxuserinformation extends robotapi {
+export class boxuserinformation extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#基础信息$',
-                fnc: 'showUserMsg'
-            },
-            {
-                reg: '^#面板信息$',
-                fnc: 'showQquipment',
-            },
-            {
-                reg: '^#功法信息$',
-                fnc: 'showTalent',
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#基础信息$',
+                    fnc: 'showUserMsg'
+                },
+                {
+                    reg: '^#面板信息$',
+                    fnc: 'showQquipment',
+                },
+                {
+                    reg: '^#功法信息$',
+                    fnc: 'showTalent',
+                }
+            ]
+        }))
     }
     showUserMsg = async (e) => {
         if (!e.isGroup) {

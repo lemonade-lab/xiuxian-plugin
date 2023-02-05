@@ -1,18 +1,20 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxuserbag extends robotapi {
+export class boxuserbag extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#储物袋$',
-                fnc: 'showBag'
-            },
-            {
-                reg: '^#升级储物袋$',
-                fnc: 'bagUp'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#储物袋$',
+                    fnc: 'showBag'
+                },
+                {
+                    reg: '^#升级储物袋$',
+                    fnc: 'bagUp'
+                }
+            ]
+        }))
     }
     showBag = async (e) => {
         if (!e.isGroup) {

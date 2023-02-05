@@ -1,7 +1,7 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxusermodify extends robotapi {
+export class boxusermodify extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
             rule: [

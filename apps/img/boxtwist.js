@@ -1,7 +1,7 @@
-import robotapi from "../../model/robot/api/api.js"
+import { plugin } from "../../model/robot/api/api.js"
 import { BotApi } from '../../model/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
-export class BoxtWist extends robotapi {
+export class BoxtWist extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
             event: 'notice.group.poke',

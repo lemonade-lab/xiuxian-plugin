@@ -1,23 +1,25 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from "../../../model/api/botapi.js"
-export class boxuserequipment extends robotapi {
+export class boxuserequipment extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#装备.*$',
-                fnc: 'addEquipment'
-            },
-            {
-                reg: '^#卸下.*$',
-                fnc: 'deleteEquipment'
-            }
-            // ,
-            // {
-            //     reg: '^#炼制.*$',
-            //     fnc: 'synthesis'
-            // }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#装备.*$',
+                    fnc: 'addEquipment'
+                },
+                {
+                    reg: '^#卸下.*$',
+                    fnc: 'deleteEquipment'
+                }
+                // ,
+                // {
+                //     reg: '^#炼制.*$',
+                //     fnc: 'synthesis'
+                // }
+            ]
+        }))
     }
 
     synthesis = async (e) => {
@@ -45,7 +47,7 @@ export class boxuserequipment extends robotapi {
         await GameApi.GameUser.userMaterial({ UID: UID, name: materialB.name, ACCOUNT: -1 })
         await GameApi.GameUser.userMaterial({ UID: UID, name: materialC.name, ACCOUNT: -1 })
 
-        let ans ={
+        let ans = {
             "gold": 0,
             "wood": 0,
             "water": 0,
@@ -54,29 +56,29 @@ export class boxuserequipment extends robotapi {
             "elixirPercent": 0,
             "equipPercent": 0,
         }
-        ans.gold = materialA.gold+materialB.gold+materialC.gold;
-        ans.wood = materialA.wood+materialB.wood+materialC.wood;
-        ans.water = materialA.water+materialB.water+materialC.water;
-        ans.fire = materialA.fire+materialB.fire+materialC.fire;
-        ans.earth = materialA.earth+materialB.earth+materialC.earth;
-        ans.elixirPercent = materialA.elixirPercent+materialB.elixirPercent+materialC.elixirPercent;
-        ans.equipPercent = materialA.equipPercent+materialB.equipPercent+materialC.equipPercent;
+        ans.gold = materialA.gold + materialB.gold + materialC.gold;
+        ans.wood = materialA.wood + materialB.wood + materialC.wood;
+        ans.water = materialA.water + materialB.water + materialC.water;
+        ans.fire = materialA.fire + materialB.fire + materialC.fire;
+        ans.earth = materialA.earth + materialB.earth + materialC.earth;
+        ans.elixirPercent = materialA.elixirPercent + materialB.elixirPercent + materialC.elixirPercent;
+        ans.equipPercent = materialA.equipPercent + materialB.equipPercent + materialC.equipPercent;
         //成功率
         const quality = materialA.quality * materialB.quality * materialC.quality;
         const random = Math.random();
-        if(random > quality){
+        if (random > quality) {
             //失败
             e.reply(`boom!炼制失败,炸炉啦`)
-            return ;
+            return;
         }
-        let resThing ;
-        if(ans.elixirPercent >= 2*ans.equipPercent){
+        let resThing;
+        if (ans.elixirPercent >= 2 * ans.equipPercent) {
             //成丹
-            resThing = await GameApi.GameUser.synthesisResult({ans : ans ,type :0})
-        }else if(ans.equipPercent >= 2*ans.elixirPercent){
+            resThing = await GameApi.GameUser.synthesisResult({ ans: ans, type: 0 })
+        } else if (ans.equipPercent >= 2 * ans.elixirPercent) {
             //成器
-            resThing = await GameApi.GameUser.synthesisResult({ans : ans ,type :1})
-        }else {
+            resThing = await GameApi.GameUser.synthesisResult({ ans: ans, type: 1 })
+        } else {
             //烂
             e.reply(`材料的属性产生了冲突,不知道变成即无法成丹,也无法成器,你获得了无用的残渣`);
             await GameApi.GameUser.userBag({ UID: UID, name: '无用的残渣', ACCOUNT: 1 })
@@ -109,7 +111,7 @@ export class boxuserequipment extends robotapi {
         equipment.push(najie_thing)
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
-        await  GameApi.GameUser.readPanel({ UID })
+        await GameApi.GameUser.readPanel({ UID })
         e.reply(`装备${thing_name}`)
         return
     }

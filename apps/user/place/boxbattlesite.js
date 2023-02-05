@@ -1,18 +1,20 @@
-import robotapi from "../../../model/robot/api/api.js"
+import { plugin } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
 import { BotApi } from '../../../model/api/botapi.js'
-export class boxbattlesite extends robotapi {
+export class boxbattlesite extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({rule:[
-            {
-                reg: '^#击杀.*$',
-                fnc: 'userKill'
-            },
-            {
-                reg: '^#探索怪物$',
-                fnc: 'userExploremonsters'
-            }
-        ]}))
+        super(BotApi.SuperIndex.getUser({
+            rule: [
+                {
+                    reg: '^#击杀.*$',
+                    fnc: 'userKill'
+                },
+                {
+                    reg: '^#探索怪物$',
+                    fnc: 'userExploremonsters'
+                }
+            ]
+        }))
     }
     userKill = async (e) => {
         if (!e.isGroup) {
@@ -39,7 +41,7 @@ export class boxbattlesite extends robotapi {
         }
         const name = e.msg.replace('#击杀', '')
         const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
-        const monstersdata = await  GameApi.GameMonster.monsterscache({ i: action.region })
+        const monstersdata = await GameApi.GameMonster.monsterscache({ i: action.region })
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
             e.reply(`这里没有${name},去别处看看吧`)
@@ -54,7 +56,7 @@ export class boxbattlesite extends robotapi {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
             msg.push('怪物突然变异了!')
         }
-        const Levellist = await  GameApi.UserData.listAction({ NAME: 'Level_list', CHOICE: 'generate_level' })
+        const Levellist = await GameApi.UserData.listAction({ NAME: 'Level_list', CHOICE: 'generate_level' })
         const LevelMax = Levellist.find(item => item.id == mon.level + 1)
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
@@ -68,14 +70,14 @@ export class boxbattlesite extends robotapi {
         const battle = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
         const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-        const battle_msg = await  GameApi.GameBattle.monsterbattle({ e, battleA: battle, battleB: monsters })
+        const battle_msg = await GameApi.GameBattle.monsterbattle({ e, battleA: battle, battleB: monsters })
         battle_msg.msg.forEach((item) => {
             msg.push(item)
         })
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < (mon.level + 1) * 6) {
-                const randomthinf = await   GameApi.GameUser.randomThing()
+                const randomthinf = await GameApi.GameUser.randomThing()
                 let najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
                     await GameApi.GameUser.userBag({ UID, name: randomthinf.name, ACCOUNT: randomthinf.acount })
@@ -87,7 +89,7 @@ export class boxbattlesite extends robotapi {
             if (m < (mon.level + 1) * 7) {
                 const SIZE = mon.level * 25 * mybuff
                 msg.push(`得到${SIZE}气血`)
-                await   GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
+                await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
             }
             if (m < (mon.level + 1) * 8) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 2 })
