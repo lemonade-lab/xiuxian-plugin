@@ -8,8 +8,7 @@
 
 <body>
   <div class="config">
-    <div class="config-head">
-    </div>
+    <div style="height: 400px;"></div>
     <div class="config-body">
       <div class="config-body-title">#修仙配置更改+属性名*整数</div>
       <div class="config-body-title-re">
@@ -23,8 +22,7 @@
         <div class="config-body-font">击杀冷却:{{CD.Kill}}</div>
         <div class="config-body-font">修行冷却:{{CD.Practice}}</div>
       </div>
-      <div class="config-body-title">#修仙重置配置</div>
-      <div class="config-body-title">#修仙重置图片</div>
+      <div class="config-body-title">#修仙重置配置 #修仙重置图片</div>
       <div class="config-body-title-re">
         <div class="config-body-font">年龄每小时增加:{{Age.size}}</div>
         <div class="config-body-font">最多功法持有数:{{myconfig.gongfa}}</div>
@@ -43,16 +41,14 @@
 <style>
   body {
     transform: scale(1);
-    width: 100%;
-    height: 100%;
     text-align: center;
+    background-image: url('{{pluResPath}}/resources/img/help/help.png');
+    background-size: 100% auto;
   }
 
   .config {
     width: 100%;
     height: 100%;
-    background-image: url('{{pluResPath}}/resources/img/help/help.png');
-    background-size: 100% 100%;
   }
 </style>
 
