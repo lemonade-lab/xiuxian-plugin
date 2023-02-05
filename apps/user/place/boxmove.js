@@ -1,5 +1,5 @@
-import robotapi from "../../model/robot/api/api.js"
-import { superIndex } from "../../model/robot/api/api.js"
+import robotapi from "../../../model/robot/api/api.js"
+import { superIndex } from "../../../model/robot/api/api.js"
 export class boxmove extends robotapi {
     constructor() {
         super(superIndex([

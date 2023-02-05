@@ -1,6 +1,6 @@
-import robotapi from "../../model/robot/api/api.js"
-import { GameApi } from '../../model/api/gameapi.js'
-import { BotApi } from '../../model/robot/api/botapi.js'
+import robotapi from "../../../model/robot/api/api.js"
+import { GameApi } from '../../../model/api/gameapi.js'
+import { BotApi } from '../../../model/robot/api/botapi.js'
 export class boxuserinstall extends robotapi {
     constructor() {
         super({
