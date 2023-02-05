@@ -21,12 +21,18 @@ export class boxshowall extends robotapi {
         return
     }
     showConfig = async (e) => {
+        const cf = await GameApi.DefsetUpdata.getConfig({
+            app: 'parameter',
+            name: 'cooling'
+        })
+        const Ttwist = cf['switch'] ? cf['switch']['twist'] : true
+        const Tcome = cf['switch'] ? cf['switch']['come'] : true
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({
-            path: 'config', name: 'config', data:
-                await GameApi.DefsetUpdata.getConfig({
-                    app: 'parameter',
-                    name: 'cooling'
-                })
+            path: 'config', name: 'config', data: {
+                ...cf,
+                Ttwist: Ttwist ? '开启' : '关闭',
+                Tcome: Tcome ? '开启' : '关闭'
+            }
         }))
         await BotApi.User.surveySet({ e, isreply })
         return

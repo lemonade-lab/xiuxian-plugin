@@ -15,15 +15,9 @@
     - icon: 2
       title: "#修仙删除世界"
       desc: "删除全部信息"
-
-- group: 
-  list:
     - icon: 2
       title: "#修仙配置"
       desc: "查看配置"
-    - icon: 2
-      title: "#盒子开关"
-      desc: "修仙功能阀门"
       
 - group: 
   list:
