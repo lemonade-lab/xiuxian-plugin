@@ -31,7 +31,7 @@ export class boxadminmoney extends plugin {
         const quantity = await GameApi.GamePublic.leastOne({ value: acount })
         const bag = await GameApi.GameUser.userBag({ UID, name, ACCOUNT: quantity })
         if (bag) {
-            e.reply(`${UID}获得馈赠:${name}*${quantity}`)
+            e.reply(`${UID}获得馈赠[${name}]*${quantity}`)
         } else {
             e.reply(`馈赠[${name}]失败`)
         }
@@ -57,7 +57,7 @@ export class boxadminmoney extends plugin {
             return
         }
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
-        e.reply(`已扣除${lingshi}下品灵石`)
+        e.reply(`已扣除${lingshi}[下品灵石]`)
         return
     }
 }

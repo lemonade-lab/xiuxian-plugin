@@ -41,7 +41,7 @@ export class boxuseronekey extends plugin {
         bag.thing = []
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
-        e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
+        e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
         return
     }
     shellAllType = async (e) => {
@@ -70,7 +70,7 @@ export class boxuseronekey extends plugin {
             '道具': '6'
         }
         if (!maptype.hasOwnProperty(type)) {
-            e.reply(`[蜀山派]叶凡\n此处不收${type}`)
+            e.reply(`[蜀山派]叶凡\n此处不收[${type}]`)
             return
         }
         let bag = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
@@ -90,7 +90,7 @@ export class boxuseronekey extends plugin {
         bag.thing = arr
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
-        e.reply(`[蜀山派]叶铭\n这是${money}下品灵石,道友慢走`)
+        e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
         return
     }
 }

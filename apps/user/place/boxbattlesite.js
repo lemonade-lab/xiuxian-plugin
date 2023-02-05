@@ -42,7 +42,7 @@ export class boxbattlesite extends plugin {
         const monstersdata = await GameApi.GameMonster.monsterscache({ i: action.region })
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
-            e.reply(`这里没有${name},去别处看看吧`)
+            e.reply(`这里没有[${name}],去别处看看吧`)
             return
         }
         const acount = await GameApi.GameMonster.add({ i: action.region, num: Number(1) })
@@ -86,22 +86,22 @@ export class boxbattlesite extends plugin {
             }
             if (m < (mon.level + 1) * 7) {
                 const SIZE = mon.level * 25 * mybuff
-                msg.push(`得到${SIZE}气血`)
+                msg.push(`得到${SIZE}[气血]`)
                 await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
             }
             if (m < (mon.level + 1) * 8) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 2 })
-                msg.push(`得到${lingshi}上品灵石`)
+                msg.push(`得到${lingshi}[上品灵石]`)
                 await GameApi.GameUser.userBag({ UID, name: '上品灵石', ACCOUNT: lingshi })
             }
             if (m < (mon.level + 1) * 9) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 20 })
-                msg.push(`得到${lingshi}中品灵石`)
+                msg.push(`得到${lingshi}[中品灵石]`)
                 await GameApi.GameUser.userBag({ UID, name: '中品灵石', ACCOUNT: lingshi })
             }
             if (m >= (mon.level + 1) * 9) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 200 })
-                msg.push(`得到${lingshi}下品灵石`)
+                msg.push(`得到${lingshi}[下品灵石]`)
                 await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: lingshi })
             }
         }

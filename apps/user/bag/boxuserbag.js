@@ -49,13 +49,13 @@ export class boxuserbag extends plugin {
         }
         const thing = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!thing || thing.acount < najie_price) {
-            e.reply(`灵石不足,需要准备${najie_price}下品灵石`)
+            e.reply(`灵石不足,需要准备${najie_price}*[下品灵石]`)
             return
         }
         najie.grade += 1
         await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -Number(najie_price) })
-        e.reply(`花了${najie_price}下品灵石升级,目前储物袋为${najie.grade}`)
+        e.reply(`花了${najie_price}*[下品灵石]升级,目前储物袋为${najie.grade}`)
         return
     }
 }

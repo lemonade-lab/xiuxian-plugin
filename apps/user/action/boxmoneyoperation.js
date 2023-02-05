@@ -49,8 +49,8 @@ export class boxmoneyoperation extends plugin {
         const randomthing = await GameApi.GameUser.randomThing()
         await GameApi.GameUser.userBag({ UID, name: randomthing.name, ACCOUNT: randomthing.acount })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: Number(10) })
-        e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗下品灵石\n可在必要的时候用到`)
-        e.reply(`你对此高兴万分\n并放进了#储物袋`)
+        e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(10)}颗[下品灵石]\n可在必要的时候用到`)
+        e.reply(`你对此高兴万分\n并放进了[#储物袋]`)
         return
     }
     giveMoney = async (e) => {
@@ -80,7 +80,7 @@ export class boxmoneyoperation extends plugin {
         islingshi = await GameApi.GamePublic.leastOne({ value: islingshi })
         const money = await GameApi.GameUser.userBagSearch({ UID: A, name: '下品灵石' })
         if (!money || money.acount < islingshi) {
-            e.reply(`似乎没有${islingshi}下品灵石`)
+            e.reply(`似乎没有${islingshi}[下品灵石]`)
             return
         }
         const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
@@ -96,7 +96,7 @@ export class boxmoneyoperation extends plugin {
         await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60)
         await GameApi.GameUser.userBag({ UID: A, name: '下品灵石', ACCOUNT: -islingshi })
         await GameApi.GameUser.userBag({ UID: B, name: '下品灵石', ACCOUNT: islingshi })
-        e.reply([BotApi.segment.at(B), `你获得了由 ${A}赠送的${islingshi}下品灵石`])
+        e.reply([BotApi.segment.at(B), `你获得了由 ${A}赠送的${islingshi}*[下品灵石]`])
         return
     }
 }

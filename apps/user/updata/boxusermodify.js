@@ -43,7 +43,7 @@ export class boxusermodify extends plugin {
         }
         const thing = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!thing || thing.acount < lingshi) {
-            e.reply(`似乎没有${lingshi}下品灵石`)
+            e.reply(`似乎没有${lingshi}*[下品灵石]`)
             return
         }
         const CDID = '3'

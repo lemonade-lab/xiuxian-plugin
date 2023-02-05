@@ -97,7 +97,7 @@ export class boxbattle extends plugin {
                 najieB.thing = najieB.thing.filter(item => item.name != thing.name)
                 await GameApi.GameUser.userMsgAction({ NAME: user.B, CHOICE: 'user_bag', DATA: najieB })
                 await GameApi.GameUser.userBag({ UID: user.A, name: thing.name, ACCOUNT: thing.acount })
-                e.reply(`${user.A}夺走了${thing.name}*${thing.acount}`)
+                e.reply(`${user.A}夺走了[${thing.name}]*${thing.acount}`)
             }
         }
         return
@@ -116,13 +116,13 @@ export class boxbattle extends plugin {
         if (Level.prestige > 0) {
             const thing = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
             if (!thing || thing.acount < money) {
-                e.reply(`[天机门]韩立\n清魔力需要${money}下品灵石`)
+                e.reply(`[天机门]韩立\n清魔力需要${money}[下品灵石]`)
                 return
             }
             await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -money })
             Level.prestige -= 1
             await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: Level })
-            e.reply('[天机门]南宫问天\n为你清除1点魔力值')
+            e.reply('[天机门]南宫问天\n为你清除[魔力]*1')
             return
         } else {
             e.reply('[天机门]李逍遥\n你一身清廉')

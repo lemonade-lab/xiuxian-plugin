@@ -35,7 +35,7 @@ export class boxusertransaction extends plugin {
             return
         }
         const msg = [
-            '___[万宝楼]___\n#购买+物品名*数量\n不填数量,默认为1'
+            '___[万宝楼]___\n[#购买+物品名*数量]\n不填数量,默认为1'
         ]
         const commodities_list = await GameApi.UserData.listAction({ NAME: 'commodities', CHOICE: 'generate_all' })
         commodities_list.forEach((item) => {
@@ -106,7 +106,7 @@ export class boxusertransaction extends plugin {
         }
         const money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!money || money.acount < ifexist.price * quantity) {
-            e.reply(`似乎没有${ifexist.price * quantity}下品灵石`)
+            e.reply(`似乎没有${ifexist.price * quantity}*[下品灵石]`)
             return
         }
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -Number(ifexist.price * quantity) })
@@ -149,7 +149,7 @@ export class boxusertransaction extends plugin {
         await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -Number(quantity) })
         const commodities_price = najie_thing.price * quantity
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: Number(commodities_price) })
-        e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}下品灵石 `)
+        e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}*[下品灵石]`)
         return
     }
 }

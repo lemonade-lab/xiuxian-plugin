@@ -193,7 +193,7 @@ export class boxsecretplace extends plugin {
         const lingshi = 1000
         const money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!money || money.acount < lingshi) {
-            e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}下品灵石`)
+            e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}*[下品灵石]`)
             return
         }
         //先扣钱
