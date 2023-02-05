@@ -51,7 +51,7 @@ export class boxbattlesite extends plugin {
             "msg": 1
         }
         if (acount == 1) {
-            buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
+            buff.msg = Math.floor((Math.random() * (10 - 3))) + Number(3)
             msg.push('怪物突然变异了!')
         }
         const Levellist = await GameApi.UserData.listAction({ NAME: 'Level_list', CHOICE: 'generate_level' })
@@ -79,29 +79,29 @@ export class boxbattlesite extends plugin {
                 let najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
                     await GameApi.GameUser.userBag({ UID, name: randomthinf.name, ACCOUNT: randomthinf.acount })
-                    msg.push(`得到[${randomthinf.name}]`)
+                    msg.push(`[${randomthinf.name}]*1`)
                 } else {
                     msg.push('储物袋已满')
                 }
             }
             if (m < (mon.level + 1) * 7) {
                 const SIZE = mon.level * 25 * mybuff
-                msg.push(`得到${SIZE}[气血]`)
+                msg.push(`[气血]*${SIZE}`)
                 await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE })
             }
             if (m < (mon.level + 1) * 8) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 2 })
-                msg.push(`得到${lingshi}[上品灵石]`)
+                msg.push(`[上品灵石]*${lingshi}`)
                 await GameApi.GameUser.userBag({ UID, name: '上品灵石', ACCOUNT: lingshi })
             }
             if (m < (mon.level + 1) * 9) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 20 })
-                msg.push(`得到${lingshi}[中品灵石]`)
+                msg.push(`[中品灵石]*${lingshi}`)
                 await GameApi.GameUser.userBag({ UID, name: '中品灵石', ACCOUNT: lingshi })
             }
             if (m >= (mon.level + 1) * 9) {
                 const lingshi = await GameApi.GamePublic.leastOne({ value: mon.level * 200 })
-                msg.push(`得到${lingshi}[下品灵石]`)
+                msg.push(`[下品灵石]*${lingshi}`)
                 await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: lingshi })
             }
         }
