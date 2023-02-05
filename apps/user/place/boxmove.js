@@ -1,5 +1,4 @@
-import { plugin } from "../../../model/robot/api/api.js"
-import { BotApi } from "../../../model/api/botapi.js"
+import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
 export class boxmove extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
