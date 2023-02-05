@@ -1,5 +1,5 @@
 import robotapi from "../../model/robot/api/api.js"
-import { BotApi } from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
 export class BoxtWist extends robotapi {
     constructor() {

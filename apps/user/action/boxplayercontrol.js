@@ -1,7 +1,7 @@
 import robotapi from "../../../model/robot/api/api.js"
 import { superIndex } from "../../../model/robot/api/api.js"
 import { GameApi } from '../../../model/api/gameapi.js'
-import { BotApi } from '../../../model/robot/api/botapi.js'
+import { BotApi } from '../../../model/api/botapi.js'
 export class boxplayercontrol extends robotapi {
     constructor() {
         super(superIndex([

@@ -1,7 +1,7 @@
 import robotapi from "../../model/robot/api/api.js"
 import { superIndex } from "../../model/robot/api/api.js"
 import { appname } from "../../model/main.js"
-import { BotApi } from '../../model/robot/api/botapi.js'
+import { BotApi } from '../../model/api/botapi.js'
 import { GameApi } from '../../model/api/gameapi.js'
 export class boxadminaction extends robotapi {
     constructor() {
