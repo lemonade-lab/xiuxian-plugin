@@ -3,17 +3,17 @@ import user from './user.js'
 import data from '../data/listaction.js'
 import gamePublic from '../public/public.js'
 const CopywritingLevel = {
-    '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了sizename',
-    '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了sizename',
-    '2': '突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了sizename,',
-    '3': '突破失败,丧失了sizename',
-    '4': '突破失败,你刚刚气沉丹田就被一口老痰差点噎死,丧失了sizename',
-    '5': '噗～你一口老血喷了出,突破失败,丧失了sizename',
-    '6': '砰!你突破时身后的柜子动了一下,吓得你一时不敢突破并丧失了sizename',
-    '7': '突破失败,你也不知道为啥,并且丧失了sizename',
-    '8': '突破失败,可能是因为姿势不对吧,你尝试换了个姿势,发现丧失了sizename',
-    '9': '突破失败,你差一点就成功了,你决定再试一次,可惜刚入定就被反噬,丧失了sizename',
-    '10': '突破失败,你到瓶颈期,却因为今天是KFC疯狂星期四,决定不突破了去吃了KFC,回来直接变身喷射战士,并丧失了sizename'
+    '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了size[name]',
+    '1': '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了size[name]',
+    '2': '突破瓶颈时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了size[name]',
+    '3': '突破失败,丧失了size[name]',
+    '4': '突破失败,你刚刚气沉丹田就被一口老痰差点噎死,丧失了size[name]',
+    '5': '噗～你一口老血喷了出,突破失败,丧失了size[name]',
+    '6': '砰!你突破时身后的柜子动了一下,吓得你一时不敢突破并丧失了size[name]',
+    '7': '突破失败,你也不知道为啥,并且丧失了size[name]',
+    '8': '突破失败,可能是因为姿势不对吧,你尝试换了个姿势,发现丧失了size[name]',
+    '9': '突破失败,你差一点就成功了,你决定再试一次,可惜刚入定就被反噬,丧失了size[name]',
+    '10': '突破失败,你到瓶颈期,却因为今天是KFC疯狂星期四,决定不突破了去吃了KFC,回来直接变身喷射战士,并丧失了size[name]'
 }
 const LevelMiniName = {
     '0': '初期',
@@ -37,8 +37,8 @@ class userAction {
         const cf=config.getConfig({ app: 'parameter', name: 'cooling' })
         let CDTime = cf['CD']['Level_up']?cf['CD']['Level_up']:5
         let name = '修为'
-        const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
-        const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
+        const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'gaspractice' })
+        const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'bodypractice' })
         const Level = Levellist.find(item => item.id == player.level_id)
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (choise) {
@@ -49,14 +49,14 @@ class userAction {
                 return { UserLevelUpMSG: `再积累${LevelMax.exp - player.experiencemax}气血后方可突破` }
             }
             if (Level.level_id <= 10 && LevelMax.levelmax_id >= 11) {
-                return { UserLevelUpMSG: `[#羽化登仙]后,方能探索更高境界` }
+                return { UserLevelUpMSG: `[#羽化登仙]后,成就仙人镜` }
             }
         } else {
             if (player.experience < Level.exp) {
                 return { UserLevelUpMSG: `再积累${Level.exp - player.experience}修为后方可突破` }
             }
             if (Level.id == 10) {
-                return { UserLevelUpMSG: `[#羽化登仙]后,方能探索更高境界` }
+                return { UserLevelUpMSG: `[#羽化登仙]后,成就仙人镜` }
             }
         }
         const now_time = new Date().getTime()

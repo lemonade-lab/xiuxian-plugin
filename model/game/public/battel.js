@@ -187,7 +187,7 @@ class gameBattle {
                 battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害`)
             }
         }
-        battle_msg.msg.push(`[血量]剩余:${battleA.nowblood}`)
+        battle_msg.msg.push(`[血量状态]:${battleA.nowblood}`)
         await gameUser.userMsgAction({ NAME: A, CHOICE: 'user_battle', DATA: battleA })
         await gameUser.userMsgAction({ NAME: B, CHOICE: 'user_battle', DATA: battleB })
         return battle_msg.QQ

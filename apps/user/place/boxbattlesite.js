@@ -54,7 +54,7 @@ export class boxbattlesite extends plugin {
             buff.msg = Math.floor((Math.random() * (10 - 3))) + Number(3)
             msg.push('怪物突然变异了!')
         }
-        const Levellist = await GameApi.UserData.listAction({ NAME: 'Level_list', CHOICE: 'generate_level' })
+        const Levellist = await GameApi.UserData.listAction({ NAME: 'gaspractice', CHOICE: 'generate_level' })
         const LevelMax = Levellist.find(item => item.id == mon.level + 1)
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,

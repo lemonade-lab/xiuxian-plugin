@@ -47,7 +47,7 @@ export class boxuserhome extends plugin {
             case '1': {
                 let blood = parseInt(najie_thing.blood)
                 await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) })
-                e.reply(`血量至${blood}%`)
+                e.reply(`[血量状态]${blood}%`)
                 break
             }
             case '2': {
@@ -99,13 +99,13 @@ export class boxuserhome extends plugin {
                 if (experience > 0) {
                     await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experience', SIZE: thing_acount * experience })
                 }
-                e.reply(`修为+${thing_acount * experience}`)
+                e.reply(`[修为]+${thing_acount * experience}`)
                 break
             }
             case '3': {
                 let experiencemax = parseInt(najie_thing.experiencemax)
                 await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: 'experiencemax', SIZE: thing_acount * experiencemax })
-                e.reply(`气血+${thing_acount * experiencemax}`)
+                e.reply(`[气血]+${thing_acount * experiencemax}`)
                 break
             }
             default: {
@@ -199,7 +199,7 @@ export class boxuserhome extends plugin {
                 case '1': {
                     const player = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
                     if (player.level_id >= 10) {
-                        e.reply('灵根已定\n此生不可再洗髓')
+                        e.reply('[灵根]已定\n此生不可再洗髓')
                         break
                     }
                     const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })

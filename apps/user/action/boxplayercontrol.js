@@ -145,14 +145,14 @@ export class boxplayercontrol extends plugin {
             other -= Math.floor(other / 3)
         }
         let othername = 'experience'
-        let msg = `闭关结束,获得${other}[修为]`
+        let msg = `闭关结束\n[修为]*${other}`
         if (name != '闭关') {
             othername = 'experiencemax'
-            msg = `降妖归来,获得${other}[气血]`
+            msg = `降妖归来\n[气血]*${other}`
         }
         await GameApi.GameUser.updataUser({ UID, CHOICE: 'user_level', ATTRIBUTE: othername, SIZE: other })
         await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(90) })
-        msg += '\n[血量]恢复至90%'
+        msg += '\n[血量状态]90%'
         msg += `\n${name}结束`
         e.reply([BotApi.segment.at(UID), msg])
         return

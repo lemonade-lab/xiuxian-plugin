@@ -50,13 +50,13 @@ class DateIndex {
         createdata.moveConfig({})
         /** 生成jsoon数据 */
         genertate.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixed_talent}/talent_list.json`))
-        genertate.newlist(__PATH.generate_level, 'Level_list', [])
-        genertate.newlist(__PATH.generate_level, 'Level_list', [
-            ...genertate.getlist(__PATH.fixed_level, 'Level_list.json')
+        genertate.newlist(__PATH.generate_level, 'gaspractice', [])
+        genertate.newlist(__PATH.generate_level, 'gaspractice', [
+            ...genertate.getlist(__PATH.fixed_level, 'gaspractice.json')
         ])
-        genertate.newlist(__PATH.generate_level, 'LevelMax_list', [])
-        genertate.newlist(__PATH.generate_level, 'LevelMax_list', [
-            ...genertate.getlist(__PATH.fixed_level, 'LevelMax_list.json')
+        genertate.newlist(__PATH.generate_level, 'bodypractice', [])
+        genertate.newlist(__PATH.generate_level, 'bodypractice', [
+            ...genertate.getlist(__PATH.fixed_level, 'bodypractice.json')
         ])
         /*全物品表*/
         genertate.newlist(__PATH.generate_all, 'all', [])

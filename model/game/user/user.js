@@ -31,8 +31,8 @@ class GameUser {
                 'days': 0//签到
             }
         })
-        const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
-        const LevelMaxList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
+        const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'gaspractice' })
+        const LevelMaxList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'bodypractice' })
         await this.userMsgAction({
             NAME: UID, CHOICE: 'user_battle', DATA: {
                 'nowblood': LevelList.find(item => item.id == 1).blood + LevelMaxList.find(item => item.id == 1).blood,//血量
@@ -228,8 +228,8 @@ class GameUser {
      */ readPanel = async ({ UID }) => {
         const equipment = await this.userMsgAction({ CHOICE: 'user_equipment', NAME: UID })
         const level = await this.userMsgAction({ CHOICE: 'user_level', NAME: UID })
-        const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'Level_list' })
-        const LevelMaxList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'LevelMax_list' })
+        const LevelList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'gaspractice' })
+        const LevelMaxList = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'bodypractice' })
         const levelmini = LevelList.find(item => item.id == level.level_id)
         const levelmax = LevelMaxList.find(item => item.id == level.levelmax_id)
         const UserBattle = await this.userMsgAction({ CHOICE: 'user_battle', NAME: UID })

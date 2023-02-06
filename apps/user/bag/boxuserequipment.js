@@ -19,7 +19,6 @@ export class boxuserequipment extends plugin {
             ]
         }))
     }
-
     synthesis = async (e) => {
         if (!e.isGroup) {
             return
@@ -32,7 +31,6 @@ export class boxuserequipment extends plugin {
         let msg = e.msg.replace('#炼制', '')
         msg = msg.trim();
         const materialList = msg.split("+");
-
         const materialA = await GameApi.GameUser.userMaterialSearch({ UID, name: materialList[0] })
         const materialB = await GameApi.GameUser.userMaterialSearch({ UID, name: materialList[1] })
         const materialC = await GameApi.GameUser.userMaterialSearch({ UID, name: materialList[2] })
@@ -44,7 +42,6 @@ export class boxuserequipment extends plugin {
         await GameApi.GameUser.userMaterial({ UID: UID, name: materialA.name, ACCOUNT: -1 })
         await GameApi.GameUser.userMaterial({ UID: UID, name: materialB.name, ACCOUNT: -1 })
         await GameApi.GameUser.userMaterial({ UID: UID, name: materialC.name, ACCOUNT: -1 })
-
         let ans = {
             "gold": 0,
             "wood": 0,
