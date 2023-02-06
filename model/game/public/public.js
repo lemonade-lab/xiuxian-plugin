@@ -13,7 +13,8 @@ const MYCD = {
     '9': '行为',
     '10': '击杀',
     '11': '决斗',
-    '12': '修行'
+    '12': '修行',
+    '13': '渡劫'
 }
 /**自定义插件redis字段*/
 const ReadiName = 'xiuxian:player'
@@ -33,7 +34,7 @@ class GamePublic {
      */
     leastOne = async ({ value }) => {
         let size = value
-        if (isNaN(parseFloat(size))&&!isFinite(size)) {
+        if (isNaN(parseFloat(size)) && !isFinite(size)) {
             return Number(1)
         }
         size = Number(Math.trunc(size))

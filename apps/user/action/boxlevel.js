@@ -10,6 +10,10 @@ export class boxlevel extends plugin {
                 {
                     reg: '^#破体$',
                     fnc: 'levelMaxUp'
+                },
+                {
+                    reg: '^#渡劫$',
+                    fnc: 'levelBreak'
                 }
             ]
         }))
@@ -43,6 +47,18 @@ export class boxlevel extends plugin {
         if (UserLevelUpMSG) {
             e.reply(UserLevelUpMSG)
         }
+        return
+    }
+    levelBreak = async (e) => {
+        if (!e.isGroup) {
+            return
+        }
+        const { levelMsg } = await GameApi.UserAction.levelBreak({ UID: e.user_id })
+        if (levelMsg) {
+            e.reply(levelMsg)
+            return
+        }
+        e.reply('仙路已断')
         return
     }
 }
