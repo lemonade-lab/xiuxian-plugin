@@ -51,6 +51,7 @@ export class boxshowall extends plugin {
         }
         const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
         await BotApi.User.surveySet({ e, isreply })
+        return
     }
     adminSuper = async (e) => {
         if (!e.isMaster) {
@@ -62,5 +63,6 @@ export class boxshowall extends plugin {
         }
         const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
         await BotApi.User.surveySet({ e, isreply })
+        return
     }
 }

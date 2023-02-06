@@ -26,5 +26,6 @@ export class BoxtWist extends plugin {
         }
         const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
         await BotApi.User.surveySet({ e, isreply })
+        return
     }
 }
