@@ -1,6 +1,6 @@
-# Xiuxian-Plugin-Box<a  href='https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/stargazers'><img src='https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box/badge/star.svg?theme=dark'  alt='star'></img></a>
+# Xiuxian-Plugin<a  href='https://gitee.com/ningmengchongshui/xiuxian-plugin/stargazers'><img src='https://gitee.com/ningmengchongshui/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
 #### 访问量:2022.12.1 00:00
- [![](https://profile-counter.glitch.me/Xiuxian-Plugin-Box/count.svg)](https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box)  
+ [![](https://profile-counter.glitch.me/xiuxian-plugin/count.svg)](https://gitee.com/ningmengchongshui/xiuxian-plugin)  
 
 
 ## 使用方法
@@ -11,7 +11,7 @@
 
 #### 机器人根目录下执行      
 ```
-git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
+git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/   
 ```
 >查看具体功能  `#修仙帮助`   
 
