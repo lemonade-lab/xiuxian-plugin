@@ -1,7 +1,6 @@
-import index from './model/robot/index.js';
 import { appname } from './model/main.js';
-import schedule from './model/game/data/schedule.js';
-schedule.scheduleJobflie({ time: '0 0 */1 * * ?' });
-const apps = await index.toindex({ indexName: 'apps' });
+import { BotApi, GameApi } from './model/api/api.js';
+GameApi.Schedule.scheduleJobflie({ time: '0 0 */1 * * ?' });
 logger.info(`${appname}[2023-2-1]`);
+const apps = await BotApi.Index.toindex({ indexName: 'apps' });
 export { apps }; 
