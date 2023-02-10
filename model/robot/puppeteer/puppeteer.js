@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import template from 'art-template'
 import lodash from 'lodash'
 /*启动Chromium */
@@ -140,11 +141,11 @@ class Puppeteer {
   dealTpl(name, data) {
     let { tplFile, saveId = name } = data
     /**这个地址应该要配置自己的,只有保存了临时本地文件了之后，浏览器才能去截图生成 */
-    let savePath = `${process.cwd()}/data/html/${name}/${saveId}.html`
+    let savePath = `${path.resolve().replace(/\\/g, '/')}/data/html/${name}/${saveId}.html`
     /** 读取html模板 */
     if (!this.html[tplFile]) {
-      if (!fs.existsSync(`${process.cwd()}/data/html/${name}`)) {
-        fs.mkdirSync(`${process.cwd()}/data/html/${name}`)
+      if (!fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/data/html/${name}`)) {
+        fs.mkdirSync(`${path.resolve().replace(/\\/g, '/')}/data/html/${name}`)
       }
       try {
         this.html[tplFile] = fs.readFileSync(tplFile, 'utf8')

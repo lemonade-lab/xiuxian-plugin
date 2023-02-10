@@ -7,7 +7,7 @@ import schedule from 'node-schedule'
 class Schedule {
     constructor() {
         /*机器人根目录下统一叫做xiuxiandata */
-        this.BACKUPS_PATH = `${path.resolve()}/xiuxiandata/boxdata`
+        this.BACKUPS_PATH = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/boxdata`
         /*存档数值位置 */
         this.DATA_PATH = `${__dirname}/resources/data/birth/xiuxian`
     }

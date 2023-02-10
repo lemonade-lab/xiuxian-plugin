@@ -11,7 +11,7 @@ class ImgIndex {
             /** heml路径 */
             tplFile: `${__dirname}/resources/html/${path}/${name}.html`,
             /** css路径 */
-            pluResPath: `${__dirname.replace(/\\/g, '/')}`,
+            pluResPath: `${__dirname}`,
             /** 版本 */
             version: "v2.0",
             /** 数据 */

@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'path'
 import YAML from 'yaml'
-const PATH_TAML = `${path.resolve()}${path.sep}config${path.sep}config/`
+const PATH_TAML = `${path.resolve().replace(/\\/g, '/')}/config/config/`
 const bot = `${PATH_TAML}bot.yaml`
 const group = `${PATH_TAML}group.yaml`
 const other = `${PATH_TAML}other.yaml`
