@@ -1,9 +1,4 @@
 # Xiuxian-Plugin<a  href='https://gitee.com/ningmengchongshui/xiuxian-plugin/stargazers'><img src='https://gitee.com/ningmengchongshui/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
-#### 访问量:2022.12.1 00:00
- [![](https://profile-counter.glitch.me/xiuxian-plugin/count.svg)](https://gitee.com/ningmengchongshui/xiuxian-plugin)  
-
-
-## 使用方法
 
 #### 安装机器人
 
