@@ -12,8 +12,9 @@ export class BoxtWist extends plugin {
         }))
     }
     helpWist = async (e) => {
-        if (!e.isGroup) {
-            return
+        console.log(e)
+        if (!e.isGroup || e.self_id != e.target_id) {
+            return false
         }
         const cf = await GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const T = cf['switch'] ? cf['switch']['twist'] : true
@@ -26,6 +27,6 @@ export class BoxtWist extends plugin {
         }
         const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
         await BotApi.User.surveySet({ e, isreply })
-        return
+        return false
     }
 }
