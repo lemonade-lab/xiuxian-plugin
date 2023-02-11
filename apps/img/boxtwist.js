@@ -19,11 +19,11 @@ export class BoxtWist extends plugin {
         const cf = await GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         const T = cf['switch'] ? cf['switch']['twist'] : true
         if (!T) {
-            return
+            return false
         }
         const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
         if (!data) {
-            return
+            return false
         }
         const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
         await BotApi.User.surveySet({ e, isreply })
