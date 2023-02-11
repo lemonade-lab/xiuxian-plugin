@@ -26,17 +26,6 @@ class Schedule {
             fs.cp(this.DATA_PATH, `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`, { recursive: true }, (err) => { })
         })
     }
-    /*查看备份目录,并以转发的形式丢出*/
-    viewbackups = () => {
-        if (!fs.existsSync(this.BACKUPS_PATH)) {
-            return ['无备份数据']
-        }
-        const msg = algorithm.returnMenu(this.BACKUPS_PATH)
-        if (msg.length > 72) {
-            return ['当前备份数大于72\n请自行查看备份名称', `备份地址${this.BACKUPS_PATH}`]
-        }
-        return msg
-    }
     /**
      * @param { name } param0 
      * @returns 

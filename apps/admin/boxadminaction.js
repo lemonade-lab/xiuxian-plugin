@@ -36,10 +36,6 @@ export class boxadminaction extends plugin {
                     fnc: 'imgReUpdata',
                 },
                 {
-                    reg: '^#盒子数据$',
-                    fnc: 'dataBackups'
-                },
-                {
                     reg: '^#盒子复原.*$',
                     fnc: 'dataRecovery'
                 }
@@ -112,13 +108,6 @@ export class boxadminaction extends plugin {
             name: ['help.png', 'icon.png']
         })
         e.reply('图片已重置')
-        return
-    }
-    dataBackups = async (e) => {
-        if (!e.isMaster) {
-            return
-        }
-        await BotApi.User.forwardMsg({ e, data: GameApi.Schedule.viewbackups() })
         return
     }
     dataRecovery = async (e) => {
