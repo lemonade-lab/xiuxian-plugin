@@ -45,22 +45,22 @@ class userAction {
             CDID = '7'
             CDTime = cf['CD']['LevelMax_up'] ? cf['CD']['LevelMax_up'] : 5
             name = '气血'
-            if (player.experiencemax < LevelMax.exp) {
-                return { UserLevelUpMSG: `再积累${LevelMax.exp - player.experiencemax}气血后方可突破` }
-            }
             if (player.levelmax_id >= 11) {
                 return
             }
-        } else {
-            if (player.experience < Level.exp) {
-                return { UserLevelUpMSG: `再积累${Level.exp - player.experience}修为后方可突破` }
+            if (player.experiencemax < LevelMax.exp) {
+                return { UserLevelUpMSG: `再积累${LevelMax.exp - player.experiencemax}气血后方可突破` }
             }
+        } else {
             if (player.level_id == 10) {
                 return { UserLevelUpMSG: `[#渡劫]后,成就仙人镜` }
             }
             if (player.level_id >= 11) {
                 /*仙人境*/
                 return
+            }
+            if (player.experience < Level.exp) {
+                return { UserLevelUpMSG: `再积累${Level.exp - player.experience}修为后方可突破` }
             }
 
         }
