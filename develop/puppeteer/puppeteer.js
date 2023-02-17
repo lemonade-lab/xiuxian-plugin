@@ -1,5 +1,5 @@
-const fs = require('fs');
-const template = require('art-template');
+import fs from 'fs'
+import template from 'art-template'
 class puppeteer {
     dealTpl = (name, data) => {
         let { tplFile, saveId = name } = data
@@ -12,4 +12,4 @@ class puppeteer {
         }
     }
 }
-module.exports = new puppeteer()
+export default new puppeteer()

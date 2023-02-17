@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git@gitee.com:ningmengchongshui/xiuxian-plugin.git"
   },
+  "type": "module",
   "keywords": [
     "xiuxian"
   ],

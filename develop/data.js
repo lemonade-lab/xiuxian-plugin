@@ -1,7 +1,7 @@
-const path = require('path')
-const puppeteer = require('./puppeteer/puppeteer.js')
-const { getConfig } = require('./defset/defset.js')
-const getData = () => {
+import path from 'path'
+import puppeteer from './puppeteer/puppeteer.js'
+import { getConfig } from './defset/defset.js'
+export const getData = () => {
     const data = getConfig({ app: 'help', name: 'help' })
     return puppeteer.dealTpl('help', {
         /** heml路径 */
@@ -14,4 +14,3 @@ const getData = () => {
         data
     })
 }
-module.exports = { getData }

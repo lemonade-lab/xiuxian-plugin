@@ -1,5 +1,5 @@
-const express = require('express')
-const { getData } = require('./data.js')
+import express from 'express'
+import { getData } from './data.js'
 const app = express()
 const port = 3000
 /* 静态文件 */
