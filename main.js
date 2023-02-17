@@ -1,5 +1,5 @@
 import express from 'express'
-import { getData } from './data.js'
+import { getData } from './develop/data.js'
 const app = express()
 const port = 3000
 /* 静态文件 */
@@ -13,4 +13,5 @@ app.get('/', (req, res) => {
 /* 监听 */
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
+    console.log(`http://127.0.0.1:${port}`)
 })

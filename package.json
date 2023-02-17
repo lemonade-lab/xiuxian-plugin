@@ -2,11 +2,11 @@
   "name": "xiuxian-plugin",
   "version": "2.0.0",
   "description": "修仙插件",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node develop/index.js",
-    "dev": "nodemon develop/index.js"
+    "serve": "node main.js",
+    "dev": "nodemon main.js"
   },
   "repository": {
     "type": "git",
