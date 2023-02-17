@@ -1,11 +1,12 @@
 {
   "name": "xiuxian-plugin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "修仙插件",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "express": "node develop/index.js"
+    "serve": "node develop/index.js",
+    "dev": "nodemon develop/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,8 +21,9 @@
   "devDependencies": {
     "art-template": "^4.13.2",
     "express": "^4.18.2",
-    "yaml": "^2.1.1",
+    "nodemon": "^2.0.20",
+    "pm2": "^5.2.0",
     "redis": "^4.1.0",
-    "pm2": "^5.2.0"
+    "yaml": "^2.1.1"
   }
 }
