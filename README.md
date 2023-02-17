@@ -4,7 +4,7 @@
 
 安装Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
 
-#### 机器人根目录下执行      
+#### 根目录下执行      
 ```
 git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/   
 ```
@@ -14,7 +14,7 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiux
 
 >修仙更新指令 `#修仙更新`  
 
-#### 自由的开发与管理
+#### 自由开发管理
 
 ☞[插件索引](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/plugins/README.md)
 ☞[新版特性](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/characteristic/README.md)
