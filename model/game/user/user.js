@@ -460,6 +460,16 @@ class GameUser {
     }
 
 
+    getUID = async ({ UID }) => {
+        let find = await this.existUser(UID)
+        console.log(find)
+        if (find) {
+            return true
+        }
+        return false
+    }
+
+
     /**
      * @returns 返回所有用户UID
      */

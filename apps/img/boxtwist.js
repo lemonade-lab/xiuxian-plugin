@@ -12,7 +12,6 @@ export class BoxtWist extends plugin {
         }))
     }
     helpWist = async (e) => {
-        console.log(e)
         if (!e.isGroup || e.self_id != e.target_id) {
             return false
         }

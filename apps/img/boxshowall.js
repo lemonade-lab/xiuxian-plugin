@@ -23,6 +23,7 @@ export class boxshowall extends plugin {
         }))
     }
     showMap = async (e) => {
+        /* 调用api接口去请求数据,并发出出来 */
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
         await BotApi.User.surveySet({ e, isreply })
         return

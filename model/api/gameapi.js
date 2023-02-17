@@ -11,7 +11,11 @@ import GameMonster from '../game/monster/monster.js'
 import GameBattle from '../game/public/battel.js'
 import Information from '../game/user/information.js'
 import DataIndex from '../game/data/index.js'
+import Duel from '../game/user/duel.js'
 export const GameApi = {
+    Dll: {
+        Duel
+    },
     GamePublic,
     GameUser,
     DefsetUpdata,
