@@ -16,9 +16,9 @@ class duel {
         }
         const CDID = '11'
         const now_time = new Date().getTime()
-        // const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
-        // const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
-        const CDTime = 0
+        const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
+        const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+   
         const { CDMSG } = await GamePublic.cooling({ UID: UIDA, CDID })
         if (CDMSG) {
             return `${CDMSG}`
