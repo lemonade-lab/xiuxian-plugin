@@ -462,7 +462,6 @@ class GameUser {
 
     getUID = async ({ UID }) => {
         let find = await this.existUser(UID)
-        console.log(find)
         if (find) {
             return true
         }

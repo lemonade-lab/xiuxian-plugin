@@ -3,11 +3,11 @@ import GamePublic from '../public/public.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset/updata.js'
 class duel {
-    getDuel = async ({ UIDA, UIDB }) => {
+    getDuel = async ({e, UIDA, UIDB }) => {
         if (! await GameUser.getUID({ UID: UIDB })) {
             return `查无此人`
         }
-        if (!await GameUser.existUserSatus({ UID: UIDA }) || !await GameUser.existUserSatus({ UID: UIDB })) {
+        if (! await GameUser.existUserSatus({ UID: UIDA }) || ! await GameUser.existUserSatus({ UID: UIDB })) {
             return `已死亡`
         }
         const { MSG } = await GamePublic.Go({ UID: UIDA })
@@ -16,11 +16,12 @@ class duel {
         }
         const CDID = '11'
         const now_time = new Date().getTime()
-        const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
-        const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+        // const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
+        // const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+        const CDTime = 0
         const { CDMSG } = await GamePublic.cooling({ UID: UIDA, CDID })
         if (CDMSG) {
-            return `CDMSG`
+            return `${CDMSG}`
         }
         const actionA = await GameUser.userMsgAction({ NAME: UIDA, CHOICE: 'user_action' })
         const actionB = await GameUser.userMsgAction({ NAME: UIDB, CHOICE: 'user_action' })

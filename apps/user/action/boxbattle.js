@@ -26,7 +26,7 @@ export class boxbattle extends plugin {
                 return
             }
         }
-        e.reply(await GameApi.Dll.Duel.getDuel({ UIDA, UIDB }))
+        e.reply(await GameApi.Dll.Duel.getDuel({ e,UIDA, UIDB }))
         return
     }
     handWashing = async (e) => {
