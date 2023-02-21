@@ -38,7 +38,7 @@ export class BoxBattle extends plugin {
             e.reply('已死亡')
             return
         }
-        const Level = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
+        const Level = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_level' })
         const money = 10000 * Level.level_id
         if (Level.prestige > 0) {
             const thing = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
@@ -48,7 +48,7 @@ export class BoxBattle extends plugin {
             }
             await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -money })
             Level.prestige -= 1
-            await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: Level })
+            await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_level', DATA: Level })
             e.reply('[天机门]南宫问天\n为你清除[魔力]*1')
             return
         } else {

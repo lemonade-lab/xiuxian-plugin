@@ -1,17 +1,18 @@
 import gameUser from './index.js'
+import listdata from '../data/listaction.js'
 class information {
     /**
      * @param { UID } param0 
      * @returns 
      */
     userDataShow = async ({ UID }) => {
-        const player = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
-        const equipment = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
-        const talent = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
-        const level = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
-        const battle = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        const player = await listdata.listAction({ NAME: UID, CHOICE: 'user_player' })
+        const equipment = await listdata.listAction({ NAME: UID, CHOICE: 'user_equipment' })
+        const talent = await listdata.listAction({ NAME: UID, CHOICE: 'user_talent' })
+        const level = await listdata.listAction({ NAME: UID, CHOICE: 'user_level' })
+        const battle = await listdata.listAction({ NAME: UID, CHOICE: 'user_battle' })
         const linggenname = await gameUser.getTalentName({ data: talent })
-        let life = await gameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
+        let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
         life = life.find(item => item.qq == UID)
         let name = ''
         for (var i = 0; i < linggenname.length; i++) {
@@ -41,10 +42,10 @@ class information {
         }
     }
     userEquipmentShow = async ({ UID }) => {
-        const battle = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
-        const equipment = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
+        const battle = await listdata.listAction({ NAME: UID, CHOICE: 'user_battle' })
+        const equipment = await listdata.listAction({ NAME: UID, CHOICE: 'user_equipment' })
         //tudo
-        let life = await gameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
+        let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
         life = life.find(item => item.qq == UID)
         return {
             path: 'user/equipment',
@@ -58,11 +59,11 @@ class information {
         }
     }
     userBagShow = async ({ UID }) => {
-        let life = await gameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
+        let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
         life = life.find(item => item.qq == UID)
-        const player = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
-        const battle = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
-        const najie = await gameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        const player = await listdata.listAction({ NAME: UID, CHOICE: 'user_player' })
+        const battle = await listdata.listAction({ NAME: UID, CHOICE: 'user_battle' })
+        const najie = await listdata.listAction({ NAME: UID, CHOICE: 'user_bag' })
         const thing = najie.thing
         const thing_list = []
         const danyao_list = []

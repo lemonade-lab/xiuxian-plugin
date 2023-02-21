@@ -38,7 +38,7 @@ export class BoxSecretplace extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         if (action.address != 1) {
             e.reply('你对这里并不了解...')
             return
@@ -86,7 +86,7 @@ export class BoxSecretplace extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const isreply = await e.reply(`坐标(${action.x},${action.y},${action.z})`)
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -108,7 +108,7 @@ export class BoxSecretplace extends plugin {
         if (forwardsetTime[UID] == 1) {
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
@@ -120,14 +120,14 @@ export class BoxSecretplace extends plugin {
         const mx = point.x
         const my = point.y
         const PointId = point.id.split('-')
-        const level = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+        const level = GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id < PointId[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
         const a = x - mx >= 0 ? x - mx : mx - x
         const b = y - my >= 0 ? y - my : my - y
-        const battle = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
+        const battle = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_battle' })
         const the = Math.floor((a + b) - (a + b) * battle.speed * 0.01)
         const time = the >= 0 ? the : 1
         useraction[UID] = setTimeout(async () => {
@@ -136,7 +136,7 @@ export class BoxSecretplace extends plugin {
             action.y = my
             action.region = PointId[1]
             action.address = PointId[2]
-            await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
+            await GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_action", DATA: action })
             e.reply([BotApi.segment.at(UID), `成功抵达${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
@@ -160,7 +160,7 @@ export class BoxSecretplace extends plugin {
         if (deliverysetTime[UID] == 1) {
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
@@ -170,7 +170,7 @@ export class BoxSecretplace extends plugin {
             return
         }
         const positionID = position.id.split('-')
-        const level = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+        const level = GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id < positionID[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
@@ -208,7 +208,7 @@ export class BoxSecretplace extends plugin {
             action.y = my
             action.region = positionID[1]
             action.address = positionID[2]
-            await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
+            await GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_action", DATA: action })
             e.reply([BotApi.segment.at(UID), `成功传送至${address}`])
         }, 1000 * time)
         deliverysetTime[UID] = 1

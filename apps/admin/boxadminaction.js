@@ -62,7 +62,7 @@ export class boxadminaction extends plugin {
         if (!e.isMaster) {
             return
         }
-        await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: [] })
+        await GameApi.UserData.listAction({ NAME: 'life', CHOICE: 'user_life', DATA: [] })
         await GameApi.GamePublic.deleteReids()
         e.reply('删除完成')
         return false

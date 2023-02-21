@@ -28,14 +28,14 @@ export class BoxMoneyOperation extends plugin {
             return
         }
         const UID = e.user_id
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '联盟'
         const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        const level = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+        const level = await GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_level" })
         if (level.level_id != 1) {
             e.reply('[修仙联盟]方正\n前辈莫要开玩笑')
             return
@@ -45,7 +45,7 @@ export class BoxMoneyOperation extends plugin {
             return
         }
         action.newnoe = 0
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_action", DATA: action })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_action", DATA: action })
         const randomthing = await GameApi.GameUser.randomThing()
         await GameApi.GameUser.userBag({ UID, name: randomthing.name, ACCOUNT: randomthing.acount })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: Number(10) })

@@ -38,7 +38,7 @@ export class BoxBattleSite extends plugin {
             return
         }
         const name = e.msg.replace('#击杀', '')
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const monstersdata = await GameApi.GameMonster.monsterscache({ i: action.region })
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
@@ -65,8 +65,8 @@ export class BoxBattleSite extends plugin {
             'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
             'speed': LevelMax.speed + 5 + buff.msg
         }
-        const battle = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_battle' })
-        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const battle = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_battle' })
+        const talent = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent' })
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
         const battle_msg = await GameApi.GameBattle.monsterbattle({ e, battleA: battle, battleB: monsters })
         battle_msg.msg.forEach((item) => {
@@ -76,7 +76,7 @@ export class BoxBattleSite extends plugin {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < (mon.level + 1) * 6) {
                 const randomthinf = await GameApi.GameUser.randomThing()
-                let najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+                let najie = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag' })
                 if (najie.thing.length <= najie.grade * 10) {
                     await GameApi.GameUser.userBag({ UID, name: randomthinf.name, ACCOUNT: randomthinf.acount })
                     msg.push(`[${randomthinf.name}]*1`)
@@ -124,7 +124,7 @@ export class BoxBattleSite extends plugin {
             return
         }
         const UID = e.user_id
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const msg = []
         const monster = await GameApi.GameMonster.monsterscache({ i: action.region })
         monster.forEach((item) => {

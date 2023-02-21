@@ -5,7 +5,6 @@ import algorithm from './algorithm.js'
 const configarr = ['cooling.yaml', 'task.yaml', 'help.yaml','darkhelp.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
-
     this.resources = `${__dirname}/resources`
     this.defsetpath = `${__dirname}/resources/defset`
     this.configpath = `${__dirname}/config`

@@ -99,12 +99,12 @@ export class BoxEquipment extends plugin {
             e.reply(`没有[${thing_name}]`)
             return
         }
-        const equipment = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
+        const equipment = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_equipment' })
         if (equipment.length >= GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
         await GameApi.GameUser.readPanel({ UID })
         e.reply(`装备[${thing_name}]`)
@@ -120,7 +120,7 @@ export class BoxEquipment extends plugin {
             return
         }
         const thing_name = e.msg.replace('#卸下', '')
-        let equipment = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment' })
+        let equipment = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_equipment' })
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
             return
@@ -134,7 +134,7 @@ export class BoxEquipment extends plugin {
                 arr.splice(index, 1)
             }
         })
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_equipment', DATA: equipment })
         await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
         await GameApi.GameUser.readPanel({ UID })
         e.reply(`已卸下[${thing_name}]`)

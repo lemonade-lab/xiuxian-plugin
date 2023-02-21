@@ -139,7 +139,7 @@ class gameBattle {
             battle.X++
             battle.Z++
             if (battle.X == 15) {
-                await ForwardMsg(e, battle_msg.msg)
+                await BotApi.User.forwardMsg(e, battle_msg.msg)
                 battle_msg.msg = []
                 battle.X = 0
                 battle.Y++

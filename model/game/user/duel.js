@@ -1,4 +1,5 @@
 import GameUser from './index.js'
+import listdata from '../data/listaction.js'
 import GamePublic from '../public/index.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'
@@ -23,8 +24,8 @@ class duel {
         if (CDMSG) {
             return `${CDMSG}`
         }
-        const actionA = await GameUser.userMsgAction({ NAME: UIDA, CHOICE: 'user_action' })
-        const actionB = await GameUser.userMsgAction({ NAME: UIDB, CHOICE: 'user_action' })
+        const actionA = await listdata.listAction({ NAME: UIDA, CHOICE: 'user_action' })
+        const actionB = await listdata.listAction({ NAME: UIDB, CHOICE: 'user_action' })
         if (actionA.region != actionB.region) {
             return `此地未找到此人`
         }
@@ -37,16 +38,16 @@ class duel {
         }
         await redis.set(`xiuxian:player:${UIDA}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UIDA}:${CDID}`, CDTime * 60)
-        const Level = await GameUser.userMsgAction({ NAME: UIDA, CHOICE: 'user_level' })
+        const Level = await listdata.listAction({ NAME: UIDA, CHOICE: 'user_level' })
         Level.prestige += 1
-        await GameUser.userMsgAction({ NAME: UIDA, CHOICE: 'user_level', DATA: Level })
+        await listdata.listAction({ NAME: UIDA, CHOICE: 'user_level', DATA: Level })
         const user = {
             a: UIDA,
             b: UIDB,
             c: UIDA
         }
         user.c = await GameBattle.battle({ e, A: UIDA, B: UIDB })
-        const LevelB = await GameUser.userMsgAction({ NAME: UIDB, CHOICE: 'user_level' })
+        const LevelB = await listdata.listAction({ NAME: UIDB, CHOICE: 'user_level' })
         const P = Math.floor((Math.random() * (99 - 1) + 1))
         const MP = LevelB.prestige * 10 + Number(50)
         if (P <= MP) {
@@ -55,11 +56,11 @@ class duel {
                 user.a = UIDB
                 user.b = user.c
             }
-            let bagB = await GameUser.userMsgAction({ NAME: user.b, CHOICE: 'user_bag' })
+            let bagB = await listdata.listAction({ NAME: user.b, CHOICE: 'user_bag' })
             if (bagB.thing.length != 0) {
                 const thing = await GamePublic.Anyarray({ ARR: bagB.thing })
                 bagB.thing = bagB.thing.filter(item => item.name != thing.name)
-                await GameUser.userMsgAction({ NAME: user.b, CHOICE: 'user_bag', DATA: bagB })
+                await listdata.listAction({ NAME: user.b, CHOICE: 'user_bag', DATA: bagB })
                 await GameUser.userBag({ UID: user.a, name: thing.name, ACCOUNT: thing.acount })
                 return `${user.a}夺走了[${thing.name}]*${thing.acount}`
             }

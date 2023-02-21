@@ -204,7 +204,7 @@ export class BoxBank extends plugin {
             return
         }
         /**借钱需要一定的境界 */
-        const level = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
+        const level = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_level' })
         if (level.level_id <= 3) {
             e.reply(`哪儿来的毛头小子`)
             return

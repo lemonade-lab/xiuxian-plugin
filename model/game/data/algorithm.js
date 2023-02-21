@@ -52,6 +52,7 @@ class Algorithm {
         return newsum
     }
     /**
+     * 
      * @param { NAME, PATH, DATA } parameter 
      * @returns 若存在不存在数据参数则是读取操作
      */
@@ -70,8 +71,10 @@ class Algorithm {
         return data
     }
     /**
+     * 存在数据传入则为读写操作
+     * 读取操作时文件不存在则返回false
      * @param { NAME, PATH, DATA } parameter 
-     * @returns 若存在不存在数据参数则是读取操作
+     * @returns
      */
     dataActionNew = async ({ NAME, PATH, DATA }) => {
         const DIR = path.join(`${PATH}/${NAME}.json`)
@@ -88,19 +91,8 @@ class Algorithm {
             }))
             return data
         } catch {
-            false
+            return false
         }
-    }
-    /**
-     * 判断目前是否存在
-     * @param { PATH } param0 
-     * @returns 
-     */
-    existsSync = ({ PATH }) => {
-        if (fs.existsSync(PATH)) {
-            return true
-        }
-        return false
     }
 }
 export default new Algorithm()

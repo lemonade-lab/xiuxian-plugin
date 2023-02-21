@@ -23,14 +23,14 @@ export class BoxOnekey extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
             e.reply(`需[#前往+城池名+${address_name}]`)
             return
         }
-        let bag = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let bag = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = Number(0)
         bag.thing.forEach((item) => {
             money += item.acount * item.price
@@ -39,7 +39,7 @@ export class BoxOnekey extends plugin {
             return
         }
         bag.thing = []
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
         e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
         return
@@ -53,7 +53,7 @@ export class BoxOnekey extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -73,7 +73,7 @@ export class BoxOnekey extends plugin {
             e.reply(`[蜀山派]叶凡\n此处不收[${type}]`)
             return
         }
-        let bag = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let bag = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag' })
         let money = Number(0)
         const arr = []
         bag.thing.forEach((item, index) => {
@@ -88,7 +88,7 @@ export class BoxOnekey extends plugin {
             return
         }
         bag.thing = arr
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag', DATA: bag })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
         e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
         return

@@ -101,7 +101,7 @@ export class BoxExchange extends plugin {
         if (exchange[x].UID != UID) {
             return
         }
-        let najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let najie = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag' })
         if (najie.thing.length >= najie.grade * 10) {
             e.reply("储物袋已满")
             return
@@ -138,7 +138,7 @@ export class BoxExchange extends plugin {
             e.reply(`似乎没有${exchange[x].money}下品灵石`)
             return
         }
-        let najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        let najie = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag' })
         if (najie.thing.length >= najie.grade * 10) {
             e.reply("储物袋已满")
             return

@@ -1,6 +1,6 @@
 import config from '../data/defset.js'
 import user from './index.js'
-import data from '../data/listaction.js'
+import listdata from '../data/listaction.js'
 import gamePublic from '../public/index.js'
 const CopywritingLevel = {
     '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了size[name]',
@@ -32,13 +32,13 @@ class userAction {
         if (!ifexistplay) {
             return { UserLevelUpMSG: `已死亡` }
         }
-        const player = await user.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
+        const player = await listdata.listAction({ NAME: UID, CHOICE: 'user_level' })
         let CDID = '6'
         const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
         let CDTime = cf['CD']['Level_up'] ? cf['CD']['Level_up'] : 5
         let name = '修为'
-        const Levellist = await data.listAction({ CHOICE: 'generate_level', NAME: 'gaspractice' })
-        const Levelmaxlist = await data.listAction({ CHOICE: 'generate_level', NAME: 'bodypractice' })
+        const Levellist = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'gaspractice' })
+        const Levelmaxlist = await listdata.listAction({ CHOICE: 'generate_level', NAME: 'bodypractice' })
         const Level = Levellist.find(item => item.id == player.level_id)
         const LevelMax = Levelmaxlist.find(item => item.id == player.levelmax_id)
         if (choise) {
@@ -80,7 +80,7 @@ class userAction {
                 size = Math.floor(Math.random() * player.experience)
                 player.experience -= size
             }
-            await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
+            await listdata.listAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
             return {
                 UserLevelUpMSG: `${CopywritingLevel[
                     Math.floor(Math.random() * Object.keys(CopywritingLevel).length)
@@ -111,7 +111,7 @@ class userAction {
             }
             player.experience -= Level.exp
         }
-        await user.userMsgAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
+        await listdata.listAction({ NAME: UID, CHOICE: 'user_level', DATA: player })
         user.readPanel({ UID })
         return {
             UserLevelUpMSG: `${returnTXT}`
@@ -123,7 +123,7 @@ class userAction {
      */
     userLifeUp = async ({ UID, level_id, acount }) => {
         let size = 0
-        const life = await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life' })
+        const life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
         life.forEach((item) => {
             if (item.qq == UID) {
                 if (acount) {
@@ -134,7 +134,7 @@ class userAction {
                 size = item.life
             }
         })
-        await user.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
+        await listdata.listAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         return { size }
     }
     /**
@@ -146,7 +146,7 @@ class userAction {
         if (!ifexistplay) {
             return { levelMsg: `已死亡` }
         }
-        const UserLevel = await user.userMsgAction({ NAME: UID, CHOICE: 'user_level' })
+        const UserLevel = await listdata.listAction({ NAME: UID, CHOICE: 'user_level' })
         if (UserLevel.level_id != 10) {
             /*不是渡劫*/
             return

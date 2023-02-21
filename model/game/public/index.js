@@ -19,6 +19,17 @@ const MYCD = {
 /**自定义插件redis字段*/
 const ReadiName = 'xiuxian:player'
 class GamePublic {
+
+    /**
+     * 进程沉睡
+     * @param {*} time 
+     * @returns 
+     */
+    sleep = async (time) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, time)
+        })
+    }
     /**
     * @param { ARR } ARR 
     * @returns 随机一个元素
@@ -27,6 +38,7 @@ class GamePublic {
         const randindex = Math.trunc(Math.random() * ARR.length)
         return ARR[randindex]
     }
+
     /**
      * 强制修正至少为1
      * @param { value } value 
@@ -43,6 +55,7 @@ class GamePublic {
         }
         return Number(size)
     }
+
     /**
      * 删除所有数据
      * @returns 
@@ -56,6 +69,7 @@ class GamePublic {
             return
         }
     }
+
     /**
      * @param { UID } param0 
      * @returns 
@@ -67,6 +81,7 @@ class GamePublic {
         }
         return
     }
+
     /**
      * 行为检测
      * @param { UID } UID 
@@ -94,6 +109,7 @@ class GamePublic {
         }
         return {}
     }
+
     /**
      * @param { UID } param0 
      * @returns 
@@ -114,6 +130,7 @@ class GamePublic {
         }
         return {}
     }
+
     /**
      * @param { UID, CDID, CDMAP } param0 
      * @returns 
@@ -141,44 +158,6 @@ class GamePublic {
             return { CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
         }
         return {}
-    }
-    /**
-     * 进程沉睡
-     * @param {*} time 
-     * @returns 
-     */
-    sleep = async (time) => {
-        return new Promise(resolve => {
-            setTimeout(resolve, time)
-        })
-    }
-    /**
-    * 对象数组排序
-    * 从大到小
-    */
-    sortBy = (field) => {
-        return (b, a) => {
-            return a[field] - b[field]
-        }
-    }
-
-    /**
-     * @param {消息内容} data 
-     * @returns 
-      */
-    forwardMsg = async (data) => {
-        const msgList = []
-        data.forEach((item) => {
-            msgList.push({
-                message: item,
-                nickname: Bot.nickname,
-                user_id: Bot.uin,
-            })
-        })
-        if (msgList.length == 1) {
-            return msgList[0].message
-        }
-        return await Bot.makeForwardMsg(msgList)
     }
 
 }

@@ -1,19 +1,9 @@
 import fs from 'node:fs'
 import path from 'path'
-/**游戏数据生成*/
+/**游戏index数据生成*/
 class GenerateData {
     /**
-     * @param {地址} path 
-     * @param {表名} name 
-     * @param {原数据} sum 
-     * @param {新数据} newsum 
-     */
-    list = (PATH, name, sum, newsum) => {
-        const dir = path.join(PATH, `${name}.json`)
-        const new_ARR = JSON.stringify([...sum, ...newsum], '', '\t')
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
-    }
-    /**
+     * 
      * @param {地址} path 
      * @param {表名} name 
      * @param {数据} sum 
@@ -24,6 +14,7 @@ class GenerateData {
         fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     }
     /**
+     * 得到该目录的所有指定类型文件
      * @param {地址} PATH 
      * @param {检索条件} type 
      */

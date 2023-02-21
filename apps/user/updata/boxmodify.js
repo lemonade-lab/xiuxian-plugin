@@ -58,13 +58,13 @@ export class BoxModify extends plugin {
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
-        const life = await GameApi.UserData.listActionArr({ NAME: 'life', CHOICE: 'user_life' })
+        const life = await GameApi.UserData.listActionInitial({ NAME: 'life', CHOICE: 'user_life', INITIAL: [] })
         life.forEach((item) => {
             if (item.qq == UID) {
                 item.name = new_name
             }
         })
-        await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
+        await GameApi.UserData.listAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })
@@ -84,7 +84,7 @@ export class BoxModify extends plugin {
             return
         }
         const UID = e.user_id
-        const player = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player' })
+        const player = GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_player' })
         let new_msg = e.msg.replace('#设置道宣', '')
         new_msg = new_msg.replace(' ', '')
         const keyname = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
@@ -107,7 +107,7 @@ export class BoxModify extends plugin {
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
         player.autograph = new_msg
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_player', DATA: player })
         const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
         await BotApi.User.surveySet({ e, isreply })

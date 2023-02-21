@@ -2,56 +2,26 @@ import { __PATH } from './index.js'
 import algorithm from './algorithm.js'
 class ListAction {
     /**
-     * @param {表名} NAME 
-     * @param {地址选择} CHOICE 
-     * @param {数据} DATA 
-     * @returns 若无data则是读取操作，返回data
+     * 若无data则是读取操作，返回data
+     * @param { NAME, CHOICE, DATA }param0 
+     * @returns 
      */
     listAction = async ({ NAME, CHOICE, DATA }) => {
         if (DATA) {
             await algorithm.dataAction({
-                NAME: NAME,
+                NAME,
                 PATH: __PATH[CHOICE],
-                DATA: DATA
+                DATA
             })
             return
         }
         return await algorithm.dataAction({
-            NAME: NAME,
+            NAME,
             PATH: __PATH[CHOICE]
         })
     }
     /**
-     * @param {表名} NAME 
-     * @param {地址选择} CHOICE 
-     * @param {数据} DATA 
-     * @returns 若无data则是读取操作(若读取失败则初始化为[])
-     */
-    listActionArr = async ({ NAME, CHOICE, DATA }) => {
-        if (DATA) {
-            await algorithm.dataAction({
-                NAME: NAME,
-                PATH: __PATH[CHOICE],
-                DATA: DATA
-            })
-            return
-        }
-        //读取的时候需要检查
-        const Data = await algorithm.dataActionNew({
-            NAME: NAME,
-            PATH: __PATH[CHOICE]
-        })
-        if (!Data) {
-            await algorithm.dataAction({
-                NAME: NAME,
-                PATH: __PATH[CHOICE],
-                DATA: []
-            })
-            return []
-        }
-        return Data
-    }
-    /**
+     * 当读取失败时则指定初始化
      * @param { NAME, CHOICE, DATA, INITIAL } param0 
      * @returns 
      */
@@ -87,7 +57,7 @@ class ListAction {
      */
     randomListThing = async ({ NAME, CHOICE }) => {
         const LIST = await algorithm.dataAction({
-            NAME: NAME,
+            NAME,
             PATH: __PATH[CHOICE]
         })
         return LIST[Math.floor(Math.random() * LIST.length)]

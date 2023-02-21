@@ -133,7 +133,7 @@ export class BoxPlayerControl extends plugin {
             return
         }
         const UID = user_id
-        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const talent = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent' })
         const buff = Math.floor(talent.talentsize / 100) + Number(1)
         const appSize = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
         let map = {

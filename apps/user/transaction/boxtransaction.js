@@ -27,7 +27,7 @@ export class BoxTransaction extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -86,7 +86,7 @@ export class BoxTransaction extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {
@@ -123,7 +123,7 @@ export class BoxTransaction extends plugin {
             e.reply('已死亡')
             return
         }
-        const action = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_action' })
+        const action = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_action' })
         const address_name = '万宝楼'
         const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
         if (!map) {

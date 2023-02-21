@@ -67,7 +67,7 @@ export class BoxHome extends plugin {
                     }
                     await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
                     await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
-                    const player = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+                    const player = GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_level" })
                     switch (id[2]) {
                         case '1': {
                             if (player.level_id >= 3) {
@@ -133,7 +133,7 @@ export class BoxHome extends plugin {
         if (id[0] != 5) {
             return
         }
-        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const talent = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
             e.reply('学过了')
@@ -144,7 +144,7 @@ export class BoxHome extends plugin {
             return
         }
         talent.AllSorcery.push(najie_thing)
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await GameApi.GameUser.updataUserEfficiency({ UID })
         await GameApi.GameUser.userBag({ UID, name: najie_thing.name, ACCOUNT: -1 })
         e.reply(`学习[${thing_name}]`)
@@ -160,14 +160,14 @@ export class BoxHome extends plugin {
             return
         }
         const thing_name = e.msg.replace('#忘掉', '')
-        const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+        const talent = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent' })
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
             e.reply(`没学过[${thing_name}]`)
             return
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
         await GameApi.GameUser.updataUserEfficiency({ UID })
         await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
         e.reply(`忘了[${thing_name}]`)
@@ -197,14 +197,14 @@ export class BoxHome extends plugin {
         if (id[1] == 1) {
             switch (id[2]) {
                 case '1': {
-                    const player = GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: "user_level" })
+                    const player = GameApi.UserData.listAction({ NAME: UID, CHOICE: "user_level" })
                     if (player.level_id >= 10) {
                         e.reply('[灵根]已定\n此生不可再洗髓')
                         break
                     }
-                    const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+                    const talent = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talent = await GameApi.GameUser.getTalent()
-                    await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+                    await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     await GameApi.GameUser.updataUserEfficiency({ UID })
                     const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
@@ -212,9 +212,9 @@ export class BoxHome extends plugin {
                     break
                 }
                 case '2': {
-                    const talent = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent' })
+                    const talent = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent' })
                     talent.talentshow = 0
-                    await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
+                    await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_talent', DATA: talent })
                     const { path, name, data } = await GameApi.Information.userDataShow({ UID: e.user_id })
                     const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
                     await BotApi.User.surveySet({ e, isreply })

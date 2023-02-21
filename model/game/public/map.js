@@ -12,21 +12,5 @@ class GameMap {
         }
         return false
     }
-    /*两者距离*/
-    mapDistance = async (A, B) => {
-        const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2)
-        return h
-    }
-    /*判断两者是否可以交互*/
-    interactive = async (a, b) => {
-        a.x = Math.floor(a.x / 100)
-        a.y = Math.floor(a.y / 100)
-        b.x = Math.floor(b.x / 100)
-        b.y = Math.floor(b.y / 100)
-        if (a.x == b.x && b.y == b.y) {
-            return true
-        }
-        return false
-    }
 }
 export default new GameMap()

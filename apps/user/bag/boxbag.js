@@ -42,7 +42,7 @@ export class BoxBag extends plugin {
             return
         }
         const UID = e.user_id
-        const najie = await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag' })
+        const najie = await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag' })
         const najie_price = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).najie_price[najie.grade]
         if (!najie_price) {
             return
@@ -53,7 +53,7 @@ export class BoxBag extends plugin {
             return
         }
         najie.grade += 1
-        await GameApi.GameUser.userMsgAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
+        await GameApi.UserData.listAction({ NAME: UID, CHOICE: 'user_bag', DATA: najie })
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -Number(najie_price) })
         e.reply(`花了${najie_price}*[下品灵石]升级,目前储物袋为${najie.grade}`)
         return
