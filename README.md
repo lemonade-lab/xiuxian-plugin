@@ -16,8 +16,6 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiux
 
 >推荐更新指令 `#全部更新`
 
-## 凡人修仙
-
 发行日期  | 仓库名  |  版本号 
 ------------- | -------------  | -------------   
 | 2023年xx月xx日 | xiuxian-game | V3.0 |  
