@@ -14,11 +14,25 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiux
 
 >修仙更新指令 `#修仙更新`  
 
-#### 自由开发管理
+## 凡人修仙
 
-☞[插件索引](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/plugins/README.md)
-☞[新版特性](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/characteristic/README.md)
-☞[日常使用](https://gitee.com/ningmengchongshui/game-development/blob/master/mortal-cultivates-immortals/administrators/README.md)
+发行日期  | 仓库名  |  版本号 
+------------- | -------------  | -------------   
+| 2023年xx月xx日 | xiuxian-game | V3.0立项中 |  
+| 2023年02月24日 | xiuxian-plugin | V2.0推送版2022-02-24 |  
+| 2023年01月24日 | xiuxian-plugin | V2.0重制版2022-01-24☞[安装](https://gitee.com/ningmengchongshui/xiuxian-plugin) |  
+| 2022年12月01日 | Xiuxian-Plugin-Box | V2.0正式版2022-12-01 |
+| 2022年11月24日 | Xiuxian-Plugin-Box | V2.0测试版2022-11-24 |
+| 2022年09月21日 | xiuxian-emulator-plugin | V1.2推送版 ☞[安装](https://gitee.com/ningmengchongshui/xiuxian-emulator-plugin) |
+| 2022年09月01日 | xiuxian-emulator-plugin | V1.1迭代版 |
+| 2022年08月10日 | xiuxian-emulator-plugin | V1.0测试版  |
+
+☞[新版特性](./mortal-cultivates-immortals/characteristic/README.md)
+☞[日常使用](./mortal-cultivates-immortals/administrators/README.md)
+
+群名  | 群号  |  群主 
+------------- | -------------  | -------------   
+| [文游社区](https://afdian.net/a/ningmengchongshui) | 685979617 | [@拾郎](https://afdian.net/a/ningmengchongshui) |  
 
 #### 开源协议
 
