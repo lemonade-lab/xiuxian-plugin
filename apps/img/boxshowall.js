@@ -27,7 +27,6 @@ export class boxshowall extends plugin {
         }))
     }
     showMap = async (e) => {
-        /* 调用api接口去请求数据,并发出出来 */
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
         await BotApi.User.surveySet({ e, isreply })
         return
@@ -40,7 +39,7 @@ export class boxshowall extends plugin {
         const Ttwist = cf['switch'] ? cf['switch']['twist'] : true
         const Tcome = cf['switch'] ? cf['switch']['come'] : true
         const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({
-            path: 'config', name: 'config', data: {
+            path: 'defset', name: 'defset', data: {
                 ...cf,
                 Ttwist: Ttwist ? '开启' : '关闭',
                 Tcome: Tcome ? '开启' : '关闭'

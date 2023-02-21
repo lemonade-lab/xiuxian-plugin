@@ -16,15 +16,15 @@ export class boxadminmoney extends plugin {
     }
     gifts = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         const UID = await BotApi.User.at({ e })
         if (!UID) {
-            return
+            return false
         }
         if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
-            return
+            return false
         }
         const thing_name = e.msg.replace('#修仙馈赠', '')
         const [name, acount] = thing_name.split('\*')
@@ -35,29 +35,29 @@ export class boxadminmoney extends plugin {
         } else {
             e.reply(`馈赠[${name}]失败`)
         }
-        return
+        return false
     }
     deduction = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         const UID = await BotApi.User.at({ e })
         if (!UID) {
-            return
+            return false
         }
         if (!await GameApi.GameUser.existUserSatus({ UID })) {
             e.reply('已死亡')
-            return
+            return false
         }
         let lingshi = e.msg.replace('#修仙扣除', '')
         lingshi = await GameApi.GamePublic.leastOne({ value: lingshi })
         const thing = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
         if (!thing || thing.acount < lingshi) {
             e.reply('他好穷的')
-            return
+            return false
         }
         await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: -lingshi })
         e.reply(`已扣除${lingshi}[下品灵石]`)
-        return
+        return false
     }
 }

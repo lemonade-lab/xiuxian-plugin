@@ -45,10 +45,10 @@ export class boxadminaction extends plugin {
     }
     allForcecheckout = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         await BotApi.Exec.execStart({ cmd: 'git  pull', e })
-        return
+        return false
     }
     deleteRedis = async (e) => {
         if (!e.isMaster) {
@@ -56,7 +56,7 @@ export class boxadminaction extends plugin {
         }
         await GameApi.GamePublic.deleteReids()
         e.reply('删除完成')
-        return
+        return false
     }
     deleteAllusers = async (e) => {
         if (!e.isMaster) {
@@ -65,7 +65,7 @@ export class boxadminaction extends plugin {
         await GameApi.GameUser.userMsgAction({ NAME: 'life', CHOICE: 'user_life', DATA: [] })
         await GameApi.GamePublic.deleteReids()
         e.reply('删除完成')
-        return
+        return false
     }
     boxaSwitchOpen = async (e) => {
         if (!e.isMaster) {
@@ -73,48 +73,48 @@ export class boxadminaction extends plugin {
         }
         const name = e.msg.replace('#盒子开启', '')
         e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
-        return
+        return false
     }
     boxaSwitchOff = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         const name = e.msg.replace('#盒子关闭', '')
         e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
-        return
+        return false
     }
     configUpdata = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         const [name, size] = e.msg.replace('#修仙配置更改', '').split('\*')
         e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
-        return
+        return false
     }
     configReUpdata = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         GameApi.Createdata.moveConfig({ name: 'updata' })
         e.reply('配置已重置')
-        return
+        return false
     }
     imgReUpdata = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         GameApi.Createdata.reImg({
             path: ['help'],
             name: ['help.png', 'icon.png']
         })
         e.reply('图片已重置')
-        return
+        return false
     }
     dataRecovery = async (e) => {
         if (!e.isMaster) {
-            return
+            return false
         }
         await BotApi.User.forwardMsg({ e, data: GameApi.Schedule.backuprecovery({ name: e.msg.replace('#盒子复原', '') }) })
-        return
+        return false
     }
 }
