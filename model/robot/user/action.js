@@ -1,4 +1,4 @@
-import config from '../data/defset/updata.js'
+import config from '../data/defset.js'
 class UserAction {
     /**
      * 折合消息

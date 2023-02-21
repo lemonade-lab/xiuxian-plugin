@@ -2,7 +2,7 @@ import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
-export class boxsecretplace extends plugin {
+export class BoxSecretplace extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
             rule: [

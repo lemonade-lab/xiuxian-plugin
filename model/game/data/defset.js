@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
-import { __dirname } from '../../../main.js'
+import { __dirname } from '../../main.js'
 /**自定义配置地址*/
 const __diryaml = `${__dirname}/config/parameter/cooling.yaml`
 class DefsetUpdata {

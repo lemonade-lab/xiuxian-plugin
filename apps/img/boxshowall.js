@@ -12,12 +12,16 @@ export class boxshowall extends plugin {
                     fnc: 'showConfig',
                 },
                 {
+                    reg: '^#修仙管理$',
+                    fnc: 'adminSuper',
+                },
+                {
                     reg: '^#修仙(帮助|菜单|help|列表)$',
                     fnc: 'boxhelp'
                 },
                 {
-                    reg: '^#修仙管理$',
-                    fnc: 'adminSuper',
+                    reg: '^#黑市(帮助|菜单|help|列表)$',
+                    fnc: 'darkhelp'
                 }
             ]
         }))
@@ -45,15 +49,6 @@ export class boxshowall extends plugin {
         await BotApi.User.surveySet({ e, isreply })
         return
     }
-    boxhelp = async (e) => {
-        const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
-        if (!data) {
-            return
-        }
-        const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
-        await BotApi.User.surveySet({ e, isreply })
-        return
-    }
     adminSuper = async (e) => {
         if (!e.isMaster) {
             return
@@ -63,6 +58,24 @@ export class boxshowall extends plugin {
             return
         }
         const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
+        await BotApi.User.surveySet({ e, isreply })
+        return
+    }
+    boxhelp = async (e) => {
+        const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
+        if (!data) {
+            return
+        }
+        const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
+        await BotApi.User.surveySet({ e, isreply })
+        return
+    }
+    darkhelp = async (e) => {
+        const data = await BotApi.ImgHelp.getboxhelp({ name: 'darkhelp' })
+        if (!data) {
+            return
+        }
+        const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 2, data }))
         await BotApi.User.surveySet({ e, isreply })
         return
     }

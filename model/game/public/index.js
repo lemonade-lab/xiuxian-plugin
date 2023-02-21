@@ -1,4 +1,4 @@
-import gameUer from '../user/user.js'
+import gameUer from '../user/index.js'
 /**自定义冷却反馈*/
 const MYCD = {
     '0': '攻击',

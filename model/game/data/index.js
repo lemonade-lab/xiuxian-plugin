@@ -15,9 +15,18 @@ export const __PATH = {
     'user_talent': path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
     'user_wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     'user_bag': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    'user_life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+    
     'user_material': path.join(__dirname, '/resources/data/birth/xiuxian/material'),
+    
+    'user_life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+
+    /* 金银坊 */
+    'user_bank': path.join(__dirname, '/resources/data/birth/xiuxian/bank'),
+
+    'generate_exchange': path.join(__dirname, '/resources/data/birth/xiuxian/exchange'),
+    'generate_forum': path.join(__dirname, '/resources/data/birth/xiuxian/forum'),
     /**新增玩家概率事件存档*/
+
     /*基础信息*/
     'fixed_point': path.join(__dirname, '/resources/data/fixed/point'),
     'fixed_position': path.join(__dirname, '/resources/data/fixed/position'),
@@ -27,6 +36,7 @@ export const __PATH = {
     'fixed_occupation': path.join(__dirname, '/resources/data/fixed/occupation'),
     'fixed_talent': path.join(__dirname, '/resources/data/fixed/talent'),
     'fixed_material': path.join(__dirname, '/resources/data/fixed/material'),
+    'fixed_history': path.join(__dirname, '/resources/data/fixed/history'),
     /*管理员自定义表*/
     'custom_goods': path.join(__dirname, '/resources/goods'),
     /*生成信息*/
@@ -94,7 +104,7 @@ class DateIndex {
      * @param {PATH, CHOICE, NAME} parameter 
      * @returns 
      */
-    addListArr = async ({ PATH, CHOICE, NAME } ) => {
+    addListArr = async ({ PATH, CHOICE, NAME }) => {
         const data = await ListAction.listAction({ NAME, CHOICE })
         genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
         return

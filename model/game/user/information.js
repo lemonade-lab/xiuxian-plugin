@@ -1,4 +1,4 @@
-import gameUser from '../user/user.js'
+import gameUser from './index.js'
 class information {
     /**
      * @param { UID } param0 

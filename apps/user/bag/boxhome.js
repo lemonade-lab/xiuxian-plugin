@@ -1,5 +1,5 @@
 import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
-export class boxuserhome extends plugin {
+export class BoxHome extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
             rule: [

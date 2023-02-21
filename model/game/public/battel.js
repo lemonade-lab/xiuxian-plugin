@@ -1,6 +1,6 @@
 
 
-import gameUser from '../user/user.js'
+import gameUser from '../user/index.js'
 import { BotApi } from '../../api/botapi.js'
 const Sneakattack = [
     '你个老六偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!',

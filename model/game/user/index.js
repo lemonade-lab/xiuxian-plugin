@@ -1,8 +1,8 @@
 import algorithm from '../data/algorithm.js'
 import listdata from '../data/listaction.js'
-import gamepublic from '../public/public.js'
+import gamepublic from '../public/index.js'
 import { __PATH } from '../data/index.js'
-import config from '../data/defset/updata.js'
+import config from '../data/defset.js'
 class GameUser {
     startLife = async () => {
         const life = await listdata.listActionArr({ NAME: 'life', CHOICE: 'user_life' })

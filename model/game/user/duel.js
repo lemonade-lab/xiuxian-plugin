@@ -1,7 +1,7 @@
-import GameUser from './user.js'
-import GamePublic from '../public/public.js'
+import GameUser from './index.js'
+import GamePublic from '../public/index.js'
 import GameBattle from '../public/battel.js'
-import defset from '../data/defset/updata.js'
+import defset from '../data/defset.js'
 class duel {
     getDuel = async ({e, UIDA, UIDB }) => {
         if (! await GameUser.getUID({ UID: UIDB })) {

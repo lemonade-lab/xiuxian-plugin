@@ -1,4 +1,4 @@
-import config from '../data/defset/updata.js'
+import config from '../data/defset.js'
 import { __dirname } from '../../main.js'
 /** 生成帮助图*/
 class Help {

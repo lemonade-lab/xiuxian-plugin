@@ -1,5 +1,5 @@
 import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
-export class boxuserinstall extends plugin {
+export class BoxInstall extends plugin {
     constructor() {
         super(BotApi.SuperIndex.getUser({
             event: 'notice.group.increase',

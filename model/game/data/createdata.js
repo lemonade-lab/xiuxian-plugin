@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { __dirname } from '../../main.js'
 import algorithm from './algorithm.js'
 /** 自定义配置*/
-const configarr = ['cooling.yaml', 'task.yaml', 'help.yaml', 'admin.yaml']
+const configarr = ['cooling.yaml', 'task.yaml', 'help.yaml','darkhelp.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
 
@@ -22,12 +22,10 @@ class CreateData {
         let y = `${this.defsetpath}/${itempath}/${itemconfig}`
         //刷新控制
         if (name) {
-          //存在就复制,需要替换原文件,已达到更新的目的
-          if (fs.existsSync(y)) {
-            fs.cp(y, x, (err) => {
-              if (err) { }
-            })
-          }
+          //直接复制
+          fs.cp(y, x, (err) => {
+            if (err) { }
+          })
         } else {
           //不存在就复制
           if (!fs.existsSync(x)) {
