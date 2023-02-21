@@ -1,5 +1,5 @@
 import GameUser from './index.js'
-import listdata from '../data/listaction.js'
+import listdata from '../data/listdata.js'
 import GamePublic from '../public/index.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'

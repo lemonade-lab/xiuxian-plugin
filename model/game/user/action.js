@@ -1,6 +1,6 @@
 import config from '../data/defset.js'
 import user from './index.js'
-import listdata from '../data/listaction.js'
+import listdata from '../data/listdata.js'
 import gamePublic from '../public/index.js'
 const CopywritingLevel = {
     '0': '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了size[name]',

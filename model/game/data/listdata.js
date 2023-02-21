@@ -1,6 +1,6 @@
 import { __PATH } from './index.js'
 import algorithm from './algorithm.js'
-class ListAction {
+class ListData {
     /**
      * 若无data则是读取操作，返回data
      * @param { NAME, CHOICE, DATA }param0 
@@ -85,4 +85,4 @@ class ListAction {
     }
 
 }
-export default new ListAction()
+export default new ListData()

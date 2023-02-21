@@ -1,5 +1,5 @@
 import gameUser from './index.js'
-import listdata from '../data/listaction.js'
+import listdata from '../data/listdata.js'
 class information {
     /**
      * @param { UID } param0 

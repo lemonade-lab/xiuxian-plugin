@@ -3,7 +3,7 @@ import path from 'node:path'
 import createdata from './createdata.js'
 import genertate from './generate.js'
 import { __dirname } from '../../main.js'
-import ListAction from './listaction.js'
+import listdata from './listdata.js'
 export const __PATH = {
     /*玩家存档*/
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -105,7 +105,7 @@ class DateIndex {
      * @returns 
      */
     addListArr = async ({ PATH, CHOICE, NAME }) => {
-        const data = await ListAction.listAction({ NAME, CHOICE })
+        const data = await listdata.listAction({ NAME, CHOICE })
         genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
         return
     }

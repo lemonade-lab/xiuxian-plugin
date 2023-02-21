@@ -1,5 +1,5 @@
 import algorithm from '../data/algorithm.js'
-import listdata from '../data/listaction.js'
+import listdata from '../data/listdata.js'
 import gamepublic from '../public/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
