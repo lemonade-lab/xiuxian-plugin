@@ -2,7 +2,7 @@
 
 #### 安装机器人
 
-安装Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
+Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
 
 #### 根目录执行      
 ```
@@ -25,8 +25,8 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiux
 | 2022年09月01日 | xiuxian-emulator-plugin | V1.1迭代版 |
 | 2022年08月10日 | xiuxian-emulator-plugin | V1.0测试版  |
 
-☞[新版特性](./development/mortal-cultivates-immortals/characteristic/README.md)
-☞[日常使用](./development/mortal-cultivates-immortals/administrators/README.md)
+☞[新版特性](./developer/characteristic/README.md)
+☞[日常使用](./developer/administrators/README.md)
 
 群名  | 群号  |  群主 
 ------------- | -------------  | -------------   
