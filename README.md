@@ -18,8 +18,6 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiux
 
 发行日期  | 仓库名  |  版本号 
 ------------- | -------------  | -------------   
-| 2023年xx月xx日 | xiuxian-game | V3.0 |  
-| 2023年xx月xx日 | xiuxian-plugin | V2.0-2022-02-24 |  
 | 2023年01月24日 | xiuxian-plugin | V2.0-2022-01-24 |  
 | 2022年12月01日 | Xiuxian-Plugin-Box | V2.0-2022-12-01 |
 | 2022年11月24日 | Xiuxian-Plugin-Box | V2.0-2022-11-24 |
