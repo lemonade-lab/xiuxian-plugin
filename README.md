@@ -8,13 +8,12 @@ Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_s
 ```
 git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/   
 ```
->查看具体功能  `#修仙帮助`   
-
->查看管理功能  `#修仙管理`    
-
->修仙更新指令 `#修仙更新`  
-
->推荐更新指令 `#全部更新`
+| 指令 | 描述 | 其他 | 描述 |
+|---|---|---|---|
+|  #修仙帮助 |  查看具体功能 | [日常使用](./developer/administrators/README.md) |  点击可跳转 |
+|  #修仙管理 |  查看管理功能 | [新版特性](./developer/characteristic/README.md) |  点击可跳转 |
+|  #修仙更新 |  修仙单独更新 | 685979617 |  文游社地址 |
+|  #全部更新 |  全部插件更新 |
 
 发行日期  | 仓库名  |  版本号 
 ------------- | -------------  | -------------   
@@ -25,12 +24,7 @@ git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiux
 | 2022年09月01日 | xiuxian-emulator-plugin | V1.1迭代版 |
 | 2022年08月10日 | xiuxian-emulator-plugin | V1.0测试版  |
 
-☞[新版特性](./developer/characteristic/README.md)
-☞[日常使用](./developer/administrators/README.md)
 
-群名  | 群号  |  群主 
-------------- | -------------  | -------------   
-| [文游社](https://afdian.net/a/ningmengchongshui) | 685979617 | [@拾郎](https://afdian.net/a/ningmengchongshui) |  
 
 #### 开源协议
 
