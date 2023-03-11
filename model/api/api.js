@@ -1,7 +1,7 @@
-/* yunzai */
 import plugin from '../../../../lib/plugins/plugin.js'
-/* bot */
 import { BotApi } from './botapi.js'
-/* box */
 import { GameApi } from './gameapi.js'
-export { BotApi, GameApi, plugin }
+export { BotApi, GameApi,  plugin }
+export const Super = ({ name = 'xiuxian', dsc = 'xiuxian', event = 'message', priority = 400, rule }) => {
+    return { name, dsc, event, priority, rule }
+}

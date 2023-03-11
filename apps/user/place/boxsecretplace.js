@@ -1,10 +1,10 @@
-import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin,Super } from '../../../model/api/api.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
 export class BoxSecretplace extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({
+        super(Super({
             rule: [
                 {
                     reg: '^#坐标信息$',

@@ -1,7 +1,7 @@
-import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin,Super} from '../../../model/api/api.js'
 export class BoxInstall extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({
+        super(Super({
             event: 'notice.group.increase',
             priority: 99999,
             rule: [

@@ -1,7 +1,7 @@
-import { BotApi, GameApi, plugin } from '../../model/api/api.js'
+import { BotApi, GameApi, plugin, Super } from '../../model/api/api.js'
 export class BoxtWist extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({
+        super(Super({
             event: 'notice.group.poke',
             priority: 99999,
             rule: [

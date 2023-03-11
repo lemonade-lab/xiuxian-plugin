@@ -1,7 +1,7 @@
-import { BotApi, GameApi, plugin } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin , Super} from '../../../model/api/api.js'
 export class BoxStart extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({
+        super(Super({
             rule: [
                 {
                     reg: '^#降临世界$',

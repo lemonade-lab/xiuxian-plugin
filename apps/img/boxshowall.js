@@ -1,7 +1,7 @@
-import { BotApi, GameApi, plugin } from '../../model/api/api.js'
+import { BotApi, GameApi, plugin, Super } from '../../model/api/api.js'
 export class boxshowall extends plugin {
     constructor() {
-        super(BotApi.SuperIndex.getUser({
+        super(Super({
             rule: [
                 {
                     reg: '^#修仙地图$',
