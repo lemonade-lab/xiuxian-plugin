@@ -131,12 +131,10 @@ export class BoxTransaction extends plugin {
             return
         }
         const [thing_name, thing_acount] = e.msg.replace('#出售', '').split('\*')
-        console.log(thing_acount)
         let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
         if (quantity > 99) {
             quantity = 99
         }
-        console.log(quantity)
         const najie_thing = await GameApi.GameUser.userBagSearch({ UID, name: thing_name })
         if (!najie_thing) {
             e.reply(`[万宝楼]小二\n你没[${thing_name}]`)
