@@ -137,16 +137,26 @@ class Puppeteer {
     return segment.image(buff)
   }
 
+  ctrateFile(name) {
+    if (!fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/xiuxiandata`)) {
+      fs.mkdirSync(`${path.resolve().replace(/\\/g, '/')}/xiuxiandata`)
+    }
+    if (!fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html`)) {
+      fs.mkdirSync(`${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html`)
+    }
+    if (!fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}`)) {
+      fs.mkdirSync(`${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}`)
+    }
+  }
+
   /** 模板 */
   dealTpl(name, data) {
     let { tplFile, saveId = name } = data
+    this.ctrateFile(name)
     /**这个地址应该要配置自己的,只有保存了临时本地文件了之后，浏览器才能去截图生成 */
-    let savePath = `${path.resolve().replace(/\\/g, '/')}/data/html/${name}/${saveId}.html`
+    let savePath = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}/${saveId}.html`
     /** 读取html模板 */
     if (!this.html[tplFile]) {
-      if (!fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/data/html/${name}`)) {
-        fs.mkdirSync(`${path.resolve().replace(/\\/g, '/')}/data/html/${name}`)
-      }
       try {
         this.html[tplFile] = fs.readFileSync(tplFile, 'utf8')
       } catch (error) {
