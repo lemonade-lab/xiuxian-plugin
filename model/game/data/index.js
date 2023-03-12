@@ -4,6 +4,8 @@ import createdata from './createdata.js'
 import genertate from './generate.js'
 import { __dirname } from '../../main.js'
 import listdata from './listdata.js'
+export const ImgPath = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
+export const ImgName = ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
 export const __PATH = {
     /*玩家存档*/
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -15,9 +17,9 @@ export const __PATH = {
     'user_talent': path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
     'user_wealth': path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     'user_bag': path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    
+
     'user_material': path.join(__dirname, '/resources/data/birth/xiuxian/material'),
-    
+
     'user_life': path.join(__dirname, '/resources/data/birth/xiuxian/life'),
 
     /* 金银坊 */
@@ -53,8 +55,8 @@ class DateIndex {
         /** 这里遍历底下所有.png文件名？*/
         /** 图片数据*/
         createdata.generateImg({
-            path: ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information'],
-            name: ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
+            path: ImgPath,
+            name: ImgName
         })
         /**生成yaml配置数据 */
         createdata.moveConfig({})
