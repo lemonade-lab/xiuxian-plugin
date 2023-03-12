@@ -2,7 +2,11 @@
 
 #### 安装机器人
 
-Yunzai-Bot[`☞查看教程`](https://gitee.com/Le-niao/Yunzai-Bot?_from=gitee_search)
+miaomiao-Bot喵崽版[`☞建议使用`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+
+Yunzai-Bot喵喵版[`☞维护中`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
+
+Yunzai-Bot乐鸟版[`☞已跑路`](https://gitee.com/Le-niao/Yunzai-Bot)
 
 #### 根目录执行      
 ```
