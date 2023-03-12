@@ -15,6 +15,18 @@
     - icon: 2
       title: "#修仙删除世界"
       desc: "删除全部信息"
+
+- group: 
+  list:
+    - icon: 2
+      title: "#修仙插件列表"
+      desc: "插件可安装插件"
+    - icon: 2
+      title: "#修仙安装+插件名"
+      desc: "#修仙安装宗门"
+    - icon: 2
+      title: "#修仙卸载+插件名"
+      desc: "#修仙卸载宗门"
       
 - group: 
   list:

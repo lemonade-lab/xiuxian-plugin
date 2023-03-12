@@ -2,6 +2,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 /**fs算法*/
 class Algorithm {
+    /* 判断指定插件是否存在 */
+    isPlugin = (name) => {
+        if (fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/plugins/${name}`)) {
+            return true
+        }
+        return false
+    }
     /**
      * @param {地址} path 
      * @returns 该地址的子目录数组
