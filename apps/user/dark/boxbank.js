@@ -84,14 +84,17 @@ export class BoxBank extends plugin {
             case '上品灵石': {
                 new_name = name
                 size = 400
+                break
             }
             case '极品灵石': {
                 new_name = name
                 size = 5000
+                break
             }
             default: {
                 new_name = '中品灵石'
                 size = 30
+                break
             }
         }
         const new_money = Math.floor(new_account / size)
