@@ -44,9 +44,9 @@ class CreateData {
    * @param { path, name } param0 
    * @returns 
    */
-  generateImg = ({ path = ImgPath, name = ImgName }) => {
-    path.forEach((itempath) => {
-      name.forEach((itemname) => {
+  generateImg = () => {
+    ImgPath.forEach((itempath) => {
+      ImgName.forEach((itemname) => {
         let x = `${this.resources}/img/${itempath}/${itemname}`
         if (!fs.existsSync(x)) {
           let y = `${this.resources}/html/allimg/${itempath}/${itemname}`
