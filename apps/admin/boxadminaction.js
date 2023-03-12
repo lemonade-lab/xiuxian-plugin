@@ -103,10 +103,7 @@ export class boxadminaction extends plugin {
         if (!e.isMaster) {
             return false
         }
-        GameApi.Createdata.reImg({
-            path: GameApi.Img.ImgPath,
-            name: GameApi.Img.ImgName
-        })
+        GameApi.Createdata.reImg()
         e.reply('图片已重置')
         return false
     }

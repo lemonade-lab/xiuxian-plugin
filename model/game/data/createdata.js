@@ -1,8 +1,11 @@
 import fs from 'node:fs'
 import { __dirname } from '../../main.js'
 import algorithm from './algorithm.js'
+/* 默认重置的图片 */
+const ImgPath = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
+const ImgName = ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
 /** 自定义配置*/
-const configarr = ['cooling.yaml', 'task.yaml', 'help.yaml','darkhelp.yaml', 'admin.yaml']
+const configarr = ['cooling.yaml', 'task.yaml', 'help.yaml', 'darkhelp.yaml', 'admin.yaml']
 class CreateData {
   constructor() {
     this.resources = `${__dirname}/resources`
@@ -41,7 +44,7 @@ class CreateData {
    * @param { path, name } param0 
    * @returns 
    */
-  generateImg = ({ path, name }) => {
+  generateImg = ({ path = ImgPath, name = ImgName }) => {
     path.forEach((itempath) => {
       name.forEach((itemname) => {
         let x = `${this.resources}/img/${itempath}/${itemname}`

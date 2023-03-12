@@ -4,8 +4,6 @@ import createdata from './createdata.js'
 import genertate from './generate.js'
 import { __dirname } from '../../main.js'
 import listdata from './listdata.js'
-export const ImgPath = ['help', 'map', 'toplist', 'updata', 'user/bag', 'user/equipment', 'user/head', 'user/head', 'user/information']
-export const ImgName = ['help.png', 'icon.png', 'map.png', 'toplist.png', 'update-buttom.png', 'update-head.png', 'update-top.png', 'bag.png', 'equipment.png', 'head.png', 'information.png', 'left.png', 'right.png']
 export const __PATH = {
     /*玩家存档*/
     'user_player': path.join(__dirname, '/resources/data/birth/xiuxian/player'),
@@ -54,10 +52,7 @@ class DateIndex {
         /**生成特定目录*/
         /** 这里遍历底下所有.png文件名？*/
         /** 图片数据*/
-        createdata.generateImg({
-            path: ImgPath,
-            name: ImgName
-        })
+        createdata.generateImg()
         /**生成yaml配置数据 */
         createdata.moveConfig({})
         /** 生成jsoon数据 */

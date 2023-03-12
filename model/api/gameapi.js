@@ -4,7 +4,6 @@ import GameMap from '../game/public/map.js'
 
 import DefsetUpdata from '../game/data/defset.js'
 import DataIndex from '../game/data/index.js'
-import { ImgPath, ImgName } from '../game/data/index.js'
 import Schedule from '../game/data/schedule.js'
 import Algorithm from '../game/data/algorithm.js'
 import Createdata from '../game/data/createdata.js'
@@ -32,8 +31,5 @@ export const GameApi = {
     GameMonster,
     GameBattle,
     Information,
-    DataIndex,
-    Img:{
-        ImgPath, ImgName
-    }
+    DataIndex
 }
