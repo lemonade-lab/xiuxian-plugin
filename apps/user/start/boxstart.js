@@ -48,7 +48,7 @@ export class BoxStart extends plugin {
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
-        await GameApi.GamePublic.offAction(UID)
+        await GameApi.GamePublic.offAction({UID})
         let life = await GameApi.UserData.listActionInitial({ NAME: 'life', CHOICE: 'user_life', INITIAL: [] })
         life = await life.filter(item => item.qq != UID)
         await GameApi.UserData.listAction({ NAME: 'life', CHOICE: 'user_life', DATA: life })
