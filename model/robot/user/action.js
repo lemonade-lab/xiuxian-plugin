@@ -26,7 +26,11 @@ class UserAction {
             return
         }
         /*制作合并转发消息以备发送*/
-        await e.reply(await Bot.makeForwardMsg(this.makeMsg({ data })))
+        try{
+            await e.reply(await Bot.makeForwardMsg(this.makeMsg({ data })))
+        }catch{
+            console.log('出错',data)
+        }
         return
     }
     /**

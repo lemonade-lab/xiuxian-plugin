@@ -107,7 +107,13 @@ export class BoxBattleSite extends plugin {
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
-        await BotApi.User.forwardMsg({ e, data: msg })
+        /* todo */
+        try{
+            await BotApi.User.forwardMsg({ e, data: msg })
+        }catch{
+            e.reply('出错了')
+            console.log('[err]',msg)
+        }
         return
     }
     userExploremonsters = async (e) => {
