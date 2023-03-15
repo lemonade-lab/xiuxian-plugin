@@ -47,7 +47,7 @@ export class boxadminexec extends plugin {
             e.reply('已存在该插件')
             return false
         }
-        const cmd = `git clone ${storehouse[name]}`
+        const cmd = `git clone --depth=1 -b master ${storehouse[name]}`
         console.log(cmd)
         const push = {
             'updata': '修新版',
