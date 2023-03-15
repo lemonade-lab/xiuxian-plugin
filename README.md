@@ -10,7 +10,7 @@ Yunzai-Bot乐鸟版[`☞已跑路`](https://gitee.com/Le-niao/Yunzai-Bot)
 
 #### 根目录执行      
 ```
-git clone  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/   
+git clone --depth=1 -b main  https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/   
 ```
 | 指令 | 描述 | 其他 | 描述 |
 |---|---|---|---|
