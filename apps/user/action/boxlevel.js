@@ -53,9 +53,9 @@ export class BoxLevel extends plugin {
         if (!e.isGroup) {
             return
         }
-        const { levelMsg } = await GameApi.UserAction.levelBreak({ UID: e.user_id })
-        if (levelMsg) {
-            e.reply(levelMsg)
+        const msg = await GameApi.UserAction.levelBreak({ UID: e.user_id })
+        if (msg) {
+            e.reply(msg)
             return
         }
         e.reply('仙路已断')

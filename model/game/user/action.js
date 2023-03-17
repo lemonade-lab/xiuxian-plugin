@@ -144,19 +144,19 @@ class userAction {
     levelBreak = async ({ UID }) => {
         const ifexistplay = await user.existUserSatus({ UID })
         if (!ifexistplay) {
-            return { levelMsg: `已死亡` }
+            return `已死亡`
         }
         const UserLevel = await listdata.listAction({ NAME: UID, CHOICE: 'user_level' })
         if (UserLevel.level_id != 10) {
             /*不是渡劫*/
-            return
+            return `非渡劫期`
         }
         let CDID = '13'
         let CDTime = 360
         const now_time = new Date().getTime()
         const { CDMSG } = await gamePublic.cooling({ UID, CDID })
         if (CDMSG) {
-            return { levelMsg: `${CDMSG}` }
+            return `${CDMSG}`
         }
         await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60)
