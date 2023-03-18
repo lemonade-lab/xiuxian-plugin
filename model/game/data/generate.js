@@ -3,7 +3,6 @@ import path from 'path'
 /**游戏index数据生成*/
 class GenerateData {
     /**
-     * 
      * @param {地址} path 
      * @param {表名} name 
      * @param {数据} sum 

@@ -82,8 +82,8 @@ class DateIndex {
         genertate.newlist(__PATH.generate_all, 'dropsItem', [])
         genertate.newlist(__PATH.generate_all, 'dropsItem', [
             /*只放一级装备和物品*/
-            ...genertate.getlist(__PATH.fixed_equipment, '1.json'),
-            ...genertate.getlist(__PATH.fixed_goods, '1.json'),
+            ...genertate.getlist(__PATH.fixed_equipment, '.json'),
+            ...genertate.getlist(__PATH.fixed_goods, '.json'),
             ...genertate.getlist(__PATH.custom_goods, '.json')
         ])
         /*地图系统数据*/

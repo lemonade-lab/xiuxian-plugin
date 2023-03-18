@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin,Super } from '../../../model/api/api.js'
+import {  plugin,Super } from '../../../model/api/api.js'
 export class BoxMove extends plugin {
     constructor() {
         super(Super({
