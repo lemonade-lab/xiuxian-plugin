@@ -1,0 +1,48 @@
+
+body {
+  transform: scale(1);
+  width: 100%;
+  text-align: center;
+}
+
+.user_bottom1 {
+  margin: auto;
+  background-image: url('../..//img/ningmenghome/ningmenghome-top.jpg');
+  background-size: 100% auto;
+  width: 100%;
+  height: 400px;
+}
+
+.user_bottom2 {
+  width: 100%;
+  margin: auto;
+  height: 0.1px;
+}
+
+
+.use_data {
+  padding-top: 75px;
+}
+
+
+.user_font {
+  text-align: center;
+  margin: 10.7px;
+  font-size: 27px;
+  width: 100%;
+  padding: 5px;
+  font-weight: 600;
+  color: rgb(0, 102, 255);
+  border-radius: 5px;
+}
+
+
+.user_font0 {
+  text-align: center;
+  margin: 10.7px;
+  font-size: 27px;
+  padding: 5px;
+  font-weight: 600;
+  color: rgb(0, 102, 255);
+  border-radius: 5px;
+}

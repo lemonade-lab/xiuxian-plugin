@@ -1,0 +1,66 @@
+
+body {
+  transform: scale(1);
+  width: 100%;
+  text-align: center;
+}
+
+.user_bottom0 {
+  width: 100%;
+  height: 285px;
+  margin: auto;
+  background-image: url('../..//img/valuables/valuables-top.jpg');
+  background-size: 100% auto;
+}
+
+
+.user_bottom1 {
+  margin: auto;
+  background-image: url('../..//img/valuables/valuables-danyao.jpg');
+  background-size: 100% auto;
+}
+
+.user_bottom2 {
+  border-radius: 20px;
+  width: 100%;
+  margin: auto;
+  height: 0.1px;
+}
+
+.user_float{
+  float: left;
+  margin-top:70px;
+  margin-left:260px;
+}
+
+.use_data0 {
+  padding: 50px;
+}
+
+.user_font_0{
+  text-align: center;
+  font-size: 50px;
+  font-weight: 600;
+  color: rgb(0, 102, 255);
+  border-radius: 5px;
+  background-color: rgba(244, 117, 174, 0.386);
+}
+
+
+.use_data {
+  padding: 50px;
+  padding-left: 150px;
+  padding-right: 150px;
+}
+
+
+.user_font {
+  text-align: center;
+  margin: 5px;
+  font-size: 22.6px;
+  padding: 5px;
+  font-weight: 600;
+  color: rgb(0, 102, 255);
+  border-radius: 5px;
+  background-color: rgba(244, 117, 174, 0.386);
+}

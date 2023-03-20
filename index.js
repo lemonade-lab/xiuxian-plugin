@@ -1,4 +1,6 @@
-import { BotApi, GameApi, } from './model/api/api.js';
-GameApi.Schedule.scheduleJobflie({ time: '0 0 */1 * * ?' });
-const apps = await BotApi.toIndex({ indexName: 'apps' });
-export { apps }; 
+import { appsOut } from './robot/index.js';
+const apps = await appsOut({ AppsName: 'apps' }).then((req) => {
+    logger.info(`修仙修插件初始化~`);
+    return req
+});
+export { apps };

@@ -1,0 +1,152 @@
+.avatar-card {
+  margin: 3px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.8);
+  font-size: 13px;
+
+
+  .card {
+    border-radius: 7px;
+    box-shadow: 0 2px 6px 0 rgb(132 93 90 / 30%);
+    position: relative;
+    overflow: hidden;
+    background: #e7e5d9;
+    width: 70px;
+  }
+
+  .avatar-face {
+    width: 70px;
+    height: 70px;
+    border-radius: 7px 7px 15px 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, .5);
+
+    .img {
+      background-position: center bottom;
+    }
+
+    .cons {
+      border-radius: 0 0 0 5px;
+      padding: 2px 5px;
+    }
+
+    .avatar-level {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      left: 0;
+      padding: 2px 5px 2px 3px;
+      border-radius: 0 4px 0 0;
+      color: #fff;
+    }
+
+
+  }
+
+  .avatar-talent {
+    height: 21px;
+    padding: 3px 5px 2px;
+    font-size: 12px;
+    width: 100%;
+    color: #222;
+    text-align: center;
+    display: flex;
+
+    .talent-item {
+      width: 20px;
+      height: 16px;
+      line-height: 17px;
+      margin: 0 2px;
+      text-align: center;
+      display: block;
+      background-size: contain;
+      opacity: 0.8;
+      position: relative;
+      border-radius: 3px;
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+
+      /*
+            &.talent-crown:before {
+              content: "";
+              display: block;
+              width: 10px;
+              height: 10px;
+              position: absolute;
+              left: 0;
+              top: 0;
+              background: url("../character/imgs/crown.png") center no-repeat;
+              background-size: contain;
+            }
+      */
+
+      &.talent-plus {
+        font-weight: bold;
+        color: #0284b9;
+      }
+
+      &.talent-crown {
+        background: #d3bc8e;
+        color: #3a2702;
+        box-shadow: 0 0 2px 0 #000;
+      }
+    }
+  }
+
+  .cons {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.avatar-detail {
+  display: flex;
+  padding: 0 1px 2px;
+
+  .item {
+    width: 31px;
+    height: 31px;
+    border-radius: 4px;
+    margin: 1px;
+  }
+}
+
+.avatar-weapon {
+  .icon {
+    border-radius: 4px;
+  }
+
+  .cons {
+    top: initial;
+    bottom: 0;
+    padding: 1px 3px;
+    border-radius: 3px 0 0 0;
+  }
+}
+
+.avatar-artis {
+  position: relative;
+
+  .artis {
+    background: rgba(0, 0, 0, 0.5)
+  }
+
+  &.artis2 {
+    .img {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+
+      &:first-child {
+        left: -2px;
+        top: -2px;
+      }
+
+      &:last-child {
+        right: -2px;
+        bottom: -2px;
+      }
+    }
+  }
+}

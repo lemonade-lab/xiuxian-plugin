@@ -4,7 +4,7 @@ body {
 
 }
 .container {
-  background: url(../../img/help/xiuxian.jpg) top left no-repeat;
+  background: url(../common/theme/xiuxian.jpg) top left no-repeat;
   background-size: 100% auto;
   width: 830px;
 }
@@ -26,10 +26,10 @@ body {
   overflow: hidden;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
   position: relative;
-  background: rgba(88, 107, 132, 0.8);
+  background: rgba(32, 64, 54, 0.8);
 }
 .help-group {
-  color: #b8eef5;
+  color: #ceb78b;
   font-size: 18px;
   font-weight: bold;
   padding: 8px 0 5px 10px;
@@ -45,8 +45,7 @@ body {
   color: #fff;
 }
 .help-table .tr {
-  display: flex;
-  flex-wrap: wrap
+  display: table-row;
 }
 .help-table .td,
 .help-table .th {
@@ -56,7 +55,7 @@ body {
   padding: 12px 0 12px 50px;
   line-height: 24px;
   position: relative;
-  width: calc(100%/3);
+  width: 33.33%;
   text-align: left;
 }
 .help-table .tr:nth-child(odd) {
@@ -76,31 +75,13 @@ body {
   height: 40px;
   display: block;
   position: absolute;
-  background: url("../../img/help/icon.png") 0 0 no-repeat;
+  background: url("icon.png") 0 0 no-repeat;
   background-size: 500px auto;
   border-radius: 5px;
   left: 6px;
   top: 12px;
   transform: scale(0.85);
 }
-
-.help-icon_1{background-position:-0px -0px}
-.help-icon_2{background-position:-50px -0px}
-.help-icon_3{background-position:-100px -0px}
-.help-icon_4{background-position:-150px -0px}
-.help-icon_5{background-position:-200px -0px}
-.help-icon_6{background-position:-250px -0px}
-.help-icon_7{background-position:-300px -0px}
-.help-icon_8{background-position:-350px -0px}
-.help-icon_9{background-position:-400px -0px}
-.help-icon_10{background-position:-450px -0px}
-.help-icon_11{background-position:-0px -50px}
-.help-icon_12{background-position:-50px -50px}
-.help-icon_13{background-position:-100px -50px}
-.help-icon_14{background-position:-150px -50px}
-.help-icon_15{background-position:-200px -50px}
-.help-icon_16{background-position:-250px -50px}
-
 .help-title {
   display: block;
   color: #daf9ff;
