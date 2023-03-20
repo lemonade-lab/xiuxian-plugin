@@ -346,11 +346,7 @@ export class Occupation extends plugin {
             return;
         }
         let action = await this.getPlayerAction(e.user_id);
-        let state = await this.getPlayerState(action);
-        if (state == "空闲") {
-            return;
-        }
-        if (action.action != "采药") {
+        if (action.plant==1) {
             return;
         }
         //结算
@@ -390,6 +386,7 @@ export class Occupation extends plugin {
                 time = 0;
             }
         }
+        console.log(1)
         if (e.isGroup) {
             await this.plant_jiesuan(e.user_id, time, false, e.group_id);//提前闭关结束不会触发随机事件
         } else {
@@ -501,11 +498,7 @@ export class Occupation extends plugin {
             return;
         }
         let action = await this.getPlayerAction(e.user_id);
-        let state = await this.getPlayerState(action);
-        if (state == "空闲") {
-            return;
-        }
-        if (action.action != "采矿") {
+        if (action.mine==1) {
             return;
         }
         //结算
@@ -1289,27 +1282,6 @@ export class Occupation extends plugin {
         action = JSON.parse(action);//转为json格式数据
         return action;
     }
-
-    /**
-     * 获取人物的状态，返回具体的状态或者空闲
-     * @param action
-     * @returns {Promise<void>}
-     */
-    async getPlayerState(action) {
-        if (action == null) {
-            return "空闲";
-        }
-        let now_time = new Date().getTime();
-        let end_time = action.end_time;
-        //当前时间>=结束时间，并且未结算 属于已经完成任务，却并没有结算的
-        //当前时间<=完成时间，并且未结算 属于正在进行
-        if (!((now_time >= end_time && (action.shutup == 0 || action.working == 0 || action.plant == 0 || action.min == 0)) || (now_time <= end_time && (action.shutup == 0 || action.working == 0 || action.plant == 0 || action.mine == 0 || action.shoulie == 0)))) {
-
-            return "空闲";
-        }
-        return action.action;
-    }
-
     async pushInfo(id, is_group, msg) {
         if (is_group) {
             await Bot.pickGroup(id)

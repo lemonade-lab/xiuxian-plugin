@@ -241,11 +241,7 @@ export class PlayerControl extends plugin {
             return;
         }
         let action = await this.getPlayerAction(e.user_id);
-        let state = await this.getPlayerState(action);
-        if (state == "空闲") {
-            return;
-        }
-        if (action.action != "闭关") {
+        if (action.shutup == 1) {
             return;
         }
 
@@ -318,11 +314,7 @@ export class PlayerControl extends plugin {
             return;
         }
         let action = await this.getPlayerAction(e.user_id);
-        let state = await this.getPlayerState(action);
-        if (state == "空闲") {
-            return;
-        }
-        if (action.action != "降妖") {
+        if (action.working==1) {
             return;
         }
         //结算
@@ -566,28 +558,6 @@ export class PlayerControl extends plugin {
         action = JSON.parse(action);//转为json格式数据
         return action;
     }
-
-    /**
-     * 获取人物的状态，返回具体的状态或者空闲
-     * @param action
-     * @returns {Promise<void>}
-     */
-    async getPlayerState(action) {
-        if (action == null) {
-            return "空闲";
-        }
-        let now_time = new Date().getTime();
-        let end_time = action.end_time;
-        //当前时间>=结束时间，并且未结算 属于已经完成任务，却并没有结算的
-        //当前时间<=完成时间，并且未结算 属于正在进行
-        if (!((now_time >= end_time && (action.shutup == 0 || action.working == 0 || action.plant == 0)) || (now_time <= end_time && (action.shutup == 0 || action.working == 0 || action.plant == 0)))) {
-
-            return "空闲";
-        }
-        return action.action;
-    }
-
-
     /**
      * 推送消息，群消息推送群，或者推送私人
      * @param id
