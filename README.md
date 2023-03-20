@@ -1,7 +1,7 @@
 ## 安装      
 > 在Yunzai-Bot/目录下执行  
 ```
-git clone -b fourth https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian-plugin/
+git clone -b VersionTwo https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian-plugin/
 
 ```           
 ## 特别说明       
