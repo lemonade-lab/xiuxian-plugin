@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "tttgbnumber";
+  src: url("../../font/tttgbnumber.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  transform: scale(1);
+  width: 100%;
+  text-align: center;
+  background-image: url('../..//img/player/player.jpg');
+  background-size: 100% auto;
+}
+
+
+.user_top {
+  width: 90%;
+  margin: auto;
+}
+
+
+.user_top_left {
+  float: left;
+  width: 30%;
+  padding-top: 21px;
+  margin-top: 50px;
+}
+
+.user_top_img_bottom {
+  margin: auto;
+  background-image: url("../../img/state/user_state.png");
+  background-size: 100% auto;
+  width: 280px;
+  height: 280px;
+}
+
+.user_top_img {
+  margin-top: 52px;
+  margin-left: 2px;
+  width: 172px;
+  height: 172px;
+  border-radius: 100px;
+}
+
+.user_top_left_qq {
+  background-color: rgba(19, 21, 22, 0.486);
+  border-radius: 20px;
+  color: azure;
+  margin-left: 13px;
+  width: 240px;
+  height: 40px;
+  padding: 5px;
+  font-size: 30px;
+}
+
+
+.user_top_right {
+  float: right;
+  text-align: left;
+  margin-top: 65px;
+  width: 60%;
+  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
+  border-radius: 20px;
+}
+
+.use_data {
+  margin: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.user_font {
+  text-align: left;
+  margin: 9px;
+  font-size: 25.6px;
+  padding: 15px;
+  padding-left: 60px;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+  border-radius: 20px;
+  background-color: rgba(19, 21, 22, 0.486);
+}
+
+.gonfa{
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.gonfa2{
+	width: 33.33%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+.user_bottom0 {
+  padding-top: 80px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  width: 90%;
+  height: 380px;
+  margin: auto;
+}
+
+
+
+.user_bottom1 {
+  border-radius: 20px;
+  width: 90%;
+  margin: auto;
+  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
+}
+
+
+.user_bottom2 {
+  border-radius: 20px;
+  width: 90%;
+  margin: auto;
+  height: 20px;
+}

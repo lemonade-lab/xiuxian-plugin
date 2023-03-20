@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/supermarket/supermarket.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+	<link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+	<!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+	<link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+	<div>
+		<div class="user_bottom1">
+			<!-- 你要是闲得无聊,每个装备可以搞个icon -->
+			<div class="use_data">
+				<div class="user_font use_data_head" style="text-align: center;padding-left: 0px;">
+					<div>冲水堂</div>
+					<div style="font-size:0.8em;">上架指令：#上架+物品名*价格*数量</div>
+					<div style="font-size:0.8em;">选购指令：#选购+编号*数量</div>
+					<div style="font-size:0.8em;">下架指令：#下架+编号</div>
+				</div>
+				<div class="use_data_body">
+					{{each Exchange_list}}
+					<div class="user_font">
+						<div>
+							<div style="display:inline-block;">【{{$value.name.class}}】{{$value.name.name}}
+								【{{$value.pinji}}】</div>
+							<div class="number">No.{{$index+1}}</div>
+						</div>
+						{{if $value.name.class=="装备"}}
+						{{if $value.name.atk>10 || $value.name.def>10 || $value.name.HP>10}}
+						<div class="info">属性:无</div>
+						<div class="info">攻击：{{($value.name.atk).toFixed(0)}}</div>
+						<div class="info">防御：{{($value.name.def).toFixed(0)}}</div>
+						<div class="info">血量：{{($value.name.HP).toFixed(0)}}</div>
+						{{else}}
+						<div class="info">属性:{{['金','木','土','水','火'][$value.name.id-1]}}</div>
+						<div class="info">攻击：{{($value.name.atk*100).toFixed(0)}}%</div>
+						<div class="info">防御：{{($value.name.def*100).toFixed(0)}}%</div>
+						<div class="info">血量：{{($value.name.HP*100).toFixed(0)}}%</div>
+						{{/if}}
+						<div class="info">暴：{{($value.name.bao*100).toFixed(0)}}%</div>
+						{{/if}}
+						{{if $value.name.class=="仙宠"}}
+						<div class="info">等级：{{($value.name.等级).toFixed(0)}}</div>
+						{{/if}}
+						<div class="info">单价：{{$value.price}}</div>
+						<div class="info">数量：{{$value.aconut}}</div>
+						<div class="info">总价：{{$value.whole}}</div>
+					</div>
+					{{/each}}
+
+				</div>
+
+			</div>
+		</div>
+		<!--
+	</div>
+	<style>
+
+	</style>
+
+</body>
+
+</html>

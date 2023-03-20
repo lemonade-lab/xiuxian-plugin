@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/playercopy/player.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <div>
+
+    <!--上-->
+    <div class="user_top">
+      <div class="user_top_left">
+        <div class="user_top_img_bottom">
+          <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
+        </div>
+        <div class="user_top_left_qq">QQ:{{user_id}}</div>
+      </div>
+      <div class="user_top_right">
+        <div class="user_font user_font" style="padding-left: 15px;">道号：{{nickname}}</div>
+        <div class="user_font" style="padding-left: 15px;">血量：{{player_nowHP}} / {{player_maxHP}}</div>
+        <div class="user_font" style="padding-left: 15px;">体境：{{levelMax}}</div>
+        <div class="user_font" style="padding-left: 15px;">气血：{{xueqi}} / {{need_xueqi}}</div> 
+        <div class="user_font" style="padding-left: 15px;">灵石：{{lingshi}}</div>
+      </div>
+    </div>
+
+
+    <div class="user_bottom0">
+    </div>
+
+        <!--下-->
+        <div class="user_bottom1">
+          <div class="use_data">
+            <div class="use_data_head">
+              <div class="user_font" style="text-align: center;padding-left: 0px;">【我的宗门】</div>
+              <div class="user_font">宗门名称：{{association.宗门名称}}</div>
+              <div class="user_font">职位：{{association.职位}}</div>
+            </div>
+          </div>
+        </div>
+
+        
+        <!--下-->
+        <div class="user_bottom1">
+          <div class="use_data">
+            <div class="use_data_head">
+              <div class="user_font" style="text-align: center;padding-left: 0px;">【已学功法】</div>
+              <div class="user_font  gonfa"> 
+                {{each learned_gongfa item}}
+                <div class="gonfa2">
+                  《{{item}}》 
+                </div>
+                 {{/each}}</div>
+            </div>
+          </div>
+        </div>
+
+
+    <!--下-->
+    <div class="user_bottom2">
+    </div>
+
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

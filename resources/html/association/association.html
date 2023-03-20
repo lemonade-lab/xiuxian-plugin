@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/association/association.css" />
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <div>
+    <!--上-->
+    <div class="user_top">
+      <div class="user_top_left">
+        <div class="user_top_img_bottom">
+          <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
+        </div>
+        <div class="user_top_left_qq">QQ:{{user_id}}</div>
+      </div>
+      <div class="user_top_right">
+        <div class="user_font user_font" style="padding-left: 15px;">名称：{{ass.宗门名称}}</div>
+        <div class="user_font" style="padding-left: 15px;">宗主：{{mainname}}{{mainqq}}</div>
+        <div class="user_font" style="padding-left: 15px;">等级：{{ass.宗门等级}}</div>
+        <div class="user_font" style="padding-left: 15px;">灵石: {{ass.灵石池}}</div>
+        <div class="user_font" style="padding-left: 15px;">人数: &nbsp;&nbsp;{{ass.所有成员.length}}</div>
+         <div class="user_font" style="padding-left: 15px;">宗门位置：{{weizhi}}</div>
+      </div>
+    </div>
+
+    <div class="user_bottom0">
+
+    </div>
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[信息]</div>
+          <div class="user_font">门派状态：{{state}}</div>
+          <div class="user_font">天赋加强：{{xiulian}}%</div>
+          <div class="user_font">大阵强度：{{ass.大阵血量}}</div>
+          <div class="user_font">入宗门槛：{{level}}</div>
+          <div class="user_font">宗门建设等级：{{ass.宗门建设等级}}</div>
+          <div class="user_font">镇宗神兽：{{ass.宗门神兽}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[副宗主]</div>
+          <div class="user_font">
+          {{each fuzong item}}
+          <div>
+            {{item}}
+          </div>
+          {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[长老]</div>
+          <div class="user_font">
+          {{each zhanglao item}}
+          <div>
+            {{item}}
+          </div>
+          {{/each}}
+        </div>
+        </div>
+      </div>
+    </div>
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[内门弟子]</div>
+          <div class="user_font">
+            {{each neimen item}}
+            <div>
+              {{item}}
+            </div>
+            {{/each}}
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">[外门弟子]</div>
+          <div class="user_font">
+          {{each waimen item}}
+          <div>
+            {{item}}
+          </div>
+          {{/each}}
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" style="text-align: center;padding-left: 0px;">创立于: {{ass.创立时间[0]}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="user_bottom2">
+    </div>
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

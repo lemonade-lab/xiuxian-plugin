@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/state/state.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <div>
+
+    <div class="user_top">
+      <div class="user_top_left">
+        <div class="user_top_img_bottom">
+          <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
+        </div>
+        <div class="user_top_left_qq">QQ:{{user_id}}</div>
+      </div>
+      <div class="user_top_right">
+        <div class="user_font user_font" style="text-align: left;">道号:{{nickname}}</div>
+        <div class="user_font" style="text-align: left;">境界:{{level}}</div>
+        <div class="user_font" style="text-align: left;">修为:{{exp}}</div>
+        <div class="user_font" style="text-align: left;">排名:第{{usr_paiming}}名</div>
+      </div>
+    </div>
+
+    <!--头部-->
+    <div class="user_bottom0">
+    </div>
+
+
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">#天榜</div>
+        </div>
+      </div>
+    </div>
+
+    {{each allplayer item}}
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">[第{{item.名次}}名] {{item.名号}}</div>
+          <div class="user_font"> >>境界: {{item.境界}}</div>
+          <div class="user_font"> &nbsp;&nbsp;修为:{{item.总修为}}</div>
+          <!-- <div class="user_font"></div> -->
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    <!--底部-->
+
+    <div class="user_bottom2">
+    </div>
+
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

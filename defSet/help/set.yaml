@@ -1,0 +1,80 @@
+- group: 灵石设置
+  list:
+    - icon: help-icon_8
+      title: '#发+灵石/修为/血气/物品名*数量(可不加)@群友'
+      desc: '@DD斩首 #发烂铁匕首*品质(可不加)*22'
+    - icon: help-icon_8
+      title: '#全体发+灵石/修为/血气/物品名*数量(可不加)'
+      desc: '#全体发烂铁匕首*品质(可不加)*22'
+
+- group: 备份 by SC
+  list:
+    - icon: help-icon_8
+      title: '#备份存档'
+      desc: '简单的备份存档'
+    - icon: help-icon_8
+      title: '#存档列表'
+      desc: '查看所有已备份的存档时间和序号'
+    - icon: help-icon_8
+      title: '#读取存档+序号（如#读取存档3）'
+      desc: '按序号读取已备份的存档（会先自动备份）'
+
+- group: 怪物状态
+  list:
+    - icon: help-icon_8
+      title: '#开启金角大王'
+      desc: '手动开启'
+    - icon: help-icon_8
+      title: '#开启妖王'
+      desc: '手动开启'
+
+- group: 行为状态
+  list:
+    - icon: help-icon_9
+      title: '#解封@群友'
+      desc: '解除秘境/打工/闭关等状态'
+    - icon: help-icon_9
+      title: '#解除所有'
+      desc: '解除全体时间动作状态'
+    - icon: help-icon_9
+      title: '#检查存档'
+      desc: '返回错误存档的qq'
+    - icon: help-icon_9
+      title: '#重置+洗劫地点名'
+      desc: '洗劫商店状态异常可重置'
+    - icon: help-icon_9
+      title: '#全体清空锻炉'
+      desc: '解决炉子异常'
+
+- group: 修仙管理
+  list:
+    - icon: help-icon_9
+      title: '#解散宗门+宗门名'
+      desc: '解散宗门，删除文件'
+    - icon: help-icon_9
+      title: '#修仙设置'
+      desc: '查看修仙配置'
+    - icon: help-icon_9
+      title: '#一键同步'
+      desc: '同步所有'
+    - icon: help-icon_9
+      title: '#清除冲水堂'
+      desc: '全部回收物品'
+    - icon: help-icon_9
+      title: '#清除+编号'
+      desc: '清除特定物品'
+    - icon: help-icon_9
+      title: '#清空积分'
+      desc: '清除天地榜玩家积分'
+    - icon: help-icon_9
+      title: '#清空赏金榜'
+      desc: '清除赏金榜榜单'
+    - icon: help-icon_9
+      title: '#将米娜桑的纳戒里叫1w的的的道具抹除/替换为叫1k之之之道具'
+      desc: '一库一库~~~'
+    - icon: help-icon_14
+      title: '#修仙更新'
+      desc: '更新修仙模拟器插件'
+    - icon: help-icon_14
+      title: '#修仙强制更新'
+      desc: '推荐使用强制更新'

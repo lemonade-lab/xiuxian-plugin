@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
+    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+    <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+    <div>
+        <div class="header">
+        </div>
+        <!--上-->
+        <div class="card_box">
+            <div class="use_data">
+                <div class="user_font user_font_title">{{nickname}}的功法</div>
+            </div>
+        </div>
+
+        <!--下-->
+        {{if gongfa_have.length > 0 || gongfa2_have.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【已学习】</div>
+            <div class="user_font  wupin">
+                {{each gongfa_have item}}
+                <div class="item">
+                    <div class="item_title font_item_title"style="height: 45px;">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 38px;">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
+                    <div class="item_int"style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+                {{each gongfa2_have item}}
+                <div class="item">
+                    <div class="item_title font_item_title"style="height: 45px;">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 38px;">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
+                    <div class="item_int"style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+        {{/if}}
+
+    <!--下-->
+        {{if gongfa_need.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【未学习】（普通）</div>
+            <div class="user_font  wupin">
+                {{each gongfa_need item}}
+                <div class="item">
+                    <div class="item_title font_item_title"style="height: 45px;">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 38px;">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
+                    <div class="item_int"style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+        {{/if}}
+
+
+        
+    <!--下-->
+    {{if gongfa2_need.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【未学习】（限定）</div>
+            <div class="user_font  wupin">
+                {{each gongfa2_need item}}
+                <div class="item">
+                    <div class="item_title font_item_title"style="height: 45px;">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 38px;">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
+                    <div class="item_int"style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+        {{/if}}
+
+    <div class="user_bottom2">
+    </div>
+</body>
+</html>

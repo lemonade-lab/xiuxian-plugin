@@ -1,0 +1,243 @@
+@font-face {
+    font-family: "tttgbnumber";
+    src: url("../../font/tttgbnumber.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NZBZ";
+    src: url("../../font/NZBZ.TTF");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    width: 100%;
+    text-align: center;
+    background-image: url('../../img/player/player.jpg');
+    background-size: 100% auto;
+}
+
+.header {
+    display: flex;
+}
+
+.card_box {
+    margin: 30px;
+    width: 740px;
+    display: flex;
+    flex-wrap: nowrap;
+    background: radial-gradient(at top left, #ffffff10, #d7edea10);
+    border-top: 1px solid #ffcc80;
+    border-left: 1px solid #ffcc80;
+    border-right: 1px solid #bb8020;
+    border-bottom: 1px solid #bb8020;
+    box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
+    z-index: 999;
+    border-radius: 20px;
+}
+
+.user_top_left {
+    text-align: center;
+}
+
+.user_top_right {
+    float: right;
+    text-align: left;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.user_top_img_bottom {
+    margin: auto;
+    background-image: url("../../img/state/user_state.png");
+    background-size: 100% auto;
+    width: 280px;
+    height: 280px;
+}
+
+.user_top_img {
+    margin-top: 50px;
+    margin-left: 2px;
+    width: 172px;
+    height: 172px;
+    border-radius: 100px;
+}
+
+.user_top_font_left {
+    position: inherit;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    padding: 5px;
+    border-radius: 20px;
+    color: azure;
+    font-weight: 600;
+    font-size: 30px;
+    font-family: "NZBZ";
+    color: #0053ffff;
+    background-color: rgb(138, 150, 154, 0.45);
+    position: relative;
+}
+
+.user_top_font_right {
+    text-align: left;
+    margin: 9px;
+    padding: 10px;
+    font-size: 22px;
+    width: 350px;
+    height: 30px;
+    font-weight: 600;
+    font-family: "tttgbnumber";
+    color: #000;
+    padding-left: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.user_top_left_dh {
+    font-family: "NZBZ";
+    background-color: rgba(19, 21, 22, 0.486);
+    margin: 9px;
+    border-radius: 20px;
+    color: azure;
+    margin-left: 13px;
+    width: 240px;
+    height: 40px;
+    padding: 5px;
+    font-size: 35px;
+    text-align: center;
+    box-shadow: 3px 2px 3px #ccc
+}
+
+
+
+.use_data {
+    width: 740px;
+}
+
+.user_font {
+    text-align: left;
+    margin: 10px;
+    font-size: 22px;
+    padding: 15px;
+    font-weight: 600;
+    font-family: "tttgbnumber";
+    color: #000000;
+}
+
+.user_font_title {
+    margin: 10px 30px 10px 30px;
+    text-align: center;
+    border-bottom: 1px solid #bb8020;
+    font-size: 30px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.wupin {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    margin: 10px;
+    padding: 10px;
+    width: 185px;
+    background: radial-gradient(at top left, #ffcc4d80, #ff9800d0);
+    border-top: 1px solid #ffcc80;
+    border-left: 1px solid #ffcc80;
+    border-right: 1px solid #bb8020;
+    border-bottom: 1px solid #bb8020;
+    box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
+    border-radius: 5px;
+    position: relative;
+}
+
+.item_title {
+    display: block;
+    padding: 5px;
+    text-align: center;
+    font-family: "tttgbnumber";
+    font-size: 18px;
+    font-weight: 600;
+    color: #2f2b26;
+}
+
+.font_item_title {
+    font-family: "tttgbnumber";
+    font-size: 20px;
+    font-weight: 600;
+    color: #151310;
+}
+
+.item_int {
+    display: block;
+    font-family: "tttgbnumber";
+    font-size: 16px;
+    font-weight: 600;
+    color: #393535;
+}
+
+.wuqi {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wuqi1 {
+    display: flex;
+    flex-grow: 2;
+    width: 100%;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
+
+.wuqi2 {
+    display: flex;
+    flex-grow: 2;
+    width: 25%;
+    font-size: 20px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    font-weight: 500;
+}
+
+.user_bottom1 {
+    border-radius: 20px;
+    width: 90%;
+    margin: auto;
+    background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
+}
+
+.user_bottom2 {
+    border-radius: 20px;
+    width: 90%;
+    margin: auto;
+    height: 20px;
+}
+
+.blood_box {
+    width: 280px;
+    height: 100%;
+    background-color: rgb(138, 150, 154, 0.45);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgb(216, 218, 234, 0.45);
+}
+
+.blood_bar {
+    position: relative;
+    width: 30%;
+    height: 100%;
+    background-color: rgb(222, 210, 73, 0.60);
+    border-radius: 15px;
+}
+
+.blood_volume {
+    position: relative;
+    top: -28px;
+    text-align: center;
+    width: 300px;
+    height: 100%;
+    font-weight: 500;
+    font-family: "NZBZ";
+    font-size: 20px;
+}

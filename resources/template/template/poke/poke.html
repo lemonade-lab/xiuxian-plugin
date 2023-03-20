@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--扑克牌生成模板-->
+    <script>
+        //该模板的参数示例
+        let arr={
+            size:"A",//大小
+            flower_color:"红心.png",//花色图片名称
+            font_color:"black",
+            background_img:"01.jpg",//卡片背景图片
+            background_color:"red",//卡片的背景颜色，css样式参数
+            img_path:""//图片路径地址
+        }
+    </script>
+
+    <!-- poke 长宽比例5.7*8.8-->
+    <div style="width: 285px;height: 440px;border:3px solid #ff9800;background: {{background_color}};">
+            <div style="display: flex;flex-direction: column;text-align: center;width: 3%;position: fixed;">
+                <!-- 数字 宽度13%-->
+                <span style="font-size: 40px;color:{{font_color}};font-weight: bold;">{{size}}</span>
+                <!-- 花色 -->
+                <img src="{{img_path}}template/poke/image/flower_color/{{flower_color}}" />
+            </div>
+        <div style="background: url('{{img_path}}template/poke/image/card_img/{{background_img}}');width: 100%;height: 90%;background-size: 100%;margin-top: 20px;">
+            <div style="display: flex;flex-direction: column;text-align: center;width: 3%;position: fixed;margin-left: 236px;margin-top: 326px;transform: rotate(180deg);">
+                <!-- 数字 宽度13%-->
+                <span style="font-size: 40px;color:{{font_color}};font-weight: bold;">{{size}}</span>
+                <!-- 花色 -->
+                <img src="{{img_path}}template/poke/image/flower_color/{{flower_color}}" />
+            </div>
+        </div>
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/forbidden_area/forbidden_area.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+	<div> 
+		<div class="user_bottom1">
+		<div class="use_data">
+			<div class="user_font head" style="text-align: center;padding-left: 0px;">
+				<div>禁地</div>
+				<span style="font-size:0.8em">指令：#前往禁地+禁地名</span>
+			</div>
+		</div>
+			{{each didian_list item}}
+			<div class="use_data">
+				<div class="card">
+					<div class="use_data_head">
+						<div class="user_font">
+							<div >
+								<div style="display:inline-block;">【{{item.Grade}}】{{item.name}}</div>
+								<div class="price">{{item.Price}}灵石+{{item.experience}}修为</div>
+							</div>
+						</div>
+					</div>
+					<div class="use_data_body">
+						<div class="user_font">
+							<div>
+								<div><div class="info">低级奖励：</div><div style="padding-left: 20px;">{{each item.one thing}}<div class="info2">{{thing.name}}</div>{{/each}}</div></div>
+								<div><div class="info">中级奖励：</div><div style="padding-left: 20px;">{{each item.two thing}}<div class="info2">{{thing.name}}</div>{{/each}}</div></div>
+								<div><div class="info">高级奖励：</div><div style="padding-left: 20px;">{{each item.three thing}}<div class="info2">{{thing.name}}</div>{{/each}}</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css"/>
+    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font"/>
+    <link rel="shortcut icon" href="#"/>
+</head>
+<body>
+<div>
+    <div class="header">
+    </div>
+    <!--上-->
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">{{nickname}}的丹药</div>
+        </div>
+    </div>
+    <!--下-->
+    {{if danyao_have.length > 0 || danyao2_have.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【已拥有】</div>
+            <div class="user_font  wupin">
+                {{each danyao_have item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int" style="padding-left: 38px;">类型：{{item.type}}</div>
+                    <div class="item_int" style="padding-left: 38px;">
+                        效果：{{item.HP}}{{item.exp}}{{item.xueqi}}
+                        {{if item.xingyun > 0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+                    </div>
+                    <div class="item_int" style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+                {{each danyao2_have item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int" style="padding-left: 38px;">类型：{{item.type}}</div>
+                    <div class="item_int" style="padding-left: 38px;">
+                        效果：{{item.HP}}{{item.exp}}{{item.xueqi}}
+                        {{if item.xingyun > 0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+                    </div>
+                    <div class="item_int" style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <!--下-->
+    {{if danyao_need.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【未拥有】（普通）</div>
+            <div class="user_font  wupin">
+                {{each danyao_need item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int" style="padding-left: 38px;">类型：{{item.type}}</div>
+                    <div class="item_int" style="padding-left: 38px;">
+                        效果：{{item.HP}}{{item.exp}}{{item.xueqi}}
+                        {{if item.xingyun > 0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+                    </div>
+                    <div class="item_int" style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    {{if danyao2_need.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【未拥有】（限定）</div>
+            <div class="user_font  wupin">
+                {{each danyao2_need item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int" style="padding-left: 38px;">类型：{{item.type}}</div>
+                    <div class="item_int" style="padding-left: 38px;">
+                        效果：{{item.HP}}{{item.exp}}{{item.xueqi}}
+                        {{if item.xingyun > 0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+                    </div>
+                    <div class="item_int" style="padding-left: 38px;">价格：{{item.出售价}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+    <div class="user_bottom2">
+    </div>
+</body>
+</html>

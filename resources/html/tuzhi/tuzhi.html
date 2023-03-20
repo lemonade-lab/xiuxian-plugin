@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/tuzhi/tuzhi.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+	<div> 
+		<div class="user_bottom1">
+  <!-- 你要是闲得无聊,每个装备可以搞个icon -->
+		<div class="use_data">
+			<div class="user_font use_data_head" style="text-align: center;padding-left: 0px;">
+				<div>图纸</div>
+				<div style="font-size:0.8em;">炼制指令：#打造+武器名</div>
+				<div style="font-size:0.8em;">炼制成功率 = 炼制成功率 + 玩家职业等级成功率</div>
+			</div>
+			<div class="use_data_body">
+				{{each tuzhi_list item}}
+					<div class="user_font">
+						<div >
+							<div style="display:inline-block;">{{item.name}}</div>
+							<div class="rate">基础成功率{{~~(item.rate*100)}}%</div>
+						</div>
+					{{each item.materials material}}
+						<div class="info" style="width:130px;">{{material.name}}×{{material.amount}}</div>
+					{{/each}}
+					</div>
+				{{/each}}
+			</div>
+		</div>
+		</div>
+<!--
+    {{each commodities_list item}}
+    <div class="user_bottom1">
+		<div class="use_data">
+			<div class="user_font">{{item.name}}【{{item.class}}】</div>
+			{{if item.desc}}<div class="user_font">说明：{{item.desc}}</div>{{/if}}
+			{{if item.class=="装备"}}<div class="user_font">部位：{{item.type}}</div>{{/if}}
+			<div class="user_font">
+				{{if item.atk>0}}
+					攻[{{item.atk}}]
+				{{/if}}
+				{{if item.def>0}}
+					防[{{item.def}}]
+				{{/if}}
+				{{if item.HP>0}}
+					血[{{item.HP}}]
+				{{/if}}
+				{{if item.bao>0}}
+					暴[{{item.bao*100}}%]
+				{{/if}}
+				{{if item.修炼加成>0}}
+					天赋[{{item.修炼加成*100}}%]
+				{{/if}}
+				{{if item.exp>0}}
+					修为[{{item.exp}}]
+				{{/if}}
+				{{if item.xueqi>0}}
+					血气[{{item.xueqi}}]
+				{{/if}}
+			</div>
+			<div class="user_font">价格：{{item.出售价}}</div>
+		</div>
+    </div>
+    {{/each}}-->
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/statezhiye/statezhiye.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <div>
+
+ 
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">#职业等级</div>
+        </div>
+      </div>
+    </div>
+    {{each Level_list item}}
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">
+            <div> 等级：{{item.name}}</div>
+            <div>熟练度要求：{{item.experience}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+
+    <!--底部-->
+
+    <div class="user_bottom2">
+    </div>
+
+
+
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

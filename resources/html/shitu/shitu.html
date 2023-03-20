@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/shitu/shitu.css"
+    />
+    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+    <link rel="shortcut icon" href="#" />
+  </head>
+
+  <body>
+    <div>
+      <!--上-->
+      <div class="user_top">
+        <div class="user_top_left">
+          <div class="user_top_img_bottom">
+            <img
+              class="user_top_img"
+              src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}"
+              onerror="whenError(this)"
+            />
+          </div>
+          <div class="user_top_left_qq">QQ:{{user_id}}</div>
+        </div>
+        <div class="user_top_right">
+          <div class="user_font" style="padding-left: 15px">
+            名号:{{minghao}}
+          </div>
+          <!-- <div class="user_font" style="padding-left: 15px">
+            qq：{{usr_qq}}
+          </div> -->
+          <div class="user_font" style="padding-left: 15px">
+            任务阶段: {{renwu}}
+          </div>
+          <div class="user_font" style="padding-left: 15px">
+            师门人数: {{tudinum}}
+          </div>
+          <div class="user_font" style="padding-left: 15px">
+            未出师徒弟: {{newchengyuan}}
+          </div>
+          <div class="user_font user_font" style="padding-left: 15px">
+            师徒积分：{{shimen}}
+          </div>
+        </div>
+      </div>
+
+      <div class="user_bottom0"></div>
+      <div class="user_bottom1">
+        <div class="use_data">
+          <div class="use_data_head">
+            <div
+              class="user_font"
+              style="text-align: center; padding-left: 0px"
+            >
+              [师徒任务]
+            </div>
+            <div class="user_font">任务1：</div>
+            <div class="user_font">{{rw1}}{{wancheng1}}</div>
+            <div class="user_font">任务2：</div>
+            <div class="user_font">{{rw2}}{{wancheng2}}</div>
+            <div class="user_font">任务3：</div>
+            <div class="user_font">{{rw3}}{{wancheng3}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user_bottom1">
+        <div class="use_data">
+          <div class="use_data_head">
+            <div
+              class="user_font"
+              style="text-align: center; padding-left: 0px"
+            >
+              [座下门徒]
+            </div>
+            <div class="user_font">
+              {{each chengyuan item}}
+              <div>{{item}}</div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+    <style></style>
+  </body>
+</html>

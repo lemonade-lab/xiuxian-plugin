@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
+    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+    <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+    <div>
+        <div class="header">
+        </div>
+        <!--上-->
+        <div class="card_box">
+            <div class="use_data">
+                <div class="user_font user_font_title">{{nickname}}的仙宠</div>
+            </div>
+        </div>
+
+        <!--下-->
+        {{if XianChong_have.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【已拥有】</div>
+            <div class="user_font  wupin">
+                {{each XianChong_have item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 26px;">类型：{{item.type}}</div>
+                    <div class="item_int"style="padding-left: 26px;">初始加成：{{item.初始加成*100}}%</div>
+                    <div class="item_int"style="padding-left: 26px;">每级增加：{{item.每级增加*100}}%</div>
+                    <div class="item_int"style="padding-left: 26px;">加成：{{item.加成*100}}%</div>
+                    {{if item.灵魂绑定==0}}
+                    <div class="item_int"style="padding-left: 26px;">灵魂绑定：否</div>
+                    {{/if}}
+                    {{if item.灵魂绑定==1}}
+                    <div class="item_int"style="padding-left: 26px;">灵魂绑定：是</div>
+                    {{/if}}
+                    <div class="item_int"style="padding-left: 26px;">品级：{{item.品级}}</div>
+                    <div class="item_int"style="padding-left: 26px;">等级上限：{{item.等级上限}}</div>
+                    <div class="item_int"style="padding-left: 26px;">价格：{{item.出售价}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{/if}}
+
+    {{if XianChong_need.length > 0}}
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【未拥有】</div>
+            <div class="user_font  wupin">
+                {{each XianChong_need item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 26px;">类型：{{item.type}}</div>
+                    <div class="item_int"style="padding-left: 26px;">初始加成：{{item.初始加成*100}}%</div>
+                    <div class="item_int"style="padding-left: 26px;">每级增加：{{item.每级增加*100}}%</div>
+                    <div class="item_int"style="padding-left: 26px;">加成：{{item.加成*100}}%</div>
+                    {{if item.灵魂绑定==0}}
+                    <div class="item_int"style="padding-left: 26px;">灵魂绑定：否</div>
+                    {{/if}}
+                    {{if item.灵魂绑定==1}}
+                    <div class="item_int"style="padding-left: 26px;">灵魂绑定：是</div>
+                    {{/if}}
+                    <div class="item_int"style="padding-left: 26px;">品级：{{item.品级}}</div>
+                    <div class="item_int"style="padding-left: 26px;">等级上限：{{item.等级上限}}</div>
+                    <div class="item_int"style="padding-left: 26px;">价格：{{item.出售价}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    {{/if}}                                                                  
+
+    <!--下-->
+    <div class="card_box">
+        <div class="use_data">
+            <div class="user_font user_font_title">【口粮图鉴】</div>
+            <div class="user_font  wupin">
+                {{each Kouliang item}}
+                <div class="item">
+                    <div class="item_title font_item_title">{{item.name}}</div>
+                    <div class="item_int"style="padding-left: 26px;">等级：{{item.level}}</div>
+                    <div class="item_int"style="padding-left: 26px;">价格：{{(item.出售价).toFixed(0)}}</div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="user_bottom2">
+    </div>
+</body>
+</html>

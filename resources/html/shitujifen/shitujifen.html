@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link 
+  rel="stylesheet" 
+  type="text/css" 
+  href="{{pluResPath}}/html/ningmenghome/ningmenghome.css" 
+  />
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+	<div> 
+		<div class="user_bottom1">
+  <!-- 你要是闲得无聊,每个装备可以搞个icon -->
+		<div class="use_data">
+			<div class="user_font use_data_head" style="text-align: center;padding-left: 0px;">
+				<div>师徒商店</div>
+				<div style="font-size:0.8em;">购买指令：#师徒兑换+物品名</div>
+				<div style="font-size:0.8em;">{{name}}的积分：{{jifen}}</div>
+			</div>
+			<div class="use_data_body">
+				{{each commodities_list item}}
+					<div class="user_font">
+						<div >
+							<div style="display:inline-block;">【{{item.type}}】{{item.name}}</div>
+							<div class="price">{{item.积分}}积分</div>
+						</div>
+					{{if item.class=="装备"}}
+						<div class="info" style="width:130px;">攻：{{item.atk}}</div>
+						<div class="info" style="width:130px;">防：{{item.def}}</div>
+						<div class="info" style="width:130px;">血：{{item.HP}}</div>
+						<div class="info" style="width:130px;">暴：{{item.bao*100}}%</div>
+					{{else if item.class=="丹药"}}
+						<div class="info">效果：{{item.exp}}{{item.xueqi}}</div>
+					{{else if item.class=="功法"}}
+						<div class="info">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
+						
+					{{else if item.class=="道具"}}
+						<div class="info">描述：{{item.desc}}</div>
+					{{else if item.class=="草药"}}
+						<div class="info">描述：{{item.desc}}</div>
+					{{/if}}
+					</div>
+				{{/each}}
+			</div>
+		</div>
+		</div>
+<!--
+    {{each commodities_list item}}
+    <div class="user_bottom1">
+		<div class="use_data">
+			<div class="user_font">{{item.name}}【{{item.class}}】</div>
+			{{if item.desc}}<div class="user_font">说明：{{item.desc}}</div>{{/if}}
+			{{if item.class=="装备"}}<div class="user_font">部位：{{item.type}}</div>{{/if}}
+			<div class="user_font">
+				{{if item.atk>0}}
+					攻[{{item.atk}}]
+				{{/if}}
+				{{if item.def>0}}
+					防[{{item.def}}]
+				{{/if}}
+				{{if item.HP>0}}
+					血[{{item.HP}}]
+				{{/if}}
+				{{if item.bao>0}}
+					暴[{{item.bao*100}}%]
+				{{/if}}
+				{{if item.修炼加成>0}}
+					天赋[{{item.修炼加成*100}}%]
+				{{/if}}
+				{{if item.exp>0}}
+					修为[{{item.exp}}]
+				{{/if}}
+				{{if item.xueqi>0}}
+					血气[{{item.xueqi}}]
+				{{/if}}
+			</div>
+			<div class="user_font">价格：{{item.出售价}}</div>
+		</div>
+    </div>
+    {{/each}}-->
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

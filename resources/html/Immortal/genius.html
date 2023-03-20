@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/state/state.css" />
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <div>
+
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">#至尊榜</div>
+        </div>
+      </div>
+    </div>
+
+    {{each allplayer item}}
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font" >[第{{item.名次}}名]{{item.名号}}</div>
+          <div class="user_font" >道号: {{item.灵石}} </div>
+          <div class="user_font" >战力: {{item.灵石}} </div>
+          <div class="user_font" >QQ: {{item.灵石}} </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    <div class="user_bottom2">
+    </div>
+
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>

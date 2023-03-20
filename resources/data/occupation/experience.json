@@ -1,0 +1,224 @@
+[   
+    {
+		"name": "无业游民",
+		"id": 0,
+		"experience": 100,
+		"rate": 0.1
+	},
+	{
+		"name": "赤袍下品",
+		"id": 1,
+		"experience": 100,
+		"rate": 0.1
+	},
+	{
+		"name": "赤袍中品",
+		"id": 2,
+		"experience": 200,
+		"rate": 0.2
+	},
+	{
+		"name": "赤袍上品",
+		"id": 3,
+		"experience": 400,
+		"rate": 0.3
+	},
+	{
+		"name": "赤袍极品",
+		"id": 4,
+		"experience": 600,
+		"rate": 0.4
+	},
+	{
+		"name": "橙袍下品",
+		"id": 5,
+		"experience": 900,
+		"rate": 0.5
+	},
+	{
+		"name": "橙袍中品",
+		"id": 6,
+		"experience": 1300,
+		"rate": 0.6
+	},
+	{
+		"name": "橙袍上品",
+		"id": 7,
+		"experience": 2000,
+		"rate": 0.7
+	},
+	{
+		"name": "橙袍极品",
+		"id": 8,
+		"experience": 3000,
+		"rate": 0.8
+	},
+	{
+		"name": "黄袍下品",
+		"id": 9,
+		"experience": 4000,
+		"rate": 0.9
+	},
+	{
+		"name": "黄袍中品",
+		"id": 10,
+		"experience": 6000,
+		"rate": 1
+	},
+	{
+		"name": "黄袍上品",
+		"id": 11,
+		"experience": 9000,
+		"rate": 1.1
+	},
+	{
+		"name": "黄袍极品",
+		"id": 12,
+		"experience": 13000,
+		"rate": 1.2
+	},
+	{
+		"name": "绿袍下品",
+		"id": 13,
+		"experience": 20000,
+		"rate": 1.3
+	},
+	{
+		"name": "绿袍中品",
+		"id": 14,
+		"experience": 30000,
+		"rate": 1.4
+	},
+	{
+		"name": "绿袍上品",
+		"id": 15,
+		"experience": 40000,
+		"rate": 1.5
+	},
+	{
+		"name": "绿袍极品",
+		"id": 16,
+		"experience": 40000,
+		"rate": 1.6
+	},
+	{
+		"name": "青袍下品",
+		"id": 17,
+		"experience": 40000,
+		"rate": 1.7
+	},
+	{
+		"name": "青袍中品",
+		"id": 18,
+		"experience": 40000,
+		"rate": 1.8
+	},
+	{
+		"name": "青袍上品",
+		"id": 19,
+		"experience": 40000,
+		"rate": 1.9
+	},
+	{
+		"name": "青袍极品",
+		"id": 20,
+		"experience": 40000,
+		"rate": 2
+	},
+	{
+		"name": "蓝袍下品",
+		"id": 21,
+		"experience": 40000,
+		"rate": 2.1
+	},
+	{
+		"name": "蓝袍中品",
+		"id": 22,
+		"experience": 40000,
+		"rate": 2.2
+	},
+	{
+		"name": "蓝袍上品",
+		"id": 23,
+		"experience": 40000,
+		"rate": 2.3
+	},
+	{
+		"name": "蓝袍极品",
+		"id": 24,
+		"experience": 40000,
+		"rate": 2.4
+	},
+	{
+		"name": "紫袍下品",
+		"id": 25,
+		"experience": 40000,
+		"rate": 2.5
+	},
+	{
+		"name": "紫袍中品",
+		"id": 26,
+		"experience": 40000,
+		"rate": 2.6
+	},
+	{
+		"name": "紫袍上品",
+		"id": 27,
+		"experience": 40000,
+		"rate": 2.7
+	},
+	{
+		"name": "紫袍极品",
+		"id": 28,
+		"experience": 40000,
+		"rate": 2.8
+	},
+	{
+		"name": "彩袍下品",
+		"id": 29,
+		"experience": 40000,
+		"rate": 2.9
+	},
+	{
+		"name": "彩袍中品",
+		"id": 30,
+		"experience": 40000,
+		"rate": 3
+	},
+	{
+		"name": "彩袍上品",
+		"id": 31,
+		"experience": 40000,
+		"rate": 3
+	},
+	{
+		"name": "彩袍极品",
+		"id": 32,
+		"experience": 40000,
+		"rate": 3
+	},
+	{
+		"name": "白袍下品",
+		"id": 33,
+		"experience": 40000,
+		"rate": 3
+	},
+	{
+		"name": "白袍中品",
+		"id": 34,
+		"experience": 40000,
+		"rate": 3
+	},
+	{
+		"name": "白袍上品",
+		"id": 35,
+		"experience": 40000,
+		"rate": 3
+	},
+	{
+		"name": "白袍极品",
+		"id": 36,
+		"experience": 999999999,
+		"rate": 3
+	}
+]

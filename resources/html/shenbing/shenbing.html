@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/shenbing/shenbing.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+
+    <!--头部-->
+    
+
+
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">神兵榜</div>
+        </div>
+      </div>
+    </div>
+
+   {{each newwupin item}}
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="use_data_head">
+          <div class="user_font">No.{{$index+1}}<br>兵器名:{{item.name}}<br>类&nbsp;&nbsp;别:{{item.type}}<br>缔造者:{{item.制作者}}<br>持兵者:{{item.使用者}}<br>灵韵值:{{item.评分}}</div>
+      
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    <!--底部-->
+
+    <div class="user_bottom2">
+    </div>
+
+
+  </div>
+  <style>
+
+  </style>
+
+</body>
+
+</html>
