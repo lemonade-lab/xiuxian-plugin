@@ -386,7 +386,6 @@ export class Occupation extends plugin {
                 time = 0;
             }
         }
-        console.log(1)
         if (e.isGroup) {
             await this.plant_jiesuan(e.user_id, time, false, e.group_id);//提前闭关结束不会触发随机事件
         } else {
