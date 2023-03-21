@@ -114,26 +114,12 @@ export class AdminSuper extends plugin {
     for (j = str.length - 1; j > -1; j--) {
       if (
         str[j] == '零' ||
-        str[j] == '打铁的' ||
-        str[j] == '香菜' ||
-        str[j] == '魔术师' ||
-        str[j] == '画手' ||
-        str[j] == '摸鱼' ||
-        str[j] == '闹钟' ||
-        str[j] == '晓飞' ||
-        str[j] == '航'
+        str[j] == '打铁的'
       ) {
         let m = j;
         while (
           str[m - 1] != '零' &&
           str[m - 1] != '打铁的' &&
-          str[m - 1] != '香菜' &&
-          str[m - 1] != '魔术师' &&
-          str[m - 1] != '画手' &&
-          str[m - 1] != '摸鱼' &&
-          str[m - 1] != '闹钟' &&
-          str[m - 1] != '晓飞' &&
-          str[m - 1] != '航' &&
           m > 0
         ) {
           T = str[m];
