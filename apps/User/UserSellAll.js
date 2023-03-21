@@ -415,7 +415,7 @@ export class UserSellAll extends plugin {
         if (e.msg != '#一键出售') {
             let thing = e.msg.replace("#一键出售", '');
             for (var i of wupin) {
-                if (thing.includes(i)) {
+                if (thing == i) {
                     wupin1.push(i)
                     thing = thing.replace(i, "")
                 }
@@ -475,7 +475,7 @@ export class UserSellAll extends plugin {
         if (e.msg != '#一键出售') {
             let thing = e.msg.replace("#一键出售", '');
             for (var i of wupin) {
-                if (thing.includes(i)) {
+                if (thing == i) {
                     wupin1.push(i)
                     thing = thing.replace(i, "")
                 }
