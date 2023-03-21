@@ -591,7 +591,7 @@ export class Occupation extends plugin {
         ];
         const sum2 = [0.2, 0.3, 0.2, 0.2, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         const sum3 = [0.17, 0.22, 0.17, 0.17, 0.17, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024, 0.012, 0.011];
-        msg.push(` 恭喜你获得了经验${exp},草药:`);
+        msg.push(`\n恭喜你获得了经验${exp},草药:`);
         let newsum = sum3.map(item => item * sum);
         if (player.level_id < 36) {
             newsum = sum2.map(item => item * sum);
