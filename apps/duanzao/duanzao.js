@@ -128,7 +128,7 @@ export class duanzao extends plugin {
                     newwupin.push({
                         name: j.name,
                         type: j.type,
-                        评分: Math.trunc((j.atk * 1.2 + j.def * 1.5 + j.HP * 1.5) * 10000),
+                        评分: Math.trunc((j.atk * 1.3 + j.def * 1.5 + j.HP * 1.5) * 10000),
                         制作者: author,
                         使用者: usr_player.名号 + '(' + D + ')',
                     });
