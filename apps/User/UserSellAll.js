@@ -410,13 +410,12 @@ export class UserSellAll extends plugin {
             return;
         }
         let najie = await data.getData("najie", usr_qq);
-        let commodities_price = 0
         let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮'];
         let wupin1 = []
         if (e.msg != '#一键出售') {
             let thing = e.msg.replace("#一键出售", '');
             for (var i of wupin) {
-                if (thing == i) {
+                if (thing.includes(i)) {
                     wupin1.push(i)
                     thing = thing.replace(i, "")
                 }
@@ -427,9 +426,69 @@ export class UserSellAll extends plugin {
                 return
             }
         }
-        for (var i of wupin) {
+        let goodsNum=0;
+        let goods="正在出售:\n";
+        for (let i of wupin) {
             for (let l of najie[i]) {
-                if (l && l.islockd == 0 && !(l.id >= 400991 && l.id <= 400999)) {
+                if (l && l.islockd == 0) {
+                    //纳戒中的数量
+                    let quantity = l.数量;
+                    goods+="\t"+l.name+"*"+quantity+"\n";
+                    goodsNum++;
+                }
+            }
+        }
+        if (goodsNum==0){
+            e.reply("没有东西可以出售", false, { at: true });
+            return;
+        }
+        goods+="回复[1]出售,回复[0]取消出售";
+        /** 设置上下文 */
+        this.setContext('noticeSellAllGoods');
+        /** 回复 */
+        await e.reply(goods, false, { at: true });
+        return;
+    }
+    async noticeSellAllGoods(e){
+        if (!e.isGroup) {
+            return;
+        }
+        let reg = new RegExp(/^1$/);
+        let new_msg = this.e.msg;
+        let difficulty = reg.exec(new_msg);
+        if (!difficulty) {
+            e.reply('已取消出售', false, { at: true });
+            /** 结束上下文 */
+            this.finish('noticeSellAllGoods');
+            return;
+        }
+        /** 结束上下文 */
+        this.finish('noticeSellAllGoods');
+        /**出售*/
+        //不开放私聊功能
+        let usr_qq = e.user_id;
+        //有无存档
+        let najie = await data.getData("najie", usr_qq);
+        let commodities_price = 0
+        let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮'];
+        let wupin1 = []
+        if (e.msg != '#一键出售') {
+            let thing = e.msg.replace("#一键出售", '');
+            for (var i of wupin) {
+                if (thing.includes(i)) {
+                    wupin1.push(i)
+                    thing = thing.replace(i, "")
+                }
+            }
+            if (thing.length == 0) {
+                wupin = wupin1
+            } else {
+                return
+            }
+        }
+        for (let i of wupin) {
+            for (let l of najie[i]) {
+                if (l && l.islockd == 0) {
                     //纳戒中的数量
                     let quantity = l.数量;
                     await Add_najie_thing(usr_qq, l.name, l.class, -quantity, l.pinji);

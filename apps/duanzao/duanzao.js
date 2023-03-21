@@ -680,7 +680,7 @@ export class duanzao extends plugin {
         const thing_name = code[0]; //原物品
         let new_name = code[1]; //新名字
         const thingnum = await exist_najie_thing(user_qq, thing_name, '装备');
-        if (thingnum == false) {
+        if (!thingnum) {
             e.reply(`你没有这件装备`);
             return;
         }

@@ -329,23 +329,11 @@ export class Battle extends plugin {
       return;
     }
     let A = e.user_id;
-
     //先判断
     let ifexistplay_A = await existplayer(A);
     if (!ifexistplay_A || e.isPrivate) {
       return;
     }
-    //看看状态
-    //得到redis游戏状态
-    let last_game_timeA = await redis.get(
-      'xiuxian:player:' + A + ':last_game_time'
-    );
-    //设置游戏状态
-    if (last_game_timeA == 0) {
-      e.reply(`猜大小正在进行哦!`);
-      return true;
-    }
-
     let isat = e.message.some(item => item.type === 'at');
     if (!isat) {
       return;
