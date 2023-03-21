@@ -11,7 +11,7 @@ export class forumtask extends plugin {
             rule: [
             ]
         });
-        this.set = config.getdefSet('task', 'task')
+        this.set = config.getdefset('task', 'task')
         this.task = {
             cron: this.set.forumTask,
             name: 'forumTask',

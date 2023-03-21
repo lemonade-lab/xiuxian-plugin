@@ -10,7 +10,7 @@ export class bossendtask extends plugin {
             rule: [
             ]
         });
-        this.set = config.getdefSet('task', 'task')
+        this.set = config.getdefset('task', 'task')
         this.task = {
             cron: this.set.BossEndTask,
             name: 'BossEndTask',

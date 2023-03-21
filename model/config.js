@@ -6,13 +6,13 @@ import { AppName } from "../app.config.js";
 class config {
     constructor() {
         /** 默认配置文件路径 */
-        this.defSetPath = `./plugins/${AppName}/defSet/`;
-        this.defSet = {};
+        this.defsetPath = `./plugins/${AppName}/defset/`;
+        this.defset = {};
         /** 用户自己配置的配置文件路径 */
         this.configPath = `./plugins/${AppName}/config/`;
         this.config = {};
         /** 监听文件 */
-        this.watcher = { config: {}, defSet: {} };
+        this.watcher = { config: {}, defset: {} };
     }
 
     /**
@@ -21,8 +21,8 @@ class config {
      * @param name
      * @returns {*}
      */
-    getdefSet(app, name) {
-        return this.getYaml(app, name, "defSet");
+    getdefset(app, name) {
+        return this.getYaml(app, name, "defset");
     }
 
     /**
@@ -39,7 +39,7 @@ class config {
         }
 
         return {
-            ...this.getdefSet(app, name),
+            ...this.getdefset(app, name),
             ...this.getYaml(app, name, "config"),
         };
     }
@@ -48,7 +48,7 @@ class config {
      * 获取配置yaml配置文件
      * @param app 功能
      * @param name 名称
-     * @param type 默认跑配置-defSet，用户配置-config
+     * @param type 默认跑配置-defset，用户配置-config
      */
     getYaml(app, name, type) {
         let file = this.getFilePath(app, name, type);
@@ -71,13 +71,13 @@ class config {
      * @returns {string}
      */
     getFilePath(app, name, type) {
-        //如果type=defSet，返回默认配置文件的路径,路径为根目录
-        if (type == "defSet") return `${this.defSetPath}${app}/${name}.yaml`;
+        //如果type=defset，返回默认配置文件的路径,路径为根目录
+        if (type == "defset") return `${this.defsetPath}${app}/${name}.yaml`;
         else return `${this.configPath}${app}/${name}.yaml`;
     }
 
     /** 监听配置文件 */
-    watch(file, app, name, type = "defSet") {
+    watch(file, app, name, type = "defset") {
         let key = `${app}.${name}`;
 
         if (this.watcher[type][key]) return;

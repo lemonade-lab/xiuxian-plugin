@@ -17,7 +17,7 @@ export class secretplacetask extends plugin {
             rule: [
             ]
         });
-        this.set = config.getdefSet('task', 'task')
+        this.set = config.getdefset('task', 'task')
         this.task = {
             cron: this.set.action_task,
             name: 'SecretPlaceTask',

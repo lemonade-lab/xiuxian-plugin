@@ -12,7 +12,7 @@ export class gamestask extends plugin {
             rule: [
             ]
         });
-        this.set = config.getdefSet('task', 'task')
+        this.set = config.getdefset('task', 'task')
         this.task = {
             cron: this.set.GamesTask,
             name: 'GamesTask',

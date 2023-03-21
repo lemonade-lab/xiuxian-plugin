@@ -18,7 +18,7 @@ export const __PATH = {
 }
 let xiuxianSetFile = "./plugins/" + AppName + "/config/xiuxian/xiuxian.yaml";
 if (!fs.existsSync(xiuxianSetFile)) {
-    fs.copyFileSync("./plugins/" + AppName + "/defSet/xiuxian/xiuxian.yaml", xiuxianSetFile);
+    fs.copyFileSync("./plugins/" + AppName + "/defset/xiuxian/xiuxian.yaml", xiuxianSetFile);
 }
 const 伪灵根概率 = 0.3;
 const 真灵根概率 = 0.3;

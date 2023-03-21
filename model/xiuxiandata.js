@@ -5,7 +5,7 @@ import { AppName } from '../app.config.js'
 class xiuxiandata {
     constructor() {
         //获取配置文件参数
-        this.configData = config.getdefSet("version", "version");
+        this.configData = config.getdefset("version", "version");
 
         //文件路径参数
         //插件根目录
