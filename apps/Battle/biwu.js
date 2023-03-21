@@ -25,7 +25,7 @@ export class biwu extends plugin {
       event: 'message',
       priority: 600,
       rule: [
-        {
+        /*{
           reg: '^切磋$',
           fnc: 'biwu',
         },
@@ -36,7 +36,7 @@ export class biwu extends plugin {
         {
           reg: '^#释放技能.*$',
           fnc: 'release'
-        }
+        }*/
       ],
     });
   }
