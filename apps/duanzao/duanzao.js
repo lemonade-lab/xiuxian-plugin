@@ -689,6 +689,11 @@ export class duanzao extends plugin {
             e.reply(`这个世间已经拥有这把武器了`);
             return;
         }
+        if (newname.length>8)
+        {
+            e.reply("字符超出最大限制,请重新赋名");
+            return;
+        }
         let A;
         try {
             A = await Read_it();
