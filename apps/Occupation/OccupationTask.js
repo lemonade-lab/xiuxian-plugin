@@ -165,10 +165,10 @@ export class OccupationTask extends plugin {
                         await Add_najie_thing(player_id, '庚金', '材料', end_amount);
                         await Add_najie_thing(player_id, '玄土', '材料', end_amount);
                         await Add_najie_thing(player_id, A[xuanze], '材料', num);
-                        await Add_najie_thing(player_id, B[xuanze], '材料', Math.trunc(num / 50));
+                        await Add_najie_thing(player_id, B[xuanze], '材料', Math.trunc(num / 48));
                         await Add_职业经验(player_id, exp);
                         msg.push(`\n采矿归来，${ext}\n收获庚金×${end_amount}\n玄土×${end_amount}`);
-                        msg.push(`\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num / 50)}`);
+                        msg.push(`\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num / 48)}`);
                         let arr = action;
                         //把状态都关了
                         arr.mine = 1;//采矿状态

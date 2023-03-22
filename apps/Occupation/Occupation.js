@@ -639,10 +639,10 @@ export class Occupation extends plugin {
         await Add_najie_thing(usr_qq, '庚金', '材料', end_amount);
         await Add_najie_thing(usr_qq, '玄土', '材料', end_amount);
         await Add_najie_thing(usr_qq, A[xuanze], '材料', num);
-        await Add_najie_thing(usr_qq, B[xuanze], '材料', Math.trunc(num/50));
+        await Add_najie_thing(usr_qq, B[xuanze], '材料', Math.trunc(num/48));
         await Add_职业经验(usr_qq, exp);
         msg.push(`\n采矿归来，${ext}\n收获庚金×${end_amount}\n玄土×${end_amount}`);
-        msg.push(`\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num/50)}`);
+        msg.push(`\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num/48)}`);
         if (group_id) {
             await this.pushInfo(group_id, true, msg)
         } else {
