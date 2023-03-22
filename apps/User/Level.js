@@ -126,7 +126,7 @@ export class Level extends plugin {
         if (now_Time < last_time + shuangxiuTimeout) {
             let Couple_m = Math.trunc((last_time + shuangxiuTimeout - now_Time) / 60 / 1000);
             let Couple_s = Math.trunc(((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000);
-            e.reply("突破正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`);
+            e.reply("突破正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`, false, { at: true });
             return;
         }
         let rand = Math.random();
@@ -269,7 +269,7 @@ export class Level extends plugin {
         if (now_Time < last_time + shuangxiuTimeout) {
             let Couple_m = Math.trunc((last_time + shuangxiuTimeout - now_Time) / 60 / 1000);
             let Couple_s = Math.trunc(((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000);
-            e.reply("突破正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`);
+            e.reply("突破正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`, false, { at: true });
             return;
         }
         //随机数
