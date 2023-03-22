@@ -83,7 +83,7 @@ export class Level extends plugin {
             num++;
             if (num>10)
                 clearInterval(time);
-        },180000)
+        },181000)
         return;
     }
 
