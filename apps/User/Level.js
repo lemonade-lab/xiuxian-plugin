@@ -9,6 +9,7 @@ import {
 } from '../Xiuxian/xiuxian.js'
 
 import { AppName } from '../../app.config.js'
+import { clearInterval } from 'timers'
 
 /**
  * 全局变量
@@ -52,9 +53,38 @@ export class Level extends plugin {
                     reg: '^#登仙$',
                     fnc: 'Level_up_Max'
                 },
+                {
+                    reg: '^#自动突破$',
+                    fnc: 'auto_up'
+                }
             ]
         })
         this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    }
+
+    //突破
+    async auto_up(e) {
+        if (!e.isGroup) {
+            return;
+        }
+        let usr_qq = e.user_id;
+        let ifexistplay = await existplayer(usr_qq);
+        if (!ifexistplay) {
+            return;
+        }
+        let player = await Read_player(usr_qq);
+        if (player.level_id>31 || player.lunhui == 0)
+            return;
+        e.reply("已为你开启10次自动突破");
+        let num=1;
+        let time=setInterval(()=>
+        {
+            this.Level_up(e);
+            num++;
+            if (num>10)
+                clearInterval(time);
+        },180000)
+        return;
     }
 
     async LevelMax_up(e, luck) {
@@ -112,26 +142,26 @@ export class Level extends plugin {
             if (bad_time > 0.9) {
                 await Add_血气(usr_qq, -1 * need_exp * 0.4);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
-                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "血气");
+                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "血气", false, { at: true });
                 return;
             } else if (bad_time > 0.8) {
                 await Add_血气(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
-                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "血气");
+                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "血气", false, { at: true });
                 return;
             } else if (bad_time > 0.7) {
                 await Add_血气(usr_qq, -1 * need_exp * 0.1);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
-                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "血气");
+                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "血气", false, { at: true });
                 return;
             } else if (bad_time > 0.1) {
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
-                e.reply(`破体失败，不要气馁,等到${Time}分钟后再尝试吧`);
+                e.reply(`破体失败，不要气馁,等到${Time}分钟后再尝试吧`, false, { at: true });
                 return;
             } else {
                 await Add_血气(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
-                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "血气");
+                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "血气", false, { at: true });
                 return;
             }
         }
@@ -160,7 +190,7 @@ export class Level extends plugin {
         await Write_equipment(usr_qq, equipment);
         await Add_HP(usr_qq, 999999999999);
         let level = data.LevelMax_list.find(item => item.level_id == player.Physique_id).level;
-        e.reply(`突破成功至${level}`);
+        e.reply(`突破成功至${level}`, false, { at: true });
         await redis.set("xiuxian:player:" + usr_qq + ":last_LevelMaxup_time", now_Time);
         return;
     }
@@ -207,19 +237,10 @@ export class Level extends plugin {
         }
         now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
         //真仙突破
-        if (now_level_id >= 51 && player.灵根.name != "天五灵根" && player.灵根.name != "垃圾五灵根" && player.灵根.name != "九转轮回体" && player.灵根.name != "九重魔功" && player.灵根.name != "仙之心·火" && player.灵根.name != "仙之心·水" && player.灵根.name != "仙之心·雷" && player.灵根.name != "仙之心·冰" && player.灵根.name != "仙之心·岩" && player.灵根.name != "仙之心·风" && player.灵根.name != "仙之心·木") {
+        if (now_level_id >= 51 && player.灵根.name != "天五灵根" && player.灵根.name != "垃圾五灵根" && player.灵根.name != "九转轮回体" && player.灵根.name != "九重魔功") {
             e.reply(`你灵根不齐，无成帝的资格！请先夺天地之造化，修补灵根后再来突破吧`);
             return;
         }
-        let lvup = await redis.get("xiuxian:player:" + usr_qq + ":levelup");
-        // if(now_level_id==21 && lvup!=1){
-        // 	e.reply("突破后灵根将被固化，无法使用【洗根水】进行洗髓！回复:【】或者【先不突破】进行选择");
-        // 	this.setContext('yes');
-        //     return;
-        // }
-        // else if(now_level_id==21&&lvup==1){
-        // 	redis.set("xiuxian:player:" + usr_qq + ":levelup", 0);
-        // }
         //超凡入圣突破
         if (now_level_id == 64) {
             //检查是否已有凡人境
@@ -270,26 +291,26 @@ export class Level extends plugin {
             if (bad_time > 0.9) {
                 await Add_修为(usr_qq, -1 * need_exp * 0.4);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
-                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "修为");
+                e.reply(`突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` + (need_exp) * 0.4 + "修为", false, { at: true });
                 return;
             } else if (bad_time > 0.8) {
                 await Add_修为(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
-                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
+                e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为", false, { at: true });
                 return;
             } else if (bad_time > 0.7) {
                 await Add_修为(usr_qq, -1 * need_exp * 0.1);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
-                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "修为");
+                e.reply(`突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` + (need_exp) * 0.1 + "修为", false, { at: true });
                 return;
             } else if (bad_time > 0.1) {
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
-                e.reply(`突破失败，不要气馁,等到${Time}分钟后再尝试吧`);
+                e.reply(`突破失败，不要气馁,等到${Time}分钟后再尝试吧`, false, { at: true });
                 return;
             } else {
                 await Add_修为(usr_qq, -1 * need_exp * 0.2);
                 await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);//获得上次的时间戳
-                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为");
+                e.reply(`突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` + (need_exp) * 0.2 + "修为", false, { at: true });
                 return;
             }
         }
@@ -322,7 +343,7 @@ export class Level extends plugin {
         await Add_HP(usr_qq, 999999999999);
         //查境界名
         let level = data.Level_list.find(item => item.level_id == player.level_id).level;
-        e.reply(`突破成功,当前境界为${level}`);
+        e.reply(`突破成功,当前境界为${level}`, false, { at: true });
         //记录cd
         await redis.set("xiuxian:player:" + usr_qq + ":last_Levelup_time", now_Time);
         return;

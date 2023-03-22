@@ -88,6 +88,9 @@
       title: '#突破 #幸运突破'
       desc: '打破浩劫-幸运草增加成功率'
     - icon: help-icon_38
+      title: '#自动突破'
+      desc: '轮回+合体以下境界可以使用'
+    - icon: help-icon_38
       title: '#破体 #幸运破体'
       desc: '提高体境-幸运草增加成功率'
     - icon: help-icon_44
