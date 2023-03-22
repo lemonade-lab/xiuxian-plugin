@@ -191,6 +191,9 @@ export class BackUp extends plugin {
         'equipment_path',
         'najie_path',
         'player_path',
+        'custom',
+        'shop',
+        'danyao_path'
       ];
 
       // [[fn, fn...], ...]
