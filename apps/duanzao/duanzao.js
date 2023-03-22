@@ -403,7 +403,7 @@ export class duanzao extends plugin {
                 }
                 await Write_danyao(user_qq, dy);
                 await redis.set('xiuxian:player:' + user_qq + ':action10', JSON.stringify(arr)); //redis设置动作
-                e.reply(`现在开始锻造武器,最少需锻造30分钟,最多可锻造60分钟,高级装备需要更多温养时间`);
+                e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`);
                 return;
             }
         }
