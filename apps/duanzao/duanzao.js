@@ -712,7 +712,7 @@ export class duanzao extends plugin {
         for (let item of thingall.装备) {
             if (item.name == thing_name) {
                 if (item.atk < 10 && item.def < 10 && item.HP < 10) {
-                    if (item.atk >= 1.5 || item.def >= 1.2 || (item.type == "法宝" && (item.atk >= 1 || item.def >= 1))) {
+                    if (item.atk >= 1.5 || item.def >= 1.2 || (item.type == "法宝" && (item.atk >= 1 || item.def >= 1) || (item.atk+item.def)>1.95)) {
                         item.name = new_name;
                         A.push(item);
                         await Write_najie(user_qq, thingall);
