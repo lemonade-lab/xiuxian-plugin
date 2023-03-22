@@ -138,6 +138,10 @@ export class SecretPlace extends plugin {
         if (!isNotNull(weizhi)) {
             return;
         }
+         if (player.灵石 < weizhi.Price) {
+            e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
+            return true;
+        }
         if (didian == '桃花岛') {
             let exist_B =await exist_hunyin(usr_qq);
             if(!exist_B){
@@ -151,11 +155,6 @@ export class SecretPlace extends plugin {
             }
             await add_qinmidu(usr_qq,exist_B,-50);
         }
-         if (player.灵石 < weizhi.Price) {
-            e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
-            return true;
-        }
-
         let Price = weizhi.Price;
         await Add_灵石(usr_qq, -Price);
         const time = this.xiuxianConfigData.CD.secretplace;//时间（分钟）
