@@ -1,8 +1,8 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-import { fstadd_qinmidu, __PATH } from "../Xiuxian/xiuxian.js"
+import { fstadd_qinmidu, sleep, __PATH } from "../Xiuxian/xiuxian.js"
 import { segment } from "oicq";
-import { exist_najie_thing, existplayer, Read_player, find_qinmidu, Read_qinmidu, Write_qinmidu, add_qinmidu, Add_najie_thing,ForwardMsg } from "../Xiuxian/xiuxian.js"
+import { exist_najie_thing, existplayer, Read_player, find_qinmidu, Read_qinmidu, Write_qinmidu, add_qinmidu, Add_najie_thing } from "../Xiuxian/xiuxian.js"
 import fs from "fs"
 let x = 0;
 let chaoshi_time
@@ -47,8 +47,8 @@ export class Daolv extends plugin {
             ]
         })
     }
-    async SearchQingmidu(e){
-        if(!e.isGroup) {
+    async SearchQingmidu(e) {
+        if (!e.isGroup) {
             return;
         }
         let A = e.user_id;
@@ -61,7 +61,7 @@ export class Daolv extends plugin {
          */
         let flag = 0;//关系人数
         let msg = []; //回复的消息
-        msg.push(`-----qq----- -亲密度-`);
+        msg.push(`\n-----qq----- -亲密度-`);
         //遍历所有人的qq
         let File = fs.readdirSync(__PATH.player_path);
         File = File.filter(file => file.endsWith(".json"));
@@ -72,18 +72,21 @@ export class Daolv extends plugin {
                 continue;
             }
             //A与B的亲密度
-            let pd = await find_qinmidu(A,B);
+            let pd = await find_qinmidu(A, B);
             if (pd == false) {
                 continue;
             }
-            flag ++;
-            msg.push(`${B}\t ${pd}`);
+            flag++;
+            msg.push(`\n${B}\t ${pd}`);
         }
         if (flag == 0) {
             e.reply(`其实一个人也不错的`);
         }
-        else{
-            await ForwardMsg(e, msg);
+        else {
+            for (let i = 0; i < msg.length; i += 10) {
+                e.reply(msg.slice(i, i + 10), false, { at: true });
+                await sleep(500);
+            }
         }
         return;
     }
