@@ -61,7 +61,7 @@ export class Daolv extends plugin {
          */
         let flag = 0;//关系人数
         let msg = []; //回复的消息
-        msg.push(`\n-----qq----- -亲密度-`);
+        msg.push(`-----qq----- -亲密度-`);
         //遍历所有人的qq
         let File = fs.readdirSync(__PATH.player_path);
         File = File.filter(file => file.endsWith(".json"));
@@ -77,7 +77,7 @@ export class Daolv extends plugin {
                 continue;
             }
             flag ++;
-            msg.push(`\n${B}\t ${pd}`);
+            msg.push(`${B}\t ${pd}`);
         }
         if (flag == 0) {
             e.reply(`其实一个人也不错的`);
