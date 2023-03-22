@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { fstadd_qinmidu, __PATH } from "../Xiuxian/xiuxian.js"
 import { segment } from "oicq";
-import { exist_najie_thing, existplayer, Read_player, find_qinmidu, Read_qinmidu, Write_qinmidu, add_qinmidu, Add_najie_thing } from "../Xiuxian/xiuxian.js"
+import { exist_najie_thing, existplayer, Read_player, find_qinmidu, Read_qinmidu, Write_qinmidu, add_qinmidu, Add_najie_thing,ForwardMsg } from "../Xiuxian/xiuxian.js"
 import fs from "fs"
 let x = 0;
 let chaoshi_time
@@ -83,7 +83,7 @@ export class Daolv extends plugin {
             e.reply(`其实一个人也不错的`);
         }
         else{
-            e.reply(msg,false,{at:true});
+            await ForwardMsg(e, msg);
         }
         return;
     }
