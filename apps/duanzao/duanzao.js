@@ -388,7 +388,7 @@ export class duanzao extends plugin {
                 item.状态 = 1;
                 item.TIME = Date.now();
                 await Write_duanlu(newtripod);
-                let action_time = 60 * 60 * 1000; //持续时间，单位毫秒
+                let action_time = 180 * 60 * 1000; //持续时间，单位毫秒
                 let arr = {
                     action: '锻造', //动作
                     end_time: new Date().getTime() + action_time, //结束时间
