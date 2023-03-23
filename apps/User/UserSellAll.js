@@ -460,8 +460,8 @@ export class UserSellAll extends plugin {
         goods.push("回复[1]出售,回复[0]取消出售");
         /** 设置上下文 */
         this.setContext('noticeSellAllGoods');
-        for (let i = 0; i < goods.length; i += 15) {
-            e.reply(goods.slice(i, i + 15), false, { at: true });
+        for (let i = 0; i < goods.length; i += 8) {
+            e.reply(goods.slice(i, i + 8), false, { at: true });
             await sleep(500);
         }
         /** 回复 */
