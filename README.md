@@ -2,6 +2,8 @@
 
 修仙插件V1.2.1
 
+在线体验426618276
+
 #### 安装机器人
 
 miaomiao-Bot喵崽版[`☞建议使用`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
