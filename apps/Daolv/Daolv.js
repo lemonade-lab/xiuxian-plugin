@@ -83,8 +83,8 @@ export class Daolv extends plugin {
             e.reply(`其实一个人也不错的`);
         }
         else {
-            for (let i = 0; i < msg.length; i += 10) {
-                e.reply(msg.slice(i, i + 10), false, { at: true });
+            for (let i = 0; i < msg.length; i += 9) {
+                e.reply(msg.slice(i, i + 9), false, { at: true });
                 await sleep(500);
             }
         }
