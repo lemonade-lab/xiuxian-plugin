@@ -452,7 +452,7 @@ export class Level extends plugin {
         }
         if (player.power_place == 0) {
             //已经开了
-            e.reply("你已度过雷劫，请感应仙门#羽化登仙");
+            e.reply("你已度过雷劫，请感应仙门#登仙");
             return;
         }
         //看看当前血量
