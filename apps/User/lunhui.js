@@ -2,6 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
+import fs from "fs"
 import {
     Read_player,
     existplayer,
