@@ -442,13 +442,13 @@ export class UserSellAll extends plugin {
         }
         let goodsNum=0;
         let goods=[];
-        goods.push("正在出售:\n");
+        goods.push("正在出售:");
         for (let i of wupin) {
             for (let l of najie[i]) {
                 if (l && l.islockd == 0) {
                     //纳戒中的数量
                     let quantity = l.数量;
-                    goods.push("\t"+l.name+"*"+quantity+"\n");
+                    goods.push("\n"+l.name+"*"+quantity);
                     goodsNum++;
                 }
             }
@@ -457,7 +457,7 @@ export class UserSellAll extends plugin {
             e.reply("没有东西可以出售", false, { at: true });
             return;
         }
-        goods.push("回复[1]出售,回复[0]取消出售");
+        goods.push("\n回复[1]出售,回复[0]取消出售");
         /** 设置上下文 */
         this.setContext('noticeSellAllGoods');
         for (let i = 0; i < goods.length; i += 8) {
