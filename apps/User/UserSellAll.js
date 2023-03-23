@@ -2,7 +2,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import {
-    Read_player, existplayer, exist_najie_thing, foundthing, re_najie_thing, Write_najie,
+    Read_player, existplayer, exist_najie_thing, foundthing, re_najie_thing, Write_najie,sleep,
     Add_灵石, Add_najie_thing, Add_修为, Add_player_学习功法, Add_血气, __PATH, instead_equipment, Read_najie
 } from '../Xiuxian/xiuxian.js'
 import { synchronization } from '../AdminSuper/AdminSuper.js'
@@ -441,13 +441,14 @@ export class UserSellAll extends plugin {
             return;
         }
         let goodsNum=0;
-        let goods="正在出售:\n";
+        let goods=[];
+        goods.push("正在出售:\n");
         for (let i of wupin) {
             for (let l of najie[i]) {
                 if (l && l.islockd == 0) {
                     //纳戒中的数量
                     let quantity = l.数量;
-                    goods+="\t"+l.name+"*"+quantity+"\n";
+                    goods.push("\t"+l.name+"*"+quantity+"\n");
                     goodsNum++;
                 }
             }
@@ -456,11 +457,14 @@ export class UserSellAll extends plugin {
             e.reply("没有东西可以出售", false, { at: true });
             return;
         }
-        goods+="回复[1]出售,回复[0]取消出售";
+        goods.push("回复[1]出售,回复[0]取消出售");
         /** 设置上下文 */
         this.setContext('noticeSellAllGoods');
+        for (let i = 0; i < goods.length; i += 15) {
+            e.reply(goods.slice(i, i + 15), false, { at: true });
+            await sleep(500);
+        }
         /** 回复 */
-        await e.reply(goods, false, { at: true });
         return;
     }
     async noticeSellAllGoods(e){
