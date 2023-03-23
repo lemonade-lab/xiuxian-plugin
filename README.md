@@ -1,6 +1,7 @@
 # Xiuxian-Plugin<a  href='https://gitee.com/ningmengchongshui/xiuxian-plugin/stargazers'><img src='https://gitee.com/ningmengchongshui/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
 
 修仙插件V1.2.2
+在线体验767253997
 
 #### 安装机器人
 
