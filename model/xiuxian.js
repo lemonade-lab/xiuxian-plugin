@@ -1,25 +1,22 @@
 import fs from "fs"
 import path from "path"
 import data from './xiuxiandata.js'
-import { __dirname, AppName } from '../app.config.js'
+import { MyDirPath } from '../app.config.js'
 export const __PATH = {
     //用户数据
-    player_path: path.join(__dirname, "/resources/data/xiuxian_player"),
+    player_path: path.join(MyDirPath , "/resources/data/xiuxian_player"),
     //装备
-    equipment_path: path.join(__dirname, "/resources/data/xiuxian_equipment"),
+    equipment_path: path.join(MyDirPath , "/resources/data/xiuxian_equipment"),
     //纳戒
-    najie_path: path.join(__dirname, "/resources/data/xiuxian_najie"),
+    najie_path: path.join(MyDirPath , "/resources/data/xiuxian_najie"),
     //源数据
-    lib_path: path.join(__dirname, "/resources/data/item"),
-    timelimit: path.join(__dirname, "/resources/data/timelimit"),
-    forum: path.join(__dirname, "/resources/data/exchange"),
-    exchange: path.join(__dirname, "/resources/data/forum"),
-    log_path: path.join(__dirname, "/resources/data/suduku")
+    lib_path: path.join(MyDirPath , "/resources/data/item"),
+    timelimit: path.join(MyDirPath , "/resources/data/timelimit"),
+    forum: path.join(MyDirPath , "/resources/data/exchange"),
+    exchange: path.join(MyDirPath , "/resources/data/forum"),
+    log_path: path.join(MyDirPath , "/resources/data/suduku")
 }
-let xiuxianSetFile = "./plugins/" + AppName + "/config/xiuxian/xiuxian.yaml";
-if (!fs.existsSync(xiuxianSetFile)) {
-    fs.copyFileSync("./plugins/" + AppName + "/defset/xiuxian/xiuxian.yaml", xiuxianSetFile);
-}
+
 const 伪灵根概率 = 0.3;
 const 真灵根概率 = 0.3;
 const 天灵根概率 = 0.2;

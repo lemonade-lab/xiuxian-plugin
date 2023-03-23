@@ -1,80 +1,45 @@
 import fs from "fs";
-import config from "./config.js";
 import path from "path";
-import { AppName } from '../app.config.js'
+import { getReq, getParse } from '../db/local/algorithm.js'
 class xiuxiandata {
     constructor() {
-        //获取配置文件参数
-        this.configData = config.getdefset("version", "version");
-
-        //文件路径参数
-        //插件根目录
-        const __dirname = path.resolve() + path.sep + "plugins" + path.sep + AppName;
         this.filePathMap = {
-            "player": path.join(__dirname, "/resources/data/xiuxian_player"),//用户数据
-            "equipment": path.join(__dirname, "/resources/data/xiuxian_equipment"),
-            "najie": path.join(__dirname, "/resources/data/xiuxian_najie"),
-            "lib": path.join(__dirname, "/resources/data/item"),
-            "timelimit": path.join(__dirname, "/resources/data/timelimit"),//限定
-            "level": path.join(__dirname, "/resources/data/level"),//境界
-            "association": path.join(__dirname, "/resources/data/association"),
+            /* 动态 */
+            "association": getReq("/resources/data/association"),
+            "exchange": getReq("/resources/data/exchange"),
+            "forum": getReq("/resources/data/forum"),
+            "player": getReq("/resources/data/xiuxian_player"),
+            "equipment": getReq("/resources/data/xiuxian_equipment"),
+            "najie": getReq("/resources/data/xiuxian_najie"),
+            /* 固定 */
+            "lib": getReq("/resources/data/item"),
+            "timelimit": getReq("/resources/data/timelimit"),
+            "level": getReq("/resources/data/level"),
         }
-
         this.lib_path = this.filePathMap.lib;
         this.timelimit = this.filePathMap.timelimit;
         this.level = this.filePathMap.level;
-
-        //加载灵根列表
-        this.talent_list = JSON.parse(fs.readFileSync(`${this.lib_path}/灵根列表.json`));
-        //加载怪物列表
-        this.monster_list = JSON.parse(fs.readFileSync(`${this.lib_path}/怪物列表.json`));
-        //加载商品列表
-        this.commodities_list = JSON.parse(fs.readFileSync(`${this.lib_path}/商品列表.json`));
-
-        //练气境界
-        this.level_list = JSON.parse(fs.readFileSync(`${this.level}/练气境界.json`));
-        //练体境界
-        this.levelMax_list = JSON.parse(fs.readFileSync(`${this.level}/炼体境界.json`));
-
-
-        //加载装备列表
-        this.equipment_list = JSON.parse(fs.readFileSync(`${this.lib_path}/装备列表.json`));
-        //法宝
-        this.fabao_list = JSON.parse(fs.readFileSync(`${this.lib_path}/法宝列表.json`));
-        //武器
-        this.wuqi_list = JSON.parse(fs.readFileSync(`${this.lib_path}/武器列表.json`));
-        //护具
-        this.huju_list = JSON.parse(fs.readFileSync(`${this.lib_path}/护具列表.json`));
-
-
-        //加载丹药列表
-        this.danyao_list = JSON.parse(fs.readFileSync(`${this.lib_path}/丹药列表.json`));
-        //加载道具列表
-        this.daoju_list = JSON.parse(fs.readFileSync(`${this.lib_path}/道具列表.json`));
-        //加载功法列表
-        this.gongfa_list = JSON.parse(fs.readFileSync(`${this.lib_path}/功法列表.json`));
-        //加载草药列表
-        this.caoyao_list = JSON.parse(fs.readFileSync(`${this.lib_path}/药草列表.json`));
-
-
-        //加载地点列表
-        this.didian_list = JSON.parse(fs.readFileSync(`${this.lib_path}/地点列表.json`));
-        //加载禁地列表
-        this.forbiddenarea_list = JSON.parse(fs.readFileSync(`${this.lib_path}/禁地列表.json`));
-        //加载仙域列表
-        this.Fairyrealm_list = JSON.parse(fs.readFileSync(`${this.lib_path}/仙境列表.json`));
-
-        //加载限定仙府
-        this.timeplace_list = JSON.parse(fs.readFileSync(`${this.timelimit}/限定仙府.json`));
-        //加载限定功法
-        this.timegongfa_list = JSON.parse(fs.readFileSync(`${this.timelimit}/限定功法.json`));
-        //加载限定装备
-        this.timeequipmen_list = JSON.parse(fs.readFileSync(`${this.timelimit}/限定装备.json`));
-        //加载限定丹药
-        this.timedanyao_list = JSON.parse(fs.readFileSync(`${this.timelimit}/限定丹药.json`));
+        this.talent_list = getParse(`${this.lib_path}/灵根列表.json`);
+        this.monster_list = getParse(`${this.lib_path}/怪物列表.json`);
+        this.commodities_list = getParse(`${this.lib_path}/商品列表.json`);
+        this.level_list = getParse(`${this.level}/练气境界.json`);
+        this.levelMax_list = getParse(`${this.level}/炼体境界.json`);
+        this.equipment_list = getParse(`${this.lib_path}/装备列表.json`);
+        this.fabao_list = getParse(`${this.lib_path}/法宝列表.json`);
+        this.wuqi_list = getParse(`${this.lib_path}/武器列表.json`);
+        this.huju_list = getParse(`${this.lib_path}/护具列表.json`);
+        this.danyao_list = getParse(`${this.lib_path}/丹药列表.json`);
+        this.daoju_list = getParse(`${this.lib_path}/道具列表.json`);
+        this.gongfa_list = getParse(`${this.lib_path}/功法列表.json`);
+        this.caoyao_list = getParse(`${this.lib_path}/药草列表.json`);
+        this.didian_list = getParse(`${this.lib_path}/地点列表.json`);
+        this.forbiddenarea_list = getParse(`${this.lib_path}/禁地列表.json`);
+        this.Fairyrealm_list = getParse(`${this.lib_path}/仙境列表.json`);
+        this.timeplace_list = getParse(`${this.timelimit}/限定仙府.json`);
+        this.timegongfa_list = getParse(`${this.timelimit}/限定功法.json`);
+        this.timeequipmen_list = getParse(`${this.timelimit}/限定装备.json`);
+        this.timedanyao_list = getParse(`${this.timelimit}/限定丹药.json`);
     }
-
-
 
     /**
       * 检测存档存在
@@ -186,11 +151,7 @@ class xiuxiandata {
         fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
             console.log('写入成功', err)
         })
-
         return;
     }
-
-
 }
-
 export default new xiuxiandata();

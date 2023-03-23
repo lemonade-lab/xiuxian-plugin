@@ -3,6 +3,9 @@ import fs from "fs";
 import chokidar from "chokidar";
 import lodash from "lodash";
 import { AppName } from "../app.config.js";
+
+
+
 class config {
     constructor() {
         /** 默认配置文件路径 */
