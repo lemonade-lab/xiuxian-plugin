@@ -1,5 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import fs, { write } from 'node:fs';
+import { plugin } from '../../api/api.js'
+import fs from 'node:fs';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { get_player_img } from '../ShowImeg/showData.js';
@@ -346,7 +346,7 @@ export class AdminSuper extends plugin {
 async function clearNajieThing(thingType, thingName) {
   if (!thingType || !thingName) return [];
 
-  const path = './plugins/'+AppName+'/resources/data/xiuxian_najie';
+  const path = './plugins/' + AppName + '/resources/data/xiuxian_najie';
   return fs
     .readdirSync(path)
     .filter(file => file.endsWith('.json'))
@@ -389,7 +389,7 @@ export async function synchronization(e) {
   let playerList = [];
   let files = fs
     .readdirSync(
-      './plugins/'+AppName+'/resources/data/xiuxian_player'
+      './plugins/' + AppName + '/resources/data/xiuxian_player'
     )
     .filter(file => file.endsWith('.json'));
   for (let file of files) {

@@ -1,7 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import { plugin ,segment} from '../../api/api.js'
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import { segment } from "oicq"
 import { timestampToTime, shijianc, player_efficiency,convert2integer } from '../Xiuxian/xiuxian.js'
 
 

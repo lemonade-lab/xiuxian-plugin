@@ -1,8 +1,6 @@
-//插件加载
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin ,segment,common} from '../../api/api.js'
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
-import { segment } from 'oicq';
 import {existplayer,exist_najie_thing,ForwardMsg,isNotNull,Read_player,Add_灵石,Add_HP,Add_血气,} from '../Xiuxian/xiuxian.js';
 import { zd_battle} from "../Battle/Battle.js"
 

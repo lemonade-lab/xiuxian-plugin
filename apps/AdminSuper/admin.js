@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import { plugin } from '../../api/api.js'
 import { createRequire } from "module"
 import { AppName } from '../../app.config.js'
 const require = createRequire(import.meta.url)

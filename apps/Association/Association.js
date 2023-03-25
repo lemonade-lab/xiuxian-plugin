@@ -1,8 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js'
+import { plugin ,segment} from '../../api/api.js'
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import fs from "fs"
-import { segment } from "oicq"
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import { timestampToTime, shijianc, get_random_fromARR, ForwardMsg, player_efficiency } from '../Xiuxian/xiuxian.js'

@@ -1,9 +1,6 @@
-//插件加载
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
+import { plugin ,segment,common} from '../../api/api.js'
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
-import { segment } from 'oicq';
 import {
   existplayer, exist_najie_thing, ForwardMsg, isNotNull, Write_player, Add_najie_thing,
   Add_HP, Read_player, Read_equipment, sleep

@@ -1,6 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin ,segment,common} from '../../api/api.js'
 import data from '../../model/XiuxianData.js';
-import common from '../../../../lib/common/common.js';
 import config from '../../model/Config.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';

@@ -1,5 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
+import { plugin ,segment,common} from '../../api/api.js'
 import config from '../../model/Config.js';
 import {Add_najie_thing,Add_灵石,Read_player,} from '../Xiuxian/xiuxian.js';
 import { openAU } from '../Auction/Auction.js';
