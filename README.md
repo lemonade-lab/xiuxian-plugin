@@ -2,6 +2,8 @@
 
 修仙插件2.0.0
 
+在线体验
+
 #### 安装机器人
 
 miaomiao-Bot喵崽版[`☞建议使用`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
@@ -20,11 +22,8 @@ git clone --depth=1 -b main  https://gitee.com/ningmengchongshui/xiuxian-plugin.
 
 发行日期  | 仓库名  |  版本号 
 ------------- | -------------  | -------------   
-| 2023年01月24日 | xiuxian-plugin | V2023-01-24 |  
-| 2022年12月01日 | Xiuxian-Plugin-Box | V2022-12-01 |
-| 2022年11月24日 | Xiuxian-Plugin-Box | V2022-11-24 |
+| 2023年01月24日 | xiuxian-plugin | V2.0 |  
 | 2022年09月21日 | xiuxian-emulator-plugin | V1.2 |
-| 2022年09月01日 | xiuxian-emulator-plugin | V1.1 |
 | 2022年08月10日 | xiuxian-emulator-plugin | V1.0  |
 
 #### 开源协议
