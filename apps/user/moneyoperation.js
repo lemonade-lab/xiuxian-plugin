@@ -1,8 +1,19 @@
-import { plugin, segment } from '../../api/api.js'
+import {
+    plugin,
+    segment
+} from '../../api/api.js'
 import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
 import fs from "fs"
-import { Read_player, existplayer, exist_najie_thing, Add_灵石, Add_najie_thing, __PATH, Go } from '../../model/xiuxian.js'
+import {
+    Read_player,
+    existplayer,
+    exist_najie_thing,
+    Add_灵石,
+    Add_najie_thing,
+    __PATH,
+    Go
+} from '../../model/xiuxian.js'
 export class moneyoperation extends plugin {
     constructor() {
         super({

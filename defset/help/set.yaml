@@ -37,9 +37,6 @@
       title: "#修仙设置"
       desc: "查看修仙配置"
     - icon: help-icon_9
-      title: "#同步信息"
-      desc: "同步所有存档"
-    - icon: help-icon_9
       title: "#清除冲水堂"
       desc: "全部回收物品"
     - icon: help-icon_9

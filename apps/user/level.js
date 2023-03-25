@@ -3,8 +3,22 @@ import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
 import fs from "fs"
 import { AppName } from '../../app.config.js'
-import { existplayer, Write_player, Write_equipment, isNotNull, player_efficiency, get_random_fromARR, dujie } from '../../model/xiuxian.js'
-import { Read_player, Read_equipment, Add_HP, Add_修为, Add_血气 } from '../../model/xiuxian.js'
+import {
+    existplayer,
+    Write_player,
+    Write_equipment,
+    isNotNull,
+    player_efficiency,
+    get_random_fromARR,
+    dujie
+} from '../../model/xiuxian.js'
+import {
+    Read_player,
+    Read_equipment,
+    Add_HP,
+    Add_修为,
+    Add_血气
+} from '../../model/xiuxian.js'
 export class level extends plugin {
     constructor() {
         super({

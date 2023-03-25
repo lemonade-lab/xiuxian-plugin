@@ -9,15 +9,12 @@ import {
     existplayer,
     isNotNull,
     Write_player,
-    Read_equipment,
-    Write_equipment,
     ForwardMsg,
     Read_forum,
     Write_forum,
     Read_exchange,
     Write_exchange
 } from '../../model/xiuxian.js'
-
 export class adminsuper extends plugin {
     constructor() {
         super({
@@ -26,10 +23,6 @@ export class adminsuper extends plugin {
             event: "message",
             priority: 100,
             rule: [
-                {
-                    reg: "^#同步信息$",
-                    fnc: "synchronization",
-                },
                 {
                     reg: "^#解封.*$",
                     fnc: "relieve",
@@ -68,92 +61,6 @@ export class adminsuper extends plugin {
                 }
             ],
         });
-    }
-
-
-    async synchronization(e) {
-        if (!e.isMaster) return
-        if (!e.isGroup) return
-
-        e.reply("开始同步");
-
-        let playerList = [];
-        let files = fs
-            .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
-            .filter((file) => file.endsWith(".json"));
-        for (let file of files) {
-            file = file.replace(".json", "");
-            playerList.push(file);
-        }
-        for (let player_id of playerList) {
-
-            let usr_qq = player_id;
-            let player = await data.getData("player", usr_qq);
-
-            if (!isNotNull(player.level_id)) {
-                e.reply("版本升级错误！重装吧，旧版本不支持1.1.6版本之前的存档升级！")
-                return;
-            }
-
-            //删
-            if (isNotNull(player.境界)) {
-                player.境界 = undefined;
-            }
-            if (isNotNull(player.基础血量)) {
-                player.基础血量 = undefined;
-            }
-            if (isNotNull(player.基础防御)) {
-                player.基础防御 = undefined;
-            }
-            if (isNotNull(player.基础攻击)) {
-                player.基础攻击 = undefined;
-            }
-            if (isNotNull(player.基础暴击)) {
-                player.基础暴击 = undefined;
-            }
-            if (isNotNull(player.now_level_id)) {
-                player.now_level_id = undefined;
-            }
-
-            //补
-
-            if (!isNotNull(player.Physique_id)) {
-                player.Physique_id = 1;
-            }
-            if (!isNotNull(player.血气)) {
-                player.血气 = 1;
-            }
-            if (!isNotNull(player.linggen)) {
-                player.linggen = [];
-            }
-            if (!isNotNull(player.linggenshow)) {
-                player.linggenshow = 1;
-            }
-            if (!isNotNull(player.power_place)) {
-                player.power_place = 1;
-            }
-            if (!isNotNull(player.occupation)) {
-                player.occupation = [];
-            }
-
-
-            //重新根据id去重置仙门
-            let now_level_id = await data.level_list.find(item => item.level_id == player.level_id).level_id;
-            if (now_level_id < 42) {
-                player.power_place = 1;
-            } else {
-                player.power_place = 0;
-            }
-
-            await Write_player(usr_qq, player);
-            //更新面板
-            let equipment = await Read_equipment(usr_qq);
-            await Write_equipment(usr_qq, equipment); 0
-
-        }
-
-        e.reply("同步结束");
-        return;
     }
 
     async Worldstatistics(e) {

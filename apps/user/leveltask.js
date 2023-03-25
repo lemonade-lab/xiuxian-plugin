@@ -1,9 +1,18 @@
-import { plugin, segment, common } from '../../api/api.js'
+import {
+    plugin,
+    segment,
+    common
+} from '../../api/api.js'
 import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
 import fs from "fs"
 import { AppName } from '../../app.config.js'
-import { Read_player, isNotNull, Write_player, dujie } from "../../model/xiuxian.js"
+import {
+    Read_player,
+    isNotNull,
+    Write_player,
+    dujie
+} from "../../model/xiuxian.js"
 export class leveltask extends plugin {
     constructor() {
         super({
