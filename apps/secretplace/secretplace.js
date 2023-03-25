@@ -1,7 +1,15 @@
 import { plugin } from '../../api/api.js'
 import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
-import { Read_player, existplayer, ForwardMsg, isNotNull, Add_灵石, Add_修为 } from '../../model/xiuxian.js'
+import {
+    Read_player,
+    existplayer,
+    ForwardMsg,
+    isNotNull,
+    Add_灵石,
+    Add_修为,
+    Go
+} from '../../model/xiuxian.js'
 export class secretplace extends plugin {
     constructor() {
         super({

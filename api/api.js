@@ -1,2 +1,4 @@
 import plugin from '../../../lib/plugins/plugin.js'
-export { plugin }
+import common from "../../../lib/common/common.js"
+import { segment } from "oicq"
+export { plugin, segment, common }

@@ -1,10 +1,9 @@
-import { plugin } from '../../api/api.js'
+import { plugin, segment } from '../../api/api.js'
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
 import data from '../../model/xiuxiandata.js'
 import Show from "../../model/show.js"
 import path from "path"
 import fs from "fs"
-import { segment } from "oicq"
 import { __PATH } from "../../model/xiuxian.js"
 let sudokukey = false;
 let board; //全局棋局
@@ -43,7 +42,7 @@ export class sudokugame extends plugin {
 
 
     async CreateSudoku(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         let usr_qq = e.user_id;
         //获取游戏状态
         let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
@@ -64,7 +63,7 @@ export class sudokugame extends plugin {
 
 
     async Getsudokuboard(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         var reg = new RegExp(/简单|中等|困难/);
         let new_msg = this.e.msg;
         let difficulty = reg.exec(new_msg);
@@ -124,7 +123,7 @@ export class sudokugame extends plugin {
 
 
     async setnumber(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
 
         if (board == undefined || board == null) {
             e.reply(`棋局尚未开启`);
@@ -171,7 +170,7 @@ export class sudokugame extends plugin {
 
 
     async CheckSudoku(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         if (board == undefined || board == null) {
             e.reply(`棋局尚未开启`);
             return;
@@ -201,7 +200,7 @@ export class sudokugame extends plugin {
 
 
     async ifCloseSudoku(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         if (board == undefined || board == null) {
             e.reply(`棋局尚未开启`);
             return;
@@ -215,7 +214,7 @@ export class sudokugame extends plugin {
 
 
     async CloseSudoku(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         if (this.e.msg == "关闭") {
             e.reply(`棋局已经关闭`);
             board = null;
@@ -231,7 +230,7 @@ export class sudokugame extends plugin {
 
 
     async nowSudoku(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         if (board == undefined || board == null) {
             e.reply(`棋局尚未开启`);
             return;

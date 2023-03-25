@@ -1,12 +1,19 @@
 
-import { plugin } from '../../api/api.js'
-import common from "../../../../lib/common/common.js"
+import { plugin, segment, common } from '../../api/api.js'
 import config from "../../model/config.js"
 import data from '../../model/xiuxiandata.js'
 import fs from "fs"
-import { segment } from "oicq"
 import { AppName } from '../../app.config.js'
-import { Read_player, isNotNull, get_random_talent, Getmsg_battle, Add_najie_thing, Add_修为, Add_血气, Add_HP } from "../../model/xiuxian.js"
+import {
+    Read_player,
+    isNotNull,
+    get_random_talent,
+    Getmsg_battle,
+    Add_najie_thing,
+    Add_修为,
+    Add_血气,
+    Add_HP
+} from "../../model/xiuxian.js"
 export class secretplacetask extends plugin {
     constructor() {
         super({

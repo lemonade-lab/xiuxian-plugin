@@ -1,9 +1,7 @@
-import { plugin } from '../../api/api.js'
-import common from "../../../../lib/common/common.js"
+import { plugin, segment, common } from '../../api/api.js'
 import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
 import fs from "fs"
-import { segment } from "oicq"
 import { isNotNull } from "../../model/xiuxian.js"
 import { AppName } from '../../app.config.js'
 export class playercontroltask extends plugin {

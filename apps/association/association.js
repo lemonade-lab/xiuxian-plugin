@@ -1,7 +1,6 @@
-import { plugin } from '../../api/api.js'
+import { plugin, segment } from '../../api/api.js'
 import config from "../../model/config.js"
 import data from '../../model/xiuxiandata.js'
-import { segment } from "oicq"
 import fs from "fs"
 import {
     timestampToTime,

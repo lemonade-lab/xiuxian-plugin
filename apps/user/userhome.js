@@ -1,6 +1,5 @@
-import { plugin } from '../../api/api.js'
+import { plugin, segment } from '../../api/api.js'
 import data from '../../model/xiuxiandata.js'
-import { segment } from "oicq"
 import { Read_player, existplayer, exist_najie_thing, instead_equipment, player_efficiency, Read_najie, get_random_talent, Write_player } from '../../model/xiuxian.js'
 import { Add_灵石, Add_najie_thing, Add_HP, Add_修为, Add_player_学习功法, Add_najie_灵石, isNotNull, __PATH, Go } from '../../model/xiuxian.js'
 import { get_equipment_img } from '../../model/information.js'

@@ -1,9 +1,7 @@
-import { plugin } from '../../api/api.js'
-import common from "../../../../lib/common/common.js"
+import { plugin, segment, common } from '../../api/api.js'
 import config from "../../model/config.js"
 import data from '../../model/xiuxiandata.js'
 import { player_efficiency, Read_player, existplayer, isNotNull } from '../../model/xiuxian.js'
-import { segment } from "oicq"
 export class playercontrol extends plugin {
     constructor() {
         super({

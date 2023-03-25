@@ -1,9 +1,7 @@
-import { plugin } from '../../api/api.js'
-import common from "../../../../lib/common/common.js"
+import { plugin, segment, common } from '../../api/api.js'
 import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
 import fetch from 'node-fetch'
-import { segment } from "oicq"
 import { Read_player, existplayer, ForwardMsg, sleep, isNotNull, Add_灵石, Add_修为, Go } from '../../model/xiuxian.js'
 let gane_key_user = [];//怡红院限制
 var yazhu = [];//押注

@@ -1,11 +1,10 @@
-import { plugin } from '../../api/api.js'
+import { plugin, segment } from '../../api/api.js'
 import fs from "fs"
 import data from '../../model/xiuxiandata.js'
 import config from "../../model/config.js"
 import { Read_player, existplayer, get_random_talent, getLastsign, Write_equipment, Write_player, Write_najie } from '../../model/xiuxian.js'
 import { shijianc, get_random_fromARR, isNotNull, Add_HP, Add_修为, __PATH, Go } from "../../model/xiuxian.js"
 import { get_player_img } from '../../model/information.js'
-import { segment } from "oicq"
 export class userstart extends plugin {
     constructor() {
         super({
@@ -41,7 +40,7 @@ export class userstart extends plugin {
     //#踏入仙途
     async Create_player(e) {
 
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
 
         let usr_qq = e.user_id;
         //判断是否为匿名创建存档
@@ -110,7 +109,7 @@ export class userstart extends plugin {
 
     //重新修仙
     async reCreate_player(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         let usr_qq = e.user_id;
         //有无存档
         let ifexistplay = await existplayer(usr_qq);
@@ -159,7 +158,7 @@ export class userstart extends plugin {
 
     //重生方法
     async RE_xiuxian(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         let usr_qq = e.user_id;
         /** 内容 */
         let new_msg = this.e.message;
@@ -243,7 +242,7 @@ export class userstart extends plugin {
 
     //#我的练气
     async Show_player(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         let usr_qq = e.user_id;
         //有无存档
         let ifexistplay = await existplayer(usr_qq);
@@ -257,7 +256,7 @@ export class userstart extends plugin {
 
     //改名
     async Change_player_name(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         let usr_qq = e.user_id;
         //有无存档
         let ifexistplay = await existplayer(usr_qq);
@@ -349,7 +348,7 @@ export class userstart extends plugin {
 
     //签到
     async daily_gift(e) {
-        if (!e.isGroup)  return
+        if (!e.isGroup) return
         let usr_qq = e.user_id;
         //有无账号
         let ifexistplay = await existplayer(usr_qq);

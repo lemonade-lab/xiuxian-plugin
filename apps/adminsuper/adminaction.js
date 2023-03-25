@@ -1,7 +1,7 @@
 import { plugin } from '../../api/api.js'
-import { ForwardMsg } from '../../model/xiuxian.js'
 import { exec } from 'child_process'
 import { AppName } from '../../app.config.js'
+import { ForwardMsg } from '../../model/xiuxian.js'
 let timer
 export class adminaction extends plugin {
     constructor() {
