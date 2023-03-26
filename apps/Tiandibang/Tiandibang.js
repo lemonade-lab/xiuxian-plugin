@@ -5,8 +5,8 @@ import path from "path"
 import Show from "../../model/show.js";
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
 import data from '../../model/XiuxianData.js'
-import { __PATH } from "../Xiuxian/xiuxian.js"
-import { ForwardMsg,Read_player,shijianc,Add_灵石,existplayer,Add_najie_thing,exist_najie_thing} from "../Xiuxian/xiuxian.js"
+import { __PATH } from "../../model/xiuxian.js"
+import { ForwardMsg,Read_player,shijianc,Add_灵石,existplayer,Add_najie_thing,exist_najie_thing} from "../../model/xiuxian.js"
 import { zd_battle} from "../Battle/Battle.js"
 import config from "../../model/Config.js"
 

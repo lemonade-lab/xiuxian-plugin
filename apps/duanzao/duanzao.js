@@ -29,10 +29,10 @@ import {
     Read_danyao,
     Write_danyao,
     Read_equipment,
-} from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import { __PATH } from '../Xiuxian/xiuxian.js';
+import { __PATH } from '../../model/xiuxian.js';
 import { AppName } from '../../app.config.js';
 
 /**

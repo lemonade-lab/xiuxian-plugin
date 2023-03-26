@@ -8,7 +8,7 @@ import {
     __PATH, Read_player, existplayer, exist_najie_thing, instead_equipment, player_efficiency, Read_najie, get_random_talent, Write_player,
     sleep, Add_血气, Add_灵石, Add_najie_thing, Add_HP, Add_修为, Add_魔道值, Read_danyao, Write_danyao,
     Add_player_学习功法, Add_najie_灵石, isNotNull, Read_equipment, Write_equipment, foundthing, convert2integer
-} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
 import { Add_仙宠 } from "../Pokemon/Pokemon.js"
 import { get_equipment_img } from '../ShowImeg/showData.js'
 import { readall, looktripod } from '../duanzao/duanzaofu.js';

@@ -14,8 +14,8 @@ import {
     fstadd_qinmidu,
     find_qinmidu,
     exist_hunyin
-} from '../Xiuxian/xiuxian.js';
-import { Add_灵石, Add_修为 } from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
+import { Add_灵石, Add_修为 } from '../../model/xiuxian.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 

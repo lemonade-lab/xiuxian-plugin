@@ -5,7 +5,7 @@ import Show from "../../model/show.js"
 import path from "path"
 import fs from "fs"
 import { segment } from "oicq"
-import { __PATH } from "../Xiuxian/xiuxian.js"
+import { __PATH } from "../../model/xiuxian.js"
 
 let sudokukey = false;
 let board; //全局棋局

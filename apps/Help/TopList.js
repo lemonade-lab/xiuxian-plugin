@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import fs from "fs"
 import { get_ranking_power_img, get_ranking_money_img } from '../ShowImeg/showData.js'
-import { existplayer, Get_xiuwei, sortBy, sleep, ForwardMsg, isNotNull, Read_player, Read_najie, __PATH } from '../Xiuxian/xiuxian.js'
+import { existplayer, Get_xiuwei, sortBy, sleep, ForwardMsg, isNotNull, Read_player, Read_najie, __PATH } from '../../model/xiuxian.js'
 import { AppName } from '../../app.config.js'
 
 /**

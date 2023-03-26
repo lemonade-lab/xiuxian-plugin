@@ -7,7 +7,7 @@ import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import {
     existplayer, exist_najie_thing, Read_player, isNotNull, Read_najie, foundthing, __PATH, convert2integer,
     Add_najie_thing, Add_灵石
-} from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
 import console from 'console';
 
 /**

@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { __PATH } from '../Xiuxian/xiuxian.js';
+import { __PATH } from '../../model/xiuxian.js';
 import data from '../../model/XiuxianData.js'
 import config from '../../model/Config.js';
 import {
@@ -8,7 +8,7 @@ import {
     exist_najie_thing,
     Add_najie_thing,
     Write_player,
-} from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
 
 export class motou extends plugin {
     constructor() {

@@ -6,8 +6,8 @@ import fs from "fs"
 import {
     existplayer, Write_player, isNotNull, exist_najie_thing, Add_najie_thing, Add_职业经验, Add_灵石, sleep, ForwardMsg,
     convert2integer
-} from '../Xiuxian/xiuxian.js'
-import { Read_player, __PATH, Read_danyao } from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
+import { Read_player, __PATH, Read_danyao } from '../../model/xiuxian.js'
 import Show from "../../model/show.js"
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
 import { segment } from "oicq"

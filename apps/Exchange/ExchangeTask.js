@@ -5,7 +5,7 @@ import common from "../../../../lib/common/common.js"
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { Read_Exchange, Write_Exchange } from './Exchange.js'
-import { Add_najie_thing } from "../Xiuxian/xiuxian.js"
+import { Add_najie_thing } from "../../model/xiuxian.js"
 import { AppName } from '../../app.config.js'
 /**
  * 定时任务

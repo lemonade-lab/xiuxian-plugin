@@ -1,7 +1,7 @@
 import { plugin ,segment} from '../../api/api.js'
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import { timestampToTime, shijianc, player_efficiency,convert2integer } from '../Xiuxian/xiuxian.js'
+import { timestampToTime, shijianc, player_efficiency,convert2integer } from '../../model/xiuxian.js'
 
 
 //要DIY的话，确保这两个数组长度相等

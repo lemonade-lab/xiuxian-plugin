@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { __PATH } from '../Xiuxian/xiuxian.js';
+import { __PATH } from '../../model/xiuxian.js';
 import {
   Read_player,
   existplayer,
@@ -10,12 +10,12 @@ import {
   fstadd_shitu,
   find_shitu,
   find_tudi,
-} from '../Xiuxian/xiuxian.js';
-import { Add_灵石, Add_修为, Add_血气 } from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
+import { Add_灵石, Add_修为, Add_血气 } from '../../model/xiuxian.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import data from '../../model/XiuxianData.js';
-import { Write_player, Add_najie_thing } from '../Xiuxian/xiuxian.js';
+import { Write_player, Add_najie_thing } from '../../model/xiuxian.js';
 
 /**
  * 作者：晓飞

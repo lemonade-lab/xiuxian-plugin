@@ -11,8 +11,8 @@ import {
     Write_equipment,
     isNotNull,
     player_efficiency, get_random_fromARR
-} from '../Xiuxian/xiuxian.js'
-import {Add_najie_thing, Add_HP} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
+import {Add_najie_thing, Add_HP} from '../../model/xiuxian.js'
 
 /**
  * 全局变量

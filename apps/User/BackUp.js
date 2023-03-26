@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { __PATH } from '../Xiuxian/xiuxian.js';
+import { __PATH } from '../../model/xiuxian.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
 

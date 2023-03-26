@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { __PATH } from '../Xiuxian/xiuxian.js';
+import { __PATH } from '../../model/xiuxian.js';
 import data from '../../model/XiuxianData.js'
-import {existplayer,Read_player,exist_najie_thing,Add_najie_thing,Write_player,shijianc} from '../Xiuxian/xiuxian.js';
+import {existplayer,Read_player,exist_najie_thing,Add_najie_thing,Write_player,shijianc} from '../../model/xiuxian.js';
 
 export class shenren extends plugin {
   constructor() {

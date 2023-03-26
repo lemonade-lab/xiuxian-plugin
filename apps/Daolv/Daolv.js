@@ -1,8 +1,8 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
-import { fstadd_qinmidu, sleep, __PATH } from "../Xiuxian/xiuxian.js"
+import { fstadd_qinmidu, sleep, __PATH } from "../../model/xiuxian.js"
 import { segment } from "oicq";
-import { exist_najie_thing, existplayer, Read_player, find_qinmidu, Read_qinmidu, Write_qinmidu, add_qinmidu, Add_najie_thing } from "../Xiuxian/xiuxian.js"
+import { exist_najie_thing, existplayer, Read_player, find_qinmidu, Read_qinmidu, Write_qinmidu, add_qinmidu, Add_najie_thing } from "../../model/xiuxian.js"
 import fs from "fs"
 let x = 0;
 let chaoshi_time

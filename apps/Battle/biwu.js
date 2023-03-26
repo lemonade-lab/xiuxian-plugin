@@ -4,7 +4,7 @@ import data from '../../model/XiuxianData.js';
 import {
   existplayer, exist_najie_thing, ForwardMsg, isNotNull, Write_player, Add_najie_thing,
   Add_HP, Read_player, Read_equipment, sleep
-} from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
 import { Harm,baojishanghai,ifbaoji } from "../Battle/Battle.js"
 
 /**

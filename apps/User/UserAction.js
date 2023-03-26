@@ -1,7 +1,7 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import { Read_player, existplayer,Read_najie,Write_najie,Add_灵石,__PATH} from '../Xiuxian/xiuxian.js'
+import { Read_player, existplayer,Read_najie,Write_najie,Add_灵石,__PATH} from '../../model/xiuxian.js'
 import {get_najie_img} from '../ShowImeg/showData.js'
 
 /**

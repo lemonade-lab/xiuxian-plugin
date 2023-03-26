@@ -7,7 +7,7 @@ import { segment } from "oicq"
 import {
     Read_player, existplayer, exist_najie_thing, foundthing, Read_najie,
     Add_灵石, Add_najie_thing, convert2integer, __PATH, Add_修为, Add_血气
-} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
 
 /**
  * 全局变量

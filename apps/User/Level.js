@@ -6,7 +6,7 @@ import fs from "fs"
 import {
     existplayer, Write_player, Write_equipment, isNotNull, player_efficiency, get_random_fromARR,
     Read_player, Read_equipment, Add_HP, exist_najie_thing, Add_修为, Add_血气, Add_najie_thing
-} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
 
 import { AppName } from '../../app.config.js'
 import { clearInterval } from 'timers'

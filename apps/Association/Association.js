@@ -4,7 +4,7 @@ import data from '../../model/XiuxianData.js'
 import fs from "fs"
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import { timestampToTime, shijianc, get_random_fromARR, ForwardMsg, player_efficiency } from '../Xiuxian/xiuxian.js'
+import { timestampToTime, shijianc, get_random_fromARR, ForwardMsg, player_efficiency } from '../../model/xiuxian.js'
 //要DIY的话，确保这两个数组长度相等
 const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27];
 const 宗门灵石池上限 = [2000000, 5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000];

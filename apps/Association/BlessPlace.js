@@ -5,7 +5,7 @@ import fs from "fs"
 import {
     Add_灵石, Add_najie_thing, isNotNull, Read_player, exist_najie_thing, convert2integer,
     existplayer, shijianc, ForwardMsg
-} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
 
 
 let allaction = false;

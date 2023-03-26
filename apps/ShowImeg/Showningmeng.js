@@ -2,7 +2,7 @@ import plugin from "../../../../lib/plugins/plugin.js";
 import Show from "../../model/show.js";
 import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
 import data from '../../model/XiuxianData.js'
-import { __PATH } from "../Xiuxian/xiuxian.js"
+import { __PATH } from "../../model/xiuxian.js"
 import { get_gongfa_img,get_danyao_img,get_wuqi_img,get_daoju_img,get_XianChong_img} from '../ShowImeg/showData.js'
 /**
  * 生图模块

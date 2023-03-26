@@ -4,8 +4,8 @@ import {
     isNotNull,
     Write_player,
     Write_najie,
-} from '../Xiuxian/xiuxian.js';
-import { Add_najie_thing, convert2integer } from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
+import { Add_najie_thing, convert2integer } from '../../model/xiuxian.js';
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';

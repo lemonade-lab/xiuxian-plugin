@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import { Read_najie, __PATH } from '../Xiuxian/xiuxian.js';
+import { Read_najie, __PATH } from '../../model/xiuxian.js';
 import config from '../../model/Config.js';
 import { AppName } from '../../app.config.js'
 import fs from 'fs';

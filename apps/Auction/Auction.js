@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import {__PATH,existplayer,Read_player,isNotNull} from '../Xiuxian/xiuxian.js';
+import {__PATH,existplayer,Read_player,isNotNull} from '../../model/xiuxian.js';
 
 // const intervalTime = 7 * 24 * 60 * 60 * 1000;
 

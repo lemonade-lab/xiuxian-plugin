@@ -2,8 +2,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import { Read_player, existplayer, ForwardMsg, isNotNull, sleep,  exist_najie_thing,Add_najie_thing } from '../Xiuxian/xiuxian.js'
-import { Add_灵石, Add_修为,exist_hunyin,find_qinmidu,add_qinmidu } from '../Xiuxian/xiuxian.js'
+import { Read_player, existplayer, ForwardMsg, isNotNull, sleep,  exist_najie_thing,Add_najie_thing } from '../../model/xiuxian.js'
+import { Add_灵石, Add_修为,exist_hunyin,find_qinmidu,add_qinmidu } from '../../model/xiuxian.js'
 
 /**
  * 秘境模块

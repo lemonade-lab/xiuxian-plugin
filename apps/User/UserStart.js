@@ -2,13 +2,13 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "fs"
-import {Read_player, existplayer, get_random_talent, getLastsign} from '../Xiuxian/xiuxian.js'
-import {Write_equipment, Write_player, Write_najie} from '../Xiuxian/xiuxian.js'
-import {shijianc, get_random_fromARR, isNotNull,Write_danyao} from '../Xiuxian/xiuxian.js'
-import {Add_HP, Add_修为, Add_najie_thing} from '../Xiuxian/xiuxian.js'
+import {Read_player, existplayer, get_random_talent, getLastsign} from '../../model/xiuxian.js'
+import {Write_equipment, Write_player, Write_najie} from '../../model/xiuxian.js'
+import {shijianc, get_random_fromARR, isNotNull,Write_danyao} from '../../model/xiuxian.js'
+import {Add_HP, Add_修为, Add_najie_thing} from '../../model/xiuxian.js'
 import {get_player_img} from '../ShowImeg/showData.js'
 import {segment} from "oicq"
-import {__PATH} from "../Xiuxian/xiuxian.js"
+import {__PATH} from "../../model/xiuxian.js"
 
 /**
  * 全局

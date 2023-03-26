@@ -5,7 +5,7 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { segment } from "oicq"
-import { Read_player, isNotNull, Write_player, sleep, Add_najie_thing, exist_najie_thing } from "../Xiuxian/xiuxian.js"
+import { Read_player, isNotNull, Write_player, sleep, Add_najie_thing, exist_najie_thing } from "../../model/xiuxian.js"
 import { dujie } from "./Level.js"
 import { AppName } from '../../app.config.js'
 

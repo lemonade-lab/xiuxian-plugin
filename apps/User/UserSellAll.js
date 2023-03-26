@@ -4,7 +4,7 @@ import data from '../../model/XiuxianData.js'
 import {
     Read_player, existplayer, exist_najie_thing, foundthing, re_najie_thing, Write_najie,sleep,
     Add_灵石, Add_najie_thing, Add_修为, Add_player_学习功法, Add_血气, __PATH, instead_equipment, Read_najie
-} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
 import { synchronization } from '../AdminSuper/AdminSuper.js'
 import { Synchronization_ASS } from '../Association/TreasureCabinet.js'
 import { get_equipment_img } from '../ShowImeg/showData.js'

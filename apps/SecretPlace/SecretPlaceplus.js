@@ -3,7 +3,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import {Read_player,existplayer,ForwardMsg,isNotNull,sleep,shijianc,exist_najie_thing,
-    Add_najie_thing,convert2integer,Add_灵石, Add_修为} from '../Xiuxian/xiuxian.js'
+    Add_najie_thing,convert2integer,Add_灵石, Add_修为} from '../../model/xiuxian.js'
 
 /**
  * 秘境模块

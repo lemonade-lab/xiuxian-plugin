@@ -7,7 +7,7 @@ import { segment } from 'oicq';
 import {
   Add_najie_thing, Add_修为, Add_血气, Add_HP, exist_najie_thing, Write_player,
   Read_player, isNotNull, Read_danyao, Write_danyao, Read_temp, Write_temp
-} from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
 import { zd_battle } from "../Battle/Battle.js"
 import { AppName } from '../../app.config.js'
 

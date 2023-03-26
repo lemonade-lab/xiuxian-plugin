@@ -6,7 +6,7 @@ import data from '../../model/XiuxianData.js'
 import {
     player_efficiency, Read_player, existplayer, isNotNull, exist_najie_thing, Add_najie_thing,
     Add_血气, Add_修为, Read_danyao, Write_danyao
-} from '../Xiuxian/xiuxian.js'
+} from '../../model/xiuxian.js'
 import { segment } from "oicq"
 
 /**

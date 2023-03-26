@@ -1,11 +1,9 @@
-import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
 import path from "path"
-import data from '../../model/XiuxianData.js'
-import config from "../../model/Config.js"
-import { Writeit, Read_it } from "../duanzao/duanzaofu.js";
-import { fixed } from "../User/BackUptask.js";
-import { AppName } from '../../app.config.js'
+import data from './XiuxianData.js'
+import { Writeit, Read_it } from "../apps/duanzao/duanzaofu.js";
+import { fixed } from "../apps/User/BackUptask.js";
+import { AppName } from '../app.config.js'
 /**
  * 全局
  */
@@ -46,19 +44,6 @@ if (!fs.existsSync(xiuxianSetFile)) {
     fs.copyFileSync("./plugins/" + AppName + "/defSet/xiuxian/xiuxian.yaml", xiuxianSetFile);
 }
 
-//处理消息
-export class xiuxian extends plugin {
-    constructor() {
-        super({
-            name: 'xiuxian',
-            dsc: '修仙模块',
-            event: 'message',
-            priority: 800,
-            rule: []
-        })
-        this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
-    }
-}
 
 const 体质概率 = 0.2;
 const 伪灵根概率 = 0.37;

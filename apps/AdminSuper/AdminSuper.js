@@ -7,9 +7,9 @@ import { AppName } from '../../app.config.js';
 import {
   existplayer, isNotNull, Write_player, Write_najie, Read_najie, Read_updata_log, Add_najie_thing,
   exist_najie_thing, Read_equipment, Write_equipment, Read_danyao, Write_danyao
-} from '../Xiuxian/xiuxian.js';
+} from '../../model/xiuxian.js';
 import { Read_Exchange, Write_Exchange } from '../Exchange/Exchange.js';
-import { Read_player, __PATH } from '../Xiuxian/xiuxian.js';
+import { Read_player, __PATH } from '../../model/xiuxian.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import Show from '../../model/show.js';
 export class AdminSuper extends plugin {

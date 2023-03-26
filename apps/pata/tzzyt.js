@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { segment } from "oicq"
 import data from '../../model/XiuxianData.js';
-import { existplayer } from '../Xiuxian/xiuxian.js';
+import { existplayer } from '../../model/xiuxian.js';
 
 //作者：波叽在（1695037643）的协助下完成
 export class tzzyt extends plugin {

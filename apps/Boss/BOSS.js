@@ -3,7 +3,7 @@ import data from '../../model/XiuxianData.js'
 import fs from "fs"
 import config from "../../model/Config.js"
 import { zd_battle, Harm } from "../Battle/Battle.js"
-import { Add_灵石, ForwardMsg, Add_HP } from '../Xiuxian/xiuxian.js'
+import { Add_灵石, ForwardMsg, Add_HP } from '../../model/xiuxian.js'
 
 //本模块由(qq:1695037643)和jio佬完成
 let WorldBOSSBattleCD = [];//CD

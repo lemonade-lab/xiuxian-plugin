@@ -1,6 +1,6 @@
 import { plugin ,segment,common} from '../../api/api.js'
 import config from '../../model/Config.js';
-import {Add_najie_thing,Add_灵石,Read_player,} from '../Xiuxian/xiuxian.js';
+import {Add_najie_thing,Add_灵石,Read_player,} from '../../model/xiuxian.js';
 import { openAU } from '../Auction/Auction.js';
 /**
  * 定时任务

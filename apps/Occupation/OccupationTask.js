@@ -5,8 +5,8 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { segment } from "oicq"
-import { isNotNull } from "../Xiuxian/xiuxian.js"
-import { Add_najie_thing, Add_职业经验 } from '../Xiuxian/xiuxian.js'
+import { isNotNull } from "../../model/xiuxian.js"
+import { Add_najie_thing, Add_职业经验 } from '../../model/xiuxian.js'
 import { AppName } from '../../app.config.js'
 /**
  * 定时任务

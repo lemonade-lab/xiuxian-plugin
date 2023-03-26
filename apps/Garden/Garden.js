@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
-import { timestampToTime, shijianc, exist_najie_thing, ForwardMsg, Add_najie_thing } from '../Xiuxian/xiuxian.js'
+import { timestampToTime, shijianc, exist_najie_thing, ForwardMsg, Add_najie_thing } from '../../model/xiuxian.js'
 /**
  * 作者：湖中屋
  */

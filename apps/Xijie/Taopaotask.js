@@ -5,7 +5,7 @@ import data from '../../model/XiuxianData.js'
 import fs from "node:fs"
 import { segment } from "oicq"
 import { Harm } from "../Battle/Battle.js"
-import { isNotNull, Add_najie_thing } from "../Xiuxian/xiuxian.js"
+import { isNotNull, Add_najie_thing } from "../../model/xiuxian.js"
 import { Write_shop, Read_shop } from "../Xijie/Xijie.js"
 import { AppName } from '../../app.config.js'
 

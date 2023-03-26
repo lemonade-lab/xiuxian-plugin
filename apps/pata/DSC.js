@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { segment } from "oicq"
 import data from '../../model/XiuxianData.js';
-import { existplayer } from '../Xiuxian/xiuxian.js';
+import { existplayer } from '../../model/xiuxian.js';
 
 
 //本模块由(qq:1695037643)和jio佬完成

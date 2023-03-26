@@ -1,11 +1,11 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import fs from 'fs';
-import { __PATH } from '../Xiuxian/xiuxian.js';
+import { __PATH } from '../../model/xiuxian.js';
 import path from 'path';
 import data from '../../model/XiuxianData.js'
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import { existplayer, Read_player, Add_灵石, Write_player, shijianc } from '../Xiuxian/xiuxian.js';
+import { existplayer, Read_player, Add_灵石, Write_player, shijianc } from '../../model/xiuxian.js';
 
 export class Xijie extends plugin {
     constructor() {

@@ -1,7 +1,7 @@
 //插件加载
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from "fs"
-import { existplayer, sortBy, ForwardMsg, __PATH, Read_player } from '../Xiuxian/xiuxian.js'
+import { existplayer, sortBy, ForwardMsg, __PATH, Read_player } from '../../model/xiuxian.js'
 import { AppName } from '../../app.config.js'
 
 /**

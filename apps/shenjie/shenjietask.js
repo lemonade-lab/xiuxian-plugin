@@ -4,7 +4,7 @@ import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import fs from "node:fs"
 import { segment } from "oicq"
-import { Read_player, isNotNull, Add_najie_thing, Add_血气, Add_修为, Read_temp, Write_temp } from "../Xiuxian/xiuxian.js"
+import { Read_player, isNotNull, Add_najie_thing, Add_血气, Add_修为, Read_temp, Write_temp } from "../../model/xiuxian.js"
 import { AppName } from '../../app.config.js'
 
 export class shenjietask extends plugin {

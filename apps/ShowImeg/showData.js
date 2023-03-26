@@ -4,7 +4,7 @@ import puppeteer from "../../../../lib/puppeteer/puppeteer.js"
 import config from "../../model/Config.js"
 import Config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import { __PATH, get_random_talent, isNotNull, player_efficiency, Read_equipment, Read_najie, Read_player, Read_qinmidu, Write_qinmidu } from "../Xiuxian/xiuxian.js"
+import { __PATH, get_random_talent, isNotNull, player_efficiency, Read_equipment, Read_najie, Read_player, Read_qinmidu, Write_qinmidu } from "../../model/xiuxian.js"
 
 /**
  * 生图模块
