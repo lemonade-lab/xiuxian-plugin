@@ -1,11 +1,17 @@
-import { plugin ,segment} from '../../api/api.js'
+import { plugin, segment } from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
-import {existplayer,exist_najie_thing,ForwardMsg,isNotNull,Read_player,Add_灵石,Add_HP,Add_血气,zd_battle} from '../../model/xiuxian.js';
-
-
-
-
+import {
+  existplayer,
+  exist_najie_thing,
+  ForwardMsg,
+  isNotNull,
+  Read_player,
+  Add_灵石,
+  Add_HP,
+  Add_血气,
+  zd_battle,
+} from '../../model/xiuxian.js';
 
 /**
  * 战斗类

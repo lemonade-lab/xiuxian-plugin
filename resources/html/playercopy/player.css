@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "tttgbnumber";
-  src: url("../../font/tttgbnumber.ttf");
+  font-family: 'tttgbnumber';
+  src: url('../../font/tttgbnumber.ttf');
   font-weight: normal;
   font-style: normal;
 }
@@ -13,12 +13,10 @@ body {
   background-size: 100% auto;
 }
 
-
 .user_top {
   width: 90%;
   margin: auto;
 }
-
 
 .user_top_left {
   float: left;
@@ -29,7 +27,7 @@ body {
 
 .user_top_img_bottom {
   margin: auto;
-  background-image: url("../../img/state/user_state.png");
+  background-image: url('../../img/state/user_state.png');
   background-size: 100% auto;
   width: 280px;
   height: 280px;
@@ -54,13 +52,15 @@ body {
   font-size: 30px;
 }
 
-
 .user_top_right {
   float: right;
   text-align: left;
   margin-top: 65px;
   width: 60%;
-  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
+  background-image: radial-gradient(
+    rgba(180, 153, 152, 0.408),
+    rgba(230, 222, 128, 0.312)
+  );
   border-radius: 20px;
 }
 
@@ -82,19 +82,17 @@ body {
   background-color: rgba(19, 21, 22, 0.486);
 }
 
-.gonfa{
+.gonfa {
   display: flex;
   flex-wrap: wrap;
-  
 }
 
-.gonfa2{
-	width: 33.33%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.gonfa2 {
+  width: 33.33%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 
 .user_bottom0 {
   padding-top: 80px;
@@ -105,15 +103,15 @@ body {
   margin: auto;
 }
 
-
-
 .user_bottom1 {
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
+  background-image: radial-gradient(
+    rgba(180, 153, 152, 0.408),
+    rgba(230, 222, 128, 0.312)
+  );
 }
-
 
 .user_bottom2 {
   border-radius: 20px;

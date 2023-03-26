@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { Read_najie, __PATH } from '../../model/xiuxian.js';
 import config from '../../model/Config.js';
-import { AppName } from '../../app.config.js'
+import { AppName } from '../../app.config.js';
 import fs from 'fs';
 
 export class BackUptask extends plugin {
@@ -27,7 +27,9 @@ export class BackUptask extends plugin {
 
   async saveBackUp() {
     let playerList = [];
-    let files = fs.readdirSync('./plugins/'+AppName+'/resources/data/xiuxian_player').filter(file => file.endsWith('.json'));
+    let files = fs
+      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
+      .filter(file => file.endsWith('.json'));
     for (let file of files) {
       file = file.replace('.json', '');
       playerList.push(file);
@@ -36,10 +38,11 @@ export class BackUptask extends plugin {
       let usr_qq = player_id;
       try {
         await Read_najie(usr_qq);
-        fs.copyFileSync(`${__PATH.najie_path}/${usr_qq}.json`, `${__PATH.auto_backup}/najie/${usr_qq}.json`);
-      }
-      catch
-      {
+        fs.copyFileSync(
+          `${__PATH.najie_path}/${usr_qq}.json`,
+          `${__PATH.auto_backup}/najie/${usr_qq}.json`
+        );
+      } catch {
         continue;
       }
     }

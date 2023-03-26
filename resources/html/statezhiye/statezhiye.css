@@ -1,10 +1,9 @@
 @font-face {
-  font-family: "tttgbnumber";
-  src: url("../../font/tttgbnumber.ttf");
+  font-family: 'tttgbnumber';
+  src: url('../../font/tttgbnumber.ttf');
   font-weight: normal;
   font-style: normal;
 }
-
 
 body {
   transform: scale(1);
@@ -14,12 +13,10 @@ body {
   background-size: 100% auto;
 }
 
-
 .user_top {
   width: 90%;
   margin: auto;
 }
-
 
 .user_top_left {
   float: left;
@@ -30,7 +27,7 @@ body {
 
 .user_top_img_bottom {
   margin: auto;
-  background-image: url("../../img/state/user_state.png");
+  background-image: url('../../img/state/user_state.png');
   background-size: 100% auto;
   width: 280px;
   height: 280px;
@@ -55,16 +52,17 @@ body {
   font-size: 30px;
 }
 
-
 .user_top_right {
   float: right;
   text-align: left;
   margin-top: 65px;
   width: 60%;
-  background-image: radial-gradient(rgba(206, 226, 226, 0.078), rgba(164, 193, 231, 0.408));
+  background-image: radial-gradient(
+    rgba(206, 226, 226, 0.078),
+    rgba(164, 193, 231, 0.408)
+  );
   border-radius: 20px;
 }
-
 
 .user_bottom0 {
   padding-top: 80px;
@@ -79,7 +77,10 @@ body {
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(rgba(206, 226, 226, 0.078), rgba(164, 193, 231, 0.408));
+  background-image: radial-gradient(
+    rgba(206, 226, 226, 0.078),
+    rgba(164, 193, 231, 0.408)
+  );
 }
 
 .user_bottom2 {

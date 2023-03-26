@@ -1,9 +1,15 @@
-import { plugin ,common} from '../../api/api.js'
+import { plugin, common } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import {__PATH,existplayer,Read_player,isNotNull,openAU} from '../../model/xiuxian.js';
+import {
+  __PATH,
+  existplayer,
+  Read_player,
+  isNotNull,
+  openAU,
+} from '../../model/xiuxian.js';
 
 // const intervalTime = 7 * 24 * 60 * 60 * 1000;
 
@@ -199,7 +205,7 @@ export class Auction extends plugin {
     // let start_price = auction.start_price;
     let last_price = auction.last_price;
     let new_price = e.msg.replace('#星阁出价', '');
-    new_price=Number(new_price);
+    new_price = Number(new_price);
     if (!new_price) {
       new_price = parseInt(Math.ceil(last_price * 1.1));
     } else {
@@ -284,7 +290,6 @@ export class Auction extends plugin {
 //   await redis.set('xiuxian:AuctionofficialTask', JSON.stringify(wupin));
 //   return;
 // } NOTE: 过时的
-
 
 /**
  * 推送消息，群消息推送群，或者推送私人

@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="shortcut icon" href="#" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/help/common.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/help/help.css"
+    />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="shortcut icon" href="#" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/help/common.css" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/help/help.css" />
-
-</head>
-
-<body class="elem-default default-mode  ">
-  <div class="container" id="container">
-
-    <div class="info_box">
-      <div class="head-box type">
-        <div class="title">修仙插件 V1.2.2</div>
-      </div>
-    </div>
-
-    {{each helpData val}}
-    <div class="cont-box">
-      <div class="help-group">{{val.group}}</div>
-      <div class="help-table">
-
-        <div class="tr">
-          {{each val.list item}}
-          <div class="td">
-            <span class="help-icon {{item.icon}}"></span>
-            <strong class="help-title">{{item.title}}</strong>
-            <span class="help-desc">{{item.desc}}</span>
-          </div>
-          {{/each}}
+  <body class="elem-default default-mode">
+    <div class="container" id="container">
+      <div class="info_box">
+        <div class="head-box type">
+          <div class="title">修仙插件 V1.2.2</div>
         </div>
-
       </div>
-    </div>
-    {{/each}}
-    <div class="copyright">群号:767253997 温馨提示:切莫沉迷修仙</div>
-  </div>
-</body>
 
+      {{each helpData val}}
+      <div class="cont-box">
+        <div class="help-group">{{val.group}}</div>
+        <div class="help-table">
+          <div class="tr">
+            {{each val.list item}}
+            <div class="td">
+              <span class="help-icon {{item.icon}}"></span>
+              <strong class="help-title">{{item.title}}</strong>
+              <span class="help-desc">{{item.desc}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      <div class="copyright">群号:767253997 温馨提示:切莫沉迷修仙</div>
+    </div>
+  </body>
 </html>

@@ -34,14 +34,14 @@
       title: '#炼体境界'
       desc: '查看所有境界'
     - icon: help-icon_13
-      title: "#职业等级"
-      desc: "查看所有等级"
+      title: '#职业等级'
+      desc: '查看所有等级'
     - icon: help-icon_13
-      title: "#丹药配方"
-      desc: "查看丹方列表"
+      title: '#丹药配方'
+      desc: '查看丹方列表'
     - icon: help-icon_13
-      title: "#装备图纸"
-      desc: "查看图纸列表"
+      title: '#装备图纸'
+      desc: '查看图纸列表'
 
 - group: 修行之路
   list:
@@ -162,8 +162,8 @@
       title: '#关闭星阁体系'
       desc: '关闭所有群的星阁推送(每天一次自动刷新)'
     - icon: help-icon_53
-      title: "#回收+物品名"
-      desc: "双倍价格回收无用的物品"
+      title: '#回收+物品名'
+      desc: '双倍价格回收无用的物品'
 - group: 礼尚往来
   list:
     - icon: help-icon_10

@@ -5,10 +5,21 @@ import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
 import {
-  Add_najie_thing, Add_修为, Add_血气, Add_HP, exist_najie_thing, Write_player,
-  Read_player, isNotNull, Read_danyao, Write_danyao, Read_temp, Write_temp,zd_battle
+  Add_najie_thing,
+  Add_修为,
+  Add_血气,
+  Add_HP,
+  exist_najie_thing,
+  Write_player,
+  Read_player,
+  isNotNull,
+  Read_danyao,
+  Write_danyao,
+  Read_temp,
+  Write_temp,
+  zd_battle,
 } from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js'
+import { AppName } from '../../app.config.js';
 
 /**
  * 定时任务
@@ -35,9 +46,7 @@ export class SecretPlaceplusTask extends plugin {
     //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync(
-        './plugins/' + AppName + '/resources/data/xiuxian_player'
-      )
+      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
       .filter(file => file.endsWith('.json'));
     for (let file of files) {
       file = file.replace('.json', '');
@@ -87,7 +96,7 @@ export class SecretPlaceplusTask extends plugin {
               防御: player.防御,
               当前血量: player.当前血量,
               暴击率: player.暴击率,
-              法球倍率: player.灵根.法球倍率
+              法球倍率: player.灵根.法球倍率,
             };
             let monster_length = data.monster_list.length;
             let monster_index = Math.trunc(Math.random() * monster_length);
@@ -160,8 +169,7 @@ export class SecretPlaceplusTask extends plugin {
                 t2 = 0.5 + Math.random() * 0.5;
                 if (weizhi.name == '诸神黄昏·旧神界') {
                   n = 100;
-                  if (thing_name == "洗根水")
-                    n = 130;
+                  if (thing_name == '洗根水') n = 130;
                   m = '捡到了[' + thing_name;
                 }
                 if (weizhi.name == '太极之阳' || weizhi.name == '太极之阴') {
@@ -219,7 +227,11 @@ export class SecretPlaceplusTask extends plugin {
               if (thing_name) {
                 await Add_najie_thing(player_id, thing_name, thing_class, n);
               }
-              last_msg += `${m}不巧撞见[${B_player.名号}],经过一番战斗,击败对手,获得修为${xiuwei},气血${qixue},剩余血量${(A_player.当前血量 + Data_battle.A_xue)},剩余次数${action.cishu - 1}`;
+              last_msg += `${m}不巧撞见[${
+                B_player.名号
+              }],经过一番战斗,击败对手,获得修为${xiuwei},气血${qixue},剩余血量${
+                A_player.当前血量 + Data_battle.A_xue
+              },剩余次数${action.cishu - 1}`;
               let random = Math.random(); //万分之一出神迹
               let newrandom = 0.995;
               let dy = await Read_danyao(player_id);
@@ -301,20 +313,18 @@ export class SecretPlaceplusTask extends plugin {
                 let temp = await Read_temp();
                 let p = {
                   msg: player.名号 + last_msg + fyd_msg,
-                  qq_group: push_address
-                }
+                  qq_group: push_address,
+                };
                 temp.push(p);
                 await Write_temp(temp);
-              }
-              catch
-              {
+              } catch {
                 await Write_temp([]);
                 let temp = await Read_temp();
                 let p = {
                   msg: player.名号 + last_msg + fyd_msg,
                   qq: player_id,
-                  qq_group: push_address
-                }
+                  qq_group: push_address,
+                };
                 temp.push(p);
                 await Write_temp(temp);
               }

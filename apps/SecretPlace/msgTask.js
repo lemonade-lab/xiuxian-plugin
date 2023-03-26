@@ -1,8 +1,8 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import common from '../../../../lib/common/common.js'
-import config from '../../model/Config.js'
+import plugin from '../../../../lib/plugins/plugin.js';
+import common from '../../../../lib/common/common.js';
+import config from '../../model/Config.js';
 import Show from '../../model/show.js';
-import { Read_temp, Write_temp } from '../../model/xiuxian.js'
+import { Read_temp, Write_temp } from '../../model/xiuxian.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 
 /**
@@ -30,9 +30,7 @@ export class msgTask extends plugin {
     let temp;
     try {
       temp = await Read_temp();
-    }
-    catch
-    {
+    } catch {
       await Write_temp([]);
       temp = await Read_temp();
     }
@@ -41,23 +39,19 @@ export class msgTask extends plugin {
       group.push(temp[0].qq_group);
       f1: for (let i of temp) {
         for (let j of group) {
-          if (i.qq_group == j)
-            continue f1;
+          if (i.qq_group == j) continue f1;
         }
         group.push(i.qq_group);
       }
-      for (let i of group)
-      {
-        let msg=[];
-        for (let j of temp)
-        {
-          if (i==j.qq_group)
-          {
+      for (let i of group) {
+        let msg = [];
+        for (let j of temp) {
+          if (i == j.qq_group) {
             msg.push(j.msg);
           }
         }
         let temp_data = {
-          temp:msg
+          temp: msg,
         };
         const data1 = await new Show().get_tempData(temp_data);
         let img = await puppeteer.screenshot('temp', {
@@ -67,7 +61,6 @@ export class msgTask extends plugin {
       }
       await Write_temp([]);
     }
-
   }
 
   /**

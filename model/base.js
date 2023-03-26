@@ -1,10 +1,10 @@
-import { AppName } from "../app.config.js";
+import { AppName } from '../app.config.js';
 export default class base {
   constructor(e = {}) {
     this.e = e;
     this.userId = e?.user_id;
-    this.model = AppName
-    this._path = process.cwd().replace(/\\/g, "/");
+    this.model = AppName;
+    this._path = process.cwd().replace(/\\/g, '/');
   }
 
   get prefix() {

@@ -1,4 +1,3 @@
-
 body {
   transform: scale(1);
   width: 100%;
@@ -13,7 +12,6 @@ body {
   background-size: 100% auto;
 }
 
-
 .user_bottom1 {
   margin: auto;
   background-image: url('../..//img/valuables/valuables-danyao.jpg');
@@ -25,20 +23,20 @@ body {
   margin: auto;
   background-image: url('../..//img/valuables/valuables-danyao.jpg');
   background-size: 100% auto;
-  padding-top:20px ;
+  padding-top: 20px;
 }
 
-.user_float{
+.user_float {
   float: left;
-  margin-top:70px;
-  margin-left:260px;
+  margin-top: 70px;
+  margin-left: 260px;
 }
 
 .use_data0 {
   padding: 50px;
 }
 
-.user_font_0{
+.user_font_0 {
   text-align: center;
   font-size: 50px;
   font-weight: 600;
@@ -47,18 +45,11 @@ body {
   background-color: rgba(244, 117, 174, 0.386);
 }
 
-
-
-
-
-
 .use_data {
   padding: 50px;
   padding-left: 150px;
   padding-right: 150px;
 }
-
-
 
 .user_font {
   text-align: center;

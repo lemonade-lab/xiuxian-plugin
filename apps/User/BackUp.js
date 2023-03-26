@@ -53,7 +53,7 @@ export class BackUp extends plugin {
         'player_path',
         'custom',
         'shop',
-        'danyao_path'
+        'danyao_path',
       ];
 
       // [[fn, fn...], ...]
@@ -193,7 +193,7 @@ export class BackUp extends plugin {
         'player_path',
         'custom',
         'shop',
-        'danyao_path'
+        'danyao_path',
       ];
 
       // [[fn, fn...], ...]

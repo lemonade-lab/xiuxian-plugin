@@ -1,38 +1,38 @@
-[  
+[
   {
     "id": 40000001,
     "name": "昆仑山",
     "efficiency": 1,
     "level": 5
-  },  
+  },
   {
     "id": 30000001,
     "name": "三清山",
-    "efficiency": 0.70,
+    "efficiency": 0.7,
     "level": 4
-  },  
+  },
   {
     "id": 30000002,
     "name": "斩神涯",
-    "efficiency": 0.70,
+    "efficiency": 0.7,
     "level": 4
-   },
-   {
+  },
+  {
     "id": 30000003,
     "name": "封魔谷",
-    "efficiency": 0.70,
+    "efficiency": 0.7,
     "level": 4
   },
   {
     "id": 30000004,
     "name": "星阁",
-    "efficiency": 0.70,
+    "efficiency": 0.7,
     "level": 4
   },
   {
     "id": 30000005,
     "name": "老君山",
-    "efficiency": 0.70,
+    "efficiency": 0.7,
     "level": 4
   },
   {

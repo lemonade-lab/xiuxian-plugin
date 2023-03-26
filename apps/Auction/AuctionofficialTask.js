@@ -1,6 +1,11 @@
-import { plugin,common} from '../../api/api.js'
+import { plugin, common } from '../../api/api.js';
 import config from '../../model/Config.js';
-import {Add_najie_thing,Add_灵石,Read_player,openAU} from '../../model/xiuxian.js';
+import {
+  Add_najie_thing,
+  Add_灵石,
+  Read_player,
+  openAU,
+} from '../../model/xiuxian.js';
 /**
  * 定时任务
  */
@@ -21,7 +26,6 @@ export class AuctionofficialTask extends plugin {
       fnc: () => this.AuctionofficialTask(),
     };
   }
-
 
   async AuctionofficialTask() {
     // 判断是否已经在拍卖中

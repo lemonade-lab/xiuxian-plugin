@@ -1,9 +1,16 @@
-import { plugin ,segment} from '../../api/api.js'
+import { plugin, segment } from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import {
-  existplayer, exist_najie_thing, ForwardMsg, isNotNull, Write_player, Add_najie_thing,
-  Add_HP,Read_player, zd_battle
+  existplayer,
+  exist_najie_thing,
+  ForwardMsg,
+  isNotNull,
+  Write_player,
+  Add_najie_thing,
+  Add_HP,
+  Read_player,
+  zd_battle,
 } from '../../model/xiuxian.js';
 
 /**
@@ -257,9 +264,13 @@ export class Battle extends plugin {
     let A_win = `${A_player.名号}击败了${B_player.名号}`;
     let B_win = `${B_player.名号}击败了${A_player.名号}`;
     if (msg.find(item => item == A_win)) {
-      if (await exist_najie_thing(B, "替身人偶", "道具") && B_player.魔道值 < 1 && (B_player.灵根.type == "转生" || B_player.level_id > 41)) {
-        e.reply(B_player.名号 + "使用了道具替身人偶,躲过了此次打劫");
-        await Add_najie_thing(B, "替身人偶", "道具", -1);
+      if (
+        (await exist_najie_thing(B, '替身人偶', '道具')) &&
+        B_player.魔道值 < 1 &&
+        (B_player.灵根.type == '转生' || B_player.level_id > 41)
+      ) {
+        e.reply(B_player.名号 + '使用了道具替身人偶,躲过了此次打劫');
+        await Add_najie_thing(B, '替身人偶', '道具', -1);
         return;
       }
       let mdzJL = A_player.魔道值;

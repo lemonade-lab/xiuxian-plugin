@@ -1,82 +1,121 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/gongfa/gongfa.css"
+    />
     <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
     <link rel="shortcut icon" href="#" />
-</head>
+  </head>
 
-<body>
-    <div>
-        <div class="header">
-        </div>
-        <!--上-->
-        <div class="card_box">
-            <div class="use_data">
-                <div class="user_font user_font_title">{{nickname}}的装备</div>
+  <body>
+    <div class="header"></div>
+    <!--上-->
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title">{{nickname}}的装备</div>
+      </div>
+    </div>
+
+    <!--下-->
+    {{if wuqi_have.length > 0}}
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title">【已拥有】</div>
+        <div class="user_font wupin">
+          {{each wuqi_have item}}
+          <div class="item">
+            <div class="item_title font_item_title" style="height: 45px">
+              {{item.name}}
             </div>
-        </div>
-
-        <!--下-->
-        {{if wuqi_have.length > 0}}
-        <div class="card_box">
-            <div class="use_data">
-                <div class="user_font user_font_title">【已拥有】</div>
-                <div class="user_font  wupin">
-                    {{each wuqi_have item}}
-                    <div class="item">
-                        <div class="item_title font_item_title" style="height: 45px;">{{item.name}}</div>
-                        <div class="item_int" style="padding-left: 38px;">类型：{{item.type}}</div>
-                        {{if item.atk>10 || item.def>10 || item.HP>10}}
-                        <div class="item_int" style="padding-left: 38px;">攻击：{{item.atk}}</div>
-                        <div class="item_int" style="padding-left: 38px;">防御：{{item.def}}</div>
-                        <div class="item_int" style="padding-left: 38px;">血量：{{item.HP}}</div>
-                        {{else}}
-                        <div class="item_int" style="padding-left: 38px;">攻击:{{(item.atk*100).toFixed(0)}}%</div>
-                        <div class="item_int" style="padding-left: 38px;">防御:{{(item.def*100).toFixed(0)}}%</div>
-                        <div class="item_int" style="padding-left: 38px;">血量:{{(item.HP*100).toFixed(0)}}%</div>
-                        {{/if}}
-                        <div class="item_int" style="padding-left: 38px;">暴击：{{(item.bao*100).toFixed(0)}}%</div>
-                        <div class="item_int" style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
-                    </div>
-                    {{/each}}
-                </div>
+            <div class="item_int" style="padding-left: 38px">
+              类型：{{item.type}}
             </div>
-        </div>
-        {{/if}}
-
-        <!--下-->
-        {{if wuqi_need.length > 0}}
-        <div class="card_box">
-            <div class="use_data">
-                <div class="user_font user_font_title">【未拥有】（普通）</div>
-                <div class="user_font  wupin">
-                    {{each wuqi_need item}}
-                    <div class="item">
-                        <div class="item_title font_item_title" style="height: 45px;">{{item.name}}</div>
-                        <div class="item_int" style="padding-left: 38px;">类型：{{item.type}}</div>
-                        {{if item.atk>10 || item.def>10 || item.HP>10}}
-                        <div class="item_int" style="padding-left: 38px;">攻击：{{item.atk}}</div>
-                        <div class="item_int" style="padding-left: 38px;">防御：{{item.def}}</div>
-                        <div class="item_int" style="padding-left: 38px;">血量：{{item.HP}}</div>
-                        {{else}}
-                        <div class="item_int" style="padding-left: 38px;">攻击:{{(item.atk*100).toFixed(0)}}%</div>
-                        <div class="item_int" style="padding-left: 38px;">防御:{{(item.def*100).toFixed(0)}}%</div>
-                        <div class="item_int" style="padding-left: 38px;">血量:{{(item.HP*100).toFixed(0)}}%</div>
-                        {{/if}}
-                        <div class="item_int" style="padding-left: 38px;">暴击：{{(item.bao*100).toFixed(0)}}%</div>
-                        <div class="item_int" style="padding-left: 38px;">价格：{{(item.出售价).toFixed(0)}}</div>
-                    </div>
-                    {{/each}}
-                </div>
+            {{if item.atk>10 || item.def>10 || item.HP>10}}
+            <div class="item_int" style="padding-left: 38px">
+              攻击：{{item.atk}}
             </div>
+            <div class="item_int" style="padding-left: 38px">
+              防御：{{item.def}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              血量：{{item.HP}}
+            </div>
+            {{else}}
+            <div class="item_int" style="padding-left: 38px">
+              攻击:{{(item.atk*100).toFixed(0)}}%
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              防御:{{(item.def*100).toFixed(0)}}%
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              血量:{{(item.HP*100).toFixed(0)}}%
+            </div>
+            {{/if}}
+            <div class="item_int" style="padding-left: 38px">
+              暴击：{{(item.bao*100).toFixed(0)}}%
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              价格：{{(item.出售价).toFixed(0)}}
+            </div>
+          </div>
+          {{/each}}
         </div>
-        {{/if}}
+      </div>
+    </div>
+    {{/if}}
 
-        <div class="user_bottom2">
+    <!--下-->
+    {{if wuqi_need.length > 0}}
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title">【未拥有】（普通）</div>
+        <div class="user_font wupin">
+          {{each wuqi_need item}}
+          <div class="item">
+            <div class="item_title font_item_title" style="height: 45px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              类型：{{item.type}}
+            </div>
+            {{if item.atk>10 || item.def>10 || item.HP>10}}
+            <div class="item_int" style="padding-left: 38px">
+              攻击：{{item.atk}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              防御：{{item.def}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              血量：{{item.HP}}
+            </div>
+            {{else}}
+            <div class="item_int" style="padding-left: 38px">
+              攻击:{{(item.atk*100).toFixed(0)}}%
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              防御:{{(item.def*100).toFixed(0)}}%
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              血量:{{(item.HP*100).toFixed(0)}}%
+            </div>
+            {{/if}}
+            <div class="item_int" style="padding-left: 38px">
+              暴击：{{(item.bao*100).toFixed(0)}}%
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              价格：{{(item.出售价).toFixed(0)}}
+            </div>
+          </div>
+          {{/each}}
         </div>
-</body>
+      </div>
+    </div>
+    {{/if}}
 
+    <div class="user_bottom2"></div>
+  </body>
 </html>

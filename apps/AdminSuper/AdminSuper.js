@@ -1,9 +1,17 @@
-import { plugin } from '../../api/api.js'
+import { plugin } from '../../api/api.js';
 import fs from 'node:fs';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { AppName } from '../../app.config.js';
-import {existplayer, Write_player,Read_updata_log, Add_najie_thing,exist_najie_thing,Read_Exchange, Write_Exchange,get_player_img
+import {
+  existplayer,
+  Write_player,
+  Read_updata_log,
+  Add_najie_thing,
+  exist_najie_thing,
+  Read_Exchange,
+  Write_Exchange,
+  get_player_img,
 } from '../../model/xiuxian.js';
 import { Read_player, __PATH } from '../../model/xiuxian.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
@@ -108,16 +116,9 @@ export class AdminSuper extends plugin {
       str[str.length - 1 - j] = T;
     }
     for (j = str.length - 1; j > -1; j--) {
-      if (
-        str[j] == '零' ||
-        str[j] == '打铁的'
-      ) {
+      if (str[j] == '零' || str[j] == '打铁的') {
         let m = j;
-        while (
-          str[m - 1] != '零' &&
-          str[m - 1] != '打铁的' &&
-          m > 0
-        ) {
+        while (str[m - 1] != '零' && str[m - 1] != '打铁的' && m > 0) {
           T = str[m];
           str[m] = str[m - 1];
           str[m - 1] = T;
@@ -157,8 +158,7 @@ export class AdminSuper extends plugin {
       let usr_qq = i.qq;
       let thing = i.name.name;
       let quanity = i.aconut;
-      if (i.name.class == "装备" || i.name.class == "仙宠")
-        thing = i.name;
+      if (i.name.class == '装备' || i.name.class == '仙宠') thing = i.name;
       await Add_najie_thing(usr_qq, thing, i.name.class, quanity, i.name.pinji);
     }
     await Write_Exchange([]);
@@ -195,9 +195,7 @@ export class AdminSuper extends plugin {
     e.reply('开始行动！');
     let playerList = [];
     let files = fs
-      .readdirSync(
-        './plugins/' + AppName + '/resources/data/xiuxian_player'
-      )
+      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
       .filter(file => file.endsWith('.json'));
     for (let file of files) {
       file = file.replace('.json', '');

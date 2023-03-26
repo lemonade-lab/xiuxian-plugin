@@ -96,7 +96,7 @@ export class BotHelp extends plugin {
     if (!e.isGroup) {
       return;
     }
-    e.reply("维护中");
+    e.reply('维护中');
     return;
     let data = await Help2.shituhelp(e);
     if (!data) return;

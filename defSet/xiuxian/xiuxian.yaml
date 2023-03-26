@@ -38,7 +38,6 @@ work: #打工
   time: 15 #打工最低时间
   cycle: 32 #打工周期
 
-
 Sign:
   ticket: 1 #每日签到给的沉迷门票
 

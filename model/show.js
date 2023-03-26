@@ -14,16 +14,16 @@ export default class Game extends base {
       ...myData,
     };
   }
-    //师徒商城
-    async get_shitujifenData(myData) {
-      this.model = 'shitujifen';
-      return {
-        ...this.screenData,
-        saveId: 'shitujifen',
-        ...myData,
-      };
-    }
-     //我的弟子
+  //师徒商城
+  async get_shitujifenData(myData) {
+    this.model = 'shitujifen';
+    return {
+      ...this.screenData,
+      saveId: 'shitujifen',
+      ...myData,
+    };
+  }
+  //我的弟子
   async get_shituData(myData) {
     this.model = 'shitu';
     return {
@@ -59,7 +59,7 @@ export default class Game extends base {
     };
   }
 
-  async get_xianchong(myData) { 
+  async get_xianchong(myData) {
     this.model = 'xianchong';
     return {
       ...this.screenData,
@@ -182,7 +182,7 @@ export default class Game extends base {
     };
   }
 
-    //shop
+  //shop
   async get_didianData(myData) {
     this.model = 'shop';
     return {
@@ -202,8 +202,8 @@ export default class Game extends base {
     };
   }
 
-   //temp
-   async get_tempData(myData) {
+  //temp
+  async get_tempData(myData) {
     this.model = 'temp';
     return {
       ...this.screenData,

@@ -1,19 +1,19 @@
 //插件加载
 
-import fs from "fs";
-import path from "path";
-import { __PATH } from "./xiuxian.js";
-import plugin from "../../../lib/plugins/plugin.js";
-import data from "./XiuxianData.js";
+import fs from 'fs';
+import path from 'path';
+import { __PATH } from './xiuxian.js';
+import plugin from '../../../lib/plugins/plugin.js';
+import data from './XiuxianData.js';
 
-import { Write_player } from "./xiuxian.js";
+import { Write_player } from './xiuxian.js';
 //全局状态判断
 export class duanzaofu extends plugin {
   constructor() {
     super({
-      name: "xiuxian",
-      dsc: "修仙模块",
-      event: "message",
+      name: 'xiuxian',
+      dsc: '修仙模块',
+      event: 'message',
       priority: 800,
       rule: [],
     });
@@ -46,11 +46,11 @@ export async function settripod(qq) {
   tripod1.push(newtripod);
   await Write_duanlu(tripod1);
   //增加锻造天赋
-  const player = await data.getData("player", qq);
+  const player = await data.getData('player', qq);
   let tianfu = Math.floor(40 * Math.random() + 80);
   player.锻造天赋 = tianfu;
   //增加隐藏灵根
-  const a = await readall("隐藏灵根");
+  const a = await readall('隐藏灵根');
   const newa = Math.floor(Math.random() * a.length);
   player.隐藏灵根 = a[newa];
   await Write_player(qq, player);
@@ -89,9 +89,9 @@ export async function Read_mytripod(qq) {
 }
 export async function Read_tripod() {
   let dir = path.join(`${__PATH.duanlu}/duanlu.json`);
-  let duanlu = fs.readFileSync(dir, "utf8", (err, data) => {
+  let duanlu = fs.readFileSync(dir, 'utf8', (err, data) => {
     if (err) {
-      return "error";
+      return 'error';
     }
     return data;
   });
@@ -100,8 +100,8 @@ export async function Read_tripod() {
 }
 export async function Write_duanlu(duanlu) {
   let dir = path.join(__PATH.duanlu, `duanlu.json`);
-  let new_ARR = JSON.stringify(duanlu, "", "\t");
-  fs.writeFileSync(dir, new_ARR, "utf8", (err) => {});
+  let new_ARR = JSON.stringify(duanlu, '', '\t');
+  fs.writeFileSync(dir, new_ARR, 'utf8', err => {});
   return;
 }
 //数量矫正, 违规数量改成1
@@ -119,9 +119,9 @@ export async function jiaozheng(value) {
 //读取item 中某个json文件中的属性
 export async function readthat(thing_name, weizhi) {
   let dir = path.join(`${__PATH.lib_path}/${weizhi}.json`);
-  let weizhi1 = fs.readFileSync(dir, "utf8", (err, data) => {
+  let weizhi1 = fs.readFileSync(dir, 'utf8', (err, data) => {
     if (err) {
-      return "error";
+      return 'error';
     }
     return data;
   });
@@ -137,9 +137,9 @@ export async function readthat(thing_name, weizhi) {
 //读取item某个文件的全部物品
 export async function readall(weizhi) {
   let dir = path.join(`${__PATH.lib_path}/${weizhi}.json`);
-  let weizhi1 = fs.readFileSync(dir, "utf8", (err, data) => {
+  let weizhi1 = fs.readFileSync(dir, 'utf8', (err, data) => {
     if (err) {
-      return "error";
+      return 'error';
     }
     return data;
   });
@@ -152,8 +152,8 @@ export async function readall(weizhi) {
 export async function getxuanze(shuju, linggentype) {
   let i;
   const shuzu = [1, 2, 3, 4, 5];
-  const wuxing = ["金", "木", "土", "水", "火", "金", "木", "土", "水", "火"];
-  const b = ["金", "木", "土", "水", "火"];
+  const wuxing = ['金', '木', '土', '水', '火', '金', '木', '土', '水', '火'];
+  const b = ['金', '木', '土', '水', '火'];
   let a;
   let c = [];
   for (let item in shuzu) {
@@ -176,7 +176,7 @@ export async function getxuanze(shuju, linggentype) {
   return false;
 }
 export async function mainyuansu(shuju) {
-  const B = ["金", "木", "土", "水", "火"];
+  const B = ['金', '木', '土', '水', '火'];
   for (let item in shuju) {
     if (shuju[item] != 0) {
       return B[item];
@@ -188,14 +188,14 @@ export async function mainyuansu(shuju) {
 export async function Restraint(shuju, main) {
   let newshuzu = [];
   let shuju2 = [];
-  const shuzu = ["金", "木", "土", "水", "火", "金", "木", "土", "水", "火"];
+  const shuzu = ['金', '木', '土', '水', '火', '金', '木', '土', '水', '火'];
   for (let item in shuju) {
     if (shuju[item] != 0) {
       newshuzu.push(shuzu[item]);
       shuju2.push(shuju[item]);
     }
   }
-  let houzui = "";
+  let houzui = '';
   let jiaceng;
   //[ '木', '水']
   for (let item in shuzu) {
@@ -229,15 +229,15 @@ export async function Restraint(shuju, main) {
 }
 export async function Writeit(custom) {
   let dir = path.join(__PATH.custom, `custom.json`);
-  let new_ARR = JSON.stringify(custom, "", "\t");
-  fs.writeFileSync(dir, new_ARR, "utf8", (err) => {});
+  let new_ARR = JSON.stringify(custom, '', '\t');
+  fs.writeFileSync(dir, new_ARR, 'utf8', err => {});
   return;
 }
 export async function Read_it() {
   let dir = path.join(`${__PATH.custom}/custom.json`);
-  let custom = fs.readFileSync(dir, "utf8", (err, data) => {
+  let custom = fs.readFileSync(dir, 'utf8', (err, data) => {
     if (err) {
-      return "error";
+      return 'error';
     }
     return data;
   });
