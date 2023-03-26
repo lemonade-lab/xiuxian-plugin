@@ -3,6 +3,7 @@ import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'fs';
 import Show from '../../model/show.js';
+import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import {
   timestampToTime,
   shijianc,
