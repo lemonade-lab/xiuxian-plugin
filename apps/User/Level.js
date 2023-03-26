@@ -5,10 +5,8 @@ import config from "../../model/Config.js"
 import fs from "fs"
 import {
     existplayer, Write_player, Write_equipment, isNotNull, player_efficiency, get_random_fromARR,
-    Read_player, Read_equipment, Add_HP, exist_najie_thing, Add_修为, Add_血气, Add_najie_thing
+    Read_player, Read_equipment, Add_HP, exist_najie_thing, Add_修为, Add_血气, Add_najie_thing,dujie
 } from '../../model/xiuxian.js'
-
-import { AppName } from '../../app.config.js'
 import { clearInterval } from 'timers'
 
 /**
@@ -240,15 +238,6 @@ export class Level extends plugin {
         if (now_level_id >= 51 && player.灵根.name != "天五灵根" && player.灵根.name != "垃圾五灵根" && player.灵根.name != "九转轮回体" && player.灵根.name != "九重魔功") {
             e.reply(`你灵根不齐，无成帝的资格！请先夺天地之造化，修补灵根后再来突破吧`);
             return;
-        }
-        //超凡入圣突破
-        if (now_level_id == 64) {
-            //检查是否已有凡人境
-            let LevelUP = await fanren();
-            if (LevelUP != 1) {
-                e.reply(`这方世界已有化凡！`);
-                return;
-            }
         }
         //凡人突破
         if (now_level_id == 64) {
@@ -673,68 +662,4 @@ export class Level extends plugin {
         }
         return;
     }
-}
-
-export async function dujie(user_qq) {
-    let usr_qq = user_qq;
-    let player = await Read_player(usr_qq);
-    //根据当前血量才算
-    //计算系数
-    var new_blood = player.当前血量;
-    var new_defense = player.防御;
-    var new_attack = player.攻击;
-    //渡劫期基础血量为1600000。防御800000，攻击800000 
-    new_blood = new_blood / 100000;
-    new_defense = new_defense / 100000;
-    new_attack = new_attack / 100000;
-    //取值比例4.6.2
-    new_blood = (new_blood * 4) / 10;
-    new_defense = (new_defense * 6) / 10;
-    new_attack = (new_attack * 2) / 10;
-    //基础厚度
-    var N = new_blood + new_defense;
-    //你的系数
-    var x = N * new_attack;
-    //系数只取到后两位
-    //灵根加成
-    if (player.灵根.type == "真灵根") {
-        x = x * (1 + 0.5);
-    } else if (player.灵根.type == "天灵根") {
-        x = x * (1 + 0.75);
-    } else {
-        x = x * (1 + 1);
-    }
-    x = x.toFixed(2);
-    return x;
-}
-
-/**
- *
- * 查找是否有凡人
- */
-export async function fanren() {
-    //获取缓存中人物列表
-    let playerList = [];
-    let files = fs
-        .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
-        .filter((file) => file.endsWith(".json"));
-    for (let file of files) {
-        file = file.replace(".json", "");
-        playerList.push(file);
-    }
-    //默认为1
-    let x = "1";
-    for (let player_id of playerList) {
-        let player = data.getData("player", player_id);
-        //搜索境界，有凡人，就变0
-        let now_level_id;
-        if (!isNotNull(player.level_id)) {
-            return;
-        }
-        now_level_id = data.Level_list.find(item => item.level_id == player.level_id).level_id;
-        if (now_level_id == 54) {
-            x = "0";
-        }
-    }
-    return x;
 }

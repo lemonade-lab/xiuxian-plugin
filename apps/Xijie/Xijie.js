@@ -1,11 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import fs from 'fs';
 import { __PATH } from '../../model/xiuxian.js';
-import path from 'path';
 import data from '../../model/XiuxianData.js'
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import { existplayer, Read_player, Add_灵石, Write_player, shijianc } from '../../model/xiuxian.js';
+import { existplayer, Read_player, Add_灵石, Write_player, shijianc,existshop,Write_shop,Read_shop } from '../../model/xiuxian.js';
 
 export class Xijie extends plugin {
     constructor() {
@@ -288,50 +286,5 @@ export class Xijie extends plugin {
         });
         e.reply(img);
         return;
-    }
-}
-
-export async function Write_shop(shop) {
-    let dir = path.join(__PATH.shop, `shop.json`);
-    let new_ARR = JSON.stringify(shop, '', '\t');
-    fs.writeFileSync(dir, new_ARR, 'utf8', err => {
-        console.log('写入成功', err);
-    });
-    return;
-}
-
-export async function Read_shop() {
-    let dir = path.join(`${__PATH.shop}/shop.json`);
-    let shop = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            console.log(err);
-            return 'error';
-        }
-        return data;
-    });
-    //将字符串数据转变成数组格式
-    shop = JSON.parse(shop);
-    return shop;
-}
-
-//判断是否还有物品
-export async function existshop(didian) {
-    let shop = await Read_shop();
-    let i;
-    let thing = [];
-    for (i = 0; i < shop.length; i++) {
-        if (shop[i].name == didian) {
-            break;
-        }
-    }
-    for (var j = 0; j < shop[i].one.length; j++) {
-        if (shop[i].one[j].数量 > 0) {
-            thing.push(shop[i].one[j]);
-        }
-    }
-    if (thing.length > 0) {
-        return thing;
-    } else {
-        return false;
     }
 }

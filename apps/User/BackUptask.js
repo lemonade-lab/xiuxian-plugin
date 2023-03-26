@@ -45,8 +45,3 @@ export class BackUptask extends plugin {
     }
   }
 }
-
-export async function fixed(usr_qq) {
-  fs.copyFileSync(`${__PATH.auto_backup}/najie/${usr_qq}.json`, `${__PATH.najie_path}/${usr_qq}.json`);
-  return;
-}

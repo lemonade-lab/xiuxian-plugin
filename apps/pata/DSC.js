@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js';
 import { segment } from "oicq"
 import data from '../../model/XiuxianData.js';
-import { existplayer } from '../../model/xiuxian.js';
+import { existplayer,ifbaoji,Harm } from '../../model/xiuxian.js';
 
 
 //本模块由(qq:1695037643)和jio佬完成
@@ -242,28 +242,4 @@ async function ForwardMsg(e, data) {
         await e.reply(await Bot.makeForwardMsg(msgList));
     }
     return;
-}
-
-//通过暴击伤害返回输出用的文本
-function ifbaoji(baoji) {
-    if (baoji == 1) { return ""; }
-    else { return '触发暴击，'; }
-}
-
-//攻击攻击防御计算伤害
-function Harm(atk, def) {
-    let x;
-    let s = atk / def;
-    let rand = Math.trunc(Math.random() * 11) / 100 + 0.95;//保留±5%的伤害波动
-    if (s < 1) {
-        x = 0.1;
-    }
-    else if (s > 2.5) {
-        x = 1;
-    }
-    else {
-        x = 0.6 * s - 0.5;
-    }
-    x = Math.trunc(x * atk * rand);
-    return x;
 }

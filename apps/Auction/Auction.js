@@ -1,9 +1,9 @@
-import { plugin ,segment,common} from '../../api/api.js'
+import { plugin ,common} from '../../api/api.js'
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import {__PATH,existplayer,Read_player,isNotNull} from '../../model/xiuxian.js';
+import {__PATH,existplayer,Read_player,isNotNull,openAU} from '../../model/xiuxian.js';
 
 // const intervalTime = 7 * 24 * 60 * 60 * 1000;
 
@@ -264,72 +264,6 @@ export class Auction extends plugin {
   }
 }
 
-/**
- * 状态
- */
-export async function Go(e) {
-  let usr_qq = e.user_id;
-  //有无存档
-  let ifexistplay = await existplayer(usr_qq);
-  if (!ifexistplay) {
-    return;
-  }
-  //获取游戏状态
-  let game_action = await redis.get(
-    'xiuxian:player:' + usr_qq + ':game_action'
-  );
-  //防止继续其他娱乐行为
-  if (game_action == 0) {
-    e.reply('修仙：游戏进行中...');
-    return;
-  }
-  //查询redis中的人物动作
-  let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
-  action = JSON.parse(action);
-  if (action != null) {
-    //人物有动作查询动作结束时间
-    let action_end_time = action.end_time;
-    let now_time = new Date().getTime();
-    if (now_time <= action_end_time) {
-      let m = parseInt((action_end_time - now_time) / 1000 / 60);
-      let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
-      e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒');
-      return;
-    }
-  }
-  //let player = await Read_player(usr_qq);
-  //if (player.当前血量 < 200) {
-  //    e.reply("你都伤成这样了,就不要出去浪了");
-  //    return;
-  //}
-  allaction = true;
-  return;
-}
-
-export async function get_supermarket_img(e) {
-  let usr_qq = e.user_id;
-  let ifexistplay = data.existData('player', usr_qq);
-  if (!ifexistplay) {
-    return;
-  }
-  let Exchange_list;
-  try {
-    Exchange_list = await Read_Exchange();
-  } catch {
-    await Write_Exchange([]);
-    Exchange_list = await Read_Exchange();
-  }
-  let supermarket_data = {
-    user_id: usr_qq,
-    Exchange_list: Exchange_list,
-  };
-  const data1 = await new Show(e).get_supermarketData(supermarket_data);
-  let img = await puppeteer.screenshot('supermarket', {
-    ...data1,
-  });
-  return img;
-}
-
 // export async function openAU() {
 //   let e = await redis.get('xiuxian:AuctionofficialTask_E');
 //   let random = Math.floor(Math.random() * data.xingge.length);
@@ -351,28 +285,6 @@ export async function get_supermarket_img(e) {
 //   return;
 // } NOTE: 过时的
 
-export async function openAU() {
-  const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
-
-  const random = Math.floor(Math.random() * data.xingge[0].one.length);
-  const thing_data = data.xingge[0].one[random];
-  const thing_value = Math.floor(thing_data.出售价);
-  const thing_amount = 1;
-  const now_time = new Date().getTime();
-  const groupList = await redis.sMembers(redisGlKey);
-
-  const wupin = {
-    thing: thing_data,
-    start_price: thing_value,
-    last_price: thing_value,
-    amount: thing_amount,
-    last_offer_price: now_time,
-    last_offer_player: 0,
-    groupList,
-  };
-  await redis.set('xiuxian:AuctionofficialTask', JSON.stringify(wupin));
-  return wupin;
-}
 
 /**
  * 推送消息，群消息推送群，或者推送私人

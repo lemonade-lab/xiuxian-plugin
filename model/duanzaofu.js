@@ -2,12 +2,11 @@
 
 import fs from "fs";
 import path from "path";
-import { __PATH } from "../../model/xiuxian.js";
-import plugin from "../../../../lib/plugins/plugin.js";
-import data from "../../model/XiuxianData.js";
+import { __PATH } from "./xiuxian.js";
+import plugin from "../../../lib/plugins/plugin.js";
+import data from "./XiuxianData.js";
 
-import { Write_player } from "../../model/xiuxian.js";
-import { LoginErrorCode } from 'oicq';
+import { Write_player } from "./xiuxian.js";
 //全局状态判断
 export class duanzaofu extends plugin {
   constructor() {

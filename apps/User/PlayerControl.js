@@ -5,7 +5,7 @@ import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import {
     player_efficiency, Read_player, existplayer, isNotNull, exist_najie_thing, Add_najie_thing,
-    Add_血气, Add_修为, Read_danyao, Write_danyao
+    Add_血气, Add_修为, Read_danyao, Write_danyao,setFileValue
 } from '../../model/xiuxian.js'
 import { segment } from "oicq"
 
@@ -458,15 +458,15 @@ export class PlayerControl extends plugin {
         }
         //设置修为，设置血量
 
-        await this.setFileValue(usr_qq, blood * time, "当前血量");
+        await setFileValue(usr_qq, blood * time, "当前血量");
 
         //给出消息提示
         if (transformation == "血气") {
-            await this.setFileValue(usr_qq, (xiuwei * time + other_xiuwei) * dy.beiyong4, transformation);//丹药修正
+            await setFileValue(usr_qq, (xiuwei * time + other_xiuwei) * dy.beiyong4, transformation);//丹药修正
             msg.push("\n受到炼神之力的影响,增加血气:" + xiuwei * time * dy.beiyong4, "  获得治疗,血量增加:" + blood * time);
         }
         else {
-            await this.setFileValue(usr_qq, xiuwei * time + other_xiuwei, transformation);
+            await setFileValue(usr_qq, xiuwei * time + other_xiuwei, transformation);
             if (is_random) {
 
                 msg.push("\n增加气血:" + xiuwei * time, "  获得治疗,血量增加:" + blood * time + "炼神之力消散了");
@@ -529,7 +529,7 @@ export class PlayerControl extends plugin {
         let get_lingshi = Math.trunc(lingshi * time + other_lingshi * 1.5);//最后获取到的灵石
 
         //设置灵石
-        await this.setFileValue(usr_qq, get_lingshi, "灵石");
+        await setFileValue(usr_qq, get_lingshi, "灵石");
 
         //给出消息提示
         if (is_random) {
@@ -575,29 +575,6 @@ export class PlayerControl extends plugin {
             await common.relpyPrivate(id, msg);
         }
     }
-
-
-    /**
-     * 增加player文件某属性的值（在原本的基础上增加）
-     * @param user_qq
-     * @param num 属性的value
-     * @param type 修改的属性
-     * @returns {Promise<void>}
-     */
-    async setFileValue(user_qq, num, type) {
-        let user_data = data.getData("player", user_qq);
-        let current_num = user_data[type];//当前灵石数量
-        let new_num = current_num + num;
-        if (type == "当前血量" && new_num > user_data.血量上限) {
-            new_num = user_data.血量上限;//治疗血量需要判读上限
-        }
-        user_data[type] = new_num;
-        await data.setData("player", user_qq, user_data);
-        return;
-    }
-
-
-
 }
 
 

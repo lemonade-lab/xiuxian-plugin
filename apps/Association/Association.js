@@ -4,7 +4,7 @@ import data from '../../model/XiuxianData.js'
 import fs from "fs"
 import Show from '../../model/show.js';
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import { timestampToTime, shijianc, get_random_fromARR, ForwardMsg, player_efficiency } from '../../model/xiuxian.js'
+import { timestampToTime, shijianc, get_random_fromARR, ForwardMsg, player_efficiency,setFileValue } from '../../model/xiuxian.js'
 //要DIY的话，确保这两个数组长度相等
 const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27];
 const 宗门灵石池上限 = [2000000, 5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000];
@@ -436,31 +436,7 @@ export class Association extends plugin {
     }
 }
 
-/**
- * 增加player文件某属性的值（在原本的基础上增加）
- * @param user_qq
- * @param num 属性的value
- * @param type 修改的属性
- * @returns {Promise<void>}
- */
-export async function setFileValue(user_qq, num, type) {
-    let user_data = data.getData("player", user_qq);
-    let current_num = user_data[type];//当前灵石数量
-    let new_num = current_num + num;
-    if (type == "当前血量" && new_num > user_data.血量上限) {
-        new_num = user_data.血量上限;//治疗血量需要判读上限
-    }
-    user_data[type] = new_num;
-    await data.setData("player", user_qq, user_data);
-    return;
-}
 
-//sleep
-async function sleep(time) {
-    return new Promise(resolve => {
-        setTimeout(resolve, time);
-    })
-}
 
 /**
  * 判断宗门是否需要维护

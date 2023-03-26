@@ -3,9 +3,8 @@ import {
     Read_najie,
     isNotNull,
     Write_player,
-    Write_najie,
 } from '../../model/xiuxian.js';
-import { Add_najie_thing, convert2integer } from '../../model/xiuxian.js';
+import { Add_najie_thing, convert2integer,Add_仙宠 } from '../../model/xiuxian.js';
 import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
@@ -239,61 +238,4 @@ export class Pokemon extends plugin {
         e.reply(`喂养成功，仙宠的等级增加了${jiachen},当前为${player.仙宠.等级}`);
         return;
     }
-}
-
-/**
- * 增加减少纳戒内物品
- * @param usr_qq 操作存档的qq号
- * @param thing_name  仙宠名称
- * @param n  操作的数量,取+增加,取 -减少
- * @param thing_level  仙宠等级
- * @returns 无
- */
-export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
-    var x = Number(n);
-    if (x == 0) {
-        return;
-    }
-    let najie = await Read_najie(usr_qq);
-    let trr = najie.仙宠.find(
-        item => item.name == thing_name && item.等级 == thing_level
-    );
-    var name = thing_name;
-    if (x > 0 && !isNotNull(trr)) {
-        //无中生有
-        let newthing = data.xianchon.find(item => item.name == name);
-        if (!isNotNull(newthing)) {
-            console.log('没有这个东西');
-            return;
-        }
-        if (thing_level != null) {
-            newthing.等级 = thing_level;
-        }
-        najie.仙宠.push(newthing);
-        najie.仙宠.find(
-            item => item.name == name && item.等级 == newthing.等级
-        ).数量 = x;
-        let xianchon = najie.仙宠.find(
-            item => item.name == name && item.等级 == newthing.等级
-        )
-        najie.仙宠.find(
-            item => item.name == name && item.等级 == newthing.等级
-        ).加成 = xianchon.等级 * xianchon.每级增加
-        najie.仙宠.find(
-            item => item.name == name && item.等级 == newthing.等级
-        ).islockd = 0;
-        await Write_najie(usr_qq, najie);
-        return;
-    }
-    najie.仙宠.find(item => item.name == name && item.等级 == trr.等级).数量 += x;
-    if (
-        najie.仙宠.find(item => item.name == name && item.等级 == trr.等级).数量 < 1
-    ) {
-        //假如用完了,需要删掉数组中的元素,用.filter()把!=该元素的过滤出来
-        najie.仙宠 = najie.仙宠.filter(
-            item => item.name != thing_name || item.等级 != trr.等级
-        );
-    }
-    await Write_najie(usr_qq, najie);
-    return;
 }

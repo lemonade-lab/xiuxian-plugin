@@ -2,12 +2,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import {
-    Read_player, existplayer, exist_najie_thing, foundthing, re_najie_thing, Write_najie,sleep,
-    Add_灵石, Add_najie_thing, Add_修为, Add_player_学习功法, Add_血气, __PATH, instead_equipment, Read_najie
+    Read_player, existplayer, exist_najie_thing, foundthing, re_najie_thing, Write_najie,sleep,synchronization,Synchronization_ASS,
+    Add_灵石, Add_najie_thing, Add_修为, Add_player_学习功法, Add_血气, __PATH, instead_equipment, Read_najie,get_equipment_img
 } from '../../model/xiuxian.js'
-import { synchronization } from '../AdminSuper/AdminSuper.js'
-import { Synchronization_ASS } from '../Association/TreasureCabinet.js'
-import { get_equipment_img } from '../ShowImeg/showData.js'
 /**
  * 全局变量
  */
@@ -592,35 +589,4 @@ export class UserSellAll extends plugin {
         }
         return;
     }
-}
-export async function Go(e) {
-    let usr_qq = e.user_id;
-    //有无存档
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    //获取游戏状态
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-        e.reply("修仙：游戏进行中...");
-        return;
-    }
-    //查询redis中的人物动作
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        //人物有动作查询动作结束时间
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-            return;
-        }
-    }
-    allaction = true;
-    return;
 }

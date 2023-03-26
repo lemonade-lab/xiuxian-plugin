@@ -1,12 +1,10 @@
 
 import plugin from '../../../../lib/plugins/plugin.js'
 import common from "../../../../lib/common/common.js"
-import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { segment } from "oicq"
-import { Read_player, isNotNull, Write_player, sleep, Add_najie_thing, exist_najie_thing } from "../../model/xiuxian.js"
-import { dujie } from "./Level.js"
+import { Read_player, isNotNull, Write_player, sleep, Add_najie_thing, exist_najie_thing, dujie} from "../../model/xiuxian.js"
 import { AppName } from '../../app.config.js'
 
 /**
@@ -225,25 +223,6 @@ export class LevelTask extends plugin {
             }
         }
 
-    }
-
-    /**
-     * 增加player文件某属性的值（在原本的基础上增加）
-     * @param user_qq
-     * @param num 属性的value
-     * @param type 修改的属性
-     * @returns {Promise<void>}
-     */
-    async setFileValue(user_qq, num, type) {
-        let user_data = data.getData("player", user_qq);
-        let current_num = user_data[type];//当前灵石数量
-        let new_num = current_num + num;
-        if (type == "当前血量" && new_num > user_data.血量上限) {
-            new_num = user_data.血量上限;//治疗血量需要判读上限
-        }
-        user_data[type] = new_num;
-        await data.setData("player", user_qq, user_data);
-        return;
     }
 
     /**

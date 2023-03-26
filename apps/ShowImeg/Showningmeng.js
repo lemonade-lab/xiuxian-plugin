@@ -1,9 +1,6 @@
 import plugin from "../../../../lib/plugins/plugin.js";
-import Show from "../../model/show.js";
-import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
-import data from '../../model/XiuxianData.js'
 import { __PATH } from "../../model/xiuxian.js"
-import { get_gongfa_img,get_danyao_img,get_wuqi_img,get_daoju_img,get_XianChong_img} from '../ShowImeg/showData.js'
+import { get_gongfa_img,get_danyao_img,get_wuqi_img,get_daoju_img,get_XianChong_img,get_valuables_img,get_ningmenghome_img} from '../../model/xiuxian.js';
 /**
  * 生图模块
  */
@@ -59,16 +56,6 @@ export class Showningmeng extends plugin {
         e.reply(img);
         return;
     }
-    //斩首堂
-    async yuansu(e) {
-        //不开放私聊功能
-        if (!e.isGroup) {
-           return;
-       }
-       let img = await get_zhanshou_img(e);
-       e.reply(img);
-       return;
-   }
     //万宝楼
     async show_valuables(e) {
          //不开放私聊功能
@@ -133,76 +120,5 @@ export class Showningmeng extends plugin {
         return;
     }
 }
-/**
- * 返回柠檬堂
- * @return image
- */
-export async function get_ningmenghome_img(e,thing_type) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let commodities_list = data.commodities_list;
-	if (thing_type!=""){
-		if(thing_type=="装备"||thing_type=="丹药"||thing_type=="功法"||thing_type=="道具"||thing_type=="草药"){
-			commodities_list = commodities_list.filter(item => item.class == thing_type);
-		}
-		else if(thing_type=="武器"||thing_type=="护具"||thing_type=="法宝"||thing_type=="修为"||thing_type=="血量"||thing_type=="血气"||thing_type=="天赋"){
-			
-			commodities_list = commodities_list.filter(item => item.type == thing_type);
-		}
-	}
-    let ningmenghome_data = {
-        user_id: usr_qq,
-        commodities_list: commodities_list
-    }
-    const data1 = await new Show(e).get_ningmenghomeData(ningmenghome_data);
-    let img = await puppeteer.screenshot("ningmenghome", {
-        ...data1,
-    });
-    return img;
 
-}
-/**
- * 返回斩首堂
- * @return image
- */
- export async function get_zhanshou_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let commodities_list = data.yuansuwuqi_list;
-    let ningmenghome_data = {
-        user_id: usr_qq,
-        commodities_list: commodities_list
-    }
-    const data1 = await new Show(e).get_yuansu(ningmenghome_data);
-    let img = await puppeteer.screenshot("tujian", {
-        ...data1,
-    });
-    return img;
 
-}
-
-/**
- * 返回万宝楼
- * @return image
- */
-export async function get_valuables_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let valuables_data = {
-        user_id: usr_qq
-    }
-    const data1 = await new Show(e).get_valuablesData(valuables_data);
-    let img = await puppeteer.screenshot("valuables", {
-        ...data1,
-    });
-    return img;
-}

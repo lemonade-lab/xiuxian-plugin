@@ -4,8 +4,7 @@ import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
 import { segment } from 'oicq';
-import { Read_player, isNotNull, Add_najie_thing, Add_修为, Add_血气, Add_HP,Read_danyao, Write_danyao} from '../../model/xiuxian.js';
-import { zd_battle } from "../Battle/Battle.js"
+import { Read_player, isNotNull, Add_najie_thing, Add_修为, Add_血气, Add_HP,Read_danyao, Write_danyao,zd_battle} from '../../model/xiuxian.js';
 import { AppName } from '../../app.config.js';
 
 /**

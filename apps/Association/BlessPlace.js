@@ -1,14 +1,11 @@
-import { plugin ,segment} from '../../api/api.js'
+import { plugin} from '../../api/api.js'
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
 import fs from "fs"
 import {
     Add_灵石, Add_najie_thing, isNotNull, Read_player, exist_najie_thing, convert2integer,
-    existplayer, shijianc, ForwardMsg
+    shijianc, ForwardMsg,Goweizhi,Go
 } from '../../model/xiuxian.js'
-
-
-let allaction = false;
 const 宗门灵石池上限 = [2000000, 5000000, 8000000, 11000000, 15000000, 20000000];
 
 /**
@@ -294,11 +291,10 @@ export class BlessPlace extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        await Go(e);
-        if (!allaction) {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         let player = await Read_player(usr_qq);
         if (!player.宗门) {
             e.reply("请先加入宗门");
@@ -358,11 +354,10 @@ export class BlessPlace extends plugin {
             return;
         }
         let usr_qq = e.user_id;
-        await Go(e);
-        if (!allaction) {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         let player = await Read_player(usr_qq);
         if (!player.宗门) {
             e.reply("请先加入宗门");
@@ -508,64 +503,6 @@ async function GoBlessPlace(e, weizhi, addres) {
             }
         }
         msg.push(weizhi[i].name + "\n" + "等级：" + weizhi[i].level + "\n" + "修炼效率：" + weizhi[i].efficiency * 100 + "%\n"+"入驻宗门："+ass);
-    }
-    await ForwardMsg(e, msg);
-}
-
-async function Go(e) {
-    let usr_qq = e.user_id;
-
-    //不开放私聊
-    if (!e.isGroup) {
-        return;
-    }
-
-
-    //有无存档
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-
-    //获取游戏状态
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-        e.reply("修仙：游戏进行中...");
-        return;
-    }
-    //查询redis中的人物动作
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        //人物有动作查询动作结束时间
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-            return;
-        }
-    }
-
-
-    let player = await Read_player(usr_qq);
-    if (player.当前血量 < 200) {
-        e.reply("你都伤成这样了,就不要出去浪了");
-        return;
-    }
-    allaction = true;
-    return;
-}
-
-export async function Goweizhi(e, weizhi, addres) {
-    let adr = addres;
-    let msg = [
-        "***" + adr + "***"
-    ];
-    for (var i = 0; i < weizhi.length; i++) {
-        msg.push(weizhi[i].name + "\n" + "等级：" + weizhi[i].Grade + "\n" + "灵石：" + weizhi[i].Price + "灵石")
     }
     await ForwardMsg(e, msg);
 }

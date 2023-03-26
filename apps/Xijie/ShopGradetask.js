@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from "../../model/Config.js"
-import { Write_shop,Read_shop} from "../Xijie/Xijie.js"
+import { Write_shop,Read_shop} from '../../model/xiuxian.js';
 
 
 export class ShopGradetask extends plugin {

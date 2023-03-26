@@ -1,19 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js';
-import data from '../../model/XiuxianData.js';
-import fs from 'fs';
-import path from 'path';
-import Show from '../../model/show.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import {
     existplayer, exist_najie_thing, Read_player, isNotNull, Read_najie, foundthing, __PATH, convert2integer,
-    Add_najie_thing, Add_灵石
+    Add_najie_thing, Add_灵石,Go,get_supermarket_img,Write_Exchange,Read_Exchange
 } from '../../model/xiuxian.js';
-import console from 'console';
 
-/**
- * 全局变量
- */
-let allaction = false; //全局状态判断
 /**
  * 交易系统
  */
@@ -285,11 +275,10 @@ export class Exchange extends plugin {
         //固定写法
         let usr_qq = e.user_id;
         //全局状态判断
-        await Go(e);
-        if (!allaction) {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         //防并发cd
         var time0 = 1; //分钟cd
         //获取当前时间
@@ -371,95 +360,4 @@ export class Exchange extends plugin {
         }
         return;
     }
-}
-
-//写入交易表
-export async function Write_Exchange(wupin) {
-    let dir = path.join(__PATH.Exchange, `Exchange.json`);
-    let new_ARR = JSON.stringify(wupin, '', '\t');
-    fs.writeFileSync(dir, new_ARR, 'utf8', err => {
-        console.log('写入成功', err);
-    });
-    return;
-}
-
-//读交易表
-export async function Read_Exchange() {
-    let dir = path.join(`${__PATH.Exchange}/Exchange.json`);
-    let Exchange = fs.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            console.log(err);
-            return 'error';
-        }
-        return data;
-    });
-    //将字符串数据转变成数组格式
-    Exchange = JSON.parse(Exchange);
-    return Exchange;
-}
-
-/**
- * 状态
- */
-export async function Go(e) {
-    let usr_qq = e.user_id;
-    //有无存档
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    //获取游戏状态
-    let game_action = await redis.get(
-        'xiuxian:player:' + usr_qq + ':game_action'
-    );
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-        e.reply('修仙：游戏进行中...');
-        return;
-    }
-    //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
-    action = JSON.parse(action);
-    if (action != null) {
-        //人物有动作查询动作结束时间
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
-            e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒');
-            return;
-        }
-    }
-    //let player = await Read_player(usr_qq);
-    //if (player.当前血量 < 200) {
-    //    e.reply("你都伤成这样了,就不要出去浪了");
-    //    return;
-    //}
-    allaction = true;
-    return;
-}
-
-export async function get_supermarket_img(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData('player', usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    let Exchange_list;
-    try {
-        Exchange_list = await Read_Exchange();
-    } catch {
-        await Write_Exchange([]);
-        Exchange_list = await Read_Exchange();
-    }
-    let supermarket_data = {
-        user_id: usr_qq,
-        Exchange_list: Exchange_list,
-    };
-    const data1 = await new Show(e).get_supermarketData(supermarket_data);
-    let img = await puppeteer.screenshot('supermarket', {
-        ...data1,
-    });
-    return img;
 }

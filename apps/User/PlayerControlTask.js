@@ -4,7 +4,7 @@ import data from '../../model/XiuxianData.js'
 import config from "../../model/Config.js"
 import fs from "node:fs"
 import { segment } from "oicq"
-import { isNotNull, exist_najie_thing, Add_najie_thing, Add_血气, Add_修为, Read_danyao, Write_danyao } from "../../model/xiuxian.js"
+import { isNotNull, exist_najie_thing, Add_najie_thing, Add_血气, Add_修为, Read_danyao, Write_danyao,setFileValue } from "../../model/xiuxian.js"
 import { AppName } from '../../app.config.js'
 
 /**
@@ -131,7 +131,7 @@ export class PlayerControlTask extends plugin {
                         }
 
 
-                        await this.setFileValue(player_id, blood * time, "当前血量");
+                        await setFileValue(player_id, blood * time, "当前血量");
 
                         if (action.acount == null) {
                             action.acount = 0;
@@ -147,10 +147,10 @@ export class PlayerControlTask extends plugin {
                         await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
                         xueqi = Math.trunc(xiuwei * time * dy.beiyong4);
                         if (transformation == "血气") {
-                            await this.setFileValue(player_id, (xiuwei * time + other_xiuwei) * dy.beiyong4, transformation);
+                            await setFileValue(player_id, (xiuwei * time + other_xiuwei) * dy.beiyong4, transformation);
                             msg.push("\n受到炼神之力的影响,增加气血:" + xueqi, "血量增加:" + blood * time);
                         } else {
-                            await this.setFileValue(player_id, xiuwei * time + other_xiuwei, transformation);
+                            await setFileValue(player_id, xiuwei * time + other_xiuwei, transformation);
                             msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
                         }
                         await redis.set("xiuxian:player:" + player_id + ":action", JSON.stringify(arr));
@@ -207,7 +207,7 @@ export class PlayerControlTask extends plugin {
                         data.setData("player", player_id, player);
                         let get_lingshi = Math.trunc(lingshi * time + other_lingshi);//最后获取到的灵石
                         //
-                        await this.setFileValue(player_id, get_lingshi, "灵石");//添加灵石
+                        await setFileValue(player_id, get_lingshi, "灵石");//添加灵石
                         //redis动作
                         if (action.acount == null) {
                             action.acount = 0;

@@ -5,14 +5,13 @@ import config from "../../model/Config.js"
 import fs from "fs"
 import { segment } from "oicq"
 import {
-    Read_player, existplayer, exist_najie_thing, foundthing, Read_najie,
+    Read_player, existplayer, exist_najie_thing, foundthing, Read_najie,Go,
     Add_灵石, Add_najie_thing, convert2integer, __PATH, Add_修为, Add_血气
 } from '../../model/xiuxian.js'
 
 /**
  * 全局变量
  */
-let allaction = false;//全局状态判断
 /**
  * 货币与物品操作模块
  */
@@ -382,13 +381,10 @@ export class MoneyOperation extends plugin {
         //获取发送灵石数量
         let lingshi = e.msg.replace("#", "");
         lingshi = lingshi.replace("发红包", "");
-        await Go(e);
-        if (allaction) {
-            console.log(allaction);
-        } else {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         let code = lingshi.split("\*");
         lingshi = code[0];
         let acount = code[1];
@@ -530,44 +526,4 @@ export class MoneyOperation extends plugin {
         e.reply(m);
         return;
     }
-}
-
-/**
- * 状态
- */
-export async function Go(e) {
-    let usr_qq = e.user_id;
-    //有无存档
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    //获取游戏状态
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-        e.reply("修仙：游戏进行中...");
-        return;
-    }
-    //查询redis中的人物动作
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        //人物有动作查询动作结束时间
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-            return;
-        }
-    }
-    let player = await Read_player(usr_qq);
-    if (player.当前血量 < 200) {
-        e.reply("你都伤成这样了,就不要出去浪了");
-        return;
-    }
-    allaction = true;
-    return;
 }

@@ -1,7 +1,7 @@
 import { plugin ,segment} from '../../api/api.js'
 import config from "../../model/Config.js"
 import data from '../../model/XiuxianData.js'
-import { timestampToTime, shijianc, player_efficiency,convert2integer } from '../../model/xiuxian.js'
+import { timestampToTime, shijianc, player_efficiency,convert2integer,setFileValue } from '../../model/xiuxian.js'
 
 
 //要DIY的话，确保这两个数组长度相等
@@ -660,33 +660,6 @@ async function new_Association(name, holder_qq, e) {
     data.setAssociation(name, Association);
     return;
 }
-
-
-/**
- * 增加player文件某属性的值（在原本的基础上增加）
- * @param user_qq
- * @param num 属性的value
- * @param type 修改的属性
- * @returns {Promise<void>}
- */
-export async function setFileValue(user_qq, num, type) {
-    let user_data = data.getData("player", user_qq);
-    let current_num = user_data[type];//当前灵石数量
-    let new_num = current_num + num;
-    if (type == "当前血量" && new_num > user_data.血量上限) {
-        new_num = user_data.血量上限;//治疗血量需要判读上限
-    }
-    user_data[type] = new_num;
-    await data.setData("player", user_qq, user_data);
-    return;
-}
-//sleep
-async function sleep(time) {
-    return new Promise(resolve => {
-        setTimeout(resolve, time);
-    })
-}
-
 
 
 /**

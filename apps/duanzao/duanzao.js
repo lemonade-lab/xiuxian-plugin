@@ -16,7 +16,7 @@ import {
     Writeit,
     Read_it,
     alluser,
-} from './duanzaofu.js';
+} from '../../model/duanzaofu.js';
 import {
     existplayer,
     exist_najie_thing,

@@ -7,13 +7,13 @@ import { segment } from 'oicq';
 import {
     Read_player,
     existplayer,
-    ForwardMsg,
-    sleep,
     isNotNull,
     add_qinmidu,
     fstadd_qinmidu,
     find_qinmidu,
-    exist_hunyin
+    exist_hunyin,
+    Go,
+    setu
 } from '../../model/xiuxian.js';
 import { Add_灵石, Add_修为 } from '../../model/xiuxian.js';
 import Show from '../../model/show.js';
@@ -25,7 +25,6 @@ import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 let gane_key_user = []; //怡红院限制
 var yazhu = []; //投入
 let gametime = []; //临时游戏CD
-let allaction = false; //全局状态判断
 /**
  * 修仙游戏模块
  */
@@ -131,12 +130,10 @@ export class Games extends plugin {
             e.reply('请先#同步信息');
             return;
         }
-        await Go(e);
-        if (allaction) {
-        } else {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         now_level_id = data.Level_list.find(
             item => item.level_id == player.level_id
         ).level_id;
@@ -218,13 +215,10 @@ export class Games extends plugin {
         if (!e.isGroup) {
             return;
         }
-        //全局状态判断
-        await Go(e);
-        if (allaction) {
-        } else {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         //用户信息查询
         let player = data.getData('player', usr_qq);
         let now_time = new Date().getTime();
@@ -688,99 +682,4 @@ export class Games extends plugin {
             return;
         }
     }
-}
-
-/**
- * 状态
- */
-export async function Go(e) {
-    let usr_qq = e.user_id;
-    //有无存档
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    //获取游戏状态
-    let game_action = await redis.get(
-        'xiuxian:player:' + usr_qq + ':game_action'
-    );
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-        e.reply('修仙：游戏进行中...');
-        return;
-    }
-    //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
-    action = JSON.parse(action);
-    if (action != null) {
-        //人物有动作查询动作结束时间
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
-            e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒');
-            return;
-        }
-    }
-    let player = await Read_player(usr_qq);
-    if (player.当前血量 < 200) {
-        e.reply('你都伤成这样了,就不要出去浪了');
-        return;
-    }
-    allaction = true;
-    return;
-}
-
-//图开关
-export async function setu(e) {
-    e.reply(
-        `玩命加载图片中,请稍后...   ` +
-        '\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)'
-    );
-    let url;
-    //setu接口地址
-    url = 'https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0';
-    let msg = [];
-    let res;
-    //
-    try {
-        let response = await fetch(url);
-        res = await response.json();
-    } catch (error) {
-        console.log('Request Failed', error);
-    }
-    if (res !== '{}') {
-        console.log('res不为空');
-    } else {
-        console.log('res为空');
-    }
-    let link = res.data[0].urls.original; //获取图链
-    link = link.replace('pixiv.cat', 'pixiv.re'); //链接改为国内可访问的域名
-    let pid = res.data[0].pid; //获取图片ID
-    let uid = res.data[0].uid; //获取画师ID
-    let title = res.data[0].title; //获取图片名称
-    let author = res.data[0].author; //获取画师名称
-    let px = res.data[0].width + '*' + res.data[0].height; //获取图片宽高
-    msg.push(
-        'User: ' +
-        author +
-        '\nUid: ' +
-        uid +
-        '\nTitle: ' +
-        title +
-        '\nPid: ' +
-        pid +
-        '\nPx: ' +
-        px +
-        '\nLink: ' +
-        link
-    );
-    await sleep(1000);
-    //最后回复消息
-    e.reply(segment.image(link));
-    //
-    await ForwardMsg(e, msg);
-    //返回true 阻挡消息不再往下
-    return true;
 }

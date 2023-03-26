@@ -6,19 +6,16 @@ import fs from "fs"
 import { segment } from "oicq"
 import {
     __PATH, Read_player, existplayer, exist_najie_thing, instead_equipment, player_efficiency, Read_najie, get_random_talent, Write_player,
-    sleep, Add_血气, Add_灵石, Add_najie_thing, Add_HP, Add_修为, Add_魔道值, Read_danyao, Write_danyao,
-    Add_player_学习功法, Add_najie_灵石, isNotNull, Read_equipment, Write_equipment, foundthing, convert2integer
+    sleep, Add_血气, Add_灵石, Add_najie_thing, Add_HP, Add_修为, Add_魔道值, Read_danyao, Write_danyao,Go,Add_仙宠,
+    Add_player_学习功法, Add_najie_灵石, isNotNull, Read_equipment, Write_equipment, foundthing, convert2integer,get_equipment_img 
 } from '../../model/xiuxian.js'
-import { Add_仙宠 } from "../Pokemon/Pokemon.js"
-import { get_equipment_img } from '../ShowImeg/showData.js'
-import { readall, looktripod } from '../duanzao/duanzaofu.js';
 import { AppName } from '../../app.config.js'
+import {looktripod,readall} from '../../model/duanzaofu.js';
 
 
 /**
  * 全局变量
  */
-let allaction = false;//全局状态判断
 /**
  * 货币与物品操作模块
  */
@@ -455,12 +452,10 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         }
-        await Go(e);
-        if (allaction) {
-        } else {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         //检索方法
         var reg = new RegExp(/取|存/);
         let func = reg.exec(e.msg);
@@ -902,12 +897,10 @@ export class UserHome extends plugin {
         if (!ifexistplay) {
             return;
         }
-        await Go(e);
-        if (allaction) {
-        } else {
+        let flag=await Go(e);
+        if (!flag) {
             return;
         }
-        allaction = false;
         let thing = e.msg.replace("#", '');
         thing = thing.replace("购买", '');
         let code = thing.split("\*");
@@ -1045,39 +1038,4 @@ export class UserHome extends plugin {
         e.reply(`出售成功!  获得${commodities_price}灵石,还剩余${thing_name}*${x - thing_amount} `);
         return;
     }
-}
-
-/**
- * 状态
- */
-export async function Go(e) {
-    let usr_qq = e.user_id;
-    //有无存档
-    let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-        return;
-    }
-    //获取游戏状态
-    let game_action = await redis.get("xiuxian:player:" + usr_qq + ":game_action");
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-        e.reply("修仙：游戏进行中...");
-        return;
-    }
-    //查询redis中的人物动作
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
-    action = JSON.parse(action);
-    if (action != null) {
-        //人物有动作查询动作结束时间
-        let action_end_time = action.end_time;
-        let now_time = new Date().getTime();
-        if (now_time <= action_end_time) {
-            let m = parseInt((action_end_time - now_time) / 1000 / 60);
-            let s = parseInt(((action_end_time - now_time) - m * 60 * 1000) / 1000);
-            e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-            return;
-        }
-    }
-    allaction = true;
-    return;
 }
