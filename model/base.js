@@ -3,7 +3,7 @@ export default class base {
   constructor(e = {}) {
     this.e = e;
     this.userId = e?.user_id;
-    this.model = AppName
+    this.model = AppName;
     this._path = process.cwd().replace(/\\/g, "/");
   }
 

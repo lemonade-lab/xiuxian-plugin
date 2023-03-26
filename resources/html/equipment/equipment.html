@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/equipment/equipment.css"
+    />
+    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+    <link rel="shortcut icon" href="#" />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/equipment/equipment.css" />
-  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-  <link rel="shortcut icon" href="#" />
-</head>
-
-<body>
-  <div class="user_width">
-    <div class="user_left">
-      <div class="user_left_top">
-        <div class="user_font_title">[武器]</div>
-        <div class="user_font">名称:{{arms.name}}</div>
-        <div class="user_font">攻击:{{arms.atk}}</div>
-        <div class="user_font">防御:{{arms.def}}</div>
-        <div class="user_font">血量:{{arms.HP}}</div>
-        <div class="user_font">暴击率:{{arms.bao*100}}%</div>
+  <body>
+    <div class="user_width">
+      <div class="user_left">
+        <div class="user_left_top">
+          <div class="user_font_title">[武器]</div>
+          <div class="user_font">名称:{{arms.name}}</div>
+          <div class="user_font">攻击:{{arms.atk}}</div>
+          <div class="user_font">防御:{{arms.def}}</div>
+          <div class="user_font">血量:{{arms.HP}}</div>
+          <div class="user_font">暴击率:{{arms.bao*100}}%</div>
+        </div>
+        <div class="user_left_buttom">
+          <div class="user_font_title">[护具]</div>
+          <div class="user_font">名称:{{armor.name}}</div>
+          <div class="user_font">攻击:{{armor.atk}}</div>
+          <div class="user_font">防御:{{armor.def}}</div>
+          <div class="user_font">血量:{{armor.HP}}</div>
+          <div class="user_font">暴击率:{{armor.bao*100}}%</div>
+        </div>
       </div>
-      <div class="user_left_buttom">
-        <div class="user_font_title">[护具]</div>
-        <div class="user_font">名称:{{armor.name}}</div>
-        <div class="user_font">攻击:{{armor.atk}}</div>
-        <div class="user_font">防御:{{armor.def}}</div>
-        <div class="user_font">血量:{{armor.HP}}</div>
-        <div class="user_font">暴击率:{{armor.bao*100}}%</div>
+      <div class="user_right">
+        <div class="user_right_top">
+          <div class="user_font_title">[法宝]</div>
+          <div class="user_font">名称:{{treasure.name}}</div>
+          <div class="user_font">攻击:{{treasure.atk}}</div>
+          <div class="user_font">防御:{{treasure.def}}</div>
+          <div class="user_font">血量:{{treasure.HP}}</div>
+          <div class="user_font">暴击率:{{treasure.bao*100}}%</div>
+        </div>
+        <div class="user_right_buttom">
+          <div class="user_font_title">[属性板]</div>
+          <div class="user_font2">道号:{{nickname}}</div>
+          <div class="user_font2">血量:{{player_nowHP}}/{{player_maxHP}}</div>
+          <div class="user_font2">攻击:{{player_atk}}</div>
+          <div class="user_font2">防御:{{player_def}}</div>
+          <div class="user_font2">暴击率:{{player_bao}}%</div>
+        </div>
+      </div>
+      <div class="user_head">
+        <div class="user_qq">QQ:{{user_id}}</div>
       </div>
     </div>
-    <div class="user_right">
-      <div class="user_right_top">
-        <div class="user_font_title">[法宝]</div>
-        <div class="user_font">名称:{{treasure.name}}</div>
-        <div class="user_font">攻击:{{treasure.atk}}</div>
-        <div class="user_font">防御:{{treasure.def}}</div>
-        <div class="user_font">血量:{{treasure.HP}}</div>
-        <div class="user_font">暴击率:{{treasure.bao*100}}%</div>
-      </div>
-      <div class="user_right_buttom">
-        <div class="user_font_title">[属性板]</div>
-        <div class="user_font2">道号:{{nickname}}</div>
-        <div class="user_font2">血量:{{player_nowHP}}/{{player_maxHP}}</div>
-        <div class="user_font2">攻击:{{player_atk}}</div>
-        <div class="user_font2">防御:{{player_def}}</div>
-        <div class="user_font2">暴击率:{{player_bao}}%</div>
-      </div>
-    </div>
-    <div class="user_head">
-      <div class="user_qq">QQ:{{user_id}}</div>
-    </div>
-  </div>
-  <style>
-
-  </style>
-
-</body>
-
+    <style></style>
+  </body>
 </html>

@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="shortcut icon" href="#" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/help/common.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/help/help.css"
+    />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="shortcut icon" href="#" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/help/common.css" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/help/help.css" />
-</head>
-
-<body class="elem-default default-mode  ">
-  <div class="container" id="container">
-    <div class="info_box">
-      <div class="head-box type">
-        <div class="title">修仙插件<span class="version">V{{version}}</span></div>
-      </div>
-    </div>
-    {{each helpData val}}
-    <div class="cont-box">
-      <div class="help-group">{{val.group}}</div>
-      <div class="help-table">
-        <div class="tr">
-          {{each val.list item}}
-          <div class="td">
-            <span class="help-icon {{item.icon}}"></span>
-            <strong class="help-title">{{item.title}}</strong>
-            <span class="help-desc">{{item.desc}}</span>
+  <body class="elem-default default-mode">
+    <div class="container" id="container">
+      <div class="info_box">
+        <div class="head-box type">
+          <div class="title">
+            修仙插件<span class="version">V{{version}}</span>
           </div>
-          {{/each}}
         </div>
       </div>
+      {{each helpData val}}
+      <div class="cont-box">
+        <div class="help-group">{{val.group}}</div>
+        <div class="help-table">
+          <div class="tr">
+            {{each val.list item}}
+            <div class="td">
+              <span class="help-icon {{item.icon}}"></span>
+              <strong class="help-title">{{item.title}}</strong>
+              <span class="help-desc">{{item.desc}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      <div class="copyright">
+        Xiuxian-Plugin<span class="version">1.2.1</span>
+      </div>
     </div>
-    {{/each}}
-    <div class="copyright">Xiuxian-Plugin<span class="version">1.2.1</span></div>
-  </div>
-</body>
-
+  </body>
 </html>

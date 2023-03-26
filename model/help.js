@@ -29,7 +29,8 @@ export default class Help extends base {
   async getDatahelpcopy() {
     let helpData = xiuxianCfg.getconfig("help", "helpcopy");
     let versionData = xiuxianCfg.getdefset("version", "version");
-    const version = (versionData && versionData.length && versionData[0].version) || "1.0.4";
+    const version =
+      (versionData && versionData.length && versionData[0].version) || "1.0.4";
     return {
       ...this.screenData,
       saveId: "help",
@@ -38,14 +39,12 @@ export default class Help extends base {
     };
   }
 
-
-
-
   async getData() {
     let helpData = xiuxianCfg.getconfig("help", "help");
 
     let versionData = xiuxianCfg.getdefset("version", "version");
-    const version = (versionData && versionData.length && versionData[0].version) || "1.0.4";
+    const version =
+      (versionData && versionData.length && versionData[0].version) || "1.0.4";
 
     return {
       ...this.screenData,
@@ -58,7 +57,8 @@ export default class Help extends base {
   async Getset() {
     let helpData = xiuxianCfg.getconfig("help", "set");
     let versionData = xiuxianCfg.getdefset("version", "version");
-    const version = (versionData && versionData.length && versionData[0].version) || "1.0.4";
+    const version =
+      (versionData && versionData.length && versionData[0].version) || "1.0.4";
     return {
       ...this.screenData,
       saveId: "help",
@@ -70,7 +70,8 @@ export default class Help extends base {
   async GetAssociationt() {
     let helpData = xiuxianCfg.getconfig("help", "Association");
     let versionData = xiuxianCfg.getdefset("version", "version");
-    const version = (versionData && versionData.length && versionData[0].version) || "1.0.4";
+    const version =
+      (versionData && versionData.length && versionData[0].version) || "1.0.4";
     return {
       ...this.screenData,
       saveId: "help",
@@ -78,5 +79,4 @@ export default class Help extends base {
       helpData,
     };
   }
-
 }

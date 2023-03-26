@@ -23,7 +23,6 @@ export default class Game extends base {
     };
   }
 
-
   async get_equipmnetData(myData) {
     this.model = "equipment";
     return {
@@ -32,7 +31,6 @@ export default class Game extends base {
       ...myData,
     };
   }
-
 
   async get_najieData(myData) {
     this.model = "najie";
@@ -81,7 +79,6 @@ export default class Game extends base {
     };
   }
 
-
   //万宝楼
   async get_valuablesData(myData) {
     this.model = "valuables";
@@ -102,7 +99,6 @@ export default class Game extends base {
     };
   }
 
-
   //武器楼
   async get_valuables_wuqiData(myData) {
     this.model = "valuables_wuqi";
@@ -122,7 +118,6 @@ export default class Game extends base {
       ...myData,
     };
   }
-
 
   //丹药楼
   async get_valuables_drugData(myData) {
@@ -174,7 +169,6 @@ export default class Game extends base {
     };
   }
 
-
   //灵石榜
   async get_ranking_moneyData(myData) {
     this.model = "ranking_money";
@@ -204,6 +198,4 @@ export default class Game extends base {
       ...myData,
     };
   }
-
-
 }

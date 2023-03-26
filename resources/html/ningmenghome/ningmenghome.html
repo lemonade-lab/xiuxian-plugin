@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/ningmenghome/ningmenghome.css"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
+    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
+    <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
+    <link rel="shortcut icon" href="#" />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/ningmenghome/ningmenghome.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
-  <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-  <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
-  <link rel="shortcut icon" href="#" />
-</head>
-
-<body>
-  <div>
-
-    {{each commodities_list item}}
-    <div class="user_bottom1">
-      <div class="use_data">
-          <div class="user_font">{{item.name}}【{{item.class}}/{{item.type}}】</div>
+  <body>
+    <div>
+      {{each commodities_list item}}
+      <div class="user_bottom1">
+        <div class="use_data">
+          <div class="user_font">
+            {{item.name}}【{{item.class}}/{{item.type}}】
+          </div>
           <div class="user_font">说明:{{item.desc}}</div>
-          <div class="user_font">攻[{{item.atk}}]防[{{item.def}}]血[{{item.HP}}]暴[{{item.bao}}]天赋[{{item.修炼加成}}]修为[{{item.exp}}]</div>
+          <div class="user_font">
+            攻[{{item.atk}}]防[{{item.def}}]血[{{item.HP}}]暴[{{item.bao}}]天赋[{{item.修炼加成}}]修为[{{item.exp}}]
+          </div>
           <div class="user_font">价格:{{item.出售价*1.2}}</div>
+        </div>
       </div>
+      {{/each}}
     </div>
-    {{/each}}
-
-  </div>
-  <style>
-
-  </style>
-
-</body>
-
+    <style></style>
+  </body>
 </html>

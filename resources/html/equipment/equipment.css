@@ -5,7 +5,6 @@
   font-style: normal;
 }
 
-
 body {
   transform: scale(1);
   width: 100%;
@@ -13,7 +12,7 @@ body {
   margin: 0;
   text-align: center;
   background-size: 100% auto;
-  background-image: url('../..//img/equipment/equipment.jpeg');
+  background-image: url("../..//img/equipment/equipment.jpeg");
 }
 
 .user_width {
@@ -74,19 +73,24 @@ body {
 }
 
 .user_left_top {
-  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
+  background-image: radial-gradient(
+    rgba(206, 226, 226, 0.245),
+    rgba(164, 193, 231, 0.408)
+  );
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;
 }
 
 .user_left_buttom {
-  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
+  background-image: radial-gradient(
+    rgba(206, 226, 226, 0.245),
+    rgba(164, 193, 231, 0.408)
+  );
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;
 }
-
 
 .user_right {
   float: right;
@@ -95,14 +99,20 @@ body {
 }
 
 .user_right_top {
-  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
+  background-image: radial-gradient(
+    rgba(206, 226, 226, 0.245),
+    rgba(164, 193, 231, 0.408)
+  );
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;
 }
 
 .user_right_buttom {
-  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
+  background-image: radial-gradient(
+    rgba(206, 226, 226, 0.245),
+    rgba(164, 193, 231, 0.408)
+  );
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;

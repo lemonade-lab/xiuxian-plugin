@@ -1,4 +1,4 @@
-- group: 
+- group:
   list:
     - icon: help-icon_9
       title: "#一键学习"
@@ -13,7 +13,7 @@
       title: "#一键出售+类型名"
       desc: "装备/丹药/道具/功法/草药"
 
-- group: 
+- group:
   list:
     - icon: help-icon_9
       title: "#学习+功法名"
@@ -35,7 +35,7 @@
       desc: "查看攻略"
     - icon: help-icon_9
       title: "#发布文章+标题*内容"
-      desc: "发布自己的看法"  
+      desc: "发布自己的看法"
 
 - group: 君子爱财
   list:
@@ -64,7 +64,6 @@
       title: "#拒绝双修"
       desc: "主动拒绝双修"
 
-
 - group: 唯我独尊
   list:
     - icon: help-icon_8
@@ -80,8 +79,6 @@
       title: "#封神榜"
       desc: "仙人战力榜"
 
-      
-
 - group: 灵笼棋局
   list:
     - icon: help-icon_9
@@ -93,4 +90,3 @@
     - icon: help-icon_9
       title: "#当前棋局"
       desc: "查看当前面板"
-

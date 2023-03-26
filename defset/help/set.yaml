@@ -2,10 +2,10 @@
   list:
     - icon: help-icon_8
       title: "#发福利999"
-      desc: "全服发放灵石"  
+      desc: "全服发放灵石"
     - icon: help-icon_8
       title: "#发补偿999@群友"
-      desc: "单独发送灵石"  
+      desc: "单独发送灵石"
     - icon: help-icon_8
       title: "#扣除99999@群友"
       desc: "强行扣指定灵石"
@@ -14,10 +14,10 @@
   list:
     - icon: help-icon_8
       title: "#放出怪物"
-      desc: "手动开启"  
+      desc: "手动开启"
     - icon: help-icon_8
       title: "#关上怪物"
-      desc: "手动关闭"  
+      desc: "手动关闭"
 
 - group: 行为状态
   list:
@@ -54,6 +54,3 @@
     - icon: help-icon_14
       title: "#修仙强制更新"
       desc: "推荐使用强制更新"
-
-
-      

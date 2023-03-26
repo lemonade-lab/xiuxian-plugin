@@ -27,7 +27,7 @@
     - icon: help-icon_13
       title: "#炼体境界"
       desc: "查看所有境界"
-    
+
 - group: 修行之路
   list:
     - icon: help-icon_13
@@ -89,7 +89,7 @@
       desc: "艾特发红包的仔"
 
 - group: 气运之子
-  list:    
+  list:
     - icon: help-icon_11
       title: "#秘境"
       desc: "出门探险"
@@ -110,7 +110,7 @@
       desc: "显示BOSS的属性和状态"
 
 - group: 仙人之资
-  list:    
+  list:
     - icon: help-icon_11
       title: "#仙境"
       desc: "查看仙人镇守之地"
@@ -123,7 +123,6 @@
     - icon: help-icon_11
       title: "#探索仙府"
       desc: "获得限时物品"
-
 
 - group: 帮助扩展
   list:
