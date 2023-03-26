@@ -1,6 +1,6 @@
 import { plugin } from '../../api/api.js';
-import { createRequire } from 'module';
 import { AppName } from '../../app.config.js';
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { exec } = require('child_process');
 const _path = process.cwd();
