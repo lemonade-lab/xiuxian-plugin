@@ -3,6 +3,9 @@ import path from 'path';
 import data from './XiuxianData.js';
 import { Writeit, Read_it } from './duanzaofu.js';
 import { AppName } from '../app.config.js';
+import puppeteer from '../../../lib/puppeteer/puppeteer.js';
+import Show from './show.js';
+
 /**
  * 全局
  */
