@@ -1,2 +1,2 @@
-class AdminActoin{}
-export default new AdminActoin()
+class AdminActoin {}
+export default new AdminActoin();

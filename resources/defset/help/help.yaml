@@ -1,4 +1,4 @@
-- group: 
+- group:
   list:
     - icon: 8
       title: "#降临世界 #再入仙途"
@@ -9,8 +9,8 @@
     - icon: 52
       title: "#储物袋 #升级储物袋"
       desc: "物品查询,容量提升"
-    
-- group: 
+
+- group:
   list:
     - icon: 14
       title: "#闭关 #出关"
@@ -19,7 +19,7 @@
       title: "#降妖 #归来"
       desc: "进行降妖,锻炼气血"
 
-- group: 
+- group:
   list:
     - icon: 21
       title: "#死斗+QQ/@道友"
@@ -34,8 +34,7 @@
       title: "#探索怪物"
       desc: "查看所在地的怪物"
 
-
-- group: 
+- group:
   list:
     - icon: 51
       title: "#修仙地图"
@@ -56,7 +55,7 @@
       title: "#回到原地"
       desc: "取消走路行为"
 
-- group: 
+- group:
   list:
     - icon: 8
       title: "#基础信息"
@@ -68,7 +67,7 @@
       title: "#突破"
       desc: "#破体"
 
-- group: 
+- group:
   list:
     - icon: 59
       title: "#学习+功法名"
@@ -83,7 +82,7 @@
       title: "#装备+装备名"
       desc: "#卸下+装备名"
 
-- group: 
+- group:
   list:
     - icon: 52
       title: "#置换所有物品"

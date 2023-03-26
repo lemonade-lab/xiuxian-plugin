@@ -1,17 +1,17 @@
 [
-    {
-        "id": "6-1-0",
-        "name": "决斗令",
-        "attack": 0,
-        "defense": 0,
-        "blood": 0,
-        "burst": 0,
-        "burstmax": 0,
-        "size": 0,
-        "experience": 0,
-        "experiencemax": 0,
-        "speed": 0,
-        "acount": 1,
-        "price": 6888
-    }
+  {
+    "id": "6-1-0",
+    "name": "决斗令",
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 6888
+  }
 ]

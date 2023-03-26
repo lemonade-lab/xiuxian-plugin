@@ -48,7 +48,7 @@
 
 .help-table .tr {
   display: flex;
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
 .help-table .td,
@@ -59,7 +59,7 @@
   padding: 12px 0 12px;
   line-height: 24px;
   position: relative;
-  width: calc(100%/3);
+  width: calc(100% / 3);
   text-align: left;
 }
 

@@ -1,126 +1,136 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/resources/html/user/information/information.css"
+    />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/resources/html/user/information/information.css" />
-</head>
-
-<body>
-  <div style="height: 10px;">
-  </div>
-  <div style="display:grid;grid-template-columns:auto auto;">
-    <div class="user_top">
-      <div class="user_top_left">
-        <div class="user_top_right_font0" style="padding: 5px;">账号:{{user_id}}</div>
-        <div class="user_top_right_font1" style="padding: 5px;"> 道号:{{life.name}}</div>
-        <div class="user_top_right_font" style="padding: 5px;">血量:{{battle.nowblood}}/{{battle.blood}}</div>
-        <div class="user_top_right_font2" style="padding: 5px;">寿龄:{{life.Age}}/{{life.life}}</div>
+  <body>
+    <div style="height: 10px"></div>
+    <div style="display: grid; grid-template-columns: auto auto">
+      <div class="user_top">
+        <div class="user_top_left">
+          <div class="user_top_right_font0" style="padding: 5px">
+            账号:{{user_id}}
+          </div>
+          <div class="user_top_right_font1" style="padding: 5px">
+            道号:{{life.name}}
+          </div>
+          <div class="user_top_right_font" style="padding: 5px">
+            血量:{{battle.nowblood}}/{{battle.blood}}
+          </div>
+          <div class="user_top_right_font2" style="padding: 5px">
+            寿龄:{{life.Age}}/{{life.life}}
+          </div>
+        </div>
+        <div class="user_top_right">
+          <div class="user_top_img_bottom">
+            <img
+              class="user_top_img"
+              src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}"
+              onerror="whenError(this)"
+            />
+          </div>
+        </div>
       </div>
-      <div class="user_top_right">
-        <div class="user_top_img_bottom">
-          <img class="user_top_img" src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}" onerror="whenError(this)" />
+      <div class="user_right"></div>
+    </div>
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="user_top_right_font0">[修心道宣]</div>
+        <div class="user_top_right_font2">{{player.autograph}}</div>
+      </div>
+    </div>
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="user_top_right_font0">[基础信息]</div>
+        <div
+          class="user_top_right_font"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>法境:{{level.levelname}}</div>
+          <div>修为:{{level.experience}}</div>
+        </div>
+        <div
+          class="user_top_right_font1"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>体境:{{level.levelnamemax}}</div>
+          <div>气血:{{level.experiencemax}}</div>
+        </div>
+        <div
+          class="user_top_right_font"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>魔力:{{level.prestige}}</div>
+          <div>战力:{{battle.power}}</div>
+        </div>
+        <div
+          class="user_top_right_font1"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>灵根:{{linggenname}}</div>
+          <div>天赋:{{talentsize}}</div>
+        </div>
+        <div
+          class="user_top_right_font2"
+          style="display: grid; grid-template-columns: auto auto auto auto"
+        >
+          {{each equipment item}}
+          <div>{{item.name}}</div>
+          {{/each}}
         </div>
       </div>
     </div>
-    <div class="user_right">
-    </div>
-  </div>
-  <!--下-->
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="user_top_right_font0">[修心道宣]</div>
-      <div class="user_top_right_font2">{{player.autograph}}</div>
-    </div>
-  </div>
-  <!--下-->
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="user_top_right_font0">[基础信息]</div>
-      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto;">
-        <div>
-          法境:{{level.levelname}}
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="user_top_right_font0">[已学功法]</div>
+        <div
+          class="user_top_right_font2"
+          style="display: grid; grid-template-columns: auto auto auto auto"
+        >
+          {{each talent.AllSorcery item}}
+          <div>《{{item.name}}》</div>
+          {{/each}}
         </div>
-        <div>
-          修为:{{level.experience}}
-        </div>
-      </div>
-      <div class="user_top_right_font1" style="display:grid;grid-template-columns:auto auto;">
-        <div>
-          体境:{{level.levelnamemax}}
-        </div>
-        <div>
-          气血:{{level.experiencemax}}
-        </div>
-      </div>
-      <div class="user_top_right_font" style="display:grid;grid-template-columns:auto auto;">
-        <div>
-          魔力:{{level.prestige}}
-        </div>
-        <div>
-          战力:{{battle.power}}
-        </div>
-      </div>
-      <div class="user_top_right_font1" style="display:grid;grid-template-columns:auto auto;">
-        <div>
-          灵根:{{linggenname}}
-        </div>
-        <div>
-          天赋:{{talentsize}}
-        </div>
-      </div>
-      <div class="user_top_right_font2" style="display:grid;grid-template-columns:auto auto auto auto;">
-        {{each equipment item}}
-        <div>
-          {{item.name}}
-        </div>
-        {{/each}}
       </div>
     </div>
-  </div>
-  <div class="user_bottom1">
-    <div class="use_data">
-      <div class="user_top_right_font0">[已学功法]</div>
-      <div class="user_top_right_font2" style="display:grid;grid-template-columns:auto auto auto auto;">
-        {{each talent.AllSorcery item}}
-        <div>
-          《{{item.name}}》
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-</body>
+  </body>
 
-<style>
-  body {
-    width: 100%;
-    margin: auto;
-    text-align: center;
-    background-image: url('{{pluResPath}}/resources/img/user/information/information.png');
-    background-size: 100% auto;
-  }
+  <style>
+    body {
+      width: 100%;
+      margin: auto;
+      text-align: center;
+      background-image: url("{{pluResPath}}/resources/img/user/information/information.png");
+      background-size: 100% auto;
+    }
 
-  .user_top {
-    display: grid;
-    grid-template-columns: auto auto;
-    background-image: url('{{pluResPath}}/resources/img/user/information/left.png');
-    background-size: 100% 100%;
-  }
+    .user_top {
+      display: grid;
+      grid-template-columns: auto auto;
+      background-image: url("{{pluResPath}}/resources/img/user/information/left.png");
+      background-size: 100% 100%;
+    }
 
-  .user_right {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-  }
+    .user_right {
+      margin: auto;
+      width: 100%;
+      height: 100%;
+    }
 
-  .user_top_img_bottom {
-    width: 300px;
-    height: 300px;
-    margin: auto;
-    background-image: url("{{pluResPath}}/resources/img/user/information/right.png");
-    background-size: 100% 100%;
-  }
-</style>
-
+    .user_top_img_bottom {
+      width: 300px;
+      height: 300px;
+      margin: auto;
+      background-image: url("{{pluResPath}}/resources/img/user/information/right.png");
+      background-size: 100% 100%;
+    }
+  </style>
 </html>

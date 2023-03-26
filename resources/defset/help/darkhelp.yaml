@@ -1,4 +1,4 @@
-- group:  虚空神器
+- group: 虚空神器
   list:
     - icon: 55
       title: "#虚空镜"
@@ -20,9 +20,9 @@
       desc: "查看跨群记录"
     - icon: 57
       title: "#喇叭+内容"
-      desc: "跨群实时聊天" 
+      desc: "跨群实时聊天"
 
-- group:  金银作坊
+- group: 金银作坊
   list:
     - icon: 55
       title: "#金银坊"

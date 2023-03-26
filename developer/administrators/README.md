@@ -1,41 +1,43 @@
-## 修改存档  
+## 修改存档
 
->Yunzai-Bot/plugins/xiuxian-plugin/resources/data/birth/xiuxian
+> Yunzai-Bot/plugins/xiuxian-plugin/resources/data/birth/xiuxian
 
-windows建议使用VScode软件进行编辑,以免带来破坏性影响    
+windows 建议使用 VScode 软件进行编辑,以免带来破坏性影响
 
-linux建议需要学习一些命令行等的基础知识    
+linux 建议需要学习一些命令行等的基础知识
 
 ## 数据备份
 
->Yunzai-Bot/xiuxiandadata
+> Yunzai-Bot/xiuxiandadata
 
-linux系统建议使用windows的Termius软件进行双系统间的无间隔编辑  
+linux 系统建议使用 windows 的 Termius 软件进行双系统间的无间隔编辑
 
 ## 素材替换
 
->Yunzai-Bot/plugins/xiuxian-plugin/resources/img
+> Yunzai-Bot/plugins/xiuxian-plugin/resources/img
 
 图片支持全部替换
 
 ## 配置修改
 
->Yunzai-Bot/plugins/xiuxian-plugin/config/help
+> Yunzai-Bot/plugins/xiuxian-plugin/config/help
 
 帮助内容支持替换
 
->Yunzai-Bot/plugins/xiuxian-plugin/config/xiuxian
+> Yunzai-Bot/plugins/xiuxian-plugin/config/xiuxian
 
 支持参数配置手动设置,指令设置请发送`#修仙配置`
 
 ## 自定义物品
->Yunzai-Bot\plugins\xiuxian-plugin\resources\goods
 
->mygoods.json   
+> Yunzai-Bot\plugins\xiuxian-plugin\resources\goods
 
-名字随意,最好自己分类，如武器danyao.json
+> mygoods.json
+
+名字随意,最好自己分类，如武器 danyao.json
 
 写入下方的测试代码
+
 ```
 [
     {
@@ -55,19 +57,19 @@ linux系统建议使用windows的Termius软件进行双系统间的无间隔编�
     }
 ]
 ```
-保存后重启机器方能生效  
+
+保存后重启机器方能生效
 
 酱紫玩家就可以在怪物身上有一定概率打落该物品了
-
 
 ### 如何让玩家购买?
 
 `凡仙堂`原则上只卖丹药
 
->mygoods0.json 
+> mygoods0.json
 
-凡仙堂会识别0.json为可购买物品
+凡仙堂会识别 0.json 为可购买物品
 
-我们只需要把名字mygoods后面加个0即可
+我们只需要把名字 mygoods 后面加个 0 即可
 
-例如wuqi0.json或者daoyao0.json
+例如 wuqi0.json 或者 daoyao0.json
