@@ -80,7 +80,7 @@ export async function existplayer(usr_qq) {
  */
 export async function convert2integer(amount) {
   let number = 1;
-  let reg = new RegExp(/^[1-9]\d*$/);
+  let reg = new RegExp( /^[1-9][0-9]{0,12}$/ );
   if (!reg.test(amount)) {
     return number;
   } else {
