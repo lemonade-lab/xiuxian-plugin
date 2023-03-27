@@ -1,5 +1,4 @@
-import { plugin } from "../../api/api.js";
-import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
+import { plugin, puppeteer } from "../../api/api.js";
 import Help from "../../model/help.js";
 import md5 from "md5";
 let helpData = {

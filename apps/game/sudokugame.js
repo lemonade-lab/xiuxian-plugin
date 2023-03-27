@@ -1,5 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
-import puppeteer from "../../../../lib/puppeteer/puppeteer.js";
+import { plugin, segment, puppeteer } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import Show from "../../model/show.js";
 import path from "path";
@@ -103,14 +102,14 @@ export class sudokugame extends plugin {
     }
     e.reply(
       `棋局玩法: 填数1~9,使每行每列及9个九宫格的数字不重复` +
-        "\n" +
-        `填入数字: ###234` +
-        "\n" +
-        `即第2行第3列要填4` +
-        "\n" +
-        `清除数字: ###230` +
-        "\n" +
-        `将第2行第3列清除`
+      "\n" +
+      `填入数字: ###234` +
+      "\n" +
+      `即第2行第3列要填4` +
+      "\n" +
+      `清除数字: ###230` +
+      "\n" +
+      `将第2行第3列清除`
     );
     show_sudoku(e);
     //获取时间

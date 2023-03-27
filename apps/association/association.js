@@ -84,18 +84,10 @@ export class association extends plugin {
     //给奖励
     let temp = player.宗门.职位;
     let n = 1;
-    if (temp == "外门弟子") {
-      n = 1;
-    }
-    if (temp == "内门弟子") {
-      n = 2;
-    }
-    if (temp == "长老") {
-      n = 3;
-    }
-    if (temp == "宗主") {
-      n = 5;
-    }
+    if (temp == "外门弟子") n = 1
+    if (temp == "内门弟子") n = 2
+    if (temp == "长老") n = 3
+    if (temp == "宗主") n = 5;
     let gift_lingshi = ass.宗门等级 * 1200 * n;
     player.灵石 += gift_lingshi;
     data.setData("player", usr_qq, player);
@@ -298,8 +290,7 @@ export class association extends plugin {
 
     if (ass.灵石池 + lingshi > 宗门灵石池上限[ass.宗门等级 - 1]) {
       e.reply(
-        `${ass.宗门名称}的灵石池最多还能容纳${
-          宗门灵石池上限[ass.宗门等级 - 1] - ass.灵石池
+        `${ass.宗门名称}的灵石池最多还能容纳${宗门灵石池上限[ass.宗门等级 - 1] - ass.灵石池
         }灵石,请重新捐赠`
       );
       return;
@@ -313,8 +304,7 @@ export class association extends plugin {
     await data.setAssociation(ass.宗门名称, ass);
     await setFileValue(usr_qq, -lingshi, "灵石");
     e.reply(
-      `捐赠成功,你身上还有${player.灵石 - lingshi}灵石,宗门灵石池目前有${
-        ass.灵石池
+      `捐赠成功,你身上还有${player.灵石 - lingshi}灵石,宗门灵石池目前有${ass.灵石池
       }灵石`
     );
     return;
@@ -350,8 +340,7 @@ export class association extends plugin {
     let msg = [`${ass.宗门名称} 灵石捐献记录表`];
     for (let i = 0; i < donate_list.length; i++) {
       msg.push(
-        `第${i + 1}名  ${donate_list[i].name}  捐赠灵石:${
-          donate_list[i].lingshi_donate
+        `第${i + 1}名  ${donate_list[i].name}  捐赠灵石:${donate_list[i].lingshi_donate
         }`
       );
     }
@@ -385,18 +374,17 @@ export class association extends plugin {
 
       temp.push(
         `序号:${1 + i} ` +
-          "\n" +
-          `宗名: ${this_ass.宗门名称}` +
-          "\n" +
-          `人数: ${this_ass.所有成员.length}/${
-            宗门人数上限[this_ass.宗门等级 - 1]
-          }` +
-          "\n" +
-          `等级: ${this_ass.宗门等级}` +
-          "\n" +
-          `天赋加成: ${this_ass_xiuxian}%` +
-          "\n" +
-          `宗主: ${this_ass.宗主}`
+        "\n" +
+        `宗名: ${this_ass.宗门名称}` +
+        "\n" +
+        `人数: ${this_ass.所有成员.length}/${宗门人数上限[this_ass.宗门等级 - 1]
+        }` +
+        "\n" +
+        `等级: ${this_ass.宗门等级}` +
+        "\n" +
+        `天赋加成: ${this_ass_xiuxian}%` +
+        "\n" +
+        `宗主: ${this_ass.宗主}`
       );
     }
     await ForwardMsg(e, temp);
@@ -461,9 +449,6 @@ async function getLastsign_Asso(usr_qq) {
   let time = await redis.get(
     "xiuxian:player:" + usr_qq + ":lastsign_Asso_time"
   );
-  if (time != null) {
-    let data = await shijianc(parseInt(time));
-    return data;
-  }
+  if (time != null) return await shijianc(parseInt(time));
   return false;
 }
