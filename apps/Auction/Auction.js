@@ -205,6 +205,11 @@ export class Auction extends plugin {
     // let start_price = auction.start_price;
     let last_price = auction.last_price;
     let new_price = e.msg.replace('#星阁出价', '');
+    if (auction.last_offer_player==usr_qq)
+    {
+      e.reply('不能自己给自己抬价哦!');
+      return;
+    }
     new_price = Number(new_price);
     if (!new_price) {
       new_price = parseInt(Math.ceil(last_price * 1.1));
