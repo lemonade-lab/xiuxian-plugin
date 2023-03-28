@@ -21,10 +21,6 @@ export class duanzaofu extends plugin {
 }
 
 export async function settripod(qq) {
-  const look = await looktripod(qq);
-  if (look == 1) {
-    return 0;
-  }
   let tripod1;
   try {
     tripod1 = await Read_tripod();
