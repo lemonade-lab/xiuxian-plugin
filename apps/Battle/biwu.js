@@ -67,12 +67,12 @@ export class biwu extends plugin {
     }
     A_QQ.push({
       QQ: A,
-      技能: ['四象封印', '桃园结义', '长生诀', '祝水咒', '阴风蚀骨', '万年俱灰', '心烦意乱', '失魂落魄', '玄冰封印', '诛仙四剑'],
+      技能: ['四象封印', '桃园结义', '长生诀', '祝水咒', '阴风蚀骨', '万年俱灰', '心烦意乱', '失魂落魄', '玄冰封印', '诛仙三剑'],
       选择技能: []
     });
     B_QQ.push({
       QQ: B,
-      技能: ['四象封印', '桃园结义', '长生诀', '祝水咒', '阴风蚀骨', '万年俱灰', '心烦意乱', '失魂落魄', '玄冰封印', '诛仙四剑'],
+      技能: ['四象封印', '桃园结义', '长生诀', '祝水咒', '阴风蚀骨', '万年俱灰', '心烦意乱', '失魂落魄', '玄冰封印', '诛仙三剑'],
       选择技能: []
     });
     this.battle(e, (A_QQ.length-1));
@@ -225,16 +225,16 @@ export class biwu extends plugin {
         else if (action_A.技能[action_A.use].name == '玄冰封印') {
           buff_A.玄冰封印 = action_A.技能[action_A.use].last;
         }
-        else if (action_A.技能[action_A.use].name == '诛仙四剑') {
-          buff_A.诛仙四剑 = action_A.技能[action_A.use].last;
+        else if (action_A.技能[action_A.use].name == '诛仙三剑') {
+          buff_A.诛仙三剑 = action_A.技能[action_A.use].last;
         }
         msg.push(`${A_player.名号}${action_A.技能[action_A.use].msg}\n`);
       }
-      if (buff_A.诛仙四剑) {
-        const harm = data.jineng.find(item => item.name == `诛仙四剑`).pr;
+      if (buff_A.诛仙三剑) {
+        const harm = data.jineng.find(item => item.name == `诛仙三剑`).pr;
         A_伤害 *= (1 + harm);
-        buff_A.诛仙四剑--;
-        msg.push(`${A_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_A.诛仙四剑}\n`);
+        buff_A.诛仙三剑--;
+        msg.push(`${A_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_A.诛仙三剑}\n`);
       }
       A_伤害 = Math.trunc(A_伤害);
       B_player.当前血量 -= A_伤害;
@@ -322,16 +322,16 @@ export class biwu extends plugin {
         else if (action_B.技能[action_B.use].name == '玄冰封印') {
           buff_B.玄冰封印 = action_B.技能[action_B.use].last;
         }
-        else if (action_B.技能[action_B.use].name == '诛仙四剑') {
-          buff_B.诛仙四剑 = action_B.技能[action_B.use].last;
+        else if (action_B.技能[action_B.use].name == '诛仙三剑') {
+          buff_B.诛仙三剑 = action_B.技能[action_B.use].last;
         }
         msg.push(`${B_player.名号}${action_B.技能[action_B.use].msg}\n`);
       }
-      if (buff_B.诛仙四剑) {
-        const harm = data.jineng.find(item => item.name == `诛仙四剑`).pr;
+      if (buff_B.诛仙三剑) {
+        const harm = data.jineng.find(item => item.name == `诛仙三剑`).pr;
         B_伤害 *= (1 + harm);
-        buff_B.诛仙四剑--;
-        msg.push(`${B_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_B.诛仙四剑}\n`);
+        buff_B.诛仙三剑--;
+        msg.push(`${B_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_B.诛仙三剑}\n`);
       }
       B_伤害 = Math.trunc(B_伤害);
       A_player.当前血量 -= B_伤害;
