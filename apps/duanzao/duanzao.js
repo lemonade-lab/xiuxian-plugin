@@ -229,8 +229,7 @@ export class duanzao extends plugin {
       e.reply(`你还不是炼器师哦,宝贝`);
       return;
     }
-    const A = await looktripod(user_qq);
-    if (A == 1) {
+    if (player.锻造天赋) {
       e.reply(`您已经测评过了`);
       return;
     }

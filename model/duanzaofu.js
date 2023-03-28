@@ -32,19 +32,22 @@ export async function settripod(qq) {
     await Write_duanlu([]);
     tripod1 = await Read_tripod();
   }
-  const newtripod = {
-    qq: qq,
-    煅炉: 0,
-    容纳量: 10,
-    材料: [],
-    数量: [],
-    TIME: 0,
-    时长: 30000,
-    状态: 0,
-    预计时长: 0,
-  };
-  tripod1.push(newtripod);
-  await Write_duanlu(tripod1);
+  const A = await looktripod(qq);
+  if (A != 1) {
+    const newtripod = {
+      qq: qq,
+      煅炉: 0,
+      容纳量: 10,
+      材料: [],
+      数量: [],
+      TIME: 0,
+      时长: 30000,
+      状态: 0,
+      预计时长: 0,
+    };
+    tripod1.push(newtripod);
+    await Write_duanlu(tripod1);
+  }
   //增加锻造天赋
   const player = await data.getData('player', qq);
   let tianfu = Math.floor(40 * Math.random() + 80);
