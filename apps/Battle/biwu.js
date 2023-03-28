@@ -97,13 +97,15 @@ export class biwu extends plugin {
     //记录初始属性
     const A = JSON.parse(JSON.stringify(A_player));
     const B = JSON.parse(JSON.stringify(B_player));
-    let msg_A = [`指令:#选择技能+数字1,数字2,数字3\n请选择你本局携带的技能:`];
+    let msg_A = [`指令样式:#选择技能1,2,3\n请选择你本局携带的技能:`];
     for (const i in A_QQ[num].技能) {
-      msg_A.push(`\n${i * 1 + 1}、${A_QQ[num].技能[i]}`)
+      const cd=data.jineng.find(item => item.name == A_QQ[num].技能[i]).cd;
+      msg_A.push(`\n${i * 1 + 1}、${A_QQ[num].技能[i]} cd:${cd}`);
     }
-    let msg_B = [`指令:#选择技能+数字1,数字2,数字3\n请选择你本局携带的技能:`];
+    let msg_B = [`指令样式:#选择技能1,2,3\n请选择你本局携带的技能:`];
     for (const i in B_QQ[num].技能) {
-      msg_B.push(`\n${i * 1 + 1}、${B_QQ[num].技能[i]}`)
+      const cd=data.jineng.find(item => item.name == B_QQ[num].技能[i]).cd;
+      msg_B.push(`\n${i * 1 + 1}、${B_QQ[num].技能[i]} cd:${cd}`)
     }
     //推送私人
     Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg_A);
@@ -126,7 +128,7 @@ export class biwu extends plugin {
     let buff_B = {};
     while (A_player.当前血量 > 0 && B_player.当前血量 > 0) {
 
-      msg_A = [`指令:#释放技能+数字\n第${cnt}回合,是否释放以下技能:`];
+      msg_A = [`指令样式:#释放技能1\n第${cnt}回合,是否释放以下技能:`];
       for (const i in action_A.技能) {
         action_A.技能[i].cd++;
         let cd = data.jineng.find(item => item.name == action_A.技能[i].name).cd - action_A.技能[i].cd;
@@ -136,7 +138,7 @@ export class biwu extends plugin {
       await redis.set('xiuxian:player:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A));
       Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg_A);
 
-      msg_B = [`指令:#释放技能+数字\n第${cnt}回合,是否释放以下技能:`];
+      msg_B = [`指令样式:#释放技能1\n第${cnt}回合,是否释放以下技能:`];
       for (const i in action_B.技能) {
         action_B.技能[i].cd++;
         let cd = data.jineng.find(item => item.name == action_B.技能[i].name).cd - action_B.技能[i].cd;
@@ -408,7 +410,7 @@ export class biwu extends plugin {
       return;
     else {
       if (action.技能[jineng].cd < data.jineng.find(item => item.name == action.技能[jineng].name).cd) {
-        e.reply('技能cd中');
+        e.reply(`${action.技能[jineng].name}技能cd中`);
         return;
       }
     }
