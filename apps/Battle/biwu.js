@@ -104,7 +104,7 @@ export class biwu extends plugin {
     //推送私人
     Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg_A);
     Bot.pickMember(e.group_id, B_QQ[num].QQ).sendMsg(msg_B);
-    await sleep(30000);
+    await sleep(40000);
     let cnt = 1;
     let action_A = {
       cnt: cnt,
