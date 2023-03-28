@@ -87,9 +87,13 @@ export class biwu extends plugin {
 
   async battle(e, num) {
     let A_player = await Read_player(A_QQ[num].QQ);
+    let B_player = await Read_player(B_QQ[num].QQ);
     //策划专用
-    //let B_player = await Read_player(B_QQ[num].QQ);
-    let B_player=JSON.parse(JSON.stringify(A_player));
+    A_player.攻击=B_player.攻击;
+    A_player.防御=B_player.防御;
+    A_player.当前血量=B_player.当前血量;
+    A_player.血量上限=B_player.血量上限;
+    A_player.暴击率=B_player.暴击率;
     //记录初始属性
     const A=JSON.parse(JSON.stringify(A_player));
     const B=JSON.parse(JSON.stringify(B_player));
