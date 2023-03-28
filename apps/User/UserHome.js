@@ -35,7 +35,7 @@ import {
   get_equipment_img,
 } from '../../model/xiuxian.js';
 import { AppName } from '../../app.config.js';
-import { looktripod, readall } from '../../model/duanzaofu.js';
+import { readall } from '../../model/duanzaofu.js';
 
 /**
  * 全局变量
@@ -804,8 +804,7 @@ export class UserHome extends plugin {
         return;
       }
       if (thing_exist.type == '器灵') {
-        const A = await looktripod(usr_qq);
-        if (A != 1) {
+        if (!player.锻造天赋) {
           e.reply(`请先去#炼器师能力评测,再来更改天赋吧`);
           return;
         }
