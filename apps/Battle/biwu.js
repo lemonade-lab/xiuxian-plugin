@@ -41,9 +41,6 @@ export class biwu extends plugin {
   }
 
   async biwu(e) {
-    if (!e.isMaster) {
-      return;
-    }
     if (!e.isGroup) {
       return;
     }
