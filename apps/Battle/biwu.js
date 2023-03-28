@@ -368,6 +368,18 @@ export class biwu extends plugin {
       B_player.防御=B.防御;
       B_player.暴击率=B.暴击率;
     }
+    if (A_player.当前血量 <= 0) 
+    {
+      e.reply(`${B_player.名号}win!`)
+    }
+    else if (B_player.当前血量 <= 0)
+    {
+      e.reply(`${A_player.名号}win!`)
+    }
+    action_A=null;
+    action_B=null;
+    await redis.set('xiuxian:player:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A));
+    await redis.set('xiuxian:player:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B));
     return;
   }
 
