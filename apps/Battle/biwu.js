@@ -192,7 +192,7 @@ export class biwu extends plugin {
       }
       //伤害计算
       let A_baoji = baojishanghai(A_player.暴击率);
-      let A_伤害 = Harm(A_player.攻击 * 0.85, B_player.防御);
+      let A_伤害 = Harm(A_player.攻击, B_player.防御);
       let A_法球伤害 = Math.trunc(A_player.攻击 * A_player.灵根.法球倍率);
       A_伤害 = Math.trunc(A_baoji * A_伤害 + A_法球伤害 + A_player.防御 * 0.1);
       //技能判断
@@ -234,13 +234,13 @@ export class biwu extends plugin {
         const harm = data.jineng.find(item => item.name == `诛仙四剑`).pr;
         A_伤害 *= (1 + harm);
         buff_A.诛仙四剑--;
-        msg.push(`${A_player.名号}感受到诛仙剑的号召,伤害提升${harm * 100}%,剩余回合${buff_A.诛仙四剑}\n`);
+        msg.push(`${A_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_A.诛仙四剑}\n`);
       }
       A_伤害 = Math.trunc(A_伤害);
       B_player.当前血量 -= A_伤害;
-      msg.push(`第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(A_baoji)}造成伤害${A_伤害}，${B_player.名号}剩余血量${B_player.当前血量}\n`);
+      msg.push(`第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(A_baoji)}造成伤害${A_伤害}，${B_player.名号}剩余血量${B_player.当前血量}`);
       e.reply(msg);
-      await sleep(500);
+      await sleep(200);
       msg=[];
       //B
       action_B = await JSON.parse(await redis.get('xiuxian:player:' + B_QQ[num].QQ + ':bisai'));
@@ -290,7 +290,7 @@ export class biwu extends plugin {
         msg.push(`${B_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${buff_B.祝水咒}\n`);
       }
       let B_baoji = baojishanghai(B_player.暴击率);
-      let B_伤害 = Harm(B_player.攻击 * 0.85, A_player.防御);
+      let B_伤害 = Harm(B_player.攻击, A_player.防御);
       let B_法球伤害 = Math.trunc(B_player.攻击 * B_player.灵根.法球倍率);
       B_伤害 = Math.trunc(B_baoji * B_伤害 + B_法球伤害 + B_player.防御 * 0.1);
       if (action_B.use != -1) {
@@ -331,7 +331,7 @@ export class biwu extends plugin {
         const harm = data.jineng.find(item => item.name == `诛仙四剑`).pr;
         B_伤害 *= (1 + harm);
         buff_B.诛仙四剑--;
-        msg.push(`${B_player.名号}感受到诛仙剑的号召,伤害提升${harm * 100}%,剩余回合${buff_B.诛仙四剑}\n`);
+        msg.push(`${B_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_B.诛仙四剑}\n`);
       }
       B_伤害 = Math.trunc(B_伤害);
       A_player.当前血量 -= B_伤害;
