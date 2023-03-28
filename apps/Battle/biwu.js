@@ -239,7 +239,9 @@ export class biwu extends plugin {
       A_伤害 = Math.trunc(A_伤害);
       B_player.当前血量 -= A_伤害;
       msg.push(`第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(A_baoji)}造成伤害${A_伤害}，${B_player.名号}剩余血量${B_player.当前血量}\n`);
-
+      e.reply(msg);
+      await sleep(500);
+      msg=[];
       //B
       action_B = await JSON.parse(await redis.get('xiuxian:player:' + B_QQ[num].QQ + ':bisai'));
       //清空cd
