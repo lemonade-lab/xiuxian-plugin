@@ -1,14 +1,10 @@
 # Xiuxian-Plugin<a  href='https://gitee.com/ningmengchongshui/xiuxian-plugin/stargazers'><img src='https://gitee.com/ningmengchongshui/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
 
-修仙插件 2.0.0
-
-在线体验 759055676
-
-[`☞工作室官网文档`](http://three-point-of-water.gitee.io/point/)
+在线体验 759055676 [`☞工作室官网文档`](http://three-point-of-water.gitee.io/point/)
 
 #### 安装机器人
 
-miaomiao-Bot 喵崽版[`☞建议使用`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+miao-Bot 喵崽版[`☞建议使用`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
 
 Yunzai-Bot 喵喵版[`☞维护中`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
@@ -22,13 +18,7 @@ git clone --depth=1 -b main  https://gitee.com/ningmengchongshui/xiuxian-plugin.
 | --------- | ------------ | 
 | #修仙帮助 | 查看具体功能 | 
 | #修仙管理 | 查看管理功能 | 
-| #修仙更新 | 修仙单独更新 | 
 
-| 发行日期            | 仓库名                  | 版本号 |
-| ------------------- | ----------------------- | ------ |
-| 2023 年 01 月 24 日 | xiuxian-plugin          | V2.0   |
-| 2022 年 09 月 21 日 | xiuxian-emulator-plugin | V1.2   |
-| 2022 年 08 月 10 日 | xiuxian-emulator-plugin | V1.0   |
 
 #### 开源协议
 
