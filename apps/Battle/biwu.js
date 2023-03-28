@@ -1,18 +1,11 @@
 import { plugin } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
-import {
-  existplayer,
-  Read_player,
-  sleep,
-  ifbaoji,
-  Harm,
-  baojishanghai,
+import {existplayer,Read_player,sleep,ifbaoji,Harm,baojishanghai,
 } from '../../model/xiuxian.js';
 
 /**
  * 战斗类
  */
-let i = 0;
 let A_QQ = [];
 let B_QQ = [];
 
@@ -61,12 +54,15 @@ export class biwu extends plugin {
     let B = atItem[0].qq; //后手
 
     if (A == B) {
-      e.reply('你还跟自己修炼上了是不是?');
       return;
     }
     let ifexistplay_B = await existplayer(B);
     if (!ifexistplay_B) {
       e.reply('修仙者不可对凡人出手!');
+      return;
+    }
+    if (B_QQ.some(item => item.QQ == A || item.QQ == B) || A_QQ.some(item => item.QQ == A || item.QQ == B)) {
+      e.reply('你或他已经在战斗中了');
       return;
     }
     A_QQ.push({
@@ -79,9 +75,7 @@ export class biwu extends plugin {
       技能: ['四象封印', '桃园结义', '长生诀', '祝水咒', '阴风蚀骨', '万年俱灰', '心烦意乱', '失魂落魄', '玄冰封印', '诛仙四剑'],
       选择技能: []
     });
-    i++;
-    this.battle(e, i - 1);
-
+    this.battle(e, (A_QQ.length-1));
     return;
   }
 
@@ -361,8 +355,11 @@ export class biwu extends plugin {
     else if (B_player.当前血量 <= 0) {
       e.reply(`${A_player.名号}win!`)
     }
+    //删除配置
     action_A = null;
     action_B = null;
+    A_QQ[num]=null;
+    B_QQ[num]=null;
     await redis.set('xiuxian:player:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A));
     await redis.set('xiuxian:player:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B));
     return;
