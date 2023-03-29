@@ -450,8 +450,8 @@ export class SecretPlace extends plugin {
       player.魔道值 < 1 &&
       (player.灵根.type == '转生' || player.level_id > 41)
     ) {
-      dazhe = 0.7;
-      e.reply(player.名号 + '使用了道具仙境优惠券,本次消耗减少30%');
+      dazhe = 0.5;
+      e.reply(player.名号 + '使用了道具仙境优惠券,本次消耗减少50%');
       await Add_najie_thing(usr_qq, '仙境优惠券', '道具', -1);
     }
     let Price = weizhi.Price * dazhe;
