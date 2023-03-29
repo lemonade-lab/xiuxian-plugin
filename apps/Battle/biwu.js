@@ -188,7 +188,7 @@ export class biwu extends plugin {
       }
       if (buff_A.祝水咒) {
         const hp = data.jineng.find(item => item.name == `祝水咒`).pr;
-        A_player.当前血量 += Math.trunc(A_player.血量上限 * (1 + hp));
+        A_player.当前血量 += Math.trunc(A_player.血量上限 * hp);
         buff_A.祝水咒--;
         msg.push(`${A_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${buff_A.祝水咒}\n`);
       }
@@ -203,11 +203,11 @@ export class biwu extends plugin {
           buff_A.四象封印 = action_A.技能[action_A.use].last;
         }
         else if (action_A.技能[action_A.use].name == '桃园结义') {
-          B_player.当前血量 += Math.trunc(B_player.当前血量 * (1 + action_A.技能[action_A.use].pr));
-          A_player.当前血量 += Math.trunc(A_player.当前血量 * (1 + action_A.技能[action_A.use].pr));
+          B_player.当前血量 += Math.trunc(B_player.当前血量 * action_A.技能[action_A.use].pr);
+          A_player.当前血量 += Math.trunc(A_player.当前血量 * action_A.技能[action_A.use].pr);
         }
         else if (action_A.技能[action_A.use].name == '长生诀') {
-          A_player.当前血量 += Math.trunc(A_player.血量上限 * (1 + action_A.技能[action_A.use].pr));
+          A_player.当前血量 += Math.trunc(A_player.血量上限 * action_A.技能[action_A.use].pr);
         }
         else if (action_A.技能[action_A.use].name == '祝水咒') {
           buff_A.祝水咒 = action_A.技能[action_A.use].last;
@@ -289,7 +289,7 @@ export class biwu extends plugin {
       }
       if (buff_B.祝水咒) {
         const hp = data.jineng.find(item => item.name == `祝水咒`).pr;
-        B_player.当前血量 += Math.trunc(B_player.血量上限 * (1 + hp));
+        B_player.当前血量 += Math.trunc(B_player.血量上限 * hp);
         buff_B.祝水咒--;
         msg.push(`${B_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${buff_B.祝水咒}\n`);
       }
@@ -302,11 +302,11 @@ export class biwu extends plugin {
           buff_B.四象封印 = action_B.技能[action_B.use].last;
         }
         else if (action_B.技能[action_B.use].name == '桃园结义') {
-          B_player.当前血量 += Math.trunc(B_player.当前血量 * (1 + action_B.技能[action_B.use].pr));
+          B_player.当前血量 += Math.trunc(B_player.当前血量 * action_B.技能[action_B.use].pr);
           A_player.当前血量 += Math.trunc(A_player.当前血量 * (1 + action_B.技能[action_B.use].pr));
         }
         else if (action_B.技能[action_B.use].name == '长生诀') {
-          B_player.当前血量 += Math.trunc(B_player.血量上限 * (1 + action_B.技能[action_B.use].pr));
+          B_player.当前血量 += Math.trunc(B_player.血量上限 * action_B.技能[action_B.use].pr);
         }
         else if (action_B.技能[action_B.use].name == '祝水咒') {
           buff_B.祝水咒 = action_B.技能[action_B.use].last;
