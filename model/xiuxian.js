@@ -3169,9 +3169,9 @@ export async function synchronization(e) {
     if (now_level_id < 42) {
       player.power_place = 1;
     }
-    await Write_equipment(usr_qq, equipment);
     await Write_najie(usr_qq, najie);
     await Write_player(usr_qq, player);
+    await Write_equipment(usr_qq, equipment);
   }
   e.reply('存档同步结束');
 
