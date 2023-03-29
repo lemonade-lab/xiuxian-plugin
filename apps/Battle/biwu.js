@@ -1,6 +1,7 @@
 import { plugin } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
-import {existplayer,Read_player,sleep,ifbaoji,Harm,baojishanghai,
+import {
+  existplayer, Read_player, sleep, ifbaoji, Harm, baojishanghai,ForwardMsg
 } from '../../model/xiuxian.js';
 
 /**
@@ -75,7 +76,7 @@ export class biwu extends plugin {
       技能: ['四象封印', '桃园结义', '长生诀', '祝水咒', '阴风蚀骨', '万年俱灰', '心烦意乱', '失魂落魄', '玄冰封印', '诛仙三剑'],
       选择技能: []
     });
-    this.battle(e, (A_QQ.length-1));
+    this.battle(e, (A_QQ.length - 1));
     return;
   }
 
@@ -93,12 +94,12 @@ export class biwu extends plugin {
     const B = JSON.parse(JSON.stringify(B_player));
     let msg_A = [`指令样式:#选择技能1,2,3\n请选择你本局携带的技能:`];
     for (const i in A_QQ[num].技能) {
-      const cd=data.jineng.find(item => item.name == A_QQ[num].技能[i]).cd;
+      const cd = data.jineng.find(item => item.name == A_QQ[num].技能[i]).cd;
       msg_A.push(`\n${i * 1 + 1}、${A_QQ[num].技能[i]} cd:${cd}`);
     }
     let msg_B = [`指令样式:#选择技能1,2,3\n请选择你本局携带的技能:`];
     for (const i in B_QQ[num].技能) {
-      const cd=data.jineng.find(item => item.name == B_QQ[num].技能[i]).cd;
+      const cd = data.jineng.find(item => item.name == B_QQ[num].技能[i]).cd;
       msg_B.push(`\n${i * 1 + 1}、${B_QQ[num].技能[i]} cd:${cd}`)
     }
     //推送私人
@@ -120,6 +121,7 @@ export class biwu extends plugin {
     await redis.set('xiuxian:player:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B));
     let buff_A = {};
     let buff_B = {};
+    let msgg=[];
     while (A_player.当前血量 > 0 && B_player.当前血量 > 0) {
 
       msg_A = [`指令样式:#释放技能1\n第${cnt}回合,是否释放以下技能:`];
@@ -238,10 +240,7 @@ export class biwu extends plugin {
       }
       A_伤害 = Math.trunc(A_伤害);
       B_player.当前血量 -= A_伤害;
-      msg.push(`第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(A_baoji)}造成伤害${A_伤害}，${B_player.名号}剩余血量${B_player.当前血量}`);
-      e.reply(msg);
-      await sleep(200);
-      msg=[];
+      msg.push(`第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(A_baoji)}造成伤害${A_伤害}，${B_player.名号}剩余血量${B_player.当前血量}\n`);
       //B
       action_B = await JSON.parse(await redis.get('xiuxian:player:' + B_QQ[num].QQ + ':bisai'));
       //清空cd
@@ -338,7 +337,10 @@ export class biwu extends plugin {
       msg.push(`第${cnt}回合,${B_player.名号}普通攻击，${ifbaoji(B_baoji)}造成伤害${B_伤害}，${A_player.名号}剩余血量${A_player.当前血量}`);
       //持续回合减少
       cnt++;
-      e.reply(msg);
+      //推送私人
+      Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg);
+      Bot.pickMember(e.group_id, B_QQ[num].QQ).sendMsg(msg);
+      msgg.push(msg);
       action_A.use = -1
       action_B.use = -1
       await redis.set('xiuxian:player:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A));
@@ -351,6 +353,8 @@ export class biwu extends plugin {
       B_player.防御 = B.防御;
       B_player.暴击率 = B.暴击率;
     }
+    await ForwardMsg(e, msgg);
+    await sleep(200);
     if (A_player.当前血量 <= 0) {
       e.reply(`${B_player.名号}win!`)
     }
@@ -360,8 +364,8 @@ export class biwu extends plugin {
     //删除配置
     action_A = null;
     action_B = null;
-    A_QQ[num]=null;
-    B_QQ[num]=null;
+    A_QQ[num] = null;
+    B_QQ[num] = null;
     await redis.set('xiuxian:player:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A));
     await redis.set('xiuxian:player:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B));
     return;
