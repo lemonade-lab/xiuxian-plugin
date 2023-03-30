@@ -12,22 +12,22 @@ export class BoxBank extends plugin {
             reg: "^#金银置换.*$",
             fnc: "substitution",
           },
-          {
-            reg: "^#金银存储.*$",
-            fnc: "storage",
-          },
-          {
-            reg: "^#金银取出.*$",
-            fnc: "withdraw",
-          },
-          {
-            reg: "^#金银白条.*$",
-            fnc: "whiteBar",
-          },
-          {
-            reg: "^#金银消条.*$",
-            fnc: "deleteWhiteBar",
-          },
+        //   {
+        //     reg: "^#金银存储.*$",
+        //     fnc: "storage",
+        //   },
+        //   {
+        //     reg: "^#金银取出.*$",
+        //     fnc: "withdraw",
+        //   },
+        //   {
+        //     reg: "^#金银白条.*$",
+        //     fnc: "whiteBar",
+        //   },
+        //   {
+        //     reg: "^#金银消条.*$",
+        //     fnc: "deleteWhiteBar",
+        //   },
         ],
       })
     );
