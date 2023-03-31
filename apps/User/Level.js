@@ -594,11 +594,6 @@ export class Level extends plugin {
     if (!flag) {
       return;
     }
-    //防止继续其他娱乐行为
-    if (game_action == 0) {
-      e.reply('修仙：游戏进行中...');
-      return;
-    }
     let player = await Read_player(usr_qq);
     //境界
     let now_level = data.Level_list.find(

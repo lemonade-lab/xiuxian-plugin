@@ -49,7 +49,7 @@ export class DSC extends plugin {
     //攻击
     let Attack = 100000 * 神魄段数;
     //防御
-    let Defence = 10000 * 神魄段数;
+    let Defence = 15000 * 神魄段数;
     //奖励下降
     let Reward = 1200 * 神魄段数;
     if (Reward > 400000) Reward = 400000;
@@ -182,7 +182,7 @@ export class DSC extends plugin {
       //攻击
       let Attack = 100000 * 神魄段数;
       //防御
-      let Defence = 10000 * 神魄段数;
+      let Defence = 15000 * 神魄段数;
       //奖励下降
       let Reward = 1200 * 神魄段数;
       if (Reward > 400000) Reward = 400000;
