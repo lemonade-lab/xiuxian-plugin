@@ -19,10 +19,10 @@ export class tzzyt extends plugin {
           reg: '^#挑战镇妖塔$',
           fnc: 'WorldBossBattle',
         },
-        /*{
+        {
           reg: '^#一键挑战镇妖塔$',
           fnc: 'all_WorldBossBattle',
-        },*/
+        },
       ],
     });
   }
@@ -39,6 +39,15 @@ export class tzzyt extends plugin {
       return;
     }
     let player = data.getData('player', usr_qq);
+    const equipment = await data.getData('equipment', usr_qq);
+    const type = ['武器', '护具', '法宝'];
+    for (let j of type) {
+      if (equipment[j].atk < 10 &&
+        equipment[j].def < 10 &&
+        equipment[j].HP < 10)
+        e.reply('请更换其他固定数值装备爬塔');
+        return;
+    }
     if (player.镇妖塔层数 > 6000) {
       e.reply('已达到上限');
       return;
@@ -206,6 +215,15 @@ export class tzzyt extends plugin {
       return;
     }
     let player = data.getData('player', usr_qq);
+    const equipment = await data.getData('equipment', usr_qq);
+    const type = ['武器', '护具', '法宝'];
+    for (let j of type) {
+      if (equipment[j].atk < 10 &&
+        equipment[j].def < 10 &&
+        equipment[j].HP < 10)
+        e.reply('请更换其他固定数值装备爬塔');
+        return;
+    }
     let lingshi = 0;
     let cengshu = 0;
     while (player.当前血量 > 0) {
