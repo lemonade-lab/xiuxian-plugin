@@ -38,12 +38,11 @@ export class tzzyt extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let player =await data.getData('player', usr_qq);
+    let player = await data.getData('player', usr_qq);
     const equipment = data.getData('equipment', usr_qq);
     const type = ['武器', '护具', '法宝'];
     for (let j of type) {
-      if (equipment[j].atk < 10 &&equipment[j].def < 10 &&equipment[j].HP < 10)
-      {
+      if (equipment[j].atk < 10 && equipment[j].def < 10 && equipment[j].HP < 10) {
         e.reply('请更换其他固定数值装备爬塔');
         return;
       }
@@ -57,22 +56,16 @@ export class tzzyt extends plugin {
     let Attack = 0;
     let Defence = 0;
     let Reward = 0;
-    if (ZYTcs < 100) {
-      Health = 33000 * ZYTcs + 10000;
-      Attack = 15000 * ZYTcs + 10000;
-      Defence = 24000 * ZYTcs + 10000;
-      Reward = 260 * ZYTcs + 100;
-    } else if (ZYTcs >= 100 && ZYTcs < 200) {
-      Health = 50000 * ZYTcs + 10000;
+    Health = 50000 * ZYTcs + 10000;
       Attack = 22000 * ZYTcs + 10000;
       Defence = 36000 * ZYTcs + 10000;
-      Reward = 360 * ZYTcs + 1000;
-    } else if (ZYTcs >= 200) {
-      Health = 90000 * ZYTcs + 10000;
-      Attack = 40000 * ZYTcs + 10000;
-      Defence = 70000 * ZYTcs + 10000;
-      Reward = 700 * ZYTcs + 1000;
-    }
+      if (ZYTcs < 100) {
+        Reward = 260 * ZYTcs + 100;
+      } else if (ZYTcs >= 100 && ZYTcs < 200) {
+        Reward = 360 * ZYTcs + 1000;
+      } else if (ZYTcs >= 200) {
+        Reward = 700 * ZYTcs + 1000;
+      }
     if (Reward > 400000) Reward = 400000;
     let bosszt = {
       Health: Health,
@@ -105,8 +98,8 @@ export class tzzyt extends plugin {
     let BOSSCurrentAttack = bosszt.isAngry
       ? Math.trunc(bosszt.Attack * 1.8)
       : bosszt.isWeak
-      ? Math.trunc(bosszt.Attack * 0.7)
-      : bosszt.Attack;
+        ? Math.trunc(bosszt.Attack * 0.7)
+        : bosszt.Attack;
     let BOSSCurrentDefence = bosszt.isWeak
       ? Math.trunc(bosszt.Defence * 0.7)
       : bosszt.Defence;
@@ -147,7 +140,7 @@ export class tzzyt extends plugin {
       } else {
         let BOSS_To_Player_Damage = Harm(
           BOSSCurrentAttack,
-          Math.trunc(player.防御 * 0.1)
+          Math.trunc(player.防御)
         );
         if (Random > 0.94) {
           msg.push('未知妖物的攻击被你破解了');
@@ -214,12 +207,11 @@ export class tzzyt extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let player =await data.getData('player', usr_qq);
-    const equipment =await data.getData('equipment', usr_qq);
+    let player = await data.getData('player', usr_qq);
+    const equipment = await data.getData('equipment', usr_qq);
     const type = ['武器', '护具', '法宝'];
     for (let j of type) {
-      if (equipment[j].atk < 10 &&equipment[j].def < 10 &&equipment[j].HP < 10)
-      {
+      if (equipment[j].atk < 10 && equipment[j].def < 10 && equipment[j].HP < 10) {
         e.reply('请更换其他固定数值装备爬塔');
         return;
       }
@@ -232,20 +224,14 @@ export class tzzyt extends plugin {
       let Attack = 0;
       let Defence = 0;
       let Reward = 0;
+      Health = 50000 * ZYTcs + 10000;
+      Attack = 22000 * ZYTcs + 10000;
+      Defence = 36000 * ZYTcs + 10000;
       if (ZYTcs < 100) {
-        Health = 33000 * ZYTcs + 10000;
-        Attack = 15000 * ZYTcs + 10000;
-        Defence = 24000 * ZYTcs + 10000;
         Reward = 260 * ZYTcs + 100;
       } else if (ZYTcs >= 100 && ZYTcs < 200) {
-        Health = 50000 * ZYTcs + 10000;
-        Attack = 22000 * ZYTcs + 10000;
-        Defence = 36000 * ZYTcs + 10000;
         Reward = 360 * ZYTcs + 1000;
       } else if (ZYTcs >= 200) {
-        Health = 90000 * ZYTcs + 10000;
-        Attack = 40000 * ZYTcs + 10000;
-        Defence = 70000 * ZYTcs + 10000;
         Reward = 700 * ZYTcs + 1000;
       }
       if (Reward > 400000) Reward = 400000;
@@ -266,8 +252,8 @@ export class tzzyt extends plugin {
       let BOSSCurrentAttack = bosszt.isAngry
         ? Math.trunc(bosszt.Attack * 1.8)
         : bosszt.isWeak
-        ? Math.trunc(bosszt.Attack * 0.7)
-        : bosszt.Attack;
+          ? Math.trunc(bosszt.Attack * 0.7)
+          : bosszt.Attack;
       let BOSSCurrentDefence = bosszt.isWeak
         ? Math.trunc(bosszt.Defence * 0.7)
         : bosszt.Defence;
@@ -303,14 +289,13 @@ export class tzzyt extends plugin {
           msg.push(
             `${player.名号}${ifbaoji(
               SuperAttack
-            )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${
-              bosszt.Health
+            )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${bosszt.Health
             }`
           );
         } else {
           let BOSS_To_Player_Damage = Harm(
             BOSSCurrentAttack,
-            Math.trunc(player.防御 * 0.1)
+            Math.trunc(player.防御)
           );
           if (Random > 0.94) {
             msg.push('未知妖物的攻击被你破解了');
