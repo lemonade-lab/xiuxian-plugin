@@ -18,6 +18,7 @@ import {
   Add_血气,
   Add_najie_thing,
   dujie,
+  Go
 } from '../../model/xiuxian.js';
 import { clearInterval } from 'timers';
 
@@ -589,9 +590,10 @@ export class Level extends plugin {
       return;
     }
     //获取游戏状态
-    let game_action = await redis.get(
-      'xiuxian:player:' + usr_qq + ':game_action'
-    );
+    let flag = await Go(e);
+    if (!flag) {
+      return;
+    }
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...');
