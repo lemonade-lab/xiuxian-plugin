@@ -19,10 +19,10 @@ export class tzzyt extends plugin {
           reg: '^#挑战镇妖塔$',
           fnc: 'WorldBossBattle',
         },
-        {
+        /*{
           reg: '^#一键挑战镇妖塔$',
           fnc: 'all_WorldBossBattle',
-        },
+        },*/
       ],
     });
   }
