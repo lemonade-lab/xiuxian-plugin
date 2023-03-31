@@ -627,21 +627,10 @@ export class Level extends plugin {
     let now_level_id = data.Level_list.find(
       item => item.level == now_level
     ).level_id;
-    if (now_level_id == 54) {
-      e.reply(`您已是此界凡人`);
-      return;
-    }
     //修为
     let now_exp = player.修为;
     //修为
-    let need_exp;
-    try {
-      need_exp = data.Level_list.find(item => item.level == now_level).exp;
-    } catch {
-      need_exp = data.Level_list.find(
-        item => item.level_id == now_level_id
-      ).exp;
-    }
+    let need_exp = data.Level_list.find(item => item.level_id == now_level_id).exp;
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
       return;
