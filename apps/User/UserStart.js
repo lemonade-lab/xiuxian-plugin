@@ -46,10 +46,10 @@ export class UserStart extends plugin {
           reg: '^#踏入仙途$',
           fnc: 'Create_player',
         },
-        {
+        /*{
           reg: '^#再入仙途$',
           fnc: 'reCreate_player',
-        },
+        },*/
         {
           reg: '^#我的练气$',
           fnc: 'Show_player',
