@@ -607,20 +607,6 @@ export class Level extends plugin {
       e.reply(`你灵根未开，不能渡劫！`);
       return;
     }
-    //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
-    action = JSON.parse(action);
-    //不为空
-    if (action != null) {
-      let action_end_time = action.end_time;
-      let now_time = new Date().getTime();
-      if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60);
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
-        e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒');
-        return;
-      }
-    }
     if (player.power_place == 0) {
       //已经开了
       e.reply('你已度过雷劫，请感应仙门#登仙');
@@ -717,10 +703,14 @@ export class Level extends plugin {
       action: '渡劫', //动作
       end_time: new Date().getTime() + action_time, //结束时间
       time: action_time, //持续时间
-      shutup: '1', //闭关状态-关闭
+      plant: '1', //采药-开启
+      shutup: '1', //闭关状态-开启
       working: '1', //降妖状态-关闭
       Place_action: '1', //秘境状态---关闭
       Place_actionplus: '1', //沉迷---关闭
+      mojie: '1', //魔界状态---关闭
+      xijie: '1', //洗劫状态开启
+      mine: '1', //采矿-开启
       power_up: '0', //渡劫状态--开启
       ///以下都不是基础字段
       power_Grade: y, //雷等级，也就是最多次数限制
