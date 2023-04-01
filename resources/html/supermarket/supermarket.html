@@ -31,10 +31,16 @@
             {{each Exchange_list}}
             <div class="user_font">
               <div>
+                {{if $value.name.class=="装备"}}
                 <div style="display: inline-block">
                   【{{$value.name.class}}】{{$value.name.name}}
                   【{{$value.pinji}}】
                 </div>
+                {{else}}
+                <div style="display: inline-block">
+                  【{{$value.name.class}}】{{$value.name.name}}
+                </div>
+                {{/if}}
                 <div class="number">No.{{$value.num}}</div>
               </div>
               {{if $value.name.class=="装备"}} {{if $value.name.atk>10 ||
