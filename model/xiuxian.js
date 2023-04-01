@@ -356,7 +356,7 @@ export async function get_danyao_img(e) {
   const najie = await Read_najie(usr_qq);
   let danyao_have = [];
   let danyao_need = [];
-  const danyao = ['danyao_list', 'timedanyao_list'];
+  const danyao = ['danyao_list', 'timedanyao_list','newdanyao_list'];
   for (const i of danyao) {
     for (const j of data[i]) {
       if (
