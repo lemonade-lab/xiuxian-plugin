@@ -683,9 +683,9 @@ export class Level extends plugin {
     e.reply('[' + player.名号 + ']' + '\n雷抗：' + x + '\n成功率：' + l + '%\n灵根：' + player.灵根.type + '\n需渡' + y + '道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！');
     let aconut=1;
     let time = setInterval(() => {
-      const flag=this.LevelTask(e,n,m,y,aconut);
+      this.LevelTask(e,n,m,y,aconut);
       aconut++;
-      if (!flag) 
+      if (aconut>y) 
       {
         dj=0;
         clearInterval(time);
@@ -722,7 +722,7 @@ export class Level extends plugin {
           await Write_player(usr_qq, player);
           msg.push('\n' + player.名号 + '成功度过了第' + aconut + '道雷劫！可以#登仙，飞升仙界啦！');
           e.reply(msg);
-          return 0;
+          return;
         }
         else {
           //血量计算根据雷来计算！
@@ -732,7 +732,7 @@ export class Level extends plugin {
           await Write_player(usr_qq, player);
           msg.push('\n本次雷伤：' + variable.toFixed(2) + '\n本次雷抗：' + power_distortion + '\n' + player.名号 + '成功度过了第' + aconut + '道雷劫！\n下一道雷劫在一分钟后落下！');
           e.reply(msg)
-          return 1;
+          return;
         }
       }
       else {
@@ -745,7 +745,7 @@ export class Level extends plugin {
         //未挡住雷杰
         msg.push('\n本次雷伤' + variable.toFixed(2) + '\n本次雷抗：' + power_distortion + '\n第' + aconut + '道雷劫落下了，可惜' + player.名号 + '未能抵挡，渡劫失败了！');
         e.reply(msg)
-        return 0;
+        return;
       }
     }
   }
