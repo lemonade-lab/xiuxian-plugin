@@ -1,9 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
+import { plugin, common, segment } from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
-import fs from 'node:fs';
-import { segment } from 'oicq';
+import fs from 'fs';
 import {
   Add_najie_thing,
   Add_修为,
@@ -227,11 +225,9 @@ export class SecretPlaceplusTask extends plugin {
               if (thing_name) {
                 await Add_najie_thing(player_id, thing_name, thing_class, n);
               }
-              last_msg += `${m}不巧撞见[${
-                B_player.名号
-              }],经过一番战斗,击败对手,获得修为${xiuwei},气血${qixue},剩余血量${
-                A_player.当前血量 + Data_battle.A_xue
-              },剩余次数${action.cishu - 1}`;
+              last_msg += `${m}不巧撞见[${B_player.名号
+                }],经过一番战斗,击败对手,获得修为${xiuwei},气血${qixue},剩余血量${A_player.当前血量 + Data_battle.A_xue
+                },剩余次数${action.cishu - 1}`;
               let random = Math.random(); //万分之一出神迹
               let newrandom = 0.995;
               let dy = await Read_danyao(player_id);

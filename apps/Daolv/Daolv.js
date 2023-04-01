@@ -1,6 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin ,segment} from '../../api/api.js';
 import { fstadd_qinmidu, sleep, __PATH } from '../../model/xiuxian.js';
-import { segment } from 'oicq';
 import {
   exist_najie_thing,
   existplayer,

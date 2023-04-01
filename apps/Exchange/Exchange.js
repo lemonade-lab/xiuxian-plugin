@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin ,segment} from '../../api/api.js';
 import {
   existplayer,
   exist_najie_thing,

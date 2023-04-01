@@ -1,9 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
+import { plugin ,common,segment} from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'node:fs';
-import { segment } from 'oicq';
 import {
   Read_player,
   isNotNull,

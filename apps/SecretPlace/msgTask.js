@@ -1,9 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
+import { plugin, common, puppeteer } from '../../api/api.js';
 import config from '../../model/Config.js';
 import Show from '../../model/show.js';
 import { Read_temp, Write_temp } from '../../model/xiuxian.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 
 /**
  * 定时任务

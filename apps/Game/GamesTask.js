@@ -1,6 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
-import data from '../../model/XiuxianData.js';
+import { plugin ,common} from '../../api/api.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
 import { AppName } from '../../app.config.js';

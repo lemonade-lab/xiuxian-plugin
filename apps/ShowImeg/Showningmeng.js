@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin, common, segment } from '../../api/api.js';
 import { __PATH } from '../../model/xiuxian.js';
 import {
   get_gongfa_img,

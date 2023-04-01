@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin, common, segment } from '../../api/api.js';
 import { __PATH } from '../../model/xiuxian.js';
 import data from '../../model/XiuxianData.js';
 import {

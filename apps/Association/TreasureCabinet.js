@@ -1,7 +1,6 @@
 import { plugin, segment } from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
-import fs from 'fs';
 import {
   Read_danyao,
   Write_danyao,
@@ -10,7 +9,6 @@ import {
   __PATH,
   shijianc,
 } from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js';
 
 /**
  * 洞天福地

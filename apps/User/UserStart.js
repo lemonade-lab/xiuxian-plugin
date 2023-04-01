@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin, common, segment ,puppeteer} from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
@@ -22,7 +22,6 @@ import {
   get_player_img,
 } from '../../model/xiuxian.js';
 import { Add_HP, Add_修为, Add_najie_thing } from '../../model/xiuxian.js';
-import { segment } from 'oicq';
 import { __PATH } from '../../model/xiuxian.js';
 
 /**

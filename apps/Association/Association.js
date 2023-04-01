@@ -1,9 +1,8 @@
-import { plugin, segment } from '../../api/api.js';
+import { plugin, segment ,puppeteer} from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import fs from 'fs';
 import Show from '../../model/show.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import {
   timestampToTime,
   shijianc,

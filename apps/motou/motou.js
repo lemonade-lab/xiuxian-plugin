@@ -1,7 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin } from '../../api/api.js';
 import { __PATH } from '../../model/xiuxian.js';
 import data from '../../model/XiuxianData.js';
-import config from '../../model/Config.js';
 import {
   existplayer,
   Read_player,
@@ -9,7 +8,6 @@ import {
   Add_najie_thing,
   Write_player,
 } from '../../model/xiuxian.js';
-
 export class motou extends plugin {
   constructor() {
     super({

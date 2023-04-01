@@ -1,5 +1,4 @@
-//插件加载
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin, puppeteer, segment } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
@@ -21,8 +20,6 @@ import {
 } from '../../model/xiuxian.js';
 import { Read_player, __PATH, Read_danyao } from '../../model/xiuxian.js';
 import Show from '../../model/show.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import { segment } from 'oicq';
 /**
  * 全局变量
  */
@@ -954,8 +951,7 @@ export class Occupation extends plugin {
     await Add_najie_thing(usr_qq, equipment_name, '装备', 1, pinji);
     await Add_职业经验(usr_qq, res_exp);
     e.reply(
-      `${tmp_msg1}打造成功，获得${equipment_name}(${
-        ['劣', '普', '优', '精', '极', '绝', '顶'][pinji]
+      `${tmp_msg1}打造成功，获得${equipment_name}(${['劣', '普', '优', '精', '极', '绝', '顶'][pinji]
       })×1${tmp_msg2}`
     );
   }
@@ -1006,9 +1002,9 @@ export class Occupation extends plugin {
               (1.2 + 0.05 * player.occupation_level) *
               player.level_id *
               player.Physique_id) /
-              42 /
-              42 /
-              4
+            42 /
+            42 /
+            4
           ),
           QQ: this_qq,
         };
@@ -1023,9 +1019,9 @@ export class Occupation extends plugin {
             (1.2 + 0.05 * player.occupation_level) *
             player.level_id *
             player.Physique_id) /
-            42 /
-            42 /
-            4
+          42 /
+          42 /
+          4
         ),
         QQ: 1,
       };

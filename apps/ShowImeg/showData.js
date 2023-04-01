@@ -1,4 +1,4 @@
-import plugin from "../../../../lib/plugins/plugin.js"
+import { plugin, common, segment } from '../../api/api.js';
 import { __PATH, get_equipment_img,get_adminset_img,get_power_img,get_statezhiye_img,get_state_img,
     get_statemax_img,get_association_img} from "../../model/xiuxian.js"
 

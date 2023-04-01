@@ -1,9 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import common from '../../../../lib/common/common.js';
+import { plugin, common, segment ,puppeteer} from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
-import { segment } from 'oicq';
 import {
   isNotNull,
   exist_najie_thing,

@@ -1,5 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
-import { segment } from 'oicq';
+import { plugin ,segment} from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import { existplayer, ifbaoji, Harm } from '../../model/xiuxian.js';
 

@@ -1,3 +1,4 @@
+import { plugin } from '../../api/api.js';
 import {
   exist_najie_thing,
   Read_najie,
@@ -9,7 +10,6 @@ import {
   convert2integer,
   Add_仙宠,
 } from '../../model/xiuxian.js';
-import plugin from '../../../../lib/plugins/plugin.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 

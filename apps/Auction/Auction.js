@@ -1,8 +1,5 @@
-import { plugin, common } from '../../api/api.js';
-import data from '../../model/XiuxianData.js';
+import { plugin, common, puppeteer } from '../../api/api.js';
 import config from '../../model/Config.js';
-import Show from '../../model/show.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 import {
   __PATH,
   existplayer,
@@ -136,7 +133,7 @@ export class Auction extends plugin {
     // await redis.set('xiuxian:AuctionofficialTask_E', e.group_id); NOTE: 过时的
     try {
       await redis.del(redisGlKey);
-    } catch (_) {}
+    } catch (_) { }
     await redis.sAdd(redisGlKey, String(e.group_id));
     return e.reply('星阁体系在本群开启！');
   }
@@ -205,8 +202,7 @@ export class Auction extends plugin {
     // let start_price = auction.start_price;
     let last_price = auction.last_price;
     let new_price = e.msg.replace('#星阁出价', '');
-    if (auction.last_offer_player==usr_qq)
-    {
+    if (auction.last_offer_player == usr_qq) {
       e.reply('不能自己给自己抬价哦!');
       return;
     }

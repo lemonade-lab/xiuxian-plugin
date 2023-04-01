@@ -1,5 +1,4 @@
-//插件加载
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin } from '../../api/api.js';
 import fs from 'fs';
 import {
   existplayer,

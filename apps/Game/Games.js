@@ -1,5 +1,4 @@
-//插件加载
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin ,common,puppeteer} from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';
@@ -16,7 +15,6 @@ import {
 } from '../../model/xiuxian.js';
 import { Add_灵石, Add_修为 } from '../../model/xiuxian.js';
 import Show from '../../model/show.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
 
 /**
  * 全局变量

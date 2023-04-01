@@ -1,11 +1,9 @@
-//插件加载
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import {
   Read_player,
   existplayer,
-  ForwardMsg,
   isNotNull,
   sleep,
   exist_najie_thing,

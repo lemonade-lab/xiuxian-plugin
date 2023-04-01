@@ -1,4 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js';
+import { plugin, common, segment ,puppeteer} from '../../api/api.js';
 import config from '../../model/Config.js';
 import {
   Read_player,
