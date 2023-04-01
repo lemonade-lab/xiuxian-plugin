@@ -672,20 +672,7 @@ export class Level extends plugin {
     l = l * 100;
     l = l.toFixed(2);
     e.reply('天道：就你，也敢逆天改命？');
-    e.reply(
-      '[' +
-        player.名号 +
-        ']' +
-        '\n雷抗：' +
-        x +
-        '\n成功率：' +
-        l +
-        '%\n灵根：' +
-        player.灵根.type +
-        '\n需渡' +
-        y +
-        '道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！'
-    );
+    e.reply('[' +player.名号 +']' +'\n雷抗：' +x +'\n成功率：' +l +'%\n灵根：' +player.灵根.type +'\n需渡' +y +'道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！');
     //在redis中添加状态
     var time = 60; //时间(分)九个雷，//60分钟。防延迟。
     let action_time = 60000 * time; //持续时间，单位毫秒
@@ -714,10 +701,7 @@ export class Level extends plugin {
     //初始化雷数
     redis.set('xiuxian:player:' + usr_qq + ':power_aconut', 1);
     //redis设置动作
-    await redis.set(
-      'xiuxian:player:' + usr_qq + ':action',
-      JSON.stringify(arr)
-    );
+    await redis.set('xiuxian:player:' + usr_qq + ':action',JSON.stringify(arr));
     return;
   }
 

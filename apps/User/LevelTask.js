@@ -36,9 +36,7 @@ export class LevelTask extends plugin {
   async LevelTask() {
     //获取缓存中人物列表
     let playerList = [];
-    let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+    let files = fs.readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player').filter(file => file.endsWith('.json'));
     for (let file of files) {
       file = file.replace('.json', '');
       playerList.push(file);
@@ -244,39 +242,6 @@ export class LevelTask extends plugin {
                 } else {
                   await this.pushInfo(player_id, is_group, msg);
                 }
-              }
-            }
-            //时间已经过了
-            else {
-              msg.push(player.名号 + '陷入了时间轮回，正在拉回！');
-              player.当前血量 = 1;
-              player.修为 = player.修为 * 0.5;
-              player.修为 = Math.trunc(player.修为);
-              player.power_place = 1;
-              await Write_player(player_id, player);
-              //还没有渡劫完成
-              //直接重新开始渡劫
-              //关闭所有状态，并把次数清零
-              let arr = action;
-              arr.shutup = 1; //闭关状态
-              arr.working = 1; //降妖状态
-              arr.power_up = 1; //渡劫状态
-              arr.Place_action = 1; //秘境
-              //开仙门
-              await redis.set(
-                'xiuxian:player:' + player_id + ':power_aconut',
-                1
-              );
-              arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
-              delete arr.group_id; //结算完去除group_id
-              await redis.set(
-                'xiuxian:player:' + player_id + ':action',
-                JSON.stringify(arr)
-              );
-              if (is_group) {
-                await this.pushInfo(push_address, is_group, msg);
-              } else {
-                await this.pushInfo(player_id, is_group, msg);
               }
             }
           }
