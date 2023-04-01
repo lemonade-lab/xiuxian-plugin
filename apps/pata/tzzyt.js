@@ -143,7 +143,7 @@ export class tzzyt extends plugin {
       } else {
         let BOSS_To_Player_Damage = Harm(
           BOSSCurrentAttack,
-          Math.trunc(player.防御)
+          Math.trunc(player.防御*0.9)
         );
         if (Random > 0.94) {
           msg.push('未知妖物的攻击被你破解了');
@@ -303,7 +303,7 @@ export class tzzyt extends plugin {
         } else {
           let BOSS_To_Player_Damage = Harm(
             BOSSCurrentAttack,
-            Math.trunc(player.防御)
+            Math.trunc(player.防御*0.9)
           );
           if (Random > 0.94) {
             msg.push('未知妖物的攻击被你破解了');
