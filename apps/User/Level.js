@@ -588,11 +588,6 @@ export class Level extends plugin {
     if (!e.isGroup) {
       return;
     }
-    //获取游戏状态
-    let flag = await Go(e);
-    if (!flag) {
-      return;
-    }
     let player = await Read_player(usr_qq);
     //境界
     let now_level = data.Level_list.find(
@@ -684,7 +679,7 @@ export class Level extends plugin {
         clearInterval(time);
       }
     }, 60000);
-    
+
     return;
   }
 

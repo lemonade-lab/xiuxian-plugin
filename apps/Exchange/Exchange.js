@@ -61,12 +61,10 @@ export class Exchange extends plugin {
       return;
     }
     //防并发cd
-    var time0 = 2; //分钟cd
+    var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get(
-      'xiuxian:player:' + usr_qq + ':ExchangeCD'
-    );
+    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
@@ -76,10 +74,7 @@ export class Exchange extends plugin {
       let ExchangeCDs = Math.trunc(
         ((ExchangeCD + transferTimeout - now_time) % 60000) / 1000
       );
-      e.reply(
-        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
-          `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
-      );
+      e.reply(`每${transferTimeout / 1000 / 60}分钟操作一次，` +`CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
       //存在CD。直接返回
       return;
     }
@@ -87,11 +82,6 @@ export class Exchange extends plugin {
     //记录本次执行时间
     await redis.set('xiuxian:player:' + usr_qq + ':ExchangeCD', now_time);
     let player = await Read_player(usr_qq);
-    //let now_level_id;
-    if (!isNotNull(player.level_id)) {
-      e.reply('请先#同步信息');
-      return;
-    }
     let x = parseInt(e.msg.replace('#下架', '')) - 1;
     try {
       Exchange = await Read_Exchange();
@@ -104,15 +94,10 @@ export class Exchange extends plugin {
       e.reply(`没有编号为${x + 1}的物品`);
       return;
     }
-    //let thingqq = e.msg.replace("#", '');
     let thingqq = Exchange[x].qq;
     //对比qq是否相等
     if (thingqq != usr_qq) {
       e.reply('不能下架别人上架的物品');
-      return;
-    }
-    if (player.灵石 <= 100000) {
-      e.reply('下架物品至少上交10w保证金,你手里似乎没有那么多');
       return;
     }
     let thing_name = Exchange[x].name.name;
@@ -131,9 +116,8 @@ export class Exchange extends plugin {
     }
     Exchange.splice(x, 1);
     await Write_Exchange(Exchange);
-    await Add_灵石(usr_qq, -100000);
     await redis.set('xiuxian:player:' + thingqq + ':Exchange', 0);
-    e.reply(player.名号 + '赔10W保金！并下架' + thing_name + '成功！');
+    e.reply(player.名号 + '下架' + thing_name + '成功！');
     return;
   }
 
@@ -240,6 +224,14 @@ export class Exchange extends plugin {
     }
     let now_time = new Date().getTime();
     let whole = Math.trunc(thing_value * thing_amount);
+    const off=Math.trunc(whole*0.05);
+    let player = await Read_player(usr_qq);
+    if (player.灵石<off)
+    {
+      e.reply('就这点灵石还想上架');
+      return;
+    }
+    await Add_灵石(usr_qq,-off);
     let time = 2; //分钟
     let wupin;
     if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
@@ -310,25 +302,16 @@ export class Exchange extends plugin {
       return;
     }
     //防并发cd
-    var time0 = 1; //分钟cd
+    var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get(
-      'xiuxian:player:' + usr_qq + ':ExchangeCD'
-    );
+    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
-      let ExchangeCDm = Math.trunc(
-        (ExchangeCD + transferTimeout - now_time) / 60 / 1000
-      );
-      let ExchangeCDs = Math.trunc(
-        ((ExchangeCD + transferTimeout - now_time) % 60000) / 1000
-      );
-      e.reply(
-        `每${transferTimeout / 1000 / 60}操作一次，` +
-          `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
-      );
+      let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000);
+      let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000);
+      e.reply(`每${transferTimeout / 1000 / 60}操作一次，` +`CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
       //存在CD。直接返回
       return;
     }
@@ -371,13 +354,7 @@ export class Exchange extends plugin {
     if (player.灵石 > money) {
       //加物品
       if (thing_class == '装备' || thing_class == '仙宠') {
-        await Add_najie_thing(
-          usr_qq,
-          Exchange[x].name,
-          thing_class,
-          n,
-          Exchange[x].pinji2
-        );
+        await Add_najie_thing(usr_qq,Exchange[x].name,thing_class,n,Exchange[x].pinji2);
       } else {
         await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       }

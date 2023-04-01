@@ -1,12 +1,7 @@
-import { plugin, common } from '../../api/api.js';
+import { plugin} from '../../api/api.js';
 import config from '../../model/Config.js';
-import fs from 'node:fs';
-import {
-  Add_najie_thing,
-  Write_Exchange,
-  Read_Exchange,
+import {Add_najie_thing,Write_Exchange,Read_Exchange,
 } from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js';
 /**
  * 定时任务
  */
@@ -22,7 +17,7 @@ export class ExchangeTask extends plugin {
     });
     this.set = config.getdefSet('task', 'task');
     this.task = {
-      cron: this.set.ExchangeTask,
+      cron: this.set.AutoBackUpTask,
       name: 'ExchangeTask',
       fnc: () => this.Exchangetask(),
     };
@@ -37,47 +32,20 @@ export class ExchangeTask extends plugin {
       await Write_Exchange([]);
       Exchange = await Read_Exchange();
     }
-
-    for (var i = 0; i < Exchange.length; i++) {
-      //自我清除
-      let tmp_exchange = Exchange.filter(item => item.qq == Exchange[i].qq);
-      for (let ex of tmp_exchange) {
-        Add_najie_thing(item.qq, item.name.name, item.name.class, item.amount);
-      }
-      Exchange = Exchange.filter(item => item.qq != Exchange[i].qq);
-      await Write_Exchange(Exchange);
+    const now_time = new Date().getTime();
+    for (let i=0;i<Exchange.length;i++)
+    {
+      const time=(now_time-Exchange[i].now_time)/24/60/60/1000;
+      if (time<3) break;
+      const usr_qq = Exchange[i].qq;
+      let thing = Exchange[i].name.name;
+      const quanity = Exchange[i].aconut;
+      if (Exchange[i].name.class == '装备' || Exchange[i].name.class == '仙宠') thing = Exchange[i].name;
+      await Add_najie_thing(usr_qq, thing, Exchange[i].name.class, quanity, Exchange[i].name.pinji);
+      Exchange.splice(i, 1);
+      i--;
     }
-
-    //遍历所有人，清除redis
-    let playerList = [];
-    let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
-    for (let file of files) {
-      file = file.replace('.json', '');
-      playerList.push(file);
-    }
-    for (let player_id of playerList) {
-      await redis.set('xiuxian:player:' + player_id + ':Exchange', 0);
-    }
+    await Write_Exchange(Exchange);
     return;
-  }
-
-  /**
-   * 推送消息，群消息推送群，或者推送私人
-   * @param id
-   * @param is_group
-   * @returns {Promise<void>}
-   */
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch(err => {
-          Bot.logger.mark(err);
-        });
-    } else {
-      await common.relpyPrivate(id, msg);
-    }
   }
 }
