@@ -1,9 +1,8 @@
-import { plugin, segment } from '../../api/api.js';
+import { plugin} from '../../api/api.js';
 import {
   existplayer,
   exist_najie_thing,
   Read_player,
-  isNotNull,
   Read_najie,
   foundthing,
   __PATH,
@@ -232,7 +231,6 @@ export class Exchange extends plugin {
       return;
     }
     await Add_灵石(usr_qq,-off);
-    let time = 2; //分钟
     let wupin;
     if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
       let pinji2 = ['劣', '普', '优', '精', '极', '绝', '顶'];
@@ -246,7 +244,6 @@ export class Exchange extends plugin {
         aconut: thing_amount,
         whole: whole,
         now_time: now_time,
-        end_time: now_time + 60000 * time,
       };
       await Add_najie_thing(
         usr_qq,
@@ -263,7 +260,6 @@ export class Exchange extends plugin {
         aconut: thing_amount,
         whole: whole,
         now_time: now_time,
-        end_time: now_time + 60000 * time,
       };
       await Add_najie_thing(
         usr_qq,
@@ -277,7 +273,6 @@ export class Exchange extends plugin {
     //写入
     await Write_Exchange(Exchange);
     e.reply('上架成功！');
-    await redis.set('xiuxian:player:' + usr_qq + ':Exchange', 1);
     return;
   }
 
@@ -311,7 +306,7 @@ export class Exchange extends plugin {
     if (now_time < ExchangeCD + transferTimeout) {
       let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000);
       let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000);
-      e.reply(`每${transferTimeout / 1000 / 60}操作一次，` +`CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
+      e.reply(`每${transferTimeout / 1000 / 60}分钟操作一次，` +`CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
       //存在CD。直接返回
       return;
     }
@@ -367,8 +362,6 @@ export class Exchange extends plugin {
       //删除该位置信息
       Exchange = Exchange.filter(item => item.aconut > 0);
       await Write_Exchange(Exchange);
-      //改状态
-      await redis.set('xiuxian:player:' + thingqq + ':Exchange', 0);
       e.reply(`${player.名号}在冲水堂购买了${n}个【${thing_name}】！`);
     } else {
       e.reply('醒醒，你没有那么多钱！');

@@ -1,4 +1,5 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
+import { plugin} from '../../api/api.js';
+import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
 import {
   Read_player,
@@ -84,6 +85,7 @@ export class UserSellAll extends plugin {
         },
       ],
     });
+    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
   }
   async all_zhuangbei(e) {
     //不开放私聊功能
@@ -285,6 +287,18 @@ export class UserSellAll extends plugin {
       e.reply(`此人尚未踏入仙途`);
       return;
     }
+    let now = new Date();
+    let nowTime = now.getTime(); //获取当前时间戳
+    let lastgetbung_time = await redis.get('xiuxian:player:' + A_qq + ':last_getbung_time');
+    lastgetbung_time = parseInt(lastgetbung_time);
+    let transferTimeout = parseInt(this.xiuxianConfigData.CD.transfer * 60000);
+    if (nowTime < lastgetbung_time + transferTimeout) {
+      let waittime_m = Math.trunc(
+        (lastgetbung_time + transferTimeout - nowTime) / 60 / 1000);
+      let waittime_s = Math.trunc(((lastgetbung_time + transferTimeout - nowTime) % 60000) / 1000);
+      e.reply(`每${transferTimeout / 1000 / 60}分钟赠送一次，正在CD中，` +`剩余cd: ${waittime_m}分${waittime_s}秒`);
+      return;
+    }
     let A_najie = await data.getData('najie', A_qq);
     let wupin = [
       '装备',
@@ -327,6 +341,7 @@ export class UserSellAll extends plugin {
       }
     }
     e.reply(`一键赠送完成`);
+    await redis.set('xiuxian:player:' + A_qq + ':last_getbung_time', nowTime);
     return;
   }
   async Sell_all_huishou(e) {

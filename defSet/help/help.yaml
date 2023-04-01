@@ -146,6 +146,9 @@
     - icon: help-icon_5
       title: '#冲水堂+类型'
       desc: '交易系统'
+    - icon: help-icon_5
+      title: '#聚宝堂+类型'
+      desc: '交易系统'
     - icon: help-icon_52
       title: '#星阁拍卖行'
       desc: '看看现在在拍卖什么'

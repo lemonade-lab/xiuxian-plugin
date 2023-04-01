@@ -395,6 +395,15 @@ export default class Game extends base {
       ...myData,
     };
   }
+
+  async get_forumData(myData) {
+    this.model = 'forum';
+    return {
+      ...this.screenData,
+      saveId: 'forum',
+      ...myData,
+    };
+  }
   //斩首堂
   async get_yuansu(myData) {
     this.model = 'tujian';

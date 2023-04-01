@@ -1141,9 +1141,8 @@ export class Occupation extends plugin {
         await Write_player(usr_qq, player);
         await Add_职业经验(usr_qq, 1100);
         last_msg +=
-          '【全服公告】' +
           player_B.名号 +
-          '反杀了无名侠客,无名侠客只获得了部分辛苦钱';
+          '反杀了你,只获得了部分辛苦钱';
       }
       if (msg.length > 100) {
       } else {
@@ -1161,7 +1160,7 @@ export class Occupation extends plugin {
       'xiuxian:player:' + usr_qq + ':shangjing',
       JSON.stringify(action)
     );
-    if (last_msg == '你惩戒了仙路窃贼,获得了部分灵石') {
+    if (last_msg == '你惩戒了仙路窃贼,获得了部分灵石' || last_msg ==player_B.名号 +'反杀了你,只获得了部分辛苦钱') {
       e.reply(last_msg);
     } else {
       const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';

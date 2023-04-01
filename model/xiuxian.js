@@ -2815,6 +2815,16 @@ export async function Write_Exchange(wupin) {
   return;
 }
 
+//写入交易表
+export async function Write_Forum(wupin) {
+  let dir = path.join(__PATH.Exchange, `Forum.json`);
+  let new_ARR = JSON.stringify(wupin, '', '\t');
+  fs.writeFileSync(dir, new_ARR, 'utf8', err => {
+    console.log('写入成功', err);
+  });
+  return;
+}
+
 //读交易表
 export async function Read_Exchange() {
   let dir = path.join(`${__PATH.Exchange}/Exchange.json`);
@@ -2828,6 +2838,21 @@ export async function Read_Exchange() {
   //将字符串数据转变成数组格式
   Exchange = JSON.parse(Exchange);
   return Exchange;
+}
+
+//读交易表
+export async function Read_Forum() {
+  let dir = path.join(`${__PATH.Exchange}/Forum.json`);
+  let Forum = fs.readFileSync(dir, 'utf8', (err, data) => {
+    if (err) {
+      console.log(err);
+      return 'error';
+    }
+    return data;
+  });
+  //将字符串数据转变成数组格式
+  Forum = JSON.parse(Forum);
+  return Forum;
 }
 
 export async function get_supermarket_img(e, thing_class) {
@@ -2874,6 +2899,55 @@ export async function get_supermarket_img(e, thing_class) {
   };
   const data1 = await new Show(e).get_supermarketData(supermarket_data);
   let img = await puppeteer.screenshot('supermarket', {
+    ...data1,
+  });
+  return img;
+}
+
+export async function get_forum_img(e, thing_class) {
+  let usr_qq = e.user_id;
+  let ifexistplay = data.existData('player', usr_qq);
+  if (!ifexistplay) {
+    return;
+  }
+  let Forum;
+  try {
+    Forum = await Read_Forum();
+  } catch {
+    await Write_Forum([]);
+    Forum = await Read_Forum();
+  }
+  for (let i = 0; i < Forum.length; i++) {
+    Forum[i].num = i + 1;
+  }
+  if (thing_class) {
+    Forum = Forum.filter(item => item.class == thing_class);
+  }
+
+  Forum.sort(function (a, b) {
+    return b.now_time - a.now_time;
+  });
+  for (let i = 0; i < Forum.length; i++) {
+    for (let j = i + 1; j < Forum.length; j++) {
+      if (Forum[i].name == Forum[j].name) {
+        if (Forum[i].price < Forum[j].price) {
+          Forum.splice(i, 1);
+          i--;
+          break;
+        }
+        else if (Forum[i].price > Forum[j].price) {
+          Forum.splice(j, 1);
+          j--;
+        }
+      }
+    }
+  }
+  let forum_data = {
+    user_id: usr_qq,
+    Forum: Forum,
+  };
+  const data1 = await new Show(e).get_forumData(forum_data);
+  let img = await puppeteer.screenshot('forum', {
     ...data1,
   });
   return img;
