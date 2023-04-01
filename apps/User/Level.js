@@ -16,14 +16,14 @@ import {
   Add_修为,
   Add_血气,
   Add_najie_thing,
-  dujie,
-  Go,
+  dujie
 } from '../../model/xiuxian.js';
 import { clearInterval } from 'timers';
 
 /**
  * 全局变量
  */
+let dj=0;
 /**
  * 境界模块
  */
@@ -663,6 +663,12 @@ export class Level extends plugin {
       e.reply('天空一声巨响，未降下雷劫，就被天道的气势震死了。');
       return;
     }
+    if (dj>0)
+    {
+      e.reply('已经有人在渡劫了,建议打死他');
+      return;
+    }
+    dj++;
     //渡劫成功率
     var l = (x - n) / (p + y * 0.1);
     l = l * 100;
