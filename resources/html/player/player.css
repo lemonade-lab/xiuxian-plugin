@@ -256,7 +256,8 @@
   padding: 10px;
   flex-grow: 2;
   width: 135px;
-  background: #ffffffbf;
+  opacity: 0.95;
+  background: #ffcc4d80;
   border-top: 1px solid #395b39a3;
   border-left: 1px solid #1c6d3cb3;
   border-right: 1px solid #1c6d3cb3;
