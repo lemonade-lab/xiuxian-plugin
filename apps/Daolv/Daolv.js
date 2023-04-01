@@ -1,4 +1,4 @@
-import { plugin ,segment} from '../../api/api.js';
+import { plugin, segment } from '../../api/api.js';
 import { fstadd_qinmidu, sleep, __PATH } from '../../model/xiuxian.js';
 import {
   exist_najie_thing,

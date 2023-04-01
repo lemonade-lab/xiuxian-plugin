@@ -1,4 +1,4 @@
-import { plugin, common, segment ,puppeteer} from '../../api/api.js';
+import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import {
   Read_player,

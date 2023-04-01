@@ -1,4 +1,4 @@
-import { plugin ,puppeteer} from '../../api/api.js';
+import { plugin, puppeteer } from '../../api/api.js';
 import Help from '../../model/help.js';
 import Help2 from '../../model/shituhelp.js';
 import md5 from 'md5';

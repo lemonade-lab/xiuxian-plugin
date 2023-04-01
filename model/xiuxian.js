@@ -3,13 +3,13 @@ import path from 'path';
 import data from './XiuxianData.js';
 import { Writeit, Read_it } from './duanzaofu.js';
 import { AppName } from '../app.config.js';
-import puppeteer from "../../../lib/puppeteer/puppeteer.js"
-import config from "./Config.js"
-import Config from "./Config.js"
+import puppeteer from '../../../lib/puppeteer/puppeteer.js';
+import config from './Config.js';
+import Config from './Config.js';
 import Show from './show.js';
-let xiuxianConfigData = config.getConfig("xiuxian", "xiuxian")
+let xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
 //定义一个版本信息的常量,获取默认文件配置文件信息
-const versionData = Config.getdefSet("version", "version");
+const versionData = Config.getdefSet('version', 'version');
 /**
  * 全局
  */
@@ -1396,7 +1396,7 @@ export async function get_tuzhi_img(e, all_level) {
 export async function setu(e) {
   e.reply(
     `玩命加载图片中,请稍后...   ` +
-    '\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)'
+      '\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)'
   );
   let url;
   //setu接口地址
@@ -1424,17 +1424,17 @@ export async function setu(e) {
   let px = res.data[0].width + '*' + res.data[0].height; //获取图片宽高
   msg.push(
     'User: ' +
-    author +
-    '\nUid: ' +
-    uid +
-    '\nTitle: ' +
-    title +
-    '\nPid: ' +
-    pid +
-    '\nPx: ' +
-    px +
-    '\nLink: ' +
-    link
+      author +
+      '\nUid: ' +
+      uid +
+      '\nTitle: ' +
+      title +
+      '\nPid: ' +
+      pid +
+      '\nPx: ' +
+      px +
+      '\nLink: ' +
+      link
   );
   await sleep(1000);
   //最后回复消息
@@ -2558,56 +2558,48 @@ export async function zd_battle(AA_player, BB_player) {
       )}%`
     );
   }
-  if (B_player.魔道值>999)
-  {
+  if (B_player.魔道值 > 999) {
     let buff = Math.trunc(B_player.魔道值 / 1000) / 100 + 1;
     if (buff > 1.3) buff = 1.3;
     if (B_player.灵根.name == '九重魔功') buff += 0.2;
     msg.push(
       '魔道值为' +
-      B_player.名号 +
-      '提供了' +
-      Math.trunc((buff - 1) * 100) +
-      '%的增伤'
+        B_player.名号 +
+        '提供了' +
+        Math.trunc((buff - 1) * 100) +
+        '%的增伤'
     );
-  }
-  else if(B_player.魔道值 < 1 && (B_player.灵根.type == '转生' || B_player.level_id > 41))
-  {
+  } else if (
+    B_player.魔道值 < 1 &&
+    (B_player.灵根.type == '转生' || B_player.level_id > 41)
+  ) {
     let buff = B_player.神石 * 0.0015;
     if (buff > 0.3) buff = 0.3;
     if (B_player.灵根.name == '九转轮回体') buff += 0.2;
     msg.push(
-      '神石为' +
-      B_player.名号 +
-      '提供了' +
-      Math.trunc(buff * 100) +
-      '%的减伤'
+      '神石为' + B_player.名号 + '提供了' + Math.trunc(buff * 100) + '%的减伤'
     );
   }
-  if (A_player.魔道值>999)
-  {
+  if (A_player.魔道值 > 999) {
     let buff = Math.trunc(A_player.魔道值 / 1000) / 100 + 1;
     if (buff > 1.3) buff = 1.3;
     if (A_player.灵根.name == '九重魔功') buff += 0.2;
     msg.push(
       '魔道值为' +
-      A_player.名号 +
-      '提供了' +
-      Math.trunc((buff - 1) * 100) +
-      '%的增伤'
+        A_player.名号 +
+        '提供了' +
+        Math.trunc((buff - 1) * 100) +
+        '%的增伤'
     );
-  }
-  else if(A_player.魔道值 < 1 && (A_player.灵根.type == '转生' || A_player.level_id > 41))
-  {
+  } else if (
+    A_player.魔道值 < 1 &&
+    (A_player.灵根.type == '转生' || A_player.level_id > 41)
+  ) {
     let buff = A_player.神石 * 0.0015;
     if (buff > 0.3) buff = 0.3;
     if (A_player.灵根.name == '九转轮回体') buff += 0.2;
     msg.push(
-      '神石为' +
-      A_player.名号 +
-      '提供了' +
-      Math.trunc(buff * 100) +
-      '%的减伤'
+      '神石为' + A_player.名号 + '提供了' + Math.trunc(buff * 100) + '%的减伤'
     );
   }
   while (A_player.当前血量 > 0 && B_player.当前血量 > 0) {
@@ -2629,12 +2621,12 @@ export async function zd_battle(AA_player, BB_player) {
           A_player.防御 += Math.trunc(A_player.防御 * A_player.仙宠.加成);
           msg.push(
             '仙宠【' +
-            A_player.仙宠.name +
-            '】辅佐了[' +
-            A_player.名号 +
-            ']，使其伤害增加了[' +
-            Math.trunc(A_player.仙宠.加成 * 100) +
-            '%]'
+              A_player.仙宠.name +
+              '】辅佐了[' +
+              A_player.名号 +
+              ']，使其伤害增加了[' +
+              Math.trunc(A_player.仙宠.加成 * 100) +
+              '%]'
           );
         }
       }
@@ -2740,8 +2732,9 @@ export async function zd_battle(AA_player, BB_player) {
       A_player.防御 = BB_player.防御;
     }
     msg.push(`第${cnt2 + 1}回合：
-  ${A_player.名号}攻击了${B_player.名号}，${ifbaoji(baoji)}造成伤害${伤害}，${B_player.名号
-      }剩余血量${B_player.当前血量}`);
+  ${A_player.名号}攻击了${B_player.名号}，${ifbaoji(baoji)}造成伤害${伤害}，${
+      B_player.名号
+    }剩余血量${B_player.当前血量}`);
     cnt++;
   }
   if (cnt % 2 == 0) {
@@ -2891,20 +2884,20 @@ export async function jindi(e, weizhi, addres) {
   for (let i = 0; i < weizhi.length; i++) {
     msg.push(
       weizhi[i].name +
-      '\n' +
-      '等级：' +
-      weizhi[i].Grade +
-      '\n' +
-      '极品：' +
-      weizhi[i].Best[0] +
-      '\n' +
-      '灵石：' +
-      weizhi[i].Price +
-      '灵石' +
-      '\n' +
-      '修为：' +
-      weizhi[i].experience +
-      '修为'
+        '\n' +
+        '等级：' +
+        weizhi[i].Grade +
+        '\n' +
+        '极品：' +
+        weizhi[i].Best[0] +
+        '\n' +
+        '灵石：' +
+        weizhi[i].Price +
+        '灵石' +
+        '\n' +
+        '修为：' +
+        weizhi[i].experience +
+        '修为'
     );
   }
   await ForwardMsg(e, msg);
@@ -2916,16 +2909,16 @@ export async function Goweizhi(e, weizhi, addres) {
   for (let i = 0; i < weizhi.length; i++) {
     msg.push(
       weizhi[i].name +
-      '\n' +
-      '等级：' +
-      weizhi[i].Grade +
-      '\n' +
-      '极品：' +
-      weizhi[i].Best[0] +
-      '\n' +
-      '灵石：' +
-      weizhi[i].Price +
-      '灵石'
+        '\n' +
+        '等级：' +
+        weizhi[i].Grade +
+        '\n' +
+        '极品：' +
+        weizhi[i].Best[0] +
+        '\n' +
+        '灵石：' +
+        weizhi[i].Price +
+        '灵石'
     );
   }
   await ForwardMsg(e, msg);

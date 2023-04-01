@@ -133,7 +133,7 @@ export class Auction extends plugin {
     // await redis.set('xiuxian:AuctionofficialTask_E', e.group_id); NOTE: 过时的
     try {
       await redis.del(redisGlKey);
-    } catch (_) { }
+    } catch (_) {}
     await redis.sAdd(redisGlKey, String(e.group_id));
     return e.reply('星阁体系在本群开启！');
   }

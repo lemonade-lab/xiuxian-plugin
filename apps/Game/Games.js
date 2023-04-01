@@ -1,4 +1,4 @@
-import { plugin ,common,puppeteer} from '../../api/api.js';
+import { plugin, common, puppeteer } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { segment } from 'oicq';

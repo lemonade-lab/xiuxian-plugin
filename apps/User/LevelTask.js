@@ -1,4 +1,4 @@
-import { plugin, common, segment ,puppeteer} from '../../api/api.js';
+import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
 import {
@@ -75,7 +75,9 @@ export class LevelTask extends plugin {
             let power_n = action.power_n;
             let power_m = action.power_m;
             //获取雷次数
-            var aconut = await redis.get('xiuxian:player:' + player_id + ':power_aconut');
+            var aconut = await redis.get(
+              'xiuxian:player:' + player_id + ':power_aconut'
+            );
             //当前系数计算
             let power_distortion = await dujie(player_id);
             var xx = 1;
@@ -83,10 +85,13 @@ export class LevelTask extends plugin {
             let usr_qq = player_id;
             var yaocaolist = ['小吉祥草', '大吉祥草', '凝血草'];
             var leixinlist = ['草药'];
-            let thing_quantity = await exist_najie_thing(usr_qq,yaocaolist[0],leixinlist[0]);
+            let thing_quantity = await exist_najie_thing(
+              usr_qq,
+              yaocaolist[0],
+              leixinlist[0]
+            );
             if (!thing_quantity) {
-            } 
-            else {
+            } else {
               msg.push(`[小吉祥草]为你提高了20%雷抗\n`);
               x = x * 1.2;
               await Add_najie_thing(usr_qq, yaocaolist[0], leixinlist[0], -xx);
@@ -130,7 +135,13 @@ export class LevelTask extends plugin {
               if (power_distortion >= variable) {
                 //判断目前是第几雷，第九就是过了
                 if (aconut >= power_Grade) {
-                  msg.push('\n' +player.名号 +'成功度过了第' +aconut +'道雷劫！可以#登仙，飞升仙界啦！');
+                  msg.push(
+                    '\n' +
+                      player.名号 +
+                      '成功度过了第' +
+                      aconut +
+                      '道雷劫！可以#登仙，飞升仙界啦！'
+                  );
                   let arr = action;
                   //把状态都关了
                   arr.shutup = 1; //闭关状态
@@ -139,10 +150,16 @@ export class LevelTask extends plugin {
                   arr.Place_action = 1; //秘境
                   player.power_place = 0;
                   await Write_player(player_id, player);
-                  await redis.set('xiuxian:player:' + player_id + ':power_aconut',1);
+                  await redis.set(
+                    'xiuxian:player:' + player_id + ':power_aconut',
+                    1
+                  );
                   arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
                   delete arr.group_id; //结算完去除group_id
-                  await redis.set('xiuxian:player:' + player_id + ':action',JSON.stringify(arr));
+                  await redis.set(
+                    'xiuxian:player:' + player_id + ':action',
+                    JSON.stringify(arr)
+                  );
                   if (is_group) {
                     await this.pushInfo(push_address, is_group, msg);
                   } else {
@@ -157,11 +174,26 @@ export class LevelTask extends plugin {
                   await Write_player(player_id, player);
                   variable = Number(variable);
                   power_distortion = Number(power_distortion);
-                  msg.push('\n本次雷伤：' +variable.toFixed(2) +'\n本次雷抗：' +power_distortion.toFixed(2) +'\n' +player.名号 +'成功度过了第' +aconut +'道雷劫！\n下一道雷劫在一分钟后落下！');
+                  msg.push(
+                    '\n本次雷伤：' +
+                      variable.toFixed(2) +
+                      '\n本次雷抗：' +
+                      power_distortion.toFixed(2) +
+                      '\n' +
+                      player.名号 +
+                      '成功度过了第' +
+                      aconut +
+                      '道雷劫！\n下一道雷劫在一分钟后落下！'
+                  );
                   aconut = Number(aconut);
                   aconut++;
-                  await redis.set('xiuxian:player:' + player_id + ':power_aconut',aconut);
-                  aconut = await redis.get('xiuxian:player:' + player_id + ':power_aconut');
+                  await redis.set(
+                    'xiuxian:player:' + player_id + ':power_aconut',
+                    aconut
+                  );
+                  aconut = await redis.get(
+                    'xiuxian:player:' + player_id + ':power_aconut'
+                  );
                   if (is_group) {
                     await this.pushInfo(push_address, is_group, msg);
                   } else {
@@ -179,7 +211,17 @@ export class LevelTask extends plugin {
                 variable = Number(variable);
                 power_distortion = Number(power_distortion);
                 //未挡住雷杰
-                msg.push('\n本次雷伤' +variable.toFixed(2) +'\n本次雷抗：' +power_distortion +'\n第' +aconut +'道雷劫落下了，可惜' +player.名号 +'未能抵挡，渡劫失败了！');
+                msg.push(
+                  '\n本次雷伤' +
+                    variable.toFixed(2) +
+                    '\n本次雷抗：' +
+                    power_distortion +
+                    '\n第' +
+                    aconut +
+                    '道雷劫落下了，可惜' +
+                    player.名号 +
+                    '未能抵挡，渡劫失败了！'
+                );
 
                 let arr = action;
                 //关闭所有状态，并把次数清零
@@ -187,10 +229,16 @@ export class LevelTask extends plugin {
                 arr.working = 1; //降妖状态
                 arr.power_up = 1; //渡劫状态
                 arr.Place_action = 1; //秘境
-                await redis.set('xiuxian:player:' + player_id + ':power_aconut',1);
+                await redis.set(
+                  'xiuxian:player:' + player_id + ':power_aconut',
+                  1
+                );
                 arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
                 delete arr.group_id; //结算完去除group_id
-                await redis.set('xiuxian:player:' + player_id + ':action',JSON.stringify(arr));
+                await redis.set(
+                  'xiuxian:player:' + player_id + ':action',
+                  JSON.stringify(arr)
+                );
                 if (is_group) {
                   await this.pushInfo(push_address, is_group, msg);
                 } else {

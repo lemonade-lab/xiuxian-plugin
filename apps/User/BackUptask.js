@@ -1,4 +1,4 @@
-import { plugin, common, segment ,puppeteer} from '../../api/api.js';
+import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import { Read_najie, __PATH } from '../../model/xiuxian.js';
 import config from '../../model/Config.js';
 import { AppName } from '../../app.config.js';

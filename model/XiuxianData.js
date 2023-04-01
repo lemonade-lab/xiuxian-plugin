@@ -209,9 +209,7 @@ class XiuxianData {
     //锻造杂类列表
     this.zalei = JSON.parse(fs.readFileSync(`${this.lib_path}/锻造杂类.json`));
     //加载技能列表
-    this.jineng = JSON.parse(
-      fs.readFileSync(`${this.lib_path}/技能列表.json`)
-    );
+    this.jineng = JSON.parse(fs.readFileSync(`${this.lib_path}/技能列表.json`));
   }
 
   /**

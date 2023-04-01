@@ -1,4 +1,4 @@
-import { plugin, common, segment ,puppeteer} from '../../api/api.js';
+import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
@@ -17,7 +17,7 @@ import {
   Add_血气,
   Add_najie_thing,
   dujie,
-  Go
+  Go,
 } from '../../model/xiuxian.js';
 import { clearInterval } from 'timers';
 
@@ -629,7 +629,9 @@ export class Level extends plugin {
     //修为
     let now_exp = player.修为;
     //修为
-    let need_exp = data.Level_list.find(item => item.level_id == now_level_id).exp;
+    let need_exp = data.Level_list.find(
+      item => item.level_id == now_level_id
+    ).exp;
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
       return;

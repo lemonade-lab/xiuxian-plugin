@@ -1,4 +1,4 @@
-import { plugin, common, segment ,puppeteer} from '../../api/api.js';
+import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import fs from 'fs';
 import path from 'path';
 import Show from '../../model/show.js';

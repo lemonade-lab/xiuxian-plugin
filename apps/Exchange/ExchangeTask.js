@@ -1,4 +1,4 @@
-import { plugin ,common} from '../../api/api.js';
+import { plugin, common } from '../../api/api.js';
 import config from '../../model/Config.js';
 import fs from 'node:fs';
 import {
