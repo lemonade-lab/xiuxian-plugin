@@ -332,7 +332,7 @@ export class MoneyOperation extends plugin {
         } else if (code[0] > 100) {
           try {
             thing_name = najie.装备[code[0] - 101].name;
-            thing_piji=najie.装备[code[0] - 101].pinji;
+            code[1]=najie.装备[code[0] - 101].pinji;
           } catch {
             e.reply('装备代号输入有误!');
             return;
