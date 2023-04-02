@@ -127,7 +127,7 @@ export class Forum extends plugin {
     }
     let now_time = new Date().getTime();
     let whole = Math.trunc(thing_value * thing_amount);
-    let off = Math.trunc(whole * 0.05);
+    let off = Math.trunc(whole * 0.03);
     if (off < 100000) off = 100000;
     let player = await Read_player(usr_qq);
     if (player.灵石 < off + whole) {
