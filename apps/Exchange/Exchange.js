@@ -31,7 +31,7 @@ export class Exchange extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#冲水堂$',
+          reg: '^#冲水堂(装备|丹药|功法|道具|草药|仙宠)?$',
           fnc: 'show_supermarket',
         },
         {
@@ -173,7 +173,6 @@ export class Exchange extends plugin {
       } else if (code[0] > 100) {
         try {
           thing_name = najie.装备[code[0] - 101].name;
-          code[1]=najie.装备[code[0] - 101].pinji;
         } catch {
           e.reply('装备代号输入有误!');
           return;
@@ -295,7 +294,8 @@ export class Exchange extends plugin {
     if (!e.isGroup) {
       return;
     }
-    let img = await get_supermarket_img(e);
+    let thing_class = e.msg.replace('#冲水堂', '');
+    let img = await get_supermarket_img(e,thing_class);
     e.reply(img);
     return;
   }

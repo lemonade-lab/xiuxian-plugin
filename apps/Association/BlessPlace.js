@@ -151,7 +151,7 @@ export class BlessPlace extends plugin {
           let member_qq = ass.所有成员[i];
           //(攻击+防御+生命*0.5)*暴击率=理论战力
           let member_data = await Read_player(member_qq);
-          let power = member_data.攻击 + member_data.血量上限 * 0.5;
+          let power = member_data.攻击 + member_data.血量上限 * 0.1;
 
           power = Math.trunc(power);
           attackPower += power;
@@ -162,7 +162,7 @@ export class BlessPlace extends plugin {
           let member_qq = this_ass.所有成员[i];
           //(攻击+防御+生命*0.5)*暴击率=理论战力
           let member_data = await Read_player(member_qq);
-          let power = member_data.防御 + member_data.血量上限 * 0.5;
+          let power = member_data.防御 + member_data.血量上限 * 0.1;
 
           power = Math.trunc(power);
           defendPower += power;
@@ -205,12 +205,12 @@ export class BlessPlace extends plugin {
             `当前洞天已有宗门占据，${ass.宗门名称}造成了${attackPower}伤害！,一举攻破了${this_ass.宗门名称} ${defendPower}的防御，将对方赶了出去,占据了${dongTan.name}`
           );
         } else if (attackPower < defendPower) {
-          await data.setAssociation(this_ass.宗门名称, this_ass);
+          data.setAssociation(this_ass.宗门名称, this_ass);
           e.reply(
             `${ass.宗门名称}进攻了${this_ass.宗门名称}，对${this_ass.宗门名称}的防御造成了${attackPower}，可一瞬间${this_ass.宗门名称}的防御就回复到了${defendPower}`
           );
         } else {
-          await data.setAssociation(this_ass.宗门名称, this_ass);
+          data.setAssociation(this_ass.宗门名称, this_ass);
           e.reply(
             `${ass.宗门名称}进攻了${this_ass.宗门名称}，对${this_ass.宗门名称}的防御造成了${attackPower}，可一瞬间${this_ass.宗门名称}的防御就回复到了${defendPower}`
           );

@@ -2831,7 +2831,7 @@ export async function Read_Exchange() {
   return Exchange;
 }
 
-export async function get_supermarket_img(e) {
+export async function get_supermarket_img(e,thing_class) {
   let usr_qq = e.user_id;
   let ifexistplay = data.existData('player', usr_qq);
   if (!ifexistplay) {
@@ -2844,6 +2844,15 @@ export async function get_supermarket_img(e) {
     await Write_Exchange([]);
     Exchange_list = await Read_Exchange();
   }
+  if (thing_class)
+  {
+    Exchange_list = Exchange_list.filter(item => item.name.class == thing_class);
+  }
+  
+  Exchange_list.sort(function (a, b) {
+    return b.now_time - a.now_time;
+  });
+
   let supermarket_data = {
     user_id: usr_qq,
     Exchange_list: Exchange_list,
