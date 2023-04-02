@@ -1,4 +1,4 @@
-import { plugin,segment} from '../../api/api.js';
+import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import fs from 'fs';
@@ -267,18 +267,6 @@ export class MoneyOperation extends plugin {
     }
     let A_player = await data.getData('player', A_qq);
     let B_player = await data.getData('player', B_qq);
-    let now = new Date();
-    let nowTime = now.getTime(); //获取当前时间戳
-    let lastgetbung_time = await redis.get('xiuxian:player:' + A_qq + ':last_getbung_time');
-    lastgetbung_time = parseInt(lastgetbung_time);
-    let transferTimeout = parseInt(this.xiuxianConfigData.CD.transfer * 60000);
-    if (nowTime < lastgetbung_time + transferTimeout) {
-      let waittime_m = Math.trunc(
-        (lastgetbung_time + transferTimeout - nowTime) / 60 / 1000);
-      let waittime_s = Math.trunc(((lastgetbung_time + transferTimeout - nowTime) % 60000) / 1000);
-      e.reply(`每${transferTimeout / 1000 / 60}分钟赠送一次，正在CD中，` +`剩余cd: ${waittime_m}分${waittime_s}秒`);
-      return;
-    }
     //获取发送灵石数量
     let msg = e.msg.replace('#赠送', '');
     if (msg.startsWith('灵石')) {
@@ -291,6 +279,28 @@ export class MoneyOperation extends plugin {
       let lastlingshi = lingshi + Math.trunc(lingshi * cost);
       if (A_player.灵石 < lastlingshi) {
         e.reply([segment.at(A_qq), `你身上似乎没有${lastlingshi}灵石`]);
+        return;
+      }
+      let now = new Date();
+      let nowTime = now.getTime(); //获取当前时间戳
+      let lastgetbung_time = await redis.get(
+        'xiuxian:player:' + A_qq + ':last_getbung_time'
+      );
+      lastgetbung_time = parseInt(lastgetbung_time);
+      let transferTimeout = parseInt(
+        this.xiuxianConfigData.CD.transfer * 60000
+      );
+      if (nowTime < lastgetbung_time + transferTimeout) {
+        let waittime_m = Math.trunc(
+          (lastgetbung_time + transferTimeout - nowTime) / 60 / 1000
+        );
+        let waittime_s = Math.trunc(
+          ((lastgetbung_time + transferTimeout - nowTime) % 60000) / 1000
+        );
+        e.reply(
+          `每${transferTimeout / 1000 / 60}分钟赠送灵石一次，正在CD中，` +
+            `剩余cd: ${waittime_m}分${waittime_s}秒`
+        );
         return;
       }
       //交易
@@ -322,7 +332,7 @@ export class MoneyOperation extends plugin {
         } else if (code[0] > 100) {
           try {
             thing_name = najie.装备[code[0] - 101].name;
-            code[1] = najie.装备[code[0] - 101].pinji;
+            code[1]=najie.装备[code[0] - 101].pinji;
           } catch {
             e.reply('装备代号输入有误!');
             return;
@@ -404,7 +414,6 @@ export class MoneyOperation extends plugin {
         segment.at(B_qq),
         `${B_player.名号} 获得了由 ${A_player.名号}赠送的[${thing_name}]×${quantity}`,
       ]);
-      await redis.set('xiuxian:player:' + A_qq + ':last_getbung_time', nowTime);
     }
   }
 
@@ -433,10 +442,9 @@ export class MoneyOperation extends plugin {
     let acount = code[1];
     lingshi = await convert2integer(lingshi);
     acount = await convert2integer(acount);
-    const off = Math.trunc(0.03 * lingshi * acount);
     let player = await data.getData('player', usr_qq);
     //对比自己的灵石，看看够不够！
-    if (player.灵石 <= parseInt(lingshi * acount + off)) {
+    if (player.灵石 <= parseInt(lingshi * acount)) {
       e.reply(`红包数要比自身灵石数小噢`);
       return;
     }
@@ -445,15 +453,15 @@ export class MoneyOperation extends plugin {
     await redis.set('xiuxian:player:' + usr_qq + ':honbao', lingshi);
     await redis.set('xiuxian:player:' + usr_qq + ':honbaoacount', acount);
     //然后扣灵石
-    await Add_灵石(usr_qq, -(lingshi * acount + off));
+    await Add_灵石(usr_qq, -lingshi * acount);
     e.reply(
       '【全服公告】' +
-      player.名号 +
-      '发了' +
-      acount +
-      '个' +
-      lingshi +
-      '灵石的红包！'
+        player.名号 +
+        '发了' +
+        acount +
+        '个' +
+        lingshi +
+        '灵石的红包！'
     );
     return;
   }
@@ -485,7 +493,10 @@ export class MoneyOperation extends plugin {
       let waittime_s = Math.trunc(
         ((lastgetbung_time + transferTimeout - now_time) % 60000) / 1000
       );
-      e.reply(`每${transferTimeout / 1000 / 60}分钟抢一次，正在CD中，` +`剩余cd: ${waittime_m}分${waittime_s}秒`);
+      e.reply(
+        `每${transferTimeout / 1000 / 60}分钟抢一次，正在CD中，` +
+          `剩余cd: ${waittime_m}分${waittime_s}秒`
+      );
       return;
     }
     //要艾特对方，表示抢对方红包

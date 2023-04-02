@@ -2878,21 +2878,6 @@ export async function get_supermarket_img(e, thing_class) {
   Exchange_list.sort(function (a, b) {
     return b.now_time - a.now_time;
   });
-  for (let i = 0; i < Exchange_list.length; i++) {
-    for (let j = i + 1; j < Exchange_list.length; j++) {
-      if (Exchange_list[i].name.name == Exchange_list[j].name.name) {
-        if (Exchange_list[i].price > Exchange_list[j].price) {
-          Exchange_list.splice(i, 1);
-          i--;
-          break;
-        }
-        else if (Exchange_list[i].price < Exchange_list[j].price) {
-          Exchange_list.splice(j, 1);
-          j--;
-        }
-      }
-    }
-  }
   let supermarket_data = {
     user_id: usr_qq,
     Exchange_list: Exchange_list,
@@ -2927,21 +2912,6 @@ export async function get_forum_img(e, thing_class) {
   Forum.sort(function (a, b) {
     return b.now_time - a.now_time;
   });
-  for (let i = 0; i < Forum.length; i++) {
-    for (let j = i + 1; j < Forum.length; j++) {
-      if (Forum[i].name == Forum[j].name) {
-        if (Forum[i].price < Forum[j].price) {
-          Forum.splice(i, 1);
-          i--;
-          break;
-        }
-        else if (Forum[i].price > Forum[j].price) {
-          Forum.splice(j, 1);
-          j--;
-        }
-      }
-    }
-  }
   let forum_data = {
     user_id: usr_qq,
     Forum: Forum,
