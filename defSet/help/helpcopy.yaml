@@ -235,15 +235,3 @@
     - icon: help-icon_17
       title: '#修仙世界'
       desc: '查看玩家数量'
-
-- group: 灵笼棋局(数独)
-  list:
-    - icon: help-icon_53
-      title: '#开启棋局 #关闭棋局'
-      desc: '棋局开关'
-    - icon: help-icon_53
-      title: '#检查棋局'
-      desc: '全部填满后检查,若无错误,奖励灵石'
-    - icon: help-icon_53
-      title: '#当前棋局'
-      desc: '查看当前面板'

@@ -433,7 +433,7 @@ export class MoneyOperation extends plugin {
     let acount = code[1];
     lingshi = await convert2integer(lingshi);
     acount = await convert2integer(acount);
-    const off = Math.trunc(0.05 * lingshi * acount);
+    const off = Math.trunc(0.03 * lingshi * acount);
     let player = await data.getData('player', usr_qq);
     //对比自己的灵石，看看够不够！
     if (player.灵石 <= parseInt(lingshi * acount + off)) {
