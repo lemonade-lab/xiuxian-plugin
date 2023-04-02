@@ -29,7 +29,7 @@ export class Forum extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#聚宝堂(装备|丹药|功法|道具|草药|仙宠)?$',
+          reg: '^#聚宝堂(装备|丹药|功法|道具|草药|仙宠|材料)?$',
           fnc: 'show_supermarket',
         },
         {
