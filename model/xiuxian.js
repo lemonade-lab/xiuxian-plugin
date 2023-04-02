@@ -2846,7 +2846,7 @@ export async function get_supermarket_img(e,thing_class) {
   }
   if (thing_class)
   {
-    Exchange_list = Exchange_list.filter(item => item.name.class == thing_class);
+    //Exchange_list = Exchange_list.filter(item => item.name.class == thing_class);
   }
   
   Exchange_list.sort(function (a, b) {
