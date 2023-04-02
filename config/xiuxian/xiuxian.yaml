@@ -11,7 +11,7 @@ CD: #各种操作cd 必须为整数 单位：分
   timeplace: 7 #仙府
   forbiddenarea: 7 #禁地
   reborn: 360 # 重生
-  transfer: 360 # 转账
+  transfer: 240 # 转账
   honbao: 1 # 抢红包
 
 percentage:
