@@ -1097,7 +1097,7 @@ export class Occupation extends plugin {
     }
     let last_msg = '';
     if (qq != 1) {
-      let player_B = await Read_player(qq);
+      var player_B = await Read_player(qq);
       player_B.当前血量 = player_B.血量上限;
 
       player_B.法球倍率 = player_B.灵根.法球倍率;
