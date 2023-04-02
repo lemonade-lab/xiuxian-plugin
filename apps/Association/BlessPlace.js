@@ -151,7 +151,7 @@ export class BlessPlace extends plugin {
           let member_qq = ass.所有成员[i];
           //(攻击+防御+生命*0.5)*暴击率=理论战力
           let member_data = await Read_player(member_qq);
-          let power = member_data.攻击 + member_data.血量上限 * 0.1;
+          let power = member_data.攻击 + member_data.血量上限 * 0.5;
 
           power = Math.trunc(power);
           attackPower += power;
@@ -162,7 +162,7 @@ export class BlessPlace extends plugin {
           let member_qq = this_ass.所有成员[i];
           //(攻击+防御+生命*0.5)*暴击率=理论战力
           let member_data = await Read_player(member_qq);
-          let power = member_data.防御 + member_data.血量上限 * 0.1;
+          let power = member_data.防御 + member_data.血量上限 * 0.5;
 
           power = Math.trunc(power);
           defendPower += power;

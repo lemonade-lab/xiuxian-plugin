@@ -1396,7 +1396,7 @@ export async function get_tuzhi_img(e, all_level) {
 export async function setu(e) {
   e.reply(
     `玩命加载图片中,请稍后...   ` +
-      '\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)'
+    '\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)'
   );
   let url;
   //setu接口地址
@@ -1424,17 +1424,17 @@ export async function setu(e) {
   let px = res.data[0].width + '*' + res.data[0].height; //获取图片宽高
   msg.push(
     'User: ' +
-      author +
-      '\nUid: ' +
-      uid +
-      '\nTitle: ' +
-      title +
-      '\nPid: ' +
-      pid +
-      '\nPx: ' +
-      px +
-      '\nLink: ' +
-      link
+    author +
+    '\nUid: ' +
+    uid +
+    '\nTitle: ' +
+    title +
+    '\nPid: ' +
+    pid +
+    '\nPx: ' +
+    px +
+    '\nLink: ' +
+    link
   );
   await sleep(1000);
   //最后回复消息
@@ -2564,10 +2564,10 @@ export async function zd_battle(AA_player, BB_player) {
     if (B_player.灵根.name == '九重魔功') buff += 0.2;
     msg.push(
       '魔道值为' +
-        B_player.名号 +
-        '提供了' +
-        Math.trunc((buff - 1) * 100) +
-        '%的增伤'
+      B_player.名号 +
+      '提供了' +
+      Math.trunc((buff - 1) * 100) +
+      '%的增伤'
     );
   } else if (
     B_player.魔道值 < 1 &&
@@ -2586,10 +2586,10 @@ export async function zd_battle(AA_player, BB_player) {
     if (A_player.灵根.name == '九重魔功') buff += 0.2;
     msg.push(
       '魔道值为' +
-        A_player.名号 +
-        '提供了' +
-        Math.trunc((buff - 1) * 100) +
-        '%的增伤'
+      A_player.名号 +
+      '提供了' +
+      Math.trunc((buff - 1) * 100) +
+      '%的增伤'
     );
   } else if (
     A_player.魔道值 < 1 &&
@@ -2621,12 +2621,12 @@ export async function zd_battle(AA_player, BB_player) {
           A_player.防御 += Math.trunc(A_player.防御 * A_player.仙宠.加成);
           msg.push(
             '仙宠【' +
-              A_player.仙宠.name +
-              '】辅佐了[' +
-              A_player.名号 +
-              ']，使其伤害增加了[' +
-              Math.trunc(A_player.仙宠.加成 * 100) +
-              '%]'
+            A_player.仙宠.name +
+            '】辅佐了[' +
+            A_player.名号 +
+            ']，使其伤害增加了[' +
+            Math.trunc(A_player.仙宠.加成 * 100) +
+            '%]'
           );
         }
       }
@@ -2732,9 +2732,8 @@ export async function zd_battle(AA_player, BB_player) {
       A_player.防御 = BB_player.防御;
     }
     msg.push(`第${cnt2 + 1}回合：
-  ${A_player.名号}攻击了${B_player.名号}，${ifbaoji(baoji)}造成伤害${伤害}，${
-      B_player.名号
-    }剩余血量${B_player.当前血量}`);
+  ${A_player.名号}攻击了${B_player.名号}，${ifbaoji(baoji)}造成伤害${伤害}，${B_player.名号
+      }剩余血量${B_player.当前血量}`);
     cnt++;
   }
   if (cnt % 2 == 0) {
@@ -2831,7 +2830,7 @@ export async function Read_Exchange() {
   return Exchange;
 }
 
-export async function get_supermarket_img(e,thing_class) {
+export async function get_supermarket_img(e, thing_class) {
   let usr_qq = e.user_id;
   let ifexistplay = data.existData('player', usr_qq);
   if (!ifexistplay) {
@@ -2844,15 +2843,31 @@ export async function get_supermarket_img(e,thing_class) {
     await Write_Exchange([]);
     Exchange_list = await Read_Exchange();
   }
-  if (thing_class)
-  {
-    //Exchange_list = Exchange_list.filter(item => item.name.class == thing_class);
+  for (let i = 0; i < Exchange_list.length; i++) {
+    Exchange_list[i].num = i + 1;
   }
-  
+  if (thing_class) {
+    Exchange_list = Exchange_list.filter(item => item.name.class == thing_class);
+  }
+
   Exchange_list.sort(function (a, b) {
     return b.now_time - a.now_time;
   });
-
+  for (let i = 0; i < Exchange_list.length; i++) {
+    for (let j = i + 1; j < Exchange_list.length; j++) {
+      if (Exchange_list[i].name.name == Exchange_list[j].name.name) {
+        if (Exchange_list[i].price > Exchange_list[j].price) {
+          Exchange_list.splice(i, 1);
+          i--;
+          break;
+        }
+        else if (Exchange_list[i].price < Exchange_list[j].price) {
+          Exchange_list.splice(j, 1);
+          j--;
+        }
+      }
+    }
+  }
   let supermarket_data = {
     user_id: usr_qq,
     Exchange_list: Exchange_list,
@@ -2893,20 +2908,20 @@ export async function jindi(e, weizhi, addres) {
   for (let i = 0; i < weizhi.length; i++) {
     msg.push(
       weizhi[i].name +
-        '\n' +
-        '等级：' +
-        weizhi[i].Grade +
-        '\n' +
-        '极品：' +
-        weizhi[i].Best[0] +
-        '\n' +
-        '灵石：' +
-        weizhi[i].Price +
-        '灵石' +
-        '\n' +
-        '修为：' +
-        weizhi[i].experience +
-        '修为'
+      '\n' +
+      '等级：' +
+      weizhi[i].Grade +
+      '\n' +
+      '极品：' +
+      weizhi[i].Best[0] +
+      '\n' +
+      '灵石：' +
+      weizhi[i].Price +
+      '灵石' +
+      '\n' +
+      '修为：' +
+      weizhi[i].experience +
+      '修为'
     );
   }
   await ForwardMsg(e, msg);
@@ -2918,16 +2933,16 @@ export async function Goweizhi(e, weizhi, addres) {
   for (let i = 0; i < weizhi.length; i++) {
     msg.push(
       weizhi[i].name +
-        '\n' +
-        '等级：' +
-        weizhi[i].Grade +
-        '\n' +
-        '极品：' +
-        weizhi[i].Best[0] +
-        '\n' +
-        '灵石：' +
-        weizhi[i].Price +
-        '灵石'
+      '\n' +
+      '等级：' +
+      weizhi[i].Grade +
+      '\n' +
+      '极品：' +
+      weizhi[i].Best[0] +
+      '\n' +
+      '灵石：' +
+      weizhi[i].Price +
+      '灵石'
     );
   }
   await ForwardMsg(e, msg);
