@@ -24,6 +24,7 @@ import { clearInterval } from 'timers';
  * 全局变量
  */
 let dj=0;
+let flag=0;
 /**
  * 境界模块
  */
@@ -676,10 +677,11 @@ export class Level extends plugin {
     e.reply('天道：就你，也敢逆天改命？');
     e.reply('[' + player.名号 + ']' + '\n雷抗：' + x + '\n成功率：' + l + '%\n灵根：' + player.灵根.type + '\n需渡' + y + '道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！');
     let aconut=1;
+    flag=0;
     let time = setInterval(() => {
       this.LevelTask(e,n,m,y,aconut);
       aconut++;
-      if (aconut>y) 
+      if (aconut>y || flag) 
       {
         dj=0;
         clearInterval(time);
@@ -740,6 +742,7 @@ export class Level extends plugin {
         //未挡住雷杰
         msg.push('\n本次雷伤' + variable.toFixed(2) + '\n本次雷抗：' + power_distortion + '\n第' + aconut + '道雷劫落下了，可惜' + player.名号 + '未能抵挡，渡劫失败了！');
         e.reply(msg)
+        flag=1;
         return;
       }
     }

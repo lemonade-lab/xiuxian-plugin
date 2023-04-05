@@ -103,7 +103,7 @@ export class lunhui extends plugin {
       player.修为 -= 10000000;
       player.血气 += 5141919;
       player.灵石 -= 10000000;
-      await data.setData('player', usr_qq, player);
+      data.setData('player', usr_qq, player);
       return;
     }
     player.lunhui += 1;
