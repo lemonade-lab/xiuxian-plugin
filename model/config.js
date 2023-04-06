@@ -23,7 +23,7 @@ class config {
    * @returns {*}
    */
   getdefset(app, name) {
-    return this.getYaml(app, name, "defset");
+    return this.getYaml(app, name, "config");
   }
 
   /**

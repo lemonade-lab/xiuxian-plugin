@@ -20,7 +20,7 @@ export class secretplacetask extends plugin {
       dsc,
       rule: [],
     });
-    this.set = config.getdefset("task", "task");
+    this.set = config.getconfig("task", "task");
     this.task = {
       cron: this.set.action_task,
       name: "SecretPlaceTask",
