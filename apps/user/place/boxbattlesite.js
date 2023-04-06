@@ -17,17 +17,19 @@ export class BoxBattleSite extends plugin {
     );
   }
   userKill = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const CDID = "10";
@@ -40,7 +42,7 @@ export class BoxBattleSite extends plugin {
     const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID });
     if (CDMSG) {
       e.reply(CDMSG);
-      return;
+      return false;
     }
     const name = e.msg.replace("#击杀", "");
     const action = await GameApi.UserData.listAction({
@@ -53,7 +55,7 @@ export class BoxBattleSite extends plugin {
     const mon = monstersdata.find((item) => item.name == name);
     if (!mon) {
       e.reply(`这里没有[${name}],去别处看看吧`);
-      return;
+      return false;
     }
     const acount = await GameApi.GameMonster.add({
       i: action.region,
@@ -172,20 +174,22 @@ export class BoxBattleSite extends plugin {
       e.reply("出错了");
       console.log("[err]", msg);
     }
-    return;
+    return false;
   };
   userExploremonsters = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.GoMini({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const action = await GameApi.UserData.listAction({
@@ -200,6 +204,6 @@ export class BoxBattleSite extends plugin {
       msg.push("怪名:" + item.name + "\n" + "等级:" + item.level + "\n");
     });
     await BotApi.User.forwardMsgSurveySet({ e, data: msg });
-    return;
+    return false;
   };
 }

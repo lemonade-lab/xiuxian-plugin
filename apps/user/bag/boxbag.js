@@ -17,33 +17,37 @@ export class BoxBag extends plugin {
     );
   }
   showBag = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { path, name, data } = await GameApi.Information.userBagShow({ UID });
     const isreply = await e.reply(
       await BotApi.ImgIndex.showPuppeteer({ path, name, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   bagUp = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const najie = await GameApi.UserData.listAction({
@@ -55,7 +59,7 @@ export class BoxBag extends plugin {
       name: "cooling",
     }).najie_price[najie.grade];
     if (!najie_price) {
-      return;
+      return false;
     }
     const thing = await GameApi.GameUser.userBagSearch({
       UID,
@@ -63,7 +67,7 @@ export class BoxBag extends plugin {
     });
     if (!thing || thing.acount < najie_price) {
       e.reply(`灵石不足,需要准备${najie_price}*[下品灵石]`);
-      return;
+      return false;
     }
     najie.grade += 1;
     await GameApi.UserData.listAction({
@@ -77,6 +81,6 @@ export class BoxBag extends plugin {
       ACCOUNT: -Number(najie_price),
     });
     e.reply(`花了${najie_price}*[下品灵石]升级,目前储物袋为${najie.grade}`);
-    return;
+    return false;
   };
 }

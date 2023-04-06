@@ -25,13 +25,15 @@ export class BoxExchange extends plugin {
     );
   }
   supermarket = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const exchange = await GameApi.UserData.listActionInitial({
       NAME: "exchange",
@@ -45,16 +47,18 @@ export class BoxExchange extends plugin {
       );
     });
     await BotApi.User.forwardMsgSurveySet({ e, data: msg });
-    return;
+    return false;
   };
   onsell = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const [thing_name, thing_acount, thing_money] = e.msg
       .replace("#上架", "")
@@ -65,13 +69,13 @@ export class BoxExchange extends plugin {
     });
     if (!bagThing) {
       e.reply(`没有[${thing_name}]`);
-      return;
+      return false;
     }
     const account = await GameApi.GamePublic.leastOne({ value: thing_acount });
     const money = await GameApi.GamePublic.leastOne({ value: thing_money });
     if (bagThing.acount < account) {
       e.reply(`[${thing_name}]不够`);
-      return;
+      return false;
     }
     const myDate = new Date().getTime();
     const sum = Math.floor(Math.random() * (10 - 1) + 1);
@@ -101,16 +105,18 @@ export class BoxExchange extends plugin {
     e.reply(
       `成功上架:\n${bagThing.name}*${account}*${money}\n编号:${myDate}${sum}`
     );
-    return;
+    return false;
   };
   Offsell = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let ID = e.msg.replace("#下架", "");
     let x = 888888888;
@@ -126,10 +132,10 @@ export class BoxExchange extends plugin {
     });
     if (x == 888888888) {
       e.reply(`找不到${ID}`);
-      return;
+      return false;
     }
     if (exchange[x].UID != UID) {
-      return;
+      return false;
     }
     let najie = await GameApi.UserData.listAction({
       NAME: UID,
@@ -137,7 +143,7 @@ export class BoxExchange extends plugin {
     });
     if (najie.thing.length >= najie.grade * 10) {
       e.reply("储物袋已满");
-      return;
+      return false;
     }
     await GameApi.GameUser.userBag({
       UID,
@@ -152,16 +158,18 @@ export class BoxExchange extends plugin {
       INITIAL: [],
     });
     e.reply(`成功下架${ID}`);
-    return;
+    return false;
   };
   purchase = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let ID = e.msg.replace("#选购", "");
     let x = 888888888;
@@ -177,7 +185,7 @@ export class BoxExchange extends plugin {
     });
     if (x == 888888888) {
       e.reply(`找不到${ID}`);
-      return;
+      return false;
     }
     const money = await GameApi.GameUser.userBagSearch({
       UID,
@@ -185,7 +193,7 @@ export class BoxExchange extends plugin {
     });
     if (!money || money.acount < exchange[x].money) {
       e.reply(`似乎没有${exchange[x].money}下品灵石`);
-      return;
+      return false;
     }
     let najie = await GameApi.UserData.listAction({
       NAME: UID,
@@ -193,7 +201,7 @@ export class BoxExchange extends plugin {
     });
     if (najie.thing.length >= najie.grade * 10) {
       e.reply("储物袋已满");
-      return;
+      return false;
     }
     await GameApi.GameUser.userBag({
       UID,
@@ -218,6 +226,6 @@ export class BoxExchange extends plugin {
       INITIAL: [],
     });
     e.reply(`成功选购${ID}`);
-    return;
+    return false;
   };
 }

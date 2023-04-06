@@ -17,6 +17,10 @@ export class BoxtWist extends plugin {
     if (!e.isGroup || e.self_id != e.target_id) {
       return false;
     }
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: "parameter",
       name: "cooling",

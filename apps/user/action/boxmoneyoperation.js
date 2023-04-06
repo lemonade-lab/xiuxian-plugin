@@ -17,17 +17,19 @@ export class BoxMoneyOperation extends plugin {
     );
   }
   userCheckin = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const action = await GameApi.UserData.listAction({
@@ -41,7 +43,7 @@ export class BoxMoneyOperation extends plugin {
     });
     if (!map) {
       e.reply(`需[#前往+城池名+${address_name}]`);
-      return;
+      return false;
     }
     const level = await GameApi.UserData.listAction({
       NAME: UID,
@@ -49,11 +51,11 @@ export class BoxMoneyOperation extends plugin {
     });
     if (level.level_id != 1) {
       e.reply("[修仙联盟]方正\n前辈莫要开玩笑");
-      return;
+      return false;
     }
     if (action.newnoe != 1) {
       e.reply("[修仙联盟]方正\n道友要不仔细看看自己的储物袋");
-      return;
+      return false;
     }
     action.newnoe = 0;
     await GameApi.UserData.listAction({
@@ -77,30 +79,32 @@ export class BoxMoneyOperation extends plugin {
         randomthing.name
       }]吧\n还有${Number(10)}颗[下品灵石]\n可在必要的时候用到`
     );
-    return;
+    return false;
   };
   giveMoney = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const A = e.user_id;
     const B = await BotApi.User.at({ e });
     if (!B || B == A) {
-      return;
+      return false;
     }
     const existB = await GameApi.GameUser.existUserSatus({ UID: B });
     if (!existB) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let islingshi = e.msg.replace("#赠送灵石", "");
     islingshi = await GameApi.GamePublic.leastOne({ value: islingshi });
@@ -110,7 +114,7 @@ export class BoxMoneyOperation extends plugin {
     });
     if (!money || money.acount < islingshi) {
       e.reply(`似乎没有${islingshi}[下品灵石]`);
-      return;
+      return false;
     }
     const cf = GameApi.DefsetUpdata.getConfig({
       app: "parameter",
@@ -122,7 +126,7 @@ export class BoxMoneyOperation extends plugin {
     const { CDMSG } = await GameApi.GamePublic.cooling({ UID: A, CDID });
     if (CDMSG) {
       e.reply(CDMSG);
-      return;
+      return false;
     }
     await redis.set(`xiuxian:player:${A}:${CDID}`, now_time);
     await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60);
@@ -140,6 +144,6 @@ export class BoxMoneyOperation extends plugin {
       BotApi.segment.at(B),
       `你获得了由 ${A}赠送的${islingshi}*[下品灵石]`,
     ]);
-    return;
+    return false;
   };
 }

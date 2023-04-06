@@ -29,11 +29,19 @@ export class boxshowall extends plugin {
     );
   }
   showMap = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
+    const cf = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "cooling",
+    });
     const isreply = await e.reply(
       await BotApi.ImgIndex.showPuppeteer({ path: "map", name: "map" })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   showConfig = async (e) => {
     const cf = await GameApi.DefsetUpdata.getConfig({
@@ -54,42 +62,42 @@ export class boxshowall extends plugin {
       })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   adminSuper = async (e) => {
     if (!e.isMaster) {
-      return;
+      return false;
     }
     const data = await BotApi.ImgHelp.getboxhelp({ name: "admin" });
     if (!data) {
-      return;
+      return false;
     }
     const isreply = await e.reply(
       await BotApi.ImgCache.helpcache({ i: 0, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   boxhelp = async (e) => {
     const data = await BotApi.ImgHelp.getboxhelp({ name: "help" });
     if (!data) {
-      return;
+      return false;
     }
     const isreply = await e.reply(
       await BotApi.ImgCache.helpcache({ i: 1, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   darkhelp = async (e) => {
     const data = await BotApi.ImgHelp.getboxhelp({ name: "darkhelp" });
     if (!data) {
-      return;
+      return false;
     }
     const isreply = await e.reply(
       await BotApi.ImgCache.helpcache({ i: 2, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
 }

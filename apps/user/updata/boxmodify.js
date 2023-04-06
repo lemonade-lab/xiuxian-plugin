@@ -17,23 +17,24 @@ export class BoxModify extends plugin {
     );
   }
   changeName = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup || e.user_id == 80000000) return false ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
+    if (blackid.indexOf(e.user_id) != -1) return false ;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const lingshi = 5;
     let new_name = e.msg.replace("#改名", "");
     if (new_name.length == 0) {
-      return;
+      return false;
     }
     const keyname = [
       "尼玛",
@@ -51,7 +52,7 @@ export class BoxModify extends plugin {
     });
     if (new_name.length > 8) {
       e.reply("这名可真是稀奇");
-      return;
+      return false;
     }
     const thing = await GameApi.GameUser.userBagSearch({
       UID,
@@ -59,7 +60,7 @@ export class BoxModify extends plugin {
     });
     if (!thing || thing.acount < lingshi) {
       e.reply(`似乎没有${lingshi}*[下品灵石]`);
-      return;
+      return false;
     }
     const CDID = "3";
     const now_time = new Date().getTime();
@@ -71,7 +72,7 @@ export class BoxModify extends plugin {
     const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID });
     if (CDMSG) {
       e.reply(CDMSG);
-      return;
+      return false;
     }
     await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
     await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
@@ -102,20 +103,22 @@ export class BoxModify extends plugin {
       await BotApi.ImgIndex.showPuppeteer({ path, name, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   changeAutograph = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
+    if (blackid.indexOf(e.user_id) != -1) return false ;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const player = GameApi.UserData.listAction({
@@ -140,7 +143,7 @@ export class BoxModify extends plugin {
     });
     if (new_msg.length == 0 || new_msg.length > 50) {
       e.reply("请正确设置,且道宣最多50字符");
-      return;
+      return false;
     }
     const CDID = "4";
     const now_time = new Date().getTime();
@@ -152,7 +155,7 @@ export class BoxModify extends plugin {
     const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID });
     if (CDMSG) {
       e.reply(CDMSG);
-      return;
+      return false;
     }
     await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
     await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
@@ -169,6 +172,6 @@ export class BoxModify extends plugin {
       await BotApi.ImgIndex.showPuppeteer({ path, name, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
 }

@@ -17,28 +17,30 @@ export class BoxBattle extends plugin {
     );
   }
   duel = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UIDA = e.user_id;
     let UIDB = await BotApi.User.at({ e });
     if (!UIDB || UIDA == UIDB) {
       UIDB = e.msg.replace("#死斗", "");
       if (!UIDB || UIDA == UIDB) {
-        return;
+        return false;
       }
     }
     e.reply(await GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }));
-    return;
+    return false;
   };
   handWashing = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const Level = await GameApi.UserData.listAction({
       NAME: UID,
@@ -52,7 +54,7 @@ export class BoxBattle extends plugin {
       });
       if (!thing || thing.acount < money) {
         e.reply(`[天机门]韩立\n清魔力需要${money}[下品灵石]`);
-        return;
+        return false;
       }
       await GameApi.GameUser.userBag({
         UID,
@@ -66,10 +68,10 @@ export class BoxBattle extends plugin {
         DATA: Level,
       });
       e.reply("[天机门]南宫问天\n为你清除[魔力]*1");
-      return;
+      return false;
     } else {
       e.reply("[天机门]李逍遥\n你一身清廉");
     }
-    return;
+    return false;
   };
 }

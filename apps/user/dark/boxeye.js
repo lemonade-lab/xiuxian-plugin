@@ -13,13 +13,15 @@ export class BoxEye extends plugin {
     );
   }
   darkEye = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const name = e.msg.replace("#虚空眼", "");
     const HistoryList = await GameApi.UserData.listActionInitial({
@@ -29,9 +31,9 @@ export class BoxEye extends plugin {
     });
     if (HistoryList.hasOwnProperty(name)) {
       e.reply(HistoryList[name]);
-      return;
+      return false;
     }
     e.reply("查无此项");
-    return;
+    return false;
   };
 }

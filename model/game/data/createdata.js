@@ -31,6 +31,7 @@ const ImgName = [
 /** 自定义配置*/
 const configarr = [
   "cooling.yaml",
+  "namelist.yaml",
   "task.yaml",
   "help.yaml",
   "darkhelp.yaml",

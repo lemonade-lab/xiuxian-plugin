@@ -21,13 +21,15 @@ export class BoxTransaction extends plugin {
     );
   }
   showComodities = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
+    if (blackid.indexOf(e.user_id) != -1) return false ;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -40,7 +42,7 @@ export class BoxTransaction extends plugin {
     });
     if (!map) {
       e.reply(`需[#前往+城池名+${address_name}]`);
-      return;
+      return false;
     }
     const msg = ["___[万宝楼]___\n[#购买+物品名*数量]\n不填数量,默认为1"];
     const commodities_list = await GameApi.UserData.listAction({
@@ -94,16 +96,18 @@ export class BoxTransaction extends plugin {
       }
     });
     await BotApi.User.forwardMsgSurveySet({ e, data: msg });
-    return;
+    return false;
   };
   buyComodities = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return  ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return  ;
+    if (blackid.indexOf(e.user_id) != -1) return  ;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -116,7 +120,7 @@ export class BoxTransaction extends plugin {
     });
     if (!map) {
       e.reply(`需[#前往+城池名+${address_name}]`);
-      return;
+      return false;
     }
     const [thing_name, thing_acount] = e.msg.replace("#购买", "").split("*");
     let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount });
@@ -130,7 +134,7 @@ export class BoxTransaction extends plugin {
     const ifexist = Commodities.find((item) => item.name == thing_name);
     if (!ifexist) {
       e.reply(`[万宝楼]小二\n不卖[${thing_name}]`);
-      return;
+      return false;
     }
     const money = await GameApi.GameUser.userBagSearch({
       UID,
@@ -138,7 +142,7 @@ export class BoxTransaction extends plugin {
     });
     if (!money || money.acount < ifexist.price * quantity) {
       e.reply(`似乎没有${ifexist.price * quantity}*[下品灵石]`);
-      return;
+      return false;
     }
     await GameApi.GameUser.userBag({
       UID,
@@ -155,16 +159,18 @@ export class BoxTransaction extends plugin {
         ifexist.price * quantity
       }]下品灵石购买了[${thing_name}]*${quantity},`
     );
-    return;
+    return false;
   };
   sellComodities = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
+    if (blackid.indexOf(e.user_id) != -1) return false ;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -177,7 +183,7 @@ export class BoxTransaction extends plugin {
     });
     if (!map) {
       e.reply(`需[#前往+城池名+${address_name}]`);
-      return;
+      return false;
     }
     const [thing_name, thing_acount] = e.msg.replace("#出售", "").split("*");
     let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount });
@@ -190,11 +196,11 @@ export class BoxTransaction extends plugin {
     });
     if (!najie_thing) {
       e.reply(`[万宝楼]小二\n你没[${thing_name}]`);
-      return;
+      return false;
     }
     if (najie_thing.acount < quantity) {
       e.reply("[万宝楼]小二\n数量不足");
-      return;
+      return false;
     }
     await GameApi.GameUser.userBag({
       UID,
@@ -208,6 +214,6 @@ export class BoxTransaction extends plugin {
       ACCOUNT: Number(commodities_price),
     });
     e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}*[下品灵石]`);
-    return;
+    return false;
   };
 }

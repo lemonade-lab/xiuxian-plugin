@@ -1,4 +1,4 @@
-import { plugin, Super } from "../../../model/api/api.js";
+import { plugin, Super, GameApi } from "../../../model/api/api.js";
 export class BoxMove extends plugin {
   constructor() {
     super(
@@ -28,29 +28,45 @@ export class BoxMove extends plugin {
    * 前进
    */
   mapW = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
-    return;
+    return false;
   };
   /**
    * 向左移动
    */
   mapA = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
-    return;
+    return false;
   };
   /**
    * 后退
    */
   mapS = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
-    return;
+    return false;
   };
   /**
    * 向右移动
    */
   mapD = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
-    return;
+    return false;
   };
 
   /**

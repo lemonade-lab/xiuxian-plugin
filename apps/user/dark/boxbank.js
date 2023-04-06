@@ -34,13 +34,15 @@ export class BoxBank extends plugin {
   }
 
   moneyWorkshop = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const StorageList = await GameApi.UserData.listActionInitial({
       NAME: "storage",
@@ -64,17 +66,19 @@ export class BoxBank extends plugin {
       msg.push(`借款:${WhiteBarList[UID].money}`);
     }
     await BotApi.User.forwardMsgSurveySet({ e, data: msg });
-    return;
+    return false;
   };
 
   substitution = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const [account, name] = e.msg.replace("#金银置换", "").split("*");
     let new_account = await GameApi.GamePublic.leastOne({ value: account });
@@ -84,11 +88,11 @@ export class BoxBank extends plugin {
     });
     if (!money || money.acount < new_account) {
       e.reply(`[金银坊]金老三\n?哪儿来的穷鬼！`);
-      return;
+      return false;
     }
     if (new_account < 5000) {
       e.reply(`[金银坊]金老三\n少于5000不换`);
-      return;
+      return false;
     }
     let new_name = "中品灵石";
     let size = 30;
@@ -121,17 +125,19 @@ export class BoxBank extends plugin {
       ACCOUNT: Number(new_money),
     });
     e.reply(`[下品灵石]*${new_account}\n置换成\n[${new_name}]*${new_money}`);
-    return;
+    return false;
   };
 
   storage = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const account = await GameApi.GamePublic.leastOne({
       value: e.msg.replace("#金银存储", ""),
@@ -142,11 +148,11 @@ export class BoxBank extends plugin {
     });
     if (!money || money.acount < account) {
       e.reply(`[金银坊]金老三\n?哪儿来的穷鬼`);
-      return;
+      return false;
     }
     if (account < 5000) {
       e.reply(`[金银坊]金老三\n少于5000下品不要`);
-      return;
+      return false;
     }
     const StorageList = await GameApi.UserData.listActionInitial({
       NAME: "storage",
@@ -177,7 +183,7 @@ export class BoxBank extends plugin {
         INITIAL: {},
         DATA: StorageList,
       });
-      return;
+      return false;
     }
     StorageList[UID] = {
       account,
@@ -196,17 +202,19 @@ export class BoxBank extends plugin {
     });
     const isreply = await e.reply(`${UID}成功存储${account}下品灵石`);
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
 
   withdraw = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const account = await GameApi.GamePublic.leastOne({
       value: await GameApi.GamePublic.leastOne({
@@ -215,7 +223,7 @@ export class BoxBank extends plugin {
     });
     if (account < 5000) {
       e.reply(`[金银坊]金老三\n取出少于5000`);
-      return;
+      return false;
     }
     const StorageList = await GameApi.UserData.listActionInitial({
       NAME: "storage",
@@ -224,7 +232,7 @@ export class BoxBank extends plugin {
     });
     if (!StorageList.hasOwnProperty(UID)) {
       e.reply("无存款记录");
-      return;
+      return false;
     }
     const NOW_TIME = new Date().getTime();
     let money = StorageList[UID].account;
@@ -234,7 +242,7 @@ export class BoxBank extends plugin {
     }
     if (money < account) {
       e.reply(`不足${account}`);
-      return;
+      return false;
     }
     if (money - account <= 0) {
       StorageList[UID] = undefined;
@@ -254,17 +262,19 @@ export class BoxBank extends plugin {
     });
     const isreply = await e.reply(`${UID}成功取出${account}`);
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
 
   whiteBar = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const WhiteBarList = await GameApi.UserData.listActionInitial({
       NAME: "whiteBar",
@@ -273,7 +283,7 @@ export class BoxBank extends plugin {
     });
     if (WhiteBarList.hasOwnProperty(UID)) {
       e.reply(`尚有${WhiteBarList[UID].money}白条记录,请先[#金银消条+金额]`);
-      return;
+      return false;
     }
     /**借钱需要一定的境界 */
     const level = await GameApi.UserData.listAction({
@@ -282,18 +292,18 @@ export class BoxBank extends plugin {
     });
     if (level.level_id <= 3) {
       e.reply(`哪儿来的毛头小子`);
-      return;
+      return false;
     }
     const money = await GameApi.GamePublic.leastOne({
       value: e.msg.replace("#金银白条", ""),
     });
     if (money < 10000) {
       e.reply(`白条不足10000`);
-      return;
+      return false;
     }
     if (money > 10000 * level.level_id) {
       e.reply(`白条最高${10000 * level.level_id}`);
-      return;
+      return false;
     }
     const time = new Date().getTime();
     WhiteBarList[UID] = {
@@ -312,17 +322,19 @@ export class BoxBank extends plugin {
       ACCOUNT: Number(money),
     });
     e.reply(`成功白条${money}`);
-    return;
+    return false;
   };
 
   deleteWhiteBar = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const WhiteBarList = await GameApi.UserData.listActionInitial({
       NAME: "whiteBar",
@@ -331,7 +343,7 @@ export class BoxBank extends plugin {
     });
     if (!WhiteBarList.hasOwnProperty(UID)) {
       e.reply(`未有白条记录`);
-      return;
+      return false;
     }
     const money = await GameApi.GamePublic.leastOne({
       value: e.msg.replace("#金银消条", ""),
@@ -342,7 +354,7 @@ export class BoxBank extends plugin {
     });
     if (!bag_money || bag_money.acount < money) {
       e.reply(`背包不足${money}`);
-      return;
+      return false;
     }
     let account = money;
     if (money <= WhiteBarList[UID].money) {
@@ -366,6 +378,6 @@ export class BoxBank extends plugin {
       ACCOUNT: -Number(account),
     });
     e.reply(`${UID}成功消条${account}`);
-    return;
+    return false;
   };
 }

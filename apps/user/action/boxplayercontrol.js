@@ -25,17 +25,19 @@ export class BoxPlayerControl extends plugin {
     );
   }
   biguan = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.GoMini({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const now_time = new Date().getTime();
@@ -48,20 +50,22 @@ export class BoxPlayerControl extends plugin {
       JSON.stringify(actionObject)
     );
     e.reply("开始两耳不闻窗外事...");
-    return true;
+    return false;
   };
   dagong = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     const now_time = new Date().getTime();
@@ -74,24 +78,26 @@ export class BoxPlayerControl extends plugin {
       JSON.stringify(actionObject)
     );
     e.reply("开始外出...");
-    return true;
+    return false;
   };
   chuGuan = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let action = await redis.get(`xiuxian:player:${UID}:action`);
     if (action == undefined) {
-      return;
+      return false;
     }
     action = JSON.parse(action);
     if (action.actionName != "闭关") {
-      return;
+      return false;
     }
     const startTime = action.startTime;
     const cf = GameApi.DefsetUpdata.getConfig({
@@ -103,28 +109,30 @@ export class BoxPlayerControl extends plugin {
     if (time < timeUnit) {
       e.reply("只是呆了一会儿...");
       await GameApi.GamePublic.offAction({ UID });
-      return;
+      return false;
     }
     await GameApi.GamePublic.offAction({ UID });
     await this.upgrade(UID, time, action.actionName, e);
-    return;
+    return false;
   };
   endWork = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let action = await redis.get(`xiuxian:player:${UID}:action`);
     if (action == undefined) {
-      return;
+      return false;
     }
     action = JSON.parse(action);
     if (action.actionName != "降妖") {
-      return;
+      return false;
     }
     const startTime = action.startTime;
     const cf = GameApi.DefsetUpdata.getConfig({
@@ -136,16 +144,18 @@ export class BoxPlayerControl extends plugin {
     if (time < timeUnit) {
       e.reply("只是呆了一会儿...");
       await GameApi.GamePublic.offAction({ UID });
-      return;
+      return false;
     }
     await GameApi.GamePublic.offAction({ UID });
     await this.upgrade(UID, time, action.actionName, e);
-    return;
+    return false;
   };
   upgrade = async (user_id, time, name, e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = user_id;
     const talent = await GameApi.UserData.listAction({
       NAME: UID,
@@ -180,6 +190,6 @@ export class BoxPlayerControl extends plugin {
     msg += "\n[血量状态]90%";
     msg += `\n${name}结束`;
     e.reply([BotApi.segment.at(UID), msg]);
-    return;
+    return false;
   };
 }

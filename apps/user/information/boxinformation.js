@@ -21,13 +21,15 @@ export class BoxInformation extends plugin {
     );
   }
   showUserMsg = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { path, name, data } = await GameApi.Information.userDataShow({
       UID: e.user_id,
@@ -36,16 +38,18 @@ export class BoxInformation extends plugin {
       await BotApi.ImgIndex.showPuppeteer({ path, name, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
   showQquipment = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { path, name, data } = await GameApi.Information.userEquipmentShow({
       UID: e.user_id,
@@ -54,6 +58,6 @@ export class BoxInformation extends plugin {
       await BotApi.ImgIndex.showPuppeteer({ path, name, data })
     );
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
 }

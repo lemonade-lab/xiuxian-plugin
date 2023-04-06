@@ -17,9 +17,11 @@ export class BoxForum extends plugin {
     );
   }
   searchForum = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const msg = [];
     const Forum = await GameApi.UserData.listActionInitial({
       NAME: "forum",
@@ -30,18 +32,18 @@ export class BoxForum extends plugin {
       msg.push(`[${item.UID}]\n${item.content}`);
     });
     await BotApi.User.forwardMsgSurveySet({ e, data: msg });
-    return;
+    return false;
   };
   pushForum = async (e) => {
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const content = e.msg.replace("#喇叭", "");
     if (content == undefined || content == "" || content.length > 50) {
       e.reply("内容最多50个字!");
-      return;
+      return false;
     }
     const TheDate = new Date();
     const Forum = await GameApi.UserData.listActionInitial({
@@ -64,6 +66,6 @@ export class BoxForum extends plugin {
       INITIAL: [],
     });
     this.searchForum(e);
-    return;
+    return false;
   };
 }

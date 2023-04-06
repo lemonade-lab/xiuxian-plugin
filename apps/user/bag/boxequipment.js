@@ -22,13 +22,15 @@ export class BoxEquipment extends plugin {
     );
   }
   synthesis = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let msg = e.msg.replace("#炼制", "");
     msg = msg.trim();
@@ -47,7 +49,7 @@ export class BoxEquipment extends plugin {
     });
     if (!materialA || !materialB || !materialC) {
       e.reply(`没有这种材料或者未指定材料品级`);
-      return;
+      return false;
     }
     //扣材料
     await GameApi.GameUser.userMaterial({
@@ -91,7 +93,7 @@ export class BoxEquipment extends plugin {
     if (random > quality) {
       //失败
       e.reply(`boom!炼制失败,炸炉啦`);
-      return;
+      return false;
     }
     let resThing;
     if (ans.elixirPercent >= 2 * ans.equipPercent) {
@@ -110,7 +112,7 @@ export class BoxEquipment extends plugin {
         name: "无用的残渣",
         ACCOUNT: 1,
       });
-      return;
+      return false;
     }
     e.reply(`炼制成功,你获得了${resThing.name}`);
     await GameApi.GameUser.userBag({
@@ -118,17 +120,19 @@ export class BoxEquipment extends plugin {
       name: resThing.name,
       ACCOUNT: 1,
     });
-    return;
+    return false;
   };
 
   addEquipment = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const thing_name = e.msg.replace("#装备", "");
     const najie_thing = await GameApi.GameUser.userBagSearch({
@@ -137,7 +141,7 @@ export class BoxEquipment extends plugin {
     });
     if (!najie_thing) {
       e.reply(`没有[${thing_name}]`);
-      return;
+      return false;
     }
     const equipment = await GameApi.UserData.listAction({
       NAME: UID,
@@ -148,7 +152,7 @@ export class BoxEquipment extends plugin {
       GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "cooling" })
         .myconfig.equipment
     ) {
-      return;
+      return false;
     }
     equipment.push(najie_thing);
     await GameApi.UserData.listAction({
@@ -159,16 +163,18 @@ export class BoxEquipment extends plugin {
     await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 });
     await GameApi.GameUser.readPanel({ UID });
     e.reply(`装备[${thing_name}]`);
-    return;
+    return false;
   };
   deleteEquipment = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const thing_name = e.msg.replace("#卸下", "");
     let equipment = await GameApi.UserData.listAction({
@@ -177,7 +183,7 @@ export class BoxEquipment extends plugin {
     });
     const islearned = equipment.find((item) => item.name == thing_name);
     if (!islearned) {
-      return;
+      return false;
     }
     const q = {
       x: 0,
@@ -196,6 +202,6 @@ export class BoxEquipment extends plugin {
     await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 });
     await GameApi.GameUser.readPanel({ UID });
     e.reply(`已卸下[${thing_name}]`);
-    return;
+    return false;
   };
 }

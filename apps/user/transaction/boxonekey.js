@@ -17,13 +17,15 @@ export class BoxOnekey extends plugin {
     );
   }
   substitution = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
+    if (blackid.indexOf(e.user_id) != -1) return false ;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -36,7 +38,7 @@ export class BoxOnekey extends plugin {
     });
     if (!map) {
       e.reply(`需[#前往+城池名+${address_name}]`);
-      return;
+      return false;
     }
     let bag = await GameApi.UserData.listAction({
       NAME: UID,
@@ -47,7 +49,7 @@ export class BoxOnekey extends plugin {
       money += item.acount * item.price;
     });
     if (money == 0) {
-      return;
+      return false;
     }
     bag.thing = [];
     await GameApi.UserData.listAction({
@@ -57,16 +59,18 @@ export class BoxOnekey extends plugin {
     });
     await GameApi.GameUser.userBag({ UID, name: "下品灵石", ACCOUNT: money });
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`);
-    return;
+    return false;
   };
   shellAllType = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false ;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
+    if (blackid.indexOf(e.user_id) != -1) return false ;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -79,7 +83,7 @@ export class BoxOnekey extends plugin {
     });
     if (!map) {
       e.reply(`需[#前往+城池名+${address_name}]`);
-      return;
+      return false;
     }
     const type = e.msg.replace("#一键出售", "");
     const maptype = {
@@ -92,7 +96,7 @@ export class BoxOnekey extends plugin {
     };
     if (!maptype.hasOwnProperty(type)) {
       e.reply(`[蜀山派]叶凡\n此处不收[${type}]`);
-      return;
+      return false;
     }
     let bag = await GameApi.UserData.listAction({
       NAME: UID,
@@ -109,7 +113,7 @@ export class BoxOnekey extends plugin {
       }
     });
     if (money == 0) {
-      return;
+      return false;
     }
     bag.thing = arr;
     await GameApi.UserData.listAction({
@@ -119,6 +123,6 @@ export class BoxOnekey extends plugin {
     });
     await GameApi.GameUser.userBag({ UID, name: "下品灵石", ACCOUNT: money });
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`);
-    return;
+    return false;
   };
 }

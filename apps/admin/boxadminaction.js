@@ -46,15 +46,13 @@ export class boxadminaction extends plugin {
     this.key = "xiuxian:restart";
   }
   allForcecheckout = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     await BotApi.Exec.execStart({ cmd: "git  pull", e });
     return false;
   };
   deleteRedis = async (e) => {
     if (!e.isMaster) {
-      return;
+      return false;
     }
     await GameApi.GamePublic.deleteReids();
     e.reply("删除完成");
@@ -62,7 +60,7 @@ export class boxadminaction extends plugin {
   };
   deleteAllusers = async (e) => {
     if (!e.isMaster) {
-      return;
+      return false;
     }
     await GameApi.UserData.listAction({
       NAME: "life",
@@ -75,48 +73,38 @@ export class boxadminaction extends plugin {
   };
   boxaSwitchOpen = async (e) => {
     if (!e.isMaster) {
-      return;
+      return false;
     }
     const name = e.msg.replace("#盒子开启", "");
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }));
     return false;
   };
   boxaSwitchOff = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     const name = e.msg.replace("#盒子关闭", "");
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }));
     return false;
   };
   configUpdata = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     const [name, size] = e.msg.replace("#修仙配置更改", "").split("*");
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }));
     return false;
   };
   configReUpdata = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     GameApi.Createdata.moveConfig({ name: "updata" });
     e.reply("配置已重置");
     return false;
   };
   imgReUpdata = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     GameApi.Createdata.reImg();
     e.reply("图片已重置");
     return false;
   };
   dataRecovery = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     await BotApi.User.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({

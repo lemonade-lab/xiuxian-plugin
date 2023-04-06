@@ -17,7 +17,7 @@ export class BoxSecretplace extends plugin {
           },
           {
             reg: "^#回到原地$",
-            fnc: "returnPiont",
+            fnc: "return falsePiont",
           },
           {
             reg: "^#传送.*$",
@@ -32,13 +32,15 @@ export class BoxSecretplace extends plugin {
     );
   }
   showCity = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -46,7 +48,7 @@ export class BoxSecretplace extends plugin {
     });
     if (action.address != 1) {
       e.reply("你对这里并不了解...");
-      return;
+      return false;
     }
     const addressId = `${action.z}-${action.region}-${action.address}`;
     const point = await GameApi.UserData.listAction({
@@ -64,35 +66,39 @@ export class BoxSecretplace extends plugin {
       msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`);
     });
     await BotApi.User.forwardMsg({ e, data: msg });
-    return;
+    return false;
   };
-  returnPiont = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+  falsePiont = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     forwardsetTime[UID] = 0;
     clearTimeout(useraction[UID]);
     e.reply("你回到了原地");
-    return;
+    return false;
   };
+
   xyzaddress = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -100,24 +106,27 @@ export class BoxSecretplace extends plugin {
     });
     const isreply = await e.reply(`坐标(${action.x},${action.y},${action.z})`);
     await BotApi.User.surveySet({ e, isreply });
-    return;
+    return false;
   };
+
   forward = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     if (forwardsetTime[UID] == 1) {
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -132,7 +141,7 @@ export class BoxSecretplace extends plugin {
     });
     const point = Point.find((item) => item.name == address);
     if (!point) {
-      return;
+      return false;
     }
     const mx = point.x;
     const my = point.y;
@@ -143,7 +152,7 @@ export class BoxSecretplace extends plugin {
     });
     if (level.level_id < PointId[3]) {
       e.reply("[修仙联盟]守境者\n道友请留步");
-      return;
+      return false;
     }
     const a = x - mx >= 0 ? x - mx : mx - x;
     const b = y - my >= 0 ? y - my : my - y;
@@ -168,24 +177,26 @@ export class BoxSecretplace extends plugin {
     }, 1000 * time);
     forwardsetTime[UID] = 1;
     e.reply(`正在前往${address}...\n需要${time}秒`);
-    return;
+    return false;
   };
   delivery = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
     if (MSG) {
       e.reply(MSG);
-      return;
+      return false;
     }
     const UID = e.user_id;
     if (deliverysetTime[UID] == 1) {
-      return;
+      return false;
     }
     const action = await GameApi.UserData.listAction({
       NAME: UID,
@@ -200,7 +211,7 @@ export class BoxSecretplace extends plugin {
     });
     const position = Posirion.find((item) => item.name == address);
     if (!position) {
-      return;
+      return false;
     }
     const positionID = position.id.split("-");
     const level = GameApi.UserData.listAction({
@@ -209,7 +220,7 @@ export class BoxSecretplace extends plugin {
     });
     if (level.level_id < positionID[3]) {
       e.reply("[修仙联盟]守境者\n道友请留步");
-      return;
+      return false;
     }
     const point = await GameApi.UserData.listAction({
       NAME: "point",
@@ -227,7 +238,7 @@ export class BoxSecretplace extends plugin {
       }
     });
     if (key == 0) {
-      return;
+      return false;
     }
     const lingshi = 1000;
     const money = await GameApi.GameUser.userBagSearch({
@@ -236,7 +247,7 @@ export class BoxSecretplace extends plugin {
     });
     if (!money || money.acount < lingshi) {
       e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}*[下品灵石]`);
-      return;
+      return false;
     }
     //先扣钱
     await GameApi.GameUser.userBag({
@@ -269,6 +280,6 @@ export class BoxSecretplace extends plugin {
     }, 1000 * time);
     deliverysetTime[UID] = 1;
     e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`);
-    return;
+    return false;
   };
 }

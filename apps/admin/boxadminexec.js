@@ -22,16 +22,12 @@ export class boxadminexec extends plugin {
     this.key = "xiuxian:restart";
   }
   execList = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     e.reply("[插件列表]\n1.宗门(势力玩法)\n2.家园(休闲玩法)\n3.青楼(施工中)");
     return false;
   };
   execAdd = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     const name = e.msg.replace("#修仙安装", "");
     const storehouseName = {
       宗门: "xiuxian-association-plugin",
@@ -60,9 +56,7 @@ export class boxadminexec extends plugin {
     return false;
   };
   execDelete = async (e) => {
-    if (!e.isMaster) {
-      return false;
-    }
+    if (!e.isMaster) return false;
     const name = e.msg.replace("#修仙卸载", "");
     const storehouseName = {
       宗门: "xiuxian-association-plugin",

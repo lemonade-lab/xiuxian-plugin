@@ -25,13 +25,15 @@ export class BoxHome extends plugin {
     );
   }
   take = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     let [thing_name, thing_acount] = e.msg.replace("#服用", "").split("*");
     thing_acount = await GameApi.GamePublic.leastOne({ value: thing_acount });
@@ -41,11 +43,11 @@ export class BoxHome extends plugin {
     });
     if (!najie_thing) {
       e.reply(`没有[${thing_name}]`);
-      return;
+      return false;
     }
     if (najie_thing.acount < thing_acount) {
       e.reply("数量不足");
-      return;
+      return false;
     }
     const id = najie_thing.id.split("-");
     switch (id[1]) {
@@ -138,16 +140,18 @@ export class BoxHome extends plugin {
       name: najie_thing.name,
       ACCOUNT: -thing_acount,
     });
-    return;
+    return false;
   };
   study = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const thing_name = e.msg.replace("#学习", "");
     const najie_thing = await GameApi.GameUser.userBagSearch({
@@ -156,11 +160,11 @@ export class BoxHome extends plugin {
     });
     if (!najie_thing) {
       e.reply(`没有[${thing_name}]`);
-      return;
+      return false;
     }
     const id = najie_thing.id.split("-");
     if (id[0] != 5) {
-      return;
+      return false;
     }
     const talent = await GameApi.UserData.listAction({
       NAME: UID,
@@ -171,7 +175,7 @@ export class BoxHome extends plugin {
     );
     if (islearned) {
       e.reply("学过了");
-      return;
+      return false;
     }
     if (
       talent.AllSorcery.length >=
@@ -179,7 +183,7 @@ export class BoxHome extends plugin {
         .myconfig.gongfa
     ) {
       e.reply("你反复看了又看,却怎么也学不进");
-      return;
+      return false;
     }
     talent.AllSorcery.push(najie_thing);
     await GameApi.UserData.listAction({
@@ -194,16 +198,18 @@ export class BoxHome extends plugin {
       ACCOUNT: -1,
     });
     e.reply(`学习[${thing_name}]`);
-    return;
+    return false;
   };
   forget = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const thing_name = e.msg.replace("#忘掉", "");
     const talent = await GameApi.UserData.listAction({
@@ -213,7 +219,7 @@ export class BoxHome extends plugin {
     const islearned = talent.AllSorcery.find((item) => item.name == thing_name);
     if (!islearned) {
       e.reply(`没学过[${thing_name}]`);
-      return;
+      return false;
     }
     talent.AllSorcery = talent.AllSorcery.filter(
       (item) => item.name != thing_name
@@ -226,16 +232,18 @@ export class BoxHome extends plugin {
     await GameApi.GameUser.updataUserEfficiency({ UID });
     await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 });
     e.reply(`忘了[${thing_name}]`);
-    return;
+    return false;
   };
   consumption = async (e) => {
-    if (!e.isGroup) {
-      return;
-    }
+    
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
-      return;
+      return false;
     }
     const thing_name = e.msg.replace("#消耗", "");
     const najie_thing = await GameApi.GameUser.userBagSearch({
@@ -244,7 +252,7 @@ export class BoxHome extends plugin {
     });
     if (!najie_thing) {
       e.reply(`没有[${thing_name}]`);
-      return;
+      return false;
     }
     await GameApi.GameUser.userBag({
       UID,
@@ -254,7 +262,7 @@ export class BoxHome extends plugin {
     const id = najie_thing.id.split("-");
     if (id[0] != 6) {
       e.reply(`[${thing_name}]损坏`);
-      return;
+      return false;
     }
     if (id[1] == 1) {
       switch (id[2]) {
@@ -311,6 +319,6 @@ export class BoxHome extends plugin {
         }
       }
     }
-    return;
+    return false;
   };
 }
