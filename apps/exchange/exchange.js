@@ -375,6 +375,11 @@ export class exchange extends plugin {
   }
 
   async purchase(e) {
+    if (!e.isGroup  || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //全局状态判断
     const T = await Go(e);
