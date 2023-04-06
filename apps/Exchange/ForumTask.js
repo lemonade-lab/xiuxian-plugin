@@ -32,7 +32,7 @@ export class ForumTask extends plugin {
       await Write_Forum([]);
       Forum = await Read_Forum();
     }
-    const now_time = new Date().getTime();
+   /* const now_time = new Date().getTime();
     for (let i=0;i<Forum.length;i++)
     {
       const time=(now_time-Forum[i].now_time)/24/60/60/1000;
@@ -44,7 +44,7 @@ export class ForumTask extends plugin {
       Forum.splice(i, 1);
       i--;
     }
-    await Write_Forum(Forum);
+    await Write_Forum(Forum);*/
     return;
   }
 }
