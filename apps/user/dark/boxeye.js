@@ -1,21 +1,18 @@
-import { GameApi, plugin, Super } from "../../../model/api/api.js";
+import { GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxEye extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#虚空眼.*$",
-            fnc: "darkEye",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [{ reg: "^#虚空眼.*$", fnc: "darkEye" }],
+    });
   }
   darkEye = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;

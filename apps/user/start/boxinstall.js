@@ -1,23 +1,26 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxInstall extends plugin {
   constructor() {
-    super(
-      Super({
-        event: "notice.group.increase",
-        priority: 99999,
-        rule: [
-          {
-            fnc: "createinstall",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      event: "notice.group.increase",
+      priority: 99999,
+      rule: [
+        {
+          fnc: "createinstall",
+        },
+      ],
+    });
   }
   createinstall = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false ;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
-    if (blackid.indexOf(e.user_id) != -1) return false ;
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: "parameter",
       name: "cooling",

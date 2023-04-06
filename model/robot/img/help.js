@@ -1,5 +1,5 @@
 import config from "../data/defset.js";
-import { __dirname } from "../../main.js";
+import { __dirname } from "../../../app.config.js";
 /** 生成帮助图*/
 class Help {
   getboxhelp = async ({ name }) => {

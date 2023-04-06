@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "path";
-import { appname } from "../main.js";
+import { appname } from "../../app.config.js";
 export const toIndex = async (parameter) => {
   const { indexName } = parameter;
   const firstName = `plugins/${appname}`;

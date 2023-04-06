@@ -1,27 +1,25 @@
-import { BotApi, GameApi, plugin, Super } from "../../model/api/api.js";
+import { BotApi, GameApi, name, dsc, plugin } from "../../model/api/api.js";
 export class boxadminmoney extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#修仙扣除.*$",
-            fnc: "deduction",
-          },
-          {
-            reg: "^#修仙馈赠.*$",
-            fnc: "gifts",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        {
+          reg: "^#修仙扣除.*$",
+          fnc: "deduction",
+        },
+        {
+          reg: "^#修仙馈赠.*$",
+          fnc: "gifts",
+        },
+      ],
+    });
   }
   gifts = async (e) => {
     if (!e.isMaster) return false;
     const UID = await BotApi.User.at({ e });
-    if (!UID) {
-      return false;
-    }
+    if (!UID) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
       return false;
@@ -44,9 +42,7 @@ export class boxadminmoney extends plugin {
   deduction = async (e) => {
     if (!e.isMaster) return false;
     const UID = await BotApi.User.at({ e });
-    if (!UID) {
-      return false;
-    }
+    if (!UID) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
       return false;

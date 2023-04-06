@@ -1,27 +1,23 @@
-import { GameApi, plugin, Super } from "../../../model/api/api.js";
+import { GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxOnekey extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#置换所有物品$",
-            fnc: "substitution",
-          },
-          {
-            reg: "^#一键出售.*$",
-            fnc: "shellAllType",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#置换所有物品$", fnc: "substitution" },
+        { reg: "^#一键出售.*$", fnc: "shellAllType" },
+      ],
+    });
   }
   substitution = async (e) => {
-    
-    if (!e.isGroup || e.user_id == 80000000) return false ;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
-    if (blackid.indexOf(e.user_id) != -1) return false ;
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -62,11 +58,13 @@ export class BoxOnekey extends plugin {
     return false;
   };
   shellAllType = async (e) => {
-    
-    if (!e.isGroup || e.user_id == 80000000) return false ;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
-    if (blackid.indexOf(e.user_id) != -1) return false ;
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");

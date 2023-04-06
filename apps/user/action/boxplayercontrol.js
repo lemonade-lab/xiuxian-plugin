@@ -1,33 +1,23 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxPlayerControl extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "#降妖$",
-            fnc: "dagong",
-          },
-          {
-            reg: "#闭关$",
-            fnc: "biguan",
-          },
-          {
-            reg: "^#出关$",
-            fnc: "chuGuan",
-          },
-          {
-            reg: "^#归来$",
-            fnc: "endWork",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "#降妖$", fnc: "dagong" },
+        { reg: "#闭关$", fnc: "biguan" },
+        { reg: "^#出关$", fnc: "chuGuan" },
+        { reg: "^#归来$", fnc: "endWork" },
+      ],
+    });
   }
   biguan = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -53,9 +43,11 @@ export class BoxPlayerControl extends plugin {
     return false;
   };
   dagong = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -81,9 +73,11 @@ export class BoxPlayerControl extends plugin {
     return false;
   };
   chuGuan = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -92,13 +86,9 @@ export class BoxPlayerControl extends plugin {
       return false;
     }
     let action = await redis.get(`xiuxian:player:${UID}:action`);
-    if (action == undefined) {
-      return false;
-    }
+    if (action == undefined) return false;
     action = JSON.parse(action);
-    if (action.actionName != "闭关") {
-      return false;
-    }
+    if (action.actionName != "闭关") return false;
     const startTime = action.startTime;
     const cf = GameApi.DefsetUpdata.getConfig({
       app: "parameter",
@@ -116,9 +106,11 @@ export class BoxPlayerControl extends plugin {
     return false;
   };
   endWork = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -127,13 +119,9 @@ export class BoxPlayerControl extends plugin {
       return false;
     }
     let action = await redis.get(`xiuxian:player:${UID}:action`);
-    if (action == undefined) {
-      return false;
-    }
+    if (action == undefined) return false;
     action = JSON.parse(action);
-    if (action.actionName != "降妖") {
-      return false;
-    }
+    if (action.actionName != "降妖") return false;
     const startTime = action.startTime;
     const cf = GameApi.DefsetUpdata.getConfig({
       app: "parameter",
@@ -151,9 +139,11 @@ export class BoxPlayerControl extends plugin {
     return false;
   };
   upgrade = async (user_id, time, name, e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = user_id;

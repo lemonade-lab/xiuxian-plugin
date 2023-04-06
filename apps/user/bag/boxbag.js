@@ -1,25 +1,21 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxBag extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#储物袋$",
-            fnc: "showBag",
-          },
-          {
-            reg: "^#升级储物袋$",
-            fnc: "bagUp",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#储物袋$", fnc: "showBag" },
+        { reg: "^#升级储物袋$", fnc: "bagUp" },
+      ],
+    });
   }
   showBag = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -35,9 +31,11 @@ export class BoxBag extends plugin {
     return false;
   };
   bagUp = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {

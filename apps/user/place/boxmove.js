@@ -1,35 +1,26 @@
-import { plugin, Super, GameApi } from "../../../model/api/api.js";
+import { plugin, GameApi, name, dsc } from "../../../model/api/api.js";
 export class BoxMove extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#mapw$",
-            fnc: "mapW",
-          },
-          {
-            reg: "^#mapa$",
-            fnc: "mapA",
-          },
-          {
-            reg: "^#maps$",
-            fnc: "mapS",
-          },
-          {
-            reg: "^#mapd$",
-            fnc: "mapD",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#mapw$", fnc: "mapW" },
+        { reg: "^#mapa$", fnc: "mapA" },
+        { reg: "^#maps$", fnc: "mapS" },
+        { reg: "^#mapd$", fnc: "mapD" },
+      ],
+    });
   }
   /**
    * 前进
    */
   mapW = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
@@ -40,7 +31,10 @@ export class BoxMove extends plugin {
    */
   mapA = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
@@ -51,7 +45,10 @@ export class BoxMove extends plugin {
    */
   mapS = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");
@@ -62,7 +59,10 @@ export class BoxMove extends plugin {
    */
   mapD = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("待更新");

@@ -1,31 +1,24 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxTransaction extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#万宝楼$",
-            fnc: "showComodities",
-          },
-          {
-            reg: "^#购买.*$",
-            fnc: "buyComodities",
-          },
-          {
-            reg: "^#出售.*$",
-            fnc: "sellComodities",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#万宝楼$", fnc: "showComodities" },
+        { reg: "^#购买.*$", fnc: "buyComodities" },
+        { reg: "^#出售.*$", fnc: "sellComodities" },
+      ],
+    });
   }
   showComodities = async (e) => {
-    
-    if (!e.isGroup || e.user_id == 80000000) return false ;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
-    if (blackid.indexOf(e.user_id) != -1) return false ;
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
@@ -99,11 +92,13 @@ export class BoxTransaction extends plugin {
     return false;
   };
   buyComodities = async (e) => {
-    
-    if (!e.isGroup || e.user_id == 80000000) return  ;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
-    if (whitecrowd.indexOf(e.group_id) == -1) return  ;
-    if (blackid.indexOf(e.user_id) != -1) return  ;
+    if (!e.isGroup || e.user_id == 80000000) return;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
+    if (whitecrowd.indexOf(e.group_id) == -1) return;
+    if (blackid.indexOf(e.user_id) != -1) return;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -162,11 +157,13 @@ export class BoxTransaction extends plugin {
     return false;
   };
   sellComodities = async (e) => {
-    
-    if (!e.isGroup || e.user_id == 80000000) return false ;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false ;
-    if (blackid.indexOf(e.user_id) != -1) return false ;
+    if (!e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");

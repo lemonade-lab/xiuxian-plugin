@@ -1,6 +1,6 @@
 import userAction from "../user/action.js";
 import { exec } from "child_process";
-import { appname, __dirname, isPath } from "../../main.js";
+import { appname, __dirname, isPath } from "../../../app.config.js";
 class Exec {
   execStart = async ({ cmd, e }) => {
     exec(cmd, { cwd: __dirname }, async (error, stdout) => {

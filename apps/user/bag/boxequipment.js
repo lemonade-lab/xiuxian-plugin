@@ -1,30 +1,21 @@
-import { GameApi, plugin, Super } from "../../../model/api/api.js";
+import { GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxEquipment extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#装备.*$",
-            fnc: "addEquipment",
-          },
-          {
-            reg: "^#卸下.*$",
-            fnc: "deleteEquipment",
-          },
-          // ,
-          // {
-          //     reg: '^#炼制.*$',
-          //     fnc: 'synthesis'
-          // }
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#装备.*$", fnc: "addEquipment" },
+        { reg: "^#卸下.*$", fnc: "deleteEquipment" },
+      ],
+    });
   }
   synthesis = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -124,9 +115,11 @@ export class BoxEquipment extends plugin {
   };
 
   addEquipment = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -166,9 +159,11 @@ export class BoxEquipment extends plugin {
     return false;
   };
   deleteEquipment = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;

@@ -1,20 +1,14 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxStart extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#降临世界$",
-            fnc: "createMsg",
-          },
-          {
-            reg: "^#再入仙途$",
-            fnc: "reCreateMsg",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#降临世界$", fnc: "createMsg" },
+        { reg: "^#再入仙途$", fnc: "reCreateMsg" },
+      ],
+    });
     this.task = {
       cron: GameApi.DefsetUpdata.getConfig({ app: "task", name: "task" })
         .LifeTask,
@@ -26,7 +20,10 @@ export class BoxStart extends plugin {
   }
   createMsg = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -44,7 +41,10 @@ export class BoxStart extends plugin {
   };
   reCreateMsg = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;

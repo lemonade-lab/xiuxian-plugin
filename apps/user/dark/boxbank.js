@@ -1,17 +1,12 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxBank extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#金银坊$",
-            fnc: "moneyWorkshop",
-          },
-          {
-            reg: "^#金银置换.*$",
-            fnc: "substitution",
-          },
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#金银坊$", fnc: "moneyWorkshop" },
+        { reg: "^#金银置换.*$", fnc: "substitution" },
         //   {
         //     reg: "^#金银存储.*$",
         //     fnc: "storage",
@@ -28,15 +23,16 @@ export class BoxBank extends plugin {
         //     reg: "^#金银消条.*$",
         //     fnc: "deleteWhiteBar",
         //   },
-        ],
-      })
-    );
+      ],
+    });
   }
 
   moneyWorkshop = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -70,9 +66,11 @@ export class BoxBank extends plugin {
   };
 
   substitution = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -129,9 +127,11 @@ export class BoxBank extends plugin {
   };
 
   storage = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -206,9 +206,11 @@ export class BoxBank extends plugin {
   };
 
   withdraw = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -266,9 +268,11 @@ export class BoxBank extends plugin {
   };
 
   whiteBar = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -326,9 +330,11 @@ export class BoxBank extends plugin {
   };
 
   deleteWhiteBar = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;

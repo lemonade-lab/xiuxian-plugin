@@ -1,33 +1,23 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxHome extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#服用.*$",
-            fnc: "take",
-          },
-          {
-            reg: "^#学习.*$",
-            fnc: "study",
-          },
-          {
-            reg: "^#忘掉.*$",
-            fnc: "forget",
-          },
-          {
-            reg: "^#消耗.*$",
-            fnc: "consumption",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#服用.*$", fnc: "take" },
+        { reg: "^#学习.*$", fnc: "study" },
+        { reg: "^#忘掉.*$", fnc: "forget" },
+        { reg: "^#消耗.*$", fnc: "consumption" },
+      ],
+    });
   }
   take = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -143,9 +133,11 @@ export class BoxHome extends plugin {
     return false;
   };
   study = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -201,9 +193,11 @@ export class BoxHome extends plugin {
     return false;
   };
   forget = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -235,9 +229,11 @@ export class BoxHome extends plugin {
     return false;
   };
   consumption = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;

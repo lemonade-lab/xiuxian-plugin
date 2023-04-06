@@ -1,40 +1,27 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 const forwardsetTime = [];
 const deliverysetTime = [];
 const useraction = [];
 export class BoxSecretplace extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#坐标信息$",
-            fnc: "xyzaddress",
-          },
-          {
-            reg: "^#前往.*$",
-            fnc: "forward",
-          },
-          {
-            reg: "^#回到原地$",
-            fnc: "return falsePiont",
-          },
-          {
-            reg: "^#传送.*$",
-            fnc: "delivery",
-          },
-          {
-            reg: "^#位置信息$",
-            fnc: "showCity",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#坐标信息$", fnc: "xyzaddress" },
+        { reg: "^#前往.*$", fnc: "forward" },
+        { reg: "^#回到原地$", fnc: "return falsePiont" },
+        { reg: "^#传送.*$", fnc: "delivery" },
+        { reg: "^#位置信息$", fnc: "showCity" },
+      ],
+    });
   }
   showCity = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -70,7 +57,10 @@ export class BoxSecretplace extends plugin {
   };
   falsePiont = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -90,9 +80,11 @@ export class BoxSecretplace extends plugin {
   };
 
   xyzaddress = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     const UID = e.user_id;
@@ -110,9 +102,11 @@ export class BoxSecretplace extends plugin {
   };
 
   forward = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -180,9 +174,11 @@ export class BoxSecretplace extends plugin {
     return false;
   };
   delivery = async (e) => {
-
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {

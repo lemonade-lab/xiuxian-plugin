@@ -1,48 +1,21 @@
-import { BotApi, GameApi, plugin, Super } from "../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../model/api/api.js";
 export class boxadminaction extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#修仙更新",
-            fnc: "allForcecheckout",
-          },
-          {
-            reg: "^#修仙删除数据$",
-            fnc: "deleteRedis",
-          },
-          {
-            reg: "^#修仙删除世界$",
-            fnc: "deleteAllusers",
-          },
-          {
-            reg: "^#盒子开启.*$",
-            fnc: "boxaSwitchOpen",
-          },
-          {
-            reg: "^#盒子关闭.*$",
-            fnc: "boxaSwitchOff",
-          },
-          {
-            reg: "^#修仙配置更改.*",
-            fnc: "configUpdata",
-          },
-          {
-            reg: "^#修仙重置配置",
-            fnc: "configReUpdata",
-          },
-          {
-            reg: "^#修仙重置图片",
-            fnc: "imgReUpdata",
-          },
-          {
-            reg: "^#盒子复原.*$",
-            fnc: "dataRecovery",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#修仙更新", fnc: "allForcecheckout" },
+        { reg: "^#修仙删除数据$", fnc: "deleteRedis" },
+        { reg: "^#修仙删除世界$", fnc: "deleteAllusers" },
+        { reg: "^#盒子开启.*$", fnc: "boxaSwitchOpen" },
+        { reg: "^#盒子关闭.*$", fnc: "boxaSwitchOff" },
+        { reg: "^#修仙配置更改.*", fnc: "configUpdata" },
+        { reg: "^#修仙重置配置", fnc: "configReUpdata" },
+        { reg: "^#修仙重置图片", fnc: "imgReUpdata" },
+        { reg: "^#盒子复原.*$", fnc: "dataRecovery" },
+      ],
+    });
     this.key = "xiuxian:restart";
   }
   allForcecheckout = async (e) => {

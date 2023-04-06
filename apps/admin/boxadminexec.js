@@ -1,24 +1,15 @@
-import { BotApi, GameApi, plugin, Super } from "../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../model/api/api.js";
 export class boxadminexec extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#修仙插件列表$",
-            fnc: "execList",
-          },
-          {
-            reg: "^#修仙安装.*$",
-            fnc: "execAdd",
-          },
-          {
-            reg: "^#修仙卸载.*$",
-            fnc: "execDelete",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#修仙插件列表$", fnc: "execList" },
+        { reg: "^#修仙安装.*$", fnc: "execAdd" },
+        { reg: "^#修仙卸载.*$", fnc: "execDelete" },
+      ],
+    });
     this.key = "xiuxian:restart";
   }
   execList = async (e) => {

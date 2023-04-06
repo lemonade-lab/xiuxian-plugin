@@ -1,25 +1,21 @@
-import { BotApi, GameApi, plugin, Super } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxMoneyOperation extends plugin {
   constructor() {
-    super(
-      Super({
-        rule: [
-          {
-            reg: "^#赠送灵石.*$",
-            fnc: "giveMoney",
-          },
-          {
-            reg: "^#联盟报到$",
-            fnc: "userCheckin",
-          },
-        ],
-      })
-    );
+    super({
+      name,
+      dsc,
+      rule: [
+        { reg: "^#赠送灵石.*$", fnc: "giveMoney" },
+        { reg: "^#联盟报到$", fnc: "userCheckin" },
+      ],
+    });
   }
   userCheckin = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -82,9 +78,11 @@ export class BoxMoneyOperation extends plugin {
     return false;
   };
   giveMoney = async (e) => {
-    
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "namelist" });
+    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
+      app: "parameter",
+      name: "namelist",
+    });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
@@ -98,9 +96,7 @@ export class BoxMoneyOperation extends plugin {
     }
     const A = e.user_id;
     const B = await BotApi.User.at({ e });
-    if (!B || B == A) {
-      return false;
-    }
+    if (!B || B == A) return false;
     const existB = await GameApi.GameUser.existUserSatus({ UID: B });
     if (!existB) {
       e.reply("已死亡");

@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { __dirname } from "../../main.js";
+import { __dirname } from "../../../app.config.js";
 import algorithm from "./algorithm.js";
 /* 默认重置的图片 */
 const ImgPath = [

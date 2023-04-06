@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import createdata from "./createdata.js";
 import genertate from "./generate.js";
-import { __dirname } from "../../main.js";
+import { __dirname } from "../../../app.config.js";
 import listdata from "./listdata.js";
 export const __PATH = {
   /*玩家存档*/
