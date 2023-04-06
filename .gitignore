@@ -1,4 +1,4 @@
 node_modules
-config/
-resources/data/birth
-resources/img
+/config/
+/resources/data/birth
+/resources/img

@@ -2,9 +2,9 @@
 
 #### 安装机器人
 
-miaomiao-Bot 喵崽版[`☞最推荐`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+miaomiao-Bot 喵崽版[`☞推荐`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
 
-Yunzai-Bot 喵喵版[`☞维护中`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
+Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 #### 根目录执行
 
@@ -14,9 +14,9 @@ git clone --depth=1 -b xiuxian@2.0.0 https://gitee.com/three-point-of-water/xiux
 
 #### 启动游戏
 
-`xiuxian-plugin`更改为`xiuxian@2.0.0`
+`xiuxian-plugin`改`xiuxian@2.0.0`
 
-`xiuxian@2.0.0`运行后请配置白名单
+`xiuxian@2.0.0`运行后请配置
 
 > config/parameter/nanelist.yaml
 
