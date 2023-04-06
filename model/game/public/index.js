@@ -17,7 +17,7 @@ const MYCD = {
   13: "渡劫",
 };
 /**自定义插件redis字段*/
-const ReadiName = "xiuxian:player";
+const ReadiName = "xiuxian@2.0.0";
 class GamePublic {
   /**
    * 进程沉睡
