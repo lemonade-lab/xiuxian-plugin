@@ -14,13 +14,11 @@ git clone --depth=1 -b xiuxian@2.0.0 https://gitee.com/three-point-of-water/xiux
 
 #### 启动游戏
 
-[xiuxian@2.0.0] 该版本需要更改目录名
-
 `xiuxian-plugin`更改为`xiuxian@2.0.0`
 
-运行后请配置白名单
+`xiuxian@2.0.0`运行后请配置白名单
 
-|config/parameter/nanelist.yaml
+> config/parameter/nanelist.yaml
 
 #### 开源协议
 
