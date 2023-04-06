@@ -24,8 +24,8 @@ import { get_player_img } from "../../model/information.js";
 export class userstart extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
+      name:"@1.2.1userstart",
+      dsc:"@1.2.1userstart",
       rule: [
         {
           reg: "^#踏入仙途$",
