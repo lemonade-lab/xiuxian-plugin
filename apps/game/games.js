@@ -64,7 +64,7 @@ export class games extends plugin {
     //统一用户ID名
     let usr_qq = e.user_id;
     //不开放私聊
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -85,7 +85,7 @@ export class games extends plugin {
     //统一用户ID名
     let usr_qq = e.user_id;
     //不开放私聊
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -103,7 +103,7 @@ export class games extends plugin {
 
   //怡红院
   async Xiuianplay(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -211,7 +211,7 @@ export class games extends plugin {
     }
     //用户固定写法
     let usr_qq = e.user_id;
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -281,7 +281,7 @@ export class games extends plugin {
   //这里冲突了，拆函数！
   //梭哈|押注999
   async Moneycheck(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -370,7 +370,7 @@ export class games extends plugin {
 
   //大|小
   async Moneycheckguess(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -538,7 +538,7 @@ export class games extends plugin {
 
   async Moneyrecord(e) {
     let qq = e.user_id;
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -592,7 +592,7 @@ export class games extends plugin {
 
   //来张卡片
   async getOneCard(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -651,7 +651,7 @@ export class games extends plugin {
 
   //双修
   async Couple(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;

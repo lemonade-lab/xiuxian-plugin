@@ -53,7 +53,7 @@ export class userstart extends plugin {
 
   //#踏入仙途
   async Create_player(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -124,7 +124,7 @@ export class userstart extends plugin {
 
   //重新修仙
   async reCreate_player(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -188,7 +188,7 @@ export class userstart extends plugin {
 
   //重生方法
   async RE_xiuxian(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -289,7 +289,7 @@ export class userstart extends plugin {
 
   //#我的练气
   async Show_player(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -307,7 +307,7 @@ export class userstart extends plugin {
 
   //改名
   async Change_player_name(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -412,7 +412,7 @@ export class userstart extends plugin {
 
   //签到
   async daily_gift(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;

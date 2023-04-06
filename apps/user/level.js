@@ -50,7 +50,7 @@ export class level extends plugin {
   }
 
   async levelMax_up(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -182,7 +182,7 @@ export class level extends plugin {
 
   //突破
   async level_up(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -379,7 +379,7 @@ export class level extends plugin {
     }
 
     //不开放私聊
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -566,7 +566,7 @@ export class level extends plugin {
     }
 
     //不开放私聊
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;

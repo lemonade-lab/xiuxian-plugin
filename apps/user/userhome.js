@@ -51,7 +51,7 @@ export class userhome extends plugin {
 
   //存取灵石
   async Take_lingshi(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -148,7 +148,7 @@ export class userhome extends plugin {
 
   //#(装备|服用|消耗)物品*数量
   async Player_use(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -348,7 +348,7 @@ export class userhome extends plugin {
 
   //购买商品
   async Buy_comodities(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -442,7 +442,7 @@ export class userhome extends plugin {
 
   //出售商品
   async Sell_comodities(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;

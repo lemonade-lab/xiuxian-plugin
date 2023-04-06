@@ -62,7 +62,7 @@ export class associationadmin extends plugin {
     if (!ifexistplay) {
       return false;
     }
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -113,7 +113,7 @@ export class associationadmin extends plugin {
   async Get_association_name(e) {
     let usr_qq = e.user_id;
     /** 内容 */
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -166,7 +166,7 @@ export class associationadmin extends plugin {
 
   //护宗大阵
   async huz(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -186,7 +186,7 @@ export class associationadmin extends plugin {
     return false;
   }
   async weihu(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -233,7 +233,7 @@ export class associationadmin extends plugin {
 
   //升级宗门
   async lvup_association(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -282,7 +282,7 @@ export class associationadmin extends plugin {
 
   //任命职位
   async Set_appointment(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -352,7 +352,7 @@ export class associationadmin extends plugin {
 
   //宗门维护
   async Maintenance(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -399,7 +399,7 @@ export class associationadmin extends plugin {
 
   //设置最低加入境界
   async jiaru(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -431,7 +431,7 @@ export class associationadmin extends plugin {
   }
 
   async Deleteusermax(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -503,7 +503,7 @@ export class associationadmin extends plugin {
   }
 
   async Deleteuser(e) {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+    if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
