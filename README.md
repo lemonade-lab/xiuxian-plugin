@@ -13,7 +13,7 @@ Yunzai-Bot 喵喵版[`☞维护中`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot
 #### 根目录执行
 
 ```
-git clone --depth=1 -b VersionOne https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/
+git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
 ```
 
 #### 开源协议
