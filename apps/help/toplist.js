@@ -196,10 +196,7 @@ export class toplist extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
-
+    if (!ifexistplay)  return false;
     let usr_paiming;
     let File = fs.readdirSync(__PATH.player_path);
     File = File.filter((file) => file.endsWith(".json"));
@@ -251,9 +248,7 @@ export class toplist extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)   return false;
     let usr_paiming;
     let File = fs.readdirSync(__PATH.player_path);
     File = File.filter((file) => file.endsWith(".json"));

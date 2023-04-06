@@ -49,14 +49,9 @@ export class exchange extends plugin {
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
-    if (usr_qq == 80000000) {
-      return false;
-    }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay) return false;
     let Ex = await redis.get("xiuxian:player:" + usr_qq + ":exchange");
     if (Ex != 1) {
       e.reply("没有上架物品！");
@@ -105,10 +100,7 @@ export class exchange extends plugin {
 
     let thingqq = e.msg.replace("#", "");
     thingqq = thingqq.replace("下架", "");
-    if (thingqq == "") {
-      return false;
-    }
-
+    if (thingqq == "")  return false;
     let x = 888888888;
     let exchange;
     try {
@@ -189,15 +181,9 @@ export class exchange extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     //固定写法
     let usr_qq = e.user_id;
-    //判断是否为匿名创建存档
-    if (usr_qq == 80000000) {
-      return false;
-    }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)  return false;
 
     let Ex = await redis.get("xiuxian:player:" + usr_qq + ":exchange");
     if (Ex == 1) {
@@ -210,9 +196,7 @@ export class exchange extends plugin {
     let thing_name = code[0]; //物品
     let thing_value = code[1]; //价格
     let thing_acunot = code[2]; //数量
-    if (thing_acunot > 99) {
-      return false;
-    }
+    if (thing_acunot > 99)   return false;
     if (
       thing_acunot < 1 ||
       thing_acunot == null ||
@@ -221,9 +205,7 @@ export class exchange extends plugin {
     ) {
       thing_acunot = 1;
     }
-    if (thing_value <= 0) {
-      return false;
-    }
+    if (thing_value <= 0) return false;
     if (!isNaN(parseFloat(thing_value)) && isFinite(thing_value)) {
     } else {
       return false;
@@ -393,14 +375,10 @@ export class exchange extends plugin {
   }
 
   async purchase(e) {
-    //选购需要常用判断
-    //固定写法
     let usr_qq = e.user_id;
     //全局状态判断
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)  return false;
     //防并发cd
     var time0 = 2; //分钟cd
     //获取当前时间

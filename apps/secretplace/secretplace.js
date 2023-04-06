@@ -175,9 +175,7 @@ export class secretplace extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T) return false;
     let player = await Read_player(usr_qq);
     let now_level_id;
     if (!isNotNull(player.level_id)) {
@@ -188,23 +186,17 @@ export class secretplace extends plugin {
       e.reply("请#同步信息");
       return false;
     }
-    if (player.power_place == 0) {
-      return false;
-    }
+    if (player.power_place == 0)  return false;
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
-    if (now_level_id < 22) {
-      return false;
-    }
+    if (now_level_id < 22)   return false;
     var didian = await e.msg.replace("#前往禁地", "");
     didian = didian.trim();
     let weizhi = await data.forbiddenarea_list.find(
       (item) => item.name == didian
     );
-    if (!isNotNull(weizhi)) {
-      return false;
-    }
+    if (!isNotNull(weizhi)) return false;
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
       return false;
@@ -250,9 +242,7 @@ export class secretplace extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)  return false;
     let player = await Read_player(usr_qq);
     let didian = "无欲天仙";
     let now_level_id;
@@ -263,13 +253,9 @@ export class secretplace extends plugin {
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
-    if (now_level_id < 21) {
-      return false;
-    }
+    if (now_level_id < 21)  return false;
     let weizhi = await data.timeplace_list.find((item) => item.name == didian);
-    if (!isNotNull(weizhi)) {
-      return false;
-    }
+    if (!isNotNull(weizhi))return false;
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
       return false;
@@ -294,9 +280,7 @@ export class secretplace extends plugin {
       //这里要保存秘境特别需要留存的信息
       Place_address: weizhi,
     };
-    if (e.isGroup) {
-      arr.group_id = e.group_id;
-    }
+    if (e.isGroup)  arr.group_id = e.group_id;
     await redis.set(
       "xiuxian:player:" + usr_qq + ":action",
       JSON.stringify(arr)
@@ -315,16 +299,12 @@ export class secretplace extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)   return false;
     let player = await Read_player(usr_qq);
     var didian = e.msg.replace("#镇守仙境", "");
     didian = didian.trim();
     let weizhi = await data.Fairyrealm_list.find((item) => item.name == didian);
-    if (!isNotNull(weizhi)) {
-      return false;
-    }
+    if (!isNotNull(weizhi))  return false;
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
       return false;

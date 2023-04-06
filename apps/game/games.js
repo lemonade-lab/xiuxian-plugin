@@ -61,9 +61,7 @@ export class games extends plugin {
     });
   }
   async Refusecouple(e) {
-    //统一用户ID名
     let usr_qq = e.user_id;
-    //不开放私聊
     if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
@@ -72,9 +70,7 @@ export class games extends plugin {
 
     //全局状态判断
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)   return false;
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 1);
     e.reply(player.名号 + "开启了拒绝模式");
@@ -110,17 +106,13 @@ export class games extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let switchgame = config.getconfig("xiuxian", "xiuxian").switch.play;
 
-    if (switchgame != true) {
-      return false;
-    }
+    if (switchgame != true)  return false;
     //统一用户ID名
     let usr_qq = e.user_id;
 
     //全局状态判断
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)  return false;
 
     //得到用户信息
     let player = await Read_player(usr_qq);
@@ -206,9 +198,7 @@ export class games extends plugin {
   async Moneynumber(e) {
     //金银坊开关
     let gameswitch = config.getconfig("xiuxian", "xiuxian").switch.Moneynumber;
-    if (gameswitch != true) {
-      return false;
-    }
+    if (gameswitch != true)   return false;
     //用户固定写法
     let usr_qq = e.user_id;
     if (!e.isGroup  || e.user_id == 80000000)
@@ -218,9 +208,7 @@ export class games extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     //全局状态判断
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)  return false;
     //用户信息查询
     let player = data.getData("player", usr_qq);
     var money = 10000;
@@ -299,10 +287,7 @@ export class games extends plugin {
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );
-    if (!ifexistplay || game_action == 1) {
-      //不是就返回
-      return false;
-    }
+    if (!ifexistplay || game_action == 1) return false;
 
     //梭哈|押注999。如果是押注。就留下999
     let es = e.msg.replace("#押注", "").trim();
@@ -386,13 +371,8 @@ export class games extends plugin {
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action2"
     );
-    if (!ifexistplay || game_action != 0) {
-      //不是就返回
-      return false;
-    }
-    if (isNaN(yazhu[usr_qq])) {
-      return false;
-    }
+    if (!ifexistplay || game_action != 0)  return false;
+    if (isNaN(yazhu[usr_qq])) return false;
     //判断是否押注金额
     //是对应的押注用户。
     //检查此人是否已经押注

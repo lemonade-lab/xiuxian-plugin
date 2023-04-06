@@ -48,9 +48,7 @@ export class battle extends plugin {
     }
 
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return false;
-    }
+    if (!isat)  return false;
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq; //后手
 

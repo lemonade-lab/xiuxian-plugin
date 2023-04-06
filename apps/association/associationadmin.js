@@ -57,16 +57,14 @@ export class associationadmin extends plugin {
 
   //判断是否满足创建宗门条件
   async Create_association(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
     if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
+    let usr_qq = e.user_id;
+    let ifexistplay = data.existData("player", usr_qq);
+    if (!ifexistplay)  return false;
     let player = data.getData("player", usr_qq);
 
     let now_level_id;
@@ -111,13 +109,12 @@ export class associationadmin extends plugin {
 
   /** 获取宗门名称 */
   async Get_association_name(e) {
-    let usr_qq = e.user_id;
-    /** 内容 */
     if (!e.isGroup  || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
+    let usr_qq = e.user_id;
     let new_msg = this.e.message;
     if (new_msg[0].type != "text") {
       this.setContext("Get_association_name");
@@ -173,9 +170,7 @@ export class associationadmin extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)  return false;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       e.reply("你尚未加入宗门");
@@ -186,16 +181,13 @@ export class associationadmin extends plugin {
     return false;
   }
   async weihu(e) {
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isGroup  || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)   return false;
     let player = data.getData("player", usr_qq);
     if (player.宗门.职位 == "宗主" || player.宗门.职位 == "长老") {
     } else {
@@ -438,14 +430,9 @@ export class associationadmin extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)  return false;
     let player = await data.getData("player", usr_qq);
-    if (!isNotNull(player.宗门)) {
-      return false;
-    }
-
+    if (!isNotNull(player.宗门))   return false;
     let menpai = e.msg.replace("#", "");
 
     menpai = menpai.replace("踢出门派", "");
@@ -510,17 +497,11 @@ export class associationadmin extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)  return false;
     let player = await data.getData("player", usr_qq);
-    if (!isNotNull(player.宗门)) {
-      return false;
-    }
+    if (!isNotNull(player.宗门))  return false;
     let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
-    if (!atItem) {
-      return false;
-    } //没有at信息直接返回,不执行
+    if (!atItem) return false;
     let member_qq = atItem[0].qq;
     if (usr_qq == member_qq) {
       e.reply("???");

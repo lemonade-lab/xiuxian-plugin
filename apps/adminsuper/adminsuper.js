@@ -62,12 +62,10 @@ export class adminsuper extends plugin {
   }
 
   async Worldstatistics(e) {
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
-    if (!e.isMaster) return false;
     let acount = 0;
     let lower = 0;
     let senior = 0;
@@ -114,70 +112,70 @@ export class adminsuper extends plugin {
       Worldmoney = Worldmoney.toFixed(2);
       msg = [
         "___[修仙世界]___" +
-          "\n人数:" +
-          acount +
-          "\n修道者:" +
-          senior +
-          "\n修仙者:" +
-          lower +
-          "\n财富:" +
-          Worldmoney +
-          "\n人均:" +
-          (Worldmoney / acount).toFixed(3),
+        "\n人数:" +
+        acount +
+        "\n修道者:" +
+        senior +
+        "\n修仙者:" +
+        lower +
+        "\n财富:" +
+        Worldmoney +
+        "\n人均:" +
+        (Worldmoney / acount).toFixed(3),
       ];
     } else if (Worldmoney > 10000 && Worldmoney < 1000000) {
       Worldmoney = Worldmoney / 10000;
       Worldmoney = Worldmoney.toFixed(2);
       msg = [
         "___[修仙世界]___" +
-          "\n人数:" +
-          acount +
-          "\n修道者:" +
-          senior +
-          "\n修仙者:" +
-          lower +
-          "\n财富:" +
-          Worldmoney +
-          "万" +
-          "\n人均:" +
-          (Worldmoney / acount).toFixed(3) +
-          "万",
+        "\n人数:" +
+        acount +
+        "\n修道者:" +
+        senior +
+        "\n修仙者:" +
+        lower +
+        "\n财富:" +
+        Worldmoney +
+        "万" +
+        "\n人均:" +
+        (Worldmoney / acount).toFixed(3) +
+        "万",
       ];
     } else if (Worldmoney > 1000000 && Worldmoney < 100000000) {
       Worldmoney = Worldmoney / 1000000;
       Worldmoney = Worldmoney.toFixed(2);
       msg = [
         "___[修仙世界]___" +
-          "\n人数:" +
-          acount +
-          "\n修道者:" +
-          senior +
-          "\n修仙者:" +
-          lower +
-          "\n财富:" +
-          Worldmoney +
-          "百万" +
-          "\n人均:" +
-          (Worldmoney / acount).toFixed(3) +
-          "百万",
+        "\n人数:" +
+        acount +
+        "\n修道者:" +
+        senior +
+        "\n修仙者:" +
+        lower +
+        "\n财富:" +
+        Worldmoney +
+        "百万" +
+        "\n人均:" +
+        (Worldmoney / acount).toFixed(3) +
+        "百万",
       ];
     } else if (Worldmoney > 100000000) {
       Worldmoney = Worldmoney / 100000000;
       Worldmoney = Worldmoney.toFixed(2);
       msg = [
         "___[修仙世界]___" +
-          "\n人数:" +
-          acount +
-          "\n修道者:" +
-          senior +
-          "\n修仙者:" +
-          lower +
-          "\n财富:" +
-          Worldmoney +
-          "亿" +
-          "\n人均:" +
-          (Worldmoney / acount).toFixed(3) +
-          "亿",
+        "\n人数:" +
+        acount +
+        "\n修道者:" +
+        senior +
+        "\n修仙者:" +
+        lower +
+        "\n财富:" +
+        Worldmoney +
+        "亿" +
+        "\n人均:" +
+        (Worldmoney / acount).toFixed(3) +
+        "亿",
       ];
     }
     await ForwardMsg(e, msg);
@@ -185,9 +183,7 @@ export class adminsuper extends plugin {
   }
 
   async Deleteforum(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
@@ -208,7 +204,7 @@ export class adminsuper extends plugin {
 
   async DeleteBoss(e) {
     if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
+    if (!e.isGroup || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
@@ -228,9 +224,7 @@ export class adminsuper extends plugin {
   }
 
   async OpenBoss(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
@@ -337,9 +331,7 @@ export class adminsuper extends plugin {
   }
 
   async Deletepurchase(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
@@ -383,9 +375,7 @@ export class adminsuper extends plugin {
   }
 
   async Deleteexchange(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
@@ -438,9 +428,7 @@ export class adminsuper extends plugin {
   }
 
   async Allrelieve(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
@@ -480,9 +468,7 @@ export class adminsuper extends plugin {
   }
 
   async relieve(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
@@ -528,9 +514,7 @@ export class adminsuper extends plugin {
   }
 
   async Knockdown(e) {
-    if (!e.isMaster) return false;
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;

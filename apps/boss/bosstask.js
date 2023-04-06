@@ -38,9 +38,7 @@ export class bosstask extends plugin {
       //读取信息
       let player = await Read_player(usr_qq);
       let now_level_id;
-      if (!isNotNull(player.level_id)) {
-        return;
-      }
+      if (!isNotNull(player.level_id))   return;
       now_level_id = data.level_list.find(
         (item) => item.level_id == player.level_id
       ).level_id;
@@ -79,9 +77,7 @@ export class bosstask extends plugin {
       await redis.set("xiuxian:BossMaxplus", JSON.stringify(BossMaxplus));
       await redis.set("BossMaxplus", 0);
     }
-    if (User_max >= 25) {
-      User_max = 25;
-    }
+    if (User_max >= 25)  User_max = 25;
     await redis.set("BossMax", 1);
     if (User_max != 1) {
       //初始化属性
@@ -98,9 +94,7 @@ export class bosstask extends plugin {
       //金角大王
       await redis.set("BossMax", 0);
     }
-    if (User_mini >= 20) {
-      User_mini = 20;
-    }
+    if (User_mini >= 20)  User_mini = 20;
     await redis.set("BossMini", 1);
     if (User_mini != 1) {
       //初始化属性

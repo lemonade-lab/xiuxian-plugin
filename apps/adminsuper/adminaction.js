@@ -29,10 +29,13 @@ export class adminaction extends plugin {
       redis.del(this.key);
     }
   }
-  async checkout() {
-    if (!this.e.isMaster) return false;
-    const isForce = this.e.msg.includes("强制");
-    let e = this.e;
+  async checkout(e) {
+    if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
+    const isForce = e.msg.includes("强制");
+    let mye = e;
     let msg = ["————[更新消息]————"];
     let command = "git  pull";
     if (isForce) {
@@ -47,22 +50,22 @@ export class adminaction extends plugin {
       function (error, stdout, stderr) {
         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
           msg.push("目前已经是最新版修仙插件了~");
-          ForwardMsg(e, msg);
+          ForwardMsg(mye, msg);
           return false;
         }
         if (error) {
           msg.push(
             "修仙插件更新失败！\nError code: " +
-              error.code +
-              "\n" +
-              error.stack +
-              "\n 请稍后重试。"
+            error.code +
+            "\n" +
+            error.stack +
+            "\n 请稍后重试。"
           );
-          ForwardMsg(e, msg);
+          ForwardMsg(mye, msg);
           return false;
         }
         msg.push("修仙插件更新成功,正在尝试重新启动以应用更新...");
-        ForwardMsg(e, msg);
+        ForwardMsg(mye, msg);
       }
     );
     return false;

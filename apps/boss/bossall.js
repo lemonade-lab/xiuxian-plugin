@@ -321,9 +321,7 @@ export class bossall extends plugin {
     let usr_qq = e.user_id;
     //看状态
     const T = await Go(e);
-    if (!T) {
-      return false;
-    }
+    if (!T)   return false;
     //查看boss状态
     let boss = await redis.get("BossMini");
     if (boss == 0) {
@@ -342,9 +340,7 @@ export class bossall extends plugin {
     ).level_id;
     if (now_level_id < 21) {
       let cd = await BossCD(e);
-      if (cd == 1) {
-        return false;
-      }
+      if (cd == 1)  return false;
       //这里接受用户信息
       let A_player = await Bossbattle(e);
       //攻打

@@ -47,16 +47,13 @@ export class association extends plugin {
 
   //宗门俸禄
   async gift_association(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
+    let usr_qq = e.user_id;
+    let ifexistplay = data.existData("player", usr_qq);
+    if (!ifexistplay) return false;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return false;
@@ -103,20 +100,16 @@ export class association extends plugin {
 
   //加入宗门
   async Join_association(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
-    if (!e.isGroup  || e.user_id == 80000000)
+    if (!e.isGroup || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
+    let usr_qq = e.user_id;
+    let ifexistplay = data.existData("player", usr_qq);
+    if (!ifexistplay) return false;
     let player = data.getData("player", usr_qq);
-    if (isNotNull(player.宗门)) {
-      return false;
-    }
+    if (isNotNull(player.宗门)) return false;
 
     let now_level_id;
     if (!isNotNull(player.level_id)) {
@@ -134,10 +127,7 @@ export class association extends plugin {
     let association_name = e.msg.replace("#加入宗门", "");
     association_name = association_name.trim();
     let ifexistass = data.existData("association", association_name);
-    if (!ifexistass) {
-      return false;
-    }
-
+    if (!ifexistass) return false;
     let ass = data.getAssociation(association_name);
 
     if (ass.最低加入境界 > now_level_id) {
@@ -175,30 +165,20 @@ export class association extends plugin {
 
   //退出宗门
   async Exit_association(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-
-    if (!ifexistplay) {
-      return false;
-    }
-
-    if (!e.isGroup  || e.user_id == 80000000)
+    if (!e.isGroup || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
-
+    let usr_qq = e.user_id;
+    let ifexistplay = data.existData("player", usr_qq);
+    if (!ifexistplay) return false;
     let player = data.getData("player", usr_qq);
-    if (!isNotNull(player.宗门)) {
-      return false;
-    }
-
+    if (!isNotNull(player.宗门)) return false;
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
     let addTime;
-
     var time = config.getconfig("xiuxian", "xiuxian").CD.joinassociation; //分钟
-
     if (typeof player.宗门.time == "undefined") {
       addTime = player.宗门.加入时间[1] + 60000 * time;
     } else {
@@ -266,16 +246,14 @@ export class association extends plugin {
 
   //捐赠灵石
   async give_association_lingshi(e) {
-    let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
+
+    let usr_qq = e.user_id;
+    let ifexistplay = data.existData("player", usr_qq);
+    if (!ifexistplay) return false;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return false;
@@ -304,8 +282,7 @@ export class association extends plugin {
 
     if (ass.灵石池 + lingshi > 宗门灵石池上限[ass.宗门等级 - 1]) {
       e.reply(
-        `${ass.宗门名称}的灵石池最多还能容纳${
-          宗门灵石池上限[ass.宗门等级 - 1] - ass.灵石池
+        `${ass.宗门名称}的灵石池最多还能容纳${宗门灵石池上限[ass.宗门等级 - 1] - ass.灵石池
         }灵石,请重新捐赠`
       );
       return false;
@@ -319,8 +296,7 @@ export class association extends plugin {
     await data.setAssociation(ass.宗门名称, ass);
     await setFileValue(usr_qq, -lingshi, "灵石");
     e.reply(
-      `捐赠成功,你身上还有${player.灵石 - lingshi}灵石,宗门灵石池目前有${
-        ass.灵石池
+      `捐赠成功,你身上还有${player.灵石 - lingshi}灵石,宗门灵石池目前有${ass.灵石池
       }灵石`
     );
     return false;
@@ -330,18 +306,13 @@ export class association extends plugin {
   async Logs_donate(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
-    if (!e.isGroup  || e.user_id == 80000000)
-      return false;
+    if (!ifexistplay) return false;
+    if (!e.isGroup || e.user_id == 80000000) return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     let player = data.getData("player", usr_qq);
-    if (!isNotNull(player.宗门)) {
-      return false;
-    }
+    if (!isNotNull(player.宗门)) return false;
     let ass = data.getAssociation(player.宗门.宗门名称);
     let donate_list = [];
     for (let i in ass.所有成员) {
@@ -360,32 +331,27 @@ export class association extends plugin {
     let msg = [`${ass.宗门名称} 灵石捐献记录表`];
     for (let i = 0; i < donate_list.length; i++) {
       msg.push(
-        `第${i + 1}名  ${donate_list[i].name}  捐赠灵石:${
-          donate_list[i].lingshi_donate
+        `第${i + 1}名  ${donate_list[i].name}  捐赠灵石:${donate_list[i].lingshi_donate
         }`
       );
     }
     await ForwardMsg(e, msg);
-
     return false;
   }
 
   //宗门列表
   async List_appointment(e) {
-    if (!e.isGroup  || e.user_id == 80000000)
+    if (!e.isGroup || e.user_id == 80000000)
       return false;
     const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return false;
-    }
+    if (!ifexistplay)   return false;
     let dir = data.filePathMap.association;
     let File = fs.readdirSync(dir);
     File = File.filter((file) => file.endsWith(".json")); //这个数组内容是所有的宗门名称
-
     let temp = ["宗门列表"];
     if (File.length == 0) {
       temp.push("暂时没有宗门数据");
@@ -399,18 +365,17 @@ export class association extends plugin {
 
       temp.push(
         `序号:${1 + i} ` +
-          "\n" +
-          `宗名: ${this_ass.宗门名称}` +
-          "\n" +
-          `人数: ${this_ass.所有成员.length}/${
-            宗门人数上限[this_ass.宗门等级 - 1]
-          }` +
-          "\n" +
-          `等级: ${this_ass.宗门等级}` +
-          "\n" +
-          `天赋加成: ${this_ass_xiuxian}%` +
-          "\n" +
-          `宗主: ${this_ass.宗主}`
+        "\n" +
+        `宗名: ${this_ass.宗门名称}` +
+        "\n" +
+        `人数: ${this_ass.所有成员.length}/${宗门人数上限[this_ass.宗门等级 - 1]
+        }` +
+        "\n" +
+        `等级: ${this_ass.宗门等级}` +
+        "\n" +
+        `天赋加成: ${this_ass_xiuxian}%` +
+        "\n" +
+        `宗主: ${this_ass.宗主}`
       );
     }
     await ForwardMsg(e, temp);
@@ -445,9 +410,7 @@ async function setFileValue(user_qq, num, type) {
 function isNotMaintenance(ass) {
   let now = new Date();
   let nowTime = now.getTime(); //获取当前日期的时间戳
-  if (ass.维护时间 > nowTime - 1000 * 60 * 60 * 24 * 7) {
-    return false;
-  }
+  if (ass.维护时间 > nowTime - 1000 * 60 * 60 * 24 * 7)  return false;
   return true;
 }
 
