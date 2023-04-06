@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import {
@@ -14,10 +14,8 @@ import {
 export class bossall extends plugin {
   constructor() {
     super({
-      name: "bossall",
-      dsc: "bossall",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#怪物状态$",
@@ -41,7 +39,11 @@ export class bossall extends plugin {
 
   //怪物状态
   async Bosstate(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let bossMaxplus = await redis.get("BossMaxplus");
     let msg = ["《怪物时间》\n11:30——12:30\n18:30——19:30\n指令:#讨伐+怪物名"];
     if (bossMaxplus == 0) {
@@ -104,31 +106,35 @@ export class bossall extends plugin {
       msg.push("银角大王未开启！");
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   //讨伐魔王
   async BossMaxplus(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //看状态
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //查看boss状态
     let boss = await redis.get("BossMaxplus");
     if (boss == 0) {
     } else {
       e.reply("魔王未开启！");
-      return;
+      return false;
     }
     //按攻打次数获得奖励
     let player = await Read_player(usr_qq);
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -137,7 +143,7 @@ export class bossall extends plugin {
     if (now_level_id >= 42) {
       let cd = await BossCD(e);
       if (cd == 1) {
-        return;
+        return false;
       }
       let A_player = await Bossbattle(e);
       let BossMaxplus = await redis.get("xiuxian:BossMaxplus");
@@ -190,7 +196,7 @@ export class bossall extends plugin {
           }
         } else {
           //出错了
-          return;
+          return false;
         }
         await Add_血气(usr_qq, 500);
         let now_time = new Date().getTime();
@@ -200,30 +206,34 @@ export class bossall extends plugin {
     } else if (now_level_id <= 41) {
       e.reply("凡人不可阶跃！");
     }
-    return;
+    return false;
   }
   //讨伐金角大王
   async BossMax(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //看状态
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //查看boss状态
     let boss = await redis.get("BossMax");
     if (boss == 0) {
     } else {
       e.reply("金角大王未开启！");
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
 
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -232,7 +242,7 @@ export class bossall extends plugin {
     if (now_level_id >= 21 && now_level_id < 42) {
       let cd = await BossCD(e);
       if (cd == 1) {
-        return;
+        return false;
       }
       let A_player = await Bossbattle(e);
       let BossMax = await redis.get("xiuxian:BossMax");
@@ -285,7 +295,7 @@ export class bossall extends plugin {
           }
         } else {
           //出错了
-          return;
+          return false;
         }
         await Add_血气(usr_qq, 500);
         let now_time = new Date().getTime();
@@ -298,30 +308,34 @@ export class bossall extends plugin {
     } else {
       e.reply("打不过你也打？");
     }
-    return;
+    return false;
   }
 
   //讨伐银角大王
   async BossMini(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //看状态
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //查看boss状态
     let boss = await redis.get("BossMini");
     if (boss == 0) {
     } else {
       e.reply("银角大王未开启！");
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -329,7 +343,7 @@ export class bossall extends plugin {
     if (now_level_id < 21) {
       let cd = await BossCD(e);
       if (cd == 1) {
-        return;
+        return false;
       }
       //这里接受用户信息
       let A_player = await Bossbattle(e);
@@ -384,7 +398,7 @@ export class bossall extends plugin {
             );
           }
         } else {
-          return;
+          return false;
         }
         await Add_血气(usr_qq, 500);
         //获取当前时间
@@ -398,7 +412,7 @@ export class bossall extends plugin {
     } else {
       e.reply("抢新手怪你要不要脸！");
     }
-    return;
+    return false;
   }
 }
 /**

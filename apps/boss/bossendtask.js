@@ -1,12 +1,10 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 export class bossendtask extends plugin {
   constructor() {
     super({
-      name: "bossendtask",
-      dsc: "bossendtask",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
@@ -27,6 +25,6 @@ export class bossendtask extends plugin {
     //银角大王
     await redis.set("BossMini", 1);
     await redis.del("BossMini");
-    return;
+    return false;
   }
 }

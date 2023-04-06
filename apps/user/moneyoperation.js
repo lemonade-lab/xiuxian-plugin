@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import fs from "fs";
@@ -14,10 +14,8 @@ import {
 export class moneyoperation extends plugin {
   constructor() {
     super({
-      name: "MoneyOperation",
-      dsc: "MoneyOperation",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^(孝敬前辈|资助后辈|赠送灵石).*$",
@@ -56,18 +54,22 @@ export class moneyoperation extends plugin {
   }
 
   async MoneyWord(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //这是自己的
     let usr_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //获取发送灵石数量
     let lingshi = e.msg.replace("#", "");
@@ -75,16 +77,16 @@ export class moneyoperation extends plugin {
     lingshi = Number(lingshi);
     if (!isNaN(parseFloat(lingshi)) && isFinite(lingshi)) {
     } else {
-      return;
+      return false;
     }
     if (lingshi <= 0) {
-      return;
+      return false;
     }
     lingshi = Math.trunc(lingshi);
     let player = await Read_player(usr_qq);
     if (player.灵石 <= lingshi) {
       e.reply("醒醒，你没有那么多");
-      return;
+      return false;
     }
     await Add_灵石(usr_qq, -lingshi);
     let Worldmoney = await redis.get("Xiuxian:Worldmoney");
@@ -93,17 +95,21 @@ export class moneyoperation extends plugin {
     Worldmoney = Number(Worldmoney);
     await redis.set("Xiuxian:Worldmoney", Worldmoney);
     e.reply("成功交税" + lingshi);
-    return;
+    return false;
   }
 
   async Deduction(e) {
-    if (!e.isGroup) return;
-    if (!e.isMaster) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
+    if (!e.isMaster) return false;
 
     //对方
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
 
     let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
@@ -112,7 +118,7 @@ export class moneyoperation extends plugin {
     let ifexistplay = await existplayer(B_qq);
     if (!ifexistplay) {
       e.reply(`此人尚未踏入仙途`);
-      return;
+      return false;
     }
 
     //获取发送灵石数量
@@ -122,7 +128,7 @@ export class moneyoperation extends plugin {
     if (parseInt(lingshi) == parseInt(lingshi) && parseInt(lingshi) >= 1000) {
       lingshi = parseInt(lingshi);
     } else {
-      return;
+      return false;
     }
     await Add_灵石(B_qq, -lingshi);
     e.reply("已强行扣除灵石" + lingshi);
@@ -133,28 +139,32 @@ export class moneyoperation extends plugin {
     Worldmoney = Number(Worldmoney);
     await redis.set("Xiuxian:Worldmoney", Worldmoney);
 
-    return;
+    return false;
   }
 
   async Give_lingshi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //这是自己的
     let A_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(A_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
 
     //对方
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
     let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
     let B_qq = atItem[0].qq; //对方qq
@@ -162,7 +172,7 @@ export class moneyoperation extends plugin {
     ifexistplay = await existplayer(B_qq);
     if (!ifexistplay) {
       e.reply(`此人尚未踏入仙途`);
-      return;
+      return false;
     }
 
     //获取发送灵石数量
@@ -189,7 +199,7 @@ export class moneyoperation extends plugin {
 
     if (A_player.灵石 < lastlingshi) {
       e.reply([segment.at(A_qq), `你身上似乎没有${lastlingshi}灵石`]);
-      return;
+      return false;
     }
 
     let now = new Date();
@@ -212,7 +222,7 @@ export class moneyoperation extends plugin {
         `每${transferTimeout / 1000 / 60}分钟赠送灵石一次，正在CD中，` +
           `剩余cd: ${waittime_m}分${waittime_s}秒`
       );
-      return;
+      return false;
     }
 
     //交易
@@ -233,23 +243,27 @@ export class moneyoperation extends plugin {
     ]);
     //记录本次获得赠送灵石的时间戳
     await redis.set("xiuxian:player:" + A_qq + ":last_getbung_time", nowTime);
-    return;
+    return false;
   }
 
   //发红包
   async Give_honbao(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //这是自己的
     let usr_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //获取发送灵石数量
     let lingshi = e.msg.replace("#", "");
@@ -259,25 +273,25 @@ export class moneyoperation extends plugin {
     let acount = code[1];
     if (!isNaN(parseFloat(lingshi)) && isFinite(lingshi)) {
     } else {
-      return;
+      return false;
     }
     if (!isNaN(parseFloat(acount)) && isFinite(acount)) {
       //是数字
     } else {
-      return;
+      return false;
     }
     lingshi = Number(lingshi);
     acount = Number(acount);
     lingshi = Math.trunc(lingshi);
     acount = Math.trunc(acount);
     if (lingshi <= 0 || acount <= 0) {
-      return;
+      return false;
     }
     let player = await data.getData("player", usr_qq);
     //对比自己的灵石，看看够不够！
     if (player.灵石 <= parseInt(lingshi * acount)) {
       e.reply(`红包数要比自身灵石数小噢`);
-      return;
+      return false;
     }
     let getlingshi = 0;
     //循环取整
@@ -297,7 +311,7 @@ export class moneyoperation extends plugin {
     if (lingshi != getlingshi) {
       //不符合的，返回，并提示玩家
       e.reply(`一个红包最低为一万灵石噢，且是万的倍数，最高可发一百万一个`);
-      return;
+      return false;
     }
     //发送的灵石要当到数据库里。大家都能取
     await redis.set("xiuxian:player:" + usr_qq + ":honbao", getlingshi);
@@ -313,18 +327,22 @@ export class moneyoperation extends plugin {
         getlingshi +
         "灵石的红包！"
     );
-    return;
+    return false;
   }
 
   //抢红包
   async uer_honbao(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
 
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     let player = await data.getData("player", usr_qq);
@@ -349,13 +367,13 @@ export class moneyoperation extends plugin {
         `每${transferTimeout / 1000 / 60}分钟抢一次，正在CD中，` +
           `剩余cd: ${waittime_m}分${waittime_s}秒`
       );
-      return;
+      return false;
     }
 
     //要艾特对方，表示抢对方红包
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
 
     let atItem = e.message.filter((item) => item.type === "at");
@@ -363,7 +381,7 @@ export class moneyoperation extends plugin {
     //有无存档
     let ifexistplay_honbao = await existplayer(honbao_qq);
     if (!ifexistplay_honbao) {
-      return;
+      return false;
     }
     //这里有错
     var acount = await redis.get(
@@ -373,7 +391,7 @@ export class moneyoperation extends plugin {
     //根据个数判断
     if (acount <= 0) {
       e.reply("他的红包被光啦！");
-      return;
+      return false;
     }
     //看看一个有多少灵石
     var lingshi = await redis.get("xiuxian:player:" + honbao_qq + ":honbao");
@@ -392,14 +410,18 @@ export class moneyoperation extends plugin {
       "xiuxian:player:" + usr_qq + ":last_getbung_time",
       now_time
     );
-    return;
+    return false;
   }
 
   //发福利
   async Allfuli(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
-    if (!e.isMaster) return;
+    if (!e.isMaster) return false;
 
     //获取发送灵石数量
     let lingshi = e.msg.replace("#", "");
@@ -411,7 +433,7 @@ export class moneyoperation extends plugin {
 
     if (!pattern.test(str)) {
       e.reply(`错误福利`);
-      return;
+      return false;
     }
 
     //校验输入灵石数
@@ -445,7 +467,7 @@ export class moneyoperation extends plugin {
           lingshi * File_length +
           ",你的世界财富不足！"
       );
-      return;
+      return false;
     }
 
     Worldmoney = Worldmoney - lingshi * File_length;
@@ -467,13 +489,17 @@ export class moneyoperation extends plugin {
     }
 
     e.reply(`福利发放成功,目前共有${File_length}个玩家,每人增加${lingshi}灵石`);
-    return;
+    return false;
   }
 
   //发补偿
   async Fuli(e) {
-    if (!e.isGroup) return;
-    if (!e.isMaster) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
+    if (!e.isMaster) return false;
     //获取发送灵石数量
     let lingshi = e.msg.replace("#", "");
     lingshi = lingshi.replace("发", "");
@@ -484,7 +510,7 @@ export class moneyoperation extends plugin {
 
     if (!pattern.test(str)) {
       e.reply(`错误福利`);
-      return;
+      return false;
     }
 
     //校验输入灵石数
@@ -496,7 +522,7 @@ export class moneyoperation extends plugin {
 
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
     let atItem = e.message.filter((item) => item.type === "at");
     let this_qq = atItem[0].qq;
@@ -504,7 +530,7 @@ export class moneyoperation extends plugin {
     let ifexistplay = await existplayer(this_qq);
     if (!ifexistplay) {
       e.reply(`此人尚未踏入仙途`);
-      return;
+      return false;
     }
 
     let Worldmoney = await redis.get("Xiuxian:Worldmoney");
@@ -520,7 +546,7 @@ export class moneyoperation extends plugin {
 
     if (Worldmoney <= lingshi) {
       e.reply("世界财富不足！");
-      return;
+      return false;
     }
 
     Worldmoney = Worldmoney - lingshi;
@@ -538,16 +564,20 @@ export class moneyoperation extends plugin {
     let player = await data.getData("player", this_qq);
     await Add_灵石(this_qq, lingshi);
     e.reply(`【全服公告】 ${player.名号} 获得${lingshi}灵石的补偿`);
-    return;
+    return false;
   }
 
   async openwallet(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let player = await data.getData("player", usr_qq);
     let thing_name = "水脚脚的钱包";
@@ -558,7 +588,7 @@ export class moneyoperation extends plugin {
     //没有
     if (!acount) {
       e.reply(`你没有[${thing_name}]这样的装备`);
-      return;
+      return false;
     }
 
     //扣掉装备
@@ -630,6 +660,6 @@ export class moneyoperation extends plugin {
     }
     await Add_灵石(usr_qq, lingshi);
     e.reply(m);
-    return;
+    return false;
   }
 }

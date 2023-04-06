@@ -1,4 +1,4 @@
-import { plugin, segment, common } from "../../api/api.js";
+import { plugin, segment, common, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import fetch from "node-fetch";
@@ -18,10 +18,8 @@ let gametime = []; //临时游戏CD
 export class games extends plugin {
   constructor() {
     super({
-      name: "games",
-      dsc: "games",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#怡红院$",
@@ -66,42 +64,54 @@ export class games extends plugin {
     //统一用户ID名
     let usr_qq = e.user_id;
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 1);
     e.reply(player.名号 + "开启了拒绝模式");
-    return;
+    return false;
   }
 
   async Allowcouple(e) {
     //统一用户ID名
     let usr_qq = e.user_id;
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 0);
     e.reply(player.名号 + "开启了允许模式");
-    return;
+    return false;
   }
 
   //怡红院
   async Xiuianplay(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let switchgame = config.getconfig("xiuxian", "xiuxian").switch.play;
 
     if (switchgame != true) {
-      return;
+      return false;
     }
     //统一用户ID名
     let usr_qq = e.user_id;
@@ -109,7 +119,7 @@ export class games extends plugin {
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
 
     //得到用户信息
@@ -117,7 +127,7 @@ export class games extends plugin {
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -145,7 +155,7 @@ export class games extends plugin {
 
     if (player.灵石 < money) {
       e.reply(ql1 + money + ql2);
-      return;
+      return false;
     }
 
     //加修为
@@ -167,7 +177,7 @@ export class games extends plugin {
       if (gameswitch == true) {
         setu(e);
       }
-      return;
+      return false;
     }
 
     //被教训
@@ -177,7 +187,7 @@ export class games extends plugin {
       ql2 =
         "灵石,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！";
       e.reply([segment.at(usr_qq), ql1 + money + ql2]);
-      return;
+      return false;
     }
 
     //被坑了
@@ -188,7 +198,7 @@ export class games extends plugin {
       ql2 =
         "没想到进屋后不多时遍昏睡过去。醒来发现自己被脱光扔在郊外,浑身上下只剩一条裤衩子了。仰天长啸:也不过是从头再来！";
       e.reply([segment.at(usr_qq), ql1 + ql2]);
-      return;
+      return false;
     }
   }
 
@@ -197,15 +207,19 @@ export class games extends plugin {
     //金银坊开关
     let gameswitch = config.getconfig("xiuxian", "xiuxian").switch.Moneynumber;
     if (gameswitch != true) {
-      return;
+      return false;
     }
     //用户固定写法
     let usr_qq = e.user_id;
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //用户信息查询
     let player = data.getData("player", usr_qq);
@@ -214,7 +228,7 @@ export class games extends plugin {
     if (player.灵石 < money) {
       e.reply("掌柜:哪里的穷小子，滚一边去！");
       e.reply("你摸了摸口袋，发现不足" + money + "灵石,你羞愧地离开了!");
-      return;
+      return false;
     }
 
     //设置
@@ -241,7 +255,7 @@ export class games extends plugin {
           `cd: ${game_m}分${game_s}秒`
       );
       //存在CD。直接返回
-      return;
+      return false;
     }
 
     //记录本次执行时间
@@ -254,20 +268,24 @@ export class games extends plugin {
     if (game_action == 0) {
       //在进行
       e.reply(`媚娘:猜大小正在进行哦!`);
-      return true;
+      return false;
     }
     //不为0   没有参与押注和梭哈
     e.reply(`媚娘:发送[#押注+数字]或[#梭哈]`, true);
     //写入游戏状态为真-在进行了
     await redis.set("xiuxian:player:" + usr_qq + ":game_action", 0);
     await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 1);
-    return true;
+    return false;
   }
 
   //这里冲突了，拆函数！
   //梭哈|押注999
   async Moneycheck(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //统一用户ID名
     let usr_qq = e.user_id;
     //获取当前时间戳
@@ -283,7 +301,7 @@ export class games extends plugin {
     );
     if (!ifexistplay || game_action == 1) {
       //不是就返回
-      return;
+      return false;
     }
 
     //梭哈|押注999。如果是押注。就留下999
@@ -298,7 +316,7 @@ export class games extends plugin {
       yazhu[usr_qq] = player.灵石 - 1;
       e.reply("媚娘:梭哈完成,发送[大]或[小]");
       await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 0);
-      return true;
+      return false;
     }
 
     //不是梭哈，看看是不是数字
@@ -319,11 +337,11 @@ export class games extends plugin {
           gane_key_user[usr_qq];
           e.reply("媚娘:押注完成,发送[大]或[小]");
           await redis.set("xiuxian:player:" + usr_qq + ":game_action2", 0);
-          return;
+          return false;
         } else {
           gane_key_user[usr_qq];
           e.reply("至少押注" + money + "灵石!");
-          return;
+          return false;
         }
       }
       //不够
@@ -343,16 +361,20 @@ export class games extends plugin {
         //清除游戏定时检测CD
         clearTimeout(gametime[usr_qq]);
         e.reply("媚娘:钱不够也想玩？");
-        return;
+        return false;
       }
     }
 
-    return;
+    return false;
   }
 
   //大|小
   async Moneycheckguess(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //统一用户ID名
     let usr_qq = e.user_id;
     //获取当前时间戳
@@ -366,17 +388,17 @@ export class games extends plugin {
     );
     if (!ifexistplay || game_action != 0) {
       //不是就返回
-      return;
+      return false;
     }
     if (isNaN(yazhu[usr_qq])) {
-      return;
+      return false;
     }
     //判断是否押注金额
     //是对应的押注用户。
     //检查此人是否已经押注
     if (!gane_key_user) {
       e.reply("媚娘:公子，你还没押注呢");
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     let es = e.msg;
@@ -469,7 +491,7 @@ export class games extends plugin {
       yazhu[usr_qq] = 0;
       //清除游戏CD
       clearTimeout(gametime[usr_qq]);
-      return true;
+      return false;
     }
     //你说大，但是touzi<4,是输了
     else if ((es == "大" && touzi < 4) || (es == "小" && touzi > 3)) {
@@ -510,17 +532,21 @@ export class games extends plugin {
         );
       }
       e.reply(msg);
-      return true;
+      return false;
     }
   }
 
   async Moneyrecord(e) {
     let qq = e.user_id;
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //获取人物信息
     let player_data = data.getData("player", qq);
@@ -566,7 +592,11 @@ export class games extends plugin {
 
   //来张卡片
   async getOneCard(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let template_path = await common.getTemplatePath();
     let cards = [
       "A",
@@ -616,35 +646,39 @@ export class games extends plugin {
       param
     );
     e.reply([segment.image(img)]);
-    return;
+    return false;
   }
 
   //双修
   async Couple(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //双修开关
     let gameswitch = config.getconfig("xiuxian", "xiuxian").switch.couple;
     if (gameswitch != true) {
-      return;
+      return false;
     }
     let A = e.user_id;
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
 
     //B
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
     let atItem = e.message.filter((item) => item.type === "at");
     //对方QQ
     let B = atItem[0].qq;
     if (A == B) {
       e.reply("你咋这么爱撸自己呢?");
-      return;
+      return false;
     }
 
     var Time = config.getconfig("xiuxian", "xiuxian").CD.couple; //6个小时
@@ -664,7 +698,7 @@ export class games extends plugin {
         ((last_timeA + shuangxiuTimeout - now_Time) % 60000) / 1000
       );
       e.reply(`双修冷却:  ${Couple_m}分 ${Couple_s}秒`);
-      return;
+      return false;
     }
 
     let last_timeB = await redis.get(
@@ -679,20 +713,20 @@ export class games extends plugin {
         ((last_timeB + shuangxiuTimeout - now_Time) % 60000) / 1000
       );
       e.reply(`对方双修冷却:  ${Couple_m}分 ${Couple_s}秒`);
-      return;
+      return false;
     }
 
     //对方存档
     let ifexistplay_B = await existplayer(B);
     if (!ifexistplay_B) {
       e.reply("修仙者不可对凡人出手!");
-      return;
+      return false;
     }
     //拒绝
     let couple = await redis.get("xiuxian:player:" + B + ":couple");
     if (couple != 0) {
       e.reply("哎哟，你干嘛...");
-      return;
+      return false;
     }
 
     //对方游戏状态
@@ -701,7 +735,7 @@ export class games extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     //对方行为状态
@@ -717,7 +751,7 @@ export class games extends plugin {
         e.reply(
           "对方正在" + B_action.action + "中,剩余时间:" + m + "分" + s + "秒"
         );
-        return;
+        return false;
       }
     }
 
@@ -736,7 +770,7 @@ export class games extends plugin {
         await Add_修为(A, parseInt(y));
         await Add_修为(B, parseInt(y));
         e.reply("你们双方心无旁骛努力修炼，都增加了" + parseInt(y) + "修为");
-        return;
+        return false;
       } else if (option > 0.5 && option <= 0.6) {
         x = 21000;
         y = Math.trunc(xiuwei * x);
@@ -762,7 +796,7 @@ export class games extends plugin {
             "修为,是不是肾虚了，快去买药补补身子吧"
         );
       }
-      return;
+      return false;
     }
   }
 }
@@ -812,10 +846,7 @@ async function setu(e) {
       link
   );
   await sleep(1000);
-  //最后回复消息
   e.reply(segment.image(link));
-  //
   await ForwardMsg(e, msg);
-  //返回true 阻挡消息不再往下
-  return true;
+  return false;
 }

@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import {
   Read_player,
@@ -22,13 +22,12 @@ import {
   Go,
 } from "../../model/xiuxian.js";
 import { get_equipment_img } from "../../model/information.js";
+import config from "../../model/config.js";
 export class userhome extends plugin {
   constructor() {
     super({
-      name: "UserHome",
-      dsc: "UserHome",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#(存|取)灵石(.*)$",
@@ -52,18 +51,22 @@ export class userhome extends plugin {
 
   //存取灵石
   async Take_lingshi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
 
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
 
     //检索方法
@@ -83,12 +86,12 @@ export class userhome extends plugin {
 
     if (parseInt(lingshi) != parseInt(lingshi)) {
       e.reply([segment.at(usr_qq), `请在指令后面加上灵石数量`]);
-      return;
+      return false;
     } else {
       lingshi = parseInt(lingshi);
       if (lingshi < 1) {
         e.reply([segment.at(usr_qq), `灵石数量不能为负数`]);
-        return;
+        return false;
       }
     }
     if (func == "存") {
@@ -99,7 +102,7 @@ export class userhome extends plugin {
           segment.at(usr_qq),
           `灵石不足,你目前只有${player_lingshi}灵石`,
         ]);
-        return;
+        return false;
       }
       let najie = await Read_najie(usr_qq);
       if (najie.灵石上限 < najie.灵石 + lingshi) {
@@ -109,7 +112,7 @@ export class userhome extends plugin {
           segment.at(usr_qq),
           `已为您放入${najie.灵石上限 - najie.灵石}灵石,纳戒存满了`,
         ]);
-        return;
+        return false;
       }
       await Add_najie_灵石(usr_qq, lingshi);
       await Add_灵石(usr_qq, -lingshi);
@@ -119,7 +122,7 @@ export class userhome extends plugin {
           najie.灵石 + lingshi
         }灵石`,
       ]);
-      return;
+      return false;
     }
     if (func == "取") {
       let najie = await Read_najie(usr_qq);
@@ -128,7 +131,7 @@ export class userhome extends plugin {
           segment.at(usr_qq),
           `纳戒灵石不足,你目前最多取出${najie.灵石}灵石`,
         ]);
-        return;
+        return false;
       }
       let player_lingshi = await Read_player(usr_qq);
       player_lingshi = player_lingshi.灵石;
@@ -138,19 +141,23 @@ export class userhome extends plugin {
         segment.at(usr_qq),
         `本次取出灵石${lingshi},你的纳戒还剩余${najie.灵石 - lingshi}灵石`,
       ]);
-      return;
+      return false;
     }
-    return;
+    return false;
   }
 
   //#(装备|服用|消耗)物品*数量
   async Player_use(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     let player = await Read_player(usr_qq);
@@ -182,7 +189,7 @@ export class userhome extends plugin {
       !data.timedanyao_list.find((item) => item.name == thing_name)
     ) {
       e.reply(`你在瞎说啥呢?哪来的【${thing_name}】?`);
-      return;
+      return false;
     }
     if (func == "装备") {
       //x是纳戒内有的数量
@@ -190,17 +197,17 @@ export class userhome extends plugin {
       if (!x) {
         //没有
         e.reply(`你没有【${thing_name}】这样的装备`);
-        return;
+        return false;
       }
       if (x < quantity) {
         //不够
         e.reply(`你目前只有【${thing_name}】*${x},数量不够`);
-        return;
+        return false;
       }
       await instead_equipment(usr_qq, thing_name);
       let img = await get_equipment_img(e);
       e.reply(img);
-      return;
+      return false;
     }
 
     if (func == "服用") {
@@ -209,13 +216,13 @@ export class userhome extends plugin {
       if (!x) {
         //没有
         e.reply(`你没有【${thing_name}】这样的丹药`);
-        return;
+        return false;
       }
 
       if (x < quantity) {
         //不够
         e.reply(`你目前只有【${thing_name}】*${x},数量不够`);
-        return;
+        return false;
       }
 
       Add_najie_thing(usr_qq, thing_name, "丹药", -quantity);
@@ -249,12 +256,12 @@ export class userhome extends plugin {
         await Add_HP(usr_qq, quantity * blood);
         let now_HP = await Read_player(usr_qq);
         e.reply(`服用成功,当前血量为:${now_HP.当前血量} `);
-        return;
+        return false;
       }
       if (this_danyao.type == "修为") {
         await Add_修为(usr_qq, quantity * this_danyao.exp);
         e.reply(`服用成功,修为增加${quantity * this_danyao.exp}`);
-        return;
+        return false;
       }
     }
 
@@ -263,7 +270,7 @@ export class userhome extends plugin {
 
       if (!x) {
         e.reply(`你没有【${thing_name}】这样的道具`);
-        return;
+        return false;
       }
 
       if (
@@ -271,14 +278,14 @@ export class userhome extends plugin {
       ) {
         if ((await player.linggenshow) != 0) {
           await e.reply("你未开灵根，无法洗髓！");
-          return;
+          return false;
         }
 
         //这里要判断境界，
         let now_level_id;
         if (!isNotNull(player.level_id)) {
           await e.reply("请先#刷新信息");
-          return;
+          return false;
         }
 
         now_level_id = data.level_list.find(
@@ -286,7 +293,7 @@ export class userhome extends plugin {
         ).level_id;
         if (now_level_id > 21) {
           await e.reply("你灵根已定，不可再洗髓灵根！");
-          return;
+          return false;
         }
 
         await Add_najie_thing(usr_qq, thing_name, "道具", -1);
@@ -300,10 +307,10 @@ export class userhome extends plugin {
           }":${player.灵根.name}`,
           "\n可以在【#我的练气】中查看",
         ]);
-        return;
+        return false;
       } else if (thing_name == "隐身水") {
         e.reply(`该道具无法在纳戒中消耗,在打劫非空闲群友时自动消耗`);
-        return;
+        return false;
       } else if (thing_name == "定灵珠") {
         await Add_najie_thing(usr_qq, thing_name, "道具", -1);
         player.linggenshow = 0;
@@ -312,10 +319,10 @@ export class userhome extends plugin {
           `你眼前一亮，看到了自己的灵根,` +
             `"${player.灵根.type}":${player.灵根.name}`
         );
-        return;
+        return false;
       } else {
         e.reply(`功能开发中,敬请期待`);
-        return;
+        return false;
       }
     }
 
@@ -323,35 +330,39 @@ export class userhome extends plugin {
       let x = await exist_najie_thing(usr_qq, thing_name, "功法");
       if (!x) {
         e.reply(`你没有【${thing_name}】这样的功法`);
-        return;
+        return false;
       }
       let player = await Read_player(usr_qq);
       let islearned = player.学习的功法.find((item) => item == thing_name);
       if (islearned) {
         e.reply(`你已经学过该功法了`);
-        return;
+        return false;
       }
       await Add_najie_thing(usr_qq, thing_name, "功法", -1);
       //
       await Add_player_学习功法(usr_qq, thing_name);
       e.reply(`你学会了${thing_name},可以在【#我的炼体】中查看`);
     }
-    return;
+    return false;
   }
 
   //购买商品
   async Buy_comodities(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
 
     let thing = e.msg.replace("#", "");
@@ -377,7 +388,7 @@ export class userhome extends plugin {
     let ifexist = data.commodities_list.find((item) => item.name == thing_name);
     if (!ifexist) {
       e.reply(`柠檬堂还没有这样的东西:${thing_name}`);
-      return;
+      return false;
     }
 
     let player = await Read_player(usr_qq);
@@ -386,7 +397,7 @@ export class userhome extends plugin {
     //如果没钱，或者为负数
     if (lingshi <= 0) {
       e.reply(`掌柜:就你这穷酸样，也想来柠檬堂？走走走！`);
-      return;
+      return false;
     }
     // 价格倍率
     //价格
@@ -399,7 +410,7 @@ export class userhome extends plugin {
           commodities_price - lingshi
         }灵石`
       );
-      return;
+      return false;
     }
 
     let Worldmoney = await redis.get("Xiuxian:Worldmoney");
@@ -426,17 +437,21 @@ export class userhome extends plugin {
       }]灵石  `,
       "\n可以在【我的纳戒】中查看",
     ]);
-    return;
+    return false;
   }
 
   //出售商品
   async Sell_comodities(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     //命令判断
@@ -480,7 +495,7 @@ export class userhome extends plugin {
       ifexist0 = ifexist4;
     } else {
       e.reply(`柠檬堂不回收这样的东西:${thing_name}`);
-      return;
+      return false;
     }
 
     //纳戒中的数量
@@ -493,12 +508,12 @@ export class userhome extends plugin {
     if (!thing_quantity) {
       //没有
       e.reply(`你没有【${thing_name}】这样的${ifexist0.class}`);
-      return;
+      return false;
     }
     if (thing_quantity < quantity) {
       //不够
       e.reply(`你目前只有【${thing_name}】*${thing_quantity},数量不够`);
-      return;
+      return false;
     }
     //数量够,数量减少,灵石增加
     await Add_najie_thing(usr_qq, thing_name, ifexist0.class, -quantity);
@@ -509,6 +524,6 @@ export class userhome extends plugin {
         thing_quantity - quantity
       } `
     );
-    return;
+    return false;
   }
 }

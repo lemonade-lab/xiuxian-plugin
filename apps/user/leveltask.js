@@ -1,4 +1,4 @@
-import { plugin, segment, common } from "../../api/api.js";
+import { plugin, segment, common, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import fs from "fs";
@@ -12,10 +12,8 @@ import {
 export class leveltask extends plugin {
   constructor() {
     super({
-      name: "levelTask",
-      dsc: "levelTask",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
@@ -246,7 +244,7 @@ export class leveltask extends plugin {
    * @param user_qq
    * @param num 属性的value
    * @param type 修改的属性
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async setFileValue(user_qq, num, type) {
     let user_data = data.getData("player", user_qq);
@@ -257,14 +255,14 @@ export class leveltask extends plugin {
     }
     user_data[type] = new_num;
     await data.setData("player", user_qq, user_data);
-    return;
+    return false;
   }
 
   /**
    * 推送消息，群消息推送群，或者推送私人
    * @param id
    * @param is_group
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async pushInfo(id, is_group, msg) {
     if (is_group) {

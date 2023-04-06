@@ -1,5 +1,6 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
+import config from "../../model/config.js";
 import fs from "fs";
 import {
   get_ranking_power_img,
@@ -20,10 +21,8 @@ import { AppName } from "../../app.config.js";
 export class toplist extends plugin {
   constructor() {
     super({
-      name: "TopList",
-      dsc: "TopList",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#天榜$",
@@ -47,11 +46,15 @@ export class toplist extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let msg = ["___[封神榜]___"];
     let playerList = [];
@@ -110,16 +113,20 @@ export class toplist extends plugin {
       );
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   //#至尊榜
   async TOP_genius(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let msg = ["___[至尊榜]___"];
     let playerList = [];
@@ -178,15 +185,19 @@ export class toplist extends plugin {
       );
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   async TOP_xiuwei(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     let usr_paiming;
@@ -201,7 +212,7 @@ export class toplist extends plugin {
       let sum_exp = await Get_xiuwei(this_qq);
       if (!isNotNull(player.level_id)) {
         e.reply("请先#同步信息");
-        return;
+        return false;
       }
       //境界名字需要查找境界名
       let level = data.level_list.find(
@@ -228,16 +239,20 @@ export class toplist extends plugin {
     let thisplayer = await data.getData("player", usr_qq);
     let img = await get_ranking_power_img(e, Data, usr_paiming, thisplayer);
     e.reply(img);
-    return;
+    return false;
   }
 
   //TOP_lingshi
   async TOP_lingshi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let usr_paiming;
     let File = fs.readdirSync(__PATH.player_path);
@@ -280,6 +295,6 @@ export class toplist extends plugin {
       thisnajie
     );
     e.reply(img);
-    return;
+    return false;
   }
 }

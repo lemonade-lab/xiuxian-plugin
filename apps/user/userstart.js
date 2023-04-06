@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment, name, dsc } from "../../api/api.js";
 import fs from "fs";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
@@ -24,10 +24,8 @@ import { get_player_img } from "../../model/information.js";
 export class userstart extends plugin {
   constructor() {
     super({
-      name: "UserStart",
-      dsc: "UserStart",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#踏入仙途$",
@@ -55,18 +53,22 @@ export class userstart extends plugin {
 
   //#踏入仙途
   async Create_player(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     if (usr_qq == 80000000) {
-      return;
+      return false;
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (ifexistplay) {
       this.Show_player(e);
-      return;
+      return false;
     }
 
     //初始化玩家信息
@@ -117,18 +119,22 @@ export class userstart extends plugin {
     await Write_najie(usr_qq, new_najie);
     await Add_HP(usr_qq, 999999);
     this.Show_player(e);
-    return;
+    return false;
   }
 
   //重新修仙
   async reCreate_player(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
       e.reply("没存档你转世个锤子!");
-      return;
+      return false;
     } else {
       //没有存档，初始化次数
       await redis.set("xiuxian:player:" + usr_qq + ":reCreate_acount", 1);
@@ -144,7 +150,7 @@ export class userstart extends plugin {
 
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
 
     let now = new Date();
@@ -167,7 +173,7 @@ export class userstart extends plugin {
         `每${rebornTime / 60 / 1000}分钟只能转世一次` +
           `剩余cd:${waittime_m}分 ${waittime_s}秒`
       );
-      return;
+      return false;
     }
     /** 设置上下文 */
     this.setContext("RE_xiuxian");
@@ -177,12 +183,16 @@ export class userstart extends plugin {
       false,
       { at: true }
     );
-    return;
+    return false;
   }
 
   //重生方法
   async RE_xiuxian(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     /** 内容 */
     let new_msg = this.e.message;
@@ -193,7 +203,7 @@ export class userstart extends plugin {
       await this.reply("放弃重生,继续修行");
       /** 结束上下文 */
       this.finish("RE_xiuxian");
-      return;
+      return false;
     } else if (choice == "重生") {
       //得到重生次数
       let acount = await redis.get(
@@ -202,7 +212,7 @@ export class userstart extends plugin {
       //
       if (acount >= 15) {
         e.reply("灵魂虚弱，已不可转世！");
-        return;
+        return false;
       }
 
       acount = Number(acount);
@@ -270,35 +280,43 @@ export class userstart extends plugin {
       await this.reply("请回复:【重生】或者【算了】进行选择", false, {
         at: true,
       });
-      return;
+      return false;
     }
     /** 结束上下文 */
     this.finish("RE_xiuxian");
-    return;
+    return false;
   }
 
   //#我的练气
   async Show_player(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let img = await get_player_img(e);
     e.reply(img);
-    return;
+    return false;
   }
 
   //改名
   async Change_player_name(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //检索方法
     var reg = new RegExp(/改名|设置道宣/);
@@ -311,10 +329,10 @@ export class userstart extends plugin {
       new_name = new_name.replace("+", "");
       if (new_name.length == 0) {
         e.reply("改名格式为:【#改名张三】请输入正确名字");
-        return;
+        return false;
       } else if (new_name.length > 8) {
         e.reply("玩家名字最多八字");
-        return;
+        return false;
       }
       let player = {};
       let now = new Date();
@@ -332,12 +350,12 @@ export class userstart extends plugin {
         Today.D == lastsetname_time.D
       ) {
         e.reply("每日只能改名一次");
-        return;
+        return false;
       }
       player = await Read_player(usr_qq);
       if (player.灵石 < 1000) {
         e.reply("改名需要1000灵石");
-        return;
+        return false;
       }
       player.名号 = new_name;
       redis.set("xiuxian:player:" + usr_qq + ":last_setname_time", nowTime); //redis设置本次改名时间戳
@@ -345,7 +363,7 @@ export class userstart extends plugin {
       await Write_player(usr_qq, player);
       //Add_灵石(usr_qq, -100);
       this.Show_player(e);
-      return;
+      return false;
     }
 
     //设置道宣
@@ -354,10 +372,10 @@ export class userstart extends plugin {
       new_msg = new_msg.replace(" ", "");
       new_msg = new_msg.replace("+", "");
       if (new_msg.length == 0) {
-        return;
+        return false;
       } else if (new_msg.length > 50) {
         e.reply("道宣最多50字符");
-        return;
+        return false;
       }
 
       let player = {};
@@ -379,7 +397,7 @@ export class userstart extends plugin {
         Today.D == lastsetxuanyan_time.D
       ) {
         e.reply("每日仅可更改一次");
-        return;
+        return false;
       }
 
       //这里有问题，写不进去
@@ -388,18 +406,22 @@ export class userstart extends plugin {
       redis.set("xiuxian:player:" + usr_qq + ":last_setxuanyan_time", nowTime); //redis设置本次设道置宣时间戳
       await Write_player(usr_qq, player);
       this.Show_player(e);
-      return;
+      return false;
     }
   }
 
   //签到
   async daily_gift(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let now = new Date();
     let nowTime = now.getTime(); //获取当前日期的时间戳
@@ -412,7 +434,7 @@ export class userstart extends plugin {
       Today.D == lastsign_time.D
     ) {
       e.reply(`今日已经签到过了`);
-      return;
+      return false;
     }
     let Sign_Yesterday; //昨日日是否签到
     if (
@@ -440,6 +462,6 @@ export class userstart extends plugin {
       `已经连续签到${player.连续签到天数}天了，获得了${gift_xiuwei}修为`,
     ];
     e.reply(msg);
-    return;
+    return false;
   }
 }

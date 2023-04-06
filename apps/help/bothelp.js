@@ -1,17 +1,16 @@
-import { plugin, puppeteer } from "../../api/api.js";
+import { plugin, puppeteer, name, dsc } from "../../api/api.js";
 import Help from "../../model/help.js";
 import md5 from "md5";
 let helpData = {
   md5: "",
   img: "",
 };
+import config from "../../model/config.js";
 export class bothelp extends plugin {
   constructor() {
     super({
-      name: "XiuxianBotHelp",
-      dsc: "XiuxianBotHelp",
-      event: "message",
-      priority: 400,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#修仙帮助$",
@@ -34,33 +33,49 @@ export class bothelp extends plugin {
   }
 
   async Xiuxianhelpcopy(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let data = await Help.gethelpcopy(e);
-    if (!data) return;
+    if (!data) return false;
     let img = await this.cache(data);
     await e.reply(img);
   }
 
   async Xiuxianhelp(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let data = await Help.get(e);
-    if (!data) return;
+    if (!data) return false;
     let img = await this.cache(data);
     await e.reply(img);
   }
 
   async adminsuper(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let data = await Help.setup(e);
-    if (!data) return;
+    if (!data) return false;
     let img = await this.cache(data);
     await e.reply(img);
   }
 
   async AssociationAdmin(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let data = await Help.Association(e);
-    if (!data) return;
+    if (!data) return false;
     let img = await this.cache(data);
     await e.reply(img);
   }

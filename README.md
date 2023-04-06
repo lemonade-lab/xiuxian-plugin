@@ -1,20 +1,24 @@
-# Xiuxian-Plugin<a  href='https://gitee.com/ningmengchongshui/xiuxian-plugin/stargazers'><img src='https://gitee.com/ningmengchongshui/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
-
-修仙插件 V1.2.1
-
-在线体验 426618276
+# xiuxian-plugin<a  href='https://gitee.com/three-point-of-water/xiuxian-plugin/stargazers'><img src='https://gitee.com/three-point-of-water/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
 
 #### 安装机器人
 
-miaomiao-Bot 喵崽版[`☞建议使用`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+miaomiao-Bot 喵崽版[`☞推荐`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
 
-Yunzai-Bot 喵喵版[`☞维护中`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
+Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 #### 根目录执行
 
 ```
-git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
+git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
 ```
+
+#### 启动游戏
+
+`xiuxian-plugin`改`xiuxian@1.2.1`
+
+`xiuxian@1.2.1`运行后请配置
+
+> config/parameter/nanelist.yaml
 
 #### 开源协议
 

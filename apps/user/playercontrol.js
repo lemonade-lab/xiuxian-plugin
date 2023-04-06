@@ -1,4 +1,4 @@
-import { plugin, segment, common } from "../../api/api.js";
+import { plugin, segment, common, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import data from "../../model/xiuxiandata.js";
 import {
@@ -10,10 +10,8 @@ import {
 export class playercontrol extends plugin {
   constructor() {
     super({
-      name: "PlayerControl",
-      dsc: "PlayerControl",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "(^#*降妖$)|(^#*降妖(.*)(分|分钟)$)",
@@ -40,11 +38,15 @@ export class playercontrol extends plugin {
     let usr_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(usr_qq))) {
-      return;
+      return false;
     }
 
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     //获取游戏状态
     let game_action = await redis.get(
@@ -53,7 +55,7 @@ export class playercontrol extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     //获取时间
@@ -92,7 +94,7 @@ export class playercontrol extends plugin {
         let m = parseInt((action_end_time - now_time) / 1000 / 60);
         let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
         e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-        return;
+        return false;
       }
     }
 
@@ -117,18 +119,22 @@ export class playercontrol extends plugin {
     ); //redis设置动作
     e.reply(`现在开始闭关${time}分钟,两耳不闻窗外事了`);
 
-    return true;
+    return false;
   }
 
   //降妖
   async Dagong(e) {
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     let usr_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(usr_qq))) {
-      return;
+      return false;
     }
 
     //获取游戏状态
@@ -138,7 +144,7 @@ export class playercontrol extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     //获取时间
@@ -169,7 +175,7 @@ export class playercontrol extends plugin {
     let player = await Read_player(usr_qq);
     if (player.当前血量 < 200) {
       e.reply("你都伤成这样了,先去疗伤吧");
-      return;
+      return false;
     }
 
     //查询redis中的人物动作
@@ -183,7 +189,7 @@ export class playercontrol extends plugin {
         let m = parseInt((action_end_time - now_time) / 1000 / 60);
         let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
         e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-        return;
+        return false;
       }
     }
 
@@ -210,23 +216,27 @@ export class playercontrol extends plugin {
 
     e.reply(`现在开始降妖${time}分钟`);
 
-    return true;
+    return false;
   }
 
   /**
    * 人物结束闭关
    * @param e
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async chuGuan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let action = await this.getPlayerAction(e.user_id);
     let state = await this.getPlayerState(action);
     if (state == "空闲") {
-      return;
+      return false;
     }
     if (action.action != "闭关") {
-      return;
+      return false;
     }
 
     //结算
@@ -293,17 +303,21 @@ export class playercontrol extends plugin {
   /**
    * 人物结束降妖
    * @param e
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async endWork(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let action = await this.getPlayerAction(e.user_id);
     let state = await this.getPlayerState(action);
     if (state == "空闲") {
-      return;
+      return false;
     }
     if (action.action != "降妖") {
-      return;
+      return false;
     }
 
     //结算
@@ -374,7 +388,7 @@ export class playercontrol extends plugin {
    * @param time持续时间(单位用分钟)
    * @param is_random是否触发随机事件  true,false
    * @param group_id  回复消息的地址，如果为空，则私聊
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async biguan_jiesuan(user_id, time, is_random, group_id) {
     let usr_qq = user_id;
@@ -382,7 +396,7 @@ export class playercontrol extends plugin {
     let player = data.getData("player", usr_qq);
     let now_level_id;
     if (!isNotNull(player.level_id)) {
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -440,7 +454,7 @@ export class playercontrol extends plugin {
       await this.pushInfo(usr_qq, false, msg);
     }
 
-    return;
+    return false;
   }
 
   /**
@@ -449,14 +463,14 @@ export class playercontrol extends plugin {
    * @param time持续时间(单位用分钟)
    * @param is_random是否触发随机事件  true,false
    * @param group_id  回复消息的地址，如果为空，则私聊
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async dagong_jiesuan(user_id, time, is_random, group_id) {
     let usr_qq = user_id;
     let player = data.getData("player", usr_qq);
     let now_level_id;
     if (!isNotNull(player.level_id)) {
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -499,13 +513,13 @@ export class playercontrol extends plugin {
       await this.pushInfo(usr_qq, false, msg);
     }
 
-    return;
+    return false;
   }
 
   /**
    * 获取缓存中的人物状态信息
    * @param usr_qq
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async getPlayerAction(usr_qq) {
     let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
@@ -516,7 +530,7 @@ export class playercontrol extends plugin {
   /**
    * 获取人物的状态，返回具体的状态或者空闲
    * @param action
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async getPlayerState(action) {
     if (action == null) {
@@ -541,7 +555,7 @@ export class playercontrol extends plugin {
    * 推送消息，群消息推送群，或者推送私人
    * @param id
    * @param is_group
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async pushInfo(id, is_group, msg) {
     if (is_group) {
@@ -560,7 +574,7 @@ export class playercontrol extends plugin {
    * @param user_qq
    * @param num 属性的value
    * @param type 修改的属性
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async setFileValue(user_qq, num, type) {
     let user_data = data.getData("player", user_qq);
@@ -571,6 +585,6 @@ export class playercontrol extends plugin {
     }
     user_data[type] = new_num;
     await data.setData("player", user_qq, user_data);
-    return;
+    return false;
   }
 }

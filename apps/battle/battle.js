@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import {
   existplayer,
@@ -7,13 +7,12 @@ import {
   Read_player,
   Add_血气,
 } from "../../model/xiuxian.js";
+import config from "../../model/config.js";
 export class battle extends plugin {
   constructor() {
     super({
-      name: "battle",
-      dsc: "battle",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^(切磋|以武会友)$",
@@ -25,13 +24,17 @@ export class battle extends plugin {
 
   //比武
   async biwu(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let A = e.user_id;
 
     //先判断
     let ifexistplay_A = await existplayer(A);
     if (!ifexistplay_A || e.isPrivate) {
-      return;
+      return false;
     }
     //看看状态
     //得到redis游戏状态
@@ -41,24 +44,24 @@ export class battle extends plugin {
     //设置游戏状态
     if (last_game_timeA == 0) {
       e.reply(`猜大小正在进行哦!`);
-      return true;
+      return false;
     }
 
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq; //后手
 
     if (A == B) {
       e.reply("你还跟自己修炼上了是不是?");
-      return;
+      return false;
     }
     let ifexistplay_B = await existplayer(B);
     if (!ifexistplay_B) {
       e.reply("修仙者不可对凡人出手!");
-      return;
+      return false;
     }
     //这里前戏做完,确定要开打了
     let final_msg = [segment.at(A), segment.at(B), "\n"];
@@ -84,7 +87,7 @@ export class battle extends plugin {
     } else if (msg.find((item) => item == B_win)) {
     } else {
       e.reply(`战斗过程出错`);
-      return;
+      return false;
     }
     //最后发送消息
     e.reply(final_msg);
@@ -92,6 +95,6 @@ export class battle extends plugin {
       (item) => item.level_id == B_player.Physique_id
     ).level_id;
     await Add_血气(B, 20 * level_idBB);
-    return;
+    return false;
   }
 }

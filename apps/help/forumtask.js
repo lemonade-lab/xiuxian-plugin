@@ -1,13 +1,11 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import { Read_forum, Write_forum } from "../../model/xiuxian.js";
 export class forumtask extends plugin {
   constructor() {
     super({
-      name: "forumTask",
-      dsc: "forumTask",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
@@ -29,6 +27,6 @@ export class forumtask extends plugin {
       forum = forum.filter((item) => item.qq != forum[i].qq);
       Write_forum(forum);
     }
-    return;
+    return false;
   }
 }

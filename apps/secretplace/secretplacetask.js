@@ -1,4 +1,4 @@
-import { plugin, segment, common } from "../../api/api.js";
+import { plugin, segment, common, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import data from "../../model/xiuxiandata.js";
 import fs from "fs";
@@ -16,10 +16,8 @@ import {
 export class secretplacetask extends plugin {
   constructor() {
     super({
-      name: "SecretPlaceTask",
-      dsc: "定时任务",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
@@ -147,7 +145,7 @@ export class secretplacetask extends plugin {
 
             let now_level_id;
             if (!isNotNull(player.level_id)) {
-              return;
+              return false;
             }
             now_level_id = data.level_list.find(
               (item) => item.level_id == player.level_id
@@ -174,7 +172,7 @@ export class secretplacetask extends plugin {
                 xiuwei +
                 "]";
             } else {
-              return;
+              return false;
             }
 
             msg.push("\n" + player.名号 + last_msg);
@@ -214,7 +212,7 @@ export class secretplacetask extends plugin {
    * 推送消息，群消息推送群，或者推送私人
    * @param id
    * @param is_group
-   * @returns {Promise<void>}
+   * @return falses {Promise<void>}
    */
   async pushInfo(id, is_group, msg) {
     if (is_group) {

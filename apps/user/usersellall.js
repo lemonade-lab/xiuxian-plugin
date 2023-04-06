@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import {
   Read_player,
@@ -14,13 +14,12 @@ import {
 } from "../../model/xiuxian.js";
 import { __PATH } from "../../model/xiuxian.js";
 import { get_equipment_img } from "../../model/information.js";
+import config from "../../model/config.js";
 export class usersellall extends plugin {
   constructor() {
     super({
-      name: "UserSellAll",
-      dsc: "UserSellAll",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#一键出售(.*)$",
@@ -44,12 +43,16 @@ export class usersellall extends plugin {
 
   //一键出售
   async Sell_all_comodities(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let najie = await data.getData("najie", usr_qq);
     let commodities_price = 0;
@@ -66,7 +69,7 @@ export class usersellall extends plugin {
       if (thing.length == 0) {
         wupin = wupin1;
       } else {
-        return;
+        return false;
       }
     }
 
@@ -82,18 +85,22 @@ export class usersellall extends plugin {
     }
     await Add_灵石(usr_qq, commodities_price);
     e.reply(`出售成功!  获得${commodities_price}灵石 `);
-    return;
+    return false;
   }
 
   //#(装备|服用|使用)物品*数量
   async all_xiuweidan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     //检索方法
@@ -109,16 +116,20 @@ export class usersellall extends plugin {
     }
     await Add_修为(usr_qq, xiuwei);
     e.reply(`服用成功,修为增加${xiuwei}`);
-    return;
+    return false;
   }
 
   async all_zhuangbei(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //检索方法
     let najie = await data.getData("najie", usr_qq);
@@ -177,16 +188,20 @@ export class usersellall extends plugin {
     }
     let img = await get_equipment_img(e);
     e.reply(img);
-    return;
+    return false;
   }
 
   async all_learn(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //检索方法
     let najie = await data.getData("najie", usr_qq);
@@ -205,6 +220,6 @@ export class usersellall extends plugin {
     } else {
       e.reply("无新功法");
     }
-    return;
+    return false;
   }
 }

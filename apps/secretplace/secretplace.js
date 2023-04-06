@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import {
@@ -13,10 +13,8 @@ import {
 export class secretplace extends plugin {
   constructor() {
     super({
-      name: "SecretPlace",
-      dsc: "SecretPlace",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#秘境$",
@@ -60,7 +58,11 @@ export class secretplace extends plugin {
 
   //秘境地点
   async Secretplace(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let addres = "秘境";
     let weizhi = data.didian_list;
     Goweizhi(e, weizhi, addres);
@@ -68,7 +70,11 @@ export class secretplace extends plugin {
 
   //禁地
   async Forbiddenarea(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let addres = "禁地";
     let weizhi = data.forbiddenarea_list;
     Goweizhi(e, weizhi, addres);
@@ -76,7 +82,11 @@ export class secretplace extends plugin {
 
   //限定仙府
   async Timeplace(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let addres = "仙府";
     let weizhi = data.timeplace_list;
     Goweizhi(e, weizhi, addres);
@@ -84,7 +94,11 @@ export class secretplace extends plugin {
 
   //仙境
   async Fairyrealm(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let addres = "仙境";
     let weizhi = data.Fairyrealm_list;
     Goweizhi(e, weizhi, addres);
@@ -92,34 +106,38 @@ export class secretplace extends plugin {
 
   //降临秘境
   async Gosecretplace(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     var didian = e.msg.replace("#降临秘境", "");
     didian = didian.trim();
     let weizhi = await data.didian_list.find((item) => item.name == didian);
     if (!isNotNull(weizhi)) {
-      return;
+      return false;
     }
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
-      return true;
+      return false;
     }
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
     if (now_level_id > 42) {
       e.reply("境界不符！");
-      return;
+      return false;
     }
     let Price = weizhi.Price;
     await Add_灵石(usr_qq, -Price);
@@ -145,35 +163,39 @@ export class secretplace extends plugin {
       JSON.stringify(arr)
     );
     e.reply("开始降临" + didian + "," + time + "分钟后归来!");
-    return;
+    return false;
   }
 
   //前往禁地
   async Goforbiddenarea(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     if (!isNotNull(player.power_place)) {
       e.reply("请#同步信息");
-      return;
+      return false;
     }
     if (player.power_place == 0) {
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
     if (now_level_id < 22) {
-      return;
+      return false;
     }
     var didian = await e.msg.replace("#前往禁地", "");
     didian = didian.trim();
@@ -181,15 +203,15 @@ export class secretplace extends plugin {
       (item) => item.name == didian
     );
     if (!isNotNull(weizhi)) {
-      return;
+      return false;
     }
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
-      return true;
+      return false;
     }
     if (player.修为 < weizhi.experience) {
       e.reply("你需要积累" + weizhi.experience + "修为，才能抵抗禁地魔气！");
-      return true;
+      return false;
     }
     let Price = weizhi.Price;
     await Add_灵石(usr_qq, -Price);
@@ -216,41 +238,45 @@ export class secretplace extends plugin {
       JSON.stringify(arr)
     );
     e.reply("正在前往" + weizhi.name + "," + time + "分钟后归来!");
-    return;
+    return false;
   }
 
   //探索仙府
   async GoTimeplace(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     let didian = "无欲天仙";
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
     if (now_level_id < 21) {
-      return;
+      return false;
     }
     let weizhi = await data.timeplace_list.find((item) => item.name == didian);
     if (!isNotNull(weizhi)) {
-      return;
+      return false;
     }
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
-      return;
+      return false;
     }
     if (player.修为 < 100000) {
       e.reply("你需要消耗" + 100000 + "修为，才能抵御仙威！");
-      return true;
+      return false;
     }
     let Price = weizhi.Price;
     await Add_灵石(usr_qq, -Price);
@@ -277,46 +303,50 @@ export class secretplace extends plugin {
     );
     await Add_修为(usr_qq, -100000);
     e.reply("开始探索" + weizhi.name + "的仙府," + time + "分钟后归来!");
-    return;
+    return false;
   }
 
   //前往仙境
   async Gofairyrealm(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     var didian = e.msg.replace("#镇守仙境", "");
     didian = didian.trim();
     let weizhi = await data.Fairyrealm_list.find((item) => item.name == didian);
     if (!isNotNull(weizhi)) {
-      return;
+      return false;
     }
     if (player.灵石 < weizhi.Price) {
       e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
-      return true;
+      return false;
     }
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
     if (now_level_id < 42) {
-      return;
+      return false;
     } else {
       if (!isNotNull(player.power_place)) {
         e.reply("请#同步信息");
-        return;
+        return false;
       }
       if (player.power_place != 0) {
         e.reply("你已无法重返仙界！");
-        return;
+        return false;
       }
     }
     let Price = weizhi.Price;
@@ -343,16 +373,20 @@ export class secretplace extends plugin {
       JSON.stringify(arr)
     );
     e.reply("开始镇守" + didian + "," + time + "分钟后归来!");
-    return;
+    return false;
   }
 
   async Giveup(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
       e.reply("没存档你逃个锤子!");
-      return;
+      return false;
     }
     //获取游戏状态
     let game_action = await redis.get(
@@ -361,7 +395,7 @@ export class secretplace extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     //查询redis中的人物动作
@@ -386,10 +420,10 @@ export class secretplace extends plugin {
           JSON.stringify(arr)
         );
         e.reply("你已逃离！");
-        return;
+        return false;
       }
     }
-    return;
+    return false;
   }
 }
 

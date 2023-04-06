@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import fs from "fs";
 import { Read_exchange, Write_exchange } from "../../model/xiuxian.js";
@@ -6,10 +6,8 @@ import { AppName } from "../../app.config.js";
 export class exchangetask extends plugin {
   constructor() {
     super({
-      name: "exchangetask",
-      dsc: "exchangetask",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
@@ -47,6 +45,6 @@ export class exchangetask extends plugin {
     for (let player_id of playerList) {
       await redis.set("xiuxian:player:" + player_id + ":exchange", 0);
     }
-    return;
+    return false;
   }
 }

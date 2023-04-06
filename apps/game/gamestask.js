@@ -1,14 +1,12 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import { AppName } from "../../app.config.js";
 import fs from "fs";
 export class gamestask extends plugin {
   constructor() {
     super({
-      name: "gamestask",
-      dsc: "gamestask",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
@@ -37,7 +35,7 @@ export class gamestask extends plugin {
       //防止继续其他娱乐行为
       if (game_action == 0) {
         await redis.set("xiuxian:player:" + player_id + ":game_action", 1);
-        return;
+        return false;
       }
     }
   }

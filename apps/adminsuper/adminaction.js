@@ -1,14 +1,13 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import { exec } from "child_process";
 import { AppName } from "../../app.config.js";
 import { ForwardMsg } from "../../model/xiuxian.js";
+import config from "../../model/config.js";
 export class adminaction extends plugin {
   constructor() {
     super({
-      name: "adminaction",
-      dsc: "adminaction",
-      event: "message",
-      priority: 400,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#修仙(插件)?(强制)?更新",
@@ -31,7 +30,7 @@ export class adminaction extends plugin {
     }
   }
   async checkout() {
-    if (!this.e.isMaster) return;
+    if (!this.e.isMaster) return false;
     const isForce = this.e.msg.includes("强制");
     let e = this.e;
     let msg = ["————[更新消息]————"];
@@ -49,7 +48,7 @@ export class adminaction extends plugin {
         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
           msg.push("目前已经是最新版修仙插件了~");
           ForwardMsg(e, msg);
-          return;
+          return false;
         }
         if (error) {
           msg.push(
@@ -60,7 +59,7 @@ export class adminaction extends plugin {
               "\n 请稍后重试。"
           );
           ForwardMsg(e, msg);
-          return;
+          return false;
         }
         msg.push("修仙插件更新成功,正在尝试重新启动以应用更新...");
         ForwardMsg(e, msg);

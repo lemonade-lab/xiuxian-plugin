@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import {
   __PATH,
@@ -9,13 +9,12 @@ import {
   Read_forum,
   Write_forum,
 } from "../../model/xiuxian.js";
+import config from "../../model/config.js";
 export class forum extends plugin {
   constructor() {
     super({
-      name: "forum",
-      dsc: "forum",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#有间客栈$",
@@ -30,7 +29,11 @@ export class forum extends plugin {
   }
 
   async Searchforum(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let forum;
     try {
       forum = await Read_forum();
@@ -53,18 +56,22 @@ export class forum extends plugin {
       );
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   async Pushforum(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     if (usr_qq == 80000000) {
-      return;
+      return false;
     }
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let forum;
     try {
@@ -86,16 +93,16 @@ export class forum extends plugin {
 
     if (title.length == 0) {
       e.reply("未填写标题");
-      return;
+      return false;
     } else if (content == undefined) {
       e.reply("未填写内容");
-      return;
+      return false;
     } else if (title.length > 8) {
       e.reply("标题最多8个字");
-      return;
+      return false;
     } else if (content.length > 50) {
       e.reply("内容最多50个字");
-      return;
+      return false;
     }
 
     let player = await Read_player(usr_qq);
@@ -103,7 +110,7 @@ export class forum extends plugin {
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
 
     now_level_id = data.level_list.find(
@@ -111,7 +118,7 @@ export class forum extends plugin {
     ).level_id;
     if (now_level_id < 9) {
       e.reply("境界过低");
-      return;
+      return false;
     }
 
     //随机编号
@@ -135,6 +142,6 @@ export class forum extends plugin {
     forum.push(wupin);
     await Write_forum(forum);
     e.reply("发布成功！");
-    return;
+    return false;
   }
 }

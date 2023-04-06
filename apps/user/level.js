@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import fs from "fs";
@@ -22,10 +22,8 @@ import {
 export class level extends plugin {
   constructor() {
     super({
-      name: "level",
-      dsc: "level",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#突破$",
@@ -52,24 +50,28 @@ export class level extends plugin {
   }
 
   async levelMax_up(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     let now_level_id;
     if (!isNotNull(player.Physique_id)) {
       e.reply("请先#刷新信息");
-      return;
+      return false;
     }
     now_level_id = data.levelMax_list.find(
       (item) => item.level_id == player.Physique_id
@@ -80,7 +82,7 @@ export class level extends plugin {
     ).exp;
     if (now_exp < need_exp) {
       e.reply(`血气不足,再积累${need_exp - now_exp}血气后方可突破`);
-      return;
+      return false;
     }
     var Time = config.getconfig("xiuxian", "xiuxian").CD.level_up;
     let now_Time = new Date().getTime(); //获取当前时间戳
@@ -97,7 +99,7 @@ export class level extends plugin {
         ((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000
       );
       e.reply("突破正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`);
-      return;
+      return false;
     }
     let rand = Math.random();
     let prob = 1 - now_level_id / 60;
@@ -115,7 +117,7 @@ export class level extends plugin {
             need_exp * 0.4 +
             "血气"
         );
-        return;
+        return false;
       } else if (bad_time > 0.8) {
         await Add_血气(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
@@ -127,7 +129,7 @@ export class level extends plugin {
             need_exp * 0.2 +
             "血气"
         );
-        return;
+        return false;
       } else if (bad_time > 0.7) {
         await Add_血气(usr_qq, -1 * need_exp * 0.1);
         await redis.set(
@@ -139,14 +141,14 @@ export class level extends plugin {
             need_exp * 0.1 +
             "血气"
         );
-        return;
+        return false;
       } else if (bad_time > 0.1) {
         await redis.set(
           "xiuxian:player:" + usr_qq + ":last_levelMaxup_time",
           now_Time
         );
         e.reply(`憋红了脸，境界突破失败,等到${Time}分钟后再尝试吧`);
-        return;
+        return false;
       } else {
         await Add_血气(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
@@ -158,7 +160,7 @@ export class level extends plugin {
             need_exp * 0.2 +
             "血气"
         );
-        return;
+        return false;
       }
     }
     player.Physique_id = now_level_id + 1;
@@ -175,18 +177,22 @@ export class level extends plugin {
       "xiuxian:player:" + usr_qq + ":last_levelMaxup_time",
       now_Time
     );
-    return;
+    return false;
   }
 
   //突破
   async level_up(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
 
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     //获取游戏状态
@@ -197,7 +203,7 @@ export class level extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     //读取信息
@@ -216,7 +222,7 @@ export class level extends plugin {
       } else {
         e.reply(`请先渡劫！`);
       }
-      return;
+      return false;
     }
 
     //根据名字取找境界id
@@ -225,7 +231,7 @@ export class level extends plugin {
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#刷新信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -237,13 +243,13 @@ export class level extends plugin {
       let levelUP = await fanren();
       if (levelUP != 1) {
         e.reply(`这方世界已有化凡！`);
-        return;
+        return false;
       }
     }
 
     //凡人突破
     if (now_level_id == 54) {
-      return;
+      return false;
     }
 
     let now_exp = player.修为;
@@ -255,7 +261,7 @@ export class level extends plugin {
 
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
-      return;
+      return false;
     }
 
     var Time = config.getconfig("xiuxian", "xiuxian").CD.level_up;
@@ -273,7 +279,7 @@ export class level extends plugin {
         ((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000
       );
       e.reply("突破正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`);
-      return;
+      return false;
     }
 
     //随机数
@@ -294,7 +300,7 @@ export class level extends plugin {
             need_exp * 0.4 +
             "修为"
         );
-        return;
+        return false;
       } else if (bad_time > 0.8) {
         await Add_修为(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
@@ -306,7 +312,7 @@ export class level extends plugin {
             need_exp * 0.2 +
             "修为"
         );
-        return;
+        return false;
       } else if (bad_time > 0.7) {
         await Add_修为(usr_qq, -1 * need_exp * 0.1);
         await redis.set(
@@ -318,14 +324,14 @@ export class level extends plugin {
             need_exp * 0.1 +
             "修为"
         );
-        return;
+        return false;
       } else if (bad_time > 0.1) {
         await redis.set(
           "xiuxian:player:" + usr_qq + ":last_levelup_time",
           now_Time
         ); //获得上次的时间戳
         e.reply(`憋红了脸，境界突破失败,等到${Time}分钟后再尝试吧`);
-        return;
+        return false;
       } else {
         await Add_修为(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
@@ -337,7 +343,7 @@ export class level extends plugin {
             need_exp * 0.2 +
             "修为"
         );
-        return;
+        return false;
       }
     }
     //境界提升,修为扣除,攻防血重新加载,当前血量拉满
@@ -360,7 +366,7 @@ export class level extends plugin {
       "xiuxian:player:" + usr_qq + ":last_levelup_time",
       now_Time
     );
-    return;
+    return false;
   }
 
   //渡劫
@@ -369,11 +375,15 @@ export class level extends plugin {
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     //获取游戏状态
     let game_action = await redis.get(
@@ -382,7 +392,7 @@ export class level extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     let player = await Read_player(usr_qq);
@@ -394,7 +404,7 @@ export class level extends plugin {
 
     if (now_level != "渡劫期") {
       e.reply(`你非渡劫期修士！`);
-      return;
+      return false;
     }
 
     //查询redis中的人物动作
@@ -408,14 +418,14 @@ export class level extends plugin {
         let m = parseInt((action_end_time - now_time) / 1000 / 60);
         let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
         e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-        return;
+        return false;
       }
     }
 
     if (player.power_place == 0) {
       //已经开了
       e.reply("你已度过雷劫，请感应仙门#羽化登仙");
-      return;
+      return false;
     }
 
     //看看当前血量
@@ -427,7 +437,7 @@ export class level extends plugin {
       player.当前血量 = 1;
       await Write_player(usr_qq, player);
       e.reply(player.名号 + "血量亏损，强行渡劫后晕倒在地！");
-      return;
+      return false;
     }
 
     //境界id
@@ -437,7 +447,7 @@ export class level extends plugin {
 
     if (now_level_id == 54) {
       e.reply(`您已是此界凡人`);
-      return;
+      return false;
     }
 
     //修为
@@ -455,7 +465,7 @@ export class level extends plugin {
 
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
-      return;
+      return false;
     }
 
     //当前系数计算
@@ -484,7 +494,7 @@ export class level extends plugin {
       player.修为 -= parseInt(need_exp / 4);
       await Write_player(usr_qq, player);
       e.reply("天空一声巨响，未降下雷劫，就被天道的气势震死了。");
-      return;
+      return false;
     }
 
     //渡劫成功率
@@ -540,7 +550,7 @@ export class level extends plugin {
       JSON.stringify(arr)
     );
 
-    return;
+    return false;
   }
 
   //#羽化登仙
@@ -552,11 +562,15 @@ export class level extends plugin {
     let ifexistplay = await existplayer(usr_qq);
 
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     //获取游戏状态
     let game_action = await redis.get(
@@ -565,7 +579,7 @@ export class level extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙:游戏进行中...");
-      return;
+      return false;
     }
 
     //读取信息
@@ -578,7 +592,7 @@ export class level extends plugin {
 
     if (now_level != "渡劫期") {
       e.reply(`你非渡劫期修士！`);
-      return;
+      return false;
     }
 
     //查询redis中的人物动作
@@ -592,20 +606,20 @@ export class level extends plugin {
         let m = parseInt((action_end_time - now_time) / 1000 / 60);
         let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
         e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-        return;
+        return false;
       }
     }
 
     if (player.power_place != 0) {
       e.reply("请先渡劫！");
-      return;
+      return false;
     }
 
     //需要的修为
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#刷新信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
@@ -619,7 +633,7 @@ export class level extends plugin {
 
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可成仙！`);
-      return;
+      return false;
     }
 
     //零，开仙门
@@ -641,7 +655,7 @@ export class level extends plugin {
       if (now_level_id >= 42) {
         let player = data.getData("player", usr_qq);
         if (!isNotNull(player.宗门)) {
-          return;
+          return false;
         }
         //有宗门
         if (player.宗门.职位 != "宗主") {
@@ -693,10 +707,10 @@ export class level extends plugin {
           }
         }
       }
-      return;
+      return false;
     }
 
-    return;
+    return false;
   }
 }
 
@@ -722,7 +736,7 @@ async function fanren() {
     //搜索境界，有凡人，就变0
     let now_level_id;
     if (!isNotNull(player.level_id)) {
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id

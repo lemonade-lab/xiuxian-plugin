@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import {
   __PATH,
@@ -13,13 +13,12 @@ import {
   Read_exchange,
   Write_exchange,
 } from "../../model/xiuxian.js";
+import config from "../../model/config.js";
 export class exchange extends plugin {
   constructor() {
     super({
-      name: "exchange",
-      dsc: "exchange",
-      event: "message",
-      priority: 600,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#冲水堂$",
@@ -42,22 +41,26 @@ export class exchange extends plugin {
   }
 
   async Offsell(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     if (usr_qq == 80000000) {
-      return;
+      return false;
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     let Ex = await redis.get("xiuxian:player:" + usr_qq + ":exchange");
     if (Ex != 1) {
       e.reply("没有上架物品！");
-      return;
+      return false;
     }
 
     //防并发cd
@@ -81,7 +84,7 @@ export class exchange extends plugin {
           `CD: ${exchangeCDm}分${exchangeCDs}秒`
       );
       //存在CD。直接返回
-      return;
+      return false;
     }
 
     //记录本次执行时间
@@ -90,20 +93,20 @@ export class exchange extends plugin {
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
     now_level_id = data.level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
     if (now_level_id < 9) {
       e.reply("境界过低！");
-      return;
+      return false;
     }
 
     let thingqq = e.msg.replace("#", "");
     thingqq = thingqq.replace("下架", "");
     if (thingqq == "") {
-      return;
+      return false;
     }
 
     let x = 888888888;
@@ -125,7 +128,7 @@ export class exchange extends plugin {
 
     if (x == 888888888) {
       e.reply("找不到该商品编号！");
-      return;
+      return false;
     }
 
     //要查看冷却
@@ -137,12 +140,12 @@ export class exchange extends plugin {
     if (time <= 0) {
       //对比qq是否相等
       if (thingqq != usr_qq) {
-        return;
+        return false;
       }
 
       if (player.灵石 <= 50000) {
         e.reply("下架物品至少上交1w");
-        return;
+        return false;
       }
 
       let thing_name = exchange[x].name.name;
@@ -174,28 +177,32 @@ export class exchange extends plugin {
     } else {
       e.reply("物品冷却中...");
     }
-    return;
+    return false;
   }
 
   //上架
   async onsell(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     if (usr_qq == 80000000) {
-      return;
+      return false;
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     let Ex = await redis.get("xiuxian:player:" + usr_qq + ":exchange");
     if (Ex == 1) {
       e.reply("已有上架物品");
-      return;
+      return false;
     }
     let thing = e.msg.replace("#", "");
     thing = thing.replace("上架", "");
@@ -204,7 +211,7 @@ export class exchange extends plugin {
     let thing_value = code[1]; //价格
     let thing_acunot = code[2]; //数量
     if (thing_acunot > 99) {
-      return;
+      return false;
     }
     if (
       thing_acunot < 1 ||
@@ -215,15 +222,15 @@ export class exchange extends plugin {
       thing_acunot = 1;
     }
     if (thing_value <= 0) {
-      return;
+      return false;
     }
     if (!isNaN(parseFloat(thing_value)) && isFinite(thing_value)) {
     } else {
-      return;
+      return false;
     }
     if (!isNaN(parseFloat(thing_acunot)) && isFinite(thing_acunot)) {
     } else {
-      return;
+      return false;
     }
     //判断列表中是否存在，不存在不能卖,并定位是什么物品
     var z = 0; //默认是丹药
@@ -268,7 +275,7 @@ export class exchange extends plugin {
       z = 7;
     } else {
       e.reply(`这方世界没有[${thing_name}]`);
-      return;
+      return false;
     }
     //判断戒指中是否存在
     let thing_quantity = await exist_najie_thing(
@@ -279,13 +286,13 @@ export class exchange extends plugin {
     if (!thing_quantity) {
       //没有
       e.reply(`你没有[${thing_name}]这样的${ifexist0.class}`);
-      return;
+      return false;
     }
     //判断戒指中的数量
     if (thing_quantity < thing_acunot) {
       //不够
       e.reply(`你目前只有[${thing_name}]*${thing_quantity}`);
-      return;
+      return false;
     }
     //修正数值非整数
     thing_value = Math.trunc(thing_value); //价格
@@ -295,16 +302,16 @@ export class exchange extends plugin {
       if (thing_value <= 100000 && thing_value > 100000000) {
         //价格过低，价格过高
         e.reply("限定物品错误价格");
-        return;
+        return false;
       }
     } else {
       if (thing_value <= ifexist0.出售价 * 0.8) {
         e.reply("价格过低");
-        return;
+        return false;
       }
       if (thing_value >= ifexist0.出售价 * 3) {
         e.reply("价格过高");
-        return;
+        return false;
       }
     }
 
@@ -335,11 +342,15 @@ export class exchange extends plugin {
     await Write_exchange(exchange);
     e.reply("上架成功！");
     await redis.set("xiuxian:player:" + usr_qq + ":exchange", 1);
-    return;
+    return false;
   }
 
   async supermarket(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let exchange;
     try {
       exchange = await Read_exchange();
@@ -378,7 +389,7 @@ export class exchange extends plugin {
       );
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   async purchase(e) {
@@ -388,7 +399,7 @@ export class exchange extends plugin {
     //全局状态判断
     const T = await Go(e);
     if (!T) {
-      return;
+      return false;
     }
     //防并发cd
     var time0 = 2; //分钟cd
@@ -411,7 +422,7 @@ export class exchange extends plugin {
           `CD: ${exchangeCDm}分${exchangeCDs}秒`
       );
       //存在CD。直接返回
-      return;
+      return false;
     }
     //记录本次执行时间
     await redis.set("xiuxian:player:" + usr_qq + ":exchangeCD", now_time);
@@ -420,7 +431,7 @@ export class exchange extends plugin {
     let now_level_id;
     if (!isNotNull(player.level_id)) {
       e.reply("请先#同步信息");
-      return;
+      return false;
     }
 
     now_level_id = data.level_list.find(
@@ -428,14 +439,14 @@ export class exchange extends plugin {
     ).level_id;
     if (now_level_id < 9) {
       e.reply("境界过低");
-      return;
+      return false;
     }
 
     let thingqq = e.msg.replace("#", "");
     //拿到物品与数量
     thingqq = thingqq.replace("选购", "");
     if (thingqq == "") {
-      return;
+      return false;
     }
 
     let x = 888888888;
@@ -458,7 +469,7 @@ export class exchange extends plugin {
     }
     if (x == 888888888) {
       e.reply("找不到该商品编号！");
-      return;
+      return false;
     }
 
     //要查看冷却
@@ -508,11 +519,11 @@ export class exchange extends plugin {
         await redis.set("Xiuxian:Worldmoney", Worldmoney);
       } else {
         e.reply("醒醒，你没有那么多钱！");
-        return;
+        return false;
       }
     } else {
       e.reply("物品冷却中...");
     }
-    return;
+    return false;
   }
 }

@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import fs from "fs";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
@@ -18,10 +18,8 @@ import {
 export class adminsuper extends plugin {
   constructor() {
     super({
-      name: "adminsuper",
-      dsc: "adminsuper",
-      event: "message",
-      priority: 100,
+      name,
+      dsc,
       rule: [
         {
           reg: "^#解封.*$",
@@ -64,8 +62,12 @@ export class adminsuper extends plugin {
   }
 
   async Worldstatistics(e) {
-    if (!e.isGroup) return;
-    if (!e.isMaster) return;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
+    if (!e.isMaster) return false;
     let acount = 0;
     let lower = 0;
     let senior = 0;
@@ -85,7 +87,7 @@ export class adminsuper extends plugin {
       let now_level_id;
       if (!isNotNull(player.level_id)) {
         e.reply("请先#同步信息");
-        return;
+        return false;
       }
       now_level_id = data.level_list.find(
         (item) => item.level_id == player.level_id
@@ -179,12 +181,16 @@ export class adminsuper extends plugin {
       ];
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   async Deleteforum(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let forum;
     try {
       forum = await Read_forum();
@@ -197,12 +203,16 @@ export class adminsuper extends plugin {
       Write_forum(forum);
     }
     e.reply("已清理！");
-    return;
+    return false;
   }
 
   async DeleteBoss(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //boss分为金角大王、银角大王、魔王
     //魔王boss
     await redis.set("BossMaxplus", 1);
@@ -214,12 +224,16 @@ export class adminsuper extends plugin {
     await redis.set("BossMini", 1);
     await redis.del("BossMini");
     e.reply("关闭成功");
-    return;
+    return false;
   }
 
   async OpenBoss(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     let User_maxplus = 1; //所有仙人数
     User_maxplus = Number(User_maxplus);
     let User_max = 1; //所有高段
@@ -240,7 +254,7 @@ export class adminsuper extends plugin {
       let player = await Read_player(usr_qq);
       let now_level_id;
       if (!isNotNull(player.level_id)) {
-        return;
+        return false;
       }
       now_level_id = data.level_list.find(
         (item) => item.level_id == player.level_id
@@ -319,18 +333,22 @@ export class adminsuper extends plugin {
       await redis.set("BossMini", 0);
     }
     e.reply("开启成功");
-    return;
+    return false;
   }
 
   async Deletepurchase(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
 
     let thingqq = e.msg.replace("#", "");
     //拿到物品与数量
     thingqq = thingqq.replace("清除", "");
     if (thingqq == "") {
-      return;
+      return false;
     }
 
     let x = 888888888;
@@ -353,7 +371,7 @@ export class adminsuper extends plugin {
 
     if (x == 888888888) {
       e.reply("找不到该商品编号！");
-      return;
+      return false;
     }
     //删除该位置信息
     exchange = exchange.filter((item) => item.qq != thingqq);
@@ -361,12 +379,16 @@ export class adminsuper extends plugin {
     //改状态
     await redis.set("xiuxian:player:" + thingqq + ":exchange", 0);
     e.reply("清除" + thingqq);
-    return;
+    return false;
   }
 
   async Deleteexchange(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("开始清除！");
     let exchange;
     try {
@@ -394,7 +416,7 @@ export class adminsuper extends plugin {
       await redis.set("xiuxian:player:" + player_id + ":exchange", 0);
     }
     e.reply("清除完成！");
-    return;
+    return false;
   }
 
   //#我的信息
@@ -403,21 +425,25 @@ export class adminsuper extends plugin {
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
     //不开放私聊功能
     if (!e.isGroup) {
       e.reply("此功能暂时不开放私聊");
-      return;
+      return false;
     }
     let img = await get_player_img(e);
     e.reply(img);
-    return;
+    return false;
   }
 
   async Allrelieve(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     e.reply("开始行动！");
     let playerList = [];
     let files = fs
@@ -454,12 +480,16 @@ export class adminsuper extends plugin {
   }
 
   async relieve(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
     //获取at信息
     let atItem = e.message.filter((item) => item.type === "at");
@@ -468,7 +498,7 @@ export class adminsuper extends plugin {
     //检查存档
     let ifexistplay = await existplayer(qq);
     if (!ifexistplay) {
-      return;
+      return false;
     }
 
     //清除游戏状态
@@ -490,20 +520,24 @@ export class adminsuper extends plugin {
       delete arr.group_id; //结算完去除group_id
       await redis.set("xiuxian:player:" + qq + ":action", JSON.stringify(arr));
       e.reply("已解除！");
-      return;
+      return false;
     }
     //是空的
     e.reply("不需要解除！");
-    return;
+    return false;
   }
 
   async Knockdown(e) {
-    if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isMaster) return false;
+    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
+      return false;
+    const { whitecrowd, blackid } = config.getconfig("parameter", "namelist");
+    if (whitecrowd.indexOf(e.group_id) == -1) return false;
+    if (blackid.indexOf(e.user_id) != -1) return false;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
-      return;
+      return false;
     }
     //获取at信息
     let atItem = e.message.filter((item) => item.type === "at");
@@ -513,18 +547,18 @@ export class adminsuper extends plugin {
     let ifexistplay = await existplayer(qq);
     if (!ifexistplay) {
       e.reply("没存档你打个锤子！");
-      return;
+      return false;
     }
 
     let player = await Read_player(qq);
     if (!isNotNull(player.power_place)) {
       e.reply("请#同步信息");
-      return;
+      return false;
     }
 
     player.power_place = 1;
     e.reply("已打落凡间！");
     await Write_player(usr_qq, player);
-    return;
+    return false;
   }
 }

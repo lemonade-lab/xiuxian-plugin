@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, name, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import data from "../../model/xiuxiandata.js";
 import fs from "fs";
@@ -6,10 +6,8 @@ import { Read_player, isNotNull } from "../../model/xiuxian.js";
 export class bosstask extends plugin {
   constructor() {
     super({
-      name: "bosstask",
-      dsc: "bosstask",
-      event: "message",
-      priority: 300,
+      name,
+      dsc,
       rule: [],
     });
     this.set = config.getdefset("task", "task");
