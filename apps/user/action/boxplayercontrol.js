@@ -35,10 +35,7 @@ export class BoxPlayerControl extends plugin {
       actionName: "闭关",
       startTime: now_time,
     };
-    await redis.set(
-      `xiuxian:player:${UID}:action`,
-      JSON.stringify(actionObject)
-    );
+    GameApi.GamePublic.setAction(UID,actionObject)
     e.reply("开始两耳不闻窗外事...");
     return false;
   };
@@ -65,10 +62,7 @@ export class BoxPlayerControl extends plugin {
       actionName: "降妖",
       startTime: now_time,
     };
-    await redis.set(
-      `xiuxian:player:${UID}:action`,
-      JSON.stringify(actionObject)
-    );
+    GameApi.GamePublic.setAction(UID,actionObject)
     e.reply("开始外出...");
     return false;
   };
@@ -85,7 +79,7 @@ export class BoxPlayerControl extends plugin {
       e.reply("已死亡");
       return false;
     }
-    let action = await redis.get(`xiuxian:player:${UID}:action`);
+    let action = await GameApi.GamePublic.getAction(UID)
     if (action == undefined) return false;
     action = JSON.parse(action);
     if (action.actionName != "闭关") return false;
@@ -118,7 +112,7 @@ export class BoxPlayerControl extends plugin {
       e.reply("已死亡");
       return false;
     }
-    let action = await redis.get(`xiuxian:player:${UID}:action`);
+    let action = await GameApi.GamePublic.getAction(UID)
     if (action == undefined) return false;
     action = JSON.parse(action);
     if (action.actionName != "降妖") return false;

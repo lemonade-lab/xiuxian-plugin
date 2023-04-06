@@ -161,8 +161,7 @@ export class BoxBattleSite extends plugin {
         });
       }
     }
-    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
     /* todo */
     try {
       await BotApi.User.forwardMsg({ e, data: msg });

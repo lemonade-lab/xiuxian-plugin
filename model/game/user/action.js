@@ -85,8 +85,7 @@ class userAction {
     if (CDMSG) {
       return { UserLevelUpMSG: `${CDMSG}` };
     }
-    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
     if (Math.random() >= 1 - player.levelmax_id / 22) {
       let size = "";
       if (choise) {
@@ -207,8 +206,7 @@ class userAction {
     if (CDMSG) {
       return `${CDMSG}`;
     }
-    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
     return;
   };
 }

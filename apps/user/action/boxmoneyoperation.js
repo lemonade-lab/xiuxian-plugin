@@ -124,8 +124,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    await redis.set(`xiuxian:player:${A}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${A}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(A,CDID,now_time,CDTime)
     await GameApi.GameUser.userBag({
       UID: A,
       name: "下品灵石",

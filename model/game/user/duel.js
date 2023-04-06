@@ -52,8 +52,7 @@ class duel {
         ACCOUNT: -1,
       });
     }
-    await redis.set(`xiuxian:player:${UIDA}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UIDA}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UIDA,CDID,now_time,CDTime)
     const Level = await listdata.listAction({
       NAME: UIDA,
       CHOICE: "user_level",

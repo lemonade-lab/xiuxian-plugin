@@ -60,8 +60,7 @@ export class BoxStart extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
     await GameApi.GamePublic.offAction({ UID });
     let life = await GameApi.UserData.listActionInitial({
       NAME: "life",

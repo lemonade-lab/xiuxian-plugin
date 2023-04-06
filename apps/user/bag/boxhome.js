@@ -65,8 +65,7 @@ export class BoxHome extends plugin {
             experience = 0;
             e.reply(CDMSG);
           }
-          await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-          await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+          GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
           const player = GameApi.UserData.listAction({
             NAME: UID,
             CHOICE: "user_level",

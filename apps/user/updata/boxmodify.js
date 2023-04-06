@@ -71,8 +71,7 @@ export class BoxModify extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
     await GameApi.GameUser.userBag({
       UID,
       name: "下品灵石",
@@ -156,8 +155,7 @@ export class BoxModify extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    await redis.set(`xiuxian:player:${UID}:${CDID}`, now_time);
-    await redis.expire(`xiuxian:player:${UID}:${CDID}`, CDTime * 60);
+    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
     player.autograph = new_msg;
     await GameApi.UserData.listAction({
       NAME: UID,
