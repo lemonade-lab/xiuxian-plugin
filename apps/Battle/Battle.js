@@ -36,15 +36,11 @@ export class Battle extends plugin {
       ],
     });
     this.set = config.getConfig("xiuxian", "xiuxian");
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //打劫
   async Dajie(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     // 判断是否在开启时间
 
     const nowDate = new Date();
@@ -82,9 +78,7 @@ export class Battle extends plugin {
 
     //判断对方
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     //获取对方qq
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq; //被打劫者
@@ -208,7 +202,8 @@ export class Battle extends plugin {
       "xiuxian:player:" + A + ":last_dajie_time"
     ); //获得上次打劫的时间戳,
     last_dajie_time = parseInt(last_dajie_time);
-    let robTimeout = parseInt(60000 * this.xiuxianConfigData.CD.rob);
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    let robTimeout = parseInt(60000 * cf.CD.rob);
     if (nowTime < last_dajie_time + robTimeout) {
       let waittime_m = Math.trunc(
         (last_dajie_time + robTimeout - nowTime) / 60 / 1000
@@ -333,10 +328,7 @@ export class Battle extends plugin {
 
   //比武
   async biwu(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let A = e.user_id;
     //先判断
     let ifexistplay_A = await existplayer(A);
@@ -344,9 +336,7 @@ export class Battle extends plugin {
       return;
     }
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq; //后手
 

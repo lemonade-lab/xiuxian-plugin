@@ -1,5 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
-import config from "../../model/Config.js";
+import { plugin } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import {
   Read_danyao,
@@ -38,20 +37,14 @@ export class TreasureCabinet extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
   //我的贡献
   async gonxian(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {
@@ -75,16 +68,12 @@ export class TreasureCabinet extends plugin {
 
   async Summon_Divine_Beast(e) {
     //8级宗门，有驻地，灵石200w
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {
@@ -147,16 +136,11 @@ export class TreasureCabinet extends plugin {
   }
 
   async Beast_Bonus(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {

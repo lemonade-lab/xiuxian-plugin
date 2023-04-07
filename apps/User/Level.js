@@ -19,15 +19,8 @@ import {
   dujie,
 } from "../../model/xiuxian.js";
 import { clearInterval } from "timers";
-
-/**
- * 全局变量
- */
 let dj = 0;
 let flag = 0;
-/**
- * 境界模块
- */
 export class Level extends plugin {
   constructor() {
     super({
@@ -70,19 +63,14 @@ export class Level extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //突破
   async auto_up(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.level_id > 31 || player.lunhui == 0) return;
     e.reply("已为你开启10次自动突破");
@@ -96,14 +84,10 @@ export class Level extends plugin {
   }
 
   async LevelMax_up(e, luck) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );
@@ -132,7 +116,8 @@ export class Level extends plugin {
       e.reply(`你已突破至最高境界`);
       return;
     }
-    var Time = this.xiuxianConfigData.CD.level_up;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    var Time = cf.CD.level_up;
     let now_Time = new Date().getTime(); //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time);
     let last_time = await redis.get(
@@ -285,16 +270,11 @@ export class Level extends plugin {
 
   //突破
   async Level_up(e, luck) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -356,7 +336,8 @@ export class Level extends plugin {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`);
       return;
     }
-    var Time = this.xiuxianConfigData.CD.level_up;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    var Time = cf.CD.level_up;
     let now_Time = new Date().getTime(); //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time);
     let last_time = await redis.get(
@@ -519,10 +500,7 @@ export class Level extends plugin {
   }
 
   async yes(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     /** 内容 */
     let usr_qq = e.user_id;
     let new_msg = this.e.message;
@@ -582,13 +560,9 @@ export class Level extends plugin {
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let player = await Read_player(usr_qq);
     //境界
     let now_level = data.Level_list.find(
@@ -788,13 +762,9 @@ export class Level extends plugin {
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"

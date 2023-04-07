@@ -1,4 +1,4 @@
-import { plugin, common, segment, puppeteer } from "../../api/api.js";
+import { plugin, common, segment } from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
@@ -21,10 +21,8 @@ export class Xijietask extends plugin {
       name: "Xijietask",
       dsc: "定时任务",
       event: "message",
-      priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.action_task,

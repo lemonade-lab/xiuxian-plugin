@@ -16,7 +16,6 @@ export class BackUptask extends plugin {
       priority: 1000,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.temp_task,

@@ -49,16 +49,12 @@ export class Exchange extends plugin {
     });
   }
   async Offsell(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //防并发cd
     var time0 = 0.5; //分钟cd
     //获取当前时间
@@ -127,9 +123,7 @@ export class Exchange extends plugin {
 
   //上架
   async onsell(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -138,9 +132,7 @@ export class Exchange extends plugin {
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let najie = await Read_najie(usr_qq);
     let thing = e.msg.replace("#", "");
     thing = thing.replace("上架", "");
@@ -282,10 +274,7 @@ export class Exchange extends plugin {
   }
 
   async show_supermarket(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let thing_class = e.msg.replace("#冲水堂", "");
     let img = await get_supermarket_img(e, thing_class);
     e.reply(img);

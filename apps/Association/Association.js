@@ -57,20 +57,15 @@ export class Association extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //宗门俸禄
   async gift_association(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -140,13 +135,9 @@ export class Association extends plugin {
   async Join_association(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (isNotNull(player.宗门)) {
       return;
@@ -213,13 +204,9 @@ export class Association extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
 
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -227,7 +214,7 @@ export class Association extends plugin {
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
     let addTime;
-    var time = this.xiuxianConfigData.CD.joinassociation; //分钟
+    var time = config.getConfig("xiuxian", "xiuxian").CD.joinassociation; //分钟
     if (typeof player.宗门.time == "undefined") {
       addTime = player.宗门.加入时间[1] + 60000 * time;
     } else {
@@ -299,13 +286,9 @@ export class Association extends plugin {
   async give_association_lingshi(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -361,13 +344,9 @@ export class Association extends plugin {
   async Logs_donate(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -401,15 +380,10 @@ export class Association extends plugin {
 
   //宗门列表
   async List_appointment(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let dir = data.filePathMap.association;
     let File = fs.readdirSync(dir);
     File = File.filter((file) => file.endsWith(".json")); //这个数组内容是所有的宗门名称

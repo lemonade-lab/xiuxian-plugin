@@ -51,9 +51,7 @@ export class Auction extends plugin {
   }
 
   async xingGE(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -62,9 +60,7 @@ export class Auction extends plugin {
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let auction = await redis.get("xiuxian:AuctionofficialTask");
     if (!isNotNull(auction)) {
       e.reply("目前没有拍卖正在进行");
@@ -166,9 +162,7 @@ export class Auction extends plugin {
 
   /*竞价10000 */
   async offer_priceXINGGE(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -177,9 +171,7 @@ export class Auction extends plugin {
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     // 此群是否开启星阁体系
     const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
     if (!(await redis.sIsMember(redisGlKey, String(e.group_id)))) return;
@@ -235,9 +227,7 @@ export class Auction extends plugin {
   }
 
   async show_auction(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -246,9 +236,7 @@ export class Auction extends plugin {
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let auction = await redis.get("xiuxian:auction");
     if (!isNotNull(auction)) {
       e.reply("目前没有拍卖正在进行");

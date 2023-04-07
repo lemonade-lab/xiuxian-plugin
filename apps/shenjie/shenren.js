@@ -42,15 +42,11 @@ export class shenren extends plugin {
   }
 
   async add_lingeng(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let x = await exist_najie_thing(usr_qq, "神石", "道具");
     if (!x) {
       e.reply("你没有神石");
@@ -71,15 +67,11 @@ export class shenren extends plugin {
     return;
   }
   async open_shitou(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let x = await exist_najie_thing(usr_qq, "闪闪发光的石头", "道具");
     if (!x) {
       e.reply("你没有闪闪发光的石头");
@@ -99,15 +91,11 @@ export class shenren extends plugin {
   }
 
   async shenjie(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );
@@ -218,15 +206,11 @@ export class shenren extends plugin {
   }
 
   async canwu(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (
       player.魔道值 > 0 ||

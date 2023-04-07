@@ -1,7 +1,6 @@
 import { plugin, puppeteer } from "../../api/api.js";
 import fs from "fs";
 import data from "../../model/XiuxianData.js";
-import config from "../../model/Config.js";
 import { AppName } from "../../app.config.js";
 import {
   existplayer,
@@ -53,12 +52,9 @@ export class AdminSuper extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
   async jiesan_ass(e) {
-    if (!e.isMaster) {
-      return;
-    }
+    if (!e.isMaster) return;
     let didian = e.msg.replace("#解散宗门", "");
     didian = didian.trim();
     let ass = data.getAssociation(didian);
@@ -137,13 +133,9 @@ export class AdminSuper extends plugin {
   }
 
   async Deleteexchange(e) {
-    if (!e.isMaster) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isMaster) return;
+
+    if (!e.isGroup) return;
     e.reply("开始清除！");
     let Exchange;
     try {
@@ -170,10 +162,8 @@ export class AdminSuper extends plugin {
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
+    if (!ifexistplay) return;
+
     if (!e.isGroup) {
       e.reply("此功能暂时不开放私聊");
       return;
@@ -184,13 +174,9 @@ export class AdminSuper extends plugin {
   }
 
   async Allrelieve(e) {
-    if (!e.isMaster) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isMaster) return;
+
+    if (!e.isGroup) return;
     e.reply("开始行动！");
     let playerList = [];
     let files = fs
@@ -227,28 +213,18 @@ export class AdminSuper extends plugin {
   }
 
   async relieve(e) {
-    //主人判断
-    if (!e.isMaster) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isMaster) return;
+    if (!e.isGroup) return;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     //获取at信息
     let atItem = e.message.filter((item) => item.type === "at");
     //对方qq
     let qq = atItem[0].qq;
     //检查存档
     let ifexistplay = await existplayer(qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //清除游戏状态
     await redis.set("xiuxian:player:" + qq + ":game_action", 1);
     //查询redis中的人物动作
@@ -276,19 +252,11 @@ export class AdminSuper extends plugin {
   }
 
   async Knockdown(e) {
-    //主人判断
-    if (!e.isMaster) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isMaster) return;
+    if (!e.isGroup) return;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     //获取at信息
     let atItem = e.message.filter((item) => item.type === "at");
     //对方qq
@@ -307,7 +275,6 @@ export class AdminSuper extends plugin {
   }
 
   async replaceThing(e) {
-    //主人判断
     if (!e.isMaster) return;
     const msg1 = e.msg.replace("#将米娜桑的纳戒里叫", "");
     const [thingName, msg2] = msg1.split("的的的");

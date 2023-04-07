@@ -45,7 +45,6 @@ export class PlayerControl extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //闭关
@@ -57,9 +56,7 @@ export class PlayerControl extends plugin {
     }
 
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
 
     //获取游戏状态
     let game_action = await redis.get(
@@ -145,9 +142,7 @@ export class PlayerControl extends plugin {
   //降妖
   async Dagong(e) {
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(usr_qq))) {
@@ -240,10 +235,7 @@ export class PlayerControl extends plugin {
    * @returns {Promise<void>}
    */
   async chuGuan(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let action = await this.getPlayerAction(e.user_id);
     if (action.shutup == 1) {
       return;
@@ -255,8 +247,10 @@ export class PlayerControl extends plugin {
     let now_time = new Date().getTime();
     let time;
 
-    var y = this.xiuxianConfigData.biguan.time; //固定时间
-    var x = this.xiuxianConfigData.biguan.cycle; //循环次数
+    const cf = config.getConfig("xiuxian", "xiuxian");
+
+    var y = cf.biguan.time; //固定时间
+    var x = cf.biguan.cycle; //循环次数
 
     if (end_time > now_time) {
       //属于提前结束
@@ -313,10 +307,7 @@ export class PlayerControl extends plugin {
    * @returns {Promise<void>}
    */
   async endWork(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let action = await this.getPlayerAction(e.user_id);
     if (action.working == 1) {
       return;
@@ -326,8 +317,9 @@ export class PlayerControl extends plugin {
     let start_time = action.end_time - action.time;
     let now_time = new Date().getTime();
     let time;
-    var y = this.xiuxianConfigData.work.time; //固定时间
-    var x = this.xiuxianConfigData.work.cycle; //循环次数
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    var y = cf.work.time; //固定时间
+    var x = cf.work.cycle; //循环次数
 
     if (end_time > now_time) {
       //属于提前结束
@@ -401,7 +393,8 @@ export class PlayerControl extends plugin {
       (item) => item.level_id == player.level_id
     ).level_id;
     //闭关收益倍率计算 倍率*境界id*天赋*时间
-    var size = this.xiuxianConfigData.biguan.size;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    var size = cf.biguan.size;
     //增加的修为
     let xiuwei = parseInt(size * now_level_id * (player.修炼效率提升 + 1));
     //恢复的血量
@@ -537,7 +530,8 @@ export class PlayerControl extends plugin {
     now_level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
-    var size = this.xiuxianConfigData.work.size;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    var size = cf.work.size;
     let lingshi = parseInt(
       size * now_level_id * (1 + player.修炼效率提升) * 0.5
     );

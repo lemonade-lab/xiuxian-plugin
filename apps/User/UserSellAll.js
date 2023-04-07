@@ -20,16 +20,6 @@ import {
   Read_najie,
   get_equipment_img,
 } from "../../model/xiuxian.js";
-/**
- * 全局变量
- */
-/**
- * 作者：零零零零
- * 支持一键出售物品
- * 一键服用修为丹药
- * 一键装备
- * 一键学习功法
- */
 export class UserSellAll extends plugin {
   constructor() {
     super({
@@ -86,16 +76,10 @@ export class UserSellAll extends plugin {
     });
   }
   async all_zhuangbei(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
-    //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //检索方法
     let najie = await data.getData("najie", usr_qq);
     let player = await Read_player(usr_qq);
@@ -168,16 +152,11 @@ export class UserSellAll extends plugin {
   }
 
   async all_locked(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let najie = await data.getData("najie", usr_qq);
     let wupin = [
       "装备",
@@ -216,16 +195,11 @@ export class UserSellAll extends plugin {
   }
 
   async all_unlocked(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let najie = await data.getData("najie", usr_qq);
     let wupin = [
       "装备",
@@ -264,22 +238,15 @@ export class UserSellAll extends plugin {
   }
 
   async all_give(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //这是自己的
     let A_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(A_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //对方
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
     let B_qq = atItem[0].qq; //对方qq
     //对方没存档
@@ -333,16 +300,11 @@ export class UserSellAll extends plugin {
     return;
   }
   async Sell_all_huishou(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let najie = await data.getData("najie", usr_qq);
     let lingshi = 0;
     let wupin = [
@@ -390,16 +352,11 @@ export class UserSellAll extends plugin {
     return;
   }
   async locked(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //命令判断
     let msg = e.msg.replace("#", "");
     let un_lock = msg.substr(0, 2);
@@ -479,16 +436,11 @@ export class UserSellAll extends plugin {
   }
   //一键出售
   async Sell_all_comodities(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let commodities_price = 0;
     let najie = await data.getData("najie", usr_qq);
     let wupin = [
@@ -557,9 +509,7 @@ export class UserSellAll extends plugin {
     return;
   }
   async noticeSellAllGoods(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let reg = new RegExp(/^1$/);
     let new_msg = this.e.msg;
     let difficulty = reg.exec(new_msg);
@@ -572,7 +522,7 @@ export class UserSellAll extends plugin {
     /** 结束上下文 */
     this.finish("noticeSellAllGoods");
     /**出售*/
-    //不开放私聊功能
+
     let usr_qq = e.user_id;
     //有无存档
     let najie = await data.getData("najie", usr_qq);
@@ -604,16 +554,11 @@ export class UserSellAll extends plugin {
 
   //#(装备|服用|使用)物品*数量
   async all_xiuweidan(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //检索方法
     let najie = await data.getData("najie", usr_qq);
     let xiuwei = 0;
@@ -632,16 +577,11 @@ export class UserSellAll extends plugin {
 
   //#(装备|服用|使用)物品*数量
   async all_xueqidan(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
 
     //检索方法
     let najie = await data.getData("najie", usr_qq);
@@ -660,16 +600,11 @@ export class UserSellAll extends plugin {
   }
 
   async all_learn(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //检索方法
     let najie = await data.getData("najie", usr_qq);
     let gongfa = [];

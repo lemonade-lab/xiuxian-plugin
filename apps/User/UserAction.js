@@ -10,14 +10,6 @@ import {
   Go,
   get_najie_img,
 } from "../../model/xiuxian.js";
-
-/**
- * 全局
- */
-/**
- * 交易系统
- */
-
 export class UserAction extends plugin {
   constructor() {
     super({
@@ -39,7 +31,6 @@ export class UserAction extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //#我的纳戒
@@ -47,9 +38,7 @@ export class UserAction extends plugin {
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let img = await get_najie_img(e);
     e.reply(img);
     return;
@@ -57,10 +46,7 @@ export class UserAction extends plugin {
 
   //纳戒升级
   async Lv_up_najie(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let flag = await Go(e);
     if (!flag) {
       return;
@@ -68,13 +54,12 @@ export class UserAction extends plugin {
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let najie = await Read_najie(usr_qq);
     let player = await Read_player(usr_qq);
-    let najie_num = this.xiuxianConfigData.najie_num;
-    let najie_price = this.xiuxianConfigData.najie_price;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    let najie_num = cf.najie_num;
+    let najie_price = cf.najie_price;
     if (najie.等级 == najie_num.length) {
       e.reply("你的纳戒已经是最高级的了");
       return;

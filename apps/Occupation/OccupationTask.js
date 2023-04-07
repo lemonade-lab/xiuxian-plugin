@@ -18,7 +18,6 @@ export class OccupationTask extends plugin {
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.action_task,

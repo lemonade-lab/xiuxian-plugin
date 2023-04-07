@@ -68,20 +68,15 @@ export class AssociationAdmin extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //判断是否满足创建宗门条件
   async Create_association(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
 
     let now_level_id;
@@ -118,10 +113,8 @@ export class AssociationAdmin extends plugin {
   async Get_association_name(e) {
     let usr_qq = e.user_id;
     /** 内容 */
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup) return;
     let new_msg = this.e.message;
     if (new_msg[0].type != "text") {
       this.setContext("Get_association_name");
@@ -170,15 +163,10 @@ export class AssociationAdmin extends plugin {
 
   //护宗大阵
   async huz(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       e.reply("你尚未加入宗门");
@@ -189,15 +177,10 @@ export class AssociationAdmin extends plugin {
     return;
   }
   async weihu(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     if (
       player.宗门.职位 == "宗主" ||
@@ -237,15 +220,10 @@ export class AssociationAdmin extends plugin {
 
   //升级宗门
   async lvup_association(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       e.reply("你尚未加入宗门");
@@ -289,19 +267,12 @@ export class AssociationAdmin extends plugin {
 
   //任命职位
   async Set_appointment(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    } //没有at信息直接返回,不执行
+    if (!isat) return; //没有at信息直接返回,不执行
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       e.reply("你尚未加入宗门");
@@ -372,15 +343,10 @@ export class AssociationAdmin extends plugin {
 
   //宗门维护
   async Maintenance(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -392,7 +358,7 @@ export class AssociationAdmin extends plugin {
     let ass = await data.getAssociation(player.宗门.宗门名称);
     let now = new Date();
     let nowTime = now.getTime(); //获取当前日期的时间戳
-    var time = this.xiuxianConfigData.CD.association;
+    var time = config.getConfig("xiuxian", "xiuxian").CD.association;
     let nextmt_time = await shijianc(ass.维护时间 + 60000 * time); //获得下次宗门维护日期,7天后
     if (ass.维护时间 > nowTime - 1000 * 60 * 60 * 24 * 7) {
       e.reply(
@@ -418,10 +384,7 @@ export class AssociationAdmin extends plugin {
 
   //设置最低加入境界
   async jiaru(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
@@ -461,14 +424,10 @@ export class AssociationAdmin extends plugin {
   }
 
   async Deleteusermax(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -561,14 +520,10 @@ export class AssociationAdmin extends plugin {
   }
 
   async Deleteuser(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;

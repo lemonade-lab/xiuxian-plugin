@@ -1,6 +1,5 @@
 import { plugin } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
-import config from "../../model/Config.js";
 import fs from "fs";
 import {
   Read_player,
@@ -35,20 +34,14 @@ export class lunhui extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   async lunhui(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.lunhui)) {
       player.lunhui = 0;
@@ -470,10 +463,7 @@ export class lunhui extends plugin {
   }
 
   async yeslunhui(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     /** 内容 */
     let usr_qq = e.user_id;
     let new_msg = this.e.message;

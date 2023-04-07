@@ -75,16 +75,13 @@ export class Games extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   async Refusecouple(e) {
     //统一用户ID名
     let usr_qq = e.user_id;
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //全局状态判断
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 1);
@@ -96,9 +93,7 @@ export class Games extends plugin {
     //统一用户ID名
     let usr_qq = e.user_id;
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //全局状态判断
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 0);
@@ -108,11 +103,9 @@ export class Games extends plugin {
 
   //怡红院
   async Xiuianplay(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
-    let switchgame = this.xiuxianConfigData.switch.play;
+    if (!e.isGroup) return;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    let switchgame = cf.switch.play;
     if (switchgame != true) {
       return;
     }
@@ -171,7 +164,7 @@ export class Games extends plugin {
       );
       await Add_修为(usr_qq, addlevel);
       await Add_灵石(usr_qq, -money);
-      let gameswitch = this.xiuxianConfigData.switch.Xiuianplay_key;
+      let gameswitch = cf.switch.Xiuianplay_key;
       if (gameswitch == true) {
         setu(e);
       }
@@ -200,17 +193,16 @@ export class Games extends plugin {
 
   //金银坊
   async Moneynumber(e) {
+    const cf = config.getConfig("xiuxian", "xiuxian");
     //金银坊开关
-    let gameswitch = this.xiuxianConfigData.switch.Moneynumber;
+    let gameswitch = cf.switch.Moneynumber;
     if (gameswitch != true) {
       return;
     }
     //用户固定写法
     let usr_qq = e.user_id;
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup) return;
     let flag = await Go(e);
     if (!flag) {
       return;
@@ -235,7 +227,7 @@ export class Games extends plugin {
       return;
     }
     //设置
-    var time = this.xiuxianConfigData.CD.gambling; //
+    var time = cf.CD.gambling; //
     //获取当前时间
     //最后的游戏时间
     //last_game_time
@@ -281,10 +273,7 @@ export class Games extends plugin {
   //这里冲突了，拆函数！
   //梭哈|投入999
   async Moneycheck(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //统一用户ID名
     let usr_qq = e.user_id;
     //获取当前时间戳
@@ -352,10 +341,7 @@ export class Games extends plugin {
 
   //大|小
   async Moneycheckguess(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //统一用户ID名
     let usr_qq = e.user_id;
     //获取当前时间戳
@@ -396,18 +382,19 @@ export class Games extends plugin {
     }
     //发送固定点数的touzi
     e.reply(segment.dice(touzi));
+    const cf = config.getConfig("xiuxian", "xiuxian");
     //你说大，touzi是大。赢了
     if ((es == "大" && touzi > 3) || (es == "小" && touzi < 4)) {
       //赢了
       //获奖倍率
-      var x = this.xiuxianConfigData.percentage.Moneynumber;
+      var x = cf.percentage.Moneynumber;
       var y = 1;
-      var z = this.xiuxianConfigData.size.Money * 10000;
+      var z = cf.size.Money * 10000;
       //增加金银坊投资记录
       //投入大于一百万
       if (yazhu[usr_qq] >= z) {
         //扣一半的投入
-        x = this.xiuxianConfigData.percentage.punishment;
+        x = cf.percentage.punishment;
         //并提示这是被扣了一半
         y = 0;
       }
@@ -498,10 +485,8 @@ export class Games extends plugin {
 
   async Moneyrecord(e) {
     let qq = e.user_id;
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+
+    if (!e.isGroup) return;
     let shenglv;
     //获取人物信息
     let player_data = data.getData("player", qq);
@@ -537,12 +522,10 @@ export class Games extends plugin {
 
   //双修
   async Couple(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
+    const cf = config.getConfig("xiuxian", "xiuxian");
     //双修开关
-    let gameswitch = this.xiuxianConfigData.switch.couple;
+    let gameswitch = cf.switch.couple;
     if (gameswitch != true) {
       return;
     }
@@ -550,9 +533,7 @@ export class Games extends plugin {
     //全局状态判断
     //B
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     //对方QQ
     let B = atItem[0].qq;
@@ -560,7 +541,7 @@ export class Games extends plugin {
       e.reply("你咋这么爱撸自己呢?");
       return;
     }
-    var Time = this.xiuxianConfigData.CD.couple; //6个小时
+    var Time = cf.CD.couple; //6个小时
     let shuangxiuTimeout = parseInt(60000 * Time);
     //自己的cd
     let now_Time = new Date().getTime(); //获取当前时间戳

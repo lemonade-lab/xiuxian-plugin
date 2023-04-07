@@ -55,9 +55,7 @@ export class Daolv extends plugin {
     });
   }
   async SearchQingmidu(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let A = e.user_id;
     /*
             @xxx
@@ -98,9 +96,7 @@ export class Daolv extends plugin {
   }
 
   async qiuhun(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let A = e.user_id;
     let ifexistplay_A = await existplayer(A);
     if (!ifexistplay_A || e.isPrivate) {
@@ -130,9 +126,7 @@ export class Daolv extends plugin {
     }
 
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq;
     if (A == B) {
@@ -197,9 +191,7 @@ export class Daolv extends plugin {
   }
 
   async xuanze(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     if (e.user_id != user_B) {
       return;
     }
@@ -224,9 +216,7 @@ export class Daolv extends plugin {
   }
 
   async lihun(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let A = e.user_id;
     let ifexistplay_A = await existplayer(A);
     if (!ifexistplay_A || e.isPrivate) {
@@ -256,9 +246,7 @@ export class Daolv extends plugin {
     }
 
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq;
     if (A == B) {
@@ -326,9 +314,7 @@ export class Daolv extends plugin {
   }
 
   async xuanze2(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     if (e.user_id != user_B) {
       return;
     }
@@ -353,20 +339,14 @@ export class Daolv extends plugin {
   }
 
   async get_dift(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq;
     let A = e.user_id;
     let ifexistplay = await existplayer(A);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     if (A == B) {
       e.reply("精神分裂?");
       return;

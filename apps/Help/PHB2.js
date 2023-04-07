@@ -35,14 +35,10 @@ export class PHB2 extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let msg = ["___[镇妖塔榜]___"];
     let playerList = [];
     //数组
@@ -99,14 +95,10 @@ export class PHB2 extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let msg = ["___[神魄榜]___"];
     let playerList = [];
     //数组

@@ -1,6 +1,5 @@
 import { plugin, puppeteer, segment } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
-import config from "../../model/Config.js";
 import fs from "fs";
 import {
   existplayer,
@@ -108,17 +107,12 @@ export class Occupation extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
   async zhuanzhi(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.occupation != "猎户") {
       e.reply("你不是猎户,无法自选职业");
@@ -136,18 +130,14 @@ export class Occupation extends plugin {
     return;
   }
   async chose_occupation(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
       return;
     }
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
 
     let occupation = e.msg.replace("#转职", "");
     let player = await Read_player(usr_qq);
@@ -214,18 +204,14 @@ export class Occupation extends plugin {
     return;
   }
   async chose_occupation2(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
       return;
     }
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
 
     let player = await Read_player(usr_qq);
     let action = await redis.get("xiuxian:player:" + usr_qq + ":fuzhi"); //副职
@@ -263,9 +249,7 @@ export class Occupation extends plugin {
       return;
     }
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -347,14 +331,10 @@ export class Occupation extends plugin {
   }
 
   async qingchushangjinbang(e) {
-    if (!e.isMaster) {
-      return;
-    }
+    if (!e.isMaster) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let action = await redis.get("xiuxian:player:" + 1 + ":shangjing");
     action = await JSON.parse(action);
     action = null;
@@ -367,10 +347,7 @@ export class Occupation extends plugin {
   }
 
   async plant_back(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let action = await this.getPlayerAction(e.user_id);
     if (action.plant == 1) {
       return;
@@ -441,9 +418,7 @@ export class Occupation extends plugin {
       return;
     }
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -525,10 +500,7 @@ export class Occupation extends plugin {
   }
 
   async mine_back(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let action = await this.getPlayerAction(e.user_id);
     if (action.mine == 1) {
       return;
@@ -717,18 +689,13 @@ export class Occupation extends plugin {
   }
 
   async show_danfang(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let img = await get_danfang_img(e);
     e.reply(img);
     return;
   }
   async yaoxiao(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let dy = await Read_danyao(usr_qq);
     let player = await Read_player(usr_qq);
@@ -759,23 +726,17 @@ export class Occupation extends plugin {
   }
 
   async show_tuzhi(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let img = await get_tuzhi_img(e);
     e.reply(img);
     return;
   }
 
   async liandan(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.occupation != "炼丹师") {
       e.reply("丹是上午炼的,药是中午吃的,人是下午走的");
@@ -870,14 +831,10 @@ export class Occupation extends plugin {
   }
 
   async lianqi(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.occupation != "炼器师") {
       e.reply("铜都不炼你还炼器？");
@@ -960,9 +917,7 @@ export class Occupation extends plugin {
   async search_sb(e) {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.occupation != "侠客") {
       e.reply("只有专业的侠客才能获取悬赏");
@@ -1054,9 +1009,7 @@ export class Occupation extends plugin {
   async taofa_sb(e) {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let A_action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     A_action = JSON.parse(A_action);
     if (A_action != null) {
@@ -1176,9 +1129,7 @@ export class Occupation extends plugin {
   async xuanshang_sb(e) {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     let qq = e.msg.replace("#悬赏", "");
     let code = qq.split("*");
@@ -1228,15 +1179,10 @@ export class Occupation extends plugin {
     return;
   }
   async shangjingbang(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let action = await redis.get("xiuxian:player:" + 1 + ":shangjing");
     action = await JSON.parse(action);
     if (action == null) {
@@ -1273,15 +1219,10 @@ export class Occupation extends plugin {
     return;
   }
   async cisha_sb(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let A_action = await redis.get("xiuxian:player:" + usr_qq + ":action");
     A_action = JSON.parse(A_action);
     if (A_action != null) {

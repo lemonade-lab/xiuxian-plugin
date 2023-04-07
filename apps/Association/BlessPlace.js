@@ -62,15 +62,11 @@ export class BlessPlace extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //福地地点
   async List_blessPlace(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let addres = "洞天福地";
     let weizhi = data.bless_list;
     GoBlessPlace(e, weizhi, addres);
@@ -78,10 +74,7 @@ export class BlessPlace extends plugin {
 
   //秘境地点
   async mij(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let addres = "宗门秘境";
     let weizhi = data.guildSecrets_list;
     Goweizhi(e, weizhi, addres);
@@ -89,16 +82,11 @@ export class BlessPlace extends plugin {
 
   //入驻洞天
   async Settled_Blessed_Place(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {
@@ -235,13 +223,9 @@ export class BlessPlace extends plugin {
   async exploitation_vein(e) {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!ifexistplay) return;
+
+    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -307,9 +291,7 @@ export class BlessPlace extends plugin {
 
   //降临秘境
   async Go_Guild_Secrets(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -343,7 +325,7 @@ export class BlessPlace extends plugin {
     data.setAssociation(ass.宗门名称, ass);
 
     await Add_灵石(usr_qq, -Price);
-    var time = this.xiuxianConfigData.CD.secretplace; //时间（分钟）
+    var time = config.getConfig("xiuxian", "xiuxian").CD.secretplace; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
       action: "历练", //动作
@@ -375,9 +357,7 @@ export class BlessPlace extends plugin {
 
   //沉迷秘境
   async Go_Guild_Secretsplus(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -452,15 +432,11 @@ export class BlessPlace extends plugin {
     return;
   }
   async construction_Guild(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {

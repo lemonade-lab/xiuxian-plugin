@@ -77,14 +77,10 @@ export class SecretPlace extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   async Xiuxianstate(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let flag = await Go(e);
     if (!flag) {
       return;
@@ -94,10 +90,7 @@ export class SecretPlace extends plugin {
 
   //秘境地点
   async Secretplace(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let addres = "秘境";
     let weizhi = data.didian_list;
     await Goweizhi(e, weizhi, addres);
@@ -105,10 +98,7 @@ export class SecretPlace extends plugin {
 
   //禁地
   async Forbiddenarea(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let addres = "禁地";
     let weizhi = data.forbiddenarea_list;
     await jindi(e, weizhi, addres);
@@ -116,19 +106,13 @@ export class SecretPlace extends plugin {
 
   //限定仙府
   async Timeplace(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     e.reply("仙府乃民间传说之地,请自行探索");
   }
 
   //仙境
   async Fairyrealm(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let addres = "仙境";
     let weizhi = data.Fairyrealm_list;
     await Goweizhi(e, weizhi, addres);
@@ -136,9 +120,7 @@ export class SecretPlace extends plugin {
 
   //降临秘境
   async Gosecretplace(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -170,7 +152,8 @@ export class SecretPlace extends plugin {
     }
     let Price = weizhi.Price;
     await Add_灵石(usr_qq, -Price);
-    const time = this.xiuxianConfigData.CD.secretplace; //时间（分钟）
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    const time = cf.CD.secretplace; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
       action: "历练", //动作
@@ -201,9 +184,7 @@ export class SecretPlace extends plugin {
 
   //前往禁地
   async Goforbiddenarea(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -249,7 +230,8 @@ export class SecretPlace extends plugin {
     let Price = weizhi.Price;
     await Add_灵石(usr_qq, -Price);
     await Add_修为(usr_qq, -weizhi.experience);
-    const time = this.xiuxianConfigData.CD.forbiddenarea; //时间（分钟）
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    const time = cf.CD.forbiddenarea; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
       action: "禁地", //动作
@@ -280,9 +262,7 @@ export class SecretPlace extends plugin {
 
   //探索仙府
   async GoTimeplace(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -347,7 +327,8 @@ export class SecretPlace extends plugin {
     }
     let Price = weizhi.Price * dazhe;
     await Add_灵石(usr_qq, -Price);
-    const time = this.xiuxianConfigData.CD.timeplace; //时间（分钟）
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    const time = cf.CD.timeplace; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
       action: "探索", //动作
@@ -394,9 +375,7 @@ export class SecretPlace extends plugin {
 
   //前往仙境
   async Gofairyrealm(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -454,7 +433,8 @@ export class SecretPlace extends plugin {
     }
     let Price = weizhi.Price * dazhe;
     await Add_灵石(usr_qq, -Price);
-    const time = this.xiuxianConfigData.CD.secretplace; //时间（分钟）
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    const time = cf.CD.secretplace; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
       action: "历练", //动作
@@ -484,9 +464,7 @@ export class SecretPlace extends plugin {
   }
 
   async Giveup(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {

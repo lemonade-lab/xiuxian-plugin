@@ -31,15 +31,11 @@ export class WDT extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //打劫
   async biwu(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //得到主动方qq
     let A = e.user_id;
 
@@ -63,9 +59,7 @@ export class WDT extends plugin {
 
     //判断对方
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     //获取对方qq
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq; //被打者
@@ -161,6 +155,7 @@ export class WDT extends plugin {
         }
       }
     }
+    const cf = config.getConfig("xiuxian", "xiuxian");
 
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
@@ -168,7 +163,7 @@ export class WDT extends plugin {
       "xiuxian:player:" + A + ":last_biwu_time"
     ); //获得上次打劫的时间戳,
     last_biwu_time = parseInt(last_biwu_time);
-    let robTimeout = parseInt(60000 * this.xiuxianConfigData.CD.biwu);
+    let robTimeout = parseInt(60000 * cf.CD.biwu);
     if (nowTime < last_biwu_time + robTimeout) {
       let waittime_m = Math.trunc(
         (last_biwu_time + robTimeout - nowTime) / 60 / 1000
@@ -182,7 +177,7 @@ export class WDT extends plugin {
 
     let B_player = await Read_player(B);
     let A_player = await Read_player(A);
-    var Time = this.xiuxianConfigData.CD.couple; //6个小时
+    var Time = cf.CD.couple; //6个小时
     let shuangxiuTimeout = parseInt(60000 * Time);
     let now_Time = new Date().getTime(); //获取当前时间戳
     let last_timeA = await redis.get("xiuxian:player:" + A + ":last_biwu_time"); //获得上次的时间戳,

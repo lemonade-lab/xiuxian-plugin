@@ -48,9 +48,7 @@ export class BotHelp extends plugin {
   }
 
   async Xiuxianhelpcopy(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let data = await Help.gethelpcopy(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -62,9 +60,7 @@ export class BotHelp extends plugin {
    * @returns
    */
   async Xiuxianhelp(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let data = await Help.get(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -72,9 +68,7 @@ export class BotHelp extends plugin {
   }
 
   async adminsuper(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let data = await Help.setup(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -82,9 +76,7 @@ export class BotHelp extends plugin {
   }
 
   async AssociationAdmin(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let data = await Help.Association(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -92,9 +84,7 @@ export class BotHelp extends plugin {
   }
 
   async shituhelp(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     e.reply("维护中");
     return;
     let data = await Help2.shituhelp(e);

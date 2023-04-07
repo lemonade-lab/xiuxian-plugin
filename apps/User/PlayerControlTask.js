@@ -26,7 +26,6 @@ export class PlayerControlTask extends plugin {
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.action_task,
@@ -45,6 +44,7 @@ export class PlayerControlTask extends plugin {
       file = file.replace(".json", "");
       playerList.push(file);
     }
+    const cf = config.getConfig("xiuxian", "xiuxian");
     for (let player_id of playerList) {
       let log_mag = ""; //查询当前人物动作日志信息
       log_mag = log_mag + "查询" + player_id + "是否有动作,";
@@ -82,7 +82,7 @@ export class PlayerControlTask extends plugin {
             now_level_id = data.Level_list.find(
               (item) => item.level_id == player.level_id
             ).level_id;
-            var size = this.xiuxianConfigData.biguan.size;
+            var size = cf.biguan.size;
             let xiuwei = parseInt(
               size * now_level_id * (player.修炼效率提升 + 1)
             ); //增加的修为
@@ -226,7 +226,7 @@ export class PlayerControlTask extends plugin {
             now_level_id = data.Level_list.find(
               (item) => item.level_id == player.level_id
             ).level_id;
-            var size = this.xiuxianConfigData.work.size;
+            var size = cf.work.size;
             let lingshi = parseInt(
               size * now_level_id * (1 + player.修炼效率提升) * 0.5
             );

@@ -89,9 +89,7 @@ export class duanzao extends plugin {
   async bestfile(e) {
     //统一用户ID名
 
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let wupin;
     try {
       wupin = await Read_it();
@@ -154,9 +152,7 @@ export class duanzao extends plugin {
     return;
   }
   async all_clearthat(e) {
-    if (!e.isMaster) {
-      return;
-    }
+    if (!e.isMaster) return;
     await Write_duanlu([]);
     let playerList = [];
     let files = fs
@@ -178,9 +174,7 @@ export class duanzao extends plugin {
   }
   async clearthat(e) {
     //统一用户ID名
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     const user_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) {
@@ -214,9 +208,7 @@ export class duanzao extends plugin {
   async getmybook(e) {
     //统一用户ID名
 
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     const user_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) {
@@ -240,18 +232,14 @@ export class duanzao extends plugin {
   async givein(e) {
     //统一用户ID名
 
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     const user_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) {
       return;
     }
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //获取游戏状态
     const game_action = await redis.get(
       "xiuxian:player:" + user_qq + ":game_action"
@@ -346,9 +334,7 @@ export class duanzao extends plugin {
 
   async startit(e) {
     let user_qq = e.user_id;
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //有无存档
     if (!(await existplayer(user_qq))) {
       return;
@@ -417,9 +403,7 @@ export class duanzao extends plugin {
   }
   async openit(e) {
     let user_qq = e.user_id;
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //有无存档
     if (!(await existplayer(user_qq))) {
       return;
@@ -671,9 +655,7 @@ export class duanzao extends plugin {
   async getnewname(e) {
     //统一用户ID名
 
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     const user_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) {

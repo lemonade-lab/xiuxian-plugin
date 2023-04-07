@@ -61,19 +61,14 @@ export class MoneyOperation extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   async wup(e) {
     //主人
-    if (!e.isMaster) {
-      return;
-    }
+    if (!e.isMaster) return;
     //对方
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
     let B_qq = atItem[0].qq; //对方qq
     //检查存档
@@ -139,9 +134,7 @@ export class MoneyOperation extends plugin {
 
   async wup_all(e) {
     //主人
-    if (!e.isMaster) {
-      return;
-    }
+    if (!e.isMaster) return;
     //所有玩家
     let File = fs.readdirSync(__PATH.player_path);
     File = File.filter((file) => file.endsWith(".json"));
@@ -216,16 +209,12 @@ export class MoneyOperation extends plugin {
   }
 
   async MoneyWord(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //这是自己的
     let usr_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //获取发送灵石数量
     let lingshi = e.msg.replace("#", "");
     lingshi = lingshi.replace("交税", "");
@@ -241,22 +230,15 @@ export class MoneyOperation extends plugin {
   }
 
   async Give(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //这是自己的
     let A_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(A_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //对方
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
     let B_qq = atItem[0].qq; //对方qq
     //对方没存档
@@ -269,13 +251,14 @@ export class MoneyOperation extends plugin {
     let B_player = await data.getData("player", B_qq);
     //获取发送灵石数量
     let msg = e.msg.replace("#赠送", "");
+    const cf = config.getConfig("xiuxian", "xiuxian");
     if (msg.startsWith("灵石")) {
       let lingshi = msg.replace("灵石*", "");
       //校验输入灵石数
       lingshi = await convert2integer(lingshi);
       //没有输入正确数字或＜1000;
       //检验A有没有那么多灵石
-      const cost = this.xiuxianConfigData.percentage.cost;
+      const cost = cf.percentage.cost;
       let lastlingshi = lingshi + Math.trunc(lingshi * cost);
       if (A_player.灵石 < lastlingshi) {
         e.reply([segment.at(A_qq), `你身上似乎没有${lastlingshi}灵石`]);
@@ -287,9 +270,7 @@ export class MoneyOperation extends plugin {
         "xiuxian:player:" + A_qq + ":last_getbung_time"
       );
       lastgetbung_time = parseInt(lastgetbung_time);
-      let transferTimeout = parseInt(
-        this.xiuxianConfigData.CD.transfer * 60000
-      );
+      let transferTimeout = parseInt(cf.CD.transfer * 60000);
       if (nowTime < lastgetbung_time + transferTimeout) {
         let waittime_m = Math.trunc(
           (lastgetbung_time + transferTimeout - nowTime) / 60 / 1000
@@ -419,17 +400,12 @@ export class MoneyOperation extends plugin {
 
   //发红包
   async Give_honbao(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //这是自己的
     let usr_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //获取发送灵石数量
     let lingshi = e.msg.replace("#", "");
     lingshi = lingshi.replace("发红包", "");
@@ -468,16 +444,11 @@ export class MoneyOperation extends plugin {
 
   //抢红包
   async uer_honbao(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     //抢红包要有一分钟的CD
     let now_time = new Date().getTime();
@@ -485,7 +456,8 @@ export class MoneyOperation extends plugin {
       "xiuxian:player:" + usr_qq + ":last_getbung_time"
     );
     lastgetbung_time = parseInt(lastgetbung_time);
-    let transferTimeout = parseInt(this.xiuxianConfigData.CD.honbao * 60000);
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    let transferTimeout = parseInt(cf.CD.honbao * 60000);
     if (now_time < lastgetbung_time + transferTimeout) {
       let waittime_m = Math.trunc(
         (lastgetbung_time + transferTimeout - now_time) / 60 / 1000
@@ -501,9 +473,7 @@ export class MoneyOperation extends plugin {
     }
     //要艾特对方，表示抢对方红包
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     let honbao_qq = atItem[0].qq;
     //有无存档
@@ -542,16 +512,11 @@ export class MoneyOperation extends plugin {
   }
 
   async openwallet(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     let thing_name = "水脚脚的钱包";
     //x是纳戒内有的数量

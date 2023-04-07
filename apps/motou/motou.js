@@ -36,16 +36,12 @@ export class motou extends plugin {
   }
 
   async add_lingeng(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.魔道值 < 1000) {
       e.reply("你不是魔头");
@@ -240,10 +236,7 @@ export class motou extends plugin {
     return;
   }
   async RE_lingeng(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
     /** 内容 */
@@ -281,15 +274,11 @@ export class motou extends plugin {
   }
 
   async mojie(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );
@@ -353,15 +342,11 @@ export class motou extends plugin {
   }
 
   async xianji(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.魔道值 < 1000) {
       e.reply("你不是魔头");

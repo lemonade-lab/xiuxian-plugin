@@ -27,7 +27,6 @@ export class SecretPlaceTask extends plugin {
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
     this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.action_task,
@@ -106,11 +105,12 @@ export class SecretPlaceTask extends plugin {
             let B_win = `${B_player.名号}击败了${A_player.名号}`;
             var thing_name;
             var thing_class;
-            var x = this.xiuxianConfigData.SecretPlace.one;
+            const cf = config.getConfig("xiuxian", "xiuxian");
+            var x = cf.SecretPlace.one;
             let random1 = Math.random();
-            var y = this.xiuxianConfigData.SecretPlace.two;
+            var y = cf.SecretPlace.two;
             let random2 = Math.random();
-            var z = this.xiuxianConfigData.SecretPlace.three;
+            var z = cf.SecretPlace.three;
             let random3 = Math.random();
             let random4;
             var m = "";

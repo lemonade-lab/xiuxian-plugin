@@ -50,14 +50,10 @@ export class TopList extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let msg = ["___[封神榜]___"];
     let playerList = [];
     //数组
@@ -122,14 +118,10 @@ export class TopList extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let msg = ["___[至尊榜]___"];
     let playerList = [];
     //数组
@@ -191,14 +183,10 @@ export class TopList extends plugin {
   }
 
   async TOP_xiuwei(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
 
     let usr_paiming;
     let File = fs.readdirSync(__PATH.player_path);
@@ -244,15 +232,10 @@ export class TopList extends plugin {
 
   //TOP_lingshi
   async TOP_lingshi(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let usr_paiming;
     let File = fs.readdirSync(__PATH.player_path);
     File = File.filter((file) => file.endsWith(".json"));

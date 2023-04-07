@@ -1,4 +1,4 @@
-import { plugin, common, segment, puppeteer } from "../../api/api.js";
+import { plugin, puppeteer } from "../../api/api.js";
 import { __PATH } from "../../model/xiuxian.js";
 import data from "../../model/XiuxianData.js";
 import Show from "../../model/show.js";
@@ -16,13 +16,9 @@ import {
 export class Xijie extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Xijie",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
-      priority: 600,
       rule: [
         {
           reg: "^#洗劫.*$",
@@ -40,9 +36,7 @@ export class Xijie extends plugin {
     });
   }
   async chongzhi(e) {
-    if (!e.isMaster) {
-      return;
-    }
+    if (!e.isMaster) return;
     var didian = e.msg.replace("#重置", "");
     didian = didian.trim();
     let shop;
@@ -67,15 +61,11 @@ export class Xijie extends plugin {
     return;
   }
   async xijie(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
 
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -217,15 +207,11 @@ export class Xijie extends plugin {
   }
 
   async tancha(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );

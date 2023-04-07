@@ -1,6 +1,5 @@
 import { plugin, segment } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
-import config from "../../model/Config.js";
 import fs from "fs";
 import {
   __PATH,
@@ -34,13 +33,6 @@ import {
 } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
 import { readall } from "../../model/duanzaofu.js";
-
-/**
- * 全局变量
- */
-/**
- * 货币与物品操作模块
- */
 export class UserHome extends plugin {
   constructor() {
     super({
@@ -103,16 +95,13 @@ export class UserHome extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
   async gonglue(e) {
     e.reply("修仙攻略\nhttps://docs.qq.com/doc/DTHhuVnRLWlhjclhC");
     return;
   }
   async world(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let playerList = [];
     let files = fs
       .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
@@ -149,16 +138,12 @@ export class UserHome extends plugin {
   }
 
   async refining(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let thing_name = e.msg.replace("#", "");
     thing_name = thing_name.replace("打磨", "");
     let code = thing_name.split("*");
@@ -203,15 +188,11 @@ export class UserHome extends plugin {
   }
 
   async huishou(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let thing_name = e.msg.replace("#回收", "");
     thing_name = thing_name.trim();
     let thing_exist = await foundthing(thing_name);
@@ -253,15 +234,11 @@ export class UserHome extends plugin {
     return;
   }
   async huodong(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     var name = e.msg.replace("#活动兑换", "");
     name = name.trim();
     let i; //获取对应npc列表的位置
@@ -362,9 +339,7 @@ export class UserHome extends plugin {
   }
 
   async Add_lhd(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -373,9 +348,7 @@ export class UserHome extends plugin {
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let x = await exist_najie_thing(usr_qq, "长相奇怪的小石头", "道具");
     if (!x) {
       e.reply(
@@ -413,9 +386,7 @@ export class UserHome extends plugin {
   }
 
   async sk(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -424,9 +395,7 @@ export class UserHome extends plugin {
     }
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let tianluoRandom;
     let thing = e.msg.replace("#", "");
     thing = thing.replace("抽", "");
@@ -468,9 +437,7 @@ export class UserHome extends plugin {
   }
 
   async find_thing(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     var reg = new RegExp(/哪里有/);
     let msg = e.msg.replace(reg, "");
@@ -521,16 +488,11 @@ export class UserHome extends plugin {
 
   //存取灵石
   async Take_lingshi(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let flag = await Go(e);
     if (!flag) {
       return;
@@ -604,16 +566,11 @@ export class UserHome extends plugin {
 
   //#(装备|服用|消耗)物品*数量
   async Player_use(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     let najie = await Read_najie(usr_qq);
     //检索方法
@@ -1016,10 +973,7 @@ export class UserHome extends plugin {
 
   //兑换方法
   async DUIHUAN(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     /** 内容 */
     let new_msg = this.e.message;
@@ -1050,16 +1004,11 @@ export class UserHome extends plugin {
 
   //购买商品
   async Buy_comodities(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let flag = await Go(e);
     if (!flag) {
       return;
@@ -1109,16 +1058,11 @@ export class UserHome extends plugin {
 
   //出售商品
   async Sell_comodities(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //命令判断
     let thing = e.msg.replace("#", "");
     thing = thing.replace("出售", "");

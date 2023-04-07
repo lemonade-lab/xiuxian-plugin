@@ -28,15 +28,10 @@ export class tzzyt extends plugin {
 
   //与未知妖物战斗
   async WorldBossBattle(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     const equipment = data.getData("equipment", usr_qq);
     const type = ["武器", "护具", "法宝"];
@@ -201,15 +196,10 @@ export class tzzyt extends plugin {
   }
 
   async all_WorldBossBattle(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     const equipment = await data.getData("equipment", usr_qq);
     const type = ["武器", "护具", "法宝"];

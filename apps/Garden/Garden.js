@@ -47,15 +47,11 @@ export class Garden extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //菜园显示
   async Vegetable(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
 
@@ -131,15 +127,10 @@ export class Garden extends plugin {
 
   //拔苗助长
   async Get_vegetable(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -163,7 +154,7 @@ export class Garden extends plugin {
     );
     //
     last_garden_time = parseInt(last_garden_time);
-    var time = this.xiuxianConfigData.CD.garden; //时间（分钟）
+    var time = config.getConfig("xiuxian", "xiuxian").CD.garden; //时间（分钟）
     let transferTimeout = parseInt(60000 * time); //
     if (nowTime < last_garden_time + transferTimeout) {
       let waittime_m = Math.trunc(
@@ -236,10 +227,7 @@ export class Garden extends plugin {
 
   //禁言术/残云封天剑/需要剑帝信物发动  你尚未拥有剑帝信物，无法发动残云封天剑
   async Silencing(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id; //使用者QQ
     let qq = null;
 

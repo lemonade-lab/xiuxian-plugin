@@ -41,12 +41,8 @@ export class biwu extends plugin {
   }
 
   async biwu(e) {
-    if (!e.isMaster) {
-      return;
-    }
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isMaster) return;
+    if (!e.isGroup) return;
     let A = e.user_id;
     //先判断
     let ifexistplay_A = await existplayer(A);
@@ -54,9 +50,7 @@ export class biwu extends plugin {
       return;
     }
     let isat = e.message.some((item) => item.type === "at");
-    if (!isat) {
-      return;
-    }
+    if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");
     let B = atItem[0].qq; //后手
 

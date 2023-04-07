@@ -111,9 +111,7 @@ export class Tiandibang extends plugin {
   }
 
   async duihuan(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let date = new Date();
     let n = date.getDay();
     if (n != 0) {
@@ -124,9 +122,7 @@ export class Tiandibang extends plugin {
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     var reg = new RegExp(/积分兑换/);
     let msg = e.msg.replace(reg, "");
     msg = msg.replace("#", "");
@@ -173,15 +169,11 @@ export class Tiandibang extends plugin {
   }
 
   async tianditang(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -206,15 +198,11 @@ export class Tiandibang extends plugin {
   }
 
   async cansai(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -261,15 +249,11 @@ export class Tiandibang extends plugin {
   }
 
   async my_point(e) {
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -336,15 +320,11 @@ export class Tiandibang extends plugin {
     let usr_qq = e.user_id;
 
     //不开放私聊
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
 
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -605,9 +585,7 @@ export class Tiandibang extends plugin {
 
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();

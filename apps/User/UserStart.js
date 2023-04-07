@@ -23,23 +23,12 @@ import {
 } from "../../model/xiuxian.js";
 import { Add_HP, Add_修为, Add_najie_thing } from "../../model/xiuxian.js";
 import { __PATH } from "../../model/xiuxian.js";
-
-/**
- * 全局
- */
-/**
- * 交易系统
- */
 export class UserStart extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "UserStart",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
-      priority: 600,
       rule: [
         {
           reg: "^#踏入仙途$",
@@ -67,14 +56,10 @@ export class UserStart extends plugin {
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
   //#踏入仙途
   async Create_player(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     if (usr_qq == 80000000) {
@@ -175,10 +160,7 @@ export class UserStart extends plugin {
 
   //重新修仙
   async reCreate_player(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -211,7 +193,8 @@ export class UserStart extends plugin {
       "xiuxian:player:" + usr_qq + ":last_reCreate_time"
     ); //获得上次重生时间戳,
     lastrestart_time = parseInt(lastrestart_time);
-    const time = this.xiuxianConfigData.CD.reborn;
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    const time = cf.CD.reborn;
     let rebornTime = parseInt(60000 * time);
     if (nowTime < lastrestart_time + rebornTime) {
       let waittime_m = Math.trunc(
@@ -239,10 +222,7 @@ export class UserStart extends plugin {
 
   //重生方法
   async RE_xiuxian(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     /** 内容 */
     let new_msg = this.e.message;
@@ -336,29 +316,21 @@ export class UserStart extends plugin {
 
   //#我的练气
   async Show_player(e) {
-    //不开放私聊功能
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let img = await get_player_img(e);
     e.reply(img);
     return;
   }
 
   async Set_sex(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await Read_player(usr_qq);
     if (player.sex != 0) {
       e.reply("每个存档仅可设置一次性别！");
@@ -377,16 +349,11 @@ export class UserStart extends plugin {
 
   //改名
   async Change_player_name(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     //检索方法
     var reg = new RegExp(/改名|设置道宣/);
     let func = reg.exec(e.msg);
@@ -476,16 +443,11 @@ export class UserStart extends plugin {
 
   //签到
   async daily_gift(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let now = new Date();
     let nowTime = now.getTime(); //获取当前日期的时间戳
     let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000); //获得昨天日期
@@ -519,16 +481,12 @@ export class UserStart extends plugin {
     data.setData("player", usr_qq, player);
     //给奖励
     let gift_xiuwei = player.连续签到天数 * 3000;
-    await Add_najie_thing(
-      usr_qq,
-      "秘境之匙",
-      "道具",
-      this.xiuxianConfigData.Sign.ticket
-    );
+    const cf = config.getConfig("xiuxian", "xiuxian");
+    await Add_najie_thing(usr_qq, "秘境之匙", "道具", cf.Sign.ticket);
     await Add_修为(usr_qq, gift_xiuwei);
     let msg = [
       segment.at(usr_qq),
-      `已经连续签到${player.连续签到天数}天了，获得了${gift_xiuwei}修为,秘境之匙x${this.xiuxianConfigData.Sign.ticket}`,
+      `已经连续签到${player.连续签到天数}天了，获得了${gift_xiuwei}修为,秘境之匙x${cf.Sign.ticket}`,
     ];
     e.reply(msg);
     return;

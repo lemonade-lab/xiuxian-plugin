@@ -28,15 +28,10 @@ export class DSC extends plugin {
 
   //与未知妖物战斗
   async WorldBossBattle(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     if (player.神魄段数 > 6000) {
       e.reply("已达到上限");
@@ -162,17 +157,12 @@ export class DSC extends plugin {
 
   //与未知妖物战斗
   async all_WorldBossBattle(e) {
-    //不开放私聊功能
-    if (!e.isGroup) {
-      return;
-    }
+    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let xueqi = 0;
     let cengshu = 0;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) {
-      return;
-    }
+    if (!ifexistplay) return;
     let player = await data.getData("player", usr_qq);
     while (player.当前血量 > 0) {
       let 神魄段数 = player.神魄段数;
