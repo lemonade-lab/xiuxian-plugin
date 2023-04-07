@@ -9,7 +9,7 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 #### 根目录执行
 
 ```
-git clone --depth=1 -b xiuxian@2.0.0 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@2.0.0/
+git clone --depth=1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@2.0.0/
 ```
 
 #### 启动游戏
