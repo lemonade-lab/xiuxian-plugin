@@ -18,7 +18,7 @@ git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiux
 
 `xiuxian@1.2.1`运行后请配置
 
-> config/parameter/nanelist.yaml
+> config/parameter/namelist.yaml
 
 #### 开源协议
 
