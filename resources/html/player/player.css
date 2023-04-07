@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'tttgbnumber';
-  src: url('../../font/tttgbnumber.ttf');
+  font-family: "tttgbnumber";
+  src: url("../../font/tttgbnumber.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'NZBZ';
-  src: url('../../font/NZBZ.TTF');
+  font-family: "NZBZ";
+  src: url("../../font/NZBZ.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -46,7 +46,7 @@
 
 .user_top_img_bottom {
   margin: auto;
-  background-image: url('../../img/player/user_state.png');
+  background-image: url("../../img/player/user_state.png");
   background-size: 100% auto;
   width: 280px;
   height: 280px;
@@ -67,7 +67,7 @@
   padding: 10px;
   font-weight: 700;
   font-size: 32px;
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   background: #ab9879cc;
   color: #ffd400;
   border-style: dashed;
@@ -82,7 +82,7 @@
   width: 350px;
   height: 30px;
   font-weight: 600;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   color: #000;
   padding-left: 15px;
   display: flex;
@@ -90,7 +90,7 @@
 }
 
 .user_top_left_dh {
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   background-color: rgba(19, 21, 22, 0.486);
   margin: 9px;
   border-radius: 20px;
@@ -124,7 +124,7 @@
   font-size: 22px;
   padding: 15px;
   font-weight: 600;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   border-radius: 20px;
   color: #000;
 }
@@ -180,8 +180,7 @@
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(rgb(249, 249, 249),
-      rgb(255, 255, 255));
+  background-image: radial-gradient(rgb(249, 249, 249), rgb(255, 255, 255));
 }
 
 .user_bottom2 {
@@ -204,7 +203,7 @@
 
 .font_volume {
   text-align: center;
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   font-size: 16px;
   font-weight: 400;
   color: aliceblue;
@@ -271,7 +270,7 @@
 .item_title {
   display: block;
   text-align: center;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 20px;
   font-weight: 600;
   color: #000000;
@@ -280,7 +279,7 @@
 .item_title2 {
   display: block;
   text-align: center;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 20px;
   font-weight: 600;
   color: #000000;
@@ -290,7 +289,7 @@
 .item_title3 {
   display: block;
   text-align: center;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 20px;
   font-weight: 600;
   line-height: 200px;
@@ -299,7 +298,7 @@
 
 .item_int {
   display: block;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 16px;
   font-weight: 500;
   color: #393535;
@@ -307,7 +306,7 @@
 
 .item_int2 {
   display: block;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 16px;
   font-weight: 500;
   color: #393535;
@@ -337,7 +336,7 @@
   width: 300px;
   height: 100%;
   font-weight: 500;
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   font-size: 20px;
   color: aliceblue;
 }

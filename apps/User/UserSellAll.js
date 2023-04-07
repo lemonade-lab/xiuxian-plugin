@@ -1,5 +1,5 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
-import data from '../../model/XiuxianData.js';
+import { plugin } from "../../api/api.js";
+import data from "../../model/XiuxianData.js";
 import {
   Read_player,
   existplayer,
@@ -19,7 +19,7 @@ import {
   instead_equipment,
   Read_najie,
   get_equipment_img,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 /**
  * 全局变量
  */
@@ -33,54 +33,54 @@ import {
 export class UserSellAll extends plugin {
   constructor() {
     super({
-      name: 'UserSellAll',
-      dsc: '修仙模块',
-      event: 'message',
+      name: "UserSellAll",
+      dsc: "修仙模块",
+      event: "message",
       priority: 600,
       rule: [
         {
-          reg: '^#一键出售(.*)$',
-          fnc: 'Sell_all_comodities',
+          reg: "^#一键出售(.*)$",
+          fnc: "Sell_all_comodities",
         },
         {
-          reg: '^#一键服用修为丹$',
-          fnc: 'all_xiuweidan',
+          reg: "^#一键服用修为丹$",
+          fnc: "all_xiuweidan",
         },
         {
-          reg: '^#一键服用血气丹$',
-          fnc: 'all_xueqidan',
+          reg: "^#一键服用血气丹$",
+          fnc: "all_xueqidan",
         },
         {
-          reg: '^#一键学习$',
-          fnc: 'all_learn',
+          reg: "^#一键学习$",
+          fnc: "all_learn",
         },
         {
-          reg: '^#一键同步$',
-          fnc: 'all_tongbu',
+          reg: "^#一键同步$",
+          fnc: "all_tongbu",
         },
         {
-          reg: '^#(锁定|解锁).*$',
-          fnc: 'locked',
+          reg: "^#(锁定|解锁).*$",
+          fnc: "locked",
         },
         {
-          reg: '^#一键回收(.*)$',
-          fnc: 'Sell_all_huishou',
+          reg: "^#一键回收(.*)$",
+          fnc: "Sell_all_huishou",
         },
         {
-          reg: '^#一键赠送(.*)$',
-          fnc: 'all_give',
+          reg: "^#一键赠送(.*)$",
+          fnc: "all_give",
         },
         {
-          reg: '^#一键锁定(.*)$',
-          fnc: 'all_locked',
+          reg: "^#一键锁定(.*)$",
+          fnc: "all_locked",
         },
         {
-          reg: '^#一键解锁(.*)$',
-          fnc: 'all_unlocked',
+          reg: "^#一键解锁(.*)$",
+          fnc: "all_unlocked",
         },
         {
-          reg: '^#一键装备$',
-          fnc: 'all_zhuangbei',
+          reg: "^#一键装备$",
+          fnc: "all_zhuangbei",
         },
       ],
     });
@@ -97,27 +97,30 @@ export class UserSellAll extends plugin {
       return;
     }
     //检索方法
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let player = await Read_player(usr_qq);
     let sanwei = [];
     sanwei[0] =
-      data.Level_list.find(item => item.level_id == player.level_id).基础攻击 +
+      data.Level_list.find((item) => item.level_id == player.level_id)
+        .基础攻击 +
       player.攻击加成 +
-      data.LevelMax_list.find(item => item.level_id == player.Physique_id)
+      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
         .基础攻击;
     sanwei[1] =
-      data.Level_list.find(item => item.level_id == player.level_id).基础防御 +
+      data.Level_list.find((item) => item.level_id == player.level_id)
+        .基础防御 +
       player.防御加成 +
-      data.LevelMax_list.find(item => item.level_id == player.Physique_id)
+      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
         .基础防御;
     sanwei[2] =
-      data.Level_list.find(item => item.level_id == player.level_id).基础血量 +
+      data.Level_list.find((item) => item.level_id == player.level_id)
+        .基础血量 +
       player.生命加成 +
-      data.LevelMax_list.find(item => item.level_id == player.Physique_id)
+      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
         .基础血量;
-    let equipment = await data.getData('equipment', usr_qq);
+    let equipment = await data.getData("equipment", usr_qq);
     //智能选择装备
-    let type = ['武器', '护具', '法宝'];
+    let type = ["武器", "护具", "法宝"];
     for (let j of type) {
       let max;
       let max_equ;
@@ -135,7 +138,7 @@ export class UserSellAll extends plugin {
           equipment[j].atk * 0.43 +
           equipment[j].def * 0.16 +
           equipment[j].HP * 0.41;
-      for (let i of najie['装备']) {
+      for (let i of najie["装备"]) {
         //先判断装备存不存在
         let thing_exist = await foundthing(i.name);
         if (!thing_exist) {
@@ -175,24 +178,24 @@ export class UserSellAll extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let wupin = [
-      '装备',
-      '丹药',
-      '道具',
-      '功法',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮',
+      "装备",
+      "丹药",
+      "道具",
+      "功法",
+      "草药",
+      "材料",
+      "仙宠",
+      "仙宠口粮",
     ];
     let wupin1 = [];
-    if (e.msg != '#一键锁定') {
-      let thing = e.msg.replace('#一键锁定', '');
+    if (e.msg != "#一键锁定") {
+      let thing = e.msg.replace("#一键锁定", "");
       for (var i of wupin) {
         if (thing == i) {
           wupin1.push(i);
-          thing = thing.replace(i, '');
+          thing = thing.replace(i, "");
         }
       }
       if (thing.length == 0) {
@@ -223,24 +226,24 @@ export class UserSellAll extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let wupin = [
-      '装备',
-      '丹药',
-      '道具',
-      '功法',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮',
+      "装备",
+      "丹药",
+      "道具",
+      "功法",
+      "草药",
+      "材料",
+      "仙宠",
+      "仙宠口粮",
     ];
     let wupin1 = [];
-    if (e.msg != '#一键解锁') {
-      let thing = e.msg.replace('#一键解锁', '');
+    if (e.msg != "#一键解锁") {
+      let thing = e.msg.replace("#一键解锁", "");
       for (var i of wupin) {
         if (thing == i) {
           wupin1.push(i);
-          thing = thing.replace(i, '');
+          thing = thing.replace(i, "");
         }
       }
       if (thing.length == 0) {
@@ -273,11 +276,11 @@ export class UserSellAll extends plugin {
       return;
     }
     //对方
-    let isat = e.message.some(item => item.type === 'at');
+    let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
       return;
     }
-    let atItem = e.message.filter(item => item.type === 'at'); //获取at信息
+    let atItem = e.message.filter((item) => item.type === "at"); //获取at信息
     let B_qq = atItem[0].qq; //对方qq
     //对方没存档
     ifexistplay = await existplayer(B_qq);
@@ -285,24 +288,24 @@ export class UserSellAll extends plugin {
       e.reply(`此人尚未踏入仙途`);
       return;
     }
-    let A_najie = await data.getData('najie', A_qq);
+    let A_najie = await data.getData("najie", A_qq);
     let wupin = [
-      '装备',
-      '丹药',
-      '道具',
-      '功法',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮',
+      "装备",
+      "丹药",
+      "道具",
+      "功法",
+      "草药",
+      "材料",
+      "仙宠",
+      "仙宠口粮",
     ];
     let wupin1 = [];
-    if (e.msg != '#一键赠送') {
-      let thing = e.msg.replace('#一键赠送', '');
+    if (e.msg != "#一键赠送") {
+      let thing = e.msg.replace("#一键赠送", "");
       for (var i of wupin) {
         if (thing == i) {
           wupin1.push(i);
-          thing = thing.replace(i, '');
+          thing = thing.replace(i, "");
         }
       }
       if (thing.length == 0) {
@@ -316,7 +319,7 @@ export class UserSellAll extends plugin {
         if (l && l.islockd == 0) {
           let quantity = l.数量;
           //纳戒中的数量
-          if (i == '装备' || i == '仙宠') {
+          if (i == "装备" || i == "仙宠") {
             await Add_najie_thing(B_qq, l, l.class, quantity, l.pinji);
             await Add_najie_thing(A_qq, l, l.class, -quantity, l.pinji);
             continue;
@@ -340,25 +343,25 @@ export class UserSellAll extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let lingshi = 0;
     let wupin = [
-      '装备',
-      '丹药',
-      '道具',
-      '功法',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮',
+      "装备",
+      "丹药",
+      "道具",
+      "功法",
+      "草药",
+      "材料",
+      "仙宠",
+      "仙宠口粮",
     ];
     let wupin1 = [];
-    if (e.msg != '#一键回收') {
-      let thing = e.msg.replace('#一键回收', '');
+    if (e.msg != "#一键回收") {
+      let thing = e.msg.replace("#一键回收", "");
       for (var i of wupin) {
         if (thing == i) {
           wupin1.push(i);
-          thing = thing.replace(i, '');
+          thing = thing.replace(i, "");
         }
       }
       if (thing.length == 0) {
@@ -375,7 +378,7 @@ export class UserSellAll extends plugin {
           continue;
         }
         await Add_najie_thing(usr_qq, l.name, l.class, -l.数量, l.pinji);
-        if (l.class == '材料' || l.class == '草药') {
+        if (l.class == "材料" || l.class == "草药") {
           lingshi += l.出售价 * l.数量;
         } else {
           lingshi += l.出售价 * l.数量 * 2;
@@ -398,9 +401,9 @@ export class UserSellAll extends plugin {
       return;
     }
     //命令判断
-    let msg = e.msg.replace('#', '');
+    let msg = e.msg.replace("#", "");
     let un_lock = msg.substr(0, 2);
-    let thing = msg.substr(2).split('*');
+    let thing = msg.substr(2).split("*");
     let thing_name = thing[0];
     let najie = await Read_najie(usr_qq);
     thing[0] = parseInt(thing[0]);
@@ -411,15 +414,15 @@ export class UserSellAll extends plugin {
         try {
           thing_name = najie.仙宠[thing[0] - 1001].name;
         } catch {
-          e.reply('仙宠代号输入有误!');
+          e.reply("仙宠代号输入有误!");
           return;
         }
       } else if (thing[0] > 100) {
         try {
           thing_name = najie.装备[thing[0] - 101].name;
-          thing[1]=najie.装备[thing[0] - 101].pinji;
+          thing[1] = najie.装备[thing[0] - 101].pinji;
         } catch {
-          e.reply('装备代号输入有误!');
+          e.reply("装备代号输入有误!");
           return;
         }
       }
@@ -440,7 +443,7 @@ export class UserSellAll extends plugin {
     };
     thing_pinji = pj[thing[1]];
     let ifexist;
-    if (un_lock == '锁定') {
+    if (un_lock == "锁定") {
       ifexist = await re_najie_thing(
         usr_qq,
         thing_name,
@@ -452,7 +455,7 @@ export class UserSellAll extends plugin {
         e.reply(`${thing_exist.class}:${thing_name}已锁定`);
         return;
       }
-    } else if (un_lock == '解锁') {
+    } else if (un_lock == "解锁") {
       ifexist = await re_najie_thing(
         usr_qq,
         thing_name,
@@ -487,24 +490,24 @@ export class UserSellAll extends plugin {
       return;
     }
     let commodities_price = 0;
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let wupin = [
-      '装备',
-      '丹药',
-      '道具',
-      '功法',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮',
+      "装备",
+      "丹药",
+      "道具",
+      "功法",
+      "草药",
+      "材料",
+      "仙宠",
+      "仙宠口粮",
     ];
     let wupin1 = [];
-    if (e.msg != '#一键出售') {
-      let thing = e.msg.replace('#一键出售', '');
+    if (e.msg != "#一键出售") {
+      let thing = e.msg.replace("#一键出售", "");
       for (var i of wupin) {
         if (thing == i) {
           wupin1.push(i);
-          thing = thing.replace(i, '');
+          thing = thing.replace(i, "");
         }
       }
       if (thing.length == 0) {
@@ -528,24 +531,24 @@ export class UserSellAll extends plugin {
     }
     let goodsNum = 0;
     let goods = [];
-    goods.push('正在出售:');
+    goods.push("正在出售:");
     for (let i of wupin) {
       for (let l of najie[i]) {
         if (l && l.islockd == 0) {
           //纳戒中的数量
           let quantity = l.数量;
-          goods.push('\n' + l.name + '*' + quantity);
+          goods.push("\n" + l.name + "*" + quantity);
           goodsNum++;
         }
       }
     }
     if (goodsNum == 0) {
-      e.reply('没有东西可以出售', false, { at: true });
+      e.reply("没有东西可以出售", false, { at: true });
       return;
     }
-    goods.push('\n回复[1]出售,回复[0]取消出售');
+    goods.push("\n回复[1]出售,回复[0]取消出售");
     /** 设置上下文 */
-    this.setContext('noticeSellAllGoods');
+    this.setContext("noticeSellAllGoods");
     for (let i = 0; i < goods.length; i += 8) {
       e.reply(goods.slice(i, i + 8), false, { at: true });
       await sleep(500);
@@ -561,28 +564,28 @@ export class UserSellAll extends plugin {
     let new_msg = this.e.msg;
     let difficulty = reg.exec(new_msg);
     if (!difficulty) {
-      e.reply('已取消出售', false, { at: true });
+      e.reply("已取消出售", false, { at: true });
       /** 结束上下文 */
-      this.finish('noticeSellAllGoods');
+      this.finish("noticeSellAllGoods");
       return;
     }
     /** 结束上下文 */
-    this.finish('noticeSellAllGoods');
+    this.finish("noticeSellAllGoods");
     /**出售*/
     //不开放私聊功能
     let usr_qq = e.user_id;
     //有无存档
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let commodities_price = 0;
     let wupin = [
-      '装备',
-      '丹药',
-      '道具',
-      '功法',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮',
+      "装备",
+      "丹药",
+      "道具",
+      "功法",
+      "草药",
+      "材料",
+      "仙宠",
+      "仙宠口粮",
     ];
     for (let i of wupin) {
       for (let l of najie[i]) {
@@ -612,10 +615,10 @@ export class UserSellAll extends plugin {
       return;
     }
     //检索方法
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let xiuwei = 0;
     for (var l of najie.丹药) {
-      if (l.type == '修为') {
+      if (l.type == "修为") {
         //纳戒中的数量
         let quantity = await exist_najie_thing(usr_qq, l.name, l.class);
         await Add_najie_thing(usr_qq, l.name, l.class, -quantity);
@@ -641,10 +644,10 @@ export class UserSellAll extends plugin {
     }
 
     //检索方法
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let xueqi = 0;
     for (var l of najie.丹药) {
-      if (l.type == '血气') {
+      if (l.type == "血气") {
         //纳戒中的数量
         let quantity = await exist_najie_thing(usr_qq, l.name, l.class);
         await Add_najie_thing(usr_qq, l.name, l.class, -quantity);
@@ -668,22 +671,22 @@ export class UserSellAll extends plugin {
       return;
     }
     //检索方法
-    let najie = await data.getData('najie', usr_qq);
+    let najie = await data.getData("najie", usr_qq);
     let gongfa = [];
     let player = await Read_player(usr_qq);
-    let name = '';
+    let name = "";
     for (var l of najie.功法) {
-      let islearned = player.学习的功法.find(item => item == l.name);
+      let islearned = player.学习的功法.find((item) => item == l.name);
       if (!islearned) {
-        await Add_najie_thing(usr_qq, l.name, '功法', -1);
+        await Add_najie_thing(usr_qq, l.name, "功法", -1);
         await Add_player_学习功法(usr_qq, l.name);
-        name = name + ' ' + l.name;
+        name = name + " " + l.name;
       }
     }
     if (name) {
       e.reply(`你学会了${name},可以在【#我的炼体】中查看`);
     } else {
-      e.reply('无新功法');
+      e.reply("无新功法");
     }
     return;
   }

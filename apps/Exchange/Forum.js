@@ -1,4 +1,4 @@
-import { plugin } from '../../api/api.js';
+import { plugin } from "../../api/api.js";
 import {
   existplayer,
   exist_najie_thing,
@@ -12,7 +12,7 @@ import {
   get_forum_img,
   Write_Forum,
   Read_Forum,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 
 /**
  * 交易系统
@@ -21,28 +21,28 @@ export class Forum extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'Forum',
+      name: "Forum",
       /** 功能描述 */
-      dsc: '交易模块',
-      event: 'message',
+      dsc: "交易模块",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
-          reg: '^#聚宝堂(装备|丹药|功法|道具|草药|仙宠|材料)?$',
-          fnc: 'show_supermarket',
+          reg: "^#聚宝堂(装备|丹药|功法|道具|草药|仙宠|材料)?$",
+          fnc: "show_supermarket",
         },
         {
-          reg: '^#发布.*$',
-          fnc: 'onsell',
+          reg: "^#发布.*$",
+          fnc: "onsell",
         },
         {
-          reg: '^#取消[1-9]d*',
-          fnc: 'Offsell',
+          reg: "^#取消[1-9]d*",
+          fnc: "Offsell",
         },
         {
-          reg: '^#接取.*$',
-          fnc: 'purchase',
+          reg: "^#接取.*$",
+          fnc: "purchase",
         },
       ],
     });
@@ -60,7 +60,7 @@ export class Forum extends plugin {
     }
     let Forum;
     let player = await Read_player(usr_qq);
-    let x = parseInt(e.msg.replace('#取消', '')) - 1;
+    let x = parseInt(e.msg.replace("#取消", "")) - 1;
     try {
       Forum = await Read_Forum();
     } catch {
@@ -74,11 +74,18 @@ export class Forum extends plugin {
     }
     //对比qq是否相等
     if (Forum[x].qq != usr_qq) {
-      e.reply('不能取消别人的宝贝需求');
+      e.reply("不能取消别人的宝贝需求");
       return;
     }
     await Add_灵石(usr_qq, Forum[x].whole);
-    e.reply(player.名号 + '取消' + Forum[x].name + '成功,返还' + Forum[x].whole + '灵石');
+    e.reply(
+      player.名号 +
+        "取消" +
+        Forum[x].name +
+        "成功,返还" +
+        Forum[x].whole +
+        "灵石"
+    );
     Forum.splice(x, 1);
     await Write_Forum(Forum);
     return;
@@ -100,9 +107,9 @@ export class Forum extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let thing = e.msg.replace('#', '');
-    thing = thing.replace('发布', '');
-    let code = thing.split('*');
+    let thing = e.msg.replace("#", "");
+    thing = thing.replace("发布", "");
+    let code = thing.split("*");
     let thing_name = code[0]; //物品
     let thing_value = code[1]; //价格
     let thing_amount = code[2]; //数量
@@ -147,7 +154,7 @@ export class Forum extends plugin {
     Forum.push(wupin);
     //写入
     await Write_Forum(Forum);
-    e.reply('发布成功！');
+    e.reply("发布成功！");
     return;
   }
 
@@ -156,7 +163,7 @@ export class Forum extends plugin {
     if (!e.isGroup) {
       return;
     }
-    let thing_class = e.msg.replace('#聚宝堂', '');
+    let thing_class = e.msg.replace("#聚宝堂", "");
     let img = await get_forum_img(e, thing_class);
     e.reply(img);
     return;
@@ -175,18 +182,25 @@ export class Forum extends plugin {
     var time = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ForumCD = await redis.get('xiuxian:player:' + usr_qq + ':ForumCD');
+    let ForumCD = await redis.get("xiuxian:player:" + usr_qq + ":ForumCD");
     ForumCD = parseInt(ForumCD);
     let transferTimeout = parseInt(60000 * time);
     if (now_time < ForumCD + transferTimeout) {
-      let ForumCDm = Math.trunc((ForumCD + transferTimeout - now_time) / 60 / 1000);
-      let ForumCDs = Math.trunc(((ForumCD + transferTimeout - now_time) % 60000) / 1000);
-      e.reply(`每${transferTimeout / 1000 / 60}分钟操作一次，` + `CD: ${ForumCDm}分${ForumCDs}秒`);
+      let ForumCDm = Math.trunc(
+        (ForumCD + transferTimeout - now_time) / 60 / 1000
+      );
+      let ForumCDs = Math.trunc(
+        ((ForumCD + transferTimeout - now_time) % 60000) / 1000
+      );
+      e.reply(
+        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
+          `CD: ${ForumCDm}分${ForumCDs}秒`
+      );
       //存在CD。直接返回
       return;
     }
     //记录本次执行时间
-    await redis.set('xiuxian:player:' + usr_qq + ':ForumCD', now_time);
+    await redis.set("xiuxian:player:" + usr_qq + ":ForumCD", now_time);
     let player = await Read_player(usr_qq);
     let Forum;
     try {
@@ -196,14 +210,14 @@ export class Forum extends plugin {
       await Write_Forum([]);
       Forum = await Read_Forum();
     }
-    let t = e.msg.replace('#接取', '').split('*');
+    let t = e.msg.replace("#接取", "").split("*");
     let x = (await convert2integer(t[0])) - 1;
     if (x >= Forum.length) {
       return;
     }
     let thingqq = Forum[x].qq;
     if (thingqq == usr_qq) {
-      e.reply('没事找事做?');
+      e.reply("没事找事做?");
       return;
     }
     //根据qq得到物品
@@ -231,7 +245,7 @@ export class Forum extends plugin {
     Forum[x].aconut = Forum[x].aconut - n;
     Forum[x].whole = Forum[x].whole - money;
     //删除该位置信息
-    Forum = Forum.filter(item => item.aconut > 0);
+    Forum = Forum.filter((item) => item.aconut > 0);
     await Write_Forum(Forum);
     e.reply(`${player.名号}在聚宝堂收获了${money}灵石！`);
   }

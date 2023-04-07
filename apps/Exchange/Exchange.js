@@ -1,4 +1,4 @@
-import { plugin} from '../../api/api.js';
+import { plugin } from "../../api/api.js";
 import {
   existplayer,
   exist_najie_thing,
@@ -13,7 +13,7 @@ import {
   get_supermarket_img,
   Write_Exchange,
   Read_Exchange,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 
 /**
  * 交易系统
@@ -22,28 +22,28 @@ export class Exchange extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'Exchange',
+      name: "Exchange",
       /** 功能描述 */
-      dsc: '交易模块',
-      event: 'message',
+      dsc: "交易模块",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
-          reg: '^#冲水堂(装备|丹药|功法|道具|草药|仙宠|材料)?$',
-          fnc: 'show_supermarket',
+          reg: "^#冲水堂(装备|丹药|功法|道具|草药|仙宠|材料)?$",
+          fnc: "show_supermarket",
         },
         {
-          reg: '^#上架.*$',
-          fnc: 'onsell',
+          reg: "^#上架.*$",
+          fnc: "onsell",
         },
         {
-          reg: '^#下架[1-9]d*',
-          fnc: 'Offsell',
+          reg: "^#下架[1-9]d*",
+          fnc: "Offsell",
         },
         {
-          reg: '^#选购.*$',
-          fnc: 'purchase',
+          reg: "^#选购.*$",
+          fnc: "purchase",
         },
       ],
     });
@@ -63,7 +63,9 @@ export class Exchange extends plugin {
     var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
+    let ExchangeCD = await redis.get(
+      "xiuxian:player:" + usr_qq + ":ExchangeCD"
+    );
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
@@ -73,15 +75,18 @@ export class Exchange extends plugin {
       let ExchangeCDs = Math.trunc(
         ((ExchangeCD + transferTimeout - now_time) % 60000) / 1000
       );
-      e.reply(`每${transferTimeout / 1000 / 60}分钟操作一次，` +`CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
+      e.reply(
+        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
+          `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
+      );
       //存在CD。直接返回
       return;
     }
     let Exchange;
     //记录本次执行时间
-    await redis.set('xiuxian:player:' + usr_qq + ':ExchangeCD', now_time);
+    await redis.set("xiuxian:player:" + usr_qq + ":ExchangeCD", now_time);
     let player = await Read_player(usr_qq);
-    let x = parseInt(e.msg.replace('#下架', '')) - 1;
+    let x = parseInt(e.msg.replace("#下架", "")) - 1;
     try {
       Exchange = await Read_Exchange();
     } catch {
@@ -96,13 +101,13 @@ export class Exchange extends plugin {
     let thingqq = Exchange[x].qq;
     //对比qq是否相等
     if (thingqq != usr_qq) {
-      e.reply('不能下架别人上架的物品');
+      e.reply("不能下架别人上架的物品");
       return;
     }
     let thing_name = Exchange[x].name.name;
     let thing_class = Exchange[x].name.class;
     let thing_amount = Exchange[x].aconut;
-    if (thing_class == '装备' || thing_class == '仙宠') {
+    if (thing_class == "装备" || thing_class == "仙宠") {
       await Add_najie_thing(
         usr_qq,
         Exchange[x].name,
@@ -115,8 +120,8 @@ export class Exchange extends plugin {
     }
     Exchange.splice(x, 1);
     await Write_Exchange(Exchange);
-    await redis.set('xiuxian:player:' + thingqq + ':Exchange', 0);
-    e.reply(player.名号 + '下架' + thing_name + '成功！');
+    await redis.set("xiuxian:player:" + thingqq + ":Exchange", 0);
+    e.reply(player.名号 + "下架" + thing_name + "成功！");
     return;
   }
 
@@ -137,9 +142,9 @@ export class Exchange extends plugin {
       return;
     }
     let najie = await Read_najie(usr_qq);
-    let thing = e.msg.replace('#', '');
-    thing = thing.replace('上架', '');
-    let code = thing.split('*');
+    let thing = e.msg.replace("#", "");
+    thing = thing.replace("上架", "");
+    let code = thing.split("*");
     let thing_name = code[0]; //物品
     code[0] = parseInt(code[0]);
     let thing_value = code[1]; //价格
@@ -150,14 +155,14 @@ export class Exchange extends plugin {
         try {
           thing_name = najie.仙宠[code[0] - 1001].name;
         } catch {
-          e.reply('仙宠代号输入有误!');
+          e.reply("仙宠代号输入有误!");
           return;
         }
       } else if (code[0] > 100) {
         try {
           thing_name = najie.装备[code[0] - 101].name;
         } catch {
-          e.reply('装备代号输入有误!');
+          e.reply("装备代号输入有误!");
           return;
         }
       }
@@ -180,16 +185,16 @@ export class Exchange extends plugin {
     };
     let equ;
     thing_piji = pj[code[1]];
-    if (thing_exist.class == '装备') {
+    if (thing_exist.class == "装备") {
       if (thing_piji) {
         thing_value = code[2];
         thing_amount = code[3];
         equ = najie.装备.find(
-          item => item.name == thing_name && item.pinji == thing_piji
+          (item) => item.name == thing_name && item.pinji == thing_piji
         );
       } else {
         let najie = await Read_najie(usr_qq);
-        equ = najie.装备.find(item => item.name == thing_name);
+        equ = najie.装备.find((item) => item.name == thing_name);
         for (var i of najie.装备) {
           //遍历列表有没有比那把强的
           if (i.name == thing_name && i.pinji < equ.pinji) {
@@ -198,8 +203,8 @@ export class Exchange extends plugin {
         }
         thing_piji = equ.pinji;
       }
-    } else if (thing_exist.class == '仙宠') {
-      equ = najie.仙宠.find(item => item.name == thing_name);
+    } else if (thing_exist.class == "仙宠") {
+      equ = najie.仙宠.find((item) => item.name == thing_name);
     }
     thing_value = await convert2integer(thing_value);
     thing_amount = await convert2integer(thing_amount);
@@ -223,18 +228,17 @@ export class Exchange extends plugin {
     }
     let now_time = new Date().getTime();
     let whole = Math.trunc(thing_value * thing_amount);
-    let off=Math.trunc(whole*0.03);
+    let off = Math.trunc(whole * 0.03);
     if (off < 100000) off = 100000;
     let player = await Read_player(usr_qq);
-    if (player.灵石<off)
-    {
-      e.reply('就这点灵石还想上架');
+    if (player.灵石 < off) {
+      e.reply("就这点灵石还想上架");
       return;
     }
-    await Add_灵石(usr_qq,-off);
+    await Add_灵石(usr_qq, -off);
     let wupin;
-    if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
-      let pinji2 = ['劣', '普', '优', '精', '极', '绝', '顶'];
+    if (thing_exist.class == "装备" || thing_exist.class == "仙宠") {
+      let pinji2 = ["劣", "普", "优", "精", "极", "绝", "顶"];
       pj = pinji2[thing_piji];
       wupin = {
         qq: usr_qq,
@@ -273,7 +277,7 @@ export class Exchange extends plugin {
     Exchange.push(wupin);
     //写入
     await Write_Exchange(Exchange);
-    e.reply('上架成功！');
+    e.reply("上架成功！");
     return;
   }
 
@@ -282,8 +286,8 @@ export class Exchange extends plugin {
     if (!e.isGroup) {
       return;
     }
-    let thing_class = e.msg.replace('#冲水堂', '');
-    let img = await get_supermarket_img(e,thing_class);
+    let thing_class = e.msg.replace("#冲水堂", "");
+    let img = await get_supermarket_img(e, thing_class);
     e.reply(img);
     return;
   }
@@ -301,18 +305,27 @@ export class Exchange extends plugin {
     var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
+    let ExchangeCD = await redis.get(
+      "xiuxian:player:" + usr_qq + ":ExchangeCD"
+    );
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
-      let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000);
-      let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000);
-      e.reply(`每${transferTimeout / 1000 / 60}分钟操作一次，` +`CD: ${ExchangeCDm}分${ExchangeCDs}秒`);
+      let ExchangeCDm = Math.trunc(
+        (ExchangeCD + transferTimeout - now_time) / 60 / 1000
+      );
+      let ExchangeCDs = Math.trunc(
+        ((ExchangeCD + transferTimeout - now_time) % 60000) / 1000
+      );
+      e.reply(
+        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
+          `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
+      );
       //存在CD。直接返回
       return;
     }
     //记录本次执行时间
-    await redis.set('xiuxian:player:' + usr_qq + ':ExchangeCD', now_time);
+    await redis.set("xiuxian:player:" + usr_qq + ":ExchangeCD", now_time);
     let player = await Read_player(usr_qq);
     let Exchange;
     try {
@@ -322,14 +335,14 @@ export class Exchange extends plugin {
       await Write_Exchange([]);
       Exchange = await Read_Exchange();
     }
-    let t = e.msg.replace('#选购', '').split('*');
+    let t = e.msg.replace("#选购", "").split("*");
     let x = (await convert2integer(t[0])) - 1;
     if (x >= Exchange.length) {
       return;
     }
     let thingqq = Exchange[x].qq;
     if (thingqq == usr_qq) {
-      e.reply('自己买自己的东西？我看你是闲得蛋疼！');
+      e.reply("自己买自己的东西？我看你是闲得蛋疼！");
       return;
     }
     //根据qq得到物品
@@ -349,8 +362,14 @@ export class Exchange extends plugin {
     //查灵石
     if (player.灵石 > money) {
       //加物品
-      if (thing_class == '装备' || thing_class == '仙宠') {
-        await Add_najie_thing(usr_qq,Exchange[x].name,thing_class,n,Exchange[x].pinji2);
+      if (thing_class == "装备" || thing_class == "仙宠") {
+        await Add_najie_thing(
+          usr_qq,
+          Exchange[x].name,
+          thing_class,
+          n,
+          Exchange[x].pinji2
+        );
       } else {
         await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       }
@@ -361,11 +380,11 @@ export class Exchange extends plugin {
       Exchange[x].aconut = Exchange[x].aconut - n;
       Exchange[x].whole = Exchange[x].whole - money;
       //删除该位置信息
-      Exchange = Exchange.filter(item => item.aconut > 0);
+      Exchange = Exchange.filter((item) => item.aconut > 0);
       await Write_Exchange(Exchange);
       e.reply(`${player.名号}在冲水堂购买了${n}个【${thing_name}】！`);
     } else {
-      e.reply('醒醒，你没有那么多钱！');
+      e.reply("醒醒，你没有那么多钱！");
       return;
     }
     return;

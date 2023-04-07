@@ -1,72 +1,74 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
-import { __PATH } from '../../model/xiuxian.js';
-import config from '../../model/Config.js';
-import fs from 'fs';
+import { plugin } from "../../api/api.js";
+import { __PATH } from "../../model/xiuxian.js";
+import config from "../../model/Config.js";
+import fs from "fs";
 
 export class BackUp extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'BackUp',
+      name: "BackUp",
       /** 功能描述 */
-      dsc: '存档备份',
-      event: 'message',
+      dsc: "存档备份",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 1000,
       rule: [
         {
-          reg: '^#备份存档$',
-          fnc: 'saveBackUp',
+          reg: "^#备份存档$",
+          fnc: "saveBackUp",
         },
         {
-          reg: '^#存档列表$',
-          fnc: 'checkBackUp',
+          reg: "^#存档列表$",
+          fnc: "checkBackUp",
         },
         {
-          reg: '^#读取存档(.*)',
-          fnc: 'loadBackUp',
+          reg: "^#读取存档(.*)",
+          fnc: "loadBackUp",
         },
       ],
     });
     this.saving = false;
     this.task = {
-      cron: config.getConfig('task', 'task').AutoBackUpTask,
-      name: 'AutoBackUp',
+      cron: config.getConfig("task", "task").AutoBackUpTask,
+      name: "AutoBackUp",
       fnc: this.saveBackUp,
     };
   }
 
   async saveBackUp(e) {
     try {
-      if (e && !e.isMaster) return e.reply('只有主人可以执行操作');
-      await e?.reply('开始备份...');
+      if (e && !e.isMaster) return e.reply("只有主人可以执行操作");
+      await e?.reply("开始备份...");
 
       const needSave = [
-        'association',
-        'Exchange',
-        'qinmidu',
-        'duanlu',
-        'shitu',
-        'tiandibang',
-        'equipment_path',
-        'najie_path',
-        'player_path',
-        'custom',
-        'shop',
-        'danyao_path',
+        "association",
+        "Exchange",
+        "qinmidu",
+        "duanlu",
+        "shitu",
+        "tiandibang",
+        "equipment_path",
+        "najie_path",
+        "player_path",
+        "custom",
+        "shop",
+        "danyao_path",
       ];
 
       // [[fn, fn...], ...]
-      const readFnameTask = needSave.map(folderName => {
+      const readFnameTask = needSave.map((folderName) => {
         return fs.promises.readdir(__PATH[folderName]);
       });
       const dataFname = await Promise.all(readFnameTask);
 
       // [[data, data...], ...]
       const readDoneTask = needSave.map((folderName, index) => {
-        dataFname[index] = dataFname[index].filter(fn => fn.endsWith('.json'));
+        dataFname[index] = dataFname[index].filter((fn) =>
+          fn.endsWith(".json")
+        );
 
-        const readTask = dataFname[index].map(fn =>
+        const readTask = dataFname[index].map((fn) =>
           fs.promises.readFile(`${__PATH[folderName]}/${fn}`)
         );
         return Promise.all(readTask);
@@ -76,16 +78,16 @@ export class BackUp extends plugin {
 
       // redis
       const redisObj = {};
-      const redisKeys = await redis.keys('xiuxian:*');
+      const redisKeys = await redis.keys("xiuxian:*");
       const redisTypes = await Promise.all(
-        redisKeys.map(key => redis.type(key))
+        redisKeys.map((key) => redis.type(key))
       );
       const redisValues = await Promise.all(
         redisKeys.map((key, i) => {
           switch (redisTypes[i]) {
-            case 'string':
+            case "string":
               return redis.get(key);
-            case 'set':
+            case "set":
               return redis.sMembers(key);
           }
         })
@@ -102,7 +104,7 @@ export class BackUp extends plugin {
       const nowTimeStamp = Date.now();
       const saveFolder = `${__PATH.backup}/${nowTimeStamp}`;
       if (fs.existsSync(saveFolder)) {
-        return e?.reply('致命错误，请联系DD');
+        return e?.reply("致命错误，请联系DD");
       }
       fs.mkdirSync(saveFolder);
 
@@ -136,16 +138,16 @@ export class BackUp extends plugin {
 
   async checkBackUp(e) {
     try {
-      if (!e.isMaster) return e.reply('只有主人可以执行操作');
+      if (!e.isMaster) return e.reply("只有主人可以执行操作");
 
-      let backUpList = fs.readdirSync(__PATH.backup).filter(folderName => {
+      let backUpList = fs.readdirSync(__PATH.backup).filter((folderName) => {
         const stat = fs.statSync(`${__PATH.backup}/${folderName}`);
         return folderName === `${Number(folderName)}` && stat.isDirectory();
       });
       if (backUpList.length > 80) backUpList = backUpList.slice(-80);
 
       const backUpObj = backUpList
-        .map(timeStamp => getTimeStr(timeStamp))
+        .map((timeStamp) => getTimeStr(timeStamp))
         .map((str, index) => {
           return {
             message: `${index + 1}：${str}`,
@@ -163,50 +165,52 @@ export class BackUp extends plugin {
 
   async loadBackUp(e) {
     try {
-      if (!e.isMaster) return e.reply('只有主人可以执行操作');
-      const saveDataNum = Number(e.msg.replace('#读取存档', '').trim());
+      if (!e.isMaster) return e.reply("只有主人可以执行操作");
+      const saveDataNum = Number(e.msg.replace("#读取存档", "").trim());
       if (!(1 <= saveDataNum && saveDataNum <= 80)) {
-        return e.reply('正确格式：#读取存档[1~80]\n如：#读取存档18');
+        return e.reply("正确格式：#读取存档[1~80]\n如：#读取存档18");
       }
 
-      await e.reply('正在自动备份当前存档...');
+      await e.reply("正在自动备份当前存档...");
       await this.saveBackUp(e);
 
-      await e.reply('开始读取存档...');
-      let backUpList = fs.readdirSync(__PATH.backup).filter(folderName => {
+      await e.reply("开始读取存档...");
+      let backUpList = fs.readdirSync(__PATH.backup).filter((folderName) => {
         const stat = fs.statSync(`${__PATH.backup}/${folderName}`);
         return folderName === `${Number(folderName)}` && stat.isDirectory();
       });
       if (backUpList.length > 80) backUpList = backUpList.slice(-80);
       const backUpPath = `${__PATH.backup}/${backUpList[saveDataNum - 1]}`;
-      if (!fs.existsSync(backUpPath)) return e.reply('该存档已损坏');
+      if (!fs.existsSync(backUpPath)) return e.reply("该存档已损坏");
 
       const needLoad = [
-        'association',
-        'Exchange',
-        'qinmidu',
-        'duanlu',
-        'shitu',
-        'tiandibang',
-        'equipment_path',
-        'najie_path',
-        'player_path',
-        'custom',
-        'shop',
-        'danyao_path',
+        "association",
+        "Exchange",
+        "qinmidu",
+        "duanlu",
+        "shitu",
+        "tiandibang",
+        "equipment_path",
+        "najie_path",
+        "player_path",
+        "custom",
+        "shop",
+        "danyao_path",
       ];
 
       // [[fn, fn...], ...]
-      const readFnameTask = needLoad.map(folderName => {
+      const readFnameTask = needLoad.map((folderName) => {
         return fs.promises.readdir(`${backUpPath}/${folderName}`);
       });
       const dataFname = await Promise.all(readFnameTask);
 
       // [[data, data...], ...]
       const readDoneTask = needLoad.map((folderName, index) => {
-        dataFname[index] = dataFname[index].filter(fn => fn.endsWith('.json'));
+        dataFname[index] = dataFname[index].filter((fn) =>
+          fn.endsWith(".json")
+        );
 
-        const readTask = dataFname[index].map(fn =>
+        const readTask = dataFname[index].map((fn) =>
           fs.promises.readFile(`${backUpPath}/${folderName}/${fn}`)
         );
         return Promise.all(readTask);
@@ -227,8 +231,8 @@ export class BackUp extends plugin {
       const finishTask = needLoad.map(async (folderName, index) => {
         // 删一删原本的存档
         const originFname = fs.readdirSync(`${__PATH[folderName]}`);
-        const clearTask = originFname.map(fn => {
-          if (!fn.endsWith('.json')) return Promise.resolve();
+        const clearTask = originFname.map((fn) => {
+          if (!fn.endsWith(".json")) return Promise.resolve();
 
           return fs.promises.rm(`${__PATH[folderName]}/${fn}`);
         });
@@ -236,8 +240,8 @@ export class BackUp extends plugin {
 
         // 删原本的redis
         if (includeBackup) {
-          const originRedisKeys = await redis.keys('xiuxian:*');
-          const clearRedisTask = originRedisKeys.map(key => redis.del(key));
+          const originRedisKeys = await redis.keys("xiuxian:*");
+          const clearRedisTask = originRedisKeys.map((key) => redis.del(key));
           await Promise.all(clearRedisTask);
         }
 
@@ -252,11 +256,11 @@ export class BackUp extends plugin {
         // 写入备份的redis
         if (includeBackup) {
           await Promise.all(
-            Object.keys(redisObj).map(key => {
+            Object.keys(redisObj).map((key) => {
               switch (redisObj[key][0]) {
-                case 'string':
+                case "string":
                   return redis.set(key, redisObj[key][1]);
-                case 'set':
+                case "set":
                   return redis.sAdd(key, redisObj[key][1]);
               }
             })
@@ -281,12 +285,12 @@ export class BackUp extends plugin {
 // 格式化时间显示
 function getTimeStr(timeStamp) {
   const options = {
-    second: '2-digit',
-    minute: '2-digit',
-    hour: '2-digit',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
+    second: "2-digit",
+    minute: "2-digit",
+    hour: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
   };
-  return new Intl.DateTimeFormat('zh-CN', options).format(timeStamp);
+  return new Intl.DateTimeFormat("zh-CN", options).format(timeStamp);
 }

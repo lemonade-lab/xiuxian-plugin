@@ -1,6 +1,6 @@
-import YAML from 'yaml';
-import fs from 'fs';
-import { __dirname } from '../app.config.js';
+import YAML from "yaml";
+import fs from "fs";
+import { __dirname } from "../app.config.js";
 /** 配置文件 直接借鉴yunzai配置代码 */
 class Config {
   /**
@@ -16,6 +16,5 @@ class Config {
     const data = YAML.parse(fs.readFileSync(file, "utf8"));
     return data;
   }
-
 }
 export default new Config();

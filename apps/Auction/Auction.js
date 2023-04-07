@@ -1,18 +1,15 @@
-import { plugin, common, puppeteer } from '../../api/api.js';
-import config from '../../model/Config.js';
+import { plugin, common } from "../../api/api.js";
+import config from "../../model/Config.js";
 import {
   __PATH,
   existplayer,
   Read_player,
   isNotNull,
   openAU,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 
 // const intervalTime = 7 * 24 * 60 * 60 * 1000;
 
-/**
- * 全局变量
- */
 let allaction = false; //全局状态判断
 /**
  * 拍卖系统
@@ -21,36 +18,36 @@ export class Auction extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'Auction',
+      name: "Auction",
       /** 功能描述 */
-      dsc: '拍卖模块',
-      event: 'message',
+      dsc: "拍卖模块",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
-          reg: '^#星阁出价.*$',
-          fnc: 'offer_priceXINGGE',
+          reg: "^#星阁出价.*$",
+          fnc: "offer_priceXINGGE",
         },
         {
-          reg: '^#星阁拍卖行$',
-          fnc: 'xingGE',
+          reg: "^#星阁拍卖行$",
+          fnc: "xingGE",
         },
         {
-          reg: '^#开启星阁体系$',
-          fnc: 'openAction',
+          reg: "^#开启星阁体系$",
+          fnc: "openAction",
         },
         {
-          reg: '^#取消星阁体系$',
-          fnc: 'cancalAction',
+          reg: "^#取消星阁体系$",
+          fnc: "cancalAction",
         },
         {
-          reg: '^#关闭星阁体系$',
-          fnc: 'offAction',
+          reg: "^#关闭星阁体系$",
+          fnc: "offAction",
         },
       ],
     });
-    this.set = config.getConfig('xiuxian', 'xiuxian');
+    this.set = config.getConfig("xiuxian", "xiuxian");
   }
 
   async xingGE(e) {
@@ -68,16 +65,16 @@ export class Auction extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let auction = await redis.get('xiuxian:AuctionofficialTask');
+    let auction = await redis.get("xiuxian:AuctionofficialTask");
     if (!isNotNull(auction)) {
-      e.reply('目前没有拍卖正在进行');
+      e.reply("目前没有拍卖正在进行");
       return;
     }
     auction = JSON.parse(auction);
 
     let msg = `___[星阁]___\n目前正在拍卖【${auction.thing.name}】\n`;
     if (auction.last_offer_player === 0) {
-      msg += '暂无人出价';
+      msg += "暂无人出价";
     } else {
       const player = await Read_player(auction.last_offer_player);
       msg += `最高出价是${player.名号}叫出的${auction.last_price}`;
@@ -87,20 +84,20 @@ export class Auction extends plugin {
 
   async openAction(e) {
     if (!e.isMaster) {
-      return e.reply('只有只因器人主人可以开启');
+      return e.reply("只有只因器人主人可以开启");
     }
 
     // 如果星阁已经开了，将本群加入Redis
     // INFO: 缺省判断是否在进行，GroupList判断哪些群开启了星阁体系
-    const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
+    const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
     const groupList = await redis.sMembers(redisGlKey);
     if (groupList.length > 0) {
       if (await redis.sIsMember(redisGlKey, String(e.group_id))) {
         console.log(await redis.sMembers(redisGlKey));
-        return e.reply('星阁拍卖行已经开啦');
+        return e.reply("星阁拍卖行已经开啦");
       }
       await redis.sAdd(redisGlKey, String(e.group_id));
-      return e.reply('星阁已开启，已将本群添加至星阁体系');
+      return e.reply("星阁已开启，已将本群添加至星阁体系");
     }
 
     // 如果没开，判断是否在开启时间
@@ -116,7 +113,7 @@ export class Auction extends plugin {
       const auction = await openAU();
       let msg = `___[星阁]___\n目前正在拍卖【${auction.thing.name}】\n`;
       if (auction.last_offer_player === 0) {
-        msg += '暂无人出价';
+        msg += "暂无人出价";
       } else {
         const player = await Read_player(auction.last_offer_player);
         msg += `最高出价是${player.名号}叫出的${auction.last_price}`;
@@ -135,36 +132,36 @@ export class Auction extends plugin {
       await redis.del(redisGlKey);
     } catch (_) {}
     await redis.sAdd(redisGlKey, String(e.group_id));
-    return e.reply('星阁体系在本群开启！');
+    return e.reply("星阁体系在本群开启！");
   }
 
   async cancalAction(e) {
     if (!e.isMaster) {
-      return e.reply('只有只因器人主人可以取消');
+      return e.reply("只有只因器人主人可以取消");
     }
 
-    const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
+    const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
     if (!redis.sIsMember(redisGlKey, String(e.group_id))) {
-      return e.reply('本来就没开取消个冒险');
+      return e.reply("本来就没开取消个冒险");
     }
     await redis.sRem(redisGlKey, String(e.group_id));
 
-    return e.reply('星阁体系在本群取消了');
+    return e.reply("星阁体系在本群取消了");
   }
 
   async offAction(e) {
     if (!e.isMaster) {
-      return e.reply('只有只因器人主人可以关闭');
+      return e.reply("只有只因器人主人可以关闭");
     }
 
-    const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
-    await redis.del('xiuxian:AuctionofficialTask');
+    const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
+    await redis.del("xiuxian:AuctionofficialTask");
     await redis.del(redisGlKey);
     // await redis.set(
     //   'xiuxian:AuctionofficialTaskENDTIME',
     //   JSON.stringify(1145141919181145)
     // );
-    return e.reply('星阁体系已关闭！');
+    return e.reply("星阁体系已关闭！");
   }
 
   /*竞价10000 */
@@ -184,14 +181,14 @@ export class Auction extends plugin {
       return;
     }
     // 此群是否开启星阁体系
-    const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
+    const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
     if (!(await redis.sIsMember(redisGlKey, String(e.group_id)))) return;
     // 是否到拍卖时间
-    let auction = await redis.get('xiuxian:AuctionofficialTask');
+    let auction = await redis.get("xiuxian:AuctionofficialTask");
     if (!isNotNull(auction)) {
       const { openHour, closeHour } = config.getConfig(
-        'xiuxian',
-        'xiuxian'
+        "xiuxian",
+        "xiuxian"
       ).Auction;
       e.reply(`不在拍卖时间，开启时间为每天${openHour}时~${closeHour}时`);
       return;
@@ -201,9 +198,9 @@ export class Auction extends plugin {
     auction = JSON.parse(auction);
     // let start_price = auction.start_price;
     let last_price = auction.last_price;
-    let new_price = e.msg.replace('#星阁出价', '');
+    let new_price = e.msg.replace("#星阁出价", "");
     if (auction.last_offer_player == usr_qq) {
-      e.reply('不能自己给自己抬价哦!');
+      e.reply("不能自己给自己抬价哦!");
       return;
     }
     new_price = Number(new_price);
@@ -216,7 +213,7 @@ export class Auction extends plugin {
       }
     }
     if (player.灵石 < new_price) {
-      e.reply('没这么多钱也想浑水摸鱼?');
+      e.reply("没这么多钱也想浑水摸鱼?");
       return;
     }
 
@@ -228,13 +225,13 @@ export class Auction extends plugin {
     auction.groupList = await redis.sMembers(redisGlKey);
 
     const msg = `${player.名号}叫价${new_price} `;
-    auction.groupList.forEach(group_id => pushInfo(group_id, true, msg));
+    auction.groupList.forEach((group_id) => pushInfo(group_id, true, msg));
     // ↑新的：RetuEase
 
     auction.last_price = new_price;
     auction.last_offer_player = usr_qq;
     auction.last_offer_price = new Date().getTime(); // NOTE: Big SB
-    await redis.set('xiuxian:AuctionofficialTask', JSON.stringify(auction));
+    await redis.set("xiuxian:AuctionofficialTask", JSON.stringify(auction));
   }
 
   async show_auction(e) {
@@ -252,20 +249,20 @@ export class Auction extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let auction = await redis.get('xiuxian:auction');
+    let auction = await redis.get("xiuxian:auction");
     if (!isNotNull(auction)) {
-      e.reply('目前没有拍卖正在进行');
+      e.reply("目前没有拍卖正在进行");
       return;
     }
     auction = JSON.parse(auction);
-    let tmp = '';
+    let tmp = "";
     if (auction.last_offer_player == 0) {
-      tmp = '暂无人出价';
+      tmp = "暂无人出价";
     } else {
       let player = await Read_player(auction.last_offer_player);
       tmp = `最高出价是${player.名号}叫出的${auction.last_price}`;
     }
-    let msg = '___[星尘拍卖行]___\n';
+    let msg = "___[星尘拍卖行]___\n";
     msg += `目前正在拍卖【${auction.thing.name}】\n${tmp}`;
     e.reply(msg);
   }
@@ -302,7 +299,7 @@ async function pushInfo(id, is_group, msg) {
   if (is_group) {
     await Bot.pickGroup(id)
       .sendMsg(msg)
-      .catch(err => {
+      .catch((err) => {
         Bot.logger.mark(err);
       });
   } else {

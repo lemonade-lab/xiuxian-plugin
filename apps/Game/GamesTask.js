@@ -1,7 +1,7 @@
-import { plugin, common } from '../../api/api.js';
-import config from '../../model/Config.js';
-import fs from 'fs';
-import { AppName } from '../../app.config.js';
+import { plugin, common } from "../../api/api.js";
+import config from "../../model/Config.js";
+import fs from "fs";
+import { AppName } from "../../app.config.js";
 
 /**
  * 定时任务
@@ -10,16 +10,16 @@ import { AppName } from '../../app.config.js';
 export class GamesTask extends plugin {
   constructor() {
     super({
-      name: 'GamesTask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "GamesTask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.set = config.getConfig('task', 'task');
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.GamesTask,
-      name: 'GamesTask',
+      name: "GamesTask",
       fnc: () => this.Gamestask(),
     };
   }
@@ -28,20 +28,20 @@ export class GamesTask extends plugin {
     //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     for (let player_id of playerList) {
       //获取游戏状态
       let game_action = await redis.get(
-        'xiuxian:player:' + player_id + ':game_action'
+        "xiuxian:player:" + player_id + ":game_action"
       );
       //防止继续其他娱乐行为
       if (game_action == 0) {
-        await redis.set('xiuxian:player:' + player_id + ':game_action', 1);
+        await redis.set("xiuxian:player:" + player_id + ":game_action", 1);
         return;
       }
     }
@@ -57,7 +57,7 @@ export class GamesTask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch(err => {
+        .catch((err) => {
           Bot.logger.mark(err);
         });
     } else {

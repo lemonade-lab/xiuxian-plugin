@@ -1,7 +1,7 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
-import config from '../../model/Config.js';
-import data from '../../model/XiuxianData.js';
-import fs from 'fs';
+import { plugin, common, segment, puppeteer } from "../../api/api.js";
+import config from "../../model/Config.js";
+import data from "../../model/XiuxianData.js";
+import fs from "fs";
 import {
   isNotNull,
   Add_najie_thing,
@@ -9,8 +9,8 @@ import {
   existshop,
   Write_shop,
   Read_shop,
-} from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js';
+} from "../../model/xiuxian.js";
+import { AppName } from "../../app.config.js";
 
 /**
  * 定时任务
@@ -18,17 +18,17 @@ import { AppName } from '../../app.config.js';
 export class Xijietask extends plugin {
   constructor() {
     super({
-      name: 'Xijietask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "Xijietask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getConfig('task', 'task');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.action_task,
-      name: 'Xijietask',
+      name: "Xijietask",
       fnc: () => this.Xijietask(),
     };
   }
@@ -37,25 +37,25 @@ export class Xijietask extends plugin {
     //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     for (let player_id of playerList) {
-      let log_mag = ''; //查询当前人物动作日志信息
-      log_mag = log_mag + '查询' + player_id + '是否有动作,';
+      let log_mag = ""; //查询当前人物动作日志信息
+      log_mag = log_mag + "查询" + player_id + "是否有动作,";
       //得到动作
 
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      let action = await redis.get("xiuxian:player:" + player_id + ":action");
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
         let push_address; //消息推送地址
         let is_group = false; //是否推送到群
 
-        if (await action.hasOwnProperty('group_id')) {
+        if (await action.hasOwnProperty("group_id")) {
           if (isNotNull(action.group_id)) {
             is_group = true;
             push_address = action.group_id;
@@ -70,7 +70,7 @@ export class Xijietask extends plugin {
         let now_time = new Date().getTime();
 
         //有洗劫状态:这个直接结算即可
-        if (action.xijie == '0') {
+        if (action.xijie == "0") {
           //10分钟后开始结算阶段一
           end_time = end_time - action.time + 60000 * 10;
           //时间过了
@@ -114,16 +114,16 @@ export class Xijietask extends plugin {
               法球倍率: monster.灵根.法球倍率,
             };
             let Data_battle;
-            let last_msg = '';
+            let last_msg = "";
             if (A_player.魔值 == 0) {
               //根据魔道值决定先后手顺序
               Data_battle = await zd_battle(A_player, B_player);
-              last_msg += A_player.名号 + '悄悄靠近' + B_player.名号;
+              last_msg += A_player.名号 + "悄悄靠近" + B_player.名号;
               A_player.当前血量 += Data_battle.A_xue;
             } else {
               Data_battle = await zd_battle(B_player, A_player);
               last_msg +=
-                A_player.名号 + '杀气过重,被' + B_player.名号 + '发现了';
+                A_player.名号 + "杀气过重,被" + B_player.名号 + "发现了";
               A_player.当前血量 += Data_battle.B_xue;
             }
             let msgg = Data_battle.msg;
@@ -133,24 +133,24 @@ export class Xijietask extends plugin {
             let arr = action;
             let time;
             let action_time;
-            if (msgg.find(item => item == A_win)) {
+            if (msgg.find((item) => item == A_win)) {
               time = 10; //时间（分钟）
               action_time = 60000 * time; //持续时间，单位毫秒
               arr.A_player = A_player;
-              arr.action = '搜刮';
+              arr.action = "搜刮";
               arr.end_time = new Date().getTime() + action_time;
               arr.time = action_time;
               arr.xijie = -1; //进入二阶段
               last_msg +=
-                ',经过一番战斗,击败对手,剩余' +
+                ",经过一番战斗,击败对手,剩余" +
                 A_player.当前血量 +
-                '血量,开始搜刮物品';
-            } else if (msgg.find(item => item == B_win)) {
+                "血量,开始搜刮物品";
+            } else if (msgg.find((item) => item == B_win)) {
               var num = weizhi.Grade;
               last_msg +=
-                ',经过一番战斗,败下阵来,被抓进了地牢\n在地牢中你找到了秘境之匙x' +
+                ",经过一番战斗,败下阵来,被抓进了地牢\n在地牢中你找到了秘境之匙x" +
                 num;
-              await Add_najie_thing(player_id, '秘境之匙', '道具', num);
+              await Add_najie_thing(player_id, "秘境之匙", "道具", num);
               //结算完去除
               delete arr.group_id;
               let shop = await Read_shop();
@@ -163,34 +163,34 @@ export class Xijietask extends plugin {
               await Write_shop(shop);
               time = 60; //时间（分钟）
               action_time = 60000 * time; //持续时间，单位毫秒
-              arr.action = '禁闭';
+              arr.action = "禁闭";
               arr.xijie = 1; //关闭洗劫
               arr.end_time = new Date().getTime() + action_time;
-              const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
+              const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
               const groupList = await redis.sMembers(redisGlKey);
               const xx =
-                '【全服公告】' +
+                "【全服公告】" +
                 A_player.名号 +
-                '被' +
+                "被" +
                 B_player.名号 +
-                '抓进了地牢,希望大家遵纪守法,引以为戒';
+                "抓进了地牢,希望大家遵纪守法,引以为戒";
               for (const group_id of groupList) {
                 this.pushInfo(group_id, true, xx);
               }
             }
             //写入redis
             await redis.set(
-              'xiuxian:player:' + player_id + ':action',
+              "xiuxian:player:" + player_id + ":action",
               JSON.stringify(arr)
             );
-            msg.push('\n' + last_msg);
+            msg.push("\n" + last_msg);
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg);
             } else {
               await this.pushInfo(player_id, is_group, msg);
             }
           }
-        } else if (action.xijie == '-1') {
+        } else if (action.xijie == "-1") {
           //5分钟后开始结算阶段二
           end_time = end_time - action.time + 60000 * 5;
           //时间过了
@@ -200,7 +200,7 @@ export class Xijietask extends plugin {
             let arr = action;
             let time;
             let action_time;
-            let last_msg = '';
+            let last_msg = "";
             let thing_name = [];
             let shop = await Read_shop();
             let i;
@@ -211,7 +211,7 @@ export class Xijietask extends plugin {
             }
             if (!thing) {
               //没有物品,进入下一阶段
-              last_msg += '已经被搬空了';
+              last_msg += "已经被搬空了";
             } else {
               let x = shop[i].Grade * 2;
               while (x > 0 && thing != false) {
@@ -233,15 +233,15 @@ export class Xijietask extends plugin {
                 thing = await existshop(weizhi.name);
                 x--;
               }
-              last_msg += '经过一番搜寻' + arr.A_player.名号 + '找到了';
+              last_msg += "经过一番搜寻" + arr.A_player.名号 + "找到了";
               for (var j = 0; j < thing_name.length; j++) {
                 last_msg +=
-                  '\n' + thing_name[j].name + ' x ' + thing_name[j].数量;
+                  "\n" + thing_name[j].name + " x " + thing_name[j].数量;
               }
               last_msg +=
-                '\n刚出门就被万仙盟的人盯上了,他们仗着人多，你一人无法匹敌，于是撒腿就跑';
+                "\n刚出门就被万仙盟的人盯上了,他们仗着人多，你一人无法匹敌，于是撒腿就跑";
             }
-            arr.action = '逃跑';
+            arr.action = "逃跑";
             time = 30; //时间（分钟）
             action_time = 60000 * time; //持续时间，单位毫秒
             arr.end_time = new Date().getTime() + action_time;
@@ -251,10 +251,10 @@ export class Xijietask extends plugin {
             arr.cishu = shop[i].Grade + 1;
             //写入redis
             await redis.set(
-              'xiuxian:player:' + player_id + ':action',
+              "xiuxian:player:" + player_id + ":action",
               JSON.stringify(arr)
             );
-            msg.push('\n' + last_msg);
+            msg.push("\n" + last_msg);
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg);
             } else {
@@ -276,7 +276,7 @@ export class Xijietask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch(err => {
+        .catch((err) => {
           Bot.logger.mark(err);
         });
     } else {

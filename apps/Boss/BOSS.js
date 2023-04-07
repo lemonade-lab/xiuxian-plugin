@@ -1,14 +1,14 @@
-import { plugin } from '../../api/api.js';
-import data from '../../model/XiuxianData.js';
-import fs from 'fs';
-import config from '../../model/Config.js';
+import { plugin } from "../../api/api.js";
+import data from "../../model/XiuxianData.js";
+import fs from "fs";
+import config from "../../model/Config.js";
 import {
   Add_灵石,
   ForwardMsg,
   Add_HP,
   Harm,
   zd_battle,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 
 //本模块由(qq:1695037643)和jio佬完成
 let WorldBOSSBattleCD = []; //CD
@@ -19,40 +19,40 @@ export class BOSS extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'Yunzai_Bot_修仙_BOSS',
+      name: "Yunzai_Bot_修仙_BOSS",
       /** 功能描述 */
-      dsc: 'BOSS模块',
-      event: 'message',
+      dsc: "BOSS模块",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
-          reg: '^#开启妖王$',
-          fnc: 'CreateWorldBoss',
+          reg: "^#开启妖王$",
+          fnc: "CreateWorldBoss",
         },
         {
-          reg: '^#关闭妖王$',
-          fnc: 'DeleteWorldBoss',
+          reg: "^#关闭妖王$",
+          fnc: "DeleteWorldBoss",
         },
         {
-          reg: '^#妖王状态$',
-          fnc: 'LookUpWorldBossStatus',
+          reg: "^#妖王状态$",
+          fnc: "LookUpWorldBossStatus",
         },
         {
-          reg: '^#妖王贡献榜$',
-          fnc: 'ShowDamageList',
+          reg: "^#妖王贡献榜$",
+          fnc: "ShowDamageList",
         },
         {
-          reg: '^#讨伐妖王$',
-          fnc: 'WorldBossBattle',
+          reg: "^#讨伐妖王$",
+          fnc: "WorldBossBattle",
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getConfig('task', 'task');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.BossTask,
-      name: 'BossTask',
+      name: "BossTask",
       fnc: () => this.CreateWorldBoss(),
     };
   }
@@ -68,16 +68,16 @@ export class BOSS extends plugin {
   async DeleteWorldBoss(e) {
     if (e.isMaster) {
       if (await BossIsAlive()) {
-        await redis.del('Xiuxian:WorldBossStatus');
-        await redis.del('Xiuxian:PlayerRecord');
-        e.reply('妖王挑战关闭！');
-      } else e.reply('妖王未开启');
+        await redis.del("Xiuxian:WorldBossStatus");
+        await redis.del("Xiuxian:PlayerRecord");
+        e.reply("妖王挑战关闭！");
+      } else e.reply("妖王未开启");
     } else return;
   }
   //妖王状态指令
   async LookUpWorldBossStatus(e) {
     if (await BossIsAlive()) {
-      let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus');
+      let WorldBossStatusStr = await redis.get("Xiuxian:WorldBossStatus");
       if (WorldBossStatusStr) {
         WorldBossStatusStr = JSON.parse(WorldBossStatusStr);
         if (new Date().getTime() - WorldBossStatusStr.KilledTime < 86400000) {
@@ -93,20 +93,20 @@ export class BOSS extends plugin {
         ];
         e.reply(ReplyMsg);
       }
-    } else e.reply('妖王未开启！');
+    } else e.reply("妖王未开启！");
     return true;
   }
 
   //妖王伤害贡献榜
   async ShowDamageList(e) {
     if (await BossIsAlive()) {
-      let PlayerRecord = await redis.get('Xiuxian:PlayerRecord');
-      let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus');
+      let PlayerRecord = await redis.get("Xiuxian:PlayerRecord");
+      let WorldBossStatusStr = await redis.get("Xiuxian:WorldBossStatus");
       WorldBossStatusStr = JSON.parse(WorldBossStatusStr);
       PlayerRecord = JSON.parse(PlayerRecord);
       let PlayerList = await SortPlayer(PlayerRecord);
       if (!PlayerRecord?.Name) {
-        e.reply('还没人挑战过妖王');
+        e.reply("还没人挑战过妖王");
         return true;
       }
       let CurrentQQ;
@@ -117,7 +117,7 @@ export class BOSS extends plugin {
         i++
       )
         TotalDamage += PlayerRecord.TotalDamage[PlayerList[i]];
-      let msg = ['****妖王周本贡献排行榜****'];
+      let msg = ["****妖王周本贡献排行榜****"];
       for (var i = 0; i < PlayerList.length; i++) {
         if (i < 20) {
           let Reward = Math.trunc(
@@ -126,11 +126,11 @@ export class BOSS extends plugin {
           );
           Reward = Reward < 200000 ? 200000 : Reward;
           msg.push(
-            '第' +
+            "第" +
               `${i + 1}` +
-              '名:\n' +
+              "名:\n" +
               `名号:${PlayerRecord.Name[PlayerList[i]]}` +
-              '\n' +
+              "\n" +
               `总伤害:${PlayerRecord.TotalDamage[PlayerList[i]]}` +
               `\n${
                 WorldBossStatusStr.Health == 0 ? `已得到灵石` : `预计得到灵石`
@@ -147,7 +147,7 @@ export class BOSS extends plugin {
             PlayerRecord.TotalDamage[PlayerList[CurrentQQ - 1]]
           }，再接再厉！`
         );
-    } else e.reply('妖王未开启！');
+    } else e.reply("妖王未开启！");
     return true;
   }
   //与妖王战斗
@@ -155,28 +155,28 @@ export class BOSS extends plugin {
     if (e.isPrivate) return;
 
     if (!(await BossIsAlive())) {
-      e.reply('妖王未开启！');
+      e.reply("妖王未开启！");
       return true;
     }
     let usr_qq = e.user_id;
     var Time = 5;
     let now_Time = new Date().getTime(); //获取当前时间戳
     Time = parseInt(60000 * Time);
-    let last_time = await redis.get('xiuxian:player:' + usr_qq + 'BOSSCD'); //获得上次的时间戳,
+    let last_time = await redis.get("xiuxian:player:" + usr_qq + "BOSSCD"); //获得上次的时间戳,
     last_time = parseInt(last_time);
     if (now_Time < last_time + Time) {
       let Couple_m = Math.trunc((last_time + Time - now_Time) / 60 / 1000);
       let Couple_s = Math.trunc(((last_time + Time - now_Time) % 60000) / 1000);
-      e.reply('正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`);
+      e.reply("正在CD中，" + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`);
       return;
     }
-    if (data.existData('player', usr_qq)) {
-      let player = await data.getData('player', usr_qq);
+    if (data.existData("player", usr_qq)) {
+      let player = await data.getData("player", usr_qq);
       if (player.level_id < 42 && player.lunhui == 0) {
-        e.reply('你在仙界吗');
+        e.reply("你在仙界吗");
         return true;
       }
-      let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+      let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
       action = JSON.parse(action);
       if (action != null) {
         let action_end_time = action.end_time;
@@ -185,13 +185,13 @@ export class BOSS extends plugin {
           let m = parseInt((action_end_time - now_time) / 1000 / 60);
           let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
           e.reply(
-            '正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒'
+            "正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒"
           );
           return;
         }
       }
       if (player.当前血量 <= player.血量上限 * 0.1) {
-        e.reply('还是先疗伤吧，别急着参战了');
+        e.reply("还是先疗伤吧，别急着参战了");
         return true;
       }
       if (WorldBOSSBattleCD[usr_qq]) {
@@ -205,8 +205,8 @@ export class BOSS extends plugin {
           return true;
         }
       }
-      let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus');
-      let PlayerRecord = await redis.get('Xiuxian:PlayerRecord');
+      let WorldBossStatusStr = await redis.get("Xiuxian:WorldBossStatus");
+      let PlayerRecord = await redis.get("Xiuxian:PlayerRecord");
       let WorldBossStatus = JSON.parse(WorldBossStatusStr);
       if (new Date().getTime() - WorldBossStatus.KilledTime < 86400000) {
         e.reply(`妖王正在刷新,21点开启`);
@@ -247,7 +247,7 @@ export class BOSS extends plugin {
       }
       let TotalDamage = 0;
       let Boss = {
-        名号: '妖王幻影',
+        名号: "妖王幻影",
         攻击: parseInt(player.攻击 * (0.8 + 0.6 * Math.random())),
         防御: parseInt(player.防御 * (0.8 + 0.6 * Math.random())),
         当前血量: parseInt(player.血量上限 * (0.8 + 0.6 * Math.random())),
@@ -259,7 +259,7 @@ export class BOSS extends plugin {
       if (WorldBOSSBattleUnLockTimer) clearTimeout(WorldBOSSBattleUnLockTimer);
       SetWorldBOSSBattleUnLockTimer(e);
       if (WorldBOSSBattleLock != 0) {
-        e.reply('好像有人正在和妖王激战，现在去怕是有未知的凶险，还是等等吧！');
+        e.reply("好像有人正在和妖王激战，现在去怕是有未知的凶险，还是等等吧！");
         return true;
       }
       WorldBOSSBattleLock = 1;
@@ -272,14 +272,14 @@ export class BOSS extends plugin {
         let msgg = JSON.parse(JSON.stringify(msg));
         msgg.length = 60;
         await ForwardMsg(e, msgg);
-        e.reply('战斗过长，仅展示部分内容');
+        e.reply("战斗过长，仅展示部分内容");
       }
       await sleep(1000);
       if (!WorldBossStatus.Healthmax) {
-        e.reply('请联系管理员重新开启!');
+        e.reply("请联系管理员重新开启!");
         return;
       }
-      if (msg.find(item => item == A_win)) {
+      if (msg.find((item) => item == A_win)) {
         TotalDamage = Math.trunc(
           WorldBossStatus.Healthmax * 0.05 +
             Harm(player.攻击 * 0.85, Boss.防御) * 6
@@ -288,7 +288,7 @@ export class BOSS extends plugin {
         e.reply(
           `${player.名号}击败了[${Boss.名号}],重创[妖王],造成伤害${TotalDamage}`
         );
-      } else if (msg.find(item => item == B_win)) {
+      } else if (msg.find((item) => item == B_win)) {
         TotalDamage = Math.trunc(
           WorldBossStatus.Healthmax * 0.03 +
             Harm(player.攻击 * 0.85, Boss.防御) * 4
@@ -301,10 +301,10 @@ export class BOSS extends plugin {
       await Add_HP(usr_qq, Data_battle.A_xue);
       await sleep(1000);
       let random = Math.random();
-      if (random < 0.05 && msg.find(item => item == A_win)) {
-        e.reply('这场战斗重创了[妖王]，妖王使用了古典秘籍,血量回复了20%');
+      if (random < 0.05 && msg.find((item) => item == A_win)) {
+        e.reply("这场战斗重创了[妖王]，妖王使用了古典秘籍,血量回复了20%");
         WorldBossStatus.Health += Math.trunc(WorldBossStatus.Healthmax * 0.2);
-      } else if (random > 0.95 && msg.find(item => item == B_win)) {
+      } else if (random > 0.95 && msg.find((item) => item == B_win)) {
         TotalDamage += Math.trunc(WorldBossStatus.Health * 0.15);
         WorldBossStatus.Health -= Math.trunc(WorldBossStatus.Health * 0.15);
         e.reply(
@@ -316,16 +316,16 @@ export class BOSS extends plugin {
       }
       await sleep(1000);
       PlayerRecordJSON.TotalDamage[Userid] += TotalDamage;
-      redis.set('Xiuxian:PlayerRecord', JSON.stringify(PlayerRecordJSON));
-      redis.set('Xiuxian:WorldBossStatus', JSON.stringify(WorldBossStatus));
+      redis.set("Xiuxian:PlayerRecord", JSON.stringify(PlayerRecordJSON));
+      redis.set("Xiuxian:WorldBossStatus", JSON.stringify(WorldBossStatus));
       if (WorldBossStatus.Health <= 0) {
-        e.reply('妖王被击杀！玩家们可以根据贡献获得奖励！');
+        e.reply("妖王被击杀！玩家们可以根据贡献获得奖励！");
         await sleep(1000);
         let msg2 =
-          '【全服公告】' +
+          "【全服公告】" +
           player.名号 +
-          '亲手结果了妖王的性命,为民除害,额外获得1000000灵石奖励！';
-        const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
+          "亲手结果了妖王的性命,为民除害,额外获得1000000灵石奖励！";
+        const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
         const groupList = await redis.sMembers(redisGlKey);
         for (const group_id of groupList) {
           await pushInfo(group_id, true, msg2);
@@ -334,15 +334,15 @@ export class BOSS extends plugin {
         Bot.logger.mark(`[妖王] 结算:${usr_qq}增加奖励1000000`);
 
         WorldBossStatus.KilledTime = new Date().getTime();
-        redis.set('Xiuxian:WorldBossStatus', JSON.stringify(WorldBossStatus));
+        redis.set("Xiuxian:WorldBossStatus", JSON.stringify(WorldBossStatus));
         let PlayerList = await SortPlayer(PlayerRecordJSON);
         e.reply(
-          '正在进行存档有效性检测，如果长时间没有回复请联系主人修复存档并手动按照贡献榜发放奖励'
+          "正在进行存档有效性检测，如果长时间没有回复请联系主人修复存档并手动按照贡献榜发放奖励"
         );
         for (let i = 0; i < PlayerList.length; i++)
-          await data.getData('player', PlayerRecordJSON.QQ[PlayerList[i]]);
+          await data.getData("player", PlayerRecordJSON.QQ[PlayerList[i]]);
         let Show_MAX;
-        let Rewardmsg = ['****妖王周本贡献排行榜****'];
+        let Rewardmsg = ["****妖王周本贡献排行榜****"];
         if (PlayerList.length > 20) Show_MAX = 20;
         else Show_MAX = PlayerList.length;
         let TotalDamage = 0;
@@ -354,7 +354,7 @@ export class BOSS extends plugin {
           TotalDamage += PlayerRecordJSON.TotalDamage[PlayerList[i]];
         for (var i = 0; i < PlayerList.length; i++) {
           let CurrentPlayer = await data.getData(
-            'player',
+            "player",
             PlayerRecordJSON.QQ[PlayerList[i]]
           );
           if (i < Show_MAX) {
@@ -364,18 +364,18 @@ export class BOSS extends plugin {
             );
             Reward = Reward < 200000 ? 200000 : Reward;
             Rewardmsg.push(
-              '第' +
+              "第" +
                 `${i + 1}` +
-                '名:\n' +
+                "名:\n" +
                 `名号:${CurrentPlayer.名号}` +
-                '\n' +
+                "\n" +
                 `伤害:${PlayerRecordJSON.TotalDamage[PlayerList[i]]}` +
-                '\n' +
+                "\n" +
                 `获得灵石奖励${Reward}`
             );
             CurrentPlayer.灵石 += Reward;
             data.setData(
-              'player',
+              "player",
               PlayerRecordJSON.QQ[PlayerList[i]],
               CurrentPlayer
             );
@@ -393,13 +393,13 @@ export class BOSS extends plugin {
               }增加奖励200000`
             );
             data.setData(
-              'player',
+              "player",
               PlayerRecordJSON.QQ[PlayerList[i]],
               CurrentPlayer
             );
           }
           if (i == PlayerList.length - 1)
-            Rewardmsg.push('其余参与的修仙者均获得200000灵石奖励！');
+            Rewardmsg.push("其余参与的修仙者均获得200000灵石奖励！");
         }
         await ForwardMsg(e, Rewardmsg);
       }
@@ -407,7 +407,7 @@ export class BOSS extends plugin {
       WorldBOSSBattleLock = 0;
       return true;
     } else {
-      e.reply('区区凡人，也想参与此等战斗中吗？');
+      e.reply("区区凡人，也想参与此等战斗中吗？");
       return true;
     }
   }
@@ -435,10 +435,10 @@ async function InitWorldBoss() {
     Reward: Reward,
   };
   let PlayerRecord = 0;
-  await redis.set('Xiuxian:WorldBossStatus', JSON.stringify(WorldBossStatus));
-  await redis.set('Xiuxian:PlayerRecord', JSON.stringify(PlayerRecord));
-  let msg = '【全服公告】妖王已经苏醒,击杀者额外获得100w灵石';
-  const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
+  await redis.set("Xiuxian:WorldBossStatus", JSON.stringify(WorldBossStatus));
+  await redis.set("Xiuxian:PlayerRecord", JSON.stringify(PlayerRecord));
+  let msg = "【全服公告】妖王已经苏醒,击杀者额外获得100w灵石";
+  const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
   const groupList = await redis.sMembers(redisGlKey);
   for (const group_id of groupList) {
     await pushInfo(group_id, true, msg);
@@ -450,7 +450,7 @@ async function pushInfo(id, is_group, msg) {
   if (is_group) {
     await Bot.pickGroup(id)
       .sendMsg(msg)
-      .catch(err => {
+      .catch((err) => {
         Bot.logger.mark(err);
       });
   } else {
@@ -461,8 +461,8 @@ async function pushInfo(id, is_group, msg) {
 //获取妖王是否已开启
 async function BossIsAlive() {
   return (
-    (await redis.get('Xiuxian:WorldBossStatus')) &&
-    (await redis.get('Xiuxian:PlayerRecord'))
+    (await redis.get("Xiuxian:WorldBossStatus")) &&
+    (await redis.get("Xiuxian:PlayerRecord"))
   );
 }
 
@@ -491,7 +491,7 @@ async function SetWorldBOSSBattleUnLockTimer(e) {
   WorldBOSSBattleUnLockTimer = setTimeout(() => {
     if (WorldBOSSBattleLock == 1) {
       WorldBOSSBattleLock = 0;
-      e.reply('检测到战斗锁卡死，已自动修复');
+      e.reply("检测到战斗锁卡死，已自动修复");
       return true;
     }
   }, 30000);
@@ -499,7 +499,7 @@ async function SetWorldBOSSBattleUnLockTimer(e) {
 
 //sleep
 async function sleep(time) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, time);
   });
 }
@@ -507,15 +507,15 @@ async function sleep(time) {
 //获取玩家平均实力和化神以上人数
 async function GetAverageDamage() {
   let File = fs.readdirSync(data.filePathMap.player);
-  File = File.filter(file => file.endsWith('.json'));
+  File = File.filter((file) => file.endsWith(".json"));
   let temp = [];
   let TotalPlayer = 0;
   for (var i = 0; i < File.length; i++) {
-    let this_qq = File[i].replace('.json', '');
+    let this_qq = File[i].replace(".json", "");
     this_qq = parseInt(this_qq);
-    let player = await data.getData('player', this_qq);
+    let player = await data.getData("player", this_qq);
     let level_id = data.Level_list.find(
-      item => item.level_id == player.level_id
+      (item) => item.level_id == player.level_id
     ).level_id;
     if (level_id >= 42) {
       temp[TotalPlayer] = parseInt(player.攻击);

@@ -1,7 +1,7 @@
-import { plugin, common, segment } from '../../api/api.js';
-import config from '../../model/Config.js';
-import data from '../../model/XiuxianData.js';
-import fs from 'fs';
+import { plugin, common, segment } from "../../api/api.js";
+import config from "../../model/Config.js";
+import data from "../../model/XiuxianData.js";
+import fs from "fs";
 import {
   Read_player,
   isNotNull,
@@ -10,23 +10,23 @@ import {
   Add_修为,
   Read_temp,
   Write_temp,
-} from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js';
+} from "../../model/xiuxian.js";
+import { AppName } from "../../app.config.js";
 
 export class shenjietask extends plugin {
   constructor() {
     super({
-      name: 'shenjietask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "shenjietask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getConfig('task', 'task');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.actionplus_task,
-      name: 'shenjietask',
+      name: "shenjietask",
       fnc: () => this.shenjietask(),
     };
   }
@@ -34,25 +34,25 @@ export class shenjietask extends plugin {
     //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     for (let player_id of playerList) {
-      let log_mag = ''; //查询当前人物动作日志信息
-      log_mag = log_mag + '查询' + player_id + '是否有动作,';
+      let log_mag = ""; //查询当前人物动作日志信息
+      log_mag = log_mag + "查询" + player_id + "是否有动作,";
       //得到动作
 
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      let action = await redis.get("xiuxian:player:" + player_id + ":action");
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
         let push_address; //消息推送地址
         let is_group = false; //是否推送到群
 
-        if (await action.hasOwnProperty('group_id')) {
+        if (await action.hasOwnProperty("group_id")) {
           if (isNotNull(action.group_id)) {
             is_group = true;
             push_address = action.group_id;
@@ -69,7 +69,7 @@ export class shenjietask extends plugin {
         let player = await Read_player(player_id);
 
         //有洗劫状态:这个直接结算即可
-        if (action.mojie == '-1') {
+        if (action.mojie == "-1") {
           //5分钟后开始结算阶段一
           end_time = end_time - action.time;
           //时间过了
@@ -83,12 +83,12 @@ export class shenjietask extends plugin {
             var z = 0.15;
             let random3 = Math.random();
             let random4;
-            var m = '';
+            var m = "";
             var n = 1;
             let t1;
             let t2;
-            let last_msg = '';
-            let fyd_msg = '';
+            let last_msg = "";
+            let fyd_msg = "";
             if (random1 <= x) {
               if (random2 <= y) {
                 if (random3 <= z) {
@@ -121,22 +121,22 @@ export class shenjietask extends plugin {
                 t2 = 0.5 + Math.random() * 0.5;
               }
             } else {
-              thing_name = '';
-              thing_class = '';
-              m = '走在路上都没看见一只蚂蚁！';
+              thing_name = "";
+              thing_class = "";
+              m = "走在路上都没看见一只蚂蚁！";
               t1 = 2 + Math.random();
               t2 = 2 + Math.random();
             }
             let random = Math.random();
             if (random < player.幸运) {
               if (random < player.addluckyNo) {
-                last_msg += '福源丹生效，所以在';
-              } else if (player.仙宠.type == '幸运') {
-                last_msg += '仙宠使你在探索中欧气满满，所以在';
+                last_msg += "福源丹生效，所以在";
+              } else if (player.仙宠.type == "幸运") {
+                last_msg += "仙宠使你在探索中欧气满满，所以在";
               }
               n++;
               last_msg +=
-                '探索过程中意外发现了两份机缘,最终获取机缘数量将翻倍\n';
+                "探索过程中意外发现了两份机缘,最终获取机缘数量将翻倍\n";
             }
             if (player.islucky > 0) {
               player.islucky--;
@@ -147,7 +147,7 @@ export class shenjietask extends plugin {
                 player.幸运 -= player.addluckyNo;
                 player.addluckyNo = 0;
               }
-              await data.setData('player', player_id, player);
+              await data.setData("player", player_id, player);
             }
             //默认结算装备数
             let now_level_id;
@@ -163,18 +163,18 @@ export class shenjietask extends plugin {
             qixue = Math.trunc(
               2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1
             );
-            if (thing_name != '' || thing_class != '') {
+            if (thing_name != "" || thing_class != "") {
               await Add_najie_thing(player_id, thing_name, thing_class, n);
             }
             last_msg +=
               m +
-              ',获得修为' +
+              ",获得修为" +
               xiuwei +
-              ',气血' +
+              ",气血" +
               qixue +
-              ',剩余次数' +
+              ",剩余次数" +
               (action.cishu - 1);
-            msg.push('\n' + player.名号 + last_msg + fyd_msg);
+            msg.push("\n" + player.名号 + last_msg + fyd_msg);
             let arr = action;
             if (arr.cishu == 1) {
               //把状态都关了
@@ -190,7 +190,7 @@ export class shenjietask extends plugin {
               delete arr.group_id;
               //写入redis
               await redis.set(
-                'xiuxian:player:' + player_id + ':action',
+                "xiuxian:player:" + player_id + ":action",
                 JSON.stringify(arr)
               );
               //先完结再结算
@@ -205,7 +205,7 @@ export class shenjietask extends plugin {
             } else {
               arr.cishu--;
               await redis.set(
-                'xiuxian:player:' + player_id + ':action',
+                "xiuxian:player:" + player_id + ":action",
                 JSON.stringify(arr)
               );
               //先完结再结算
@@ -247,7 +247,7 @@ export class shenjietask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch(err => {
+        .catch((err) => {
           Bot.logger.mark(err);
         });
     } else {

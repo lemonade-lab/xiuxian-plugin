@@ -1,13 +1,13 @@
-import { plugin } from '../../api/api.js';
-import fs from 'fs';
+import { plugin } from "../../api/api.js";
+import fs from "fs";
 import {
   existplayer,
   sortBy,
   ForwardMsg,
   __PATH,
   Read_player,
-} from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js';
+} from "../../model/xiuxian.js";
+import { AppName } from "../../app.config.js";
 
 /**
  * 所有榜单
@@ -16,18 +16,18 @@ import { AppName } from '../../app.config.js';
 export class PHB2 extends plugin {
   constructor() {
     super({
-      name: 'Yunzai_Bot_TopList',
-      dsc: '修仙模块',
-      event: 'message',
+      name: "Yunzai_Bot_TopList",
+      dsc: "修仙模块",
+      event: "message",
       priority: 600,
       rule: [
         {
-          reg: '^#镇妖塔榜$',
-          fnc: 'TOP_Immortal',
+          reg: "^#镇妖塔榜$",
+          fnc: "TOP_Immortal",
         },
         {
-          reg: '^#神魄榜$',
-          fnc: 'TOP_genius',
+          reg: "^#神魄榜$",
+          fnc: "TOP_genius",
         },
       ],
     });
@@ -43,15 +43,15 @@ export class PHB2 extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let msg = ['___[镇妖塔榜]___'];
+    let msg = ["___[镇妖塔榜]___"];
     let playerList = [];
     //数组
     let temp = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     var i = 0;
@@ -70,7 +70,7 @@ export class PHB2 extends plugin {
       i++;
     }
     //根据力量排序
-    temp.sort(sortBy('power'));
+    temp.sort(sortBy("power"));
     console.log(temp);
     var length;
     if (temp.length > 20) {
@@ -82,14 +82,14 @@ export class PHB2 extends plugin {
     var j;
     for (j = 0; j < length; j++) {
       msg.push(
-        '第' +
+        "第" +
           (j + 1) +
-          '名' +
-          '\n道号：' +
+          "名" +
+          "\n道号：" +
           temp[j].name +
-          '\n镇妖塔层数：' +
+          "\n镇妖塔层数：" +
           temp[j].power +
-          '\nQQ:' +
+          "\nQQ:" +
           temp[j].qq
       );
     }
@@ -107,15 +107,15 @@ export class PHB2 extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let msg = ['___[神魄榜]___'];
+    let msg = ["___[神魄榜]___"];
     let playerList = [];
     //数组
     let temp = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     var i = 0;
@@ -134,7 +134,7 @@ export class PHB2 extends plugin {
       i++;
     }
     //根据力量排序
-    temp.sort(sortBy('power'));
+    temp.sort(sortBy("power"));
     console.log(temp);
     var length;
     if (temp.length > 20) {
@@ -146,14 +146,14 @@ export class PHB2 extends plugin {
     var j;
     for (j = 0; j < length; j++) {
       msg.push(
-        '第' +
+        "第" +
           (j + 1) +
-          '名' +
-          '\n道号：' +
+          "名" +
+          "\n道号：" +
           temp[j].name +
-          '\n神魄段数：' +
+          "\n神魄段数：" +
           temp[j].power +
-          '\nQQ:' +
+          "\nQQ:" +
           temp[j].qq
       );
     }

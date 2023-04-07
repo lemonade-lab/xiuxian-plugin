@@ -1,5 +1,5 @@
-import { plugin, common, segment } from '../../api/api.js';
-import { __PATH } from '../../model/xiuxian.js';
+import { plugin } from "../../api/api.js";
+import { __PATH } from "../../model/xiuxian.js";
 import {
   get_gongfa_img,
   get_danyao_img,
@@ -8,46 +8,46 @@ import {
   get_XianChong_img,
   get_valuables_img,
   get_ningmenghome_img,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 /**
  * 生图模块
  */
 export class Showningmeng extends plugin {
   constructor(e) {
     super({
-      name: 'Showningmeng',
-      dsc: '修仙存档展示',
-      event: 'message',
+      name: "Showningmeng",
+      dsc: "修仙存档展示",
+      event: "message",
       priority: 600,
       rule: [
         {
-          reg: '^#万宝楼$',
-          fnc: 'show_valuables',
+          reg: "^#万宝楼$",
+          fnc: "show_valuables",
         },
         {
-          reg: '^#装备楼$',
-          fnc: 'Show_WuQi',
+          reg: "^#装备楼$",
+          fnc: "Show_WuQi",
         },
         {
-          reg: '^#丹药楼$',
-          fnc: 'Show_DanYao',
+          reg: "^#丹药楼$",
+          fnc: "Show_DanYao",
         },
         {
-          reg: '^#功法楼$',
-          fnc: 'Show_GongFa',
+          reg: "^#功法楼$",
+          fnc: "Show_GongFa",
         },
         {
-          reg: '^#道具楼$',
-          fnc: 'Show_DaoJu',
+          reg: "^#道具楼$",
+          fnc: "Show_DaoJu",
         },
         {
-          reg: '^#仙宠楼$',
-          fnc: 'Show_XianChong',
+          reg: "^#仙宠楼$",
+          fnc: "Show_XianChong",
         },
 
         {
-          reg: '^#柠檬堂(装备|丹药|功法|道具|草药|武器|护具|法宝|血量|修为|血气|天赋)?$',
-          fnc: 'show_ningmenghome',
+          reg: "^#柠檬堂(装备|丹药|功法|道具|草药|武器|护具|法宝|血量|修为|血气|天赋)?$",
+          fnc: "show_ningmenghome",
         },
       ],
     });
@@ -59,7 +59,7 @@ export class Showningmeng extends plugin {
     if (!e.isGroup) {
       return;
     }
-    let thing_type = e.msg.replace('#柠檬堂', '');
+    let thing_type = e.msg.replace("#柠檬堂", "");
     let img = await get_ningmenghome_img(e, thing_type);
     e.reply(img);
     return;

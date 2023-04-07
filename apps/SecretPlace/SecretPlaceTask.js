@@ -1,7 +1,7 @@
-import { plugin, common, segment } from '../../api/api.js';
-import config from '../../model/Config.js';
-import data from '../../model/XiuxianData.js';
-import fs from 'fs';
+import { plugin, common, segment } from "../../api/api.js";
+import config from "../../model/Config.js";
+import data from "../../model/XiuxianData.js";
+import fs from "fs";
 import {
   Read_player,
   isNotNull,
@@ -12,8 +12,8 @@ import {
   Read_danyao,
   Write_danyao,
   zd_battle,
-} from '../../model/xiuxian.js';
-import { AppName } from '../../app.config.js';
+} from "../../model/xiuxian.js";
+import { AppName } from "../../app.config.js";
 
 /**
  * 定时任务
@@ -21,17 +21,17 @@ import { AppName } from '../../app.config.js';
 export class SecretPlaceTask extends plugin {
   constructor() {
     super({
-      name: 'SecretPlaceTask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "SecretPlaceTask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getConfig('task', 'task');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.action_task,
-      name: 'SecretPlaceTask',
+      name: "SecretPlaceTask",
       fnc: () => this.Secretplacetask(),
     };
   }
@@ -40,23 +40,23 @@ export class SecretPlaceTask extends plugin {
     //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     for (let player_id of playerList) {
-      let log_mag = ''; //查询当前人物动作日志信息
-      log_mag = log_mag + '查询' + player_id + '是否有动作,';
+      let log_mag = ""; //查询当前人物动作日志信息
+      log_mag = log_mag + "查询" + player_id + "是否有动作,";
       //得到动作
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      let action = await redis.get("xiuxian:player:" + player_id + ":action");
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
         let push_address; //消息推送地址
         let is_group = false; //是否推送到群
-        if (await action.hasOwnProperty('group_id')) {
+        if (await action.hasOwnProperty("group_id")) {
           if (isNotNull(action.group_id)) {
             is_group = true;
             push_address = action.group_id;
@@ -71,7 +71,7 @@ export class SecretPlaceTask extends plugin {
         //用户信息
         let player = await Read_player(player_id);
         //有秘境状态:这个直接结算即可
-        if (action.Place_action == '0') {
+        if (action.Place_action == "0") {
           //这里改一改,要在结束时间的前两分钟提前结算
           end_time = end_time - 60000 * 2;
           //时间过了
@@ -87,7 +87,7 @@ export class SecretPlaceTask extends plugin {
               仙宠: player.仙宠,
             };
             let buff = 1;
-            if (weizhi.name == '大千世界' || weizhi.name == '仙界矿场')
+            if (weizhi.name == "大千世界" || weizhi.name == "仙界矿场")
               buff = 0.6;
             let monster_length = data.monster_list.length;
             let monster_index = Math.trunc(Math.random() * monster_length);
@@ -113,13 +113,13 @@ export class SecretPlaceTask extends plugin {
             var z = this.xiuxianConfigData.SecretPlace.three;
             let random3 = Math.random();
             let random4;
-            var m = '';
-            let fyd_msg = '';
+            var m = "";
+            let fyd_msg = "";
             //查找秘境
             let t1;
             let t2;
             var n = 1;
-            let last_msg = '';
+            let last_msg = "";
             if (random1 <= x) {
               if (random2 <= y) {
                 if (random3 <= z) {
@@ -136,9 +136,9 @@ export class SecretPlaceTask extends plugin {
                   m = `在洞穴中拿到[${thing_name}`;
                   t1 = 1 + Math.random();
                   t2 = 1 + Math.random();
-                  if (weizhi.name == '太极之阳' || weizhi.name == '太极之阴') {
+                  if (weizhi.name == "太极之阳" || weizhi.name == "太极之阴") {
                     n = 5;
-                    m = '捡到了[' + thing_name;
+                    m = "捡到了[" + thing_name;
                   }
                 }
               } else {
@@ -148,33 +148,33 @@ export class SecretPlaceTask extends plugin {
                 m = `捡到了[${thing_name}`;
                 t1 = 0.5 + Math.random() * 0.5;
                 t2 = 0.5 + Math.random() * 0.5;
-                if (weizhi.name == '诸神黄昏·旧神界') {
+                if (weizhi.name == "诸神黄昏·旧神界") {
                   n = 100;
-                  if (thing_name == '洗根水') n = 130;
-                  m = '捡到了[' + thing_name;
+                  if (thing_name == "洗根水") n = 130;
+                  m = "捡到了[" + thing_name;
                 }
-                if (weizhi.name == '太极之阳' || weizhi.name == '太极之阴') {
+                if (weizhi.name == "太极之阳" || weizhi.name == "太极之阴") {
                   n = 5;
-                  m = '捡到了[' + thing_name;
+                  m = "捡到了[" + thing_name;
                 }
               }
             } else {
-              m = '走在路上看见了一只蚂蚁！蚂蚁大仙送了你[起死回生丹';
-              await Add_najie_thing(player_id, '起死回生丹', '丹药', 1);
+              m = "走在路上看见了一只蚂蚁！蚂蚁大仙送了你[起死回生丹";
+              await Add_najie_thing(player_id, "起死回生丹", "丹药", 1);
               t1 = 0.5 + Math.random() * 0.5;
               t2 = 0.5 + Math.random() * 0.5;
             }
-            if (weizhi.name != '诸神黄昏·旧神界') {
+            if (weizhi.name != "诸神黄昏·旧神界") {
               //判断是不是旧神界
               let random = Math.random();
               if (random < player.幸运) {
                 if (random < player.addluckyNo) {
-                  last_msg += '福源丹生效，所以在';
-                } else if (player.仙宠.type == '幸运') {
-                  last_msg += '仙宠使你在探索中欧气满满，所以在';
+                  last_msg += "福源丹生效，所以在";
+                } else if (player.仙宠.type == "幸运") {
+                  last_msg += "仙宠使你在探索中欧气满满，所以在";
                 }
                 n *= 2;
-                last_msg += '本次探索中获得赐福加成\n';
+                last_msg += "本次探索中获得赐福加成\n";
               }
               if (player.islucky > 0) {
                 player.islucky--;
@@ -185,7 +185,7 @@ export class SecretPlaceTask extends plugin {
                   player.幸运 -= player.addluckyNo;
                   player.addluckyNo = 0;
                 }
-                data.setData('player', player_id, player);
+                data.setData("player", player_id, player);
               }
             }
             m += `]×${n}个。`;
@@ -197,7 +197,7 @@ export class SecretPlaceTask extends plugin {
             now_physique_id = player.Physique_id;
             //结算
             let qixue = 0;
-            if (msgg.find(item => item == A_win)) {
+            if (msgg.find((item) => item == A_win)) {
               xiuwei = Math.trunc(
                 2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5
               );
@@ -228,28 +228,28 @@ export class SecretPlaceTask extends plugin {
                 let index = Math.trunc(Math.random() * length);
                 let kouliang = data.xianchonkouliang[index];
                 last_msg +=
-                  '\n七彩流光的神奇仙谷[' +
+                  "\n七彩流光的神奇仙谷[" +
                   kouliang.name +
-                  ']深埋在土壤中，是仙兽们的最爱。';
-                await Add_najie_thing(player_id, kouliang.name, '仙宠口粮', 1);
+                  "]深埋在土壤中，是仙兽们的最爱。";
+                await Add_najie_thing(player_id, kouliang.name, "仙宠口粮", 1);
               }
               if (random > 0.1 && random < 0.1002) {
                 last_msg +=
-                  '\n' +
+                  "\n" +
                   B_player.名号 +
-                  '倒下后,你正准备离开此地，看见路边草丛里有个长相奇怪的石头，顺手放进了纳戒。';
-                await Add_najie_thing(player_id, '长相奇怪的小石头', '道具', 1);
+                  "倒下后,你正准备离开此地，看见路边草丛里有个长相奇怪的石头，顺手放进了纳戒。";
+                await Add_najie_thing(player_id, "长相奇怪的小石头", "道具", 1);
               }
-            } else if (msgg.find(item => item == B_win)) {
+            } else if (msgg.find((item) => item == B_win)) {
               xiuwei = 800;
               last_msg =
-                '不巧撞见[' +
+                "不巧撞见[" +
                 B_player.名号 +
-                '],经过一番战斗,败下阵来,还好跑得快,只获得了修为' +
+                "],经过一番战斗,败下阵来,还好跑得快,只获得了修为" +
                 xiuwei +
-                ']';
+                "]";
             }
-            msg.push('\n' + player.名号 + last_msg + fyd_msg);
+            msg.push("\n" + player.名号 + last_msg + fyd_msg);
             let arr = action;
             //把状态都关了
             arr.shutup = 1; //闭关状态
@@ -263,7 +263,7 @@ export class SecretPlaceTask extends plugin {
             delete arr.group_id;
             //写入redis
             await redis.set(
-              'xiuxian:player:' + player_id + ':action',
+              "xiuxian:player:" + player_id + ":action",
               JSON.stringify(arr)
             );
             //先完结再结算
@@ -292,7 +292,7 @@ export class SecretPlaceTask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch(err => {
+        .catch((err) => {
           Bot.logger.mark(err);
         });
     } else {

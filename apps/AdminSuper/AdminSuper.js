@@ -1,8 +1,8 @@
-import { plugin } from '../../api/api.js';
-import fs from 'fs';
-import data from '../../model/XiuxianData.js';
-import config from '../../model/Config.js';
-import { AppName } from '../../app.config.js';
+import { plugin, puppeteer } from "../../api/api.js";
+import fs from "fs";
+import data from "../../model/XiuxianData.js";
+import config from "../../model/Config.js";
+import { AppName } from "../../app.config.js";
 import {
   existplayer,
   Write_player,
@@ -12,63 +12,62 @@ import {
   Read_Exchange,
   Write_Exchange,
   get_player_img,
-} from '../../model/xiuxian.js';
-import { Read_player, __PATH } from '../../model/xiuxian.js';
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js';
-import Show from '../../model/show.js';
+} from "../../model/xiuxian.js";
+import { Read_player, __PATH } from "../../model/xiuxian.js";
+import Show from "../../model/show.js";
 export class AdminSuper extends plugin {
   constructor() {
     super({
-      name: 'Yunzai_Bot_AdminSuper',
-      dsc: '修仙设置',
-      event: 'message',
+      name: "Yunzai_Bot_AdminSuper",
+      dsc: "修仙设置",
+      event: "message",
       priority: 100,
       rule: [
         {
-          reg: '^#解封.*$',
-          fnc: 'relieve',
+          reg: "^#解封.*$",
+          fnc: "relieve",
         },
         {
-          reg: '^#解除所有$',
-          fnc: 'Allrelieve',
+          reg: "^#解除所有$",
+          fnc: "Allrelieve",
         },
         {
-          reg: '^#打落凡间.*$',
-          fnc: 'Knockdown',
+          reg: "^#打落凡间.*$",
+          fnc: "Knockdown",
         },
         {
-          reg: '^#清除冲水堂$',
-          fnc: 'Deleteexchange',
+          reg: "^#清除冲水堂$",
+          fnc: "Deleteexchange",
         },
         {
-          reg: '^#查看日志$',
-          fnc: 'show_log',
+          reg: "^#查看日志$",
+          fnc: "show_log",
         },
         {
-          reg: '^#解散宗门.*$',
-          fnc: 'jiesan_ass',
+          reg: "^#解散宗门.*$",
+          fnc: "jiesan_ass",
         },
         {
-          reg: '#将米娜桑的纳戒里叫.*的的的(装备|道具|丹药|功法|草药|材料|仙宠|口粮)(抹除|替换为叫.*之之之(装备|道具|丹药|功法|草药|材料|仙宠|口粮))$',
-          fnc: 'replaceThing',
+          reg: "#将米娜桑的纳戒里叫.*的的的(装备|道具|丹药|功法|草药|材料|仙宠|口粮)(抹除|替换为叫.*之之之(装备|道具|丹药|功法|草药|材料|仙宠|口粮))$",
+          fnc: "replaceThing",
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
   async jiesan_ass(e) {
     if (!e.isMaster) {
       return;
     }
-    let didian = e.msg.replace('#解散宗门', '');
+    let didian = e.msg.replace("#解散宗门", "");
     didian = didian.trim();
     let ass = data.getAssociation(didian);
-    if (ass == 'error') {
-      e.reply('该宗门不存在');
+    if (ass == "error") {
+      e.reply("该宗门不存在");
       return;
     }
     for (let qq of ass.所有成员) {
-      let player = await data.getData('player', qq);
+      let player = await data.getData("player", qq);
       if (player.宗门) {
         if (player.宗门.宗门名称 == didian) {
           delete player.宗门;
@@ -77,14 +76,14 @@ export class AdminSuper extends plugin {
       }
     }
     fs.rmSync(`${data.filePathMap.association}/${didian}.json`);
-    e.reply('解散成功!');
+    e.reply("解散成功!");
     return;
   }
   async show_log(e) {
     let j;
     const reader = await Read_updata_log();
     let str = [];
-    let line_log = reader.trim().split('\n'); //读取数据并按行分割
+    let line_log = reader.trim().split("\n"); //读取数据并按行分割
     line_log.forEach((item, index) => {
       // 删除空项
       if (!item) {
@@ -98,12 +97,12 @@ export class AdminSuper extends plugin {
         str.push(temp[0]);
         i = 1;
       }
-      let t = '';
+      let t = "";
       for (let x = i; x < temp.length; x++) {
         t += temp[x];
         //console.log(t)
         if (x == temp.length - 2 || x == temp.length - 3) {
-          t += '\t';
+          t += "\t";
         }
       }
       str.push(t);
@@ -116,9 +115,9 @@ export class AdminSuper extends plugin {
       str[str.length - 1 - j] = T;
     }
     for (j = str.length - 1; j > -1; j--) {
-      if (str[j] == '零' || str[j] == '打铁的') {
+      if (str[j] == "零" || str[j] == "打铁的") {
         let m = j;
-        while (str[m - 1] != '零' && str[m - 1] != '打铁的' && m > 0) {
+        while (str[m - 1] != "零" && str[m - 1] != "打铁的" && m > 0) {
           T = str[m];
           str[m] = str[m - 1];
           str[m - 1] = T;
@@ -130,7 +129,7 @@ export class AdminSuper extends plugin {
       log: str,
     };
     const data1 = await new Show(e).get_logData(log_data);
-    let img = await puppeteer.screenshot('log', {
+    let img = await puppeteer.screenshot("log", {
       ...data1,
     });
     e.reply(img);
@@ -145,7 +144,7 @@ export class AdminSuper extends plugin {
     if (!e.isGroup) {
       return;
     }
-    e.reply('开始清除！');
+    e.reply("开始清除！");
     let Exchange;
     try {
       Exchange = await Read_Exchange();
@@ -158,11 +157,11 @@ export class AdminSuper extends plugin {
       let usr_qq = i.qq;
       let thing = i.name.name;
       let quanity = i.aconut;
-      if (i.name.class == '装备' || i.name.class == '仙宠') thing = i.name;
+      if (i.name.class == "装备" || i.name.class == "仙宠") thing = i.name;
       await Add_najie_thing(usr_qq, thing, i.name.class, quanity, i.name.pinji);
     }
     await Write_Exchange([]);
-    e.reply('清除完成！');
+    e.reply("清除完成！");
     return;
   }
 
@@ -176,7 +175,7 @@ export class AdminSuper extends plugin {
     }
     //不开放私聊功能
     if (!e.isGroup) {
-      e.reply('此功能暂时不开放私聊');
+      e.reply("此功能暂时不开放私聊");
       return;
     }
     let img = await get_player_img(e);
@@ -192,23 +191,23 @@ export class AdminSuper extends plugin {
     if (!e.isGroup) {
       return;
     }
-    e.reply('开始行动！');
+    e.reply("开始行动！");
     let playerList = [];
     let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter(file => file.endsWith('.json'));
+      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
+      .filter((file) => file.endsWith(".json"));
     for (let file of files) {
-      file = file.replace('.json', '');
+      file = file.replace(".json", "");
       playerList.push(file);
     }
     for (let player_id of playerList) {
       //清除游戏状态
-      await redis.set('xiuxian:player:' + player_id + ':game_action', 1);
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      await redis.set("xiuxian:player:" + player_id + ":game_action", 1);
+      let action = await redis.get("xiuxian:player:" + player_id + ":action");
       action = JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
-        await redis.del('xiuxian:player:' + player_id + ':action');
+        await redis.del("xiuxian:player:" + player_id + ":action");
         let arr = action;
         arr.is_jiesuan = 1; //结算状态
         arr.shutup = 1; //闭关状态
@@ -219,12 +218,12 @@ export class AdminSuper extends plugin {
         arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
         delete arr.group_id; //结算完去除group_id
         await redis.set(
-          'xiuxian:player:' + player_id + ':action',
+          "xiuxian:player:" + player_id + ":action",
           JSON.stringify(arr)
         );
       }
     }
-    e.reply('行动结束！');
+    e.reply("行动结束！");
   }
 
   async relieve(e) {
@@ -237,12 +236,12 @@ export class AdminSuper extends plugin {
       return;
     }
     //没有at信息直接返回,不执行
-    let isat = e.message.some(item => item.type === 'at');
+    let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
       return;
     }
     //获取at信息
-    let atItem = e.message.filter(item => item.type === 'at');
+    let atItem = e.message.filter((item) => item.type === "at");
     //对方qq
     let qq = atItem[0].qq;
     //检查存档
@@ -251,9 +250,9 @@ export class AdminSuper extends plugin {
       return;
     }
     //清除游戏状态
-    await redis.set('xiuxian:player:' + qq + ':game_action', 1);
+    await redis.set("xiuxian:player:" + qq + ":game_action", 1);
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + qq + ':action');
+    let action = await redis.get("xiuxian:player:" + qq + ":action");
     action = JSON.parse(action);
     //不为空，有状态
     if (action != null) {
@@ -267,12 +266,12 @@ export class AdminSuper extends plugin {
       arr.Place_actionplus = 1; //沉迷状态
       arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
       delete arr.group_id; //结算完去除group_id
-      await redis.set('xiuxian:player:' + qq + ':action', JSON.stringify(arr));
-      e.reply('已解除！');
+      await redis.set("xiuxian:player:" + qq + ":action", JSON.stringify(arr));
+      e.reply("已解除！");
       return;
     }
     //是空的
-    e.reply('不需要解除！');
+    e.reply("不需要解除！");
     return;
   }
 
@@ -286,23 +285,23 @@ export class AdminSuper extends plugin {
       return;
     }
     //没有at信息直接返回,不执行
-    let isat = e.message.some(item => item.type === 'at');
+    let isat = e.message.some((item) => item.type === "at");
     if (!isat) {
       return;
     }
     //获取at信息
-    let atItem = e.message.filter(item => item.type === 'at');
+    let atItem = e.message.filter((item) => item.type === "at");
     //对方qq
     let qq = atItem[0].qq;
     //检查存档
     let ifexistplay = await existplayer(qq);
     if (!ifexistplay) {
-      e.reply('没存档你打个锤子！');
+      e.reply("没存档你打个锤子！");
       return;
     }
     let player = await Read_player(qq);
     player.power_place = 1;
-    e.reply('已打落凡间！');
+    e.reply("已打落凡间！");
     await Write_player(qq, player);
     return;
   }
@@ -310,53 +309,53 @@ export class AdminSuper extends plugin {
   async replaceThing(e) {
     //主人判断
     if (!e.isMaster) return;
-    const msg1 = e.msg.replace('#将米娜桑的纳戒里叫', '');
-    const [thingName, msg2] = msg1.split('的的的');
+    const msg1 = e.msg.replace("#将米娜桑的纳戒里叫", "");
+    const [thingName, msg2] = msg1.split("的的的");
 
     // #将米娜桑的纳戒里叫.*的的的(装备|道具|丹药|功法|草药|材料|盒子|仙宠|口粮|项链|食材)(抹除|替换为叫.*之之之(装备|道具|丹药|功法|草药|材料|盒子|仙宠|口粮|项链|食材))$
-    if (e.msg.endsWith('抹除')) {
-      const thingType = msg2.replace(/抹除$/, '');
+    if (e.msg.endsWith("抹除")) {
+      const thingType = msg2.replace(/抹除$/, "");
       if (!thingName || !thingType)
         return e.reply(
-          '格式错误，正确格式范例：#将米娜桑的纳戒里叫1w的的的道具替换为叫1k之之之道具'
+          "格式错误，正确格式范例：#将米娜桑的纳戒里叫1w的的的道具替换为叫1k之之之道具"
         );
       await clearNajieThing(thingType, thingName);
-      return e.reply('全部抹除完成');
+      return e.reply("全部抹除完成");
     }
 
     // 替换为
     const N = 1; // 倍数
-    const [thingType, msg3] = msg2.split('替换为叫');
-    const [newThingName, newThingType] = msg3.split('之之之');
+    const [thingType, msg3] = msg2.split("替换为叫");
+    const [newThingName, newThingType] = msg3.split("之之之");
     const objArr = await clearNajieThing(thingType, thingName);
-    objArr.map(uid_tnum => {
+    objArr.map((uid_tnum) => {
       const usrId = Object.entries(uid_tnum)[0][0];
       Add_najie_thing(usrId, newThingName, newThingType, uid_tnum.usrId * N);
     });
-    return e.reply('全部替换完成');
+    return e.reply("全部替换完成");
   }
 }
 
 async function clearNajieThing(thingType, thingName) {
   if (!thingType || !thingName) return [];
 
-  const path = './plugins/' + AppName + '/resources/data/xiuxian_najie';
+  const path = "./plugins/" + AppName + "/resources/data/xiuxian_najie";
   return fs
     .readdirSync(path)
-    .filter(file => file.endsWith('.json'))
-    .map(file => {
-      const usrId = file.replace('.json', '');
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
+      const usrId = file.replace(".json", "");
       const najie = fs.readFileSync(`${path}/${file}`);
       const thingInNajie = JSON.parse(najie)[thingType]?.find(
-        thing => thing.name == thingName
+        (thing) => thing.name == thingName
       );
       if (!thingInNajie) return false;
 
       let thingNumber = thingInNajie.数量;
       Add_najie_thing(usrId, thingName, thingType, -thingNumber);
 
-      if (thingType == '装备') {
-        ['劣', '普', '优', '精', '绝', '顶'].map(async pinji => {
+      if (thingType == "装备") {
+        ["劣", "普", "优", "精", "绝", "顶"].map(async (pinji) => {
           const thingNum = await exist_najie_thing(
             usrId,
             thingName,
@@ -372,5 +371,5 @@ async function clearNajieThing(thingType, thingName) {
 
       return { [usrId]: thingNumber };
     })
-    .filter(usrObj => usrObj);
+    .filter((usrObj) => usrObj);
 }

@@ -1,22 +1,22 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
-import config from '../../model/Config.js';
-import data from '../../model/XiuxianData.js';
-import { Write_shop, Read_shop } from '../../model/xiuxian.js';
+import { plugin, common, segment, puppeteer } from "../../api/api.js";
+import config from "../../model/Config.js";
+import data from "../../model/XiuxianData.js";
+import { Write_shop, Read_shop } from "../../model/xiuxian.js";
 
 export class Shoptask extends plugin {
   constructor() {
     super({
-      name: 'Shoptask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "Shoptask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getConfig('task', 'task');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.shop,
-      name: 'Shoptask',
+      name: "Shoptask",
       fnc: () => this.Shoptask(),
     };
   }

@@ -1,7 +1,7 @@
-import { plugin, common, puppeteer } from '../../api/api.js';
-import config from '../../model/Config.js';
-import Show from '../../model/show.js';
-import { Read_temp, Write_temp } from '../../model/xiuxian.js';
+import { plugin, common, puppeteer } from "../../api/api.js";
+import config from "../../model/Config.js";
+import Show from "../../model/show.js";
+import { Read_temp, Write_temp } from "../../model/xiuxian.js";
 
 /**
  * 定时任务
@@ -9,17 +9,17 @@ import { Read_temp, Write_temp } from '../../model/xiuxian.js';
 export class msgTask extends plugin {
   constructor() {
     super({
-      name: 'msgTask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "msgTask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getConfig('task', 'task');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.temp_task,
-      name: 'msgTask',
+      name: "msgTask",
       fnc: () => this.msgTask(),
     };
   }
@@ -52,7 +52,7 @@ export class msgTask extends plugin {
           temp: msg,
         };
         const data1 = await new Show().get_tempData(temp_data);
-        let img = await puppeteer.screenshot('temp', {
+        let img = await puppeteer.screenshot("temp", {
           ...data1,
         });
         await this.pushInfo(i, true, img);
@@ -71,7 +71,7 @@ export class msgTask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch(err => {
+        .catch((err) => {
           Bot.logger.mark(err);
         });
     } else {

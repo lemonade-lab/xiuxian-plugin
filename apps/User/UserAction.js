@@ -1,5 +1,5 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
-import config from '../../model/Config.js';
+import { plugin } from "../../api/api.js";
+import config from "../../model/Config.js";
 import {
   Read_player,
   existplayer,
@@ -9,7 +9,7 @@ import {
   __PATH,
   Go,
   get_najie_img,
-} from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
 
 /**
  * 全局
@@ -22,24 +22,24 @@ export class UserAction extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'UserAction',
+      name: "UserAction",
       /** 功能描述 */
-      dsc: '交易模块',
-      event: 'message',
+      dsc: "交易模块",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
-          reg: '^#我的纳戒$',
-          fnc: 'Show_najie',
+          reg: "^#我的纳戒$",
+          fnc: "Show_najie",
         },
         {
-          reg: '^#升级纳戒$',
-          fnc: 'Lv_up_najie',
+          reg: "^#升级纳戒$",
+          fnc: "Lv_up_najie",
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   //#我的纳戒
@@ -76,7 +76,7 @@ export class UserAction extends plugin {
     let najie_num = this.xiuxianConfigData.najie_num;
     let najie_price = this.xiuxianConfigData.najie_price;
     if (najie.等级 == najie_num.length) {
-      e.reply('你的纳戒已经是最高级的了');
+      e.reply("你的纳戒已经是最高级的了");
       return;
     }
     if (player.灵石 < najie_price[najie.等级]) {

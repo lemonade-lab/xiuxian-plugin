@@ -1,7 +1,6 @@
-import { plugin} from '../../api/api.js';
-import config from '../../model/Config.js';
-import {Add_najie_thing,Write_Forum,Read_Forum
-} from '../../model/xiuxian.js';
+import { plugin } from "../../api/api.js";
+import config from "../../model/Config.js";
+import { Write_Forum, Read_Forum } from "../../model/xiuxian.js";
 /**
  * 定时任务
  */
@@ -9,16 +8,16 @@ import {Add_najie_thing,Write_Forum,Read_Forum
 export class ForumTask extends plugin {
   constructor() {
     super({
-      name: 'ForumTask',
-      dsc: '定时任务',
-      event: 'message',
+      name: "ForumTask",
+      dsc: "定时任务",
+      event: "message",
       priority: 300,
       rule: [],
     });
-    this.set = config.getConfig('task', 'task');
+    this.set = config.getConfig("task", "task");
     this.task = {
       cron: this.set.AutoBackUpTask,
-      name: 'ForumTask',
+      name: "ForumTask",
       fnc: () => this.Forumtask(),
     };
   }
@@ -32,7 +31,7 @@ export class ForumTask extends plugin {
       await Write_Forum([]);
       Forum = await Read_Forum();
     }
-   /* const now_time = new Date().getTime();
+    /* const now_time = new Date().getTime();
     for (let i=0;i<Forum.length;i++)
     {
       const time=(now_time-Forum[i].now_time)/24/60/60/1000;

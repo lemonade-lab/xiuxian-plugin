@@ -1,11 +1,11 @@
-import { plugin, puppeteer } from '../../api/api.js';
-import Help from '../../model/help.js';
-import Help2 from '../../model/shituhelp.js';
-import md5 from 'md5';
+import { plugin, puppeteer } from "../../api/api.js";
+import Help from "../../model/help.js";
+import Help2 from "../../model/shituhelp.js";
+import md5 from "md5";
 
 let helpData = {
-  md5: '',
-  img: '',
+  md5: "",
+  img: "",
 };
 
 /**
@@ -16,32 +16,32 @@ export class BotHelp extends plugin {
   constructor() {
     super({
       /** 功能名称 */
-      name: 'BotHelp',
+      name: "BotHelp",
       /** 功能描述 */
-      dsc: '修仙帮助',
-      event: 'message',
+      dsc: "修仙帮助",
+      event: "message",
       /** 优先级，数字越小等级越高 */
       priority: 400,
       rule: [
         {
-          reg: '^#修仙帮助$',
-          fnc: 'Xiuxianhelp',
+          reg: "^#修仙帮助$",
+          fnc: "Xiuxianhelp",
         },
         {
-          reg: '^#修仙管理$',
-          fnc: 'adminsuper',
+          reg: "^#修仙管理$",
+          fnc: "adminsuper",
         },
         {
-          reg: '^#宗门管理$',
-          fnc: 'AssociationAdmin',
+          reg: "^#宗门管理$",
+          fnc: "AssociationAdmin",
         },
         {
-          reg: '^#修仙扩展$',
-          fnc: 'Xiuxianhelpcopy',
+          reg: "^#修仙扩展$",
+          fnc: "Xiuxianhelpcopy",
         },
         {
-          reg: '^#师徒帮助$',
-          fnc: 'shituhelp',
+          reg: "^#师徒帮助$",
+          fnc: "shituhelp",
         },
       ],
     });
@@ -95,7 +95,7 @@ export class BotHelp extends plugin {
     if (!e.isGroup) {
       return;
     }
-    e.reply('维护中');
+    e.reply("维护中");
     return;
     let data = await Help2.shituhelp(e);
     if (!data) return;
@@ -106,7 +106,7 @@ export class BotHelp extends plugin {
   async cache(data) {
     let tmp = md5(JSON.stringify(data));
     if (helpData.md5 == tmp) return helpData.img;
-    helpData.img = await puppeteer.screenshot('help', data);
+    helpData.img = await puppeteer.screenshot("help", data);
     helpData.md5 = tmp;
     return helpData.img;
   }

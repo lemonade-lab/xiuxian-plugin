@@ -1,7 +1,7 @@
-import { plugin, common, segment, puppeteer } from '../../api/api.js';
-import data from '../../model/XiuxianData.js';
-import config from '../../model/Config.js';
-import fs from 'fs';
+import { plugin } from "../../api/api.js";
+import data from "../../model/XiuxianData.js";
+import config from "../../model/Config.js";
+import fs from "fs";
 import {
   Read_player,
   existplayer,
@@ -11,8 +11,8 @@ import {
   isNotNull,
   player_efficiency,
   get_random_fromARR,
-} from '../../model/xiuxian.js';
-import { Add_najie_thing, Add_HP } from '../../model/xiuxian.js';
+} from "../../model/xiuxian.js";
+import { Add_najie_thing, Add_HP } from "../../model/xiuxian.js";
 
 /**
  * 全局变量
@@ -24,18 +24,18 @@ let allaction = false; //全局状态判断
 export class lunhui extends plugin {
   constructor() {
     super({
-      name: 'lunhui',
-      dsc: '修仙模块',
-      event: 'message',
+      name: "lunhui",
+      dsc: "修仙模块",
+      event: "message",
       priority: 200,
       rule: [
         {
-          reg: '^#轮回$',
-          fnc: 'lunhui',
+          reg: "^#轮回$",
+          fnc: "lunhui",
         },
       ],
     });
-    this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
+    this.xiuxianConfigData = config.getConfig("xiuxian", "xiuxian");
   }
 
   async lunhui(e) {
@@ -49,22 +49,22 @@ export class lunhui extends plugin {
     if (!ifexistplay) {
       return;
     }
-    let player = await data.getData('player', usr_qq);
+    let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.lunhui)) {
       player.lunhui = 0;
       await Write_player(usr_qq, player);
     }
-    let lhxq = await redis.get('xiuxian:player:' + usr_qq + ':lunhui');
+    let lhxq = await redis.get("xiuxian:player:" + usr_qq + ":lunhui");
     if (lhxq != 1) {
       e.reply(
-        '轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展。\n' +
+        "轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展。\n" +
           '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦的十之八九。\n' +
-          '回复:【确认轮回】或者【先不轮回】进行选择'
+          "回复:【确认轮回】或者【先不轮回】进行选择"
       );
-      this.setContext('yeslunhui');
+      this.setContext("yeslunhui");
       return;
     } else if (lhxq == 1) {
-      await redis.set('xiuxian:player:' + usr_qq + ':lunhui', 0);
+      await redis.set("xiuxian:player:" + usr_qq + ":lunhui", 0);
     }
     //判断等级
     if (player.lunhui >= 9) {
@@ -89,7 +89,7 @@ export class lunhui extends plugin {
           `仅被警告一次，轮回失败！`
       );
       player.当前血量 = 10;
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       return;
     }
     player.轮回点--;
@@ -103,7 +103,7 @@ export class lunhui extends plugin {
       player.修为 -= 10000000;
       player.血气 += 5141919;
       player.灵石 -= 10000000;
-      data.setData('player', usr_qq, player);
+      data.setData("player", usr_qq, player);
       return;
     }
     player.lunhui += 1;
@@ -112,18 +112,18 @@ export class lunhui extends plugin {
       let ass = data.getAssociation(player.宗门.宗门名称);
       if (ass.power != 0) {
         //有宗门
-        e.reply('轮回后降临凡界，仙宗命牌失效！');
-        if (player.宗门.职位 != '宗主') {
+        e.reply("轮回后降临凡界，仙宗命牌失效！");
+        if (player.宗门.职位 != "宗主") {
           let ass = data.getAssociation(player.宗门.宗门名称);
           ass[player.宗门.职位] = ass[player.宗门.职位].filter(
-            item => item != usr_qq
+            (item) => item != usr_qq
           );
-          ass['所有成员'] = ass['所有成员'].filter(item => item != usr_qq);
+          ass["所有成员"] = ass["所有成员"].filter((item) => item != usr_qq);
           data.setAssociation(ass.宗门名称, ass);
           delete player.宗门;
-          data.setData('player', usr_qq, player);
+          data.setData("player", usr_qq, player);
           await player_efficiency(usr_qq);
-          e.reply('退出宗门成功');
+          e.reply("退出宗门成功");
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称);
           if (ass.所有成员.length < 2) {
@@ -131,15 +131,15 @@ export class lunhui extends plugin {
               `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
             );
             delete player.宗门; //删除存档里的宗门信息
-            data.setData('player', usr_qq, player);
+            data.setData("player", usr_qq, player);
             await player_efficiency(usr_qq);
             e.reply(
-              '一声巨响,原本的宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹'
+              "一声巨响,原本的宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹"
             );
           } else {
-            ass['所有成员'] = ass['所有成员'].filter(item => item != usr_qq); //原来的成员表删掉这个B
+            ass["所有成员"] = ass["所有成员"].filter((item) => item != usr_qq); //原来的成员表删掉这个B
             delete player.宗门; //删除这个B存档里的宗门信息
-            data.setData('player', usr_qq, player);
+            data.setData("player", usr_qq, player);
             await player_efficiency(usr_qq);
             //随机一个幸运儿的QQ,优先挑选等级高的
             let randmember_qq;
@@ -152,14 +152,14 @@ export class lunhui extends plugin {
             } else {
               randmember_qq = await get_random_fromARR(ass.所有成员);
             }
-            let randmember = await data.getData('player', randmember_qq); //获取幸运儿的存档
+            let randmember = await data.getData("player", randmember_qq); //获取幸运儿的存档
             ass[randmember.宗门.职位] = ass[randmember.宗门.职位].filter(
-              item => item != randmember_qq
+              (item) => item != randmember_qq
             ); //原来的职位表删掉这个幸运儿
-            ass['宗主'] = randmember_qq; //新的职位表加入这个幸运儿
-            randmember.宗门.职位 = '宗主'; //成员存档里改职位
-            data.setData('player', randmember_qq, randmember); //记录到存档
-            data.setData('player', usr_qq, player);
+            ass["宗主"] = randmember_qq; //新的职位表加入这个幸运儿
+            randmember.宗门.职位 = "宗主"; //成员存档里改职位
+            data.setData("player", randmember_qq, randmember); //记录到存档
+            data.setData("player", usr_qq, player);
             data.setAssociation(ass.宗门名称, ass); //记录到宗门
             e.reply(
               `轮回前,遵循你的嘱托,${randmember.名号}将继承你的衣钵,成为新一任的宗主`
@@ -171,13 +171,13 @@ export class lunhui extends plugin {
     if (player.lunhui == 9) {
       player.灵根 = {
         id: 700999,
-        name: '九转轮回体',
-        type: '转生',
+        name: "九转轮回体",
+        type: "转生",
         eff: 1,
         法球倍率: 1,
       };
-      let thing_name = '九转轮回';
-      let thing_class = '功法';
+      let thing_name = "九转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -197,20 +197,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为九转轮回！已能成帝！`);
       return;
     }
     if (player.lunhui == 8) {
       player.灵根 = {
         id: 700998,
-        name: '八转轮回体',
-        type: '转生',
+        name: "八转轮回体",
+        type: "转生",
         eff: 0.65,
         法球倍率: 0.42,
       };
-      let thing_name = '八转轮回';
-      let thing_class = '功法';
+      let thing_name = "八转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -230,20 +230,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为八转轮回！`);
       return;
     }
     if (player.lunhui == 7) {
       player.灵根 = {
         id: 700997,
-        name: '七转轮回体',
-        type: '转生',
+        name: "七转轮回体",
+        type: "转生",
         eff: 0.6,
         法球倍率: 0.39,
       };
-      let thing_name = '七转轮回';
-      let thing_class = '功法';
+      let thing_name = "七转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -263,20 +263,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为七转轮回！`);
       return;
     }
     if (player.lunhui == 6) {
       player.灵根 = {
         id: 700996,
-        name: '六转轮回体',
-        type: '转生',
+        name: "六转轮回体",
+        type: "转生",
         eff: 0.55,
         法球倍率: 0.36,
       };
-      let thing_name = '六转轮回';
-      let thing_class = '功法';
+      let thing_name = "六转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -296,20 +296,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      data.setData('player', usr_qq, player);
+      data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为六转轮回！`);
       return;
     }
     if (player.lunhui == 5) {
       player.灵根 = {
         id: 700995,
-        name: '五转轮回体',
-        type: '转生',
+        name: "五转轮回体",
+        type: "转生",
         eff: 0.5,
         法球倍率: 0.33,
       };
-      let thing_name = '五转轮回';
-      let thing_class = '功法';
+      let thing_name = "五转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -329,20 +329,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为五转轮回！`);
       return;
     }
     if (player.lunhui == 4) {
       player.灵根 = {
         id: 700994,
-        name: '四转轮回体',
-        type: '转生',
+        name: "四转轮回体",
+        type: "转生",
         eff: 0.45,
         法球倍率: 0.3,
       };
-      let thing_name = '四转轮回';
-      let thing_class = '功法';
+      let thing_name = "四转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -362,20 +362,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为四转轮回！`);
       return;
     }
     if (player.lunhui == 3) {
       player.灵根 = {
         id: 700993,
-        name: '三转轮回体',
-        type: '转生',
+        name: "三转轮回体",
+        type: "转生",
         eff: 0.4,
         法球倍率: 0.26,
       };
-      let thing_name = '三转轮回';
-      let thing_class = '功法';
+      let thing_name = "三转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -395,20 +395,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为三转轮回！`);
       return;
     }
     if (player.lunhui == 2) {
       player.灵根 = {
         id: 700992,
-        name: '二转轮回体',
-        type: '转生',
+        name: "二转轮回体",
+        type: "转生",
         eff: 0.35,
         法球倍率: 0.23,
       };
-      let thing_name = '二转轮回';
-      let thing_class = '功法';
+      let thing_name = "二转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -428,20 +428,20 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为二转轮回！`);
       return;
     }
     if (player.lunhui == 1) {
       player.灵根 = {
         id: 700991,
-        name: '一转轮回体',
-        type: '转生',
+        name: "一转轮回体",
+        type: "转生",
         eff: 0.3,
         法球倍率: 0.2,
       };
-      let thing_name = '一转轮回';
-      let thing_class = '功法';
+      let thing_name = "一转轮回";
+      let thing_class = "功法";
       let n = 1;
       await Add_najie_thing(usr_qq, thing_name, thing_class, n);
       player.level_id = 9;
@@ -461,7 +461,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000;
         player.lunhuiBH = 0;
       }
-      await data.setData('player', usr_qq, player);
+      await data.setData("player", usr_qq, player);
       e.reply(`你已打破规则，轮回成功，现在你为一转轮回！`);
       return;
     }
@@ -480,22 +480,22 @@ export class lunhui extends plugin {
     let choice = new_msg[0].text;
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
-    if (choice == '先不轮回') {
-      await this.reply('放弃轮回');
-      this.finish('yeslunhui');
+    if (choice == "先不轮回") {
+      await this.reply("放弃轮回");
+      this.finish("yeslunhui");
       return;
-    } else if (choice == '确认轮回') {
-      await redis.set('xiuxian:player:' + usr_qq + ':lunhui', 1);
-      e.reply('请再次输入#轮回！');
+    } else if (choice == "确认轮回") {
+      await redis.set("xiuxian:player:" + usr_qq + ":lunhui", 1);
+      e.reply("请再次输入#轮回！");
       //console.log(this.getContext().recall);
-      this.finish('yeslunhui');
+      this.finish("yeslunhui");
       return;
     } else {
-      this.setContext('yeslunhui');
+      this.setContext("yeslunhui");
       await this.reply(
-        '轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展\n' +
+        "轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展\n" +
           '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦的十之八九' +
-          '回复:【确认轮回】或者【先不轮回】进行选择'
+          "回复:【确认轮回】或者【先不轮回】进行选择"
       );
       return;
     }

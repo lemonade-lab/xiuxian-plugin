@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'tttgbnumber';
-  src: url('../../font/tttgbnumber.ttf');
+  font-family: "tttgbnumber";
+  src: url("../../font/tttgbnumber.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'NZBZ';
-  src: url('../../font/NZBZ.TTF');
+  font-family: "NZBZ";
+  src: url("../../font/NZBZ.TTF");
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 body {
   width: 100%;
   text-align: center;
-  background-image: url('../../img/player/player.jpg');
+  background-image: url("../../img/player/player.jpg");
   background-size: 100% auto;
 }
 
@@ -52,7 +52,7 @@ body {
 
 .user_top_img_bottom {
   margin: auto;
-  background-image: url('../../img/state/user_state.png');
+  background-image: url("../../img/state/user_state.png");
   background-size: 100% auto;
   width: 280px;
   height: 280px;
@@ -75,7 +75,7 @@ body {
   color: azure;
   font-weight: 600;
   font-size: 30px;
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   color: #0053ffff;
   background-color: rgb(138, 150, 154, 0.45);
   position: relative;
@@ -89,7 +89,7 @@ body {
   width: 350px;
   height: 30px;
   font-weight: 600;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   color: #000;
   padding-left: 15px;
   display: flex;
@@ -97,7 +97,7 @@ body {
 }
 
 .user_top_left_dh {
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   background-color: rgba(19, 21, 22, 0.486);
   margin: 9px;
   border-radius: 20px;
@@ -121,7 +121,7 @@ body {
   font-size: 22px;
   padding: 15px;
   font-weight: 600;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   color: #000000;
 }
 
@@ -159,14 +159,14 @@ body {
   display: block;
   padding: 5px;
   text-align: center;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 18px;
   font-weight: 600;
   color: #2f2b26;
 }
 
 .font_item_title {
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 20px;
   font-weight: 600;
   color: #151310;
@@ -174,7 +174,7 @@ body {
 
 .item_int {
   display: block;
-  font-family: 'tttgbnumber';
+  font-family: "tttgbnumber";
   font-size: 16px;
   font-weight: 600;
   color: #393535;
@@ -241,6 +241,6 @@ body {
   width: 300px;
   height: 100%;
   font-weight: 500;
-  font-family: 'NZBZ';
+  font-family: "NZBZ";
   font-size: 20px;
 }
