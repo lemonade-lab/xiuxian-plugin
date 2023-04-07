@@ -5,15 +5,9 @@ export class boxadminmoney extends plugin {
       name,
       dsc,
       rule: [
-        {
-          reg: "^#修仙扣除.*$",
-          fnc: "deduction",
-        },
-        {
-          reg: "^#修仙馈赠.*$",
-          fnc: "gifts",
-        },
-      ],
+        { reg: "^#修仙扣除.*$", fnc: "deduction" },
+        { reg: "^#修仙馈赠.*$", fnc: "gifts" }
+      ]
     });
   }
   gifts = async (e) => {

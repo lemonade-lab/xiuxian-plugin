@@ -16,7 +16,6 @@ export class boxadminaction extends plugin {
         { reg: "^#盒子复原.*$", fnc: "dataRecovery" },
       ],
     });
-    this.key = "xiuxian:restart";
   }
   allForcecheckout = async (e) => {
     if (!e.isMaster) return false;

@@ -10,7 +10,6 @@ export class boxadminexec extends plugin {
         { reg: "^#修仙卸载.*$", fnc: "execDelete" },
       ],
     });
-    this.key = "xiuxian:restart";
   }
   execList = async (e) => {
     if (!e.isMaster) return false;
