@@ -30,7 +30,7 @@ export class BackUp extends plugin {
     });
     this.saving = false;
     this.task = {
-      cron: config.getdefSet('task', 'task').AutoBackUpTask,
+      cron: config.getConfig('task', 'task').AutoBackUpTask,
       name: 'AutoBackUp',
       fnc: this.saveBackUp,
     };

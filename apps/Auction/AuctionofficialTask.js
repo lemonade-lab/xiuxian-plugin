@@ -21,7 +21,7 @@ export class AuctionofficialTask extends plugin {
     });
     this.set = config.getConfig('xiuxian', 'xiuxian');
     this.task = {
-      cron: config.getdefSet('task', 'task').action_task,
+      cron: config.getConfig('task', 'task').action_task,
       name: 'AuctionofficialTask',
       fnc: () => this.AuctionofficialTask(),
     };

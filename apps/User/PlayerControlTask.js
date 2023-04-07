@@ -1,7 +1,7 @@
 import { plugin, common, segment} from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
-import fs from 'node:fs';
+import fs from 'fs';
 import {
   isNotNull,
   exist_najie_thing,
@@ -27,7 +27,7 @@ export class PlayerControlTask extends plugin {
       rule: [],
     });
     this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.action_task,
       name: 'PlayerControlTask',

@@ -16,7 +16,7 @@ export class msgTask extends plugin {
       rule: [],
     });
     this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.temp_task,
       name: 'msgTask',

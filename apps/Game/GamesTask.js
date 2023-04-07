@@ -1,6 +1,6 @@
 import { plugin, common } from '../../api/api.js';
 import config from '../../model/Config.js';
-import fs from 'node:fs';
+import fs from 'fs';
 import { AppName } from '../../app.config.js';
 
 /**
@@ -16,7 +16,7 @@ export class GamesTask extends plugin {
       priority: 300,
       rule: [],
     });
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.GamesTask,
       name: 'GamesTask',

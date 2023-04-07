@@ -1,0 +1,90 @@
+- group: 得天独厚
+  list:
+    - icon: help-icon_60
+      title: '#宗门列表'
+      desc: '显示当前所有宗门列表'
+    - icon: help-icon_52
+      title: '#加入宗门某某某'
+      desc: '加入某某某宗门'
+    - icon: help-icon_52
+      title: '#退出宗门'
+      desc: '退出某某某宗门'
+    - icon: help-icon_52
+      title: '#我的宗门'
+      desc: '查看当前宗门信息'
+    - icon: help-icon_8
+      title: '#宗门捐赠灵石123'
+      desc: '给宗门灵石池捐赠灵石'
+    - icon: help-icon_56
+      title: '#宗门俸禄'
+      desc: '领取宗门每日灵石'
+    - icon: help-icon_49
+      title: '#我的贡献'
+      desc: '看看自己对宗门贡献'
+    - icon: help-icon_55
+      title: '#宗门捐献记录'
+      desc: '宗门捐献记录'
+
+- group: 宗门管理
+  list:
+    - icon: help-icon_52
+      title: '#开宗立派'
+      desc: '修为达到化神可以开宗立派'
+    - icon: help-icon_9
+      title: '#宗门升级'
+      desc: '提高灵石池上限和人数上限'
+    - icon: help-icon_58
+      title: '@群友任命 内门弟子'
+      desc: '宗主、副宗主可以任命弟子职位'
+    - icon: help-icon_52
+      title: '#查看护宗大阵'
+      desc: '查看护宗大阵血量'
+    - icon: help-icon_58
+      title: '#维护护宗大阵123'
+      desc: '灵石数量(凡宗1:5，仙宗1:2)'
+    - icon: help-icon_58
+      title: '#宗门维护'
+      desc: '保持7天正常运作'
+    - icon: help-icon_52
+      title: '#设置门槛+境界名'
+      desc: '设置最低加入境界'
+    - icon: help-icon_58
+      title: '#逐出师门@对方'
+      desc: '只有宗主、副宗主和长老可以噢'
+    - icon: help-icon_58
+      title: '#逐出+QQ'
+      desc: '只有宗主、副宗主和长老可以噢'
+- group: 宗门玩法
+  list:
+    - icon: help-icon_55
+      title: '#洞天福地列表'
+      desc: '查看驻地'
+    - icon: help-icon_54
+      title: '#入驻洞天XXX'
+      desc: '只有宗主和长老可以噢'
+    - icon: help-icon_52
+      title: '#建设宗门'
+      desc: '让宗门强起来'
+    - icon: help-icon_25
+      title: '#开采灵脉'
+      desc: '给自己与宗门灵石'
+    - icon: help-icon_31
+      title: '#宗门秘境'
+      desc: '查看宗门秘境'
+    - icon: help-icon_31
+      title: '#探索宗门秘境+地点'
+      desc: '要掂量掂量自己的实力哦'
+    - icon: help-icon_43
+      title: '#召唤神兽'
+      desc: '高级宗门护山神兽'
+    - icon: help-icon_39
+      title: '#神兽赐福'
+      desc: '赌运气（不是，看神兽心情）'
+- group: 药园玩法
+  list:
+    - icon: help-icon_59
+      title: '#药园'
+      desc: '宗门药园里种的草药成熟了没？'
+    - icon: help-icon_59
+      title: '#拔苗助长XXX'
+      desc: '采一颗草药不要紧吧！'

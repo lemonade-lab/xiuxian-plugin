@@ -57,7 +57,7 @@ export class Tiandibang extends plugin {
         },
       ],
     });
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.saiji,
       name: 're_bangdang',

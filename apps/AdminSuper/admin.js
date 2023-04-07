@@ -39,12 +39,12 @@ export class admin extends plugin {
       { cwd: `${_path}/plugins/${AppName}/` },
       function (error, stdout, stderr) {
         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-          that.e.reply('目前已经是最新版修仙插件了~');
+          that.e.reply('目前已经是最新版xiuxian@1.3.0了~');
           return;
         }
         if (error) {
           that.e.reply(
-            '修仙插件更新失败！\nError code: ' +
+            'xiuxian@1.3.0更新失败！\nError code: ' +
               error.code +
               '\n' +
               error.stack +
@@ -70,7 +70,7 @@ export class admin extends plugin {
               if (error) {
                 redis.del(that.key);
                 that.e.reply(
-                  '自动重启失败，请手动重启以应用新版修仙插件。\nError code: ' +
+                  '自动重启失败，请手动重启以应用新版xiuxian@1.3.0。\nError code: ' +
                     error.code +
                     '\n' +
                     error.stack +

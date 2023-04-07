@@ -331,7 +331,6 @@ export default class Game extends base {
     };
   }
 
-  //修仙版本
   async get_updataData(myData) {
     this.model = 'updata';
     return {

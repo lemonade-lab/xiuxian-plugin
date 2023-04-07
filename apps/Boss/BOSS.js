@@ -49,7 +49,7 @@ export class BOSS extends plugin {
       ],
     });
     this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.BossTask,
       name: 'BossTask',

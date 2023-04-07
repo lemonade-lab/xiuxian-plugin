@@ -32,7 +32,7 @@ export class SecretPlaceplusTask extends plugin {
       rule: [],
     });
     this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.actionplus_task,
       name: 'SecretPlaceplusTask',

@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from 'fs';
 import Config from './Config.js';
 import path from 'path';
 import { AppName } from '../app.config.js';
@@ -8,7 +8,7 @@ import { AppName } from '../app.config.js';
 class XiuxianData {
   constructor() {
     //获取配置文件参数
-    this.configData = Config.getdefSet('version', 'version');
+    this.configData = Config.getConfig('version', 'version');
 
     //文件路径参数
     //插件根目录

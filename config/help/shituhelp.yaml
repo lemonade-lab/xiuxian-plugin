@@ -1,0 +1,38 @@
+- group: 传道授业
+  list:
+    - icon: help-icon_13
+      title: '#开启收徒'
+      desc: '其他人能对你进行拜师'
+    - icon: help-icon_13
+      title: '#关闭收徒'
+      desc: '其他人不再能拜你为师'
+    - icon: help-icon_13
+      title: '#拜师+@'
+      desc: '进行拜师'
+    - icon: help-icon_13
+      title: '#解除师徒关系'
+      desc: '解除师徒关系'
+    - icon: help-icon_13
+      title: '#我的弟子'
+      desc: '查看自己的弟子及其任务进度'
+    - icon: help-icon_13
+      title: '#我的师门'
+      desc: '查看自己的任务进度'
+    - icon: help-icon_13
+      title: '#提交任务'
+      desc: '提交任务，获取奖励'
+    - icon: help-icon_13
+      title: '#查看师傅列表'
+      desc: '随机查看5个可拜师师傅'
+    - icon: help-icon_13
+      title: '#师徒商店'
+      desc: '查看可以使用师徒积分换取的东西'
+    - icon: help-icon_13
+      title: '#师徒兑换+物品名'
+      desc: '使用师徒积分兑换物品'
+    - icon: help-icon_13
+      title: '#开始师徒试炼'
+      desc: '阶段五专用：讨伐师徒BOSS'
+    - icon: help-icon_13
+      title: '#师徒同步'
+      desc: '如果你的师徒有问题，可以试试这个'

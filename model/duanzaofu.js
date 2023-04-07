@@ -1,24 +1,10 @@
-//插件加载
-
 import fs from 'fs';
 import path from 'path';
 import { __PATH } from './xiuxian.js';
-import plugin from '../../../lib/plugins/plugin.js';
+
 import data from './XiuxianData.js';
 
 import { Write_player } from './xiuxian.js';
-//全局状态判断
-export class duanzaofu extends plugin {
-  constructor() {
-    super({
-      name: 'xiuxian',
-      dsc: '修仙模块',
-      event: 'message',
-      priority: 800,
-      rule: [],
-    });
-  }
-}
 
 export async function settripod(qq) {
   let tripod1;

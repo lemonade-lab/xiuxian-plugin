@@ -8,8 +8,6 @@ import config from './Config.js';
 import Config from './Config.js';
 import Show from './show.js';
 let xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-//定义一个版本信息的常量,获取默认文件配置文件信息
-const versionData = Config.getdefSet('version', 'version');
 /**
  * 全局
  */
@@ -727,8 +725,7 @@ export async function get_player_img(e) {
     婚姻状况: hunyin,
     武器评级: 武器评级,
     护具评级: 护具评级,
-    法宝评级: 法宝评级,
-    修仙版本: versionData,
+    法宝评级: 法宝评级
   };
   const data1 = await new Show(e).get_playerData(player_data);
   return await puppeteer.screenshot('player', {
@@ -921,7 +918,6 @@ export async function get_najie_img(e) {
     najie_cailiao: najie.材料,
     strand_hp: strand_hp,
     strand_lingshi: strand_lingshi,
-    修仙版本: versionData,
     pifu: player.练气皮肤,
   };
   const data1 = await new Show(e).get_najieData(player_data);

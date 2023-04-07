@@ -1,6 +1,6 @@
-# Xiuxian-Plugin<a  href='https://gitee.com/ningmengchongshui/xiuxian-plugin/stargazers'><img src='https://gitee.com/ningmengchongshui/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
+# Xiuxian-Plugin<a  href='https://gitee.com/three-point-of-water/xiuxian-plugin/stargazers'><img src='https://gitee.com/three-point-of-water/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
 
-修仙插件xiuxian@1.3.0
+xiuxian@1.3.0xiuxian@1.3.0
 
 在线体验 767253997
 
@@ -13,7 +13,7 @@ Yunzai-Bot 喵喵版[`☞维护中`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot
 #### 根目录执行
 
 ```
-git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@1.3.0/
+git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.3.0/
 ```
 
 #### 开源协议

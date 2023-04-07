@@ -1,5 +1,5 @@
 import { plugin } from '../../api/api.js';
-import fs from 'node:fs';
+import fs from 'fs';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
 import { AppName } from '../../app.config.js';

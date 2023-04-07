@@ -15,7 +15,7 @@ export class ForumTask extends plugin {
       priority: 300,
       rule: [],
     });
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.AutoBackUpTask,
       name: 'ForumTask',

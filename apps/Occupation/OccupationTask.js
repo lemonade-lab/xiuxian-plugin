@@ -1,7 +1,7 @@
 import { plugin, common } from '../../api/api.js';
 import data from '../../model/XiuxianData.js';
 import config from '../../model/Config.js';
-import fs from 'node:fs';
+import fs from 'fs';
 import { segment } from 'oicq';
 import { isNotNull } from '../../model/xiuxian.js';
 import { Add_najie_thing, Add_职业经验 } from '../../model/xiuxian.js';
@@ -20,7 +20,7 @@ export class OccupationTask extends plugin {
       rule: [],
     });
     this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.action_task,
       name: 'OccupationTask',

@@ -8,8 +8,7 @@ export default class Version extends base {
 
   /** 生成版本信息图片 */
   async getData(versionData) {
-    const version =
-      (versionData && versionData.length && versionData[0].version) || '1.0.0';
+    const version = versionData.version
     let data = {
       ...this.screenData,
       userId: version,

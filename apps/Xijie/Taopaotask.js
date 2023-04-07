@@ -1,7 +1,7 @@
 import { plugin, common, segment, puppeteer } from '../../api/api.js';
 import config from '../../model/Config.js';
 import data from '../../model/XiuxianData.js';
-import fs from 'node:fs';
+import fs from 'fs';
 import {
   isNotNull,
   Add_najie_thing,
@@ -21,7 +21,7 @@ export class Taopaotask extends plugin {
       rule: [],
     });
     this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
-    this.set = config.getdefSet('task', 'task');
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.actionplus_task,
       name: 'Taopaotask',

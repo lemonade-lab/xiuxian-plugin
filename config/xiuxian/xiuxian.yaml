@@ -31,20 +31,20 @@ switch: #开true 关false
 biguan: #闭关最长时间：最低*周期
   size: 10 #闭关倍率！收益：倍率*境界数*天赋*时间
   time: 30 #闭关最低时间
-  cycle: 240 #闭关周期
+  cycle: 24 #闭关周期
 
 work: #打工
   size: 15 #打工倍率！收益：倍率*境界数*时间
   time: 15 #打工最低时间
-  cycle: 48 #打工周期
+  cycle: 32 #打工周期
 
 Sign:
   ticket: 1 #每日签到给的沉迷门票
 
 Auction:
-  interval: 2 #间歇时间
-  openHour: 20 #星阁开启时间
-  closeHour: 21 #星阁关闭时间
+  interval: 3 #间歇时间
+  openHour: 19 #星阁开启时间
+  closeHour: 20 #星阁关闭时间
 
 SecretPlace: #秘境出金概率
   one: 0.99 #0.9保底，0.1蚂蚁
@@ -59,6 +59,7 @@ najie_num: # 纳戒存储量
   - 1000000
   - 2000000
   - 5000000
+  - 10000000
 
 najie_price: # 纳戒升级消耗 需要对应najie_num保持数据量一致
   - 0
@@ -68,6 +69,7 @@ najie_price: # 纳戒升级消耗 需要对应najie_num保持数据量一致
   - 500000
   - 1000000
   - 3000000
+  - 6000000
 
 Group: #侠客信息推送群
   - 1111
