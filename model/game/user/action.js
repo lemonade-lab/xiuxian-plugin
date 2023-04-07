@@ -85,7 +85,7 @@ class userAction {
     if (CDMSG) {
       return { UserLevelUpMSG: `${CDMSG}` };
     }
-    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
+    gamePublic.setRedis(UID,CDID,now_time,CDTime)
     if (Math.random() >= 1 - player.levelmax_id / 22) {
       let size = "";
       if (choise) {
