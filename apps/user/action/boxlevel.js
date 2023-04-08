@@ -1,4 +1,4 @@
-import { BotApi,GameApi, plugin, name, dsc } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxLevel extends plugin {
   constructor() {
     super({
@@ -13,7 +13,7 @@ export class BoxLevel extends plugin {
   }
   levelUp = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -28,7 +28,7 @@ export class BoxLevel extends plugin {
   };
   levelMaxUp = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -45,7 +45,7 @@ export class BoxLevel extends plugin {
 
   levelBreak = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     const msg = await GameApi.UserAction.levelBreak({ UID: e.user_id });
     if (msg) {
       e.reply(msg);

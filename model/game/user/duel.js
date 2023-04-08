@@ -52,7 +52,7 @@ class duel {
         ACCOUNT: -1,
       });
     }
-    GameApi.GamePublic.setRedis(UIDA,CDID,now_time,CDTime)
+    GameApi.GamePublic.setRedis(UIDA, CDID, now_time, CDTime);
     const Level = await listdata.listAction({
       NAME: UIDA,
       CHOICE: "user_level",

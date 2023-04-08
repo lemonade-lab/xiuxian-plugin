@@ -60,7 +60,7 @@ class GamePublic {
    * @returns
    */
   deleteReids = async () => {
-    const allkey = await redis.keys(`${ReadiName}:*`, (err, data) => { });
+    const allkey = await redis.keys(`${ReadiName}:*`, (err, data) => {});
     if (allkey) {
       allkey.forEach(async (item) => {
         await redis.del(item);
@@ -165,14 +165,11 @@ class GamePublic {
   setRedis = async (UID, CDID, now_time, CDTime) => {
     await redis.set(`${ReadiName}:${UID}:${CDID}`, now_time);
     await redis.expire(`${ReadiName}:${UID}:${CDID}`, CDTime * 60);
-  }
+  };
 
   setAction = async (UID, actionObject) => {
-    await redis.set(
-      `${ReadiName}:${UID}:action`,
-      JSON.stringify(actionObject)
-    );
-  }
+    await redis.set(`${ReadiName}:${UID}:action`, JSON.stringify(actionObject));
+  };
 
   getAction = async (UID) => await redis.get(`${ReadiName}:${UID}:action`);
 }

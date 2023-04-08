@@ -12,7 +12,7 @@ export class BoxModify extends plugin {
   }
   changeName = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -28,30 +28,8 @@ export class BoxModify extends plugin {
     if (new_name.length == 0) {
       return false;
     }
-    const keyname = [
-      "尼玛",
-      "妈的",
-      "他妈",
-      "卧槽",
-      "操",
-      "操蛋",
-      "麻痹",
-      "傻逼",
-      "妈逼",
-    ];
-    keyname.forEach((item) => {
-      new_name = new_name.replace(item, "");
-    });
     if (new_name.length > 8) {
       e.reply("这名可真是稀奇");
-      return false;
-    }
-    const thing = await GameApi.GameUser.userBagSearch({
-      UID,
-      name: "下品灵石",
-    });
-    if (!thing || thing.acount < lingshi) {
-      e.reply(`似乎没有${lingshi}*[下品灵石]`);
       return false;
     }
     const CDID = "3";
@@ -66,12 +44,7 @@ export class BoxModify extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
-    await GameApi.GameUser.userBag({
-      UID,
-      name: "下品灵石",
-      ACCOUNT: -lingshi,
-    });
+    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
     const life = await GameApi.UserData.listActionInitial({
       NAME: "life",
       CHOICE: "user_life",
@@ -98,7 +71,7 @@ export class BoxModify extends plugin {
   };
   changeAutograph = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -115,20 +88,6 @@ export class BoxModify extends plugin {
     });
     let new_msg = e.msg.replace("#设置道宣", "");
     new_msg = new_msg.replace(" ", "");
-    const keyname = [
-      "尼玛",
-      "妈的",
-      "他妈",
-      "卧槽",
-      "操",
-      "操蛋",
-      "麻痹",
-      "傻逼",
-      "妈逼",
-    ];
-    keyname.forEach((item) => {
-      new_msg = new_msg.replace(item, "");
-    });
     if (new_msg.length == 0 || new_msg.length > 50) {
       e.reply("请正确设置,且道宣最多50字符");
       return false;
@@ -145,7 +104,7 @@ export class BoxModify extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
+    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
     player.autograph = new_msg;
     await GameApi.UserData.listAction({
       NAME: UID,

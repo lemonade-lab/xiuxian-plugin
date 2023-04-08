@@ -14,7 +14,7 @@ export class BoxHome extends plugin {
   }
   take = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -60,7 +60,7 @@ export class BoxHome extends plugin {
             experience = 0;
             e.reply(CDMSG);
           }
-          GameApi.GamePublic.setRedis(UID,CDID,now_time,CDTime)
+          GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
           const player = GameApi.UserData.listAction({
             NAME: UID,
             CHOICE: "user_level",
@@ -128,7 +128,7 @@ export class BoxHome extends plugin {
   };
   study = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -183,7 +183,7 @@ export class BoxHome extends plugin {
   };
   forget = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -214,7 +214,7 @@ export class BoxHome extends plugin {
   };
   consumption = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");

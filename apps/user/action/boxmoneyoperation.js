@@ -12,7 +12,7 @@ export class BoxMoneyOperation extends plugin {
   }
   userCheckin = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -74,7 +74,7 @@ export class BoxMoneyOperation extends plugin {
   };
   giveMoney = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if(!BotApi.User.surveySet({e})) return false
+    if (!BotApi.User.surveySet({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -114,7 +114,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply(CDMSG);
       return false;
     }
-    GameApi.GamePublic.setRedis(A,CDID,now_time,CDTime)
+    GameApi.GamePublic.setRedis(A, CDID, now_time, CDTime);
     await GameApi.GameUser.userBag({
       UID: A,
       name: "下品灵石",
