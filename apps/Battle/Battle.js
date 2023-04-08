@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment ,verc} from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import {
@@ -12,11 +12,6 @@ import {
   Read_player,
   zd_battle,
 } from "../../model/xiuxian.js";
-
-/**
- * 战斗类
- */
-
 export class Battle extends plugin {
   constructor() {
     super({
@@ -40,7 +35,8 @@ export class Battle extends plugin {
 
   //打劫
   async Dajie(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     // 判断是否在开启时间
 
     const nowDate = new Date();
@@ -328,7 +324,8 @@ export class Battle extends plugin {
 
   //比武
   async biwu(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let A = e.user_id;
     //先判断
     let ifexistplay_A = await existplayer(A);

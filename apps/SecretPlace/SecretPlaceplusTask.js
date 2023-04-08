@@ -18,10 +18,6 @@ import {
   zd_battle,
 } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
-
-/**
- * 定时任务
- */
 export class SecretPlaceplusTask extends plugin {
   constructor() {
     super({

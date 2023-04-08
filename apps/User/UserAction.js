@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import config from "../../model/Config.js";
 import {
   Read_player,
@@ -13,12 +13,9 @@ import {
 export class UserAction extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "UserAction",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -35,6 +32,8 @@ export class UserAction extends plugin {
 
   //#我的纳戒
   async Show_najie(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -46,11 +45,10 @@ export class UserAction extends plugin {
 
   //纳戒升级
   async Lv_up_najie(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let flag = await Go(e);
-    if (!flag) {
-      return;
-    }
+    if (!flag)  return;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);

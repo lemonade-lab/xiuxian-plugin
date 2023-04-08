@@ -1,17 +1,12 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment,verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import { existplayer, ifbaoji, Harm } from "../../model/xiuxian.js";
-
-//本模块由(qq:1695037643)和jio佬完成
 export class DSC extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Yunzai_Bot_修仙_BOSS",
-      /** 功能描述 */
       dsc: "BOSS模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -25,10 +20,9 @@ export class DSC extends plugin {
       ],
     });
   }
-
-  //与未知妖物战斗
   async WorldBossBattle(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -157,7 +151,8 @@ export class DSC extends plugin {
 
   //与未知妖物战斗
   async all_WorldBossBattle(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let xueqi = 0;
     let cengshu = 0;

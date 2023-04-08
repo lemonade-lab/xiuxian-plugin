@@ -6,10 +6,6 @@ import {
   Read_player,
   openAU,
 } from "../../model/xiuxian.js";
-/**
- * 定时任务
- */
-
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({

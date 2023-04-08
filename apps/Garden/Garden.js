@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import config from "../../model/Config.js";
 import {
@@ -8,21 +8,12 @@ import {
   ForwardMsg,
   Add_najie_thing,
 } from "../../model/xiuxian.js";
-/**
- * 作者：湖中屋
- */
-/**
- * 药园模块
- */
 export class Garden extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Yunzai_Bot_Garden",
-      /** 功能描述 */
       dsc: "药园模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600, //小功能高一些
       rule: [
         {
@@ -51,20 +42,16 @@ export class Garden extends plugin {
 
   //菜园显示
   async Vegetable(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
 
-    if (!ifexistplay) {
-      //判断是否有用户档
-      return;
-    }
+    if (!ifexistplay) return;
 
     let player = data.getData("player", usr_qq);
 
-    if (!isNotNull(player.宗门)) {
-      return;
-    }
+    if (!isNotNull(player.宗门))  return;
 
     let ass = data.getAssociation(player.宗门.宗门名称);
     if (!isNotNull(player.宗门)) {
@@ -127,14 +114,13 @@ export class Garden extends plugin {
 
   //拔苗助长
   async Get_vegetable(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
     let player = data.getData("player", usr_qq);
-    if (!isNotNull(player.宗门)) {
-      return;
-    }
+    if (!isNotNull(player.宗门))  return;
     let ass = data.getAssociation(player.宗门.宗门名称);
     if (!isNotNull(player.宗门)) {
       return;
@@ -227,7 +213,8 @@ export class Garden extends plugin {
 
   //禁言术/残云封天剑/需要剑帝信物发动  你尚未拥有剑帝信物，无法发动残云封天剑
   async Silencing(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id; //使用者QQ
     let qq = null;
 

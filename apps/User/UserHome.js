@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment,verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import {
@@ -97,11 +97,14 @@ export class UserHome extends plugin {
     });
   }
   async gonglue(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     e.reply("修仙攻略\nhttps://docs.qq.com/doc/DTHhuVnRLWlhjclhC");
     return;
   }
   async world(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let playerList = [];
     let files = fs
       .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
@@ -138,7 +141,8 @@ export class UserHome extends plugin {
   }
 
   async refining(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
@@ -188,7 +192,8 @@ export class UserHome extends plugin {
   }
 
   async huishou(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -234,7 +239,8 @@ export class UserHome extends plugin {
     return;
   }
   async huodong(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -286,6 +292,8 @@ export class UserHome extends plugin {
     return;
   }
   async check_player(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (!e.isMaster) {
       e.reply("只有主人可以执行操作");
       return;
@@ -339,13 +347,12 @@ export class UserHome extends plugin {
   }
 
   async Add_lhd(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
-    if (usr_qq == 80000000) {
-      return;
-    }
+    if (usr_qq == 80000000)   return;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -386,13 +393,10 @@ export class UserHome extends plugin {
   }
 
   async sk(e) {
-    if (!e.isGroup) return;
-    //固定写法
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-    //判断是否为匿名创建存档
-    if (usr_qq == 80000000) {
-      return;
-    }
+    if (usr_qq == 80000000)  return;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -437,7 +441,8 @@ export class UserHome extends plugin {
   }
 
   async find_thing(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     var reg = new RegExp(/哪里有/);
     let msg = e.msg.replace(reg, "");
@@ -488,15 +493,13 @@ export class UserHome extends plugin {
 
   //存取灵石
   async Take_lingshi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-    //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
     let flag = await Go(e);
-    if (!flag) {
-      return;
-    }
+    if (!flag)   return;
     //检索方法
     var reg = new RegExp(/取|存/);
     let func = reg.exec(e.msg);
@@ -566,7 +569,8 @@ export class UserHome extends plugin {
 
   //#(装备|服用|消耗)物品*数量
   async Player_use(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -973,7 +977,8 @@ export class UserHome extends plugin {
 
   //兑换方法
   async DUIHUAN(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     /** 内容 */
     let new_msg = this.e.message;
@@ -1004,7 +1009,8 @@ export class UserHome extends plugin {
 
   //购买商品
   async Buy_comodities(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -1058,7 +1064,8 @@ export class UserHome extends plugin {
 
   //出售商品
   async Sell_comodities(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);

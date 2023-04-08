@@ -1,10 +1,6 @@
 import { plugin } from "../../api/api.js";
 import config from "../../model/Config.js";
 import { Write_Forum, Read_Forum } from "../../model/xiuxian.js";
-/**
- * 定时任务
- */
-
 export class ForumTask extends plugin {
   constructor() {
     super({

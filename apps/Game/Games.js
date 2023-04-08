@@ -1,4 +1,4 @@
-import { plugin, segment, puppeteer } from "../../api/api.js";
+import { plugin, segment, puppeteer ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import config from "../../model/Config.js";
 import {
@@ -14,31 +14,15 @@ import {
 } from "../../model/xiuxian.js";
 import { Add_灵石, Add_修为 } from "../../model/xiuxian.js";
 import Show from "../../model/show.js";
-
-/**
- * 全局变量
- */
 let gane_key_user = []; //怡红院限制
 var yazhu = []; //投入
 let gametime = []; //临时游戏CD
-/**
- * 修仙游戏模块
- */
 export class Games extends plugin {
   constructor() {
     super({
-      /**
-       * 功能名称
-       */
       name: "Yunzai_Bot_Games",
-      /**
-       * 功能描述
-       */
       dsc: "修仙模块",
       event: "message",
-      /**
-       * 优先级，数字越小等级越高
-       */
       priority: 600,
       rule: [
         {
@@ -78,11 +62,9 @@ export class Games extends plugin {
   }
 
   async Refusecouple(e) {
-    //统一用户ID名
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-    //不开放私聊
-    if (!e.isGroup) return;
-    //全局状态判断
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 1);
     e.reply(player.名号 + "开启了拒绝模式");
@@ -90,11 +72,9 @@ export class Games extends plugin {
   }
 
   async Allowcouple(e) {
-    //统一用户ID名
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-    //不开放私聊
-    if (!e.isGroup) return;
-    //全局状态判断
     let player = await Read_player(usr_qq);
     await redis.set("xiuxian:player:" + usr_qq + ":couple", 0);
     e.reply(player.名号 + "开启了允许模式");
@@ -103,7 +83,8 @@ export class Games extends plugin {
 
   //怡红院
   async Xiuianplay(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const cf = config.getConfig("xiuxian", "xiuxian");
     let switchgame = cf.switch.play;
     if (switchgame != true) {
@@ -193,6 +174,8 @@ export class Games extends plugin {
 
   //金银坊
   async Moneynumber(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const cf = config.getConfig("xiuxian", "xiuxian");
     //金银坊开关
     let gameswitch = cf.switch.Moneynumber;
@@ -273,8 +256,8 @@ export class Games extends plugin {
   //这里冲突了，拆函数！
   //梭哈|投入999
   async Moneycheck(e) {
-    if (!e.isGroup) return;
-    //统一用户ID名
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //获取当前时间戳
     let now_time = new Date().getTime();
@@ -341,8 +324,8 @@ export class Games extends plugin {
 
   //大|小
   async Moneycheckguess(e) {
-    if (!e.isGroup) return;
-    //统一用户ID名
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //获取当前时间戳
     let now_time = new Date().getTime();
@@ -484,9 +467,9 @@ export class Games extends plugin {
   }
 
   async Moneyrecord(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let qq = e.user_id;
-
-    if (!e.isGroup) return;
     let shenglv;
     //获取人物信息
     let player_data = data.getData("player", qq);
@@ -522,7 +505,8 @@ export class Games extends plugin {
 
   //双修
   async Couple(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const cf = config.getConfig("xiuxian", "xiuxian");
     //双修开关
     let gameswitch = cf.switch.couple;

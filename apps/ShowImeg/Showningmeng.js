@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import { __PATH } from "../../model/xiuxian.js";
 import {
   get_gongfa_img,
@@ -9,9 +9,6 @@ import {
   get_valuables_img,
   get_ningmenghome_img,
 } from "../../model/xiuxian.js";
-/**
- * 生图模块
- */
 export class Showningmeng extends plugin {
   constructor(e) {
     super({
@@ -55,7 +52,8 @@ export class Showningmeng extends plugin {
   }
   //柠檬堂
   async show_ningmenghome(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let thing_type = e.msg.replace("#柠檬堂", "");
     let img = await get_ningmenghome_img(e, thing_type);
     e.reply(img);
@@ -63,14 +61,16 @@ export class Showningmeng extends plugin {
   }
   //万宝楼
   async show_valuables(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_valuables_img(e);
     e.reply(img);
     return;
   }
   //仙宠楼
   async Show_XianChong(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_XianChong_img(e);
     e.reply(img);
     return;
@@ -78,7 +78,8 @@ export class Showningmeng extends plugin {
 
   //武器楼
   async Show_WuQi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_wuqi_img(e);
     e.reply(img);
     return;
@@ -86,14 +87,16 @@ export class Showningmeng extends plugin {
 
   //丹药楼
   async Show_DanYao(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_danyao_img(e);
     e.reply(img);
     return;
   }
   //功法楼
   async Show_GongFa(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_gongfa_img(e);
     e.reply(img);
     return;
@@ -101,7 +104,8 @@ export class Showningmeng extends plugin {
 
   //道具楼
   async Show_DaoJu(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_daoju_img(e);
     e.reply(img);
     return;

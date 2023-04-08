@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import {
   exist_najie_thing,
   Read_najie,
@@ -11,7 +11,6 @@ import {
   Add_仙宠,
 } from "../../model/xiuxian.js";
 import data from "../../model/XiuxianData.js";
-
 export class Pokemon extends plugin {
   constructor() {
     super({
@@ -37,7 +36,8 @@ export class Pokemon extends plugin {
   }
 
   async Fight(e) {
-    //常规写法
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -101,7 +101,8 @@ export class Pokemon extends plugin {
   }
 
   async Advanced(e) {
-    //常规写法
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -154,7 +155,8 @@ export class Pokemon extends plugin {
   }
 
   async feed(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);

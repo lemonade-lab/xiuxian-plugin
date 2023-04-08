@@ -1,4 +1,4 @@
-import { plugin, common, segment } from "../../api/api.js";
+import { plugin, common, segment,verc } from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import {
@@ -14,11 +14,6 @@ import {
   Write_danyao,
   setFileValue,
 } from "../../model/xiuxian.js";
-
-/**
- * 定时任务
- */
-
 export class PlayerControl extends plugin {
   constructor() {
     super({
@@ -49,16 +44,10 @@ export class PlayerControl extends plugin {
 
   //闭关
   async Biguan(e) {
-    let usr_qq = e.user_id; //用户qq
-    //有无存档
-    if (!(await existplayer(usr_qq))) {
-      return;
-    }
-
-    //不开放私聊
-    if (!e.isGroup) return;
-
-    //获取游戏状态
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
+    let usr_qq = e.user_id;
+    if (!(await existplayer(usr_qq)))  return;
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
     );
@@ -141,8 +130,8 @@ export class PlayerControl extends plugin {
 
   //降妖
   async Dagong(e) {
-    //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(usr_qq))) {
@@ -235,11 +224,10 @@ export class PlayerControl extends plugin {
    * @returns {Promise<void>}
    */
   async chuGuan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let action = await this.getPlayerAction(e.user_id);
-    if (action.shutup == 1) {
-      return;
-    }
+    if (action.shutup == 1)  return;
 
     //结算
     let end_time = action.end_time;
@@ -307,11 +295,10 @@ export class PlayerControl extends plugin {
    * @returns {Promise<void>}
    */
   async endWork(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let action = await this.getPlayerAction(e.user_id);
-    if (action.working == 1) {
-      return;
-    }
+    if (action.working == 1) return;
     //结算
     let end_time = action.end_time;
     let start_time = action.end_time - action.time;

@@ -12,7 +12,6 @@ import {
   Write_temp,
 } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
-
 export class shenjietask extends plugin {
   constructor() {
     super({

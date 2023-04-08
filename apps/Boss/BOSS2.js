@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin,verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import config from "../../model/Config.js";
@@ -9,21 +9,15 @@ import {
   Harm,
   zd_battle,
 } from "../../model/xiuxian.js";
-
-//本模块由(qq:1695037643)和jio佬完成
 let WorldBOSSBattleCD = []; //CD
 let WorldBOSSBattleLock = 0; //BOSS战斗锁，防止打架频率过高造成奖励多发
 let WorldBOSSBattleUnLockTimer = 0; //防止战斗锁因意外锁死
-//处理消息
 export class BOSS2 extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Yunzai_Bot_修仙_BOSS",
-      /** 功能描述 */
       dsc: "BOSS模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -58,13 +52,15 @@ export class BOSS2 extends plugin {
 
   //金角大王开启指令
   async CreateWorldBoss(e) {
-    if (!e || e.isMaster) {
+    if (!e || e.isMaster || !e.isGroup) {
       await InitWorldBoss();
-      return;
+      return false;
     }
   }
   //金角大王结束指令
   async DeleteWorldBoss(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (e.isMaster) {
       if (await BossIsAlive()) {
         await redis.del("Xiuxian:WorldBossStatus2");
@@ -75,6 +71,8 @@ export class BOSS2 extends plugin {
   }
   //金角大王状态指令
   async LookUpWorldBossStatus(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (await BossIsAlive()) {
       let WorldBossStatusStr = await redis.get("Xiuxian:WorldBossStatus2");
       if (WorldBossStatusStr) {
@@ -97,6 +95,8 @@ export class BOSS2 extends plugin {
 
   //金角大王伤害贡献榜
   async ShowDamageList(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (await BossIsAlive()) {
       let PlayerRecord = await redis.get("Xiuxian:PlayerRecord2");
       let WorldBossStatusStr = await redis.get("Xiuxian:WorldBossStatus2");
@@ -150,6 +150,8 @@ export class BOSS2 extends plugin {
   }
   //与金角大王战斗
   async WorldBossBattle(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (e.isPrivate) return;
 
     if (!(await BossIsAlive())) {

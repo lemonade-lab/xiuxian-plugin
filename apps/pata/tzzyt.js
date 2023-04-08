@@ -1,17 +1,12 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import { existplayer, ifbaoji, Harm } from "../../model/xiuxian.js";
-
-//作者：波叽在（1695037643）的协助下完成
 export class tzzyt extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Yunzai_Bot_修仙_ZYT",
-      /** 功能描述 */
       dsc: "镇妖塔",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -28,7 +23,8 @@ export class tzzyt extends plugin {
 
   //与未知妖物战斗
   async WorldBossBattle(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -196,7 +192,8 @@ export class tzzyt extends plugin {
   }
 
   async all_WorldBossBattle(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;

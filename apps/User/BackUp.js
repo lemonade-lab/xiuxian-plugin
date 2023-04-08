@@ -2,16 +2,12 @@ import { plugin } from "../../api/api.js";
 import { __PATH } from "../../model/xiuxian.js";
 import config from "../../model/Config.js";
 import fs from "fs";
-
 export class BackUp extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "BackUp",
-      /** 功能描述 */
       dsc: "存档备份",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 1000,
       rule: [
         {

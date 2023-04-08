@@ -1,8 +1,7 @@
-import { plugin } from "../../api/api.js";
+import { plugin,verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import {
-  Read_player,
   existplayer,
   Write_player,
   Read_equipment,
@@ -12,14 +11,6 @@ import {
   get_random_fromARR,
 } from "../../model/xiuxian.js";
 import { Add_najie_thing, Add_HP } from "../../model/xiuxian.js";
-
-/**
- * 全局变量
- */
-let allaction = false; //全局状态判断
-/**
- * 货币与物品操作模块
- */
 export class lunhui extends plugin {
   constructor() {
     super({
@@ -37,7 +28,8 @@ export class lunhui extends plugin {
   }
 
   async lunhui(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -463,7 +455,8 @@ export class lunhui extends plugin {
   }
 
   async yeslunhui(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     /** 内容 */
     let usr_qq = e.user_id;
     let new_msg = this.e.message;

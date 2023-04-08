@@ -1,4 +1,4 @@
-import { plugin, puppeteer } from "../../api/api.js";
+import { plugin, puppeteer,verc } from "../../api/api.js";
 import fs from "fs";
 import data from "../../model/XiuxianData.js";
 import { AppName } from "../../app.config.js";
@@ -54,7 +54,9 @@ export class AdminSuper extends plugin {
     });
   }
   async jiesan_ass(e) {
-    if (!e.isMaster) return;
+    if (!e.isGroup) return false;
+    if (!e.isMaster) return false;
+    if (!verc({ e })) return false
     let didian = e.msg.replace("#解散宗门", "");
     didian = didian.trim();
     let ass = data.getAssociation(didian);
@@ -76,6 +78,9 @@ export class AdminSuper extends plugin {
     return;
   }
   async show_log(e) {
+    if (!e.isGroup) return false;
+    if (!e.isMaster) return false;
+    if (!verc({ e })) return false
     let j;
     const reader = await Read_updata_log();
     let str = [];
@@ -133,9 +138,9 @@ export class AdminSuper extends plugin {
   }
 
   async Deleteexchange(e) {
-    if (!e.isMaster) return;
-
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!e.isMaster) return false;
+    if (!verc({ e })) return false
     e.reply("开始清除！");
     let Exchange;
     try {

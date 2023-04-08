@@ -1,4 +1,4 @@
-import { plugin, puppeteer } from "../../api/api.js";
+import { plugin, puppeteer,verc } from "../../api/api.js";
 import fs from "fs";
 import path from "path";
 import Show from "../../model/show.js";
@@ -15,16 +15,12 @@ import {
   zd_battle,
 } from "../../model/xiuxian.js";
 import config from "../../model/Config.js";
-
 export class Tiandibang extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Tiandibang",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -111,7 +107,8 @@ export class Tiandibang extends plugin {
   }
 
   async duihuan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let date = new Date();
     let n = date.getDay();
     if (n != 0) {
@@ -169,7 +166,8 @@ export class Tiandibang extends plugin {
   }
 
   async tianditang(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -198,7 +196,8 @@ export class Tiandibang extends plugin {
   }
 
   async cansai(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -249,7 +248,8 @@ export class Tiandibang extends plugin {
   }
 
   async my_point(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -317,12 +317,9 @@ export class Tiandibang extends plugin {
   }
 
   async pk(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-
-    //不开放私聊
-    if (!e.isGroup) return;
-
-    //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
     //获取游戏状态
@@ -577,6 +574,8 @@ export class Tiandibang extends plugin {
   }
 
   async update_jineng(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     if (!e.isGroup) {
       e.reply("此功能暂时不开放私聊");
@@ -642,6 +641,8 @@ export class Tiandibang extends plugin {
   }
 
   async bd_jiesuan(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (!e.isMaster) {
       e.reply("只有主人可以执行操作");
       return;

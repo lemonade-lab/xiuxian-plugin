@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import {
   Read_danyao,
@@ -8,10 +8,6 @@ import {
   __PATH,
   shijianc,
 } from "../../model/xiuxian.js";
-
-/**
- * 洞天福地
- */
 export class TreasureCabinet extends plugin {
   constructor() {
     super({
@@ -40,7 +36,8 @@ export class TreasureCabinet extends plugin {
   }
   //我的贡献
   async gonxian(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
@@ -69,7 +66,8 @@ export class TreasureCabinet extends plugin {
   async Summon_Divine_Beast(e) {
     //8级宗门，有驻地，灵石200w
 
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
@@ -136,7 +134,8 @@ export class TreasureCabinet extends plugin {
   }
 
   async Beast_Bonus(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);

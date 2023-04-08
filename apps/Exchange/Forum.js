@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin,verc } from "../../api/api.js";
 import {
   existplayer,
   exist_najie_thing,
@@ -13,19 +13,12 @@ import {
   Write_Forum,
   Read_Forum,
 } from "../../model/xiuxian.js";
-
-/**
- * 交易系统
- */
 export class Forum extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Forum",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -48,7 +41,8 @@ export class Forum extends plugin {
     });
   }
   async Offsell(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
@@ -89,7 +83,8 @@ export class Forum extends plugin {
 
   //上架
   async onsell(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -151,7 +146,8 @@ export class Forum extends plugin {
   }
 
   async show_supermarket(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let thing_class = e.msg.replace("#聚宝堂", "");
     let img = await get_forum_img(e, thing_class);
     e.reply(img);
@@ -159,14 +155,12 @@ export class Forum extends plugin {
   }
 
   async purchase(e) {
-    //选购需要常用判断
-    //固定写法
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //全局状态判断
     let flag = await Go(e);
-    if (!flag) {
-      return;
-    }
+    if (!flag)  return;
     //防并发cd
     var time = 0.5; //分钟cd
     //获取当前时间
@@ -238,5 +232,4 @@ export class Forum extends plugin {
     await Write_Forum(Forum);
     e.reply(`${player.名号}在聚宝堂收获了${money}灵石！`);
   }
-  return;
 }

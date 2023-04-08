@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import {
   existplayer,
   exist_najie_thing,
@@ -14,19 +14,12 @@ import {
   Write_Exchange,
   Read_Exchange,
 } from "../../model/xiuxian.js";
-
-/**
- * 交易系统
- */
 export class Exchange extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Exchange",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -49,7 +42,8 @@ export class Exchange extends plugin {
     });
   }
   async Offsell(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
@@ -123,13 +117,12 @@ export class Exchange extends plugin {
 
   //上架
   async onsell(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
-    if (usr_qq == 80000000) {
-      return;
-    }
+    if (usr_qq == 80000000)   return;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -274,7 +267,8 @@ export class Exchange extends plugin {
   }
 
   async show_supermarket(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let thing_class = e.msg.replace("#冲水堂", "");
     let img = await get_supermarket_img(e, thing_class);
     e.reply(img);
@@ -282,14 +276,12 @@ export class Exchange extends plugin {
   }
 
   async purchase(e) {
-    //选购需要常用判断
-    //固定写法
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //全局状态判断
     let flag = await Go(e);
-    if (!flag) {
-      return;
-    }
+    if (!flag)  return;
     //防并发cd
     var time0 = 0.5; //分钟cd
     //获取当前时间

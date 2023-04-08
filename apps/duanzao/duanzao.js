@@ -1,4 +1,4 @@
-import { plugin, puppeteer } from "../../api/api.js";
+import { plugin, puppeteer ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import {
@@ -32,13 +32,6 @@ import {
 import Show from "../../model/show.js";
 import { __PATH } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
-
-/**
- * 全局变量
- */
-/**
- * 境界模块
- */
 export class duanzao extends plugin {
   constructor() {
     super({
@@ -87,9 +80,8 @@ export class duanzao extends plugin {
     });
   }
   async bestfile(e) {
-    //统一用户ID名
-
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let wupin;
     try {
       wupin = await Read_it();
@@ -152,6 +144,8 @@ export class duanzao extends plugin {
     return;
   }
   async all_clearthat(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (!e.isMaster) return;
     await Write_duanlu([]);
     let playerList = [];
@@ -173,13 +167,11 @@ export class duanzao extends plugin {
     return;
   }
   async clearthat(e) {
-    //统一用户ID名
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     //有无存档
-    if (!(await existplayer(user_qq))) {
-      return;
-    }
+    if (!(await existplayer(user_qq)))   return false;
     const A = await looktripod(user_qq);
     if (A == 1) {
       let newtripod = await Read_tripod();
@@ -206,40 +198,35 @@ export class duanzao extends plugin {
   }
 
   async getmybook(e) {
-    //统一用户ID名
-
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) {
-      return;
+      return false;
     }
     const player = await data.getData("player", user_qq);
     if (player.occupation != "炼器师") {
       e.reply(`你还不是炼器师哦,宝贝`);
-      return;
+      return false;
     }
     if (player.锻造天赋) {
       e.reply(`您已经测评过了`);
-      return;
+      return false;
     }
     const b = await settripod(user_qq);
     e.reply(b);
-
-    return;
+    return false;
   }
 
   async givein(e) {
-    //统一用户ID名
-
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     //有无存档
-    if (!(await existplayer(user_qq))) {
-      return;
-    }
+    if (!(await existplayer(user_qq)))   return false;
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
     //获取游戏状态
     const game_action = await redis.get(
       "xiuxian:player:" + user_qq + ":game_action"
@@ -247,17 +234,17 @@ export class duanzao extends plugin {
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply("修仙：游戏进行中...");
-      return;
+      return false;
     }
     const A = await looktripod(user_qq);
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来煅炉吧`);
-      return;
+      return false;
     }
     const player = await data.getData("player", user_qq);
     if (player.occupation != "炼器师") {
       e.reply(`切换到炼器师后再来吧,宝贝`);
-      return;
+      return false;
     }
     let thing = e.msg.replace("#", "");
     thing = thing.replace("熔炼", "");
@@ -273,7 +260,7 @@ export class duanzao extends plugin {
     let mynum = await exist_najie_thing(user_qq, thing_name, "材料");
     if (mynum < thing_acount) {
       e.reply(`材料不足,无法放入`);
-      return;
+      return false;
     }
 
     //开始放入
@@ -308,7 +295,7 @@ export class duanzao extends plugin {
       tripod.容纳量 + dyew + num1 + Math.floor(player.occupation_level / 2)
     ) {
       e.reply(`该煅炉当前只能容纳[${shengyu + Number(thing_acount)}]物品`);
-      return;
+      return false;
     }
     let newtripod;
     try {
@@ -327,22 +314,20 @@ export class duanzao extends plugin {
         e.reply(
           `熔炼成功,当前煅炉内拥有[${yongyou}]个材料,根据您现有等级,您还可以放入[${shengyu}]个材料`
         );
-        return;
+        return false;
       }
     }
   }
 
   async startit(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let user_qq = e.user_id;
-    if (!e.isGroup) return;
-    //有无存档
-    if (!(await existplayer(user_qq))) {
-      return;
-    }
+    if (!(await existplayer(user_qq)))   return false;
     const A = await looktripod(user_qq);
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来锻造吧`);
-      return;
+      return false;
     }
 
     let newtripod;
@@ -356,7 +341,7 @@ export class duanzao extends plugin {
       if (user_qq == item.qq) {
         if (item.材料.length == 0) {
           e.reply(`炉子为空,无法炼制`);
-          return;
+          return false;
         }
         let action = await redis.get("xiuxian:player:" + user_qq + ":action10");
         action = JSON.parse(action);
@@ -372,7 +357,7 @@ export class duanzao extends plugin {
             e.reply(
               "正在" + action.action + "中，剩余时间:" + m + "分" + s + "秒"
             );
-            return;
+            return false;
           }
         }
         item.状态 = 1;
@@ -402,22 +387,21 @@ export class duanzao extends plugin {
     }
   }
   async openit(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let user_qq = e.user_id;
-    if (!e.isGroup) return;
     //有无存档
-    if (!(await existplayer(user_qq))) {
-      return;
-    }
+    if (!(await existplayer(user_qq)))return false;
     const A = await looktripod(user_qq);
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来锻造吧`);
-      return;
+      return false;
     }
     let newtripod;
     const player = await data.getData("player", user_qq);
     if (player.occupation != "炼器师") {
       e.reply(`切换到炼器师后再来吧,宝贝`);
-      return;
+      return false;
     }
     try {
       newtripod = await Read_tripod();
@@ -429,7 +413,7 @@ export class duanzao extends plugin {
       if (user_qq == item.qq) {
         if (item.TIME == 0) {
           e.reply(`煅炉里面空空如也,也许自己还没有启动它`);
-          return;
+          return false;
         }
         //属性变化系数
         let xishu = 1;
@@ -605,26 +589,26 @@ export class duanzao extends plugin {
           JSON.stringify(action)
         );
         e.reply(`恭喜你获得了[${wuqiname}·${houzhui}],炼器经验增加了[${z}]`);
-        return;
+        return false;
       }
     }
   }
   async mytript(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const user_qq = e.user_id;
-    if (!(await existplayer(user_qq))) {
-      return;
-    }
+    if (!(await existplayer(user_qq))) return false;
     const A = await looktripod(user_qq);
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来煅炉吧`);
-      return;
+      return false;
     }
 
     let a = await Read_mytripod(user_qq);
 
     if (a.材料 == []) {
       e.reply(`锻炉里空空如也,没什么好看的`);
-      return;
+      return false;
     }
     let shuju = [];
     let shuju2 = [];
@@ -649,18 +633,14 @@ export class duanzao extends plugin {
       b += shuju[item2] + shuju2[item2] + "个\n";
     }
     e.reply(b);
-    return;
+    return false;
   }
 
   async getnewname(e) {
-    //统一用户ID名
-
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
-    //有无存档
-    if (!(await existplayer(user_qq))) {
-      return;
-    }
+    if (!(await existplayer(user_qq)))   return false;
     let thing = e.msg.replace("#", "");
     thing = thing.replace("赋名", "");
     const code = thing.split("*");

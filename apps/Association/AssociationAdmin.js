@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment ,verc} from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import {
@@ -8,17 +8,10 @@ import {
   convert2integer,
   setFileValue,
 } from "../../model/xiuxian.js";
-
-//要DIY的话，确保这两个数组长度相等
 const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27];
 const 副宗主人数上限 = [1, 1, 1, 1, 2, 2, 3, 3];
 const 长老人数上限 = [1, 2, 3, 4, 5, 7, 8, 9];
 const 内门弟子上限 = [2, 3, 4, 5, 6, 8, 10, 12];
-
-/**
- * 宗门
- */
-
 export class AssociationAdmin extends plugin {
   constructor() {
     super({
@@ -72,6 +65,8 @@ export class AssociationAdmin extends plugin {
 
   //判断是否满足创建宗门条件
   async Create_association(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -111,6 +106,8 @@ export class AssociationAdmin extends plugin {
 
   /** 获取宗门名称 */
   async Get_association_name(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     /** 内容 */
 
@@ -163,7 +160,8 @@ export class AssociationAdmin extends plugin {
 
   //护宗大阵
   async huz(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -177,7 +175,8 @@ export class AssociationAdmin extends plugin {
     return;
   }
   async weihu(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -220,7 +219,8 @@ export class AssociationAdmin extends plugin {
 
   //升级宗门
   async lvup_association(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -267,7 +267,8 @@ export class AssociationAdmin extends plugin {
 
   //任命职位
   async Set_appointment(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) return; //没有at信息直接返回,不执行
@@ -343,7 +344,8 @@ export class AssociationAdmin extends plugin {
 
   //宗门维护
   async Maintenance(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -384,7 +386,8 @@ export class AssociationAdmin extends plugin {
 
   //设置最低加入境界
   async jiaru(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let player = await data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
@@ -424,7 +427,8 @@ export class AssociationAdmin extends plugin {
   }
 
   async Deleteusermax(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -520,7 +524,8 @@ export class AssociationAdmin extends plugin {
   }
 
   async Deleteuser(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;

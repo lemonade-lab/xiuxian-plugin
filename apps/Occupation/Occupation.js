@@ -1,4 +1,4 @@
-import { plugin, puppeteer, segment } from "../../api/api.js";
+import { plugin, puppeteer, segment ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import {
@@ -19,12 +19,6 @@ import {
 } from "../../model/xiuxian.js";
 import { Read_player, __PATH, Read_danyao } from "../../model/xiuxian.js";
 import Show from "../../model/show.js";
-/**
- * 全局变量
- */
-/**
- * 境界模块
- */
 export class Occupation extends plugin {
   constructor() {
     super({
@@ -109,7 +103,8 @@ export class Occupation extends plugin {
     });
   }
   async zhuanzhi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -130,7 +125,8 @@ export class Occupation extends plugin {
     return;
   }
   async chose_occupation(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -204,7 +200,8 @@ export class Occupation extends plugin {
     return;
   }
   async chose_occupation2(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -243,13 +240,13 @@ export class Occupation extends plugin {
   }
 
   async plant(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id; //用户qq
-    //有无存档
-    if (!(await existplayer(usr_qq))) {
-      return;
-    }
+    if (!(await existplayer(usr_qq))) return;
     //不开放私聊
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -331,6 +328,8 @@ export class Occupation extends plugin {
   }
 
   async qingchushangjinbang(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (!e.isMaster) return;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -347,7 +346,8 @@ export class Occupation extends plugin {
   }
 
   async plant_back(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let action = await this.getPlayerAction(e.user_id);
     if (action.plant == 1) {
       return;
@@ -412,13 +412,10 @@ export class Occupation extends plugin {
     );
   }
   async mine(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id; //用户qq
-    //有无存档
-    if (!(await existplayer(usr_qq))) {
-      return;
-    }
-    //不开放私聊
-    if (!e.isGroup) return;
+    if (!(await existplayer(usr_qq)))   return;
     //获取游戏状态
     let game_action = await redis.get(
       "xiuxian:player:" + usr_qq + ":game_action"
@@ -500,11 +497,10 @@ export class Occupation extends plugin {
   }
 
   async mine_back(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let action = await this.getPlayerAction(e.user_id);
-    if (action.mine == 1) {
-      return;
-    }
+    if (action.mine == 1)  return;
     //结算
     let end_time = action.end_time;
     let start_time = action.end_time - action.time;
@@ -689,13 +685,15 @@ export class Occupation extends plugin {
   }
 
   async show_danfang(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_danfang_img(e);
     e.reply(img);
     return;
   }
   async yaoxiao(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let dy = await Read_danyao(usr_qq);
     let player = await Read_player(usr_qq);
@@ -726,14 +724,16 @@ export class Occupation extends plugin {
   }
 
   async show_tuzhi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let img = await get_tuzhi_img(e);
     e.reply(img);
     return;
   }
 
   async liandan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -831,7 +831,8 @@ export class Occupation extends plugin {
   }
 
   async lianqi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -915,6 +916,8 @@ export class Occupation extends plugin {
     );
   }
   async search_sb(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -1007,6 +1010,8 @@ export class Occupation extends plugin {
     return;
   }
   async taofa_sb(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -1179,7 +1184,8 @@ export class Occupation extends plugin {
     return;
   }
   async shangjingbang(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -1219,7 +1225,8 @@ export class Occupation extends plugin {
     return;
   }
   async cisha_sb(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;

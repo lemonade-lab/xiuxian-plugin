@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin, verc } from "../../api/api.js";
 import { AppName } from "../../app.config.js";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
@@ -22,9 +22,9 @@ export class admin extends plugin {
     this.key = "xiuxian:restart";
   }
   async checkout() {
-    if (!this.e.isMaster) {
-      return;
-    }
+    if (!e.isGroup) return false;
+    if (!e.isMaster) return false;
+    if (!verc({ e })) return false
     const isForce = this.e.msg.includes("强制");
     let command = "git  pull";
     if (isForce) {
@@ -40,17 +40,17 @@ export class admin extends plugin {
       function (error, stdout, stderr) {
         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
           that.e.reply("目前已经是最新版xiuxian@1.3.0了~");
-          return;
+          return false;
         }
         if (error) {
           that.e.reply(
             "xiuxian@1.3.0更新失败！\nError code: " +
-              error.code +
-              "\n" +
-              error.stack +
-              "\n 请稍后重试。"
+            error.code +
+            "\n" +
+            error.stack +
+            "\n 请稍后重试。"
           );
-          return;
+          return false;
         }
         timer && clearTimeout(timer);
         timer = setTimeout(async () => {
@@ -71,10 +71,10 @@ export class admin extends plugin {
                 redis.del(that.key);
                 that.e.reply(
                   "自动重启失败，请手动重启以应用新版xiuxian@1.3.0。\nError code: " +
-                    error.code +
-                    "\n" +
-                    error.stack +
-                    "\n"
+                  error.code +
+                  "\n" +
+                  error.stack +
+                  "\n"
                 );
                 logger.error(`重启失败\n${error.stack}`);
               } else if (stdout) {
@@ -92,6 +92,6 @@ export class admin extends plugin {
         }, 1000);
       }
     );
-    return true;
+    return false;
   }
 }

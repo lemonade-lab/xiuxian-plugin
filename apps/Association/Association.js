@@ -1,4 +1,4 @@
-import { plugin, segment, puppeteer } from "../../api/api.js";
+import { plugin, segment, puppeteer,verc } from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
@@ -11,15 +11,10 @@ import {
   player_efficiency,
   setFileValue,
 } from "../../model/xiuxian.js";
-//要DIY的话，确保这两个数组长度相等
 const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27];
 const 宗门灵石池上限 = [
   2000000, 5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000,
 ];
-
-/**
- * 宗门
- */
 export class Association extends plugin {
   constructor() {
     super({
@@ -61,6 +56,8 @@ export class Association extends plugin {
 
   //宗门俸禄
   async gift_association(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -133,6 +130,8 @@ export class Association extends plugin {
 
   //加入宗门
   async Join_association(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -201,6 +200,8 @@ export class Association extends plugin {
 
   //退出宗门
   async Exit_association(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
 
@@ -284,6 +285,8 @@ export class Association extends plugin {
 
   //捐赠灵石
   async give_association_lingshi(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -342,6 +345,8 @@ export class Association extends plugin {
 
   //宗门捐献记录
   async Logs_donate(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -380,6 +385,8 @@ export class Association extends plugin {
 
   //宗门列表
   async List_appointment(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);

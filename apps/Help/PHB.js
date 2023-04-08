@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import fs from "fs";
 import {
   existplayer,
@@ -8,11 +8,6 @@ import {
   __PATH,
 } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
-
-/**
- * 所有榜单
- */
-
 export class PHB extends plugin {
   constructor() {
     super({
@@ -35,7 +30,8 @@ export class PHB extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -95,7 +91,8 @@ export class PHB extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;

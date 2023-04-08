@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment,verc } from "../../api/api.js";
 import { fstadd_qinmidu, sleep, __PATH } from "../../model/xiuxian.js";
 import {
   exist_najie_thing,
@@ -15,16 +15,12 @@ let x = 0;
 let chaoshi_time;
 let user_A;
 let user_B;
-
 export class Daolv extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "Daolv",
-      /** 功能描述 */
       dsc: "道侣模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -55,7 +51,8 @@ export class Daolv extends plugin {
     });
   }
   async SearchQingmidu(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let A = e.user_id;
     /*
             @xxx
@@ -96,7 +93,8 @@ export class Daolv extends plugin {
   }
 
   async qiuhun(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let A = e.user_id;
     let ifexistplay_A = await existplayer(A);
     if (!ifexistplay_A || e.isPrivate) {
@@ -191,10 +189,9 @@ export class Daolv extends plugin {
   }
 
   async xuanze(e) {
-    if (!e.isGroup) return;
-    if (e.user_id != user_B) {
-      return;
-    }
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
+    if (e.user_id != user_B)  return;
     if (x == 1) {
       let player_B = await Read_player(user_B);
       if (e.msg == "我愿意") {
@@ -216,7 +213,8 @@ export class Daolv extends plugin {
   }
 
   async lihun(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let A = e.user_id;
     let ifexistplay_A = await existplayer(A);
     if (!ifexistplay_A || e.isPrivate) {
@@ -314,10 +312,9 @@ export class Daolv extends plugin {
   }
 
   async xuanze2(e) {
-    if (!e.isGroup) return;
-    if (e.user_id != user_B) {
-      return;
-    }
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
+    if (e.user_id != user_B)   return false;
     if (x == 2) {
       let player_A = await Read_player(user_A);
       let player_B = await Read_player(user_B);
@@ -339,7 +336,8 @@ export class Daolv extends plugin {
   }
 
   async get_dift(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) return;
     let atItem = e.message.filter((item) => item.type === "at");

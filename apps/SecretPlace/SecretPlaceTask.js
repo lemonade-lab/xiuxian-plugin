@@ -14,10 +14,6 @@ import {
   zd_battle,
 } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
-
-/**
- * 定时任务
- */
 export class SecretPlaceTask extends plugin {
   constructor() {
     super({
@@ -34,7 +30,6 @@ export class SecretPlaceTask extends plugin {
       fnc: () => this.Secretplacetask(),
     };
   }
-
   async Secretplacetask() {
     //获取缓存中人物列表
     let playerList = [];

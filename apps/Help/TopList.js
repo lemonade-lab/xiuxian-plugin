@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import {
@@ -15,11 +15,6 @@ import {
   get_ranking_power_img,
 } from "../../model/xiuxian.js";
 import { AppName } from "../../app.config.js";
-
-/**
- * 所有榜单
- */
-
 export class TopList extends plugin {
   constructor() {
     super({
@@ -50,7 +45,8 @@ export class TopList extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -118,7 +114,8 @@ export class TopList extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -183,7 +180,8 @@ export class TopList extends plugin {
   }
 
   async TOP_xiuwei(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -232,7 +230,8 @@ export class TopList extends plugin {
 
   //TOP_lingshi
   async TOP_lingshi(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;

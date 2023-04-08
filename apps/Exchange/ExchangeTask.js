@@ -5,10 +5,6 @@ import {
   Write_Exchange,
   Read_Exchange,
 } from "../../model/xiuxian.js";
-/**
- * 定时任务
- */
-
 export class ExchangeTask extends plugin {
   constructor() {
     super({
@@ -25,7 +21,6 @@ export class ExchangeTask extends plugin {
       fnc: () => this.Exchangetask(),
     };
   }
-
   async Exchangetask() {
     let Exchange;
     try {

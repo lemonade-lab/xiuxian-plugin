@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import {
   Read_player,
@@ -76,7 +76,8 @@ export class UserSellAll extends plugin {
     });
   }
   async all_zhuangbei(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -152,7 +153,8 @@ export class UserSellAll extends plugin {
   }
 
   async all_locked(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -195,7 +197,8 @@ export class UserSellAll extends plugin {
   }
 
   async all_unlocked(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -238,7 +241,8 @@ export class UserSellAll extends plugin {
   }
 
   async all_give(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //这是自己的
     let A_qq = e.user_id;
     //自己没存档
@@ -300,7 +304,8 @@ export class UserSellAll extends plugin {
     return;
   }
   async Sell_all_huishou(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -352,7 +357,8 @@ export class UserSellAll extends plugin {
     return;
   }
   async locked(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -430,13 +436,16 @@ export class UserSellAll extends plugin {
   }
 
   async all_tongbu(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     await synchronization(e);
     await Synchronization_ASS(e);
     return;
   }
   //一键出售
   async Sell_all_comodities(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -509,7 +518,8 @@ export class UserSellAll extends plugin {
     return;
   }
   async noticeSellAllGoods(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let reg = new RegExp(/^1$/);
     let new_msg = this.e.msg;
     let difficulty = reg.exec(new_msg);
@@ -554,7 +564,8 @@ export class UserSellAll extends plugin {
 
   //#(装备|服用|使用)物品*数量
   async all_xiuweidan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -577,7 +588,8 @@ export class UserSellAll extends plugin {
 
   //#(装备|服用|使用)物品*数量
   async all_xueqidan(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -600,7 +612,8 @@ export class UserSellAll extends plugin {
   }
 
   async all_learn(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);

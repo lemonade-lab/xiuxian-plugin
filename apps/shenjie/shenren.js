@@ -9,16 +9,12 @@ import {
   Write_player,
   shijianc,
 } from "../../model/xiuxian.js";
-
 export class shenren extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "shenren",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {

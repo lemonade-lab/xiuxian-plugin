@@ -1,26 +1,17 @@
-import { plugin, puppeteer } from "../../api/api.js";
+import { plugin, puppeteer,verc } from "../../api/api.js";
 import Help from "../../model/help.js";
 import Help2 from "../../model/shituhelp.js";
 import md5 from "md5";
-
 let helpData = {
   md5: "",
   img: "",
 };
-
-/**
- * 修仙帮助模块
- */
-
 export class BotHelp extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "BotHelp",
-      /** 功能描述 */
       dsc: "修仙帮助",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 400,
       rule: [
         {
@@ -48,19 +39,16 @@ export class BotHelp extends plugin {
   }
 
   async Xiuxianhelpcopy(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let data = await Help.gethelpcopy(e);
     if (!data) return;
     let img = await this.cache(data);
     await e.reply(img);
   }
-
-  /**
-   * rule - 修仙帮助
-   * @returns
-   */
   async Xiuxianhelp(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let data = await Help.get(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -68,7 +56,8 @@ export class BotHelp extends plugin {
   }
 
   async adminsuper(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let data = await Help.setup(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -76,7 +65,8 @@ export class BotHelp extends plugin {
   }
 
   async AssociationAdmin(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let data = await Help.Association(e);
     if (!data) return;
     let img = await this.cache(data);
@@ -84,7 +74,8 @@ export class BotHelp extends plugin {
   }
 
   async shituhelp(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     e.reply("维护中");
     return;
     let data = await Help2.shituhelp(e);

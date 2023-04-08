@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin ,verc} from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
@@ -17,19 +17,12 @@ import {
 const 宗门灵石池上限 = [
   2000000, 5000000, 8000000, 11000000, 15000000, 20000000,
 ];
-
-/**
- * 洞天福地
- */
 export class BlessPlace extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "BlessPlace",
-      /** 功能描述 */
       dsc: "宗门驻地模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 9999,
       rule: [
         {
@@ -66,7 +59,8 @@ export class BlessPlace extends plugin {
 
   //福地地点
   async List_blessPlace(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let addres = "洞天福地";
     let weizhi = data.bless_list;
     GoBlessPlace(e, weizhi, addres);
@@ -74,7 +68,8 @@ export class BlessPlace extends plugin {
 
   //秘境地点
   async mij(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let addres = "宗门秘境";
     let weizhi = data.guildSecrets_list;
     Goweizhi(e, weizhi, addres);
@@ -82,7 +77,8 @@ export class BlessPlace extends plugin {
 
   //入驻洞天
   async Settled_Blessed_Place(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);
@@ -109,9 +105,7 @@ export class BlessPlace extends plugin {
     let dongTan = await data.bless_list.find(
       (item) => item.name == blessed_name
     );
-    if (!dongTan) {
-      return;
-    }
+    if (!dongTan)  return;
 
     if (ass.宗门驻地 == blessed_name) {
       e.reply(`咋的，要给自己宗门拆了重建啊`);
@@ -221,6 +215,8 @@ export class BlessPlace extends plugin {
   }
 
   async exploitation_vein(e) {
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -291,7 +287,8 @@ export class BlessPlace extends plugin {
 
   //降临秘境
   async Go_Guild_Secrets(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -357,7 +354,8 @@ export class BlessPlace extends plugin {
 
   //沉迷秘境
   async Go_Guild_Secretsplus(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -432,7 +430,8 @@ export class BlessPlace extends plugin {
     return;
   }
   async construction_Guild(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
     let ifexistplay = data.existData("player", usr_qq);

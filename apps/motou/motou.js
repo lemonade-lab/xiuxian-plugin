@@ -1,4 +1,4 @@
-import { plugin } from "../../api/api.js";
+import { plugin,verc } from "../../api/api.js";
 import { __PATH } from "../../model/xiuxian.js";
 import data from "../../model/XiuxianData.js";
 import {
@@ -11,12 +11,9 @@ import {
 export class motou extends plugin {
   constructor() {
     super({
-      /** 功能名称 */
       name: "motou",
-      /** 功能描述 */
       dsc: "交易模块",
       event: "message",
-      /** 优先级，数字越小等级越高 */
       priority: 600,
       rule: [
         {
@@ -36,7 +33,8 @@ export class motou extends plugin {
   }
 
   async add_lingeng(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //有无存档
@@ -236,7 +234,8 @@ export class motou extends plugin {
     return;
   }
   async RE_lingeng(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
     /** 内容 */
@@ -274,7 +273,8 @@ export class motou extends plugin {
   }
 
   async mojie(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -342,7 +342,8 @@ export class motou extends plugin {
   }
 
   async xianji(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);

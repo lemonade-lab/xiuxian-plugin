@@ -1,4 +1,4 @@
-import { plugin, segment } from "../../api/api.js";
+import { plugin, segment ,verc} from "../../api/api.js";
 import config from "../../model/Config.js";
 import data from "../../model/XiuxianData.js";
 import {
@@ -12,11 +12,6 @@ import {
   Add_血气,
   zd_battle,
 } from "../../model/xiuxian.js";
-
-/**
- * 战斗类
- */
-
 export class WDT extends plugin {
   constructor() {
     super({
@@ -35,7 +30,8 @@ export class WDT extends plugin {
 
   //打劫
   async biwu(e) {
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //得到主动方qq
     let A = e.user_id;
 
