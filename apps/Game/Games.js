@@ -179,17 +179,10 @@ export class Games extends plugin {
     const cf = config.getConfig("xiuxian", "xiuxian");
     //金银坊开关
     let gameswitch = cf.switch.Moneynumber;
-    if (gameswitch != true) {
-      return;
-    }
-    //用户固定写法
+    if (gameswitch != true)   return;
     let usr_qq = e.user_id;
-
-    if (!e.isGroup) return;
     let flag = await Go(e);
-    if (!flag) {
-      return;
-    }
+    if (!flag)   return;
     //用户信息查询
     let player = data.getData("player", usr_qq);
     let now_time = new Date().getTime();

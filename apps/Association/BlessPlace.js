@@ -220,8 +220,6 @@ export class BlessPlace extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;

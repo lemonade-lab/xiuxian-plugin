@@ -41,8 +41,6 @@ export class Pokemon extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     let name = e.msg.replace("#", "");
     name = name.replace("出战仙宠", "");
@@ -106,8 +104,6 @@ export class Pokemon extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     let list = ["仙胎", "仙仔", "仙兽", "仙道", "仙灵"];
     let list_level = [20, 40, 60, 80, 100];

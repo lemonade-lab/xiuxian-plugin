@@ -180,8 +180,8 @@ export class AdminSuper extends plugin {
 
   async Allrelieve(e) {
     if (!e.isMaster) return;
-
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     e.reply("开始行动！");
     let playerList = [];
     let files = fs
@@ -219,7 +219,8 @@ export class AdminSuper extends plugin {
 
   async relieve(e) {
     if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) return;
@@ -258,7 +259,8 @@ export class AdminSuper extends plugin {
 
   async Knockdown(e) {
     if (!e.isMaster) return;
-    if (!e.isGroup) return;
+    if (!e.isGroup) return false;
+    if (!verc({ e })) return false;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) return;

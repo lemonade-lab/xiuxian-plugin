@@ -61,8 +61,6 @@ export class Association extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -135,8 +133,6 @@ export class Association extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (isNotNull(player.宗门)) {
       return;
@@ -204,10 +200,7 @@ export class Association extends plugin {
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
-
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -290,8 +283,6 @@ export class Association extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -350,8 +341,6 @@ export class Association extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
     if (!isNotNull(player.宗门)) {
       return;
@@ -387,7 +376,6 @@ export class Association extends plugin {
   async List_appointment(e) {
     if (!e.isGroup) return false;
     if (!verc({ e })) return false;
-    if (!e.isGroup) return;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;

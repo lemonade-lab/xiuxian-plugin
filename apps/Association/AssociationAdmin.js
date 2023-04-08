@@ -70,10 +70,7 @@ export class AssociationAdmin extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
-
-    if (!e.isGroup) return;
     let player = data.getData("player", usr_qq);
-
     let now_level_id;
     now_level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
@@ -109,9 +106,6 @@ export class AssociationAdmin extends plugin {
     if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-    /** 内容 */
-
-    if (!e.isGroup) return;
     let new_msg = this.e.message;
     if (new_msg[0].type != "text") {
       this.setContext("Get_association_name");
