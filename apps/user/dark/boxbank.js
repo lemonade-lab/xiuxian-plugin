@@ -29,12 +29,7 @@ export class BoxBank extends plugin {
 
   moneyWorkshop = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -67,12 +62,7 @@ export class BoxBank extends plugin {
 
   substitution = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -128,12 +118,7 @@ export class BoxBank extends plugin {
 
   storage = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -207,12 +192,7 @@ export class BoxBank extends plugin {
 
   withdraw = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -269,12 +249,7 @@ export class BoxBank extends plugin {
 
   whiteBar = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -331,12 +306,7 @@ export class BoxBank extends plugin {
 
   deleteWhiteBar = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");

@@ -20,24 +20,14 @@ export class boxadminaction extends plugin {
   allForcecheckout = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     await BotApi.Exec.execStart({ cmd: "git  pull", e });
     return false;
   };
   deleteRedis = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     await GameApi.GamePublic.deleteReids();
     e.reply("删除完成");
     return false;
@@ -45,12 +35,7 @@ export class boxadminaction extends plugin {
   deleteAllusers = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     await GameApi.UserData.listAction({
       NAME: "life",
       CHOICE: "user_life",
@@ -63,12 +48,7 @@ export class boxadminaction extends plugin {
   boxaSwitchOpen = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const name = e.msg.replace("#盒子开启", "");
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }));
     return false;
@@ -76,12 +56,7 @@ export class boxadminaction extends plugin {
   boxaSwitchOff = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const name = e.msg.replace("#盒子关闭", "");
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }));
     return false;
@@ -89,12 +64,7 @@ export class boxadminaction extends plugin {
   configUpdata = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const [name, size] = e.msg.replace("#修仙配置更改", "").split("*");
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }));
     return false;
@@ -102,12 +72,7 @@ export class boxadminaction extends plugin {
   configReUpdata = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     GameApi.Createdata.moveConfig({ name: "updata" });
     e.reply("配置已重置");
     return false;
@@ -115,12 +80,7 @@ export class boxadminaction extends plugin {
   imgReUpdata = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     GameApi.Createdata.reImg();
     e.reply("图片已重置");
     return false;
@@ -128,12 +88,7 @@ export class boxadminaction extends plugin {
   dataRecovery = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     await BotApi.User.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({

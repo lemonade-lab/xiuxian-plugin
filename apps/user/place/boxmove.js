@@ -17,12 +17,7 @@ export class BoxMove extends plugin {
    */
   mapW = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     e.reply("待更新");
     return false;
   };
@@ -31,12 +26,7 @@ export class BoxMove extends plugin {
    */
   mapA = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     e.reply("待更新");
     return false;
   };
@@ -45,12 +35,7 @@ export class BoxMove extends plugin {
    */
   mapS = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     e.reply("待更新");
     return false;
   };
@@ -59,12 +44,7 @@ export class BoxMove extends plugin {
    */
   mapD = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     e.reply("待更新");
     return false;
   };

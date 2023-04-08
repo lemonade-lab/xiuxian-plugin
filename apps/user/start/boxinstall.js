@@ -15,12 +15,7 @@ export class BoxInstall extends plugin {
   }
   createinstall = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: "parameter",
       name: "cooling",

@@ -13,12 +13,7 @@ export class boxadminmoney extends plugin {
   gifts = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = await BotApi.User.at({ e });
     if (!UID) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -43,12 +38,7 @@ export class boxadminmoney extends plugin {
   deduction = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "namelist",
-    });
-    if (whitecrowd.indexOf(e.group_id) == -1) return false;
-    if (blackid.indexOf(e.user_id) != -1) return false;
+    if(!BotApi.User.surveySet({e})) return false
     const UID = await BotApi.User.at({ e });
     if (!UID) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
