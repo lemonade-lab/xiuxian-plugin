@@ -416,7 +416,7 @@ async function InitWorldBoss() {
   let Reward = 12000000;
   WorldBOSSBattleLock = 0;
   if (player_quantity == 0) {
-    return false - 1;
+    return - 1;
   }
   if (player_quantity < 5) Reward = 6000000;
   let X = AverageDamage * 0.01;
@@ -455,7 +455,7 @@ async function pushInfo(id, is_group, msg) {
 
 //获取妖王是否已开启
 async function BossIsAlive() {
-  return false(
+  return (
     (await redis.get('Xiuxian:WorldBossStatus')) &&
       (await redis.get('xiuxian@1.3.0Record'))
   );
