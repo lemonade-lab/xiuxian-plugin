@@ -14,7 +14,7 @@ const 宗门灵石池上限 = [200000, 500000, 800000, 1100000, 1500000, 2000000
 export class association extends plugin {
   constructor() {
     super({
-      name,
+      name:'association',
       dsc,
       rule: [
         {
