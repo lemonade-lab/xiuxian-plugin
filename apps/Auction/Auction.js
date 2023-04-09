@@ -40,10 +40,10 @@ export class Auction extends plugin {
   }
 
   async xingGE(e) {
+    let usr_qq = e.user_id;
     if (usr_qq == 80000000) return false;
     if (!verc({ e })) return false;
     //固定写法
-    let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -223,12 +223,12 @@ export class Auction extends plugin {
   }
 
   async show_auction(e) {
+    let usr_qq = e.user_id;
     if (usr_qq == 80000000) {
       return false;
     }
     if (!verc({ e })) return false;
     //固定写法
-    let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
