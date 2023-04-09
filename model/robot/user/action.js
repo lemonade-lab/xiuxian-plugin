@@ -87,7 +87,7 @@ class UserAction {
     Bot.pickUser(UID).sendMsg(msg);
     return;
   };
-  surveySet = ({ e }) => {
+  controlMessage = ({ e }) => {
     const { whitecrowd, blackid } = config.getConfig({
       app: "parameter",
       name: "namelist",
