@@ -134,7 +134,7 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始降临' + didian + ',' + time + '分钟后归来!');
     return false;
   }
@@ -220,7 +220,7 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('正在前往' + weizhi.name + ',' + time + '分钟后归来!');
     return false;
   }
@@ -304,7 +304,7 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
     await Add_修为(usr_qq, -1000000);
     if (suiji == 0) {
       e.reply(
@@ -392,7 +392,7 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始镇守' + didian + ',' + time + '分钟后归来!');
     return false;
   }

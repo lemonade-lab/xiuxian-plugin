@@ -195,8 +195,8 @@ export class Xijie extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastxijie_time', now_time);
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':lastxijie_time', now_time);
     msg += '\n开始前往' + didian + ',祝你好运!';
     e.reply(msg, true);
     return false;

@@ -231,7 +231,7 @@ export class Battle extends plugin {
       final_msg.push(`${A_player.名号}向${B_player.名号}发起了打劫。`);
     }
     //本次打劫时间存入缓存
-    await redis.set('xiuxian@1.3.0:' + A + ':last_dajie_time', nowTime); //存入缓存
+    await redis.set('xiuxian:player:' + A + ':last_dajie_time', nowTime); //存入缓存
     A_player.法球倍率 = A_player.灵根.法球倍率;
     B_player.法球倍率 = B_player.灵根.法球倍率;
 

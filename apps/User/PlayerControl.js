@@ -116,7 +116,7 @@ export class PlayerControl extends plugin {
       arr.group_id = e.group_id;
     }
 
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
     e.reply(`现在开始闭关${time}分钟,两耳不闻窗外事了`);
 
     return false;
@@ -204,7 +204,7 @@ export class PlayerControl extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
     e.reply(`现在开始降妖${time}分钟`);
     return false;
   }

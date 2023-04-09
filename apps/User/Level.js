@@ -490,7 +490,7 @@ export class Level extends plugin {
     ).level;
     e.reply(`突破成功,当前境界为${level}`, false, { at: true });
     //记录cd
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time);
+    await redis.set('xiuxian:player:' + usr_qq + ':last_Levelup_time', now_Time);
     return false;
   }
 

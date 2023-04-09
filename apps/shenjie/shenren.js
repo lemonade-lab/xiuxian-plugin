@@ -122,7 +122,7 @@ export class shenren extends plugin {
       (Today.Y != lastdagong_time.Y && Today.M != lastdagong_time.M) ||
       Today.D != lastdagong_time.D
     ) {
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastdagong_time', nowTime); //redis设置签到时间
+      await redis.set('xiuxian:player:' + usr_qq + ':lastdagong_time', nowTime); //redis设置签到时间
       var n = 1;
       if (player.灵根.name == '二转轮回体') {
         n = 2;
@@ -192,7 +192,7 @@ export class shenren extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始进入神界,' + time + '分钟后归来!');
     return false;
   }

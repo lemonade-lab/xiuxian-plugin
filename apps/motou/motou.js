@@ -329,7 +329,7 @@ export class motou extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始进入魔界,' + time + '分钟后归来!');
     return false;
   }

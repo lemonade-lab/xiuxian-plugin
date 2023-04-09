@@ -35,7 +35,7 @@ export class GamesTask extends plugin {
       );
       //防止继续其他娱乐行为
       if (game_action == 0) {
-        await redis.set('xiuxian@1.3.0:' + player_id + ':game_action', 1);
+        await redis.set('xiuxian:player:' + player_id + ':game_action', 1);
         return false;
       }
     }

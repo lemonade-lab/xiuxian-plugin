@@ -165,13 +165,13 @@ export class UserStart extends plugin {
       return false;
     } else {
       //没有存档，初始化次数
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', 1);
+      await redis.set('xiuxian:player:' + usr_qq + ':reCreate_acount', 1);
     }
     let acount = await redis.get(
       'xiuxian@1.3.0:' + usr_qq + ':reCreate_acount'
     );
     if (acount == undefined || acount == null || acount == NaN || acount <= 0) {
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', 1);
+      await redis.set('xiuxian:player:' + usr_qq + ':reCreate_acount', 1);
     }
     let player = await data.getData('player', usr_qq);
     //重生之前先看状态
@@ -297,7 +297,7 @@ export class UserStart extends plugin {
         'xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time',
         nowTime
       ); //redis设置本次改名时间戳
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', acount);
+      await redis.set('xiuxian:player:' + usr_qq + ':reCreate_acount', acount);
     } else {
       this.setContext('RE_xiuxian');
       await this.reply('请回复:【断绝此生】或者【再继仙缘】进行选择', false, {
@@ -468,7 +468,7 @@ export class UserStart extends plugin {
     } else {
       Sign_Yesterday = false;
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastsign_time', nowTime); //redis设置签到时间
+    await redis.set('xiuxian:player:' + usr_qq + ':lastsign_time', nowTime); //redis设置签到时间
     let player = await data.getData('player', usr_qq);
     if (player.连续签到天数 == 7 || !Sign_Yesterday) {
       //签到连续7天或者昨天没有签到,连续签到天数清零

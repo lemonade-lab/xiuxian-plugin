@@ -369,7 +369,7 @@ export class Tiandibang extends plugin {
       Today.M != lastbisai_time.M ||
       Today.D != lastbisai_time.D
     ) {
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastbisai_time', nowTime); //redis设置签到时间
+      await redis.set('xiuxian:player:' + usr_qq + ':lastbisai_time', nowTime); //redis设置签到时间
       tiandibang[x].次数 = 3;
     }
     if (

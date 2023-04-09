@@ -111,7 +111,7 @@ export class Association extends plugin {
     }
     ass.灵石池 -= gift_lingshi;
     player.灵石 += gift_lingshi;
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastsign_Asso_time', nowTime); //redis设置签到时间
+    await redis.set('xiuxian:player:' + usr_qq + ':lastsign_Asso_time', nowTime); //redis设置签到时间
     data.setData('player', usr_qq, player);
     data.setAssociation(ass.宗门名称, ass);
     let msg = [

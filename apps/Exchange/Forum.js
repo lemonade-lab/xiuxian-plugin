@@ -179,7 +179,7 @@ export class Forum extends plugin {
       return false;
     }
     //记录本次执行时间
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':ForumCD', now_time);
+    await redis.set('xiuxian:player:' + usr_qq + ':ForumCD', now_time);
     let player = await Read_player(usr_qq);
     let Forum;
     try {

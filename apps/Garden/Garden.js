@@ -203,7 +203,7 @@ export class Garden extends plugin {
     e.reply('您拔错了吧！掣电树chedianshu');
 
     //记录本次获得时间戳
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_garden_time', nowTime);
+    await redis.set('xiuxian:player:' + usr_qq + ':last_garden_time', nowTime);
     return false;
   }
 

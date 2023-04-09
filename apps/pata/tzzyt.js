@@ -166,7 +166,7 @@ export class tzzyt extends plugin {
       await ForwardMsg(e, msg);
       e.reply('战斗过长，仅展示部分内容');
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + 'CD', now_Time);
+    await redis.set('xiuxian:player:' + usr_qq + 'CD', now_Time);
     if (bosszt.Health <= 0) {
       player.镇妖塔层数 += 5;
       player.灵石 += Reward;

@@ -311,7 +311,7 @@ export class Occupation extends plugin {
       arr.group_id = e.group_id;
     }
 
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
     e.reply(`现在开始采药${time}分钟`);
 
     return false;
@@ -474,7 +474,7 @@ export class Occupation extends plugin {
       arr.group_id = e.group_id;
     }
 
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
+    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr)); //redis设置动作
     e.reply(`现在开始采矿${time}分钟`);
 
     return false;

@@ -46,7 +46,7 @@ export class lunhui extends plugin {
       this.setContext('yeslunhui');
       return false;
     } else if (lhxq == 1) {
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':lunhui', 0);
+      await redis.set('xiuxian:player:' + usr_qq + ':lunhui', 0);
     }
     //判断等级
     if (player.lunhui >= 9) {
@@ -464,7 +464,7 @@ export class lunhui extends plugin {
       this.finish('yeslunhui');
       return false;
     } else if (choice == '确认轮回') {
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':lunhui', 1);
+      await redis.set('xiuxian:player:' + usr_qq + ':lunhui', 1);
       e.reply('请再次输入#轮回！');
       //console.log(this.getContext().recall);
       this.finish('yeslunhui');

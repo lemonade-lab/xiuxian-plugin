@@ -161,7 +161,7 @@ export class TreasureCabinet extends plugin {
       return false;
     }
 
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Bonus', nowTime); //redis设置签到时间
+    await redis.set('xiuxian:player:' + usr_qq + ':getLastsign_Bonus', nowTime); //redis设置签到时间
 
     let random = Math.random();
     let flag = 0.5;

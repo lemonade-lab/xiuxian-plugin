@@ -209,8 +209,8 @@ export class WDT extends plugin {
     let final_msg = [segment.at(A), segment.at(B), '\n'];
     //  if (A_player.魔道值>100) {e.reply(`${A_player.名号}你一个大魔头还妄想和人堂堂正正比武？`);return;}
 
-    await redis.set('xiuxian@1.3.0:' + A + ':last_biwu_time', now_Time);
-    await redis.set('xiuxian@1.3.0:' + B + ':last_biwu_time', now_Time);
+    await redis.set('xiuxian:player:' + A + ':last_biwu_time', now_Time);
+    await redis.set('xiuxian:player:' + B + ':last_biwu_time', now_Time);
     //这里前戏做完,确定要开打了
     final_msg.push(`${A_player.名号}向${B_player.名号}发起了比武！`);
 
@@ -265,7 +265,7 @@ export class WDT extends plugin {
     }
     e.reply(final_msg);
     //本次打劫时间存入缓存
-    await redis.set('xiuxian@1.3.0:' + A + ':last_biwu_time', nowTime); //存入缓存
+    await redis.set('xiuxian:player:' + A + ':last_biwu_time', nowTime); //存入缓存
     return;
   }
 }

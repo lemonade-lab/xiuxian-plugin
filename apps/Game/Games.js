@@ -70,7 +70,7 @@ export class Games extends plugin {
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':couple', 1);
+    await redis.set('xiuxian:player:' + usr_qq + ':couple', 1);
     e.reply(player.名号 + '开启了拒绝模式');
     return false;
   }
@@ -79,7 +79,7 @@ export class Games extends plugin {
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let player = await Read_player(usr_qq);
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':couple', 0);
+    await redis.set('xiuxian:player:' + usr_qq + ':couple', 0);
     e.reply(player.名号 + '开启了允许模式');
     return false;
   }
@@ -192,9 +192,9 @@ export class Games extends plugin {
     if (player.灵石 < money) {
       //直接清除，并记录
       //重新记录本次时间
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_game_time', now_time); //存入缓存
+      await redis.set('xiuxian:player:' + usr_qq + ':last_game_time', now_time); //存入缓存
       //清除游戏状态
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':game_action', 1);
+      await redis.set('xiuxian:player:' + usr_qq + ':game_action', 1);
       //清除未投入判断
       //清除金额
       yazhu[usr_qq] = 0;
@@ -229,7 +229,7 @@ export class Games extends plugin {
       return false;
     }
     //记录本次执行时间
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_game_time', now_time);
+    await redis.set('xiuxian:player:' + usr_qq + ':last_game_time', now_time);
     //判断是否已经在进行
     let game_action = await redis.get(
       'xiuxian@1.3.0:' + usr_qq + ':game_action'
@@ -243,7 +243,7 @@ export class Games extends plugin {
     //不为0   没有参与投入和梭哈
     e.reply(`媚娘：发送[#投入+数字]或[#梭哈]`, true);
     //写入游戏状态为真-在进行了
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':game_action', 0);
+    await redis.set('xiuxian:player:' + usr_qq + ':game_action', 0);
     return false;
   }
 
@@ -301,7 +301,7 @@ export class Games extends plugin {
             now_time
           ); //存入缓存
           //清除游戏状态
-          await redis.set('xiuxian@1.3.0:' + usr_qq + ':game_action', 1);
+          await redis.set('xiuxian:player:' + usr_qq + ':game_action', 1);
           //清除未投入判断
           //清除金额
           yazhu[usr_qq] = 0;
@@ -405,9 +405,9 @@ export class Games extends plugin {
         ]);
       }
       //重新记录本次时间
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_game_time', now_time); //存入缓存
+      await redis.set('xiuxian:player:' + usr_qq + ':last_game_time', now_time); //存入缓存
       //清除游戏状态
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':game_action', 1);
+      await redis.set('xiuxian:player:' + usr_qq + ':game_action', 1);
       //清除未投入判断
       //清除金额
       yazhu[usr_qq] = 0;
@@ -439,9 +439,9 @@ export class Games extends plugin {
       ];
       let now_money = player.灵石 - yazhu[usr_qq];
       //重新记录本次时间
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_game_time', now_time); //存入缓存
+      await redis.set('xiuxian:player:' + usr_qq + ':last_game_time', now_time); //存入缓存
       //清除游戏状态
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':game_action', 1);
+      await redis.set('xiuxian:player:' + usr_qq + ':game_action', 1);
       //清除未投入判断
       //清除金额
       yazhu[usr_qq] = 0;
@@ -575,8 +575,8 @@ export class Games extends plugin {
       await fstadd_qinmidu(A, B);
     }
     //前戏做完了!
-    await redis.set('xiuxian@1.3.0:' + A + ':last_shuangxiu_time', now_Time);
-    await redis.set('xiuxian@1.3.0:' + B + ':last_shuangxiu_time', now_Time);
+    await redis.set('xiuxian:player:' + A + ':last_shuangxiu_time', now_Time);
+    await redis.set('xiuxian:player:' + B + ':last_shuangxiu_time', now_Time);
     if (A != B) {
       let option = Math.random();
       let xiuwei = Math.random();
