@@ -12,7 +12,7 @@ const 内门弟子上限 = [2, 3, 4, 5, 6, 8];
 export class associationadmin extends plugin {
   constructor() {
     super({
-      name,
+      name:'associationadmin',
       dsc,
       rule: [
         {
