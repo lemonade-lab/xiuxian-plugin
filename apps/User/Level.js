@@ -524,10 +524,12 @@ export class Level extends plugin {
 
   async Level_up_normal(e) {
     this.Level_up(e, false);
+    return false
   }
 
   async LevelMax_up_normal(e) {
     this.LevelMax_up(e, false);
+    return false
   }
 
   async Level_up_luck(e) {
@@ -538,6 +540,7 @@ export class Level extends plugin {
       return false;
     }
     this.Level_up(e, true);
+    return false
   }
 
   async LevelMax_up_luck(e) {
@@ -548,6 +551,7 @@ export class Level extends plugin {
       return false;
     }
     this.LevelMax_up(e, true);
+    return false
   }
 
   //渡劫
