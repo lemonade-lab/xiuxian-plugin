@@ -1,18 +1,17 @@
 import fs from 'fs';
 import path from 'path';
+import puppeteer from '../../../lib/puppeteer/puppeteer.js';
+
 import data from './XiuxianData.js';
 import { Writeit, Read_it } from './duanzaofu.js';
 import { AppName } from '../app.config.js';
-import puppeteer from '../../../lib/puppeteer/puppeteer.js';
 import config from './Config.js';
-import Config from './Config.js';
 import Show from './show.js';
-let xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian');
 /**
  * 全局
  */
 //插件根目录
-const __dirname = path.resolve() + path.sep + 'plugins' + path.sep + AppName;
+const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${AppName}`;
 // 文件存放路径
 export const __PATH = {
   //更新日志
@@ -43,13 +42,6 @@ export const __PATH = {
   custom: path.join(__dirname, '/resources/data/custom'),
   auto_backup: path.join(__dirname, '/resources/data/auto_backup'),
 };
-let xiuxianSetFile = './plugins/' + AppName + '/config/xiuxian/xiuxian.yaml';
-if (!fs.existsSync(xiuxianSetFile)) {
-  fs.copyFileSync(
-    './plugins/' + AppName + '/defSet/xiuxian/xiuxian.yaml',
-    xiuxianSetFile
-  );
-}
 
 const 体质概率 = 0.2;
 const 伪灵根概率 = 0.37;
@@ -68,8 +60,6 @@ export async function existplayer(usr_qq) {
   }
   return false;
 }
-/**
- * 
 
 /**
  * 
@@ -1121,47 +1111,48 @@ export async function get_talent_img(e) {
  * @return image
  */
 export async function get_adminset_img(e) {
+  const cf =config.getConfig('xiuxian', 'xiuxian')
   let adminset = {
     //CD：分
-    CDassociation: xiuxianConfigData.CD.association,
-    CDjoinassociation: xiuxianConfigData.CD.joinassociation,
-    CDassociationbattle: xiuxianConfigData.CD.associationbattle,
-    CDrob: xiuxianConfigData.CD.rob,
-    CDgambling: xiuxianConfigData.CD.gambling,
-    CDcouple: xiuxianConfigData.CD.couple,
-    CDgarden: xiuxianConfigData.CD.garden,
-    CDlevel_up: xiuxianConfigData.CD.level_up,
-    CDsecretplace: xiuxianConfigData.CD.secretplace,
-    CDtimeplace: xiuxianConfigData.CD.timeplace,
-    CDforbiddenarea: xiuxianConfigData.CD.forbiddenarea,
-    CDreborn: xiuxianConfigData.CD.reborn,
-    CDtransfer: xiuxianConfigData.CD.transfer,
-    CDhonbao: xiuxianConfigData.CD.honbao,
-    CDboss: xiuxianConfigData.CD.boss,
+    CDassociation: cf.CD.association,
+    CDjoinassociation: cf.CD.joinassociation,
+    CDassociationbattle: cf.CD.associationbattle,
+    CDrob: cf.CD.rob,
+    CDgambling: cf.CD.gambling,
+    CDcouple: cf.CD.couple,
+    CDgarden: cf.CD.garden,
+    CDlevel_up: cf.CD.level_up,
+    CDsecretplace: cf.CD.secretplace,
+    CDtimeplace: cf.CD.timeplace,
+    CDforbiddenarea: cf.CD.forbiddenarea,
+    CDreborn: cf.CD.reborn,
+    CDtransfer: cf.CD.transfer,
+    CDhonbao: cf.CD.honbao,
+    CDboss: cf.CD.boss,
     //手续费
-    percentagecost: xiuxianConfigData.percentage.cost,
-    percentageMoneynumber: xiuxianConfigData.percentage.Moneynumber,
-    percentagepunishment: xiuxianConfigData.percentage.punishment,
+    percentagecost: cf.percentage.cost,
+    percentageMoneynumber: cf.percentage.Moneynumber,
+    percentagepunishment: cf.percentage.punishment,
     //出千控制
-    sizeMoney: xiuxianConfigData.size.Money,
+    sizeMoney: cf.size.Money,
     //开关
-    switchplay: xiuxianConfigData.switch.play,
-    switchMoneynumber: xiuxianConfigData.switch.play,
-    switchcouple: xiuxianConfigData.switch.couple,
-    switchXiuianplay_key: xiuxianConfigData.switch.Xiuianplay_key,
+    switchplay: cf.switch.play,
+    switchMoneynumber: cf.switch.play,
+    switchcouple: cf.switch.couple,
+    switchXiuianplay_key: cf.switch.Xiuianplay_key,
     //倍率
-    biguansize: xiuxianConfigData.biguan.size,
-    biguantime: xiuxianConfigData.biguan.time,
-    biguancycle: xiuxianConfigData.biguan.cycle,
+    biguansize: cf.biguan.size,
+    biguantime: cf.biguan.time,
+    biguancycle: cf.biguan.cycle,
     //
-    worksize: xiuxianConfigData.work.size,
-    worktime: xiuxianConfigData.work.time,
-    workcycle: xiuxianConfigData.work.cycle,
+    worksize: cf.work.size,
+    worktime: cf.work.time,
+    workcycle: cf.work.cycle,
 
     //出金倍率
-    SecretPlaceone: xiuxianConfigData.SecretPlace.one,
-    SecretPlacetwo: xiuxianConfigData.SecretPlace.two,
-    SecretPlacethree: xiuxianConfigData.SecretPlace.three,
+    SecretPlaceone: cf.SecretPlace.one,
+    SecretPlacetwo: cf.SecretPlace.two,
+    SecretPlacethree: cf.SecretPlace.three,
   };
   const data1 = await new Show(e).get_adminsetData(adminset);
   return await puppeteer.screenshot('adminset', {
