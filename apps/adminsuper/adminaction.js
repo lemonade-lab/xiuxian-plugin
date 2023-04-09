@@ -64,7 +64,7 @@ export class adminaction extends plugin {
           ForwardMsg(mye, msg);
           return false;
         }
-        msg.push("修仙插件更新成功,正在尝试重新启动以应用更新...");
+        msg.push("修仙插件更新成功,请[#重启]");
         ForwardMsg(mye, msg);
       }
     );
