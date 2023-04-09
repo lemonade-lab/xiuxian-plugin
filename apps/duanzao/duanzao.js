@@ -334,7 +334,7 @@ export class duanzao extends plugin {
           e.reply(`炉子为空,无法炼制`);
           return false;
         }
-        let action = await redis.get('xiuxian@1.3.0:' + user_qq + ':action10');
+        let action = await redis.get('xiuxian:' + user_qq + ':action10');
         action = JSON.parse(action);
         if (action != null) {
           //人物有动作查询动作结束时间
@@ -415,7 +415,7 @@ export class duanzao extends plugin {
         }
         //关闭状态
 
-        let action = await redis.get('xiuxian@1.3.0:' + user_qq + ':action10');
+        let action = await redis.get('xiuxian:' + user_qq + ':action10');
         action = JSON.parse(action);
 
         //判断属性九维值

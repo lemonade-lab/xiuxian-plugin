@@ -100,7 +100,7 @@ export class shenren extends plugin {
       return false;
     }
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -235,7 +235,7 @@ export class shenren extends plugin {
 
 async function getLastdagong(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':lastdagong_time');
+  let time = await redis.get('xiuxian:' + usr_qq + ':lastdagong_time');
   console.log(time);
   if (time != null) {
     let data = await shijianc(parseInt(time));

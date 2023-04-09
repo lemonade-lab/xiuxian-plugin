@@ -157,7 +157,7 @@ export class BOSS extends plugin {
     var Time = 5;
     let now_Time = new Date().getTime(); //获取当前时间戳
     Time = parseInt(60000 * Time);
-    let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + 'BOSSCD'); //获得上次的时间戳,
+    let last_time = await redis.get('xiuxian:' + usr_qq + 'BOSSCD'); //获得上次的时间戳,
     last_time = parseInt(last_time);
     if (now_Time < last_time + Time) {
       let Couple_m = Math.trunc((last_time + Time - now_Time) / 60 / 1000);
@@ -171,7 +171,7 @@ export class BOSS extends plugin {
         e.reply('你在仙界吗');
         return false;
       }
-      let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
+      let action = await redis.get('xiuxian:' + usr_qq + ':action');
       action = JSON.parse(action);
       if (action != null) {
         let action_end_time = action.end_time;

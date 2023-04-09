@@ -186,7 +186,7 @@ export class AdminSuper extends plugin {
     for (let player_id of playerList) {
       //清除游戏状态
       await redis.set('xiuxian@1.3.0:' + player_id + ':game_action', 1);
-      let action = await redis.get('xiuxian@1.3.0:' + player_id + ':action');
+      let action = await redis.get('xiuxian:' + player_id + ':action');
       action = JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
@@ -225,7 +225,7 @@ export class AdminSuper extends plugin {
     //清除游戏状态
     await redis.set('xiuxian@1.3.0:' + qq + ':game_action', 1);
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian@1.3.0:' + qq + ':action');
+    let action = await redis.get('xiuxian:' + qq + ':action');
     action = JSON.parse(action);
     //不为空，有状态
     if (action != null) {

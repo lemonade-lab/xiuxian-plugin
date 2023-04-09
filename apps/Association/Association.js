@@ -470,7 +470,7 @@ function sortBy(field) {
 //获取上次签到时间
 async function getLastsign_Asso(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':lastsign_Asso_time');
+  let time = await redis.get('xiuxian:' + usr_qq + ':lastsign_Asso_time');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;

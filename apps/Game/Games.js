@@ -554,7 +554,7 @@ export class Games extends plugin {
       return false;
     }
     //拒绝
-    let couple = await redis.get('xiuxian@1.3.0:' + B + ':couple');
+    let couple = await redis.get('xiuxian:' + B + ':couple');
     if (couple != 0) {
       e.reply('哎哟，你干嘛...');
       return false;

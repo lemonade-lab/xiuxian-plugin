@@ -449,7 +449,7 @@ export class BlessPlace extends plugin {
 //获取上次开采灵石的时间
 async function getLastsign_Explor(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Explor');
+  let time = await redis.get('xiuxian:' + usr_qq + ':getLastsign_Explor');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;

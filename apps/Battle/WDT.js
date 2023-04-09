@@ -100,7 +100,7 @@ export class WDT extends plugin {
     }
     let playerA = data.getData('player', A);
     let playerB = data.getData('player', B);
-    let A_action = await redis.get('xiuxian@1.3.0:' + A + ':action');
+    let A_action = await redis.get('xiuxian:' + A + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -126,7 +126,7 @@ export class WDT extends plugin {
 
     let isBbusy = false; //给B是否忙碌加个标志位，用来判断要不要扣隐身水
 
-    let B_action = await redis.get('xiuxian@1.3.0:' + B + ':action');
+    let B_action = await redis.get('xiuxian:' + B + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();
@@ -173,7 +173,7 @@ export class WDT extends plugin {
     var Time = cf.CD.couple; //6个小时
     let shuangxiuTimeout = parseInt(60000 * Time);
     let now_Time = new Date().getTime(); //获取当前时间戳
-    let last_timeA = await redis.get('xiuxian@1.3.0:' + A + ':last_biwu_time'); //获得上次的时间戳,
+    let last_timeA = await redis.get('xiuxian:' + A + ':last_biwu_time'); //获得上次的时间戳,
     last_timeA = parseInt(last_timeA);
     if (now_Time < last_timeA + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
@@ -186,7 +186,7 @@ export class WDT extends plugin {
       return;
     }
 
-    let last_timeB = await redis.get('xiuxian@1.3.0:' + B + ':last_biwu_time'); //获得上次的时间戳,
+    let last_timeB = await redis.get('xiuxian:' + B + ':last_biwu_time'); //获得上次的时间戳,
     last_timeB = parseInt(last_timeB);
     if (now_Time < last_timeB + shuangxiuTimeout) {
       let Couple_m = Math.trunc(

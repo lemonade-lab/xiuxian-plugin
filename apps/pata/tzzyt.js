@@ -72,7 +72,7 @@ export class tzzyt extends plugin {
     var Time = 2;
     let now_Time = new Date().getTime(); //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time);
-    let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + 'CD'); //获得上次的时间戳,
+    let last_time = await redis.get('xiuxian:' + usr_qq + 'CD'); //获得上次的时间戳,
     last_time = parseInt(last_time);
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
