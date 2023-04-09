@@ -87,14 +87,14 @@ class UserAction {
     Bot.pickUser(UID).sendMsg(msg);
     return;
   };
-  surveySet=({e})=>{
-      const { whitecrowd, blackid } = getConfig({
+  surveySet = ({ e }) => {
+    const { whitecrowd, blackid } = config.getConfig({
       app: "parameter",
       name: "namelist",
     });
     if (whitecrowd.indexOf(e.group_id) == -1) return false;
     if (blackid.indexOf(e.user_id) != -1) return false;
-    return false
+    return true
   }
 }
 export default new UserAction();

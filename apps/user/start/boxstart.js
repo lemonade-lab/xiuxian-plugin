@@ -20,7 +20,7 @@ export class BoxStart extends plugin {
   }
   createMsg = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -36,7 +36,7 @@ export class BoxStart extends plugin {
   };
   reCreateMsg = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const UID = e.user_id;
     const cf = GameApi.DefsetUpdata.getConfig({
       app: "parameter",

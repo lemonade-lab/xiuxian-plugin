@@ -9,7 +9,7 @@ export class BoxDice extends plugin {
   }
   userDice = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const msg = ["__[万花坊]__"];
     msg.push("待更新");
     await BotApi.User.forwardMsgSurveySet({ e, data: msg });

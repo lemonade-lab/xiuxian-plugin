@@ -12,7 +12,7 @@ export class BoxModify extends plugin {
   }
   changeName = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;
@@ -71,7 +71,7 @@ export class BoxModify extends plugin {
   };
   changeAutograph = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply("已死亡");
       return false;

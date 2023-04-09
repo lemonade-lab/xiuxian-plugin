@@ -13,7 +13,7 @@ export class boxadminmoney extends plugin {
   gifts = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const UID = await BotApi.User.at({ e });
     if (!UID) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -38,7 +38,7 @@ export class boxadminmoney extends plugin {
   deduction = async (e) => {
     if (!e.isMaster) return false;
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const UID = await BotApi.User.at({ e });
     if (!UID) return false;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {

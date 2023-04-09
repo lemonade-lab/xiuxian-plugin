@@ -12,7 +12,7 @@ export class BoxBank extends plugin {
   }
   moneyWorkshop = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");
@@ -45,7 +45,7 @@ export class BoxBank extends plugin {
 
   substitution = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const UID = e.user_id;
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply("已死亡");

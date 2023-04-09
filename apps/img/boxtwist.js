@@ -12,7 +12,7 @@ export class BoxtWist extends plugin {
   helpWist = async (e) => {
     if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000)
       return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: "parameter",
       name: "cooling",

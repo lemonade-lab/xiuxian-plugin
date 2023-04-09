@@ -12,7 +12,7 @@ export class BoxForum extends plugin {
   }
   searchForum = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.surveySet({ e })) return false;
+    if (!BotApi.User.controlMessage({ e })) return false;
     const msg = [];
     const Forum = await GameApi.UserData.listActionInitial({
       NAME: "forum",
