@@ -264,7 +264,7 @@ export class UserHome extends plugin {
     }
     action.push(name);
     await redis.set(
-      'xiuxian@1.3.0:' + usr_qq + ':duihuan',
+      'xiuxian:player:' + usr_qq + ':duihuan',
       JSON.stringify(action)
     );
     let msg = [];

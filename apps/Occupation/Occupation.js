@@ -185,7 +185,7 @@ export class Occupation extends plugin {
     };
     action = arr;
     await redis.set(
-      'xiuxian@1.3.0:' + usr_qq + ':fuzhi',
+      'xiuxian:player:' + usr_qq + ':fuzhi',
       JSON.stringify(action)
     );
     player.occupation = occupation;
@@ -224,7 +224,7 @@ export class Occupation extends plugin {
     player.occupation_exp = b;
     player.occupation_level = c;
     await redis.set(
-      'xiuxian@1.3.0:' + usr_qq + ':fuzhi',
+      'xiuxian:player:' + usr_qq + ':fuzhi',
       JSON.stringify(action)
     );
     await Write_player(usr_qq, player);
@@ -242,7 +242,7 @@ export class Occupation extends plugin {
     if (!verc({ e })) return false;
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -328,7 +328,7 @@ export class Occupation extends plugin {
     action = null;
     e.reply('清除完成');
     await redis.set(
-      'xiuxian@1.3.0:' + 1 + ':shangjing',
+      'xiuxian:player:' + 1 + ':shangjing',
       JSON.stringify(action)
     );
     return false;
@@ -395,7 +395,7 @@ export class Occupation extends plugin {
     arr.end_time = new Date().getTime();
     delete arr.group_id; //结算完去除group_id
     await redis.set(
-      'xiuxian@1.3.0:' + e.user_id + ':action',
+      'xiuxian:player:' + e.user_id + ':action',
       JSON.stringify(arr)
     );
   }
@@ -405,7 +405,7 @@ export class Occupation extends plugin {
     if (!(await existplayer(usr_qq))) return false;
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -541,7 +541,7 @@ export class Occupation extends plugin {
     arr.end_time = new Date().getTime();
     delete arr.group_id; //结算完去除group_id
     await redis.set(
-      'xiuxian@1.3.0:' + e.user_id + ':action',
+      'xiuxian:player:' + e.user_id + ':action',
       JSON.stringify(arr)
     );
   }
@@ -971,7 +971,7 @@ export class Occupation extends plugin {
       end_time: new Date().getTime() + 60000 * 60 * 20, //结束时间
     };
     await redis.set(
-      'xiuxian@1.3.0:' + usr_qq + ':shangjing',
+      'xiuxian:player:' + usr_qq + ':shangjing',
       JSON.stringify(arr)
     );
     var msg_data = {
@@ -1089,7 +1089,7 @@ export class Occupation extends plugin {
     }
     action.arm.splice(num, 1);
     await redis.set(
-      'xiuxian@1.3.0:' + usr_qq + ':shangjing',
+      'xiuxian:player:' + usr_qq + ':shangjing',
       JSON.stringify(action)
     );
     if (
@@ -1153,7 +1153,7 @@ export class Occupation extends plugin {
       this.pushInfo(group_id, true, msg);
     }
     await redis.set(
-      'xiuxian@1.3.0:' + 1 + ':shangjing',
+      'xiuxian:player:' + 1 + ':shangjing',
       JSON.stringify(action)
     );
     return false;
@@ -1183,7 +1183,7 @@ export class Occupation extends plugin {
       if (count == 0) break;
     }
     await redis.set(
-      'xiuxian@1.3.0:' + 1 + ':shangjing',
+      'xiuxian:player:' + 1 + ':shangjing',
       JSON.stringify(action)
     );
     let type = 1;
@@ -1300,7 +1300,7 @@ export class Occupation extends plugin {
       //优化下文案，比如xxx在刺杀xxx中
       action.splice(num, 1);
       await redis.set(
-        'xiuxian@1.3.0:' + 1 + ':shangjing',
+        'xiuxian:player:' + 1 + ':shangjing',
         JSON.stringify(action)
       );
     } else if (msg.find(item => item == B_win)) {

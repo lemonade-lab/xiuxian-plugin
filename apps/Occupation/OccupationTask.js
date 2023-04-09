@@ -120,7 +120,7 @@ export class OccupationTask extends plugin {
             arr.Place_actionplus = 1; //沉迷状态
             delete arr.group_id; //结算完去除group_id
             await redis.set(
-              'xiuxian@1.3.0:' + player_id + ':action',
+              'xiuxian:player:' + player_id + ':action',
               JSON.stringify(arr)
             );
             if (is_group) {
@@ -209,7 +209,7 @@ export class OccupationTask extends plugin {
             arr.Place_actionplus = 1; //沉迷状态
             delete arr.group_id; //结算完去除group_id
             await redis.set(
-              'xiuxian@1.3.0:' + player_id + ':action',
+              'xiuxian:player:' + player_id + ':action',
               JSON.stringify(arr)
             );
             //msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);

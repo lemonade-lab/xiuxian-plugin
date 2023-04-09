@@ -46,7 +46,7 @@ export class PlayerControl extends plugin {
     let usr_qq = e.user_id;
     if (!(await existplayer(usr_qq))) return false;
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -132,7 +132,7 @@ export class PlayerControl extends plugin {
     }
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -273,7 +273,7 @@ export class PlayerControl extends plugin {
     arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
     delete arr.group_id; //结算完去除group_id
     await redis.set(
-      'xiuxian@1.3.0:' + e.user_id + ':action',
+      'xiuxian:player:' + e.user_id + ':action',
       JSON.stringify(arr)
     );
   }
@@ -344,7 +344,7 @@ export class PlayerControl extends plugin {
     arr.end_time = new Date().getTime();
     delete arr.group_id; //结算完去除group_id
     await redis.set(
-      'xiuxian@1.3.0:' + e.user_id + ':action',
+      'xiuxian:player:' + e.user_id + ':action',
       JSON.stringify(arr)
     );
   }

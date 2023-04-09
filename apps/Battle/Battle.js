@@ -57,7 +57,7 @@ export class Battle extends plugin {
 
     //得到redis游戏状态
     let last_game_timeA = await redis.get(
-      'xiuxian@1.3.0:' + A + ':last_game_time'
+      'xiuxian:player:' + A + ':last_game_time'
     );
     //设置游戏状态
     if (last_game_timeA == 0) {
@@ -153,7 +153,7 @@ export class Battle extends plugin {
     }
 
     let last_game_timeB = await redis.get(
-      'xiuxian@1.3.0:' + B + ':last_game_time'
+      'xiuxian:player:' + B + ':last_game_time'
     );
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他赚够了再打劫也不迟!`);
@@ -188,7 +188,7 @@ export class Battle extends plugin {
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
     let last_dajie_time = await redis.get(
-      'xiuxian@1.3.0:' + A + ':last_dajie_time'
+      'xiuxian:player:' + A + ':last_dajie_time'
     ); //获得上次打劫的时间戳,
     last_dajie_time = parseInt(last_dajie_time);
     const cf = config.getConfig('xiuxian', 'xiuxian');
@@ -286,7 +286,7 @@ export class Battle extends plugin {
         action2.action = '禁闭';
         action2.end_time = new Date().getTime() + action_time2;
         await redis.set(
-          'xiuxian@1.3.0:' + A + ':action',
+          'xiuxian:player:' + A + ':action',
           JSON.stringify(action2)
         );
         final_msg.push(

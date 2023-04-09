@@ -67,7 +67,7 @@ export class Xijie extends plugin {
     if (!ifexistplay) return false;
 
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -89,7 +89,7 @@ export class Xijie extends plugin {
       }
     }
     let lastxijie_time = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':lastxijie_time'
+      'xiuxian:player:' + usr_qq + ':lastxijie_time'
     );
     lastxijie_time = parseInt(lastxijie_time);
     if (now_time < lastxijie_time + 7200000) {
@@ -209,7 +209,7 @@ export class Xijie extends plugin {
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {

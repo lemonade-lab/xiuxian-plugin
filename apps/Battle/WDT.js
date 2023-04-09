@@ -42,7 +42,7 @@ export class WDT extends plugin {
 
     //得到redis游戏状态
     let last_game_timeA = await redis.get(
-      'xiuxian@1.3.0:' + A + ':last_game_time'
+      'xiuxian:player:' + A + ':last_game_time'
     );
     //设置游戏状态
     if (last_game_timeA == 0) {
@@ -117,7 +117,7 @@ export class WDT extends plugin {
     }
 
     let last_game_timeB = await redis.get(
-      'xiuxian@1.3.0:' + B + ':last_game_time'
+      'xiuxian:player:' + B + ':last_game_time'
     );
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他结束再来比武吧!`);
@@ -153,7 +153,7 @@ export class WDT extends plugin {
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
     let last_biwu_time = await redis.get(
-      'xiuxian@1.3.0:' + A + ':last_biwu_time'
+      'xiuxian:player:' + A + ':last_biwu_time'
     ); //获得上次打劫的时间戳,
     last_biwu_time = parseInt(last_biwu_time);
     let robTimeout = parseInt(60000 * cf.CD.biwu);

@@ -132,7 +132,7 @@ export class Garden extends plugin {
     let nowTime = now.getTime();
     //获得时间戳
     let last_garden_time = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':last_garden_time'
+      'xiuxian:player:' + usr_qq + ':last_garden_time'
     );
     //
     last_garden_time = parseInt(last_garden_time);
@@ -175,7 +175,7 @@ export class Garden extends plugin {
           ); //存入缓存
           //记录本次获得时间戳
           await redis.set(
-            'xiuxian@1.3.0:' + usr_qq + ':last_garden_time',
+            'xiuxian:player:' + usr_qq + ':last_garden_time',
             nowTime
           );
           return false;
@@ -193,7 +193,7 @@ export class Garden extends plugin {
           ); //存入缓存
           //记录本次获得时间戳
           await redis.set(
-            'xiuxian@1.3.0:' + usr_qq + ':last_garden_time',
+            'xiuxian:player:' + usr_qq + ':last_garden_time',
             nowTime
           );
           return false;

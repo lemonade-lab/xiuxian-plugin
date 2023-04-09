@@ -219,7 +219,7 @@ export class Taopaotask extends plugin {
             }
             //写入redis
             await redis.set(
-              'xiuxian@1.3.0:' + player_id + ':action',
+              'xiuxian:player:' + player_id + ':action',
               JSON.stringify(arr)
             );
             msg.push('\n' + last_msg);

@@ -155,7 +155,7 @@ export class duanzao extends plugin {
     for (let player_id of playerList) {
       let action = null;
       await redis.set(
-        'xiuxian@1.3.0:' + player_id + ':action10',
+        'xiuxian:player:' + player_id + ':action10',
         JSON.stringify(action)
       );
     }
@@ -181,7 +181,7 @@ export class duanzao extends plugin {
           await Write_duanlu(newtripod);
           let action = null;
           await redis.set(
-            'xiuxian@1.3.0:' + user_qq + ':action10',
+            'xiuxian:player:' + user_qq + ':action10',
             JSON.stringify(action)
           );
           e.reply('材料成功清除');
@@ -221,7 +221,7 @@ export class duanzao extends plugin {
     //不开放私聊
     //获取游戏状态
     const game_action = await redis.get(
-      'xiuxian@1.3.0:' + user_qq + ':game_action'
+      'xiuxian:player:' + user_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -369,7 +369,7 @@ export class duanzao extends plugin {
         }
         await Write_danyao(user_qq, dy);
         await redis.set(
-          'xiuxian@1.3.0:' + user_qq + ':action10',
+          'xiuxian:player:' + user_qq + ':action10',
           JSON.stringify(arr)
         ); //redis设置动作
         e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`);
@@ -575,7 +575,7 @@ export class duanzao extends plugin {
         //清除时间
         action = new Date().getTime();
         await redis.set(
-          'xiuxian@1.3.0:' + user_qq + ':action10',
+          'xiuxian:player:' + user_qq + ':action10',
           JSON.stringify(action)
         );
         e.reply(`恭喜你获得了[${wuqiname}·${houzhui}],炼器经验增加了[${z}]`);

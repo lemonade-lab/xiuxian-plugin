@@ -196,7 +196,7 @@ export class mojietask extends plugin {
               delete arr.group_id;
               //写入redis
               await redis.set(
-                'xiuxian@1.3.0:' + player_id + ':action',
+                'xiuxian:player:' + player_id + ':action',
                 JSON.stringify(arr)
               );
               //先完结再结算
@@ -211,7 +211,7 @@ export class mojietask extends plugin {
             } else {
               arr.cishu--;
               await redis.set(
-                'xiuxian@1.3.0:' + player_id + ':action',
+                'xiuxian:player:' + player_id + ':action',
                 JSON.stringify(arr)
               );
               //先完结再结算

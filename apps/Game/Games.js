@@ -210,7 +210,7 @@ export class Games extends plugin {
     //last_game_time
     //获得时间戳
     let last_game_time = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':last_game_time'
+      'xiuxian:player:' + usr_qq + ':last_game_time'
     );
     last_game_time = parseInt(last_game_time);
     let transferTimeout = parseInt(60000 * time);
@@ -232,7 +232,7 @@ export class Games extends plugin {
     await redis.set('xiuxian:player:' + usr_qq + ':last_game_time', now_time);
     //判断是否已经在进行
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //为0，就是在进行了
     if (game_action == 0) {
@@ -259,7 +259,7 @@ export class Games extends plugin {
     //得到此人的状态
     //判断是否是投入用户
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     if (!ifexistplay || game_action == 1) {
       //不是就返回
@@ -297,7 +297,7 @@ export class Games extends plugin {
           //直接清除，并记录
           //重新记录本次时间
           await redis.set(
-            'xiuxian@1.3.0:' + usr_qq + ':last_game_time',
+            'xiuxian:player:' + usr_qq + ':last_game_time',
             now_time
           ); //存入缓存
           //清除游戏状态
@@ -326,7 +326,7 @@ export class Games extends plugin {
     //得到此人的状态
     //判断是否是投入用户
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     if (!ifexistplay || game_action == 1) {
       //不是就返回
@@ -520,7 +520,7 @@ export class Games extends plugin {
     //自己的cd
     let now_Time = new Date().getTime(); //获取当前时间戳
     let last_timeA = await redis.get(
-      'xiuxian@1.3.0:' + A + ':last_shuangxiu_time'
+      'xiuxian:player:' + A + ':last_shuangxiu_time'
     ); //获得上次的时间戳,
     last_timeA = parseInt(last_timeA);
     if (now_Time < last_timeA + shuangxiuTimeout) {
@@ -534,7 +534,7 @@ export class Games extends plugin {
       return false;
     }
     let last_timeB = await redis.get(
-      'xiuxian@1.3.0:' + B + ':last_shuangxiu_time'
+      'xiuxian:player:' + B + ':last_shuangxiu_time'
     ); //获得上次的时间戳,
     last_timeB = parseInt(last_timeB);
     if (now_Time < last_timeB + shuangxiuTimeout) {

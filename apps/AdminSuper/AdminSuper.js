@@ -190,7 +190,7 @@ export class AdminSuper extends plugin {
       action = JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
-        await redis.del('xiuxian@1.3.0:' + player_id + ':action');
+        await redis.del('xiuxian:player:' + player_id + ':action');
         let arr = action;
         arr.is_jiesuan = 1; //结算状态
         arr.shutup = 1; //闭关状态
@@ -201,7 +201,7 @@ export class AdminSuper extends plugin {
         arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
         delete arr.group_id; //结算完去除group_id
         await redis.set(
-          'xiuxian@1.3.0:' + player_id + ':action',
+          'xiuxian:player:' + player_id + ':action',
           JSON.stringify(arr)
         );
       }

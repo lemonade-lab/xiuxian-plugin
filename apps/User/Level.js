@@ -87,7 +87,7 @@ export class Level extends plugin {
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...');
@@ -119,7 +119,7 @@ export class Level extends plugin {
     let now_Time = new Date().getTime(); //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time);
     let last_time = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time'
+      'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time'
     ); //获得上次的时间戳,
     last_time = parseInt(last_time);
     if (now_Time < last_time + shuangxiuTimeout) {
@@ -149,7 +149,7 @@ export class Level extends plugin {
       if (bad_time > 0.9) {
         await Add_血气(usr_qq, -1 * need_exp * 0.4);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time',
           now_Time
         );
         e.reply(
@@ -163,7 +163,7 @@ export class Level extends plugin {
       } else if (bad_time > 0.8) {
         await Add_血气(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time',
           now_Time
         );
         e.reply(
@@ -177,7 +177,7 @@ export class Level extends plugin {
       } else if (bad_time > 0.7) {
         await Add_血气(usr_qq, -1 * need_exp * 0.1);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time',
           now_Time
         );
         e.reply(
@@ -190,7 +190,7 @@ export class Level extends plugin {
         return false;
       } else if (bad_time > 0.1) {
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time',
           now_Time
         );
         e.reply(`破体失败，不要气馁,等到${Time}分钟后再尝试吧`, false, {
@@ -200,7 +200,7 @@ export class Level extends plugin {
       } else {
         await Add_血气(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time',
           now_Time
         );
         e.reply(
@@ -260,7 +260,7 @@ export class Level extends plugin {
     ).level;
     e.reply(`突破成功至${level}`, false, { at: true });
     await redis.set(
-      'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+      'xiuxian:player:' + usr_qq + ':last_LevelMaxup_time',
       now_Time
     );
     return false;
@@ -275,7 +275,7 @@ export class Level extends plugin {
     if (!ifexistplay) return false;
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -339,7 +339,7 @@ export class Level extends plugin {
     let now_Time = new Date().getTime(); //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time);
     let last_time = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time'
+      'xiuxian:player:' + usr_qq + ':last_Levelup_time'
     ); //获得上次的时间戳,
     last_time = parseInt(last_time);
     if (now_Time < last_time + shuangxiuTimeout) {
@@ -375,7 +375,7 @@ export class Level extends plugin {
       if (bad_time > 0.9) {
         await Add_修为(usr_qq, -1 * need_exp * 0.4);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian:player:' + usr_qq + ':last_Levelup_time',
           now_Time
         ); //获得上次的时间戳
         e.reply(
@@ -389,7 +389,7 @@ export class Level extends plugin {
       } else if (bad_time > 0.8) {
         await Add_修为(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian:player:' + usr_qq + ':last_Levelup_time',
           now_Time
         ); //获得上次的时间戳
         e.reply(
@@ -403,7 +403,7 @@ export class Level extends plugin {
       } else if (bad_time > 0.7) {
         await Add_修为(usr_qq, -1 * need_exp * 0.1);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian:player:' + usr_qq + ':last_Levelup_time',
           now_Time
         ); //获得上次的时间戳
         e.reply(
@@ -416,7 +416,7 @@ export class Level extends plugin {
         return false;
       } else if (bad_time > 0.1) {
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian:player:' + usr_qq + ':last_Levelup_time',
           now_Time
         ); //获得上次的时间戳
         e.reply(`突破失败，不要气馁,等到${Time}分钟后再尝试吧`, false, {
@@ -426,7 +426,7 @@ export class Level extends plugin {
       } else {
         await Add_修为(usr_qq, -1 * need_exp * 0.2);
         await redis.set(
-          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian:player:' + usr_qq + ':last_Levelup_time',
           now_Time
         ); //获得上次的时间戳
         e.reply(
@@ -507,7 +507,7 @@ export class Level extends plugin {
       this.finish('yes');
       return false;
     } else if (choice == '确认突破') {
-      redis.set('xiuxian@1.3.0:' + usr_qq + ':levelup', 1);
+      redis.set('xiuxian:player:' + usr_qq + ':levelup', 1);
       e.reply('请再次#突破，或#幸运突破！');
       //console.log(this.getContext().recall);
       this.finish('yes');
@@ -686,7 +686,7 @@ export class Level extends plugin {
     if (!verc({ e })) return false;
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+      'xiuxian:player:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {

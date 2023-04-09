@@ -138,11 +138,11 @@ export class biwu extends plugin {
       use: -1,
     };
     await redis.set(
-      'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+      'xiuxian:player:' + A_QQ[num].QQ + ':bisai',
       JSON.stringify(action_A)
     );
     await redis.set(
-      'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+      'xiuxian:player:' + B_QQ[num].QQ + ':bisai',
       JSON.stringify(action_B)
     );
     let buff_A = {};
@@ -159,7 +159,7 @@ export class biwu extends plugin {
         msg_A.push(`\n${i * 1 + 1}、${action_A.技能[i].name} cd:${cd}`);
       }
       await redis.set(
-        'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+        'xiuxian:player:' + A_QQ[num].QQ + ':bisai',
         JSON.stringify(action_A)
       );
       Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg_A);
@@ -174,7 +174,7 @@ export class biwu extends plugin {
         msg_B.push(`\n${i * 1 + 1}、${action_B.技能[i].name} cd:${cd}`);
       }
       await redis.set(
-        'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+        'xiuxian:player:' + B_QQ[num].QQ + ':bisai',
         JSON.stringify(action_B)
       );
       Bot.pickMember(e.group_id, B_QQ[num].QQ).sendMsg(msg_B);
@@ -447,11 +447,11 @@ export class biwu extends plugin {
       action_A.use = -1;
       action_B.use = -1;
       await redis.set(
-        'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+        'xiuxian:player:' + A_QQ[num].QQ + ':bisai',
         JSON.stringify(action_A)
       );
       await redis.set(
-        'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+        'xiuxian:player:' + B_QQ[num].QQ + ':bisai',
         JSON.stringify(action_B)
       );
       //回复初始属性
@@ -475,11 +475,11 @@ export class biwu extends plugin {
     A_QQ[num].QQ = null;
     B_QQ[num].QQ = null;
     await redis.set(
-      'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+      'xiuxian:player:' + A_QQ[num].QQ + ':bisai',
       JSON.stringify(action_A)
     );
     await redis.set(
-      'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+      'xiuxian:player:' + B_QQ[num].QQ + ':bisai',
       JSON.stringify(action_B)
     );
     return false;
@@ -549,7 +549,7 @@ export class biwu extends plugin {
     }
     action.use = jineng;
     await redis.set(
-      'xiuxian@1.3.0:' + e.user_id + ':bisai',
+      'xiuxian:player:' + e.user_id + ':bisai',
       JSON.stringify(action)
     );
     e.reply(`选择成功,下回合释放技能:${action.技能[jineng].name}`);

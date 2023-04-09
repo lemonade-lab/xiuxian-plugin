@@ -258,7 +258,7 @@ export class MoneyOperation extends plugin {
       let now = new Date();
       let nowTime = now.getTime(); //获取当前时间戳
       let lastgetbung_time = await redis.get(
-        'xiuxian@1.3.0:' + A_qq + ':last_getbung_time'
+        'xiuxian:player:' + A_qq + ':last_getbung_time'
       );
       lastgetbung_time = parseInt(lastgetbung_time);
       let transferTimeout = parseInt(cf.CD.transfer * 60000);
@@ -444,7 +444,7 @@ export class MoneyOperation extends plugin {
     //抢红包要有一分钟的CD
     let now_time = new Date().getTime();
     let lastgetbung_time = await redis.get(
-      'xiuxian@1.3.0:' + usr_qq + ':last_getbung_time'
+      'xiuxian:player:' + usr_qq + ':last_getbung_time'
     );
     lastgetbung_time = parseInt(lastgetbung_time);
     const cf = config.getConfig('xiuxian', 'xiuxian');
@@ -474,7 +474,7 @@ export class MoneyOperation extends plugin {
     }
     //这里有错
     let acount = await redis.get(
-      'xiuxian@1.3.0:' + honbao_qq + ':honbaoacount'
+      'xiuxian:player:' + honbao_qq + ':honbaoacount'
     );
     acount = Number(acount);
     //根据个数判断
