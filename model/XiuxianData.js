@@ -1,28 +1,28 @@
-import fs from "fs";
-import Config from "./Config.js";
-import path from "path";
-import { AppName } from "../app.config.js";
+import fs from 'fs';
+import Config from './Config.js';
+import path from 'path';
+import { AppName } from '../app.config.js';
 /*
   数据封装
  */
 class XiuxianData {
   constructor() {
     //获取配置文件参数
-    this.configData = Config.getConfig("version", "version");
+    this.configData = Config.getConfig('version', 'version');
 
     //文件路径参数
     //插件根目录
     const __dirname =
-      path.resolve() + path.sep + "plugins" + path.sep + AppName;
+      path.resolve() + path.sep + 'plugins' + path.sep + AppName;
     this.filePathMap = {
-      player: path.join(__dirname, "/resources/data/xiuxian_player"), //用户数据
-      equipment: path.join(__dirname, "/resources/data/xiuxian_equipment"),
-      najie: path.join(__dirname, "/resources/data/xiuxian_najie"),
-      lib: path.join(__dirname, "/resources/data/item"),
-      Timelimit: path.join(__dirname, "/resources/data/Timelimit"), //限定
-      Level: path.join(__dirname, "/resources/data/Level"), //境界
-      association: path.join(__dirname, "/resources/data/association"),
-      occupation: path.join(__dirname, "/resources/data/occupation"),
+      player: path.join(__dirname, '/resources/data/xiuxian_player'), //用户数据
+      equipment: path.join(__dirname, '/resources/data/xiuxian_equipment'),
+      najie: path.join(__dirname, '/resources/data/xiuxian_najie'),
+      lib: path.join(__dirname, '/resources/data/item'),
+      Timelimit: path.join(__dirname, '/resources/data/Timelimit'), //限定
+      Level: path.join(__dirname, '/resources/data/Level'), //境界
+      association: path.join(__dirname, '/resources/data/association'),
+      occupation: path.join(__dirname, '/resources/data/occupation'),
     };
     this.lib_path = this.filePathMap.lib;
     this.Timelimit = this.filePathMap.Timelimit;
@@ -220,7 +220,7 @@ class XiuxianData {
   existData(file_path_type, file_name) {
     let file_path;
     file_path = this.filePathMap[file_path_type];
-    let dir = path.join(file_path + "/" + file_name + ".json");
+    let dir = path.join(file_path + '/' + file_name + '.json');
     if (fs.existsSync(dir)) {
       return true;
     }
@@ -239,17 +239,17 @@ class XiuxianData {
     if (user_qq) {
       //带user_qq的查询数据文件
       file_path = this.filePathMap[file_name];
-      dir = path.join(file_path + "/" + user_qq + ".json");
+      dir = path.join(file_path + '/' + user_qq + '.json');
     } else {
       //不带参数的查询item下文件
       file_path = this.filePathMap.lib;
-      dir = path.join(file_path + "/" + file_name + ".json");
+      dir = path.join(file_path + '/' + file_name + '.json');
     }
     try {
-      data = fs.readFileSync(dir, "utf8");
+      data = fs.readFileSync(dir, 'utf8');
     } catch (error) {
-      logger.error("读取文件错误：" + error);
-      return "error";
+      logger.error('读取文件错误：' + error);
+      return 'error';
     }
     //将字符串数据转变成json格式
     data = JSON.parse(data);
@@ -267,15 +267,15 @@ class XiuxianData {
     let dir;
     if (user_qq) {
       file_path = this.filePathMap[file_name];
-      dir = path.join(file_path + "/" + user_qq + ".json");
+      dir = path.join(file_path + '/' + user_qq + '.json');
     } else {
       file_path = this.filePathMap.lib;
-      dir = path.join(file_path + "/" + file_name + ".json");
+      dir = path.join(file_path + '/' + file_name + '.json');
     }
-    let new_ARR = JSON.stringify(data, "", "\t"); //json转string
+    let new_ARR = JSON.stringify(data, '', '\t'); //json转string
     if (fs.existsSync(dir)) {
-      fs.writeFileSync(dir, new_ARR, "utf-8", (err) => {
-        console.log("写入成功", err);
+      fs.writeFileSync(dir, new_ARR, 'utf-8', err => {
+        console.log('写入成功', err);
       });
     }
     return;
@@ -290,12 +290,12 @@ class XiuxianData {
     let dir;
     let data;
     file_path = this.filePathMap.association;
-    dir = path.join(file_path + "/" + file_name + ".json");
+    dir = path.join(file_path + '/' + file_name + '.json');
     try {
-      data = fs.readFileSync(dir, "utf8");
+      data = fs.readFileSync(dir, 'utf8');
     } catch (error) {
-      logger.error("读取文件错误：" + error);
-      return "error";
+      logger.error('读取文件错误：' + error);
+      return 'error';
     }
     //将字符串数据转变成json格式
     data = JSON.parse(data);
@@ -311,10 +311,10 @@ class XiuxianData {
     let file_path;
     let dir;
     file_path = this.filePathMap.association;
-    dir = path.join(file_path + "/" + file_name + ".json");
-    let new_ARR = JSON.stringify(data, "", "\t"); //json转string
-    fs.writeFileSync(dir, new_ARR, "utf-8", (err) => {
-      console.log("写入成功", err);
+    dir = path.join(file_path + '/' + file_name + '.json');
+    let new_ARR = JSON.stringify(data, '', '\t'); //json转string
+    fs.writeFileSync(dir, new_ARR, 'utf-8', err => {
+      console.log('写入成功', err);
     });
     return;
   }

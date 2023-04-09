@@ -1,23 +1,22 @@
-import { plugin } from "../../api/api.js";
-import config from "../../model/Config.js";
+import { plugin, config } from '../../api/api.js';
 import {
   Add_najie_thing,
   Write_Exchange,
   Read_Exchange,
-} from "../../model/xiuxian.js";
+} from '../../model/xiuxian.js';
 export class ExchangeTask extends plugin {
   constructor() {
     super({
-      name: "ExchangeTask",
-      dsc: "定时任务",
-      event: "message",
+      name: 'ExchangeTask',
+      dsc: '定时任务',
+      event: 'message',
       priority: 300,
       rule: [],
     });
-    this.set = config.getConfig("task", "task");
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.AutoBackUpTask,
-      name: "ExchangeTask",
+      name: 'ExchangeTask',
       fnc: () => this.Exchangetask(),
     };
   }
@@ -26,7 +25,6 @@ export class ExchangeTask extends plugin {
     try {
       Exchange = await Read_Exchange();
     } catch {
-      //没有表要先建立一个！
       await Write_Exchange([]);
       Exchange = await Read_Exchange();
     }
@@ -37,7 +35,7 @@ export class ExchangeTask extends plugin {
       const usr_qq = Exchange[i].qq;
       let thing = Exchange[i].name.name;
       const quanity = Exchange[i].aconut;
-      if (Exchange[i].name.class == "装备" || Exchange[i].name.class == "仙宠")
+      if (Exchange[i].name.class == '装备' || Exchange[i].name.class == '仙宠')
         thing = Exchange[i].name;
       await Add_najie_thing(
         usr_qq,
@@ -50,6 +48,6 @@ export class ExchangeTask extends plugin {
       i--;
     }
     await Write_Exchange(Exchange);
-    return;
+    return false;
   }
 }

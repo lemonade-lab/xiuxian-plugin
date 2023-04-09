@@ -1,24 +1,18 @@
-import { plugin, common, puppeteer } from "../../api/api.js";
-import config from "../../model/Config.js";
-import Show from "../../model/show.js";
-import { Read_temp, Write_temp } from "../../model/xiuxian.js";
-
-/**
- * 定时任务
- */
+import { plugin, common, puppeteer, config, Show } from '../../api/api.js';
+import { Read_temp, Write_temp } from '../../model/xiuxian.js';
 export class msgTask extends plugin {
   constructor() {
     super({
-      name: "msgTask",
-      dsc: "定时任务",
-      event: "message",
+      name: 'msgTask',
+      dsc: '定时任务',
+      event: 'message',
       priority: 300,
       rule: [],
     });
-    this.set = config.getConfig("task", "task");
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.temp_task,
-      name: "msgTask",
+      name: 'msgTask',
       fnc: () => this.msgTask(),
     };
   }
@@ -51,7 +45,7 @@ export class msgTask extends plugin {
           temp: msg,
         };
         const data1 = await new Show().get_tempData(temp_data);
-        let img = await puppeteer.screenshot("temp", {
+        let img = await puppeteer.screenshot('temp', {
           ...data1,
         });
         await this.pushInfo(i, true, img);
@@ -64,13 +58,13 @@ export class msgTask extends plugin {
    * 推送消息，群消息推送群，或者推送私人
    * @param id
    * @param is_group
-   * @returns {Promise<void>}
+   * @return  falses {Promise<void>}
    */
   async pushInfo(id, is_group, msg) {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch((err) => {
+        .catch(err => {
           Bot.logger.mark(err);
         });
     } else {

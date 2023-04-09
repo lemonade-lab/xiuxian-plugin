@@ -1,6 +1,7 @@
-import { plugin, puppeteer, verc } from "../../api/api.js";
-import data from "../../model/XiuxianData.js";
-import fs from "fs";
+import fs from 'fs';
+import { plugin, puppeteer, verc, data, Show } from '../../api/api.js';
+import { __PATH } from '../../model/xiuxian.js';
+import { AppName } from '../../app.config.js';
 import {
   looktripod,
   settripod,
@@ -15,7 +16,7 @@ import {
   Writeit,
   Read_it,
   alluser,
-} from "../../model/duanzaofu.js";
+} from '../../model/duanzaofu.js';
 import {
   existplayer,
   exist_najie_thing,
@@ -28,53 +29,50 @@ import {
   Read_danyao,
   Write_danyao,
   Read_equipment,
-} from "../../model/xiuxian.js";
-import Show from "../../model/show.js";
-import { __PATH } from "../../model/xiuxian.js";
-import { AppName } from "../../app.config.js";
+} from '../../model/xiuxian.js';
 export class duanzao extends plugin {
   constructor() {
     super({
-      name: "Yunzai_Bot_Occupation",
-      dsc: "修仙模块",
-      event: "message",
+      name: 'Yunzai_Bot_Occupation',
+      dsc: '修仙模块',
+      event: 'message',
       priority: 600,
       rule: [
         {
-          reg: "^#炼器师能力评测",
-          fnc: "getmybook",
+          reg: '^#炼器师能力评测',
+          fnc: 'getmybook',
         },
         {
-          reg: "^#熔炼.*$",
-          fnc: "givein",
+          reg: '^#熔炼.*$',
+          fnc: 'givein',
         },
         {
-          reg: "^#开始炼制",
-          fnc: "startit",
+          reg: '^#开始炼制',
+          fnc: 'startit',
         },
         {
-          reg: "^#开炉",
-          fnc: "openit",
+          reg: '^#开炉',
+          fnc: 'openit',
         },
         {
-          reg: "^#清空锻炉",
-          fnc: "clearthat",
+          reg: '^#清空锻炉',
+          fnc: 'clearthat',
         },
         {
-          reg: "^#我的锻炉",
-          fnc: "mytript",
+          reg: '^#我的锻炉',
+          fnc: 'mytript',
         },
         {
-          reg: "^#赋名.*$",
-          fnc: "getnewname",
+          reg: '^#赋名.*$',
+          fnc: 'getnewname',
         },
         {
-          reg: "^#全体清空锻炉",
-          fnc: "all_clearthat",
+          reg: '^#全体清空锻炉',
+          fnc: 'all_clearthat',
         },
         {
-          reg: "^#神兵榜",
-          fnc: "bestfile",
+          reg: '^#神兵榜',
+          fnc: 'bestfile',
         },
       ],
     });
@@ -89,34 +87,34 @@ export class duanzao extends plugin {
       wupin = await Read_it();
     }
     let newwupin = [];
-    const type = ["武器", "护具", "法宝"];
+    const type = ['武器', '护具', '法宝'];
     let all = await alluser();
     for (let j of wupin) {
       for (let i of all) {
         let najie = await Read_najie(i);
         const equ = await Read_equipment(i);
-        let exist = najie.装备.find((item) => item.name == j.name);
+        let exist = najie.装备.find(item => item.name == j.name);
         for (let m of type) {
           if (equ[m].name == j.name) {
             exist = 1;
             break;
           }
         }
-        let D = "无门无派";
-        let author = "神秘匠师";
+        let D = '无门无派';
+        let author = '神秘匠师';
         if (exist) {
           if (j.author_name) {
-            const player = await data.getData("player", j.author_name);
+            const player = await data.getData('player', j.author_name);
             author = player.名号;
           }
-          const usr_player = await data.getData("player", i);
+          const usr_player = await data.getData('player', i);
           if (usr_player.宗门) D = usr_player.宗门.宗门名称;
           newwupin.push({
             name: j.name,
             type: j.type,
             评分: Math.trunc((j.atk * 1.2 + j.def * 1.5 + j.HP * 1.5) * 10000),
             制作者: author,
-            使用者: usr_player.名号 + "(" + D + ")",
+            使用者: usr_player.名号 + '(' + D + ')',
           });
           break;
         }
@@ -136,33 +134,33 @@ export class duanzao extends plugin {
       newwupin,
     };
     const data1 = await new Show(e).get_shenbing(bd_date);
-    const tu = await puppeteer.screenshot("shenbing", {
+    const tu = await puppeteer.screenshot('shenbing', {
       ...data1,
     });
     e.reply(tu);
-    return;
+    return false;
   }
   async all_clearthat(e) {
     if (!verc({ e })) return false;
-    if (!e.isMaster) return;
+    if (!e.isMaster) return false;
     await Write_duanlu([]);
     let playerList = [];
     let files = fs
-      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
-      .filter((file) => file.endsWith(".json"));
+      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
+      .filter(file => file.endsWith('.json'));
     for (let file of files) {
-      file = file.replace(".json", "");
+      file = file.replace('.json', '');
       playerList.push(file);
     }
     for (let player_id of playerList) {
       let action = null;
       await redis.set(
-        "xiuxian:player:" + player_id + ":action10",
+        'xiuxian@1.3.0:' + player_id + ':action10',
         JSON.stringify(action)
       );
     }
-    e.reply("清除完成");
-    return;
+    e.reply('清除完成');
+    return false;
   }
   async clearthat(e) {
     if (!verc({ e })) return false;
@@ -183,15 +181,15 @@ export class duanzao extends plugin {
           await Write_duanlu(newtripod);
           let action = null;
           await redis.set(
-            "xiuxian:player:" + user_qq + ":action10",
+            'xiuxian@1.3.0:' + user_qq + ':action10',
             JSON.stringify(action)
           );
-          e.reply("材料成功清除");
-          return;
+          e.reply('材料成功清除');
+          return false;
         }
       }
     }
-    return;
+    return false;
   }
 
   async getmybook(e) {
@@ -201,8 +199,8 @@ export class duanzao extends plugin {
     if (!(await existplayer(user_qq))) {
       return false;
     }
-    const player = await data.getData("player", user_qq);
-    if (player.occupation != "炼器师") {
+    const player = await data.getData('player', user_qq);
+    if (player.occupation != '炼器师') {
       e.reply(`你还不是炼器师哦,宝贝`);
       return false;
     }
@@ -223,11 +221,11 @@ export class duanzao extends plugin {
     //不开放私聊
     //获取游戏状态
     const game_action = await redis.get(
-      "xiuxian:player:" + user_qq + ":game_action"
+      'xiuxian@1.3.0:' + user_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
-      e.reply("修仙：游戏进行中...");
+      e.reply('修仙：游戏进行中...');
       return false;
     }
     const A = await looktripod(user_qq);
@@ -235,23 +233,23 @@ export class duanzao extends plugin {
       e.reply(`请先去#炼器师能力评测,再来煅炉吧`);
       return false;
     }
-    const player = await data.getData("player", user_qq);
-    if (player.occupation != "炼器师") {
+    const player = await data.getData('player', user_qq);
+    if (player.occupation != '炼器师') {
       e.reply(`切换到炼器师后再来吧,宝贝`);
       return false;
     }
-    let thing = e.msg.replace("#", "");
-    thing = thing.replace("熔炼", "");
-    const code = thing.split("*");
+    let thing = e.msg.replace('#', '');
+    thing = thing.replace('熔炼', '');
+    const code = thing.split('*');
     const thing_name = code[0]; //物品
     let thing_acount = code[1]; //数量
     thing_acount = await convert2integer(thing_acount);
     const wupintype = await foundthing(thing_name);
-    if (!wupintype || wupintype.type != "锻造") {
+    if (!wupintype || wupintype.type != '锻造') {
       e.reply(`凡界物品无法放入煅炉`);
-      return;
+      return false;
     }
-    let mynum = await exist_najie_thing(user_qq, thing_name, "材料");
+    let mynum = await exist_najie_thing(user_qq, thing_name, '材料');
     if (mynum < thing_acount) {
       e.reply(`材料不足,无法放入`);
       return false;
@@ -262,10 +260,10 @@ export class duanzao extends plugin {
     const tripod = await Read_mytripod(user_qq);
     if (tripod.状态 == 1) {
       e.reply(`正在炼制中,无法熔炼更多材料`);
-      return;
+      return false;
     }
     let num1 = 0;
-    if (player.仙宠.type == "炼器") {
+    if (player.仙宠.type == '炼器') {
       num1 = Math.trunc(player.仙宠.等级 / 33);
     }
     let num = 0;
@@ -303,7 +301,7 @@ export class duanzao extends plugin {
         item.材料.push(thing_name);
         item.数量.push(thing_acount);
         await Write_duanlu(newtripod);
-        await Add_najie_thing(user_qq, thing_name, "材料", -thing_acount);
+        await Add_najie_thing(user_qq, thing_name, '材料', -thing_acount);
         const yongyou = num + Number(thing_acount);
         e.reply(
           `熔炼成功,当前煅炉内拥有[${yongyou}]个材料,根据您现有等级,您还可以放入[${shengyu}]个材料`
@@ -336,7 +334,7 @@ export class duanzao extends plugin {
           e.reply(`炉子为空,无法炼制`);
           return false;
         }
-        let action = await redis.get("xiuxian:player:" + user_qq + ":action10");
+        let action = await redis.get('xiuxian@1.3.0:' + user_qq + ':action10');
         action = JSON.parse(action);
         if (action != null) {
           //人物有动作查询动作结束时间
@@ -348,7 +346,7 @@ export class duanzao extends plugin {
               (action_end_time - now_time - m * 60 * 1000) / 1000
             );
             e.reply(
-              "正在" + action.action + "中，剩余时间:" + m + "分" + s + "秒"
+              '正在' + action.action + '中，剩余时间:' + m + '分' + s + '秒'
             );
             return false;
           }
@@ -358,7 +356,7 @@ export class duanzao extends plugin {
         await Write_duanlu(newtripod);
         let action_time = 180 * 60 * 1000; //持续时间，单位毫秒
         let arr = {
-          action: "锻造", //动作
+          action: '锻造', //动作
           end_time: new Date().getTime() + action_time, //结束时间
           time: action_time, //持续时间
         };
@@ -371,11 +369,11 @@ export class duanzao extends plugin {
         }
         await Write_danyao(user_qq, dy);
         await redis.set(
-          "xiuxian:player:" + user_qq + ":action10",
+          'xiuxian@1.3.0:' + user_qq + ':action10',
           JSON.stringify(arr)
         ); //redis设置动作
         e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`);
-        return;
+        return false;
       }
     }
   }
@@ -390,8 +388,8 @@ export class duanzao extends plugin {
       return false;
     }
     let newtripod;
-    const player = await data.getData("player", user_qq);
-    if (player.occupation != "炼器师") {
+    const player = await data.getData('player', user_qq);
+    if (player.occupation != '炼器师') {
       e.reply(`切换到炼器师后再来吧,宝贝`);
       return false;
     }
@@ -413,18 +411,18 @@ export class duanzao extends plugin {
         const newtime = Date.now() - item.TIME;
         if (newtime < 1000 * 60 * 30) {
           e.reply(`炼制时间过短,无法获得装备,再等等吧`);
-          return;
+          return false;
         }
         //关闭状态
 
-        let action = await redis.get("xiuxian:player:" + user_qq + ":action10");
+        let action = await redis.get('xiuxian@1.3.0:' + user_qq + ':action10');
         action = JSON.parse(action);
 
         //判断属性九维值
         let cailiao;
         let jiuwei = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         for (let newitem in item.材料) {
-          cailiao = await readthat(item.材料[newitem], "锻造材料");
+          cailiao = await readthat(item.材料[newitem], '锻造材料');
           jiuwei[0] += cailiao.攻 * item.数量[newitem];
           jiuwei[1] += cailiao.防 * item.数量[newitem];
           jiuwei[2] += cailiao.血 * item.数量[newitem];
@@ -437,24 +435,24 @@ export class duanzao extends plugin {
         }
 
         let newrandom = Math.random();
-        let xuanze = ["锻造武器", "锻造护具", "锻造宝物"];
+        let xuanze = ['锻造武器', '锻造护具', '锻造宝物'];
         let weizhi;
         let wehizhi1;
         if (jiuwei[0] > jiuwei[1] * 2) {
           weizhi = xuanze[0];
-          wehizhi1 = "武器";
+          wehizhi1 = '武器';
         } else if (jiuwei[0] * 2 < jiuwei[1]) {
           weizhi = xuanze[1];
-          wehizhi1 = "护具";
+          wehizhi1 = '护具';
         } else if (newrandom > 0.8) {
           weizhi = xuanze[2];
-          wehizhi1 = "法宝";
+          wehizhi1 = '法宝';
         } else if (jiuwei[0] > jiuwei[1]) {
           weizhi = xuanze[0];
-          wehizhi1 = "武器";
+          wehizhi1 = '武器';
         } else {
           weizhi = xuanze[1];
-          wehizhi1 = "护具";
+          wehizhi1 = '护具';
         }
 
         //寻找符合标准的装备
@@ -464,11 +462,11 @@ export class duanzao extends plugin {
         for (let item2 in newwupin) {
           bizhi[item2] = Math.abs(
             newwupin[item2].atk -
-            jiuwei[0] +
-            newwupin[item2].def -
-            jiuwei[1] +
-            newwupin[item2].HP -
-            jiuwei[2]
+              jiuwei[0] +
+              newwupin[item2].def -
+              jiuwei[1] +
+              newwupin[item2].HP -
+              jiuwei[2]
           );
         }
         let min = bizhi[0];
@@ -498,7 +496,7 @@ export class duanzao extends plugin {
         let i;
         let qianzhui = 0;
         const wuwei = [jiuwei[4], jiuwei[5], jiuwei[6], jiuwei[7], jiuwei[8]];
-        const wuxing = ["金", "木", "土", "水", "火"];
+        const wuxing = ['金', '木', '土', '水', '火'];
         let max = wuwei[0];
         let shuzu = [wuwei[0]];
         for (i = 0; i < wuwei.length; i++) {
@@ -515,13 +513,13 @@ export class duanzao extends plugin {
         max = await getxuanze(shuzu, player.隐藏灵根.type);
         let fangyuxuejian = 0;
         if (qianzhui == 5) {
-          houzhui = "五行杂灵";
+          houzhui = '五行杂灵';
           xishu += 0.1;
         } else if (qianzhui == 4) {
-          houzhui = "四圣显化";
+          houzhui = '四圣显化';
           xishu += 0.07;
         } else if (qianzhui == 3) {
-          houzhui = "三灵共堂";
+          houzhui = '三灵共堂';
           xishu += 0.05;
         } else if (qianzhui == 2) {
           const shuzufu = await Restraint(wuwei, max[0]);
@@ -532,15 +530,15 @@ export class duanzao extends plugin {
           }
         } else if (qianzhui == 1) {
           const mu = await mainyuansu(wuwei);
-          houzhui = "纯" + mu;
+          houzhui = '纯' + mu;
           xishu += 0.15;
         }
         const newtime1 = Date.now() - Math.floor(Date.now() / 1000) * 1000;
         const sum = jiuwei[0] + jiuwei[1] + jiuwei[2];
         const zhuangbei = {
           id: max[1],
-          name: wuqiname + "·" + houzhui + newtime1,
-          class: "装备",
+          name: wuqiname + '·' + houzhui + newtime1,
+          class: '装备',
           type: wehizhi1,
           atk: Math.floor(jiuwei[0] * xishu * 1000) / 1000,
           def: Math.floor(jiuwei[1] * (xishu - fangyuxuejian) * 1000) / 1000,
@@ -549,7 +547,7 @@ export class duanzao extends plugin {
           author_name: player.id,
           出售价: Math.floor(1000000 * sum),
         };
-        await Add_najie_thing(user_qq, zhuangbei, "装备", 1);
+        await Add_najie_thing(user_qq, zhuangbei, '装备', 1);
         //计算经验收益
 
         //灵根影响值
@@ -564,7 +562,7 @@ export class duanzao extends plugin {
         } else if (sum >= 0.7) {
           z += 1000;
         }
-        if (player.仙宠.type == "炼器") {
+        if (player.仙宠.type == '炼器') {
           z = Math.floor(z * (1 + (player.仙宠.等级 / 25) * 0.1));
         }
         Add_职业经验(user_qq, z);
@@ -577,7 +575,7 @@ export class duanzao extends plugin {
         //清除时间
         action = new Date().getTime();
         await redis.set(
-          "xiuxian:player:" + user_qq + ":action10",
+          'xiuxian@1.3.0:' + user_qq + ':action10',
           JSON.stringify(action)
         );
         e.reply(`恭喜你获得了[${wuqiname}·${houzhui}],炼器经验增加了[${z}]`);
@@ -604,7 +602,7 @@ export class duanzao extends plugin {
     let shuju = [];
     let shuju2 = [];
     let xuanze = 0;
-    let b = "您的锻炉里,拥有\n";
+    let b = '您的锻炉里,拥有\n';
     for (let item in a.材料) {
       for (let item1 in shuju) {
         if (shuju[item1] == a.材料[item]) {
@@ -621,7 +619,7 @@ export class duanzao extends plugin {
       //不要问我为啥不在前面优化，问就是懒，虽然确实前面优化会加快机器人反应速度
     }
     for (let item2 in shuju) {
-      b += shuju[item2] + shuju2[item2] + "个\n";
+      b += shuju[item2] + shuju2[item2] + '个\n';
     }
     e.reply(b);
     return false;
@@ -631,24 +629,24 @@ export class duanzao extends plugin {
     if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     if (!(await existplayer(user_qq))) return false;
-    let thing = e.msg.replace("#", "");
-    thing = thing.replace("赋名", "");
-    const code = thing.split("*");
+    let thing = e.msg.replace('#', '');
+    thing = thing.replace('赋名', '');
+    const code = thing.split('*');
     const thing_name = code[0]; //原物品
     let new_name = code[1]; //新名字
-    const thingnum = await exist_najie_thing(user_qq, thing_name, "装备");
+    const thingnum = await exist_najie_thing(user_qq, thing_name, '装备');
     if (!thingnum) {
       e.reply(`你没有这件装备`);
-      return;
+      return false;
     }
     const newname = await foundthing(new_name);
     if (newname) {
       e.reply(`这个世间已经拥有这把武器了`);
-      return;
+      return false;
     }
     if (newname.length > 8) {
-      e.reply("字符超出最大限制,请重新赋名");
-      return;
+      e.reply('字符超出最大限制,请重新赋名');
+      return false;
     }
     let A;
     try {
@@ -660,7 +658,7 @@ export class duanzao extends plugin {
     for (let item of A) {
       if (item.name == thing_name) {
         e.reply(`一个装备只能赋名一次`);
-        return;
+        return false;
       }
     }
     const thingall = await Read_najie(user_qq);
@@ -671,7 +669,7 @@ export class duanzao extends plugin {
           if (
             item.atk >= 1.5 ||
             item.def >= 1.2 ||
-            (item.type == "法宝" && (item.atk >= 1 || item.def >= 1)) ||
+            (item.type == '法宝' && (item.atk >= 1 || item.def >= 1)) ||
             item.atk + item.def > 1.95
           ) {
             item.name = new_name;
@@ -679,12 +677,12 @@ export class duanzao extends plugin {
             await Write_najie(user_qq, thingall);
             await Writeit(A);
             e.reply(`附名成功,您的${thing_name}更名为${new_name}`);
-            return;
+            return false;
           }
         }
       }
     }
     e.reply(`您的装备太弱了,无法赋予名字`);
-    return;
+    return false;
   }
 }

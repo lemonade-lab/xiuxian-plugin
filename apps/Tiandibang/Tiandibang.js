@@ -1,9 +1,7 @@
-import { plugin, puppeteer,verc } from "../../api/api.js";
-import fs from "fs";
-import path from "path";
-import Show from "../../model/show.js";
-import data from "../../model/XiuxianData.js";
-import { __PATH } from "../../model/xiuxian.js";
+import fs from 'fs';
+import path from 'path';
+import { plugin, puppeteer, verc, Show, data, config } from '../../api/api.js';
+import { __PATH } from '../../model/xiuxian.js';
 import {
   ForwardMsg,
   Read_player,
@@ -13,65 +11,64 @@ import {
   Add_najie_thing,
   exist_najie_thing,
   zd_battle,
-} from "../../model/xiuxian.js";
-import config from "../../model/Config.js";
+} from '../../model/xiuxian.js';
 export class Tiandibang extends plugin {
   constructor() {
     super({
-      name: "Tiandibang",
-      dsc: "交易模块",
-      event: "message",
+      name: 'Tiandibang',
+      dsc: '交易模块',
+      event: 'message',
       priority: 600,
       rule: [
         {
-          reg: "^#天地榜$",
-          fnc: "my_point",
+          reg: '^#天地榜$',
+          fnc: 'my_point',
         },
         {
-          reg: "^#比试$",
-          fnc: "pk",
+          reg: '^#比试$',
+          fnc: 'pk',
         },
         {
-          reg: "^#更新属性$",
-          fnc: "update_jineng",
+          reg: '^#更新属性$',
+          fnc: 'update_jineng',
         },
         {
-          reg: "^#清空积分",
-          fnc: "bd_jiesuan",
+          reg: '^#清空积分',
+          fnc: 'bd_jiesuan',
         },
         {
-          reg: "^#报名比赛",
-          fnc: "cansai",
+          reg: '^#报名比赛',
+          fnc: 'cansai',
         },
         {
-          reg: "^#天地堂",
-          fnc: "tianditang",
+          reg: '^#天地堂',
+          fnc: 'tianditang',
         },
         {
-          reg: "^#积分兑换(.*)$",
-          fnc: "duihuan",
+          reg: '^#积分兑换(.*)$',
+          fnc: 'duihuan',
         },
       ],
     });
-    this.set = config.getConfig("task", "task");
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.saiji,
-      name: "re_bangdang",
+      name: 're_bangdang',
       fnc: () => this.re_bangdang(),
     };
   }
   async re_bangdang() {
     let File = fs.readdirSync(__PATH.player_path);
-    File = File.filter((file) => file.endsWith(".json"));
+    File = File.filter(file => file.endsWith('.json'));
     let File_length = File.length;
     let temp = [];
     let t;
     for (var k = 0; k < File_length; k++) {
-      let this_qq = File[k].replace(".json", "");
+      let this_qq = File[k].replace('.json', '');
       this_qq = parseInt(this_qq);
       let player = await Read_player(this_qq);
       let level_id = data.Level_list.find(
-        (item) => item.level_id == player.level_id
+        item => item.level_id == player.level_id
       ).level_id;
       temp[k] = {
         名号: player.名号,
@@ -103,30 +100,30 @@ export class Tiandibang extends plugin {
       if (count == 0) break;
     }
     await Write_tiandibang(temp);
-    return;
+    return false;
   }
 
   async duihuan(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let date = new Date();
     let n = date.getDay();
     if (n != 0) {
       e.reply(`物品筹备中，等到周日再来兑换吧`);
-      return;
+      return false;
     }
 
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) return;
+    if (!ifexistplay) return false;
     var reg = new RegExp(/积分兑换/);
-    let msg = e.msg.replace(reg, "");
-    msg = msg.replace("#", "");
-    let thing_name = msg.replace("积分兑换", "");
-    let ifexist = data.tianditang.find((item) => item.name == thing_name);
+    let msg = e.msg.replace(reg, '');
+    msg = msg.replace('#', '');
+    let thing_name = msg.replace('积分兑换', '');
+    let ifexist = data.tianditang.find(item => item.name == thing_name);
     if (!ifexist) {
       e.reply(`天地堂还没有这样的东西:${thing_name}`);
-      return;
+      return false;
     }
     let tiandibang;
     tiandibang = await Read_tiandibang();
@@ -138,8 +135,8 @@ if (!verc({ e })) return false;
       }
     }
     if (m == tiandibang.length) {
-      e.reply("请先报名!");
-      return;
+      e.reply('请先报名!');
+      return false;
     }
     for (i = 0; i < data.tianditang.length; i++) {
       if (thing_name == data.tianditang[i].name) {
@@ -152,24 +149,24 @@ if (!verc({ e })) return false;
           data.tianditang[i].积分 - tiandibang[m].积分
         }积分兑换${thing_name}`
       );
-      return;
+      return false;
     }
     tiandibang[m].积分 -= data.tianditang[i].积分;
     await Add_najie_thing(usr_qq, thing_name, data.tianditang[i].class, 1);
     await Write_tiandibang(tiandibang);
     e.reply([
       `兑换成功!  获得[${thing_name}],剩余[${tiandibang[m].积分}]积分  `,
-      "\n可以在【我的纳戒】中查看",
+      '\n可以在【我的纳戒】中查看',
     ]);
-    return;
+    return false;
   }
 
   async tianditang(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) return;
+    if (!ifexistplay) return false;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -185,20 +182,20 @@ if (!verc({ e })) return false;
       }
     }
     if (m == tiandibang.length) {
-      e.reply("请先报名!");
-      return;
+      e.reply('请先报名!');
+      return false;
     }
     let img = await get_tianditang_img(e, tiandibang[m].积分);
     e.reply(img);
-    return;
+    return false;
   }
 
   async cansai(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) return;
+    if (!ifexistplay) return false;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -217,7 +214,7 @@ if (!verc({ e })) return false;
     if (x == tiandibang.length) {
       let player = await Read_player(usr_qq);
       let level_id = data.Level_list.find(
-        (item) => item.level_id == player.level_id
+        item => item.level_id == player.level_id
       ).level_id;
       let A_player = {
         名号: player.名号,
@@ -236,20 +233,20 @@ if (!verc({ e })) return false;
 
       tiandibang.push(A_player);
       await Write_tiandibang(tiandibang);
-      e.reply("参赛成功!");
-      return;
+      e.reply('参赛成功!');
+      return false;
     } else {
-      e.reply("你已经参赛了!");
-      return;
+      e.reply('你已经参赛了!');
+      return false;
     }
   }
 
   async my_point(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) return;
+    if (!ifexistplay) return false;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -260,7 +257,7 @@ if (!verc({ e })) return false;
     }
     let x = tiandibang.length;
     let l = 10;
-    let msg = ["***天地榜(每日免费三次)***\n       周一0点清空积分"];
+    let msg = ['***天地榜(每日免费三次)***\n       周一0点清空积分'];
     for (var i = 0; i < tiandibang.length; i++) {
       if (tiandibang[i].qq == usr_qq) {
         x = i;
@@ -268,8 +265,8 @@ if (!verc({ e })) return false;
       }
     }
     if (x == tiandibang.length) {
-      e.reply("请先报名!");
-      return;
+      e.reply('请先报名!');
+      return false;
     }
     if (l > tiandibang.length) {
       l = tiandibang.length;
@@ -277,57 +274,57 @@ if (!verc({ e })) return false;
     if (x < l) {
       for (var m = 0; m < l; m++) {
         msg.push(
-          "名次：" +
+          '名次：' +
             (m + 1) +
-            "\n名号：" +
+            '\n名号：' +
             tiandibang[m].名号 +
-            "\n积分：" +
+            '\n积分：' +
             tiandibang[m].积分
         );
       }
     } else if (x >= l && tiandibang.length - x < l) {
       for (var m = tiandibang.length - l; m < tiandibang.length; m++) {
         msg.push(
-          "名次：" +
+          '名次：' +
             (m + 1) +
-            "\n名号：" +
+            '\n名号：' +
             tiandibang[m].名号 +
-            "\n积分：" +
+            '\n积分：' +
             tiandibang[m].积分
         );
       }
     } else {
       for (var m = x - 5; m < x + 5; m++) {
         msg.push(
-          "名次：" +
+          '名次：' +
             (m + 1) +
-            "\n名号：" +
+            '\n名号：' +
             tiandibang[m].名号 +
-            "\n积分：" +
+            '\n积分：' +
             tiandibang[m].积分
         );
       }
     }
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   async pk(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) return;
+    if (!ifexistplay) return false;
     //获取游戏状态
     let game_action = await redis.get(
-      "xiuxian:player:" + usr_qq + ":game_action"
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
-      e.reply("修仙：游戏进行中...");
-      return;
+      e.reply('修仙：游戏进行中...');
+      return false;
     }
     //查询redis中的人物动作
-    let action = await redis.get("xiuxian:player:" + usr_qq + ":action");
+    let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -336,8 +333,8 @@ if (!verc({ e })) return false;
       if (now_time <= action_end_time) {
         let m = parseInt((action_end_time - now_time) / 1000 / 60);
         let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000);
-        e.reply("正在" + action.action + "中,剩余时间:" + m + "分" + s + "秒");
-        return;
+        e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒');
+        return false;
       }
     }
     let tiandibang;
@@ -356,8 +353,8 @@ if (!verc({ e })) return false;
       }
     }
     if (x == tiandibang.length) {
-      e.reply("请先报名!");
-      return;
+      e.reply('请先报名!');
+      return false;
     }
     let last_msg = [];
     let atk = 1;
@@ -372,7 +369,7 @@ if (!verc({ e })) return false;
       Today.M != lastbisai_time.M ||
       Today.D != lastbisai_time.D
     ) {
-      await redis.set("xiuxian:player:" + usr_qq + ":lastbisai_time", nowTime); //redis设置签到时间
+      await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastbisai_time', nowTime); //redis设置签到时间
       tiandibang[x].次数 = 3;
     }
     if (
@@ -381,14 +378,14 @@ if (!verc({ e })) return false;
       Today.D == lastbisai_time.D &&
       tiandibang[x].次数 < 1
     ) {
-      let zbl = await exist_najie_thing(usr_qq, "摘榜令", "道具");
+      let zbl = await exist_najie_thing(usr_qq, '摘榜令', '道具');
       if (zbl) {
         tiandibang[x].次数 = 1;
-        await Add_najie_thing(usr_qq, "摘榜令", "道具", -1);
+        await Add_najie_thing(usr_qq, '摘榜令', '道具', -1);
         last_msg.push(`${tiandibang[x].名号}使用了摘榜令\n`);
       } else {
-        e.reply("今日挑战次数用光了,请明日再来吧");
-        return;
+        e.reply('今日挑战次数用光了,请明日再来吧');
+        return false;
       }
     }
     Write_tiandibang(tiandibang);
@@ -445,7 +442,7 @@ if (!verc({ e })) return false;
         def = 0.8 + 0.4 * Math.random();
         blood = 0.8 + 0.4 * Math.random();
         B_player = {
-          名号: "灵修兽",
+          名号: '灵修兽',
           攻击: parseInt(tiandibang[x].攻击) * atk,
           防御: parseInt(tiandibang[x].防御 * def),
           当前血量: parseInt(tiandibang[x].当前血量 * blood),
@@ -459,7 +456,7 @@ if (!verc({ e })) return false;
       let msg = Data_battle.msg;
       let A_win = `${A_player.名号}击败了${B_player.名号}`;
       let B_win = `${B_player.名号}击败了${A_player.名号}`;
-      if (msg.find((item) => item == A_win)) {
+      if (msg.find(item => item == A_win)) {
         if (k == -1) {
           tiandibang[x].积分 += 1500;
           lingshi = tiandibang[x].积分 * 8;
@@ -472,7 +469,7 @@ if (!verc({ e })) return false;
           `${A_player.名号}击败了[${B_player.名号}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
         );
         Write_tiandibang(tiandibang);
-      } else if (msg.find((item) => item == B_win)) {
+      } else if (msg.find(item => item == B_win)) {
         if (k == -1) {
           tiandibang[x].积分 += 800;
           lingshi = tiandibang[x].积分 * 6;
@@ -487,7 +484,7 @@ if (!verc({ e })) return false;
         Write_tiandibang(tiandibang);
       } else {
         e.reply(`战斗过程出错`);
-        return;
+        return false;
       }
       await Add_灵石(usr_qq, lingshi);
       if (msg.length > 50) {
@@ -510,7 +507,7 @@ if (!verc({ e })) return false;
       def = 0.8 + 0.4 * Math.random();
       blood = 0.8 + 0.4 * Math.random();
       let B_player = {
-        名号: "灵修兽",
+        名号: '灵修兽',
         攻击: parseInt(tiandibang[x].攻击) * atk,
         防御: parseInt(tiandibang[x].防御 * def),
         当前血量: parseInt(tiandibang[x].当前血量 * blood),
@@ -523,7 +520,7 @@ if (!verc({ e })) return false;
       let msg = Data_battle.msg;
       let A_win = `${A_player.名号}击败了${B_player.名号}`;
       let B_win = `${B_player.名号}击败了${A_player.名号}`;
-      if (msg.find((item) => item == A_win)) {
+      if (msg.find(item => item == A_win)) {
         tiandibang[x].积分 += 1500;
         tiandibang[x].次数 -= 1;
         lingshi = tiandibang[x].积分 * 8;
@@ -531,7 +528,7 @@ if (!verc({ e })) return false;
           `${A_player.名号}击败了[${B_player.名号}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
         );
         Write_tiandibang(tiandibang);
-      } else if (msg.find((item) => item == B_win)) {
+      } else if (msg.find(item => item == B_win)) {
         tiandibang[x].积分 += 800;
         tiandibang[x].次数 -= 1;
         lingshi = tiandibang[x].积分 * 6;
@@ -541,7 +538,7 @@ if (!verc({ e })) return false;
         Write_tiandibang(tiandibang);
       } else {
         e.reply(`战斗过程出错`);
-        return;
+        return false;
       }
       await Add_灵石(usr_qq, lingshi);
       if (msg.length > 50) {
@@ -565,20 +562,20 @@ if (!verc({ e })) return false;
       if (count == 0) break;
     }
     Write_tiandibang(tiandibang);
-    return;
+    return false;
   }
 
   async update_jineng(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     if (!e.isGroup) {
-      e.reply("此功能暂时不开放私聊");
-      return;
+      e.reply('此功能暂时不开放私聊');
+      return false;
     }
 
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
-    if (!ifexistplay) return;
+    if (!ifexistplay) return false;
     let tiandibang;
     try {
       tiandibang = await Read_tiandibang();
@@ -594,12 +591,12 @@ if (!verc({ e })) return false;
       }
     }
     if (m == tiandibang.length) {
-      e.reply("请先报名!");
-      return;
+      e.reply('请先报名!');
+      return false;
     }
     let player = await Read_player(usr_qq);
     let level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
+      item => item.level_id == player.level_id
     ).level_id;
     tiandibang[m].名号 = player.名号;
     tiandibang[m].境界 = level_id;
@@ -615,30 +612,30 @@ if (!verc({ e })) return false;
     tiandibang[m].暴击率 = Math.trunc(tiandibang[m].暴击率 * 100);
     let msg = [];
     msg.push(
-      "名次：" +
+      '名次：' +
         (m + 1) +
-        "\n名号：" +
+        '\n名号：' +
         tiandibang[m].名号 +
-        "\n攻击：" +
+        '\n攻击：' +
         tiandibang[m].攻击 +
-        "\n防御：" +
+        '\n防御：' +
         tiandibang[m].防御 +
-        "\n血量：" +
+        '\n血量：' +
         tiandibang[m].当前血量 +
-        "\n暴击：" +
+        '\n暴击：' +
         tiandibang[m].暴击率 +
-        "%\n积分：" +
+        '%\n积分：' +
         tiandibang[m].积分
     );
     await ForwardMsg(e, msg);
-    return;
+    return false;
   }
 
   async bd_jiesuan(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     if (!e.isMaster) {
-      e.reply("只有主人可以执行操作");
-      return;
+      e.reply('只有主人可以执行操作');
+      return false;
     }
     try {
       await Read_tiandibang();
@@ -647,25 +644,25 @@ if (!verc({ e })) return false;
       await Write_tiandibang([]);
     }
     await re_bangdang();
-    e.reply("积分已经重置！");
-    return;
+    e.reply('积分已经重置！');
+    return false;
   }
 }
 async function Write_tiandibang(wupin) {
   let dir = path.join(__PATH.tiandibang, `tiandibang.json`);
-  let new_ARR = JSON.stringify(wupin, "", "\t");
-  fs.writeFileSync(dir, new_ARR, "utf8", (err) => {
-    console.log("写入成功", err);
+  let new_ARR = JSON.stringify(wupin, '', '\t');
+  fs.writeFileSync(dir, new_ARR, 'utf8', err => {
+    console.log('写入成功', err);
   });
-  return;
+  return false;
 }
 
 async function Read_tiandibang() {
   let dir = path.join(`${__PATH.tiandibang}/tiandibang.json`);
-  let tiandibang = fs.readFileSync(dir, "utf8", (err, data) => {
+  let tiandibang = fs.readFileSync(dir, 'utf8', (err, data) => {
     if (err) {
       console.log(err);
-      return "error";
+      return 'error';
     }
     return data;
   });
@@ -676,7 +673,7 @@ async function Read_tiandibang() {
 
 async function getLastbisai(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get("xiuxian:player:" + usr_qq + ":lastbisai_time");
+  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':lastbisai_time');
   console.log(time);
   if (time != null) {
     let data = await shijianc(parseInt(time));
@@ -695,7 +692,7 @@ async function get_tianditang_img(e, jifen) {
     commodities_list: commodities_list,
   };
   const data1 = await new Show(e).get_tianditangData(tianditang_data);
-  let img = await puppeteer.screenshot("tianditang", {
+  let img = await puppeteer.screenshot('tianditang', {
     ...data1,
   });
   return img;
@@ -703,16 +700,16 @@ async function get_tianditang_img(e, jifen) {
 
 async function re_bangdang() {
   let File = fs.readdirSync(__PATH.player_path);
-  File = File.filter((file) => file.endsWith(".json"));
+  File = File.filter(file => file.endsWith('.json'));
   let File_length = File.length;
   let temp = [];
   let t;
   for (var k = 0; k < File_length; k++) {
-    let this_qq = File[k].replace(".json", "");
+    let this_qq = File[k].replace('.json', '');
     this_qq = parseInt(this_qq);
     let player = await Read_player(this_qq);
     let level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
+      item => item.level_id == player.level_id
     ).level_id;
     temp[k] = {
       名号: player.名号,
@@ -744,5 +741,5 @@ async function re_bangdang() {
     if (count == 0) break;
   }
   await Write_tiandibang(temp);
-  return;
+  return false;
 }

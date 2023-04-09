@@ -1,19 +1,18 @@
-import { plugin } from "../../api/api.js";
-import config from "../../model/Config.js";
-import { Write_shop, Read_shop } from "../../model/xiuxian.js";
+import { plugin, config } from '../../api/api.js';
+import { Write_shop, Read_shop } from '../../model/xiuxian.js';
 
 export class ShopGradetask extends plugin {
   constructor() {
     super({
-      name: "ShopGradetask",
-      dsc: "定时任务",
-      event: "message",
+      name: 'ShopGradetask',
+      dsc: '定时任务',
+      event: 'message',
       rule: [],
     });
-    this.set = config.getConfig("task", "task");
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.ExchangeTask,
-      name: "ShopGradetask",
+      name: 'ShopGradetask',
       fnc: () => this.ShopGradetask(),
     };
   }

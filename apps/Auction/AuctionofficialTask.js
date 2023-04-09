@@ -1,31 +1,30 @@
-import { plugin, common } from "../../api/api.js";
-import config from "../../model/Config.js";
+import { plugin, common, config } from '../../api/api.js';
 import {
   Add_najie_thing,
   Add_灵石,
   Read_player,
   openAU,
-} from "../../model/xiuxian.js";
+} from '../../model/xiuxian.js';
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({
-      name: "AuctionofficialTask",
-      dsc: "定时任务",
-      event: "message",
+      name: 'AuctionofficialTask',
+      dsc: '定时任务',
+      event: 'message',
       priority: 300,
       rule: [],
     });
-    this.set = config.getConfig("xiuxian", "xiuxian");
+    this.set = config.getConfig('xiuxian', 'xiuxian');
     this.task = {
-      cron: config.getConfig("task", "task").action_task,
-      name: "AuctionofficialTask",
+      cron: config.getConfig('task', 'task').action_task,
+      name: 'AuctionofficialTask',
       fnc: () => this.AuctionofficialTask(),
     };
   }
 
   async AuctionofficialTask() {
     // 判断是否已经在拍卖中
-    const wupinStr = await redis.get("xiuxian:AuctionofficialTask");
+    const wupinStr = await redis.get('xiuxian:AuctionofficialTask');
 
     // 如果不在拍卖中
     if (!wupinStr) {
@@ -37,26 +36,24 @@ export class AuctionofficialTask extends plugin {
       const openTime = todayTime + openHour * 60 * 60 * 1000;
       const nowTime = nowDate.getTime();
       const closeTime = todayTime + closeHour * 60 * 60 * 1000;
-      if (nowTime < openTime || nowTime > closeTime) return;
+      if (nowTime < openTime || nowTime > closeTime) return false;
 
       // 在开启时间且未开启拍卖则开启拍卖
       const auction = await openAU();
       let msg = `___[星阁]___\n目前正在拍卖【${auction.thing.name}】\n`;
       if (auction.last_offer_player === 0) {
-        msg += "暂无人出价";
+        msg += '暂无人出价';
       } else {
         const player = await Read_player(auction.last_offer_player);
         msg += `最高出价是${player.名号}叫出的${auction.last_price}`;
       }
-      auction.groupList.forEach((group_id) =>
-        this.pushInfo(group_id, true, msg)
-      );
-      return;
+      auction.groupList.forEach(group_id => this.pushInfo(group_id, true, msg));
+      return false;
     }
 
     // 如果已在拍卖中
     const wupin = JSON.parse(wupinStr);
-    let msg = "";
+    let msg = '';
     const group_ids = wupin.groupList;
     const last_offer_price = wupin.last_offer_price;
     const interMinu = this.set.Auction.interval;
@@ -95,7 +92,7 @@ export class AuctionofficialTask extends plugin {
       for (const group_id of group_ids) {
         this.pushInfo(group_id, true, msg);
       }
-      await redis.del("xiuxian:AuctionofficialTask");
+      await redis.del('xiuxian:AuctionofficialTask');
     }
   }
 
@@ -103,13 +100,13 @@ export class AuctionofficialTask extends plugin {
    * 推送消息，群消息推送群，或者推送私人
    * @param id
    * @param is_group
-   * @returns {Promise<void>}
+   * @return  falses {Promise<void>}
    */
   async pushInfo(id, is_group, msg) {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch((err) => {
+        .catch(err => {
           Bot.logger.mark(err);
         });
     } else {

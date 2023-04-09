@@ -1,52 +1,45 @@
-import { plugin, common, segment } from "../../api/api.js";
-import data from "../../model/XiuxianData.js";
-import config from "../../model/Config.js";
-import fs from "fs";
-import { isNotNull } from "../../model/xiuxian.js";
-import { Add_najie_thing, Add_职业经验 } from "../../model/xiuxian.js";
-import { AppName } from "../../app.config.js";
-/**
- * 定时任务
- */
-
+import { plugin, common, segment, data, config } from '../../api/api.js';
+import fs from 'fs';
+import { isNotNull } from '../../model/xiuxian.js';
+import { Add_najie_thing, Add_职业经验 } from '../../model/xiuxian.js';
+import { AppName } from '../../app.config.js';
 export class OccupationTask extends plugin {
   constructor() {
     super({
-      name: "OccupationTask",
-      dsc: "定时任务",
-      event: "message",
+      name: 'OccupationTask',
+      dsc: '定时任务',
+      event: 'message',
       priority: 300,
       rule: [],
     });
-    this.set = config.getConfig("task", "task");
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.action_task,
-      name: "OccupationTask",
+      name: 'OccupationTask',
       fnc: () => this.OccupationTask(),
     };
   }
 
   async OccupationTask() {
-    //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
-      .filter((file) => file.endsWith(".json"));
+      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
+      .filter(file => file.endsWith('.json'));
     for (let file of files) {
-      file = file.replace(".json", "");
+      file = file.replace('.json', '');
       playerList.push(file);
     }
     for (let player_id of playerList) {
-      let log_mag = ""; //查询当前人物动作日志信息
-      log_mag = log_mag + "查询" + player_id + "是否有动作,";
+      let log_mag = ''; //查询当前人物动作日志信息
+      log_mag = log_mag + '查询' + player_id + '是否有动作,';
       //得到动作
-      let action = await redis.get("xiuxian:player:" + player_id + ":action");
+      let action = await redis.get('xiuxian@1.3.0:' + player_id + ':action');
       action = JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
         let push_address; //消息推送地址
         let is_group = false; //是否推送到群
-        if (action.hasOwnProperty("group_id")) {
+        if (action.hasOwnProperty('group_id')) {
           if (isNotNull(action.group_id)) {
             is_group = true;
             push_address = action.group_id;
@@ -59,13 +52,13 @@ export class OccupationTask extends plugin {
         //现在的时间
         let now_time = new Date().getTime();
         //闭关状态
-        if (action.plant == "0") {
+        if (action.plant == '0') {
           //这里改一改,要在结束时间的前一分钟提前结算
           //时间过了
           end_time = end_time - 60000 * 2;
           if (now_time > end_time) {
-            log_mag += "当前人物未结算，结算状态";
-            let player = data.getData("player", player_id);
+            log_mag += '当前人物未结算，结算状态';
+            let player = data.getData('player', player_id);
             let time = parseInt(action.time) / 1000 / 60;
             let exp = time * 10;
             await Add_职业经验(player_id, exp);
@@ -78,20 +71,20 @@ export class OccupationTask extends plugin {
               sum = (time / 480) * (player.occupation_level * 3 + 11);
             }
             let names = [
-              "万年凝血草",
-              "万年何首乌",
-              "万年血精草",
-              "万年甜甜花",
-              "万年清心草",
-              "古神藤",
-              "万年太玄果",
-              "炼骨花",
-              "魔蕴花",
-              "万年清灵草",
-              "万年天魂菊",
-              "仙蕴花",
-              "仙缘草",
-              "太玄仙草",
+              '万年凝血草',
+              '万年何首乌',
+              '万年血精草',
+              '万年甜甜花',
+              '万年清心草',
+              '古神藤',
+              '万年太玄果',
+              '炼骨花',
+              '魔蕴花',
+              '万年清灵草',
+              '万年天魂菊',
+              '仙蕴花',
+              '仙缘草',
+              '太玄仙草',
             ];
             const sum2 = [0.2, 0.3, 0.2, 0.2, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             const sum3 = [
@@ -100,9 +93,9 @@ export class OccupationTask extends plugin {
             ];
             let msg = [segment.at(player_id)];
             msg.push(`\n恭喜你获得了经验${exp},草药:`);
-            let newsum = sum3.map((item) => item * sum);
+            let newsum = sum3.map(item => item * sum);
             if (player.level_id < 36) {
-              newsum = sum2.map((item) => item * sum);
+              newsum = sum2.map(item => item * sum);
             }
             for (let item in sum3) {
               if (newsum[item] < 1) {
@@ -112,7 +105,7 @@ export class OccupationTask extends plugin {
               await Add_najie_thing(
                 player_id,
                 names[item],
-                "草药",
+                '草药',
                 Math.floor(newsum[item])
               );
             }
@@ -127,7 +120,7 @@ export class OccupationTask extends plugin {
             arr.Place_actionplus = 1; //沉迷状态
             delete arr.group_id; //结算完去除group_id
             await redis.set(
-              "xiuxian:player:" + player_id + ":action",
+              'xiuxian@1.3.0:' + player_id + ':action',
               JSON.stringify(arr)
             );
             if (is_group) {
@@ -137,25 +130,25 @@ export class OccupationTask extends plugin {
             }
           }
         }
-        if (action.mine == "0") {
+        if (action.mine == '0') {
           //这里改一改,要在结束时间的前一分钟提前结算
           //时间过了
           end_time = end_time - 60000 * 2;
           if (now_time > end_time) {
-            log_mag += "当前人物未结算，结算状态";
-            let player = data.getData("player", player_id);
+            log_mag += '当前人物未结算，结算状态';
+            let player = data.getData('player', player_id);
             if (!isNotNull(player.level_id)) {
-              return;
+              return false;
             }
             let time = parseInt(action.time) / 1000 / 60; //最高480分钟
             //以下1到5为每种的数量
             let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time); //(1.8+随机0到0.4)x时间(分钟)
             let rate =
               data.occupation_exp_list.find(
-                (item) => item.id == player.occupation_level
+                item => item.id == player.occupation_level
               ).rate * 10;
             let exp = 0;
-            let ext = "";
+            let ext = '';
             exp = time * 10;
             ext = `你是采矿师，获得采矿经验${exp}，额外获得矿石${Math.floor(
               rate * 100
@@ -163,39 +156,39 @@ export class OccupationTask extends plugin {
             let end_amount = Math.floor(4 * (rate + 1) * mine_amount1); //普通矿石
             let num = Math.floor(((rate / 12) * time) / 30); //锻造
             const A = [
-              "金色石胚",
-              "棕色石胚",
-              "绿色石胚",
-              "红色石胚",
-              "蓝色石胚",
-              "金色石料",
-              "棕色石料",
-              "绿色石料",
-              "红色石料",
-              "蓝色石料",
+              '金色石胚',
+              '棕色石胚',
+              '绿色石胚',
+              '红色石胚',
+              '蓝色石胚',
+              '金色石料',
+              '棕色石料',
+              '绿色石料',
+              '红色石料',
+              '蓝色石料',
             ];
             const B = [
-              "金色妖石",
-              "棕色妖石",
-              "绿色妖石",
-              "红色妖石",
-              "蓝色妖石",
-              "金色妖丹",
-              "棕色妖丹",
-              "绿色妖丹",
-              "红色妖丹",
-              "蓝色妖丹",
+              '金色妖石',
+              '棕色妖石',
+              '绿色妖石',
+              '红色妖石',
+              '蓝色妖石',
+              '金色妖丹',
+              '棕色妖丹',
+              '绿色妖丹',
+              '红色妖丹',
+              '蓝色妖丹',
             ];
             let xuanze = Math.trunc(Math.random() * A.length);
             end_amount *= player.level_id / 40;
             end_amount = Math.floor(end_amount);
-            await Add_najie_thing(player_id, "庚金", "材料", end_amount);
-            await Add_najie_thing(player_id, "玄土", "材料", end_amount);
-            await Add_najie_thing(player_id, A[xuanze], "材料", num);
+            await Add_najie_thing(player_id, '庚金', '材料', end_amount);
+            await Add_najie_thing(player_id, '玄土', '材料', end_amount);
+            await Add_najie_thing(player_id, A[xuanze], '材料', num);
             await Add_najie_thing(
               player_id,
               B[xuanze],
-              "材料",
+              '材料',
               Math.trunc(num / 48)
             );
             await Add_职业经验(player_id, exp);
@@ -216,7 +209,7 @@ export class OccupationTask extends plugin {
             arr.Place_actionplus = 1; //沉迷状态
             delete arr.group_id; //结算完去除group_id
             await redis.set(
-              "xiuxian:player:" + player_id + ":action",
+              'xiuxian@1.3.0:' + player_id + ':action',
               JSON.stringify(arr)
             );
             //msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
@@ -235,7 +228,7 @@ export class OccupationTask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch((err) => {
+        .catch(err => {
           Bot.logger.mark(err);
         });
     } else {

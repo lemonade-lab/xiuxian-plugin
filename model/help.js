@@ -1,11 +1,11 @@
-import base from "./base.js";
-import xiuxianCfg from "./Config.js";
+import base from './base.js';
+import xiuxianCfg from './Config.js';
 
 export default class Help extends base {
   constructor(e) {
     super(e);
-    this.model = "help";
-    this.versionData = xiuxianCfg.getConfig("version", "version");
+    this.model = 'help';
+    this.versionData = xiuxianCfg.getConfig('version', 'version');
   }
 
   static async get(e) {
@@ -29,40 +29,40 @@ export default class Help extends base {
   }
 
   async getDatahelpcopy() {
-    let helpData = xiuxianCfg.getConfig("help", "helpcopy");
+    let helpData = xiuxianCfg.getConfig('help', 'helpcopy');
     return {
       ...this.screenData,
-      saveId: "help",
+      saveId: 'help',
       version: this.versionData.version,
       helpData,
     };
   }
 
   async getData() {
-    let helpData = xiuxianCfg.getConfig("help", "help");
+    let helpData = xiuxianCfg.getConfig('help', 'help');
     return {
       ...this.screenData,
-      saveId: "help",
+      saveId: 'help',
       version: this.versionData.version,
       helpData,
     };
   }
 
   async Getset() {
-    let helpData = xiuxianCfg.getConfig("help", "set");
+    let helpData = xiuxianCfg.getConfig('help', 'set');
     return {
       ...this.screenData,
-      saveId: "help",
+      saveId: 'help',
       version: this.versionData.version,
       helpData,
     };
   }
 
   async GetAssociationt() {
-    let helpData = xiuxianCfg.getConfig("help", "Association");
+    let helpData = xiuxianCfg.getConfig('help', 'Association');
     return {
       ...this.screenData,
-      saveId: "help",
+      saveId: 'help',
       version: this.versionData.version,
       helpData,
     };

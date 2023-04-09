@@ -1,7 +1,5 @@
-import { plugin ,verc} from "../../api/api.js";
-import config from "../../model/Config.js";
-import data from "../../model/XiuxianData.js";
-import fs from "fs";
+import fs from 'fs';
+import { plugin, verc, config, data } from '../../api/api.js';
 import {
   Add_灵石,
   Add_najie_thing,
@@ -13,45 +11,45 @@ import {
   ForwardMsg,
   Goweizhi,
   Go,
-} from "../../model/xiuxian.js";
+} from '../../model/xiuxian.js';
 const 宗门灵石池上限 = [
   2000000, 5000000, 8000000, 11000000, 15000000, 20000000,
 ];
 export class BlessPlace extends plugin {
   constructor() {
     super({
-      name: "BlessPlace",
-      dsc: "宗门驻地模块",
-      event: "message",
+      name: 'BlessPlace',
+      dsc: '宗门驻地模块',
+      event: 'message',
       priority: 9999,
       rule: [
         {
-          reg: "^#洞天福地列表$",
-          fnc: "List_blessPlace",
+          reg: '^#洞天福地列表$',
+          fnc: 'List_blessPlace',
         },
         {
-          reg: "^#开采灵脉$",
-          fnc: "exploitation_vein",
+          reg: '^#开采灵脉$',
+          fnc: 'exploitation_vein',
         },
         {
-          reg: "^#入驻洞天.*$",
-          fnc: "Settled_Blessed_Place",
+          reg: '^#入驻洞天.*$',
+          fnc: 'Settled_Blessed_Place',
         },
         {
-          reg: "^#建设宗门$",
-          fnc: "construction_Guild",
+          reg: '^#建设宗门$',
+          fnc: 'construction_Guild',
         },
         {
-          reg: "^#宗门秘境$",
-          fnc: "mij",
+          reg: '^#宗门秘境$',
+          fnc: 'mij',
         },
         {
-          reg: "^#探索宗门秘境.*$",
-          fnc: "Go_Guild_Secrets",
+          reg: '^#探索宗门秘境.*$',
+          fnc: 'Go_Guild_Secrets',
         },
         {
-          reg: "^#沉迷宗门秘境.*$",
-          fnc: "Go_Guild_Secretsplus",
+          reg: '^#沉迷宗门秘境.*$',
+          fnc: 'Go_Guild_Secretsplus',
         },
       ],
     });
@@ -59,65 +57,63 @@ export class BlessPlace extends plugin {
 
   //福地地点
   async List_blessPlace(e) {
-if (!verc({ e })) return false;
-    let addres = "洞天福地";
+    if (!verc({ e })) return false;
+    let addres = '洞天福地';
     let weizhi = data.bless_list;
     GoBlessPlace(e, weizhi, addres);
   }
 
   //秘境地点
   async mij(e) {
-if (!verc({ e })) return false;
-    let addres = "宗门秘境";
+    if (!verc({ e })) return false;
+    let addres = '宗门秘境';
     let weizhi = data.guildSecrets_list;
     Goweizhi(e, weizhi, addres);
   }
 
   //入驻洞天
   async Settled_Blessed_Place(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) return;
-    let player = data.getData("player", usr_qq);
+    let ifexistplay = data.existData('player', usr_qq);
+    if (!ifexistplay) return false;
+    let player = data.getData('player', usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {
-      e.reply("你尚未加入宗门");
-      return;
+      e.reply('你尚未加入宗门');
+      return false;
     }
     //职位不符
-    if (player.宗门.职位 == "宗主") {
+    if (player.宗门.职位 == '宗主') {
     } else {
-      e.reply("只有宗主可以操作");
-      return;
+      e.reply('只有宗主可以操作');
+      return false;
     }
 
     let ass = data.getAssociation(player.宗门.宗门名称);
 
     //输入的洞天是否存在
-    let blessed_name = e.msg.replace("#入驻洞天", "");
+    let blessed_name = e.msg.replace('#入驻洞天', '');
     blessed_name = blessed_name.trim();
     //洞天不存在
-    let dongTan = await data.bless_list.find(
-      (item) => item.name == blessed_name
-    );
-    if (!dongTan)  return;
+    let dongTan = await data.bless_list.find(item => item.name == blessed_name);
+    if (!dongTan) return false;
 
     if (ass.宗门驻地 == blessed_name) {
       e.reply(`咋的，要给自己宗门拆了重建啊`);
-      return;
+      return false;
     }
 
     //洞天是否已绑定宗门
 
     let dir = data.filePathMap.association;
     let File = fs.readdirSync(dir);
-    File = File.filter((file) => file.endsWith(".json")); //这个数组内容是所有的宗门名称
+    File = File.filter(file => file.endsWith('.json')); //这个数组内容是所有的宗门名称
 
     //遍历所有的宗门
     for (var i = 0; i < File.length; i++) {
-      let this_name = File[i].replace(".json", "");
+      let this_name = File[i].replace('.json', '');
       let this_ass = await data.getAssociation(this_name);
 
       if (this_ass.宗门驻地 == dongTan.name) {
@@ -197,7 +193,7 @@ if (!verc({ e })) return false;
           );
         }
 
-        return;
+        return false;
       }
     }
 
@@ -208,23 +204,23 @@ if (!verc({ e })) return false;
     ass.宗门建设等级 = 0;
     await data.setAssociation(ass.宗门名称, ass);
     e.reply(`入驻成功,${ass.宗门名称}当前驻地为：${dongTan.name}`);
-    return;
+    return false;
   }
 
   async exploitation_vein(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) return;
-    let player = data.getData("player", usr_qq);
+    let ifexistplay = data.existData('player', usr_qq);
+    if (!ifexistplay) return false;
+    let player = data.getData('player', usr_qq);
     if (!isNotNull(player.宗门)) {
-      return;
+      return false;
     }
     let ass = data.getAssociation(player.宗门.宗门名称);
 
     if (ass.宗门驻地 == 0) {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`);
-      return;
+      return false;
     }
 
     let now = new Date();
@@ -237,22 +233,17 @@ if (!verc({ e })) return false;
       Today.D == lastsign_time.D
     ) {
       e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`);
-      return;
+      return false;
     }
     //都通过了，可以进行开采了
-    await redis.set(
-      "xiuxian:player:" + usr_qq + ":getLastsign_Explor",
-      nowTime
-    ); //redis设置签到时间
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Explor', nowTime); //redis设置签到时间
 
     //给奖励
-    let dongTan = await data.bless_list.find(
-      (item) => item.name == ass.宗门驻地
-    );
+    let dongTan = await data.bless_list.find(item => item.name == ass.宗门驻地);
     if (!dongTan)
-      dongTan = await data.bless_list.find((item) => item.name == "昆仑山");
+      dongTan = await data.bless_list.find(item => item.name == '昆仑山');
     let gift_lingshi = 0;
-    if (ass.宗门神兽 == "麒麟") {
+    if (ass.宗门神兽 == '麒麟') {
       gift_lingshi = (1200 * (dongTan.level + 1) * player.level_id) / 2;
     } else {
       gift_lingshi = (1200 * dongTan.level * player.level_id) / 2;
@@ -276,56 +267,54 @@ if (!verc({ e })) return false;
       }灵石，上交一半给宗门，最后获得${num}灵石`
     );
 
-    return;
+    return false;
   }
 
   //降临秘境
   async Go_Guild_Secrets(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     if (!player.宗门) {
-      e.reply("请先加入宗门");
-      return;
+      e.reply('请先加入宗门');
+      return false;
     }
     let ass = data.getAssociation(player.宗门.宗门名称);
     if (ass.宗门驻地 == 0) {
       e.reply(`你的宗门还没有驻地，不能探索秘境哦`);
-      return;
+      return false;
     }
-    var didian = e.msg.replace("#探索宗门秘境", "");
+    var didian = e.msg.replace('#探索宗门秘境', '');
     didian = didian.trim();
-    let weizhi = await data.guildSecrets_list.find(
-      (item) => item.name == didian
-    );
+    let weizhi = await data.guildSecrets_list.find(item => item.name == didian);
     if (!isNotNull(weizhi)) {
-      return;
+      return false;
     }
 
     if (player.灵石 < weizhi.Price) {
-      e.reply("没有灵石寸步难行,攒到" + weizhi.Price + "灵石才够哦~");
-      return true;
+      e.reply('没有灵石寸步难行,攒到' + weizhi.Price + '灵石才够哦~');
+      return false;
     }
     let Price = weizhi.Price;
     ass.灵石池 += Price * 0.05;
     data.setAssociation(ass.宗门名称, ass);
 
     await Add_灵石(usr_qq, -Price);
-    var time = config.getConfig("xiuxian", "xiuxian").CD.secretplace; //时间（分钟）
+    var time = config.getConfig('xiuxian', 'xiuxian').CD.secretplace; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
-      action: "历练", //动作
+      action: '历练', //动作
       end_time: new Date().getTime() + action_time, //结束时间
       time: action_time, //持续时间
-      shutup: "1", //闭关
-      working: "1", //降妖
-      Place_action: "0", //秘境状态---开启
-      Place_actionplus: "1", //沉迷秘境状态---关闭
-      power_up: "1", //渡劫状态--关闭
+      shutup: '1', //闭关
+      working: '1', //降妖
+      Place_action: '0', //秘境状态---开启
+      Place_actionplus: '1', //沉迷秘境状态---关闭
+      power_up: '1', //渡劫状态--关闭
       //这里要保存秘境特别需要留存的信息
       Place_address: weizhi,
       XF: ass.power,
@@ -333,57 +322,52 @@ if (!verc({ e })) return false;
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set(
-      "xiuxian:player:" + usr_qq + ":action",
-      JSON.stringify(arr)
-    );
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     // setTimeout(() => {
     //         SecretPlaceMax(e, weizhi);
     //     }, 60000 );
 
-    e.reply("开始探索" + didian + "宗门秘境," + time + "分钟后归来!");
-    return;
+    e.reply('开始探索' + didian + '宗门秘境,' + time + '分钟后归来!');
+    return false;
   }
 
   //沉迷秘境
   async Go_Guild_Secretsplus(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
-      return;
+      return false;
     }
     let player = await Read_player(usr_qq);
     if (!player.宗门) {
-      e.reply("请先加入宗门");
-      return;
+      e.reply('请先加入宗门');
+      return false;
     }
     let ass = data.getAssociation(player.宗门.宗门名称);
     if (ass.宗门驻地 == 0) {
       e.reply(`你的宗门还没有驻地，不能探索秘境哦`);
-      return;
+      return false;
     }
-    var didian = e.msg.replace("#沉迷宗门秘境", "");
-    let code = didian.split("*");
+    var didian = e.msg.replace('#沉迷宗门秘境', '');
+    let code = didian.split('*');
     didian = code[0];
     let i = await convert2integer(code[1]);
-    if (i > 12) return;
-    let weizhi = await data.guildSecrets_list.find(
-      (item) => item.name == didian
-    );
+    if (i > 12) return false;
+    let weizhi = await data.guildSecrets_list.find(item => item.name == didian);
     if (!isNotNull(weizhi)) {
-      return;
+      return false;
     }
     if (player.灵石 < weizhi.Price * i * 10) {
-      e.reply("没有灵石寸步难行,攒到" + weizhi.Price * i * 10 + "灵石才够哦~");
-      return true;
+      e.reply('没有灵石寸步难行,攒到' + weizhi.Price * i * 10 + '灵石才够哦~');
+      return false;
     }
-    let number = await exist_najie_thing(usr_qq, "秘境之匙", "道具");
+    let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具');
     if (isNotNull(number) && number >= i) {
-      await Add_najie_thing(usr_qq, "秘境之匙", "道具", -i);
+      await Add_najie_thing(usr_qq, '秘境之匙', '道具', -i);
     } else {
-      e.reply("你没有足够数量的秘境之匙");
-      return;
+      e.reply('你没有足够数量的秘境之匙');
+      return false;
     }
     let Price = weizhi.Price * i * 10;
 
@@ -394,14 +378,14 @@ if (!verc({ e })) return false;
     var time = i * 10 * 5 + 10; //时间（分钟）
     let action_time = 60000 * time; //持续时间，单位毫秒
     let arr = {
-      action: "历练", //动作
+      action: '历练', //动作
       end_time: new Date().getTime() + action_time, //结束时间
       time: action_time, //持续时间
-      shutup: "1", //闭关
-      working: "1", //降妖
-      Place_action: "1", //秘境状态---开启
-      Place_actionplus: "0", //沉迷秘境状态---关闭
-      power_up: "1", //渡劫状态--关闭
+      shutup: '1', //闭关
+      working: '1', //降妖
+      Place_action: '1', //秘境状态---开启
+      Place_actionplus: '0', //沉迷秘境状态---关闭
+      power_up: '1', //渡劫状态--关闭
       cishu: 10 * i,
       //这里要保存秘境特别需要留存的信息
       Place_address: weizhi,
@@ -410,33 +394,30 @@ if (!verc({ e })) return false;
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set(
-      "xiuxian:player:" + usr_qq + ":action",
-      JSON.stringify(arr)
-    );
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     // setTimeout(() => {
     //         SecretPlaceMax(e, weizhi);
     //     }, 60000 );
 
-    e.reply("开始探索" + didian + "宗门秘境," + time + "分钟后归来!");
-    return;
+    e.reply('开始探索' + didian + '宗门秘境,' + time + '分钟后归来!');
+    return false;
   }
   async construction_Guild(e) {
-if (!verc({ e })) return false;
+    if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //用户不存在
-    let ifexistplay = data.existData("player", usr_qq);
-    if (!ifexistplay) return;
-    let player = data.getData("player", usr_qq);
+    let ifexistplay = data.existData('player', usr_qq);
+    if (!ifexistplay) return false;
+    let player = data.getData('player', usr_qq);
     //无宗门
     if (!isNotNull(player.宗门)) {
-      e.reply("你尚未加入宗门");
-      return;
+      e.reply('你尚未加入宗门');
+      return false;
     }
     let ass = data.getAssociation(player.宗门.宗门名称);
     if (ass.宗门驻地 == 0) {
       e.reply(`你的宗门还没有驻地，无法建设宗门`);
-      return;
+      return false;
     }
     if (denji < 0) {
       ass.宗门建设等级 = 0;
@@ -450,7 +431,7 @@ if (!verc({ e })) return false;
     //灵石池扣除
     let lsckc = Math.trunc(denji * 10000);
     if (ass.灵石池 < lsckc) {
-      e.reply(`宗门灵石池不足，还需[` + lsckc + "]灵石");
+      e.reply(`宗门灵石池不足，还需[` + lsckc + ']灵石');
     } else {
       ass.灵石池 -= lsckc;
       let add = Math.trunc(player.level_id / 7) + 1;
@@ -461,16 +442,14 @@ if (!verc({ e })) return false;
       );
     }
 
-    return;
+    return false;
   }
 }
 
 //获取上次开采灵石的时间
 async function getLastsign_Explor(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get(
-    "xiuxian:player:" + usr_qq + ":getLastsign_Explor"
-  );
+  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Explor');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;
@@ -483,13 +462,13 @@ async function getLastsign_Explor(usr_qq) {
 async function GoBlessPlace(e, weizhi, addres) {
   let dir = data.filePathMap.association;
   let File = fs.readdirSync(dir);
-  File = File.filter((file) => file.endsWith(".json")); //这个数组内容是所有的宗门名称
+  File = File.filter(file => file.endsWith('.json')); //这个数组内容是所有的宗门名称
   let adr = addres;
-  let msg = ["***" + adr + "***"];
+  let msg = ['***' + adr + '***'];
   for (var i = 0; i < weizhi.length; i++) {
-    let ass = "无";
+    let ass = '无';
     for (let j of File) {
-      let this_name = j.replace(".json", "");
+      let this_name = j.replace('.json', '');
       let this_ass = await data.getAssociation(this_name);
       if (this_ass.宗门驻地 == weizhi[i].name) {
         ass = this_ass.宗门名称;
@@ -498,14 +477,14 @@ async function GoBlessPlace(e, weizhi, addres) {
     }
     msg.push(
       weizhi[i].name +
-        "\n" +
-        "等级：" +
+        '\n' +
+        '等级：' +
         weizhi[i].level +
-        "\n" +
-        "修炼效率：" +
+        '\n' +
+        '修炼效率：' +
         weizhi[i].efficiency * 100 +
-        "%\n" +
-        "入驻宗门：" +
+        '%\n' +
+        '入驻宗门：' +
         ass
     );
   }

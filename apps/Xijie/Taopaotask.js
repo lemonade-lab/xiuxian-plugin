@@ -1,28 +1,26 @@
-import { plugin, common, segment } from "../../api/api.js";
-import config from "../../model/Config.js";
-import data from "../../model/XiuxianData.js";
-import fs from "fs";
+import { plugin, common, segment, config, data } from '../../api/api.js';
+import fs from 'fs';
 import {
   isNotNull,
   Add_najie_thing,
   Harm,
   Write_shop,
   Read_shop,
-} from "../../model/xiuxian.js";
-import { AppName } from "../../app.config.js";
+} from '../../model/xiuxian.js';
+import { AppName } from '../../app.config.js';
 
 export class Taopaotask extends plugin {
   constructor() {
     super({
-      name: "Taopaotask",
-      dsc: "定时任务",
-      event: "message",
+      name: 'Taopaotask',
+      dsc: '定时任务',
+      event: 'message',
       rule: [],
     });
-    this.set = config.getConfig("task", "task");
+    this.set = config.getConfig('task', 'task');
     this.task = {
       cron: this.set.actionplus_task,
-      name: "Taopaotask",
+      name: 'Taopaotask',
       fnc: () => this.Taopaotask(),
     };
   }
@@ -30,25 +28,25 @@ export class Taopaotask extends plugin {
     //获取缓存中人物列表
     let playerList = [];
     let files = fs
-      .readdirSync("./plugins/" + AppName + "/resources/data/xiuxian_player")
-      .filter((file) => file.endsWith(".json"));
+      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
+      .filter(file => file.endsWith('.json'));
     for (let file of files) {
-      file = file.replace(".json", "");
+      file = file.replace('.json', '');
       playerList.push(file);
     }
     for (let player_id of playerList) {
-      let log_mag = ""; //查询当前人物动作日志信息
-      log_mag = log_mag + "查询" + player_id + "是否有动作,";
+      let log_mag = ''; //查询当前人物动作日志信息
+      log_mag = log_mag + '查询' + player_id + '是否有动作,';
       //得到动作
 
-      let action = await redis.get("xiuxian:player:" + player_id + ":action");
+      let action = await redis.get('xiuxian@1.3.0:' + player_id + ':action');
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
         let push_address; //消息推送地址
         let is_group = false; //是否推送到群
 
-        if (await action.hasOwnProperty("group_id")) {
+        if (await action.hasOwnProperty('group_id')) {
           if (isNotNull(action.group_id)) {
             is_group = true;
             push_address = action.group_id;
@@ -62,7 +60,7 @@ export class Taopaotask extends plugin {
         //现在的时间
         let now_time = new Date().getTime();
         //有洗劫状态:这个直接结算即可
-        if (action.xijie == "-2") {
+        if (action.xijie == '-2') {
           //5分钟后开始结算阶段一
           end_time = end_time - action.time + 60000 * 5;
           //时间过了
@@ -70,7 +68,7 @@ export class Taopaotask extends plugin {
             let weizhi = action.Place_address;
             let i; //获取对应npc列表的位置
             for (i = 0; i < data.npc_list.length; i++) {
-              if (data.npc_list[i].name == "万仙盟") {
+              if (data.npc_list[i].name == '万仙盟') {
                 break;
               }
             }
@@ -111,49 +109,49 @@ export class Taopaotask extends plugin {
                 Math.trunc(B_player.攻击 * B_player.法球倍率) +
                 B_player.防御 * 0.1
             );
-            let last_msg = "";
+            let last_msg = '';
             if (Random < 0.1) {
               A_player.当前血量 -= npc_damage;
               last_msg +=
                 B_player.名号 +
-                "似乎不屑追你,只是随手丢出神通,剩余血量" +
+                '似乎不屑追你,只是随手丢出神通,剩余血量' +
                 A_player.当前血量;
             } else if (Random < 0.25) {
               A_player.当前血量 -= Math.trunc(npc_damage * 0.3);
               last_msg +=
-                "你引起了" +
+                '你引起了' +
                 B_player.名号 +
-                "的兴趣," +
+                '的兴趣,' +
                 B_player.名号 +
-                "决定试探你,只用了三分力,剩余血量" +
+                '决定试探你,只用了三分力,剩余血量' +
                 A_player.当前血量;
             } else if (Random < 0.5) {
               A_player.当前血量 -= Math.trunc(npc_damage * 1.5);
               last_msg +=
-                "你的逃跑让" +
+                '你的逃跑让' +
                 B_player.名号 +
-                "愤怒," +
+                '愤怒,' +
                 B_player.名号 +
-                "使用了更加强大的一次攻击,剩余血量" +
+                '使用了更加强大的一次攻击,剩余血量' +
                 A_player.当前血量;
             } else if (Random < 0.7) {
               A_player.当前血量 -= Math.trunc(npc_damage * 1.3);
               last_msg +=
-                "你成功的吸引了所有的仇恨," +
+                '你成功的吸引了所有的仇恨,' +
                 B_player.名号 +
-                "已经快要抓到你了,强大的攻击已经到了你的面前,剩余血量" +
+                '已经快要抓到你了,强大的攻击已经到了你的面前,剩余血量' +
                 A_player.当前血量;
             } else if (Random < 0.9) {
               A_player.当前血量 -= Math.trunc(npc_damage * 1.8);
               last_msg +=
-                "你们近乎贴脸飞行," +
+                '你们近乎贴脸飞行,' +
                 B_player.名号 +
-                "的攻势愈加猛烈,已经快招架不住了,剩余血量" +
+                '的攻势愈加猛烈,已经快招架不住了,剩余血量' +
                 A_player.当前血量;
             } else {
               A_player.当前血量 -= Math.trunc(npc_damage * 0.5);
               last_msg +=
-                "身体快到极限了嘛,你暗暗问道,脚下逃跑的步伐更加迅速,剩余血量" +
+                '身体快到极限了嘛,你暗暗问道,脚下逃跑的步伐更加迅速,剩余血量' +
                 A_player.当前血量;
             }
             if (A_player.当前血量 < 0) {
@@ -174,32 +172,32 @@ export class Taopaotask extends plugin {
             } else {
               var num = weizhi.Grade + 1;
               last_msg +=
-                "\n在躲避追杀中,没能躲过此劫,被抓进了天牢\n在天牢中你找到了秘境之匙x" +
+                '\n在躲避追杀中,没能躲过此劫,被抓进了天牢\n在天牢中你找到了秘境之匙x' +
                 num;
-              await Add_najie_thing(player_id, "秘境之匙", "道具", num);
+              await Add_najie_thing(player_id, '秘境之匙', '道具', num);
               delete arr.group_id;
               shop[i].state = 0;
               await Write_shop(shop);
               var time = 60; //时间（分钟）
               var action_time = 60000 * time; //持续时间，单位毫秒
-              arr.action = "天牢";
+              arr.action = '天牢';
               arr.xijie = 1; //关闭洗劫
               arr.end_time = new Date().getTime() + action_time;
-              const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
+              const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList';
               const groupList = await redis.sMembers(redisGlKey);
               const xx =
-                "【全服公告】" +
+                '【全服公告】' +
                 A_player.名号 +
-                "被" +
+                '被' +
                 B_player.名号 +
-                "抓进了地牢,希望大家遵纪守法,引以为戒";
+                '抓进了地牢,希望大家遵纪守法,引以为戒';
               for (const group_id of groupList) {
                 this.pushInfo(group_id, true, xx);
               }
             }
             if (arr.cishu == 0) {
               //说明成功了
-              last_msg += "\n你成功躲过了万仙盟的追杀,躲进了宗门";
+              last_msg += '\n你成功躲过了万仙盟的追杀,躲进了宗门';
               arr.xijie = 1; //关闭洗劫
               arr.end_time = new Date().getTime();
               delete arr.group_id;
@@ -210,7 +208,7 @@ export class Taopaotask extends plugin {
                   arr.thing[j].class,
                   arr.thing[j].数量
                 );
-                last_msg += "";
+                last_msg += '';
               }
               shop[i].Grade++;
               if (shop[i].Grade > 3) {
@@ -221,10 +219,10 @@ export class Taopaotask extends plugin {
             }
             //写入redis
             await redis.set(
-              "xiuxian:player:" + player_id + ":action",
+              'xiuxian@1.3.0:' + player_id + ':action',
               JSON.stringify(arr)
             );
-            msg.push("\n" + last_msg);
+            msg.push('\n' + last_msg);
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg);
             } else {
@@ -239,13 +237,13 @@ export class Taopaotask extends plugin {
    * 推送消息，群消息推送群，或者推送私人
    * @param id
    * @param is_group
-   * @returns {Promise<void>}
+   * @return  false  falses {Promise<void>}
    */
   async pushInfo(id, is_group, msg) {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch((err) => {
+        .catch(err => {
           Bot.logger.mark(err);
         });
     } else {
