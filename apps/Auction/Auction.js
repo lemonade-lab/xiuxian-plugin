@@ -160,10 +160,10 @@ export class Auction extends plugin {
 
   /*竞价10000 */
   async offer_priceXINGGE(e) {
+    let usr_qq = e.user_id;
     if (!verc({ e })) return false;
     if (usr_qq == 80000000) return false;
     //固定写法
-    let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
