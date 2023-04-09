@@ -10,7 +10,7 @@ export class admin extends plugin {
       priority: 400,
       rule: [
         {
-          reg: '^#修仙(插件)?(强制)?更新',
+          reg: '^#修仙更新',
           fnc: 'checkout',
         },
       ],
@@ -19,17 +19,7 @@ export class admin extends plugin {
   async checkout(e) {
     if (!e.isMaster) return false;
     if (!verc({ e })) return false;
-    const isForce = this.e.msg.includes('强制');
-    let command = 'git  pull';
-    if (isForce) {
-      command =
-        'git fetch --all && git reset --hard xiuxian@1.3.0 && git  pull';
-      this.e.reply('正在执行强制更新操作，请稍等');
-    } else {
-      this.e.reply('正在执行更新操作，请稍等');
-    }
-    exec(
-      command,
+    exec('git  pull',
       { cwd: `${process.cwd()}/plugins/${AppName}/` },
       function (error, stdout, stderr) {
         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {

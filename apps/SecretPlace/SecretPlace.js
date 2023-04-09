@@ -164,7 +164,7 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始降临' + didian + ',' + time + '分钟后归来!');
     return false;
   }
@@ -239,7 +239,7 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('正在前往' + weizhi.name + ',' + time + '分钟后归来!');
     return false;
   }
@@ -333,7 +333,7 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     await Add_修为(usr_qq, -100000);
     if (suiji == 0) {
       e.reply(
@@ -423,7 +423,7 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始镇守' + didian + ',' + time + '分钟后归来!');
     return false;
   }
@@ -438,7 +438,7 @@ export class SecretPlace extends plugin {
     }
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian:player:' + usr_qq + ':game_action'
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -446,7 +446,7 @@ export class SecretPlace extends plugin {
       return false;
     }
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
     action = JSON.parse(action);
     //不为空，有状态
     if (action != null) {
@@ -468,7 +468,7 @@ export class SecretPlace extends plugin {
         arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
         delete arr.group_id; //结算完去除group_id
         await redis.set(
-          'xiuxian:player:' + usr_qq + ':action',
+          'xiuxian@1.3.0:' + usr_qq + ':action',
           JSON.stringify(arr)
         );
         e.reply('你已逃离！');

@@ -251,7 +251,7 @@ export class UserHome extends plugin {
       e.reply('兑换码不存在!');
       return false;
     }
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':duihuan'); //兑换码
+    let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':duihuan'); //兑换码
     action = await JSON.parse(action);
     if (action == null) {
       action = [];
@@ -264,7 +264,7 @@ export class UserHome extends plugin {
     }
     action.push(name);
     await redis.set(
-      'xiuxian:player:' + usr_qq + ':duihuan',
+      'xiuxian@1.3.0:' + usr_qq + ':duihuan',
       JSON.stringify(action)
     );
     let msg = [];

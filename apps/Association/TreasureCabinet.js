@@ -161,7 +161,7 @@ export class TreasureCabinet extends plugin {
       return false;
     }
 
-    await redis.set('xiuxian:player:' + usr_qq + ':getLastsign_Bonus', nowTime); //redis设置签到时间
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Bonus', nowTime); //redis设置签到时间
 
     let random = Math.random();
     let flag = 0.5;
@@ -256,7 +256,7 @@ export class TreasureCabinet extends plugin {
 
 async function getLastsign_Bonus(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian:player:' + usr_qq + ':getLastsign_Bonus');
+  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Bonus');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;

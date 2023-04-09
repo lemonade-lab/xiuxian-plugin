@@ -40,7 +40,7 @@ export class Xijietask extends plugin {
       log_mag = log_mag + '查询' + player_id + '是否有动作,';
       //得到动作
 
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      let action = await redis.get('xiuxian@1.3.0:' + player_id + ':action');
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
@@ -172,7 +172,7 @@ export class Xijietask extends plugin {
             }
             //写入redis
             await redis.set(
-              'xiuxian:player:' + player_id + ':action',
+              'xiuxian@1.3.0:' + player_id + ':action',
               JSON.stringify(arr)
             );
             msg.push('\n' + last_msg);
@@ -243,7 +243,7 @@ export class Xijietask extends plugin {
             arr.cishu = shop[i].Grade + 1;
             //写入redis
             await redis.set(
-              'xiuxian:player:' + player_id + ':action',
+              'xiuxian@1.3.0:' + player_id + ':action',
               JSON.stringify(arr)
             );
             msg.push('\n' + last_msg);

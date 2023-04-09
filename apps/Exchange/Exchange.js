@@ -52,7 +52,7 @@ export class Exchange extends plugin {
     var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
+    let ExchangeCD = await redis.get('xiuxian@1.3.0:' + usr_qq + ':ExchangeCD');
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
@@ -71,7 +71,7 @@ export class Exchange extends plugin {
     }
     let Exchange;
     //记录本次执行时间
-    await redis.set('xiuxian:player:' + usr_qq + ':ExchangeCD', now_time);
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':ExchangeCD', now_time);
     let player = await Read_player(usr_qq);
     let x = parseInt(e.msg.replace('#下架', '')) - 1;
     try {
@@ -107,7 +107,7 @@ export class Exchange extends plugin {
     }
     Exchange.splice(x, 1);
     await Write_Exchange(Exchange);
-    await redis.set('xiuxian:player:' + thingqq + ':Exchange', 0);
+    await redis.set('xiuxian@1.3.0:' + thingqq + ':Exchange', 0);
     e.reply(player.名号 + '下架' + thing_name + '成功！');
     return false;
   }
@@ -280,7 +280,7 @@ export class Exchange extends plugin {
     var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
+    let ExchangeCD = await redis.get('xiuxian@1.3.0:' + usr_qq + ':ExchangeCD');
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
@@ -298,7 +298,7 @@ export class Exchange extends plugin {
       return false;
     }
     //记录本次执行时间
-    await redis.set('xiuxian:player:' + usr_qq + ':ExchangeCD', now_time);
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':ExchangeCD', now_time);
     let player = await Read_player(usr_qq);
     let Exchange;
     try {

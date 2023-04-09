@@ -165,13 +165,13 @@ export class UserStart extends plugin {
       return false;
     } else {
       //没有存档，初始化次数
-      await redis.set('xiuxian:player:' + usr_qq + ':reCreate_acount', 1);
+      await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', 1);
     }
     let acount = await redis.get(
-      'xiuxian:player:' + usr_qq + ':reCreate_acount'
+      'xiuxian@1.3.0:' + usr_qq + ':reCreate_acount'
     );
     if (acount == undefined || acount == null || acount == NaN || acount <= 0) {
-      await redis.set('xiuxian:player:' + usr_qq + ':reCreate_acount', 1);
+      await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', 1);
     }
     let player = await data.getData('player', usr_qq);
     //重生之前先看状态
@@ -186,7 +186,7 @@ export class UserStart extends plugin {
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
     let lastrestart_time = await redis.get(
-      'xiuxian:player:' + usr_qq + ':last_reCreate_time'
+      'xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time'
     ); //获得上次重生时间戳,
     lastrestart_time = parseInt(lastrestart_time);
     const cf = config.getConfig('xiuxian', 'xiuxian');
@@ -233,7 +233,7 @@ export class UserStart extends plugin {
     } else if (choice == '断绝此生') {
       //得到重生次数
       let acount = await redis.get(
-        'xiuxian:player:' + usr_qq + ':reCreate_acount'
+        'xiuxian@1.3.0:' + usr_qq + ':reCreate_acount'
       );
       //
       if (acount >= 15) {
@@ -294,10 +294,10 @@ export class UserStart extends plugin {
       ]);
       await this.Create_player(e);
       await redis.set(
-        'xiuxian:player:' + usr_qq + ':last_reCreate_time',
+        'xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time',
         nowTime
       ); //redis设置本次改名时间戳
-      await redis.set('xiuxian:player:' + usr_qq + ':reCreate_acount', acount);
+      await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', acount);
     } else {
       this.setContext('RE_xiuxian');
       await this.reply('请回复:【断绝此生】或者【再继仙缘】进行选择', false, {
@@ -372,7 +372,7 @@ export class UserStart extends plugin {
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       let Today = await shijianc(nowTime);
       let lastsetname_time = await redis.get(
-        'xiuxian:player:' + usr_qq + ':last_setname_time'
+        'xiuxian@1.3.0:' + usr_qq + ':last_setname_time'
       ); //获得上次改名日期,
       lastsetname_time = parseInt(lastsetname_time);
       lastsetname_time = await shijianc(lastsetname_time);
@@ -390,7 +390,7 @@ export class UserStart extends plugin {
         return false;
       }
       player.名号 = new_name;
-      redis.set('xiuxian:player:' + usr_qq + ':last_setname_time', nowTime); //redis设置本次改名时间戳
+      redis.set('xiuxian@1.3.0:' + usr_qq + ':last_setname_time', nowTime); //redis设置本次改名时间戳
       player.灵石 -= 1000;
       await Write_player(usr_qq, player);
       //Add_灵石(usr_qq, -100);
@@ -415,7 +415,7 @@ export class UserStart extends plugin {
       //
       let Today = await shijianc(nowTime);
       let lastsetxuanyan_time = await redis.get(
-        'xiuxian:player:' + usr_qq + ':last_setxuanyan_time'
+        'xiuxian@1.3.0:' + usr_qq + ':last_setxuanyan_time'
       );
       //获得上次改道宣日期,
       lastsetxuanyan_time = parseInt(lastsetxuanyan_time);
@@ -431,7 +431,7 @@ export class UserStart extends plugin {
       //这里有问题，写不进去
       player = await Read_player(usr_qq);
       player.宣言 = new_msg; //
-      redis.set('xiuxian:player:' + usr_qq + ':last_setxuanyan_time', nowTime); //redis设置本次设道置宣时间戳
+      redis.set('xiuxian@1.3.0:' + usr_qq + ':last_setxuanyan_time', nowTime); //redis设置本次设道置宣时间戳
       await Write_player(usr_qq, player);
       this.Show_player(e);
       return false;
@@ -468,7 +468,7 @@ export class UserStart extends plugin {
     } else {
       Sign_Yesterday = false;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':lastsign_time', nowTime); //redis设置签到时间
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastsign_time', nowTime); //redis设置签到时间
     let player = await data.getData('player', usr_qq);
     if (player.连续签到天数 == 7 || !Sign_Yesterday) {
       //签到连续7天或者昨天没有签到,连续签到天数清零

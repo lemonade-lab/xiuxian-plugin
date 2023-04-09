@@ -2122,7 +2122,7 @@ export async function shijianc(time) {
 //获取上次签到时间
 export async function getLastsign(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian:player:' + usr_qq + ':lastsign_time');
+  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':lastsign_time');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;
@@ -2133,7 +2133,7 @@ export async function getLastsign(usr_qq) {
 export async function getPlayerAction(usr_qq) {
   //查询redis中的人物动作
   let arr = {};
-  let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+  let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
   action = JSON.parse(action);
   //动作不为空闲
   if (action != null) {
@@ -2508,14 +2508,14 @@ export async function Go(e) {
     return 0;
   }
   //获取游戏状态
-  let game_action = await redis.get('xiuxian:player:' + usr_qq + ':game_action');
+  let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action');
   //防止继续其他娱乐行为
   if (game_action == 0) {
     e.reply('修仙：游戏进行中...');
     return 0;
   }
   //查询redis中的人物动作
-  let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+  let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
   action = JSON.parse(action);
   if (action != null) {
     //人物有动作查询动作结束时间

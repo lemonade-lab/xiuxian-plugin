@@ -57,7 +57,7 @@ export class Battle extends plugin {
 
     //得到redis游戏状态
     let last_game_timeA = await redis.get(
-      'xiuxian:player:' + A + ':last_game_time'
+      'xiuxian@1.3.0:' + A + ':last_game_time'
     );
     //设置游戏状态
     if (last_game_timeA == 0) {
@@ -136,7 +136,7 @@ export class Battle extends plugin {
       }
     }
 
-    let A_action = await redis.get('xiuxian:player:' + A + ':action');
+    let A_action = await redis.get('xiuxian@1.3.0:' + A + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -153,7 +153,7 @@ export class Battle extends plugin {
     }
 
     let last_game_timeB = await redis.get(
-      'xiuxian:player:' + B + ':last_game_time'
+      'xiuxian@1.3.0:' + B + ':last_game_time'
     );
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他赚够了再打劫也不迟!`);
@@ -162,7 +162,7 @@ export class Battle extends plugin {
 
     let isBbusy = false; //给B是否忙碌加个标志位，用来判断要不要扣隐身水
 
-    let B_action = await redis.get('xiuxian:player:' + B + ':action');
+    let B_action = await redis.get('xiuxian@1.3.0:' + B + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();
@@ -188,7 +188,7 @@ export class Battle extends plugin {
     let now = new Date();
     let nowTime = now.getTime(); //获取当前时间戳
     let last_dajie_time = await redis.get(
-      'xiuxian:player:' + A + ':last_dajie_time'
+      'xiuxian@1.3.0:' + A + ':last_dajie_time'
     ); //获得上次打劫的时间戳,
     last_dajie_time = parseInt(last_dajie_time);
     const cf = config.getConfig('xiuxian', 'xiuxian');
@@ -231,7 +231,7 @@ export class Battle extends plugin {
       final_msg.push(`${A_player.名号}向${B_player.名号}发起了打劫。`);
     }
     //本次打劫时间存入缓存
-    await redis.set('xiuxian:player:' + A + ':last_dajie_time', nowTime); //存入缓存
+    await redis.set('xiuxian@1.3.0:' + A + ':last_dajie_time', nowTime); //存入缓存
     A_player.法球倍率 = A_player.灵根.法球倍率;
     B_player.法球倍率 = B_player.灵根.法球倍率;
 
@@ -281,12 +281,12 @@ export class Battle extends plugin {
         await Write_player(B, B_player);
         var time2 = 60; //时间（分钟）
         var action_time2 = 60000 * time2; //持续时间，单位毫秒
-        var action2 = await redis.get('xiuxian:player:' + A + ':action');
+        var action2 = await redis.get('xiuxian@1.3.0:' + A + ':action');
         action2 = await JSON.parse(action2);
         action2.action = '禁闭';
         action2.end_time = new Date().getTime() + action_time2;
         await redis.set(
-          'xiuxian:player:' + A + ':action',
+          'xiuxian@1.3.0:' + A + ':action',
           JSON.stringify(action2)
         );
         final_msg.push(

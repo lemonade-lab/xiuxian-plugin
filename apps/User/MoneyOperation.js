@@ -258,7 +258,7 @@ export class MoneyOperation extends plugin {
       let now = new Date();
       let nowTime = now.getTime(); //获取当前时间戳
       let lastgetbung_time = await redis.get(
-        'xiuxian:player:' + A_qq + ':last_getbung_time'
+        'xiuxian@1.3.0:' + A_qq + ':last_getbung_time'
       );
       lastgetbung_time = parseInt(lastgetbung_time);
       let transferTimeout = parseInt(cf.CD.transfer * 60000);
@@ -284,7 +284,7 @@ export class MoneyOperation extends plugin {
         `${B_player.名号} 获得了由 ${A_player.名号}赠送的${lingshi}灵石`,
       ]);
       //记录本次获得赠送灵石的时间戳
-      await redis.set('xiuxian:player:' + A_qq + ':last_getbung_time', nowTime);
+      await redis.set('xiuxian@1.3.0:' + A_qq + ':last_getbung_time', nowTime);
       return false;
     } else {
       let code = msg.split('*');
@@ -417,8 +417,8 @@ export class MoneyOperation extends plugin {
     }
     lingshi = Math.trunc(lingshi / 10000) * 10000;
     //发送的灵石要当到数据库里。大家都能取
-    await redis.set('xiuxian:player:' + usr_qq + ':honbao', lingshi);
-    await redis.set('xiuxian:player:' + usr_qq + ':honbaoacount', acount);
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':honbao', lingshi);
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':honbaoacount', acount);
     //然后扣灵石
     await Add_灵石(usr_qq, -lingshi * acount);
     e.reply(
@@ -444,7 +444,7 @@ export class MoneyOperation extends plugin {
     //抢红包要有一分钟的CD
     let now_time = new Date().getTime();
     let lastgetbung_time = await redis.get(
-      'xiuxian:player:' + usr_qq + ':last_getbung_time'
+      'xiuxian@1.3.0:' + usr_qq + ':last_getbung_time'
     );
     lastgetbung_time = parseInt(lastgetbung_time);
     const cf = config.getConfig('xiuxian', 'xiuxian');
@@ -474,7 +474,7 @@ export class MoneyOperation extends plugin {
     }
     //这里有错
     let acount = await redis.get(
-      'xiuxian:player:' + honbao_qq + ':honbaoacount'
+      'xiuxian@1.3.0:' + honbao_qq + ':honbaoacount'
     );
     acount = Number(acount);
     //根据个数判断
@@ -483,11 +483,11 @@ export class MoneyOperation extends plugin {
       return false;
     }
     //看看一个有多少灵石
-    const lingshi = await redis.get('xiuxian:player:' + honbao_qq + ':honbao');
+    const lingshi = await redis.get('xiuxian@1.3.0:' + honbao_qq + ':honbao');
     const addlingshi = Math.trunc(lingshi);
     //减少个数
     acount--;
-    await redis.set('xiuxian:player:' + honbao_qq + ':honbaoacount', acount);
+    await redis.set('xiuxian@1.3.0:' + honbao_qq + ':honbaoacount', acount);
     //拿出来的要给玩家
     await Add_灵石(usr_qq, addlingshi);
     //给个提示
@@ -495,7 +495,7 @@ export class MoneyOperation extends plugin {
       '【全服公告】' + player.名号 + '抢到一个' + addlingshi + '灵石的红包！'
     );
     //记录时间
-    await redis.set('xiuxian:player:' + usr_qq + ':last_getbung_time', now_time);
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_getbung_time', now_time);
     return false;
   }
 

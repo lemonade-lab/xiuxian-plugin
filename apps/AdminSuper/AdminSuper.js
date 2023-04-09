@@ -185,12 +185,12 @@ export class AdminSuper extends plugin {
     }
     for (let player_id of playerList) {
       //清除游戏状态
-      await redis.set('xiuxian:player:' + player_id + ':game_action', 1);
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      await redis.set('xiuxian@1.3.0:' + player_id + ':game_action', 1);
+      let action = await redis.get('xiuxian@1.3.0:' + player_id + ':action');
       action = JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
-        await redis.del('xiuxian:player:' + player_id + ':action');
+        await redis.del('xiuxian@1.3.0:' + player_id + ':action');
         let arr = action;
         arr.is_jiesuan = 1; //结算状态
         arr.shutup = 1; //闭关状态
@@ -201,7 +201,7 @@ export class AdminSuper extends plugin {
         arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
         delete arr.group_id; //结算完去除group_id
         await redis.set(
-          'xiuxian:player:' + player_id + ':action',
+          'xiuxian@1.3.0:' + player_id + ':action',
           JSON.stringify(arr)
         );
       }
@@ -223,9 +223,9 @@ export class AdminSuper extends plugin {
     let ifexistplay = await existplayer(qq);
     if (!ifexistplay) return false;
     //清除游戏状态
-    await redis.set('xiuxian:player:' + qq + ':game_action', 1);
+    await redis.set('xiuxian@1.3.0:' + qq + ':game_action', 1);
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + qq + ':action');
+    let action = await redis.get('xiuxian@1.3.0:' + qq + ':action');
     action = JSON.parse(action);
     //不为空，有状态
     if (action != null) {
@@ -239,7 +239,7 @@ export class AdminSuper extends plugin {
       arr.Place_actionplus = 1; //沉迷状态
       arr.end_time = new Date().getTime(); //结束的时间也修改为当前时间
       delete arr.group_id; //结算完去除group_id
-      await redis.set('xiuxian:player:' + qq + ':action', JSON.stringify(arr));
+      await redis.set('xiuxian@1.3.0:' + qq + ':action', JSON.stringify(arr));
       e.reply('已解除！');
       return false;
     }

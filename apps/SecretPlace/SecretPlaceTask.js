@@ -42,7 +42,7 @@ export class SecretPlaceTask extends plugin {
       let log_mag = ''; //查询当前人物动作日志信息
       log_mag = log_mag + '查询' + player_id + '是否有动作,';
       //得到动作
-      let action = await redis.get('xiuxian:player:' + player_id + ':action');
+      let action = await redis.get('xiuxian@1.3.0:' + player_id + ':action');
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {
@@ -256,7 +256,7 @@ export class SecretPlaceTask extends plugin {
             delete arr.group_id;
             //写入redis
             await redis.set(
-              'xiuxian:player:' + player_id + ':action',
+              'xiuxian@1.3.0:' + player_id + ':action',
               JSON.stringify(arr)
             );
             //先完结再结算

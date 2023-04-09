@@ -98,7 +98,7 @@ export class Daolv extends plugin {
     if (!ifexistplay_A || e.isPrivate) {
       return false;
     }
-    let A_action = await redis.get('xiuxian:player:' + A + ':action');
+    let A_action = await redis.get('xiuxian@1.3.0:' + A + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -114,7 +114,7 @@ export class Daolv extends plugin {
       }
     }
     let last_game_timeA = await redis.get(
-      'xiuxian:player:' + A + ':last_game_time'
+      'xiuxian@1.3.0:' + A + ':last_game_time'
     );
     if (last_game_timeA == 0) {
       e.reply(`猜大小正在进行哦，结束了再求婚吧!`);
@@ -134,7 +134,7 @@ export class Daolv extends plugin {
       e.reply('修仙者不可对凡人出手!');
       return false;
     }
-    let B_action = await redis.get('xiuxian:player:' + B + ':action');
+    let B_action = await redis.get('xiuxian@1.3.0:' + B + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();
@@ -150,7 +150,7 @@ export class Daolv extends plugin {
       }
     }
     let last_game_timeB = await redis.get(
-      'xiuxian:player:' + B + ':last_game_time'
+      'xiuxian@1.3.0:' + B + ':last_game_time'
     );
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他结束再求婚吧!`);
@@ -216,7 +216,7 @@ export class Daolv extends plugin {
     if (!ifexistplay_A || e.isPrivate) {
       return false;
     }
-    let A_action = await redis.get('xiuxian:player:' + A + ':action');
+    let A_action = await redis.get('xiuxian@1.3.0:' + A + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -232,7 +232,7 @@ export class Daolv extends plugin {
       }
     }
     let last_game_timeA = await redis.get(
-      'xiuxian:player:' + A + ':last_game_time'
+      'xiuxian@1.3.0:' + A + ':last_game_time'
     );
     if (last_game_timeA == 0) {
       e.reply(`猜大小正在进行哦，结束了再来吧!`);
@@ -252,7 +252,7 @@ export class Daolv extends plugin {
       e.reply('修仙者不可对凡人出手!');
       return false;
     }
-    let B_action = await redis.get('xiuxian:player:' + B + ':action');
+    let B_action = await redis.get('xiuxian@1.3.0:' + B + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();
@@ -268,7 +268,7 @@ export class Daolv extends plugin {
       }
     }
     let last_game_timeB = await redis.get(
-      'xiuxian:player:' + B + ':last_game_time'
+      'xiuxian@1.3.0:' + B + ':last_game_time'
     );
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他结束再找他吧!`);

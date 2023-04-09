@@ -92,7 +92,7 @@ export class shenren extends plugin {
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
     let game_action = await redis.get(
-      'xiuxian:player:' + usr_qq + ':game_action'
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -100,7 +100,7 @@ export class shenren extends plugin {
       return false;
     }
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -122,7 +122,7 @@ export class shenren extends plugin {
       (Today.Y != lastdagong_time.Y && Today.M != lastdagong_time.M) ||
       Today.D != lastdagong_time.D
     ) {
-      await redis.set('xiuxian:player:' + usr_qq + ':lastdagong_time', nowTime); //redis设置签到时间
+      await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastdagong_time', nowTime); //redis设置签到时间
       var n = 1;
       if (player.灵根.name == '二转轮回体') {
         n = 2;
@@ -192,7 +192,7 @@ export class shenren extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始进入神界,' + time + '分钟后归来!');
     return false;
   }
@@ -235,7 +235,7 @@ export class shenren extends plugin {
 
 async function getLastdagong(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian:player:' + usr_qq + ':lastdagong_time');
+  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':lastdagong_time');
   console.log(time);
   if (time != null) {
     let data = await shijianc(parseInt(time));

@@ -276,7 +276,7 @@ export class motou extends plugin {
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
     let game_action = await redis.get(
-      'xiuxian:player:' + usr_qq + ':game_action'
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
     );
     //防止继续其他娱乐行为
     if (game_action == 0) {
@@ -284,7 +284,7 @@ export class motou extends plugin {
       return false;
     }
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -329,7 +329,7 @@ export class motou extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     e.reply('开始进入魔界,' + time + '分钟后归来!');
     return false;
   }

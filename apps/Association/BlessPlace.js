@@ -236,7 +236,7 @@ export class BlessPlace extends plugin {
       return false;
     }
     //都通过了，可以进行开采了
-    await redis.set('xiuxian:player:' + usr_qq + ':getLastsign_Explor', nowTime); //redis设置签到时间
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Explor', nowTime); //redis设置签到时间
 
     //给奖励
     let dongTan = await data.bless_list.find(item => item.name == ass.宗门驻地);
@@ -322,7 +322,7 @@ export class BlessPlace extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     // setTimeout(() => {
     //         SecretPlaceMax(e, weizhi);
     //     }, 60000 );
@@ -394,7 +394,7 @@ export class BlessPlace extends plugin {
     if (e.isGroup) {
       arr.group_id = e.group_id;
     }
-    await redis.set('xiuxian:player:' + usr_qq + ':action', JSON.stringify(arr));
+    await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr));
     // setTimeout(() => {
     //         SecretPlaceMax(e, weizhi);
     //     }, 60000 );
@@ -449,7 +449,7 @@ export class BlessPlace extends plugin {
 //获取上次开采灵石的时间
 async function getLastsign_Explor(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian:player:' + usr_qq + ':getLastsign_Explor');
+  let time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Explor');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;
