@@ -704,7 +704,7 @@ export class Level extends plugin {
       return false;
     }
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     action = JSON.parse(action);
     //不为空
     if (action != null) {

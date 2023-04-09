@@ -43,7 +43,7 @@ export class mojietask extends plugin {
       log_mag = log_mag + '查询' + player_id + '是否有动作,';
       //得到动作
 
-      let action = await redis.get('xiuxian:' + player_id + ':action');
+      let action = await redis.get('xiuxian:player:' + player_id + ':action');
       action = await JSON.parse(action);
       //不为空，存在动作
       if (action != null) {

@@ -36,7 +36,7 @@ export class lunhui extends plugin {
       player.lunhui = 0;
       await Write_player(usr_qq, player);
     }
-    let lhxq = await redis.get('xiuxian:' + usr_qq + ':lunhui');
+    let lhxq = await redis.get('xiuxian:player:' + usr_qq + ':lunhui');
     if (lhxq != 1) {
       e.reply(
         '轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展。\n' +

@@ -161,7 +161,7 @@ export class Forum extends plugin {
     var time = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ForumCD = await redis.get('xiuxian:' + usr_qq + ':ForumCD');
+    let ForumCD = await redis.get('xiuxian:player:' + usr_qq + ':ForumCD');
     ForumCD = parseInt(ForumCD);
     let transferTimeout = parseInt(60000 * time);
     if (now_time < ForumCD + transferTimeout) {

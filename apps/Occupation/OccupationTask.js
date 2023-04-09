@@ -33,7 +33,7 @@ export class OccupationTask extends plugin {
       let log_mag = ''; //查询当前人物动作日志信息
       log_mag = log_mag + '查询' + player_id + '是否有动作,';
       //得到动作
-      let action = await redis.get('xiuxian:' + player_id + ':action');
+      let action = await redis.get('xiuxian:player:' + player_id + ':action');
       action = JSON.parse(action);
       //不为空，存在动作
       if (action != null) {

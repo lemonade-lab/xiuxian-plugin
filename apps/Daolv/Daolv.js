@@ -98,7 +98,7 @@ export class Daolv extends plugin {
     if (!ifexistplay_A || e.isPrivate) {
       return false;
     }
-    let A_action = await redis.get('xiuxian:' + A + ':action');
+    let A_action = await redis.get('xiuxian:player:' + A + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -134,7 +134,7 @@ export class Daolv extends plugin {
       e.reply('修仙者不可对凡人出手!');
       return false;
     }
-    let B_action = await redis.get('xiuxian:' + B + ':action');
+    let B_action = await redis.get('xiuxian:player:' + B + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();
@@ -216,7 +216,7 @@ export class Daolv extends plugin {
     if (!ifexistplay_A || e.isPrivate) {
       return false;
     }
-    let A_action = await redis.get('xiuxian:' + A + ':action');
+    let A_action = await redis.get('xiuxian:player:' + A + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -252,7 +252,7 @@ export class Daolv extends plugin {
       e.reply('修仙者不可对凡人出手!');
       return false;
     }
-    let B_action = await redis.get('xiuxian:' + B + ':action');
+    let B_action = await redis.get('xiuxian:player:' + B + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();

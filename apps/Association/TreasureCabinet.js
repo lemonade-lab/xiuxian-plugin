@@ -256,7 +256,7 @@ export class TreasureCabinet extends plugin {
 
 async function getLastsign_Bonus(usr_qq) {
   //查询redis中的人物动作
-  let time = await redis.get('xiuxian:' + usr_qq + ':getLastsign_Bonus');
+  let time = await redis.get('xiuxian:player:' + usr_qq + ':getLastsign_Bonus');
   if (time != null) {
     let data = await shijianc(parseInt(time));
     return data;

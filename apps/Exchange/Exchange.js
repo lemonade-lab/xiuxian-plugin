@@ -52,7 +52,7 @@ export class Exchange extends plugin {
     var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get('xiuxian:' + usr_qq + ':ExchangeCD');
+    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {
@@ -280,7 +280,7 @@ export class Exchange extends plugin {
     var time0 = 0.5; //分钟cd
     //获取当前时间
     let now_time = new Date().getTime();
-    let ExchangeCD = await redis.get('xiuxian:' + usr_qq + ':ExchangeCD');
+    let ExchangeCD = await redis.get('xiuxian:player:' + usr_qq + ':ExchangeCD');
     ExchangeCD = parseInt(ExchangeCD);
     let transferTimeout = parseInt(60000 * time0);
     if (now_time < ExchangeCD + transferTimeout) {

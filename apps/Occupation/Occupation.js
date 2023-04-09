@@ -173,7 +173,7 @@ export class Occupation extends plugin {
       e.reply(`恭喜${player.名号}转职为[${occupation}]`);
       return false;
     }
-    let action = await redis.get('xiuxian:' + usr_qq + ':fuzhi'); //副职
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':fuzhi'); //副职
     action = await JSON.parse(action);
     if (action == null) {
       action = [];
@@ -206,7 +206,7 @@ export class Occupation extends plugin {
     if (!ifexistplay) return false;
 
     let player = await Read_player(usr_qq);
-    let action = await redis.get('xiuxian:' + usr_qq + ':fuzhi'); //副职
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':fuzhi'); //副职
     action = await JSON.parse(action);
     if (action == null) {
       action = [];
@@ -278,7 +278,7 @@ export class Occupation extends plugin {
     }
 
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -323,7 +323,7 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
-    let action = await redis.get('xiuxian:' + 1 + ':shangjing');
+    let action = await redis.get('xiuxian:player:' + 1 + ':shangjing');
     action = await JSON.parse(action);
     action = null;
     e.reply('清除完成');
@@ -441,7 +441,7 @@ export class Occupation extends plugin {
       time = 30;
     }
     //查询redis中的人物动作
-    let action = await redis.get('xiuxian:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     action = JSON.parse(action);
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -903,7 +903,7 @@ export class Occupation extends plugin {
       return false;
     }
     let msg = [];
-    let action = await redis.get('xiuxian:' + usr_qq + ':shangjing');
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':shangjing');
     action = await JSON.parse(action);
     let type = 0;
     if (action != null) {
@@ -990,7 +990,7 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
-    let A_action = await redis.get('xiuxian:' + usr_qq + ':action');
+    let A_action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -1010,7 +1010,7 @@ export class Occupation extends plugin {
       e.reply('侠客资质不足,需要进行训练');
       return false;
     }
-    let action = await redis.get('xiuxian:' + usr_qq + ':shangjing');
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':shangjing');
     action = await JSON.parse(action);
     if (action == null) {
       e.reply('还没有接取到悬赏,请查看后再来吧'); //没接取悬赏
@@ -1134,7 +1134,7 @@ export class Occupation extends plugin {
       QQ: qq,
       赏金: money,
     };
-    let action = await redis.get('xiuxian:' + 1 + ':shangjing');
+    let action = await redis.get('xiuxian:player:' + 1 + ':shangjing');
     action = await JSON.parse(action);
     if (action != null) {
       action.push(arr);
@@ -1163,7 +1163,7 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
-    let action = await redis.get('xiuxian:' + 1 + ':shangjing');
+    let action = await redis.get('xiuxian:player:' + 1 + ':shangjing');
     action = await JSON.parse(action);
     if (action == null) {
       e.reply('悬赏已经被抢空了'); //没人被悬赏
@@ -1203,7 +1203,7 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return false;
-    let A_action = await redis.get('xiuxian:' + usr_qq + ':action');
+    let A_action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     A_action = JSON.parse(A_action);
     if (A_action != null) {
       let now_time = new Date().getTime();
@@ -1218,7 +1218,7 @@ export class Occupation extends plugin {
         return false;
       }
     }
-    let action = await redis.get('xiuxian:' + 1 + ':shangjing');
+    let action = await redis.get('xiuxian:player:' + 1 + ':shangjing');
     action = await JSON.parse(action);
     var num = e.msg.replace('#刺杀目标', '');
     num = num.trim() - 1;
@@ -1244,7 +1244,7 @@ export class Occupation extends plugin {
       e.reply(`对方已经没有血了,请等一段时间再刺杀他吧`);
       return false;
     }
-    let B_action = await redis.get('xiuxian:' + qq + ':action');
+    let B_action = await redis.get('xiuxian:player:' + qq + ':action');
     B_action = JSON.parse(B_action);
     if (B_action != null) {
       let now_time = new Date().getTime();
@@ -1332,7 +1332,7 @@ export class Occupation extends plugin {
    * @return  falses {Promise<void>}
    */
   async getPlayerAction(usr_qq) {
-    let action = await redis.get('xiuxian:' + usr_qq + ':action');
+    let action = await redis.get('xiuxian:player:' + usr_qq + ':action');
     action = JSON.parse(action); //转为json格式数据
     return action;
   }

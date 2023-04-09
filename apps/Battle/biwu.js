@@ -182,7 +182,7 @@ export class biwu extends plugin {
       let msg = [];
       //A
       action_A = await JSON.parse(
-        await redis.get('xiuxian:' + A_QQ[num].QQ + ':bisai')
+        await redis.get('xiuxian:player:' + A_QQ[num].QQ + ':bisai')
       );
       //清空cd
       if (action_A.技能[action_A.use]) action_A.技能[action_A.use].cd = 0;
@@ -314,7 +314,7 @@ export class biwu extends plugin {
       }
       //B
       action_B = await JSON.parse(
-        await redis.get('xiuxian:' + B_QQ[num].QQ + ':bisai')
+        await redis.get('xiuxian:player:' + B_QQ[num].QQ + ':bisai')
       );
       //清空cd
       if (action_B.技能[action_B.use]) action_B.技能[action_B.use].cd = 0;
@@ -532,7 +532,7 @@ export class biwu extends plugin {
 
   async release(e) {
     if (!verc({ e })) return false;
-    let action = await redis.get('xiuxian:' + e.user_id + ':bisai');
+    let action = await redis.get('xiuxian:player:' + e.user_id + ':bisai');
     action = await JSON.parse(action);
     if (!action) return false;
     let jineng = e.msg.replace('#释放技能', '');

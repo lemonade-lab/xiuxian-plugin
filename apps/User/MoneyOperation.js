@@ -483,7 +483,7 @@ export class MoneyOperation extends plugin {
       return false;
     }
     //看看一个有多少灵石
-    const lingshi = await redis.get('xiuxian:' + honbao_qq + ':honbao');
+    const lingshi = await redis.get('xiuxian:player:' + honbao_qq + ':honbao');
     const addlingshi = Math.trunc(lingshi);
     //减少个数
     acount--;
