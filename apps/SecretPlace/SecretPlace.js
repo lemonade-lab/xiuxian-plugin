@@ -72,8 +72,7 @@ export class SecretPlace extends plugin {
   }
 
   async Xiuxianstate(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let flag = await Go(e);
     if (!flag) {
       return;
@@ -83,8 +82,7 @@ export class SecretPlace extends plugin {
 
   //秘境地点
   async Secretplace(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let addres = "秘境";
     let weizhi = data.didian_list;
     await Goweizhi(e, weizhi, addres);
@@ -92,8 +90,7 @@ export class SecretPlace extends plugin {
 
   //禁地
   async Forbiddenarea(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let addres = "禁地";
     let weizhi = data.forbiddenarea_list;
     await jindi(e, weizhi, addres);
@@ -101,15 +98,13 @@ export class SecretPlace extends plugin {
 
   //限定仙府
   async Timeplace(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     e.reply("仙府乃民间传说之地,请自行探索");
   }
 
   //仙境
   async Fairyrealm(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let addres = "仙境";
     let weizhi = data.Fairyrealm_list;
     await Goweizhi(e, weizhi, addres);
@@ -117,8 +112,7 @@ export class SecretPlace extends plugin {
 
   //降临秘境
   async Gosecretplace(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -182,8 +176,7 @@ export class SecretPlace extends plugin {
 
   //前往禁地
   async Goforbiddenarea(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -261,8 +254,7 @@ export class SecretPlace extends plugin {
 
   //探索仙府
   async GoTimeplace(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -375,8 +367,7 @@ export class SecretPlace extends plugin {
 
   //前往仙境
   async Gofairyrealm(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let flag = await Go(e);
     if (!flag) {
@@ -394,24 +385,11 @@ export class SecretPlace extends plugin {
       return true;
     }
     let now_level_id;
-    if (!isNotNull(player.level_id)) {
-      e.reply("请先#同步信息");
-      return;
-    }
     now_level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id;
-    if (now_level_id < 42) {
+    if (now_level_id < 42 && player.lunhui == 0) {
       return;
-    } else {
-      if (!isNotNull(player.power_place)) {
-        e.reply("请#同步信息");
-        return;
-      }
-      if (player.power_place != 0) {
-        e.reply("你已无法重返仙界！");
-        return;
-      }
     }
     let dazhe = 1;
     if (
@@ -465,8 +443,7 @@ export class SecretPlace extends plugin {
   }
 
   async Giveup(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) {

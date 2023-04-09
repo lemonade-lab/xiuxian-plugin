@@ -44,8 +44,7 @@ export class PlayerControl extends plugin {
 
   //闭关
   async Biguan(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     if (!(await existplayer(usr_qq)))  return;
     let game_action = await redis.get(
@@ -130,8 +129,7 @@ export class PlayerControl extends plugin {
 
   //降妖
   async Dagong(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id; //用户qq
     //有无存档
     if (!(await existplayer(usr_qq))) {
@@ -224,8 +222,7 @@ export class PlayerControl extends plugin {
    * @returns {Promise<void>}
    */
   async chuGuan(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let action = await this.getPlayerAction(e.user_id);
     if (action.shutup == 1)  return;
 
@@ -295,8 +292,7 @@ export class PlayerControl extends plugin {
    * @returns {Promise<void>}
    */
   async endWork(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let action = await this.getPlayerAction(e.user_id);
     if (action.working == 1) return;
     //结算

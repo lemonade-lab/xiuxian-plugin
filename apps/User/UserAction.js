@@ -32,8 +32,7 @@ export class UserAction extends plugin {
 
   //#我的纳戒
   async Show_najie(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -45,8 +44,7 @@ export class UserAction extends plugin {
 
   //纳戒升级
   async Lv_up_najie(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let flag = await Go(e);
     if (!flag)  return;
     let usr_qq = e.user_id;

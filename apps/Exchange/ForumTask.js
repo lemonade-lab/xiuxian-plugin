@@ -1,6 +1,6 @@
 import { plugin } from "../../api/api.js";
 import config from "../../model/Config.js";
-import { Write_Forum, Read_Forum } from "../../model/xiuxian.js";
+import { Write_Forum, Read_Forum, Add_灵石 } from "../../model/xiuxian.js";
 export class ForumTask extends plugin {
   constructor() {
     super({
@@ -27,19 +27,18 @@ export class ForumTask extends plugin {
       await Write_Forum([]);
       Forum = await Read_Forum();
     }
-    /* const now_time = new Date().getTime();
+    const now_time = new Date().getTime();
     for (let i=0;i<Forum.length;i++)
     {
       const time=(now_time-Forum[i].now_time)/24/60/60/1000;
       if (time<3) break;
       const usr_qq = Forum[i].qq;
-      const thing = Forum[i].name;
-      const quanity = Forum[i].aconut;
-      await Add_najie_thing(usr_qq, thing, Forum[i].class, quanity);
+      const lingshi=Forum[i].whole;
+      await Add_灵石(usr_qq,lingshi)
       Forum.splice(i, 1);
       i--;
     }
-    await Write_Forum(Forum);*/
+    await Write_Forum(Forum);
     return;
   }
 }

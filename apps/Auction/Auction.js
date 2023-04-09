@@ -41,8 +41,7 @@ export class Auction extends plugin {
   }
 
   async xingGE(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -73,8 +72,7 @@ export class Auction extends plugin {
     if (!e.isMaster) {
       return e.reply("只有只因器人主人可以开启");
     }
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
 
     // 如果星阁已经开了，将本群加入Redis
     // INFO: 缺省判断是否在进行，GroupList判断哪些群开启了星阁体系
@@ -128,8 +126,7 @@ export class Auction extends plugin {
     if (!e.isMaster) {
       return e.reply("只有只因器人主人可以取消");
     }
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
 
     const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
     if (!redis.sIsMember(redisGlKey, String(e.group_id))) {
@@ -144,8 +141,7 @@ export class Auction extends plugin {
     if (!e.isMaster) {
       return e.reply("只有只因器人主人可以关闭");
     }
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
 
     const redisGlKey = "xiuxian:AuctionofficialTask_GroupList";
     await redis.del("xiuxian:AuctionofficialTask");
@@ -159,8 +155,7 @@ export class Auction extends plugin {
 
   /*竞价10000 */
   async offer_priceXINGGE(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
@@ -225,8 +220,7 @@ export class Auction extends plugin {
   }
 
   async show_auction(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //固定写法
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档

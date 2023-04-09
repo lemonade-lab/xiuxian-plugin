@@ -45,8 +45,7 @@ export class TopList extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -114,8 +113,7 @@ export class TopList extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -180,8 +178,7 @@ export class TopList extends plugin {
   }
 
   async TOP_xiuwei(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -230,8 +227,7 @@ export class TopList extends plugin {
 
   //TOP_lingshi
   async TOP_lingshi(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;

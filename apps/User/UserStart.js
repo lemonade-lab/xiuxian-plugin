@@ -59,8 +59,7 @@ export class UserStart extends plugin {
   }
   //#踏入仙途
   async Create_player(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //判断是否为匿名创建存档
     if (usr_qq == 80000000)   return;
@@ -159,8 +158,7 @@ export class UserStart extends plugin {
 
   //重新修仙
   async reCreate_player(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -222,8 +220,7 @@ export class UserStart extends plugin {
 
   //重生方法
   async RE_xiuxian(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     /** 内容 */
     let new_msg = this.e.message;
@@ -317,8 +314,7 @@ export class UserStart extends plugin {
 
   //#我的练气
   async Show_player(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -329,8 +325,7 @@ export class UserStart extends plugin {
   }
 
   async Set_sex(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -353,8 +348,7 @@ export class UserStart extends plugin {
 
   //改名
   async Change_player_name(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -448,8 +442,7 @@ export class UserStart extends plugin {
 
   //签到
   async daily_gift(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);

@@ -54,7 +54,6 @@ export class AdminSuper extends plugin {
     });
   }
   async jiesan_ass(e) {
-    if (!e.isGroup) return false;
     if (!e.isMaster) return false;
     if (!verc({ e })) return false
     let didian = e.msg.replace("#解散宗门", "");
@@ -78,8 +77,6 @@ export class AdminSuper extends plugin {
     return;
   }
   async show_log(e) {
-    if (!e.isGroup) return false;
-    if (!e.isMaster) return false;
     if (!verc({ e })) return false
     let j;
     const reader = await Read_updata_log();
@@ -138,7 +135,6 @@ export class AdminSuper extends plugin {
   }
 
   async Deleteexchange(e) {
-    if (!e.isGroup) return false;
     if (!e.isMaster) return false;
     if (!verc({ e })) return false
     e.reply("开始清除！");
@@ -180,8 +176,7 @@ export class AdminSuper extends plugin {
 
   async Allrelieve(e) {
     if (!e.isMaster) return;
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     e.reply("开始行动！");
     let playerList = [];
     let files = fs
@@ -219,8 +214,7 @@ export class AdminSuper extends plugin {
 
   async relieve(e) {
     if (!e.isMaster) return;
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) return;
@@ -259,8 +253,7 @@ export class AdminSuper extends plugin {
 
   async Knockdown(e) {
     if (!e.isMaster) return;
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === "at");
     if (!isat) return;

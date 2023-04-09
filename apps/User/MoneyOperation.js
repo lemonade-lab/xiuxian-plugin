@@ -57,8 +57,7 @@ export class MoneyOperation extends plugin {
   }
 
   async wup(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     if (!e.isMaster) return;
     //对方
     let isat = e.message.some((item) => item.type === "at");
@@ -127,8 +126,7 @@ export class MoneyOperation extends plugin {
   }
 
   async wup_all(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     if (!e.isMaster) return;
     //所有玩家
     let File = fs.readdirSync(__PATH.player_path);
@@ -204,8 +202,7 @@ export class MoneyOperation extends plugin {
   }
 
   async MoneyWord(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //这是自己的
     let usr_qq = e.user_id;
     //自己没存档
@@ -226,8 +223,7 @@ export class MoneyOperation extends plugin {
   }
 
   async Give(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //这是自己的
     let A_qq = e.user_id;
     //自己没存档
@@ -397,8 +393,7 @@ export class MoneyOperation extends plugin {
 
   //发红包
   async Give_honbao(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     //这是自己的
     let usr_qq = e.user_id;
     //自己没存档
@@ -442,8 +437,7 @@ export class MoneyOperation extends plugin {
 
   //抢红包
   async uer_honbao(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //自己没存档
     let ifexistplay = await existplayer(usr_qq);
@@ -511,8 +505,7 @@ export class MoneyOperation extends plugin {
   }
 
   async openwallet(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);

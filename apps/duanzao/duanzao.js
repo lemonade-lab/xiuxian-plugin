@@ -1,4 +1,4 @@
-import { plugin, puppeteer ,verc} from "../../api/api.js";
+import { plugin, puppeteer, verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import {
@@ -80,7 +80,6 @@ export class duanzao extends plugin {
     });
   }
   async bestfile(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let wupin;
     try {
@@ -144,7 +143,6 @@ export class duanzao extends plugin {
     return;
   }
   async all_clearthat(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     if (!e.isMaster) return;
     await Write_duanlu([]);
@@ -167,11 +165,10 @@ export class duanzao extends plugin {
     return;
   }
   async clearthat(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     //有无存档
-    if (!(await existplayer(user_qq)))   return false;
+    if (!(await existplayer(user_qq))) return false;
     const A = await looktripod(user_qq);
     if (A == 1) {
       let newtripod = await Read_tripod();
@@ -198,7 +195,6 @@ export class duanzao extends plugin {
   }
 
   async getmybook(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     //有无存档
@@ -220,13 +216,11 @@ export class duanzao extends plugin {
   }
 
   async givein(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
     //有无存档
-    if (!(await existplayer(user_qq)))   return false;
+    if (!(await existplayer(user_qq))) return false;
     //不开放私聊
-    if (!e.isGroup) return false;
     //获取游戏状态
     const game_action = await redis.get(
       "xiuxian:player:" + user_qq + ":game_action"
@@ -320,10 +314,9 @@ export class duanzao extends plugin {
   }
 
   async startit(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let user_qq = e.user_id;
-    if (!(await existplayer(user_qq)))   return false;
+    if (!(await existplayer(user_qq))) return false;
     const A = await looktripod(user_qq);
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来锻造吧`);
@@ -387,11 +380,10 @@ export class duanzao extends plugin {
     }
   }
   async openit(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let user_qq = e.user_id;
     //有无存档
-    if (!(await existplayer(user_qq)))return false;
+    if (!(await existplayer(user_qq))) return false;
     const A = await looktripod(user_qq);
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来锻造吧`);
@@ -472,11 +464,11 @@ export class duanzao extends plugin {
         for (let item2 in newwupin) {
           bizhi[item2] = Math.abs(
             newwupin[item2].atk -
-              jiuwei[0] +
-              newwupin[item2].def -
-              jiuwei[1] +
-              newwupin[item2].HP -
-              jiuwei[2]
+            jiuwei[0] +
+            newwupin[item2].def -
+            jiuwei[1] +
+            newwupin[item2].HP -
+            jiuwei[2]
           );
         }
         let min = bizhi[0];
@@ -594,7 +586,6 @@ export class duanzao extends plugin {
     }
   }
   async mytript(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     const user_qq = e.user_id;
     if (!(await existplayer(user_qq))) return false;
@@ -637,10 +628,9 @@ export class duanzao extends plugin {
   }
 
   async getnewname(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     const user_qq = e.user_id; //用户qq
-    if (!(await existplayer(user_qq)))   return false;
+    if (!(await existplayer(user_qq))) return false;
     let thing = e.msg.replace("#", "");
     thing = thing.replace("赋名", "");
     const code = thing.split("*");

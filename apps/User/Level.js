@@ -1,4 +1,4 @@
-import { plugin, segment,verc } from "../../api/api.js";
+import { plugin, verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import config from "../../model/Config.js";
 import fs from "fs";
@@ -17,10 +17,10 @@ import {
   Add_血气,
   Add_najie_thing,
   dujie,
+  LevelTask
 } from "../../model/xiuxian.js";
 import { clearInterval } from "timers";
 let dj = 0;
-let flag = 0;
 export class Level extends plugin {
   constructor() {
     super({
@@ -67,7 +67,6 @@ export class Level extends plugin {
 
   //突破
   async auto_up(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -85,7 +84,6 @@ export class Level extends plugin {
   }
 
   async LevelMax_up(e, luck) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
@@ -158,8 +156,8 @@ export class Level extends plugin {
         );
         e.reply(
           `突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` +
-            need_exp * 0.4 +
-            "血气",
+          need_exp * 0.4 +
+          "血气",
           false,
           { at: true }
         );
@@ -172,8 +170,8 @@ export class Level extends plugin {
         );
         e.reply(
           `突破瓶颈时想到树脂满了,险些走火入魔，丧失了` +
-            need_exp * 0.2 +
-            "血气",
+          need_exp * 0.2 +
+          "血气",
           false,
           { at: true }
         );
@@ -186,8 +184,8 @@ export class Level extends plugin {
         );
         e.reply(
           `突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` +
-            need_exp * 0.1 +
-            "血气",
+          need_exp * 0.1 +
+          "血气",
           false,
           { at: true }
         );
@@ -209,8 +207,8 @@ export class Level extends plugin {
         );
         e.reply(
           `突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` +
-            need_exp * 0.2 +
-            "血气",
+          need_exp * 0.2 +
+          "血气",
           false,
           { at: true }
         );
@@ -225,8 +223,8 @@ export class Level extends plugin {
         random2 = (Math.ceil((random2 + 1) / 5) - 1) * 5;
         e.reply(
           "修仙本是逆天而行,神明愿意降下自己的恩泽.这只[" +
-            data.changzhuxianchon[random2].name +
-            "],将伴随与你,愿你修仙路上不再独身一人.`"
+          data.changzhuxianchon[random2].name +
+          "],将伴随与你,愿你修仙路上不再独身一人.`"
         );
         await Add_najie_thing(
           usr_qq,
@@ -242,8 +240,8 @@ export class Level extends plugin {
         random2 = (Math.ceil((random2 + 1) / 5) - 1) * 5;
         e.reply(
           "修仙本是逆天而行,神明愿意降下自己的恩泽.这只[" +
-            data.changzhuxianchon[random2].name +
-            "],将伴随与你,愿你修仙路上不再独身一人.`"
+          data.changzhuxianchon[random2].name +
+          "],将伴随与你,愿你修仙路上不再独身一人.`"
         );
         await Add_najie_thing(
           usr_qq,
@@ -272,7 +270,6 @@ export class Level extends plugin {
 
   //突破
   async Level_up(e, luck) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无账号
@@ -385,8 +382,8 @@ export class Level extends plugin {
         ); //获得上次的时间戳
         e.reply(
           `突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` +
-            need_exp * 0.4 +
-            "修为",
+          need_exp * 0.4 +
+          "修为",
           false,
           { at: true }
         );
@@ -399,8 +396,8 @@ export class Level extends plugin {
         ); //获得上次的时间戳
         e.reply(
           `突破瓶颈时想到树脂满了,险些走火入魔，丧失了` +
-            need_exp * 0.2 +
-            "修为",
+          need_exp * 0.2 +
+          "修为",
           false,
           { at: true }
         );
@@ -413,8 +410,8 @@ export class Level extends plugin {
         ); //获得上次的时间戳
         e.reply(
           `突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` +
-            need_exp * 0.1 +
-            "修为",
+          need_exp * 0.1 +
+          "修为",
           false,
           { at: true }
         );
@@ -436,8 +433,8 @@ export class Level extends plugin {
         ); //获得上次的时间戳
         e.reply(
           `突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` +
-            need_exp * 0.2 +
-            "修为",
+          need_exp * 0.2 +
+          "修为",
           false,
           { at: true }
         );
@@ -452,8 +449,8 @@ export class Level extends plugin {
         random2 = (Math.ceil((random2 + 1) / 5) - 1) * 5;
         e.reply(
           "修仙本是逆天而行,神明愿意降下自己的恩泽.这只[" +
-            data.changzhuxianchon[random2].name +
-            "],将伴随与你,愿你修仙路上不再独身一人.`"
+          data.changzhuxianchon[random2].name +
+          "],将伴随与你,愿你修仙路上不再独身一人.`"
         );
         await Add_najie_thing(
           usr_qq,
@@ -469,8 +466,8 @@ export class Level extends plugin {
         random2 = (Math.ceil((random2 + 1) / 5) - 1) * 5;
         e.reply(
           "修仙本是逆天而行,神明愿意降下自己的恩泽.这只[" +
-            data.changzhuxianchon[random2].name +
-            "],将伴随与你,愿你修仙路上不再独身一人.`"
+          data.changzhuxianchon[random2].name +
+          "],将伴随与你,愿你修仙路上不再独身一人.`"
         );
         await Add_najie_thing(
           usr_qq,
@@ -503,7 +500,6 @@ export class Level extends plugin {
   }
 
   async yes(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     /** 内容 */
     let usr_qq = e.user_id;
@@ -561,14 +557,12 @@ export class Level extends plugin {
 
   //渡劫
   async fate_up(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
     //不开放私聊
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let player = await Read_player(usr_qq);
     //境界
@@ -657,24 +651,23 @@ export class Level extends plugin {
     e.reply("天道：就你，也敢逆天改命？");
     e.reply(
       "[" +
-        player.名号 +
-        "]" +
-        "\n雷抗：" +
-        x +
-        "\n成功率：" +
-        l +
-        "%\n灵根：" +
-        player.灵根.type +
-        "\n需渡" +
-        y +
-        "道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！"
+      player.名号 +
+      "]" +
+      "\n雷抗：" +
+      x +
+      "\n成功率：" +
+      l +
+      "%\n灵根：" +
+      player.灵根.type +
+      "\n需渡" +
+      y +
+      "道雷劫\n将在一分钟后落下\n[温馨提示]\n请把其他渡劫期打死后再渡劫！"
     );
     let aconut = 1;
-    flag = 0;
-    let time = setInterval(() => {
-      this.LevelTask(e, n, m, y, aconut);
+    let time = setInterval(async function(){
+      const flag=await LevelTask(e, n, m, y, aconut);
       aconut++;
-      if (aconut > y || flag) {
+      if (!flag) {
         dj = 0;
         clearInterval(time);
       }
@@ -682,98 +675,15 @@ export class Level extends plugin {
 
     return;
   }
-
-  async LevelTask(e, power_n, power_m, power_Grade, aconut) {
-    let usr_qq = e.user_id;
-    let msg = [segment.at(Number(usr_qq))];
-    //用户信息
-    let player = await Read_player(usr_qq);
-    //当前系数计算
-    let power_distortion = await dujie(usr_qq);
-    const yaocaolist = ["凝血草", "小吉祥草", "大吉祥草"];
-    for (const j in yaocaolist) {
-      const num = await exist_najie_thing(usr_qq, yaocaolist[j], "草药");
-      if (num) {
-        msg.push(`[${yaocaolist[j]}]为你提高了雷抗\n`);
-        power_distortion = Math.trunc(power_distortion * (1 + 0.2 * j));
-        await Add_najie_thing(usr_qq, yaocaolist[j], "草药", -1);
-      }
-      let variable = Math.random() * (power_m - power_n) + power_n;
-      //根据雷伤害的次数畸变.最高可达到+1.2
-      variable = variable + aconut / 10;
-      variable = Number(variable);
-      //对比系数
-      if (power_distortion >= variable) {
-        //判断目前是第几雷，第九就是过了
-        if (aconut >= power_Grade) {
-          player.power_place = 0;
-          await Write_player(usr_qq, player);
-          msg.push(
-            "\n" +
-              player.名号 +
-              "成功度过了第" +
-              aconut +
-              "道雷劫！可以#登仙，飞升仙界啦！"
-          );
-          e.reply(msg);
-          return;
-        } else {
-          //血量计算根据雷来计算！
-          let act = variable - power_n;
-          act = act / (power_m - power_n);
-          player.当前血量 = Math.trunc(player.当前血量 - player.当前血量 * act);
-          await Write_player(usr_qq, player);
-          msg.push(
-            "\n本次雷伤：" +
-              variable.toFixed(2) +
-              "\n本次雷抗：" +
-              power_distortion +
-              "\n" +
-              player.名号 +
-              "成功度过了第" +
-              aconut +
-              "道雷劫！\n下一道雷劫在一分钟后落下！"
-          );
-          e.reply(msg);
-          return;
-        }
-      } else {
-        //血量情况
-        player.当前血量 = 1;
-        //扣一半修为
-        player.修为 = Math.trunc(player.修为 * 0.5);
-        player.power_place = 1;
-        await Write_player(usr_qq, player);
-        //未挡住雷杰
-        msg.push(
-          "\n本次雷伤" +
-            variable.toFixed(2) +
-            "\n本次雷抗：" +
-            power_distortion +
-            "\n第" +
-            aconut +
-            "道雷劫落下了，可惜" +
-            player.名号 +
-            "未能抵挡，渡劫失败了！"
-        );
-        e.reply(msg);
-        flag = 1;
-        return;
-      }
-    }
-  }
-
   //#羽化登仙
   //专门为渡劫期设计的指令
   async Level_up_Max(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无账号
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
     //不开放私聊
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     //获取游戏状态
     let game_action = await redis.get(
@@ -834,8 +744,8 @@ export class Level extends plugin {
     if (player.power_place == 0) {
       e.reply(
         "天空一声巨响，一道虚影从眼中浮现，突然身体微微颤抖，似乎感受到了什么，" +
-          player.名号 +
-          "来不及思索，立即向前飞去！只见万物仰头相望，似乎感觉到了，也似乎没有感觉，殊不知......"
+        player.名号 +
+        "来不及思索，立即向前飞去！只见万物仰头相望，似乎感觉到了，也似乎没有感觉，殊不知......"
       );
       now_level_id = now_level_id + 1;
       player.level_id = now_level_id;

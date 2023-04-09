@@ -22,13 +22,12 @@ export class admin extends plugin {
     this.key = "xiuxian:restart";
   }
   async checkout() {
-    if (!e.isGroup) return false;
     if (!e.isMaster) return false;
     if (!verc({ e })) return false
     const isForce = this.e.msg.includes("强制");
     let command = "git  pull";
     if (isForce) {
-      command = "git fetch --all && git reset --hard VersionTwo && git  pull";
+      command = "git fetch --all && git reset --hard xiuxian@1.3.0 && git  pull";
       this.e.reply("正在执行强制更新操作，请稍等");
     } else {
       this.e.reply("正在执行更新操作，请稍等");

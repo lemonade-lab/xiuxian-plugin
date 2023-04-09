@@ -42,8 +42,7 @@ export class Garden extends plugin {
 
   //菜园显示
   async Vegetable(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
 
@@ -114,8 +113,7 @@ export class Garden extends plugin {
 
   //拔苗助长
   async Get_vegetable(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = data.existData("player", usr_qq);
     if (!ifexistplay) return;
@@ -213,8 +211,7 @@ export class Garden extends plugin {
 
   //禁言术/残云封天剑/需要剑帝信物发动  你尚未拥有剑帝信物，无法发动残云封天剑
   async Silencing(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id; //使用者QQ
     let qq = null;
 

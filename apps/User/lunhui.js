@@ -28,8 +28,7 @@ export class lunhui extends plugin {
   }
 
   async lunhui(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //有无存档
     let ifexistplay = await existplayer(usr_qq);
@@ -455,8 +454,7 @@ export class lunhui extends plugin {
   }
 
   async yeslunhui(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     /** 内容 */
     let usr_qq = e.user_id;
     let new_msg = this.e.message;

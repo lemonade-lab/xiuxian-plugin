@@ -1,4 +1,4 @@
-import { plugin,verc } from "../../api/api.js";
+import { plugin, verc } from "../../api/api.js";
 import data from "../../model/XiuxianData.js";
 import fs from "fs";
 import config from "../../model/Config.js";
@@ -52,14 +52,13 @@ export class BOSS2 extends plugin {
 
   //金角大王开启指令
   async CreateWorldBoss(e) {
-    if (!e || e.isMaster || !e.isGroup) {
+    if (!e || e.isMaster) {
       await InitWorldBoss();
-      return false;
+      return;
     }
   }
   //金角大王结束指令
   async DeleteWorldBoss(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     if (e.isMaster) {
       if (await BossIsAlive()) {
@@ -71,7 +70,6 @@ export class BOSS2 extends plugin {
   }
   //金角大王状态指令
   async LookUpWorldBossStatus(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     if (await BossIsAlive()) {
       let WorldBossStatusStr = await redis.get("Xiuxian:WorldBossStatus2");
@@ -95,7 +93,6 @@ export class BOSS2 extends plugin {
 
   //金角大王伤害贡献榜
   async ShowDamageList(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     if (await BossIsAlive()) {
       let PlayerRecord = await redis.get("Xiuxian:PlayerRecord2");
@@ -120,19 +117,18 @@ export class BOSS2 extends plugin {
         if (i < 20) {
           let Reward = Math.trunc(
             (PlayerRecord.TotalDamage[PlayerList[i]] / TotalDamage) *
-              WorldBossStatusStr.Reward
+            WorldBossStatusStr.Reward
           );
           Reward = Reward < 200000 ? 200000 : Reward;
           msg.push(
             "第" +
-              `${i + 1}` +
-              "名:\n" +
-              `名号:${PlayerRecord.Name[PlayerList[i]]}` +
-              "\n" +
-              `总伤害:${PlayerRecord.TotalDamage[PlayerList[i]]}` +
-              `\n${
-                WorldBossStatusStr.Health == 0 ? `已得到灵石` : `预计得到灵石`
-              }:${Reward}`
+            `${i + 1}` +
+            "名:\n" +
+            `名号:${PlayerRecord.Name[PlayerList[i]]}` +
+            "\n" +
+            `总伤害:${PlayerRecord.TotalDamage[PlayerList[i]]}` +
+            `\n${WorldBossStatusStr.Health == 0 ? `已得到灵石` : `预计得到灵石`
+            }:${Reward}`
           );
         }
         if (PlayerRecord.QQ[PlayerList[i]] == e.user_id) CurrentQQ = i + 1;
@@ -141,8 +137,7 @@ export class BOSS2 extends plugin {
       await sleep(1000);
       if (CurrentQQ)
         e.reply(
-          `你在金角大王周本贡献排行榜中排名第${CurrentQQ}，造成伤害${
-            PlayerRecord.TotalDamage[PlayerList[CurrentQQ - 1]]
+          `你在金角大王周本贡献排行榜中排名第${CurrentQQ}，造成伤害${PlayerRecord.TotalDamage[PlayerList[CurrentQQ - 1]]
           }，再接再厉！`
         );
     } else e.reply("金角大王未开启！");
@@ -150,7 +145,6 @@ export class BOSS2 extends plugin {
   }
   //与金角大王战斗
   async WorldBossBattle(e) {
-    if (!e.isGroup) return false;
     if (!verc({ e })) return false;
     if (e.isPrivate) return;
 
@@ -289,7 +283,7 @@ export class BOSS2 extends plugin {
       if (msg.find((item) => item == A_win)) {
         TotalDamage = Math.trunc(
           WorldBossStatus.Healthmax * 0.06 +
-            Harm(player.攻击 * 0.85, Boss.防御) * 10
+          Harm(player.攻击 * 0.85, Boss.防御) * 10
         );
         WorldBossStatus.Health -= TotalDamage;
         e.reply(
@@ -298,7 +292,7 @@ export class BOSS2 extends plugin {
       } else if (msg.find((item) => item == B_win)) {
         TotalDamage = Math.trunc(
           WorldBossStatus.Healthmax * 0.04 +
-            Harm(player.攻击 * 0.85, Boss.防御) * 6
+          Harm(player.攻击 * 0.85, Boss.防御) * 6
         );
         WorldBossStatus.Health -= TotalDamage;
         e.reply(
@@ -369,18 +363,18 @@ export class BOSS2 extends plugin {
           if (i < Show_MAX) {
             let Reward = Math.trunc(
               (PlayerRecordJSON.TotalDamage[PlayerList[i]] / TotalDamage) *
-                WorldBossStatus.Reward
+              WorldBossStatus.Reward
             );
             Reward = Reward < 200000 ? 200000 : Reward;
             Rewardmsg.push(
               "第" +
-                `${i + 1}` +
-                "名:\n" +
-                `名号:${CurrentPlayer.名号}` +
-                "\n" +
-                `伤害:${PlayerRecordJSON.TotalDamage[PlayerList[i]]}` +
-                "\n" +
-                `获得灵石奖励${Reward}`
+              `${i + 1}` +
+              "名:\n" +
+              `名号:${CurrentPlayer.名号}` +
+              "\n" +
+              `伤害:${PlayerRecordJSON.TotalDamage[PlayerList[i]]}` +
+              "\n" +
+              `获得灵石奖励${Reward}`
             );
             CurrentPlayer.灵石 += Reward;
             data.setData(
@@ -389,16 +383,14 @@ export class BOSS2 extends plugin {
               CurrentPlayer
             );
             Bot.logger.mark(
-              `[金角大王周本] 结算:${
-                PlayerRecordJSON.QQ[PlayerList[i]]
+              `[金角大王周本] 结算:${PlayerRecordJSON.QQ[PlayerList[i]]
               }增加奖励${Reward}`
             );
             continue;
           } else {
             CurrentPlayer.灵石 += 200000;
             Bot.logger.mark(
-              `[金角大王周本] 结算:${
-                PlayerRecordJSON.QQ[PlayerList[i]]
+              `[金角大王周本] 结算:${PlayerRecordJSON.QQ[PlayerList[i]]
               }增加奖励200000`
             );
             data.setData(
@@ -541,8 +533,8 @@ async function GetAverageDamage() {
     TotalPlayer > 15
       ? AverageDamage / (temp.length - 6)
       : temp.length == 0
-      ? 0
-      : AverageDamage / temp.length;
+        ? 0
+        : AverageDamage / temp.length;
   let res = {
     AverageDamage: AverageDamage,
     player_quantity: TotalPlayer,

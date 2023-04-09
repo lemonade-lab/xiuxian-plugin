@@ -37,8 +37,7 @@ export class biwu extends plugin {
 
   async biwu(e) {
     if (!e.isMaster) return;
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let A = e.user_id;
     //先判断
     let ifexistplay_A = await existplayer(A);
@@ -102,8 +101,7 @@ export class biwu extends plugin {
   }
 
   async battle(e, num) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let A_player = await Read_player(A_QQ[num].QQ);
     let B_player = await Read_player(B_QQ[num].QQ);
     //策划专用
@@ -489,8 +487,7 @@ export class biwu extends plugin {
   }
 
   async choice(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let jineng_name = e.msg.replace("#选择技能", "");
     let code = jineng_name.split(",");
     let msg = [];
@@ -535,8 +532,7 @@ export class biwu extends plugin {
   }
 
   async release(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let action = await redis.get("xiuxian:player:" + e.user_id + ":bisai");
     action = await JSON.parse(action);
     if (!action) return;

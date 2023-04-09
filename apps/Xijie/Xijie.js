@@ -36,8 +36,7 @@ export class Xijie extends plugin {
     });
   }
   async chongzhi(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     if (!e.isMaster) return;
     var didian = e.msg.replace("#重置", "");
     didian = didian.trim();
@@ -63,8 +62,7 @@ export class Xijie extends plugin {
     return;
   }
   async xijie(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -210,8 +208,7 @@ export class Xijie extends plugin {
   }
 
   async tancha(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);

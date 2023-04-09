@@ -107,8 +107,7 @@ export class Tiandibang extends plugin {
   }
 
   async duihuan(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let date = new Date();
     let n = date.getDay();
     if (n != 0) {
@@ -166,8 +165,7 @@ export class Tiandibang extends plugin {
   }
 
   async tianditang(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -196,8 +194,7 @@ export class Tiandibang extends plugin {
   }
 
   async cansai(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -248,8 +245,7 @@ export class Tiandibang extends plugin {
   }
 
   async my_point(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     //查看存档
     let ifexistplay = await existplayer(usr_qq);
@@ -317,8 +313,7 @@ export class Tiandibang extends plugin {
   }
 
   async pk(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     let ifexistplay = await existplayer(usr_qq);
     if (!ifexistplay) return;
@@ -574,8 +569,7 @@ export class Tiandibang extends plugin {
   }
 
   async update_jineng(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let usr_qq = e.user_id;
     if (!e.isGroup) {
       e.reply("此功能暂时不开放私聊");
@@ -641,8 +635,7 @@ export class Tiandibang extends plugin {
   }
 
   async bd_jiesuan(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     if (!e.isMaster) {
       e.reply("只有主人可以执行操作");
       return;

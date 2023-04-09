@@ -113,6 +113,85 @@ export async function Read_player(usr_qq) {
   return player;
 }
 
+export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
+  let usr_qq = e.user_id;
+  let msg = [segment.at(Number(usr_qq))];
+  //用户信息
+  let player = await Read_player(usr_qq);
+  //当前系数计算
+  let power_distortion = await dujie(usr_qq);
+  const yaocaolist = ["凝血草", "小吉祥草", "大吉祥草"];
+  for (const j in yaocaolist) {
+    const num = await exist_najie_thing(usr_qq, yaocaolist[j], "草药");
+    if (num) {
+      msg.push(`[${yaocaolist[j]}]为你提高了雷抗\n`);
+      power_distortion = Math.trunc(power_distortion * (1 + 0.2 * j));
+      await Add_najie_thing(usr_qq, yaocaolist[j], "草药", -1);
+    }
+    let variable = Math.random() * (power_m - power_n) + power_n;
+    //根据雷伤害的次数畸变.最高可达到+1.2
+    variable = variable + aconut / 10;
+    variable = Number(variable);
+    //对比系数
+    if (power_distortion >= variable) {
+      //判断目前是第几雷，第九就是过了
+      if (aconut >= power_Grade) {
+        player.power_place = 0;
+        await Write_player(usr_qq, player);
+        msg.push(
+          "\n" +
+          player.名号 +
+          "成功度过了第" +
+          aconut +
+          "道雷劫！可以#登仙，飞升仙界啦！"
+        );
+        e.reply(msg);
+        return 0;
+      } else {
+        //血量计算根据雷来计算！
+        let act = variable - power_n;
+        act = act / (power_m - power_n);
+        player.当前血量 = Math.trunc(player.当前血量 - player.当前血量 * act);
+        await Write_player(usr_qq, player);
+        msg.push(
+          "\n本次雷伤：" +
+          variable.toFixed(2) +
+          "\n本次雷抗：" +
+          power_distortion +
+          "\n" +
+          player.名号 +
+          "成功度过了第" +
+          aconut +
+          "道雷劫！\n下一道雷劫在一分钟后落下！"
+        );
+        e.reply(msg);
+        return 1;
+      }
+    } else {
+      //血量情况
+      player.当前血量 = 1;
+      //扣一半修为
+      player.修为 = Math.trunc(player.修为 * 0.5);
+      player.power_place = 1;
+      await Write_player(usr_qq, player);
+      //未挡住雷杰
+      msg.push(
+        "\n本次雷伤" +
+        variable.toFixed(2) +
+        "\n本次雷抗：" +
+        power_distortion +
+        "\n第" +
+        aconut +
+        "道雷劫落下了，可惜" +
+        player.名号 +
+        "未能抵挡，渡劫失败了！"
+      );
+      e.reply(msg);
+      return 0;
+    }
+  }
+}
+
 //写入存档信息,第二个参数是一个JavaScript对象
 export async function Write_player(usr_qq, player) {
   let dir = path.join(__PATH.player_path, `${usr_qq}.json`);

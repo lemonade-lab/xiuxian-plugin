@@ -35,8 +35,7 @@ export class Battle extends plugin {
 
   //打劫
   async Dajie(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     // 判断是否在开启时间
 
     const nowDate = new Date();
@@ -324,8 +323,7 @@ export class Battle extends plugin {
 
   //比武
   async biwu(e) {
-    if (!e.isGroup) return false;
-    if (!verc({ e })) return false;
+if (!verc({ e })) return false;
     let A = e.user_id;
     //先判断
     let ifexistplay_A = await existplayer(A);
