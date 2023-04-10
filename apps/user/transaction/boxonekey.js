@@ -1,4 +1,4 @@
-import { GameApi, plugin, name, dsc } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
 export class BoxOnekey extends plugin {
   constructor() {
     super({
