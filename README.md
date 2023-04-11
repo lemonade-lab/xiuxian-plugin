@@ -35,7 +35,7 @@ git clone --depth=1 -b xiuxian@3.0.0 https://gitee.com/three-point-of-water/xiux
 `xiuxian@1.2.1`
 `xiuxian@3.0.0`
 
-`xiuxian@2.0.0`运行后请配置
+`@2.0.0`以下版本运行后请配置
 
 > config/parameter/namelist.yaml
 
