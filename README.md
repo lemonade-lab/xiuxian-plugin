@@ -8,17 +8,47 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 #### 根目录执行
 
+选择自己喜欢的版本进行安装即可
+
+@2.0.0[☞查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/main)
 ```
 git clone --depth=1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@2.0.0/
+```
+@1.3.0[☞查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/xiuxian@1.3.0)
+```
+git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.3.0/
+```
+@1.2.1[☞查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/xiuxian@1.2.1)
+```
+git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
+```
+@3.0.0[☞查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/xiuxian@3.0.0)
+```
+git clone --depth=1 -b xiuxian@3.0.0 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@3.0.0/
 ```
 
 #### 启动游戏
 
 `xiuxian-plugin`改`xiuxian@2.0.0`
 
+或改`xiuxian@1.3.0`
+`xiuxian@1.2.1`
+`xiuxian@3.0.0`
+
 `xiuxian@2.0.0`运行后请配置
 
 > config/parameter/namelist.yaml
+
+`xiuxian@3.0.0`运行后请配置
+
+> config/parameter/namelist.json
+
+```json
+{
+  "whitecrowd": [759055676,新的白名单群],
+  "blackid": [123465,新的黑名单用户]
+}
+```
 
 #### 开源协议
 
