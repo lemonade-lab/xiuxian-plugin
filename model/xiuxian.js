@@ -2792,7 +2792,7 @@ export async function zd_battle(AA_player, BB_player) {
       A_player.防御 = AA_player.防御;
       A_player.攻击 = AA_player.攻击;
     } else {
-      A_player.防御 = BB_player.攻击;
+      A_player.攻击 = BB_player.攻击;
       A_player.防御 = BB_player.防御;
     }
     msg.push(`第${cnt2 + 1}回合：
