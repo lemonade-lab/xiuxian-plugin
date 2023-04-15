@@ -8,7 +8,9 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 #### 根目录执行
 
-选择自己喜欢的版本进行安装即可
+选择自己喜欢的版本进行安装
+
+安装后请看完文档内容进行配置
 
 @2.0.0[☞查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/main)
 ```
