@@ -209,6 +209,10 @@ export class Forum extends plugin {
       n = thing_amount;
     }
     const num = await exist_najie_thing(usr_qq, thing_name, thing_class);
+    if (!num) {
+      e.reply(`你没有【${thing_name}】`);
+      return false;
+    }
     if (num < n) {
       e.reply(`你只有【${thing_name}】x ${num}`);
       return false;

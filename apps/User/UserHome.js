@@ -38,7 +38,7 @@ export class UserHome extends plugin {
       name: 'UserHome',
       dsc: '修仙模块',
       event: 'message',
-      priority: 600,
+      priority: 10,
       rule: [
         {
           reg: '^#(存|取)灵石(.*)$',
