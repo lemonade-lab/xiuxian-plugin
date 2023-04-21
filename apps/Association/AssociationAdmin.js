@@ -46,10 +46,10 @@ export class AssociationAdmin extends plugin {
           reg: '^#设置门槛.*$',
           fnc: 'jiaru',
         },
-        {
+        /*{
           reg: '^#逐出师门.*$',
           fnc: 'Deleteuser',
-        },
+        },*/
         {
           reg: '^#逐出.*$',
           fnc: 'Deleteusermax',
