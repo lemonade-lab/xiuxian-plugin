@@ -33,10 +33,12 @@ export class BackUp extends plugin {
 
   async saveBackUp(e) {
     try {
-      e.reply('只有主人可以执行操作');
-      if (e && !e.isMaster) return false;
+      if (!e.isMaster)
+      {
+          e.reply('只有主人可以执行操作');
+          return false;
+      }
       await e?.reply('开始备份...');
-
       const needSave = [
         'association',
         'Exchange',
