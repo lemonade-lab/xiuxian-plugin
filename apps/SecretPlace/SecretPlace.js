@@ -75,6 +75,7 @@ export class SecretPlace extends plugin {
     if (!flag) {
       return false;
     }
+    e.reply('空闲中!');
     return false;
   }
 
