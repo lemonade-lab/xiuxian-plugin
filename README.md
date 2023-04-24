@@ -35,6 +35,9 @@ git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiux
 
 > config/parameter/namelist.yaml
 
+该游戏不可私聊游玩
+
+配置后可发送`#修仙帮助`
 
 #### 反馈
 
