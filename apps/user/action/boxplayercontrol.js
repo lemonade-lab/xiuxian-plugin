@@ -5,8 +5,8 @@ export class BoxPlayerControl extends plugin {
       name,
       dsc,
       rule: [
-        { reg: "#降妖$", fnc: "dagong" },
-        { reg: "#闭关$", fnc: "biguan" },
+        { reg: "^#降妖$", fnc: "dagong" },
+        { reg: "^#闭关$", fnc: "biguan" },
         { reg: "^#出关$", fnc: "chuGuan" },
         { reg: "^#归来$", fnc: "endWork" },
       ],

@@ -157,13 +157,11 @@ export class BoxBattleSite extends plugin {
       }
     }
     GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
-    /* todo */
-    try {
-      await BotApi.User.forwardMsg({ e, data: msg });
-    } catch {
+    BotApi.User.forwardMsg({ e, data: msg }).catch((err) => {
       e.reply("出错了");
       console.log("[err]", msg);
-    }
+      console.log("[err]", err);
+    });
     return false;
   };
   userExploremonsters = async (e) => {
@@ -190,7 +188,7 @@ export class BoxBattleSite extends plugin {
     monster.forEach((item) => {
       msg.push("怪名:" + item.name + "\n" + "等级:" + item.level + "\n");
     });
-    await BotApi.User.forwardMsgSurveySet({ e, data: msg });
+    BotApi.User.forwardMsgSurveySet({ e, data: msg });
     return false;
   };
 }
