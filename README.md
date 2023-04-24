@@ -24,33 +24,17 @@ git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/three-point-of-water/xiux
 ```
 git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
 ```
-@3.0.0[☞查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/xiuxian@3.0.0)
-```
-git clone --depth=1 -b xiuxian@3.0.0 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@3.0.0/
-```
 
 #### 启动游戏
 
 `xiuxian-plugin`改`xiuxian@2.0.0`
 
-或改`xiuxian@1.3.0`
-`xiuxian@1.2.1`
-`xiuxian@3.0.0`
+或改`xiuxian@1.3.0` `xiuxian@1.2.1`
 
-`@2.0.0`以下版本运行后请配置
+运行后，运行后，运行后再配置
 
 > config/parameter/namelist.yaml
 
-`xiuxian@3.0.0`运行后请配置
-
-> config/parameter/namelist.json
-
-```json
-{
-  "whitecrowd": [759055676,新的白名单群],
-  "blackid": [123465,新的黑名单用户]
-}
-```
 
 #### 反馈
 
