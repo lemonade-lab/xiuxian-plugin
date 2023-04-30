@@ -126,7 +126,7 @@ export class BoxMoneyOperation extends plugin {
       ACCOUNT: islingshi,
     });
     e.reply([
-      BotApi.segment.at(B),
+      segment.at(B),
       `你获得了由 ${A}赠送的${islingshi}*[下品灵石]`,
     ]);
     return false;

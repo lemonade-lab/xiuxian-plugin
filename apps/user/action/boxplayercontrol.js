@@ -148,7 +148,7 @@ export class BoxPlayerControl extends plugin {
     await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(90) });
     msg += "\n[血量状态]90%";
     msg += `\n${name}结束`;
-    e.reply([BotApi.segment.at(UID), msg]);
+    e.reply([segment.at(UID), msg]);
     return false;
   };
 }

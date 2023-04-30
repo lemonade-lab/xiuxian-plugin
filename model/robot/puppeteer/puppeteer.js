@@ -6,7 +6,6 @@ import lodash from "lodash";
 import puppeteer from "puppeteer";
 /*事件监听*/
 import chokidar from "chokidar";
-import { segment } from "oicq";
 class Puppeteer {
   constructor() {
     /*puppeteer实例保存*/
@@ -21,7 +20,7 @@ class Puppeteer {
     this.renderNum = 0;
     /*puppeteer配置*/
     this.config = {
-      headless: true,
+      headless: 'new',
       args: [
         "--disable-gpu",
         "--disable-dev-shm-usage",
