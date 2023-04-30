@@ -1,4 +1,4 @@
-import { plugin, segment, verc, data } from '../../api/api.js';
+import { plugin,  verc, data } from '../../api/api.js';
 import { existplayer, ifbaoji, Harm } from '../../model/xiuxian.js';
 export class DSC extends plugin {
   constructor() {

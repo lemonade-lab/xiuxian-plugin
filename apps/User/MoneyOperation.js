@@ -1,4 +1,4 @@
-import { plugin, segment, verc, data, config } from '../../api/api.js';
+import { plugin,  verc, data, config } from '../../api/api.js';
 import fs from 'fs';
 import {
   Read_player,

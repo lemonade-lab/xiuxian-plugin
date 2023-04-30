@@ -1,7 +1,6 @@
 import fs from 'fs';
 import {
   plugin,
-  segment,
   puppeteer,
   verc,
   Show,

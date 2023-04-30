@@ -1,4 +1,4 @@
-import { plugin, common, segment, data, config } from '../../api/api.js';
+import { plugin, common,  data, config } from '../../api/api.js';
 import fs from 'fs';
 import {
   isNotNull,

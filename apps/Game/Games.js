@@ -1,6 +1,6 @@
 import {
   plugin,
-  segment,
+  
   puppeteer,
   verc,
   data,

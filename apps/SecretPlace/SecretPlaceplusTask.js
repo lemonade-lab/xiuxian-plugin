@@ -1,4 +1,4 @@
-import { plugin, common, segment, config, data } from '../../api/api.js';
+import { plugin, common,  config, data } from '../../api/api.js';
 import fs from 'fs';
 import {
   Add_najie_thing,

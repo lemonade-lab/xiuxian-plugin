@@ -1,4 +1,4 @@
-import { plugin, segment, verc, data } from '../../api/api.js';
+import { plugin,  verc, data } from '../../api/api.js';
 import fs from 'fs';
 import {
   __PATH,

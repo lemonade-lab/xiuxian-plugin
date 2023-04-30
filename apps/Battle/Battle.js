@@ -1,4 +1,4 @@
-import { plugin, segment, verc, config, data } from '../../api/api.js';
+import { plugin,  verc, config, data } from '../../api/api.js';
 import {
   existplayer,
   exist_najie_thing,

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { plugin, segment, verc } from '../../api/api.js';
+import { plugin,  verc } from '../../api/api.js';
 import { fstadd_qinmidu, sleep, __PATH } from '../../model/xiuxian.js';
 import {
   exist_najie_thing,

@@ -1,4 +1,4 @@
-import { plugin, puppeteer, segment, verc, data, Show } from '../../api/api.js';
+import { plugin, puppeteer,  verc, data, Show } from '../../api/api.js';
 import fs from 'fs';
 import {
   existplayer,

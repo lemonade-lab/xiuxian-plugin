@@ -1,4 +1,4 @@
-import { plugin, common, segment, verc, config, data } from '../../api/api.js';
+import { plugin, common,  verc, config, data } from '../../api/api.js';
 import {
   player_efficiency,
   Read_player,
