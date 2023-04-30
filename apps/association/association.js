@@ -1,4 +1,4 @@
-import { plugin, segment, name, dsc } from "../../api/api.js";
+import { plugin, dsc } from "../../api/api.js";
 import config from "../../model/config.js";
 import data from "../../model/xiuxiandata.js";
 import fs from "fs";

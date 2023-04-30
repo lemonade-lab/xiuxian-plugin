@@ -1,4 +1,4 @@
-import { plugin, segment, common, name, dsc } from "../../api/api.js";
+import { plugin, common, name, dsc } from "../../api/api.js";
 import data from "../../model/xiuxiandata.js";
 import config from "../../model/config.js";
 import fetch from "node-fetch";
