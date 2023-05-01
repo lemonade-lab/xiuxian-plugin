@@ -5,31 +5,31 @@ import listdata from './listdata.js'
 import algorithm from './algorithm.js'
 
 /* 存档地址 */
-export const playerPath = '/resources/databirth/file'
+const playerPath = '/xiuxianfile'
 
 /* 数据索引 */
 export const __PATH = {
   /*玩家存档*/
-  user_player: algorithm.getReq(`${playerPath}/player`),
-  user_extend: algorithm.getReq(`${playerPath}/extend`),
-  user_action: algorithm.getReq(`${playerPath}/action`),
-  user_battle: algorithm.getReq(`${playerPath}/battle`),
-  user_equipment: algorithm.getReq(`${playerPath}/equipment`),
-  user_level: algorithm.getReq(`${playerPath}/level`),
-  user_talent: algorithm.getReq(`${playerPath}/talent`),
-  user_wealth: algorithm.getReq(`${playerPath}/wealth`),
-  user_bag: algorithm.getReq(`${playerPath}/najie`),
+  user_player: algorithm.getFliePath(`${playerPath}/player`),
+  user_extend: algorithm.getFliePath(`${playerPath}/extend`),
+  user_action: algorithm.getFliePath(`${playerPath}/action`),
+  user_battle: algorithm.getFliePath(`${playerPath}/battle`),
+  user_equipment: algorithm.getFliePath(`${playerPath}/equipment`),
+  user_level: algorithm.getFliePath(`${playerPath}/level`),
+  user_talent: algorithm.getFliePath(`${playerPath}/talent`),
+  user_wealth: algorithm.getFliePath(`${playerPath}/wealth`),
+  user_bag: algorithm.getFliePath(`${playerPath}/najie`),
 
-  user_life: algorithm.getReq(`${playerPath}/life`),
+  user_life: algorithm.getFliePath(`${playerPath}/life`),
 
-  user_material: algorithm.getReq(`${playerPath}/material`),
+  user_material: algorithm.getFliePath(`${playerPath}/material`),
 
   /* 金银坊 */
-  user_bank: algorithm.getReq(`${playerPath}/bank`),
+  user_bank: algorithm.getFliePath(`${playerPath}/bank`),
   /*  */
-  generate_exchange: algorithm.getReq(`${playerPath}/exchange`),
+  generate_exchange: algorithm.getFliePath(`${playerPath}/exchange`),
   /*  */
-  generate_forum: algorithm.getReq(`${playerPath}/forum`),
+  generate_forum: algorithm.getFliePath(`${playerPath}/forum`),
 
   /*基础数据*/
   fixed_point: algorithm.getReq('/resources/datafixed/point'),

@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { MyDirPath } from '../../../app.config.js'
+import { MyDirPath, ThePath } from '../../../app.config.js'
 /**fs算法*/
 class Algorithm {
   /* 判断指定插件是否存在 */
@@ -67,7 +67,7 @@ class Algorithm {
   dataAction = async ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
+      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
       return
     }
     const data = JSON.parse(
@@ -89,7 +89,7 @@ class Algorithm {
   dataActionNew = async ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
+      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
       return
     }
     try {
@@ -118,9 +118,9 @@ class Algorithm {
     })
   }
 
-  ctrateFilePath = (req, path) => {
+  ctrateFilePath = (req) => {
     let name = req.split('/')
-    let newname = path
+    let newname = ThePath
     name.forEach((item) => {
       newname += `${item}/`
       if (!fs.existsSync(`${newname}`)) {
@@ -134,6 +134,13 @@ class Algorithm {
     /* 根据目录初始化地址 */
     this.ctrateFile(req)
     return path.join(MyDirPath, req)
+  }
+
+  /**得到该路径的完整路径*/
+  getFliePath = (req) => {
+    /* 根据目录初始化地址 */
+    this.ctrateFilePath(req)
+    return path.join(ThePath, req)
   }
 }
 export default new Algorithm()

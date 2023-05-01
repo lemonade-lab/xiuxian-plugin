@@ -60,15 +60,6 @@ class CreateData {
       }
     }
 
-    const Test = defset.getConfig({ app: 'task', name: 'task' })
-    if (Test['CopeTask']) {
-      if (!Test['CopeTask'] == 1) {
-        schedule.scheduleJobflie({ time: Test['CopeTask'] })
-      }
-    } else {
-      //默认为1h
-      schedule.scheduleJobflie({ time: '0 0 */1 * * ?' })
-    }
 
     /* 版本监控 */
     setTimeout(() => {
@@ -84,12 +75,30 @@ class CreateData {
       } else {
         if (initialization == 0) {
           console.log('[xiuxian]发现配置缺失...')
-          console.log('[xiuxian]准备重置配置...')
+          console.log('[xiuxian]准备初始哈配置...')
           this.moveConfig({ name: 'updata' })
-          console.log('[xiuxian]配置重置完成')
+          console.log('[xiuxian]配置初始哈完成')
           initialization = 1
         }
       }
+    }, 15000)
+
+
+    let ini = 0
+    /* 版本监控 */
+    setTimeout(() => {
+      if (ini == 0) {
+        const Test = defset.getConfig({ app: 'task', name: 'task' })
+        if (Test['CopeTask']) {
+          if (!Test['CopeTask'] == 1) {
+            schedule.scheduleJobflie({ time: Test['CopeTask'] })
+          }
+        } else {
+          //默认为1h
+          schedule.scheduleJobflie({ time: '0 0 */1 * * ?' })
+        }
+      }
+      ini = 1
     }, 15000)
 
     return
@@ -102,7 +111,7 @@ class CreateData {
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => {})
+        fs.mkdir(item, (err) => { })
       }
     }
     return true
