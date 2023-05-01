@@ -1,5 +1,5 @@
 import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
-export class boxbreak extends plugin {
+export class boxfairyland extends plugin {
   constructor() {
     super({
       name,
