@@ -9,7 +9,7 @@ class Schedule {
     /*机器人根目录下统一叫做xiuxiandata */
     this.BACKUPS_PATH = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/boxdata`
     /*存档数值位置 */
-    this.DATA_PATH = `${MyDirPath}/resources/data/birth/xiuxian`
+    this.DATA_PATH = `${MyDirPath}/resources/databirth/xiuxian`
   }
   /**
    * @param {  time } param0
