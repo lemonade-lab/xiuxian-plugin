@@ -1,33 +1,6 @@
 import fs from 'node:fs'
 import { MyDirPath } from '../../../app.config.js'
 import algorithm from './algorithm.js'
-/* 默认重置的图片 */
-const ImgPath = [
-  'help',
-  'map',
-  'toplist',
-  'updata',
-  'user/bag',
-  'user/equipment',
-  'user/head',
-  'user/head',
-  'user/information'
-]
-const ImgName = [
-  'help.png',
-  'icon.png',
-  'map.png',
-  'toplist.png',
-  'update-buttom.png',
-  'update-head.png',
-  'update-top.png',
-  'bag.png',
-  'equipment.png',
-  'head.png',
-  'information.png',
-  'left.png',
-  'right.png'
-]
 /** 自定义配置*/
 const configarr = [
   'cooling.yaml',
@@ -68,36 +41,6 @@ class CreateData {
               }
             })
           }
-        }
-      })
-    })
-    return
-  }
-  generateImg = () => {
-    ImgPath.forEach((itempath) => {
-      ImgName.forEach((itemname) => {
-        let x = `${this.resources}/img/${itempath}/${itemname}`
-        if (!fs.existsSync(x)) {
-          let y = `${this.resources}/html/allimg/${itempath}/${itemname}`
-          fs.cp(y, x, (err) => {
-            if (err) {
-            }
-          })
-        }
-      })
-    })
-    return
-  }
-  reImg = () => {
-    ImgPath.forEach((itempath) => {
-      ImgName.forEach((itemname) => {
-        let x = `${this.resources}/img/${itempath}/${itemname}`
-        if (fs.existsSync(x)) {
-          let y = `${this.resources}/html/allimg/${itempath}/${itemname}`
-          fs.cp(y, x, (err) => {
-            if (err) {
-            }
-          })
         }
       })
     })

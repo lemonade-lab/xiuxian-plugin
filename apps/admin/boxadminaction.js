@@ -76,14 +76,6 @@ export class boxadminaction extends plugin {
     e.reply('配置已重置')
     return false
   }
-  imgReUpdata = async (e) => {
-    if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
-    GameApi.Createdata.reImg()
-    e.reply('图片已重置')
-    return false
-  }
   dataRecovery = async (e) => {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
