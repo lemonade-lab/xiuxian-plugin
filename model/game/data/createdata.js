@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { __dirname } from '../../../app.config.js'
+import { MyDirPath } from '../../../app.config.js'
 import algorithm from './algorithm.js'
 /* 默认重置的图片 */
 const ImgPath = [
@@ -39,9 +39,9 @@ const configarr = [
 ]
 class CreateData {
   constructor() {
-    this.resources = `${__dirname}/resources`
-    this.defsetpath = `${__dirname}/resources/defset`
-    this.configpath = `${__dirname}/config`
+    this.resources = `${MyDirPath}/resources`
+    this.defsetpath = `${MyDirPath}/resources/defset`
+    this.configpath = `${MyDirPath}/config`
   }
   /**
    * @param { name } param0

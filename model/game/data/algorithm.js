@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import {MyDirPath} from '../../../app.config.js'
 /**fs算法*/
 class Algorithm {
   /* 判断指定插件是否存在 */
@@ -66,7 +67,7 @@ class Algorithm {
   dataAction = async ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
+      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
       return
     }
     const data = JSON.parse(
@@ -88,7 +89,7 @@ class Algorithm {
   dataActionNew = async ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
+      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
       return
     }
     try {
@@ -105,5 +106,34 @@ class Algorithm {
       return false
     }
   }
+  /* 输入需要初始化目录的地址 */
+  ctrateFile = (req) => {
+    let name = req.split("/");
+    let newname = MyDirPath;
+    name.forEach((item) => {
+      newname += `${item}/`;
+      if (!fs.existsSync(`${newname}`)) {
+        fs.mkdirSync(`${newname}`);
+      }
+    });
+  };
+
+  ctrateFilePath = (req, path) => {
+    let name = req.split("/");
+    let newname = path;
+    name.forEach((item) => {
+      newname += `${item}/`;
+      if (!fs.existsSync(`${newname}`)) {
+        fs.mkdirSync(`${newname}`);
+      }
+    });
+  };
+
+  /**得到该路径的完整路径*/
+  getReq = (req) => {
+    /* 根据目录初始化地址 */
+    ctrateFile(req);
+    return path.join(MyDirPath, req);
+  };
 }
 export default new Algorithm()

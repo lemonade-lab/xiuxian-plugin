@@ -1,19 +1,19 @@
 import userAction from '../user/action.js'
 import { exec } from 'child_process'
-import { appname, __dirname, isPath } from '../../../app.config.js'
+import { AppName, MyDirPath, ThePath } from '../../../app.config.js'
 class Exec {
   execStart = async ({ cmd, e }) => {
-    exec(cmd, { cwd: __dirname }, async (error, stdout) => {
+    exec(cmd, { cwd: MyDirPath }, async (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-        msg.push(`${appname}|已是最新版`)
+        msg.push(`${AppName}|已是最新版`)
         await userAction.forwardMsg({ e, data: msg })
         return
       }
       if (error) {
-        msg.push(`${appname}|执行失败\nError code: ${error.code}\n${error.stack}\n`)
+        msg.push(`${AppName}|执行失败\nError code: ${error.code}\n${error.stack}\n`)
       } else {
-        msg.push(`${appname}|执行成功,请[#重启]`)
+        msg.push(`${AppName}|执行成功,请[#重启]`)
       }
       await userAction.forwardMsg({ e, data: msg })
       return
@@ -21,17 +21,17 @@ class Exec {
     return
   }
   onExec = async ({ cmd, e, push }) => {
-    exec(cmd, { cwd: `${isPath}` }, async (error, stdout) => {
+    exec(cmd, { cwd: `${ThePath}` }, async (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-        msg.push(`${appname}|${push['updata']}`)
+        msg.push(`${AppName}|${push['updata']}`)
         await userAction.forwardMsg({ e, data: msg })
         return
       }
       if (error) {
-        msg.push(`${appname}|${push['err']}\nError code: ${error.code}\n${error.stack}\n`)
+        msg.push(`${AppName}|${push['err']}\nError code: ${error.code}\n${error.stack}\n`)
       } else {
-        msg.push(`${appname}|${push['success']},请[#重启]`)
+        msg.push(`${AppName}|${push['success']},请[#重启]`)
       }
       await userAction.forwardMsg({ e, data: msg })
       return

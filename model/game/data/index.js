@@ -2,49 +2,49 @@ import fs from 'node:fs'
 import path from 'node:path'
 import createdata from './createdata.js'
 import genertate from './generate.js'
-import { __dirname } from '../../../app.config.js'
+import { MyDirPath } from '../../../app.config.js'
 import listdata from './listdata.js'
 export const __PATH = {
   /*玩家存档*/
-  user_player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
-  user_extend: path.join(__dirname, '/resources/data/birth/xiuxian/extend'),
-  user_action: path.join(__dirname, '/resources/data/birth/xiuxian/action'),
-  user_battle: path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
-  user_equipment: path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
-  user_level: path.join(__dirname, '/resources/data/birth/xiuxian/level'),
-  user_talent: path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
-  user_wealth: path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
-  user_bag: path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
+  user_player: path.join(MyDirPath, '/resources/data/birth/xiuxian/player'),
+  user_extend: path.join(MyDirPath, '/resources/data/birth/xiuxian/extend'),
+  user_action: path.join(MyDirPath, '/resources/data/birth/xiuxian/action'),
+  user_battle: path.join(MyDirPath, '/resources/data/birth/xiuxian/battle'),
+  user_equipment: path.join(MyDirPath, '/resources/data/birth/xiuxian/equipment'),
+  user_level: path.join(MyDirPath, '/resources/data/birth/xiuxian/level'),
+  user_talent: path.join(MyDirPath, '/resources/data/birth/xiuxian/talent'),
+  user_wealth: path.join(MyDirPath, '/resources/data/birth/xiuxian/wealth'),
+  user_bag: path.join(MyDirPath, '/resources/data/birth/xiuxian/najie'),
 
-  user_material: path.join(__dirname, '/resources/data/birth/xiuxian/material'),
+  user_material: path.join(MyDirPath, '/resources/data/birth/xiuxian/material'),
 
-  user_life: path.join(__dirname, '/resources/data/birth/xiuxian/life'),
+  user_life: path.join(MyDirPath, '/resources/data/birth/xiuxian/life'),
 
   /* 金银坊 */
-  user_bank: path.join(__dirname, '/resources/data/birth/xiuxian/bank'),
+  user_bank: path.join(MyDirPath, '/resources/data/birth/xiuxian/bank'),
 
-  generate_exchange: path.join(__dirname, '/resources/data/birth/xiuxian/exchange'),
-  generate_forum: path.join(__dirname, '/resources/data/birth/xiuxian/forum'),
+  generate_exchange: path.join(MyDirPath, '/resources/data/birth/xiuxian/exchange'),
+  generate_forum: path.join(MyDirPath, '/resources/data/birth/xiuxian/forum'),
   /**新增玩家概率事件存档*/
 
   /*基础信息*/
-  fixed_point: path.join(__dirname, '/resources/data/fixed/point'),
-  fixed_position: path.join(__dirname, '/resources/data/fixed/position'),
-  fixed_equipment: path.join(__dirname, '/resources/data/fixed/equipment'),
-  fixed_goods: path.join(__dirname, '/resources/data/fixed/goods'),
-  fixed_level: path.join(__dirname, '/resources/data/fixed/level'),
-  fixed_occupation: path.join(__dirname, '/resources/data/fixed/occupation'),
-  fixed_talent: path.join(__dirname, '/resources/data/fixed/talent'),
-  fixed_material: path.join(__dirname, '/resources/data/fixed/material'),
-  fixed_history: path.join(__dirname, '/resources/data/fixed/history'),
+  fixed_point: path.join(MyDirPath, '/resources/data/fixed/point'),
+  fixed_position: path.join(MyDirPath, '/resources/data/fixed/position'),
+  fixed_equipment: path.join(MyDirPath, '/resources/data/fixed/equipment'),
+  fixed_goods: path.join(MyDirPath, '/resources/data/fixed/goods'),
+  fixed_level: path.join(MyDirPath, '/resources/data/fixed/level'),
+  fixed_occupation: path.join(MyDirPath, '/resources/data/fixed/occupation'),
+  fixed_talent: path.join(MyDirPath, '/resources/data/fixed/talent'),
+  fixed_material: path.join(MyDirPath, '/resources/data/fixed/material'),
+  fixed_history: path.join(MyDirPath, '/resources/data/fixed/history'),
   /*管理员自定义表*/
-  custom_goods: path.join(__dirname, '/resources/goods'),
+  custom_goods: path.join(MyDirPath, '/resources/goods'),
   /*生成信息*/
-  generate_all: path.join(__dirname, '/resources/data/birth/all'),
-  generate_position: path.join(__dirname, '/resources/data/birth/position'),
-  generate_level: path.join(__dirname, '/resources/data/birth/level'),
-  generate_plugins: path.join(__dirname, '/plugins'),
-  generate_config: path.join(__dirname, '/plugins')
+  generate_all: path.join(MyDirPath, '/resources/data/birth/all'),
+  generate_position: path.join(MyDirPath, '/resources/data/birth/position'),
+  generate_level: path.join(MyDirPath, '/resources/data/birth/level'),
+  generate_plugins: path.join(MyDirPath, '/plugins'),
+  generate_config: path.join(MyDirPath, '/plugins')
 }
 /**生成游戏数据*/
 class DateIndex {

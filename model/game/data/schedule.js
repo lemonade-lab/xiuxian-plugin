@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'path'
 import algorithm from './algorithm.js'
-import { __dirname } from '../../../app.config.js'
+import { MyDirPath } from '../../../app.config.js'
 import schedule from 'node-schedule'
 /**数据备份*/
 class Schedule {
@@ -9,7 +9,7 @@ class Schedule {
     /*机器人根目录下统一叫做xiuxiandata */
     this.BACKUPS_PATH = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/boxdata`
     /*存档数值位置 */
-    this.DATA_PATH = `${__dirname}/resources/data/birth/xiuxian`
+    this.DATA_PATH = `${MyDirPath}/resources/data/birth/xiuxian`
   }
   /**
    * @param {  time } param0

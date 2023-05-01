@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'path'
-import { appname } from '../../app.config.js'
+import { AppName } from '../../app.config.js'
 export const toIndex = async (indexName) => {
-  const firstName = `plugins/${appname}`
+  const firstName = `plugins/${AppName}`
   const filepath = `./${firstName}/${indexName}`
   const name = []
   const sum = []
