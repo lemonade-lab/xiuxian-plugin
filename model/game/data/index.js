@@ -56,10 +56,6 @@ export const __PATH = {
 /**生成游戏数据*/
 class DateIndex {
   constructor() {
-    /**生成特定目录*/
-    /** 这里遍历底下所有.png文件名？*/
-    /** 图片数据*/
-    createdata.generateImg()
     /**生成yaml配置数据 */
     createdata.moveConfig({})
     /** 生成jsoon数据 */
