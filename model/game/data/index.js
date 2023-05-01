@@ -27,15 +27,15 @@ export const __PATH = {
   /**新增玩家概率事件存档*/
 
   /*基础信息*/
-  fixed_point: algorithm.getReq('/resources/databirth/point'),
-  fixed_position: algorithm.getReq('/resources/databirth/position'),
-  fixed_equipment: algorithm.getReq('/resources/databirth/equipment'),
-  fixed_goods: algorithm.getReq('/resources/databirth/goods'),
-  fixed_level: algorithm.getReq('/resources/databirth/level'),
-  fixed_occupation: algorithm.getReq('/resources/databirth/occupation'),
-  fixed_talent: algorithm.getReq('/resources/databirth/talent'),
-  fixed_material: algorithm.getReq('/resources/databirth/material'),
-  fixed_history: algorithm.getReq('/resources/databirth/history'),
+  fixed_point: algorithm.getReq('/resources/datafixed/point'),
+  fixed_position: algorithm.getReq('/resources/datafixed/position'),
+  fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'),
+  fixed_goods: algorithm.getReq('/resources/datafixed/goods'),
+  fixed_level: algorithm.getReq('/resources/datafixed/level'),
+  fixed_occupation: algorithm.getReq('/resources/datafixed/occupation'),
+  fixed_talent: algorithm.getReq('/resources/datafixed/talent'),
+  fixed_material: algorithm.getReq('/resources/datafixed/material'),
+  fixed_history: algorithm.getReq('/resources/datafixed/history'),
   /*管理员自定义表*/
   custom_goods: algorithm.getReq('/resources/goods'),
   /*生成信息*/
