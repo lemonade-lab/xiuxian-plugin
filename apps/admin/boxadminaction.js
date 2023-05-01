@@ -12,7 +12,6 @@ export class boxadminaction extends plugin {
         { reg: '^#盒子关闭.*$', fnc: 'boxaSwitchOff' },
         { reg: '^#修仙配置更改.*', fnc: 'configUpdata' },
         { reg: '^#修仙重置配置', fnc: 'configReUpdata' },
-        { reg: '^#修仙重置图片', fnc: 'imgReUpdata' },
         { reg: '^#盒子复原.*$', fnc: 'dataRecovery' }
       ]
     })
