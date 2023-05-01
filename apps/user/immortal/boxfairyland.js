@@ -23,7 +23,7 @@ export class boxfairyland extends plugin {
       e.reply(msg)
       return false
     }
-    e.reply('仙路已断')
+    e.reply('待更新~')
     return false
   }
 
@@ -34,6 +34,7 @@ export class boxfairyland extends plugin {
   breakSky = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
+    e.reply('待更新~')
     return false
   }
 
