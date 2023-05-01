@@ -1,4 +1,5 @@
 node_modules
 /config/
-/resources/data/birth
-/resources/img
+/resources/data/birth/
+/resources/img/
+/plugins/
