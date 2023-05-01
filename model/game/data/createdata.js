@@ -81,7 +81,7 @@ class CreateData {
           initialization = 1
         }
       }
-    }, 15000)
+    }, 30000)
 
 
     let ini = 0
@@ -99,7 +99,7 @@ class CreateData {
         }
       }
       ini = 1
-    }, 15000)
+    },30000)
 
     return
   }

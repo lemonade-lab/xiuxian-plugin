@@ -46,6 +46,8 @@ git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiux
 
 查看更多细节与功能配置可发生`#修仙配置`
 
+存档与备份存档皆不在插件内
+
 #### 反馈
 
 | 群名   | 群号      | 说明     |
