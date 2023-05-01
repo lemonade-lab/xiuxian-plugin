@@ -3,30 +3,35 @@ import createdata from './createdata.js'
 import genertate from './generate.js'
 import listdata from './listdata.js'
 import algorithm from './algorithm.js'
+
+/* 存档地址 */
+export const playerPath = '/resources/databirth/file'
+
+/* 数据索引 */
 export const __PATH = {
   /*玩家存档*/
-  user_player: algorithm.getReq('/resources/databirth/xiuxian/player'),
-  user_extend: algorithm.getReq('/resources/databirth/xiuxian/extend'),
-  user_action: algorithm.getReq('/resources/databirth/xiuxian/action'),
-  user_battle: algorithm.getReq('/resources/databirth/xiuxian/battle'),
-  user_equipment: algorithm.getReq('/resources/databirth/xiuxian/equipment'),
-  user_level: algorithm.getReq('/resources/databirth/xiuxian/level'),
-  user_talent: algorithm.getReq('/resources/databirth/xiuxian/talent'),
-  user_wealth: algorithm.getReq('/resources/databirth/xiuxian/wealth'),
-  user_bag: algorithm.getReq('/resources/databirth/xiuxian/najie'),
+  user_player: algorithm.getReq(`${playerPath}/player`),
+  user_extend: algorithm.getReq(`${playerPath}/extend`),
+  user_action: algorithm.getReq(`${playerPath}/action`),
+  user_battle: algorithm.getReq(`${playerPath}/battle`),
+  user_equipment: algorithm.getReq(`${playerPath}/equipment`),
+  user_level: algorithm.getReq(`${playerPath}/level`),
+  user_talent: algorithm.getReq(`${playerPath}/talent`),
+  user_wealth: algorithm.getReq(`${playerPath}/wealth`),
+  user_bag: algorithm.getReq(`${playerPath}/najie`),
 
-  user_material: algorithm.getReq('/resources/databirth/xiuxian/material'),
+  user_life: algorithm.getReq(`${playerPath}/life`),
 
-  user_life: algorithm.getReq('/resources/databirth/xiuxian/life'),
+  user_material: algorithm.getReq(`${playerPath}/material`),
 
   /* 金银坊 */
-  user_bank: algorithm.getReq('/resources/databirth/xiuxian/bank'),
+  user_bank: algorithm.getReq(`${playerPath}/bank`),
+  /*  */
+  generate_exchange: algorithm.getReq(`${playerPath}/exchange`),
+  /*  */
+  generate_forum: algorithm.getReq(`${playerPath}/forum`),
 
-  generate_exchange: algorithm.getReq('/resources/databirth/xiuxian/exchange'),
-  generate_forum: algorithm.getReq('/resources/databirth/xiuxian/forum'),
-  /**新增玩家概率事件存档*/
-
-  /*基础信息*/
+  /*基础数据*/
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
   fixed_position: algorithm.getReq('/resources/datafixed/position'),
   fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'),
@@ -36,9 +41,11 @@ export const __PATH = {
   fixed_talent: algorithm.getReq('/resources/datafixed/talent'),
   fixed_material: algorithm.getReq('/resources/datafixed/material'),
   fixed_history: algorithm.getReq('/resources/datafixed/history'),
-  /*管理员自定义表*/
+
+  /*自定义数据*/
   custom_goods: algorithm.getReq('/resources/goods'),
-  /*生成信息*/
+
+  /*生成数据*/
   generate_all: algorithm.getReq('/resources/databirth/all'),
   generate_position: algorithm.getReq('/resources/databirth/position'),
   generate_level: algorithm.getReq('/resources/databirth/level'),
@@ -96,7 +103,7 @@ class DateIndex {
       ...genertate.getlist(__PATH.fixed_point, 'json')
     ])
   }
-  
+
   /**
    * 你的地址,要选择的box地址,操作表名
    * @param {PATH, CHOICE, NAME} parameter

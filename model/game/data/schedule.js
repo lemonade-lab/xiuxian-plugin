@@ -1,15 +1,13 @@
 import fs from 'node:fs'
 import path from 'path'
 import algorithm from './algorithm.js'
-import { MyDirPath } from '../../../app.config.js'
+import { playerPath } from './index.js'
 import schedule from 'node-schedule'
 /**数据备份*/
 class Schedule {
   constructor() {
     /*机器人根目录下统一叫做xiuxiandata */
     this.BACKUPS_PATH = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/boxdata`
-    /*存档数值位置 */
-    this.DATA_PATH = `${MyDirPath}/resources/databirth/xiuxian`
   }
   /**
    * @param {  time } param0
@@ -24,10 +22,10 @@ class Schedule {
       const m = myDate.getMinutes()
       const s = myDate.getSeconds()
       fs.cp(
-        this.DATA_PATH,
+        playerPath,
         `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`,
         { recursive: true },
-        (err) => {}
+        (err) => { }
       )
     })
   }
@@ -46,10 +44,10 @@ class Schedule {
       return ['无此备份']
     }
     /*得到存档的json文件地址*/
-    const newsum = algorithm.returnfilepath(this.DATA_PATH, '.json')
+    const newsum = algorithm.returnfilepath(playerPath, '.json')
     newsum.forEach((item) => {
       /*/循环删除数据*/
-      fs.unlink(item, (err) => {})
+      fs.unlink(item, (err) => { })
     })
     /**获得这个备份下的所有子目录 */
     const namefile_subdirectory = algorithm.returnMenu(`${this.BACKUPS_PATH}/${name}`)
@@ -67,10 +65,10 @@ class Schedule {
       jsonName.forEach((item) => {
         /**原理是？这个文件地址，复制到那个文件地址*/
         let y = `${this.BACKUPS_PATH}/${name}/${itemname}/${item}.json`
-        let x = `${this.DATA_PATH}/${itemname}/${item}.json`
+        let x = `${playerPath}/${itemname}/${item}.json`
         /*不存在就复制*/
         if (!fs.existsSync(x)) {
-          fs.cp(y, x, (err) => {})
+          fs.cp(y, x, (err) => { })
         }
       })
     })
