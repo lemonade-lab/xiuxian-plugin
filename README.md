@@ -42,7 +42,7 @@ git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiux
 
 该游戏不可私聊游玩
 
-配置后可发送`#修仙帮助`
+配置后可发送`#修仙帮助` `#修仙管理`
 
 #### 反馈
 
