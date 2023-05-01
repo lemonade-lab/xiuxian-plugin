@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import { MyDirPath } from '../../../app.config.js'
 import algorithm from './algorithm.js'
 import defset from './defset.js'
+import schedule from './schedule.js'
 
 /** 自定义配置*/
 const configarr = [
@@ -59,13 +60,25 @@ class CreateData {
       }
     }
 
+
+
+    const Test = defset.getConfig({ app: 'task', name: 'task' })
+    if (Test['CopeTask']) {
+      if (!Test['CopeTask'] == 1) {
+        schedule.scheduleJobflie({ time: Test['CopeTask'] })
+      }
+    } else {
+      //默认为1h
+      schedule.scheduleJobflie({ time: '0 0 */1 * * ?' })
+    }
+
     /* 版本监控 */
     setTimeout(() => {
       const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
       const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
       if (Nconfig['time'] != Vconfig['time']) {
-        console.log('[xiuxian]当前配置版本:', NTime)
-        console.log('[xiuxian]本地配置版本:', time)
+        console.log('[xiuxian]当前配置版本:', Nconfig['time'])
+        console.log('[xiuxian]本地配置版本:', Vconfig['time'])
         console.log('[xiuxian]版本不匹配...')
         console.log('[xiuxian]准备重置配置...')
         this.moveConfig({ name: 'updata' })
@@ -80,6 +93,8 @@ class CreateData {
         }
       }
     }, 15000)
+
+
 
     return
   }
