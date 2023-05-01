@@ -6,10 +6,20 @@ export class BoxMoneyOperation extends plugin {
       dsc,
       rule: [
         { reg: '^#赠送灵石.*$', fnc: 'giveMoney' },
-        { reg: '^#联盟报到$', fnc: 'userCheckin' }
+        { reg: '^#联盟报到$', fnc: 'userCheckin' },
+        { reg: '^#联盟签到$', fnc: 'userSignin' }
       ]
     })
   }
+
+  userSignin = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+
+    
+    return false
+  }
+
   userCheckin = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
@@ -60,18 +70,11 @@ export class BoxMoneyOperation extends plugin {
       name: randomthing.name,
       ACCOUNT: randomthing.acount
     })
-    await GameApi.GameUser.userBag({
-      UID,
-      name: '下品灵石',
-      ACCOUNT: Number(10)
-    })
-    e.reply(
-      `[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧\n还有${Number(
-        10
-      )}颗[下品灵石]\n可在必要的时候用到`
-    )
+    e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧`)
     return false
   }
+
+
   giveMoney = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false

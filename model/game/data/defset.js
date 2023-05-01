@@ -15,6 +15,15 @@ class DefsetUpdata {
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
   }
+
+  getDefset=({ app, name })=>{
+    /*获得配置地址*/
+    const file = `${MyDirPath}/resources/defset/${app}/${name}.yaml`
+    /*读取配置*/
+    const data = YAML.parse(fs.readFileSync(file, 'utf8'))
+    return data
+  }
+
   updataSwich = ({ name, swich }) => {
     const map = {
       戳一戳: 'switch.twist',

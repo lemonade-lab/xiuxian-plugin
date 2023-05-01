@@ -5,7 +5,7 @@ export class boxfairyland extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#渡劫$', fnc: 'levelBreak' },
+        { reg: '^#渡劫$', fnc: 'breakLevel' },
         { reg: '^#望天$', fnc: 'breakSky' }
       ]
     })
@@ -15,7 +15,7 @@ export class boxfairyland extends plugin {
    * 成就仙人境
    */
 
-  levelBreak = async (e) => {
+  breakLevel = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     const msg = await GameApi.UserAction.levelBreak({ UID: e.user_id })
@@ -34,7 +34,7 @@ export class boxfairyland extends plugin {
   breakSky = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
-    return
+    return false
   }
 
 }

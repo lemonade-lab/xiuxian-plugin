@@ -53,11 +53,16 @@ export const __PATH = {
   generate_config: algorithm.getReq('/plugins')
 }
 
+
 /**生成游戏数据*/
 class DateIndex {
   constructor() {
     /**生成yaml配置数据 */
     createdata.moveConfig({})
+    /**
+     * 读取文件,当文件与当前时间不同时,
+     */
+
     /** 生成jsoon数据 */
     genertate.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixed_talent}/talent_list.json`))
     genertate.newlist(__PATH.generate_level, 'gaspractice', [])

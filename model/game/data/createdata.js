@@ -1,6 +1,8 @@
 import fs from 'node:fs'
 import { MyDirPath } from '../../../app.config.js'
 import algorithm from './algorithm.js'
+import defset from './defset.js'
+
 /** 自定义配置*/
 const configarr = [
   'cooling.yaml',
@@ -8,8 +10,12 @@ const configarr = [
   'task.yaml',
   'help.yaml',
   'darkhelp.yaml',
-  'admin.yaml'
+  'admin.yaml',
+  'time.yaml'
 ]
+
+let initialization = 1
+
 class CreateData {
   constructor() {
     this.resources = `${MyDirPath}/resources`
@@ -22,28 +28,58 @@ class CreateData {
    */
   moveConfig = ({ name }) => {
     const path = algorithm.returnMenu(this.defsetpath)
-    path.forEach((itempath) => {
-      configarr.forEach((itemconfig) => {
+
+    for (let itempath of path) {
+      for (let itemconfig of configarr) {
         let x = `${this.configpath}/${itempath}/${itemconfig}`
         let y = `${this.defsetpath}/${itempath}/${itemconfig}`
         //刷新控制
         if (name) {
           //直接复制
-          fs.cp(y, x, (err) => {
-            if (err) {
-            }
-          })
-        } else {
-          //不存在就复制
-          if (!fs.existsSync(x)) {
+          if (fs.existsSync(y)) {
             fs.cp(y, x, (err) => {
               if (err) {
+                console.log(err)
               }
             })
           }
+        } else {
+          //不存在就复制
+          if (!fs.existsSync(x)) {
+            if (fs.existsSync(y)) {
+              initialization=0
+              fs.cp(y, x, (err) => {
+                if (err) {
+                  console.log(err)
+                }
+              })
+            }
+          }
         }
-      })
-    })
+      }
+    }
+
+    /* 版本监控 */
+    setTimeout(() => {
+      const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
+      const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
+      if (Nconfig['time'] != Vconfig['time']) {
+        console.log('[xiuxian]当前配置版本:', NTime)
+        console.log('[xiuxian]本地配置版本:', time)
+        console.log('[xiuxian]版本不匹配...')
+        console.log('[xiuxian]准备重置配置...')
+        this.moveConfig({ name: 'updata' })
+        console.log('[xiuxian]配置重置完成')
+      } else {
+        if(initialization==0){
+          console.log('[xiuxian]发现配置缺失...')
+          console.log('[xiuxian]准备重置配置...')
+          this.moveConfig({ name: 'updata' })
+          console.log('[xiuxian]配置重置完成')
+        }
+      }
+    }, 15000)
+
     return
   }
   /**
@@ -54,7 +90,7 @@ class CreateData {
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => {})
+        fs.mkdir(item, (err) => { })
       }
     }
     return true

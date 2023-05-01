@@ -36,6 +36,15 @@
 
 - group:
   list:
+    - icon: 21
+      title: '#联盟报道'
+      desc: '仅限凡人'
+    - icon: 22
+      title: '#联盟签到'
+      desc: '与联盟的道友嘘寒问暖'
+
+- group:
+  list:
     - icon: 51
       title: '#修仙地图'
       desc: '打开修仙世界大门'
