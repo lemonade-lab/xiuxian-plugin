@@ -47,7 +47,7 @@ class CreateData {
           //不存在就复制
           if (!fs.existsSync(x)) {
             if (fs.existsSync(y)) {
-              initialization=0
+              initialization = 0
               fs.cp(y, x, (err) => {
                 if (err) {
                   console.log(err)
@@ -71,11 +71,12 @@ class CreateData {
         this.moveConfig({ name: 'updata' })
         console.log('[xiuxian]配置重置完成')
       } else {
-        if(initialization==0){
+        if (initialization == 0) {
           console.log('[xiuxian]发现配置缺失...')
           console.log('[xiuxian]准备重置配置...')
           this.moveConfig({ name: 'updata' })
           console.log('[xiuxian]配置重置完成')
+          initialization = 1
         }
       }
     }, 15000)
