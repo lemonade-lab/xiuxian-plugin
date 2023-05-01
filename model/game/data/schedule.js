@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "path";
 import algorithm from "./algorithm.js";
-import { MyDirPath } from "../../../app.config.js";
+import { ThePath } from "../../../app.config.js";
 import schedule from "node-schedule";
 
 /* 存档地址 */
@@ -15,7 +15,7 @@ class Schedule {
       .resolve()
       .replace(/\\/g, "/")}/xiuxiandata/boxdata`;
     /*存档数值位置 */
-    this.DATA_PATH = `${MyDirPath}${playerPath}`;
+    this.DATA_PATH = `${ThePath}${playerPath}`;
   }
   /**
    * @param {  time } param0
