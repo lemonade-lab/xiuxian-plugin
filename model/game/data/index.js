@@ -53,7 +53,6 @@ export const __PATH = {
   generate_config: algorithm.getReq('/plugins')
 }
 
-
 /**生成游戏数据*/
 class DateIndex {
   constructor() {
@@ -115,6 +114,5 @@ class DateIndex {
     genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
     return
   }
-
 }
 export default new DateIndex()

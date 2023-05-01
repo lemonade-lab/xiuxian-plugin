@@ -4,9 +4,7 @@ export class BoxMoneyOperation extends plugin {
     super({
       name,
       dsc,
-      rule: [
-        { reg: '^#赠送灵石.*$', fnc: 'giveMoney' }
-      ]
+      rule: [{ reg: '^#赠送灵石.*$', fnc: 'giveMoney' }]
     })
   }
 

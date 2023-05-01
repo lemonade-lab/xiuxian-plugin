@@ -44,6 +44,8 @@ git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiux
 
 配置后可发送`#修仙帮助` `#修仙管理`
 
+查看更多细节与功能配置可发生`#修仙配置`
+
 #### 反馈
 
 | 群名   | 群号      | 说明     |

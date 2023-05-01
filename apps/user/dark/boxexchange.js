@@ -8,7 +8,7 @@ export class BoxExchange extends plugin {
         { reg: '^#虚空镜$', fnc: 'supermarket' },
         { reg: '^#上架.*$', fnc: 'onsell' },
         { reg: '^#下架.*$', fnc: 'Offsell' },
-        { reg: '^#选购\d+$', fnc: 'purchase' }
+        { reg: '^#选购d+$', fnc: 'purchase' }
       ]
     })
   }

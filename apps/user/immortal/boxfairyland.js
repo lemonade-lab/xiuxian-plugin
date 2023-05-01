@@ -37,5 +37,4 @@ export class boxfairyland extends plugin {
     e.reply('待更新~')
     return false
   }
-
 }

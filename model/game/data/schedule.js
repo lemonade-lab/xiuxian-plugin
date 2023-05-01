@@ -25,7 +25,7 @@ class Schedule {
         playerPath,
         `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`,
         { recursive: true },
-        (err) => { }
+        (err) => {}
       )
     })
   }
@@ -47,7 +47,7 @@ class Schedule {
     const newsum = algorithm.returnfilepath(playerPath, '.json')
     newsum.forEach((item) => {
       /*/循环删除数据*/
-      fs.unlink(item, (err) => { })
+      fs.unlink(item, (err) => {})
     })
     /**获得这个备份下的所有子目录 */
     const namefile_subdirectory = algorithm.returnMenu(`${this.BACKUPS_PATH}/${name}`)
@@ -68,7 +68,7 @@ class Schedule {
         let x = `${playerPath}/${itemname}/${item}.json`
         /*不存在就复制*/
         if (!fs.existsSync(x)) {
-          fs.cp(y, x, (err) => { })
+          fs.cp(y, x, (err) => {})
         }
       })
     })

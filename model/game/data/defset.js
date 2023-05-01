@@ -16,7 +16,7 @@ class DefsetUpdata {
     return data
   }
 
-  getDefset=({ app, name })=>{
+  getDefset = ({ app, name }) => {
     /*获得配置地址*/
     const file = `${MyDirPath}/resources/defset/${app}/${name}.yaml`
     /*读取配置*/

@@ -60,8 +60,6 @@ class CreateData {
       }
     }
 
-
-
     const Test = defset.getConfig({ app: 'task', name: 'task' })
     if (Test['CopeTask']) {
       if (!Test['CopeTask'] == 1) {
@@ -94,8 +92,6 @@ class CreateData {
       }
     }, 15000)
 
-
-
     return
   }
   /**
@@ -106,7 +102,7 @@ class CreateData {
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => { })
+        fs.mkdir(item, (err) => {})
       }
     }
     return true
