@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {MyDirPath} from '../../../app.config.js'
+import { MyDirPath } from '../../../app.config.js'
 /**fs算法*/
 class Algorithm {
   /* 判断指定插件是否存在 */
@@ -132,7 +132,7 @@ class Algorithm {
   /**得到该路径的完整路径*/
   getReq = (req) => {
     /* 根据目录初始化地址 */
-    ctrateFile(req);
+    this.ctrateFile(req);
     return path.join(MyDirPath, req);
   };
 }

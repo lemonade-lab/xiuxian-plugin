@@ -1,51 +1,51 @@
 import fs from 'node:fs'
-import path from 'node:path'
 import createdata from './createdata.js'
 import genertate from './generate.js'
-import { MyDirPath } from '../../../app.config.js'
 import listdata from './listdata.js'
+import algorithm from './algorithm.js'
 export const __PATH = {
   /*玩家存档*/
-  user_player: path.join(MyDirPath, '/resources/data/birth/xiuxian/player'),
-  user_extend: path.join(MyDirPath, '/resources/data/birth/xiuxian/extend'),
-  user_action: path.join(MyDirPath, '/resources/data/birth/xiuxian/action'),
-  user_battle: path.join(MyDirPath, '/resources/data/birth/xiuxian/battle'),
-  user_equipment: path.join(MyDirPath, '/resources/data/birth/xiuxian/equipment'),
-  user_level: path.join(MyDirPath, '/resources/data/birth/xiuxian/level'),
-  user_talent: path.join(MyDirPath, '/resources/data/birth/xiuxian/talent'),
-  user_wealth: path.join(MyDirPath, '/resources/data/birth/xiuxian/wealth'),
-  user_bag: path.join(MyDirPath, '/resources/data/birth/xiuxian/najie'),
+  user_player: algorithm.getReq('/resources/data/birth/xiuxian/player'),
+  user_extend: algorithm.getReq('/resources/data/birth/xiuxian/extend'),
+  user_action: algorithm.getReq('/resources/data/birth/xiuxian/action'),
+  user_battle: algorithm.getReq('/resources/data/birth/xiuxian/battle'),
+  user_equipment: algorithm.getReq('/resources/data/birth/xiuxian/equipment'),
+  user_level: algorithm.getReq('/resources/data/birth/xiuxian/level'),
+  user_talent: algorithm.getReq('/resources/data/birth/xiuxian/talent'),
+  user_wealth: algorithm.getReq('/resources/data/birth/xiuxian/wealth'),
+  user_bag: algorithm.getReq('/resources/data/birth/xiuxian/najie'),
 
-  user_material: path.join(MyDirPath, '/resources/data/birth/xiuxian/material'),
+  user_material: algorithm.getReq('/resources/data/birth/xiuxian/material'),
 
-  user_life: path.join(MyDirPath, '/resources/data/birth/xiuxian/life'),
+  user_life: algorithm.getReq('/resources/data/birth/xiuxian/life'),
 
   /* 金银坊 */
-  user_bank: path.join(MyDirPath, '/resources/data/birth/xiuxian/bank'),
+  user_bank: algorithm.getReq('/resources/data/birth/xiuxian/bank'),
 
-  generate_exchange: path.join(MyDirPath, '/resources/data/birth/xiuxian/exchange'),
-  generate_forum: path.join(MyDirPath, '/resources/data/birth/xiuxian/forum'),
+  generate_exchange: algorithm.getReq('/resources/data/birth/xiuxian/exchange'),
+  generate_forum: algorithm.getReq('/resources/data/birth/xiuxian/forum'),
   /**新增玩家概率事件存档*/
 
   /*基础信息*/
-  fixed_point: path.join(MyDirPath, '/resources/data/fixed/point'),
-  fixed_position: path.join(MyDirPath, '/resources/data/fixed/position'),
-  fixed_equipment: path.join(MyDirPath, '/resources/data/fixed/equipment'),
-  fixed_goods: path.join(MyDirPath, '/resources/data/fixed/goods'),
-  fixed_level: path.join(MyDirPath, '/resources/data/fixed/level'),
-  fixed_occupation: path.join(MyDirPath, '/resources/data/fixed/occupation'),
-  fixed_talent: path.join(MyDirPath, '/resources/data/fixed/talent'),
-  fixed_material: path.join(MyDirPath, '/resources/data/fixed/material'),
-  fixed_history: path.join(MyDirPath, '/resources/data/fixed/history'),
+  fixed_point: algorithm.getReq('/resources/data/fixed/point'),
+  fixed_position: algorithm.getReq('/resources/data/fixed/position'),
+  fixed_equipment: algorithm.getReq('/resources/data/fixed/equipment'),
+  fixed_goods: algorithm.getReq('/resources/data/fixed/goods'),
+  fixed_level: algorithm.getReq('/resources/data/fixed/level'),
+  fixed_occupation: algorithm.getReq('/resources/data/fixed/occupation'),
+  fixed_talent: algorithm.getReq('/resources/data/fixed/talent'),
+  fixed_material: algorithm.getReq('/resources/data/fixed/material'),
+  fixed_history: algorithm.getReq('/resources/data/fixed/history'),
   /*管理员自定义表*/
-  custom_goods: path.join(MyDirPath, '/resources/goods'),
+  custom_goods: algorithm.getReq('/resources/goods'),
   /*生成信息*/
-  generate_all: path.join(MyDirPath, '/resources/data/birth/all'),
-  generate_position: path.join(MyDirPath, '/resources/data/birth/position'),
-  generate_level: path.join(MyDirPath, '/resources/data/birth/level'),
-  generate_plugins: path.join(MyDirPath, '/plugins'),
-  generate_config: path.join(MyDirPath, '/plugins')
+  generate_all: algorithm.getReq('/resources/data/birth/all'),
+  generate_position: algorithm.getReq('/resources/data/birth/position'),
+  generate_level: algorithm.getReq('/resources/data/birth/level'),
+  generate_plugins: algorithm.getReq('/plugins'),
+  generate_config: algorithm.getReq('/plugins')
 }
+
 /**生成游戏数据*/
 class DateIndex {
   constructor() {
@@ -96,6 +96,7 @@ class DateIndex {
       ...genertate.getlist(__PATH.fixed_point, 'json')
     ])
   }
+  
   /**
    * 你的地址,要选择的box地址,操作表名
    * @param {PATH, CHOICE, NAME} parameter
@@ -106,5 +107,6 @@ class DateIndex {
     genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
     return
   }
+
 }
 export default new DateIndex()
