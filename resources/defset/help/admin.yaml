@@ -1,38 +1,38 @@
 - group:
   list:
     - icon: 6
-      title: "#修仙扣除9999 @道友"
-      desc: "扣指定道友灵石"
+      title: '#修仙扣除9999 @道友'
+      desc: '扣指定道友灵石'
     - icon: 7
-      title: "#修仙馈赠+物品名 @道友"
-      desc: "补偿指定道友物品"
+      title: '#修仙馈赠+物品名 @道友'
+      desc: '补偿指定道友物品'
 
 - group:
   list:
     - icon: 2
-      title: "#修仙删除数据"
-      desc: "删除错误数据"
+      title: '#修仙删除数据'
+      desc: '删除错误数据'
     - icon: 2
-      title: "#修仙删除世界"
-      desc: "删除全部信息"
+      title: '#修仙删除世界'
+      desc: '删除全部信息'
 
 - group:
   list:
     - icon: 2
-      title: "#修仙插件列表"
-      desc: "插件可安装插件"
+      title: '#修仙插件列表'
+      desc: '插件可安装插件'
     - icon: 2
-      title: "#修仙安装+插件名"
-      desc: "#修仙安装宗门"
+      title: '#修仙安装+插件名'
+      desc: '#修仙安装宗门'
     - icon: 2
-      title: "#修仙卸载+插件名"
-      desc: "#修仙卸载宗门"
+      title: '#修仙卸载+插件名'
+      desc: '#修仙卸载宗门'
 
 - group:
   list:
     - icon: 5
-      title: "#修仙更新"
-      desc: "已支持#全部更新"
+      title: '#修仙更新'
+      desc: '已支持#全部更新'
     - icon: 2
-      title: "#修仙配置"
-      desc: "配置与扩展功能"
+      title: '#修仙配置'
+      desc: '配置与扩展功能'

@@ -1,24 +1,24 @@
 class UserMove {
   /** * 前进*/
   mapW = async (e) => {
-    e.reply("待更新");
-    return;
-  };
+    e.reply('待更新')
+    return
+  }
   /**向左移动*/
   mapA = async (e) => {
-    e.reply("待更新");
-    return;
-  };
+    e.reply('待更新')
+    return
+  }
   /*** 后退  */
   mapS = async (e) => {
-    e.reply("待更新");
-    return;
-  };
+    e.reply('待更新')
+    return
+  }
   /** 向右移动 */
   mapD = async (e) => {
-    e.reply("待更新");
-    return;
-  };
+    e.reply('待更新')
+    return
+  }
   /**
    * 走路消耗灵力（灵力？可能以后会影响元素攻击）
    * （走到半路发现灵力没了，被人打一架。没有法术攻击。。美滋滋）
@@ -38,4 +38,4 @@ class UserMove {
    *
    */
 }
-export default new UserMove();
+export default new UserMove()

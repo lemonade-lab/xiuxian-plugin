@@ -1,33 +1,33 @@
-import algorithm from "../data/algorithm.js";
-import listdata from "../data/listdata.js";
-import gamepublic from "../public/index.js";
-import { __PATH } from "../data/index.js";
-import config from "../data/defset.js";
+import algorithm from '../data/algorithm.js'
+import listdata from '../data/listdata.js'
+import gamepublic from '../public/index.js'
+import { __PATH } from '../data/index.js'
+import config from '../data/defset.js'
 class GameUser {
   startLife = async () => {
     const life = await listdata.listActionInitial({
-      NAME: "life",
-      CHOICE: "user_life",
-      INITIAL: [],
-    });
-    const die = [];
+      NAME: 'life',
+      CHOICE: 'user_life',
+      INITIAL: []
+    })
+    const die = []
     life.forEach((item) => {
-      const cf = config.getConfig({ app: "parameter", name: "cooling" });
-      item.Age = Number(cf["Age"]["size"] ? cf["Age"]["size"] : 1) + item.Age;
+      const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+      item.Age = Number(cf['Age']['size'] ? cf['Age']['size'] : 1) + item.Age
       if (item.Age >= item.life) {
-        item.status = 0;
-        die.push(item.qq);
+        item.status = 0
+        die.push(item.qq)
       }
-    });
+    })
     await listdata.listAction({
-      NAME: "life",
-      CHOICE: "user_life",
-      DATA: life,
-    });
+      NAME: 'life',
+      CHOICE: 'user_life',
+      DATA: life
+    })
     for (let item of die) {
-      await gamepublic.offAction({ UID: item });
+      await gamepublic.offAction({ UID: item })
     }
-  };
+  }
   /**
    * @param { UID } param0
    * @returns
@@ -35,32 +35,32 @@ class GameUser {
   createBoxPlayer = async ({ UID }) => {
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_player",
+      CHOICE: 'user_player',
       DATA: {
-        autograph: "无", //道宣
-        days: 0, //签到
-      },
-    });
+        autograph: '无', //道宣
+        days: 0 //签到
+      }
+    })
     const LevelList = await listdata.listAction({
-      CHOICE: "generate_level",
-      NAME: "gaspractice",
-    });
+      CHOICE: 'generate_level',
+      NAME: 'gaspractice'
+    })
     const LevelMaxList = await listdata.listAction({
-      CHOICE: "generate_level",
-      NAME: "bodypractice",
-    });
+      CHOICE: 'generate_level',
+      NAME: 'bodypractice'
+    })
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_battle",
+      CHOICE: 'user_battle',
       DATA: {
         nowblood:
           LevelList.find((item) => item.id == 1).blood +
-          LevelMaxList.find((item) => item.id == 1).blood, //血量
-      },
-    });
+          LevelMaxList.find((item) => item.id == 1).blood //血量
+      }
+    })
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_level",
+      CHOICE: 'user_level',
       DATA: {
         prestige: 0, //魔力
         level_id: 1, //练气境界
@@ -70,34 +70,30 @@ class GameUser {
         levelnamemax: LevelMaxList.find((item) => item.id == 1).name, //练体名
         experiencemax: 1, //练体经验
         rank_id: 0, //数组位置
-        rankmax_id: 0, //数组位置
-      },
-    });
+        rankmax_id: 0 //数组位置
+      }
+    })
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_wealth",
+      CHOICE: 'user_wealth',
       DATA: {
         lingshi: 0,
-        xianshi: 0,
-      },
-    });
+        xianshi: 0
+      }
+    })
     const PosirionList = await listdata.listAction({
-      CHOICE: "generate_position",
-      NAME: "position",
-    });
-    const position = PosirionList.find((item) => item.name == "极西");
-    const positionID = position.id.split("-");
+      CHOICE: 'generate_position',
+      NAME: 'position'
+    })
+    const position = PosirionList.find((item) => item.name == '极西')
+    const positionID = position.id.split('-')
     const coordinate = {
-      mx:
-        Math.floor(Math.random() * (position.x2 - position.x1)) +
-        Number(position.x1),
-      my:
-        Math.floor(Math.random() * (position.y2 - position.y1)) +
-        Number(position.y1),
-    };
+      mx: Math.floor(Math.random() * (position.x2 - position.x1)) + Number(position.x1),
+      my: Math.floor(Math.random() * (position.y2 - position.y1)) + Number(position.y1)
+    }
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_action",
+      CHOICE: 'user_action',
       DATA: {
         game: 1, //游戏状态
         Couple: 1, //双修
@@ -107,83 +103,70 @@ class GameUser {
         z: positionID[0], //位面
         region: positionID[1], //区域
         address: positionID[2], //属性
-        Exchange: 0,
-      },
-    });
+        Exchange: 0
+      }
+    })
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_bag",
+      CHOICE: 'user_bag',
       DATA: {
         grade: 1,
         lingshimax: 50000, //废弃
         lingshi: 0, //废弃
-        thing: [],
-      },
-    });
-    const newtalent = await this.getTalent();
+        thing: []
+      }
+    })
+    const newtalent = await this.getTalent()
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_talent",
+      CHOICE: 'user_talent',
       DATA: {
         talent: newtalent, //灵根
         talentshow: 1, //显示0,隐藏1
         talentsize: 0, //天赋
-        AllSorcery: [], //功法
-      },
-    });
+        AllSorcery: [] //功法
+      }
+    })
     const FullName = {
-      full: ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"],
-      name: [
-        "子",
-        "丑",
-        "寅",
-        "卯",
-        "辰",
-        "巳",
-        "午",
-        "未",
-        "申",
-        "酉",
-        "戌",
-        "亥",
-      ],
-    };
+      full: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+      name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+    }
     const name =
-      (await gamepublic.Anyarray({ ARR: FullName["full"] })) +
-      (await gamepublic.Anyarray({ ARR: FullName["name"] }));
+      (await gamepublic.Anyarray({ ARR: FullName['full'] })) +
+      (await gamepublic.Anyarray({ ARR: FullName['name'] }))
     const life = await listdata.listActionInitial({
-      CHOICE: "user_life",
-      NAME: "life",
-      INITIAL: [],
-    });
+      CHOICE: 'user_life',
+      NAME: 'life',
+      INITIAL: []
+    })
     life.push({
       qq: UID,
       name: `${name}`,
       Age: 1, //年龄
       life: Math.floor(Math.random() * (84 - 60) + 60), //寿命
       createTime: new Date().getTime(),
-      status: 1,
-    });
-    await listdata.listAction({ NAME: UID, CHOICE: "user_extend", DATA: {} });
+      status: 1
+    })
+    await listdata.listAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
     /**更新用户表*/
     await listdata.listActionInitial({
-      CHOICE: "user_life",
-      NAME: "life",
+      CHOICE: 'user_life',
+      NAME: 'life',
       DATA: life,
-      INITIAL: [],
-    });
+      INITIAL: []
+    })
     /**更新装备*/
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_equipment",
-      DATA: [],
-    });
+      CHOICE: 'user_equipment',
+      DATA: []
+    })
     /**更新天赋面板*/
-    await this.updataUserEfficiency({ UID });
+    await this.updataUserEfficiency({ UID })
     /**更新战斗面板 */
-    await this.readPanel({ UID });
-    return true;
-  };
+    await this.readPanel({ UID })
+    return true
+  }
 
   /**
    * 给UID添加物品name的数量为account
@@ -193,21 +176,21 @@ class GameUser {
   userBag = async ({ UID, name, ACCOUNT }) => {
     //搜索物品信息
     const thing = await listdata.searchThing({
-      condition: "name",
-      name,
-    });
+      condition: 'name',
+      name
+    })
     if (thing) {
-      let bag = await listdata.listAction({ CHOICE: "user_bag", NAME: UID });
+      let bag = await listdata.listAction({ CHOICE: 'user_bag', NAME: UID })
       bag = await this.userbagAction({
         BAG: bag,
         THING: thing,
-        ACCOUNT: Number(ACCOUNT),
-      });
-      await listdata.listAction({ CHOICE: "user_bag", NAME: UID, DATA: bag });
-      return true;
+        ACCOUNT: Number(ACCOUNT)
+      })
+      await listdata.listAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   /**
    * 材料仓库物品增减
@@ -217,70 +200,70 @@ class GameUser {
   userMaterial = async ({ UID, name, ACCOUNT }) => {
     //搜索物品信息
     const thing = await listdata.searchThing({
-      CHOICE: "fixed_material",
-      NAME: "MaterialGuide",
-      condition: "name",
-      name,
-    });
+      CHOICE: 'fixed_material',
+      NAME: 'MaterialGuide',
+      condition: 'name',
+      name
+    })
     if (thing) {
       let bag = await listdata.listAction({
-        CHOICE: "user_material",
-        NAME: UID,
-      });
+        CHOICE: 'user_material',
+        NAME: UID
+      })
       bag = await this.userMaterialAction({
         BAG: bag,
         THING: thing,
-        ACCOUNT: Number(ACCOUNT),
-      });
+        ACCOUNT: Number(ACCOUNT)
+      })
       await listdata.listAction({
-        CHOICE: "user_material",
+        CHOICE: 'user_material',
         NAME: UID,
-        DATA: bag,
-      });
-      return true;
+        DATA: bag
+      })
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   userMaterialAction = async (parameter) => {
-    let { BAG, THING, ACCOUNT } = parameter;
-    const thing = BAG.find((item) => item.id == THING.id);
+    let { BAG, THING, ACCOUNT } = parameter
+    const thing = BAG.find((item) => item.id == THING.id)
     if (thing) {
-      let acount = Number(thing.acount) + Number(ACCOUNT);
+      let acount = Number(thing.acount) + Number(ACCOUNT)
       if (Number(acount) < 1) {
-        BAG = BAG.filter((item) => item.id != THING.id);
+        BAG = BAG.filter((item) => item.id != THING.id)
       } else {
-        BAG.find((item) => item.id == THING.id).acount = Number(acount);
+        BAG.find((item) => item.id == THING.id).acount = Number(acount)
       }
-      return BAG;
+      return BAG
     } else {
-      THING.acount = Number(ACCOUNT);
-      BAG.thing.push(THING);
-      return BAG;
+      THING.acount = Number(ACCOUNT)
+      BAG.thing.push(THING)
+      return BAG
     }
-  };
+  }
   /**
    * 给储物袋添加物品
    * @param { BAG, THING, ACCOUNT } param0
    * @returns
    */
   userbagAction = async (parameter) => {
-    const { BAG, THING, ACCOUNT } = parameter;
-    const thing = BAG.thing.find((item) => item.id == THING.id);
+    const { BAG, THING, ACCOUNT } = parameter
+    const thing = BAG.thing.find((item) => item.id == THING.id)
     if (thing) {
-      let acount = Number(thing.acount) + Number(ACCOUNT);
+      let acount = Number(thing.acount) + Number(ACCOUNT)
       if (Number(acount) < 1) {
-        BAG.thing = BAG.thing.filter((item) => item.id != THING.id);
+        BAG.thing = BAG.thing.filter((item) => item.id != THING.id)
       } else {
-        BAG.thing.find((item) => item.id == THING.id).acount = Number(acount);
+        BAG.thing.find((item) => item.id == THING.id).acount = Number(acount)
       }
-      return BAG;
+      return BAG
     } else {
-      THING.acount = Number(ACCOUNT);
-      BAG.thing.push(THING);
-      return BAG;
+      THING.acount = Number(ACCOUNT)
+      BAG.thing.push(THING)
+      return BAG
     }
-  };
+  }
 
   /**
    * 搜索UID的背包有没有物品名为NAME
@@ -289,49 +272,49 @@ class GameUser {
    */
 
   userBagSearch = async ({ UID, name }) => {
-    const bag = await listdata.listAction({ CHOICE: "user_bag", NAME: UID });
-    return bag.thing.find((item) => item.name == name);
-  };
+    const bag = await listdata.listAction({ CHOICE: 'user_bag', NAME: UID })
+    return bag.thing.find((item) => item.name == name)
+  }
 
   userMaterialSearch = async ({ UID, name }) => {
     const bag = await listdata.listAction({
-      CHOICE: "user_material",
-      NAME: UID,
-    });
-    return bag.find((item) => item.name == name);
-  };
+      CHOICE: 'user_material',
+      NAME: UID
+    })
+    return bag.find((item) => item.name == name)
+  }
 
   /**
    * @param { UID } param0
    * @returns 返回UID的面板
    */ readPanel = async ({ UID }) => {
     const equipment = await listdata.listAction({
-      CHOICE: "user_equipment",
-      NAME: UID,
-    });
+      CHOICE: 'user_equipment',
+      NAME: UID
+    })
     const level = await listdata.listAction({
-      CHOICE: "user_level",
-      NAME: UID,
-    });
+      CHOICE: 'user_level',
+      NAME: UID
+    })
     const LevelList = await listdata.listAction({
-      CHOICE: "generate_level",
-      NAME: "gaspractice",
-    });
+      CHOICE: 'generate_level',
+      NAME: 'gaspractice'
+    })
     const LevelMaxList = await listdata.listAction({
-      CHOICE: "generate_level",
-      NAME: "bodypractice",
-    });
-    const levelmini = LevelList.find((item) => item.id == level.level_id);
-    const levelmax = LevelMaxList.find((item) => item.id == level.levelmax_id);
+      CHOICE: 'generate_level',
+      NAME: 'bodypractice'
+    })
+    const levelmini = LevelList.find((item) => item.id == level.level_id)
+    const levelmax = LevelMaxList.find((item) => item.id == level.levelmax_id)
     const UserBattle = await listdata.listAction({
-      CHOICE: "user_battle",
-      NAME: UID,
-    });
+      CHOICE: 'user_battle',
+      NAME: UID
+    })
     let extend = await listdata.listActionInitial({
       NAME: UID,
-      CHOICE: "user_extend",
-      INITIAL: {},
-    });
+      CHOICE: 'user_extend',
+      INITIAL: {}
+    })
     const panel = {
       attack: levelmini.attack + levelmax.attack,
       defense: levelmini.defense + levelmax.defense,
@@ -339,70 +322,69 @@ class GameUser {
       burst: levelmini.burst + levelmax.burst,
       burstmax: levelmini.burstmax + levelmax.burstmax,
       speed: levelmini.speed + levelmax.speed,
-      power: 0,
-    };
+      power: 0
+    }
     const equ = {
       attack: 0,
       defense: 0,
       blood: 0,
       burst: 0,
       burstmax: 0,
-      speed: 0,
-    };
+      speed: 0
+    }
     equipment.forEach((item) => {
-      equ.attack = equ.attack + item.attack;
-      equ.defense = equ.defense + item.defense;
-      equ.blood = equ.blood + item.blood;
-      equ.burst = equ.burst + item.burst;
-      equ.burstmax = equ.burstmax + item.burstmax;
-      equ.speed = equ.speed + item.speed;
-    });
+      equ.attack = equ.attack + item.attack
+      equ.defense = equ.defense + item.defense
+      equ.blood = equ.blood + item.blood
+      equ.burst = equ.burst + item.burst
+      equ.burstmax = equ.burstmax + item.burstmax
+      equ.speed = equ.speed + item.speed
+    })
     /*计算插件临时属性及永久属性*/
     if (extend != {}) {
-      extend = Object.values(extend);
+      extend = Object.values(extend)
       extend.forEach((item) => {
         /*永久属性计算*/
-        equ.attack = equ.attack + item["perpetual"].attack;
-        equ.defense = equ.defense + item["perpetual"].defense;
-        equ.blood = equ.blood + item["perpetual"].blood;
-        equ.burst = equ.burst + item["perpetual"].burst;
-        equ.burstmax = equ.burstmax + item["perpetual"].burstmax;
-        equ.speed = equ.speed + item["perpetual"].speed;
+        equ.attack = equ.attack + item['perpetual'].attack
+        equ.defense = equ.defense + item['perpetual'].defense
+        equ.blood = equ.blood + item['perpetual'].blood
+        equ.burst = equ.burst + item['perpetual'].burst
+        equ.burstmax = equ.burstmax + item['perpetual'].burstmax
+        equ.speed = equ.speed + item['perpetual'].speed
         /*临时属性计算*/
-        if (item["times"].length != 0) {
-          item["times"].forEach((timesitem) => {
+        if (item['times'].length != 0) {
+          item['times'].forEach((timesitem) => {
             if (timesitem.timeLimit > new Date().getTime()) {
-              equ[timesitem.type] += timesitem.value;
+              equ[timesitem.type] += timesitem.value
             }
-          });
+          })
         }
-      });
+      })
     }
     /*血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限*/
-    const bloodLimit = levelmini.blood + levelmax.blood + equ.blood;
+    const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
     /*双境界面板之和*/
-    panel.attack = Math.floor(panel.attack * (equ.attack * 0.01 + 1));
-    panel.defense = Math.floor(panel.defense * (equ.defense * 0.01 + 1));
-    panel.blood = bloodLimit;
-    panel.nowblood =
-      UserBattle.nowblood > bloodLimit ? bloodLimit : UserBattle.nowblood;
-    panel.burst += equ.burst;
-    panel.burstmax += equ.burstmax;
-    panel.speed += equ.speed;
+    panel.attack = Math.floor(panel.attack * (equ.attack * 0.01 + 1))
+    panel.defense = Math.floor(panel.defense * (equ.defense * 0.01 + 1))
+    panel.blood = bloodLimit
+    panel.nowblood = UserBattle.nowblood > bloodLimit ? bloodLimit : UserBattle.nowblood
+    panel.burst += equ.burst
+    panel.burstmax += equ.burstmax
+    panel.speed += equ.speed
     panel.power =
       panel.attack +
       panel.defense +
       bloodLimit / 2 +
       panel.burst * 100 +
       panel.burstmax * 10 +
-      panel.speed * 50;
+      panel.speed * 50
     await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_battle",
-      DATA: panel,
-    });
-    return;
-  };
+      CHOICE: 'user_battle',
+      DATA: panel
+    })
+    return
+  }
 
   /**
    * 计算天赋
@@ -413,99 +395,99 @@ class GameUser {
     try {
       const talent = await listdata.listAction({
         NAME: UID,
-        CHOICE: "user_talent",
-      });
+        CHOICE: 'user_talent'
+      })
       const talent_sise = {
         gonfa: 0,
-        talent: 0,
-      };
+        talent: 0
+      }
       talent.AllSorcery.forEach((item) => {
-        talent_sise.gonfa += item.size;
-      });
-      talent_sise.talent = await this.talentSize(talent);
+        talent_sise.gonfa += item.size
+      })
+      talent_sise.talent = await this.talentSize(talent)
       let promise = await listdata.listAction({
         NAME: UID,
-        CHOICE: "user_extend",
-      });
-      promise = Object.values(promise);
-      let extend = 0;
+        CHOICE: 'user_extend'
+      })
+      promise = Object.values(promise)
+      let extend = 0
       for (let i in promise) {
-        extend += promise[i].perpetual.efficiency * 100;
+        extend += promise[i].perpetual.efficiency * 100
       }
-      talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend;
+      talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend
       await listdata.listAction({
         NAME: UID,
-        CHOICE: "user_talent",
-        DATA: talent,
-      });
-      return true;
+        CHOICE: 'user_talent',
+        DATA: talent
+      })
+      return true
     } catch {
-      return false;
+      return false
     }
-  };
+  }
 
   /**
    * @param {灵根数据} data
    * @returns 灵根天赋值
    */
   talentSize = async (data) => {
-    let talent_size = 250;
+    let talent_size = 250
     /*根据灵根数来判断*/
     for (let i = 0; i < data.length; i++) {
       /*循环加效率*/
       if (data[i] <= 5) {
-        talent_size -= 50;
+        talent_size -= 50
       }
       if (data[i] >= 6) {
-        talent_size -= 40;
+        talent_size -= 40
       }
     }
-    return talent_size;
-  };
+    return talent_size
+  }
 
   /**
    * @returns 随机生成灵根
    */
   getTalent = async () => {
-    const newtalent = [];
-    const talentacount = Math.round(Math.random() * (5 - 1)) + 1;
+    const newtalent = []
+    const talentacount = Math.round(Math.random() * (5 - 1)) + 1
     for (let i = 0; i < talentacount; i++) {
-      const x = Math.round(Math.random() * (10 - 1)) + 1;
-      const y = newtalent.indexOf(x);
+      const x = Math.round(Math.random() * (10 - 1)) + 1
+      const y = newtalent.indexOf(x)
       if (y != -1) {
-        continue;
+        continue
       }
       if (x <= 5) {
-        const z = newtalent.indexOf(x + 5);
+        const z = newtalent.indexOf(x + 5)
         if (z != -1) {
-          continue;
+          continue
         }
       } else {
-        const z = newtalent.indexOf(x - 5);
+        const z = newtalent.indexOf(x - 5)
         if (z != -1) {
-          continue;
+          continue
         }
       }
-      newtalent.push(x);
+      newtalent.push(x)
     }
-    return newtalent;
-  };
+    return newtalent
+  }
   /**
    * @param { data } param0
    * @returns
    */
   getTalentName = async ({ data }) => {
-    const nameArr = [];
+    const nameArr = []
     data.talent.forEach(async (talentitem) => {
       const talentList = await listdata.listAction({
-        NAME: "talent_list",
-        CHOICE: "fixed_talent",
-      });
-      const name = talentList.find((item) => item.id == talentitem).name;
-      nameArr.push(name);
-    });
-    return nameArr;
-  };
+        NAME: 'talent_list',
+        CHOICE: 'fixed_talent'
+      })
+      const name = talentList.find((item) => item.id == talentitem).name
+      nameArr.push(name)
+    })
+    return nameArr
+  }
 
   /**
    * 跟listdata.listactoin没有区别,已废除
@@ -517,15 +499,15 @@ class GameUser {
       await algorithm.dataAction({
         NAME,
         PATH: __PATH[CHOICE],
-        DATA,
-      });
-      return;
+        DATA
+      })
+      return
     }
     return await algorithm.dataAction({
       NAME,
-      PATH: __PATH[CHOICE],
-    });
-  };
+      PATH: __PATH[CHOICE]
+    })
+  }
 
   /**
    * 表名，地址，属性，大小
@@ -534,11 +516,11 @@ class GameUser {
    */
   updataUser = async ({ UID, CHOICE, ATTRIBUTE, SIZE }) => {
     //读取原数据
-    const data = await listdata.listAction({ NAME: UID, CHOICE });
-    data[ATTRIBUTE] += Math.trunc(SIZE);
-    await listdata.listAction({ NAME: UID, CHOICE, DATA: data });
-    return;
-  };
+    const data = await listdata.listAction({ NAME: UID, CHOICE })
+    data[ATTRIBUTE] += Math.trunc(SIZE)
+    await listdata.listAction({ NAME: UID, CHOICE, DATA: data })
+    return
+  }
 
   /**
    * 返回UID的寿命信息
@@ -547,12 +529,12 @@ class GameUser {
    */
   existUser = async (UID) => {
     const LIFE = await listdata.listActionInitial({
-      CHOICE: "user_life",
-      NAME: "life",
-      INITIAL: [],
-    });
-    return LIFE.find((item) => item.qq == UID);
-  };
+      CHOICE: 'user_life',
+      NAME: 'life',
+      INITIAL: []
+    })
+    return LIFE.find((item) => item.qq == UID)
+  }
 
   /**
    * 判断是否死亡
@@ -560,94 +542,94 @@ class GameUser {
    * @returns
    */
   existUserSatus = async ({ UID }) => {
-    let find = await this.existUser(UID);
+    let find = await this.existUser(UID)
     if (find) {
       if (find.status == 0) {
-        return false;
+        return false
       }
-      return true;
+      return true
     }
-    const CreateGO = await this.createBoxPlayer({ UID });
+    const CreateGO = await this.createBoxPlayer({ UID })
     if (!CreateGO) {
-      return false;
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   getUID = async ({ UID }) => {
-    let find = await this.existUser(UID);
+    let find = await this.existUser(UID)
     if (find) {
-      return true;
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   /**
    * @returns 返回所有用户UID
    */
   getUserUID = async () => {
-    const playerList = [];
+    const playerList = []
     const life = await listdata.listActionInitial({
-      CHOICE: "user_life",
-      NAME: "life",
-    });
+      CHOICE: 'user_life',
+      NAME: 'life'
+    })
     life.forEach((item) => {
-      playerList.push(item.qq);
-    });
-    return playerList;
-  };
+      playerList.push(item.qq)
+    })
+    return playerList
+  }
 
   getTypeThing = async (position, type) => {
     const dropsItemList = await listdata.listAction({
-      NAME: "all",
-      CHOICE: "generate_all",
-    });
-    const sum = [];
+      NAME: 'all',
+      CHOICE: 'generate_all'
+    })
+    const sum = []
     dropsItemList.forEach((item) => {
-      const id = item.id.split("-");
+      const id = item.id.split('-')
       if (id[position] == type) {
-        sum.push(item);
+        sum.push(item)
       }
-    });
-    return sum;
-  };
+    })
+    return sum
+  }
 
   randomTypeThing = async (position, type) => {
     const dropsItemList = await listdata.listAction({
-      NAME: "all",
-      CHOICE: "generate_all",
-    });
-    const sum = [];
+      NAME: 'all',
+      CHOICE: 'generate_all'
+    })
+    const sum = []
     dropsItemList.forEach((item) => {
-      const id = item.id.split("-");
+      const id = item.id.split('-')
       if (id[position] == type) {
-        sum.push(item);
+        sum.push(item)
       }
-    });
-    return sum[Math.floor(Math.random() * sum.length)];
-  };
+    })
+    return sum[Math.floor(Math.random() * sum.length)]
+  }
 
   randomThing = async () => {
     const dropsItemList = await listdata.listAction({
-      NAME: "dropsItem",
-      CHOICE: "generate_all",
-    });
-    return dropsItemList[Math.floor(Math.random() * dropsItemList.length)];
-  };
+      NAME: 'dropsItem',
+      CHOICE: 'generate_all'
+    })
+    return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
+  }
 
   updataUserBlood = async ({ UID, SIZE }) => {
     const battle = await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_battle",
-    });
-    battle.nowblood = Math.floor(battle.blood * SIZE * 0.01);
+      CHOICE: 'user_battle'
+    })
+    battle.nowblood = Math.floor(battle.blood * SIZE * 0.01)
     await await listdata.listAction({
       NAME: UID,
-      CHOICE: "user_battle",
-      DATA: battle,
-    });
-    return;
-  };
+      CHOICE: 'user_battle',
+      DATA: battle
+    })
+    return
+  }
 
   /**
    * @param { NAME, FLAG, TYPE, VALUE } param0
@@ -656,9 +638,9 @@ class GameUser {
   addExtendPerpetual = async ({ NAME, FLAG, TYPE, VALUE }) => {
     const extend = await listdata.listActionInitial({
       NAME,
-      CHOICE: "user_extend",
-      INITIAL: {},
-    });
+      CHOICE: 'user_extend',
+      INITIAL: {}
+    })
     if (!extend[FLAG]) {
       extend[FLAG] = {
         times: [],
@@ -669,15 +651,15 @@ class GameUser {
           burst: 0,
           burstmax: 0,
           speed: 0,
-          efficiency: 0,
-        },
-      };
+          efficiency: 0
+        }
+      }
     }
-    extend[FLAG]["perpetual"][TYPE] = VALUE;
-    await listdata.listAction({ NAME, CHOICE: "user_extend", DATA: extend });
-    await this.readPanel({ UID: NAME });
-    return;
-  };
+    extend[FLAG]['perpetual'][TYPE] = VALUE
+    await listdata.listAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+    await this.readPanel({ UID: NAME })
+    return
+  }
   /**
    * @param { NAME, FLAG, TYPE, VALUE, ENDTIME } param0
    * @returns
@@ -685,9 +667,9 @@ class GameUser {
   addExtendTimes = async ({ NAME, FLAG, TYPE, VALUE, ENDTIME }) => {
     const extend = await listdata.listActionInitial({
       NAME,
-      CHOICE: "user_extend",
-      INITIAL: {},
-    });
+      CHOICE: 'user_extend',
+      INITIAL: {}
+    })
     if (!extend[FLAG]) {
       extend[FLAG] = {
         times: [],
@@ -698,48 +680,48 @@ class GameUser {
           burst: 0,
           burstmax: 0,
           speed: 0,
-          efficiency: 0,
-        },
-      };
+          efficiency: 0
+        }
+      }
     }
-    const find = extend[FLAG]["times"].findIndex((item) => item.type == TYPE);
-    const time = new Date().getTime();
+    const find = extend[FLAG]['times'].findIndex((item) => item.type == TYPE)
+    const time = new Date().getTime()
     if (
       find != -1 &&
-      extend[FLAG]["times"][find]["timeLimit"] > time &&
-      extend[FLAG]["times"][find]["value"] >= VALUE
+      extend[FLAG]['times'][find]['timeLimit'] > time &&
+      extend[FLAG]['times'][find]['value'] >= VALUE
     ) {
-      await listdata.listAction({ NAME, CHOICE: "user_extend", DATA: extend });
-      await this.readPanel({ UID: NAME });
-      return;
+      await listdata.listAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      await this.readPanel({ UID: NAME })
+      return
     } else if (
       find != -1 &&
-      (extend[FLAG]["times"][find]["timeLimit"] <= time ||
-        extend[FLAG]["times"][find]["value"] < VALUE)
+      (extend[FLAG]['times'][find]['timeLimit'] <= time ||
+        extend[FLAG]['times'][find]['value'] < VALUE)
     ) {
-      extend[FLAG]["times"][find]["value"] = VALUE;
-      extend[FLAG]["times"][find]["timeLimit"] = ENDTIME;
-      await listdata.listAction({ NAME, CHOICE: "user_extend", DATA: extend });
-      await this.readPanel({ UID: NAME });
-      return;
+      extend[FLAG]['times'][find]['value'] = VALUE
+      extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
+      await listdata.listAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      await this.readPanel({ UID: NAME })
+      return
     } else {
-      extend[FLAG]["times"].push({
+      extend[FLAG]['times'].push({
         type: TYPE,
         value: VALUE,
-        timeLimit: ENDTIME,
-      });
-      await listdata.listAction({ NAME, CHOICE: "user_extend", DATA: extend });
-      await this.readPanel({ UID: NAME });
-      return;
+        timeLimit: ENDTIME
+      })
+      await listdata.listAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      await this.readPanel({ UID: NAME })
+      return
     }
-  };
+  }
 
   synthesisResult = async ({ ans, type }) => {
     //这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
     let drawingList = await listdata.listAction({
-      NAME: "AllDrawing",
-      CHOICE: "fixed_material",
-    });
+      NAME: 'AllDrawing',
+      CHOICE: 'fixed_material'
+    })
     drawingList = drawingList.filter(
       (item) =>
         item.type == type &&
@@ -748,31 +730,31 @@ class GameUser {
         item.water <= ans.water &&
         item.fire <= ans.fire &&
         item.earth <= ans.earth
-    );
+    )
 
     if (drawingList.length == 0) {
       // 没有对应图纸
-      const res = { name: "无用的残渣" };
-      return res;
+      const res = { name: '无用的残渣' }
+      return res
     } else if (drawingList.length > 3) {
       // 可能的结果过多，取三个最好的
-      drawingList.sort(sortRule);
-      const slice = drawingList.slice(0, 3);
+      drawingList.sort(sortRule)
+      const slice = drawingList.slice(0, 3)
       //随机取一个
-      return randomArr(slice);
+      return randomArr(slice)
     } else {
       //直接随机取
-      return randomArr(drawingList);
+      return randomArr(drawingList)
     }
-  };
+  }
 }
 
 function sortRule(a, b) {
-  return a.rank - b.rank; // 如果a>=b，返回自然数，不用交换位置
+  return a.rank - b.rank // 如果a>=b，返回自然数，不用交换位置
 }
 
 function randomArr(array) {
-  const location = Math.floor(Math.random() * array.length);
-  return array[location];
+  const location = Math.floor(Math.random() * array.length)
+  return array[location]
 }
-export default new GameUser();
+export default new GameUser()

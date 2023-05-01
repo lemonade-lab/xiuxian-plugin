@@ -1,38 +1,38 @@
 - group: 虚空神器
   list:
     - icon: 55
-      title: "#虚空镜"
-      desc: "远距离交易"
+      title: '#虚空镜'
+      desc: '远距离交易'
     - icon: 55
-      title: "#上架+物品名*数量*价格"
-      desc: "不填数量,默认为1"
+      title: '#上架+物品名*数量*价格'
+      desc: '不填数量,默认为1'
     - icon: 55
-      title: "#选购+编号"
-      desc: "远距离交易"
+      title: '#选购+编号'
+      desc: '远距离交易'
     - icon: 55
-      title: "#下架+编号"
-      desc: "远距离交易"
+      title: '#下架+编号'
+      desc: '远距离交易'
     - icon: 55
-      title: "#虚空眼+资料"
-      desc: "查看资料"
+      title: '#虚空眼+资料'
+      desc: '查看资料'
     - icon: 55
-      title: "#虚空栈"
-      desc: "查看跨群记录"
+      title: '#虚空栈'
+      desc: '查看跨群记录'
     - icon: 57
-      title: "#喇叭+内容"
-      desc: "跨群实时聊天"
+      title: '#喇叭+内容'
+      desc: '跨群实时聊天'
 
 - group: 金银作坊
   list:
     - icon: 55
-      title: "#金银坊"
-      desc: "修仙银行"
+      title: '#金银坊'
+      desc: '修仙银行'
     - icon: 55
-      title: "#金银置换+下品灵石数*中品灵石"
-      desc: "#金银置换50000*中品灵石"
+      title: '#金银置换+下品灵石数*中品灵石'
+      desc: '#金银置换50000*中品灵石'
 
 - group: 千王之王
   list:
     - icon: 55
-      title: "#万花坊"
-      desc: "记录查询"
+      title: '#万花坊'
+      desc: '记录查询'

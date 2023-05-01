@@ -1,53 +1,53 @@
-import { plugin, GameApi, name, dsc } from "../../../model/api/api.js";
+import { plugin, GameApi, name, dsc } from '../../../model/api/api.js'
 export class BoxMove extends plugin {
   constructor() {
     super({
       name,
       dsc,
       rule: [
-        { reg: "^#mapw$", fnc: "mapW" },
-        { reg: "^#mapa$", fnc: "mapA" },
-        { reg: "^#maps$", fnc: "mapS" },
-        { reg: "^#mapd$", fnc: "mapD" },
-      ],
-    });
+        { reg: '^#mapw$', fnc: 'mapW' },
+        { reg: '^#mapa$', fnc: 'mapA' },
+        { reg: '^#maps$', fnc: 'mapS' },
+        { reg: '^#mapd$', fnc: 'mapD' }
+      ]
+    })
   }
   /**
    * 前进
    */
   mapW = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    e.reply("待更新");
-    return false;
-  };
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    e.reply('待更新')
+    return false
+  }
   /**
    * 向左移动
    */
   mapA = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    e.reply("待更新");
-    return false;
-  };
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    e.reply('待更新')
+    return false
+  }
   /**
    * 后退
    */
   mapS = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    e.reply("待更新");
-    return false;
-  };
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    e.reply('待更新')
+    return false
+  }
   /**
    * 向右移动
    */
   mapD = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    e.reply("待更新");
-    return false;
-  };
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    e.reply('待更新')
+    return false
+  }
 
   /**
    * 走路消耗灵力（灵力？可能以后会影响元素攻击）

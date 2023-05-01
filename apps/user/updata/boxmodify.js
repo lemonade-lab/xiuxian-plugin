@@ -1,123 +1,119 @@
-import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
 export class BoxModify extends plugin {
   constructor() {
     super({
       name,
       dsc,
       rule: [
-        { reg: "^#改名.*$", fnc: "changeName" },
-        { reg: "^#设置道宣.*$", fnc: "changeAutograph" },
-      ],
-    });
+        { reg: '^#改名.*$', fnc: 'changeName' },
+        { reg: '^#设置道宣.*$', fnc: 'changeAutograph' }
+      ]
+    })
   }
   changeName = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply("已死亡");
-      return false;
+      e.reply('已死亡')
+      return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
+    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
-      e.reply(MSG);
-      return false;
+      e.reply(MSG)
+      return false
     }
-    const UID = e.user_id;
-    const lingshi = 5;
-    let new_name = e.msg.replace("#改名", "");
+    const UID = e.user_id
+    const lingshi = 5
+    let new_name = e.msg.replace('#改名', '')
     if (new_name.length == 0) {
-      return false;
+      return false
     }
     if (new_name.length > 8) {
-      e.reply("这名可真是稀奇");
-      return false;
+      e.reply('这名可真是稀奇')
+      return false
     }
-    const CDID = "3";
-    const now_time = new Date().getTime();
+    const CDID = '3'
+    const now_time = new Date().getTime()
     const cf = GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "cooling",
-    });
-    const CDTime = cf["CD"]["Name"] ? cf["CD"]["Name"] : 5;
-    const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID });
+      app: 'parameter',
+      name: 'cooling'
+    })
+    const CDTime = cf['CD']['Name'] ? cf['CD']['Name'] : 5
+    const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
     if (CDMSG) {
-      e.reply(CDMSG);
-      return false;
+      e.reply(CDMSG)
+      return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
+    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
     const life = await GameApi.UserData.listActionInitial({
-      NAME: "life",
-      CHOICE: "user_life",
-      INITIAL: [],
-    });
+      NAME: 'life',
+      CHOICE: 'user_life',
+      INITIAL: []
+    })
     life.forEach((item) => {
       if (item.qq == UID) {
-        item.name = new_name;
+        item.name = new_name
       }
-    });
+    })
     await GameApi.UserData.listAction({
-      NAME: "life",
-      CHOICE: "user_life",
-      DATA: life,
-    });
+      NAME: 'life',
+      CHOICE: 'user_life',
+      DATA: life
+    })
     const { path, name, data } = await GameApi.Information.userDataShow({
-      UID: e.user_id,
-    });
-    const isreply = await e.reply(
-      await BotApi.ImgIndex.showPuppeteer({ path, name, data })
-    );
-    await BotApi.User.surveySet({ e, isreply });
-    return false;
-  };
+      UID: e.user_id
+    })
+    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    await BotApi.User.surveySet({ e, isreply })
+    return false
+  }
   changeAutograph = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply("已死亡");
-      return false;
+      e.reply('已死亡')
+      return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id });
+    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
-      e.reply(MSG);
-      return false;
+      e.reply(MSG)
+      return false
     }
-    const UID = e.user_id;
+    const UID = e.user_id
     const player = GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: "user_player",
-    });
-    let new_msg = e.msg.replace("#设置道宣", "");
-    new_msg = new_msg.replace(" ", "");
+      CHOICE: 'user_player'
+    })
+    let new_msg = e.msg.replace('#设置道宣', '')
+    new_msg = new_msg.replace(' ', '')
     if (new_msg.length == 0 || new_msg.length > 50) {
-      e.reply("请正确设置,且道宣最多50字符");
-      return false;
+      e.reply('请正确设置,且道宣最多50字符')
+      return false
     }
-    const CDID = "4";
-    const now_time = new Date().getTime();
+    const CDID = '4'
+    const now_time = new Date().getTime()
     const cf = GameApi.DefsetUpdata.getConfig({
-      app: "parameter",
-      name: "cooling",
-    });
-    const CDTime = cf["CD"]["Autograph"] ? cf["CD"]["Autograph"] : 5;
-    const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID });
+      app: 'parameter',
+      name: 'cooling'
+    })
+    const CDTime = cf['CD']['Autograph'] ? cf['CD']['Autograph'] : 5
+    const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
     if (CDMSG) {
-      e.reply(CDMSG);
-      return false;
+      e.reply(CDMSG)
+      return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
-    player.autograph = new_msg;
+    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
+    player.autograph = new_msg
     await GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: "user_player",
-      DATA: player,
-    });
+      CHOICE: 'user_player',
+      DATA: player
+    })
     const { path, name, data } = await GameApi.Information.userDataShow({
-      UID: e.user_id,
-    });
-    const isreply = await e.reply(
-      await BotApi.ImgIndex.showPuppeteer({ path, name, data })
-    );
-    await BotApi.User.surveySet({ e, isreply });
-    return false;
-  };
+      UID: e.user_id
+    })
+    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    await BotApi.User.surveySet({ e, isreply })
+    return false
+  }
 }

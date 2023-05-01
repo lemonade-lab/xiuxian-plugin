@@ -1,94 +1,94 @@
-import { BotApi, GameApi, plugin, name, dsc } from "../../../model/api/api.js";
+import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
 export class BoxHome extends plugin {
   constructor() {
     super({
       name,
       dsc,
       rule: [
-        { reg: "^#服用.*$", fnc: "take" },
-        { reg: "^#学习.*$", fnc: "study" },
-        { reg: "^#忘掉.*$", fnc: "forget" },
-        { reg: "^#消耗.*$", fnc: "consumption" },
-      ],
-    });
+        { reg: '^#服用.*$', fnc: 'take' },
+        { reg: '^#学习.*$', fnc: 'study' },
+        { reg: '^#忘掉.*$', fnc: 'forget' },
+        { reg: '^#消耗.*$', fnc: 'consumption' }
+      ]
+    })
   }
   take = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    const UID = e.user_id;
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply("已死亡");
-      return false;
+      e.reply('已死亡')
+      return false
     }
-    let [thing_name, thing_acount] = e.msg.replace("#服用", "").split("*");
-    thing_acount = await GameApi.GamePublic.leastOne({ value: thing_acount });
+    let [thing_name, thing_acount] = e.msg.replace('#服用', '').split('*')
+    thing_acount = await GameApi.GamePublic.leastOne({ value: thing_acount })
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name,
-    });
+      name: thing_name
+    })
     if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`);
-      return false;
+      e.reply(`没有[${thing_name}]`)
+      return false
     }
     if (najie_thing.acount < thing_acount) {
-      e.reply("数量不足");
-      return false;
+      e.reply('数量不足')
+      return false
     }
-    const id = najie_thing.id.split("-");
+    const id = najie_thing.id.split('-')
     switch (id[1]) {
-      case "1": {
-        let blood = parseInt(najie_thing.blood);
-        await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) });
-        e.reply(`[血量状态]${blood}%`);
-        break;
+      case '1': {
+        let blood = parseInt(najie_thing.blood)
+        await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) })
+        e.reply(`[血量状态]${blood}%`)
+        break
       }
-      case "2": {
-        let experience = parseInt(najie_thing.experience);
-        if (id[0] == "6") {
+      case '2': {
+        let experience = parseInt(najie_thing.experience)
+        if (id[0] == '6') {
           if (thing_acount > 2200) {
-            thing_acount = 2200;
+            thing_acount = 2200
           }
           const cf = GameApi.DefsetUpdata.getConfig({
-            app: "parameter",
-            name: "cooling",
-          });
-          const CDTime = cf["CD"]["Practice"] ? cf["CD"]["Practice"] : 5;
-          const CDID = "12";
-          const now_time = new Date().getTime();
-          const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID });
+            app: 'parameter',
+            name: 'cooling'
+          })
+          const CDTime = cf['CD']['Practice'] ? cf['CD']['Practice'] : 5
+          const CDID = '12'
+          const now_time = new Date().getTime()
+          const { CDMSG } = await GameApi.GamePublic.cooling({ UID, CDID })
           if (CDMSG) {
-            experience = 0;
-            e.reply(CDMSG);
+            experience = 0
+            e.reply(CDMSG)
           }
-          GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime);
+          GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
           const player = GameApi.UserData.listAction({
             NAME: UID,
-            CHOICE: "user_level",
-          });
+            CHOICE: 'user_level'
+          })
           switch (id[2]) {
-            case "1": {
+            case '1': {
               if (player.level_id >= 3) {
-                experience = 0;
+                experience = 0
               }
-              break;
+              break
             }
-            case "2": {
+            case '2': {
               if (player.level_id >= 5) {
-                experience = 0;
+                experience = 0
               }
-              break;
+              break
             }
-            case "3": {
+            case '3': {
               if (player.level_id >= 7) {
-                experience = 0;
+                experience = 0
               }
-              break;
+              break
             }
-            case "4": {
+            case '4': {
               if (player.level_id >= 9) {
-                experience = 0;
+                experience = 0
               }
-              break;
+              break
             }
             default: {
             }
@@ -97,24 +97,24 @@ export class BoxHome extends plugin {
         if (experience > 0) {
           await GameApi.GameUser.updataUser({
             UID,
-            CHOICE: "user_level",
-            ATTRIBUTE: "experience",
-            SIZE: thing_acount * experience,
-          });
+            CHOICE: 'user_level',
+            ATTRIBUTE: 'experience',
+            SIZE: thing_acount * experience
+          })
         }
-        e.reply(`[修为]+${thing_acount * experience}`);
-        break;
+        e.reply(`[修为]+${thing_acount * experience}`)
+        break
       }
-      case "3": {
-        let experiencemax = parseInt(najie_thing.experiencemax);
+      case '3': {
+        let experiencemax = parseInt(najie_thing.experiencemax)
         await GameApi.GameUser.updataUser({
           UID,
-          CHOICE: "user_level",
-          ATTRIBUTE: "experiencemax",
-          SIZE: thing_acount * experiencemax,
-        });
-        e.reply(`[气血]+${thing_acount * experiencemax}`);
-        break;
+          CHOICE: 'user_level',
+          ATTRIBUTE: 'experiencemax',
+          SIZE: thing_acount * experiencemax
+        })
+        e.reply(`[气血]+${thing_acount * experiencemax}`)
+        break
       }
       default: {
       }
@@ -122,178 +122,169 @@ export class BoxHome extends plugin {
     await GameApi.GameUser.userBag({
       UID,
       name: najie_thing.name,
-      ACCOUNT: -thing_acount,
-    });
-    return false;
-  };
+      ACCOUNT: -thing_acount
+    })
+    return false
+  }
   study = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    const UID = e.user_id;
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply("已死亡");
-      return false;
+      e.reply('已死亡')
+      return false
     }
-    const thing_name = e.msg.replace("#学习", "");
+    const thing_name = e.msg.replace('#学习', '')
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name,
-    });
+      name: thing_name
+    })
     if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`);
-      return false;
+      e.reply(`没有[${thing_name}]`)
+      return false
     }
-    const id = najie_thing.id.split("-");
+    const id = najie_thing.id.split('-')
     if (id[0] != 5) {
-      return false;
+      return false
     }
     const talent = await GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: "user_talent",
-    });
-    const islearned = talent.AllSorcery.find(
-      (item) => item.id == najie_thing.id
-    );
+      CHOICE: 'user_talent'
+    })
+    const islearned = talent.AllSorcery.find((item) => item.id == najie_thing.id)
     if (islearned) {
-      e.reply("学过了");
-      return false;
+      e.reply('学过了')
+      return false
     }
     if (
       talent.AllSorcery.length >=
-      GameApi.DefsetUpdata.getConfig({ app: "parameter", name: "cooling" })
-        .myconfig.gongfa
+      GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa
     ) {
-      e.reply("你反复看了又看,却怎么也学不进");
-      return false;
+      e.reply('你反复看了又看,却怎么也学不进')
+      return false
     }
-    talent.AllSorcery.push(najie_thing);
+    talent.AllSorcery.push(najie_thing)
     await GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: "user_talent",
-      DATA: talent,
-    });
-    await GameApi.GameUser.updataUserEfficiency({ UID });
+      CHOICE: 'user_talent',
+      DATA: talent
+    })
+    await GameApi.GameUser.updataUserEfficiency({ UID })
     await GameApi.GameUser.userBag({
       UID,
       name: najie_thing.name,
-      ACCOUNT: -1,
-    });
-    e.reply(`学习[${thing_name}]`);
-    return false;
-  };
+      ACCOUNT: -1
+    })
+    e.reply(`学习[${thing_name}]`)
+    return false
+  }
   forget = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    const UID = e.user_id;
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply("已死亡");
-      return false;
+      e.reply('已死亡')
+      return false
     }
-    const thing_name = e.msg.replace("#忘掉", "");
+    const thing_name = e.msg.replace('#忘掉', '')
     const talent = await GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: "user_talent",
-    });
-    const islearned = talent.AllSorcery.find((item) => item.name == thing_name);
+      CHOICE: 'user_talent'
+    })
+    const islearned = talent.AllSorcery.find((item) => item.name == thing_name)
     if (!islearned) {
-      e.reply(`没学过[${thing_name}]`);
-      return false;
+      e.reply(`没学过[${thing_name}]`)
+      return false
     }
-    talent.AllSorcery = talent.AllSorcery.filter(
-      (item) => item.name != thing_name
-    );
+    talent.AllSorcery = talent.AllSorcery.filter((item) => item.name != thing_name)
     await GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: "user_talent",
-      DATA: talent,
-    });
-    await GameApi.GameUser.updataUserEfficiency({ UID });
-    await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 });
-    e.reply(`忘了[${thing_name}]`);
-    return false;
-  };
+      CHOICE: 'user_talent',
+      DATA: talent
+    })
+    await GameApi.GameUser.updataUserEfficiency({ UID })
+    await GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
+    e.reply(`忘了[${thing_name}]`)
+    return false
+  }
   consumption = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false;
-    if (!BotApi.User.controlMessage({ e })) return false;
-    const UID = e.user_id;
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply("已死亡");
-      return false;
+      e.reply('已死亡')
+      return false
     }
-    const thing_name = e.msg.replace("#消耗", "");
+    const thing_name = e.msg.replace('#消耗', '')
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name,
-    });
+      name: thing_name
+    })
     if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`);
-      return false;
+      e.reply(`没有[${thing_name}]`)
+      return false
     }
     await GameApi.GameUser.userBag({
       UID,
       name: najie_thing.name,
-      ACCOUNT: -1,
-    });
-    const id = najie_thing.id.split("-");
+      ACCOUNT: -1
+    })
+    const id = najie_thing.id.split('-')
     if (id[0] != 6) {
-      e.reply(`[${thing_name}]损坏`);
-      return false;
+      e.reply(`[${thing_name}]损坏`)
+      return false
     }
     if (id[1] == 1) {
       switch (id[2]) {
-        case "1": {
+        case '1': {
           const player = GameApi.UserData.listAction({
             NAME: UID,
-            CHOICE: "user_level",
-          });
+            CHOICE: 'user_level'
+          })
           if (player.level_id >= 10) {
-            e.reply("[灵根]已定\n此生不可再洗髓");
-            break;
+            e.reply('[灵根]已定\n此生不可再洗髓')
+            break
           }
           const talent = await GameApi.UserData.listAction({
             NAME: UID,
-            CHOICE: "user_talent",
-          });
-          talent.talent = await GameApi.GameUser.getTalent();
+            CHOICE: 'user_talent'
+          })
+          talent.talent = await GameApi.GameUser.getTalent()
           await GameApi.UserData.listAction({
             NAME: UID,
-            CHOICE: "user_talent",
-            DATA: talent,
-          });
-          await GameApi.GameUser.updataUserEfficiency({ UID });
+            CHOICE: 'user_talent',
+            DATA: talent
+          })
+          await GameApi.GameUser.updataUserEfficiency({ UID })
           const { path, name, data } = await GameApi.Information.userDataShow({
-            UID: e.user_id,
-          });
-          const isreply = await e.reply(
-            await BotApi.ImgIndex.showPuppeteer({ path, name, data })
-          );
-          await BotApi.User.surveySet({ e, isreply });
-          break;
+            UID: e.user_id
+          })
+          const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+          await BotApi.User.surveySet({ e, isreply })
+          break
         }
-        case "2": {
+        case '2': {
           const talent = await GameApi.UserData.listAction({
             NAME: UID,
-            CHOICE: "user_talent",
-          });
-          talent.talentshow = 0;
+            CHOICE: 'user_talent'
+          })
+          talent.talentshow = 0
           await GameApi.UserData.listAction({
             NAME: UID,
-            CHOICE: "user_talent",
-            DATA: talent,
-          });
+            CHOICE: 'user_talent',
+            DATA: talent
+          })
           const { path, name, data } = await GameApi.Information.userDataShow({
-            UID: e.user_id,
-          });
-          const isreply = await e.reply(
-            await BotApi.ImgIndex.showPuppeteer({ path, name, data })
-          );
-          await BotApi.User.surveySet({ e, isreply });
-          break;
+            UID: e.user_id
+          })
+          const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+          await BotApi.User.surveySet({ e, isreply })
+          break
         }
         default: {
         }
       }
     }
-    return false;
-  };
+    return false
+  }
 }
