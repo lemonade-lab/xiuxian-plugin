@@ -12,6 +12,9 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 安装后请看完文档内容进行配置
 
+>[☞ 如何开始并启动游戏？](./README_admin.md)
+
+
 @2.0.0[☞ 查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/main)
 
 ```
@@ -29,33 +32,6 @@ git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/three-point-of-water/xiux
 ```
 git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
 ```
-
-#### 启动游戏
-
-`xiuxian-plugin`改`xiuxian@2.0.0`
-
-或改`xiuxian@1.3.0` `xiuxian@1.2.1`
-
-运行后，运行后，运行后再配置
-
-> config/parameter/namelist.yaml
-
-该游戏不可私聊游玩
-
-配置后可发送`#修仙帮助` `#修仙管理`
-
-查看更多细节与功能配置可发生`#修仙配置`
-
-存档与备份存档皆不在插件内
-
-#### 反馈
-
-| 群名   | 群号      | 说明     |
-| ------ | --------- | -------- |
-| 文游社 | 685979617 | 问题反馈 |
-| @2.0.0 | 759055676 | 在线体验 |
-| @1.3.0 | 767253997 | 在线体验 |
-| @1.2.1 | 426618276 | 在线体验 |
 
 #### 开源协议
 

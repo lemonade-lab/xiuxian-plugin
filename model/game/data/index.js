@@ -33,7 +33,7 @@ export const __PATH = {
 
 
   /*自定义数据*/
-  custom_goods: algorithm.getFliePath(`${playerPath}/goods`),
+  custom_goods: algorithm.getFliePath(`/xiuxiangoods`),
 
   /*基础数据*/
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
