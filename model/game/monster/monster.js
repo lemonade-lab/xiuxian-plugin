@@ -1,59 +1,9 @@
+import listdata from '../data/listdata.js'
 const alldata = {}
 const addall = {}
-const full = [
-  '蜥',
-  '狮',
-  '鹏',
-  '雕',
-  '雀',
-  '豹',
-  '虎',
-  '龟',
-  '猫',
-  '龙',
-  '鲲',
-  '鸡',
-  '蛇',
-  '狼',
-  '鼠',
-  '鹿',
-  '貂',
-  '猴',
-  '狗',
-  '熊',
-  '羊',
-  '牛',
-  '象',
-  '兔',
-  '猪'
-]
-const name = {
-  1: '兵',
-  2: '将',
-  3: '兽',
-  4: '魔',
-  5: '妖',
-  6: '爵',
-  7: '王',
-  8: '皇',
-  9: '帝',
-  10: '神'
-}
-const map = {
-  1: '1.3',
-  2: '1.3',
-  3: '1.4',
-  4: '2.5',
-  5: '3.6',
-  6: '4.7',
-  7: '1.3',
-  8: '5.8',
-  9: '5.8',
-  10: '5.8',
-  11: '6.9',
-  12: '2.5',
-  13: '7.10'
-}
+const full = listdata.listAction({ NAME: 'full', CHOICE: 'fixed_monster' })
+const name = listdata.listAction({ NAME: 'name', CHOICE: 'fixed_monster' })
+const map = listdata.listAction({ NAME: 'map', CHOICE: 'fixed_monster' })
 /**怪物生成*/
 class GameMonster {
   /**

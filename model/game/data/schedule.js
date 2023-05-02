@@ -1,8 +1,7 @@
 import fs from "node:fs";
-import path from "path";
 import algorithm from "./algorithm.js";
-import { ThePath } from "../../../app.config.js";
 import schedule from "node-schedule";
+import { ThePath } from "../../../app.config.js";
 
 /* 存档地址 */
 const playerPath = '/xiuxianfile'
@@ -11,9 +10,7 @@ const playerPath = '/xiuxianfile'
 class Schedule {
   constructor() {
     /*机器人根目录下统一叫做xiuxiandata */
-    this.BACKUPS_PATH = `${path
-      .resolve()
-      .replace(/\\/g, "/")}/xiuxiandata/boxdata`;
+    this.BACKUPS_PATH = `${ThePath}/xiuxiandata/boxdata`;
     /*存档数值位置 */
     this.DATA_PATH = `${ThePath}${playerPath}`;
   }

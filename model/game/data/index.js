@@ -41,6 +41,7 @@ export const __PATH = {
   fixed_talent: algorithm.getReq('/resources/datafixed/talent'),
   fixed_material: algorithm.getReq('/resources/datafixed/material'),
   fixed_history: algorithm.getReq('/resources/datafixed/history'),
+  fixed_monster: algorithm.getReq('/resources/datafixed/monster'),
 
   /*自定义数据*/
   custom_goods: algorithm.getReq('/resources/goods'),
