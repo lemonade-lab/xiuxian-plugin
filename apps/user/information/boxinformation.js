@@ -41,4 +41,19 @@ export class BoxInformation extends plugin {
     await BotApi.User.surveySet({ e, isreply })
     return false
   }
+  showTalent = async (e) => {
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    const UID = e.user_id
+    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+      e.reply('已仙鹤')
+      return false
+    }
+    const { path, name, data } = await GameApi.Information.userTalentShow({
+      UID: e.user_id
+    })
+    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    await BotApi.User.surveySet({ e, isreply })
+    return false
+  }
 }

@@ -5,7 +5,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{pluResPath}}/resources/html/user/equipment/equipment.css"
+      href="{{pluResPath}}/resources/html/user/skills/skills.css"
     />
   </head>
 
@@ -13,18 +13,14 @@
     <div style="height: 1px"></div>
     <div class="user_top">
       <div class="user_top_left">
-        <div class="user_top_right_font0">攻击:{{battle.attack}}</div>
-        <div class="user_top_right_font">防御:{{battle.defense}}</div>
-        <div class="user_top_right_font1">血量:{{battle.blood}}</div>
-        <div class="user_top_right_font">敏捷:{{battle.speed}}</div>
-        <div class="user_top_right_font1">暴击:{{battle.burst}}%</div>
-        <div class="user_top_right_font2">暴伤:{{battle.burstmax}}%</div>
+        <div class="user_top_right_font0">灵根:{{linggenname}}</div>
+        <div class="user_top_right_font">天赋:{{talentsize}}</div>
       </div>
       <div class="user_top_right">
         <div class="user_top_img_bottom">
           <img
             class="user_top_img"
-            src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{UID}}"
+            src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}"
             onerror="whenError(this)"
           />
         </div>
@@ -32,7 +28,7 @@
     </div>
     <div class="user_bottom1">
       <div class="use_data">
-        {{each equipment item}}
+        {{each skills item}}
         <div class="user_top_right_font0">{{item.name}}</div>
         <div class="user_top_right_font1">
           <div>攻击:{{item.attack}}%</div>

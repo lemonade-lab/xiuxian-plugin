@@ -71,10 +71,16 @@
       desc: '你的身世'
     - icon: 16
       title: '#面板信息'
-      desc: '查看面板'
+      desc: '查看战力面板'
+    - icon: 16
+      title: '#功法信息'
+      desc: '查看功法面板'
     - icon: 8
-      title: '#突破 #破境'
-      desc: '练气升级,练体升级'
+      title: '#突破'
+      desc: '练气升级'
+    - icon: 8
+      title: '#破境'
+      desc: '练体升级'
 
 - group:
   list:

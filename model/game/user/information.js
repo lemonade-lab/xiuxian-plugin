@@ -2,6 +2,7 @@ import gameUser from './index.js'
 import listdata from '../data/listdata.js'
 class information {
   /**
+   * 基础信息
    * @param { UID } param0
    * @returns
    */
@@ -44,18 +45,23 @@ class information {
       path: 'user/information',
       name: 'information',
       data: {
-        user_id: UID,
-        life: life,
-        player: player,
-        level: level,
+        UID,
+        life,
+        player,
+        level,
         linggenname: name,
-        battle: battle,
-        equipment: equipment,
-        talent: talent,
+        battle,
+        equipment,
+        talent,
         talentsize: size
       }
     }
   }
+  /**
+   * 装备信息
+   * @param {*} param0 
+   * @returns 
+   */
   userEquipmentShow = async ({ UID }) => {
     const battle = await listdata.listAction({
       NAME: UID,
@@ -72,13 +78,53 @@ class information {
       path: 'user/equipment',
       name: 'equipment',
       data: {
-        user_id: UID,
-        battle: battle,
-        life: life,
-        equipment: equipment
+        UID,
+        battle,
+        life,
+        equipment
       }
     }
   }
+  
+  /**
+   * 功法信息
+   */
+  userTalentShow = async ({ UID }) => {
+    const talent = await listdata.listAction({
+      NAME: UID,
+      CHOICE: 'user_talent'
+    })
+    const linggenname = await gameUser.getTalentName({ data: talent })
+    let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
+    life = life.find((item) => item.qq == UID)
+    let name = ''
+    for (var i = 0; i < linggenname.length; i++) {
+      name = name + linggenname[i]
+    }
+    let size = Math.trunc(talent.talentsize)
+    if ((await talent.talentshow) != 0) {
+      size = '未知'
+      name = '未知'
+    } else {
+      size = `+${size}%`
+    }
+    console.log(talent)
+    return {
+      path: 'user/skills',
+      name: 'skills',
+      data: {
+        UID,
+        skills:talent['AllSorcery'],
+        linggenname: name,
+        talentsize: size
+      }
+    }
+  }
+
+  /**
+   * 背包
+   * @returns 
+   */
   userBagShow = async ({ UID }) => {
     let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
@@ -116,14 +162,14 @@ class information {
       path: 'user/bag',
       name: 'bag',
       data: {
-        user_id: UID,
-        player: player,
-        life: life,
-        battle: battle,
-        najie: najie,
+        UID,
+        player,
+        life,
+        battle,
+        najie,
         thing: thing_list,
-        daoju_list: daoju_list,
-        danyao_list: danyao_list
+        daoju_list,
+        danyao_list
       }
     }
   }
