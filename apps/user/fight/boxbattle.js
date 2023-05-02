@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxBattle extends plugin {
   constructor() {
     super({
@@ -11,8 +11,7 @@ export class BoxBattle extends plugin {
     })
   }
   duel = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UIDA = e.user_id
     let UIDB = await BotApi.User.at({ e })
     if (!UIDB || UIDA == UIDB) {
@@ -23,8 +22,7 @@ export class BoxBattle extends plugin {
     return false
   }
   handWashing = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

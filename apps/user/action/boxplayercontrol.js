@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxPlayerControl extends plugin {
   constructor() {
     super({
@@ -13,8 +13,7 @@ export class BoxPlayerControl extends plugin {
     })
   }
   biguan = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -35,8 +34,7 @@ export class BoxPlayerControl extends plugin {
     return false
   }
   dagong = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -57,8 +55,7 @@ export class BoxPlayerControl extends plugin {
     return false
   }
   chuGuan = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -85,8 +82,7 @@ export class BoxPlayerControl extends plugin {
     return false
   }
   endWork = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -113,8 +109,7 @@ export class BoxPlayerControl extends plugin {
     return false
   }
   upgrade = async (user_id, time, name, e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = user_id
     const talent = await GameApi.UserData.listAction({
       NAME: UID,

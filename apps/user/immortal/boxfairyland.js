@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class boxfairyland extends plugin {
   constructor() {
     super({
@@ -16,8 +16,7 @@ export class boxfairyland extends plugin {
    */
 
   breakLevel = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const msg = await GameApi.UserAction.levelBreak({ UID: e.user_id })
     if (msg) {
       e.reply(msg)
@@ -32,8 +31,7 @@ export class boxfairyland extends plugin {
    */
 
   breakSky = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     e.reply('待世界升级~')
     return false
   }

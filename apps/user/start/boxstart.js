@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxStart extends plugin {
   constructor() {
     super({
@@ -18,8 +18,7 @@ export class BoxStart extends plugin {
     }
   }
   createMsg = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -32,8 +31,7 @@ export class BoxStart extends plugin {
     return false
   }
   reCreateMsg = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../model/api/api.js'
 export class BoxtWist extends plugin {
   constructor() {
     super({
@@ -10,8 +10,8 @@ export class BoxtWist extends plugin {
     })
   }
   helpWist = async (e) => {
-    if (!e.isGroup || e.self_id != e.target_id || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (e.self_id != e.target_id) return false
+    if (!verify(e)) return false
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'

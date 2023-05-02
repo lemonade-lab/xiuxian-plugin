@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxInformation extends plugin {
   constructor() {
     super({
@@ -12,8 +12,7 @@ export class BoxInformation extends plugin {
     })
   }
   showUserMsg = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -27,8 +26,7 @@ export class BoxInformation extends plugin {
     return false
   }
   showQquipment = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -42,8 +40,7 @@ export class BoxInformation extends plugin {
     return false
   }
   showTalent = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

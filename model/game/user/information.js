@@ -59,8 +59,8 @@ class information {
   }
   /**
    * 装备信息
-   * @param {*} param0 
-   * @returns 
+   * @param {*} param0
+   * @returns
    */
   userEquipmentShow = async ({ UID }) => {
     const battle = await listdata.listAction({
@@ -85,7 +85,7 @@ class information {
       }
     }
   }
-  
+
   /**
    * 功法信息
    */
@@ -114,7 +114,7 @@ class information {
       name: 'skills',
       data: {
         UID,
-        skills:talent['AllSorcery'],
+        skills: talent['AllSorcery'],
         linggenname: name,
         talentsize: size
       }
@@ -123,7 +123,7 @@ class information {
 
   /**
    * 背包
-   * @returns 
+   * @returns
    */
   userBagShow = async ({ UID }) => {
     let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../model/api/api.js'
 export class boxadminaction extends plugin {
   constructor() {
     super({
@@ -18,23 +18,20 @@ export class boxadminaction extends plugin {
   }
   allForcecheckout = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     await BotApi.Exec.execStart({ cmd: 'git  pull', e })
     return false
   }
   deleteRedis = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     await GameApi.GamePublic.deleteReids()
     e.reply('删除完成')
     return false
   }
   deleteAllusers = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     await GameApi.UserData.listAction({
       NAME: 'life',
       CHOICE: 'user_life',
@@ -46,40 +43,35 @@ export class boxadminaction extends plugin {
   }
   boxaSwitchOpen = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const name = e.msg.replace('#盒子开启', '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
     return false
   }
   boxaSwitchOff = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const name = e.msg.replace('#盒子关闭', '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
     return false
   }
   configUpdata = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const [name, size] = e.msg.replace('#修仙配置更改', '').split('*')
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
     return false
   }
   configReUpdata = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     GameApi.Createdata.moveConfig({ name: 'updata' })
     e.reply('配置已重置')
     return false
   }
   dataRecovery = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     await BotApi.User.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({

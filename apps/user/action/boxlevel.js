@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxLevel extends plugin {
   constructor() {
     super({
@@ -11,8 +11,7 @@ export class BoxLevel extends plugin {
     })
   }
   levelUp = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -26,8 +25,7 @@ export class BoxLevel extends plugin {
     return false
   }
   levelMaxUp = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false

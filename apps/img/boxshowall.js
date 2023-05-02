@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../model/api/api.js'
 export class boxshowall extends plugin {
   constructor() {
     super({
@@ -14,15 +14,13 @@ export class boxshowall extends plugin {
     })
   }
   showMap = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
     await BotApi.User.surveySet({ e, isreply })
     return false
   }
   showConfig = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
@@ -45,8 +43,7 @@ export class boxshowall extends plugin {
   }
   adminSuper = async (e) => {
     if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const data = await BotApi.ImgHelp.getboxhelp({ name: 'admin' })
     if (!data) return false
     const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
@@ -54,8 +51,7 @@ export class boxshowall extends plugin {
     return false
   }
   boxhelp = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
     if (!data) return false
     const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
@@ -63,8 +59,7 @@ export class boxshowall extends plugin {
     return false
   }
   darkhelp = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const data = await BotApi.ImgHelp.getboxhelp({ name: 'darkhelp' })
     if (!data) return false
     const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 2, data }))

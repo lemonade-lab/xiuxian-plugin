@@ -1,4 +1,4 @@
-import { plugin, GameApi, name, dsc } from '../../../model/api/api.js'
+import { plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxMove extends plugin {
   constructor() {
     super({
@@ -16,8 +16,7 @@ export class BoxMove extends plugin {
    * 前进
    */
   mapW = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     e.reply('待世界升级')
     return false
   }
@@ -25,8 +24,7 @@ export class BoxMove extends plugin {
    * 向左移动
    */
   mapA = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     e.reply('待世界升级')
     return false
   }
@@ -34,8 +32,7 @@ export class BoxMove extends plugin {
    * 后退
    */
   mapS = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     e.reply('待世界升级')
     return false
   }
@@ -43,8 +40,7 @@ export class BoxMove extends plugin {
    * 向右移动
    */
   mapD = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     e.reply('待世界升级')
     return false
   }

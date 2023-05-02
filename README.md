@@ -12,8 +12,7 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 安装后请看完文档内容进行配置
 
->[☞ 如何开始并启动游戏？](./README_admin.md)
-
+> [☞ 如何开始并启动游戏？](./README_admin.md)
 
 @2.0.0[☞ 查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/main)
 

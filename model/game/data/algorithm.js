@@ -67,7 +67,7 @@ class Algorithm {
   dataAction = async ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
+      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
       return
     }
     const data = JSON.parse(
@@ -89,7 +89,7 @@ class Algorithm {
   dataActionNew = async ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => { })
+      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
       return
     }
     try {

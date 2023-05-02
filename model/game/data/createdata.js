@@ -60,7 +60,6 @@ class CreateData {
       }
     }
 
-
     /* 版本监控 */
     setTimeout(() => {
       const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
@@ -83,7 +82,6 @@ class CreateData {
       }
     }, 30000)
 
-
     let ini = 0
     /* 版本监控 */
     setTimeout(() => {
@@ -99,7 +97,7 @@ class CreateData {
         }
       }
       ini = 1
-    },30000)
+    }, 30000)
 
     return
   }
@@ -111,7 +109,7 @@ class CreateData {
   generateDirectory = (arr) => {
     for (let item in arr) {
       if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => { })
+        fs.mkdir(item, (err) => {})
       }
     }
     return true

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class boxunion extends plugin {
   constructor() {
     super({
@@ -12,15 +12,13 @@ export class boxunion extends plugin {
   }
 
   userSignin = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     e.reply('待世界升级~')
     return false
   }
 
   userCheckin = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false

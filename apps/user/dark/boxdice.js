@@ -1,4 +1,4 @@
-import { BotApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { BotApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxDice extends plugin {
   constructor() {
     super({
@@ -8,8 +8,7 @@ export class BoxDice extends plugin {
     })
   }
   userDice = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const msg = ['__[万花坊]__']
     msg.push('待世界升级')
     await BotApi.User.forwardMsgSurveySet({ e, data: msg })

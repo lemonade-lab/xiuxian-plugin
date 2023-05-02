@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxInstall extends plugin {
   constructor() {
     super({
@@ -14,8 +14,7 @@ export class BoxInstall extends plugin {
     })
   }
   createinstall = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'

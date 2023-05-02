@@ -1,4 +1,4 @@
-import { GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxEye extends plugin {
   constructor() {
     super({
@@ -8,8 +8,7 @@ export class BoxEye extends plugin {
     })
   }
   darkEye = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.User.controlMessage({ e })) return false
+    if (!verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

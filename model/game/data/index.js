@@ -31,7 +31,6 @@ export const __PATH = {
   /* 虚空栈 */
   generate_forum: algorithm.getFliePath(`${playerPath}/forum`),
 
-
   /*自定义数据*/
   custom_goods: algorithm.getFliePath(`/xiuxiangoods`),
 
