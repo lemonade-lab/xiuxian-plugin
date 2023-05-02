@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
 export class BoxMoneyOperation extends plugin {
   constructor() {
     super({
@@ -63,10 +63,4 @@ export class BoxMoneyOperation extends plugin {
     e.reply([segment.at(B), `你获得了由 ${A}赠送的${islingshi}*[下品灵石]`])
     return false
   }
-}
-
-function verify(e) {
-  if (!e.isGroup || e.user_id == 80000000) return false
-  if (!BotApi.User.controlMessage({ e })) return false
-  return true
 }
