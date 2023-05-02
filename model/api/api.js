@@ -6,7 +6,6 @@ const dsc = 'xiuxian@2.0.0'
 function verify(e) {
   if (!e.isGroup || e.user_id == 80000000) return false
   if (!BotApi.User.controlMessage({ e })) return false
-  if (!verify(e)) return false
   return true
 }
 export { BotApi, GameApi, plugin, name, dsc, verify }
