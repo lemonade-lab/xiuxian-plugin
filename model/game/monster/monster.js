@@ -1,9 +1,9 @@
 import listdata from '../data/listdata.js'
 const alldata = {}
 const addall = {}
-const full = listdata.listAction({ NAME: 'full', CHOICE: 'fixed_monster' })
-const name = listdata.listAction({ NAME: 'name', CHOICE: 'fixed_monster' })
-const map = listdata.listAction({ NAME: 'map', CHOICE: 'fixed_monster' })
+const full = await listdata.listAction({ NAME: 'full', CHOICE: 'fixed_monster' })
+const name = await listdata.listAction({ NAME: 'name', CHOICE: 'fixed_monster' })
+const map = await listdata.listAction({ NAME: 'map', CHOICE: 'fixed_monster' })
 /**怪物生成*/
 class GameMonster {
   /**
