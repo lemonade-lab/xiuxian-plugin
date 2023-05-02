@@ -28,7 +28,7 @@ export class BoxForum extends plugin {
   pushForum = async (e) => {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const content = e.msg.replace('#喇叭', '')

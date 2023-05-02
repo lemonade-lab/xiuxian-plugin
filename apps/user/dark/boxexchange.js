@@ -17,7 +17,7 @@ export class BoxExchange extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const exchange = await GameApi.UserData.listActionInitial({
@@ -39,7 +39,7 @@ export class BoxExchange extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const [thing_name, thing_acount, thing_money] = e.msg.replace('#上架', '').split('*')
@@ -90,7 +90,7 @@ export class BoxExchange extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     let ID = e.msg.replace('#下架', '')
@@ -140,7 +140,7 @@ export class BoxExchange extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     let ID = e.msg.replace('#选购', '')

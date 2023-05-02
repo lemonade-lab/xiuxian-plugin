@@ -17,7 +17,7 @@ export class boxadminmoney extends plugin {
     const UID = await BotApi.User.at({ e })
     if (!UID) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace('#修仙馈赠', '')
@@ -42,7 +42,7 @@ export class boxadminmoney extends plugin {
     const UID = await BotApi.User.at({ e })
     if (!UID) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     let lingshi = e.msg.replace('#修仙扣除', '')

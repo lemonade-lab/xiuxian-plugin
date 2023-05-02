@@ -16,7 +16,7 @@ export class BoxTransaction extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const action = await GameApi.UserData.listAction({
@@ -86,7 +86,7 @@ export class BoxTransaction extends plugin {
     if (blackid.indexOf(e.user_id) != -1) return
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const action = await GameApi.UserData.listAction({
@@ -144,7 +144,7 @@ export class BoxTransaction extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const action = await GameApi.UserData.listAction({

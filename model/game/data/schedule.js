@@ -3,16 +3,13 @@ import algorithm from "./algorithm.js";
 import schedule from "node-schedule";
 import { ThePath } from "../../../app.config.js";
 
-/* 存档地址 */
-const playerPath = '/xiuxianfile'
-
 /**数据备份*/
 class Schedule {
   constructor() {
     /*机器人根目录下统一叫做xiuxiandata */
     this.BACKUPS_PATH = `${ThePath}/xiuxiandata/boxdata`;
     /*存档数值位置 */
-    this.DATA_PATH = `${ThePath}${playerPath}`;
+    this.DATA_PATH = `${ThePath}/xiuxianfile`;
   }
   /**
    * @param {  time } param0

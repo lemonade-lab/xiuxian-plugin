@@ -5,7 +5,7 @@ export class BoxStart extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#降临世界$', fnc: 'createMsg' },
+        { reg: '^#踏入仙途$', fnc: 'createMsg' },
         { reg: '^#再入仙途$', fnc: 'reCreateMsg' }
       ]
     })
@@ -21,7 +21,7 @@ export class BoxStart extends plugin {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const { path, name, data } = await GameApi.Information.userDataShow({

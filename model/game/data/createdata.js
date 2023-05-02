@@ -66,18 +66,18 @@ class CreateData {
       const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
       const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
       if (Nconfig['time'] != Vconfig['time']) {
-        console.log('[xiuxian]当前配置版本:', Nconfig['time'])
-        console.log('[xiuxian]本地配置版本:', Vconfig['time'])
-        console.log('[xiuxian]版本不匹配...')
-        console.log('[xiuxian]准备重置配置...')
+        console.log('[xiuxian@2.0.0]当前配置版本:', Nconfig['time'])
+        console.log('[xiuxian@2.0.0]本地配置版本:', Vconfig['time'])
+        console.log('[xiuxian@2.0.0]配置版本不匹配...')
+        console.log('[xiuxian@2.0.0]准备重置配置...')
         this.moveConfig({ name: 'updata' })
-        console.log('[xiuxian]配置重置完成')
+        console.log('[xiuxian@2.0.0]配置重置完成')
       } else {
         if (initialization == 0) {
-          console.log('[xiuxian]发现配置缺失...')
-          console.log('[xiuxian]准备初始哈配置...')
+          console.log('[xiuxian@2.0.0]发现配置缺失...')
+          console.log('[xiuxian@2.0.0]准备初始化配置...')
           this.moveConfig({ name: 'updata' })
-          console.log('[xiuxian]配置初始哈完成')
+          console.log('[xiuxian@2.0.0]配置初始化完成')
           initialization = 1
         }
       }

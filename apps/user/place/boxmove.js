@@ -18,7 +18,7 @@ export class BoxMove extends plugin {
   mapW = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
-    e.reply('待更新')
+    e.reply('待世界升级')
     return false
   }
   /**
@@ -27,7 +27,7 @@ export class BoxMove extends plugin {
   mapA = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
-    e.reply('待更新')
+    e.reply('待世界升级')
     return false
   }
   /**
@@ -36,7 +36,7 @@ export class BoxMove extends plugin {
   mapS = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
-    e.reply('待更新')
+    e.reply('待世界升级')
     return false
   }
   /**
@@ -45,7 +45,7 @@ export class BoxMove extends plugin {
   mapD = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
-    e.reply('待更新')
+    e.reply('待世界升级')
     return false
   }
 

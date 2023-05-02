@@ -15,7 +15,7 @@ export class BoxEquipment extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     let msg = e.msg.replace('#炼制', '')
@@ -108,7 +108,7 @@ export class BoxEquipment extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace('#装备', '')
@@ -146,7 +146,7 @@ export class BoxEquipment extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace('#卸下', '')

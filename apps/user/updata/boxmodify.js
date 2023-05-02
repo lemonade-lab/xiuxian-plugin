@@ -14,7 +14,7 @@ export class BoxModify extends plugin {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
@@ -71,7 +71,7 @@ export class BoxModify extends plugin {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })

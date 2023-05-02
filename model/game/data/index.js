@@ -26,10 +26,14 @@ export const __PATH = {
 
   /* 金银坊 */
   user_bank: algorithm.getFliePath(`${playerPath}/bank`),
-  /*  */
+  /* 虚空境 */
   generate_exchange: algorithm.getFliePath(`${playerPath}/exchange`),
-  /*  */
+  /* 虚空栈 */
   generate_forum: algorithm.getFliePath(`${playerPath}/forum`),
+
+
+  /*自定义数据*/
+  custom_goods: algorithm.getFliePath(`${playerPath}/goods`),
 
   /*基础数据*/
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
@@ -42,9 +46,6 @@ export const __PATH = {
   fixed_material: algorithm.getReq('/resources/datafixed/material'),
   fixed_history: algorithm.getReq('/resources/datafixed/history'),
   fixed_monster: algorithm.getReq('/resources/datafixed/monster'),
-
-  /*自定义数据*/
-  custom_goods: algorithm.getReq('/resources/goods'),
 
   /*生成数据*/
   generate_all: algorithm.getReq('/resources/databirth/all'),

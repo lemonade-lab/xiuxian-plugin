@@ -13,7 +13,7 @@ class duel {
       !(await GameUser.existUserSatus({ UID: UIDA })) ||
       !(await GameUser.existUserSatus({ UID: UIDB }))
     ) {
-      return `已死亡`
+      return `已仙鹤`
     }
     const { MSG } = await GamePublic.Go({ UID: UIDA })
     if (MSG) {

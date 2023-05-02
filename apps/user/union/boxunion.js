@@ -14,7 +14,7 @@ export class boxunion extends plugin {
   userSignin = async (e) => {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
-    e.reply('待更新~')
+    e.reply('待世界升级~')
     return false
   }
 
@@ -22,7 +22,7 @@ export class boxunion extends plugin {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })

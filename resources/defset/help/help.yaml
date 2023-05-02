@@ -1,13 +1,13 @@
 - group:
   list:
     - icon: 8
-      title: '#降临世界 #再入仙途'
+      title: '#踏入仙途 #再入仙途'
       desc: '创建存档，转世重生'
     - icon: 14
       title: '#改名张三 #设置道宣'
       desc: '修改道号,个性签名'
     - icon: 52
-      title: '#储物袋 #升级储物袋'
+      title: '#储物袋 #储物袋升级'
       desc: '物品查询,容量提升'
 
 - group:
@@ -22,7 +22,7 @@
 - group:
   list:
     - icon: 21
-      title: '#死斗+QQ/@道友'
+      title: '#打劫+QQ/@道友'
       desc: '若在城里需决斗令'
     - icon: 22
       title: '#洗手'
@@ -37,7 +37,7 @@
 - group:
   list:
     - icon: 21
-      title: '#联盟报道'
+      title: '#联盟报到'
       desc: '仅限凡人'
     - icon: 22
       title: '#联盟签到'
@@ -73,8 +73,8 @@
       title: '#面板信息'
       desc: '查看面板'
     - icon: 8
-      title: '#突破'
-      desc: '#破体'
+      title: '#突破 #破境'
+      desc: '练气升级,练体升级'
 
 - group:
   list:

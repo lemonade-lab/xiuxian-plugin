@@ -5,7 +5,7 @@ export class BoxBattle extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#死斗.*$', fnc: 'duel' },
+        { reg: '^#打劫.*$', fnc: 'duel' },
         { reg: '^#洗手$', fnc: 'handWashing' }
       ]
     })
@@ -16,7 +16,7 @@ export class BoxBattle extends plugin {
     const UIDA = e.user_id
     let UIDB = await BotApi.User.at({ e })
     if (!UIDB || UIDA == UIDB) {
-      UIDB = e.msg.replace('#死斗', '')
+      UIDB = e.msg.replace('#打劫', '')
       if (!UIDB || UIDA == UIDB) return false
     }
     e.reply(await GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))
@@ -27,7 +27,7 @@ export class BoxBattle extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const Level = await GameApi.UserData.listAction({

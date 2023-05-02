@@ -17,7 +17,7 @@ export class BoxHome extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     let [thing_name, thing_acount] = e.msg.replace('#服用', '').split('*')
@@ -131,7 +131,7 @@ export class BoxHome extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace('#学习', '')
@@ -183,7 +183,7 @@ export class BoxHome extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace('#忘掉', '')
@@ -212,7 +212,7 @@ export class BoxHome extends plugin {
     if (!BotApi.User.controlMessage({ e })) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace('#消耗', '')

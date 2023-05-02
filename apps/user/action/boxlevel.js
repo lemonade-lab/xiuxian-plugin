@@ -6,7 +6,7 @@ export class BoxLevel extends plugin {
       dsc,
       rule: [
         { reg: '^#突破$', fnc: 'levelUp' },
-        { reg: '^#破体$', fnc: 'levelMaxUp' }
+        { reg: '^#破境$', fnc: 'levelMaxUp' }
       ]
     })
   }
@@ -14,7 +14,7 @@ export class BoxLevel extends plugin {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const { UserLevelUpMSG } = await GameApi.UserAction.userLevelUp({
@@ -29,7 +29,7 @@ export class BoxLevel extends plugin {
     if (!e.isGroup || e.user_id == 80000000) return false
     if (!BotApi.User.controlMessage({ e })) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const { UserLevelUpMSG } = await GameApi.UserAction.userLevelUp({

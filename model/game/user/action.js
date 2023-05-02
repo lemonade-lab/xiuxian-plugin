@@ -30,7 +30,7 @@ class userAction {
   userLevelUp = async ({ UID, choise }) => {
     const ifexistplay = await user.existUserSatus({ UID })
     if (!ifexistplay) {
-      return { UserLevelUpMSG: `已死亡` }
+      return { UserLevelUpMSG: `已仙鹤` }
     }
     const player = await listdata.listAction({
       NAME: UID,
@@ -175,7 +175,7 @@ class userAction {
   levelBreak = async ({ UID }) => {
     const ifexistplay = await user.existUserSatus({ UID })
     if (!ifexistplay) {
-      return `已死亡`
+      return `已仙鹤`
     }
     const UserLevel = await listdata.listAction({
       NAME: UID,
