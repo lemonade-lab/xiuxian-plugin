@@ -19,16 +19,6 @@ const data = {
 
 /* 调试结束 */
 export const getData = () => {
-  // return dealTpl({
-  //   /** heml路径 */
-  //   tplFile,
-  //   /** css路径 */
-  //   pluResPath:``,
-  //   /** 版本 */
-  //   version: 'V2.0',
-  //   /** 数据 */
-  //   data
-  // })
   return dealTpl({
     /** heml路径 */
     tplFile,
@@ -37,6 +27,7 @@ export const getData = () => {
     /** 版本 */
     version: 'V2.0',
     /** 数据 */
-    ...data
+    ...data,
+    // data,
   })
 }
