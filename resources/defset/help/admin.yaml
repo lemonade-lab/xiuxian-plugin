@@ -19,10 +19,10 @@
 - group:
   list:
     - icon: 2
-      title: '#修仙启动'
+      title: '#修仙启动@2.0.0'
       desc: '群聊中触发'
     - icon: 2
-      title: '#修仙关闭'
+      title: '#修仙关闭@2.0.0'
       desc: '群聊中触发'
 
 - group:
