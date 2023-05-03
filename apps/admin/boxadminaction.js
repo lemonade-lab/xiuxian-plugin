@@ -8,10 +8,6 @@ export class boxadminaction extends plugin {
         { reg: '^#修仙更新', fnc: 'allForcecheckout' },
         { reg: '^#修仙删除数据$', fnc: 'deleteRedis' },
         { reg: '^#修仙删除世界$', fnc: 'deleteAllusers' },
-        { reg: '^#盒子开启.*$', fnc: 'boxaSwitchOpen' },
-        { reg: '^#盒子关闭.*$', fnc: 'boxaSwitchOff' },
-        { reg: '^#修仙配置更改.*', fnc: 'configUpdata' },
-        { reg: '^#修仙重置配置', fnc: 'configReUpdata' },
         { reg: '^#盒子复原.*$', fnc: 'dataRecovery' }
       ]
     })
@@ -39,34 +35,6 @@ export class boxadminaction extends plugin {
     })
     await GameApi.GamePublic.deleteReids()
     e.reply('删除完成')
-    return false
-  }
-  boxaSwitchOpen = async (e) => {
-    if (!e.isMaster) return false
-    if (!verify(e)) return false
-    const name = e.msg.replace('#盒子开启', '')
-    e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
-    return false
-  }
-  boxaSwitchOff = async (e) => {
-    if (!e.isMaster) return false
-    if (!verify(e)) return false
-    const name = e.msg.replace('#盒子关闭', '')
-    e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
-    return false
-  }
-  configUpdata = async (e) => {
-    if (!e.isMaster) return false
-    if (!verify(e)) return false
-    const [name, size] = e.msg.replace('#修仙配置更改', '').split('*')
-    e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
-    return false
-  }
-  configReUpdata = async (e) => {
-    if (!e.isMaster) return false
-    if (!verify(e)) return false
-    GameApi.Createdata.moveConfig({ name: 'updata' })
-    e.reply('配置已重置')
     return false
   }
   dataRecovery = async (e) => {

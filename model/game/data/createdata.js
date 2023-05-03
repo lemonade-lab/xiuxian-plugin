@@ -80,7 +80,7 @@ class CreateData {
           initialization = 1
         }
       }
-    }, 30000)
+    }, 18000)
 
     let ini = 0
     /* 版本监控 */
@@ -97,7 +97,7 @@ class CreateData {
         }
       }
       ini = 1
-    }, 30000)
+    }, 18000)
 
     return
   }

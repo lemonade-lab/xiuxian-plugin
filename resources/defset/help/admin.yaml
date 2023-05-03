@@ -19,6 +19,15 @@
 - group:
   list:
     - icon: 2
+      title: '#修仙启动'
+      desc: '群聊中触发'
+    - icon: 2
+      title: '#修仙关闭'
+      desc: '群聊中触发'
+
+- group:
+  list:
+    - icon: 2
       title: '#修仙插件列表'
       desc: '插件可安装插件'
     - icon: 2

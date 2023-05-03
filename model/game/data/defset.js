@@ -73,5 +73,24 @@ class DefsetUpdata {
     fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
     return `修改${name}为${size}`
   }
+
+
+  namelist = `${MyDirPath}/config/parameter/namelist.yaml`
+
+  startGame = (GID, Gname) => {
+    const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
+    data.whitecrowd.push(GID)
+    const yamlStr = YAML.stringify(data)
+    fs.writeFileSync(this.namelist, yamlStr, 'utf8')
+    return `[${Gname}]启动成功~`
+  }
+
+  stopGame = (GID, Gname) => {
+    const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
+    data.whitecrowd = data.whitecrowd.filter(item => item != GID)
+    const yamlStr = YAML.stringify(data)
+    fs.writeFileSync(this.namelist, yamlStr, 'utf8')
+    return `[${Gname}]停止成功~`
+  }
 }
 export default new DefsetUpdata()
