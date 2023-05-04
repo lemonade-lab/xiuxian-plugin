@@ -42,6 +42,9 @@
     - icon: 22
       title: '#联盟签到'
       desc: '与联盟的道友嘘寒问暖'
+    - icon: 22
+      title: '#联盟反馈'
+      desc: '欢迎反馈游戏问题'
 
 - group:
   list:

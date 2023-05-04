@@ -1,5 +1,5 @@
 import { GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
-export class boxfairyland extends plugin {
+export class BoxFairyland extends plugin {
   constructor() {
     super({
       name,
