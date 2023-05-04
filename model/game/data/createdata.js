@@ -15,11 +15,6 @@ const configarr = [
   'time.yaml'
 ]
 
-let iniObj = {
-  x: [],
-  y: []
-}
-
 let defsetpath = `${MyDirPath}/resources/defset`
 
 let configpath = `${MyDirPath}/config`
