@@ -34,7 +34,7 @@ export class BoxBattleSite extends plugin {
       e.reply(CDMSG)
       return false
     }
-    const name = e.msg.replace('#击杀', '')
+    const Mname = e.msg.replace('#击杀', '')
     const action = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_action'
@@ -42,22 +42,22 @@ export class BoxBattleSite extends plugin {
     const monstersdata = await GameApi.GameMonster.monsterscache({
       i: action.region
     })
-    const mon = monstersdata.find((item) => item.name == name)
+    const mon = monstersdata.find((item) => item.name == Mname)
     if (!mon) {
-      e.reply(`这里没有[${name}],去别处看看吧`)
+      e.reply(`这里没有[${Mname}],去别处看看吧`)
       return false
     }
     const acount = await GameApi.GameMonster.add({
       i: action.region,
       num: Number(1)
     })
-    const msg = [`${UID}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`]
+    const msgLeft = []
     const buff = {
       msg: 1
     }
     if (acount == 1) {
       buff.msg = Math.floor(Math.random() * (10 - 3)) + Number(3)
-      msg.push('怪物突然变异了!')
+      msgLeft.push('怪物突然变异了!')
     }
     const Levellist = await GameApi.UserData.listAction({
       NAME: 'gaspractice',
@@ -88,8 +88,9 @@ export class BoxBattleSite extends plugin {
       battleB: monsters
     })
     battle_msg.msg.forEach((item) => {
-      msg.push(item)
+      msgLeft.push(item)
     })
+    const msgRight=[]
     if (battle_msg.QQ != 0) {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
@@ -104,14 +105,14 @@ export class BoxBattleSite extends plugin {
             name: randomthinf.name,
             ACCOUNT: randomthinf.acount
           })
-          msg.push(`[${randomthinf.name}]*1`)
+          msgRight.push(`[${randomthinf.name}]*1`)
         } else {
-          msg.push('储物袋已满')
+          msgRight.push('储物袋已满')
         }
       }
       if (m < (mon.level + 1) * 7) {
         const SIZE = mon.level * 25 * mybuff
-        msg.push(`[气血]*${SIZE}`)
+        msgRight.push(`[气血]*${SIZE}`)
         await GameApi.GameUser.updataUser({
           UID,
           CHOICE: 'user_level',
@@ -123,7 +124,7 @@ export class BoxBattleSite extends plugin {
         const lingshi = await GameApi.GamePublic.leastOne({
           value: mon.level * 2
         })
-        msg.push(`[上品灵石]*${lingshi}`)
+        msgRight.push(`[上品灵石]*${lingshi}`)
         await GameApi.GameUser.userBag({
           UID,
           name: '上品灵石',
@@ -134,7 +135,7 @@ export class BoxBattleSite extends plugin {
         const lingshi = await GameApi.GamePublic.leastOne({
           value: mon.level * 20
         })
-        msg.push(`[中品灵石]*${lingshi}`)
+        msgRight.push(`[中品灵石]*${lingshi}`)
         await GameApi.GameUser.userBag({
           UID,
           name: '中品灵石',
@@ -145,7 +146,7 @@ export class BoxBattleSite extends plugin {
         const lingshi = await GameApi.GamePublic.leastOne({
           value: mon.level * 200
         })
-        msg.push(`[下品灵石]*${lingshi}`)
+        msgRight.push(`[下品灵石]*${lingshi}`)
         await GameApi.GameUser.userBag({
           UID,
           name: '下品灵石',
@@ -154,11 +155,11 @@ export class BoxBattleSite extends plugin {
       }
     }
     GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
-    BotApi.User.forwardMsg({ e, data: msg }).catch((err) => {
-      e.reply('出错了')
-      console.log('[err]', msg)
-      console.log('[err]', err)
+    const { path, name, data } = GameApi.Information.showBattle({
+      UID: e.user_id, msgLeft, msgRight
     })
+    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    await BotApi.User.surveySet({ e, isreply })
     return false
   }
   userExploremonsters = async (e) => {

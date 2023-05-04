@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/resources/html/battle/battle.css" />
-  </head>
 
-  <body>
-    <div class="config">
-      <div class="config-body">
-        <div class="config-body-title">[{{UID}}]的战斗结算</div>
-        <div class="config-body-font">你仅出一招,就击败了怪物!</div>
-        <div class="config-body-font">[下品灵石]*600</div>
-        <div class="config-body-font">[下品灵石]*600</div>
-        <div class="config-body-font">[下品灵石]*600</div>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/resources/html/battle/battle.css" />
+</head>
+
+<body>
+  <div class="battle">
+    <div class="battle-body">
+      <div class="battle-head">[{{UID}}]的战斗结算</div>
+      <div class="battle-main">
+        <div class="battle-main-grid-left">
+          {{each msgLeft item}}
+          <div>{{item}}</div>
+          {{/each}}
+        </div>
+        <div class="battle-main-grid-rifht">
+          {{each msgRight item}}
+          <div>{{item}}</div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="battle-forlor">
         <div class="config-body-title">注:怪物每1小时刷新,物品掉落率=怪物等级*5%</div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
-  <style>
-    body {
-      transform: scale(1);
-      text-align: center;
-    }
+<style>
+</style>
 
-    .config {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
 </html>

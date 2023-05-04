@@ -173,5 +173,21 @@ class information {
       }
     }
   }
+
+  /**
+   * 战斗信息
+   */
+
+  showBattle = ({ UID, msgLeft, msgRight }) => {
+    return {
+      path: 'battle',
+      name: 'battle',
+      data: {
+        UID,
+        msgLeft,
+        msgRight
+      }
+    }
+  }
 }
 export default new information()

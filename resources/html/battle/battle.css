@@ -1,25 +1,56 @@
-.config-body {
+body {
+  text-align: center;
+  margin: 0;
+}
+
+.battle {
   width: 100%;
-  height: 500px;
+  height: 100%;
 }
 
-.config-body-title {
-  width: 80%;
-  font-size: 30px;
-  padding: 5px;
-  margin: auto;
+.battle-body {
+  width: 100%;
+  padding: 20px;
   border-radius: 20px;
-  background-color: rgb(207 241 241 / 60%);
 }
 
-.config-body-title-re {
-  display: grid;
-  grid-template-columns: auto auto;
-}
 
-.config-body-font {
-  width: 80%;
+.battle-head {
+  background-image: linear-gradient(to right, #116bc2, #70a7db);
   font-size: 30px;
   margin: auto;
+  width: 57%;
+  border-radius: 20px;
+  padding: 15px;
+  color: #ffffff;
+}
+
+.battle-main {
+  display: grid;
+  font-size: 20px;
+  margin: auto;
+  width: 55%;
+  grid-template-columns: repeat(2, 60% 40%);
+}
+
+.battle-main-grid-left {
+  background-image: linear-gradient(to bottom, #70a7db, #088772be);
+  color: #ffffff;
+  padding: 10px;
+}
+
+.battle-main-grid-rifht {
+  background-image: linear-gradient(to bottom, #d34139b8, #088772ba);
+  color: #ffffff;
+  padding: 10px;
+}
+
+.battle-forlor {
+  color: #ffffff;
+  font-size: 15px;
+  background-color: #088772;
+  margin: auto;
+  width: 57%;
+  border-radius: 20px;
   padding: 10px;
 }
