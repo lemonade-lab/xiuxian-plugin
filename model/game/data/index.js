@@ -58,10 +58,7 @@ export const __PATH = {
 class DateIndex {
   constructor() {
     /**生成yaml配置数据 */
-    createdata.moveConfig({})
-    /**
-     * 读取文件,当文件与当前时间不同时,
-     */
+    createdata.moveConfig()
 
     /** 生成jsoon数据 */
     genertate.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixed_talent}/talent_list.json`))

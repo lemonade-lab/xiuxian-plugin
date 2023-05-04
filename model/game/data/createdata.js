@@ -15,28 +15,28 @@ const configarr = [
   'time.yaml'
 ]
 
-let initialization = 1
+let iniObj = {
+  x: [],
+  y: []
+}
+
+let defsetpath = `${MyDirPath}/resources/defset`
+
+let configpath = `${MyDirPath}/config`
 
 class CreateData {
-  constructor() {
-    this.resources = `${MyDirPath}/resources`
-    this.defsetpath = `${MyDirPath}/resources/defset`
-    this.configpath = `${MyDirPath}/config`
-  }
   /**
-   * @param { name } param0
    * @returns
    */
-  moveConfig = ({ name }) => {
-    const path = algorithm.returnMenu(this.defsetpath)
-
+  moveConfig = () => {
+    const path = algorithm.returnMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of configarr) {
-        let x = `${this.configpath}/${itempath}/${itemconfig}`
-        let y = `${this.defsetpath}/${itempath}/${itemconfig}`
-        //刷新控制
-        if (name) {
-          //直接复制
+        let x = `${configpath}/${itempath}/${itemconfig}`
+        let y = `${defsetpath}/${itempath}/${itemconfig}`
+        //发现配置不存在
+        if (!fs.existsSync(x)) {
+          //补缺配置
           if (fs.existsSync(y)) {
             fs.cp(y, x, (err) => {
               if (err) {
@@ -44,75 +44,79 @@ class CreateData {
               }
             })
           }
-        } else {
-          //不存在就复制
-          if (!fs.existsSync(x)) {
-            if (fs.existsSync(y)) {
-              initialization = 0
-              fs.cp(y, x, (err) => {
-                if (err) {
-                  console.log(err)
-                }
-              })
-            }
-          }
         }
       }
     }
+    /**
+     * 检测配置更新
+     */
+    this.startConfigUpdata()
+    /**
+     * 启动备份
+     */
+    this.startVersion()
+    return
+  }
 
-    /* 版本监控 */
-    setTimeout(() => {
-      const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
-      const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
-      if (Nconfig['time'] != Vconfig['time']) {
-        console.log('[xiuxian@2.0.0]当前配置版本:', Nconfig['time'])
-        console.log('[xiuxian@2.0.0]本地配置版本:', Vconfig['time'])
-        console.log('[xiuxian@2.0.0]配置版本不匹配...')
-        console.log('[xiuxian@2.0.0]准备重置配置...')
-        this.moveConfig({ name: 'updata' })
-        console.log('[xiuxian@2.0.0]配置重置完成')
-      } else {
-        if (initialization == 0) {
-          console.log('[xiuxian@2.0.0]发现配置缺失...')
-          console.log('[xiuxian@2.0.0]准备初始化配置...')
-          this.moveConfig({ name: 'updata' })
-          console.log('[xiuxian@2.0.0]配置初始化完成')
-          initialization = 1
+
+  /**
+   * 重置配置
+   */
+  removeConfig = () => {
+    const path = algorithm.returnMenu(defsetpath)
+    for (let itempath of path) {
+      for (let itemconfig of configarr) {
+        let x = `${configpath}/${itempath}/${itemconfig}`
+        let y = `${defsetpath}/${itempath}/${itemconfig}`
+        //直接复制
+        if (fs.existsSync(y)) {
+          fs.cp(y, x, (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
         }
       }
-    }, 18000)
+    }
+  }
 
+
+  /**
+   * 检测配置更新
+   */
+  startConfigUpdata = () => {
+    let init = 0
+    setTimeout(() => {
+      if (init == 0) {
+        const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
+        const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
+        if (Nconfig['time'] != Vconfig['time']) {
+          console.log('[xiuxian@2.0.0]配置版本不匹配...')
+          console.log('[xiuxian@2.0.0]准备重置配置...')
+          this.removeConfig()
+          console.log('[xiuxian@2.0.0]配置重置完成')
+        }
+      }
+      init = 1
+    }, 20000)
+  }
+
+  /**
+   * 启动备份
+   */
+  startVersion = () => {
     let ini = 0
-    /* 版本监控 */
     setTimeout(() => {
       if (ini == 0) {
         const Test = defset.getConfig({ app: 'task', name: 'task' })
         if (Test['CopeTask']) {
-          if (!Test['CopeTask'] == 1) {
-            schedule.scheduleJobflie({ time: Test['CopeTask'] })
-          }
-        } else {
-          //默认为1h
-          schedule.scheduleJobflie({ time: '0 0 */1 * * ?' })
+          if (Test['CopeTask'] == 1) return
+          schedule.scheduleJobflie({ time: Test['CopeTask'] })
         }
       }
       ini = 1
-    }, 18000)
+    }, 30000)
+  }
 
-    return
-  }
-  /**
-   * 循环创建指定目录
-   * @param {arr} arr
-   * @returns
-   */
-  generateDirectory = (arr) => {
-    for (let item in arr) {
-      if (!fs.existsSync(item)) {
-        fs.mkdir(item, (err) => {})
-      }
-    }
-    return true
-  }
 }
 export default new CreateData()

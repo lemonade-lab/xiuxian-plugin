@@ -53,7 +53,7 @@ export class boxadminconfig extends plugin {
     configReUpdata = async (e) => {
         if (!e.isMaster) return false
         if (!verify(e)) return false
-        GameApi.Createdata.moveConfig({ name: 'updata' })
+        GameApi.Createdata.removeConfig()
         e.reply('配置已重置')
         return false
     }
