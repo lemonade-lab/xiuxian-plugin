@@ -80,6 +80,24 @@ class CreateData {
     }
   }
 
+  removeConfigByArr = (arr) => {
+    const path = algorithm.returnMenu(defsetpath)
+    for (let itempath of path) {
+      for (let itemconfig of arr) {
+        let x = `${configpath}/${itempath}/${itemconfig}`
+        let y = `${defsetpath}/${itempath}/${itemconfig}`
+        //直接复制
+        if (fs.existsSync(y)) {
+          fs.cp(y, x, (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
+        }
+      }
+    }
+  }
+
 
   /**
    * 检测配置更新
@@ -93,7 +111,8 @@ class CreateData {
         if (Nconfig['time'] != Vconfig['time']) {
           console.log('[xiuxian@2.0.0]配置版本不匹配...')
           console.log('[xiuxian@2.0.0]准备重置配置...')
-          this.removeConfig()
+          const arr = configarr.filter(item => item != 'namelist.yaml')
+          this.removeConfigByArr(arr)
           console.log('[xiuxian@2.0.0]配置重置完成')
         }
       }
