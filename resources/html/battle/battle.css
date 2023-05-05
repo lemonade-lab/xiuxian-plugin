@@ -17,9 +17,9 @@ body {
 
 .battle-head {
   background-image: linear-gradient(to right, #116bc2, #70a7db);
-  font-size: 30px;
+  font-size: 45px;
   margin: auto;
-  width: 65%;
+  width: 85%;
   border-radius: 20px;
   padding: 15px;
   color: #ffffff;
@@ -27,10 +27,10 @@ body {
 
 .battle-main {
   display: grid;
-  font-size: 20px;
+  font-size: 32px;
   margin: auto;
-  width: 60%;
-  grid-template-columns: repeat(2, 60% 40%);
+  width: 80%;
+  grid-template-columns: repeat(2, 70% 30%);
   min-height:200px;
 }
 
@@ -48,10 +48,10 @@ body {
 
 .battle-forlor {
   color: #ffffff;
-  font-size: 15px;
+  font-size: 20px;
   background-color: #088772;
   margin: auto;
-  width: 65%;
+  width: 85%;
   border-radius: 20px;
   padding: 10px;
 }
