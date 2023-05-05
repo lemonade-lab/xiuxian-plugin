@@ -83,7 +83,7 @@
 .card {
   border-radius: 20px;
   background-size: cover;
-  background-image: url('../../img/time_place/card.jpg');
+  background-image: url('{{pluResPath}}/img/time_place/card.jpg');
 }
 .use_data_head {
   border-top-left-radius: 20px;
