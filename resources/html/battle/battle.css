@@ -27,10 +27,10 @@ body {
 
 .battle-main {
   display: grid;
-  font-size: 32px;
+  font-size: 30px;
   margin: auto;
   width: 80%;
-  grid-template-columns: repeat(2, 70% 30%);
+  grid-template-columns: repeat(2, 60% 40%);
   min-height:200px;
 }
 
