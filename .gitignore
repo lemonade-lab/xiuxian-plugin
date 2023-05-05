@@ -10,9 +10,9 @@
 #
 node_modules/
 #
-config/
+/config/
 #
-defSet/
+/defSet/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
