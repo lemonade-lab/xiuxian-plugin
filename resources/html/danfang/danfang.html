@@ -2,15 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/danfang/danfang.css"
-    />
-    <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/danfang/danfang.css" />
   </head>
 
   <body>
@@ -18,42 +10,28 @@
       <div class="user_bottom1">
         <!-- 你要是闲得无聊,每个装备可以搞个icon -->
         <div class="use_data">
-          <div
-            class="user_font use_data_head"
-            style="text-align: center; padding-left: 0px"
-          >
+          <div class="user_font use_data_head" style="text-align: center; padding-left: 0px">
             <div>丹方</div>
             <div style="font-size: 0.8em">炼制指令：#炼制+丹药名</div>
-            <div style="font-size: 0.8em">
-              炼制成功率 = 丹方成功率 + 玩家职业等级成功率
-            </div>
+            <div style="font-size: 0.8em">炼制成功率 = 丹方成功率 + 玩家职业等级成功率</div>
           </div>
           <div class="use_data_body">
             {{each danfang_list item}}
             <div class="user_font">
               <div>
-                <div style="display: inline-block">
-                  【{{item.type}}】{{item.name}}
-                </div>
-                <div class="rate" style="width: 50px">
-                  {{~~(item.rate*100)}}%
-                </div>
-                <div class="rate" style="width: 50px">
-                  lv.{{item.level_limit}}
-                </div>
+                <div style="display: inline-block">【{{item.type}}】{{item.name}}</div>
+                <div class="rate" style="width: 50px">{{~~(item.rate*100)}}%</div>
+                <div class="rate" style="width: 50px">lv.{{item.level_limit}}</div>
               </div>
               <div class="info">
                 {{item.type}}：{{if item.type=="血量"}}{{item.HP}}{{else if
-                item.type=="修为"}}{{item.exp2}}{{else if
-                item.type=="血气"}}{{item.exp2}}{{/if}}
+                item.type=="修为"}}{{item.exp2}}{{else if item.type=="血气"}}{{item.exp2}}{{/if}}
               </div>
               <div>
                 <div class="info">配方：</div>
                 <div style="padding: 10px">
                   {{each item.materials material}}
-                  <div class="info" style="width: 250px">
-                    {{material.name}}×{{material.amount}}
-                  </div>
+                  <div class="info" style="width: 250px">{{material.name}}×{{material.amount}}</div>
                   {{/each}}
                 </div>
               </div>

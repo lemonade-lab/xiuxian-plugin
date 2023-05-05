@@ -27,8 +27,7 @@
   border-left: 1px solid #ffcc80;
   border-right: 1px solid #bb8020;
   border-bottom: 1px solid #bb8020;
-  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2),
-    3px 8px 12px rgba(71, 35, 22, 0.3);
+  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
   z-index: 999;
   border-radius: 20px;
 }
@@ -163,8 +162,7 @@
   border-left: 1px solid #ffcc80;
   border-right: 1px solid #bb8020;
   border-bottom: 1px solid #bb8020;
-  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2),
-    3px 8px 12px rgba(71, 35, 22, 0.3);
+  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
   z-index: 999;
   border-radius: 5px;
   margin-top: 20px;
@@ -213,10 +211,7 @@
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(
-    rgba(180, 153, 152, 0.408),
-    rgba(230, 222, 128, 0.312)
-  );
+  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
 }
 
 .user_bottom2 {

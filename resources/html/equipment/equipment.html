@@ -2,13 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/equipment/equipment.css"
-    />
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/equipment/equipment.css" />
     <style type="text/css">
       body {
         transform: scale(1);
@@ -35,9 +29,7 @@
           <div class="user_font">防御:{{(arms.def).toFixed(0)}}</div>
           <div class="user_font">血量:{{(arms.HP).toFixed(0)}}</div>
           {{else}}
-          <div class="user_font">
-            属性:{{['金','木','土','水','火'][arms.id-1]}}
-          </div>
+          <div class="user_font">属性:{{['金','木','土','水','火'][arms.id-1]}}</div>
           <div class="user_font">攻击:{{(arms.atk*100).toFixed(0)}}%</div>
           <div class="user_font">防御:{{(arms.def*100).toFixed(0)}}%</div>
           <div class="user_font">血量:{{(arms.HP*100).toFixed(0)}}%</div>
@@ -55,9 +47,7 @@
           <div class="user_font">防御:{{(armor.def).toFixed(0)}}</div>
           <div class="user_font">血量:{{(armor.HP).toFixed(0)}}</div>
           {{else}}
-          <div class="user_font">
-            属性:{{['金','木','土','水','火'][armor.id-1]}}
-          </div>
+          <div class="user_font">属性:{{['金','木','土','水','火'][armor.id-1]}}</div>
           <div class="user_font">攻击:{{(armor.atk*100).toFixed(0)}}%</div>
           <div class="user_font">防御:{{(armor.def*100).toFixed(0)}}%</div>
           <div class="user_font">血量:{{(armor.HP*100).toFixed(0)}}%</div>
@@ -77,9 +67,7 @@
           <div class="user_font">防御:{{(treasure.def).toFixed(0)}}</div>
           <div class="user_font">血量:{{(treasure.HP).toFixed(0)}}</div>
           {{else}}
-          <div class="user_font">
-            属性:{{['金','木','土','水','火'][treasure.id-1]}}
-          </div>
+          <div class="user_font">属性:{{['金','木','土','水','火'][treasure.id-1]}}</div>
           <div class="user_font">攻击:{{(treasure.atk*100).toFixed(0)}}%</div>
           <div class="user_font">防御:{{(treasure.def*100).toFixed(0)}}%</div>
           <div class="user_font">血量:{{(treasure.HP*100).toFixed(0)}}%</div>

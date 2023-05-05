@@ -2,35 +2,15 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="shortcut icon" href="#" />
-    <link rel="preload" href="../../font/HYWH-65W.ttf" as="font" crossorigin />
-    <link rel="preload" href="../../font/HYWH-85W.ttf" as="font" crossorigin />
-    <link rel="preload" href="../../font/NZBZ.ttf" as="font" crossorigin />
-    <link
-      rel="preload"
-      href="../../font/tttgbnumber.ttf"
-      as="font"
-      crossorigin
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/shituhelp/common.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/shituhelp/shituhelp.css"
-    />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/shituhelp/common.css" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/shituhelp/shituhelp.css" />
   </head>
 
   <body class="elem-default default-mode">
     <div class="container" id="container">
       <div class="info_box">
         <div class="head-box type">
-          <div class="title">
-            #师徒帮助<span class="version">{{version}}</span>
-          </div>
+          <div class="title">#师徒帮助<span class="version">{{version}}</span></div>
         </div>
       </div>
 
@@ -51,9 +31,81 @@
       </div>
       {{/each}}
 
-      <div class="copyright">
-        Created By xiuxian<span class="version">@1.3.0</span>
-      </div>
+      <div class="copyright">Created By xiuxian<span class="version">@1.3.0</span></div>
     </div>
   </body>
+
+  <style>
+    @font-face {
+      font-family: 'HWZS';
+      src: url('../../font/华文中宋.TTF');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Number';
+      src: url('../../font/tttgbnumber.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'NZBZ';
+      src: url('../../font/NZBZ.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'YS';
+      src: url('../../font/HYWH-85W.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'YS2';
+      src: url('../../font/HYWH-65W.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      font-size: 18px;
+      color: #47ada8;
+      font-family: Number, YS2, PingFangSC-Medium, PingFang SC, sans-serif;
+      transform: scale(1.4);
+      transform-origin: 0 0;
+      width: 600px;
+    }
+
+    body {
+      transform: scale(1);
+      width: 100%;
+      background: url('../../img/help/shituhelp.jpg') top left no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .help-icon {
+      width: 40px;
+      height: 40px;
+      display: block;
+      position: absolute;
+      background: url('../../img/help/icon.png') 0 0 no-repeat;
+      background-size: 500px auto;
+      border-radius: 5px;
+      left: 6px;
+      top: 12px;
+      transform: scale(0.85);
+    }
+  </style>
 </html>

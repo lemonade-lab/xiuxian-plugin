@@ -1,5 +1,5 @@
-import { plugin, common, puppeteer, config, Show } from '../../api/api.js';
-import { Read_temp, Write_temp } from '../../model/xiuxian.js';
+import { plugin, common, puppeteer, config, Show } from '../../api/api.js'
+import { Read_temp, Write_temp } from '../../model/xiuxian.js'
 export class msgTask extends plugin {
   constructor() {
     super({
@@ -7,50 +7,50 @@ export class msgTask extends plugin {
       dsc: '定时任务',
       event: 'message',
       priority: 300,
-      rule: [],
-    });
-    this.set = config.getConfig('task', 'task');
+      rule: []
+    })
+    this.set = config.getConfig('task', 'task')
     this.task = {
       cron: this.set.temp_task,
       name: 'msgTask',
-      fnc: () => this.msgTask(),
-    };
+      fnc: () => this.msgTask()
+    }
   }
 
   async msgTask() {
-    let temp;
+    let temp
     try {
-      temp = await Read_temp();
+      temp = await Read_temp()
     } catch {
-      await Write_temp([]);
-      temp = await Read_temp();
+      await Write_temp([])
+      temp = await Read_temp()
     }
     if (temp.length > 0) {
-      let group = [];
-      group.push(temp[0].qq_group);
+      let group = []
+      group.push(temp[0].qq_group)
       f1: for (let i of temp) {
         for (let j of group) {
-          if (i.qq_group == j) continue f1;
+          if (i.qq_group == j) continue f1
         }
-        group.push(i.qq_group);
+        group.push(i.qq_group)
       }
       for (let i of group) {
-        let msg = [];
+        let msg = []
         for (let j of temp) {
           if (i == j.qq_group) {
-            msg.push(j.msg);
+            msg.push(j.msg)
           }
         }
         let temp_data = {
-          temp: msg,
-        };
-        const data1 = await new Show().get_tempData(temp_data);
+          temp: msg
+        }
+        const data1 = await new Show().get_tempData(temp_data)
         let img = await puppeteer.screenshot('temp', {
-          ...data1,
-        });
-        await this.pushInfo(i, true, img);
+          ...data1
+        })
+        await this.pushInfo(i, true, img)
       }
-      await Write_temp([]);
+      await Write_temp([])
     }
   }
 
@@ -64,11 +64,11 @@ export class msgTask extends plugin {
     if (is_group) {
       await Bot.pickGroup(id)
         .sendMsg(msg)
-        .catch(err => {
-          Bot.logger.mark(err);
-        });
+        .catch((err) => {
+          Bot.logger.mark(err)
+        })
     } else {
-      await common.relpyPrivate(id, msg);
+      await common.relpyPrivate(id, msg)
     }
   }
 }

@@ -63,20 +63,14 @@
 }
 
 .user_left_top {
-  background-image: radial-gradient(
-    rgba(206, 226, 226, 0.245),
-    rgba(164, 193, 231, 0.408)
-  );
+  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;
 }
 
 .user_left_buttom {
-  background-image: radial-gradient(
-    rgba(206, 226, 226, 0.245),
-    rgba(164, 193, 231, 0.408)
-  );
+  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;
@@ -89,20 +83,14 @@
 }
 
 .user_right_top {
-  background-image: radial-gradient(
-    rgba(206, 226, 226, 0.245),
-    rgba(164, 193, 231, 0.408)
-  );
+  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;
 }
 
 .user_right_buttom {
-  background-image: radial-gradient(
-    rgba(206, 226, 226, 0.245),
-    rgba(164, 193, 231, 0.408)
-  );
+  background-image: radial-gradient(rgba(206, 226, 226, 0.245), rgba(164, 193, 231, 0.408));
   border-radius: 20px;
   margin-top: 15px;
   padding: 15px;

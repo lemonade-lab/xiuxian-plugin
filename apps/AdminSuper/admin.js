@@ -1,6 +1,6 @@
-import { plugin, verc } from '../../api/api.js';
-import { AppName } from '../../app.config.js';
-import { exec } from 'child_process';
+import { plugin, verc } from '../../api/api.js'
+import { AppName } from '../../app.config.js'
+import { exec } from 'child_process'
 export class admin extends plugin {
   constructor() {
     super({
@@ -11,20 +11,21 @@ export class admin extends plugin {
       rule: [
         {
           reg: '^#修仙更新',
-          fnc: 'checkout',
-        },
-      ],
-    });
+          fnc: 'checkout'
+        }
+      ]
+    })
   }
   async checkout(e) {
-    if (!e.isMaster) return false;
-    if (!verc({ e })) return false;
-    exec('git  pull',
+    if (!e.isMaster) return false
+    if (!verc({ e })) return false
+    exec(
+      'git  pull',
       { cwd: `${process.cwd()}/plugins/${AppName}/` },
       function (error, stdout, stderr) {
         if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-          e.reply('目前已经是最新版xiuxian@1.3.0了~');
-          return false;
+          e.reply('目前已经是最新版xiuxian@1.3.0了~')
+          return false
         }
         if (error) {
           e.reply(
@@ -33,12 +34,12 @@ export class admin extends plugin {
               '\n' +
               error.stack +
               '\n 请稍后重试。'
-          );
-          return false;
+          )
+          return false
         }
-        e.reply('更新成功,请[#重启]');
+        e.reply('更新成功,请[#重启]')
       }
-    );
-    return false;
+    )
+    return false
   }
 }

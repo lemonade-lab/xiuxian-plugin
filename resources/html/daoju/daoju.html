@@ -2,13 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/gongfa/gongfa.css"
-    />
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
   </head>
 
   <body>
@@ -30,12 +24,8 @@
             {{each daoju_have item}}
             <div class="item">
               <div class="item_title font_item_title">{{item.name}}</div>
-              <div class="item_int" style="padding-left: 26px">
-                类型：{{item.name}}
-              </div>
-              <div class="item_int" style="padding-left: 26px">
-                描述：{{item.desc}}
-              </div>
+              <div class="item_int" style="padding-left: 26px">类型：{{item.name}}</div>
+              <div class="item_int" style="padding-left: 26px">描述：{{item.desc}}</div>
               <div class="item_int" style="padding-left: 26px">
                 价格：{{(item.出售价).toFixed(0)}}
               </div>
@@ -55,12 +45,8 @@
             {{each daoju_need item}}
             <div class="item">
               <div class="item_title font_item_title">{{item.name}}</div>
-              <div class="item_int" style="padding-left: 26px">
-                类型：{{item.name}}
-              </div>
-              <div class="item_int" style="padding-left: 26px">
-                描述：{{item.desc}}
-              </div>
+              <div class="item_int" style="padding-left: 26px">类型：{{item.name}}</div>
+              <div class="item_int" style="padding-left: 26px">描述：{{item.desc}}</div>
               <div class="item_int" style="padding-left: 26px">
                 价格：{{(item.出售价).toFixed(0)}}
               </div>

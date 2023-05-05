@@ -2,26 +2,14 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/tujian/tujian.css"
-    />
-    <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/tujian/tujian.css" />
   </head>
 
   <body>
     <div>
       <div class="user_bottom1">
-        <!-- 你要是闲得无聊,每个装备可以搞个icon -->
         <div class="use_data">
-          <div
-            class="user_font use_data_head"
-            style="text-align: center; padding-left: 0px"
-          >
+          <div class="user_font use_data_head" style="text-align: center; padding-left: 0px">
             <div>斩首神器堂</div>
           </div>
           <div class="use_data_body">
@@ -33,31 +21,22 @@
                 </div>
               </div>
               {{if item.class=="装备"}}
-              <div class="info" style="width: 600px">
-                契合元素：【{{item.desc[4]}}】
-              </div>
+              <div class="info" style="width: 600px">契合元素：【{{item.desc[4]}}】</div>
               <div class="info" style="width: 600px">锋利度：{{item.atk}}</div>
-              <div class="info" style="width: 600px">
-                刃体强度：{{item.def}}
-              </div>
+              <div class="info" style="width: 600px">刃体强度：{{item.def}}</div>
               <div class="info" style="width: 600px">血晶核：{{item.HP}}</div>
-              <div class="info" style="width: 600px">
-                元素爆发率：{{item.bao*100}}%
-              </div>
+              <div class="info" style="width: 600px">元素爆发率：{{item.bao*100}}%</div>
 
               <div class="info" style="width: 999px">特性{{item.desc[1]}}</div>
 
               <div class="info" style="width: 600px">{{item.desc[2]}}</div>
               <div class="info" style="width: 600px">{{item.desc[3]}}</div>
-              <div class="info" style="width: 600px">
-                获取途径:{{item.tujin}}
-              </div>
+              <div class="info" style="width: 600px">获取途径:{{item.tujin}}</div>
 
               {{else if item.class=="丹药"}}
               <div class="info">
                 {{item.type}}：{{if item.type=='修为'}}{{item.exp}}{{else if
-                item.type=='血气'}}{{item.xueqi}}{{else if
-                item.type=='血量'}}{{item.HP}}{{/if}}
+                item.type=='血气'}}{{item.xueqi}}{{else if item.type=='血量'}}{{item.HP}}{{/if}}
               </div>
               {{else if item.class=="功法"}}
               <div class="info">修炼加成：{{item.修炼加成*100}}%</div>
@@ -72,41 +51,31 @@
           </div>
         </div>
       </div>
-      <!--
-    {{each commodities_list item}}
-    <div class="user_bottom1">
-		<div class="use_data">
-			<div class="user_font">{{item.name}}【{{item.class}}】</div>
-			{{if item.desc}}<div class="user_font">说明：{{item.desc}}</div>{{/if}}
-			{{if item.class=="装备"}}<div class="user_font">部位：{{item.type}}</div>{{/if}}
-			<div class="user_font">
-				{{if item.atk>0}}
-					攻[{{item.atk}}]
-				{{/if}}
-				{{if item.def>0}}
-					防[{{item.def}}]
-				{{/if}}
-				{{if item.HP>0}}
-					血[{{item.HP}}]
-				{{/if}}
-				{{if item.bao>0}}
-					暴[{{item.bao*100}}%]
-				{{/if}}
-				{{if item.修炼加成>0}}
-					天赋[{{item.修炼加成*100}}%]
-				{{/if}}
-				{{if item.exp>0}}
-					修为[{{item.exp}}]
-				{{/if}}
-				{{if item.xueqi>0}}
-					血气[{{item.xueqi}}]
-				{{/if}}
-			</div>
-			<div class="user_font">价格：{{item.出售价}}</div>
-		</div>
     </div>
-    {{/each}}-->
-    </div>
-    <style></style>
   </body>
+
+  <style>
+    @font-face {
+      font-family: 'tttgbnumber';
+      src: url('../../font/tttgbnumber.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      transform: scale(1);
+      width: 100%;
+      text-align: center;
+      background-image: url('../..//img/ningmenghome/ningmenghome.jpg');
+      background-size: 100% auto;
+    }
+
+    .user_top_img_bottom {
+      margin: auto;
+      background-image: url('../../img/state/user_state.png');
+      background-size: 100% auto;
+      width: 280px;
+      height: 280px;
+    }
+  </style>
 </html>

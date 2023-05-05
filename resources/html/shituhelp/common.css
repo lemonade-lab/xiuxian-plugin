@@ -1,48 +1,3 @@
-@font-face {
-  font-family: 'HWZS';
-  src: url('../../font/华文中宋.TTF');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Number';
-  src: url('../../font/tttgbnumber.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'NZBZ';
-  src: url('../../font/NZBZ.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'YS';
-  src: url('../../font/HYWH-85W.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'YS2';
-  src: url('../../font/HYWH-65W.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-user-select: none;
-  user-select: none;
-}
-body {
-  font-size: 18px;
-  color: #47ada8;
-  font-family: Number, YS2, PingFangSC-Medium, PingFang SC, sans-serif;
-  transform: scale(1.4);
-  transform-origin: 0 0;
-  width: 600px;
-}
 .container {
   width: 600px;
   padding: 20px 15px 10px 15px;
@@ -175,14 +130,7 @@ body {
   background: #ff5722;
   color: #fff;
 }
-/********  Fetter  ********/
-.fetter {
-  width: 50px;
-  height: 50px;
-  display: inline-block;
-  background: url('./item/fetter.png');
-  background-size: auto 100%;
-}
+
 .fetter.fetter1 {
   background-position: 0% 0;
 }
@@ -213,68 +161,7 @@ body {
 .fetter.fetter10 {
   background-position: 100% 0;
 }
-/********  ELEM  ********/
-.elem-hydro .talent-icon {
-  background-image: url('./bg/talent-hydro.png');
-}
-.elem-hydro .elem-bg,
-.hydro-bg {
-  background-image: url('./bg/bg-hydro.jpg');
-}
-.elem-anemo .talent-icon {
-  background-image: url('./bg/talent-anemo.png');
-}
-.elem-anemo .elem-bg,
-.anemo-bg {
-  background-image: url('./bg/bg-anemo.jpg');
-}
-.elem-cryo .talent-icon {
-  background-image: url('./bg/talent-cryo.png');
-}
-.elem-cryo .elem-bg,
-.cryo-bg {
-  background-image: url('./bg/bg-cryo.jpg');
-}
-.elem-electro .talent-icon {
-  background-image: url('./bg/talent-electro.png');
-}
-.elem-electro .elem-bg,
-.electro-bg {
-  background-image: url('./bg/bg-electro.jpg');
-}
-.elem-geo .talent-icon {
-  background-image: url('./bg/talent-geo.png');
-}
-.elem-geo .elem-bg,
-.geo-bg {
-  background-image: url('./bg/bg-geo.jpg');
-}
-.elem-pyro .talent-icon {
-  background-image: url('./bg/talent-pyro.png');
-}
-.elem-pyro .elem-bg,
-.pyro-bg {
-  background-image: url('./bg/bg-pyro.jpg');
-}
-.elem-dendro .talent-icon {
-  background-image: url('./bg/talent-dendro.png');
-}
-.elem-dendro .elem-bg,
-.dendro-bg {
-  background-image: url('./bg/bg-dendro.jpg');
-}
-/* cont */
-.cont {
-  border-radius: 10px;
-  background: url('../../cont/card-bg.png') top left repeat-x;
-  background-size: auto 100%;
-  margin: 5px 15px 5px 10px;
-  position: relative;
-  box-shadow: 0 0 1px 0 #ccc, 2px 2px 4px 0 rgba(50, 50, 50, 0.8);
-  overflow: hidden;
-  color: #fff;
-  font-size: 16px;
-}
+
 .cont-title {
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 1px 0 #fff;
@@ -372,35 +259,3 @@ ul.cont-msg li strong,
   color: #fff;
   margin: 20px 0 10px 0;
 }
-/* item-icon */
-.item-icon {
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-.item-icon .img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.item-icon.star1 {
-  background-image: url('../../item/bg1.png');
-}
-.item-icon.star2 {
-  background-image: url('../../item/bg2.png');
-}
-.item-icon.star3 {
-  background-image: url('../../item/bg3.png');
-}
-.item-icon.star4 {
-  background-image: url('../../item/bg4.png');
-}
-.item-icon.star5 {
-  background-image: url('../../item/bg5.png');
-}
-/*# sourceMappingURL=common.css.map */

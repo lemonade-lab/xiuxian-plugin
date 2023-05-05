@@ -1,14 +1,14 @@
-import { AppName } from '../app.config.js';
+import { AppName } from '../app.config.js'
 export default class base {
   constructor(e = {}) {
-    this.e = e;
-    this.userId = e?.user_id;
-    this.model = AppName;
-    this._path = process.cwd().replace(/\\/g, '/');
+    this.e = e
+    this.userId = e?.user_id
+    this.model = AppName
+    this._path = process.cwd().replace(/\\/g, '/')
   }
 
   get prefix() {
-    return `Yz:${AppName}:${this.model}:`;
+    return `Yz:${AppName}:${this.model}:`
   }
 
   /**
@@ -22,7 +22,7 @@ export default class base {
       saveId: this.userId,
       tplFile: `./plugins/${AppName}/resources/html/${this.model}/${this.model}.html`,
       /** 绝对路径 */
-      pluResPath: `${this._path}/plugins/${AppName}/resources/`,
-    };
+      pluResPath: `${this._path}/plugins/${AppName}/resources/`
+    }
   }
 }

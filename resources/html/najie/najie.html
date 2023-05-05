@@ -2,13 +2,8 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/najie/najie.css"
-    />
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/najie/najie.css" />
+
     <style type="text/css">
       body {
         width: 100%;
@@ -41,9 +36,7 @@
             生命：
             <div class="blood_box">
               <div class="blood_bar" {{strand_hp.style}}></div>
-              <div class="blood_volume">
-                {{player.当前血量}}/{{player.血量上限}}
-              </div>
+              <div class="blood_volume">{{player.当前血量}}/{{player.血量上限}}</div>
             </div>
           </div>
           <div class="user_top_font_right">等级：{{najie.等级}}</div>
@@ -74,9 +67,7 @@
             <div class="item_int">防御：{{(item.def).toFixed(0)}}</div>
             <div class="item_int">血量：{{(item.HP).toFixed(0)}}</div>
             {{else}}
-            <div class="item_int">
-              属性:{{['金','木','土','水','火'][item.id-1]}}
-            </div>
+            <div class="item_int">属性:{{['金','木','土','水','火'][item.id-1]}}</div>
             <div class="item_int">攻击：{{(item.atk*100).toFixed(0)}}%</div>
             <div class="item_int">防御：{{(item.def*100).toFixed(0)}}%</div>
             <div class="item_int">血量：{{(item.HP*100).toFixed(0)}}%</div>
@@ -99,17 +90,13 @@
         <div class="user_font wupin">
           {{each najie.丹药 item}}
           <div class="item">
-            <div class="item_title">
-              {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-            </div>
+            <div class="item_title">{{item.name}}({{['未锁定','已锁定'][item.islockd]}})</div>
             {{if item.HPp > 0}}
             <div class="item_int">恢复百分比：{{item.HPp*100}}%</div>
             {{/if}} {{if item.exp > 0}}
             <div class="item_int">增加修为：{{item.exp}}</div>
             {{/if}} {{if item.xingyun > 0}}
-            <div class="item_int">
-              增加幸运：{{(item.xingyun*100).toFixed(1)}}%
-            </div>
+            <div class="item_int">增加幸运：{{(item.xingyun*100).toFixed(1)}}%</div>
             {{/if}} {{if item.xueqi > 0}}
             <div class="item_int">增加血气：{{item.xueqi}}</div>
             {{/if}}
@@ -129,9 +116,7 @@
         <div class="user_font wupin">
           {{each najie.道具 item}}
           <div class="item">
-            <div class="item_title">
-              {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-            </div>
+            <div class="item_title">{{item.name}}({{['未锁定','已锁定'][item.islockd]}})</div>
             <div class="item_int">说明：{{item.desc}}</div>
             <div class="item_int">数量：{{item.数量}}</div>
             <div class="item_int">出售价：{{item.出售价}}灵石</div>
@@ -149,13 +134,9 @@
         <div class="user_font wupin">
           {{each najie.功法 item}}
           <div class="item">
-            <div class="item_title">
-              {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-            </div>
+            <div class="item_title">{{item.name}}({{['未锁定','已锁定'][item.islockd]}})</div>
             {{if item.修炼加成 > 0}}
-            <div class="item_int">
-              修炼加成：{{(item.修炼加成*100).toFixed(0)}}%
-            </div>
+            <div class="item_int">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
             {{/if}}
             <div class="item_int">数量：{{item.数量}}</div>
             <div class="item_int">出售价：{{item.出售价}}灵石</div>
@@ -173,9 +154,7 @@
         <div class="user_font wupin">
           {{each najie.草药 item}}
           <div class="item">
-            <div class="item_title">
-              {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-            </div>
+            <div class="item_title">{{item.name}}({{['未锁定','已锁定'][item.islockd]}})</div>
             <div class="item_int">数量：{{item.数量}}</div>
             <div class="item_int">出售价：{{item.出售价}}灵石</div>
           </div>
@@ -190,9 +169,7 @@
         <div class="user_font wupin">
           {{each najie.材料 item}}
           <div class="item">
-            <div class="item_title">
-              {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-            </div>
+            <div class="item_title">{{item.name}}({{['未锁定','已锁定'][item.islockd]}})</div>
             <div class="item_int">数量：{{item.数量}}</div>
             <div class="item_int">出售价：{{item.出售价}}灵石</div>
           </div>
@@ -208,8 +185,8 @@
           {{each najie.仙宠 item}}
           <div class="item">
             <div class="item_title">
-              【{{item.品级}}】{{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-              {{if item.灵魂绑定==1}}
+              【{{item.品级}}】{{item.name}}({{['未锁定','已锁定'][item.islockd]}}) {{if
+              item.灵魂绑定==1}}
               <div class="item_int">【存在绑定】</div>
               {{/if}} {{if item.灵魂绑定==0}}
               <div class="item_int">【无绑定】</div>
@@ -219,9 +196,7 @@
             {{if item.type=="战斗"}}
             <div class="item_int">三维加成:【{{item.atk}}】</div>
             {{else}}
-            <div class="item_int">
-              {{item.type}}加成:{{(item.加成*100).toFixed(1)}}%
-            </div>
+            <div class="item_int">{{item.type}}加成:{{(item.加成*100).toFixed(1)}}%</div>
             {{/if}}
             <div class="item_int">数量：{{item.数量}}</div>
             <div class="item_int">出售价：{{item.出售价}}灵石</div>
@@ -238,9 +213,7 @@
         <div class="user_font wupin">
           {{each najie.仙宠口粮 item}}
           <div class="item">
-            <div class="item_title">
-              {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
-            </div>
+            <div class="item_title">{{item.name}}({{['未锁定','已锁定'][item.islockd]}})</div>
             <div class="item_int">数量：{{item.数量}}</div>
             <div class="item_int">出售价：{{item.出售价}}灵石</div>
           </div>

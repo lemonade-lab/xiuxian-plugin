@@ -57,10 +57,7 @@ body {
   text-align: left;
   margin-top: 65px;
   width: 60%;
-  background-image: radial-gradient(
-    rgba(180, 153, 152, 0.408),
-    rgba(230, 222, 128, 0.312)
-  );
+  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
   border-radius: 20px;
 }
 
@@ -107,10 +104,7 @@ body {
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(
-    rgba(180, 153, 152, 0.408),
-    rgba(230, 222, 128, 0.312)
-  );
+  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
 }
 
 .user_bottom2 {

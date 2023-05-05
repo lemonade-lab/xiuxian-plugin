@@ -1,18 +1,3 @@
-@font-face {
-  font-family: 'tttgbnumber';
-  src: url('../../font/tttgbnumber.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-body {
-  transform: scale(1);
-  width: 100%;
-  text-align: center;
-  background-image: url('../..//img/najie/najie.jpg');
-  background-size: 100% auto;
-}
-
 .user_top {
   width: 90%;
   margin: auto;
@@ -23,14 +8,6 @@ body {
   width: 30%;
   padding-top: 21px;
   margin-top: 50px;
-}
-
-.user_top_img_bottom {
-  margin: auto;
-  background-image: url('../../img/state/user_state.png');
-  background-size: 100% auto;
-  width: 280px;
-  height: 280px;
 }
 
 .user_top_img {
@@ -57,10 +34,7 @@ body {
   text-align: left;
   margin-top: 65px;
   width: 60%;
-  background-image: radial-gradient(
-    rgba(206, 226, 226, 0.078),
-    rgba(164, 193, 231, 0.408)
-  );
+  background-image: radial-gradient(rgba(206, 226, 226, 0.078), rgba(164, 193, 231, 0.408));
   border-radius: 20px;
 }
 
@@ -77,10 +51,7 @@ body {
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(
-    rgba(206, 226, 226, 0.078),
-    rgba(164, 193, 231, 0.408)
-  );
+  background-image: radial-gradient(rgba(206, 226, 226, 0.078), rgba(164, 193, 231, 0.408));
 }
 
 .user_bottom2 {

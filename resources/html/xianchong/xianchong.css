@@ -1,24 +1,3 @@
-@font-face {
-  font-family: 'tttgbnumber';
-  src: url('../../font/tttgbnumber.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'NZBZ';
-  src: url('../../font/NZBZ.TTF');
-  font-weight: normal;
-  font-style: normal;
-}
-
-body {
-  width: 100%;
-  text-align: center;
-  background-image: url('../../img/player/player.jpg');
-  background-size: 100% auto;
-}
-
 .header {
   display: flex;
 }
@@ -33,8 +12,7 @@ body {
   border-left: 1px solid #ffcc80;
   border-right: 1px solid #bb8020;
   border-bottom: 1px solid #bb8020;
-  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2),
-    3px 8px 12px rgba(71, 35, 22, 0.3);
+  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
   z-index: 999;
   border-radius: 20px;
 }
@@ -48,14 +26,6 @@ body {
   text-align: left;
   margin: 20px;
   border-radius: 20px;
-}
-
-.user_top_img_bottom {
-  margin: auto;
-  background-image: url('../../img/state/user_state.png');
-  background-size: 100% auto;
-  width: 280px;
-  height: 280px;
 }
 
 .user_top_img {
@@ -149,8 +119,7 @@ body {
   border-left: 1px solid #ffcc80;
   border-right: 1px solid #bb8020;
   border-bottom: 1px solid #bb8020;
-  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2),
-    3px 8px 12px rgba(71, 35, 22, 0.3);
+  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
   border-radius: 5px;
   position: relative;
 }
@@ -205,10 +174,7 @@ body {
   border-radius: 20px;
   width: 90%;
   margin: auto;
-  background-image: radial-gradient(
-    rgba(180, 153, 152, 0.408),
-    rgba(230, 222, 128, 0.312)
-  );
+  background-image: radial-gradient(rgba(180, 153, 152, 0.408), rgba(230, 222, 128, 0.312));
 }
 
 .user_bottom2 {

@@ -2,13 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/gongfa/gongfa.css"
-    />
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
   </head>
 
   <body>
@@ -31,9 +25,7 @@
           <div class="user_font wupin">
             {{each gongfa_need item}}
             <div class="item">
-              <div class="item_title font_item_title" style="height: 45px">
-                {{item.name}}
-              </div>
+              <div class="item_title font_item_title" style="height: 45px">{{item.name}}</div>
               <div class="item_int" style="padding-left: 38px">
                 修炼加成：{{(item.修炼加成*100).toFixed(0)}}%
               </div>
@@ -52,9 +44,7 @@
           <div class="user_font wupin">
             {{each gongfa_have item}}
             <div class="item">
-              <div class="item_title font_item_title" style="height: 45px">
-                {{item.name}}
-              </div>
+              <div class="item_title font_item_title" style="height: 45px">{{item.name}}</div>
               <div class="item_int" style="padding-left: 38px">
                 修炼加成：{{(item.修炼加成*100).toFixed(0)}}%
               </div>

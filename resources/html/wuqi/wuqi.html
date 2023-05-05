@@ -2,13 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{pluResPath}}/html/gongfa/gongfa.css"
-    />
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
   </head>
 
   <body>
@@ -28,22 +22,12 @@
         <div class="user_font wupin">
           {{each wuqi_have item}}
           <div class="item">
-            <div class="item_title font_item_title" style="height: 45px">
-              {{item.name}}
-            </div>
-            <div class="item_int" style="padding-left: 38px">
-              类型：{{item.type}}
-            </div>
+            <div class="item_title font_item_title" style="height: 45px">{{item.name}}</div>
+            <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
             {{if item.atk>10 || item.def>10 || item.HP>10}}
-            <div class="item_int" style="padding-left: 38px">
-              攻击：{{item.atk}}
-            </div>
-            <div class="item_int" style="padding-left: 38px">
-              防御：{{item.def}}
-            </div>
-            <div class="item_int" style="padding-left: 38px">
-              血量：{{item.HP}}
-            </div>
+            <div class="item_int" style="padding-left: 38px">攻击：{{item.atk}}</div>
+            <div class="item_int" style="padding-left: 38px">防御：{{item.def}}</div>
+            <div class="item_int" style="padding-left: 38px">血量：{{item.HP}}</div>
             {{else}}
             <div class="item_int" style="padding-left: 38px">
               攻击:{{(item.atk*100).toFixed(0)}}%
@@ -76,22 +60,12 @@
         <div class="user_font wupin">
           {{each wuqi_need item}}
           <div class="item">
-            <div class="item_title font_item_title" style="height: 45px">
-              {{item.name}}
-            </div>
-            <div class="item_int" style="padding-left: 38px">
-              类型：{{item.type}}
-            </div>
+            <div class="item_title font_item_title" style="height: 45px">{{item.name}}</div>
+            <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
             {{if item.atk>10 || item.def>10 || item.HP>10}}
-            <div class="item_int" style="padding-left: 38px">
-              攻击：{{item.atk}}
-            </div>
-            <div class="item_int" style="padding-left: 38px">
-              防御：{{item.def}}
-            </div>
-            <div class="item_int" style="padding-left: 38px">
-              血量：{{item.HP}}
-            </div>
+            <div class="item_int" style="padding-left: 38px">攻击：{{item.atk}}</div>
+            <div class="item_int" style="padding-left: 38px">防御：{{item.def}}</div>
+            <div class="item_int" style="padding-left: 38px">血量：{{item.HP}}</div>
             {{else}}
             <div class="item_int" style="padding-left: 38px">
               攻击:{{(item.atk*100).toFixed(0)}}%
@@ -118,4 +92,35 @@
 
     <div class="user_bottom2"></div>
   </body>
+
+  <style>
+    @font-face {
+      font-family: 'tttgbnumber';
+      src: url('../../font/tttgbnumber.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'NZBZ';
+      src: url('../../font/NZBZ.TTF');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      width: 100%;
+      text-align: center;
+      background-image: url('../../img/player/player.jpg');
+      background-size: 100% auto;
+    }
+
+    .user_top_img_bottom {
+      margin: auto;
+      background-image: url('../../img/state/user_state.png');
+      background-size: 100% auto;
+      width: 280px;
+      height: 280px;
+    }
+  </style>
 </html>

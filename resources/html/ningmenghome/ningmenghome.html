@@ -7,10 +7,6 @@
       type="text/css"
       href="{{pluResPath}}/html/ningmenghome/ningmenghome.css"
     />
-    <!-- <link rel="stylesheet" type="text/css" href="../../html/player/player.css" /> -->
-    <link rel="preload" href="../../font/tttgbnumber.ttf" as="font" />
-    <!-- <link rel="preload" href="../../img/player/xiuxian-01.png" as="image" /> -->
-    <link rel="shortcut icon" href="#" />
   </head>
 
   <body>
@@ -18,10 +14,7 @@
       <div class="user_bottom1">
         <!-- 你要是闲得无聊,每个装备可以搞个icon -->
         <div class="use_data">
-          <div
-            class="user_font use_data_head"
-            style="text-align: center; padding-left: 0px"
-          >
+          <div class="user_font use_data_head" style="text-align: center; padding-left: 0px">
             <div>柠檬堂</div>
             <div style="font-size: 0.8em">购买指令：#购买+物品名</div>
             <div style="font-size: 0.8em">筛选指令：#柠檬堂+物品类型</div>
@@ -30,9 +23,7 @@
             {{each commodities_list item}}
             <div class="user_font">
               <div>
-                <div style="display: inline-block">
-                  【{{item.type}}】{{item.name}}
-                </div>
+                <div style="display: inline-block">【{{item.type}}】{{item.name}}</div>
                 <div class="price">{{item.出售价*1.2}}灵石</div>
               </div>
               {{if item.class=="装备"}}
@@ -41,13 +32,9 @@
               <div class="info" style="width: 130px">血：{{item.HP}}</div>
               <div class="info" style="width: 130px">暴：{{item.bao*100}}%</div>
               {{else if item.class=="丹药"}}
-              <div class="info">
-                效果：{{item.HP/1000}}%{{item.exp}}{{item.xueqi}}
-              </div>
+              <div class="info">效果：{{item.HP/1000}}%{{item.exp}}{{item.xueqi}}</div>
               {{else if item.class=="功法"}}
-              <div class="info">
-                修炼加成：{{(item.修炼加成*100).toFixed(0)}}%
-              </div>
+              <div class="info">修炼加成：{{(item.修炼加成*100).toFixed(0)}}%</div>
 
               {{else if item.class=="道具"}}
               <div class="info">描述：{{item.desc}}</div>
