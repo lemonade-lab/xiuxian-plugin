@@ -10,6 +10,7 @@ app.get('/', (req, res) => {
   var html = getData()
   res.send(html)
 })
+
 /* 监听 */
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -19,7 +19,7 @@ body {
   background-image: linear-gradient(to right, #116bc2, #70a7db);
   font-size: 30px;
   margin: auto;
-  width: 57%;
+  width: 65%;
   border-radius: 20px;
   padding: 15px;
   color: #ffffff;
@@ -29,8 +29,9 @@ body {
   display: grid;
   font-size: 20px;
   margin: auto;
-  width: 55%;
+  width: 60%;
   grid-template-columns: repeat(2, 60% 40%);
+  min-height:200px;
 }
 
 .battle-main-grid-left {
@@ -50,7 +51,7 @@ body {
   font-size: 15px;
   background-color: #088772;
   margin: auto;
-  width: 57%;
+  width: 65%;
   border-radius: 20px;
   padding: 10px;
 }
