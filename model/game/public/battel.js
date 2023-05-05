@@ -43,13 +43,16 @@ class gameBattle {
       }
       battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
       if (battleB.nowblood < 1) {
-        battle_msg.msg.push('你仅出一招,就击败了怪物!')
+        battle_msg.msg.push('你仅出一招~')
+        battle_msg.msg.push('就击败了怪物!')
         return battle_msg
       } else {
-        battle_msg.msg.push(`你个老六偷袭,造成${battle_hurt.hurtA}伤害`)
+        battle_msg.msg.push(`你个老六偷袭`)
+        battle_msg.msg.push(`造成${battle_hurt.hurtA}伤害`)
       }
     } else {
-      battle_msg.msg.push('你个老六想偷袭,怪物一个转身就躲过去了')
+      battle_msg.msg.push('你个老六想偷袭')
+      battle_msg.msg.push('怪物一个转身就躲过去了')
     }
     while (true) {
       battle.Z++
@@ -65,7 +68,8 @@ class gameBattle {
       battleA.nowblood = battleA.nowblood - battle_hurt.hurtB
       if (battle_hurt.hurtB > 1) {
         if (battleA.nowblood < 1) {
-          battle_msg.msg.push(`经过${battle.Z}回合,你被怪物击败了!`)
+          battle_msg.msg.push(`经过${battle.Z}回合`)
+          battle_msg.msg.push(`你被怪物击败了!`)
           battleA.nowblood = 0
           battle_msg.QQ = 0
           break
@@ -78,18 +82,21 @@ class gameBattle {
         battle_hurt.hurtA += Math.floor((battle_hurt.hurtA * battleA.burstmax) / 100)
       }
       if (battle_hurt.hurtA <= 1) {
-        battle_msg.msg.push('你再次攻击,却连怪物的防御都破不了,被怪物一巴掌给拍死了!')
+        battle_msg.msg.push('你再次攻击')
+        battle_msg.msg.push('却连怪物的防御都破不了')
+        battle_msg.msg.push('被怪物一巴掌给拍死了!')
         battleA.nowblood = 0
         battle_msg.QQ = 0
         break
       }
       battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
       if (battleB.nowblood < 1) {
-        battle_msg.msg.push(`经过${battle.Z}回合,你击败了怪物!`)
+        battle_msg.msg.push(`经过${battle.Z}回合`)
+        battle_msg.msg.push(`你击败了怪物!`)
         break
       }
     }
-    battle_msg.msg.push(`[血量]剩余:${battleA.nowblood}`)
+    battle_msg.msg.push(`[血量剩余]:${battleA.nowblood}`)
     await gameUser.userMsgAction({
       NAME: e.user_id,
       CHOICE: 'user_battle',
