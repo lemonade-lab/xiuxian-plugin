@@ -1,78 +1,112 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
-  </head>
 
-  <body>
-    <div>
-      <div class="header"></div>
-      <!--上-->
-      <div class="card_box">
-        <div class="use_data">
-          <div class="user_font user_font_title">{{nickname}}的丹药</div>
-        </div>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
+</head>
+
+<body>
+  <div>
+    <div class="header"></div>
+    <!--上-->
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title">{{nickname}}的丹药</div>
       </div>
-      <!--下-->
-      {{if danyao_have.length > 0}}
-      <div class="card_box">
-        <div class="use_data">
-          <div class="user_font user_font_title">【已拥有】</div>
-          <div class="user_font wupin">
-            {{each danyao_have item}}
-            <div class="item">
-              <div class="item_title font_item_title">{{item.name}}</div>
-              <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
-              <div class="item_int" style="padding-left: 38px">
-                效果：{{item.HP}}{{item.exp}}{{item.xueqi}} {{if item.xingyun >
-                0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
-              </div>
-              <div class="item_int" style="padding-left: 38px">
-                价格：{{(item.出售价).toFixed(0)}}
-              </div>
-            </div>
-            {{/each}} {{each danyao2_have item}}
-            <div class="item">
-              <div class="item_title font_item_title">{{item.name}}</div>
-              <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
-              <div class="item_int" style="padding-left: 38px">
-                效果：{{item.HP}}{{item.exp}}{{item.xueqi}} {{if item.xingyun >
-                0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
-              </div>
-              <div class="item_int" style="padding-left: 38px">
-                价格：{{(item.出售价).toFixed(0)}}
-              </div>
-            </div>
-            {{/each}}
-          </div>
-        </div>
-      </div>
-      {{/if}}
-      <!--下-->
-      {{if danyao_need.length > 0}}
-      <div class="card_box">
-        <div class="use_data">
-          <div class="user_font user_font_title">【未拥有】</div>
-          <div class="user_font wupin">
-            {{each danyao_need item}}
-            <div class="item">
-              <div class="item_title font_item_title">{{item.name}}</div>
-              <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
-              <div class="item_int" style="padding-left: 38px">
-                效果：{{item.HP}}{{item.exp}}{{item.xueqi}} {{if item.xingyun >
-                0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
-              </div>
-              <div class="item_int" style="padding-left: 38px">
-                价格：{{(item.出售价).toFixed(0)}}
-              </div>
-            </div>
-            {{/each}}
-          </div>
-        </div>
-      </div>
-      {{/if}}
-      <div class="user_bottom2"></div>
     </div>
-  </body>
+    <!--下-->
+    {{if danyao_have.length > 0}}
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title">【已拥有】</div>
+        <div class="user_font wupin">
+          {{each danyao_have item}}
+          <div class="item">
+            <div class="item_title font_item_title">{{item.name}}</div>
+            <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
+            <div class="item_int" style="padding-left: 38px">
+              效果：{{item.HP}}{{item.exp}}{{item.xueqi}} {{if item.xingyun >
+              0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              价格：{{(item.出售价).toFixed(0)}}
+            </div>
+          </div>
+          {{/each}} {{each danyao2_have item}}
+          <div class="item">
+            <div class="item_title font_item_title">{{item.name}}</div>
+            <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
+            <div class="item_int" style="padding-left: 38px">
+              效果：{{item.HP}}{{item.exp}}{{item.xueqi}} {{if item.xingyun >
+              0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              价格：{{(item.出售价).toFixed(0)}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    <!--下-->
+    {{if danyao_need.length > 0}}
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title">【未拥有】</div>
+        <div class="user_font wupin">
+          {{each danyao_need item}}
+          <div class="item">
+            <div class="item_title font_item_title">{{item.name}}</div>
+            <div class="item_int" style="padding-left: 38px">类型：{{item.type}}</div>
+            <div class="item_int" style="padding-left: 38px">
+              效果：{{item.HP}}{{item.exp}}{{item.xueqi}} {{if item.xingyun >
+              0}}{{(item.xingyun*100).toFixed(1)}}%{{/if}}
+            </div>
+            <div class="item_int" style="padding-left: 38px">
+              价格：{{(item.出售价).toFixed(0)}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    <div class="user_bottom2"></div>
+  </div>
+</body>
+
+
+<style>
+  @font-face {
+    font-family: 'tttgbnumber';
+    src: url('../../font/tttgbnumber.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'NZBZ';
+    src: url('../../font/NZBZ.TTF');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  body {
+    width: 100%;
+    text-align: center;
+    background-image: url('../../img/player/player.jpg');
+    background-size: 100% auto;
+  }
+
+  .user_top_img_bottom {
+    margin: auto;
+    background-image: url('../../img/state/user_state.png');
+    background-size: 100% auto;
+    width: 280px;
+    height: 280px;
+  }
+</style>
+
 </html>

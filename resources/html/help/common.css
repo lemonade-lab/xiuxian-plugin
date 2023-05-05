@@ -1,19 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-user-select: none;
-  user-select: none;
-}
 
-body {
-  font-size: 18px;
-  color: #47ada8;
-  font-family: PingFangSC-Medium, PingFang SC, sans-serif;
-  transform: scale(1.4);
-  transform-origin: 0 0;
-  width: 600px;
-}
 
 .container {
   width: 600px;

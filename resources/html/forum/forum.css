@@ -1,17 +1,4 @@
-@font-face {
-  font-family: 'tttgbnumber';
-  src: url('../../font/tttgbnumber.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
 
-body {
-  transform: scale(1);
-  width: 100%;
-  text-align: center;
-  background-image: url('../..//img/supermarket/supermarket.jpg');
-  background-size: 100% auto;
-}
 
 .user_top {
   width: 90%;
@@ -25,13 +12,7 @@ body {
   margin-top: 50px;
 }
 
-.user_top_img_bottom {
-  margin: auto;
-  background-image: url('../../img/state/user_state.png');
-  background-size: 100% auto;
-  width: 280px;
-  height: 280px;
-}
+
 
 .user_top_img {
   margin-top: 52px;

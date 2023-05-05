@@ -1,14 +1,4 @@
-body {
-  transform: scale(1);
-  width: 100%;
-  background: url('../../img/help/xiuxian.jpg') top left no-repeat;
-  background-size: 100% 100%;
-}
 
-.container {
-  width: 100%;
-  padding: 40px !important;
-}
 
 .label {
   font-family: Number, '微软雅黑', sans-serif;
@@ -80,18 +70,7 @@ body {
   background: rgba(34, 41, 51, 0.5);
 }
 
-.help-icon {
-  width: 40px;
-  height: 40px;
-  display: block;
-  position: absolute;
-  background: url('../../img/help/icon.png') 0 0 no-repeat;
-  background-size: 500px auto;
-  border-radius: 5px;
-  left: 6px;
-  top: 12px;
-  transform: scale(0.85);
-}
+
 
 .help-icon_1 {
   background-position: -0px -0px;
