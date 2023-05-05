@@ -1,16 +1,4 @@
-@font-face {
-  font-family: 'tttgbnumber';
-  src: url('../../font/tttgbnumber.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'NZBZ';
-  src: url('../../font/NZBZ.TTF');
-  font-weight: normal;
-  font-style: normal;
-}
 
 .header {
   display: flex;
@@ -60,13 +48,7 @@
   backdrop-filter: blur(40px);
 }
 
-.user_top_img_bottom {
-  margin: auto;
-  background-image: url('../../img/state/user_state.png');
-  background-size: 100% auto;
-  width: 280px;
-  height: 280px;
-}
+
 
 .user_top_img {
   margin-top: 52px;
