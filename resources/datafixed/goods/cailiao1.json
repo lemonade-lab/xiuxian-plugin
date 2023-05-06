@@ -1,0 +1,17 @@
+[
+    {
+        "id": "6-1-8",
+        "name": "无用的残渣",
+        "attack": 0,
+        "defense": 0,
+        "blood": 0,
+        "burst": 0,
+        "burstmax": 0,
+        "size": 0,
+        "experience": 0,
+        "experiencemax": 1,
+        "speed": 0,
+        "acount": 1,
+        "price": 1000
+    }
+]

@@ -17,19 +17,12 @@ export class BoxOnekey extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const action = await GameApi.UserData.listAction({
-      NAME: UID,
-      CHOICE: 'user_action'
-    })
+
     const address_name = '万宝楼'
-    const map = await GameApi.GameMap.mapExistence({
-      action,
-      addressName: address_name
-    })
-    if (!map) {
+    if (!GameApi.GameMap.mapAction(address_name)) {
       e.reply(`需[#前往+城池名+${address_name}]`)
-      return false
     }
+    
     let bag = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_bag'
@@ -58,19 +51,12 @@ export class BoxOnekey extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const action = await GameApi.UserData.listAction({
-      NAME: UID,
-      CHOICE: 'user_action'
-    })
+
     const address_name = '万宝楼'
-    const map = await GameApi.GameMap.mapExistence({
-      action,
-      addressName: address_name
-    })
-    if (!map) {
+    if (!GameApi.GameMap.mapAction(address_name)) {
       e.reply(`需[#前往+城池名+${address_name}]`)
-      return false
     }
+
     const type = e.msg.replace('#一键出售', '')
     const maptype = {
       武器: '1',

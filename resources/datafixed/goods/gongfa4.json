@@ -1,77 +1,62 @@
 [
   {
-    "id": "5-1-6",
-    "name": "魅魔经",
+    "id": "5-1-16",
+    "name": "玄冰诀",
     "attack": 0,
     "defense": 0,
     "blood": 0,
     "burst": 0,
     "burstmax": 0,
-    "size": 28,
+    "size": 56,
     "experience": 0,
     "experiencemax": 0,
     "speed": 0,
     "acount": 1,
-    "price": 4288
+    "price": 13000
   },
   {
-    "id": "5-1-7",
-    "name": "三千咒",
+    "id": "5-1-17",
+    "name": "灵合诀",
     "attack": 0,
     "defense": 0,
     "blood": 0,
     "burst": 0,
     "burstmax": 0,
-    "size": 32,
+    "size": 58,
     "experience": 0,
     "experiencemax": 0,
     "speed": 0,
     "acount": 1,
-    "price": 5141
+    "price": 14000
   },
   {
-    "id": "5-1-8",
-    "name": "龙象诀",
+    "id": "5-1-18",
+    "name": "归一诀",
     "attack": 0,
     "defense": 0,
     "blood": 0,
     "burst": 0,
     "burstmax": 0,
-    "size": 36,
+    "size": 60,
     "experience": 0,
     "experiencemax": 0,
     "speed": 0,
     "acount": 1,
-    "price": 6002
+    "price": 15000
   },
   {
-    "id": "5-1-9",
-    "name": "五形功",
+    "id": "5-1-19",
+    "name": "千浪诀",
     "attack": 0,
     "defense": 0,
     "blood": 0,
     "burst": 0,
     "burstmax": 0,
-    "size": 40,
+    "size": 62,
     "experience": 0,
     "experiencemax": 0,
     "speed": 0,
     "acount": 1,
-    "price": 6863
-  },
-  {
-    "id": "5-1-10",
-    "name": "通宝诀",
-    "attack": 0,
-    "defense": 0,
-    "blood": 0,
-    "burst": 0,
-    "burstmax": 0,
-    "size": 44,
-    "experience": 0,
-    "experiencemax": 0,
-    "speed": 0,
-    "acount": 1,
-    "price": 7723
+    "price": 16000
   }
 ]

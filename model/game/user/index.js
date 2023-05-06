@@ -573,9 +573,9 @@ class GameUser {
       CHOICE: 'user_life',
       NAME: 'life'
     })
-    life.forEach((item) => {
+    for(let item of life){
       playerList.push(item.qq)
-    })
+    }
     return playerList
   }
 
@@ -600,12 +600,12 @@ class GameUser {
       CHOICE: 'generate_all'
     })
     const sum = []
-    dropsItemList.forEach((item) => {
+    for(let item of dropsItemList){
       const id = item.id.split('-')
       if (id[position] == type) {
         sum.push(item)
       }
-    })
+    }
     return sum[Math.floor(Math.random() * sum.length)]
   }
 

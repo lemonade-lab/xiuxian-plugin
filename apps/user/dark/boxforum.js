@@ -18,9 +18,9 @@ export class BoxForum extends plugin {
       CHOICE: 'generate_forum',
       INITIAL: []
     })
-    Forum.forEach((item) => {
+    for(let item of Forum){
       msg.push(`[${item.UID}]\n${item.content}`)
-    })
+    }
     await BotApi.User.forwardMsgSurveySet({ e, data: msg })
     return false
   }

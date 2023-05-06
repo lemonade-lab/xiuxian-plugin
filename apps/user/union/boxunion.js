@@ -6,42 +6,59 @@ export class boxunion extends plugin {
       dsc,
       rule: [
         { reg: '^#联盟报到$', fnc: 'userCheckin' },
-        { reg: '^#联盟签到$', fnc: 'userSignin' }
+        { reg: '^#联盟签到$', fnc: 'userSignin' },
+        { reg: '^#联盟商会$', fnc: 'unionShop' }
       ]
     })
   }
 
+  unionShop = async (e) => {
+    if (!verify(e)) return false
+    const UID = e.user_id
+    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+      e.reply('已仙鹤')
+      return false
+    }
+    const address_name = '联盟'
+    if (!GameApi.GameMap.mapAction(address_name)) {
+      e.reply(`需[#前往+城池名+${address_name}]`)
+    }
+    e.reply('待世界升级~')
+    return false
+  }
+
   userSignin = async (e) => {
     if (!verify(e)) return false
+    const UID = e.user_id
+    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+      e.reply('已仙鹤')
+      return false
+    }
+    const address_name = '联盟'
+    if (!GameApi.GameMap.mapAction(address_name)) {
+      e.reply(`需[#前往+城池名+${address_name}]`)
+    }
     e.reply('待世界升级~')
     return false
   }
 
   userCheckin = async (e) => {
     if (!verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    const UID = e.user_id
+    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = await GameApi.GamePublic.Go({ UID })
     if (MSG) {
       e.reply(MSG)
       return false
     }
-    const UID = e.user_id
-    const action = await GameApi.UserData.listAction({
-      NAME: UID,
-      CHOICE: 'user_action'
-    })
     const address_name = '联盟'
-    const map = await GameApi.GameMap.mapExistence({
-      action,
-      addressName: address_name
-    })
-    if (!map) {
+    if (!GameApi.GameMap.mapAction(address_name)) {
       e.reply(`需[#前往+城池名+${address_name}]`)
-      return false
     }
+
     const level = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_level'
@@ -50,6 +67,11 @@ export class boxunion extends plugin {
       e.reply('[修仙联盟]方正\n前辈莫要开玩笑')
       return false
     }
+
+    const action = await GameApi.UserData.listAction({
+      NAME: UID,
+      CHOICE: 'user_action'
+    })
     if (action.newnoe != 1) {
       e.reply('[修仙联盟]方正\n道友要不仔细看看自己的储物袋')
       return false
@@ -60,6 +82,7 @@ export class boxunion extends plugin {
       CHOICE: 'user_action',
       DATA: action
     })
+
     const randomthing = await GameApi.GameUser.randomThing()
     await GameApi.GameUser.userBag({
       UID,

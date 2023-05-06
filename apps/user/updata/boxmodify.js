@@ -5,8 +5,8 @@ export class BoxModify extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#改名.*$', fnc: 'changeName' },
-        { reg: '^#设置道宣.*$', fnc: 'changeAutograph' }
+        { reg: '^#更改道号.*$', fnc: 'changeName' },
+        { reg: '^#更改道宣.*$', fnc: 'changeAutograph' }
       ]
     })
   }
@@ -22,8 +22,7 @@ export class BoxModify extends plugin {
       return false
     }
     const UID = e.user_id
-    const lingshi = 5
-    let new_name = e.msg.replace('#改名', '')
+    let new_name = e.msg.replace('#更改道号', '')
     if (new_name.length == 0) {
       return false
     }
@@ -82,7 +81,7 @@ export class BoxModify extends plugin {
       NAME: UID,
       CHOICE: 'user_player'
     })
-    let new_msg = e.msg.replace('#设置道宣', '')
+    let new_msg = e.msg.replace('#更改道宣', '')
     new_msg = new_msg.replace(' ', '')
     if (new_msg.length == 0 || new_msg.length > 50) {
       e.reply('请正确设置,且道宣最多50字符')

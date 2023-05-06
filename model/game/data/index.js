@@ -59,8 +59,9 @@ class DateIndex {
   constructor() {
     /**生成yaml配置数据 */
     createdata.moveConfig()
-
-    /** 生成jsoon数据 */
+    /**
+     * 动态境界数据
+     */
     genertate.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixed_talent}/talent_list.json`))
     genertate.newlist(__PATH.generate_level, 'gaspractice', [])
     genertate.newlist(__PATH.generate_level, 'gaspractice', [
@@ -70,32 +71,42 @@ class DateIndex {
     genertate.newlist(__PATH.generate_level, 'bodypractice', [
       ...genertate.getlist(__PATH.fixed_level, 'bodypractice.json')
     ])
-    /*全物品表*/
+    /**
+     * 全物品数据
+     */
     genertate.newlist(__PATH.generate_all, 'all', [])
     genertate.newlist(__PATH.generate_all, 'all', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'),
       ...genertate.getlist(__PATH.fixed_goods, 'json'),
       ...genertate.getlist(__PATH.custom_goods, 'json')
     ])
-    /*商品数据*/
+    /**
+     * #万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备
+     */
     genertate.newlist(__PATH.generate_all, 'commodities', [])
     genertate.newlist(__PATH.generate_all, 'commodities', [
       ...genertate.getlist(__PATH.fixed_goods, '0.json'),
       ...genertate.getlist(__PATH.custom_goods, '0.json')
     ])
-    /*怪物掉落表:部分稀有的不能放进去，所有需要有所控制:只放1级物品、二级物品获取途径待增加？*/
+    /**
+     * 怪物掉落
+     */
     genertate.newlist(__PATH.generate_all, 'dropsItem', [])
     genertate.newlist(__PATH.generate_all, 'dropsItem', [
-      /*只放一级装备和物品*/
       ...genertate.getlist(__PATH.fixed_equipment, '.json'),
       ...genertate.getlist(__PATH.fixed_goods, '.json'),
       ...genertate.getlist(__PATH.custom_goods, '.json')
     ])
-    /*地图系统数据*/
+    /**
+     * 地图：区域位
+     */
     genertate.newlist(__PATH.generate_position, 'position', [])
     genertate.newlist(__PATH.generate_position, 'position', [
       ...genertate.getlist(__PATH.fixed_position, 'json')
     ])
+    /**
+     * 地图：点位
+     */
     genertate.newlist(__PATH.generate_position, 'point', [])
     genertate.newlist(__PATH.generate_position, 'point', [
       ...genertate.getlist(__PATH.fixed_point, 'json')

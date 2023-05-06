@@ -1,34 +1,5 @@
 [
-  {
-    "id": "6-1-1",
-    "name": "洗根水",
-    "attack": 0,
-    "defense": 0,
-    "blood": 0,
-    "burst": 0,
-    "burstmax": 0,
-    "size": 0,
-    "experience": 0,
-    "experiencemax": 0,
-    "speed": 0,
-    "acount": 1,
-    "price": 3800
-  },
-  {
-    "id": "6-1-2",
-    "name": "望灵珠",
-    "attack": 0,
-    "defense": 0,
-    "blood": 0,
-    "burst": 0,
-    "burstmax": 0,
-    "size": 0,
-    "experience": 0,
-    "experiencemax": 0,
-    "speed": 0,
-    "acount": 1,
-    "price": 3800
-  },
+  
   {
     "id": "6-2-4",
     "name": "下品灵石",
@@ -84,21 +55,6 @@
     "burstmax": 0,
     "size": 0,
     "experience": 1000,
-    "experiencemax": 1,
-    "speed": 0,
-    "acount": 1,
-    "price": 1000
-  },
-  {
-    "id": "6-1-8",
-    "name": "无用的残渣",
-    "attack": 0,
-    "defense": 0,
-    "blood": 0,
-    "burst": 0,
-    "burstmax": 0,
-    "size": 0,
-    "experience": 0,
     "experiencemax": 1,
     "speed": 0,
     "acount": 1,

@@ -1,8 +1,8 @@
 [
   {
-    "id": "1-1-1",
-    "name": "烂铁匕首",
-    "attack": 4,
+    "id": "1-1-16",
+    "name": "混沌针",
+    "attack": 19,
     "defense": 0,
     "blood": 0,
     "burst": 0,
@@ -10,14 +10,14 @@
     "size": 0,
     "experience": 0,
     "experiencemax": 0,
-    "speed": 1,
+    "speed": 16,
     "acount": 1,
-    "price": 500
+    "price": 9000
   },
   {
-    "id": "1-1-2",
-    "name": "破铜烂铁",
-    "attack": 5,
+    "id": "1-1-17",
+    "name": "墨刀",
+    "attack": 20,
     "defense": 0,
     "blood": 0,
     "burst": 0,
@@ -25,14 +25,14 @@
     "size": 0,
     "experience": 0,
     "experiencemax": 0,
-    "speed": 2,
+    "speed": 17,
     "acount": 1,
-    "price": 1000
+    "price": 10000
   },
   {
-    "id": "1-1-3",
-    "name": "咸鱼宝剑",
-    "attack": 6,
+    "id": "1-1-18",
+    "name": "碧鳞剑",
+    "attack": 21,
     "defense": 0,
     "blood": 0,
     "burst": 0,
@@ -40,14 +40,14 @@
     "size": 0,
     "experience": 0,
     "experiencemax": 0,
-    "speed": 3,
+    "speed": 18,
     "acount": 1,
-    "price": 1500
+    "price": 11500
   },
   {
-    "id": "1-1-4",
-    "name": "精制长剑",
-    "attack": 7,
+    "id": "1-1-19",
+    "name": "饮血剑",
+    "attack": 22,
     "defense": 0,
     "blood": 0,
     "burst": 0,
@@ -55,8 +55,8 @@
     "size": 0,
     "experience": 0,
     "experiencemax": 0,
-    "speed": 4,
+    "speed": 19,
     "acount": 1,
-    "price": 2000
+    "price": 12000
   }
 ]

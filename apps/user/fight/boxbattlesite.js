@@ -87,10 +87,10 @@ export class BoxBattleSite extends plugin {
       battleA: battle,
       battleB: monsters
     })
-    battle_msg.msg.forEach((item) => {
+    for(let item of battle_msg.msg){
       msgLeft.push(item)
-    })
-    const msgRight=[]
+    }
+    const msgRight = []
     if (battle_msg.QQ != 0) {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
@@ -182,9 +182,9 @@ export class BoxBattleSite extends plugin {
     const monster = await GameApi.GameMonster.monsterscache({
       i: action.region
     })
-    monster.forEach((item) => {
+    for (let item of monster) {
       msg.push('怪名:' + item.name + '\n' + '等级:' + item.level + '\n')
-    })
+    }
     BotApi.User.forwardMsgSurveySet({ e, data: msg })
     return false
   }
