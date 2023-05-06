@@ -18,14 +18,14 @@ class Algorithm {
     const files = fs.readdirSync(path)
     const shield = ['.git']
     const sum = []
-    for(let item of files){
+    for (let item of files) {
       const newpath = `${path}/${item}`
       const stat = fs.statSync(newpath)
       //不是文件？
       if (!stat.isFile()) {
         //是目录名
         const file = newpath.replace(`${path}/`, '')
-        for(let item of shield){
+        for (let item of shield) {
           if (item != file) {
             sum.push(file)
           }
@@ -42,7 +42,7 @@ class Algorithm {
   returnfilepath = (menupath, type) => {
     const newsum = []
     const travel = (dir, callback) => {
-      for(let file of fs.readdirSync(dir)){
+      for (let file of fs.readdirSync(dir)) {
         let pathname = path.join(dir, file)
         if (fs.statSync(pathname).isDirectory()) {
           travel(pathname, callback)
@@ -53,7 +53,7 @@ class Algorithm {
     }
     travel(menupath, (pathname) => {
       let temporary = pathname.search(type)
-      if (temporary != -1)  newsum.push(pathname)
+      if (temporary != -1) newsum.push(pathname)
     })
     return newsum
   }

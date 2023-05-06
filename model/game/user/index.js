@@ -573,7 +573,7 @@ class GameUser {
       CHOICE: 'user_life',
       NAME: 'life'
     })
-    for(let item of life){
+    for (let item of life) {
       playerList.push(item.qq)
     }
     return playerList
@@ -600,7 +600,7 @@ class GameUser {
       CHOICE: 'generate_all'
     })
     const sum = []
-    for(let item of dropsItemList){
+    for (let item of dropsItemList) {
       const id = item.id.split('-')
       if (id[position] == type) {
         sum.push(item)

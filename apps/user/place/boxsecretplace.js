@@ -38,12 +38,12 @@ export class BoxSecretplace extends plugin {
     })
     const address = []
     const msg = []
-    for(let item of point){
+    for (let item of point) {
       if (item.id.includes(addressId)) {
         address.push(item)
       }
     }
-    for(let item of address){
+    for (let item of address) {
       msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
     }
     await BotApi.User.forwardMsg({ e, data: msg })
@@ -193,7 +193,7 @@ export class BoxSecretplace extends plugin {
       CHOICE: 'generate_position'
     })
     let key = 0
-    for(let item of point){
+    for (let item of point) {
       const pointID = item.id.split('-')
       if (pointID[4] == 2) {
         if (item.x == x) {

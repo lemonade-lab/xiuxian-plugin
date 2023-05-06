@@ -53,7 +53,6 @@ class CreateData {
     return
   }
 
-
   /**
    * 重置配置
    */
@@ -93,7 +92,6 @@ class CreateData {
     }
   }
 
-
   /**
    * 检测配置更新
    */
@@ -106,7 +104,7 @@ class CreateData {
         if (Nconfig['time'] != Vconfig['time']) {
           console.log('[xiuxian@2.0.0]配置版本不匹配...')
           console.log('[xiuxian@2.0.0]准备重置配置...')
-          const arr = configarr.filter(item => item != 'namelist.yaml')
+          const arr = configarr.filter((item) => item != 'namelist.yaml')
           this.removeConfigByArr(arr)
           console.log('[xiuxian@2.0.0]配置重置完成')
         }
@@ -131,6 +129,5 @@ class CreateData {
       ini = 1
     }, 30000)
   }
-
 }
 export default new CreateData()

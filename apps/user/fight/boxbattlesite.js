@@ -87,7 +87,7 @@ export class BoxBattleSite extends plugin {
       battleA: battle,
       battleB: monsters
     })
-    for(let item of battle_msg.msg){
+    for (let item of battle_msg.msg) {
       msgLeft.push(item)
     }
     const msgRight = []
@@ -156,7 +156,9 @@ export class BoxBattleSite extends plugin {
     }
     GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
     const { path, name, data } = GameApi.Information.showBattle({
-      UID: e.user_id, msgLeft, msgRight
+      UID: e.user_id,
+      msgLeft,
+      msgRight
     })
     const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
     await BotApi.User.surveySet({ e, isreply })

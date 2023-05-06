@@ -10,7 +10,7 @@ const tplFile = `${path.resolve().replace(/\\/g, '/')}/resources/html/battle/bat
 // const data = getConfig({ app: 'help', name: 'help' })
 
 const data = {
-  UID: '916415899',
+  UID: '916415899'
 }
 
 /**
@@ -23,11 +23,11 @@ export const getData = () => {
     /** heml路径 */
     tplFile,
     /** css路径 */
-    pluResPath:``,
+    pluResPath: ``,
     /** 版本 */
     version: 'V2.0',
     /** 数据 */
-    ...data,
+    ...data
     // data,
   })
 }

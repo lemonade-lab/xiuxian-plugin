@@ -22,7 +22,7 @@ export class BoxOnekey extends plugin {
     if (!GameApi.GameMap.mapAction(address_name)) {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
-    
+
     let bag = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_bag'

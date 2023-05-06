@@ -14,7 +14,6 @@ body {
   border-radius: 20px;
 }
 
-
 .battle-head {
   background-image: linear-gradient(to right, #116bc2, #70a7db);
   font-size: 45px;
@@ -31,7 +30,7 @@ body {
   margin: auto;
   width: 80%;
   grid-template-columns: repeat(2, 60% 40%);
-  min-height:200px;
+  min-height: 200px;
 }
 
 .battle-main-grid-left {

@@ -1,6 +1,5 @@
 import listdata from '../data/listdata.js'
 class GameMap {
-
   /*输入:模糊搜索名字并判断是否在此地*/
   mapExistence = async ({ action, addressName }) => {
     const point = await listdata.listAction({
@@ -19,8 +18,8 @@ class GameMap {
 
   /**
    * 判断是否在某地
-   * @param {} address_name 
-   * @returns 
+   * @param {} address_name
+   * @returns
    */
 
   mapAction = async (address_name) => {
@@ -35,6 +34,5 @@ class GameMap {
     if (!map) return false
     return true
   }
-
 }
 export default new GameMap()

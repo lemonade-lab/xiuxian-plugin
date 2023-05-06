@@ -74,7 +74,6 @@ class DefsetUpdata {
     return `修改${name}为${size}`
   }
 
-
   namelist = `${MyDirPath}/config/parameter/namelist.yaml`
 
   startGame = (GID, Gname) => {
@@ -87,7 +86,7 @@ class DefsetUpdata {
 
   stopGame = (GID, Gname) => {
     const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
-    data.whitecrowd = data.whitecrowd.filter(item => item != GID)
+    data.whitecrowd = data.whitecrowd.filter((item) => item != GID)
     const yamlStr = YAML.stringify(data)
     fs.writeFileSync(this.namelist, yamlStr, 'utf8')
     return `[${Gname}]停止成功~`

@@ -25,7 +25,7 @@ export class BoxExchange extends plugin {
       INITIAL: []
     })
     const msg = ['___[虚空镜]___']
-    for(let item of exchange){
+    for (let item of exchange) {
       msg.push(
         `编号:${item.ID}\n物品:${item.thing.name}\n数量:${item.account}\n价格:${item.money}\n`
       )

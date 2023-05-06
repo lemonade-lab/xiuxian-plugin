@@ -4,8 +4,20 @@ export class BoxMoneyOperation extends plugin {
     super({
       name,
       dsc,
-      rule: [{ reg: '^#赠送灵石.*$', fnc: 'giveMoney' }]
+      rule: [
+        { reg: '^#赠送灵石.*$', fnc: 'giveMoney' },
+        { reg: '^#赠送物品.*$', fnc: 'giveGoods' }
+      ]
     })
+  }
+
+  giveGoods = async (e) => {
+    if (!verify(e)) return false
+    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+      e.reply('已仙鹤')
+      return false
+    }
+    e.reply('待世界升级')
   }
 
   giveMoney = async (e) => {

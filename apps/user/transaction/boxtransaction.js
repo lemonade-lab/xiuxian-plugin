@@ -35,7 +35,7 @@ export class BoxTransaction extends plugin {
       CHOICE: 'generate_all'
     })
 
-    for(let item of commodities_list){
+    for (let item of commodities_list) {
       const id = item.id.split('-')
       switch (id[0]) {
         case '1': {
@@ -54,7 +54,9 @@ export class BoxTransaction extends plugin {
           if (id[1] == 1) {
             msg.push(`物品:${item.name}\n气血:${item.blood}%\n价格:${item.price * ExchangeRate}`)
           } else {
-            msg.push(`物品:${item.name}\n修为:${item.experience}\n价格:${item.price * ExchangeRate}`)
+            msg.push(
+              `物品:${item.name}\n修为:${item.experience}\n价格:${item.price * ExchangeRate}`
+            )
           }
           break
         }
@@ -73,7 +75,7 @@ export class BoxTransaction extends plugin {
     }
 
     await BotApi.User.forwardMsgSurveySet({ e, data: msg })
-    
+
     return false
   }
   buyComodities = async (e) => {
@@ -124,9 +126,7 @@ export class BoxTransaction extends plugin {
       name: ifexist.name,
       ACCOUNT: Number(quantity)
     })
-    e.reply(
-      `[万宝楼]薛仁贵\n你花[${price}]下品灵石购买了[${thing_name}]*${quantity},`
-    )
+    e.reply(`[万宝楼]薛仁贵\n你花[${price}]下品灵石购买了[${thing_name}]*${quantity},`)
     return false
   }
   sellComodities = async (e) => {
