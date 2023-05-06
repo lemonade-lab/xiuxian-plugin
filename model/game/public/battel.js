@@ -9,9 +9,10 @@ const Sneakattack = [
   '打的山崩地裂，河水倒卷，余波万里,可恶,是幻境,什么时候!突然怪物偷袭,被一口盐汽水喷死!'
 ]
 class gameBattle {
+
+
   /*怪物战斗*/
-  monsterbattle = async (parameter) => {
-    const { e, battleA, battleB } = parameter
+  monsterbattle = async ({ e, battleA, battleB, battleNameB }) => {
     const battle_msg = {
       msg: [],
       QQ: 1
@@ -44,7 +45,7 @@ class gameBattle {
       battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
       if (battleB.nowblood < 1) {
         battle_msg.msg.push('你仅出一招~')
-        battle_msg.msg.push('就击败了怪物!')
+        battle_msg.msg.push(`就击败了[${battleNameB}]!`)
         return battle_msg
       } else {
         battle_msg.msg.push(`你个老六偷袭`)
@@ -52,7 +53,7 @@ class gameBattle {
       }
     } else {
       battle_msg.msg.push('你个老六想偷袭')
-      battle_msg.msg.push('怪物一个转身就躲过去了')
+      battle_msg.msg.push(`[${battleNameB}]一个转身就躲过去了`)
     }
     while (true) {
       battle.Z++
@@ -69,7 +70,7 @@ class gameBattle {
       if (battle_hurt.hurtB > 1) {
         if (battleA.nowblood < 1) {
           battle_msg.msg.push(`经过${battle.Z}回合`)
-          battle_msg.msg.push(`你被怪物击败了!`)
+          battle_msg.msg.push(`你被[${battleNameB}]击败了!`)
           battleA.nowblood = 0
           battle_msg.QQ = 0
           break
@@ -83,8 +84,8 @@ class gameBattle {
       }
       if (battle_hurt.hurtA <= 1) {
         battle_msg.msg.push('你再次攻击')
-        battle_msg.msg.push('却连怪物的防御都破不了')
-        battle_msg.msg.push('被怪物一巴掌给拍死了!')
+        battle_msg.msg.push(`却连[${battleNameB}]的防御都破不了`)
+        battle_msg.msg.push('就被一巴掌给拍死了!')
         battleA.nowblood = 0
         battle_msg.QQ = 0
         break
@@ -92,7 +93,7 @@ class gameBattle {
       battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
       if (battleB.nowblood < 1) {
         battle_msg.msg.push(`经过${battle.Z}回合`)
-        battle_msg.msg.push(`你击败了怪物!`)
+        battle_msg.msg.push(`你击败了[${battleNameB}]!`)
         break
       }
     }
@@ -104,9 +105,9 @@ class gameBattle {
     })
     return battle_msg
   }
+
   /*战斗模型*/
-  battle = async (parameter) => {
-    const { e, A, B } = parameter
+  battle = async ({ e, A, B }) => {
     const battle_msg = {
       msg: [],
       QQ: 1
@@ -232,6 +233,7 @@ class gameBattle {
     })
     return battle_msg.QQ
   }
+
   /*暴击率*/
   probability = async (P) => {
     if (P > 100) {

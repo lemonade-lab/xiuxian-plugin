@@ -85,7 +85,8 @@ export class BoxBattleSite extends plugin {
     const battle_msg = await GameApi.GameBattle.monsterbattle({
       e,
       battleA: battle,
-      battleB: monsters
+      battleB: monsters,
+      battleNameB:Mname
     })
     for (let item of battle_msg.msg) {
       msgLeft.push(item)
