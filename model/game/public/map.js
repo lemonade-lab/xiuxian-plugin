@@ -22,7 +22,7 @@ class GameMap {
    * @returns
    */
 
-  mapAction = async (address_name) => {
+  mapAction = async ({ UID, address_name }) => {
     const action = await listdata.listAction({
       NAME: UID,
       CHOICE: 'user_action'
