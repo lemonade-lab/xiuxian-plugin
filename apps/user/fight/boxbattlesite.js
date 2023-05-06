@@ -56,7 +56,7 @@ export class BoxBattleSite extends plugin {
       msg: 1
     }
     if (acount == 1) {
-      buff.msg = Math.floor(Math.random() * (10 - 3)) + Number(3)
+      buff.msg = Math.floor(Math.random() * (5 - 2)) + Number(2)
       msgLeft.push('怪物突然变异了!')
     }
     const Levellist = await GameApi.UserData.listAction({
@@ -69,9 +69,9 @@ export class BoxBattleSite extends plugin {
       attack: LevelMax.attack * buff.msg,
       defense: LevelMax.defense * buff.msg,
       blood: LevelMax.blood * buff.msg,
-      burst: LevelMax.burst + LevelMax.id * 5 * buff.msg,
-      burstmax: LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
-      speed: LevelMax.speed + 5 + buff.msg
+      burst: LevelMax.burst + LevelMax.id * buff.msg,
+      burstmax: LevelMax.burstmax + LevelMax.id * buff.msg,
+      speed: LevelMax.speed + buff.msg
     }
     const battle = await GameApi.UserData.listAction({
       NAME: UID,
