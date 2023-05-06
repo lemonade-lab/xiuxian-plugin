@@ -1,8 +1,3 @@
-body {
-  text-align: center;
-  margin: 0;
-}
-
 .battle {
   width: 100%;
   height: 100%;
@@ -15,7 +10,7 @@ body {
 }
 
 .battle-head {
-  background-image: linear-gradient(to right, #116bc2, #70a7db);
+  background-image: linear-gradient(to right, #116bc2cf, #70a7dbdb);
   font-size: 45px;
   margin: auto;
   width: 85%;
@@ -30,7 +25,7 @@ body {
   margin: auto;
   width: 80%;
   grid-template-columns: repeat(2, 60% 40%);
-  min-height: 200px;
+  min-height: 299px;
 }
 
 .battle-main-grid-left {
@@ -48,7 +43,7 @@ body {
 .battle-forlor {
   color: #ffffff;
   font-size: 20px;
-  background-color: #088772;
+  background-color: #088772e6;
   margin: auto;
   width: 85%;
   border-radius: 20px;

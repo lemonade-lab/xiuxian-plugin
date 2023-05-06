@@ -87,6 +87,9 @@
     - icon: 8
       title: '#破境'
       desc: '练体升级'
+    - icon: 8
+      title: '#望天'
+      desc: '仙人悟天'
 
 - group:
   list:
