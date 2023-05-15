@@ -98,7 +98,7 @@ export async function Read_player(usr_qq) {
     return data
   })
   //将字符串数据转变成数组格式
-  player = JSON.parse(player)
+  player = JSON.parse(decodeURIComponent(player))
   return player
 }
 
