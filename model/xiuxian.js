@@ -196,7 +196,7 @@ export async function Read_equipment(usr_qq) {
     return data
   })
   //将字符串数据转变成数组格式
-  equipment = JSON.parse(decodeURIComponent(equipment))
+  equipment = JSON.parse(equipment)
   return equipment
 }
 
@@ -256,7 +256,7 @@ export async function Read_najie(usr_qq) {
   })
   //将字符串数据转变成数组格式
   try {
-    najie = JSON.parse(decodeURIComponent(najie))
+    najie = JSON.parse(najie)
   } catch {
     //转换不了，纳戒错误
     await fixed(usr_qq)
@@ -2311,7 +2311,7 @@ export async function Read_danyao(usr_qq) {
     return data
   })
   //将字符串数据转变成数组格式
-  danyao = JSON.parse(decodeURIComponent(danyao))
+  danyao = JSON.parse(danyao)
   return danyao
 }
 
@@ -2334,7 +2334,7 @@ export async function Read_temp() {
     return data
   })
   //将字符串数据转变成数组格式
-  temp = JSON.parse(decodeURIComponent(temp))
+  temp = JSON.parse(temp)
   return temp
 }
 
