@@ -107,6 +107,11 @@ class UserAction {
         item.status = 1
       }
     })
+    await listdata.listActionInitial({
+      CHOICE: 'user_life',
+      NAME: 'life',
+      INITIAL: LIFE
+    })
     let msg = "寿命重置成功"
     return msg
   }
