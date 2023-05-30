@@ -8,7 +8,8 @@ export class boxadminaction extends plugin {
         { reg: '^#修仙更新$', fnc: 'allForcecheckout' },
         { reg: '^#修仙删除数据$', fnc: 'deleteRedis' },
         { reg: '^#修仙删除世界$', fnc: 'deleteAllusers' },
-        { reg: '^#盒子复原.*$', fnc: 'dataRecovery' }
+        { reg: '^#盒子复原.*$', fnc: 'dataRecovery' },
+        { reg: '^#寿命复原.*$', fnc: 'dataRelife' }
       ]
     })
   }
@@ -46,6 +47,13 @@ export class boxadminaction extends plugin {
         name: e.msg.replace('#盒子复原', '')
       })
     })
+    return false
+  }
+  dataRelife = async (e) => {
+    if (!e.isMaster) return false
+    if (!verify(e)) return false
+    let msg = await BotApi.User.relife({})
+    e.reply(`${msg}`)
     return false
   }
 }

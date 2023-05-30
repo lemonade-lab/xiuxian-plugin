@@ -94,6 +94,21 @@ class UserAction {
     if (blackid.indexOf(e.user_id) != -1) return false
     return true
   }
+  relife = async () => {
+    const LIFE = await listdata.listActionInitial({
+      CHOICE: 'user_life',
+      NAME: 'life',
+      INITIAL: []
+    })
+    LIFE.forEach(async (item, index) => {
+      if (item.Age > item.life) { 
+        item.Age = 1 
+        item.status = 1
+      }
+    })
+    let msg = "寿命重置成功"
+    return msg
+  }
 }
 export default new UserAction()
 /**
