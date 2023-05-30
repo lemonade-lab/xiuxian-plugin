@@ -1,5 +1,5 @@
 import config from '../data/defset.js'
-import listdata from '../'
+import listdata from '../../game/data/listdata.js'
 class UserAction {
   /**
    * 折合消息
