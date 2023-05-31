@@ -1,5 +1,5 @@
 import config from '../data/defset.js'
-import listdata from '../../game/data/listdata.js'
+import {GameApi } from '../../api/api.js'
 class UserAction {
   /**
    * 折合消息
@@ -96,22 +96,23 @@ class UserAction {
     return true
   }
   relife = async () => {
-    const LIFE = await listdata.listActionInitial({
-      CHOICE: 'user_life',
-      NAME: 'life',
-      INITIAL: []
-    })
+    const LIFE = await GameApi.UserData.listAction({
+      CHOICE: "user_life",
+      NAME: "life",
+    });
+    console.log(3)
     LIFE.forEach(async (item, index) => {
       if (item.Age > item.life) { 
         item.Age = 1 
         item.status = 1
       }
     })
-    await listdata.listActionInitial({
-      CHOICE: 'user_life',
-      NAME: 'life',
-      INITIAL: LIFE
-    })
+    await GameApi.UserData.listAction({
+      CHOICE: "user_life",
+      NAME: "life",
+      DATA:LIFE
+    });
+    console.log(4)
     let msg = "寿命重置成功"
     return msg
   }
