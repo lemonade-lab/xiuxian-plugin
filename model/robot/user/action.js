@@ -1,5 +1,5 @@
 import config from '../data/defset.js'
-import {GameApi } from '../../api/api.js'
+import { GameApi } from '../../api/api.js'
 class UserAction {
   /**
    * 折合消息
@@ -100,20 +100,42 @@ class UserAction {
       CHOICE: "user_life",
       NAME: "life",
     });
-    console.log(3)
     LIFE.forEach(async (item, index) => {
-      if (item.Age > item.life) { 
-        item.Age = 1 
+      if (item.Age > item.life) {
+        item.Age = 1
         item.status = 1
       }
     })
     await GameApi.UserData.listAction({
       CHOICE: "user_life",
       NAME: "life",
-      DATA:LIFE
+      DATA: LIFE
     });
-    console.log(4)
     let msg = "寿命重置成功"
+    return msg
+  }
+  relifehe = async ({ B }) => {
+    let msg
+    let LIFE = await GameApi.UserData.listAction({
+      CHOICE: "user_life",
+      NAME: "life",
+    });
+    console.log(LIFE)
+    console.log(B)
+    let life = LIFE.find((obj) => obj.qq == B);
+    console.log(life)
+    if(life == undefined){
+      msg = "寿命重置失败"
+      return msg
+    }
+    life.Age = 1
+    life.status = 1
+    await GameApi.UserData.listAction({
+      CHOICE: "user_life",
+      NAME: "life",
+      DATA: LIFE
+    });
+    msg = "寿命重置成功"
     return msg
   }
 }
