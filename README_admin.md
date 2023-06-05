@@ -1,5 +1,3 @@
-# xiuxian-plugin<a  href='https://gitee.com/three-point-of-water/xiuxian-plugin/stargazers'><img src='https://gitee.com/three-point-of-water/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
-
 #### 启动游戏
 
 文件名`xiuxian-plugin`需改`xiuxian@2.0.0`
