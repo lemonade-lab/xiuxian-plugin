@@ -1,6 +1,6 @@
 #### 安装机器人
 
-miao-yunzai-Bot 喵崽版[`☞推荐`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
+miao-yunzai 喵崽版[`☞推荐`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
 
 Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
