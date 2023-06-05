@@ -1,5 +1,3 @@
-# xiuxian-plugin<a  href='https://gitee.com/three-point-of-water/xiuxian-plugin/stargazers'><img src='https://gitee.com/three-point-of-water/xiuxian-plugin/badge/star.svg?theme=dark'  alt='star'></img></a>
-
 #### 安装机器人
 
 miao-yunzai-Bot 喵崽版[`☞推荐`](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)
@@ -14,22 +12,22 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 > [☞ 如何开始并启动游戏？](./README_admin.md)
 
-@2.0.0[☞ 查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/main)
+@2.0.0[☞ 查看源代码](https://gitee.com/ningmengchongshui/xiuxian-plugin/tree/main)
 
 ```
-git clone --depth=1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@2.0.0/
+git clone --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@2.0.0/
 ```
 
-@1.3.0[☞ 查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/xiuxian@1.3.0)
+@1.3.0[☞ 查看源代码](https://gitee.com/ningmengchongshui/xiuxian-plugin/tree/xiuxian@1.3.0)
 
 ```
-git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.3.0/
+git clone --depth=1 -b xiuxian@1.3.0 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@1.3.0/
 ```
 
-@1.2.1[☞ 查看源代码](https://gitee.com/three-point-of-water/xiuxian-plugin/tree/xiuxian@1.2.1)
+@1.2.1[☞ 查看源代码](https://gitee.com/ningmengchongshui/xiuxian-plugin/tree/xiuxian@1.2.1)
 
 ```
-git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/three-point-of-water/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
+git clone --depth=1 -b xiuxian@1.2.1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@1.2.1/
 ```
 
 #### 开源协议
