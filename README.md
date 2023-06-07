@@ -8,8 +8,6 @@ Yunzai-Bot 喵喵版[`☞维护`](https://gitee.com/yoimiya-kokomi/Yunzai-Bot)
 
 > [☞ 如何开始并启动游戏？](./README_admin.md)
 
-@2.0.0[☞ 查看源代码](https://gitee.com/ningmengchongshui/xiuxian-plugin/tree/main)
-
 ```
 git clone --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian@2.0.0/
 ```
