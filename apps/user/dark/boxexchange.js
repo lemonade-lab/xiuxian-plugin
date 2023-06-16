@@ -5,10 +5,10 @@ export class BoxExchange extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#虚空镜$', fnc: 'supermarket' },
-        { reg: '^#上架.*$', fnc: 'onsell' },
-        { reg: '^#下架.*$', fnc: 'Offsell' },
-        { reg: '^#选购.*$', fnc: 'purchase' }
+        { reg: /^#虚空镜$/, fnc: 'supermarket' },
+        { reg: /^#上架[\u4e00-\u9fa5]*$/, fnc: 'onsell' },
+        { reg: /^#下架[\u4e00-\u9fa5]*$/, fnc: 'Offsell' },
+        { reg: /^#选购\d+$/, fnc: 'purchase' }
       ]
     })
   }

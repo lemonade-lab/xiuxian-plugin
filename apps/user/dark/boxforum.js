@@ -5,8 +5,8 @@ export class BoxForum extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#虚空栈$', fnc: 'searchForum' },
-        { reg: '^#喇叭.*$', fnc: 'pushForum' }
+        { reg: /^#虚空栈$/, fnc: 'searchForum' },
+        { reg: /^#喇叭.*$/, fnc: 'pushForum' }
       ]
     })
   }

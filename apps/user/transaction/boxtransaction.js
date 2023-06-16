@@ -1,7 +1,5 @@
 import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
-/**
- * 购买物品是原价的1.1倍
- */
+/** 购买物品是原价的1.1倍 */
 const ExchangeRate = 1.1
 export class BoxTransaction extends plugin {
   constructor() {
@@ -9,9 +7,9 @@ export class BoxTransaction extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#万宝楼$', fnc: 'showComodities' },
-        { reg: '^#购买.*$', fnc: 'buyComodities' },
-        { reg: '^#出售.*$', fnc: 'sellComodities' }
+        { reg: /^#万宝楼$/, fnc: 'showComodities' },
+        { reg: /^#购买.*$/, fnc: 'buyComodities' },
+        { reg: /^#出售.*$/, fnc: 'sellComodities' }
       ]
     })
   }

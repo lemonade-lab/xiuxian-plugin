@@ -5,8 +5,8 @@ export class BoxBank extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#金银坊$', fnc: 'moneyWorkshop' },
-        { reg: '^#金银置换.*$', fnc: 'substitution' }
+        { reg: /^#金银坊$/, fnc: 'moneyWorkshop' },
+        { reg: /^#金银置换.*$/, fnc: 'substitution' }
       ]
     })
   }

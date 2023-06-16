@@ -5,8 +5,8 @@ export class BoxLevel extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#突破$', fnc: 'levelUp' },
-        { reg: '^#破境$', fnc: 'levelMaxUp' }
+        { reg: /^#突破$/, fnc: 'levelUp' },
+        { reg: /^#破境$/, fnc: 'levelMaxUp' }
       ]
     })
   }

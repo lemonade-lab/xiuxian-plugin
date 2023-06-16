@@ -8,8 +8,8 @@ export class boxfairyland extends plugin {
         name: "xiuxian@2.0.0",
         dsc: "xiuxian@2.0.0",
         rule: [
-          { reg: '^#渡劫$', fnc: 'breakLevel' },
-          { reg: '^#望天$', fnc: 'breakSky' }
+          { reg: /^#渡劫$/, fnc: 'breakLevel' },
+          { reg: /^#望天$/, fnc: 'breakSky' }
         ],
       })
     );

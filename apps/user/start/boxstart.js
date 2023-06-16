@@ -5,8 +5,8 @@ export class BoxStart extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#踏入仙途$', fnc: 'createMsg' },
-        { reg: '^#再入仙途$', fnc: 'reCreateMsg' }
+        { reg: /^#踏入仙途$/, fnc: 'createMsg' },
+        { reg: /^#再入仙途$/, fnc: 'reCreateMsg' }
       ]
     })
     this.task = {

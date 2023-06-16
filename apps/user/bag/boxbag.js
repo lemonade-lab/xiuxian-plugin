@@ -5,8 +5,8 @@ export class BoxBag extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#储物袋$', fnc: 'showBag' },
-        { reg: '^#储物袋升级$', fnc: 'bagUp' }
+        { reg: /^#储物袋$/, fnc: 'showBag' },
+        { reg: /^#储物袋升级$/, fnc: 'bagUp' }
       ]
     })
   }

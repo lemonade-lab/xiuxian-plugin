@@ -5,8 +5,8 @@ export class BoxBattle extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#打劫.*$', fnc: 'duel' },
-        { reg: '^#洗手$', fnc: 'handWashing' }
+        { reg: /^#打劫.*$/, fnc: 'duel' },
+        { reg: /^#洗手$/, fnc: 'handWashing' }
       ]
     })
   }

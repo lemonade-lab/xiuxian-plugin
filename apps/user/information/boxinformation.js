@@ -5,9 +5,9 @@ export class BoxInformation extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#基础信息$', fnc: 'showUserMsg' },
-        { reg: '^#面板信息$', fnc: 'showQquipment' },
-        { reg: '^#功法信息$', fnc: 'showTalent' }
+        { reg: /^#基础信息$/, fnc: 'showUserMsg' },
+        { reg: /^#面板信息$/, fnc: 'showQquipment' },
+        { reg: /^#功法信息$/, fnc: 'showTalent' }
       ]
     })
   }

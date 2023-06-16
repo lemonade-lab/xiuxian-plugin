@@ -1,15 +1,14 @@
 import fs from 'node:fs'
 import algorithm from './algorithm.js'
 import schedule from 'node-schedule'
-import { ThePath } from '../../../app.config.js'
 
 /**数据备份*/
 class Schedule {
   constructor() {
     /*机器人根目录下统一叫做xiuxiandata */
-    this.BACKUPS_PATH = `${ThePath}/xiuxiandata/boxdata`
+    this.BACKUPS_PATH = `${process.cwd()}/xiuxiandata/boxdata`
     /*存档数值位置 */
-    this.DATA_PATH = `${ThePath}/xiuxianfile`
+    this.DATA_PATH = `${process.cwd()}/xiuxianfile`
   }
   /**
    * @param {  time } param0

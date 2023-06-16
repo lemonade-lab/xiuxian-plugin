@@ -5,8 +5,8 @@ export class BoxBattleSite extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#击杀.*$', fnc: 'userKill' },
-        { reg: '^#探索怪物$', fnc: 'userExploremonsters' }
+        { reg: /^#击杀[\u4e00-\u9fa5]*$/, fnc: 'userKill' },
+        { reg: /^#探索怪物$/, fnc: 'userExploremonsters' }
       ]
     })
   }

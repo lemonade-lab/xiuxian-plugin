@@ -5,8 +5,8 @@ export class BoxOnekey extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#置换所有物品$', fnc: 'substitution' },
-        { reg: '^#一键出售.*$', fnc: 'shellAllType' }
+        { reg: /^#置换所有物品$/, fnc: 'substitution' },
+        { reg: /^#一键出售[\u4e00-\u9fa5]*$/, fnc: 'shellAllType' }
       ]
     })
   }

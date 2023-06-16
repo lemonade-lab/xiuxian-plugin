@@ -4,7 +4,7 @@ export class BoxEye extends plugin {
     super({
       name,
       dsc,
-      rule: [{ reg: '^#虚空眼.*$', fnc: 'darkEye' }]
+      rule: [{ reg: /^#虚空眼.*$/, fnc: 'darkEye' }]
     })
   }
   darkEye = async (e) => {

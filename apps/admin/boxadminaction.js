@@ -5,12 +5,12 @@ export class boxadminaction extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#修仙更新$', fnc: 'allForcecheckout' },
-        { reg: '^#修仙删除数据$', fnc: 'deleteRedis' },
-        { reg: '^#修仙删除世界$', fnc: 'deleteAllusers' },
-        { reg: '^#盒子复原.*$', fnc: 'dataRecovery' },
-        { reg: '^#修仙全体寿命重置.*$', fnc: 'dataRelife' },
-        { reg: '^#修仙重置他人寿命.*$', fnc: 'dataRelifehe' }
+        { reg: /^#修仙更新$/, fnc: 'allForcecheckout' },
+        { reg: /^#修仙删除数据$/, fnc: 'deleteRedis' },
+        { reg: /^#修仙删除世界$/, fnc: 'deleteAllusers' },
+        { reg: /^#修仙重置全体寿命*$/, fnc: 'dataRelife' },
+        { reg: /^#修仙重置他人寿命.*$/, fnc: 'dataRelifehe' },
+        { reg: /^#盒子复原.*$/, fnc: 'dataRecovery' }
       ]
     })
   }

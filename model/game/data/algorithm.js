@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { MyDirPath, ThePath } from '../../../app.config.js'
+import { MyDirPath } from '../../../app.config.js'
+
 /**fs算法*/
 class Algorithm {
   /* 判断指定插件是否存在 */
@@ -118,7 +119,7 @@ class Algorithm {
 
   ctrateFilePath = (req) => {
     let name = req.split('/')
-    let newname = ThePath
+    let newname = process.cwd()
     name.forEach((item) => {
       newname += `${item}/`
       if (!fs.existsSync(`${newname}`)) {
@@ -138,7 +139,7 @@ class Algorithm {
   getFliePath = (req) => {
     /* 根据目录初始化地址 */
     this.ctrateFilePath(req)
-    return path.join(ThePath, req)
+    return path.join(process.cwd(), req)
   }
 }
 export default new Algorithm()

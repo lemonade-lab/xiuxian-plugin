@@ -5,8 +5,8 @@ export class BoxModify extends plugin {
       name,
       dsc,
       rule: [
-        { reg: '^#更改道号.*$', fnc: 'changeName' },
-        { reg: '^#更改道宣.*$', fnc: 'changeAutograph' }
+        { reg: /^#更改道号[\u4e00-\u9fa5]*$/, fnc: 'changeName' },
+        { reg: /^#更改道宣[\u4e00-\u9fa5]*$/, fnc: 'changeAutograph' }
       ]
     })
   }

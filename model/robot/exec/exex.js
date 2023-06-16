@@ -1,6 +1,6 @@
 import userAction from '../user/action.js'
 import { exec } from 'child_process'
-import { AppName, MyDirPath, ThePath } from '../../../app.config.js'
+import { AppName, MyDirPath} from '../../../app.config.js'
 class Exec {
   execStart = async ({ cmd, e }) => {
     exec(cmd, { cwd: MyDirPath }, async (error, stdout) => {
@@ -21,7 +21,7 @@ class Exec {
     return
   }
   onExec = async ({ cmd, e, push }) => {
-    exec(cmd, { cwd: `${ThePath}` }, async (error, stdout) => {
+    exec(cmd, { cwd: `${process.cwd()}` }, async (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
         msg.push(`${AppName}|${push['updata']}`)
