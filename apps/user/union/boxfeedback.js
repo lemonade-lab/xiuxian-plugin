@@ -4,7 +4,7 @@ export class BoxFeedback extends plugin {
     super({
       name,
       dsc,
-      rule: [{ reg: /^#联盟反馈$/, fnc: 'userFeedback' }]
+      rule: [{ reg: /^(#|\/)联盟反馈$/, fnc: 'userFeedback' }]
     })
   }
   substitution = async (e) => {

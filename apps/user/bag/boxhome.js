@@ -5,10 +5,10 @@ export class BoxHome extends plugin {
       name,
       dsc,
       rule: [
-        { reg: /^#服用[\u4e00-\u9fa5]*$/, fnc: 'take' },
-        { reg: /^#学习[\u4e00-\u9fa5]*$/, fnc: 'study' },
-        { reg: /^#忘掉[\u4e00-\u9fa5]*$/, fnc: 'forget' },
-        { reg: /^#消耗[\u4e00-\u9fa5]*$/, fnc: 'consumption' }
+        { reg: /^(#|\/)服用[\u4e00-\u9fa5]*$/, fnc: 'take' },
+        { reg: /^(#|\/)学习[\u4e00-\u9fa5]*$/, fnc: 'study' },
+        { reg: /^(#|\/)忘掉[\u4e00-\u9fa5]*$/, fnc: 'forget' },
+        { reg: /^(#|\/)消耗[\u4e00-\u9fa5]*$/, fnc: 'consumption' }
       ]
     })
   }

@@ -8,11 +8,11 @@ export class BoxSecretplace extends plugin {
       name,
       dsc,
       rule: [
-        { reg: /^#坐标信息$/, fnc: 'xyzaddress' },
-        { reg: /^#前往.*$/, fnc: 'forward' },
-        { reg: /^#回到原地$/, fnc: 'falsePiont' },
-        { reg: /^#传送.*$/, fnc: 'delivery' },
-        { reg: /^#位置信息$/, fnc: 'showCity' }
+        { reg: /^(#|\/)坐标信息$/, fnc: 'xyzaddress' },
+        { reg: /^(#|\/)前往.*$/, fnc: 'forward' },
+        { reg: /^(#|\/)回到原地$/, fnc: 'falsePiont' },
+        { reg: /^(#|\/)传送.*$/, fnc: 'delivery' },
+        { reg: /^(#|\/)位置信息$/, fnc: 'showCity' }
       ]
     })
   }

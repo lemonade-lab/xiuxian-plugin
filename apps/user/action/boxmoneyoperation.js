@@ -5,8 +5,8 @@ export class BoxMoneyOperation extends plugin {
       name,
       dsc,
       rule: [
-        { reg: /^#赠送灵石\d+$/, fnc: 'giveMoney' },
-        { reg: /^#赠送物品[\u4e00-\u9fa5]*$/, fnc: 'giveGoods' }
+        { reg: /^(#|\/)赠送灵石\d+$/, fnc: 'giveMoney' },
+        { reg: /^(#|\/)赠送物品[\u4e00-\u9fa5]*$/, fnc: 'giveGoods' }
       ]
     })
   }

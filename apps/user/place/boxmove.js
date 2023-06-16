@@ -5,10 +5,10 @@ export class BoxMove extends plugin {
       name,
       dsc,
       rule: [
-        { reg: /^#mapw$/, fnc: 'mapW' },
-        { reg: /^#mapa$/, fnc: 'mapA' },
-        { reg: /^#maps$/, fnc: 'mapS' },
-        { reg: /^#mapd$/, fnc: 'mapD' }
+        { reg: /^(#|\/)mapw$/, fnc: 'mapW' },
+        { reg: /^(#|\/)mapa$/, fnc: 'mapA' },
+        { reg: /^(#|\/)maps$/, fnc: 'mapS' },
+        { reg: /^(#|\/)mapd$/, fnc: 'mapD' }
       ]
     })
   }

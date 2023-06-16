@@ -27,13 +27,12 @@ const REDIS = {
     REDIS_DATA[key] = val
   },
   del: (key) => delete REDIS_DATA[key],
-  all: () => REDIS_DATA,
   delall: () => {
     for (key in REDIS_DATA) {
       delete REDIS_DATA[key]
     }
   },
-  ttl: () => '123456'
+  val:()=>REDIS_DATA
 }
 
 class GamePublic {

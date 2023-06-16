@@ -4,7 +4,7 @@ export class BoxDice extends plugin {
     super({
       name,
       dsc,
-      rule: [{ reg: /^#万花坊$/, fnc: 'userDice' }]
+      rule: [{ reg: /^(#|\/)万花坊$/, fnc: 'userDice' }]
     })
   }
   userDice = async (e) => {

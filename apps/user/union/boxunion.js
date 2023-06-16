@@ -5,9 +5,9 @@ export class boxunion extends plugin {
       name,
       dsc,
       rule: [
-        { reg: /^#联盟报到$/, fnc: 'userCheckin' },
-        { reg: /^#联盟签到$/, fnc: 'userSignin' },
-        { reg: /^#联盟商会$/, fnc: 'unionShop' }
+        { reg: /^(#|\/)联盟报到$/, fnc: 'userCheckin' },
+        { reg: /^(#|\/)联盟签到$/, fnc: 'userSignin' },
+        { reg: /^(#|\/)联盟商会$/, fnc: 'unionShop' }
       ]
     })
   }

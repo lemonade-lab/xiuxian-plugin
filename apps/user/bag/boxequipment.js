@@ -5,8 +5,8 @@ export class BoxEquipment extends plugin {
       name,
       dsc,
       rule: [
-        { reg: /^#装备[\u4e00-\u9fa5]*$/, fnc: 'addEquipment' },
-        { reg: /^#卸下[\u4e00-\u9fa5]*$/, fnc: 'deleteEquipment' }
+        { reg: /^(#|\/)装备[\u4e00-\u9fa5]*$/, fnc: 'addEquipment' },
+        { reg: /^(#|\/)卸下[\u4e00-\u9fa5]*$/, fnc: 'deleteEquipment' }
       ]
     })
   }
