@@ -1,4 +1,5 @@
 import gameUer from '../user/index.js'
+
 /**自定义冷却反馈*/
 const MYCD = {
   0: '攻击',
@@ -18,7 +19,7 @@ const MYCD = {
 }
 
 /** REDIS简单机制 */
-const ReadiName = 'xiuxian@2.0.0'
+const ReadiName = 'xiuxian@2.1'
 const REDIS_DATA = {}
 const REDIS = {
   get: (key) => REDIS_DATA[key],
@@ -46,6 +47,7 @@ class GamePublic {
       setTimeout(resolve, time)
     })
   }
+
   /**
    * @param { ARR } ARR
    * @returns 随机一个元素
@@ -72,57 +74,8 @@ class GamePublic {
     return Number(size)
   }
 
-  /**
-   * 行为检测
-   * @param { UID } UID
-   * @returns 若存在对象MSG则为flase
-   */
-  Go = async ({ UID }) => {
-    let action = REDIS.get(`${ReadiName}:${UID}:action`)
-    if (action != undefined) {
-      action = JSON.parse(action)
-      if (action.actionName == undefined) {
-        //根据判断msg存不存在来识别是否成功
-        return {
-          MSG: '旧版数据残留,请联系主人使用[#修仙删除数据]'
-        }
-      }
-      return {
-        MSG: `${action.actionName}中...`
-      }
-    }
-    const player = await gameUer.userMsgAction({
-      NAME: UID,
-      CHOICE: 'user_battle'
-    })
-    if (player.nowblood <= 1) {
-      return {
-        MSG: '血量不足'
-      }
-    }
-    return {}
-  }
 
-  /**
-   * @param { UID } param0
-   * @returns
-   */
-  GoMini = async ({ UID }) => {
-    let action = REDIS.get(`${ReadiName}:${UID}:action`)
-    if (action != undefined) {
-      action = JSON.parse(action)
-      if (action.actionName == undefined) {
-        //根据判断msg存不存在来识别是否成功
-        return {
-          MSG: `旧版数据残留,请联系主人使用[#修仙删除数据]`
-        }
-      }
-      return {
-        MSG: `${action.actionName}中...`
-      }
-    }
-    return {}
-  }
+
 
   /**
    * 删除所有数据
@@ -212,6 +165,56 @@ class GamePublic {
         return { CDMSG: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
       }
       return { CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
+    }
+    return {}
+  }
+
+    /**
+   * @param { UID } param0
+   * @returns
+   */
+    GoMini = async ({ UID }) => {
+      const action = REDIS.get(`${ReadiName}:${UID}:action`)
+      if (action) {
+        if (action.actionName == undefined) {
+          //根据判断msg存不存在来识别是否成功
+          return {
+            MSG: `旧版数据残留,请联系主人使用[#修仙删除数据]`
+          }
+        }
+        return {
+          MSG: `${action.actionName}中...`
+        }
+      }
+      return {}
+    }
+
+      /**
+   * 行为检测
+   * @param { UID } UID
+   * @returns 若存在对象MSG则为flase
+   */
+  Go = async ({ UID }) => {
+    const action = REDIS.get(`${ReadiName}:${UID}:action`)
+    if (action) {
+      if (action.actionName == undefined) {
+        //根据判断msg存不存在来识别是否成功
+        return {
+          MSG: '旧版数据残留,请联系主人使用[#修仙删除数据]'
+        }
+      }
+      return {
+        MSG: `${action.actionName}中...`
+      }
+    }
+    const player = await gameUer.userMsgAction({
+      NAME: UID,
+      CHOICE: 'user_battle'
+    })
+    if (player.nowblood <= 1) {
+      return {
+        MSG: '血量不足'
+      }
     }
     return {}
   }
