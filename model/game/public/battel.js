@@ -1,5 +1,6 @@
 import gameUser from '../user/index.js'
 import { BotApi } from '../../api/botapi.js'
+import { GameApi } from '../../../model/api/api.js'
 const Sneakattack = [
   '你个老六偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!',
   '你找准时机,突然暴起冲向怪物,但是怪物及时反应,转眼被怪物咬死!',
@@ -243,6 +244,37 @@ class gameBattle {
       return true
     }
     return false
+  }
+  /*雷劫伤害*/
+  Thunderbolt_damage = async ({ UID }) => {
+    const talent = await GameApi.UserData.listAction({
+      NAME: UID,
+      CHOICE: 'user_talent'
+    })
+    let Thunderbolt = {
+      "T_attack": 49040,
+      "T_arpg": 300,
+      "T_arpb": 30
+    }
+    for (let i = 0; i < talent.length; i++) {
+      if (talent[i] < 6) {
+        Thunderbolt.T_arpb -= 6
+      }
+      else {
+        Thunderbolt.T_arpb -= 3
+      }
+    }
+    let n = Math.round(Math.random()*5+5)
+    const battle = await gameUser.userMsgAction({
+      NAME: UID,
+      CHOICE: 'user_battle'
+    })
+    let T_attack = Thunderbolt.T_attack
+    let T_arpg = Thunderbolt.T_arpg
+    let T_arpb = Thunderbolt.T_arpb
+    let defense = battle.defense
+    let damage = Math.trunc(n * T_attack * 26129 / (defense - T_arpg * T_arpb))
+    return damage
   }
 }
 export default new gameBattle()

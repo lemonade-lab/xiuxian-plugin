@@ -38,7 +38,7 @@ class userAction {
     })
     let CDID = '6'
     const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
-    let CDTime = cf['CD']['Level_up'] ? cf['CD']['Level_up'] : 5
+    let CDTime = cf['CD']['Level_up'] ? cf['CD']['Level_up'] : 0
     let name = '修为'
     const Levellist = await listdata.listAction({
       CHOICE: 'generate_level',
@@ -52,7 +52,7 @@ class userAction {
     const LevelMax = Levelmaxlist.find((item) => item.id == player.levelmax_id)
     if (choise) {
       CDID = '7'
-      CDTime = cf['CD']['LevelMax_up'] ? cf['CD']['LevelMax_up'] : 5
+      CDTime = cf['CD']['LevelMax_up'] ? cf['CD']['LevelMax_up'] : 0
       name = '气血'
       if (player.levelmax_id >= 11) {
         return
@@ -194,6 +194,47 @@ class userAction {
     }
     gamePublic.setRedis(UID, CDID, now_time, CDTime)
     return
+  }
+
+  breakLevelUp = async ({ UID, choise }) => {
+    const player = await listdata.listAction({
+      NAME: UID,
+      CHOICE: 'user_level'
+    })
+    const Levellist = await listdata.listAction({
+      CHOICE: 'generate_level',
+      NAME: 'gaspractice'
+    })
+    const Levelmaxlist = await listdata.listAction({
+      CHOICE: 'generate_level',
+      NAME: 'bodypractice'
+    })
+    let returnTXT = ''
+    if (choise) {
+      player.rankmax_id = 0
+      player.levelmax_id = player.levelmax_id + 1
+      player.levelnamemax = Levelmaxlist.find((item) => item.id == player.levelmax_id).name
+      returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rank_id]}`
+    } else {
+      player.rank_id = 0
+      player.level_id = player.level_id + 1
+      player.levelname = Levellist.find((item) => item.id == player.level_id).name
+      const { size } = await this.userLifeUp({
+        UID,
+        level_id: player.level_id
+      })
+      returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
+
+    }
+    await listdata.listAction({
+      NAME: UID,
+      CHOICE: 'user_level',
+      DATA: player
+    })
+    user.readPanel({ UID })
+    return {
+      UserLevelUpMSG: `${returnTXT}`
+    }
   }
 }
 export default new userAction()

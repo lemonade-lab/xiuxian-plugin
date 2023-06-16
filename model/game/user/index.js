@@ -3,6 +3,7 @@ import listdata from '../data/listdata.js'
 import gamepublic from '../public/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
+import { GameApi } from '../../../model/api/api.js'
 class GameUser {
   startLife = async () => {
     const life = await listdata.listActionInitial({
@@ -553,6 +554,13 @@ class GameUser {
     if (!CreateGO) {
       return false
     }
+    const play = await GameApi.UserData.listAction({
+      NAME: UID,
+      CHOICE: 'user_player'
+    })
+    if (play.dujiedie == 1) { 
+      return false 
+    }
     return true
   }
 
@@ -622,7 +630,10 @@ class GameUser {
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    battle.nowblood = Math.floor(battle.blood * SIZE * 0.01)
+    battle.nowblood += Math.floor(battle.blood * SIZE * 0.01)
+    if (battle.nowblood > battle.blood) {
+      battle.nowblood = battle.blood
+    }
     await await listdata.listAction({
       NAME: UID,
       CHOICE: 'user_battle',
