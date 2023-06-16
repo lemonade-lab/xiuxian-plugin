@@ -558,8 +558,8 @@ class GameUser {
       NAME: UID,
       CHOICE: 'user_player'
     })
-    if (play.dujiedie == 1) { 
-      return false 
+    if (play.dujiedie == 1) {
+      return false
     }
     return true
   }

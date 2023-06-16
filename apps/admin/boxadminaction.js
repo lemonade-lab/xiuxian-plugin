@@ -61,7 +61,7 @@ export class boxadminaction extends plugin {
     if (!e.isMaster) return false
     if (!verify(e)) return false
     let B = await BotApi.User.at({ e })
-    let msg = await BotApi.User.relifehe({B})
+    let msg = await BotApi.User.relifehe({ B })
     e.reply(`${B}的${msg}`)
     return false
   }

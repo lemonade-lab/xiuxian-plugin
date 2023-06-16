@@ -10,8 +10,6 @@ const Sneakattack = [
   '打的山崩地裂，河水倒卷，余波万里,可恶,是幻境,什么时候!突然怪物偷袭,被一口盐汽水喷死!'
 ]
 class gameBattle {
-
-
   /*怪物战斗*/
   monsterbattle = async ({ e, battleA, battleB, battleNameB }) => {
     const battle_msg = {
@@ -252,19 +250,18 @@ class gameBattle {
       CHOICE: 'user_talent'
     })
     let Thunderbolt = {
-      "T_attack": 49040,
-      "T_arpg": 300,
-      "T_arpb": 30
+      T_attack: 49040,
+      T_arpg: 300,
+      T_arpb: 30
     }
     for (let i = 0; i < talent.length; i++) {
       if (talent[i] < 6) {
         Thunderbolt.T_arpb -= 6
-      }
-      else {
+      } else {
         Thunderbolt.T_arpb -= 3
       }
     }
-    let n = Math.round(Math.random()*5+5)
+    let n = Math.round(Math.random() * 5 + 5)
     const battle = await gameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_battle'
@@ -273,7 +270,7 @@ class gameBattle {
     let T_arpg = Thunderbolt.T_arpg
     let T_arpb = Thunderbolt.T_arpb
     let defense = battle.defense
-    let damage = Math.trunc(n * T_attack * 26129 / (defense - T_arpg * T_arpb))
+    let damage = Math.trunc((n * T_attack * 26129) / (defense - T_arpg * T_arpb))
     return damage
   }
 }

@@ -97,9 +97,9 @@ class UserAction {
   }
   relife = async () => {
     const LIFE = await GameApi.UserData.listAction({
-      CHOICE: "user_life",
-      NAME: "life",
-    });
+      CHOICE: 'user_life',
+      NAME: 'life'
+    })
     LIFE.forEach(async (item, index) => {
       if (item.Age > item.life) {
         item.Age = 1
@@ -107,35 +107,35 @@ class UserAction {
       }
     })
     await GameApi.UserData.listAction({
-      CHOICE: "user_life",
-      NAME: "life",
+      CHOICE: 'user_life',
+      NAME: 'life',
       DATA: LIFE
-    });
-    let msg = "寿命重置成功"
+    })
+    let msg = '寿命重置成功'
     return msg
   }
   relifehe = async ({ B }) => {
     let msg
     let LIFE = await GameApi.UserData.listAction({
-      CHOICE: "user_life",
-      NAME: "life",
-    });
+      CHOICE: 'user_life',
+      NAME: 'life'
+    })
     console.log(LIFE)
     console.log(B)
-    let life = LIFE.find((obj) => obj.qq == B);
+    let life = LIFE.find((obj) => obj.qq == B)
     console.log(life)
-    if(life == undefined){
-      msg = "寿命重置失败"
+    if (life == undefined) {
+      msg = '寿命重置失败'
       return msg
     }
     life.Age = 1
     life.status = 1
     await GameApi.UserData.listAction({
-      CHOICE: "user_life",
-      NAME: "life",
+      CHOICE: 'user_life',
+      NAME: 'life',
       DATA: LIFE
-    });
-    msg = "寿命重置成功"
+    })
+    msg = '寿命重置成功'
     return msg
   }
 }

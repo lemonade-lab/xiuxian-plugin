@@ -86,7 +86,7 @@ export class BoxBattleSite extends plugin {
       e,
       battleA: battle,
       battleB: monsters,
-      battleNameB:Mname
+      battleNameB: Mname
     })
     for (let item of battle_msg.msg) {
       msgLeft.push(item)

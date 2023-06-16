@@ -34,14 +34,14 @@ export class BoxHome extends plugin {
       return false
     }
     const id = najie_thing.id.split('-')
-    let x = 0//用于判断pa数组内是否存在id[0]
-    let pa = [1,2,3,4,5,6]
-    for(let i=0;i<pa.length;i++){
-      if(id[0]==pa[i]){
+    let x = 0 //用于判断pa数组内是否存在id[0]
+    let pa = [1, 2, 3, 4, 5, 6]
+    for (let i = 0; i < pa.length; i++) {
+      if (id[0] == pa[i]) {
         x = 1
       }
     }
-    if(x != 1){
+    if (x != 1) {
       e.reply(`你看看${thing_name}，想想怎么吞都吞不下去吧`)
       return
     }
@@ -53,7 +53,11 @@ export class BoxHome extends plugin {
           NAME: UID,
           CHOICE: 'user_battle'
         })
-        e.reply(`成功服用${thing_name}，当前血量为：${battle.nowblood}（${Math.trunc(battle.nowblood/battle.blood*100)}%）`)
+        e.reply(
+          `成功服用${thing_name}，当前血量为：${battle.nowblood}（${Math.trunc(
+            (battle.nowblood / battle.blood) * 100
+          )}%）`
+        )
         break
       }
       case '2': {

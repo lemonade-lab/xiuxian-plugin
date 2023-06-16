@@ -22,7 +22,7 @@ export class BoxTransaction extends plugin {
     }
 
     const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({UID,address_name})) {
+    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 
@@ -87,7 +87,7 @@ export class BoxTransaction extends plugin {
     }
 
     const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({UID,address_name})) {
+    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 
@@ -138,7 +138,7 @@ export class BoxTransaction extends plugin {
     }
 
     const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({UID,address_name})) {
+    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 

@@ -224,7 +224,6 @@ class userAction {
         level_id: player.level_id
       })
       returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
-
     }
     await listdata.listAction({
       NAME: UID,
