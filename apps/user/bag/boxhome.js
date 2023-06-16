@@ -19,7 +19,7 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let [thing_name, thing_acount] = e.msg.replace('#服用', '').split('*')
+    let [thing_name, thing_acount] = e.msg.replace('#服用', '').replace('/服用', '').split('*')
     thing_acount = await GameApi.GamePublic.leastOne({ value: thing_acount })
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
@@ -151,7 +151,7 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace('#学习', '')
+    const thing_name = e.msg.replace('#学习', '').replace('/学习', '')
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name
@@ -202,7 +202,7 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace('#忘掉', '')
+    const thing_name = e.msg.replace('#忘掉', '').replace('/忘掉', '')
     const talent = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_talent'
@@ -230,7 +230,7 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace('#消耗', '')
+    const thing_name = e.msg.replace('#消耗', '').replace('/消耗', '')
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name

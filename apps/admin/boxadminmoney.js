@@ -19,7 +19,7 @@ export class boxadminmoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace('#修仙馈赠', '')
+    const thing_name = e.msg.replace('#修仙馈赠', '').replace('/修仙馈赠', '')
     const [name, acount] = thing_name.split('*')
     const quantity = await GameApi.GamePublic.leastOne({ value: acount })
     const bag = await GameApi.GameUser.userBag({
@@ -43,7 +43,7 @@ export class boxadminmoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let lingshi = e.msg.replace('#修仙扣除', '')
+    let lingshi = e.msg.replace('#修仙扣除', '').replace('/修仙扣除', '')
     lingshi = await GameApi.GamePublic.leastOne({ value: lingshi })
     const thing = await GameApi.GameUser.userBagSearch({
       UID,

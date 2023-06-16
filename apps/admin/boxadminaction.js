@@ -45,7 +45,7 @@ export class boxadminaction extends plugin {
     await BotApi.User.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({
-        name: e.msg.replace('#盒子复原', '')
+        name: e.msg.replace('#盒子复原', '').replace('/盒子复原', '')
       })
     })
     return false

@@ -14,7 +14,7 @@ export class BoxEye extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const name = e.msg.replace('#虚空眼', '')
+    const name = e.msg.replace('#虚空眼', '').replace('/虚空眼', '')
     const HistoryList = await GameApi.UserData.listActionInitial({
       NAME: 'history',
       CHOICE: 'fixed_history',

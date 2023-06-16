@@ -62,8 +62,7 @@ export class BoxPlayerControl extends plugin {
       return false
     }
     let action = await GameApi.GamePublic.getAction(UID)
-    if (action == undefined) return false
-    action = JSON.parse(action)
+    if (!action) return false
     if (action.actionName != '闭关') return false
     const startTime = action.startTime
     const cf = GameApi.DefsetUpdata.getConfig({
@@ -89,8 +88,7 @@ export class BoxPlayerControl extends plugin {
       return false
     }
     let action = await GameApi.GamePublic.getAction(UID)
-    if (action == undefined) return false
-    action = JSON.parse(action)
+    if (!action) return false
     if (action.actionName != '降妖') return false
     const startTime = action.startTime
     const cf = GameApi.DefsetUpdata.getConfig({

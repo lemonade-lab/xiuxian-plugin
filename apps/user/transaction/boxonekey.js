@@ -57,7 +57,7 @@ export class BoxOnekey extends plugin {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 
-    const type = e.msg.replace('#一键出售', '')
+    const type = e.msg.replace('#一键出售', '').replace('/一键出售', '')
     const maptype = {
       武器: '1',
       护具: '2',

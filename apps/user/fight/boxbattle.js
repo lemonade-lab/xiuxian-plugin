@@ -15,7 +15,7 @@ export class BoxBattle extends plugin {
     const UIDA = e.user_id
     let UIDB = await BotApi.User.at({ e })
     if (!UIDB || UIDA == UIDB) {
-      UIDB = e.msg.replace('#打劫', '')
+      UIDB = e.msg.replace('#打劫', '').replace('/打劫', '')
       if (!UIDB || UIDA == UIDB) return false
     }
     e.reply(await GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))

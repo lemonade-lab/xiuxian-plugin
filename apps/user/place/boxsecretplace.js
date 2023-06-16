@@ -104,7 +104,7 @@ export class BoxSecretplace extends plugin {
     })
     const x = action.x
     const y = action.y
-    const address = e.msg.replace('#前往', '')
+    const address = e.msg.replace('#前往', '').replace('/前往', '')
     const Point = await GameApi.UserData.listAction({
       NAME: 'point',
       CHOICE: 'generate_position'
@@ -170,7 +170,7 @@ export class BoxSecretplace extends plugin {
     })
     const x = action.x
     const y = action.y
-    const address = e.msg.replace('#传送', '')
+    const address = e.msg.replace('#传送', '').replace('/传送', '')
     const Posirion = await GameApi.UserData.listAction({
       NAME: 'position',
       CHOICE: 'generate_position'

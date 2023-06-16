@@ -30,7 +30,7 @@ export class BoxForum extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const content = e.msg.replace('#喇叭', '')
+    const content = e.msg.replace('#喇叭', '').replace('/喇叭', '')
     if (content == undefined || content == '' || content.length > 50) {
       e.reply('内容最多50个字!')
       return false

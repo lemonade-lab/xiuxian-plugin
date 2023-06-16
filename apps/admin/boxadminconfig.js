@@ -32,21 +32,21 @@ export class boxadminconfig extends plugin {
   boxaSwitchOpen = async (e) => {
     if (!e.isMaster) return false
     if (!verify(e)) return false
-    const name = e.msg.replace('#盒子开启', '')
+    const name = e.msg.replace('#盒子开启', '').replace('/盒子开启', '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
     return false
   }
   boxaSwitchOff = async (e) => {
     if (!e.isMaster) return false
     if (!verify(e)) return false
-    const name = e.msg.replace('#盒子关闭', '')
+    const name = e.msg.replace('#盒子关闭', '').replace('/盒子关闭', '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
     return false
   }
   configUpdata = async (e) => {
     if (!e.isMaster) return false
     if (!verify(e)) return false
-    const [name, size] = e.msg.replace('#修仙配置更改', '').split('*')
+    const [name, size] = e.msg.replace('#修仙配置更改', '').replace('/修仙配置更改', '').split('*')
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
     return false
   }
