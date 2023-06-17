@@ -39,6 +39,11 @@ class Robot {
    * @returns
    */
   forwardMsgSurveySet = ({ e, data }) => {
+    /**
+     * 消息转发制作成html发送
+     * 
+     * 做边框，长文字图
+     */
     if (data.length == 1) {
       const isreply = e.reply(data[0])
       this.surveySet({ e, isreply })

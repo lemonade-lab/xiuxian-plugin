@@ -528,7 +528,7 @@ export class homerangeland extends plugin {
     }) //获取rangeland文件
     let rangelandlevel = rangeland.rangelandlevel
     if (rangelandlevel == 0) {
-      e.reply('你仔细想想你建牧场了吗XDD)BO}R%$LQPF$J)`K9DWP.png')
+      e.reply('你仔细想想你建牧场了吗XDD)BO}R%$LQPF$J)`K9DWP.jpg')
       return
     }
     let rangelandannimals = HomeApi.Listdata.controlActionInitial({

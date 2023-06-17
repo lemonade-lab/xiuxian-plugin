@@ -1,7 +1,7 @@
 body {
   width: 100%;
   text-align: center;
-  background-image: url('../../allimg/user/Warehouse/Warehouse.png');
+  background-image: url('../../allimg/user/Warehouse/Warehouse.jpg');
   background-size: 100% auto;
 }
 
@@ -83,18 +83,18 @@ body {
 
 .user_top {
   display: grid;
-  background-image: url('../../allimg/user/Warehouse/Warehouse横幅.png');
+  background-image: url('../../allimg/user/Warehouse/Warehouse横幅.jpg');
   background-size: 100% 100%;
 }
 
 .user_top1 {
   display: grid;
-  background-image: url('../../allimg/user/Warehouse/Warehouse横幅1.png');
+  background-image: url('../../allimg/user/Warehouse/Warehouse横幅1.jpg');
   background-size: 100% 100%;
 }
 
 .user_top2 {
   display: grid;
-  background-image: url('../../allimg/user/Warehouse/Warehouse横幅.png');
+  background-image: url('../../allimg/user/Warehouse/Warehouse横幅.jpg');
   background-size: 100% 100%;
 }
