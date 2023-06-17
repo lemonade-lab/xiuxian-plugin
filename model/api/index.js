@@ -5,8 +5,13 @@ import { HomeApi } from './homeapi.js'
 export class plugin extends plugins {
   constructor(data) {
     super({
+      //辨识名
       name: data.name ?? 'xiuxian@2.1',
+      //说明
       dsc: data.dsc ?? 'xiuxian@2.1',
+      //优先级
+      priority: data.priority ?? 900000,
+      //扩展
       ...data
     })
   }
