@@ -39,11 +39,7 @@ export class homefuli extends plugin {
   //#发家园福利
   Allfulihome = async (e) => {
     if (!this.verify(e)) return false
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
-
+    if (!e.isMaster) return false
     let ls = e.msg.replace(/^(#|\/)发家园福利/, '')
     var pattern = new RegExp('[0-9]+')
     var str = ls
@@ -70,10 +66,7 @@ export class homefuli extends plugin {
   async Fulihome(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
+    if (!e.isMaster) return false
 
     let doge = e.msg.replace(/^(#|\/)发家园补偿/, '')
     var pattern = new RegExp('[0-9]+')
@@ -106,10 +99,7 @@ export class homefuli extends plugin {
   //#发家园物品
   async zengsonghome(e) {
     if (!this.verify(e)) return false
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
+    if (!e.isMaster) return false
     //对方
     const user = {
       A: e.user_id,
@@ -156,10 +146,7 @@ export class homefuli extends plugin {
   kouchujy = async (e) => {
     if (!this.verify(e)) return false
 
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
+    if (!e.isMaster) return false
 
     //获取扣除经验
     let jy = e.msg.replace(/^(#|\/)扣除全体家园经验/, '')
@@ -193,10 +180,7 @@ export class homefuli extends plugin {
   //#扣除家园经验
   kouchugrjy = async (e) => {
     if (!this.verify(e)) return false
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
+    if (!e.isMaster) return false
     //对方
     const user = {
       A: e.user_id,
@@ -227,10 +211,7 @@ export class homefuli extends plugin {
   //#发家园经验
   zenjiagrjy = async (e) => {
     if (!this.verify(e)) return false
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
+    if (!e.isMaster) return false
     //对方
     const user = {
       A: e.user_id,
@@ -261,10 +242,7 @@ export class homefuli extends plugin {
   //#扣除灵晶
   kouchulj = async (e) => {
     if (!this.verify(e)) return false
-    if (!e.isMaster) {
-      e.reply(`你不是主人哦!`)
-      return false
-    }
+    if (!e.isMaster) return false
     let doge = e.msg.replace(/^(#|\/)扣除灵晶/, '')
     var pattern = new RegExp('[0-9]+')
     var str = doge

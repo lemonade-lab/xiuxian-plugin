@@ -202,7 +202,7 @@ class GameUser {
     //搜索物品信息
     const thing = await listdata.searchThing({
       CHOICE: 'fixed_material',
-      NAME: 'MaterialGuide',
+      NAME: 'MaterialGUIDe',
       condition: 'name',
       name
     })

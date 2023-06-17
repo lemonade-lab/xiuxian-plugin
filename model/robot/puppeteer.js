@@ -24,7 +24,7 @@ class Puppeteer {
       args: [
         '--disable-gpu',
         '--disable-dev-shm-usage',
-        '--disable-setuid-sandbox',
+        '--disable-setUID-sandbox',
         '--no-first-run',
         '--no-sandbox',
         '--no-zygote',

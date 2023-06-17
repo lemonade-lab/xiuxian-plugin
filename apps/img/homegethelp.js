@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin } from '../../model/api/index.js'
+import { BotApi, plugin } from '../../model/api/index.js'
 //秋雨
 export class HomeGetHelp extends plugin {
   constructor() {
