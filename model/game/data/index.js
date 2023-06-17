@@ -50,11 +50,13 @@ export const __PATH = {
   generate_all: algorithm.getReq('/resources/databirth/all'),
   generate_position: algorithm.getReq('/resources/databirth/position'),
   generate_level: algorithm.getReq('/resources/databirth/level'),
+  //物品信息
+  generate_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
 
   /* 家园路径 */
 
   //玩家存档
-  user_home_home: algorithm.getReq('/resources/databirth/home/home'),
+  user_home_user: algorithm.getReq('/resources/databirth/home/user'),
   user_home_landgoods: algorithm.getReq('/resources/databirth/home/landgoods'),
   user_home_life: algorithm.getReq('/resources/databirth/home/life'),
   user_home_minefield: algorithm.getReq('/resources/databirth/home/minefield'),
@@ -67,10 +69,6 @@ export const __PATH = {
   user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
   user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
   //物品信息
-  home_home_goods: algorithm.getReq('/resources/datafixed/goods'),
-  home_home_point: algorithm.getReq('/resources/datafixed/point'),
-  //生成信息
-  home_home_all: algorithm.getReq('/resources/databirth/all'),
   home_home_dogshop: algorithm.getReq('/resources/databirth/dogshop')
 }
 

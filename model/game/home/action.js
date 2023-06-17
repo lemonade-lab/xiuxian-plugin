@@ -5,7 +5,7 @@ class userAction {
     const { UID } = parameter
     const home = await listdata.listAction({
       NAME: UID,
-      CHOICE: 'user_home'
+      CHOICE: 'user_home_user'
     })
     const homelevel = home.homelevel
     if (homelevel > 9) {

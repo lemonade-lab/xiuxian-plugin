@@ -13,19 +13,19 @@ class information {
   userWarehouseShow = async ({ UID }) => {
     let life = await GameApi.GameUser.userMsgAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'user_home_life'
     })
     life = life.find((item) => item.qq == UID)
     const player = await GameApi.UserData.listAction({
-      CHOICE: 'user_player',
+      CHOICE: 'user_home_player',
       NAME: UID
     })
     const battle = await GameApi.UserData.listAction({
-      CHOICE: 'user_battle',
+      CHOICE: 'user_home_battle',
       NAME: UID
     })
     const Warehouse = await listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     const thing = Warehouse.thing
@@ -107,24 +107,24 @@ class information {
   }
   userhomeShow = async ({ UID }) => {
     const player = await GameApi.UserData.listAction({
-      CHOICE: 'user_player',
+      CHOICE: 'user_home_player',
       NAME: UID
     })
     const home = await listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_home',
       NAME: UID
     })
     const battle = await GameApi.UserData.listAction({
-      CHOICE: 'user_battle',
+      CHOICE: 'user_home_battle',
       NAME: UID
     })
     let life = await GameApi.GameUser.userMsgAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'user_home_life'
     })
     life = life.find((item) => item.qq == UID)
     const ifexisthome1 = await listdata.listActionArr({
-      CHOICE: 'user_position',
+      CHOICE: 'user_home_position',
       NAME: 'position'
     })
     let ifexisthome = ifexisthome1.find((item) => item.qq == UID)
@@ -151,11 +151,11 @@ class information {
   get_lookland_img = async ({ UID }) => {
     let life = await GameApi.GameUser.userMsgAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'user_home_life'
     })
     life = life.find((item) => item.qq == UID)
     const landgoods = await listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: UID
     })
     const thing = landgoods.thing
@@ -183,7 +183,7 @@ class information {
   }
   get_lookrangeland_img = async ({ UID }) => {
     const rangelandannimals = await listdata.listActionArr({
-      CHOICE: 'user_rangelandannimals',
+      CHOICE: 'user_home_rangelandannimals',
       NAME: UID
     })
     const thing = rangelandannimals.thing
