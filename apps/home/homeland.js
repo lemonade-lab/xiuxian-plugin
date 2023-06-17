@@ -287,8 +287,8 @@ export class homeland extends plugin {
     return false
   }
 
-  upgrade(e, user_id, landgoods1, name, acount, lattice) {
-    let UID = user_id
+  upgrade(e, userId, landgoods1, name, acount, lattice) {
+    let UID = userId
     let thing = landgoods1
     let crop = HomeApi.GameUser.homesearch_thingName({ name })
     let stolen = landgoods1.stolen
@@ -375,7 +375,6 @@ export class homeland extends plugin {
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
-        INITIAL: [],
         INITIAL: []
       })
       let landgoods = HomeApi.Listdata.controlActionInitial({

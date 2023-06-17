@@ -25,7 +25,6 @@ export class move extends plugin {
   }
 
   async movewarehouse(e) {
-    async
     // 发送消息
     const UID = e.user_id
     // 不开放私聊功能

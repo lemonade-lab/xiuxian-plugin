@@ -109,9 +109,9 @@ export class BoxPlayerControl extends plugin {
     return false
   }
 
-  upgrade = (user_id, time, name, e) => {
+  upgrade = (userId, time, name, e) => {
     if (!this.verify(e)) return false
-    const UID = user_id
+    const UID = userId
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'

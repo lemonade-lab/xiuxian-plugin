@@ -1,6 +1,6 @@
 import { GameApi } from '../../api/index.js'
 import listdata from '../data/listdata.js'
-class information {
+class Information {
   userDataShow = ({ UID }) => {
     return {
       path: 'user/information',
@@ -222,4 +222,4 @@ class information {
     }
   }
 }
-export default new information()
+export default new Information()

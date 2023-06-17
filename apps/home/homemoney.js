@@ -198,11 +198,6 @@ export class homemoney extends plugin {
       NAME: 'dogshop',
       INITIAL: []
     })
-    let rangeland = HomeApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangeland',
-      NAME: UID,
-      INITIAL: []
-    })
     let ifexist = ifexist1.find((item) => item.name == thingName)
     let id = ifexist.id.split('-')
     if (!ifexist) {

@@ -1,6 +1,6 @@
 import gameUser from './index.js'
 import listdata from '../data/listdata.js'
-class information {
+class Information {
   /**
    * 基础信息
    * @param { UID } param0
@@ -117,7 +117,8 @@ class information {
         UID,
         skills: talent.AllSorcery,
         linggenname: name,
-        talentsize: size
+        talentsize: size,
+        life
       }
     }
   }
@@ -191,4 +192,4 @@ class information {
     }
   }
 }
-export default new information()
+export default new Information()

@@ -66,7 +66,7 @@ export class BoxOnekey extends plugin {
       功法: '5',
       道具: '6'
     }
-    if (!maptype.hasOwnProperty(type)) {
+    if (!Object.prototype.hasOwnProperty.call(maptype, type)) {
       e.reply(`[蜀山派]叶凡\n此处不收[${type}]`)
       return false
     }

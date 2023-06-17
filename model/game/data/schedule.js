@@ -23,12 +23,9 @@ class Schedule {
       const h = myDate.getHours()
       const m = myDate.getMinutes()
       const s = myDate.getSeconds()
-      fs.cp(
-        this.DATA_PATH,
-        `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`,
-        { recursive: true },
-        (err) => {}
-      )
+      fs.cp(this.DATA_PATH, `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`, {
+        recursive: true
+      })
     })
   }
 
@@ -50,7 +47,7 @@ class Schedule {
     const newsum = algorithm.getfilepath(this.DATA_PATH, '.json')
     newsum.forEach((item) => {
       /* /循环删除数据 */
-      fs.unlink(item, (err) => {})
+      fs.unlink(item)
     })
     /** 获得这个备份下的所有子目录 */
     const namefileSubdirectory = algorithm.getMenu(`${this.BACKUPS_PATH}/${name}`)
@@ -71,7 +68,7 @@ class Schedule {
         let x = `${this.DATA_PATH}/${itemname}/${item}.json`
         /* 不存在就复制 */
         if (!fs.existsSync(x)) {
-          fs.cp(y, x, (err) => {})
+          fs.cp(y, x)
         }
       })
     })

@@ -76,7 +76,8 @@ class ListData {
     let { CHOICE, NAME, condition, name } = parameter
     if (!CHOICE) {
       // 默认检索all表
-      ;(CHOICE = 'generate_all'), (NAME = 'all')
+      CHOICE = 'generate_all'
+      NAME = 'all'
     }
     const all = this.controlAction({ CHOICE, NAME })
     const ifexist = all.find((item) => item[condition] == name)

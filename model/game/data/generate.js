@@ -10,7 +10,7 @@ class GenerateData {
   newlist = (PATH, name, sum) => {
     const dir = path.join(PATH, `${name}.json`)
     const theARR = JSON.stringify(sum, '', '\t')
-    fs.writeFileSync(dir, theARR, 'utf8', (err) => {})
+    fs.writeFileSync(dir, theARR, 'utf8')
   }
 
   /**

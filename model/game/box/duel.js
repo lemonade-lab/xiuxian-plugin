@@ -4,7 +4,7 @@ import GamePublic from '../public/index.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'
 import { GameApi } from '../../api/index.js'
-class duel {
+class Duel {
   getDuel = ({ e, UIDA, UIDB }) => {
     if (!GameUser.getUID({ UID: UIDB })) {
       return `查无此人`
@@ -102,4 +102,4 @@ class duel {
     return `${user.a}战胜了${user.b}`
   }
 }
-export default new duel()
+export default new Duel()

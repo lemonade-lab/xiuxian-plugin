@@ -585,7 +585,6 @@ export class homerangeland extends plugin {
     if (!this.verify(e)) return false
     // 检查存档
     let UID = e.user_id
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
     if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
@@ -607,7 +606,6 @@ export class homerangeland extends plugin {
     }
     let time = rangelandannimals.time
     let mature = rangelandannimals.mature * 3600
-    let deadtime = rangelandannimals.deadtime * 3600
     let nowTime = new Date().getTime()
     let time1 = Math.floor((nowTime - time) / 1000)
     let timeco1 = mature - time1

@@ -133,6 +133,10 @@ export class boxfairyland extends plugin {
         CHOICE: 'generate_level',
         NAME: 'gaspractice'
       })
+      const player = GameApi.UserData.controlAction({
+        NAME: UID,
+        CHOICE: 'user_level'
+      })
       const Level = Levellist.find((item) => item.id == player.levelId)
       if (battle.nowblood > 0) {
         const { UserLevelUpMSG } = GameApi.UserAction.breakLevelUp({

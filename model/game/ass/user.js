@@ -17,19 +17,6 @@ class GameUser {
   }
 
   /**
-   * @param {UID} UID
-   * @returns 初始化数据，不成功则false
-   */
-  createDarkPlayer = (parameter) => {
-    const { UID } = parameter
-    try {
-      return true
-    } catch {
-      return false
-    }
-  }
-
-  /**
    * 给背包添加物品
    * @param {用户的背包} BAG
    * @param {物品资料} THING

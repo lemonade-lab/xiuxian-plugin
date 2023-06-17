@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { dealTpl } from './puppeteer/puppeteer.js'
-import { getConfig } from './defset/defset.js'
+// import { getConfig } from './defset/defset.js'
 /* 数据调试 */
 
 /* 选择调试文件并重启 */

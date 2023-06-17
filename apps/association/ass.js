@@ -234,7 +234,7 @@ export class Association extends plugin {
       return false
     }
 
-    let reg = new RegExp(/#宗门(上交|上缴|捐赠)灵石/)
+    let reg = /#宗门(上交|上缴|捐赠)灵石/
     let lingshi = e.msg.replace(reg, '')
     lingshi = AssociationApi.assUser.numberVerify(lingshi)
 
@@ -302,7 +302,7 @@ export class Association extends plugin {
         theAssXiuxian = thisAss.resident.name
       }
       const BeastList = ['无神兽', '麒麟', '青龙', '白虎', '朱雀', '玄武']
-      let thisAss_beast = BeastList[Number(thisAss.divineBeast)]
+      let thisAssBeast = BeastList[Number(thisAss.divineBeast)]
       temp.push(
         `序号:${1 + i} ` +
           '\n' +
@@ -318,7 +318,7 @@ export class Association extends plugin {
           '\n' +
           `宗主: ${thisAss.master}` +
           '\n' +
-          `宗门神兽: ${thisAss_beast}`
+          `宗门神兽: ${thisAssBeast}`
       )
     }
     BotApi.Robot.forwardMsg({ e, data: temp })

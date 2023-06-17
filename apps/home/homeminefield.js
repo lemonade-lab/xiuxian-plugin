@@ -139,7 +139,6 @@ export class homeminefield extends plugin {
             time: time2
           })
           minefieldName.qq = A
-          minefieldName.region = minefieldName.region
           minefieldName.createTime = nowTime
           minefieldName.timeMax = timeMax
           HomeApi.Listdata.controlActionInitial({

@@ -42,13 +42,13 @@ export class homefuli extends plugin {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     let ls = e.msg.replace(/^(#|\/)发家园福利/, '')
-    var pattern = new RegExp('[0-9]+')
+    var pattern = /[0-9]+/
     var str = ls
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
       return false
     }
-    if (parseInt(ls) == parseInt(ls) && parseInt(ls) > 0) {
+    if (parseInt(ls) > 0) {
       ls = parseInt(ls)
     } else {
       ls = 100 // 没有输入正确数字或不是正数
@@ -71,7 +71,7 @@ export class homefuli extends plugin {
     if (!e.isMaster) return false
 
     let doge = e.msg.replace(/^(#|\/)发家园补偿/, '')
-    var pattern = new RegExp('[0-9]+')
+    var pattern = /[0-9]+/
     var str = doge
 
     if (!pattern.test(str)) {
@@ -79,7 +79,7 @@ export class homefuli extends plugin {
       return false
     }
 
-    if (parseInt(doge) == parseInt(doge) && parseInt(doge) > 0) {
+    if (parseInt(doge) > 0) {
       doge = parseInt(doge)
     } else {
       doge = 100 // 没有输入正确数字或不是正数
@@ -154,7 +154,7 @@ export class homefuli extends plugin {
 
     // 获取扣除经验
     let jy = e.msg.replace(/^(#|\/)扣除全体家园经验/, '')
-    var pattern = new RegExp('[0-9]+')
+    var pattern = /[0-9]+/
     var str = jy
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
@@ -162,7 +162,7 @@ export class homefuli extends plugin {
     }
 
     // 校验输入经验
-    if (parseInt(jy) == parseInt(jy) && parseInt(jy) > 0) {
+    if (parseInt(jy) > 0) {
       jy = parseInt(jy)
     } else {
       jy = 100 // 没有输入正确数字或不是正数
@@ -198,13 +198,13 @@ export class homefuli extends plugin {
       return false
     }
     let jy = e.msg.replace(/^(#|\/)扣除家园经验/, '')
-    var pattern = new RegExp('[0-9]+')
+    var pattern = /[0-9]+/
     var str = jy
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
       return false
     }
-    if (parseInt(jy) == parseInt(jy) && parseInt(jy) > 0) {
+    if (parseInt(jy) > 0) {
       jy = parseInt(jy)
     } else {
       jy = 100 // 没有输入正确数字或不是正数
@@ -230,13 +230,13 @@ export class homefuli extends plugin {
       return false
     }
     let jy = e.msg.replace(/^(#|\/)发家园经验/, '')
-    var pattern = new RegExp('[0-9]+')
+    var pattern = /[0-9]+/
     var str = jy
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
       return false
     }
-    if (parseInt(jy) == parseInt(jy) && parseInt(jy) > 0) {
+    if (parseInt(jy) > 0) {
       jy = parseInt(jy)
     } else {
       jy = 100 // 没有输入正确数字或不是正数
@@ -251,13 +251,13 @@ export class homefuli extends plugin {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     let doge = e.msg.replace(/^(#|\/)扣除灵晶/, '')
-    var pattern = new RegExp('[0-9]+')
+    var pattern = /[0-9]+/
     var str = doge
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
       return false
     }
-    if (parseInt(doge) == parseInt(doge) && parseInt(doge) > 0) {
+    if (parseInt(doge) > 0) {
       doge = parseInt(doge)
     } else {
       doge = 100 // 没有输入正确数字或不是正数

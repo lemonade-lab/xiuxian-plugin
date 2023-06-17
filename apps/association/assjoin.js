@@ -116,7 +116,7 @@ export class AssociationJoin extends plugin {
     const mostMem = AssociationApi.config.numberMaximums[ass.level - 1] // 该宗门目前人数上限
     const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
-      e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
+      e.reply(`弟子人数已经达到目前等级最大,无法加入`)
       return false
     }
     if (find == -1) {

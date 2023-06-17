@@ -1,5 +1,5 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
-//汐颜
+// 汐颜
 export class BlessPlace extends plugin {
   constructor() {
     super({
@@ -31,6 +31,7 @@ export class BlessPlace extends plugin {
       ]
     })
   }
+
   async Association_Battle(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -55,7 +56,7 @@ export class BlessPlace extends plugin {
     if (battleAss.resident.name == 0 || battleAss.id == assPlayer.assName) {
       return false
     }
-    //读取被攻打的宗门势力范围
+    // 读取被攻打的宗门势力范围
     const attackAss = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
     const positionList = GameApi.UserData.controlAction({
@@ -99,13 +100,13 @@ export class BlessPlace extends plugin {
         msg.push('防守方没有神兽，并不能获得战斗加成')
     }
     msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体魔力值加2点')
-    const data={
+    const data = {
       msg
     }
-     e.reply((await BotApi.obtainingImages({ path:'msg', name:'msg', data })))
-    //开打！
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data }))
+    // 开打！
     const res = AssBattle(e, attackObj, battleObj)
-    //赢！
+    // 赢！
     if (battleAss.facility[5].status != 0) {
       battleAss.facility[5].buildNum -= 200
     }
@@ -126,7 +127,7 @@ export class BlessPlace extends plugin {
     return false
   }
 
-  //秘境地点
+  // 秘境地点
   async List_blessPlace(e) {
     if (!this.verify(e)) return false
     let addres = '洞天福地'
@@ -134,7 +135,7 @@ export class BlessPlace extends plugin {
     GoBlessPlace(e, weizhi, addres)
   }
 
-  //入驻洞天
+  // 入驻洞天
   async Settled_Blessed_Place(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -147,21 +148,21 @@ export class BlessPlace extends plugin {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
-    let blessed_name = e.msg.replace('#入驻洞天', '')
-    blessed_name = blessed_name.trim()
-    //洞天不存在
-    const dongTan = AssociationApi.assUser.blessPlaceList.find((item) => item.name == blessed_name)
+    let blessedName = e.msg.replace('#入驻洞天', '')
+    blessedName = blessedName.trim()
+    // 洞天不存在
+    const dongTan = AssociationApi.assUser.blessPlaceList.find((item) => item.name == blessedName)
     if (!dongTan) {
-      e.reply(`[${blessed_name}]不存在`)
+      e.reply(`[${blessedName}]不存在`)
       return false
     }
     const positionList = GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
-    const point = positionList.find((item) => item.name == blessed_name)
+    const point = positionList.find((item) => item.name == blessedName)
 
-    //取洞天点位，是否在位置，在--->是否被占领
+    // 取洞天点位，是否在位置，在--->是否被占领
     const action = GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
@@ -229,23 +230,23 @@ export class BlessPlace extends plugin {
       return false
     }
     const now = new Date()
-    const nowTime = now.getTime() //获取当前日期的时间戳
+    const nowTime = now.getTime() // 获取当前日期的时间戳
     const Today = AssociationApi.assUser.timeInvert(nowTime)
-    const lastExplorTime = AssociationApi.assUser.timeInvert(assPlayer.lastExplorTime) //获得上次宗门签到日期
+    const lastExplorTime = AssociationApi.assUser.timeInvert(assPlayer.lastExplorTime) // 获得上次宗门签到日期
     if (Today.Y == lastExplorTime.Y && Today.M == lastExplorTime.M && Today.D == lastExplorTime.D) {
       e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`)
       return false
     }
     assPlayer.lastExplorTime = nowTime
 
-    let gift_lingshi = 0
+    let giftLingshi = 0
     const player = GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    gift_lingshi = 500 * ass.resident.level * player.levelId
+    giftLingshi = 500 * ass.resident.level * player.levelId
 
-    const num = Math.trunc(gift_lingshi)
+    const num = Math.trunc(giftLingshi)
 
     if (ass.spiritStoneAns + num > AssociationApi.config.spiritStoneAnsMax[ass.level - 1]) {
       ass.spiritStoneAns = AssociationApi.config.spiritStoneAnsMax[ass.level - 1]
@@ -258,7 +259,7 @@ export class BlessPlace extends plugin {
     AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply(
-      `本次开采灵脉为宗门灵石池贡献了${gift_lingshi}灵石，你获得了` +
+      `本次开采灵脉为宗门灵石池贡献了${giftLingshi}灵石，你获得了` +
         Math.trunc(num / 2000) +
         `点贡献点`
     )
@@ -269,7 +270,7 @@ export class BlessPlace extends plugin {
   async construction_Guild(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    //用户不存在
+    // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
@@ -291,7 +292,7 @@ export class BlessPlace extends plugin {
 
     let buildName = e.msg.replace('#修建', '')
     buildName = buildName.trim()
-    //洞天不存在
+    // 洞天不存在
     const location = AssociationApi.config.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
       return false
@@ -353,7 +354,7 @@ export class BlessPlace extends plugin {
   async show_Association_Builder(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    //用户不存在
+    // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
@@ -379,7 +380,7 @@ export class BlessPlace extends plugin {
           (ass.facility[i].status == 0 ? '未启用' : '启用')
       )
     }
-     e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
   }
 }
 
@@ -401,7 +402,7 @@ async function GoBlessPlace(e, weizhi, addres) {
         '%'
     )
   }
-   e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
+  e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 }
 
 function getFightMember(members, position) {
@@ -447,13 +448,13 @@ function SealingFormation(members) {
   }
   return res
 }
-function AssBattle(e, battleA, battleB) {
+async function AssBattle(e, battleA, battleB) {
   let msg = []
   let qq = 1
   if (battleA.speed >= battleB.speed) {
     let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 1
 
-    if (battle_probability(battleA.burst)) {
+    if (battleProbability(battleA.burst)) {
       hurt += Math.floor((hurt * battleA.burstmax) / 100)
     }
     battleB.nowblood = battleB.nowblood - hurt
@@ -464,49 +465,49 @@ function AssBattle(e, battleA, battleB) {
       msg.push('你们催动法力，造成' + hurt + '伤害')
     }
   }
-  //循环回合，默认从B攻击开始
+  // 循环回合，默认从B攻击开始
   var x = 1
   var y = 0
   var z = 1
   while (true) {
     x++
     z++
-    //分片发送消息
+    // 分片发送消息
     if (x == 15) {
-       e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
+      e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
       msg = []
       x = 0
       y++
       if (y == 2) {
         qq = battleA.nowblood > battleB.nowblood ? 1 : 0
-        //就打2轮回
+        // 就打2轮回
         break
       }
     }
-    //B开始
+    // B开始
     let hurt = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 1
-    if (battle_probability(battleB.burst)) {
+    if (battleProbability(battleB.burst)) {
       hurt += Math.floor((hurt * battleB.burstmax) / 100)
     }
     battleA.nowblood = battleA.nowblood - hurt
     if (battleA.nowblood < 0) {
       msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
-       e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
+      e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
       e.reply('你们的进攻被击退了！！')
       qq = 0
       break
     } else {
       msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
     }
-    //A开始
+    // A开始
     hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 1
-    if (battle_probability(battleA.burst)) {
+    if (battleProbability(battleA.burst)) {
       hurt += Math.floor((hurt * battleA.burstmax) / 100)
     }
     battleB.nowblood = battleB.nowblood - hurt
     if (battleB.nowblood < 0) {
       msg.push('第' + z + '回合:你们结阵攻伐，造成' + hurt + '伤害')
-       e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
+      e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
       e.reply('你们击破了对面的山门！')
       break
     } else {
@@ -515,8 +516,8 @@ function AssBattle(e, battleA, battleB) {
   }
   return qq
 }
-//暴击率
-const battle_probability = (P) => {
+// 暴击率
+function battleProbability(P) {
   if (P > 100) {
     return true
   }

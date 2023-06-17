@@ -1,7 +1,7 @@
 import listdata from '../data/listdata.js'
 import GamePublic from '../public/index.js'
 import User from './user.js'
-class userAction {
+class UserAction {
   userextensionhome = (parameter) => {
     const { UID } = parameter
     const home = listdata.controlAction({
@@ -92,4 +92,4 @@ class userAction {
     }
   }
 }
-export default new userAction()
+export default new UserAction()

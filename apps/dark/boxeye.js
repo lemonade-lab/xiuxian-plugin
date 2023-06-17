@@ -19,7 +19,7 @@ export class BoxEye extends plugin {
       CHOICE: 'fixed_history',
       INITIAL: {}
     })
-    if (HistoryList.hasOwnProperty(name)) {
+    if (Object.prototype.hasOwnProperty.call(HistoryList, name)) {
       e.reply(HistoryList[name])
       return false
     }

@@ -108,6 +108,7 @@ export class BoxHome extends plugin {
               break
             }
             default: {
+              console.log('无')
             }
           }
         }
@@ -134,6 +135,7 @@ export class BoxHome extends plugin {
         break
       }
       default: {
+        console.log('无')
       }
     }
     GameApi.GameUser.userBag({
@@ -299,6 +301,7 @@ export class BoxHome extends plugin {
           break
         }
         default: {
+          console.log('无')
         }
       }
     }

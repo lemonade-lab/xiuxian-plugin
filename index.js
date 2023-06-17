@@ -40,7 +40,7 @@ for (let item of sum) {
   let keys = Object.keys(allExport)
   for (let key of keys) {
     if (allExport[key].prototype) {
-      if (apps.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(apps, key)) {
         console.info(`Template detection:已经存在class ${key}同名导出\n    ${address}`)
       }
       apps[key] = allExport[key]

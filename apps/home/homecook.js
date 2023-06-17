@@ -360,8 +360,7 @@ export class homecook extends plugin {
     let cook = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_cook',
       NAME: 'cook',
-      INITIAL: data,
-      INITIAL: []
+      INITIAL: data
     })
     let ifexist1 = cook.find((item) => item.name == name)
     let ifexist0 = cook.find(
@@ -409,8 +408,7 @@ export class homecook extends plugin {
       let foodThing = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_food',
         NAME: 'food',
-        INITIAL: data,
-        INITIAL: []
+        INITIAL: data
       })
       let food = HomeApi.GameUser.foodshuxing({
         shuxinga,
@@ -519,7 +517,7 @@ export class homecook extends plugin {
       爆伤: 'burstMax',
       敏捷: 'speed'
     }
-    if (map.hasOwnProperty(code[1])) {
+    if (Object.prototype.hasOwnProperty.call(map, code[1])) {
       if (map[code[1]] == 'speed') {
         GameApi.GameUser.addExtendTimes({
           NAME: UID,
@@ -553,6 +551,7 @@ export class homecook extends plugin {
           break
         }
         default: {
+          console.log('无')
         }
       }
     }

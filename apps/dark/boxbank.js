@@ -27,12 +27,12 @@ export class BoxBank extends plugin {
       INITIAL: {}
     })
     const msg = []
-    if (!StorageList.hasOwnProperty(UID)) {
+    if (!Object.prototype.hasOwnProperty.call(StorageList, UID)) {
       msg.push('无存款记录')
     } else {
       msg.push(`存款:${StorageList[UID].account}`)
     }
-    if (!WhiteBarList.hasOwnProperty(UID)) {
+    if (!Object.prototype.hasOwnProperty.call(StorageList, UID)) {
       msg.push('无白条记录')
     } else {
       msg.push(`借款:${WhiteBarList[UID].money}`)

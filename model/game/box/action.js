@@ -22,7 +22,7 @@ const LevelMiniName = {
   3: '巅峰',
   4: '圆满'
 }
-class userAction {
+class UserAction {
   /**
    * @param { UID, choise } param0
    * @returns
@@ -237,4 +237,4 @@ class userAction {
     }
   }
 }
-export default new userAction()
+export default new UserAction()
