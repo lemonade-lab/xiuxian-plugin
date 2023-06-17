@@ -45,7 +45,7 @@ class Puppeteer {
     /*存在即失败*/
     if (this.lock) return false
     this.lock = true
-    console.mark('puppeteer Chromium 启动中...')
+    console.info('puppeteer Chromium 启动中...')
     this.browser = await puppeteer.launch(this.config).catch((err) => {
       console.error(err.toString())
       if (String(err).includes('correct Chromium')) {
@@ -59,7 +59,7 @@ class Puppeteer {
       console.error('puppeteer Chromium 启动失败')
       return false
     }
-    console.mark('puppeteer Chromium 启动成功')
+    console.info('puppeteer Chromium 启动成功')
     /** 监听Chromium实例是否断开 */
     this.browser.on('disconnected', (e) => {
       console.error('Chromium实例关闭或崩溃!\n请及时#重启,后尝试恢复')
@@ -131,8 +131,8 @@ class Puppeteer {
     this.renderNum++
     /** 计算图片大小 */
     let kb = (buff.length / 1024).toFixed(2) + 'kb'
-    console.mark(
-      `[xiuxian][${name}][${this.renderNum}次] ${kb} ${console.green(`${Date.now() - start}ms`)}`
+    console.info(
+      `[xiuxian][${name}][${this.renderNum}次] ${kb} ${Date.now() - start}ms`
     )
     /*重启？？？*/
     this.restart()
@@ -183,7 +183,7 @@ class Puppeteer {
     const watcher = chokidar.watch(tplFile)
     watcher.on('change', () => {
       delete this.html[tplFile]
-      console.mark(`[修改html模板] ${tplFile}`)
+      console.info(`[修改html模板] ${tplFile}`)
     })
     this.watcher[tplFile] = watcher
   }
@@ -198,7 +198,7 @@ class Puppeteer {
             this.browser.close().catch((err) => console.error(err))
           }
           this.browser = false
-          console.mark('puppeteer 关闭重启...')
+          console.info('puppeteer 关闭重启...')
         }, 100)
       }
     }

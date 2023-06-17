@@ -19,7 +19,7 @@ export class assGetHelp extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'ass_help' })
     if (!data) return false
-    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 6, data }))
+    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 6, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
@@ -27,7 +27,7 @@ export class assGetHelp extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'ass_admin' })
     if (!data) return false
-    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 7, data }))
+    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 7, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }

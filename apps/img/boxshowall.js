@@ -44,7 +44,7 @@ export class boxshowall extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'admin' })
     if (!data) return false
-    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 0, data }))
+    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
@@ -52,7 +52,7 @@ export class boxshowall extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'help' })
     if (!data) return false
-    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 1, data }))
+    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
@@ -60,7 +60,7 @@ export class boxshowall extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'darkhelp' })
     if (!data) return false
-    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 2, data }))
+    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 2, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }

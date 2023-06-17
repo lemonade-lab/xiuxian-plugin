@@ -18,7 +18,7 @@ export class BoxtWist extends plugin {
     if (!T) return false
     const data = BotApi.getboxhelp({ name: 'help' })
     if (!data) return false
-    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 3, data }))
+    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 3, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
