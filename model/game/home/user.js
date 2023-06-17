@@ -103,7 +103,7 @@ class GameUser {
     let life = await listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_home_life',
-      INITIAL:[]
+      INITIAL: []
     })
     let fond = life.find((item) => item.qq == UID)
     let Msg = ''
@@ -122,7 +122,7 @@ class GameUser {
           NAME: 'life',
           CHOICE: 'user_home_life',
           DATA: life,
-          INITIAL:[]
+          INITIAL: []
         })
         try {
           await listdata.controlAction({
@@ -153,7 +153,7 @@ class GameUser {
     const life = await listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_home_life',
-      INITIAL:[]
+      INITIAL: []
     })
     const find = life.find((item) => item.qq == UID)
     if (find == undefined) {
@@ -197,7 +197,7 @@ class GameUser {
       const life = await listdata.controlActionInitial({
         CHOICE: 'user_home_life',
         NAME: 'life',
-        INITIAL:[]
+        INITIAL: []
       })
       const time = new Date()
       life.push({
@@ -208,7 +208,7 @@ class GameUser {
         CHOICE: 'user_home_life',
         NAME: 'life',
         DATA: life,
-        INITIAL:[]
+        INITIAL: []
       })
       return true
     } catch {
@@ -219,7 +219,7 @@ class GameUser {
     const positionhome = await listdata.controlActionInitial({
       NAME: 'position',
       CHOICE: 'user_home_position',
-      INITIAL:[]
+      INITIAL: []
     })
     const find = positionhome.find((item) => item.qq == UID)
     return find
@@ -228,7 +228,7 @@ class GameUser {
     const home = await listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     home.doge += money
     if (home.doge > 20000000) {
@@ -238,7 +238,7 @@ class GameUser {
       CHOICE: 'user_home_home',
       NAME: UID,
       DATA: home,
-      INITIAL:[]
+      INITIAL: []
     })
   }
   offaction = async (parameter) => {
@@ -254,14 +254,14 @@ class GameUser {
     let home = await listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     home.Landgrid += ACCOUNT
     await listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
       DATA: home,
-      INITIAL:[]
+      INITIAL: []
     })
     return
   }
@@ -398,14 +398,14 @@ class GameUser {
     let home = await listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     home.homeexperience += experience
     await listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
       DATA: home,
-      INITIAL:[]
+      INITIAL: []
     })
     return
   }
@@ -439,7 +439,7 @@ class GameUser {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     return [
       `获得了\n富煤晶石【${parseInt(time / 1800)}】个,玄铁晶石【${parseInt(
@@ -638,7 +638,7 @@ class GameUser {
     const Warehouse = await listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const ifexist = Warehouse.thing.find((item) => item.name == name)
     if (ifexist == undefined) {
@@ -651,7 +651,7 @@ class GameUser {
     const Warehouse = await listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const ifexist = Warehouse.thing.find((item) => item.id == id)
     if (ifexist == undefined) {
@@ -694,7 +694,7 @@ class GameUser {
       let Warehouse = await listdata.controlActionInitial({
         NAME: UID,
         CHOICE: 'user_home_Warehouse',
-        INITIAL:[]
+        INITIAL: []
       })
       Warehouse = await User.Add_DATA_thing({
         DATA: Warehouse,
@@ -705,7 +705,7 @@ class GameUser {
         NAME: UID,
         CHOICE: 'user_home_Warehouse',
         DATA: Warehouse,
-        INITIAL:[]
+        INITIAL: []
       })
       MSG = MSG + ` 【${z.name}】`
     }
@@ -716,7 +716,7 @@ class GameUser {
     let all = await listdata.controlActionInitial({
       CHOICE: 'home_all',
       NAME: 'all',
-      INITIAL:[]
+      INITIAL: []
     })
     let boxall = await GameApi.UserData.controlAction({
       CHOICE: 'generate_all',
@@ -728,7 +728,7 @@ class GameUser {
       CHOICE: 'home_all',
       NAME: 'all',
       DATA: all1,
-      INITIAL:[]
+      INITIAL: []
     })
     await GameApi.UserData.controlAction({
       CHOICE: 'generate_all',

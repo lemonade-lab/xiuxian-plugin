@@ -27,7 +27,7 @@ class information {
     const Warehouse = await listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const thing = Warehouse.thing
     const crop_list = []
@@ -114,7 +114,7 @@ class information {
     const home = await listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const battle = await GameApi.UserData.controlAction({
       CHOICE: 'user_home_battle',
@@ -128,7 +128,7 @@ class information {
     const ifexisthome1 = await listdata.controlActionInitial({
       CHOICE: 'user_home_position',
       NAME: 'position',
-      INITIAL:[]
+      INITIAL: []
     })
     let ifexisthome = ifexisthome1.find((item) => item.qq == UID)
     if (ifexisthome == undefined) {
@@ -160,7 +160,7 @@ class information {
     const landgoods = await listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const thing = landgoods.thing
     let now_time = new Date().getTime()
@@ -189,7 +189,7 @@ class information {
     const rangelandannimals = await listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const thing = rangelandannimals.thing
     const rangelandannimals_list = []

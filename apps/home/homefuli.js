@@ -136,7 +136,7 @@ export class homefuli extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: user.B,
-      INITIAL:[]
+      INITIAL: []
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -147,7 +147,7 @@ export class homefuli extends plugin {
       CHOICE: 'user_Warehouse',
       NAME: user.B,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`${user.B}已获得上天赠予数量为${quantity}的${thing_name}`)
     return

@@ -134,7 +134,7 @@ export class home extends plugin {
       const positionhome = await HomeApi.Listdata.controlActionInitial({
         NAME: 'position',
         CHOICE: 'position',
-        INITIAL:[]
+        INITIAL: []
       })
       const time = new Date()
       positionhome.push({
@@ -149,7 +149,7 @@ export class home extends plugin {
         NAME: 'position',
         CHOICE: 'position',
         DATA: positionhome,
-        INITIAL:[]
+        INITIAL: []
       })
       e.reply(`成功在${address}建立了自己的家园`)
     }, 1000 * time1)
@@ -204,11 +204,7 @@ export class home extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let action = await redis.get(`xiuxian:player:${UID}:action`)
-    if (action == undefined) {
-      return
-    }
-    action = JSON.parse(action)
+    let action = GameApi.GamePublic.getAction(UID)
     if (action.actionName != '扩建') {
       return
     }
@@ -223,7 +219,7 @@ export class home extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let homeexperience = home.homeexperience
     let homeexperienceMax = home.homeexperienceMax
@@ -235,7 +231,7 @@ export class home extends plugin {
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home,
-      INITIAL:[]
+      INITIAL: []
     })
     await HomeApi.GameUser.offaction({ UID })
     e.reply(`你的家园已成功扩建`)
@@ -297,7 +293,7 @@ export class home extends plugin {
     const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const homelevel = home.homelevel
     const a = 40 * homelevel
@@ -315,7 +311,7 @@ export class home extends plugin {
     let positionhome = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'position',
       NAME: 'position',
-      INITIAL:[]
+      INITIAL: []
     })
     useraction[UID] = setTimeout(async () => {
       forwardsetTime[UID] = 0
@@ -323,7 +319,7 @@ export class home extends plugin {
       let minefield = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
-        INITIAL:[]
+        INITIAL: []
       })
       const target1 = minefield.find((obj) => obj.qq === UID)
       if (target1 != undefined) {
@@ -334,7 +330,7 @@ export class home extends plugin {
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield1,
-            INITIAL:[]
+            INITIAL: []
           })
         }
       }
@@ -348,7 +344,7 @@ export class home extends plugin {
         CHOICE: 'user_position',
         NAME: 'position',
         DATA: positionhome,
-        INITIAL:[]
+        INITIAL: []
       })
       await HomeApi.GameUser.userWarehouse({
         UID: UID,

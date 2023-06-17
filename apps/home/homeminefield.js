@@ -71,7 +71,7 @@ export class homeminefield extends plugin {
     let positionhome = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'position',
       NAME: 'position',
-      INITIAL:[]
+      INITIAL: []
     })
     const target = positionhome.find((obj) => obj.qq === UID)
     const address = target.address
@@ -82,7 +82,7 @@ export class homeminefield extends plugin {
     let minefield = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
-      INITIAL:[]
+      INITIAL: []
     })
     let minefield_name1 = minefield.find((item) => item.address === address)
     let B
@@ -101,8 +101,7 @@ export class homeminefield extends plugin {
       e.reply(`你已经是该灵矿的主人了!`)
       return
     }
-    await redis.set(`xiuxian:player:${A}:${CDid}`, now_time)
-    await redis.expire(`xiuxian:player:${A}:${CDid}`, CDTime * 60)
+    GameApi.GamePublic.setRedis(A, CDid, now_time, CDTime)
     if (minefield_name1 == undefined) {
       minefield.push({
         qq: UID,
@@ -115,7 +114,7 @@ export class homeminefield extends plugin {
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         DATA: minefield,
-        INITIAL:[]
+        INITIAL: []
       })
       await HomeApi.GameUser.Add_homeexperience({ UID, experience: 300 })
       e.reply(`成功占领了${address}的灵矿，获得300家园经验`)
@@ -147,7 +146,7 @@ export class homeminefield extends plugin {
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield,
-            INITIAL:[]
+            INITIAL: []
           })
           await HomeApi.GameUser.Add_homeexperience({ UID, experience: 700 })
           e.reply(
@@ -210,13 +209,13 @@ export class homeminefield extends plugin {
     const position = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'position',
       NAME: 'position',
-      INITIAL:[]
+      INITIAL: []
     })
     const position1 = position.find((obj) => obj.qq === UID)
     const minefield = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
-      INITIAL:[]
+      INITIAL: []
     })
     const target = minefield.find((obj) => obj.address === position1.address)
     if (target == undefined) {
@@ -247,7 +246,7 @@ export class homeminefield extends plugin {
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         DATA: minefield,
-        INITIAL:[]
+        INITIAL: []
       })
       e.reply(`恭喜你，${msg}\n家园经验增加${experience}`)
       return
@@ -273,7 +272,7 @@ export class homeminefield extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     if (home.homelevel < 1) {
       e.reply(`你的家园还太小，根本放不下炼制所需器具!`)
@@ -330,7 +329,7 @@ export class homeminefield extends plugin {
       let Warehouse = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        INITIAL:[]
+        INITIAL: []
       })
       Warehouse_thing = await HomeApi.GameUser.homeexist_Warehouse_thing_name({
         UID,
@@ -367,7 +366,7 @@ export class homeminefield extends plugin {
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
-        INITIAL:[]
+        INITIAL: []
       })
       e.reply(`成功炼制出${quantity}块【${wupin}】`)
     }, 1000 * time1)
@@ -423,7 +422,7 @@ export class homeminefield extends plugin {
       let Warehouse = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_Warehouse',
         NAME: UID,
-        INITIAL:[]
+        INITIAL: []
       })
       let Warehouse_thing = await HomeApi.GameUser.homeexist_Warehouse_thing_name({
         UID,
@@ -447,7 +446,7 @@ export class homeminefield extends plugin {
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
-        INITIAL:[]
+        INITIAL: []
       })
       e.reply(`成功提炼出${quantity * 5}块【${mei}】`)
     }, 1000 * time1)
@@ -474,7 +473,7 @@ export class homeminefield extends plugin {
     const minefield = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
-      INITIAL:[]
+      INITIAL: []
     })
     const target = minefield.find((obj) => obj.qq === UID)
     if (target == undefined) {
@@ -510,13 +509,13 @@ export class homeminefield extends plugin {
     let all = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'all',
       NAME: 'all',
-      INITIAL:[]
+      INITIAL: []
     })
     let searchsthing = all.find((item) => item.name == thing)
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let searchsthing1 = Warehouse.thing.find((item) => item.name == thing)
     if (searchsthing == undefined) {
@@ -594,7 +593,7 @@ export class homeminefield extends plugin {
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
-        INITIAL:[]
+        INITIAL: []
       })
       e.reply(`你成功锻造出【${thing}】`)
     }, 1000 * time1)
@@ -624,7 +623,7 @@ export class homeminefield extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let sp = [
       '地磁道芯',
@@ -659,7 +658,7 @@ export class homeminefield extends plugin {
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
-        INITIAL:[]
+        INITIAL: []
       })
       return
     }
@@ -674,7 +673,7 @@ export class homeminefield extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`成功分解了${quantity}把${thing_name}，得到${quantity}块${sp[c]}`)
     return
@@ -697,7 +696,7 @@ export class homeminefield extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let guo = Warehouse.thing.find((item) => item.name == thing)
     if (guo == undefined) {
@@ -733,7 +732,7 @@ export class homeminefield extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`成功修好了${thing}`)
     return

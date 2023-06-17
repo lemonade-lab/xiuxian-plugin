@@ -207,7 +207,7 @@ export class BlessPlace extends plugin {
 
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
-      return false 
+      return false
     }
     const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
@@ -323,18 +323,14 @@ export class BlessPlace extends plugin {
     const CDTime = 60
     const ClassCD = ':buildFacility'
     const now_time = new Date().getTime()
-    const cdSecond = await redis.ttl('xiuxian:player:' + UID + ClassCD)
-    if (cdSecond != -2) {
-      if (cdSecond == -1) {
-        e.reply(`修建cd状态残留，请联系机器人管理员处理！`)
-        return false
-      }
-      e.reply(`修建cd中，剩余${cdSecond}秒！`)
+
+    const cdSecond = GameApi.GamePublic.getRedis(UID, ClassCD)
+    if (cdSecond.expire) {
+      e.reply(`修建cd中，剩余${cdSecond.expire}！`)
       return false
     }
 
-    await redis.set('xiuxian:player:' + UID + ClassCD, now_time)
-    await redis.expire('xiuxian:player:' + UID + ClassCD, CDTime * 60)
+    GameApi.GamePublic.setRedis(UID + ClassCD, now_time, CDTime)
 
     let add = Math.trunc(player.level_id / 10) + 3
 

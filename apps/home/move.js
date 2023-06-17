@@ -69,7 +69,7 @@ export class move extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -80,7 +80,7 @@ export class move extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     let najie = await GameApi.UserData.controlAction({
       NAME: UID,
@@ -118,7 +118,7 @@ export class move extends plugin {
     const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     const homelevel = home.homelevel
     if (homelevel < 1) {
@@ -156,7 +156,7 @@ export class move extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -167,7 +167,7 @@ export class move extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     let najie = await GameApi.UserData.controlAction({
       NAME: UID,
@@ -204,7 +204,7 @@ export class move extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
       let searchsthing = await HomeApi.GameUser.homeexist_all_thing_name({
@@ -219,7 +219,7 @@ export class move extends plugin {
           CHOICE: 'user_home_Warehouse',
           NAME: UID,
           DATA: Warehouse,
-          INITIAL:[]
+          INITIAL: []
         })
       } else {
         if (searchsthing != 1) {
@@ -244,7 +244,7 @@ export class move extends plugin {
             CHOICE: 'user_home_Warehouse',
             NAME: UID,
             DATA: Warehouse,
-            INITIAL:[]
+            INITIAL: []
           })
         } else {
           let searchsthing1 = await HomeApi.GameUser.homeexist_all_thing_id({
@@ -257,7 +257,7 @@ export class move extends plugin {
               CHOICE: 'user_home_Warehouse',
               NAME: UID,
               DATA: Warehouse,
-              INITIAL:[]
+              INITIAL: []
             })
           }
         }
@@ -266,7 +266,7 @@ export class move extends plugin {
     let Warehouse1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     Warehouse1.thing = Warehouse1.thing.reduce((total, cur, index) => {
       let hasValue = total.findIndex((current) => {
@@ -280,12 +280,12 @@ export class move extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     let landgoods = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
       let searchsthing = await HomeApi.GameUser.homeexist_all_thing_name({
@@ -297,7 +297,7 @@ export class move extends plugin {
           CHOICE: 'user_home_landgoods',
           NAME: UID,
           DATA: landgoods,
-          INITIAL:[]
+          INITIAL: []
         })
       } else {
         let searchsthing1 = await HomeApi.GameUser.homeexist_all_thing_id({
@@ -309,7 +309,7 @@ export class move extends plugin {
             CHOICE: 'user_home_landgoods',
             NAME: UID,
             DATA: landgoods,
-            INITIAL:[]
+            INITIAL: []
           })
         }
       }
@@ -339,7 +339,7 @@ export class move extends plugin {
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       DATA: landgoods,
-      INITIAL:[]
+      INITIAL: []
     })
     const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
@@ -350,7 +350,7 @@ export class move extends plugin {
       CHOICE: 'user_home_user',
       NAME: UID,
       DATA: home,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`重置完成！`)
   }

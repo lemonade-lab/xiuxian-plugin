@@ -1,4 +1,5 @@
 import gameUer from '../box/index.js'
+import { REDIS } from './redis.js'
 
 /**自定义冷却反馈*/
 const MYCD = {
@@ -18,22 +19,7 @@ const MYCD = {
   13: '渡劫'
 }
 
-/** REDIS简单机制 */
 const ReadiName = 'xiuxian@2.1'
-const REDIS_DATA = {}
-const REDIS = {
-  get: (key) => REDIS_DATA[key],
-  set: (key, val) => {
-    REDIS_DATA[key] = val
-  },
-  del: (key) => delete REDIS_DATA[key],
-  delall: () => {
-    for (key in REDIS_DATA) {
-      delete REDIS_DATA[key]
-    }
-  },
-  val: () => REDIS_DATA
-}
 
 class GamePublic {
   /**
@@ -61,7 +47,7 @@ class GamePublic {
    * @param { value } value
    * @returns
    */
-  leastOne = async ({ value }) => {
+  leastOne = ({ value }) => {
     let size = value
     if (isNaN(parseFloat(size)) && !isFinite(size)) {
       return Number(1)
@@ -77,7 +63,7 @@ class GamePublic {
    * 删除所有数据
    * @returns
    */
-  deleteReids = async () => {
+  deleteReids = () => {
     REDIS.delall()
   }
 
@@ -88,7 +74,7 @@ class GamePublic {
    * @param {*} now_time
    * @param {*} CDTime
    */
-  setRedis = async (UID, CDID, now_time, CDTime) => {
+  setRedis = (UID, CDID, now_time, CDTime) => {
     REDIS.set(`${ReadiName}:${UID}:${CDID}`, {
       val: now_time,
       expire: CDTime * 60
@@ -101,14 +87,14 @@ class GamePublic {
    * @param {*} CDID
    * @returns
    */
-  getRedis = async (UID, CDID) => REDIS.get(`${ReadiName}:${UID}:${CDID}`)
+  getRedis = (UID, CDID) => REDIS.get(`${ReadiName}:${UID}:${CDID}`)
 
   /**
    * 设置action
    * @param {*} UID
    * @param {*} actionObject
    */
-  setAction = async (UID, actionObject) => {
+  setAction = (UID, actionObject) => {
     REDIS.set(`${ReadiName}:${UID}:action`, actionObject)
   }
 
@@ -117,13 +103,13 @@ class GamePublic {
    * @param {*} UID
    * @returns
    */
-  getAction = async (UID) => REDIS.get(`${ReadiName}:${UID}:action`)
+  getAction = (UID) => REDIS.get(`${ReadiName}:${UID}:action`)
 
   /**
    * 删除action
    * @param {*} param0
    */
-  deleteAction = async ({ UID }) => {
+  deleteAction = ({ UID }) => {
     REDIS.del(`${ReadiName}:${UID}:action`)
   }
 
@@ -131,7 +117,7 @@ class GamePublic {
    * @param { UID } param0
    * @returns
    */
-  offAction = async ({ UID }) => {
+  offAction = ({ UID }) => {
     REDIS.del(`${ReadiName}:${UID}:action`)
   }
 
@@ -139,7 +125,7 @@ class GamePublic {
    * @param { UID, CDID, CDMAP } param0
    * @returns
    */
-  cooling = async ({ UID, CDID, CDMAP }) => {
+  cooling = ({ UID, CDID, CDMAP }) => {
     /* 得到key设置的时间 */
     const data = REDIS.get(`${ReadiName}:${UID}:${CDID}`)
     if (data) {
@@ -169,7 +155,7 @@ class GamePublic {
    * @param { UID } param0
    * @returns
    */
-  GoMini = async ({ UID }) => {
+  GoMini = ({ UID }) => {
     const action = REDIS.get(`${ReadiName}:${UID}:action`)
     if (action) {
       if (action.actionName == undefined) {

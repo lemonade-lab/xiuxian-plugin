@@ -41,7 +41,7 @@ export class homemoney extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let Land = home.Land
     let Landgrid = home.Landgrid
@@ -87,7 +87,7 @@ export class homemoney extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -98,7 +98,7 @@ export class homemoney extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     let commodities_doge1 = searchsthing.doge * quantity
     let lt = [0.7, 0.8, 0.9, 1, 1, 1, 1]
@@ -134,12 +134,12 @@ export class homemoney extends plugin {
     let dogshop_list = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'home_dogshop',
       NAME: 'dogshop',
-      INITIAL:[]
+      INITIAL: []
     })
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     dogshop_list.forEach((item) => {
       let id = item.id.split('-')
@@ -196,12 +196,12 @@ export class homemoney extends plugin {
     let ifexist1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'home_home_dogshop',
       NAME: 'dogshop',
-      INITIAL:[]
+      INITIAL: []
     })
     let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let ifexist = ifexist1.find((item) => item.name == thing_name)
     let id = ifexist.id.split('-')
@@ -212,7 +212,7 @@ export class homemoney extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     if (id[0] == '50') {
       if (home.homelevel < ifexist.animallevel) {
@@ -233,7 +233,7 @@ export class homemoney extends plugin {
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -244,7 +244,7 @@ export class homemoney extends plugin {
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
-      INITIAL:[]
+      INITIAL: []
     })
     await HomeApi.GameUser.Add_doge({ UID, money: -commodities_doge })
     e.reply(

@@ -80,12 +80,12 @@ export class homerangeland extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
@@ -116,7 +116,7 @@ export class homerangeland extends plugin {
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`你准备了足够的材料，工人高高兴兴地给你建立了牧场`)
     return
@@ -149,12 +149,12 @@ export class homerangeland extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
@@ -222,7 +222,7 @@ export class homerangeland extends plugin {
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`你准备了足够的材料，工人高高兴兴地给你搭建了草场`)
     return
@@ -255,12 +255,12 @@ export class homerangeland extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
@@ -343,7 +343,7 @@ export class homerangeland extends plugin {
       CHOICE: 'user_rangeland',
       NAME: UID,
       DATA: rangeland,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`你准备了足够的材料，工人高高兴兴地给你建起了一片树林`)
     return
@@ -377,12 +377,12 @@ export class homerangeland extends plugin {
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
@@ -464,7 +464,7 @@ export class homerangeland extends plugin {
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
-      INITIAL:[]
+      INITIAL: []
     })
     e.reply(`你准备了足够的材料，工人高高兴兴地给你挖了个坑，哦不鱼塘`)
     return
@@ -524,7 +524,7 @@ export class homerangeland extends plugin {
     let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     }) //获取rangeland文件
     let rangelandlevel = rangeland.rangelandlevel
     if (rangelandlevel == 0) {
@@ -534,7 +534,7 @@ export class homerangeland extends plugin {
     let rangelandannimals = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     }) //获取rangeland文件
     let rangelandannimals1 = rangelandannimals.thing.find((item) => item.name == thing_name)
     if (rangelandannimals1 != undefined) {
@@ -556,12 +556,12 @@ export class homerangeland extends plugin {
         CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals,
-        INITIAL:[]
+        INITIAL: []
       })
       let Warehouse = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        INITIAL:[]
+        INITIAL: []
       })
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
@@ -572,7 +572,7 @@ export class homerangeland extends plugin {
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
-        INITIAL:[]
+        INITIAL: []
       })
       e.reply(`成功`)
       return
@@ -599,7 +599,7 @@ export class homerangeland extends plugin {
     let rangelandannimals1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangelandannimals = rangelandannimals1.thing.find((item) => item.name1 == thing)
     if (rangelandannimals == undefined) {
@@ -633,7 +633,7 @@ export class homerangeland extends plugin {
         CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals1,
-        INITIAL:[]
+        INITIAL: []
       })
       let MSG = await HomeApi.GameUser.Slaughter({
         UID,
@@ -712,7 +712,7 @@ export class homerangeland extends plugin {
     let rangelandannimals2 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
-      INITIAL:[]
+      INITIAL: []
     })
     let rangelandannimals = rangelandannimals2.thing.find((item) => item.name1 == thing)
     if (rangelandannimals == undefined) {
@@ -736,22 +736,21 @@ export class homerangeland extends plugin {
     let rangelandannimals1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
-      INITIAL:[]
+      INITIAL: []
     })
     rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
     await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       DATA: rangelandannimals1,
-      INITIAL:[]
+      INITIAL: []
     })
     let MSG = await HomeApi.GameUser.Slaughter({
       UID: user.A,
       name: rangelandannimals.name1
     })
     e.reply(`您获得了${MSG}`)
-    await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
-    await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60)
+    GameApi.GamePublic.setRedis(user.A, CDid, now_time, CDTime)
     return
   }
   //查看他人牧场

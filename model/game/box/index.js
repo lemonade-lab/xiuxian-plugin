@@ -580,7 +580,7 @@ class GameUser {
     const life = await listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
-      INITIAL:[]
+      INITIAL: []
     })
     for (let item of life) {
       playerList.push(item.qq)

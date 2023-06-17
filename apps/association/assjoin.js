@@ -71,7 +71,7 @@ export class AssociationJoin extends plugin {
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
-    } 
+    }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
 
     if (assPlayer.volunteerAss == undefined) {

@@ -51,7 +51,7 @@ export class AssociationExtend extends plugin {
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
       return false
-    } 
+    }
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.id == assPlayer.assName
     )

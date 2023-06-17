@@ -117,7 +117,7 @@ export class Association extends plugin {
       ACCOUNT: Number(giftNumber)
     })
     await AssociationApi.assUser.checkFacility(ass)
-     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply([BotApi.segment.at(UID), `宗门俸禄领取成功,获得了${giftNumber}灵石`])
     return false
   }

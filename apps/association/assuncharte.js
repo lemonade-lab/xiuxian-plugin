@@ -162,7 +162,8 @@ export class AssUncharted extends plugin {
       actionName: '宗门秘境',
       startTime: now_time
     }
-    await redis.set(`xiuxian:player:${UID}:action`, JSON.stringify(actionObject))
+
+    GameApi.GamePublic.setAction(UID, actionObject)
 
     const number = Math.trunc(Math.random() * 5)
     const interimArchive = {
@@ -233,9 +234,10 @@ export class AssUncharted extends plugin {
     const CDTime = 60
     const ClassCD = ':LabyrinthMove'
     const now_time = new Date().getTime()
-    const cdSecond = await redis.ttl('xiuxian:player:' + UID + ClassCD)
-    if (cdSecond != -2) {
-      e.reply(`休整一下再出发吧，剩余${cdSecond}秒！`)
+
+    const cdSecond = GameApi.GamePublic.getRedis(UID, ClassCD)
+    if (cdSecond.expire) {
+      e.reply(`休整一下再出发吧，剩余${cdSecond.expire}秒！`)
       return false
     }
 
@@ -282,8 +284,7 @@ export class AssUncharted extends plugin {
         `你发现一汪灵泉，大口饮下，不料泉水有毒，失去了${100 * interimArchive.incentivesLevel}修为`
       )
     } else if (random < 0.65) {
-      await redis.set('xiuxian:player:' + UID + ClassCD, now_time)
-      await redis.expire('xiuxian:player:' + UID + ClassCD, CDTime)
+      GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
       await GameApi.GameUser.updataUser({
         UID: UID,
         CHOICE: 'user_level',
@@ -295,8 +296,7 @@ export class AssUncharted extends plugin {
       )
     } else if (random < 0.85) {
       //遇怪
-      await redis.set('xiuxian:player:' + UID + ClassCD, now_time)
-      await redis.expire('xiuxian:player:' + UID + ClassCD, CDTime)
+      GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
       const battle = await GameApi.GameUser.userMsgAction({
         NAME: UID,
         CHOICE: 'user_battle'
@@ -353,8 +353,7 @@ export class AssUncharted extends plugin {
       await BotApi.User.forwardMsg({ e, data: msg })
     } else {
       //宝箱
-      await redis.set('xiuxian:player:' + UID + ClassCD, now_time)
-      await redis.expire('xiuxian:player:' + UID + ClassCD, CDTime)
+      GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
       const chestsType = Math.ceil(Math.random() * 6)
       let chestsLevel
       // 0 - 15
@@ -392,7 +391,7 @@ export class AssUncharted extends plugin {
     if (ass.facility[2].status == 0) {
       e.reply(`宗门秘境未建设好！`)
       return false
-    } 
+    }
 
     let newName = e.msg.replace('#宗门秘境更名', '')
     newName = newName.trim()
@@ -549,15 +548,11 @@ export class AssUncharted extends plugin {
       }
       await AssociationApi.assUser.deleteAss('interimArchive', UID)
     }
-    let action = await redis.get(`xiuxian:player:${UID}:action`)
-    if (action == undefined) {
-      return false
-    }
-    action = JSON.parse(action)
+    let action = GameApi.GamePublic.getAction(UID)
     if (action.actionName != '宗门秘境') {
       return false
     }
-    await redis.del('xiuxian:player:' + UID + ':action')
+    GameApi.GamePublic.deleteAction({ UID })
     e.reply(`已成功脱离秘境`)
     return false
   }
