@@ -26,7 +26,7 @@ export class homerangeland extends plugin {
           fnc: 'Checkotherpasture'
         },
         // {
-        //   reg: "^#偷动物(.*)$",
+        //   reg: /^(#|\/)偷动物(.*)$/,
         //   fnc: "Stealanimals",
         // },
         {
