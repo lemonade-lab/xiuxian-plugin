@@ -48,7 +48,7 @@ export class home extends plugin {
     const { path, name, data } = HomeApi.Information.userhomeShow({
       UID
     })
-    const img = BotApi.ImgIndex.showPuppeteer({ path, name, data })
+    const img = BotApi.showPuppeteer({ path, name, data })
     e.reply(img)
     return false
   }
@@ -68,7 +68,7 @@ export class home extends plugin {
     const { path, name, data } = HomeApi.Information.userWarehouseShow({
       UID
     })
-    e.reply(BotApi.ImgIndex.showPuppeteer({ path, data, name }))
+    e.reply(BotApi.showPuppeteer({ path, data, name }))
     return false
   }
 

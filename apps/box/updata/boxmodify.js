@@ -59,8 +59,8 @@ export class BoxModify extends plugin {
     const { path, name, data } = GameApi.Information.userDataShow({
       UID: e.user_id
     })
-    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.showPuppeteer({ path, name, data }))
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
   async changeAutograph(e) {
@@ -107,8 +107,8 @@ export class BoxModify extends plugin {
     const { path, name, data } = GameApi.Information.userDataShow({
       UID: e.user_id
     })
-    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.showPuppeteer({ path, name, data }))
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 }

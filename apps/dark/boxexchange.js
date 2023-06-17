@@ -28,7 +28,7 @@ export class BoxExchange extends plugin {
         `编号:${item.ID}\n物品:${item.thing.name}\n数量:${item.account}\n价格:${item.money}\n`
       )
     }
-    BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
     return false
   }
   async onsell(e) {

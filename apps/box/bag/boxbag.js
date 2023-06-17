@@ -16,8 +16,8 @@ export class BoxBag extends plugin {
       return false
     }
     const { path, name, data } = GameApi.Information.userBagShow({ UID })
-    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.showPuppeteer({ path, name, data }))
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
   async bagUp(e) {

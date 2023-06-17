@@ -422,7 +422,7 @@ export class homeland extends plugin {
     const { path, name, data } = HomeApi.Information.get_lookland_img({
       UID
     })
-    e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.showPuppeteer({ path, name, data }))
     return false
   }
 
@@ -439,7 +439,7 @@ export class homeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.User.at({ e })
+    user['B'] = BotApi.Robot.at({ e })
     if (!user['B']) {
       return false
     }
@@ -558,7 +558,7 @@ export class homeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.User.at({ e })
+    user['B'] = BotApi.Robot.at({ e })
     if (!user['B']) {
       return
     }
@@ -590,7 +590,7 @@ export class homeland extends plugin {
     const { path, name, data } = HomeApi.Information.get_lookland_img({
       UID: user.B
     })
-    e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.showPuppeteer({ path, name, data }))
     return
   }
 }

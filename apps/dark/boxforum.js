@@ -19,7 +19,7 @@ export class BoxForum extends plugin {
     for (let item of Forum) {
       msg.push(`[${item.UID}]\n${item.content}`)
     }
-    BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
     return false
   }
   async pushForum(e) {

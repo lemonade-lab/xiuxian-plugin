@@ -159,8 +159,8 @@ export class BoxBattleSite extends plugin {
       msgLeft,
       msgRight
     })
-    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.showPuppeteer({ path, name, data }))
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
   async userExploremonsters(e) {
@@ -186,7 +186,7 @@ export class BoxBattleSite extends plugin {
     for (let item of monster) {
       msg.push('怪名:' + item.name + '\n' + '等级:' + item.level + '\n')
     }
-    BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
     return false
   }
 }

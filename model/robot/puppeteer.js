@@ -39,14 +39,14 @@ class Puppeteer {
   /**
    * 启动Chromium
    */
-  browserInit() {
+  async browserInit() {
     /*已经初始化过了*/
     if (this.browser) return this.browser
     /*存在即失败*/
     if (this.lock) return false
     this.lock = true
     console.mark('puppeteer Chromium 启动中...')
-    this.browser = puppeteer.launch(this.config).catch((err) => {
+    this.browser = await puppeteer.launch(this.config).catch((err) => {
       console.error(err.toString())
       if (String(err).includes('correct Chromium')) {
         console.error(
@@ -78,9 +78,9 @@ class Puppeteer {
    * @param data.path   screenshot参数，截图保存路径。截图图片类型将从文件扩展名推断出来。如果是相对路径，则从当前路径解析。如果没有指定路径，图片将不会保存到硬盘。
    * @return oicq img
    */
-  screenshot(name, data = {}) {
+  async screenshot(name, data = {}) {
     /*初始化*/
-    if (!this.browserInit()) {
+    if (!(await this.browserInit())) {
       return false
     }
     /**/
@@ -92,11 +92,11 @@ class Puppeteer {
     /*推进元素：推进html的名字*/
     this.shoting.push(name)
     try {
-      const page = this.browser.newPage()
+      const page = await this.browser.newPage()
       /*图片抓取*/
-      page.goto(`file://${lodash.trim(savePath, '.')}`, data.pageGotoParams || {})
+      await page.goto(`file://${lodash.trim(savePath, '.')}`, data.pageGotoParams || {})
       /* 截图body */
-      let body = page.$('body')
+      let body = await page.$('body')
       let randData = {
         // encoding: 'base64',
         type: data.imgType || 'jpeg',
@@ -108,7 +108,7 @@ class Puppeteer {
         randData.omitBackground = data.omitBackground || true
       }
       /* 截图 */
-      buff = body.screenshot(randData)
+      buff = await body.screenshot(randData)
       /*关闭工具*/
       page.close().catch((err) => console.error(err))
     } catch (error) {

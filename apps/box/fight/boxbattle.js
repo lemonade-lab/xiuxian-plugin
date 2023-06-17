@@ -11,7 +11,7 @@ export class BoxBattle extends plugin {
   async duel(e) {
     if (!this.verify(e)) return false
     const UIDA = e.user_id
-    let UIDB = BotApi.User.at({ e })
+    let UIDB = BotApi.Robot.at({ e })
     if (!UIDB || UIDA == UIDB) {
       UIDB = e.msg.replace(/^(#|\/)打劫/, '')
       if (!UIDB || UIDA == UIDB) return false

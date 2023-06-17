@@ -88,7 +88,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.User.at({ e })
+    user['B'] = BotApi.Robot.at({ e })
     if (!user['B']) {
       return false
     }
@@ -107,7 +107,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.User.at({ e })
+    user['B'] = BotApi.Robot.at({ e })
     if (!user['B']) {
       return false
     }
@@ -188,7 +188,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.User.at({ e })
+    user['B'] = BotApi.Robot.at({ e })
     if (!user['B']) {
       return false
     }
@@ -219,7 +219,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.User.at({ e })
+    user['B'] = BotApi.Robot.at({ e })
     if (!user['B']) {
       return false
     }
@@ -255,7 +255,7 @@ export class homefuli extends plugin {
     } else {
       doge = 100 //没有输入正确数字或不是正数
     }
-    let this_qq = BotApi.User.at({ e })
+    let this_qq = BotApi.Robot.at({ e })
     HomeApi.GameUser.Add_doge({ UID: this_qq, money: -doge })
     e.reply(`${this_qq}被管理员扣除 ${doge}灵晶`)
     return false

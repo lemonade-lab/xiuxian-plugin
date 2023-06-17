@@ -17,20 +17,20 @@ export class HomeGetHelp extends plugin {
   }
   async homeHelp(e) {
     if (!this.verify(e)) return false
-    const data = BotApi.ImgHelp.getboxhelp({ name: 'home_help' })
+    const data = BotApi.getboxhelp({ name: 'home_help' })
     if (!data) {
       return
     }
     const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 4, data }))
-    BotApi.User.surveySet({ e, isreply })
+    BotApi.Robot.surveySet({ e, isreply })
   }
   async homeAdmin(e) {
     if (!this.verify(e)) return false
-    const data = BotApi.ImgHelp.getboxhelp({ name: 'home_admin' })
+    const data = BotApi.getboxhelp({ name: 'home_admin' })
     if (!data) {
       return
     }
     const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 5, data }))
-    BotApi.User.surveySet({ e, isreply })
+    BotApi.Robot.surveySet({ e, isreply })
   }
 }

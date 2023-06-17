@@ -40,7 +40,7 @@ export class boxadminaction extends plugin {
   async dataRecovery(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    BotApi.User.forwardMsg({
+    BotApi.Robot.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({
         name: e.msg.replace(/^(#|\/)修仙复原/, '')
@@ -51,15 +51,15 @@ export class boxadminaction extends plugin {
   async dataRelife(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    let msg = BotApi.User.relife({})
+    let msg = BotApi.Robot.relife({})
     e.reply(`${msg}`)
     return false
   }
   async dataRelifehe(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    let B = BotApi.User.at({ e })
-    let msg = BotApi.User.relifehe({ B })
+    let B = BotApi.Robot.at({ e })
+    let msg = BotApi.Robot.relifehe({ B })
     e.reply(`${B}的${msg}`)
     return false
   }

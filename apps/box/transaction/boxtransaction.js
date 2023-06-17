@@ -70,7 +70,7 @@ export class BoxTransaction extends plugin {
       }
     }
 
-    BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
 
     return false
   }

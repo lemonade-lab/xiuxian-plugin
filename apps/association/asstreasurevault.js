@@ -151,7 +151,7 @@ export class TreasureVault extends plugin {
       }
     }
 
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 

@@ -350,7 +350,7 @@ export class AssUncharted extends plugin {
         SIZE: Number(250 * interimArchive.incentivesLevel)
       })
       msg.push(`获得了${250 * interimArchive.incentivesLevel}气血`)
-      BotApi.User.forwardMsg({ e, data: msg })
+      BotApi.Robot.forwardMsg({ e, data: msg })
     } else {
       //宝箱
       GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
@@ -438,7 +438,7 @@ export class AssUncharted extends plugin {
         msg.push(`${interimArchive.treasureChests[i].level}级${name}宝箱`)
       }
     }
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 
@@ -494,7 +494,7 @@ export class AssUncharted extends plugin {
     }
     interimArchive.treasureChests = []
     AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 
@@ -576,7 +576,7 @@ const GoAssUncharted = (e, weizhi, addres) => {
         weizhi[i].resident.name
     )
   }
-  BotApi.User.forwardMsg({ e, data: msg })
+  BotApi.Robot.forwardMsg({ e, data: msg })
 }
 const Add_najie_things = (thing, user_qq, account) => {
   GameApi.GameUser.userBag({

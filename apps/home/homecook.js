@@ -686,7 +686,7 @@ export class homecook extends plugin {
     wanmin.forEach((item) => {
       msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.qq + '\n灵晶：' + item.doge)
     })
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 

@@ -169,7 +169,7 @@ export class homemoney extends plugin {
         msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
       }
     })
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 

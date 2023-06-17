@@ -78,7 +78,7 @@ export class AssociationExtend extends plugin {
         '历史贡献值:' +
         assPlayer.historyContribution
     )
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 

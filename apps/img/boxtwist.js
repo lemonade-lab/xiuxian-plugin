@@ -16,10 +16,10 @@ export class BoxtWist extends plugin {
     })
     const T = cf['switch'] ? cf['switch']['twist'] : true
     if (!T) return false
-    const data = BotApi.ImgHelp.getboxhelp({ name: 'help' })
+    const data = BotApi.getboxhelp({ name: 'help' })
     if (!data) return false
     const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 3, data }))
-    BotApi.User.surveySet({ e, isreply })
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 }

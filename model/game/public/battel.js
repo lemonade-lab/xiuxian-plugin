@@ -140,7 +140,7 @@ class gameBattle {
         battle_msg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
         battle_msg.QQ = B
-        BotApi.User.forwardMsg({ e, data: battle_msg.msg })
+        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
         gameUser.userMsgAction({
           NAME: A,
           CHOICE: 'user_battle',
@@ -152,7 +152,7 @@ class gameBattle {
       if (battleB.nowblood < 1) {
         battle_msg.msg.push('你仅出一招,就击败了对方!')
         battleB.nowblood = 0
-        BotApi.User.forwardMsg({ e, data: battle_msg.msg })
+        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
         gameUser.userMsgAction({
           NAME: B,
           CHOICE: 'user_battle',
@@ -169,7 +169,7 @@ class gameBattle {
       battle.X++
       battle.Z++
       if (battle.X == 15) {
-        BotApi.User.forwardMsg(e, battle_msg.msg)
+        BotApi.Robot.forwardMsg(e, battle_msg.msg)
         battle_msg.msg = []
         battle.X = 0
         battle.Y++
@@ -189,7 +189,7 @@ class gameBattle {
           battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
           battleA.nowblood = 0
           battle_msg.QQ = B
-          BotApi.User.forwardMsg({ e, data: battle_msg.msg })
+          BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
           break
         }
       } else {
@@ -205,7 +205,7 @@ class gameBattle {
         battle_msg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
         battle_msg.QQ = B
-        BotApi.User.forwardMsg({ e, data: battle_msg.msg })
+        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
         break
       }
       battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
@@ -213,7 +213,7 @@ class gameBattle {
         battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害,并击败了对方!`)
         battle_msg.msg.push('你击败了对方!')
         battleB.nowblood = 0
-        BotApi.User.forwardMsg({ e, data: battle_msg.msg })
+        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
         break
       } else {
         battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害`)

@@ -67,7 +67,7 @@ export class Association extends plugin {
           assPlayerA.historyContribution
       )
     }
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
 
@@ -323,7 +323,7 @@ export class Association extends plugin {
           `宗门神兽: ${this_ass_beast}`
       )
     }
-    BotApi.User.forwardMsg({ e, data: temp })
+    BotApi.Robot.forwardMsg({ e, data: temp })
     return false
   }
 }

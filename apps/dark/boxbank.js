@@ -36,7 +36,7 @@ export class BoxBank extends plugin {
     } else {
       msg.push(`借款:${WhiteBarList[UID].money}`)
     }
-    BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
     return false
   }
 

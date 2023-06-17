@@ -1,6 +1,6 @@
 import { getConfig } from './defset.js'
 import { GameApi } from '../api/index.js'
-class UserAction {
+class Robot {
   /**
    * 折合消息
    */
@@ -139,7 +139,7 @@ class UserAction {
     return msg
   }
 }
-export default new UserAction()
+export default new Robot()
 /**
  * pickGroup()	得到一个群对象
  * pickFriend()	得到一个好友对象

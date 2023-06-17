@@ -41,7 +41,7 @@ export class BoxSecretplace extends plugin {
     for (let item of address) {
       msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
     }
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     return false
   }
   async falsePiont(e) {
@@ -74,7 +74,7 @@ export class BoxSecretplace extends plugin {
       CHOICE: 'user_action'
     })
     const isreply = e.reply(`坐标(${action.x},${action.y},${action.z})`)
-    BotApi.User.surveySet({ e, isreply })
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 

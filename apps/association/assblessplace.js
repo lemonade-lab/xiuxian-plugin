@@ -99,7 +99,7 @@ export class BlessPlace extends plugin {
         msg.push('防守方没有神兽，并不能获得战斗加成')
     }
     msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体魔力值加2点')
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
     //开打！
     const res = AssBattle(e, attackObj, battleObj)
     //赢！
@@ -376,7 +376,7 @@ export class BlessPlace extends plugin {
           (ass.facility[i].status == 0 ? '未启用' : '启用')
       )
     }
-    BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.Robot.forwardMsg({ e, data: msg })
   }
 }
 
@@ -398,7 +398,7 @@ function GoBlessPlace(e, weizhi, addres) {
         '%'
     )
   }
-  BotApi.User.forwardMsg({ e, data: msg })
+  BotApi.Robot.forwardMsg({ e, data: msg })
 }
 function getFightMember(members, position) {
   let res = []
@@ -469,7 +469,7 @@ function AssBattle(e, battleA, battleB) {
     z++
     //分片发送消息
     if (x == 15) {
-      BotApi.User.forwardMsg({ e, data: msg })
+      BotApi.Robot.forwardMsg({ e, data: msg })
       msg = []
       x = 0
       y++
@@ -487,7 +487,7 @@ function AssBattle(e, battleA, battleB) {
     battleA.nowblood = battleA.nowblood - hurt
     if (battleA.nowblood < 0) {
       msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
-      BotApi.User.forwardMsg({ e, data: msg })
+      BotApi.Robot.forwardMsg({ e, data: msg })
       e.reply('你们的进攻被击退了！！')
       qq = 0
       break
@@ -502,7 +502,7 @@ function AssBattle(e, battleA, battleB) {
     battleB.nowblood = battleB.nowblood - hurt
     if (battleB.nowblood < 0) {
       msg.push('第' + z + '回合:你们结阵攻伐，造成' + hurt + '伤害')
-      BotApi.User.forwardMsg({ e, data: msg })
+      BotApi.Robot.forwardMsg({ e, data: msg })
       e.reply('你们击破了对面的山门！')
       break
     } else {
