@@ -1,4 +1,4 @@
-import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
 //汐颜
 export class AssUncharted extends plugin {
   constructor() {

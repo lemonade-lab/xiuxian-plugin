@@ -1,14 +1,14 @@
 - group:
   list:
     - icon: help-icon_59
-      title: '#宗门更新'
+      title: '(#|/)宗门更新'
       desc: '更新宗门插件'
     - icon: help-icon_52
-      title: '#宗门数据'
+      title: '(#|/)宗门数据'
       desc: '查看备份'
     - icon: help-icon_52
-      title: '#宗门复原+数据名'
+      title: '(#|/)宗门复原+数据名'
       desc: '复原宗门数据'
     - icon: help-icon_52
-      title: '#宗门重置配置'
+      title: '(#|/)宗门重置配置'
       desc: '重置配置'
