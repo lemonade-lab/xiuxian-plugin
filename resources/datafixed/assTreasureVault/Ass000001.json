@@ -1,0 +1,27 @@
+[
+  [
+    {
+      "id": "5-1-44",
+      "name": "长虹剑决下",
+      "privileges": 2,
+      "redeemPoint": 1
+    }
+  ],
+  [
+    {
+      "id": "5-1-45",
+      "name": "长虹剑决中",
+      "privileges": 4,
+      "redeemPoint": 9
+    }
+  ],
+  [
+    {
+      "id": "5-1-46",
+      "name": "长虹剑决上",
+      "class": "5",
+      "privileges": 7,
+      "redeemPoint": 100
+    }
+  ]
+]

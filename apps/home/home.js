@@ -1,6 +1,7 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
+//秋雨
 export class home extends plugin {
   constructor() {
     super({
@@ -33,13 +34,7 @@ export class home extends plugin {
     })
   }
   myhome = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -59,13 +54,7 @@ export class home extends plugin {
   }
 
   Warehouse = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -84,13 +73,7 @@ export class home extends plugin {
   }
 
   buildhome = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -175,13 +158,7 @@ export class home extends plugin {
   //家园扩建
   extensionhome = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -213,13 +190,7 @@ export class home extends plugin {
 
   unextensionhome = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -268,13 +239,7 @@ export class home extends plugin {
 
   movehome = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {

@@ -1,4 +1,5 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
+//秋雨
 export class homemoney extends plugin {
   constructor() {
     super({
@@ -27,13 +28,7 @@ export class homemoney extends plugin {
     //发送消息
     let UID = e.user_id
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
       return
@@ -56,13 +51,7 @@ export class homemoney extends plugin {
 
   //出售商品
   async Homesale(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -127,13 +116,7 @@ export class homemoney extends plugin {
   }
 
   async dogshop(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -186,13 +169,7 @@ export class homemoney extends plugin {
   }
 
   async Buy_home(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')

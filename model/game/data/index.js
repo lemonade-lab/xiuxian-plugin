@@ -69,7 +69,23 @@ export const __PATH = {
   user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
   user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
   //物品信息
-  home_home_dogshop: algorithm.getReq('/resources/databirth/dogshop')
+  home_home_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
+
+  /* 宗门路径 */
+
+  //玩家存档
+  association: algorithm.getReq('/resources/data/birth/assItem'),
+  //用户的宗门数据
+  assPlayer: algorithm.getReq('/resources/data/birth/assPlayer'),
+  assRelation: algorithm.getReq('/resources/data/birth/assRelation'),
+  assTreasureVault: algorithm.getReq('/resources/data/birth/assTreasureVault'),
+  interimArchive: algorithm.getReq('/resources/data/birth/interimArchive'),
+  generateUncharted: algorithm.getReq('/resources/data/birth/generateUncharted'),
+  assRelate: algorithm.getReq('/resources/data/fixed/assRelate'),
+  assProduct: algorithm.getReq('/resources/data/fixed/assProduct'),
+  assPosition: algorithm.getReq('/resources/data/fixed/assPosition'),
+  assPoint: algorithm.getReq('/resources/data/fixed/assPoint'),
+  assDrop: algorithm.getReq('/resources/data/fixed/assDrop')
 }
 
 /**生成游戏数据*/

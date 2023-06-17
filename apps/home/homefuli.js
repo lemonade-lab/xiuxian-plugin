@@ -1,5 +1,6 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 import fs from 'node:fs'
+//秋雨
 export class homefuli extends plugin {
   constructor() {
     super({
@@ -37,13 +38,7 @@ export class homefuli extends plugin {
   }
   //#发家园福利
   Allfulihome = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
       return
@@ -74,13 +69,7 @@ export class homefuli extends plugin {
   //#发家园补偿
   async Fulihome(e) {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
       return
@@ -116,13 +105,7 @@ export class homefuli extends plugin {
   }
   //#发家园物品
   async zengsonghome(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
       return
@@ -169,13 +152,7 @@ export class homefuli extends plugin {
   }
   //#扣除全体家园经验
   kouchujy = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
 
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
@@ -213,13 +190,7 @@ export class homefuli extends plugin {
   }
   //#扣除家园经验
   kouchugrjy = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
       return
@@ -253,13 +224,7 @@ export class homefuli extends plugin {
   }
   //#发家园经验
   zenjiagrjy = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
       return
@@ -293,13 +258,7 @@ export class homefuli extends plugin {
   }
   //#扣除灵晶
   kouchulj = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
       return

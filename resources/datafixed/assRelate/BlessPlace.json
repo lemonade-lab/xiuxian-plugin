@@ -1,0 +1,68 @@
+[
+  {
+    "id": 3000001,
+    "name": "不周山",
+    "efficiency": 0.5,
+    "level": 3,
+    "specialty": {
+      "common": ["6-1-0"],
+      "special": ["3-1-41"],
+      "best": "1-1-42"
+    }
+  },
+  {
+    "id": 2000001,
+    "name": "瑶池",
+    "efficiency": 0.3,
+    "level": 2,
+    "specialty": {
+      "common": ["6-1-0"],
+      "special": ["4-2-40"],
+      "best": "3-1-42"
+    }
+  },
+  {
+    "id": 2000003,
+    "name": "昆仑",
+    "efficiency": 0.3,
+    "level": 2,
+    "specialty": {
+      "common": ["6-1-0"],
+      "special": ["1-1-41"],
+      "best": "2-1-42"
+    }
+  },
+  {
+    "id": 1000001,
+    "name": "蓬莱岛",
+    "efficiency": 0.15,
+    "level": 1,
+    "specialty": {
+      "common": ["6-1-0"],
+      "special": ["4-2-41"],
+      "best": "4-2-42"
+    }
+  },
+  {
+    "id": 1000002,
+    "name": "方寸山",
+    "efficiency": 0.15,
+    "level": 1,
+    "specialty": {
+      "common": ["6-1-0"],
+      "special": ["5-1-53"],
+      "best": "5-1-54"
+    }
+  },
+  {
+    "id": 1000003,
+    "name": "瀛洲市",
+    "efficiency": 0.15,
+    "level": 1,
+    "specialty": {
+      "common": ["6-1-0"],
+      "special": ["2-1-41"],
+      "best": "4-2-43"
+    }
+  }
+]

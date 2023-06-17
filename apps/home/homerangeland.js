@@ -1,4 +1,5 @@
 import { HomeApi, GameApi, BotApi, plugin } from '../../model/api/index.js'
+//秋雨
 export class homerangeland extends plugin {
   constructor() {
     super({
@@ -49,13 +50,7 @@ export class homerangeland extends plugin {
 
   //修建牧场
   async EstablishRangeland(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -125,13 +120,7 @@ export class homerangeland extends plugin {
   }
   //搭建草场
   async seeding(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -234,13 +223,7 @@ export class homerangeland extends plugin {
   }
   //栽种树林
   async Plantforest(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -359,13 +342,7 @@ export class homerangeland extends plugin {
   //开塘养鱼
   async Raisefish(e) {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
@@ -483,13 +460,7 @@ export class homerangeland extends plugin {
   //放养动物
   async Breed(e) {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
@@ -595,13 +566,7 @@ export class homerangeland extends plugin {
   }
   //宰杀动物
   async Slaughter(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
@@ -661,13 +626,7 @@ export class homerangeland extends plugin {
   }
   //查看牧场
   async Checkpasture(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -684,13 +643,7 @@ export class homerangeland extends plugin {
   }
   //偷
   Stealanimals = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const good = await HomeApi.GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
       return
@@ -781,13 +734,7 @@ export class homerangeland extends plugin {
   }
   //查看他人牧场
   async Checkotherpasture(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const user = {
       A: e.user_id,
       C: 0,

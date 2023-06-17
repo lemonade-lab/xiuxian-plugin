@@ -1,4 +1,5 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
+//秋雨
 export class homeland extends plugin {
   constructor() {
     super({
@@ -34,13 +35,7 @@ export class homeland extends plugin {
   //开垦土地
   async ReceiveLand(e) {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -120,13 +115,7 @@ export class homeland extends plugin {
   //种植
   async zhongxia(e) {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
@@ -241,13 +230,7 @@ export class homeland extends plugin {
   }
   //收获
   async shouhuo(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -406,13 +389,7 @@ export class homeland extends plugin {
 
   //查看农田
   async lookland(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
@@ -432,13 +409,7 @@ export class homeland extends plugin {
 
   //偷菜
   Stealvegetables = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const good = await GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
       return
@@ -555,13 +526,7 @@ export class homeland extends plugin {
 
   //查看他人农田
   async otherlookland(e) {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const user = {
       A: e.user_id,
       C: 0,

@@ -1,4 +1,5 @@
 import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
+//秋雨
 export class move extends plugin {
   constructor() {
     super({
@@ -26,13 +27,7 @@ export class move extends plugin {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
@@ -107,13 +102,7 @@ export class move extends plugin {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
@@ -197,13 +186,7 @@ export class move extends plugin {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
@@ -325,13 +308,7 @@ export class move extends plugin {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {

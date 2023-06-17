@@ -1,0 +1,26 @@
+[
+  [
+    {
+      "id": "5-1-50",
+      "name": "周衍天经下",
+      "privileges": 2,
+      "redeemPoint": 1
+    }
+  ],
+  [
+    {
+      "id": "5-1-51",
+      "name": "周衍天经中",
+      "privileges": 4,
+      "redeemPoint": 9
+    }
+  ],
+  [
+    {
+      "id": "5-1-52",
+      "name": "周衍天经上",
+      "privileges": 7,
+      "redeemPoint": 100
+    }
+  ]
+]

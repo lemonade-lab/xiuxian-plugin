@@ -1,0 +1,26 @@
+[
+  [
+    {
+      "id": "5-1-41",
+      "name": "雾隐秘典下",
+      "privileges": 2,
+      "redeemPoint": 1
+    }
+  ],
+  [
+    {
+      "id": "5-1-42",
+      "name": "雾隐秘典中",
+      "privileges": 4,
+      "redeemPoint": 9
+    }
+  ],
+  [
+    {
+      "id": "5-1-43",
+      "name": "雾隐秘典上",
+      "privileges": 7,
+      "redeemPoint": 100
+    }
+  ]
+]

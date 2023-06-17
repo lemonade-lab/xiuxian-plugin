@@ -1,6 +1,7 @@
 import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
+//秋雨
 export class homeminefield extends plugin {
   constructor() {
     super({
@@ -44,13 +45,7 @@ export class homeminefield extends plugin {
   //占领灵矿
   Occupy_the_mine = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -185,13 +180,7 @@ export class homeminefield extends plugin {
   //领取晶石
   Collect_minerals = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -262,13 +251,7 @@ export class homeminefield extends plugin {
   }
   refining = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -385,13 +368,7 @@ export class homeminefield extends plugin {
 
   coal = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -470,13 +447,7 @@ export class homeminefield extends plugin {
   //查看占领时间
   look_minerals = async (e) => {
     //不开放私聊功能
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -510,13 +481,7 @@ export class homeminefield extends plugin {
   }
 
   forging = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -623,13 +588,7 @@ export class homeminefield extends plugin {
   }
   //分解
   resolve = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -703,13 +662,7 @@ export class homeminefield extends plugin {
   }
   //修理
   repair = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {

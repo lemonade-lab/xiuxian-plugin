@@ -1,0 +1,38 @@
+[
+  [
+    {
+      "id": "6-1-1",
+      "name": "洗根水",
+      "privileges": 2,
+      "redeemPoint": 30
+    },
+    {
+      "id": "6-1-2",
+      "name": "望灵珠",
+      "privileges": 2,
+      "redeemPoint": 10
+    }
+  ],
+  [
+    {
+      "id": "1-1-40",
+      "name": "宗门制式剑",
+      "privileges": 2,
+      "redeemPoint": 15
+    },
+    {
+      "id": "2-1-40",
+      "name": "宗门制式甲",
+      "privileges": 2,
+      "redeemPoint": 15
+    }
+  ],
+  [
+    {
+      "id": "3-1-40",
+      "name": "宗门的庇护",
+      "privileges": 5,
+      "redeemPoint": 85
+    }
+  ]
+]

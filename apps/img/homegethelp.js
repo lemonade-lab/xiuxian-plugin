@@ -1,4 +1,5 @@
 import { BotApi, GameApi, plugin } from '../../model/api/index.js'
+//秋雨
 export class HomeGetHelp extends plugin {
   constructor() {
     super({
@@ -15,13 +16,7 @@ export class HomeGetHelp extends plugin {
     })
   }
   homeHelp = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const data = await BotApi.ImgHelp.getboxhelp({ name: 'home_help' })
     if (!data) {
       return
@@ -30,13 +25,7 @@ export class HomeGetHelp extends plugin {
     await BotApi.User.surveySet({ e, isreply })
   }
   homeAdmin = async (e) => {
-    if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = await GameApi.DefsetUpdata.getConfig({
-      app: 'parameter',
-      name: 'namelist'
-    })
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+    if (!this.verify(e)) return false
     const data = await BotApi.ImgHelp.getboxhelp({ name: 'home_admin' })
     if (!data) {
       return

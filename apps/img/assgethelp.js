@@ -1,14 +1,15 @@
 import { plugin, BotApi } from '../../model/api/index.js'
+//汐颜
 export class assGetHelp extends plugin {
   constructor() {
     super({
       rule: [
         {
-          reg: '^#宗门(帮助|菜单|help|列表)$',
+          reg: /^(#|\/)宗门(帮助|菜单|help|列表)$/,
           fnc: 'assHelpImg'
         },
         {
-          reg: '^#宗门管理$',
+          reg: /^(#|\/)宗门管理$/,
           fnc: 'assHelpAdmin'
         }
       ]

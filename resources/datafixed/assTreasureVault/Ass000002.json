@@ -1,0 +1,26 @@
+[
+  [
+    {
+      "id": "5-1-47",
+      "name": "回春道典下",
+      "privileges": 2,
+      "redeemPoint": 1
+    }
+  ],
+  [
+    {
+      "id": "5-1-48",
+      "name": "回春道典中",
+      "privileges": 4,
+      "redeemPoint": 9
+    }
+  ],
+  [
+    {
+      "id": "5-1-49",
+      "name": "回春道典上",
+      "privileges": 7,
+      "redeemPoint": 100
+    }
+  ]
+]
