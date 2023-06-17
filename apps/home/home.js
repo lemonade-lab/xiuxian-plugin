@@ -110,7 +110,7 @@ export class home extends plugin {
       e.reply(`您已经建立过家园，如需搬迁请执行#家园搬迁至+地点`)
       return
     }
-    const address = e.msg.replace('#建立家园', '')
+    const address = e.msg.replace(/^(#|\/)建立家园/, '')
     const action = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_action'
@@ -291,7 +291,7 @@ export class home extends plugin {
       e.reply('您都还没建立过家园')
       return
     }
-    const address = e.msg.replace('#搬迁家园到', '')
+    const address = e.msg.replace(/^(#|\/)搬迁家园到/, '')
     if (ifexisthome.address == address) {
       e.reply(`你家就在${address}，建筑队看了看你家，再看了看你要搬的地点，随后投来了异样的眼光`)
       return

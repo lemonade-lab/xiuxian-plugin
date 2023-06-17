@@ -1,4 +1,4 @@
-import { BotApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, plugin, verify } from '../../model/api/index.js'
 export class BoxDice extends plugin {
   constructor() {
     super({

@@ -20,7 +20,7 @@ export class BoxModify extends plugin {
       return false
     }
     const UID = e.user_id
-    let new_name = e.msg.replace('#更改道号', '').replace('/更改道号', '')
+    let new_name = e.msg.replace(/^(#|\/)更改道号/, '')
     if (new_name.length == 0) {
       return false
     }
@@ -79,7 +79,7 @@ export class BoxModify extends plugin {
       NAME: UID,
       CHOICE: 'user_player'
     })
-    let new_msg = e.msg.replace('#更改道宣', '').replace('/更改道宣', '')
+    let new_msg = e.msg.replace(/^(#|\/)更改道号/, '')
     new_msg = new_msg.replace(' ', '')
     if (new_msg.length == 0 || new_msg.length > 50) {
       e.reply('请正确设置,且道宣最多50字符')

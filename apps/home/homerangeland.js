@@ -518,7 +518,7 @@ export class homerangeland extends plugin {
     //   x = x + muc[i].animalacount
     // }
     // console.log(x)
-    let thing = e.msg.replace('#养殖', '')
+    let thing = e.msg.replace(/^(#|\/)养殖/, '')
     let code = thing.split('*')
     let thing_name = code[0] //动物名字
     let searchsthing = await HomeApi.GameUser.userWarehouseSearch({
@@ -613,7 +613,7 @@ export class homerangeland extends plugin {
     if (archive != 0) {
       e.reply(`${archive}`)
     }
-    let thing = e.msg.replace('#宰杀', '')
+    let thing = e.msg.replace(/^(#|\/)宰杀/, '')
     let rangelandannimals1 = await HomeApi.Listdata.listActionArr({
       CHOICE: 'user_rangelandannimals',
       NAME: UID
@@ -736,7 +736,7 @@ export class homerangeland extends plugin {
       e.reply(CD)
       return
     }
-    let thing = e.msg.replace('#偷动物', '')
+    let thing = e.msg.replace(/^(#|\/)偷动物/, '')
     let rangelandannimals2 = await HomeApi.Listdata.listActionArr({
       CHOICE: 'user_rangelandannimals',
       NAME: user.B

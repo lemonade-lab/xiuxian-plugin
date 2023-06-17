@@ -291,7 +291,7 @@ export class homecook extends plugin {
       e.reply(`做饭结束`)
       return
     }
-    let thing = choice.replace('#', '')
+    let thing = choice.replace(/^(#|\/)/, '')
     let code = thing.split('*')
     let name = code[0]
     let zhushi = code[1]
@@ -495,7 +495,7 @@ export class homecook extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#吃', '')
+    let thing = e.msg.replace( /^(#|\/)吃/, '')
     let code = thing.split('*')
     let code1 = code[0] + ' · ' + code[1]
     let now_time = new Date().getTime()
@@ -594,7 +594,7 @@ export class homecook extends plugin {
       e.reply(`需要前往各大主城中的${address_name}才能发布`)
       return
     }
-    let thing = e.msg.replace('#发布', '')
+    let thing = e.msg.replace(/^(#|\/)发布/, '')
     let caipu = await HomeApi.GameUser.homeexist_Warehouse_thing_name({ UID, name: thing })
     if (caipu == 1) {
       e.reply(`你没有该物品`)
@@ -695,7 +695,7 @@ export class homecook extends plugin {
       e.reply(`需要前往各大主城中的${address_name}才能购买`)
       return
     }
-    let thing = e.msg.replace('#万民堂购买', '')
+    let thing = e.msg.replace( /^(#|\/)万民堂购买/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let shipu = await HomeApi.GameUser.homeexist_Warehouse_thing_name({ UID, thing_name })
@@ -763,7 +763,7 @@ export class homecook extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing0 = e.msg.replace('#用', '')
+    let thing0 = e.msg.replace( /^(#|\/)用/, '')
     let thing1 = thing0.split('炒')
     let code = thing1[1].split('*')
     let Warehouse = await HomeApi.Listdata.listActionArr({

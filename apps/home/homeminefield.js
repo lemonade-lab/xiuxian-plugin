@@ -288,7 +288,7 @@ export class homeminefield extends plugin {
       e.reply(`你的家园还太小，根本放不下炼制所需器具!`)
       return
     }
-    let thing = e.msg.replace('#炼制', '')
+    let thing = e.msg.replace(/^(#|\/)炼制/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let wupin = thing_name.replace('晶石', '')
@@ -403,7 +403,7 @@ export class homeminefield extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#提炼', '')
+    let thing = e.msg.replace(/^(#|\/)提炼/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let wupin = thing_name.replace('晶石', '')
@@ -528,7 +528,7 @@ export class homeminefield extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#锻造', '')
+    let thing = e.msg.replace(/^(#|\/)锻造/, '')
     let all = await HomeApi.Listdata.listActionArr({
       CHOICE: 'home_all',
       NAME: 'all'
@@ -641,7 +641,7 @@ export class homeminefield extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#分解', '')
+    let thing = e.msg.replace(/^(#|\/)分解/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let thing_acount = parseInt(code[1]) //数量
@@ -721,7 +721,7 @@ export class homeminefield extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#修理', '')
+    let thing = e.msg.replace( /^(#|\/)修理/, '')
     let Warehouse = await HomeApi.Listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID

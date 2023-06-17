@@ -32,7 +32,7 @@ export class BoxBattleSite extends plugin {
       e.reply(CDMSG)
       return false
     }
-    const Mname = e.msg.replace('#击杀', '').replace('/击杀', '')
+    const Mname = e.msg.replace(/^(#|\/)击杀/, '')
     const action = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_action'

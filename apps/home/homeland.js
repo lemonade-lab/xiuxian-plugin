@@ -149,7 +149,7 @@ export class homeland extends plugin {
       e.reply('您现在不在家园里，种地必须要回家种哦')
       return
     }
-    let thing = e.msg.replace('#种下', '')
+    let thing = e.msg.replace(/^(#|\/)种下/, '')
     let code = thing.split('*')
     let thing_name = code[0] //种子名字
     let thing_acount = code[1] //种子数量
@@ -269,7 +269,7 @@ export class homeland extends plugin {
       e.reply('您现在不在家园里，必须要回家才能收获哦')
       return
     }
-    let thing = e.msg.replace('#收获', '')
+    let thing = e.msg.replace( /^(#|\/)收获/, '')
     let landgoods1 = await HomeApi.Listdata.listActionArr({
       CHOICE: 'user_landgoods',
       NAME: UID
@@ -484,7 +484,7 @@ export class homeland extends plugin {
       e.reply(CD)
       return
     }
-    let thing = e.msg.replace('#偷菜', '')
+    let thing = e.msg.replace( /^(#|\/)偷菜/, '')
     let landgoods2 = await HomeApi.Listdata.listActionArr({
       CHOICE: 'user_landgoods',
       NAME: user.B

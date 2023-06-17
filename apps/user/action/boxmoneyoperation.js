@@ -37,7 +37,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let islingshi = e.msg.replace('#赠送灵石', '').replace('/赠送灵石', '')
+    let islingshi = e.msg.replace( /^(#|\/)赠送灵石/, '')
     islingshi = await GameApi.GamePublic.leastOne({ value: islingshi })
     const money = await GameApi.GameUser.userBagSearch({
       UID: A,

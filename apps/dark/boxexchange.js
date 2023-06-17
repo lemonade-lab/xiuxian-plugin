@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class BoxExchange extends plugin {
   constructor() {
     super({
@@ -39,8 +39,7 @@ export class BoxExchange extends plugin {
       return false
     }
     const [thing_name, thing_acount, thing_money] = e.msg
-      .replace('#上架', '')
-      .replace('/上架', '')
+      .replace(/^(#|\/)上架/, '')
       .split('*')
     const bagThing = await GameApi.GameUser.userBagSearch({
       UID,
@@ -91,7 +90,7 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let ID = e.msg.replace('#下架', '').replace('/下架', '')
+    let ID = e.msg.replace(/^(#|\/)下架/, '')
     let x = 888888888
     let exchange = await GameApi.UserData.listActionInitial({
       NAME: 'exchange',
@@ -140,7 +139,7 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let ID = e.msg.replace('#选购', '').replace('/选购', '')
+    let ID = e.msg.replace(/^(#|\/)选购/, '')
     let x = 888888888
     let exchange = await GameApi.UserData.listActionInitial({
       NAME: 'exchange',

@@ -16,7 +16,7 @@ export class BoxEquipment extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace('#装备', '').replace('/装备', '')
+    const thing_name = e.msg.replace(/^(#|\/)装备/, '')
     const najie_thing = await GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name
@@ -53,7 +53,7 @@ export class BoxEquipment extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace('#卸下', '').replace('/卸下', '')
+    const thing_name = e.msg.replace(/^(#|\/)卸下/, '')
     let equipment = await GameApi.UserData.listAction({
       NAME: UID,
       CHOICE: 'user_equipment'

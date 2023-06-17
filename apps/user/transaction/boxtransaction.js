@@ -89,7 +89,7 @@ export class BoxTransaction extends plugin {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 
-    const [thing_name, thing_acount] = e.msg.replace('#购买', '').replace('/购买', '').split('*')
+    const [thing_name, thing_acount] = e.msg.replace( /^(#|\/)购买/, '').split('*')
     let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
     if (quantity > 99) {
       quantity = 99
@@ -140,7 +140,7 @@ export class BoxTransaction extends plugin {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 
-    const [thing_name, thing_acount] = e.msg.replace('#出售', '').replace('/出售', '').split('*')
+    const [thing_name, thing_acount] = e.msg.replace(/^(#|\/)出售/, '').split('*')
 
     let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
     if (quantity > 99) {

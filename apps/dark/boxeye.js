@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../model/api/index.js'
 export class BoxEye extends plugin {
   constructor() {
     super({
@@ -12,7 +12,7 @@ export class BoxEye extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const name = e.msg.replace('#虚空眼', '').replace('/虚空眼', '')
+    const name = e.msg.replace(/^(#|\/)虚空眼/, '')
     const HistoryList = await GameApi.UserData.listActionInitial({
       NAME: 'history',
       CHOICE: 'fixed_history',

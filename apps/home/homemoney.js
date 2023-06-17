@@ -73,7 +73,7 @@ export class homemoney extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#售卖', '')
+    let thing = e.msg.replace(/^(#|\/)售卖/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let thing_acount = code[1] //数量
@@ -203,7 +203,7 @@ export class homemoney extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace('#采购', '')
+    let thing = e.msg.replace(/^(#|\/)采购/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let thing_acount = code[1] //数量

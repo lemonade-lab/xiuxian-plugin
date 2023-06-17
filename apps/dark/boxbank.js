@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class BoxBank extends plugin {
   constructor() {
     super({
@@ -47,7 +47,7 @@ export class BoxBank extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const [account, name] = e.msg.replace('#金银置换', '').replace('/金银置换', '').split('*')
+    const [account, name] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
     let new_account = await GameApi.GamePublic.leastOne({ value: account })
     const money = await GameApi.GameUser.userBagSearch({
       UID,
