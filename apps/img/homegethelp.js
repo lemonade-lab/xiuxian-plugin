@@ -26,7 +26,7 @@ export class HomeGetHelp extends plugin {
     if (!data) {
       return
     }
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
+    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 4, data }))
     await BotApi.User.surveySet({ e, isreply })
   }
   homeAdmin = async (e) => {
@@ -41,7 +41,7 @@ export class HomeGetHelp extends plugin {
     if (!data) {
       return
     }
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
+    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 5, data }))
     await BotApi.User.surveySet({ e, isreply })
   }
 }

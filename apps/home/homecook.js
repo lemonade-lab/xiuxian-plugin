@@ -608,7 +608,10 @@ export class homecook extends plugin {
     let target = cook.find((obj) => obj.name === caipu.name)
     delete target.proficiency
     await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_cook', NAME: 'cook', DATA: cook })
-    let Warehouse = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_Warehouse', NAME: UID })
+    let Warehouse = await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_Warehouse',
+      NAME: UID
+    })
     let wanmin = {
       qq: UID,
       durable: 100
@@ -624,10 +627,21 @@ export class homecook extends plugin {
       DATA1: target,
       quantity: 1
     })
-    await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_Warehouse', NAME: UID, DATA: Warehouse })
-    let wanmin1 = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_wanmin', NAME: 'wanmin' })
+    await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_Warehouse',
+      NAME: UID,
+      DATA: Warehouse
+    })
+    let wanmin1 = await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_wanmin',
+      NAME: 'wanmin'
+    })
     wanmin1 = await HomeApi.GameUser.Add_DATA_thing({ DATA: wanmin1, DATA1: target, quantity: 1 })
-    await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_wanmin', NAME: 'wanmin', DATA: wanmin1 })
+    await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_wanmin',
+      NAME: 'wanmin',
+      DATA: wanmin1
+    })
     e.reply(
       `恭喜${UID}成功在万民堂发布一份食谱，玩家可前往万民堂购买，发布者可获得50%出售收益的版权费`
     )
@@ -662,7 +676,10 @@ export class homecook extends plugin {
       return
     }
     let msg = ['___[万民堂]___\n#万民堂购买+物品名']
-    let wanmin = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_wanmin', NAME: 'wanmin' })
+    let wanmin = await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_wanmin',
+      NAME: 'wanmin'
+    })
     wanmin.forEach((item) => {
       msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.qq + '\n灵晶：' + item.doge)
     })
@@ -703,7 +720,10 @@ export class homecook extends plugin {
       e.reply(`您已经有该食谱，请把该食谱消耗完再来吧!`)
       return
     }
-    let ifexist1 = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_wanmin', NAME: 'wanmin' })
+    let ifexist1 = await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_wanmin',
+      NAME: 'wanmin'
+    })
     let ifexist = ifexist1.find((item) => item.name == thing_name)
     if (!ifexist) {
       e.reply(`不卖:${thing_name}`)
@@ -721,13 +741,20 @@ export class homecook extends plugin {
       return
     }
     let money = commodities_doge * 0.5
-    let Warehouse = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_Warehouse', NAME: UID })
+    let Warehouse = await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_Warehouse',
+      NAME: UID
+    })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity: 1
     })
-    await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_Warehouse', NAME: UID, DATA: Warehouse })
+    await HomeApi.Listdata.listActionArr({
+      CHOICE: 'user_home_Warehouse',
+      NAME: UID,
+      DATA: Warehouse
+    })
     await HomeApi.GameUser.Add_doge({ UID, money: -commodities_doge })
     if (ifexist.qq == UID) {
       e.reply(

@@ -56,7 +56,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const UID = e.user_id
-    GameApi.GamePlace.setUserTime(UID,0)
+    GameApi.GamePlace.setUserTime(UID, 0)
     clearTimeout(GameApi.GamePlace.getUserAction(UID))
     e.reply('你回到了原地')
     return false
@@ -127,20 +127,23 @@ export class BoxSecretplace extends plugin {
     })
     const the = Math.floor(a + b - (a + b) * battle.speed * 0.01)
     const time = the >= 0 ? the : 1
-    GameApi.GamePlace.setUserAction(UID,setTimeout(async () => {
-      GameApi.GamePlace.setUserTime(UID,0)
-      action.x = mx
-      action.y = my
-      action.region = PointId[1]
-      action.address = PointId[2]
-      await GameApi.UserData.listAction({
-        NAME: UID,
-        CHOICE: 'user_action',
-        DATA: action
-      })
-      e.reply([segment.at(UID), `成功抵达${address}`])
-    }, 1000 * time))
-    GameApi.GamePlace.setUserTime(UID,1)
+    GameApi.GamePlace.setUserAction(
+      UID,
+      setTimeout(async () => {
+        GameApi.GamePlace.setUserTime(UID, 0)
+        action.x = mx
+        action.y = my
+        action.region = PointId[1]
+        action.address = PointId[2]
+        await GameApi.UserData.listAction({
+          NAME: UID,
+          CHOICE: 'user_action',
+          DATA: action
+        })
+        e.reply([segment.at(UID), `成功抵达${address}`])
+      }, 1000 * time)
+    )
+    GameApi.GamePlace.setUserTime(UID, 1)
     e.reply(`正在前往${address}...\n需要${time}秒`)
     return false
   }
@@ -223,7 +226,7 @@ export class BoxSecretplace extends plugin {
     )
     const time = the > 0 ? the : 1
     setTimeout(async () => {
-      GameApi.GamePlace.setUserDelivery(UID,0)
+      GameApi.GamePlace.setUserDelivery(UID, 0)
       action.x = mx
       action.y = my
       action.region = positionID[1]
@@ -235,7 +238,7 @@ export class BoxSecretplace extends plugin {
       })
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
-    GameApi.GamePlace.setUserDelivery(UID,1)
+    GameApi.GamePlace.setUserDelivery(UID, 1)
     e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)
     return false
   }
