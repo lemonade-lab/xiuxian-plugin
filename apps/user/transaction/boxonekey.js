@@ -18,7 +18,7 @@ export class BoxOnekey extends plugin {
 
     const address_name = '万宝楼'
     if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[#前往+城池名+${address_name}]`)
+      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
     let bag = await GameApi.UserData.listAction({
@@ -52,7 +52,7 @@ export class BoxOnekey extends plugin {
 
     const address_name = '万宝楼'
     if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[#前往+城池名+${address_name}]`)
+      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
     const type = e.msg.replace(/^(#|\/)一键出售/, '')

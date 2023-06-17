@@ -64,7 +64,7 @@ class userAction {
       }
     } else {
       if (player.level_id == 10) {
-        return { UserLevelUpMSG: `[#渡劫]后,成就仙人镜` }
+        return { UserLevelUpMSG: `[(#|/)渡劫]后,成就仙人镜` }
       }
       if (player.level_id >= 11) {
         /*仙人境*/

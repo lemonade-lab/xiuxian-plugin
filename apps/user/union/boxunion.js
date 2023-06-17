@@ -19,7 +19,7 @@ export class boxunion extends plugin {
     }
     const address_name = '联盟'
     if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[#前往+城池名+${address_name}]`)
+      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
     e.reply('待世界升级~')
     return false
@@ -34,7 +34,7 @@ export class boxunion extends plugin {
     }
     const address_name = '联盟'
     if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[#前往+城池名+${address_name}]`)
+      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
     e.reply('待世界升级~')
     return false
@@ -54,7 +54,7 @@ export class boxunion extends plugin {
     }
     const address_name = '联盟'
     if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[#前往+城池名+${address_name}]`)
+      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
     const level = await GameApi.UserData.listAction({

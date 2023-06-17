@@ -175,7 +175,7 @@ class GamePublic {
       if (action.actionName == undefined) {
         //根据判断msg存不存在来识别是否成功
         return {
-          MSG: `旧版数据残留,请联系主人使用[#修仙删除数据]`
+          MSG: `旧版数据残留,请联系主人使用[(#|/)修仙删除数据]`
         }
       }
       return {
@@ -196,7 +196,7 @@ class GamePublic {
       if (action.actionName == undefined) {
         //根据判断msg存不存在来识别是否成功
         return {
-          MSG: '旧版数据残留,请联系主人使用[#修仙删除数据]'
+          MSG: '旧版数据残留,请联系主人使用[(#|/)修仙删除数据]'
         }
       }
       return {
