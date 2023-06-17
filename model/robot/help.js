@@ -1,5 +1,5 @@
-import config from '../data/defset.js'
-import { MyDirPath } from '../../../app.config.js'
+import config from './defset.js'
+import { MyDirPath } from '../../app.config.js'
 /** 生成帮助图*/
 class Help {
   getboxhelp = async ({ name }) => {

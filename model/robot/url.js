@@ -1,4 +1,4 @@
-import puppeteer from '../puppeteer/puppeteer.js'
+import puppeteer from './puppeteer.js'
 class ShowURl {
   showUrl = async ({ url }) => {
     const browser = await puppeteer.browserInit()

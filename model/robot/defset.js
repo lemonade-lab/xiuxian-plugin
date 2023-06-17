@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
-import { MyDirPath } from '../../../app.config.js'
+import { MyDirPath } from '../../app.config.js'
 class DefsetUpdata {
   /*动态生成配置读取*/
   getConfig = (parameter) => {

@@ -1,5 +1,5 @@
-import puppeteer from '../puppeteer/puppeteer.js'
-import { MyDirPath } from '../../../app.config.js'
+import puppeteer from './puppeteer.js'
+import { MyDirPath } from '../../app.config.js'
 /**中间返回show与yunzai的图片方法进行对接*/
 class ImgIndex {
   /**

@@ -1,17 +1,15 @@
-import { GameApi, plugin, BotApi, verify } from '../../../model/api/api.js'
-import gamePublic from '../../../model/game/public/index.js'
+import { GameApi, plugin,  verify } from '../../../model/api/api.js'
 const useraction = []
 export class boxfairyland extends plugin {
   constructor() {
-    super(
-      BotApi.SuperInex.getUser({
-        name: 'xiuxian@2.0.0',
-        dsc: 'xiuxian@2.0.0',
-        rule: [
-          { reg: /^(#|\/)渡劫$/, fnc: 'breakLevel' },
-          { reg: /^(#|\/)望天$/, fnc: 'breakSky' }
-        ]
-      })
+    super({
+      name: 'xiuxian@2.0.0',
+      dsc: 'xiuxian@2.0.0',
+      rule: [
+        { reg: /^(#|\/)渡劫$/, fnc: 'breakLevel' },
+        { reg: /^(#|\/)望天$/, fnc: 'breakSky' }
+      ]
+    }
     )
   }
 

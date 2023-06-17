@@ -1,4 +1,4 @@
-import puppeteer from '../puppeteer/puppeteer.js'
+import puppeteer from './puppeteer.js'
 import md5 from 'md5'
 const helpData = {}
 const allData = {}

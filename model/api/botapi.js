@@ -1,16 +1,14 @@
-import ImgIndex from '../robot/img/index.js'
-import ImgCache from '../robot/img/cache.js'
-import ImgHelp from '../robot/img/help.js'
-import User from '../robot/user/action.js'
-import Exec from '../robot/exec/exex.js'
+import ImgIndex from '../robot/img.js'
+import ImgCache from '../robot/cache.js'
+import ImgHelp from '../robot/help.js'
+import User from '../robot/action.js'
+import Exec from '../robot/exex.js'
 import { toIndex } from '../robot/index.js'
-import SuperInex from '../robot/super/index.js'
 export const BotApi = {
   ImgIndex,
   toIndex,
   ImgCache,
   ImgHelp,
   User,
-  Exec,
-  SuperInex
+  Exec
 }
