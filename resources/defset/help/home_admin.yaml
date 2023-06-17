@@ -1,26 +1,26 @@
 - group:
   list:
     - icon: help-icon_59
-      title: "#发家园补偿+灵晶数+@人"
-      desc: "个人补偿灵晶"
+      title: '#发家园补偿+灵晶数+@人'
+      desc: '个人补偿灵晶'
     - icon: help-icon_59
-      title: "#发家园福利+灵晶数"
-      desc: "全服补偿灵晶"
+      title: '#发家园福利+灵晶数'
+      desc: '全服补偿灵晶'
     - icon: help-icon_59
-      title: "#发家园物品+家园物品名字+数量+@人"
-      desc: "个人赠送家园物品"
+      title: '#发家园物品+家园物品名字+数量+@人'
+      desc: '个人赠送家园物品'
 
 - group:
   list:
     - icon: help-icon_59
-      title: "#家园更新"
-      desc: "更新家园插件"
+      title: '#家园更新'
+      desc: '更新家园插件'
     - icon: help-icon_52
-      title: "#家园数据"
-      desc: "查看备份"
+      title: '#家园数据'
+      desc: '查看备份'
     - icon: help-icon_52
-      title: "#家园复原+数据名"
-      desc: "复原家园数据"
+      title: '#家园复原+数据名'
+      desc: '复原家园数据'
     - icon: help-icon_52
-      title: "#宗门重置配置"
-      desc: "重置配置"
+      title: '#宗门重置配置'
+      desc: '重置配置'

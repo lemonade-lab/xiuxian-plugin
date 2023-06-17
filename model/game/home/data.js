@@ -1,4 +1,4 @@
-import { __PATH } from "../data/index.js";
+import { __PATH } from '../data/index.js'
 class userData {
   /**
    * @param {__PATH} __PATH
@@ -11,14 +11,14 @@ class userData {
       await algorithm.dataAction({
         NAME: NAME,
         PATH: __PATH[CHOICE],
-        DATA: DATA,
-      });
-      return;
+        DATA: DATA
+      })
+      return
     }
     return await algorithm.dataAction({
       NAME: NAME,
-      PATH: __PATH[CHOICE],
-    });
-  };
+      PATH: __PATH[CHOICE]
+    })
+  }
 }
-export default new userData();
+export default new userData()

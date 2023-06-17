@@ -32,7 +32,7 @@ const REDIS = {
       delete REDIS_DATA[key]
     }
   },
-  val:()=>REDIS_DATA
+  val: () => REDIS_DATA
 }
 
 class GamePublic {
@@ -72,9 +72,6 @@ class GamePublic {
     }
     return Number(size)
   }
-
-
-
 
   /**
    * 删除所有数据
@@ -168,27 +165,27 @@ class GamePublic {
     return {}
   }
 
-    /**
+  /**
    * @param { UID } param0
    * @returns
    */
-    GoMini = async ({ UID }) => {
-      const action = REDIS.get(`${ReadiName}:${UID}:action`)
-      if (action) {
-        if (action.actionName == undefined) {
-          //根据判断msg存不存在来识别是否成功
-          return {
-            MSG: `旧版数据残留,请联系主人使用[#修仙删除数据]`
-          }
-        }
+  GoMini = async ({ UID }) => {
+    const action = REDIS.get(`${ReadiName}:${UID}:action`)
+    if (action) {
+      if (action.actionName == undefined) {
+        //根据判断msg存不存在来识别是否成功
         return {
-          MSG: `${action.actionName}中...`
+          MSG: `旧版数据残留,请联系主人使用[#修仙删除数据]`
         }
       }
-      return {}
+      return {
+        MSG: `${action.actionName}中...`
+      }
     }
+    return {}
+  }
 
-      /**
+  /**
    * 行为检测
    * @param { UID } UID
    * @returns 若存在对象MSG则为flase

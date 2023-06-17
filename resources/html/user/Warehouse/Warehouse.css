@@ -1,7 +1,7 @@
 body {
   width: 100%;
   text-align: center;
-  background-image: url("../../allimg/user/Warehouse/Warehouse.png");
+  background-image: url('../../allimg/user/Warehouse/Warehouse.png');
   background-size: 100% auto;
 }
 
@@ -27,7 +27,7 @@ body {
   font-size: 22px;
   padding: 15px;
   font-weight: 600;
-  font-family: "tttgbnumber";
+  font-family: 'tttgbnumber';
   color: #000000;
 }
 
@@ -51,8 +51,7 @@ body {
   padding: 10px;
   width: 185px;
   background: radial-gradient(at top left, #ffcc4d80, #ff9800d0);
-  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2),
-    3px 8px 12px rgba(71, 35, 22, 0.3);
+  box-shadow: 1px 2px 6px rgba(170, 31, 0, 0.2), 3px 8px 12px rgba(71, 35, 22, 0.3);
   position: relative;
 }
 
@@ -60,14 +59,14 @@ body {
   display: block;
   padding: 5px;
   text-align: center;
-  font-family: "tttgbnumber";
+  font-family: 'tttgbnumber';
   font-size: 18px;
   font-weight: 600;
   color: #2f2b26;
 }
 
 .font_item_title {
-  font-family: "tttgbnumber";
+  font-family: 'tttgbnumber';
   font-size: 20px;
   font-weight: 600;
   color: #151310;
@@ -75,7 +74,7 @@ body {
 
 .item_int {
   display: block;
-  font-family: "tttgbnumber";
+  font-family: 'tttgbnumber';
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -84,18 +83,18 @@ body {
 
 .user_top {
   display: grid;
-  background-image: url("../../allimg/user/Warehouse/Warehouse横幅.png");
+  background-image: url('../../allimg/user/Warehouse/Warehouse横幅.png');
   background-size: 100% 100%;
 }
 
 .user_top1 {
   display: grid;
-  background-image: url("../../allimg/user/Warehouse/Warehouse横幅1.png");
+  background-image: url('../../allimg/user/Warehouse/Warehouse横幅1.png');
   background-size: 100% 100%;
 }
 
 .user_top2 {
   display: grid;
-  background-image: url("../../allimg/user/Warehouse/Warehouse横幅.png");
+  background-image: url('../../allimg/user/Warehouse/Warehouse横幅.png');
   background-size: 100% 100%;
 }

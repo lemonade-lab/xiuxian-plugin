@@ -10,4 +10,4 @@ function verify(e) {
   return true
 }
 export { plugin }
-export { BotApi, GameApi, HomeApi,  name, dsc, verify  }
+export { BotApi, GameApi, HomeApi, name, dsc, verify }

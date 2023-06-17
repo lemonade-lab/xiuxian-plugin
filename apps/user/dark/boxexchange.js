@@ -40,7 +40,10 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const [thing_name, thing_acount, thing_money] = e.msg.replace('#上架', '').replace('/上架', '').split('*')
+    const [thing_name, thing_acount, thing_money] = e.msg
+      .replace('#上架', '')
+      .replace('/上架', '')
+      .split('*')
     const bagThing = await GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name

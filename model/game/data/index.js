@@ -53,29 +53,27 @@ export const __PATH = {
   generate_plugins: algorithm.getReq('/plugins'),
   generate_config: algorithm.getReq('/plugins'),
 
-
-
   /* 家园路径 */
 
   //玩家存档
-  user_home_home:  algorithm.getReq("/resources_home/data/birth/home/home"),
-  user_home_landgoods:  algorithm.getReq("/resources_home/data/birth/home/landgoods"),
-  user_home_life:  algorithm.getReq("/resources_home/data/birth/home/life"),
-  user_home_minefield:  algorithm.getReq("/resources_home/data/birth/home/minefield"),
-  user_home_position:  algorithm.getReq("/resources_home/data/birth/home/position"),
-  user_home_Warehouse:  algorithm.getReq("/resources_home/data/birth/home/Warehouse"),
-  user_home_cook:  algorithm.getReq("/resources_home/data/birth/home/cook"),
-  user_home_food:  algorithm.getReq("/resources_home/data/birth/home/food"),
-  user_home_wanmin:  algorithm.getReq("/resources_home/data/birth/home/wanmin"),
-  user_home_state:  algorithm.getReq("/resources_home/data/birth/home/state"),
-  user_home_rangelandannimals: algorithm.getReq("/resources_home/data/birth/home/rangelandannimals"),
-  user_home_rangeland:  algorithm.getReq("/resources_home/data/birth/home/rangeland"),
+  user_home_home: algorithm.getReq('/resources/data/birth/home/home'),
+  user_home_landgoods: algorithm.getReq('/resources/data/birth/home/landgoods'),
+  user_home_life: algorithm.getReq('/resources/data/birth/home/life'),
+  user_home_minefield: algorithm.getReq('/resources/data/birth/home/minefield'),
+  user_home_position: algorithm.getReq('/resources/data/birth/home/position'),
+  user_home_Warehouse: algorithm.getReq('/resources/data/birth/home/Warehouse'),
+  user_home_cook: algorithm.getReq('/resources/data/birth/home/cook'),
+  user_home_food: algorithm.getReq('/resources/data/birth/home/food'),
+  user_home_wanmin: algorithm.getReq('/resources/data/birth/home/wanmin'),
+  user_home_state: algorithm.getReq('/resources/data/birth/home/state'),
+  user_home_rangelandannimals: algorithm.getReq('/resources/data/birth/home/rangelandannimals'),
+  user_home_rangeland: algorithm.getReq('/resources/data/birth/home/rangeland'),
   //物品信息
-  home_home_goods:  algorithm.getReq("/resources_home/data/fixed/goods"),
-  home_home_point:  algorithm.getReq("/resources_home/data/fixed/point"),
+  home_home_goods: algorithm.getReq('/resources/data/fixed/goods'),
+  home_home_point: algorithm.getReq('/resources/data/fixed/point'),
   //生成信息
-  home_home_all:  algorithm.getReq("/resources_home/data/birth/all"),
-  home_home_dogshop:  algorithm.getReq("/resources_home/data/birth/dogshop"),
+  home_home_all: algorithm.getReq('/resources/data/birth/all'),
+  home_home_dogshop: algorithm.getReq('/resources/data/birth/dogshop')
 }
 
 /**生成游戏数据*/
