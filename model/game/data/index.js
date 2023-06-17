@@ -77,11 +77,11 @@ export const __PATH = {
   association: algorithm.getReq('/resources/databirth/assItem'),
   // 用户的宗门数据
   assPlayer: algorithm.getReq('/resources/databirth/assPlayer'),
-  assRelation: algorithm.getReq('/resources/databirth/assRelation'),
   assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
   generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),
   // 固定
+  assRelation: algorithm.getReq('/resources/datafixed/assRelation'),
   assRelate: algorithm.getReq('/resources/datafixed/assRelate'),
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'),
   assDrop: algorithm.getReq('/resources/datafixed/assDrop')
