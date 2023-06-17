@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class BoxForum extends plugin {
   constructor() {
     super({

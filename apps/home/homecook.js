@@ -4,8 +4,8 @@ const useraction = []
 export class homecook extends plugin {
   constructor() {
     super({
-      name: 'homecook',
-      dsc: 'homecook',
+      name: 'xiuxian@cook',
+      dsc: 'xiuxian@cook',
       rule: [
         {
           reg: /^(#|\/)起锅做饭$/,
