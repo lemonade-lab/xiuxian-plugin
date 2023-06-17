@@ -7,13 +7,6 @@ export class BoxStart extends plugin {
         { reg: /^(#|\/)再入仙途$/, fnc: 'reCreateMsg' }
       ]
     })
-    this.task = {
-      cron: GameApi.DefsetUpdata.getConfig({ app: 'task', name: 'task' }).LifeTask,
-      name: 'LifeTask',
-      fnc: () => {
-        GameApi.GameUser.startLife()
-      }
-    }
   }
   async createMsg(e) {
     if (!this.verify(e)) return false
