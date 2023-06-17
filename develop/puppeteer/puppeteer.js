@@ -1,6 +1,6 @@
 import fs from 'fs'
 import template from 'art-template'
-export const dealTpl = (data) => {
+export function dealTpl(data) {
   let { tplFile } = data
   try {
     const tpl = fs.readFileSync(tplFile, 'utf8')

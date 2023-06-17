@@ -1,4 +1,4 @@
-import config from './defset.js'
+import { getConfig } from './defset.js'
 import { GameApi } from '../api/index.js'
 class UserAction {
   /**
@@ -87,7 +87,7 @@ class UserAction {
     return
   }
   controlMessage = ({ e }) => {
-    const { whitecrowd, blackid } = config.getConfig({
+    const { whitecrowd, blackid } = getConfig({
       app: 'parameter',
       name: 'namelist'
     })

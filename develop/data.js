@@ -18,7 +18,7 @@ const data = {
  */
 
 /* 调试结束 */
-export const getData = () => {
+export function getData() {
   return dealTpl({
     /** heml路径 */
     tplFile,
