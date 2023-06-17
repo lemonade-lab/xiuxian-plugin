@@ -8,7 +8,7 @@ export class boxadminaction extends plugin {
         { reg: /^(#|\/)修仙删除世界$/, fnc: 'deleteAllusers' },
         { reg: /^(#|\/)修仙重置全体寿命*$/, fnc: 'dataRelife' },
         { reg: /^(#|\/)修仙重置他人寿命.*$/, fnc: 'dataRelifehe' },
-        { reg: /^(#|\/)盒子复原.*$/, fnc: 'dataRecovery' }
+        { reg: /^(#|\/)修仙复原.*$/, fnc: 'dataRecovery' }
       ]
     })
   }
@@ -43,7 +43,7 @@ export class boxadminaction extends plugin {
     await BotApi.User.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({
-        name: e.msg.replace(/^(#|\/)盒子复原/, '')
+        name: e.msg.replace(/^(#|\/)修仙复原/, '')
       })
     })
     return false

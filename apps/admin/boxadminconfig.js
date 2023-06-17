@@ -3,8 +3,8 @@ export class boxadminconfig extends plugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)盒子开启.*$/, fnc: 'boxaSwitchOpen' },
-        { reg: /^(#|\/)盒子关闭.*$/, fnc: 'boxaSwitchOff' },
+        { reg: /^(#|\/)修仙开启.*$/, fnc: 'boxaSwitchOpen' },
+        { reg: /^(#|\/)修仙关闭.*$/, fnc: 'boxaSwitchOff' },
         { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'configUpdata' },
         { reg: /^(#|\/)修仙重置配置$/, fnc: 'configReUpdata' },
         { reg: /^(#|\/)修仙启动@2.1$/, fnc: 'boxStart' },
@@ -27,14 +27,14 @@ export class boxadminconfig extends plugin {
   boxaSwitchOpen = async (e) => {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const name = e.msg.replace(/^(#|\/)盒子开启/, '')
+    const name = e.msg.replace(/^(#|\/)修仙开启/, '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
     return false
   }
   boxaSwitchOff = async (e) => {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const name = e.msg.replace(/^(#|\/)盒子关闭/, '')
+    const name = e.msg.replace(/^(#|\/)修仙关闭/, '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
     return false
   }
