@@ -11,7 +11,7 @@ export class BoxInstall extends plugin {
       ]
     })
   }
-  createinstall = async (e) => {
+  async createinstall(e) {
     if (!this.verify(e)) return false
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',

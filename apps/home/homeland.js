@@ -33,7 +33,7 @@ export class homeland extends plugin {
   }
 
   //开垦土地
-  ReceiveLand(e) {
+  async ReceiveLand(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -115,7 +115,7 @@ export class homeland extends plugin {
   }
 
   //种植
-  zhongxia(e) {
+  async zhongxia(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -236,7 +236,7 @@ export class homeland extends plugin {
     return true
   }
   //收获
-  shouhuo(e) {
+  async shouhuo(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
     const ifexisthome = HomeApi.GameUser.existhome({ UID })
@@ -407,7 +407,7 @@ export class homeland extends plugin {
   }
 
   //查看农田
-  lookland(e) {
+  async lookland(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -427,7 +427,7 @@ export class homeland extends plugin {
   }
 
   //偷菜
-  Stealvegetables = async (e) => {
+  async Stealvegetables(e) {
     if (!this.verify(e)) return false
     const good = GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
@@ -550,7 +550,7 @@ export class homeland extends plugin {
   }
 
   //查看他人农田
-  otherlookland(e) {
+  async otherlookland(e) {
     if (!this.verify(e)) return false
     const user = {
       A: e.user_id,

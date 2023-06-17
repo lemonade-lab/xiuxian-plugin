@@ -10,7 +10,7 @@ export class boxunion extends plugin {
     })
   }
 
-  unionShop = async (e) => {
+  async unionShop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -25,7 +25,7 @@ export class boxunion extends plugin {
     return false
   }
 
-  userSignin = async (e) => {
+  async userSignin(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -40,7 +40,7 @@ export class boxunion extends plugin {
     return false
   }
 
-  userCheckin = async (e) => {
+  async userCheckin(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

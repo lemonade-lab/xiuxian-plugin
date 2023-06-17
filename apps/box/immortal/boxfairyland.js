@@ -15,7 +15,7 @@ export class boxfairyland extends plugin {
   /**
    * 成就仙人境
    */
-  breakLevel(e) {
+  async breakLevel(e) {
     let UID = e.user_id
     if (!this.verify(e)) return false
     const ifexistplay = GameApi.GameUser.existUserSatus({ UID })
@@ -37,7 +37,7 @@ export class boxfairyland extends plugin {
     this.setContext('levelBreak1')
     return
   }
-  levelBreak1(e) {
+  async levelBreak1(e) {
     let UID = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -190,7 +190,7 @@ export class boxfairyland extends plugin {
    * 仙人突破
    */
 
-  breakSky = async (e) => {
+  async breakSky(e) {
     if (!this.verify(e)) return false
     e.reply('待世界升级~')
     return false

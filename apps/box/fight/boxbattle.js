@@ -8,7 +8,7 @@ export class BoxBattle extends plugin {
       ]
     })
   }
-  duel = async (e) => {
+  async duel(e) {
     if (!this.verify(e)) return false
     const UIDA = e.user_id
     let UIDB = BotApi.User.at({ e })
@@ -19,7 +19,7 @@ export class BoxBattle extends plugin {
     e.reply(GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))
     return false
   }
-  handWashing = async (e) => {
+  async handWashing(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

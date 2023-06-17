@@ -24,7 +24,7 @@ export class homemoney extends plugin {
     })
   }
 
-  Mylingshi(e) {
+  async Mylingshi(e) {
     //发送消息
     let UID = e.user_id
     //不开放私聊功能
@@ -51,7 +51,7 @@ export class homemoney extends plugin {
   }
 
   //出售商品
-  Homesale(e) {
+  async Homesale(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -118,7 +118,7 @@ export class homemoney extends plugin {
     return false
   }
 
-  dogshop(e) {
+  async dogshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -173,7 +173,7 @@ export class homemoney extends plugin {
     return false
   }
 
-  Buy_home(e) {
+  async Buy_home(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

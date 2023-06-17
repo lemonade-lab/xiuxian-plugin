@@ -8,7 +8,7 @@ export class BoxBattleSite extends plugin {
       ]
     })
   }
-  userKill = async (e) => {
+  async userKill(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -163,7 +163,7 @@ export class BoxBattleSite extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  userExploremonsters = async (e) => {
+  async userExploremonsters(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')

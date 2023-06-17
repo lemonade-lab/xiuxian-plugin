@@ -37,7 +37,7 @@ export class homefuli extends plugin {
     })
   }
   //#发家园福利
-  Allfulihome = async (e) => {
+  async Allfulihome(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     let ls = e.msg.replace(/^(#|\/)发家园福利/, '')
@@ -63,7 +63,7 @@ export class homefuli extends plugin {
     return false
   }
   //#发家园补偿
-  Fulihome(e) {
+  async Fulihome(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
@@ -97,7 +97,7 @@ export class homefuli extends plugin {
     return false
   }
   //#发家园物品
-  zengsonghome(e) {
+  async zengsonghome(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     //对方
@@ -143,7 +143,7 @@ export class homefuli extends plugin {
     return false
   }
   //#扣除全体家园经验
-  kouchujy = async (e) => {
+  async kouchujy(e) {
     if (!this.verify(e)) return false
 
     if (!e.isMaster) return false
@@ -178,7 +178,7 @@ export class homefuli extends plugin {
     return false
   }
   //#扣除家园经验
-  kouchugrjy = async (e) => {
+  async kouchugrjy(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     //对方
@@ -209,7 +209,7 @@ export class homefuli extends plugin {
     return false
   }
   //#发家园经验
-  zenjiagrjy = async (e) => {
+  async zenjiagrjy(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     //对方
@@ -240,7 +240,7 @@ export class homefuli extends plugin {
     return false
   }
   //#扣除灵晶
-  kouchulj = async (e) => {
+  async kouchulj(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     let doge = e.msg.replace(/^(#|\/)扣除灵晶/, '')

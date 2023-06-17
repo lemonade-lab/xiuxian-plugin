@@ -20,7 +20,7 @@ export class AssociationJobUp extends plugin {
     })
   }
 
-  FetchJob(e) {
+  async FetchJob(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -38,7 +38,7 @@ export class AssociationJobUp extends plugin {
     return false
   }
 
-  Commit_Regicide(e) {
+  async Commit_Regicide(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -104,7 +104,7 @@ export class AssociationJobUp extends plugin {
     return false
   }
 
-  Launch_Job_Challenge(e) {
+  async Launch_Job_Challenge(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

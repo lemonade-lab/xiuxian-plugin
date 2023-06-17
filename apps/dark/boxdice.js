@@ -5,7 +5,7 @@ export class BoxDice extends plugin {
       rule: [{ reg: /^(#|\/)万花坊$/, fnc: 'userDice' }]
     })
   }
-  userDice = async (e) => {
+  async userDice(e) {
     if (!this.verify(e)) return false
     const msg = ['__[万花坊]__']
     msg.push('待世界升级')

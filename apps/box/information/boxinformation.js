@@ -9,7 +9,7 @@ export class BoxInformation extends plugin {
       ]
     })
   }
-  showUserMsg = async (e) => {
+  async showUserMsg(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -23,7 +23,7 @@ export class BoxInformation extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  showQquipment = async (e) => {
+  async showQquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -37,7 +37,7 @@ export class BoxInformation extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  showTalent = async (e) => {
+  async showTalent(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

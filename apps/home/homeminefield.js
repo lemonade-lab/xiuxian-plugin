@@ -43,7 +43,7 @@ export class homeminefield extends plugin {
   }
 
   //占领灵矿
-  Occupy_the_mine = async (e) => {
+  async Occupy_the_mine(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -181,7 +181,7 @@ export class homeminefield extends plugin {
     }
   }
   //领取晶石
-  Collect_minerals = async (e) => {
+  async Collect_minerals(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -255,7 +255,7 @@ export class homeminefield extends plugin {
       return false
     }
   }
-  refining = async (e) => {
+  async refining(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -375,7 +375,7 @@ export class homeminefield extends plugin {
     return false
   }
 
-  coal = async (e) => {
+  async coal(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -456,7 +456,7 @@ export class homeminefield extends plugin {
   }
 
   //查看占领时间
-  look_minerals = async (e) => {
+  async look_minerals(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -492,7 +492,7 @@ export class homeminefield extends plugin {
     return false
   }
 
-  forging = async (e) => {
+  async forging(e) {
     if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
@@ -602,7 +602,7 @@ export class homeminefield extends plugin {
     return false
   }
   //分解
-  resolve = async (e) => {
+  async resolve(e) {
     if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
@@ -679,7 +679,7 @@ export class homeminefield extends plugin {
     return false
   }
   //修理
-  repair = async (e) => {
+  async repair(e) {
     if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id

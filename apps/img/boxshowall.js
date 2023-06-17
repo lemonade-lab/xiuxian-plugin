@@ -11,13 +11,13 @@ export class boxshowall extends plugin {
       ]
     })
   }
-  showMap = async (e) => {
+  async showMap(e) {
     if (!this.verify(e)) return false
     const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  showConfig = async (e) => {
+  async showConfig(e) {
     if (!this.verify(e)) return false
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
@@ -39,7 +39,7 @@ export class boxshowall extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  adminSuper = async (e) => {
+  async adminSuper(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'admin' })
@@ -48,7 +48,7 @@ export class boxshowall extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  boxhelp = async (e) => {
+  async boxhelp(e) {
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'help' })
     if (!data) return false
@@ -56,7 +56,7 @@ export class boxshowall extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  darkhelp = async (e) => {
+  async darkhelp(e) {
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'darkhelp' })
     if (!data) return false

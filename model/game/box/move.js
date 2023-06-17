@@ -1,21 +1,21 @@
 class UserMove {
   /** * 前进*/
-  mapW = async (e) => {
+  mapW(e) {
     e.reply('待世界升级')
     return
   }
   /**向左移动*/
-  mapA = async (e) => {
+  mapA(e) {
     e.reply('待世界升级')
     return
   }
   /*** 后退  */
-  mapS = async (e) => {
+  mapS(e) {
     e.reply('待世界升级')
     return
   }
   /** 向右移动 */
-  mapD = async (e) => {
+  mapD(e) {
     e.reply('待世界升级')
     return
   }

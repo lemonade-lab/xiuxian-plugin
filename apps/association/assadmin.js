@@ -30,7 +30,7 @@ export class AssociationAdmin extends plugin {
   }
 
   //判断是否满足创建宗门条件
-  Create_association(e) {
+  async Create_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -147,7 +147,7 @@ export class AssociationAdmin extends plugin {
   }
 
   /** 获取宗门名称 */
-  Get_association_name(e) {
+  async Get_association_name(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     /** 内容 */
@@ -217,7 +217,7 @@ export class AssociationAdmin extends plugin {
   }
 
   //升级宗门
-  lvup_association(e) {
+  async lvup_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -295,7 +295,7 @@ export class AssociationAdmin extends plugin {
   }
 
   //任命职位
-  Set_appointment(e) {
+  async Set_appointment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -334,7 +334,7 @@ export class AssociationAdmin extends plugin {
     return false
   }
 
-  AssRename(e) {
+  async AssRename(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -364,7 +364,7 @@ export class AssociationAdmin extends plugin {
     return false
   }
 
-  Deleteusermax(e) {
+  async Deleteusermax(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

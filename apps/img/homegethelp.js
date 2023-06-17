@@ -15,7 +15,7 @@ export class HomeGetHelp extends plugin {
       ]
     })
   }
-  homeHelp = async (e) => {
+  async homeHelp(e) {
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'home_help' })
     if (!data) {
@@ -24,7 +24,7 @@ export class HomeGetHelp extends plugin {
     const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 4, data }))
     BotApi.User.surveySet({ e, isreply })
   }
-  homeAdmin = async (e) => {
+  async homeAdmin(e) {
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'home_admin' })
     if (!data) {

@@ -10,7 +10,7 @@ export class BoxExchange extends plugin {
       ]
     })
   }
-  supermarket = async (e) => {
+  async supermarket(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -31,7 +31,7 @@ export class BoxExchange extends plugin {
     BotApi.User.forwardMsgSurveySet({ e, data: msg })
     return false
   }
-  onsell = async (e) => {
+  async onsell(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -81,7 +81,7 @@ export class BoxExchange extends plugin {
     e.reply(`成功上架:\n${bagThing.name}*${account}*${money}\n编号:${myDate}${sum}`)
     return false
   }
-  Offsell = async (e) => {
+  async Offsell(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -130,7 +130,7 @@ export class BoxExchange extends plugin {
     e.reply(`成功下架${ID}`)
     return false
   }
-  purchase = async (e) => {
+  async purchase(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

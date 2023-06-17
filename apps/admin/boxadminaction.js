@@ -12,20 +12,20 @@ export class boxadminaction extends plugin {
       ]
     })
   }
-  allForcecheckout = async (e) => {
+  async allForcecheckout(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     BotApi.Exec.execStart({ cmd: 'git  pull', e })
     return false
   }
-  deleteRedis = async (e) => {
+  async deleteRedis(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     GameApi.GamePublic.deleteReids()
     e.reply('删除完成')
     return false
   }
-  deleteAllusers = async (e) => {
+  async deleteAllusers(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     GameApi.UserData.controlAction({
@@ -37,7 +37,7 @@ export class boxadminaction extends plugin {
     e.reply('删除完成')
     return false
   }
-  dataRecovery = async (e) => {
+  async dataRecovery(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     BotApi.User.forwardMsg({
@@ -48,14 +48,14 @@ export class boxadminaction extends plugin {
     })
     return false
   }
-  dataRelife = async (e) => {
+  async dataRelife(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     let msg = BotApi.User.relife({})
     e.reply(`${msg}`)
     return false
   }
-  dataRelifehe = async (e) => {
+  async dataRelifehe(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     let B = BotApi.User.at({ e })

@@ -8,7 +8,7 @@ export class BoxOnekey extends plugin {
       ]
     })
   }
-  substitution = async (e) => {
+  async substitution(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -42,7 +42,7 @@ export class BoxOnekey extends plugin {
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
     return false
   }
-  shellAllType = async (e) => {
+  async shellAllType(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

@@ -11,7 +11,7 @@ export class BoxTransaction extends plugin {
       ]
     })
   }
-  showComodities = async (e) => {
+  async showComodities(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -74,7 +74,7 @@ export class BoxTransaction extends plugin {
 
     return false
   }
-  buyComodities = async (e) => {
+  async buyComodities(e) {
     if (!this.verify(e)) return false
 
     const UID = e.user_id
@@ -125,7 +125,7 @@ export class BoxTransaction extends plugin {
     e.reply(`[万宝楼]薛仁贵\n你花[${price}]下品灵石购买了[${thing_name}]*${quantity},`)
     return false
   }
-  sellComodities = async (e) => {
+  async sellComodities(e) {
     if (!this.verify(e)) return false
 
     const UID = e.user_id

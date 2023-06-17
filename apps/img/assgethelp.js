@@ -15,7 +15,7 @@ export class assGetHelp extends plugin {
       ]
     })
   }
-  assHelpImg = async (e) => {
+  async assHelpImg(e) {
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'ass_help' })
     if (!data) return false
@@ -23,7 +23,7 @@ export class assGetHelp extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  assHelpAdmin = async (e) => {
+  async assHelpAdmin(e) {
     if (!this.verify(e)) return false
     const data = BotApi.ImgHelp.getboxhelp({ name: 'ass_admin' })
     if (!data) return false

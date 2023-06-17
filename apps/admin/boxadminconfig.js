@@ -12,40 +12,40 @@ export class boxadminconfig extends plugin {
       ]
     })
   }
-  boxStart = async (e) => {
+  async boxStart(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
     e.reply(GameApi.DefsetUpdata.startGame(e.group_id, e.group_name))
     return false
   }
-  boxStop = async (e) => {
+  async boxStop(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
     e.reply(GameApi.DefsetUpdata.stopGame(e.group_id, e.group_name))
     return false
   }
-  boxaSwitchOpen = async (e) => {
+  async boxaSwitchOpen(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)修仙开启/, '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
     return false
   }
-  boxaSwitchOff = async (e) => {
+  async boxaSwitchOff(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)修仙关闭/, '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
     return false
   }
-  configUpdata = async (e) => {
+  async configUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
     return false
   }
-  configReUpdata = async (e) => {
+  async configReUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     GameApi.Createdata.removeConfig()

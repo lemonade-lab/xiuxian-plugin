@@ -10,7 +10,7 @@ export class BoxHome extends plugin {
       ]
     })
   }
-  take = async (e) => {
+  async take(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -142,7 +142,7 @@ export class BoxHome extends plugin {
     })
     return false
   }
-  study = async (e) => {
+  async study(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -193,7 +193,7 @@ export class BoxHome extends plugin {
     e.reply(`学习[${thing_name}]`)
     return false
   }
-  forget = async (e) => {
+  async forget(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -221,7 +221,7 @@ export class BoxHome extends plugin {
     e.reply(`忘了[${thing_name}]`)
     return false
   }
-  consumption = async (e) => {
+  async consumption(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

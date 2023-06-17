@@ -33,7 +33,7 @@ export class home extends plugin {
       ]
     })
   }
-  myhome = async (e) => {
+  async myhome(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -53,7 +53,7 @@ export class home extends plugin {
     return false
   }
 
-  Warehouse = async (e) => {
+  async Warehouse(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -72,7 +72,7 @@ export class home extends plugin {
     return false
   }
 
-  buildhome = async (e) => {
+  async buildhome(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -158,7 +158,7 @@ export class home extends plugin {
     return false
   }
   //家园扩建
-  extensionhome = async (e) => {
+  async extensionhome(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -190,7 +190,7 @@ export class home extends plugin {
     return false
   }
 
-  unextensionhome = async (e) => {
+  async unextensionhome(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -237,7 +237,7 @@ export class home extends plugin {
     e.reply(`你的家园已成功扩建`)
   }
 
-  movehome = async (e) => {
+  async movehome(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档

@@ -36,7 +36,7 @@ export class homecook extends plugin {
     })
   }
 
-  Occupy_the_mine = async (e) => {
+  async Occupy_the_mine(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -73,7 +73,7 @@ export class homecook extends plugin {
     this.setContext('choose_cook')
   }
 
-  choose_cook(e) {
+  async choose_cook(e) {
     let UID = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -104,7 +104,7 @@ export class homecook extends plugin {
     return false
   }
 
-  choose(e) {
+  async choose(e) {
     let UID = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -148,7 +148,7 @@ export class homecook extends plugin {
     }
   }
 
-  choose_food(e) {
+  async choose_food(e) {
     let UID = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -283,7 +283,7 @@ export class homecook extends plugin {
     return false
   }
 
-  choose_food1(e) {
+  async choose_food1(e) {
     let UID = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -482,7 +482,7 @@ export class homecook extends plugin {
     return false
   }
 
-  eat = async (e) => {
+  async eat(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -570,7 +570,7 @@ export class homecook extends plugin {
     return false
   }
 
-  fabucaipu = async (e) => {
+  async fabucaipu(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -656,7 +656,7 @@ export class homecook extends plugin {
     return false
   }
 
-  wanmin = async (e) => {
+  async wanmin(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
@@ -690,7 +690,7 @@ export class homecook extends plugin {
     return false
   }
 
-  wanminbug = async (e) => {
+  async wanminbug(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -774,7 +774,7 @@ export class homecook extends plugin {
     }
   }
 
-  stir_fry = async (e) => {
+  async stir_fry(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档

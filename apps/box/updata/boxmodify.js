@@ -8,7 +8,7 @@ export class BoxModify extends plugin {
       ]
     })
   }
-  changeName = async (e) => {
+  async changeName(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -63,7 +63,7 @@ export class BoxModify extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  changeAutograph = async (e) => {
+  async changeAutograph(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')

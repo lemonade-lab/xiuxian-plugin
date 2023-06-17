@@ -15,7 +15,7 @@ export class BoxStart extends plugin {
       }
     }
   }
-  createMsg = async (e) => {
+  async createMsg(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -28,7 +28,7 @@ export class BoxStart extends plugin {
     BotApi.User.surveySet({ e, isreply })
     return false
   }
-  reCreateMsg = async (e) => {
+  async reCreateMsg(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const cf = GameApi.DefsetUpdata.getConfig({

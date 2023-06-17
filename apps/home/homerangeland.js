@@ -49,7 +49,7 @@ export class homerangeland extends plugin {
   }
 
   //修建牧场
-  EstablishRangeland(e) {
+  async EstablishRangeland(e) {
     if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
@@ -122,7 +122,7 @@ export class homerangeland extends plugin {
     return
   }
   //搭建草场
-  seeding(e) {
+  async seeding(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -228,7 +228,7 @@ export class homerangeland extends plugin {
     return
   }
   //栽种树林
-  Plantforest(e) {
+  async Plantforest(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -349,7 +349,7 @@ export class homerangeland extends plugin {
     return
   }
   //开塘养鱼
-  Raisefish(e) {
+  async Raisefish(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //检查存档
@@ -470,7 +470,7 @@ export class homerangeland extends plugin {
     return
   }
   //放养动物
-  Breed(e) {
+  async Breed(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //检查存档
@@ -582,7 +582,7 @@ export class homerangeland extends plugin {
     }
   }
   //宰杀动物
-  Slaughter(e) {
+  async Slaughter(e) {
     if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
@@ -644,7 +644,7 @@ export class homerangeland extends plugin {
     }
   }
   //查看牧场
-  Checkpasture(e) {
+  async Checkpasture(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -661,7 +661,7 @@ export class homerangeland extends plugin {
     return
   }
   //偷
-  Stealanimals = async (e) => {
+  async Stealanimals(e) {
     if (!this.verify(e)) return false
     const good = HomeApi.GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
@@ -754,7 +754,7 @@ export class homerangeland extends plugin {
     return
   }
   //查看他人牧场
-  Checkotherpasture(e) {
+  async Checkotherpasture(e) {
     if (!this.verify(e)) return false
     const user = {
       A: e.user_id,

@@ -23,7 +23,7 @@ export class TreasureVault extends plugin {
       ]
     })
   }
-  Reclaim_Item(e) {
+  async Reclaim_Item(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -117,7 +117,7 @@ export class TreasureVault extends plugin {
   }
 
   //藏宝阁
-  List_treasureCabinet(e) {
+  async List_treasureCabinet(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -156,7 +156,7 @@ export class TreasureVault extends plugin {
   }
 
   //兑换
-  Converted_Item(e) {
+  async Converted_Item(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -224,7 +224,7 @@ export class TreasureVault extends plugin {
     e.reply(`兑换成功！！！`)
     return false
   }
-  Show_Contribute(e) {
+  async Show_Contribute(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

@@ -8,7 +8,7 @@ export class BoxForum extends plugin {
       ]
     })
   }
-  searchForum = async (e) => {
+  async searchForum(e) {
     if (!this.verify(e)) return false
     const msg = []
     const Forum = GameApi.UserData.controlActionInitial({
@@ -22,7 +22,7 @@ export class BoxForum extends plugin {
     BotApi.User.forwardMsgSurveySet({ e, data: msg })
     return false
   }
-  pushForum = async (e) => {
+  async pushForum(e) {
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')

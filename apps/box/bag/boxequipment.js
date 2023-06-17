@@ -9,7 +9,7 @@ export class BoxEquipment extends plugin {
     })
   }
 
-  addEquipment = async (e) => {
+  async addEquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -46,7 +46,7 @@ export class BoxEquipment extends plugin {
     e.reply(`装备[${thing_name}]`)
     return false
   }
-  deleteEquipment = async (e) => {
+  async deleteEquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

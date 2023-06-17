@@ -11,7 +11,7 @@ export class BoxSecretplace extends plugin {
       ]
     })
   }
-  showCity = async (e) => {
+  async showCity(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -44,7 +44,7 @@ export class BoxSecretplace extends plugin {
     BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
-  falsePiont = async (e) => {
+  async falsePiont(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -62,7 +62,7 @@ export class BoxSecretplace extends plugin {
     return false
   }
 
-  xyzaddress = async (e) => {
+  async xyzaddress(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -78,7 +78,7 @@ export class BoxSecretplace extends plugin {
     return false
   }
 
-  forward = async (e) => {
+  async forward(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -147,7 +147,7 @@ export class BoxSecretplace extends plugin {
     e.reply(`正在前往${address}...\n需要${time}秒`)
     return false
   }
-  delivery = async (e) => {
+  async delivery(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')

@@ -31,7 +31,7 @@ export class BlessPlace extends plugin {
       ]
     })
   }
-  Association_Battle(e) {
+  async Association_Battle(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -124,7 +124,7 @@ export class BlessPlace extends plugin {
   }
 
   //秘境地点
-  List_blessPlace(e) {
+  async List_blessPlace(e) {
     if (!this.verify(e)) return false
     let addres = '洞天福地'
     let weizhi = AssociationApi.assUser.blessPlaceList
@@ -132,7 +132,7 @@ export class BlessPlace extends plugin {
   }
 
   //入驻洞天
-  Settled_Blessed_Place(e) {
+  async Settled_Blessed_Place(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -189,7 +189,7 @@ export class BlessPlace extends plugin {
     return false
   }
 
-  exploitation_vein(e) {
+  async exploitation_vein(e) {
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
@@ -263,7 +263,7 @@ export class BlessPlace extends plugin {
     return false
   }
 
-  construction_Guild(e) {
+  async construction_Guild(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     //用户不存在
@@ -347,7 +347,7 @@ export class BlessPlace extends plugin {
     return false
   }
 
-  show_Association_Builder(e) {
+  async show_Association_Builder(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     //用户不存在

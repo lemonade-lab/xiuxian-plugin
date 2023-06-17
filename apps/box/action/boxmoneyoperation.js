@@ -9,7 +9,7 @@ export class BoxMoneyOperation extends plugin {
     })
   }
 
-  giveGoods = async (e) => {
+  async giveGoods(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -18,7 +18,7 @@ export class BoxMoneyOperation extends plugin {
     e.reply('待世界升级')
   }
 
-  giveMoney = async (e) => {
+  async giveMoney(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')

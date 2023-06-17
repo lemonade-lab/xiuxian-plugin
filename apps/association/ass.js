@@ -32,7 +32,7 @@ export class Association extends plugin {
     })
   }
 
-  show_association(e) {
+  async show_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -72,7 +72,7 @@ export class Association extends plugin {
   }
 
   //宗门俸禄
-  gift_association(e) {
+  async gift_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -123,7 +123,7 @@ export class Association extends plugin {
   }
 
   //加入宗门
-  Join_association(e) {
+  async Join_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -161,7 +161,7 @@ export class Association extends plugin {
   }
 
   //退出宗门
-  Exit_association(e) {
+  async Exit_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -222,7 +222,7 @@ export class Association extends plugin {
   }
 
   //捐赠灵石
-  give_association_lingshi(e) {
+  async give_association_lingshi(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -279,7 +279,7 @@ export class Association extends plugin {
   }
 
   //宗门列表
-  List_appointment(e) {
+  async List_appointment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

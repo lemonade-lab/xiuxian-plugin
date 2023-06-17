@@ -13,7 +13,7 @@ export class BoxMove extends plugin {
   /**
    * 前进
    */
-  mapW = async (e) => {
+  async mapW(e) {
     if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
@@ -21,7 +21,7 @@ export class BoxMove extends plugin {
   /**
    * 向左移动
    */
-  mapA = async (e) => {
+  async mapA(e) {
     if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
@@ -29,7 +29,7 @@ export class BoxMove extends plugin {
   /**
    * 后退
    */
-  mapS = async (e) => {
+  async mapS(e) {
     if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
@@ -37,7 +37,7 @@ export class BoxMove extends plugin {
   /**
    * 向右移动
    */
-  mapD = async (e) => {
+  async mapD(e) {
     if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false

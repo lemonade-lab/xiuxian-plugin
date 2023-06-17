@@ -8,7 +8,7 @@ export class boxadminmoney extends plugin {
       ]
     })
   }
-  gifts = async (e) => {
+  async gifts(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const UID = BotApi.User.at({ e })
@@ -32,7 +32,7 @@ export class boxadminmoney extends plugin {
     }
     return false
   }
-  deduction = async (e) => {
+  async deduction(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const UID = BotApi.User.at({ e })

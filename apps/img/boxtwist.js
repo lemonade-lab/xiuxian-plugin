@@ -7,7 +7,7 @@ export class BoxtWist extends plugin {
       rule: [{ fnc: 'helpWist' }]
     })
   }
-  helpWist = async (e) => {
+  async helpWist(e) {
     if (e.self_id != e.target_id) return false
     if (!this.verify(e)) return false
     const cf = GameApi.DefsetUpdata.getConfig({

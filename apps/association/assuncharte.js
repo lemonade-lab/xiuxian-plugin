@@ -36,7 +36,7 @@ export class AssUncharted extends plugin {
     })
   }
 
-  List_AssUncharted(e) {
+  async List_AssUncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     //无存档
@@ -61,7 +61,7 @@ export class AssUncharted extends plugin {
     GoAssUncharted(e, weizhi, addres)
   }
 
-  Go_Guild_Secrets(e) {
+  async Go_Guild_Secrets(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const go = GameApi.GamePublic.Go({ UID: UID })
@@ -183,7 +183,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  Labyrinth_Move(e) {
+  async Labyrinth_Move(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -376,7 +376,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  Rename_AssUncharted(e) {
+  async Rename_AssUncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -414,7 +414,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  Show_Uncharted_Gain(e) {
+  async Show_Uncharted_Gain(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -442,7 +442,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  Open_The_Chest(e) {
+  async Open_The_Chest(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -498,7 +498,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  Escape_Uncharted(e) {
+  async Escape_Uncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

@@ -28,7 +28,7 @@ export class AssociationJoin extends plugin {
     })
   }
 
-  View_Resume(e) {
+  async View_Resume(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -65,7 +65,7 @@ export class AssociationJoin extends plugin {
     return false
   }
 
-  Clear_Volunteer(e) {
+  async Clear_Volunteer(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -99,7 +99,7 @@ export class AssociationJoin extends plugin {
     }
   }
 
-  Approval_Admission(e) {
+  async Approval_Admission(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -145,7 +145,7 @@ export class AssociationJoin extends plugin {
     }
   }
 
-  Denial_Application(e) {
+  async Denial_Application(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -180,7 +180,7 @@ export class AssociationJoin extends plugin {
     return false
   }
 
-  Show_All_Resume(e) {
+  async Show_All_Resume(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

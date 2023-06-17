@@ -20,7 +20,7 @@ export class AssociationExtend extends plugin {
     })
   }
 
-  buildFactoryGood(e) {
+  async buildFactoryGood(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     let msg = e.msg.replace('#建好', '')
@@ -41,7 +41,7 @@ export class AssociationExtend extends plugin {
     AssociationApi.assUser.checkFacility(ass)
   }
 
-  showAssPlayer(e) {
+  async showAssPlayer(e) {
     const UID = e.user_id
     //无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -82,7 +82,7 @@ export class AssociationExtend extends plugin {
     return false
   }
 
-  identify_token(e) {
+  async identify_token(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

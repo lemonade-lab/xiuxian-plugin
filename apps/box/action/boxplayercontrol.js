@@ -10,7 +10,7 @@ export class BoxPlayerControl extends plugin {
       ]
     })
   }
-  biguan = async (e) => {
+  async biguan(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -31,7 +31,7 @@ export class BoxPlayerControl extends plugin {
     e.reply('开始两耳不闻窗外事...')
     return false
   }
-  dagong = async (e) => {
+  async dagong(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
@@ -52,7 +52,7 @@ export class BoxPlayerControl extends plugin {
     e.reply('开始外出...')
     return false
   }
-  chuGuan = async (e) => {
+  async chuGuan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -78,7 +78,7 @@ export class BoxPlayerControl extends plugin {
     this.upgrade(UID, time, action.actionName, e)
     return false
   }
-  endWork = async (e) => {
+  async endWork(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

@@ -23,7 +23,8 @@ export class move extends plugin {
       ]
     })
   }
-  movewarehouse(e) {
+  async movewarehouse(e) {
+    async
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
@@ -100,7 +101,7 @@ export class move extends plugin {
     return
   }
 
-  movenajie(e) {
+  async movenajie(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
@@ -187,7 +188,7 @@ export class move extends plugin {
     return
   }
 
-  update_warehouse(e) {
+  async update_warehouse(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
@@ -318,7 +319,7 @@ export class move extends plugin {
     return
   }
 
-  chongzhinongtian(e) {
+  async chongzhinongtian(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
