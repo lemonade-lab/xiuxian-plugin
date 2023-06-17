@@ -17,7 +17,7 @@ class ShowURl {
         height: 1300
       }
     })
-    page.close().catch((err) => logger.error(err))
+    page.close().catch((err) => console.error(err))
     return buff
   }
 }
