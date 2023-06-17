@@ -68,7 +68,7 @@ export class homeland extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     let Land = home.Land
@@ -172,7 +172,7 @@ export class homeland extends plugin {
     let doge = searchsthing.doge
     let timemin = doge * 4
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     }) //获取home文件
     let Land = home.Land //获取土地
@@ -197,7 +197,7 @@ export class homeland extends plugin {
       return
     }
     let landgoods = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: UID
     })
     let name1 = landgoods.thing.find((item) => item.name == name)
@@ -218,12 +218,12 @@ export class homeland extends plugin {
       quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: UID,
       DATA: landgoods
     })
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -232,7 +232,7 @@ export class homeland extends plugin {
       quantity: -quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -271,7 +271,7 @@ export class homeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
     let landgoods1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: UID
     })
     let landgoods = landgoods1.thing.find((item) => item.name == thing)
@@ -302,7 +302,7 @@ export class homeland extends plugin {
     let q = 10 - stolen
     let z = stolen * 0.1
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     let acount1 = Math.floor(acount)
@@ -317,7 +317,7 @@ export class homeland extends plugin {
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
       let Warehouse = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID
       })
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -326,12 +326,12 @@ export class homeland extends plugin {
         quantity: other
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
       let landgoods = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_landgoods',
+        CHOICE: 'user_home_landgoods',
         NAME: UID
       })
       landgoods = await HomeApi.GameUser.Add_DATA_thing({
@@ -340,14 +340,14 @@ export class homeland extends plugin {
         quantity: -acount1
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_landgoods',
+        CHOICE: 'user_home_landgoods',
         NAME: UID,
         DATA: landgoods
       })
       home.Landgrid += a
       home.homeexperience += x
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_home',
+        CHOICE: 'user_home_user',
         NAME: UID,
         DATA: home
       })
@@ -362,7 +362,7 @@ export class homeland extends plugin {
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
       let Warehouse = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID
       })
       let now_time = new Date().getTime()
@@ -372,12 +372,12 @@ export class homeland extends plugin {
         quantity: other
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
       let landgoods = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_landgoods',
+        CHOICE: 'user_home_landgoods',
         NAME: UID
       })
       let landgoods_thing = landgoods.thing
@@ -385,13 +385,13 @@ export class homeland extends plugin {
       nongzuowu.quarter -= 1
       nongzuowu.time = now_time
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_landgoods',
+        CHOICE: 'user_home_landgoods',
         NAME: UID,
         DATA: landgoods
       })
       home.homeexperience += x
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_home',
+        CHOICE: 'user_home_user',
         NAME: UID,
         DATA: home
       })
@@ -486,7 +486,7 @@ export class homeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)偷菜/, '')
     let landgoods2 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: user.B
     })
     let landgoods = landgoods2.thing.find((item) => item.name == thing)
@@ -512,7 +512,7 @@ export class homeland extends plugin {
     let crop = await HomeApi.GameUser.homesearch_thing_name({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: user.A
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -526,14 +526,14 @@ export class homeland extends plugin {
       DATA: Warehouse
     })
     let landgoods1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: user.B
     })
     let nameIwant = thing
     const target = landgoods1.thing.find((obj) => obj.name === nameIwant)
     target.stolen = target.stolen - 1
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: user.B,
       DATA: landgoods1
     })
@@ -543,7 +543,7 @@ export class homeland extends plugin {
     })
     home.homeexperience += z
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: user.A,
       DATA: home
     })

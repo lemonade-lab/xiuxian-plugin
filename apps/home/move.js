@@ -72,7 +72,7 @@ export class move extends plugin {
       return
     }
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -81,7 +81,7 @@ export class move extends plugin {
       quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -125,7 +125,7 @@ export class move extends plugin {
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     const home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     const homelevel = home.homelevel
@@ -162,7 +162,7 @@ export class move extends plugin {
       return
     }
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -171,7 +171,7 @@ export class move extends plugin {
       quantity: -quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -214,7 +214,7 @@ export class move extends plugin {
       return
     }
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
@@ -227,7 +227,7 @@ export class move extends plugin {
           (item) => !['', null, undefined, NaN, false, true].includes(item)
         )
         await HomeApi.Listdata.listActionArr({
-          CHOICE: 'user_Warehouse',
+          CHOICE: 'user_home_Warehouse',
           NAME: UID,
           DATA: Warehouse
         })
@@ -251,7 +251,7 @@ export class move extends plugin {
           }
           Warehouse.thing[i] = searchsthing
           await HomeApi.Listdata.listActionArr({
-            CHOICE: 'user_Warehouse',
+            CHOICE: 'user_home_Warehouse',
             NAME: UID,
             DATA: Warehouse
           })
@@ -263,7 +263,7 @@ export class move extends plugin {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
             await HomeApi.Listdata.listActionArr({
-              CHOICE: 'user_Warehouse',
+              CHOICE: 'user_home_Warehouse',
               NAME: UID,
               DATA: Warehouse
             })
@@ -272,7 +272,7 @@ export class move extends plugin {
       }
     }
     let Warehouse1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     Warehouse1.thing = Warehouse1.thing.reduce((total, cur, index) => {
@@ -284,12 +284,12 @@ export class move extends plugin {
       return total
     }, [])
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })
     let landgoods = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: UID
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
@@ -299,7 +299,7 @@ export class move extends plugin {
       if (searchsthing != 1) {
         landgoods.thing[i].id = searchsthing.id
         await HomeApi.Listdata.listActionArr({
-          CHOICE: 'user_landgoods',
+          CHOICE: 'user_home_landgoods',
           NAME: UID,
           DATA: landgoods
         })
@@ -310,7 +310,7 @@ export class move extends plugin {
         if (searchsthing1 != 1) {
           landgoods.thing[i].name = searchsthing1.name
           await HomeApi.Listdata.listActionArr({
-            CHOICE: 'user_landgoods',
+            CHOICE: 'user_home_landgoods',
             NAME: UID,
             DATA: landgoods
           })
@@ -345,17 +345,17 @@ export class move extends plugin {
       thing: []
     }
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_landgoods',
+      CHOICE: 'user_home_landgoods',
       NAME: UID,
       DATA: landgoods
     })
     const home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     home.Landgrid = home.LandgridMax
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID,
       DATA: home
     })

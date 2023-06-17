@@ -74,7 +74,7 @@ export class homeminefield extends plugin {
       return
     }
     let positionhome = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_position',
+      CHOICE: 'position',
       NAME: 'position'
     })
     const target = positionhome.find((obj) => obj.qq === UID)
@@ -84,7 +84,7 @@ export class homeminefield extends plugin {
     let time = new Date()
     let now_time = time.getTime()
     let minefield = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_minefield',
+      CHOICE: 'user_home_minefield',
       NAME: 'minefield'
     })
     let minefield_name1 = minefield.find((item) => item.address === address)
@@ -115,7 +115,7 @@ export class homeminefield extends plugin {
         timeMax: timeMax
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_minefield',
+        CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         DATA: minefield
       })
@@ -146,7 +146,7 @@ export class homeminefield extends plugin {
           minefield_name.createTime = now_time
           minefield_name.timeMax = timeMax
           await HomeApi.Listdata.listActionArr({
-            CHOICE: 'user_minefield',
+            CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield
           })
@@ -207,7 +207,7 @@ export class homeminefield extends plugin {
     let region2 = ifexisthome.region
     let action = await GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'user_home_action'
     })
     let region1 = action.region
     if (region2 != region1) {
@@ -215,12 +215,12 @@ export class homeminefield extends plugin {
       return
     }
     const position = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_position',
+      CHOICE: 'position',
       NAME: 'position'
     })
     const position1 = position.find((obj) => obj.qq === UID)
     const minefield = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_minefield',
+      CHOICE: 'user_home_minefield',
       NAME: 'minefield'
     })
     const target = minefield.find((obj) => obj.address === position1.address)
@@ -249,7 +249,7 @@ export class homeminefield extends plugin {
       await HomeApi.GameUser.Add_homeexperience({ UID, experience })
       target.createTime = now_time
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_minefield',
+        CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         DATA: minefield
       })
@@ -281,7 +281,7 @@ export class homeminefield extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     if (home.homelevel < 1) {
@@ -337,7 +337,7 @@ export class homeminefield extends plugin {
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(async () => {
       let Warehouse = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID
       })
       Warehouse_thing = await HomeApi.GameUser.homeexist_Warehouse_thing_name({
@@ -372,7 +372,7 @@ export class homeminefield extends plugin {
         quantity
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -456,7 +456,7 @@ export class homeminefield extends plugin {
         quantity: -quantity
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -489,7 +489,7 @@ export class homeminefield extends plugin {
       return
     }
     const minefield = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_minefield',
+      CHOICE: 'user_home_minefield',
       NAME: 'minefield'
     })
     const target = minefield.find((obj) => obj.qq === UID)
@@ -530,12 +530,12 @@ export class homeminefield extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)锻造/, '')
     let all = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'home_all',
+      CHOICE: 'all',
       NAME: 'all'
     })
     let searchsthing = all.find((item) => item.name == thing)
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     let searchsthing1 = Warehouse.thing.find((item) => item.name == thing)
@@ -611,7 +611,7 @@ export class homeminefield extends plugin {
       })
       //写入仓库
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -680,7 +680,7 @@ export class homeminefield extends plugin {
     if (c == 10) {
       e.reply(`${thing}放进分解池子，啥也没出`)
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -694,7 +694,7 @@ export class homeminefield extends plugin {
       quantity: quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -723,7 +723,7 @@ export class homeminefield extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)修理/, '')
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     let guo = Warehouse.thing.find((item) => item.name == thing)
@@ -757,7 +757,7 @@ export class homeminefield extends plugin {
     let guo1 = await HomeApi.GameUser.homeexist_all_thing_name({ name: thing })
     guo.durable = guo1.durable
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })

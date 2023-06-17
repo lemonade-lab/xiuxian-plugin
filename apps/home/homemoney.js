@@ -95,7 +95,7 @@ export class homemoney extends plugin {
       return
     }
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -104,7 +104,7 @@ export class homemoney extends plugin {
       quantity: -quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -150,7 +150,7 @@ export class homemoney extends plugin {
       NAME: 'dogshop'
     })
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     dogshop_list.forEach((item) => {
@@ -212,11 +212,11 @@ export class homemoney extends plugin {
       quantity = 99
     }
     let ifexist1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'home_dogshop',
+      CHOICE: 'home_home_dogshop',
       NAME: 'dogshop'
     })
     let rangeland = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID
     })
     let ifexist = ifexist1.find((item) => item.name == thing_name)
@@ -226,7 +226,7 @@ export class homemoney extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     if (id[0] == '50') {
@@ -246,7 +246,7 @@ export class homemoney extends plugin {
       return
     }
     let Warehouse = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
     HomeApi.GameUser.Add_DATA_thing({
@@ -255,7 +255,7 @@ export class homemoney extends plugin {
       quantity: quantity
     })
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_Warehouse',
+      CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse
     })

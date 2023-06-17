@@ -103,7 +103,7 @@ export class home extends plugin {
     }
     const ifexisthome = await HomeApi.Listdata.listAction({
       NAME: 'position',
-      CHOICE: 'user_position'
+      CHOICE: 'position'
     })
     const ifexisthome1 = ifexisthome.find((item) => item.qq == UID)
     if (ifexisthome1) {
@@ -150,7 +150,7 @@ export class home extends plugin {
       forwardsetTime[UID] = 0
       const positionhome = await HomeApi.Listdata.listActionArr({
         NAME: 'position',
-        CHOICE: 'user_position'
+        CHOICE: 'position'
       })
       const time = new Date()
       positionhome.push({
@@ -163,7 +163,7 @@ export class home extends plugin {
       })
       await HomeApi.Listdata.listActionArr({
         NAME: 'position',
-        CHOICE: 'user_position',
+        CHOICE: 'position',
         DATA: positionhome
       })
       e.reply(`成功在${address}建立了自己的家园`)
@@ -248,7 +248,7 @@ export class home extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     let homeexperience = home.homeexperience
@@ -326,7 +326,7 @@ export class home extends plugin {
       return
     }
     const home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     const homelevel = home.homelevel
@@ -343,14 +343,14 @@ export class home extends plugin {
     const the = 5
     const time1 = the >= 0 ? the : 1
     let positionhome = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_position',
+      CHOICE: 'position',
       NAME: 'position'
     })
     useraction[UID] = setTimeout(async () => {
       forwardsetTime[UID] = 0
       const target = positionhome.find((obj) => obj.qq === UID)
       let minefield = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_minefield',
+        CHOICE: 'user_home_minefield',
         NAME: 'minefield'
       })
       const target1 = minefield.find((obj) => obj.qq === UID)
@@ -359,7 +359,7 @@ export class home extends plugin {
         if (qq == UID) {
           let minefield1 = minefield.filter((item) => item.qq != UID)
           await HomeApi.Listdata.listActionArr({
-            CHOICE: 'user_minefield',
+            CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield1
           })

@@ -83,11 +83,11 @@ export class homerangeland extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     let rangeland = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID
     })
     let rangelandlevel = rangeland.rangelandlevel
@@ -116,7 +116,7 @@ export class homerangeland extends plugin {
     })
     rangeland.rangelandlevel += 1
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland
     })
@@ -147,7 +147,7 @@ export class homerangeland extends plugin {
     let region = ifexisthome.region
     let action = await HomeApi.GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'user_home_action'
     })
     let region2 = action.region
     if (region != region2) {
@@ -155,11 +155,11 @@ export class homerangeland extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     let rangeland = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID
     })
     let rangelandlevel = rangeland.rangelandlevel
@@ -225,7 +225,7 @@ export class homerangeland extends plugin {
     })
     rangeland.rangelandlevel += 1
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland
     })
@@ -256,7 +256,7 @@ export class homerangeland extends plugin {
     let region = ifexisthome.region
     let action = await HomeApi.GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'user_home_action'
     })
     let region3 = action.region
     if (region != region3) {
@@ -264,11 +264,11 @@ export class homerangeland extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_user',
       NAME: UID
     })
     let rangeland = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID
     })
     let rangelandlevel = rangeland.rangelandlevel
@@ -381,7 +381,7 @@ export class homerangeland extends plugin {
     let region = ifexisthome.region
     let action = await HomeApi.GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'user_home_action'
     })
     let region1 = action.region
     if (region != region1) {
@@ -389,11 +389,11 @@ export class homerangeland extends plugin {
       return
     }
     let home = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home',
+      CHOICE: 'user_home_home',
       NAME: UID
     })
     let rangeland = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID
     })
     let rangelandlevel = rangeland.rangelandlevel
@@ -473,7 +473,7 @@ export class homerangeland extends plugin {
     })
     rangeland.rangelandlevel += 1
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland
     })
@@ -505,7 +505,7 @@ export class homerangeland extends plugin {
     let region = ifexisthome.region
     let action = await HomeApi.GameApi.UserData.listAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'user_home_action'
     })
     let region1 = action.region
     if (region != region1) {
@@ -539,7 +539,7 @@ export class homerangeland extends plugin {
       return
     }
     let rangeland = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangeland',
+      CHOICE: 'user_home_rangeland',
       NAME: UID
     }) //获取rangeland文件
     let rangelandlevel = rangeland.rangelandlevel
@@ -548,7 +548,7 @@ export class homerangeland extends plugin {
       return
     }
     let rangelandannimals = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangelandannimals',
+      CHOICE: 'user_home_rangelandannimals',
       NAME: UID
     }) //获取rangeland文件
     let rangelandannimals1 = rangelandannimals.thing.find((item) => item.name == thing_name)
@@ -568,12 +568,12 @@ export class homerangeland extends plugin {
         quantity: 1
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_rangelandannimals',
+        CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals
       })
       let Warehouse = await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID
       })
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -582,7 +582,7 @@ export class homerangeland extends plugin {
         quantity: -1
       })
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_Warehouse',
+        CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -615,7 +615,7 @@ export class homerangeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)宰杀/, '')
     let rangelandannimals1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangelandannimals',
+      CHOICE: 'user_home_rangelandannimals',
       NAME: UID
     })
     let rangelandannimals = rangelandannimals1.thing.find((item) => item.name1 == thing)
@@ -647,7 +647,7 @@ export class homerangeland extends plugin {
     else {
       rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
       await HomeApi.Listdata.listActionArr({
-        CHOICE: 'user_rangelandannimals',
+        CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals1
       })
@@ -722,7 +722,7 @@ export class homerangeland extends plugin {
     let region = ifexisthome1.region
     let action = await HomeApi.GameApi.UserData.listAction({
       NAME: user.A,
-      CHOICE: 'user_action'
+      CHOICE: 'user_home_action'
     })
     let region1 = action.region
     if (region != region1) {
@@ -738,7 +738,7 @@ export class homerangeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)偷动物/, '')
     let rangelandannimals2 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangelandannimals',
+      CHOICE: 'user_home_rangelandannimals',
       NAME: user.B
     })
     let rangelandannimals = rangelandannimals2.thing.find((item) => item.name1 == thing)
@@ -761,12 +761,12 @@ export class homerangeland extends plugin {
       return
     }
     let rangelandannimals1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangelandannimals',
+      CHOICE: 'user_home_rangelandannimals',
       NAME: user.B
     })
     rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
     await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_rangelandannimals',
+      CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       DATA: rangelandannimals1
     })
