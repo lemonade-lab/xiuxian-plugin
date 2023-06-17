@@ -20,6 +20,7 @@ class ListData {
       PATH: __PATH[CHOICE]
     })
   }
+
   /**
    * 当读取失败时则指定初始化
    * @param { NAME, CHOICE, DATA, INITIAL } param0
@@ -34,7 +35,7 @@ class ListData {
       })
       return
     }
-    //读取的时候需要检查
+    // 读取的时候需要检查
     const Data = algorithm.dataActionNew({
       NAME,
       PATH: __PATH[CHOICE]
@@ -74,10 +75,10 @@ class ListData {
   searchThing = (parameter) => {
     let { CHOICE, NAME, condition, name } = parameter
     if (!CHOICE) {
-      //默认检索all表
+      // 默认检索all表
       ;(CHOICE = 'generate_all'), (NAME = 'all')
     }
-    const all = this.controlAction({ CHOICE: CHOICE, NAME: NAME })
+    const all = this.controlAction({ CHOICE, NAME })
     const ifexist = all.find((item) => item[condition] == name)
     return ifexist
   }

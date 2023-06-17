@@ -9,6 +9,7 @@ export class BoxInformation extends plugin {
       ]
     })
   }
+
   async showUserMsg(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -23,6 +24,7 @@ export class BoxInformation extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async showQquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -37,6 +39,7 @@ export class BoxInformation extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async showTalent(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id

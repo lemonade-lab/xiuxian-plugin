@@ -99,7 +99,10 @@ export class BlessPlace extends plugin {
         msg.push('防守方没有神兽，并不能获得战斗加成')
     }
     msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体魔力值加2点')
-    BotApi.Robot.forwardMsg({ e, data: msg })
+    const data={
+      msg
+    }
+     e.reply((await BotApi.obtainingImages({ path:'msg', name:'msg', data })))
     //开打！
     const res = AssBattle(e, attackObj, battleObj)
     //赢！
@@ -240,7 +243,7 @@ export class BlessPlace extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    gift_lingshi = 500 * ass.resident.level * player.level_id
+    gift_lingshi = 500 * ass.resident.level * player.levelId
 
     const num = Math.trunc(gift_lingshi)
 
@@ -320,7 +323,7 @@ export class BlessPlace extends plugin {
 
     const CDTime = 60
     const ClassCD = ':buildFacility'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
 
     const cdSecond = GameApi.GamePublic.getRedis(UID, ClassCD)
     if (cdSecond.expire) {
@@ -328,9 +331,9 @@ export class BlessPlace extends plugin {
       return false
     }
 
-    GameApi.GamePublic.setRedis(UID + ClassCD, now_time, CDTime)
+    GameApi.GamePublic.setRedis(UID + ClassCD, nowTime, CDTime)
 
-    let add = Math.trunc(player.level_id / 10) + 3
+    let add = Math.trunc(player.levelId / 10) + 3
 
     ass.facility[location].buildNum += add
 
@@ -376,14 +379,14 @@ export class BlessPlace extends plugin {
           (ass.facility[i].status == 0 ? '未启用' : '启用')
       )
     }
-    BotApi.Robot.forwardMsg({ e, data: msg })
+     e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
   }
 }
 
 /**
  * 地点查询
  */
-function GoBlessPlace(e, weizhi, addres) {
+async function GoBlessPlace(e, weizhi, addres) {
   let adr = addres
   let msg = ['***' + adr + '***']
   for (let i = 0; i < weizhi.length; i++) {
@@ -398,8 +401,9 @@ function GoBlessPlace(e, weizhi, addres) {
         '%'
     )
   }
-  BotApi.Robot.forwardMsg({ e, data: msg })
+   e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
 }
+
 function getFightMember(members, position) {
   let res = []
   for (let i = 0; i < members.length; i++) {
@@ -469,7 +473,7 @@ function AssBattle(e, battleA, battleB) {
     z++
     //分片发送消息
     if (x == 15) {
-      BotApi.Robot.forwardMsg({ e, data: msg })
+       e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
       msg = []
       x = 0
       y++
@@ -487,7 +491,7 @@ function AssBattle(e, battleA, battleB) {
     battleA.nowblood = battleA.nowblood - hurt
     if (battleA.nowblood < 0) {
       msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
-      BotApi.Robot.forwardMsg({ e, data: msg })
+       e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
       e.reply('你们的进攻被击退了！！')
       qq = 0
       break
@@ -502,7 +506,7 @@ function AssBattle(e, battleA, battleB) {
     battleB.nowblood = battleB.nowblood - hurt
     if (battleB.nowblood < 0) {
       msg.push('第' + z + '回合:你们结阵攻伐，造成' + hurt + '伤害')
-      BotApi.Robot.forwardMsg({ e, data: msg })
+       e.reply(await BotApi.obtainingImages({ path:'msg', name:'msg', data:{msg} }))
       e.reply('你们击破了对面的山门！')
       break
     } else {

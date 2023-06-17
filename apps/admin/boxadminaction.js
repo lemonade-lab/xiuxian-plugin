@@ -12,12 +12,14 @@ export class boxadminaction extends plugin {
       ]
     })
   }
+
   async allForcecheckout(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     BotApi.Exec.execStart({ cmd: 'git  pull', e })
     return false
   }
+
   async deleteRedis(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -25,6 +27,7 @@ export class boxadminaction extends plugin {
     e.reply('删除完成')
     return false
   }
+
   async deleteAllusers(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -37,6 +40,7 @@ export class boxadminaction extends plugin {
     e.reply('删除完成')
     return false
   }
+
   async dataRecovery(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -48,6 +52,7 @@ export class boxadminaction extends plugin {
     })
     return false
   }
+
   async dataRelife(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -55,6 +60,7 @@ export class boxadminaction extends plugin {
     e.reply(`${msg}`)
     return false
   }
+
   async dataRelifehe(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false

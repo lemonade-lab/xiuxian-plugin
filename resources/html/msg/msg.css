@@ -1,0 +1,15 @@
+.updata-head {
+  width: 100%;
+  min-height: 234px;
+  border-radius: 25px;
+  padding: 20px 0 20px 0;
+}
+
+.item_w {
+  padding: 0 20px 0 20px;
+}
+
+.item_int {
+  font-size: 25px;
+  padding: 10px;
+}

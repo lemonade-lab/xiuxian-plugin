@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { MyDirPath } from '../../../app.config.js'
 
-/**fs算法*/
+/** fs算法 */
 class Algorithm {
   /**
    * @param {地址} path
@@ -15,9 +15,9 @@ class Algorithm {
     for (let item of files) {
       const newpath = `${path}/${item}`
       const stat = fs.statSync(newpath)
-      //不是文件？
+      // 不是文件？
       if (!stat.isFile()) {
-        //是目录名
+        // 是目录名
         const file = newpath.replace(`${path}/`, '')
         for (let item of shield) {
           if (item != file) {
@@ -28,6 +28,7 @@ class Algorithm {
     }
     return sum
   }
+
   /**
    * @param {*} menupath
    * @param {类型} type
@@ -51,6 +52,7 @@ class Algorithm {
     })
     return newsum
   }
+
   /**
    *
    * @param { NAME, PATH, DATA } parameter
@@ -72,6 +74,7 @@ class Algorithm {
     )
     return data
   }
+
   /**
    * 存在数据传入则为读写操作
    * 读取操作时文件不存在则返回false
@@ -98,6 +101,7 @@ class Algorithm {
       return false
     }
   }
+
   /* 输入需要初始化目录的地址 */
   ctrateFile = (req) => {
     let name = req.split('/')
@@ -121,14 +125,14 @@ class Algorithm {
     })
   }
 
-  /**得到该路径的完整路径*/
+  /** 得到该路径的完整路径 */
   getReq = (req) => {
     /* 根据目录初始化地址 */
     this.ctrateFile(req)
     return path.join(MyDirPath, req)
   }
 
-  /**得到该路径的完整路径*/
+  /** 得到该路径的完整路径 */
   getFliePath = (req) => {
     /* 根据目录初始化地址 */
     this.ctrateFilePath(req)

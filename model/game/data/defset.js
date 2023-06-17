@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
 import { MyDirPath } from '../../../app.config.js'
-/**自定义配置地址*/
+/** 自定义配置地址 */
 const __diryaml = `${MyDirPath}/config/parameter/cooling.yaml`
 class DefsetUpdata {
   /**
@@ -9,17 +9,17 @@ class DefsetUpdata {
    * @returns
    */
   getConfig = ({ app, name }) => {
-    /*获得配置地址*/
+    /* 获得配置地址 */
     const file = `${MyDirPath}/config/${app}/${name}.yaml`
-    /*读取配置*/
+    /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
   }
 
   getDefset = ({ app, name }) => {
-    /*获得配置地址*/
+    /* 获得配置地址 */
     const file = `${MyDirPath}/resources/defset/${app}/${name}.yaml`
-    /*读取配置*/
+    /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
   }
@@ -39,6 +39,7 @@ class DefsetUpdata {
     fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
     return `${name}${swich ? '开启' : '关闭'}`
   }
+
   /**
    * @param { name, size }param0
    * @returns

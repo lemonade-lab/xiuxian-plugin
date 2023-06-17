@@ -14,7 +14,7 @@ class GameUser {
     const die = []
     life.forEach((item) => {
       const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
-      item.Age = Number(cf['Age']['size'] ? cf['Age']['size'] : 1) + item.Age
+      item.Age = Number(cf.Age.size ? cf.Age.size : 1) + item.Age
       if (item.Age >= item.life) {
         item.status = 0
         die.push(item.qq)
@@ -29,6 +29,7 @@ class GameUser {
       gamepublic.offAction({ UID: item })
     }
   }
+
   /**
    * @param { UID } param0
    * @returns
@@ -38,8 +39,8 @@ class GameUser {
       NAME: UID,
       CHOICE: 'user_player',
       DATA: {
-        autograph: '无', //道宣
-        days: 0 //签到
+        autograph: '无', // 道宣
+        days: 0 // 签到
       }
     })
     const LevelList = listdata.controlAction({
@@ -56,22 +57,22 @@ class GameUser {
       DATA: {
         nowblood:
           LevelList.find((item) => item.id == 1).blood +
-          LevelMaxList.find((item) => item.id == 1).blood //血量
+          LevelMaxList.find((item) => item.id == 1).blood // 血量
       }
     })
     listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: {
-        prestige: 0, //魔力
-        level_id: 1, //练气境界
-        levelname: LevelList.find((item) => item.id == 1).name, //练气名
-        experience: 1, //练气经验
-        levelmax_id: 1, //练体境界
-        levelnamemax: LevelMaxList.find((item) => item.id == 1).name, //练体名
-        experiencemax: 1, //练体经验
-        rank_id: 0, //数组位置
-        rankmax_id: 0 //数组位置
+        prestige: 0, // 魔力
+        levelId: 1, // 练气境界
+        levelname: LevelList.find((item) => item.id == 1).name, // 练气名
+        experience: 1, // 练气经验
+        levelmax_id: 1, // 练体境界
+        levelnamemax: LevelMaxList.find((item) => item.id == 1).name, // 练体名
+        experiencemax: 1, // 练体经验
+        rank_id: 0, // 数组位置
+        rankmax_id: 0 // 数组位置
       }
     })
     listdata.controlAction({
@@ -96,14 +97,14 @@ class GameUser {
       NAME: UID,
       CHOICE: 'user_action',
       DATA: {
-        game: 1, //游戏状态
-        Couple: 1, //双修
-        newnoe: 1, //新人
+        game: 1, // 游戏状态
+        Couple: 1, // 双修
+        newnoe: 1, // 新人
         x: coordinate.mx,
         y: coordinate.my,
-        z: positionID[0], //位面
-        region: positionID[1], //区域
-        address: positionID[2], //属性
+        z: positionID[0], // 位面
+        region: positionID[1], // 区域
+        address: positionID[2], // 属性
         Exchange: 0
       }
     })
@@ -112,8 +113,8 @@ class GameUser {
       CHOICE: 'user_bag',
       DATA: {
         grade: 1,
-        lingshimax: 50000, //废弃
-        lingshi: 0, //废弃
+        lingshimax: 50000, // 废弃
+        lingshi: 0, // 废弃
         thing: []
       }
     })
@@ -122,10 +123,10 @@ class GameUser {
       NAME: UID,
       CHOICE: 'user_talent',
       DATA: {
-        talent: newtalent, //灵根
-        talentshow: 1, //显示0,隐藏1
-        talentsize: 0, //天赋
-        AllSorcery: [] //功法
+        talent: newtalent, // 灵根
+        talentshow: 1, // 显示0,隐藏1
+        talentsize: 0, // 天赋
+        AllSorcery: [] // 功法
       }
     })
     const FullName = {
@@ -133,8 +134,7 @@ class GameUser {
       name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
     }
     const name =
-      gamepublic.Anyarray({ ARR: FullName['full'] }) +
-      gamepublic.Anyarray({ ARR: FullName['name'] })
+      gamepublic.Anyarray({ ARR: FullName.full }) + gamepublic.Anyarray({ ARR: FullName.name })
     const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
@@ -143,28 +143,28 @@ class GameUser {
     life.push({
       qq: UID,
       name: `${name}`,
-      Age: 1, //年龄
-      life: Math.floor(Math.random() * (84 - 60) + 60), //寿命
+      Age: 1, // 年龄
+      life: Math.floor(Math.random() * (84 - 60) + 60), // 寿命
       createTime: new Date().getTime(),
       status: 1
     })
     listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
-    /**更新用户表*/
+    /** 更新用户表 */
     listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: life,
       INITIAL: []
     })
-    /**更新装备*/
+    /** 更新装备 */
     listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment',
       DATA: []
     })
-    /**更新天赋面板*/
+    /** 更新天赋面板 */
     this.updataUserEfficiency({ UID })
-    /**更新战斗面板 */
+    /** 更新战斗面板 */
     this.readPanel({ UID })
     return true
   }
@@ -175,7 +175,7 @@ class GameUser {
    * @returns
    */
   userBag = ({ UID, name, ACCOUNT }) => {
-    //搜索物品信息
+    // 搜索物品信息
     const thing = listdata.searchThing({
       condition: 'name',
       name
@@ -199,7 +199,7 @@ class GameUser {
    * @returns
    */
   userMaterial = ({ UID, name, ACCOUNT }) => {
-    //搜索物品信息
+    // 搜索物品信息
     const thing = listdata.searchThing({
       CHOICE: 'fixed_material',
       NAME: 'MaterialGUIDe',
@@ -243,6 +243,7 @@ class GameUser {
       return BAG
     }
   }
+
   /**
    * 给储物袋添加物品
    * @param { BAG, THING, ACCOUNT } param0
@@ -305,7 +306,7 @@ class GameUser {
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
-    const levelmini = LevelList.find((item) => item.id == level.level_id)
+    const levelmini = LevelList.find((item) => item.id == level.levelId)
     const levelmax = LevelMaxList.find((item) => item.id == level.levelmax_id)
     const UserBattle = listdata.controlAction({
       CHOICE: 'user_battle',
@@ -341,20 +342,20 @@ class GameUser {
       equ.burstmax = equ.burstmax + item.burstmax
       equ.speed = equ.speed + item.speed
     })
-    /*计算插件临时属性及永久属性*/
+    /* 计算插件临时属性及永久属性 */
     if (extend != {}) {
       extend = Object.values(extend)
       extend.forEach((item) => {
-        /*永久属性计算*/
-        equ.attack = equ.attack + item['perpetual'].attack
-        equ.defense = equ.defense + item['perpetual'].defense
-        equ.blood = equ.blood + item['perpetual'].blood
-        equ.burst = equ.burst + item['perpetual'].burst
-        equ.burstmax = equ.burstmax + item['perpetual'].burstmax
-        equ.speed = equ.speed + item['perpetual'].speed
-        /*临时属性计算*/
-        if (item['times'].length != 0) {
-          item['times'].forEach((timesitem) => {
+        /* 永久属性计算 */
+        equ.attack = equ.attack + item.perpetual.attack
+        equ.defense = equ.defense + item.perpetual.defense
+        equ.blood = equ.blood + item.perpetual.blood
+        equ.burst = equ.burst + item.perpetual.burst
+        equ.burstmax = equ.burstmax + item.perpetual.burstmax
+        equ.speed = equ.speed + item.perpetual.speed
+        /* 临时属性计算 */
+        if (item.times.length != 0) {
+          item.times.forEach((timesitem) => {
             if (timesitem.timeLimit > new Date().getTime()) {
               equ[timesitem.type] += timesitem.value
             }
@@ -362,9 +363,9 @@ class GameUser {
         }
       })
     }
-    /*血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限*/
+    /* 血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限 */
     const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
-    /*双境界面板之和*/
+    /* 双境界面板之和 */
     panel.attack = Math.floor(panel.attack * (equ.attack * 0.01 + 1))
     panel.defense = Math.floor(panel.defense * (equ.defense * 0.01 + 1))
     panel.blood = bloodLimit
@@ -384,7 +385,6 @@ class GameUser {
       CHOICE: 'user_battle',
       DATA: panel
     })
-    return
   }
 
   /**
@@ -398,14 +398,14 @@ class GameUser {
         NAME: UID,
         CHOICE: 'user_talent'
       })
-      const talent_sise = {
+      const talentSise = {
         gonfa: 0,
         talent: 0
       }
       talent.AllSorcery.forEach((item) => {
-        talent_sise.gonfa += item.size
+        talentSise.gonfa += item.size
       })
-      talent_sise.talent = this.talentSize(talent)
+      talentSise.talent = this.talentSize(talent)
       let promise = listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_extend'
@@ -415,7 +415,7 @@ class GameUser {
       for (let i in promise) {
         extend += promise[i].perpetual.efficiency * 100
       }
-      talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend
+      talent.talentsize = talentSise.talent + talentSise.gonfa + extend
       listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_talent',
@@ -432,18 +432,18 @@ class GameUser {
    * @returns 灵根天赋值
    */
   talentSize = (data) => {
-    let talent_size = 250
-    /*根据灵根数来判断*/
+    let talentSize = 250
+    /* 根据灵根数来判断 */
     for (let i = 0; i < data.length; i++) {
-      /*循环加效率*/
+      /* 循环加效率 */
       if (data[i] <= 5) {
-        talent_size -= 50
+        talentSize -= 50
       }
       if (data[i] >= 6) {
-        talent_size -= 40
+        talentSize -= 40
       }
     }
-    return talent_size
+    return talentSize
   }
 
   /**
@@ -473,6 +473,7 @@ class GameUser {
     }
     return newtalent
   }
+
   /**
    * @param { data } param0
    * @returns
@@ -516,11 +517,10 @@ class GameUser {
    * @returns
    */
   updataUser = ({ UID, CHOICE, ATTRIBUTE, SIZE }) => {
-    //读取原数据
+    // 读取原数据
     const data = listdata.controlAction({ NAME: UID, CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
     listdata.controlAction({ NAME: UID, CHOICE, DATA: data })
-    return
   }
 
   /**
@@ -640,7 +640,6 @@ class GameUser {
       CHOICE: 'user_battle',
       DATA: battle
     })
-    return
   }
 
   /**
@@ -667,11 +666,11 @@ class GameUser {
         }
       }
     }
-    extend[FLAG]['perpetual'][TYPE] = VALUE
+    extend[FLAG].perpetual[TYPE] = VALUE
     listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
     this.readPanel({ UID: NAME })
-    return
   }
+
   /**
    * @param { NAME, FLAG, TYPE, VALUE, ENDTIME } param0
    * @returns
@@ -696,40 +695,36 @@ class GameUser {
         }
       }
     }
-    const find = extend[FLAG]['times'].findIndex((item) => item.type == TYPE)
+    const find = extend[FLAG].times.findIndex((item) => item.type == TYPE)
     const time = new Date().getTime()
     if (
       find != -1 &&
-      extend[FLAG]['times'][find]['timeLimit'] > time &&
-      extend[FLAG]['times'][find]['value'] >= VALUE
+      extend[FLAG].times[find].timeLimit > time &&
+      extend[FLAG].times[find].value >= VALUE
     ) {
       listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
       this.readPanel({ UID: NAME })
-      return
     } else if (
       find != -1 &&
-      (extend[FLAG]['times'][find]['timeLimit'] <= time ||
-        extend[FLAG]['times'][find]['value'] < VALUE)
+      (extend[FLAG].times[find].timeLimit <= time || extend[FLAG].times[find].value < VALUE)
     ) {
-      extend[FLAG]['times'][find]['value'] = VALUE
-      extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
+      extend[FLAG].times[find].value = VALUE
+      extend[FLAG].times[find].timeLimit = ENDTIME
       listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
       this.readPanel({ UID: NAME })
-      return
     } else {
-      extend[FLAG]['times'].push({
+      extend[FLAG].times.push({
         type: TYPE,
         value: VALUE,
         timeLimit: ENDTIME
       })
       listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
       this.readPanel({ UID: NAME })
-      return
     }
   }
 
   synthesisResult = ({ ans, type }) => {
-    //这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
+    // 这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
     let drawingList = listdata.controlAction({
       NAME: 'AllDrawing',
       CHOICE: 'fixed_material'
@@ -752,10 +747,10 @@ class GameUser {
       // 可能的结果过多，取三个最好的
       drawingList.sort(sortRule)
       const slice = drawingList.slice(0, 3)
-      //随机取一个
+      // 随机取一个
       return randomArr(slice)
     } else {
-      //直接随机取
+      // 直接随机取
       return randomArr(drawingList)
     }
   }

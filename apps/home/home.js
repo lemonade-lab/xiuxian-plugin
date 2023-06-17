@@ -1,7 +1,7 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
-//秋雨
+// 秋雨
 export class home extends plugin {
   constructor() {
     super({
@@ -33,6 +33,7 @@ export class home extends plugin {
       ]
     })
   }
+
   async myhome(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -98,13 +99,13 @@ export class home extends plugin {
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const address_name = '极西联盟'
+    const addressName = '极西联盟'
     const map = GameApi.GameMap.mapExistence({
       action,
-      addressName: address_name
+      addressName
     })
     if (!map) {
-      e.reply(`第一次建立家园，需到${address_name}寻求联盟帮助`)
+      e.reply(`第一次建立家园，需到${addressName}寻求联盟帮助`)
       return false
     }
     const point0 = GameApi.UserData.controlAction({
@@ -123,7 +124,7 @@ export class home extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (level.level_id < PointId[3]) {
+    if (level.levelId < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
       return false
     }
@@ -140,10 +141,10 @@ export class home extends plugin {
       positionhome.push({
         qq: UID,
         createTime: time.getTime(),
-        address: address,
-        x: x,
-        y: y,
-        region: region
+        address,
+        x,
+        y,
+        region
       })
       HomeApi.Listdata.controlActionInitial({
         NAME: 'position',
@@ -157,11 +158,12 @@ export class home extends plugin {
     e.reply(`联盟人员正在加紧修建你的住所...\n预计需要${time1}秒`)
     return false
   }
-  //家园扩建
+
+  // 家园扩建
   async extensionhome(e) {
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
@@ -191,9 +193,9 @@ export class home extends plugin {
   }
 
   async unextensionhome(e) {
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
@@ -238,9 +240,9 @@ export class home extends plugin {
   }
 
   async movehome(e) {
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
@@ -277,14 +279,14 @@ export class home extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (level.level_id < PointId[3]) {
+    if (level.levelId < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
       return false
     }
-    const thing_name = '木板'
+    const thingName = '木板'
     const searchsthing = HomeApi.GameUser.userWarehouseSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
     if (searchsthing == undefined) {
       e.reply(`你的仓库里没有木板!`)
@@ -347,11 +349,11 @@ export class home extends plugin {
         INITIAL: []
       })
       HomeApi.GameUser.userWarehouse({
-        UID: UID,
-        name: thing_name,
+        UID,
+        name: thingName,
         ACCOUNT: -a
       })
-      HomeApi.GameUser.Add_doge({ UID: UID, money: -2000 })
+      HomeApi.GameUser.Add_doge({ UID, money: -2000 })
       e.reply(
         `成功在${address}建立了新的家园，花费2000灵晶(原来家园所在地如果占领了的话将会撤走哦!)`
       )

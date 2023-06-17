@@ -12,18 +12,21 @@ export class boxadminconfig extends plugin {
       ]
     })
   }
+
   async boxStart(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
     e.reply(GameApi.DefsetUpdata.startGame(e.group_id, e.group_name))
     return false
   }
+
   async boxStop(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
     e.reply(GameApi.DefsetUpdata.stopGame(e.group_id, e.group_name))
     return false
   }
+
   async boxaSwitchOpen(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -31,6 +34,7 @@ export class boxadminconfig extends plugin {
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
     return false
   }
+
   async boxaSwitchOff(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -38,6 +42,7 @@ export class boxadminconfig extends plugin {
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
     return false
   }
+
   async configUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -45,6 +50,7 @@ export class boxadminconfig extends plugin {
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
     return false
   }
+
   async configReUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false

@@ -1,5 +1,5 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
-//汐颜
+// 汐颜
 export class Association extends plugin {
   constructor() {
     super({
@@ -67,11 +67,11 @@ export class Association extends plugin {
           assPlayerA.historyContribution
       )
     }
-    BotApi.Robot.forwardMsg({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
 
-  //宗门俸禄
+  // 宗门俸禄
   async gift_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -84,7 +84,7 @@ export class Association extends plugin {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
-    const nowTime = new Date().getTime() //获取当前日期的时间戳
+    const nowTime = new Date().getTime() // 获取当前日期的时间戳
     const oldTime = assPlayer.time[1]
     const days = Math.trunc((nowTime - oldTime) / (24 * 60 * 60 * 1000))
     if (assPlayer.contributionPoints <= 0 || assPlayer.historyContribution < days) {
@@ -92,7 +92,7 @@ export class Association extends plugin {
       return false
     }
     let Today = AssociationApi.assUser.timeInvert(nowTime)
-    let lasting_time = AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) //获得上次宗门签到日期
+    let lasting_time = AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) // 获得上次宗门签到日期
     if (Today.Y == lasting_time.Y && Today.M == lasting_time.M && Today.D == lasting_time.D) {
       e.reply(`今日已经领取过了`)
       return false
@@ -112,7 +112,7 @@ export class Association extends plugin {
     assPlayer.contributionPoints -= 1
     assPlayer.lastSignAss = nowTime
     GameApi.GameUser.userBag({
-      UID: UID,
+      UID,
       name: '下品灵石',
       ACCOUNT: Number(giftNumber)
     })
@@ -122,7 +122,7 @@ export class Association extends plugin {
     return false
   }
 
-  //加入宗门
+  // 加入宗门
   async Join_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -136,31 +136,31 @@ export class Association extends plugin {
       return false
     }
 
-    let association_name = e.msg.replace('#申请加入', '')
-    association_name = association_name.trim()
+    let associationName = e.msg.replace('#申请加入', '')
+    associationName = associationName.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find(
-      (item) => item.name == association_name
+      (item) => item.name == associationName
     )
     if (!assRelation) {
       return false
     }
-    association_name = assRelation.id
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, association_name)
-    const mostMem = AssociationApi.config.numberMaximums[ass.level - 1] //该宗门目前人数上限
-    const nowMem = ass.allMembers.length //该宗门目前人数
+    associationName = assRelation.id
+    const ass = AssociationApi.assUser.getAssOrPlayer(2, associationName)
+    const mostMem = AssociationApi.config.numberMaximums[ass.level - 1] // 该宗门目前人数上限
+    const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
       e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
       return false
     }
-    assPlayer.volunteerAss = association_name
+    assPlayer.volunteerAss = associationName
     ass.applyJoinList.push(UID)
-    AssociationApi.assUser.setAssOrPlayer('association', association_name, ass)
+    AssociationApi.assUser.setAssOrPlayer('association', associationName, ass)
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply(`已成功发出申请！`)
     return false
   }
 
-  //退出宗门
+  // 退出宗门
   async Exit_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -172,8 +172,8 @@ export class Association extends plugin {
     if (assPlayer.assName == 0) {
       return false
     }
-    const nowTime = new Date().getTime() //获取当前时间戳
-    const time = 24 //分钟
+    const nowTime = new Date().getTime() // 获取当前时间戳
+    const time = 24 // 分钟
     const addTime = assPlayer.time[1] + 60000 * time
     if (addTime > nowTime) {
       e.reply('加入宗门不满' + `${time}小时,无法退出`)
@@ -181,11 +181,11 @@ export class Association extends plugin {
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     if (assPlayer.assJob < 10) {
-      ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber) //原来的职位表删掉这个B
+      ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber) // 原来的职位表删掉这个B
       assPlayer.assName = 0
       assPlayer.assJob = 0
       assPlayer.favorability = 0
-      AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
+      AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) // 记录到存档
       AssociationApi.assUser.assEffCount(assPlayer)
       e.reply('退出宗门成功')
     } else {
@@ -213,7 +213,7 @@ export class Association extends plugin {
         }
         ass.master = randMember.qqNumber
         randMember.assJob = 10
-        AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
+        AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) // 记录到存档
         AssociationApi.assUser.assEffCount(randMember)
         e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.qqNumber}]接管`)
       }
@@ -221,7 +221,7 @@ export class Association extends plugin {
     return false
   }
 
-  //捐赠灵石
+  // 捐赠灵石
   async give_association_lingshi(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -239,7 +239,7 @@ export class Association extends plugin {
     lingshi = AssociationApi.assUser.numberVerify(lingshi)
 
     let money = GameApi.GameUser.userBagSearch({
-      UID: UID,
+      UID,
       name: '下品灵石'
     })
     if (!money) {
@@ -266,7 +266,7 @@ export class Association extends plugin {
     assPlayer.contributionPoints += Math.trunc(lingshi / 1000)
     assPlayer.historyContribution += Math.trunc(lingshi / 1000)
     GameApi.GameUser.userBag({
-      UID: UID,
+      UID,
       name: '下品灵石',
       ACCOUNT: Number(-lingshi)
     })
@@ -278,7 +278,7 @@ export class Association extends plugin {
     return false
   }
 
-  //宗门列表
+  // 宗门列表
   async List_appointment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id

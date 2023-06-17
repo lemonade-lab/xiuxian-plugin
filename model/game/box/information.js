@@ -57,6 +57,7 @@ class information {
       }
     }
   }
+
   /**
    * 装备信息
    * @param {*} param0
@@ -71,7 +72,7 @@ class information {
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    //tudo
+    // tudo
     let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     return {
@@ -114,7 +115,7 @@ class information {
       name: 'skills',
       data: {
         UID,
-        skills: talent['AllSorcery'],
+        skills: talent.AllSorcery,
         linggenname: name,
         talentsize: size
       }
@@ -138,22 +139,22 @@ class information {
     })
     const najie = listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
     const thing = najie.thing
-    const thing_list = []
-    const danyao_list = []
-    const daoju_list = []
+    const thingList = []
+    const danyaoList = []
+    const daojuList = []
     thing.forEach((item) => {
       let id = item.id.split('-')
       switch (id[0]) {
         case '4': {
-          danyao_list.push(item)
+          danyaoList.push(item)
           break
         }
         case '6': {
-          daoju_list.push(item)
+          daojuList.push(item)
           break
         }
         default: {
-          thing_list.push(item)
+          thingList.push(item)
           break
         }
       }
@@ -167,9 +168,9 @@ class information {
         life,
         battle,
         najie,
-        thing: thing_list,
-        daoju_list,
-        danyao_list
+        thing: thingList,
+        daojuList,
+        danyaoList
       }
     }
   }

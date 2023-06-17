@@ -4,7 +4,7 @@ const addall = {}
 const full = listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
 const name = listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
 const map = listdata.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
-/**怪物生成*/
+/** 怪物生成 */
 class GameMonster {
   /**
    * @param { i } param0
@@ -17,7 +17,7 @@ class GameMonster {
         data: []
       }
     }
-    /*时间变了*/
+    /* 时间变了 */
     if (new Date().getHours() != alldata[i].label) {
       alldata[i].data = this.generateMonster({ i })
       return alldata[i].data
@@ -30,6 +30,7 @@ class GameMonster {
       return alldata[i].data
     }
   }
+
   /**
    * @param { i, num } param0
    * @returns
@@ -48,6 +49,7 @@ class GameMonster {
     }
     return 0
   }
+
   /**
    * @param { i } param0
    * @returns

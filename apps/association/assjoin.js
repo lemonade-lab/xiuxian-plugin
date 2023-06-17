@@ -1,5 +1,5 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
-//汐颜
+// 汐颜
 export class AssociationJoin extends plugin {
   constructor() {
     super({
@@ -113,8 +113,8 @@ export class AssociationJoin extends plugin {
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const find = ass.applyJoinList.findIndex((item) => item == joinQQ)
-    const mostMem = AssociationApi.config.numberMaximums[ass.level - 1] //该宗门目前人数上限
-    const nowMem = ass.allMembers.length //该宗门目前人数
+    const mostMem = AssociationApi.config.numberMaximums[ass.level - 1] // 该宗门目前人数上限
+    const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
       e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
       return false
@@ -126,7 +126,7 @@ export class AssociationJoin extends plugin {
 
     if (assPlayer.assJob >= 8) {
       const now = new Date()
-      const nowTime = now.getTime() //获取当前时间戳
+      const nowTime = now.getTime() // 获取当前时间戳
       const date = AssociationApi.assUser.timeChange(nowTime)
       joinPlayer.assName = ass.id
       joinPlayer.assJob = 1

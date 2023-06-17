@@ -5,6 +5,7 @@ export class BoxEye extends plugin {
       rule: [{ reg: /^(#|\/)虚空眼.*$/, fnc: 'darkEye' }]
     })
   }
+
   async darkEye(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id

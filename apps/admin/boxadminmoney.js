@@ -8,6 +8,7 @@ export class boxadminmoney extends plugin {
       ]
     })
   }
+
   async gifts(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -17,8 +18,8 @@ export class boxadminmoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace(/^(#|\/)修仙馈赠/, '')
-    const [name, acount] = thing_name.split('*')
+    const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
+    const [name, acount] = thingName.split('*')
     const quantity = GameApi.GamePublic.leastOne({ value: acount })
     const bag = GameApi.GameUser.userBag({
       UID,
@@ -32,6 +33,7 @@ export class boxadminmoney extends plugin {
     }
     return false
   }
+
   async deduction(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false

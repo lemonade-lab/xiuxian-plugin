@@ -61,22 +61,21 @@ class GameUser {
    */
   updataUser = (parameter) => {
     const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
-    //读取原数据
-    const data = listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE })
+    // 读取原数据
+    const data = listdata.userMsgAction({ NAME: UID, CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
-    listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
-    return
+    listdata.userMsgAction({ NAME: UID, CHOICE, DATA: data })
   }
 
   /**
    * 检测宗门存档或用户宗门信息是否存在
-   * @param file_path_type ["assPlayer" , "association" ]
-   * @param file_name
+   * @param filePathType ["assPlayer" , "association" ]
+   * @param fileName
    */
-  existAss(file_path_type, file_name) {
-    let file_path
-    file_path = __PATH[file_path_type]
-    let dir = path.join(file_path + '/' + file_name + '.json')
+  existAss(filePathType, fileName) {
+    let filePath
+    filePath = __PATH[filePathType]
+    let dir = path.join(filePath + '/' + fileName + '.json')
     if (fs.existsSync(dir)) {
       return true
     }
@@ -86,24 +85,24 @@ class GameUser {
   /**
    * 获取用户宗门信息或宗门存档
    * @param assName
-   * @param user_qq
+   * @param userQQ
    */
   getAssOrPlayer(type, name) {
-    let file_path
+    let filePath
     let dir
     let data
     if (type == 1) {
-      file_path = __PATH['assPlayer']
-      dir = path.join(file_path + '/' + name + '.json')
+      filePath = __PATH.assPlayer
+      dir = path.join(filePath + '/' + name + '.json')
     } else if (type == 2) {
-      file_path = __PATH['association']
-      dir = path.join(file_path + '/' + name + '.json')
+      filePath = __PATH.association
+      dir = path.join(filePath + '/' + name + '.json')
     } else if (type == 3) {
-      file_path = __PATH['interimArchive']
-      dir = path.join(file_path + '/' + name + '.json')
+      filePath = __PATH.interimArchive
+      dir = path.join(filePath + '/' + name + '.json')
     } else {
-      file_path = __PATH['assTreasureVault']
-      dir = path.join(file_path + '/' + name + '.json')
+      filePath = __PATH.assTreasureVault
+      dir = path.join(filePath + '/' + name + '.json')
     }
 
     try {
@@ -111,7 +110,7 @@ class GameUser {
     } catch (error) {
       return 'error'
     }
-    //将字符串数据转变成json格式
+    // 将字符串数据转变成json格式
     data = JSON.parse(data)
     return data
   }
@@ -132,22 +131,21 @@ class GameUser {
 
   /**
    * 写入数据
-   * @param file_name  ["assPlayer" , "association" ]
+   * @param fileName  ["assPlayer" , "association" ]
    * @param itemName
    * @param data
    */
-  setAssOrPlayer(file_name, itemName, data) {
-    let file_path
+  setAssOrPlayer(fileName, itemName, data) {
+    let filePath
     let dir
 
-    file_path = __PATH[file_name]
-    dir = path.join(file_path + '/' + itemName + '.json')
+    filePath = __PATH[fileName]
+    dir = path.join(filePath + '/' + itemName + '.json')
 
-    let new_ARR = JSON.stringify(data, '', '\t') //json转string
-    fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
+    let the_ARR = JSON.stringify(data, '', '\t') // json转string
+    fs.writeFileSync(dir, the_ARR, 'utf-8', (err) => {
       console.log('写入成功', err)
     })
-    return
   }
 
   assEffCount(assPlayer) {
@@ -179,29 +177,27 @@ class GameUser {
     })
     this.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
     GameApi.GameUser.updataUserEfficiency(assPlayer.qqNumber)
-    return
   }
 
-  assRename(ass, type, association_name) {
+  assRename(ass, type, associationName) {
     let assRelation = this.assRelationList
     const find = assRelation.find((item) => item.id == ass)
     const location = assRelation.findIndex((item) => item.id == ass)
     if (type == 1) {
-      find.name = association_name
+      find.name = associationName
     } else {
-      find.unchartedName = association_name
+      find.unchartedName = associationName
     }
     assRelation.splice(location, 1, find)
-    let file_path = __PATH.assRelation
+    let filePath = __PATH.assRelation
     let dir
 
-    dir = path.join(file_path + '/AssRelation.json')
+    dir = path.join(filePath + '/AssRelation.json')
 
-    let new_ARR = JSON.stringify(assRelation, '', '\t') //json转string
-    fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
+    let the_ARR = JSON.stringify(assRelation, '', '\t') // json转string
+    fs.writeFileSync(dir, the_ARR, 'utf-8', (err) => {
       console.log('写入成功', err)
     })
-    return
   }
 
   searchThingById(id) {
@@ -222,15 +218,14 @@ class GameUser {
     this.setAssOrPlayer('association', ass.id, ass)
     if (oldStatus != ass.facility[4].status) {
       const playerList = ass.allMembers
-      for (let player_id of playerList) {
-        const UID = player_id
+      for (let playerID of playerList) {
+        const UID = playerID
         if (this.existAss('assPlayer', UID)) {
           const assOrPlayer = this.getAssOrPlayer(1, UID)
           this.assEffCount(assOrPlayer)
         }
       }
     }
-    return
   }
 
   existArchive(qq) {
@@ -257,24 +252,24 @@ class GameUser {
       this.setAssOrPlayer('assPlayer', qq, assPlayer)
     }
     let assPlayer = this.getAssOrPlayer(1, qq)
-    //只有生命计数一样，且生命状态正常才为true
+    // 只有生命计数一样，且生命状态正常才为true
     if (player.createTime == assPlayer.xiuxianTime && player.status == 1) {
       return true
     }
-    //两边都有存档，但是死了，或者重生了，需要执行插件删档
-    //先退宗，再重置
+    // 两边都有存档，但是死了，或者重生了，需要执行插件删档
+    // 先退宗，再重置
     if (this.existAss('association', assPlayer.assName)) {
       let ass = this.getAssOrPlayer(2, assPlayer.assName)
 
       if (assPlayer.assJob < 10) {
-        ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber) //原来的职位表删掉这个B
-        this.setAssOrPlayer('association', ass.id, ass) //记录到存档
+        ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber) // 原来的职位表删掉这个B
+        this.setAssOrPlayer('association', ass.id, ass) // 记录到存档
       } else {
         if (ass.allMembers.length < 2) {
           fs.rmSync(`${__PATH.association}/${assPlayer.assName}.json`)
         } else {
           ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber)
-          //给宗主
+          // 给宗主
           let randMember = { assJob: 0 }
           for (let item in ass.allMembers) {
             const qqNum = ass.allMembers[item]
@@ -287,7 +282,7 @@ class GameUser {
           ass.master = randMember.qqNumber
           randMember.assJob = 10
 
-          this.setAssOrPlayer('association', ass.id, ass) //记录到存档
+          this.setAssOrPlayer('association', ass.id, ass) // 记录到存档
           this.assEffCount(randMember)
           GameApi.GameUser.updataUserEfficiency(randMember.qqNumber)
         }
@@ -337,22 +332,21 @@ class GameUser {
     const monLevel = Math.ceil(Math.random() * 13) - 4
     const flag = monLevel < 0 ? 0 : monLevel
     if (!ifexist0) {
-      //写入点位
+      // 写入点位
       const point = {
         x: genX + x,
         y: genY + y,
         monLevel: flag,
-        thingId: thingId
+        thingId
       }
       pointList.push(point)
-      const new_ARR = JSON.stringify(pointList, '', '\t')
-      fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
+      const the_ARR = JSON.stringify(pointList, '', '\t')
+      fs.writeFileSync(dir, the_ARR, 'utf-8', (err) => {
         console.log('写入成功', err)
       })
     } else {
       this.BuildAndDeduplication(x, y, thingId)
     }
-    return
   }
 
   timeInvert = (time) => {

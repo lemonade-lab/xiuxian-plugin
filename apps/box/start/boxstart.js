@@ -8,6 +8,7 @@ export class BoxStart extends plugin {
       ]
     })
   }
+
   async createMsg(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -17,10 +18,12 @@ export class BoxStart extends plugin {
     const { path, name, data } = GameApi.Information.userDataShow({
       UID: e.user_id
     })
+
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async reCreateMsg(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -28,15 +31,15 @@ export class BoxStart extends plugin {
       app: 'parameter',
       name: 'cooling'
     })
-    const CDTime = cf['CD']['Reborn'] ? cf['CD']['Reborn'] : 850
+    const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
     const CDID = '8'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
+    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
     GameApi.GamePublic.offAction({ UID })
     let life = GameApi.UserData.controlActionInitial({
       NAME: 'life',

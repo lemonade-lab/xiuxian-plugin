@@ -5,6 +5,7 @@ export class BoxFeedback extends plugin {
       rule: [{ reg: /^(#|\/)联盟反馈$/, fnc: 'userFeedback' }]
     })
   }
+
   async substitution(e) {
     if (!this.verify(e)) return false
     e.reply(`

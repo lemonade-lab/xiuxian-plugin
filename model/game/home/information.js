@@ -10,10 +10,11 @@ class information {
       }
     }
   }
+
   userWarehouseShow = ({ UID }) => {
     let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
-      CHOICE: 'user_home_life'
+      CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
     const player = GameApi.UserData.controlAction({
@@ -87,25 +88,26 @@ class information {
       name: 'Warehouse',
       data: {
         user_id: UID,
-        player: player,
-        life: life,
-        battle: battle,
-        Warehouse: Warehouse,
-        thing: thing,
-        crop_list: crop_list,
-        seed_list: seed_list,
-        stuff_list: stuff_list,
-        mineral_list: mineral_list,
-        cook_list: cook_list,
-        food_list: food_list,
-        Kitchenware_list: Kitchenware_list,
-        condiment_list: condiment_list,
-        cub_list: cub_list,
-        fargment: fargment,
-        other: other
+        player,
+        life,
+        battle,
+        Warehouse,
+        thing,
+        crop_list,
+        seed_list,
+        stuff_list,
+        mineral_list,
+        cook_list,
+        food_list,
+        Kitchenware_list,
+        condiment_list,
+        cub_list,
+        fargment,
+        other
       }
     }
   }
+
   userhomeShow = ({ UID }) => {
     const player = GameApi.UserData.controlAction({
       CHOICE: 'user_home_player',
@@ -122,7 +124,7 @@ class information {
     })
     let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
-      CHOICE: 'user_home_life'
+      CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
     const ifexisthome1 = listdata.controlActionInitial({
@@ -139,9 +141,9 @@ class information {
       name: 'home',
       data: {
         user_id: UID,
-        life: life,
-        player: player,
-        battle: battle,
+        life,
+        player,
+        battle,
         homelevel: home.homelevel,
         homeexperience: home.homeexperience,
         homeexperienceMax: home.homeexperienceMax,
@@ -151,10 +153,11 @@ class information {
       }
     }
   }
+
   get_lookland_img = ({ UID }) => {
     let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
-      CHOICE: 'user_home_life'
+      CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
     const landgoods = listdata.controlActionInitial({
@@ -163,13 +166,13 @@ class information {
       INITIAL: []
     })
     const thing = landgoods.thing
-    let now_time = new Date().getTime()
-    const land_list = []
+    let nowTime = new Date().getTime()
+    const landList = []
     thing.forEach((item, index) => {
-      land_list.push(item)
+      landList.push(item)
       thing.splice(index, 0)
       let time = item.time
-      let time1 = Math.floor((now_time - time) / 60000)
+      let time1 = Math.floor((nowTime - time) / 60000)
       let mature = item.mature
       item.state = mature < time1 ? '成熟' : '未成熟'
     })
@@ -178,13 +181,14 @@ class information {
       name: 'landgoods',
       data: {
         user_id: UID,
-        life: life,
-        landgoods: landgoods,
-        thing: thing,
-        land_list: land_list
+        life,
+        landgoods,
+        thing,
+        landList
       }
     }
   }
+
   get_lookrangeland_img = ({ UID }) => {
     const rangelandannimals = listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
@@ -196,9 +200,9 @@ class information {
     thing.forEach((item, index) => {
       rangelandannimals_list.push(item)
       let mature = item.mature * 3600
-      let now_time = new Date().getTime()
+      let nowTime = new Date().getTime()
       let time = item.time
-      let time1 = Math.floor((now_time - time) / 1000)
+      let time1 = Math.floor((nowTime - time) / 1000)
       if (mature > time1) {
         item.judgment = 1
       } else {
@@ -211,9 +215,9 @@ class information {
       name: 'rangelandannimals',
       data: {
         user_id: UID,
-        rangelandannimals: rangelandannimals,
-        thing: thing,
-        rangelandannimals_list: rangelandannimals_list
+        rangelandannimals,
+        thing,
+        rangelandannimals_list
       }
     }
   }

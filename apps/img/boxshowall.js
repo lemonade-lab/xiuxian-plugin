@@ -11,20 +11,22 @@ export class boxshowall extends plugin {
       ]
     })
   }
+
   async showMap(e) {
     if (!this.verify(e)) return false
     const isreply = e.reply(await BotApi.obtainingImages({ path: 'map', name: 'map' }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async showConfig(e) {
     if (!this.verify(e)) return false
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
-    const Ttwist = cf['switch'] ? cf['switch']['twist'] : true
-    const Tcome = cf['switch'] ? cf['switch']['come'] : true
+    const Ttwist = cf.switch ? cf.switch.twist : true
+    const Tcome = cf.switch ? cf.switch.come : true
     const isreply = e.reply(
       await BotApi.obtainingImages({
         path: 'defset',
@@ -39,6 +41,7 @@ export class boxshowall extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async adminSuper(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
@@ -48,6 +51,7 @@ export class boxshowall extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async boxhelp(e) {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'help' })
@@ -56,6 +60,7 @@ export class boxshowall extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async darkhelp(e) {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'darkhelp' })

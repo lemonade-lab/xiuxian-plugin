@@ -10,6 +10,7 @@ export class BoxExchange extends plugin {
       ]
     })
   }
+
   async supermarket(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -28,9 +29,10 @@ export class BoxExchange extends plugin {
         `编号:${item.ID}\n物品:${item.thing.name}\n数量:${item.account}\n价格:${item.money}\n`
       )
     }
-    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
+
   async onsell(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -38,19 +40,19 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const [thing_name, thing_acount, thing_money] = e.msg.replace(/^(#|\/)上架/, '').split('*')
+    const [thingName, thingAcount, thingMoney] = e.msg.replace(/^(#|\/)上架/, '').split('*')
     const bagThing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
     if (!bagThing) {
-      e.reply(`没有[${thing_name}]`)
+      e.reply(`没有[${thingName}]`)
       return false
     }
-    const account = GameApi.GamePublic.leastOne({ value: thing_acount })
-    const money = GameApi.GamePublic.leastOne({ value: thing_money })
+    const account = GameApi.GamePublic.leastOne({ value: thingAcount })
+    const money = GameApi.GamePublic.leastOne({ value: thingMoney })
     if (bagThing.acount < account) {
-      e.reply(`[${thing_name}]不够`)
+      e.reply(`[${thingName}]不够`)
       return false
     }
     const myDate = new Date().getTime()
@@ -62,7 +64,7 @@ export class BoxExchange extends plugin {
     })
     exchange.push({
       ID: `${myDate}${sum}`,
-      UID: UID,
+      UID,
       thing: bagThing,
       account: Number(account),
       money: Number(money * account)
@@ -81,6 +83,7 @@ export class BoxExchange extends plugin {
     e.reply(`成功上架:\n${bagThing.name}*${account}*${money}\n编号:${myDate}${sum}`)
     return false
   }
+
   async Offsell(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -130,6 +133,7 @@ export class BoxExchange extends plugin {
     e.reply(`成功下架${ID}`)
     return false
   }
+
   async purchase(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id

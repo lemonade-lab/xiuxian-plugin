@@ -1,5 +1,5 @@
 import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
-//秋雨
+// 秋雨
 export class move extends plugin {
   constructor() {
     super({
@@ -23,13 +23,14 @@ export class move extends plugin {
       ]
     })
   }
+
   async movewarehouse(e) {
     async
-    //发送消息
+    // 发送消息
     const UID = e.user_id
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
@@ -51,12 +52,12 @@ export class move extends plugin {
     }
     const thing = e.msg.replace(/^(#|\/)转移到仓库/, '')
     const code = thing.split('*')
-    const thing_name = code[0] //物品
-    const thing_acount = code[1] //数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    const thingName = code[0] // 物品
+    const thingAcount = code[1] // 数量
+    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
     const searchsthing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
     let id = searchsthing.id.split('-')
     if (id[0] == '13' && id[1] == '2') {
@@ -97,16 +98,15 @@ export class move extends plugin {
       CHOICE: 'user_bag',
       DATA: najie
     })
-    e.reply(`数量为${quantity}的${thing_name}，成功转移到仓库`)
-    return
+    e.reply(`数量为${quantity}的${thingName}，成功转移到仓库`)
   }
 
   async movenajie(e) {
-    //发送消息
+    // 发送消息
     const UID = e.user_id
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
@@ -138,11 +138,11 @@ export class move extends plugin {
     }
     const thing = e.msg.replace(/^(#|\/)转移到储物袋/, '')
     const code = thing.split('*')
-    const thing_name = code[0] //物品
-    const thing_acount = code[1] //数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
-    const searchsthing = HomeApi.GameUser.homeexist_Warehouse_thing_name({
-      name: thing_name,
+    const thingName = code[0] // 物品
+    const thingAcount = code[1] // 数量
+    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    const searchsthing = HomeApi.GameUser.homeexist_WarehouseThingName({
+      name: thingName,
       UID
     })
     if (searchsthing == 1 || searchsthing.acount < quantity) {
@@ -184,16 +184,15 @@ export class move extends plugin {
       CHOICE: 'user_bag',
       DATA: najie
     })
-    e.reply(`数量为${quantity}的${thing_name}，成功转移到储物袋`)
-    return
+    e.reply(`数量为${quantity}的${thingName}，成功转移到储物袋`)
   }
 
   async update_warehouse(e) {
-    //发送消息
+    // 发送消息
     const UID = e.user_id
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
@@ -208,7 +207,7 @@ export class move extends plugin {
       INITIAL: []
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
-      let searchsthing = HomeApi.GameUser.homeexist_all_thing_name({
+      let searchsthing = HomeApi.GameUser.homeexist_all_thingName({
         name: Warehouse.thing[i].name
       })
       if (Warehouse.thing[i].thingId != undefined) {
@@ -289,7 +288,7 @@ export class move extends plugin {
       INITIAL: []
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
-      let searchsthing = HomeApi.GameUser.homeexist_all_thing_name({
+      let searchsthing = HomeApi.GameUser.homeexist_all_thingName({
         name: landgoods.thing[i].name
       })
       if (searchsthing != 1) {
@@ -316,15 +315,14 @@ export class move extends plugin {
       }
     }
     e.reply(`成功更新`)
-    return
   }
 
   async chongzhinongtian(e) {
-    //发送消息
+    // 发送消息
     const UID = e.user_id
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)

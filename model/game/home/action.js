@@ -12,8 +12,8 @@ class userAction {
     if (homelevel > 9) {
       return { homemsg: `你的家园等级已经到达目前最高级，请等待后续等级开放!` }
     }
-    let thing_nameg
-    let thing_nameh = '木板'
+    let thingNameg
+    let thingNameh = '木板'
     let h = 40 * Math.pow(2, homelevel)
     let g = 40
     const map = {
@@ -28,31 +28,31 @@ class userAction {
       8: '熔岩',
       9: '熔岩'
     }
-    thing_nameg = map[homelevel]
+    thingNameg = map[homelevel]
     const searchsthing = User.userWarehouseSearch({
-      UID: UID,
-      name: thing_nameg
+      UID,
+      name: thingNameg
     })
     const searchsthingh = User.userWarehouseSearch({
-      UID: UID,
-      name: thing_nameh
+      UID,
+      name: thingNameh
     })
     if (searchsthing == undefined) {
-      return { homemsg: `你的仓库里没有${thing_nameg}!` }
+      return { homemsg: `你的仓库里没有${thingNameg}!` }
     }
     if (searchsthingh == undefined) {
-      return { homemsg: `你的仓库里没有${thing_nameh}!` }
+      return { homemsg: `你的仓库里没有${thingNameh}!` }
     }
     let x = g - searchsthing.acount
     let y = h - searchsthingh.acount
     if (searchsthing.acount < g) {
       return {
-        homemsg: `你的${thing_nameg}不够，还需要筹备${x}块${thing_nameg}!`
+        homemsg: `你的${thingNameg}不够，还需要筹备${x}块${thingNameg}!`
       }
     }
     if (searchsthingh.acount < h) {
       return {
-        homemsg: `你的${thing_nameh}不够，还需要筹备${y}块${thing_nameh}!`
+        homemsg: `你的${thingNameh}不够，还需要筹备${y}块${thingNameh}!`
       }
     }
     let homeexperience = home.homeexperience
@@ -70,24 +70,24 @@ class userAction {
       }
     } else {
       const time = (Math.trunc(homelevel) + 1) * 10
-      const now_time = new Date().getTime()
+      const nowTime = new Date().getTime()
       const actionObject = {
         actionName: '扩建',
-        startTime: now_time,
+        startTime: nowTime,
         time1: time
       }
       GamePublic.setAction(UID, actionObject)
       User.userWarehouse({
-        UID: UID,
-        name: thing_nameg,
+        UID,
+        name: thingNameg,
         ACCOUNT: -g
       })
       User.userWarehouse({
-        UID: UID,
-        name: thing_nameh,
+        UID,
+        name: thingNameh,
         ACCOUNT: -h
       })
-      User.Add_doge({ UID: UID, money: -money })
+      User.Add_doge({ UID, money: -money })
       return { homemsg: `建筑队正在扩建家园，预计需要${time}秒` }
     }
   }

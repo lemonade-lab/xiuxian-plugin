@@ -8,6 +8,7 @@ export class BoxBank extends plugin {
       ]
     })
   }
+
   async moneyWorkshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -36,7 +37,7 @@ export class BoxBank extends plugin {
     } else {
       msg.push(`借款:${WhiteBarList[UID].money}`)
     }
-    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
 
@@ -48,50 +49,50 @@ export class BoxBank extends plugin {
       return false
     }
     const [account, name] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
-    let new_account = GameApi.GamePublic.leastOne({ value: account })
+    let theAccount = GameApi.GamePublic.leastOne({ value: account })
     const money = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
-    if (!money || money.acount < new_account) {
+    if (!money || money.acount < theAccount) {
       e.reply(`[金银坊]金老三\n?哪儿来的穷鬼！`)
       return false
     }
-    if (new_account < 5000) {
+    if (theAccount < 5000) {
       e.reply(`[金银坊]金老三\n少于5000不换`)
       return false
     }
-    let new_name = '中品灵石'
+    let theName = '中品灵石'
     let size = 30
     switch (name) {
       case '上品灵石': {
-        new_name = name
+        theName = name
         size = 400
         break
       }
       case '极品灵石': {
-        new_name = name
+        theName = name
         size = 5000
         break
       }
       default: {
-        new_name = '中品灵石'
+        theName = '中品灵石'
         size = 30
         break
       }
     }
-    const new_money = Math.floor(new_account / size)
+    const theMoney = Math.floor(theAccount / size)
     GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
-      ACCOUNT: -Number(new_account)
+      ACCOUNT: -Number(theAccount)
     })
     GameApi.GameUser.userBag({
       UID,
-      name: new_name,
-      ACCOUNT: Number(new_money)
+      name: theName,
+      ACCOUNT: Number(theMoney)
     })
-    e.reply(`[下品灵石]*${new_account}\n置换成\n[${new_name}]*${new_money}`)
+    e.reply(`[下品灵石]*${theAccount}\n置换成\n[${theName}]*${theMoney}`)
     return false
   }
 }

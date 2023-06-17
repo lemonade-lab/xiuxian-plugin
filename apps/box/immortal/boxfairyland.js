@@ -27,20 +27,20 @@ export class boxfairyland extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (UserLevel.level_id != 10) {
-      /*不是渡劫*/
+    if (UserLevel.levelId != 10) {
+      /* 不是渡劫 */
       e.reply(`非渡劫期`)
       return
     }
     let msg = `你找到了一处绝佳位置，正在尝试渡劫。\n雷劫落下九死一生，渡过将粹洗灵魂，成就无上仙位\n是否开始渡劫(请输入：开始渡劫/不渡劫)`
     e.reply(msg)
     this.setContext('levelBreak1')
-    return
   }
+
   async levelBreak1(e) {
     let UID = e.user_id
-    let new_msg = this.e.message
-    let choice = new_msg[0].text
+    let theMsg = this.e.message
+    let choice = theMsg[0].text
     if (choice == '不渡劫') {
       this.finish('levelBreak1')
       e.reply(`你因恐惧雷劫威压，决定不渡劫！`)
@@ -133,7 +133,7 @@ export class boxfairyland extends plugin {
         CHOICE: 'generate_level',
         NAME: 'gaspractice'
       })
-      const Level = Levellist.find((item) => item.id == player.level_id)
+      const Level = Levellist.find((item) => item.id == player.levelId)
       if (battle.nowblood > 0) {
         const { UserLevelUpMSG } = GameApi.UserAction.breakLevelUp({
           UID
@@ -145,8 +145,8 @@ export class boxfairyland extends plugin {
           CHOICE: 'user_level'
         })
         if (player.experiencemax < 120000) {
-          player.level_id -= 1
-          player.levelname = Levellist.find((item) => item.id == player.level_id).name
+          player.levelId -= 1
+          player.levelname = Levellist.find((item) => item.id == player.levelId).name
           player.rank_id = 4
           e.reply(
             `你未顶住${

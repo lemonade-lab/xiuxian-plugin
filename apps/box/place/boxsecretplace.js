@@ -11,6 +11,7 @@ export class BoxSecretplace extends plugin {
       ]
     })
   }
+
   async showCity(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -41,9 +42,10 @@ export class BoxSecretplace extends plugin {
     for (let item of address) {
       msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
     }
-    BotApi.Robot.forwardMsg({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
+
   async falsePiont(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -115,7 +117,7 @@ export class BoxSecretplace extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (level.level_id < PointId[3]) {
+    if (level.levelId < PointId[3]) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
@@ -147,6 +149,7 @@ export class BoxSecretplace extends plugin {
     e.reply(`正在前往${address}...\n需要${time}秒`)
     return false
   }
+
   async delivery(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -182,7 +185,7 @@ export class BoxSecretplace extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (level.level_id < positionID[3]) {
+    if (level.levelId < positionID[3]) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
@@ -213,7 +216,7 @@ export class BoxSecretplace extends plugin {
       e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}*[下品灵石]`)
       return false
     }
-    //先扣钱
+    // 先扣钱
     GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',

@@ -51,15 +51,15 @@ export class BoxMoneyOperation extends plugin {
       app: 'parameter',
       name: 'cooling'
     })
-    const CDTime = cf['CD']['Transfer'] ? cf['CD']['Transfer'] : 5
+    const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5
     const CDID = '5'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const { CDMSG } = GameApi.GamePublic.cooling({ UID: A, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(A, CDID, now_time, CDTime)
+    GameApi.GamePublic.setRedis(A, CDID, nowTime, CDTime)
     GameApi.GameUser.userBag({
       UID: A,
       name: '下品灵石',

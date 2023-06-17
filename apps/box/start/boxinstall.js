@@ -11,13 +11,14 @@ export class BoxInstall extends plugin {
       ]
     })
   }
+
   async createinstall(e) {
     if (!this.verify(e)) return false
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
-    const T = cf['switch'] ? cf['switch']['come'] : true
+    const T = cf.switch ? cf.switch.come : true
     if (!T) {
       return false
     }

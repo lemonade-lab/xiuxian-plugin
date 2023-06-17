@@ -8,6 +8,7 @@ export class BoxBattleSite extends plugin {
       ]
     })
   }
+
   async userKill(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -21,12 +22,12 @@ export class BoxBattleSite extends plugin {
     }
     const UID = e.user_id
     const CDID = '10'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
-    const CDTime = cf['CD']['Kill'] ? cf['CD']['Kill'] : 5
+    const CDTime = cf.CD.Kill ? cf.CD.Kill : 5
     const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
@@ -80,17 +81,17 @@ export class BoxBattleSite extends plugin {
       CHOICE: 'user_talent'
     })
     const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-    const battle_msg = GameApi.GameBattle.monsterbattle({
+    const battleMsg = GameApi.GameBattle.monsterbattle({
       e,
       battleA: battle,
       battleB: monsters,
       battleNameB: Mname
     })
-    for (let item of battle_msg.msg) {
+    for (let item of battleMsg.msg) {
       msgLeft.push(item)
     }
     const msgRight = []
-    if (battle_msg.QQ != 0) {
+    if (battleMsg.QQ != 0) {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
         const randomthinf = GameApi.GameUser.randomThing()
@@ -153,7 +154,7 @@ export class BoxBattleSite extends plugin {
         })
       }
     }
-    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
+    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
     const { path, name, data } = GameApi.Information.showBattle({
       UID: e.user_id,
       msgLeft,
@@ -163,6 +164,7 @@ export class BoxBattleSite extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async userExploremonsters(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -186,7 +188,7 @@ export class BoxBattleSite extends plugin {
     for (let item of monster) {
       msg.push('怪名:' + item.name + '\n' + '等级:' + item.level + '\n')
     }
-    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
 }

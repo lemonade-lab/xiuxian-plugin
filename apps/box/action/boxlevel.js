@@ -8,6 +8,7 @@ export class BoxLevel extends plugin {
       ]
     })
   }
+
   async levelUp(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -22,6 +23,7 @@ export class BoxLevel extends plugin {
     }
     return false
   }
+
   async levelMaxUp(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {

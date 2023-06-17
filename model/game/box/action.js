@@ -38,7 +38,7 @@ class userAction {
     })
     let CDID = '6'
     const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
-    let CDTime = cf['CD']['Level_up'] ? cf['CD']['Level_up'] : 0
+    let CDTime = cf.CD.Level_up ? cf.CD.Level_up : 0
     let name = '修为'
     const Levellist = listdata.controlAction({
       CHOICE: 'generate_level',
@@ -48,11 +48,11 @@ class userAction {
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
-    const Level = Levellist.find((item) => item.id == player.level_id)
+    const Level = Levellist.find((item) => item.id == player.levelId)
     const LevelMax = Levelmaxlist.find((item) => item.id == player.levelmax_id)
     if (choise) {
       CDID = '7'
-      CDTime = cf['CD']['LevelMax_up'] ? cf['CD']['LevelMax_up'] : 0
+      CDTime = cf.CD.LevelMax_up ? cf.CD.LevelMax_up : 0
       name = '气血'
       if (player.levelmax_id >= 11) {
         return
@@ -63,11 +63,11 @@ class userAction {
         }
       }
     } else {
-      if (player.level_id == 10) {
+      if (player.levelId == 10) {
         return { UserLevelUpMSG: `[(#|/)渡劫]后,成就仙人镜` }
       }
-      if (player.level_id >= 11) {
-        /*仙人境*/
+      if (player.levelId >= 11) {
+        /* 仙人境 */
         return
       }
       if (player.experience < Level.exp) {
@@ -76,12 +76,12 @@ class userAction {
         }
       }
     }
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const { CDMSG } = gamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       return { UserLevelUpMSG: `${CDMSG}` }
     }
-    gamePublic.setRedis(UID, CDID, now_time, CDTime)
+    gamePublic.setRedis(UID, CDID, nowTime, CDTime)
     if (Math.random() >= 1 - player.levelmax_id / 22) {
       let size = ''
       if (choise) {
@@ -116,16 +116,16 @@ class userAction {
       player.experiencemax -= LevelMax.exp
       returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rankmax_id]}`
     } else {
-      if (player.level_id > 1 && player.rank_id < 4) {
+      if (player.levelId > 1 && player.rank_id < 4) {
         player.rank_id = player.rank_id + 1
         returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]}`
       } else {
         player.rank_id = 0
-        player.level_id = player.level_id + 1
-        player.levelname = Levellist.find((item) => item.id == player.level_id).name
+        player.levelId = player.levelId + 1
+        player.levelname = Levellist.find((item) => item.id == player.levelId).name
         const { size } = this.userLifeUp({
           UID,
-          level_id: player.level_id
+          levelId: player.levelId
         })
         returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
       }
@@ -141,11 +141,12 @@ class userAction {
       UserLevelUpMSG: `${returnTXT}`
     }
   }
+
   /**
-   * @param { UID, level_id, acount } param0
+   * @param { UID, levelId, acount } param0
    * @returns
    */
-  userLifeUp = ({ UID, level_id, acount }) => {
+  userLifeUp = ({ UID, levelId, acount }) => {
     let size = 0
     const life = listdata.controlAction({
       NAME: 'life',
@@ -156,7 +157,7 @@ class userAction {
         if (acount) {
           item.life += acount
         } else {
-          item.life += Math.floor(level_id * 30)
+          item.life += Math.floor(levelId * 30)
         }
         size = item.life
       }
@@ -168,6 +169,7 @@ class userAction {
     })
     return { size }
   }
+
   /**
    * @param {*} param0
    * @returns
@@ -181,19 +183,18 @@ class userAction {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (UserLevel.level_id != 10) {
-      /*不是渡劫*/
+    if (UserLevel.levelId != 10) {
+      /* 不是渡劫 */
       return `非渡劫期`
     }
     let CDID = '13'
     let CDTime = 360
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const { CDMSG } = gamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       return `${CDMSG}`
     }
-    gamePublic.setRedis(UID, CDID, now_time, CDTime)
-    return
+    gamePublic.setRedis(UID, CDID, nowTime, CDTime)
   }
 
   breakLevelUp = ({ UID, choise }) => {
@@ -217,11 +218,11 @@ class userAction {
       returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rank_id]}`
     } else {
       player.rank_id = 0
-      player.level_id = player.level_id + 1
-      player.levelname = Levellist.find((item) => item.id == player.level_id).name
+      player.levelId = player.levelId + 1
+      player.levelname = Levellist.find((item) => item.id == player.levelId).name
       const { size } = this.userLifeUp({
         UID,
-        level_id: player.level_id
+        levelId: player.levelId
       })
       returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
     }

@@ -16,27 +16,24 @@ class Exec {
         msg.push(`${AppName}|执行成功,请[#重启]`)
       }
       userAction.forwardMsg({ e, data: msg })
-      return
     })
-    return
   }
+
   onExec = ({ cmd, e, push }) => {
     exec(cmd, { cwd: `${process.cwd()}` }, (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-        msg.push(`${AppName}|${push['updata']}`)
+        msg.push(`${AppName}|${push.updata}`)
         userAction.forwardMsg({ e, data: msg })
         return
       }
       if (error) {
-        msg.push(`${AppName}|${push['err']}\nError code: ${error.code}\n${error.stack}\n`)
+        msg.push(`${AppName}|${push.err}\nError code: ${error.code}\n${error.stack}\n`)
       } else {
-        msg.push(`${AppName}|${push['success']},请[(#|/)重启]`)
+        msg.push(`${AppName}|${push.success},请[(#|/)重启]`)
       }
       userAction.forwardMsg({ e, data: msg })
-      return
     })
-    return
   }
 }
 export default new Exec()

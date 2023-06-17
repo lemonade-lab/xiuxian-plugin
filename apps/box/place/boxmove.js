@@ -10,6 +10,7 @@ export class BoxMove extends plugin {
       ]
     })
   }
+
   /**
    * 前进
    */
@@ -18,6 +19,7 @@ export class BoxMove extends plugin {
     e.reply('待世界升级')
     return false
   }
+
   /**
    * 向左移动
    */
@@ -26,6 +28,7 @@ export class BoxMove extends plugin {
     e.reply('待世界升级')
     return false
   }
+
   /**
    * 后退
    */
@@ -34,6 +37,7 @@ export class BoxMove extends plugin {
     e.reply('待世界升级')
     return false
   }
+
   /**
    * 向右移动
    */

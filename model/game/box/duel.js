@@ -17,7 +17,7 @@ class duel {
       return `${MSG}`
     }
     const CDID = '11'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
 
@@ -37,20 +37,20 @@ class duel {
       return `此地未找到此人`
     }
     if (actionA.address == 1) {
-      const najie_thing = GameUser.userBagSearch({
+      const najieThing = GameUser.userBagSearch({
         UID: UIDA,
         name: '决斗令'
       })
-      if (!najie_thing) {
+      if (!najieThing) {
         return `[修仙联盟]普通卫兵:城内不可出手!`
       }
       GameUser.userBag({
         UID: UIDA,
-        name: najie_thing.name,
+        name: najieThing.name,
         ACCOUNT: -1
       })
     }
-    GameApi.GamePublic.setRedis(UIDA, CDID, now_time, CDTime)
+    GameApi.GamePublic.setRedis(UIDA, CDID, nowTime, CDTime)
     const Level = listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_level'

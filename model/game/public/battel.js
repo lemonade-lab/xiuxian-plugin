@@ -10,104 +10,104 @@ const Sneakattack = [
   '打的山崩地裂，河水倒卷，余波万里,可恶,是幻境,什么时候!突然怪物偷袭,被一口盐汽水喷死!'
 ]
 class gameBattle {
-  /*怪物战斗*/
+  /* 怪物战斗 */
   monsterbattle = ({ e, battleA, battleB, battleNameB }) => {
-    const battle_msg = {
+    const battleMsg = {
       msg: [],
       QQ: 1
     }
     const battle = {
       Z: 1
     }
-    const battle_hurt = {
+    const battleHurt = {
       hurtA: 0,
       hurtB: 0
     }
     if (battleA.speed >= battleB.speed - 5) {
-      battle_hurt.hurtA =
+      battleHurt.hurtA =
         battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
-      if (battle_hurt.hurtA <= 1) {
-        battle_msg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
+      if (battleHurt.hurtA <= 1) {
+        battleMsg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
         battleA.nowblood = 0
-        battle_msg.QQ = 0
+        battleMsg.QQ = 0
         gameUser.userMsgAction({
           NAME: e.user_id,
           CHOICE: 'user_battle',
           DATA: battleA
         })
-        return battle_msg
+        return battleMsg
       }
       const T = this.probability(battleA.burst)
       if (T) {
-        battle_hurt.hurtA += Math.floor((battle_hurt.hurtA * battleA.burstmax) / 100)
+        battleHurt.hurtA += Math.floor((battleHurt.hurtA * battleA.burstmax) / 100)
       }
-      battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
+      battleB.nowblood = battleB.nowblood - battleHurt.hurtA
       if (battleB.nowblood < 1) {
-        battle_msg.msg.push('你仅出一招~')
-        battle_msg.msg.push(`就击败了[${battleNameB}]!`)
-        return battle_msg
+        battleMsg.msg.push('你仅出一招~')
+        battleMsg.msg.push(`就击败了[${battleNameB}]!`)
+        return battleMsg
       } else {
-        battle_msg.msg.push(`你个老六偷袭`)
-        battle_msg.msg.push(`造成${battle_hurt.hurtA}伤害`)
+        battleMsg.msg.push(`你个老六偷袭`)
+        battleMsg.msg.push(`造成${battleHurt.hurtA}伤害`)
       }
     } else {
-      battle_msg.msg.push('你个老六想偷袭')
-      battle_msg.msg.push(`[${battleNameB}]一个转身就躲过去了`)
+      battleMsg.msg.push('你个老六想偷袭')
+      battleMsg.msg.push(`[${battleNameB}]一个转身就躲过去了`)
     }
     while (true) {
       battle.Z++
       if (battle.Z == 30) {
         break
       }
-      battle_hurt.hurtB =
+      battleHurt.hurtB =
         battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0
       const F = this.probability(battleB.burst)
       if (F) {
-        battle_hurt.hurtB += Math.floor((battle_hurt.hurtB * battleB.burstmax) / 100)
+        battleHurt.hurtB += Math.floor((battleHurt.hurtB * battleB.burstmax) / 100)
       }
-      battleA.nowblood = battleA.nowblood - battle_hurt.hurtB
-      if (battle_hurt.hurtB > 1) {
+      battleA.nowblood = battleA.nowblood - battleHurt.hurtB
+      if (battleHurt.hurtB > 1) {
         if (battleA.nowblood < 1) {
-          battle_msg.msg.push(`经过${battle.Z}回合`)
-          battle_msg.msg.push(`你被[${battleNameB}]击败了!`)
+          battleMsg.msg.push(`经过${battle.Z}回合`)
+          battleMsg.msg.push(`你被[${battleNameB}]击败了!`)
           battleA.nowblood = 0
-          battle_msg.QQ = 0
+          battleMsg.QQ = 0
           break
         }
       }
-      battle_hurt.hurtA =
+      battleHurt.hurtA =
         battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
       const T = this.probability(battleA.burst)
       if (T) {
-        battle_hurt.hurtA += Math.floor((battle_hurt.hurtA * battleA.burstmax) / 100)
+        battleHurt.hurtA += Math.floor((battleHurt.hurtA * battleA.burstmax) / 100)
       }
-      if (battle_hurt.hurtA <= 1) {
-        battle_msg.msg.push('你再次攻击')
-        battle_msg.msg.push(`却连[${battleNameB}]的防御都破不了`)
-        battle_msg.msg.push('就被一巴掌给拍死了!')
+      if (battleHurt.hurtA <= 1) {
+        battleMsg.msg.push('你再次攻击')
+        battleMsg.msg.push(`却连[${battleNameB}]的防御都破不了`)
+        battleMsg.msg.push('就被一巴掌给拍死了!')
         battleA.nowblood = 0
-        battle_msg.QQ = 0
+        battleMsg.QQ = 0
         break
       }
-      battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
+      battleB.nowblood = battleB.nowblood - battleHurt.hurtA
       if (battleB.nowblood < 1) {
-        battle_msg.msg.push(`经过${battle.Z}回合`)
-        battle_msg.msg.push(`你击败了[${battleNameB}]!`)
+        battleMsg.msg.push(`经过${battle.Z}回合`)
+        battleMsg.msg.push(`你击败了[${battleNameB}]!`)
         break
       }
     }
-    battle_msg.msg.push(`[血量剩余]:${battleA.nowblood}`)
+    battleMsg.msg.push(`[血量剩余]:${battleA.nowblood}`)
     gameUser.userMsgAction({
       NAME: e.user_id,
       CHOICE: 'user_battle',
       DATA: battleA
     })
-    return battle_msg
+    return battleMsg
   }
 
-  /*战斗模型*/
+  /* 战斗模型 */
   battle = ({ e, A, B }) => {
-    const battle_msg = {
+    const battleMsg = {
       msg: [],
       QQ: 1
     }
@@ -116,7 +116,7 @@ class gameBattle {
       Y: 0,
       Z: 1
     }
-    const battle_hurt = {
+    const battleHurt = {
       hurtA: 0,
       hurtB: 0
     }
@@ -128,98 +128,98 @@ class gameBattle {
       NAME: B,
       CHOICE: 'user_battle'
     })
-    battle_msg.QQ = A
+    battleMsg.QQ = A
     if (battleA.speed >= battleB.speed - 5) {
-      battle_hurt.hurtA =
+      battleHurt.hurtA =
         battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
       const T = this.probability(battleA.burst)
       if (T) {
-        battle_hurt.hurtA += Math.floor((battle_hurt.hurtA * battleA.burstmax) / 100)
+        battleHurt.hurtA += Math.floor((battleHurt.hurtA * battleA.burstmax) / 100)
       }
-      if (battle_hurt.hurtA <= 1) {
-        battle_msg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
+      if (battleHurt.hurtA <= 1) {
+        battleMsg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
-        battle_msg.QQ = B
-        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
+        battleMsg.QQ = B
+        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
         gameUser.userMsgAction({
           NAME: A,
           CHOICE: 'user_battle',
           DATA: battleA
         })
-        return battle_msg.QQ
+        return battleMsg.QQ
       }
-      battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
+      battleB.nowblood = battleB.nowblood - battleHurt.hurtA
       if (battleB.nowblood < 1) {
-        battle_msg.msg.push('你仅出一招,就击败了对方!')
+        battleMsg.msg.push('你仅出一招,就击败了对方!')
         battleB.nowblood = 0
-        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
+        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
         gameUser.userMsgAction({
           NAME: B,
           CHOICE: 'user_battle',
           DATA: battleB
         })
-        return battle_msg.QQ
+        return battleMsg.QQ
       } else {
-        battle_msg.msg.push(`你个老六偷袭成功,造成 ${battle_hurt.hurtA}伤害`)
+        battleMsg.msg.push(`你个老六偷袭成功,造成 ${battleHurt.hurtA}伤害`)
       }
     } else {
-      battle_msg.msg.push('你个老六想偷袭,对方却一个转身就躲过去了')
+      battleMsg.msg.push('你个老六想偷袭,对方却一个转身就躲过去了')
     }
     while (true) {
       battle.X++
       battle.Z++
       if (battle.X == 15) {
-        BotApi.Robot.forwardMsg(e, battle_msg.msg)
-        battle_msg.msg = []
+        BotApi.Robot.forwardMsg(e, battleMsg.msg)
+        battleMsg.msg = []
         battle.X = 0
         battle.Y++
         if (battle.Y == 2) {
           break
         }
       }
-      battle_hurt.hurtB =
+      battleHurt.hurtB =
         battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0
       const F = this.probability(battleB.burst)
       if (F) {
-        battle_hurt.hurtB += Math.floor((battle_hurt.hurtB * battleB.burstmax) / 100)
+        battleHurt.hurtB += Math.floor((battleHurt.hurtB * battleB.burstmax) / 100)
       }
-      battleA.nowblood = battleA.nowblood - battle_hurt.hurtB
-      if (battle_hurt.hurtB > 1) {
+      battleA.nowblood = battleA.nowblood - battleHurt.hurtB
+      if (battleHurt.hurtB > 1) {
         if (battleA.nowblood < 0) {
-          battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
+          battleMsg.msg.push(`第${battle.Z}回合:对方造成${battleHurt.hurtB}伤害`)
           battleA.nowblood = 0
-          battle_msg.QQ = B
-          BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
+          battleMsg.QQ = B
+          BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
           break
         }
       } else {
-        battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
+        battleMsg.msg.push(`第${battle.Z}回合:对方造成${battleHurt.hurtB}伤害`)
       }
-      battle_hurt.hurtA =
+      battleHurt.hurtA =
         battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
       const T = this.probability(battleA.burst)
       if (T) {
-        battle_hurt.hurtA += Math.floor((battle_hurt.hurtA * battleA.burstmax) / 100)
+        battleHurt.hurtA += Math.floor((battleHurt.hurtA * battleA.burstmax) / 100)
       }
-      if (battle_hurt.hurtA <= 1) {
-        battle_msg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
+      if (battleHurt.hurtA <= 1) {
+        battleMsg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
-        battle_msg.QQ = B
-        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
+        battleMsg.QQ = B
+        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
         break
       }
-      battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
+      battleB.nowblood = battleB.nowblood - battleHurt.hurtA
       if (battleB.nowblood < 0) {
-        battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害,并击败了对方!`)
-        battle_msg.msg.push('你击败了对方!')
+        battleMsg.msg.push(`第${battle.Z}回合:你造成${battleHurt.hurtA}伤害,并击败了对方!`)
+        battleMsg.msg.push('你击败了对方!')
         battleB.nowblood = 0
-        BotApi.Robot.forwardMsg({ e, data: battle_msg.msg })
+        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
         break
       } else {
-        battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害`)
+        battleMsg.msg.push(`第${battle.Z}回合:你造成${battleHurt.hurtA}伤害`)
       }
     }
-    battle_msg.msg.push(`[血量状态]:${battleA.nowblood}`)
+    battleMsg.msg.push(`[血量状态]:${battleA.nowblood}`)
     gameUser.userMsgAction({
       NAME: A,
       CHOICE: 'user_battle',
@@ -230,10 +230,10 @@ class gameBattle {
       CHOICE: 'user_battle',
       DATA: battleB
     })
-    return battle_msg.QQ
+    return battleMsg.QQ
   }
 
-  /*暴击率*/
+  /* 暴击率 */
   probability = (P) => {
     if (P > 100) {
       return true
@@ -243,22 +243,23 @@ class gameBattle {
     }
     return false
   }
-  /*雷劫伤害*/
+
+  /* 雷劫伤害 */
   Thunderbolt_damage = ({ UID }) => {
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
     let Thunderbolt = {
-      T_attack: 49040,
-      T_arpg: 300,
-      T_arpb: 30
+      TAttack: 49040,
+      TArpg: 300,
+      TArpb: 30
     }
     for (let i = 0; i < talent.length; i++) {
       if (talent[i] < 6) {
-        Thunderbolt.T_arpb -= 6
+        Thunderbolt.TArpb -= 6
       } else {
-        Thunderbolt.T_arpb -= 3
+        Thunderbolt.TArpb -= 3
       }
     }
     let n = Math.round(Math.random() * 5 + 5)
@@ -266,11 +267,11 @@ class gameBattle {
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    let T_attack = Thunderbolt.T_attack
-    let T_arpg = Thunderbolt.T_arpg
-    let T_arpb = Thunderbolt.T_arpb
+    let TAttack = Thunderbolt.TAttack
+    let TArpg = Thunderbolt.TArpg
+    let TArpb = Thunderbolt.TArpb
     let defense = battle.defense
-    let damage = Math.trunc((n * T_attack * 26129) / (defense - T_arpg * T_arpb))
+    let damage = Math.trunc((n * TAttack * 26129) / (defense - TArpg * TArpb))
     return damage
   }
 }

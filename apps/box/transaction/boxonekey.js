@@ -8,6 +8,7 @@ export class BoxOnekey extends plugin {
       ]
     })
   }
+
   async substitution(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -16,9 +17,9 @@ export class BoxOnekey extends plugin {
       return false
     }
 
-    const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
+    const addressName = '万宝楼'
+    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
     let bag = GameApi.UserData.controlAction({
@@ -42,6 +43,7 @@ export class BoxOnekey extends plugin {
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
     return false
   }
+
   async shellAllType(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -50,9 +52,9 @@ export class BoxOnekey extends plugin {
       return false
     }
 
-    const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
+    const addressName = '万宝楼'
+    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
     const type = e.msg.replace(/^(#|\/)一键出售/, '')

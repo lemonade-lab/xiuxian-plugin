@@ -1,5 +1,5 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
-//秋雨
+// 秋雨
 export class homeland extends plugin {
   constructor() {
     super({
@@ -32,11 +32,11 @@ export class homeland extends plugin {
     })
   }
 
-  //开垦土地
+  // 开垦土地
   async ReceiveLand(e) {
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
@@ -87,7 +87,7 @@ export class homeland extends plugin {
     }
     let lingshi1 = Land * 20000 + 1000
     const lingshi = GameApi.GameUser.userBagSearch({
-      UID: UID,
+      UID,
       name: '下品灵石'
     })
     if (!lingshi || lingshi.acount < lingshi1) {
@@ -95,7 +95,7 @@ export class homeland extends plugin {
       return false
     }
     GameApi.GameUser.userBag({
-      UID: UID,
+      UID,
       name: '下品灵石',
       ACCOUNT: lingshi1
     })
@@ -114,11 +114,11 @@ export class homeland extends plugin {
     return false
   }
 
-  //种植
+  // 种植
   async zhongxia(e) {
-    //不开放私聊功能
+    // 不开放私聊功能
     if (!this.verify(e)) return false
-    //有无存档
+    // 有无存档
     let UID = e.user_id
     const ifexisthome = HomeApi.GameUser.existhome({ UID })
     if (!GameApi.GameUser.existUserSatus({ UID })) {
@@ -142,14 +142,14 @@ export class homeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)种下/, '')
     let code = thing.split('*')
-    let thing_name = code[0] //种子名字
-    let thing_acount = code[1] //种子数量
-    let name = thing_name.replace('种子', '')
-    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    let thingName = code[0] // 种子名字
+    let thingAcount = code[1] // 种子数量
+    let name = thingName.replace('种子', '')
+    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
     let searchsthing = HomeApi.GameUser.userWarehouseSearch({
-      UID: UID,
-      name: thing_name
-    }) //查找种子
+      UID,
+      name: thingName
+    }) // 查找种子
     if (searchsthing == undefined || searchsthing.acount < quantity) {
       e.reply('数量不足')
       return false
@@ -159,18 +159,18 @@ export class homeland extends plugin {
       e.reply(`这个物品不能种到农田里，请换其他的来种吧!`)
       return false
     }
-    let lattice = searchsthing.lattice //获取种子所需格子
+    let lattice = searchsthing.lattice // 获取种子所需格子
     let doge = searchsthing.doge
     let timemin = doge * 4
     let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
-    }) //获取home文件
-    let Land = home.Land //获取土地
-    let Landgrid = home.Landgrid //获取土地格子
+    }) // 获取home文件
+    let Land = home.Land // 获取土地
+    let Landgrid = home.Landgrid // 获取土地格子
     let LandgridMax = home.LandgridMax
-    let a = quantity * lattice //所需土地格子
+    let a = quantity * lattice // 所需土地格子
     let Landgridsurplus = Landgrid - a
     if (Land == 0) {
       e.reply(`你还没有自己的土地哦`)
@@ -185,7 +185,7 @@ export class homeland extends plugin {
       return false
     }
     if (searchsthing == 1) {
-      e.reply(`世界没有[${thing_name}]`)
+      e.reply(`世界没有[${thingName}]`)
       return false
     }
     let landgoods = HomeApi.Listdata.controlActionInitial({
@@ -195,14 +195,14 @@ export class homeland extends plugin {
     })
     let name1 = landgoods.thing.find((item) => item.name == name)
     if (name1 != undefined) {
-      e.reply(`农田里已经有${thing_name}了，请换一种种子吧`)
+      e.reply(`农田里已经有${thingName}了，请换一种种子吧`)
       return false
     }
-    let now_time = new Date().getTime()
+    let nowTime = new Date().getTime()
     HomeApi.GameUser.AddLandgrid({ UID, ACCOUNT: -a })
     let searchsthing1 = HomeApi.GameUser.Add_landgoods({
       landgoods: searchsthing,
-      now_time,
+      nowTime,
       acount: quantity
     })
     landgoods = HomeApi.GameUser.Add_DATA_thing({
@@ -235,7 +235,8 @@ export class homeland extends plugin {
     e.reply(`现在开始种地,预计${timemin}分钟后成熟`)
     return true
   }
-  //收获
+
+  // 收获
   async shouhuo(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
@@ -272,12 +273,12 @@ export class homeland extends plugin {
     }
     let time = landgoods.time
     let mature = landgoods.mature * 60
-    let now_time = new Date().getTime()
-    let time1 = Math.floor((now_time - time) / 1000)
+    let nowTime = new Date().getTime()
+    let time1 = Math.floor((nowTime - time) / 1000)
     let timeco1 = mature - time1
     let acount = landgoods.acount
     let lattice = landgoods.lattice
-    //判断是否够最低收益时间
+    // 判断是否够最低收益时间
     if (mature > time1) {
       e.reply(`你的作物还没成熟,预计还有${timeco1}秒成熟`)
       return false
@@ -285,10 +286,11 @@ export class homeland extends plugin {
     this.upgrade(e, UID, landgoods, thing, acount, lattice)
     return false
   }
+
   upgrade(e, user_id, landgoods1, name, acount, lattice) {
     let UID = user_id
     let thing = landgoods1
-    let crop = HomeApi.GameUser.homesearch_thing_name({ name })
+    let crop = HomeApi.GameUser.homesearch_thingName({ name })
     let stolen = landgoods1.stolen
     let q = 10 - stolen
     let z = stolen * 0.1
@@ -303,7 +305,7 @@ export class homeland extends plugin {
     if (quarter == undefined) {
       quarter = 1
     }
-    //收益
+    // 收益
     if (quarter == 1) {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
@@ -363,7 +365,7 @@ export class homeland extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      let now_time = new Date().getTime()
+      let nowTime = new Date().getTime()
       Warehouse = HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: crop,
@@ -380,10 +382,10 @@ export class homeland extends plugin {
         CHOICE: 'user_home_landgoods',
         NAME: UID
       })
-      let landgoods_thing = landgoods.thing
-      const nongzuowu = landgoods_thing.find((obj) => obj.name === name)
+      let landgoodsThing = landgoods.thing
+      const nongzuowu = landgoodsThing.find((obj) => obj.name === name)
       nongzuowu.quarter -= 1
-      nongzuowu.time = now_time
+      nongzuowu.time = nowTime
       HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID,
@@ -406,7 +408,7 @@ export class homeland extends plugin {
     }
   }
 
-  //查看农田
+  // 查看农田
   async lookland(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
@@ -426,7 +428,7 @@ export class homeland extends plugin {
     return false
   }
 
-  //偷菜
+  // 偷菜
   async Stealvegetables(e) {
     if (!this.verify(e)) return false
     const good = GameApi.GamePublic.Go({ UID: e.user_id })
@@ -439,8 +441,8 @@ export class homeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.Robot.at({ e })
-    if (!user['B']) {
+    user.B = BotApi.Robot.at({ e })
+    if (!user.B) {
       return false
     }
     const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
@@ -488,9 +490,9 @@ export class homeland extends plugin {
     let a = landgoods.stolen
     let time = landgoods.time
     let mature = landgoods.mature * 60
-    let now_time = new Date().getTime()
-    let time1 = Math.floor((now_time - time) / 1000)
-    //判断是否够最低收益时间
+    let nowTime = new Date().getTime()
+    let time1 = Math.floor((nowTime - time) / 1000)
+    // 判断是否够最低收益时间
     if (mature > time1) {
       e.reply(`他的作物还没成熟,预计不知道多少秒成熟`)
       return false
@@ -500,7 +502,7 @@ export class homeland extends plugin {
       return false
     }
     let other = 1
-    let crop = HomeApi.GameUser.homesearch_thing_name({ name: thing })
+    let crop = HomeApi.GameUser.homesearch_thingName({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
     let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -545,11 +547,11 @@ export class homeland extends plugin {
       INITIAL: []
     })
     e.reply(`成功盗取数量为${other}的${thing},并增加${z}的家园经验`)
-    GameApi.GamePublic.setRedis(user.A, CDid, now_time, CDTime)
+    GameApi.GamePublic.setRedis(user.A, CDid, nowTime, CDTime)
     return false
   }
 
-  //查看他人农田
+  // 查看他人农田
   async otherlookland(e) {
     if (!this.verify(e)) return false
     const user = {
@@ -558,8 +560,8 @@ export class homeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = BotApi.Robot.at({ e })
-    if (!user['B']) {
+    user.B = BotApi.Robot.at({ e })
+    if (!user.B) {
       return
     }
     const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
@@ -591,6 +593,5 @@ export class homeland extends plugin {
       UID: user.B
     })
     e.reply(await BotApi.obtainingImages({ path, name, data }))
-    return
   }
 }

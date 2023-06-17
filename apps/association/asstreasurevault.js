@@ -1,5 +1,5 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
-//汐颜
+// 汐颜
 export class TreasureVault extends plugin {
   constructor() {
     super({
@@ -23,6 +23,7 @@ export class TreasureVault extends plugin {
       ]
     })
   }
+
   async Reclaim_Item(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -62,7 +63,7 @@ export class TreasureVault extends plugin {
     let thingName = e.msg.replace('#藏宝阁回收', '')
 
     const searchThing = GameApi.GameUser.userBagSearch({
-      UID: UID,
+      UID,
       name: thingName
     })
     if (!searchThing) {
@@ -74,7 +75,7 @@ export class TreasureVault extends plugin {
     assPlayer.contributionPoints += point
     assPlayer.historyContribution += point
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-    Add_najie_things(searchThing, UID, -1)
+    addNajieThings(searchThing, UID, -1)
     e.reply(`回收成功，你获得了${point}点贡献点！`)
 
     const id = searchThing.id.split('-')
@@ -116,7 +117,7 @@ export class TreasureVault extends plugin {
     return false
   }
 
-  //藏宝阁
+  // 藏宝阁
   async List_treasureCabinet(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -151,11 +152,11 @@ export class TreasureVault extends plugin {
       }
     }
 
-    BotApi.Robot.forwardMsg({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
 
-  //兑换
+  // 兑换
   async Converted_Item(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -220,10 +221,11 @@ export class TreasureVault extends plugin {
     assPlayer.contributionPoints -= exchangeThing.redeemPoint
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     const addThing = AssociationApi.assUser.searchThingById(exchangeThing.id)
-    Add_najie_things(addThing, UID, 1)
+    addNajieThings(addThing, UID, 1)
     e.reply(`兑换成功！！！`)
     return false
   }
+
   async Show_Contribute(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -242,9 +244,9 @@ export class TreasureVault extends plugin {
     return false
   }
 }
-const Add_najie_things = (thing, user_qq, account) => {
+const addNajieThings = (thing, userQQ, account) => {
   GameApi.GameUser.userBag({
-    UID: user_qq,
+    UID: userQQ,
     name: thing.name,
     ACCOUNT: Number(account)
   })

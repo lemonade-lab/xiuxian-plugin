@@ -1,5 +1,5 @@
 import { BotApi, plugin } from '../../model/api/index.js'
-//秋雨
+// 秋雨
 export class HomeGetHelp extends plugin {
   constructor() {
     super({
@@ -15,6 +15,7 @@ export class HomeGetHelp extends plugin {
       ]
     })
   }
+
   async homeHelp(e) {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'home_help' })
@@ -24,6 +25,7 @@ export class HomeGetHelp extends plugin {
     const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 4, data }))
     BotApi.Robot.surveySet({ e, isreply })
   }
+
   async homeAdmin(e) {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'home_admin' })

@@ -8,6 +8,7 @@ export class BoxForum extends plugin {
       ]
     })
   }
+
   async searchForum(e) {
     if (!this.verify(e)) return false
     const msg = []
@@ -19,9 +20,10 @@ export class BoxForum extends plugin {
     for (let item of Forum) {
       msg.push(`[${item.UID}]\n${item.content}`)
     }
-    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
+
   async pushForum(e) {
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus({ UID })) {

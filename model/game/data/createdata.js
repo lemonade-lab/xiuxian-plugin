@@ -4,7 +4,7 @@ import algorithm from './algorithm.js'
 import defset from './defset.js'
 import schedule from './schedule.js'
 
-/** 自定义配置*/
+/** 自定义配置 */
 const configarr = [
   'cooling.yaml',
   'namelist.yaml',
@@ -33,9 +33,9 @@ class CreateData {
       for (let itemconfig of configarr) {
         let x = `${configpath}/${itempath}/${itemconfig}`
         let y = `${defsetpath}/${itempath}/${itemconfig}`
-        //发现配置不存在
+        // 发现配置不存在
         if (!fs.existsSync(x)) {
-          //补缺配置
+          // 补缺配置
           if (fs.existsSync(y)) {
             fs.cp(y, x, (err) => {
               if (err) {
@@ -54,7 +54,6 @@ class CreateData {
      * 启动备份
      */
     this.startVersion()
-    return
   }
 
   /**
@@ -66,7 +65,7 @@ class CreateData {
       for (let itemconfig of configarr) {
         let x = `${configpath}/${itempath}/${itemconfig}`
         let y = `${defsetpath}/${itempath}/${itemconfig}`
-        //直接复制
+        // 直接复制
         if (fs.existsSync(y)) {
           fs.cp(y, x, (err) => {
             if (err) {
@@ -84,7 +83,7 @@ class CreateData {
       for (let itemconfig of arr) {
         let x = `${configpath}/${itempath}/${itemconfig}`
         let y = `${defsetpath}/${itempath}/${itemconfig}`
-        //直接复制
+        // 直接复制
         if (fs.existsSync(y)) {
           fs.cp(y, x, (err) => {
             if (err) {
@@ -105,7 +104,7 @@ class CreateData {
       if (init == 0) {
         const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
         const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
-        if (Nconfig['time'] != Vconfig['time']) {
+        if (Nconfig.time != Vconfig.time) {
           console.log('[xiuxian@2.0.0]配置版本不匹配...')
           console.log('[xiuxian@2.0.0]准备重置配置...')
           const arr = configarr.filter((item) => item != 'namelist.yaml')
@@ -125,9 +124,9 @@ class CreateData {
     setTimeout(() => {
       if (ini == 0) {
         const Test = defset.getConfig({ app: 'task', name: 'task' })
-        if (Test['CopeTask']) {
-          if (Test['CopeTask'] == 1) return
-          schedule.scheduleJobflie({ time: Test['CopeTask'] })
+        if (Test.CopeTask) {
+          if (Test.CopeTask == 1) return
+          schedule.scheduleJobflie({ time: Test.CopeTask })
         }
       }
       ini = 1

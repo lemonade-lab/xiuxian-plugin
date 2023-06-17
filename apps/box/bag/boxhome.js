@@ -10,6 +10,7 @@ export class BoxHome extends plugin {
       ]
     })
   }
+
   async take(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -17,22 +18,22 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let [thing_name, thing_acount] = e.msg.replace(/^(#|\/)服用/, '').split('*')
-    thing_acount = GameApi.GamePublic.leastOne({ value: thing_acount })
-    const najie_thing = GameApi.GameUser.userBagSearch({
+    let [thingName, thingAcount] = e.msg.replace(/^(#|\/)服用/, '').split('*')
+    thingAcount = GameApi.GamePublic.leastOne({ value: thingAcount })
+    const najieThing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
-    if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`)
+    if (!najieThing) {
+      e.reply(`没有[${thingName}]`)
       return false
     }
-    if (najie_thing.acount < thing_acount) {
+    if (najieThing.acount < thingAcount) {
       e.reply('数量不足')
       return false
     }
-    const id = najie_thing.id.split('-')
-    let x = 0 //用于判断pa数组内是否存在id[0]
+    const id = najieThing.id.split('-')
+    let x = 0 // 用于判断pa数组内是否存在id[0]
     let pa = [1, 2, 3, 4, 5, 6]
     for (let i = 0; i < pa.length; i++) {
       if (id[0] == pa[i]) {
@@ -40,68 +41,68 @@ export class BoxHome extends plugin {
       }
     }
     if (x != 1) {
-      e.reply(`你看看${thing_name}，想想怎么吞都吞不下去吧`)
+      e.reply(`你看看${thingName}，想想怎么吞都吞不下去吧`)
       return
     }
     switch (id[1]) {
       case '1': {
-        let blood = parseInt(najie_thing.blood)
+        let blood = parseInt(najieThing.blood)
         GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) })
         const battle = GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_battle'
         })
         e.reply(
-          `成功服用${thing_name}，当前血量为：${battle.nowblood}（${Math.trunc(
+          `成功服用${thingName}，当前血量为：${battle.nowblood}（${Math.trunc(
             (battle.nowblood / battle.blood) * 100
           )}%）`
         )
         break
       }
       case '2': {
-        let experience = parseInt(najie_thing.experience)
+        let experience = parseInt(najieThing.experience)
         if (id[0] == '6') {
-          if (thing_acount > 2200) {
-            thing_acount = 2200
+          if (thingAcount > 2200) {
+            thingAcount = 2200
           }
           const cf = GameApi.DefsetUpdata.getConfig({
             app: 'parameter',
             name: 'cooling'
           })
-          const CDTime = cf['CD']['Practice'] ? cf['CD']['Practice'] : 5
+          const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
           const CDID = '12'
-          const now_time = new Date().getTime()
+          const nowTime = new Date().getTime()
           const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
           if (CDMSG) {
             experience = 0
             e.reply(CDMSG)
           }
-          GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
+          GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
           const player = GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_level'
           })
           switch (id[2]) {
             case '1': {
-              if (player.level_id >= 3) {
+              if (player.levelId >= 3) {
                 experience = 0
               }
               break
             }
             case '2': {
-              if (player.level_id >= 5) {
+              if (player.levelId >= 5) {
                 experience = 0
               }
               break
             }
             case '3': {
-              if (player.level_id >= 7) {
+              if (player.levelId >= 7) {
                 experience = 0
               }
               break
             }
             case '4': {
-              if (player.level_id >= 9) {
+              if (player.levelId >= 9) {
                 experience = 0
               }
               break
@@ -115,21 +116,21 @@ export class BoxHome extends plugin {
             UID,
             CHOICE: 'user_level',
             ATTRIBUTE: 'experience',
-            SIZE: thing_acount * experience
+            SIZE: thingAcount * experience
           })
         }
-        e.reply(`[修为]+${thing_acount * experience}`)
+        e.reply(`[修为]+${thingAcount * experience}`)
         break
       }
       case '3': {
-        let experiencemax = parseInt(najie_thing.experiencemax)
+        let experiencemax = parseInt(najieThing.experiencemax)
         GameApi.GameUser.updataUser({
           UID,
           CHOICE: 'user_level',
           ATTRIBUTE: 'experiencemax',
-          SIZE: thing_acount * experiencemax
+          SIZE: thingAcount * experiencemax
         })
-        e.reply(`[气血]+${thing_acount * experiencemax}`)
+        e.reply(`[气血]+${thingAcount * experiencemax}`)
         break
       }
       default: {
@@ -137,11 +138,12 @@ export class BoxHome extends plugin {
     }
     GameApi.GameUser.userBag({
       UID,
-      name: najie_thing.name,
-      ACCOUNT: -thing_acount
+      name: najieThing.name,
+      ACCOUNT: -thingAcount
     })
     return false
   }
+
   async study(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -149,16 +151,16 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace(/^(#|\/)学习/, '')
-    const najie_thing = GameApi.GameUser.userBagSearch({
+    const thingName = e.msg.replace(/^(#|\/)学习/, '')
+    const najieThing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
-    if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`)
+    if (!najieThing) {
+      e.reply(`没有[${thingName}]`)
       return false
     }
-    const id = najie_thing.id.split('-')
+    const id = najieThing.id.split('-')
     if (id[0] != 5) {
       return false
     }
@@ -166,7 +168,7 @@ export class BoxHome extends plugin {
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const islearned = talent.AllSorcery.find((item) => item.id == najie_thing.id)
+    const islearned = talent.AllSorcery.find((item) => item.id == najieThing.id)
     if (islearned) {
       e.reply('学过了')
       return false
@@ -178,7 +180,7 @@ export class BoxHome extends plugin {
       e.reply('你反复看了又看,却怎么也学不进')
       return false
     }
-    talent.AllSorcery.push(najie_thing)
+    talent.AllSorcery.push(najieThing)
     GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent',
@@ -187,12 +189,13 @@ export class BoxHome extends plugin {
     GameApi.GameUser.updataUserEfficiency({ UID })
     GameApi.GameUser.userBag({
       UID,
-      name: najie_thing.name,
+      name: najieThing.name,
       ACCOUNT: -1
     })
-    e.reply(`学习[${thing_name}]`)
+    e.reply(`学习[${thingName}]`)
     return false
   }
+
   async forget(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -200,17 +203,17 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace(/^(#|\/)忘掉/, '')
+    const thingName = e.msg.replace(/^(#|\/)忘掉/, '')
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const islearned = talent.AllSorcery.find((item) => item.name == thing_name)
+    const islearned = talent.AllSorcery.find((item) => item.name == thingName)
     if (!islearned) {
-      e.reply(`没学过[${thing_name}]`)
+      e.reply(`没学过[${thingName}]`)
       return false
     }
-    talent.AllSorcery = talent.AllSorcery.filter((item) => item.name != thing_name)
+    talent.AllSorcery = talent.AllSorcery.filter((item) => item.name != thingName)
     GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent',
@@ -218,9 +221,10 @@ export class BoxHome extends plugin {
     })
     GameApi.GameUser.updataUserEfficiency({ UID })
     GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
-    e.reply(`忘了[${thing_name}]`)
+    e.reply(`忘了[${thingName}]`)
     return false
   }
+
   async consumption(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -228,23 +232,23 @@ export class BoxHome extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace(/^(#|\/)消耗/, '')
-    const najie_thing = GameApi.GameUser.userBagSearch({
+    const thingName = e.msg.replace(/^(#|\/)消耗/, '')
+    const najieThing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
-    if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`)
+    if (!najieThing) {
+      e.reply(`没有[${thingName}]`)
       return false
     }
     GameApi.GameUser.userBag({
       UID,
-      name: najie_thing.name,
+      name: najieThing.name,
       ACCOUNT: -1
     })
-    const id = najie_thing.id.split('-')
+    const id = najieThing.id.split('-')
     if (id[0] != 6) {
-      e.reply(`[${thing_name}]损坏`)
+      e.reply(`[${thingName}]损坏`)
       return false
     }
     if (id[1] == 1) {
@@ -254,7 +258,7 @@ export class BoxHome extends plugin {
             NAME: UID,
             CHOICE: 'user_level'
           })
-          if (player.level_id >= 10) {
+          if (player.levelId >= 10) {
             e.reply('[灵根]已定\n此生不可再洗髓')
             break
           }

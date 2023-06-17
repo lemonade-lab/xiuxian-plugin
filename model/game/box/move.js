@@ -1,23 +1,22 @@
 class UserMove {
-  /** * 前进*/
+  /** * 前进 */
   mapW(e) {
     e.reply('待世界升级')
-    return
   }
-  /**向左移动*/
+
+  /** 向左移动 */
   mapA(e) {
     e.reply('待世界升级')
-    return
   }
-  /*** 后退  */
+
+  /** * 后退  */
   mapS(e) {
     e.reply('待世界升级')
-    return
   }
+
   /** 向右移动 */
   mapD(e) {
     e.reply('待世界升级')
-    return
   }
   /**
    * 走路消耗灵力（灵力？可能以后会影响元素攻击）

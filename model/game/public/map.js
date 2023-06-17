@@ -1,6 +1,6 @@
 import listdata from '../data/listdata.js'
 class GameMap {
-  /*输入:模糊搜索名字并判断是否在此地*/
+  /* 输入:模糊搜索名字并判断是否在此地 */
   mapExistence = ({ action, addressName }) => {
     const point = listdata.controlAction({
       NAME: 'point',
@@ -18,18 +18,18 @@ class GameMap {
 
   /**
    * 判断是否在某地
-   * @param {} address_name
+   * @param {} addressName
    * @returns
    */
 
-  mapAction = ({ UID, address_name }) => {
+  mapAction = ({ UID, addressName }) => {
     const action = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
     const map = this.mapExistence({
       action,
-      addressName: address_name
+      addressName
     })
     if (!map) return false
     return true

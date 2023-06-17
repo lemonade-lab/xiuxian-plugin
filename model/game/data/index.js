@@ -9,7 +9,7 @@ const playerPath = '/xiuxianfile'
 
 /* 数据索引 */
 export const __PATH = {
-  /*玩家存档*/
+  /* 玩家存档 */
   user_player: algorithm.getFliePath(`${playerPath}/player`),
   user_extend: algorithm.getFliePath(`${playerPath}/extend`),
   user_action: algorithm.getFliePath(`${playerPath}/action`),
@@ -31,10 +31,10 @@ export const __PATH = {
   /* 虚空栈 */
   generate_forum: algorithm.getFliePath(`${playerPath}/forum`),
 
-  /*自定义数据*/
+  /* 自定义数据 */
   custom_goods: algorithm.getFliePath(`/xiuxiangoods`),
 
-  /*基础数据*/
+  /* 基础数据 */
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
   fixed_position: algorithm.getReq('/resources/datafixed/position'),
   fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'),
@@ -46,19 +46,19 @@ export const __PATH = {
   fixed_history: algorithm.getReq('/resources/datafixed/history'),
   fixed_monster: algorithm.getReq('/resources/datafixed/monster'),
 
-  /*生成数据*/
+  /* 生成数据 */
   generate_all: algorithm.getReq('/resources/databirth/all'),
   generate_position: algorithm.getReq('/resources/databirth/position'),
   generate_level: algorithm.getReq('/resources/databirth/level'),
-  //物品信息
+  // 物品信息
   generate_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
 
   /* 家园路径 */
 
-  //玩家存档
+  // 玩家存档
   user_home_user: algorithm.getReq('/resources/databirth/home/user'),
   user_home_landgoods: algorithm.getReq('/resources/databirth/home/landgoods'),
-  user_home_life: algorithm.getReq('/resources/databirth/home/life'),
+  userHomeLife: algorithm.getReq('/resources/databirth/home/life'),
   user_home_minefield: algorithm.getReq('/resources/databirth/home/minefield'),
   user_home_position: algorithm.getReq('/resources/databirth/home/position'),
   user_home_Warehouse: algorithm.getReq('/resources/databirth/home/Warehouse'),
@@ -68,29 +68,29 @@ export const __PATH = {
   user_home_state: algorithm.getReq('/resources/databirth/home/state'),
   user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
   user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
-  //物品信息
+  // 物品信息
   home_home_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
 
   /* 宗门路径 */
 
-  //玩家存档
+  // 玩家存档
   association: algorithm.getReq('/resources/databirth/assItem'),
-  //用户的宗门数据
+  // 用户的宗门数据
   assPlayer: algorithm.getReq('/resources/databirth/assPlayer'),
   assRelation: algorithm.getReq('/resources/databirth/assRelation'),
   assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
   generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),
-  //固定
+  // 固定
   assRelate: algorithm.getReq('/resources/datafixed/assRelate'),
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'),
   assDrop: algorithm.getReq('/resources/datafixed/assDrop')
 }
 
-/**生成游戏数据*/
+/** 生成游戏数据 */
 class DateIndex {
   constructor() {
-    /**生成yaml配置数据 */
+    /** 生成yaml配置数据 */
     createdata.moveConfig()
     /**
      * 动态境界数据
@@ -154,7 +154,6 @@ class DateIndex {
   addListArr = ({ PATH, CHOICE, NAME }) => {
     const data = listdata.controlAction({ NAME, CHOICE })
     genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
-    return
   }
 }
 export default new DateIndex()

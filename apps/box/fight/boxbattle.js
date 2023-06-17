@@ -8,6 +8,7 @@ export class BoxBattle extends plugin {
       ]
     })
   }
+
   async duel(e) {
     if (!this.verify(e)) return false
     const UIDA = e.user_id
@@ -19,6 +20,7 @@ export class BoxBattle extends plugin {
     e.reply(GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))
     return false
   }
+
   async handWashing(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -30,7 +32,7 @@ export class BoxBattle extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const money = 10000 * Level.level_id
+    const money = 10000 * Level.levelId
     if (Level.prestige > 0) {
       const thing = GameApi.GameUser.userBagSearch({
         UID,

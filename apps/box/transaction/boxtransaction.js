@@ -11,6 +11,7 @@ export class BoxTransaction extends plugin {
       ]
     })
   }
+
   async showComodities(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -19,19 +20,19 @@ export class BoxTransaction extends plugin {
       return false
     }
 
-    const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
+    const addressName = '万宝楼'
+    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
     const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]\n不填数量,默认为1']
 
-    const commodities_list = GameApi.UserData.controlAction({
+    const commoditiesList = GameApi.UserData.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
 
-    for (let item of commodities_list) {
+    for (let item of commoditiesList) {
       const id = item.id.split('-')
       switch (id[0]) {
         case '1': {
@@ -70,10 +71,11 @@ export class BoxTransaction extends plugin {
       }
     }
 
-    BotApi.Robot.forwardMsgSurveySet({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 
     return false
   }
+
   async buyComodities(e) {
     if (!this.verify(e)) return false
 
@@ -84,13 +86,13 @@ export class BoxTransaction extends plugin {
       return false
     }
 
-    const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
+    const addressName = '万宝楼'
+    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
-    const [thing_name, thing_acount] = e.msg.replace(/^(#|\/)购买/, '').split('*')
-    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    const [thingName, thingAcount] = e.msg.replace(/^(#|\/)购买/, '').split('*')
+    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
     if (quantity > 99) {
       quantity = 99
     }
@@ -98,9 +100,9 @@ export class BoxTransaction extends plugin {
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
-    const ifexist = Commodities.find((item) => item.name == thing_name)
+    const ifexist = Commodities.find((item) => item.name == thingName)
     if (!ifexist) {
-      e.reply(`[万宝楼]小二\n不卖[${thing_name}]`)
+      e.reply(`[万宝楼]小二\n不卖[${thingName}]`)
       return false
     }
     const money = GameApi.GameUser.userBagSearch({
@@ -122,9 +124,10 @@ export class BoxTransaction extends plugin {
       name: ifexist.name,
       ACCOUNT: Number(quantity)
     })
-    e.reply(`[万宝楼]薛仁贵\n你花[${price}]下品灵石购买了[${thing_name}]*${quantity},`)
+    e.reply(`[万宝楼]薛仁贵\n你花[${price}]下品灵石购买了[${thingName}]*${quantity},`)
     return false
   }
+
   async sellComodities(e) {
     if (!this.verify(e)) return false
 
@@ -135,47 +138,47 @@ export class BoxTransaction extends plugin {
       return false
     }
 
-    const address_name = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, address_name })) {
-      e.reply(`需[(#|/)前往+城池名+${address_name}]`)
+    const addressName = '万宝楼'
+    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
-    const [thing_name, thing_acount] = e.msg.replace(/^(#|\/)出售/, '').split('*')
+    const [thingName, thingAcount] = e.msg.replace(/^(#|\/)出售/, '').split('*')
 
-    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
     if (quantity > 99) {
       quantity = 99
     }
 
-    const najie_thing = GameApi.GameUser.userBagSearch({
+    const najieThing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
 
-    if (!najie_thing) {
-      e.reply(`[万宝楼]小二\n你没[${thing_name}]`)
+    if (!najieThing) {
+      e.reply(`[万宝楼]小二\n你没[${thingName}]`)
       return false
     }
 
-    if (najie_thing.acount < quantity) {
+    if (najieThing.acount < quantity) {
       e.reply('[万宝楼]小二\n数量不足')
       return false
     }
 
     GameApi.GameUser.userBag({
       UID,
-      name: najie_thing.name,
+      name: najieThing.name,
       ACCOUNT: -Number(quantity)
     })
 
-    const commodities_price = najie_thing.price * quantity
+    const commoditiesPrice = najieThing.price * quantity
 
     GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
-      ACCOUNT: Number(commodities_price)
+      ACCOUNT: Number(commoditiesPrice)
     })
-    e.reply(`[万宝楼]欧阳峰\n出售得${commodities_price}*[下品灵石]`)
+    e.reply(`[万宝楼]欧阳峰\n出售得${commoditiesPrice}*[下品灵石]`)
     return false
   }
 }

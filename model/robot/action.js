@@ -9,14 +9,15 @@ class Robot {
     for (let item of data) {
       msgList.push({
         message: item,
-        /*我的昵称*/
+        /* 我的昵称 */
         nickname: Bot.nickname,
-        /*我的账号*/
+        /* 我的账号 */
         user_id: Bot.uin
       })
     }
     return msgList
   }
+
   /**
    * @param { e, data } param0
    * @returns
@@ -26,14 +27,14 @@ class Robot {
       e.reply(data[0])
       return
     }
-    /*制作合并转发消息以备发送*/
+    /* 制作合并转发消息以备发送 */
     try {
       e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
     } catch {
       console.log('出错', data)
     }
-    return
   }
+
   /**
    * @param { e, data } param0
    * @returns
@@ -41,7 +42,7 @@ class Robot {
   forwardMsgSurveySet = ({ e, data }) => {
     /**
      * 消息转发制作成html发送
-     * 
+     *
      * 做边框，长文字图
      */
     if (data.length == 1) {
@@ -51,8 +52,8 @@ class Robot {
     }
     const isreply = e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
     this.surveySet({ e, isreply })
-    return
   }
+
   /**
    * @param { e, isreply } param0
    * @returns
@@ -62,13 +63,14 @@ class Robot {
       return
     }
     const cf = getConfig({ app: 'parameter', name: 'cooling' })
-    let timeout = cf['timeout'] ? cf.timeout.size : 60
+    let timeout = cf.timeout ? cf.timeout.size : 60
     if (timeout > 15 && isreply && isreply.message_id) {
       setTimeout(() => {
         e.group.recallMsg(isreply.message_id)
       }, timeout * 1000)
     }
   }
+
   /**
    * @param { e } param0
    * @returns
@@ -78,19 +80,20 @@ class Robot {
       return false
     }
     const atItem = e.message.filter((item) => item.type === 'at')
-    if (atItem[0]['qq']) {
-      return atItem[0]['qq']
+    if (atItem[0].qq) {
+      return atItem[0].qq
     }
     return false
   }
+
   /**
    * 私聊发送消息
    * @param { UID, msg } param0
    */
   privateChat = ({ UID, msg }) => {
     Bot.pickUser(UID).sendMsg(msg)
-    return
   }
+
   controlMessage = ({ e }) => {
     const { whitecrowd, blackid } = getConfig({
       app: 'parameter',
@@ -100,6 +103,7 @@ class Robot {
     if (blackid.indexOf(e.user_id) != -1) return false
     return true
   }
+
   relife = () => {
     const LIFE = GameApi.UserData.controlAction({
       CHOICE: 'user_life',
@@ -119,6 +123,7 @@ class Robot {
     let msg = '寿命重置成功'
     return msg
   }
+
   relifehe = ({ B }) => {
     let msg
     let LIFE = GameApi.UserData.controlAction({

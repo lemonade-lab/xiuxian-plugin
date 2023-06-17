@@ -8,6 +8,7 @@ export class BoxModify extends plugin {
       ]
     })
   }
+
   async changeName(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -20,27 +21,27 @@ export class BoxModify extends plugin {
       return false
     }
     const UID = e.user_id
-    let new_name = e.msg.replace(/^(#|\/)更改道号/, '')
-    if (new_name.length == 0) {
+    let theName = e.msg.replace(/^(#|\/)更改道号/, '')
+    if (theName.length == 0) {
       return false
     }
-    if (new_name.length > 8) {
+    if (theName.length > 8) {
       e.reply('这名可真是稀奇')
       return false
     }
     const CDID = '3'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
-    const CDTime = cf['CD']['Name'] ? cf['CD']['Name'] : 5
+    const CDTime = cf.CD.Name ? cf.CD.Name : 5
     const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
+    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
     const life = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
@@ -48,7 +49,7 @@ export class BoxModify extends plugin {
     })
     life.forEach((item) => {
       if (item.qq == UID) {
-        item.name = new_name
+        item.name = theName
       }
     })
     GameApi.UserData.controlAction({
@@ -63,6 +64,7 @@ export class BoxModify extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async changeAutograph(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -79,26 +81,26 @@ export class BoxModify extends plugin {
       NAME: UID,
       CHOICE: 'user_player'
     })
-    let new_msg = e.msg.replace(/^(#|\/)更改道号/, '')
-    new_msg = new_msg.replace(' ', '')
-    if (new_msg.length == 0 || new_msg.length > 50) {
+    let theMsg = e.msg.replace(/^(#|\/)更改道号/, '')
+    theMsg = theMsg.replace(' ', '')
+    if (theMsg.length == 0 || theMsg.length > 50) {
       e.reply('请正确设置,且道宣最多50字符')
       return false
     }
     const CDID = '4'
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
-    const CDTime = cf['CD']['Autograph'] ? cf['CD']['Autograph'] : 5
+    const CDTime = cf.CD.Autograph ? cf.CD.Autograph : 5
     const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
-    player.autograph = new_msg
+    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
+    player.autograph = theMsg
     GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_player',

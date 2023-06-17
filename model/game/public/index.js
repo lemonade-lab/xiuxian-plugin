@@ -1,7 +1,7 @@
 import gameUer from '../box/index.js'
 import { REDIS } from './redis.js'
 
-/**自定义冷却反馈*/
+/** 自定义冷却反馈 */
 const MYCD = {
   0: '攻击',
   1: '降妖',
@@ -71,12 +71,12 @@ class GamePublic {
    * 设置redis
    * @param {*} UID
    * @param {*} CDID
-   * @param {*} now_time
+   * @param {*} nowTime
    * @param {*} CDTime
    */
-  setRedis = (UID, CDID, now_time, CDTime) => {
+  setRedis = (UID, CDID, nowTime, CDTime) => {
     REDIS.set(`${ReadiName}:${UID}:${CDID}`, {
-      val: now_time,
+      val: nowTime,
       expire: CDTime * 60
     })
   }
@@ -159,7 +159,7 @@ class GamePublic {
     const action = REDIS.get(`${ReadiName}:${UID}:action`)
     if (action) {
       if (action.actionName == undefined) {
-        //根据判断msg存不存在来识别是否成功
+        // 根据判断msg存不存在来识别是否成功
         return {
           MSG: `旧版数据残留,请联系主人使用[(#|/)修仙删除数据]`
         }
@@ -180,7 +180,7 @@ class GamePublic {
     const action = REDIS.get(`${ReadiName}:${UID}:action`)
     if (action) {
       if (action.actionName == undefined) {
-        //根据判断msg存不存在来识别是否成功
+        // 根据判断msg存不存在来识别是否成功
         return {
           MSG: '旧版数据残留,请联系主人使用[(#|/)修仙删除数据]'
         }

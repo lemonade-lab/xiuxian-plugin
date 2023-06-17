@@ -16,13 +16,13 @@ export class BoxEquipment extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace(/^(#|\/)装备/, '')
-    const najie_thing = GameApi.GameUser.userBagSearch({
+    const thingName = e.msg.replace(/^(#|\/)装备/, '')
+    const najieThing = GameApi.GameUser.userBagSearch({
       UID,
-      name: thing_name
+      name: thingName
     })
-    if (!najie_thing) {
-      e.reply(`没有[${thing_name}]`)
+    if (!najieThing) {
+      e.reply(`没有[${thingName}]`)
       return false
     }
     const equipment = GameApi.UserData.controlAction({
@@ -35,17 +35,18 @@ export class BoxEquipment extends plugin {
     ) {
       return false
     }
-    equipment.push(najie_thing)
+    equipment.push(najieThing)
     GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment',
       DATA: equipment
     })
-    GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
+    GameApi.GameUser.userBag({ UID, name: thingName, ACCOUNT: -1 })
     GameApi.GameUser.readPanel({ UID })
-    e.reply(`装备[${thing_name}]`)
+    e.reply(`装备[${thingName}]`)
     return false
   }
+
   async deleteEquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -53,12 +54,12 @@ export class BoxEquipment extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const thing_name = e.msg.replace(/^(#|\/)卸下/, '')
+    const thingName = e.msg.replace(/^(#|\/)卸下/, '')
     let equipment = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    const islearned = equipment.find((item) => item.name == thing_name)
+    const islearned = equipment.find((item) => item.name == thingName)
     if (!islearned) {
       return false
     }
@@ -66,7 +67,7 @@ export class BoxEquipment extends plugin {
       x: 0
     }
     equipment.forEach((item, index, arr) => {
-      if (item.name == thing_name && q.x == 0) {
+      if (item.name == thingName && q.x == 0) {
         q.x = 1
         arr.splice(index, 1)
       }
@@ -76,9 +77,9 @@ export class BoxEquipment extends plugin {
       CHOICE: 'user_equipment',
       DATA: equipment
     })
-    GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
+    GameApi.GameUser.userBag({ UID, name: thingName, ACCOUNT: 1 })
     GameApi.GameUser.readPanel({ UID })
-    e.reply(`已卸下[${thing_name}]`)
+    e.reply(`已卸下[${thingName}]`)
     return false
   }
 }

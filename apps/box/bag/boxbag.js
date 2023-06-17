@@ -8,6 +8,7 @@ export class BoxBag extends plugin {
       ]
     })
   }
+
   async showBag(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -20,6 +21,7 @@ export class BoxBag extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+
   async bagUp(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {

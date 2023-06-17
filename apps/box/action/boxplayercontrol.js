@@ -10,6 +10,7 @@ export class BoxPlayerControl extends plugin {
       ]
     })
   }
+
   async biguan(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -22,15 +23,16 @@ export class BoxPlayerControl extends plugin {
       return false
     }
     const UID = e.user_id
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const actionObject = {
       actionName: '闭关',
-      startTime: now_time
+      startTime: nowTime
     }
     GameApi.GamePublic.setAction(UID, actionObject)
     e.reply('开始两耳不闻窗外事...')
     return false
   }
+
   async dagong(e) {
     if (!this.verify(e)) return false
     if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
@@ -43,15 +45,16 @@ export class BoxPlayerControl extends plugin {
       return false
     }
     const UID = e.user_id
-    const now_time = new Date().getTime()
+    const nowTime = new Date().getTime()
     const actionObject = {
       actionName: '降妖',
-      startTime: now_time
+      startTime: nowTime
     }
     GameApi.GamePublic.setAction(UID, actionObject)
     e.reply('开始外出...')
     return false
   }
+
   async chuGuan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -67,7 +70,7 @@ export class BoxPlayerControl extends plugin {
       app: 'parameter',
       name: 'cooling'
     })
-    const timeUnit = cf['biguan']['time'] ? cf['biguan']['time'] : 5
+    const timeUnit = cf.biguan.time ? cf.biguan.time : 5
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
@@ -78,6 +81,7 @@ export class BoxPlayerControl extends plugin {
     this.upgrade(UID, time, action.actionName, e)
     return false
   }
+
   async endWork(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -93,7 +97,7 @@ export class BoxPlayerControl extends plugin {
       app: 'parameter',
       name: 'cooling'
     })
-    const timeUnit = cf['work']['time'] ? cf['work']['time'] : 5
+    const timeUnit = cf.work.time ? cf.work.time : 5
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
@@ -104,6 +108,7 @@ export class BoxPlayerControl extends plugin {
     this.upgrade(UID, time, action.actionName, e)
     return false
   }
+
   upgrade = (user_id, time, name, e) => {
     if (!this.verify(e)) return false
     const UID = user_id
@@ -120,7 +125,7 @@ export class BoxPlayerControl extends plugin {
       闭关: 'biguan',
       降妖: 'work'
     }
-    let other = Math.floor(appSize[map[name]]['size'] * time * buff)
+    let other = Math.floor(appSize[map[name]].size * time * buff)
     if (Math.random() * (100 - 1) + 1 < 20) {
       other -= Math.floor(other / 3)
     }

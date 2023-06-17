@@ -1,5 +1,5 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
-//汐颜
+// 汐颜
 export class AssociationExtend extends plugin {
   constructor() {
     super({
@@ -43,7 +43,7 @@ export class AssociationExtend extends plugin {
 
   async showAssPlayer(e) {
     const UID = e.user_id
-    //无存档
+    // 无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
@@ -78,7 +78,7 @@ export class AssociationExtend extends plugin {
         '历史贡献值:' +
         assPlayer.historyContribution
     )
-    BotApi.Robot.forwardMsg({ e, data: msg })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
 
@@ -91,7 +91,7 @@ export class AssociationExtend extends plugin {
     }
 
     let isExists = GameApi.GameUser.userBagSearch({
-      UID: UID,
+      UID,
       name: '宗门令牌'
     })
     if (!isExists) {
@@ -100,27 +100,27 @@ export class AssociationExtend extends plugin {
     }
     const random = Math.random()
     GameApi.GameUser.userBag({
-      UID: UID,
+      UID,
       name: isExists.name,
       ACCOUNT: Number(-1)
     })
     if (random < 0.1) {
       GameApi.GameUser.userBag({
-        UID: UID,
+        UID,
         name: '上等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了上等宗门令牌`)
     } else if (random < 0.35) {
       GameApi.GameUser.userBag({
-        UID: UID,
+        UID,
         name: '中等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了中等宗门令牌`)
     } else {
       GameApi.GameUser.userBag({
-        UID: UID,
+        UID,
         name: '下等宗门令牌',
         ACCOUNT: Number(1)
       })

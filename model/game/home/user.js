@@ -7,7 +7,7 @@ class GameUser {
     const { UID, name, ACCOUNT } = parameter
     const thing = listdata.searchThing({
       condition: 'name',
-      name: name
+      name
     })
     if (thing) {
       let Warehouse = listdata.controlAction({
@@ -15,7 +15,7 @@ class GameUser {
         NAME: UID
       })
       Warehouse = this.userWarehouseAction({
-        Warehouse: Warehouse,
+        Warehouse,
         THING: thing,
         ACCOUNT
       })
@@ -28,6 +28,7 @@ class GameUser {
     }
     return false
   }
+
   /**
    * 给仓库添加物品
    * @param {用户的背包} Warehouse
@@ -69,29 +70,31 @@ class GameUser {
     const ifexist = Warehouse.thing.find((item) => item.name == name)
     return ifexist
   }
+
   /**
    * @param {UID} UID
    * @param {物品名} name
    * @returns 若仓库存在即返回物品信息,若不存在则undifind
    */
-  returnUserWarehouseName = (NAME, THING_NAME) => {
+  returnUserWarehouseName = (NAME, thingName) => {
     const Warehouse = listdata.controlAction({
-      NAME: NAME,
+      NAME,
       CHOICE: 'user_home_Warehouse'
     })
-    return Warehouse.thing.find((item) => item.name == THING_NAME)
+    return Warehouse.thing.find((item) => item.name == thingName)
   }
-  //家园
+
+  // 家园
   Archive = ({ UID }) => {
-    const home = this.existhomeplugins({ UID: UID })
+    const home = this.existhomeplugins({ UID })
     let Msg = ''
     if (home == 1) {
-      this.homejiazai({ UID: UID })
+      this.homejiazai({ UID })
       Msg =
         '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行#建立家园+地点名字，建立家园'
       return Msg
     } else {
-      const ifexisthome = this.existhome({ UID: UID })
+      const ifexisthome = this.existhome({ UID })
       if (!ifexisthome) {
         Msg = '您都还没建立过家园'
         return Msg
@@ -99,17 +102,18 @@ class GameUser {
     }
     return 0
   }
-  //牧场
+
+  // 牧场
   Archiverangeland = ({ UID }) => {
     let life = listdata.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_home_life',
+      CHOICE: 'userHomeLife',
       INITIAL: []
     })
     let fond = life.find((item) => item.qq == UID)
     let Msg = ''
     if (!fond) {
-      this.homejiazai({ UID: UID })
+      this.homejiazai({ UID })
       Msg =
         '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行#建立家园+地点名字，建立家园'
       return Msg
@@ -121,7 +125,7 @@ class GameUser {
         fond = Object.assign(fond, rangeland)
         listdata.controlActionInitial({
           NAME: 'life',
-          CHOICE: 'user_home_life',
+          CHOICE: 'userHomeLife',
           DATA: life,
           INITIAL: []
         })
@@ -150,10 +154,11 @@ class GameUser {
     }
     return 0
   }
+
   existhomeplugins = ({ UID }) => {
     const life = listdata.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_home_life',
+      CHOICE: 'userHomeLife',
       INITIAL: []
     })
     const find = life.find((item) => item.qq == UID)
@@ -163,6 +168,7 @@ class GameUser {
       return find
     }
   }
+
   homejiazai = ({ UID }) => {
     try {
       listdata.controlAction({
@@ -196,17 +202,17 @@ class GameUser {
         }
       })
       const life = listdata.controlActionInitial({
-        CHOICE: 'user_home_life',
+        CHOICE: 'userHomeLife',
         NAME: 'life',
         INITIAL: []
       })
       const time = new Date()
       life.push({
         qq: UID,
-        time: time
+        time
       })
       listdata.controlActionInitial({
-        CHOICE: 'user_home_life',
+        CHOICE: 'userHomeLife',
         NAME: 'life',
         DATA: life,
         INITIAL: []
@@ -216,6 +222,7 @@ class GameUser {
       return false
     }
   }
+
   existhome = ({ UID }) => {
     const positionhome = listdata.controlActionInitial({
       NAME: 'position',
@@ -225,6 +232,7 @@ class GameUser {
     const find = positionhome.find((item) => item.qq == UID)
     return find
   }
+
   Add_doge = ({ UID, money }) => {
     const home = listdata.controlActionInitial({
       CHOICE: 'user_home_home',
@@ -242,6 +250,7 @@ class GameUser {
       INITIAL: []
     })
   }
+
   AddLandgrid = (parameter) => {
     const { UID, ACCOUNT } = parameter
     let home = listdata.controlActionInitial({
@@ -256,16 +265,16 @@ class GameUser {
       DATA: home,
       INITIAL: []
     })
-    return
   }
+
   Add_landgoods = (parameter) => {
-    const { landgoods, now_time, acount } = parameter
+    const { landgoods, nowTime, acount } = parameter
     let name = landgoods.name
     let name1 = name.replace('种子', '')
-    let crop1 = this.homesearch_thing_name({ name })
-    let crop = this.homesearch_thing_name({ name: name1 })
+    let crop1 = this.homesearch_thingName({ name })
+    let crop = this.homesearch_thingName({ name: name1 })
     landgoods.acount = acount
-    landgoods.time = now_time
+    landgoods.time = nowTime
     landgoods.state = 0
     let x = landgoods.doge * 4
     let quarter = 1
@@ -280,14 +289,15 @@ class GameUser {
       state: landgoods.state,
       stolen: 10,
       lattice: crop1.lattice,
-      quarter: quarter,
+      quarter,
       mature: x
     }
     return a
   }
-  Add_rangelandannimals = ({ rangelandannimals, now_time }) => {
+
+  Add_rangelandannimals = ({ rangelandannimals, nowTime }) => {
     let id = rangelandannimals.id
-    let animal = this.homesearch_thing_id({ id: id })
+    let animal = this.homesearch_thing_id({ id })
     id = id.split('-')
     let id1 = id[0] + '-2-' + id[2] + '-' + id[3]
     let animal1 = this.homesearch_thing_id({ id: id1 })
@@ -295,7 +305,7 @@ class GameUser {
       id: id1,
       name: rangelandannimals.name,
       name1: animal1.name,
-      time: now_time,
+      time: nowTime,
       state: 0,
       stolen: 10,
       mature: animal.mature,
@@ -305,6 +315,7 @@ class GameUser {
     }
     return a
   }
+
   Add_DATA_thing = (parameter) => {
     let { DATA, DATA1, quantity } = parameter
     if (DATA.thing != undefined) {
@@ -345,7 +356,8 @@ class GameUser {
       }
     }
   }
-  homesearch_thing_name = (parameter) => {
+
+  homesearch_thingName = (parameter) => {
     const { name } = parameter
     const all = listdata.controlAction({
       CHOICE: 'home_all',
@@ -354,6 +366,7 @@ class GameUser {
     let wupin = all.find((item) => item.name == name)
     return wupin
   }
+
   homesearch_thing_id = (parameter) => {
     const { id } = parameter
     const all = listdata.controlAction({
@@ -363,6 +376,7 @@ class GameUser {
     let wupin = all.find((item) => item.id == id)
     return wupin
   }
+
   GenerateCD = (parameter) => {
     const { UID, CDid } = parameter
     const CDname = [' 偷菜 ', ' 占领矿场 ', ' 偷动物 ', ' 做饭 ']
@@ -386,6 +400,7 @@ class GameUser {
     }
     return 0
   }
+
   Add_homeexperience = (parameter) => {
     const { UID, experience } = parameter
     let home = listdata.controlActionInitial({
@@ -400,15 +415,15 @@ class GameUser {
       DATA: home,
       INITIAL: []
     })
-    return
   }
+
   collect_minerals = (parameter) => {
     const { UID, time } = parameter
     let Warehouse = listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
-    let thing_time = {
+    let thingTime = {
       0: parseInt(time / 1800),
       1: parseInt(time / 3600),
       2: parseInt(time / 5400),
@@ -419,13 +434,13 @@ class GameUser {
     let thing = ['富煤晶石', '玄铁晶石', '火铜晶石', '秘银晶石', '精金晶石', '熔岩晶石']
     let crop = []
     for (let item of thing) {
-      crop.push(this.homesearch_thing_name({ name: item }))
+      crop.push(this.homesearch_thingName({ name: item }))
     }
     crop.forEach((item, index) => {
       Warehouse = this.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: item,
-        quantity: thing_time[index]
+        quantity: thingTime[index]
       })
     })
     listdata.controlActionInitial({
@@ -442,6 +457,7 @@ class GameUser {
       )}】个\n精金晶石【${parseInt(time / 10800)}】个,熔岩晶石【${parseInt(time / 14400)}】个`
     ]
   }
+
   attribute = (parameter) => {
     const { thing } = parameter
     let shuxing
@@ -487,6 +503,7 @@ class GameUser {
     }
     return shuxing
   }
+
   foodshuxing = (parameter) => {
     let { shuxinga, id, name1, doge } = parameter
     id = id + '-'
@@ -523,19 +540,20 @@ class GameUser {
       name1 = name1 + ' · 寿命'
     }
     let food = {
-      id: id,
+      id,
       name: name1,
       acount: 1,
       price: 1,
-      doge: doge
+      doge
     }
     food = Object.assign(food, shuxinga)
     return food
   }
+
   foodjudge = (parameter) => {
     const { name } = parameter
     let x
-    let wuping = this.homesearch_thing_name({ name })
+    let wuping = this.homesearch_thingName({ name })
     if (wuping == 1) {
       return wuping
     }
@@ -549,53 +567,56 @@ class GameUser {
     }
     return x
   }
-  Add_cook_thing = (parameter) => {
-    let { cook, cook_thing, thing_acount } = parameter
-    if (thing_acount == 0) {
+
+  Add_cookThing = (parameter) => {
+    let { cook, cookThing, thingAcount } = parameter
+    if (thingAcount == 0) {
       return cook
     }
-    let thing = cook.find((item) => item.id == cook_thing.id)
+    let thing = cook.find((item) => item.id == cookThing.id)
     if (thing) {
-      let acount = thing.acount + thing_acount
+      let acount = thing.acount + thingAcount
       if (acount < 1) {
-        cook = cook.filter((item) => item.id != cook_thing.id)
+        cook = cook.filter((item) => item.id != cookThing.id)
       } else {
-        cook.find((item) => item.id == cook_thing.id).acount = acount
+        cook.find((item) => item.id == cookThing.id).acount = acount
       }
       return cook
     } else {
-      cook_thing.acount = thing_acount
-      cook.push(cook_thing)
+      cookThing.acount = thingAcount
+      cook.push(cookThing)
       return cook
     }
   }
-  Add_food_thing = (parameter) => {
-    let { food, food_thing, thing_acount } = parameter
-    if (thing_acount == 0) {
+
+  Add_foodThing = (parameter) => {
+    let { food, foodThing, thingAcount } = parameter
+    if (thingAcount == 0) {
       return food
     }
-    let thing = food.find((item) => item.id == food_thing.id)
+    let thing = food.find((item) => item.id == foodThing.id)
     if (thing) {
-      let acount = thing.acount + thing_acount
+      let acount = thing.acount + thingAcount
       if (acount < 1) {
-        food = food.filter((item) => item.id != food_thing.id)
+        food = food.filter((item) => item.id != foodThing.id)
       } else {
-        food.find((item) => item.id == food_thing.id).acount = acount
+        food.find((item) => item.id == foodThing.id).acount = acount
       }
       return food
     } else {
-      food_thing.acount = thing_acount
-      food.push(food_thing)
+      foodThing.acount = thingAcount
+      food.push(foodThing)
       return food
     }
   }
+
   Add_nowblood = (parameter) => {
     const { UID, nowblood } = parameter
     let battle = GameApi.UserData.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    //判断百分比
+    // 判断百分比
     if (battle.blood < Math.floor(battle.nowblood + nowblood)) {
       battle.nowblood = battle.blood
     } else {
@@ -606,27 +627,27 @@ class GameUser {
       NAME: UID,
       DATA: battle
     })
-    return
   }
+
   Add_life = (parameter) => {
     const { UID, life } = parameter
     let life1 = GameApi.UserData.controlAction({
-      CHOICE: 'user_home_life',
+      CHOICE: 'userHomeLife',
       NAME: 'life'
     })
-    let user_home_life = life1.find((obj) => obj.qq == UID)
-    user_home_life.Age = user_home_life.Age - life
-    if (user_home_life.Age < 0) {
-      user_home_life.Age = 0
+    let userHomeLife = life1.find((obj) => obj.qq == UID)
+    userHomeLife.Age = userHomeLife.Age - life
+    if (userHomeLife.Age < 0) {
+      userHomeLife.Age = 0
     }
     GameApi.UserData.controlAction({
-      CHOICE: 'user_home_life',
+      CHOICE: 'userHomeLife',
       NAME: 'life',
       DATA: life1
     })
-    return
   }
-  homeexist_Warehouse_thing_name = (parameter) => {
+
+  homeexist_WarehouseThingName = (parameter) => {
     const { UID, name } = parameter
     const Warehouse = listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -639,7 +660,8 @@ class GameUser {
     }
     return ifexist
   }
-  homeexist_Warehouse_thing_id = (parameter) => {
+
+  homeexist_WarehouseThing_id = (parameter) => {
     const { UID, id } = parameter
     const Warehouse = listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -652,7 +674,8 @@ class GameUser {
     }
     return ifexist
   }
-  homeexist_all_thing_name = (parameter) => {
+
+  homeexist_all_thingName = (parameter) => {
     const { name } = parameter
     const all = GameApi.UserData.controlAction({
       CHOICE: 'generate_all',
@@ -664,6 +687,7 @@ class GameUser {
     }
     return ifexist
   }
+
   homeexist_all_thing_id = (parameter) => {
     const { id } = parameter
     const all = GameApi.UserData.controlAction({
@@ -676,10 +700,11 @@ class GameUser {
     }
     return ifexist
   }
+
   Slaughter = (parameter) => {
     const { UID, name } = parameter
-    let rangelandannimals2 = User.homesearch_thing_name({
-      name: name
+    let rangelandannimals2 = User.homesearch_thingName({
+      name
     })
     let MSG = ``
     for (let i = 0; i < rangelandannimals2.x.length; i++) {
@@ -704,6 +729,7 @@ class GameUser {
     }
     return MSG
   }
+
   Add_all = (parameter) => {
     let { data } = parameter
     let all = listdata.controlActionInitial({
@@ -728,7 +754,6 @@ class GameUser {
       NAME: 'all',
       DATA: all2
     })
-    return
   }
 
   shiwubj = (parameter) => {

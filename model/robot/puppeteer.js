@@ -2,15 +2,15 @@ import fs from 'node:fs'
 import path from 'node:path'
 import template from 'art-template'
 import lodash from 'lodash'
-/*启动Chromium */
+/* 启动Chromium */
 import puppeteer from 'puppeteer'
-/*事件监听*/
+/* 事件监听 */
 import chokidar from 'chokidar'
 class Puppeteer {
   constructor() {
-    /*puppeteer实例保存*/
+    /* puppeteer实例保存 */
     this.browser = false
-    /*进程控制*/
+    /* 进程控制 */
     this.lock = false
     /*  */
     this.shoting = []
@@ -18,7 +18,7 @@ class Puppeteer {
     this.restartNum = 60
     /** 截图次数 */
     this.renderNum = 0
-    /*puppeteer配置*/
+    /* puppeteer配置 */
     this.config = {
       headless: 'new',
       args: [
@@ -31,18 +31,19 @@ class Puppeteer {
         '--single-process'
       ]
     }
-    /*保存html模板*/
+    /* 保存html模板 */
     this.html = {}
-    /*监听文件*/
+    /* 监听文件 */
     this.watcher = {}
   }
+
   /**
    * 启动Chromium
    */
   async browserInit() {
-    /*已经初始化过了*/
+    /* 已经初始化过了 */
     if (this.browser) return this.browser
-    /*存在即失败*/
+    /* 存在即失败 */
     if (this.lock) return false
     this.lock = true
     console.info('puppeteer Chromium 启动中...')
@@ -67,6 +68,7 @@ class Puppeteer {
     })
     return this.browser
   }
+
   /**
    * `chromium` 截图
    * @param data 模板参数
@@ -79,7 +81,7 @@ class Puppeteer {
    * @return oicq img
    */
   async screenshot(name, data = {}) {
-    /*初始化*/
+    /* 初始化 */
     if (!(await this.browserInit())) {
       return false
     }
@@ -89,11 +91,11 @@ class Puppeteer {
     /**/
     let buff = ''
     let start = Date.now()
-    /*推进元素：推进html的名字*/
+    /* 推进元素：推进html的名字 */
     this.shoting.push(name)
     try {
       const page = await this.browser.newPage()
-      /*图片抓取*/
+      /* 图片抓取 */
       await page.goto(`file://${lodash.trim(savePath, '.')}`, data.pageGotoParams || {})
       /* 截图body */
       let body = await page.$('body')
@@ -109,7 +111,7 @@ class Puppeteer {
       }
       /* 截图 */
       buff = await body.screenshot(randData)
-      /*关闭工具*/
+      /* 关闭工具 */
       page.close().catch((err) => console.error(err))
     } catch (error) {
       console.error(`图片生成失败:${name}:${error}`)
@@ -121,22 +123,20 @@ class Puppeteer {
       buff = ''
       return false
     }
-    /*丢出元素*/
+    /* 丢出元素 */
     this.shoting.pop()
     if (!buff) {
       console.error(`图片生成为空:${name}`)
       return false
     }
-    /*生成次数累计*/
+    /* 生成次数累计 */
     this.renderNum++
     /** 计算图片大小 */
     let kb = (buff.length / 1024).toFixed(2) + 'kb'
-    console.info(
-      `[xiuxian][${name}][${this.renderNum}次] ${kb} ${Date.now() - start}ms`
-    )
-    /*重启？？？*/
+    console.info(`[xiuxian][${name}][${this.renderNum}次] ${kb} ${Date.now() - start}ms`)
+    /* 重启？？？ */
     this.restart()
-    /*构造image元素*/
+    /* 构造image元素 */
     return segment.image(buff)
   }
 
@@ -156,7 +156,7 @@ class Puppeteer {
   /** 模板 */
   dealTpl(name, data) {
     let { tplFile, saveId = name } = data
-    /**这个地址应该要配置自己的,只有保存了临时本地文件了之后，浏览器才能去截图生成 */
+    /** 这个地址应该要配置自己的,只有保存了临时本地文件了之后，浏览器才能去截图生成 */
     let savePath = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}/${saveId}.html`
     /** 读取html模板 */
     if (!this.html[tplFile]) {
@@ -167,10 +167,10 @@ class Puppeteer {
         console.error(`加载html错误:${tplFile}`)
         return false
       }
-      /*存在,监控这个文件*/
+      /* 存在,监控这个文件 */
       this.watch(tplFile)
     }
-    /*将模板源代码编译成函数并立刻执行*/
+    /* 将模板源代码编译成函数并立刻执行 */
     let tmpHtml = template.render(this.html[tplFile], data)
     fs.writeFileSync(savePath, tmpHtml)
     console.debug(`[xiuxian][html模板] ${savePath}`)

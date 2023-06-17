@@ -7,6 +7,7 @@ export class BoxtWist extends plugin {
       rule: [{ fnc: 'helpWist' }]
     })
   }
+
   async helpWist(e) {
     if (e.self_id != e.target_id) return false
     if (!this.verify(e)) return false
@@ -14,7 +15,7 @@ export class BoxtWist extends plugin {
       app: 'parameter',
       name: 'cooling'
     })
-    const T = cf['switch'] ? cf['switch']['twist'] : true
+    const T = cf.switch ? cf.switch.twist : true
     if (!T) return false
     const data = BotApi.getboxhelp({ name: 'help' })
     if (!data) return false
