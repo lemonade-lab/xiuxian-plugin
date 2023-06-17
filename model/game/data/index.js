@@ -50,8 +50,6 @@ export const __PATH = {
   generate_all: algorithm.getReq('/resources/databirth/all'),
   generate_position: algorithm.getReq('/resources/databirth/position'),
   generate_level: algorithm.getReq('/resources/databirth/level'),
-  generate_plugins: algorithm.getReq('/plugins'),
-  generate_config: algorithm.getReq('/plugins'),
 
   /* 家园路径 */
 
