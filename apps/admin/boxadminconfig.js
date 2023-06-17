@@ -7,8 +7,8 @@ export class boxadminconfig extends plugin {
         { reg: /^(#|\/)盒子关闭.*$/, fnc: 'boxaSwitchOff' },
         { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'configUpdata' },
         { reg: /^(#|\/)修仙重置配置$/, fnc: 'configReUpdata' },
-        { reg: /^(#|\/)修仙启动2.1$/, fnc: 'boxStart' },
-        { reg: /^(#|\/)修仙停止2.1$/, fnc: 'boxStop' }
+        { reg: /^(#|\/)修仙启动@2.1$/, fnc: 'boxStart' },
+        { reg: /^(#|\/)修仙停止@2.1$/, fnc: 'boxStop' }
       ]
     })
   }
