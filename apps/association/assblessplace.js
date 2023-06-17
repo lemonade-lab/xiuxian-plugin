@@ -1,4 +1,4 @@
-import { plugin, BotApi, BoxApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/gameapi.js'
 //汐颜
 export class BlessPlace extends plugin {
   constructor() {
@@ -58,7 +58,7 @@ export class BlessPlace extends plugin {
     //读取被攻打的宗门势力范围
     const attackAss = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
-    const positionList = await BoxApi.UserData.listAction({
+    const positionList = await GameApi.UserData.listAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -154,14 +154,14 @@ export class BlessPlace extends plugin {
       e.reply(`[${blessed_name}]不存在`)
       return
     }
-    const positionList = await BoxApi.UserData.listAction({
+    const positionList = await GameApi.UserData.listAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
     const point = positionList.find((item) => item.name == blessed_name)
 
     //取洞天点位，是否在位置，在--->是否被占领
-    const action = await BoxApi.GameUser.userMsgAction({
+    const action = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -209,12 +209,12 @@ export class BlessPlace extends plugin {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
       return
     }
-    const positionList = await BoxApi.UserData.listAction({
+    const positionList = await GameApi.UserData.listAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = await BoxApi.GameUser.userMsgAction({
+    const action = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -238,7 +238,7 @@ export class BlessPlace extends plugin {
     assPlayer.lastExplorTime = nowTime
 
     let gift_lingshi = 0
-    const player = await BoxApi.GameUser.userMsgAction({
+    const player = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -273,7 +273,7 @@ export class BlessPlace extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return
     }
-    const player = await BoxApi.GameUser.userMsgAction({
+    const player = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -296,12 +296,12 @@ export class BlessPlace extends plugin {
       return
     }
 
-    const positionList = await BoxApi.UserData.listAction({
+    const positionList = await GameApi.UserData.listAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = await BoxApi.GameUser.userMsgAction({
+    const action = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -409,7 +409,7 @@ async function GoBlessPlace(e, weizhi, addres) {
 async function getFightMember(members, position) {
   let res = []
   for (let i = 0; i < members.length; i++) {
-    const action = await BoxApi.GameUser.userMsgAction({
+    const action = await GameApi.GameUser.userMsgAction({
       NAME: members[i],
       CHOICE: 'user_action'
     })
@@ -436,7 +436,7 @@ async function SealingFormation(members) {
     power: 0
   }
   for (let i = 0; i < members.length; i++) {
-    const battle = await BoxApi.GameUser.userMsgAction({
+    const battle = await GameApi.GameUser.userMsgAction({
       NAME: members[i],
       CHOICE: 'user_battle'
     })
@@ -533,7 +533,7 @@ const battle_probability = async (P) => {
 }
 const AddPrestige = async (members) => {
   for (let i = 0; i < members.length; i++) {
-    await BoxApi.GameUser.updataUser({
+    await GameApi.GameUser.updataUser({
       UID: members[i],
       CHOICE: 'user_level',
       ATTRIBUTE: 'prestige',

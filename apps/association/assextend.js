@@ -1,4 +1,4 @@
-import { plugin, BotApi, BoxApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/gameapi.js'
 //汐颜
 export class AssociationExtend extends plugin {
   constructor() {
@@ -90,7 +90,7 @@ export class AssociationExtend extends plugin {
       return
     }
 
-    let isExists = await BoxApi.GameUser.userBagSearch({
+    let isExists = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '宗门令牌'
     })
@@ -99,27 +99,27 @@ export class AssociationExtend extends plugin {
       return
     }
     const random = Math.random()
-    await BoxApi.GameUser.userBag({
+    await GameApi.GameUser.userBag({
       UID: UID,
       name: isExists.name,
       ACCOUNT: Number(-1)
     })
     if (random < 0.1) {
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: '上等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了上等宗门令牌`)
     } else if (random < 0.35) {
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: '中等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了中等宗门令牌`)
     } else {
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: '下等宗门令牌',
         ACCOUNT: Number(1)

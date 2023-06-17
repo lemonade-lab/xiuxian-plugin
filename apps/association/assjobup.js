@@ -1,4 +1,4 @@
-import { plugin, BoxApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, GameApi, AssociationApi } from '../../model/api/gameapi.js'
 //汐颜
 export class AssociationJobUp extends plugin {
   constructor() {
@@ -51,11 +51,11 @@ export class AssociationJobUp extends plugin {
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
-    const actionA = await BoxApi.GameUser.userMsgAction({
+    const actionA = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const actionB = await BoxApi.GameUser.userMsgAction({
+    const actionB = await GameApi.GameUser.userMsgAction({
       NAME: ass.master,
       CHOICE: 'user_action'
     })
@@ -64,12 +64,12 @@ export class AssociationJobUp extends plugin {
       return
     }
 
-    const victory = await BoxApi.GameBattle.battle({
+    const victory = await GameApi.GameBattle.battle({
       e,
       A: UID,
       B: ass.master
     })
-    const userLevel = await BoxApi.GameUser.userMsgAction({
+    const userLevel = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -96,7 +96,7 @@ export class AssociationJobUp extends plugin {
     }
     await AssociationApi.assUser.assEffCount(assPlayer)
     await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    await BoxApi.GameUser.userMsgAction({
+    await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: userLevel
@@ -136,11 +136,11 @@ export class AssociationJobUp extends plugin {
     ) {
       return
     }
-    const actionA = await BoxApi.GameUser.userMsgAction({
+    const actionA = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const actionB = await BoxApi.GameUser.userMsgAction({
+    const actionB = await GameApi.GameUser.userMsgAction({
       NAME: battleQQ,
       CHOICE: 'user_action'
     })
@@ -148,7 +148,7 @@ export class AssociationJobUp extends plugin {
       e.reply('没有找到对方在哪里，无法挑战！')
       return
     }
-    const victory = await BoxApi.GameBattle.battle({ e, A: UID, B: battleQQ })
+    const victory = await GameApi.GameBattle.battle({ e, A: UID, B: battleQQ })
     if (victory == UID) {
       assPlayer.assJob += 1
       battlePlayer.assJob -= 1

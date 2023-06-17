@@ -1,4 +1,4 @@
-import { plugin, BotApi, BoxApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/gameapi.js'
 //汐颜
 export class Association extends plugin {
   constructor() {
@@ -48,7 +48,7 @@ export class Association extends plugin {
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
       const qqNum = ass.allMembers[item]
-      const player = await BoxApi.GameUser.userMsgAction({
+      const player = await GameApi.GameUser.userMsgAction({
         NAME: qqNum,
         CHOICE: 'user_level'
       })
@@ -111,7 +111,7 @@ export class Association extends plugin {
     ass.facility[4].buildNum -= 1
     assPlayer.contributionPoints -= 1
     assPlayer.lastSignAss = nowTime
-    await BoxApi.GameUser.userBag({
+    await GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: Number(giftNumber)
@@ -238,7 +238,7 @@ export class Association extends plugin {
     let lingshi = e.msg.replace(reg, '')
     lingshi = await AssociationApi.assUser.numberVerify(lingshi)
 
-    let money = await BoxApi.GameUser.userBagSearch({
+    let money = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
@@ -265,7 +265,7 @@ export class Association extends plugin {
     ass.spiritStoneAns += lingshi
     assPlayer.contributionPoints += Math.trunc(lingshi / 1000)
     assPlayer.historyContribution += Math.trunc(lingshi / 1000)
-    await BoxApi.GameUser.userBag({
+    await GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: Number(-lingshi)

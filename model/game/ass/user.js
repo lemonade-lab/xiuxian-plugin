@@ -1,8 +1,8 @@
-import userData from './data.js'
+import listdata from '../data/listdata.js'
 import { __PATH } from '../data/index.js'
 import fs from 'node:fs'
 import path from 'path'
-import { BoxApi } from '../../api/boxapi.js'
+import { GameApi } from '../../api/index.js'
 class GameUser {
   constructor() {
     this.blessPlaceList = JSON.parse(fs.readFileSync(`${__PATH.assRelate}/BlessPlace.json`))
@@ -58,9 +58,9 @@ class GameUser {
   updataUser = async (parameter) => {
     const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
     //读取原数据
-    const data = await userData.userMsgAction({ NAME: UID, CHOICE: CHOICE })
+    const data = await listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
-    await userData.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
+    await listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
     return
   }
 
@@ -167,14 +167,14 @@ class GameUser {
 
     effective = effective * coefficient
     assPlayer.effective = effective.toFixed(2)
-    await BoxApi.GameUser.addExtendPerpetual({
+    await GameApi.GameUser.addExtendPerpetual({
       NAME: assPlayer.qqNumber,
       FLAG: 'ass',
       TYPE: 'efficiency',
       VALUE: Number(assPlayer.effective)
     })
     this.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
-    await BoxApi.GameUser.updataUserEfficiency(assPlayer.qqNumber)
+    await GameApi.GameUser.updataUserEfficiency(assPlayer.qqNumber)
     return
   }
 
@@ -201,7 +201,7 @@ class GameUser {
   }
 
   async searchThingById(id) {
-    const newVar = await BoxApi.UserData.listAction({ NAME: 'all', CHOICE: 'generate_all' })
+    const newVar = await GameApi.listdata.listAction({ NAME: 'all', CHOICE: 'generate_all' })
     return newVar.find((item) => item.id == id)
   }
 
@@ -230,7 +230,7 @@ class GameUser {
   }
 
   async existArchive(qq) {
-    let player = await BoxApi.GameUser.existUser(qq)
+    let player = await GameApi.GameUser.existUser(qq)
     // 不存在
     if (!player) {
       return false
@@ -287,7 +287,7 @@ class GameUser {
 
           await this.setAssOrPlayer('association', ass.id, ass) //记录到存档
           await this.assEffCount(randMember)
-          await BoxApi.GameUser.updataUserEfficiency(randMember.qqNumber)
+          await GameApi.GameUser.updataUserEfficiency(randMember.qqNumber)
         }
       }
     }

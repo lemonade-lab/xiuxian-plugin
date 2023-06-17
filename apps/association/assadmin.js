@@ -1,4 +1,4 @@
-import { plugin, BoxApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, GameApi, AssociationApi } from '../../model/api/gameapi.js'
 //汐颜
 export class AssociationAdmin extends plugin {
   constructor() {
@@ -45,7 +45,7 @@ export class AssociationAdmin extends plugin {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return
     }
-    let money = await BoxApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
+    let money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
     if (!money) {
       e.reply('[下品灵石]不足')
       return
@@ -61,11 +61,11 @@ export class AssociationAdmin extends plugin {
     //中，是否四大隐藏有主            是，检测低级，否，随机获取四大宗门
     //低，进行普通创建
 
-    let najieThingA = await BoxApi.GameUser.userBagSearch({
+    let najieThingA = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下等宗门令牌'
     })
-    let najieThingB = await BoxApi.GameUser.userBagSearch({
+    let najieThingB = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '中等宗门令牌'
     })
@@ -86,12 +86,12 @@ export class AssociationAdmin extends plugin {
 
       if (assName.length != 0) {
         //可以创建隐藏宗门
-        await BoxApi.GameUser.userBag({
+        await GameApi.GameUser.userBag({
           UID: UID,
           name: '下品灵石',
           ACCOUNT: Number(-10000)
         })
-        await BoxApi.GameUser.userBag({
+        await GameApi.GameUser.userBag({
           UID: UID,
           name: najieThingB.name,
           ACCOUNT: Number(-1)
@@ -125,12 +125,12 @@ export class AssociationAdmin extends plugin {
 
     //隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
     if (najieThingA) {
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: '下品灵石',
         ACCOUNT: Number(-10000)
       })
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -243,11 +243,11 @@ export class AssociationAdmin extends plugin {
       return
     }
 
-    let najieThingA = await BoxApi.GameUser.userBagSearch({
+    let najieThingA = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '中等宗门令牌'
     })
-    let najieThingB = await BoxApi.GameUser.userBagSearch({
+    let najieThingB = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '上等宗门令牌'
     })
@@ -257,7 +257,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级中等宗门需要对应令牌，快去获取吧`)
         return
       }
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -269,7 +269,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级上等宗门需要对应令牌，快去获取吧`)
         return
       }
-      await BoxApi.GameUser.userBag({
+      await GameApi.GameUser.userBag({
         UID: UID,
         name: najieThingB.name,
         ACCOUNT: Number(-1)

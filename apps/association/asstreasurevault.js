@@ -1,4 +1,4 @@
-import { plugin, BotApi, BoxApi, AssociationApi } from '../../model/api/gameapi.js'
+import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/gameapi.js'
 //汐颜
 export class TreasureVault extends plugin {
   constructor() {
@@ -41,12 +41,12 @@ export class TreasureVault extends plugin {
       return
     }
 
-    const positionList = await BoxApi.UserData.listAction({
+    const positionList = await GameApi.UserData.listAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = await BoxApi.GameUser.userMsgAction({
+    const action = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -61,7 +61,7 @@ export class TreasureVault extends plugin {
     }
     let thingName = e.msg.replace('#藏宝阁回收', '')
 
-    const searchThing = await BoxApi.GameUser.userBagSearch({
+    const searchThing = await GameApi.GameUser.userBagSearch({
       UID: UID,
       name: thingName
     })
@@ -176,12 +176,12 @@ export class TreasureVault extends plugin {
       return
     }
 
-    const positionList = await BoxApi.UserData.listAction({
+    const positionList = await GameApi.UserData.listAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = await BoxApi.GameUser.userMsgAction({
+    const action = await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -243,7 +243,7 @@ export class TreasureVault extends plugin {
   }
 }
 const Add_najie_things = async (thing, user_qq, account) => {
-  await BoxApi.GameUser.userBag({
+  await GameApi.GameUser.userBag({
     UID: user_qq,
     name: thing.name,
     ACCOUNT: Number(account)

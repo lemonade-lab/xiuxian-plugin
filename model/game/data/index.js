@@ -74,18 +74,18 @@ export const __PATH = {
   /* 宗门路径 */
 
   //玩家存档
-  association: algorithm.getReq('/resources/data/birth/assItem'),
+  association: algorithm.getReq('/resources/databirth/assItem'),
   //用户的宗门数据
-  assPlayer: algorithm.getReq('/resources/data/birth/assPlayer'),
-  assRelation: algorithm.getReq('/resources/data/birth/assRelation'),
-  assTreasureVault: algorithm.getReq('/resources/data/birth/assTreasureVault'),
-  interimArchive: algorithm.getReq('/resources/data/birth/interimArchive'),
-  generateUncharted: algorithm.getReq('/resources/data/birth/generateUncharted'),
-  assRelate: algorithm.getReq('/resources/data/fixed/assRelate'),
-  assProduct: algorithm.getReq('/resources/data/fixed/assProduct'),
-  assPosition: algorithm.getReq('/resources/data/fixed/assPosition'),
-  assPoint: algorithm.getReq('/resources/data/fixed/assPoint'),
-  assDrop: algorithm.getReq('/resources/data/fixed/assDrop')
+  assPlayer: algorithm.getReq('/resources/databirth/assPlayer'),
+  assRelation: algorithm.getReq('/resources/databirth/assRelation'),
+  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
+  interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
+  generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),
+  assRelate: algorithm.getReq('/resources/datafixed/assRelate'),
+  assProduct: algorithm.getReq('/resources/datafixed/assProduct'),
+  assPosition: algorithm.getReq('/resources/datafixed/assPosition'),
+  assPoint: algorithm.getReq('/resources/datafixed/assPoint'),
+  assDrop: algorithm.getReq('/resources/datafixed/assDrop')
 }
 
 /**生成游戏数据*/
