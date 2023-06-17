@@ -1,9 +1,7 @@
-import { plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { plugin, verify } from '../../../model/api/index.js'
 export class BoxFeedback extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [{ reg: /^(#|\/)联盟反馈$/, fnc: 'userFeedback' }]
     })
   }

@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class boxshowall extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)修仙地图$/, fnc: 'showMap' },
         { reg: /^(#|\/)修仙配置$/, fnc: 'showConfig' },

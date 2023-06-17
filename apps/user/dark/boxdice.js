@@ -1,9 +1,7 @@
-import { BotApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxDice extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [{ reg: /^(#|\/)万花坊$/, fnc: 'userDice' }]
     })
   }

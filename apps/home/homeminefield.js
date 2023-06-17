@@ -1,11 +1,9 @@
-import { BotApi, GameApi, HomeApi, name, dsc, plugin } from '../../model/api/index.js'
+import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
 export class homeminefield extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         {
           reg: /^(#|\/)占领灵矿$/,

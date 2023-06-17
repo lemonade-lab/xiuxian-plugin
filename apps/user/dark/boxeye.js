@@ -1,9 +1,7 @@
-import { GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxEye extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [{ reg: /^(#|\/)虚空眼.*$/, fnc: 'darkEye' }]
     })
   }

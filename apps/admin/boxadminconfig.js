@@ -1,9 +1,7 @@
-import { GameApi, plugin, name, dsc, verify } from '../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../model/api/index.js'
 export class boxadminconfig extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)盒子开启.*$/, fnc: 'boxaSwitchOpen' },
         { reg: /^(#|\/)盒子关闭.*$/, fnc: 'boxaSwitchOff' },

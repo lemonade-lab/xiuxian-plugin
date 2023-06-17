@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxMoneyOperation extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)赠送灵石\d+$/, fnc: 'giveMoney' },
         { reg: /^(#|\/)赠送物品[\u4e00-\u9fa5]*$/, fnc: 'giveGoods' }

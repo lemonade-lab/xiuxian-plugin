@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxHome extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)服用[\u4e00-\u9fa5]*$/, fnc: 'take' },
         { reg: /^(#|\/)学习[\u4e00-\u9fa5]*$/, fnc: 'study' },

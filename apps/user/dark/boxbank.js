@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxBank extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)金银坊$/, fnc: 'moneyWorkshop' },
         { reg: /^(#|\/)金银置换.*$/, fnc: 'substitution' }

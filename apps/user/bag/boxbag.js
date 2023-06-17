@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxBag extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)储物袋$/, fnc: 'showBag' },
         { reg: /^(#|\/)储物袋升级$/, fnc: 'bagUp' }

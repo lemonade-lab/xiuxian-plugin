@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxForum extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)虚空栈$/, fnc: 'searchForum' },
         { reg: /^(#|\/)喇叭.*$/, fnc: 'pushForum' }

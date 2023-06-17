@@ -1,9 +1,7 @@
-import { plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { plugin, verify } from '../../../model/api/index.js'
 export class BoxMove extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)mapw$/, fnc: 'mapW' },
         { reg: /^(#|\/)mapa$/, fnc: 'mapA' },

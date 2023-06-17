@@ -1,4 +1,4 @@
-import { GameApi, plugin,  verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../../model/api/index.js'
 const useraction = []
 export class boxfairyland extends plugin {
   constructor() {
@@ -9,8 +9,7 @@ export class boxfairyland extends plugin {
         { reg: /^(#|\/)渡劫$/, fnc: 'breakLevel' },
         { reg: /^(#|\/)望天$/, fnc: 'breakSky' }
       ]
-    }
-    )
+    })
   }
 
   /**

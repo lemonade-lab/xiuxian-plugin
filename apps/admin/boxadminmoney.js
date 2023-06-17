@@ -1,9 +1,7 @@
-import { BotApi, GameApi, name, dsc, plugin, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class boxadminmoney extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)修仙扣除.*$/, fnc: 'deduction' },
         { reg: /^(#|\/)修仙馈赠.*$/, fnc: 'gifts' }

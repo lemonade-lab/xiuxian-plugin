@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxModify extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)更改道号[\u4e00-\u9fa5]*$/, fnc: 'changeName' },
         { reg: /^(#|\/)更改道宣[\u4e00-\u9fa5]*$/, fnc: 'changeAutograph' }

@@ -1,10 +1,8 @@
-import { BotApi, GameApi, HomeApi, name, dsc, plugin } from '../../model/api/index.js'
+import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 import fs from 'node:fs'
 export class homefuli extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         {
           reg: /^(#|\/)发家园福利.*$/,

@@ -1,9 +1,7 @@
-import { GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxEquipment extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)装备[\u4e00-\u9fa5]*$/, fnc: 'addEquipment' },
         { reg: /^(#|\/)卸下[\u4e00-\u9fa5]*$/, fnc: 'deleteEquipment' }

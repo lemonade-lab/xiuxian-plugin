@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxExchange extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)虚空镜$/, fnc: 'supermarket' },
         { reg: /^(#|\/)上架[\u4e00-\u9fa5]*$/, fnc: 'onsell' },

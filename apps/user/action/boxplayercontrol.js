@@ -1,9 +1,7 @@
-import { GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxPlayerControl extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)降妖$/, fnc: 'dagong' },
         { reg: /^(#|\/)闭关$/, fnc: 'biguan' },

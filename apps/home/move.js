@@ -1,9 +1,7 @@
-import { BotApi, GameApi, HomeApi, name, dsc, plugin } from '../../model/api/index.js'
+import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 export class move extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         {
           reg: /^(#|\/)转移到仓库.*$/,

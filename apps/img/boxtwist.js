@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class BoxtWist extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       event: 'notice.group.poke',
       priority: 99999,
       rule: [{ fnc: 'helpWist' }]

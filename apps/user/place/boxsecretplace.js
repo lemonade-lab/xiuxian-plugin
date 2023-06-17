@@ -1,12 +1,10 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
 export class BoxSecretplace extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)坐标信息$/, fnc: 'xyzaddress' },
         { reg: /^(#|\/)前往.*$/, fnc: 'forward' },

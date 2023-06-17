@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
 export class boxadminaction extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)修仙更新$/, fnc: 'allForcecheckout' },
         { reg: /^(#|\/)修仙删除数据$/, fnc: 'deleteRedis' },

@@ -1,9 +1,7 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxBattleSite extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)击杀[\u4e00-\u9fa5]*$/, fnc: 'userKill' },
         { reg: /^(#|\/)探索怪物$/, fnc: 'userExploremonsters' }

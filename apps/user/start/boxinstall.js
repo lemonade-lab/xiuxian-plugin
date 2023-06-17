@@ -1,9 +1,7 @@
-import { GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxInstall extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       event: 'notice.group.increase',
       priority: 99999,
       rule: [

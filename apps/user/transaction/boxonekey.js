@@ -1,9 +1,7 @@
-import { GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
+import { GameApi, plugin, verify } from '../../../model/api/index.js'
 export class BoxOnekey extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         { reg: /^(#|\/)置换所有物品$/, fnc: 'substitution' },
         { reg: /^(#|\/)一键出售[\u4e00-\u9fa5]*$/, fnc: 'shellAllType' }

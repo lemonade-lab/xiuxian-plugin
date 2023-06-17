@@ -1,9 +1,7 @@
-import { BotApi, GameApi,  name, dsc, plugin } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class HomeGetHelp extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         {
           reg: /^(#|\/)家园(帮助|菜单|help|列表)$/,

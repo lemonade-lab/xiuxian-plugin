@@ -1,9 +1,7 @@
-import { HomeApi, GameApi, BotApi, name, dsc, plugin } from '../../model/api/index.js'
+import { HomeApi, GameApi, BotApi, plugin } from '../../model/api/index.js'
 export class homerangeland extends plugin {
   constructor() {
     super({
-      name,
-      dsc,
       rule: [
         {
           reg: /^(#|\/)建立牧场$/,
