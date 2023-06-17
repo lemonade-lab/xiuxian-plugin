@@ -81,10 +81,9 @@ export const __PATH = {
   assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
   generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),
+  //固定
   assRelate: algorithm.getReq('/resources/datafixed/assRelate'),
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'),
-  assPosition: algorithm.getReq('/resources/datafixed/assPosition'),
-  assPoint: algorithm.getReq('/resources/datafixed/assPoint'),
   assDrop: algorithm.getReq('/resources/datafixed/assDrop')
 }
 
