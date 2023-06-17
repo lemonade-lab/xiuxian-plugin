@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../../model/api/index.js'
 export class boxunion extends plugin {
   constructor() {
     super({

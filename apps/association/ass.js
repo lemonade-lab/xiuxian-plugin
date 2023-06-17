@@ -92,8 +92,8 @@ export class Association extends plugin {
       return false
     }
     let Today = AssociationApi.assUser.timeInvert(nowTime)
-    let lasting_time = AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) // 获得上次宗门签到日期
-    if (Today.Y == lasting_time.Y && Today.M == lasting_time.M && Today.D == lasting_time.D) {
+    let lastingTime = AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) // 获得上次宗门签到日期
+    if (Today.Y == lastingTime.Y && Today.M == lastingTime.M && Today.D == lastingTime.D) {
       e.reply(`今日已经领取过了`)
       return false
     }
@@ -292,35 +292,33 @@ export class Association extends plugin {
       temp.push('暂时没有宗门数据')
     }
     for (let i = 0; i < allNames.length; i++) {
-      const this_name = allNames[i].replace('.json', '')
-      const assRelation = AssociationApi.assUser.assRelationList.find(
-        (item) => item.id == this_name
-      )
-      const this_ass = AssociationApi.assUser.getAssOrPlayer(2, this_name)
-      let this_ass_xiuxian = 0
-      if (this_ass.resident.name == 0) {
-        this_ass_xiuxian = '无驻地'
+      const theName = allNames[i].replace('.json', '')
+      const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == theName)
+      const thisAss = AssociationApi.assUser.getAssOrPlayer(2, theName)
+      let theAssXiuxian = 0
+      if (thisAss.resident.name == 0) {
+        theAssXiuxian = '无驻地'
       } else {
-        this_ass_xiuxian = this_ass.resident.name
+        theAssXiuxian = thisAss.resident.name
       }
       const BeastList = ['无神兽', '麒麟', '青龙', '白虎', '朱雀', '玄武']
-      let this_ass_beast = BeastList[Number(this_ass.divineBeast)]
+      let thisAss_beast = BeastList[Number(thisAss.divineBeast)]
       temp.push(
         `序号:${1 + i} ` +
           '\n' +
           `宗名: ${assRelation.name}` +
           '\n' +
-          `人数: ${this_ass.allMembers.length}/${
-            AssociationApi.config.numberMaximums[this_ass.level - 1]
+          `人数: ${thisAss.allMembers.length}/${
+            AssociationApi.config.numberMaximums[thisAss.level - 1]
           }` +
           '\n' +
-          `等级: ${this_ass.level}` +
+          `等级: ${thisAss.level}` +
           '\n' +
-          `宗门驻地: ${this_ass_xiuxian}` +
+          `宗门驻地: ${theAssXiuxian}` +
           '\n' +
-          `宗主: ${this_ass.master}` +
+          `宗主: ${thisAss.master}` +
           '\n' +
-          `宗门神兽: ${this_ass_beast}`
+          `宗门神兽: ${thisAss_beast}`
       )
     }
     BotApi.Robot.forwardMsg({ e, data: temp })

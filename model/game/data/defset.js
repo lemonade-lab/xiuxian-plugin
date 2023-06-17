@@ -29,7 +29,7 @@ class DefsetUpdata {
       戳一戳: 'switch.twist',
       自动降临: 'switch.come'
     }
-    if (!map.hasOwnProperty(name)) {
+    if (!Object.prototype.hasOwnProperty.call(map, name)) {
       return '无此开关选项'
     }
     const [name0, name1] = map[name].split('.')
@@ -64,7 +64,7 @@ class DefsetUpdata {
       降妖时间: 'work.time',
       撤回时间: 'timeout.size'
     }
-    if (!map.hasOwnProperty(name)) {
+    if (!Object.prototype.hasOwnProperty.call(map, name)) {
       return '无次项配置信息'
     }
     const [name0, name1] = map[name].split('.')

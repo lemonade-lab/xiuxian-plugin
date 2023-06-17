@@ -11,7 +11,7 @@ class GameMonster {
    * @returns
    */
   monsterscache = ({ i }) => {
-    if (!alldata.hasOwnProperty(i)) {
+    if (!Object.prototype.hasOwnProperty.call(alldata, i)) {
       alldata[i] = {
         label: 99,
         data: []
@@ -36,7 +36,7 @@ class GameMonster {
    * @returns
    */
   add = ({ i, num }) => {
-    if (!addall.hasOwnProperty(i)) {
+    if (!Object.prototype.hasOwnProperty.call(addall, i)) {
       addall[i] = {
         acount: 0
       }

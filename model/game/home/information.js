@@ -31,52 +31,52 @@ class information {
       INITIAL: []
     })
     const thing = Warehouse.thing
-    const crop_list = []
-    const cub_list = []
-    const seed_list = []
-    const stuff_list = []
-    const mineral_list = []
-    const cook_list = []
-    const food_list = []
-    const Kitchenware_list = []
-    const condiment_list = []
+    const cropList = []
+    const cubList = []
+    const seedList = []
+    const stuffList = []
+    const mineralList = []
+    const cookList = []
+    const foodList = []
+    const KitchenwareList = []
+    const condimentList = []
     const fargment = []
     const other = []
     thing.forEach((item, index) => {
       let id = item.id.split('-')
       if (id[0] == 11) {
         if (id[1] == 1) {
-          seed_list.push(item)
+          seedList.push(item)
           thing.splice(index, 0)
         } else if (id[1] == 2) {
-          crop_list.push(item)
+          cropList.push(item)
           thing.splice(index, 0)
         }
       } else if (id[0] == 12) {
-        mineral_list.push(item)
+        mineralList.push(item)
         thing.splice(index, 0)
       } else if (id[0] == 13) {
         if (id[1] == 1) {
-          cook_list.push(item)
+          cookList.push(item)
           thing.splice(index, 0)
         } else if (id[1] == 3) {
-          food_list.push(item)
+          foodList.push(item)
           thing.splice(index, 0)
         } else if (id[1] == 2) {
-          Kitchenware_list.push(item)
+          KitchenwareList.push(item)
           thing.splice(index, 0)
         } else if (id[1] == 4) {
-          condiment_list.push(item)
+          condimentList.push(item)
           thing.splice(index, 0)
         } else if (id[1] == 5) {
           fargment.push(item)
           thing.splice(index, 0)
         }
       } else if (id[0] == 14) {
-        stuff_list.push(item)
+        stuffList.push(item)
         thing.splice(index, 0)
       } else if (id[0] == 50) {
-        cub_list.push(item)
+        cubList.push(item)
         thing.splice(index, 0)
       } else {
         other.push(item)
@@ -93,15 +93,15 @@ class information {
         battle,
         Warehouse,
         thing,
-        crop_list,
-        seed_list,
-        stuff_list,
-        mineral_list,
-        cook_list,
-        food_list,
-        Kitchenware_list,
-        condiment_list,
-        cub_list,
+        cropList,
+        seedList,
+        stuffList,
+        mineralList,
+        cookList,
+        foodList,
+        KitchenwareList,
+        condimentList,
+        cubList,
         fargment,
         other
       }
@@ -196,9 +196,9 @@ class information {
       INITIAL: []
     })
     const thing = rangelandannimals.thing
-    const rangelandannimals_list = []
+    const rangelandannimalsList = []
     thing.forEach((item, index) => {
-      rangelandannimals_list.push(item)
+      rangelandannimalsList.push(item)
       let mature = item.mature * 3600
       let nowTime = new Date().getTime()
       let time = item.time
@@ -217,7 +217,7 @@ class information {
         user_id: UID,
         rangelandannimals,
         thing,
-        rangelandannimals_list
+        rangelandannimalsList
       }
     }
   }

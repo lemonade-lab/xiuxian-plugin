@@ -61,7 +61,7 @@ najie_num:
   - 5000000
 
 # 纳戒升级消耗(数量级保持一致)
-najie_price:
+najiePrice:
   - 0
   - 20000
   - 50000

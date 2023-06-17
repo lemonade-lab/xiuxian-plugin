@@ -9,7 +9,7 @@ const Sneakattack = [
   '拳之上凝结了庞大的气势,金色的光芒遮天蔽日,一条宛若黄金浇铸的真龙形成,浩浩荡荡地冲向怪物,但招式过于花里胡哨,怪物一个喷嚏就把你吹晕了',
   '打的山崩地裂，河水倒卷，余波万里,可恶,是幻境,什么时候!突然怪物偷袭,被一口盐汽水喷死!'
 ]
-class gameBattle {
+class GameBattle {
   /* 怪物战斗 */
   monsterbattle = ({ e, battleA, battleB, battleNameB }) => {
     const battleMsg = {
@@ -275,4 +275,4 @@ class gameBattle {
     return damage
   }
 }
-export default new gameBattle()
+export default new GameBattle()

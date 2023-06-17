@@ -53,9 +53,9 @@ class Schedule {
       fs.unlink(item, (err) => {})
     })
     /** 获得这个备份下的所有子目录 */
-    const namefile_subdirectory = algorithm.getMenu(`${this.BACKUPS_PATH}/${name}`)
+    const namefileSubdirectory = algorithm.getMenu(`${this.BACKUPS_PATH}/${name}`)
     /** 获得备份目录下的所有json的文件名 */
-    namefile_subdirectory.forEach((itemname) => {
+    namefileSubdirectory.forEach((itemname) => {
       /* 得到所有json名 */
       const jsonName = []
       const files = fs

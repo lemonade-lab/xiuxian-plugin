@@ -142,8 +142,8 @@ class GameUser {
     filePath = __PATH[fileName]
     dir = path.join(filePath + '/' + itemName + '.json')
 
-    let the_ARR = JSON.stringify(data, '', '\t') // json转string
-    fs.writeFileSync(dir, the_ARR, 'utf-8', (err) => {
+    let theARR = JSON.stringify(data, '', '\t') // json转string
+    fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
       console.log('写入成功', err)
     })
   }
@@ -194,8 +194,8 @@ class GameUser {
 
     dir = path.join(filePath + '/AssRelation.json')
 
-    let the_ARR = JSON.stringify(assRelation, '', '\t') // json转string
-    fs.writeFileSync(dir, the_ARR, 'utf-8', (err) => {
+    let theARR = JSON.stringify(assRelation, '', '\t') // json转string
+    fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
       console.log('写入成功', err)
     })
   }
@@ -340,8 +340,8 @@ class GameUser {
         thingId
       }
       pointList.push(point)
-      const the_ARR = JSON.stringify(pointList, '', '\t')
-      fs.writeFileSync(dir, the_ARR, 'utf-8', (err) => {
+      const theARR = JSON.stringify(pointList, '', '\t')
+      fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
         console.log('写入成功', err)
       })
     } else {

@@ -190,17 +190,17 @@ export class AssociationAdmin extends plugin {
     const id =
       AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
     const replace = Number(id.replace('Ass00000', '')) + 1
-    const association_id = 'Ass00000' + replace
+    const associationID = 'Ass00000' + replace
 
     const relation = {
-      id: association_id,
+      id: associationID,
       name: associationName,
-      unchartedName: association_id
+      unchartedName: associationID
     }
     let relationAll = AssociationApi.assUser.assRelationList
     relationAll.push(relation)
     AssociationApi.assUser.setAssOrPlayer('assRelation', 'AssRelation', relationAll)
-    assPlayer.assName = association_id
+    assPlayer.assName = associationID
     assPlayer.assJob = 10
     assPlayer.contributionPoints = 0
     assPlayer.historyContribution = 0
@@ -208,7 +208,7 @@ export class AssociationAdmin extends plugin {
     assPlayer.volunteerAss = 0
     assPlayer.time = [date, nowTime]
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-    the_Association(association_id, UID)
+    theAssociation(associationID, UID)
     AssociationApi.assUser.assEffCount(assPlayer)
     this.reply('宗门创建成功')
     /** 结束上下文 */
@@ -406,7 +406,7 @@ export class AssociationAdmin extends plugin {
   }
 }
 
-const getAss = (name, date, nowTime, holder_qq, level = 1, spiritStoneAns = 0) => {
+const getAss = (name, date, nowTime, holderQQ, level = 1, spiritStoneAns = 0) => {
   return {
     id: name,
     level,
@@ -456,8 +456,8 @@ const getAss = (name, date, nowTime, holder_qq, level = 1, spiritStoneAns = 0) =
       }
     ],
     divineBeast: 0,
-    master: holder_qq + '',
-    allMembers: [holder_qq + ''],
+    master: holderQQ + '',
+    allMembers: [holderQQ + ''],
     applyJoinList: [],
     more1: 0,
     more2: 0,
@@ -468,12 +468,12 @@ const getAss = (name, date, nowTime, holder_qq, level = 1, spiritStoneAns = 0) =
 /**
  * 创立新的宗门
  * @param name 宗门名称
- * @param holder_qq 宗主qq号
+ * @param holderQQ 宗主qq号
  */
-const the_Association = (name, holder_qq) => {
+const theAssociation = (name, holderQQ) => {
   const nowTime = new Date().getTime() // 获取当前时间戳
   const date = AssociationApi.assUser.timeChange(nowTime)
-  const Association = getAss(name, date, nowTime, holder_qq)
+  const Association = getAss(name, date, nowTime, holderQQ)
   const treasureVault = [[], [], []]
   AssociationApi.assUser.setAssOrPlayer('association', name, Association)
   AssociationApi.assUser.setAssOrPlayer('assTreasureVault', name, treasureVault)

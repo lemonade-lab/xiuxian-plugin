@@ -38,19 +38,19 @@ export class BoxBag extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    const najie_price = GameApi.DefsetUpdata.getConfig({
+    const najiePrice = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
-    }).najie_price[najie.grade]
-    if (!najie_price) {
+    }).najiePrice[najie.grade]
+    if (!najiePrice) {
       return false
     }
     const thing = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
-    if (!thing || thing.acount < najie_price) {
-      e.reply(`灵石不足,需要准备${najie_price}*[下品灵石]`)
+    if (!thing || thing.acount < najiePrice) {
+      e.reply(`灵石不足,需要准备${najiePrice}*[下品灵石]`)
       return false
     }
     najie.grade += 1
@@ -62,9 +62,9 @@ export class BoxBag extends plugin {
     GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
-      ACCOUNT: -Number(najie_price)
+      ACCOUNT: -Number(najiePrice)
     })
-    e.reply(`花了${najie_price}*[下品灵石]升级,目前储物袋为${najie.grade}`)
+    e.reply(`花了${najiePrice}*[下品灵石]升级,目前储物袋为${najie.grade}`)
     return false
   }
 }

@@ -174,9 +174,9 @@ export class BlessPlace extends plugin {
     const allNames = AssociationApi.assUser.readAssNames('association')
 
     for (let i = 0; i < allNames.length; i++) {
-      const this_name = allNames[i].replace('.json', '')
-      const this_ass = AssociationApi.assUser.getAssOrPlayer(2, this_name)
-      if (this_ass.resident.name == dongTan.name) {
+      const theName = allNames[i].replace('.json', '')
+      const thisAss = AssociationApi.assUser.getAssOrPlayer(2, theName)
+      if (thisAss.resident.name == dongTan.name) {
         e.reply(`你尝试带着宗门入驻${dongTan.name}，却发现有宗门捷足先登了，只能通过开战强夺驻地了`)
         return false
       }

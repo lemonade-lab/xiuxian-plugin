@@ -1,6 +1,5 @@
 import listdata from '../data/listdata.js'
 import User from './user.js'
-import GamePublic from '../public/index.js'
 import { GameApi } from '../../api/index.js'
 class GameUser {
   userWarehouse = (parameter) => {

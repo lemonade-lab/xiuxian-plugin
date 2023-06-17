@@ -7,7 +7,7 @@ export const REDIS = {
   },
   del: (key) => delete REDIS_DATA[key],
   delall: () => {
-    for (key in REDIS_DATA) {
+    for (let key in REDIS_DATA) {
       delete REDIS_DATA[key]
     }
   },
