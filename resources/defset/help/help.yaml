@@ -1,119 +1,134 @@
 - group:
   list:
     - icon: 8
-      title: '#踏入仙途 #再入仙途'
+      title: '(#|/)踏入仙途'
       desc: '创建存档，转世重生'
+    - icon: 8
+      title: '(#|/)再入仙途'
+      desc: '转世重生'
     - icon: 14
-      title: '#更改道号张三 #更改道宣'
+      title: '(#|/)更改道号张三'
+      desc: '修改道号,个性签名'
+    - icon: 14
+      title: '(#|/)更改道宣'
       desc: '修改道号,个性签名'
     - icon: 52
-      title: '#储物袋 #储物袋升级'
+      title: '(#|/)储物袋'
+      desc: '物品查询,容量提升'
+    - icon: 52
+      title: '(#|/)储物袋升级'
       desc: '物品查询,容量提升'
 
 - group:
   list:
     - icon: 14
-      title: '#闭关 #出关'
-      desc: '进行闭关,增加修为'
+      title: '(#|/)闭关'
+      desc: '进行闭关'
+    - icon: 14
+      title: '(#|/)出关'
+      desc: '增加修为'
     - icon: 21
-      title: '#降妖 #归来'
-      desc: '进行降妖,锻炼气血'
+      title: '(#|/)降妖'
+      desc: '进行降妖'
+    - icon: 21
+      title: '(#|/)归来'
+      desc: '锻炼气血'
 
 - group:
   list:
     - icon: 21
-      title: '#打劫+QQ/@道友'
+      title: '(#|/)打劫+QQ/@道友'
       desc: '若在城里需决斗令'
     - icon: 22
-      title: '#洗手'
+      title: '(#|/)洗手'
       desc: '清魔力值'
     - icon: 39
-      title: '#击杀+怪物名'
+      title: '(#|/)击杀+怪物名'
       desc: '随机掉落物品'
     - icon: 68
-      title: '#探索怪物'
+      title: '(#|/)探索怪物'
       desc: '查看所在地的怪物'
 
 - group:
   list:
     - icon: 21
-      title: '#联盟报到'
+      title: '(#|/)联盟报到'
       desc: '仅限凡人'
     - icon: 22
-      title: '#联盟签到'
+      title: '(#|/)联盟签到'
       desc: '与联盟的道友嘘寒问暖'
     - icon: 22
-      title: '#联盟商会'
+      title: '(#|/)联盟商会'
       desc: '购买特殊物品'
     - icon: 22
-      title: '#联盟反馈'
+      title: '(#|/)联盟反馈'
       desc: '欢迎反馈游戏问题'
 
 - group:
   list:
     - icon: 51
-      title: '#修仙地图'
+      title: '(#|/)修仙地图'
       desc: '打开修仙世界大门'
     - icon: 43
-      title: '#坐标信息'
+      title: '(#|/)坐标信息'
       desc: '查看自己的坐标'
     - icon: 68
-      title: '#位置信息'
+      title: '(#|/)位置信息'
       desc: '神识搜索位置'
     - icon: 33
-      title: '#前往+位置名'
+      title: '(#|/)前往+位置名'
       desc: '前往指定位置'
     - icon: 33
-      title: '#传送+区域名'
+      title: '(#|/)传送+区域名'
       desc: '随机降临区域'
     - icon: 33
-      title: '#返回'
+      title: '(#|/)返回'
       desc: '取消走路行为'
 
 - group:
   list:
     - icon: 8
-      title: '#基础信息'
+      title: '(#|/)基础信息'
       desc: '你的身世'
     - icon: 16
-      title: '#面板信息'
+      title: '(#|/)面板信息'
       desc: '查看战力面板'
     - icon: 16
-      title: '#功法信息'
+      title: '(#|/)功法信息'
       desc: '查看功法面板'
     - icon: 8
-      title: '#突破'
+      title: '(#|/)突破'
       desc: '练气升级'
     - icon: 8
-      title: '#破境'
+      title: '(#|/)破境'
       desc: '练体升级'
     - icon: 8
-      title: '#望天'
+      title: '(#|/)望天'
       desc: '仙人悟天'
 
 - group:
   list:
     - icon: 59
-      title: '#学习+功法名'
-      desc: '#忘掉+功法名'
+      title: '(#|/)学习+功法名'
+      desc: '(#|/)忘掉+功法名'
     - icon: 44
-      title: '#消耗+道具名'
+      title: '(#|/)消耗+道具名'
       desc: '消耗道具'
     - icon: 12
-      title: '#服用+丹药名'
+      title: '(#|/)服用+丹药名'
       desc: '服用丹药'
     - icon: 16
-      title: '#装备+装备名'
-      desc: '#卸下+装备名'
+      title: '(#|/)装备+装备名'
+      desc: '(#|/)卸下+装备名'
 
 - group:
   list:
     - icon: 52
-      title: '#置换所有物品'
+      title: '(#|/)置换所有物品'
       desc: '出售储物袋中所有物品'
     - icon: 52
-      title: '#一键出售+物品类型'
+      title: '(#|/)一键出售+物品类型'
       desc: '出售指定类型物品'
     - icon: 74
-      title: '#赠送灵石1000 @道友'
+      title: '(#|/)赠送灵石1000 @道友'
       desc: '赠送灵石'

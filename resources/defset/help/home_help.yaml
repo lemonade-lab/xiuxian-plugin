@@ -1,137 +1,137 @@
 - group: 家园基础指令
   list:
     - icon: help-icon_52
-      title: '#我的家园'
+      title: '(#|/)我的家园'
       desc: '查看家园基本信息'
     - icon: help-icon_58
-      title: '#家园仓库'
+      title: '(#|/)家园仓库'
       desc: '查看仓库物品'
     - icon: help-icon_58
-      title: '#家园扩建'
+      title: '(#|/)家园扩建'
       desc: '提升家园等级，解锁更多玩法'
     - icon: help-icon_58
-      title: '#查看家园扩建'
+      title: '(#|/)查看家园扩建'
       desc: '查看建筑队的施工进度'
     - icon: help-icon_58
-      title: '#建立家园+地点'
+      title: '(#|/)建立家园+地点'
       desc: '在选择的地点创建第一个家园'
     - icon: help-icon_58
-      title: '#搬迁家园到+地点'
+      title: '(#|/)搬迁家园到+地点'
       desc: '建立家园后搬迁'
 
 - group: 农场
   list:
     - icon: help-icon_52
-      title: '#开垦土地'
+      title: '(#|/)开垦土地'
       desc: '开垦出土地'
     - icon: help-icon_52
-      title: '#种下+种子名字'
+      title: '(#|/)种下+种子名字'
       desc: '在农田里种下一颗种子'
     - icon: help-icon_55
-      title: '#收获+作物名字'
+      title: '(#|/)收获+作物名字'
       desc: '收获对应成熟后的农作物'
     - icon: help-icon_55
-      title: '#查看农田'
+      title: '(#|/)查看农田'
       desc: '查看农田里生长的植物'
     - icon: help-icon_55
-      title: '#偷菜+作物名字@对应的人'
+      title: '(#|/)偷菜+作物名字@对应的人'
       desc: '偷取对应的人种下的农作物'
     - icon: help-icon_55
-      title: '#查看他人农田@对应的人'
+      title: '(#|/)查看他人农田@对应的人'
       desc: '查看他人种下的农作物'
 
 - group: 牧场
   list:
     - icon: help-icon_52
-      title: '#建立牧场'
+      title: '(#|/)建立牧场'
       desc: '开拓出牧场'
     - icon: help-icon_52
-      title: '#搭建草场'
+      title: '(#|/)搭建草场'
       desc: '升级牧场能养更多动物哦'
     - icon: help-icon_55
-      title: '#栽种树林'
+      title: '(#|/)栽种树林'
       desc: '增加环境多样性动物容量加大'
     - icon: help-icon_96
-      title: '#开塘养鱼'
+      title: '(#|/)开塘养鱼'
       desc: '顾名思义——养鱼'
     - icon: help-icon_55
-      title: '#偷动物+成熟动物名字@对应的人'
+      title: '(#|/)偷动物+成熟动物名字@对应的人'
       desc: '偷取对应的人养殖的家禽'
     - icon: help-icon_55
-      title: '#养殖+动物幼崽名字'
+      title: '(#|/)养殖+动物幼崽名字'
       desc: '从现在开始，等它长大吧'
     - icon: help-icon_55
-      title: '#宰杀+成熟动物名字'
+      title: '(#|/)宰杀+成熟动物名字'
       desc: '宰杀动物能得到一些值钱的物品'
     - icon: help-icon_55
-      title: '#查看牧场'
+      title: '(#|/)查看牧场'
       desc: '查看养殖的动物'
     - icon: help-icon_55
-      title: '#查看他人牧场@对应的人'
+      title: '(#|/)查看他人牧场@对应的人'
       desc: '查看他人养殖的动物'
 
 - group: 灵矿
   list:
     - icon: help-icon_52
-      title: '#占领灵矿'
+      title: '(#|/)占领灵矿'
       desc: '占领家园所在地灵矿'
     - icon: help-icon_52
-      title: '#领取晶石'
+      title: '(#|/)领取晶石'
       desc: '领取灵矿产出的矿物'
     - icon: help-icon_52
-      title: '#炼制+矿物名字'
+      title: '(#|/)炼制+矿物名字'
       desc: '炼制矿物，得到材料'
     - icon: help-icon_52
-      title: '#提炼富煤晶石'
+      title: '(#|/)提炼富煤晶石'
       desc: '消耗品焦煤晶石的专属提取方式'
     - icon: help-icon_52
-      title: '#锻造+锅名'
+      title: '(#|/)锻造+锅名'
       desc: '锻造做饭用的锅（制作下一级锅需要上一级锅做材料）'
     - icon: help-icon_52
-      title: '#分解（武器名字）'
+      title: '(#|/)分解（武器名字）'
       desc: '分解武器获得碎片，武器要转移到仓库'
     - icon: help-icon_52
-      title: '#修（锅名字）'
+      title: '(#|/)修（锅名字）'
       desc: '修理锅'
 
 - group: 灵瑶阁
   list:
     - icon: help-icon_59
-      title: '#我的资产'
+      title: '(#|/)我的资产'
       desc: '查看自己的资金剩余'
     - icon: help-icon_59
-      title: '#售卖'
+      title: '(#|/)售卖'
       desc: '出售给灵瑶阁家园专属物品'
     - icon: help-icon_59
-      title: '#采购'
-      desc: '在#灵瑶阁地方分阁购买东西'
+      title: '(#|/)采购'
+      desc: '在(#|/)灵瑶阁地方分阁购买东西'
     - icon: help-icon_59
-      title: '#灵瑶阁'
+      title: '(#|/)灵瑶阁'
       desc: '查看灵瑶阁地方分阁目前正在售卖的东西'
     - icon: help-icon_59
-      title: '#转移到仓库+物品名字*数量'
+      title: '(#|/)转移到仓库+物品名字*数量'
       desc: '将储物袋里指定数量的物品转移到家园仓库'
     - icon: help-icon_59
-      title: '#转移到储物袋+物品名字*数量'
+      title: '(#|/)转移到储物袋+物品名字*数量'
       desc: '将家园仓库里指定数量的物品转移到储物袋'
 
 - group: 万民堂
   list:
     - icon: help-icon_59
-      title: '#起锅做饭'
+      title: '(#|/)起锅做饭'
       desc: '按照提示完成做饭流程'
     - icon: help-icon_59
-      title: '#用（锅）炒（菜名）*（数量）'
+      title: '(#|/)用（锅）炒（菜名）*（数量）'
       desc: '一键做菜'
     - icon: help-icon_59
-      title: '#吃食物名字*对应属性'
+      title: '(#|/)吃食物名字*对应属性'
       desc: '吃对应食物，获得加成'
     - icon: help-icon_59
-      title: '#发布+菜谱名字'
+      title: '(#|/)发布+菜谱名字'
       desc: '在万民堂发布菜谱，使试用菜谱变成流通菜谱'
     - icon: help-icon_59
-      title: '#万民堂'
+      title: '(#|/)万民堂'
       desc: '查看万民堂目前发布的所有菜谱'
     - icon: help-icon_59
-      title: '#万民堂购买+菜谱名字'
+      title: '(#|/)万民堂购买+菜谱名字'
       desc: '购买万民堂发布的菜谱，有流通菜谱的情况下无法购买第二本哦'
