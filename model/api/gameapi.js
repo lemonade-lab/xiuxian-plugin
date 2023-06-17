@@ -1,6 +1,7 @@
 import GamePublic from '../game/public/index.js'
 import GameBattle from '../game/public/battel.js'
 import GameMap from '../game/public/map.js'
+import * as GamePlace from '../game/public/place.js'
 
 import DefsetUpdata from '../game/data/defset.js'
 import DataIndex from '../game/data/index.js'
@@ -19,6 +20,7 @@ export const GameApi = {
   Dll: {
     Duel
   },
+  GamePlace,
   GamePublic,
   GameUser,
   DefsetUpdata,

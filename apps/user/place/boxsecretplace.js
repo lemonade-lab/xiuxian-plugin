@@ -1,14 +1,11 @@
 import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
-const forwardsetTime = []
-const deliverysetTime = []
-const useraction = []
 export class BoxSecretplace extends plugin {
   constructor() {
     super({
       rule: [
         { reg: /^(#|\/)坐标信息$/, fnc: 'xyzaddress' },
         { reg: /^(#|\/)前往.*$/, fnc: 'forward' },
-        { reg: /^(#|\/)回到原地$/, fnc: 'falsePiont' },
+        { reg: /^(#|\/)返回$/, fnc: 'falsePiont' },
         { reg: /^(#|\/)传送.*$/, fnc: 'delivery' },
         { reg: /^(#|\/)位置信息$/, fnc: 'showCity' }
       ]
@@ -59,8 +56,8 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const UID = e.user_id
-    forwardsetTime[UID] = 0
-    clearTimeout(useraction[UID])
+    GameApi.GamePlace.setUserTime(UID,0)
+    clearTimeout(GameApi.GamePlace.getUserAction(UID))
     e.reply('你回到了原地')
     return false
   }
@@ -93,7 +90,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const UID = e.user_id
-    if (forwardsetTime[UID] == 1) {
+    if (GameApi.GamePlace.getUserTime(UID) == 1) {
       return false
     }
     const action = await GameApi.UserData.listAction({
@@ -130,8 +127,8 @@ export class BoxSecretplace extends plugin {
     })
     const the = Math.floor(a + b - (a + b) * battle.speed * 0.01)
     const time = the >= 0 ? the : 1
-    useraction[UID] = setTimeout(async () => {
-      forwardsetTime[UID] = 0
+    GameApi.GamePlace.setUserAction(UID,setTimeout(async () => {
+      GameApi.GamePlace.setUserTime(UID,0)
       action.x = mx
       action.y = my
       action.region = PointId[1]
@@ -142,8 +139,8 @@ export class BoxSecretplace extends plugin {
         DATA: action
       })
       e.reply([segment.at(UID), `成功抵达${address}`])
-    }, 1000 * time)
-    forwardsetTime[UID] = 1
+    }, 1000 * time))
+    GameApi.GamePlace.setUserTime(UID,1)
     e.reply(`正在前往${address}...\n需要${time}秒`)
     return false
   }
@@ -159,7 +156,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const UID = e.user_id
-    if (deliverysetTime[UID] == 1) {
+    if (GameApi.GamePlace.getUserDelivery(UID) == 1) {
       return false
     }
     const action = await GameApi.UserData.listAction({
@@ -226,7 +223,7 @@ export class BoxSecretplace extends plugin {
     )
     const time = the > 0 ? the : 1
     setTimeout(async () => {
-      deliverysetTime[UID] = 0
+      GameApi.GamePlace.setUserDelivery(UID,0)
       action.x = mx
       action.y = my
       action.region = positionID[1]
@@ -238,7 +235,7 @@ export class BoxSecretplace extends plugin {
       })
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
-    deliverysetTime[UID] = 1
+    GameApi.GamePlace.setUserDelivery(UID,1)
     e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)
     return false
   }
