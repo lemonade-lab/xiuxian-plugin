@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/user/home/home.css"
+    />
+  </head>
+
+  <body>
+    <!--上-->
+    <div style="height: 10px"></div>
+    <div style="display: grid; grid-template-columns: auto auto">
+      <div class="user_top">
+        <div class="user_top_left">
+          <div class="user_top_right_font0" style="padding: 5px">
+            账号：{{user_id}}
+          </div>
+          <div class="user_top_right_font1" style="padding: 5px">
+            道号：{{life.name}}
+          </div>
+          <div class="user_top_right_font" style="padding: 5px">
+            血量：{{battle.nowblood}}/{{battle.blood}}
+          </div>
+          <div class="user_top_right_font2" style="padding: 5px">
+            寿龄：{{life.Age}}/{{life.life}}
+          </div>
+        </div>
+        <div class="user_top_right">
+          <div class="user_top_img_bottom">
+            <img
+              class="user_top_img"
+              src="https://q1.qlogo.cn/g?b=qq&s=0&nk={{user_id}}"
+              onerror="whenError(this)"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="user_right"></div>
+    </div>
+
+    <!--下-->
+    <div class="user_bottom1">
+      <div class="use_data">
+        <div class="user_top_right_font0">[家园信息]</div>
+        <div
+          class="user_top_right_font"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>家园等级：{{homelevel}}</div>
+          <div>土地数量：{{Land}}</div>
+        </div>
+        <div
+          class="user_top_right_font1"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>家园经验：{{homeexperience}}</div>
+          <div>升级所需经验：{{homeexperienceMax}}</div>
+        </div>
+        <div
+          class="user_top_right_font"
+          style="display: grid; grid-template-columns: auto auto"
+        >
+          <div>灵晶：{{doge}}</div>
+          <div>家园所在地：{{address}}</div>
+        </div>
+      </div>
+    </div>
+
+    <style></style>
+  </body>
+
+  <script></script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/user/rangelandannimals/rangelandannimals.css"
+    />
+  </head>
+
+  <body>
+    <!--上-->
+    <div style="height: 1px"></div>
+    <div
+      class="user_font use_data_head"
+      style="text-align: center; padding-left: 0px"
+    >
+      牧场
+    </div>
+    <div class="user_bottom1">
+      <div class="use_data">
+        {{each rangelandannimals_list item}} {{if item.judgment == 1}}
+        <div class="user_top_right_font0">{{item.name}}</div>
+        {{/if}} {{if item.judgment == 2}}
+        <div class="user_top_right_font0">{{item.name1}}</div>
+        {{/if}}
+        <div class="user_top_right_font2">
+          <div>数量：{{item.acount}}</div>
+          <div>成熟时间:{{item.mature}}小时</div>
+          <div>死亡时间:{{item.deadtime}}小时</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <style></style>
+  </body>
+
+  <script></script>
+</html>

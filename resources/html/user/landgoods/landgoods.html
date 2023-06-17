@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/user/landgoods/landgoods.css"
+    />
+  </head>
+
+  <body>
+    <!--上-->
+    <div style="height: 1px"></div>
+    <div
+      class="user_font use_data_head"
+      style="text-align: center; padding-left: 0px"
+    >
+      农场作物
+    </div>
+    <div class="user_bottom1">
+      <div class="use_data">
+        {{each land_list item}}
+        <div class="user_top_right_font0">{{item.name}}</div>
+        <div class="user_top_right_font2">
+          <div>数量：{{item.acount}}</div>
+          <div>成熟状态:{{item.state}}</div>
+          <div>成熟时间:{{item.mature}}分钟</div>
+          <div>季度:{{item.quarter}}</div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <style></style>
+  </body>
+
+  <script></script>
+</html>

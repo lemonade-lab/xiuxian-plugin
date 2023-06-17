@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/user/Warehouse/Warehouse.css"
+    />
+  </head>
+
+  <body>
+    <div class="header"></div>
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top2">家园仓库</div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">农场作物</div>
+        <div class="user_font goods">
+          {{each crop_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">种子</div>
+        <div class="user_font goods">
+          {{each seed_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              所占格子：{{item.lattice}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              成熟时间:{{item.doge*4}}分钟
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">矿物</div>
+        <div class="user_font goods">
+          {{each mineral_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">木材</div>
+        <div class="user_font goods">
+          {{each stuff_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">食物</div>
+        <div class="user_font goods">
+          {{each food_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">调料</div>
+        <div class="user_font goods">
+          {{each condiment_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">厨具</div>
+        <div class="user_font goods">
+          {{each Kitchenware_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              耐久：{{item.durable}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">食谱</div>
+        <div class="user_font goods">
+          {{each cook_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              主菜；{{item.zhushi}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              副菜：{{item.fushi}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              配菜：{{item.tiaoliao}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶：{{item.doge}}灵晶
+            </div>
+            {{if item.proficiency != undefined}}
+            <div class="item_int" style="padding-left: 20px">
+              熟练度：{{100 - item.proficiency}}
+            </div>
+            {{/if}} {{if item.durable != undefined}}
+            <div class="item_int" style="padding-left: 20px">
+              磨损程度：{{100 - item.durable}}
+            </div>
+            {{/if}}
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">牧场物品</div>
+        <div class="user_font goods">
+          {{each cub_list item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">碎片</div>
+        <div class="user_font goods">
+          {{each fargment item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              灵晶:{{item.doge}}灵晶
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <div class="card_box">
+      <div class="use_data">
+        <div class="user_font user_font_title user_top1">其他物品</div>
+        <div class="user_font goods">
+          {{each other item}}
+          <div class="item user_top">
+            <div class="item_title font_item_title" style="height: 27px">
+              {{item.name}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              数量：{{item.acount}}
+            </div>
+            <div class="item_int" style="padding-left: 20px">
+              该物品不是家园物品，秋秋也不知道属性哦
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

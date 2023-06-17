@@ -1,0 +1,82 @@
+[
+  {
+    "id": "50-1-1-1",
+    "name": "凤尾鸡幼崽",
+    "animallevel": 1,
+    "doge": 20,
+    "mature": 6,
+    "deadtime": 6
+  },
+  {
+    "id": "50-1-2-1",
+    "name": "刚猪幼崽",
+    "animallevel": 1,
+    "doge": 28,
+    "mature": 7,
+    "deadtime": 6
+  },
+  {
+    "id": "50-1-3-1",
+    "name": "羬羊幼崽",
+    "animallevel": 2,
+    "doge": 30,
+    "mature": 9,
+    "deadtime": 7
+  },
+  {
+    "id": "50-1-4-1",
+    "name": "竹叶青幼崽",
+    "animallevel": 2,
+    "doge": 25,
+    "mature": 4,
+    "deadtime": 6
+  },
+  {
+    "id": "50-1-5-1",
+    "name": "夔牛幼崽",
+    "animallevel": 3,
+    "doge": 25,
+    "mature": 12,
+    "deadtime": 6
+  },
+  {
+    "id": "50-1-6-1",
+    "name": "白狐幼崽",
+    "animallevel": 3,
+    "doge": 24,
+    "mature": 5,
+    "deadtime": 6
+  },
+  {
+    "id": "50-1-7-1",
+    "name": "嚻猿幼崽",
+    "animallevel": 3,
+    "doge": 25,
+    "mature": 10,
+    "deadtime": 8
+  },
+  {
+    "id": "50-1-8-1",
+    "name": "小仙贝",
+    "animallevel": 4,
+    "doge": 26,
+    "mature": 4,
+    "deadtime": 5
+  },
+  {
+    "id": "50-1-9-1",
+    "name": "小赢鱼",
+    "animallevel": 4,
+    "doge": 30,
+    "mature": 6,
+    "deadtime": 6
+  },
+  {
+    "id": "50-1-10-1",
+    "name": "螭吻幼崽",
+    "animallevel": 4,
+    "doge": 35,
+    "mature": 9,
+    "deadtime": 8
+  }
+]
