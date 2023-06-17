@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxModify extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxModify extends plugin {
     })
   }
   changeName = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -64,7 +64,7 @@ export class BoxModify extends plugin {
     return false
   }
   changeAutograph = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false

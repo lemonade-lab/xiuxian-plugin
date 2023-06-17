@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../../model/api/index.js'
 export class BoxOnekey extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxOnekey extends plugin {
     })
   }
   substitution = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -43,7 +43,7 @@ export class BoxOnekey extends plugin {
     return false
   }
   shellAllType = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

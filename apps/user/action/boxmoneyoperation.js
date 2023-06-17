@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxMoneyOperation extends plugin {
   constructor() {
     super({
@@ -10,7 +10,7 @@ export class BoxMoneyOperation extends plugin {
   }
 
   giveGoods = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -19,7 +19,7 @@ export class BoxMoneyOperation extends plugin {
   }
 
   giveMoney = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -37,7 +37,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let islingshi = e.msg.replace( /^(#|\/)赠送灵石/, '')
+    let islingshi = e.msg.replace(/^(#|\/)赠送灵石/, '')
     islingshi = await GameApi.GamePublic.leastOne({ value: islingshi })
     const money = await GameApi.GameUser.userBagSearch({
       UID: A,

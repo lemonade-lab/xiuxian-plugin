@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class boxadminaction extends plugin {
   constructor() {
     super({
@@ -14,20 +14,20 @@ export class boxadminaction extends plugin {
   }
   allForcecheckout = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     await BotApi.Exec.execStart({ cmd: 'git  pull', e })
     return false
   }
   deleteRedis = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     await GameApi.GamePublic.deleteReids()
     e.reply('删除完成')
     return false
   }
   deleteAllusers = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     await GameApi.UserData.listAction({
       NAME: 'life',
       CHOICE: 'user_life',
@@ -39,7 +39,7 @@ export class boxadminaction extends plugin {
   }
   dataRecovery = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     await BotApi.User.forwardMsg({
       e,
       data: GameApi.Schedule.backuprecovery({
@@ -50,14 +50,14 @@ export class boxadminaction extends plugin {
   }
   dataRelife = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     let msg = await BotApi.User.relife({})
     e.reply(`${msg}`)
     return false
   }
   dataRelifehe = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     let B = await BotApi.User.at({ e })
     let msg = await BotApi.User.relifehe({ B })
     e.reply(`${B}的${msg}`)

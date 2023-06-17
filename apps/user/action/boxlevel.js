@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../../model/api/index.js'
 export class BoxLevel extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxLevel extends plugin {
     })
   }
   levelUp = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -23,7 +23,7 @@ export class BoxLevel extends plugin {
     return false
   }
   levelMaxUp = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false

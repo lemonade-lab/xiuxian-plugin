@@ -86,7 +86,7 @@ export class homefuli extends plugin {
       return
     }
 
-    let doge = e.msg.replace( /^(#|\/)发家园补偿/, '')
+    let doge = e.msg.replace(/^(#|\/)发家园补偿/, '')
     var pattern = new RegExp('[0-9]+')
     var str = doge
 
@@ -138,7 +138,7 @@ export class homefuli extends plugin {
     if (!user['B']) {
       return
     }
-    let thing = e.msg.replace( /^(#|\/)发家园物品/, '')
+    let thing = e.msg.replace(/^(#|\/)发家园物品/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品名字
     let acount = code[1] //物品数量
@@ -183,7 +183,7 @@ export class homefuli extends plugin {
     }
 
     //获取扣除经验
-    let jy = e.msg.replace( /^(#|\/)扣除全体家园经验/, '')
+    let jy = e.msg.replace(/^(#|\/)扣除全体家园经验/, '')
     var pattern = new RegExp('[0-9]+')
     var str = jy
     if (!pattern.test(str)) {
@@ -235,7 +235,7 @@ export class homefuli extends plugin {
     if (!user['B']) {
       return
     }
-    let jy = e.msg.replace( /^(#|\/)扣除家园经验/, '')
+    let jy = e.msg.replace(/^(#|\/)扣除家园经验/, '')
     var pattern = new RegExp('[0-9]+')
     var str = jy
     if (!pattern.test(str)) {
@@ -275,7 +275,7 @@ export class homefuli extends plugin {
     if (!user['B']) {
       return
     }
-    let jy = e.msg.replace( /^(#|\/)发家园经验/, '')
+    let jy = e.msg.replace(/^(#|\/)发家园经验/, '')
     var pattern = new RegExp('[0-9]+')
     var str = jy
     if (!pattern.test(str)) {

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class boxunion extends plugin {
   constructor() {
     super({
@@ -11,7 +11,7 @@ export class boxunion extends plugin {
   }
 
   unionShop = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -26,7 +26,7 @@ export class boxunion extends plugin {
   }
 
   userSignin = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -41,7 +41,7 @@ export class boxunion extends plugin {
   }
 
   userCheckin = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

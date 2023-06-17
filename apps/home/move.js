@@ -143,7 +143,7 @@ export class move extends plugin {
       e.reply('您现在不在家园里，无法隔空取物哦！')
       return
     }
-    const thing = e.msg.replace( /^(#|\/)转移到储物袋/, '')
+    const thing = e.msg.replace(/^(#|\/)转移到储物袋/, '')
     const code = thing.split('*')
     const thing_name = code[0] //物品
     const thing_acount = code[1] //数量

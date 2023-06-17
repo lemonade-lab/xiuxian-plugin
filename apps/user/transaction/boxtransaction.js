@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 /** 购买物品是原价的1.1倍 */
 const ExchangeRate = 1.1
 export class BoxTransaction extends plugin {
@@ -12,7 +12,7 @@ export class BoxTransaction extends plugin {
     })
   }
   showComodities = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -75,7 +75,7 @@ export class BoxTransaction extends plugin {
     return false
   }
   buyComodities = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
 
     const UID = e.user_id
 
@@ -89,7 +89,7 @@ export class BoxTransaction extends plugin {
       e.reply(`需[#前往+城池名+${address_name}]`)
     }
 
-    const [thing_name, thing_acount] = e.msg.replace( /^(#|\/)购买/, '').split('*')
+    const [thing_name, thing_acount] = e.msg.replace(/^(#|\/)购买/, '').split('*')
     let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
     if (quantity > 99) {
       quantity = 99
@@ -126,7 +126,7 @@ export class BoxTransaction extends plugin {
     return false
   }
   sellComodities = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
 
     const UID = e.user_id
 

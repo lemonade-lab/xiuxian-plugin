@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../../model/api/index.js'
 export class BoxInstall extends plugin {
   constructor() {
     super({
@@ -12,7 +12,7 @@ export class BoxInstall extends plugin {
     })
   }
   createinstall = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const cf = await GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'

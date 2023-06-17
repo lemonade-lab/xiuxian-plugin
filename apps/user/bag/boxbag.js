@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxBag extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxBag extends plugin {
     })
   }
   showBag = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -21,7 +21,7 @@ export class BoxBag extends plugin {
     return false
   }
   bagUp = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false

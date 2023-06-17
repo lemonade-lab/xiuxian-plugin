@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../../model/api/index.js'
 export class BoxEquipment extends plugin {
   constructor() {
     super({
@@ -10,7 +10,7 @@ export class BoxEquipment extends plugin {
   }
 
   addEquipment = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -47,7 +47,7 @@ export class BoxEquipment extends plugin {
     return false
   }
   deleteEquipment = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

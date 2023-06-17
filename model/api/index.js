@@ -15,10 +15,11 @@ export class plugin extends plugins {
       ...data
     })
   }
+  //统一验证方法
+  verify(e) {
+    if (!e.isGroup || e.user_id == 80000000) return false
+    if (!BotApi.User.controlMessage({ e })) return false
+    return true
+  }
 }
-function verify(e) {
-  if (!e.isGroup || e.user_id == 80000000) return false
-  if (!BotApi.User.controlMessage({ e })) return false
-  return true
-}
-export { BotApi, GameApi, HomeApi, verify }
+export { BotApi, GameApi, HomeApi }

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxBattleSite extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxBattleSite extends plugin {
     })
   }
   userKill = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -164,7 +164,7 @@ export class BoxBattleSite extends plugin {
     return false
   }
   userExploremonsters = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false

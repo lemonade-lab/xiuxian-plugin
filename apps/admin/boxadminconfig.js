@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../model/api/index.js'
+import { GameApi, plugin } from '../../model/api/index.js'
 export class boxadminconfig extends plugin {
   constructor() {
     super({
@@ -26,28 +26,28 @@ export class boxadminconfig extends plugin {
   }
   boxaSwitchOpen = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)盒子开启/, '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
     return false
   }
   boxaSwitchOff = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)盒子关闭/, '')
     e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
     return false
   }
   configUpdata = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
     e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
     return false
   }
   configReUpdata = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     GameApi.Createdata.removeConfig()
     e.reply('配置已重置')
     return false

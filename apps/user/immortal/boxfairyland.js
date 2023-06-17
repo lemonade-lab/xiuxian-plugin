@@ -1,4 +1,4 @@
-import { GameApi, plugin, verify } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../../model/api/index.js'
 const useraction = []
 export class boxfairyland extends plugin {
   constructor() {
@@ -17,7 +17,7 @@ export class boxfairyland extends plugin {
    */
   async breakLevel(e) {
     let UID = e.user_id
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const ifexistplay = await GameApi.GameUser.existUserSatus({ UID })
     if (!ifexistplay) {
       e.reply(`已仙鹤`)
@@ -191,7 +191,7 @@ export class boxfairyland extends plugin {
    */
 
   breakSky = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     e.reply('待世界升级~')
     return false
   }

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class BoxExchange extends plugin {
   constructor() {
     super({
@@ -11,7 +11,7 @@ export class BoxExchange extends plugin {
     })
   }
   supermarket = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -32,15 +32,13 @@ export class BoxExchange extends plugin {
     return false
   }
   onsell = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
       return false
     }
-    const [thing_name, thing_acount, thing_money] = e.msg
-      .replace(/^(#|\/)上架/, '')
-      .split('*')
+    const [thing_name, thing_acount, thing_money] = e.msg.replace(/^(#|\/)上架/, '').split('*')
     const bagThing = await GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name
@@ -84,7 +82,7 @@ export class BoxExchange extends plugin {
     return false
   }
   Offsell = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -133,7 +131,7 @@ export class BoxExchange extends plugin {
     return false
   }
   purchase = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

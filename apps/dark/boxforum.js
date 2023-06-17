@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class BoxForum extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxForum extends plugin {
     })
   }
   searchForum = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const msg = []
     const Forum = await GameApi.UserData.listActionInitial({
       NAME: 'forum',

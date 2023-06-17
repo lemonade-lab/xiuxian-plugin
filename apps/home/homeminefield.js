@@ -721,7 +721,7 @@ export class homeminefield extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let thing = e.msg.replace( /^(#|\/)修理/, '')
+    let thing = e.msg.replace(/^(#|\/)修理/, '')
     let Warehouse = await HomeApi.Listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID

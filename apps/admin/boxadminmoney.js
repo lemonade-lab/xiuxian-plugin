@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class boxadminmoney extends plugin {
   constructor() {
     super({
@@ -10,7 +10,7 @@ export class boxadminmoney extends plugin {
   }
   gifts = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = await BotApi.User.at({ e })
     if (!UID) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
@@ -34,7 +34,7 @@ export class boxadminmoney extends plugin {
   }
   deduction = async (e) => {
     if (!e.isMaster) return false
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = await BotApi.User.at({ e })
     if (!UID) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {

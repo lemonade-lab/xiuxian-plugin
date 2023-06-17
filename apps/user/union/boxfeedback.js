@@ -1,4 +1,4 @@
-import { plugin, verify } from '../../../model/api/index.js'
+import { plugin } from '../../../model/api/index.js'
 export class BoxFeedback extends plugin {
   constructor() {
     super({
@@ -6,7 +6,7 @@ export class BoxFeedback extends plugin {
     })
   }
   substitution = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     e.reply(`
         [问题反馈]\n
         1.打开下方链接\n

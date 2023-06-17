@@ -1,4 +1,4 @@
-import { plugin, verify } from '../../../model/api/index.js'
+import { plugin } from '../../../model/api/index.js'
 export class BoxMove extends plugin {
   constructor() {
     super({
@@ -14,7 +14,7 @@ export class BoxMove extends plugin {
    * 前进
    */
   mapW = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
   }
@@ -22,7 +22,7 @@ export class BoxMove extends plugin {
    * 向左移动
    */
   mapA = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
   }
@@ -30,7 +30,7 @@ export class BoxMove extends plugin {
    * 后退
    */
   mapS = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
   }
@@ -38,7 +38,7 @@ export class BoxMove extends plugin {
    * 向右移动
    */
   mapD = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     e.reply('待世界升级')
     return false
   }

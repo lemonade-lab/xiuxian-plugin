@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxBattle extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class BoxBattle extends plugin {
     })
   }
   duel = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UIDA = e.user_id
     let UIDB = await BotApi.User.at({ e })
     if (!UIDB || UIDA == UIDB) {
@@ -20,7 +20,7 @@ export class BoxBattle extends plugin {
     return false
   }
   handWashing = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')

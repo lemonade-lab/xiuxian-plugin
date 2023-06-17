@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, verify } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
@@ -15,7 +15,7 @@ export class BoxSecretplace extends plugin {
     })
   }
   showCity = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -48,7 +48,7 @@ export class BoxSecretplace extends plugin {
     return false
   }
   falsePiont = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -66,7 +66,7 @@ export class BoxSecretplace extends plugin {
   }
 
   xyzaddress = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已仙鹤')
@@ -82,7 +82,7 @@ export class BoxSecretplace extends plugin {
   }
 
   forward = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
@@ -102,7 +102,7 @@ export class BoxSecretplace extends plugin {
     })
     const x = action.x
     const y = action.y
-    const address = e.msg.replace(/^(#|\/)前往/,'')
+    const address = e.msg.replace(/^(#|\/)前往/, '')
     const Point = await GameApi.UserData.listAction({
       NAME: 'point',
       CHOICE: 'generate_position'
@@ -148,7 +148,7 @@ export class BoxSecretplace extends plugin {
     return false
   }
   delivery = async (e) => {
-    if (!verify(e)) return false
+    if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
       e.reply('已仙鹤')
       return false
