@@ -12,10 +12,10 @@ import UserData from '../game/data/listdata.js'
 
 import GameMonster from '../game/monster/monster.js'
 
-import Information from '../game/user/information.js'
-import UserAction from '../game/user/action.js'
-import GameUser from '../game/user/index.js'
-import Duel from '../game/user/duel.js'
+import Information from '../game/box/information.js'
+import UserAction from '../game/box/action.js'
+import GameUser from '../game/box/index.js'
+import Duel from '../game/box/duel.js'
 export const GameApi = {
   Dll: {
     Duel

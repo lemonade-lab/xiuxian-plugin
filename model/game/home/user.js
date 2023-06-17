@@ -1,7 +1,6 @@
 import listdata from '../data/listdata.js'
-import { HomeApi, GameApi } from '../../api/index.js'
-import algorithm from '../data/algorithm.js'
-import { __PATH } from '../data/index.js'
+import User from './user.js'
+import { GameApi } from '../../api/index.js'
 class GameUser {
   userWarehouse = async (parameter) => {
     const { UID, name, ACCOUNT } = parameter
@@ -10,7 +9,7 @@ class GameUser {
       name: name
     })
     if (thing) {
-      let Warehouse = await this.userMsgAction({
+      let Warehouse = await listdata.listAction({
         CHOICE: 'user_Warehouse',
         NAME: UID
       })
@@ -19,7 +18,7 @@ class GameUser {
         THING: thing,
         ACCOUNT
       })
-      await this.userMsgAction({
+      await listdata.listAction({
         CHOICE: 'user_Warehouse',
         NAME: UID,
         DATA: Warehouse
@@ -27,20 +26,6 @@ class GameUser {
       return true
     }
     return false
-  }
-  userMsgAction = async ({ NAME, CHOICE, DATA }) => {
-    if (DATA) {
-      await algorithm.dataAction({
-        NAME: NAME,
-        PATH: __PATH[CHOICE],
-        DATA: DATA
-      })
-      return
-    }
-    return await algorithm.dataAction({
-      NAME: NAME,
-      PATH: __PATH[CHOICE]
-    })
   }
   /**
    * 给仓库添加物品
@@ -76,7 +61,7 @@ class GameUser {
 
   userWarehouseSearch = async (parameter) => {
     const { UID, name } = parameter
-    const Warehouse = await this.userMsgAction({
+    const Warehouse = await listdata.listAction({
       CHOICE: 'user_Warehouse',
       NAME: UID
     })
@@ -89,7 +74,7 @@ class GameUser {
    * @returns 若仓库存在即返回物品信息,若不存在则undifind
    */
   returnUserWarehouseName = async (NAME, THING_NAME) => {
-    const Warehouse = await this.userMsgAction({
+    const Warehouse = await listdata.listAction({
       NAME: NAME,
       CHOICE: 'user_Warehouse'
     })
@@ -115,7 +100,7 @@ class GameUser {
   }
   //牧场
   Archiverangeland = async ({ UID }) => {
-    let life = await HomeApi.Listdata.listActionArr({
+    let life = await listdata.listActionArr({
       NAME: 'life',
       CHOICE: 'user_life'
     })
@@ -132,13 +117,13 @@ class GameUser {
           rangeland: 1
         }
         fond = Object.assign(fond, rangeland)
-        await HomeApi.Listdata.listActionArr({
+        await listdata.listActionArr({
           NAME: 'life',
           CHOICE: 'user_life',
           DATA: life
         })
         try {
-          await this.userMsgAction({
+          await listdata.listAction({
             NAME: UID,
             CHOICE: 'user_rangeland',
             DATA: {
@@ -146,7 +131,7 @@ class GameUser {
               animalacount: 0
             }
           })
-          await this.userMsgAction({
+          await listdata.listAction({
             NAME: UID,
             CHOICE: 'user_rangelandannimals',
             DATA: {
@@ -163,7 +148,7 @@ class GameUser {
     return 0
   }
   existhomeplugins = async ({ UID }) => {
-    const life = await HomeApi.Listdata.listActionArr({
+    const life = await listdata.listActionArr({
       NAME: 'life',
       CHOICE: 'user_life'
     })
@@ -176,7 +161,7 @@ class GameUser {
   }
   homejiazai = async ({ UID }) => {
     try {
-      await this.userMsgAction({
+      await listdata.listAction({
         NAME: UID,
         CHOICE: 'user_home',
         DATA: {
@@ -189,7 +174,7 @@ class GameUser {
           doge: 100
         }
       })
-      await this.userMsgAction({
+      await listdata.listAction({
         NAME: UID,
         CHOICE: 'user_Warehouse',
         DATA: {
@@ -199,14 +184,14 @@ class GameUser {
           thing: []
         }
       })
-      await this.userMsgAction({
+      await listdata.listAction({
         NAME: UID,
         CHOICE: 'user_landgoods',
         DATA: {
           thing: []
         }
       })
-      const life = await HomeApi.Listdata.listActionArr({
+      const life = await listdata.listActionArr({
         CHOICE: 'user_life',
         NAME: 'life'
       })
@@ -215,7 +200,7 @@ class GameUser {
         qq: UID,
         time: time
       })
-      await HomeApi.Listdata.listActionArr({
+      await listdata.listActionArr({
         CHOICE: 'user_life',
         NAME: 'life',
         DATA: life
@@ -226,7 +211,7 @@ class GameUser {
     }
   }
   existhome = async ({ UID }) => {
-    const positionhome = await HomeApi.Listdata.listActionArr({
+    const positionhome = await listdata.listActionArr({
       NAME: 'position',
       CHOICE: 'user_position'
     })
@@ -234,7 +219,7 @@ class GameUser {
     return find
   }
   Add_doge = async ({ UID, money }) => {
-    const home = await HomeApi.Listdata.listActionArr({
+    const home = await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID
     })
@@ -242,7 +227,7 @@ class GameUser {
     if (home.doge > 20000000) {
       home.doge = 20000000
     }
-    await HomeApi.Listdata.listActionArr({
+    await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home
@@ -258,12 +243,12 @@ class GameUser {
   }
   AddLandgrid = async (parameter) => {
     const { UID, ACCOUNT } = parameter
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID
     })
     home.Landgrid += ACCOUNT
-    await HomeApi.Listdata.listActionArr({
+    await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home
@@ -359,7 +344,7 @@ class GameUser {
   }
   homesearch_thing_name = async (parameter) => {
     const { name } = parameter
-    const all = await HomeApi.Listdata.listAction({
+    const all = await listdata.listAction({
       CHOICE: 'home_all',
       NAME: 'all'
     })
@@ -368,7 +353,7 @@ class GameUser {
   }
   homesearch_thing_id = async (parameter) => {
     const { id } = parameter
-    const all = await HomeApi.Listdata.listAction({
+    const all = await listdata.listAction({
       CHOICE: 'home_all',
       NAME: 'all'
     })
@@ -400,12 +385,12 @@ class GameUser {
   }
   Add_homeexperience = async (parameter) => {
     const { UID, experience } = parameter
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID
     })
     home.homeexperience += experience
-    await HomeApi.Listdata.listActionArr({
+    await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home
@@ -414,7 +399,7 @@ class GameUser {
   }
   collect_minerals = async (parameter) => {
     const { UID, time } = parameter
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID
     })
@@ -438,7 +423,7 @@ class GameUser {
         quantity: thing_time[index]
       })
     })
-    await HomeApi.Listdata.listActionArr({
+    await listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID,
       DATA: Warehouse
@@ -637,7 +622,7 @@ class GameUser {
   }
   homeexist_Warehouse_thing_name = async (parameter) => {
     const { UID, name } = parameter
-    const Warehouse = await HomeApi.Listdata.listActionArr({
+    const Warehouse = await listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID
     })
@@ -649,7 +634,7 @@ class GameUser {
   }
   homeexist_Warehouse_thing_id = async (parameter) => {
     const { UID, id } = parameter
-    const Warehouse = await HomeApi.Listdata.listActionArr({
+    const Warehouse = await listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID
     })
@@ -685,22 +670,22 @@ class GameUser {
   }
   Slaughter = async (parameter) => {
     const { UID, name } = parameter
-    let rangelandannimals2 = await HomeApi.GameUser.homesearch_thing_name({
+    let rangelandannimals2 = await User.homesearch_thing_name({
       name: name
     })
     let MSG = ``
     for (let i = 0; i < rangelandannimals2.x.length; i++) {
       let z = await this.homesearch_thing_id({ id: rangelandannimals2.x[i] })
-      let Warehouse = await HomeApi.Listdata.listActionArr({
+      let Warehouse = await listdata.listActionArr({
         NAME: UID,
         CHOICE: 'user_Warehouse'
       })
-      Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = await User.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: z,
         quantity: 1
       })
-      await HomeApi.Listdata.listActionArr({
+      await listdata.listActionArr({
         NAME: UID,
         CHOICE: 'user_Warehouse',
         DATA: Warehouse
@@ -711,7 +696,7 @@ class GameUser {
   }
   Add_all = async (parameter) => {
     let { data } = parameter
-    let all = await HomeApi.Listdata.listActionArr({
+    let all = await listdata.listActionArr({
       CHOICE: 'home_all',
       NAME: 'all'
     })
@@ -721,7 +706,7 @@ class GameUser {
     })
     let all1 = all.concat(data)
     let all2 = boxall.concat(data)
-    await HomeApi.Listdata.listActionArr({
+    await listdata.listActionArr({
       CHOICE: 'home_all',
       NAME: 'all',
       DATA: all1

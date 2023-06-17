@@ -1,4 +1,5 @@
-import { GameApi, HomeApi } from '../../api/index.js'
+import { GameApi } from '../../api/index.js'
+import listdata from '../data/listdata.js'
 class information {
   userDataShow = async ({ UID }) => {
     return {
@@ -23,7 +24,7 @@ class information {
       CHOICE: 'user_battle',
       NAME: UID
     })
-    const Warehouse = await HomeApi.Listdata.listActionArr({
+    const Warehouse = await listdata.listActionArr({
       CHOICE: 'user_Warehouse',
       NAME: UID
     })
@@ -109,7 +110,7 @@ class information {
       CHOICE: 'user_player',
       NAME: UID
     })
-    const home = await HomeApi.Listdata.listActionArr({
+    const home = await listdata.listActionArr({
       CHOICE: 'user_home',
       NAME: UID
     })
@@ -122,7 +123,7 @@ class information {
       CHOICE: 'user_life'
     })
     life = life.find((item) => item.qq == UID)
-    const ifexisthome1 = await HomeApi.Listdata.listActionArr({
+    const ifexisthome1 = await listdata.listActionArr({
       CHOICE: 'user_position',
       NAME: 'position'
     })
@@ -153,7 +154,7 @@ class information {
       CHOICE: 'user_life'
     })
     life = life.find((item) => item.qq == UID)
-    const landgoods = await HomeApi.Listdata.listActionArr({
+    const landgoods = await listdata.listActionArr({
       CHOICE: 'user_landgoods',
       NAME: UID
     })
@@ -181,7 +182,7 @@ class information {
     }
   }
   get_lookrangeland_img = async ({ UID }) => {
-    const rangelandannimals = await HomeApi.Listdata.listActionArr({
+    const rangelandannimals = await listdata.listActionArr({
       CHOICE: 'user_rangelandannimals',
       NAME: UID
     })

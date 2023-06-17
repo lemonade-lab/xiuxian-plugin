@@ -1,4 +1,4 @@
-import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
+import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
 export class move extends plugin {
   constructor() {
     super({

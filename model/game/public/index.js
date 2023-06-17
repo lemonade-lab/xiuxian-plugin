@@ -1,4 +1,4 @@
-import gameUer from '../user/index.js'
+import gameUer from '../box/index.js'
 
 /**自定义冷却反馈*/
 const MYCD = {

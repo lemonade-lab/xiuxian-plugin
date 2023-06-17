@@ -1,4 +1,4 @@
-import gameUser from '../user/index.js'
+import gameUser from '../box/index.js'
 import { BotApi } from '../../api/botapi.js'
 import { GameApi } from '../../api/index.js'
 const Sneakattack = [

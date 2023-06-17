@@ -1,8 +1,9 @@
-import { HomeApi } from '../../api/index.js'
+import listdata from '../data/listdata.js'
+import User from './user.js'
 class userAction {
   userextensionhome = async (parameter) => {
     const { UID } = parameter
-    const home = await HomeApi.Listdata.listAction({
+    const home = await listdata.listAction({
       NAME: UID,
       CHOICE: 'user_home'
     })
@@ -27,11 +28,11 @@ class userAction {
       9: '熔岩'
     }
     thing_nameg = map[homelevel]
-    const searchsthing = await HomeApi.GameUser.userWarehouseSearch({
+    const searchsthing = await User.userWarehouseSearch({
       UID: UID,
       name: thing_nameg
     })
-    const searchsthingh = await HomeApi.GameUser.userWarehouseSearch({
+    const searchsthingh = await User.userWarehouseSearch({
       UID: UID,
       name: thing_nameh
     })
@@ -75,17 +76,17 @@ class userAction {
         time1: time
       }
       await redis.set(`xiuxian:player:${UID}:action`, JSON.stringify(actionObject))
-      await HomeApi.GameUser.userWarehouse({
+      await User.userWarehouse({
         UID: UID,
         name: thing_nameg,
         ACCOUNT: -g
       })
-      await HomeApi.GameUser.userWarehouse({
+      await User.userWarehouse({
         UID: UID,
         name: thing_nameh,
         ACCOUNT: -h
       })
-      await HomeApi.GameUser.Add_doge({ UID: UID, money: -money })
+      await User.Add_doge({ UID: UID, money: -money })
       return { homemsg: `建筑队正在扩建家园，预计需要${time}秒` }
     }
   }
