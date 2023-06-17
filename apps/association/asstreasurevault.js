@@ -28,17 +28,17 @@ export class TreasureVault extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
     if (ass.facility[1].status == 0) {
-      return
+      return false
     }
 
     const positionList = await GameApi.UserData.listAction({
@@ -57,7 +57,7 @@ export class TreasureVault extends plugin {
       action.y > position.y2
     ) {
       e.reply(`请先回宗门`)
-      return
+      return false
     }
     let thingName = e.msg.replace('#藏宝阁回收', '')
 
@@ -66,7 +66,7 @@ export class TreasureVault extends plugin {
       name: thingName
     })
     if (!searchThing) {
-      return
+      return false
     }
     ass.facility[1].buildNum -= 1
     await AssociationApi.assUser.checkFacility(ass)
@@ -79,7 +79,7 @@ export class TreasureVault extends plugin {
 
     const id = searchThing.id.split('-')
     if (id[0] > 5 || id[2] > 19) {
-      return
+      return false
     }
     const assTreasureCabinet = AssociationApi.assUser.getAssOrPlayer(4, assPlayer.assName)
     const length = Math.ceil(ass.level / 3)
@@ -113,7 +113,7 @@ export class TreasureVault extends plugin {
         assTreasureCabinet
       )
     }
-    return
+    return false
   }
 
   //藏宝阁
@@ -122,12 +122,12 @@ export class TreasureVault extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
 
     let msg = ['___[宗门藏宝阁]___']
@@ -152,7 +152,7 @@ export class TreasureVault extends plugin {
     }
 
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   //兑换
@@ -161,19 +161,19 @@ export class TreasureVault extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
 
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const thingName = e.msg.replace('#兑换', '')
 
     if (ass.facility[1].status == 0 || thingName == '') {
-      return
+      return false
     }
 
     const positionList = await GameApi.UserData.listAction({
@@ -193,7 +193,7 @@ export class TreasureVault extends plugin {
       action.y > position.y2
     ) {
       e.reply(`请先回宗门`)
-      return
+      return false
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
     let assTreasureCabinet = AssociationApi.assUser.getAssOrPlayer(4, assPlayer.assName)
@@ -206,14 +206,14 @@ export class TreasureVault extends plugin {
       }
     }
     if (!exchangeThing) {
-      return
+      return false
     }
     if (
       assPlayer.contributionPoints < exchangeThing.redeemPoint ||
       assPlayer.assJob < exchangeThing.privileges
     ) {
       e.reply(`贡献或权限不足！`)
-      return
+      return false
     }
     ass.facility[1].buildNum -= 1
     await AssociationApi.assUser.checkFacility(ass)
@@ -222,24 +222,24 @@ export class TreasureVault extends plugin {
     const addThing = await AssociationApi.assUser.searchThingById(exchangeThing.id)
     await Add_najie_things(addThing, UID, 1)
     e.reply(`兑换成功！！！`)
-    return
+    return false
   }
   async Show_Contribute(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     e.reply(
       `你当前还剩${assPlayer.contributionPoints}贡献点，历史贡献值总和为${assPlayer.historyContribution}`
     )
-    return
+    return false
   }
 }
 const Add_najie_things = async (thing, user_qq, account) => {
@@ -248,5 +248,5 @@ const Add_najie_things = async (thing, user_qq, account) => {
     name: thing.name,
     ACCOUNT: Number(account)
   })
-  return
+  return false
 }

@@ -25,17 +25,17 @@ export class AssociationJobUp extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob > 9 || assPlayer.contributionPoints < 400) {
-      return
+      return false
     }
     assPlayer.contributionPoints -= 400
     assPlayer.assJob += 1
     await AssociationApi.assUser.assEffCount(assPlayer)
     e.reply(`职位提升成功！`)
-    return
+    return false
   }
 
   async Commit_Regicide(e) {
@@ -43,11 +43,11 @@ export class AssociationJobUp extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob >= 10) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
@@ -61,7 +61,7 @@ export class AssociationJobUp extends plugin {
     })
     if (actionA.region != actionB.region) {
       e.reply('没有找到宗主的位置！')
-      return
+      return false
     }
 
     const victory = await GameApi.GameBattle.battle({
@@ -101,7 +101,7 @@ export class AssociationJobUp extends plugin {
       CHOICE: 'user_level',
       DATA: userLevel
     })
-    return
+    return false
   }
 
   async Launch_Job_Challenge(e) {
@@ -109,22 +109,22 @@ export class AssociationJobUp extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob >= 8) {
-      return
+      return false
     }
     if (assPlayer.contributionPoints < 200) {
       e.reply(`你没有足够的贡献点作为比试的彩头，对方不接受你的挑战`)
-      return
+      return false
     }
 
     const battleQQ = e.msg.replace('#发起职位挑战', '')
     const ifexists = await AssociationApi.assUser.existArchive(battleQQ)
     if (!ifexists || !AssociationApi.assUser.existAss('assPlayer', battleQQ)) {
-      return
+      return false
     }
     const battlePlayer = AssociationApi.assUser.getAssOrPlayer(1, battleQQ)
     if (
@@ -134,7 +134,7 @@ export class AssociationJobUp extends plugin {
       battlePlayer.assJob < assPlayer.assJob ||
       battlePlayer.assJob > assPlayer.assJob + 2
     ) {
-      return
+      return false
     }
     const actionA = await GameApi.GameUser.userMsgAction({
       NAME: UID,
@@ -146,7 +146,7 @@ export class AssociationJobUp extends plugin {
     })
     if (actionA.region != actionB.region) {
       e.reply('没有找到对方在哪里，无法挑战！')
-      return
+      return false
     }
     const victory = await GameApi.GameBattle.battle({ e, A: UID, B: battleQQ })
     if (victory == UID) {
@@ -155,14 +155,14 @@ export class AssociationJobUp extends plugin {
       await AssociationApi.assUser.assEffCount(assPlayer)
       await AssociationApi.assUser.assEffCount(battlePlayer)
       e.reply(`你在赢得了比试的胜利，职位等级提高了，对方的职位等级降低一级`)
-      return
+      return false
     } else {
       assPlayer.contributionPoints -= 200
       battlePlayer.contributionPoints += 200
       await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
       await AssociationApi.assUser.setAssOrPlayer('assPlayer', battleQQ, battlePlayer)
       e.reply(`你技不如人，不仅没提高职位等级，还要给对方200贡献点！`)
-      return
+      return false
     }
   }
 }

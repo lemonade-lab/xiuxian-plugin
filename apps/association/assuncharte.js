@@ -42,7 +42,7 @@ export class AssUncharted extends plugin {
     //无存档
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const addres = '宗门秘境'
     let weizhi = []
@@ -66,11 +66,11 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     const go = await GameApi.GamePublic.Go({ UID: UID })
     if (!go) {
-      return
+      return false
     }
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
-      return
+      return false
     }
     let didian = await e.msg.replace('#探索宗门秘境', '')
     didian = didian.trim()
@@ -78,13 +78,13 @@ export class AssUncharted extends plugin {
       (item) => item.unchartedName == didian
     )
     if (!weizhi) {
-      return
+      return false
     }
     //秘境所属宗门
     let ass = await AssociationApi.assUser.getAssOrPlayer(2, weizhi.id)
     if (ass.facility[2].status == 0) {
       e.reply(`该秘境暂未开放使用！`)
-      return
+      return false
     }
 
     const positionList = await GameApi.UserData.listAction({
@@ -104,7 +104,7 @@ export class AssUncharted extends plugin {
       action.y > position.y2
     ) {
       e.reply(`请先到达此宗门势力范围内`)
-      return
+      return false
     }
 
     //初始化 秘境等级，奖励等级，迷宫地图，秘境游玩临时存档
@@ -130,11 +130,11 @@ export class AssUncharted extends plugin {
 
     if (!money || money.acount < unchartedLevel * 5000) {
       e.reply(`没钱，买不起秘境门票`)
-      return
+      return false
     }
     if (ass.spiritStoneAns < incentivesLevel * 5000) {
       e.reply(`这个宗门的灵石池，无法支撑秘境的运转了！`)
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
 
@@ -179,7 +179,7 @@ export class AssUncharted extends plugin {
     ass.facility[2].buildNum -= 1
     await AssociationApi.assUser.checkFacility(ass)
     e.reply(`你已成功进入${didian}秘境,开始探索吧！`)
-    return
+    return false
   }
 
   async Labyrinth_Move(e) {
@@ -187,7 +187,7 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('interimArchive', UID)) {
-      return
+      return false
     }
     const player = await GameApi.GameUser.userMsgAction({
       NAME: UID,
@@ -220,14 +220,14 @@ export class AssUncharted extends plugin {
         break
     }
     if (direction == 0) {
-      return
+      return false
     }
 
     const labyrinthMap = await AssociationApi.assUser.assLabyrinthList[interimArchive.labyrinthMap]
     const newPoint = labyrinthMap.find((item) => item.x == abscissa && item.y == ordinate)
     if (!newPoint || !newPoint.transit) {
       e.reply(`此路不通！！！`)
-      return
+      return false
     }
 
     const CDTime = 60
@@ -236,7 +236,7 @@ export class AssUncharted extends plugin {
     const cdSecond = await redis.ttl('xiuxian:player:' + UID + ClassCD)
     if (cdSecond != -2) {
       e.reply(`休整一下再出发吧，剩余${cdSecond}秒！`)
-      return
+      return false
     }
 
     //随机事件
@@ -374,7 +374,7 @@ export class AssUncharted extends plugin {
     }
 
     await AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
-    return
+    return false
   }
 
   async Rename_AssUncharted(e) {
@@ -382,17 +382,17 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     let assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
-      return
+      return false
     }
     let ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     if (ass.facility[2].status == 0) {
       e.reply(`宗门秘境未建设好！`)
-      return
-    }
+      return false
+    } 
 
     let newName = e.msg.replace('#宗门秘境更名', '')
     newName = newName.trim()
@@ -401,18 +401,18 @@ export class AssUncharted extends plugin {
     //res为true表示存在汉字以外的字符
     if (res) {
       await this.reply('宗门秘境名只能使用中文，请重新输入！')
-      return
+      return false
     }
     const weizhi = await AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == newName
     )
     if (weizhi) {
       e.reply(`秘境不允许重名`)
-      return
+      return false
     }
     await AssociationApi.assUser.assRename(assPlayer.assName, 2, newName)
     e.reply(`宗门秘境已成功更名为${newName}`)
-    return
+    return false
   }
 
   async Show_Uncharted_Gain(e) {
@@ -420,11 +420,11 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
-      return
+      return false
     }
     const interimArchive = AssociationApi.assUser.getAssOrPlayer(3, UID)
 
@@ -440,7 +440,7 @@ export class AssUncharted extends plugin {
       }
     }
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   async Open_The_Chest(e) {
@@ -448,11 +448,11 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
-      return
+      return false
     }
     const interimArchive = AssociationApi.assUser.getAssOrPlayer(3, UID)
     let msg = [`__[开启结果]__`]
@@ -496,7 +496,7 @@ export class AssUncharted extends plugin {
     interimArchive.treasureChests = []
     await AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   async Escape_Uncharted(e) {
@@ -504,7 +504,7 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     if (AssociationApi.assUser.existAss('interimArchive', UID)) {
@@ -551,15 +551,15 @@ export class AssUncharted extends plugin {
     }
     let action = await redis.get(`xiuxian:player:${UID}:action`)
     if (action == undefined) {
-      return
+      return false
     }
     action = JSON.parse(action)
     if (action.actionName != '宗门秘境') {
-      return
+      return false
     }
     await redis.del('xiuxian:player:' + UID + ':action')
     e.reply(`已成功脱离秘境`)
-    return
+    return false
   }
 }
 /**地点查询*/
@@ -591,5 +591,5 @@ const Add_najie_things = async (thing, user_qq, account) => {
     name: thing.name,
     ACCOUNT: Number(account)
   })
-  return
+  return false
 }

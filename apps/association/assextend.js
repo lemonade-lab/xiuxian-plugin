@@ -29,12 +29,12 @@ export class AssociationExtend extends plugin {
     const [assName, buildName] = code
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == assName)
     if (!assRelation) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assRelation.id)
     const location = AssociationApi.config.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
-      return
+      return false
     }
     const buildNumList = [100, 500, 500, 200, 200, 200, 300]
     ass.facility[location].buildNum = buildNumList[location]
@@ -46,12 +46,12 @@ export class AssociationExtend extends plugin {
     //无存档
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
-    }
+      return false
+    } 
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.id == assPlayer.assName
     )
@@ -79,7 +79,7 @@ export class AssociationExtend extends plugin {
         assPlayer.historyContribution
     )
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   async identify_token(e) {
@@ -87,7 +87,7 @@ export class AssociationExtend extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     let isExists = await GameApi.GameUser.userBagSearch({
@@ -96,7 +96,7 @@ export class AssociationExtend extends plugin {
     })
     if (!isExists) {
       e.reply(`没令牌你鉴定个锤子`)
-      return
+      return false
     }
     const random = Math.random()
     await GameApi.GameUser.userBag({
@@ -126,6 +126,6 @@ export class AssociationExtend extends plugin {
       })
       e.reply(`你获得了下等宗门令牌`)
     }
-    return
+    return false
   }
 }

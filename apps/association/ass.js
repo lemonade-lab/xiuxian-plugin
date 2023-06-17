@@ -37,11 +37,11 @@ export class Association extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == ass.id)
@@ -68,7 +68,7 @@ export class Association extends plugin {
       )
     }
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   //宗门俸禄
@@ -77,11 +77,11 @@ export class Association extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const nowTime = new Date().getTime() //获取当前日期的时间戳
@@ -89,23 +89,23 @@ export class Association extends plugin {
     const days = Math.trunc((nowTime - oldTime) / (24 * 60 * 60 * 1000))
     if (assPlayer.contributionPoints <= 0 || assPlayer.historyContribution < days) {
       e.reply(`你对宗门做成的贡献不足，没有领取俸禄的资格！！！`)
-      return
+      return false
     }
     let Today = await AssociationApi.assUser.timeInvert(nowTime)
     let lasting_time = await AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) //获得上次宗门签到日期
     if (Today.Y == lasting_time.Y && Today.M == lasting_time.M && Today.D == lasting_time.D) {
       e.reply(`今日已经领取过了`)
-      return
+      return false
     }
     if (ass.facility[4].status === 0) {
       e.reply(`聚灵阵破烂不堪，导致灵石池无法存取灵石，快去修建！`)
-      return
+      return false
     }
 
     const giftNumber = ass.level * 100 * assPlayer.assJob
     if (ass.spiritStoneAns - giftNumber < 0) {
       e.reply(`宗门灵石池不够发放俸禄啦，快去为宗门做贡献吧`)
-      return
+      return false
     }
     ass.spiritStoneAns -= giftNumber
     ass.facility[4].buildNum -= 1
@@ -117,9 +117,9 @@ export class Association extends plugin {
       ACCOUNT: Number(giftNumber)
     })
     await AssociationApi.assUser.checkFacility(ass)
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply([BotApi.segment.at(UID), `宗门俸禄领取成功,获得了${giftNumber}灵石`])
-    return
+    return false
   }
 
   //加入宗门
@@ -128,12 +128,12 @@ export class Association extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName != 0 || assPlayer.volunteerAss != 0) {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
-      return
+      return false
     }
 
     let association_name = e.msg.replace('#申请加入', '')
@@ -142,7 +142,7 @@ export class Association extends plugin {
       (item) => item.name == association_name
     )
     if (!assRelation) {
-      return
+      return false
     }
     association_name = assRelation.id
     const ass = AssociationApi.assUser.getAssOrPlayer(2, association_name)
@@ -150,14 +150,14 @@ export class Association extends plugin {
     const nowMem = ass.allMembers.length //该宗门目前人数
     if (mostMem <= nowMem) {
       e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
-      return
+      return false
     }
     assPlayer.volunteerAss = association_name
     ass.applyJoinList.push(UID)
     await AssociationApi.assUser.setAssOrPlayer('association', association_name, ass)
     await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply(`已成功发出申请！`)
-    return
+    return false
   }
 
   //退出宗门
@@ -166,18 +166,18 @@ export class Association extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     const nowTime = new Date().getTime() //获取当前时间戳
     const time = 24 //分钟
     const addTime = assPlayer.time[1] + 60000 * time
     if (addTime > nowTime) {
       e.reply('加入宗门不满' + `${time}小时,无法退出`)
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     if (assPlayer.assJob < 10) {
@@ -218,7 +218,7 @@ export class Association extends plugin {
         e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.qqNumber}]接管`)
       }
     }
-    return
+    return false
   }
 
   //捐赠灵石
@@ -227,11 +227,11 @@ export class Association extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
 
     let reg = new RegExp(/#宗门(上交|上缴|捐赠)灵石/)
@@ -244,10 +244,10 @@ export class Association extends plugin {
     })
     if (!money) {
       e.reply(`你身上一分钱都没有！！！`)
-      return
+      return false
     } else if (money.acount < lingshi) {
       e.reply(`你身上只有${money.acount}灵石,数量不足`)
-      return
+      return false
     }
 
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
@@ -260,7 +260,7 @@ export class Association extends plugin {
           AssociationApi.config.spiritStoneAnsMax[ass.level - 1] - ass.spiritStoneAns
         }灵石,请重新捐赠`
       )
-      return
+      return false
     }
     ass.spiritStoneAns += lingshi
     assPlayer.contributionPoints += Math.trunc(lingshi / 1000)
@@ -275,7 +275,7 @@ export class Association extends plugin {
     e.reply(
       `捐赠成功,你身上还有${money.acount - lingshi}灵石,宗门灵石池目前有${ass.spiritStoneAns}灵石`
     )
-    return
+    return false
   }
 
   //宗门列表
@@ -284,7 +284,7 @@ export class Association extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
-      return
+      return false
     }
     const allNames = await AssociationApi.assUser.readAssNames('association')
     let temp = ['宗门列表']
@@ -324,6 +324,6 @@ export class Association extends plugin {
       )
     }
     await BotApi.User.forwardMsg({ e, data: temp })
-    return
+    return false
   }
 }

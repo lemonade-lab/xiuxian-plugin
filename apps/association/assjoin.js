@@ -33,13 +33,13 @@ export class AssociationJoin extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const joinQQ = e.msg.replace('#查看简历', '')
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     const joinPlayer = await GameApi.GameUser.userMsgAction({
       NAME: joinQQ,
@@ -48,12 +48,12 @@ export class AssociationJoin extends plugin {
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const find = ass.applyJoinList.findIndex((item) => item == joinQQ)
     if (find == -1) {
-      return
+      return false
     }
 
     if (assPlayer.assJob < 8) {
       e.reply(`权限不足`)
-      return
+      return false
     }
 
     let msg =
@@ -62,7 +62,7 @@ export class AssociationJoin extends plugin {
       `炼体境界: ${joinPlayer.levelnamemax}` +
       '\n'
     e.reply(msg)
-    return
+    return false
   }
 
   async Clear_Volunteer(e) {
@@ -70,32 +70,32 @@ export class AssociationJoin extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
-    }
+      return false
+    } 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
 
     if (assPlayer.volunteerAss == undefined) {
       assPlayer.volunteerAss = 0
       await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-      return
+      return false
     }
 
     if (assPlayer.volunteerAss == 0) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.volunteerAss)
     if (!ass) {
       assPlayer.volunteerAss = 0
       await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
       e.reply(`清除成功！`)
-      return
+      return false
     } else {
       assPlayer.volunteerAss = 0
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
       await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
       await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
       e.reply(`清除成功！`)
-      return
+      return false
     }
   }
 
@@ -105,11 +105,11 @@ export class AssociationJoin extends plugin {
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     const joinQQ = e.msg.replace('#批准录取', '')
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assPlayer', joinQQ)) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const find = ass.applyJoinList.findIndex((item) => item == joinQQ)
@@ -117,10 +117,10 @@ export class AssociationJoin extends plugin {
     const nowMem = ass.allMembers.length //该宗门目前人数
     if (mostMem <= nowMem) {
       e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
-      return
+      return false
     }
     if (find == -1) {
-      return
+      return false
     }
     const joinPlayer = AssociationApi.assUser.getAssOrPlayer(1, joinQQ)
 
@@ -138,10 +138,10 @@ export class AssociationJoin extends plugin {
       await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
       await AssociationApi.assUser.assEffCount(joinPlayer)
       e.reply(`已批准${joinQQ}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
-      return
+      return false
     } else {
       e.reply(`你没有权限`)
-      return
+      return false
     }
   }
 
@@ -150,24 +150,24 @@ export class AssociationJoin extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const joinQQ = e.msg.replace('#驳回申请', '')
 
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assPlayer', joinQQ)) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
-      return
+      return false
     }
 
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     let find = ass.applyJoinList.findIndex((item) => item == joinQQ)
     if (find == -1) {
-      return
+      return false
     }
 
     const joinPlayer = AssociationApi.assUser.getAssOrPlayer(1, joinQQ)
@@ -177,7 +177,7 @@ export class AssociationJoin extends plugin {
     await AssociationApi.assUser.setAssOrPlayer('assPlayer', joinQQ, joinPlayer)
     await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     e.reply(`已拒绝！`)
-    return
+    return false
   }
 
   async Show_All_Resume(e) {
@@ -185,16 +185,16 @@ export class AssociationJoin extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
-      return
+      return false
     }
     let ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     if (ass.applyJoinList.length == 0) {
       e.reply(`你的宗门还没有收到任何简历！！！快去招收弟子吧！`)
-      return
+      return false
     }
     let temp = ['简历列表']
 
@@ -202,6 +202,6 @@ export class AssociationJoin extends plugin {
       temp.push(`序号:${1 + i} ` + '\n' + `申请人QQ: ${ass.applyJoinList[i]}` + '\n')
     }
     await BotApi.User.forwardMsg({ e, data: temp })
-    return
+    return false
   }
 }

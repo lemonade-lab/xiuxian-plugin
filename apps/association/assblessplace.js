@@ -36,24 +36,24 @@ export class BlessPlace extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
-      return
+      return false
     }
     let assName = await e.msg.replace('#集合攻打', '')
     assName = assName.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == assName)
     if (!assRelation) {
       e.reply(`该宗门不存在！`)
-      return
+      return false
     }
 
     assName = assRelation.id
     const battleAss = AssociationApi.assUser.getAssOrPlayer(2, assName)
     if (battleAss.resident.name == 0 || battleAss.id == assPlayer.assName) {
-      return
+      return false
     }
     //读取被攻打的宗门势力范围
     const attackAss = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
@@ -120,7 +120,7 @@ export class BlessPlace extends plugin {
     }
     await AssociationApi.assUser.checkFacility(battleAss)
     await AddPrestige(attack)
-    return
+    return false
   }
 
   //秘境地点
@@ -137,11 +137,11 @@ export class BlessPlace extends plugin {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0 || assPlayer.assJob < 10) {
-      return
+      return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     let blessed_name = e.msg.replace('#入驻洞天', '')
@@ -152,7 +152,7 @@ export class BlessPlace extends plugin {
     )
     if (!dongTan) {
       e.reply(`[${blessed_name}]不存在`)
-      return
+      return false
     }
     const positionList = await GameApi.UserData.listAction({
       NAME: 'point',
@@ -167,7 +167,7 @@ export class BlessPlace extends plugin {
     })
     if (action.x != point.x || action.y != point.y) {
       e.reply('不在该洞天位置')
-      return
+      return false
     }
 
     const allNames = await AssociationApi.assUser.readAssNames('association')
@@ -177,7 +177,7 @@ export class BlessPlace extends plugin {
       const this_ass = await AssociationApi.assUser.getAssOrPlayer(2, this_name)
       if (this_ass.resident.name == dongTan.name) {
         e.reply(`你尝试带着宗门入驻${dongTan.name}，却发现有宗门捷足先登了，只能通过开战强夺驻地了`)
-        return
+        return false
       }
     }
     ass.resident = dongTan
@@ -188,26 +188,26 @@ export class BlessPlace extends plugin {
     })
     await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     e.reply(`入驻成功,${ass.id}当前驻地为:${dongTan.name},原有建设值继承70%，需要重新修建以启用`)
-    return
+    return false
   }
 
   async exploitation_vein(e) {
     const UID = e.user_id
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
 
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
 
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
-      return
+      return false 
     }
     const positionList = await GameApi.UserData.listAction({
       NAME: 'position',
@@ -225,7 +225,7 @@ export class BlessPlace extends plugin {
       action.y > position.y2
     ) {
       e.reply(`请先回驻地范围`)
-      return
+      return false
     }
     const now = new Date()
     const nowTime = now.getTime() //获取当前日期的时间戳
@@ -233,7 +233,7 @@ export class BlessPlace extends plugin {
     const lastExplorTime = await await AssociationApi.assUser.timeInvert(assPlayer.lastExplorTime) //获得上次宗门签到日期
     if (Today.Y == lastExplorTime.Y && Today.M == lastExplorTime.M && Today.D == lastExplorTime.D) {
       e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`)
-      return
+      return false
     }
     assPlayer.lastExplorTime = nowTime
 
@@ -262,7 +262,7 @@ export class BlessPlace extends plugin {
         `点贡献点`
     )
 
-    return
+    return false
   }
 
   async construction_Guild(e) {
@@ -271,7 +271,7 @@ export class BlessPlace extends plugin {
     //用户不存在
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const player = await GameApi.GameUser.userMsgAction({
       NAME: UID,
@@ -279,13 +279,13 @@ export class BlessPlace extends plugin {
     })
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
 
     let ass = await AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地，无法建设宗门`)
-      return
+      return false
     }
 
     let buildName = e.msg.replace('#修建', '')
@@ -293,7 +293,7 @@ export class BlessPlace extends plugin {
     //洞天不存在
     const location = AssociationApi.config.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
-      return
+      return false
     }
 
     const positionList = await GameApi.UserData.listAction({
@@ -312,12 +312,12 @@ export class BlessPlace extends plugin {
       action.y > position.y2
     ) {
       e.reply(`请先回宗门`)
-      return
+      return false
     }
 
     if (location != 0 && ass.facility[0].status == 0) {
       e.reply(`宗门驻地里连块平地都没有,你修建啥呀,先给山门修修吧`)
-      return
+      return false
     }
 
     const CDTime = 60
@@ -327,10 +327,10 @@ export class BlessPlace extends plugin {
     if (cdSecond != -2) {
       if (cdSecond == -1) {
         e.reply(`修建cd状态残留，请联系机器人管理员处理！`)
-        return
+        return false
       }
       e.reply(`修建cd中，剩余${cdSecond}秒！`)
-      return
+      return false
     }
 
     await redis.set('xiuxian:player:' + UID + ClassCD, now_time)
@@ -350,7 +350,7 @@ export class BlessPlace extends plugin {
       `建设成功，为${buildName}增加了${add}点建设值，当前该设施建设总值为${ass.facility[location].buildNum},状态为` +
         msg
     )
-    return
+    return false
   }
 
   async show_Association_Builder(e) {
@@ -359,11 +359,11 @@ export class BlessPlace extends plugin {
     //用户不存在
     const ifexistplay = await AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
-      return
+      return false
     }
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
-      return
+      return false
     }
 
     const ass = await AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
