@@ -11,7 +11,7 @@ export class BoxForum extends plugin {
   searchForum = async (e) => {
     if (!this.verify(e)) return false
     const msg = []
-    const Forum = await GameApi.UserData.listActionInitial({
+    const Forum = await GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',
       INITIAL: []
@@ -34,7 +34,7 @@ export class BoxForum extends plugin {
       return false
     }
     const TheDate = new Date()
-    const Forum = await GameApi.UserData.listActionInitial({
+    const Forum = await GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',
       INITIAL: []
@@ -47,7 +47,7 @@ export class BoxForum extends plugin {
     if (Forum.length >= 5) {
       Forum.pop()
     }
-    await GameApi.UserData.listActionInitial({
+    await GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',
       DATA: Forum,

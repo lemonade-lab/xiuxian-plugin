@@ -3,7 +3,7 @@ import User from './user.js'
 class userAction {
   userextensionhome = async (parameter) => {
     const { UID } = parameter
-    const home = await listdata.listAction({
+    const home = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_user'
     })

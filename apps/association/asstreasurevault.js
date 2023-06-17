@@ -41,7 +41,7 @@ export class TreasureVault extends plugin {
       return false
     }
 
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -176,7 +176,7 @@ export class TreasureVault extends plugin {
       return false
     }
 
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })

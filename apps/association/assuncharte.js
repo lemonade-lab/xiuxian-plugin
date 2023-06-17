@@ -87,7 +87,7 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -319,7 +319,7 @@ export class AssUncharted extends plugin {
         buff = (buff / 10).toFixed(2)
       }
 
-      const LevelList = await GameApi.UserData.listAction({
+      const LevelList = await GameApi.UserData.controlAction({
         NAME: 'gaspractice',
         CHOICE: 'generate_level'
       })

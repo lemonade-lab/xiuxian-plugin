@@ -28,11 +28,11 @@ class duel {
     if (CDMSG) {
       return `${CDMSG}`
     }
-    const actionA = await listdata.listAction({
+    const actionA = await listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_action'
     })
-    const actionB = await listdata.listAction({
+    const actionB = await listdata.controlAction({
       NAME: UIDB,
       CHOICE: 'user_action'
     })
@@ -54,12 +54,12 @@ class duel {
       })
     }
     GameApi.GamePublic.setRedis(UIDA, CDID, now_time, CDTime)
-    const Level = await listdata.listAction({
+    const Level = await listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_level'
     })
     Level.prestige += 1
-    await listdata.listAction({
+    await listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_level',
       DATA: Level
@@ -70,7 +70,7 @@ class duel {
       c: UIDA
     }
     user.c = await GameBattle.battle({ e, A: UIDA, B: UIDB })
-    const LevelB = await listdata.listAction({
+    const LevelB = await listdata.controlAction({
       NAME: UIDB,
       CHOICE: 'user_level'
     })
@@ -82,14 +82,14 @@ class duel {
         user.a = UIDB
         user.b = user.c
       }
-      let bagB = await listdata.listAction({
+      let bagB = await listdata.controlAction({
         NAME: user.b,
         CHOICE: 'user_bag'
       })
       if (bagB.thing.length != 0) {
         const thing = await GamePublic.Anyarray({ ARR: bagB.thing })
         bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
-        await listdata.listAction({
+        await listdata.controlAction({
           NAME: user.b,
           CHOICE: 'user_bag',
           DATA: bagB

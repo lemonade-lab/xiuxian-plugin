@@ -53,7 +53,7 @@ export class homeland extends plugin {
       return
     }
     let region = ifexisthome.region
-    let action = await GameApi.UserData.listAction({
+    let action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -62,9 +62,10 @@ export class homeland extends plugin {
       e.reply('您现在不在家园里，开垦土地必须回家')
       return
     }
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let Land = home.Land
     let homelevel = home.homelevel
@@ -102,10 +103,11 @@ export class homeland extends plugin {
     home.Landgrid = home.Land * 25
     home.LandgridMax = home.Landgrid
     home.homeexperience += 1000
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
-      DATA: home
+      DATA: home,
+      INITIAL:[]
     })
     e.reply(`本次开垦土地开了${lingshi1}的工资给工人，成功开垦出一块地来，并获得1000家园经验`)
 
@@ -129,7 +131,7 @@ export class homeland extends plugin {
       return
     }
     let region = ifexisthome.region
-    let action = await GameApi.UserData.listAction({
+    let action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -160,9 +162,10 @@ export class homeland extends plugin {
     let lattice = searchsthing.lattice //获取种子所需格子
     let doge = searchsthing.doge
     let timemin = doge * 4
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     }) //获取home文件
     let Land = home.Land //获取土地
     let Landgrid = home.Landgrid //获取土地格子
@@ -185,9 +188,10 @@ export class homeland extends plugin {
       e.reply(`世界没有[${thing_name}]`)
       return
     }
-    let landgoods = await HomeApi.Listdata.listActionArr({
+    let landgoods = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let name1 = landgoods.thing.find((item) => item.name == name)
     if (name1 != undefined) {
@@ -206,24 +210,27 @@ export class homeland extends plugin {
       DATA1: searchsthing1,
       quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
-      DATA: landgoods
+      DATA: landgoods,
+      INITIAL:[]
     })
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
     e.reply(`现在开始种地,预计${timemin}分钟后成熟`)
     return true
@@ -243,7 +250,7 @@ export class homeland extends plugin {
       return
     }
     let region = ifexisthome.region
-    let action = await GameApi.UserData.listAction({
+    let action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -253,9 +260,10 @@ export class homeland extends plugin {
       return
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
-    let landgoods1 = await HomeApi.Listdata.listActionArr({
+    let landgoods1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let landgoods = landgoods1.thing.find((item) => item.name == thing)
     if (landgoods == undefined) {
@@ -284,9 +292,10 @@ export class homeland extends plugin {
     let stolen = landgoods1.stolen
     let q = 10 - stolen
     let z = stolen * 0.1
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let acount1 = Math.floor(acount)
     let a = acount1 * lattice
@@ -299,40 +308,45 @@ export class homeland extends plugin {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
-      let Warehouse = await HomeApi.Listdata.listActionArr({
+      let Warehouse = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
-        NAME: UID
+        NAME: UID,
+        INITIAL:[]
       })
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse
+        DATA: Warehouse,
+        INITIAL:[]
       })
-      let landgoods = await HomeApi.Listdata.listActionArr({
+      let landgoods = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
-        NAME: UID
+        NAME: UID,
+        INITIAL:[]
       })
       landgoods = await HomeApi.GameUser.Add_DATA_thing({
         DATA: landgoods,
         DATA1: thing,
         quantity: -acount1
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID,
-        DATA: landgoods
+        DATA: landgoods,
+        INITIAL:[]
       })
       home.Landgrid += a
       home.homeexperience += x
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_user',
         NAME: UID,
-        DATA: home
+        DATA: home,
+        INITIAL:[]
       })
       if (q == 0) {
         e.reply(`本次种植收获了作物${other},并增加${x}的家园经验`)
@@ -344,9 +358,10 @@ export class homeland extends plugin {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
-      let Warehouse = await HomeApi.Listdata.listActionArr({
+      let Warehouse = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
-        NAME: UID
+        NAME: UID,
+        INITIAL:[]
       })
       let now_time = new Date().getTime()
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -354,12 +369,14 @@ export class homeland extends plugin {
         DATA1: crop,
         quantity: other
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse
+        DATA: Warehouse,
+        INITIAL:[],
+        INITIAL:[]
       })
-      let landgoods = await HomeApi.Listdata.listActionArr({
+      let landgoods = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID
       })
@@ -367,16 +384,18 @@ export class homeland extends plugin {
       const nongzuowu = landgoods_thing.find((obj) => obj.name === name)
       nongzuowu.quarter -= 1
       nongzuowu.time = now_time
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID,
-        DATA: landgoods
+        DATA: landgoods,
+        INITIAL:[]
       })
       home.homeexperience += x
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_user',
         NAME: UID,
-        DATA: home
+        DATA: home,
+        INITIAL:[]
       })
       if (q == 0) {
         e.reply(`本次种植收获了作物${other},并增加${x}的家园经验`)
@@ -439,7 +458,7 @@ export class homeland extends plugin {
       return
     }
     let region = ifexisthome1.region
-    let action = await GameApi.UserData.listAction({
+    let action = await GameApi.UserData.controlAction({
       NAME: user.A,
       CHOICE: 'user_action'
     })
@@ -456,9 +475,10 @@ export class homeland extends plugin {
       return
     }
     let thing = e.msg.replace(/^(#|\/)偷菜/, '')
-    let landgoods2 = await HomeApi.Listdata.listActionArr({
+    let landgoods2 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
-      NAME: user.B
+      NAME: user.B,
+      INITIAL:[]
     })
     let landgoods = landgoods2.thing.find((item) => item.name == thing)
     if (landgoods == undefined) {
@@ -482,41 +502,47 @@ export class homeland extends plugin {
     let other = 1
     let crop = await HomeApi.GameUser.homesearch_thing_name({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: user.A
+      NAME: user.A,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: crop,
       quantity: other
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: user.A,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
-    let landgoods1 = await HomeApi.Listdata.listActionArr({
+    let landgoods1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
-      NAME: user.B
+      NAME: user.B,
+      INITIAL:[]
     })
     let nameIwant = thing
     const target = landgoods1.thing.find((obj) => obj.name === nameIwant)
     target.stolen = target.stolen - 1
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: user.B,
-      DATA: landgoods1
+      DATA: landgoods1,
+      INITIAL:[]
     })
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
-      NAME: user.A
+      NAME: user.A,
+      INITIAL:[]
     })
     home.homeexperience += z
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: user.A,
-      DATA: home
+      DATA: home,
+      INITIAL:[]
     })
     e.reply(`成功盗取数量为${other}的${thing},并增加${z}的家园经验`)
     await redis.set(`xiuxian:player:${user.A}:${CDid}`, now_time)
@@ -553,7 +579,7 @@ export class homeland extends plugin {
       return
     }
     let region = ifexisthome1.region
-    let action = await GameApi.UserData.listAction({
+    let action = await GameApi.UserData.controlAction({
       NAME: user.A,
       CHOICE: 'user_action'
     })

@@ -38,9 +38,10 @@ export class homemoney extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let Land = home.Land
     let Landgrid = home.Landgrid
@@ -83,19 +84,21 @@ export class homemoney extends plugin {
       e.reply(`这个物品不是家园所得物品，请移步隔壁商店`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
     let commodities_doge1 = searchsthing.doge * quantity
     let lt = [0.7, 0.8, 0.9, 1, 1, 1, 1]
@@ -128,13 +131,15 @@ export class homemoney extends plugin {
       return
     }
     let msg = ['___[灵瑶阁下属地方分阁]___\n#采购+物品名']
-    let dogshop_list = await HomeApi.Listdata.listActionArr({
+    let dogshop_list = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'home_dogshop',
-      NAME: 'dogshop'
+      NAME: 'dogshop',
+      INITIAL:[]
     })
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     dogshop_list.forEach((item) => {
       let id = item.id.split('-')
@@ -188,13 +193,15 @@ export class homemoney extends plugin {
     if (quantity > 99) {
       quantity = 99
     }
-    let ifexist1 = await HomeApi.Listdata.listActionArr({
+    let ifexist1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'home_home_dogshop',
-      NAME: 'dogshop'
+      NAME: 'dogshop',
+      INITIAL:[]
     })
-    let rangeland = await HomeApi.Listdata.listActionArr({
+    let rangeland = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let ifexist = ifexist1.find((item) => item.name == thing_name)
     let id = ifexist.id.split('-')
@@ -202,9 +209,10 @@ export class homemoney extends plugin {
       e.reply(`不卖:${thing_name}`)
       return
     }
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     if (id[0] == '50') {
       if (home.homelevel < ifexist.animallevel) {
@@ -222,19 +230,21 @@ export class homemoney extends plugin {
       e.reply(`哪里来的穷光蛋！一声呵斥，你被灵瑶阁门卫强大的气场给震了出来`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity: quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
     await HomeApi.GameUser.Add_doge({ UID, money: -commodities_doge })
     e.reply(

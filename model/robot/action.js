@@ -96,7 +96,7 @@ class UserAction {
     return true
   }
   relife = async () => {
-    const LIFE = await GameApi.UserData.listAction({
+    const LIFE = await GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life'
     })
@@ -106,7 +106,7 @@ class UserAction {
         item.status = 1
       }
     })
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: LIFE
@@ -116,7 +116,7 @@ class UserAction {
   }
   relifehe = async ({ B }) => {
     let msg
-    let LIFE = await GameApi.UserData.listAction({
+    let LIFE = await GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life'
     })
@@ -130,7 +130,7 @@ class UserAction {
     }
     life.Age = 1
     life.status = 1
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: LIFE

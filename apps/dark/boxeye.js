@@ -13,7 +13,7 @@ export class BoxEye extends plugin {
       return false
     }
     const name = e.msg.replace(/^(#|\/)虚空眼/, '')
-    const HistoryList = await GameApi.UserData.listActionInitial({
+    const HistoryList = await GameApi.UserData.controlActionInitial({
       NAME: 'history',
       CHOICE: 'fixed_history',
       INITIAL: {}

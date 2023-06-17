@@ -21,7 +21,7 @@ export class BoxOnekey extends plugin {
       e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
-    let bag = await GameApi.UserData.listAction({
+    let bag = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -33,7 +33,7 @@ export class BoxOnekey extends plugin {
       return false
     }
     bag.thing = []
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: bag
@@ -68,7 +68,7 @@ export class BoxOnekey extends plugin {
       e.reply(`[蜀山派]叶凡\n此处不收[${type}]`)
       return false
     }
-    let bag = await GameApi.UserData.listAction({
+    let bag = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -86,7 +86,7 @@ export class BoxOnekey extends plugin {
       return false
     }
     bag.thing = arr
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: bag

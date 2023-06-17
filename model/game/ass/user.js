@@ -201,7 +201,7 @@ class GameUser {
   }
 
   async searchThingById(id) {
-    const newVar = await GameApi.listdata.listAction({ NAME: 'all', CHOICE: 'generate_all' })
+    const newVar = await GameApi.listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
     return newVar.find((item) => item.id == id)
   }
 

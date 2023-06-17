@@ -23,7 +23,7 @@ export class boxfairyland extends plugin {
       e.reply(`已仙鹤`)
       return
     }
-    const UserLevel = await GameApi.UserData.listAction({
+    const UserLevel = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -51,7 +51,7 @@ export class boxfairyland extends plugin {
       return
     }
     this.finish('levelBreak1')
-    const talent = await GameApi.UserData.listAction({
+    const talent = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
@@ -67,7 +67,7 @@ export class boxfairyland extends plugin {
       Thunderbolt[talent.talent.length]
     }道雷劫，每30秒降一道雷`
     e.reply(`${msg1}\n${msg2}`)
-    const battle = await GameApi.UserData.listAction({
+    const battle = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
@@ -83,7 +83,7 @@ export class boxfairyland extends plugin {
     useraction[UID] = setTimeout(async () => {
       for (let i = 0; i < Thunderbolt[talent.talent.length]; i++) {
         useraction[UID] = setTimeout(async () => {
-          const battle = await GameApi.UserData.listAction({
+          const battle = await GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_battle'
           })
@@ -93,7 +93,7 @@ export class boxfairyland extends plugin {
             if (battle.nowblood < 0) {
               battle.nowblood = 0
             }
-            await GameApi.UserData.listAction({
+            await GameApi.UserData.controlAction({
               NAME: UID,
               CHOICE: 'user_battle',
               DATA: battle
@@ -104,12 +104,12 @@ export class boxfairyland extends plugin {
               )}%)点血量`
             )
           } else {
-            const play = await GameApi.UserData.listAction({
+            const play = await GameApi.UserData.controlAction({
               NAME: UID,
               CHOICE: 'user_player'
             })
             play.dujiedie = 1
-            await GameApi.UserData.listAction({
+            await GameApi.UserData.controlAction({
               NAME: UID,
               CHOICE: 'user_player',
               DATA: play
@@ -124,12 +124,12 @@ export class boxfairyland extends plugin {
       }
     }, 1000 * 5)
     useraction[UID] = setTimeout(async () => {
-      const battle = await GameApi.UserData.listAction({
+      const battle = await GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_battle'
       })
 
-      const Levellist = await GameApi.UserData.listAction({
+      const Levellist = await GameApi.UserData.controlAction({
         CHOICE: 'generate_level',
         NAME: 'gaspractice'
       })
@@ -140,7 +140,7 @@ export class boxfairyland extends plugin {
         })
         e.reply(`你顶住了${Thunderbolt[talent.talent.length]}道雷劫的洗礼，${UserLevelUpMSG}`)
       } else {
-        const player = await GameApi.UserData.listAction({
+        const player = await GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_level'
         })
@@ -161,23 +161,23 @@ export class boxfairyland extends plugin {
             }道雷劫的洗礼,已生死虽肉体已已毁灭，凭借自己强大的修为，强行凝绝出人性容器，保证灵魂未消散(损失120000修为)`
           )
         }
-        await GameApi.UserData.listAction({
+        await GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_level',
           DATA: player
         })
       }
-      await GameApi.UserData.listAction({
+      await GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_battle',
         DATA: battle
       })
-      const play = await GameApi.UserData.listAction({
+      const play = await GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_player'
       })
       play.dujiedie = 0
-      await GameApi.UserData.listAction({
+      await GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_player',
         DATA: play

@@ -6,7 +6,7 @@ class ListData {
    * @param { NAME, CHOICE, DATA }param0
    * @returns
    */
-  listAction = async ({ NAME, CHOICE, DATA }) => {
+  controlAction = async ({ NAME, CHOICE, DATA }) => {
     if (DATA) {
       await algorithm.dataAction({
         NAME,
@@ -25,7 +25,7 @@ class ListData {
    * @param { NAME, CHOICE, DATA, INITIAL } param0
    * @returns
    */
-  listActionInitial = async ({ NAME, CHOICE, DATA, INITIAL }) => {
+  controlActionInitial = async ({ NAME, CHOICE, DATA, INITIAL }) => {
     if (DATA) {
       await algorithm.dataAction({
         NAME,
@@ -77,7 +77,7 @@ class ListData {
       //默认检索all表
       ;(CHOICE = 'generate_all'), (NAME = 'all')
     }
-    const all = await this.listAction({ CHOICE: CHOICE, NAME: NAME })
+    const all = await this.controlAction({ CHOICE: CHOICE, NAME: NAME })
     const ifexist = all.find((item) => item[condition] == name)
     return ifexist
   }

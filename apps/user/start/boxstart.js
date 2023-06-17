@@ -45,13 +45,13 @@ export class BoxStart extends plugin {
     }
     GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
     await GameApi.GamePublic.offAction({ UID })
-    let life = await GameApi.UserData.listActionInitial({
+    let life = await GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
       INITIAL: []
     })
     life = await life.filter((item) => item.qq != UID)
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
       DATA: life

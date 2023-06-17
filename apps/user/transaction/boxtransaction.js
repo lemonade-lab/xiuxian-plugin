@@ -26,7 +26,7 @@ export class BoxTransaction extends plugin {
 
     const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]\n不填数量,默认为1']
 
-    const commodities_list = await GameApi.UserData.listAction({
+    const commodities_list = await GameApi.UserData.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
@@ -94,7 +94,7 @@ export class BoxTransaction extends plugin {
     if (quantity > 99) {
       quantity = 99
     }
-    const Commodities = await GameApi.UserData.listAction({
+    const Commodities = await GameApi.UserData.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })

@@ -84,7 +84,7 @@ export class home extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = await HomeApi.Listdata.listAction({
+    const ifexisthome = await HomeApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'position'
     })
@@ -94,7 +94,7 @@ export class home extends plugin {
       return
     }
     const address = e.msg.replace(/^(#|\/)建立家园/, '')
-    const action = await GameApi.UserData.listAction({
+    const action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -107,7 +107,7 @@ export class home extends plugin {
       e.reply(`第一次建立家园，需到${address_name}寻求联盟帮助`)
       return
     }
-    const point0 = await GameApi.UserData.listAction({
+    const point0 = await GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -131,9 +131,10 @@ export class home extends plugin {
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(async () => {
       forwardsetTime[UID] = 0
-      const positionhome = await HomeApi.Listdata.listActionArr({
+      const positionhome = await HomeApi.Listdata.controlActionInitial({
         NAME: 'position',
-        CHOICE: 'position'
+        CHOICE: 'position',
+        INITIAL:[]
       })
       const time = new Date()
       positionhome.push({
@@ -144,10 +145,11 @@ export class home extends plugin {
         y: y,
         region: region
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         NAME: 'position',
         CHOICE: 'position',
-        DATA: positionhome
+        DATA: positionhome,
+        INITIAL:[]
       })
       e.reply(`成功在${address}建立了自己的家园`)
     }, 1000 * time1)
@@ -172,7 +174,7 @@ export class home extends plugin {
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     const region = ifexisthome.region
-    const action = await GameApi.UserData.listAction({
+    const action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -218,9 +220,10 @@ export class home extends plugin {
       e.reply(`你提前回来查看，但是工人还在努力的扩建中，预计还有${time2}秒，请耐心等待一下把`)
       return
     }
-    let home = await HomeApi.Listdata.listActionArr({
+    let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let homeexperience = home.homeexperience
     let homeexperienceMax = home.homeexperienceMax
@@ -228,10 +231,11 @@ export class home extends plugin {
     home.homeexperience = x
     home.homelevel += 1
     home.homeexperienceMax = home.homelevel * 10000 + 10000
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
-      DATA: home
+      DATA: home,
+      INITIAL:[]
     })
     await HomeApi.GameUser.offaction({ UID })
     e.reply(`你的家园已成功扩建`)
@@ -261,7 +265,7 @@ export class home extends plugin {
       e.reply(`你家就在${address}，建筑队看了看你家，再看了看你要搬的地点，随后投来了异样的眼光`)
       return
     }
-    const point0 = await GameApi.UserData.listAction({
+    const point0 = await GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -290,9 +294,10 @@ export class home extends plugin {
       e.reply(`你的仓库里没有木板!`)
       return
     }
-    const home = await HomeApi.Listdata.listActionArr({
+    const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     const homelevel = home.homelevel
     const a = 40 * homelevel
@@ -307,26 +312,29 @@ export class home extends plugin {
     }
     const the = 5
     const time1 = the >= 0 ? the : 1
-    let positionhome = await HomeApi.Listdata.listActionArr({
+    let positionhome = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'position',
-      NAME: 'position'
+      NAME: 'position',
+      INITIAL:[]
     })
     useraction[UID] = setTimeout(async () => {
       forwardsetTime[UID] = 0
       const target = positionhome.find((obj) => obj.qq === UID)
-      let minefield = await HomeApi.Listdata.listActionArr({
+      let minefield = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
-        NAME: 'minefield'
+        NAME: 'minefield',
+        INITIAL:[]
       })
       const target1 = minefield.find((obj) => obj.qq === UID)
       if (target1 != undefined) {
         let qq = target1.qq
         if (qq == UID) {
           let minefield1 = minefield.filter((item) => item.qq != UID)
-          await HomeApi.Listdata.listActionArr({
+          await HomeApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
-            DATA: minefield1
+            DATA: minefield1,
+            INITIAL:[]
           })
         }
       }
@@ -336,10 +344,11 @@ export class home extends plugin {
       target.x = x
       target.y = y
       target.region = region
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_position',
         NAME: 'position',
-        DATA: positionhome
+        DATA: positionhome,
+        INITIAL:[]
       })
       await HomeApi.GameUser.userWarehouse({
         UID: UID,

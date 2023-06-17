@@ -17,7 +17,7 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const exchange = await GameApi.UserData.listActionInitial({
+    const exchange = await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: []
@@ -55,7 +55,7 @@ export class BoxExchange extends plugin {
     }
     const myDate = new Date().getTime()
     const sum = Math.floor(Math.random() * (10 - 1) + 1)
-    const exchange = await GameApi.UserData.listActionInitial({
+    const exchange = await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: []
@@ -67,7 +67,7 @@ export class BoxExchange extends plugin {
       account: Number(account),
       money: Number(money * account)
     })
-    await GameApi.UserData.listActionInitial({
+    await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
@@ -90,7 +90,7 @@ export class BoxExchange extends plugin {
     }
     let ID = e.msg.replace(/^(#|\/)下架/, '')
     let x = 888888888
-    let exchange = await GameApi.UserData.listActionInitial({
+    let exchange = await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: []
@@ -107,7 +107,7 @@ export class BoxExchange extends plugin {
     if (exchange[x].UID != UID) {
       return false
     }
-    let najie = await GameApi.UserData.listAction({
+    let najie = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -121,7 +121,7 @@ export class BoxExchange extends plugin {
       ACCOUNT: Number(exchange[x].account)
     })
     exchange = exchange.filter((item) => item.ID != ID)
-    await GameApi.UserData.listActionInitial({
+    await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
@@ -139,7 +139,7 @@ export class BoxExchange extends plugin {
     }
     let ID = e.msg.replace(/^(#|\/)选购/, '')
     let x = 888888888
-    let exchange = await GameApi.UserData.listActionInitial({
+    let exchange = await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: []
@@ -161,7 +161,7 @@ export class BoxExchange extends plugin {
       e.reply(`似乎没有${exchange[x].money}下品灵石`)
       return false
     }
-    let najie = await GameApi.UserData.listAction({
+    let najie = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -185,7 +185,7 @@ export class BoxExchange extends plugin {
       ACCOUNT: Number(exchange[x].money)
     })
     exchange = exchange.filter((item) => item.ID != ID)
-    await GameApi.UserData.listActionInitial({
+    await GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,

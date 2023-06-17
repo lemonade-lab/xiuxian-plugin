@@ -58,7 +58,7 @@ export class BlessPlace extends plugin {
     //读取被攻打的宗门势力范围
     const attackAss = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -154,7 +154,7 @@ export class BlessPlace extends plugin {
       e.reply(`[${blessed_name}]不存在`)
       return false
     }
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -209,7 +209,7 @@ export class BlessPlace extends plugin {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
       return false 
     }
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -296,7 +296,7 @@ export class BlessPlace extends plugin {
       return false
     }
 
-    const positionList = await GameApi.UserData.listAction({
+    const positionList = await GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })

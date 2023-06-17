@@ -152,7 +152,7 @@ class DateIndex {
    * @returns
    */
   addListArr = async ({ PATH, CHOICE, NAME }) => {
-    const data = await listdata.listAction({ NAME, CHOICE })
+    const data = await listdata.controlAction({ NAME, CHOICE })
     genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
     return
   }

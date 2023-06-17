@@ -32,7 +32,7 @@ export class BoxBag extends plugin {
       return false
     }
     const UID = e.user_id
-    const najie = await GameApi.UserData.listAction({
+    const najie = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -52,7 +52,7 @@ export class BoxBag extends plugin {
       return false
     }
     najie.grade += 1
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: najie

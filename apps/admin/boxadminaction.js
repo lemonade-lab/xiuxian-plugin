@@ -28,7 +28,7 @@ export class boxadminaction extends plugin {
   deleteAllusers = async (e) => {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
       DATA: []

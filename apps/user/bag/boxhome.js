@@ -47,7 +47,7 @@ export class BoxHome extends plugin {
       case '1': {
         let blood = parseInt(najie_thing.blood)
         await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) })
-        const battle = await GameApi.UserData.listAction({
+        const battle = await GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_battle'
         })
@@ -77,7 +77,7 @@ export class BoxHome extends plugin {
             e.reply(CDMSG)
           }
           GameApi.GamePublic.setRedis(UID, CDID, now_time, CDTime)
-          const player = GameApi.UserData.listAction({
+          const player = GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_level'
           })
@@ -162,7 +162,7 @@ export class BoxHome extends plugin {
     if (id[0] != 5) {
       return false
     }
-    const talent = await GameApi.UserData.listAction({
+    const talent = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
@@ -179,7 +179,7 @@ export class BoxHome extends plugin {
       return false
     }
     talent.AllSorcery.push(najie_thing)
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent',
       DATA: talent
@@ -201,7 +201,7 @@ export class BoxHome extends plugin {
       return false
     }
     const thing_name = e.msg.replace(/^(#|\/)忘掉/, '')
-    const talent = await GameApi.UserData.listAction({
+    const talent = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
@@ -211,7 +211,7 @@ export class BoxHome extends plugin {
       return false
     }
     talent.AllSorcery = talent.AllSorcery.filter((item) => item.name != thing_name)
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent',
       DATA: talent
@@ -250,7 +250,7 @@ export class BoxHome extends plugin {
     if (id[1] == 1) {
       switch (id[2]) {
         case '1': {
-          const player = GameApi.UserData.listAction({
+          const player = GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_level'
           })
@@ -258,12 +258,12 @@ export class BoxHome extends plugin {
             e.reply('[灵根]已定\n此生不可再洗髓')
             break
           }
-          const talent = await GameApi.UserData.listAction({
+          const talent = await GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_talent'
           })
           talent.talent = await GameApi.GameUser.getTalent()
-          await GameApi.UserData.listAction({
+          await GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_talent',
             DATA: talent
@@ -277,12 +277,12 @@ export class BoxHome extends plugin {
           break
         }
         case '2': {
-          const talent = await GameApi.UserData.listAction({
+          const talent = await GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_talent'
           })
           talent.talentshow = 0
-          await GameApi.UserData.listAction({
+          await GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_talent',
             DATA: talent

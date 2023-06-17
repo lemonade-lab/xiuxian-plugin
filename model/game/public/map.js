@@ -2,7 +2,7 @@ import listdata from '../data/listdata.js'
 class GameMap {
   /*输入:模糊搜索名字并判断是否在此地*/
   mapExistence = async ({ action, addressName }) => {
-    const point = await listdata.listAction({
+    const point = await listdata.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -23,7 +23,7 @@ class GameMap {
    */
 
   mapAction = async ({ UID, address_name }) => {
-    const action = await listdata.listAction({
+    const action = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })

@@ -245,7 +245,7 @@ class gameBattle {
   }
   /*雷劫伤害*/
   Thunderbolt_damage = async ({ UID }) => {
-    const talent = await GameApi.UserData.listAction({
+    const talent = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })

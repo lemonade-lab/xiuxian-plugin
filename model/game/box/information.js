@@ -7,28 +7,28 @@ class information {
    * @returns
    */
   userDataShow = async ({ UID }) => {
-    const player = await listdata.listAction({
+    const player = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
     })
-    const equipment = await listdata.listAction({
+    const equipment = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    const talent = await listdata.listAction({
+    const talent = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const level = await listdata.listAction({
+    const level = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const battle = await listdata.listAction({
+    const battle = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
     const linggenname = await gameUser.getTalentName({ data: talent })
-    let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
+    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
@@ -63,16 +63,16 @@ class information {
    * @returns
    */
   userEquipmentShow = async ({ UID }) => {
-    const battle = await listdata.listAction({
+    const battle = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const equipment = await listdata.listAction({
+    const equipment = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
     //tudo
-    let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
+    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     return {
       path: 'user/equipment',
@@ -90,12 +90,12 @@ class information {
    * 功法信息
    */
   userTalentShow = async ({ UID }) => {
-    const talent = await listdata.listAction({
+    const talent = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
     const linggenname = await gameUser.getTalentName({ data: talent })
-    let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
+    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
@@ -126,17 +126,17 @@ class information {
    * @returns
    */
   userBagShow = async ({ UID }) => {
-    let life = await listdata.listAction({ NAME: 'life', CHOICE: 'user_life' })
+    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
-    const player = await listdata.listAction({
+    const player = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
     })
-    const battle = await listdata.listAction({
+    const battle = await listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const najie = await listdata.listAction({ NAME: UID, CHOICE: 'user_bag' })
+    const najie = await listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
     const thing = najie.thing
     const thing_list = []
     const danyao_list = []

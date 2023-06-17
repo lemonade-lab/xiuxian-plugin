@@ -133,19 +133,21 @@ export class homefuli extends plugin {
       e.reply(`未找到此物品`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
-      NAME: user.B
+      NAME: user.B,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: wupin,
       quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: user.B,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
     e.reply(`${user.B}已获得上天赠予数量为${quantity}的${thing_name}`)
     return

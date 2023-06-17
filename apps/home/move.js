@@ -39,7 +39,7 @@ export class move extends plugin {
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     const region2 = ifexisthome.region
-    const action1 = await GameApi.UserData.listAction({
+    const action1 = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -66,21 +66,23 @@ export class move extends plugin {
       e.reply('数量不足')
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
-    let najie = await GameApi.UserData.listAction({
+    let najie = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -89,7 +91,7 @@ export class move extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: najie
@@ -113,9 +115,10 @@ export class move extends plugin {
       return
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    const home = await HomeApi.Listdata.listActionArr({
+    const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     const homelevel = home.homelevel
     if (homelevel < 1) {
@@ -123,7 +126,7 @@ export class move extends plugin {
       return
     }
     const region2 = ifexisthome.region
-    const action1 = await GameApi.UserData.listAction({
+    const action1 = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -150,21 +153,23 @@ export class move extends plugin {
       e.reply('锅太大了，放不进储物袋')
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
-    let najie = await GameApi.UserData.listAction({
+    let najie = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -173,7 +178,7 @@ export class move extends plugin {
       DATA1: searchsthing,
       quantity
     })
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: najie
@@ -196,9 +201,10 @@ export class move extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
       let searchsthing = await HomeApi.GameUser.homeexist_all_thing_name({
@@ -209,10 +215,11 @@ export class move extends plugin {
         Warehouse.thing = Warehouse.thing.filter(
           (item) => !['', null, undefined, NaN, false, true].includes(item)
         )
-        await HomeApi.Listdata.listActionArr({
+        await HomeApi.Listdata.controlActionInitial({
           CHOICE: 'user_home_Warehouse',
           NAME: UID,
-          DATA: Warehouse
+          DATA: Warehouse,
+          INITIAL:[]
         })
       } else {
         if (searchsthing != 1) {
@@ -233,10 +240,11 @@ export class move extends plugin {
             }
           }
           Warehouse.thing[i] = searchsthing
-          await HomeApi.Listdata.listActionArr({
+          await HomeApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_Warehouse',
             NAME: UID,
-            DATA: Warehouse
+            DATA: Warehouse,
+            INITIAL:[]
           })
         } else {
           let searchsthing1 = await HomeApi.GameUser.homeexist_all_thing_id({
@@ -245,18 +253,20 @@ export class move extends plugin {
           if (searchsthing1 != 1) {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
-            await HomeApi.Listdata.listActionArr({
+            await HomeApi.Listdata.controlActionInitial({
               CHOICE: 'user_home_Warehouse',
               NAME: UID,
-              DATA: Warehouse
+              DATA: Warehouse,
+              INITIAL:[]
             })
           }
         }
       }
     }
-    let Warehouse1 = await HomeApi.Listdata.listActionArr({
+    let Warehouse1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     Warehouse1.thing = Warehouse1.thing.reduce((total, cur, index) => {
       let hasValue = total.findIndex((current) => {
@@ -266,14 +276,16 @@ export class move extends plugin {
       hasValue !== -1 && (total[hasValue].acount = total[hasValue].acount + cur.acount)
       return total
     }, [])
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
-    let landgoods = await HomeApi.Listdata.listActionArr({
+    let landgoods = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
       let searchsthing = await HomeApi.GameUser.homeexist_all_thing_name({
@@ -281,10 +293,11 @@ export class move extends plugin {
       })
       if (searchsthing != 1) {
         landgoods.thing[i].id = searchsthing.id
-        await HomeApi.Listdata.listActionArr({
+        await HomeApi.Listdata.controlActionInitial({
           CHOICE: 'user_home_landgoods',
           NAME: UID,
-          DATA: landgoods
+          DATA: landgoods,
+          INITIAL:[]
         })
       } else {
         let searchsthing1 = await HomeApi.GameUser.homeexist_all_thing_id({
@@ -292,10 +305,11 @@ export class move extends plugin {
         })
         if (searchsthing1 != 1) {
           landgoods.thing[i].name = searchsthing1.name
-          await HomeApi.Listdata.listActionArr({
+          await HomeApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_landgoods',
             NAME: UID,
-            DATA: landgoods
+            DATA: landgoods,
+            INITIAL:[]
           })
         }
       }
@@ -321,20 +335,22 @@ export class move extends plugin {
     const landgoods = {
       thing: []
     }
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
-      DATA: landgoods
+      DATA: landgoods,
+      INITIAL:[]
     })
-    const home = await HomeApi.Listdata.listActionArr({
+    const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID
     })
     home.Landgrid = home.LandgridMax
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
-      DATA: home
+      DATA: home,
+      INITIAL:[]
     })
     e.reply(`重置完成！`)
   }

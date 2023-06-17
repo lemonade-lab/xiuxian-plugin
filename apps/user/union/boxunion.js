@@ -57,7 +57,7 @@ export class boxunion extends plugin {
       e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
-    const level = await GameApi.UserData.listAction({
+    const level = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -66,7 +66,7 @@ export class boxunion extends plugin {
       return false
     }
 
-    const action = await GameApi.UserData.listAction({
+    const action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -75,7 +75,7 @@ export class boxunion extends plugin {
       return false
     }
     action.newnoe = 0
-    await GameApi.UserData.listAction({
+    await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action',
       DATA: action

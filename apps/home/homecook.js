@@ -51,9 +51,10 @@ export class homecook extends plugin {
       return
     }
     let msg1 = []
-    let goods = await HomeApi.Listdata.listActionArr({
+    let goods = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let goodsthing = goods.thing
     for (let i = 0; i < goodsthing.length; i++) {
@@ -81,9 +82,10 @@ export class homecook extends plugin {
       e.reply(`做饭结束`)
       return
     }
-    let cook1 = await HomeApi.Listdata.listActionArr({
+    let cook1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let cook = cook1.thing.find((item) => item.name == choice)
     if (cook == undefined) {
@@ -117,9 +119,10 @@ export class homecook extends plugin {
       return
     } else if (choice == 2) {
       let msg1 = []
-      let goods = await HomeApi.Listdata.listActionArr({
+      let goods = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
-        NAME: UID
+        NAME: UID,
+        INITIAL:[]
       })
       let goodsthing = goods.thing
       for (let i = 0; i < goodsthing.length; i++) {
@@ -159,9 +162,10 @@ export class homecook extends plugin {
       e.reply(`你输入的食谱名中必须要以食谱结尾，请重新输入!`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let food = Warehouse.thing.find((item) => item.name == choice)
     if (food == undefined) {
@@ -265,10 +269,11 @@ export class homecook extends plugin {
           `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，食谱有些许磨损，\n${msg}`
         )
       }
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse
+        DATA: Warehouse,
+        INITIAL:[]
       })
     }, 1000 * time1)
     forwardsetTime[UID] = 1
@@ -305,9 +310,10 @@ export class homecook extends plugin {
       e.reply(`你输入的食谱名中必须要食谱结尾，请重新输入!`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let zhushi1 = Warehouse.thing.find((item) => item.name === zhushi)
     if (zhushi1 == undefined) {
@@ -351,10 +357,11 @@ export class homecook extends plugin {
         proficiency: 100
       }
     ]
-    let cook = await HomeApi.Listdata.listActionInitial({
+    let cook = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_cook',
       NAME: 'cook',
-      INITIAL: data
+      INITIAL: data,
+      INITIAL:[]
     })
     let ifexist1 = cook.find((item) => item.name == name)
     let ifexist0 = cook.find(
@@ -393,15 +400,17 @@ export class homecook extends plugin {
         cook_thing: peifang,
         thing_acount: 1
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_cook',
         NAME: 'cook',
-        DATA: peifang
+        DATA: peifang,
+        INITIAL:[]
       })
-      let food_thing = await HomeApi.Listdata.listActionInitial({
+      let food_thing = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_food',
         NAME: 'food',
-        INITIAL: data
+        INITIAL: data,
+        INITIAL:[]
       })
       let food = await HomeApi.GameUser.foodshuxing({
         shuxinga,
@@ -414,16 +423,18 @@ export class homecook extends plugin {
         food_thing: food,
         thing_acount: 1
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_food',
         NAME: 'food',
-        DATA: food_thing
+        DATA: food_thing,
+        INITIAL:[]
       })
       await HomeApi.GameUser.Add_all({ data: peifang2 })
       await HomeApi.GameUser.Add_all({ data: food })
-      let Warehouse = await HomeApi.Listdata.listActionArr({
+      let Warehouse = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_Warehouse',
-        NAME: UID
+        NAME: UID,
+        INITIAL:[]
       })
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
@@ -456,10 +467,11 @@ export class homecook extends plugin {
         DATA1: tiaoliao1,
         quantity: -1
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_Warehouse',
         NAME: UID,
-        DATA: Warehouse
+        DATA: Warehouse,
+        INITIAL:[]
       })
       e.reply(
         `恭喜你，成功炒出【${food.name}】，消耗${nameIwant}一点耐久度，获得了${name}的试用食谱，熟练度为0，熟练度为100后可前往万民堂申请发布流通食谱`
@@ -489,9 +501,10 @@ export class homecook extends plugin {
     let code1 = code[0] + ' · ' + code[1]
     let now_time = new Date().getTime()
     let endtime = now_time + 300000
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let shiwu = Warehouse.thing.find((item) => item.name === code1)
     if (shiwu == undefined) {
@@ -548,10 +561,11 @@ export class homecook extends plugin {
       DATA1: shiwu,
       quantity: -1
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
     return
   }
@@ -570,7 +584,7 @@ export class homecook extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const action = await GameApi.UserData.listAction({ CHOICE: 'user_action', NAME: UID })
+    const action = await GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const address_name = '万民堂'
     const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
     if (!map) {
@@ -587,13 +601,14 @@ export class homecook extends plugin {
       e.reply(`该食谱的熟练度未到达100，暂时不给予发布资格`)
       return
     }
-    const cook = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_cook', NAME: 'cook' })
+    const cook = await HomeApi.Listdata.controlActionInitial({ CHOICE: 'user_home_cook', NAME: 'cook' })
     let target = cook.find((obj) => obj.name === caipu.name)
     delete target.proficiency
-    await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_cook', NAME: 'cook', DATA: cook })
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({ CHOICE: 'user_home_cook', NAME: 'cook', DATA: cook })
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let wanmin = {
       qq: UID,
@@ -610,20 +625,23 @@ export class homecook extends plugin {
       DATA1: target,
       quantity: 1
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
-    let wanmin1 = await HomeApi.Listdata.listActionArr({
-      CHOICE: 'user_home_wanmin',
-      NAME: 'wanmin'
-    })
-    wanmin1 = await HomeApi.GameUser.Add_DATA_thing({ DATA: wanmin1, DATA1: target, quantity: 1 })
-    await HomeApi.Listdata.listActionArr({
+    let wanmin1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
-      DATA: wanmin1
+      INITIAL:[]
+    })
+    wanmin1 = await HomeApi.GameUser.Add_DATA_thing({ DATA: wanmin1, DATA1: target, quantity: 1 })
+    await HomeApi.Listdata.controlActionInitial({
+      CHOICE: 'user_home_wanmin',
+      NAME: 'wanmin',
+      DATA: wanmin1,
+      INITIAL:[]
     })
     e.reply(
       `恭喜${UID}成功在万民堂发布一份食谱，玩家可前往万民堂购买，发布者可获得50%出售收益的版权费`
@@ -645,7 +663,7 @@ export class homecook extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const action = await GameApi.UserData.listAction({ CHOICE: 'user_action', NAME: UID })
+    const action = await GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const address_name = '万民堂'
     const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
     if (!map) {
@@ -653,9 +671,10 @@ export class homecook extends plugin {
       return
     }
     let msg = ['___[万民堂]___\n#万民堂购买+物品名']
-    let wanmin = await HomeApi.Listdata.listActionArr({
+    let wanmin = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
-      NAME: 'wanmin'
+      NAME: 'wanmin',
+      INITIAL:[]
     })
     wanmin.forEach((item) => {
       msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.qq + '\n灵晶：' + item.doge)
@@ -676,7 +695,7 @@ export class homecook extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const action = await GameApi.UserData.listAction({ CHOICE: 'user_action', NAME: UID })
+    const action = await GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const address_name = '万民堂'
     const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
     if (!map) {
@@ -691,16 +710,18 @@ export class homecook extends plugin {
       e.reply(`您已经有该食谱，请把该食谱消耗完再来吧!`)
       return
     }
-    let ifexist1 = await HomeApi.Listdata.listActionArr({
+    let ifexist1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
-      NAME: 'wanmin'
+      NAME: 'wanmin',
+      INITIAL:[]
     })
     let ifexist = ifexist1.find((item) => item.name == thing_name)
     if (!ifexist) {
       e.reply(`不卖:${thing_name}`)
       return
     }
-    let home = await HomeApi.Listdata.listActionArr({ CHOICE: 'user_home_user', NAME: UID })
+    let home = await HomeApi.Listdata.controlActionInitial({ CHOICE: 'user_home_user', NAME: UID,
+    INITIAL:[] })
     let doge = home.doge
     let commodities_doge1 = ifexist.doge
     let lt = [0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3]
@@ -712,19 +733,21 @@ export class homecook extends plugin {
       return
     }
     let money = commodities_doge * 0.5
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity: 1
     })
-    await HomeApi.Listdata.listActionArr({
+    await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse
+      DATA: Warehouse,
+      INITIAL:[]
     })
     await HomeApi.GameUser.Add_doge({ UID, money: -commodities_doge })
     if (ifexist.qq == UID) {
@@ -758,9 +781,10 @@ export class homecook extends plugin {
     let thing0 = e.msg.replace(/^(#|\/)用/, '')
     let thing1 = thing0.split('炒')
     let code = thing1[1].split('*')
-    let Warehouse = await HomeApi.Listdata.listActionArr({
+    let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
-      NAME: UID
+      NAME: UID,
+      INITIAL:[]
     })
     let guo = Warehouse.thing.find((item) => item.name == thing1[0])
     if (guo == undefined) {
@@ -785,10 +809,11 @@ export class homecook extends plugin {
         DATA1: guo,
         quantity: -1
       })
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse
+        DATA: Warehouse,
+        INITIAL:[]
       })
       e.reply(`你的${thing1[0]}不是锅，刚放到火上就被烧没了!`)
       return
@@ -862,9 +887,10 @@ export class homecook extends plugin {
     const time = 20
     useraction[UID] = setTimeout(async () => {
       forwardsetTime[UID] = 0
-      let Warehouse1 = await HomeApi.Listdata.listActionArr({
+      let Warehouse1 = await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
-        NAME: UID
+        NAME: UID,
+        INITIAL:[]
       })
       let zhushi1 = Warehouse1.thing.find((item) => item.name === zhushi)
       if (zhushi1 == undefined || zhushi1.acount < quantity) {
@@ -931,10 +957,11 @@ export class homecook extends plugin {
           `恭喜你，成功炒出【${quantity}】份【${recipes1.name}】，消耗${thing1[0]}【${quantity}】点耐久度，食谱有些许磨损，\n${msg}`
         )
       }
-      await HomeApi.Listdata.listActionArr({
+      await HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse1
+        DATA: Warehouse1,
+        INITIAL:[]
       })
     }, 1000 * time * quantity)
     forwardsetTime[UID] = 1

@@ -26,7 +26,7 @@ export class BoxBattle extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const Level = await GameApi.UserData.listAction({
+    const Level = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -46,7 +46,7 @@ export class BoxBattle extends plugin {
         ACCOUNT: -money
       })
       Level.prestige -= 1
-      await GameApi.UserData.listAction({
+      await GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_level',
         DATA: Level

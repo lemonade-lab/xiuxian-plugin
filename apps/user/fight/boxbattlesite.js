@@ -33,7 +33,7 @@ export class BoxBattleSite extends plugin {
       return false
     }
     const Mname = e.msg.replace(/^(#|\/)击杀/, '')
-    const action = await GameApi.UserData.listAction({
+    const action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -57,7 +57,7 @@ export class BoxBattleSite extends plugin {
       buff.msg = Math.floor(Math.random() * (5 - 2)) + Number(2)
       msgLeft.push('怪物突然变异了!')
     }
-    const Levellist = await GameApi.UserData.listAction({
+    const Levellist = await GameApi.UserData.controlAction({
       NAME: 'gaspractice',
       CHOICE: 'generate_level'
     })
@@ -71,11 +71,11 @@ export class BoxBattleSite extends plugin {
       burstmax: LevelMax.burstmax + LevelMax.id * buff.msg,
       speed: LevelMax.speed + buff.msg
     }
-    const battle = await GameApi.UserData.listAction({
+    const battle = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const talent = await GameApi.UserData.listAction({
+    const talent = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
@@ -94,7 +94,7 @@ export class BoxBattleSite extends plugin {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
         const randomthinf = await GameApi.GameUser.randomThing()
-        let najie = await GameApi.UserData.listAction({
+        let najie = await GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_bag'
         })
@@ -175,7 +175,7 @@ export class BoxBattleSite extends plugin {
       return false
     }
     const UID = e.user_id
-    const action = await GameApi.UserData.listAction({
+    const action = await GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
