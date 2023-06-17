@@ -24,7 +24,7 @@ export class BoxStart extends plugin {
     const { path, name, data } = GameApi.Information.userDataShow({
       UID: e.user_id
     })
-    const isreply = e.reply(BotApi.showPuppeteer({ path, name, data }))
+    const isreply = e.reply(BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
@@ -60,7 +60,7 @@ export class BoxStart extends plugin {
     const { path, name, data } = GameApi.Information.userDataShow({
       UID: e.user_id
     })
-    const isreply = e.reply(BotApi.showPuppeteer({ path, name, data }))
+    const isreply = e.reply(BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }

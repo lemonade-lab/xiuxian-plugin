@@ -13,7 +13,7 @@ export class boxshowall extends plugin {
   }
   async showMap(e) {
     if (!this.verify(e)) return false
-    const isreply = e.reply(BotApi.showPuppeteer({ path: 'map', name: 'map' }))
+    const isreply = e.reply(BotApi.obtainingImages({ path: 'map', name: 'map' }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
@@ -26,7 +26,7 @@ export class boxshowall extends plugin {
     const Ttwist = cf['switch'] ? cf['switch']['twist'] : true
     const Tcome = cf['switch'] ? cf['switch']['come'] : true
     const isreply = e.reply(
-      BotApi.showPuppeteer({
+      BotApi.obtainingImages({
         path: 'defset',
         name: 'defset',
         data: {

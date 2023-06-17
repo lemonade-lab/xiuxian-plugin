@@ -657,7 +657,7 @@ export class homerangeland extends plugin {
       return
     }
     const { path, name, data } = HomeApi.Information.get_lookrangeland_img({ UID })
-    e.reply(BotApi.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.obtainingImages({ path, name, data }))
     return
   }
   //偷
@@ -791,7 +791,7 @@ export class homerangeland extends plugin {
       return
     }
     const { path, name, data } = HomeApi.Information.get_lookrangeland_img({ UID: user.B })
-    e.reply(BotApi.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.obtainingImages({ path, name, data }))
     return
   }
 }

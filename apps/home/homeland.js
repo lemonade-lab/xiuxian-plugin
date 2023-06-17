@@ -422,7 +422,7 @@ export class homeland extends plugin {
     const { path, name, data } = HomeApi.Information.get_lookland_img({
       UID
     })
-    e.reply(BotApi.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.obtainingImages({ path, name, data }))
     return false
   }
 
@@ -590,7 +590,7 @@ export class homeland extends plugin {
     const { path, name, data } = HomeApi.Information.get_lookland_img({
       UID: user.B
     })
-    e.reply(BotApi.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.obtainingImages({ path, name, data }))
     return
   }
 }
