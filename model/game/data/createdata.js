@@ -15,8 +15,8 @@ const configarr = [
   'time.yaml',
   'home_help.yaml',
   'home_admin.yaml',
-  'ass_admin',
-  'ass_help'
+  'ass_admin.yaml',
+  'ass_help.yaml'
 ]
 
 let defsetpath = `${MyDirPath}/resources/defset`
