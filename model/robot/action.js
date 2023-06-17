@@ -56,7 +56,7 @@ class Robot {
     if (!e.group) {
       return
     }
-    const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+    const cf = getConfig({ app: 'parameter', name: 'cooling' })
     let timeout = cf['timeout'] ? cf.timeout.size : 60
     if (timeout > 15 && isreply && isreply.message_id) {
       setTimeout(() => {

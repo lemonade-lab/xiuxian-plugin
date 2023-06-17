@@ -272,7 +272,7 @@ export class BoxHome extends plugin {
           const { path, name, data } = GameApi.Information.userDataShow({
             UID: e.user_id
           })
-          const isreply = e.reply(BotApi.obtainingImages({ path, name, data }))
+          const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })
           break
         }
@@ -290,7 +290,7 @@ export class BoxHome extends plugin {
           const { path, name, data } = GameApi.Information.userDataShow({
             UID: e.user_id
           })
-          const isreply = e.reply(BotApi.obtainingImages({ path, name, data }))
+          const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })
           break
         }

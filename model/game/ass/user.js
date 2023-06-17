@@ -1,7 +1,7 @@
 import listdata from '../data/listdata.js'
 import { __PATH } from '../data/index.js'
 import fs from 'node:fs'
-import path from 'path'
+import path from 'node:path'
 import { GameApi } from '../../api/index.js'
 
 function getJsonParse(val) {

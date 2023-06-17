@@ -48,7 +48,7 @@ export class home extends plugin {
     const { path, name, data } = HomeApi.Information.userhomeShow({
       UID
     })
-    const img = BotApi.obtainingImages({ path, name, data })
+    const img = await BotApi.obtainingImages({ path, name, data })
     e.reply(img)
     return false
   }
@@ -68,7 +68,7 @@ export class home extends plugin {
     const { path, name, data } = HomeApi.Information.userWarehouseShow({
       UID
     })
-    e.reply(BotApi.obtainingImages({ path, data, name }))
+    e.reply(await BotApi.obtainingImages({ path, data, name }))
     return false
   }
 

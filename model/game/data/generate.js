@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import path from 'path'
+import path from 'node:path'
 /**游戏index数据生成*/
 class GenerateData {
   /**

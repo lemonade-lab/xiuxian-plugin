@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'node:fs'
 import template from 'art-template'
 export function dealTpl(data) {
   let { tplFile } = data

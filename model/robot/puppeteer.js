@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import template from 'art-template'
 import lodash from 'lodash'
 /*启动Chromium */
