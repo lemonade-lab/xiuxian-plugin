@@ -19,7 +19,7 @@ export class boxadminmoney extends plugin {
     }
     const thing_name = e.msg.replace(/^(#|\/)修仙馈赠/, '')
     const [name, acount] = thing_name.split('*')
-    const quantity = await GameApi.GamePublic.leastOne({ value: acount })
+    const quantity = GameApi.GamePublic.leastOne({ value: acount })
     const bag = await GameApi.GameUser.userBag({
       UID,
       name,

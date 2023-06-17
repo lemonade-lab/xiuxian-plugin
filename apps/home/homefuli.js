@@ -41,7 +41,7 @@ export class homefuli extends plugin {
     if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
 
     let ls = e.msg.replace(/^(#|\/)发家园福利/, '')
@@ -49,7 +49,7 @@ export class homefuli extends plugin {
     var str = ls
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
-      return
+      return false
     }
     if (parseInt(ls) == parseInt(ls) && parseInt(ls) > 0) {
       ls = parseInt(ls)
@@ -64,7 +64,7 @@ export class homefuli extends plugin {
       await HomeApi.GameUser.Add_doge({ UID: this_qq, money: ls })
     }
     e.reply(`发放成功,目前共有${File_length}个玩家,每人增加${ls}灵晶`)
-    return
+    return false
   }
   //#发家园补偿
   async Fulihome(e) {
@@ -72,7 +72,7 @@ export class homefuli extends plugin {
     if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
 
     let doge = e.msg.replace(/^(#|\/)发家园补偿/, '')
@@ -81,7 +81,7 @@ export class homefuli extends plugin {
 
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
-      return
+      return false
     }
 
     if (parseInt(doge) == parseInt(doge) && parseInt(doge) > 0) {
@@ -97,18 +97,18 @@ export class homefuli extends plugin {
     }
     user['B'] = await BotApi.User.at({ e })
     if (!user['B']) {
-      return
+      return false
     }
     await HomeApi.GameUser.Add_doge({ UID: user.B, money: doge })
     e.reply(`【全服公告】 ${user.B} 获得${doge}灵晶的补偿`)
-    return
+    return false
   }
   //#发家园物品
   async zengsonghome(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
     //对方
     const user = {
@@ -119,19 +119,19 @@ export class homefuli extends plugin {
     }
     user['B'] = await BotApi.User.at({ e })
     if (!user['B']) {
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)发家园物品/, '')
     let code = thing.split('*')
     let thing_name = code[0] //物品名字
     let acount = code[1] //物品数量
-    let quantity = await GameApi.GamePublic.leastOne({ value: acount })
+    let quantity = GameApi.GamePublic.leastOne({ value: acount })
     let wupin = await HomeApi.GameUser.homesearch_thing_name({
       name: thing_name
     })
     if (wupin == undefined) {
       e.reply(`未找到此物品`)
-      return
+      return false
     }
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
@@ -150,7 +150,7 @@ export class homefuli extends plugin {
       INITIAL: []
     })
     e.reply(`${user.B}已获得上天赠予数量为${quantity}的${thing_name}`)
-    return
+    return false
   }
   //#扣除全体家园经验
   kouchujy = async (e) => {
@@ -158,7 +158,7 @@ export class homefuli extends plugin {
 
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
 
     //获取扣除经验
@@ -167,7 +167,7 @@ export class homefuli extends plugin {
     var str = jy
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
-      return
+      return false
     }
 
     //校验输入经验
@@ -188,14 +188,14 @@ export class homefuli extends plugin {
       })
     }
     e.reply(`经验扣除成功,目前共有${File_length}个玩家,每人减少${jy}家园经验`)
-    return
+    return false
   }
   //#扣除家园经验
   kouchugrjy = async (e) => {
     if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
     //对方
     const user = {
@@ -206,14 +206,14 @@ export class homefuli extends plugin {
     }
     user['B'] = await BotApi.User.at({ e })
     if (!user['B']) {
-      return
+      return false
     }
     let jy = e.msg.replace(/^(#|\/)扣除家园经验/, '')
     var pattern = new RegExp('[0-9]+')
     var str = jy
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
-      return
+      return false
     }
     if (parseInt(jy) == parseInt(jy) && parseInt(jy) > 0) {
       jy = parseInt(jy)
@@ -222,14 +222,14 @@ export class homefuli extends plugin {
     }
     await HomeApi.GameUser.Add_homeexperience({ UID: user.B, experience: -jy })
     e.reply(`经验扣除成功,${user.B}减少${jy}家园经验`)
-    return
+    return false
   }
   //#发家园经验
   zenjiagrjy = async (e) => {
     if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
     //对方
     const user = {
@@ -240,14 +240,14 @@ export class homefuli extends plugin {
     }
     user['B'] = await BotApi.User.at({ e })
     if (!user['B']) {
-      return
+      return false
     }
     let jy = e.msg.replace(/^(#|\/)发家园经验/, '')
     var pattern = new RegExp('[0-9]+')
     var str = jy
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
-      return
+      return false
     }
     if (parseInt(jy) == parseInt(jy) && parseInt(jy) > 0) {
       jy = parseInt(jy)
@@ -256,21 +256,21 @@ export class homefuli extends plugin {
     }
     await HomeApi.GameUser.Add_homeexperience({ UID: user.B, experience: jy })
     e.reply(`经验发放成功,${user.B}增加${jy}家园经验`)
-    return
+    return false
   }
   //#扣除灵晶
   kouchulj = async (e) => {
     if (!this.verify(e)) return false
     if (!e.isMaster) {
       e.reply(`你不是主人哦!`)
-      return
+      return false
     }
     let doge = e.msg.replace(/^(#|\/)扣除灵晶/, '')
     var pattern = new RegExp('[0-9]+')
     var str = doge
     if (!pattern.test(str)) {
       e.reply(`错误福利`)
-      return
+      return false
     }
     if (parseInt(doge) == parseInt(doge) && parseInt(doge) > 0) {
       doge = parseInt(doge)
@@ -280,6 +280,6 @@ export class homefuli extends plugin {
     let this_qq = await BotApi.User.at({ e })
     await HomeApi.GameUser.Add_doge({ UID: this_qq, money: -doge })
     e.reply(`${this_qq}被管理员扣除 ${doge}灵晶`)
-    return
+    return false
   }
 }

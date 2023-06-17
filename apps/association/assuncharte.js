@@ -153,7 +153,7 @@ export class AssUncharted extends plugin {
     }
     ass.spiritStoneAns += (unchartedLevel - incentivesLevel) * 5000
 
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
 
     //完事了，该进秘境了
     //初始化临时存档，选择随机地图，添加状态
@@ -176,7 +176,7 @@ export class AssUncharted extends plugin {
       alreadyExplore: [],
       treasureChests: []
     }
-    await AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
+    AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
     ass.facility[2].buildNum -= 1
     await AssociationApi.assUser.checkFacility(ass)
     e.reply(`你已成功进入${didian}秘境,开始探索吧！`)
@@ -372,7 +372,7 @@ export class AssUncharted extends plugin {
       interimArchive.treasureChests.push(chests)
     }
 
-    await AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
+    AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
     return false
   }
 
@@ -493,7 +493,7 @@ export class AssUncharted extends plugin {
       }
     }
     interimArchive.treasureChests = []
-    await AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
+    AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
     await BotApi.User.forwardMsg({ e, data: msg })
     return false
   }

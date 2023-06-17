@@ -154,8 +154,8 @@ export class Association extends plugin {
     }
     assPlayer.volunteerAss = association_name
     ass.applyJoinList.push(UID)
-    await AssociationApi.assUser.setAssOrPlayer('association', association_name, ass)
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('association', association_name, ass)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply(`已成功发出申请！`)
     return false
   }
@@ -185,7 +185,7 @@ export class Association extends plugin {
       assPlayer.assName = 0
       assPlayer.assJob = 0
       assPlayer.favorability = 0
-      await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
+      AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
       await AssociationApi.assUser.assEffCount(assPlayer)
       e.reply('退出宗门成功')
     } else {
@@ -213,7 +213,7 @@ export class Association extends plugin {
         }
         ass.master = randMember.qqNumber
         randMember.assJob = 10
-        await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
+        AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
         await AssociationApi.assUser.assEffCount(randMember)
         e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.qqNumber}]接管`)
       }
@@ -236,7 +236,7 @@ export class Association extends plugin {
 
     let reg = new RegExp(/#宗门(上交|上缴|捐赠)灵石/)
     let lingshi = e.msg.replace(reg, '')
-    lingshi = await AssociationApi.assUser.numberVerify(lingshi)
+    lingshi = AssociationApi.assUser.numberVerify(lingshi)
 
     let money = await GameApi.GameUser.userBagSearch({
       UID: UID,
@@ -270,8 +270,8 @@ export class Association extends plugin {
       name: '下品灵石',
       ACCOUNT: Number(-lingshi)
     })
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
     e.reply(
       `捐赠成功,你身上还有${money.acount - lingshi}灵石,宗门灵石池目前有${ass.spiritStoneAns}灵石`
     )

@@ -169,7 +169,7 @@ export class BoxBattleSite extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.GoMini({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.GoMini({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false

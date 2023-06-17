@@ -111,7 +111,7 @@ export class AssociationAdmin extends plugin {
         assPlayer.favorability = 0
         assPlayer.volunteerAss = 0
         assPlayer.time = [date, nowTime]
-        await AssociationApi.assUser.setAssOrPlayer('association', assName[location], association)
+        AssociationApi.assUser.setAssOrPlayer('association', assName[location], association)
         await AssociationApi.assUser.assEffCount(assPlayer)
         let assRelation = AssociationApi.assUser.assRelationList.find(
           (item) => item.id == assName[location]
@@ -201,7 +201,7 @@ export class AssociationAdmin extends plugin {
     }
     let relationAll = AssociationApi.assUser.assRelationList
     relationAll.push(relation)
-    await AssociationApi.assUser.setAssOrPlayer('assRelation', 'AssRelation', relationAll)
+    AssociationApi.assUser.setAssOrPlayer('assRelation', 'AssRelation', relationAll)
     assPlayer.assName = association_id
     assPlayer.assJob = 10
     assPlayer.contributionPoints = 0
@@ -209,7 +209,7 @@ export class AssociationAdmin extends plugin {
     assPlayer.favorability = 0
     assPlayer.volunteerAss = 0
     assPlayer.time = [date, nowTime]
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     await new_Association(association_id, UID)
     await AssociationApi.assUser.assEffCount(assPlayer)
     await this.reply('宗门创建成功')
@@ -278,7 +278,7 @@ export class AssociationAdmin extends plugin {
 
     ass.spiritStoneAns -= ass.level * 30000
     ass.level += 1
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     const playerList = ass.allMembers
     for (let player_id of playerList) {
       const UID = player_id
@@ -360,7 +360,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     ass.spiritStoneAns -= 10000
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     await AssociationApi.assUser.assRename(ass.id, 1, association_name)
     e.reply(`改名成功，宗门当前名称为${association_name}`)
     return false
@@ -401,7 +401,7 @@ export class AssociationAdmin extends plugin {
     playerB.favorability = 0
     playerB.assJob = 0
     playerB.assName = 0
-    await AssociationApi.assUser.setAssOrPlayer('association', bss.id, bss)
+    AssociationApi.assUser.setAssOrPlayer('association', bss.id, bss)
     await AssociationApi.assUser.assEffCount(playerB)
     e.reply('已踢出！')
     return false

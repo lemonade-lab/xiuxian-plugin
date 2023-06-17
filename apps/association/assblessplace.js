@@ -186,7 +186,7 @@ export class BlessPlace extends plugin {
       i.status = 0
       return i
     })
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     e.reply(`入驻成功,${ass.id}当前驻地为:${dongTan.name},原有建设值继承70%，需要重新修建以启用`)
     return false
   }
@@ -254,8 +254,8 @@ export class BlessPlace extends plugin {
 
     assPlayer.contributionPoints += Math.trunc(num / 2000)
     assPlayer.historyContribution += Math.trunc(num / 2000)
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply(
       `本次开采灵脉为宗门灵石池贡献了${gift_lingshi}灵石，你获得了` +
         Math.trunc(num / 2000) +
@@ -341,7 +341,7 @@ export class BlessPlace extends plugin {
     await AssociationApi.assUser.checkFacility(ass)
     ass = await AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     let msg = ass.facility[location].status == 0 ? '未启用' : '启用'
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply(
       `建设成功，为${buildName}增加了${add}点建设值，当前该设施建设总值为${ass.facility[location].buildNum},状态为` +
         msg

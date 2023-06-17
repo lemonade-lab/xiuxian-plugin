@@ -43,12 +43,12 @@ export class homecook extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let msg1 = []
     let goods = await HomeApi.Listdata.controlActionInitial({
@@ -66,7 +66,7 @@ export class homecook extends plugin {
     }
     if (msg1.length == 0) {
       e.reply(`你没有锅具`)
-      return
+      return false
     }
     let msg = [`您仓库里只有以下锅具，请选择的所要用的锅具\n${msg1}`]
     e.reply(msg)
@@ -80,7 +80,7 @@ export class homecook extends plugin {
     if (choice == '退出') {
       this.finish('choose_cook')
       e.reply(`做饭结束`)
-      return
+      return false
     }
     let cook1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -90,7 +90,7 @@ export class homecook extends plugin {
     let cook = cook1.thing.find((item) => item.name == choice)
     if (cook == undefined) {
       e.reply(`你没有这样的锅具，请重新选择`)
-      return
+      return false
     }
     let actionObject = {
       name: choice
@@ -101,7 +101,7 @@ export class homecook extends plugin {
     let msg = [`您是否要使用食谱，请输入1或2\n【1】不使用食谱\n【2】使用食谱`]
     e.reply(`${msg}`)
     this.setContext('choose')
-    return
+    return false
   }
 
   async choose(e) {
@@ -111,13 +111,13 @@ export class homecook extends plugin {
     if (choice == '退出') {
       this.finish('choose')
       e.reply(`做饭结束`)
-      return
+      return false
     }
     if (choice == 1) {
       this.finish('choose')
       e.reply(`请使用#食谱名字*菜1*菜2*菜3，制作出你独一无二的菜品吧`)
       this.setContext('choose_food1')
-      return
+      return false
     } else if (choice == 2) {
       let msg1 = []
       let goods = await HomeApi.Listdata.controlActionInitial({
@@ -137,13 +137,13 @@ export class homecook extends plugin {
         this.finish('choose')
         e.reply(`你没有食谱，请执行\n#食谱名字*菜1*菜2*菜3 制作出你独一无二的菜品吧`)
         this.setContext('choose_food1')
-        return
+        return false
       } else {
         this.finish('choose')
         let msg = [`您仓库里只有以下食谱，请选择的所要使用的食谱\n${msg1}`]
         e.reply(`${msg}`)
         this.setContext('choose_food')
-        return
+        return false
       }
     }
   }
@@ -155,13 +155,13 @@ export class homecook extends plugin {
     if (choice == '退出') {
       this.finish('choose_food')
       e.reply(`做饭结束`)
-      return
+      return false
     }
     let thing = choice.replace('食谱', '')
     let name2 = choice.replace(thing, '')
     if (name2 != '食谱') {
       e.reply(`你输入的食谱名中必须要以食谱结尾，请重新输入!`)
-      return
+      return false
     }
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -171,7 +171,7 @@ export class homecook extends plugin {
     let food = Warehouse.thing.find((item) => item.name == choice)
     if (food == undefined) {
       e.reply(`好像没有这种食谱，请重新选择!`)
-      return
+      return false
     }
     let action = GameApi.GamePublic.getAction(UID)
 
@@ -184,26 +184,26 @@ export class homecook extends plugin {
       if (shipu.proficiency == 0) {
         e.reply(`试用食谱次数已用完，请前往万民堂发布食谱!`)
         this.finish('choose_food')
-        return
+        return false
       }
     }
     let zhushi1 = Warehouse.thing.find((item) => item.name === zhushi)
     if (zhushi1 == undefined) {
       e.reply(`您的仓库里没有${zhushi}!`)
       this.finish('choose_food')
-      return
+      return false
     }
     let fushi1 = Warehouse.thing.find((item) => item.name === fushi)
     if (fushi1 == undefined) {
       e.reply(`您的仓库里没有${fushi}!`)
       this.finish('choose_food')
-      return
+      return false
     }
     let tiaoliao1 = Warehouse.thing.find((item) => item.name === tiaoliao)
     if (tiaoliao1 == undefined) {
       e.reply(`您的仓库里没有${tiaoliao}!`)
       this.finish('choose_food')
-      return
+      return false
     }
     let guo = Warehouse.thing.find((item) => item.name === nameIwant)
     let shuxing1 = await HomeApi.GameUser.attribute({ thing: zhushi1 })
@@ -280,7 +280,7 @@ export class homecook extends plugin {
     forwardsetTime[UID] = 1
     e.reply(`正在给你制作【${thing}】...\n预计需要${time1}秒`)
     this.finish('choose_food')
-    return
+    return false
   }
 
   async choose_food1(e) {
@@ -290,7 +290,7 @@ export class homecook extends plugin {
     if (choice == '退出') {
       this.finish('choose_food1')
       e.reply(`做饭结束`)
-      return
+      return false
     }
     let thing = choice.replace(/^(#|\/)/, '')
     let code = thing.split('*')
@@ -303,13 +303,13 @@ export class homecook extends plugin {
     let judge2 = await HomeApi.GameUser.foodjudge({ name: tiaoliao })
     if (judge == 1 || judge1 == 1 || judge2 == 1) {
       e.reply(`你输入的菜无法制作成食物!`)
-      return
+      return false
     }
     let name1 = name.replace('食谱', '')
     let name2 = name.replace(name1, '')
     if (name2 != '食谱') {
       e.reply(`你输入的食谱名中必须要食谱结尾，请重新输入!`)
-      return
+      return false
     }
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
@@ -319,17 +319,17 @@ export class homecook extends plugin {
     let zhushi1 = Warehouse.thing.find((item) => item.name === zhushi)
     if (zhushi1 == undefined) {
       e.reply(`你仓库里没有${zhushi}，请重新选择!`)
-      return
+      return false
     }
     let fushi1 = Warehouse.thing.find((item) => item.name === fushi)
     if (fushi1 == undefined) {
       e.reply(`你仓库里没有${fushi}，请重新选择!`)
-      return
+      return false
     }
     let tiaoliao1 = Warehouse.thing.find((item) => item.name === tiaoliao)
     if (tiaoliao1 == undefined) {
       e.reply(`你仓库里没有${tiaoliao}，请重新选择!`)
-      return
+      return false
     }
     let doge = (zhushi1.doge + tiaoliao1.doge + fushi1.doge) * 2
     let action = GameApi.GamePublic.getAction(UID)
@@ -369,11 +369,11 @@ export class homecook extends plugin {
     )
     if (ifexist0) {
       e.reply(`此配方已有人参悟出来，请购买他的菜单或者另外调配配方`)
-      return
+      return false
     }
     if (ifexist1) {
       e.reply(`此配方名字已经被人占用，请重新为你的食谱命名`)
-      return
+      return false
     }
     let id = '13-1-'
     let three = cook.length + 1
@@ -479,7 +479,7 @@ export class homecook extends plugin {
     }, 1000 * time1)
     e.reply(`正在给你制作【${name1}】...\n预计需要${time1}秒`)
     this.finish('choose_food1')
-    return
+    return false
   }
 
   eat = async (e) => {
@@ -489,7 +489,7 @@ export class homecook extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
@@ -509,7 +509,7 @@ export class homecook extends plugin {
     let shiwu = Warehouse.thing.find((item) => item.name === code1)
     if (shiwu == undefined) {
       e.reply(`你仓库里没有这道菜!`)
-      return
+      return false
     }
     const map = {
       攻击: 'attack',
@@ -567,7 +567,7 @@ export class homecook extends plugin {
       DATA: Warehouse,
       INITIAL: []
     })
-    return
+    return false
   }
 
   fabucaipu = async (e) => {
@@ -577,29 +577,29 @@ export class homecook extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const action = await GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const address_name = '万民堂'
     const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
     if (!map) {
       e.reply(`需要前往各大主城中的${address_name}才能发布`)
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)发布/, '')
     let caipu = await HomeApi.GameUser.homeexist_Warehouse_thing_name({ UID, name: thing })
     if (caipu == 1) {
       e.reply(`你没有该物品`)
-      return
+      return false
     }
     if (caipu.proficiency != 0) {
       e.reply(`该食谱的熟练度未到达100，暂时不给予发布资格`)
-      return
+      return false
     }
     const cook = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_cook',
@@ -653,7 +653,7 @@ export class homecook extends plugin {
     e.reply(
       `恭喜${UID}成功在万民堂发布一份食谱，玩家可前往万民堂购买，发布者可获得50%出售收益的版权费`
     )
-    return
+    return false
   }
 
   wanmin = async (e) => {
@@ -663,19 +663,19 @@ export class homecook extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const action = await GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const address_name = '万民堂'
     const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
     if (!map) {
       e.reply(`需要前往各大主城中的${address_name}`)
-      return
+      return false
     }
     let msg = ['___[万民堂]___\n#万民堂购买+物品名']
     let wanmin = await HomeApi.Listdata.controlActionInitial({
@@ -687,7 +687,7 @@ export class homecook extends plugin {
       msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.qq + '\n灵晶：' + item.doge)
     })
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   wanminbug = async (e) => {
@@ -695,19 +695,19 @@ export class homecook extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const action = await GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const address_name = '万民堂'
     const map = await GameApi.GameMap.mapExistence({ action, addressName: address_name })
     if (!map) {
       e.reply(`需要前往各大主城中的${address_name}才能购买`)
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)万民堂购买/, '')
     let code = thing.split('*')
@@ -715,7 +715,7 @@ export class homecook extends plugin {
     let shipu = await HomeApi.GameUser.homeexist_Warehouse_thing_name({ UID, thing_name })
     if (shipu != 1) {
       e.reply(`您已经有该食谱，请把该食谱消耗完再来吧!`)
-      return
+      return false
     }
     let ifexist1 = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
@@ -725,7 +725,7 @@ export class homecook extends plugin {
     let ifexist = ifexist1.find((item) => item.name == thing_name)
     if (!ifexist) {
       e.reply(`不卖:${thing_name}`)
-      return
+      return false
     }
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
@@ -740,7 +740,7 @@ export class homecook extends plugin {
     let commodities_doge = parseInt(commodities_doge1 * rand)
     if (doge < commodities_doge) {
       e.reply(`灵晶不足`)
-      return
+      return false
     }
     let money = commodities_doge * 0.5
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
@@ -764,13 +764,13 @@ export class homecook extends plugin {
       e.reply(
         `感谢您的购买，这次税率为【${rand}】,最终花了[${commodities_doge}]灵晶从万民堂购买了[${thing_name}]`
       )
-      return
+      return false
     } else {
       await HomeApi.GameUser.Add_doge({ UID: ifexist.qq, money })
       e.reply(
         `感谢您的购买，这次税率为【${rand}】,最终花了[${commodities_doge}]灵晶从万民堂购买了[${thing_name}]，食谱提供者：${ifexist.qq} 获得了${money}版权费`
       )
-      return
+      return false
     }
   }
 
@@ -781,12 +781,12 @@ export class homecook extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let thing0 = e.msg.replace(/^(#|\/)用/, '')
     let thing1 = thing0.split('炒')
@@ -799,19 +799,19 @@ export class homecook extends plugin {
     let guo = Warehouse.thing.find((item) => item.name == thing1[0])
     if (guo == undefined) {
       e.reply(`你没有${thing1[0]}，请重新选择!`)
-      return
+      return false
     }
     let id = guo.id.split('-')
-    let quantity = await GameApi.GamePublic.leastOne({ value: code[1] })
+    let quantity = GameApi.GamePublic.leastOne({ value: code[1] })
     if (guo.durable < quantity) {
       e.reply(`你的${thing1[0]}耐久不够，请重新选择数量!`)
-      return
+      return false
     }
     let choice = code[0] + '食谱'
     let shipu = Warehouse.thing.find((item) => item.name == choice)
     if (shipu == undefined) {
       e.reply(`你没有${choice}，请重新选择!`)
-      return
+      return false
     }
     if (id[0] != 13 || id[1] != 2) {
       Warehouse = await HomeApi.GameUser.Add_DATA_thing({
@@ -826,7 +826,7 @@ export class homecook extends plugin {
         INITIAL: []
       })
       e.reply(`你的${thing1[0]}不是锅，刚放到火上就被烧没了!`)
-      return
+      return false
     }
     let zhushi = shipu.zhushi
     let fushi = shipu.fushi
@@ -834,22 +834,22 @@ export class homecook extends plugin {
     if (shipu.proficiency != undefined) {
       if (shipu.proficiency < 1) {
         e.reply(`试用食谱次数已用完，请前往万民堂发布食谱!`)
-        return
+        return false
       }
       if (shipu.proficiency < quantity) {
         e.reply(`试用食谱次数不够，无法完成制作，请重新选择数量!`)
-        return
+        return false
       }
     } else {
       if (shipu.durable < quantity) {
         e.reply(`食谱使用次数不够，无法完成制作，请重新选择数量!`)
-        return
+        return false
       }
     }
     let zhushi1 = Warehouse.thing.find((item) => item.name === zhushi)
     if (zhushi1 == undefined || zhushi1.acount < quantity) {
       e.reply(`您的仓库里${zhushi}数量不够!`)
-      return
+      return false
     }
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -859,7 +859,7 @@ export class homecook extends plugin {
     let fushi1 = Warehouse.thing.find((item) => item.name === fushi)
     if (fushi1 == undefined || fushi1.acount < quantity) {
       e.reply(`您的仓库里${fushi}数量不够!`)
-      return
+      return false
     }
     Warehouse = await HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
@@ -869,7 +869,7 @@ export class homecook extends plugin {
     let tiaoliao1 = Warehouse.thing.find((item) => item.name === tiaoliao)
     if (tiaoliao1 == undefined || tiaoliao1.acount < quantity) {
       e.reply(`您的仓库里${tiaoliao}数量不够!`)
-      return
+      return false
     }
     let shuxing1 = await HomeApi.GameUser.attribute({ thing: zhushi1 })
     let shuxing2 = await HomeApi.GameUser.attribute({ thing: fushi1 })
@@ -892,7 +892,7 @@ export class homecook extends plugin {
     const CD = await HomeApi.GameUser.GenerateCD({ UID: UID, CDid })
     if (CD != 0) {
       e.reply(CD)
-      return
+      return false
     }
     const time = 20
     useraction[UID] = setTimeout(async () => {
@@ -905,7 +905,7 @@ export class homecook extends plugin {
       let zhushi1 = Warehouse1.thing.find((item) => item.name === zhushi)
       if (zhushi1 == undefined || zhushi1.acount < quantity) {
         e.reply(`您的仓库里${zhushi}数量不够!`)
-        return
+        return false
       }
       Warehouse1 = await HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse1,
@@ -915,7 +915,7 @@ export class homecook extends plugin {
       let fushi1 = Warehouse1.thing.find((item) => item.name === fushi)
       if (fushi1 == undefined || fushi1.acount < quantity) {
         e.reply(`您的仓库里${fushi}数量不够!`)
-        return
+        return false
       }
       Warehouse1 = await HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse1,
@@ -925,7 +925,7 @@ export class homecook extends plugin {
       let tiaoliao1 = Warehouse1.thing.find((item) => item.name === tiaoliao)
       if (tiaoliao1 == undefined || tiaoliao1.acount < quantity) {
         e.reply(`您的仓库里${tiaoliao}数量不够!`)
-        return
+        return false
       }
       Warehouse1 = await HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse1,
@@ -935,7 +935,7 @@ export class homecook extends plugin {
       let guo = Warehouse1.thing.find((item) => item.name == thing1[0])
       if (guo == undefined) {
         e.reply(`由于你在做饭的时候将锅拿开了，你的食材部浪费掉了!`)
-        return
+        return false
       }
       let shipu1 = Warehouse1.thing.find((item) => item.name === choice)
       Warehouse1 = await HomeApi.GameUser.Add_DATA_thing({
@@ -977,6 +977,6 @@ export class homecook extends plugin {
     forwardsetTime[UID] = 1
     e.reply(`正在给你制作【${quantity}】份【${code[0]}】...\n预计需要${time * quantity}秒`)
     GameApi.GamePublic.setRedis(UID, CDid, now_time, CDTime)
-    return
+    return false
   }
 }

@@ -38,19 +38,19 @@ export class home extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const { path, name, data } = await HomeApi.Information.userhomeShow({
       UID
     })
     const img = await BotApi.ImgIndex.showPuppeteer({ path, name, data })
     await e.reply(img)
-    return
+    return false
   }
 
   Warehouse = async (e) => {
@@ -58,18 +58,18 @@ export class home extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const { path, name, data } = await HomeApi.Information.userWarehouseShow({
       UID
     })
     e.reply(await BotApi.ImgIndex.showPuppeteer({ path, data, name }))
-    return
+    return false
   }
 
   buildhome = async (e) => {
@@ -77,12 +77,12 @@ export class home extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const ifexisthome = await HomeApi.Listdata.controlAction({
       NAME: 'position',
@@ -91,7 +91,7 @@ export class home extends plugin {
     const ifexisthome1 = ifexisthome.find((item) => item.qq == UID)
     if (ifexisthome1) {
       e.reply(`您已经建立过家园，如需搬迁请执行#家园搬迁至+地点`)
-      return
+      return false
     }
     const address = e.msg.replace(/^(#|\/)建立家园/, '')
     const action = await GameApi.UserData.controlAction({
@@ -105,7 +105,7 @@ export class home extends plugin {
     })
     if (!map) {
       e.reply(`第一次建立家园，需到${address_name}寻求联盟帮助`)
-      return
+      return false
     }
     const point0 = await GameApi.UserData.controlAction({
       NAME: 'point',
@@ -113,7 +113,7 @@ export class home extends plugin {
     })
     const point = point0.find((item) => item.name == address)
     if (!point) {
-      return
+      return false
     }
     const x = point.x
     const y = point.y
@@ -125,7 +125,7 @@ export class home extends plugin {
     })
     if (level.level_id < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
-      return
+      return false
     }
     const the = 10
     const time1 = the >= 0 ? the : 1
@@ -155,7 +155,7 @@ export class home extends plugin {
     }, 1000 * time1)
     forwardsetTime[UID] = 1
     e.reply(`联盟人员正在加紧修建你的住所...\n预计需要${time1}秒`)
-    return
+    return false
   }
   //家园扩建
   extensionhome = async (e) => {
@@ -165,12 +165,12 @@ export class home extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     const region = ifexisthome.region
@@ -181,13 +181,13 @@ export class home extends plugin {
     const region1 = action.region
     if (region != region1) {
       e.reply('您现在不在家园里，请回到家园所在地进行操作')
-      return
+      return false
     }
     const { homemsg } = await HomeApi.UserAction.userextensionhome({ UID })
     if (homemsg) {
       e.reply(homemsg)
     }
-    return
+    return false
   }
 
   unextensionhome = async (e) => {
@@ -197,16 +197,16 @@ export class home extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let action = GameApi.GamePublic.getAction(UID)
     if (action.actionName != '扩建') {
-      return
+      return false
     }
     const time1 = action.time1
     const startTime = action.startTime
@@ -214,7 +214,7 @@ export class home extends plugin {
     const time2 = time1 - time
     if (time < time1) {
       e.reply(`你提前回来查看，但是工人还在努力的扩建中，预计还有${time2}秒，请耐心等待一下把`)
-      return
+      return false
     }
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
@@ -244,22 +244,22 @@ export class home extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (ifexisthome == undefined) {
       e.reply('您都还没建立过家园')
-      return
+      return false
     }
     const address = e.msg.replace(/^(#|\/)搬迁家园到/, '')
     if (ifexisthome.address == address) {
       e.reply(`你家就在${address}，建筑队看了看你家，再看了看你要搬的地点，随后投来了异样的眼光`)
-      return
+      return false
     }
     const point0 = await GameApi.UserData.controlAction({
       NAME: 'point',
@@ -267,7 +267,7 @@ export class home extends plugin {
     })
     const point = point0.find((item) => item.name == address)
     if (!point) {
-      return
+      return false
     }
     const x = point.x
     const y = point.y
@@ -279,7 +279,7 @@ export class home extends plugin {
     })
     if (level.level_id < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
-      return
+      return false
     }
     const thing_name = '木板'
     const searchsthing = await HomeApi.GameUser.userWarehouseSearch({
@@ -288,7 +288,7 @@ export class home extends plugin {
     })
     if (searchsthing == undefined) {
       e.reply(`你的仓库里没有木板!`)
-      return
+      return false
     }
     const home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
@@ -300,11 +300,11 @@ export class home extends plugin {
     const z = a - searchsthing.acount
     if (searchsthing.acount < a) {
       e.reply(`你的木板不够，还需要筹备${z}块木板!`)
-      return
+      return false
     }
     if (home.doge < 2000) {
       e.reply(`这点灵晶可请不动建筑队帮扩建家园哦!要想请动他们，至少准备2000灵晶`)
-      return
+      return false
     }
     const the = 5
     const time1 = the >= 0 ? the : 1
@@ -358,6 +358,6 @@ export class home extends plugin {
     }, 1000 * time1)
     forwardsetTime[UID] = 1
     e.reply(`建筑人员正在加紧修建你的新住所...\n预计需要${time1}秒`)
-    return
+    return false
   }
 }

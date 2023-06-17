@@ -76,7 +76,7 @@ export class AssociationJoin extends plugin {
 
     if (assPlayer.volunteerAss == undefined) {
       assPlayer.volunteerAss = 0
-      await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+      AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
       return false
     }
 
@@ -86,14 +86,14 @@ export class AssociationJoin extends plugin {
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.volunteerAss)
     if (!ass) {
       assPlayer.volunteerAss = 0
-      await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+      AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
       e.reply(`清除成功！`)
       return false
     } else {
       assPlayer.volunteerAss = 0
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
-      await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-      await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+      AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+      AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
       e.reply(`清除成功！`)
       return false
     }
@@ -135,7 +135,7 @@ export class AssociationJoin extends plugin {
 
       ass.allMembers.push(joinQQ)
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinQQ)
-      await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+      AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
       await AssociationApi.assUser.assEffCount(joinPlayer)
       e.reply(`已批准${joinQQ}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
       return false
@@ -174,8 +174,8 @@ export class AssociationJoin extends plugin {
 
     joinPlayer.volunteerAss = 0
     ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinQQ)
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', joinQQ, joinPlayer)
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', joinQQ, joinPlayer)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     e.reply(`已拒绝！`)
     return false
   }

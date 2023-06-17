@@ -73,7 +73,7 @@ export class TreasureVault extends plugin {
     let point = Math.trunc(searchThing.price / 600)
     assPlayer.contributionPoints += point
     assPlayer.historyContribution += point
-    await AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     await Add_najie_things(searchThing, UID, -1)
     e.reply(`回收成功，你获得了${point}点贡献点！`)
 
@@ -107,7 +107,7 @@ export class TreasureVault extends plugin {
         redeemPoint: Math.ceil(searchThing.price / 500)
       }
       assTreasureCabinet[location].push(addTing)
-      await AssociationApi.assUser.setAssOrPlayer(
+      AssociationApi.assUser.setAssOrPlayer(
         'assTreasureVault',
         assPlayer.assName,
         assTreasureCabinet

@@ -675,7 +675,7 @@ export class homerangeland extends plugin {
     }
     user['B'] = await BotApi.User.at({ e })
     if (!user['B']) {
-      return
+      return false
     }
     const ifexisthome1 = await HomeApi.GameUser.existhome({ UID: user.B })
     if (!ifexisthome1) {

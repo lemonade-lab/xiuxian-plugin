@@ -31,12 +31,12 @@ export class homemoney extends plugin {
     if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
@@ -47,7 +47,7 @@ export class homemoney extends plugin {
     let Landgrid = home.Landgrid
     let doge = home.doge
     e.reply(`你的灵晶剩余${doge}颗，你的土地为${Land}块，你的土地格子剩余${Landgrid}格`)
-    return
+    return false
   }
 
   //出售商品
@@ -56,12 +56,12 @@ export class homemoney extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)售卖/, '')
     let code = thing.split('*')
@@ -74,15 +74,15 @@ export class homemoney extends plugin {
     })
     if (searchsthing == undefined) {
       e.reply(`你没有[${thing_name}]`)
-      return
+      return false
     }
     if (searchsthing.acount < quantity) {
       e.reply('数量不足')
-      return
+      return false
     }
     if (searchsthing.doge == undefined) {
       e.reply(`这个物品不是家园所得物品，请移步隔壁商店`)
-      return
+      return false
     }
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -115,7 +115,7 @@ export class homemoney extends plugin {
     } else {
       e.reply(`交给分阁人员路费${sui}灵晶，最后出售所得${commodities_doge}灵晶`)
     }
-    return
+    return false
   }
 
   async dogshop(e) {
@@ -123,12 +123,12 @@ export class homemoney extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let msg = ['___[灵瑶阁下属地方分阁]___\n#采购+物品名']
     let dogshop_list = await HomeApi.Listdata.controlActionInitial({
@@ -170,7 +170,7 @@ export class homemoney extends plugin {
       }
     })
     await BotApi.User.forwardMsg({ e, data: msg })
-    return
+    return false
   }
 
   async Buy_home(e) {
@@ -178,12 +178,12 @@ export class homemoney extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)采购/, '')
     let code = thing.split('*')
@@ -207,7 +207,7 @@ export class homemoney extends plugin {
     let id = ifexist.id.split('-')
     if (!ifexist) {
       e.reply(`不卖:${thing_name}`)
-      return
+      return false
     }
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
@@ -217,7 +217,7 @@ export class homemoney extends plugin {
     if (id[0] == '50') {
       if (home.homelevel < ifexist.animallevel) {
         e.reply(`未达到采购${thing_name}的等级`)
-        return
+        return false
       }
     }
     let doge = home.doge
@@ -228,7 +228,7 @@ export class homemoney extends plugin {
     let commodities_doge = parseInt(commodities_doge1 * rand)
     if (doge < commodities_doge1 * 1.3) {
       e.reply(`哪里来的穷光蛋！一声呵斥，你被灵瑶阁门卫强大的气场给震了出来`)
-      return
+      return false
     }
     let Warehouse = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -250,6 +250,6 @@ export class homemoney extends plugin {
     e.reply(
       `这次税率为【${rand}】,最终花了[${commodities_doge}]灵晶购买了[${thing_name}]*${quantity},`
     )
-    return
+    return false
   }
 }

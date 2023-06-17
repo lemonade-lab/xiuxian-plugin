@@ -95,7 +95,7 @@ export class AssociationJobUp extends plugin {
       e.reply(`你谋划篡位，被宗主识破了，不仅被逐出宗门，还让增加了15点魔力值`)
     }
     await AssociationApi.assUser.assEffCount(assPlayer)
-    await AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
     await GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level',

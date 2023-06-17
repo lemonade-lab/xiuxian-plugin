@@ -40,17 +40,17 @@ export class homeland extends plugin {
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    let good = await GameApi.GamePublic.GoMini({ UID: e.user_id })
+    let good = GameApi.GamePublic.GoMini({ UID: e.user_id })
     if (!good) {
-      return
+      return false
     }
     let region = ifexisthome.region
     let action = await GameApi.UserData.controlAction({
@@ -60,7 +60,7 @@ export class homeland extends plugin {
     let region1 = action.region
     if (region != region1) {
       e.reply('您现在不在家园里，开垦土地必须回家')
-      return
+      return false
     }
     let home = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
@@ -71,19 +71,19 @@ export class homeland extends plugin {
     let homelevel = home.homelevel
     if (homelevel < 3 && Land == 1) {
       e.reply('你的家园规模不够，不足以再开垦1块荒地')
-      return
+      return false
     }
     if (homelevel < 6 && Land == 2) {
       e.reply('你的家园规模不够，不足以再开垦1块荒地')
-      return
+      return false
     }
     if (homelevel < 9 && Land == 3) {
       e.reply('你的家园规模不够，不足以再开垦1块荒地')
-      return
+      return false
     }
     if (Land == 4) {
       e.reply('目前只能开垦4块荒地')
-      return
+      return false
     }
     let lingshi1 = Land * 20000 + 1000
     const lingshi = await GameApi.GameUser.userBagSearch({
@@ -92,7 +92,7 @@ export class homeland extends plugin {
     })
     if (!lingshi || lingshi.acount < lingshi1) {
       e.reply(`似乎没有${lingshi1}下品灵石`)
-      return
+      return false
     }
     await GameApi.GameUser.userBag({
       UID: UID,
@@ -111,7 +111,7 @@ export class homeland extends plugin {
     })
     e.reply(`本次开垦土地开了${lingshi1}的工资给工人，成功开垦出一块地来，并获得1000家园经验`)
 
-    return
+    return false
   }
 
   //种植
@@ -123,12 +123,12 @@ export class homeland extends plugin {
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let region = ifexisthome.region
     let action = await GameApi.UserData.controlAction({
@@ -138,7 +138,7 @@ export class homeland extends plugin {
     let region1 = action.region
     if (region != region1) {
       e.reply('您现在不在家园里，种地必须要回家种哦')
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)种下/, '')
     let code = thing.split('*')
@@ -152,12 +152,12 @@ export class homeland extends plugin {
     }) //查找种子
     if (searchsthing == undefined || searchsthing.acount < quantity) {
       e.reply('数量不足')
-      return
+      return false
     }
     let id = searchsthing.id.split('-')
     if (id[0] != 11 || id[1] != 1) {
       e.reply(`这个物品不能种到农田里，请换其他的来种吧!`)
-      return
+      return false
     }
     let lattice = searchsthing.lattice //获取种子所需格子
     let doge = searchsthing.doge
@@ -174,19 +174,19 @@ export class homeland extends plugin {
     let Landgridsurplus = Landgrid - a
     if (Land == 0) {
       e.reply(`你还没有自己的土地哦`)
-      return
+      return false
     }
     if (Landgrid > LandgridMax) {
       e.reply(`你的土地格子异常，请执行#农田重置 来修复异常格子!`)
-      return
+      return false
     }
     if (Landgridsurplus < 0) {
       e.reply(`你的土地格子不够，请重新选择种植数量`)
-      return
+      return false
     }
     if (searchsthing == 1) {
       e.reply(`世界没有[${thing_name}]`)
-      return
+      return false
     }
     let landgoods = await HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
@@ -196,7 +196,7 @@ export class homeland extends plugin {
     let name1 = landgoods.thing.find((item) => item.name == name)
     if (name1 != undefined) {
       e.reply(`农田里已经有${thing_name}了，请换一种种子吧`)
-      return
+      return false
     }
     let now_time = new Date().getTime()
     await HomeApi.GameUser.AddLandgrid({ UID, ACCOUNT: -a })
@@ -242,12 +242,12 @@ export class homeland extends plugin {
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let region = ifexisthome.region
     let action = await GameApi.UserData.controlAction({
@@ -257,7 +257,7 @@ export class homeland extends plugin {
     let region1 = action.region
     if (region != region1) {
       e.reply('您现在不在家园里，必须要回家才能收获哦')
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
     let landgoods1 = await HomeApi.Listdata.controlActionInitial({
@@ -268,7 +268,7 @@ export class homeland extends plugin {
     let landgoods = landgoods1.thing.find((item) => item.name == thing)
     if (landgoods == undefined) {
       e.reply('未找到该作物')
-      return
+      return false
     }
     let time = landgoods.time
     let mature = landgoods.mature * 60
@@ -280,10 +280,10 @@ export class homeland extends plugin {
     //判断是否够最低收益时间
     if (mature > time1) {
       e.reply(`你的作物还没成熟,预计还有${timeco1}秒成熟`)
-      return
+      return false
     }
     await this.upgrade(e, UID, landgoods, thing, acount, lattice)
-    return
+    return false
   }
   async upgrade(e, user_id, landgoods1, name, acount, lattice) {
     let UID = user_id
@@ -353,7 +353,7 @@ export class homeland extends plugin {
       } else {
         e.reply(`由于被偷了${q}次，本次种植收获了作物${other},并增加${x}的家园经验`)
       }
-      return
+      return false
     } else {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
@@ -402,7 +402,7 @@ export class homeland extends plugin {
       } else {
         e.reply(`由于被偷了${q}次，本次种植收获了作物${other},并增加${x}的家园经验`)
       }
-      return
+      return false
     }
   }
 
@@ -412,18 +412,18 @@ export class homeland extends plugin {
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     const { path, name, data } = await HomeApi.Information.get_lookland_img({
       UID
     })
     await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    return
+    return false
   }
 
   //偷菜
@@ -431,7 +431,7 @@ export class homeland extends plugin {
     if (!this.verify(e)) return false
     const good = await GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
-      return
+      return false
     }
     const user = {
       A: e.user_id,
@@ -441,21 +441,21 @@ export class homeland extends plugin {
     }
     user['B'] = await BotApi.User.at({ e })
     if (!user['B']) {
-      return
+      return false
     }
     const ifexisthome1 = await HomeApi.GameUser.existhome({ UID: user.B })
     if (!ifexisthome1) {
       e.reply(`对方还没建立过家园`)
-      return
+      return false
     }
     if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
       e.reply('已死亡')
-      return
+      return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID: user.A })
     if (archive != 0) {
       e.reply(`${archive}`)
-      return
+      return false
     }
     let region = ifexisthome1.region
     let action = await GameApi.UserData.controlAction({
@@ -465,14 +465,14 @@ export class homeland extends plugin {
     let region1 = action.region
     if (region != region1) {
       e.reply('您现在不在对方家园所在地内，偷菜请到对方家园所在地后进行偷菜')
-      return
+      return false
     }
     const CDid = '0'
     const CDTime = 30
     const CD = await HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
     if (CD != 0) {
       e.reply(CD)
-      return
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)偷菜/, '')
     let landgoods2 = await HomeApi.Listdata.controlActionInitial({
@@ -483,7 +483,7 @@ export class homeland extends plugin {
     let landgoods = landgoods2.thing.find((item) => item.name == thing)
     if (landgoods == undefined) {
       e.reply(`对方农田里没有这种农作物!`)
-      return
+      return false
     }
     let a = landgoods.stolen
     let time = landgoods.time
@@ -493,11 +493,11 @@ export class homeland extends plugin {
     //判断是否够最低收益时间
     if (mature > time1) {
       e.reply(`他的作物还没成熟,预计不知道多少秒成熟`)
-      return
+      return false
     }
     if (a == 1) {
       e.reply('偷这么多了，还是给他留点吧!')
-      return
+      return false
     }
     let other = 1
     let crop = await HomeApi.GameUser.homesearch_thing_name({ name: thing })
@@ -546,7 +546,7 @@ export class homeland extends plugin {
     })
     e.reply(`成功盗取数量为${other}的${thing},并增加${z}的家园经验`)
     GameApi.GamePublic.setRedis(user.A, CDid, now_time, CDTime)
-    return
+    return false
   }
 
   //查看他人农田
