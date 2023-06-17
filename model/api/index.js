@@ -2,7 +2,7 @@ import plugins from '../../../../lib/plugins/plugin.js'
 import { BotApi } from './botapi.js'
 import { GameApi } from './gameapi.js'
 import { HomeApi } from './homeapi.js'
-import { AssociationApi} from './assapi.js'
+import { AssociationApi } from './assapi.js'
 export class plugin extends plugins {
   constructor(data) {
     super({
@@ -23,4 +23,4 @@ export class plugin extends plugins {
     return true
   }
 }
-export { BotApi, GameApi, HomeApi,AssociationApi }
+export { BotApi, GameApi, HomeApi, AssociationApi }
