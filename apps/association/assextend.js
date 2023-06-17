@@ -20,7 +20,7 @@ export class AssociationExtend extends plugin {
     })
   }
 
-  async buildFactoryGood(e) {
+  buildFactoryGood(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     let msg = e.msg.replace('#建好', '')
@@ -38,13 +38,13 @@ export class AssociationExtend extends plugin {
     }
     const buildNumList = [100, 500, 500, 200, 200, 200, 300]
     ass.facility[location].buildNum = buildNumList[location]
-    await AssociationApi.assUser.checkFacility(ass)
+    AssociationApi.assUser.checkFacility(ass)
   }
 
-  async showAssPlayer(e) {
+  showAssPlayer(e) {
     const UID = e.user_id
     //无存档
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -78,19 +78,19 @@ export class AssociationExtend extends plugin {
         '历史贡献值:' +
         assPlayer.historyContribution
     )
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
 
-  async identify_token(e) {
+  identify_token(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
 
-    let isExists = await GameApi.GameUser.userBagSearch({
+    let isExists = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '宗门令牌'
     })
@@ -99,27 +99,27 @@ export class AssociationExtend extends plugin {
       return false
     }
     const random = Math.random()
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: isExists.name,
       ACCOUNT: Number(-1)
     })
     if (random < 0.1) {
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: '上等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了上等宗门令牌`)
     } else if (random < 0.35) {
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: '中等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了中等宗门令牌`)
     } else {
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: '下等宗门令牌',
         ACCOUNT: Number(1)

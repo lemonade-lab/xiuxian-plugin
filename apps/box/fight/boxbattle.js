@@ -11,28 +11,28 @@ export class BoxBattle extends plugin {
   duel = async (e) => {
     if (!this.verify(e)) return false
     const UIDA = e.user_id
-    let UIDB = await BotApi.User.at({ e })
+    let UIDB = BotApi.User.at({ e })
     if (!UIDB || UIDA == UIDB) {
       UIDB = e.msg.replace(/^(#|\/)打劫/, '')
       if (!UIDB || UIDA == UIDB) return false
     }
-    e.reply(await GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))
+    e.reply(GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))
     return false
   }
   handWashing = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const Level = await GameApi.UserData.controlAction({
+    const Level = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
     const money = 10000 * Level.level_id
     if (Level.prestige > 0) {
-      const thing = await GameApi.GameUser.userBagSearch({
+      const thing = GameApi.GameUser.userBagSearch({
         UID,
         name: '下品灵石'
       })
@@ -40,13 +40,13 @@ export class BoxBattle extends plugin {
         e.reply(`[天机门]韩立\n清魔力需要${money}[下品灵石]`)
         return false
       }
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID,
         name: '下品灵石',
         ACCOUNT: -money
       })
       Level.prestige -= 1
-      await GameApi.UserData.controlAction({
+      GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_level',
         DATA: Level

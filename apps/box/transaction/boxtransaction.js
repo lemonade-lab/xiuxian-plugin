@@ -14,7 +14,7 @@ export class BoxTransaction extends plugin {
   showComodities = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -26,7 +26,7 @@ export class BoxTransaction extends plugin {
 
     const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]\n不填数量,默认为1']
 
-    const commodities_list = await GameApi.UserData.controlAction({
+    const commodities_list = GameApi.UserData.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
@@ -70,7 +70,7 @@ export class BoxTransaction extends plugin {
       }
     }
 
-    await BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.User.forwardMsgSurveySet({ e, data: msg })
 
     return false
   }
@@ -79,7 +79,7 @@ export class BoxTransaction extends plugin {
 
     const UID = e.user_id
 
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -90,11 +90,11 @@ export class BoxTransaction extends plugin {
     }
 
     const [thing_name, thing_acount] = e.msg.replace(/^(#|\/)购买/, '').split('*')
-    let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
+    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
     if (quantity > 99) {
       quantity = 99
     }
-    const Commodities = await GameApi.UserData.controlAction({
+    const Commodities = GameApi.UserData.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
@@ -103,7 +103,7 @@ export class BoxTransaction extends plugin {
       e.reply(`[万宝楼]小二\n不卖[${thing_name}]`)
       return false
     }
-    const money = await GameApi.GameUser.userBagSearch({
+    const money = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -112,12 +112,12 @@ export class BoxTransaction extends plugin {
       e.reply(`似乎没有${price}*[下品灵石]`)
       return false
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -Number(price)
     })
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: ifexist.name,
       ACCOUNT: Number(quantity)
@@ -130,7 +130,7 @@ export class BoxTransaction extends plugin {
 
     const UID = e.user_id
 
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -142,12 +142,12 @@ export class BoxTransaction extends plugin {
 
     const [thing_name, thing_acount] = e.msg.replace(/^(#|\/)出售/, '').split('*')
 
-    let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
+    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
     if (quantity > 99) {
       quantity = 99
     }
 
-    const najie_thing = await GameApi.GameUser.userBagSearch({
+    const najie_thing = GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name
     })
@@ -162,7 +162,7 @@ export class BoxTransaction extends plugin {
       return false
     }
 
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: najie_thing.name,
       ACCOUNT: -Number(quantity)
@@ -170,7 +170,7 @@ export class BoxTransaction extends plugin {
 
     const commodities_price = najie_thing.price * quantity
 
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: Number(commodities_price)

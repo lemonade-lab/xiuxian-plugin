@@ -1,9 +1,10 @@
 import listdata from '../data/listdata.js'
+import GamePublic from '../public/index.js'
 import User from './user.js'
 class userAction {
-  userextensionhome = async (parameter) => {
+  userextensionhome = (parameter) => {
     const { UID } = parameter
-    const home = await listdata.controlAction({
+    const home = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_user'
     })
@@ -28,11 +29,11 @@ class userAction {
       9: '熔岩'
     }
     thing_nameg = map[homelevel]
-    const searchsthing = await User.userWarehouseSearch({
+    const searchsthing = User.userWarehouseSearch({
       UID: UID,
       name: thing_nameg
     })
-    const searchsthingh = await User.userWarehouseSearch({
+    const searchsthingh = User.userWarehouseSearch({
       UID: UID,
       name: thing_nameh
     })
@@ -75,18 +76,18 @@ class userAction {
         startTime: now_time,
         time1: time
       }
-      await redis.set(`xiuxian:player:${UID}:action`, JSON.stringify(actionObject))
-      await User.userWarehouse({
+      GamePublic.setAction(UID, actionObject)
+      User.userWarehouse({
         UID: UID,
         name: thing_nameg,
         ACCOUNT: -g
       })
-      await User.userWarehouse({
+      User.userWarehouse({
         UID: UID,
         name: thing_nameh,
         ACCOUNT: -h
       })
-      await User.Add_doge({ UID: UID, money: -money })
+      User.Add_doge({ UID: UID, money: -money })
       return { homemsg: `建筑队正在扩建家园，预计需要${time}秒` }
     }
   }

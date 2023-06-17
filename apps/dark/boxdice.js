@@ -9,9 +9,9 @@ export class BoxDice extends plugin {
     if (!this.verify(e)) return false
     const msg = ['__[万花坊]__']
     msg.push('待世界升级')
-    await BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.User.forwardMsgSurveySet({ e, data: msg })
     if (e.group.is_owner || e.group.is_admin) {
-      await e.recall()
+      e.recall()
     }
     return false
   }

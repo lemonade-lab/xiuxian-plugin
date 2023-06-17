@@ -12,12 +12,12 @@ export class BoxEquipment extends plugin {
   addEquipment = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace(/^(#|\/)装备/, '')
-    const najie_thing = await GameApi.GameUser.userBagSearch({
+    const najie_thing = GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name
     })
@@ -25,7 +25,7 @@ export class BoxEquipment extends plugin {
       e.reply(`没有[${thing_name}]`)
       return false
     }
-    const equipment = await GameApi.UserData.controlAction({
+    const equipment = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
@@ -36,25 +36,25 @@ export class BoxEquipment extends plugin {
       return false
     }
     equipment.push(najie_thing)
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment',
       DATA: equipment
     })
-    await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
-    await GameApi.GameUser.readPanel({ UID })
+    GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: -1 })
+    GameApi.GameUser.readPanel({ UID })
     e.reply(`装备[${thing_name}]`)
     return false
   }
   deleteEquipment = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace(/^(#|\/)卸下/, '')
-    let equipment = await GameApi.UserData.controlAction({
+    let equipment = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
@@ -71,13 +71,13 @@ export class BoxEquipment extends plugin {
         arr.splice(index, 1)
       }
     })
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment',
       DATA: equipment
     })
-    await GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
-    await GameApi.GameUser.readPanel({ UID })
+    GameApi.GameUser.userBag({ UID, name: thing_name, ACCOUNT: 1 })
+    GameApi.GameUser.readPanel({ UID })
     e.reply(`已卸下[${thing_name}]`)
     return false
   }

@@ -6,16 +6,16 @@ class ListData {
    * @param { NAME, CHOICE, DATA }param0
    * @returns
    */
-  controlAction = async ({ NAME, CHOICE, DATA }) => {
+  controlAction = ({ NAME, CHOICE, DATA }) => {
     if (DATA) {
-      await algorithm.dataAction({
+      algorithm.dataAction({
         NAME,
         PATH: __PATH[CHOICE],
         DATA
       })
       return
     }
-    return await algorithm.dataAction({
+    return algorithm.dataAction({
       NAME,
       PATH: __PATH[CHOICE]
     })
@@ -25,9 +25,9 @@ class ListData {
    * @param { NAME, CHOICE, DATA, INITIAL } param0
    * @returns
    */
-  controlActionInitial = async ({ NAME, CHOICE, DATA, INITIAL }) => {
+  controlActionInitial = ({ NAME, CHOICE, DATA, INITIAL }) => {
     if (DATA) {
-      await algorithm.dataAction({
+      algorithm.dataAction({
         NAME,
         PATH: __PATH[CHOICE],
         DATA
@@ -35,12 +35,12 @@ class ListData {
       return
     }
     //读取的时候需要检查
-    const Data = await algorithm.dataActionNew({
+    const Data = algorithm.dataActionNew({
       NAME,
       PATH: __PATH[CHOICE]
     })
     if (!Data) {
-      await algorithm.dataAction({
+      algorithm.dataAction({
         NAME,
         PATH: __PATH[CHOICE],
         DATA: INITIAL
@@ -55,8 +55,8 @@ class ListData {
    * @param {表名} NAME
    * @returns 随机返回该表的子元素
    */
-  randomListThing = async ({ NAME, CHOICE }) => {
-    const LIST = await algorithm.dataAction({
+  randomListThing = ({ NAME, CHOICE }) => {
+    const LIST = algorithm.dataAction({
       NAME,
       PATH: __PATH[CHOICE]
     })
@@ -71,13 +71,13 @@ class ListData {
    * @param {==name} name
    * @returns 返回信息
    */
-  searchThing = async (parameter) => {
+  searchThing = (parameter) => {
     let { CHOICE, NAME, condition, name } = parameter
     if (!CHOICE) {
       //默认检索all表
       ;(CHOICE = 'generate_all'), (NAME = 'all')
     }
-    const all = await this.controlAction({ CHOICE: CHOICE, NAME: NAME })
+    const all = this.controlAction({ CHOICE: CHOICE, NAME: NAME })
     const ifexist = all.find((item) => item[condition] == name)
     return ifexist
   }

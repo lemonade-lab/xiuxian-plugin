@@ -49,26 +49,26 @@ export class homerangeland extends plugin {
   }
 
   //修建牧场
-  async EstablishRangeland(e) {
+  EstablishRangeland(e) {
     if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    let good = await HomeApi.GameApi.GamePublic.GoMini({ UID: e.user_id })
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    let good = HomeApi.GameApi.GamePublic.GoMini({ UID: e.user_id })
     if (!good) {
       return
     }
     let region = ifexisthome.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -77,12 +77,12 @@ export class homerangeland extends plugin {
       e.reply('您现在不在家园里，修建牧场必须回家')
       return
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = await HomeApi.Listdata.controlActionInitial({
+    let rangeland = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -98,7 +98,7 @@ export class homerangeland extends plugin {
       return
     }
     let lingshi1 = rangelandlevel * 20000 + 1000
-    const lingshi = await GameApi.GameUser.userBagSearch({
+    const lingshi = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
@@ -106,13 +106,13 @@ export class homerangeland extends plugin {
       e.reply(`你没有足够的材料，工人决定不干了`)
       return
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: lingshi1
     })
     rangeland.rangelandlevel += 1
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -122,22 +122,22 @@ export class homerangeland extends plugin {
     return
   }
   //搭建草场
-  async seeding(e) {
+  seeding(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     //确认位置
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
     let region = ifexisthome.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -146,12 +146,12 @@ export class homerangeland extends plugin {
       e.reply('您现在不在家园里，搭建草场必须回家')
       return
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = await HomeApi.Listdata.controlActionInitial({
+    let rangeland = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -171,15 +171,15 @@ export class homerangeland extends plugin {
       return
     }
     let lingshi2 = rangelandlevel * 20000 + 1000
-    const lingshi = await GameApi.GameUser.userBagSearch({
+    const lingshi = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
-    const material1 = await HomeApi.GameUser.userWarehouseSearch({
+    const material1 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '木板'
     })
-    const material2 = await HomeApi.GameUser.userWarehouseSearch({
+    const material2 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '石头'
     })
@@ -202,23 +202,23 @@ export class homerangeland extends plugin {
       e.reply(`没有10石头`)
       return
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: lingshi2
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '木板',
       ACCOUNT: -20
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '石头',
       ACCOUNT: -10
     })
     rangeland.rangelandlevel += 1
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -228,22 +228,22 @@ export class homerangeland extends plugin {
     return
   }
   //栽种树林
-  async Plantforest(e) {
+  Plantforest(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     //确认位置
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
     let region = ifexisthome.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -252,12 +252,12 @@ export class homerangeland extends plugin {
       e.reply('您不在家是没有办法升级牧场的哦')
       return
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = await HomeApi.Listdata.controlActionInitial({
+    let rangeland = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -277,19 +277,19 @@ export class homerangeland extends plugin {
       return
     }
     let lingshi3 = rangelandlevel * 20000 + 1000
-    const lingshi = await GameApi.GameUser.userBagSearch({
+    const lingshi = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
-    const material1 = await HomeApi.GameUser.userWarehouseSearch({
+    const material1 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '木板'
     })
-    const material2 = await HomeApi.GameUser.userWarehouseSearch({
+    const material2 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '石头'
     })
-    const material3 = await HomeApi.GameUser.userWarehouseSearch({
+    const material3 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '树苗'
     })
@@ -318,28 +318,28 @@ export class homerangeland extends plugin {
       e.reply(`没有25树苗`)
       return
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: lingshi3
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '木板',
       ACCOUNT: -15
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '石头',
       ACCOUNT: -15
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '树苗',
       ACCOUNT: -25
     })
     rangeland.rangelandlevel += 1
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -349,23 +349,23 @@ export class homerangeland extends plugin {
     return
   }
   //开塘养鱼
-  async Raisefish(e) {
+  Raisefish(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
     }
     //确认位置
     let region = ifexisthome.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -374,12 +374,12 @@ export class homerangeland extends plugin {
       e.reply('您不在家是没有办法升级牧场的哦')
       return
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = await HomeApi.Listdata.controlActionInitial({
+    let rangeland = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -398,19 +398,19 @@ export class homerangeland extends plugin {
       return
     }
     let lingshi3 = rangelandlevel * 20000 + 1000
-    const lingshi = await GameApi.GameUser.userBagSearch({
+    const lingshi = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
-    const material1 = await HomeApi.GameUser.userWarehouseSearch({
+    const material1 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '木板'
     })
-    const material2 = await HomeApi.GameUser.userWarehouseSearch({
+    const material2 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '石头'
     })
-    const material3 = await HomeApi.GameUser.userWarehouseSearch({
+    const material3 = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: '水草'
     })
@@ -439,28 +439,28 @@ export class homerangeland extends plugin {
       e.reply(`没有10水草种子`)
       return
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: lingshi3
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '木板',
       ACCOUNT: -25
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '石头',
       ACCOUNT: -20
     })
-    await HomeApi.GameUser.userWarehouse({
+    HomeApi.GameUser.userWarehouse({
       UID: UID,
       name: '水草',
       ACCOUNT: -10
     })
     rangeland.rangelandlevel += 1
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -470,23 +470,23 @@ export class homerangeland extends plugin {
     return
   }
   //放养动物
-  async Breed(e) {
+  Breed(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
     }
     //确定位置
     let region = ifexisthome.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -495,7 +495,7 @@ export class homerangeland extends plugin {
       e.reply('您现在不在家园里，动物必须放在家园牧场里哦')
       return
     }
-    // let muc = await HomeApi.Listdata.controlAction({ NAME: UID, CHOICE: 'user_rangelandannimals' })
+    // let muc =  HomeApi.Listdata.controlAction({ NAME: UID, CHOICE: 'user_rangelandannimals' })
     // let x
     // for(let i = 0; i < muc.length; i++){
     //   x = x + muc[i].animalacount
@@ -504,7 +504,7 @@ export class homerangeland extends plugin {
     let thing = e.msg.replace(/^(#|\/)养殖/, '')
     let code = thing.split('*')
     let thing_name = code[0] //动物名字
-    let searchsthing = await HomeApi.GameUser.userWarehouseSearch({
+    let searchsthing = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: thing_name
     }) //查找动物
@@ -521,7 +521,7 @@ export class homerangeland extends plugin {
       e.reply(`世界上没有[${thing_name}]`)
       return
     }
-    let rangeland = await HomeApi.Listdata.controlActionInitial({
+    let rangeland = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -531,7 +531,7 @@ export class homerangeland extends plugin {
       e.reply('你仔细想想你建牧场了吗XDD)BO}R%$LQPF$J)`K9DWP.png')
       return
     }
-    let rangelandannimals = await HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
       INITIAL: []
@@ -543,32 +543,32 @@ export class homerangeland extends plugin {
     }
     if (rangelandlevel > rangelandannimals.thing.length) {
       let now_time = new Date().getTime()
-      let searchsthing1 = await HomeApi.GameUser.Add_rangelandannimals({
+      let searchsthing1 = HomeApi.GameUser.Add_rangelandannimals({
         rangelandannimals: searchsthing,
         now_time
       })
-      rangelandannimals = await HomeApi.GameUser.Add_DATA_thing({
+      rangelandannimals = HomeApi.GameUser.Add_DATA_thing({
         DATA: rangelandannimals,
         DATA1: searchsthing1,
         quantity: 1
       })
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals,
         INITIAL: []
       })
-      let Warehouse = await HomeApi.Listdata.controlActionInitial({
+      let Warehouse = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         INITIAL: []
       })
-      Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: searchsthing,
         quantity: -1
       })
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
@@ -582,21 +582,21 @@ export class homerangeland extends plugin {
     }
   }
   //宰杀动物
-  async Slaughter(e) {
+  Slaughter(e) {
     if (!this.verify(e)) return false
     //检查存档
     let UID = e.user_id
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
     }
     let thing = e.msg.replace(/^(#|\/)宰杀/, '')
-    let rangelandannimals1 = await HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals1 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
       INITIAL: []
@@ -623,19 +623,19 @@ export class homerangeland extends plugin {
     }
     // else if (timeco1 + deadtime < 0) {
     //   rangelandannimals1.thing = rangelandannimals1.thing.filter(item => item.name1 != thing)
-    //   await HomeApi.Listdata.controlActionInitial({ CHOICE: 'user_rangelandannimals', NAME: UID ,DATA:rangelandannimals1})
+    //    HomeApi.Listdata.controlActionInitial({ CHOICE: 'user_rangelandannimals', NAME: UID ,DATA:rangelandannimals1})
     //   e.reply("你太久没管它，它已经悄悄地死去了")
     //   return
     // }
     else {
       rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals1,
         INITIAL: []
       })
-      let MSG = await HomeApi.GameUser.Slaughter({
+      let MSG = HomeApi.GameUser.Slaughter({
         UID,
         name: rangelandannimals.name1
       })
@@ -644,26 +644,26 @@ export class homerangeland extends plugin {
     }
   }
   //查看牧场
-  async Checkpasture(e) {
+  Checkpasture(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
-    const { path, name, data } = await HomeApi.Information.get_lookrangeland_img({ UID })
-    await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    const { path, name, data } = HomeApi.Information.get_lookrangeland_img({ UID })
+    e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
     return
   }
   //偷
   Stealanimals = async (e) => {
     if (!this.verify(e)) return false
-    const good = await HomeApi.GameApi.GamePublic.Go({ UID: e.user_id })
+    const good = HomeApi.GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
       return
     }
@@ -673,26 +673,26 @@ export class homerangeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return false
     }
-    const ifexisthome1 = await HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
     if (!ifexisthome1) {
       e.reply(`对方还没建立过家园`)
       return
     }
-    if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: user.A })) {
       e.reply('对方已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID: user.A })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID: user.A })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     let region = ifexisthome1.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: user.A,
       CHOICE: 'user_home_action'
     })
@@ -703,13 +703,13 @@ export class homerangeland extends plugin {
     }
     const CDid = '0'
     const CDTime = 30
-    const CD = await HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
+    const CD = HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
     if (CD != 0) {
       e.reply(CD)
       return
     }
     let thing = e.msg.replace(/^(#|\/)偷动物/, '')
-    let rangelandannimals2 = await HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals2 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       INITIAL: []
@@ -733,19 +733,19 @@ export class homerangeland extends plugin {
       e.reply('偷这么多真的好吗？!')
       return
     }
-    let rangelandannimals1 = await HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals1 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       INITIAL: []
     })
     rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       DATA: rangelandannimals1,
       INITIAL: []
     })
-    let MSG = await HomeApi.GameUser.Slaughter({
+    let MSG = HomeApi.GameUser.Slaughter({
       UID: user.A,
       name: rangelandannimals.name1
     })
@@ -754,7 +754,7 @@ export class homerangeland extends plugin {
     return
   }
   //查看他人牧场
-  async Checkotherpasture(e) {
+  Checkotherpasture(e) {
     if (!this.verify(e)) return false
     const user = {
       A: e.user_id,
@@ -762,26 +762,26 @@ export class homerangeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return
     }
-    const ifexisthome1 = await HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
     if (!ifexisthome1) {
       e.reply(`对方没建立过家园`)
       return
     }
-    if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: user.A })) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archiverangeland({ UID: user.A })
+    const archive = HomeApi.GameUser.Archiverangeland({ UID: user.A })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     let region = ifexisthome1.region
-    let action = await HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.UserData.controlAction({
       NAME: user.A,
       CHOICE: 'user_action'
     })
@@ -790,8 +790,8 @@ export class homerangeland extends plugin {
       e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
       return
     }
-    const { path, name, data } = await HomeApi.Information.get_lookrangeland_img({ UID: user.B })
-    await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    const { path, name, data } = HomeApi.Information.get_lookrangeland_img({ UID: user.B })
+    e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
     return
   }
 }

@@ -11,7 +11,7 @@ export class BoxMoneyOperation extends plugin {
 
   giveGoods = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
@@ -20,26 +20,26 @@ export class BoxMoneyOperation extends plugin {
 
   giveMoney = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false
     }
     const A = e.user_id
-    const B = await BotApi.User.at({ e })
+    const B = BotApi.User.at({ e })
     if (!B || B == A) return false
-    const existB = await GameApi.GameUser.existUserSatus({ UID: B })
+    const existB = GameApi.GameUser.existUserSatus({ UID: B })
     if (!existB) {
       e.reply('已仙鹤')
       return false
     }
     let islingshi = e.msg.replace(/^(#|\/)赠送灵石/, '')
-    islingshi = await GameApi.GamePublic.leastOne({ value: islingshi })
-    const money = await GameApi.GameUser.userBagSearch({
+    islingshi = GameApi.GamePublic.leastOne({ value: islingshi })
+    const money = GameApi.GameUser.userBagSearch({
       UID: A,
       name: '下品灵石'
     })
@@ -54,18 +54,18 @@ export class BoxMoneyOperation extends plugin {
     const CDTime = cf['CD']['Transfer'] ? cf['CD']['Transfer'] : 5
     const CDID = '5'
     const now_time = new Date().getTime()
-    const { CDMSG } = await GameApi.GamePublic.cooling({ UID: A, CDID })
+    const { CDMSG } = GameApi.GamePublic.cooling({ UID: A, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
     GameApi.GamePublic.setRedis(A, CDID, now_time, CDTime)
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: A,
       name: '下品灵石',
       ACCOUNT: -islingshi
     })
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: B,
       name: '下品灵石',
       ACCOUNT: islingshi

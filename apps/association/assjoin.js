@@ -28,10 +28,10 @@ export class AssociationJoin extends plugin {
     })
   }
 
-  async View_Resume(e) {
+  View_Resume(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -41,7 +41,7 @@ export class AssociationJoin extends plugin {
     if (assPlayer.assName == 0) {
       return false
     }
-    const joinPlayer = await GameApi.GameUser.userMsgAction({
+    const joinPlayer = GameApi.GameUser.userMsgAction({
       NAME: joinQQ,
       CHOICE: 'user_level'
     })
@@ -65,10 +65,10 @@ export class AssociationJoin extends plugin {
     return false
   }
 
-  async Clear_Volunteer(e) {
+  Clear_Volunteer(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -99,10 +99,10 @@ export class AssociationJoin extends plugin {
     }
   }
 
-  async Approval_Admission(e) {
+  Approval_Admission(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     const joinQQ = e.msg.replace('#批准录取', '')
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assPlayer', joinQQ)) {
       return false
@@ -127,7 +127,7 @@ export class AssociationJoin extends plugin {
     if (assPlayer.assJob >= 8) {
       const now = new Date()
       const nowTime = now.getTime() //获取当前时间戳
-      const date = await AssociationApi.assUser.timeChange(nowTime)
+      const date = AssociationApi.assUser.timeChange(nowTime)
       joinPlayer.assName = ass.id
       joinPlayer.assJob = 1
       joinPlayer.volunteerAss = 0
@@ -136,7 +136,7 @@ export class AssociationJoin extends plugin {
       ass.allMembers.push(joinQQ)
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinQQ)
       AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-      await AssociationApi.assUser.assEffCount(joinPlayer)
+      AssociationApi.assUser.assEffCount(joinPlayer)
       e.reply(`已批准${joinQQ}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
       return false
     } else {
@@ -145,10 +145,10 @@ export class AssociationJoin extends plugin {
     }
   }
 
-  async Denial_Application(e) {
+  Denial_Application(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -180,10 +180,10 @@ export class AssociationJoin extends plugin {
     return false
   }
 
-  async Show_All_Resume(e) {
+  Show_All_Resume(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -201,7 +201,7 @@ export class AssociationJoin extends plugin {
     for (var i = 0; i < ass.applyJoinList.length; i++) {
       temp.push(`序号:${1 + i} ` + '\n' + `申请人QQ: ${ass.applyJoinList[i]}` + '\n')
     }
-    await BotApi.User.forwardMsg({ e, data: temp })
+    BotApi.User.forwardMsg({ e, data: temp })
     return false
   }
 }

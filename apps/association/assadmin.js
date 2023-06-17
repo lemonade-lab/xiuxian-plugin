@@ -30,10 +30,10 @@ export class AssociationAdmin extends plugin {
   }
 
   //判断是否满足创建宗门条件
-  async Create_association(e) {
+  Create_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -45,7 +45,7 @@ export class AssociationAdmin extends plugin {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
     }
-    let money = await GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
+    let money = GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
     if (!money) {
       e.reply('[下品灵石]不足')
       return false
@@ -61,11 +61,11 @@ export class AssociationAdmin extends plugin {
     //中，是否四大隐藏有主            是，检测低级，否，随机获取四大宗门
     //低，进行普通创建
 
-    let najieThingA = await GameApi.GameUser.userBagSearch({
+    let najieThingA = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下等宗门令牌'
     })
-    let najieThingB = await GameApi.GameUser.userBagSearch({
+    let najieThingB = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '中等宗门令牌'
     })
@@ -86,19 +86,19 @@ export class AssociationAdmin extends plugin {
 
       if (assName.length != 0) {
         //可以创建隐藏宗门
-        await GameApi.GameUser.userBag({
+        GameApi.GameUser.userBag({
           UID: UID,
           name: '下品灵石',
           ACCOUNT: Number(-10000)
         })
-        await GameApi.GameUser.userBag({
+        GameApi.GameUser.userBag({
           UID: UID,
           name: najieThingB.name,
           ACCOUNT: Number(-1)
         })
         const now = new Date()
         const nowTime = now.getTime() //获取当前时间戳
-        const date = await AssociationApi.assUser.timeChange(nowTime)
+        const date = AssociationApi.assUser.timeChange(nowTime)
 
         const location = Math.floor(Math.random() * assName.length)
         const association = getAss(assName[location], date, nowTime, UID, 4, 100000)
@@ -112,7 +112,7 @@ export class AssociationAdmin extends plugin {
         assPlayer.volunteerAss = 0
         assPlayer.time = [date, nowTime]
         AssociationApi.assUser.setAssOrPlayer('association', assName[location], association)
-        await AssociationApi.assUser.assEffCount(assPlayer)
+        AssociationApi.assUser.assEffCount(assPlayer)
         let assRelation = AssociationApi.assUser.assRelationList.find(
           (item) => item.id == assName[location]
         )
@@ -125,12 +125,12 @@ export class AssociationAdmin extends plugin {
 
     //隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
     if (najieThingA) {
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: '下品灵石',
         ACCOUNT: Number(-10000)
       })
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -139,17 +139,15 @@ export class AssociationAdmin extends plugin {
       /** 设置上下文 */
       this.setContext('Get_association_name')
       /** 回复 */
-      await e.reply(
-        '请发送宗门的名字,后续可使用#宗门改名xxx进行修改(宗门名字最多6个中文字符)',
-        false,
-        { at: true }
-      )
+      e.reply('请发送宗门的名字,后续可使用#宗门改名xxx进行修改(宗门名字最多6个中文字符)', false, {
+        at: true
+      })
       return false
     }
   }
 
   /** 获取宗门名称 */
-  async Get_association_name(e) {
+  Get_association_name(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     /** 内容 */
@@ -160,13 +158,13 @@ export class AssociationAdmin extends plugin {
     const new_msg = this.e.message
     if (new_msg[0].type != 'text') {
       this.setContext('Get_association_name')
-      await this.reply('请发送文本,请重新输入:')
+      this.reply('请发送文本,请重新输入:')
       return false
     }
     const association_name = new_msg[0].text
     if (association_name.length > 6) {
       this.setContext('Get_association_name')
-      await this.reply('宗门名字最多只能设置6个字符,请重新输入:')
+      this.reply('宗门名字最多只能设置6个字符,请重新输入:')
       return false
     }
     const reg = /[^\u4e00-\u9fa5]/g //汉字检验正则
@@ -174,7 +172,7 @@ export class AssociationAdmin extends plugin {
     //res为true表示存在汉字以外的字符
     if (res) {
       this.setContext('Get_association_name')
-      await this.reply('宗门名字只能使用中文,请重新输入:')
+      this.reply('宗门名字只能使用中文,请重新输入:')
       return false
     }
     const assRelation = AssociationApi.assUser.assRelationList.find(
@@ -182,12 +180,12 @@ export class AssociationAdmin extends plugin {
     )
     if (assRelation) {
       this.setContext('Get_association_name')
-      await this.reply('该宗门已经存在,请重新输入:')
+      this.reply('该宗门已经存在,请重新输入:')
       return false
     }
     const now = new Date()
     const nowTime = now.getTime() //获取当前时间戳
-    const date = await AssociationApi.assUser.timeChange(nowTime)
+    const date = AssociationApi.assUser.timeChange(nowTime)
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     const id =
       AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
@@ -210,19 +208,19 @@ export class AssociationAdmin extends plugin {
     assPlayer.volunteerAss = 0
     assPlayer.time = [date, nowTime]
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-    await new_Association(association_id, UID)
-    await AssociationApi.assUser.assEffCount(assPlayer)
-    await this.reply('宗门创建成功')
+    new_Association(association_id, UID)
+    AssociationApi.assUser.assEffCount(assPlayer)
+    this.reply('宗门创建成功')
     /** 结束上下文 */
     this.finish('Get_association_name')
     //return association_name
   }
 
   //升级宗门
-  async lvup_association(e) {
+  lvup_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -243,11 +241,11 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let najieThingA = await GameApi.GameUser.userBagSearch({
+    let najieThingA = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '中等宗门令牌'
     })
-    let najieThingB = await GameApi.GameUser.userBagSearch({
+    let najieThingB = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '上等宗门令牌'
     })
@@ -257,7 +255,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级中等宗门需要对应令牌，快去获取吧`)
         return false
       }
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -269,7 +267,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级上等宗门需要对应令牌，快去获取吧`)
         return false
       }
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: najieThingB.name,
         ACCOUNT: Number(-1)
@@ -284,7 +282,7 @@ export class AssociationAdmin extends plugin {
       const UID = player_id
       if (AssociationApi.assUser.existAss('assPlayer', UID)) {
         const assOrPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-        await AssociationApi.assUser.assEffCount(assOrPlayer)
+        AssociationApi.assUser.assEffCount(assOrPlayer)
       }
     }
     e.reply(
@@ -297,10 +295,10 @@ export class AssociationAdmin extends plugin {
   }
 
   //任命职位
-  async Set_appointment(e) {
+  Set_appointment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -313,7 +311,7 @@ export class AssociationAdmin extends plugin {
     if (UID == member_qq) {
       return false
     }
-    const ass = await AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
     const isinass = ass.allMembers.find((item) => item == member_qq)
     if (!isinass) {
       return false
@@ -330,16 +328,16 @@ export class AssociationAdmin extends plugin {
     }
 
     member.assJob += 1
-    await AssociationApi.assUser.assEffCount(member)
+    AssociationApi.assUser.assEffCount(member)
 
     e.reply(`提拔成功！！！`)
     return false
   }
 
-  async AssRename(e) {
+  AssRename(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -361,15 +359,15 @@ export class AssociationAdmin extends plugin {
     }
     ass.spiritStoneAns -= 10000
     AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    await AssociationApi.assUser.assRename(ass.id, 1, association_name)
+    AssociationApi.assUser.assRename(ass.id, 1, association_name)
     e.reply(`改名成功，宗门当前名称为${association_name}`)
     return false
   }
 
-  async Deleteusermax(e) {
+  Deleteusermax(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -385,7 +383,7 @@ export class AssociationAdmin extends plugin {
     if (UID == member_qq) {
       return false
     }
-    const playerB = await AssociationApi.assUser.getAssOrPlayer(1, member_qq)
+    const playerB = AssociationApi.assUser.getAssOrPlayer(1, member_qq)
     if (playerB.assName == 0) {
       return false
     }
@@ -402,7 +400,7 @@ export class AssociationAdmin extends plugin {
     playerB.assJob = 0
     playerB.assName = 0
     AssociationApi.assUser.setAssOrPlayer('association', bss.id, bss)
-    await AssociationApi.assUser.assEffCount(playerB)
+    AssociationApi.assUser.assEffCount(playerB)
     e.reply('已踢出！')
     return false
   }
@@ -472,7 +470,7 @@ const getAss = (name, date, nowTime, holder_qq, level = 1, spiritStoneAns = 0) =
  * @param name 宗门名称
  * @param holder_qq 宗主qq号
  */
-const new_Association = async (name, holder_qq) => {
+const new_Association = (name, holder_qq) => {
   const nowTime = new Date().getTime() //获取当前时间戳
   const date = AssociationApi.assUser.timeChange(nowTime)
   const Association = getAss(name, date, nowTime, holder_qq)

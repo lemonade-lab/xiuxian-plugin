@@ -17,18 +17,18 @@ export class assGetHelp extends plugin {
   }
   assHelpImg = async (e) => {
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'ass_help' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'ass_help' })
     if (!data) return false
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 6, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 6, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   assHelpAdmin = async (e) => {
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'ass_admin' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'ass_admin' })
     if (!data) return false
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 7, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 7, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
 }

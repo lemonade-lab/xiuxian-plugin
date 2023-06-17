@@ -11,16 +11,16 @@ export class boxadminmoney extends plugin {
   gifts = async (e) => {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const UID = await BotApi.User.at({ e })
+    const UID = BotApi.User.at({ e })
     if (!UID) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
     const thing_name = e.msg.replace(/^(#|\/)修仙馈赠/, '')
     const [name, acount] = thing_name.split('*')
     const quantity = GameApi.GamePublic.leastOne({ value: acount })
-    const bag = await GameApi.GameUser.userBag({
+    const bag = GameApi.GameUser.userBag({
       UID,
       name,
       ACCOUNT: quantity
@@ -35,15 +35,15 @@ export class boxadminmoney extends plugin {
   deduction = async (e) => {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const UID = await BotApi.User.at({ e })
+    const UID = BotApi.User.at({ e })
     if (!UID) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
     let lingshi = e.msg.replace(/^(#|\/)修仙扣除/, '')
-    lingshi = await GameApi.GamePublic.leastOne({ value: lingshi })
-    const thing = await GameApi.GameUser.userBagSearch({
+    lingshi = GameApi.GamePublic.leastOne({ value: lingshi })
+    const thing = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -51,7 +51,7 @@ export class boxadminmoney extends plugin {
       e.reply('他好穷的')
       return false
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -lingshi

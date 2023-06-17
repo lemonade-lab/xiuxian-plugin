@@ -1,7 +1,7 @@
 import { GameApi } from '../../api/index.js'
 import listdata from '../data/listdata.js'
 class information {
-  userDataShow = async ({ UID }) => {
+  userDataShow = ({ UID }) => {
     return {
       path: 'user/information',
       name: 'information',
@@ -10,21 +10,21 @@ class information {
       }
     }
   }
-  userWarehouseShow = async ({ UID }) => {
-    let life = await GameApi.GameUser.userMsgAction({
+  userWarehouseShow = ({ UID }) => {
+    let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
       CHOICE: 'user_home_life'
     })
     life = life.find((item) => item.qq == UID)
-    const player = await GameApi.UserData.controlAction({
+    const player = GameApi.UserData.controlAction({
       CHOICE: 'user_home_player',
       NAME: UID
     })
-    const battle = await GameApi.UserData.controlAction({
+    const battle = GameApi.UserData.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    const Warehouse = await listdata.controlActionInitial({
+    const Warehouse = listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -106,26 +106,26 @@ class information {
       }
     }
   }
-  userhomeShow = async ({ UID }) => {
-    const player = await GameApi.UserData.controlAction({
+  userhomeShow = ({ UID }) => {
+    const player = GameApi.UserData.controlAction({
       CHOICE: 'user_home_player',
       NAME: UID
     })
-    const home = await listdata.controlActionInitial({
+    const home = listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
       INITIAL: []
     })
-    const battle = await GameApi.UserData.controlAction({
+    const battle = GameApi.UserData.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    let life = await GameApi.GameUser.userMsgAction({
+    let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
       CHOICE: 'user_home_life'
     })
     life = life.find((item) => item.qq == UID)
-    const ifexisthome1 = await listdata.controlActionInitial({
+    const ifexisthome1 = listdata.controlActionInitial({
       CHOICE: 'user_home_position',
       NAME: 'position',
       INITIAL: []
@@ -151,13 +151,13 @@ class information {
       }
     }
   }
-  get_lookland_img = async ({ UID }) => {
-    let life = await GameApi.GameUser.userMsgAction({
+  get_lookland_img = ({ UID }) => {
+    let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
       CHOICE: 'user_home_life'
     })
     life = life.find((item) => item.qq == UID)
-    const landgoods = await listdata.controlActionInitial({
+    const landgoods = listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       INITIAL: []
@@ -185,8 +185,8 @@ class information {
       }
     }
   }
-  get_lookrangeland_img = async ({ UID }) => {
-    const rangelandannimals = await listdata.controlActionInitial({
+  get_lookrangeland_img = ({ UID }) => {
+    const rangelandannimals = listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
       INITIAL: []

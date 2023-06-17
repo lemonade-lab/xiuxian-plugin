@@ -4,18 +4,11 @@ import { MyDirPath } from '../../../app.config.js'
 
 /**fs算法*/
 class Algorithm {
-  /* 判断指定插件是否存在 */
-  isPlugin = (name) => {
-    if (fs.existsSync(`${path.resolve().replace(/\\/g, '/')}/plugins/${name}`)) {
-      return true
-    }
-    return false
-  }
   /**
    * @param {地址} path
    * @returns 该地址的子目录数组
    */
-  returnMenu = (path) => {
+  getMenu = (path) => {
     const files = fs.readdirSync(path)
     const shield = ['.git']
     const sum = []
@@ -40,7 +33,7 @@ class Algorithm {
    * @param {类型} type
    * @returns
    */
-  returnfilepath = (menupath, type) => {
+  getfilepath = (menupath, type) => {
     const newsum = []
     const travel = (dir, callback) => {
       for (let file of fs.readdirSync(dir)) {
@@ -63,7 +56,7 @@ class Algorithm {
    * @param { NAME, PATH, DATA } parameter
    * @returns 若存在不存在数据参数则是读取操作
    */
-  dataAction = async ({ NAME, PATH, DATA }) => {
+  dataAction = ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
       fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})
@@ -85,7 +78,7 @@ class Algorithm {
    * @param { NAME, PATH, DATA } parameter
    * @returns
    */
-  dataActionNew = async ({ NAME, PATH, DATA }) => {
+  dataActionNew = ({ NAME, PATH, DATA }) => {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
       fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8', (err) => {})

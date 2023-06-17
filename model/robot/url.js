@@ -1,15 +1,15 @@
 import puppeteer from './puppeteer.js'
 class ShowURl {
-  showUrl = async ({ url }) => {
-    const browser = await puppeteer.browserInit()
-    const page = await browser.newPage()
-    await page.setViewport({
+  showUrl = ({ url }) => {
+    const browser = puppeteer.browserInit()
+    const page = browser.newPage()
+    page.setViewport({
       width: 1280,
       height: 1100
     })
-    await page.goto(url)
+    page.goto(url)
     let buff = null
-    buff = await page.screenshot({
+    buff = page.screenshot({
       clip: {
         x: 400,
         y: 80,

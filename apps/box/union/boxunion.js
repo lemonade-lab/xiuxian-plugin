@@ -13,7 +13,7 @@ export class boxunion extends plugin {
   unionShop = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -28,7 +28,7 @@ export class boxunion extends plugin {
   userSignin = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -43,11 +43,11 @@ export class boxunion extends plugin {
   userCheckin = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID })
+    const { MSG } = GameApi.GamePublic.Go({ UID })
     if (MSG) {
       e.reply(MSG)
       return false
@@ -57,7 +57,7 @@ export class boxunion extends plugin {
       e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
-    const level = await GameApi.UserData.controlAction({
+    const level = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -66,7 +66,7 @@ export class boxunion extends plugin {
       return false
     }
 
-    const action = await GameApi.UserData.controlAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -75,14 +75,14 @@ export class boxunion extends plugin {
       return false
     }
     action.newnoe = 0
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action',
       DATA: action
     })
 
-    const randomthing = await GameApi.GameUser.randomThing()
-    await GameApi.GameUser.userBag({
+    const randomthing = GameApi.GameUser.randomThing()
+    GameApi.GameUser.userBag({
       UID,
       name: randomthing.name,
       ACCOUNT: randomthing.acount

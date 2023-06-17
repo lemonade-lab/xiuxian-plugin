@@ -11,7 +11,7 @@ export class BoxForum extends plugin {
   searchForum = async (e) => {
     if (!this.verify(e)) return false
     const msg = []
-    const Forum = await GameApi.UserData.controlActionInitial({
+    const Forum = GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',
       INITIAL: []
@@ -19,12 +19,12 @@ export class BoxForum extends plugin {
     for (let item of Forum) {
       msg.push(`[${item.UID}]\n${item.content}`)
     }
-    await BotApi.User.forwardMsgSurveySet({ e, data: msg })
+    BotApi.User.forwardMsgSurveySet({ e, data: msg })
     return false
   }
   pushForum = async (e) => {
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -34,7 +34,7 @@ export class BoxForum extends plugin {
       return false
     }
     const TheDate = new Date()
-    const Forum = await GameApi.UserData.controlActionInitial({
+    const Forum = GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',
       INITIAL: []
@@ -47,7 +47,7 @@ export class BoxForum extends plugin {
     if (Forum.length >= 5) {
       Forum.pop()
     }
-    await GameApi.UserData.controlActionInitial({
+    GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',
       DATA: Forum,

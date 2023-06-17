@@ -14,11 +14,11 @@ export class BoxSecretplace extends plugin {
   showCity = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const action = await GameApi.UserData.controlAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -27,7 +27,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const addressId = `${action.z}-${action.region}-${action.address}`
-    const point = await GameApi.UserData.controlAction({
+    const point = GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -41,16 +41,16 @@ export class BoxSecretplace extends plugin {
     for (let item of address) {
       msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
     }
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
   falsePiont = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false
@@ -65,26 +65,26 @@ export class BoxSecretplace extends plugin {
   xyzaddress = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const action = await GameApi.UserData.controlAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const isreply = await e.reply(`坐标(${action.x},${action.y},${action.z})`)
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(`坐标(${action.x},${action.y},${action.z})`)
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
 
   forward = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false
@@ -93,14 +93,14 @@ export class BoxSecretplace extends plugin {
     if (GameApi.GamePlace.getUserTime(UID) == 1) {
       return false
     }
-    const action = await GameApi.UserData.controlAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
     const x = action.x
     const y = action.y
     const address = e.msg.replace(/^(#|\/)前往/, '')
-    const Point = await GameApi.UserData.controlAction({
+    const Point = GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -121,7 +121,7 @@ export class BoxSecretplace extends plugin {
     }
     const a = x - mx >= 0 ? x - mx : mx - x
     const b = y - my >= 0 ? y - my : my - y
-    const battle = await GameApi.UserData.controlAction({
+    const battle = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
@@ -129,13 +129,13 @@ export class BoxSecretplace extends plugin {
     const time = the >= 0 ? the : 1
     GameApi.GamePlace.setUserAction(
       UID,
-      setTimeout(async () => {
+      setTimeout(() => {
         GameApi.GamePlace.setUserTime(UID, 0)
         action.x = mx
         action.y = my
         action.region = PointId[1]
         action.address = PointId[2]
-        await GameApi.UserData.controlAction({
+        GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_action',
           DATA: action
@@ -149,11 +149,11 @@ export class BoxSecretplace extends plugin {
   }
   delivery = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false
@@ -162,14 +162,14 @@ export class BoxSecretplace extends plugin {
     if (GameApi.GamePlace.getUserDelivery(UID) == 1) {
       return false
     }
-    const action = await GameApi.UserData.controlAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
     const x = action.x
     const y = action.y
     const address = e.msg.replace(/^(#|\/)传送/, '')
-    const Posirion = await GameApi.UserData.controlAction({
+    const Posirion = GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -186,7 +186,7 @@ export class BoxSecretplace extends plugin {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
-    const point = await GameApi.UserData.controlAction({
+    const point = GameApi.UserData.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -205,7 +205,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const lingshi = 1000
-    const money = await GameApi.GameUser.userBagSearch({
+    const money = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -214,7 +214,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     //先扣钱
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -lingshi
@@ -225,13 +225,13 @@ export class BoxSecretplace extends plugin {
       ((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100
     )
     const time = the > 0 ? the : 1
-    setTimeout(async () => {
+    setTimeout(() => {
       GameApi.GamePlace.setUserDelivery(UID, 0)
       action.x = mx
       action.y = my
       action.region = positionID[1]
       action.address = positionID[2]
-      await GameApi.UserData.controlAction({
+      GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_action',
         DATA: action

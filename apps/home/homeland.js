@@ -33,27 +33,27 @@ export class homeland extends plugin {
   }
 
   //开垦土地
-  async ReceiveLand(e) {
+  ReceiveLand(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
     let good = GameApi.GamePublic.GoMini({ UID: e.user_id })
     if (!good) {
       return false
     }
     let region = ifexisthome.region
-    let action = await GameApi.UserData.controlAction({
+    let action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -62,7 +62,7 @@ export class homeland extends plugin {
       e.reply('您现在不在家园里，开垦土地必须回家')
       return false
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -86,7 +86,7 @@ export class homeland extends plugin {
       return false
     }
     let lingshi1 = Land * 20000 + 1000
-    const lingshi = await GameApi.GameUser.userBagSearch({
+    const lingshi = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
@@ -94,7 +94,7 @@ export class homeland extends plugin {
       e.reply(`似乎没有${lingshi1}下品灵石`)
       return false
     }
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: lingshi1
@@ -103,7 +103,7 @@ export class homeland extends plugin {
     home.Landgrid = home.Land * 25
     home.LandgridMax = home.Landgrid
     home.homeexperience += 1000
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home,
@@ -115,23 +115,23 @@ export class homeland extends plugin {
   }
 
   //种植
-  async zhongxia(e) {
+  zhongxia(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
     let UID = e.user_id
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
     let region = ifexisthome.region
-    let action = await GameApi.UserData.controlAction({
+    let action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -145,8 +145,8 @@ export class homeland extends plugin {
     let thing_name = code[0] //种子名字
     let thing_acount = code[1] //种子数量
     let name = thing_name.replace('种子', '')
-    let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
-    let searchsthing = await HomeApi.GameUser.userWarehouseSearch({
+    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    let searchsthing = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: thing_name
     }) //查找种子
@@ -162,7 +162,7 @@ export class homeland extends plugin {
     let lattice = searchsthing.lattice //获取种子所需格子
     let doge = searchsthing.doge
     let timemin = doge * 4
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -188,7 +188,7 @@ export class homeland extends plugin {
       e.reply(`世界没有[${thing_name}]`)
       return false
     }
-    let landgoods = await HomeApi.Listdata.controlActionInitial({
+    let landgoods = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       INITIAL: []
@@ -199,34 +199,34 @@ export class homeland extends plugin {
       return false
     }
     let now_time = new Date().getTime()
-    await HomeApi.GameUser.AddLandgrid({ UID, ACCOUNT: -a })
-    let searchsthing1 = await HomeApi.GameUser.Add_landgoods({
+    HomeApi.GameUser.AddLandgrid({ UID, ACCOUNT: -a })
+    let searchsthing1 = HomeApi.GameUser.Add_landgoods({
       landgoods: searchsthing,
       now_time,
       acount: quantity
     })
-    landgoods = await HomeApi.GameUser.Add_DATA_thing({
+    landgoods = HomeApi.GameUser.Add_DATA_thing({
       DATA: landgoods,
       DATA1: searchsthing1,
       quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       DATA: landgoods,
       INITIAL: []
     })
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
@@ -236,21 +236,21 @@ export class homeland extends plugin {
     return true
   }
   //收获
-  async shouhuo(e) {
+  shouhuo(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
     let region = ifexisthome.region
-    let action = await GameApi.UserData.controlAction({
+    let action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -260,7 +260,7 @@ export class homeland extends plugin {
       return false
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
-    let landgoods1 = await HomeApi.Listdata.controlActionInitial({
+    let landgoods1 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       INITIAL: []
@@ -282,17 +282,17 @@ export class homeland extends plugin {
       e.reply(`你的作物还没成熟,预计还有${timeco1}秒成熟`)
       return false
     }
-    await this.upgrade(e, UID, landgoods, thing, acount, lattice)
+    this.upgrade(e, UID, landgoods, thing, acount, lattice)
     return false
   }
-  async upgrade(e, user_id, landgoods1, name, acount, lattice) {
+  upgrade(e, user_id, landgoods1, name, acount, lattice) {
     let UID = user_id
     let thing = landgoods1
-    let crop = await HomeApi.GameUser.homesearch_thing_name({ name })
+    let crop = HomeApi.GameUser.homesearch_thing_name({ name })
     let stolen = landgoods1.stolen
     let q = 10 - stolen
     let z = stolen * 0.1
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -308,33 +308,33 @@ export class homeland extends plugin {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
-      let Warehouse = await HomeApi.Listdata.controlActionInitial({
+      let Warehouse = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         INITIAL: []
       })
-      Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
       })
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
         INITIAL: []
       })
-      let landgoods = await HomeApi.Listdata.controlActionInitial({
+      let landgoods = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID,
         INITIAL: []
       })
-      landgoods = await HomeApi.GameUser.Add_DATA_thing({
+      landgoods = HomeApi.GameUser.Add_DATA_thing({
         DATA: landgoods,
         DATA1: thing,
         quantity: -acount1
       })
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID,
         DATA: landgoods,
@@ -342,7 +342,7 @@ export class homeland extends plugin {
       })
       home.Landgrid += a
       home.homeexperience += x
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_user',
         NAME: UID,
         DATA: home,
@@ -358,25 +358,25 @@ export class homeland extends plugin {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
-      let Warehouse = await HomeApi.Listdata.controlActionInitial({
+      let Warehouse = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         INITIAL: []
       })
       let now_time = new Date().getTime()
-      Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.Add_DATA_thing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
       })
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
         INITIAL: [],
         INITIAL: []
       })
-      let landgoods = await HomeApi.Listdata.controlActionInitial({
+      let landgoods = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID
       })
@@ -384,14 +384,14 @@ export class homeland extends plugin {
       const nongzuowu = landgoods_thing.find((obj) => obj.name === name)
       nongzuowu.quarter -= 1
       nongzuowu.time = now_time
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_landgoods',
         NAME: UID,
         DATA: landgoods,
         INITIAL: []
       })
       home.homeexperience += x
-      await HomeApi.Listdata.controlActionInitial({
+      HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_user',
         NAME: UID,
         DATA: home,
@@ -407,29 +407,29 @@ export class homeland extends plugin {
   }
 
   //查看农田
-  async lookland(e) {
+  lookland(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const { path, name, data } = await HomeApi.Information.get_lookland_img({
+    const { path, name, data } = HomeApi.Information.get_lookland_img({
       UID
     })
-    await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
     return false
   }
 
   //偷菜
   Stealvegetables = async (e) => {
     if (!this.verify(e)) return false
-    const good = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const good = GameApi.GamePublic.Go({ UID: e.user_id })
     if (!good) {
       return false
     }
@@ -439,26 +439,26 @@ export class homeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return false
     }
-    const ifexisthome1 = await HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
     if (!ifexisthome1) {
       e.reply(`对方还没建立过家园`)
       return false
     }
-    if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: user.A })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID: user.A })
+    const archive = HomeApi.GameUser.Archive({ UID: user.A })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
     let region = ifexisthome1.region
-    let action = await GameApi.UserData.controlAction({
+    let action = GameApi.UserData.controlAction({
       NAME: user.A,
       CHOICE: 'user_action'
     })
@@ -469,13 +469,13 @@ export class homeland extends plugin {
     }
     const CDid = '0'
     const CDTime = 30
-    const CD = await HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
+    const CD = HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
     if (CD != 0) {
       e.reply(CD)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)偷菜/, '')
-    let landgoods2 = await HomeApi.Listdata.controlActionInitial({
+    let landgoods2 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: user.B,
       INITIAL: []
@@ -500,25 +500,25 @@ export class homeland extends plugin {
       return false
     }
     let other = 1
-    let crop = await HomeApi.GameUser.homesearch_thing_name({ name: thing })
+    let crop = HomeApi.GameUser.homesearch_thing_name({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: user.A,
       INITIAL: []
     })
-    Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: crop,
       quantity: other
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: user.A,
       DATA: Warehouse,
       INITIAL: []
     })
-    let landgoods1 = await HomeApi.Listdata.controlActionInitial({
+    let landgoods1 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: user.B,
       INITIAL: []
@@ -526,19 +526,19 @@ export class homeland extends plugin {
     let nameIwant = thing
     const target = landgoods1.thing.find((obj) => obj.name === nameIwant)
     target.stolen = target.stolen - 1
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: user.B,
       DATA: landgoods1,
       INITIAL: []
     })
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: user.A,
       INITIAL: []
     })
     home.homeexperience += z
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: user.A,
       DATA: home,
@@ -550,7 +550,7 @@ export class homeland extends plugin {
   }
 
   //查看他人农田
-  async otherlookland(e) {
+  otherlookland(e) {
     if (!this.verify(e)) return false
     const user = {
       A: e.user_id,
@@ -558,27 +558,27 @@ export class homeland extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return
     }
-    const ifexisthome1 = await HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
     if (!ifexisthome1) {
       e.reply(`对方没建立过家园`)
       return
     }
-    const ifexisthome = await GameApi.GameUser.existUserSatus({ UID: user.A })
+    const ifexisthome = GameApi.GameUser.existUserSatus({ UID: user.A })
     if (!ifexisthome) {
       e.reply('已仙鹤')
       return
     }
-    const archive = await HomeApi.GameUser.Archive({ UID: user.A })
+    const archive = HomeApi.GameUser.Archive({ UID: user.A })
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     let region = ifexisthome1.region
-    let action = await GameApi.UserData.controlAction({
+    let action = GameApi.UserData.controlAction({
       NAME: user.A,
       CHOICE: 'user_action'
     })
@@ -587,10 +587,10 @@ export class homeland extends plugin {
       e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
       return
     }
-    const { path, name, data } = await HomeApi.Information.get_lookland_img({
+    const { path, name, data } = HomeApi.Information.get_lookland_img({
       UID: user.B
     })
-    await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
     return
   }
 }

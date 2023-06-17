@@ -32,10 +32,10 @@ export class Association extends plugin {
     })
   }
 
-  async show_association(e) {
+  show_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -48,7 +48,7 @@ export class Association extends plugin {
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
       const qqNum = ass.allMembers[item]
-      const player = await GameApi.GameUser.userMsgAction({
+      const player = GameApi.GameUser.userMsgAction({
         NAME: qqNum,
         CHOICE: 'user_level'
       })
@@ -67,15 +67,15 @@ export class Association extends plugin {
           assPlayerA.historyContribution
       )
     }
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
 
   //宗门俸禄
-  async gift_association(e) {
+  gift_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -91,8 +91,8 @@ export class Association extends plugin {
       e.reply(`你对宗门做成的贡献不足，没有领取俸禄的资格！！！`)
       return false
     }
-    let Today = await AssociationApi.assUser.timeInvert(nowTime)
-    let lasting_time = await AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) //获得上次宗门签到日期
+    let Today = AssociationApi.assUser.timeInvert(nowTime)
+    let lasting_time = AssociationApi.assUser.timeInvert(assPlayer.lastSignAss) //获得上次宗门签到日期
     if (Today.Y == lasting_time.Y && Today.M == lasting_time.M && Today.D == lasting_time.D) {
       e.reply(`今日已经领取过了`)
       return false
@@ -111,22 +111,22 @@ export class Association extends plugin {
     ass.facility[4].buildNum -= 1
     assPlayer.contributionPoints -= 1
     assPlayer.lastSignAss = nowTime
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: Number(giftNumber)
     })
-    await AssociationApi.assUser.checkFacility(ass)
+    AssociationApi.assUser.checkFacility(ass)
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
     e.reply([BotApi.segment.at(UID), `宗门俸禄领取成功,获得了${giftNumber}灵石`])
     return false
   }
 
   //加入宗门
-  async Join_association(e) {
+  Join_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -161,10 +161,10 @@ export class Association extends plugin {
   }
 
   //退出宗门
-  async Exit_association(e) {
+  Exit_association(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -186,22 +186,22 @@ export class Association extends plugin {
       assPlayer.assJob = 0
       assPlayer.favorability = 0
       AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
-      await AssociationApi.assUser.assEffCount(assPlayer)
+      AssociationApi.assUser.assEffCount(assPlayer)
       e.reply('退出宗门成功')
     } else {
       if (ass.allMembers.length < 2) {
-        await AssociationApi.assUser.deleteAss('association', assPlayer.assName)
+        AssociationApi.assUser.deleteAss('association', assPlayer.assName)
         assPlayer.assName = 0
         assPlayer.assJob = 0
         assPlayer.favorability = 0
-        await AssociationApi.assUser.assEffCount(assPlayer)
+        AssociationApi.assUser.assEffCount(assPlayer)
         e.reply('退出宗门成功,退出后宗门空无一人,自动解散')
       } else {
         ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber)
         assPlayer.assName = 0
         assPlayer.assJob = 0
         assPlayer.favorability = 0
-        await AssociationApi.assUser.assEffCount(assPlayer)
+        AssociationApi.assUser.assEffCount(assPlayer)
 
         let randMember = { assJob: 0 }
         for (let item in ass.allMembers) {
@@ -214,7 +214,7 @@ export class Association extends plugin {
         ass.master = randMember.qqNumber
         randMember.assJob = 10
         AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass) //记录到存档
-        await AssociationApi.assUser.assEffCount(randMember)
+        AssociationApi.assUser.assEffCount(randMember)
         e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.qqNumber}]接管`)
       }
     }
@@ -222,10 +222,10 @@ export class Association extends plugin {
   }
 
   //捐赠灵石
-  async give_association_lingshi(e) {
+  give_association_lingshi(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -238,7 +238,7 @@ export class Association extends plugin {
     let lingshi = e.msg.replace(reg, '')
     lingshi = AssociationApi.assUser.numberVerify(lingshi)
 
-    let money = await GameApi.GameUser.userBagSearch({
+    let money = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
@@ -265,7 +265,7 @@ export class Association extends plugin {
     ass.spiritStoneAns += lingshi
     assPlayer.contributionPoints += Math.trunc(lingshi / 1000)
     assPlayer.historyContribution += Math.trunc(lingshi / 1000)
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID: UID,
       name: '下品灵石',
       ACCOUNT: Number(-lingshi)
@@ -279,14 +279,14 @@ export class Association extends plugin {
   }
 
   //宗门列表
-  async List_appointment(e) {
+  List_appointment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
       return false
     }
-    const allNames = await AssociationApi.assUser.readAssNames('association')
+    const allNames = AssociationApi.assUser.readAssNames('association')
     let temp = ['宗门列表']
     if (allNames.length == 0) {
       temp.push('暂时没有宗门数据')
@@ -296,7 +296,7 @@ export class Association extends plugin {
       const assRelation = AssociationApi.assUser.assRelationList.find(
         (item) => item.id == this_name
       )
-      const this_ass = await AssociationApi.assUser.getAssOrPlayer(2, this_name)
+      const this_ass = AssociationApi.assUser.getAssOrPlayer(2, this_name)
       let this_ass_xiuxian = 0
       if (this_ass.resident.name == 0) {
         this_ass_xiuxian = '无驻地'
@@ -323,7 +323,7 @@ export class Association extends plugin {
           `宗门神兽: ${this_ass_beast}`
       )
     }
-    await BotApi.User.forwardMsg({ e, data: temp })
+    BotApi.User.forwardMsg({ e, data: temp })
     return false
   }
 }

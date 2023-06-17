@@ -12,43 +12,43 @@ export class BoxInformation extends plugin {
   showUserMsg = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = await GameApi.Information.userDataShow({
+    const { path, name, data } = GameApi.Information.userDataShow({
       UID: e.user_id
     })
-    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   showQquipment = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = await GameApi.Information.userEquipmentShow({
+    const { path, name, data } = GameApi.Information.userEquipmentShow({
       UID: e.user_id
     })
-    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   showTalent = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = await GameApi.Information.userTalentShow({
+    const { path, name, data } = GameApi.Information.userTalentShow({
       UID: e.user_id
     })
-    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
 }

@@ -5,17 +5,14 @@ import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'
 import { GameApi } from '../../api/index.js'
 class duel {
-  getDuel = async ({ e, UIDA, UIDB }) => {
-    if (!(await GameUser.getUID({ UID: UIDB }))) {
+  getDuel = ({ e, UIDA, UIDB }) => {
+    if (!GameUser.getUID({ UID: UIDB })) {
       return `查无此人`
     }
-    if (
-      !(await GameUser.existUserSatus({ UID: UIDA })) ||
-      !(await GameUser.existUserSatus({ UID: UIDB }))
-    ) {
+    if (!GameUser.existUserSatus({ UID: UIDA }) || !GameUser.existUserSatus({ UID: UIDB })) {
       return `已仙鹤`
     }
-    const { MSG } = await GamePublic.Go({ UID: UIDA })
+    const { MSG } = GamePublic.Go({ UID: UIDA })
     if (MSG) {
       return `${MSG}`
     }
@@ -24,15 +21,15 @@ class duel {
     const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
 
-    const { CDMSG } = await GamePublic.cooling({ UID: UIDA, CDID })
+    const { CDMSG } = GamePublic.cooling({ UID: UIDA, CDID })
     if (CDMSG) {
       return `${CDMSG}`
     }
-    const actionA = await listdata.controlAction({
+    const actionA = listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_action'
     })
-    const actionB = await listdata.controlAction({
+    const actionB = listdata.controlAction({
       NAME: UIDB,
       CHOICE: 'user_action'
     })
@@ -40,26 +37,26 @@ class duel {
       return `此地未找到此人`
     }
     if (actionA.address == 1) {
-      const najie_thing = await GameUser.userBagSearch({
+      const najie_thing = GameUser.userBagSearch({
         UID: UIDA,
         name: '决斗令'
       })
       if (!najie_thing) {
         return `[修仙联盟]普通卫兵:城内不可出手!`
       }
-      await GameUser.userBag({
+      GameUser.userBag({
         UID: UIDA,
         name: najie_thing.name,
         ACCOUNT: -1
       })
     }
     GameApi.GamePublic.setRedis(UIDA, CDID, now_time, CDTime)
-    const Level = await listdata.controlAction({
+    const Level = listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_level'
     })
     Level.prestige += 1
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_level',
       DATA: Level
@@ -69,8 +66,8 @@ class duel {
       b: UIDB,
       c: UIDA
     }
-    user.c = await GameBattle.battle({ e, A: UIDA, B: UIDB })
-    const LevelB = await listdata.controlAction({
+    user.c = GameBattle.battle({ e, A: UIDA, B: UIDB })
+    const LevelB = listdata.controlAction({
       NAME: UIDB,
       CHOICE: 'user_level'
     })
@@ -82,19 +79,19 @@ class duel {
         user.a = UIDB
         user.b = user.c
       }
-      let bagB = await listdata.controlAction({
+      let bagB = listdata.controlAction({
         NAME: user.b,
         CHOICE: 'user_bag'
       })
       if (bagB.thing.length != 0) {
-        const thing = await GamePublic.Anyarray({ ARR: bagB.thing })
+        const thing = GamePublic.Anyarray({ ARR: bagB.thing })
         bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
-        await listdata.controlAction({
+        listdata.controlAction({
           NAME: user.b,
           CHOICE: 'user_bag',
           DATA: bagB
         })
-        await GameUser.userBag({
+        GameUser.userBag({
           UID: user.a,
           name: thing.name,
           ACCOUNT: thing.acount

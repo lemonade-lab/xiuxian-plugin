@@ -27,7 +27,7 @@ class GamePublic {
    * @param {*} time
    * @returns
    */
-  sleep = async (time) => {
+  sleep = (time) => {
     return new Promise((resolve) => {
       setTimeout(resolve, time)
     })
@@ -176,7 +176,7 @@ class GamePublic {
    * @param { UID } UID
    * @returns 若存在对象MSG则为flase
    */
-  Go = async ({ UID }) => {
+  Go = ({ UID }) => {
     const action = REDIS.get(`${ReadiName}:${UID}:action`)
     if (action) {
       if (action.actionName == undefined) {
@@ -189,7 +189,7 @@ class GamePublic {
         MSG: `${action.actionName}中...`
       }
     }
-    const player = await gameUer.userMsgAction({
+    const player = gameUer.userMsgAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })

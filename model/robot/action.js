@@ -21,14 +21,14 @@ class UserAction {
    * @param { e, data } param0
    * @returns
    */
-  forwardMsg = async ({ e, data }) => {
+  forwardMsg = ({ e, data }) => {
     if (data.length == 1) {
-      await e.reply(data[0])
+      e.reply(data[0])
       return
     }
     /*制作合并转发消息以备发送*/
     try {
-      await e.reply(await Bot.makeForwardMsg(this.makeMsg({ data })))
+      e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
     } catch {
       console.log('出错', data)
     }
@@ -38,13 +38,13 @@ class UserAction {
    * @param { e, data } param0
    * @returns
    */
-  forwardMsgSurveySet = async ({ e, data }) => {
+  forwardMsgSurveySet = ({ e, data }) => {
     if (data.length == 1) {
-      const isreply = await e.reply(data[0])
+      const isreply = e.reply(data[0])
       this.surveySet({ e, isreply })
       return
     }
-    const isreply = await e.reply(await Bot.makeForwardMsg(this.makeMsg({ data })))
+    const isreply = e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
     this.surveySet({ e, isreply })
     return
   }
@@ -52,15 +52,15 @@ class UserAction {
    * @param { e, isreply } param0
    * @returns
    */
-  surveySet = async ({ e, isreply }) => {
+  surveySet = ({ e, isreply }) => {
     if (!e.group) {
       return
     }
     const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
     let timeout = cf['timeout'] ? cf.timeout.size : 60
     if (timeout > 15 && isreply && isreply.message_id) {
-      setTimeout(async () => {
-        await e.group.recallMsg(isreply.message_id)
+      setTimeout(() => {
+        e.group.recallMsg(isreply.message_id)
       }, timeout * 1000)
     }
   }
@@ -68,7 +68,7 @@ class UserAction {
    * @param { e } param0
    * @returns
    */
-  at = async ({ e }) => {
+  at = ({ e }) => {
     if (!e.message.some((item) => item.type === 'at')) {
       return false
     }
@@ -95,18 +95,18 @@ class UserAction {
     if (blackid.indexOf(e.user_id) != -1) return false
     return true
   }
-  relife = async () => {
-    const LIFE = await GameApi.UserData.controlAction({
+  relife = () => {
+    const LIFE = GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life'
     })
-    LIFE.forEach(async (item, index) => {
+    LIFE.forEach((item, index) => {
       if (item.Age > item.life) {
         item.Age = 1
         item.status = 1
       }
     })
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: LIFE
@@ -114,9 +114,9 @@ class UserAction {
     let msg = '寿命重置成功'
     return msg
   }
-  relifehe = async ({ B }) => {
+  relifehe = ({ B }) => {
     let msg
-    let LIFE = await GameApi.UserData.controlAction({
+    let LIFE = GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life'
     })
@@ -130,7 +130,7 @@ class UserAction {
     }
     life.Age = 1
     life.status = 1
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: LIFE

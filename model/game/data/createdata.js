@@ -28,7 +28,7 @@ class CreateData {
    * @returns
    */
   moveConfig = () => {
-    const path = algorithm.returnMenu(defsetpath)
+    const path = algorithm.getMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of configarr) {
         let x = `${configpath}/${itempath}/${itemconfig}`
@@ -61,7 +61,7 @@ class CreateData {
    * 重置配置
    */
   removeConfig = () => {
-    const path = algorithm.returnMenu(defsetpath)
+    const path = algorithm.getMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of configarr) {
         let x = `${configpath}/${itempath}/${itemconfig}`
@@ -79,7 +79,7 @@ class CreateData {
   }
 
   removeConfigByArr = (arr) => {
-    const path = algorithm.returnMenu(defsetpath)
+    const path = algorithm.getMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of arr) {
         let x = `${configpath}/${itempath}/${itemconfig}`

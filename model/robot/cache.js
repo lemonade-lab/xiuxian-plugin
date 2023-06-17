@@ -7,7 +7,7 @@ class Cache {
    * @param { data, i } param0
    * @returns
    */
-  helpcache = async ({ data, i }) => {
+  helpcache = ({ data, i }) => {
     const tmp = md5(JSON.stringify(data))
     if (!helpData.hasOwnProperty(i)) {
       helpData[i] = {
@@ -18,7 +18,7 @@ class Cache {
     if (helpData[i].md5 == tmp) {
       return helpData[i].img
     }
-    helpData[i].img = await puppeteer.screenshot('help', data)
+    helpData[i].img = puppeteer.screenshot('help', data)
     helpData[i].md5 = tmp
     return helpData[i].img
   }
@@ -26,7 +26,7 @@ class Cache {
    * @param { name } param0
    * @returns
    */
-  readCahe = async ({ name }) => {
+  readCahe = ({ name }) => {
     if (!allData.hasOwnProperty(name)) {
       return {}
     }
@@ -40,7 +40,7 @@ class Cache {
    * @param { name, data }  param0
    * @returns
    */
-  addCahe = async ({ name, data }) => {
+  addCahe = ({ name, data }) => {
     const time = new Date().getMinutes()
     if (!allData.hasOwnProperty(name)) {
       allData[name] = {

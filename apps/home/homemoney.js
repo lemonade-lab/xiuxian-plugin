@@ -24,21 +24,21 @@ export class homemoney extends plugin {
     })
   }
 
-  async Mylingshi(e) {
+  Mylingshi(e) {
     //发送消息
     let UID = e.user_id
     //不开放私聊功能
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
       INITIAL: []
@@ -51,14 +51,14 @@ export class homemoney extends plugin {
   }
 
   //出售商品
-  async Homesale(e) {
+  Homesale(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -67,8 +67,8 @@ export class homemoney extends plugin {
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let thing_acount = code[1] //数量
-    let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
-    let searchsthing = await HomeApi.GameUser.userWarehouseSearch({
+    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    let searchsthing = HomeApi.GameUser.userWarehouseSearch({
       UID: UID,
       name: thing_name
     })
@@ -84,17 +84,17 @@ export class homemoney extends plugin {
       e.reply(`这个物品不是家园所得物品，请移步隔壁商店`)
       return false
     }
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
@@ -107,7 +107,7 @@ export class homemoney extends plugin {
     let commodities_doge = parseInt(commodities_doge1 * rand)
     let sui = commodities_doge1 - commodities_doge
     let sui1 = commodities_doge - commodities_doge1
-    await HomeApi.GameUser.Add_doge({ UID, money: commodities_doge })
+    HomeApi.GameUser.Add_doge({ UID, money: commodities_doge })
     if (sui < 0) {
       e.reply(`在出售物品的时候，分阁人员掉了${sui1}灵晶在地上，最后得到${commodities_doge}灵晶`)
     } else if (sui == 0) {
@@ -118,25 +118,25 @@ export class homemoney extends plugin {
     return false
   }
 
-  async dogshop(e) {
+  dogshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
     let msg = ['___[灵瑶阁下属地方分阁]___\n#采购+物品名']
-    let dogshop_list = await HomeApi.Listdata.controlActionInitial({
+    let dogshop_list = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'home_dogshop',
       NAME: 'dogshop',
       INITIAL: []
     })
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -169,18 +169,18 @@ export class homemoney extends plugin {
         msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
       }
     })
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
 
-  async Buy_home(e) {
+  Buy_home(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -189,16 +189,16 @@ export class homemoney extends plugin {
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let thing_acount = code[1] //数量
-    let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
+    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
     if (quantity > 99) {
       quantity = 99
     }
-    let ifexist1 = await HomeApi.Listdata.controlActionInitial({
+    let ifexist1 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'home_home_dogshop',
       NAME: 'dogshop',
       INITIAL: []
     })
-    let rangeland = await HomeApi.Listdata.controlActionInitial({
+    let rangeland = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -209,7 +209,7 @@ export class homemoney extends plugin {
       e.reply(`不卖:${thing_name}`)
       return false
     }
-    let home = await HomeApi.Listdata.controlActionInitial({
+    let home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -230,7 +230,7 @@ export class homemoney extends plugin {
       e.reply(`哪里来的穷光蛋！一声呵斥，你被灵瑶阁门卫强大的气场给震了出来`)
       return false
     }
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -240,13 +240,13 @@ export class homemoney extends plugin {
       DATA1: ifexist,
       quantity: quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
       INITIAL: []
     })
-    await HomeApi.GameUser.Add_doge({ UID, money: -commodities_doge })
+    HomeApi.GameUser.Add_doge({ UID, money: -commodities_doge })
     e.reply(
       `这次税率为【${rand}】,最终花了[${commodities_doge}]灵晶购买了[${thing_name}]*${quantity},`
     )

@@ -12,7 +12,7 @@ export class BoxPlayerControl extends plugin {
   }
   biguan = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
@@ -33,11 +33,11 @@ export class BoxPlayerControl extends plugin {
   }
   dagong = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false
@@ -55,11 +55,11 @@ export class BoxPlayerControl extends plugin {
   chuGuan = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    let action = await GameApi.GamePublic.getAction(UID)
+    let action = GameApi.GamePublic.getAction(UID)
     if (!action) return false
     if (action.actionName != '闭关') return false
     const startTime = action.startTime
@@ -71,21 +71,21 @@ export class BoxPlayerControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      await GameApi.GamePublic.offAction({ UID })
+      GameApi.GamePublic.offAction({ UID })
       return false
     }
-    await GameApi.GamePublic.offAction({ UID })
-    await this.upgrade(UID, time, action.actionName, e)
+    GameApi.GamePublic.offAction({ UID })
+    this.upgrade(UID, time, action.actionName, e)
     return false
   }
   endWork = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    let action = await GameApi.GamePublic.getAction(UID)
+    let action = GameApi.GamePublic.getAction(UID)
     if (!action) return false
     if (action.actionName != '降妖') return false
     const startTime = action.startTime
@@ -97,17 +97,17 @@ export class BoxPlayerControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      await GameApi.GamePublic.offAction({ UID })
+      GameApi.GamePublic.offAction({ UID })
       return false
     }
-    await GameApi.GamePublic.offAction({ UID })
-    await this.upgrade(UID, time, action.actionName, e)
+    GameApi.GamePublic.offAction({ UID })
+    this.upgrade(UID, time, action.actionName, e)
     return false
   }
-  upgrade = async (user_id, time, name, e) => {
+  upgrade = (user_id, time, name, e) => {
     if (!this.verify(e)) return false
     const UID = user_id
-    const talent = await GameApi.UserData.controlAction({
+    const talent = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
@@ -130,13 +130,13 @@ export class BoxPlayerControl extends plugin {
       othername = 'experiencemax'
       msg = `降妖归来\n[气血]*${other}`
     }
-    await GameApi.GameUser.updataUser({
+    GameApi.GameUser.updataUser({
       UID,
       CHOICE: 'user_level',
       ATTRIBUTE: othername,
       SIZE: other
     })
-    await GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(90) })
+    GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(90) })
     msg += '\n[血量状态]90%'
     msg += `\n${name}结束`
     e.reply([segment.at(UID), msg])

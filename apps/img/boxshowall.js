@@ -13,20 +13,20 @@ export class boxshowall extends plugin {
   }
   showMap = async (e) => {
     if (!this.verify(e)) return false
-    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path: 'map', name: 'map' }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   showConfig = async (e) => {
     if (!this.verify(e)) return false
-    const cf = await GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
     const Ttwist = cf['switch'] ? cf['switch']['twist'] : true
     const Tcome = cf['switch'] ? cf['switch']['come'] : true
-    const isreply = await e.reply(
-      await BotApi.ImgIndex.showPuppeteer({
+    const isreply = e.reply(
+      BotApi.ImgIndex.showPuppeteer({
         path: 'defset',
         name: 'defset',
         data: {
@@ -36,32 +36,32 @@ export class boxshowall extends plugin {
         }
       })
     )
-    await BotApi.User.surveySet({ e, isreply })
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   adminSuper = async (e) => {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'admin' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'admin' })
     if (!data) return false
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 0, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   boxhelp = async (e) => {
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'help' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'help' })
     if (!data) return false
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 1, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   darkhelp = async (e) => {
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'darkhelp' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'darkhelp' })
     if (!data) return false
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 2, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 2, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
 }

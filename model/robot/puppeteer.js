@@ -39,14 +39,14 @@ class Puppeteer {
   /**
    * 启动Chromium
    */
-  async browserInit() {
+  browserInit() {
     /*已经初始化过了*/
     if (this.browser) return this.browser
     /*存在即失败*/
     if (this.lock) return false
     this.lock = true
     console.mark('puppeteer Chromium 启动中...')
-    this.browser = await puppeteer.launch(this.config).catch((err) => {
+    this.browser = puppeteer.launch(this.config).catch((err) => {
       console.error(err.toString())
       if (String(err).includes('correct Chromium')) {
         console.error(
@@ -78,9 +78,9 @@ class Puppeteer {
    * @param data.path   screenshot参数，截图保存路径。截图图片类型将从文件扩展名推断出来。如果是相对路径，则从当前路径解析。如果没有指定路径，图片将不会保存到硬盘。
    * @return oicq img
    */
-  async screenshot(name, data = {}) {
+  screenshot(name, data = {}) {
     /*初始化*/
-    if (!(await this.browserInit())) {
+    if (!this.browserInit()) {
       return false
     }
     /**/
@@ -92,11 +92,11 @@ class Puppeteer {
     /*推进元素：推进html的名字*/
     this.shoting.push(name)
     try {
-      const page = await this.browser.newPage()
+      const page = this.browser.newPage()
       /*图片抓取*/
-      await page.goto(`file://${lodash.trim(savePath, '.')}`, data.pageGotoParams || {})
+      page.goto(`file://${lodash.trim(savePath, '.')}`, data.pageGotoParams || {})
       /* 截图body */
-      let body = await page.$('body')
+      let body = page.$('body')
       let randData = {
         // encoding: 'base64',
         type: data.imgType || 'jpeg',
@@ -108,14 +108,14 @@ class Puppeteer {
         randData.omitBackground = data.omitBackground || true
       }
       /* 截图 */
-      buff = await body.screenshot(randData)
+      buff = body.screenshot(randData)
       /*关闭工具*/
       page.close().catch((err) => console.error(err))
     } catch (error) {
       console.error(`图片生成失败:${name}:${error}`)
       /** 关闭浏览器 */
       if (this.browser) {
-        await this.browser.close().catch((err) => console.error(err))
+        this.browser.close().catch((err) => console.error(err))
       }
       this.browser = false
       buff = ''
@@ -193,9 +193,9 @@ class Puppeteer {
     /** 截图超过重启数时，自动关闭重启浏览器，避免生成速度越来越慢 */
     if (this.renderNum % this.restartNum == 0) {
       if (this.shoting.length <= 0) {
-        setTimeout(async () => {
+        setTimeout(() => {
           if (this.browser) {
-            await this.browser.close().catch((err) => console.error(err))
+            this.browser.close().catch((err) => console.error(err))
           }
           this.browser = false
           console.mark('puppeteer 关闭重启...')

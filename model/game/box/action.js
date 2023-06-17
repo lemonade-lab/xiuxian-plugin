@@ -27,12 +27,12 @@ class userAction {
    * @param { UID, choise } param0
    * @returns
    */
-  userLevelUp = async ({ UID, choise }) => {
-    const ifexistplay = await user.existUserSatus({ UID })
+  userLevelUp = ({ UID, choise }) => {
+    const ifexistplay = user.existUserSatus({ UID })
     if (!ifexistplay) {
       return { UserLevelUpMSG: `已仙鹤` }
     }
-    const player = await listdata.controlAction({
+    const player = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -40,11 +40,11 @@ class userAction {
     const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
     let CDTime = cf['CD']['Level_up'] ? cf['CD']['Level_up'] : 0
     let name = '修为'
-    const Levellist = await listdata.controlAction({
+    const Levellist = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
     })
-    const Levelmaxlist = await listdata.controlAction({
+    const Levelmaxlist = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
@@ -77,7 +77,7 @@ class userAction {
       }
     }
     const now_time = new Date().getTime()
-    const { CDMSG } = await gamePublic.cooling({ UID, CDID })
+    const { CDMSG } = gamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       return { UserLevelUpMSG: `${CDMSG}` }
     }
@@ -91,7 +91,7 @@ class userAction {
         size = Math.floor(Math.random() * player.experience)
         player.experience -= size
       }
-      await listdata.controlAction({
+      listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_level',
         DATA: player
@@ -123,7 +123,7 @@ class userAction {
         player.rank_id = 0
         player.level_id = player.level_id + 1
         player.levelname = Levellist.find((item) => item.id == player.level_id).name
-        const { size } = await this.userLifeUp({
+        const { size } = this.userLifeUp({
           UID,
           level_id: player.level_id
         })
@@ -131,7 +131,7 @@ class userAction {
       }
       player.experience -= Level.exp
     }
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: player
@@ -145,9 +145,9 @@ class userAction {
    * @param { UID, level_id, acount } param0
    * @returns
    */
-  userLifeUp = async ({ UID, level_id, acount }) => {
+  userLifeUp = ({ UID, level_id, acount }) => {
     let size = 0
-    const life = await listdata.controlAction({
+    const life = listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life'
     })
@@ -161,7 +161,7 @@ class userAction {
         size = item.life
       }
     })
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
       DATA: life
@@ -172,12 +172,12 @@ class userAction {
    * @param {*} param0
    * @returns
    */
-  levelBreak = async ({ UID }) => {
-    const ifexistplay = await user.existUserSatus({ UID })
+  levelBreak = ({ UID }) => {
+    const ifexistplay = user.existUserSatus({ UID })
     if (!ifexistplay) {
       return `已仙鹤`
     }
-    const UserLevel = await listdata.controlAction({
+    const UserLevel = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -188,7 +188,7 @@ class userAction {
     let CDID = '13'
     let CDTime = 360
     const now_time = new Date().getTime()
-    const { CDMSG } = await gamePublic.cooling({ UID, CDID })
+    const { CDMSG } = gamePublic.cooling({ UID, CDID })
     if (CDMSG) {
       return `${CDMSG}`
     }
@@ -196,16 +196,16 @@ class userAction {
     return
   }
 
-  breakLevelUp = async ({ UID, choise }) => {
-    const player = await listdata.controlAction({
+  breakLevelUp = ({ UID, choise }) => {
+    const player = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const Levellist = await listdata.controlAction({
+    const Levellist = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
     })
-    const Levelmaxlist = await listdata.controlAction({
+    const Levelmaxlist = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
@@ -219,13 +219,13 @@ class userAction {
       player.rank_id = 0
       player.level_id = player.level_id + 1
       player.levelname = Levellist.find((item) => item.id == player.level_id).name
-      const { size } = await this.userLifeUp({
+      const { size } = this.userLifeUp({
         UID,
         level_id: player.level_id
       })
       returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
     }
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: player

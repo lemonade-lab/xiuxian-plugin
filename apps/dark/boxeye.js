@@ -8,12 +8,12 @@ export class BoxEye extends plugin {
   darkEye = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
     const name = e.msg.replace(/^(#|\/)虚空眼/, '')
-    const HistoryList = await GameApi.UserData.controlActionInitial({
+    const HistoryList = GameApi.UserData.controlActionInitial({
       NAME: 'history',
       CHOICE: 'fixed_history',
       INITIAL: {}

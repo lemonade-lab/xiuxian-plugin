@@ -57,13 +57,13 @@ export class homefuli extends plugin {
     let File_length = File.length
     for (var i = 0; i < File_length; i++) {
       let this_qq = File[i].replace('.json', '')
-      await HomeApi.GameUser.Add_doge({ UID: this_qq, money: ls })
+      HomeApi.GameUser.Add_doge({ UID: this_qq, money: ls })
     }
     e.reply(`发放成功,目前共有${File_length}个玩家,每人增加${ls}灵晶`)
     return false
   }
   //#发家园补偿
-  async Fulihome(e) {
+  Fulihome(e) {
     //不开放私聊功能
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
@@ -88,16 +88,16 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return false
     }
-    await HomeApi.GameUser.Add_doge({ UID: user.B, money: doge })
+    HomeApi.GameUser.Add_doge({ UID: user.B, money: doge })
     e.reply(`【全服公告】 ${user.B} 获得${doge}灵晶的补偿`)
     return false
   }
   //#发家园物品
-  async zengsonghome(e) {
+  zengsonghome(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
     //对方
@@ -107,7 +107,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return false
     }
@@ -116,24 +116,24 @@ export class homefuli extends plugin {
     let thing_name = code[0] //物品名字
     let acount = code[1] //物品数量
     let quantity = GameApi.GamePublic.leastOne({ value: acount })
-    let wupin = await HomeApi.GameUser.homesearch_thing_name({
+    let wupin = HomeApi.GameUser.homesearch_thing_name({
       name: thing_name
     })
     if (wupin == undefined) {
       e.reply(`未找到此物品`)
       return false
     }
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: user.B,
       INITIAL: []
     })
-    Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: wupin,
       quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: user.B,
       DATA: Warehouse,
@@ -169,7 +169,7 @@ export class homefuli extends plugin {
 
     for (var i = 0; i < File_length; i++) {
       let this_qq = File[i].replace('.json', '')
-      await HomeApi.GameUser.Add_homeexperience({
+      HomeApi.GameUser.Add_homeexperience({
         UID: this_qq,
         experience: -jy
       })
@@ -188,7 +188,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return false
     }
@@ -204,7 +204,7 @@ export class homefuli extends plugin {
     } else {
       jy = 100 //没有输入正确数字或不是正数
     }
-    await HomeApi.GameUser.Add_homeexperience({ UID: user.B, experience: -jy })
+    HomeApi.GameUser.Add_homeexperience({ UID: user.B, experience: -jy })
     e.reply(`经验扣除成功,${user.B}减少${jy}家园经验`)
     return false
   }
@@ -219,7 +219,7 @@ export class homefuli extends plugin {
       QQ: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user['B'] = await BotApi.User.at({ e })
+    user['B'] = BotApi.User.at({ e })
     if (!user['B']) {
       return false
     }
@@ -235,7 +235,7 @@ export class homefuli extends plugin {
     } else {
       jy = 100 //没有输入正确数字或不是正数
     }
-    await HomeApi.GameUser.Add_homeexperience({ UID: user.B, experience: jy })
+    HomeApi.GameUser.Add_homeexperience({ UID: user.B, experience: jy })
     e.reply(`经验发放成功,${user.B}增加${jy}家园经验`)
     return false
   }
@@ -255,8 +255,8 @@ export class homefuli extends plugin {
     } else {
       doge = 100 //没有输入正确数字或不是正数
     }
-    let this_qq = await BotApi.User.at({ e })
-    await HomeApi.GameUser.Add_doge({ UID: this_qq, money: -doge })
+    let this_qq = BotApi.User.at({ e })
+    HomeApi.GameUser.Add_doge({ UID: this_qq, money: -doge })
     e.reply(`${this_qq}被管理员扣除 ${doge}灵晶`)
     return false
   }

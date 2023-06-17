@@ -17,20 +17,20 @@ export class HomeGetHelp extends plugin {
   }
   homeHelp = async (e) => {
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'home_help' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'home_help' })
     if (!data) {
       return
     }
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 4, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 4, data }))
+    BotApi.User.surveySet({ e, isreply })
   }
   homeAdmin = async (e) => {
     if (!this.verify(e)) return false
-    const data = await BotApi.ImgHelp.getboxhelp({ name: 'home_admin' })
+    const data = BotApi.ImgHelp.getboxhelp({ name: 'home_admin' })
     if (!data) {
       return
     }
-    const isreply = await e.reply(await BotApi.ImgCache.helpcache({ i: 5, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const isreply = e.reply(BotApi.ImgCache.helpcache({ i: 5, data }))
+    BotApi.User.surveySet({ e, isreply })
   }
 }

@@ -36,11 +36,11 @@ export class AssUncharted extends plugin {
     })
   }
 
-  async List_AssUncharted(e) {
+  List_AssUncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     //无存档
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -48,52 +48,52 @@ export class AssUncharted extends plugin {
     let weizhi = []
 
     let assList = []
-    const files = await AssociationApi.assUser.readAssNames('association')
+    const files = AssociationApi.assUser.readAssNames('association')
     for (let file of files) {
       file = file.replace('.json', '')
       assList.push(file)
     }
 
     for (let assId of assList) {
-      const assUncharted = await AssociationApi.assUser.getAssOrPlayer(2, assId)
+      const assUncharted = AssociationApi.assUser.getAssOrPlayer(2, assId)
       weizhi.push(assUncharted)
     }
-    await GoAssUncharted(e, weizhi, addres)
+    GoAssUncharted(e, weizhi, addres)
   }
 
-  async Go_Guild_Secrets(e) {
+  Go_Guild_Secrets(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const go = await GameApi.GamePublic.Go({ UID: UID })
+    const go = GameApi.GamePublic.Go({ UID: UID })
     if (!go) {
       return false
     }
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
       return false
     }
-    let didian = await e.msg.replace('#探索宗门秘境', '')
+    let didian = e.msg.replace('#探索宗门秘境', '')
     didian = didian.trim()
-    const weizhi = await AssociationApi.assUser.assRelationList.find(
+    const weizhi = AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == didian
     )
     if (!weizhi) {
       return false
     }
     //秘境所属宗门
-    let ass = await AssociationApi.assUser.getAssOrPlayer(2, weizhi.id)
+    let ass = AssociationApi.assUser.getAssOrPlayer(2, weizhi.id)
     if (ass.facility[2].status == 0) {
       e.reply(`该秘境暂未开放使用！`)
       return false
     }
 
-    const positionList = await GameApi.UserData.controlAction({
+    const positionList = GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
 
-    const action = await GameApi.GameUser.userMsgAction({
+    const action = GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -123,7 +123,7 @@ export class AssUncharted extends plugin {
       incentivesLevel = unchartedLevel + Math.trunc(Math.random() * 6) - 2
     }
     e.reply(`本次生成秘境等级为${unchartedLevel},奖励等级为${incentivesLevel}`)
-    let money = await GameApi.GameUser.userBagSearch({
+    let money = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: '下品灵石'
     })
@@ -139,13 +139,13 @@ export class AssUncharted extends plugin {
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
 
     if (assPlayer.assName == ass.id) {
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: '下品灵石',
         ACCOUNT: Number(-unchartedLevel * 4500)
       })
     } else {
-      await GameApi.GameUser.userBag({
+      GameApi.GameUser.userBag({
         UID: UID,
         name: '下品灵石',
         ACCOUNT: Number(-unchartedLevel * 5000)
@@ -178,19 +178,19 @@ export class AssUncharted extends plugin {
     }
     AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
     ass.facility[2].buildNum -= 1
-    await AssociationApi.assUser.checkFacility(ass)
+    AssociationApi.assUser.checkFacility(ass)
     e.reply(`你已成功进入${didian}秘境,开始探索吧！`)
     return false
   }
 
-  async Labyrinth_Move(e) {
+  Labyrinth_Move(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const player = await GameApi.GameUser.userMsgAction({
+    const player = GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
@@ -198,7 +198,7 @@ export class AssUncharted extends plugin {
       e.reply('血量不足...')
       return false
     }
-    let direction = await e.msg.replace('#秘境移动向', '')
+    let direction = e.msg.replace('#秘境移动向', '')
     direction = direction.trim()
     const interimArchive = AssociationApi.assUser.getAssOrPlayer(3, UID)
     let abscissa = interimArchive.abscissa
@@ -224,7 +224,7 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    const labyrinthMap = await AssociationApi.assUser.assLabyrinthList[interimArchive.labyrinthMap]
+    const labyrinthMap = AssociationApi.assUser.assLabyrinthList[interimArchive.labyrinthMap]
     const newPoint = labyrinthMap.find((item) => item.x == abscissa && item.y == ordinate)
     if (!newPoint || !newPoint.transit) {
       e.reply(`此路不通！！！`)
@@ -262,7 +262,7 @@ export class AssUncharted extends plugin {
     if (random < 0.2) {
       e.reply(`无事发生`)
     } else if (random < 0.35) {
-      await GameApi.GameUser.updataUser({
+      GameApi.GameUser.updataUser({
         UID: UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experiencemax',
@@ -274,7 +274,7 @@ export class AssUncharted extends plugin {
         }气血`
       )
     } else if (random < 0.5) {
-      await GameApi.GameUser.updataUser({
+      GameApi.GameUser.updataUser({
         UID: UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experience',
@@ -285,7 +285,7 @@ export class AssUncharted extends plugin {
       )
     } else if (random < 0.65) {
       GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
-      await GameApi.GameUser.updataUser({
+      GameApi.GameUser.updataUser({
         UID: UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experience',
@@ -297,7 +297,7 @@ export class AssUncharted extends plugin {
     } else if (random < 0.85) {
       //遇怪
       GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
-      const battle = await GameApi.GameUser.userMsgAction({
+      const battle = GameApi.GameUser.userMsgAction({
         NAME: UID,
         CHOICE: 'user_battle'
       })
@@ -319,7 +319,7 @@ export class AssUncharted extends plugin {
         buff = (buff / 10).toFixed(2)
       }
 
-      const LevelList = await GameApi.UserData.controlAction({
+      const LevelList = GameApi.UserData.controlAction({
         NAME: 'gaspractice',
         CHOICE: 'generate_level'
       })
@@ -334,7 +334,7 @@ export class AssUncharted extends plugin {
         burstmax: LevelMax.burstmax + LevelMax.id * 10,
         speed: LevelMax.speed + 5
       }
-      const battle_msg = await GameApi.GameBattle.monsterbattle({
+      const battle_msg = GameApi.GameBattle.monsterbattle({
         e,
         battleA: battle,
         battleB: monsters
@@ -343,14 +343,14 @@ export class AssUncharted extends plugin {
       battle_msg.msg.forEach((item) => {
         msg.push(item)
       })
-      await GameApi.GameUser.updataUser({
+      GameApi.GameUser.updataUser({
         UID: UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experiencemax',
         SIZE: Number(250 * interimArchive.incentivesLevel)
       })
       msg.push(`获得了${250 * interimArchive.incentivesLevel}气血`)
-      await BotApi.User.forwardMsg({ e, data: msg })
+      BotApi.User.forwardMsg({ e, data: msg })
     } else {
       //宝箱
       GameApi.GamePublic.setRedis(UID, ClassCD, now_time, CDTime)
@@ -376,10 +376,10 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  async Rename_AssUncharted(e) {
+  Rename_AssUncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -399,25 +399,25 @@ export class AssUncharted extends plugin {
     const res = reg.test(newName)
     //res为true表示存在汉字以外的字符
     if (res) {
-      await this.reply('宗门秘境名只能使用中文，请重新输入！')
+      this.reply('宗门秘境名只能使用中文，请重新输入！')
       return false
     }
-    const weizhi = await AssociationApi.assUser.assRelationList.find(
+    const weizhi = AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == newName
     )
     if (weizhi) {
       e.reply(`秘境不允许重名`)
       return false
     }
-    await AssociationApi.assUser.assRename(assPlayer.assName, 2, newName)
+    AssociationApi.assUser.assRename(assPlayer.assName, 2, newName)
     e.reply(`宗门秘境已成功更名为${newName}`)
     return false
   }
 
-  async Show_Uncharted_Gain(e) {
+  Show_Uncharted_Gain(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -438,14 +438,14 @@ export class AssUncharted extends plugin {
         msg.push(`${interimArchive.treasureChests[i].level}级${name}宝箱`)
       }
     }
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
 
-  async Open_The_Chest(e) {
+  Open_The_Chest(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -476,14 +476,14 @@ export class AssUncharted extends plugin {
           if (interimArchive.treasureChests[i].type == 4 && lastNum >= 10) {
             thingId = interimArchive.treasureChests[i].type + '-2-' + lastNum
           }
-          let addThing = await AssociationApi.assUser.searchThingById(thingId)
+          let addThing = AssociationApi.assUser.searchThingById(thingId)
           if (!addThing) {
-            addThing = await AssociationApi.assUser.searchThingById('6-1-2')
+            addThing = AssociationApi.assUser.searchThingById('6-1-2')
           }
-          await Add_najie_things(addThing, UID, 1)
+          Add_najie_things(addThing, UID, 1)
           msg.push(`你获得了${addThing.name}`)
         } else {
-          await GameApi.GameUser.userBag({
+          GameApi.GameUser.userBag({
             UID: UID,
             name: '下品灵石',
             ACCOUNT: Number(lastNum * 100)
@@ -494,14 +494,14 @@ export class AssUncharted extends plugin {
     }
     interimArchive.treasureChests = []
     AssociationApi.assUser.setAssOrPlayer('interimArchive', UID, interimArchive)
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
 
-  async Escape_Uncharted(e) {
+  Escape_Uncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -521,32 +521,30 @@ export class AssUncharted extends plugin {
             (item) => item.id == interimArchive.assResident
           )
           if (interimArchive.incentivesLevel > 12) {
-            addThing = await AssociationApi.assUser.searchThingById(find.specialty.best)
+            addThing = AssociationApi.assUser.searchThingById(find.specialty.best)
           } else if (interimArchive.incentivesLevel >= 8) {
             const location = Math.trunc(Math.random() * find.specialty.special.length)
-            addThing = await AssociationApi.assUser.searchThingById(
-              find.specialty.special[location]
-            )
+            addThing = AssociationApi.assUser.searchThingById(find.specialty.special[location])
           } else {
             const location = Math.trunc(Math.random() * find.specialty.common.length)
-            addThing = await AssociationApi.assUser.searchThingById(find.specialty.common[location])
+            addThing = AssociationApi.assUser.searchThingById(find.specialty.common[location])
           }
           if (!addThing) {
-            addThing = await AssociationApi.assUser.searchThingById('6-1-2')
+            addThing = AssociationApi.assUser.searchThingById('6-1-2')
           }
-          await Add_najie_things(addThing, UID, 1)
+          Add_najie_things(addThing, UID, 1)
           e.reply(`你获得了${addThing.name}`)
         } else {
           const location = Math.trunc(Math.random() * idList.length)
-          let addThing = await AssociationApi.assUser.searchThingById(idList[location])
+          let addThing = AssociationApi.assUser.searchThingById(idList[location])
           if (!addThing) {
-            addThing = await AssociationApi.assUser.searchThingById('6-1-2')
+            addThing = AssociationApi.assUser.searchThingById('6-1-2')
           }
-          await Add_najie_things(addThing, UID, 1)
+          Add_najie_things(addThing, UID, 1)
           e.reply(`你获得了${addThing.name}`)
         }
       }
-      await AssociationApi.assUser.deleteAss('interimArchive', UID)
+      AssociationApi.assUser.deleteAss('interimArchive', UID)
     }
     let action = GameApi.GamePublic.getAction(UID)
     if (action.actionName != '宗门秘境') {
@@ -558,7 +556,7 @@ export class AssUncharted extends plugin {
   }
 }
 /**地点查询*/
-const GoAssUncharted = async (e, weizhi, addres) => {
+const GoAssUncharted = (e, weizhi, addres) => {
   let adr = addres
   let msg = ['***' + adr + '***']
   for (let i = 0; i < weizhi.length; i++) {
@@ -578,10 +576,10 @@ const GoAssUncharted = async (e, weizhi, addres) => {
         weizhi[i].resident.name
     )
   }
-  await BotApi.User.forwardMsg({ e, data: msg })
+  BotApi.User.forwardMsg({ e, data: msg })
 }
-const Add_najie_things = async (thing, user_qq, account) => {
-  await GameApi.GameUser.userBag({
+const Add_najie_things = (thing, user_qq, account) => {
+  GameApi.GameUser.userBag({
     UID: user_qq,
     name: thing.name,
     ACCOUNT: Number(account)

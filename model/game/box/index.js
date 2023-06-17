@@ -5,8 +5,8 @@ import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
 import { GameApi } from '../../api/index.js'
 class GameUser {
-  startLife = async () => {
-    const life = await listdata.controlActionInitial({
+  startLife = () => {
+    const life = listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
       INITIAL: []
@@ -20,21 +20,21 @@ class GameUser {
         die.push(item.qq)
       }
     })
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
       DATA: life
     })
     for (let item of die) {
-      await gamepublic.offAction({ UID: item })
+      gamepublic.offAction({ UID: item })
     }
   }
   /**
    * @param { UID } param0
    * @returns
    */
-  createBoxPlayer = async ({ UID }) => {
-    await listdata.controlAction({
+  createBoxPlayer = ({ UID }) => {
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player',
       DATA: {
@@ -42,15 +42,15 @@ class GameUser {
         days: 0 //签到
       }
     })
-    const LevelList = await listdata.controlAction({
+    const LevelList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = await listdata.controlAction({
+    const LevelMaxList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle',
       DATA: {
@@ -59,7 +59,7 @@ class GameUser {
           LevelMaxList.find((item) => item.id == 1).blood //血量
       }
     })
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: {
@@ -74,7 +74,7 @@ class GameUser {
         rankmax_id: 0 //数组位置
       }
     })
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_wealth',
       DATA: {
@@ -82,7 +82,7 @@ class GameUser {
         xianshi: 0
       }
     })
-    const PosirionList = await listdata.controlAction({
+    const PosirionList = listdata.controlAction({
       CHOICE: 'generate_position',
       NAME: 'position'
     })
@@ -92,7 +92,7 @@ class GameUser {
       mx: Math.floor(Math.random() * (position.x2 - position.x1)) + Number(position.x1),
       my: Math.floor(Math.random() * (position.y2 - position.y1)) + Number(position.y1)
     }
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_action',
       DATA: {
@@ -107,7 +107,7 @@ class GameUser {
         Exchange: 0
       }
     })
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: {
@@ -117,8 +117,8 @@ class GameUser {
         thing: []
       }
     })
-    const newtalent = await this.getTalent()
-    await listdata.controlAction({
+    const newtalent = this.getTalent()
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent',
       DATA: {
@@ -133,9 +133,9 @@ class GameUser {
       name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
     }
     const name =
-      (await gamepublic.Anyarray({ ARR: FullName['full'] })) +
-      (await gamepublic.Anyarray({ ARR: FullName['name'] }))
-    const life = await listdata.controlActionInitial({
+      gamepublic.Anyarray({ ARR: FullName['full'] }) +
+      gamepublic.Anyarray({ ARR: FullName['name'] })
+    const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       INITIAL: []
@@ -148,24 +148,24 @@ class GameUser {
       createTime: new Date().getTime(),
       status: 1
     })
-    await listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
+    listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
     /**更新用户表*/
-    await listdata.controlActionInitial({
+    listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: life,
       INITIAL: []
     })
     /**更新装备*/
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment',
       DATA: []
     })
     /**更新天赋面板*/
-    await this.updataUserEfficiency({ UID })
+    this.updataUserEfficiency({ UID })
     /**更新战斗面板 */
-    await this.readPanel({ UID })
+    this.readPanel({ UID })
     return true
   }
 
@@ -174,20 +174,20 @@ class GameUser {
    * @param { UID, name, ACCOUNT } param0
    * @returns
    */
-  userBag = async ({ UID, name, ACCOUNT }) => {
+  userBag = ({ UID, name, ACCOUNT }) => {
     //搜索物品信息
-    const thing = await listdata.searchThing({
+    const thing = listdata.searchThing({
       condition: 'name',
       name
     })
     if (thing) {
-      let bag = await listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
-      bag = await this.userbagAction({
+      let bag = listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
+      bag = this.userbagAction({
         BAG: bag,
         THING: thing,
         ACCOUNT: Number(ACCOUNT)
       })
-      await listdata.controlAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
+      listdata.controlAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
       return true
     }
     return false
@@ -198,25 +198,25 @@ class GameUser {
    * @param { UID, name, ACCOUNT } param0
    * @returns
    */
-  userMaterial = async ({ UID, name, ACCOUNT }) => {
+  userMaterial = ({ UID, name, ACCOUNT }) => {
     //搜索物品信息
-    const thing = await listdata.searchThing({
+    const thing = listdata.searchThing({
       CHOICE: 'fixed_material',
       NAME: 'MaterialGUIDe',
       condition: 'name',
       name
     })
     if (thing) {
-      let bag = await listdata.controlAction({
+      let bag = listdata.controlAction({
         CHOICE: 'user_material',
         NAME: UID
       })
-      bag = await this.userMaterialAction({
+      bag = this.userMaterialAction({
         BAG: bag,
         THING: thing,
         ACCOUNT: Number(ACCOUNT)
       })
-      await listdata.controlAction({
+      listdata.controlAction({
         CHOICE: 'user_material',
         NAME: UID,
         DATA: bag
@@ -226,7 +226,7 @@ class GameUser {
     return false
   }
 
-  userMaterialAction = async (parameter) => {
+  userMaterialAction = (parameter) => {
     let { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.find((item) => item.id == THING.id)
     if (thing) {
@@ -248,7 +248,7 @@ class GameUser {
    * @param { BAG, THING, ACCOUNT } param0
    * @returns
    */
-  userbagAction = async (parameter) => {
+  userbagAction = (parameter) => {
     const { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.thing.find((item) => item.id == THING.id)
     if (thing) {
@@ -272,13 +272,13 @@ class GameUser {
    * @returns 返回该物品
    */
 
-  userBagSearch = async ({ UID, name }) => {
-    const bag = await listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
+  userBagSearch = ({ UID, name }) => {
+    const bag = listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
     return bag.thing.find((item) => item.name == name)
   }
 
-  userMaterialSearch = async ({ UID, name }) => {
-    const bag = await listdata.controlAction({
+  userMaterialSearch = ({ UID, name }) => {
+    const bag = listdata.controlAction({
       CHOICE: 'user_material',
       NAME: UID
     })
@@ -288,30 +288,30 @@ class GameUser {
   /**
    * @param { UID } param0
    * @returns 返回UID的面板
-   */ readPanel = async ({ UID }) => {
-    const equipment = await listdata.controlAction({
+   */ readPanel = ({ UID }) => {
+    const equipment = listdata.controlAction({
       CHOICE: 'user_equipment',
       NAME: UID
     })
-    const level = await listdata.controlAction({
+    const level = listdata.controlAction({
       CHOICE: 'user_level',
       NAME: UID
     })
-    const LevelList = await listdata.controlAction({
+    const LevelList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = await listdata.controlAction({
+    const LevelMaxList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
     const levelmini = LevelList.find((item) => item.id == level.level_id)
     const levelmax = LevelMaxList.find((item) => item.id == level.levelmax_id)
-    const UserBattle = await listdata.controlAction({
+    const UserBattle = listdata.controlAction({
       CHOICE: 'user_battle',
       NAME: UID
     })
-    let extend = await listdata.controlActionInitial({
+    let extend = listdata.controlActionInitial({
       NAME: UID,
       CHOICE: 'user_extend',
       INITIAL: {}
@@ -379,7 +379,7 @@ class GameUser {
       panel.burst * 100 +
       panel.burstmax * 10 +
       panel.speed * 50
-    await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle',
       DATA: panel
@@ -392,9 +392,9 @@ class GameUser {
    * @param { UID } param0
    * @returns
    */
-  updataUserEfficiency = async ({ UID }) => {
+  updataUserEfficiency = ({ UID }) => {
     try {
-      const talent = await listdata.controlAction({
+      const talent = listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_talent'
       })
@@ -405,8 +405,8 @@ class GameUser {
       talent.AllSorcery.forEach((item) => {
         talent_sise.gonfa += item.size
       })
-      talent_sise.talent = await this.talentSize(talent)
-      let promise = await listdata.controlAction({
+      talent_sise.talent = this.talentSize(talent)
+      let promise = listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_extend'
       })
@@ -416,7 +416,7 @@ class GameUser {
         extend += promise[i].perpetual.efficiency * 100
       }
       talent.talentsize = talent_sise.talent + talent_sise.gonfa + extend
-      await listdata.controlAction({
+      listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_talent',
         DATA: talent
@@ -431,7 +431,7 @@ class GameUser {
    * @param {灵根数据} data
    * @returns 灵根天赋值
    */
-  talentSize = async (data) => {
+  talentSize = (data) => {
     let talent_size = 250
     /*根据灵根数来判断*/
     for (let i = 0; i < data.length; i++) {
@@ -449,7 +449,7 @@ class GameUser {
   /**
    * @returns 随机生成灵根
    */
-  getTalent = async () => {
+  getTalent = () => {
     const newtalent = []
     const talentacount = Math.round(Math.random() * (5 - 1)) + 1
     for (let i = 0; i < talentacount; i++) {
@@ -477,10 +477,10 @@ class GameUser {
    * @param { data } param0
    * @returns
    */
-  getTalentName = async ({ data }) => {
+  getTalentName = ({ data }) => {
     const nameArr = []
-    data.talent.forEach(async (talentitem) => {
-      const talentList = await listdata.controlAction({
+    data.talent.forEach((talentitem) => {
+      const talentList = listdata.controlAction({
         NAME: 'talent_list',
         CHOICE: 'fixed_talent'
       })
@@ -495,16 +495,16 @@ class GameUser {
    * @param { NAME, CHOICE, DATA } param0
    * @returns 若无数据输入则为读取操作，并返回数据
    */
-  userMsgAction = async ({ NAME, CHOICE, DATA }) => {
+  userMsgAction = ({ NAME, CHOICE, DATA }) => {
     if (DATA) {
-      await algorithm.dataAction({
+      algorithm.dataAction({
         NAME,
         PATH: __PATH[CHOICE],
         DATA
       })
       return
     }
-    return await algorithm.dataAction({
+    return algorithm.dataAction({
       NAME,
       PATH: __PATH[CHOICE]
     })
@@ -515,11 +515,11 @@ class GameUser {
    * @param {UID, CHOICE, ATTRIBUTE, SIZE} param0
    * @returns
    */
-  updataUser = async ({ UID, CHOICE, ATTRIBUTE, SIZE }) => {
+  updataUser = ({ UID, CHOICE, ATTRIBUTE, SIZE }) => {
     //读取原数据
-    const data = await listdata.controlAction({ NAME: UID, CHOICE })
+    const data = listdata.controlAction({ NAME: UID, CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
-    await listdata.controlAction({ NAME: UID, CHOICE, DATA: data })
+    listdata.controlAction({ NAME: UID, CHOICE, DATA: data })
     return
   }
 
@@ -528,8 +528,8 @@ class GameUser {
    * @param {UID} UID
    * @returns 不存在则undifind
    */
-  existUser = async (UID) => {
-    const LIFE = await listdata.controlActionInitial({
+  existUser = (UID) => {
+    const LIFE = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       INITIAL: []
@@ -542,19 +542,19 @@ class GameUser {
    * @param {UID} UID
    * @returns
    */
-  existUserSatus = async ({ UID }) => {
-    let find = await this.existUser(UID)
+  existUserSatus = ({ UID }) => {
+    let find = this.existUser(UID)
     if (find) {
       if (find.status == 0) {
         return false
       }
       return true
     }
-    const CreateGO = await this.createBoxPlayer({ UID })
+    const CreateGO = this.createBoxPlayer({ UID })
     if (!CreateGO) {
       return false
     }
-    const play = await GameApi.UserData.controlAction({
+    const play = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
     })
@@ -564,8 +564,8 @@ class GameUser {
     return true
   }
 
-  getUID = async ({ UID }) => {
-    let find = await this.existUser(UID)
+  getUID = ({ UID }) => {
+    let find = this.existUser(UID)
     if (find) {
       return true
     }
@@ -575,9 +575,9 @@ class GameUser {
   /**
    * @returns 返回所有用户UID
    */
-  getUserUID = async () => {
+  getUserUID = () => {
     const playerList = []
-    const life = await listdata.controlActionInitial({
+    const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       INITIAL: []
@@ -588,8 +588,8 @@ class GameUser {
     return playerList
   }
 
-  getTypeThing = async (position, type) => {
-    const dropsItemList = await listdata.controlAction({
+  getTypeThing = (position, type) => {
+    const dropsItemList = listdata.controlAction({
       NAME: 'all',
       CHOICE: 'generate_all'
     })
@@ -603,8 +603,8 @@ class GameUser {
     return sum
   }
 
-  randomTypeThing = async (position, type) => {
-    const dropsItemList = await listdata.controlAction({
+  randomTypeThing = (position, type) => {
+    const dropsItemList = listdata.controlAction({
       NAME: 'all',
       CHOICE: 'generate_all'
     })
@@ -618,16 +618,16 @@ class GameUser {
     return sum[Math.floor(Math.random() * sum.length)]
   }
 
-  randomThing = async () => {
-    const dropsItemList = await listdata.controlAction({
+  randomThing = () => {
+    const dropsItemList = listdata.controlAction({
       NAME: 'dropsItem',
       CHOICE: 'generate_all'
     })
     return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
   }
 
-  updataUserBlood = async ({ UID, SIZE }) => {
-    const battle = await listdata.controlAction({
+  updataUserBlood = ({ UID, SIZE }) => {
+    const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
@@ -635,7 +635,7 @@ class GameUser {
     if (battle.nowblood > battle.blood) {
       battle.nowblood = battle.blood
     }
-    await await listdata.controlAction({
+    listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle',
       DATA: battle
@@ -647,8 +647,8 @@ class GameUser {
    * @param { NAME, FLAG, TYPE, VALUE } param0
    * @returns
    */
-  addExtendPerpetual = async ({ NAME, FLAG, TYPE, VALUE }) => {
-    const extend = await listdata.controlActionInitial({
+  addExtendPerpetual = ({ NAME, FLAG, TYPE, VALUE }) => {
+    const extend = listdata.controlActionInitial({
       NAME,
       CHOICE: 'user_extend',
       INITIAL: {}
@@ -668,16 +668,16 @@ class GameUser {
       }
     }
     extend[FLAG]['perpetual'][TYPE] = VALUE
-    await listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-    await this.readPanel({ UID: NAME })
+    listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+    this.readPanel({ UID: NAME })
     return
   }
   /**
    * @param { NAME, FLAG, TYPE, VALUE, ENDTIME } param0
    * @returns
    */
-  addExtendTimes = async ({ NAME, FLAG, TYPE, VALUE, ENDTIME }) => {
-    const extend = await listdata.controlActionInitial({
+  addExtendTimes = ({ NAME, FLAG, TYPE, VALUE, ENDTIME }) => {
+    const extend = listdata.controlActionInitial({
       NAME,
       CHOICE: 'user_extend',
       INITIAL: {}
@@ -703,8 +703,8 @@ class GameUser {
       extend[FLAG]['times'][find]['timeLimit'] > time &&
       extend[FLAG]['times'][find]['value'] >= VALUE
     ) {
-      await listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-      await this.readPanel({ UID: NAME })
+      listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      this.readPanel({ UID: NAME })
       return
     } else if (
       find != -1 &&
@@ -713,8 +713,8 @@ class GameUser {
     ) {
       extend[FLAG]['times'][find]['value'] = VALUE
       extend[FLAG]['times'][find]['timeLimit'] = ENDTIME
-      await listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-      await this.readPanel({ UID: NAME })
+      listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      this.readPanel({ UID: NAME })
       return
     } else {
       extend[FLAG]['times'].push({
@@ -722,15 +722,15 @@ class GameUser {
         value: VALUE,
         timeLimit: ENDTIME
       })
-      await listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-      await this.readPanel({ UID: NAME })
+      listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      this.readPanel({ UID: NAME })
       return
     }
   }
 
-  synthesisResult = async ({ ans, type }) => {
+  synthesisResult = ({ ans, type }) => {
     //这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
-    let drawingList = await listdata.controlAction({
+    let drawingList = listdata.controlAction({
       NAME: 'AllDrawing',
       CHOICE: 'fixed_material'
     })

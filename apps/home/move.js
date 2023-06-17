@@ -23,13 +23,13 @@ export class move extends plugin {
       ]
     })
   }
-  async movewarehouse(e) {
+  movewarehouse(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
       return
@@ -37,9 +37,9 @@ export class move extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
     const region2 = ifexisthome.region
-    const action1 = await GameApi.UserData.controlAction({
+    const action1 = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -53,7 +53,7 @@ export class move extends plugin {
     const thing_name = code[0] //物品
     const thing_acount = code[1] //数量
     let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
-    const searchsthing = await GameApi.GameUser.userBagSearch({
+    const searchsthing = GameApi.GameUser.userBagSearch({
       UID,
       name: thing_name
     })
@@ -66,32 +66,32 @@ export class move extends plugin {
       e.reply('数量不足')
       return
     }
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
       INITIAL: []
     })
-    let najie = await GameApi.UserData.controlAction({
+    let najie = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    najie = await HomeApi.GameUser.Add_DATA_thing({
+    najie = HomeApi.GameUser.Add_DATA_thing({
       DATA: najie,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: najie
@@ -100,13 +100,13 @@ export class move extends plugin {
     return
   }
 
-  async movenajie(e) {
+  movenajie(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
       return
@@ -114,8 +114,8 @@ export class move extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = await HomeApi.GameUser.existhome({ UID })
-    const home = await HomeApi.Listdata.controlActionInitial({
+    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -126,7 +126,7 @@ export class move extends plugin {
       return
     }
     const region2 = ifexisthome.region
-    const action1 = await GameApi.UserData.controlAction({
+    const action1 = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -139,8 +139,8 @@ export class move extends plugin {
     const code = thing.split('*')
     const thing_name = code[0] //物品
     const thing_acount = code[1] //数量
-    let quantity = await GameApi.GamePublic.leastOne({ value: thing_acount })
-    const searchsthing = await HomeApi.GameUser.homeexist_Warehouse_thing_name({
+    let quantity = GameApi.GamePublic.leastOne({ value: thing_acount })
+    const searchsthing = HomeApi.GameUser.homeexist_Warehouse_thing_name({
       name: thing_name,
       UID
     })
@@ -153,32 +153,32 @@ export class move extends plugin {
       e.reply('锅太大了，放不进储物袋')
       return
     }
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = await HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.Add_DATA_thing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
     })
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
       INITIAL: []
     })
-    let najie = await GameApi.UserData.controlAction({
+    let najie = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    najie = await HomeApi.GameUser.Add_DATA_thing({
+    najie = HomeApi.GameUser.Add_DATA_thing({
       DATA: najie,
       DATA1: searchsthing,
       quantity
     })
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: najie
@@ -187,13 +187,13 @@ export class move extends plugin {
     return
   }
 
-  async update_warehouse(e) {
+  update_warehouse(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
       return
@@ -201,13 +201,13 @@ export class move extends plugin {
       e.reply(`${archive}`)
       return
     }
-    let Warehouse = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
-      let searchsthing = await HomeApi.GameUser.homeexist_all_thing_name({
+      let searchsthing = HomeApi.GameUser.homeexist_all_thing_name({
         name: Warehouse.thing[i].name
       })
       if (Warehouse.thing[i].thingId != undefined) {
@@ -215,7 +215,7 @@ export class move extends plugin {
         Warehouse.thing = Warehouse.thing.filter(
           (item) => !['', null, undefined, NaN, false, true].includes(item)
         )
-        await HomeApi.Listdata.controlActionInitial({
+        HomeApi.Listdata.controlActionInitial({
           CHOICE: 'user_home_Warehouse',
           NAME: UID,
           DATA: Warehouse,
@@ -240,20 +240,20 @@ export class move extends plugin {
             }
           }
           Warehouse.thing[i] = searchsthing
-          await HomeApi.Listdata.controlActionInitial({
+          HomeApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_Warehouse',
             NAME: UID,
             DATA: Warehouse,
             INITIAL: []
           })
         } else {
-          let searchsthing1 = await HomeApi.GameUser.homeexist_all_thing_id({
+          let searchsthing1 = HomeApi.GameUser.homeexist_all_thing_id({
             id: Warehouse.thing[i].id
           })
           if (searchsthing1 != 1) {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
-            await HomeApi.Listdata.controlActionInitial({
+            HomeApi.Listdata.controlActionInitial({
               CHOICE: 'user_home_Warehouse',
               NAME: UID,
               DATA: Warehouse,
@@ -263,7 +263,7 @@ export class move extends plugin {
         }
       }
     }
-    let Warehouse1 = await HomeApi.Listdata.controlActionInitial({
+    let Warehouse1 = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -276,36 +276,36 @@ export class move extends plugin {
       hasValue !== -1 && (total[hasValue].acount = total[hasValue].acount + cur.acount)
       return total
     }, [])
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
       INITIAL: []
     })
-    let landgoods = await HomeApi.Listdata.controlActionInitial({
+    let landgoods = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       INITIAL: []
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
-      let searchsthing = await HomeApi.GameUser.homeexist_all_thing_name({
+      let searchsthing = HomeApi.GameUser.homeexist_all_thing_name({
         name: landgoods.thing[i].name
       })
       if (searchsthing != 1) {
         landgoods.thing[i].id = searchsthing.id
-        await HomeApi.Listdata.controlActionInitial({
+        HomeApi.Listdata.controlActionInitial({
           CHOICE: 'user_home_landgoods',
           NAME: UID,
           DATA: landgoods,
           INITIAL: []
         })
       } else {
-        let searchsthing1 = await HomeApi.GameUser.homeexist_all_thing_id({
+        let searchsthing1 = HomeApi.GameUser.homeexist_all_thing_id({
           id: landgoods.thing[i].id
         })
         if (searchsthing1 != 1) {
           landgoods.thing[i].name = searchsthing1.name
-          await HomeApi.Listdata.controlActionInitial({
+          HomeApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_landgoods',
             NAME: UID,
             DATA: landgoods,
@@ -318,13 +318,13 @@ export class move extends plugin {
     return
   }
 
-  async chongzhinongtian(e) {
+  chongzhinongtian(e) {
     //发送消息
     const UID = e.user_id
     //不开放私聊功能
     if (!this.verify(e)) return false
     //有无存档
-    const archive = await HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
       e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
       return
@@ -335,18 +335,18 @@ export class move extends plugin {
     const landgoods = {
       thing: []
     }
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       DATA: landgoods,
       INITIAL: []
     })
-    const home = await HomeApi.Listdata.controlActionInitial({
+    const home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID
     })
     home.Landgrid = home.LandgridMax
-    await HomeApi.Listdata.controlActionInitial({
+    HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       DATA: home,

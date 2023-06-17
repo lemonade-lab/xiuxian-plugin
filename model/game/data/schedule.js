@@ -45,13 +45,13 @@ class Schedule {
       return ['无此备份']
     }
     /*得到存档的json文件地址*/
-    const newsum = algorithm.returnfilepath(this.DATA_PATH, '.json')
+    const newsum = algorithm.getfilepath(this.DATA_PATH, '.json')
     newsum.forEach((item) => {
       /*/循环删除数据*/
       fs.unlink(item, (err) => {})
     })
     /**获得这个备份下的所有子目录 */
-    const namefile_subdirectory = algorithm.returnMenu(`${this.BACKUPS_PATH}/${name}`)
+    const namefile_subdirectory = algorithm.getMenu(`${this.BACKUPS_PATH}/${name}`)
     /**获得备份目录下的所有json的文件名*/
     namefile_subdirectory.forEach((itemname) => {
       /*得到所有json名*/

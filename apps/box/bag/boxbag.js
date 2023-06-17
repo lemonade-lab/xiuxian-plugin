@@ -11,28 +11,28 @@ export class BoxBag extends plugin {
   showBag = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = await GameApi.Information.userBagShow({ UID })
-    const isreply = await e.reply(await BotApi.ImgIndex.showPuppeteer({ path, name, data }))
-    await BotApi.User.surveySet({ e, isreply })
+    const { path, name, data } = GameApi.Information.userBagShow({ UID })
+    const isreply = e.reply(BotApi.ImgIndex.showPuppeteer({ path, name, data }))
+    BotApi.User.surveySet({ e, isreply })
     return false
   }
   bagUp = async (e) => {
     if (!this.verify(e)) return false
-    if (!(await GameApi.GameUser.existUserSatus({ UID: e.user_id }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = await GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
     if (MSG) {
       e.reply(MSG)
       return false
     }
     const UID = e.user_id
-    const najie = await GameApi.UserData.controlAction({
+    const najie = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -43,7 +43,7 @@ export class BoxBag extends plugin {
     if (!najie_price) {
       return false
     }
-    const thing = await GameApi.GameUser.userBagSearch({
+    const thing = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -52,12 +52,12 @@ export class BoxBag extends plugin {
       return false
     }
     najie.grade += 1
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: najie
     })
-    await GameApi.GameUser.userBag({
+    GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -Number(najie_price)

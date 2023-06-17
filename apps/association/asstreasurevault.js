@@ -23,10 +23,10 @@ export class TreasureVault extends plugin {
       ]
     })
   }
-  async Reclaim_Item(e) {
+  Reclaim_Item(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -41,12 +41,12 @@ export class TreasureVault extends plugin {
       return false
     }
 
-    const positionList = await GameApi.UserData.controlAction({
+    const positionList = GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = await GameApi.GameUser.userMsgAction({
+    const action = GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -61,7 +61,7 @@ export class TreasureVault extends plugin {
     }
     let thingName = e.msg.replace('#藏宝阁回收', '')
 
-    const searchThing = await GameApi.GameUser.userBagSearch({
+    const searchThing = GameApi.GameUser.userBagSearch({
       UID: UID,
       name: thingName
     })
@@ -69,12 +69,12 @@ export class TreasureVault extends plugin {
       return false
     }
     ass.facility[1].buildNum -= 1
-    await AssociationApi.assUser.checkFacility(ass)
+    AssociationApi.assUser.checkFacility(ass)
     let point = Math.trunc(searchThing.price / 600)
     assPlayer.contributionPoints += point
     assPlayer.historyContribution += point
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-    await Add_najie_things(searchThing, UID, -1)
+    Add_najie_things(searchThing, UID, -1)
     e.reply(`回收成功，你获得了${point}点贡献点！`)
 
     const id = searchThing.id.split('-')
@@ -117,10 +117,10 @@ export class TreasureVault extends plugin {
   }
 
   //藏宝阁
-  async List_treasureCabinet(e) {
+  List_treasureCabinet(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -151,15 +151,15 @@ export class TreasureVault extends plugin {
       }
     }
 
-    await BotApi.User.forwardMsg({ e, data: msg })
+    BotApi.User.forwardMsg({ e, data: msg })
     return false
   }
 
   //兑换
-  async Converted_Item(e) {
+  Converted_Item(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -176,12 +176,12 @@ export class TreasureVault extends plugin {
       return false
     }
 
-    const positionList = await GameApi.UserData.controlAction({
+    const positionList = GameApi.UserData.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = await GameApi.GameUser.userMsgAction({
+    const action = GameApi.GameUser.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -216,18 +216,18 @@ export class TreasureVault extends plugin {
       return false
     }
     ass.facility[1].buildNum -= 1
-    await AssociationApi.assUser.checkFacility(ass)
+    AssociationApi.assUser.checkFacility(ass)
     assPlayer.contributionPoints -= exchangeThing.redeemPoint
     AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
-    const addThing = await AssociationApi.assUser.searchThingById(exchangeThing.id)
-    await Add_najie_things(addThing, UID, 1)
+    const addThing = AssociationApi.assUser.searchThingById(exchangeThing.id)
+    Add_najie_things(addThing, UID, 1)
     e.reply(`兑换成功！！！`)
     return false
   }
-  async Show_Contribute(e) {
+  Show_Contribute(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = await AssociationApi.assUser.existArchive(UID)
+    const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
@@ -242,8 +242,8 @@ export class TreasureVault extends plugin {
     return false
   }
 }
-const Add_najie_things = async (thing, user_qq, account) => {
-  await GameApi.GameUser.userBag({
+const Add_najie_things = (thing, user_qq, account) => {
+  GameApi.GameUser.userBag({
     UID: user_qq,
     name: thing.name,
     ACCOUNT: Number(account)

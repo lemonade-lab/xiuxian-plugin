@@ -3,20 +3,24 @@ import { __PATH } from '../data/index.js'
 import fs from 'node:fs'
 import path from 'path'
 import { GameApi } from '../../api/index.js'
+
+function getJsonParse(val) {
+  return JSON.parse(fs.readFileSync(val))
+}
+
 class GameUser {
   constructor() {
-    this.blessPlaceList = JSON.parse(fs.readFileSync(`${__PATH.assRelate}/BlessPlace.json`))
-    this.baseTreasureVaultList = JSON.parse(
-      fs.readFileSync(`${__PATH.assRelate}/BaseTreasureVault.json`)
-    )
-    this.assLabyrinthList = JSON.parse(fs.readFileSync(`${__PATH.assRelate}/AssLabyrinth.json`))
-    this.assRelationList = JSON.parse(fs.readFileSync(`${__PATH.assRelation}/AssRelation.json`))
+    this.blessPlaceList = getJsonParse(`${__PATH.assRelate}/BlessPlace.json`)
+    this.baseTreasureVaultList = getJsonParse(`${__PATH.assRelate}/BaseTreasureVault.json`)
+    this.assLabyrinthList = getJsonParse(`${__PATH.assRelate}/AssLabyrinth.json`)
+    this.assRelationList = getJsonParse(`${__PATH.assRelation}/AssRelation.json`)
   }
+
   /**
    * @param {UID} UID
    * @returns 初始化数据，不成功则false
    */
-  createDarkPlayer = async (parameter) => {
+  createDarkPlayer = (parameter) => {
     const { UID } = parameter
     try {
       return true
@@ -32,7 +36,7 @@ class GameUser {
    * @param {数量} ACCOUNT
    * @returns
    */
-  userbagAction = async (parameter) => {
+  userbagAction = (parameter) => {
     const { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.thing.find((item) => item.id == THING.id)
     if (thing) {
@@ -55,12 +59,12 @@ class GameUser {
    * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter
    * @returns
    */
-  updataUser = async (parameter) => {
+  updataUser = (parameter) => {
     const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
     //读取原数据
-    const data = await listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE })
+    const data = listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
-    await listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
+    listdata.userMsgAction({ NAME: UID, CHOICE: CHOICE, DATA: data })
     return
   }
 
@@ -112,7 +116,7 @@ class GameUser {
     return data
   }
 
-  readAssNames = async (name) => {
+  readAssNames = (name) => {
     const dir = __PATH[name]
     let allNames = fs.readdirSync(dir)
     allNames = allNames.filter((file) => file.endsWith('.json'))
@@ -146,7 +150,7 @@ class GameUser {
     return
   }
 
-  async assEffCount(assPlayer) {
+  assEffCount(assPlayer) {
     let effective = 0
     if (assPlayer.assName == 0) {
       assPlayer.effective = effective
@@ -167,18 +171,18 @@ class GameUser {
 
     effective = effective * coefficient
     assPlayer.effective = effective.toFixed(2)
-    await GameApi.GameUser.addExtendPerpetual({
+    GameApi.GameUser.addExtendPerpetual({
       NAME: assPlayer.qqNumber,
       FLAG: 'ass',
       TYPE: 'efficiency',
       VALUE: Number(assPlayer.effective)
     })
     this.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
-    await GameApi.GameUser.updataUserEfficiency(assPlayer.qqNumber)
+    GameApi.GameUser.updataUserEfficiency(assPlayer.qqNumber)
     return
   }
 
-  async assRename(ass, type, association_name) {
+  assRename(ass, type, association_name) {
     let assRelation = this.assRelationList
     const find = assRelation.find((item) => item.id == ass)
     const location = assRelation.findIndex((item) => item.id == ass)
@@ -200,12 +204,12 @@ class GameUser {
     return
   }
 
-  async searchThingById(id) {
-    const newVar = await GameApi.listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
+  searchThingById(id) {
+    const newVar = GameApi.listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
     return newVar.find((item) => item.id == id)
   }
 
-  async checkFacility(ass) {
+  checkFacility(ass) {
     let oldStatus = ass.facility[4].status
     const buildNumList = [100, 500, 500, 200, 200, 200, 300]
     for (let i = 0; i < ass.facility.length; i++) {
@@ -215,7 +219,7 @@ class GameUser {
         ass.facility[i].status = 0
       }
     }
-    await this.setAssOrPlayer('association', ass.id, ass)
+    this.setAssOrPlayer('association', ass.id, ass)
     if (oldStatus != ass.facility[4].status) {
       const playerList = ass.allMembers
       for (let player_id of playerList) {
@@ -229,12 +233,10 @@ class GameUser {
     return
   }
 
-  async existArchive(qq) {
-    let player = await GameApi.GameUser.existUser(qq)
+  existArchive(qq) {
+    let player = GameApi.GameUser.existUser(qq)
     // 不存在
-    if (!player) {
-      return false
-    }
+    if (!player) return false
     // 修仙存在此人，看宗门系统有没有他
     if (!this.existAss('assPlayer', qq)) {
       let assPlayer = {
@@ -252,9 +254,9 @@ class GameUser {
         xiuxianTime: player.createTime,
         time: []
       }
-      await this.setAssOrPlayer('assPlayer', qq, assPlayer)
+      this.setAssOrPlayer('assPlayer', qq, assPlayer)
     }
-    let assPlayer = await this.getAssOrPlayer(1, qq)
+    let assPlayer = this.getAssOrPlayer(1, qq)
     //只有生命计数一样，且生命状态正常才为true
     if (player.createTime == assPlayer.xiuxianTime && player.status == 1) {
       return true
@@ -266,7 +268,7 @@ class GameUser {
 
       if (assPlayer.assJob < 10) {
         ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber) //原来的职位表删掉这个B
-        await this.setAssOrPlayer('association', ass.id, ass) //记录到存档
+        this.setAssOrPlayer('association', ass.id, ass) //记录到存档
       } else {
         if (ass.allMembers.length < 2) {
           fs.rmSync(`${__PATH.association}/${assPlayer.assName}.json`)
@@ -285,9 +287,9 @@ class GameUser {
           ass.master = randMember.qqNumber
           randMember.assJob = 10
 
-          await this.setAssOrPlayer('association', ass.id, ass) //记录到存档
-          await this.assEffCount(randMember)
-          await GameApi.GameUser.updataUserEfficiency(randMember.qqNumber)
+          this.setAssOrPlayer('association', ass.id, ass) //记录到存档
+          this.assEffCount(randMember)
+          GameApi.GameUser.updataUserEfficiency(randMember.qqNumber)
         }
       }
     }
@@ -295,7 +297,7 @@ class GameUser {
       const ass = this.getAssOrPlayer(2, assPlayer.volunteerAss)
       if (!isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != qq)
-        await this.setAssOrPlayer('association', ass.id, ass)
+        this.setAssOrPlayer('association', ass.id, ass)
       }
     }
 
@@ -315,46 +317,9 @@ class GameUser {
       time: []
     }
 
-    await this.setAssOrPlayer('assPlayer', qq, assPlayer)
+    this.setAssOrPlayer('assPlayer', qq, assPlayer)
     return false
   }
-
-  // addSpecialty(idList,address,type){
-  //
-  //     const find = this.blessPlaceList.find(item => item.id == address)
-  //     const location = this.blessPlaceList.findIndex(item => item.id == address)
-  //     if(isNotNull(find)){
-  //         if(type == 1){
-  //             find.specialty.common.push(...idList)
-  //         }else if(type == 2){
-  //             find.specialty.special.push(...idList)
-  //         }
-  //     }
-  //     this.blessPlaceList.splice(location,1,find)
-  //     return
-  // }
-
-  // generatePrice = (x,y, obj,countName) => {
-  //     const dir = `${this.generateUncharted}/count.json`
-  //     let count = JSON.parse(fs.readFileSync(dir))
-  //     if(count[countName] == undefined){
-  //         count[countName] = 0
-  //         const new_ARR = JSON.stringify(count, "", "\t")//json转string
-  //         fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
-  //             console.log('写入成功', err)
-  //         })
-  //     }
-  //     if (count[countName] != 0){
-  //         return
-  //     }
-  //     for (let j=0j<obj.lengthj++){
-  //         const number = obj[j].number
-  //         const thingId = obj[j].thingId
-  //         for(let i=0i<numberi++){
-  //             this.BuildAndDeduplication(x,y,thingId)
-  //         }
-  //     }
-  // }
 
   BuildAndDeduplication = (x, y, thingId) => {
     const genX = Math.trunc(Math.random() * 99) + 1
@@ -380,7 +345,7 @@ class GameUser {
         thingId: thingId
       }
       pointList.push(point)
-      const new_ARR = JSON.stringify(pointList, '', '\t') //json转string
+      const new_ARR = JSON.stringify(pointList, '', '\t')
       fs.writeFileSync(dir, new_ARR, 'utf-8', (err) => {
         console.log('写入成功', err)
       })
@@ -390,7 +355,7 @@ class GameUser {
     return
   }
 
-  timeInvert = async (time) => {
+  timeInvert = (time) => {
     const dateObj = {}
     const date = new Date(time)
     dateObj.Y = date.getFullYear()
@@ -408,14 +373,9 @@ class GameUser {
     return `${date.getFullYear()}-${M}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
-  deleteAss = async (path, name) => {
+  deleteAss = (path, name) => {
     fs.rmSync(`${__PATH[path]}/${name}.json`)
   }
-}
-
-async function get_random_fromARR(ARR) {
-  let randindex = Math.trunc(Math.random() * ARR.length)
-  return ARR[randindex]
 }
 
 function isNotNull(obj) {

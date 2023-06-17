@@ -6,36 +6,36 @@ class information {
    * @param { UID } param0
    * @returns
    */
-  userDataShow = async ({ UID }) => {
-    const player = await listdata.controlAction({
+  userDataShow = ({ UID }) => {
+    const player = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
     })
-    const equipment = await listdata.controlAction({
+    const equipment = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    const talent = await listdata.controlAction({
+    const talent = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const level = await listdata.controlAction({
+    const level = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const battle = await listdata.controlAction({
+    const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const linggenname = await gameUser.getTalentName({ data: talent })
-    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    const linggenname = gameUser.getTalentName({ data: talent })
+    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
       name = name + linggenname[i]
     }
     let size = Math.trunc(talent.talentsize)
-    if ((await talent.talentshow) != 0) {
+    if (talent.talentshow != 0) {
       size = '未知'
       name = '未知'
     } else {
@@ -62,17 +62,17 @@ class information {
    * @param {*} param0
    * @returns
    */
-  userEquipmentShow = async ({ UID }) => {
-    const battle = await listdata.controlAction({
+  userEquipmentShow = ({ UID }) => {
+    const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const equipment = await listdata.controlAction({
+    const equipment = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
     //tudo
-    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     return {
       path: 'user/equipment',
@@ -89,20 +89,20 @@ class information {
   /**
    * 功法信息
    */
-  userTalentShow = async ({ UID }) => {
-    const talent = await listdata.controlAction({
+  userTalentShow = ({ UID }) => {
+    const talent = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const linggenname = await gameUser.getTalentName({ data: talent })
-    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    const linggenname = gameUser.getTalentName({ data: talent })
+    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
       name = name + linggenname[i]
     }
     let size = Math.trunc(talent.talentsize)
-    if ((await talent.talentshow) != 0) {
+    if (talent.talentshow != 0) {
       size = '未知'
       name = '未知'
     } else {
@@ -125,18 +125,18 @@ class information {
    * 背包
    * @returns
    */
-  userBagShow = async ({ UID }) => {
-    let life = await listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+  userBagShow = ({ UID }) => {
+    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
-    const player = await listdata.controlAction({
+    const player = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
     })
-    const battle = await listdata.controlAction({
+    const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const najie = await listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
+    const najie = listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
     const thing = najie.thing
     const thing_list = []
     const danyao_list = []

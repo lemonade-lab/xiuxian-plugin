@@ -11,7 +11,7 @@ export class BoxOnekey extends plugin {
   substitution = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -21,7 +21,7 @@ export class BoxOnekey extends plugin {
       e.reply(`需[(#|/)前往+城池名+${address_name}]`)
     }
 
-    let bag = await GameApi.UserData.controlAction({
+    let bag = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -33,19 +33,19 @@ export class BoxOnekey extends plugin {
       return false
     }
     bag.thing = []
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: bag
     })
-    await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+    GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
     return false
   }
   shellAllType = async (e) => {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
+    if (!GameApi.GameUser.existUserSatus({ UID })) {
       e.reply('已仙鹤')
       return false
     }
@@ -68,7 +68,7 @@ export class BoxOnekey extends plugin {
       e.reply(`[蜀山派]叶凡\n此处不收[${type}]`)
       return false
     }
-    let bag = await GameApi.UserData.controlAction({
+    let bag = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -86,12 +86,12 @@ export class BoxOnekey extends plugin {
       return false
     }
     bag.thing = arr
-    await GameApi.UserData.controlAction({
+    GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag',
       DATA: bag
     })
-    await GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+    GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
     return false
   }

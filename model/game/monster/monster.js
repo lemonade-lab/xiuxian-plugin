@@ -1,16 +1,16 @@
 import listdata from '../data/listdata.js'
 const alldata = {}
 const addall = {}
-const full = await listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
-const name = await listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
-const map = await listdata.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
+const full = listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
+const name = listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
+const map = listdata.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
 /**怪物生成*/
 class GameMonster {
   /**
    * @param { i } param0
    * @returns
    */
-  monsterscache = async ({ i }) => {
+  monsterscache = ({ i }) => {
     if (!alldata.hasOwnProperty(i)) {
       alldata[i] = {
         label: 99,
@@ -19,14 +19,14 @@ class GameMonster {
     }
     /*时间变了*/
     if (new Date().getHours() != alldata[i].label) {
-      alldata[i].data = await this.generateMonster({ i })
+      alldata[i].data = this.generateMonster({ i })
       return alldata[i].data
     } else {
       /* 时间没变 */
       if (alldata[i].data.length != 0) {
         return alldata[i].data
       }
-      alldata[i].data = await this.generateMonster({ i })
+      alldata[i].data = this.generateMonster({ i })
       return alldata[i].data
     }
   }
@@ -34,7 +34,7 @@ class GameMonster {
    * @param { i, num } param0
    * @returns
    */
-  add = async ({ i, num }) => {
+  add = ({ i, num }) => {
     if (!addall.hasOwnProperty(i)) {
       addall[i] = {
         acount: 0
@@ -52,7 +52,7 @@ class GameMonster {
    * @param { i } param0
    * @returns
    */
-  generateMonster = async ({ i }) => {
+  generateMonster = ({ i }) => {
     const [mini, max] = map[i].split('.')
     alldata[i].label = new Date().getHours()
     alldata[i].data = []

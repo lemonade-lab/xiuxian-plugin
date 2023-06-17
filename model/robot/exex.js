@@ -2,12 +2,12 @@ import userAction from './action.js'
 import { exec } from 'child_process'
 import { AppName, MyDirPath } from '../../app.config.js'
 class Exec {
-  execStart = async ({ cmd, e }) => {
-    exec(cmd, { cwd: MyDirPath }, async (error, stdout) => {
+  execStart = ({ cmd, e }) => {
+    exec(cmd, { cwd: MyDirPath }, (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
         msg.push(`${AppName}|已是最新版`)
-        await userAction.forwardMsg({ e, data: msg })
+        userAction.forwardMsg({ e, data: msg })
         return
       }
       if (error) {
@@ -15,17 +15,17 @@ class Exec {
       } else {
         msg.push(`${AppName}|执行成功,请[#重启]`)
       }
-      await userAction.forwardMsg({ e, data: msg })
+      userAction.forwardMsg({ e, data: msg })
       return
     })
     return
   }
-  onExec = async ({ cmd, e, push }) => {
-    exec(cmd, { cwd: `${process.cwd()}` }, async (error, stdout) => {
+  onExec = ({ cmd, e, push }) => {
+    exec(cmd, { cwd: `${process.cwd()}` }, (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
         msg.push(`${AppName}|${push['updata']}`)
-        await userAction.forwardMsg({ e, data: msg })
+        userAction.forwardMsg({ e, data: msg })
         return
       }
       if (error) {
@@ -33,7 +33,7 @@ class Exec {
       } else {
         msg.push(`${AppName}|${push['success']},请[(#|/)重启]`)
       }
-      await userAction.forwardMsg({ e, data: msg })
+      userAction.forwardMsg({ e, data: msg })
       return
     })
     return

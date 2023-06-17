@@ -2,7 +2,7 @@ import config from './defset.js'
 import { MyDirPath } from '../../app.config.js'
 /** 生成帮助图*/
 class Help {
-  getboxhelp = async ({ name }) => {
+  getboxhelp = ({ name }) => {
     const data = config.getConfig({ app: 'help', name })
     return {
       /** heml路径 */
