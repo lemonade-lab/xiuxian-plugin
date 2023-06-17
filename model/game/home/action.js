@@ -1,4 +1,4 @@
-import { HomeApi } from '../../api/api.js'
+import { HomeApi } from '../../api/index.js'
 class userAction {
   userextensionhome = async (parameter) => {
     const { UID } = parameter

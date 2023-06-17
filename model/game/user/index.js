@@ -3,7 +3,7 @@ import listdata from '../data/listdata.js'
 import gamepublic from '../public/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
-import { GameApi } from '../../../model/api/api.js'
+import { GameApi } from '../../api/index.js'
 class GameUser {
   startLife = async () => {
     const life = await listdata.listActionInitial({

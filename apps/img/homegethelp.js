@@ -1,4 +1,4 @@
-import { BotApi, GameApi,  name, dsc, plugin } from '../../model/api/api.js'
+import { BotApi, GameApi,  name, dsc, plugin } from '../../model/api/index.js'
 export class HomeGetHelp extends plugin {
   constructor() {
     super({

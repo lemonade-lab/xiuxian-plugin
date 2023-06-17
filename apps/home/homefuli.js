@@ -1,4 +1,4 @@
-import { BotApi, GameApi, HomeApi, name, dsc, plugin } from '../../model/api/api.js'
+import { BotApi, GameApi, HomeApi, name, dsc, plugin } from '../../model/api/index.js'
 import fs from 'node:fs'
 export class homefuli extends plugin {
   constructor() {

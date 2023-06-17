@@ -7,7 +7,7 @@ import Algorithm from '../game/data/algorithm.js'
 import UserAction from '../game/home/action.js'
 import UserhomeData from '../game/home/data.js'
 import Information from '../game/home/information.js'
-import Listdata from '../game/public/data.js'
+import Listdata from '../game/data/listdata.js'
 import Schedule from '../game/data/schedule.js'
 export const HomeApi = {
   GamePublic,

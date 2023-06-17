@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
 /** 购买物品是原价的1.1倍 */
 const ExchangeRate = 1.1
 export class BoxTransaction extends plugin {

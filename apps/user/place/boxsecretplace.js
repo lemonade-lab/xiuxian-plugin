@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/api.js'
+import { BotApi, GameApi, plugin, name, dsc, verify } from '../../../model/api/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []

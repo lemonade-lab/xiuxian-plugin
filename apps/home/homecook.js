@@ -1,4 +1,4 @@
-import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/api.js'
+import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
 export class homecook extends plugin {

@@ -1,4 +1,4 @@
-import { BotApi, GameApi, name, dsc, plugin, verify } from '../../model/api/api.js'
+import { BotApi, GameApi, name, dsc, plugin, verify } from '../../model/api/index.js'
 export class boxadminmoney extends plugin {
   constructor() {
     super({

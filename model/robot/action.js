@@ -1,5 +1,5 @@
 import config from './defset.js'
-import { GameApi } from '../api/api.js'
+import { GameApi } from '../api/index.js'
 class UserAction {
   /**
    * 折合消息

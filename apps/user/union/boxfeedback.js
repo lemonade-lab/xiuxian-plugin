@@ -1,4 +1,4 @@
-import { plugin, name, dsc, verify } from '../../../model/api/api.js'
+import { plugin, name, dsc, verify } from '../../../model/api/index.js'
 export class BoxFeedback extends plugin {
   constructor() {
     super({

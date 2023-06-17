@@ -1,4 +1,4 @@
-import { BotApi } from './model/api/api.js'
+import { BotApi } from './model/api/index.js'
 import { AppName } from './app.config.js'
 const apps = await BotApi.toIndex('apps')
   .then((res) => {

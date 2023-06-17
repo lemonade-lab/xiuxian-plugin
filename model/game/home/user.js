@@ -1,5 +1,5 @@
-import listdata from '../public/data.js'
-import { HomeApi, GameApi } from '../../api/api.js'
+import listdata from '../data/listdata.js'
+import { HomeApi, GameApi } from '../../api/index.js'
 import algorithm from '../data/algorithm.js'
 import { __PATH } from '../data/index.js'
 class GameUser {

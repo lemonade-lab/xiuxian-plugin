@@ -3,7 +3,7 @@ import listdata from '../data/listdata.js'
 import GamePublic from '../public/index.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'
-import { GameApi } from '../../../model/api/api.js'
+import { GameApi } from '../../api/index.js'
 class duel {
   getDuel = async ({ e, UIDA, UIDB }) => {
     if (!(await GameUser.getUID({ UID: UIDB }))) {

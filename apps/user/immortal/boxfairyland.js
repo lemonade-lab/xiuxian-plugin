@@ -1,4 +1,4 @@
-import { GameApi, plugin,  verify } from '../../../model/api/api.js'
+import { GameApi, plugin,  verify } from '../../../model/api/index.js'
 const useraction = []
 export class boxfairyland extends plugin {
   constructor() {

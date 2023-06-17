@@ -1,4 +1,4 @@
-import { HomeApi, GameApi, BotApi, name, dsc, plugin } from '../../model/api/api.js'
+import { HomeApi, GameApi, BotApi, name, dsc, plugin } from '../../model/api/index.js'
 export class homerangeland extends plugin {
   constructor() {
     super({

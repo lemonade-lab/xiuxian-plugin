@@ -1,4 +1,4 @@
-import { GameApi, HomeApi } from '../../api/api.js'
+import { GameApi, HomeApi } from '../../api/index.js'
 class information {
   userDataShow = async ({ UID }) => {
     return {
