@@ -39,7 +39,7 @@ export class homeland extends plugin {
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -122,7 +122,7 @@ export class homeland extends plugin {
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -241,7 +241,7 @@ export class homeland extends plugin {
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -411,7 +411,7 @@ export class homeland extends plugin {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -449,7 +449,7 @@ export class homeland extends plugin {
       return false
     }
     if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID: user.A })
@@ -569,7 +569,7 @@ export class homeland extends plugin {
     }
     const ifexisthome = await GameApi.GameUser.existUserSatus({ UID: user.A })
     if (!ifexisthome) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archive({ UID: user.A })

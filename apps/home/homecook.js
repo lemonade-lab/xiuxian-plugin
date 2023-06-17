@@ -42,7 +42,7 @@ export class homecook extends plugin {
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -488,7 +488,7 @@ export class homecook extends plugin {
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -576,7 +576,7 @@ export class homecook extends plugin {
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -662,7 +662,7 @@ export class homecook extends plugin {
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -694,7 +694,7 @@ export class homecook extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -780,7 +780,7 @@ export class homecook extends plugin {
     //有无存档
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })

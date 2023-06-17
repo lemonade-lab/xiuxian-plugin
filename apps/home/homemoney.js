@@ -30,7 +30,7 @@ export class homemoney extends plugin {
     //不开放私聊功能
     if (!this.verify(e)) return false
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -55,7 +55,7 @@ export class homemoney extends plugin {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -122,7 +122,7 @@ export class homemoney extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })
@@ -177,7 +177,7 @@ export class homemoney extends plugin {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return false
     }
     const archive = await HomeApi.GameUser.Archive({ UID })

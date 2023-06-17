@@ -54,7 +54,7 @@ export class homerangeland extends plugin {
     //有无存档
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -126,7 +126,7 @@ export class homerangeland extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -232,7 +232,7 @@ export class homerangeland extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -356,7 +356,7 @@ export class homerangeland extends plugin {
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -477,7 +477,7 @@ export class homerangeland extends plugin {
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -588,7 +588,7 @@ export class homerangeland extends plugin {
     let UID = e.user_id
     const ifexisthome = await HomeApi.GameUser.existhome({ UID })
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -648,7 +648,7 @@ export class homerangeland extends plugin {
     if (!this.verify(e)) return false
     let UID = e.user_id
     if (!(await GameApi.GameUser.existUserSatus({ UID }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID })
@@ -683,7 +683,7 @@ export class homerangeland extends plugin {
       return
     }
     if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
-      e.reply('对方已死亡')
+      e.reply('对方已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID: user.A })
@@ -772,7 +772,7 @@ export class homerangeland extends plugin {
       return
     }
     if (!(await GameApi.GameUser.existUserSatus({ UID: user.A }))) {
-      e.reply('已死亡')
+      e.reply('已仙鹤')
       return
     }
     const archive = await HomeApi.GameUser.Archiverangeland({ UID: user.A })
