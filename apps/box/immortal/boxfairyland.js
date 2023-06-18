@@ -1,6 +1,6 @@
 import { GameApi, plugin } from '../../../model/api/index.js'
 const useraction = []
-export class boxfairyland extends plugin {
+export class Boxfairyland extends plugin {
   constructor() {
     super({
       name: 'xiuxian@fairyland',

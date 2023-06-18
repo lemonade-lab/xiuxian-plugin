@@ -1,5 +1,5 @@
 import { GameApi, plugin } from '../../../model/api/index.js'
-export class boxunion extends plugin {
+export class Boxunion extends plugin {
   constructor() {
     super({
       rule: [

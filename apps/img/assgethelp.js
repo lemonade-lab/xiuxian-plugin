@@ -1,6 +1,6 @@
 import { plugin, BotApi } from '../../model/api/index.js'
 // 汐颜
-export class assGetHelp extends plugin {
+export class AssGetHelp extends plugin {
   constructor() {
     super({
       rule: [

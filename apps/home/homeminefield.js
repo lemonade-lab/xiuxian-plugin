@@ -2,7 +2,7 @@ import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
 // 秋雨
-export class homeminefield extends plugin {
+export class Homeminefield extends plugin {
   constructor() {
     super({
       rule: [

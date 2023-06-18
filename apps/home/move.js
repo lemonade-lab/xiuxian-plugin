@@ -1,6 +1,6 @@
 import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
 // 秋雨
-export class move extends plugin {
+export class Homemove extends plugin {
   constructor() {
     super({
       rule: [

@@ -1,6 +1,6 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
 // 汐颜
-export class BlessPlace extends plugin {
+export class AssBlessPlace extends plugin {
   constructor() {
     super({
       rule: [

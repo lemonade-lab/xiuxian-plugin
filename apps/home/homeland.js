@@ -1,6 +1,6 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 // 秋雨
-export class homeland extends plugin {
+export class Homeland extends plugin {
   constructor() {
     super({
       rule: [

@@ -1,5 +1,5 @@
 import { BotApi, GameApi, plugin } from '../../model/api/index.js'
-export class boxadminaction extends plugin {
+export class Boxadminaction extends plugin {
   constructor() {
     super({
       rule: [

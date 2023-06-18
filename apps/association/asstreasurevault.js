@@ -1,6 +1,6 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
 // 汐颜
-export class TreasureVault extends plugin {
+export class AssTreasureVault extends plugin {
   constructor() {
     super({
       rule: [

@@ -1,7 +1,7 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 import fs from 'node:fs'
 // 秋雨
-export class homefuli extends plugin {
+export class Homefuli extends plugin {
   constructor() {
     super({
       rule: [

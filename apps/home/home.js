@@ -2,7 +2,7 @@ import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
 const forwardsetTime = []
 const useraction = []
 // 秋雨
-export class home extends plugin {
+export class Homestart extends plugin {
   constructor() {
     super({
       rule: [
