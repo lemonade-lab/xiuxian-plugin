@@ -2,6 +2,8 @@ const useraction = {}
 const forwardsetTime = {}
 const deliverysetTime = {}
 
+const levelaction = []
+
 class Place {
   getUserAction(key) {
     return useraction[key]
@@ -37,6 +39,18 @@ class Place {
 
   deleteUserDelivery(key) {
     delete deliverysetTime[key]
+  }
+
+  getUserLevel(key) {
+    return levelaction[key]
+  }
+
+  setUserLevel(key, val) {
+    levelaction[key] = val
+  }
+
+  deleteUserLevel(key) {
+    delete levelaction[key]
   }
 }
 

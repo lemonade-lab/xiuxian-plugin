@@ -2,7 +2,7 @@ import { plugin } from '../../../model/api/index.js'
 export class BoxFeedback extends plugin {
   constructor() {
     super({
-      rule: [{ reg: /^(#|\/)联盟反馈$/, fnc: 'userFeedback' }]
+      rule: [{ reg: /^(#|\/)联盟反馈$/, fnc: 'substitution' }]
     })
   }
 
@@ -14,7 +14,7 @@ export class BoxFeedback extends plugin {
         2.注册/登录gitee账号\n
         3.点击新建lssue\n
         4.填写标题与内容后创建\n
-        <https://gitee.com/three-point-of-water/xiuxian-plugin/issues>
+        <https://gitee.com/ningmengchongshui/xiuxian-plugin/issues>
         `)
     return false
   }

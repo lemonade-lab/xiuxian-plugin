@@ -6,8 +6,8 @@ export class BoxTransaction extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)万宝楼$/, fnc: 'showComodities' },
-        { reg: /^(#|\/)购买.*$/, fnc: 'buyComodities' },
-        { reg: /^(#|\/)出售.*$/, fnc: 'sellComodities' }
+        { reg: /^(#|\/)购买[\u4e00-\u9fa5]+\*\d+$/, fnc: 'buyComodities' },
+        { reg: /^(#|\/)出售[\u4e00-\u9fa5]+\*\d+$/, fnc: 'sellComodities' }
       ]
     })
   }
@@ -25,7 +25,7 @@ export class BoxTransaction extends plugin {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
-    const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]\n不填数量,默认为1']
+    const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]']
 
     const commoditiesList = GameApi.UserData.controlAction({
       NAME: 'commodities',
@@ -78,24 +78,16 @@ export class BoxTransaction extends plugin {
 
   async buyComodities(e) {
     if (!this.verify(e)) return false
-
     const UID = e.user_id
-
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-
     const addressName = '万宝楼'
     if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
-
-    const [thingName, thingAcount] = e.msg.replace(/^(#|\/)购买/, '').split('*')
-    let quantity = GameApi.Method.leastOne(thingAcount)
-    if (quantity > 99) {
-      quantity = 99
-    }
+    const [thingName, quantity] = e.msg.replace(/^(#|\/)购买/, '').split('*')
     const Commodities = GameApi.UserData.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
@@ -130,7 +122,6 @@ export class BoxTransaction extends plugin {
 
   async sellComodities(e) {
     if (!this.verify(e)) return false
-
     const UID = e.user_id
 
     if (!GameApi.GameUser.existUserSatus(UID)) {
@@ -143,12 +134,7 @@ export class BoxTransaction extends plugin {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
-    const [thingName, thingAcount] = e.msg.replace(/^(#|\/)出售/, '').split('*')
-
-    let quantity = GameApi.Method.leastOne(thingAcount)
-    if (quantity > 99) {
-      quantity = 99
-    }
+    const [thingName, quantity] = e.msg.replace(/^(#|\/)出售/, '').split('*')
 
     const najieThing = GameApi.GameUser.userBagSearch({
       UID,

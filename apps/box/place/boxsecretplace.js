@@ -4,9 +4,9 @@ export class BoxSecretplace extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)坐标信息$/, fnc: 'xyzaddress' },
-        { reg: /^(#|\/)前往.*$/, fnc: 'forward' },
+        { reg: /^(#|\/)前往[\u4e00-\u9fa5]*$/, fnc: 'forward' },
         { reg: /^(#|\/)返回$/, fnc: 'falsePiont' },
-        { reg: /^(#|\/)传送.*$/, fnc: 'delivery' },
+        { reg: /^(#|\/)传送[\u4e00-\u9fa5]*$/, fnc: 'delivery' },
         { reg: /^(#|\/)位置信息$/, fnc: 'showCity' }
       ]
     })

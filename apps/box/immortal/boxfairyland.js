@@ -1,5 +1,4 @@
 import { GameApi, plugin } from '../../../model/api/index.js'
-const useraction = []
 export class Boxfairyland extends plugin {
   constructor() {
     super({
@@ -12,9 +11,7 @@ export class Boxfairyland extends plugin {
     })
   }
 
-  /**
-   * 成就仙人境
-   */
+  /** 成就仙人境 */
   async breakLevel(e) {
     let UID = e.user_id
     if (!this.verify(e)) return false
@@ -80,9 +77,13 @@ export class Boxfairyland extends plugin {
       return false
     }
     let time = 30
-    useraction[UID] = setTimeout(() => {
+
+    // 定时
+    setTimeout(() => {
       for (let i = 0; i < Thunderbolt[talent.talent.length]; i++) {
-        useraction[UID] = setTimeout(() => {
+        // 定时
+
+        setTimeout(() => {
           const battle = GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_battle'
@@ -123,7 +124,9 @@ export class Boxfairyland extends plugin {
         }, 1000 * time * i)
       }
     }, 1000 * 5)
-    useraction[UID] = setTimeout(() => {
+
+    // 定时
+    setTimeout(() => {
       const battle = GameApi.UserData.controlAction({
         NAME: UID,
         CHOICE: 'user_battle'
@@ -187,13 +190,11 @@ export class Boxfairyland extends plugin {
         DATA: play
       })
     }, 1000 * time * Thunderbolt[talent.talent.length] + 7000)
+
     return false
   }
 
-  /**
-   * 仙人突破
-   */
-
+  /** 仙人突破 */
   async breakSky(e) {
     if (!this.verify(e)) return false
     e.reply('待世界升级~')

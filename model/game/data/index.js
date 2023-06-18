@@ -43,7 +43,6 @@ export const __PATH = {
   fixed_occupation: algorithm.getReq('/resources/datafixed/occupation'),
   fixed_talent: algorithm.getReq('/resources/datafixed/talent'),
   fixed_material: algorithm.getReq('/resources/datafixed/material'),
-  fixed_history: algorithm.getReq('/resources/datafixed/history'),
   fixed_monster: algorithm.getReq('/resources/datafixed/monster'),
 
   /* 生成数据 */
