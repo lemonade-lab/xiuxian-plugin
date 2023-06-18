@@ -6,7 +6,8 @@ class Information {
       path: 'user/information',
       name: 'information',
       data: {
-        user_id: UID
+        user_id: UID,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -103,7 +104,8 @@ class Information {
         condimentList,
         cubList,
         fargment,
-        other
+        other,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -149,7 +151,8 @@ class Information {
         homeexperienceMax: home.homeexperienceMax,
         Land: home.Land,
         doge: home.doge,
-        address: ifexisthome.address
+        address: ifexisthome.address,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -184,7 +187,8 @@ class Information {
         life,
         landgoods,
         thing,
-        landList
+        landList,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -217,7 +221,8 @@ class Information {
         user_id: UID,
         rangelandannimals,
         thing,
-        rangelandannimalsList
+        rangelandannimalsList,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }

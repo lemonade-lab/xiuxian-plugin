@@ -52,7 +52,8 @@ class Information {
         battle,
         equipment,
         talent,
-        talentsize: size
+        talentsize: size,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -80,7 +81,8 @@ class Information {
         UID,
         battle,
         life: LifeData[UID],
-        equipment
+        equipment,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -115,7 +117,8 @@ class Information {
         skills: talent.AllSorcery,
         linggenname: name,
         talentsize: size,
-        life: LifeData[UID]
+        life: LifeData[UID],
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -167,7 +170,8 @@ class Information {
         najie,
         thing: thingList,
         daojuList,
-        danyaoList
+        danyaoList,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -183,7 +187,8 @@ class Information {
       data: {
         UID,
         msgLeft,
-        msgRight
+        msgRight,
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
