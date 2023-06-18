@@ -1,5 +1,5 @@
 import Wrap from '../game/wrap/index.js'
-import GameBattle from '../game/wrap/battel.js'
+import GameBattle from '../game/battel.js'
 import GameMap from '../game/wrap/map.js'
 import * as GamePlace from '../game/wrap/place.js'
 import Method from '../game/wrap/method.js'
@@ -11,7 +11,7 @@ import Algorithm from '../game/data/algorithm.js'
 import Createdata from '../game/data/createdata.js'
 import UserData from '../game/data/listdata.js'
 
-import GameMonster from '../game/monster/monster.js'
+import GameMonster from '../game/monster.js'
 
 import Information from '../game/box/information.js'
 import UserAction from '../game/box/action.js'

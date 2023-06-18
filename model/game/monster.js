@@ -1,4 +1,4 @@
-import listdata from '../data/listdata.js'
+import listdata from './data/listdata.js'
 const alldata = {}
 const addall = {}
 const full = listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })

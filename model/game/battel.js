@@ -1,6 +1,6 @@
-import gameUser from '../box/index.js'
-import { BotApi } from '../../api/botapi.js'
-import { GameApi } from '../../api/index.js'
+import gameUser from './box/index.js'
+import { BotApi } from '../api/botapi.js'
+import { GameApi } from '../api/index.js'
 const Sneakattack = [
   '你个老六偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!',
   '你找准时机,突然暴起冲向怪物,但是怪物及时反应,转眼被怪物咬死!',
