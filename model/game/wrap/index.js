@@ -31,6 +31,10 @@ class Wrap {
     REDIS.deleteReids(key)
   }
 
+  deleteAllReids(key) {
+    REDIS.delall(key)
+  }
+
   /**
    * 设置redis
    * @param {*} UID 用户

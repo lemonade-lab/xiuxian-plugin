@@ -2,7 +2,6 @@ import fs from 'node:fs'
 import { MyDirPath } from '../../../app.config.js'
 import algorithm from './algorithm.js'
 import defset from './defset.js'
-import schedule from './schedule.js'
 
 /** 自定义配置 */
 const configarr = [
@@ -50,10 +49,6 @@ class CreateData {
      * 检测配置更新
      */
     this.startConfigUpdata()
-    /**
-     * 启动备份
-     */
-    this.startVersion()
   }
 
   /**
@@ -114,23 +109,6 @@ class CreateData {
       }
       init = 1
     }, 20000)
-  }
-
-  /**
-   * 启动备份
-   */
-  startVersion() {
-    let ini = 0
-    setTimeout(() => {
-      if (ini == 0) {
-        const Test = defset.getConfig({ app: 'task', name: 'task' })
-        if (Test.CopeTask) {
-          if (Test.CopeTask == 1) return
-          schedule.scheduleJobflie({ time: Test.CopeTask })
-        }
-      }
-      ini = 1
-    }, 30000)
   }
 }
 export default new CreateData()

@@ -4,7 +4,7 @@ export class BoxBank extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)金银坊$/, fnc: 'moneyWorkshop' },
-        { reg: /^(#|\/)金银置换.*$/, fnc: 'substitution' }
+        { reg: /^(#|\/)金银置换\d+\*[\u4e00-\u9fa5]+\*[\u4e00-\u9fa5]+$/, fnc: 'substitution' }
       ]
     })
   }
@@ -48,51 +48,57 @@ export class BoxBank extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const [account, name] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
-    let theAccount = GameApi.Method.leastOne(account)
+    const [account, LeftName, RightName] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
+    console.log(account, LeftName, RightName)
+    const quantity = convertStoneQuantity(account, LeftName, RightName)
+    if (!quantity) return
     const money = GameApi.GameUser.userBagSearch({
       UID,
-      name: '下品灵石'
+      name: LeftName
     })
-    if (!money || money.acount < theAccount) {
+    if (!money || money.acount < account) {
       e.reply(`[金银坊]金老三\n?哪儿来的穷鬼！`)
       return false
     }
-    if (theAccount < 5000) {
-      e.reply(`[金银坊]金老三\n少于5000不换`)
+    if (account < 2000) {
+      e.reply(`[金银坊]金老三\n少于2000不换`)
       return false
     }
-    let theName = '中品灵石'
-    let size = 30
-    switch (name) {
-      case '上品灵石': {
-        theName = name
-        size = 400
-        break
-      }
-      case '极品灵石': {
-        theName = name
-        size = 5000
-        break
-      }
-      default: {
-        theName = '中品灵石'
-        size = 30
-        break
-      }
-    }
-    const theMoney = Math.floor(theAccount / size)
+    // 先扣除
     GameApi.GameUser.userBag({
       UID,
-      name: '下品灵石',
-      ACCOUNT: -Number(theAccount)
+      name: LeftName,
+      ACCOUNT: -account
     })
+    // 再增加
     GameApi.GameUser.userBag({
       UID,
-      name: theName,
-      ACCOUNT: Number(theMoney)
+      name: RightName,
+      ACCOUNT: quantity
     })
-    e.reply(`[下品灵石]*${theAccount}\n置换成\n[${theName}]*${theMoney}`)
+    e.reply(`[${LeftName}]*${account}\n置换成\n[${RightName}]*${quantity}`)
     return false
+  }
+}
+
+const stones = ['下品灵石', '中品灵石', '上品灵石', '极品灵石']
+
+function convertStoneQuantity(quantity, sourceStone, targetStone) {
+  const sourceIndex = stones.indexOf(sourceStone)
+  const targetIndex = stones.indexOf(targetStone)
+  const size = Math.abs(targetIndex - sourceIndex)
+  const onSize = 10 ** size
+  if (sourceIndex === -1 || targetIndex === -1) {
+    // 如果输入的灵石名称不合法，则返回 null
+    return false
+  } else if (sourceIndex < targetIndex) {
+    // 将左边的灵石转换为右边的灵石
+    return Math.floor((quantity / onSize) * 0.9)
+  } else if (sourceIndex > targetIndex) {
+    // 将右边的灵石转换为左边的灵石
+    return quantity * onSize
+  } else {
+    // 如果左右灵石相同，则直接返回原始数量
+    return quantity
   }
 }
