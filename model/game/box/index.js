@@ -40,6 +40,7 @@ class GameUser {
    * @returns
    */
   createBoxPlayer(UID) {
+    const NowTime = new Date().getTime()
     listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player',
@@ -145,14 +146,12 @@ class GameUser {
       INITIAL: {}
     })
     LifeData[UID] = {
-      qq: UID,
       name: `${name}`,
       Age: 1, // 年龄
       life: Math.floor(Math.random() * (84 - 60) + 60), // 寿命
-      createTime: new Date().getTime(), // 创建时间
-      status: 1
+      createTime: NowTime, // 创建时间
+      status: 1 // 是否死亡
     }
-    listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
     /** 更新用户表 */
     listdata.controlActionInitial({
       CHOICE: 'user_life',
@@ -160,6 +159,26 @@ class GameUser {
       DATA: LifeData,
       INITIAL: {}
     })
+    // 签到
+    const SignData = listdata.controlActionInitial({
+      CHOICE: 'user_life',
+      NAME: 'sign',
+      INITIAL: {}
+    })
+    SignData[UID] = {
+      signTine: NowTime, // 签到时间-超过24h,重置size
+      signSize: 0, // 签到次数
+      signDay: 0, // 签到日为 0
+      sginMath: 0 // 签到的月份,不同月重置size
+    }
+    listdata.controlActionInitial({
+      CHOICE: 'user_life',
+      NAME: 'sign',
+      DATA: LifeData,
+      INITIAL: {}
+    })
+    // 天赋
+    listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
     /** 更新装备 */
     listdata.controlAction({
       NAME: UID,
