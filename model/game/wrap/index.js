@@ -24,24 +24,24 @@ const ReadiName = 'xiuxian@2.1'
 
 class Wrap {
   /**
-   * 删除所有数据
-   * @returns
+   * 删除redis
+   * @param {*} key
    */
-  deleteReids() {
-    REDIS.delall()
+  deleteReids(key) {
+    REDIS.deleteReids(key)
   }
 
   /**
    * 设置redis
-   * @param {*} UID
-   * @param {*} CDID
-   * @param {*} nowTime
-   * @param {*} CDTime
+   * @param {*} UID 用户
+   * @param {*} CDID 类型
+   * @param {*} nowTime 现在的时间：毫秒
+   * @param {*} CDTime 要锁定的时间：分
    */
   setRedis(UID, CDID, nowTime, CDTime) {
     REDIS.set(`${ReadiName}:${UID}:${CDID}`, {
       val: nowTime,
-      expire: CDTime * 60
+      expire: CDTime * 600000
     })
   }
 
@@ -53,6 +53,54 @@ class Wrap {
    */
   getRedis(UID, CDID) {
     return REDIS.get(`${ReadiName}:${UID}:${CDID}`)
+  }
+
+  /**
+   * @returns
+   */
+  cooling({ UID, CDID }) {
+    /**
+     * 当时的时间
+     * 要锁定的时间
+     */
+    const { val, expire } = REDIS.get(`${ReadiName}:${UID}:${CDID}`)
+    // 如果当时设置了时间
+    if (val) {
+      // 现在的时间
+      const NowTime = new Date()
+      if (NowTime >= val + expire) {
+        // 过期了,需要清除
+        REDIS.del(`${ReadiName}:${UID}:${CDID}`)
+        return {
+          state: 2000,
+          msg: '通过'
+        }
+      }
+      // 剩余时间计算
+      const theTime = val + expire - NowTime
+      const time = {
+        h: 0,
+        m: 0,
+        s: 0
+      }
+      // 格式转换
+      time.h = Math.floor(theTime / 60 / 60)
+      time.h = time.h < 0 ? 0 : time.h
+      time.m = Math.floor((theTime - time.h * 60 * 60) / 60)
+      time.m = time.m < 0 ? 0 : time.m
+      time.s = Math.floor(theTime - time.h * 60 * 60 - time.m * 60)
+      time.s = time.s < 0 ? 0 : time.s
+      return {
+        state: 4001,
+        msg: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`,
+        CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`
+      }
+    }
+    // 没设置时间
+    return {
+      state: 2000,
+      msg: '通过'
+    }
   }
 
   /**
@@ -79,63 +127,6 @@ class Wrap {
    */
   deleteAction({ UID }) {
     REDIS.del(`${ReadiName}:${UID}:${MYCD[99]}`)
-  }
-
-  /**
-   * @param { UID } param0
-   * @returns
-   */
-  offAction({ UID }) {
-    REDIS.del(`${ReadiName}:${UID}:${MYCD[99]}`)
-  }
-
-  /**
-   * @param { UID, CDID, CDMAP } param0
-   * @returns
-   */
-  cooling({ UID, CDID, CDMAP }) {
-    /* 得到的是当前的时间 */
-    const data = REDIS.get(`${ReadiName}:${UID}:${CDID}`)
-    if (data) {
-      const NowTime = new Date() - data
-      const time = {
-        h: 0,
-        m: 0,
-        s: 0
-      }
-      time.h = Math.floor(NowTime / 60 / 60)
-      time.h = time.h < 0 ? 0 : time.h
-      time.m = Math.floor((NowTime - time.h * 60 * 60) / 60)
-      time.m = time.m < 0 ? 0 : time.m
-      time.s = Math.floor(NowTime - time.h * 60 * 60 - time.m * 60)
-      time.s = time.s < 0 ? 0 : time.s
-      //
-      if (time.h == 0 && time.m == 0 && time.s == 0) {
-        return {
-          state: 2000,
-          msg: '通过'
-        }
-      }
-      // 自定义的
-      if (CDMAP) {
-        return {
-          state: 4001,
-          msg: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s`,
-          CDMSG: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s`
-        }
-      }
-      // 原生
-      return {
-        state: 4001,
-        msg: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`,
-        CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`
-      }
-    }
-    //
-    return {
-      state: 2000,
-      msg: '通过'
-    }
   }
 
   /**

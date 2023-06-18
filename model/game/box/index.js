@@ -1,6 +1,6 @@
 import algorithm from '../data/algorithm.js'
 import listdata from '../data/listdata.js'
-import Wrap from '../public/index.js'
+import Wrap from '../wrap/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
 import { GameApi } from '../../api/index.js'
@@ -27,7 +27,7 @@ class GameUser {
       DATA: life
     })
     for (let item of die) {
-      Wrap.offAction({ UID: item })
+      Wrap.deleteAction({ UID: item })
     }
   }
 

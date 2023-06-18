@@ -74,10 +74,10 @@ export class BoxPlayerControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.Wrap.offAction({ UID })
+      GameApi.Wrap.deleteAction({ UID })
       return false
     }
-    GameApi.Wrap.offAction({ UID })
+    GameApi.Wrap.deleteAction({ UID })
     this.upgrade(UID, time, action.actionName, e)
     return false
   }
@@ -101,10 +101,10 @@ export class BoxPlayerControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.Wrap.offAction({ UID })
+      GameApi.Wrap.deleteAction({ UID })
       return false
     }
-    GameApi.Wrap.offAction({ UID })
+    GameApi.Wrap.deleteAction({ UID })
     this.upgrade(UID, time, action.actionName, e)
     return false
   }

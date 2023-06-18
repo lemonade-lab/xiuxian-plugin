@@ -1,7 +1,7 @@
 import config from '../data/defset.js'
 import user from './index.js'
 import listdata from '../data/listdata.js'
-import Wrap from '../public/index.js'
+import Wrap from '../wrap/index.js'
 const CopywritingLevel = {
   0: '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了size[name]',
   1: '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了size[name]',

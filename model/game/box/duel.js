@@ -1,6 +1,6 @@
 import GameUser from './index.js'
 import listdata from '../data/listdata.js'
-import Wrap from '../public/index.js'
+import Wrap from '../wrap/index.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'
 import Method from '../wrap/method.js'

@@ -1,5 +1,5 @@
 import listdata from '../data/listdata.js'
-import Wrap from '../public/index.js'
+import Wrap from '../wrap/index.js'
 import User from './user.js'
 class UserAction {
   userextensionhome(parameter) {
