@@ -72,7 +72,7 @@ class UserAction {
       const time = (Math.trunc(homelevel) + 1) * 10
       const nowTime = new Date().getTime()
       const actionObject = {
-        actionName: '扩建',
+        actionID: 5,
         startTime: nowTime,
         time1: time
       }

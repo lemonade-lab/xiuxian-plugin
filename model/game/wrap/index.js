@@ -2,7 +2,7 @@ import gameUer from '../box/index.js'
 import { REDIS } from './redis.js'
 
 /** 自定义冷却反馈 */
-const MYCD = {
+const CDMAP = {
   0: '攻击',
   1: '降妖',
   2: '闭关',
@@ -18,6 +18,20 @@ const MYCD = {
   12: '修行',
   13: '渡劫',
   99: 'action'
+}
+
+/**
+ * 这里记录所有的map名称
+ */
+
+const ACTIONMAP = {
+  0: '闭关',
+  1: '降妖',
+  2: '赶路',
+  3: '传送',
+  4: '渡劫',
+  5: '扩建',
+  6: '秘境'
 }
 
 const ReadiName = 'xiuxian@2.1'
@@ -87,7 +101,7 @@ class Wrap {
       console.log('theTime=', theTime)
       return {
         state: 4001,
-        msg: `${MYCD[CDID]}冷却:${convertTime(theTime)}`
+        msg: `${CDMAP[CDID]}冷却:${convertTime(theTime)}`
       }
     }
     // 没设置时间
@@ -103,7 +117,7 @@ class Wrap {
    * @param {*} actionObject
    */
   setAction(UID, actionObject) {
-    REDIS.set(`${ReadiName}:${UID}:${MYCD[99]}`, actionObject)
+    REDIS.set(`${ReadiName}:${UID}:${CDMAP[99]}`, actionObject)
   }
 
   /**
@@ -112,7 +126,7 @@ class Wrap {
    * @returns
    */
   getAction(UID) {
-    return REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
+    return REDIS.get(`${ReadiName}:${UID}:${CDMAP[99]}`)
   }
 
   /**
@@ -120,18 +134,18 @@ class Wrap {
    * @param {*} param0
    */
   deleteAction(UID) {
-    REDIS.del(`${ReadiName}:${UID}:${MYCD[99]}`)
+    REDIS.del(`${ReadiName}:${UID}:${CDMAP[99]}`)
   }
 
   /**
    * @returns
    */
   GoMini(UID) {
-    const action = REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
+    const action = REDIS.get(`${ReadiName}:${UID}:${CDMAP[99]}`)
     if (action) {
       return {
         state: 4001,
-        msg: `${action.actionName}中...`
+        msg: `${ACTIONMAP[action.actionID]}中...`
       }
     }
     return {
@@ -147,12 +161,12 @@ class Wrap {
 
   Go(UID) {
     // 得到val
-    const action = REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
+    const action = REDIS.get(`${ReadiName}:${UID}:${CDMAP[99]}`)
     if (action) {
       // 存在
       return {
         state: 4001,
-        msg: `${action.actionName}中...`
+        msg: `${ACTIONMAP[action.actionID]}中...`
       }
     }
     const player = gameUer.userMsgAction({

@@ -25,7 +25,7 @@ export class BoxPlayerControl extends plugin {
     const UID = e.user_id
     const nowTime = new Date().getTime()
     const actionObject = {
-      actionName: '闭关',
+      actionID: 0,
       startTime: nowTime
     }
     GameApi.Wrap.setAction(UID, actionObject)
@@ -47,7 +47,7 @@ export class BoxPlayerControl extends plugin {
     const UID = e.user_id
     const nowTime = new Date().getTime()
     const actionObject = {
-      actionName: '降妖',
+      actionID: 1,
       startTime: nowTime
     }
     GameApi.Wrap.setAction(UID, actionObject)
@@ -64,7 +64,7 @@ export class BoxPlayerControl extends plugin {
     }
     let action = GameApi.Wrap.getAction(UID)
     if (!action) return false
-    if (action.actionName != '闭关') return false
+    if (action.actionID != 0) return false
     const startTime = action.startTime
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
@@ -78,7 +78,7 @@ export class BoxPlayerControl extends plugin {
       return false
     }
     GameApi.Wrap.deleteAction(UID)
-    this.upgrade(UID, time, action.actionName, e)
+    this.upgrade(UID, time, action.actionID, e)
     return false
   }
 
@@ -91,7 +91,7 @@ export class BoxPlayerControl extends plugin {
     }
     let action = GameApi.Wrap.getAction(UID)
     if (!action) return false
-    if (action.actionName != '降妖') return false
+    if (action.actionID != 1) return false
     const startTime = action.startTime
     const cf = GameApi.DefsetUpdata.getConfig({
       app: 'parameter',
@@ -105,7 +105,7 @@ export class BoxPlayerControl extends plugin {
       return false
     }
     GameApi.Wrap.deleteAction(UID)
-    this.upgrade(UID, time, action.actionName, e)
+    this.upgrade(UID, time, action.actionID, e)
     return false
   }
 

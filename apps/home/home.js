@@ -205,7 +205,7 @@ export class Homestart extends plugin {
       return false
     }
     let action = GameApi.Wrap.getAction(UID)
-    if (action.actionName != '扩建') {
+    if (action.actionID != 5) {
       return false
     }
     const time1 = action.time1

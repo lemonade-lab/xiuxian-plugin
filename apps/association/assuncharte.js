@@ -160,7 +160,7 @@ export class AssUncharted extends plugin {
     // 初始化临时存档，选择随机地图，添加状态
     const nowTime = new Date().getTime()
     const actionObject = {
-      actionName: '宗门秘境',
+      actionID: 6,
       startTime: nowTime
     }
 
@@ -558,7 +558,7 @@ export class AssUncharted extends plugin {
       AssociationApi.assUser.deleteAss('interimArchive', UID)
     }
     let action = GameApi.Wrap.getAction(UID)
-    if (action.actionName != '宗门秘境') {
+    if (action.actionID != 6) {
       return false
     }
     GameApi.Wrap.deleteAction(UID)

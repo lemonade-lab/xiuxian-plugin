@@ -135,6 +135,9 @@ export class BoxSecretplace extends plugin {
     GameApi.GamePlace.setUserAction(
       UID,
       setTimeout(() => {
+        /* 这里清除行为 */
+        GameApi.Wrap.deleteAction(UID)
+        // 标记完成
         GameApi.GamePlace.setUserTime(UID, 0)
         action.x = mx
         action.y = my
@@ -148,7 +151,16 @@ export class BoxSecretplace extends plugin {
         e.reply([segment.at(UID), `成功抵达${address}`])
       }, 1000 * time)
     )
+    // 设置记录
     GameApi.GamePlace.setUserTime(UID, 1)
+    // 设置行为赶路
+
+    const actionObject = {
+      actionID: 2,
+      startTime: 1000 * time
+    }
+    GameApi.Wrap.setAction(UID, actionObject)
+
     e.reply(`正在前往${address}...\n需要${time}秒`)
     return false
   }
@@ -232,6 +244,9 @@ export class BoxSecretplace extends plugin {
     )
     const time = the > 0 ? the : 1
     setTimeout(() => {
+      // 清除行为
+      GameApi.Wrap.deleteAction(UID)
+      // 标记完成
       GameApi.GamePlace.setUserDelivery(UID, 0)
       action.x = mx
       action.y = my
@@ -244,7 +259,16 @@ export class BoxSecretplace extends plugin {
       })
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
+    // 传送
     GameApi.GamePlace.setUserDelivery(UID, 1)
+    // 传送行为记录
+
+    const actionObject = {
+      actionID: 3,
+      startTime: 1000 * time
+    }
+    GameApi.Wrap.setAction(UID, actionObject)
+
     e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)
     return false
   }
