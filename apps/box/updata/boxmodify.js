@@ -45,7 +45,7 @@ export class BoxModify extends plugin {
     const life = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
-      INITIAL: []
+      INITIAL: {}
     })
     life.forEach((item) => {
       if (item.qq == UID) {

@@ -42,7 +42,7 @@ export class BoxStart extends plugin {
     let life = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
-      INITIAL: []
+      INITIAL: {}
     })
     life = life.filter((item) => item.qq != UID)
     GameApi.UserData.controlAction({

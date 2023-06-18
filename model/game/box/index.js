@@ -144,7 +144,7 @@ class GameUser {
     const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
-      INITIAL: []
+      INITIAL: {}
     })
     life.push({
       qq: UID,
@@ -160,7 +160,7 @@ class GameUser {
       CHOICE: 'user_life',
       NAME: 'life',
       DATA: life,
-      INITIAL: []
+      INITIAL: {}
     })
     /** 更新装备 */
     listdata.controlAction({
@@ -537,7 +537,7 @@ class GameUser {
     const LIFE = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
-      INITIAL: []
+      INITIAL: {}
     })
     return LIFE.find((item) => item.qq == UID)
   }
@@ -585,7 +585,7 @@ class GameUser {
     const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
-      INITIAL: []
+      INITIAL: {}
     })
     for (let item of life) {
       playerList.push(item.qq)

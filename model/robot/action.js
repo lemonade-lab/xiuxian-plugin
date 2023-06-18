@@ -1,5 +1,4 @@
 import { getConfig } from './defset.js'
-import { GameApi } from '../api/index.js'
 class Robot {
   /**
    * 折合消息
@@ -102,51 +101,6 @@ class Robot {
     if (whitecrowd.indexOf(e.group_id) == -1) return false
     if (blackid.indexOf(e.user_id) != -1) return false
     return true
-  }
-
-  relife = () => {
-    const LIFE = GameApi.UserData.controlAction({
-      CHOICE: 'user_life',
-      NAME: 'life'
-    })
-    LIFE.forEach((item, index) => {
-      if (item.Age > item.life) {
-        item.Age = 1
-        item.status = 1
-      }
-    })
-    GameApi.UserData.controlAction({
-      CHOICE: 'user_life',
-      NAME: 'life',
-      DATA: LIFE
-    })
-    let msg = '寿命重置成功'
-    return msg
-  }
-
-  relifehe = ({ B }) => {
-    let msg
-    let LIFE = GameApi.UserData.controlAction({
-      CHOICE: 'user_life',
-      NAME: 'life'
-    })
-    console.log(LIFE)
-    console.log(B)
-    let life = LIFE.find((obj) => obj.qq == B)
-    console.log(life)
-    if (life == undefined) {
-      msg = '寿命重置失败'
-      return msg
-    }
-    life.Age = 1
-    life.status = 1
-    GameApi.UserData.controlAction({
-      CHOICE: 'user_life',
-      NAME: 'life',
-      DATA: LIFE
-    })
-    msg = '寿命重置成功'
-    return msg
   }
 }
 export default new Robot()
