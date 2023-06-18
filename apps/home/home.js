@@ -206,7 +206,7 @@ export class home extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    let action = GameApi.GamePublic.getAction(UID)
+    let action = GameApi.Wrap.getAction(UID)
     if (action.actionName != '扩建') {
       return false
     }

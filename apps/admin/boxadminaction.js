@@ -23,7 +23,7 @@ export class boxadminaction extends plugin {
   async deleteRedis(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    GameApi.GamePublic.deleteReids()
+    GameApi.Wrap.deleteReids()
     e.reply('删除完成')
     return false
   }
@@ -36,7 +36,7 @@ export class boxadminaction extends plugin {
       CHOICE: 'user_life',
       DATA: []
     })
-    GameApi.GamePublic.deleteReids()
+    GameApi.Wrap.deleteReids()
     e.reply('删除完成')
     return false
   }

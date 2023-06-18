@@ -16,49 +16,13 @@ const MYCD = {
   10: '击杀',
   11: '决斗',
   12: '修行',
-  13: '渡劫'
+  13: '渡劫',
+  99: 'action'
 }
 
 const ReadiName = 'xiuxian@2.1'
 
-class GamePublic {
-  /**
-   * 进程沉睡
-   * @param {*} time
-   * @returns
-   */
-  sleep = (time) => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, time)
-    })
-  }
-
-  /**
-   * @param { ARR } ARR
-   * @returns 随机一个元素
-   */
-  Anyarray = ({ ARR }) => {
-    const randindex = Math.trunc(Math.random() * ARR.length)
-    return ARR[randindex]
-  }
-
-  /**
-   * 强制修正至少为1
-   * @param { value } value
-   * @returns
-   */
-  leastOne = ({ value }) => {
-    let size = value
-    if (isNaN(parseFloat(size)) && !isFinite(size)) {
-      return Number(1)
-    }
-    size = Number(Math.trunc(size))
-    if (size == null || size == undefined || size < 1 || isNaN(size)) {
-      return Number(1)
-    }
-    return Number(size)
-  }
-
+class Wrap {
   /**
    * 删除所有数据
    * @returns
@@ -94,8 +58,8 @@ class GamePublic {
    * @param {*} UID
    * @param {*} actionObject
    */
-  setAction = (UID, actionObject) => {
-    REDIS.set(`${ReadiName}:${UID}:action`, actionObject)
+  setAction(UID, actionObject) {
+    REDIS.set(`${ReadiName}:${UID}:${MYCD[99]}`, actionObject)
   }
 
   /**
@@ -103,42 +67,43 @@ class GamePublic {
    * @param {*} UID
    * @returns
    */
-  getAction = (UID) => REDIS.get(`${ReadiName}:${UID}:action`)
+  getAction = (UID) => REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
 
   /**
    * 删除action
    * @param {*} param0
    */
-  deleteAction = ({ UID }) => {
-    REDIS.del(`${ReadiName}:${UID}:action`)
+  deleteAction({ UID }) {
+    REDIS.del(`${ReadiName}:${UID}:${MYCD[99]}`)
   }
 
   /**
    * @param { UID } param0
    * @returns
    */
-  offAction = ({ UID }) => {
-    REDIS.del(`${ReadiName}:${UID}:action`)
+  offAction({ UID }) {
+    REDIS.del(`${ReadiName}:${UID}:${MYCD[99]}`)
   }
 
   /**
    * @param { UID, CDID, CDMAP } param0
    * @returns
    */
-  cooling = ({ UID, CDID, CDMAP }) => {
-    /* 得到key设置的时间 */
+  cooling({ UID, CDID, CDMAP }) {
+    /* 得到的是当前的时间 */
     const data = REDIS.get(`${ReadiName}:${UID}:${CDID}`)
     if (data) {
+      const NowTime = new Date() - data
       const time = {
         h: 0,
         m: 0,
         s: 0
       }
-      time.h = Math.floor(data.expire / 60 / 60)
+      time.h = Math.floor(NowTime / 60 / 60)
       time.h = time.h < 0 ? 0 : time.h
-      time.m = Math.floor((data.expire - time.h * 60 * 60) / 60)
+      time.m = Math.floor((NowTime - time.h * 60 * 60) / 60)
       time.m = time.m < 0 ? 0 : time.m
-      time.s = Math.floor(data.expire - time.h * 60 * 60 - time.m * 60)
+      time.s = Math.floor(NowTime - time.h * 60 * 60 - time.m * 60)
       time.s = time.s < 0 ? 0 : time.s
       if (time.h == 0 && time.m == 0 && time.s == 0) {
         return 0
@@ -152,11 +117,10 @@ class GamePublic {
   }
 
   /**
-   * @param { UID } param0
    * @returns
    */
-  GoMini = ({ UID }) => {
-    const action = REDIS.get(`${ReadiName}:${UID}:action`)
+  GoMini(UID) {
+    const action = REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
     if (action) {
       if (action.actionName == undefined) {
         // 根据判断msg存不存在来识别是否成功
@@ -173,18 +137,14 @@ class GamePublic {
 
   /**
    * 行为检测
-   * @param { UID } UID
    * @returns 若存在对象MSG则为flase
    */
-  Go = ({ UID }) => {
-    const action = REDIS.get(`${ReadiName}:${UID}:action`)
+
+  Go(UID) {
+    // 得到val
+    const action = REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
     if (action) {
-      if (action.actionName == undefined) {
-        // 根据判断msg存不存在来识别是否成功
-        return {
-          MSG: '旧版数据残留,请联系主人使用[(#|/)修仙删除数据]'
-        }
-      }
+      // 存在
       return {
         MSG: `${action.actionName}中...`
       }
@@ -201,4 +161,4 @@ class GamePublic {
     return {}
   }
 }
-export default new GamePublic()
+export default new Wrap()

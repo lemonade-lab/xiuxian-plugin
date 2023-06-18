@@ -49,7 +49,7 @@ export class BoxBank extends plugin {
       return false
     }
     const [account, name] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
-    let theAccount = GameApi.GamePublic.leastOne({ value: account })
+    let theAccount = GameApi.Method.leastOne(account)
     const money = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'

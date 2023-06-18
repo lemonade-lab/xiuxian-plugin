@@ -24,7 +24,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -38,7 +38,7 @@ export class BoxMoneyOperation extends plugin {
       return false
     }
     let islingshi = e.msg.replace(/^(#|\/)赠送灵石/, '')
-    islingshi = GameApi.GamePublic.leastOne({ value: islingshi })
+    islingshi = GameApi.Method.leastOne(islingshi)
     const money = GameApi.GameUser.userBagSearch({
       UID: A,
       name: '下品灵石'
@@ -54,12 +54,12 @@ export class BoxMoneyOperation extends plugin {
     const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5
     const CDID = '5'
     const nowTime = new Date().getTime()
-    const { CDMSG } = GameApi.GamePublic.cooling({ UID: A, CDID })
+    const { CDMSG } = GameApi.Wrap.cooling({ UID: A, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(A, CDID, nowTime, CDTime)
+    GameApi.Wrap.setRedis(A, CDID, nowTime, CDTime)
     GameApi.GameUser.userBag({
       UID: A,
       name: '下品灵石',

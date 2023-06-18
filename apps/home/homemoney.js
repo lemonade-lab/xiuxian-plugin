@@ -67,7 +67,7 @@ export class homemoney extends plugin {
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let thingAcount = code[1] // 数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     let searchsthing = HomeApi.GameUser.userWarehouseSearch({
       UID,
       name: thingName
@@ -189,7 +189,7 @@ export class homemoney extends plugin {
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let thingAcount = code[1] // 数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     if (quantity > 99) {
       quantity = 99
     }

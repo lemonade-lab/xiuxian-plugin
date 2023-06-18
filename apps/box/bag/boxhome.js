@@ -19,7 +19,7 @@ export class BoxHome extends plugin {
       return false
     }
     let [thingName, thingAcount] = e.msg.replace(/^(#|\/)服用/, '').split('*')
-    thingAcount = GameApi.GamePublic.leastOne({ value: thingAcount })
+    thingAcount = GameApi.Method.leastOne(thingAcount)
     const najieThing = GameApi.GameUser.userBagSearch({
       UID,
       name: thingName
@@ -72,12 +72,12 @@ export class BoxHome extends plugin {
           const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
           const CDID = '12'
           const nowTime = new Date().getTime()
-          const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
+          const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
           if (CDMSG) {
             experience = 0
             e.reply(CDMSG)
           }
-          GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
+          GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
           const player = GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_level'

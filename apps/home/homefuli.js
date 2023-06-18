@@ -118,7 +118,7 @@ export class homefuli extends plugin {
     let code = thing.split('*')
     let thingName = code[0] // 物品名字
     let acount = code[1] // 物品数量
-    let quantity = GameApi.GamePublic.leastOne({ value: acount })
+    let quantity = GameApi.Method.leastOne(acount)
     let wupin = HomeApi.GameUser.homesearch_thingName({
       name: thingName
     })

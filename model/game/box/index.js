@@ -1,9 +1,10 @@
 import algorithm from '../data/algorithm.js'
 import listdata from '../data/listdata.js'
-import gamepublic from '../public/index.js'
+import Wrap from '../public/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
 import { GameApi } from '../../api/index.js'
+import Method from '../wrap/method.js'
 class GameUser {
   startLife = () => {
     const life = listdata.controlActionInitial({
@@ -26,7 +27,7 @@ class GameUser {
       DATA: life
     })
     for (let item of die) {
-      gamepublic.offAction({ UID: item })
+      Wrap.offAction({ UID: item })
     }
   }
 
@@ -133,8 +134,7 @@ class GameUser {
       full: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
       name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
     }
-    const name =
-      gamepublic.Anyarray({ ARR: FullName.full }) + gamepublic.Anyarray({ ARR: FullName.name })
+    const name = Method.Anyarray(FullName.full) + Method.Anyarray(FullName.name)
     const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',

@@ -1,8 +1,9 @@
 import GameUser from './index.js'
 import listdata from '../data/listdata.js'
-import GamePublic from '../public/index.js'
+import Wrap from '../public/index.js'
 import GameBattle from '../public/battel.js'
 import defset from '../data/defset.js'
+import Method from '../wrap/method.js'
 import { GameApi } from '../../api/index.js'
 class Duel {
   getDuel = ({ e, UIDA, UIDB }) => {
@@ -12,7 +13,7 @@ class Duel {
     if (!GameUser.existUserSatus({ UID: UIDA }) || !GameUser.existUserSatus({ UID: UIDB })) {
       return `已仙鹤`
     }
-    const { MSG } = GamePublic.Go({ UID: UIDA })
+    const { MSG } = Wrap.Go({ UID: UIDA })
     if (MSG) {
       return `${MSG}`
     }
@@ -21,7 +22,7 @@ class Duel {
     const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
 
-    const { CDMSG } = GamePublic.cooling({ UID: UIDA, CDID })
+    const { CDMSG } = Wrap.cooling({ UID: UIDA, CDID })
     if (CDMSG) {
       return `${CDMSG}`
     }
@@ -50,7 +51,7 @@ class Duel {
         ACCOUNT: -1
       })
     }
-    GameApi.GamePublic.setRedis(UIDA, CDID, nowTime, CDTime)
+    GameApi.Wrap.setRedis(UIDA, CDID, nowTime, CDTime)
     const Level = listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_level'
@@ -84,7 +85,7 @@ class Duel {
         CHOICE: 'user_bag'
       })
       if (bagB.thing.length != 0) {
-        const thing = GamePublic.Anyarray({ ARR: bagB.thing })
+        const thing = Method.Anyarray(bagB.thing)
         bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
         listdata.controlAction({
           NAME: user.b,

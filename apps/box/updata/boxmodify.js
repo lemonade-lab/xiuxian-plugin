@@ -15,7 +15,7 @@ export class BoxModify extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -36,12 +36,12 @@ export class BoxModify extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Name ? cf.CD.Name : 5
-    const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
+    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     const life = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
@@ -71,7 +71,7 @@ export class BoxModify extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -94,12 +94,12 @@ export class BoxModify extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Autograph ? cf.CD.Autograph : 5
-    const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
+    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     player.autograph = theMsg
     GameApi.UserData.controlAction({
       NAME: UID,

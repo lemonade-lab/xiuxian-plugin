@@ -95,7 +95,7 @@ export class homecook extends plugin {
     let actionObject = {
       name: choice
     }
-    GameApi.GamePublic.setAction(UID, actionObject)
+    GameApi.Wrap.setAction(UID, actionObject)
 
     this.finish('choose_cook')
     let msg = [`您是否要使用食谱，请输入1或2\n【1】不使用食谱\n【2】使用食谱`]
@@ -173,7 +173,7 @@ export class homecook extends plugin {
       e.reply(`好像没有这种食谱，请重新选择!`)
       return false
     }
-    let action = GameApi.GamePublic.getAction(UID)
+    let action = GameApi.Wrap.getAction(UID)
 
     let nameIwant = action.name
     let zhushi = food.zhushi
@@ -332,7 +332,7 @@ export class homecook extends plugin {
       return false
     }
     let doge = (zhushi1.doge + tiaoliao1.doge + fushi1.doge) * 2
-    let action = GameApi.GamePublic.getAction(UID)
+    let action = GameApi.Wrap.getAction(UID)
     let nameIwant = action.name
     let guo = Warehouse.thing.find((item) => item.name === nameIwant)
     let shuxing1 = HomeApi.GameUser.attribute({ thing: zhushi1 })
@@ -801,7 +801,7 @@ export class homecook extends plugin {
       return false
     }
     let id = guo.id.split('-')
-    let quantity = GameApi.GamePublic.leastOne({ value: code[1] })
+    let quantity = GameApi.Method.leastOne(code[1])
     if (guo.durable < quantity) {
       e.reply(`你的${thing1[0]}耐久不够，请重新选择数量!`)
       return false
@@ -975,7 +975,7 @@ export class homecook extends plugin {
     }, 1000 * time * quantity)
     forwardsetTime[UID] = 1
     e.reply(`正在给你制作【${quantity}】份【${code[0]}】...\n预计需要${time * quantity}秒`)
-    GameApi.GamePublic.setRedis(UID, CDid, nowTime, CDTime)
+    GameApi.Wrap.setRedis(UID, CDid, nowTime, CDTime)
     return false
   }
 }

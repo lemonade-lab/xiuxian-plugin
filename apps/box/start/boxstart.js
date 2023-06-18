@@ -34,13 +34,13 @@ export class BoxStart extends plugin {
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
     const CDID = '8'
     const nowTime = new Date().getTime()
-    const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
+    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
     }
-    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
-    GameApi.GamePublic.offAction({ UID })
+    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Wrap.offAction({ UID })
     let life = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',

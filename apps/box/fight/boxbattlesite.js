@@ -15,7 +15,7 @@ export class BoxBattleSite extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -28,7 +28,7 @@ export class BoxBattleSite extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Kill ? cf.CD.Kill : 5
-    const { CDMSG } = GameApi.GamePublic.cooling({ UID, CDID })
+    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
     if (CDMSG) {
       e.reply(CDMSG)
       return false
@@ -121,9 +121,7 @@ export class BoxBattleSite extends plugin {
         })
       }
       if (m < (mon.level + 1) * 8) {
-        const lingshi = GameApi.GamePublic.leastOne({
-          value: mon.level * 2
-        })
+        const lingshi = GameApi.Method.leastOne(mon.level * 2)
         msgRight.push(`[上品灵石]*${lingshi}`)
         GameApi.GameUser.userBag({
           UID,
@@ -132,9 +130,7 @@ export class BoxBattleSite extends plugin {
         })
       }
       if (m < (mon.level + 1) * 9) {
-        const lingshi = GameApi.GamePublic.leastOne({
-          value: mon.level * 20
-        })
+        const lingshi = GameApi.Method.leastOne(mon.level * 20)
         msgRight.push(`[中品灵石]*${lingshi}`)
         GameApi.GameUser.userBag({
           UID,
@@ -143,9 +139,7 @@ export class BoxBattleSite extends plugin {
         })
       }
       if (m >= (mon.level + 1) * 9) {
-        const lingshi = GameApi.GamePublic.leastOne({
-          value: mon.level * 200
-        })
+        const lingshi = GameApi.Method.leastOne(mon.level * 200)
         msgRight.push(`[下品灵石]*${lingshi}`)
         GameApi.GameUser.userBag({
           UID,
@@ -154,7 +148,7 @@ export class BoxBattleSite extends plugin {
         })
       }
     }
-    GameApi.GamePublic.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     const { path, name, data } = GameApi.Information.showBattle({
       UID: e.user_id,
       msgLeft,
@@ -171,7 +165,7 @@ export class BoxBattleSite extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.GoMini({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.GoMini(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false

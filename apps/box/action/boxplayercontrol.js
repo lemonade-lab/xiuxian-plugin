@@ -17,7 +17,7 @@ export class BoxPlayerControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.GoMini({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.GoMini(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -28,7 +28,7 @@ export class BoxPlayerControl extends plugin {
       actionName: '闭关',
       startTime: nowTime
     }
-    GameApi.GamePublic.setAction(UID, actionObject)
+    GameApi.Wrap.setAction(UID, actionObject)
     e.reply('开始两耳不闻窗外事...')
     return false
   }
@@ -39,7 +39,7 @@ export class BoxPlayerControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -50,7 +50,7 @@ export class BoxPlayerControl extends plugin {
       actionName: '降妖',
       startTime: nowTime
     }
-    GameApi.GamePublic.setAction(UID, actionObject)
+    GameApi.Wrap.setAction(UID, actionObject)
     e.reply('开始外出...')
     return false
   }
@@ -62,7 +62,7 @@ export class BoxPlayerControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.GamePublic.getAction(UID)
+    let action = GameApi.Wrap.getAction(UID)
     if (!action) return false
     if (action.actionName != '闭关') return false
     const startTime = action.startTime
@@ -74,10 +74,10 @@ export class BoxPlayerControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.GamePublic.offAction({ UID })
+      GameApi.Wrap.offAction({ UID })
       return false
     }
-    GameApi.GamePublic.offAction({ UID })
+    GameApi.Wrap.offAction({ UID })
     this.upgrade(UID, time, action.actionName, e)
     return false
   }
@@ -89,7 +89,7 @@ export class BoxPlayerControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.GamePublic.getAction(UID)
+    let action = GameApi.Wrap.getAction(UID)
     if (!action) return false
     if (action.actionName != '降妖') return false
     const startTime = action.startTime
@@ -101,10 +101,10 @@ export class BoxPlayerControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.GamePublic.offAction({ UID })
+      GameApi.Wrap.offAction({ UID })
       return false
     }
-    GameApi.GamePublic.offAction({ UID })
+    GameApi.Wrap.offAction({ UID })
     this.upgrade(UID, time, action.actionName, e)
     return false
   }

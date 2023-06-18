@@ -49,8 +49,8 @@ export class BoxExchange extends plugin {
       e.reply(`没有[${thingName}]`)
       return false
     }
-    const account = GameApi.GamePublic.leastOne({ value: thingAcount })
-    const money = GameApi.GamePublic.leastOne({ value: thingMoney })
+    const account = GameApi.Method.leastOne(thingAcount)
+    const money = GameApi.Method.leastOne(thingMoney)
     if (bagThing.acount < account) {
       e.reply(`[${thingName}]不够`)
       return false

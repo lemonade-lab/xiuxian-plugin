@@ -101,7 +101,7 @@ export class homeminefield extends plugin {
       e.reply(`你已经是该灵矿的主人了!`)
       return false
     }
-    GameApi.GamePublic.setRedis(A, CDid, nowTime, CDTime)
+    GameApi.Wrap.setRedis(A, CDid, nowTime, CDTime)
     if (minefieldName1 == undefined) {
       minefield.push({
         qq: UID,
@@ -289,7 +289,7 @@ export class homeminefield extends plugin {
       e.reply('这富煤晶石无法炼制，只能提炼')
       return false
     }
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     let searchswupin = HomeApi.GameUser.homeexist_all_thingName({
       name: wupin
     })
@@ -401,7 +401,7 @@ export class homeminefield extends plugin {
       e.reply(`目前支持提炼的只有富煤晶石!`)
       return false
     }
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     let searchsthing = HomeApi.GameUser.homeexist_all_thingName({
       name: mei
     })
@@ -621,7 +621,7 @@ export class homeminefield extends plugin {
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let thingAcount = parseInt(code[1]) // 数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: UID,

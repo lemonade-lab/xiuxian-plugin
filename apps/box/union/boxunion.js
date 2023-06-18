@@ -47,7 +47,7 @@ export class boxunion extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID })
+    const { MSG } = GameApi.Wrap.Go(UID)
     if (MSG) {
       e.reply(MSG)
       return false

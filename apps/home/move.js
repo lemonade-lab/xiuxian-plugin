@@ -53,7 +53,7 @@ export class move extends plugin {
     const code = thing.split('*')
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     const searchsthing = GameApi.GameUser.userBagSearch({
       UID,
       name: thingName
@@ -139,7 +139,7 @@ export class move extends plugin {
     const code = thing.split('*')
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     const searchsthing = HomeApi.GameUser.homeexist_WarehouseThingName({
       name: thingName,
       UID

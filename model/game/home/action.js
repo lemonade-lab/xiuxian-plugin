@@ -1,5 +1,5 @@
 import listdata from '../data/listdata.js'
-import GamePublic from '../public/index.js'
+import Wrap from '../public/index.js'
 import User from './user.js'
 class UserAction {
   userextensionhome = (parameter) => {
@@ -76,7 +76,7 @@ class UserAction {
         startTime: nowTime,
         time1: time
       }
-      GamePublic.setAction(UID, actionObject)
+      Wrap.setAction(UID, actionObject)
       User.userWarehouse({
         UID,
         name: thingNameg,

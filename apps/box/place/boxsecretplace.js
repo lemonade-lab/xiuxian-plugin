@@ -52,7 +52,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -86,7 +86,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false
@@ -156,7 +156,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.GamePublic.Go({ UID: e.user_id })
+    const { MSG } = GameApi.Wrap.Go(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false

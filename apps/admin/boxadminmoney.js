@@ -20,7 +20,7 @@ export class boxadminmoney extends plugin {
     }
     const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
     const [name, acount] = thingName.split('*')
-    const quantity = GameApi.GamePublic.leastOne({ value: acount })
+    const quantity = GameApi.Method.leastOne(acount)
     const bag = GameApi.GameUser.userBag({
       UID,
       name,
@@ -44,7 +44,7 @@ export class boxadminmoney extends plugin {
       return false
     }
     let lingshi = e.msg.replace(/^(#|\/)修仙扣除/, '')
-    lingshi = GameApi.GamePublic.leastOne({ value: lingshi })
+    lingshi = GameApi.Method.leastOne(lingshi)
     const thing = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'

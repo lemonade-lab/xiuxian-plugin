@@ -1,7 +1,7 @@
 import config from '../data/defset.js'
 import user from './index.js'
 import listdata from '../data/listdata.js'
-import gamePublic from '../public/index.js'
+import Wrap from '../public/index.js'
 const CopywritingLevel = {
   0: '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了size[name]',
   1: '突破瓶颈时想到鸡哥了,险些走火入魔,丧失了size[name]',
@@ -77,11 +77,11 @@ class UserAction {
       }
     }
     const nowTime = new Date().getTime()
-    const { CDMSG } = gamePublic.cooling({ UID, CDID })
+    const { CDMSG } = Wrap.cooling({ UID, CDID })
     if (CDMSG) {
       return { UserLevelUpMSG: `${CDMSG}` }
     }
-    gamePublic.setRedis(UID, CDID, nowTime, CDTime)
+    Wrap.setRedis(UID, CDID, nowTime, CDTime)
     if (Math.random() >= 1 - player.levelmax_id / 22) {
       let size = ''
       if (choise) {
@@ -190,11 +190,11 @@ class UserAction {
     let CDID = '13'
     let CDTime = 360
     const nowTime = new Date().getTime()
-    const { CDMSG } = gamePublic.cooling({ UID, CDID })
+    const { CDMSG } = Wrap.cooling({ UID, CDID })
     if (CDMSG) {
       return `${CDMSG}`
     }
-    gamePublic.setRedis(UID, CDID, nowTime, CDTime)
+    Wrap.setRedis(UID, CDID, nowTime, CDTime)
   }
 
   breakLevelUp = ({ UID, choise }) => {

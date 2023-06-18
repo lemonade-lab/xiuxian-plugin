@@ -48,7 +48,7 @@ export class homeland extends plugin {
       return false
     }
     const ifexisthome = HomeApi.GameUser.existhome({ UID })
-    let good = GameApi.GamePublic.GoMini({ UID: e.user_id })
+    let good = GameApi.Wrap.GoMini(e.user_id)
     if (!good) {
       return false
     }
@@ -145,7 +145,7 @@ export class homeland extends plugin {
     let thingName = code[0] // 种子名字
     let thingAcount = code[1] // 种子数量
     let name = thingName.replace('种子', '')
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     let searchsthing = HomeApi.GameUser.userWarehouseSearch({
       UID,
       name: thingName
@@ -430,7 +430,7 @@ export class homeland extends plugin {
   // 偷菜
   async Stealvegetables(e) {
     if (!this.verify(e)) return false
-    const good = GameApi.GamePublic.Go({ UID: e.user_id })
+    const good = GameApi.Wrap.Go(e.user_id)
     if (!good) {
       return false
     }
@@ -546,7 +546,7 @@ export class homeland extends plugin {
       INITIAL: []
     })
     e.reply(`成功盗取数量为${other}的${thing},并增加${z}的家园经验`)
-    GameApi.GamePublic.setRedis(user.A, CDid, nowTime, CDTime)
+    GameApi.Wrap.setRedis(user.A, CDid, nowTime, CDTime)
     return false
   }
 

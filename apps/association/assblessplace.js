@@ -326,13 +326,13 @@ export class BlessPlace extends plugin {
     const ClassCD = ':buildFacility'
     const nowTime = new Date().getTime()
 
-    const cdSecond = GameApi.GamePublic.getRedis(UID, ClassCD)
+    const cdSecond = GameApi.Wrap.getRedis(UID, ClassCD)
     if (cdSecond.expire) {
       e.reply(`修建cd中，剩余${cdSecond.expire}！`)
       return false
     }
 
-    GameApi.GamePublic.setRedis(UID + ClassCD, nowTime, CDTime)
+    GameApi.Wrap.setRedis(UID + ClassCD, nowTime, CDTime)
 
     let add = Math.trunc(player.levelId / 10) + 3
 

@@ -92,7 +92,7 @@ export class BoxTransaction extends plugin {
     }
 
     const [thingName, thingAcount] = e.msg.replace(/^(#|\/)购买/, '').split('*')
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     if (quantity > 99) {
       quantity = 99
     }
@@ -145,7 +145,7 @@ export class BoxTransaction extends plugin {
 
     const [thingName, thingAcount] = e.msg.replace(/^(#|\/)出售/, '').split('*')
 
-    let quantity = GameApi.GamePublic.leastOne({ value: thingAcount })
+    let quantity = GameApi.Method.leastOne(thingAcount)
     if (quantity > 99) {
       quantity = 99
     }

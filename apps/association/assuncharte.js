@@ -64,7 +64,7 @@ export class AssUncharted extends plugin {
   async Go_Guild_Secrets(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const go = GameApi.GamePublic.Go({ UID })
+    const go = GameApi.Wrap.Go(UID)
     if (!go) {
       return false
     }
@@ -163,7 +163,7 @@ export class AssUncharted extends plugin {
       startTime: nowTime
     }
 
-    GameApi.GamePublic.setAction(UID, actionObject)
+    GameApi.Wrap.setAction(UID, actionObject)
 
     const number = Math.trunc(Math.random() * 5)
     const interimArchive = {
@@ -235,7 +235,7 @@ export class AssUncharted extends plugin {
     const ClassCD = ':LabyrinthMove'
     const nowTime = new Date().getTime()
 
-    const cdSecond = GameApi.GamePublic.getRedis(UID, ClassCD)
+    const cdSecond = GameApi.Wrap.getRedis(UID, ClassCD)
     if (cdSecond.expire) {
       e.reply(`休整一下再出发吧，剩余${cdSecond.expire}秒！`)
       return false
@@ -284,7 +284,7 @@ export class AssUncharted extends plugin {
         `你发现一汪灵泉，大口饮下，不料泉水有毒，失去了${100 * interimArchive.incentivesLevel}修为`
       )
     } else if (random < 0.65) {
-      GameApi.GamePublic.setRedis(UID, ClassCD, nowTime, CDTime)
+      GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
       GameApi.GameUser.updataUser({
         UID,
         CHOICE: 'user_level',
@@ -296,7 +296,7 @@ export class AssUncharted extends plugin {
       )
     } else if (random < 0.85) {
       // 遇怪
-      GameApi.GamePublic.setRedis(UID, ClassCD, nowTime, CDTime)
+      GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
       const battle = GameApi.GameUser.userMsgAction({
         NAME: UID,
         CHOICE: 'user_battle'
@@ -360,7 +360,7 @@ export class AssUncharted extends plugin {
       )
     } else {
       // 宝箱
-      GameApi.GamePublic.setRedis(UID, ClassCD, nowTime, CDTime)
+      GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
       const chestsType = Math.ceil(Math.random() * 6)
       let chestsLevel
       // 0 - 15
@@ -556,11 +556,11 @@ export class AssUncharted extends plugin {
       }
       AssociationApi.assUser.deleteAss('interimArchive', UID)
     }
-    let action = GameApi.GamePublic.getAction(UID)
+    let action = GameApi.Wrap.getAction(UID)
     if (action.actionName != '宗门秘境') {
       return false
     }
-    GameApi.GamePublic.deleteAction({ UID })
+    GameApi.Wrap.deleteAction({ UID })
     e.reply(`已成功脱离秘境`)
     return false
   }
