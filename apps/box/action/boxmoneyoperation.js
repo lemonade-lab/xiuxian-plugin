@@ -2,7 +2,7 @@ import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxMoneyOperation extends plugin {
   constructor() {
     super({
-      rule: [{ reg: /^(#|\/)赠送物品[\u4e00-\u9fa5]+\*\d+$/, fnc: 'giveMoney' }]
+      rule: [{ reg: /^(#|\/)赠送[\u4e00-\u9fa5]+\*\d+$/, fnc: 'giveMoney' }]
     })
   }
 
@@ -36,7 +36,7 @@ export class BoxMoneyOperation extends plugin {
     if (actionA.region != actionB.region) {
       return `此地未找到此人`
     }
-    let thingName = e.msg.replace(/^(#|\/)赠送物品/, '')
+    let thingName = e.msg.replace(/^(#|\/)赠送/, '')
     const [name, acount] = thingName.split('*')
     const money = GameApi.GameUser.userBagSearch({
       UID: A,
@@ -69,7 +69,7 @@ export class BoxMoneyOperation extends plugin {
       name,
       ACCOUNT: acount
     })
-    e.reply([segment.at(B), `获得了由 ${A}赠送的${acount}*[${name}]`])
+    e.reply(`${A}赠送了${B}物品[${name}]*${acount}`)
     return false
   }
 }
