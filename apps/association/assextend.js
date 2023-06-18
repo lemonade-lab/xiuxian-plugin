@@ -23,7 +23,7 @@ export class AssociationExtend extends plugin {
   async buildFactoryGood(e) {
     if (!this.verify(e)) return false
     if (!e.isMaster) return false
-    let msg = e.msg.replace('#建好', '')
+    let msg = e.msg.replace(/^(#|\/)建好/, '')
     msg = msg.trim()
     const code = msg.split('*')
     const [assName, buildName] = code

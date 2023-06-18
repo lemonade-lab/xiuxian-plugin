@@ -139,7 +139,7 @@ export class Association extends plugin {
       return false
     }
 
-    let associationName = e.msg.replace('#申请加入', '')
+    let associationName = e.msg.replace(/^(#|\/)申请加入/, '')
     associationName = associationName.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.name == associationName

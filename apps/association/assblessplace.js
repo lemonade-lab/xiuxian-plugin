@@ -43,7 +43,7 @@ export class AssBlessPlace extends plugin {
     if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
       return false
     }
-    let assName = e.msg.replace('#集合攻打', '')
+    let assName = e.msg.replace(/^(#|\/)集合攻打/, '')
     assName = assName.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == assName)
     if (!assRelation) {
@@ -149,7 +149,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
-    let blessedName = e.msg.replace('#入驻洞天', '')
+    let blessedName = e.msg.replace(/^(#|\/)入驻洞天/, '')
     blessedName = blessedName.trim()
     // 洞天不存在
     const dongTan = AssociationApi.assUser.blessPlaceList.find((item) => item.name == blessedName)
@@ -291,7 +291,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    let buildName = e.msg.replace('#修建', '')
+    let buildName = e.msg.replace(/^(#|\/)修建/, '')
     buildName = buildName.trim()
     // 洞天不存在
     const location = AssociationApi.config.buildNameList.findIndex((item) => item == buildName)

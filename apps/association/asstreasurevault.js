@@ -60,7 +60,7 @@ export class AssTreasureVault extends plugin {
       e.reply(`请先回宗门`)
       return false
     }
-    let thingName = e.msg.replace('#藏宝阁回收', '')
+    let thingName = e.msg.replace(/^(#|\/)藏宝阁回收/, '')
 
     const searchThing = GameApi.GameUser.userBagSearch({
       UID,
@@ -171,7 +171,7 @@ export class AssTreasureVault extends plugin {
     }
 
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
-    const thingName = e.msg.replace('#兑换', '')
+    const thingName = e.msg.replace(/^(#|\/)兑换/, '')
 
     if (ass.facility[1].status == 0 || thingName == '') {
       return false

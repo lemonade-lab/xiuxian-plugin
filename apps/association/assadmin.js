@@ -302,7 +302,7 @@ export class AssociationAdmin extends plugin {
     if (assPlayer.assName == 0 || assPlayer.assJob < 10) {
       return false
     }
-    let memberQQ = e.msg.replace('#提拔', '')
+    let memberQQ = e.msg.replace(/^(#|\/)提拔/, '')
     memberQQ = memberQQ.trim()
     if (UID == memberQQ) {
       return false
@@ -346,7 +346,7 @@ export class AssociationAdmin extends plugin {
       e.reply(`请好好继承隐藏宗门的传承吧，就不要想着改名了!!!`)
       return false
     }
-    let associationName = e.msg.replace('#宗门改名', '')
+    let associationName = e.msg.replace(/^(#|\/)宗门改名/, '')
     associationName = associationName.trim()
 
     if (ass.spiritStoneAns < 10000) {
@@ -373,7 +373,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let menpai = e.msg.replace('#', '')
+    let menpai = e.msg.replace(/^(#|\/)/, '')
     menpai = menpai.replace('逐出门派', '')
     const memberQQ = menpai
     if (UID == memberQQ) {

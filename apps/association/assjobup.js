@@ -121,7 +121,7 @@ export class AssociationJobUp extends plugin {
       return false
     }
 
-    const battleQQ = e.msg.replace('#发起职位挑战', '')
+    const battleQQ = e.msg.replace(/^(#|\/)发起职位挑战/, '')
     const ifexists = AssociationApi.assUser.existArchive(battleQQ)
     if (!ifexists || !AssociationApi.assUser.existAss('assPlayer', battleQQ)) {
       return false

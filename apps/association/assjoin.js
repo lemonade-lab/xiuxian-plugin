@@ -36,7 +36,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinQQ = e.msg.replace('#查看简历', '')
+    const joinQQ = e.msg.replace(/^(#|\/)查看简历/, '')
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
     if (assPlayer.assName == 0) {
       return false
@@ -103,7 +103,7 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    const joinQQ = e.msg.replace('#批准录取', '')
+    const joinQQ = e.msg.replace(/^(#|\/)批准录取/, '')
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assPlayer', joinQQ)) {
       return false
     }
@@ -153,7 +153,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinQQ = e.msg.replace('#驳回申请', '')
+    const joinQQ = e.msg.replace(/^(#|\/)驳回申请/, '')
 
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assPlayer', joinQQ)) {
       return false

@@ -73,7 +73,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay) {
       return false
     }
-    let didian = e.msg.replace('#探索宗门秘境', '')
+    let didian = e.msg.replace(/^(#|\/)探索宗门秘境/, '')
     didian = didian.trim()
     const weizhi = AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == didian
@@ -199,7 +199,7 @@ export class AssUncharted extends plugin {
       e.reply('血量不足...')
       return false
     }
-    let direction = e.msg.replace('#秘境移动向', '')
+    let direction = e.msg.replace(/^(#|\/)秘境移动向/, '')
     direction = direction.trim()
     const interimArchive = AssociationApi.assUser.getAssOrPlayer(3, UID)
     let abscissa = interimArchive.abscissa
@@ -401,7 +401,7 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    let newName = e.msg.replace('#宗门秘境更名', '')
+    let newName = e.msg.replace(/^(#|\/)宗门秘境更名/, '')
     newName = newName.trim()
     const reg = /[^\u4e00-\u9fa5]/g // 汉字检验正则
     const res = reg.test(newName)
