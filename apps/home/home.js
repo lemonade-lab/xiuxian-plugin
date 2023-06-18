@@ -235,7 +235,7 @@ export class Homestart extends plugin {
       DATA: home,
       INITIAL: []
     })
-    HomeApi.GameUser.deleteAction({ UID })
+    HomeApi.GameUser.deleteAction(UID)
     e.reply(`你的家园已成功扩建`)
   }
 

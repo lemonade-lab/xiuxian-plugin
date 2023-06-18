@@ -7,27 +7,33 @@ import { GameApi } from '../../api/index.js'
 import Method from '../wrap/method.js'
 class GameUser {
   startLife() {
-    const life = listdata.controlActionInitial({
+    /**
+     * 旧方法,需要便利才能改
+     * 换成对象,用
+     */
+    const LifeData = listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
-      INITIAL: []
+      INITIAL: {}
     })
+    // 记录死亡
     const die = []
-    life.forEach((item) => {
-      const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
-      item.Age = Number(cf.Age.size ? cf.Age.size : 1) + item.Age
-      if (item.Age >= item.life) {
-        item.status = 0
-        die.push(item.qq)
+    const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+    for (let UID in LifeData) {
+      LifeData[UID].Age = Number(cf.Age.size ? cf.Age.size : 1) + LifeData[UID].Age
+      if (LifeData[UID].Age >= LifeData[UID].life) {
+        LifeData[UID].status = 0
+        die.push(LifeData[UID].qq)
       }
-    })
+    }
     listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
-      DATA: life
+      DATA: LifeData
     })
-    for (let item of die) {
-      Wrap.deleteAction({ UID: item })
+    // 清除死亡uid
+    for (let UID of die) {
+      Wrap.deleteAction(UID)
     }
   }
 

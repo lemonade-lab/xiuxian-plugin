@@ -40,7 +40,7 @@ export class BoxStart extends plugin {
       return false
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
-    GameApi.Wrap.deleteAction({ UID })
+    GameApi.Wrap.deleteAction(UID)
     let life = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',

@@ -561,7 +561,7 @@ export class AssUncharted extends plugin {
     if (action.actionName != '宗门秘境') {
       return false
     }
-    GameApi.Wrap.deleteAction({ UID })
+    GameApi.Wrap.deleteAction(UID)
     e.reply(`已成功脱离秘境`)
     return false
   }

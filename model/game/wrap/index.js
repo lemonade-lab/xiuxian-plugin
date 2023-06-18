@@ -119,7 +119,7 @@ class Wrap {
    * 删除action
    * @param {*} param0
    */
-  deleteAction({ UID }) {
+  deleteAction(UID) {
     REDIS.del(`${ReadiName}:${UID}:${MYCD[99]}`)
   }
 
