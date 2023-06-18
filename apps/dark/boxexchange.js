@@ -4,8 +4,8 @@ export class BoxExchange extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)虚空镜$/, fnc: 'supermarket' },
-        { reg: /^(#|\/)上架[\u4e00-\u9fa5]*$/, fnc: 'onsell' },
-        { reg: /^(#|\/)下架[\u4e00-\u9fa5]*$/, fnc: 'Offsell' },
+        { reg: /^(#|\/)上架[\u4e00-\u9fa5]+\*\d+\*\d+$/, fnc: 'onsell' },
+        { reg: /^(#|\/)下架物品$/, fnc: 'Offsell' },
         { reg: /^(#|\/)选购\d+$/, fnc: 'purchase' }
       ]
     })
@@ -21,12 +21,12 @@ export class BoxExchange extends plugin {
     const exchange = GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      INITIAL: []
+      INITIAL: {}
     })
     const msg = ['___[虚空镜]___']
-    for (let item of exchange) {
+    for (let item in exchange) {
       msg.push(
-        `编号:${item.ID}\n物品:${item.thing.name}\n数量:${item.account}\n价格:${item.money}\n`
+        `编号:${exchange[item].ID}\n物品:${exchange[item].thing.name}\n数量:${exchange[item].account}\n价格:${exchange[item].money}\n`
       )
     }
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
@@ -40,7 +40,7 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const [thingName, thingAcount, thingMoney] = e.msg.replace(/^(#|\/)上架/, '').split('*')
+    const [thingName, account, money] = e.msg.replace(/^(#|\/)上架/, '').split('*')
     const bagThing = GameApi.GameUser.userBagSearch({
       UID,
       name: thingName
@@ -49,8 +49,6 @@ export class BoxExchange extends plugin {
       e.reply(`没有[${thingName}]`)
       return false
     }
-    const account = GameApi.Method.leastOne(thingAcount)
-    const money = GameApi.Method.leastOne(thingMoney)
     if (bagThing.acount < account) {
       e.reply(`[${thingName}]不够`)
       return false
@@ -60,27 +58,31 @@ export class BoxExchange extends plugin {
     const exchange = GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      INITIAL: []
+      INITIAL: {}
     })
-    exchange.push({
-      ID: `${myDate}${sum}`,
-      UID,
+    const ID = myDate + sum
+    if (exchange[UID]) {
+      e.reply('有待出售物品未成功出售~')
+      return false
+    }
+    exchange[UID] = {
+      ID,
       thing: bagThing,
-      account: Number(account),
-      money: Number(money * account)
-    })
+      account,
+      money: money * account
+    }
     GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
-      INITIAL: []
+      INITIAL: {}
     })
     GameApi.GameUser.userBag({
       UID,
       name: bagThing.name,
-      ACCOUNT: -Number(account)
+      ACCOUNT: -account
     })
-    e.reply(`成功上架:\n${bagThing.name}*${account}*${money}\n编号:${myDate}${sum}`)
+    e.reply(`成功上架:\n${bagThing.name}*${account}*${money}\n编号:${ID}`)
     return false
   }
 
@@ -91,26 +93,16 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let ID = e.msg.replace(/^(#|\/)下架/, '')
-    let x = 888888888
     let exchange = GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      INITIAL: []
+      INITIAL: {}
     })
-    exchange.forEach((item, index) => {
-      if (item.ID == ID) {
-        x = index
-      }
-    })
-    if (x == 888888888) {
-      e.reply(`找不到${ID}`)
-      return false
+    if (!exchange[UID]) {
+      e.reply('未有上架物品')
+      return
     }
-    if (exchange[x].UID != UID) {
-      return false
-    }
-    let najie = GameApi.UserData.controlAction({
+    const najie = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -120,17 +112,17 @@ export class BoxExchange extends plugin {
     }
     GameApi.GameUser.userBag({
       UID,
-      name: exchange[x].thing.name,
-      ACCOUNT: Number(exchange[x].account)
+      name: exchange[UID].thing.name,
+      ACCOUNT: exchange[UID].account
     })
-    exchange = exchange.filter((item) => item.ID != ID)
+    delete exchange[UID]
     GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
-      INITIAL: []
+      INITIAL: {}
     })
-    e.reply(`成功下架${ID}`)
+    e.reply(`成功下架个人物品`)
     return false
   }
 
@@ -141,31 +133,35 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
+    // 寻找id
     let ID = e.msg.replace(/^(#|\/)选购/, '')
     let x = 888888888
+    let y = 888888888
     let exchange = GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      INITIAL: []
+      INITIAL: {}
     })
-    exchange.forEach((item, index) => {
-      if (item.ID == ID) {
-        x = index
+    for (let item in exchange) {
+      if (exchange[item].ID == ID) {
+        x = ID
+        y = item
       }
-    })
-    if (x == 888888888) {
+    }
+    if (x == 888888888 || y == 888888888) {
       e.reply(`找不到${ID}`)
       return false
     }
+    // 验证
     const money = GameApi.GameUser.userBagSearch({
       UID,
       name: '下品灵石'
     })
-    if (!money || money.acount < exchange[x].money) {
-      e.reply(`似乎没有${exchange[x].money}下品灵石`)
+    if (!money || money.acount < exchange[y].money) {
+      e.reply(`似乎没有${exchange[y].money}下品灵石`)
       return false
     }
-    let najie = GameApi.UserData.controlAction({
+    const najie = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
@@ -175,25 +171,25 @@ export class BoxExchange extends plugin {
     }
     GameApi.GameUser.userBag({
       UID,
-      name: exchange[x].thing.name,
-      ACCOUNT: Number(exchange[x].account)
+      name: exchange[y].thing.name,
+      ACCOUNT: exchange[y].account
     })
     GameApi.GameUser.userBag({
       UID,
       name: '下品灵石',
-      ACCOUNT: -Number(exchange[x].money)
+      ACCOUNT: -exchange[x].money
     })
     GameApi.GameUser.userBag({
       UID: exchange[x].UID,
       name: '下品灵石',
-      ACCOUNT: Number(exchange[x].money)
+      ACCOUNT: exchange[x].money
     })
-    exchange = exchange.filter((item) => item.ID != ID)
+    delete exchange[y]
     GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
-      INITIAL: []
+      INITIAL: {}
     })
     e.reply(`成功选购${ID}`)
     return false
