@@ -154,7 +154,7 @@ export class Boxfairyland extends plugin {
         if (player.experiencemax < 120000) {
           player.levelId -= 1
           player.levelname = Levellist.find((item) => item.id == player.levelId).name
-          player.rank_id = 4
+          player.rankId = 4
           e.reply(
             `你未顶住${
               Thunderbolt[talent.talent.length]

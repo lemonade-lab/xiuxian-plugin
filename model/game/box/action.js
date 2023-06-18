@@ -49,12 +49,12 @@ class UserAction {
       NAME: 'bodypractice'
     })
     const Level = Levellist.find((item) => item.id == player.levelId)
-    const LevelMax = Levelmaxlist.find((item) => item.id == player.levelmax_id)
+    const LevelMax = Levelmaxlist.find((item) => item.id == player.levelMaxId)
     if (choise) {
       CDID = '7'
       CDTime = cf.CD.LevelMax_up ? cf.CD.LevelMax_up : 0
       name = '气血'
-      if (player.levelmax_id >= 11) {
+      if (player.levelMaxId >= 11) {
         return
       }
       if (player.experiencemax < LevelMax.exp) {
@@ -82,7 +82,7 @@ class UserAction {
       return { coolingMsg: `${coolingMsg}` }
     }
     Wrap.setRedis(UID, CDID, nowTime, CDTime)
-    if (Math.random() >= 1 - player.levelmax_id / 22) {
+    if (Math.random() >= 1 - player.levelMaxId / 22) {
       let size = ''
       if (choise) {
         size = Math.floor(Math.random() * player.experiencemax)
@@ -106,28 +106,28 @@ class UserAction {
     }
     let returnTXT = ''
     if (choise) {
-      if (player.levelmax_id > 1 && player.rankmax_id < 4) {
-        player.rankmax_id = player.rankmax_id + 1
+      if (player.levelMaxId > 1 && player.rankMaxId < 4) {
+        player.rankMaxId = player.rankMaxId + 1
       } else {
-        player.rankmax_id = 0
-        player.levelmax_id = player.levelmax_id + 1
-        player.levelnamemax = Levelmaxlist.find((item) => item.id == player.levelmax_id).name
+        player.rankMaxId = 0
+        player.levelMaxId = player.levelMaxId + 1
+        player.levelnamemax = Levelmaxlist.find((item) => item.id == player.levelMaxId).name
       }
       player.experiencemax -= LevelMax.exp
-      returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rankmax_id]}`
+      returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rankMaxId]}`
     } else {
-      if (player.levelId > 1 && player.rank_id < 4) {
-        player.rank_id = player.rank_id + 1
-        returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]}`
+      if (player.levelId > 1 && player.rankId < 4) {
+        player.rankId = player.rankId + 1
+        returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rankId]}`
       } else {
-        player.rank_id = 0
+        player.rankId = 0
         player.levelId = player.levelId + 1
         player.levelname = Levellist.find((item) => item.id == player.levelId).name
         const { size } = this.userLifeUp({
           UID,
           levelId: player.levelId
         })
-        returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
+        returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rankId]},寿命至${size}`
       }
       player.experience -= Level.exp
     }
@@ -212,19 +212,19 @@ class UserAction {
     })
     let returnTXT = ''
     if (choise) {
-      player.rankmax_id = 0
-      player.levelmax_id = player.levelmax_id + 1
-      player.levelnamemax = Levelmaxlist.find((item) => item.id == player.levelmax_id).name
-      returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rank_id]}`
+      player.rankMaxId = 0
+      player.levelMaxId = player.levelMaxId + 1
+      player.levelnamemax = Levelmaxlist.find((item) => item.id == player.levelMaxId).name
+      returnTXT = `突破成功至${player.levelnamemax}${LevelMiniName[player.rankId]}`
     } else {
-      player.rank_id = 0
+      player.rankId = 0
       player.levelId = player.levelId + 1
       player.levelname = Levellist.find((item) => item.id == player.levelId).name
       const { size } = this.userLifeUp({
         UID,
         levelId: player.levelId
       })
-      returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rank_id]},寿命至${size}`
+      returnTXT = `突破成功至${player.levelname}${LevelMiniName[player.rankId]},寿命至${size}`
     }
     listdata.controlAction({
       NAME: UID,

@@ -69,11 +69,11 @@ class GameUser {
         levelId: 1, // 练气境界
         levelname: LevelList.find((item) => item.id == 1).name, // 练气名
         experience: 1, // 练气经验
-        levelmax_id: 1, // 练体境界
+        levelMaxId: 1, // 练体境界
         levelnamemax: LevelMaxList.find((item) => item.id == 1).name, // 练体名
         experiencemax: 1, // 练体经验
-        rank_id: 0, // 数组位置
-        rankmax_id: 0 // 数组位置
+        rankId: 0, // 数组位置
+        rankMaxId: 0 // 数组位置
       }
     })
     listdata.controlAction({
@@ -298,16 +298,21 @@ class GameUser {
       CHOICE: 'user_level',
       NAME: UID
     })
+    console.log('level=', level)
     const LevelList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
     })
+    console.log('LevelList=', LevelList)
     const LevelMaxList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
+    console.log('LevelMaxList=', LevelMaxList)
     const levelmini = LevelList.find((item) => item.id == level.levelId)
-    const levelmax = LevelMaxList.find((item) => item.id == level.levelmax_id)
+    console.log('levelmini=', levelmini)
+    const levelmax = LevelMaxList.find((item) => item.id == level.levelMaxId)
+    console.log('levelmax=', levelmax)
     const UserBattle = listdata.controlAction({
       CHOICE: 'user_battle',
       NAME: UID
