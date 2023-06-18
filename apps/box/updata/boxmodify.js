@@ -47,11 +47,7 @@ export class BoxModify extends plugin {
       CHOICE: 'user_life',
       INITIAL: {}
     })
-    life.forEach((item) => {
-      if (item.qq == UID) {
-        item.name = theName
-      }
-    })
+    life[UID].name = theName
     GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',

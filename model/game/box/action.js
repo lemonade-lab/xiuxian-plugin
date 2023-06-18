@@ -147,25 +147,20 @@ class UserAction {
    * @returns
    */
   userLifeUp({ UID, levelId, acount }) {
-    let size = 0
-    const life = listdata.controlAction({
+    const LifeDAta = listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life'
     })
-    life.forEach((item) => {
-      if (item.qq == UID) {
-        if (acount) {
-          item.life += acount
-        } else {
-          item.life += Math.floor(levelId * 30)
-        }
-        size = item.life
-      }
-    })
+    if (acount) {
+      LifeDAta[UID].life += acount
+    } else {
+      LifeDAta[UID].life += Math.floor(levelId * 30)
+    }
+    const size = LifeDAta[UID].life
     listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
-      DATA: life
+      DATA: LifeDAta
     })
     return { size }
   }

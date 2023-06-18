@@ -28,8 +28,7 @@ class Information {
       CHOICE: 'user_battle'
     })
     const linggenname = gameUser.getTalentName(talent)
-    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
-    life = life.find((item) => item.qq == UID)
+    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
       name = name + linggenname[i]
@@ -46,7 +45,7 @@ class Information {
       name: 'information',
       data: {
         UID,
-        life,
+        life: LifeData[UID],
         player,
         level,
         linggenname: name,
@@ -73,15 +72,14 @@ class Information {
       CHOICE: 'user_equipment'
     })
     // tudo
-    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
-    life = life.find((item) => item.qq == UID)
+    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     return {
       path: 'user/equipment',
       name: 'equipment',
       data: {
         UID,
         battle,
-        life,
+        life: LifeData[UID],
         equipment
       }
     }
@@ -96,8 +94,7 @@ class Information {
       CHOICE: 'user_talent'
     })
     const linggenname = gameUser.getTalentName(talent)
-    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
-    life = life.find((item) => item.qq == UID)
+    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
       name = name + linggenname[i]
@@ -118,7 +115,7 @@ class Information {
         skills: talent.AllSorcery,
         linggenname: name,
         talentsize: size,
-        life
+        life: LifeData[UID]
       }
     }
   }
@@ -128,8 +125,7 @@ class Information {
    * @returns
    */
   userBagShow(UID) {
-    let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
-    life = life.find((item) => item.qq == UID)
+    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     const player = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
@@ -166,7 +162,7 @@ class Information {
       data: {
         UID,
         player,
-        life,
+        life: LifeData[UID],
         battle,
         najie,
         thing: thingList,

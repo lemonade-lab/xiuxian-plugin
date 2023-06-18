@@ -16,7 +16,6 @@ export class BoxStart extends plugin {
       return false
     }
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
-
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -39,16 +38,16 @@ export class BoxStart extends plugin {
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     GameApi.Wrap.deleteAction(UID)
-    let life = GameApi.UserData.controlActionInitial({
+    const LifeData = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
       INITIAL: {}
     })
-    life = life.filter((item) => item.qq != UID)
+    delete LifeData[UID]
     GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
-      DATA: life
+      DATA: LifeData
     })
     GameApi.GameUser.createBoxPlayer(e.user_id)
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)

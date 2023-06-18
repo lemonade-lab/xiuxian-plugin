@@ -9,7 +9,6 @@ class GameUser {
   startLife() {
     /**
      * 旧方法,需要便利才能改
-     * 换成对象,用
      */
     const LifeData = listdata.controlActionInitial({
       NAME: 'life',
@@ -141,25 +140,25 @@ class GameUser {
       name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
     }
     const name = Method.Anyarray(FullName.full) + Method.Anyarray(FullName.name)
-    const life = listdata.controlActionInitial({
+    const LifeData = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       INITIAL: {}
     })
-    life.push({
+    LifeData[UID] = {
       qq: UID,
       name: `${name}`,
       Age: 1, // 年龄
       life: Math.floor(Math.random() * (84 - 60) + 60), // 寿命
       createTime: new Date().getTime(),
       status: 1
-    })
+    }
     listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
     /** 更新用户表 */
     listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
-      DATA: life,
+      DATA: LifeData,
       INITIAL: {}
     })
     /** 更新装备 */
@@ -534,12 +533,12 @@ class GameUser {
    * @returns 不存在则undifind
    */
   existUser(UID) {
-    const LIFE = listdata.controlActionInitial({
+    const LifeData = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
       INITIAL: {}
     })
-    return LIFE.find((item) => item.qq == UID)
+    return LifeData[UID]
   }
 
   /**
@@ -587,8 +586,8 @@ class GameUser {
       NAME: 'life',
       INITIAL: {}
     })
-    for (let item of life) {
-      playerList.push(item.qq)
+    for (let UID in life) {
+      playerList.push(UID)
     }
     return playerList
   }
