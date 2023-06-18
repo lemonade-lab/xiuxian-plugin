@@ -1,4 +1,3 @@
-import { isNaN } from 'lodash'
 import { GameApi, plugin } from '../../../model/api/index.js'
 export class BoxOnekey extends plugin {
   constructor() {
