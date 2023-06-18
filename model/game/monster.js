@@ -1,70 +1,63 @@
 import listdata from './data/listdata.js'
 const alldata = {}
-const addall = {}
 const full = listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
-const name = listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
+const MonsterName = listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
 const map = listdata.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
 /** 怪物生成 */
 class GameMonster {
   /**
-   * @param { i } param0
+   *
+   * @param {*} i   地域
    * @returns
    */
-  monsterscache({ i }) {
+  monsterscache(i) {
+    /** 根据地域位置返回怪物数据 */
     if (!Object.prototype.hasOwnProperty.call(alldata, i)) {
       alldata[i] = {
         label: 99,
-        data: []
+        data: {}
       }
     }
     /* 时间变了 */
     if (new Date().getHours() != alldata[i].label) {
-      alldata[i].data = this.generateMonster({ i })
+      alldata[i].data = this.generateMonster(i)
       return alldata[i].data
     } else {
-      /* 时间没变 */
-      if (alldata[i].data.length != 0) {
-        return alldata[i].data
-      }
-      alldata[i].data = this.generateMonster({ i })
       return alldata[i].data
     }
   }
 
   /**
-   * @param { i, num } param0
+   * @param {*} i  地域
+   * @param {*} num 名字
    * @returns
    */
-  add({ i, num }) {
-    if (!Object.prototype.hasOwnProperty.call(addall, i)) {
-      addall[i] = {
-        acount: 0
-      }
-    }
-    addall[i].acount += num
+  add(i, name) {
+    alldata[i].data[name].killNum += 1
     const p = Math.floor(Math.random() * (30 - 10)) + Number(10)
-    if (addall[i].acount > p) {
-      addall[i].acount = 0
-      return 1
+    if (alldata[i].data[name].killNum > p) {
+      alldata[i].data[name].killNum = 0
+      return true
     }
-    return 0
+    return false
   }
 
   /**
-   * @param { i } param0
+   *
+   * @param {*} i 地域
    * @returns
    */
-  generateMonster({ i }) {
+  generateMonster(i) {
     const [mini, max] = map[i].split('.')
     alldata[i].label = new Date().getHours()
-    alldata[i].data = []
+    alldata[i].data = {}
     for (let j = 0; j < max; j++) {
       const alevel = Math.floor(Math.random() * (max - mini + 1) + Number(mini))
-      alldata[i].data.push({
-        name: full[Math.floor(Math.random() * full.length)] + name[alevel],
+      const name = full[Math.floor(Math.random() * full.length)] + MonsterName[alevel]
+      alldata[i].data[name] = {
         killNum: 1,
         level: alevel
-      })
+      }
     }
     return alldata[i].data
   }

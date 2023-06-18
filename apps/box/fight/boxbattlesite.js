@@ -38,23 +38,18 @@ export class BoxBattleSite extends plugin {
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const monstersdata = GameApi.GameMonster.monsterscache({
-      i: action.region
-    })
-    const mon = monstersdata.find((item) => item.name == Mname)
+    const monstersdata = GameApi.GameMonster.monsterscache(action.region)
+    const mon = monstersdata[Mname]
     if (!mon) {
       e.reply(`这里没有[${Mname}],去别处看看吧`)
       return false
     }
-    const acount = GameApi.GameMonster.add({
-      i: action.region,
-      num: Number(1)
-    })
+    const MnameBuff = GameApi.GameMonster.add(action.region, Mname)
     const msgLeft = []
     const buff = {
       msg: 1
     }
-    if (acount == 1) {
+    if (MnameBuff) {
       buff.msg = Math.floor(Math.random() * (5 - 2)) + Number(2)
       msgLeft.push('怪物突然变异了!')
     }
@@ -176,11 +171,9 @@ export class BoxBattleSite extends plugin {
       CHOICE: 'user_action'
     })
     const msg = []
-    const monster = GameApi.GameMonster.monsterscache({
-      i: action.region
-    })
-    for (let item of monster) {
-      msg.push('怪名:' + item.name + '\n' + '等级:' + item.level + '\n')
+    const monster = GameApi.GameMonster.monsterscache(action.region)
+    for (let name in monster) {
+      msg.push('怪名:' + name + '\n' + '等级:' + monster[name].level + '\n')
     }
     const isreply = await e.reply(
       await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
