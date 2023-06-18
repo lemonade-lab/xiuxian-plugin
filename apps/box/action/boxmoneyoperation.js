@@ -2,20 +2,8 @@ import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
 export class BoxMoneyOperation extends plugin {
   constructor() {
     super({
-      rule: [
-        { reg: /^(#|\/)赠送灵石\d+$/, fnc: 'giveMoney' },
-        { reg: /^(#|\/)赠送物品[\u4e00-\u9fa5]*$/, fnc: 'giveGoods' }
-      ]
+      rule: [{ reg: /^(#|\/)赠送物品[\u4e00-\u9fa5]+\*\d+$/, fnc: 'giveMoney' }]
     })
-  }
-
-  async giveGoods(e) {
-    if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
-      e.reply('已仙鹤')
-      return false
-    }
-    e.reply('待世界升级')
   }
 
   async giveMoney(e) {
@@ -37,14 +25,25 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let islingshi = e.msg.replace(/^(#|\/)赠送灵石/, '')
-    islingshi = GameApi.Method.leastOne(islingshi)
+    const actionA = GameApi.UserData.controlAction({
+      NAME: A,
+      CHOICE: 'user_action'
+    })
+    const actionB = GameApi.UserData.controlAction({
+      NAME: B,
+      CHOICE: 'user_action'
+    })
+    if (actionA.region != actionB.region) {
+      return `此地未找到此人`
+    }
+    let thingName = e.msg.replace(/^(#|\/)赠送物品/, '')
+    const [name, acount] = thingName.split('*')
     const money = GameApi.GameUser.userBagSearch({
       UID: A,
-      name: '下品灵石'
+      name
     })
-    if (!money || money.acount < islingshi) {
-      e.reply(`似乎没有${islingshi}[下品灵石]`)
+    if (!money || money.acount < acount) {
+      e.reply(`似乎没有${acount}[${name}]`)
       return false
     }
     const cf = GameApi.DefsetUpdata.getConfig({
@@ -62,15 +61,15 @@ export class BoxMoneyOperation extends plugin {
     GameApi.Wrap.setRedis(A, CDID, nowTime, CDTime)
     GameApi.GameUser.userBag({
       UID: A,
-      name: '下品灵石',
-      ACCOUNT: -islingshi
+      name,
+      ACCOUNT: -acount
     })
     GameApi.GameUser.userBag({
       UID: B,
-      name: '下品灵石',
-      ACCOUNT: islingshi
+      name,
+      ACCOUNT: acount
     })
-    e.reply([segment.at(B), `你获得了由 ${A}赠送的${islingshi}*[下品灵石]`])
+    e.reply([segment.at(B), `获得了由 ${A}赠送的${acount}*[${name}]`])
     return false
   }
 }
