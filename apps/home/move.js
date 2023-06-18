@@ -32,7 +32,7 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
-      e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
     } else if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)
@@ -108,7 +108,7 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
-      e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
     } else if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)
@@ -194,7 +194,7 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
-      e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
     } else if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)
@@ -324,7 +324,7 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GameUser.Archive({ UID })
     if (archive == 1) {
-      e.reply(`没有存档，请先执行#踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
     } else if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)

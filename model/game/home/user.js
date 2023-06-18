@@ -88,7 +88,7 @@ class GameUser {
     if (home == 1) {
       this.homejiazai({ UID })
       Msg =
-        '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行#建立家园+地点名字，建立家园'
+        '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行(#|/)建立家园+地点名字，建立家园'
       return Msg
     } else {
       const ifexisthome = this.existhome({ UID })
@@ -112,7 +112,7 @@ class GameUser {
     if (!fond) {
       this.homejiazai({ UID })
       Msg =
-        '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行#建立家园+地点名字，建立家园'
+        '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行(#|/)建立家园+地点名字，建立家园'
       return Msg
     } else {
       if (fond.rangeland == undefined) {
