@@ -10,7 +10,10 @@ export class BoxDice extends plugin {
     if (!this.verify(e)) return false
     const msg = ['__[万花坊]__']
     msg.push('待世界升级')
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     if (e.group.is_owner || e.group.is_admin) {
       e.recall()
     }

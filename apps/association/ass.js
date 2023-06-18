@@ -67,7 +67,10 @@ export class Association extends plugin {
           assPlayerA.historyContribution
       )
     }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    const isreply = e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 

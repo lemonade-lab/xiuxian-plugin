@@ -182,7 +182,10 @@ export class BoxBattleSite extends plugin {
     for (let item of monster) {
       msg.push('怪名:' + item.name + '\n' + '等级:' + item.level + '\n')
     }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 }

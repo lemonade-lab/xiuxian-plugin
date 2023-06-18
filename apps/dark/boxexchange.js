@@ -29,7 +29,10 @@ export class BoxExchange extends plugin {
         `编号:${exchange[item].ID}\n物品:${exchange[item].thing.name}\n数量:${exchange[item].account}\n价格:${exchange[item].money}\n`
       )
     }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 

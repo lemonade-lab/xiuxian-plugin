@@ -42,7 +42,10 @@ export class BoxSecretplace extends plugin {
     for (let item of address) {
       msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
     }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 

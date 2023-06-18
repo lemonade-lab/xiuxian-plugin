@@ -37,7 +37,10 @@ export class BoxBank extends plugin {
     } else {
       msg.push(`借款:${WhiteBarList[UID].money}`)
     }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 

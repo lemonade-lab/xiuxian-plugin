@@ -104,6 +104,7 @@ export class AssBlessPlace extends plugin {
       msg
     }
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data }))
+
     // 开打！
     const res = AssBattle(e, attackObj, battleObj)
     // 赢！
