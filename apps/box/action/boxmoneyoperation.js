@@ -24,9 +24,9 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.Wrap.Go(e.user_id)
-    if (MSG) {
-      e.reply(MSG)
+    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    if (state == 4001) {
+      e.reply(msg)
       return false
     }
     const A = e.user_id

@@ -1,15 +1,17 @@
 import fs from 'node:fs'
-import createdata from './createdata.js'
 import genertate from './generate.js'
-import listdata from './listdata.js'
 import algorithm from './algorithm.js'
 
 /* 存档地址 */
 const playerPath = '/xiuxianfile'
 
+function getJsonPare(val) {
+  return JSON.parse(fs.readFileSync(val))
+}
+
 /* 数据索引 */
 export const __PATH = {
-  /* 玩家存档 */
+  /* 玩家存档:已不在插件内 */
   user_player: algorithm.getFliePath(`${playerPath}/player`),
   user_extend: algorithm.getFliePath(`${playerPath}/extend`),
   user_action: algorithm.getFliePath(`${playerPath}/action`),
@@ -34,7 +36,7 @@ export const __PATH = {
   /* 自定义数据 */
   custom_goods: algorithm.getFliePath(`/xiuxiangoods`),
 
-  /* 基础数据 */
+  /* 基础数据：插件内 */
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
   fixed_position: algorithm.getReq('/resources/datafixed/position'),
   fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'),
@@ -90,12 +92,9 @@ export const __PATH = {
 /** 生成游戏数据 */
 class DateIndex {
   constructor() {
-    /** 生成yaml配置数据 */
-    createdata.moveConfig()
-    /**
-     * 动态境界数据
-     */
-    genertate.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixed_talent}/talent_list.json`))
+    /* 静态灵根数据 */
+    genertate.talent_list = getJsonPare(`${__PATH.fixed_talent}/talent_list.json`)
+    /** 动态境界数据  */
     genertate.createList(__PATH.generate_level, 'gaspractice', [])
     genertate.createList(__PATH.generate_level, 'gaspractice', [
       ...genertate.getlist(__PATH.fixed_level, 'gaspractice.json')
@@ -104,56 +103,36 @@ class DateIndex {
     genertate.createList(__PATH.generate_level, 'bodypractice', [
       ...genertate.getlist(__PATH.fixed_level, 'bodypractice.json')
     ])
-    /**
-     * 全物品数据
-     */
+    /** 全物品数据 */
     genertate.createList(__PATH.generate_all, 'all', [])
     genertate.createList(__PATH.generate_all, 'all', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'),
       ...genertate.getlist(__PATH.fixed_goods, 'json'),
       ...genertate.getlist(__PATH.custom_goods, 'json')
     ])
-    /**
-     * #万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备
-     */
+    /** 万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备 */
     genertate.createList(__PATH.generate_all, 'commodities', [])
     genertate.createList(__PATH.generate_all, 'commodities', [
       ...genertate.getlist(__PATH.fixed_goods, '0.json'),
       ...genertate.getlist(__PATH.custom_goods, '0.json')
     ])
-    /**
-     * 怪物掉落
-     */
+    /** 怪物掉落 */
     genertate.createList(__PATH.generate_all, 'dropsItem', [])
     genertate.createList(__PATH.generate_all, 'dropsItem', [
       ...genertate.getlist(__PATH.fixed_equipment, '.json'),
       ...genertate.getlist(__PATH.fixed_goods, '.json'),
       ...genertate.getlist(__PATH.custom_goods, '.json')
     ])
-    /**
-     * 地图：区域位
-     */
+    /** 地图：区域位 */
     genertate.createList(__PATH.generate_position, 'position', [])
     genertate.createList(__PATH.generate_position, 'position', [
       ...genertate.getlist(__PATH.fixed_position, 'json')
     ])
-    /**
-     * 地图：点位
-     */
+    /** 地图：点位  */
     genertate.createList(__PATH.generate_position, 'point', [])
     genertate.createList(__PATH.generate_position, 'point', [
       ...genertate.getlist(__PATH.fixed_point, 'json')
     ])
-  }
-
-  /**
-   * 你的地址,要选择的box地址,操作表名
-   * @param {PATH, CHOICE, NAME} parameter
-   * @returns
-   */
-  addListArr = ({ PATH, CHOICE, NAME }) => {
-    const data = listdata.controlAction({ NAME, CHOICE })
-    genertate.createList(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
   }
 }
 export default new DateIndex()

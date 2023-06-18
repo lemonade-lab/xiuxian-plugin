@@ -64,8 +64,9 @@ export class AssUncharted extends plugin {
   async Go_Guild_Secrets(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const go = GameApi.Wrap.Go(UID)
-    if (!go) {
+    const { state, msg } = GameApi.Wrap.Go(UID)
+    if (state == 4001) {
+      e.reply(msg)
       return false
     }
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

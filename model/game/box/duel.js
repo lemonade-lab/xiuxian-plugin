@@ -13,9 +13,10 @@ class Duel {
     if (!GameUser.existUserSatus({ UID: UIDA }) || !GameUser.existUserSatus({ UID: UIDB })) {
       return `已仙鹤`
     }
-    const { MSG } = Wrap.Go({ UID: UIDA })
-    if (MSG) {
-      return `${MSG}`
+    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    if (state == 4001) {
+      e.reply(msg)
+      return false
     }
     const CDID = '11'
     const nowTime = new Date().getTime()

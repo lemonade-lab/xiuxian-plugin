@@ -109,15 +109,33 @@ class Wrap {
       time.m = time.m < 0 ? 0 : time.m
       time.s = Math.floor(NowTime - time.h * 60 * 60 - time.m * 60)
       time.s = time.s < 0 ? 0 : time.s
+      //
       if (time.h == 0 && time.m == 0 && time.s == 0) {
-        return 0
+        return {
+          state: 2000,
+          msg: '通过'
+        }
       }
+      // 自定义的
       if (CDMAP) {
-        return { CDMSG: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
+        return {
+          state: 4001,
+          msg: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s`,
+          CDMSG: `${CDMAP[CDID]}冷却${time.h}h${time.m}m${time.s}s`
+        }
       }
-      return { CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s` }
+      // 原生
+      return {
+        state: 4001,
+        msg: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`,
+        CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`
+      }
     }
-    return {}
+    //
+    return {
+      state: 2000,
+      msg: '通过'
+    }
   }
 
   /**
@@ -126,17 +144,15 @@ class Wrap {
   GoMini(UID) {
     const action = REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
     if (action) {
-      if (action.actionName == undefined) {
-        // 根据判断msg存不存在来识别是否成功
-        return {
-          MSG: `旧版数据残留,请联系主人使用[(#|/)修仙删除数据]`
-        }
-      }
       return {
-        MSG: `${action.actionName}中...`
+        state: 4001,
+        msg: `${action.actionName}中...`
       }
     }
-    return {}
+    return {
+      state: 2000,
+      smg: '通过'
+    }
   }
 
   /**
@@ -150,7 +166,8 @@ class Wrap {
     if (action) {
       // 存在
       return {
-        MSG: `${action.actionName}中...`
+        state: 4001,
+        msg: `${action.actionName}中...`
       }
     }
     const player = gameUer.userMsgAction({
@@ -159,10 +176,14 @@ class Wrap {
     })
     if (player.nowblood <= 1) {
       return {
-        MSG: '血量不足'
+        state: 4001,
+        msg: '血量不足'
       }
     }
-    return {}
+    return {
+      sate: 2000,
+      msg: '成功'
+    }
   }
 }
 export default new Wrap()

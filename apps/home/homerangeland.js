@@ -63,9 +63,10 @@ export class Homerangeland extends plugin {
       return
     }
     const ifexisthome = HomeApi.GameUser.existhome({ UID })
-    let good = HomeApi.GameApi.Wrap.GoMini(e.user_id)
-    if (!good) {
-      return
+    const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
+    if (state == 4001) {
+      e.reply(msg)
+      return false
     }
     let region = ifexisthome.region
     let action = HomeApi.GameApi.UserData.controlAction({
@@ -659,9 +660,10 @@ export class Homerangeland extends plugin {
   // 偷
   async Stealanimals(e) {
     if (!this.verify(e)) return false
-    const good = HomeApi.GameApi.Wrap.Go(e.user_id)
-    if (!good) {
-      return
+    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    if (state == 4001) {
+      e.reply(msg)
+      return false
     }
     const user = {
       A: e.user_id,

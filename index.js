@@ -1,8 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { AppName, MyDirPath } from './app.config.js'
+import createdata from './model/game/data/createdata.js'
 
 /** 检测配置 */
+createdata.moveConfig()
 
 /** 读取配置 */
 // const task = BotApi.getConfig({ app: 'task', name: 'task' })

@@ -48,8 +48,9 @@ export class Homeland extends plugin {
       return false
     }
     const ifexisthome = HomeApi.GameUser.existhome({ UID })
-    let good = GameApi.Wrap.GoMini(e.user_id)
-    if (!good) {
+    const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
+    if (state == 4001) {
+      e.reply(msg)
       return false
     }
     let region = ifexisthome.region
@@ -430,8 +431,9 @@ export class Homeland extends plugin {
   // 偷菜
   async Stealvegetables(e) {
     if (!this.verify(e)) return false
-    const good = GameApi.Wrap.Go(e.user_id)
-    if (!good) {
+    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    if (state == 4001) {
+      e.reply(msg)
       return false
     }
     const user = {
