@@ -298,21 +298,16 @@ class GameUser {
       CHOICE: 'user_level',
       NAME: UID
     })
-    console.log('level=', level)
     const LevelList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
     })
-    console.log('LevelList=', LevelList)
     const LevelMaxList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'bodypractice'
     })
-    console.log('LevelMaxList=', LevelMaxList)
     const levelmini = LevelList.find((item) => item.id == level.levelId)
-    console.log('levelmini=', levelmini)
     const levelmax = LevelMaxList.find((item) => item.id == level.levelMaxId)
-    console.log('levelmax=', levelmax)
     const UserBattle = listdata.controlAction({
       CHOICE: 'user_battle',
       NAME: UID
