@@ -187,7 +187,7 @@ export class BoxHome extends plugin {
       CHOICE: 'user_talent',
       DATA: talent
     })
-    GameApi.GameUser.updataUserEfficiency({ UID })
+    GameApi.GameUser.updataUserEfficiency(UID)
     GameApi.GameUser.userBag({
       UID,
       name: najieThing.name,
@@ -220,7 +220,7 @@ export class BoxHome extends plugin {
       CHOICE: 'user_talent',
       DATA: talent
     })
-    GameApi.GameUser.updataUserEfficiency({ UID })
+    GameApi.GameUser.updataUserEfficiency(UID)
     GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
     e.reply(`忘了[${thingName}]`)
     return false
@@ -273,10 +273,8 @@ export class BoxHome extends plugin {
             CHOICE: 'user_talent',
             DATA: talent
           })
-          GameApi.GameUser.updataUserEfficiency({ UID })
-          const { path, name, data } = GameApi.Information.userDataShow({
-            UID: e.user_id
-          })
+          GameApi.GameUser.updataUserEfficiency(UID)
+          const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })
           break
@@ -292,9 +290,7 @@ export class BoxHome extends plugin {
             CHOICE: 'user_talent',
             DATA: talent
           })
-          const { path, name, data } = GameApi.Information.userDataShow({
-            UID: e.user_id
-          })
+          const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })
           break

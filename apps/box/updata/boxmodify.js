@@ -57,9 +57,7 @@ export class BoxModify extends plugin {
       CHOICE: 'user_life',
       DATA: life
     })
-    const { path, name, data } = GameApi.Information.userDataShow({
-      UID: e.user_id
-    })
+    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -105,9 +103,7 @@ export class BoxModify extends plugin {
       CHOICE: 'user_player',
       DATA: player
     })
-    const { path, name, data } = GameApi.Information.userDataShow({
-      UID: e.user_id
-    })
+    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false

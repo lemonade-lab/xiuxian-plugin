@@ -15,9 +15,7 @@ export class BoxStart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.userDataShow({
-      UID: e.user_id
-    })
+    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
 
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
@@ -52,10 +50,8 @@ export class BoxStart extends plugin {
       CHOICE: 'user_life',
       DATA: life
     })
-    GameApi.GameUser.createBoxPlayer({ UID: e.user_id })
-    const { path, name, data } = GameApi.Information.userDataShow({
-      UID: e.user_id
-    })
+    GameApi.GameUser.createBoxPlayer(e.user_id)
+    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false

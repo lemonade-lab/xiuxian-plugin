@@ -7,7 +7,7 @@ import Method from '../wrap/method.js'
 import { GameApi } from '../../api/index.js'
 class Duel {
   getDuel({ e, UIDA, UIDB }) {
-    if (!GameUser.getUID({ UID: UIDB })) {
+    if (!GameUser.getUID(UIDB)) {
       return `查无此人`
     }
     if (!GameUser.existUserSatus({ UID: UIDA }) || !GameUser.existUserSatus({ UID: UIDB })) {

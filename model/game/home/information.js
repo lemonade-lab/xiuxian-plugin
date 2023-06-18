@@ -1,7 +1,7 @@
 import { GameApi } from '../../api/index.js'
 import listdata from '../data/listdata.js'
 class Information {
-  userDataShow({ UID }) {
+  userDataShow(UID) {
     return {
       path: 'user/information',
       name: 'information',
@@ -11,7 +11,7 @@ class Information {
     }
   }
 
-  userWarehouseShow({ UID }) {
+  userWarehouseShow(UID) {
     let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'

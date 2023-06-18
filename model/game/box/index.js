@@ -41,7 +41,7 @@ class GameUser {
    * @param { UID } param0
    * @returns
    */
-  createBoxPlayer({ UID }) {
+  createBoxPlayer(UID) {
     listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player',
@@ -169,7 +169,7 @@ class GameUser {
       DATA: []
     })
     /** 更新天赋面板 */
-    this.updataUserEfficiency({ UID })
+    this.updataUserEfficiency(UID)
     /** 更新战斗面板 */
     this.readPanel({ UID })
     return true
@@ -397,7 +397,7 @@ class GameUser {
    * 计算天赋
    * @returns
    */
-  updataUserEfficiency({ UID }) {
+  updataUserEfficiency(UID) {
     try {
       const talent = listdata.controlAction({
         NAME: UID,
@@ -483,7 +483,7 @@ class GameUser {
    * @param { data } param0
    * @returns
    */
-  getTalentName({ data }) {
+  getTalentName(data) {
     const nameArr = []
     data.talent.forEach((talentitem) => {
       const talentList = listdata.controlAction({
@@ -555,7 +555,7 @@ class GameUser {
       }
       return true
     }
-    const CreateGO = this.createBoxPlayer({ UID })
+    const CreateGO = this.createBoxPlayer(UID)
     if (!CreateGO) {
       return false
     }
@@ -569,7 +569,7 @@ class GameUser {
     return true
   }
 
-  getUID({ UID }) {
+  getUID(UID) {
     let find = this.existUser(UID)
     if (find) {
       return true

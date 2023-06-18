@@ -6,7 +6,7 @@ class Information {
    * @param { UID } param0
    * @returns
    */
-  userDataShow({ UID }) {
+  userDataShow(UID) {
     const player = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player'
@@ -27,7 +27,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const linggenname = gameUser.getTalentName({ data: talent })
+    const linggenname = gameUser.getTalentName(talent)
     let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     let name = ''
@@ -63,7 +63,7 @@ class Information {
    * @param {*} param0
    * @returns
    */
-  userEquipmentShow({ UID }) {
+  userEquipmentShow(UID) {
     const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
@@ -90,12 +90,12 @@ class Information {
   /**
    * 功法信息
    */
-  userTalentShow({ UID }) {
+  userTalentShow(UID) {
     const talent = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const linggenname = gameUser.getTalentName({ data: talent })
+    const linggenname = gameUser.getTalentName(talent)
     let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     let name = ''

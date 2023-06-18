@@ -66,9 +66,7 @@ export class Homestart extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const { path, name, data } = HomeApi.Information.userWarehouseShow({
-      UID
-    })
+    const { path, name, data } = HomeApi.Information.userWarehouseShow(UID)
     e.reply(await BotApi.obtainingImages({ path, data, name }))
     return false
   }
