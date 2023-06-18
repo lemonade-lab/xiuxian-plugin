@@ -92,7 +92,7 @@ export class AssociationAdmin extends plugin {
           name: najieThingB.name,
           ACCOUNT: Number(-1)
         })
-        const now = new Date()
+        const now = new Date().getTime()
         const nowTime = now.getTime() // 获取当前时间戳
         const date = AssociationApi.assUser.timeChange(nowTime)
 
@@ -179,7 +179,7 @@ export class AssociationAdmin extends plugin {
       this.reply('该宗门已经存在,请重新输入:')
       return false
     }
-    const now = new Date()
+    const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前时间戳
     const date = AssociationApi.assUser.timeChange(nowTime)
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)

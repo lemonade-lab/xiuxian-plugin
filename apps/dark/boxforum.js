@@ -35,7 +35,7 @@ export class BoxForum extends plugin {
       e.reply('内容最多50个字!')
       return false
     }
-    const TheDate = new Date()
+    const TheDate = new Date().getTime()
     const Forum = GameApi.UserData.controlActionInitial({
       NAME: 'forum',
       CHOICE: 'generate_forum',

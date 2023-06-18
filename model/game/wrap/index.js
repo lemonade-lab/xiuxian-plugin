@@ -39,9 +39,10 @@ class Wrap {
    * @param {*} CDTime 要锁定的时间：分
    */
   setRedis(UID, CDID, nowTime, CDTime) {
+    console.log(nowTime, CDTime)
     REDIS.set(`${ReadiName}:${UID}:${CDID}`, {
       val: nowTime,
-      expire: CDTime * 600000
+      expire: CDTime * 60000
     })
   }
 
@@ -58,18 +59,19 @@ class Wrap {
   /**
    * @returns
    */
-  cooling({ UID, CDID }) {
-    /**
-     * 当时的时间
-     * 要锁定的时间
-     */
-    const { val, expire } = REDIS.get(`${ReadiName}:${UID}:${CDID}`)
-    // 如果当时设置了时间
-    if (val) {
+  cooling(UID, CDID) {
+    const data = REDIS.get(`${ReadiName}:${UID}:${CDID}`)
+    // 设置了时间
+    if (data != undefined) {
+      /**
+       * 当时的时间
+       * 要锁定的时间
+       */
+      const { val, expire } = data
       // 现在的时间
-      const NowTime = new Date()
-      if (NowTime >= val + expire) {
-        // 过期了,需要清除
+      const NowTime = new Date().getTime()
+      const onTime = val + expire
+      if (NowTime >= onTime) {
         REDIS.del(`${ReadiName}:${UID}:${CDID}`)
         return {
           state: 2000,
@@ -77,23 +79,11 @@ class Wrap {
         }
       }
       // 剩余时间计算
-      const theTime = val + expire - NowTime
-      const time = {
-        h: 0,
-        m: 0,
-        s: 0
-      }
-      // 格式转换
-      time.h = Math.floor(theTime / 60 / 60)
-      time.h = time.h < 0 ? 0 : time.h
-      time.m = Math.floor((theTime - time.h * 60 * 60) / 60)
-      time.m = time.m < 0 ? 0 : time.m
-      time.s = Math.floor(theTime - time.h * 60 * 60 - time.m * 60)
-      time.s = time.s < 0 ? 0 : time.s
+      const theTime = onTime - NowTime
+      console.log('theTime=', theTime)
       return {
         state: 4001,
-        msg: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`,
-        CDMSG: `${MYCD[CDID]}冷却${time.h}h${time.m}m${time.s}s`
+        msg: `${MYCD[CDID]}冷却:${convertTime(theTime)}`
       }
     }
     // 没设置时间
@@ -178,3 +168,15 @@ class Wrap {
   }
 }
 export default new Wrap()
+
+function convertTime(time) {
+  const ms = time % 1000
+  time = (time - ms) / 1000
+  const secs = time % 60
+  time = (time - secs) / 60
+  const mins = time % 60
+  time = (time - mins) / 60
+  const hrs = time % 24
+  const days = (time - hrs) / 24
+  return `${days}d${hrs}h${mins}m${secs}s`
+}

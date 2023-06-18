@@ -77,9 +77,9 @@ class UserAction {
       }
     }
     const nowTime = new Date().getTime()
-    const { CDMSG } = Wrap.cooling({ UID, CDID })
-    if (CDMSG) {
-      return { UserLevelUpMSG: `${CDMSG}` }
+    const { state: coolingState, msg: coolingMsg } = Wrap.cooling(UID, CDID)
+    if (coolingState == 4001) {
+      return { coolingMsg: `${coolingMsg}` }
     }
     Wrap.setRedis(UID, CDID, nowTime, CDTime)
     if (Math.random() >= 1 - player.levelmax_id / 22) {
@@ -190,9 +190,9 @@ class UserAction {
     let CDID = '13'
     let CDTime = 360
     const nowTime = new Date().getTime()
-    const { CDMSG } = Wrap.cooling({ UID, CDID })
-    if (CDMSG) {
-      return `${CDMSG}`
+    const { state: coolingState, msg: coolingMsg } = Wrap.cooling(UID, CDID)
+    if (coolingState == 4001) {
+      return `${coolingMsg}`
     }
     Wrap.setRedis(UID, CDID, nowTime, CDTime)
   }

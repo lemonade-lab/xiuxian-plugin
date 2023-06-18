@@ -36,9 +36,9 @@ export class BoxModify extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Name ? cf.CD.Name : 5
-    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
-    if (CDMSG) {
-      e.reply(CDMSG)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
@@ -94,9 +94,9 @@ export class BoxModify extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Autograph ? cf.CD.Autograph : 5
-    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
-    if (CDMSG) {
-      e.reply(CDMSG)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)

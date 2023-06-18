@@ -23,10 +23,11 @@ class Duel {
     const cf = defset.getConfig({ app: 'parameter', name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
 
-    const { CDMSG } = Wrap.cooling({ UID: UIDA, CDID })
-    if (CDMSG) {
-      return `${CDMSG}`
+    const { state: coolingState, msg: coolingMsg } = Wrap.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      return `${coolingMsg}`
     }
+
     const actionA = listdata.controlAction({
       NAME: UIDA,
       CHOICE: 'user_action'

@@ -203,7 +203,7 @@ class GameUser {
         NAME: 'life',
         INITIAL: []
       })
-      const time = new Date()
+      const time = new Date().getTime()
       life.push({
         qq: UID,
         time

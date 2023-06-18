@@ -77,7 +77,7 @@ export class Homeminefield extends plugin {
     const address = target.address
     const region = action.region
     const timeMax = 172800
-    let time = new Date()
+    let time = new Date().getTime()
     let nowTime = time.getTime()
     let minefield = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',

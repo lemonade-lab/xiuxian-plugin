@@ -125,7 +125,7 @@ export class AssociationJoin extends plugin {
     const joinPlayer = AssociationApi.assUser.getAssOrPlayer(1, joinQQ)
 
     if (assPlayer.assJob >= 8) {
-      const now = new Date()
+      const now = new Date().getTime()
       const nowTime = now.getTime() // 获取当前时间戳
       const date = AssociationApi.assUser.timeChange(nowTime)
       joinPlayer.assName = ass.id

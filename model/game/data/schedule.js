@@ -16,7 +16,7 @@ class Schedule {
    */
   scheduleJobflie({ time }) {
     schedule.scheduleJob(time, () => {
-      const myDate = new Date()
+      const myDate = new Date().getTime()
       const Y = myDate.getFullYear()
       const M = myDate.getMonth() + 1
       const D = myDate.getDate()

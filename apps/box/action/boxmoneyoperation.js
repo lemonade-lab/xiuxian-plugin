@@ -54,9 +54,9 @@ export class BoxMoneyOperation extends plugin {
     const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5
     const CDID = '5'
     const nowTime = new Date().getTime()
-    const { CDMSG } = GameApi.Wrap.cooling({ UID: A, CDID })
-    if (CDMSG) {
-      e.reply(CDMSG)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     GameApi.Wrap.setRedis(A, CDID, nowTime, CDTime)

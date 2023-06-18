@@ -137,7 +137,7 @@ export class Homestart extends plugin {
         CHOICE: 'position',
         INITIAL: []
       })
-      const time = new Date()
+      const time = new Date().getTime()
       positionhome.push({
         qq: UID,
         createTime: time.getTime(),
@@ -336,7 +336,7 @@ export class Homestart extends plugin {
           })
         }
       }
-      const time = new Date()
+      const time = new Date().getTime()
       target.createTime = time.getTime()
       target.address = address
       target.x = x

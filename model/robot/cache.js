@@ -31,7 +31,7 @@ class Cache {
     if (!Object.prototype.hasOwnProperty.call(allData, name)) {
       return {}
     }
-    const time = new Date().getMinutes()
+    const time = new Date().getTime().getMinutes()
     if (allData[name].time + 5 <= time) {
       return { CacheMSG: allData[name].data }
     }
@@ -43,7 +43,7 @@ class Cache {
    * @returns
    */
   addCahe({ name, data }) {
-    const time = new Date().getMinutes()
+    const time = new Date().getTime().getMinutes()
     if (!Object.prototype.hasOwnProperty.call(allData, name)) {
       allData[name] = {
         time: '',

@@ -34,9 +34,9 @@ export class BoxStart extends plugin {
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
     const CDID = '8'
     const nowTime = new Date().getTime()
-    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
-    if (CDMSG) {
-      e.reply(CDMSG)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)

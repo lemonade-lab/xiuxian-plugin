@@ -72,10 +72,10 @@ export class BoxHome extends plugin {
           const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
           const CDID = '12'
           const nowTime = new Date().getTime()
-          const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
-          if (CDMSG) {
+          const { state: coolingState } = GameApi.Wrap.cooling(e.user_id, CDID)
+          if (coolingState == 4001) {
             experience = 0
-            e.reply(CDMSG)
+            return false
           }
           GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
           const player = GameApi.UserData.controlAction({

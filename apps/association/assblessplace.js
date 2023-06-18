@@ -229,7 +229,7 @@ export class AssBlessPlace extends plugin {
       e.reply(`请先回驻地范围`)
       return false
     }
-    const now = new Date()
+    const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前日期的时间戳
     const Today = AssociationApi.assUser.timeInvert(nowTime)
     const lastExplorTime = AssociationApi.assUser.timeInvert(assPlayer.lastExplorTime) // 获得上次宗门签到日期

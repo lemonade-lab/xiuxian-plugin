@@ -28,9 +28,9 @@ export class BoxBattleSite extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Kill ? cf.CD.Kill : 5
-    const { CDMSG } = GameApi.Wrap.cooling({ UID, CDID })
-    if (CDMSG) {
-      e.reply(CDMSG)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     const Mname = e.msg.replace(/^(#|\/)击杀/, '')
