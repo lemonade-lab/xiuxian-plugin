@@ -12,15 +12,6 @@
     - icon: 55
       title: '(#|/)下架物品'
       desc: '仅限个人物品'
-    - icon: 55
-      title: '(#|/)虚空眼+资料'
-      desc: '查看资料'
-    - icon: 55
-      title: '(#|/)虚空栈'
-      desc: '查看跨群记录'
-    - icon: 57
-      title: '(#|/)喇叭+内容'
-      desc: '跨群实时聊天'
 
 - group: 金银作坊
   list:

@@ -30,8 +30,6 @@ export const __PATH = {
   user_bank: algorithm.getFliePath(`${playerPath}/bank`),
   /* 虚空境 */
   generate_exchange: algorithm.getFliePath(`${playerPath}/exchange`),
-  /* 虚空栈 */
-  generate_forum: algorithm.getFliePath(`${playerPath}/forum`),
 
   /* 自定义数据 */
   custom_goods: algorithm.getFliePath(`/xiuxiangoods`),
