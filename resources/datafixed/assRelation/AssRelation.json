@@ -2,21 +2,65 @@
   {
     "id": "Ass000001",
     "name": "剑神宗",
-    "unchartedName": "剑神窟"
+    "unchartedName": "剑神窟",
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "Ass000002",
     "name": "药神谷",
-    "unchartedName": "神药庄园"
+    "unchartedName": "神药庄园",
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "Ass000003",
     "name": "雾隐门",
-    "unchartedName": "雾隐地堡"
+    "unchartedName": "雾隐地堡",
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "Ass000004",
     "name": "天机阁",
-    "unchartedName": "天机古楼"
+    "unchartedName": "天机古楼",
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   }
 ]

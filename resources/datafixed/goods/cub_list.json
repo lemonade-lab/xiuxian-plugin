@@ -5,7 +5,18 @@
     "animallevel": 1,
     "doge": 20,
     "mature": 6,
-    "deadtime": 6
+    "deadtime": 6,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-2-1",
@@ -13,7 +24,18 @@
     "animallevel": 1,
     "doge": 28,
     "mature": 7,
-    "deadtime": 6
+    "deadtime": 6,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-3-1",
@@ -21,7 +43,18 @@
     "animallevel": 2,
     "doge": 30,
     "mature": 9,
-    "deadtime": 7
+    "deadtime": 7,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-4-1",
@@ -29,7 +62,18 @@
     "animallevel": 2,
     "doge": 25,
     "mature": 4,
-    "deadtime": 6
+    "deadtime": 6,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-5-1",
@@ -37,7 +81,18 @@
     "animallevel": 3,
     "doge": 25,
     "mature": 12,
-    "deadtime": 6
+    "deadtime": 6,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-6-1",
@@ -45,7 +100,18 @@
     "animallevel": 3,
     "doge": 24,
     "mature": 5,
-    "deadtime": 6
+    "deadtime": 6,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-7-1",
@@ -53,7 +119,18 @@
     "animallevel": 3,
     "doge": 25,
     "mature": 10,
-    "deadtime": 8
+    "deadtime": 8,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-8-1",
@@ -61,7 +138,18 @@
     "animallevel": 4,
     "doge": 26,
     "mature": 4,
-    "deadtime": 5
+    "deadtime": 5,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-9-1",
@@ -69,7 +157,18 @@
     "animallevel": 4,
     "doge": 30,
     "mature": 6,
-    "deadtime": 6
+    "deadtime": 6,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   },
   {
     "id": "50-1-10-1",
@@ -77,6 +176,17 @@
     "animallevel": 4,
     "doge": 35,
     "mature": 9,
-    "deadtime": 8
+    "deadtime": 8,
+    "attack": 0,
+    "defense": 0,
+    "blood": 0,
+    "burst": 0,
+    "burstmax": 0,
+    "size": 0,
+    "experience": 0,
+    "experiencemax": 0,
+    "speed": 0,
+    "acount": 1,
+    "price": 0
   }
 ]

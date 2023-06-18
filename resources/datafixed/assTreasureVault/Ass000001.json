@@ -4,7 +4,18 @@
       "id": "5-1-44",
       "name": "长虹剑决下",
       "privileges": 2,
-      "redeemPoint": 1
+      "redeemPoint": 1,
+      "attack": 0,
+      "defense": 0,
+      "blood": 0,
+      "burst": 0,
+      "burstmax": 0,
+      "size": 0,
+      "experience": 0,
+      "experiencemax": 0,
+      "speed": 0,
+      "acount": 1,
+      "price": 0
     }
   ],
   [
@@ -12,7 +23,18 @@
       "id": "5-1-45",
       "name": "长虹剑决中",
       "privileges": 4,
-      "redeemPoint": 9
+      "redeemPoint": 9,
+      "attack": 0,
+      "defense": 0,
+      "blood": 0,
+      "burst": 0,
+      "burstmax": 0,
+      "size": 0,
+      "experience": 0,
+      "experiencemax": 0,
+      "speed": 0,
+      "acount": 1,
+      "price": 0
     }
   ],
   [
@@ -21,7 +43,18 @@
       "name": "长虹剑决上",
       "class": "5",
       "privileges": 7,
-      "redeemPoint": 100
+      "redeemPoint": 100,
+      "attack": 0,
+      "defense": 0,
+      "blood": 0,
+      "burst": 0,
+      "burstmax": 0,
+      "size": 0,
+      "experience": 0,
+      "experiencemax": 0,
+      "speed": 0,
+      "acount": 1,
+      "price": 0
     }
   ]
 ]

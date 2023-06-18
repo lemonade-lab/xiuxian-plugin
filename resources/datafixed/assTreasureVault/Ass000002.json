@@ -4,7 +4,18 @@
       "id": "5-1-47",
       "name": "回春道典下",
       "privileges": 2,
-      "redeemPoint": 1
+      "redeemPoint": 1,
+      "attack": 0,
+      "defense": 0,
+      "blood": 0,
+      "burst": 0,
+      "burstmax": 0,
+      "size": 0,
+      "experience": 0,
+      "experiencemax": 0,
+      "speed": 0,
+      "acount": 1,
+      "price": 0
     }
   ],
   [
@@ -12,7 +23,18 @@
       "id": "5-1-48",
       "name": "回春道典中",
       "privileges": 4,
-      "redeemPoint": 9
+      "redeemPoint": 9,
+      "attack": 0,
+      "defense": 0,
+      "blood": 0,
+      "burst": 0,
+      "burstmax": 0,
+      "size": 0,
+      "experience": 0,
+      "experiencemax": 0,
+      "speed": 0,
+      "acount": 1,
+      "price": 0
     }
   ],
   [
@@ -20,7 +42,18 @@
       "id": "5-1-49",
       "name": "回春道典上",
       "privileges": 7,
-      "redeemPoint": 100
+      "redeemPoint": 100,
+      "attack": 0,
+      "defense": 0,
+      "blood": 0,
+      "burst": 0,
+      "burstmax": 0,
+      "size": 0,
+      "experience": 0,
+      "experiencemax": 0,
+      "speed": 0,
+      "acount": 1,
+      "price": 0
     }
   ]
 ]
