@@ -105,16 +105,6 @@ export class Boxfairyland extends plugin {
               )}%)点血量`
             )
           } else {
-            const play = GameApi.UserData.controlAction({
-              NAME: UID,
-              CHOICE: 'user_player'
-            })
-            play.dujiedie = 1
-            GameApi.UserData.controlAction({
-              NAME: UID,
-              CHOICE: 'user_player',
-              DATA: play
-            })
             e.reply(
               `第${i + 1}道雷劫劈下，你虽然已经生死，但是依旧无法逃脱${
                 Thunderbolt[talent.talent.length]
@@ -163,9 +153,7 @@ export class Boxfairyland extends plugin {
         } else {
           player.experience -= Level.exp
           e.reply(
-            `你未顶住${
-              Thunderbolt[talent.talent.length]
-            }道雷劫的洗礼,已生死虽肉体已已毁灭，凭借自己强大的修为，强行凝绝出人性容器，保证灵魂未消散(损失120000修为)`
+            `你未顶住${Thunderbolt[talent.talent.length]}道雷劫的洗礼，损失120000修为，险些跌落境界`
           )
         }
         GameApi.UserData.controlAction({

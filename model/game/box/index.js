@@ -3,7 +3,6 @@ import listdata from '../data/listdata.js'
 import Wrap from '../wrap/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
-import { GameApi } from '../../api/index.js'
 import Method from '../wrap/method.js'
 class GameUser {
   startLife() {
@@ -556,13 +555,6 @@ class GameUser {
     }
     const CreateGO = this.createBoxPlayer(UID)
     if (!CreateGO) {
-      return false
-    }
-    const play = GameApi.UserData.controlAction({
-      NAME: UID,
-      CHOICE: 'user_player'
-    })
-    if (play.dujiedie == 1) {
       return false
     }
     return true
