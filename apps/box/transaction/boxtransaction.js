@@ -23,6 +23,7 @@ export class BoxTransaction extends plugin {
     const addressName = '万宝楼'
     if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
+      return false
     }
 
     const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]']
@@ -86,6 +87,7 @@ export class BoxTransaction extends plugin {
     const addressName = '万宝楼'
     if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
+      return false
     }
     const [thingName, quantity] = e.msg.replace(/^(#|\/)购买/, '').split('*')
     const Commodities = GameApi.UserData.controlAction({
@@ -132,6 +134,7 @@ export class BoxTransaction extends plugin {
     const addressName = '万宝楼'
     if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
+      return false
     }
 
     const [thingName, quantity] = e.msg.replace(/^(#|\/)出售/, '').split('*')
