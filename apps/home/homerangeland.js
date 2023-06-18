@@ -675,16 +675,16 @@ export class Homerangeland extends plugin {
     if (!user.B) {
       return false
     }
-    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方还没建立过家园`)
       return
     }
-    if (!GameApi.GameUser.existUserSatus({ UID: user.A })) {
+    if (!GameApi.GameUser.existUserSatus(user.A)) {
       e.reply('对方已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID: user.A })
+    const archive = HomeApi.GameUser.Archiverangeland(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -764,16 +764,16 @@ export class Homerangeland extends plugin {
     if (!user.B) {
       return
     }
-    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方没建立过家园`)
       return
     }
-    if (!GameApi.GameUser.existUserSatus({ UID: user.A })) {
+    if (!GameApi.GameUser.existUserSatus(user.A)) {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID: user.A })
+    const archive = HomeApi.GameUser.Archiverangeland(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -788,7 +788,7 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.get_lookrangeland_img({ UID: user.B })
+    const { path, name, data } = HomeApi.Information.get_lookrangeland_img(user.B)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 }

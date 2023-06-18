@@ -10,7 +10,7 @@ class Duel {
     if (!GameUser.getUID(UIDB)) {
       return `查无此人`
     }
-    if (!GameUser.existUserSatus({ UID: UIDA }) || !GameUser.existUserSatus({ UID: UIDB })) {
+    if (!GameUser.existUserSatus(UIDA) || !GameUser.existUserSatus(UIDB)) {
       return `已仙鹤`
     }
     const { state, msg } = GameApi.Wrap.Go(e.user_id)

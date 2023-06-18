@@ -673,7 +673,7 @@ class GameUser {
     }
     extend[FLAG].perpetual[TYPE] = VALUE
     listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-    this.readPanel({ UID: NAME })
+    this.readPanel(NAME)
   }
 
   /**
@@ -708,7 +708,7 @@ class GameUser {
       extend[FLAG].times[find].value >= VALUE
     ) {
       listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-      this.readPanel({ UID: NAME })
+      this.readPanel(NAME)
     } else if (
       find != -1 &&
       (extend[FLAG].times[find].timeLimit <= time || extend[FLAG].times[find].value < VALUE)
@@ -716,7 +716,7 @@ class GameUser {
       extend[FLAG].times[find].value = VALUE
       extend[FLAG].times[find].timeLimit = ENDTIME
       listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-      this.readPanel({ UID: NAME })
+      this.readPanel(NAME)
     } else {
       extend[FLAG].times.push({
         type: TYPE,
@@ -724,7 +724,7 @@ class GameUser {
         timeLimit: ENDTIME
       })
       listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
-      this.readPanel({ UID: NAME })
+      this.readPanel(NAME)
     }
   }
 

@@ -446,16 +446,16 @@ export class Homeland extends plugin {
     if (!user.B) {
       return false
     }
-    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方还没建立过家园`)
       return false
     }
-    if (!GameApi.GameUser.existUserSatus({ UID: user.A })) {
+    if (!GameApi.GameUser.existUserSatus(user.A)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID: user.A })
+    const archive = HomeApi.GameUser.Archive(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -565,17 +565,17 @@ export class Homeland extends plugin {
     if (!user.B) {
       return
     }
-    const ifexisthome1 = HomeApi.GameUser.existhome({ UID: user.B })
+    const ifexisthome1 = HomeApi.GameUser.existhome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方没建立过家园`)
       return
     }
-    const ifexisthome = GameApi.GameUser.existUserSatus({ UID: user.A })
+    const ifexisthome = GameApi.GameUser.existUserSatus(user.A)
     if (!ifexisthome) {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archive({ UID: user.A })
+    const archive = HomeApi.GameUser.Archive(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return

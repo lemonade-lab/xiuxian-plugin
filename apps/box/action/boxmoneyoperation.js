@@ -20,7 +20,7 @@ export class BoxMoneyOperation extends plugin {
     const A = e.user_id
     const B = BotApi.Robot.at({ e })
     if (!B || B == A) return false
-    const existB = GameApi.GameUser.existUserSatus({ UID: B })
+    const existB = GameApi.GameUser.existUserSatus(B)
     if (!existB) {
       e.reply('已仙鹤')
       return false
