@@ -58,7 +58,7 @@ export class BoxPlayerControl extends plugin {
   async chuGuan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -85,7 +85,7 @@ export class BoxPlayerControl extends plugin {
   async endWork(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }

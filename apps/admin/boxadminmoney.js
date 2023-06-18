@@ -3,35 +3,10 @@ export class Boxadminmoney extends plugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)修仙扣除.*$/, fnc: 'deduction' },
-        { reg: /^(#|\/)修仙馈赠.*$/, fnc: 'gifts' }
+        { reg: /^(#|\/)修仙扣除[\u4e00-\u9fa5]+\*\d+$/, fnc: 'deduction' },
+        { reg: /^(#|\/)修仙馈赠[\u4e00-\u9fa5]+\*\d+$/, fnc: 'gifts' }
       ]
     })
-  }
-
-  async gifts(e) {
-    if (!e.isMaster) return false
-    if (!this.verify(e)) return false
-    const UID = BotApi.Robot.at({ e })
-    if (!UID) return false
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
-    const [name, acount] = thingName.split('*')
-    const quantity = GameApi.Method.leastOne(acount)
-    const bag = GameApi.GameUser.userBag({
-      UID,
-      name,
-      ACCOUNT: quantity
-    })
-    if (bag) {
-      e.reply(`${UID}获得馈赠[${name}]*${quantity}`)
-    } else {
-      e.reply(`馈赠[${name}]失败`)
-    }
-    return false
   }
 
   async deduction(e) {
@@ -39,26 +14,48 @@ export class Boxadminmoney extends plugin {
     if (!this.verify(e)) return false
     const UID = BotApi.Robot.at({ e })
     if (!UID) return false
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    let lingshi = e.msg.replace(/^(#|\/)修仙扣除/, '')
-    lingshi = GameApi.Method.leastOne(lingshi)
+    const thingName = e.msg.replace(/^(#|\/)修仙扣除/, '')
+    const [name, ACCOUNT] = thingName.split('*')
     const thing = GameApi.GameUser.userBagSearch({
       UID,
-      name: '下品灵石'
+      name
     })
-    if (!thing || thing.acount < lingshi) {
-      e.reply('他好穷的')
+    if (!thing || thing.acount < ACCOUNT) {
+      e.reply('数量不足')
       return false
     }
     GameApi.GameUser.userBag({
       UID,
-      name: '下品灵石',
-      ACCOUNT: -lingshi
+      name,
+      ACCOUNT: -ACCOUNT
     })
-    e.reply(`已扣除${lingshi}[下品灵石]`)
+    e.reply(`${UID}被扣除${ACCOUNT}[${name}]`)
+    return false
+  }
+
+  async gifts(e) {
+    if (!e.isMaster) return false
+    if (!this.verify(e)) return false
+    const UID = BotApi.Robot.at({ e })
+    if (!UID) return false
+    if (!GameApi.GameUser.existUserSatus(UID)) {
+      e.reply('已仙鹤')
+      return false
+    }
+    const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
+    const [name, ACCOUNT] = thingName.split('*')
+    const bag = GameApi.GameUser.userBag({
+      UID,
+      name,
+      ACCOUNT
+    })
+    if (bag) {
+      e.reply(`${UID}获馈赠[${name}]*${ACCOUNT}`)
+    }
     return false
   }
 }

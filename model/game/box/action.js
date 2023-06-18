@@ -28,7 +28,7 @@ class UserAction {
    * @returns
    */
   userLevelUp({ UID, choise }) {
-    const ifexistplay = user.existUserSatus({ UID })
+    const ifexistplay = user.existUserSatus(UID)
     if (!ifexistplay) {
       return { UserLevelUpMSG: `已仙鹤` }
     }
@@ -175,7 +175,7 @@ class UserAction {
    * @returns
    */
   levelBreak({ UID }) {
-    const ifexistplay = user.existUserSatus({ UID })
+    const ifexistplay = user.existUserSatus(UID)
     if (!ifexistplay) {
       return `已仙鹤`
     }

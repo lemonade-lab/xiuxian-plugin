@@ -26,7 +26,7 @@ export class BoxForum extends plugin {
 
   async pushForum(e) {
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }

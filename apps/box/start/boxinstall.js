@@ -23,7 +23,7 @@ export class BoxInstall extends plugin {
       return false
     }
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply([segment.at(UID), '您已仙鹤,需[(#|/)再入仙途]后步入轮回!'])
       return false
     }

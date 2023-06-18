@@ -12,7 +12,7 @@ export class BoxBank extends plugin {
   async moneyWorkshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -44,7 +44,7 @@ export class BoxBank extends plugin {
   async substitution(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }

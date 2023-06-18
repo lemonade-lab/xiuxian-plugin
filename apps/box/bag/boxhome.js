@@ -3,7 +3,7 @@ export class BoxHome extends plugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)服用[\u4e00-\u9fa5]*$/, fnc: 'take' },
+        { reg: /^(#|\/)服用[\u4e00-\u9fa5]+\*\d+$/, fnc: 'take' },
         { reg: /^(#|\/)学习[\u4e00-\u9fa5]*$/, fnc: 'study' },
         { reg: /^(#|\/)忘掉[\u4e00-\u9fa5]*$/, fnc: 'forget' },
         { reg: /^(#|\/)消耗[\u4e00-\u9fa5]*$/, fnc: 'consumption' }
@@ -14,12 +14,11 @@ export class BoxHome extends plugin {
   async take(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     let [thingName, thingAcount] = e.msg.replace(/^(#|\/)服用/, '').split('*')
-    thingAcount = GameApi.Method.leastOne(thingAcount)
     const najieThing = GameApi.GameUser.userBagSearch({
       UID,
       name: thingName
@@ -149,7 +148,7 @@ export class BoxHome extends plugin {
   async study(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -201,7 +200,7 @@ export class BoxHome extends plugin {
   async forget(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -230,7 +229,7 @@ export class BoxHome extends plugin {
   async consumption(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }

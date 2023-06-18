@@ -541,7 +541,7 @@ class GameUser {
    * @param {UID} UID
    * @returns
    */
-  existUserSatus({ UID }) {
+  existUserSatus(UID) {
     let find = this.existUser(UID)
     if (find) {
       if (find.status == 0) {

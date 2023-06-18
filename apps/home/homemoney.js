@@ -29,7 +29,7 @@ export class Homemoney extends plugin {
     let UID = e.user_id
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -54,7 +54,7 @@ export class Homemoney extends plugin {
   async Homesale(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -121,7 +121,7 @@ export class Homemoney extends plugin {
   async dogshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -176,7 +176,7 @@ export class Homemoney extends plugin {
   async Buy_home(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus({ UID })) {
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
