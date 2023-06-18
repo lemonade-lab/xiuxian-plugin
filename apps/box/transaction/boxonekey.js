@@ -26,9 +26,11 @@ export class BoxOnekey extends plugin {
       CHOICE: 'user_bag'
     })
     let money = 0
-    bag.thing.forEach((item) => {
-      money += Number(item.acount) * Number(item.price)
-    })
+    for (let item of bag.thing) {
+      if (!isNaN(item.acount) && !isNaN(item.price)) {
+        money += Number(item.acount) * Number(item.price)
+      }
+    }
     // 错误
     if (isNaN(money)) {
       return false
