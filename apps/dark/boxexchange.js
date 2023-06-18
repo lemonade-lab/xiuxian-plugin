@@ -64,11 +64,16 @@ export class BoxExchange extends plugin {
       INITIAL: {}
     })
     const ID = myDate + sum
-    if (exchange[UID]) {
+    const LifeData = GameApi.UserData.controlActionInitial({
+      NAME: 'life',
+      CHOICE: 'user_life',
+      INITIAL: {}
+    })
+    if (exchange[LifeData[UID].createTime]) {
       e.reply('有待出售物品未成功出售~')
       return false
     }
-    exchange[UID] = {
+    exchange[LifeData[UID].createTime] = {
       ID,
       thing: bagThing,
       account,
@@ -101,7 +106,18 @@ export class BoxExchange extends plugin {
       CHOICE: 'generate_exchange',
       INITIAL: {}
     })
-    if (!exchange[UID]) {
+    /**
+     * 还要再加一个寿命信息,拿到创建的时间
+     */
+    const LifeData = GameApi.UserData.controlActionInitial({
+      NAME: 'life',
+      CHOICE: 'user_life',
+      INITIAL: {}
+    })
+    /**
+     * 每个人的创建时间都不同,可以作为第二个UID
+     */
+    if (!exchange[LifeData[UID].createTime]) {
       e.reply('未有上架物品')
       return
     }
@@ -115,10 +131,10 @@ export class BoxExchange extends plugin {
     }
     GameApi.GameUser.userBag({
       UID,
-      name: exchange[UID].thing.name,
-      ACCOUNT: exchange[UID].account
+      name: exchange[LifeData[UID].createTime].thing.name,
+      ACCOUNT: exchange[LifeData[UID].createTime].account
     })
-    delete exchange[UID]
+    delete exchange[LifeData[UID].createTime]
     GameApi.UserData.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',

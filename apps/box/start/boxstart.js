@@ -38,17 +38,7 @@ export class BoxStart extends plugin {
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     GameApi.Wrap.deleteAction(UID)
-    const LifeData = GameApi.UserData.controlActionInitial({
-      NAME: 'life',
-      CHOICE: 'user_life',
-      INITIAL: {}
-    })
-    delete LifeData[UID]
-    GameApi.UserData.controlAction({
-      NAME: 'life',
-      CHOICE: 'user_life',
-      DATA: LifeData
-    })
+    // 重生后life重置,不需要做其他修改
     GameApi.GameUser.createBoxPlayer(e.user_id)
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))

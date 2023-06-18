@@ -149,7 +149,7 @@ class GameUser {
       name: `${name}`,
       Age: 1, // 年龄
       life: Math.floor(Math.random() * (84 - 60) + 60), // 寿命
-      createTime: new Date().getTime(),
+      createTime: new Date().getTime(), // 创建时间
       status: 1
     }
     listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
