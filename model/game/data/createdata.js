@@ -100,11 +100,11 @@ class CreateData {
         const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
         const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
         if (Nconfig.time != Vconfig.time) {
-          console.log('[xiuxian@2.0.0]配置版本不匹配...')
-          console.log('[xiuxian@2.0.0]准备重置配置...')
+          console.log('[xiuxian@2.1]配置版本不匹配...')
+          console.log('[xiuxian@2.1]准备重置配置...')
           const arr = configarr.filter((item) => item != 'namelist.yaml')
           this.removeConfigByArr(arr)
-          console.log('[xiuxian@2.0.0]配置重置完成')
+          console.log('[xiuxian@2.1]配置重置完成')
         }
       }
       init = 1
