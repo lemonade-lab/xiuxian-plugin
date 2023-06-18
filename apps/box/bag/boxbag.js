@@ -16,7 +16,7 @@ export class BoxBag extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.userBagShow({ UID })
+    const { path, name, data } = GameApi.Information.userBagShow(UID)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -24,7 +24,7 @@ export class BoxBag extends plugin {
 
   async bagUp(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
+    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }

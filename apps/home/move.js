@@ -30,7 +30,7 @@ export class Homemove extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     // 有无存档
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
@@ -38,7 +38,7 @@ export class Homemove extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     const region2 = ifexisthome.region
     const action1 = GameApi.UserData.controlAction({
       NAME: UID,
@@ -106,7 +106,7 @@ export class Homemove extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     // 有无存档
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
@@ -114,7 +114,7 @@ export class Homemove extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     const home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
@@ -192,7 +192,7 @@ export class Homemove extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     // 有无存档
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
@@ -322,7 +322,7 @@ export class Homemove extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     // 有无存档
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return

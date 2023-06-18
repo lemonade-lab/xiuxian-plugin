@@ -8,7 +8,7 @@ export class BoxMoneyOperation extends plugin {
 
   async giveMoney(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
+    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }

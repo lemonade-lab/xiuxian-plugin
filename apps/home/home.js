@@ -41,7 +41,7 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -61,7 +61,7 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -78,7 +78,7 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)
       return false
@@ -167,12 +167,12 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     const region = ifexisthome.region
     const action = GameApi.UserData.controlAction({
       NAME: UID,
@@ -183,7 +183,7 @@ export class Homestart extends plugin {
       e.reply('您现在不在家园里，请回到家园所在地进行操作')
       return false
     }
-    const { homemsg } = HomeApi.UserAction.userextensionhome({ UID })
+    const { homemsg } = HomeApi.UserAction.userextensionhome(UID)
     if (homemsg) {
       e.reply(homemsg)
     }
@@ -199,7 +199,7 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -246,12 +246,12 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (ifexisthome == undefined) {
       e.reply('您都还没建立过家园')
       return false

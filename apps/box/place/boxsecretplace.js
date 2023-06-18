@@ -51,7 +51,7 @@ export class BoxSecretplace extends plugin {
 
   async falsePiont(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
+    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -85,7 +85,7 @@ export class BoxSecretplace extends plugin {
 
   async forward(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
+    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -155,7 +155,7 @@ export class BoxSecretplace extends plugin {
 
   async delivery(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus({ UID: e.user_id })) {
+    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }

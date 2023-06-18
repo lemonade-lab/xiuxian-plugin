@@ -45,7 +45,7 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -489,7 +489,7 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -578,7 +578,7 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -664,7 +664,7 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -696,7 +696,7 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -782,7 +782,7 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false

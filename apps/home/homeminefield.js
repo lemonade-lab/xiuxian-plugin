@@ -52,12 +52,12 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     let region2 = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
@@ -190,12 +190,12 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     let region2 = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
@@ -265,7 +265,7 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -385,7 +385,7 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -466,7 +466,7 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -501,7 +501,7 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -612,7 +612,7 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -690,7 +690,7 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false

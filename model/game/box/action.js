@@ -136,7 +136,7 @@ class UserAction {
       CHOICE: 'user_level',
       DATA: player
     })
-    user.readPanel({ UID })
+    user.readPanel(UID)
     return {
       UserLevelUpMSG: `${returnTXT}`
     }
@@ -174,7 +174,7 @@ class UserAction {
    * @param {*} param0
    * @returns
    */
-  levelBreak({ UID }) {
+  levelBreak(UID) {
     const ifexistplay = user.existUserSatus(UID)
     if (!ifexistplay) {
       return `已仙鹤`
@@ -231,7 +231,7 @@ class UserAction {
       CHOICE: 'user_level',
       DATA: player
     })
-    user.readPanel({ UID })
+    user.readPanel(UID)
     return {
       UserLevelUpMSG: `${returnTXT}`
     }

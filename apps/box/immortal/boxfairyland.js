@@ -89,7 +89,7 @@ export class Boxfairyland extends plugin {
             CHOICE: 'user_battle'
           })
           if (battle.nowblood > 0) {
-            let damage = Math.trunc(GameApi.GameBattle.Thunderbolt_damage({ UID }))
+            let damage = Math.trunc(GameApi.GameBattle.Thunderbolt_damage(UID))
             battle.nowblood -= damage
             if (battle.nowblood < 0) {
               battle.nowblood = 0

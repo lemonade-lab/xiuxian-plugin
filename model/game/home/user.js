@@ -54,7 +54,7 @@ class GameUser {
 
   /**
    * 搜索UID的背包有没有物品名为NAME
-   * @param {UID} UID
+   * @param UID  UID
    * @param {物品名} name
    * @returns 返回该物品
    */
@@ -69,7 +69,7 @@ class GameUser {
   }
 
   /**
-   * @param {UID} UID
+   * @param UID  UID
    * @param {物品名} name
    * @returns 若仓库存在即返回物品信息,若不存在则undifind
    */
@@ -82,16 +82,16 @@ class GameUser {
   }
 
   // 家园
-  Archive({ UID }) {
-    const home = this.existhomeplugins({ UID })
+  Archive(UID) {
+    const home = this.existhomeplugins(UID)
     let Msg = ''
     if (home == 1) {
-      this.homejiazai({ UID })
+      this.homejiazai(UID)
       Msg =
         '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行(#|/)建立家园+地点名字，建立家园'
       return Msg
     } else {
-      const ifexisthome = this.existhome({ UID })
+      const ifexisthome = this.existhome(UID)
       if (!ifexisthome) {
         Msg = '您都还没建立过家园'
         return Msg
@@ -101,7 +101,7 @@ class GameUser {
   }
 
   // 牧场
-  Archiverangeland({ UID }) {
+  Archiverangeland(UID) {
     let life = listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'userHomeLife',
@@ -110,7 +110,7 @@ class GameUser {
     let fond = life.find((item) => item.qq == UID)
     let Msg = ''
     if (!fond) {
-      this.homejiazai({ UID })
+      this.homejiazai(UID)
       Msg =
         '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行(#|/)建立家园+地点名字，建立家园'
       return Msg
@@ -152,7 +152,7 @@ class GameUser {
     return 0
   }
 
-  existhomeplugins({ UID }) {
+  existhomeplugins(UID) {
     const life = listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'userHomeLife',
@@ -166,7 +166,7 @@ class GameUser {
     }
   }
 
-  homejiazai({ UID }) {
+  homejiazai(UID) {
     try {
       listdata.controlAction({
         NAME: UID,
@@ -220,7 +220,7 @@ class GameUser {
     }
   }
 
-  existhome({ UID }) {
+  existhome(UID) {
     const positionhome = listdata.controlActionInitial({
       NAME: 'position',
       CHOICE: 'user_home_position',

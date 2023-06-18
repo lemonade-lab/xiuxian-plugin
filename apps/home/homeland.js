@@ -42,12 +42,12 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
     if (state == 4001) {
       e.reply(msg)
@@ -121,12 +121,12 @@ export class Homeland extends plugin {
     if (!this.verify(e)) return false
     // 有无存档
     let UID = e.user_id
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -241,12 +241,12 @@ export class Homeland extends plugin {
   async shouhuo(e) {
     if (!this.verify(e)) return false
     let UID = e.user_id
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -416,7 +416,7 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive({ UID })
+    const archive = HomeApi.GameUser.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false

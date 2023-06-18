@@ -38,7 +38,7 @@ class GameUser {
   }
 
   /**
-   * @param { UID } param0
+   * @param UID  param0
    * @returns
    */
   createBoxPlayer(UID) {
@@ -171,7 +171,7 @@ class GameUser {
     /** 更新天赋面板 */
     this.updataUserEfficiency(UID)
     /** 更新战斗面板 */
-    this.readPanel({ UID })
+    this.readPanel(UID)
     return true
   }
 
@@ -293,9 +293,9 @@ class GameUser {
   }
 
   /**
-   * @param { UID } param0
+   * @param UID  param0
    * @returns 返回UID的面板
-   */ readPanel({ UID }) {
+   */ readPanel(UID) {
     const equipment = listdata.controlAction({
       CHOICE: 'user_equipment',
       NAME: UID
@@ -530,7 +530,7 @@ class GameUser {
 
   /**
    * 返回UID的寿命信息
-   * @param {UID} UID
+   * @param UID  UID
    * @returns 不存在则undifind
    */
   existUser(UID) {
@@ -544,7 +544,7 @@ class GameUser {
 
   /**
    * 判断是否死亡
-   * @param {UID} UID
+   * @param UID  UID
    * @returns
    */
   existUserSatus(UID) {

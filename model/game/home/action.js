@@ -3,7 +3,7 @@ import Wrap from '../wrap/index.js'
 import User from './user.js'
 class UserAction {
   userextensionhome(parameter) {
-    const { UID } = parameter
+    const UID = parameter
     const home = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_user'

@@ -57,12 +57,12 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
     if (state == 4001) {
       e.reply(msg)
@@ -130,13 +130,13 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     // 确认位置
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     let region = ifexisthome.region
     let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
@@ -236,13 +236,13 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
     // 确认位置
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     let region = ifexisthome.region
     let action = HomeApi.GameApi.UserData.controlAction({
       NAME: UID,
@@ -355,12 +355,12 @@ export class Homerangeland extends plugin {
     if (!this.verify(e)) return false
     // 检查存档
     let UID = e.user_id
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
     }
@@ -476,12 +476,12 @@ export class Homerangeland extends plugin {
     if (!this.verify(e)) return false
     // 检查存档
     let UID = e.user_id
-    const ifexisthome = HomeApi.GameUser.existhome({ UID })
+    const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
     }
@@ -590,7 +590,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
     }
@@ -648,12 +648,12 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GameUser.Archiverangeland({ UID })
+    const archive = HomeApi.GameUser.Archiverangeland(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
-    const { path, name, data } = HomeApi.Information.get_lookrangeland_img({ UID })
+    const { path, name, data } = HomeApi.Information.get_lookrangeland_img(UID)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 

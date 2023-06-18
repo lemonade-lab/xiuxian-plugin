@@ -42,7 +42,7 @@ export class BoxEquipment extends plugin {
       DATA: equipment
     })
     GameApi.GameUser.userBag({ UID, name: thingName, ACCOUNT: -1 })
-    GameApi.GameUser.readPanel({ UID })
+    GameApi.GameUser.readPanel(UID)
     e.reply(`装备[${thingName}]`)
     return false
   }
@@ -78,7 +78,7 @@ export class BoxEquipment extends plugin {
       DATA: equipment
     })
     GameApi.GameUser.userBag({ UID, name: thingName, ACCOUNT: 1 })
-    GameApi.GameUser.readPanel({ UID })
+    GameApi.GameUser.readPanel(UID)
     e.reply(`已卸下[${thingName}]`)
     return false
   }

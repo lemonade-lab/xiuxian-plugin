@@ -3,7 +3,7 @@ import listdata from '../data/listdata.js'
 class Information {
   /**
    * 基础信息
-   * @param { UID } param0
+   * @param UID  param0
    * @returns
    */
   userDataShow(UID) {
@@ -127,7 +127,7 @@ class Information {
    * 背包
    * @returns
    */
-  userBagShow({ UID }) {
+  userBagShow(UID) {
     let life = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     life = life.find((item) => item.qq == UID)
     const player = listdata.controlAction({

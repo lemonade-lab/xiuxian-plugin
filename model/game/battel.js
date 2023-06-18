@@ -245,7 +245,7 @@ class GameBattle {
   }
 
   /* 雷劫伤害 */
-  Thunderbolt_damage({ UID }) {
+  Thunderbolt_damage(UID) {
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
