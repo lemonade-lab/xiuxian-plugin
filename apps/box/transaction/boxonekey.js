@@ -18,7 +18,7 @@ export class BoxOnekey extends plugin {
     }
 
     const addressName = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+    if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 
@@ -53,7 +53,7 @@ export class BoxOnekey extends plugin {
     }
 
     const addressName = '万宝楼'
-    if (!GameApi.GameMap.mapAction({ UID, addressName })) {
+    if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     }
 

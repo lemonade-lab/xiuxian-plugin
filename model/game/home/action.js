@@ -2,7 +2,7 @@ import listdata from '../data/listdata.js'
 import Wrap from '../public/index.js'
 import User from './user.js'
 class UserAction {
-  userextensionhome = (parameter) => {
+  userextensionhome(parameter) {
     const { UID } = parameter
     const home = listdata.controlAction({
       NAME: UID,
@@ -87,7 +87,7 @@ class UserAction {
         name: thingNameh,
         ACCOUNT: -h
       })
-      User.Add_doge({ UID, money: -money })
+      User.addDoge({ UID, money: -money })
       return { homemsg: `建筑队正在扩建家园，预计需要${time}秒` }
     }
   }

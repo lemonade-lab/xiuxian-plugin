@@ -1,30 +1,43 @@
 const useraction = {}
 const forwardsetTime = {}
 const deliverysetTime = {}
-export function getUserAction(key) {
-  return useraction[key]
+
+class Place {
+  getUserAction(key) {
+    return useraction[key]
+  }
+
+  setUserAction(key, val) {
+    useraction[key] = val
+  }
+
+  deleteUserAction(key) {
+    delete useraction[key]
+  }
+
+  getUserTime(key) {
+    return forwardsetTime[key]
+  }
+
+  setUserTime(key, val) {
+    forwardsetTime[key] = val
+  }
+
+  deleteUserTime(key) {
+    delete forwardsetTime[key]
+  }
+
+  getUserDelivery(key) {
+    return deliverysetTime[key]
+  }
+
+  setUserDelivery(key, val) {
+    deliverysetTime[key] = val
+  }
+
+  deleteUserDelivery(key) {
+    delete deliverysetTime[key]
+  }
 }
-export function setUserAction(key, val) {
-  useraction[key] = val
-}
-export function deleteUserAction(key) {
-  delete useraction[key]
-}
-export function getUserTime(key) {
-  return forwardsetTime[key]
-}
-export function setUserTime(key, val) {
-  forwardsetTime[key] = val
-}
-export function deleteUserTime(key) {
-  delete forwardsetTime[key]
-}
-export function getUserDelivery(key) {
-  return deliverysetTime[key]
-}
-export function setUserDelivery(key, val) {
-  deliverysetTime[key] = val
-}
-export function deleteUserDelivery(key) {
-  delete deliverysetTime[key]
-}
+
+export default new Place()

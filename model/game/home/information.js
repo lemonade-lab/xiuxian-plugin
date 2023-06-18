@@ -1,7 +1,7 @@
 import { GameApi } from '../../api/index.js'
 import listdata from '../data/listdata.js'
 class Information {
-  userDataShow = ({ UID }) => {
+  userDataShow({ UID }) {
     return {
       path: 'user/information',
       name: 'information',
@@ -11,7 +11,7 @@ class Information {
     }
   }
 
-  userWarehouseShow = ({ UID }) => {
+  userWarehouseShow({ UID }) {
     let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
@@ -108,7 +108,7 @@ class Information {
     }
   }
 
-  userhomeShow = ({ UID }) => {
+  userhomeShow({ UID }) {
     const player = GameApi.UserData.controlAction({
       CHOICE: 'user_home_player',
       NAME: UID
@@ -154,7 +154,7 @@ class Information {
     }
   }
 
-  get_lookland_img = ({ UID }) => {
+  get_lookland_img({ UID }) {
     let life = GameApi.GameUser.userMsgAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
@@ -189,7 +189,7 @@ class Information {
     }
   }
 
-  get_lookrangeland_img = ({ UID }) => {
+  get_lookrangeland_img({ UID }) {
     const rangelandannimals = listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,

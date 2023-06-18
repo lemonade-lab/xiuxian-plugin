@@ -27,7 +27,7 @@ class UserAction {
    * @param { UID, choise } param0
    * @returns
    */
-  userLevelUp = ({ UID, choise }) => {
+  userLevelUp({ UID, choise }) {
     const ifexistplay = user.existUserSatus({ UID })
     if (!ifexistplay) {
       return { UserLevelUpMSG: `已仙鹤` }
@@ -146,7 +146,7 @@ class UserAction {
    * @param { UID, levelId, acount } param0
    * @returns
    */
-  userLifeUp = ({ UID, levelId, acount }) => {
+  userLifeUp({ UID, levelId, acount }) {
     let size = 0
     const life = listdata.controlAction({
       NAME: 'life',
@@ -174,7 +174,7 @@ class UserAction {
    * @param {*} param0
    * @returns
    */
-  levelBreak = ({ UID }) => {
+  levelBreak({ UID }) {
     const ifexistplay = user.existUserSatus({ UID })
     if (!ifexistplay) {
       return `已仙鹤`

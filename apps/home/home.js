@@ -100,7 +100,7 @@ export class home extends plugin {
       CHOICE: 'user_action'
     })
     const addressName = '极西联盟'
-    const map = GameApi.GameMap.mapExistence({
+    const map = GameApi.WrapMap.mapExistence({
       action,
       addressName
     })
@@ -353,7 +353,7 @@ export class home extends plugin {
         name: thingName,
         ACCOUNT: -a
       })
-      HomeApi.GameUser.Add_doge({ UID, money: -2000 })
+      HomeApi.GameUser.addDoge({ UID, money: -2000 })
       e.reply(
         `成功在${address}建立了新的家园，花费2000灵晶(原来家园所在地如果占领了的话将会撤走哦!)`
       )

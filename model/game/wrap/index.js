@@ -27,7 +27,7 @@ class Wrap {
    * 删除所有数据
    * @returns
    */
-  deleteReids = () => {
+  deleteReids() {
     REDIS.delall()
   }
 
@@ -38,7 +38,7 @@ class Wrap {
    * @param {*} nowTime
    * @param {*} CDTime
    */
-  setRedis = (UID, CDID, nowTime, CDTime) => {
+  setRedis(UID, CDID, nowTime, CDTime) {
     REDIS.set(`${ReadiName}:${UID}:${CDID}`, {
       val: nowTime,
       expire: CDTime * 60
@@ -51,7 +51,9 @@ class Wrap {
    * @param {*} CDID
    * @returns
    */
-  getRedis = (UID, CDID) => REDIS.get(`${ReadiName}:${UID}:${CDID}`)
+  getRedis(UID, CDID) {
+    return REDIS.get(`${ReadiName}:${UID}:${CDID}`)
+  }
 
   /**
    * 设置action
@@ -67,7 +69,9 @@ class Wrap {
    * @param {*} UID
    * @returns
    */
-  getAction = (UID) => REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
+  getAction(UID) {
+    return REDIS.get(`${ReadiName}:${UID}:${MYCD[99]}`)
+  }
 
   /**
    * 删除action

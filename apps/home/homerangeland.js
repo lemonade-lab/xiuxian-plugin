@@ -543,11 +543,11 @@ export class homerangeland extends plugin {
     }
     if (rangelandlevel > rangelandannimals.thing.length) {
       let nowTime = new Date().getTime()
-      let searchsthing1 = HomeApi.GameUser.Add_rangelandannimals({
+      let searchsthing1 = HomeApi.GameUser.addRangelandannimals({
         rangelandannimals: searchsthing,
         nowTime
       })
-      rangelandannimals = HomeApi.GameUser.Add_DATA_thing({
+      rangelandannimals = HomeApi.GameUser.addDataThing({
         DATA: rangelandannimals,
         DATA1: searchsthing1,
         quantity: 1
@@ -563,7 +563,7 @@ export class homerangeland extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: searchsthing,
         quantity: -1
@@ -699,7 +699,7 @@ export class homerangeland extends plugin {
     }
     const CDid = '0'
     const CDTime = 30
-    const CD = HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
+    const CD = HomeApi.GameUser.generateCD({ UID: user.A, CDid })
     if (CD != 0) {
       e.reply(CD)
       return

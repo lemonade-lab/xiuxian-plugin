@@ -11,7 +11,7 @@ const Sneakattack = [
 ]
 class GameBattle {
   /* 怪物战斗 */
-  monsterbattle = ({ e, battleA, battleB, battleNameB }) => {
+  monsterbattle({ e, battleA, battleB, battleNameB }) {
     const battleMsg = {
       msg: [],
       QQ: 1
@@ -106,7 +106,7 @@ class GameBattle {
   }
 
   /* 战斗模型 */
-  battle = ({ e, A, B }) => {
+  battle({ e, A, B }) {
     const battleMsg = {
       msg: [],
       QQ: 1
@@ -234,7 +234,7 @@ class GameBattle {
   }
 
   /* 暴击率 */
-  probability = (P) => {
+  probability(P) {
     if (P > 100) {
       return true
     }
@@ -245,7 +245,7 @@ class GameBattle {
   }
 
   /* 雷劫伤害 */
-  Thunderbolt_damage = ({ UID }) => {
+  Thunderbolt_damage({ UID }) {
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'

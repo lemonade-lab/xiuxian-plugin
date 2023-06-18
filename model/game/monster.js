@@ -10,7 +10,7 @@ class GameMonster {
    * @param { i } param0
    * @returns
    */
-  monsterscache = ({ i }) => {
+  monsterscache({ i }) {
     if (!Object.prototype.hasOwnProperty.call(alldata, i)) {
       alldata[i] = {
         label: 99,
@@ -35,7 +35,7 @@ class GameMonster {
    * @param { i, num } param0
    * @returns
    */
-  add = ({ i, num }) => {
+  add({ i, num }) {
     if (!Object.prototype.hasOwnProperty.call(addall, i)) {
       addall[i] = {
         acount: 0
@@ -54,7 +54,7 @@ class GameMonster {
    * @param { i } param0
    * @returns
    */
-  generateMonster = ({ i }) => {
+  generateMonster({ i }) {
     const [mini, max] = map[i].split('.')
     alldata[i].label = new Date().getHours()
     alldata[i].data = []

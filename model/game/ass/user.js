@@ -23,7 +23,7 @@ class GameUser {
    * @param {数量} ACCOUNT
    * @returns
    */
-  userbagAction = (parameter) => {
+  userbagAction(parameter) {
     const { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.thing.find((item) => item.id == THING.id)
     if (thing) {
@@ -46,7 +46,7 @@ class GameUser {
    * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter
    * @returns
    */
-  updataUser = (parameter) => {
+  updataUser(parameter) {
     const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
     // 读取原数据
     const data = listdata.userMsgAction({ NAME: UID, CHOICE })
@@ -102,7 +102,7 @@ class GameUser {
     return data
   }
 
-  readAssNames = (name) => {
+  readAssNames(name) {
     const dir = __PATH[name]
     let allNames = fs.readdirSync(dir)
     allNames = allNames.filter((file) => file.endsWith('.json'))
@@ -303,7 +303,7 @@ class GameUser {
     return false
   }
 
-  BuildAndDeduplication = (x, y, thingId) => {
+  BuildAndDeduplication(x, y, thingId) {
     const genX = Math.trunc(Math.random() * 99) + 1
     const genY = Math.trunc(Math.random() * 99) + 1
     const a = genX % 10
@@ -336,7 +336,7 @@ class GameUser {
     }
   }
 
-  timeInvert = (time) => {
+  timeInvert(time) {
     const dateObj = {}
     const date = new Date(time)
     dateObj.Y = date.getFullYear()
@@ -348,19 +348,19 @@ class GameUser {
     return dateObj
   }
 
-  timeChange = (timestamp) => {
+  timeChange(timestamp) {
     const date = new Date(timestamp)
     const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
     return `${date.getFullYear()}-${M}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
 
-  deleteAss = (path, name) => {
+  deleteAss(path, name) {
     fs.rmSync(`${__PATH[path]}/${name}.json`)
   }
 }
+export default new GameUser()
 
 function isNotNull(obj) {
   if (obj == undefined || obj == null) return false
   return true
 }
-export default new GameUser()

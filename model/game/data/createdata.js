@@ -27,7 +27,7 @@ class CreateData {
   /**
    * @returns
    */
-  moveConfig = () => {
+  moveConfig() {
     const path = algorithm.getMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of configarr) {
@@ -59,7 +59,7 @@ class CreateData {
   /**
    * 重置配置
    */
-  removeConfig = () => {
+  removeConfig() {
     const path = algorithm.getMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of configarr) {
@@ -77,7 +77,7 @@ class CreateData {
     }
   }
 
-  removeConfigByArr = (arr) => {
+  removeConfigByArr(arr) {
     const path = algorithm.getMenu(defsetpath)
     for (let itempath of path) {
       for (let itemconfig of arr) {
@@ -98,7 +98,7 @@ class CreateData {
   /**
    * 检测配置更新
    */
-  startConfigUpdata = () => {
+  startConfigUpdata() {
     let init = 0
     setTimeout(() => {
       if (init == 0) {
@@ -119,7 +119,7 @@ class CreateData {
   /**
    * 启动备份
    */
-  startVersion = () => {
+  startVersion() {
     let ini = 0
     setTimeout(() => {
       if (ini == 0) {

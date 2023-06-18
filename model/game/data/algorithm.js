@@ -8,7 +8,7 @@ class Algorithm {
    * @param {地址} path
    * @returns 该地址的子目录数组
    */
-  getMenu = (path) => {
+  getMenu(path) {
     const files = fs.readdirSync(path)
     const shield = ['.git']
     const sum = []
@@ -34,7 +34,7 @@ class Algorithm {
    * @param {类型} type
    * @returns
    */
-  getfilepath = (menupath, type) => {
+  getfilepath(menupath, type) {
     const newsum = []
     const travel = (dir, callback) => {
       for (let file of fs.readdirSync(dir)) {
@@ -58,7 +58,7 @@ class Algorithm {
    * @param { NAME, PATH, DATA } parameter
    * @returns 若存在不存在数据参数则是读取操作
    */
-  dataAction = ({ NAME, PATH, DATA }) => {
+  dataAction({ NAME, PATH, DATA }) {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
       fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
@@ -81,7 +81,7 @@ class Algorithm {
    * @param { NAME, PATH, DATA } parameter
    * @returns
    */
-  dataActionNew = ({ NAME, PATH, DATA }) => {
+  dataActionNew({ NAME, PATH, DATA }) {
     const DIR = path.join(`${PATH}/${NAME}.json`)
     if (DATA) {
       fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
@@ -103,7 +103,7 @@ class Algorithm {
   }
 
   /* 输入需要初始化目录的地址 */
-  ctrateFile = (req) => {
+  ctrateFile(req) {
     let name = req.split('/')
     let newname = MyDirPath
     name.forEach((item) => {
@@ -114,7 +114,7 @@ class Algorithm {
     })
   }
 
-  ctrateFilePath = (req) => {
+  ctrateFilePath(req) {
     let name = req.split('/')
     let newname = process.cwd()
     name.forEach((item) => {
@@ -126,14 +126,14 @@ class Algorithm {
   }
 
   /** 得到该路径的完整路径 */
-  getReq = (req) => {
+  getReq(req) {
     /* 根据目录初始化地址 */
     this.ctrateFile(req)
     return path.join(MyDirPath, req)
   }
 
   /** 得到该路径的完整路径 */
-  getFliePath = (req) => {
+  getFliePath(req) {
     /* 根据目录初始化地址 */
     this.ctrateFilePath(req)
     return path.join(process.cwd(), req)

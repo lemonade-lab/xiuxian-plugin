@@ -199,13 +199,13 @@ export class homeland extends plugin {
       return false
     }
     let nowTime = new Date().getTime()
-    HomeApi.GameUser.AddLandgrid({ UID, ACCOUNT: -a })
-    let searchsthing1 = HomeApi.GameUser.Add_landgoods({
+    HomeApi.GameUser.addLandgrid({ UID, ACCOUNT: -a })
+    let searchsthing1 = HomeApi.GameUser.addLandgoods({
       landgoods: searchsthing,
       nowTime,
       acount: quantity
     })
-    landgoods = HomeApi.GameUser.Add_DATA_thing({
+    landgoods = HomeApi.GameUser.addDataThing({
       DATA: landgoods,
       DATA1: searchsthing1,
       quantity
@@ -221,7 +221,7 @@ export class homeland extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
@@ -290,7 +290,7 @@ export class homeland extends plugin {
   upgrade(e, userId, landgoods1, name, acount, lattice) {
     let UID = userId
     let thing = landgoods1
-    let crop = HomeApi.GameUser.homesearch_thingName({ name })
+    let crop = HomeApi.GameUser.homesearchThingName({ name })
     let stolen = landgoods1.stolen
     let q = 10 - stolen
     let z = stolen * 0.1
@@ -315,7 +315,7 @@ export class homeland extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
@@ -331,7 +331,7 @@ export class homeland extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      landgoods = HomeApi.GameUser.Add_DATA_thing({
+      landgoods = HomeApi.GameUser.addDataThing({
         DATA: landgoods,
         DATA1: thing,
         quantity: -acount1
@@ -366,7 +366,7 @@ export class homeland extends plugin {
         INITIAL: []
       })
       let nowTime = new Date().getTime()
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
@@ -470,7 +470,7 @@ export class homeland extends plugin {
     }
     const CDid = '0'
     const CDTime = 30
-    const CD = HomeApi.GameUser.GenerateCD({ UID: user.A, CDid })
+    const CD = HomeApi.GameUser.generateCD({ UID: user.A, CDid })
     if (CD != 0) {
       e.reply(CD)
       return false
@@ -501,14 +501,14 @@ export class homeland extends plugin {
       return false
     }
     let other = 1
-    let crop = HomeApi.GameUser.homesearch_thingName({ name: thing })
+    let crop = HomeApi.GameUser.homesearchThingName({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
     let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: user.A,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: crop,
       quantity: other

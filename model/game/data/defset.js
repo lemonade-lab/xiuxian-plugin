@@ -8,7 +8,7 @@ class DefsetUpdata {
    * @param { app, name } param0
    * @returns
    */
-  getConfig = ({ app, name }) => {
+  getConfig({ app, name }) {
     /* 获得配置地址 */
     const file = `${MyDirPath}/config/${app}/${name}.yaml`
     /* 读取配置 */
@@ -24,7 +24,7 @@ class DefsetUpdata {
     return data
   }
 
-  updataSwich = ({ name, swich }) => {
+  updataSwich({ name, swich }) {
     const map = {
       戳一戳: 'switch.twist',
       自动降临: 'switch.come'
@@ -44,7 +44,7 @@ class DefsetUpdata {
    * @param { name, size }param0
    * @returns
    */
-  updataConfig = ({ name, size }) => {
+  updataConfig({ name, size }) {
     const map = {
       突破冷却: 'CD.Level_up',
       破体冷却: 'CD.LevelMax_up',
@@ -77,7 +77,7 @@ class DefsetUpdata {
 
   namelist = `${MyDirPath}/config/parameter/namelist.yaml`
 
-  startGame = (GID, Gname) => {
+  startGame(GID, Gname) {
     const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
     data.whitecrowd.push(GID)
     const yamlStr = YAML.stringify(data)
@@ -85,7 +85,7 @@ class DefsetUpdata {
     return `[${Gname}]启动成功~`
   }
 
-  stopGame = (GID, Gname) => {
+  stopGame(GID, Gname) {
     const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
     data.whitecrowd = data.whitecrowd.filter((item) => item != GID)
     const yamlStr = YAML.stringify(data)

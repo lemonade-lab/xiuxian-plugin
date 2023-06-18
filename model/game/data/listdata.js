@@ -6,7 +6,7 @@ class ListData {
    * @param { NAME, CHOICE, DATA }param0
    * @returns
    */
-  controlAction = ({ NAME, CHOICE, DATA }) => {
+  controlAction({ NAME, CHOICE, DATA }) {
     if (DATA) {
       algorithm.dataAction({
         NAME,
@@ -26,7 +26,7 @@ class ListData {
    * @param { NAME, CHOICE, DATA, INITIAL } param0
    * @returns
    */
-  controlActionInitial = ({ NAME, CHOICE, DATA, INITIAL }) => {
+  controlActionInitial({ NAME, CHOICE, DATA, INITIAL }) {
     if (DATA) {
       algorithm.dataAction({
         NAME,
@@ -56,7 +56,7 @@ class ListData {
    * @param {表名} NAME
    * @returns 随机返回该表的子元素
    */
-  randomListThing = ({ NAME, CHOICE }) => {
+  randomListThing({ NAME, CHOICE }) {
     const LIST = algorithm.dataAction({
       NAME,
       PATH: __PATH[CHOICE]
@@ -72,7 +72,7 @@ class ListData {
    * @param {==name} name
    * @returns 返回信息
    */
-  searchThing = (parameter) => {
+  searchThing(parameter) {
     let { CHOICE, NAME, condition, name } = parameter
     if (!CHOICE) {
       // 默认检索all表

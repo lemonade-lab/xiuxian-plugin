@@ -72,7 +72,7 @@ export class move extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity
@@ -87,7 +87,7 @@ export class move extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    najie = HomeApi.GameUser.Add_DATA_thing({
+    najie = HomeApi.GameUser.addDataThing({
       DATA: najie,
       DATA1: searchsthing,
       quantity: -quantity
@@ -140,7 +140,7 @@ export class move extends plugin {
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    const searchsthing = HomeApi.GameUser.homeexist_WarehouseThingName({
+    const searchsthing = HomeApi.GameUser.homeexistWarehouseThingName({
       name: thingName,
       UID
     })
@@ -158,7 +158,7 @@ export class move extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
@@ -173,7 +173,7 @@ export class move extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    najie = HomeApi.GameUser.Add_DATA_thing({
+    najie = HomeApi.GameUser.addDataThing({
       DATA: najie,
       DATA1: searchsthing,
       quantity
@@ -206,7 +206,7 @@ export class move extends plugin {
       INITIAL: []
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
-      let searchsthing = HomeApi.GameUser.homeexist_all_thingName({
+      let searchsthing = HomeApi.GameUser.homeexistAllThingByName({
         name: Warehouse.thing[i].name
       })
       if (Warehouse.thing[i].thingId != undefined) {
@@ -246,7 +246,7 @@ export class move extends plugin {
             INITIAL: []
           })
         } else {
-          let searchsthing1 = HomeApi.GameUser.homeexist_all_thing_id({
+          let searchsthing1 = HomeApi.GameUser.homeexistAllThingById({
             id: Warehouse.thing[i].id
           })
           if (searchsthing1 != 1) {
@@ -287,7 +287,7 @@ export class move extends plugin {
       INITIAL: []
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
-      let searchsthing = HomeApi.GameUser.homeexist_all_thingName({
+      let searchsthing = HomeApi.GameUser.homeexistAllThingByName({
         name: landgoods.thing[i].name
       })
       if (searchsthing != 1) {
@@ -299,7 +299,7 @@ export class move extends plugin {
           INITIAL: []
         })
       } else {
-        let searchsthing1 = HomeApi.GameUser.homeexist_all_thing_id({
+        let searchsthing1 = HomeApi.GameUser.homeexistAllThingById({
           id: landgoods.thing[i].id
         })
         if (searchsthing1 != 1) {

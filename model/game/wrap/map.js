@@ -1,5 +1,5 @@
 import listdata from '../data/listdata.js'
-class GameMap {
+class WrapMap {
   /* 输入:模糊搜索名字并判断是否在此地 */
   mapExistence = ({ action, addressName }) => {
     const point = listdata.controlAction({
@@ -35,4 +35,4 @@ class GameMap {
     return true
   }
 }
-export default new GameMap()
+export default new WrapMap()

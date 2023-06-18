@@ -46,7 +46,7 @@ export class boxadminaction extends plugin {
     if (!this.verify(e)) return false
     BotApi.Robot.forwardMsg({
       e,
-      data: GameApi.Schedule.backuprecovery({
+      data: GameApi.Schedule.backupRecovery({
         name: e.msg.replace(/^(#|\/)修仙复原/, '')
       })
     })

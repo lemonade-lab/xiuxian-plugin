@@ -226,7 +226,7 @@ export class homecook extends plugin {
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(() => {
       forwardsetTime[UID] = 0
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: recipes1,
         quantity: a
@@ -237,17 +237,17 @@ export class homecook extends plugin {
       if (target.durable == 0) {
         Warehouse.thing = thing1.filter((item) => item.name != nameIwant)
       }
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: zhushi1,
         quantity: -1
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: fushi1,
         quantity: -1
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: tiaoliao1,
         quantity: -1
@@ -394,7 +394,7 @@ export class homecook extends plugin {
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(() => {
       let peifang2 = peifang
-      peifang = HomeApi.GameUser.Add_cookThing({
+      peifang = HomeApi.GameUser.addCookThing({
         cook,
         cookThing: peifang,
         thingAcount: 1
@@ -416,7 +416,7 @@ export class homecook extends plugin {
         name1,
         doge
       })
-      foodThing = HomeApi.GameUser.Add_foodThing({
+      foodThing = HomeApi.GameUser.addFoodThing({
         food: foodThing,
         foodThing: food,
         thingAcount: 1
@@ -427,19 +427,19 @@ export class homecook extends plugin {
         DATA: foodThing,
         INITIAL: []
       })
-      HomeApi.GameUser.Add_all({ data: peifang2 })
-      HomeApi.GameUser.Add_all({ data: food })
+      HomeApi.GameUser.addAll({ data: peifang2 })
+      HomeApi.GameUser.addAll({ data: food })
       let Warehouse = HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_Warehouse',
         NAME: UID,
         INITIAL: []
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: peifang2,
         quantity: 1
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: food,
         quantity: a
@@ -450,17 +450,17 @@ export class homecook extends plugin {
       if (target.durable == 0) {
         Warehouse.thing = thing1.filter((item) => item.name != nameIwant)
       }
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: zhushi1,
         quantity: -1
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: fushi1,
         quantity: -1
       })
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: tiaoliao1,
         quantity: -1
@@ -540,13 +540,13 @@ export class homecook extends plugin {
       switch (code[1]) {
         case '血量恢复': {
           let nowblood = parseInt(shiwu.nowblood)
-          HomeApi.GameUser.Add_nowblood({ UID, nowblood })
+          HomeApi.GameUser.addNowblood({ UID, nowblood })
           e.reply(`成功服用${shiwu.name},血量恢复了${nowblood}`)
           break
         }
         case '寿命': {
           let life = parseInt(shiwu.life)
-          HomeApi.GameUser.Add_life({ UID, life })
+          HomeApi.GameUser.addLife({ UID, life })
           e.reply(`成功服用${shiwu.name},年轻了${life}年`)
           break
         }
@@ -555,7 +555,7 @@ export class homecook extends plugin {
         }
       }
     }
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: shiwu,
       quantity: -1
@@ -585,13 +585,13 @@ export class homecook extends plugin {
     }
     const action = GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const addressName = '万民堂'
-    const map = GameApi.GameMap.mapExistence({ action, addressName })
+    const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}才能发布`)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)发布/, '')
-    let caipu = HomeApi.GameUser.homeexist_WarehouseThingName({ UID, name: thing })
+    let caipu = HomeApi.GameUser.homeexistWarehouseThingName({ UID, name: thing })
     if (caipu == 1) {
       e.reply(`你没有该物品`)
       return false
@@ -621,12 +621,12 @@ export class homecook extends plugin {
       durable: 100
     }
     target = Object.assign(target, wanmin)
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: caipu,
       quantity: -1
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: target,
       quantity: 1
@@ -642,7 +642,7 @@ export class homecook extends plugin {
       NAME: 'wanmin',
       INITIAL: []
     })
-    wanmin1 = HomeApi.GameUser.Add_DATA_thing({ DATA: wanmin1, DATA1: target, quantity: 1 })
+    wanmin1 = HomeApi.GameUser.addDataThing({ DATA: wanmin1, DATA1: target, quantity: 1 })
     HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
@@ -671,7 +671,7 @@ export class homecook extends plugin {
     }
     const action = GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const addressName = '万民堂'
-    const map = GameApi.GameMap.mapExistence({ action, addressName })
+    const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}`)
       return false
@@ -703,7 +703,7 @@ export class homecook extends plugin {
     }
     const action = GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
     const addressName = '万民堂'
-    const map = GameApi.GameMap.mapExistence({ action, addressName })
+    const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}才能购买`)
       return false
@@ -711,7 +711,7 @@ export class homecook extends plugin {
     let thing = e.msg.replace(/^(#|\/)万民堂购买/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
-    let shipu = HomeApi.GameUser.homeexist_WarehouseThingName({ UID, thingName })
+    let shipu = HomeApi.GameUser.homeexistWarehouseThingName({ UID, thingName })
     if (shipu != 1) {
       e.reply(`您已经有该食谱，请把该食谱消耗完再来吧!`)
       return false
@@ -747,7 +747,7 @@ export class homecook extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity: 1
@@ -758,14 +758,14 @@ export class homecook extends plugin {
       DATA: Warehouse,
       INITIAL: []
     })
-    HomeApi.GameUser.Add_doge({ UID, money: -commoditiesDoge })
+    HomeApi.GameUser.addDoge({ UID, money: -commoditiesDoge })
     if (ifexist.qq == UID) {
       e.reply(
         `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从万民堂购买了[${thingName}]`
       )
       return false
     } else {
-      HomeApi.GameUser.Add_doge({ UID: ifexist.qq, money })
+      HomeApi.GameUser.addDoge({ UID: ifexist.qq, money })
       e.reply(
         `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从万民堂购买了[${thingName}]，食谱提供者：${ifexist.qq} 获得了${money}版权费`
       )
@@ -813,7 +813,7 @@ export class homecook extends plugin {
       return false
     }
     if (id[0] != 13 || id[1] != 2) {
-      Warehouse = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse = HomeApi.GameUser.addDataThing({
         DATA: Warehouse,
         DATA1: guo,
         quantity: -1
@@ -850,7 +850,7 @@ export class homecook extends plugin {
       e.reply(`您的仓库里${zhushi}数量不够!`)
       return false
     }
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: zhushi1,
       quantity: -quantity
@@ -860,7 +860,7 @@ export class homecook extends plugin {
       e.reply(`您的仓库里${fushi}数量不够!`)
       return false
     }
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: fushi1,
       quantity: -quantity
@@ -888,7 +888,7 @@ export class homecook extends plugin {
     const CDid = '3'
     const CDTime = 20 * quantity
     let nowTime = new Date().getTime()
-    const CD = HomeApi.GameUser.GenerateCD({ UID, CDid })
+    const CD = HomeApi.GameUser.generateCD({ UID, CDid })
     if (CD != 0) {
       e.reply(CD)
       return false
@@ -906,7 +906,7 @@ export class homecook extends plugin {
         e.reply(`您的仓库里${zhushi}数量不够!`)
         return false
       }
-      Warehouse1 = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse1 = HomeApi.GameUser.addDataThing({
         DATA: Warehouse1,
         DATA1: zhushi1,
         quantity: -quantity
@@ -916,7 +916,7 @@ export class homecook extends plugin {
         e.reply(`您的仓库里${fushi}数量不够!`)
         return false
       }
-      Warehouse1 = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse1 = HomeApi.GameUser.addDataThing({
         DATA: Warehouse1,
         DATA1: fushi1,
         quantity: -quantity
@@ -926,7 +926,7 @@ export class homecook extends plugin {
         e.reply(`您的仓库里${tiaoliao}数量不够!`)
         return false
       }
-      Warehouse1 = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse1 = HomeApi.GameUser.addDataThing({
         DATA: Warehouse1,
         DATA1: tiaoliao1,
         quantity: -quantity
@@ -937,7 +937,7 @@ export class homecook extends plugin {
         return false
       }
       let shipu1 = Warehouse1.thing.find((item) => item.name === choice)
-      Warehouse1 = HomeApi.GameUser.Add_DATA_thing({
+      Warehouse1 = HomeApi.GameUser.addDataThing({
         DATA: Warehouse1,
         DATA1: recipes1,
         quantity

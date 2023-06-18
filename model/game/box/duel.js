@@ -6,7 +6,7 @@ import defset from '../data/defset.js'
 import Method from '../wrap/method.js'
 import { GameApi } from '../../api/index.js'
 class Duel {
-  getDuel = ({ e, UIDA, UIDB }) => {
+  getDuel({ e, UIDA, UIDB }) {
     if (!GameUser.getUID({ UID: UIDB })) {
       return `查无此人`
     }

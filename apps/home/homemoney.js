@@ -89,7 +89,7 @@ export class homemoney extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.Add_DATA_thing({
+    Warehouse = HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
@@ -107,7 +107,7 @@ export class homemoney extends plugin {
     let commoditiesDoge = parseInt(commoditiesDoge1 * rand)
     let sui = commoditiesDoge1 - commoditiesDoge
     let sui1 = commoditiesDoge - commoditiesDoge1
-    HomeApi.GameUser.Add_doge({ UID, money: commoditiesDoge })
+    HomeApi.GameUser.addDoge({ UID, money: commoditiesDoge })
     if (sui < 0) {
       e.reply(`在出售物品的时候，分阁人员掉了${sui1}灵晶在地上，最后得到${commoditiesDoge}灵晶`)
     } else if (sui == 0) {
@@ -230,7 +230,7 @@ export class homemoney extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    HomeApi.GameUser.Add_DATA_thing({
+    HomeApi.GameUser.addDataThing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity
@@ -241,7 +241,7 @@ export class homemoney extends plugin {
       DATA: Warehouse,
       INITIAL: []
     })
-    HomeApi.GameUser.Add_doge({ UID, money: -commoditiesDoge })
+    HomeApi.GameUser.addDoge({ UID, money: -commoditiesDoge })
     e.reply(
       `这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶购买了[${thingName}]*${quantity},`
     )

@@ -14,7 +14,7 @@ class Schedule {
   /**
    * @param {  time } param0
    */
-  scheduleJobflie = ({ time }) => {
+  scheduleJobflie({ time }) {
     schedule.scheduleJob(time, () => {
       const myDate = new Date()
       const Y = myDate.getFullYear()
@@ -33,7 +33,7 @@ class Schedule {
    * @param { name } param0
    * @returns
    */
-  backuprecovery = ({ name }) => {
+  backupRecovery({ name }) {
     /* 查看自己的地址在不在？我的叫做boxdata */
     if (!fs.existsSync(this.BACKUPS_PATH)) {
       return ['无备份数据']

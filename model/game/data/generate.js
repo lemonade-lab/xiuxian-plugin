@@ -7,7 +7,7 @@ class GenerateData {
    * @param {表名} name
    * @param {数据} sum
    */
-  newlist = (PATH, name, sum) => {
+  createList(PATH, name, sum) {
     const dir = path.join(PATH, `${name}.json`)
     const theARR = JSON.stringify(sum, '', '\t')
     fs.writeFileSync(dir, theARR, 'utf8')
@@ -18,7 +18,7 @@ class GenerateData {
    * @param {地址} PATH
    * @param {检索条件} type
    */
-  getlist = (PATH, type) => {
+  getlist(PATH, type) {
     const newsum = []
     const data = []
     const travel = (dir, callback) => {

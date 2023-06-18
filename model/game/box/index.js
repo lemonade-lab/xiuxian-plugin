@@ -6,7 +6,7 @@ import config from '../data/defset.js'
 import { GameApi } from '../../api/index.js'
 import Method from '../wrap/method.js'
 class GameUser {
-  startLife = () => {
+  startLife() {
     const life = listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
@@ -35,7 +35,7 @@ class GameUser {
    * @param { UID } param0
    * @returns
    */
-  createBoxPlayer = ({ UID }) => {
+  createBoxPlayer({ UID }) {
     listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_player',
@@ -174,7 +174,7 @@ class GameUser {
    * @param { UID, name, ACCOUNT } param0
    * @returns
    */
-  userBag = ({ UID, name, ACCOUNT }) => {
+  userBag({ UID, name, ACCOUNT }) {
     // 搜索物品信息
     const thing = listdata.searchThing({
       condition: 'name',
@@ -198,7 +198,7 @@ class GameUser {
    * @param { UID, name, ACCOUNT } param0
    * @returns
    */
-  userMaterial = ({ UID, name, ACCOUNT }) => {
+  userMaterial({ UID, name, ACCOUNT }) {
     // 搜索物品信息
     const thing = listdata.searchThing({
       CHOICE: 'fixed_material',
@@ -226,7 +226,7 @@ class GameUser {
     return false
   }
 
-  userMaterialAction = (parameter) => {
+  userMaterialAction(parameter) {
     let { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.find((item) => item.id == THING.id)
     if (thing) {
@@ -249,7 +249,7 @@ class GameUser {
    * @param { BAG, THING, ACCOUNT } param0
    * @returns
    */
-  userbagAction = (parameter) => {
+  userbagAction(parameter) {
     const { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.thing.find((item) => item.id == THING.id)
     if (thing) {
@@ -273,7 +273,7 @@ class GameUser {
    * @returns 返回该物品
    */
 
-  userBagSearch = ({ UID, name }) => {
+  userBagSearch({ UID, name }) {
     const bag = listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
     return bag.thing.find((item) => item.name == name)
   }
@@ -289,7 +289,7 @@ class GameUser {
   /**
    * @param { UID } param0
    * @returns 返回UID的面板
-   */ readPanel = ({ UID }) => {
+   */ readPanel({ UID }) {
     const equipment = listdata.controlAction({
       CHOICE: 'user_equipment',
       NAME: UID
@@ -389,10 +389,9 @@ class GameUser {
 
   /**
    * 计算天赋
-   * @param { UID } param0
    * @returns
    */
-  updataUserEfficiency = ({ UID }) => {
+  updataUserEfficiency({ UID }) {
     try {
       const talent = listdata.controlAction({
         NAME: UID,
@@ -449,7 +448,7 @@ class GameUser {
   /**
    * @returns 随机生成灵根
    */
-  getTalent = () => {
+  getTalent() {
     const newtalent = []
     const talentacount = Math.round(Math.random() * (5 - 1)) + 1
     for (let i = 0; i < talentacount; i++) {
@@ -478,7 +477,7 @@ class GameUser {
    * @param { data } param0
    * @returns
    */
-  getTalentName = ({ data }) => {
+  getTalentName({ data }) {
     const nameArr = []
     data.talent.forEach((talentitem) => {
       const talentList = listdata.controlAction({
@@ -496,7 +495,7 @@ class GameUser {
    * @param { NAME, CHOICE, DATA } param0
    * @returns 若无数据输入则为读取操作，并返回数据
    */
-  userMsgAction = ({ NAME, CHOICE, DATA }) => {
+  userMsgAction({ NAME, CHOICE, DATA }) {
     if (DATA) {
       algorithm.dataAction({
         NAME,
@@ -516,7 +515,7 @@ class GameUser {
    * @param {UID, CHOICE, ATTRIBUTE, SIZE} param0
    * @returns
    */
-  updataUser = ({ UID, CHOICE, ATTRIBUTE, SIZE }) => {
+  updataUser({ UID, CHOICE, ATTRIBUTE, SIZE }) {
     // 读取原数据
     const data = listdata.controlAction({ NAME: UID, CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
@@ -528,7 +527,7 @@ class GameUser {
    * @param {UID} UID
    * @returns 不存在则undifind
    */
-  existUser = (UID) => {
+  existUser(UID) {
     const LIFE = listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'life',
@@ -542,7 +541,7 @@ class GameUser {
    * @param {UID} UID
    * @returns
    */
-  existUserSatus = ({ UID }) => {
+  existUserSatus({ UID }) {
     let find = this.existUser(UID)
     if (find) {
       if (find.status == 0) {
@@ -564,7 +563,7 @@ class GameUser {
     return true
   }
 
-  getUID = ({ UID }) => {
+  getUID({ UID }) {
     let find = this.existUser(UID)
     if (find) {
       return true
@@ -575,7 +574,7 @@ class GameUser {
   /**
    * @returns 返回所有用户UID
    */
-  getUserUID = () => {
+  getUserUID() {
     const playerList = []
     const life = listdata.controlActionInitial({
       CHOICE: 'user_life',
@@ -588,7 +587,7 @@ class GameUser {
     return playerList
   }
 
-  getTypeThing = (position, type) => {
+  getTypeThing(position, type) {
     const dropsItemList = listdata.controlAction({
       NAME: 'all',
       CHOICE: 'generate_all'
@@ -603,7 +602,7 @@ class GameUser {
     return sum
   }
 
-  randomTypeThing = (position, type) => {
+  randomTypeThing(position, type) {
     const dropsItemList = listdata.controlAction({
       NAME: 'all',
       CHOICE: 'generate_all'
@@ -618,7 +617,7 @@ class GameUser {
     return sum[Math.floor(Math.random() * sum.length)]
   }
 
-  randomThing = () => {
+  randomThing() {
     const dropsItemList = listdata.controlAction({
       NAME: 'dropsItem',
       CHOICE: 'generate_all'
@@ -626,7 +625,7 @@ class GameUser {
     return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
   }
 
-  updataUserBlood = ({ UID, SIZE }) => {
+  updataUserBlood({ UID, SIZE }) {
     const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
@@ -646,7 +645,7 @@ class GameUser {
    * @param { NAME, FLAG, TYPE, VALUE } param0
    * @returns
    */
-  addExtendPerpetual = ({ NAME, FLAG, TYPE, VALUE }) => {
+  addExtendPerpetual({ NAME, FLAG, TYPE, VALUE }) {
     const extend = listdata.controlActionInitial({
       NAME,
       CHOICE: 'user_extend',
@@ -675,7 +674,7 @@ class GameUser {
    * @param { NAME, FLAG, TYPE, VALUE, ENDTIME } param0
    * @returns
    */
-  addExtendTimes = ({ NAME, FLAG, TYPE, VALUE, ENDTIME }) => {
+  addExtendTimes({ NAME, FLAG, TYPE, VALUE, ENDTIME }) {
     const extend = listdata.controlActionInitial({
       NAME,
       CHOICE: 'user_extend',
@@ -723,7 +722,7 @@ class GameUser {
     }
   }
 
-  synthesisResult = ({ ans, type }) => {
+  synthesisResult({ ans, type }) {
     // 这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
     let drawingList = listdata.controlAction({
       NAME: 'AllDrawing',
@@ -756,6 +755,8 @@ class GameUser {
   }
 }
 
+export default new GameUser()
+
 function sortRule(a, b) {
   return a.rank - b.rank // 如果a>=b，返回自然数，不用交换位置
 }
@@ -764,4 +765,3 @@ function randomArr(array) {
   const location = Math.floor(Math.random() * array.length)
   return array[location]
 }
-export default new GameUser()

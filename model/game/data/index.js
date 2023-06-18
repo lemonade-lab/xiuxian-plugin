@@ -96,19 +96,19 @@ class DateIndex {
      * 动态境界数据
      */
     genertate.talent_list = JSON.parse(fs.readFileSync(`${__PATH.fixed_talent}/talent_list.json`))
-    genertate.newlist(__PATH.generate_level, 'gaspractice', [])
-    genertate.newlist(__PATH.generate_level, 'gaspractice', [
+    genertate.createList(__PATH.generate_level, 'gaspractice', [])
+    genertate.createList(__PATH.generate_level, 'gaspractice', [
       ...genertate.getlist(__PATH.fixed_level, 'gaspractice.json')
     ])
-    genertate.newlist(__PATH.generate_level, 'bodypractice', [])
-    genertate.newlist(__PATH.generate_level, 'bodypractice', [
+    genertate.createList(__PATH.generate_level, 'bodypractice', [])
+    genertate.createList(__PATH.generate_level, 'bodypractice', [
       ...genertate.getlist(__PATH.fixed_level, 'bodypractice.json')
     ])
     /**
      * 全物品数据
      */
-    genertate.newlist(__PATH.generate_all, 'all', [])
-    genertate.newlist(__PATH.generate_all, 'all', [
+    genertate.createList(__PATH.generate_all, 'all', [])
+    genertate.createList(__PATH.generate_all, 'all', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'),
       ...genertate.getlist(__PATH.fixed_goods, 'json'),
       ...genertate.getlist(__PATH.custom_goods, 'json')
@@ -116,16 +116,16 @@ class DateIndex {
     /**
      * #万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备
      */
-    genertate.newlist(__PATH.generate_all, 'commodities', [])
-    genertate.newlist(__PATH.generate_all, 'commodities', [
+    genertate.createList(__PATH.generate_all, 'commodities', [])
+    genertate.createList(__PATH.generate_all, 'commodities', [
       ...genertate.getlist(__PATH.fixed_goods, '0.json'),
       ...genertate.getlist(__PATH.custom_goods, '0.json')
     ])
     /**
      * 怪物掉落
      */
-    genertate.newlist(__PATH.generate_all, 'dropsItem', [])
-    genertate.newlist(__PATH.generate_all, 'dropsItem', [
+    genertate.createList(__PATH.generate_all, 'dropsItem', [])
+    genertate.createList(__PATH.generate_all, 'dropsItem', [
       ...genertate.getlist(__PATH.fixed_equipment, '.json'),
       ...genertate.getlist(__PATH.fixed_goods, '.json'),
       ...genertate.getlist(__PATH.custom_goods, '.json')
@@ -133,15 +133,15 @@ class DateIndex {
     /**
      * 地图：区域位
      */
-    genertate.newlist(__PATH.generate_position, 'position', [])
-    genertate.newlist(__PATH.generate_position, 'position', [
+    genertate.createList(__PATH.generate_position, 'position', [])
+    genertate.createList(__PATH.generate_position, 'position', [
       ...genertate.getlist(__PATH.fixed_position, 'json')
     ])
     /**
      * 地图：点位
      */
-    genertate.newlist(__PATH.generate_position, 'point', [])
-    genertate.newlist(__PATH.generate_position, 'point', [
+    genertate.createList(__PATH.generate_position, 'point', [])
+    genertate.createList(__PATH.generate_position, 'point', [
       ...genertate.getlist(__PATH.fixed_point, 'json')
     ])
   }
@@ -153,7 +153,7 @@ class DateIndex {
    */
   addListArr = ({ PATH, CHOICE, NAME }) => {
     const data = listdata.controlAction({ NAME, CHOICE })
-    genertate.newlist(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
+    genertate.createList(__PATH[CHOICE], NAME, [...data, ...genertate.getlist(PATH, 'json')])
   }
 }
 export default new DateIndex()
