@@ -174,7 +174,7 @@ class GameUser {
     listdata.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'sign',
-      DATA: LifeData,
+      DATA: SignData,
       INITIAL: {}
     })
     // 天赋

@@ -4,7 +4,7 @@ export class Boxunion extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)联盟报到$/, fnc: 'userCheckin' },
-        { reg: /^(#|\/)联盟签到$/, fnc: 'userignIn' },
+        { reg: /^(#|\/)联盟签到$/, fnc: 'userSignIn' },
         { reg: /^(#|\/)联盟商会$/, fnc: 'unionShop' }
       ]
     })
@@ -13,7 +13,7 @@ export class Boxunion extends plugin {
   async unionShop(e) {
     if (!this.verify(e)) return false
     if (!UnionMessage(e)) return false
-    e.reply('待世界升级~')
+    e.reply('[尚未开张~]')
     return false
   }
 
@@ -26,13 +26,12 @@ export class Boxunion extends plugin {
       NAME: 'sign',
       INITIAL: {}
     })
-    const { signTine, sginMath } = SignData[UID]
     const NowTime = new Date().getTime()
     const NowMath = new Date().getMonth()
     const NowDay = new Date().getDay()
     // 签到时间-超过24h,重置size
     // 签到的月份,不同月重置size
-    if (NowTime - signTine > 24 * 60000 * 60 || sginMath != NowMath) {
+    if (NowTime - SignData[UID].signTine > 24 * 60000 * 60 || SignData[UID].sginMath != NowMath) {
       // 超过24h
       SignData[UID].signSize = 0
     }
@@ -41,7 +40,8 @@ export class Boxunion extends plugin {
       return false
     }
     SignData[UID].signSize += 1
-    SignData[UID].signTine = signTine
+    SignData[UID].signTine = NowTime
+    SignData[UID].signDay = NowDay
     if (SignData[UID].signSize > 28) {
       e.reply('本月签到已满28天')
     }
