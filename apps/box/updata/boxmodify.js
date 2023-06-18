@@ -82,7 +82,6 @@ export class BoxModify extends plugin {
       CHOICE: 'user_player'
     })
     let theMsg = e.msg.replace(/^(#|\/)更改道号/, '')
-    theMsg = theMsg.replace(' ', '')
     if (theMsg.length == 0 || theMsg.length > 50) {
       e.reply('请正确设置,且道宣最多50字符')
       return false
