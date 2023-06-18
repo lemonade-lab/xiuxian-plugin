@@ -1,3 +1,4 @@
+import { isNaN } from 'lodash'
 import { GameApi, plugin } from '../../../model/api/index.js'
 export class BoxOnekey extends plugin {
   constructor() {
@@ -16,21 +17,23 @@ export class BoxOnekey extends plugin {
       e.reply('已仙鹤')
       return false
     }
-
     const addressName = '万宝楼'
     if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]`)
       return false
     }
-
     let bag = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    let money = Number(0)
+    let money = 0
     bag.thing.forEach((item) => {
-      money += item.acount * item.price
+      money += Number(item.acount) * Number(item.price)
     })
+    // 错误
+    if (isNaN(money)) {
+      return false
+    }
     if (money == 0) {
       return false
     }
