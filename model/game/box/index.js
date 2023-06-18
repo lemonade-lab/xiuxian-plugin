@@ -19,7 +19,7 @@ class GameUser {
     const die = []
     const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
     for (let UID in LifeData) {
-      LifeData[UID].Age = Number(cf.Age.size ? cf.Age.size : 1) + LifeData[UID].Age
+      LifeData[UID].Age += cf.Age.size ? cf.Age.size : 1
       if (LifeData[UID].Age >= LifeData[UID].life) {
         LifeData[UID].status = 0
         die.push(LifeData[UID].qq)
