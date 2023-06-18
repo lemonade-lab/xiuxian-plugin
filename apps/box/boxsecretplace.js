@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class BoxSecretplace extends plugin {
   constructor() {
     super({

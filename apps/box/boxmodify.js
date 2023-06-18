@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin } from '../../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '../../model/api/index.js'
 export class BoxModify extends plugin {
   constructor() {
     super({
@@ -11,15 +11,7 @@ export class BoxModify extends plugin {
 
   async changeName(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
-    if (state == 4001) {
-      e.reply(msg)
-      return false
-    }
+    if (!modifiyMessage(e)) return false
     const UID = e.user_id
     let theName = e.msg.replace(/^(#|\/)更改道号/, '')
     if (theName.length == 0) {
@@ -61,15 +53,7 @@ export class BoxModify extends plugin {
 
   async changeAutograph(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
-    if (state == 4001) {
-      e.reply(msg)
-      return false
-    }
+    if (!modifiyMessage(e)) return false
     const UID = e.user_id
     const player = GameApi.UserData.controlAction({
       NAME: UID,
@@ -104,4 +88,17 @@ export class BoxModify extends plugin {
     BotApi.Robot.surveySet({ e, isreply })
     return false
   }
+}
+
+function modifiyMessage(e) {
+  if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    e.reply('已仙鹤')
+    return false
+  }
+  const { state, msg } = GameApi.Wrap.Go(e.user_id)
+  if (state == 4001) {
+    e.reply(msg)
+    return false
+  }
+  return true
 }

@@ -1,4 +1,4 @@
-import { GameApi, plugin } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../model/api/index.js'
 export class BoxEquipment extends plugin {
   constructor() {
     super({

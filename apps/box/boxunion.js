@@ -1,4 +1,4 @@
-import { GameApi, plugin } from '../../../model/api/index.js'
+import { GameApi, plugin } from '../../model/api/index.js'
 export class Boxunion extends plugin {
   constructor() {
     super({
@@ -12,54 +12,22 @@ export class Boxunion extends plugin {
 
   async unionShop(e) {
     if (!this.verify(e)) return false
-    const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const addressName = '联盟'
-    if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
-      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
-      return false
-    }
+    if (!UnionMessage(e)) return false
     e.reply('待世界升级~')
     return false
   }
 
   async userSignin(e) {
     if (!this.verify(e)) return false
-    const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const addressName = '联盟'
-    if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
-      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
-      return false
-    }
+    if (!UnionMessage(e)) return false
     e.reply('待世界升级~')
     return false
   }
 
   async userCheckin(e) {
     if (!this.verify(e)) return false
+    if (!UnionMessage(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
-    if (state == 4001) {
-      e.reply(msg)
-      return false
-    }
-    const addressName = '联盟'
-    if (!GameApi.WrapMap.mapAction({ UID, addressName })) {
-      e.reply(`需[(#|/)前往+城池名+${addressName}]`)
-      return false
-    }
-
     const level = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
@@ -93,4 +61,22 @@ export class Boxunion extends plugin {
     e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧`)
     return false
   }
+}
+
+function UnionMessage(e) {
+  if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    e.reply('已仙鹤')
+    return false
+  }
+  const { state, msg } = GameApi.Wrap.Go(e.user_id)
+  if (state == 4001) {
+    e.reply(msg)
+    return false
+  }
+  const addressName = '联盟'
+  if (!GameApi.WrapMap.mapAction({ UID: e.user_id, addressName })) {
+    e.reply(`需[(#|/)前往+城池名+${addressName}]`)
+    return false
+  }
+  return true
 }
