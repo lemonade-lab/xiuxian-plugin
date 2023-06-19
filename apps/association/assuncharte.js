@@ -159,12 +159,11 @@ export class AssUncharted extends plugin {
     // 完事了，该进秘境了
     // 初始化临时存档，选择随机地图，添加状态
     const nowTime = new Date().getTime()
-    const actionObject = {
+
+    GameApi.Wrap.setAction(UID, {
       actionID: 6,
       startTime: nowTime
-    }
-
-    GameApi.Wrap.setAction(UID, actionObject)
+    })
 
     const number = Math.trunc(Math.random() * 5)
     const interimArchive = {

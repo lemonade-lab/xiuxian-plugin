@@ -91,11 +91,10 @@ export class Homecook extends plugin {
       e.reply(`你没有这样的锅具，请重新选择`)
       return false
     }
-    let actionObject = {
-      name: choice
-    }
-    GameApi.Wrap.setAction(UID, actionObject)
-
+    GameApi.Wrap.setAction(UID, {
+      name: choice,
+      startTime: 1000 * 60
+    })
     this.finish('choose_cook')
     let msg = [`您是否要使用食谱，请输入1或2\n【1】不使用食谱\n【2】使用食谱`]
     e.reply(`${msg}`)

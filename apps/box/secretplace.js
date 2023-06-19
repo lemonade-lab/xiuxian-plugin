@@ -4,12 +4,28 @@ export class BoxSecretplace extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)坐标信息$/, fnc: 'xyzaddress' },
+        { reg: /^(#|\/)位置信息$/, fnc: 'showCity' },
         { reg: /^(#|\/)前往[\u4e00-\u9fa5]*$/, fnc: 'forward' },
         { reg: /^(#|\/)返回$/, fnc: 'falsePiont' },
-        { reg: /^(#|\/)传送[\u4e00-\u9fa5]*$/, fnc: 'delivery' },
-        { reg: /^(#|\/)位置信息$/, fnc: 'showCity' }
+        { reg: /^(#|\/)传送[\u4e00-\u9fa5]*$/, fnc: 'delivery' }
       ]
     })
+  }
+
+  async xyzaddress(e) {
+    if (!this.verify(e)) return false
+    const UID = e.user_id
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
+      e.reply('已仙鹤')
+      return false
+    }
+    const action = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'user_action'
+    })
+    const isreply = e.reply(`坐标(${action.x},${action.y},${action.z})`)
+    BotApi.Robot.surveySet({ e, isreply })
+    return false
   }
 
   async showCity(e) {
@@ -61,28 +77,10 @@ export class BoxSecretplace extends plugin {
     if (action.actionID == 2) {
       GameApi.Wrap.deleteAction(UID)
       // 取消行为
-      GameApi.Place.setUserTime(UID, 0)
-      // 取消行为
       clearTimeout(GameApi.Place.getUserAction(UID))
       e.reply('已回到原地')
       return false
     }
-    return false
-  }
-
-  async xyzaddress(e) {
-    if (!this.verify(e)) return false
-    const UID = e.user_id
-    if (!GameApi.Player.getUserLifeSatus(UID)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const action = GameApi.UserData.controlAction({
-      NAME: UID,
-      CHOICE: 'user_action'
-    })
-    const isreply = e.reply(`坐标(${action.x},${action.y},${action.z})`)
-    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 
@@ -98,9 +96,7 @@ export class BoxSecretplace extends plugin {
       e.reply(msg)
       return false
     }
-    if (GameApi.Place.getUserTime(UID) == 1) {
-      return false
-    }
+    /* 检查地点 */
     const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
@@ -116,6 +112,7 @@ export class BoxSecretplace extends plugin {
     if (!point) {
       return false
     }
+    /* */
     const mx = point.x
     const my = point.y
     const PointId = point.id.split('-')
@@ -123,6 +120,7 @@ export class BoxSecretplace extends plugin {
       NAME: UID,
       CHOICE: 'user_level'
     })
+    // 境界不足
     if (level.levelId < PointId[3]) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
@@ -135,13 +133,12 @@ export class BoxSecretplace extends plugin {
     })
     const the = Math.floor(a + b - (a + b) * battle.speed * 0.01)
     const time = the >= 0 ? the : 1
+    // 设置定时器,并得到定时器id
     GameApi.Place.setUserAction(
       UID,
       setTimeout(() => {
         /* 这里清除行为 */
         GameApi.Wrap.deleteAction(UID)
-        // 标记完成
-        GameApi.Place.setUserTime(UID, 0)
         action.x = mx
         action.y = my
         action.region = PointId[1]
@@ -154,16 +151,11 @@ export class BoxSecretplace extends plugin {
         e.reply([segment.at(UID), `成功抵达${address}`])
       }, 1000 * time)
     )
-    // 设置记录
-    GameApi.Place.setUserTime(UID, 1)
     // 设置行为赶路
-
-    const actionObject = {
+    GameApi.Wrap.setAction(UID, {
       actionID: 2,
       startTime: 1000 * time
-    }
-    GameApi.Wrap.setAction(UID, actionObject)
-
+    })
     e.reply(`正在前往${address}...\n需要${time}秒`)
     return false
   }
@@ -178,9 +170,6 @@ export class BoxSecretplace extends plugin {
     const { state, msg } = GameApi.Wrap.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
-      return false
-    }
-    if (GameApi.Place.getUserDelivery(UID) == 1) {
       return false
     }
     const action = GameApi.UserData.controlAction({
@@ -249,8 +238,6 @@ export class BoxSecretplace extends plugin {
     setTimeout(() => {
       // 清除行为
       GameApi.Wrap.deleteAction(UID)
-      // 标记完成
-      GameApi.Place.setUserDelivery(UID, 0)
       action.x = mx
       action.y = my
       action.region = positionID[1]
@@ -262,16 +249,11 @@ export class BoxSecretplace extends plugin {
       })
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
-    // 传送
-    GameApi.Place.setUserDelivery(UID, 1)
     // 传送行为记录
-
-    const actionObject = {
+    GameApi.Wrap.setAction(UID, {
       actionID: 3,
       startTime: 1000 * time
-    }
-    GameApi.Wrap.setAction(UID, actionObject)
-
+    })
     e.reply(`[修仙联盟]守阵者\n传送对接${address}\n需要${time}秒`)
     return false
   }

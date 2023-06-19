@@ -70,12 +70,11 @@ class UserAction {
     } else {
       const time = (Math.trunc(homelevel) + 1) * 10
       const nowTime = new Date().getTime()
-      const actionObject = {
+      Wrap.setAction(UID, {
         actionID: 5,
         startTime: nowTime,
         time1: time
-      }
-      Wrap.setAction(UID, actionObject)
+      })
       User.userWarehouse({
         UID,
         name: thingNameg,

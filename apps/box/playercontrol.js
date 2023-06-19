@@ -24,11 +24,10 @@ export class BoxGPControl extends plugin {
       return false
     }
     const nowTime = new Date().getTime()
-    const actionObject = {
+    GameApi.Wrap.setAction(UID, {
       actionID: 0,
       startTime: nowTime
-    }
-    GameApi.Wrap.setAction(UID, actionObject)
+    })
     e.reply('开始两耳不闻窗外事...')
     return false
   }
@@ -46,11 +45,10 @@ export class BoxGPControl extends plugin {
       return false
     }
     const nowTime = new Date().getTime()
-    const actionObject = {
+    GameApi.Wrap.setAction(UID, {
       actionID: 1,
       startTime: nowTime
-    }
-    GameApi.Wrap.setAction(UID, actionObject)
+    })
     e.reply('开始外出...')
     return false
   }
