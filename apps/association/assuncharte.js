@@ -324,7 +324,7 @@ export class AssUncharted extends plugin {
         NAME: 'gaspractice',
         CHOICE: 'fixed_levels'
       })
-      const LevelMax = LevelList.find((item) => item.id == levelId)
+      const LevelMax = LevelList[levelId]
 
       const monsters = {
         nowblood: Math.floor(LevelMax.blood * buff),

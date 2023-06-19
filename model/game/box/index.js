@@ -50,9 +50,7 @@ class Player {
       NAME: UID,
       CHOICE: 'user_battle',
       DATA: {
-        nowblood:
-          LevelList.find((item) => item.id == 1).blood +
-          LevelMaxList.find((item) => item.id == 1).blood // 血量
+        nowblood: LevelList[1].blood + LevelMaxList[1].blood // 血量
       }
     })
     listdata.controlAction({

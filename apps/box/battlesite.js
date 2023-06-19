@@ -56,7 +56,7 @@ export class BoxBattleSite extends plugin {
       NAME: 'gaspractice',
       CHOICE: 'fixed_levels'
     })
-    const LevelMax = Levellist.find((item) => item.id == mon.level + 1)
+    const LevelMax = Levellist[mon.level + 1]
     const monsters = {
       nowblood: LevelMax.blood * buff.msg,
       attack: LevelMax.attack * buff.msg,

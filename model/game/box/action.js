@@ -92,12 +92,12 @@ class UserAction {
     if (choise) {
       player.rankMaxId = 0
       player.levelMaxId = player.levelMaxId + 1
-      player.levelnamemax = Levelmaxlist.find((item) => item.id == player.levelMaxId).name
+      player.levelnamemax = Levelmaxlist[player.levelMaxId].name
       returnTXT = `突破成功至${player.levelnamemax}${this.LevelMiniName[player.rankId]}`
     } else {
       player.rankId = 0
       player.levelId = player.levelId + 1
-      player.levelname = Levellist.find((item) => item.id == player.levelId).name
+      player.levelname = Levellist[player.levelId].name
       const { size } = this.userLifeUp({
         UID,
         levelId: player.levelId
