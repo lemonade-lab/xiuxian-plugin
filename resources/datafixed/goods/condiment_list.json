@@ -2,6 +2,7 @@
   {
     "id": "13-4-1",
     "name": "油",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -20,6 +21,7 @@
   {
     "id": "13-4-2",
     "name": "盐",
+    "type": "",
     "attack": 0.1,
     "defense": 1,
     "blood": 1,
@@ -38,6 +40,7 @@
   {
     "id": "13-4-3",
     "name": "糖",
+    "type": "",
     "attack": 1,
     "defense": 0.1,
     "blood": 1,
@@ -56,6 +59,7 @@
   {
     "id": "13-4-4",
     "name": "水",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,

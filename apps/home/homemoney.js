@@ -192,7 +192,7 @@ export class Homemoney extends plugin {
       quantity = 99
     }
     let ifexist1 = HomeApi.Listdata.controlActionInitial({
-      CHOICE: 'home_home_dogshop',
+      CHOICE: 'generate_dogshop',
       NAME: 'dogshop',
       INITIAL: []
     })

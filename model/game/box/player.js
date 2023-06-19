@@ -77,14 +77,6 @@ class Player {
         }
       }
     })
-    Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'user_wealth',
-      DATA: {
-        lingshi: 0,
-        xianshi: 0
-      }
-    })
     const PosirionList = Listdata.controlAction({
       CHOICE: 'generate_position',
       NAME: 'position'

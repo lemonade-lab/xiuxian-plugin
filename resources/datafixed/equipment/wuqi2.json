@@ -2,6 +2,7 @@
   {
     "id": "1-1-5",
     "name": "寒龙刀",
+    "type": "",
     "attack": 8,
     "defense": 0,
     "blood": 0,
@@ -17,6 +18,7 @@
   {
     "id": "1-1-6",
     "name": "煞血刀",
+    "type": "",
     "attack": 9,
     "defense": 0,
     "blood": 0,
@@ -32,6 +34,7 @@
   {
     "id": "1-1-7",
     "name": "圣道之剑",
+    "type": "",
     "attack": 10,
     "defense": 0,
     "blood": 0,
@@ -47,6 +50,7 @@
   {
     "id": "1-1-8",
     "name": "赤霄剑",
+    "type": "",
     "attack": 11,
     "defense": 0,
     "blood": 0,
@@ -62,6 +66,7 @@
   {
     "id": "1-1-9",
     "name": "狂怒战刃",
+    "type": "",
     "attack": 12,
     "defense": 0,
     "blood": 0,
@@ -77,6 +82,7 @@
   {
     "id": "1-1-10",
     "name": "阿努比斯权杖",
+    "type": "",
     "attack": 13,
     "defense": 0,
     "blood": 0,

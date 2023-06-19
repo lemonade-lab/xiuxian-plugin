@@ -2,6 +2,7 @@
   {
     "id": "13-2-1",
     "name": "玄铁锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -20,6 +21,7 @@
   {
     "id": "13-2-2",
     "name": "麒麟锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -38,6 +40,7 @@
   {
     "id": "13-2-3",
     "name": "百凰锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -56,6 +59,7 @@
   {
     "id": "13-2-4",
     "name": "三皇锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -74,6 +78,7 @@
   {
     "id": "13-2-5",
     "name": "地磁道锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -92,6 +97,7 @@
   {
     "id": "13-2-6",
     "name": "九玄炼锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -110,6 +116,7 @@
   {
     "id": "13-2-7",
     "name": "天工古锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -128,6 +135,7 @@
   {
     "id": "13-2-8",
     "name": "神兵圣锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -146,6 +154,7 @@
   {
     "id": "13-2-9",
     "name": "天造圣帝锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -164,6 +173,7 @@
   {
     "id": "13-2-10",
     "name": "先天八卦锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -182,6 +192,7 @@
   {
     "id": "13-2-11",
     "name": "永恒离火锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -200,6 +211,7 @@
   {
     "id": "13-2-12",
     "name": "乾坤圣耀锅",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,

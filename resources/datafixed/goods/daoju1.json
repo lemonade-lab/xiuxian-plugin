@@ -2,6 +2,7 @@
   {
     "id": "6-2-4",
     "name": "下品灵石",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -17,6 +18,7 @@
   {
     "id": "6-2-5",
     "name": "中品灵石",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -32,6 +34,7 @@
   {
     "id": "6-2-6",
     "name": "上品灵石",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -47,6 +50,7 @@
   {
     "id": "6-2-7",
     "name": "极品灵石",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,

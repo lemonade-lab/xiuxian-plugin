@@ -2,6 +2,7 @@
   {
     "id": "2-1-16",
     "name": "龙鳞",
+    "type": "",
     "attack": 0,
     "defense": 16,
     "blood": 0,
@@ -17,6 +18,7 @@
   {
     "id": "2-1-17",
     "name": "逆甲",
+    "type": "",
     "attack": 0,
     "defense": 17,
     "blood": 0,
@@ -32,6 +34,7 @@
   {
     "id": "2-1-18",
     "name": "逆鳞",
+    "type": "",
     "attack": 0,
     "defense": 18,
     "blood": 0,
@@ -47,6 +50,7 @@
   {
     "id": "2-1-19",
     "name": "彩衣",
+    "type": "",
     "attack": 0,
     "defense": 19,
     "blood": 0,

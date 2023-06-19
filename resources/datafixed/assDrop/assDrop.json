@@ -2,6 +2,7 @@
   {
     "id": "6-2-40",
     "name": "宗门令牌",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -17,6 +18,7 @@
   {
     "id": "6-2-41",
     "name": "下等宗门令牌",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,

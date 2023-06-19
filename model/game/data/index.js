@@ -7,40 +7,32 @@ const GPPath = '/xiuxianfile'
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
-  user_extend: algorithm.getFliePath(`${GPPath}/extend`),
-  user_action: algorithm.getFliePath(`${GPPath}/action`),
-  user_battle: algorithm.getFliePath(`${GPPath}/battle`),
-  user_equipment: algorithm.getFliePath(`${GPPath}/equipment`),
-  user_level: algorithm.getFliePath(`${GPPath}/level`),
-  user_talent: algorithm.getFliePath(`${GPPath}/talent`),
-  user_wealth: algorithm.getFliePath(`${GPPath}/wealth`),
-  user_bag: algorithm.getFliePath(`${GPPath}/najie`),
-
-  user_life: algorithm.getFliePath(`${GPPath}/life`),
-
-  user_material: algorithm.getFliePath(`${GPPath}/material`),
-
-  /* 金银坊 */
-  user_bank: algorithm.getFliePath(`${GPPath}/bank`),
-  /* 虚空境 */
-  generate_exchange: algorithm.getFliePath(`${GPPath}/exchange`),
-
+  user_extend: algorithm.getFliePath(`${GPPath}/extend`), // 增浮
+  user_action: algorithm.getFliePath(`${GPPath}/action`), // 地图行为
+  user_battle: algorithm.getFliePath(`${GPPath}/battle`), // 战斗
+  user_equipment: algorithm.getFliePath(`${GPPath}/equipment`), // 装备
+  user_level: algorithm.getFliePath(`${GPPath}/level`), // 境界
+  user_talent: algorithm.getFliePath(`${GPPath}/talent`), // 天赋
+  user_bag: algorithm.getFliePath(`${GPPath}/najie`), // 背包
+  user_life: algorithm.getFliePath(`${GPPath}/life`), // 寿命
+  user_material: algorithm.getFliePath(`${GPPath}/material`), //
+  user_bank: algorithm.getFliePath(`${GPPath}/bank`), // 金银坊
+  generate_exchange: algorithm.getFliePath(`${GPPath}/exchange`), // 虚空境
   /* 基础数据：插件内 */
-  fixed_point: algorithm.getReq('/resources/datafixed/point'),
-  fixed_position: algorithm.getReq('/resources/datafixed/position'),
-  fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'),
-  fixed_goods: algorithm.getReq('/resources/datafixed/goods'),
-  fixed_occupation: algorithm.getReq('/resources/datafixed/occupation'),
-  fixed_talent: algorithm.getReq('/resources/datafixed/talent'),
-  fixed_material: algorithm.getReq('/resources/datafixed/material'),
-  fixed_monster: algorithm.getReq('/resources/datafixed/monster'),
-  fixed_levels: algorithm.getReq('/resources/datafixed/levels'),
+  fixed_point: algorithm.getReq('/resources/datafixed/point'), // 点位
+  fixed_position: algorithm.getReq('/resources/datafixed/position'), // 区域位
+  fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'), // 装备
+  fixed_goods: algorithm.getReq('/resources/datafixed/goods'), // 物品
+  fixed_occupation: algorithm.getReq('/resources/datafixed/occupation'), //
+  fixed_talent: algorithm.getReq('/resources/datafixed/talent'), // 灵根
+  fixed_material: algorithm.getReq('/resources/datafixed/material'), //
+  fixed_monster: algorithm.getReq('/resources/datafixed/monster'), // 怪物
+  fixed_levels: algorithm.getReq('/resources/datafixed/levels'), // 境界
 
-  /* 生成数据 */
-  generate_all: algorithm.getReq('/resources/databirth/all'),
-  generate_position: algorithm.getReq('/resources/databirth/position'),
-  // 物品信息
-  generate_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
+  /* 生成数据：插件内 */
+  generate_all: algorithm.getReq('/resources/databirth/all'), // 所有数据
+  generate_position: algorithm.getReq('/resources/databirth/position'), // 位置
+  generate_dogshop: algorithm.getReq('/resources/databirth/dogshop'), // 灵瑶阁
 
   /* 家园路径 */
 
@@ -57,19 +49,16 @@ export const __PATH = {
   user_home_state: algorithm.getReq('/resources/databirth/home/state'),
   user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
   user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
-  // 物品信息
-  home_home_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
 
   /* 宗门路径 */
 
-  // 玩家存档
-  association: algorithm.getReq('/resources/databirth/assItem'),
-  // 用户的宗门数据
+  association: algorithm.getReq('/resources/databirth/assItem'), // 玩家存档
+  // 用户数据
   assGP: algorithm.getReq('/resources/databirth/assGP'),
   assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
   generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),
-  // 固定
+  // 固定数据
   assRelation: algorithm.getReq('/resources/datafixed/assRelation'),
   assRelate: algorithm.getReq('/resources/datafixed/assRelate'),
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'),
@@ -79,23 +68,6 @@ export const __PATH = {
 /** 生成游戏数据 */
 class DateIndex {
   constructor() {
-    /** 全物品数据 */
-    genertate.createList(__PATH.generate_all, 'all', [])
-    genertate.createList(__PATH.generate_all, 'all', [
-      ...genertate.getlist(__PATH.fixed_equipment, 'json'),
-      ...genertate.getlist(__PATH.fixed_goods, 'json')
-    ])
-    /** 万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备 */
-    genertate.createList(__PATH.generate_all, 'commodities', [])
-    genertate.createList(__PATH.generate_all, 'commodities', [
-      ...genertate.getlist(__PATH.fixed_goods, '0.json')
-    ])
-    /** 怪物掉落 */
-    genertate.createList(__PATH.generate_all, 'dropsItem', [])
-    genertate.createList(__PATH.generate_all, 'dropsItem', [
-      ...genertate.getlist(__PATH.fixed_equipment, '.json'),
-      ...genertate.getlist(__PATH.fixed_goods, '.json')
-    ])
     /** 地图：区域位 */
     genertate.createList(__PATH.generate_position, 'position', [])
     genertate.createList(__PATH.generate_position, 'position', [
@@ -105,6 +77,23 @@ class DateIndex {
     genertate.createList(__PATH.generate_position, 'point', [])
     genertate.createList(__PATH.generate_position, 'point', [
       ...genertate.getlist(__PATH.fixed_point, 'json')
+    ])
+    /** 全物品数据 */
+    genertate.createList(__PATH.generate_all, 'all', [])
+    genertate.createList(__PATH.generate_all, 'all', [
+      ...genertate.getlist(__PATH.fixed_equipment, 'json'), // 物品
+      ...genertate.getlist(__PATH.fixed_goods, 'json') // 装备
+    ])
+    /** 万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备 */
+    genertate.createList(__PATH.generate_all, 'commodities', [])
+    genertate.createList(__PATH.generate_all, 'commodities', [
+      ...genertate.getlist(__PATH.fixed_goods, '0.json') // 0标记可购买的物品
+    ])
+    /** 怪物掉落 */
+    genertate.createList(__PATH.generate_all, 'dropsItem', [])
+    genertate.createList(__PATH.generate_all, 'dropsItem', [
+      ...genertate.getlist(__PATH.fixed_equipment, '.json'), // 装备
+      ...genertate.getlist(__PATH.fixed_goods, '.json') // 物品
     ])
   }
 }

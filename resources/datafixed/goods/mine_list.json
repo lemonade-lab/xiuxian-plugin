@@ -2,6 +2,7 @@
   {
     "id": "50-4-3",
     "name": "石头",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -19,6 +20,7 @@
   {
     "id": "12-1-2",
     "name": "富煤晶石",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -36,6 +38,7 @@
   {
     "id": "12-1-3",
     "name": "玄铁晶石",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -53,6 +56,7 @@
   {
     "id": "12-1-4",
     "name": "火铜晶石",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -70,6 +74,7 @@
   {
     "id": "12-1-5",
     "name": "秘银晶石",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -87,6 +92,7 @@
   {
     "id": "12-1-6",
     "name": "精金晶石",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -104,6 +110,7 @@
   {
     "id": "12-1-7",
     "name": "熔岩晶石",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,

@@ -2,6 +2,7 @@
   {
     "id": "1-1-16",
     "name": "混沌针",
+    "type": "",
     "attack": 19,
     "defense": 0,
     "blood": 0,
@@ -17,6 +18,7 @@
   {
     "id": "1-1-17",
     "name": "墨刀",
+    "type": "",
     "attack": 20,
     "defense": 0,
     "blood": 0,
@@ -32,6 +34,7 @@
   {
     "id": "1-1-18",
     "name": "碧鳞剑",
+    "type": "",
     "attack": 21,
     "defense": 0,
     "blood": 0,
@@ -47,6 +50,7 @@
   {
     "id": "1-1-19",
     "name": "饮血剑",
+    "type": "",
     "attack": 22,
     "defense": 0,
     "blood": 0,

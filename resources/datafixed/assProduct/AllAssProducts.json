@@ -2,6 +2,7 @@
   {
     "id": "6-2-40",
     "name": "宗门令牌",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -17,6 +18,7 @@
   {
     "id": "6-2-41",
     "name": "下等宗门令牌",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -32,6 +34,7 @@
   {
     "id": "6-2-44",
     "name": "秘境传送令",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -47,6 +50,7 @@
   {
     "id": "6-2-42",
     "name": "中等宗门令牌",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -62,6 +66,7 @@
   {
     "id": "6-2-43",
     "name": "上等宗门令牌",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -77,6 +82,7 @@
   {
     "id": "5-1-41",
     "name": "雾隐秘典下",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -92,6 +98,7 @@
   {
     "id": "5-1-42",
     "name": "雾隐秘典中",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -107,6 +114,7 @@
   {
     "id": "5-1-43",
     "name": "雾隐秘典上",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -122,6 +130,7 @@
   {
     "id": "5-1-44",
     "name": "长虹剑决下",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -137,6 +146,7 @@
   {
     "id": "5-1-45",
     "name": "长虹剑决中",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -152,6 +162,7 @@
   {
     "id": "5-1-46",
     "name": "长虹剑决上",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -167,6 +178,7 @@
   {
     "id": "5-1-47",
     "name": "回春道典下",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -182,6 +194,7 @@
   {
     "id": "5-1-48",
     "name": "回春道典中",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -197,6 +210,7 @@
   {
     "id": "5-1-49",
     "name": "回春道典上",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -212,6 +226,7 @@
   {
     "id": "5-1-50",
     "name": "周衍天经下",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -227,6 +242,7 @@
   {
     "id": "5-1-51",
     "name": "周衍天经中",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -242,6 +258,7 @@
   {
     "id": "5-1-52",
     "name": "周衍天经上",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -257,6 +274,7 @@
   {
     "id": "1-1-40",
     "name": "宗门制式剑",
+    "type": "",
     "attack": 8,
     "defense": 1,
     "blood": 1,
@@ -272,6 +290,7 @@
   {
     "id": "2-1-40",
     "name": "宗门制式甲",
+    "type": "",
     "attack": 1,
     "defense": 8,
     "blood": 8,
@@ -287,6 +306,7 @@
   {
     "id": "3-1-40",
     "name": "宗门的庇护",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -302,6 +322,7 @@
   {
     "id": "3-1-41",
     "name": "共工水神珠",
+    "type": "",
     "attack": 10,
     "defense": 1,
     "blood": 1,
@@ -317,6 +338,7 @@
   {
     "id": "4-2-40",
     "name": "瑶池玉液",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -332,6 +354,7 @@
   {
     "id": "1-1-41",
     "name": "昆仑少阳剑",
+    "type": "",
     "attack": 12,
     "defense": 0,
     "blood": 0,
@@ -347,6 +370,7 @@
   {
     "id": "4-2-41",
     "name": "蓬莱秘药",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -362,6 +386,7 @@
   {
     "id": "5-1-53",
     "name": "灵台方寸经",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -377,6 +402,7 @@
   {
     "id": "2-1-41",
     "name": "小日子武士铠",
+    "type": "",
     "attack": 0,
     "defense": 10,
     "blood": 15,
@@ -392,6 +418,7 @@
   {
     "id": "1-1-42",
     "name": "建木枝条",
+    "type": "",
     "attack": 28,
     "defense": 0,
     "blood": 0,
@@ -407,6 +434,7 @@
   {
     "id": "3-1-42",
     "name": "素色云界旗",
+    "type": "",
     "attack": 1,
     "defense": 20,
     "blood": 1,
@@ -422,6 +450,7 @@
   {
     "id": "2-1-42",
     "name": "昆仑太极图",
+    "type": "",
     "attack": 0,
     "defense": 35,
     "blood": 0,
@@ -437,6 +466,7 @@
   {
     "id": "4-2-42",
     "name": "大梦飞仙丹",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -452,6 +482,7 @@
   {
     "id": "5-1-54",
     "name": "菩提炼心法",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -467,6 +498,7 @@
   {
     "id": "4-2-43",
     "name": "核废水",
+    "type": "",
     "attack": -15,
     "defense": -20,
     "blood": -50,

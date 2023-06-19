@@ -2,6 +2,7 @@
   {
     "id": "5-1-6",
     "name": "魅魔经",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -17,6 +18,7 @@
   {
     "id": "5-1-7",
     "name": "三千咒",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -32,6 +34,7 @@
   {
     "id": "5-1-8",
     "name": "龙象诀",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -47,6 +50,7 @@
   {
     "id": "5-1-9",
     "name": "五形功",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,
@@ -62,6 +66,7 @@
   {
     "id": "5-1-10",
     "name": "通宝诀",
+    "type": "",
     "attack": 0,
     "defense": 0,
     "blood": 0,

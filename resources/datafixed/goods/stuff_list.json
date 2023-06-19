@@ -2,6 +2,7 @@
   {
     "id": "14-1-1",
     "name": "圆木",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -19,6 +20,7 @@
   {
     "id": "14-2-1",
     "name": "木板",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -36,6 +38,7 @@
   {
     "id": "14-2-2",
     "name": "木屑",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -53,6 +56,7 @@
   {
     "id": "50-4-3",
     "name": "石头",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -71,6 +75,7 @@
   {
     "id": "50-4-1",
     "name": "水草",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -89,6 +94,7 @@
   {
     "id": "50-4-2",
     "name": "树苗",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,

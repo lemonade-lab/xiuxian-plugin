@@ -2,6 +2,7 @@
   {
     "id": "11-1-1",
     "name": "霓裳草种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -19,6 +20,7 @@
   {
     "id": "11-1-2",
     "name": "阴凝草种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -36,6 +38,7 @@
   {
     "id": "11-1-3",
     "name": "甲衣草种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -53,6 +56,7 @@
   {
     "id": "11-1-4",
     "name": "蚀毒草种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -70,6 +74,7 @@
   {
     "id": "11-1-5",
     "name": "九焰草种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -87,6 +92,7 @@
   {
     "id": "11-1-6",
     "name": "木铃花种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -104,6 +110,7 @@
   {
     "id": "11-1-7",
     "name": "金王花种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -121,6 +128,7 @@
   {
     "id": "11-1-8",
     "name": "黑玉花种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -138,6 +146,7 @@
   {
     "id": "11-1-9",
     "name": "灵烛果种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -155,6 +164,7 @@
   {
     "id": "11-1-10",
     "name": "阴枣种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -172,6 +182,7 @@
   {
     "id": "11-1-11",
     "name": "芝龙果种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -189,6 +200,7 @@
   {
     "id": "11-1-12",
     "name": "青罗果种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -206,6 +218,7 @@
   {
     "id": "11-1-13",
     "name": "冥焰果种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -223,6 +236,7 @@
   {
     "id": "11-1-14",
     "name": "红罗果种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -240,6 +254,7 @@
   {
     "id": "11-1-15",
     "name": "紫灵果种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -257,6 +272,7 @@
   {
     "id": "11-1-16",
     "name": "养魂木种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -274,6 +290,7 @@
   {
     "id": "11-1-17",
     "name": "血凤木种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -291,6 +308,7 @@
   {
     "id": "11-1-18",
     "name": "碧灵木种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -308,6 +326,7 @@
   {
     "id": "11-1-19",
     "name": "雪木种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -325,6 +344,7 @@
   {
     "id": "11-1-20",
     "name": "泣灵血木种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -342,6 +362,7 @@
   {
     "id": "11-1-21",
     "name": "赤精芝种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -359,6 +380,7 @@
   {
     "id": "11-1-22",
     "name": "金阳芝种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -376,6 +398,7 @@
   {
     "id": "11-1-23",
     "name": "天雷竹种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
@@ -393,6 +416,7 @@
   {
     "id": "11-1-24",
     "name": "九曲灵参种子",
+    "type": "",
     "attack": 1,
     "defense": 1,
     "blood": 1,
