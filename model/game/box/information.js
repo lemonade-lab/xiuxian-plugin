@@ -1,4 +1,4 @@
-import gameUser from './index.js'
+import Player from './index.js'
 import listdata from '../data/listdata.js'
 class Information {
   /**
@@ -27,7 +27,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const linggenname = gameUser.getTalentName(talent)
+    const linggenname = Player.getTalentName(talent)
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {
@@ -95,7 +95,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const linggenname = gameUser.getTalentName(talent)
+    const linggenname = Player.getTalentName(talent)
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenname.length; i++) {

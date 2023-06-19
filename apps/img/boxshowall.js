@@ -21,7 +21,7 @@ export class Boxshowall extends plugin {
 
   async showConfig(e) {
     if (!this.verify(e)) return false
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })

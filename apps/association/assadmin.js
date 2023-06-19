@@ -45,7 +45,7 @@ export class AssociationAdmin extends plugin {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
     }
-    let money = GameApi.GameUser.userBagSearch({ UID, name: '下品灵石' })
+    let money = GameApi.Player.userBagSearch({ UID, name: '下品灵石' })
     if (!money) {
       e.reply('[下品灵石]不足')
       return false
@@ -61,11 +61,11 @@ export class AssociationAdmin extends plugin {
     // 中，是否四大隐藏有主            是，检测低级，否，随机获取四大宗门
     // 低，进行普通创建
 
-    let najieThingA = GameApi.GameUser.userBagSearch({
+    let najieThingA = GameApi.Player.userBagSearch({
       UID,
       name: '下等宗门令牌'
     })
-    let najieThingB = GameApi.GameUser.userBagSearch({
+    let najieThingB = GameApi.Player.userBagSearch({
       UID,
       name: '中等宗门令牌'
     })
@@ -82,12 +82,12 @@ export class AssociationAdmin extends plugin {
 
       if (assName.length != 0) {
         // 可以创建隐藏宗门
-        GameApi.GameUser.userBag({
+        GameApi.Player.userBag({
           UID,
           name: '下品灵石',
           ACCOUNT: Number(-10000)
         })
-        GameApi.GameUser.userBag({
+        GameApi.Player.userBag({
           UID,
           name: najieThingB.name,
           ACCOUNT: Number(-1)
@@ -121,12 +121,12 @@ export class AssociationAdmin extends plugin {
 
     // 隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
     if (najieThingA) {
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: '下品灵石',
         ACCOUNT: Number(-10000)
       })
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -237,11 +237,11 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let najieThingA = GameApi.GameUser.userBagSearch({
+    let najieThingA = GameApi.Player.userBagSearch({
       UID,
       name: '中等宗门令牌'
     })
-    let najieThingB = GameApi.GameUser.userBagSearch({
+    let najieThingB = GameApi.Player.userBagSearch({
       UID,
       name: '上等宗门令牌'
     })
@@ -251,7 +251,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级中等宗门需要对应令牌，快去获取吧`)
         return false
       }
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -263,7 +263,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级上等宗门需要对应令牌，快去获取吧`)
         return false
       }
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: najieThingB.name,
         ACCOUNT: Number(-1)

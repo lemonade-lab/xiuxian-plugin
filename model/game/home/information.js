@@ -13,7 +13,7 @@ class Information {
   }
 
   userWarehouseShow(UID) {
-    let life = GameApi.GameUser.userMsgAction({
+    let life = GameApi.Player.userMsgAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
@@ -124,7 +124,7 @@ class Information {
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    let life = GameApi.GameUser.userMsgAction({
+    let life = GameApi.Player.userMsgAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
@@ -158,7 +158,7 @@ class Information {
   }
 
   get_lookland_img(UID) {
-    let life = GameApi.GameUser.userMsgAction({
+    let life = GameApi.Player.userMsgAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })

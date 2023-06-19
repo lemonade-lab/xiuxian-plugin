@@ -15,7 +15,7 @@ export class Boxfairyland extends plugin {
   async breakLevel(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = GameApi.GameUser.existUserSatus(UID)
+    const ifexistplay = GameApi.Player.existUserSatus(UID)
     if (!ifexistplay) {
       e.reply(`已仙鹤`)
       return
@@ -89,7 +89,7 @@ export class Boxfairyland extends plugin {
             CHOICE: 'user_battle'
           })
           if (battle.nowblood > 0) {
-            let damage = Math.trunc(GameApi.GameBattle.Thunderbolt_damage(UID))
+            let damage = Math.trunc(GameApi.Battle.Thunderbolt_damage(UID))
             battle.nowblood -= damage
             if (battle.nowblood < 0) {
               battle.nowblood = 0

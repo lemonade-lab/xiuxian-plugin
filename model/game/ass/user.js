@@ -8,7 +8,7 @@ function getJsonParse(val) {
   return JSON.parse(fs.readFileSync(val))
 }
 
-class GameUser {
+class Player {
   constructor() {
     this.blessPlaceList = getJsonParse(`${__PATH.assRelate}/BlessPlace.json`)
     this.baseTreasureVaultList = getJsonParse(`${__PATH.assRelate}/BaseTreasureVault.json`)
@@ -156,14 +156,14 @@ class GameUser {
 
     effective = effective * coefficient
     assPlayer.effective = effective.toFixed(2)
-    GameApi.GameUser.addExtendPerpetual({
+    GameApi.Player.addExtendPerpetual({
       NAME: assPlayer.qqNumber,
       FLAG: 'ass',
       TYPE: 'efficiency',
       VALUE: Number(assPlayer.effective)
     })
     this.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
-    GameApi.GameUser.updataUserEfficiency(assPlayer.qqNumber)
+    GameApi.Player.updataUserEfficiency(assPlayer.qqNumber)
   }
 
   assRename(ass, type, associationName) {
@@ -216,7 +216,7 @@ class GameUser {
   }
 
   existArchive(qq) {
-    let player = GameApi.GameUser.existUser(qq)
+    let player = GameApi.Player.existUser(qq)
     // 不存在
     if (!player) return false
     // 修仙存在此人，看宗门系统有没有他
@@ -271,7 +271,7 @@ class GameUser {
 
           this.setAssOrPlayer('association', ass.id, ass) // 记录到存档
           this.assEffCount(randMember)
-          GameApi.GameUser.updataUserEfficiency(randMember.qqNumber)
+          GameApi.Player.updataUserEfficiency(randMember.qqNumber)
         }
       }
     }
@@ -358,7 +358,7 @@ class GameUser {
     fs.rmSync(`${__PATH[path]}/${name}.json`)
   }
 }
-export default new GameUser()
+export default new Player()
 
 function isNotNull(obj) {
   if (obj == undefined || obj == null) return false

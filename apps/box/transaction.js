@@ -82,7 +82,7 @@ export class BoxTransaction extends plugin {
       e.reply(`[万宝楼]小二\n不卖[${thingName}]`)
       return false
     }
-    const money = GameApi.GameUser.userBagSearch({
+    const money = GameApi.Player.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -91,12 +91,12 @@ export class BoxTransaction extends plugin {
       e.reply(`似乎没有${price}*[下品灵石]`)
       return false
     }
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -Number(price)
     })
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: ifexist.name,
       ACCOUNT: Number(quantity)
@@ -110,7 +110,7 @@ export class BoxTransaction extends plugin {
     const UID = e.user_id
     if (!transactionMessage(e)) return false
     const [thingName, quantity] = e.msg.replace(/^(#|\/)出售/, '').split('*')
-    const najieThing = GameApi.GameUser.userBagSearch({
+    const najieThing = GameApi.Player.userBagSearch({
       UID,
       name: thingName
     })
@@ -124,7 +124,7 @@ export class BoxTransaction extends plugin {
       return false
     }
 
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: najieThing.name,
       ACCOUNT: -Number(quantity)
@@ -132,7 +132,7 @@ export class BoxTransaction extends plugin {
 
     const commoditiesPrice = najieThing.price * quantity
 
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: Number(commoditiesPrice)
@@ -168,7 +168,7 @@ export class BoxTransaction extends plugin {
       CHOICE: 'user_bag',
       DATA: bag
     })
-    GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+    GameApi.Player.userBag({ UID, name: '下品灵石', ACCOUNT: money })
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
     return false
   }
@@ -213,13 +213,13 @@ export class BoxTransaction extends plugin {
       CHOICE: 'user_bag',
       DATA: bag
     })
-    GameApi.GameUser.userBag({ UID, name: '下品灵石', ACCOUNT: money })
+    GameApi.Player.userBag({ UID, name: '下品灵石', ACCOUNT: money })
     e.reply(`[蜀山派]叶铭\n这是${money}*[下品灵石],道友慢走`)
     return false
   }
 }
 function transactionMessage(e) {
-  if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+  if (!GameApi.Player.existUserSatus(e.user_id)) {
     e.reply('已仙鹤')
     return false
   }

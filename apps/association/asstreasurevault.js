@@ -47,7 +47,7 @@ export class AssTreasureVault extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -62,7 +62,7 @@ export class AssTreasureVault extends plugin {
     }
     let thingName = e.msg.replace(/^(#|\/)藏宝阁回收/, '')
 
-    const searchThing = GameApi.GameUser.userBagSearch({
+    const searchThing = GameApi.Player.userBagSearch({
       UID,
       name: thingName
     })
@@ -182,7 +182,7 @@ export class AssTreasureVault extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -245,7 +245,7 @@ export class AssTreasureVault extends plugin {
   }
 }
 const addNajieThings = (thing, userQQ, account) => {
-  GameApi.GameUser.userBag({
+  GameApi.Player.userBag({
     UID: userQQ,
     name: thing.name,
     ACCOUNT: Number(account)

@@ -48,7 +48,7 @@ export class Association extends plugin {
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
       const qqNum = ass.allMembers[item]
-      const player = GameApi.GameUser.userMsgAction({
+      const player = GameApi.Player.userMsgAction({
         NAME: qqNum,
         CHOICE: 'user_level'
       })
@@ -114,7 +114,7 @@ export class Association extends plugin {
     ass.facility[4].buildNum -= 1
     assPlayer.contributionPoints -= 1
     assPlayer.lastSignAss = nowTime
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: Number(giftNumber)
@@ -241,7 +241,7 @@ export class Association extends plugin {
     let lingshi = e.msg.replace(reg, '')
     lingshi = AssociationApi.assUser.numberVerify(lingshi)
 
-    let money = GameApi.GameUser.userBagSearch({
+    let money = GameApi.Player.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -268,7 +268,7 @@ export class Association extends plugin {
     ass.spiritStoneAns += lingshi
     assPlayer.contributionPoints += Math.trunc(lingshi / 1000)
     assPlayer.historyContribution += Math.trunc(lingshi / 1000)
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: Number(-lingshi)

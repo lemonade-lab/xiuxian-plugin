@@ -94,7 +94,7 @@ export class AssUncharted extends plugin {
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
 
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -124,7 +124,7 @@ export class AssUncharted extends plugin {
       incentivesLevel = unchartedLevel + Math.trunc(Math.random() * 6) - 2
     }
     e.reply(`本次生成秘境等级为${unchartedLevel},奖励等级为${incentivesLevel}`)
-    let money = GameApi.GameUser.userBagSearch({
+    let money = GameApi.Player.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -140,13 +140,13 @@ export class AssUncharted extends plugin {
     const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
 
     if (assPlayer.assName == ass.id) {
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: '下品灵石',
         ACCOUNT: Number(-unchartedLevel * 4500)
       })
     } else {
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: '下品灵石',
         ACCOUNT: Number(-unchartedLevel * 5000)
@@ -191,7 +191,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const player = GameApi.GameUser.userMsgAction({
+    const player = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
@@ -263,7 +263,7 @@ export class AssUncharted extends plugin {
     if (random < 0.2) {
       e.reply(`无事发生`)
     } else if (random < 0.35) {
-      GameApi.GameUser.updataUser({
+      GameApi.Player.updataUser({
         UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experiencemax',
@@ -275,7 +275,7 @@ export class AssUncharted extends plugin {
         }气血`
       )
     } else if (random < 0.5) {
-      GameApi.GameUser.updataUser({
+      GameApi.Player.updataUser({
         UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experience',
@@ -286,7 +286,7 @@ export class AssUncharted extends plugin {
       )
     } else if (random < 0.65) {
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
-      GameApi.GameUser.updataUser({
+      GameApi.Player.updataUser({
         UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experience',
@@ -298,7 +298,7 @@ export class AssUncharted extends plugin {
     } else if (random < 0.85) {
       // 遇怪
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
-      const battle = GameApi.GameUser.userMsgAction({
+      const battle = GameApi.Player.userMsgAction({
         NAME: UID,
         CHOICE: 'user_battle'
       })
@@ -335,7 +335,7 @@ export class AssUncharted extends plugin {
         burstmax: LevelMax.burstmax + LevelMax.id * 10,
         speed: LevelMax.speed + 5
       }
-      const battleMsg = GameApi.GameBattle.monsterbattle({
+      const battleMsg = GameApi.Battle.monsterbattle({
         e,
         battleA: battle,
         battleB: monsters
@@ -344,7 +344,7 @@ export class AssUncharted extends plugin {
       battleMsg.msg.forEach((item) => {
         msg.push(item)
       })
-      GameApi.GameUser.updataUser({
+      GameApi.Player.updataUser({
         UID,
         CHOICE: 'user_level',
         ATTRIBUTE: 'experiencemax',
@@ -491,7 +491,7 @@ export class AssUncharted extends plugin {
           addNajieThings(addThing, UID, 1)
           msg.push(`你获得了${addThing.name}`)
         } else {
-          GameApi.GameUser.userBag({
+          GameApi.Player.userBag({
             UID,
             name: '下品灵石',
             ACCOUNT: Number(lastNum * 100)
@@ -590,7 +590,7 @@ async function GoAssUncharted(e, weizhi, addres) {
   e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 }
 const addNajieThings = (thing, userQQ, account) => {
-  GameApi.GameUser.userBag({
+  GameApi.Player.userBag({
     UID: userQQ,
     name: thing.name,
     ACCOUNT: Number(account)

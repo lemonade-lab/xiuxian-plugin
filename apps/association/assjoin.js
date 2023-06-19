@@ -41,7 +41,7 @@ export class AssociationJoin extends plugin {
     if (assPlayer.assName == 0) {
       return false
     }
-    const joinPlayer = GameApi.GameUser.userMsgAction({
+    const joinPlayer = GameApi.Player.userMsgAction({
       NAME: joinQQ,
       CHOICE: 'user_level'
     })

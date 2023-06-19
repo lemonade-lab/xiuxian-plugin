@@ -10,7 +10,7 @@ createdata.moveConfig()
 // const task = BotApi.getConfig({ app: 'task', name: 'task' })
 
 /** 启动寿命记时 */
-// const fnc = GameApi.GameUser.startLife()
+// const fnc = GameApi.Player.startLife()
 
 /** 启动备份 */
 

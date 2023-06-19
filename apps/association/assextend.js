@@ -90,7 +90,7 @@ export class AssociationExtend extends plugin {
       return false
     }
 
-    let isExists = GameApi.GameUser.userBagSearch({
+    let isExists = GameApi.Player.userBagSearch({
       UID,
       name: '宗门令牌'
     })
@@ -99,27 +99,27 @@ export class AssociationExtend extends plugin {
       return false
     }
     const random = Math.random()
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: isExists.name,
       ACCOUNT: Number(-1)
     })
     if (random < 0.1) {
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: '上等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了上等宗门令牌`)
     } else if (random < 0.35) {
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: '中等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了中等宗门令牌`)
     } else {
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID,
         name: '下等宗门令牌',
         ACCOUNT: Number(1)

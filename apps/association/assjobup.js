@@ -51,11 +51,11 @@ export class AssociationJobUp extends plugin {
     }
     const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
 
-    const actionA = GameApi.GameUser.userMsgAction({
+    const actionA = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const actionB = GameApi.GameUser.userMsgAction({
+    const actionB = GameApi.Player.userMsgAction({
       NAME: ass.master,
       CHOICE: 'user_action'
     })
@@ -64,12 +64,12 @@ export class AssociationJobUp extends plugin {
       return false
     }
 
-    const victory = GameApi.GameBattle.battle({
+    const victory = GameApi.Battle.battle({
       e,
       A: UID,
       B: ass.master
     })
-    const userLevel = GameApi.GameUser.userMsgAction({
+    const userLevel = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -96,7 +96,7 @@ export class AssociationJobUp extends plugin {
     }
     AssociationApi.assUser.assEffCount(assPlayer)
     AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    GameApi.GameUser.userMsgAction({
+    GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: userLevel
@@ -136,11 +136,11 @@ export class AssociationJobUp extends plugin {
     ) {
       return false
     }
-    const actionA = GameApi.GameUser.userMsgAction({
+    const actionA = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const actionB = GameApi.GameUser.userMsgAction({
+    const actionB = GameApi.Player.userMsgAction({
       NAME: battleQQ,
       CHOICE: 'user_action'
     })
@@ -148,7 +148,7 @@ export class AssociationJobUp extends plugin {
       e.reply('没有找到对方在哪里，无法挑战！')
       return false
     }
-    const victory = GameApi.GameBattle.battle({ e, A: UID, B: battleQQ })
+    const victory = GameApi.Battle.battle({ e, A: UID, B: battleQQ })
     if (victory == UID) {
       assPlayer.assJob += 1
       battlePlayer.assJob -= 1

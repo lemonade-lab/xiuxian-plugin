@@ -15,7 +15,7 @@ export class BoxSecretplace extends plugin {
   async showCity(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -52,7 +52,7 @@ export class BoxSecretplace extends plugin {
   async falsePiont(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -61,9 +61,9 @@ export class BoxSecretplace extends plugin {
     if (action.actionID == 2) {
       GameApi.Wrap.deleteAction(UID)
       // 取消行为
-      GameApi.GamePlace.setUserTime(UID, 0)
+      GameApi.Place.setUserTime(UID, 0)
       // 取消行为
-      clearTimeout(GameApi.GamePlace.getUserAction(UID))
+      clearTimeout(GameApi.Place.getUserAction(UID))
       e.reply('已回到原地')
       return false
     }
@@ -73,7 +73,7 @@ export class BoxSecretplace extends plugin {
   async xyzaddress(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -89,7 +89,7 @@ export class BoxSecretplace extends plugin {
   async forward(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -98,7 +98,7 @@ export class BoxSecretplace extends plugin {
       e.reply(msg)
       return false
     }
-    if (GameApi.GamePlace.getUserTime(UID) == 1) {
+    if (GameApi.Place.getUserTime(UID) == 1) {
       return false
     }
     const action = GameApi.UserData.controlAction({
@@ -135,13 +135,13 @@ export class BoxSecretplace extends plugin {
     })
     const the = Math.floor(a + b - (a + b) * battle.speed * 0.01)
     const time = the >= 0 ? the : 1
-    GameApi.GamePlace.setUserAction(
+    GameApi.Place.setUserAction(
       UID,
       setTimeout(() => {
         /* 这里清除行为 */
         GameApi.Wrap.deleteAction(UID)
         // 标记完成
-        GameApi.GamePlace.setUserTime(UID, 0)
+        GameApi.Place.setUserTime(UID, 0)
         action.x = mx
         action.y = my
         action.region = PointId[1]
@@ -155,7 +155,7 @@ export class BoxSecretplace extends plugin {
       }, 1000 * time)
     )
     // 设置记录
-    GameApi.GamePlace.setUserTime(UID, 1)
+    GameApi.Place.setUserTime(UID, 1)
     // 设置行为赶路
 
     const actionObject = {
@@ -171,7 +171,7 @@ export class BoxSecretplace extends plugin {
   async delivery(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -180,7 +180,7 @@ export class BoxSecretplace extends plugin {
       e.reply(msg)
       return false
     }
-    if (GameApi.GamePlace.getUserDelivery(UID) == 1) {
+    if (GameApi.Place.getUserDelivery(UID) == 1) {
       return false
     }
     const action = GameApi.UserData.controlAction({
@@ -226,7 +226,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const lingshi = 1000
-    const money = GameApi.GameUser.userBagSearch({
+    const money = GameApi.Player.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -235,7 +235,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     // 先扣钱
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -lingshi
@@ -250,7 +250,7 @@ export class BoxSecretplace extends plugin {
       // 清除行为
       GameApi.Wrap.deleteAction(UID)
       // 标记完成
-      GameApi.GamePlace.setUserDelivery(UID, 0)
+      GameApi.Place.setUserDelivery(UID, 0)
       action.x = mx
       action.y = my
       action.region = positionID[1]
@@ -263,7 +263,7 @@ export class BoxSecretplace extends plugin {
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
     // 传送
-    GameApi.GamePlace.setUserDelivery(UID, 1)
+    GameApi.Place.setUserDelivery(UID, 1)
     // 传送行为记录
 
     const actionObject = {

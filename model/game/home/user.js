@@ -1,7 +1,7 @@
 import listdata from '../data/listdata.js'
 import User from './user.js'
 import { GameApi } from '../../api/index.js'
-class GameUser {
+class Player {
   userWarehouse({ UID, name, ACCOUNT }) {
     const thing = listdata.searchThing({
       condition: 'name',
@@ -763,4 +763,4 @@ class GameUser {
     return 1
   }
 }
-export default new GameUser()
+export default new Player()

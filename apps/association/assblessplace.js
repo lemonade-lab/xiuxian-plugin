@@ -164,7 +164,7 @@ export class AssBlessPlace extends plugin {
     const point = positionList.find((item) => item.name == blessedName)
 
     // 取洞天点位，是否在位置，在--->是否被占领
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -217,7 +217,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -241,7 +241,7 @@ export class AssBlessPlace extends plugin {
     assPlayer.lastExplorTime = nowTime
 
     let giftLingshi = 0
-    const player = GameApi.GameUser.userMsgAction({
+    const player = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -276,7 +276,7 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const player = GameApi.GameUser.userMsgAction({
+    const player = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -304,7 +304,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -409,7 +409,7 @@ async function GoBlessPlace(e, weizhi, addres) {
 function getFightMember(members, position) {
   let res = []
   for (let i = 0; i < members.length; i++) {
-    const action = GameApi.GameUser.userMsgAction({
+    const action = GameApi.Player.userMsgAction({
       NAME: members[i],
       CHOICE: 'user_action'
     })
@@ -436,7 +436,7 @@ function SealingFormation(members) {
     power: 0
   }
   for (let i = 0; i < members.length; i++) {
-    const battle = GameApi.GameUser.userMsgAction({
+    const battle = GameApi.Player.userMsgAction({
       NAME: members[i],
       CHOICE: 'user_battle'
     })
@@ -533,7 +533,7 @@ function battleProbability(P) {
 }
 const AddPrestige = (members) => {
   for (let i = 0; i < members.length; i++) {
-    GameApi.GameUser.updataUser({
+    GameApi.Player.updataUser({
       UID: members[i],
       CHOICE: 'user_level',
       ATTRIBUTE: 'prestige',

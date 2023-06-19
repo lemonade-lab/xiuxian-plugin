@@ -14,7 +14,7 @@ export class BoxPlayerControl extends plugin {
   async biguan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -36,7 +36,7 @@ export class BoxPlayerControl extends plugin {
   async dagong(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -58,7 +58,7 @@ export class BoxPlayerControl extends plugin {
   async chuGuan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -66,7 +66,7 @@ export class BoxPlayerControl extends plugin {
     if (!action) return false
     if (action.actionID != 0) return false
     const startTime = action.startTime
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -85,7 +85,7 @@ export class BoxPlayerControl extends plugin {
   async endWork(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -93,7 +93,7 @@ export class BoxPlayerControl extends plugin {
     if (!action) return false
     if (action.actionID != 1) return false
     const startTime = action.startTime
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -116,7 +116,7 @@ export class BoxPlayerControl extends plugin {
       CHOICE: 'user_talent'
     })
     const buff = Math.floor(talent.talentsize / 100) + Number(1)
-    const appSize = GameApi.DefsetUpdata.getConfig({
+    const appSize = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -134,13 +134,13 @@ export class BoxPlayerControl extends plugin {
       othername = 'experiencemax'
       msg = `降妖归来\n[气血]*${other}`
     }
-    GameApi.GameUser.updataUser({
+    GameApi.Player.updataUser({
       UID,
       CHOICE: 'user_level',
       ATTRIBUTE: othername,
       SIZE: other
     })
-    GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(90) })
+    GameApi.Player.updataUserBlood({ UID, SIZE: Number(90) })
     msg += '\n[血量状态]90%'
     msg += `\n${name}结束`
     e.reply([segment.at(UID), msg])

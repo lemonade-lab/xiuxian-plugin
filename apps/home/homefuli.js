@@ -58,7 +58,7 @@ export class Homefuli extends plugin {
     let FileLength = File.length
     for (var i = 0; i < FileLength; i++) {
       let theQQ = File[i].replace('.json', '')
-      HomeApi.GameUser.addDoge({ UID: theQQ, money: ls })
+      HomeApi.Player.addDoge({ UID: theQQ, money: ls })
     }
     e.reply(`发放成功,目前共有${FileLength}个玩家,每人增加${ls}灵晶`)
     return false
@@ -94,7 +94,7 @@ export class Homefuli extends plugin {
     if (!user.B) {
       return false
     }
-    HomeApi.GameUser.addDoge({ UID: user.B, money: doge })
+    HomeApi.Player.addDoge({ UID: user.B, money: doge })
     e.reply(`【全服公告】 ${user.B} 获得${doge}灵晶的补偿`)
     return false
   }
@@ -119,7 +119,7 @@ export class Homefuli extends plugin {
     let thingName = code[0] // 物品名字
     let acount = code[1] // 物品数量
     let quantity = GameApi.Method.leastOne(acount)
-    let wupin = HomeApi.GameUser.homesearchThingName({
+    let wupin = HomeApi.Player.homesearchThingName({
       name: thingName
     })
     if (wupin == undefined) {
@@ -131,7 +131,7 @@ export class Homefuli extends plugin {
       NAME: user.B,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.addDataThing({
+    Warehouse = HomeApi.Player.addDataThing({
       DATA: Warehouse,
       DATA1: wupin,
       quantity
@@ -171,7 +171,7 @@ export class Homefuli extends plugin {
 
     for (var i = 0; i < FileLength; i++) {
       let theQQ = File[i].replace('.json', '')
-      HomeApi.GameUser.addHomeexperience({
+      HomeApi.Player.addHomeexperience({
         UID: theQQ,
         experience: -jy
       })
@@ -207,7 +207,7 @@ export class Homefuli extends plugin {
     } else {
       jy = 100 // 没有输入正确数字或不是正数
     }
-    HomeApi.GameUser.addHomeexperience({ UID: user.B, experience: -jy })
+    HomeApi.Player.addHomeexperience({ UID: user.B, experience: -jy })
     e.reply(`经验扣除成功,${user.B}减少${jy}家园经验`)
     return false
   }
@@ -239,7 +239,7 @@ export class Homefuli extends plugin {
     } else {
       jy = 100 // 没有输入正确数字或不是正数
     }
-    HomeApi.GameUser.addHomeexperience({ UID: user.B, experience: jy })
+    HomeApi.Player.addHomeexperience({ UID: user.B, experience: jy })
     e.reply(`经验发放成功,${user.B}增加${jy}家园经验`)
     return false
   }
@@ -261,7 +261,7 @@ export class Homefuli extends plugin {
       doge = 100 // 没有输入正确数字或不是正数
     }
     let theQQ = BotApi.Robot.at({ e })
-    HomeApi.GameUser.addDoge({ UID: theQQ, money: -doge })
+    HomeApi.Player.addDoge({ UID: theQQ, money: -doge })
     e.reply(`${theQQ}被管理员扣除 ${doge}灵晶`)
     return false
   }

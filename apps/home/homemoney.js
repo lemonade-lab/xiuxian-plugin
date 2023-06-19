@@ -27,11 +27,11 @@ export class Homemoney extends plugin {
   async Mylingshi(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive(UID)
+    const archive = HomeApi.Player.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -52,11 +52,11 @@ export class Homemoney extends plugin {
   async Homesale(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive(UID)
+    const archive = HomeApi.Player.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -66,7 +66,7 @@ export class Homemoney extends plugin {
     let thingName = code[0] // 物品
     let thingAcount = code[1] // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let searchsthing = HomeApi.GameUser.userWarehouseSearch({
+    let searchsthing = HomeApi.Player.userWarehouseSearch({
       UID,
       name: thingName
     })
@@ -87,7 +87,7 @@ export class Homemoney extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.GameUser.addDataThing({
+    Warehouse = HomeApi.Player.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
@@ -105,7 +105,7 @@ export class Homemoney extends plugin {
     let commoditiesDoge = parseInt(commoditiesDoge1 * rand)
     let sui = commoditiesDoge1 - commoditiesDoge
     let sui1 = commoditiesDoge - commoditiesDoge1
-    HomeApi.GameUser.addDoge({ UID, money: commoditiesDoge })
+    HomeApi.Player.addDoge({ UID, money: commoditiesDoge })
     if (sui < 0) {
       e.reply(`在出售物品的时候，分阁人员掉了${sui1}灵晶在地上，最后得到${commoditiesDoge}灵晶`)
     } else if (sui == 0) {
@@ -119,11 +119,11 @@ export class Homemoney extends plugin {
   async dogshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive(UID)
+    const archive = HomeApi.Player.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -174,11 +174,11 @@ export class Homemoney extends plugin {
   async Buy_home(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GameUser.Archive(UID)
+    const archive = HomeApi.Player.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -228,7 +228,7 @@ export class Homemoney extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    HomeApi.GameUser.addDataThing({
+    HomeApi.Player.addDataThing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity
@@ -239,7 +239,7 @@ export class Homemoney extends plugin {
       DATA: Warehouse,
       INITIAL: []
     })
-    HomeApi.GameUser.addDoge({ UID, money: -commoditiesDoge })
+    HomeApi.Player.addDoge({ UID, money: -commoditiesDoge })
     e.reply(
       `这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶购买了[${thingName}]*${quantity},`
     )

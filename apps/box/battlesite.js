@@ -12,7 +12,7 @@ export class BoxBattleSite extends plugin {
   async userKill(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -23,7 +23,7 @@ export class BoxBattleSite extends plugin {
     }
     const CDID = '10'
     const nowTime = new Date().getTime()
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -38,13 +38,13 @@ export class BoxBattleSite extends plugin {
       NAME: UID,
       CHOICE: 'user_action'
     })
-    const monstersdata = GameApi.GameMonster.monsterscache(action.region)
+    const monstersdata = GameApi.Monster.monsterscache(action.region)
     const mon = monstersdata[Mname]
     if (!mon) {
       e.reply(`这里没有[${Mname}],去别处看看吧`)
       return false
     }
-    const MnameBuff = GameApi.GameMonster.add(action.region, Mname)
+    const MnameBuff = GameApi.Monster.add(action.region, Mname)
     const msgLeft = []
     const buff = {
       msg: 1
@@ -76,7 +76,7 @@ export class BoxBattleSite extends plugin {
       CHOICE: 'user_talent'
     })
     const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-    const battleMsg = GameApi.GameBattle.monsterbattle({
+    const battleMsg = GameApi.Battle.monsterbattle({
       e,
       battleA: battle,
       battleB: monsters,
@@ -89,13 +89,13 @@ export class BoxBattleSite extends plugin {
     if (battleMsg.QQ != 0) {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
-        const randomthinf = GameApi.GameUser.randomThing()
+        const randomthinf = GameApi.Player.randomThing()
         let najie = GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_bag'
         })
         if (najie.thing.length <= najie.grade * 10) {
-          GameApi.GameUser.userBag({
+          GameApi.Player.userBag({
             UID,
             name: randomthinf.name,
             ACCOUNT: randomthinf.acount
@@ -108,7 +108,7 @@ export class BoxBattleSite extends plugin {
       if (m < (mon.level + 1) * 7) {
         const SIZE = mon.level * 25 * mybuff
         msgRight.push(`[气血]*${SIZE}`)
-        GameApi.GameUser.updataUser({
+        GameApi.Player.updataUser({
           UID,
           CHOICE: 'user_level',
           ATTRIBUTE: 'experiencemax',
@@ -118,7 +118,7 @@ export class BoxBattleSite extends plugin {
       if (m < (mon.level + 1) * 8) {
         const lingshi = GameApi.Method.leastOne(mon.level * 2)
         msgRight.push(`[上品灵石]*${lingshi}`)
-        GameApi.GameUser.userBag({
+        GameApi.Player.userBag({
           UID,
           name: '上品灵石',
           ACCOUNT: lingshi
@@ -127,7 +127,7 @@ export class BoxBattleSite extends plugin {
       if (m < (mon.level + 1) * 9) {
         const lingshi = GameApi.Method.leastOne(mon.level * 20)
         msgRight.push(`[中品灵石]*${lingshi}`)
-        GameApi.GameUser.userBag({
+        GameApi.Player.userBag({
           UID,
           name: '中品灵石',
           ACCOUNT: lingshi
@@ -136,7 +136,7 @@ export class BoxBattleSite extends plugin {
       if (m >= (mon.level + 1) * 9) {
         const lingshi = GameApi.Method.leastOne(mon.level * 200)
         msgRight.push(`[下品灵石]*${lingshi}`)
-        GameApi.GameUser.userBag({
+        GameApi.Player.userBag({
           UID,
           name: '下品灵石',
           ACCOUNT: lingshi
@@ -157,7 +157,7 @@ export class BoxBattleSite extends plugin {
   async userExploremonsters(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -171,7 +171,7 @@ export class BoxBattleSite extends plugin {
       CHOICE: 'user_action'
     })
     const msg = []
-    const monster = GameApi.GameMonster.monsterscache(action.region)
+    const monster = GameApi.Monster.monsterscache(action.region)
     for (let name in monster) {
       msg.push('怪名:' + name + '\n' + '等级:' + monster[name].level + '\n')
     }

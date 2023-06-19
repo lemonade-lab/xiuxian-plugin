@@ -14,12 +14,12 @@ export class BoxAction extends plugin {
   async take(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     let [thingName, thingAcount] = e.msg.replace(/^(#|\/)服用/, '').split('*')
-    const najieThing = GameApi.GameUser.userBagSearch({
+    const najieThing = GameApi.Player.userBagSearch({
       UID,
       name: thingName
     })
@@ -46,7 +46,7 @@ export class BoxAction extends plugin {
     switch (id[1]) {
       case '1': {
         let blood = parseInt(najieThing.blood)
-        GameApi.GameUser.updataUserBlood({ UID, SIZE: Number(blood) })
+        GameApi.Player.updataUserBlood({ UID, SIZE: Number(blood) })
         const battle = GameApi.UserData.controlAction({
           NAME: UID,
           CHOICE: 'user_battle'
@@ -64,7 +64,7 @@ export class BoxAction extends plugin {
           if (thingAcount > 2200) {
             thingAcount = 2200
           }
-          const cf = GameApi.DefsetUpdata.getConfig({
+          const cf = GameApi.Defset.getConfig({
             app: 'parameter',
             name: 'cooling'
           })
@@ -112,7 +112,7 @@ export class BoxAction extends plugin {
           }
         }
         if (experience > 0) {
-          GameApi.GameUser.updataUser({
+          GameApi.Player.updataUser({
             UID,
             CHOICE: 'user_level',
             ATTRIBUTE: 'experience',
@@ -124,7 +124,7 @@ export class BoxAction extends plugin {
       }
       case '3': {
         let experiencemax = parseInt(najieThing.experiencemax)
-        GameApi.GameUser.updataUser({
+        GameApi.Player.updataUser({
           UID,
           CHOICE: 'user_level',
           ATTRIBUTE: 'experiencemax',
@@ -137,7 +137,7 @@ export class BoxAction extends plugin {
         console.log('无')
       }
     }
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: najieThing.name,
       ACCOUNT: -thingAcount
@@ -148,12 +148,12 @@ export class BoxAction extends plugin {
   async study(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)学习/, '')
-    const najieThing = GameApi.GameUser.userBagSearch({
+    const najieThing = GameApi.Player.userBagSearch({
       UID,
       name: thingName
     })
@@ -176,7 +176,7 @@ export class BoxAction extends plugin {
     }
     if (
       talent.AllSorcery.length >=
-      GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa
+      GameApi.Defset.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa
     ) {
       e.reply('你反复看了又看,却怎么也学不进')
       return false
@@ -187,8 +187,8 @@ export class BoxAction extends plugin {
       CHOICE: 'user_talent',
       DATA: talent
     })
-    GameApi.GameUser.updataUserEfficiency(UID)
-    GameApi.GameUser.userBag({
+    GameApi.Player.updataUserEfficiency(UID)
+    GameApi.Player.userBag({
       UID,
       name: najieThing.name,
       ACCOUNT: -1
@@ -200,7 +200,7 @@ export class BoxAction extends plugin {
   async forget(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -220,8 +220,8 @@ export class BoxAction extends plugin {
       CHOICE: 'user_talent',
       DATA: talent
     })
-    GameApi.GameUser.updataUserEfficiency(UID)
-    GameApi.GameUser.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
+    GameApi.Player.updataUserEfficiency(UID)
+    GameApi.Player.userBag({ UID, name: islearned.name, ACCOUNT: 1 })
     e.reply(`忘了[${thingName}]`)
     return false
   }
@@ -229,12 +229,12 @@ export class BoxAction extends plugin {
   async consumption(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)消耗/, '')
-    const najieThing = GameApi.GameUser.userBagSearch({
+    const najieThing = GameApi.Player.userBagSearch({
       UID,
       name: thingName
     })
@@ -242,7 +242,7 @@ export class BoxAction extends plugin {
       e.reply(`没有[${thingName}]`)
       return false
     }
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: najieThing.name,
       ACCOUNT: -1
@@ -267,13 +267,13 @@ export class BoxAction extends plugin {
             NAME: UID,
             CHOICE: 'user_talent'
           })
-          talent.talent = GameApi.GameUser.getTalent()
+          talent.talent = GameApi.Player.getTalent()
           GameApi.UserData.controlAction({
             NAME: UID,
             CHOICE: 'user_talent',
             DATA: talent
           })
-          GameApi.GameUser.updataUserEfficiency(UID)
+          GameApi.Player.updataUserEfficiency(UID)
           const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })

@@ -8,7 +8,7 @@ export class BoxMoneyOperation extends plugin {
 
   async giveMoney(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -20,7 +20,7 @@ export class BoxMoneyOperation extends plugin {
     const A = e.user_id
     const B = BotApi.Robot.at({ e })
     if (!B || B == A) return false
-    const existB = GameApi.GameUser.existUserSatus(B)
+    const existB = GameApi.Player.existUserSatus(B)
     if (!existB) {
       e.reply('已仙鹤')
       return false
@@ -38,7 +38,7 @@ export class BoxMoneyOperation extends plugin {
     }
     let thingName = e.msg.replace(/^(#|\/)赠送/, '')
     const [name, acount] = thingName.split('*')
-    const money = GameApi.GameUser.userBagSearch({
+    const money = GameApi.Player.userBagSearch({
       UID: A,
       name
     })
@@ -46,7 +46,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply(`似乎没有${acount}[${name}]`)
       return false
     }
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -59,12 +59,12 @@ export class BoxMoneyOperation extends plugin {
       return false
     }
     GameApi.Wrap.setRedis(A, CDID, nowTime, CDTime)
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID: A,
       name,
       ACCOUNT: -acount
     })
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID: B,
       name,
       ACCOUNT: acount

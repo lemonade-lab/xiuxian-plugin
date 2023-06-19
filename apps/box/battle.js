@@ -18,11 +18,11 @@ export class BoxBattle extends plugin {
       UIDB = e.msg.replace(/^(#|\/)打劫/, '')
       if (!UIDB || UIDA == UIDB) return false
     }
-    if (!GameApi.GameUser.getUID(UIDB)) {
+    if (!GameApi.Player.getUID(UIDB)) {
       e.reply(`查无此人`)
       return false
     }
-    if (!GameApi.GameUser.existUserSatus(UIDA) || !GameApi.GameUser.existUserSatus(UIDB)) {
+    if (!GameApi.Player.existUserSatus(UIDA) || !GameApi.Player.existUserSatus(UIDB)) {
       e.reply(`已仙鹤`)
       return false
     }
@@ -33,7 +33,7 @@ export class BoxBattle extends plugin {
     }
     const CDID = '11'
     const nowTime = new Date().getTime()
-    const cf = GameApi.DefsetUpdata.getConfig({ app: 'parameter', name: 'cooling' })
+    const cf = GameApi.Defset.getConfig({ app: 'parameter', name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
     const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
@@ -53,7 +53,7 @@ export class BoxBattle extends plugin {
       return false
     }
     if (actionA.address == 1) {
-      const najieThing = GameApi.GameUser.userBagSearch({
+      const najieThing = GameApi.Player.userBagSearch({
         UID: UIDA,
         name: '决斗令'
       })
@@ -61,7 +61,7 @@ export class BoxBattle extends plugin {
         e.reply('[修仙联盟]普通卫兵:城内不可出手!')
         return false
       }
-      GameApi.GameUser.userBag({
+      GameApi.Player.userBag({
         UID: UIDA,
         name: najieThing.name,
         ACCOUNT: -1
@@ -85,7 +85,7 @@ export class BoxBattle extends plugin {
       b: UIDB,
       c: UIDA
     }
-    user.c = GameApi.GameBattle.battle({ e, A: UIDA, B: UIDB })
+    user.c = GameApi.Battle.battle({ e, A: UIDA, B: UIDB })
     const LevelB = GameApi.UserData.controlAction({
       NAME: UIDB,
       CHOICE: 'user_level'
@@ -114,7 +114,7 @@ export class BoxBattle extends plugin {
       CHOICE: 'user_bag',
       DATA: bagB
     })
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID: user.a,
       name: thing.name,
       ACCOUNT: thing.acount
@@ -126,7 +126,7 @@ export class BoxBattle extends plugin {
   async handWashing(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -139,7 +139,7 @@ export class BoxBattle extends plugin {
       e.reply('[天机门]李逍遥\n你一身清廉')
       return false
     }
-    const thing = GameApi.GameUser.userBagSearch({
+    const thing = GameApi.Player.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -147,7 +147,7 @@ export class BoxBattle extends plugin {
       e.reply(`[天机门]韩立\n清魔力需要${money}[下品灵石]`)
       return false
     }
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -money

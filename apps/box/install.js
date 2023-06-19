@@ -15,7 +15,7 @@ export class BoxInstall extends plugin {
   async createinstall(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -23,7 +23,7 @@ export class BoxInstall extends plugin {
     if (!T) {
       return false
     }
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply([segment.at(UID), '您已仙鹤,需[(#|/)再入仙途]后步入轮回!'])
       return false
     }

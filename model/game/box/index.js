@@ -4,7 +4,7 @@ import Wrap from '../wrap/index.js'
 import { __PATH } from '../data/index.js'
 import config from '../data/defset.js'
 import Method from '../wrap/method.js'
-class GameUser {
+class Player {
   startLife() {
     const LifeData = listdata.controlActionInitial({
       NAME: 'life',
@@ -771,7 +771,7 @@ class GameUser {
   }
 }
 
-export default new GameUser()
+export default new Player()
 
 function sortRule(a, b) {
   return a.rank - b.rank // 如果a>=b，返回自然数，不用交换位置

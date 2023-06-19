@@ -4,7 +4,7 @@ const full = listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
 const MonsterName = listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
 const map = listdata.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
 /** 怪物生成 */
-class GameMonster {
+class Monster {
   /**
    *
    * @param {*} i   地域
@@ -62,4 +62,4 @@ class GameMonster {
     return alldata[i].data
   }
 }
-export default new GameMonster()
+export default new Monster()

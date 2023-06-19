@@ -1,4 +1,4 @@
-import gameUser from './box/index.js'
+import Player from './box/index.js'
 import { BotApi } from '../api/botapi.js'
 import { GameApi } from '../api/index.js'
 const Sneakattack = [
@@ -9,7 +9,7 @@ const Sneakattack = [
   '拳之上凝结了庞大的气势,金色的光芒遮天蔽日,一条宛若黄金浇铸的真龙形成,浩浩荡荡地冲向怪物,但招式过于花里胡哨,怪物一个喷嚏就把你吹晕了',
   '打的山崩地裂，河水倒卷，余波万里,可恶,是幻境,什么时候!突然怪物偷袭,被一口盐汽水喷死!'
 ]
-class GameBattle {
+class Battle {
   /* 怪物战斗 */
   monsterbattle({ e, battleA, battleB, battleNameB }) {
     const battleMsg = {
@@ -30,7 +30,7 @@ class GameBattle {
         battleMsg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
         battleA.nowblood = 0
         battleMsg.QQ = 0
-        gameUser.userMsgAction({
+        Player.userMsgAction({
           NAME: e.user_id,
           CHOICE: 'user_battle',
           DATA: battleA
@@ -97,7 +97,7 @@ class GameBattle {
       }
     }
     battleMsg.msg.push(`[血量剩余]:${battleA.nowblood}`)
-    gameUser.userMsgAction({
+    Player.userMsgAction({
       NAME: e.user_id,
       CHOICE: 'user_battle',
       DATA: battleA
@@ -120,11 +120,11 @@ class GameBattle {
       hurtA: 0,
       hurtB: 0
     }
-    const battleA = gameUser.userMsgAction({
+    const battleA = Player.userMsgAction({
       NAME: A,
       CHOICE: 'user_battle'
     })
-    const battleB = gameUser.userMsgAction({
+    const battleB = Player.userMsgAction({
       NAME: B,
       CHOICE: 'user_battle'
     })
@@ -141,7 +141,7 @@ class GameBattle {
         battleA.nowblood = 0
         battleMsg.QQ = B
         BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
-        gameUser.userMsgAction({
+        Player.userMsgAction({
           NAME: A,
           CHOICE: 'user_battle',
           DATA: battleA
@@ -153,7 +153,7 @@ class GameBattle {
         battleMsg.msg.push('你仅出一招,就击败了对方!')
         battleB.nowblood = 0
         BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
-        gameUser.userMsgAction({
+        Player.userMsgAction({
           NAME: B,
           CHOICE: 'user_battle',
           DATA: battleB
@@ -220,12 +220,12 @@ class GameBattle {
       }
     }
     battleMsg.msg.push(`[血量状态]:${battleA.nowblood}`)
-    gameUser.userMsgAction({
+    Player.userMsgAction({
       NAME: A,
       CHOICE: 'user_battle',
       DATA: battleA
     })
-    gameUser.userMsgAction({
+    Player.userMsgAction({
       NAME: B,
       CHOICE: 'user_battle',
       DATA: battleB
@@ -263,7 +263,7 @@ class GameBattle {
       }
     }
     let n = Math.round(Math.random() * 5 + 5)
-    const battle = gameUser.userMsgAction({
+    const battle = Player.userMsgAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
@@ -275,4 +275,4 @@ class GameBattle {
     return damage
   }
 }
-export default new GameBattle()
+export default new Battle()

@@ -12,7 +12,7 @@ export class BoxBank extends plugin {
   async moneyWorkshop(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -47,7 +47,7 @@ export class BoxBank extends plugin {
   async substitution(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -55,7 +55,7 @@ export class BoxBank extends plugin {
     console.log(account, LeftName, RightName)
     const quantity = convertStoneQuantity(account, LeftName, RightName)
     if (!quantity) return
-    const money = GameApi.GameUser.userBagSearch({
+    const money = GameApi.Player.userBagSearch({
       UID,
       name: LeftName
     })
@@ -68,13 +68,13 @@ export class BoxBank extends plugin {
       return false
     }
     // 先扣除
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: LeftName,
       ACCOUNT: -account
     })
     // 再增加
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: RightName,
       ACCOUNT: quantity

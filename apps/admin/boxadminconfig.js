@@ -16,14 +16,14 @@ export class Boxadminconfig extends plugin {
   async boxStart(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
-    e.reply(GameApi.DefsetUpdata.startGame(e.group_id, e.group_name))
+    e.reply(GameApi.Defset.startGame(e.group_id, e.group_name))
     return false
   }
 
   async boxStop(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
-    e.reply(GameApi.DefsetUpdata.stopGame(e.group_id, e.group_name))
+    e.reply(GameApi.Defset.stopGame(e.group_id, e.group_name))
     return false
   }
 
@@ -31,7 +31,7 @@ export class Boxadminconfig extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)修仙开启/, '')
-    e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: true }))
+    e.reply(GameApi.Defset.updataSwich({ name, swich: true }))
     return false
   }
 
@@ -39,7 +39,7 @@ export class Boxadminconfig extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)修仙关闭/, '')
-    e.reply(GameApi.DefsetUpdata.updataSwich({ name, swich: false }))
+    e.reply(GameApi.Defset.updataSwich({ name, swich: false }))
     return false
   }
 
@@ -47,7 +47,7 @@ export class Boxadminconfig extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
-    e.reply(GameApi.DefsetUpdata.updataConfig({ name, size }))
+    e.reply(GameApi.Defset.updataConfig({ name, size }))
     return false
   }
 

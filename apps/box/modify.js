@@ -23,7 +23,7 @@ export class BoxModify extends plugin {
     }
     const CDID = '3'
     const nowTime = new Date().getTime()
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -66,7 +66,7 @@ export class BoxModify extends plugin {
     }
     const CDID = '4'
     const nowTime = new Date().getTime()
-    const cf = GameApi.DefsetUpdata.getConfig({
+    const cf = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     })
@@ -91,7 +91,7 @@ export class BoxModify extends plugin {
 }
 
 function modifiyMessage(e) {
-  if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+  if (!GameApi.Player.existUserSatus(e.user_id)) {
     e.reply('已仙鹤')
     return false
   }

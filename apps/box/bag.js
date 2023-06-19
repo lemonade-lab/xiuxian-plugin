@@ -12,7 +12,7 @@ export class BoxBag extends plugin {
   async showBag(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(UID)) {
+    if (!GameApi.Player.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -25,7 +25,7 @@ export class BoxBag extends plugin {
   async bagUp(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -38,14 +38,14 @@ export class BoxBag extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    const najiePrice = GameApi.DefsetUpdata.getConfig({
+    const najiePrice = GameApi.Defset.getConfig({
       app: 'parameter',
       name: 'cooling'
     }).najiePrice[najie.grade]
     if (!najiePrice) {
       return false
     }
-    const thing = GameApi.GameUser.userBagSearch({
+    const thing = GameApi.Player.userBagSearch({
       UID,
       name: '下品灵石'
     })
@@ -59,7 +59,7 @@ export class BoxBag extends plugin {
       CHOICE: 'user_bag',
       DATA: najie
     })
-    GameApi.GameUser.userBag({
+    GameApi.Player.userBag({
       UID,
       name: '下品灵石',
       ACCOUNT: -Number(najiePrice)

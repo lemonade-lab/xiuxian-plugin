@@ -3,7 +3,7 @@ import YAML from 'yaml'
 import { MyDirPath } from '../../../app.config.js'
 /** 自定义配置地址 */
 const __diryaml = `${MyDirPath}/config/parameter/cooling.yaml`
-class DefsetUpdata {
+class Defset {
   /**
    * @param { app, name } param0
    * @returns
@@ -93,4 +93,4 @@ class DefsetUpdata {
     return `[${Gname}]停止成功~`
   }
 }
-export default new DefsetUpdata()
+export default new Defset()
