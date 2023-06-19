@@ -201,7 +201,7 @@ export class AssociationJoin extends plugin {
     for (var i = 0; i < ass.applyJoinList.length; i++) {
       temp.push(`序号:${1 + i} ` + '\n' + `申请人QQ: ${ass.applyJoinList[i]}` + '\n')
     }
-    BotApi.Robot.forwardMsg({ e, data: temp })
+    BotApi.obtainingImages({ e, data: temp })
     return false
   }
 }

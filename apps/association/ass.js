@@ -324,7 +324,7 @@ export class Association extends plugin {
           `宗门神兽: ${thisAssBeast}`
       )
     }
-    BotApi.Robot.forwardMsg({ e, data: temp })
+    BotApi.obtainingImages({ e, data: temp })
     return false
   }
 }

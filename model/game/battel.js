@@ -139,7 +139,7 @@ class Battle {
         battleMsg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
         battleMsg.QQ = B
-        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
+        BotApi.obtainingImages({ e, data: battleMsg.msg })
         Listdata.controlAction({
           NAME: A,
           CHOICE: 'user_battle',
@@ -151,7 +151,7 @@ class Battle {
       if (battleB.nowblood < 1) {
         battleMsg.msg.push('你仅出一招,就击败了对方!')
         battleB.nowblood = 0
-        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
+        BotApi.obtainingImages({ e, data: battleMsg.msg })
         Listdata.controlAction({
           NAME: B,
           CHOICE: 'user_battle',
@@ -168,7 +168,7 @@ class Battle {
       battle.X++
       battle.Z++
       if (battle.X == 15) {
-        BotApi.Robot.forwardMsg(e, battleMsg.msg)
+        BotApi.obtainingImages(e, battleMsg.msg)
         battleMsg.msg = []
         battle.X = 0
         battle.Y++
@@ -188,7 +188,7 @@ class Battle {
           battleMsg.msg.push(`第${battle.Z}回合:对方造成${battleHurt.hurtB}伤害`)
           battleA.nowblood = 0
           battleMsg.QQ = B
-          BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
+          BotApi.obtainingImages({ e, data: battleMsg.msg })
           break
         }
       } else {
@@ -204,7 +204,7 @@ class Battle {
         battleMsg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
         battleMsg.QQ = B
-        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
+        BotApi.obtainingImages({ e, data: battleMsg.msg })
         break
       }
       battleB.nowblood = battleB.nowblood - battleHurt.hurtA
@@ -212,7 +212,7 @@ class Battle {
         battleMsg.msg.push(`第${battle.Z}回合:你造成${battleHurt.hurtA}伤害,并击败了对方!`)
         battleMsg.msg.push('你击败了对方!')
         battleB.nowblood = 0
-        BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
+        BotApi.obtainingImages({ e, data: battleMsg.msg })
         break
       } else {
         battleMsg.msg.push(`第${battle.Z}回合:你造成${battleHurt.hurtA}伤害`)

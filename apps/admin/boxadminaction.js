@@ -42,7 +42,7 @@ export class Boxadminaction extends plugin {
   async dataRecovery(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    BotApi.Robot.forwardMsg({
+    BotApi.obtainingImages({
       e,
       data: GameApi.Schedule.backupRecovery({
         name: e.msg.replace(/^(#|\/)修仙复原/, '')

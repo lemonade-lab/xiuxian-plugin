@@ -35,25 +35,6 @@ class Robot {
   }
 
   /**
-   * @param { e, data } param0
-   * @returns
-   */
-  forwardMsgSurveySet = ({ e, data }) => {
-    /**
-     * 消息转发制作成html发送
-     *
-     * 做边框，长文字图
-     */
-    if (data.length == 1) {
-      const isreply = e.reply(data[0])
-      this.surveySet({ e, isreply })
-      return
-    }
-    const isreply = e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
-    this.surveySet({ e, isreply })
-  }
-
-  /**
    * @param { e, isreply } param0
    * @returns
    */
