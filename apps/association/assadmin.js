@@ -225,7 +225,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
-    if (ass.level == AssociationApi.config.numberMaximums.length) {
+    if (ass.level == AssociationApi.Config.numberMaximums.length) {
       return false
     }
     if (ass.spiritStoneAns < ass.level * 30000) {
@@ -284,7 +284,7 @@ export class AssociationAdmin extends plugin {
     e.reply(
       '宗门升级成功' +
         `当前宗门等级为${ass.level},宗门人数上限提高到:${
-          AssociationApi.config.numberMaximums[ass.level - 1]
+          AssociationApi.Config.numberMaximums[ass.level - 1]
         }`
     )
     return false

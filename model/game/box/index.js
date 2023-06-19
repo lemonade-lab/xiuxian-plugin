@@ -1,4 +1,4 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 class GP {
   /**
    * 表名，地址，属性，大小
@@ -7,13 +7,13 @@ class GP {
    */
   updataUser({ UID, CHOICE, ATTRIBUTE, SIZE }) {
     // 读取原数据
-    const data = listdata.controlAction({ NAME: UID, CHOICE })
+    const data = Listdata.controlAction({ NAME: UID, CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
-    listdata.controlAction({ NAME: UID, CHOICE, DATA: data })
+    Listdata.controlAction({ NAME: UID, CHOICE, DATA: data })
   }
 
   getTypeThing(position, type) {
-    const dropsItemList = listdata.controlAction({
+    const dropsItemList = Listdata.controlAction({
       NAME: 'all',
       CHOICE: 'generate_all'
     })
@@ -28,7 +28,7 @@ class GP {
   }
 
   randomTypeThing(position, type) {
-    const dropsItemList = listdata.controlAction({
+    const dropsItemList = Listdata.controlAction({
       NAME: 'all',
       CHOICE: 'generate_all'
     })
@@ -47,7 +47,7 @@ class GP {
    * @returns
    */
   randomThing() {
-    const dropsItemList = listdata.controlAction({
+    const dropsItemList = Listdata.controlAction({
       NAME: 'dropsItem',
       CHOICE: 'generate_all'
     })
@@ -59,7 +59,7 @@ class GP {
    * @returns
    */
   addExtendTimes({ NAME, FLAG, TYPE, VALUE, ENDTIME }) {
-    const extend = listdata.controlActionInitial({
+    const extend = Listdata.controlActionInitial({
       NAME,
       CHOICE: 'user_extend',
       INITIAL: {}
@@ -85,7 +85,7 @@ class GP {
       extend[FLAG].times[find].timeLimit > time &&
       extend[FLAG].times[find].value >= VALUE
     ) {
-      listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
       this.updatePanel(NAME)
     } else if (
       find != -1 &&
@@ -93,7 +93,7 @@ class GP {
     ) {
       extend[FLAG].times[find].value = VALUE
       extend[FLAG].times[find].timeLimit = ENDTIME
-      listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
       this.updatePanel(NAME)
     } else {
       extend[FLAG].times.push({
@@ -101,14 +101,14 @@ class GP {
         value: VALUE,
         timeLimit: ENDTIME
       })
-      listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
       this.updatePanel(NAME)
     }
   }
 
   synthesisResult({ ans, type }) {
     // 这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
-    let drawingList = listdata.controlAction({
+    let drawingList = Listdata.controlAction({
       NAME: 'AllDrawing',
       CHOICE: 'fixed_material'
     })

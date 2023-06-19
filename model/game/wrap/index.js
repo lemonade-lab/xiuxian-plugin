@@ -1,5 +1,5 @@
-import gameUer from '../box/index.js'
 import { REDIS } from './redis.js'
+import Listdata from '../data/listdata.js'
 
 /** 自定义冷却反馈 */
 const CDMAP = {
@@ -169,7 +169,7 @@ class Wrap {
         msg: `${ACTIONMAP[action.actionID]}中...`
       }
     }
-    const GP = gameUer.userMsgAction({
+    const GP = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })

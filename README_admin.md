@@ -26,7 +26,7 @@
 
 运行后，运行后，运行后！再进行配置
 
-> config/parameter/namelist.yaml
+> Config/parameter/namelist.yaml
 
 群聊中发送指令`#修仙启动@2.1`
 
@@ -56,4 +56,4 @@
 
 #### 配置地址
 
-> ./plugins/xiuxian@2.1/config
+> ./plugins/xiuxian@2.1/Config

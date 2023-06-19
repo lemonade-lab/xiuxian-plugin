@@ -1,4 +1,4 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 class Bag {
   /**
    * 给UID添加物品name的数量为account
@@ -7,18 +7,18 @@ class Bag {
    */
   addBagThing({ UID, name, ACCOUNT }) {
     // 搜索物品信息
-    const thing = listdata.searchThing({
+    const thing = Listdata.searchThing({
       condition: 'name',
       name
     })
     if (thing) {
-      let bag = listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
+      let bag = Listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
       bag = this.addBagThingAction({
         BAG: bag,
         THING: thing,
         ACCOUNT: Number(ACCOUNT)
       })
-      listdata.controlAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
+      Listdata.controlAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
       return true
     }
     return false
@@ -32,14 +32,14 @@ class Bag {
    */
   updateMaterial({ UID, name, ACCOUNT }) {
     // 搜索物品信息
-    const thing = listdata.searchThing({
+    const thing = Listdata.searchThing({
       CHOICE: 'fixed_material',
       NAME: 'MaterialGUIDe',
       condition: 'name',
       name
     })
     if (thing) {
-      let bag = listdata.controlAction({
+      let bag = Listdata.controlAction({
         CHOICE: 'user_material',
         NAME: UID
       })
@@ -48,7 +48,7 @@ class Bag {
         THING: thing,
         ACCOUNT: Number(ACCOUNT)
       })
-      listdata.controlAction({
+      Listdata.controlAction({
         CHOICE: 'user_material',
         NAME: UID,
         DATA: bag
@@ -112,7 +112,7 @@ class Bag {
    */
 
   searchBagByName({ UID, name }) {
-    const bag = listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
+    const bag = Listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
     return bag.thing.find((item) => item.name == name)
   }
 }

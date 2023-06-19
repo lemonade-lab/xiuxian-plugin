@@ -1,4 +1,4 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 import Talent from './talent.js'
 class Information {
   /**
@@ -7,24 +7,24 @@ class Information {
    * @returns
    */
   userDataShow(UID) {
-    const equipment = listdata.controlAction({
+    const equipment = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    const talent = listdata.controlAction({
+    const talent = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const LevelData = listdata.controlAction({
+    const LevelData = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const battle = listdata.controlAction({
+    const battle = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
     let linggenName = Talent.getTalentName(talent)
-    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenName.length; i++) {
       name = name + linggenName[i]
@@ -36,11 +36,11 @@ class Information {
     } else {
       size = `+${size}%`
     }
-    const LevelList = listdata.controlAction({
+    const LevelList = Listdata.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = listdata.controlAction({
+    const LevelMaxList = Listdata.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
@@ -74,15 +74,15 @@ class Information {
    * @returns
    */
   userEquipmentShow(UID) {
-    const battle = listdata.controlAction({
+    const battle = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const equipment = listdata.controlAction({
+    const equipment = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    const LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    const LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     return {
       path: 'user/equipment',
       name: 'equipment',
@@ -100,12 +100,12 @@ class Information {
    * 功法信息
    */
   userTalentShow(UID) {
-    const talent = listdata.controlAction({
+    const talent = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
     let linggenName = Talent.getTalentName(talent)
-    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenName.length; i++) {
       name = name + linggenName[i]
@@ -137,12 +137,12 @@ class Information {
    * @returns
    */
   addBagThingShow(UID) {
-    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
-    const battle = listdata.controlAction({
+    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    const battle = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const najie = listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
+    const najie = Listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
     const thing = najie.thing
     const thingList = []
     const danyaoList = []

@@ -1,5 +1,5 @@
 import puppeteer from './puppeteer.js'
-import { MyDirPath } from '../../app.config.js'
+import { MyDirPath } from '../../app.Config.js'
 /** 中间返回show与yunzai的图片方法进行对接 */
 export async function obtainingImages({ path, name, data }) {
   const img = await puppeteer.screenshot(name, {

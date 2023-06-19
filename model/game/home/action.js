@@ -1,10 +1,10 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 import Wrap from '../wrap/index.js'
 import User from './user.js'
 class UserAction {
   userextensionhome(parameter) {
     const UID = parameter
-    const home = listdata.controlAction({
+    const home = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_user'
     })

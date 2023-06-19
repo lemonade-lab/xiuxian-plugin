@@ -1,4 +1,4 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 import { __PATH } from '../data/index.js'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -49,9 +49,9 @@ class GP {
   updataUser(parameter) {
     const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
     // 读取原数据
-    const data = listdata.userMsgAction({ NAME: UID, CHOICE })
+    const data = Listdata.userMsgAction({ NAME: UID, CHOICE })
     data[ATTRIBUTE] += Math.trunc(SIZE)
-    listdata.userMsgAction({ NAME: UID, CHOICE, DATA: data })
+    Listdata.userMsgAction({ NAME: UID, CHOICE, DATA: data })
   }
 
   /**
@@ -188,7 +188,7 @@ class GP {
   }
 
   searchThingById(id) {
-    const newVar = GameApi.listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
+    const newVar = GameApi.Listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
     return newVar.find((item) => item.id == id)
   }
 

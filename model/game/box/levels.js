@@ -1,4 +1,4 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 
 class Levels {
   constructor() {
@@ -16,8 +16,8 @@ class Levels {
 
   // 提升境界
   enhanceRealm(UID, id) {
-    const LevelList = listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
-    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    const LevelList = Listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
+    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
     let realm = UserLevel.level[this.LEVELMAP[id]].realm
     realm += 1
     // 境界上限了
@@ -40,7 +40,7 @@ class Levels {
     // 调整境界
     UserLevel.level[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息  */
-    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    Listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
     return {
       state: 2000,
       msg: `境界提升至${LevelList[realm].name}`
@@ -50,8 +50,8 @@ class Levels {
   // 掉落境界
   fallingRealm(UID, id) {
     // 读取境界
-    const LevelList = listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
-    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    const LevelList = Listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
+    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
     let realm = UserLevel.level[this.LEVELMAP[id]].realm
     realm -= 1
     // 已经是最低境界
@@ -64,7 +64,7 @@ class Levels {
     // 调整境界
     UserLevel.level[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息 */
-    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    Listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
     return {
       state: 2000,
       msg: `境界跌落至${LevelList[realm].name}`
@@ -73,9 +73,9 @@ class Levels {
 
   /** 经验增加 */
   addExperience(UID, id, size) {
-    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
     UserLevel.level[this.LEVELMAP[id]].experience += size
-    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    Listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
     return {
       state: 2000,
       msg: `${this.NAMEMAP[id]}增加${size}`
@@ -84,9 +84,9 @@ class Levels {
 
   /* 经验减少 */
   reduceExperience(UID, id, size) {
-    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
     UserLevel.level[this.LEVELMAP[id]].experience -= size
-    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    Listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
     return {
       state: 2000,
       msg: `${this.NAMEMAP[id]}增加${size}`

@@ -29,6 +29,6 @@
     "yaml": "^2.1.1",
     "eslint": "^8.43.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-config-prettier": "^^8.8.0"
+    "eslint-Config-prettier": "^^8.8.0"
   }
 }

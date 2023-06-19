@@ -1,5 +1,5 @@
 import user from './index.js'
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 import Wrap from '../wrap/index.js'
 class UserAction {
   constructor() {
@@ -30,7 +30,7 @@ class UserAction {
    * @returns
    */
   userLifeUp({ UID, levelId, acount }) {
-    const LifeDAta = listdata.controlAction({
+    const LifeDAta = Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life'
     })
@@ -40,7 +40,7 @@ class UserAction {
       LifeDAta[UID].life += Math.floor(levelId * 30)
     }
     const size = LifeDAta[UID].life
-    listdata.controlAction({
+    Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
       DATA: LifeDAta
@@ -57,7 +57,7 @@ class UserAction {
     if (!ifexistplay) {
       return `已仙鹤`
     }
-    const UserLevel = listdata.controlAction({
+    const UserLevel = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -76,15 +76,15 @@ class UserAction {
   }
 
   breakLevelUp = ({ UID, choise }) => {
-    const GP = listdata.controlAction({
+    const GP = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const Levellist = listdata.controlAction({
+    const Levellist = Listdata.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
-    const Levelmaxlist = listdata.controlAction({
+    const Levelmaxlist = Listdata.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
@@ -104,7 +104,7 @@ class UserAction {
       })
       returnTXT = `突破成功至${GP.levelname}${this.LevelMiniName[GP.rankId]},寿命至${size}`
     }
-    listdata.controlAction({
+    Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
       DATA: GP

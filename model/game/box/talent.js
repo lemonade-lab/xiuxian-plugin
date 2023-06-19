@@ -1,33 +1,33 @@
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 class Talent {
   /**
    * 更新面板
    * @param {*} UID
    */
   updatePanel(UID) {
-    const equipment = listdata.controlAction({
+    const equipment = Listdata.controlAction({
       CHOICE: 'user_equipment',
       NAME: UID
     })
-    const LevelData = listdata.controlAction({
+    const LevelData = Listdata.controlAction({
       CHOICE: 'user_level',
       NAME: UID
     })
-    const LevelList = listdata.controlAction({
+    const LevelList = Listdata.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = listdata.controlAction({
+    const LevelMaxList = Listdata.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
     const levelmini = LevelList[LevelData.level.gaspractice.realm]
     const levelmax = LevelMaxList[LevelData.level.bodypractice.realm]
-    const UserBattle = listdata.controlAction({
+    const UserBattle = Listdata.controlAction({
       CHOICE: 'user_battle',
       NAME: UID
     })
-    let extend = listdata.controlActionInitial({
+    let extend = Listdata.controlActionInitial({
       NAME: UID,
       CHOICE: 'user_extend',
       INITIAL: {}
@@ -95,7 +95,7 @@ class Talent {
       panel.burst * 100 +
       panel.burstmax * 10 +
       panel.speed * 50
-    listdata.controlAction({
+    Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle',
       DATA: panel
@@ -109,7 +109,7 @@ class Talent {
    */
   updataEfficiency(UID) {
     try {
-      const talent = listdata.controlAction({
+      const talent = Listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_talent'
       })
@@ -121,7 +121,7 @@ class Talent {
         talentSise.gonfa += item.size
       })
       talentSise.talent = this.talentSize(talent)
-      let promise = listdata.controlAction({
+      let promise = Listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_extend'
       })
@@ -131,7 +131,7 @@ class Talent {
         extend += promise[i].perpetual.efficiency * 100
       }
       talent.talentsize = talentSise.talent + talentSise.gonfa + extend
-      listdata.controlAction({
+      Listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_talent',
         DATA: talent
@@ -200,7 +200,7 @@ class Talent {
   getTalentName(data) {
     const nameArr = []
     data.talent.forEach((talentitem) => {
-      const talentList = listdata.controlAction({
+      const talentList = Listdata.controlAction({
         NAME: 'talent_list',
         CHOICE: 'fixed_talent'
       })
@@ -215,7 +215,7 @@ class Talent {
    * @returns
    */
   addExtendPerpetual({ NAME, FLAG, TYPE, VALUE }) {
-    const extend = listdata.controlActionInitial({
+    const extend = Listdata.controlActionInitial({
       NAME,
       CHOICE: 'user_extend',
       INITIAL: {}
@@ -235,7 +235,7 @@ class Talent {
       }
     }
     extend[FLAG].perpetual[TYPE] = VALUE
-    listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+    Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
     this.updatePanel(NAME)
   }
 }

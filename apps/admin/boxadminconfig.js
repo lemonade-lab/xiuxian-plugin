@@ -1,12 +1,12 @@
 import { GameApi, plugin } from '../../model/api/index.js'
-export class Boxadminconfig extends plugin {
+export class BoxadminConfig extends plugin {
   constructor() {
     super({
       rule: [
         { reg: /^(#|\/)修仙开启.*$/, fnc: 'boxaSwitchOpen' },
         { reg: /^(#|\/)修仙关闭.*$/, fnc: 'boxaSwitchOff' },
-        { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'configUpdata' },
-        { reg: /^(#|\/)修仙重置配置$/, fnc: 'configReUpdata' },
+        { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'ConfigUpdata' },
+        { reg: /^(#|\/)修仙重置配置$/, fnc: 'ConfigReUpdata' },
         { reg: /^(#|\/)修仙启动@2.1$/, fnc: 'boxStart' },
         { reg: /^(#|\/)修仙停止@2.1$/, fnc: 'boxStop' }
       ]
@@ -43,7 +43,7 @@ export class Boxadminconfig extends plugin {
     return false
   }
 
-  async configUpdata(e) {
+  async ConfigUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
@@ -51,7 +51,7 @@ export class Boxadminconfig extends plugin {
     return false
   }
 
-  async configReUpdata(e) {
+  async ConfigReUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     GameApi.Createdata.recreateConfig()

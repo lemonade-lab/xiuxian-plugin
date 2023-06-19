@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
-import { MyDirPath } from '../../../app.config.js'
+import { MyDirPath } from '../../../app.Config.js'
 /** 自定义配置地址 */
-const __diryaml = `${MyDirPath}/config/cooling.yaml`
+const __diryaml = `${MyDirPath}/Config/cooling.yaml`
 class Defset {
   /**
    * @param { app, name } param0
@@ -10,7 +10,7 @@ class Defset {
    */
   getConfig({ name }) {
     /* 获得配置地址 */
-    const file = `${MyDirPath}/config/${name}.yaml`
+    const file = `${MyDirPath}/Config/${name}.yaml`
     /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
@@ -56,8 +56,8 @@ class Defset {
       击杀冷却: 'CD.Kill',
       修行冷却: 'CD.Practice',
       年龄每小时增加: 'Age.size',
-      最多功法持有数: 'myconfig.gongfa',
-      最多装备持有数: 'myconfig.equipment',
+      最多功法持有数: 'myConfig.gongfa',
+      最多装备持有数: 'myConfig.equipment',
       闭关倍率: 'biguan.size',
       闭关时间: 'biguan.time',
       降妖倍率: 'work.size',
@@ -75,7 +75,7 @@ class Defset {
     return `修改${name}为${size}`
   }
 
-  namelist = `${MyDirPath}/config/namelist.yaml`
+  namelist = `${MyDirPath}/Config/namelist.yaml`
 
   startGame(GID, Gname) {
     const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))

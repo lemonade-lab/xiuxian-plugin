@@ -249,8 +249,8 @@ export class AssBlessPlace extends plugin {
 
     const num = Math.trunc(giftLingshi)
 
-    if (ass.spiritStoneAns + num > AssociationApi.config.spiritStoneAnsMax[ass.level - 1]) {
-      ass.spiritStoneAns = AssociationApi.config.spiritStoneAnsMax[ass.level - 1]
+    if (ass.spiritStoneAns + num > AssociationApi.Config.spiritStoneAnsMax[ass.level - 1]) {
+      ass.spiritStoneAns = AssociationApi.Config.spiritStoneAnsMax[ass.level - 1]
     } else {
       ass.spiritStoneAns += num
     }
@@ -294,7 +294,7 @@ export class AssBlessPlace extends plugin {
     let buildName = e.msg.replace(/^(#|\/)修建/, '')
     buildName = buildName.trim()
     // 洞天不存在
-    const location = AssociationApi.config.buildNameList.findIndex((item) => item == buildName)
+    const location = AssociationApi.Config.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
       return false
     }
@@ -372,7 +372,7 @@ export class AssBlessPlace extends plugin {
     for (let i = 0; i < ass.facility.length; i++) {
       msg.push(
         '建筑名称:' +
-          AssociationApi.config.buildNameList[i] +
+          AssociationApi.Config.buildNameList[i] +
           '\n' +
           '建设值:' +
           ass.facility[i].buildNum +

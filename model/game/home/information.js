@@ -1,5 +1,5 @@
 import { GameApi } from '../../api/index.js'
-import listdata from '../data/listdata.js'
+import Listdata from '../data/listdata.js'
 class Information {
   userDataShow(UID) {
     return {
@@ -26,7 +26,7 @@ class Information {
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    const Warehouse = listdata.controlActionInitial({
+    const Warehouse = Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -115,7 +115,7 @@ class Information {
       CHOICE: 'user_home_GP',
       NAME: UID
     })
-    const home = listdata.controlActionInitial({
+    const home = Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
       INITIAL: []
@@ -129,7 +129,7 @@ class Information {
       CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
-    const ifexisthome1 = listdata.controlActionInitial({
+    const ifexisthome1 = Listdata.controlActionInitial({
       CHOICE: 'user_home_position',
       NAME: 'position',
       INITIAL: []
@@ -163,7 +163,7 @@ class Information {
       CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
-    const landgoods = listdata.controlActionInitial({
+    const landgoods = Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
       INITIAL: []
@@ -194,7 +194,7 @@ class Information {
   }
 
   get_lookrangeland_img(UID) {
-    const rangelandannimals = listdata.controlActionInitial({
+    const rangelandannimals = Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
       INITIAL: []

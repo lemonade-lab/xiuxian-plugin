@@ -20,7 +20,7 @@ class Puppeteer {
     /** 截图次数 */
     this.renderNum = 0
     /* puppeteer配置 */
-    this.config = {
+    this.Config = {
       headless: 'new',
       args: [
         '--disable-gpu',
@@ -40,7 +40,7 @@ class Puppeteer {
     /* 路径 */
     if (cfg.bot?.chromium_path) {
       /** chromium其他路径 */
-      this.config.executablePath = cfg.bot.chromium_path
+      this.Config.executablePath = cfg.bot.chromium_path
     }
   }
 
@@ -54,7 +54,7 @@ class Puppeteer {
     if (this.lock) return false
     this.lock = true
     console.info('puppeteer Chromium 启动中...')
-    this.browser = await puppeteer.launch(this.config).catch((err) => {
+    this.browser = await puppeteer.launch(this.Config).catch((err) => {
       console.error(err.toString())
       if (String(err).includes('correct Chromium')) {
         console.error(
