@@ -6,6 +6,7 @@ import lodash from 'lodash'
 import puppeteer from 'puppeteer'
 /* 事件监听 */
 import chokidar from 'chokidar'
+import { cfg } from '../api/index.js'
 class Puppeteer {
   constructor() {
     /* puppeteer实例保存 */
@@ -35,6 +36,12 @@ class Puppeteer {
     this.html = {}
     /* 监听文件 */
     this.watcher = {}
+
+    /* 路径 */
+    if (cfg.bot?.chromium_path) {
+      /** chromium其他路径 */
+      this.config.executablePath = cfg.bot.chromium_path
+    }
   }
 
   /**

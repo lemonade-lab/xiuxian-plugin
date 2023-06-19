@@ -1,4 +1,5 @@
 import plugins from '../../../../lib/plugins/plugin.js'
+import cfg from '../../../../lib/config/config.js'
 import { BotApi } from './botapi.js'
 import { GameApi } from './gameapi.js'
 import { HomeApi } from './homeapi.js'
@@ -24,4 +25,4 @@ export class plugin extends plugins {
     return true
   }
 }
-export { BotApi, GameApi, HomeApi, AssociationApi }
+export { BotApi, GameApi, HomeApi, AssociationApi, cfg }
