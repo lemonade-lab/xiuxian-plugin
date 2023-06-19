@@ -39,8 +39,8 @@ export class Homefuli extends plugin {
 
   // #发家园福利
   async Allfulihome(e) {
-    if (!this.verify(e)) return false
     if (!e.isMaster) return false
+    if (!this.verify(e)) return false
     let ls = e.msg.replace(/^(#|\/)发家园福利/, '')
     var pattern = /[0-9]+/
     var str = ls
@@ -101,8 +101,8 @@ export class Homefuli extends plugin {
 
   // #发家园物品
   async zengsonghome(e) {
-    if (!this.verify(e)) return false
     if (!e.isMaster) return false
+    if (!this.verify(e)) return false
     // 对方
     const user = {
       A: e.user_id,
@@ -148,10 +148,8 @@ export class Homefuli extends plugin {
 
   // #扣除全体家园经验
   async kouchujy(e) {
-    if (!this.verify(e)) return false
-
     if (!e.isMaster) return false
-
+    if (!this.verify(e)) return false
     // 获取扣除经验
     let jy = e.msg.replace(/^(#|\/)扣除全体家园经验/, '')
     var pattern = /[0-9]+/
@@ -216,8 +214,8 @@ export class Homefuli extends plugin {
 
   // #发家园经验
   async zenjiagrjy(e) {
-    if (!this.verify(e)) return false
     if (!e.isMaster) return false
+    if (!this.verify(e)) return false
     // 对方
     const user = {
       A: e.user_id,
@@ -248,8 +246,8 @@ export class Homefuli extends plugin {
 
   // #扣除灵晶
   async kouchulj(e) {
-    if (!this.verify(e)) return false
     if (!e.isMaster) return false
+    if (!this.verify(e)) return false
     let doge = e.msg.replace(/^(#|\/)扣除灵晶/, '')
     var pattern = /[0-9]+/
     var str = doge

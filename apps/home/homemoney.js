@@ -25,10 +25,8 @@ export class Homemoney extends plugin {
   }
 
   async Mylingshi(e) {
-    // 发送消息
-    let UID = e.user_id
-    // 不开放私聊功能
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -53,7 +51,7 @@ export class Homemoney extends plugin {
   // 出售商品
   async Homesale(e) {
     if (!this.verify(e)) return false
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -175,7 +173,7 @@ export class Homemoney extends plugin {
 
   async Buy_home(e) {
     if (!this.verify(e)) return false
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false

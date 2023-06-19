@@ -36,7 +36,6 @@ export class Homeland extends plugin {
   async ReceiveLand(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
@@ -119,8 +118,7 @@ export class Homeland extends plugin {
   async zhongxia(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
-    let UID = e.user_id
+    const UID = e.user_id
     const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
@@ -240,7 +238,7 @@ export class Homeland extends plugin {
   // 收获
   async shouhuo(e) {
     if (!this.verify(e)) return false
-    let UID = e.user_id
+    const UID = e.user_id
     const ifexisthome = HomeApi.GameUser.existhome(UID)
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
@@ -411,7 +409,7 @@ export class Homeland extends plugin {
   // 查看农田
   async lookland(e) {
     if (!this.verify(e)) return false
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false

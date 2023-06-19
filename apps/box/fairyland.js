@@ -13,8 +13,8 @@ export class Boxfairyland extends plugin {
 
   /** 成就仙人境 */
   async breakLevel(e) {
-    let UID = e.user_id
     if (!this.verify(e)) return false
+    const UID = e.user_id
     const ifexistplay = GameApi.GameUser.existUserSatus(UID)
     if (!ifexistplay) {
       e.reply(`已仙鹤`)

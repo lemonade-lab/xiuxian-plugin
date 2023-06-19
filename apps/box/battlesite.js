@@ -11,6 +11,7 @@ export class BoxBattleSite extends plugin {
 
   async userKill(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -20,7 +21,6 @@ export class BoxBattleSite extends plugin {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
     const CDID = '10'
     const nowTime = new Date().getTime()
     const cf = GameApi.DefsetUpdata.getConfig({
@@ -156,6 +156,7 @@ export class BoxBattleSite extends plugin {
 
   async userExploremonsters(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -165,7 +166,6 @@ export class BoxBattleSite extends plugin {
       e.reply(MSG)
       return false
     }
-    const UID = e.user_id
     const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'

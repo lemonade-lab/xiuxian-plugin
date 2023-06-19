@@ -25,10 +25,9 @@ export class Homemove extends plugin {
   }
 
   async movewarehouse(e) {
-    // 发送消息
-    const UID = e.user_id
     // 不开放私聊功能
     if (!this.verify(e)) return false
+    const UID = e.user_id
     // 有无存档
     const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
@@ -101,10 +100,8 @@ export class Homemove extends plugin {
   }
 
   async movenajie(e) {
-    // 发送消息
-    const UID = e.user_id
-    // 不开放私聊功能
     if (!this.verify(e)) return false
+    const UID = e.user_id
     // 有无存档
     const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
@@ -187,10 +184,8 @@ export class Homemove extends plugin {
   }
 
   async update_warehouse(e) {
-    // 发送消息
-    const UID = e.user_id
-    // 不开放私聊功能
     if (!this.verify(e)) return false
+    const UID = e.user_id
     // 有无存档
     const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {
@@ -317,10 +312,8 @@ export class Homemove extends plugin {
   }
 
   async chongzhinongtian(e) {
-    // 发送消息
-    const UID = e.user_id
-    // 不开放私聊功能
     if (!this.verify(e)) return false
+    const UID = e.user_id
     // 有无存档
     const archive = HomeApi.GameUser.Archive(UID)
     if (archive == 1) {

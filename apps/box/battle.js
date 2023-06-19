@@ -11,13 +11,13 @@ export class BoxBattle extends plugin {
 
   async duel(e) {
     if (!this.verify(e)) return false
-    const UIDA = e.user_id
+    const UID = e.user_id
     let UIDB = BotApi.Robot.at({ e })
-    if (!UIDB || UIDA == UIDB) {
+    if (!UIDB || UID == UIDB) {
       UIDB = e.msg.replace(/^(#|\/)打劫/, '')
-      if (!UIDB || UIDA == UIDB) return false
+      if (!UIDB || UID == UIDB) return false
     }
-    e.reply(GameApi.Dll.Duel.getDuel({ e, UIDA, UIDB }))
+    e.reply(GameApi.Dll.Duel.getDuel({ e, UIDA: UID, UIDB }))
     return false
   }
 

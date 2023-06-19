@@ -39,8 +39,7 @@ export class Homecook extends plugin {
   async Occupy_the_mine(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -483,8 +482,7 @@ export class Homecook extends plugin {
   async eat(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -572,8 +570,7 @@ export class Homecook extends plugin {
   async fabucaipu(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -658,8 +655,7 @@ export class Homecook extends plugin {
   async wanmin(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -776,8 +772,7 @@ export class Homecook extends plugin {
   async stir_fry(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
-    let UID = e.user_id
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false

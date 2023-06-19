@@ -19,8 +19,8 @@ export class Boxunion extends plugin {
 
   async userSignIn(e) {
     if (!this.verify(e)) return false
-    if (!UnionMessage(e)) return false
     const UID = e.user_id
+    if (!UnionMessage(e)) return false
     const SignData = GameApi.UserData.controlActionInitial({
       CHOICE: 'user_life',
       NAME: 'sign',
@@ -59,8 +59,8 @@ export class Boxunion extends plugin {
 
   async userCheckin(e) {
     if (!this.verify(e)) return false
-    if (!UnionMessage(e)) return false
     const UID = e.user_id
+    if (!UnionMessage(e)) return false
     const level = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'

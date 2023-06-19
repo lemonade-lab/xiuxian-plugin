@@ -13,6 +13,7 @@ export class BoxPlayerControl extends plugin {
 
   async biguan(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -22,7 +23,6 @@ export class BoxPlayerControl extends plugin {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
     const nowTime = new Date().getTime()
     const actionObject = {
       actionID: 0,
@@ -35,6 +35,7 @@ export class BoxPlayerControl extends plugin {
 
   async dagong(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -44,7 +45,6 @@ export class BoxPlayerControl extends plugin {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
     const nowTime = new Date().getTime()
     const actionObject = {
       actionID: 1,
@@ -110,7 +110,6 @@ export class BoxPlayerControl extends plugin {
   }
 
   upgrade = (userId, time, name, e) => {
-    if (!this.verify(e)) return false
     const UID = userId
     const talent = GameApi.UserData.controlAction({
       NAME: UID,

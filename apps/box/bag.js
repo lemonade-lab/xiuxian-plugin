@@ -24,6 +24,7 @@ export class BoxBag extends plugin {
 
   async bagUp(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -33,7 +34,6 @@ export class BoxBag extends plugin {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
     const najie = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_bag'

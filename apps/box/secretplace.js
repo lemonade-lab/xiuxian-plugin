@@ -51,17 +51,26 @@ export class BoxSecretplace extends plugin {
 
   async falsePiont(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.GameUser.existUserSatus(e.user_id)) {
+    const UID = e.user_id
+    if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    let action = GameApi.Wrap.getAction(UID)
+    if (!action) return false
+    if (action.actionID == 2) {
+      GameApi.Wrap.deleteAction(UID)
+      return false
+    }
+    /** 返回的时候需要怕判断 */
+    const { state, msg } = GameApi.Wrap.Go(UID)
     if (state == 4001) {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
+    // 取消行为
     GameApi.GamePlace.setUserTime(UID, 0)
+    // 取消行为
     clearTimeout(GameApi.GamePlace.getUserAction(UID))
     e.reply('你回到了原地')
     return false
@@ -85,6 +94,7 @@ export class BoxSecretplace extends plugin {
 
   async forward(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -94,7 +104,6 @@ export class BoxSecretplace extends plugin {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
     if (GameApi.GamePlace.getUserTime(UID) == 1) {
       return false
     }
@@ -167,6 +176,7 @@ export class BoxSecretplace extends plugin {
 
   async delivery(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
@@ -176,7 +186,6 @@ export class BoxSecretplace extends plugin {
       e.reply(msg)
       return false
     }
-    const UID = e.user_id
     if (GameApi.GamePlace.getUserDelivery(UID) == 1) {
       return false
     }

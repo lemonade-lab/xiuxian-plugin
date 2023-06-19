@@ -161,7 +161,6 @@ export class Homestart extends plugin {
   async extensionhome(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
@@ -193,7 +192,6 @@ export class Homestart extends plugin {
   async unextensionhome(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
@@ -240,7 +238,6 @@ export class Homestart extends plugin {
   async movehome(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
-    // 有无存档
     const UID = e.user_id
     if (!GameApi.GameUser.existUserSatus(UID)) {
       e.reply('已仙鹤')
