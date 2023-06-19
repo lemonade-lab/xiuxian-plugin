@@ -1,6 +1,6 @@
 {
   "name": "xiuxian",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "xiuxian@2.1",
   "main": "main.js",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitee.com:three-point-of-water/xiuxian@2.1.git"
+    "url": "git@gitee.com:ningmengchongshui/xiuxian@2.1.git"
   },
   "type": "module",
   "keywords": [
     "xiuxian"
   ],
-  "author": "three-point-of-water",
-  "license": "GPL-2.0-only",
+  "author": "ningmengchongshui",
+  "license": "GPL-2.0",
   "devDependencies": {
     "art-template": "^4.13.2",
     "express": "^4.18.2",
