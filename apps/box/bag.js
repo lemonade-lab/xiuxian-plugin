@@ -12,11 +12,11 @@ export class BoxBag extends plugin {
   async showBag(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.userBagShow(UID)
+    const { path, name, data } = GameApi.Information.addBagThingShow(UID)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -25,7 +25,7 @@ export class BoxBag extends plugin {
   async bagUp(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -44,7 +44,7 @@ export class BoxBag extends plugin {
     if (!najiePrice) {
       return false
     }
-    const thing = GameApi.Player.userBagSearch({
+    const thing = GameApi.Bag.searchBagByName({
       UID,
       name: '下品灵石'
     })
@@ -58,7 +58,7 @@ export class BoxBag extends plugin {
       CHOICE: 'user_bag',
       DATA: najie
     })
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
       ACCOUNT: -Number(najiePrice)

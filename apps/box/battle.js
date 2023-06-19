@@ -18,11 +18,11 @@ export class BoxBattle extends plugin {
       UIDB = e.msg.replace(/^(#|\/)打劫/, '')
       if (!UIDB || UIDA == UIDB) return false
     }
-    if (!GameApi.Player.getUID(UIDB)) {
+    if (!GameApi.Player.isUser(UIDB)) {
       e.reply(`查无此人`)
       return false
     }
-    if (!GameApi.Player.existUserSatus(UIDA) || !GameApi.Player.existUserSatus(UIDB)) {
+    if (!GameApi.Player.getUserLifeSatus(UIDA) || !GameApi.Player.getUserLifeSatus(UIDB)) {
       e.reply(`已仙鹤`)
       return false
     }
@@ -53,7 +53,7 @@ export class BoxBattle extends plugin {
       return false
     }
     if (actionA.address == 1) {
-      const najieThing = GameApi.Player.userBagSearch({
+      const najieThing = GameApi.Bag.searchBagByName({
         UID: UIDA,
         name: '决斗令'
       })
@@ -61,7 +61,7 @@ export class BoxBattle extends plugin {
         e.reply('[修仙联盟]普通卫兵:城内不可出手!')
         return false
       }
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID: UIDA,
         name: najieThing.name,
         ACCOUNT: -1
@@ -114,7 +114,7 @@ export class BoxBattle extends plugin {
       CHOICE: 'user_bag',
       DATA: bagB
     })
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID: user.a,
       name: thing.name,
       ACCOUNT: thing.acount
@@ -126,7 +126,7 @@ export class BoxBattle extends plugin {
   async handWashing(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -139,7 +139,7 @@ export class BoxBattle extends plugin {
       e.reply('[天机门]李逍遥\n你一身清廉')
       return false
     }
-    const thing = GameApi.Player.userBagSearch({
+    const thing = GameApi.Bag.searchBagByName({
       UID,
       name: '下品灵石'
     })
@@ -147,7 +147,7 @@ export class BoxBattle extends plugin {
       e.reply(`[天机门]韩立\n清魔力需要${money}[下品灵石]`)
       return false
     }
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
       ACCOUNT: -money

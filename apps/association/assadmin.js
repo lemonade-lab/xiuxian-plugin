@@ -37,15 +37,15 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    if (!AssociationApi.assUser.existAss('assPlayer', UID)) {
+    if (!AssociationApi.assUser.existAss('assGP', UID)) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName != 0 || assPlayer.volunteerAss != 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName != 0 || assGP.volunteerAss != 0) {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
     }
-    let money = GameApi.Player.userBagSearch({ UID, name: '下品灵石' })
+    let money = GameApi.Bag.searchBagByName({ UID, name: '下品灵石' })
     if (!money) {
       e.reply('[下品灵石]不足')
       return false
@@ -61,11 +61,11 @@ export class AssociationAdmin extends plugin {
     // 中，是否四大隐藏有主            是，检测低级，否，随机获取四大宗门
     // 低，进行普通创建
 
-    let najieThingA = GameApi.Player.userBagSearch({
+    let najieThingA = GameApi.Bag.searchBagByName({
       UID,
       name: '下等宗门令牌'
     })
-    let najieThingB = GameApi.Player.userBagSearch({
+    let najieThingB = GameApi.Bag.searchBagByName({
       UID,
       name: '中等宗门令牌'
     })
@@ -82,12 +82,12 @@ export class AssociationAdmin extends plugin {
 
       if (assName.length != 0) {
         // 可以创建隐藏宗门
-        GameApi.Player.userBag({
+        GameApi.Bag.addBagThing({
           UID,
           name: '下品灵石',
           ACCOUNT: Number(-10000)
         })
-        GameApi.Player.userBag({
+        GameApi.Bag.addBagThing({
           UID,
           name: najieThingB.name,
           ACCOUNT: Number(-1)
@@ -99,16 +99,16 @@ export class AssociationAdmin extends plugin {
         const location = Math.floor(Math.random() * assName.length)
         const association = getAss(assName[location], date, nowTime, UID, 4, 100000)
 
-        let assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-        assPlayer.assName = assName[location]
-        assPlayer.assJob = 10
-        assPlayer.contributionPoints = 0
-        assPlayer.historyContribution = 0
-        assPlayer.favorability = 0
-        assPlayer.volunteerAss = 0
-        assPlayer.time = [date, nowTime]
-        AssociationApi.assUser.setAssOrPlayer('association', assName[location], association)
-        AssociationApi.assUser.assEffCount(assPlayer)
+        let assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+        assGP.assName = assName[location]
+        assGP.assJob = 10
+        assGP.contributionPoints = 0
+        assGP.historyContribution = 0
+        assGP.favorability = 0
+        assGP.volunteerAss = 0
+        assGP.time = [date, nowTime]
+        AssociationApi.assUser.setAssOrGP('association', assName[location], association)
+        AssociationApi.assUser.assEffCount(assGP)
         let assRelation = AssociationApi.assUser.assRelationList.find(
           (item) => item.id == assName[location]
         )
@@ -121,12 +121,12 @@ export class AssociationAdmin extends plugin {
 
     // 隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
     if (najieThingA) {
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: '下品灵石',
         ACCOUNT: Number(-10000)
       })
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -182,7 +182,7 @@ export class AssociationAdmin extends plugin {
     const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前时间戳
     const date = AssociationApi.assUser.timeChange(nowTime)
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
     const id =
       AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
     const replace = Number(id.replace('Ass00000', '')) + 1
@@ -195,17 +195,17 @@ export class AssociationAdmin extends plugin {
     }
     let relationAll = AssociationApi.assUser.assRelationList
     relationAll.push(relation)
-    AssociationApi.assUser.setAssOrPlayer('assRelation', 'AssRelation', relationAll)
-    assPlayer.assName = associationID
-    assPlayer.assJob = 10
-    assPlayer.contributionPoints = 0
-    assPlayer.historyContribution = 0
-    assPlayer.favorability = 0
-    assPlayer.volunteerAss = 0
-    assPlayer.time = [date, nowTime]
-    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrGP('assRelation', 'AssRelation', relationAll)
+    assGP.assName = associationID
+    assGP.assJob = 10
+    assGP.contributionPoints = 0
+    assGP.historyContribution = 0
+    assGP.favorability = 0
+    assGP.volunteerAss = 0
+    assGP.time = [date, nowTime]
+    AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     theAssociation(associationID, UID)
-    AssociationApi.assUser.assEffCount(assPlayer)
+    AssociationApi.assUser.assEffCount(assGP)
     this.reply('宗门创建成功')
     /** 结束上下文 */
     this.finish('Get_associationName')
@@ -220,11 +220,11 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     if (ass.level == AssociationApi.config.numberMaximums.length) {
       return false
     }
@@ -237,11 +237,11 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let najieThingA = GameApi.Player.userBagSearch({
+    let najieThingA = GameApi.Bag.searchBagByName({
       UID,
       name: '中等宗门令牌'
     })
-    let najieThingB = GameApi.Player.userBagSearch({
+    let najieThingB = GameApi.Bag.searchBagByName({
       UID,
       name: '上等宗门令牌'
     })
@@ -251,7 +251,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级中等宗门需要对应令牌，快去获取吧`)
         return false
       }
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: najieThingA.name,
         ACCOUNT: Number(-1)
@@ -263,7 +263,7 @@ export class AssociationAdmin extends plugin {
         e.reply(`升级上等宗门需要对应令牌，快去获取吧`)
         return false
       }
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: najieThingB.name,
         ACCOUNT: Number(-1)
@@ -272,13 +272,13 @@ export class AssociationAdmin extends plugin {
 
     ass.spiritStoneAns -= ass.level * 30000
     ass.level += 1
-    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    const playerList = ass.allMembers
-    for (let playerID of playerList) {
-      const UID = playerID
-      if (AssociationApi.assUser.existAss('assPlayer', UID)) {
-        const assOrPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-        AssociationApi.assUser.assEffCount(assOrPlayer)
+    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    const GPList = ass.allMembers
+    for (let GPID of GPList) {
+      const UID = GPID
+      if (AssociationApi.assUser.existAss('assGP', UID)) {
+        const assOrGP = AssociationApi.assUser.getAssOrGP(1, UID)
+        AssociationApi.assUser.assEffCount(assOrGP)
       }
     }
     e.reply(
@@ -298,8 +298,8 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0 || assPlayer.assJob < 10) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
     let memberQQ = e.msg.replace(/^(#|\/)提拔/, '')
@@ -307,13 +307,13 @@ export class AssociationAdmin extends plugin {
     if (UID == memberQQ) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     const isinass = ass.allMembers.find((item) => item == memberQQ)
     if (!isinass) {
       return false
     }
 
-    const member = AssociationApi.assUser.getAssOrPlayer(1, memberQQ) // 获取这个B的存档
+    const member = AssociationApi.assUser.getAssOrGP(1, memberQQ) // 获取这个B的存档
     if (member.assJob > 5) {
       e.reply(`他已经是内门弟子了，不能再提拔了`)
       return false
@@ -337,9 +337,9 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
-    if (assPlayer.assName == 0 || assPlayer.assJob < 10) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
     if (AssociationApi.assUser.assRelationList.findIndex((item) => item.id == ass.id) <= 3) {
@@ -354,7 +354,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     ass.spiritStoneAns -= 10000
-    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     AssociationApi.assUser.assRename(ass.id, 1, associationName)
     e.reply(`改名成功，宗门当前名称为${associationName}`)
     return false
@@ -368,8 +368,8 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    const playerA = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (playerA.assName == 0 || playerA.assJob < 8) {
+    const GPA = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (GPA.assName == 0 || GPA.assJob < 8) {
       return false
     }
 
@@ -379,24 +379,24 @@ export class AssociationAdmin extends plugin {
     if (UID == memberQQ) {
       return false
     }
-    const playerB = AssociationApi.assUser.getAssOrPlayer(1, memberQQ)
-    if (playerB.assName == 0) {
+    const GPB = AssociationApi.assUser.getAssOrGP(1, memberQQ)
+    if (GPB.assName == 0) {
       return false
     }
-    const bss = AssociationApi.assUser.getAssOrPlayer(2, playerB.assName)
-    if (playerA.assName != playerB.assName) {
+    const bss = AssociationApi.assUser.getAssOrGP(2, GPB.assName)
+    if (GPA.assName != GPB.assName) {
       return false
     }
-    if (playerB.assJob >= 8) {
+    if (GPB.assJob >= 8) {
       e.reply(`无权进行此操作`)
       return false
     }
     bss.allMembers = bss.allMembers.filter((item) => item != memberQQ)
-    playerB.favorability = 0
-    playerB.assJob = 0
-    playerB.assName = 0
-    AssociationApi.assUser.setAssOrPlayer('association', bss.id, bss)
-    AssociationApi.assUser.assEffCount(playerB)
+    GPB.favorability = 0
+    GPB.assJob = 0
+    GPB.assName = 0
+    AssociationApi.assUser.setAssOrGP('association', bss.id, bss)
+    AssociationApi.assUser.assEffCount(GPB)
     e.reply('已踢出！')
     return false
   }
@@ -471,7 +471,7 @@ const theAssociation = (name, holderQQ) => {
   const date = AssociationApi.assUser.timeChange(nowTime)
   const Association = getAss(name, date, nowTime, holderQQ)
   const treasureVault = [[], [], []]
-  AssociationApi.assUser.setAssOrPlayer('association', name, Association)
-  AssociationApi.assUser.setAssOrPlayer('assTreasureVault', name, treasureVault)
+  AssociationApi.assUser.setAssOrGP('association', name, Association)
+  AssociationApi.assUser.setAssOrGP('assTreasureVault', name, treasureVault)
   return false
 }

@@ -13,13 +13,13 @@ class Information {
   }
 
   userWarehouseShow(UID) {
-    let life = GameApi.Player.userMsgAction({
+    let life = GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
-    const player = GameApi.UserData.controlAction({
-      CHOICE: 'user_home_player',
+    const GP = GameApi.UserData.controlAction({
+      CHOICE: 'user_home_GP',
       NAME: UID
     })
     const battle = GameApi.UserData.controlAction({
@@ -89,7 +89,7 @@ class Information {
       name: 'Warehouse',
       data: {
         user_id: UID,
-        player,
+        GP,
         life,
         battle,
         Warehouse,
@@ -111,8 +111,8 @@ class Information {
   }
 
   userhomeShow(UID) {
-    const player = GameApi.UserData.controlAction({
-      CHOICE: 'user_home_player',
+    const GP = GameApi.UserData.controlAction({
+      CHOICE: 'user_home_GP',
       NAME: UID
     })
     const home = listdata.controlActionInitial({
@@ -124,7 +124,7 @@ class Information {
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    let life = GameApi.Player.userMsgAction({
+    let life = GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
@@ -144,7 +144,7 @@ class Information {
       data: {
         user_id: UID,
         life,
-        player,
+        GP,
         battle,
         homelevel: home.homelevel,
         homeexperience: home.homeexperience,
@@ -158,7 +158,7 @@ class Information {
   }
 
   get_lookland_img(UID) {
-    let life = GameApi.Player.userMsgAction({
+    let life = GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })

@@ -53,7 +53,7 @@ class UserAction {
    * @returns
    */
   levelBreak(UID) {
-    const ifexistplay = user.existUserSatus(UID)
+    const ifexistplay = user.getUserLifeSatus(UID)
     if (!ifexistplay) {
       return `已仙鹤`
     }
@@ -76,7 +76,7 @@ class UserAction {
   }
 
   breakLevelUp = ({ UID, choise }) => {
-    const player = listdata.controlAction({
+    const GP = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -90,26 +90,26 @@ class UserAction {
     })
     let returnTXT = ''
     if (choise) {
-      player.rankMaxId = 0
-      player.levelMaxId = player.levelMaxId + 1
-      player.levelnamemax = Levelmaxlist[player.levelMaxId].name
-      returnTXT = `突破成功至${player.levelnamemax}${this.LevelMiniName[player.rankId]}`
+      GP.rankMaxId = 0
+      GP.levelMaxId = GP.levelMaxId + 1
+      GP.levelnamemax = Levelmaxlist[GP.levelMaxId].name
+      returnTXT = `突破成功至${GP.levelnamemax}${this.LevelMiniName[GP.rankId]}`
     } else {
-      player.rankId = 0
-      player.levelId = player.levelId + 1
-      player.levelname = Levellist[player.levelId].name
+      GP.rankId = 0
+      GP.levelId = GP.levelId + 1
+      GP.levelname = Levellist[GP.levelId].name
       const { size } = this.userLifeUp({
         UID,
-        levelId: player.levelId
+        levelId: GP.levelId
       })
-      returnTXT = `突破成功至${player.levelname}${this.LevelMiniName[player.rankId]},寿命至${size}`
+      returnTXT = `突破成功至${GP.levelname}${this.LevelMiniName[GP.rankId]},寿命至${size}`
     }
     listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
-      DATA: player
+      DATA: GP
     })
-    user.readPanel(UID)
+    user.updatePanel(UID)
     return {
       UserLevelUpMSG: `${returnTXT}`
     }

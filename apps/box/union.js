@@ -60,8 +60,8 @@ export class Boxunion extends plugin {
       INITIAL: {}
     })
     if (SignData[UID].signSize % 7 == 0) {
-      const randomthing = GameApi.Player.randomThing()
-      GameApi.Player.userBag({
+      const randomthing = GameApi.GP.randomThing()
+      GameApi.Bag.addBagThing({
         UID,
         name: randomthing.name,
         ACCOUNT: 1
@@ -69,7 +69,7 @@ export class Boxunion extends plugin {
       e.reply(`本月累计签到${SignData[UID].signSize}天~\n获得${randomthing.name}`)
     } else {
       const ACCOUNT = 20 * (SignData[UID].signSize % 7)
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: '中品灵石',
         ACCOUNT
@@ -105,8 +105,8 @@ export class Boxunion extends plugin {
       CHOICE: 'user_action',
       DATA: action
     })
-    const randomthing = GameApi.Player.randomThing()
-    GameApi.Player.userBag({
+    const randomthing = GameApi.GP.randomThing()
+    GameApi.Bag.addBagThing({
       UID,
       name: randomthing.name,
       ACCOUNT: 1
@@ -117,7 +117,7 @@ export class Boxunion extends plugin {
 }
 
 function UnionMessage(e) {
-  if (!GameApi.Player.existUserSatus(e.user_id)) {
+  if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
     e.reply('已仙鹤')
     return false
   }

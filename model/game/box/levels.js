@@ -3,19 +3,13 @@ import listdata from '../data/listdata.js'
 class Levels {
   constructor() {
     this.LEVELMAP = {
-      // 练气
       0: 'gaspractice',
-      // 练体
       1: 'bodypractice',
-      // 练魂
       2: 'soul'
     }
     this.NAMEMAP = {
-      // 练气
       0: '修为',
-      // 练体
       1: '气血',
-      // 练魂
       2: '魂力'
     }
   }
@@ -74,6 +68,28 @@ class Levels {
     return {
       state: 2000,
       msg: `境界跌落至${LevelList[realm].name}`
+    }
+  }
+
+  /** 经验增加 */
+  addExperience(UID, id, size) {
+    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    UserLevel.level[this.LEVELMAP[id]].experience += size
+    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    return {
+      state: 2000,
+      msg: `${this.NAMEMAP[id]}增加${size}`
+    }
+  }
+
+  /* 经验减少 */
+  reduceExperience(UID, id, size) {
+    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    UserLevel.level[this.LEVELMAP[id]].experience -= size
+    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    return {
+      state: 2000,
+      msg: `${this.NAMEMAP[id]}增加${size}`
     }
   }
 }

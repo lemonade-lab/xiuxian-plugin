@@ -29,7 +29,7 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
@@ -37,7 +37,7 @@ export class Homemove extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     const region2 = ifexisthome.region
     const action1 = GameApi.UserData.controlAction({
       NAME: UID,
@@ -53,7 +53,7 @@ export class Homemove extends plugin {
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    const searchsthing = GameApi.Player.userBagSearch({
+    const searchsthing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
     })
@@ -71,7 +71,7 @@ export class Homemove extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.Player.addDataThing({
+    Warehouse = HomeApi.GP.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity
@@ -86,7 +86,7 @@ export class Homemove extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    najie = HomeApi.Player.addDataThing({
+    najie = HomeApi.GP.addDataThing({
       DATA: najie,
       DATA1: searchsthing,
       quantity: -quantity
@@ -103,7 +103,7 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
@@ -111,7 +111,7 @@ export class Homemove extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     const home = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
@@ -137,7 +137,7 @@ export class Homemove extends plugin {
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    const searchsthing = HomeApi.Player.homeexistWarehouseThingName({
+    const searchsthing = HomeApi.GP.homeexistWarehouseThingName({
       name: thingName,
       UID
     })
@@ -155,7 +155,7 @@ export class Homemove extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.Player.addDataThing({
+    Warehouse = HomeApi.GP.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
@@ -170,7 +170,7 @@ export class Homemove extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    najie = HomeApi.Player.addDataThing({
+    najie = HomeApi.GP.addDataThing({
       DATA: najie,
       DATA1: searchsthing,
       quantity
@@ -187,7 +187,7 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return
@@ -201,7 +201,7 @@ export class Homemove extends plugin {
       INITIAL: []
     })
     for (let i = 0; i < Warehouse.thing.length; i++) {
-      let searchsthing = HomeApi.Player.homeexistAllThingByName({
+      let searchsthing = HomeApi.GP.homeexistAllThingByName({
         name: Warehouse.thing[i].name
       })
       if (Warehouse.thing[i].thingId != undefined) {
@@ -241,7 +241,7 @@ export class Homemove extends plugin {
             INITIAL: []
           })
         } else {
-          let searchsthing1 = HomeApi.Player.homeexistAllThingById({
+          let searchsthing1 = HomeApi.GP.homeexistAllThingById({
             id: Warehouse.thing[i].id
           })
           if (searchsthing1 != 1) {
@@ -282,7 +282,7 @@ export class Homemove extends plugin {
       INITIAL: []
     })
     for (let i = 0; i < landgoods.thing.length; i++) {
-      let searchsthing = HomeApi.Player.homeexistAllThingByName({
+      let searchsthing = HomeApi.GP.homeexistAllThingByName({
         name: landgoods.thing[i].name
       })
       if (searchsthing != 1) {
@@ -294,7 +294,7 @@ export class Homemove extends plugin {
           INITIAL: []
         })
       } else {
-        let searchsthing1 = HomeApi.Player.homeexistAllThingById({
+        let searchsthing1 = HomeApi.GP.homeexistAllThingById({
           id: landgoods.thing[i].id
         })
         if (searchsthing1 != 1) {
@@ -315,7 +315,7 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
       e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
       return

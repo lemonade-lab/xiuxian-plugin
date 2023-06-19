@@ -14,13 +14,13 @@ export class Boxadminmoney extends plugin {
     if (!this.verify(e)) return false
     const UID = BotApi.Robot.at({ e })
     if (!UID) return false
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)修仙扣除/, '')
     const [name, ACCOUNT] = thingName.split('*')
-    const thing = GameApi.Player.userBagSearch({
+    const thing = GameApi.Bag.searchBagByName({
       UID,
       name
     })
@@ -28,7 +28,7 @@ export class Boxadminmoney extends plugin {
       e.reply('数量不足')
       return false
     }
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name,
       ACCOUNT: -ACCOUNT
@@ -42,13 +42,13 @@ export class Boxadminmoney extends plugin {
     if (!this.verify(e)) return false
     const UID = BotApi.Robot.at({ e })
     if (!UID) return false
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
     const [name, ACCOUNT] = thingName.split('*')
-    const bag = GameApi.Player.userBag({
+    const bag = GameApi.Bag.addBagThing({
       UID,
       name,
       ACCOUNT

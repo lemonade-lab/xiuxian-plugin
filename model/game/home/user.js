@@ -1,7 +1,7 @@
 import listdata from '../data/listdata.js'
 import User from './user.js'
 import { GameApi } from '../../api/index.js'
-class Player {
+class GP {
   userWarehouse({ UID, name, ACCOUNT }) {
     const thing = listdata.searchThing({
       condition: 'name',
@@ -373,7 +373,7 @@ class Player {
 
   generateCD({ UID, CDid }) {
     const CDname = [' 偷菜 ', ' 占领矿场 ', ' 偷动物 ', ' 做饭 ']
-    const remainTime = redis.ttl('xiuxian:player:' + UID + ':' + CDid)
+    const remainTime = redis.ttl('xiuxian:GP:' + UID + ':' + CDid)
     const time = {
       h: 0,
       m: 0,
@@ -763,4 +763,4 @@ class Player {
     return 1
   }
 }
-export default new Player()
+export default new GP()

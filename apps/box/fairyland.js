@@ -15,7 +15,7 @@ export class Boxfairyland extends plugin {
   async breakLevel(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexistplay = GameApi.Player.existUserSatus(UID)
+    const ifexistplay = GameApi.Player.getUserLifeSatus(UID)
     if (!ifexistplay) {
       e.reply(`已仙鹤`)
       return

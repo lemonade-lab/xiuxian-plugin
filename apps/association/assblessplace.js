@@ -39,8 +39,8 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0 || assPlayer.assJob < 8) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
     let assName = e.msg.replace(/^(#|\/)集合攻打/, '')
@@ -52,12 +52,12 @@ export class AssBlessPlace extends plugin {
     }
 
     assName = assRelation.id
-    const battleAss = AssociationApi.assUser.getAssOrPlayer(2, assName)
-    if (battleAss.resident.name == 0 || battleAss.id == assPlayer.assName) {
+    const battleAss = AssociationApi.assUser.getAssOrGP(2, assName)
+    if (battleAss.resident.name == 0 || battleAss.id == assGP.assName) {
       return false
     }
     // 读取被攻打的宗门势力范围
-    const attackAss = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const attackAss = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
 
     const positionList = GameApi.UserData.controlAction({
       NAME: 'position',
@@ -144,11 +144,11 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0 || assPlayer.assJob < 10) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     let blessedName = e.msg.replace(/^(#|\/)入驻洞天/, '')
     blessedName = blessedName.trim()
     // 洞天不存在
@@ -164,7 +164,7 @@ export class AssBlessPlace extends plugin {
     const point = positionList.find((item) => item.name == blessedName)
 
     // 取洞天点位，是否在位置，在--->是否被占领
-    const action = GameApi.Player.userMsgAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -177,7 +177,7 @@ export class AssBlessPlace extends plugin {
 
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
-      const thisAss = AssociationApi.assUser.getAssOrPlayer(2, theName)
+      const thisAss = AssociationApi.assUser.getAssOrGP(2, theName)
       if (thisAss.resident.name == dongTan.name) {
         e.reply(`你尝试带着宗门入驻${dongTan.name}，却发现有宗门捷足先登了，只能通过开战强夺驻地了`)
         return false
@@ -189,7 +189,7 @@ export class AssBlessPlace extends plugin {
       i.status = 0
       return i
     })
-    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     e.reply(`入驻成功,${ass.id}当前驻地为:${dongTan.name},原有建设值继承70%，需要重新修建以启用`)
     return false
   }
@@ -201,12 +201,12 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
 
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
@@ -217,7 +217,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.Player.userMsgAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -233,19 +233,19 @@ export class AssBlessPlace extends plugin {
     const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前日期的时间戳
     const Today = AssociationApi.assUser.timeInvert(nowTime)
-    const lastExplorTime = AssociationApi.assUser.timeInvert(assPlayer.lastExplorTime) // 获得上次宗门签到日期
+    const lastExplorTime = AssociationApi.assUser.timeInvert(assGP.lastExplorTime) // 获得上次宗门签到日期
     if (Today.Y == lastExplorTime.Y && Today.M == lastExplorTime.M && Today.D == lastExplorTime.D) {
       e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`)
       return false
     }
-    assPlayer.lastExplorTime = nowTime
+    assGP.lastExplorTime = nowTime
 
     let giftLingshi = 0
-    const player = GameApi.Player.userMsgAction({
+    const GP = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    giftLingshi = 500 * ass.resident.level * player.levelId
+    giftLingshi = 500 * ass.resident.level * GP.levelId
 
     const num = Math.trunc(giftLingshi)
 
@@ -255,10 +255,10 @@ export class AssBlessPlace extends plugin {
       ass.spiritStoneAns += num
     }
 
-    assPlayer.contributionPoints += Math.trunc(num / 2000)
-    assPlayer.historyContribution += Math.trunc(num / 2000)
-    AssociationApi.assUser.setAssOrPlayer('association', ass.id, ass)
-    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    assGP.contributionPoints += Math.trunc(num / 2000)
+    assGP.historyContribution += Math.trunc(num / 2000)
+    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(
       `本次开采灵脉为宗门灵石池贡献了${giftLingshi}灵石，你获得了` +
         Math.trunc(num / 2000) +
@@ -276,16 +276,16 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const player = GameApi.Player.userMsgAction({
+    const GP = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
 
-    let ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    let ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地，无法建设宗门`)
       return false
@@ -304,7 +304,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.Player.userMsgAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -335,16 +335,16 @@ export class AssBlessPlace extends plugin {
 
     GameApi.Wrap.setRedis(UID + ClassCD, nowTime, CDTime)
 
-    let add = Math.trunc(player.levelId / 10) + 3
+    let add = Math.trunc(GP.levelId / 10) + 3
 
     ass.facility[location].buildNum += add
 
-    assPlayer.contributionPoints += Math.trunc(add / 2) + 1
-    assPlayer.historyContribution += Math.trunc(add / 2) + 1
+    assGP.contributionPoints += Math.trunc(add / 2) + 1
+    assGP.historyContribution += Math.trunc(add / 2) + 1
     AssociationApi.assUser.checkFacility(ass)
-    ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     let msg = ass.facility[location].status == 0 ? '未启用' : '启用'
-    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(
       `建设成功，为${buildName}增加了${add}点建设值，当前该设施建设总值为${ass.facility[location].buildNum},状态为` +
         msg
@@ -360,12 +360,12 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
 
     let msg = [`__[宗门建筑]__`]
 
@@ -409,7 +409,7 @@ async function GoBlessPlace(e, weizhi, addres) {
 function getFightMember(members, position) {
   let res = []
   for (let i = 0; i < members.length; i++) {
-    const action = GameApi.Player.userMsgAction({
+    const action = GameApi.UserData.controlAction({
       NAME: members[i],
       CHOICE: 'user_action'
     })
@@ -436,7 +436,7 @@ function SealingFormation(members) {
     power: 0
   }
   for (let i = 0; i < members.length; i++) {
-    const battle = GameApi.Player.userMsgAction({
+    const battle = GameApi.UserData.controlAction({
       NAME: members[i],
       CHOICE: 'user_battle'
     })
@@ -533,7 +533,7 @@ function battleProbability(P) {
 }
 const AddPrestige = (members) => {
   for (let i = 0; i < members.length; i++) {
-    GameApi.Player.updataUser({
+    GameApi.GP.updataUser({
       UID: members[i],
       CHOICE: 'user_level',
       ATTRIBUTE: 'prestige',

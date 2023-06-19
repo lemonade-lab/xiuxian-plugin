@@ -2,7 +2,7 @@ import DataIndex, { __PATH } from '../game/data/index.js'
 import CreateData from '../game/data/createdata.js'
 import DefsetData from '../game/data/defset.js'
 import Wrap from '../game/wrap/index.js'
-import Player from '../game/home/user.js'
+import GP from '../game/home/user.js'
 import Algorithm from '../game/data/algorithm.js'
 import UserAction from '../game/home/action.js'
 import Information from '../game/home/information.js'
@@ -13,7 +13,7 @@ export const HomeApi = {
   __PATH,
   Schedule,
   Listdata,
-  Player,
+  GP,
   DataIndex,
   DefsetData,
   Algorithm,

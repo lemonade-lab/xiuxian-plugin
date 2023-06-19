@@ -37,11 +37,11 @@ export class Homestart extends plugin {
   async myhome(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -57,11 +57,11 @@ export class Homestart extends plugin {
   async Warehouse(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -74,11 +74,11 @@ export class Homestart extends plugin {
   async buildhome(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0 && archive != '您都还没建立过家园') {
       e.reply(`${archive}`)
       return false
@@ -118,7 +118,7 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const level = GameApi.Player.userMsgAction({
+    const level = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -162,16 +162,16 @@ export class Homestart extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     const region = ifexisthome.region
     const action = GameApi.UserData.controlAction({
       NAME: UID,
@@ -193,11 +193,11 @@ export class Homestart extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -231,7 +231,7 @@ export class Homestart extends plugin {
       DATA: home,
       INITIAL: []
     })
-    HomeApi.Player.deleteAction(UID)
+    HomeApi.GP.deleteAction(UID)
     e.reply(`你的家园已成功扩建`)
   }
 
@@ -239,16 +239,16 @@ export class Homestart extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     if (ifexisthome == undefined) {
       e.reply('您都还没建立过家园')
       return false
@@ -270,7 +270,7 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const level = GameApi.Player.userMsgAction({
+    const level = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -279,7 +279,7 @@ export class Homestart extends plugin {
       return false
     }
     const thingName = '木板'
-    const searchsthing = HomeApi.Player.userWarehouseSearch({
+    const searchsthing = HomeApi.GP.userWarehouseSearch({
       UID,
       name: thingName
     })
@@ -343,12 +343,12 @@ export class Homestart extends plugin {
         DATA: positionhome,
         INITIAL: []
       })
-      HomeApi.Player.userWarehouse({
+      HomeApi.GP.userWarehouse({
         UID,
         name: thingName,
         ACCOUNT: -a
       })
-      HomeApi.Player.addDoge({ UID, money: -2000 })
+      HomeApi.GP.addDoge({ UID, money: -2000 })
       e.reply(
         `成功在${address}建立了新的家园，花费2000灵晶(原来家园所在地如果占领了的话将会撤走哦!)`
       )

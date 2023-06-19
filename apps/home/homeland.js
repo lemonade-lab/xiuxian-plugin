@@ -37,16 +37,16 @@ export class Homeland extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
     if (state == 4001) {
       e.reply(msg)
@@ -86,7 +86,7 @@ export class Homeland extends plugin {
       return false
     }
     let lingshi1 = Land * 20000 + 1000
-    const lingshi = GameApi.Player.userBagSearch({
+    const lingshi = GameApi.Bag.searchBagByName({
       UID,
       name: '下品灵石'
     })
@@ -94,7 +94,7 @@ export class Homeland extends plugin {
       e.reply(`似乎没有${lingshi1}下品灵石`)
       return false
     }
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
       ACCOUNT: lingshi1
@@ -119,12 +119,12 @@ export class Homeland extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexisthome = HomeApi.Player.existhome(UID)
-    if (!GameApi.Player.existUserSatus(UID)) {
+    const ifexisthome = HomeApi.GP.existhome(UID)
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -145,7 +145,7 @@ export class Homeland extends plugin {
     let thingAcount = code[1] // 种子数量
     let name = thingName.replace('种子', '')
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let searchsthing = HomeApi.Player.userWarehouseSearch({
+    let searchsthing = HomeApi.GP.userWarehouseSearch({
       UID,
       name: thingName
     }) // 查找种子
@@ -198,13 +198,13 @@ export class Homeland extends plugin {
       return false
     }
     let nowTime = new Date().getTime()
-    HomeApi.Player.addLandgrid({ UID, ACCOUNT: -a })
-    let searchsthing1 = HomeApi.Player.addLandgoods({
+    HomeApi.GP.addLandgrid({ UID, ACCOUNT: -a })
+    let searchsthing1 = HomeApi.GP.addLandgoods({
       landgoods: searchsthing,
       nowTime,
       acount: quantity
     })
-    landgoods = HomeApi.Player.addDataThing({
+    landgoods = HomeApi.GP.addDataThing({
       DATA: landgoods,
       DATA1: searchsthing1,
       quantity
@@ -220,7 +220,7 @@ export class Homeland extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse = HomeApi.Player.addDataThing({
+    Warehouse = HomeApi.GP.addDataThing({
       DATA: Warehouse,
       DATA1: searchsthing,
       quantity: -quantity
@@ -239,12 +239,12 @@ export class Homeland extends plugin {
   async shouhuo(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexisthome = HomeApi.Player.existhome(UID)
-    if (!GameApi.Player.existUserSatus(UID)) {
+    const ifexisthome = HomeApi.GP.existhome(UID)
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -289,7 +289,7 @@ export class Homeland extends plugin {
   upgrade(e, userId, landgoods1, name, acount, lattice) {
     let UID = userId
     let thing = landgoods1
-    let crop = HomeApi.Player.homesearchThingName({ name })
+    let crop = HomeApi.GP.homesearchThingName({ name })
     let stolen = landgoods1.stolen
     let q = 10 - stolen
     let z = stolen * 0.1
@@ -314,7 +314,7 @@ export class Homeland extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
@@ -330,7 +330,7 @@ export class Homeland extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      landgoods = HomeApi.Player.addDataThing({
+      landgoods = HomeApi.GP.addDataThing({
         DATA: landgoods,
         DATA1: thing,
         quantity: -acount1
@@ -365,7 +365,7 @@ export class Homeland extends plugin {
         INITIAL: []
       })
       let nowTime = new Date().getTime()
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: crop,
         quantity: other
@@ -410,11 +410,11 @@ export class Homeland extends plugin {
   async lookland(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -444,16 +444,16 @@ export class Homeland extends plugin {
     if (!user.B) {
       return false
     }
-    const ifexisthome1 = HomeApi.Player.existhome(user.B)
+    const ifexisthome1 = HomeApi.GP.existhome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方还没建立过家园`)
       return false
     }
-    if (!GameApi.Player.existUserSatus(user.A)) {
+    if (!GameApi.Player.getUserLifeSatus(user.A)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(user.A)
+    const archive = HomeApi.GP.Archive(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -470,7 +470,7 @@ export class Homeland extends plugin {
     }
     const CDid = '0'
     const CDTime = 30
-    const CD = HomeApi.Player.generateCD({ UID: user.A, CDid })
+    const CD = HomeApi.GP.generateCD({ UID: user.A, CDid })
     if (CD != 0) {
       e.reply(CD)
       return false
@@ -501,14 +501,14 @@ export class Homeland extends plugin {
       return false
     }
     let other = 1
-    let crop = HomeApi.Player.homesearchThingName({ name: thing })
+    let crop = HomeApi.GP.homesearchThingName({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
     let Warehouse = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: user.A,
       INITIAL: []
     })
-    Warehouse = HomeApi.Player.addDataThing({
+    Warehouse = HomeApi.GP.addDataThing({
       DATA: Warehouse,
       DATA1: crop,
       quantity: other
@@ -563,17 +563,17 @@ export class Homeland extends plugin {
     if (!user.B) {
       return
     }
-    const ifexisthome1 = HomeApi.Player.existhome(user.B)
+    const ifexisthome1 = HomeApi.GP.existhome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方没建立过家园`)
       return
     }
-    const ifexisthome = GameApi.Player.existUserSatus(user.A)
+    const ifexisthome = GameApi.Player.getUserLifeSatus(user.A)
     if (!ifexisthome) {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.Player.Archive(user.A)
+    const archive = HomeApi.GP.Archive(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return

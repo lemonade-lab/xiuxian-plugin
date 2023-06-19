@@ -1,6 +1,5 @@
-import Player from './box/index.js'
 import { BotApi } from '../api/botapi.js'
-import { GameApi } from '../api/index.js'
+import listdata from './data/listdata.js'
 const Sneakattack = [
   '你个老六偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!',
   '你找准时机,突然暴起冲向怪物,但是怪物及时反应,转眼被怪物咬死!',
@@ -30,7 +29,7 @@ class Battle {
         battleMsg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
         battleA.nowblood = 0
         battleMsg.QQ = 0
-        Player.userMsgAction({
+        listdata.controlAction({
           NAME: e.user_id,
           CHOICE: 'user_battle',
           DATA: battleA
@@ -97,7 +96,7 @@ class Battle {
       }
     }
     battleMsg.msg.push(`[血量剩余]:${battleA.nowblood}`)
-    Player.userMsgAction({
+    listdata.controlAction({
       NAME: e.user_id,
       CHOICE: 'user_battle',
       DATA: battleA
@@ -120,11 +119,11 @@ class Battle {
       hurtA: 0,
       hurtB: 0
     }
-    const battleA = Player.userMsgAction({
+    const battleA = listdata.controlAction({
       NAME: A,
       CHOICE: 'user_battle'
     })
-    const battleB = Player.userMsgAction({
+    const battleB = listdata.controlAction({
       NAME: B,
       CHOICE: 'user_battle'
     })
@@ -141,7 +140,7 @@ class Battle {
         battleA.nowblood = 0
         battleMsg.QQ = B
         BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
-        Player.userMsgAction({
+        listdata.controlAction({
           NAME: A,
           CHOICE: 'user_battle',
           DATA: battleA
@@ -153,7 +152,7 @@ class Battle {
         battleMsg.msg.push('你仅出一招,就击败了对方!')
         battleB.nowblood = 0
         BotApi.Robot.forwardMsg({ e, data: battleMsg.msg })
-        Player.userMsgAction({
+        listdata.controlAction({
           NAME: B,
           CHOICE: 'user_battle',
           DATA: battleB
@@ -220,12 +219,12 @@ class Battle {
       }
     }
     battleMsg.msg.push(`[血量状态]:${battleA.nowblood}`)
-    Player.userMsgAction({
+    listdata.controlAction({
       NAME: A,
       CHOICE: 'user_battle',
       DATA: battleA
     })
-    Player.userMsgAction({
+    listdata.controlAction({
       NAME: B,
       CHOICE: 'user_battle',
       DATA: battleB
@@ -246,7 +245,7 @@ class Battle {
 
   /* 雷劫伤害 */
   Thunderbolt_damage(UID) {
-    const talent = GameApi.UserData.controlAction({
+    const talent = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_talent'
     })
@@ -263,7 +262,7 @@ class Battle {
       }
     }
     let n = Math.round(Math.random() * 5 + 5)
-    const battle = Player.userMsgAction({
+    const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })

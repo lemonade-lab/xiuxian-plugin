@@ -1,5 +1,5 @@
 import { GameApi, plugin } from '../../model/api/index.js'
-export class BoxPlayerControl extends plugin {
+export class BoxGPControl extends plugin {
   constructor() {
     super({
       rule: [
@@ -14,7 +14,7 @@ export class BoxPlayerControl extends plugin {
   async biguan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -36,7 +36,7 @@ export class BoxPlayerControl extends plugin {
   async dagong(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -58,7 +58,7 @@ export class BoxPlayerControl extends plugin {
   async chuGuan(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -84,7 +84,7 @@ export class BoxPlayerControl extends plugin {
   async endWork(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -131,7 +131,7 @@ export class BoxPlayerControl extends plugin {
       othername = 'experiencemax'
       msg = `降妖归来\n[气血]*${other}`
     }
-    GameApi.Player.updataUser({
+    GameApi.GP.updataUser({
       UID,
       CHOICE: 'user_level',
       ATTRIBUTE: othername,

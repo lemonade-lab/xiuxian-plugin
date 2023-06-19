@@ -15,13 +15,19 @@ import Monster from '../game/monster.js'
 
 import Information from '../game/box/information.js'
 import UserAction from '../game/box/action.js'
-import Player from '../game/box/index.js'
+import GP from '../game/box/index.js'
 import Levels from '../game/box/levels.js'
+import Player from '../game/box/player.js'
+import Talent from '../game/box/talent.js'
+import Bag from '../game/box/bag.js'
 export const GameApi = {
+  Bag,
+  Talent,
+  Player,
   Method,
   Place,
   Wrap,
-  Player,
+  GP,
   Defset,
   Schedule,
   Algorithm,

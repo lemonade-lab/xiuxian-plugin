@@ -90,7 +90,7 @@ export class BoxModify extends plugin {
 }
 
 function modifiyMessage(e) {
-  if (!GameApi.Player.existUserSatus(e.user_id)) {
+  if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
     e.reply('已仙鹤')
     return false
   }

@@ -22,7 +22,7 @@ export class BoxInstall extends plugin {
     if (!T) {
       return false
     }
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply([segment.at(UID), '您已仙鹤,需[(#|/)再入仙途]后步入轮回!'])
       return false
     }

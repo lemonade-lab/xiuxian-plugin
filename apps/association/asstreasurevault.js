@@ -32,11 +32,11 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
 
     if (ass.facility[1].status == 0) {
       return false
@@ -47,7 +47,7 @@ export class AssTreasureVault extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.Player.userMsgAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -62,7 +62,7 @@ export class AssTreasureVault extends plugin {
     }
     let thingName = e.msg.replace(/^(#|\/)藏宝阁回收/, '')
 
-    const searchThing = GameApi.Player.userBagSearch({
+    const searchThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
     })
@@ -72,9 +72,9 @@ export class AssTreasureVault extends plugin {
     ass.facility[1].buildNum -= 1
     AssociationApi.assUser.checkFacility(ass)
     let point = Math.trunc(searchThing.price / 600)
-    assPlayer.contributionPoints += point
-    assPlayer.historyContribution += point
-    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    assGP.contributionPoints += point
+    assGP.historyContribution += point
+    AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     addNajieThings(searchThing, UID, -1)
     e.reply(`回收成功，你获得了${point}点贡献点！`)
 
@@ -82,7 +82,7 @@ export class AssTreasureVault extends plugin {
     if (id[0] > 5 || id[2] > 19) {
       return false
     }
-    const assTreasureCabinet = AssociationApi.assUser.getAssOrPlayer(4, assPlayer.assName)
+    const assTreasureCabinet = AssociationApi.assUser.getAssOrGP(4, assGP.assName)
     const length = Math.ceil(ass.level / 3)
     let isExist = false
     for (let i = 0; i < length; i++) {
@@ -108,11 +108,7 @@ export class AssTreasureVault extends plugin {
         redeemPoint: Math.ceil(searchThing.price / 500)
       }
       assTreasureCabinet[location].push(addTing)
-      AssociationApi.assUser.setAssOrPlayer(
-        'assTreasureVault',
-        assPlayer.assName,
-        assTreasureCabinet
-      )
+      AssociationApi.assUser.setAssOrGP('assTreasureVault', assGP.assName, assTreasureCabinet)
     }
     return false
   }
@@ -126,15 +122,15 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
 
     let msg = ['___[宗门藏宝阁]___']
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = AssociationApi.assUser.getAssOrPlayer(4, assPlayer.assName)
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    let assTreasureCabinet = AssociationApi.assUser.getAssOrGP(4, assGP.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
 
     const length = Math.ceil(ass.level / 3)
     for (let i = 0; i < length; i++) {
@@ -165,12 +161,12 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assPlayer.assName)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     const thingName = e.msg.replace(/^(#|\/)兑换/, '')
 
     if (ass.facility[1].status == 0 || thingName == '') {
@@ -182,7 +178,7 @@ export class AssTreasureVault extends plugin {
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.Player.userMsgAction({
+    const action = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_action'
     })
@@ -197,7 +193,7 @@ export class AssTreasureVault extends plugin {
       return false
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = AssociationApi.assUser.getAssOrPlayer(4, assPlayer.assName)
+    let assTreasureCabinet = AssociationApi.assUser.getAssOrGP(4, assGP.assName)
     let length = Math.ceil(ass.level / 3)
     let exchangeThing
     for (let i = 0; i < length; i++) {
@@ -210,16 +206,16 @@ export class AssTreasureVault extends plugin {
       return false
     }
     if (
-      assPlayer.contributionPoints < exchangeThing.redeemPoint ||
-      assPlayer.assJob < exchangeThing.privileges
+      assGP.contributionPoints < exchangeThing.redeemPoint ||
+      assGP.assJob < exchangeThing.privileges
     ) {
       e.reply(`贡献或权限不足！`)
       return false
     }
     ass.facility[1].buildNum -= 1
     AssociationApi.assUser.checkFacility(ass)
-    assPlayer.contributionPoints -= exchangeThing.redeemPoint
-    AssociationApi.assUser.setAssOrPlayer('assPlayer', UID, assPlayer)
+    assGP.contributionPoints -= exchangeThing.redeemPoint
+    AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     const addThing = AssociationApi.assUser.searchThingById(exchangeThing.id)
     addNajieThings(addThing, UID, 1)
     e.reply(`兑换成功！！！`)
@@ -234,18 +230,18 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
     e.reply(
-      `你当前还剩${assPlayer.contributionPoints}贡献点，历史贡献值总和为${assPlayer.historyContribution}`
+      `你当前还剩${assGP.contributionPoints}贡献点，历史贡献值总和为${assGP.historyContribution}`
     )
     return false
   }
 }
 const addNajieThings = (thing, userQQ, account) => {
-  GameApi.Player.userBag({
+  GameApi.Bag.addBagThing({
     UID: userQQ,
     name: thing.name,
     ACCOUNT: Number(account)

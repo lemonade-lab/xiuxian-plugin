@@ -14,7 +14,7 @@ export class BoxExchange extends plugin {
   async supermarket(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -39,12 +39,12 @@ export class BoxExchange extends plugin {
   async onsell(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     const [thingName, account, money] = e.msg.replace(/^(#|\/)上架/, '').split('*')
-    const bagThing = GameApi.Player.userBagSearch({
+    const bagThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
     })
@@ -85,7 +85,7 @@ export class BoxExchange extends plugin {
       DATA: exchange,
       INITIAL: {}
     })
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: bagThing.name,
       ACCOUNT: -account
@@ -97,7 +97,7 @@ export class BoxExchange extends plugin {
   async Offsell(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -129,7 +129,7 @@ export class BoxExchange extends plugin {
       e.reply('储物袋已满')
       return false
     }
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: exchange[LifeData[UID].createTime].thing.name,
       ACCOUNT: exchange[LifeData[UID].createTime].account
@@ -148,7 +148,7 @@ export class BoxExchange extends plugin {
   async purchase(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -172,7 +172,7 @@ export class BoxExchange extends plugin {
       return false
     }
     // 验证
-    const money = GameApi.Player.userBagSearch({
+    const money = GameApi.Bag.searchBagByName({
       UID,
       name: '下品灵石'
     })
@@ -188,17 +188,17 @@ export class BoxExchange extends plugin {
       e.reply('储物袋已满')
       return false
     }
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: exchange[y].thing.name,
       ACCOUNT: exchange[y].account
     })
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
       ACCOUNT: -exchange[x].money
     })
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID: exchange[x].UID,
       name: '下品灵石',
       ACCOUNT: exchange[x].money

@@ -2,28 +2,28 @@ import genertate from './generate.js'
 import algorithm from './algorithm.js'
 
 /* 存档地址 */
-const playerPath = '/xiuxianfile'
+const GPPath = '/xiuxianfile'
 
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
-  user_extend: algorithm.getFliePath(`${playerPath}/extend`),
-  user_action: algorithm.getFliePath(`${playerPath}/action`),
-  user_battle: algorithm.getFliePath(`${playerPath}/battle`),
-  user_equipment: algorithm.getFliePath(`${playerPath}/equipment`),
-  user_level: algorithm.getFliePath(`${playerPath}/level`),
-  user_talent: algorithm.getFliePath(`${playerPath}/talent`),
-  user_wealth: algorithm.getFliePath(`${playerPath}/wealth`),
-  user_bag: algorithm.getFliePath(`${playerPath}/najie`),
+  user_extend: algorithm.getFliePath(`${GPPath}/extend`),
+  user_action: algorithm.getFliePath(`${GPPath}/action`),
+  user_battle: algorithm.getFliePath(`${GPPath}/battle`),
+  user_equipment: algorithm.getFliePath(`${GPPath}/equipment`),
+  user_level: algorithm.getFliePath(`${GPPath}/level`),
+  user_talent: algorithm.getFliePath(`${GPPath}/talent`),
+  user_wealth: algorithm.getFliePath(`${GPPath}/wealth`),
+  user_bag: algorithm.getFliePath(`${GPPath}/najie`),
 
-  user_life: algorithm.getFliePath(`${playerPath}/life`),
+  user_life: algorithm.getFliePath(`${GPPath}/life`),
 
-  user_material: algorithm.getFliePath(`${playerPath}/material`),
+  user_material: algorithm.getFliePath(`${GPPath}/material`),
 
   /* 金银坊 */
-  user_bank: algorithm.getFliePath(`${playerPath}/bank`),
+  user_bank: algorithm.getFliePath(`${GPPath}/bank`),
   /* 虚空境 */
-  generate_exchange: algorithm.getFliePath(`${playerPath}/exchange`),
+  generate_exchange: algorithm.getFliePath(`${GPPath}/exchange`),
 
   /* 基础数据：插件内 */
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
@@ -65,7 +65,7 @@ export const __PATH = {
   // 玩家存档
   association: algorithm.getReq('/resources/databirth/assItem'),
   // 用户的宗门数据
-  assPlayer: algorithm.getReq('/resources/databirth/assPlayer'),
+  assGP: algorithm.getReq('/resources/databirth/assGP'),
   assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
   generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),

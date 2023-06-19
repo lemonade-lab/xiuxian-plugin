@@ -10,7 +10,7 @@ export class AssociationExtend extends plugin {
         },
         {
           reg: /^(#|\/)宗门玩法存档$/,
-          fnc: 'showAssPlayer'
+          fnc: 'showAssGP'
         },
         {
           reg: /^(#|\/)建好.*$/,
@@ -31,7 +31,7 @@ export class AssociationExtend extends plugin {
     if (!assRelation) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrPlayer(2, assRelation.id)
+    const ass = AssociationApi.assUser.getAssOrGP(2, assRelation.id)
     const location = AssociationApi.config.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
       return false
@@ -41,19 +41,19 @@ export class AssociationExtend extends plugin {
     AssociationApi.assUser.checkFacility(ass)
   }
 
-  async showAssPlayer(e) {
+  async showAssGP(e) {
     const UID = e.user_id
     // 无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
-    const assPlayer = AssociationApi.assUser.getAssOrPlayer(1, UID)
-    if (assPlayer.assName == 0) {
+    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    if (assGP.assName == 0) {
       return false
     }
     const assRelation = AssociationApi.assUser.assRelationList.find(
-      (item) => item.id == assPlayer.assName
+      (item) => item.id == assGP.assName
     )
     let msg = [`__[${UID}的宗门存档]__`]
     msg.push(
@@ -64,19 +64,19 @@ export class AssociationExtend extends plugin {
         assRelation.name +
         '\n' +
         '权限等级:' +
-        assPlayer.assJob +
+        assGP.assJob +
         '\n' +
         '修炼效率加成:' +
-        assPlayer.effective +
+        assGP.effective +
         '\n' +
         '神兽好感度:' +
-        assPlayer.favorability +
+        assGP.favorability +
         '\n' +
         '当前贡献值:' +
-        assPlayer.contributionPoints +
+        assGP.contributionPoints +
         '\n' +
         '历史贡献值:' +
-        assPlayer.historyContribution
+        assGP.historyContribution
     )
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
@@ -90,7 +90,7 @@ export class AssociationExtend extends plugin {
       return false
     }
 
-    let isExists = GameApi.Player.userBagSearch({
+    let isExists = GameApi.Bag.searchBagByName({
       UID,
       name: '宗门令牌'
     })
@@ -99,27 +99,27 @@ export class AssociationExtend extends plugin {
       return false
     }
     const random = Math.random()
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: isExists.name,
       ACCOUNT: Number(-1)
     })
     if (random < 0.1) {
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: '上等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了上等宗门令牌`)
     } else if (random < 0.35) {
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: '中等宗门令牌',
         ACCOUNT: Number(1)
       })
       e.reply(`你获得了中等宗门令牌`)
     } else {
-      GameApi.Player.userBag({
+      GameApi.Bag.addBagThing({
         UID,
         name: '下等宗门令牌',
         ACCOUNT: Number(1)

@@ -1,5 +1,5 @@
-import Player from './index.js'
 import listdata from '../data/listdata.js'
+import Talent from './talent.js'
 class Information {
   /**
    * 基础信息
@@ -23,7 +23,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    let linggenName = Player.getTalentName(talent)
+    let linggenName = Talent.getTalentName(talent)
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenName.length; i++) {
@@ -50,7 +50,7 @@ class Information {
       data: {
         UID,
         life: LifeData[UID],
-        player: {},
+        GP: {},
         level: {
           ...LevelData,
           levelname: LevelList[LevelData.level.gaspractice.realm].name, // 练气名
@@ -104,7 +104,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    let linggenName = Player.getTalentName(talent)
+    let linggenName = Talent.getTalentName(talent)
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
     for (var i = 0; i < linggenName.length; i++) {
@@ -136,7 +136,7 @@ class Information {
    * 背包
    * @returns
    */
-  userBagShow(UID) {
+  addBagThingShow(UID) {
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     const battle = listdata.controlAction({
       NAME: UID,
@@ -169,7 +169,7 @@ class Information {
       name: 'bag',
       data: {
         UID,
-        player: {},
+        GP: {},
         life: LifeData[UID],
         battle,
         najie,

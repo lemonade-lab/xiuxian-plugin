@@ -15,7 +15,7 @@ export class BoxSecretplace extends plugin {
   async showCity(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -52,7 +52,7 @@ export class BoxSecretplace extends plugin {
   async falsePiont(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -73,7 +73,7 @@ export class BoxSecretplace extends plugin {
   async xyzaddress(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -89,7 +89,7 @@ export class BoxSecretplace extends plugin {
   async forward(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -171,7 +171,7 @@ export class BoxSecretplace extends plugin {
   async delivery(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
@@ -226,7 +226,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const lingshi = 1000
-    const money = GameApi.Player.userBagSearch({
+    const money = GameApi.Bag.searchBagByName({
       UID,
       name: '下品灵石'
     })
@@ -235,7 +235,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     // 先扣钱
-    GameApi.Player.userBag({
+    GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
       ACCOUNT: -lingshi

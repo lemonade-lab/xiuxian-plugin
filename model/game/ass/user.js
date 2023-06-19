@@ -8,7 +8,7 @@ function getJsonParse(val) {
   return JSON.parse(fs.readFileSync(val))
 }
 
-class Player {
+class GP {
   constructor() {
     this.blessPlaceList = getJsonParse(`${__PATH.assRelate}/BlessPlace.json`)
     this.baseTreasureVaultList = getJsonParse(`${__PATH.assRelate}/BaseTreasureVault.json`)
@@ -23,7 +23,7 @@ class Player {
    * @param {数量} ACCOUNT
    * @returns
    */
-  userbagAction(parameter) {
+  addBagThingAction(parameter) {
     const { BAG, THING, ACCOUNT } = parameter
     const thing = BAG.thing.find((item) => item.id == THING.id)
     if (thing) {
@@ -56,7 +56,7 @@ class Player {
 
   /**
    * 检测宗门存档或用户宗门信息是否存在
-   * @param filePathType ["assPlayer" , "association" ]
+   * @param filePathType ["assGP" , "association" ]
    * @param fileName
    */
   existAss(filePathType, fileName) {
@@ -74,12 +74,12 @@ class Player {
    * @param assName
    * @param userQQ
    */
-  getAssOrPlayer(type, name) {
+  getAssOrGP(type, name) {
     let filePath
     let dir
     let data
     if (type == 1) {
-      filePath = __PATH.assPlayer
+      filePath = __PATH.assGP
       dir = path.join(filePath + '/' + name + '.json')
     } else if (type == 2) {
       filePath = __PATH.association
@@ -118,11 +118,11 @@ class Player {
 
   /**
    * 写入数据
-   * @param fileName  ["assPlayer" , "association" ]
+   * @param fileName  ["assGP" , "association" ]
    * @param itemName
    * @param data
    */
-  setAssOrPlayer(fileName, itemName, data) {
+  setAssOrGP(fileName, itemName, data) {
     let filePath
     let dir
 
@@ -135,14 +135,14 @@ class Player {
     })
   }
 
-  assEffCount(assPlayer) {
+  assEffCount(assGP) {
     let effective = 0
-    if (assPlayer.assName == 0) {
-      assPlayer.effective = effective
-      this.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
+    if (assGP.assName == 0) {
+      assGP.effective = effective
+      this.setAssOrGP('assGP', assGP.qqNumber, assGP)
       return
     }
-    let ass = this.getAssOrPlayer(2, assPlayer.assName)
+    let ass = this.getAssOrGP(2, assGP.assName)
 
     if (ass.resident.id != 0) {
       effective += ass.resident.efficiency
@@ -152,18 +152,18 @@ class Player {
       effective += ass.level * ass.resident.level * 0.01
     }
 
-    let coefficient = 1 + assPlayer.assJob / 10
+    let coefficient = 1 + assGP.assJob / 10
 
     effective = effective * coefficient
-    assPlayer.effective = effective.toFixed(2)
-    GameApi.Player.addExtendPerpetual({
-      NAME: assPlayer.qqNumber,
+    assGP.effective = effective.toFixed(2)
+    GameApi.Talent.addExtendPerpetual({
+      NAME: assGP.qqNumber,
       FLAG: 'ass',
       TYPE: 'efficiency',
-      VALUE: Number(assPlayer.effective)
+      VALUE: Number(assGP.effective)
     })
-    this.setAssOrPlayer('assPlayer', assPlayer.qqNumber, assPlayer)
-    GameApi.Player.updataUserEfficiency(assPlayer.qqNumber)
+    this.setAssOrGP('assGP', assGP.qqNumber, assGP)
+    GameApi.Talent.updataEfficiency(assGP.qqNumber)
   }
 
   assRename(ass, type, associationName) {
@@ -202,26 +202,26 @@ class Player {
         ass.facility[i].status = 0
       }
     }
-    this.setAssOrPlayer('association', ass.id, ass)
+    this.setAssOrGP('association', ass.id, ass)
     if (oldStatus != ass.facility[4].status) {
-      const playerList = ass.allMembers
-      for (let playerID of playerList) {
-        const UID = playerID
-        if (this.existAss('assPlayer', UID)) {
-          const assOrPlayer = this.getAssOrPlayer(1, UID)
-          this.assEffCount(assOrPlayer)
+      const GPList = ass.allMembers
+      for (let GPID of GPList) {
+        const UID = GPID
+        if (this.existAss('assGP', UID)) {
+          const assOrGP = this.getAssOrGP(1, UID)
+          this.assEffCount(assOrGP)
         }
       }
     }
   }
 
   existArchive(qq) {
-    let player = GameApi.Player.existUser(qq)
+    let GP = GameApi.Player.getUserLife(qq)
     // 不存在
-    if (!player) return false
+    if (!GP) return false
     // 修仙存在此人，看宗门系统有没有他
-    if (!this.existAss('assPlayer', qq)) {
-      let assPlayer = {
+    if (!this.existAss('assGP', qq)) {
+      let assGP = {
         assName: 0,
         qqNumber: qq + '',
         assJob: 0,
@@ -233,57 +233,57 @@ class Player {
         lastSignAss: 0,
         lastExplorTime: 0,
         lastBounsTime: 0,
-        xiuxianTime: player.createTime,
+        xiuxianTime: GP.createTime,
         time: []
       }
-      this.setAssOrPlayer('assPlayer', qq, assPlayer)
+      this.setAssOrGP('assGP', qq, assGP)
     }
-    let assPlayer = this.getAssOrPlayer(1, qq)
+    let assGP = this.getAssOrGP(1, qq)
     // 只有生命计数一样，且生命状态正常才为true
-    if (player.createTime == assPlayer.xiuxianTime && player.status == 1) {
+    if (GP.createTime == assGP.xiuxianTime && GP.status == 1) {
       return true
     }
     // 两边都有存档，但是死了，或者重生了，需要执行插件删档
     // 先退宗，再重置
-    if (this.existAss('association', assPlayer.assName)) {
-      let ass = this.getAssOrPlayer(2, assPlayer.assName)
+    if (this.existAss('association', assGP.assName)) {
+      let ass = this.getAssOrGP(2, assGP.assName)
 
-      if (assPlayer.assJob < 10) {
-        ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber) // 原来的职位表删掉这个B
-        this.setAssOrPlayer('association', ass.id, ass) // 记录到存档
+      if (assGP.assJob < 10) {
+        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber) // 原来的职位表删掉这个B
+        this.setAssOrGP('association', ass.id, ass) // 记录到存档
       } else {
         if (ass.allMembers.length < 2) {
-          fs.rmSync(`${__PATH.association}/${assPlayer.assName}.json`)
+          fs.rmSync(`${__PATH.association}/${assGP.assName}.json`)
         } else {
-          ass.allMembers = ass.allMembers.filter((item) => item != assPlayer.qqNumber)
+          ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
           // 给宗主
           let randMember = { assJob: 0 }
           for (let item in ass.allMembers) {
             const qqNum = ass.allMembers[item]
-            const assPlayerA = this.getAssOrPlayer(1, qqNum)
-            if (assPlayerA.assJob > randMember.assJob) {
-              randMember = assPlayerA
+            const assGPA = this.getAssOrGP(1, qqNum)
+            if (assGPA.assJob > randMember.assJob) {
+              randMember = assGPA
             }
           }
 
           ass.master = randMember.qqNumber
           randMember.assJob = 10
 
-          this.setAssOrPlayer('association', ass.id, ass) // 记录到存档
+          this.setAssOrGP('association', ass.id, ass) // 记录到存档
           this.assEffCount(randMember)
-          GameApi.Player.updataUserEfficiency(randMember.qqNumber)
+          GameApi.Talent.updataEfficiency(randMember.qqNumber)
         }
       }
     }
-    if (assPlayer.volunteerAss != 0) {
-      const ass = this.getAssOrPlayer(2, assPlayer.volunteerAss)
+    if (assGP.volunteerAss != 0) {
+      const ass = this.getAssOrGP(2, assGP.volunteerAss)
       if (!isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != qq)
-        this.setAssOrPlayer('association', ass.id, ass)
+        this.setAssOrGP('association', ass.id, ass)
       }
     }
 
-    assPlayer = {
+    assGP = {
       assName: 0,
       qqNumber: qq + '',
       assJob: 0,
@@ -295,11 +295,11 @@ class Player {
       lastSignAss: 0,
       lastExplorTime: 0,
       lastBounsTime: 0,
-      xiuxianTime: player.createTime,
+      xiuxianTime: GP.createTime,
       time: []
     }
 
-    this.setAssOrPlayer('assPlayer', qq, assPlayer)
+    this.setAssOrGP('assGP', qq, assGP)
     return false
   }
 
@@ -358,7 +358,7 @@ class Player {
     fs.rmSync(`${__PATH[path]}/${name}.json`)
   }
 }
-export default new Player()
+export default new GP()
 
 function isNotNull(obj) {
   if (obj == undefined || obj == null) return false

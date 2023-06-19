@@ -12,12 +12,12 @@ export class BoxEquipment extends plugin {
   async addEquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)装备/, '')
-    const najieThing = GameApi.Player.userBagSearch({
+    const najieThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
     })
@@ -38,8 +38,8 @@ export class BoxEquipment extends plugin {
       CHOICE: 'user_equipment',
       DATA: equipment
     })
-    GameApi.Player.userBag({ UID, name: thingName, ACCOUNT: -1 })
-    GameApi.Player.readPanel(UID)
+    GameApi.Bag.addBagThing({ UID, name: thingName, ACCOUNT: -1 })
+    GameApi.Talent.updatePanel(UID)
     e.reply(`装备[${thingName}]`)
     return false
   }
@@ -47,7 +47,7 @@ export class BoxEquipment extends plugin {
   async deleteEquipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
@@ -74,8 +74,8 @@ export class BoxEquipment extends plugin {
       CHOICE: 'user_equipment',
       DATA: equipment
     })
-    GameApi.Player.userBag({ UID, name: thingName, ACCOUNT: 1 })
-    GameApi.Player.readPanel(UID)
+    GameApi.Bag.addBagThing({ UID, name: thingName, ACCOUNT: 1 })
+    GameApi.Talent.updatePanel(UID)
     e.reply(`已卸下[${thingName}]`)
     return false
   }

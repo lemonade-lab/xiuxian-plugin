@@ -169,11 +169,11 @@ class Wrap {
         msg: `${ACTIONMAP[action.actionID]}中...`
       }
     }
-    const player = gameUer.userMsgAction({
+    const GP = gameUer.userMsgAction({
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    if (player.nowblood <= 1) {
+    if (GP.nowblood <= 1) {
       return {
         state: 4001,
         msg: '血量不足'

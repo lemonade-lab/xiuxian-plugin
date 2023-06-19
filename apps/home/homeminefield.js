@@ -47,16 +47,16 @@ export class Homeminefield extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     let region2 = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
@@ -91,7 +91,7 @@ export class Homeminefield extends plugin {
     let A = UID
     const CDid = '1'
     const CDTime = 60
-    const CD = HomeApi.Player.generateCD({ UID: A, CDid })
+    const CD = HomeApi.GP.generateCD({ UID: A, CDid })
     if (CD != 0) {
       e.reply(CD)
       return false
@@ -115,7 +115,7 @@ export class Homeminefield extends plugin {
         DATA: minefield,
         INITIAL: []
       })
-      HomeApi.Player.addHomeexperience({ UID, experience: 300 })
+      HomeApi.GP.addHomeexperience({ UID, experience: 300 })
       e.reply(`成功占领了${address}的灵矿，获得300家园经验`)
     } else {
       let time1 = 3
@@ -133,7 +133,7 @@ export class Homeminefield extends plugin {
           } else {
             time2 = time1
           }
-          let msg = HomeApi.Player.collectMinerals({
+          let msg = HomeApi.GP.collectMinerals({
             UID: B,
             time: time2
           })
@@ -146,12 +146,12 @@ export class Homeminefield extends plugin {
             DATA: minefield,
             INITIAL: []
           })
-          HomeApi.Player.addHomeexperience({ UID, experience: 700 })
+          HomeApi.GP.addHomeexperience({ UID, experience: 700 })
           e.reply(
             `矿主不敌你，乖乖让出了灵矿的占领权，你成功占领了${address}的灵矿，获得了700家园经验。矿主拿着产出的矿物疯狂逃窜，矿主${msg}`
           )
         } else {
-          let lingshi = GameApi.Player.userBagSearch({
+          let lingshi = GameApi.Bag.searchBagByName({
             UID,
             name: '下品灵石'
           })
@@ -159,17 +159,17 @@ export class Homeminefield extends plugin {
           if (lingshi < 1001) {
             lingshi1 = lingshi - 1
           }
-          GameApi.Player.userBag({
+          GameApi.Bag.addBagThing({
             UID: A,
             name: '下品灵石',
             ACCOUNT: -lingshi1
           })
-          GameApi.Player.userBag({
+          GameApi.Bag.addBagThing({
             UID: B,
             name: '下品灵石',
             ACCOUNT: lingshi1
           })
-          HomeApi.Player.addHomeexperience({ UID, experience: 70 })
+          HomeApi.GP.addHomeexperience({ UID, experience: 70 })
           e.reply(`你被矿主胖揍一顿，并且被他搜刮了${lingshi1}灵石作为赔偿，获得家园经验70`)
         }
       }, 1000 * time1)
@@ -184,16 +184,16 @@ export class Homeminefield extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.Player.existhome(UID)
+    const ifexisthome = HomeApi.GP.existhome(UID)
     let region2 = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
@@ -236,9 +236,9 @@ export class Homeminefield extends plugin {
       time2 = time1
     }
     if (time2 > 1800) {
-      let msg = HomeApi.Player.collectMinerals({ UID, time: time2 })
+      let msg = HomeApi.GP.collectMinerals({ UID, time: time2 })
       let experience = parseInt((time2 / 1800) * 20)
-      HomeApi.Player.addHomeexperience({ UID, experience })
+      HomeApi.GP.addHomeexperience({ UID, experience })
       target.createTime = nowTime
       HomeApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
@@ -258,11 +258,11 @@ export class Homeminefield extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -287,13 +287,13 @@ export class Homeminefield extends plugin {
       return false
     }
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let searchswupin = HomeApi.Player.homeexistAllThingByName({
+    let searchswupin = HomeApi.GP.homeexistAllThingByName({
       name: wupin
     })
-    let searchsmei = HomeApi.Player.homeexistAllThingByName({
+    let searchsmei = HomeApi.GP.homeexistAllThingByName({
       name: mei
     })
-    let searchsthing = HomeApi.Player.homeexistAllThingByName({
+    let searchsthing = HomeApi.GP.homeexistAllThingByName({
       name: thingName
     })
     if (searchsthing == 1) {
@@ -304,11 +304,11 @@ export class Homeminefield extends plugin {
       e.reply('这玩意儿咋炼？')
       return false
     }
-    let meiThing = HomeApi.Player.homeexistWarehouseThingName({
+    let meiThing = HomeApi.GP.homeexistWarehouseThingName({
       UID,
       name: mei
     })
-    let WarehouseThing = HomeApi.Player.homeexistWarehouseThingName({
+    let WarehouseThing = HomeApi.GP.homeexistWarehouseThingName({
       UID,
       name: thingName
     })
@@ -329,7 +329,7 @@ export class Homeminefield extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      WarehouseThing = HomeApi.Player.homeexistWarehouseThingName({
+      WarehouseThing = HomeApi.GP.homeexistWarehouseThingName({
         UID,
         name: thingName
       })
@@ -337,7 +337,7 @@ export class Homeminefield extends plugin {
         e.reply(`你[${thingName}]数量不够`)
         return false
       }
-      let meiThing = HomeApi.Player.homeexistWarehouseThingName({
+      let meiThing = HomeApi.GP.homeexistWarehouseThingName({
         UID,
         name: mei
       })
@@ -345,17 +345,17 @@ export class Homeminefield extends plugin {
         e.reply(`${mei}不足，无法炼制,炼制一颗矿石需要5块${mei}`)
         return false
       }
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: searchsthing,
         quantity: -quantity
       })
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: searchsmei,
         quantity: -n
       })
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: searchswupin,
         quantity
@@ -377,11 +377,11 @@ export class Homeminefield extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -398,10 +398,10 @@ export class Homeminefield extends plugin {
       return false
     }
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let searchsthing = HomeApi.Player.homeexistAllThingByName({
+    let searchsthing = HomeApi.GP.homeexistAllThingByName({
       name: mei
     })
-    let searchswupin = HomeApi.Player.homeexistWarehouseThingName({
+    let searchswupin = HomeApi.GP.homeexistWarehouseThingName({
       UID,
       name: thingName
     })
@@ -421,7 +421,7 @@ export class Homeminefield extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      let WarehouseThing = HomeApi.Player.homeexistWarehouseThingName({
+      let WarehouseThing = HomeApi.GP.homeexistWarehouseThingName({
         UID,
         name: thingName
       })
@@ -429,12 +429,12 @@ export class Homeminefield extends plugin {
         e.reply(`你[${thingName}]数量不够`)
         return false
       }
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: searchsthing,
         quantity: quantity * 5
       })
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: searchswupin,
         quantity: -quantity
@@ -457,11 +457,11 @@ export class Homeminefield extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -491,11 +491,11 @@ export class Homeminefield extends plugin {
   async forging(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -542,7 +542,7 @@ export class Homeminefield extends plugin {
     // 读取矿物数量以及判断数量
     for (let i = 0; i < m1.length; i++) {
       x = m[i] * Math.pow(2, parseInt(id[2]) - 1) + 1
-      let ifexist1 = HomeApi.Player.homesearchThingName({ name: m1[i] })
+      let ifexist1 = HomeApi.GP.homesearchThingName({ name: m1[i] })
       let id1 = ifexist1.id.split('-')
       if (id1[0] == '13' && id1[1] == '3') {
         x = 2
@@ -565,20 +565,20 @@ export class Homeminefield extends plugin {
     useraction[UID] = setTimeout(() => {
       for (let c = 0; c < thingx.length; c++) {
         // 矿物
-        Warehouse = HomeApi.Player.addDataThing({
+        Warehouse = HomeApi.GP.addDataThing({
           DATA: Warehouse,
           DATA1: item[c],
           quantity: -thingx[c]
         })
       }
       // 图纸
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: dwg,
         quantity: -1
       })
       // 锅
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: searchsthing,
         quantity: 1
@@ -601,11 +601,11 @@ export class Homeminefield extends plugin {
   async resolve(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -636,7 +636,7 @@ export class Homeminefield extends plugin {
       e.reply(`你没有足够数量的${thingName}`)
       return false
     }
-    Warehouse = HomeApi.Player.addDataThing({
+    Warehouse = HomeApi.GP.addDataThing({
       DATA: Warehouse,
       DATA1: ifexist,
       quantity: -quantity
@@ -658,8 +658,8 @@ export class Homeminefield extends plugin {
       return false
     }
     let name = sp[c]
-    let ifexist1 = HomeApi.Player.homesearchThingName({ name })
-    Warehouse = HomeApi.Player.addDataThing({
+    let ifexist1 = HomeApi.GP.homesearchThingName({ name })
+    Warehouse = HomeApi.GP.addDataThing({
       DATA: Warehouse,
       DATA1: ifexist1,
       quantity
@@ -678,11 +678,11 @@ export class Homeminefield extends plugin {
   async repair(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.existUserSatus(UID)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.Player.Archive(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return false
@@ -701,7 +701,7 @@ export class Homeminefield extends plugin {
     let m1 = ['焦煤', '玄铁', '火铜', '秘银', '精金', '熔岩']
     let m = [25, 16, 12, 10, 8, 6]
     let tuzhi = thing + '图纸'
-    let tu = HomeApi.Player.homesearchThingName({ name: tuzhi })
+    let tu = HomeApi.GP.homesearchThingName({ name: tuzhi })
     let id = tu.id.split('-')
     for (let g = 0; g < m1.length; g++) {
       let x = parseInt(m[g] * Math.pow(2, parseInt(id[2]) - 1))
@@ -715,13 +715,13 @@ export class Homeminefield extends plugin {
         e.reply(`你[${m1[g]}]数量不足,还缺${x - accounty}`)
         return false
       }
-      Warehouse = HomeApi.Player.addDataThing({
+      Warehouse = HomeApi.GP.addDataThing({
         DATA: Warehouse,
         DATA1: cail,
         quantity: -x
       })
     }
-    let guo1 = HomeApi.Player.homeexistAllThingByName({ name: thing })
+    let guo1 = HomeApi.GP.homeexistAllThingByName({ name: thing })
     guo.durable = guo1.durable
     HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
