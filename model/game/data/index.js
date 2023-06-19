@@ -1,13 +1,8 @@
-import fs from 'node:fs'
 import genertate from './generate.js'
 import algorithm from './algorithm.js'
 
 /* 存档地址 */
 const playerPath = '/xiuxianfile'
-
-function getJsonPare(val) {
-  return JSON.parse(fs.readFileSync(val))
-}
 
 /* 数据索引 */
 export const __PATH = {
@@ -35,7 +30,6 @@ export const __PATH = {
   fixed_position: algorithm.getReq('/resources/datafixed/position'),
   fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'),
   fixed_goods: algorithm.getReq('/resources/datafixed/goods'),
-  fixed_level: algorithm.getReq('/resources/datafixed/level'),
   fixed_occupation: algorithm.getReq('/resources/datafixed/occupation'),
   fixed_talent: algorithm.getReq('/resources/datafixed/talent'),
   fixed_material: algorithm.getReq('/resources/datafixed/material'),
@@ -45,7 +39,6 @@ export const __PATH = {
   /* 生成数据 */
   generate_all: algorithm.getReq('/resources/databirth/all'),
   generate_position: algorithm.getReq('/resources/databirth/position'),
-  generate_level: algorithm.getReq('/resources/databirth/level'),
   // 物品信息
   generate_dogshop: algorithm.getReq('/resources/databirth/dogshop'),
 
@@ -86,17 +79,6 @@ export const __PATH = {
 /** 生成游戏数据 */
 class DateIndex {
   constructor() {
-    /* 静态灵根数据 */
-    genertate.talent_list = getJsonPare(`${__PATH.fixed_talent}/talent_list.json`)
-    /** 动态境界数据  */
-    genertate.createList(__PATH.generate_level, 'gaspractice', [])
-    genertate.createList(__PATH.generate_level, 'gaspractice', [
-      ...genertate.getlist(__PATH.fixed_level, 'gaspractice.json')
-    ])
-    genertate.createList(__PATH.generate_level, 'bodypractice', [])
-    genertate.createList(__PATH.generate_level, 'bodypractice', [
-      ...genertate.getlist(__PATH.fixed_level, 'bodypractice.json')
-    ])
     /** 全物品数据 */
     genertate.createList(__PATH.generate_all, 'all', [])
     genertate.createList(__PATH.generate_all, 'all', [

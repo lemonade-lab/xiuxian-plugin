@@ -54,7 +54,7 @@ export class BoxBattleSite extends plugin {
     }
     const Levellist = GameApi.UserData.controlAction({
       NAME: 'gaspractice',
-      CHOICE: 'generate_level'
+      CHOICE: 'fixed_levels'
     })
     const LevelMax = Levellist.find((item) => item.id == mon.level + 1)
     const monsters = {

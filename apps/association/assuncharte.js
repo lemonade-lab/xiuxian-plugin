@@ -322,7 +322,7 @@ export class AssUncharted extends plugin {
 
       const LevelList = GameApi.UserData.controlAction({
         NAME: 'gaspractice',
-        CHOICE: 'generate_level'
+        CHOICE: 'fixed_levels'
       })
       const LevelMax = LevelList.find((item) => item.id == levelId)
 

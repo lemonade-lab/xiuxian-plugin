@@ -39,11 +39,11 @@ class Player {
   createBoxPlayer(UID) {
     const NowTime = new Date().getTime()
     const LevelList = listdata.controlAction({
-      CHOICE: 'generate_level',
+      CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
     const LevelMaxList = listdata.controlAction({
-      CHOICE: 'generate_level',
+      CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
     listdata.controlAction({

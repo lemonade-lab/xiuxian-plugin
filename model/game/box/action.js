@@ -81,11 +81,11 @@ class UserAction {
       CHOICE: 'user_level'
     })
     const Levellist = listdata.controlAction({
-      CHOICE: 'generate_level',
+      CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
     const Levelmaxlist = listdata.controlAction({
-      CHOICE: 'generate_level',
+      CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
     let returnTXT = ''
