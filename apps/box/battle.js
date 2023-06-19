@@ -95,9 +95,13 @@ export class BoxBattle extends plugin {
       user.a = UIDB
       user.b = user.c
     }
+    const LifeData = GameApi.UserData.controlAction({
+      NAME: 'life',
+      CHOICE: 'user_life'
+    })
     const P = Math.floor(Math.random() * (99 - 1) + 1)
     if (P <= LevelB.prestige) {
-      e.reply(`${user.a}战胜了${user.b}`)
+      e.reply(`${LifeData[user.a].name}战胜了${LifeData[user.b].name}`)
       return false
     }
     let bagB = GameApi.UserData.controlAction({
@@ -105,7 +109,7 @@ export class BoxBattle extends plugin {
       CHOICE: 'user_bag'
     })
     if (bagB.thing.length == 0) {
-      e.reply(`${user.a}战胜了${user.b}`)
+      e.reply(`${LifeData[user.a].name}战胜了${LifeData[user.b].name}`)
     }
     const thing = GameApi.Method.Anyarray(bagB.thing)
     bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
@@ -119,7 +123,9 @@ export class BoxBattle extends plugin {
       name: thing.name,
       ACCOUNT: thing.acount
     })
-    e.reply(`${user.a}夺走了[${thing.name}]*${thing.acount}`)
+    e.reply(
+      `${LifeData[user.a].name}夺走了${LifeData[user.b].name}的[${thing.name}]*${thing.acount}`
+    )
     return false
   }
 
