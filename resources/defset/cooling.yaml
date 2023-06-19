@@ -31,7 +31,7 @@ Age:
   #寿命增加数
   size: 1
 
-myConfig:
+myconfig:
   #功法最大学习数
   gongfa: 12
   #装备最大数

@@ -166,7 +166,7 @@ export class BoxAction extends plugin {
       e.reply('学过了')
       return false
     }
-    if (talent.AllSorcery.length >= GameApi.Defset.getConfig({ name: 'cooling' }).myConfig.gongfa) {
+    if (talent.AllSorcery.length >= GameApi.Defset.getConfig({ name: 'cooling' }).myconfig.gongfa) {
       e.reply('你反复看了又看,却怎么也学不进')
       return false
     }
