@@ -60,12 +60,13 @@ export class Boxunion extends plugin {
       })
       e.reply(`本月累计签到${SignData[UID].signSize}天~\n获得${randomthing.name}`)
     } else {
+      const ACCOUNT = (20 * SignData[UID].signSize) % 7
       GameApi.GameUser.userBag({
         UID,
-        name: '下品灵石',
-        ACCOUNT: 200
+        name: '中品灵石',
+        ACCOUNT
       })
-      e.reply(`本月累计签到${SignData[UID].signSize}天~获得[下品灵石]*200`)
+      e.reply(`本月累计签到${SignData[UID].signSize}天~获得[中品灵石]*${ACCOUNT}`)
     }
     return false
   }
