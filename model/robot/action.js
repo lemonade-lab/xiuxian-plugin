@@ -61,7 +61,7 @@ class Robot {
     if (!e.group) {
       return
     }
-    const cf = getConfig({ app: 'parameter', name: 'cooling' })
+    const cf = getConfig({ name: 'cooling' })
     let timeout = cf.timeout ? cf.timeout.size : 60
     if (timeout > 15 && isreply && isreply.message_id) {
       setTimeout(() => {
@@ -95,7 +95,6 @@ class Robot {
 
   controlMessage = ({ e }) => {
     const { whitecrowd, blackid } = getConfig({
-      app: 'parameter',
       name: 'namelist'
     })
     if (whitecrowd.indexOf(e.group_id) == -1) return false

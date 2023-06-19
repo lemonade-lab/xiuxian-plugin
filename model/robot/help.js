@@ -2,7 +2,7 @@ import { getConfig } from './defset.js'
 import { MyDirPath } from '../../app.config.js'
 /** 生成帮助图 */
 export function getboxhelp({ name }) {
-  const data = getConfig({ app: 'help', name })
+  const data = getConfig({ name })
   return {
     /** heml路径 */
     tplFile: `${MyDirPath}/resources/html/help/help.html`,

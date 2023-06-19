@@ -13,7 +13,7 @@ class Player {
     })
     // 记录死亡
     const die = []
-    const cf = config.getConfig({ app: 'parameter', name: 'cooling' })
+    const cf = config.getConfig({ name: 'cooling' })
     for (let UID in LifeData) {
       LifeData[UID].Age += cf.Age.size ? cf.Age.size : 1
       if (LifeData[UID].Age >= LifeData[UID].life) {

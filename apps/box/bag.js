@@ -39,7 +39,6 @@ export class BoxBag extends plugin {
       CHOICE: 'user_bag'
     })
     const najiePrice = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     }).najiePrice[najie.grade]
     if (!najiePrice) {

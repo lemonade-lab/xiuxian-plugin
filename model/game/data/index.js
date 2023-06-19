@@ -12,7 +12,6 @@ function getJsonPare(val) {
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
-  user_player: algorithm.getFliePath(`${playerPath}/player`),
   user_extend: algorithm.getFliePath(`${playerPath}/extend`),
   user_action: algorithm.getFliePath(`${playerPath}/action`),
   user_battle: algorithm.getFliePath(`${playerPath}/battle`),
@@ -30,9 +29,6 @@ export const __PATH = {
   user_bank: algorithm.getFliePath(`${playerPath}/bank`),
   /* 虚空境 */
   generate_exchange: algorithm.getFliePath(`${playerPath}/exchange`),
-
-  /* 自定义数据 */
-  custom_goods: algorithm.getFliePath(`/xiuxiangoods`),
 
   /* 基础数据：插件内 */
   fixed_point: algorithm.getReq('/resources/datafixed/point'),
@@ -105,21 +101,18 @@ class DateIndex {
     genertate.createList(__PATH.generate_all, 'all', [])
     genertate.createList(__PATH.generate_all, 'all', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'),
-      ...genertate.getlist(__PATH.fixed_goods, 'json'),
-      ...genertate.getlist(__PATH.custom_goods, 'json')
+      ...genertate.getlist(__PATH.fixed_goods, 'json')
     ])
     /** 万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备 */
     genertate.createList(__PATH.generate_all, 'commodities', [])
     genertate.createList(__PATH.generate_all, 'commodities', [
-      ...genertate.getlist(__PATH.fixed_goods, '0.json'),
-      ...genertate.getlist(__PATH.custom_goods, '0.json')
+      ...genertate.getlist(__PATH.fixed_goods, '0.json')
     ])
     /** 怪物掉落 */
     genertate.createList(__PATH.generate_all, 'dropsItem', [])
     genertate.createList(__PATH.generate_all, 'dropsItem', [
       ...genertate.getlist(__PATH.fixed_equipment, '.json'),
-      ...genertate.getlist(__PATH.fixed_goods, '.json'),
-      ...genertate.getlist(__PATH.custom_goods, '.json')
+      ...genertate.getlist(__PATH.fixed_goods, '.json')
     ])
     /** 地图：区域位 */
     genertate.createList(__PATH.generate_position, 'position', [])

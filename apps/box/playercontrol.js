@@ -67,7 +67,6 @@ export class BoxPlayerControl extends plugin {
     if (action.actionID != 0) return false
     const startTime = action.startTime
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const timeUnit = cf.biguan.time ? cf.biguan.time : 5
@@ -94,7 +93,6 @@ export class BoxPlayerControl extends plugin {
     if (action.actionID != 1) return false
     const startTime = action.startTime
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const timeUnit = cf.work.time ? cf.work.time : 5
@@ -117,7 +115,6 @@ export class BoxPlayerControl extends plugin {
     })
     const buff = Math.floor(talent.talentsize / 100) + Number(1)
     const appSize = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     let map = {

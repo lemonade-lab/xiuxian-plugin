@@ -24,7 +24,6 @@ export class BoxModify extends plugin {
     const CDID = '3'
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const CDTime = cf.CD.Name ? cf.CD.Name : 5
@@ -63,7 +62,6 @@ export class BoxModify extends plugin {
     const CDID = '4'
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const CDTime = cf.CD.Autograph ? cf.CD.Autograph : 5

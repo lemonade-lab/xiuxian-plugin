@@ -29,10 +29,7 @@ export class BoxEquipment extends plugin {
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    if (
-      equipment.length >=
-      GameApi.Defset.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.equipment
-    ) {
+    if (equipment.length >= GameApi.Defset.getConfig({ name: 'cooling' }).myconfig.equipment) {
       return false
     }
     equipment.push(najieThing)

@@ -25,7 +25,6 @@ export class BoxStart extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850

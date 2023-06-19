@@ -24,7 +24,6 @@ export class BoxBattleSite extends plugin {
     const CDID = '10'
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const CDTime = cf.CD.Kill ? cf.CD.Kill : 5

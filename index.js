@@ -4,10 +4,10 @@ import { AppName, MyDirPath } from './app.config.js'
 import createdata from './model/game/data/createdata.js'
 
 /** 检测配置 */
-createdata.moveConfig()
+createdata.createConfig()
 
 /** 读取配置 */
-// const task = BotApi.getConfig({ app: 'task', name: 'task' })
+// const task = BotApi.getConfig({  name: 'task' })
 
 /** 启动寿命记时 */
 // const fnc = GameApi.Player.startLife()

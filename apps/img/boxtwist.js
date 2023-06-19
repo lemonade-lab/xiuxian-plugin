@@ -12,7 +12,6 @@ export class BoxtWist extends plugin {
     if (e.self_id != e.target_id) return false
     if (!this.verify(e)) return false
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const T = cf.switch ? cf.switch.twist : true

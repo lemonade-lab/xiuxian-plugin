@@ -54,7 +54,7 @@ export class Boxadminconfig extends plugin {
   async configReUpdata(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    GameApi.Createdata.removeConfig()
+    GameApi.Createdata.recreateConfig()
     e.reply('配置已重置')
     return false
   }

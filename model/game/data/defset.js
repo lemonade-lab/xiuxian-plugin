@@ -2,23 +2,23 @@ import fs from 'node:fs'
 import YAML from 'yaml'
 import { MyDirPath } from '../../../app.config.js'
 /** 自定义配置地址 */
-const __diryaml = `${MyDirPath}/config/parameter/cooling.yaml`
+const __diryaml = `${MyDirPath}/config/cooling.yaml`
 class Defset {
   /**
    * @param { app, name } param0
    * @returns
    */
-  getConfig({ app, name }) {
+  getConfig({ name }) {
     /* 获得配置地址 */
-    const file = `${MyDirPath}/config/${app}/${name}.yaml`
+    const file = `${MyDirPath}/config/${name}.yaml`
     /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
   }
 
-  getDefset = ({ app, name }) => {
+  getDefset = ({ name }) => {
     /* 获得配置地址 */
-    const file = `${MyDirPath}/resources/defset/${app}/${name}.yaml`
+    const file = `${MyDirPath}/resources/defset/${name}.yaml`
     /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
@@ -75,7 +75,7 @@ class Defset {
     return `修改${name}为${size}`
   }
 
-  namelist = `${MyDirPath}/config/parameter/namelist.yaml`
+  namelist = `${MyDirPath}/config/namelist.yaml`
 
   startGame(GID, Gname) {
     const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))

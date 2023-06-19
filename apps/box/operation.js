@@ -47,7 +47,6 @@ export class BoxMoneyOperation extends plugin {
       return false
     }
     const cf = GameApi.Defset.getConfig({
-      app: 'parameter',
       name: 'cooling'
     })
     const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5

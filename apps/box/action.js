@@ -65,7 +65,6 @@ export class BoxAction extends plugin {
             thingAcount = 2200
           }
           const cf = GameApi.Defset.getConfig({
-            app: 'parameter',
             name: 'cooling'
           })
           const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
@@ -174,10 +173,7 @@ export class BoxAction extends plugin {
       e.reply('学过了')
       return false
     }
-    if (
-      talent.AllSorcery.length >=
-      GameApi.Defset.getConfig({ app: 'parameter', name: 'cooling' }).myconfig.gongfa
-    ) {
+    if (talent.AllSorcery.length >= GameApi.Defset.getConfig({ name: 'cooling' }).myconfig.gongfa) {
       e.reply('你反复看了又看,却怎么也学不进')
       return false
     }

@@ -1,7 +1,5 @@
 import fs from 'node:fs'
 import { MyDirPath } from '../../../app.config.js'
-import algorithm from './algorithm.js'
-import defset from './defset.js'
 
 /** 自定义配置 */
 const configarr = [
@@ -26,89 +24,40 @@ class CreateData {
   /**
    * @returns
    */
-  moveConfig() {
-    const path = algorithm.getMenu(defsetpath)
-    for (let itempath of path) {
-      for (let itemconfig of configarr) {
-        let x = `${configpath}/${itempath}/${itemconfig}`
-        let y = `${defsetpath}/${itempath}/${itemconfig}`
-        // 发现配置不存在
-        if (!fs.existsSync(x)) {
-          // 补缺配置
-          if (fs.existsSync(y)) {
-            fs.cp(y, x, (err) => {
-              if (err) {
-                console.log(err)
-              }
-            })
-          }
+  createConfig() {
+    for (let itemconfig of configarr) {
+      let x = `${configpath}/${itemconfig}`
+      let y = `${defsetpath}/${itemconfig}`
+      // 发现配置不存在
+      if (!fs.existsSync(x)) {
+        // 补缺配置
+        if (fs.existsSync(y)) {
+          fs.cp(y, x, (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
         }
       }
     }
-    /**
-     * 检测配置更新
-     */
-    this.startConfigUpdata()
   }
 
   /**
    * 重置配置
    */
-  removeConfig() {
-    const path = algorithm.getMenu(defsetpath)
-    for (let itempath of path) {
-      for (let itemconfig of configarr) {
-        let x = `${configpath}/${itempath}/${itemconfig}`
-        let y = `${defsetpath}/${itempath}/${itemconfig}`
-        // 直接复制
-        if (fs.existsSync(y)) {
-          fs.cp(y, x, (err) => {
-            if (err) {
-              console.log(err)
-            }
-          })
-        }
+  recreateConfig() {
+    for (let itemconfig of configarr) {
+      let x = `${configpath}/${itemconfig}`
+      let y = `${defsetpath}/${itemconfig}`
+      // 直接复制
+      if (fs.existsSync(y)) {
+        fs.cp(y, x, (err) => {
+          if (err) {
+            console.log(err)
+          }
+        })
       }
     }
-  }
-
-  removeConfigByArr(arr) {
-    const path = algorithm.getMenu(defsetpath)
-    for (let itempath of path) {
-      for (let itemconfig of arr) {
-        let x = `${configpath}/${itempath}/${itemconfig}`
-        let y = `${defsetpath}/${itempath}/${itemconfig}`
-        // 直接复制
-        if (fs.existsSync(y)) {
-          fs.cp(y, x, (err) => {
-            if (err) {
-              console.log(err)
-            }
-          })
-        }
-      }
-    }
-  }
-
-  /**
-   * 检测配置更新
-   */
-  startConfigUpdata() {
-    let init = 0
-    setTimeout(() => {
-      if (init == 0) {
-        const Nconfig = defset.getConfig({ app: 'version', name: 'time' })
-        const Vconfig = defset.getDefset({ app: 'version', name: 'time' })
-        if (Nconfig.time != Vconfig.time) {
-          console.log('[xiuxian@2.1]配置版本不匹配...')
-          console.log('[xiuxian@2.1]准备重置配置...')
-          const arr = configarr.filter((item) => item != 'namelist.yaml')
-          this.removeConfigByArr(arr)
-          console.log('[xiuxian@2.1]配置重置完成')
-        }
-      }
-      init = 1
-    }, 20000)
   }
 }
 export default new CreateData()
