@@ -36,7 +36,7 @@ export class Homemoney extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
       INITIAL: []
@@ -82,7 +82,7 @@ export class Homemoney extends plugin {
       e.reply(`这个物品不是家园所得物品，请移步隔壁商店`)
       return false
     }
-    let Warehouse = HomeApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -92,7 +92,7 @@ export class Homemoney extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
@@ -129,12 +129,12 @@ export class Homemoney extends plugin {
       return false
     }
     let msg = ['___[灵瑶阁下属地方分阁]___\n#采购+物品名']
-    let dogshopList = HomeApi.Listdata.controlActionInitial({
+    let dogshopList = GameApi.Listdata.controlActionInitial({
       CHOICE: 'home_dogshop',
       NAME: 'dogshop',
       INITIAL: []
     })
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -191,7 +191,7 @@ export class Homemoney extends plugin {
     if (quantity > 99) {
       quantity = 99
     }
-    let ifexist1 = HomeApi.Listdata.controlActionInitial({
+    let ifexist1 = GameApi.Listdata.controlActionInitial({
       CHOICE: 'generate_dogshop',
       NAME: 'dogshop',
       INITIAL: []
@@ -202,7 +202,7 @@ export class Homemoney extends plugin {
       e.reply(`不卖:${thingName}`)
       return false
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -223,7 +223,7 @@ export class Homemoney extends plugin {
       e.reply(`哪里来的穷光蛋！一声呵斥，你被灵瑶阁门卫强大的气场给震了出来`)
       return false
     }
-    let Warehouse = HomeApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -233,7 +233,7 @@ export class Homemoney extends plugin {
       DATA1: ifexist,
       quantity
     })
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,

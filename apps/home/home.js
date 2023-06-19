@@ -83,7 +83,7 @@ export class Homestart extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const ifexisthome = HomeApi.Listdata.controlAction({
+    const ifexisthome = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'position'
     })
@@ -130,7 +130,7 @@ export class Homestart extends plugin {
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(() => {
       forwardsetTime[UID] = 0
-      const positionhome = HomeApi.Listdata.controlActionInitial({
+      const positionhome = GameApi.Listdata.controlActionInitial({
         NAME: 'position',
         CHOICE: 'position',
         INITIAL: []
@@ -144,7 +144,7 @@ export class Homestart extends plugin {
         y,
         region
       })
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         NAME: 'position',
         CHOICE: 'position',
         DATA: positionhome,
@@ -214,7 +214,7 @@ export class Homestart extends plugin {
       e.reply(`你提前回来查看，但是工人还在努力的扩建中，预计还有${time2}秒，请耐心等待一下把`)
       return false
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -225,7 +225,7 @@ export class Homestart extends plugin {
     home.homeexperience = x
     home.homelevel += 1
     home.homeexperienceMax = home.homelevel * 10000 + 10000
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home,
@@ -287,7 +287,7 @@ export class Homestart extends plugin {
       e.reply(`你的仓库里没有木板!`)
       return false
     }
-    const home = HomeApi.Listdata.controlActionInitial({
+    const home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -305,7 +305,7 @@ export class Homestart extends plugin {
     }
     const the = 5
     const time1 = the >= 0 ? the : 1
-    let positionhome = HomeApi.Listdata.controlActionInitial({
+    let positionhome = GameApi.Listdata.controlActionInitial({
       CHOICE: 'position',
       NAME: 'position',
       INITIAL: []
@@ -313,7 +313,7 @@ export class Homestart extends plugin {
     useraction[UID] = setTimeout(() => {
       forwardsetTime[UID] = 0
       const target = positionhome.find((obj) => obj.qq === UID)
-      let minefield = HomeApi.Listdata.controlActionInitial({
+      let minefield = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         INITIAL: []
@@ -323,7 +323,7 @@ export class Homestart extends plugin {
         let qq = target1.qq
         if (qq == UID) {
           let minefield1 = minefield.filter((item) => item.qq != UID)
-          HomeApi.Listdata.controlActionInitial({
+          GameApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield1,
@@ -337,7 +337,7 @@ export class Homestart extends plugin {
       target.x = x
       target.y = y
       target.region = region
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_position',
         NAME: 'position',
         DATA: positionhome,

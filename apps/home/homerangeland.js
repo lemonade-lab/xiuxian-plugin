@@ -77,12 +77,12 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在家园里，修建牧场必须回家')
       return
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = HomeApi.Listdata.controlActionInitial({
+    let rangeland = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -112,7 +112,7 @@ export class Homerangeland extends plugin {
       ACCOUNT: lingshi1
     })
     rangeland.rangelandlevel += 1
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -146,12 +146,12 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在家园里，搭建草场必须回家')
       return
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = HomeApi.Listdata.controlActionInitial({
+    let rangeland = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -218,7 +218,7 @@ export class Homerangeland extends plugin {
       ACCOUNT: -10
     })
     rangeland.rangelandlevel += 1
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -252,12 +252,12 @@ export class Homerangeland extends plugin {
       e.reply('您不在家是没有办法升级牧场的哦')
       return
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = HomeApi.Listdata.controlActionInitial({
+    let rangeland = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -339,7 +339,7 @@ export class Homerangeland extends plugin {
       ACCOUNT: -25
     })
     rangeland.rangelandlevel += 1
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -373,12 +373,12 @@ export class Homerangeland extends plugin {
       e.reply('您不在家是没有办法升级牧场的哦')
       return
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
       NAME: UID,
       INITIAL: []
     })
-    let rangeland = HomeApi.Listdata.controlActionInitial({
+    let rangeland = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -459,7 +459,7 @@ export class Homerangeland extends plugin {
       ACCOUNT: -10
     })
     rangeland.rangelandlevel += 1
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       DATA: rangeland,
@@ -493,7 +493,7 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在家园里，动物必须放在家园牧场里哦')
       return
     }
-    // let muc =  HomeApi.Listdata.controlAction({ NAME: UID, CHOICE: 'user_rangelandannimals' })
+    // let muc =  GameApi.Listdata.controlAction({ NAME: UID, CHOICE: 'user_rangelandannimals' })
     // let x
     // for(let i = 0; i < muc.length; i++){
     //   x = x + muc[i].animalacount
@@ -519,7 +519,7 @@ export class Homerangeland extends plugin {
       e.reply(`世界上没有[${thingName}]`)
       return
     }
-    let rangeland = HomeApi.Listdata.controlActionInitial({
+    let rangeland = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangeland',
       NAME: UID,
       INITIAL: []
@@ -529,7 +529,7 @@ export class Homerangeland extends plugin {
       e.reply('你仔细想想你建牧场了吗XDD)BO}R%$LQPF$J)`K9DWP.jpg')
       return
     }
-    let rangelandannimals = HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
       INITIAL: []
@@ -550,13 +550,13 @@ export class Homerangeland extends plugin {
         DATA1: searchsthing1,
         quantity: 1
       })
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals,
         INITIAL: []
       })
-      let Warehouse = HomeApi.Listdata.controlActionInitial({
+      let Warehouse = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         INITIAL: []
@@ -566,7 +566,7 @@ export class Homerangeland extends plugin {
         DATA1: searchsthing,
         quantity: -1
       })
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
@@ -591,7 +591,7 @@ export class Homerangeland extends plugin {
       e.reply(`${archive}`)
     }
     let thing = e.msg.replace(/^(#|\/)宰杀/, '')
-    let rangelandannimals1 = HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals1 = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,
       INITIAL: []
@@ -616,13 +616,13 @@ export class Homerangeland extends plugin {
     }
     // else if (timeco1 + deadtime < 0) {
     //   rangelandannimals1.thing = rangelandannimals1.thing.filter(item => item.name1 != thing)
-    //    HomeApi.Listdata.controlActionInitial({ CHOICE: 'user_rangelandannimals', NAME: UID ,DATA:rangelandannimals1})
+    //    GameApi.Listdata.controlActionInitial({ CHOICE: 'user_rangelandannimals', NAME: UID ,DATA:rangelandannimals1})
     //   e.reply("你太久没管它，它已经悄悄地死去了")
     //   return
     // }
     else {
       rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_rangelandannimals',
         NAME: UID,
         DATA: rangelandannimals1,
@@ -703,7 +703,7 @@ export class Homerangeland extends plugin {
       return
     }
     let thing = e.msg.replace(/^(#|\/)偷动物/, '')
-    let rangelandannimals2 = HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals2 = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       INITIAL: []
@@ -727,13 +727,13 @@ export class Homerangeland extends plugin {
       e.reply('偷这么多真的好吗？!')
       return
     }
-    let rangelandannimals1 = HomeApi.Listdata.controlActionInitial({
+    let rangelandannimals1 = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       INITIAL: []
     })
     rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: user.B,
       DATA: rangelandannimals1,

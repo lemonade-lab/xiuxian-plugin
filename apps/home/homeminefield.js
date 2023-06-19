@@ -67,7 +67,7 @@ export class Homeminefield extends plugin {
       e.reply('您现在不在家园所在地，无法抢夺该地的灵矿!')
       return false
     }
-    let positionhome = HomeApi.Listdata.controlActionInitial({
+    let positionhome = GameApi.Listdata.controlActionInitial({
       CHOICE: 'position',
       NAME: 'position',
       INITIAL: []
@@ -78,7 +78,7 @@ export class Homeminefield extends plugin {
     const timeMax = 172800
     let time = new Date().getTime()
     let nowTime = time.getTime()
-    let minefield = HomeApi.Listdata.controlActionInitial({
+    let minefield = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
       INITIAL: []
@@ -109,7 +109,7 @@ export class Homeminefield extends plugin {
         createTime: nowTime,
         timeMax
       })
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         DATA: minefield,
@@ -140,7 +140,7 @@ export class Homeminefield extends plugin {
           minefieldName.qq = A
           minefieldName.createTime = nowTime
           minefieldName.timeMax = timeMax
-          HomeApi.Listdata.controlActionInitial({
+          GameApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield,
@@ -204,13 +204,13 @@ export class Homeminefield extends plugin {
       e.reply('您现在不在家园所在地，无法领取晶石!')
       return false
     }
-    const position = HomeApi.Listdata.controlActionInitial({
+    const position = GameApi.Listdata.controlActionInitial({
       CHOICE: 'position',
       NAME: 'position',
       INITIAL: []
     })
     const position1 = position.find((obj) => obj.qq === UID)
-    const minefield = HomeApi.Listdata.controlActionInitial({
+    const minefield = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
       INITIAL: []
@@ -240,7 +240,7 @@ export class Homeminefield extends plugin {
       let experience = parseInt((time2 / 1800) * 20)
       HomeApi.GP.addHomeexperience({ UID, experience })
       target.createTime = nowTime
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         DATA: minefield,
@@ -267,7 +267,7 @@ export class Homeminefield extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    let home = HomeApi.Listdata.controlActionInitial({
+    let home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_user',
       NAME: UID,
       INITIAL: []
@@ -324,7 +324,7 @@ export class Homeminefield extends plugin {
     const the = 300
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(() => {
-      let Warehouse = HomeApi.Listdata.controlActionInitial({
+      let Warehouse = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         INITIAL: []
@@ -360,7 +360,7 @@ export class Homeminefield extends plugin {
         DATA1: searchswupin,
         quantity
       })
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
@@ -416,7 +416,7 @@ export class Homeminefield extends plugin {
     const the = 300
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(() => {
-      let Warehouse = HomeApi.Listdata.controlActionInitial({
+      let Warehouse = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_Warehouse',
         NAME: UID,
         INITIAL: []
@@ -439,7 +439,7 @@ export class Homeminefield extends plugin {
         DATA1: searchswupin,
         quantity: -quantity
       })
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
@@ -466,7 +466,7 @@ export class Homeminefield extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const minefield = HomeApi.Listdata.controlActionInitial({
+    const minefield = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
       INITIAL: []
@@ -501,13 +501,13 @@ export class Homeminefield extends plugin {
       return false
     }
     let thing = e.msg.replace(/^(#|\/)锻造/, '')
-    let all = HomeApi.Listdata.controlActionInitial({
+    let all = GameApi.Listdata.controlActionInitial({
       CHOICE: 'all',
       NAME: 'all',
       INITIAL: []
     })
     let searchsthing = all.find((item) => item.name == thing)
-    let Warehouse = HomeApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -584,7 +584,7 @@ export class Homeminefield extends plugin {
         quantity: 1
       })
       // 写入仓库
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
@@ -615,7 +615,7 @@ export class Homeminefield extends plugin {
     let thingName = code[0] // 物品
     let thingAcount = parseInt(code[1]) // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let Warehouse = HomeApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -649,7 +649,7 @@ export class Homeminefield extends plugin {
     }
     if (c == 10) {
       e.reply(`${thing}放进分解池子，啥也没出`)
-      HomeApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
         DATA: Warehouse,
@@ -664,7 +664,7 @@ export class Homeminefield extends plugin {
       DATA1: ifexist1,
       quantity
     })
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
@@ -688,7 +688,7 @@ export class Homeminefield extends plugin {
       return false
     }
     let thing = e.msg.replace(/^(#|\/)修理/, '')
-    let Warehouse = HomeApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -723,7 +723,7 @@ export class Homeminefield extends plugin {
     }
     let guo1 = HomeApi.GP.homeexistAllThingByName({ name: thing })
     guo.durable = guo1.durable
-    HomeApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
       DATA: Warehouse,
