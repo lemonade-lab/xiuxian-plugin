@@ -106,7 +106,7 @@ export class BoxAction extends plugin {
               break
             }
             default: {
-              console.log('无')
+              console.info('无')
             }
           }
         }
@@ -126,7 +126,7 @@ export class BoxAction extends plugin {
         break
       }
       default: {
-        console.log('无')
+        console.info('无')
       }
     }
     GameApi.Bag.addBagThing({
@@ -285,7 +285,7 @@ export class BoxAction extends plugin {
           break
         }
         default: {
-          console.log('无')
+          console.info('无')
         }
       }
     }

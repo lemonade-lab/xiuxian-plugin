@@ -117,7 +117,6 @@ class Information {
     } else {
       size = `+${size}%`
     }
-    console.log(talent)
     return {
       path: 'user/skills',
       name: 'skills',

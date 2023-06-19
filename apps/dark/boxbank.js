@@ -52,7 +52,6 @@ export class BoxBank extends plugin {
       return false
     }
     const [account, LeftName, RightName] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
-    console.log(account, LeftName, RightName)
     const quantity = convertStoneQuantity(account, LeftName, RightName)
     if (!quantity) return
     const money = GameApi.Bag.searchBagByName({

@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
 
 /* 监听 */
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-  console.log(`http://127.0.0.1:${port}`)
+  console.info(`Example app listening on port ${port}`)
+  console.info(`http://127.0.0.1:${port}`)
 })

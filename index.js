@@ -51,5 +51,5 @@ for (let item of sum) {
     }
   }
 }
-console.log(`${AppName} start ~`)
+console.info(`${AppName} start ~`)
 export { apps }

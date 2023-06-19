@@ -6,7 +6,7 @@ export function dealTpl(data) {
     const tpl = fs.readFileSync(tplFile, 'utf8')
     return template.render(tpl, data)
   } catch (error) {
-    console.log(`[加载html错误]${tplFile}`)
+    console.info(`[加载html错误]${tplFile}`)
     return false
   }
 }

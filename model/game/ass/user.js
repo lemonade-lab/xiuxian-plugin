@@ -131,7 +131,7 @@ class GP {
 
     let theARR = JSON.stringify(data, '', '\t') // json转string
     fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
-      console.log('写入成功', err)
+      console.info('写入成功', err)
     })
   }
 
@@ -183,7 +183,7 @@ class GP {
 
     let theARR = JSON.stringify(assRelation, '', '\t') // json转string
     fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
-      console.log('写入成功', err)
+      console.info('写入成功', err)
     })
   }
 
@@ -311,7 +311,7 @@ class GP {
     const dir = `${this.generateUncharted}/${fileName}`
     if (!fs.existsSync(dir)) {
       fs.writeFileSync(dir, '[]', 'utf-8', (err) => {
-        console.log('写入成功', err)
+        console.info('写入成功', err)
       })
     }
     let pointList = JSON.parse(fs.readFileSync(dir))
@@ -329,7 +329,7 @@ class GP {
       pointList.push(point)
       const theARR = JSON.stringify(pointList, '', '\t')
       fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
-        console.log('写入成功', err)
+        console.info('写入成功', err)
       })
     } else {
       this.BuildAndDeduplication(x, y, thingId)

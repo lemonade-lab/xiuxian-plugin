@@ -39,7 +39,6 @@ class Schedule {
       return ['无备份数据']
     }
     /* 查看这个备份名字在不在 */
-    console.log(`${this.BACKUPS_PATH}/${name}`)
     if (!fs.existsSync(`${this.BACKUPS_PATH}/${name}`)) {
       return ['无此备份']
     }

@@ -57,7 +57,6 @@ class Wrap {
    * @param {*} CDTime 要锁定的时间：分
    */
   setRedis(UID, CDID, nowTime, CDTime) {
-    console.log(nowTime, CDTime)
     REDIS.set(`${ReadiName}:${UID}:${CDID}`, {
       val: nowTime,
       expire: CDTime * 60000
@@ -98,7 +97,6 @@ class Wrap {
       }
       // 剩余时间计算
       const theTime = onTime - NowTime
-      console.log('theTime=', theTime)
       return {
         state: 4001,
         msg: `${CDMAP[CDID]}冷却:${convertTime(theTime)}`

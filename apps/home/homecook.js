@@ -548,7 +548,7 @@ export class Homecook extends plugin {
           break
         }
         default: {
-          console.log('无')
+          console.info('无')
         }
       }
     }

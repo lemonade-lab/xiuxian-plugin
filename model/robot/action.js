@@ -30,7 +30,7 @@ class Robot {
     try {
       e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
     } catch {
-      console.log('出错', data)
+      console.info('出错', data)
     }
   }
 

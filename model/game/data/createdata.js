@@ -34,7 +34,7 @@ class CreateData {
         if (fs.existsSync(y)) {
           fs.cp(y, x, (err) => {
             if (err) {
-              console.log(err)
+              console.info(err)
             }
           })
         }
@@ -53,7 +53,7 @@ class CreateData {
       if (fs.existsSync(y)) {
         fs.cp(y, x, (err) => {
           if (err) {
-            console.log(err)
+            console.info(err)
           }
         })
       }
