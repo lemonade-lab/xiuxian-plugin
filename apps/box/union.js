@@ -83,11 +83,11 @@ export class Boxunion extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!UnionMessage(e)) return false
-    const level = GameApi.UserData.controlAction({
+    const LevelData = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    if (level.levelId != 1) {
+    if (LevelData.level.gaspractice.realm != 0) {
       e.reply('[修仙联盟]方正\n前辈莫要开玩笑')
       return false
     }
