@@ -13,7 +13,8 @@
     <div style="height: 1px"></div>
     <div class="user_top">
       <div class="user_top_left">
-        <div class="user_top_right_font0">灵根:{{linggenName}}</div>
+        <div class="user_top_right_font0">{{UID}}</div>
+        <div class="user_top_right_font">灵根:{{linggenName}}</div>
         <div class="user_top_right_font">天赋:{{talentsize}}</div>
       </div>
       <div class="user_top_right">
@@ -26,15 +27,10 @@
       <div class="use_data">
         {{each skills item}}
         <div class="user_top_right_font0">{{item.name}}</div>
-        <div class="user_top_right_font1">
-          <div>攻击:{{item.attack}}%</div>
-          <div>防御:{{item.defense}}%</div>
-          <div>血量:{{item.blood}}%</div>
-        </div>
         <div class="user_top_right_font2">
-          <div>暴击:{{item.burst}}%</div>
-          <div>暴伤:{{item.burstmax}}%</div>
-          <div>敏捷:{{item.speed}}</div>
+          <div>天赋:{{item.size}}%</div>
+          <div>修为:+{{item.experience}}</div>
+          <div>价格:{{item.price}}</div>
         </div>
         {{/each}}
       </div>
@@ -53,7 +49,6 @@
       display: grid;
       padding: 20px;
       grid-template-columns: auto auto auto;
-      background-color: rgba(19, 21, 22, 0.486);
       margin: 40px;
       border-radius: 100px;
     }
