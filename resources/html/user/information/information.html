@@ -14,11 +14,11 @@
     <div style="display: grid; grid-template-columns: auto auto">
       <div class="user_top">
         <div class="user_top_left">
-          <div class="user_top_right_font0" style="padding: 5px">道号:{{life.name}}</div>
-          <div class="user_top_right_font1" style="padding: 5px">
+          <div class="user_top_right_font0" style="padding: 5px">{{UID}}</div>
+          <div class="user_top_right_font1" style="padding: 5px">道号:{{life.name}}</div>
+          <div class="user_top_right_font2" style="padding: 5px">
             血量:{{battle.nowblood}}/{{battle.blood}}
           </div>
-          <div class="user_top_right_font2" style="padding: 5px">灵力:{{level.spiritual}}/{{level.spiritualUpper}}</div>
           <div class="user_top_right_font1" style="padding: 5px">
             寿龄:{{life.Age}}/{{life.life}}
           </div>
@@ -42,6 +42,10 @@
     <div class="user_bottom1">
       <div class="use_data">
         <div class="user_top_right_font0">[基础信息]</div>
+        <div class="user_top_right_font1" style="display: grid; grid-template-columns: auto auto">
+          <div> 灵力:{{level.spiritual}}/{{level.spiritualUpper}}</div>
+          <div> 魔力:{{level.prestige}}/100</div>
+        </div>
         <div class="user_top_right_font" style="display: grid; grid-template-columns: auto auto">
           <div>法境:{{level.levelname}}</div>
           <div>修为:{{level.experience}}</div>
@@ -51,7 +55,7 @@
           <div>气血:{{level.experiencemax}}</div>
         </div>
         <div class="user_top_right_font" style="display: grid; grid-template-columns: auto auto">
-          <div>魔力:{{level.prestige}}/100</div>
+          <div>声望:{{level.reputation}}</div>
           <div>战力:{{battle.power}}</div>
         </div>
         <div class="user_top_right_font1" style="display: grid; grid-template-columns: auto auto">
