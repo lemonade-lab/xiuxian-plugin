@@ -149,7 +149,7 @@ export class Association extends plugin {
     }
     associationName = assRelation.id
     const ass = AssociationApi.assUser.getAssOrGP(2, associationName)
-    const mostMem = AssociationApi.Config.numberMaximums[ass.level - 1] // 该宗门目前人数上限
+    const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
     const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
       e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
@@ -257,10 +257,10 @@ export class Association extends plugin {
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.id == assGP.assName
     )
-    if (ass.spiritStoneAns + lingshi > AssociationApi.Config.spiritStoneAnsMax[ass.level - 1]) {
+    if (ass.spiritStoneAns + lingshi > AssociationApi.assUser.spiritStoneAnsMax[ass.level - 1]) {
       e.reply(
         `${assRelation.name}的灵石池最多还能容纳${
-          AssociationApi.Config.spiritStoneAnsMax[ass.level - 1] - ass.spiritStoneAns
+          AssociationApi.assUser.spiritStoneAnsMax[ass.level - 1] - ass.spiritStoneAns
         }灵石,请重新捐赠`
       )
       return false
@@ -312,7 +312,7 @@ export class Association extends plugin {
           `宗名: ${assRelation.name}` +
           '\n' +
           `人数: ${thisAss.allMembers.length}/${
-            AssociationApi.Config.numberMaximums[thisAss.level - 1]
+            AssociationApi.assUser.numberMaximums[thisAss.level - 1]
           }` +
           '\n' +
           `等级: ${thisAss.level}` +

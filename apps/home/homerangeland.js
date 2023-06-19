@@ -649,7 +649,7 @@ export class Homerangeland extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const { path, name, data } = HomeApi.Information.get_lookrangeland_img(UID)
+    const { path, name, data } = HomeApi.Information.userLookrangelandShow(UID)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 
@@ -784,7 +784,7 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.get_lookrangeland_img(user.B)
+    const { path, name, data } = HomeApi.Information.userLookrangelandShow(user.B)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 }

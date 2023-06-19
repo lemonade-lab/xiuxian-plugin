@@ -32,7 +32,7 @@ export class AssociationExtend extends plugin {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrGP(2, assRelation.id)
-    const location = AssociationApi.Config.buildNameList.findIndex((item) => item == buildName)
+    const location = AssociationApi.assUser.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
       return false
     }

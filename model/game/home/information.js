@@ -1,6 +1,10 @@
-import { GameApi } from '../../api/index.js'
 import Listdata from '../data/listdata.js'
 class Information {
+  /**
+   * 显示数据
+   * @param {*} UID
+   * @returns
+   */
   userDataShow(UID) {
     return {
       path: 'user/information',
@@ -12,17 +16,22 @@ class Information {
     }
   }
 
+  /**
+   * 显示数据
+   * @param {*} UID
+   * @returns
+   */
   userWarehouseShow(UID) {
-    let life = GameApi.UserData.controlAction({
+    let life = Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
     life = life.find((item) => item.qq == UID)
-    const GP = GameApi.UserData.controlAction({
+    const GP = Listdata.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
     })
-    const battle = GameApi.UserData.controlAction({
+    const battle = Listdata.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
@@ -110,8 +119,13 @@ class Information {
     }
   }
 
+  /**
+   * 显示数据
+   * @param {*} UID
+   * @returns
+   */
   userhomeShow(UID) {
-    const GP = GameApi.UserData.controlAction({
+    const GP = Listdata.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
     })
@@ -120,11 +134,11 @@ class Information {
       NAME: UID,
       INITIAL: []
     })
-    const battle = GameApi.UserData.controlAction({
+    const battle = Listdata.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    let life = GameApi.UserData.controlAction({
+    let life = Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
@@ -157,8 +171,13 @@ class Information {
     }
   }
 
-  get_lookland_img(UID) {
-    let life = GameApi.UserData.controlAction({
+  /**
+   * 显示数据
+   * @param {*} UID
+   * @returns
+   */
+  userLooklandShow(UID) {
+    let life = Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
@@ -193,7 +212,12 @@ class Information {
     }
   }
 
-  get_lookrangeland_img(UID) {
+  /**
+   * 显示数据
+   * @param {*} UID
+   * @returns
+   */
+  userLookrangelandShow(UID) {
     const rangelandannimals = Listdata.controlActionInitial({
       CHOICE: 'user_home_rangelandannimals',
       NAME: UID,

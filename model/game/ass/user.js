@@ -17,16 +17,20 @@ class GP {
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
-
     this.assLabyrinthList = Listdata.controlAction({
       NAME: 'AssLabyrinth',
       CHOICE: 'assRelate'
     })
-
     this.assRelationList = Listdata.controlAction({
       NAME: 'AssRelation',
       CHOICE: 'assRelation'
     })
+    // 配置
+    this.numberMaximums = [6, 8, 10, 13, 16, 18, 20, 23, 25]
+    this.spiritStoneAnsMax = [
+      2000000, 5000000, 8000000, 11000000, 15000000, 20000000, 35000000, 50000000, 80000000
+    ]
+    this.buildNameList = ['山门', '藏宝阁', '宗门秘境', '神兽祭坛', '聚灵阵', '护宗大阵']
   }
 
   /**

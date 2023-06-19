@@ -419,7 +419,7 @@ export class Homeland extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const { path, name, data } = HomeApi.Information.get_lookland_img({
+    const { path, name, data } = HomeApi.Information.userLooklandShow({
       UID
     })
     e.reply(await BotApi.obtainingImages({ path, name, data }))
@@ -588,7 +588,7 @@ export class Homeland extends plugin {
       e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.get_lookland_img({
+    const { path, name, data } = HomeApi.Information.userLooklandShow({
       UID: user.B
     })
     e.reply(await BotApi.obtainingImages({ path, name, data }))

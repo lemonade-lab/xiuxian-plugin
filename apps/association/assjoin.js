@@ -113,7 +113,7 @@ export class AssociationJoin extends plugin {
     }
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     const find = ass.applyJoinList.findIndex((item) => item == joinQQ)
-    const mostMem = AssociationApi.Config.numberMaximums[ass.level - 1] // 该宗门目前人数上限
+    const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
     const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
       e.reply(`弟子人数已经达到目前等级最大,无法加入`)

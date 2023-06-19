@@ -1,7 +1,11 @@
 import Listdata from '../data/listdata.js'
 import User from './user.js'
-import { GameApi } from '../../api/index.js'
 class GP {
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   userWarehouse({ UID, name, ACCOUNT }) {
     const thing = Listdata.searchThing({
       condition: 'name',
@@ -81,7 +85,11 @@ class GP {
     return Warehouse.thing.find((item) => item.name == thingName)
   }
 
-  // 家园
+  /**
+   *
+   * @param {*} UID
+   * @returns
+   */
   Archive(UID) {
     const home = this.existhomeplugins(UID)
     let Msg = ''
@@ -100,7 +108,11 @@ class GP {
     return 0
   }
 
-  // 牧场
+  /**
+   *
+   * @param {*} UID
+   * @returns
+   */
   Archiverangeland(UID) {
     let life = Listdata.controlActionInitial({
       NAME: 'life',
@@ -152,6 +164,11 @@ class GP {
     return 0
   }
 
+  /**
+   *
+   * @param {*} UID
+   * @returns
+   */
   existhomeplugins(UID) {
     const life = Listdata.controlActionInitial({
       NAME: 'life',
@@ -166,6 +183,11 @@ class GP {
     }
   }
 
+  /**
+   *
+   * @param {*} UID
+   * @returns
+   */
   homejiazai(UID) {
     try {
       Listdata.controlAction({
@@ -220,6 +242,11 @@ class GP {
     }
   }
 
+  /**
+   *
+   * @param {*} UID
+   * @returns
+   */
   existhome(UID) {
     const positionhome = Listdata.controlActionInitial({
       NAME: 'position',
@@ -230,6 +257,10 @@ class GP {
     return find
   }
 
+  /**
+   *
+   * @param {*} param0
+   */
   addDoge({ UID, money }) {
     const home = Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
@@ -248,6 +279,10 @@ class GP {
     })
   }
 
+  /**
+   *
+   * @param {*} param0
+   */
   addLandgrid({ UID, ACCOUNT }) {
     let home = Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
@@ -263,6 +298,11 @@ class GP {
     })
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   addLandgoods(parameter) {
     const { landgoods, nowTime, acount } = parameter
     let name = landgoods.name
@@ -291,6 +331,11 @@ class GP {
     return a
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   addRangelandannimals({ rangelandannimals, nowTime }) {
     let id = rangelandannimals.id
     let animal = this.homesearchThingById({ id })
@@ -312,6 +357,11 @@ class GP {
     return a
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   addDataThing(parameter) {
     let { DATA, DATA1, quantity } = parameter
     if (DATA.thing != undefined) {
@@ -353,6 +403,11 @@ class GP {
     }
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   homesearchThingName({ name }) {
     const all = Listdata.controlAction({
       CHOICE: 'home_all',
@@ -362,6 +417,11 @@ class GP {
     return wupin
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   homesearchThingById({ id }) {
     const all = Listdata.controlAction({
       CHOICE: 'home_all',
@@ -371,6 +431,11 @@ class GP {
     return wupin
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   generateCD({ UID, CDid }) {
     const CDname = [' 偷菜 ', ' 占领矿场 ', ' 偷动物 ', ' 做饭 ']
     const remainTime = redis.ttl('xiuxian:GP:' + UID + ':' + CDid)
@@ -394,6 +459,10 @@ class GP {
     return 0
   }
 
+  /**
+   *
+   * @param {*} param0
+   */
   addHomeexperience({ UID, experience }) {
     let home = Listdata.controlActionInitial({
       CHOICE: 'user_home_home',
@@ -409,6 +478,11 @@ class GP {
     })
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   collectMinerals({ UID, time }) {
     let Warehouse = Listdata.controlActionInitial({
       CHOICE: 'user_home_Warehouse',
@@ -449,6 +523,11 @@ class GP {
     ]
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   attribute(parameter) {
     const { thing } = parameter
     let shuxing
@@ -495,6 +574,11 @@ class GP {
     return shuxing
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   foodshuxing(parameter) {
     let { shuxinga, id, name1, doge } = parameter
     id = id + '-'
@@ -541,6 +625,11 @@ class GP {
     return food
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   foodjudge(parameter) {
     const { name } = parameter
     let x
@@ -559,6 +648,11 @@ class GP {
     return x
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   addCookThing(parameter) {
     let { cook, cookThing, thingAcount } = parameter
     if (thingAcount == 0) {
@@ -580,6 +674,11 @@ class GP {
     }
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   addFoodThing(parameter) {
     let { food, foodThing, thingAcount } = parameter
     if (thingAcount == 0) {
@@ -601,8 +700,12 @@ class GP {
     }
   }
 
+  /**
+   *
+   * @param {*} param0
+   */
   addNowblood({ UID, nowblood }) {
-    let battle = GameApi.UserData.controlAction({
+    let battle = Listdata.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
@@ -612,16 +715,20 @@ class GP {
     } else {
       battle.nowblood = battle.nowblood + nowblood
     }
-    GameApi.UserData.controlAction({
+    Listdata.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID,
       DATA: battle
     })
   }
 
+  /**
+   *
+   * @param {*} parameter
+   */
   addLife(parameter) {
     const { UID, life } = parameter
-    let life1 = GameApi.UserData.controlAction({
+    let life1 = Listdata.controlAction({
       CHOICE: 'userHomeLife',
       NAME: 'life'
     })
@@ -630,13 +737,18 @@ class GP {
     if (userHomeLife.Age < 0) {
       userHomeLife.Age = 0
     }
-    GameApi.UserData.controlAction({
+    Listdata.controlAction({
       CHOICE: 'userHomeLife',
       NAME: 'life',
       DATA: life1
     })
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   homeexistWarehouseThingName(parameter) {
     const { UID, name } = parameter
     const Warehouse = Listdata.controlActionInitial({
@@ -651,6 +763,11 @@ class GP {
     return ifexist
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   homeexistWarehouseThingById(parameter) {
     const { UID, id } = parameter
     const Warehouse = Listdata.controlActionInitial({
@@ -665,8 +782,13 @@ class GP {
     return ifexist
   }
 
+  /**
+   *
+   * @param {*} name
+   * @returns
+   */
   homeexistAllThingByName(name) {
-    const all = GameApi.UserData.controlAction({
+    const all = Listdata.controlAction({
       CHOICE: 'generate_all',
       NAME: 'all'
     })
@@ -677,8 +799,13 @@ class GP {
     return ifexist
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   homeexistAllThingById({ id }) {
-    const all = GameApi.UserData.controlAction({
+    const all = Listdata.controlAction({
       CHOICE: 'generate_all',
       NAME: 'all'
     })
@@ -689,6 +816,11 @@ class GP {
     return ifexist
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   Slaughter({ UID, name }) {
     let rangelandannimals2 = User.homesearchThingName({
       name
@@ -717,6 +849,10 @@ class GP {
     return MSG
   }
 
+  /**
+   *
+   * @param {*} parameter
+   */
   addAll(parameter) {
     let { data } = parameter
     let all = Listdata.controlActionInitial({
@@ -724,7 +860,7 @@ class GP {
       NAME: 'all',
       INITIAL: []
     })
-    let boxall = GameApi.UserData.controlAction({
+    let boxall = Listdata.controlAction({
       CHOICE: 'generate_all',
       NAME: 'all'
     })
@@ -736,13 +872,18 @@ class GP {
       DATA: all1,
       INITIAL: []
     })
-    GameApi.UserData.controlAction({
+    Listdata.controlAction({
       CHOICE: 'generate_all',
       NAME: 'all',
       DATA: all2
     })
   }
 
+  /**
+   *
+   * @param {*} parameter
+   * @returns
+   */
   shiwubj(parameter) {
     let { zhushi1, fushi1, tiaoliao1, quantity } = parameter
     let MSG
