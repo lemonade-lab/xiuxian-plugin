@@ -94,7 +94,7 @@ export class AssociationAdmin extends plugin {
         })
         const now = new Date().getTime()
         const nowTime = now.getTime() // 获取当前时间戳
-        const date = AssociationApi.assUser.timeChange(nowTime)
+        const date = GameApi.Method.timeChange(nowTime)
 
         const location = Math.floor(Math.random() * assName.length)
         const association = getAss(assName[location], date, nowTime, UID, 4, 100000)
@@ -181,7 +181,7 @@ export class AssociationAdmin extends plugin {
     }
     const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前时间戳
-    const date = AssociationApi.assUser.timeChange(nowTime)
+    const date = GameApi.Method.timeChange(nowTime)
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
     const id =
       AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
@@ -468,7 +468,7 @@ const getAss = (name, date, nowTime, holderQQ, level = 1, spiritStoneAns = 0) =>
  */
 const theAssociation = (name, holderQQ) => {
   const nowTime = new Date().getTime() // 获取当前时间戳
-  const date = AssociationApi.assUser.timeChange(nowTime)
+  const date = GameApi.Method.timeChange(nowTime)
   const Association = getAss(name, date, nowTime, holderQQ)
   const treasureVault = [[], [], []]
   AssociationApi.assUser.setAssOrGP('association', name, Association)

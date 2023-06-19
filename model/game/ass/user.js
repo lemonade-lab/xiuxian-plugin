@@ -5,7 +5,7 @@ import Listdata from '../data/listdata.js'
 import Talent from '../box/talent.js'
 import Player from '../box/player.js'
 import { __PATH } from '../data/index.js'
-
+//汐颜
 class GP {
   constructor() {
     // 固定表数据
@@ -81,6 +81,11 @@ class GP {
     return data
   }
 
+  /**
+   * 
+   * @param {*} name 
+   * @returns 
+   */
   readAssNames(name) {
     const dir = __PATH[name]
     let allNames = fs.readdirSync(dir)
@@ -88,6 +93,11 @@ class GP {
     return allNames
   }
 
+  /**
+   * 
+   * @param {*} num 
+   * @returns 
+   */
   numberVerify(num) {
     num = num.trim()
     num = isNaN(Number(num)) ? 1 : Number(num)
@@ -114,6 +124,11 @@ class GP {
     })
   }
 
+  /**
+   * 
+   * @param {*} assGP 
+   * @returns 
+   */
   assEffCount(assGP) {
     let effective = 0
     if (assGP.assName == 0) {
@@ -145,6 +160,12 @@ class GP {
     Talent.updataEfficiency(assGP.qqNumber)
   }
 
+  /**
+   * 
+   * @param {*} ass 
+   * @param {*} type 
+   * @param {*} associationName 
+   */
   assRename(ass, type, associationName) {
     let assRelation = this.assRelationList
     const find = assRelation.find((item) => item.id == ass)
@@ -166,6 +187,10 @@ class GP {
     })
   }
 
+  /**
+   * 
+   * @param {*} ass 
+   */
   checkFacility(ass) {
     let oldStatus = ass.facility[4].status
     const buildNumList = [100, 500, 500, 200, 200, 200, 300]
@@ -189,6 +214,11 @@ class GP {
     }
   }
 
+  /**
+   * 
+   * @param {*} qq 
+   * @returns 
+   */
   existArchive(qq) {
     let GP = Player.getUserLife(qq)
 
@@ -278,6 +308,12 @@ class GP {
     return false
   }
 
+  /**
+   * 
+   * @param {*} x 
+   * @param {*} y 
+   * @param {*} thingId 
+   */
   BuildAndDeduplication(x, y, thingId) {
     const genX = Math.trunc(Math.random() * 99) + 1
     const genY = Math.trunc(Math.random() * 99) + 1
@@ -310,13 +346,12 @@ class GP {
       this.BuildAndDeduplication(x, y, thingId)
     }
   }
-
-  timeChange(timestamp) {
-    const date = new Date(timestamp)
-    const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
-    return `${date.getFullYear()}-${M}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-  }
-
+  
+  /**
+   * 
+   * @param {*} path 
+   * @param {*} name 
+   */
   deleteAss(path, name) {
     fs.rmSync(`${__PATH[path]}/${name}.json`)
   }

@@ -57,5 +57,12 @@ class Method {
     if (obj == undefined || obj == null) return false
     return true
   }
+
+  
+  timeChange(timestamp) {
+    const date = new Date(timestamp)
+    const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+    return `${date.getFullYear()}-${M}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+  }
 }
 export default new Method()
