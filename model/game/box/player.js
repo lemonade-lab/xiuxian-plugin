@@ -59,7 +59,7 @@ class Player {
       DATA: {
         spiritual: 100, // 灵力
         spiritualUpper: 100, // 灵力上限
-        prestige: 50, // 魔力
+        prestige: 50, // 煞气
         reputation: 0, // 声望
         level: {
           gaspractice: {

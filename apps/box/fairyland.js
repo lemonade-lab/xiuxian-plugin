@@ -20,20 +20,7 @@ export class Boxfairyland extends plugin {
       e.reply(`已仙鹤`)
       return
     }
-    const UserLevel = GameApi.UserData.controlAction({
-      NAME: UID,
-      CHOICE: 'user_level'
-    })
-    if (UserLevel.levelId != 10) {
-      /* 不是渡劫 */
-      e.reply(`非渡劫期`)
-      return
-    }
-
-    /**
-     * 删除渡劫
-     */
-
+    e.reply('待世界升级~')
     return false
   }
 

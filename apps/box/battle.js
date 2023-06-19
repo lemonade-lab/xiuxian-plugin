@@ -130,12 +130,16 @@ export class BoxBattle extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const Level = GameApi.UserData.controlAction({
+    const LevelData = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
-    const money = 10000 * Level.levelId
-    if (Level.prestige <= 0) {
+    const money = 10000 * LevelData.level.gaspractice.realm
+    if (money == 0) {
+      e.reply('[天机门]李逍遥\n凡人不可捷越')
+      return false
+    }
+    if (LevelData.prestige <= 0) {
       e.reply('[天机门]李逍遥\n你一身清廉')
       return false
     }
@@ -144,7 +148,7 @@ export class BoxBattle extends plugin {
       name: '下品灵石'
     })
     if (!thing || thing.acount < money) {
-      e.reply(`[天机门]韩立\n清魔力需要${money}[下品灵石]`)
+      e.reply(`[天机门]韩立\n清煞气需要${money}[下品灵石]`)
       return false
     }
     GameApi.Bag.addBagThing({
@@ -152,13 +156,13 @@ export class BoxBattle extends plugin {
       name: '下品灵石',
       ACCOUNT: -money
     })
-    Level.prestige -= 1
+    LevelData.prestige -= 1
     GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'user_level',
-      DATA: Level
+      DATA: LevelData
     })
-    e.reply('[天机门]南宫问天\n为你清除[魔力]*1')
+    e.reply('[天机门]南宫问天\n为你清除[煞气]*1')
     return false
   }
 }

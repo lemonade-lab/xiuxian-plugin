@@ -138,9 +138,13 @@ export class BoxGPControl extends plugin {
       SIZE: other
     })
     GameApi.Player.updataUserBlood({ UID, SIZE: Number(90) })
+    const LifeData = GameApi.UserData.controlAction({
+      NAME: 'life',
+      CHOICE: 'user_life'
+    })
     msg += '\n[血量状态]90%'
     msg += `\n${name}结束`
-    e.reply([segment.at(UID), msg])
+    e.reply(`${LifeData[UID].name}${msg}`)
     return false
   }
 }

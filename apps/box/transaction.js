@@ -60,7 +60,6 @@ export class BoxTransaction extends plugin {
         }
       }
     }
-
     const isreply = await e.reply(
       await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
     )
@@ -129,9 +128,7 @@ export class BoxTransaction extends plugin {
       name: najieThing.name,
       ACCOUNT: -Number(quantity)
     })
-
     const commoditiesPrice = najieThing.price * quantity
-
     GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
@@ -155,7 +152,6 @@ export class BoxTransaction extends plugin {
         money += Number(item.acount) * Number(item.price)
       }
     }
-    // 错误
     if (isNaN(money)) {
       return false
     }

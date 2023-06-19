@@ -99,7 +99,7 @@ export class AssBlessPlace extends plugin {
       default:
         msg.push('防守方没有神兽，并不能获得战斗加成')
     }
-    msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体魔力值加2点')
+    msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体煞气值加2点')
     const data = {
       msg
     }

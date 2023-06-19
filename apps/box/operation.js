@@ -43,7 +43,7 @@ export class BoxMoneyOperation extends plugin {
       name
     })
     if (!money || money.acount < acount) {
-      e.reply(`似乎没有${acount}[${name}]`)
+      e.reply(`似乎没有[${name}]*${acount}`)
       return false
     }
     const cf = GameApi.Defset.getConfig({
@@ -68,7 +68,11 @@ export class BoxMoneyOperation extends plugin {
       name,
       ACCOUNT: acount
     })
-    e.reply(`${A}赠送了${B}物品[${name}]*${acount}`)
+    const LifeData = GameApi.UserData.controlAction({
+      NAME: 'life',
+      CHOICE: 'user_life'
+    })
+    e.reply(`"${LifeData[A].name}"赠送了"${LifeData[B].name}"[${name}]*${acount}`)
     return false
   }
 }

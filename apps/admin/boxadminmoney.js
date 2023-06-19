@@ -33,7 +33,11 @@ export class Boxadminmoney extends plugin {
       name,
       ACCOUNT: -ACCOUNT
     })
-    e.reply(`${UID}被扣除${ACCOUNT}[${name}]`)
+    const LifeData = GameApi.UserData.controlAction({
+      NAME: 'life',
+      CHOICE: 'user_life'
+    })
+    e.reply(`${LifeData[UID]}被扣除${ACCOUNT}[${name}]`)
     return false
   }
 
@@ -53,8 +57,12 @@ export class Boxadminmoney extends plugin {
       name,
       ACCOUNT
     })
+    const LifeData = GameApi.UserData.controlAction({
+      NAME: 'life',
+      CHOICE: 'user_life'
+    })
     if (bag) {
-      e.reply(`${UID}获馈赠[${name}]*${ACCOUNT}`)
+      e.reply(`${LifeData[UID].name}获馈赠[${name}]*${ACCOUNT}`)
     }
     return false
   }
