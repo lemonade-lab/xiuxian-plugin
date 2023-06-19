@@ -29,10 +29,7 @@ export class Boxunion extends plugin {
     const NowTime = new Date().getTime()
     const NowMath = new Date().getMonth()
     const NowDay = new Date().getDay()
-    // 签到时间-超过24h,重置size
-    // 签到的月份,不同月重置size
     if (NowTime - SignData[UID].signTine > 24 * 60000 * 60 || SignData[UID].sginMath != NowMath) {
-      // 超过24h
       SignData[UID].signSize = 0
     }
     if (NowDay == SignData[UID].signDay) {
@@ -44,6 +41,7 @@ export class Boxunion extends plugin {
     SignData[UID].signDay = NowDay
     if (SignData[UID].signSize > 28) {
       e.reply('本月签到已满28天')
+      return false
     }
     SignData[UID].sginMath = NowMath
     // 保存
@@ -53,7 +51,22 @@ export class Boxunion extends plugin {
       DATA: SignData,
       INITIAL: {}
     })
-    e.reply(`本月累计签到${SignData[UID].signSize}天~`)
+    if (SignData[UID].signSize % 7 == 0) {
+      const randomthing = GameApi.GameUser.randomThing()
+      GameApi.GameUser.userBag({
+        UID,
+        name: randomthing.name,
+        ACCOUNT: 1
+      })
+      e.reply(`本月累计签到${SignData[UID].signSize}天~\n获得${randomthing.name}`)
+    } else {
+      GameApi.GameUser.userBag({
+        UID,
+        name: '下品灵石',
+        ACCOUNT: 200
+      })
+      e.reply(`本月累计签到${SignData[UID].signSize}天~获得[下品灵石]*200`)
+    }
     return false
   }
 
@@ -87,7 +100,7 @@ export class Boxunion extends plugin {
     GameApi.GameUser.userBag({
       UID,
       name: randomthing.name,
-      ACCOUNT: randomthing.acount
+      ACCOUNT: 1
     })
     e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你[${randomthing.name}]吧`)
     return false
