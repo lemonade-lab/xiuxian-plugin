@@ -1,57 +1,32 @@
-import Listdata from '../data/listdata.js'
-import { __PATH } from '../data/index.js'
 import fs from 'node:fs'
 import path from 'node:path'
-import { GameApi } from '../../api/index.js'
-
-function getJsonParse(val) {
-  return JSON.parse(fs.readFileSync(val))
-}
+import Method from '../wrap/method.js'
+import Listdata from '../data/listdata.js'
+import Talent from '../box/talent.js'
+import Player from '../box/player.js'
+import { __PATH } from '../data/index.js'
 
 class GP {
   constructor() {
-    this.blessPlaceList = getJsonParse(`${__PATH.assRelate}/BlessPlace.json`)
-    this.baseTreasureVaultList = getJsonParse(`${__PATH.assRelate}/BaseTreasureVault.json`)
-    this.assLabyrinthList = getJsonParse(`${__PATH.assRelate}/AssLabyrinth.json`)
-    this.assRelationList = getJsonParse(`${__PATH.assRelation}/AssRelation.json`)
-  }
+    // 固定表数据
+    this.blessPlaceList = Listdata.controlAction({
+      NAME: 'BlessPlace',
+      CHOICE: 'assRelate'
+    })
+    this.baseTreasureVaultList = Listdata.controlAction({
+      NAME: 'BaseTreasureVault',
+      CHOICE: 'assRelate'
+    })
 
-  /**
-   * 给背包添加物品
-   * @param {用户的背包} BAG
-   * @param {物品资料} THING
-   * @param {数量} ACCOUNT
-   * @returns
-   */
-  addBagThingAction(parameter) {
-    const { BAG, THING, ACCOUNT } = parameter
-    const thing = BAG.thing.find((item) => item.id == THING.id)
-    if (thing) {
-      let acount = thing.acount + ACCOUNT
-      if (acount < 1) {
-        BAG.thing = BAG.thing.filter((item) => item.id != THING.id)
-      } else {
-        BAG.thing.find((item) => item.id == THING.id).acount = acount
-      }
-      return BAG
-    } else {
-      THING.acount = ACCOUNT
-      BAG.thing.push(THING)
-      return BAG
-    }
-  }
+    this.assLabyrinthList = Listdata.controlAction({
+      NAME: 'AssLabyrinth',
+      CHOICE: 'assRelate'
+    })
 
-  /**
-   * 表名，地址，属性，大小
-   * @param {UID, CHOICE, ATTRIBUTE, SIZE} parameter
-   * @returns
-   */
-  updataUser(parameter) {
-    const { UID, CHOICE, ATTRIBUTE, SIZE } = parameter
-    // 读取原数据
-    const data = Listdata.userMsgAction({ NAME: UID, CHOICE })
-    data[ATTRIBUTE] += Math.trunc(SIZE)
-    Listdata.userMsgAction({ NAME: UID, CHOICE, DATA: data })
+    this.assRelationList = Listdata.controlAction({
+      NAME: 'AssRelation',
+      CHOICE: 'assRelation'
+    })
   }
 
   /**
@@ -156,14 +131,14 @@ class GP {
 
     effective = effective * coefficient
     assGP.effective = effective.toFixed(2)
-    GameApi.Talent.addExtendPerpetual({
+    Talent.addExtendPerpetual({
       NAME: assGP.qqNumber,
       FLAG: 'ass',
       TYPE: 'efficiency',
       VALUE: Number(assGP.effective)
     })
     this.setAssOrGP('assGP', assGP.qqNumber, assGP)
-    GameApi.Talent.updataEfficiency(assGP.qqNumber)
+    Talent.updataEfficiency(assGP.qqNumber)
   }
 
   assRename(ass, type, associationName) {
@@ -185,11 +160,6 @@ class GP {
     fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
       console.info('写入成功', err)
     })
-  }
-
-  searchThingById(id) {
-    const newVar = GameApi.Listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
-    return newVar.find((item) => item.id == id)
   }
 
   checkFacility(ass) {
@@ -216,7 +186,8 @@ class GP {
   }
 
   existArchive(qq) {
-    let GP = GameApi.Player.getUserLife(qq)
+    let GP = Player.getUserLife(qq)
+
     // 不存在
     if (!GP) return false
     // 修仙存在此人，看宗门系统有没有他
@@ -271,13 +242,13 @@ class GP {
 
           this.setAssOrGP('association', ass.id, ass) // 记录到存档
           this.assEffCount(randMember)
-          GameApi.Talent.updataEfficiency(randMember.qqNumber)
+          Talent.updataEfficiency(randMember.qqNumber)
         }
       }
     }
     if (assGP.volunteerAss != 0) {
       const ass = this.getAssOrGP(2, assGP.volunteerAss)
-      if (!isNotNull(ass)) {
+      if (!Method.isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != qq)
         this.setAssOrGP('association', ass.id, ass)
       }
@@ -336,18 +307,6 @@ class GP {
     }
   }
 
-  timeInvert(time) {
-    const dateObj = {}
-    const date = new Date(time)
-    dateObj.Y = date.getFullYear()
-    dateObj.M = date.getMonth() + 1
-    dateObj.D = date.getDate()
-    dateObj.h = date.getHours()
-    dateObj.m = date.getMinutes()
-    dateObj.s = date.getSeconds()
-    return dateObj
-  }
-
   timeChange(timestamp) {
     const date = new Date(timestamp)
     const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
@@ -359,8 +318,3 @@ class GP {
   }
 }
 export default new GP()
-
-function isNotNull(obj) {
-  if (obj == undefined || obj == null) return false
-  return true
-}

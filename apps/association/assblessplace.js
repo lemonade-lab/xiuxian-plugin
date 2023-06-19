@@ -232,8 +232,8 @@ export class AssBlessPlace extends plugin {
     }
     const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前日期的时间戳
-    const Today = AssociationApi.assUser.timeInvert(nowTime)
-    const lastExplorTime = AssociationApi.assUser.timeInvert(assGP.lastExplorTime) // 获得上次宗门签到日期
+    const Today = GameApi.Method.timeInvert(nowTime)
+    const lastExplorTime = GameApi.Method.timeInvert(assGP.lastExplorTime) // 获得上次宗门签到日期
     if (Today.Y == lastExplorTime.Y && Today.M == lastExplorTime.M && Today.D == lastExplorTime.D) {
       e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`)
       return false

@@ -35,5 +35,27 @@ class Method {
     }
     return Number(size)
   }
+
+  /**
+   * 时间初始化
+   * @param {*} time
+   * @returns
+   */
+  timeInvert(time) {
+    const dateObj = {}
+    const date = new Date(time)
+    dateObj.Y = date.getFullYear()
+    dateObj.M = date.getMonth() + 1
+    dateObj.D = date.getDate()
+    dateObj.h = date.getHours()
+    dateObj.m = date.getMinutes()
+    dateObj.s = date.getSeconds()
+    return dateObj
+  }
+
+  isNotNull(obj) {
+    if (obj == undefined || obj == null) return false
+    return true
+  }
 }
 export default new Method()

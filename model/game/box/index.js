@@ -137,6 +137,16 @@ class GP {
       return randomArr(drawingList)
     }
   }
+
+  /**
+   * 根据id搜索数组
+   * @param {*} id
+   * @returns
+   */
+  searchThingById(id) {
+    const newVar = Listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
+    return newVar.find((item) => item.id == id)
+  }
 }
 
 export default new GP()

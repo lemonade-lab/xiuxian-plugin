@@ -94,8 +94,8 @@ export class Association extends plugin {
       e.reply(`你对宗门做成的贡献不足，没有领取俸禄的资格！！！`)
       return false
     }
-    let Today = AssociationApi.assUser.timeInvert(nowTime)
-    let lastingTime = AssociationApi.assUser.timeInvert(assGP.lastSignAss) // 获得上次宗门签到日期
+    let Today = GameApi.Method.timeInvert(nowTime)
+    let lastingTime = GameApi.Method.timeInvert(assGP.lastSignAss) // 获得上次宗门签到日期
     if (Today.Y == lastingTime.Y && Today.M == lastingTime.M && Today.D == lastingTime.D) {
       e.reply(`今日已经领取过了`)
       return false

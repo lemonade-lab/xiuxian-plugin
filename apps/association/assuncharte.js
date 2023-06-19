@@ -483,9 +483,9 @@ export class AssUncharted extends plugin {
           if (interimArchive.treasureChests[i].type == 4 && lastNum >= 10) {
             thingId = interimArchive.treasureChests[i].type + '-2-' + lastNum
           }
-          let addThing = AssociationApi.assUser.searchThingById(thingId)
+          let addThing = GameApi.GP.searchThingById(thingId)
           if (!addThing) {
-            addThing = AssociationApi.assUser.searchThingById('6-1-2')
+            addThing = GameApi.GP.searchThingById('6-1-2')
           }
           addNajieThings(addThing, UID, 1)
           msg.push(`你获得了${addThing.name}`)
@@ -531,24 +531,24 @@ export class AssUncharted extends plugin {
             (item) => item.id == interimArchive.assResident
           )
           if (interimArchive.incentivesLevel > 12) {
-            addThing = AssociationApi.assUser.searchThingById(find.specialty.best)
+            addThing = GameApi.GP.searchThingById(find.specialty.best)
           } else if (interimArchive.incentivesLevel >= 8) {
             const location = Math.trunc(Math.random() * find.specialty.special.length)
-            addThing = AssociationApi.assUser.searchThingById(find.specialty.special[location])
+            addThing = GameApi.GP.searchThingById(find.specialty.special[location])
           } else {
             const location = Math.trunc(Math.random() * find.specialty.common.length)
-            addThing = AssociationApi.assUser.searchThingById(find.specialty.common[location])
+            addThing = GameApi.GP.searchThingById(find.specialty.common[location])
           }
           if (!addThing) {
-            addThing = AssociationApi.assUser.searchThingById('6-1-2')
+            addThing = GameApi.GP.searchThingById('6-1-2')
           }
           addNajieThings(addThing, UID, 1)
           e.reply(`你获得了${addThing.name}`)
         } else {
           const location = Math.trunc(Math.random() * idList.length)
-          let addThing = AssociationApi.assUser.searchThingById(idList[location])
+          let addThing = GameApi.GP.searchThingById(idList[location])
           if (!addThing) {
-            addThing = AssociationApi.assUser.searchThingById('6-1-2')
+            addThing = GameApi.GP.searchThingById('6-1-2')
           }
           addNajieThings(addThing, UID, 1)
           e.reply(`你获得了${addThing.name}`)

@@ -1,5 +1,5 @@
 import plugins from '../../../../lib/plugins/plugin.js'
-import cfg from '../../../../lib/config/Config.js'
+import cfg from '../../../../lib/config/config.js'
 import { BotApi } from './botapi.js'
 import { GameApi } from './gameapi.js'
 import { HomeApi } from './homeapi.js'

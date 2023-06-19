@@ -216,7 +216,7 @@ export class AssTreasureVault extends plugin {
     AssociationApi.assUser.checkFacility(ass)
     assGP.contributionPoints -= exchangeThing.redeemPoint
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-    const addThing = AssociationApi.assUser.searchThingById(exchangeThing.id)
+    const addThing = GameApi.GP.searchThingById(exchangeThing.id)
     addNajieThings(addThing, UID, 1)
     e.reply(`兑换成功！！！`)
     return false
