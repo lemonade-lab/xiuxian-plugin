@@ -7,10 +7,6 @@ class Information {
    * @returns
    */
   userDataShow(UID) {
-    const player = listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'user_player'
-    })
     const equipment = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_equipment'
@@ -19,7 +15,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const level = listdata.controlAction({
+    const LevelData = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_level'
     })
@@ -27,11 +23,11 @@ class Information {
       NAME: UID,
       CHOICE: 'user_battle'
     })
-    const linggenname = Player.getTalentName(talent)
+    let linggenName = Player.getTalentName(talent)
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
-    for (var i = 0; i < linggenname.length; i++) {
-      name = name + linggenname[i]
+    for (var i = 0; i < linggenName.length; i++) {
+      name = name + linggenName[i]
     }
     let size = Math.trunc(talent.talentsize)
     if (talent.talentshow != 0) {
@@ -40,15 +36,29 @@ class Information {
     } else {
       size = `+${size}%`
     }
+    const LevelList = listdata.controlAction({
+      CHOICE: 'fixed_levels',
+      NAME: 'gaspractice'
+    })
+    const LevelMaxList = listdata.controlAction({
+      CHOICE: 'fixed_levels',
+      NAME: 'bodypractice'
+    })
     return {
       path: 'user/information',
       name: 'information',
       data: {
         UID,
         life: LifeData[UID],
-        player,
-        level,
-        linggenname: name,
+        player: {},
+        level: {
+          ...LevelData,
+          levelname: LevelList[LevelData.level.gaspractice.realm].name, // 练气名
+          experience: LevelData.level.gaspractice.experience, // 练气经验
+          levelnamemax: LevelMaxList[LevelData.level.bodypractice.realm].name, // 练体名
+          experiencemax: LevelData.level.bodypractice.experience // 练体经验
+        },
+        linggenName: name,
         battle,
         equipment,
         talent,
@@ -72,8 +82,7 @@ class Information {
       NAME: UID,
       CHOICE: 'user_equipment'
     })
-    // tudo
-    let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    const LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     return {
       path: 'user/equipment',
       name: 'equipment',
@@ -95,11 +104,11 @@ class Information {
       NAME: UID,
       CHOICE: 'user_talent'
     })
-    const linggenname = Player.getTalentName(talent)
+    let linggenName = Player.getTalentName(talent)
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
     let name = ''
-    for (var i = 0; i < linggenname.length; i++) {
-      name = name + linggenname[i]
+    for (var i = 0; i < linggenName.length; i++) {
+      name = name + linggenName[i]
     }
     let size = Math.trunc(talent.talentsize)
     if (talent.talentshow != 0) {
@@ -115,7 +124,7 @@ class Information {
       data: {
         UID,
         skills: talent.AllSorcery,
-        linggenname: name,
+        linggenName: name,
         talentsize: size,
         life: LifeData[UID],
         user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
@@ -129,10 +138,6 @@ class Information {
    */
   userBagShow(UID) {
     let LifeData = listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
-    const player = listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'user_player'
-    })
     const battle = listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_battle'
@@ -164,7 +169,7 @@ class Information {
       name: 'bag',
       data: {
         UID,
-        player,
+        player: {},
         life: LifeData[UID],
         battle,
         najie,

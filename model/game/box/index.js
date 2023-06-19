@@ -316,20 +316,20 @@ class Player {
       CHOICE: 'user_equipment',
       NAME: UID
     })
-    const level = listdata.controlAction({
+    const LevelData = listdata.controlAction({
       CHOICE: 'user_level',
       NAME: UID
     })
     const LevelList = listdata.controlAction({
-      CHOICE: 'generate_level',
+      CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
     const LevelMaxList = listdata.controlAction({
-      CHOICE: 'generate_level',
+      CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
-    const levelmini = LevelList.find((item) => item.id == level.levelId)
-    const levelmax = LevelMaxList.find((item) => item.id == level.levelMaxId)
+    const levelmini = LevelList[LevelData.level.gaspractice.realm]
+    const levelmax = LevelMaxList[LevelData.level.bodypractice.realm]
     const UserBattle = listdata.controlAction({
       CHOICE: 'user_battle',
       NAME: UID

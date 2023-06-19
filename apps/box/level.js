@@ -11,21 +11,27 @@ export class BoxLevel extends plugin {
 
   async levelUp(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
-    e.reply('待更新')
+    const res = GameApi.Levels.enhanceRealm(UID, 0)
+    const { msg } = res
+    e.reply(msg)
     return false
   }
 
   async levelMaxUp(e) {
     if (!this.verify(e)) return false
+    const UID = e.user_id
     if (!GameApi.Player.existUserSatus(e.user_id)) {
       e.reply('已仙鹤')
       return false
     }
-    e.reply('待更新')
+    const res = GameApi.Levels.enhanceRealm(UID, 1)
+    const { msg } = res
+    e.reply(msg)
     return false
   }
 }

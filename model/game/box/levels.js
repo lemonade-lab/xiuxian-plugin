@@ -1,21 +1,4 @@
 import listdata from '../data/listdata.js'
-/** 存档模拟 */
-const UserLevel = {
-  gaspractice: {
-    // 经验
-    experience: 0,
-    // 境界
-    realm: 1
-  },
-  bodypractice: {
-    experience: 0,
-    realm: 1
-  },
-  soul: {
-    experience: 0,
-    realm: 1
-  }
-}
 
 class Levels {
   constructor() {
@@ -30,41 +13,60 @@ class Levels {
   }
 
   // 提升境界
-  enhanceRealm(id) {
-    const LevelList = listdata.controlAction({ NAME: 'fixed_levels', CHOICE: this.LEVELMAP[id] })
-    let realm = UserLevel[this.LEVELMAP[id]].realm
+  enhanceRealm(UID, id) {
+    const LevelList = listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
+    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    let realm = UserLevel.level[this.LEVELMAP[id]].realm
     realm += 1
     // 境界上限了
     if (!LevelList[realm]) {
-      return false
+      return {
+        state: 4001,
+        smg: '已达上限'
+      }
     }
-    let experience = UserLevel[this.LEVELMAP[id]].experience
+    let experience = UserLevel.level[this.LEVELMAP[id]].experience
     /** 判断经验够不够 */
     if (experience < LevelList[realm].exp) {
-      return false
+      return {
+        state: 4001,
+        smg: '经验不足'
+      }
     }
     // 减少境界
-    UserLevel[this.LEVELMAP[id]].experience -= experience
+    UserLevel.level[this.LEVELMAP[id]].experience -= experience
     // 调整境界
-    UserLevel[this.LEVELMAP[id]].realm = realm
+    UserLevel.level[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息  */
-    return true
+    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    return {
+      state: 2000,
+      smg: '提升成功'
+    }
   }
 
   // 掉落境界
-  fallingRealm(id) {
+  fallingRealm(UID, id) {
     // 读取境界
-    const LevelList = listdata.controlAction({ NAME: 'fixed_levels', CHOICE: this.LEVELMAP[id] })
-    let realm = UserLevel[this.LEVELMAP[id]].realm
-    realm += 1
+    const LevelList = listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
+    const UserLevel = listdata.controlAction({ NAME: UID, CHOICE: 'user_level' })
+    let realm = UserLevel.level[this.LEVELMAP[id]].realm
+    realm -= 1
     // 已经是最低境界
     if (!LevelList[realm]) {
-      return false
+      return {
+        state: 4001,
+        smg: '已达上限'
+      }
     }
     // 调整境界
-    UserLevel[this.LEVELMAP[id]].realm = realm
+    UserLevel.level[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息 */
-    return true
+    listdata.controlAction({ NAME: UID, CHOICE: 'user_level', DATA: UserLevel })
+    return {
+      state: 2000,
+      smg: '提升成功'
+    }
   }
 }
 

@@ -16,6 +16,7 @@ import Monster from '../game/monster.js'
 import Information from '../game/box/information.js'
 import UserAction from '../game/box/action.js'
 import Player from '../game/box/index.js'
+import Levels from '../game/box/levels.js'
 export const GameApi = {
   Method,
   Place,
@@ -31,5 +32,6 @@ export const GameApi = {
   Monster,
   Battle,
   Information,
-  DataIndex
+  DataIndex,
+  Levels
 }
