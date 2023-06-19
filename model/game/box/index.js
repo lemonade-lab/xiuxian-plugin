@@ -6,9 +6,6 @@ import config from '../data/defset.js'
 import Method from '../wrap/method.js'
 class GameUser {
   startLife() {
-    /**
-     * 旧方法,需要便利才能改
-     */
     const LifeData = listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
@@ -70,6 +67,8 @@ class GameUser {
       NAME: UID,
       CHOICE: 'user_level',
       DATA: {
+        spiritual: 100, // 灵力
+        spiritualUpper: 100, // 灵力上限
         prestige: 0, // 魔力
         levelId: 1, // 练气境界
         levelname: LevelList.find((item) => item.id == 1).name, // 练气名
