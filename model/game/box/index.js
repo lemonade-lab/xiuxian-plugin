@@ -63,14 +63,20 @@ class Player {
         spiritualUpper: 100, // 灵力上限
         prestige: 50, // 魔力
         reputation: 0, // 声望
-        levelId: 1, // 练气境界
-        levelname: LevelList.find((item) => item.id == 1).name, // 练气名
-        experience: 1, // 练气经验
-        levelMaxId: 1, // 练体境界
-        levelnamemax: LevelMaxList.find((item) => item.id == 1).name, // 练体名
-        experiencemax: 1, // 练体经验
-        rankId: 0, // 数组位置
-        rankMaxId: 0 // 数组位置
+        level: {
+          gaspractice: {
+            experience: 0, // 经验
+            realm: 0 // 境界
+          },
+          bodypractice: {
+            experience: 0,
+            realm: 0
+          },
+          soul: {
+            experience: 0,
+            realm: 0
+          }
+        }
       }
     })
     listdata.controlAction({
