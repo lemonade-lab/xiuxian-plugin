@@ -60,19 +60,13 @@ export class BoxSecretplace extends plugin {
     if (!action) return false
     if (action.actionID == 2) {
       GameApi.Wrap.deleteAction(UID)
+      // 取消行为
+      GameApi.GamePlace.setUserTime(UID, 0)
+      // 取消行为
+      clearTimeout(GameApi.GamePlace.getUserAction(UID))
+      e.reply('已回到原地')
       return false
     }
-    /** 返回的时候需要怕判断 */
-    const { state, msg } = GameApi.Wrap.Go(UID)
-    if (state == 4001) {
-      e.reply(msg)
-      return false
-    }
-    // 取消行为
-    GameApi.GamePlace.setUserTime(UID, 0)
-    // 取消行为
-    clearTimeout(GameApi.GamePlace.getUserAction(UID))
-    e.reply('你回到了原地')
     return false
   }
 
