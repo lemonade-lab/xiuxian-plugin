@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { MyDirPath } from '../../../app.Config.js'
+import { MyDirPath } from '../../../app.config.js'
 
 /** 自定义配置 */
 const Configarr = [
@@ -7,17 +7,18 @@ const Configarr = [
   'namelist.yaml',
   'task.yaml',
   'help.yaml',
-  'darkhelp.yaml',
   'admin.yaml',
+  'dark_help.yaml',
+  'dark_admin.yaml',
   'home_help.yaml',
   'home_admin.yaml',
-  'ass_admin.yaml',
-  'ass_help.yaml'
+  'ass_help.yaml',
+  'ass_admin.yaml'
 ]
 
 let defsetpath = `${MyDirPath}/resources/defset`
 
-let Configpath = `${MyDirPath}/Config`
+let Configpath = `${MyDirPath}/config`
 
 class CreateData {
   /**

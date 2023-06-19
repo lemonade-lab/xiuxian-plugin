@@ -25,11 +25,11 @@ export class Homecook extends plugin {
           fnc: 'fabucaipu'
         },
         {
-          reg: /^(#|\/)万民堂$/,
+          reg: /^(#|\/)炼丹阁$/,
           fnc: 'wanmin'
         },
         {
-          reg: /^(#|\/)万民堂购买.*$/,
+          reg: /^(#|\/)炼丹阁购买.*$/,
           fnc: 'wanminbug'
         }
       ]
@@ -181,7 +181,7 @@ export class Homecook extends plugin {
     const shipu = Warehouse.thing.find((item) => item.name === choice)
     if (shipu.proficiency != undefined) {
       if (shipu.proficiency == 0) {
-        e.reply(`试用食谱次数已用完，请前往万民堂发布食谱!`)
+        e.reply(`试用食谱次数已用完，请前往炼丹阁发布食谱!`)
         this.finish('choose_food')
         return false
       }
@@ -471,7 +471,7 @@ export class Homecook extends plugin {
         INITIAL: []
       })
       e.reply(
-        `恭喜你，成功炒出【${food.name}】，消耗${nameIwant}一点耐久度，获得了${name}的试用食谱，熟练度为0，熟练度为100后可前往万民堂申请发布流通食谱`
+        `恭喜你，成功炒出【${food.name}】，消耗${nameIwant}一点耐久度，获得了${name}的试用食谱，熟练度为0，熟练度为100后可前往炼丹阁申请发布流通食谱`
       )
     }, 1000 * time1)
     e.reply(`正在给你制作【${name1}】...\n预计需要${time1}秒`)
@@ -581,7 +581,7 @@ export class Homecook extends plugin {
       return false
     }
     const action = GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
-    const addressName = '万民堂'
+    const addressName = '炼丹阁'
     const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}才能发布`)
@@ -647,7 +647,7 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     e.reply(
-      `恭喜${UID}成功在万民堂发布一份食谱，玩家可前往万民堂购买，发布者可获得50%出售收益的版权费`
+      `恭喜${UID}成功在炼丹阁发布一份食谱，玩家可前往炼丹阁购买，发布者可获得50%出售收益的版权费`
     )
     return false
   }
@@ -666,13 +666,13 @@ export class Homecook extends plugin {
       return false
     }
     const action = GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
-    const addressName = '万民堂'
+    const addressName = '炼丹阁'
     const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}`)
       return false
     }
-    let msg = ['___[万民堂]___\n#万民堂购买+物品名']
+    let msg = ['___[炼丹阁]___\n#炼丹阁购买+物品名']
     let wanmin = HomeApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
@@ -698,13 +698,13 @@ export class Homecook extends plugin {
       return false
     }
     const action = GameApi.UserData.controlAction({ CHOICE: 'user_action', NAME: UID })
-    const addressName = '万民堂'
+    const addressName = '炼丹阁'
     const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}才能购买`)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)万民堂购买/, '')
+    let thing = e.msg.replace(/^(#|\/)炼丹阁购买/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let shipu = HomeApi.GP.homeexistWarehouseThingName({ UID, thingName })
@@ -757,13 +757,13 @@ export class Homecook extends plugin {
     HomeApi.GP.addDoge({ UID, money: -commoditiesDoge })
     if (ifexist.qq == UID) {
       e.reply(
-        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从万民堂购买了[${thingName}]`
+        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]`
       )
       return false
     } else {
       HomeApi.GP.addDoge({ UID: ifexist.qq, money })
       e.reply(
-        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从万民堂购买了[${thingName}]，食谱提供者：${ifexist.qq} 获得了${money}版权费`
+        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]，食谱提供者：${ifexist.qq} 获得了${money}版权费`
       )
       return false
     }
@@ -827,7 +827,7 @@ export class Homecook extends plugin {
     let tiaoliao = shipu.tiaoliao
     if (shipu.proficiency != undefined) {
       if (shipu.proficiency < 1) {
-        e.reply(`试用食谱次数已用完，请前往万民堂发布食谱!`)
+        e.reply(`试用食谱次数已用完，请前往炼丹阁发布食谱!`)
         return false
       }
       if (shipu.proficiency < quantity) {

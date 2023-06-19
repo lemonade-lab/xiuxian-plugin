@@ -2,8 +2,7 @@ import Listdata from '../data/listdata.js'
 import Wrap from '../wrap/index.js'
 import User from './user.js'
 class UserAction {
-  userextensionhome(parameter) {
-    const UID = parameter
+  userextensionhome(UID) {
     const home = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_user'

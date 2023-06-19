@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { AppName, MyDirPath } from './app.Config.js'
+import { AppName, MyDirPath } from './app.config.js'
 import createdata from './model/game/data/createdata.js'
 
 /** 检测配置 */

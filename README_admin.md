@@ -26,7 +26,7 @@
 
 运行后，运行后，运行后！再进行配置
 
-> Config/parameter/namelist.yaml
+> config/parameter/namelist.yaml
 
 群聊中发送指令`#修仙启动@2.1`
 
