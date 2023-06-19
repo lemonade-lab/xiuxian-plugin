@@ -2,22 +2,22 @@
   list:
     - icon: 8
       title: '(#|/)踏入仙途'
-      desc: '创建存档，转世重生'
+      desc: '创建存档'
     - icon: 8
       title: '(#|/)再入仙途'
       desc: '转世重生'
     - icon: 14
-      title: '(#|/)更改道号张三'
-      desc: '修改道号,个性签名'
+      title: '(#|/)更改道号+字符'
+      desc: '修改道号'
     - icon: 14
-      title: '(#|/)更改道宣'
-      desc: '修改道号,个性签名'
+      title: '(#|/)更改道宣+字符'
+      desc: '个性签名'
     - icon: 52
       title: '(#|/)储物袋'
-      desc: '物品查询,容量提升'
+      desc: '物品查询'
     - icon: 52
       title: '(#|/)储物袋升级'
-      desc: '物品查询,容量提升'
+      desc: '容量提升'
 
 - group:
   list:
@@ -91,7 +91,7 @@
 - group:
   list:
     - icon: 8
-      title: '(#|/)基础信息'
+      title: '(#|/)个人信息'
       desc: '你的身世'
     - icon: 16
       title: '(#|/)面板信息'

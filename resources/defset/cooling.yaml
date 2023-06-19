@@ -50,7 +50,7 @@ work:
   time: 10
 
 # 纳戒存储量
-najie_num:
+najieNum:
   - 20000
   - 50000
   - 100000

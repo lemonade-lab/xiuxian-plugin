@@ -9,7 +9,6 @@ const Configarr = [
   'help.yaml',
   'darkhelp.yaml',
   'admin.yaml',
-  'time.yaml',
   'home_help.yaml',
   'home_admin.yaml',
   'ass_admin.yaml',

@@ -190,16 +190,21 @@ export class BoxTransaction extends plugin {
       NAME: UID,
       CHOICE: 'user_bag'
     })
-    let money = Number(0)
+    let money = 0
     const arr = []
-    bag.thing.forEach((item, index) => {
+    for (let item of bag.thing) {
       const id = item.id.split('-')
       if (id[0] == maptype[type]) {
-        money += Number(item.acount * item.price)
+        if (!isNaN(item.acount) && !isNaN(item.price)) {
+          money += item.acount * item.price
+        }
       } else {
         arr.push(item)
       }
-    })
+    }
+    if (isNaN(money)) {
+      return false
+    }
     if (money == 0) {
       return false
     }

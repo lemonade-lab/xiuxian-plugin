@@ -3,7 +3,7 @@ export class BoxInformation extends plugin {
   constructor() {
     super({
       rule: [
-        { reg: /^(#|\/)基础信息$/, fnc: 'showUserMsg' },
+        { reg: /^(#|\/)个人信息$/, fnc: 'showUserMsg' },
         { reg: /^(#|\/)面板信息$/, fnc: 'showQquipment' },
         { reg: /^(#|\/)功法信息$/, fnc: 'showTalent' }
       ]

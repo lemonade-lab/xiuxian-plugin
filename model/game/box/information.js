@@ -2,7 +2,7 @@ import Listdata from '../data/listdata.js'
 import Talent from './talent.js'
 class Information {
   /**
-   * 基础信息
+   * 个人信息
    * @param UID  param0
    * @returns
    */
