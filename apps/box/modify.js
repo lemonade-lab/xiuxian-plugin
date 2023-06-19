@@ -34,16 +34,16 @@ export class BoxModify extends plugin {
       return false
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
-    const life = GameApi.UserData.controlActionInitial({
+    const LifeData = GameApi.UserData.controlActionInitial({
       NAME: 'life',
       CHOICE: 'user_life',
       INITIAL: {}
     })
-    life[UID].name = theName
+    LifeData[UID].name = theName
     GameApi.UserData.controlAction({
       NAME: 'life',
       CHOICE: 'user_life',
-      DATA: life
+      DATA: LifeData
     })
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
@@ -55,10 +55,6 @@ export class BoxModify extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!modifiyMessage(e)) return false
-    const player = GameApi.UserData.controlAction({
-      NAME: UID,
-      CHOICE: 'user_player'
-    })
     let theMsg = e.msg.replace(/^(#|\/)更改道号/, '')
     if (theMsg.length == 0 || theMsg.length > 50) {
       e.reply('请正确设置,且道宣最多50字符')
@@ -77,11 +73,16 @@ export class BoxModify extends plugin {
       return false
     }
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
-    player.autograph = theMsg
+    const LifeData = GameApi.UserData.controlActionInitial({
+      NAME: 'life',
+      CHOICE: 'user_life',
+      INITIAL: {}
+    })
+    LifeData[UID].autograph = theMsg
     GameApi.UserData.controlAction({
-      NAME: UID,
-      CHOICE: 'user_player',
-      DATA: player
+      NAME: 'life',
+      CHOICE: 'user_life',
+      DATA: LifeData
     })
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))

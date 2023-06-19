@@ -1,0 +1,112 @@
+{
+    "0": {
+        "name": "弱视",
+        "exp": 3200,
+        "attack": 505,
+        "defense": 396,
+        "blood": 2000,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 1
+    },
+    "1": {
+        "name": "入神",
+        "exp": 4800,
+        "attack": 957,
+        "defense": 731,
+        "blood": 3791,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 2
+    },
+    "2": {
+        "name": "坐照",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "3": {
+        "name": "具体",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "4": {
+        "name": "通幽",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "5": {
+        "name": "用智",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "6": {
+        "name": "小巧",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "7": {
+        "name": "斗力",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "8": {
+        "name": "若愚",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    },
+    "9": {
+        "name": "守拙",
+        "exp": 7000,
+        "attack": 1725,
+        "defense": 1283,
+        "blood": 6833,
+        "burst": 0,
+        "burstmax": 25,
+        "size": 1,
+        "speed": 3
+    }
+}

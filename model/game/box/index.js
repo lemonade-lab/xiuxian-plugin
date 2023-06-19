@@ -38,14 +38,6 @@ class Player {
    */
   createBoxPlayer(UID) {
     const NowTime = new Date().getTime()
-    listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'user_player',
-      DATA: {
-        autograph: '无', // 道宣
-        days: 0 // 签到
-      }
-    })
     const LevelList = listdata.controlAction({
       CHOICE: 'generate_level',
       NAME: 'gaspractice'
@@ -147,6 +139,7 @@ class Player {
     })
     LifeData[UID] = {
       name: `${name}`,
+      autograph: '无', // 道宣
       Age: 1, // 年龄
       life: Math.floor(Math.random() * (84 - 60) + 60), // 寿命
       createTime: NowTime, // 创建时间
