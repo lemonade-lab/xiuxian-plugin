@@ -58,11 +58,14 @@
       title: '(#|/)联盟签到'
       desc: '与联盟的道友嘘寒问暖'
     - icon: 22
-      title: '(#|/)联盟商会'
-      desc: '购买特殊物品'
-    - icon: 22
       title: '(#|/)联盟反馈'
       desc: '欢迎反馈游戏问题'
+    - icon: 22
+      title: '(#|/)联盟商会'
+      desc: '查看特殊物品'
+    - icon: 22
+      title: '(#|/)兑换'
+      desc: '兑换系统物品'
 
 - group:
   list:

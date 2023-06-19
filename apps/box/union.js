@@ -5,12 +5,20 @@ export class Boxunion extends plugin {
       rule: [
         { reg: /^(#|\/)联盟报到$/, fnc: 'userCheckin' },
         { reg: /^(#|\/)联盟签到$/, fnc: 'userSignIn' },
-        { reg: /^(#|\/)联盟商会$/, fnc: 'unionShop' }
+        { reg: /^(#|\/)联盟商会$/, fnc: 'unionShop' },
+        { reg: /^(#|\/)兑换[\u4e00-\u9fa5]+\*\d+$/, fnc: 'unionBuy' }
       ]
     })
   }
 
   async unionShop(e) {
+    if (!this.verify(e)) return false
+    if (!UnionMessage(e)) return false
+    e.reply('[尚未开张~]')
+    return false
+  }
+
+  async unionBuy(e) {
     if (!this.verify(e)) return false
     if (!UnionMessage(e)) return false
     e.reply('[尚未开张~]')

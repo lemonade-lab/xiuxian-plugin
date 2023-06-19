@@ -16,11 +16,7 @@ import GameMonster from '../game/monster.js'
 import Information from '../game/box/information.js'
 import UserAction from '../game/box/action.js'
 import GameUser from '../game/box/index.js'
-import Duel from '../game/box/duel.js'
 export const GameApi = {
-  Dll: {
-    Duel
-  },
   Method,
   GamePlace,
   Wrap,

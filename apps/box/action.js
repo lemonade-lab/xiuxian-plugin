@@ -41,7 +41,7 @@ export class BoxAction extends plugin {
     }
     if (x != 1) {
       e.reply(`你看看${thingName}，想想怎么吞都吞不下去吧`)
-      return
+      return false
     }
     switch (id[1]) {
       case '1': {

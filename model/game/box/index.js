@@ -69,7 +69,7 @@ class GameUser {
       DATA: {
         spiritual: 100, // 灵力
         spiritualUpper: 100, // 灵力上限
-        prestige: 0, // 魔力
+        prestige: 50, // 魔力
         levelId: 1, // 练气境界
         levelname: LevelList.find((item) => item.id == 1).name, // 练气名
         experience: 1, // 练气经验
