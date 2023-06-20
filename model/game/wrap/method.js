@@ -103,5 +103,20 @@ class Method {
     }
     return false
   }
+
+  /**
+   * 概率获取器
+   * @param {*} min
+   * @param {*} max
+   * @param {*} percent
+   * @returns
+   */
+  isTrueInRange(min, max, percent) {
+    if (min > max || percent < 0 || percent > 100) {
+      return null // 不合法的输入
+    }
+    const randomNum = Math.floor(Math.random() * (max - min + 1)) + min
+    return randomNum <= (percent / 100) * (max - min + 1) + min
+  }
 }
 export default new Method()

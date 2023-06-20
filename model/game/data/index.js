@@ -103,6 +103,13 @@ class DateIndex {
     genertate.createList(__PATH.generate_all, 'alliancemall', [
       ...genertate.getlist(__PATH.fixed_goods, 'daoju2.json') // 二类道具
     ])
+    /* 命运转盘 */
+    genertate.createList(__PATH.generate_all, 'wheeldisc', [])
+    genertate.createList(__PATH.generate_all, 'wheeldisc', [
+      ...genertate.getlist(__PATH.fixed_goods, 'daoju2.json'), // 二类道具
+      ...genertate.getlist(__PATH.fixed_goods, 'danyao2.json'), // 二类丹药
+      ...genertate.getlist(__PATH.fixed_goods, 'gongfa2.json') // 二类功法
+    ])
     /** 怪物掉落 */
     genertate.createList(__PATH.generate_all, 'dropsItem', [])
     genertate.createList(__PATH.generate_all, 'dropsItem', [
