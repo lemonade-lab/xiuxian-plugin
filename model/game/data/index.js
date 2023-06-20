@@ -87,16 +87,21 @@ class DateIndex {
       ...genertate.getlist(__PATH.fixed_point, 'json')
     ])
     /** 全物品数据 */
-    genertate.createList(__PATH.generate_all, 'all', [])
-    genertate.createList(__PATH.generate_all, 'all', [
+    genertate.createList(__PATH.generate_all, 'goods', [])
+    genertate.createList(__PATH.generate_all, 'goods', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'), // 物品
       ...genertate.getlist(__PATH.fixed_goods, 'json'), // 装备
       ...genertate.getlist(__PATH.assProduct, 'json') // 宗门系列
     ])
-    /** 万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备 */
+    /** 万宝楼：回血丹与基础的新手装备 */
     genertate.createList(__PATH.generate_all, 'commodities', [])
     genertate.createList(__PATH.generate_all, 'commodities', [
-      ...genertate.getlist(__PATH.fixed_goods, '0.json') // 0标记可购买的物品
+      ...genertate.getlist(__PATH.fixed_goods, '0.json') // 一类丹药
+    ])
+    /** 联盟商城 */
+    genertate.createList(__PATH.generate_all, 'alliancemall', [])
+    genertate.createList(__PATH.generate_all, 'alliancemall', [
+      ...genertate.getlist(__PATH.fixed_goods, 'daoju2.json') // 二类道具
     ])
     /** 怪物掉落 */
     genertate.createList(__PATH.generate_all, 'dropsItem', [])

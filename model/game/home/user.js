@@ -786,11 +786,11 @@ class GP {
    * @returns
    */
   homeexistAllThingByName(name) {
-    const all = Listdata.controlAction({
+    const goods = Listdata.controlAction({
       CHOICE: 'generate_all',
-      NAME: 'all'
+      NAME: 'goods'
     })
-    const ifexist = all.find((item) => item.name == name)
+    const ifexist = goods.find((item) => item.name == name)
     if (ifexist == undefined) {
       return 1
     }
@@ -803,11 +803,11 @@ class GP {
    * @returns
    */
   homeexistAllThingById({ id }) {
-    const all = Listdata.controlAction({
+    const goods = Listdata.controlAction({
       CHOICE: 'generate_all',
-      NAME: 'all'
+      NAME: 'goods'
     })
-    const ifexist = all.find((item) => item.id == id)
+    const ifexist = goods.find((item) => item.id == id)
     if (ifexist == undefined) {
       return 1
     }

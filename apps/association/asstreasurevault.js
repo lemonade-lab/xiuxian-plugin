@@ -9,7 +9,7 @@ export class assTreasure extends plugin {
           fnc: 'treasureCabinetList'
         },
         {
-          reg: /^(#|\/)兑换.*$/,
+          reg: /^(#|\/)置换.*$/,
           fnc: 'convertedLtem'
         },
         {
@@ -174,7 +174,7 @@ export class assTreasure extends plugin {
     return false
   }
 
-  // 兑换
+  // 置换
   async convertedLtem(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -195,7 +195,7 @@ export class assTreasure extends plugin {
       NAME: assGP.AID,
       CHOICE: 'association'
     })
-    const thingName = e.msg.replace(/^(#|\/)兑换/, '')
+    const thingName = e.msg.replace(/^(#|\/)置换/, '')
 
     if (ass.facility[1].status == 0 || thingName == '') {
       return false
@@ -253,7 +253,7 @@ export class assTreasure extends plugin {
       name: addThing.name,
       ACCOUNT: 1
     })
-    e.reply(`兑换成功！！！`)
+    e.reply(`置换成功！！！`)
     return false
   }
 

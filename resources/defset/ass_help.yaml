@@ -49,8 +49,8 @@
       title: '#藏宝阁'
       desc: '查看宗门藏宝阁有什么'
     - icon: help-icon_87
-      title: '#兑换xxx'
-      desc: '从藏宝阁中买东西'
+      title: '#置换xxx'
+      desc: '藏宝阁中置换东西'
     - icon: help-icon_58
       title: '#藏宝阁回收xxx'
       desc: '将物品卖给藏宝阁换取贡献点'

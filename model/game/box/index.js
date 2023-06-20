@@ -14,7 +14,7 @@ class GP {
 
   getTypeThing(position, type) {
     const dropsItemList = Listdata.controlAction({
-      NAME: 'all',
+      NAME: 'goods',
       CHOICE: 'generate_all'
     })
     const sum = []
@@ -29,7 +29,7 @@ class GP {
 
   randomTypeThing(position, type) {
     const dropsItemList = Listdata.controlAction({
-      NAME: 'all',
+      NAME: 'goods',
       CHOICE: 'generate_all'
     })
     const sum = []
@@ -144,8 +144,8 @@ class GP {
    * @returns
    */
   searchThingById(id) {
-    const newVar = Listdata.controlAction({ NAME: 'all', CHOICE: 'generate_all' })
-    return newVar.find((item) => item.id == id)
+    const goods = Listdata.controlAction({ NAME: 'goods', CHOICE: 'generate_all' })
+    return goods.find((item) => item.id == id)
   }
 }
 

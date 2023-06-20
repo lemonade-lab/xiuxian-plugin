@@ -1,4 +1,4 @@
-import { GameApi, plugin } from '../../model/api/index.js'
+import { GameApi, BotApi, plugin } from '../../model/api/index.js'
 export class Boxunion extends plugin {
   constructor() {
     super({
@@ -14,7 +14,52 @@ export class Boxunion extends plugin {
   async unionShop(e) {
     if (!this.verify(e)) return false
     if (!UnionMessage(e)) return false
-    e.reply('[尚未开张~]')
+    const msg = ['___[联盟商会]___']
+    msg.push('[(#|/)兑换+物品名*数量]')
+    const commoditiesList = GameApi.Listdata.controlAction({
+      NAME: 'alliancemall',
+      CHOICE: 'generate_all'
+    })
+    for (let item of commoditiesList) {
+      const id = item.id.split('-')
+      switch (id[0]) {
+        case '1': {
+          msg.push(`物品:${item.name}\n攻击:${item.attack}%\n声望:${item.price}`)
+          break
+        }
+        case '2': {
+          msg.push(`物品:${item.name}\n防御:${item.defense}%\n声望:${item.price}`)
+          break
+        }
+        case '3': {
+          msg.push(`物品:${item.name}\n暴伤:${item.burstmax}%\n声望:${item.price}`)
+          break
+        }
+        case '4': {
+          if (id[1] == 1) {
+            msg.push(`物品:${item.name}\n气血:${item.blood}%\n声望:${item.price}`)
+          } else {
+            msg.push(`物品:${item.name}\n修为:${item.experience}\n声望:${item.price}`)
+          }
+          break
+        }
+        case '5': {
+          msg.push(`物品:${item.name}\n天赋:${item.size}%\n声望:${item.price}`)
+          break
+        }
+        case '6': {
+          msg.push(`物品:${item.name}\n声望:${item.price}`)
+          break
+        }
+        default: {
+          break
+        }
+      }
+    }
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
+    )
+    BotApi.Robot.surveySet({ e, isreply })
     return false
   }
 

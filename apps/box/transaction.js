@@ -1,6 +1,6 @@
 import { BotApi, GameApi, plugin } from '../../model/api/index.js'
-/** 购买物品是原价的1.1倍 */
-const ExchangeRate = 1.1
+/** 购买物品是原价的1.2倍 */
+const ExchangeRate = 1.2
 export class BoxTransaction extends plugin {
   constructor() {
     super({
@@ -17,7 +17,8 @@ export class BoxTransaction extends plugin {
   async showComodities(e) {
     if (!this.verify(e)) return false
     if (!transactionMessage(e)) return false
-    const msg = ['___[万宝楼]___\n[(#|/)购买+物品名*数量]']
+    const msg = ['___[万宝楼]___']
+    msg.push('[(#|/)购买+物品名*数量]')
     const commoditiesList = GameApi.Listdata.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
