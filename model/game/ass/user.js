@@ -48,7 +48,7 @@ class GP {
         },
         {
           id: 'Ass000004',
-          name: '天机阁',
+          name: '天机门',
           unchartedName: '天机古楼'
         }
       ]
