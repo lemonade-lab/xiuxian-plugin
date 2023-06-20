@@ -6,7 +6,7 @@ export class AssociationExtend extends plugin {
       rule: [
         {
           reg: /^(#|\/)鉴定宗门令牌$/,
-          fnc: 'identify_token'
+          fnc: 'identifyToken'
         },
         {
           reg: /^(#|\/)宗门玩法存档$/,
@@ -82,7 +82,7 @@ export class AssociationExtend extends plugin {
     return false
   }
 
-  async identify_token(e) {
+  async identifyToken(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

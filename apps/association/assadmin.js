@@ -7,30 +7,30 @@ export class AssociationAdmin extends plugin {
       rule: [
         {
           reg: /^(#|\/)开宗立派$/,
-          fnc: 'Create_association'
+          fnc: 'createAssociation'
         },
         {
           reg: /^(#|\/)(升级宗门|宗门升级)$/,
-          fnc: 'lvup_association'
+          fnc: 'lvupAssociation'
         },
         {
           reg: /^(#|\/)提拔.*$/,
-          fnc: 'Set_appointment'
+          fnc: 'setAppointment'
         },
         {
           reg: /^(#|\/)逐出门派.*$/,
-          fnc: 'Deleteusermax'
+          fnc: 'deleteUserAssociation'
         },
         {
           reg: /^(#|\/)宗门改名.*$/,
-          fnc: 'AssRename'
+          fnc: 'renameAssociation'
         }
       ]
     })
   }
 
   // 判断是否满足创建宗门条件
-  async Create_association(e) {
+  async createAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -213,7 +213,7 @@ export class AssociationAdmin extends plugin {
   }
 
   // 升级宗门
-  async lvup_association(e) {
+  async lvupAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -291,7 +291,7 @@ export class AssociationAdmin extends plugin {
   }
 
   // 任命职位
-  async Set_appointment(e) {
+  async setAppointment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -330,7 +330,7 @@ export class AssociationAdmin extends plugin {
     return false
   }
 
-  async AssRename(e) {
+  async renameAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -355,12 +355,12 @@ export class AssociationAdmin extends plugin {
     }
     ass.spiritStoneAns -= 10000
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
-    AssociationApi.assUser.assRename(ass.id, 1, associationName)
+    AssociationApi.assUser.renameAssociation(ass.id, 1, associationName)
     e.reply(`改名成功，宗门当前名称为${associationName}`)
     return false
   }
 
-  async Deleteusermax(e) {
+  async deleteUserAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

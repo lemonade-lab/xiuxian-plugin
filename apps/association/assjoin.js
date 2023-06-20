@@ -6,29 +6,29 @@ export class AssociationJoin extends plugin {
       rule: [
         {
           reg: /^(#|\/)查看简历.*$/,
-          fnc: 'View_Resume'
+          fnc: 'viewResume'
         },
         {
           reg: /^(#|\/)批准录取.*$/,
-          fnc: 'Approval_Admission'
+          fnc: 'approvalAdmission'
         },
         {
           reg: /^(#|\/)驳回申请.*$/,
-          fnc: 'Denial_Application'
+          fnc: 'denialApplication'
         },
         {
           reg: /^(#|\/)清空志愿$/,
-          fnc: 'Clear_Volunteer'
+          fnc: 'clearVolunteer'
         },
         {
           reg: /^(#|\/)展示所有简历$/,
-          fnc: 'Show_All_Resume'
+          fnc: 'showAllResume'
         }
       ]
     })
   }
 
-  async View_Resume(e) {
+  async viewResume(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -65,7 +65,7 @@ export class AssociationJoin extends plugin {
     return false
   }
 
-  async Clear_Volunteer(e) {
+  async clearVolunteer(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -99,7 +99,7 @@ export class AssociationJoin extends plugin {
     }
   }
 
-  async Approval_Admission(e) {
+  async approvalAdmission(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -145,7 +145,7 @@ export class AssociationJoin extends plugin {
     }
   }
 
-  async Denial_Application(e) {
+  async denialApplication(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -180,7 +180,7 @@ export class AssociationJoin extends plugin {
     return false
   }
 
-  async Show_All_Resume(e) {
+  async showAllResume(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

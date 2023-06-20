@@ -6,25 +6,25 @@ export class AssTreasureVault extends plugin {
       rule: [
         {
           reg: /^(#|\/)(宗门藏宝阁|藏宝阁)$/,
-          fnc: 'List_treasureCabinet'
+          fnc: 'treasureCabinetList'
         },
         {
           reg: /^(#|\/)兑换.*$/,
-          fnc: 'Converted_Item'
+          fnc: 'convertedLtem'
         },
         {
           reg: /^(#|\/)藏宝阁回收.*$/,
-          fnc: 'Reclaim_Item'
+          fnc: 'reclaimItem'
         },
         {
           reg: /^(#|\/)我的贡献$/,
-          fnc: 'Show_Contribute'
+          fnc: 'showContribute'
         }
       ]
     })
   }
 
-  async Reclaim_Item(e) {
+  async reclaimItem(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -75,7 +75,11 @@ export class AssTreasureVault extends plugin {
     assGP.contributionPoints += point
     assGP.historyContribution += point
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-    addNajieThings(searchThing, UID, -1)
+    GameApi.Bag.addBagThing({
+      UID: UID,
+      name: searchThing.name,
+      ACCOUNT: -1
+    })
     e.reply(`回收成功，你获得了${point}点贡献点！`)
 
     const id = searchThing.id.split('-')
@@ -114,7 +118,7 @@ export class AssTreasureVault extends plugin {
   }
 
   // 藏宝阁
-  async List_treasureCabinet(e) {
+  async treasureCabinetList(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -153,7 +157,7 @@ export class AssTreasureVault extends plugin {
   }
 
   // 兑换
-  async Converted_Item(e) {
+  async convertedLtem(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -217,12 +221,16 @@ export class AssTreasureVault extends plugin {
     assGP.contributionPoints -= exchangeThing.redeemPoint
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     const addThing = GameApi.GP.searchThingById(exchangeThing.id)
-    addNajieThings(addThing, UID, 1)
+    GameApi.Bag.addBagThing({
+      UID: UID,
+      name: addThing.name,
+      ACCOUNT: 1
+    })
     e.reply(`兑换成功！！！`)
     return false
   }
 
-  async Show_Contribute(e) {
+  async showContribute(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -239,12 +247,4 @@ export class AssTreasureVault extends plugin {
     )
     return false
   }
-}
-const addNajieThings = (thing, userUID, account) => {
-  GameApi.Bag.addBagThing({
-    UID: userUID,
-    name: thing.name,
-    ACCOUNT: Number(account)
-  })
-  return false
 }

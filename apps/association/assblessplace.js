@@ -6,33 +6,33 @@ export class AssBlessPlace extends plugin {
       rule: [
         {
           reg: /^(#|\/)洞天福地列表$/,
-          fnc: 'List_blessPlace'
+          fnc: 'blessPlaceList'
         },
         {
           reg: /^(#|\/)开采灵脉$/,
-          fnc: 'exploitation_vein'
+          fnc: 'exploitationVein'
         },
         {
           reg: /^(#|\/)入驻洞天.*$/,
-          fnc: 'Settled_Blessed_Place'
+          fnc: 'settledBlessedPlace'
         },
         {
           reg: /^(#|\/)修建.*$/,
-          fnc: 'construction_Guild'
+          fnc: 'constructionGuild'
         },
         {
           reg: /^(#|\/)查看宗门建筑$/,
-          fnc: 'show_Association_Builder'
+          fnc: 'showAssociationBuilder'
         },
         {
           reg: /^(#|\/)集合攻打.*$/,
-          fnc: 'Association_Battle'
+          fnc: 'associationBattle'
         }
       ]
     })
   }
 
-  async Association_Battle(e) {
+  async associationBattle(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -129,7 +129,7 @@ export class AssBlessPlace extends plugin {
   }
 
   // 秘境地点
-  async List_blessPlace(e) {
+  async blessPlaceList(e) {
     if (!this.verify(e)) return false
     let addres = '洞天福地'
     let weizhi = AssociationApi.assUser.blessPlaceList
@@ -137,7 +137,7 @@ export class AssBlessPlace extends plugin {
   }
 
   // 入驻洞天
-  async Settled_Blessed_Place(e) {
+  async settledBlessedPlace(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -194,7 +194,7 @@ export class AssBlessPlace extends plugin {
     return false
   }
 
-  async exploitation_vein(e) {
+  async exploitationVein(e) {
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
@@ -268,7 +268,7 @@ export class AssBlessPlace extends plugin {
     return false
   }
 
-  async construction_Guild(e) {
+  async constructionGuild(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 用户不存在
@@ -352,7 +352,7 @@ export class AssBlessPlace extends plugin {
     return false
   }
 
-  async show_Association_Builder(e) {
+  async showAssociationBuilder(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 用户不存在

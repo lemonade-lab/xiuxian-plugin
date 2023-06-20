@@ -149,7 +149,7 @@ class GP {
    * @param {*} type
    * @param {*} associationName
    */
-  assRename(ass, type, associationName) {
+  renameAssociation(ass, type, associationName) {
     let assRelation = this.assRelationList
     const find = assRelation.find((item) => item.id == ass)
     const location = assRelation.findIndex((item) => item.id == ass)

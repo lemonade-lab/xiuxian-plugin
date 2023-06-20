@@ -10,11 +10,11 @@ export class AssociationJobUp extends plugin {
         },
         {
           reg: /^(#|\/)谋权篡位$/,
-          fnc: 'Commit_Regicide'
+          fnc: 'commitRegicide'
         },
         {
           reg: /^(#|\/)发起职位挑战.*$/,
-          fnc: 'Launch_Job_Challenge'
+          fnc: 'launchJobChallenge'
         }
       ]
     })
@@ -38,7 +38,7 @@ export class AssociationJobUp extends plugin {
     return false
   }
 
-  async Commit_Regicide(e) {
+  async commitRegicide(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -104,7 +104,7 @@ export class AssociationJobUp extends plugin {
     return false
   }
 
-  async Launch_Job_Challenge(e) {
+  async launchJobChallenge(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

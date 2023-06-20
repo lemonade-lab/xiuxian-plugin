@@ -6,39 +6,41 @@ export class Association extends plugin {
       rule: [
         {
           reg: /^(#|\/)申请加入.*$/,
-          fnc: 'Join_association'
+          fnc: 'JoinAssociation'
         },
         {
           reg: /^(#|\/)退出宗门$/,
-          fnc: 'Exit_association'
+          fnc: 'ExitAssociation'
         },
         {
           reg: /^(#|\/)宗门(上交|上缴|捐赠)灵石.*$/,
-          fnc: 'give_association_lingshi'
+          fnc: 'giveAssociationMoney'
         },
         {
           reg: /^(#|\/)宗门俸禄$/,
-          fnc: 'gift_association'
+          fnc: 'giftAssociation'
         },
         {
           reg: /^(#|\/)(宗门列表)$/,
-          fnc: 'List_appointment'
+          fnc: 'appointmentList'
         },
         {
           reg: /^(#|\/)我的宗门$/,
-          fnc: 'show_association'
+          fnc: 'showAssociation'
         }
       ]
     })
   }
 
-  async show_association(e) {
+  async showAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
+    // 宗门存档验证
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !e.isGroup) {
       return false
     }
+    // 数据验证
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
     if (assGP.assName == 0) {
       return false
@@ -75,7 +77,7 @@ export class Association extends plugin {
   }
 
   // 宗门俸禄
-  async gift_association(e) {
+  async giftAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -126,7 +128,7 @@ export class Association extends plugin {
   }
 
   // 加入宗门
-  async Join_association(e) {
+  async JoinAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -164,7 +166,7 @@ export class Association extends plugin {
   }
 
   // 退出宗门
-  async Exit_association(e) {
+  async ExitAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -225,7 +227,7 @@ export class Association extends plugin {
   }
 
   // 捐赠灵石
-  async give_association_lingshi(e) {
+  async giveAssociationMoney(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -282,7 +284,7 @@ export class Association extends plugin {
   }
 
   // 宗门列表
-  async List_appointment(e) {
+  async appointmentList(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

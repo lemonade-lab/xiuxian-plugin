@@ -6,37 +6,37 @@ export class AssUncharted extends plugin {
       rule: [
         {
           reg: /^(#|\/)宗门秘境列表$/,
-          fnc: 'List_AssUncharted'
+          fnc: 'assUnchartedList'
         },
         {
           reg: /^(#|\/)探索宗门秘境.*$/,
-          fnc: 'Go_Guild_Secrets'
+          fnc: 'goGuildSecrets'
         },
         {
           reg: /^(#|\/)秘境移动向.*$/,
-          fnc: 'Labyrinth_Move'
+          fnc: 'labyrinthMove'
         },
         {
           reg: /^(#|\/)宗门秘境更名.*$/,
-          fnc: 'Rename_AssUncharted'
+          fnc: 'renameAssUncharted'
         },
         {
           reg: /^(#|\/)查看秘境收获$/,
-          fnc: 'Show_Uncharted_Gain'
+          fnc: 'showUnchartedGain'
         },
         {
           reg: /^(#|\/)开启宝箱$/,
-          fnc: 'Open_The_Chest'
+          fnc: 'openChest'
         },
         {
           reg: /^(#|\/)逃离秘境$/,
-          fnc: 'Escape_Uncharted'
+          fnc: 'escapeUncharted'
         }
       ]
     })
   }
 
-  async List_AssUncharted(e) {
+  async assUnchartedList(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 无存档
@@ -61,7 +61,7 @@ export class AssUncharted extends plugin {
     GoAssUncharted(e, weizhi, addres)
   }
 
-  async Go_Guild_Secrets(e) {
+  async goGuildSecrets(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const { state, msg } = GameApi.Wrap.Go(UID)
@@ -183,7 +183,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  async Labyrinth_Move(e) {
+  async labyrinthMove(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -383,7 +383,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  async Rename_AssUncharted(e) {
+  async renameAssUncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -416,12 +416,12 @@ export class AssUncharted extends plugin {
       e.reply(`秘境不允许重名`)
       return false
     }
-    AssociationApi.assUser.assRename(assGP.assName, 2, newName)
+    AssociationApi.assUser.renameAssociation(assGP.assName, 2, newName)
     e.reply(`宗门秘境已成功更名为${newName}`)
     return false
   }
 
-  async Show_Uncharted_Gain(e) {
+  async showUnchartedGain(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -449,7 +449,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  async Open_The_Chest(e) {
+  async openChest(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -487,13 +487,17 @@ export class AssUncharted extends plugin {
           if (!addThing) {
             addThing = GameApi.GP.searchThingById('6-1-2')
           }
-          addNajieThings(addThing, UID, 1)
+          GameApi.Bag.addBagThing({
+            UID: UID,
+            name: addThing.name,
+            ACCOUNT: 1
+          })
           msg.push(`你获得了${addThing.name}`)
         } else {
           GameApi.Bag.addBagThing({
             UID,
             name: '下品灵石',
-            ACCOUNT: Number(lastNum * 100)
+            ACCOUNT: lastNum * 100
           })
           msg.push(`你获得了${lastNum * 100}下品灵石`)
         }
@@ -508,7 +512,7 @@ export class AssUncharted extends plugin {
     return false
   }
 
-  async Escape_Uncharted(e) {
+  async escapeUncharted(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -542,17 +546,19 @@ export class AssUncharted extends plugin {
           if (!addThing) {
             addThing = GameApi.GP.searchThingById('6-1-2')
           }
-          addNajieThings(addThing, UID, 1)
-          e.reply(`你获得了${addThing.name}`)
         } else {
           const location = Math.trunc(Math.random() * idList.length)
           let addThing = GameApi.GP.searchThingById(idList[location])
           if (!addThing) {
             addThing = GameApi.GP.searchThingById('6-1-2')
           }
-          addNajieThings(addThing, UID, 1)
-          e.reply(`你获得了${addThing.name}`)
         }
+        GameApi.Bag.addBagThing({
+          UID: UID,
+          name: addThing.name,
+          ACCOUNT: 1
+        })
+        e.reply(`你获得了${addThing.name}`)
       }
       AssociationApi.assUser.deleteAss('interimArchive', UID)
     }
@@ -587,12 +593,4 @@ async function GoAssUncharted(e, weizhi, addres) {
     )
   }
   e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
-}
-const addNajieThings = (thing, userUID, account) => {
-  GameApi.Bag.addBagThing({
-    UID: userUID,
-    name: thing.name,
-    ACCOUNT: Number(account)
-  })
-  return false
 }
