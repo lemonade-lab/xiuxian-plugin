@@ -45,7 +45,7 @@ export class BoxAction extends plugin {
     }
     const LevelData = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     switch (id[1]) {
       case '1': {
@@ -53,7 +53,7 @@ export class BoxAction extends plugin {
         GameApi.Player.updataUserBlood({ UID, SIZE: Number(blood) })
         const battle = GameApi.UserData.controlAction({
           NAME: UID,
-          CHOICE: 'user_battle'
+          CHOICE: 'playerBattle'
         })
         e.reply(
           `成功服用${thingName}，当前血量为：${battle.nowblood}（${Math.trunc(
@@ -159,7 +159,7 @@ export class BoxAction extends plugin {
     }
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     const islearned = talent.AllSorcery.find((item) => item.id == najieThing.id)
     if (islearned) {
@@ -173,7 +173,7 @@ export class BoxAction extends plugin {
     talent.AllSorcery.push(najieThing)
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent',
+      CHOICE: 'playerTalent',
       DATA: talent
     })
     GameApi.Talent.updataEfficiency(UID)
@@ -196,7 +196,7 @@ export class BoxAction extends plugin {
     const thingName = e.msg.replace(/^(#|\/)忘掉/, '')
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     const islearned = talent.AllSorcery.find((item) => item.name == thingName)
     if (!islearned) {
@@ -206,7 +206,7 @@ export class BoxAction extends plugin {
     talent.AllSorcery = talent.AllSorcery.filter((item) => item.name != thingName)
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent',
+      CHOICE: 'playerTalent',
       DATA: talent
     })
     GameApi.Talent.updataEfficiency(UID)
@@ -246,7 +246,7 @@ export class BoxAction extends plugin {
         case '1': {
           const GP = GameApi.UserData.controlAction({
             NAME: UID,
-            CHOICE: 'user_level'
+            CHOICE: 'playerLevel'
           })
           if (GP.levelId >= 10) {
             e.reply('[灵根]已定\n此生不可再洗髓')
@@ -254,12 +254,12 @@ export class BoxAction extends plugin {
           }
           const talent = GameApi.UserData.controlAction({
             NAME: UID,
-            CHOICE: 'user_talent'
+            CHOICE: 'playerTalent'
           })
           talent.talent = GameApi.Talent.getTalent()
           GameApi.UserData.controlAction({
             NAME: UID,
-            CHOICE: 'user_talent',
+            CHOICE: 'playerTalent',
             DATA: talent
           })
           GameApi.Talent.updataEfficiency(UID)
@@ -271,12 +271,12 @@ export class BoxAction extends plugin {
         case '2': {
           const talent = GameApi.UserData.controlAction({
             NAME: UID,
-            CHOICE: 'user_talent'
+            CHOICE: 'playerTalent'
           })
           talent.talentshow = 0
           GameApi.UserData.controlAction({
             NAME: UID,
-            CHOICE: 'user_talent',
+            CHOICE: 'playerTalent',
             DATA: talent
           })
           const { path, name, data } = GameApi.Information.userDataShow(e.user_id)

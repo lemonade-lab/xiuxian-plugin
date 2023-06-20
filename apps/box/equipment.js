@@ -27,7 +27,7 @@ export class BoxEquipment extends plugin {
     }
     const equipment = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment'
+      CHOICE: 'playerEquipment'
     })
     if (equipment.length >= GameApi.Defset.getConfig({ name: 'cooling' }).myconfig.equipment) {
       return false
@@ -35,7 +35,7 @@ export class BoxEquipment extends plugin {
     equipment.push(najieThing)
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment',
+      CHOICE: 'playerEquipment',
       DATA: equipment
     })
     GameApi.Bag.addBagThing({ UID, name: thingName, ACCOUNT: -1 })
@@ -54,7 +54,7 @@ export class BoxEquipment extends plugin {
     const thingName = e.msg.replace(/^(#|\/)卸下/, '')
     let equipment = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment'
+      CHOICE: 'playerEquipment'
     })
     const islearned = equipment.find((item) => item.name == thingName)
     if (!islearned) {
@@ -71,7 +71,7 @@ export class BoxEquipment extends plugin {
     })
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment',
+      CHOICE: 'playerEquipment',
       DATA: equipment
     })
     GameApi.Bag.addBagThing({ UID, name: thingName, ACCOUNT: 1 })

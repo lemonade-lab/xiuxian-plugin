@@ -166,7 +166,7 @@ export class AssBlessPlace extends plugin {
     // 取洞天点位，是否在位置，在--->是否被占领
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (action.x != point.x || action.y != point.y) {
       e.reply('不在该洞天位置')
@@ -219,7 +219,7 @@ export class AssBlessPlace extends plugin {
     const position = positionList.find((item) => item.name == ass.resident.name)
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (
       action.x < position.x1 ||
@@ -243,7 +243,7 @@ export class AssBlessPlace extends plugin {
     let giftLingshi = 0
     const GP = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     giftLingshi = 500 * ass.resident.level * GP.levelId
 
@@ -278,7 +278,7 @@ export class AssBlessPlace extends plugin {
     }
     const GP = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
     if (assGP.assName == 0) {
@@ -306,7 +306,7 @@ export class AssBlessPlace extends plugin {
     const position = positionList.find((item) => item.name == ass.resident.name)
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (
       action.x < position.x1 ||
@@ -411,7 +411,7 @@ function getFightMember(members, position) {
   for (let i = 0; i < members.length; i++) {
     const action = GameApi.UserData.controlAction({
       NAME: members[i],
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (
       action.x >= position.x1 &&
@@ -438,7 +438,7 @@ function SealingFormation(members) {
   for (let i = 0; i < members.length; i++) {
     const battle = GameApi.UserData.controlAction({
       NAME: members[i],
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     res.nowblood += battle.nowblood
     res.attack += battle.attack
@@ -535,7 +535,7 @@ const AddPrestige = (members) => {
   for (let i = 0; i < members.length; i++) {
     GameApi.GP.updataUser({
       UID: members[i],
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       ATTRIBUTE: 'prestige',
       SIZE: Number(2)
     })

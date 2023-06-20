@@ -9,22 +9,22 @@ class Information {
   userDataShow(UID) {
     const equipment = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment'
+      CHOICE: 'playerEquipment'
     })
     const talent = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     const LevelData = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     const battle = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     let linggenName = Talent.getTalentName(talent)
-    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     let name = ''
     for (var i = 0; i < linggenName.length; i++) {
       name = name + linggenName[i]
@@ -76,13 +76,13 @@ class Information {
   userEquipmentShow(UID) {
     const battle = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     const equipment = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment'
+      CHOICE: 'playerEquipment'
     })
-    const LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    const LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     return {
       path: 'user/equipment',
       name: 'equipment',
@@ -102,10 +102,10 @@ class Information {
   userTalentShow(UID) {
     const talent = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     let linggenName = Talent.getTalentName(talent)
-    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     let name = ''
     for (var i = 0; i < linggenName.length; i++) {
       name = name + linggenName[i]
@@ -136,12 +136,12 @@ class Information {
    * @returns
    */
   addBagThingShow(UID) {
-    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'user_life' })
+    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     const battle = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
-    const najie = Listdata.controlAction({ NAME: UID, CHOICE: 'user_bag' })
+    const najie = Listdata.controlAction({ NAME: UID, CHOICE: 'playerBag' })
     const thing = najie.thing
     const thingList = []
     const danyaoList = []

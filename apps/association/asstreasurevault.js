@@ -49,7 +49,7 @@ export class AssTreasureVault extends plugin {
     const position = positionList.find((item) => item.name == ass.resident.name)
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (
       action.x < position.x1 ||
@@ -180,7 +180,7 @@ export class AssTreasureVault extends plugin {
     const position = positionList.find((item) => item.name == ass.resident.name)
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
 
     if (

@@ -31,7 +31,7 @@ class Battle {
         battleMsg.QQ = 0
         Listdata.controlAction({
           NAME: e.user_id,
-          CHOICE: 'user_battle',
+          CHOICE: 'playerBattle',
           DATA: battleA
         })
         return battleMsg
@@ -98,7 +98,7 @@ class Battle {
     battleMsg.msg.push(`[血量剩余]:${battleA.nowblood}`)
     Listdata.controlAction({
       NAME: e.user_id,
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       DATA: battleA
     })
     return battleMsg
@@ -121,11 +121,11 @@ class Battle {
     }
     const battleA = Listdata.controlAction({
       NAME: A,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     const battleB = Listdata.controlAction({
       NAME: B,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     battleMsg.QQ = A
     if (battleA.speed >= battleB.speed - 5) {
@@ -142,7 +142,7 @@ class Battle {
         BotApi.obtainingImages({ e, data: battleMsg.msg })
         Listdata.controlAction({
           NAME: A,
-          CHOICE: 'user_battle',
+          CHOICE: 'playerBattle',
           DATA: battleA
         })
         return battleMsg.QQ
@@ -154,7 +154,7 @@ class Battle {
         BotApi.obtainingImages({ e, data: battleMsg.msg })
         Listdata.controlAction({
           NAME: B,
-          CHOICE: 'user_battle',
+          CHOICE: 'playerBattle',
           DATA: battleB
         })
         return battleMsg.QQ
@@ -221,12 +221,12 @@ class Battle {
     battleMsg.msg.push(`[血量状态]:${battleA.nowblood}`)
     Listdata.controlAction({
       NAME: A,
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       DATA: battleA
     })
     Listdata.controlAction({
       NAME: B,
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       DATA: battleB
     })
     return battleMsg.QQ
@@ -247,7 +247,7 @@ class Battle {
   Thunderbolt_damage(UID) {
     const talent = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     let Thunderbolt = {
       TAttack: 49040,
@@ -264,7 +264,7 @@ class Battle {
     let n = Math.round(Math.random() * 5 + 5)
     const battle = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     let TAttack = Thunderbolt.TAttack
     let TArpg = Thunderbolt.TArpg

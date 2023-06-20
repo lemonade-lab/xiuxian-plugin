@@ -3,6 +3,7 @@
     {
       "id": "5-1-41",
       "name": "雾隐秘典下",
+      "type": "",
       "privileges": 2,
       "redeemPoint": 1,
       "attack": 0,
@@ -22,6 +23,7 @@
     {
       "id": "5-1-42",
       "name": "雾隐秘典中",
+      "type": "",
       "privileges": 4,
       "redeemPoint": 9,
       "attack": 0,
@@ -41,6 +43,7 @@
     {
       "id": "5-1-43",
       "name": "雾隐秘典上",
+      "type": "",
       "privileges": 7,
       "redeemPoint": 100,
       "attack": 0,

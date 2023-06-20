@@ -109,7 +109,7 @@ export class BoxGPControl extends plugin {
     const UID = userId
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     const buff = Math.floor(talent.talentsize / 100) + Number(1)
     const appSize = GameApi.Defset.getConfig({
@@ -131,14 +131,14 @@ export class BoxGPControl extends plugin {
     }
     GameApi.GP.updataUser({
       UID,
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       ATTRIBUTE: othername,
       SIZE: other
     })
     GameApi.Player.updataUserBlood({ UID, SIZE: Number(90) })
     const LifeData = GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'playerLife'
     })
     msg += '\n[血量状态]90%'
     msg += `\n${name}结束`

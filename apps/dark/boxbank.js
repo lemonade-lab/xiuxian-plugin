@@ -18,12 +18,12 @@ export class BoxBank extends plugin {
     }
     const StorageList = GameApi.UserData.controlActionInitial({
       NAME: 'storage',
-      CHOICE: 'user_bank',
+      CHOICE: 'playerBank',
       INITIAL: {}
     })
     const WhiteBarList = GameApi.UserData.controlActionInitial({
       NAME: 'whiteBar',
-      CHOICE: 'user_bank',
+      CHOICE: 'playerBank',
       INITIAL: {}
     })
     const msg = []

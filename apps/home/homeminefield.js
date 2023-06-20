@@ -60,7 +60,7 @@ export class Homeminefield extends plugin {
     let region2 = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     let region1 = action.region
     if (region2 != region1) {

@@ -35,13 +35,13 @@ export class BoxModify extends plugin {
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     const LifeData = GameApi.UserData.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       INITIAL: {}
     })
     LifeData[UID].name = theName
     GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       DATA: LifeData
     })
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
@@ -73,13 +73,13 @@ export class BoxModify extends plugin {
     GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
     const LifeData = GameApi.UserData.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       INITIAL: {}
     })
     LifeData[UID].autograph = theMsg
     GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       DATA: LifeData
     })
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)

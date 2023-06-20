@@ -36,7 +36,7 @@ export class BoxBag extends plugin {
     }
     const najie = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     const najiePrice = GameApi.Defset.getConfig({
       name: 'cooling'
@@ -55,7 +55,7 @@ export class BoxBag extends plugin {
     najie.grade += 1
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: najie
     })
     GameApi.Bag.addBagThing({

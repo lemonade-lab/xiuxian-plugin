@@ -6,11 +6,11 @@ class Talent {
    */
   updatePanel(UID) {
     const equipment = Listdata.controlAction({
-      CHOICE: 'user_equipment',
+      CHOICE: 'playerEquipment',
       NAME: UID
     })
     const LevelData = Listdata.controlAction({
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       NAME: UID
     })
     const LevelList = Listdata.controlAction({
@@ -24,12 +24,12 @@ class Talent {
     const levelmini = LevelList[LevelData.level.gaspractice.realm]
     const levelmax = LevelMaxList[LevelData.level.bodypractice.realm]
     const UserBattle = Listdata.controlAction({
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       NAME: UID
     })
     let extend = Listdata.controlActionInitial({
       NAME: UID,
-      CHOICE: 'user_extend',
+      CHOICE: 'playerExtend',
       INITIAL: {}
     })
     const panel = {
@@ -97,7 +97,7 @@ class Talent {
       panel.speed * 50
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       DATA: panel
     })
   }
@@ -111,7 +111,7 @@ class Talent {
     try {
       const talent = Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_talent'
+        CHOICE: 'playerTalent'
       })
       const talentSise = {
         gonfa: 0,
@@ -123,7 +123,7 @@ class Talent {
       talentSise.talent = this.talentSize(talent)
       let promise = Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_extend'
+        CHOICE: 'playerExtend'
       })
       promise = Object.values(promise)
       let extend = 0
@@ -133,7 +133,7 @@ class Talent {
       talent.talentsize = talentSise.talent + talentSise.gonfa + extend
       Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_talent',
+        CHOICE: 'playerTalent',
         DATA: talent
       })
       return true
@@ -217,7 +217,7 @@ class Talent {
   addExtendPerpetual({ NAME, FLAG, TYPE, VALUE }) {
     const extend = Listdata.controlActionInitial({
       NAME,
-      CHOICE: 'user_extend',
+      CHOICE: 'playerExtend',
       INITIAL: {}
     })
     if (!extend[FLAG]) {
@@ -235,7 +235,7 @@ class Talent {
       }
     }
     extend[FLAG].perpetual[TYPE] = VALUE
-    Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+    Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
     this.updatePanel(NAME)
   }
 }

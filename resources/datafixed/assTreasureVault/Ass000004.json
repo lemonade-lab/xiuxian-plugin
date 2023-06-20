@@ -3,6 +3,7 @@
     {
       "id": "5-1-50",
       "name": "周衍天经下",
+      "type": "",
       "privileges": 2,
       "redeemPoint": 1,
       "attack": 0,
@@ -22,6 +23,7 @@
     {
       "id": "5-1-51",
       "name": "周衍天经中",
+      "type": "",
       "privileges": 4,
       "redeemPoint": 9,
       "attack": 0,
@@ -41,6 +43,7 @@
     {
       "id": "5-1-52",
       "name": "周衍天经上",
+      "type": "",
       "privileges": 7,
       "redeemPoint": 100,
       "attack": 0,

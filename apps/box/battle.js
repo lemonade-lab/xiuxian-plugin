@@ -42,11 +42,11 @@ export class BoxBattle extends plugin {
     }
     const actionA = GameApi.UserData.controlAction({
       NAME: UIDA,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const actionB = GameApi.UserData.controlAction({
       NAME: UIDB,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (actionA.region != actionB.region) {
       e.reply('此地未找到此人')
@@ -71,12 +71,12 @@ export class BoxBattle extends plugin {
     // 增加
     const Level = GameApi.UserData.controlAction({
       NAME: UIDA,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     Level.prestige += 1
     GameApi.UserData.controlAction({
       NAME: UIDA,
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       DATA: Level
     })
     // 战斗记录
@@ -88,7 +88,7 @@ export class BoxBattle extends plugin {
     user.c = GameApi.Battle.battle({ e, A: UIDA, B: UIDB })
     const LevelB = GameApi.UserData.controlAction({
       NAME: UIDB,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     if (user.c != UIDA) {
       user.c = UIDA
@@ -97,7 +97,7 @@ export class BoxBattle extends plugin {
     }
     const LifeData = GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'playerLife'
     })
     const P = Math.floor(Math.random() * (99 - 1) + 1)
     if (P <= LevelB.prestige) {
@@ -106,7 +106,7 @@ export class BoxBattle extends plugin {
     }
     let bagB = GameApi.UserData.controlAction({
       NAME: user.b,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     if (bagB.thing.length == 0) {
       e.reply(`${LifeData[user.a].name}战胜了${LifeData[user.b].name}`)
@@ -115,7 +115,7 @@ export class BoxBattle extends plugin {
     bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
     GameApi.UserData.controlAction({
       NAME: user.b,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: bagB
     })
     GameApi.Bag.addBagThing({
@@ -138,7 +138,7 @@ export class BoxBattle extends plugin {
     }
     const LevelData = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     const money = 10000 * LevelData.level.gaspractice.realm
     if (money == 0) {
@@ -165,7 +165,7 @@ export class BoxBattle extends plugin {
     LevelData.prestige -= 1
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       DATA: LevelData
     })
     e.reply('[天机门]南宫问天\n为你清除[煞气]*1')

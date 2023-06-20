@@ -32,7 +32,7 @@ class UserAction {
   userLifeUp({ UID, levelId, acount }) {
     const LifeDAta = Listdata.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'playerLife'
     })
     if (acount) {
       LifeDAta[UID].life += acount
@@ -42,7 +42,7 @@ class UserAction {
     const size = LifeDAta[UID].life
     Listdata.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       DATA: LifeDAta
     })
     return { size }
@@ -59,7 +59,7 @@ class UserAction {
     }
     const UserLevel = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     if (UserLevel.levelId != 10) {
       /* 不是渡劫 */
@@ -78,7 +78,7 @@ class UserAction {
   breakLevelUp = ({ UID, choise }) => {
     const GP = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     const Levellist = Listdata.controlAction({
       CHOICE: 'fixed_levels',
@@ -106,7 +106,7 @@ class UserAction {
     }
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       DATA: GP
     })
     user.updatePanel(UID)

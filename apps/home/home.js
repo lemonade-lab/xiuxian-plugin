@@ -95,7 +95,7 @@ export class Homestart extends plugin {
     const address = e.msg.replace(/^(#|\/)建立家园/, '')
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const addressName = '极西联盟'
     const map = GameApi.WrapMap.mapExistence({
@@ -120,7 +120,7 @@ export class Homestart extends plugin {
     const region = PointId[1]
     const level = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     if (level.levelId < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
@@ -175,7 +175,7 @@ export class Homestart extends plugin {
     const region = ifexisthome.region
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const region1 = action.region
     if (region != region1) {
@@ -272,7 +272,7 @@ export class Homestart extends plugin {
     const region = PointId[1]
     const level = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     if (level.levelId < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')

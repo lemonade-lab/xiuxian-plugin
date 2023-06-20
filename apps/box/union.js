@@ -30,7 +30,7 @@ export class Boxunion extends plugin {
     const UID = e.user_id
     if (!UnionMessage(e)) return false
     const SignData = GameApi.UserData.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'sign',
       INITIAL: {}
     })
@@ -54,7 +54,7 @@ export class Boxunion extends plugin {
     SignData[UID].sginMath = NowMath
     // 保存
     GameApi.UserData.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'sign',
       DATA: SignData,
       INITIAL: {}
@@ -85,7 +85,7 @@ export class Boxunion extends plugin {
     if (!UnionMessage(e)) return false
     const LevelData = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     if (LevelData.level.gaspractice.realm != 0) {
       e.reply('[修仙联盟]方正\n前辈莫要开玩笑')
@@ -93,7 +93,7 @@ export class Boxunion extends plugin {
     }
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (action.newnoe != 1) {
       e.reply('[修仙联盟]方正\n道友要不仔细看看自己的储物袋')
@@ -102,7 +102,7 @@ export class Boxunion extends plugin {
     action.newnoe = 0
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action',
+      CHOICE: 'playerAction',
       DATA: action
     })
     const randomthing = GameApi.GP.randomThing()

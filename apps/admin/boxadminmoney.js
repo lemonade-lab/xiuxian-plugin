@@ -35,7 +35,7 @@ export class Boxadminmoney extends plugin {
     })
     const LifeData = GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'playerLife'
     })
     e.reply(`${LifeData[UID]}被扣除${ACCOUNT}[${name}]`)
     return false
@@ -59,7 +59,7 @@ export class Boxadminmoney extends plugin {
     })
     const LifeData = GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'playerLife'
     })
     if (bag) {
       e.reply(`${LifeData[UID].name}获馈赠[${name}]*${ACCOUNT}`)

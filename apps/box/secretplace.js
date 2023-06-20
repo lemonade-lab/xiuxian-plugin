@@ -21,7 +21,7 @@ export class BoxSecretplace extends plugin {
     }
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const isreply = e.reply(`坐标(${action.x},${action.y},${action.z})`)
     BotApi.Robot.surveySet({ e, isreply })
@@ -37,7 +37,7 @@ export class BoxSecretplace extends plugin {
     }
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (action.address != 1) {
       e.reply('你对这里并不了解...')
@@ -99,7 +99,7 @@ export class BoxSecretplace extends plugin {
     /* 检查地点 */
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const x = action.x
     const y = action.y
@@ -118,7 +118,7 @@ export class BoxSecretplace extends plugin {
     const PointId = point.id.split('-')
     const level = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     // 境界不足
     if (level.levelId < PointId[3]) {
@@ -129,7 +129,7 @@ export class BoxSecretplace extends plugin {
     const b = y - my >= 0 ? y - my : my - y
     const battle = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     const the = Math.floor(a + b - (a + b) * battle.speed * 0.01)
     const time = the >= 0 ? the : 1
@@ -145,7 +145,7 @@ export class BoxSecretplace extends plugin {
         action.address = PointId[2]
         GameApi.UserData.controlAction({
           NAME: UID,
-          CHOICE: 'user_action',
+          CHOICE: 'playerAction',
           DATA: action
         })
         e.reply([segment.at(UID), `成功抵达${address}`])
@@ -174,7 +174,7 @@ export class BoxSecretplace extends plugin {
     }
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const x = action.x
     const y = action.y
@@ -190,7 +190,7 @@ export class BoxSecretplace extends plugin {
     const positionID = position.id.split('-')
     const level = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     if (level.levelId < positionID[3]) {
       e.reply('[修仙联盟]守境者\n道友请留步')
@@ -244,7 +244,7 @@ export class BoxSecretplace extends plugin {
       action.address = positionID[2]
       GameApi.UserData.controlAction({
         NAME: UID,
-        CHOICE: 'user_action',
+        CHOICE: 'playerAction',
         DATA: action
       })
       e.reply([segment.at(UID), `成功传送至${address}`])

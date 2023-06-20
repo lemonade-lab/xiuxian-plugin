@@ -144,7 +144,7 @@ export class BoxTransaction extends plugin {
     if (!transactionMessage(e)) return false
     let bag = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     let money = 0
     for (let item of bag.thing) {
@@ -161,7 +161,7 @@ export class BoxTransaction extends plugin {
     bag.thing = []
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: bag
     })
     GameApi.Bag.addBagThing({ UID, name: '下品灵石', ACCOUNT: money })
@@ -188,7 +188,7 @@ export class BoxTransaction extends plugin {
     }
     let bag = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     let money = 0
     const arr = []
@@ -211,7 +211,7 @@ export class BoxTransaction extends plugin {
     bag.thing = arr
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: bag
     })
     GameApi.Bag.addBagThing({ UID, name: '下品灵石', ACCOUNT: money })

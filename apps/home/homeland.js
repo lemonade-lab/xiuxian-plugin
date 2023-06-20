@@ -55,7 +55,7 @@ export class Homeland extends plugin {
     let region = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     let region1 = action.region
     if (region != region1) {
@@ -132,7 +132,7 @@ export class Homeland extends plugin {
     let region = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     let region1 = action.region
     if (region != region1) {
@@ -252,7 +252,7 @@ export class Homeland extends plugin {
     let region = ifexisthome.region
     let action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     let region1 = action.region
     if (region != region1) {
@@ -461,7 +461,7 @@ export class Homeland extends plugin {
     let region = ifexisthome1.region
     let action = GameApi.UserData.controlAction({
       NAME: user.A,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     let region1 = action.region
     if (region != region1) {
@@ -581,7 +581,7 @@ export class Homeland extends plugin {
     let region = ifexisthome1.region
     let action = GameApi.UserData.controlAction({
       NAME: user.A,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     let region1 = action.region
     if (region != region1) {

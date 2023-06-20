@@ -319,7 +319,7 @@ class GP {
     const genY = Math.trunc(Math.random() * 99) + 1
     const a = genX % 10
     const fileName = `${x}-${y}-${a}.json`
-    const dir = `${this.generateUncharted}/${fileName}`
+    const dir = `${this.generate_uncharted}/${fileName}`
     if (!fs.existsSync(dir)) {
       fs.writeFileSync(dir, '[]', 'utf-8', (err) => {
         console.info('写入成功', err)

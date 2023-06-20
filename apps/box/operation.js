@@ -27,11 +27,11 @@ export class BoxMoneyOperation extends plugin {
     }
     const actionA = GameApi.UserData.controlAction({
       NAME: A,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const actionB = GameApi.UserData.controlAction({
       NAME: B,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (actionA.region != actionB.region) {
       return `此地未找到此人`
@@ -70,7 +70,7 @@ export class BoxMoneyOperation extends plugin {
     })
     const LifeData = GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life'
+      CHOICE: 'playerLife'
     })
     e.reply(`"${LifeData[A].name}"赠送了"${LifeData[B].name}"[${name}]*${acount}`)
     return false

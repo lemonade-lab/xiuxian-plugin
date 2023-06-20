@@ -25,7 +25,7 @@ class WrapMap {
   mapAction = ({ UID, addressName }) => {
     const action = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const map = this.mapExistence({
       action,

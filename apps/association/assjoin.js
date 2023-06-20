@@ -43,7 +43,7 @@ export class AssociationJoin extends plugin {
     }
     const joinGP = GameApi.UserData.controlAction({
       NAME: joinQQ,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     const find = ass.applyJoinList.findIndex((item) => item == joinQQ)

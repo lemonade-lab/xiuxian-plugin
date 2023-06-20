@@ -61,7 +61,7 @@ class GP {
   addExtendTimes({ NAME, FLAG, TYPE, VALUE, ENDTIME }) {
     const extend = Listdata.controlActionInitial({
       NAME,
-      CHOICE: 'user_extend',
+      CHOICE: 'playerExtend',
       INITIAL: {}
     })
     if (!extend[FLAG]) {
@@ -85,7 +85,7 @@ class GP {
       extend[FLAG].times[find].timeLimit > time &&
       extend[FLAG].times[find].value >= VALUE
     ) {
-      Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
       this.updatePanel(NAME)
     } else if (
       find != -1 &&
@@ -93,7 +93,7 @@ class GP {
     ) {
       extend[FLAG].times[find].value = VALUE
       extend[FLAG].times[find].timeLimit = ENDTIME
-      Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
       this.updatePanel(NAME)
     } else {
       extend[FLAG].times.push({
@@ -101,7 +101,7 @@ class GP {
         value: VALUE,
         timeLimit: ENDTIME
       })
-      Listdata.controlAction({ NAME, CHOICE: 'user_extend', DATA: extend })
+      Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
       this.updatePanel(NAME)
     }
   }

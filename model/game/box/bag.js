@@ -12,13 +12,13 @@ class Bag {
       name
     })
     if (thing) {
-      let bag = Listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
+      let bag = Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID })
       bag = this.addBagThingAction({
         BAG: bag,
         THING: thing,
         ACCOUNT: Number(ACCOUNT)
       })
-      Listdata.controlAction({ CHOICE: 'user_bag', NAME: UID, DATA: bag })
+      Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID, DATA: bag })
       return true
     }
     return false
@@ -40,7 +40,7 @@ class Bag {
     })
     if (thing) {
       let bag = Listdata.controlAction({
-        CHOICE: 'user_material',
+        CHOICE: 'playerMaterial',
         NAME: UID
       })
       bag = this.updateMaterialAction({
@@ -49,7 +49,7 @@ class Bag {
         ACCOUNT: Number(ACCOUNT)
       })
       Listdata.controlAction({
-        CHOICE: 'user_material',
+        CHOICE: 'playerMaterial',
         NAME: UID,
         DATA: bag
       })
@@ -112,7 +112,7 @@ class Bag {
    */
 
   searchBagByName({ UID, name }) {
-    const bag = Listdata.controlAction({ CHOICE: 'user_bag', NAME: UID })
+    const bag = Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID })
     return bag.thing.find((item) => item.name == name)
   }
 }

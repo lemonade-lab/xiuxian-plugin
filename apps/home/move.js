@@ -41,7 +41,7 @@ export class Homemove extends plugin {
     const region2 = ifexisthome.region
     const action1 = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const region1 = action1.region
     if (region2 != region1) {
@@ -84,7 +84,7 @@ export class Homemove extends plugin {
     })
     let najie = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     najie = HomeApi.GP.addDataThing({
       DATA: najie,
@@ -93,7 +93,7 @@ export class Homemove extends plugin {
     })
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: najie
     })
     e.reply(`数量为${quantity}的${thingName}，成功转移到仓库`)
@@ -125,7 +125,7 @@ export class Homemove extends plugin {
     const region2 = ifexisthome.region
     const action1 = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const region1 = action1.region
     if (region2 != region1) {
@@ -168,7 +168,7 @@ export class Homemove extends plugin {
     })
     let najie = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     najie = HomeApi.GP.addDataThing({
       DATA: najie,
@@ -177,7 +177,7 @@ export class Homemove extends plugin {
     })
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: najie
     })
     e.reply(`数量为${quantity}的${thingName}，成功转移到储物袋`)

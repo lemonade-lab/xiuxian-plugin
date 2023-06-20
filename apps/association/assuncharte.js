@@ -96,7 +96,7 @@ export class AssUncharted extends plugin {
 
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (
       action.x < position.x1 ||
@@ -192,7 +192,7 @@ export class AssUncharted extends plugin {
     }
     const GP = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     if (GP.nowblood <= 1) {
       e.reply('血量不足...')
@@ -264,7 +264,7 @@ export class AssUncharted extends plugin {
     } else if (random < 0.35) {
       GameApi.GP.updataUser({
         UID,
-        CHOICE: 'user_level',
+        CHOICE: 'playerLevel',
         ATTRIBUTE: 'experiencemax',
         SIZE: Number(-150 * interimArchive.incentivesLevel)
       })
@@ -276,7 +276,7 @@ export class AssUncharted extends plugin {
     } else if (random < 0.5) {
       GameApi.GP.updataUser({
         UID,
-        CHOICE: 'user_level',
+        CHOICE: 'playerLevel',
         ATTRIBUTE: 'experience',
         SIZE: Number(-100 * interimArchive.incentivesLevel)
       })
@@ -287,7 +287,7 @@ export class AssUncharted extends plugin {
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
       GameApi.GP.updataUser({
         UID,
-        CHOICE: 'user_level',
+        CHOICE: 'playerLevel',
         ATTRIBUTE: 'experience',
         SIZE: Number(120 * interimArchive.incentivesLevel)
       })
@@ -299,7 +299,7 @@ export class AssUncharted extends plugin {
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
       const battle = GameApi.UserData.controlAction({
         NAME: UID,
-        CHOICE: 'user_battle'
+        CHOICE: 'playerBattle'
       })
       let levelId
       let buff = 1
@@ -345,7 +345,7 @@ export class AssUncharted extends plugin {
       })
       GameApi.GP.updataUser({
         UID,
-        CHOICE: 'user_level',
+        CHOICE: 'playerLevel',
         ATTRIBUTE: 'experiencemax',
         SIZE: Number(250 * interimArchive.incentivesLevel)
       })

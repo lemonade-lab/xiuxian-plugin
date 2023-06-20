@@ -7,16 +7,16 @@ const GPPath = '/xiuxianfile'
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
-  user_extend: algorithm.getFliePath(`${GPPath}/extend`), // 增浮
-  user_action: algorithm.getFliePath(`${GPPath}/action`), // 地图行为
-  user_battle: algorithm.getFliePath(`${GPPath}/battle`), // 战斗
-  user_equipment: algorithm.getFliePath(`${GPPath}/equipment`), // 装备
-  user_level: algorithm.getFliePath(`${GPPath}/level`), // 境界
-  user_talent: algorithm.getFliePath(`${GPPath}/talent`), // 天赋
-  user_bag: algorithm.getFliePath(`${GPPath}/najie`), // 背包
-  user_life: algorithm.getFliePath(`${GPPath}/life`), // 寿命
-  user_material: algorithm.getFliePath(`${GPPath}/material`), //
-  user_bank: algorithm.getFliePath(`${GPPath}/bank`), // 金银坊
+  playerExtend: algorithm.getFliePath(`${GPPath}/extend`), // 增浮
+  playerAction: algorithm.getFliePath(`${GPPath}/action`), // 地图行为
+  playerBattle: algorithm.getFliePath(`${GPPath}/battle`), // 战斗
+  playerEquipment: algorithm.getFliePath(`${GPPath}/equipment`), // 装备
+  playerLevel: algorithm.getFliePath(`${GPPath}/level`), // 境界
+  playerTalent: algorithm.getFliePath(`${GPPath}/talent`), // 天赋
+  playerBag: algorithm.getFliePath(`${GPPath}/najie`), // 背包
+  playerLife: algorithm.getFliePath(`${GPPath}/life`), // 寿命
+  playerMaterial: algorithm.getFliePath(`${GPPath}/material`), //
+  playerBank: algorithm.getFliePath(`${GPPath}/bank`), // 金银坊
   generate_exchange: algorithm.getFliePath(`${GPPath}/exchange`), // 虚空境
   /* 基础数据：插件内 */
   fixed_point: algorithm.getReq('/resources/datafixed/point'), // 点位
@@ -52,17 +52,18 @@ export const __PATH = {
 
   /* 宗门路径 */
 
-  association: algorithm.getReq('/resources/databirth/assItem'), // 玩家存档
   // 用户数据
-  assGP: algorithm.getReq('/resources/databirth/assGP'),
-  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'),
-  interimArchive: algorithm.getReq('/resources/databirth/interimArchive'),
-  generateUncharted: algorithm.getReq('/resources/databirth/generateUncharted'),
+  association: algorithm.getReq('/resources/databirth/assItem'), // 
+  assGP: algorithm.getReq('/resources/databirth/assGP'),  //  
+  interimArchive: algorithm.getReq('/resources/databirth/interimArchive'), // 内部档案
   // 固定数据
-  assRelation: algorithm.getReq('/resources/datafixed/assRelation'),
-  assRelate: algorithm.getReq('/resources/datafixed/assRelate'),
-  assProduct: algorithm.getReq('/resources/datafixed/assProduct'),
-  assDrop: algorithm.getReq('/resources/datafixed/assDrop')
+  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), //秘境-物品
+  assRelation: algorithm.getReq('/resources/datafixed/assRelation'), // 隐藏宗门
+  assRelate: algorithm.getReq('/resources/datafixed/assRelate'),  //物品
+  assProduct: algorithm.getReq('/resources/datafixed/assProduct'),  //令牌
+  assDrop: algorithm.getReq('/resources/datafixed/assDrop'), // 令牌
+
+  generate_uncharted: algorithm.getReq('/resources/databirth/uncharted'),  // 生成
 }
 
 /** 生成游戏数据 */

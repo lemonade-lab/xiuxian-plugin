@@ -31,7 +31,7 @@ export class Boxadminaction extends plugin {
     if (!this.verify(e)) return false
     GameApi.UserData.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       DATA: {}
     })
     GameApi.Wrap.deleteAllReids()

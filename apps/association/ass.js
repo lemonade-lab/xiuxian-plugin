@@ -50,7 +50,7 @@ export class Association extends plugin {
       const qqNum = ass.allMembers[item]
       const GP = GameApi.UserData.controlAction({
         NAME: qqNum,
-        CHOICE: 'user_level'
+        CHOICE: 'playerLevel'
       })
       const assGPA = AssociationApi.assUser.getAssOrGP(1, qqNum)
       msg.push(

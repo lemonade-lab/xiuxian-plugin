@@ -169,7 +169,7 @@ class Wrap {
     }
     const GP = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     if (GP.nowblood <= 1) {
       return {

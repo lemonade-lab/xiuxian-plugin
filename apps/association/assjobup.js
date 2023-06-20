@@ -53,11 +53,11 @@ export class AssociationJobUp extends plugin {
 
     const actionA = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const actionB = GameApi.UserData.controlAction({
       NAME: ass.master,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (actionA.region != actionB.region) {
       e.reply('没有找到宗主的位置！')
@@ -71,7 +71,7 @@ export class AssociationJobUp extends plugin {
     })
     const userLevel = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level'
+      CHOICE: 'playerLevel'
     })
 
     if (victory == UID) {
@@ -98,7 +98,7 @@ export class AssociationJobUp extends plugin {
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       DATA: userLevel
     })
     return false
@@ -138,11 +138,11 @@ export class AssociationJobUp extends plugin {
     }
     const actionA = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const actionB = GameApi.UserData.controlAction({
       NAME: battleQQ,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     if (actionA.region != actionB.region) {
       e.reply('没有找到对方在哪里，无法挑战！')

@@ -8,7 +8,7 @@ class Player {
   startLife() {
     const LifeData = Listdata.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       INITIAL: {}
     })
     // 记录死亡
@@ -23,7 +23,7 @@ class Player {
     }
     Listdata.controlAction({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       DATA: LifeData
     })
     // 清除死亡uid
@@ -48,14 +48,14 @@ class Player {
     })
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       DATA: {
         nowblood: LevelList[0].blood + LevelMaxList[0].blood // 血量
       }
     })
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_level',
+      CHOICE: 'playerLevel',
       DATA: {
         spiritual: 100, // 灵力
         spiritualUpper: 100, // 灵力上限
@@ -89,7 +89,7 @@ class Player {
     }
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_action',
+      CHOICE: 'playerAction',
       DATA: {
         game: 1, // 游戏状态
         Couple: 1, // 双修
@@ -104,7 +104,7 @@ class Player {
     })
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag',
+      CHOICE: 'playerBag',
       DATA: {
         grade: 1,
         lingshimax: 50000, // 废弃
@@ -115,7 +115,7 @@ class Player {
     const newtalent = Talent.getTalent()
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent',
+      CHOICE: 'playerTalent',
       DATA: {
         talent: newtalent, // 灵根
         talentshow: 1, // 显示0,隐藏1
@@ -129,7 +129,7 @@ class Player {
     }
     const name = Method.Anyarray(FullName.full) + Method.Anyarray(FullName.name)
     const LifeData = Listdata.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
     })
@@ -143,14 +143,14 @@ class Player {
     }
     /** 更新用户表 */
     Listdata.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'life',
       DATA: LifeData,
       INITIAL: {}
     })
     // 签到
     const SignData = Listdata.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'sign',
       INITIAL: {}
     })
@@ -161,17 +161,17 @@ class Player {
       sginMath: 0 // 签到的月份,不同月重置size
     }
     Listdata.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'sign',
       DATA: SignData,
       INITIAL: {}
     })
     // 天赋
-    Listdata.controlAction({ NAME: UID, CHOICE: 'user_extend', DATA: {} })
+    Listdata.controlAction({ NAME: UID, CHOICE: 'playerExtend', DATA: {} })
     /** 更新装备 */
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_equipment',
+      CHOICE: 'playerEquipment',
       DATA: []
     })
     /** 更新天赋面板 */
@@ -188,7 +188,7 @@ class Player {
    */
   getUserLife(UID) {
     const LifeData = Listdata.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
     })
@@ -230,7 +230,7 @@ class Player {
   getAllUser() {
     const GPList = []
     const life = Listdata.controlActionInitial({
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
     })
@@ -247,7 +247,7 @@ class Player {
   updataUserBlood({ UID, SIZE }) {
     const battle = Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     battle.nowblood += Math.floor(battle.blood * SIZE * 0.01)
     if (battle.nowblood > battle.blood) {
@@ -255,7 +255,7 @@ class Player {
     }
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle',
+      CHOICE: 'playerBattle',
       DATA: battle
     })
   }

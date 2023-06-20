@@ -35,7 +35,7 @@ export class BoxBattleSite extends plugin {
     const Mname = e.msg.replace(/^(#|\/)击杀/, '')
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const monstersdata = GameApi.Monster.monsterscache(action.region)
     const mon = monstersdata[Mname]
@@ -68,11 +68,11 @@ export class BoxBattleSite extends plugin {
     }
     const battle = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_battle'
+      CHOICE: 'playerBattle'
     })
     const talent = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_talent'
+      CHOICE: 'playerTalent'
     })
     const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
     const battleMsg = GameApi.Battle.monsterbattle({
@@ -91,7 +91,7 @@ export class BoxBattleSite extends plugin {
         const randomthinf = GameApi.GP.randomThing()
         let najie = GameApi.UserData.controlAction({
           NAME: UID,
-          CHOICE: 'user_bag'
+          CHOICE: 'playerBag'
         })
         if (najie.thing.length <= najie.grade * 10) {
           GameApi.Bag.addBagThing({
@@ -109,7 +109,7 @@ export class BoxBattleSite extends plugin {
         msgRight.push(`[气血]*${SIZE}`)
         GameApi.GP.updataUser({
           UID,
-          CHOICE: 'user_level',
+          CHOICE: 'playerLevel',
           ATTRIBUTE: 'experiencemax',
           SIZE
         })
@@ -167,7 +167,7 @@ export class BoxBattleSite extends plugin {
     }
     const action = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_action'
+      CHOICE: 'playerAction'
     })
     const msg = []
     const monster = GameApi.Monster.monsterscache(action.region)

@@ -3,6 +3,7 @@
     {
       "id": "6-1-1",
       "name": "洗根水",
+      "type": "",
       "privileges": 2,
       "redeemPoint": 30,
       "attack": 0,
@@ -20,6 +21,7 @@
     {
       "id": "6-1-2",
       "name": "望灵珠",
+      "type": "",
       "privileges": 2,
       "redeemPoint": 10,
       "attack": 0,
@@ -39,6 +41,7 @@
     {
       "id": "1-1-40",
       "name": "宗门制式剑",
+      "type": "",
       "privileges": 2,
       "redeemPoint": 15,
       "attack": 0,
@@ -56,6 +59,7 @@
     {
       "id": "2-1-40",
       "name": "宗门制式甲",
+      "type": "",
       "privileges": 2,
       "redeemPoint": 15,
       "attack": 0,
@@ -75,6 +79,7 @@
     {
       "id": "3-1-40",
       "name": "宗门的庇护",
+      "type": "",
       "privileges": 5,
       "redeemPoint": 85,
       "attack": 0,

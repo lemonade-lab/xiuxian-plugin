@@ -66,7 +66,7 @@ export class BoxExchange extends plugin {
     const ID = myDate + sum
     const LifeData = GameApi.UserData.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       INITIAL: {}
     })
     if (exchange[LifeData[UID].createTime]) {
@@ -111,7 +111,7 @@ export class BoxExchange extends plugin {
      */
     const LifeData = GameApi.UserData.controlActionInitial({
       NAME: 'life',
-      CHOICE: 'user_life',
+      CHOICE: 'playerLife',
       INITIAL: {}
     })
     /**
@@ -123,7 +123,7 @@ export class BoxExchange extends plugin {
     }
     const najie = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     if (najie.thing.length >= najie.grade * 10) {
       e.reply('储物袋已满')
@@ -182,7 +182,7 @@ export class BoxExchange extends plugin {
     }
     const najie = GameApi.UserData.controlAction({
       NAME: UID,
-      CHOICE: 'user_bag'
+      CHOICE: 'playerBag'
     })
     if (najie.thing.length >= najie.grade * 10) {
       e.reply('储物袋已满')
