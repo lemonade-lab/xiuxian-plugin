@@ -93,7 +93,7 @@ class GP {
 
     // 两边都有存档，但是死了，或者重生了，需要执行插件删档
 
-    // 检车宗门, 先退宗，再重置
+    // 检测宗门, 先退宗，再重置
     if (this.existAss('association', assGP.assName)) {
       // 读取宗门信息
       let ass = Listdata.controlAction({
@@ -170,6 +170,29 @@ class GP {
       DATA: UserData
     })
     return false
+  }
+
+  
+  /**
+   * 获取用户宗门信息或宗门存档
+   * @param assName
+   * @param userUID
+   */
+  getAssOrGP(type, name) {
+    let data
+    const map = {
+      1: 'assGP',
+      2: 'association',
+      3: 'interimArchive',
+      4: 'assTreasureVault'
+    }
+    try {
+      data = fs.readFileSync(path.join(`${__PATH[map[type]]}/${name}.json`), 'utf8')
+    } catch (error) {
+      return 'error'
+    }
+    // 将字符串数据转变成json格式
+    return JSON.parse(data)
   }
 
   /**
