@@ -423,7 +423,10 @@ export class AssBlessPlace extends plugin {
 }
 
 /**
- * 地点查询
+ *
+ * @param {*} e
+ * @param {*} weizhi
+ * @param {*} addres
  */
 async function GoBlessPlace(e, weizhi, addres) {
   let adr = addres
@@ -443,6 +446,12 @@ async function GoBlessPlace(e, weizhi, addres) {
   e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 }
 
+/**
+ *
+ * @param {*} members
+ * @param {*} position
+ * @returns
+ */
 function getFightMember(members, position) {
   let res = []
   for (let i = 0; i < members.length; i++) {
@@ -461,6 +470,12 @@ function getFightMember(members, position) {
   }
   return res
 }
+
+/**
+ *
+ * @param {*} members
+ * @returns
+ */
 function SealingFormation(members) {
   let res = {
     nowblood: 0,
@@ -486,13 +501,21 @@ function SealingFormation(members) {
   }
   return res
 }
+
+/**
+ *
+ * @param {*} e
+ * @param {*} battleA
+ * @param {*} battleB
+ * @returns
+ */
 async function AssBattle(e, battleA, battleB) {
   let msg = []
   let UID = 1
   if (battleA.speed >= battleB.speed) {
     let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 1
 
-    if (battleProbability(battleA.burst)) {
+    if (GameApi.Method.isProbability(battleA.burst)) {
       hurt += Math.floor((hurt * battleA.burstmax) / 100)
     }
     battleB.nowblood = battleB.nowblood - hurt
@@ -524,7 +547,7 @@ async function AssBattle(e, battleA, battleB) {
     }
     // B开始
     let hurt = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 1
-    if (battleProbability(battleB.burst)) {
+    if (GameApi.Method.isProbability(battleB.burst)) {
       hurt += Math.floor((hurt * battleB.burstmax) / 100)
     }
     battleA.nowblood = battleA.nowblood - hurt
@@ -539,7 +562,7 @@ async function AssBattle(e, battleA, battleB) {
     }
     // A开始
     hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 1
-    if (battleProbability(battleA.burst)) {
+    if (GameApi.Method.isProbability(battleA.burst)) {
       hurt += Math.floor((hurt * battleA.burstmax) / 100)
     }
     battleB.nowblood = battleB.nowblood - hurt
@@ -554,27 +577,18 @@ async function AssBattle(e, battleA, battleB) {
   }
   return UID
 }
-// 暴击率
-function battleProbability(P) {
-  if (P > 100) {
-    return true
-  }
-  if (P < 0) {
-    return false
-  }
-  const rand = Math.floor(Math.random() * (100 - 1) + 1)
-  if (P > rand) {
-    return true
-  }
-  return false
-}
+
+/**
+ *
+ * @param {*} members
+ */
 const AddPrestige = (members) => {
   for (let i = 0; i < members.length; i++) {
     GameApi.GP.updataUser({
       UID: members[i],
       CHOICE: 'playerLevel',
       ATTRIBUTE: 'prestige',
-      SIZE: Number(2)
+      SIZE: 2
     })
   }
 }

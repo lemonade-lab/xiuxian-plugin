@@ -84,5 +84,24 @@ class Method {
     const num = isNaN(value) ? 1 : Math.abs(value) || 1
     return num
   }
+
+  /**
+   * 暴击率
+   * @param {*} P
+   * @returns
+   */
+  isProbability(P) {
+    if (P > 100) {
+      return true
+    }
+    if (P < 0) {
+      return false
+    }
+    const rand = Math.floor(Math.random() * (100 - 1) + 1)
+    if (P > rand) {
+      return true
+    }
+    return false
+  }
 }
 export default new Method()

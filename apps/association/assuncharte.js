@@ -606,7 +606,12 @@ export class AssUncharted extends plugin {
     return false
   }
 }
-/** 地点查询 */
+/**
+ *  地点查询
+ * @param {*} e
+ * @param {*} weizhi
+ * @param {*} addres
+ */
 async function GoAssUncharted(e, weizhi, addres) {
   let adr = addres
   let msg = ['***' + adr + '***']

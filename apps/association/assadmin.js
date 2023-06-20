@@ -54,7 +54,7 @@ export class AssociationAdmin extends plugin {
     }
     let money = GameApi.Bag.searchBagByName({ UID, name: '下品灵石' })
     if (!money || money.acount < 10000) {
-      e.reply('开宗立派是需要本钱的,攒到[下品灵石]*10000再来吧')
+      e.reply('攒到[下品灵石]*10000再来吧')
       return false
     }
     let najieThingB = GameApi.Bag.searchBagByName({
@@ -170,7 +170,7 @@ export class AssociationAdmin extends plugin {
       /** 设置上下文 */
       this.setContext('setAssociationName')
       /** 回复 */
-      e.reply('请发送宗门的名字,后续可使用#宗门改名xxx进行修改(宗门名字最多6个中文字符)', false, {
+      e.reply('你要创建的宗门名称是？', false, {
         at: true
       })
       return false
@@ -278,11 +278,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (ass.spiritStoneAns < ass.level * 30000) {
-      e.reply(
-        `本宗门目前灵石池中仅有${ass.spiritStoneAns}灵石,当前宗门升级需要${
-          ass.level * 30000
-        }灵石,数量不足`
-      )
+      e.reply(`${ass.spiritStoneAns}/${ass.level * 30000}数量不足`)
       return false
     }
 
@@ -376,11 +372,11 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     }) // 获取这个B的存档
     if (member.assJob > 5) {
-      e.reply(`他已经是内门弟子了，不能再提拔了`)
+      e.reply(`他已经是内门弟子`)
       return false
     }
     if (member.historyContribution < (member.assJob + 1) * 100) {
-      e.reply(`他的资历太浅，贡献不足，贸然提拔也许不能服众`)
+      e.reply(`他的资历太浅，贡献不足`)
       return false
     }
 
@@ -410,7 +406,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (AssociationApi.assUser.assRelationList.findIndex((item) => item.id == ass.id) <= 3) {
-      e.reply(`请好好继承隐藏宗门的传承吧，就不要想着改名了!!!`)
+      e.reply(`传承宗门,勿忘初心`)
       return false
     }
     let associationName = e.msg.replace(/^(#|\/)宗门改名/, '')
@@ -542,8 +538,9 @@ const getAss = (name, date, nowTime, holderUID, level = 1, spiritStoneAns = 0) =
  * @param name 宗门名称
  * @param holderUID 宗主UID号
  */
-const theAssociation = (name, holderUID) => {
-  const nowTime = new Date().getTime() // 获取当前时间戳
+function theAssociation(name, holderUID) {
+  // 获取当前时间戳
+  const nowTime = new Date().getTime()
   const date = GameApi.Method.timeChange(nowTime)
   const Association = getAss(name, date, nowTime, holderUID)
   const treasureVault = [[], [], []]
