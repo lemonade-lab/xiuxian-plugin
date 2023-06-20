@@ -6,7 +6,7 @@ export class AssociationAdmin extends plugin {
       name: 'AssociationAdmin',
       rule: [
         {
-          reg: /^(#|\/)开宗立派$/,
+          reg: /^(#|\/)开宗立派.*$/,
           fnc: 'createAssociation'
         },
         {
@@ -179,8 +179,7 @@ export class AssociationAdmin extends plugin {
       this.reply('该宗门已经存在,请重新输入:')
       return false
     }
-    const now = new Date().getTime()
-    const nowTime = now.getTime() // 获取当前时间戳
+    const nowTime = new Date().getTime() // 获取当前时间戳
     const date = GameApi.Method.timeChange(nowTime)
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
     const id =
