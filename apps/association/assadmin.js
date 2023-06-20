@@ -81,8 +81,12 @@ export class AssociationAdmin extends plugin {
       // 有中级令牌
       // 判断隐藏宗门是否被占完了
 
-      let assName = []
-      //
+        let assName = [
+      ]
+      AssociationApi.assUser.existAss("association", "Ass000001") ? "" : assName.push("Ass000001"),
+      AssociationApi.assUser.existAss("association", "Ass000002") ? "" : assName.push("Ass000002"),
+      AssociationApi.assUser.existAss("association", "Ass000003") ? "" : assName.push("Ass000003"),
+      AssociationApi.assUser.existAss("association", "Ass000004") ? "" : assName.push("Ass000004")
       if (assName.length != 0) {
         // 可以创建隐藏宗门
         GameApi.Bag.addBagThing({
@@ -95,17 +99,13 @@ export class AssociationAdmin extends plugin {
           name: najieThingB.name,
           ACCOUNT: Number(-1)
         })
-        const now = new Date().getTime()
-        const nowTime = now.getTime() // 获取当前时间戳
+        const nowTime = new Date().getTime() // 获取当前时间戳
         const date = GameApi.Method.timeChange(nowTime)
 
         const location = Math.floor(Math.random() * assName.length)
         const association = getAss(assName[location], date, nowTime, UID, 4, 100000)
 
-        let assGP = GameApi.UserData.controlAction({
-          NAME: UID,
-          CHOICE: 'assGP'
-        })
+        let assGP = AssociationApi.assUser.getAssOrGP(1, UID)
         assGP.assName = assName[location]
         assGP.assJob = 10
         assGP.contributionPoints = 0
@@ -115,6 +115,13 @@ export class AssociationAdmin extends plugin {
         assGP.time = [date, nowTime]
         AssociationApi.assUser.setAssOrGP('association', assName[location], association)
         AssociationApi.assUser.assEffCount(assGP)
+        //写的比较沉余
+        let assthing = AssociationApi.assUser.getread(`assRelate`,'BaseTreasureVault')//普通宗门的
+        let assthin = AssociationApi.assUser.getread(`assassTreasu`,assName[location])//隐藏宗门的
+        for (let i = 0; i <assthin.length; i++) {
+          assthing[i].push.apply(assthin[i])
+        }
+        AssociationApi.assUser.setAssOrGP('assTreasureVault',assName[location], assthing)//存储藏宝阁
         let assRelation = AssociationApi.assUser.assRelationList.find(
           (item) => item.id == assName[location]
         )
@@ -201,7 +208,7 @@ export class AssociationAdmin extends plugin {
     }
     const associationID = 'Ass00000' + replace
 
-    const relation = {
+     const relation = {
       id: associationID,
       name: associationName,
       unchartedName: associationID
@@ -218,6 +225,8 @@ export class AssociationAdmin extends plugin {
     assGP.time = [date, nowTime]
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     theAssociation(associationID, UID)
+    let read = AssociationApi.assUser.getread(`assRelate`,'BaseTreasureVault')
+    AssociationApi.assUser.setAssOrGP('assTreasureVault',associationID, read)//存储藏宝阁
     AssociationApi.assUser.assEffCount(assGP)
     this.reply('宗门创建成功')
     /** 结束上下文 */

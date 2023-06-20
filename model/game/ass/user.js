@@ -117,6 +117,18 @@ class GP {
     this.setAssOrGP('assGP', assGP.qqNumber, assGP)
     Talent.updataEfficiency(assGP.qqNumber)
   }
+  /**读取 */
+    getread(type, name) {
+      let data
+    let type1=__PATH[type]  
+    try {
+      data = fs.readFileSync(path.join(`${type1}/${name}.json`), 'utf8')
+    } catch (error) {
+     return error
+   }
+    // 将字符串数据转变成json格式
+   return JSON.parse(data)
+  }
 
   /**
    *

@@ -52,7 +52,7 @@ export const __PATH = {
   user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
   user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
 
-  /* 宗门路径 */
+   /* 宗门路径 */
 
   // 用户数据
   association: algorithm.getReq('/resources/databirth/assItem'), //
@@ -62,9 +62,10 @@ export const __PATH = {
   generate_uncharted: algorithm.getReq('/resources/databirth/uncharted'), // 生成
 
   // 固定数据
-  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), // 秘境-物品
+  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), // 藏宝阁
   assRelation: algorithm.getReq('/resources/datafixed/assRelation'), // 隐藏宗门
-  assRelate: algorithm.getReq('/resources/datafixed/assRelate'), // 物品
+  assassTreasu: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 隐藏宗门的物品
+  assRelate: algorithm.getReq('/resources/datafixed/assRelate'), // 普通宗门的物品
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 令牌
   assDrop: algorithm.getReq('/resources/datafixed/assDrop') // 令牌
 }
