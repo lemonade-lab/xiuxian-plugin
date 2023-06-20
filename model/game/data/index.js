@@ -52,22 +52,22 @@ export const __PATH = {
   user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
   user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
 
-   /* 宗门路径 */
+  /* 宗门路径 */
 
   // 用户数据
+  assGP: algorithm.getReq('/resources/databirth/assGP'), // 玩家信息
+  assRelation: algorithm.getReq('/resources/databirth/assRelation'), // 玩家宗门存档
+
+  // ??
   association: algorithm.getReq('/resources/databirth/assItem'), //
-  assGP: algorithm.getReq('/resources/databirth/assGP'), //
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'), // 内部档案
-  assTreasure: algorithm.getReq('/resources/databirth/assTreasureVault'), // 宗门
+  assTreasure: algorithm.getReq('/resources/databirth/assTreasure'), // 宗门
   generate_uncharted: algorithm.getReq('/resources/databirth/uncharted'), // 生成
 
   // 固定数据
-  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), // 藏宝阁
-  assRelation: algorithm.getReq('/resources/datafixed/assRelation'), // 隐藏宗门
-  assassTreasu: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 隐藏宗门的物品
-  assRelate: algorithm.getReq('/resources/datafixed/assRelate'), // 普通宗门的物品
-  assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 令牌
-  assDrop: algorithm.getReq('/resources/datafixed/assDrop') // 令牌
+  assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 宗门所有物品
+  assassTreasu: algorithm.getReq('/resources/datafixed/assTreasure'), // 隐藏宗门的藏宝阁
+  assRelate: algorithm.getReq('/resources/datafixed/assRelate') // 宗门相关资料
 }
 
 /** 生成游戏数据 */

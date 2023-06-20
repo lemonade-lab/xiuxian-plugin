@@ -56,14 +56,11 @@ export class BoxExchange extends plugin {
       e.reply(`[${thingName}]不够`)
       return false
     }
-    const myDate = new Date().getTime()
-    const sum = Math.floor(Math.random() * (10 - 1) + 1)
     const exchange = GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: {}
     })
-    const ID = myDate + sum
     const LifeData = GameApi.Listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'playerLife',
@@ -74,7 +71,8 @@ export class BoxExchange extends plugin {
       return false
     }
     exchange[LifeData[UID].createTime] = {
-      ID,
+      UID,
+      ID: LifeData[UID].createTime,
       thing: bagThing,
       account,
       money: money * account
@@ -90,7 +88,7 @@ export class BoxExchange extends plugin {
       name: bagThing.name,
       ACCOUNT: -account
     })
-    e.reply(`成功上架:\n${bagThing.name}*${account}*${money}\n编号:${ID}`)
+    e.reply(`成功上架:\n${bagThing.name}*${account}*${money}\n编号:${LifeData[UID].createTime}`)
     return false
   }
 
@@ -161,10 +159,10 @@ export class BoxExchange extends plugin {
       CHOICE: 'generate_exchange',
       INITIAL: {}
     })
-    for (let item in exchange) {
-      if (exchange[item].ID == ID) {
-        x = ID
-        y = item
+    for (let id in exchange) {
+      if (exchange[id].ID == ID) {
+        x = ID // 编号
+        y = id // 时间搓
       }
     }
     if (x == 888888888 || y == 888888888) {
@@ -188,22 +186,26 @@ export class BoxExchange extends plugin {
       e.reply('储物袋已满')
       return false
     }
+    // 添加物品
     GameApi.Bag.addBagThing({
       UID,
       name: exchange[y].thing.name,
       ACCOUNT: exchange[y].account
     })
+    // 减钱
     GameApi.Bag.addBagThing({
       UID,
       name: '下品灵石',
-      ACCOUNT: -exchange[x].money
+      ACCOUNT: -exchange[y].money
     })
+    // 加钱
     GameApi.Bag.addBagThing({
-      UID: exchange[x].UID,
+      UID: exchange[y].UID,
       name: '下品灵石',
-      ACCOUNT: exchange[x].money
+      ACCOUNT: exchange[y].money
     })
     delete exchange[y]
+    // 更新商城
     GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',

@@ -17,6 +17,18 @@ class Algorithm {
   }
 
   /**
+   * 如果存在则删除指定json文件
+   * @param {*} path
+   * @param {*} name
+   */
+  deleteFile(filePath, fileName) {
+    const dir = `${filePath}/${fileName}.json`
+    if (fs.existsSync(path.join(dir))) {
+      fs.rmSync()
+    }
+  }
+
+  /**
    * @param {地址} path
    * @returns 该地址的子目录数组
    */

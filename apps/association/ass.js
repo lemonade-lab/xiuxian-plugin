@@ -232,7 +232,7 @@ export class Association extends plugin {
     } else {
       if (ass.allMembers.length < 2) {
         AssociationApi.assUser.deleteAss('association', assGP.assName) // 删除宗门
-        AssociationApi.assUser.deleteAss('assTreasureVault', assGP.assName) // 删除藏宝阁
+        AssociationApi.assUser.deleteAss('assTreasure', assGP.assName) // 删除藏宝阁
         assGP.assName = 0
         assGP.assJob = 0
         assGP.favorability = 0

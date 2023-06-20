@@ -1,6 +1,6 @@
 import { plugin, BotApi, GameApi, AssociationApi } from '../../model/api/index.js'
 // 汐颜
-export class AssTreasureVault extends plugin {
+export class assTreasure extends plugin {
   constructor() {
     super({
       rule: [
@@ -94,7 +94,7 @@ export class AssTreasureVault extends plugin {
     }
     const assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
-      CHOICE: 'assTreasureVault'
+      CHOICE: 'assTreasure'
     })
     const length = Math.ceil(ass.level / 3)
     let isExist = false
@@ -121,7 +121,7 @@ export class AssTreasureVault extends plugin {
         redeemPoint: Math.ceil(searchThing.price / 500)
       }
       assTreasureCabinet[location].push(addTing)
-      AssociationApi.assUser.setAssOrGP('assTreasureVault', assGP.assName, assTreasureCabinet)
+      AssociationApi.assUser.setAssOrGP('assTreasure', assGP.assName, assTreasureCabinet)
     }
     return false
   }
@@ -147,7 +147,7 @@ export class AssTreasureVault extends plugin {
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
     let assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
-      CHOICE: 'assTreasureVault'
+      CHOICE: 'assTreasure'
     })
     const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
@@ -223,7 +223,7 @@ export class AssTreasureVault extends plugin {
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
     let assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
-      CHOICE: 'assTreasureVault'
+      CHOICE: 'assTreasure'
     })
     let length = Math.ceil(ass.level / 3)
     let exchangeThing

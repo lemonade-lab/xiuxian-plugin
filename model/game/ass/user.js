@@ -172,7 +172,6 @@ class GP {
     return false
   }
 
-  
   /**
    * 获取用户宗门信息或宗门存档
    * @param assName
@@ -184,7 +183,7 @@ class GP {
       1: 'assGP',
       2: 'association',
       3: 'interimArchive',
-      4: 'assTreasureVault'
+      4: 'assTreasure'
     }
     try {
       data = fs.readFileSync(path.join(`${__PATH[map[type]]}/${name}.json`), 'utf8')
@@ -228,15 +227,6 @@ class GP {
       NAME: itemName,
       CHOICE: fileName,
       DATA: data
-    })
-  }
-
-  /** 读取 */
-  getread(type, name) {
-    // 将字符串数据转变成json格式
-    return Listdata.controlAction({
-      NAME: name,
-      CHOICE: type
     })
   }
 
@@ -394,12 +384,12 @@ class GP {
   }
 
   /**
-   *
+   * 删除指定文件
    * @param {*} path
    * @param {*} name
    */
   deleteAss(path, name) {
-    fs.rmSync(`${__PATH[path]}/${name}.json`)
+    algorithm.deleteFile(__PATH[path], name)
   }
 }
 export default new GP()

@@ -7,7 +7,7 @@ export class Boxshowall extends plugin {
         { reg: /^(#|\/)修仙配置$/, fnc: 'showConfig' },
         { reg: /^(#|\/)修仙管理$/, fnc: 'adminSuper' },
         { reg: /^(#|\/)修仙(帮助|菜单|help|列表)$/, fnc: 'boxhelp' },
-        { reg: /^(#|\/)黑市(帮助|菜单|help|列表)$/, fnc: 'darkhelp' }
+        { reg: /^(#|\/)黑市(帮助|菜单|help|列表)$/, fnc: 'dark_help' }
       ]
     })
   }
@@ -60,9 +60,9 @@ export class Boxshowall extends plugin {
     return false
   }
 
-  async darkhelp(e) {
+  async dark_help(e) {
     if (!this.verify(e)) return false
-    const data = BotApi.getboxhelp({ name: 'darkhelp' })
+    const data = BotApi.getboxhelp({ name: 'dark_help' })
     if (!data) return false
     const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 2, data }))
     BotApi.Robot.surveySet({ e, isreply })

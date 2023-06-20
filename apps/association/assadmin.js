@@ -137,7 +137,7 @@ export class AssociationAdmin extends plugin {
         for (let i = 0; i < assthin.length; i++) {
           assthing[i].push.apply(assthin[i])
         }
-        AssociationApi.assUser.setAssOrGP('assTreasureVault', assName[location], assthing) // 存储藏宝阁
+        AssociationApi.assUser.setAssOrGP('assTreasure', assName[location], assthing) // 存储藏宝阁
         let assRelation = AssociationApi.assUser.assRelationList.find(
           (item) => item.id == assName[location]
         )
@@ -245,7 +245,7 @@ export class AssociationAdmin extends plugin {
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
-    AssociationApi.assUser.setAssOrGP('assTreasureVault', associationID, read) // 存储藏宝阁
+    AssociationApi.assUser.setAssOrGP('assTreasure', associationID, read) // 存储藏宝阁
     AssociationApi.assUser.assEffCount(assGP)
     this.reply('宗门创建成功')
     /** 结束上下文 */
@@ -546,6 +546,6 @@ const theAssociation = (name, holderUID) => {
   const Association = getAss(name, date, nowTime, holderUID)
   const treasureVault = [[], [], []]
   AssociationApi.assUser.setAssOrGP('association', name, Association)
-  AssociationApi.assUser.setAssOrGP('assTreasureVault', name, treasureVault)
+  AssociationApi.assUser.setAssOrGP('assTreasure', name, treasureVault)
   return false
 }
