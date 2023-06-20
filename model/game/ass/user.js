@@ -9,18 +9,22 @@ import { __PATH } from '../data/index.js'
 class GP {
   constructor() {
     // 固定表数据
+    //**驻地 */
     this.blessPlaceList = Listdata.controlAction({
       NAME: 'BlessPlace',
       CHOICE: 'assRelate'
     })
+    //** 隐藏宗门藏宝阁物品*/
     this.baseTreasureVaultList = Listdata.controlAction({
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
+    //** 位置 */
     this.assLabyrinthList = Listdata.controlAction({
       NAME: 'AssLabyrinth',
       CHOICE: 'assRelate'
     })
+    //**宗门 */
     this.assRelationList = Listdata.controlAction({
       NAME: 'AssRelation',
       CHOICE: 'assRelation'
@@ -161,9 +165,7 @@ class GP {
     assRelation.splice(location, 1, find)
     let filePath = __PATH.assRelation
     let dir
-
     dir = path.join(filePath + '/AssRelation.json')
-
     let theARR = JSON.stringify(assRelation, '', '\t') // json转string
     fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
       console.info('写入成功', err)

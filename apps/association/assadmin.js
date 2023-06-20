@@ -78,8 +78,13 @@ export class AssociationAdmin extends plugin {
       // 有中级令牌
       // 判断隐藏宗门是否被占完了
 
-      let assName = []
-
+      let assName = [
+      ]
+      /*AssociationApi.assUser.existAss("association", "Ass000001") ? "" : assName.push("Ass000001"),
+      AssociationApi.assUser.existAss("association", "Ass000002") ? "" : assName.push("Ass000002"),
+      AssociationApi.assUser.existAss("association", "Ass000003") ? "" : assName.push("Ass000003"),
+      AssociationApi.assUser.existAss("association", "Ass000004") ? "" : assName.push("Ass000004")
+      console.log(c)*/
       if (assName.length != 0) {
         // 可以创建隐藏宗门
         GameApi.Bag.addBagThing({
@@ -182,9 +187,14 @@ export class AssociationAdmin extends plugin {
     const nowTime = new Date().getTime() // 获取当前时间戳
     const date = GameApi.Method.timeChange(nowTime)
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
-    const id =
+    let replace =null
+      if(AssociationApi.assUser.assRelationList.length==0){
+        replace = 1
+      }else{
+        const id =
       AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
-    const replace = Number(id.replace('Ass00000', '')) + 1
+         replace = Number(id.replace('Ass00000', '')) + 1
+      }
     const associationID = 'Ass00000' + replace
 
     const relation = {
