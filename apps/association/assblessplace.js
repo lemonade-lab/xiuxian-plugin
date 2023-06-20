@@ -39,7 +39,7 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -55,7 +55,7 @@ export class AssBlessPlace extends plugin {
     }
 
     assName = assRelation.id
-    const battleAss = GameApi.UserData.controlAction({
+    const battleAss = GameApi.Listdata.controlAction({
       NAME: assName,
       CHOICE: 'association'
     })
@@ -63,12 +63,12 @@ export class AssBlessPlace extends plugin {
       return false
     }
     // 读取被攻打的宗门势力范围
-    const attackAss = GameApi.UserData.controlAction({
+    const attackAss = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
 
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -153,14 +153,14 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -172,14 +172,14 @@ export class AssBlessPlace extends plugin {
       e.reply(`[${blessedName}]不存在`)
       return false
     }
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
     const point = positionList.find((item) => item.name == blessedName)
 
     // 取洞天点位，是否在位置，在--->是否被占领
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -192,7 +192,7 @@ export class AssBlessPlace extends plugin {
 
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
-      const thisAss = GameApi.UserData.controlAction({
+      const thisAss = GameApi.Listdata.controlAction({
         NAME: theName,
         CHOICE: 'association'
       })
@@ -219,7 +219,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -227,7 +227,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -236,12 +236,12 @@ export class AssBlessPlace extends plugin {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
       return false
     }
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -265,7 +265,7 @@ export class AssBlessPlace extends plugin {
     assGP.lastExplorTime = nowTime
 
     let giftLingshi = 0
-    const GP = GameApi.UserData.controlAction({
+    const GP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -300,11 +300,11 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const GP = GameApi.UserData.controlAction({
+    const GP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -312,7 +312,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    let ass = GameApi.UserData.controlAction({
+    let ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -329,12 +329,12 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -372,7 +372,7 @@ export class AssBlessPlace extends plugin {
     assGP.contributionPoints += Math.trunc(add / 2) + 1
     assGP.historyContribution += Math.trunc(add / 2) + 1
     AssociationApi.assUser.checkFacility(ass)
-    ass = GameApi.UserData.controlAction({
+    ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -393,7 +393,7 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -401,7 +401,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -448,7 +448,7 @@ async function GoBlessPlace(e, weizhi, addres) {
 function getFightMember(members, position) {
   let res = []
   for (let i = 0; i < members.length; i++) {
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: members[i],
       CHOICE: 'playerAction'
     })
@@ -475,7 +475,7 @@ function SealingFormation(members) {
     power: 0
   }
   for (let i = 0; i < members.length; i++) {
-    const battle = GameApi.UserData.controlAction({
+    const battle = GameApi.Listdata.controlAction({
       NAME: members[i],
       CHOICE: 'playerBattle'
     })

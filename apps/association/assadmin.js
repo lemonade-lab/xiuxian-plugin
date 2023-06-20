@@ -40,7 +40,7 @@ export class AssociationAdmin extends plugin {
     if (!AssociationApi.assUser.existAss('assGP', UID)) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -126,8 +126,14 @@ export class AssociationAdmin extends plugin {
         AssociationApi.assUser.setAssOrGP('association', assName[location], association)
         AssociationApi.assUser.assEffCount(assGP)
         // 写的比较沉余
-        let assthing = AssociationApi.assUser.getread(`assRelate`, 'BaseTreasureVault') // 普通宗门的
-        let assthin = AssociationApi.assUser.getread(`assassTreasu`, assName[location]) // 隐藏宗门的
+        let assthing = GameApi.Listdata.controlAction({
+          NAME: 'BaseTreasureVault',
+          CHOICE: 'assRelate'
+        }) // 普通宗门的
+        let assthin = GameApi.Listdata.controlAction({
+          NAME: assName[location],
+          CHOICE: 'assassTreasu'
+        }) // 隐藏宗门的
         for (let i = 0; i < assthin.length; i++) {
           assthing[i].push.apply(assthin[i])
         }
@@ -204,7 +210,7 @@ export class AssociationAdmin extends plugin {
     }
     const nowTime = new Date().getTime() // 获取当前时间戳
     const date = GameApi.Method.timeChange(nowTime)
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -235,7 +241,10 @@ export class AssociationAdmin extends plugin {
     assGP.time = [date, nowTime]
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     theAssociation(associationID, UID)
-    let read = AssociationApi.assUser.getread(`assRelate`, 'BaseTreasureVault')
+    let read = GameApi.Listdata.controlAction({
+      NAME: 'BaseTreasureVault',
+      CHOICE: 'assRelate'
+    })
     AssociationApi.assUser.setAssOrGP('assTreasureVault', associationID, read) // 存储藏宝阁
     AssociationApi.assUser.assEffCount(assGP)
     this.reply('宗门创建成功')
@@ -252,14 +261,14 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -315,7 +324,7 @@ export class AssociationAdmin extends plugin {
     for (let GPID of GPList) {
       const UID = GPID
       if (AssociationApi.assUser.existAss('assGP', UID)) {
-        const assOrGP = GameApi.UserData.controlAction({
+        const assOrGP = GameApi.Listdata.controlAction({
           NAME: UID,
           CHOICE: 'assGP'
         })
@@ -339,7 +348,7 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -351,7 +360,7 @@ export class AssociationAdmin extends plugin {
     if (UID == memberUID) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -360,7 +369,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    const member = GameApi.UserData.controlAction({
+    const member = GameApi.Listdata.controlAction({
       NAME: memberUID,
       CHOICE: 'assGP'
     }) // 获取这个B的存档
@@ -387,11 +396,11 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -424,7 +433,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    const GPA = GameApi.UserData.controlAction({
+    const GPA = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -438,14 +447,14 @@ export class AssociationAdmin extends plugin {
     if (UID == memberUID) {
       return false
     }
-    const GPB = GameApi.UserData.controlAction({
+    const GPB = GameApi.Listdata.controlAction({
       NAME: memberUID,
       CHOICE: 'assGP'
     })
     if (GPB.assName == 0) {
       return false
     }
-    const bss = GameApi.UserData.controlAction({
+    const bss = GameApi.Listdata.controlAction({
       NAME: GPB.assName,
       CHOICE: 'association'
     })

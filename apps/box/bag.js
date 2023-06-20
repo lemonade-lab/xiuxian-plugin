@@ -34,7 +34,7 @@ export class BoxBag extends plugin {
       e.reply(msg)
       return false
     }
-    const najie = GameApi.UserData.controlAction({
+    const najie = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -53,7 +53,7 @@ export class BoxBag extends plugin {
       return false
     }
     najie.grade += 1
-    GameApi.UserData.controlAction({
+    GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: najie

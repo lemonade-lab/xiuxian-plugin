@@ -93,7 +93,7 @@ export class Homestart extends plugin {
       return false
     }
     const address = e.msg.replace(/^(#|\/)建立家园/, '')
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -106,7 +106,7 @@ export class Homestart extends plugin {
       e.reply(`第一次建立家园，需到${addressName}寻求联盟帮助`)
       return false
     }
-    const point0 = GameApi.UserData.controlAction({
+    const point0 = GameApi.Listdata.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -118,7 +118,7 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const level = GameApi.UserData.controlAction({
+    const level = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -173,7 +173,7 @@ export class Homestart extends plugin {
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     const region = ifexisthome.region
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -256,7 +256,7 @@ export class Homestart extends plugin {
       e.reply(`你家就在${address}，建筑队看了看你家，再看了看你要搬的地点，随后投来了异样的眼光`)
       return false
     }
-    const point0 = GameApi.UserData.controlAction({
+    const point0 = GameApi.Listdata.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -268,7 +268,7 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const level = GameApi.UserData.controlAction({
+    const level = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })

@@ -55,7 +55,7 @@ export class AssUncharted extends plugin {
     }
 
     for (let assId of assList) {
-      const assUncharted = GameApi.UserData.controlAction({
+      const assUncharted = GameApi.Listdata.controlAction({
         NAME: assId,
         CHOICE: 'association'
       })
@@ -85,7 +85,7 @@ export class AssUncharted extends plugin {
       return false
     }
     // 秘境所属宗门
-    let ass = GameApi.UserData.controlAction({
+    let ass = GameApi.Listdata.controlAction({
       NAME: weizhi.id,
       CHOICE: 'association'
     })
@@ -94,13 +94,13 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
 
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -143,7 +143,7 @@ export class AssUncharted extends plugin {
       e.reply(`这个宗门的灵石池，无法支撑秘境的运转了！`)
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -199,7 +199,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const GP = GameApi.UserData.controlAction({
+    const GP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
@@ -209,7 +209,7 @@ export class AssUncharted extends plugin {
     }
     let direction = e.msg.replace(/^(#|\/)秘境移动向/, '')
     direction = direction.trim()
-    const interimArchive = GameApi.UserData.controlAction({
+    const interimArchive = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'interimArchive'
     })
@@ -309,7 +309,7 @@ export class AssUncharted extends plugin {
     } else if (random < 0.85) {
       // 遇怪
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
-      const battle = GameApi.UserData.controlAction({
+      const battle = GameApi.Listdata.controlAction({
         NAME: UID,
         CHOICE: 'playerBattle'
       })
@@ -331,7 +331,7 @@ export class AssUncharted extends plugin {
         buff = (buff / 10).toFixed(2)
       }
 
-      const LevelList = GameApi.UserData.controlAction({
+      const LevelList = GameApi.Listdata.controlAction({
         NAME: 'gaspractice',
         CHOICE: 'fixed_levels'
       })
@@ -402,14 +402,14 @@ export class AssUncharted extends plugin {
     if (!ifexistplay) {
       return false
     }
-    let assGP = GameApi.UserData.controlAction({
+    let assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    let ass = GameApi.UserData.controlAction({
+    let ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -450,7 +450,7 @@ export class AssUncharted extends plugin {
     if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const interimArchive = GameApi.UserData.controlAction({
+    const interimArchive = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'interimArchive'
     })
@@ -481,7 +481,7 @@ export class AssUncharted extends plugin {
     if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const interimArchive = GameApi.UserData.controlAction({
+    const interimArchive = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'interimArchive'
     })
@@ -545,7 +545,7 @@ export class AssUncharted extends plugin {
     }
 
     if (AssociationApi.assUser.existAss('interimArchive', UID)) {
-      const interimArchive = GameApi.UserData.controlAction({
+      const interimArchive = GameApi.Listdata.controlAction({
         NAME: UID,
         CHOICE: 'interimArchive'
       })

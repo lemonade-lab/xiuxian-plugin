@@ -579,7 +579,7 @@ export class Homecook extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const action = GameApi.UserData.controlAction({ CHOICE: 'playerAction', NAME: UID })
+    const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
     const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
@@ -664,7 +664,7 @@ export class Homecook extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const action = GameApi.UserData.controlAction({ CHOICE: 'playerAction', NAME: UID })
+    const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
     const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {
@@ -696,7 +696,7 @@ export class Homecook extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    const action = GameApi.UserData.controlAction({ CHOICE: 'playerAction', NAME: UID })
+    const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
     const map = GameApi.WrapMap.mapExistence({ action, addressName })
     if (!map) {

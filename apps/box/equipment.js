@@ -25,7 +25,7 @@ export class BoxEquipment extends plugin {
       e.reply(`没有[${thingName}]`)
       return false
     }
-    const equipment = GameApi.UserData.controlAction({
+    const equipment = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment'
     })
@@ -33,7 +33,7 @@ export class BoxEquipment extends plugin {
       return false
     }
     equipment.push(najieThing)
-    GameApi.UserData.controlAction({
+    GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment',
       DATA: equipment
@@ -52,7 +52,7 @@ export class BoxEquipment extends plugin {
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)卸下/, '')
-    let equipment = GameApi.UserData.controlAction({
+    let equipment = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment'
     })
@@ -69,7 +69,7 @@ export class BoxEquipment extends plugin {
         arr.splice(index, 1)
       }
     })
-    GameApi.UserData.controlAction({
+    GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment',
       DATA: equipment

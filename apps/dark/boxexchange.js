@@ -18,7 +18,7 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const exchange = GameApi.UserData.controlActionInitial({
+    const exchange = GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: {}
@@ -58,13 +58,13 @@ export class BoxExchange extends plugin {
     }
     const myDate = new Date().getTime()
     const sum = Math.floor(Math.random() * (10 - 1) + 1)
-    const exchange = GameApi.UserData.controlActionInitial({
+    const exchange = GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: {}
     })
     const ID = myDate + sum
-    const LifeData = GameApi.UserData.controlActionInitial({
+    const LifeData = GameApi.Listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'playerLife',
       INITIAL: {}
@@ -79,7 +79,7 @@ export class BoxExchange extends plugin {
       account,
       money: money * account
     }
-    GameApi.UserData.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
@@ -101,7 +101,7 @@ export class BoxExchange extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let exchange = GameApi.UserData.controlActionInitial({
+    let exchange = GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: {}
@@ -109,7 +109,7 @@ export class BoxExchange extends plugin {
     /**
      * 还要再加一个寿命信息,拿到创建的时间
      */
-    const LifeData = GameApi.UserData.controlActionInitial({
+    const LifeData = GameApi.Listdata.controlActionInitial({
       NAME: 'life',
       CHOICE: 'playerLife',
       INITIAL: {}
@@ -121,7 +121,7 @@ export class BoxExchange extends plugin {
       e.reply('未有上架物品')
       return
     }
-    const najie = GameApi.UserData.controlAction({
+    const najie = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -135,7 +135,7 @@ export class BoxExchange extends plugin {
       ACCOUNT: exchange[LifeData[UID].createTime].account
     })
     delete exchange[LifeData[UID].createTime]
-    GameApi.UserData.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,
@@ -156,7 +156,7 @@ export class BoxExchange extends plugin {
     let ID = e.msg.replace(/^(#|\/)选购/, '')
     let x = 888888888
     let y = 888888888
-    let exchange = GameApi.UserData.controlActionInitial({
+    let exchange = GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       INITIAL: {}
@@ -180,7 +180,7 @@ export class BoxExchange extends plugin {
       e.reply(`似乎没有${exchange[y].money}下品灵石`)
       return false
     }
-    const najie = GameApi.UserData.controlAction({
+    const najie = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -204,7 +204,7 @@ export class BoxExchange extends plugin {
       ACCOUNT: exchange[x].money
     })
     delete exchange[y]
-    GameApi.UserData.controlActionInitial({
+    GameApi.Listdata.controlActionInitial({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
       DATA: exchange,

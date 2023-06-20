@@ -33,7 +33,7 @@ export class BoxBattleSite extends plugin {
       return false
     }
     const Mname = e.msg.replace(/^(#|\/)击杀/, '')
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -52,7 +52,7 @@ export class BoxBattleSite extends plugin {
       buff.msg = Math.floor(Math.random() * (5 - 2)) + Number(2)
       msgLeft.push('怪物突然变异了!')
     }
-    const Levellist = GameApi.UserData.controlAction({
+    const Levellist = GameApi.Listdata.controlAction({
       NAME: 'gaspractice',
       CHOICE: 'fixed_levels'
     })
@@ -66,11 +66,11 @@ export class BoxBattleSite extends plugin {
       burstmax: LevelMax.burstmax + LevelMax.id * buff.msg,
       speed: LevelMax.speed + buff.msg
     }
-    const battle = GameApi.UserData.controlAction({
+    const battle = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    const talent = GameApi.UserData.controlAction({
+    const talent = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -89,7 +89,7 @@ export class BoxBattleSite extends plugin {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
         const randomthinf = GameApi.GP.randomThing()
-        let najie = GameApi.UserData.controlAction({
+        let najie = GameApi.Listdata.controlAction({
           NAME: UID,
           CHOICE: 'playerBag'
         })
@@ -165,7 +165,7 @@ export class BoxBattleSite extends plugin {
       e.reply(MSG)
       return false
     }
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })

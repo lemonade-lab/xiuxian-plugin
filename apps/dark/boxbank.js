@@ -16,12 +16,12 @@ export class BoxBank extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const StorageList = GameApi.UserData.controlActionInitial({
+    const StorageList = GameApi.Listdata.controlActionInitial({
       NAME: 'storage',
       CHOICE: 'playerBank',
       INITIAL: {}
     })
-    const WhiteBarList = GameApi.UserData.controlActionInitial({
+    const WhiteBarList = GameApi.Listdata.controlActionInitial({
       NAME: 'whiteBar',
       CHOICE: 'playerBank',
       INITIAL: {}

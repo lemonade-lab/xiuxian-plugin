@@ -31,7 +31,7 @@ export class AssociationExtend extends plugin {
     if (!assRelation) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assRelation.id,
       CHOICE: 'association'
     })
@@ -51,7 +51,7 @@ export class AssociationExtend extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })

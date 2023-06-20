@@ -53,7 +53,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -130,7 +130,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -250,7 +250,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -459,7 +459,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome1.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: user.A,
       CHOICE: 'playerAction'
     })
@@ -579,7 +579,7 @@ export class Homeland extends plugin {
       return
     }
     let region = ifexisthome1.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: user.A,
       CHOICE: 'playerAction'
     })

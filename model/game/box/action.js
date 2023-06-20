@@ -1,6 +1,3 @@
-import user from './index.js'
-import Listdata from '../data/listdata.js'
-import Wrap from '../wrap/index.js'
 class UserAction {
   constructor() {
     this.CopywritingLevel = {
@@ -22,96 +19,6 @@ class UserAction {
       2: '后期',
       3: '巅峰',
       4: '圆满'
-    }
-  }
-
-  /**
-   * @param { UID, levelId, acount } param0
-   * @returns
-   */
-  userLifeUp({ UID, levelId, acount }) {
-    const LifeDAta = Listdata.controlAction({
-      NAME: 'life',
-      CHOICE: 'playerLife'
-    })
-    if (acount) {
-      LifeDAta[UID].life += acount
-    } else {
-      LifeDAta[UID].life += Math.floor(levelId * 30)
-    }
-    const size = LifeDAta[UID].life
-    Listdata.controlAction({
-      NAME: 'life',
-      CHOICE: 'playerLife',
-      DATA: LifeDAta
-    })
-    return { size }
-  }
-
-  /**
-   * @param {*} param0
-   * @returns
-   */
-  levelBreak(UID) {
-    const ifexistplay = user.getUserLifeSatus(UID)
-    if (!ifexistplay) {
-      return `已仙鹤`
-    }
-    const UserLevel = Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'playerLevel'
-    })
-    if (UserLevel.levelId != 10) {
-      /* 不是渡劫 */
-      return `非渡劫期`
-    }
-    let CDID = '13'
-    let CDTime = 360
-    const nowTime = new Date().getTime()
-    const { state: coolingState, msg: coolingMsg } = Wrap.cooling(UID, CDID)
-    if (coolingState == 4001) {
-      return `${coolingMsg}`
-    }
-    Wrap.setRedis(UID, CDID, nowTime, CDTime)
-  }
-
-  breakLevelUp = ({ UID, choise }) => {
-    const GP = Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'playerLevel'
-    })
-    const Levellist = Listdata.controlAction({
-      CHOICE: 'fixed_levels',
-      NAME: 'gaspractice'
-    })
-    const Levelmaxlist = Listdata.controlAction({
-      CHOICE: 'fixed_levels',
-      NAME: 'bodypractice'
-    })
-    let returnTXT = ''
-    if (choise) {
-      GP.rankMaxId = 0
-      GP.levelMaxId = GP.levelMaxId + 1
-      GP.levelnamemax = Levelmaxlist[GP.levelMaxId].name
-      returnTXT = `突破成功至${GP.levelnamemax}${this.LevelMiniName[GP.rankId]}`
-    } else {
-      GP.rankId = 0
-      GP.levelId = GP.levelId + 1
-      GP.levelname = Levellist[GP.levelId].name
-      const { size } = this.userLifeUp({
-        UID,
-        levelId: GP.levelId
-      })
-      returnTXT = `突破成功至${GP.levelname}${this.LevelMiniName[GP.rankId]},寿命至${size}`
-    }
-    Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'playerLevel',
-      DATA: GP
-    })
-    user.updatePanel(UID)
-    return {
-      UserLevelUpMSG: `${returnTXT}`
     }
   }
 }

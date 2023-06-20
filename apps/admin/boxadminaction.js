@@ -29,7 +29,7 @@ export class Boxadminaction extends plugin {
   async deleteAllusers(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    GameApi.UserData.controlAction({
+    GameApi.Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife',
       DATA: {}

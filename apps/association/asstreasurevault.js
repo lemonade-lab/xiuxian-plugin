@@ -32,14 +32,14 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -48,12 +48,12 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -92,7 +92,7 @@ export class AssTreasureVault extends plugin {
     if (id[0] > 5 || id[2] > 19) {
       return false
     }
-    const assTreasureCabinet = GameApi.UserData.controlAction({
+    const assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'assTreasureVault'
     })
@@ -135,7 +135,7 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -145,11 +145,11 @@ export class AssTreasureVault extends plugin {
 
     let msg = ['___[宗门藏宝阁]___']
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = GameApi.UserData.controlAction({
+    let assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'assTreasureVault'
     })
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -183,7 +183,7 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -191,7 +191,7 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -201,12 +201,12 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const positionList = GameApi.UserData.controlAction({
+    const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.UserData.controlAction({
+    const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -221,7 +221,7 @@ export class AssTreasureVault extends plugin {
       return false
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = GameApi.UserData.controlAction({
+    let assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'assTreasureVault'
     })
@@ -265,7 +265,7 @@ export class AssTreasureVault extends plugin {
       return false
     }
 
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })

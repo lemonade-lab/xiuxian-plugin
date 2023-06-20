@@ -68,7 +68,7 @@ export class Homerangeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -137,7 +137,7 @@ export class Homerangeland extends plugin {
     // 确认位置
     const ifexisthome = HomeApi.GP.existhome(UID)
     let region = ifexisthome.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -243,7 +243,7 @@ export class Homerangeland extends plugin {
     // 确认位置
     const ifexisthome = HomeApi.GP.existhome(UID)
     let region = ifexisthome.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -364,7 +364,7 @@ export class Homerangeland extends plugin {
     }
     // 确认位置
     let region = ifexisthome.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -484,7 +484,7 @@ export class Homerangeland extends plugin {
     }
     // 确定位置
     let region = ifexisthome.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })
@@ -686,7 +686,7 @@ export class Homerangeland extends plugin {
       return
     }
     let region = ifexisthome1.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: user.A,
       CHOICE: 'user_home_action'
     })
@@ -775,7 +775,7 @@ export class Homerangeland extends plugin {
       return
     }
     let region = ifexisthome1.region
-    let action = HomeApi.GameApi.UserData.controlAction({
+    let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: user.A,
       CHOICE: 'playerAction'
     })

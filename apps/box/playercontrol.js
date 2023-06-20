@@ -107,7 +107,7 @@ export class BoxGPControl extends plugin {
 
   upgrade = (userId, time, name, e) => {
     const UID = userId
-    const talent = GameApi.UserData.controlAction({
+    const talent = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -136,7 +136,7 @@ export class BoxGPControl extends plugin {
       SIZE: other
     })
     GameApi.Player.updataUserBlood({ UID, SIZE: Number(90) })
-    const LifeData = GameApi.UserData.controlAction({
+    const LifeData = GameApi.Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife'
     })

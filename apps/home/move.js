@@ -39,7 +39,7 @@ export class Homemove extends plugin {
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     const region2 = ifexisthome.region
-    const action1 = GameApi.UserData.controlAction({
+    const action1 = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -82,7 +82,7 @@ export class Homemove extends plugin {
       DATA: Warehouse,
       INITIAL: []
     })
-    let najie = GameApi.UserData.controlAction({
+    let najie = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -91,7 +91,7 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    GameApi.UserData.controlAction({
+    GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: najie
@@ -123,7 +123,7 @@ export class Homemove extends plugin {
       return
     }
     const region2 = ifexisthome.region
-    const action1 = GameApi.UserData.controlAction({
+    const action1 = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -166,7 +166,7 @@ export class Homemove extends plugin {
       DATA: Warehouse,
       INITIAL: []
     })
-    let najie = GameApi.UserData.controlAction({
+    let najie = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -175,7 +175,7 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity
     })
-    GameApi.UserData.controlAction({
+    GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: najie

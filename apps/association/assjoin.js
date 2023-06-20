@@ -37,18 +37,18 @@ export class AssociationJoin extends plugin {
     }
 
     const joinUID = e.msg.replace(/^(#|\/)查看简历/, '')
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0) {
       return false
     }
-    const joinGP = GameApi.UserData.controlAction({
+    const joinGP = GameApi.Listdata.controlAction({
       NAME: joinUID,
       CHOICE: 'playerLevel'
     })
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -78,7 +78,7 @@ export class AssociationJoin extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -92,7 +92,7 @@ export class AssociationJoin extends plugin {
     if (assGP.volunteerAss == 0) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.volunteerAss,
       CHOICE: 'association'
     })
@@ -119,14 +119,14 @@ export class AssociationJoin extends plugin {
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0) {
       return false
     }
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -140,7 +140,7 @@ export class AssociationJoin extends plugin {
     if (find == -1) {
       return false
     }
-    const joinGP = GameApi.UserData.controlAction({
+    const joinGP = GameApi.Listdata.controlAction({
       NAME: joinUID,
       CHOICE: 'assGP'
     })
@@ -180,7 +180,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -188,7 +188,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const ass = GameApi.UserData.controlAction({
+    const ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
@@ -197,7 +197,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinGP = GameApi.UserData.controlAction({
+    const joinGP = GameApi.Listdata.controlAction({
       NAME: joinUID,
       CHOICE: 'assGP'
     })
@@ -217,14 +217,14 @@ export class AssociationJoin extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.UserData.controlAction({
+    const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    let ass = GameApi.UserData.controlAction({
+    let ass = GameApi.Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })

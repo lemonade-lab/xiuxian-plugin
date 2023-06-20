@@ -58,7 +58,7 @@ export class Homeminefield extends plugin {
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     let region2 = ifexisthome.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -195,7 +195,7 @@ export class Homeminefield extends plugin {
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     let region2 = ifexisthome.region
-    let action = GameApi.UserData.controlAction({
+    let action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'user_home_action'
     })

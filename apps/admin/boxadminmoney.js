@@ -25,7 +25,7 @@ export class Boxadminmoney extends plugin {
       name,
       ACCOUNT
     })
-    const LifeData = GameApi.UserData.controlAction({
+    const LifeData = GameApi.Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife'
     })
@@ -59,7 +59,7 @@ export class Boxadminmoney extends plugin {
       name,
       ACCOUNT: -ACCOUNT
     })
-    const LifeData = GameApi.UserData.controlAction({
+    const LifeData = GameApi.Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife'
     })

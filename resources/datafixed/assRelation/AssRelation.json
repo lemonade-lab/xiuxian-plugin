@@ -18,5 +18,10 @@
 		"id": "Ass000004",
 		"name": "天机阁",
 		"unchartedName": "天机古楼"
+	},
+	{
+		"id": "Ass000005",
+		"name": "喵",
+		"unchartedName": "Ass000005"
 	}
 ]
