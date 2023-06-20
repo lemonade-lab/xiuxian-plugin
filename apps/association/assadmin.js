@@ -111,7 +111,7 @@ export class AssociationAdmin extends plugin {
 
       // 玩家存档
       let assGP = GameApi.Listdata.controlAction({
-        NMAE: UID,
+        NAME: UID,
         CHOICE: 'assGP'
       })
       assGP.AID = ADATA[location].id
@@ -141,10 +141,12 @@ export class AssociationAdmin extends plugin {
       }
       // 存储藏宝阁
       AssociationApi.assUser.setAssOrGP('assTreasure', ADATA[location], assthing)
-      // 宗门名称表
-      let assRelation = AssociationApi.assUser.assRelationList.find(
-        (item) => item.id == ADATA[location]
-      )
+      const assRelationList = GameApi.Listdata.controlAction({
+        NAME: 'assRelation',
+        CHOICE: 'assRelation'
+      })
+      // 检查宗门名称表
+      const assRelation = assRelationList.find((item) => item.id == ADATA[location])
       e.reply(`成功找到${assRelation.name}遗址,建立了传承宗门${assRelation.name}`)
       return false
     }
@@ -195,10 +197,12 @@ export class AssociationAdmin extends plugin {
       this.reply('非法宗门,请重新输入:')
       return false
     }
+    const assRelationList = GameApi.Listdata.controlAction({
+      NAME: 'assRelation',
+      CHOICE: 'assRelation'
+    })
     // 检查宗门名称表
-    const assRelation = AssociationApi.assUser.assRelationList.find(
-      (item) => item.name == associationName
-    )
+    const assRelation = assRelationList.find((item) => item.name == associationName)
     if (assRelation) {
       this.setContext('setAssociationName')
       this.reply('非法宗门,请重新输入:')
@@ -227,7 +231,7 @@ export class AssociationAdmin extends plugin {
       name: associationName, // 宗门名称
       unchartedName: associationID
     })
-    AssociationApi.assUser.setAssOrGP('assRelation', 'AssRelation', relationAll)
+    AssociationApi.assUser.setAssOrGP('assRelation', 'assRelation', relationAll)
 
     assGP.AID = associationID
     assGP.assJob10 = 10

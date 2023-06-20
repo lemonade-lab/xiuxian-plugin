@@ -27,7 +27,7 @@ class GP {
     })
     // 宗门 ???
     this.assRelationList = Listdata.controlActionInitial({
-      NAME: 'AssRelation',
+      NAME: 'assRelation',
       CHOICE: 'assRelation',
       // 初始化
       INITIAL: [
@@ -76,7 +76,7 @@ class GP {
     // 修仙存在此人，看宗门系统有没有他
     const GPData = {
       AID: 0, // 宗门名称为0
-      qqNumber: UID, // 用户 id
+      UID, // 用户 id
       assJob: 0,
       effective: 0,
       contributionPoints: 0,
@@ -123,7 +123,7 @@ class GP {
 
       if (assGP.assJob < 10) {
         // 原来的职位表删掉这个B
-        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+        ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
         // 记录到存档
         Listdata.controlAction({
           NAME: ass.id,
@@ -134,7 +134,7 @@ class GP {
         if (ass.allMembers.length < 2) {
           fs.rmSync(`${__PATH.association}/${assGP.AID}.json`)
         } else {
-          ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+          ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
           // 给宗主
           let randMember = { assJob: 0 }
           for (let item in ass.allMembers) {
@@ -148,7 +148,7 @@ class GP {
               randMember = assGPA
             }
           }
-          ass.master = randMember.qqNumber
+          ass.master = randMember.UID
           randMember.assJob = 10
           // 记录到存档
 
@@ -160,7 +160,7 @@ class GP {
 
           this.assUpdataEfficiency(randMember)
           // 更新面板
-          Talent.updataEfficiency(randMember.qqNumber)
+          Talent.updataEfficiency(randMember.UID)
         }
       }
     }
@@ -238,7 +238,7 @@ class GP {
     if (assGP.AID == 0) {
       assGP.effective = 0
       Listdata.controlAction({
-        NAME: assGP.qqNumber,
+        NAME: assGP.UID,
         CHOICE: 'assGP',
         DATA: assGP
       })
@@ -263,19 +263,19 @@ class GP {
     assGP.effective = effective.toFixed(2)
     // 更新
     Talent.addExtendPerpetual({
-      NAME: assGP.qqNumber,
+      NAME: assGP.UID,
       FLAG: 'ass',
       TYPE: 'efficiency',
       VALUE: assGP.effective
     })
     // 更新用户
     Listdata.controlAction({
-      NAME: assGP.qqNumber,
+      NAME: assGP.UID,
       CHOICE: 'assGP',
       DATA: assGP
     })
     // 更新天赋
-    Talent.updataEfficiency(assGP.qqNumber)
+    Talent.updataEfficiency(assGP.UID)
   }
 
   /**
@@ -295,13 +295,14 @@ class GP {
       find.unchartedName = associationName
     }
     assRelation.splice(location, 1, find)
-    let filePath = __PATH.assRelation
-    let dir
-    dir = path.join(filePath + '/AssRelation.json')
-    let theARR = JSON.stringify(assRelation, '', '\t') // json转string
-    fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
-      console.info('写入成功', err)
-    })
+    fs.writeFileSync(
+      path.join(`${__PATH.assRelation}/assRelation.json`),
+      JSON.stringify(assRelation, '', '\t'),
+      'utf-8',
+      (err) => {
+        console.info('写入成功', err)
+      }
+    )
   }
 
   /**

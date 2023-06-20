@@ -221,7 +221,7 @@ export class Association extends plugin {
       CHOICE: 'association'
     })
     if (assGP.assJob < 10) {
-      ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber) // 原来的职位表删掉这个B
+      ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID) // 原来的职位表删掉这个B
       assGP.AID = 0
       assGP.assJob = 0
       assGP.favorability = 0
@@ -238,7 +238,7 @@ export class Association extends plugin {
         AssociationApi.assUser.assUpdataEfficiency(assGP)
         e.reply('退出宗门成功,退出后宗门空无一人,自动解散')
       } else {
-        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+        ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
         assGP.AID = 0
         assGP.assJob = 0
         assGP.favorability = 0
@@ -255,11 +255,11 @@ export class Association extends plugin {
             randMember = assGPA
           }
         }
-        ass.master = randMember.qqNumber
+        ass.master = randMember.UID
         randMember.assJob = 10
         AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
         AssociationApi.assUser.assUpdataEfficiency(randMember)
-        e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.qqNumber}]接管`)
+        e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.UID}]接管`)
       }
     }
     return false
@@ -319,7 +319,7 @@ export class Association extends plugin {
       ACCOUNT: Number(-lingshi)
     })
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
-    AssociationApi.assUser.setAssOrGP('assGP', assGP.qqNumber, assGP)
+    AssociationApi.assUser.setAssOrGP('assGP', assGP.UID, assGP)
     e.reply(
       `捐赠成功,你身上还有${money.acount - lingshi}灵石,宗门灵石池目前有${ass.spiritStoneAns}灵石`
     )
