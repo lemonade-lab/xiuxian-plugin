@@ -5,6 +5,7 @@ import Listdata from '../data/listdata.js'
 import Talent from '../box/talent.js'
 import Player from '../box/player.js'
 import { __PATH } from '../data/index.js'
+import algorithm from '../data/algorithm.js'
 // 汐颜
 class GP {
   constructor() {
@@ -38,16 +39,146 @@ class GP {
   }
 
   /**
+   * 初始化宗门存档
+   * @param {*} UID
+   * @returns
+   */
+  existArchive(UID) {
+    // 读取用户寿命信息
+    let GP = Player.getUserLife(UID)
+
+    // 不存在寿命
+    if (!GP) return false
+
+    // 修仙存在此人，看宗门系统有没有他
+    const UserData = {
+      // 宗门名称
+      assName: 0,
+      // id
+      qqNumber: UID,
+      assJob: 0,
+      effective: 0,
+      contributionPoints: 0,
+      historyContribution: 0,
+      favorability: 0,
+      volunteerAss: 0,
+      lastSignAss: 0,
+      lastExplorTime: 0,
+      lastBounsTime: 0,
+      // 时间搓
+      xiuxianTime: GP.createTime,
+      time: []
+    }
+
+    //  验证存档
+    if (!this.existAss('assGP', UID)) {
+      // 不存在则初始化
+      Listdata.controlAction({
+        NAME: UID,
+        CHOICE: 'assGP',
+        DATA: UserData
+      })
+    }
+
+    // 读取用户数据
+    let assGP = Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
+
+    // 只有生命计数一样，且生命状态正常才为true
+    if (GP.createTime == assGP.xiuxianTime && GP.status == 1) {
+      return true
+    }
+
+    // 两边都有存档，但是死了，或者重生了，需要执行插件删档
+
+    // 检车宗门, 先退宗，再重置
+    if (this.existAss('association', assGP.assName)) {
+      // 读取宗门信息
+      let ass = Listdata.controlAction({
+        NAME: assGP.assName,
+        CHOICE: 'association'
+      })
+
+      if (assGP.assJob < 10) {
+        // 原来的职位表删掉这个B
+        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+        // 记录到存档
+        Listdata.controlAction({
+          NAME: ass.id,
+          CHOICE: 'association',
+          DATA: ass
+        })
+      } else {
+        if (ass.allMembers.length < 2) {
+          fs.rmSync(`${__PATH.association}/${assGP.assName}.json`)
+        } else {
+          ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+          // 给宗主
+          let randMember = { assJob: 0 }
+          for (let item in ass.allMembers) {
+            const UIDNum = ass.allMembers[item]
+            const assGPA = Listdata.controlAction({
+              NAME: UIDNum,
+              CHOICE: 'assGP'
+            })
+
+            if (assGPA.assJob > randMember.assJob) {
+              randMember = assGPA
+            }
+          }
+          ass.master = randMember.qqNumber
+          randMember.assJob = 10
+          // 记录到存档
+
+          Listdata.controlAction({
+            NAME: ass.id,
+            CHOICE: 'association',
+            DATA: ass
+          })
+
+          this.assEffCount(randMember)
+          // 更新面板
+          Talent.updataEfficiency(randMember.qqNumber)
+        }
+      }
+    }
+
+    // 检查
+    if (assGP.volunteerAss != 0) {
+      // 得到数据
+      const ass = Listdata.controlAction({
+        NAME: assGP.volunteerAss,
+        CHOICE: 'association'
+      })
+      if (!Method.isNotNull(ass)) {
+        ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
+        // 写入数据
+        Listdata.controlAction({
+          NAME: ass.id,
+          CHOICE: 'association',
+          DATA: ass
+        })
+      }
+    }
+
+    // 写入数据
+    Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP',
+      DATA: UserData
+    })
+    return false
+  }
+
+  /**
    * 检测宗门存档或用户宗门信息是否存在
    * @param filePathType ["assGP" , "association" ]
    * @param fileName
    */
   existAss(filePathType, fileName) {
-    // 判断指定文件是否存在
-    if (fs.existsSync(path.join(`${__PATH[filePathType]}/${fileName}.json`))) {
-      return true
-    }
-    return false
+    return algorithm.existFile(__PATH[filePathType], fileName)
   }
 
   /**
@@ -56,6 +187,7 @@ class GP {
    * @returns
    */
   readAssNames(name) {
+    // 指定路径
     let allNames = fs.readdirSync(__PATH[name])
     // 赛选.json
     allNames = allNames.filter((file) => file.endsWith('.json'))
@@ -69,65 +201,79 @@ class GP {
    * @param data
    */
   setAssOrGP(fileName, itemName, data) {
-    fs.writeFileSync(
-      path.join(`${__PATH[fileName]}/${itemName}.json`),
-      JSON.stringify(data, '', '\t'),
-      'utf-8',
-      (err) => {
-        console.info('写入成功', err)
-      }
-    )
+    Listdata.controlAction({
+      NAME: itemName,
+      CHOICE: fileName,
+      DATA: data
+    })
+  }
+
+  /** 读取 */
+  getread(type, name) {
+    let data
+    let type1 = __PATH[type]
+    try {
+      data = fs.readFileSync(path.join(`${type1}/${name}.json`), 'utf8')
+    } catch (error) {
+      return error
+    }
+    // 将字符串数据转变成json格式
+    return JSON.parse(data)
   }
 
   /**
-   * 增加天赋
-   * @param {*} assGP
+   *
+   * @param {*} assGP 用户数据
    * @returns
    */
   assEffCount(assGP) {
+    //
     let effective = 0
+    //
     if (assGP.assName == 0) {
       assGP.effective = effective
-      this.setAssOrGP('assGP', assGP.qqNumber, assGP)
+      Listdata.controlAction({
+        NAME: assGP.qqNumber,
+        CHOICE: 'assGP',
+        DATA: assGP
+      })
       return
     }
+    // 读取宗门数据
     let ass = Listdata.controlAction({
       NAME: assGP.assName,
       CHOICE: 'association'
     })
-
+    //
     if (ass.resident.id != 0) {
       effective += ass.resident.efficiency
     }
+    //
     if (ass.facility[4].status != 0) {
       effective += ass.level * 0.05
       effective += ass.level * ass.resident.level * 0.01
     }
-
+    //
     let coefficient = 1 + assGP.assJob / 10
-
+    //
     effective = effective * coefficient
+    //
     assGP.effective = effective.toFixed(2)
+    // 更新
     Talent.addExtendPerpetual({
       NAME: assGP.qqNumber,
       FLAG: 'ass',
       TYPE: 'efficiency',
-      VALUE: Number(assGP.effective)
+      VALUE: assGP.effective
     })
-    this.setAssOrGP('assGP', assGP.qqNumber, assGP)
+    // 更新用户
+    Listdata.controlAction({
+      NAME: assGP.qqNumber,
+      CHOICE: 'assGP',
+      DATA: assGP
+    })
+    // 更新天赋
     Talent.updataEfficiency(assGP.qqNumber)
-  }
-  /**读取 */
-    getread(type, name) {
-      let data
-    let type1=__PATH[type]  
-    try {
-      data = fs.readFileSync(path.join(`${type1}/${name}.json`), 'utf8')
-    } catch (error) {
-     return error
-   }
-    // 将字符串数据转变成json格式
-   return JSON.parse(data)
   }
 
   /**
@@ -170,7 +316,13 @@ class GP {
         ass.facility[i].status = 0
       }
     }
-    this.setAssOrGP('association', ass.id, ass)
+
+    Listdata.controlAction({
+      NAME: ass.id,
+      CHOICE: 'association',
+      DATA: ass
+    })
+
     if (oldStatus != ass.facility[4].status) {
       const GPList = ass.allMembers
       for (let GPID of GPList) {
@@ -184,111 +336,6 @@ class GP {
         }
       }
     }
-  }
-
-  /**
-   * 初始化宗门存档
-   * @param {*} UID
-   * @returns
-   */
-  existArchive(UID) {
-    // 读取用户寿命信息
-    let GP = Player.getUserLife(UID)
-
-    // 不存在
-    if (!GP) return false
-
-    // 修仙存在此人，看宗门系统有没有他
-    const UserData = {
-      assName: 0,
-      qqNumber: UID + '',
-      assJob: 0,
-      effective: 0,
-      contributionPoints: 0,
-      historyContribution: 0,
-      favorability: 0,
-      volunteerAss: 0,
-      lastSignAss: 0,
-      lastExplorTime: 0,
-      lastBounsTime: 0,
-      xiuxianTime: GP.createTime,
-      time: []
-    }
-
-    //  验证存档
-    if (!this.existAss('assGP', UID)) {
-      this.setAssOrGP('assGP', UID, UserData)
-    }
-    // 读取数据
-    let assGP = Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'assGP'
-    })
-
-    // 只有生命计数一样，且生命状态正常才为true
-    if (GP.createTime == assGP.xiuxianTime && GP.status == 1) {
-      return true
-    }
-
-    // 两边都有存档，但是死了，或者重生了，需要执行插件删档
-
-    // 先退宗，再重置
-    if (this.existAss('association', assGP.assName)) {
-      let ass = Listdata.controlAction({
-        NAME: assGP.assName,
-        CHOICE: 'association'
-      })
-
-      if (assGP.assJob < 10) {
-        // 原来的职位表删掉这个B
-        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
-        // 记录到存档
-        this.setAssOrGP('association', ass.id, ass)
-      } else {
-        if (ass.allMembers.length < 2) {
-          fs.rmSync(`${__PATH.association}/${assGP.assName}.json`)
-        } else {
-          ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
-          // 给宗主
-          let randMember = { assJob: 0 }
-          for (let item in ass.allMembers) {
-            const UIDNum = ass.allMembers[item]
-            const assGPA = Listdata.controlAction({
-              NAME: UIDNum,
-              CHOICE: 'assGP'
-            })
-
-            if (assGPA.assJob > randMember.assJob) {
-              randMember = assGPA
-            }
-          }
-          ass.master = randMember.qqNumber
-          randMember.assJob = 10
-          // 记录到存档
-          this.setAssOrGP('association', ass.id, ass)
-          this.assEffCount(randMember)
-          // 更新面板
-          Talent.updataEfficiency(randMember.qqNumber)
-        }
-      }
-    }
-    // 检查
-    if (assGP.volunteerAss != 0) {
-      // 得到数据
-      const ass = Listdata.controlAction({
-        NAME: assGP.volunteerAss,
-        CHOICE: 'association'
-      })
-      if (!Method.isNotNull(ass)) {
-        ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
-        // 写入数据
-        this.setAssOrGP('association', ass.id, ass)
-      }
-    }
-
-    // 写入数据
-    this.setAssOrGP('assGP', UID, UserData)
-    return false
   }
 
   /**

@@ -5,6 +5,18 @@ import { MyDirPath } from '../../../app.config.js'
 /** fs算法 */
 class Algorithm {
   /**
+   * 判断指定json文件是否存在
+   * @param filePath
+   * @param fileName
+   */
+  existFile(filePath, fileName) {
+    if (fs.existsSync(path.join(`${filePath}/${fileName}.json`))) {
+      return true
+    }
+    return false
+  }
+
+  /**
    * @param {地址} path
    * @returns 该地址的子目录数组
    */
