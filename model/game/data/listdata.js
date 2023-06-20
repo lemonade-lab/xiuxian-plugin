@@ -86,7 +86,9 @@ class Listdata {
    */
   searchAllThing(condition, name) {
     const all = this.controlAction({ CHOICE: 'generate_all', NAME: 'all' })
-    const ifexist = all.find((item) => item[condition] == name)
+    const ifexist = all.find((item) => {
+      return item[condition] == name
+    })
     return ifexist
   }
 }

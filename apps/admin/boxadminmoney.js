@@ -20,7 +20,7 @@ export class Boxadminmoney extends plugin {
     }
     const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
     const [name, ACCOUNT] = thingName.split('*')
-    const bag = GameApi.Bag.addBagThing({
+    const isBag = GameApi.Bag.addBagThing({
       UID,
       name,
       ACCOUNT
@@ -29,7 +29,7 @@ export class Boxadminmoney extends plugin {
       NAME: 'life',
       CHOICE: 'playerLife'
     })
-    if (bag) {
+    if (isBag) {
       e.reply(`${LifeData[UID].name}获馈赠[${name}]*${ACCOUNT}`)
     }
     return false

@@ -6,11 +6,7 @@ class Bag {
    * @returns
    */
   addBagThing({ UID, name, ACCOUNT }) {
-    // 搜索物品信息
-    const thing = Listdata.searchAllThing({
-      condition: 'name',
-      name
-    })
+    const thing = Listdata.searchAllThing('name', name)
     if (thing) {
       let bag = Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID })
       bag = this.addBagThingAction({

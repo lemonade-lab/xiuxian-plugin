@@ -8,10 +8,7 @@ class GP {
    * @returns
    */
   userWarehouse({ UID, name, ACCOUNT }) {
-    const thing = Listdata.searchAllThing({
-      condition: 'name',
-      name
-    })
+    const thing = Listdata.searchAllThing('name', name)
     if (thing) {
       let Warehouse = Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
