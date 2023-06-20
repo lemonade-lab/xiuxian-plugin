@@ -69,15 +69,15 @@ export class BoxBattle extends plugin {
     }
     GameApi.Wrap.setRedis(UIDA, CDID, nowTime, CDTime)
     // 增加
-    const Level = GameApi.Listdata.controlAction({
+    const SpecialData = GameApi.Listdata.controlAction({
       NAME: UIDA,
-      CHOICE: 'playerLevel'
+      CHOICE: 'playerSpecial'
     })
-    Level.prestige += 1
+    SpecialData.prestige += 1
     GameApi.Listdata.controlAction({
       NAME: UIDA,
-      CHOICE: 'playerLevel',
-      DATA: Level
+      CHOICE: 'playerSpecial',
+      DATA: SpecialData
     })
     // 战斗记录
     const user = {
@@ -88,7 +88,7 @@ export class BoxBattle extends plugin {
     user.c = GameApi.Battle.battle({ e, A: UIDA, B: UIDB })
     const LevelB = GameApi.Listdata.controlAction({
       NAME: UIDB,
-      CHOICE: 'playerLevel'
+      CHOICE: 'playerSpecial'
     })
     if (user.c != UIDA) {
       user.c = UIDA
@@ -145,7 +145,11 @@ export class BoxBattle extends plugin {
       e.reply('[天机门]李逍遥\n凡人不可捷越')
       return false
     }
-    if (LevelData.prestige <= 0) {
+    const SpecialData = GameApi.Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'playerSpecial'
+    })
+    if (SpecialData.prestige <= 0) {
       e.reply('[天机门]李逍遥\n你一身清廉')
       return false
     }
@@ -162,11 +166,11 @@ export class BoxBattle extends plugin {
       name: '下品灵石',
       ACCOUNT: -money
     })
-    LevelData.prestige -= 1
+    SpecialData.prestige -= 1
     GameApi.Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'playerLevel',
-      DATA: LevelData
+      CHOICE: 'playerSpecial',
+      DATA: SpecialData
     })
     e.reply('[天机门]南宫问天\n为你清除[煞气]*1')
     return false

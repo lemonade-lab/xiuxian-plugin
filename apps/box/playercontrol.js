@@ -123,19 +123,16 @@ export class BoxGPControl extends plugin {
     if (Math.random() * (100 - 1) + 1 < 20) {
       other -= Math.floor(other / 3)
     }
-    let othername = 'experience'
+    let othername = 0
     let msg = `闭关结束\n[修为]*${other}`
     if (name != '闭关') {
-      othername = 'experiencemax'
+      othername = 1
       msg = `降妖归来\n[气血]*${other}`
     }
-    GameApi.GP.updataUser({
-      UID,
-      CHOICE: 'playerLevel',
-      ATTRIBUTE: othername,
-      SIZE: other
-    })
-    GameApi.Player.updataUserBlood({ UID, SIZE: Number(90) })
+    // 经验增加
+    GameApi.Levels.addExperience(UID, othername, other)
+    // 更新血量
+    GameApi.Player.updataUserBlood({ UID, SIZE: 90 })
     const LifeData = GameApi.Listdata.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife'

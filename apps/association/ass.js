@@ -64,7 +64,7 @@ export class Association extends plugin {
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
       const UIDNum = ass.allMembers[item]
-      const GP = GameApi.Listdata.controlAction({
+      const LEvelData = GameApi.Listdata.controlAction({
         NAME: UIDNum,
         CHOICE: 'playerLevel'
       })
@@ -80,7 +80,7 @@ export class Association extends plugin {
           assGPA.assJob +
           '\n' +
           '境界:' +
-          GP.levelname +
+          LEvelData.gaspractice.realm +
           '\n' +
           '历史贡献值:' +
           assGPA.historyContribution

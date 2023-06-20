@@ -21,8 +21,8 @@ class Talent {
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
-    const levelmini = LevelList[LevelData.level.gaspractice.realm]
-    const levelmax = LevelMaxList[LevelData.level.bodypractice.realm]
+    const levelmini = LevelList[LevelData.gaspractice.realm]
+    const levelmax = LevelMaxList[LevelData.bodypractice.realm]
     const UserBattle = Listdata.controlAction({
       CHOICE: 'playerBattle',
       NAME: UID

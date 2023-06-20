@@ -263,11 +263,11 @@ export class AssBlessPlace extends plugin {
     assGP.lastExplorTime = nowTime
 
     let giftLingshi = 0
-    const GP = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    giftLingshi = 500 * ass.resident.level * GP.levelId
+    giftLingshi = 500 * ass.resident.level * LevelData.gaspractice.realm
 
     const num = Math.trunc(giftLingshi)
 
@@ -298,7 +298,7 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const GP = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -363,7 +363,7 @@ export class AssBlessPlace extends plugin {
 
     GameApi.Wrap.setRedis(UID + ClassCD, nowTime, CDTime)
 
-    let add = Math.trunc(GP.levelId / 10) + 3
+    let add = Math.trunc(LevelData.gaspractice.realm / 10) + 3
 
     ass.facility[location].buildNum += add
 
@@ -586,7 +586,7 @@ const AddPrestige = (members) => {
   for (let i = 0; i < members.length; i++) {
     GameApi.GP.updataUser({
       UID: members[i],
-      CHOICE: 'playerLevel',
+      CHOICE: 'playerSpecial',
       ATTRIBUTE: 'prestige',
       SIZE: 2
     })

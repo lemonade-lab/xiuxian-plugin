@@ -118,11 +118,11 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const level = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (level.levelId < PointId[3]) {
+    if (LevelData.gaspractice.realm < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
       return false
     }
@@ -268,11 +268,11 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const level = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (level.levelId < PointId[3]) {
+    if (LevelData.gaspractice.realm < PointId[3]) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
       return false
     }

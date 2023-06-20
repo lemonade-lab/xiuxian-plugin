@@ -82,25 +82,25 @@ export class BoxAction extends plugin {
           GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
           switch (id[2]) {
             case '1': {
-              if (LevelData.level.gaspractice.realm >= 3) {
+              if (LevelData.gaspractice.realm >= 3) {
                 experience = 0
               }
               break
             }
             case '2': {
-              if (LevelData.level.gaspractice.real >= 5) {
+              if (LevelData.gaspractice.real >= 5) {
                 experience = 0
               }
               break
             }
             case '3': {
-              if (LevelData.level.gaspractice.realm >= 7) {
+              if (LevelData.gaspractice.realm >= 7) {
                 experience = 0
               }
               break
             }
             case '4': {
-              if (LevelData.level.gaspractice.real >= 9) {
+              if (LevelData.gaspractice.real >= 9) {
                 experience = 0
               }
               break
@@ -112,17 +112,17 @@ export class BoxAction extends plugin {
         }
         if (experience > 0) {
           let experience = parseInt(najieThing.experience)
-          let E = thingAcount * experience
-          GameApi.Levels.addExperience(UID, 0, E)
-          e.reply(`[修为]+${E}`)
+          let size = thingAcount * experience
+          GameApi.Levels.addExperience(UID, 0, size)
+          e.reply(`[修为]+${size}`)
         }
         break
       }
       case '3': {
-        let experiencemax = parseInt(najieThing.experiencemax)
-        let eMax = thingAcount * experiencemax
-        GameApi.Levels.addExperience(UID, 1, eMax)
-        e.reply(`[气血]+${eMax}`)
+        let experience = parseInt(najieThing.experiencemax)
+        let size = thingAcount * experience
+        GameApi.Levels.addExperience(UID, 1, size)
+        e.reply(`[气血]+${size}`)
         break
       }
       default: {
@@ -244,11 +244,11 @@ export class BoxAction extends plugin {
     if (id[1] == 1) {
       switch (id[2]) {
         case '1': {
-          const GP = GameApi.Listdata.controlAction({
+          const LevelData = GameApi.Listdata.controlAction({
             NAME: UID,
             CHOICE: 'playerLevel'
           })
-          if (GP.levelId >= 10) {
+          if (LevelData.gaspractice.realm >= 20) {
             e.reply('[灵根]已定\n此生不可再洗髓')
             break
           }

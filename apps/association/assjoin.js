@@ -44,7 +44,7 @@ export class AssociationJoin extends plugin {
     if (assGP.AID == 0) {
       return false
     }
-    const joinGP = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: joinUID,
       CHOICE: 'playerLevel'
     })
@@ -64,8 +64,8 @@ export class AssociationJoin extends plugin {
 
     let msg =
       `UID号:${joinUID} \n` +
-      `练气境界: ${joinGP.levelname}\n` +
-      `炼体境界: ${joinGP.levelnamemax}` +
+      `练气境界: ${LevelData.gaspractice.realm}\n` +
+      `炼体境界: ${LevelData.bodypractice.realm}` +
       '\n'
     e.reply(msg)
     return false

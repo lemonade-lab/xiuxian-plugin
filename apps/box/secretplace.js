@@ -116,12 +116,12 @@ export class BoxSecretplace extends plugin {
     const mx = point.x
     const my = point.y
     const PointId = point.id.split('-')
-    const level = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
     // 境界不足
-    if (level.levelId < PointId[3]) {
+    if (LevelData.gaspractice.realm < PointId[3]) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
@@ -188,11 +188,11 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const positionID = position.id.split('-')
-    const level = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (level.levelId < positionID[3]) {
+    if (LevelData.gaspractice.realm < positionID[3]) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }

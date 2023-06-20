@@ -107,12 +107,7 @@ export class BoxBattleSite extends plugin {
       if (m < (mon.level + 1) * 7) {
         const SIZE = mon.level * 25 * mybuff
         msgRight.push(`[气血]*${SIZE}`)
-        GameApi.GP.updataUser({
-          UID,
-          CHOICE: 'playerLevel',
-          ATTRIBUTE: 'experiencemax',
-          SIZE
-        })
+        GameApi.Levels.addExperience(UID, 1, SIZE)
       }
       if (m < (mon.level + 1) * 8) {
         const lingshi = GameApi.Method.leastOne(mon.level * 2)

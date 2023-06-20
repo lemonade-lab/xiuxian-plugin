@@ -19,6 +19,10 @@ class Information {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
+    const SpecialData = Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'playerSpecial'
+    })
     const battle = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
@@ -52,11 +56,11 @@ class Information {
         life: LifeData[UID],
         GP: {},
         level: {
-          ...LevelData,
-          levelname: LevelList[LevelData.level.gaspractice.realm].name, // 练气名
-          experience: LevelData.level.gaspractice.experience, // 练气经验
-          levelnamemax: LevelMaxList[LevelData.level.bodypractice.realm].name, // 练体名
-          experiencemax: LevelData.level.bodypractice.experience // 练体经验
+          ...SpecialData,
+          levelname: LevelList[LevelData.gaspractice.realm].name, // 练气名
+          experience: LevelData.gaspractice.experience, // 练气经验
+          levelnamemax: LevelMaxList[LevelData.bodypractice.realm].name, // 练体名
+          experiencemax: LevelData.bodypractice.experience // 练体经验
         },
         linggenName: name,
         battle,

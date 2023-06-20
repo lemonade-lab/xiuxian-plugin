@@ -51,5 +51,5 @@ for (let item of sum) {
     }
   }
 }
-console.info(`《凡人修仙》 启动 ~`)
+console.info(`《凡人修仙》启动 ~`)
 export { apps }

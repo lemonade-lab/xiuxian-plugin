@@ -13,6 +13,7 @@ export const __PATH = {
   playerAction: algorithm.getFliePath(`${GPPath}/action`), // 地图行为
   playerBattle: algorithm.getFliePath(`${GPPath}/battle`), // 战斗
   playerEquipment: algorithm.getFliePath(`${GPPath}/equipment`), // 装备
+  playerSpecial: algorithm.getFliePath(`${GPPath}/special`), // 特殊值
   playerLevel: algorithm.getFliePath(`${GPPath}/level`), // 境界
   playerTalent: algorithm.getFliePath(`${GPPath}/talent`), // 天赋
   playerBag: algorithm.getFliePath(`${GPPath}/najie`), // 背包

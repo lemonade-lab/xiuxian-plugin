@@ -78,9 +78,9 @@ export class AssociationJobUp extends plugin {
       A: UID,
       B: ass.master
     })
-    const userLevel = GameApi.Listdata.controlAction({
+    const SpecialData = GameApi.Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'playerLevel'
+      CHOICE: 'playerSpecial'
     })
 
     if (victory == UID) {
@@ -95,7 +95,7 @@ export class AssociationJobUp extends plugin {
       masterGP.favorability = 0
       AssociationApi.assUser.assUpdataEfficiency(masterGP)
       ass.master = UID
-      userLevel.prestige += 8
+      SpecialData.prestige += 8
       e.reply(`谋划数载，篡位成功，你成功坐上了宗主之位，但也因为这一行为煞气值增加8点`)
     } else {
       ass.allMembers = ass.allMembers.filter((item) => item != UID)
@@ -103,15 +103,15 @@ export class AssociationJobUp extends plugin {
       assGP.assJob = 0
       assGP.favorability = 0
       assGP.contributionPoints = 0
-      userLevel.prestige += 15
+      SpecialData.prestige += 15
       e.reply(`你谋划篡位，被宗主识破了，不仅被逐出宗门，还让增加了15点煞气值`)
     }
     AssociationApi.assUser.assUpdataEfficiency(assGP)
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     GameApi.Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'playerLevel',
-      DATA: userLevel
+      CHOICE: 'playerSpecial',
+      DATA: SpecialData
     })
     return false
   }

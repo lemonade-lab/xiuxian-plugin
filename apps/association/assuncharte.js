@@ -274,24 +274,15 @@ export class AssUncharted extends plugin {
     if (random < 0.2) {
       e.reply(`无事发生`)
     } else if (random < 0.35) {
-      GameApi.GP.updataUser({
-        UID,
-        CHOICE: 'playerLevel',
-        ATTRIBUTE: 'experiencemax',
-        SIZE: Number(-150 * assinterimArchive.incentivesLevel)
-      })
+      GameApi.Levels.addExperience(UID, 1, assinterimArchive.incentivesLevel)
+
       e.reply(
         `你找到一处结界，不知法门只能暴力破解，却被结界反噬震伤，气血逆流，失去了${
           150 * assinterimArchive.incentivesLevel
         }气血`
       )
     } else if (random < 0.5) {
-      GameApi.GP.updataUser({
-        UID,
-        CHOICE: 'playerLevel',
-        ATTRIBUTE: 'experience',
-        SIZE: Number(-100 * assinterimArchive.incentivesLevel)
-      })
+      GameApi.Levels.addExperience(UID, 0, assinterimArchive.incentivesLevel)
       e.reply(
         `你发现一汪灵泉，大口饮下，不料泉水有毒，失去了${
           100 * assinterimArchive.incentivesLevel
@@ -299,12 +290,7 @@ export class AssUncharted extends plugin {
       )
     } else if (random < 0.65) {
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
-      GameApi.GP.updataUser({
-        UID,
-        CHOICE: 'playerLevel',
-        ATTRIBUTE: 'experience',
-        SIZE: Number(120 * assinterimArchive.incentivesLevel)
-      })
+      GameApi.Levels.addExperience(UID, 0, assinterimArchive.incentivesLevel)
       e.reply(
         `这是一块灵气充裕之地，你静心修炼一会儿，获得了${
           120 * assinterimArchive.incentivesLevel
@@ -359,14 +345,9 @@ export class AssUncharted extends plugin {
       battleMsg.msg.forEach((item) => {
         msg.push(item)
       })
-      GameApi.GP.updataUser({
-        UID,
-        CHOICE: 'playerLevel',
-        ATTRIBUTE: 'experiencemax',
-        SIZE: Number(250 * assinterimArchive.incentivesLevel)
-      })
-      msg.push(`获得了${250 * assinterimArchive.incentivesLevel}气血`)
+      GameApi.Levels.addExperience(UID, 1, assinterimArchive.incentivesLevel)
 
+      msg.push(`获得了${250 * assinterimArchive.incentivesLevel}气血`)
       e.reply(
         await BotApi.obtainingImages({
           path: 'msg',

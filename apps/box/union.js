@@ -132,7 +132,7 @@ export class Boxunion extends plugin {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (LevelData.level.gaspractice.realm != 0) {
+    if (LevelData.gaspractice.realm != 0) {
       e.reply('[修仙联盟]方正\n前辈莫要开玩笑')
       return false
     }

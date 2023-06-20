@@ -53,27 +53,34 @@ class Player {
         nowblood: LevelList[0].blood + LevelMaxList[0].blood // 血量
       }
     })
+    // 特殊值
     Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'playerLevel',
+      CHOICE: 'playerSpecial',
       DATA: {
         spiritual: 100, // 灵力
         spiritualUpper: 100, // 灵力上限
         prestige: 50, // 煞气
         reputation: 0, // 声望
-        level: {
-          gaspractice: {
-            experience: 0, // 经验
-            realm: 0 // 境界
-          },
-          bodypractice: {
-            experience: 0,
-            realm: 0
-          },
-          soul: {
-            experience: 0,
-            realm: 0
-          }
+        virtues: 0
+      }
+    })
+    // 境界信息
+    Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'playerLevel',
+      DATA: {
+        gaspractice: {
+          experience: 0, // 经验
+          realm: 0 // 境界
+        },
+        bodypractice: {
+          experience: 0,
+          realm: 0
+        },
+        soul: {
+          experience: 0,
+          realm: 0
         }
       }
     })
