@@ -54,22 +54,23 @@ export const __PATH = {
 
   /* 宗门路径 */
 
-  // 用户数据
   assGP: algorithm.getReq('/resources/databirth/assGP'), // 玩家的基础信息
-  assRelation: algorithm.getReq('/resources/databirth/assRelation'), // 玩家所有宗门的基础存档
+  assRelation: algorithm.getReq('/resources/databirth/assRelation'), // 所有宗门的基础存档
 
-  // assss0001.json
   association: algorithm.getReq('/resources/databirth/assItem'), // 宗门的基础信息
-
-  // 秘境
-  assinterimArchive: algorithm.getReq('/resources/databirth/assinterimArchive'),
-
-  assTreasure: algorithm.getReq('/resources/databirth/assTreasure'), // 藏宝阁
+  assTreasure: algorithm.getReq('/resources/databirth/assTreasure'), // 宗门的藏宝阁
+  assinterimArchive: algorithm.getReq('/resources/databirth/assinterimArchive'), // 宗门的秘境
 
   // 固定数据
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 宗门所有物品
   assassTreasu: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 隐藏宗门的藏宝阁
   assRelate: algorithm.getReq('/resources/datafixed/assRelate') // 宗门相关资料
+
+  /**
+   * AssLabyrinth
+   * BaseTreasureVault 基础的藏宝阁数据
+   * BlessPlace  驻地
+   */
 }
 
 /** 生成游戏数据 */

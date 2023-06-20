@@ -71,19 +71,19 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let AID = []
+    let ADATA = []
     if (najieThingB) {
       if (!AssociationApi.assUser.existAss('association', 'Ass000001')) {
-        AID.push('Ass000001')
+        ADATA.push('Ass000001')
       }
       if (!AssociationApi.assUser.existAss('association', 'Ass000002')) {
-        AID.push('Ass000002')
+        ADATA.push('Ass000002')
       }
       if (!AssociationApi.assUser.existAss('association', 'Ass000003')) {
-        AID.push('Ass000003')
+        ADATA.push('Ass000003')
       }
       if (!AssociationApi.assUser.existAss('association', 'Ass000004')) {
-        AID.push('Ass000004')
+        ADATA.push('Ass000004')
       }
     }
 
@@ -94,7 +94,7 @@ export class AssociationAdmin extends plugin {
     })
 
     // 可以建立隐藏宗门
-    if (najieThingB && AID.length != 0) {
+    if (najieThingB && ADATA.length > 0) {
       GameApi.Bag.addBagThing({
         UID,
         name: najieThingB.name,
@@ -104,17 +104,17 @@ export class AssociationAdmin extends plugin {
       const date = GameApi.Method.timeChange(nowTime)
 
       // 随机数 1-4
-      const location = Math.floor(Math.random() * AID.length)
+      const location = Math.floor(Math.random() * ADATA.length)
 
       // 初始化宗门数据
-      const AssData = getAss(AID[location], date, nowTime, UID, 4, 100000)
+      const AssData = getAss(ADATA[location], date, nowTime, UID, 4, 100000)
 
       // 玩家存档
       let assGP = GameApi.Listdata.controlAction({
         NMAE: UID,
         CHOICE: 'assGP'
       })
-      assGP.AID = AID[location].id
+      assGP.AID = ADATA[location].id
       assGP.assJob10 = 10
       assGP.contributionPoints = 0
       assGP.historyContribution = 0
@@ -125,7 +125,7 @@ export class AssociationAdmin extends plugin {
       AssociationApi.assUser.assUpdataEfficiency(assGP)
 
       // ??
-      AssociationApi.assUser.setAssOrGP('association', AID[location], AssData)
+      AssociationApi.assUser.setAssOrGP('association', ADATA[location], AssData)
       // 普通宗门的
       let assthing = GameApi.Listdata.controlAction({
         NAME: 'BaseTreasureVault',
@@ -133,17 +133,17 @@ export class AssociationAdmin extends plugin {
       })
       // 隐藏宗门的
       let assthin = GameApi.Listdata.controlAction({
-        NAME: AID[location],
+        NAME: ADATA[location],
         CHOICE: 'assassTreasu'
       })
       for (let i = 0; i < assthin.length; i++) {
         assthing[i].push.apply(assthin[i])
       }
       // 存储藏宝阁
-      AssociationApi.assUser.setAssOrGP('assTreasure', AID[location], assthing)
+      AssociationApi.assUser.setAssOrGP('assTreasure', ADATA[location], assthing)
       // 宗门名称表
       let assRelation = AssociationApi.assUser.assRelationList.find(
-        (item) => item.id == AID[location]
+        (item) => item.id == ADATA[location]
       )
       e.reply(`成功找到${assRelation.name}遗址,建立了传承宗门${assRelation.name}`)
       return false
