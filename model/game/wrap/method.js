@@ -37,7 +37,7 @@ class Method {
   }
 
   /**
-   * 时间初始化
+   * 转化为对象
    * @param {*} time
    * @returns
    */
@@ -53,16 +53,36 @@ class Method {
     return dateObj
   }
 
+  /**
+   * 判断是否废undefied或null
+   * @param {} obj
+   * @returns
+   */
   isNotNull(obj) {
     if (obj == undefined || obj == null) return false
     return true
   }
 
-  
+  /**
+   * 转换为字符
+   * @param {*} timestamp
+   * @returns
+   */
   timeChange(timestamp) {
     const date = new Date(timestamp)
     const M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
     return `${date.getFullYear()}-${M}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+  }
+
+  /**
+   * 参数转换为数字类型
+   * @param {*} num
+   * @returns
+   */
+  numberVerify(input) {
+    const value = Number(input.trim())
+    const num = isNaN(value) ? 1 : Math.abs(value) || 1
+    return num
   }
 }
 export default new Method()

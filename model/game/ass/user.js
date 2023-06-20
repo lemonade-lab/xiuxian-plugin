@@ -63,17 +63,6 @@ class GP {
   }
 
   /**
-   * 参数转换为数字类型
-   * @param {*} num
-   * @returns
-   */
-  numberVerify(input) {
-    const value = Number(input.trim())
-    const num = isNaN(value) ? 1 : Math.abs(value) || 1
-    return num
-  }
-
-  /**
    * 写入数据
    * @param fileName  ["assGP" , "association" ]
    * @param itemName
@@ -91,7 +80,7 @@ class GP {
   }
 
   /**
-   *
+   * 增加天赋
    * @param {*} assGP
    * @returns
    */
@@ -131,6 +120,7 @@ class GP {
 
   /**
    *
+   * 重命名宗门
    * @param {*} ass
    * @param {*} type
    * @param {*} associationName
@@ -155,7 +145,7 @@ class GP {
   }
 
   /**
-   *
+   * 检查设施
    * @param {*} ass
    */
   checkFacility(ass) {
@@ -185,7 +175,7 @@ class GP {
   }
 
   /**
-   *
+   * 初始化宗门存档
    * @param {*} UID
    * @returns
    */

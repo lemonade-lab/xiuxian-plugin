@@ -283,7 +283,7 @@ export class Association extends plugin {
 
     let reg = /#宗门(上交|上缴|捐赠)灵石/
     let lingshi = e.msg.replace(reg, '')
-    lingshi = AssociationApi.assUser.numberVerify(lingshi)
+    lingshi = GameApi.Method.numberVerify(lingshi)
 
     let money = GameApi.Bag.searchBagByName({
       UID,
