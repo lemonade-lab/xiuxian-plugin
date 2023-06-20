@@ -146,8 +146,7 @@ export class AssociationJoin extends plugin {
     })
 
     if (assGP.assJob >= 8) {
-      const now = new Date().getTime()
-      const nowTime = now.getTime() // 获取当前时间戳
+      const nowTime = new Date().getTime() // 获取当前时间戳
       const date = GameApi.Method.timeChange(nowTime)
       joinGP.assName = ass.id
       joinGP.assJob = 1
