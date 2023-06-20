@@ -37,16 +37,31 @@ export class Association extends plugin {
     const UID = e.user_id
     // 宗门存档验证
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    console.log(ifexistplay)
+    if (!ifexistplay) {
       return false
     }
     // 数据验证
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
+
+    console.log(assGP)
     if (assGP.assName == 0) {
+      e.reply('已仙鹤')
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
+    console.log(ass)
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == ass.id)
+    if (!assRelation) {
+      e.reply('宗门失效~')
+      return
+    }
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
       const UIDNum = ass.allMembers[item]
@@ -54,7 +69,10 @@ export class Association extends plugin {
         NAME: UIDNum,
         CHOICE: 'playerLevel'
       })
-      const assGPA = AssociationApi.assUser.getAssOrGP(1, UIDNum)
+      const assGPA = GameApi.UserData.controlAction({
+        NAME: UIDNum,
+        CHOICE: 'assGP'
+      })
       msg.push(
         'UID:' +
           UIDNum +
@@ -81,14 +99,20 @@ export class Association extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     const nowTime = new Date().getTime() // 获取当前日期的时间戳
     const oldTime = assGP.time[1]
     const days = Math.trunc((nowTime - oldTime) / (24 * 60 * 60 * 1000))
@@ -132,10 +156,13 @@ export class Association extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName != 0 || assGP.volunteerAss != 0) {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
@@ -150,7 +177,10 @@ export class Association extends plugin {
       return false
     }
     associationName = assRelation.id
-    const ass = AssociationApi.assUser.getAssOrGP(2, associationName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: associationName,
+      CHOICE: 'association'
+    })
     const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
     const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
@@ -170,10 +200,13 @@ export class Association extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
@@ -184,7 +217,10 @@ export class Association extends plugin {
       e.reply('加入宗门不满' + `${time}小时,无法退出`)
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     if (assGP.assJob < 10) {
       ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber) // 原来的职位表删掉这个B
       assGP.assName = 0
@@ -211,7 +247,10 @@ export class Association extends plugin {
         let randMember = { assJob: 0 }
         for (let item in ass.allMembers) {
           const UIDNum = ass.allMembers[item]
-          const assGPA = AssociationApi.assUser.getAssOrGP(1, UIDNum)
+          const assGPA = GameApi.UserData.controlAction({
+            NAME: UIDNum,
+            CHOICE: 'assGP'
+          })
           if (assGPA.assJob > randMember.assJob) {
             randMember = assGPA
           }
@@ -231,10 +270,13 @@ export class Association extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
@@ -255,7 +297,10 @@ export class Association extends plugin {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.id == assGP.assName
     )
@@ -299,7 +344,10 @@ export class Association extends plugin {
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
       const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == theName)
-      const thisAss = AssociationApi.assUser.getAssOrGP(2, theName)
+      const thisAss = GameApi.UserData.controlAction({
+        NAME: theName,
+        CHOICE: 'association'
+      })
       let theAssXiuxian = 0
       if (thisAss.resident.name == 0) {
         theAssXiuxian = '无驻地'

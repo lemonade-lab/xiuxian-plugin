@@ -31,7 +31,10 @@ export class AssociationExtend extends plugin {
     if (!assRelation) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assRelation.id)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assRelation.id,
+      CHOICE: 'association'
+    })
     const location = AssociationApi.assUser.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
       return false
@@ -45,10 +48,13 @@ export class AssociationExtend extends plugin {
     const UID = e.user_id
     // 无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
@@ -86,7 +92,7 @@ export class AssociationExtend extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 

@@ -24,10 +24,13 @@ export class AssociationJobUp extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob > 9 || assGP.contributionPoints < 400) {
       return false
     }
@@ -42,14 +45,20 @@ export class AssociationJobUp extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob >= 10) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     const actionA = GameApi.UserData.controlAction({
       NAME: UID,
@@ -77,7 +86,10 @@ export class AssociationJobUp extends plugin {
     if (victory == UID) {
       assGP.assJob = 10
       ass.allMembers = ass.allMembers.filter((item) => item != ass.master)
-      const masterGP = AssociationApi.assUser.getAssOrGP(1, ass.master)
+      const masterGP = GameApi.UserData.controlAction({
+        NAME: ass.master,
+        CHOICE: 'assGP'
+      })
       masterGP.assName = 0
       masterGP.assJob = 0
       masterGP.favorability = 0
@@ -108,11 +120,14 @@ export class AssociationJobUp extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob >= 8) {
       return false
     }
@@ -126,7 +141,10 @@ export class AssociationJobUp extends plugin {
     if (!ifexists || !AssociationApi.assUser.existAss('assGP', battleUID)) {
       return false
     }
-    const battleGP = AssociationApi.assUser.getAssOrGP(1, battleUID)
+    const battleGP = GameApi.UserData.controlAction({
+      NAME: battleUID,
+      CHOICE: 'assGP'
+    })
     if (
       battleGP.assName == 0 ||
       assGP.assName != battleGP.assName ||

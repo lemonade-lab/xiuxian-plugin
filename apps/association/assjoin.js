@@ -32,12 +32,15 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
     const joinUID = e.msg.replace(/^(#|\/)查看简历/, '')
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
@@ -45,7 +48,10 @@ export class AssociationJoin extends plugin {
       NAME: joinUID,
       CHOICE: 'playerLevel'
     })
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
       return false
@@ -69,10 +75,13 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
 
     if (assGP.volunteerAss == undefined) {
       assGP.volunteerAss = 0
@@ -83,7 +92,10 @@ export class AssociationJoin extends plugin {
     if (assGP.volunteerAss == 0) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.volunteerAss)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.volunteerAss,
+      CHOICE: 'association'
+    })
     if (!ass) {
       assGP.volunteerAss = 0
       AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
@@ -107,11 +119,17 @@ export class AssociationJoin extends plugin {
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
     const nowMem = ass.allMembers.length // 该宗门目前人数
@@ -122,7 +140,10 @@ export class AssociationJoin extends plugin {
     if (find == -1) {
       return false
     }
-    const joinGP = AssociationApi.assUser.getAssOrGP(1, joinUID)
+    const joinGP = GameApi.UserData.controlAction({
+      NAME: joinUID,
+      CHOICE: 'assGP'
+    })
 
     if (assGP.assJob >= 8) {
       const now = new Date().getTime()
@@ -149,7 +170,7 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
@@ -159,18 +180,27 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     let find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
       return false
     }
 
-    const joinGP = AssociationApi.assUser.getAssOrGP(1, joinUID)
+    const joinGP = GameApi.UserData.controlAction({
+      NAME: joinUID,
+      CHOICE: 'assGP'
+    })
 
     joinGP.volunteerAss = 0
     ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
@@ -184,14 +214,20 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    let ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    let ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     if (ass.applyJoinList.length == 0) {
       e.reply(`你的宗门还没有收到任何简历！！！快去招收弟子吧！`)
       return false

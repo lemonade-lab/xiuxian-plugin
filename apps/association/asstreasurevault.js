@@ -28,15 +28,21 @@ export class AssTreasureVault extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     if (ass.facility[1].status == 0) {
       return false
@@ -86,7 +92,10 @@ export class AssTreasureVault extends plugin {
     if (id[0] > 5 || id[2] > 19) {
       return false
     }
-    const assTreasureCabinet = AssociationApi.assUser.getAssOrGP(4, assGP.assName)
+    const assTreasureCabinet = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'assTreasureVault'
+    })
     const length = Math.ceil(ass.level / 3)
     let isExist = false
     for (let i = 0; i < length; i++) {
@@ -122,19 +131,28 @@ export class AssTreasureVault extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
 
     let msg = ['___[宗门藏宝阁]___']
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = AssociationApi.assUser.getAssOrGP(4, assGP.assName)
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    let assTreasureCabinet = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'assTreasureVault'
+    })
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     const length = Math.ceil(ass.level / 3)
     for (let i = 0; i < length; i++) {
@@ -161,16 +179,22 @@ export class AssTreasureVault extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     const thingName = e.msg.replace(/^(#|\/)兑换/, '')
 
     if (ass.facility[1].status == 0 || thingName == '') {
@@ -197,7 +221,10 @@ export class AssTreasureVault extends plugin {
       return false
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = AssociationApi.assUser.getAssOrGP(4, assGP.assName)
+    let assTreasureCabinet = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'assTreasureVault'
+    })
     let length = Math.ceil(ass.level / 3)
     let exchangeThing
     for (let i = 0; i < length; i++) {
@@ -234,11 +261,14 @@ export class AssTreasureVault extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }

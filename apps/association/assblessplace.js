@@ -36,10 +36,13 @@ export class AssBlessPlace extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
@@ -52,12 +55,18 @@ export class AssBlessPlace extends plugin {
     }
 
     assName = assRelation.id
-    const battleAss = AssociationApi.assUser.getAssOrGP(2, assName)
+    const battleAss = GameApi.UserData.controlAction({
+      NAME: assName,
+      CHOICE: 'association'
+    })
     if (battleAss.resident.name == 0 || battleAss.id == assGP.assName) {
       return false
     }
     // 读取被攻打的宗门势力范围
-    const attackAss = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const attackAss = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     const positionList = GameApi.UserData.controlAction({
       NAME: 'position',
@@ -141,14 +150,20 @@ export class AssBlessPlace extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     let blessedName = e.msg.replace(/^(#|\/)入驻洞天/, '')
     blessedName = blessedName.trim()
     // 洞天不存在
@@ -177,7 +192,10 @@ export class AssBlessPlace extends plugin {
 
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
-      const thisAss = AssociationApi.assUser.getAssOrGP(2, theName)
+      const thisAss = GameApi.UserData.controlAction({
+        NAME: theName,
+        CHOICE: 'association'
+      })
       if (thisAss.resident.name == dongTan.name) {
         e.reply(`你尝试带着宗门入驻${dongTan.name}，却发现有宗门捷足先登了，只能通过开战强夺驻地了`)
         return false
@@ -197,16 +215,22 @@ export class AssBlessPlace extends plugin {
   async exploitationVein(e) {
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
@@ -273,19 +297,25 @@ export class AssBlessPlace extends plugin {
     const UID = e.user_id
     // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
     const GP = GameApi.UserData.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
 
-    let ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    let ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     if (ass.resident.name == 0) {
       e.reply(`你的宗门还没有驻地，无法建设宗门`)
       return false
@@ -342,7 +372,10 @@ export class AssBlessPlace extends plugin {
     assGP.contributionPoints += Math.trunc(add / 2) + 1
     assGP.historyContribution += Math.trunc(add / 2) + 1
     AssociationApi.assUser.checkFacility(ass)
-    ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     let msg = ass.facility[location].status == 0 ? '未启用' : '启用'
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(
@@ -357,15 +390,21 @@ export class AssBlessPlace extends plugin {
     const UID = e.user_id
     // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0) {
       return false
     }
 
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     let msg = [`__[宗门建筑]__`]
 

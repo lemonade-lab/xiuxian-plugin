@@ -41,7 +41,7 @@ export class AssUncharted extends plugin {
     const UID = e.user_id
     // 无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
     const addres = '宗门秘境'
@@ -55,7 +55,10 @@ export class AssUncharted extends plugin {
     }
 
     for (let assId of assList) {
-      const assUncharted = AssociationApi.assUser.getAssOrGP(2, assId)
+      const assUncharted = GameApi.UserData.controlAction({
+        NAME: assId,
+        CHOICE: 'association'
+      })
       weizhi.push(assUncharted)
     }
     GoAssUncharted(e, weizhi, addres)
@@ -82,7 +85,10 @@ export class AssUncharted extends plugin {
       return false
     }
     // 秘境所属宗门
-    let ass = AssociationApi.assUser.getAssOrGP(2, weizhi.id)
+    let ass = GameApi.UserData.controlAction({
+      NAME: weizhi.id,
+      CHOICE: 'association'
+    })
     if (ass.facility[2].status == 0) {
       e.reply(`该秘境暂未开放使用！`)
       return false
@@ -137,7 +143,10 @@ export class AssUncharted extends plugin {
       e.reply(`这个宗门的灵石池，无法支撑秘境的运转了！`)
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
 
     if (assGP.assName == ass.id) {
       GameApi.Bag.addBagThing({
@@ -200,7 +209,10 @@ export class AssUncharted extends plugin {
     }
     let direction = e.msg.replace(/^(#|\/)秘境移动向/, '')
     direction = direction.trim()
-    const interimArchive = AssociationApi.assUser.getAssOrGP(3, UID)
+    const interimArchive = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'interimArchive'
+    })
     let abscissa = interimArchive.abscissa
     let ordinate = interimArchive.ordinate
     switch (true) {
@@ -387,14 +399,20 @@ export class AssUncharted extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    let assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    let assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    let ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    let ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     if (ass.facility[2].status == 0) {
       e.reply(`宗门秘境未建设好！`)
       return false
@@ -425,14 +443,17 @@ export class AssUncharted extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
     if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const interimArchive = AssociationApi.assUser.getAssOrGP(3, UID)
+    const interimArchive = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'interimArchive'
+    })
 
     let msg = [`__[秘境收获]__`]
 
@@ -453,14 +474,17 @@ export class AssUncharted extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
     if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
       return false
     }
-    const interimArchive = AssociationApi.assUser.getAssOrGP(3, UID)
+    const interimArchive = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'interimArchive'
+    })
     let msg = [`__[开启结果]__`]
 
     if (interimArchive.treasureChests.length <= 0) {
@@ -516,12 +540,15 @@ export class AssUncharted extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
     if (AssociationApi.assUser.existAss('interimArchive', UID)) {
-      const interimArchive = AssociationApi.assUser.getAssOrGP(3, UID)
+      const interimArchive = GameApi.UserData.controlAction({
+        NAME: UID,
+        CHOICE: 'interimArchive'
+      })
       if (interimArchive.alreadyExplore.length > 11) {
         const idList = ['1-1-40', '2-1-40']
         const randomSource = Math.random()

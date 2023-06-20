@@ -7,7 +7,7 @@ class Bag {
    */
   addBagThing({ UID, name, ACCOUNT }) {
     // 搜索物品信息
-    const thing = Listdata.searchThing({
+    const thing = Listdata.searchAllThing({
       condition: 'name',
       name
     })
@@ -31,7 +31,9 @@ class Bag {
    * @returns
    */
   updateMaterial({ UID, name, ACCOUNT }) {
-    // 搜索物品信息
+    /**
+     * 搜索仓库物品
+     */
     const thing = Listdata.searchThing({
       CHOICE: 'fixed_material',
       NAME: 'MaterialGUIDe',

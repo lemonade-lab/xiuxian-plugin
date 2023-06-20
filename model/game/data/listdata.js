@@ -68,18 +68,24 @@ class Listdata {
    * 根据条件搜索
    * @param {属性选择} CHOICE
    * @param {表名} NAME
-   * @param {item[condition]} condition
-   * @param {==name} name
+   * @param {对象属性} condition
+   * @param {条件属性} name
    * @returns 返回信息
    */
-  searchThing(parameter) {
-    let { CHOICE, NAME, condition, name } = parameter
-    if (!CHOICE) {
-      // 默认检索all表
-      CHOICE = 'generate_all'
-      NAME = 'all'
-    }
+  searchThing({ CHOICE, NAME, condition, name }) {
     const all = this.controlAction({ CHOICE, NAME })
+    const ifexist = all.find((item) => item[condition] == name)
+    return ifexist
+  }
+
+  /**
+   * 搜索指定物品信息
+   * @param {*} condition
+   * @param {*} name
+   * @returns
+   */
+  searchAllThing(condition, name) {
+    const all = this.controlAction({ CHOICE: 'generate_all', NAME: 'all' })
     const ifexist = all.find((item) => item[condition] == name)
     return ifexist
   }

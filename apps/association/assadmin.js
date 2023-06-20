@@ -34,13 +34,16 @@ export class AssociationAdmin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
     if (!AssociationApi.assUser.existAss('assGP', UID)) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName != 0 || assGP.volunteerAss != 0) {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
@@ -78,13 +81,8 @@ export class AssociationAdmin extends plugin {
       // 有中级令牌
       // 判断隐藏宗门是否被占完了
 
-      let assName = [
-      ]
-      /* AssociationApi.assUser.existAss("association", "Ass000001") ? "" : assName.push("Ass000001"),
-      AssociationApi.assUser.existAss("association", "Ass000002") ? "" : assName.push("Ass000002"),
-      AssociationApi.assUser.existAss("association", "Ass000003") ? "" : assName.push("Ass000003"),
-      AssociationApi.assUser.existAss("association", "Ass000004") ? "" : assName.push("Ass000004")
-      console.log(c) */
+      let assName = []
+      //
       if (assName.length != 0) {
         // 可以创建隐藏宗门
         GameApi.Bag.addBagThing({
@@ -104,7 +102,10 @@ export class AssociationAdmin extends plugin {
         const location = Math.floor(Math.random() * assName.length)
         const association = getAss(assName[location], date, nowTime, UID, 4, 100000)
 
-        let assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+        let assGP = GameApi.UserData.controlAction({
+          NAME: UID,
+          CHOICE: 'assGP'
+        })
         assGP.assName = assName[location]
         assGP.assJob = 10
         assGP.contributionPoints = 0
@@ -186,15 +187,18 @@ export class AssociationAdmin extends plugin {
     }
     const nowTime = new Date().getTime() // 获取当前时间戳
     const date = GameApi.Method.timeChange(nowTime)
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
-    let replace =null
-      if(AssociationApi.assUser.assRelationList.length==0){
-        replace = 1
-      }else{
-        const id =
-      AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
-         replace = Number(id.replace('Ass00000', '')) + 1
-      }
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
+    let replace = null
+    if (AssociationApi.assUser.assRelationList.length == 0) {
+      replace = 1
+    } else {
+      const id =
+        AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
+      replace = Number(id.replace('Ass00000', '')) + 1
+    }
     const associationID = 'Ass00000' + replace
 
     const relation = {
@@ -226,14 +230,20 @@ export class AssociationAdmin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 8) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     if (ass.level == AssociationApi.assUser.numberMaximums.length) {
       return false
     }
@@ -286,7 +296,10 @@ export class AssociationAdmin extends plugin {
     for (let GPID of GPList) {
       const UID = GPID
       if (AssociationApi.assUser.existAss('assGP', UID)) {
-        const assOrGP = AssociationApi.assUser.getAssOrGP(1, UID)
+        const assOrGP = GameApi.UserData.controlAction({
+          NAME: UID,
+          CHOICE: 'assGP'
+        })
         AssociationApi.assUser.assEffCount(assOrGP)
       }
     }
@@ -304,10 +317,13 @@ export class AssociationAdmin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
@@ -316,13 +332,19 @@ export class AssociationAdmin extends plugin {
     if (UID == memberUID) {
       return false
     }
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     const isinass = ass.allMembers.find((item) => item == memberUID)
     if (!isinass) {
       return false
     }
 
-    const member = AssociationApi.assUser.getAssOrGP(1, memberUID) // 获取这个B的存档
+    const member = GameApi.UserData.controlAction({
+      NAME: memberUID,
+      CHOICE: 'assGP'
+    }) // 获取这个B的存档
     if (member.assJob > 5) {
       e.reply(`他已经是内门弟子了，不能再提拔了`)
       return false
@@ -343,11 +365,17 @@ export class AssociationAdmin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
-    const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
-    const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
+    const assGP = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
+    const ass = GameApi.UserData.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
     if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
@@ -373,11 +401,14 @@ export class AssociationAdmin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup) {
+    if (!ifexistplay) {
       return false
     }
 
-    const GPA = AssociationApi.assUser.getAssOrGP(1, UID)
+    const GPA = GameApi.UserData.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
     if (GPA.assName == 0 || GPA.assJob < 8) {
       return false
     }
@@ -388,11 +419,17 @@ export class AssociationAdmin extends plugin {
     if (UID == memberUID) {
       return false
     }
-    const GPB = AssociationApi.assUser.getAssOrGP(1, memberUID)
+    const GPB = GameApi.UserData.controlAction({
+      NAME: memberUID,
+      CHOICE: 'assGP'
+    })
     if (GPB.assName == 0) {
       return false
     }
-    const bss = AssociationApi.assUser.getAssOrGP(2, GPB.assName)
+    const bss = GameApi.UserData.controlAction({
+      NAME: GPB.assName,
+      CHOICE: 'association'
+    })
     if (GPA.assName != GPB.assName) {
       return false
     }

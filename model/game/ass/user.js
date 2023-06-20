@@ -43,32 +43,11 @@ class GP {
    * @param fileName
    */
   existAss(filePathType, fileName) {
+    // 判断指定文件是否存在
     if (fs.existsSync(path.join(`${__PATH[filePathType]}/${fileName}.json`))) {
       return true
     }
     return false
-  }
-
-  /**
-   * 获取用户宗门信息或宗门存档
-   * @param assName
-   * @param userUID
-   */
-  getAssOrGP(type, name) {
-    let data
-    const map = {
-      1: 'assGP',
-      2: 'association',
-      3: 'interimArchive',
-      4: 'assTreasureVault'
-    }
-    try {
-      data = fs.readFileSync(path.join(`${__PATH[map[type]]}/${name}.json`), 'utf8')
-    } catch (error) {
-      return 'error'
-    }
-    // 将字符串数据转变成json格式
-    return JSON.parse(data)
   }
 
   /**
@@ -123,7 +102,10 @@ class GP {
       this.setAssOrGP('assGP', assGP.qqNumber, assGP)
       return
     }
-    let ass = this.getAssOrGP(2, assGP.assName)
+    let ass = Listdata.controlAction({
+      NAME: assGP.assName,
+      CHOICE: 'association'
+    })
 
     if (ass.resident.id != 0) {
       effective += ass.resident.efficiency
@@ -192,7 +174,10 @@ class GP {
       for (let GPID of GPList) {
         const UID = GPID
         if (this.existAss('assGP', UID)) {
-          const assOrGP = this.getAssOrGP(1, UID)
+          const assOrGP = Listdata.controlAction({
+            NAME: UID,
+            CHOICE: 'assGP'
+          })
           this.assEffCount(assOrGP)
         }
       }
@@ -233,7 +218,10 @@ class GP {
       this.setAssOrGP('assGP', UID, UserData)
     }
     // 读取数据
-    let assGP = this.getAssOrGP(1, UID)
+    let assGP = Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'assGP'
+    })
 
     // 只有生命计数一样，且生命状态正常才为true
     if (GP.createTime == assGP.xiuxianTime && GP.status == 1) {
@@ -244,7 +232,11 @@ class GP {
 
     // 先退宗，再重置
     if (this.existAss('association', assGP.assName)) {
-      let ass = this.getAssOrGP(2, assGP.assName)
+      let ass = Listdata.controlAction({
+        NAME: assGP.assName,
+        CHOICE: 'association'
+      })
+
       if (assGP.assJob < 10) {
         // 原来的职位表删掉这个B
         ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
@@ -259,7 +251,11 @@ class GP {
           let randMember = { assJob: 0 }
           for (let item in ass.allMembers) {
             const UIDNum = ass.allMembers[item]
-            const assGPA = this.getAssOrGP(1, UIDNum)
+            const assGPA = Listdata.controlAction({
+              NAME: UIDNum,
+              CHOICE: 'assGP'
+            })
+
             if (assGPA.assJob > randMember.assJob) {
               randMember = assGPA
             }
@@ -277,7 +273,10 @@ class GP {
     // 检查
     if (assGP.volunteerAss != 0) {
       // 得到数据
-      const ass = this.getAssOrGP(2, assGP.volunteerAss)
+      const ass = Listdata.controlAction({
+        NAME: assGP.volunteerAss,
+        CHOICE: 'association'
+      })
       if (!Method.isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
         // 写入数据

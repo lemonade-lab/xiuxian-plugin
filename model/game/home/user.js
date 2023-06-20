@@ -8,7 +8,7 @@ class GP {
    * @returns
    */
   userWarehouse({ UID, name, ACCOUNT }) {
-    const thing = Listdata.searchThing({
+    const thing = Listdata.searchAllThing({
       condition: 'name',
       name
     })
