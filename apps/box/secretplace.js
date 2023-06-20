@@ -121,7 +121,7 @@ export class BoxSecretplace extends plugin {
       CHOICE: 'playerLevel'
     })
     // 境界不足
-    if (LevelData.gaspractice.realm < PointId[3]) {
+    if (LevelData.gaspractice.realm < PointId[3] - 1) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
@@ -192,7 +192,7 @@ export class BoxSecretplace extends plugin {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (LevelData.gaspractice.realm < positionID[3]) {
+    if (LevelData.gaspractice.realm < positionID[3] - 1) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }

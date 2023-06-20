@@ -122,7 +122,7 @@ export class Homestart extends plugin {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (LevelData.gaspractice.realm < PointId[3]) {
+    if (LevelData.gaspractice.realm < PointId[3] - 1) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
       return false
     }
@@ -272,7 +272,7 @@ export class Homestart extends plugin {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (LevelData.gaspractice.realm < PointId[3]) {
+    if (LevelData.gaspractice.realm < PointId[3] - 1) {
       e.reply('您选择的地点您还无法前往\n请道友重新选择')
       return false
     }

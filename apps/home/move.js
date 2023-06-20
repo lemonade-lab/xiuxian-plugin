@@ -14,7 +14,7 @@ export class Homemove extends plugin {
         },
         {
           reg: /^(#|\/)更新仓库$/,
-          fnc: 'update_warehouse'
+          fnc: 'updateWarehouse'
         },
         {
           reg: /^(#|\/)农田重置$/,
@@ -183,7 +183,7 @@ export class Homemove extends plugin {
     e.reply(`数量为${quantity}的${thingName}，成功转移到储物袋`)
   }
 
-  async update_warehouse(e) {
+  async updateWarehouse(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档

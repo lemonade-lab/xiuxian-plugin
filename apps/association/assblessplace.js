@@ -584,11 +584,6 @@ async function AssBattle(e, battleA, battleB) {
  */
 const AddPrestige = (members) => {
   for (let i = 0; i < members.length; i++) {
-    GameApi.GP.updataUser({
-      UID: members[i],
-      CHOICE: 'playerSpecial',
-      ATTRIBUTE: 'prestige',
-      SIZE: 2
-    })
+    GameApi.Special.updataSpecial(members[i], 'prestige', 2)
   }
 }

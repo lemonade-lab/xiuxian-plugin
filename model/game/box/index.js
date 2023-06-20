@@ -1,17 +1,5 @@
 import Listdata from '../data/listdata.js'
 class GP {
-  /**
-   * 表名，地址，属性，大小
-   * @param {UID, CHOICE, ATTRIBUTE, SIZE} param0
-   * @returns
-   */
-  updataUser({ UID, CHOICE, ATTRIBUTE, SIZE }) {
-    // 读取原数据
-    const data = Listdata.controlAction({ NAME: UID, CHOICE })
-    data[ATTRIBUTE] += Math.trunc(SIZE)
-    Listdata.controlAction({ NAME: UID, CHOICE, DATA: data })
-  }
-
   getTypeThing(position, type) {
     const dropsItemList = Listdata.controlAction({
       NAME: 'goods',

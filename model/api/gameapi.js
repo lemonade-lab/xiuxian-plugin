@@ -17,7 +17,9 @@ import Levels from '../game/box/levels.js'
 import Player from '../game/box/player.js'
 import Talent from '../game/box/talent.js'
 import Bag from '../game/box/bag.js'
+import Special from '../game/box/special.js'
 export const GameApi = {
+  Special,
   Bag,
   Talent,
   Player,
