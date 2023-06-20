@@ -76,7 +76,7 @@ export class AssTreasureVault extends plugin {
     assGP.historyContribution += point
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     GameApi.Bag.addBagThing({
-      UID: UID,
+      UID,
       name: searchThing.name,
       ACCOUNT: -1
     })
@@ -222,7 +222,7 @@ export class AssTreasureVault extends plugin {
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     const addThing = GameApi.GP.searchThingById(exchangeThing.id)
     GameApi.Bag.addBagThing({
-      UID: UID,
+      UID,
       name: addThing.name,
       ACCOUNT: 1
     })

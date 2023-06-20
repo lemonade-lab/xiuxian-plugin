@@ -59,10 +59,10 @@ export const __PATH = {
   assGP: algorithm.getReq('/resources/databirth/assGP'), //
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'), // 内部档案
   // 固定数据
-  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), //秘境-物品
+  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), // 秘境-物品
   assRelation: algorithm.getReq('/resources/datafixed/assRelation'), // 隐藏宗门
-  assRelate: algorithm.getReq('/resources/datafixed/assRelate'), //物品
-  assProduct: algorithm.getReq('/resources/datafixed/assProduct'), //令牌
+  assRelate: algorithm.getReq('/resources/datafixed/assRelate'), // 物品
+  assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 令牌
   assDrop: algorithm.getReq('/resources/datafixed/assDrop'), // 令牌
 
   generate_uncharted: algorithm.getReq('/resources/databirth/uncharted') // 生成

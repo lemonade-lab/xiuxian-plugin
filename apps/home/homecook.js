@@ -613,7 +613,7 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     let wanmin = {
-      UID: UID,
+      UID,
       durable: 100
     }
     target = Object.assign(target, wanmin)

@@ -1,6 +1,6 @@
 import Listdata from '../data/listdata.js'
 import User from './user.js'
-//秋雨
+// 秋雨
 class GP {
   /**
    *
@@ -228,7 +228,7 @@ class GP {
       })
       const time = new Date().getTime()
       life.push({
-        UID: UID,
+        UID,
         time
       })
       Listdata.controlActionInitial({

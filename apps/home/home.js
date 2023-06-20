@@ -137,7 +137,7 @@ export class Homestart extends plugin {
       })
       const time = new Date().getTime()
       positionhome.push({
-        UID: UID,
+        UID,
         createTime: time.getTime(),
         address,
         x,
@@ -220,9 +220,7 @@ export class Homestart extends plugin {
       INITIAL: []
     })
     let homeexperience = home.homeexperience
-    let homeexperienceMax = home.homeexperienceMax
-    let x = homeexperience - homeexperienceMax
-    home.homeexperience = x
+    home.homeexperience = homeexperience - home.homeexperienceMax
     home.homelevel += 1
     home.homeexperienceMax = home.homelevel * 10000 + 10000
     GameApi.Listdata.controlActionInitial({
@@ -320,8 +318,8 @@ export class Homestart extends plugin {
       })
       const target1 = minefield.find((obj) => obj.UID === UID)
       if (target1 != undefined) {
-        let UID = target1.UID
-        if (UID == UID) {
+        let qq = target1.UID
+        if (qq == UID) {
           let minefield1 = minefield.filter((item) => item.UID != UID)
           GameApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_minefield',

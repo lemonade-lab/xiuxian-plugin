@@ -103,7 +103,7 @@ export class Homeminefield extends plugin {
     GameApi.Wrap.setRedis(A, CDid, nowTime, CDTime)
     if (minefieldName1 == undefined) {
       minefield.push({
-        UID: UID,
+        UID,
         address,
         region,
         createTime: nowTime,
@@ -121,9 +121,9 @@ export class Homeminefield extends plugin {
       let time1 = 3
       useraction[UID] = setTimeout(() => {
         forwardsetTime[UID] = 0
-        let UID = GameApi.Battle.battle({ e, A, B })
+        let qq = GameApi.Battle.battle({ e, A, B })
         let minefieldName = minefield.find((obj) => obj.address === address)
-        if (UID != B) {
+        if (qq != B) {
           let timeMax = minefieldName.timeMax
           let time3 = minefieldName.createTime
           let time1 = Math.floor((nowTime - time3) / 1000)
@@ -220,8 +220,8 @@ export class Homeminefield extends plugin {
       e.reply('该灵矿没被占领!')
       return false
     }
-    let UID = target.UID
-    if (UID != UID) {
+    let qq = target.UID
+    if (qq != UID) {
       e.reply('你不是该灵矿的主人!')
       return false
     }

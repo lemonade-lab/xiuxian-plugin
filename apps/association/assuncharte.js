@@ -488,7 +488,7 @@ export class AssUncharted extends plugin {
             addThing = GameApi.GP.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
-            UID: UID,
+            UID,
             name: addThing.name,
             ACCOUNT: 1
           })
@@ -546,19 +546,25 @@ export class AssUncharted extends plugin {
           if (!addThing) {
             addThing = GameApi.GP.searchThingById('6-1-2')
           }
+          GameApi.Bag.addBagThing({
+            UID,
+            name: addThing.name,
+            ACCOUNT: 1
+          })
+          e.reply(`你获得了${addThing.name}`)
         } else {
           const location = Math.trunc(Math.random() * idList.length)
           let addThing = GameApi.GP.searchThingById(idList[location])
           if (!addThing) {
             addThing = GameApi.GP.searchThingById('6-1-2')
           }
+          GameApi.Bag.addBagThing({
+            UID,
+            name: addThing.name,
+            ACCOUNT: 1
+          })
+          e.reply(`你获得了${addThing.name}`)
         }
-        GameApi.Bag.addBagThing({
-          UID: UID,
-          name: addThing.name,
-          ACCOUNT: 1
-        })
-        e.reply(`你获得了${addThing.name}`)
       }
       AssociationApi.assUser.deleteAss('interimArchive', UID)
     }

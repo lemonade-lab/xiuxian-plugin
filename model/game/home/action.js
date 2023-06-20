@@ -1,7 +1,7 @@
 import Listdata from '../data/listdata.js'
 import Wrap from '../wrap/index.js'
 import User from './user.js'
-//秋雨
+// 秋雨
 class UserAction {
   userextensionhome(UID) {
     const home = Listdata.controlAction({

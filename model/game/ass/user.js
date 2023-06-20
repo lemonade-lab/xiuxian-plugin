@@ -5,7 +5,7 @@ import Listdata from '../data/listdata.js'
 import Talent from '../box/talent.js'
 import Player from '../box/player.js'
 import { __PATH } from '../data/index.js'
-//汐颜
+// 汐颜
 class GP {
   constructor() {
     // 固定表数据
@@ -203,7 +203,7 @@ class GP {
    * @returns
    */
   existArchive(UID) {
-    //读取用户寿命信息
+    // 读取用户寿命信息
     let GP = Player.getUserLife(UID)
 
     // 不存在
@@ -230,7 +230,7 @@ class GP {
     if (!this.existAss('assGP', UID)) {
       this.setAssOrGP('assGP', UID, UserData)
     }
-    //读取数据
+    // 读取数据
     let assGP = this.getAssOrGP(1, UID)
 
     // 只有生命计数一样，且生命状态正常才为true
@@ -278,7 +278,7 @@ class GP {
       const ass = this.getAssOrGP(2, assGP.volunteerAss)
       if (!Method.isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
-        //写入数据
+        // 写入数据
         this.setAssOrGP('association', ass.id, ass)
       }
     }

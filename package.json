@@ -18,14 +18,14 @@
   "license": "GPL-2.0",
   "devDependencies": {
     "art-template": "^4.13.2",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "pm2": "^5.2.0",
     "prettier": "^2.8.8",
     "redis": "^4.1.0",
-    "yaml": "^2.1.1",
-    "eslint": "^8.43.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-Config-prettier": "^8.8.0"
+    "yaml": "^2.1.1"
   }
 }
