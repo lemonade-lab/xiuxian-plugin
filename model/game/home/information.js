@@ -12,7 +12,7 @@ class Information {
       name: 'information',
       data: {
         user_id: UID,
-        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -115,7 +115,7 @@ class Information {
         cubList,
         fargment,
         other,
-        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -167,7 +167,7 @@ class Information {
         Land: home.Land,
         doge: home.doge,
         address: ifexisthome.address,
-        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -208,7 +208,7 @@ class Information {
         landgoods,
         thing,
         landList,
-        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }
@@ -247,7 +247,7 @@ class Information {
         rangelandannimals,
         thing,
         rangelandannimalsList,
-        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
     }
   }

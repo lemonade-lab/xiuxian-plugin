@@ -58,14 +58,15 @@ export const __PATH = {
   association: algorithm.getReq('/resources/databirth/assItem'), //
   assGP: algorithm.getReq('/resources/databirth/assGP'), //
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'), // 内部档案
+
+  generate_uncharted: algorithm.getReq('/resources/databirth/uncharted'), // 生成
+
   // 固定数据
-  assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), // 秘境-物品
+  assTreasureVault: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 秘境-物品
   assRelation: algorithm.getReq('/resources/datafixed/assRelation'), // 隐藏宗门
   assRelate: algorithm.getReq('/resources/datafixed/assRelate'), // 物品
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 令牌
-  assDrop: algorithm.getReq('/resources/datafixed/assDrop'), // 令牌
-
-  generate_uncharted: algorithm.getReq('/resources/databirth/uncharted') // 生成
+  assDrop: algorithm.getReq('/resources/datafixed/assDrop') // 令牌
 }
 
 /** 生成游戏数据 */
@@ -85,7 +86,8 @@ class DateIndex {
     genertate.createList(__PATH.generate_all, 'all', [])
     genertate.createList(__PATH.generate_all, 'all', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'), // 物品
-      ...genertate.getlist(__PATH.fixed_goods, 'json') // 装备
+      ...genertate.getlist(__PATH.fixed_goods, 'json'), // 装备
+      ...genertate.getlist(__PATH.assProduct, 'json') // 宗门系列
     ])
     /** 万宝楼数据：万宝楼可以购买  回血丹与基础的新手装备 */
     genertate.createList(__PATH.generate_all, 'commodities', [])
