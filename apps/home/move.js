@@ -227,7 +227,7 @@ export class Homemove extends plugin {
               searchsthing.proficiency = Warehouse.thing[i].proficiency
             } else {
               let durable = {
-                qq: Warehouse.thing[i].qq,
+                UID: Warehouse.thing[i].UID,
                 durable: Warehouse.thing[i].durable
               }
               searchsthing = Object.assign(searchsthing, durable)

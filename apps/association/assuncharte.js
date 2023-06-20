@@ -588,9 +588,9 @@ async function GoAssUncharted(e, weizhi, addres) {
   }
   e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 }
-const addNajieThings = (thing, userQQ, account) => {
+const addNajieThings = (thing, userUID, account) => {
   GameApi.Bag.addBagThing({
-    UID: userQQ,
+    UID: userUID,
     name: thing.name,
     ACCOUNT: Number(account)
   })

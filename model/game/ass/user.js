@@ -39,10 +39,7 @@ class GP {
    * @param fileName
    */
   existAss(filePathType, fileName) {
-    let filePath
-    filePath = __PATH[filePathType]
-    let dir = path.join(filePath + '/' + fileName + '.json')
-    if (fs.existsSync(dir)) {
+    if (fs.existsSync(path.join(`${__PATH[filePathType]}/${fileName}.json`))) {
       return true
     }
     return false
@@ -51,58 +48,46 @@ class GP {
   /**
    * 获取用户宗门信息或宗门存档
    * @param assName
-   * @param userQQ
+   * @param userUID
    */
   getAssOrGP(type, name) {
-    let filePath
-    let dir
     let data
-    if (type == 1) {
-      filePath = __PATH.assGP
-      dir = path.join(filePath + '/' + name + '.json')
-    } else if (type == 2) {
-      filePath = __PATH.association
-      dir = path.join(filePath + '/' + name + '.json')
-    } else if (type == 3) {
-      filePath = __PATH.interimArchive
-      dir = path.join(filePath + '/' + name + '.json')
-    } else {
-      filePath = __PATH.assTreasureVault
-      dir = path.join(filePath + '/' + name + '.json')
+    const map = {
+      1: 'assGP',
+      2: 'association',
+      3: 'interimArchive',
+      4: 'assTreasureVault'
     }
-
     try {
-      data = fs.readFileSync(dir, 'utf8')
+      data = fs.readFileSync(path.join(`${__PATH[map[type]]}/${name}.json`), 'utf8')
     } catch (error) {
       return 'error'
     }
     // 将字符串数据转变成json格式
-    data = JSON.parse(data)
-    return data
+    return JSON.parse(data)
   }
 
   /**
-   * 
-   * @param {*} name 
-   * @returns 
+   * 读取宗门名
+   * @param {*} name
+   * @returns
    */
   readAssNames(name) {
-    const dir = __PATH[name]
-    let allNames = fs.readdirSync(dir)
+    let allNames = fs.readdirSync(__PATH[name])
+    // 赛选.json
     allNames = allNames.filter((file) => file.endsWith('.json'))
     return allNames
   }
 
   /**
-   * 
-   * @param {*} num 
-   * @returns 
+   * 参数转换为数字类型
+   * @param {*} num
+   * @returns
    */
-  numberVerify(num) {
-    num = num.trim()
-    num = isNaN(Number(num)) ? 1 : Number(num)
-    num = Math.abs(num) == 0 ? 1 : Math.abs(num)
-    return Number(num)
+  numberVerify(input) {
+    const value = Number(input.trim())
+    const num = isNaN(value) ? 1 : Math.abs(value) || 1
+    return num
   }
 
   /**
@@ -112,22 +97,20 @@ class GP {
    * @param data
    */
   setAssOrGP(fileName, itemName, data) {
-    let filePath
-    let dir
-
-    filePath = __PATH[fileName]
-    dir = path.join(filePath + '/' + itemName + '.json')
-
-    let theARR = JSON.stringify(data, '', '\t') // json转string
-    fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
-      console.info('写入成功', err)
-    })
+    fs.writeFileSync(
+      path.join(`${__PATH[fileName]}/${itemName}.json`),
+      JSON.stringify(data, '', '\t'),
+      'utf-8',
+      (err) => {
+        console.info('写入成功', err)
+      }
+    )
   }
 
   /**
-   * 
-   * @param {*} assGP 
-   * @returns 
+   *
+   * @param {*} assGP
+   * @returns
    */
   assEffCount(assGP) {
     let effective = 0
@@ -161,10 +144,10 @@ class GP {
   }
 
   /**
-   * 
-   * @param {*} ass 
-   * @param {*} type 
-   * @param {*} associationName 
+   *
+   * @param {*} ass
+   * @param {*} type
+   * @param {*} associationName
    */
   assRename(ass, type, associationName) {
     let assRelation = this.assRelationList
@@ -188,8 +171,8 @@ class GP {
   }
 
   /**
-   * 
-   * @param {*} ass 
+   *
+   * @param {*} ass
    */
   checkFacility(ass) {
     let oldStatus = ass.facility[4].status
@@ -215,82 +198,21 @@ class GP {
   }
 
   /**
-   * 
-   * @param {*} qq 
-   * @returns 
+   *
+   * @param {*} UID
+   * @returns
    */
-  existArchive(qq) {
-    let GP = Player.getUserLife(qq)
+  existArchive(UID) {
+    //读取用户寿命信息
+    let GP = Player.getUserLife(UID)
 
     // 不存在
     if (!GP) return false
+
     // 修仙存在此人，看宗门系统有没有他
-    if (!this.existAss('assGP', qq)) {
-      let assGP = {
-        assName: 0,
-        qqNumber: qq + '',
-        assJob: 0,
-        effective: 0,
-        contributionPoints: 0,
-        historyContribution: 0,
-        favorability: 0,
-        volunteerAss: 0,
-        lastSignAss: 0,
-        lastExplorTime: 0,
-        lastBounsTime: 0,
-        xiuxianTime: GP.createTime,
-        time: []
-      }
-      this.setAssOrGP('assGP', qq, assGP)
-    }
-    let assGP = this.getAssOrGP(1, qq)
-    // 只有生命计数一样，且生命状态正常才为true
-    if (GP.createTime == assGP.xiuxianTime && GP.status == 1) {
-      return true
-    }
-    // 两边都有存档，但是死了，或者重生了，需要执行插件删档
-    // 先退宗，再重置
-    if (this.existAss('association', assGP.assName)) {
-      let ass = this.getAssOrGP(2, assGP.assName)
-
-      if (assGP.assJob < 10) {
-        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber) // 原来的职位表删掉这个B
-        this.setAssOrGP('association', ass.id, ass) // 记录到存档
-      } else {
-        if (ass.allMembers.length < 2) {
-          fs.rmSync(`${__PATH.association}/${assGP.assName}.json`)
-        } else {
-          ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
-          // 给宗主
-          let randMember = { assJob: 0 }
-          for (let item in ass.allMembers) {
-            const qqNum = ass.allMembers[item]
-            const assGPA = this.getAssOrGP(1, qqNum)
-            if (assGPA.assJob > randMember.assJob) {
-              randMember = assGPA
-            }
-          }
-
-          ass.master = randMember.qqNumber
-          randMember.assJob = 10
-
-          this.setAssOrGP('association', ass.id, ass) // 记录到存档
-          this.assEffCount(randMember)
-          Talent.updataEfficiency(randMember.qqNumber)
-        }
-      }
-    }
-    if (assGP.volunteerAss != 0) {
-      const ass = this.getAssOrGP(2, assGP.volunteerAss)
-      if (!Method.isNotNull(ass)) {
-        ass.applyJoinList = ass.applyJoinList.filter((item) => item != qq)
-        this.setAssOrGP('association', ass.id, ass)
-      }
-    }
-
-    assGP = {
+    const UserData = {
       assName: 0,
-      qqNumber: qq + '',
+      qqNumber: UID + '',
       assJob: 0,
       effective: 0,
       contributionPoints: 0,
@@ -304,15 +226,73 @@ class GP {
       time: []
     }
 
-    this.setAssOrGP('assGP', qq, assGP)
+    //  验证存档
+    if (!this.existAss('assGP', UID)) {
+      this.setAssOrGP('assGP', UID, UserData)
+    }
+    //读取数据
+    let assGP = this.getAssOrGP(1, UID)
+
+    // 只有生命计数一样，且生命状态正常才为true
+    if (GP.createTime == assGP.xiuxianTime && GP.status == 1) {
+      return true
+    }
+
+    // 两边都有存档，但是死了，或者重生了，需要执行插件删档
+
+    // 先退宗，再重置
+    if (this.existAss('association', assGP.assName)) {
+      let ass = this.getAssOrGP(2, assGP.assName)
+      if (assGP.assJob < 10) {
+        // 原来的职位表删掉这个B
+        ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+        // 记录到存档
+        this.setAssOrGP('association', ass.id, ass)
+      } else {
+        if (ass.allMembers.length < 2) {
+          fs.rmSync(`${__PATH.association}/${assGP.assName}.json`)
+        } else {
+          ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
+          // 给宗主
+          let randMember = { assJob: 0 }
+          for (let item in ass.allMembers) {
+            const UIDNum = ass.allMembers[item]
+            const assGPA = this.getAssOrGP(1, UIDNum)
+            if (assGPA.assJob > randMember.assJob) {
+              randMember = assGPA
+            }
+          }
+          ass.master = randMember.qqNumber
+          randMember.assJob = 10
+          // 记录到存档
+          this.setAssOrGP('association', ass.id, ass)
+          this.assEffCount(randMember)
+          // 更新面板
+          Talent.updataEfficiency(randMember.qqNumber)
+        }
+      }
+    }
+    // 检查
+    if (assGP.volunteerAss != 0) {
+      // 得到数据
+      const ass = this.getAssOrGP(2, assGP.volunteerAss)
+      if (!Method.isNotNull(ass)) {
+        ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
+        //写入数据
+        this.setAssOrGP('association', ass.id, ass)
+      }
+    }
+
+    // 写入数据
+    this.setAssOrGP('assGP', UID, UserData)
     return false
   }
 
   /**
-   * 
-   * @param {*} x 
-   * @param {*} y 
-   * @param {*} thingId 
+   *
+   * @param {*} x
+   * @param {*} y
+   * @param {*} thingId
    */
   BuildAndDeduplication(x, y, thingId) {
     const genX = Math.trunc(Math.random() * 99) + 1
@@ -330,27 +310,24 @@ class GP {
     const monLevel = Math.ceil(Math.random() * 13) - 4
     const flag = monLevel < 0 ? 0 : monLevel
     if (!ifexist0) {
-      // 写入点位
-      const point = {
+      pointList.push({
         x: genX + x,
         y: genY + y,
         monLevel: flag,
         thingId
-      }
-      pointList.push(point)
-      const theARR = JSON.stringify(pointList, '', '\t')
-      fs.writeFileSync(dir, theARR, 'utf-8', (err) => {
+      })
+      fs.writeFileSync(dir, JSON.stringify(pointList, '', '\t'), 'utf-8', (err) => {
         console.info('写入成功', err)
       })
     } else {
       this.BuildAndDeduplication(x, y, thingId)
     }
   }
-  
+
   /**
-   * 
-   * @param {*} path 
-   * @param {*} name 
+   *
+   * @param {*} path
+   * @param {*} name
    */
   deleteAss(path, name) {
     fs.rmSync(`${__PATH[path]}/${name}.json`)

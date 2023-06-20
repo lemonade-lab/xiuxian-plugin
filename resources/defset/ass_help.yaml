@@ -7,10 +7,10 @@
       title: '#宗门升级'
       desc: '宗门升级'
     - icon: help-icon_58
-      title: '#提拔+QQ'
+      title: '#提拔+UID'
       desc: '提升某玩家的职位等级'
     - icon: help-icon_58
-      title: '#逐出门派+QQ号'
+      title: '#逐出门派+UID号'
       desc: '将玩家逐出宗门'
     - icon: help-icon_58
       title: '#宗门改名xxx'
@@ -28,25 +28,25 @@
       title: '#退出宗门'
       desc: '退宗'
     - icon: help-icon_55
-      title: '#查看简历+QQ'
+      title: '#查看简历+UID'
       desc: '查看申请加入玩家的信息'
     - icon: help-icon_55
-      title: '#批准录取+QQ'
+      title: '#批准录取+UID'
       desc: '同意该玩家加入宗门'
     - icon: help-icon_55
-      title: '#驳回申请+QQ'
+      title: '#驳回申请+UID'
       desc: '拒绝该玩家的入宗申请'
     - icon: help-icon_55
       title: '#清空志愿'
       desc: '主动撤回提交的入宗申请'
     - icon: help-icon_55
       title: '#展示所有简历'
-      desc: '查看所有申请人的qq号'
+      desc: '查看所有申请人的UID号'
     - icon: help-icon_72
       title: '#宗门职位提升'
       desc: '花费贡献提升自己的职位等级'
     - icon: help-icon_69
-      title: '#发起职位挑战+qq'
+      title: '#发起职位挑战+UID'
       desc: '以德服人，提升自己的职位'
     - icon: help-icon_69
       title: '#谋权篡位'

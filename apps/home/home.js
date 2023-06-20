@@ -87,7 +87,7 @@ export class Homestart extends plugin {
       NAME: 'position',
       CHOICE: 'position'
     })
-    const ifexisthome1 = ifexisthome.find((item) => item.qq == UID)
+    const ifexisthome1 = ifexisthome.find((item) => item.UID == UID)
     if (ifexisthome1) {
       e.reply(`您已经建立过家园，如需搬迁请执行#家园搬迁至+地点`)
       return false
@@ -137,7 +137,7 @@ export class Homestart extends plugin {
       })
       const time = new Date().getTime()
       positionhome.push({
-        qq: UID,
+        UID: UID,
         createTime: time.getTime(),
         address,
         x,
@@ -312,17 +312,17 @@ export class Homestart extends plugin {
     })
     useraction[UID] = setTimeout(() => {
       forwardsetTime[UID] = 0
-      const target = positionhome.find((obj) => obj.qq === UID)
+      const target = positionhome.find((obj) => obj.UID === UID)
       let minefield = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         INITIAL: []
       })
-      const target1 = minefield.find((obj) => obj.qq === UID)
+      const target1 = minefield.find((obj) => obj.UID === UID)
       if (target1 != undefined) {
-        let qq = target1.qq
-        if (qq == UID) {
-          let minefield1 = minefield.filter((item) => item.qq != UID)
+        let UID = target1.UID
+        if (UID == UID) {
+          let minefield1 = minefield.filter((item) => item.UID != UID)
           GameApi.Listdata.controlActionInitial({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',

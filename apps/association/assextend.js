@@ -57,7 +57,7 @@ export class AssociationExtend extends plugin {
     )
     let msg = [`__[${UID}的宗门存档]__`]
     msg.push(
-      'QQ:' +
+      'UID:' +
         UID +
         '\n' +
         '所属宗门:' +

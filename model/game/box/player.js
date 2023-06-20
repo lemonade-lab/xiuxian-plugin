@@ -18,7 +18,7 @@ class Player {
       LifeData[UID].Age += cf.Age.size ? cf.Age.size : 1
       if (LifeData[UID].Age >= LifeData[UID].life) {
         LifeData[UID].status = 0
-        die.push(LifeData[UID].qq)
+        die.push(LifeData[UID].UID)
       }
     }
     Listdata.controlAction({

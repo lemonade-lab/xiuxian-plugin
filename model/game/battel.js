@@ -13,7 +13,7 @@ class Battle {
   monsterbattle({ e, battleA, battleB, battleNameB }) {
     const battleMsg = {
       msg: [],
-      QQ: 1
+      UID: 1
     }
     const battle = {
       Z: 1
@@ -28,7 +28,7 @@ class Battle {
       if (battleHurt.hurtA <= 1) {
         battleMsg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
         battleA.nowblood = 0
-        battleMsg.QQ = 0
+        battleMsg.UID = 0
         Listdata.controlAction({
           NAME: e.user_id,
           CHOICE: 'playerBattle',
@@ -70,7 +70,7 @@ class Battle {
           battleMsg.msg.push(`经过${battle.Z}回合`)
           battleMsg.msg.push(`你被[${battleNameB}]击败了!`)
           battleA.nowblood = 0
-          battleMsg.QQ = 0
+          battleMsg.UID = 0
           break
         }
       }
@@ -85,7 +85,7 @@ class Battle {
         battleMsg.msg.push(`却连[${battleNameB}]的防御都破不了`)
         battleMsg.msg.push('就被一巴掌给拍死了!')
         battleA.nowblood = 0
-        battleMsg.QQ = 0
+        battleMsg.UID = 0
         break
       }
       battleB.nowblood = battleB.nowblood - battleHurt.hurtA
@@ -108,7 +108,7 @@ class Battle {
   battle({ e, A, B }) {
     const battleMsg = {
       msg: [],
-      QQ: 1
+      UID: 1
     }
     const battle = {
       X: 1,
@@ -127,7 +127,7 @@ class Battle {
       NAME: B,
       CHOICE: 'playerBattle'
     })
-    battleMsg.QQ = A
+    battleMsg.UID = A
     if (battleA.speed >= battleB.speed - 5) {
       battleHurt.hurtA =
         battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
@@ -138,14 +138,14 @@ class Battle {
       if (battleHurt.hurtA <= 1) {
         battleMsg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
-        battleMsg.QQ = B
+        battleMsg.UID = B
         BotApi.obtainingImages({ e, data: battleMsg.msg })
         Listdata.controlAction({
           NAME: A,
           CHOICE: 'playerBattle',
           DATA: battleA
         })
-        return battleMsg.QQ
+        return battleMsg.UID
       }
       battleB.nowblood = battleB.nowblood - battleHurt.hurtA
       if (battleB.nowblood < 1) {
@@ -157,7 +157,7 @@ class Battle {
           CHOICE: 'playerBattle',
           DATA: battleB
         })
-        return battleMsg.QQ
+        return battleMsg.UID
       } else {
         battleMsg.msg.push(`你个老六偷袭成功,造成 ${battleHurt.hurtA}伤害`)
       }
@@ -187,7 +187,7 @@ class Battle {
         if (battleA.nowblood < 0) {
           battleMsg.msg.push(`第${battle.Z}回合:对方造成${battleHurt.hurtB}伤害`)
           battleA.nowblood = 0
-          battleMsg.QQ = B
+          battleMsg.UID = B
           BotApi.obtainingImages({ e, data: battleMsg.msg })
           break
         }
@@ -203,7 +203,7 @@ class Battle {
       if (battleHurt.hurtA <= 1) {
         battleMsg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
         battleA.nowblood = 0
-        battleMsg.QQ = B
+        battleMsg.UID = B
         BotApi.obtainingImages({ e, data: battleMsg.msg })
         break
       }
@@ -229,7 +229,7 @@ class Battle {
       CHOICE: 'playerBattle',
       DATA: battleB
     })
-    return battleMsg.QQ
+    return battleMsg.UID
   }
 
   /* 暴击率 */

@@ -451,7 +451,7 @@ function SealingFormation(members) {
 }
 async function AssBattle(e, battleA, battleB) {
   let msg = []
-  let qq = 1
+  let UID = 1
   if (battleA.speed >= battleB.speed) {
     let hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 1
 
@@ -461,7 +461,7 @@ async function AssBattle(e, battleA, battleB) {
     battleB.nowblood = battleB.nowblood - hurt
     if (battleB.nowblood < 1) {
       e.reply('你们结成的阵法过于强大，只一招就攻破了对面的山门！')
-      return qq
+      return UID
     } else {
       msg.push('你们催动法力，造成' + hurt + '伤害')
     }
@@ -480,7 +480,7 @@ async function AssBattle(e, battleA, battleB) {
       x = 0
       y++
       if (y == 2) {
-        qq = battleA.nowblood > battleB.nowblood ? 1 : 0
+        UID = battleA.nowblood > battleB.nowblood ? 1 : 0
         // 就打2轮回
         break
       }
@@ -495,7 +495,7 @@ async function AssBattle(e, battleA, battleB) {
       msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
       e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
       e.reply('你们的进攻被击退了！！')
-      qq = 0
+      UID = 0
       break
     } else {
       msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
@@ -515,7 +515,7 @@ async function AssBattle(e, battleA, battleB) {
       msg.push('第' + z + '回合:你们结阵攻伐，造成' + hurt + '伤害')
     }
   }
-  return qq
+  return UID
 }
 // 暴击率
 function battleProbability(P) {

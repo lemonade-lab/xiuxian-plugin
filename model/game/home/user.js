@@ -120,7 +120,7 @@ class GP {
       CHOICE: 'userHomeLife',
       INITIAL: []
     })
-    let fond = life.find((item) => item.qq == UID)
+    let fond = life.find((item) => item.UID == UID)
     let Msg = ''
     if (!fond) {
       this.homejiazai(UID)
@@ -176,7 +176,7 @@ class GP {
       CHOICE: 'userHomeLife',
       INITIAL: []
     })
-    const find = life.find((item) => item.qq == UID)
+    const find = life.find((item) => item.UID == UID)
     if (find == undefined) {
       return 1
     } else {
@@ -228,7 +228,7 @@ class GP {
       })
       const time = new Date().getTime()
       life.push({
-        qq: UID,
+        UID: UID,
         time
       })
       Listdata.controlActionInitial({
@@ -254,7 +254,7 @@ class GP {
       CHOICE: 'user_home_position',
       INITIAL: []
     })
-    const find = positionhome.find((item) => item.qq == UID)
+    const find = positionhome.find((item) => item.UID == UID)
     return find
   }
 
@@ -733,7 +733,7 @@ class GP {
       CHOICE: 'userHomeLife',
       NAME: 'life'
     })
-    let userHomeLife = life1.find((obj) => obj.qq == UID)
+    let userHomeLife = life1.find((obj) => obj.UID == UID)
     userHomeLife.Age = userHomeLife.Age - life
     if (userHomeLife.Age < 0) {
       userHomeLife.Age = 0

@@ -240,9 +240,9 @@ export class AssTreasureVault extends plugin {
     return false
   }
 }
-const addNajieThings = (thing, userQQ, account) => {
+const addNajieThings = (thing, userUID, account) => {
   GameApi.Bag.addBagThing({
-    UID: userQQ,
+    UID: userUID,
     name: thing.name,
     ACCOUNT: Number(account)
   })

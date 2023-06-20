@@ -36,17 +36,17 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinQQ = e.msg.replace(/^(#|\/)查看简历/, '')
+    const joinUID = e.msg.replace(/^(#|\/)查看简历/, '')
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
     if (assGP.assName == 0) {
       return false
     }
     const joinGP = GameApi.UserData.controlAction({
-      NAME: joinQQ,
+      NAME: joinUID,
       CHOICE: 'playerLevel'
     })
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
-    const find = ass.applyJoinList.findIndex((item) => item == joinQQ)
+    const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
       return false
     }
@@ -57,7 +57,7 @@ export class AssociationJoin extends plugin {
     }
 
     let msg =
-      `qq号:${joinQQ} \n` +
+      `UID号:${joinUID} \n` +
       `练气境界: ${joinGP.levelname}\n` +
       `炼体境界: ${joinGP.levelnamemax}` +
       '\n'
@@ -103,8 +103,8 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    const joinQQ = e.msg.replace(/^(#|\/)批准录取/, '')
-    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinQQ)) {
+    const joinUID = e.msg.replace(/^(#|\/)批准录取/, '')
+    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
     const assGP = AssociationApi.assUser.getAssOrGP(1, UID)
@@ -112,7 +112,7 @@ export class AssociationJoin extends plugin {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
-    const find = ass.applyJoinList.findIndex((item) => item == joinQQ)
+    const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
     const nowMem = ass.allMembers.length // 该宗门目前人数
     if (mostMem <= nowMem) {
@@ -122,7 +122,7 @@ export class AssociationJoin extends plugin {
     if (find == -1) {
       return false
     }
-    const joinGP = AssociationApi.assUser.getAssOrGP(1, joinQQ)
+    const joinGP = AssociationApi.assUser.getAssOrGP(1, joinUID)
 
     if (assGP.assJob >= 8) {
       const now = new Date().getTime()
@@ -133,11 +133,11 @@ export class AssociationJoin extends plugin {
       joinGP.volunteerAss = 0
       joinGP.time = [date, nowTime]
 
-      ass.allMembers.push(joinQQ)
-      ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinQQ)
+      ass.allMembers.push(joinUID)
+      ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
       AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
       AssociationApi.assUser.assEffCount(joinGP)
-      e.reply(`已批准${joinQQ}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
+      e.reply(`已批准${joinUID}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
       return false
     } else {
       e.reply(`你没有权限`)
@@ -153,9 +153,9 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinQQ = e.msg.replace(/^(#|\/)驳回申请/, '')
+    const joinUID = e.msg.replace(/^(#|\/)驳回申请/, '')
 
-    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinQQ)) {
+    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
 
@@ -165,16 +165,16 @@ export class AssociationJoin extends plugin {
     }
 
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
-    let find = ass.applyJoinList.findIndex((item) => item == joinQQ)
+    let find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
       return false
     }
 
-    const joinGP = AssociationApi.assUser.getAssOrGP(1, joinQQ)
+    const joinGP = AssociationApi.assUser.getAssOrGP(1, joinUID)
 
     joinGP.volunteerAss = 0
-    ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinQQ)
-    AssociationApi.assUser.setAssOrGP('assGP', joinQQ, joinGP)
+    ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
+    AssociationApi.assUser.setAssOrGP('assGP', joinUID, joinGP)
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     e.reply(`已拒绝！`)
     return false
@@ -199,7 +199,7 @@ export class AssociationJoin extends plugin {
     let temp = ['简历列表']
 
     for (var i = 0; i < ass.applyJoinList.length; i++) {
-      temp.push(`序号:${1 + i} ` + '\n' + `申请人QQ: ${ass.applyJoinList[i]}` + '\n')
+      temp.push(`序号:${1 + i} ` + '\n' + `申请人UID: ${ass.applyJoinList[i]}` + '\n')
     }
     BotApi.obtainingImages({ e, data: temp })
     return false

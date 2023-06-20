@@ -60,8 +60,8 @@ class Robot {
       return false
     }
     const atItem = e.message.filter((item) => item.type === 'at')
-    if (atItem[0].qq) {
-      return atItem[0].qq
+    if (atItem[0].UID) {
+      return atItem[0].UID
     }
     return false
   }

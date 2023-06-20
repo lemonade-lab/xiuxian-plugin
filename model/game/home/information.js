@@ -12,7 +12,7 @@ class Information {
       name: 'information',
       data: {
         user_id: UID,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -27,7 +27,7 @@ class Information {
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
-    life = life.find((item) => item.qq == UID)
+    life = life.find((item) => item.UID == UID)
     const GP = Listdata.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
@@ -115,7 +115,7 @@ class Information {
         cubList,
         fargment,
         other,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -143,13 +143,13 @@ class Information {
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
-    life = life.find((item) => item.qq == UID)
+    life = life.find((item) => item.UID == UID)
     const ifexisthome1 = Listdata.controlActionInitial({
       CHOICE: 'user_home_position',
       NAME: 'position',
       INITIAL: []
     })
-    let ifexisthome = ifexisthome1.find((item) => item.qq == UID)
+    let ifexisthome = ifexisthome1.find((item) => item.UID == UID)
     if (ifexisthome == undefined) {
       ifexisthome.address = '无'
     }
@@ -167,7 +167,7 @@ class Information {
         Land: home.Land,
         doge: home.doge,
         address: ifexisthome.address,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -182,7 +182,7 @@ class Information {
       NAME: 'life',
       CHOICE: 'userHomeLife'
     })
-    life = life.find((item) => item.qq == UID)
+    life = life.find((item) => item.UID == UID)
     const landgoods = Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
@@ -208,7 +208,7 @@ class Information {
         landgoods,
         thing,
         landList,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -247,7 +247,7 @@ class Information {
         rangelandannimals,
         thing,
         rangelandannimalsList,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }

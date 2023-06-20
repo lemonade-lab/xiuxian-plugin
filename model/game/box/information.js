@@ -63,7 +63,7 @@ class Information {
         equipment,
         talent,
         talentsize: size,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -91,7 +91,7 @@ class Information {
         battle,
         life: LifeData[UID],
         equipment,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -126,7 +126,7 @@ class Information {
         linggenName: name,
         talentsize: size,
         life: LifeData[UID],
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -175,7 +175,7 @@ class Information {
         thing: thingList,
         daojuList,
         danyaoList,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }
@@ -192,7 +192,7 @@ class Information {
         UID,
         msgLeft,
         msgRight,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar: `https://q1.qlogo.cn/g?b=UID&s=0&nk=${UID}`
       }
     }
   }

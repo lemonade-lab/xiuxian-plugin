@@ -121,12 +121,12 @@ export class AssociationJobUp extends plugin {
       return false
     }
 
-    const battleQQ = e.msg.replace(/^(#|\/)发起职位挑战/, '')
-    const ifexists = AssociationApi.assUser.existArchive(battleQQ)
-    if (!ifexists || !AssociationApi.assUser.existAss('assGP', battleQQ)) {
+    const battleUID = e.msg.replace(/^(#|\/)发起职位挑战/, '')
+    const ifexists = AssociationApi.assUser.existArchive(battleUID)
+    if (!ifexists || !AssociationApi.assUser.existAss('assGP', battleUID)) {
       return false
     }
-    const battleGP = AssociationApi.assUser.getAssOrGP(1, battleQQ)
+    const battleGP = AssociationApi.assUser.getAssOrGP(1, battleUID)
     if (
       battleGP.assName == 0 ||
       assGP.assName != battleGP.assName ||
@@ -141,14 +141,14 @@ export class AssociationJobUp extends plugin {
       CHOICE: 'playerAction'
     })
     const actionB = GameApi.UserData.controlAction({
-      NAME: battleQQ,
+      NAME: battleUID,
       CHOICE: 'playerAction'
     })
     if (actionA.region != actionB.region) {
       e.reply('没有找到对方在哪里，无法挑战！')
       return false
     }
-    const victory = GameApi.Battle.battle({ e, A: UID, B: battleQQ })
+    const victory = GameApi.Battle.battle({ e, A: UID, B: battleUID })
     if (victory == UID) {
       assGP.assJob += 1
       battleGP.assJob -= 1
@@ -160,7 +160,7 @@ export class AssociationJobUp extends plugin {
       assGP.contributionPoints -= 200
       battleGP.contributionPoints += 200
       AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-      AssociationApi.assUser.setAssOrGP('assGP', battleQQ, battleGP)
+      AssociationApi.assUser.setAssOrGP('assGP', battleUID, battleGP)
       e.reply(`你技不如人，不仅没提高职位等级，还要给对方200贡献点！`)
       return false
     }

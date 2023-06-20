@@ -72,7 +72,7 @@ export class Homeminefield extends plugin {
       NAME: 'position',
       INITIAL: []
     })
-    const target = positionhome.find((obj) => obj.qq === UID)
+    const target = positionhome.find((obj) => obj.UID === UID)
     const address = target.address
     const region = action.region
     const timeMax = 172800
@@ -86,7 +86,7 @@ export class Homeminefield extends plugin {
     let minefieldName1 = minefield.find((item) => item.address === address)
     let B
     if (minefieldName1 != undefined) {
-      B = minefieldName1.qq
+      B = minefieldName1.UID
     }
     let A = UID
     const CDid = '1'
@@ -103,7 +103,7 @@ export class Homeminefield extends plugin {
     GameApi.Wrap.setRedis(A, CDid, nowTime, CDTime)
     if (minefieldName1 == undefined) {
       minefield.push({
-        qq: UID,
+        UID: UID,
         address,
         region,
         createTime: nowTime,
@@ -121,9 +121,9 @@ export class Homeminefield extends plugin {
       let time1 = 3
       useraction[UID] = setTimeout(() => {
         forwardsetTime[UID] = 0
-        let QQ = GameApi.Battle.battle({ e, A, B })
+        let UID = GameApi.Battle.battle({ e, A, B })
         let minefieldName = minefield.find((obj) => obj.address === address)
-        if (QQ != B) {
+        if (UID != B) {
           let timeMax = minefieldName.timeMax
           let time3 = minefieldName.createTime
           let time1 = Math.floor((nowTime - time3) / 1000)
@@ -137,7 +137,7 @@ export class Homeminefield extends plugin {
             UID: B,
             time: time2
           })
-          minefieldName.qq = A
+          minefieldName.UID = A
           minefieldName.createTime = nowTime
           minefieldName.timeMax = timeMax
           GameApi.Listdata.controlActionInitial({
@@ -209,7 +209,7 @@ export class Homeminefield extends plugin {
       NAME: 'position',
       INITIAL: []
     })
-    const position1 = position.find((obj) => obj.qq === UID)
+    const position1 = position.find((obj) => obj.UID === UID)
     const minefield = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_minefield',
       NAME: 'minefield',
@@ -220,8 +220,8 @@ export class Homeminefield extends plugin {
       e.reply('该灵矿没被占领!')
       return false
     }
-    let qq = target.qq
-    if (qq != UID) {
+    let UID = target.UID
+    if (UID != UID) {
       e.reply('你不是该灵矿的主人!')
       return false
     }
@@ -471,7 +471,7 @@ export class Homeminefield extends plugin {
       NAME: 'minefield',
       INITIAL: []
     })
-    const target = minefield.find((obj) => obj.qq === UID)
+    const target = minefield.find((obj) => obj.UID === UID)
     if (target == undefined) {
       e.reply('你不是该灵矿的主人，无法获取灵矿的信息!')
       return false

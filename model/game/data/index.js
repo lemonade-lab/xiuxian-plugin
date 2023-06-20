@@ -4,6 +4,8 @@ import algorithm from './algorithm.js'
 /* 存档地址 */
 const GPPath = '/xiuxianfile'
 
+export const getPathAddress = (key) => __PATH[key]
+
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
@@ -53,17 +55,17 @@ export const __PATH = {
   /* 宗门路径 */
 
   // 用户数据
-  association: algorithm.getReq('/resources/databirth/assItem'), // 
-  assGP: algorithm.getReq('/resources/databirth/assGP'),  //  
+  association: algorithm.getReq('/resources/databirth/assItem'), //
+  assGP: algorithm.getReq('/resources/databirth/assGP'), //
   interimArchive: algorithm.getReq('/resources/databirth/interimArchive'), // 内部档案
   // 固定数据
   assTreasureVault: algorithm.getReq('/resources/databirth/assTreasureVault'), //秘境-物品
   assRelation: algorithm.getReq('/resources/datafixed/assRelation'), // 隐藏宗门
-  assRelate: algorithm.getReq('/resources/datafixed/assRelate'),  //物品
-  assProduct: algorithm.getReq('/resources/datafixed/assProduct'),  //令牌
+  assRelate: algorithm.getReq('/resources/datafixed/assRelate'), //物品
+  assProduct: algorithm.getReq('/resources/datafixed/assProduct'), //令牌
   assDrop: algorithm.getReq('/resources/datafixed/assDrop'), // 令牌
 
-  generate_uncharted: algorithm.getReq('/resources/databirth/uncharted'),  // 生成
+  generate_uncharted: algorithm.getReq('/resources/databirth/uncharted') // 生成
 }
 
 /** 生成游戏数据 */

@@ -9,13 +9,10 @@
     "format": "npx prettier --write .",
     "lint": "eslint . --ext .js,.ts --fix --ignore-path .gitignore"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@gitee.com:ningmengchongshui/xiuxian@2.1.git"
-  },
   "type": "module",
   "keywords": [
-    "xiuxian"
+    "xiuxian-plugin",
+    "yunzai-bot"
   ],
   "author": "ningmengchongshui",
   "license": "GPL-2.0",
@@ -29,6 +26,6 @@
     "yaml": "^2.1.1",
     "eslint": "^8.43.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-Config-prettier": "^^8.8.0"
+    "eslint-Config-prettier": "^8.8.0"
   }
 }

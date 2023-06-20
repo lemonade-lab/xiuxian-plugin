@@ -613,7 +613,7 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     let wanmin = {
-      qq: UID,
+      UID: UID,
       durable: 100
     }
     target = Object.assign(target, wanmin)
@@ -678,7 +678,7 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     wanmin.forEach((item) => {
-      msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.qq + '\n灵晶：' + item.doge)
+      msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.UID + '\n灵晶：' + item.doge)
     })
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
@@ -754,15 +754,15 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     HomeApi.GP.addDoge({ UID, money: -commoditiesDoge })
-    if (ifexist.qq == UID) {
+    if (ifexist.UID == UID) {
       e.reply(
         `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]`
       )
       return false
     } else {
-      HomeApi.GP.addDoge({ UID: ifexist.qq, money })
+      HomeApi.GP.addDoge({ UID: ifexist.UID, money })
       e.reply(
-        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]，食谱提供者：${ifexist.qq} 获得了${money}版权费`
+        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]，食谱提供者：${ifexist.UID} 获得了${money}版权费`
       )
       return false
     }

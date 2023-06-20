@@ -437,7 +437,7 @@ export class Homeland extends plugin {
     const user = {
       A: e.user_id,
       C: 0,
-      QQ: 0,
+      UID: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
     user.B = BotApi.Robot.at({ e })
@@ -556,7 +556,7 @@ export class Homeland extends plugin {
     const user = {
       A: e.user_id,
       C: 0,
-      QQ: 0,
+      UID: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
     user.B = BotApi.Robot.at({ e })

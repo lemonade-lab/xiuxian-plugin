@@ -47,15 +47,15 @@ export class Association extends plugin {
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == ass.id)
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
-      const qqNum = ass.allMembers[item]
+      const UIDNum = ass.allMembers[item]
       const GP = GameApi.UserData.controlAction({
-        NAME: qqNum,
+        NAME: UIDNum,
         CHOICE: 'playerLevel'
       })
-      const assGPA = AssociationApi.assUser.getAssOrGP(1, qqNum)
+      const assGPA = AssociationApi.assUser.getAssOrGP(1, UIDNum)
       msg.push(
-        'QQ:' +
-          qqNum +
+        'UID:' +
+          UIDNum +
           '\n' +
           '权限等级:' +
           assGPA.assJob +
@@ -208,8 +208,8 @@ export class Association extends plugin {
 
         let randMember = { assJob: 0 }
         for (let item in ass.allMembers) {
-          const qqNum = ass.allMembers[item]
-          const assGPA = AssociationApi.assUser.getAssOrGP(1, qqNum)
+          const UIDNum = ass.allMembers[item]
+          const assGPA = AssociationApi.assUser.getAssOrGP(1, UIDNum)
           if (assGPA.assJob > randMember.assJob) {
             randMember = assGPA
           }

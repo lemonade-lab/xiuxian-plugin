@@ -37,7 +37,7 @@
 - group:
   list:
     - icon: 21
-      title: '(#|/)打劫+QQ/@道友'
+      title: '(#|/)打劫+UID/@道友'
       desc: '若在城里需决斗令'
     - icon: 22
       title: '(#|/)洗手'

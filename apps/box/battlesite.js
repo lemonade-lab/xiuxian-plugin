@@ -85,7 +85,7 @@ export class BoxBattleSite extends plugin {
       msgLeft.push(item)
     }
     const msgRight = []
-    if (battleMsg.QQ != 0) {
+    if (battleMsg.UID != 0) {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
         const randomthinf = GameApi.GP.randomThing()

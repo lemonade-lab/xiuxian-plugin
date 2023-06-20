@@ -4,7 +4,7 @@ export class BoxInformation extends plugin {
     super({
       rule: [
         { reg: /^(#|\/)个人信息$/, fnc: 'showUserMsg' },
-        { reg: /^(#|\/)面板信息$/, fnc: 'showQquipment' },
+        { reg: /^(#|\/)面板信息$/, fnc: 'showUIDuipment' },
         { reg: /^(#|\/)功法信息$/, fnc: 'showTalent' }
       ]
     })
@@ -23,7 +23,7 @@ export class BoxInformation extends plugin {
     return false
   }
 
-  async showQquipment(e) {
+  async showUIDuipment(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {

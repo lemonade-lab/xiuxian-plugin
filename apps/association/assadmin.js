@@ -302,18 +302,18 @@ export class AssociationAdmin extends plugin {
     if (assGP.assName == 0 || assGP.assJob < 10) {
       return false
     }
-    let memberQQ = e.msg.replace(/^(#|\/)提拔/, '')
-    memberQQ = memberQQ.trim()
-    if (UID == memberQQ) {
+    let memberUID = e.msg.replace(/^(#|\/)提拔/, '')
+    memberUID = memberUID.trim()
+    if (UID == memberUID) {
       return false
     }
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
-    const isinass = ass.allMembers.find((item) => item == memberQQ)
+    const isinass = ass.allMembers.find((item) => item == memberUID)
     if (!isinass) {
       return false
     }
 
-    const member = AssociationApi.assUser.getAssOrGP(1, memberQQ) // 获取这个B的存档
+    const member = AssociationApi.assUser.getAssOrGP(1, memberUID) // 获取这个B的存档
     if (member.assJob > 5) {
       e.reply(`他已经是内门弟子了，不能再提拔了`)
       return false
@@ -375,11 +375,11 @@ export class AssociationAdmin extends plugin {
 
     let menpai = e.msg.replace(/^(#|\/)/, '')
     menpai = menpai.replace('逐出门派', '')
-    const memberQQ = menpai
-    if (UID == memberQQ) {
+    const memberUID = menpai
+    if (UID == memberUID) {
       return false
     }
-    const GPB = AssociationApi.assUser.getAssOrGP(1, memberQQ)
+    const GPB = AssociationApi.assUser.getAssOrGP(1, memberUID)
     if (GPB.assName == 0) {
       return false
     }
@@ -391,7 +391,7 @@ export class AssociationAdmin extends plugin {
       e.reply(`无权进行此操作`)
       return false
     }
-    bss.allMembers = bss.allMembers.filter((item) => item != memberQQ)
+    bss.allMembers = bss.allMembers.filter((item) => item != memberUID)
     GPB.favorability = 0
     GPB.assJob = 0
     GPB.assName = 0
@@ -402,7 +402,7 @@ export class AssociationAdmin extends plugin {
   }
 }
 
-const getAss = (name, date, nowTime, holderQQ, level = 1, spiritStoneAns = 0) => {
+const getAss = (name, date, nowTime, holderUID, level = 1, spiritStoneAns = 0) => {
   return {
     id: name,
     level,
@@ -452,8 +452,8 @@ const getAss = (name, date, nowTime, holderQQ, level = 1, spiritStoneAns = 0) =>
       }
     ],
     divineBeast: 0,
-    master: holderQQ + '',
-    allMembers: [holderQQ + ''],
+    master: holderUID + '',
+    allMembers: [holderUID + ''],
     applyJoinList: [],
     more1: 0,
     more2: 0,
@@ -464,12 +464,12 @@ const getAss = (name, date, nowTime, holderQQ, level = 1, spiritStoneAns = 0) =>
 /**
  * 创立新的宗门
  * @param name 宗门名称
- * @param holderQQ 宗主qq号
+ * @param holderUID 宗主UID号
  */
-const theAssociation = (name, holderQQ) => {
+const theAssociation = (name, holderUID) => {
   const nowTime = new Date().getTime() // 获取当前时间戳
   const date = GameApi.Method.timeChange(nowTime)
-  const Association = getAss(name, date, nowTime, holderQQ)
+  const Association = getAss(name, date, nowTime, holderUID)
   const treasureVault = [[], [], []]
   AssociationApi.assUser.setAssOrGP('association', name, Association)
   AssociationApi.assUser.setAssOrGP('assTreasureVault', name, treasureVault)
