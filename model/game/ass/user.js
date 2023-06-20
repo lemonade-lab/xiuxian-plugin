@@ -10,25 +10,48 @@ import algorithm from '../data/algorithm.js'
 class GP {
   constructor() {
     // 固定表数据
-    //* *驻地 */
-    this.blessPlaceList = Listdata.controlAction({
-      NAME: 'BlessPlace',
-      CHOICE: 'assRelate'
-    })
-    //* * 隐藏宗门藏宝阁物品*/
-    this.baseTreasureVaultList = Listdata.controlAction({
-      NAME: 'BaseTreasureVault',
-      CHOICE: 'assRelate'
-    })
-    //* * 位置 */
+    // 宗门：位置
     this.assLabyrinthList = Listdata.controlAction({
       NAME: 'AssLabyrinth',
       CHOICE: 'assRelate'
     })
-    //* *宗门 */
-    this.assRelationList = Listdata.controlAction({
+    //  隐藏物品
+    this.baseTreasureVaultList = Listdata.controlAction({
+      NAME: 'BaseTreasureVault',
+      CHOICE: 'assRelate'
+    })
+    // 驻地
+    this.blessPlaceList = Listdata.controlAction({
+      NAME: 'BlessPlace',
+      CHOICE: 'assRelate'
+    })
+    // 宗门 ???
+    this.assRelationList = Listdata.controlActionInitial({
       NAME: 'AssRelation',
-      CHOICE: 'assRelation'
+      CHOICE: 'assRelation',
+      // 初始化
+      INITIAL: [
+        {
+          id: 'Ass000001', // 编号
+          name: '剑神宗', // 名称
+          unchartedName: '剑神窟' // 驻地
+        },
+        {
+          id: 'Ass000002',
+          name: '药神谷',
+          unchartedName: '神药庄园'
+        },
+        {
+          id: 'Ass000003',
+          name: '雾隐门',
+          unchartedName: '雾隐地堡'
+        },
+        {
+          id: 'Ass000004',
+          name: '天机阁',
+          unchartedName: '天机古楼'
+        }
+      ]
     })
     // 配置
     this.numberMaximums = [6, 8, 10, 13, 16, 18, 20, 23, 25]
@@ -51,11 +74,9 @@ class GP {
     if (!GP) return false
 
     // 修仙存在此人，看宗门系统有没有他
-    const UserData = {
-      // 宗门名称
-      assName: 0,
-      // id
-      qqNumber: UID,
+    const GPData = {
+      AID: 0, // 宗门名称为0
+      qqNumber: UID, // 用户 id
       assJob: 0,
       effective: 0,
       contributionPoints: 0,
@@ -65,8 +86,7 @@ class GP {
       lastSignAss: 0,
       lastExplorTime: 0,
       lastBounsTime: 0,
-      // 时间搓
-      xiuxianTime: GP.createTime,
+      xiuxianTime: GP.createTime, // 时间搓
       time: []
     }
 
@@ -76,7 +96,7 @@ class GP {
       Listdata.controlAction({
         NAME: UID,
         CHOICE: 'assGP',
-        DATA: UserData
+        DATA: GPData
       })
     }
 
@@ -94,10 +114,10 @@ class GP {
     // 两边都有存档，但是死了，或者重生了，需要执行插件删档
 
     // 检测宗门, 先退宗，再重置
-    if (this.existAss('association', assGP.assName)) {
+    if (this.existAss('association', assGP.AID)) {
       // 读取宗门信息
       let ass = Listdata.controlAction({
-        NAME: assGP.assName,
+        NAME: assGP.AID,
         CHOICE: 'association'
       })
 
@@ -112,7 +132,7 @@ class GP {
         })
       } else {
         if (ass.allMembers.length < 2) {
-          fs.rmSync(`${__PATH.association}/${assGP.assName}.json`)
+          fs.rmSync(`${__PATH.association}/${assGP.AID}.json`)
         } else {
           ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
           // 给宗主
@@ -138,7 +158,7 @@ class GP {
             DATA: ass
           })
 
-          this.assEffCount(randMember)
+          this.assUpdataEfficiency(randMember)
           // 更新面板
           Talent.updataEfficiency(randMember.qqNumber)
         }
@@ -167,31 +187,9 @@ class GP {
     Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP',
-      DATA: UserData
+      DATA: GPData
     })
     return false
-  }
-
-  /**
-   * 获取用户宗门信息或宗门存档
-   * @param assName
-   * @param userUID
-   */
-  getAssOrGP(type, name) {
-    let data
-    const map = {
-      1: 'assGP',
-      2: 'association',
-      3: 'interimArchive',
-      4: 'assTreasure'
-    }
-    try {
-      data = fs.readFileSync(path.join(`${__PATH[map[type]]}/${name}.json`), 'utf8')
-    } catch (error) {
-      return 'error'
-    }
-    // 将字符串数据转变成json格式
-    return JSON.parse(data)
   }
 
   /**
@@ -235,38 +233,33 @@ class GP {
    * @param {*} assGP 用户数据
    * @returns
    */
-  assEffCount(assGP) {
-    //
-    let effective = 0
-    //
-    if (assGP.assName == 0) {
-      assGP.effective = effective
+  assUpdataEfficiency(assGP) {
+    // 没有宗门
+    if (assGP.AID == 0) {
+      assGP.effective = 0
       Listdata.controlAction({
         NAME: assGP.qqNumber,
         CHOICE: 'assGP',
         DATA: assGP
       })
-      return
+      return false
     }
+    // 有宗门
+    let effective = 0
     // 读取宗门数据
     let ass = Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
-    //
     if (ass.resident.id != 0) {
       effective += ass.resident.efficiency
     }
-    //
     if (ass.facility[4].status != 0) {
       effective += ass.level * 0.05
       effective += ass.level * ass.resident.level * 0.01
     }
-    //
     let coefficient = 1 + assGP.assJob / 10
-    //
     effective = effective * coefficient
-    //
     assGP.effective = effective.toFixed(2)
     // 更新
     Talent.addExtendPerpetual({
@@ -341,45 +334,9 @@ class GP {
             NAME: UID,
             CHOICE: 'assGP'
           })
-          this.assEffCount(assOrGP)
+          this.assUpdataEfficiency(assOrGP)
         }
       }
-    }
-  }
-
-  /**
-   *
-   * @param {*} x
-   * @param {*} y
-   * @param {*} thingId
-   */
-  BuildAndDeduplication(x, y, thingId) {
-    const genX = Math.trunc(Math.random() * 99) + 1
-    const genY = Math.trunc(Math.random() * 99) + 1
-    const a = genX % 10
-    const fileName = `${x}-${y}-${a}.json`
-    const dir = `${this.generate_uncharted}/${fileName}`
-    if (!fs.existsSync(dir)) {
-      fs.writeFileSync(dir, '[]', 'utf-8', (err) => {
-        console.info('写入成功', err)
-      })
-    }
-    let pointList = JSON.parse(fs.readFileSync(dir))
-    let ifexist0 = pointList.find((item) => item.x == genX + x && item.y == genY + y)
-    const monLevel = Math.ceil(Math.random() * 13) - 4
-    const flag = monLevel < 0 ? 0 : monLevel
-    if (!ifexist0) {
-      pointList.push({
-        x: genX + x,
-        y: genY + y,
-        monLevel: flag,
-        thingId
-      })
-      fs.writeFileSync(dir, JSON.stringify(pointList, '', '\t'), 'utf-8', (err) => {
-        console.info('写入成功', err)
-      })
-    } else {
-      this.BuildAndDeduplication(x, y, thingId)
     }
   }
 

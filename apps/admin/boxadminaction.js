@@ -43,10 +43,13 @@ export class Boxadminaction extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     BotApi.obtainingImages({
-      e,
-      data: GameApi.Schedule.backupRecovery({
-        name: e.msg.replace(/^(#|\/)修仙复原/, '')
-      })
+      path: 'msg',
+      name: 'msg',
+      data: {
+        msg: GameApi.Schedule.backupRecovery({
+          name: e.msg.replace(/^(#|\/)修仙复原/, '')
+        })
+      }
     })
     return false
   }

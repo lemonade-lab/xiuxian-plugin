@@ -47,13 +47,12 @@ export class Association extends plugin {
       CHOICE: 'assGP'
     })
 
-    console.log(assGP)
-    if (assGP.assName == 0) {
-      e.reply('已仙鹤')
+    if (assGP.AID == 0) {
+      e.reply('乃一介散修')
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     console.log(ass)
@@ -106,11 +105,11 @@ export class Association extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     const nowTime = new Date().getTime() // 获取当前日期的时间戳
@@ -163,7 +162,7 @@ export class Association extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName != 0 || assGP.volunteerAss != 0) {
+    if (assGP.AID != 0 || assGP.volunteerAss != 0) {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
     }
@@ -207,7 +206,7 @@ export class Association extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
     const nowTime = new Date().getTime() // 获取当前时间戳
@@ -218,32 +217,32 @@ export class Association extends plugin {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     if (assGP.assJob < 10) {
       ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber) // 原来的职位表删掉这个B
-      assGP.assName = 0
+      assGP.AID = 0
       assGP.assJob = 0
       assGP.favorability = 0
       AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
-      AssociationApi.assUser.assEffCount(assGP)
+      AssociationApi.assUser.assUpdataEfficiency(assGP)
       e.reply('退出宗门成功')
     } else {
       if (ass.allMembers.length < 2) {
-        AssociationApi.assUser.deleteAss('association', assGP.assName) // 删除宗门
-        AssociationApi.assUser.deleteAss('assTreasure', assGP.assName) // 删除藏宝阁
-        assGP.assName = 0
+        AssociationApi.assUser.deleteAss('association', assGP.AID) // 删除宗门
+        AssociationApi.assUser.deleteAss('assTreasure', assGP.AID) // 删除藏宝阁
+        assGP.AID = 0
         assGP.assJob = 0
         assGP.favorability = 0
-        AssociationApi.assUser.assEffCount(assGP)
+        AssociationApi.assUser.assUpdataEfficiency(assGP)
         e.reply('退出宗门成功,退出后宗门空无一人,自动解散')
       } else {
         ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber)
-        assGP.assName = 0
+        assGP.AID = 0
         assGP.assJob = 0
         assGP.favorability = 0
-        AssociationApi.assUser.assEffCount(assGP)
+        AssociationApi.assUser.assUpdataEfficiency(assGP)
 
         let randMember = { assJob: 0 }
         for (let item in ass.allMembers) {
@@ -259,7 +258,7 @@ export class Association extends plugin {
         ass.master = randMember.qqNumber
         randMember.assJob = 10
         AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
-        AssociationApi.assUser.assEffCount(randMember)
+        AssociationApi.assUser.assUpdataEfficiency(randMember)
         e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.qqNumber}]接管`)
       }
     }
@@ -278,7 +277,7 @@ export class Association extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
 
@@ -299,12 +298,10 @@ export class Association extends plugin {
     }
 
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
-    const assRelation = AssociationApi.assUser.assRelationList.find(
-      (item) => item.id == assGP.assName
-    )
+    const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == assGP.AID)
     if (ass.spiritStoneAns + lingshi > AssociationApi.assUser.spiritStoneAnsMax[ass.level - 1]) {
       e.reply(
         `${assRelation.name}的灵石池最多还能容纳${
@@ -375,7 +372,13 @@ export class Association extends plugin {
           `宗门神兽: ${thisAssBeast}`
       )
     }
-    BotApi.obtainingImages({ e, data: temp })
+    BotApi.obtainingImages({
+      path: 'msg',
+      name: 'msg',
+      data: {
+        msg: temp
+      }
+    })
     return false
   }
 }

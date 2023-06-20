@@ -55,18 +55,20 @@ export const __PATH = {
   /* 宗门路径 */
 
   // 用户数据
-  assGP: algorithm.getReq('/resources/databirth/assGP'), // 玩家信息
-  assRelation: algorithm.getReq('/resources/databirth/assRelation'), // 玩家宗门存档
+  assGP: algorithm.getReq('/resources/databirth/assGP'), // 玩家的基础信息
+  assRelation: algorithm.getReq('/resources/databirth/assRelation'), // 玩家所有宗门的基础存档
 
-  // ??
-  association: algorithm.getReq('/resources/databirth/assItem'), //
-  interimArchive: algorithm.getReq('/resources/databirth/interimArchive'), // 内部档案
-  assTreasure: algorithm.getReq('/resources/databirth/assTreasure'), // 宗门
-  generate_uncharted: algorithm.getReq('/resources/databirth/uncharted'), // 生成
+  // assss0001.json
+  association: algorithm.getReq('/resources/databirth/assItem'), // 宗门的基础信息
+
+  // 秘境
+  assinterimArchive: algorithm.getReq('/resources/databirth/assinterimArchive'),
+
+  assTreasure: algorithm.getReq('/resources/databirth/assTreasure'), // 藏宝阁
 
   // 固定数据
   assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 宗门所有物品
-  assassTreasu: algorithm.getReq('/resources/datafixed/assTreasure'), // 隐藏宗门的藏宝阁
+  assassTreasu: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 隐藏宗门的藏宝阁
   assRelate: algorithm.getReq('/resources/datafixed/assRelate') // 宗门相关资料
 }
 

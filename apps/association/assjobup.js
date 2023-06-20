@@ -31,12 +31,12 @@ export class AssociationJobUp extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob > 9 || assGP.contributionPoints < 400) {
+    if (assGP.AID == 0 || assGP.assJob > 9 || assGP.contributionPoints < 400) {
       return false
     }
     assGP.contributionPoints -= 400
     assGP.assJob += 1
-    AssociationApi.assUser.assEffCount(assGP)
+    AssociationApi.assUser.assUpdataEfficiency(assGP)
     e.reply(`职位提升成功！`)
     return false
   }
@@ -52,11 +52,11 @@ export class AssociationJobUp extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob >= 10) {
+    if (assGP.AID == 0 || assGP.assJob >= 10) {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
 
@@ -90,23 +90,23 @@ export class AssociationJobUp extends plugin {
         NAME: ass.master,
         CHOICE: 'assGP'
       })
-      masterGP.assName = 0
+      masterGP.AID = 0
       masterGP.assJob = 0
       masterGP.favorability = 0
-      AssociationApi.assUser.assEffCount(masterGP)
+      AssociationApi.assUser.assUpdataEfficiency(masterGP)
       ass.master = UID
       userLevel.prestige += 8
       e.reply(`谋划数载，篡位成功，你成功坐上了宗主之位，但也因为这一行为煞气值增加8点`)
     } else {
       ass.allMembers = ass.allMembers.filter((item) => item != UID)
-      assGP.assName = 0
+      assGP.AID = 0
       assGP.assJob = 0
       assGP.favorability = 0
       assGP.contributionPoints = 0
       userLevel.prestige += 15
       e.reply(`你谋划篡位，被宗主识破了，不仅被逐出宗门，还让增加了15点煞气值`)
     }
-    AssociationApi.assUser.assEffCount(assGP)
+    AssociationApi.assUser.assUpdataEfficiency(assGP)
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     GameApi.Listdata.controlAction({
       NAME: UID,
@@ -128,7 +128,7 @@ export class AssociationJobUp extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob >= 8) {
+    if (assGP.AID == 0 || assGP.assJob >= 8) {
       return false
     }
     if (assGP.contributionPoints < 200) {
@@ -146,8 +146,8 @@ export class AssociationJobUp extends plugin {
       CHOICE: 'assGP'
     })
     if (
-      battleGP.assName == 0 ||
-      assGP.assName != battleGP.assName ||
+      battleGP.AID == 0 ||
+      assGP.AID != battleGP.AID ||
       battleGP.assJob >= 10 ||
       battleGP.assJob < assGP.assJob ||
       battleGP.assJob > assGP.assJob + 2
@@ -170,8 +170,8 @@ export class AssociationJobUp extends plugin {
     if (victory == UID) {
       assGP.assJob += 1
       battleGP.assJob -= 1
-      AssociationApi.assUser.assEffCount(assGP)
-      AssociationApi.assUser.assEffCount(battleGP)
+      AssociationApi.assUser.assUpdataEfficiency(assGP)
+      AssociationApi.assUser.assUpdataEfficiency(battleGP)
       e.reply(`你在赢得了比试的胜利，职位等级提高了，对方的职位等级降低一级`)
       return false
     } else {

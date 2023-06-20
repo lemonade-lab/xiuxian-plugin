@@ -36,11 +36,11 @@ export class assTreasure extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
 
@@ -93,7 +93,7 @@ export class assTreasure extends plugin {
       return false
     }
     const assTreasureCabinet = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'assTreasure'
     })
     const length = Math.ceil(ass.level / 3)
@@ -121,7 +121,7 @@ export class assTreasure extends plugin {
         redeemPoint: Math.ceil(searchThing.price / 500)
       }
       assTreasureCabinet[location].push(addTing)
-      AssociationApi.assUser.setAssOrGP('assTreasure', assGP.assName, assTreasureCabinet)
+      AssociationApi.assUser.setAssOrGP('assTreasure', assGP.AID, assTreasureCabinet)
     }
     return false
   }
@@ -139,18 +139,18 @@ export class assTreasure extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
 
     let msg = ['___[宗门藏宝阁]___']
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
     let assTreasureCabinet = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'assTreasure'
     })
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
 
@@ -187,12 +187,12 @@ export class assTreasure extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
 
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     const thingName = e.msg.replace(/^(#|\/)兑换/, '')
@@ -222,7 +222,7 @@ export class assTreasure extends plugin {
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
     let assTreasureCabinet = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'assTreasure'
     })
     let length = Math.ceil(ass.level / 3)
@@ -269,7 +269,7 @@ export class assTreasure extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
     e.reply(

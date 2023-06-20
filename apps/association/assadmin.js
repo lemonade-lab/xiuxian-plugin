@@ -29,7 +29,11 @@ export class AssociationAdmin extends plugin {
     })
   }
 
-  // 判断是否满足创建宗门条件
+  /**
+   * 开宗立派
+   * @param {*} e
+   * @returns
+   */
   async createAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -44,125 +48,125 @@ export class AssociationAdmin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName != 0 || assGP.volunteerAss != 0) {
+    if (assGP.AID != 0 || assGP.volunteerAss != 0) {
       e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
       return false
     }
     let money = GameApi.Bag.searchBagByName({ UID, name: '下品灵石' })
-    if (!money) {
-      e.reply('[下品灵石]不足')
+    if (!money || money.acount < 10000) {
+      e.reply('开宗立派是需要本钱的,攒到[下品灵石]*10000再来吧')
       return false
     }
-
-    if (money.acount < 10000) {
-      e.reply('开宗立派是需要本钱的,攒到一万下品灵石再来吧')
-      return false
-    }
-
-    // 是否存在宗门令牌      否，return
-    // 是 令牌为中级或低级
-    // 中，是否四大隐藏有主            是，检测低级，否，随机获取四大宗门
-    // 低，进行普通创建
-
-    let najieThingA = GameApi.Bag.searchBagByName({
-      UID,
-      name: '下等宗门令牌'
-    })
     let najieThingB = GameApi.Bag.searchBagByName({
       UID,
       name: '中等宗门令牌'
     })
-    if (!najieThingA) {
-      e.reply(`你尚无创建宗门的资格，请获取下等宗门令牌后再来吧`)
+    let najieThingA = GameApi.Bag.searchBagByName({
+      UID,
+      name: '下等宗门令牌'
+    })
+    // 两种令牌都不存在
+    if (!najieThingA && !najieThingB) {
+      e.reply('请先找(下等/中等)宗门令牌,以广招门徒~')
       return false
     }
-    // 有令牌，可以开始创建宗门了
+
+    let AID = []
     if (najieThingB) {
-      // 有中级令牌
-      // 判断隐藏宗门是否被占完了
-
-      let assName = []
-
       if (!AssociationApi.assUser.existAss('association', 'Ass000001')) {
-        assName.push('Ass000001')
+        AID.push('Ass000001')
       }
       if (!AssociationApi.assUser.existAss('association', 'Ass000002')) {
-        assName.push('Ass000002')
+        AID.push('Ass000002')
       }
       if (!AssociationApi.assUser.existAss('association', 'Ass000003')) {
-        assName.push('Ass000003')
+        AID.push('Ass000003')
       }
       if (!AssociationApi.assUser.existAss('association', 'Ass000004')) {
-        assName.push('Ass000004')
+        AID.push('Ass000004')
       }
+    }
 
-      //
-      if (assName.length != 0) {
-        // 可以创建隐藏宗门
+    GameApi.Bag.addBagThing({
+      UID,
+      name: '下品灵石',
+      ACCOUNT: -10000
+    })
+
+    // 可以建立隐藏宗门
+    if (najieThingB && AID.length != 0) {
+      GameApi.Bag.addBagThing({
+        UID,
+        name: najieThingB.name,
+        ACCOUNT: -1
+      })
+      const nowTime = new Date().getTime() // 获取当前时间戳
+      const date = GameApi.Method.timeChange(nowTime)
+
+      // 随机数 1-4
+      const location = Math.floor(Math.random() * AID.length)
+
+      // 初始化宗门数据
+      const AssData = getAss(AID[location], date, nowTime, UID, 4, 100000)
+
+      // 玩家存档
+      let assGP = GameApi.Listdata.controlAction({
+        NMAE: UID,
+        CHOICE: 'assGP'
+      })
+      assGP.AID = AID[location].id
+      assGP.assJob10 = 10
+      assGP.contributionPoints = 0
+      assGP.historyContribution = 0
+      assGP.favorability = 0
+      assGP.volunteerAss = 0
+      assGP.time = [date, nowTime]
+      // 更新玩家天赋,并写入存档
+      AssociationApi.assUser.assUpdataEfficiency(assGP)
+
+      // ??
+      AssociationApi.assUser.setAssOrGP('association', AID[location], AssData)
+      // 普通宗门的
+      let assthing = GameApi.Listdata.controlAction({
+        NAME: 'BaseTreasureVault',
+        CHOICE: 'assRelate'
+      })
+      // 隐藏宗门的
+      let assthin = GameApi.Listdata.controlAction({
+        NAME: AID[location],
+        CHOICE: 'assassTreasu'
+      })
+      for (let i = 0; i < assthin.length; i++) {
+        assthing[i].push.apply(assthin[i])
+      }
+      // 存储藏宝阁
+      AssociationApi.assUser.setAssOrGP('assTreasure', AID[location], assthing)
+      // 宗门名称表
+      let assRelation = AssociationApi.assUser.assRelationList.find(
+        (item) => item.id == AID[location]
+      )
+      e.reply(`成功找到${assRelation.name}遗址,建立了传承宗门${assRelation.name}`)
+      return false
+    }
+
+    //  中等令牌的特权失效了
+    if (najieThingA || najieThingB) {
+      // 隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
+      if (najieThingA) {
         GameApi.Bag.addBagThing({
           UID,
-          name: '下品灵石',
-          ACCOUNT: Number(-10000)
+          name: najieThingA.name,
+          ACCOUNT: -1
         })
+      } else if (najieThingB) {
         GameApi.Bag.addBagThing({
           UID,
           name: najieThingB.name,
-          ACCOUNT: Number(-1)
+          ACCOUNT: -1
         })
-        const nowTime = new Date().getTime() // 获取当前时间戳
-        const date = GameApi.Method.timeChange(nowTime)
-
-        const location = Math.floor(Math.random() * assName.length)
-        const association = getAss(assName[location], date, nowTime, UID, 4, 100000)
-
-        let assGP = AssociationApi.assUser.getAssOrGP(1, UID)
-        assGP.assName = assName[location]
-        assGP.assJob = 10
-        assGP.contributionPoints = 0
-        assGP.historyContribution = 0
-        assGP.favorability = 0
-        assGP.volunteerAss = 0
-        assGP.time = [date, nowTime]
-        AssociationApi.assUser.setAssOrGP('association', assName[location], association)
-        AssociationApi.assUser.assEffCount(assGP)
-        // 写的比较沉余
-        let assthing = GameApi.Listdata.controlAction({
-          NAME: 'BaseTreasureVault',
-          CHOICE: 'assRelate'
-        }) // 普通宗门的
-        let assthin = GameApi.Listdata.controlAction({
-          NAME: assName[location],
-          CHOICE: 'assassTreasu'
-        }) // 隐藏宗门的
-        for (let i = 0; i < assthin.length; i++) {
-          assthing[i].push.apply(assthin[i])
-        }
-        AssociationApi.assUser.setAssOrGP('assTreasure', assName[location], assthing) // 存储藏宝阁
-        let assRelation = AssociationApi.assUser.assRelationList.find(
-          (item) => item.id == assName[location]
-        )
-        e.reply(
-          `恭喜你找到了${assRelation.name}遗址，继承其传承，建立了隐藏宗门${assRelation.name}！！！`
-        )
-        return false
       }
-    }
-
-    // 隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
-    if (najieThingA) {
-      GameApi.Bag.addBagThing({
-        UID,
-        name: '下品灵石',
-        ACCOUNT: Number(-10000)
-      })
-      GameApi.Bag.addBagThing({
-        UID,
-        name: najieThingA.name,
-        ACCOUNT: Number(-1)
-      })
-      // 有低级令牌，可以创建普通宗门
       /** 设置上下文 */
-      this.setContext('Get_associationName')
+      this.setContext('setAssociationName')
       /** 回复 */
       e.reply('请发送宗门的名字,后续可使用#宗门改名xxx进行修改(宗门名字最多6个中文字符)', false, {
         at: true
@@ -172,49 +176,42 @@ export class AssociationAdmin extends plugin {
   }
 
   /** 获取宗门名称 */
-  async Get_associationName(e) {
+  async setAssociationName(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    /** 内容 */
-    // 不开放私聊功能
-    if (!e.isGroup) {
-      return false
-    }
     const theMsg = this.e.message
     if (theMsg[0].type != 'text') {
-      this.setContext('Get_associationName')
-      this.reply('请发送文本,请重新输入:')
+      this.setContext('setAssociationName')
+      this.reply('非法宗门,请重新输入:')
       return false
     }
     const associationName = theMsg[0].text
-    if (associationName.length > 6) {
-      this.setContext('Get_associationName')
-      this.reply('宗门名字最多只能设置6个字符,请重新输入:')
+    if (
+      associationName.length < 2 ||
+      associationName.length > 6 ||
+      !/^[\u4e00-\u9fa5]+$/.test(associationName)
+    ) {
+      this.setContext('setAssociationName')
+      this.reply('非法宗门,请重新输入:')
       return false
     }
-    const reg = /[^\u4e00-\u9fa5]/g // 汉字检验正则
-    const res = reg.test(associationName)
-    // res为true表示存在汉字以外的字符
-    if (res) {
-      this.setContext('Get_associationName')
-      this.reply('宗门名字只能使用中文,请重新输入:')
-      return false
-    }
+    // 检查宗门名称表
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.name == associationName
     )
     if (assRelation) {
-      this.setContext('Get_associationName')
-      this.reply('该宗门已经存在,请重新输入:')
+      this.setContext('setAssociationName')
+      this.reply('非法宗门,请重新输入:')
       return false
     }
-    const nowTime = new Date().getTime() // 获取当前时间戳
+    const nowTime = new Date().getTime()
     const date = GameApi.Method.timeChange(nowTime)
     const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     let replace = null
+    // 如果宗门列表等于 0
     if (AssociationApi.assUser.assRelationList.length == 0) {
       replace = 1
     } else {
@@ -224,33 +221,34 @@ export class AssociationAdmin extends plugin {
     }
     const associationID = 'Ass00000' + replace
 
-    const relation = {
-      id: associationID,
-      name: associationName,
-      unchartedName: associationID
-    }
     let relationAll = AssociationApi.assUser.assRelationList
-    relationAll.push(relation)
+    relationAll.push({
+      id: associationID, // 宗门文件名
+      name: associationName, // 宗门名称
+      unchartedName: associationID
+    })
     AssociationApi.assUser.setAssOrGP('assRelation', 'AssRelation', relationAll)
-    assGP.assName = associationID
-    assGP.assJob = 10
+
+    assGP.AID = associationID
+    assGP.assJob10 = 10
     assGP.contributionPoints = 0
     assGP.historyContribution = 0
     assGP.favorability = 0
     assGP.volunteerAss = 0
     assGP.time = [date, nowTime]
+    // 写入玩家宗门数据
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
+
     theAssociation(associationID, UID)
     let read = GameApi.Listdata.controlAction({
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
     AssociationApi.assUser.setAssOrGP('assTreasure', associationID, read) // 存储藏宝阁
-    AssociationApi.assUser.assEffCount(assGP)
+    AssociationApi.assUser.assUpdataEfficiency(assGP)
     this.reply('宗门创建成功')
     /** 结束上下文 */
-    this.finish('Get_associationName')
-    // return associationName
+    this.finish('setAssociationName')
   }
 
   // 升级宗门
@@ -265,11 +263,11 @@ export class AssociationAdmin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0 || assGP.assJob < 8) {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     if (ass.level == AssociationApi.assUser.numberMaximums.length) {
@@ -328,7 +326,7 @@ export class AssociationAdmin extends plugin {
           NAME: UID,
           CHOICE: 'assGP'
         })
-        AssociationApi.assUser.assEffCount(assOrGP)
+        AssociationApi.assUser.assUpdataEfficiency(assOrGP)
       }
     }
     e.reply(
@@ -352,7 +350,7 @@ export class AssociationAdmin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 10) {
+    if (assGP.AID == 0 || assGP.assJob < 10) {
       return false
     }
     let memberUID = e.msg.replace(/^(#|\/)提拔/, '')
@@ -361,7 +359,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     const isinass = ass.allMembers.find((item) => item == memberUID)
@@ -383,7 +381,7 @@ export class AssociationAdmin extends plugin {
     }
 
     member.assJob += 1
-    AssociationApi.assUser.assEffCount(member)
+    AssociationApi.assUser.assUpdataEfficiency(member)
 
     e.reply(`提拔成功！！！`)
     return false
@@ -401,10 +399,10 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     })
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
-    if (assGP.assName == 0 || assGP.assJob < 10) {
+    if (assGP.AID == 0 || assGP.assJob < 10) {
       return false
     }
     if (AssociationApi.assUser.assRelationList.findIndex((item) => item.id == ass.id) <= 3) {
@@ -437,7 +435,7 @@ export class AssociationAdmin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (GPA.assName == 0 || GPA.assJob < 8) {
+    if (GPA.AID == 0 || GPA.assJob < 8) {
       return false
     }
 
@@ -451,14 +449,14 @@ export class AssociationAdmin extends plugin {
       NAME: memberUID,
       CHOICE: 'assGP'
     })
-    if (GPB.assName == 0) {
+    if (GPB.AID == 0) {
       return false
     }
     const bss = GameApi.Listdata.controlAction({
-      NAME: GPB.assName,
+      NAME: GPB.AID,
       CHOICE: 'association'
     })
-    if (GPA.assName != GPB.assName) {
+    if (GPA.AID != GPB.AID) {
       return false
     }
     if (GPB.assJob >= 8) {
@@ -468,9 +466,9 @@ export class AssociationAdmin extends plugin {
     bss.allMembers = bss.allMembers.filter((item) => item != memberUID)
     GPB.favorability = 0
     GPB.assJob = 0
-    GPB.assName = 0
+    GPB.AID = 0
     AssociationApi.assUser.setAssOrGP('association', bss.id, bss)
-    AssociationApi.assUser.assEffCount(GPB)
+    AssociationApi.assUser.assUpdataEfficiency(GPB)
     e.reply('已踢出！')
     return false
   }

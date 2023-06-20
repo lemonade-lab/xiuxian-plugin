@@ -148,7 +148,7 @@ export class AssUncharted extends plugin {
       CHOICE: 'assGP'
     })
 
-    if (assGP.assName == ass.id) {
+    if (assGP.AID == ass.id) {
       GameApi.Bag.addBagThing({
         UID,
         name: '下品灵石',
@@ -175,7 +175,7 @@ export class AssUncharted extends plugin {
     })
 
     const number = Math.trunc(Math.random() * 5)
-    const interimArchive = {
+    const assinterimArchive = {
       assResident: ass.resident.id,
       unchartedLevel,
       incentivesLevel,
@@ -185,7 +185,7 @@ export class AssUncharted extends plugin {
       alreadyExplore: [],
       treasureChests: []
     }
-    AssociationApi.assUser.setAssOrGP('interimArchive', UID, interimArchive)
+    AssociationApi.assUser.setAssOrGP('assinterimArchive', UID, assinterimArchive)
     ass.facility[2].buildNum -= 1
     AssociationApi.assUser.checkFacility(ass)
     e.reply(`你已成功进入${didian}秘境,开始探索吧！`)
@@ -196,7 +196,7 @@ export class AssUncharted extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('interimArchive', UID)) {
+    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
     const GP = GameApi.Listdata.controlAction({
@@ -209,12 +209,12 @@ export class AssUncharted extends plugin {
     }
     let direction = e.msg.replace(/^(#|\/)秘境移动向/, '')
     direction = direction.trim()
-    const interimArchive = GameApi.Listdata.controlAction({
+    const assinterimArchive = GameApi.Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'interimArchive'
+      CHOICE: 'assinterimArchive'
     })
-    let abscissa = interimArchive.abscissa
-    let ordinate = interimArchive.ordinate
+    let abscissa = assinterimArchive.abscissa
+    let ordinate = assinterimArchive.ordinate
     switch (true) {
       case direction == '上':
         ordinate += 1
@@ -236,7 +236,7 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    const labyrinthMap = AssociationApi.assUser.assLabyrinthList[interimArchive.labyrinthMap]
+    const labyrinthMap = AssociationApi.assUser.assLabyrinthList[assinterimArchive.labyrinthMap]
     const newPoint = labyrinthMap.find((item) => item.x == abscissa && item.y == ordinate)
     if (!newPoint || !newPoint.transit) {
       e.reply(`此路不通！！！`)
@@ -255,21 +255,21 @@ export class AssUncharted extends plugin {
 
     // 随机事件
     let random = Math.random()
-    const everCame = interimArchive.alreadyExplore.find(
+    const everCame = assinterimArchive.alreadyExplore.find(
       (item) => item.x == abscissa && item.y == ordinate
     )
     if (everCame) {
       random = 0.1
     } else {
-      interimArchive.alreadyExplore.push({
+      assinterimArchive.alreadyExplore.push({
         x: abscissa,
         y: ordinate
       })
     }
 
     // 位置变更
-    interimArchive.abscissa = abscissa
-    interimArchive.ordinate = ordinate
+    assinterimArchive.abscissa = abscissa
+    assinterimArchive.ordinate = ordinate
 
     if (random < 0.2) {
       e.reply(`无事发生`)
@@ -278,11 +278,11 @@ export class AssUncharted extends plugin {
         UID,
         CHOICE: 'playerLevel',
         ATTRIBUTE: 'experiencemax',
-        SIZE: Number(-150 * interimArchive.incentivesLevel)
+        SIZE: Number(-150 * assinterimArchive.incentivesLevel)
       })
       e.reply(
         `你找到一处结界，不知法门只能暴力破解，却被结界反噬震伤，气血逆流，失去了${
-          150 * interimArchive.incentivesLevel
+          150 * assinterimArchive.incentivesLevel
         }气血`
       )
     } else if (random < 0.5) {
@@ -290,10 +290,12 @@ export class AssUncharted extends plugin {
         UID,
         CHOICE: 'playerLevel',
         ATTRIBUTE: 'experience',
-        SIZE: Number(-100 * interimArchive.incentivesLevel)
+        SIZE: Number(-100 * assinterimArchive.incentivesLevel)
       })
       e.reply(
-        `你发现一汪灵泉，大口饮下，不料泉水有毒，失去了${100 * interimArchive.incentivesLevel}修为`
+        `你发现一汪灵泉，大口饮下，不料泉水有毒，失去了${
+          100 * assinterimArchive.incentivesLevel
+        }修为`
       )
     } else if (random < 0.65) {
       GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
@@ -301,10 +303,12 @@ export class AssUncharted extends plugin {
         UID,
         CHOICE: 'playerLevel',
         ATTRIBUTE: 'experience',
-        SIZE: Number(120 * interimArchive.incentivesLevel)
+        SIZE: Number(120 * assinterimArchive.incentivesLevel)
       })
       e.reply(
-        `这是一块灵气充裕之地，你静心修炼一会儿，获得了${120 * interimArchive.incentivesLevel}修为`
+        `这是一块灵气充裕之地，你静心修炼一会儿，获得了${
+          120 * assinterimArchive.incentivesLevel
+        }修为`
       )
     } else if (random < 0.85) {
       // 遇怪
@@ -316,18 +320,18 @@ export class AssUncharted extends plugin {
       let levelId
       let buff = 1
       // 2 - 12  0 - 15
-      if (interimArchive.unchartedLevel < 4) {
+      if (assinterimArchive.unchartedLevel < 4) {
         // 2 3 级秘境，刷怪，2.3  和 3.4
-        levelId = interimArchive.unchartedLevel + Math.trunc(Math.random() * 2)
-      } else if (interimArchive.unchartedLevel < 8) {
+        levelId = assinterimArchive.unchartedLevel + Math.trunc(Math.random() * 2)
+      } else if (assinterimArchive.unchartedLevel < 8) {
         //  4 5 6 7级秘境 刷怪   4.5.6  5.6.7   7 8 9
-        levelId = interimArchive.unchartedLevel + 1 + Math.trunc(Math.random() * 3)
+        levelId = assinterimArchive.unchartedLevel + 1 + Math.trunc(Math.random() * 3)
       } else {
         // 8 9 10 11 12
         // 9 10
         levelId = 8 + Math.ceil(Math.random() * 2)
         // 11 - 15
-        buff = Math.ceil(Math.random() * (interimArchive.unchartedLevel - 7)) + 10
+        buff = Math.ceil(Math.random() * (assinterimArchive.unchartedLevel - 7)) + 10
         buff = (buff / 10).toFixed(2)
       }
 
@@ -359,9 +363,9 @@ export class AssUncharted extends plugin {
         UID,
         CHOICE: 'playerLevel',
         ATTRIBUTE: 'experiencemax',
-        SIZE: Number(250 * interimArchive.incentivesLevel)
+        SIZE: Number(250 * assinterimArchive.incentivesLevel)
       })
-      msg.push(`获得了${250 * interimArchive.incentivesLevel}气血`)
+      msg.push(`获得了${250 * assinterimArchive.incentivesLevel}气血`)
 
       e.reply(
         await BotApi.obtainingImages({
@@ -376,22 +380,22 @@ export class AssUncharted extends plugin {
       const chestsType = Math.ceil(Math.random() * 6)
       let chestsLevel
       // 0 - 15
-      if (interimArchive.incentivesLevel <= 6) {
+      if (assinterimArchive.incentivesLevel <= 6) {
         // 0-6   0 - 2  0 - 8
-        chestsLevel = interimArchive.incentivesLevel + Math.trunc(Math.random() * 3)
+        chestsLevel = assinterimArchive.incentivesLevel + Math.trunc(Math.random() * 3)
       } else {
         //  7 - 15  -2 - 2  5 - 17
-        chestsLevel = interimArchive.incentivesLevel + Math.trunc(Math.random() * 5) - 2
+        chestsLevel = assinterimArchive.incentivesLevel + Math.trunc(Math.random() * 5) - 2
       }
       const chests = {
         type: chestsType,
         level: chestsLevel
       }
       e.reply(`获得了一个宝箱，可使用#查看秘境收获，进行查看`)
-      interimArchive.treasureChests.push(chests)
+      assinterimArchive.treasureChests.push(chests)
     }
 
-    AssociationApi.assUser.setAssOrGP('interimArchive', UID, interimArchive)
+    AssociationApi.assUser.setAssOrGP('assinterimArchive', UID, assinterimArchive)
     return false
   }
 
@@ -406,11 +410,11 @@ export class AssUncharted extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0 || assGP.assJob < 8) {
       return false
     }
     let ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     if (ass.facility[2].status == 0) {
@@ -434,7 +438,7 @@ export class AssUncharted extends plugin {
       e.reply(`秘境不允许重名`)
       return false
     }
-    AssociationApi.assUser.renameAssociation(assGP.assName, 2, newName)
+    AssociationApi.assUser.renameAssociation(assGP.AID, 2, newName)
     e.reply(`宗门秘境已成功更名为${newName}`)
     return false
   }
@@ -447,23 +451,23 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
+    if (!AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
-    const interimArchive = GameApi.Listdata.controlAction({
+    const assinterimArchive = GameApi.Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'interimArchive'
+      CHOICE: 'assinterimArchive'
     })
 
     let msg = [`__[秘境收获]__`]
 
-    if (interimArchive.treasureChests.length <= 0) {
+    if (assinterimArchive.treasureChests.length <= 0) {
       msg.push('空空如也！！！')
     } else {
-      for (let i = 0; i < interimArchive.treasureChests.length; i++) {
+      for (let i = 0; i < assinterimArchive.treasureChests.length; i++) {
         const map = ['随机', '武器', '防具', '法宝', '丹药', '功法', '灵石']
-        const name = map[interimArchive.treasureChests[i].type]
-        msg.push(`${interimArchive.treasureChests[i].level}级${name}宝箱`)
+        const name = map[assinterimArchive.treasureChests[i].type]
+        msg.push(`${assinterimArchive.treasureChests[i].level}级${name}宝箱`)
       }
     }
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
@@ -478,34 +482,34 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    if (!AssociationApi.assUser.existAss('interimArchive', UID)) {
+    if (!AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
-    const interimArchive = GameApi.Listdata.controlAction({
+    const assinterimArchive = GameApi.Listdata.controlAction({
       NAME: UID,
-      CHOICE: 'interimArchive'
+      CHOICE: 'assinterimArchive'
     })
     let msg = [`__[开启结果]__`]
 
-    if (interimArchive.treasureChests.length <= 0) {
+    if (assinterimArchive.treasureChests.length <= 0) {
       msg.push('没宝箱开锤子呢')
     } else {
-      for (let i = 0; i < interimArchive.treasureChests.length; i++) {
+      for (let i = 0; i < assinterimArchive.treasureChests.length; i++) {
         let lastNum
         // 0 - 15
-        if (interimArchive.incentivesLevel <= 6) {
+        if (assinterimArchive.incentivesLevel <= 6) {
           // 0 - 8  0-3 0 - 11
-          lastNum = interimArchive.treasureChests[i].level + Math.trunc(Math.random() * 4)
+          lastNum = assinterimArchive.treasureChests[i].level + Math.trunc(Math.random() * 4)
         } else {
           // 5 - 17  -2 - 3   3 - 20
-          lastNum = interimArchive.treasureChests[i].level + Math.trunc(Math.random() * 6) - 2
+          lastNum = assinterimArchive.treasureChests[i].level + Math.trunc(Math.random() * 6) - 2
           lastNum = lastNum < 8 ? 8 : lastNum
           lastNum = lastNum > 19 ? 19 : lastNum
         }
-        if (interimArchive.treasureChests[i].type != 6) {
-          let thingId = interimArchive.treasureChests[i].type + '-1-' + lastNum
-          if (interimArchive.treasureChests[i].type == 4 && lastNum >= 10) {
-            thingId = interimArchive.treasureChests[i].type + '-2-' + lastNum
+        if (assinterimArchive.treasureChests[i].type != 6) {
+          let thingId = assinterimArchive.treasureChests[i].type + '-1-' + lastNum
+          if (assinterimArchive.treasureChests[i].type == 4 && lastNum >= 10) {
+            thingId = assinterimArchive.treasureChests[i].type + '-2-' + lastNum
           }
           let addThing = GameApi.GP.searchThingById(thingId)
           if (!addThing) {
@@ -527,12 +531,10 @@ export class AssUncharted extends plugin {
         }
       }
     }
-    interimArchive.treasureChests = []
-    AssociationApi.assUser.setAssOrGP('interimArchive', UID, interimArchive)
-    const data = {
-      msg
-    }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data }))
+    assinterimArchive.treasureChests = []
+    AssociationApi.assUser.setAssOrGP('assinterimArchive', UID, assinterimArchive)
+
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
   }
 
@@ -544,26 +546,26 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    if (AssociationApi.assUser.existAss('interimArchive', UID)) {
-      const interimArchive = GameApi.Listdata.controlAction({
+    if (AssociationApi.assUser.existAss('assinterimArchive', UID)) {
+      const assinterimArchive = GameApi.Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'interimArchive'
+        CHOICE: 'assinterimArchive'
       })
-      if (interimArchive.alreadyExplore.length > 11) {
+      if (assinterimArchive.alreadyExplore.length > 11) {
         const idList = ['1-1-40', '2-1-40']
         const randomSource = Math.random()
         // unchartedLevel  incentivesLevel
-        const probability = interimArchive.unchartedLevel * 0.03
+        const probability = assinterimArchive.unchartedLevel * 0.03
 
         if (randomSource < probability) {
           // 获得特殊产出
           let addThing
           const find = AssociationApi.assUser.blessPlaceList.find(
-            (item) => item.id == interimArchive.assResident
+            (item) => item.id == assinterimArchive.assResident
           )
-          if (interimArchive.incentivesLevel > 12) {
+          if (assinterimArchive.incentivesLevel > 12) {
             addThing = GameApi.GP.searchThingById(find.specialty.best)
-          } else if (interimArchive.incentivesLevel >= 8) {
+          } else if (assinterimArchive.incentivesLevel >= 8) {
             const location = Math.trunc(Math.random() * find.specialty.special.length)
             addThing = GameApi.GP.searchThingById(find.specialty.special[location])
           } else {
@@ -593,7 +595,7 @@ export class AssUncharted extends plugin {
           e.reply(`你获得了${addThing.name}`)
         }
       }
-      AssociationApi.assUser.deleteAss('interimArchive', UID)
+      AssociationApi.assUser.deleteAss('assinterimArchive', UID)
     }
     let action = GameApi.Wrap.getAction(UID)
     if (action.actionID != 6) {

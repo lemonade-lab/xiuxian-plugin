@@ -41,7 +41,7 @@ export class AssociationJoin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
     const joinGP = GameApi.Listdata.controlAction({
@@ -49,7 +49,7 @@ export class AssociationJoin extends plugin {
       CHOICE: 'playerLevel'
     })
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
@@ -123,11 +123,11 @@ export class AssociationJoin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
@@ -148,7 +148,7 @@ export class AssociationJoin extends plugin {
     if (assGP.assJob >= 8) {
       const nowTime = new Date().getTime() // 获取当前时间戳
       const date = GameApi.Method.timeChange(nowTime)
-      joinGP.assName = ass.id
+      joinGP.AID = ass.id
       joinGP.assJob = 1
       joinGP.volunteerAss = 0
       joinGP.time = [date, nowTime]
@@ -156,7 +156,7 @@ export class AssociationJoin extends plugin {
       ass.allMembers.push(joinUID)
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
       AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
-      AssociationApi.assUser.assEffCount(joinGP)
+      AssociationApi.assUser.assUpdataEfficiency(joinGP)
       e.reply(`已批准${joinUID}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
       return false
     } else {
@@ -183,12 +183,12 @@ export class AssociationJoin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0 || assGP.assJob < 8) {
       return false
     }
 
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     let find = ass.applyJoinList.findIndex((item) => item == joinUID)
@@ -220,23 +220,29 @@ export class AssociationJoin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0) {
+      e.reply('乃一介散修')
       return false
     }
-    let ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+    // if (assGP.assJob < 8) {
+    //   console.log('不足')
+    //   return false
+    // }
+    let AssData = GameApi.Listdata.controlAction({
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
-    if (ass.applyJoinList.length == 0) {
-      e.reply(`你的宗门还没有收到任何简历！！！快去招收弟子吧！`)
+    if (AssData.applyJoinList.length == 0) {
+      e.reply(`未没有收到简历！快去招收弟子吧！`)
       return false
     }
-    let temp = ['简历列表']
-
-    for (var i = 0; i < ass.applyJoinList.length; i++) {
-      temp.push(`序号:${1 + i} ` + '\n' + `申请人UID: ${ass.applyJoinList[i]}` + '\n')
+    let temp = ['_[简历列表]_']
+    let i = 0
+    for (let item of AssData.applyJoinList) {
+      i++
+      temp.push(`ID:${i}  UID: ${item}`)
     }
-    BotApi.obtainingImages({ e, data: temp })
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: temp } }))
     return false
   }
 }

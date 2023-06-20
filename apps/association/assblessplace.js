@@ -43,28 +43,28 @@ export class AssBlessPlace extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0 || assGP.assJob < 8) {
       return false
     }
-    let assName = e.msg.replace(/^(#|\/)集合攻打/, '')
-    assName = assName.trim()
-    const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == assName)
+    let AID = e.msg.replace(/^(#|\/)集合攻打/, '')
+    AID = AID.trim()
+    const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == AID)
     if (!assRelation) {
       e.reply(`该宗门不存在！`)
       return false
     }
 
-    assName = assRelation.id
+    AID = assRelation.id
     const battleAss = GameApi.Listdata.controlAction({
-      NAME: assName,
+      NAME: AID,
       CHOICE: 'association'
     })
-    if (battleAss.resident.name == 0 || battleAss.id == assGP.assName) {
+    if (battleAss.resident.name == 0 || battleAss.id == assGP.AID) {
       return false
     }
     // 读取被攻打的宗门势力范围
     const attackAss = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
 
@@ -109,10 +109,8 @@ export class AssBlessPlace extends plugin {
         msg.push('防守方没有神兽，并不能获得战斗加成')
     }
     msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体煞气值加2点')
-    const data = {
-      msg
-    }
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data }))
+
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 
     // 开打！
     const res = AssBattle(e, attackObj, battleObj)
@@ -157,11 +155,11 @@ export class AssBlessPlace extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0 || assGP.assJob < 10) {
+    if (assGP.AID == 0 || assGP.assJob < 10) {
       return false
     }
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     let blessedName = e.msg.replace(/^(#|\/)入驻洞天/, '')
@@ -223,12 +221,12 @@ export class AssBlessPlace extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
 
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
 
@@ -308,12 +306,12 @@ export class AssBlessPlace extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
 
     let ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     if (ass.resident.name == 0) {
@@ -373,7 +371,7 @@ export class AssBlessPlace extends plugin {
     assGP.historyContribution += Math.trunc(add / 2) + 1
     AssociationApi.assUser.checkFacility(ass)
     ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
     let msg = ass.facility[location].status == 0 ? '未启用' : '启用'
@@ -397,12 +395,12 @@ export class AssBlessPlace extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
 
     const ass = GameApi.Listdata.controlAction({
-      NAME: assGP.assName,
+      NAME: assGP.AID,
       CHOICE: 'association'
     })
 

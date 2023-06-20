@@ -36,19 +36,20 @@ class Listdata {
       return
     }
     // 读取的时候需要检查
-    const Data = algorithm.dataActionNew({
-      NAME,
-      PATH: __PATH[CHOICE]
-    })
-    if (!Data) {
+    // 判断是否存在,不存在需要初始化
+    if (!algorithm.existFile(__PATH[CHOICE], NAME)) {
       algorithm.dataAction({
         NAME,
         PATH: __PATH[CHOICE],
         DATA: INITIAL
       })
-      return INITIAL
+    } else {
+      const Data = algorithm.dataActionNew({
+        NAME,
+        PATH: __PATH[CHOICE]
+      })
+      return Data
     }
-    return Data
   }
 
   /**

@@ -26,8 +26,8 @@ export class AssociationExtend extends plugin {
     let msg = e.msg.replace(/^(#|\/)建好/, '')
     msg = msg.trim()
     const code = msg.split('*')
-    const [assName, buildName] = code
-    const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == assName)
+    const [AID, buildName] = code
+    const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == AID)
     if (!assRelation) {
       return false
     }
@@ -55,12 +55,10 @@ export class AssociationExtend extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.assName == 0) {
+    if (assGP.AID == 0) {
       return false
     }
-    const assRelation = AssociationApi.assUser.assRelationList.find(
-      (item) => item.id == assGP.assName
-    )
+    const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == assGP.AID)
     let msg = [`__[${UID}的宗门存档]__`]
     msg.push(
       'UID:' +
