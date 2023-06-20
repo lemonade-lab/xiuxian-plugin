@@ -180,10 +180,10 @@ export class Association extends plugin {
     const nowTime = new Date().getTime() // 获取当前时间戳
     const time = 24 // 分钟
     const addTime = assGP.time[1] + 60000 * time
-   /* if (addTime > nowTime) {
+    if (addTime > nowTime) {
       e.reply('加入宗门不满' + `${time}小时,无法退出`)
       return false
-    }*/
+    }
     const ass = AssociationApi.assUser.getAssOrGP(2, assGP.assName)
     if (assGP.assJob < 10) {
       ass.allMembers = ass.allMembers.filter((item) => item != assGP.qqNumber) // 原来的职位表删掉这个B
