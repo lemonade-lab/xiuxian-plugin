@@ -6,8 +6,8 @@ export class Boxshowall extends plugin {
         { reg: /^(#|\/)修仙地图$/, fnc: 'showMap' },
         { reg: /^(#|\/)修仙配置$/, fnc: 'showConfig' },
         { reg: /^(#|\/)修仙管理$/, fnc: 'adminSuper' },
-        { reg: /^(#|\/)修仙(帮助|菜单|help|列表)$/, fnc: 'boxhelp' },
-        { reg: /^(#|\/)黑市(帮助|菜单|help|列表)$/, fnc: 'dark_help' }
+        { reg: /^(#|\/)修仙帮助$/, fnc: 'boxhelp' },
+        { reg: /^(#|\/)黑市帮助$/, fnc: 'dark_help' }
       ]
     })
   }

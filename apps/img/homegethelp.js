@@ -5,7 +5,7 @@ export class HomeGetHelp extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)家园(帮助|菜单|help|列表)$/,
+          reg: /^(#|\/)家园帮助$/,
           fnc: 'homeHelp'
         },
         {

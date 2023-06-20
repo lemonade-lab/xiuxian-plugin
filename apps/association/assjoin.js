@@ -21,7 +21,7 @@ export class AssociationJoin extends plugin {
           fnc: 'clearVolunteer'
         },
         {
-          reg: /^(#|\/)展示所有简历$/,
+          reg: /^(#|\/)展示简历$/,
           fnc: 'showAllResume'
         }
       ]

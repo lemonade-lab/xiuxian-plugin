@@ -5,7 +5,7 @@ export class AssGetHelp extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)宗门(帮助|菜单|help|列表)$/,
+          reg: /^(#|\/)宗门帮助$/,
           fnc: 'assHelpImg'
         },
         {

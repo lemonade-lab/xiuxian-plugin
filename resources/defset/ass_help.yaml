@@ -1,3 +1,27 @@
+- group: 宗门玩法
+  list:
+    - icon: help-icon_52
+      title: '#开宗立派'
+      desc: '创建宗门'
+    - icon: help-icon_81
+      title: '#鉴定宗门令牌'
+      desc: '获取建立宗门或宗门升级的令牌'
+    - icon: help-icon_52
+      title: '#申请加入xxx'
+      desc: '向某宗门发出申请'
+    - icon: help-icon_72
+      title: '#宗门职位提升'
+      desc: '花费贡献提升自己的职位等级'
+    - icon: help-icon_69
+      title: '#发起职位挑战+UID'
+      desc: '以德服人'
+    - icon: help-icon_69
+      title: '#谋权篡位'
+      desc: '谋夺宗主之位'
+    - icon: help-icon_52
+      title: '#退出宗门'
+      desc: '退宗'
+
 - group: 宗门驻地
   list:
     - icon: help-icon_59

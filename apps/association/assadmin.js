@@ -18,7 +18,7 @@ export class AssociationAdmin extends plugin {
           fnc: 'setAppointment'
         },
         {
-          reg: /^(#|\/)逐出门派.*$/,
+          reg: /^(#|\/)逐出宗门.*$/,
           fnc: 'deleteUserAssociation'
         },
         {
@@ -444,7 +444,7 @@ export class AssociationAdmin extends plugin {
     }
 
     let menpai = e.msg.replace(/^(#|\/)/, '')
-    menpai = menpai.replace('逐出门派', '')
+    menpai = menpai.replace('逐出宗门', '')
     const memberUID = menpai
     if (UID == memberUID) {
       return false

@@ -1,32 +1,20 @@
 - group: 宗门管理
   list:
     - icon: help-icon_52
-      title: '#开宗立派'
-      desc: '创建门派'
-    - icon: help-icon_52
       title: '#宗门升级'
       desc: '宗门升级'
     - icon: help-icon_58
       title: '#提拔+UID'
       desc: '提升某玩家的职位等级'
     - icon: help-icon_58
-      title: '#逐出门派+UID号'
+      title: '#逐出宗门+UID号'
       desc: '将玩家逐出宗门'
     - icon: help-icon_58
       title: '#宗门改名xxx'
       desc: '更改宗门的名称'
-    - icon: help-icon_81
-      title: '#鉴定宗门令牌'
-      desc: '获取建立宗门或宗门升级的令牌'
 
 - group: 宗门玩法
   list:
-    - icon: help-icon_52
-      title: '#申请加入xxx'
-      desc: '向某宗门发出申请'
-    - icon: help-icon_52
-      title: '#退出宗门'
-      desc: '退宗'
     - icon: help-icon_55
       title: '#查看简历+UID'
       desc: '查看申请加入玩家的信息'
@@ -40,14 +28,5 @@
       title: '#清空志愿'
       desc: '主动撤回提交的入宗申请'
     - icon: help-icon_55
-      title: '#展示所有简历'
+      title: '#展示简历'
       desc: '查看所有申请人的UID号'
-    - icon: help-icon_72
-      title: '#宗门职位提升'
-      desc: '花费贡献提升自己的职位等级'
-    - icon: help-icon_69
-      title: '#发起职位挑战+UID'
-      desc: '以德服人，提升自己的职位'
-    - icon: help-icon_69
-      title: '#谋权篡位'
-      desc: '谋夺宗主之位，失败会有残酷的惩罚'
