@@ -9,22 +9,22 @@ import { __PATH } from '../data/index.js'
 class GP {
   constructor() {
     // 固定表数据
-    //**驻地 */
+    //* *驻地 */
     this.blessPlaceList = Listdata.controlAction({
       NAME: 'BlessPlace',
       CHOICE: 'assRelate'
     })
-    //** 隐藏宗门藏宝阁物品*/
+    //* * 隐藏宗门藏宝阁物品*/
     this.baseTreasureVaultList = Listdata.controlAction({
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
-    //** 位置 */
+    //* * 位置 */
     this.assLabyrinthList = Listdata.controlAction({
       NAME: 'AssLabyrinth',
       CHOICE: 'assRelate'
     })
-    //**宗门 */
+    //* *宗门 */
     this.assRelationList = Listdata.controlAction({
       NAME: 'AssRelation',
       CHOICE: 'assRelation'

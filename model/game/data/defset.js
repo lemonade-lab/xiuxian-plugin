@@ -3,6 +3,9 @@ import YAML from 'yaml'
 import { MyDirPath } from '../../../app.config.js'
 /** 自定义配置地址 */
 const __diryaml = `${MyDirPath}/config/cooling.yaml`
+
+const NameList = `${MyDirPath}/config/namelist.yaml`
+
 class Defset {
   /**
    * @param { app, name } param0
@@ -75,21 +78,19 @@ class Defset {
     return `修改${name}为${size}`
   }
 
-  namelist = `${MyDirPath}/config/namelist.yaml`
-
   startGame(GID, Gname) {
-    const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
+    const data = YAML.parse(fs.readFileSync(NameList, 'utf8'))
     data.whitecrowd.push(GID)
     const yamlStr = YAML.stringify(data)
-    fs.writeFileSync(this.namelist, yamlStr, 'utf8')
+    fs.writeFileSync(NameList, yamlStr, 'utf8')
     return `[${Gname}]启动成功~`
   }
 
   stopGame(GID, Gname) {
-    const data = YAML.parse(fs.readFileSync(this.namelist, 'utf8'))
+    const data = YAML.parse(fs.readFileSync(NameList, 'utf8'))
     data.whitecrowd = data.whitecrowd.filter((item) => item != GID)
     const yamlStr = YAML.stringify(data)
-    fs.writeFileSync(this.namelist, yamlStr, 'utf8')
+    fs.writeFileSync(NameList, yamlStr, 'utf8')
     return `[${Gname}]停止成功~`
   }
 }

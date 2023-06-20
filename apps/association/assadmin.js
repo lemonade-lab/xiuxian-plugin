@@ -80,11 +80,11 @@ export class AssociationAdmin extends plugin {
 
       let assName = [
       ]
-      /*AssociationApi.assUser.existAss("association", "Ass000001") ? "" : assName.push("Ass000001"),
+      /* AssociationApi.assUser.existAss("association", "Ass000001") ? "" : assName.push("Ass000001"),
       AssociationApi.assUser.existAss("association", "Ass000002") ? "" : assName.push("Ass000002"),
       AssociationApi.assUser.existAss("association", "Ass000003") ? "" : assName.push("Ass000003"),
       AssociationApi.assUser.existAss("association", "Ass000004") ? "" : assName.push("Ass000004")
-      console.log(c)*/
+      console.log(c) */
       if (assName.length != 0) {
         // 可以创建隐藏宗门
         GameApi.Bag.addBagThing({

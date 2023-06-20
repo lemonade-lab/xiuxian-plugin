@@ -5,8 +5,8 @@ export class BoxadminConfig extends plugin {
       rule: [
         { reg: /^(#|\/)修仙开启.*$/, fnc: 'boxaSwitchOpen' },
         { reg: /^(#|\/)修仙关闭.*$/, fnc: 'boxaSwitchOff' },
-        { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'ConfigUpdata' },
-        { reg: /^(#|\/)修仙重置配置$/, fnc: 'ConfigReUpdata' },
+        { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'updataConfig' },
+        { reg: /^(#|\/)修仙重置配置$/, fnc: 'updataConfigRe' },
         { reg: /^(#|\/)修仙启动@2.1$/, fnc: 'boxStart' },
         { reg: /^(#|\/)修仙停止@2.1$/, fnc: 'boxStop' }
       ]
@@ -43,7 +43,7 @@ export class BoxadminConfig extends plugin {
     return false
   }
 
-  async ConfigUpdata(e) {
+  async updataConfig(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
@@ -51,7 +51,7 @@ export class BoxadminConfig extends plugin {
     return false
   }
 
-  async ConfigReUpdata(e) {
+  async reUpdataConfig(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     GameApi.Createdata.recreateConfig()

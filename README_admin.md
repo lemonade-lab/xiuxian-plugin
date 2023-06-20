@@ -56,4 +56,4 @@
 
 #### 配置地址
 
-> ./plugins/xiuxian@2.1/Config
+> ./plugins/xiuxian-plugin/config

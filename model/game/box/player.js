@@ -1,6 +1,6 @@
 import Listdata from '../data/listdata.js'
 import Wrap from '../wrap/index.js'
-import Config from '../data/defset.js'
+import Defset from '../data/defset.js'
 import Method from '../wrap/method.js'
 import Talent from './talent.js'
 class Player {
@@ -13,7 +13,7 @@ class Player {
     })
     // 记录死亡
     const die = []
-    const cf = Config.getConfig({ name: 'cooling' })
+    const cf = Defset.getConfig({ name: 'cooling' })
     for (let UID in LifeData) {
       LifeData[UID].Age += cf.Age.size ? cf.Age.size : 1
       if (LifeData[UID].Age >= LifeData[UID].life) {
