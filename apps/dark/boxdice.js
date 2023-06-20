@@ -67,7 +67,6 @@ export class BoxDice extends plugin {
     if (!diceMessage(e)) return false
     const thingName = e.msg.replace(/^(#|\/)命运转盘/, '')
     const [NAME, ACCOUNT] = thingName.split('*')
-
     const commoditiesList = GameApi.Listdata.controlAction({
       NAME: 'wheeldisc',
       CHOICE: 'generate_all'
@@ -79,7 +78,7 @@ export class BoxDice extends plugin {
     }
     const goods = GameApi.Bag.searchBagByName({
       UID,
-      NAME
+      name: NAME
     })
     if (!goods || goods.acount < ACCOUNT) {
       e.reply(`似乎没有[${NAME}]*${ACCOUNT}`)
@@ -98,7 +97,7 @@ export class BoxDice extends plugin {
       name: NAME.name,
       ACCOUNT
     })
-    if (!GameApi.Method.isTrueInRange(1, 100, 30)) {
+    if (!GameApi.Method.isTrueInRange(1, 100, 50)) {
       e.reply('[万花坊]千变\n一无所获')
       return false
     }
