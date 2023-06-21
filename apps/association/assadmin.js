@@ -10,7 +10,7 @@ export class AssociationAdmin extends plugin {
           fnc: 'createAssociation'
         },
         {
-          reg: /^(#|\/)(升级宗门|宗门升级)$/,
+          reg: /^(#|\/)(升级门派|门派升级)$/,
           fnc: 'lvupAssociation'
         },
         {
@@ -18,11 +18,11 @@ export class AssociationAdmin extends plugin {
           fnc: 'setAppointment'
         },
         {
-          reg: /^(#|\/)逐出宗门.*$/,
+          reg: /^(#|\/)逐出门派.*$/,
           fnc: 'deleteUserAssociation'
         },
         {
-          reg: /^(#|\/)宗门改名.*$/,
+          reg: /^(#|\/)门派改名.*$/,
           fnc: 'renameAssociation'
         }
       ]
@@ -49,7 +49,11 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID != 0 || assGP.volunteerAss != 0) {
-      e.reply(`你已有宗门或已有意向宗门，请先清空招收`)
+      e.reply(`已有门派`)
+      return false
+    }
+    if (assGP.AID != 0 || assGP.volunteerAss != 0) {
+      e.reply(`已有意向门派,请先清空`)
       return false
     }
     let money = GameApi.Bag.searchBagByName({ UID, name: '下品灵石' })
@@ -59,15 +63,15 @@ export class AssociationAdmin extends plugin {
     }
     let najieThingB = GameApi.Bag.searchBagByName({
       UID,
-      name: '中等宗门令牌'
+      name: '中等门派令牌'
     })
     let najieThingA = GameApi.Bag.searchBagByName({
       UID,
-      name: '下等宗门令牌'
+      name: '下等门派令牌'
     })
     // 两种令牌都不存在
     if (!najieThingA && !najieThingB) {
-      e.reply('请先找(下等/中等)宗门令牌,以广招门徒~')
+      e.reply('请先找(下等/中等)门派令牌,以广招门徒~')
       return false
     }
 
@@ -93,7 +97,7 @@ export class AssociationAdmin extends plugin {
       ACCOUNT: -10000
     })
 
-    // 可以建立隐藏宗门
+    // 可以建立隐藏门派
     if (najieThingB && ADATA.length > 0) {
       GameApi.Bag.addBagThing({
         UID,
@@ -106,10 +110,10 @@ export class AssociationAdmin extends plugin {
       // 随机数 1-4
       const location = Math.floor(Math.random() * ADATA.length)
 
-      // 初始化宗门数据
+      // 初始化门派数据
       const AssData = getAss(ADATA[location], date, nowTime, UID, 4, 100000)
 
-      // 写入宗门数据
+      // 写入门派数据
       AssociationApi.assUser.setAssOrGP('association', ADATA[location], AssData)
 
       // 玩家存档
@@ -133,7 +137,7 @@ export class AssociationAdmin extends plugin {
         CHOICE: 'assRelate'
       })
 
-      // 隐藏宗门的数据
+      // 隐藏门派的数据
       let assthin = GameApi.Listdata.controlAction({
         NAME: ADATA[location],
         CHOICE: 'assassTreasu'
@@ -151,16 +155,16 @@ export class AssociationAdmin extends plugin {
         CHOICE: 'assRelation'
       })
 
-      // 读取该宗门名称
+      // 读取该门派名称
       const assRelation = assRelationList.find((item) => item.id == ADATA[location])
 
-      e.reply(`成功找到${assRelation.name}遗址,建立了传承宗门${assRelation.name}`)
+      e.reply(`成功找到${assRelation.name}遗址,建立了传承门派${assRelation.name}`)
       return false
     }
 
     //  中等令牌的特权失效了
     if (najieThingA || najieThingB) {
-      // 隐藏宗门没了，只能创建普通宗门，判断有无低级令牌
+      // 隐藏门派没了，只能建立普通门派，判断有无低级令牌
       if (najieThingA) {
         GameApi.Bag.addBagThing({
           UID,
@@ -177,21 +181,21 @@ export class AssociationAdmin extends plugin {
       /** 设置上下文 */
       this.setContext('setAssociationName')
       /** 回复 */
-      e.reply('你要创建的宗门名称是？', false, {
+      e.reply('你要建立的门派名称是？', false, {
         at: true
       })
       return false
     }
   }
 
-  /** 获取宗门名称 */
+  /** 获取门派名称 */
   async setAssociationName(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const theMsg = this.e.message
     if (theMsg[0].type != 'text') {
       this.setContext('setAssociationName')
-      this.reply('非法宗门,请重新输入:')
+      this.reply('非法门派,请重新输入:')
       return false
     }
     const associationName = theMsg[0].text
@@ -201,18 +205,18 @@ export class AssociationAdmin extends plugin {
       !/^[\u4e00-\u9fa5]+$/.test(associationName)
     ) {
       this.setContext('setAssociationName')
-      this.reply('非法宗门,请重新输入:')
+      this.reply('非法门派,请重新输入:')
       return false
     }
     const assRelationList = GameApi.Listdata.controlAction({
       NAME: 'assRelation',
       CHOICE: 'assRelation'
     })
-    // 检查宗门名称表
+    // 检查门派名称表
     const assRelation = assRelationList.find((item) => item.name == associationName)
     if (assRelation) {
       this.setContext('setAssociationName')
-      this.reply('非法宗门,请重新输入:')
+      this.reply('非法门派,请重新输入:')
       return false
     }
     const nowTime = new Date().getTime()
@@ -222,7 +226,7 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     })
     let replace = null
-    // 如果宗门列表等于 0
+    // 如果门派列表等于 0
     if (AssociationApi.assUser.assRelationList.length == 0) {
       replace = 1
     } else {
@@ -234,8 +238,8 @@ export class AssociationAdmin extends plugin {
 
     let relationAll = AssociationApi.assUser.assRelationList
     relationAll.push({
-      id: associationID, // 宗门文件名
-      name: associationName, // 宗门名称
+      id: associationID, // 门派文件名
+      name: associationName, // 门派名称
       unchartedName: associationID
     })
     AssociationApi.assUser.setAssOrGP('assRelation', 'assRelation', relationAll)
@@ -247,7 +251,7 @@ export class AssociationAdmin extends plugin {
     assGP.favorability = 0
     assGP.volunteerAss = 0
     assGP.time = [date, nowTime]
-    // 写入玩家宗门数据
+    // 写入玩家门派数据
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
 
     theAssociation(associationID, UID)
@@ -257,12 +261,12 @@ export class AssociationAdmin extends plugin {
     })
     AssociationApi.assUser.setAssOrGP('assTreasure', associationID, read) // 存储藏宝阁
     AssociationApi.assUser.assUpdataEfficiency(assGP)
-    this.reply('宗门创建成功')
+    this.reply('门派建立成功')
     /** 结束上下文 */
     this.finish('setAssociationName')
   }
 
-  // 升级宗门
+  // 升级门派
   async lvupAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -292,16 +296,16 @@ export class AssociationAdmin extends plugin {
 
     let najieThingA = GameApi.Bag.searchBagByName({
       UID,
-      name: '中等宗门令牌'
+      name: '中等门派令牌'
     })
     let najieThingB = GameApi.Bag.searchBagByName({
       UID,
-      name: '上等宗门令牌'
+      name: '上等门派令牌'
     })
 
     if (ass.level == 3) {
       if (!najieThingA) {
-        e.reply(`升级中等宗门需要对应令牌，快去获取吧`)
+        e.reply(`升级中等门派需要对应令牌，快去获取吧`)
         return false
       }
       GameApi.Bag.addBagThing({
@@ -313,7 +317,7 @@ export class AssociationAdmin extends plugin {
 
     if (ass.level == 6) {
       if (!najieThingB) {
-        e.reply(`升级上等宗门需要对应令牌，快去获取吧`)
+        e.reply(`升级上等门派需要对应令牌，快去获取吧`)
         return false
       }
       GameApi.Bag.addBagThing({
@@ -338,10 +342,9 @@ export class AssociationAdmin extends plugin {
       }
     }
     e.reply(
-      '宗门升级成功' +
-        `当前宗门等级为${ass.level},宗门人数上限提高到:${
-          AssociationApi.assUser.numberMaximums[ass.level - 1]
-        }`
+      `门派升级成功~\n当前门派等级为${ass.level}\n门派人数上限提高到:${
+        AssociationApi.assUser.numberMaximums[ass.level - 1]
+      }`
     )
     return false
   }
@@ -381,17 +384,15 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     }) // 获取这个B的存档
     if (member.assJob > 5) {
-      e.reply(`他已经是内门弟子`)
+      e.reply(`已是内门弟子`)
       return false
     }
     if (member.historyContribution < (member.assJob + 1) * 100) {
-      e.reply(`他的资历太浅，贡献不足`)
+      e.reply(`资历太浅，贡献不足`)
       return false
     }
-
     member.assJob += 1
     AssociationApi.assUser.assUpdataEfficiency(member)
-
     e.reply(`提拔成功！！！`)
     return false
   }
@@ -416,20 +417,19 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (AssociationApi.assUser.assRelationList.findIndex((item) => item.id == ass.id) <= 3) {
-      e.reply(`传承宗门,勿忘初心`)
+      e.reply(`传承门派,勿忘初心`)
       return false
     }
-    let associationName = e.msg.replace(/^(#|\/)宗门改名/, '')
+    let associationName = e.msg.replace(/^(#|\/)门派改名/, '')
     associationName = associationName.trim()
-
     if (ass.spiritStoneAns < 10000) {
-      e.reply(`宗门更名需要1w灵石,攒够钱再来吧`)
+      e.reply('需要[下品灵石]*10000委托联盟向天下告知~')
       return false
     }
     ass.spiritStoneAns -= 10000
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     AssociationApi.assUser.renameAssociation(ass.id, 1, associationName)
-    e.reply(`改名成功，宗门当前名称为${associationName}`)
+    e.reply(`成功委托联盟更改门派名称为${associationName}`)
     return false
   }
 
@@ -451,7 +451,7 @@ export class AssociationAdmin extends plugin {
     }
 
     let menpai = e.msg.replace(/^(#|\/)/, '')
-    menpai = menpai.replace('逐出宗门', '')
+    menpai = menpai.replace('逐出门派', '')
     const memberUID = menpai
     if (UID == memberUID) {
       return false
@@ -471,7 +471,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (GPB.assJob >= 8) {
-      e.reply(`无权进行此操作`)
+      e.reply('权限不足')
       return false
     }
     bss.allMembers = bss.allMembers.filter((item) => item != memberUID)
@@ -545,9 +545,9 @@ const getAss = (name, date, nowTime, holderUID, level = 1, spiritStoneAns = 0) =
 }
 
 /**
- * 创立新的宗门
- * @param name 宗门名称
- * @param holderUID 宗主UID号
+ * 创立新的门派
+ * @param name 门派名称
+ * @param holderUID 掌门UID号
  */
 function theAssociation(name, holderUID) {
   // 获取当前时间戳

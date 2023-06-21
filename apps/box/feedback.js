@@ -13,7 +13,7 @@ export class BoxFeedback extends plugin {
     1.打开下方链接
     2.注册/登录gitee账号
     3.点击新建lssue
-    4.填写标题与内容后创建
+    4.填写标题与内容后建立
     https://gitee.com/ningmengchongshui/xiuxian-plugin/issues
     `)
     BotApi.Robot.surveySet({ e, isreply })

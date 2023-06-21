@@ -5,11 +5,11 @@ export class HomeGetHelp extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)家园帮助$/,
+          reg: /^(#|\/)洞府帮助$/,
           fnc: 'homeHelp'
         },
         {
-          reg: /^(#|\/)家园管理$/,
+          reg: /^(#|\/)洞府管理$/,
           fnc: 'homeAdmin'
         }
       ]

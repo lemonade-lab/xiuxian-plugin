@@ -9,7 +9,7 @@ export class Assstart extends plugin {
           fnc: 'JoinAssociation'
         },
         {
-          reg: /^(#|\/)退出宗门$/,
+          reg: /^(#|\/)退出门派$/,
           fnc: 'ExitAssociation'
         },
         {
@@ -17,15 +17,15 @@ export class Assstart extends plugin {
           fnc: 'giveAssociationMoney'
         },
         {
-          reg: /^(#|\/)宗门俸禄$/,
+          reg: /^(#|\/)门派俸禄$/,
           fnc: 'giftAssociation'
         },
         {
-          reg: /^(#|\/)宗门列表$/,
+          reg: /^(#|\/)门派列表$/,
           fnc: 'appointmentList'
         },
         {
-          reg: /^(#|\/)我的宗门$/,
+          reg: /^(#|\/)我的门派$/,
           fnc: 'showAssociation'
         }
       ]
@@ -35,7 +35,7 @@ export class Assstart extends plugin {
   async showAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    // 宗门存档验证
+    // 门派存档验证
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     console.log(ifexistplay)
     if (!ifexistplay) {
@@ -58,7 +58,7 @@ export class Assstart extends plugin {
     console.log(ass)
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == ass.id)
     if (!assRelation) {
-      e.reply('宗门失效~')
+      e.reply('门派失效~')
       return
     }
     const msg = [`__[${assRelation.name}]__`]
@@ -72,19 +72,10 @@ export class Assstart extends plugin {
         NAME: UIDNum,
         CHOICE: 'assGP'
       })
-      msg.push(
-        'UID:' +
-          UIDNum +
-          '\n' +
-          '权限等级:' +
-          assGPA.assJob +
-          '\n' +
-          '境界:' +
-          LEvelData.gaspractice.realm +
-          '\n' +
-          '历史贡献值:' +
-          assGPA.historyContribution
-      )
+      msg.push('UID:' + UIDNum)
+      msg.push('权限等级:' + assGPA.assJob)
+      msg.push('境界:' + LEvelData.gaspractice.realm)
+      msg.push('历史贡献值:' + assGPA.historyContribution)
     }
     const isreply = e.reply(
       await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
@@ -93,7 +84,7 @@ export class Assstart extends plugin {
     return false
   }
 
-  // 宗门俸禄
+  // 门派俸禄
   async giftAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -117,11 +108,11 @@ export class Assstart extends plugin {
     const oldTime = assGP.time[1]
     const days = Math.trunc((nowTime - oldTime) / (24 * 60 * 60 * 1000))
     if (assGP.contributionPoints <= 0 || assGP.historyContribution < days) {
-      e.reply(`你对宗门做成的贡献不足，没有领取俸禄的资格！！！`)
+      e.reply(`贡献不足`)
       return false
     }
     let Today = GameApi.Method.timeInvert(nowTime)
-    let lastingTime = GameApi.Method.timeInvert(assGP.lastSignAss) // 获得上次宗门签到日期
+    let lastingTime = GameApi.Method.timeInvert(assGP.lastSignAss) // 获得上次门派签到日期
     if (Today.Y == lastingTime.Y && Today.M == lastingTime.M && Today.D == lastingTime.D) {
       e.reply(`今日已经领取过了`)
       return false
@@ -133,7 +124,7 @@ export class Assstart extends plugin {
 
     const giftNumber = ass.level * 100 * assGP.assJob
     if (ass.spiritStoneAns - giftNumber < 0) {
-      e.reply(`宗门灵石池不够发放俸禄啦，快去为宗门做贡献吧`)
+      e.reply(`门派灵石池不够发放俸禄啦，快去为门派做贡献吧`)
       return false
     }
     ass.spiritStoneAns -= giftNumber
@@ -147,11 +138,11 @@ export class Assstart extends plugin {
     })
     AssociationApi.assUser.checkFacility(ass)
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-    e.reply([BotApi.segment.at(UID), `宗门俸禄领取成功,获得了${giftNumber}灵石`])
+    e.reply([BotApi.segment.at(UID), `门派俸禄领取[下品灵石]*${giftNumber}`])
     return false
   }
 
-  // 加入宗门
+  // 加入门派
   async JoinAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -164,7 +155,11 @@ export class Assstart extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID != 0 || assGP.volunteerAss != 0) {
-      e.reply(`你已有宗门或已有意向宗门，请先清空招收`)
+      e.reply(`已有门派`)
+      return false
+    }
+    if (assGP.AID != 0 || assGP.volunteerAss != 0) {
+      e.reply(`已有意向门派，请先清空`)
       return false
     }
 
@@ -181,10 +176,10 @@ export class Assstart extends plugin {
       NAME: associationName,
       CHOICE: 'association'
     })
-    const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
-    const nowMem = ass.allMembers.length // 该宗门目前人数
+    const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该门派目前人数上限
+    const nowMem = ass.allMembers.length // 该门派目前人数
     if (mostMem <= nowMem) {
-      e.reply(`${assRelation.name}的弟子人数已经达到目前等级最大,无法加入`)
+      e.reply(`${assRelation.name}的弟子已招满`)
       return false
     }
     assGP.volunteerAss = associationName
@@ -195,7 +190,7 @@ export class Assstart extends plugin {
     return false
   }
 
-  // 退出宗门
+  // 退出门派
   async ExitAssociation(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -215,7 +210,7 @@ export class Assstart extends plugin {
     const time = 24 // 分钟
     const addTime = assGP.time[1] + 60000 * time
     if (addTime > nowTime) {
-      e.reply('加入宗门不满' + `${time}小时,无法退出`)
+      e.reply(`加入门派不满${time}小时,无法退出`)
       return false
     }
     const ass = GameApi.Listdata.controlAction({
@@ -229,16 +224,16 @@ export class Assstart extends plugin {
       assGP.favorability = 0
       AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
       AssociationApi.assUser.assUpdataEfficiency(assGP)
-      e.reply('退出宗门成功')
+      e.reply('退出门派成功')
     } else {
       if (ass.allMembers.length < 2) {
-        AssociationApi.assUser.deleteAss('association', assGP.AID) // 删除宗门
+        AssociationApi.assUser.deleteAss('association', assGP.AID) // 删除门派
         AssociationApi.assUser.deleteAss('assTreasure', assGP.AID) // 删除藏宝阁
         assGP.AID = 0
         assGP.assJob = 0
         assGP.favorability = 0
         AssociationApi.assUser.assUpdataEfficiency(assGP)
-        e.reply('退出宗门成功,退出后宗门空无一人,自动解散')
+        e.reply('退出门派成功,退出后门派空无一人,自动解散')
       } else {
         ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
         assGP.AID = 0
@@ -261,7 +256,7 @@ export class Assstart extends plugin {
         randMember.assJob = 10
         AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
         AssociationApi.assUser.assUpdataEfficiency(randMember)
-        e.reply(`退出宗门成功,退出后,宗主职位由[${randMember.UID}]接管`)
+        e.reply(`退出门派成功,退出后,掌门职位由[${randMember.UID}]接管`)
       }
     }
     return false
@@ -324,11 +319,11 @@ export class Assstart extends plugin {
     })
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     AssociationApi.assUser.setAssOrGP('assGP', assGP.UID, assGP)
-    e.reply(`捐赠成功,宗门灵石池目前有${ass.spiritStoneAns}灵石`)
+    e.reply(`捐赠成功,门派灵石池目前有${ass.spiritStoneAns}灵石`)
     return false
   }
 
-  // 宗门列表
+  // 门派列表
   async appointmentList(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -337,9 +332,9 @@ export class Assstart extends plugin {
       return false
     }
     const allNames = AssociationApi.assUser.readAssNames('association')
-    let temp = ['宗门列表']
+    let temp = ['门派列表']
     if (allNames.length == 0) {
-      temp.push('暂时没有宗门数据')
+      temp.push('暂时没有门派数据')
     }
     const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
     for (let i = 0; i < allNames.length; i++) {
@@ -351,7 +346,7 @@ export class Assstart extends plugin {
       })
       let theAssXiuxian = 0
       if (thisAss.resident.name == 0) {
-        theAssXiuxian = '无驻地'
+        theAssXiuxian = '无山门'
       } else {
         theAssXiuxian = thisAss.resident.name
       }
@@ -359,12 +354,12 @@ export class Assstart extends plugin {
       let thisAssBeast = BeastList[Number(thisAss.divineBeast)]
       temp.push(`宗名: ${assRelation.name}(Lv.${thisAss.level})`)
       temp.push(
-        `宗主: ${LifeData[thisAss.master].name}(${thisAss.allMembers.length}/${
+        `掌门: ${LifeData[thisAss.master].name}(${thisAss.allMembers.length}/${
           AssociationApi.assUser.numberMaximums[thisAss.level - 1]
         })`
       )
-      temp.push(`宗门驻地: ${theAssXiuxian}`)
-      temp.push(`宗门神兽: ${thisAssBeast}`)
+      temp.push(`门派山门: ${theAssXiuxian}`)
+      temp.push(`门派神兽: ${thisAssBeast}`)
     }
     e.reply(
       await BotApi.obtainingImages({

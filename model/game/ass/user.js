@@ -10,7 +10,7 @@ import algorithm from '../data/algorithm.js'
 class GP {
   constructor() {
     // 固定表数据
-    // 宗门：位置
+    // 门派：位置
     this.assLabyrinthList = Listdata.controlAction({
       NAME: 'AssLabyrinth',
       CHOICE: 'assRelate'
@@ -20,12 +20,12 @@ class GP {
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
-    // 驻地
+    // 山门
     this.blessPlaceList = Listdata.controlAction({
       NAME: 'BlessPlace',
       CHOICE: 'assRelate'
     })
-    // 宗门 ???
+    // 门派 ???
     this.assRelationList = Listdata.controlActionInitial({
       NAME: 'assRelation',
       CHOICE: 'assRelation',
@@ -34,7 +34,7 @@ class GP {
         {
           id: 'Ass000001', // 编号
           name: '剑神宗', // 名称
-          unchartedName: '剑神窟' // 驻地
+          unchartedName: '剑神窟' // 山门
         },
         {
           id: 'Ass000002',
@@ -58,11 +58,11 @@ class GP {
     this.spiritStoneAnsMax = [
       2000000, 5000000, 8000000, 11000000, 15000000, 20000000, 35000000, 50000000, 80000000
     ]
-    this.buildNameList = ['山门', '藏宝阁', '宗门秘境', '神兽祭坛', '聚灵阵', '护宗大阵']
+    this.buildNameList = ['山门', '藏宝阁', '门派秘境', '神兽祭坛', '聚灵阵', '护宗大阵']
   }
 
   /**
-   * 初始化宗门存档
+   * 初始化门派存档
    * @param {*} UID
    * @returns
    */
@@ -73,9 +73,9 @@ class GP {
     // 不存在寿命
     if (!GP) return false
 
-    // 修仙存在此人，看宗门系统有没有他
+    // 修仙存在此人，看门派系统有没有他
     const GPData = {
-      AID: 0, // 宗门名称为0
+      AID: 0, // 门派名称为0
       UID, // 用户 id
       assJob: 0,
       effective: 0,
@@ -113,9 +113,9 @@ class GP {
 
     // 两边都有存档，但是死了，或者重生了，需要执行插件删档
 
-    // 检测宗门, 先退宗，再重置
+    // 检测门派, 先退宗，再重置
     if (this.existAss('association', assGP.AID)) {
-      // 读取宗门信息
+      // 读取门派信息
       let ass = Listdata.controlAction({
         NAME: assGP.AID,
         CHOICE: 'association'
@@ -135,7 +135,7 @@ class GP {
           fs.rmSync(`${__PATH.association}/${assGP.AID}.json`)
         } else {
           ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
-          // 给宗主
+          // 给掌门
           let randMember = { assJob: 0 }
           for (let item in ass.allMembers) {
             const UIDNum = ass.allMembers[item]
@@ -193,7 +193,7 @@ class GP {
   }
 
   /**
-   * 检测宗门存档或用户宗门信息是否存在
+   * 检测门派存档或用户门派信息是否存在
    * @param filePathType ["assGP" , "association" ]
    * @param fileName
    */
@@ -202,7 +202,7 @@ class GP {
   }
 
   /**
-   * 读取宗门名
+   * 读取门派名
    * @param {*} name
    * @returns
    */
@@ -234,7 +234,7 @@ class GP {
    * @returns
    */
   assUpdataEfficiency(assGP) {
-    // 没有宗门
+    // 没有门派
     if (assGP.AID == 0) {
       assGP.effective = 0
       Listdata.controlAction({
@@ -244,9 +244,9 @@ class GP {
       })
       return false
     }
-    // 有宗门
+    // 有门派
     let effective = 0
-    // 读取宗门数据
+    // 读取门派数据
     let ass = Listdata.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
@@ -280,7 +280,7 @@ class GP {
 
   /**
    *
-   * 重命名宗门
+   * 重命名门派
    * @param {*} ass
    * @param {*} type
    * @param {*} associationName

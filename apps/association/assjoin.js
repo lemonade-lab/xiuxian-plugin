@@ -21,7 +21,7 @@ export class AssociationJoin extends plugin {
           fnc: 'clearVolunteer'
         },
         {
-          reg: /^(#|\/)宗门招收$/,
+          reg: /^(#|\/)门派招收$/,
           fnc: 'showAllResume'
         }
       ]
@@ -132,10 +132,10 @@ export class AssociationJoin extends plugin {
       CHOICE: 'association'
     })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
-    const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该宗门目前人数上限
-    const nowMem = ass.allMembers.length // 该宗门目前人数
+    const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该门派目前人数上限
+    const nowMem = ass.allMembers.length // 该门派目前人数
     if (mostMem <= nowMem) {
-      e.reply(`弟子人数已经达到目前等级最大,无法加入`)
+      e.reply(`弟子人数已达上限`)
       return false
     }
     if (find == -1) {
@@ -158,7 +158,7 @@ export class AssociationJoin extends plugin {
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
       AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
       AssociationApi.assUser.assUpdataEfficiency(joinGP)
-      e.reply(`已批准${joinUID}的入宗申请，恭喜你的宗门又招收到一位新弟子`)
+      e.reply(`门派成功招收到一位新弟子${joinUID}`)
       return false
     } else {
       e.reply(`你没有权限`)
@@ -239,7 +239,7 @@ export class AssociationJoin extends plugin {
       CHOICE: 'association'
     })
     if (AssData.applyJoinList.length == 0) {
-      e.reply(`未有待招收弟子,快去提升宗门知名度吧！`)
+      e.reply(`未有待招收弟子,快去提升门派知名度吧！`)
       return false
     }
     let temp = ['_[待招收列表]_']

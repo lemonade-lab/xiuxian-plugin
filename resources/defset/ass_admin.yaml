@@ -1,26 +1,26 @@
-- group: 宗门管理
+- group: 门派管理
   list:
     - icon: help-icon_52
-      title: '(#|/)宗门升级'
-      desc: '宗门升级'
+      title: '(#|/)门派升级'
+      desc: '门派升级'
     - icon: help-icon_58
       title: '(#|/)提拔+UID'
       desc: '提升某玩家的职位等级'
     - icon: help-icon_58
-      title: '(#|/)逐出宗门+UID号'
-      desc: '将玩家逐出宗门'
+      title: '(#|/)逐出门派+UID号'
+      desc: '将玩家逐出门派'
     - icon: help-icon_58
-      title: '(#|/)宗门改名+字符'
-      desc: '更改宗门的名称'
+      title: '(#|/)门派改名+字符'
+      desc: '更改门派的名称'
 
-- group: 宗门玩法
+- group: 门派玩法
   list:
     - icon: help-icon_55
       title: '(#|/)查看+UID'
       desc: '查看申请加入玩家的信息'
     - icon: help-icon_55
       title: '(#|/)招收+UID'
-      desc: '同意该玩家加入宗门'
+      desc: '同意该玩家加入门派'
     - icon: help-icon_55
       title: '(#|/)驳回招收+UID'
       desc: '拒绝该玩家的入宗申请'
@@ -28,5 +28,5 @@
       title: '(#|/)清空招收'
       desc: '主动撤回提交的入宗申请'
     - icon: help-icon_55
-      title: '(#|/)宗门招收'
+      title: '(#|/)门派招收'
       desc: '查看所有申请人的UID号'

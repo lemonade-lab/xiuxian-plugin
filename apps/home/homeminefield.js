@@ -64,7 +64,7 @@ export class Homeminefield extends plugin {
     })
     let region1 = action.region
     if (region2 != region1) {
-      e.reply('您现在不在家园所在地，无法抢夺该地的灵矿!')
+      e.reply('您现在不在洞府所在地，无法抢夺该地的灵矿!')
       return false
     }
     let positionhome = GameApi.Listdata.controlActionInitial({
@@ -115,7 +115,7 @@ export class Homeminefield extends plugin {
         DATA: minefield
       })
       HomeApi.GP.addHomeexperience({ UID, experience: 300 })
-      e.reply(`成功占领了${address}的灵矿，获得300家园经验`)
+      e.reply(`成功占领了${address}的灵矿，获得300洞府经验`)
     } else {
       let time1 = 3
       useraction[UID] = setTimeout(() => {
@@ -146,7 +146,7 @@ export class Homeminefield extends plugin {
           })
           HomeApi.GP.addHomeexperience({ UID, experience: 700 })
           e.reply(
-            `矿主不敌你，乖乖让出了灵矿的占领权，你成功占领了${address}的灵矿，获得了700家园经验。矿主拿着产出的矿物疯狂逃窜，矿主${msg}`
+            `矿主不敌你，乖乖让出了灵矿的占领权，你成功占领了${address}的灵矿，获得了700洞府经验。矿主拿着产出的矿物疯狂逃窜，矿主${msg}`
           )
         } else {
           let lingshi = GameApi.Bag.searchBagByName({
@@ -168,7 +168,7 @@ export class Homeminefield extends plugin {
             ACCOUNT: lingshi1
           })
           HomeApi.GP.addHomeexperience({ UID, experience: 70 })
-          e.reply(`你被矿主胖揍一顿，并且被他搜刮了${lingshi1}灵石作为赔偿，获得家园经验70`)
+          e.reply(`你被矿主胖揍一顿，并且被他搜刮了${lingshi1}灵石作为赔偿，获得洞府经验70`)
         }
       }, 1000 * time1)
       forwardsetTime[UID] = 1
@@ -199,7 +199,7 @@ export class Homeminefield extends plugin {
     })
     let region1 = action.region
     if (region2 != region1) {
-      e.reply('您现在不在家园所在地，无法领取晶石!')
+      e.reply('您现在不在洞府所在地，无法领取晶石!')
       return false
     }
     const position = GameApi.Listdata.controlActionInitial({
@@ -243,7 +243,7 @@ export class Homeminefield extends plugin {
         NAME: 'minefield',
         DATA: minefield
       })
-      e.reply(`恭喜你，${msg}\n家园经验增加${experience}`)
+      e.reply(`恭喜你，${msg}\n洞府经验增加${experience}`)
       return false
     } else {
       e.reply('时间太短了，工人都没开采出来!')
@@ -270,7 +270,7 @@ export class Homeminefield extends plugin {
       INITIAL: []
     })
     if (home.homelevel < 1) {
-      e.reply(`你的家园还太小，根本放不下炼制所需器具!`)
+      e.reply(`你的洞府还太小，根本放不下炼制所需器具!`)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)炼制/, '')

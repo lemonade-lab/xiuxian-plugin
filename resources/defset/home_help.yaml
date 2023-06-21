@@ -1,23 +1,23 @@
-- group: 家园基础指令
+- group: 洞府基础指令
   list:
     - icon: help-icon_52
-      title: '(#|/)我的家园'
-      desc: '查看家园基本信息'
+      title: '(#|/)我的洞府'
+      desc: '查看洞府基本信息'
     - icon: help-icon_58
-      title: '(#|/)家园仓库'
+      title: '(#|/)洞府仓库'
       desc: '查看仓库物品'
     - icon: help-icon_58
-      title: '(#|/)家园扩建'
-      desc: '提升家园等级，解锁更多玩法'
+      title: '(#|/)洞府扩建'
+      desc: '提升洞府等级，解锁更多玩法'
     - icon: help-icon_58
-      title: '(#|/)查看家园扩建'
+      title: '(#|/)查看洞府扩建'
       desc: '查看建筑队的施工进度'
     - icon: help-icon_58
-      title: '(#|/)建立家园+地点'
-      desc: '在选择的地点创建第一个家园'
+      title: '(#|/)建立洞府+地点'
+      desc: '在选择的地点建立第一个洞府'
     - icon: help-icon_58
-      title: '(#|/)搬迁家园到+地点'
-      desc: '建立家园后搬迁'
+      title: '(#|/)搬迁洞府到+地点'
+      desc: '建立洞府后搬迁'
 
 - group: 农场
   list:
@@ -74,7 +74,7 @@
   list:
     - icon: help-icon_52
       title: '(#|/)占领灵矿'
-      desc: '占领家园所在地灵矿'
+      desc: '占领洞府所在地灵矿'
     - icon: help-icon_52
       title: '(#|/)领取晶石'
       desc: '领取灵矿产出的矿物'
@@ -101,7 +101,7 @@
       desc: '查看自己的资金剩余'
     - icon: help-icon_59
       title: '(#|/)售卖'
-      desc: '出售给灵瑶阁家园专属物品'
+      desc: '出售给灵瑶阁洞府专属物品'
     - icon: help-icon_59
       title: '(#|/)采购'
       desc: '在(#|/)灵瑶阁地方分阁购买东西'
@@ -110,10 +110,10 @@
       desc: '查看灵瑶阁地方分阁目前正在售卖的东西'
     - icon: help-icon_59
       title: '(#|/)转移到仓库+物品名字*数量'
-      desc: '将储物袋里指定数量的物品转移到家园仓库'
+      desc: '将储物袋里指定数量的物品转移到洞府仓库'
     - icon: help-icon_59
       title: '(#|/)转移到储物袋+物品名字*数量'
-      desc: '将家园仓库里指定数量的物品转移到储物袋'
+      desc: '将洞府仓库里指定数量的物品转移到储物袋'
 
 - group: 炼丹阁
   list:

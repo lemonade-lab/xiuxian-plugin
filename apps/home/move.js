@@ -31,9 +31,9 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
       return
-    } else if (archive != 0 && archive != '您都还没建立过家园') {
+    } else if (archive != 0 && archive != '您都还没建立过洞府') {
       e.reply(`${archive}`)
       return
     }
@@ -45,7 +45,7 @@ export class Homemove extends plugin {
     })
     const region1 = action1.region
     if (region2 != region1) {
-      e.reply('您现在不在家园里，无法隔空取物哦！')
+      e.reply('您现在不在洞府里，无法隔空取物哦！')
       return
     }
     const thing = e.msg.replace(/^(#|\/)转移到仓库/, '')
@@ -104,9 +104,9 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
       return
-    } else if (archive != 0 && archive != '您都还没建立过家园') {
+    } else if (archive != 0 && archive != '您都还没建立过洞府') {
       e.reply(`${archive}`)
       return
     }
@@ -118,7 +118,7 @@ export class Homemove extends plugin {
     })
     const homelevel = home.homelevel
     if (homelevel < 1) {
-      e.reply(`你的家园等级太低，东西还是放在仓库安全！`)
+      e.reply(`你的洞府等级太低，东西还是放在仓库安全！`)
       return
     }
     const region2 = ifexisthome.region
@@ -128,7 +128,7 @@ export class Homemove extends plugin {
     })
     const region1 = action1.region
     if (region2 != region1) {
-      e.reply('您现在不在家园里，无法隔空取物哦！')
+      e.reply('您现在不在洞府里，无法隔空取物哦！')
       return
     }
     const thing = e.msg.replace(/^(#|\/)转移到储物袋/, '')
@@ -187,9 +187,9 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
       return
-    } else if (archive != 0 && archive != '您都还没建立过家园') {
+    } else if (archive != 0 && archive != '您都还没建立过洞府') {
       e.reply(`${archive}`)
       return
     }
@@ -309,9 +309,9 @@ export class Homemove extends plugin {
     // 有无存档
     const archive = HomeApi.GP.Archive(UID)
     if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，创建存档哦`)
+      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
       return
-    } else if (archive != 0 && archive != '您都还没建立过家园') {
+    } else if (archive != 0 && archive != '您都还没建立过洞府') {
       e.reply(`${archive}`)
       return
     }

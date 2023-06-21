@@ -5,11 +5,11 @@ export class AssGetHelp extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)宗门帮助$/,
+          reg: /^(#|\/)门派帮助$/,
           fnc: 'assHelpImg'
         },
         {
-          reg: /^(#|\/)宗门管理$/,
+          reg: /^(#|\/)门派管理$/,
           fnc: 'assHelpAdmin'
         }
       ]

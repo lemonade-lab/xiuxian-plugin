@@ -31,7 +31,6 @@ export class assTreasure extends plugin {
     if (!ifexistplay) {
       return false
     }
-
     const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
@@ -44,11 +43,9 @@ export class assTreasure extends plugin {
       NAME: assGP.AID,
       CHOICE: 'association'
     })
-
     if (ass.facility[1].status == 0) {
       return false
     }
-
     const positionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
@@ -64,7 +61,7 @@ export class assTreasure extends plugin {
       action.y < position.y1 ||
       action.y > position.y2
     ) {
-      e.reply(`请先回宗门`)
+      e.reply(`请先回门派`)
       return false
     }
     let thingName = e.msg.replace(/^(#|\/)藏宝阁回收/, '')
@@ -88,7 +85,6 @@ export class assTreasure extends plugin {
       ACCOUNT: -1
     })
     e.reply(`回收成功，你获得了${point}点贡献点！`)
-
     const id = searchThing.id.split('-')
     if (id[0] > 5 || id[2] > 19) {
       return false
@@ -145,7 +141,7 @@ export class assTreasure extends plugin {
       return false
     }
 
-    let msg = ['___[宗门藏宝阁]___']
+    let msg = ['___[门派藏宝阁]___']
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
     let assTreasureCabinet = GameApi.Listdata.controlAction({
       NAME: assGP.AID,
@@ -220,7 +216,7 @@ export class assTreasure extends plugin {
       action.y < position.y1 ||
       action.y > position.y2
     ) {
-      e.reply(`请先回宗门`)
+      e.reply(`请先回门派`)
       return false
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList

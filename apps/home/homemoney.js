@@ -79,7 +79,7 @@ export class Homemoney extends plugin {
       return false
     }
     if (searchsthing.doge == undefined) {
-      e.reply(`这个物品不是家园所得物品，请移步隔壁商店`)
+      e.reply(`这个物品不是洞府所得物品，请移步隔壁商店`)
       return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({

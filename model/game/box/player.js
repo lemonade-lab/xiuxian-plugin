@@ -149,7 +149,7 @@ class Player {
       autograph: '无', // 道宣
       Age: 1, // 年龄
       life: Math.floor(Math.random() * (84 - 60) + 60), // 寿命
-      createTime: NowTime, // 创建时间
+      createTime: NowTime, // 建立时间
       status: 1 // 是否死亡
     }
     /** 更新用户表 */
@@ -232,7 +232,7 @@ class Player {
       }
       return true
     }
-    // 创建新人
+    // 建立新人
     const PlaterData = this.createPlayer(UID)
     if (!PlaterData) {
       return false

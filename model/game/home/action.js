@@ -10,7 +10,7 @@ class UserAction {
     })
     const homelevel = home.homelevel
     if (homelevel > 9) {
-      return { homemsg: `你的家园等级已经到达目前最高级，请等待后续等级开放!` }
+      return { homemsg: `你的洞府等级已经到达目前最高级，请等待后续等级开放!` }
     }
     let thingNameg
     let thingNameh = '木板'
@@ -61,12 +61,12 @@ class UserAction {
     let money = 10000 * Math.trunc(homelevel) + 10000
     if (homeexperience < homeexperienceMax) {
       let x = homeexperienceMax - homeexperience
-      return { homemsg: `你的家园经验不够!要升级还缺${x}家园经验` }
+      return { homemsg: `你的洞府经验不够!要升级还缺${x}洞府经验` }
     }
     if (doge < money) {
       let x = money - doge
       return {
-        homemsg: `这点灵晶可请不动建筑队帮扩建家园哦!要想请动他们，还缺${x}灵晶`
+        homemsg: `这点灵晶可请不动建筑队帮扩建洞府哦!要想请动他们，还缺${x}灵晶`
       }
     } else {
       const time = (Math.trunc(homelevel) + 1) * 10
@@ -87,7 +87,7 @@ class UserAction {
         ACCOUNT: -h
       })
       User.addDoge({ UID, money: -money })
-      return { homemsg: `建筑队正在扩建家园，预计需要${time}秒` }
+      return { homemsg: `建筑队正在扩建洞府，预计需要${time}秒` }
     }
   }
 }

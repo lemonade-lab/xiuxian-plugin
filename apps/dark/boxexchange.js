@@ -88,7 +88,7 @@ export class BoxExchange extends plugin {
       INITIAL: {}
     })
     /**
-     * 还要再加一个寿命信息,拿到创建的时间
+     * 还要再加一个寿命信息,拿到建立的时间
      */
     const LifeData = GameApi.Listdata.controlActionInitial({
       NAME: 'life',
@@ -96,7 +96,7 @@ export class BoxExchange extends plugin {
       INITIAL: {}
     })
     /**
-     * 每个人的创建时间都不同,可以作为第二个UID
+     * 每个人的建立时间都不同,可以作为第二个UID
      */
     if (!exchange[LifeData[UID].createTime]) {
       e.reply('未有上架物品')

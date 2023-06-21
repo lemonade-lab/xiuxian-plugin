@@ -94,12 +94,12 @@ class GP {
     if (home == 1) {
       this.homejiazai(UID)
       Msg =
-        '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行(#|/)建立家园+地点名字，建立家园'
+        '你是第一次使用洞府功能，将为你建立存档，第一次建立洞府需要前往极西联盟，然后执行(#|/)建立洞府+地点名字，建立洞府'
       return Msg
     } else {
       const ifexisthome = this.existhome(UID)
       if (!ifexisthome) {
-        Msg = '您都还没建立过家园'
+        Msg = '您都还没建立过洞府'
         return Msg
       }
     }
@@ -118,7 +118,7 @@ class GP {
     if (!fond) {
       this.homejiazai(UID)
       Msg =
-        '你是第一次使用家园功能，将为你建立存档，第一次建立家园需要前往极西联盟，然后执行(#|/)建立家园+地点名字，建立家园'
+        '你是第一次使用洞府功能，将为你建立存档，第一次建立洞府需要前往极西联盟，然后执行(#|/)建立洞府+地点名字，建立洞府'
       return Msg
     } else {
       if (fond.rangeland == undefined) {

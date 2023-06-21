@@ -37,7 +37,7 @@ export const __PATH = {
   generate_position: algorithm.getPath('/resources/databirth/position'), // 位置
   generate_dogshop: algorithm.getPath('/resources/databirth/dogshop'), // 灵瑶阁
 
-  /* 家园路径 */
+  /* 洞府路径 */
 
   user_home_user: algorithm.getProcessCwd(`${GPPath}/home/user`),
   user_home_landgoods: algorithm.getProcessCwd(`${GPPath}/home/landgoods`),
@@ -52,22 +52,22 @@ export const __PATH = {
   user_home_rangelandannimals: algorithm.getProcessCwd(`${GPPath}/home/rangelandannimals`),
   user_home_rangeland: algorithm.getProcessCwd(`${GPPath}/home/rangeland`),
 
-  /* 宗门路径 */
+  /* 门派路径 */
 
   assGP: algorithm.getProcessCwd(`${GPPath}/ass/gp`), // 玩家的基础信息
-  assRelation: algorithm.getProcessCwd(`${GPPath}/ass/relation`), // 所有宗门的基础存档
-  association: algorithm.getProcessCwd(`${GPPath}/ass/item`), // 宗门的基础信息
-  assTreasure: algorithm.getProcessCwd(`${GPPath}/ass/Ttreasure`), // 宗门的藏宝阁
-  assinterimArchive: algorithm.getProcessCwd(`${GPPath}/ass/archive`), // 宗门的秘境
+  assRelation: algorithm.getProcessCwd(`${GPPath}/ass/relation`), // 所有门派的基础存档
+  association: algorithm.getProcessCwd(`${GPPath}/ass/item`), // 门派的基础信息
+  assTreasure: algorithm.getProcessCwd(`${GPPath}/ass/Ttreasure`), // 门派的藏宝阁
+  assinterimArchive: algorithm.getProcessCwd(`${GPPath}/ass/archive`), // 门派的秘境
 
-  assassTreasu: algorithm.getPath('/resources/datafixed/assTreasureVault'), // 隐藏宗门的藏宝阁
-  assRelate: algorithm.getPath('/resources/datafixed/assRelate') // 宗门相关资料
+  assassTreasu: algorithm.getPath('/resources/datafixed/assTreasureVault'), // 隐藏门派的藏宝阁
+  assRelate: algorithm.getPath('/resources/datafixed/assRelate') // 门派相关资料
 
   /**
    * | assRelate |
    * AssLabyrinth
    * BaseTreasureVault 基础的藏宝阁数据
-   * BlessPlace  驻地
+   * BlessPlace  山门
    */
 }
 

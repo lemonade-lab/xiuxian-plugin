@@ -5,11 +5,11 @@ export class AssUncharted extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)宗门秘境列表$/,
+          reg: /^(#|\/)门派秘境$/,
           fnc: 'assUnchartedList'
         },
         {
-          reg: /^(#|\/)探索宗门秘境.*$/,
+          reg: /^(#|\/)探索门派秘境.*$/,
           fnc: 'goGuildSecrets'
         },
         {
@@ -17,7 +17,7 @@ export class AssUncharted extends plugin {
           fnc: 'labyrinthMove'
         },
         {
-          reg: /^(#|\/)宗门秘境更名.*$/,
+          reg: /^(#|\/)门派秘境更名.*$/,
           fnc: 'renameAssUncharted'
         },
         {
@@ -44,7 +44,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const addres = '宗门秘境'
+    const addres = '门派秘境'
     let weizhi = []
 
     let assList = []
@@ -76,7 +76,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay) {
       return false
     }
-    let didian = e.msg.replace(/^(#|\/)探索宗门秘境/, '')
+    let didian = e.msg.replace(/^(#|\/)探索门派秘境/, '')
     didian = didian.trim()
     const weizhi = AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == didian
@@ -84,13 +84,13 @@ export class AssUncharted extends plugin {
     if (!weizhi) {
       return false
     }
-    // 秘境所属宗门
+    // 秘境所属门派
     let ass = GameApi.Listdata.controlAction({
       NAME: weizhi.id,
       CHOICE: 'association'
     })
     if (ass.facility[2].status == 0) {
-      e.reply(`该秘境暂未开放使用！`)
+      e.reply(`该秘境暂未开放！`)
       return false
     }
 
@@ -110,13 +110,13 @@ export class AssUncharted extends plugin {
       action.y < position.y1 ||
       action.y > position.y2
     ) {
-      e.reply(`请先到达此宗门势力范围内`)
+      e.reply(`请先到达此门派势力范围内`)
       return false
     }
 
     // 初始化 秘境等级，奖励等级，迷宫地图，秘境游玩临时存档
 
-    // 秘境等级，驻地等级 -- 驻地+宗门
+    // 秘境等级，山门等级 -- 山门+门派
     // 1 - 3   +   1 - 9
     // 2 - 12
     const unchartedLevel = ass.resident.level + Math.ceil(Math.random() * ass.level)
@@ -134,13 +134,12 @@ export class AssUncharted extends plugin {
       UID,
       name: '下品灵石'
     })
-
     if (!money || money.acount < unchartedLevel * 5000) {
       e.reply(`没钱，买不起秘境门票`)
       return false
     }
     if (ass.spiritStoneAns < incentivesLevel * 5000) {
-      e.reply(`这个宗门的灵石池，无法支撑秘境的运转了！`)
+      e.reply(`这个门派的灵石池，无法支撑秘境的运转了！`)
       return false
     }
     const assGP = GameApi.Listdata.controlAction({
@@ -196,7 +195,7 @@ export class AssUncharted extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assinterimArchive', UID)) {
+    if (!ifexistplay || !AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
     const GP = GameApi.Listdata.controlAction({
@@ -404,28 +403,23 @@ export class AssUncharted extends plugin {
       CHOICE: 'association'
     })
     if (ass.facility[2].status == 0) {
-      e.reply(`宗门秘境未建设好！`)
+      e.reply(`门派秘境未建设好！`)
       return false
     }
-
-    let newName = e.msg.replace(/^(#|\/)宗门秘境更名/, '')
-    newName = newName.trim()
-    const reg = /[^\u4e00-\u9fa5]/g // 汉字检验正则
-    const res = reg.test(newName)
-    // res为true表示存在汉字以外的字符
-    if (res) {
-      this.reply('宗门秘境名只能使用中文，请重新输入！')
+    let newName = e.msg.replace(/^(#|\/)门派秘境更名/, '')
+    if (newName.length < 2 || newName.length > 6 || !/^[\u4e00-\u9fa5]+$/.test(newName)) {
+      e.reply('非法秘境~')
       return false
     }
     const weizhi = AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == newName
     )
     if (weizhi) {
-      e.reply(`秘境不允许重名`)
+      e.reply('非法秘境~')
       return false
     }
     AssociationApi.assUser.renameAssociation(assGP.AID, 2, newName)
-    e.reply(`宗门秘境已成功更名为${newName}`)
+    e.reply(`门派秘境已成功更名为${newName}`)
     return false
   }
 
@@ -599,24 +593,14 @@ export class AssUncharted extends plugin {
  * @param {*} addres
  */
 async function GoAssUncharted(e, weizhi, addres) {
-  let adr = addres
-  let msg = ['***' + adr + '***']
+  let msg = ['***' + addres + '***']
   for (let i = 0; i < weizhi.length; i++) {
     const find = AssociationApi.assUser.assRelationList.find((item) => item.id == weizhi[i].id)
     const status = weizhi[i].facility[2].status == 0 ? '未建成' : '已启用'
-    msg.push(
-      '秘境名称:' +
-        find.unchartedName +
-        '\n' +
-        '归属宗门:' +
-        find.name +
-        '\n' +
-        '状态:' +
-        status +
-        '\n' +
-        '地点:' +
-        weizhi[i].resident.name
-    )
+    msg.push('秘境名称:' + find.unchartedName)
+    msg.push('归属门派:' + find.name + '\n')
+    msg.push('状态:' + status + '\n')
+    msg.push('地点:' + weizhi[i].resident.name)
   }
   e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 }

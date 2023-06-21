@@ -21,7 +21,7 @@ export class AssBlessPlace extends plugin {
           fnc: 'constructionGuild'
         },
         {
-          reg: /^(#|\/)宗门建筑$/,
+          reg: /^(#|\/)门派建筑$/,
           fnc: 'showAssociationBuilder'
         },
         {
@@ -51,7 +51,7 @@ export class AssBlessPlace extends plugin {
     AID = AID.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == AID)
     if (!assRelation) {
-      e.reply(`该宗门不存在！`)
+      e.reply(`该门派不存在`)
       return false
     }
 
@@ -63,7 +63,7 @@ export class AssBlessPlace extends plugin {
     if (battleAss.resident.name == 0 || battleAss.id == assGP.AID) {
       return false
     }
-    // 读取被攻打的宗门势力范围
+    // 读取被攻打的门派势力范围
     const attackAss = GameApi.Listdata.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
@@ -81,10 +81,10 @@ export class AssBlessPlace extends plugin {
     msg.push('攻打方参与者:' + attack.toString())
     msg.push('防守方参与者:' + battle.toString())
     const attackObj = SealingFormation(attack)
-    msg.push('你们结成了攻伐大阵，誓要攻破对方的山门，抢夺下这块驻地！')
+    msg.push('你们结成了攻伐大阵，誓要攻破对方的山门，抢夺下这块山门！')
     const battleObj = SealingFormation(battle)
     battleObj.defense += Math.trunc(battleAss.facility[5].buildNum / 200) * 2500
-    msg.push('防守方依托宗门大阵，誓要将你们击退！')
+    msg.push('防守方依托门派大阵，誓要将你们击退！')
     switch (battleAss.divineBeast) {
       case 1:
         battleObj.burst += 25
@@ -109,10 +109,8 @@ export class AssBlessPlace extends plugin {
       default:
         msg.push('防守方没有神兽，并不能获得战斗加成')
     }
-    msg.push('掀起宗门大战，波及范围甚广，有违天和，进攻方全体煞气值加2点')
-
+    msg.push('掀起门派大战，波及范围甚广，有违天和，进攻方全体煞气值加2点')
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
-
     // 开打！
     const res = AssBattle(e, attackObj, battleObj)
     // 赢！
@@ -197,7 +195,7 @@ export class AssBlessPlace extends plugin {
         CHOICE: 'association'
       })
       if (thisAss.resident.name == dongTan.name) {
-        e.reply(`你尝试带着宗门入驻${dongTan.name}，却发现有宗门捷足先登了，只能通过开战强夺驻地了`)
+        e.reply(`你尝试带着门派入驻${dongTan.name}，却发现有门派捷足先登了，只能通过开战强夺山门了`)
         return false
       }
     }
@@ -208,7 +206,7 @@ export class AssBlessPlace extends plugin {
       return i
     })
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
-    e.reply(`入驻成功,${ass.id}当前驻地为:${dongTan.name},原有建设值继承70%，需要重新修建以启用`)
+    e.reply(`入驻成功,${ass.id}当前山门为:${dongTan.name},原有建设值继承70%，需要重新修建以启用`)
     return false
   }
 
@@ -218,7 +216,6 @@ export class AssBlessPlace extends plugin {
     if (!ifexistplay) {
       return false
     }
-
     const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
@@ -227,14 +224,13 @@ export class AssBlessPlace extends plugin {
       e.reply('一介散修')
       return false
     }
-
     const ass = GameApi.Listdata.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
 
     if (ass.resident.name == 0) {
-      e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
+      e.reply(`你的门派还没有山门哦,没有灵脉可以开采`)
       return false
     }
     const positionList = GameApi.Listdata.controlAction({
@@ -252,15 +248,15 @@ export class AssBlessPlace extends plugin {
       action.y < position.y1 ||
       action.y > position.y2
     ) {
-      e.reply(`请先回驻地范围`)
+      e.reply(`请先回山门范围`)
       return false
     }
     const now = new Date().getTime()
     const nowTime = now.getTime() // 获取当前日期的时间戳
     const Today = GameApi.Method.timeInvert(nowTime)
-    const lastExplorTime = GameApi.Method.timeInvert(assGP.lastExplorTime) // 获得上次宗门签到日期
+    const lastExplorTime = GameApi.Method.timeInvert(assGP.lastExplorTime) // 获得上次门派签到日期
     if (Today.Y == lastExplorTime.Y && Today.M == lastExplorTime.M && Today.D == lastExplorTime.D) {
-      e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`)
+      e.reply(`今日已经开采过灵脉,不可以竭泽而渔哦,明天再来吧`)
       return false
     }
     assGP.lastExplorTime = nowTime
@@ -285,11 +281,8 @@ export class AssBlessPlace extends plugin {
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(
-      `本次开采灵脉为宗门灵石池贡献了${giftLingshi}灵石，你获得了` +
-        Math.trunc(num / 2000) +
-        `点贡献点`
+      `成功开采灵脉\n为门派灵石池贡献了${giftLingshi}灵石\n你获得了${Math.trunc(num / 2000)}贡献点`
     )
-
     return false
   }
 
@@ -319,13 +312,14 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'association'
     })
     if (ass.resident.name == 0) {
-      e.reply(`你的宗门还没有驻地，无法建设宗门`)
+      e.reply(`你的门派还没有山门`)
       return false
     }
 
     let buildName = e.msg.replace(/^(#|\/)修建/, '')
     buildName = buildName.trim()
-    // 洞天不存在
+
+    // 门派不存在
     const location = AssociationApi.assUser.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {
       return false
@@ -346,12 +340,12 @@ export class AssBlessPlace extends plugin {
       action.y < position.y1 ||
       action.y > position.y2
     ) {
-      e.reply(`请先回宗门`)
+      e.reply(`请先回门派`)
       return false
     }
 
     if (location != 0 && ass.facility[0].status == 0) {
-      e.reply(`宗门驻地里连块平地都没有,你修建啥呀,先给山门修修吧`)
+      e.reply('门派连块平地都没有,你修建啥呀,先给山门修修吧')
       return false
     }
 
@@ -361,7 +355,7 @@ export class AssBlessPlace extends plugin {
 
     const cdSecond = GameApi.Burial.get(UID, ClassCD)
     if (cdSecond.expire) {
-      e.reply(`修建cd中，剩余${cdSecond.expire}！`)
+      e.reply(`修建中,剩余${cdSecond.expire}！`)
       return false
     }
 
@@ -381,7 +375,7 @@ export class AssBlessPlace extends plugin {
     let msg = ass.facility[location].status == 0 ? '未启用' : '启用'
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(
-      `建设成功，为${buildName}增加了${add}点建设值，当前该设施建设总值为${ass.facility[location].buildNum},状态为` +
+      `建设成功~\n为${buildName}增加了${add}点建设值\n当前该设施建设总值为${ass.facility[location].buildNum},状态为` +
         msg
     )
     return false
@@ -409,19 +403,12 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'association'
     })
 
-    let msg = [`__[宗门建筑]__`]
+    let msg = [`__[门派建筑]__`]
 
     for (let i = 0; i < ass.facility.length; i++) {
-      msg.push(
-        '建筑名称:' +
-          AssociationApi.assUser.buildNameList[i] +
-          '\n' +
-          '建设值:' +
-          ass.facility[i].buildNum +
-          '\n' +
-          '建筑状态:' +
-          (ass.facility[i].status == 0 ? '未启用' : '启用')
-      )
+      msg.push('建筑名称:' + AssociationApi.assUser.buildNameList[i])
+      msg.push('建设值:' + ass.facility[i].buildNum)
+      msg.push('建筑状态:' + (ass.facility[i].status == 0 ? '未启用' : '启用'))
     }
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
   }
@@ -437,16 +424,9 @@ async function GoBlessPlace(e, weizhi, addres) {
   let adr = addres
   let msg = ['***' + adr + '***']
   for (let i = 0; i < weizhi.length; i++) {
-    msg.push(
-      weizhi[i].name +
-        '\n' +
-        '等级:' +
-        weizhi[i].level +
-        '\n' +
-        '修炼效率:' +
-        weizhi[i].efficiency * 100 +
-        '%'
-    )
+    msg.push(weizhi[i].name)
+    msg.push('等级:' + weizhi[i].level)
+    msg.push('修炼效率:' + weizhi[i].efficiency * 100 + '%')
   }
   e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
 }
@@ -525,10 +505,10 @@ async function AssBattle(e, battleA, battleB) {
     }
     battleB.nowblood = battleB.nowblood - hurt
     if (battleB.nowblood < 1) {
-      e.reply('你们结成的阵法过于强大，只一招就攻破了对面的山门！')
+      e.reply('你们结成的阵法过于强大,只一招就攻破了对面的山门！')
       return UID
     } else {
-      msg.push('你们催动法力，造成' + hurt + '伤害')
+      msg.push('你们催动法力,造成' + hurt + '伤害')
     }
   }
   // 循环回合，默认从B攻击开始

@@ -40,7 +40,7 @@
   [
     {
       "id": "1-1-40",
-      "name": "宗门制式剑",
+      "name": "门派制式剑",
       "type": "",
       "privileges": 2,
       "redeemPoint": 15,
@@ -58,7 +58,7 @@
     },
     {
       "id": "2-1-40",
-      "name": "宗门制式甲",
+      "name": "门派制式甲",
       "type": "",
       "privileges": 2,
       "redeemPoint": 15,
@@ -78,7 +78,7 @@
   [
     {
       "id": "3-1-40",
-      "name": "宗门的庇护",
+      "name": "门派的庇护",
       "type": "",
       "privileges": 5,
       "redeemPoint": 85,

@@ -24,10 +24,10 @@ export class Homerangeland extends plugin {
           reg: /^(#|\/)查看他人牧场.*$/,
           fnc: 'Checkotherpasture'
         },
-        // {
-        //   reg: /^(#|\/)偷动物(.*)$/,
-        //   fnc: "Stealanimals",
-        // },
+        {
+          reg: /^(#|\/)偷动物(.*)$/,
+          fnc: 'Stealanimals'
+        },
         {
           reg: /^(#|\/)搭建草场$/,
           fnc: 'seeding'
@@ -74,7 +74,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在家园里，修建牧场必须回家')
+      e.reply('您现在不在洞府里，修建牧场必须回家')
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -90,7 +90,7 @@ export class Homerangeland extends plugin {
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
     if (homelevel < 2) {
-      e.reply('你的家园等级不够，不足以建立牧场')
+      e.reply('你的洞府等级不够，不足以建立牧场')
       return
     }
     if (rangelandlevel > 0) {
@@ -142,7 +142,7 @@ export class Homerangeland extends plugin {
     })
     let region2 = action.region
     if (region != region2) {
-      e.reply('您现在不在家园里，搭建草场必须回家')
+      e.reply('您现在不在洞府里，搭建草场必须回家')
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -158,7 +158,7 @@ export class Homerangeland extends plugin {
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
     if (homelevel < 4) {
-      e.reply('你的家园等级不够，不足以搭建草场')
+      e.reply('你的洞府等级不够，不足以搭建草场')
       return
     }
     if (rangelandlevel < 1) {
@@ -263,7 +263,7 @@ export class Homerangeland extends plugin {
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
     if (homelevel < 6) {
-      e.reply('你的家园等级不够，不足以栽种树林')
+      e.reply('你的洞府等级不够，不足以栽种树林')
       return
     }
     if (rangelandlevel < 2) {
@@ -383,7 +383,7 @@ export class Homerangeland extends plugin {
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
     if (homelevel < 8) {
-      e.reply('你的家园等级不够，不足以开塘养鱼')
+      e.reply('你的洞府等级不够，不足以开塘养鱼')
       return
     }
     if (rangelandlevel < 3) {
@@ -486,7 +486,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在家园里，动物必须放在家园牧场里哦')
+      e.reply('您现在不在洞府里，动物必须放在洞府牧场里哦')
       return
     }
     // let muc =  GameApi.Listdata.controlAction({ NAME: UID, CHOICE: 'user_rangelandannimals' })
@@ -659,7 +659,7 @@ export class Homerangeland extends plugin {
     }
     const ifexisthome1 = HomeApi.GP.existhome(user.B)
     if (!ifexisthome1) {
-      e.reply(`对方还没建立过家园`)
+      e.reply(`对方还没建立过洞府`)
       return
     }
     if (!GameApi.Player.getUserLifeSatus(user.A)) {
@@ -678,7 +678,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在对方家园所在地内，请到对方家园所在地')
+      e.reply('您现在不在对方洞府所在地内，请到对方洞府所在地')
       return
     }
     const CDid = '0'
@@ -747,7 +747,7 @@ export class Homerangeland extends plugin {
     }
     const ifexisthome1 = HomeApi.GP.existhome(user.B)
     if (!ifexisthome1) {
-      e.reply(`对方没建立过家园`)
+      e.reply(`对方没建立过洞府`)
       return
     }
     if (!GameApi.Player.getUserLifeSatus(user.A)) {
@@ -766,7 +766,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
+      e.reply('您现在不在对方洞府所在地内，偷看请到对方洞府所在地后进行偷看')
       return
     }
     const { path, name, data } = HomeApi.Information.userLookrangelandShow(user.B)

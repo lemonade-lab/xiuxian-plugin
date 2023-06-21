@@ -59,7 +59,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在家园里，开垦土地必须回家')
+      e.reply('您现在不在洞府里，开垦土地必须回家')
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -70,15 +70,15 @@ export class Homeland extends plugin {
     let Land = home.Land
     let homelevel = home.homelevel
     if (homelevel < 3 && Land == 1) {
-      e.reply('你的家园规模不够，不足以再开垦1块荒地')
+      e.reply('你的洞府规模不够，不足以再开垦1块荒地')
       return false
     }
     if (homelevel < 6 && Land == 2) {
-      e.reply('你的家园规模不够，不足以再开垦1块荒地')
+      e.reply('你的洞府规模不够，不足以再开垦1块荒地')
       return false
     }
     if (homelevel < 9 && Land == 3) {
-      e.reply('你的家园规模不够，不足以再开垦1块荒地')
+      e.reply('你的洞府规模不够，不足以再开垦1块荒地')
       return false
     }
     if (Land == 4) {
@@ -108,7 +108,7 @@ export class Homeland extends plugin {
       NAME: UID,
       DATA: home
     })
-    e.reply(`本次开垦土地开了${lingshi1}的工资给工人，成功开垦出一块地来，并获得1000家园经验`)
+    e.reply(`本次开垦土地开了${lingshi1}的工资给工人，成功开垦出一块地来，并获得1000洞府经验`)
 
     return false
   }
@@ -135,7 +135,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在家园里，种地必须要回家种哦')
+      e.reply('您现在不在洞府里，种地必须要回家种哦')
       return false
     }
     let thing = e.msg.replace(/^(#|\/)种下/, '')
@@ -253,7 +253,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在家园里，必须要回家才能收获哦')
+      e.reply('您现在不在洞府里，必须要回家才能收获哦')
       return false
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
@@ -344,9 +344,9 @@ export class Homeland extends plugin {
         DATA: home
       })
       if (q == 0) {
-        e.reply(`本次种植收获了作物${other},并增加${x}的家园经验`)
+        e.reply(`本次种植收获了作物${other},并增加${x}的洞府经验`)
       } else {
-        e.reply(`由于被偷了${q}次，本次种植收获了作物${other},并增加${x}的家园经验`)
+        e.reply(`由于被偷了${q}次，本次种植收获了作物${other},并增加${x}的洞府经验`)
       }
       return false
     } else {
@@ -389,9 +389,9 @@ export class Homeland extends plugin {
         DATA: home
       })
       if (q == 0) {
-        e.reply(`本次种植收获了作物${other},并增加${x}的家园经验`)
+        e.reply(`本次种植收获了作物${other},并增加${x}的洞府经验`)
       } else {
-        e.reply(`由于被偷了${q}次，本次种植收获了作物${other},并增加${x}的家园经验`)
+        e.reply(`由于被偷了${q}次，本次种植收获了作物${other},并增加${x}的洞府经验`)
       }
       return false
     }
@@ -437,7 +437,7 @@ export class Homeland extends plugin {
     }
     const ifexisthome1 = HomeApi.GP.existhome(user.B)
     if (!ifexisthome1) {
-      e.reply(`对方还没建立过家园`)
+      e.reply(`对方还没建立过洞府`)
       return false
     }
     if (!GameApi.Player.getUserLifeSatus(user.A)) {
@@ -456,7 +456,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在对方家园所在地内，偷菜请到对方家园所在地后进行偷菜')
+      e.reply('您现在不在对方洞府所在地内，偷菜请到对方洞府所在地后进行偷菜')
       return false
     }
     const CDid = '0'
@@ -533,7 +533,7 @@ export class Homeland extends plugin {
       NAME: user.A,
       DATA: home
     })
-    e.reply(`成功盗取数量为${other}的${thing},并增加${z}的家园经验`)
+    e.reply(`成功盗取数量为${other}的${thing},并增加${z}的洞府经验`)
     GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
     return false
   }
@@ -553,7 +553,7 @@ export class Homeland extends plugin {
     }
     const ifexisthome1 = HomeApi.GP.existhome(user.B)
     if (!ifexisthome1) {
-      e.reply(`对方没建立过家园`)
+      e.reply(`对方没建立过洞府`)
       return
     }
     const ifexisthome = GameApi.Player.getUserLifeSatus(user.A)
@@ -573,7 +573,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在对方家园所在地内，偷看请到对方家园所在地后进行偷看')
+      e.reply('您现在不在对方洞府所在地内，偷看请到对方洞府所在地后进行偷看')
       return
     }
     const { path, name, data } = HomeApi.Information.userLooklandShow({

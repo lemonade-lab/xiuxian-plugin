@@ -7,27 +7,27 @@ export class Homestart extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)我的家园$/,
+          reg: /^(#|\/)我的洞府$/,
           fnc: 'myhome'
         },
         {
-          reg: /^(#|\/)家园仓库$/,
+          reg: /^(#|\/)洞府仓库$/,
           fnc: 'Warehouse'
         },
         {
-          reg: /^(#|\/)家园扩建/,
+          reg: /^(#|\/)洞府扩建/,
           fnc: 'extensionhome'
         },
         {
-          reg: /^(#|\/)查看家园扩建/,
+          reg: /^(#|\/)查看洞府扩建/,
           fnc: 'unextensionhome'
         },
         {
-          reg: /^(#|\/)建立家园.*$/,
+          reg: /^(#|\/)建立洞府.*$/,
           fnc: 'buildhome'
         },
         {
-          reg: /^(#|\/)搬迁家园到.*$/,
+          reg: /^(#|\/)搬迁洞府到.*$/,
           fnc: 'movehome'
         }
       ]
@@ -78,7 +78,7 @@ export class Homestart extends plugin {
       return false
     }
     const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0 && archive != '您都还没建立过家园') {
+    if (archive != 0 && archive != '您都还没建立过洞府') {
       e.reply(`${archive}`)
       return false
     }
@@ -88,10 +88,10 @@ export class Homestart extends plugin {
     })
     const ifexisthome1 = ifexisthome.find((item) => item.UID == UID)
     if (ifexisthome1) {
-      e.reply(`您已经建立过家园，如需搬迁请执行#家园搬迁至+地点`)
+      e.reply(`您已经建立过洞府，如需搬迁请执行#洞府搬迁至+地点`)
       return false
     }
-    const address = e.msg.replace(/^(#|\/)建立家园/, '')
+    const address = e.msg.replace(/^(#|\/)建立洞府/, '')
     const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
@@ -102,7 +102,7 @@ export class Homestart extends plugin {
       addressName
     })
     if (!map) {
-      e.reply(`第一次建立家园，需到${addressName}寻求联盟帮助`)
+      e.reply(`第一次建立洞府，需到${addressName}寻求联盟帮助`)
       return false
     }
     const point0 = GameApi.Listdata.controlAction({
@@ -148,14 +148,14 @@ export class Homestart extends plugin {
         CHOICE: 'position',
         DATA: positionhome
       })
-      e.reply(`成功在${address}建立了自己的家园`)
+      e.reply(`成功在${address}建立了自己的洞府`)
     }, 1000 * time1)
     forwardsetTime[UID] = 1
     e.reply(`联盟人员正在加紧修建你的住所...\n预计需要${time1}秒`)
     return false
   }
 
-  // 家园扩建
+  // 洞府扩建
   async extensionhome(e) {
     // 不开放私聊功能
     if (!this.verify(e)) return false
@@ -177,7 +177,7 @@ export class Homestart extends plugin {
     })
     const region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在家园里，请回到家园所在地进行操作')
+      e.reply('您现在不在洞府里，请回到洞府所在地进行操作')
       return false
     }
     const { homemsg } = HomeApi.UserAction.userextensionhome(UID)
@@ -227,7 +227,7 @@ export class Homestart extends plugin {
       DATA: home
     })
     HomeApi.GP.deleteAction(UID)
-    e.reply(`你的家园已成功扩建`)
+    e.reply(`你的洞府已成功扩建`)
   }
 
   async movehome(e) {
@@ -245,10 +245,10 @@ export class Homestart extends plugin {
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     if (ifexisthome == undefined) {
-      e.reply('您都还没建立过家园')
+      e.reply('您都还没建立过洞府')
       return false
     }
-    const address = e.msg.replace(/^(#|\/)搬迁家园到/, '')
+    const address = e.msg.replace(/^(#|\/)搬迁洞府到/, '')
     if (ifexisthome.address == address) {
       e.reply(`你家就在${address}，建筑队看了看你家，再看了看你要搬的地点，随后投来了异样的眼光`)
       return false
@@ -295,7 +295,7 @@ export class Homestart extends plugin {
       return false
     }
     if (home.doge < 2000) {
-      e.reply(`这点灵晶可请不动建筑队帮扩建家园哦!要想请动他们，至少准备2000灵晶`)
+      e.reply(`这点灵晶可请不动建筑队帮扩建洞府哦!要想请动他们，至少准备2000灵晶`)
       return false
     }
     const the = 5
@@ -343,7 +343,7 @@ export class Homestart extends plugin {
       })
       HomeApi.GP.addDoge({ UID, money: -2000 })
       e.reply(
-        `成功在${address}建立了新的家园，花费2000灵晶(原来家园所在地如果占领了的话将会撤走哦!)`
+        `成功在${address}建立了新的洞府，花费2000灵晶(原来洞府所在地如果占领了的话将会撤走哦!)`
       )
     }, 1000 * time1)
     forwardsetTime[UID] = 1
