@@ -10,7 +10,7 @@
       title: '(#|/)逐出宗门+UID号'
       desc: '将玩家逐出宗门'
     - icon: help-icon_58
-      title: '(#|/)宗门改名xxx'
+      title: '(#|/)宗门改名+字符'
       desc: '更改宗门的名称'
 
 - group: 宗门玩法

@@ -13,7 +13,7 @@ export class Assstart extends plugin {
           fnc: 'ExitAssociation'
         },
         {
-          reg: /^(#|\/)宗门(上交|上缴|捐赠)灵石.*$/,
+          reg: /^(#|\/)贡献[\u4e00-\u9fa5]+\*\d+$/,
           fnc: 'giveAssociationMoney'
         },
         {
@@ -283,49 +283,48 @@ export class Assstart extends plugin {
       e.reply('一介散修')
       return false
     }
-
-    let reg = /#宗门(上交|上缴|捐赠)灵石/
-    let lingshi = e.msg.replace(reg, '')
-    lingshi = GameApi.Method.numberVerify(lingshi)
-
-    let money = GameApi.Bag.searchBagByName({
+    const thingName = e.msg.replace(/^(#|\/)贡献/, '')
+    const [name, ACCOUNT] = thingName.split('*')
+    const najieThing = GameApi.Bag.searchBagByName({
       UID,
-      name: '下品灵石'
+      name
     })
-    if (!money) {
-      e.reply(`你身上一分钱都没有！！！`)
-      return false
-    } else if (money.acount < lingshi) {
-      e.reply(`你身上只有${money.acount}灵石,数量不足`)
+    if (!najieThing) {
+      e.reply(`没有[${name}]`)
       return false
     }
-
+    if (najieThing.acount < ACCOUNT) {
+      e.reply('数量不足')
+      return false
+    }
+    const size = najieThing.price * najieThing.acount
     const ass = GameApi.Listdata.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == assGP.AID)
-    if (ass.spiritStoneAns + lingshi > AssociationApi.assUser.spiritStoneAnsMax[ass.level - 1]) {
+    if (
+      ass.spiritStoneAns + najieThing.price >
+      AssociationApi.assUser.spiritStoneAnsMax[ass.level - 1]
+    ) {
       e.reply(
         `${assRelation.name}的灵石池最多还能容纳${
           AssociationApi.assUser.spiritStoneAnsMax[ass.level - 1] - ass.spiritStoneAns
-        }灵石,请重新捐赠`
+        }灵石,请重新捐赠~`
       )
       return false
     }
-    ass.spiritStoneAns += lingshi
-    assGP.contributionPoints += Math.trunc(lingshi / 1000)
-    assGP.historyContribution += Math.trunc(lingshi / 1000)
+    ass.spiritStoneAns += size
+    assGP.contributionPoints += Math.trunc(size / 1000)
+    assGP.historyContribution += Math.trunc(size / 1000)
     GameApi.Bag.addBagThing({
       UID,
-      name: '下品灵石',
-      ACCOUNT: Number(-lingshi)
+      name,
+      ACCOUNT: -ACCOUNT
     })
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
     AssociationApi.assUser.setAssOrGP('assGP', assGP.UID, assGP)
-    e.reply(
-      `捐赠成功,你身上还有${money.acount - lingshi}灵石,宗门灵石池目前有${ass.spiritStoneAns}灵石`
-    )
+    e.reply(`捐赠成功,宗门灵石池目前有${ass.spiritStoneAns}灵石`)
     return false
   }
 

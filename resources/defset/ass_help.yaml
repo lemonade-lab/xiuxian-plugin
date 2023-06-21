@@ -10,7 +10,7 @@
       title: '(#|/)鉴定宗门令牌'
       desc: '获取建立宗门或宗门升级的令牌'
     - icon: help-icon_52
-      title: '(#|/)申请加入xxx'
+      title: '(#|/)申请加入+宗门名'
       desc: '向某宗门发出申请'
     - icon: help-icon_72
       title: '(#|/)宗门职位提升'
@@ -25,6 +25,24 @@
       title: '(#|/)退出宗门'
       desc: '退宗'
 
+- group: 藏宝阁
+  list:
+    - icon: help-icon_87
+      title: '(#|/)藏宝阁'
+      desc: '查看宗门藏宝阁有什么'
+    - icon: help-icon_87
+      title: '(#|/)置换+物品'
+      desc: '藏宝阁中置换东西'
+    - icon: help-icon_58
+      title: '(#|/)藏宝阁回收+物品'
+      desc: '将物品卖给藏宝阁换取贡献点'
+    - icon: help-icon_55
+      title: '(#|/)贡献+物品*数量'
+      desc: '贡献物品给宗门'
+    - icon: help-icon_55
+      title: '(#|/)我的贡献'
+      desc: '查看自己的贡献值'
+
 - group: 宗门驻地
   list:
     - icon: help-icon_59
@@ -37,7 +55,7 @@
       title: '(#|/)入驻洞天+地名'
       desc: '将某地作为宗门的驻地'
     - icon: help-icon_59
-      title: '(#|/)修建xxx'
+      title: '(#|/)修建+设施'
       desc: '修建宗门设施'
     - icon: help-icon_55
       title: '(#|/)宗门建筑'
@@ -45,21 +63,6 @@
     - icon: help-icon_59
       title: '(#|/)集合攻打+宗门名'
       desc: '集合对方势力范围内的己方成员，掀起宗门大战'
-
-- group: 藏宝阁
-  list:
-    - icon: help-icon_87
-      title: '(#|/)藏宝阁'
-      desc: '查看宗门藏宝阁有什么'
-    - icon: help-icon_87
-      title: '(#|/)置换xxx'
-      desc: '藏宝阁中置换东西'
-    - icon: help-icon_58
-      title: '(#|/)藏宝阁回收xxx'
-      desc: '将物品卖给藏宝阁换取贡献点'
-    - icon: help-icon_55
-      title: '(#|/)我的贡献'
-      desc: '查看自己的贡献值'
 
 - group: 宗门秘境
   list:
@@ -82,5 +85,5 @@
       title: '(#|/)逃离秘境'
       desc: '离开宗门秘境'
     - icon: help-icon_58
-      title: '(#|/)宗门秘境更名xxx'
+      title: '(#|/)宗门秘境更名+字符'
       desc: '为宗门秘境改名'
