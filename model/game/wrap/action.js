@@ -7,7 +7,7 @@ class Action {
    * @param {*} UID
    * @param {*} actionObject
    */
-  setAction(UID, actionObject) {
+  set(UID, actionObject) {
     Redis.set(`${ReadiName}:${UID}:${CDMAP[99]}`, actionObject)
   }
 
@@ -16,7 +16,7 @@ class Action {
    * @param {*} UID
    * @returns
    */
-  getAction(UID) {
+  get(UID) {
     return Redis.get(`${ReadiName}:${UID}:${CDMAP[99]}`)
   }
 
@@ -24,7 +24,7 @@ class Action {
    * 删除action
    * @param {*} param0
    */
-  deleteAction(UID) {
+  delete(UID) {
     Redis.del(`${ReadiName}:${UID}:${CDMAP[99]}`)
   }
 

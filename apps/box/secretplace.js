@@ -72,10 +72,10 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.Action.getAction(UID)
+    let action = GameApi.Action.get(UID)
     if (!action) return false
     if (action.actionID == 2) {
-      GameApi.Action.deleteAction(UID)
+      GameApi.Action.delete(UID)
       // 取消行为
       clearTimeout(GameApi.Place.getUserAction(UID))
       e.reply('已回到原地')
@@ -138,7 +138,7 @@ export class BoxSecretplace extends plugin {
       UID,
       setTimeout(() => {
         /* 这里清除行为 */
-        GameApi.Action.deleteAction(UID)
+        GameApi.Action.delete(UID)
         action.x = mx
         action.y = my
         action.region = PointId[1]
@@ -152,7 +152,7 @@ export class BoxSecretplace extends plugin {
       }, 1000 * time)
     )
     // 设置行为赶路
-    GameApi.Action.setAction(UID, {
+    GameApi.Action.set(UID, {
       actionID: 2,
       startTime: 1000 * time
     })
@@ -237,7 +237,7 @@ export class BoxSecretplace extends plugin {
     const time = the > 0 ? the : 1
     setTimeout(() => {
       // 清除行为
-      GameApi.Action.deleteAction(UID)
+      GameApi.Action.delete(UID)
       action.x = mx
       action.y = my
       action.region = positionID[1]
@@ -250,7 +250,7 @@ export class BoxSecretplace extends plugin {
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
     // 传送行为记录
-    GameApi.Action.setAction(UID, {
+    GameApi.Action.set(UID, {
       actionID: 3,
       startTime: 1000 * time
     })

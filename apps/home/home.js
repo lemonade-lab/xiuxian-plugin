@@ -201,7 +201,7 @@ export class Homestart extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    let action = GameApi.Action.getAction(UID)
+    let action = GameApi.Action.get(UID)
     if (action.actionID != 5) {
       return false
     }

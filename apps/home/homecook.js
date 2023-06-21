@@ -91,7 +91,7 @@ export class Homecook extends plugin {
       e.reply(`你没有这样的锅具，请重新选择`)
       return false
     }
-    GameApi.Action.setAction(UID, {
+    GameApi.Action.set(UID, {
       name: choice,
       startTime: 1000 * 60
     })
@@ -171,7 +171,7 @@ export class Homecook extends plugin {
       e.reply(`好像没有这种食谱，请重新选择!`)
       return false
     }
-    let action = GameApi.Action.getAction(UID)
+    let action = GameApi.Action.get(UID)
 
     let nameIwant = action.name
     let zhushi = food.zhushi
@@ -329,7 +329,7 @@ export class Homecook extends plugin {
       return false
     }
     let doge = (zhushi1.doge + tiaoliao1.doge + fushi1.doge) * 2
-    let action = GameApi.Action.getAction(UID)
+    let action = GameApi.Action.get(UID)
     let nameIwant = action.name
     let guo = Warehouse.thing.find((item) => item.name === nameIwant)
     let shuxing1 = HomeApi.GP.attribute({ thing: zhushi1 })

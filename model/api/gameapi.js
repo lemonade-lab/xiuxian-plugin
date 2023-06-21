@@ -3,7 +3,7 @@ import Map from '../game/wrap/map.js'
 import Place from '../game/wrap/place.js'
 import Method from '../game/wrap/method.js'
 import Redis from '../game/wrap/redis.js'
-import Action from '../game/home/action.js'
+import Action from '../game/wrap/action.js'
 
 import Defset from '../game/data/defset.js'
 import Schedule from '../game/data/schedule.js'

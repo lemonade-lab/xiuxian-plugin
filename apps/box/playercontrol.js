@@ -24,7 +24,7 @@ export class BoxGPControl extends plugin {
       return false
     }
     const nowTime = new Date().getTime()
-    GameApi.Action.setAction(UID, {
+    GameApi.Action.set(UID, {
       actionID: 0,
       startTime: nowTime
     })
@@ -45,7 +45,7 @@ export class BoxGPControl extends plugin {
       return false
     }
     const nowTime = new Date().getTime()
-    GameApi.Action.setAction(UID, {
+    GameApi.Action.set(UID, {
       actionID: 1,
       startTime: nowTime
     })
@@ -60,7 +60,7 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.Action.getAction(UID)
+    let action = GameApi.Action.get(UID)
     if (!action) return false
     if (action.actionID != 0) return false
     const startTime = action.startTime
@@ -71,10 +71,10 @@ export class BoxGPControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.Action.deleteAction(UID)
+      GameApi.Action.delete(UID)
       return false
     }
-    GameApi.Action.deleteAction(UID)
+    GameApi.Action.delete(UID)
     this.upgrade(UID, time, action.actionID, e)
     return false
   }
@@ -86,7 +86,7 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.Action.getAction(UID)
+    let action = GameApi.Action.get(UID)
     if (!action) return false
     if (action.actionID != 1) return false
     const startTime = action.startTime
@@ -97,10 +97,10 @@ export class BoxGPControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.Action.deleteAction(UID)
+      GameApi.Action.delete(UID)
       return false
     }
-    GameApi.Action.deleteAction(UID)
+    GameApi.Action.delete(UID)
     this.upgrade(UID, time, action.actionID, e)
     return false
   }
