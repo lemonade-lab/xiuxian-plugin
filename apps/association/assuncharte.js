@@ -135,18 +135,17 @@ export class AssUncharted extends plugin {
       name: '下品灵石'
     })
     if (!money || money.acount < unchartedLevel * 5000) {
-      e.reply(`没钱，买不起秘境门票`)
+      e.reply(`灵石不足,无法开启秘境`)
       return false
     }
     if (ass.spiritStoneAns < incentivesLevel * 5000) {
-      e.reply(`这个门派的灵石池，无法支撑秘境的运转了！`)
+      e.reply(`该门派的灵石池已无法支撑秘境的运转！`)
       return false
     }
     const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
-
     if (assGP.AID == ass.id) {
       GameApi.Bag.addBagThing({
         UID,

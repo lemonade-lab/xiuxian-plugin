@@ -5,7 +5,7 @@ export class Homerangeland extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)建立牧场$/,
+          reg: /^(#|\/)建立兽场$/,
           fnc: 'EstablishRangeland'
         },
         {
@@ -17,11 +17,11 @@ export class Homerangeland extends plugin {
           fnc: 'Slaughter'
         },
         {
-          reg: /^(#|\/)查看牧场$/,
+          reg: /^(#|\/)查看兽场$/,
           fnc: 'Checkpasture'
         },
         {
-          reg: /^(#|\/)查看他人牧场.*$/,
+          reg: /^(#|\/)查看他人兽场.*$/,
           fnc: 'Checkotherpasture'
         },
         {
@@ -48,7 +48,7 @@ export class Homerangeland extends plugin {
     })
   }
 
-  // 修建牧场
+  // 修建兽场
   async EstablishRangeland(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -74,7 +74,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在洞府里，修建牧场必须回家')
+      e.reply('您现在不在洞府里，修建兽场必须返回洞府')
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -90,11 +90,11 @@ export class Homerangeland extends plugin {
     let rangelandlevel = rangeland.rangelandlevel
     let homelevel = home.homelevel
     if (homelevel < 2) {
-      e.reply('你的洞府等级不够，不足以建立牧场')
+      e.reply('你的洞府等级不够，不足以建立兽场')
       return
     }
     if (rangelandlevel > 0) {
-      e.reply('你已经建立过牧场了')
+      e.reply('你已经建立过兽场了')
       return
     }
     let lingshi1 = rangelandlevel * 20000 + 1000
@@ -117,7 +117,7 @@ export class Homerangeland extends plugin {
       NAME: UID,
       DATA: rangeland
     })
-    e.reply(`你准备了足够的材料，工人高高兴兴地给你建立了牧场`)
+    e.reply(`你准备了足够的材料，工人高高兴兴地给你建立了兽场`)
   }
 
   // 搭建草场
@@ -142,7 +142,7 @@ export class Homerangeland extends plugin {
     })
     let region2 = action.region
     if (region != region2) {
-      e.reply('您现在不在洞府里，搭建草场必须回家')
+      e.reply('您现在不在洞府里，搭建草场必须返回洞府')
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -162,7 +162,7 @@ export class Homerangeland extends plugin {
       return
     }
     if (rangelandlevel < 1) {
-      e.reply('请先建立牧场')
+      e.reply('请先建立兽场')
       return
     }
     if (rangelandlevel > 1) {
@@ -247,7 +247,7 @@ export class Homerangeland extends plugin {
     })
     let region3 = action.region
     if (region != region3) {
-      e.reply('您不在家是没有办法升级牧场的哦')
+      e.reply('您不在洞府是没有办法升级兽场的哦')
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -367,7 +367,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您不在家是没有办法升级牧场的哦')
+      e.reply('您不在洞府是没有办法升级兽场的哦')
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -486,7 +486,7 @@ export class Homerangeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在洞府里，动物必须放在洞府牧场里哦')
+      e.reply('您现在不在洞府里，动物必须放在洞府兽场里哦')
       return
     }
     // let muc =  GameApi.Listdata.controlAction({ NAME: UID, CHOICE: 'user_rangelandannimals' })
@@ -522,7 +522,7 @@ export class Homerangeland extends plugin {
     }) // 获取rangeland文件
     let rangelandlevel = rangeland.rangelandlevel
     if (rangelandlevel == 0) {
-      e.reply('你仔细想想你建牧场了吗XDD)BO}R%$LQPF$J)`K9DWP.jpg')
+      e.reply('你仔细想想你建兽场了吗XDD)BO}R%$LQPF$J)`K9DWP.jpg')
       return
     }
     let rangelandannimals = GameApi.Listdata.controlActionInitial({
@@ -532,7 +532,7 @@ export class Homerangeland extends plugin {
     }) // 获取rangeland文件
     let rangelandannimals1 = rangelandannimals.thing.find((item) => item.name == thingName)
     if (rangelandannimals1 != undefined) {
-      e.reply(`你牧场里已经有了${thingName}`)
+      e.reply(`你兽场里已经有了${thingName}`)
       return
     }
     if (rangelandlevel > rangelandannimals.thing.length) {
@@ -592,7 +592,7 @@ export class Homerangeland extends plugin {
     })
     let rangelandannimals = rangelandannimals1.thing.find((item) => item.name1 == thing)
     if (rangelandannimals == undefined) {
-      e.reply(`您的牧场里没有${thing}`)
+      e.reply(`您的兽场里没有${thing}`)
       return
     }
     let time = rangelandannimals.time
@@ -622,7 +622,7 @@ export class Homerangeland extends plugin {
     }
   }
 
-  // 查看牧场
+  // 查看兽场
   async Checkpasture(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -696,7 +696,7 @@ export class Homerangeland extends plugin {
     })
     let rangelandannimals = rangelandannimals2.thing.find((item) => item.name1 == thing)
     if (rangelandannimals == undefined) {
-      e.reply(`对方牧场里没有这种动物啦!`)
+      e.reply(`对方兽场里没有这种动物啦!`)
       return
     }
     let a = rangelandannimals.stolen
@@ -732,7 +732,7 @@ export class Homerangeland extends plugin {
     GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
   }
 
-  // 查看他人牧场
+  // 查看他人兽场
   async Checkotherpasture(e) {
     if (!this.verify(e)) return false
     const user = {

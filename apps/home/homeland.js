@@ -17,15 +17,15 @@ export class Homeland extends plugin {
           fnc: 'shouhuo'
         },
         {
-          reg: /^(#|\/)查看农田$/,
+          reg: /^(#|\/)查看药田$/,
           fnc: 'lookland'
         },
         {
-          reg: /^(#|\/)查看他人农田.*$/,
+          reg: /^(#|\/)查看他人药田.*$/,
           fnc: 'otherlookland'
         },
         {
-          reg: /^(#|\/)偷菜(.*)$/,
+          reg: /^(#|\/)偷药(.*)$/,
           fnc: 'Stealvegetables'
         }
       ]
@@ -59,7 +59,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在洞府里，开垦土地必须回家')
+      e.reply('您现在不在洞府里，开垦土地必须返回洞府')
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -135,7 +135,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在洞府里，种地必须要回家种哦')
+      e.reply('您现在不在洞府里，种地必须要返回洞府种哦')
       return false
     }
     let thing = e.msg.replace(/^(#|\/)种下/, '')
@@ -154,7 +154,7 @@ export class Homeland extends plugin {
     }
     let id = searchsthing.id.split('-')
     if (id[0] != 11 || id[1] != 1) {
-      e.reply(`这个物品不能种到农田里，请换其他的来种吧!`)
+      e.reply(`这个物品不能种到药田里，请换其他的来种吧!`)
       return false
     }
     let lattice = searchsthing.lattice // 获取种子所需格子
@@ -175,7 +175,7 @@ export class Homeland extends plugin {
       return false
     }
     if (Landgrid > LandgridMax) {
-      e.reply(`你的土地格子异常，请执行#农田重置 来修复异常格子!`)
+      e.reply(`你的土地格子异常，请执行#药田重置 来修复异常格子!`)
       return false
     }
     if (Landgridsurplus < 0) {
@@ -193,7 +193,7 @@ export class Homeland extends plugin {
     })
     let name1 = landgoods.thing.find((item) => item.name == name)
     if (name1 != undefined) {
-      e.reply(`农田里已经有${thingName}了，请换一种种子吧`)
+      e.reply(`药田里已经有${thingName}了，请换一种种子吧`)
       return false
     }
     let nowTime = new Date().getTime()
@@ -253,7 +253,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在洞府里，必须要回家才能收获哦')
+      e.reply('您现在不在洞府里，必须要返回洞府才能收获哦')
       return false
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
@@ -397,7 +397,7 @@ export class Homeland extends plugin {
     }
   }
 
-  // 查看农田
+  // 查看药田
   async lookland(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
@@ -417,7 +417,7 @@ export class Homeland extends plugin {
     return false
   }
 
-  // 偷菜
+  // 偷药
   async Stealvegetables(e) {
     if (!this.verify(e)) return false
     const { state, msg } = GameApi.Action.Go(e.user_id)
@@ -456,7 +456,7 @@ export class Homeland extends plugin {
     })
     let region1 = action.region
     if (region != region1) {
-      e.reply('您现在不在对方洞府所在地内，偷菜请到对方洞府所在地后进行偷菜')
+      e.reply('您现在不在对方洞府所在地内，偷药请到对方洞府所在地后进行偷药')
       return false
     }
     const CDid = '0'
@@ -466,7 +466,7 @@ export class Homeland extends plugin {
       e.reply(CD)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)偷菜/, '')
+    let thing = e.msg.replace(/^(#|\/)偷药/, '')
     let landgoods2 = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
       NAME: user.B,
@@ -474,7 +474,7 @@ export class Homeland extends plugin {
     })
     let landgoods = landgoods2.thing.find((item) => item.name == thing)
     if (landgoods == undefined) {
-      e.reply(`对方农田里没有这种农作物!`)
+      e.reply(`对方药田里没有这种农作物!`)
       return false
     }
     let a = landgoods.stolen
@@ -538,7 +538,7 @@ export class Homeland extends plugin {
     return false
   }
 
-  // 查看他人农田
+  // 查看他人药田
   async otherlookland(e) {
     if (!this.verify(e)) return false
     const user = {

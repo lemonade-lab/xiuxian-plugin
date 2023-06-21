@@ -81,7 +81,7 @@
 
     <div class="card_box">
       <div class="use_data">
-        <div class="user_font user_font_title user_top1">食物</div>
+        <div class="user_font user_font_title user_top1">丹药</div>
         <div class="user_font goods">
           {{each foodList item}}
           <div class="item user_top">
@@ -127,14 +127,14 @@
 
     <div class="card_box">
       <div class="use_data">
-        <div class="user_font user_font_title user_top1">食谱</div>
+        <div class="user_font user_font_title user_top1">丹方</div>
         <div class="user_font goods">
           {{each cookList item}}
           <div class="item user_top">
             <div class="item_title font_item_title" style="height: 27px">{{item.name}}</div>
-            <div class="item_int" style="padding-left: 20px">主菜；{{item.zhushi}}</div>
-            <div class="item_int" style="padding-left: 20px">副菜：{{item.fushi}}</div>
-            <div class="item_int" style="padding-left: 20px">配菜：{{item.tiaoliao}}</div>
+            <div class="item_int" style="padding-left: 20px">主药；{{item.zhushi}}</div>
+            <div class="item_int" style="padding-left: 20px">副药：{{item.fushi}}</div>
+            <div class="item_int" style="padding-left: 20px">配药：{{item.tiaoliao}}</div>
             <div class="item_int" style="padding-left: 20px">灵晶：{{item.doge}}灵晶</div>
             {{if item.proficiency != undefined}}
             <div class="item_int" style="padding-left: 20px">
@@ -151,7 +151,7 @@
 
     <div class="card_box">
       <div class="use_data">
-        <div class="user_font user_font_title user_top1">牧场物品</div>
+        <div class="user_font user_font_title user_top1">兽场物品</div>
         <div class="user_font goods">
           {{each cubList item}}
           <div class="item user_top">

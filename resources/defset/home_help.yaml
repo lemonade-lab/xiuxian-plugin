@@ -26,28 +26,28 @@
       desc: '开垦出土地'
     - icon: help-icon_52
       title: '(#|/)种下+种子名字'
-      desc: '在农田里种下一颗种子'
+      desc: '在药田里种下一颗种子'
     - icon: help-icon_55
       title: '(#|/)收获+作物名字'
       desc: '收获对应成熟后的农作物'
     - icon: help-icon_55
-      title: '(#|/)查看农田'
-      desc: '查看农田里生长的植物'
+      title: '(#|/)查看药田'
+      desc: '查看药田里生长的植物'
     - icon: help-icon_55
-      title: '(#|/)偷菜+作物名字@对应的人'
+      title: '(#|/)偷药+作物名字@对应的人'
       desc: '偷取对应的人种下的农作物'
     - icon: help-icon_55
-      title: '(#|/)查看他人农田@对应的人'
+      title: '(#|/)查看他人药田@对应的人'
       desc: '查看他人种下的农作物'
 
-- group: 牧场
+- group: 兽场
   list:
     - icon: help-icon_52
-      title: '(#|/)建立牧场'
-      desc: '开拓出牧场'
+      title: '(#|/)建立兽场'
+      desc: '开拓出兽场'
     - icon: help-icon_52
       title: '(#|/)搭建草场'
-      desc: '升级牧场能养更多动物哦'
+      desc: '升级兽场能养更多动物哦'
     - icon: help-icon_55
       title: '(#|/)栽种树林'
       desc: '增加环境多样性动物容量加大'
@@ -64,10 +64,10 @@
       title: '(#|/)宰杀+成熟动物名字'
       desc: '宰杀动物能得到一些值钱的物品'
     - icon: help-icon_55
-      title: '(#|/)查看牧场'
+      title: '(#|/)查看兽场'
       desc: '查看养殖的动物'
     - icon: help-icon_55
-      title: '(#|/)查看他人牧场@对应的人'
+      title: '(#|/)查看他人兽场@对应的人'
       desc: '查看他人养殖的动物'
 
 - group: 灵矿
@@ -97,7 +97,7 @@
 - group: 灵瑶阁
   list:
     - icon: help-icon_59
-      title: '(#|/)我的资产'
+      title: '(#|/)资产信息'
       desc: '查看自己的资金剩余'
     - icon: help-icon_59
       title: '(#|/)售卖'
@@ -118,20 +118,20 @@
 - group: 炼丹阁
   list:
     - icon: help-icon_59
-      title: '(#|/)起锅做饭'
+      title: '(#|/)起火炼丹'
       desc: '按照提示完成做饭流程'
     - icon: help-icon_59
-      title: '(#|/)用（锅）炒（菜名）*（数量）'
-      desc: '一键做菜'
+      title: '(#|/)用（锅）炒（药名）*（数量）'
+      desc: '一键做药'
     - icon: help-icon_59
-      title: '(#|/)吃食物名字*对应属性'
-      desc: '吃对应食物，获得加成'
+      title: '(#|/)吃药*对应属性'
+      desc: '吃对应药，获得加成'
     - icon: help-icon_59
-      title: '(#|/)发布+菜谱名字'
-      desc: '在炼丹阁发布菜谱，使试用菜谱变成流通菜谱'
+      title: '(#|/)发布+丹方名字'
+      desc: '在炼丹阁发布丹方，使试用丹方变成流通丹方'
     - icon: help-icon_59
       title: '(#|/)炼丹阁'
-      desc: '查看炼丹阁目前发布的所有菜谱'
+      desc: '查看炼丹阁目前发布的所有丹方'
     - icon: help-icon_59
-      title: '(#|/)炼丹阁购买+菜谱名字'
-      desc: '购买炼丹阁发布的菜谱，有流通菜谱的情况下无法购买第二本哦'
+      title: '(#|/)炼丹阁购买+丹方名字'
+      desc: '购买炼丹阁发布的丹方，有流通丹方的情况下无法购买第二本哦'

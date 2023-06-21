@@ -9,7 +9,7 @@ export class Homecook extends plugin {
       dsc: 'xiuxian@cook',
       rule: [
         {
-          reg: /^(#|\/)起锅做饭$/,
+          reg: /^(#|\/)起火炼丹$/,
           fnc: 'Occupy_the_mine'
         },
         {
@@ -96,7 +96,7 @@ export class Homecook extends plugin {
       startTime: 1000 * 60
     })
     this.finish('choose_cook')
-    let msg = [`您是否要使用食谱，请输入1或2\n【1】不使用食谱\n【2】使用食谱`]
+    let msg = [`您是否要使用丹方，请输入1或2\n【1】不使用丹方\n【2】使用丹方`]
     e.reply(`${msg}`)
     this.setContext('choose')
     return false
@@ -113,7 +113,7 @@ export class Homecook extends plugin {
     }
     if (choice == 1) {
       this.finish('choose')
-      e.reply(`请使用#食谱名字*菜1*菜2*菜3，制作出你独一无二的菜品吧`)
+      e.reply(`请使用#丹方名字*药1*药2*药3，制作出你独一无二的药品吧`)
       this.setContext('choose_food1')
       return false
     } else if (choice == 2) {
@@ -133,12 +133,12 @@ export class Homecook extends plugin {
       }
       if (msg1.length == 0) {
         this.finish('choose')
-        e.reply(`你没有食谱，请执行\n#食谱名字*菜1*菜2*菜3 制作出你独一无二的菜品吧`)
+        e.reply(`你没有丹方，请执行\n#丹方名字*药1*药2*药3 制作出你独一无二的药品吧`)
         this.setContext('choose_food1')
         return false
       } else {
         this.finish('choose')
-        let msg = [`您仓库里只有以下食谱，请选择的所要使用的食谱\n${msg1}`]
+        let msg = [`您仓库里只有以下丹方，请选择的所要使用的丹方\n${msg1}`]
         e.reply(`${msg}`)
         this.setContext('choose_food')
         return false
@@ -155,10 +155,10 @@ export class Homecook extends plugin {
       e.reply(`做饭结束`)
       return false
     }
-    let thing = choice.replace('食谱', '')
+    let thing = choice.replace('丹方', '')
     let name2 = choice.replace(thing, '')
-    if (name2 != '食谱') {
-      e.reply(`你输入的食谱名中必须要以食谱结尾，请重新输入!`)
+    if (name2 != '丹方') {
+      e.reply(`你输入的丹方名中必须要以丹方结尾，请重新输入!`)
       return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
@@ -168,7 +168,7 @@ export class Homecook extends plugin {
     })
     let food = Warehouse.thing.find((item) => item.name == choice)
     if (food == undefined) {
-      e.reply(`好像没有这种食谱，请重新选择!`)
+      e.reply(`好像没有这种丹方，请重新选择!`)
       return false
     }
     let action = GameApi.Action.get(UID)
@@ -180,7 +180,7 @@ export class Homecook extends plugin {
     const shipu = Warehouse.thing.find((item) => item.name === choice)
     if (shipu.proficiency != undefined) {
       if (shipu.proficiency == 0) {
-        e.reply(`试用食谱次数已用完，请前往炼丹阁发布食谱!`)
+        e.reply(`试用丹方次数已用完，请前往炼丹阁发布丹方!`)
         this.finish('choose_food')
         return false
       }
@@ -254,7 +254,7 @@ export class Homecook extends plugin {
       if (shipu.proficiency != undefined) {
         shipu.proficiency -= 1
         e.reply(
-          `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，试用食谱熟练度当前为${
+          `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，试用丹方熟练度当前为${
             100 - shipu.proficiency
           }`
         )
@@ -262,10 +262,10 @@ export class Homecook extends plugin {
         shipu.durable -= 1
         if (shipu.durable == 0) {
           Warehouse.thing = thing1.filter((item) => item.name != shipu.name)
-          msg = '使用后，发现食谱已经被翻得字迹模糊了，已经不能用了'
+          msg = '使用后，发现丹方已经被翻得字迹模糊了，已经不能用了'
         }
         e.reply(
-          `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，食谱有些许磨损，\n${msg}`
+          `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，丹方有些许磨损，\n${msg}`
         )
       }
       GameApi.Listdata.controlAction({
@@ -299,13 +299,13 @@ export class Homecook extends plugin {
     let judge1 = HomeApi.GP.foodjudge({ name: fushi })
     let judge2 = HomeApi.GP.foodjudge({ name: tiaoliao })
     if (judge == 1 || judge1 == 1 || judge2 == 1) {
-      e.reply(`你输入的菜无法制作成食物!`)
+      e.reply(`你输入的药无法制作成丹药!`)
       return false
     }
-    let name1 = name.replace('食谱', '')
+    let name1 = name.replace('丹方', '')
     let name2 = name.replace(name1, '')
-    if (name2 != '食谱') {
-      e.reply(`你输入的食谱名中必须要食谱结尾，请重新输入!`)
+    if (name2 != '丹方') {
+      e.reply(`你输入的丹方名中必须要丹方结尾，请重新输入!`)
       return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
@@ -364,11 +364,11 @@ export class Homecook extends plugin {
       (item) => item.zhushi == zhushi && item.fushi == fushi && item.tiaoliao == tiaoliao
     )
     if (ifexist0) {
-      e.reply(`此配方已有人参悟出来，请购买他的菜单或者另外调配配方`)
+      e.reply(`此配方已有人参悟出来，请购买他的药单或者另外调配配方`)
       return false
     }
     if (ifexist1) {
-      e.reply(`此配方名字已经被人占用，请重新为你的食谱命名`)
+      e.reply(`此配方名字已经被人占用，请重新为你的丹方命名`)
       return false
     }
     let id = '13-1-'
@@ -466,7 +466,7 @@ export class Homecook extends plugin {
         DATA: Warehouse
       })
       e.reply(
-        `恭喜你，成功炒出【${food.name}】，消耗${nameIwant}一点耐久度，获得了${name}的试用食谱，熟练度为0，熟练度为100后可前往炼丹阁申请发布流通食谱`
+        `恭喜你，成功炒出【${food.name}】，消耗${nameIwant}一点耐久度，获得了${name}的试用丹方，熟练度为0，熟练度为100后可前往炼丹阁申请发布流通丹方`
       )
     }, 1000 * time1)
     e.reply(`正在给你制作【${name1}】...\n预计需要${time1}秒`)
@@ -499,7 +499,7 @@ export class Homecook extends plugin {
     })
     let shiwu = Warehouse.thing.find((item) => item.name === code1)
     if (shiwu == undefined) {
-      e.reply(`你仓库里没有这道菜!`)
+      e.reply(`你仓库里没有这道药!`)
       return false
     }
     const map = {
@@ -589,7 +589,7 @@ export class Homecook extends plugin {
       return false
     }
     if (caipu.proficiency != 0) {
-      e.reply(`该食谱的熟练度未到达100，暂时不给予发布资格`)
+      e.reply(`该丹方的熟练度未到达100，暂时不给予发布资格`)
       return false
     }
     const cook = GameApi.Listdata.controlActionInitial({
@@ -639,9 +639,7 @@ export class Homecook extends plugin {
       NAME: 'wanmin',
       DATA: wanmin1
     })
-    e.reply(
-      `恭喜${UID}成功在炼丹阁发布一份食谱，玩家可前往炼丹阁购买，发布者可获得50%出售收益的版权费`
-    )
+    e.reply(`恭喜${UID}成功在炼丹阁发布一份丹方，可前往炼丹阁购买，发布者可获得50%出售收益的版权费`)
     return false
   }
 
@@ -672,7 +670,7 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     wanmin.forEach((item) => {
-      msg.push('食谱名字：' + item.name + '\n食谱提供者：' + item.UID + '\n灵晶：' + item.doge)
+      msg.push('丹方名字：' + item.name + '\n丹方提供者：' + item.UID + '\n灵晶：' + item.doge)
     })
     e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
     return false
@@ -702,7 +700,7 @@ export class Homecook extends plugin {
     let thingName = code[0] // 物品
     let shipu = HomeApi.GP.homeexistWarehouseThingName({ UID, thingName })
     if (shipu != 1) {
-      e.reply(`您已经有该食谱，请把该食谱消耗完再来吧!`)
+      e.reply(`您已经有该丹方，请把该丹方消耗完再来吧!`)
       return false
     }
     let ifexist1 = GameApi.Listdata.controlActionInitial({
@@ -756,7 +754,7 @@ export class Homecook extends plugin {
     } else {
       HomeApi.GP.addDoge({ UID: ifexist.UID, money })
       e.reply(
-        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]，食谱提供者：${ifexist.UID} 获得了${money}版权费`
+        `感谢您的购买，这次税率为【${rand}】,最终花了[${commoditiesDoge}]灵晶从炼丹阁购买了[${thingName}]，丹方提供者：${ifexist.UID} 获得了${money}版权费`
       )
       return false
     }
@@ -794,7 +792,7 @@ export class Homecook extends plugin {
       e.reply(`你的${thing1[0]}耐久不够，请重新选择数量!`)
       return false
     }
-    let choice = code[0] + '食谱'
+    let choice = code[0] + '丹方'
     let shipu = Warehouse.thing.find((item) => item.name == choice)
     if (shipu == undefined) {
       e.reply(`你没有${choice}，请重新选择!`)
@@ -819,16 +817,16 @@ export class Homecook extends plugin {
     let tiaoliao = shipu.tiaoliao
     if (shipu.proficiency != undefined) {
       if (shipu.proficiency < 1) {
-        e.reply(`试用食谱次数已用完，请前往炼丹阁发布食谱!`)
+        e.reply(`试用丹方次数已用完，请前往炼丹阁发布丹方!`)
         return false
       }
       if (shipu.proficiency < quantity) {
-        e.reply(`试用食谱次数不够，无法完成制作，请重新选择数量!`)
+        e.reply(`试用丹方次数不够，无法完成制作，请重新选择数量!`)
         return false
       }
     } else {
       if (shipu.durable < quantity) {
-        e.reply(`食谱使用次数不够，无法完成制作，请重新选择数量!`)
+        e.reply(`丹方使用次数不够，无法完成制作，请重新选择数量!`)
         return false
       }
     }
@@ -941,16 +939,16 @@ export class Homecook extends plugin {
         e.reply(
           `恭喜你，成功炒出【${quantity}】份【${recipes1.name}】，消耗${
             thing1[0]
-          }【${quantity}】点耐久度，试用食谱熟练度当前为${100 - shipu1.proficiency}`
+          }【${quantity}】点耐久度，试用丹方熟练度当前为${100 - shipu1.proficiency}`
         )
       } else {
         shipu1.durable -= quantity
         if (shipu1.durable < 1) {
           Warehouse1.thing = thing2.filter((item) => item.name != shipu1.name)
-          msg = '使用后，发现食谱已经被翻得字迹模糊了，已经不能用了'
+          msg = '使用后，发现丹方已经被翻得字迹模糊了，已经不能用了'
         }
         e.reply(
-          `恭喜你，成功炒出【${quantity}】份【${recipes1.name}】，消耗${thing1[0]}【${quantity}】点耐久度，食谱有些许磨损，\n${msg}`
+          `恭喜你，成功炒出【${quantity}】份【${recipes1.name}】，消耗${thing1[0]}【${quantity}】点耐久度，丹方有些许磨损，\n${msg}`
         )
       }
       GameApi.Listdata.controlAction({

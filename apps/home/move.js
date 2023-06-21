@@ -17,7 +17,7 @@ export class Homemove extends plugin {
           fnc: 'updateWarehouse'
         },
         {
-          reg: /^(#|\/)农田重置$/,
+          reg: /^(#|\/)药田重置$/,
           fnc: 'chongzhinongtian'
         }
       ]

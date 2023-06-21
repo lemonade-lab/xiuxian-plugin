@@ -5,7 +5,7 @@ export class Homemoney extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)我的资产$/,
+          reg: /^(#|\/)资产信息$/,
           fnc: 'Mylingshi'
         },
         {

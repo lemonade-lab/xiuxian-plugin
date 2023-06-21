@@ -147,7 +147,7 @@ class GP {
               thing: []
             }
           })
-          Msg = '你是第一次使用牧场功能，将为你建立存档'
+          Msg = '你是第一次使用兽场功能，将为你建立存档'
           return Msg
         } catch {
           return 1
@@ -423,7 +423,7 @@ class GP {
    * @returns
    */
   generateCD({ UID, CDid }) {
-    const CDname = [' 偷菜 ', ' 占领矿场 ', ' 偷动物 ', ' 做饭 ']
+    const CDname = [' 偷药 ', ' 占领矿场 ', ' 偷动物 ', ' 做饭 ']
     const remainTime = redis.ttl('xiuxian:GP:' + UID + ':' + CDid)
     const time = {
       h: 0,

@@ -250,7 +250,9 @@ export class Homestart extends plugin {
     }
     const address = e.msg.replace(/^(#|\/)搬迁洞府到/, '')
     if (ifexisthome.address == address) {
-      e.reply(`你家就在${address}，建筑队看了看你家，再看了看你要搬的地点，随后投来了异样的眼光`)
+      e.reply(
+        `你的洞府就在${address}，建筑队看了看你的洞府，再看了看你要搬的地点，随后投来了异样的眼光`
+      )
       return false
     }
     const point0 = GameApi.Listdata.controlAction({

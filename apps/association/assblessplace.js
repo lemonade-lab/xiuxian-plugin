@@ -329,11 +329,13 @@ export class AssBlessPlace extends plugin {
       NAME: 'position',
       CHOICE: 'generate_position'
     })
+
     const position = positionList.find((item) => item.name == ass.resident.name)
     const action = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
+
     if (
       action.x < position.x1 ||
       action.x > position.x2 ||
