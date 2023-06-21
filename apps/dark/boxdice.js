@@ -94,8 +94,8 @@ export class BoxDice extends plugin {
     /** 扣除 */
     GameApi.Bag.addBagThing({
       UID,
-      name: NAME.name,
-      ACCOUNT
+      name: NAME,
+      ACCOUNT: -ACCOUNT
     })
     if (!GameApi.Method.isTrueInRange(1, 100, 50)) {
       e.reply('[万花坊]千变\n一无所获')

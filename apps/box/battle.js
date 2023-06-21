@@ -158,7 +158,7 @@ export class BoxBattle extends plugin {
       name: '下品灵石'
     })
     if (!thing || thing.acount < money) {
-      e.reply(`[天机门]韩立\n清煞气需要${money}[下品灵石]`)
+      e.reply(`[天机门]韩立\n清煞气需要[下品灵石]*${money}`)
       return false
     }
     GameApi.Bag.addBagThing({
