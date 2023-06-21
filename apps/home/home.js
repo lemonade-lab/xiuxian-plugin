@@ -7,6 +7,10 @@ export class Homestart extends plugin {
     super({
       rule: [
         {
+          reg: /^(#|\/)建立洞府.*$/,
+          fnc: 'buildhome'
+        },
+        {
           reg: /^(#|\/)我的洞府$/,
           fnc: 'myhome'
         },
@@ -23,10 +27,6 @@ export class Homestart extends plugin {
           fnc: 'unextensionhome'
         },
         {
-          reg: /^(#|\/)建立洞府.*$/,
-          fnc: 'buildhome'
-        },
-        {
           reg: /^(#|\/)搬迁洞府到.*$/,
           fnc: 'movehome'
         }
@@ -41,12 +41,12 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.userhomeShow({
+    const { path, name, data } = HomeApi.Information.showhomeUser({
       UID
     })
     e.reply(await BotApi.obtainingImages({ path, name, data }))
@@ -60,12 +60,17 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.userWarehouseShow(UID)
+
+    if (state == 4001) {
+      e.reply(msg)
+      return false
+    }
+    const { path, name, data } = HomeApi.Information.showWarehouse(UID)
     e.reply(await BotApi.obtainingImages({ path, data, name }))
     return false
   }
@@ -77,20 +82,30 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0 && archive != '您都还没建立过洞府') {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
-    const ifexisthome = GameApi.Listdata.controlAction({
+    if (state == 4001) {
+      e.reply(msg)
+      return false
+    }
+
+    const PositionList = GameApi.Listdata.controlAction({
       NAME: 'position',
       CHOICE: 'position'
     })
-    const ifexisthome1 = ifexisthome.find((item) => item.UID == UID)
-    if (ifexisthome1) {
-      e.reply(`您已经建立过洞府，如需搬迁请执行#洞府搬迁至+地点`)
+
+    const ifexishome = PositionList.find((item) => item.UID == UID)
+    if (ifexishome) {
+      e.reply('已建有洞府~')
       return false
     }
+
+    /**
+     * 开始修建
+     */
     const address = e.msg.replace(/^(#|\/)建立洞府/, '')
     const action = GameApi.Listdata.controlAction({
       NAME: UID,
@@ -160,30 +175,97 @@ export class Homestart extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
+    // 验证主存档
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    // 验证家园存档
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
-    const region = ifexisthome.region
-    const action = GameApi.Listdata.controlAction({
+    const ActionData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
-    const region1 = action.region
-    if (region != region1) {
-      e.reply('您现在不在洞府里，请回到洞府所在地进行操作')
+    if (ifexisthome.region != ActionData.region) {
+      e.reply('请回到洞府~')
       return false
     }
-    const { homemsg } = HomeApi.UserAction.userextensionhome(UID)
-    if (homemsg) {
-      e.reply(homemsg)
+    const home = GameApi.Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'homeUser'
+    })
+    if (home.homelevel > 9) {
+      e.reply('洞府等级已达上限')
+      return false
     }
+    let thingNameh = '木板'
+    let h = 40 * Math.pow(2, home.homelevel)
+    let g = 40
+    let thingNameg = this.map[home.homelevel]
+    const searchsthing = HomeApi.GP.searchWarehouseByName({
+      UID,
+      name: thingNameg
+    })
+    const searchsthingh = HomeApi.GP.searchWarehouseByName({
+      UID,
+      name: thingNameh
+    })
+    if (searchsthing == undefined) {
+      e.reply(`仓库里没有${thingNameg}!`)
+      return false
+    }
+    if (searchsthingh == undefined) {
+      e.reply(`仓库里没有${thingNameh}!`)
+      return false
+    }
+    let x = g - searchsthing.acount
+    let y = h - searchsthingh.acount
+    if (searchsthing.acount < g) {
+      e.reply(`${thingNameg}不够，还需要筹备${x}块${thingNameg}!`)
+      return false
+    }
+    if (searchsthingh.acount < h) {
+      e.reply(`${thingNameh}不够，还需要筹备${y}块${thingNameh}!`)
+      return false
+    }
+    let homeexperience = home.homeexperience
+    let homeexperienceMax = home.homeexperienceMax
+    let doge = home.doge
+    let money = 10000 * Math.trunc(home.homelevel) + 10000
+    if (homeexperience < homeexperienceMax) {
+      let x = homeexperienceMax - homeexperience
+      e.reply(`洞府经验不够!要升级还缺${x}洞府经验`)
+      return false
+    }
+    if (doge < money) {
+      let x = money - doge
+      e.reply(`还缺${x}灵晶`)
+      return false
+    }
+    const time = (Math.trunc(home.homelevel) + 1) * 10
+    const nowTime = new Date().getTime()
+    GameApi.Burial.setAction(UID, {
+      actionID: 5,
+      startTime: nowTime,
+      time1: time
+    })
+    HomeApi.GP.addWarehouseThing({
+      UID,
+      name: thingNameg,
+      ACCOUNT: -g
+    })
+    HomeApi.GP.addWarehouseThing({
+      UID,
+      name: thingNameh,
+      ACCOUNT: -h
+    })
+    HomeApi.GP.addDoge({ UID, money: -money })
+    e.reply(`联盟建筑队正在扩建洞府，预计需要${time}秒`)
     return false
   }
 
@@ -195,9 +277,9 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let action = GameApi.Action.get(UID)
@@ -213,7 +295,7 @@ export class Homestart extends plugin {
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -238,9 +320,9 @@ export class Homestart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
@@ -276,7 +358,7 @@ export class Homestart extends plugin {
       return false
     }
     const thingName = '木板'
-    const searchsthing = HomeApi.GP.userWarehouseSearch({
+    const searchsthing = HomeApi.GP.searchWarehouseByName({
       UID,
       name: thingName
     })
@@ -285,7 +367,7 @@ export class Homestart extends plugin {
       return false
     }
     const home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -338,7 +420,7 @@ export class Homestart extends plugin {
         NAME: 'position',
         DATA: positionhome
       })
-      HomeApi.GP.userWarehouse({
+      HomeApi.GP.addWarehouseThing({
         UID,
         name: thingName,
         ACCOUNT: -a

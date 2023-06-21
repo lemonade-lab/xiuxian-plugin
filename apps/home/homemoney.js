@@ -31,9 +31,9 @@ export class Homemoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
@@ -56,9 +56,9 @@ export class Homemoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)售卖/, '')
@@ -66,7 +66,7 @@ export class Homemoney extends plugin {
     let thingName = code[0] // 物品
     let thingAcount = code[1] // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let searchsthing = HomeApi.GP.userWarehouseSearch({
+    let searchsthing = HomeApi.GP.searchWarehouseByName({
       UID,
       name: thingName
     })
@@ -83,7 +83,7 @@ export class Homemoney extends plugin {
       return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -93,7 +93,7 @@ export class Homemoney extends plugin {
       quantity: -quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -122,19 +122,19 @@ export class Homemoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
-    let msg = ['___[灵瑶阁下属地方分阁]___\n#采购+物品名']
+    let temp = ['___[灵瑶阁下属地方分阁]___\n#采购+物品名']
     let dogshopList = GameApi.Listdata.controlActionInitial({
       CHOICE: 'home_dogshop',
       NAME: 'dogshop',
       INITIAL: []
     })
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -143,9 +143,9 @@ export class Homemoney extends plugin {
       // 种子
       if (id[0] == 11) {
         if (id[1] == 2) {
-          msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
+          temp.push('物品：' + item.name + '\n灵晶：' + item.doge)
         } else if (id[1] == 1) {
-          msg.push(
+          temp.push(
             '物品：' +
               item.name +
               '\n所占格子：+' +
@@ -157,16 +157,16 @@ export class Homemoney extends plugin {
           )
         }
       } else if (id[0] == 50 && home.homelevel > item.animallevel) {
-        msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
+        temp.push('物品：' + item.name + '\n灵晶：' + item.doge)
       } else if (id[0] == 50 && id[1] == 4) {
-        msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
+        temp.push('物品：' + item.name + '\n灵晶：' + item.doge)
       } else if (id[0] == 14) {
-        msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
+        temp.push('物品：' + item.name + '\n灵晶：' + item.doge)
       } else if (id[0] == 13) {
-        msg.push('物品：' + item.name + '\n灵晶：' + item.doge)
+        temp.push('物品：' + item.name + '\n灵晶：' + item.doge)
       }
     })
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: temp } }))
     return false
   }
 
@@ -177,9 +177,9 @@ export class Homemoney extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)采购/, '')
@@ -202,7 +202,7 @@ export class Homemoney extends plugin {
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -223,7 +223,7 @@ export class Homemoney extends plugin {
       return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -233,7 +233,7 @@ export class Homemoney extends plugin {
       quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })

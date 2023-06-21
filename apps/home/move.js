@@ -29,13 +29,10 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
-      return
-    } else if (archive != 0 && archive != '您都还没建立过洞府') {
-      e.reply(`${archive}`)
-      return
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     const region2 = ifexisthome.region
@@ -67,7 +64,7 @@ export class Homemove extends plugin {
       return
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -77,7 +74,7 @@ export class Homemove extends plugin {
       quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -102,17 +99,14 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
-      return
-    } else if (archive != 0 && archive != '您都还没建立过洞府') {
-      e.reply(`${archive}`)
-      return
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     const home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -150,7 +144,7 @@ export class Homemove extends plugin {
       return
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -160,7 +154,7 @@ export class Homemove extends plugin {
       quantity: -quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -185,16 +179,13 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
-      return
-    } else if (archive != 0 && archive != '您都还没建立过洞府') {
-      e.reply(`${archive}`)
-      return
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -208,7 +199,7 @@ export class Homemove extends plugin {
           (item) => !['', null, undefined, NaN, false, true].includes(item)
         )
         GameApi.Listdata.controlAction({
-          CHOICE: 'user_home_Warehouse',
+          CHOICE: 'homeWarehouse',
           NAME: UID,
           DATA: Warehouse
         })
@@ -232,7 +223,7 @@ export class Homemove extends plugin {
           }
           Warehouse.thing[i] = searchsthing
           GameApi.Listdata.controlAction({
-            CHOICE: 'user_home_Warehouse',
+            CHOICE: 'homeWarehouse',
             NAME: UID,
             DATA: Warehouse
           })
@@ -244,7 +235,7 @@ export class Homemove extends plugin {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
             GameApi.Listdata.controlAction({
-              CHOICE: 'user_home_Warehouse',
+              CHOICE: 'homeWarehouse',
               NAME: UID,
               DATA: Warehouse
             })
@@ -253,7 +244,7 @@ export class Homemove extends plugin {
       }
     }
     let Warehouse1 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -266,12 +257,12 @@ export class Homemove extends plugin {
       return total
     }, [])
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
     let landgoods = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
     })
@@ -282,7 +273,7 @@ export class Homemove extends plugin {
       if (searchsthing != 1) {
         landgoods.thing[i].id = searchsthing.id
         GameApi.Listdata.controlAction({
-          CHOICE: 'user_home_landgoods',
+          CHOICE: 'fixed_goods',
           NAME: UID,
           DATA: landgoods
         })
@@ -293,7 +284,7 @@ export class Homemove extends plugin {
         if (searchsthing1 != 1) {
           landgoods.thing[i].name = searchsthing1.name
           GameApi.Listdata.controlAction({
-            CHOICE: 'user_home_landgoods',
+            CHOICE: 'fixed_goods',
             NAME: UID,
             DATA: landgoods
           })
@@ -307,29 +298,26 @@ export class Homemove extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     // 有无存档
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive == 1) {
-      e.reply(`没有存档，请先执行(#|/)踏入仙途，建立存档哦`)
-      return
-    } else if (archive != 0 && archive != '您都还没建立过洞府') {
-      e.reply(`${archive}`)
-      return
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
     }
     const landgoods = {
       thing: []
     }
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: UID,
       DATA: landgoods
     })
     const home = GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID
     })
     home.Landgrid = home.LandgridMax
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       DATA: home
     })

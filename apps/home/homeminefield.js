@@ -51,9 +51,9 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
@@ -186,9 +186,9 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
@@ -259,13 +259,13 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -322,7 +322,7 @@ export class Homeminefield extends plugin {
     const time1 = the >= 0 ? the : 1
     useraction[UID] = setTimeout(() => {
       let Warehouse = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
       })
@@ -358,7 +358,7 @@ export class Homeminefield extends plugin {
         quantity
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -377,9 +377,9 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)提炼/, '')
@@ -436,7 +436,7 @@ export class Homeminefield extends plugin {
         quantity: -quantity
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -456,9 +456,9 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const minefield = GameApi.Listdata.controlActionInitial({
@@ -490,9 +490,9 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)锻造/, '')
@@ -503,7 +503,7 @@ export class Homeminefield extends plugin {
     })
     let searchsthing = all.find((item) => item.name == thing)
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -580,7 +580,7 @@ export class Homeminefield extends plugin {
       })
       // 写入仓库
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -599,9 +599,9 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)分解/, '')
@@ -644,7 +644,7 @@ export class Homeminefield extends plugin {
     if (c == 10) {
       e.reply(`${thing}放进分解池子，啥也没出`)
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -658,7 +658,7 @@ export class Homeminefield extends plugin {
       quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -674,14 +674,14 @@ export class Homeminefield extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing = e.msg.replace(/^(#|\/)修理/, '')
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -716,7 +716,7 @@ export class Homeminefield extends plugin {
     let guo1 = HomeApi.GP.homeexistAllThingByName({ name: thing })
     guo.durable = guo1.durable
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })

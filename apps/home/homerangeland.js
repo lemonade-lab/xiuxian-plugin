@@ -56,7 +56,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -78,12 +78,12 @@ export class Homerangeland extends plugin {
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
     let rangeland = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       INITIAL: []
     })
@@ -113,7 +113,7 @@ export class Homerangeland extends plugin {
     })
     rangeland.rangelandlevel += 1
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       DATA: rangeland
     })
@@ -128,7 +128,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -146,12 +146,12 @@ export class Homerangeland extends plugin {
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
     let rangeland = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       INITIAL: []
     })
@@ -174,11 +174,11 @@ export class Homerangeland extends plugin {
       UID,
       name: '下品灵石'
     })
-    const material1 = HomeApi.GP.userWarehouseSearch({
+    const material1 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '木板'
     })
-    const material2 = HomeApi.GP.userWarehouseSearch({
+    const material2 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '石头'
     })
@@ -206,19 +206,19 @@ export class Homerangeland extends plugin {
       name: '下品灵石',
       ACCOUNT: lingshi2
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '木板',
       ACCOUNT: -20
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '石头',
       ACCOUNT: -10
     })
     rangeland.rangelandlevel += 1
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       DATA: rangeland
     })
@@ -233,7 +233,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -251,12 +251,12 @@ export class Homerangeland extends plugin {
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
     let rangeland = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       INITIAL: []
     })
@@ -279,15 +279,15 @@ export class Homerangeland extends plugin {
       UID,
       name: '下品灵石'
     })
-    const material1 = HomeApi.GP.userWarehouseSearch({
+    const material1 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '木板'
     })
-    const material2 = HomeApi.GP.userWarehouseSearch({
+    const material2 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '石头'
     })
-    const material3 = HomeApi.GP.userWarehouseSearch({
+    const material3 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '树苗'
     })
@@ -321,17 +321,17 @@ export class Homerangeland extends plugin {
       name: '下品灵石',
       ACCOUNT: lingshi3
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '木板',
       ACCOUNT: -15
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '石头',
       ACCOUNT: -15
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '树苗',
       ACCOUNT: -25
@@ -355,7 +355,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
     }
@@ -376,7 +376,7 @@ export class Homerangeland extends plugin {
       INITIAL: []
     })
     let rangeland = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       INITIAL: []
     })
@@ -398,15 +398,15 @@ export class Homerangeland extends plugin {
       UID,
       name: '下品灵石'
     })
-    const material1 = HomeApi.GP.userWarehouseSearch({
+    const material1 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '木板'
     })
-    const material2 = HomeApi.GP.userWarehouseSearch({
+    const material2 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '石头'
     })
-    const material3 = HomeApi.GP.userWarehouseSearch({
+    const material3 = HomeApi.GP.searchWarehouseByName({
       UID,
       name: '水草'
     })
@@ -440,24 +440,24 @@ export class Homerangeland extends plugin {
       name: '下品灵石',
       ACCOUNT: lingshi3
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '木板',
       ACCOUNT: -25
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '石头',
       ACCOUNT: -20
     })
-    HomeApi.GP.userWarehouse({
+    HomeApi.GP.addWarehouseThing({
       UID,
       name: '水草',
       ACCOUNT: -10
     })
     rangeland.rangelandlevel += 1
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       DATA: rangeland
     })
@@ -474,7 +474,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
     }
@@ -498,7 +498,7 @@ export class Homerangeland extends plugin {
     let thing = e.msg.replace(/^(#|\/)养殖/, '')
     let code = thing.split('*')
     let thingName = code[0] // 动物名字
-    let searchsthing = HomeApi.GP.userWarehouseSearch({
+    let searchsthing = HomeApi.GP.searchWarehouseByName({
       UID,
       name: thingName
     }) // 查找动物
@@ -516,7 +516,7 @@ export class Homerangeland extends plugin {
       return
     }
     let rangeland = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangeland',
+      CHOICE: 'homeRangeland',
       NAME: UID,
       INITIAL: []
     }) // 获取rangeland文件
@@ -526,7 +526,7 @@ export class Homerangeland extends plugin {
       return
     }
     let rangelandannimals = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangelandannimals',
+      CHOICE: 'homeRangelandannimals',
       NAME: UID,
       INITIAL: []
     }) // 获取rangeland文件
@@ -547,12 +547,12 @@ export class Homerangeland extends plugin {
         quantity: 1
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_rangelandannimals',
+        CHOICE: 'homeRangelandannimals',
         NAME: UID,
         DATA: rangelandannimals
       })
       let Warehouse = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
       })
@@ -562,7 +562,7 @@ export class Homerangeland extends plugin {
         quantity: -1
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -580,13 +580,13 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
     }
     let thing = e.msg.replace(/^(#|\/)宰杀/, '')
     let rangelandannimals1 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangelandannimals',
+      CHOICE: 'homeRangelandannimals',
       NAME: UID,
       INITIAL: []
     })
@@ -610,7 +610,7 @@ export class Homerangeland extends plugin {
     } else {
       rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_rangelandannimals',
+        CHOICE: 'homeRangelandannimals',
         NAME: UID,
         DATA: rangelandannimals1
       })
@@ -630,12 +630,12 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(UID)
+    const archive = HomeApi.GP.Archive(UID)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
     }
-    const { path, name, data } = HomeApi.Information.userLookrangelandShow(UID)
+    const { path, name, data } = HomeApi.Information.showLookrangeland(UID)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 
@@ -666,7 +666,7 @@ export class Homerangeland extends plugin {
       e.reply('对方已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(user.A)
+    const archive = HomeApi.GP.Archive(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -690,7 +690,7 @@ export class Homerangeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)偷动物/, '')
     let rangelandannimals2 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangelandannimals',
+      CHOICE: 'homeRangelandannimals',
       NAME: user.B,
       INITIAL: []
     })
@@ -714,13 +714,13 @@ export class Homerangeland extends plugin {
       return
     }
     let rangelandannimals1 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangelandannimals',
+      CHOICE: 'homeRangelandannimals',
       NAME: user.B,
       INITIAL: []
     })
     rangelandannimals1.thing = rangelandannimals1.thing.filter((item) => item.name1 != thing)
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_rangelandannimals',
+      CHOICE: 'homeRangelandannimals',
       NAME: user.B,
       DATA: rangelandannimals1
     })
@@ -754,7 +754,7 @@ export class Homerangeland extends plugin {
       e.reply('已仙鹤')
       return
     }
-    const archive = HomeApi.GP.Archiverangeland(user.A)
+    const archive = HomeApi.GP.Archive(user.A)
     if (archive != 0) {
       e.reply(`${archive}`)
       return
@@ -769,7 +769,7 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在对方洞府所在地内，偷看请到对方洞府所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.userLookrangelandShow(user.B)
+    const { path, name, data } = HomeApi.Information.showLookrangeland(user.B)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 }

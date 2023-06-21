@@ -39,18 +39,17 @@ export const __PATH = {
 
   /* 洞府路径 */
 
-  user_home_user: algorithm.getProcessCwd(`${GPPath}/home/user`),
-  user_home_landgoods: algorithm.getProcessCwd(`${GPPath}/home/landgoods`),
-  userHomeLife: algorithm.getProcessCwd(`${GPPath}/home/life`),
+  homeUser: algorithm.getProcessCwd(`${GPPath}/home/user`), // 家园信息
+  homeWarehouse: algorithm.getProcessCwd(`${GPPath}/home/Warehouse`), // 家园仓库
+  homeLife: algorithm.getProcessCwd(`${GPPath}/home/life`), // 家园存档
+  homeRangelandannimals: algorithm.getProcessCwd(`${GPPath}/home/rangelandannimals`), // 牧场
+  homeRangeland: algorithm.getProcessCwd(`${GPPath}/home/rangeland`), // 牧场
+
   user_home_minefield: algorithm.getProcessCwd(`${GPPath}/home/minefield`),
-  user_home_position: algorithm.getProcessCwd(`${GPPath}/home/position`),
-  user_home_Warehouse: algorithm.getProcessCwd(`${GPPath}/home/Warehouse`),
   user_home_cook: algorithm.getProcessCwd(`${GPPath}/home/cook`),
   user_home_food: algorithm.getProcessCwd(`${GPPath}/home/food`),
   user_home_wanmin: algorithm.getProcessCwd(`${GPPath}/home/wanmin`),
   user_home_state: algorithm.getProcessCwd(`${GPPath}/home/state`),
-  user_home_rangelandannimals: algorithm.getProcessCwd(`${GPPath}/home/rangelandannimals`),
-  user_home_rangeland: algorithm.getProcessCwd(`${GPPath}/home/rangeland`),
 
   /* 门派路径 */
 

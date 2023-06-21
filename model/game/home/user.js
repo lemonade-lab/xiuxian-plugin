@@ -3,84 +3,53 @@ import User from './user.js'
 // 秋雨
 class GP {
   /**
-   *
+   * 仓库
    * @param {*} param0
    * @returns
    */
-  userWarehouse({ UID, name, ACCOUNT }) {
-    const thing = Listdata.searchAllThing('name', name)
-    if (thing) {
-      let Warehouse = Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
-        NAME: UID
-      })
-      Warehouse = this.userWarehouseAction({
-        Warehouse,
-        THING: thing,
-        ACCOUNT
-      })
-      Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
-        NAME: UID,
-        DATA: Warehouse
-      })
-      return true
+  addWarehouseThing({ UID, name, ACCOUNT }) {
+    // 搜索物品
+    const FindThing = Listdata.searchAllThing('name', name)
+    // 不存在
+    if (!FindThing) return false
+    // 读取数据
+    let Warehouse = Listdata.controlAction({
+      CHOICE: 'homeWarehouse',
+      NAME: UID
+    })
+    const WarehouseThing = Warehouse.thing.find((item) => item.id == FindThing.id)
+    if (!WarehouseThing || WarehouseThing.acount <= 0) {
+      // 仓库里没有,或者为 负了
+      FindThing.acount = ACCOUNT
+      Warehouse.thing.push(FindThing)
+    } else {
+      // 删除原来的
+      Warehouse.thing = Warehouse.thing.filter((item) => item.id != FindThing.id)
+      // 更新新的
+      WarehouseThing.acount += ACCOUNT
+      // 推送新的
+      Warehouse.thing.push(WarehouseThing)
     }
-    return false
+    Listdata.controlAction({
+      CHOICE: 'homeWarehouse',
+      NAME: UID,
+      DATA: Warehouse
+    })
+    return true
   }
 
   /**
-   * 给仓库添加物品
-   * @param {用户的背包} Warehouse
-   * @param {物品资料} THING
-   * @param {数量} ACCOUNT
+   * 搜索家园仓库
+   * @param { UID, name } param0
    * @returns
    */
-  userWarehouseAction(parameter) {
-    const { Warehouse, THING, ACCOUNT } = parameter
-    const thing = Warehouse.thing.find((item) => item.id == THING.id)
-    if (thing) {
-      let acount = thing.acount + ACCOUNT
-      if (acount < 1) {
-        Warehouse.thing = Warehouse.thing.filter((item) => item.id != THING.id)
-      } else {
-        Warehouse.thing.find((item) => item.id == THING.id).acount = acount
-      }
-      return Warehouse
-    } else {
-      THING.acount = ACCOUNT
-      Warehouse.thing.push(THING)
-      return Warehouse
-    }
-  }
-
-  /**
-   * 搜索UID的背包有没有物品名为NAME
-   * @param UID  UID
-   * @param {物品名} name
-   * @returns 返回该物品
-   */
-
-  userWarehouseSearch({ UID, name }) {
+  searchWarehouseByName({ UID, name }) {
     const Warehouse = Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID
     })
     const ifexist = Warehouse.thing.find((item) => item.name == name)
     return ifexist
-  }
-
-  /**
-   * @param UID  UID
-   * @param {物品名} name
-   * @returns 若仓库存在即返回物品信息,若不存在则undifind
-   */
-  getUserWarehouseName = (NAME, thingName) => {
-    const Warehouse = Listdata.controlAction({
-      NAME,
-      CHOICE: 'user_home_Warehouse'
-    })
-    return Warehouse.thing.find((item) => item.name == thingName)
   }
 
   /**
@@ -89,86 +58,41 @@ class GP {
    * @returns
    */
   Archive(UID) {
-    const home = this.existhomeplugins(UID)
-    let Msg = ''
-    if (home == 1) {
-      this.homejiazai(UID)
-      Msg =
-        '你是第一次使用洞府功能，将为你建立存档，第一次建立洞府需要前往极西联盟，然后执行(#|/)建立洞府+地点名字，建立洞府'
-      return Msg
-    } else {
-      const ifexisthome = this.existhome(UID)
-      if (!ifexisthome) {
-        Msg = '您都还没建立过洞府'
-        return Msg
+    // 初始化成功
+    const LifeData = Listdata.read('life', 'playerLife')
+    /** 判断时间是否相同 */
+    const LifeHome = Listdata.read('life', 'homeLife')
+    // 不存在
+    if (!LifeHome) {
+      // 初始化
+      this.createHomePlayer(UID)
+      return {
+        state: 4001,
+        msg: '不存在洞府'
       }
     }
-    return 0
-  }
-
-  /**
-   *
-   * @param {*} UID
-   * @returns
-   */
-  Archiverangeland(UID) {
-    let life = Listdata.readInitial('life', 'userHomeLife', [])
-    let fond = life.find((item) => item.UID == UID)
-    let Msg = ''
-    if (!fond) {
-      this.homejiazai(UID)
-      Msg =
-        '你是第一次使用洞府功能，将为你建立存档，第一次建立洞府需要前往极西联盟，然后执行(#|/)建立洞府+地点名字，建立洞府'
-      return Msg
-    } else {
-      if (fond.rangeland == undefined) {
-        let rangeland = {
-          rangeland: 1
-        }
-        fond = Object.assign(fond, rangeland)
-        Listdata.controlAction({
-          NAME: 'life',
-          CHOICE: 'userHomeLife',
-          DATA: life
-        })
-        try {
-          Listdata.controlAction({
-            NAME: UID,
-            CHOICE: 'user_home_rangeland',
-            DATA: {
-              rangelandlevel: 0,
-              animalacount: 0
-            }
-          })
-          Listdata.controlAction({
-            NAME: UID,
-            CHOICE: 'user_home_rangelandannimals',
-            DATA: {
-              thing: []
-            }
-          })
-          Msg = '你是第一次使用兽场功能，将为你建立存档'
-          return Msg
-        } catch {
-          return 1
-        }
+    // 死掉了
+    if (LifeData[UID].createTime != LifeHome[UID].createTime) {
+      // 初始化
+      this.createHomePlayer(UID)
+      return {
+        state: 4001,
+        msg: '不存在洞府'
       }
     }
-    return 0
-  }
-
-  /**
-   *
-   * @param {*} UID
-   * @returns
-   */
-  existhomeplugins(UID) {
-    const life = Listdata.readInitial('life', 'userHomeLife', [])
-    const find = life.find((item) => item.UID == UID)
-    if (find == undefined) {
-      return 1
-    } else {
-      return find
+    // 查看家园位置
+    const ifexisthome = this.existhome(UID)
+    // 不存在家园位置
+    if (!ifexisthome) {
+      return {
+        state: 4001,
+        msg: '不存在洞府'
+      }
+    }
+    // 存在家园位置
+    return {
+      state: 2000,
+      msg: '存在洞府'
     }
   }
 
@@ -177,8 +101,9 @@ class GP {
    * @param {*} UID
    * @returns
    */
-  homejiazai(UID) {
+  createHomePlayer(UID) {
     try {
+      // 写入家园数据
       Listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_home_home',
@@ -192,9 +117,10 @@ class GP {
           doge: 100
         }
       })
+      // 加入家园仓库数据
       Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         DATA: {
           grade: 1,
           dogeMax: 500000,
@@ -202,27 +128,45 @@ class GP {
           thing: []
         }
       })
+      // 写入家园
       Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_home_landgoods',
+        CHOICE: 'fixed_goods',
         DATA: {
           thing: []
         }
       })
-      const life = Listdata.controlActionInitial({
-        CHOICE: 'userHomeLife',
+      // 寿命表
+      const LifeData = Listdata.controlActionInitial({
+        CHOICE: 'homeLife',
         NAME: 'life',
-        INITIAL: []
+        INITIAL: {}
       })
-      const time = new Date().getTime()
-      life.push({
-        UID,
-        time
-      })
+      LifeData[UID] = {
+        state: 0,
+        createTime: new Date().getTime()
+      }
       Listdata.controlAction({
-        CHOICE: 'userHomeLife',
+        CHOICE: 'homeLife',
         NAME: 'life',
-        DATA: life
+        DATA: LifeData
+      })
+      //
+      Listdata.controlAction({
+        NAME: UID,
+        CHOICE: 'homeRangeland',
+        DATA: {
+          rangelandlevel: 0,
+          animalacount: 0
+        }
+      })
+      //
+      Listdata.controlAction({
+        NAME: UID,
+        CHOICE: 'homeRangelandannimals',
+        DATA: {
+          thing: []
+        }
       })
       return true
     } catch {
@@ -231,14 +175,14 @@ class GP {
   }
 
   /**
-   *
+   * 寻找家园位置
    * @param {*} UID
    * @returns
    */
   existhome(UID) {
     const positionhome = Listdata.controlActionInitial({
       NAME: 'position',
-      CHOICE: 'user_home_position',
+      CHOICE: 'fixed_position',
       INITIAL: []
     })
     const find = positionhome.find((item) => item.UID == UID)
@@ -289,8 +233,7 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  addLandgoods(parameter) {
-    const { landgoods, nowTime, acount } = parameter
+  addLandgoods({ landgoods, nowTime, acount }) {
     let name = landgoods.name
     let name1 = name.replace('种子', '')
     let crop1 = this.homesearchThingName({ name })
@@ -470,7 +413,7 @@ class GP {
    */
   collectMinerals({ UID, time }) {
     let Warehouse = Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID
     })
     let thingTime = {
@@ -494,7 +437,7 @@ class GP {
       })
     })
     Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -713,16 +656,16 @@ class GP {
   addLife(parameter) {
     const { UID, life } = parameter
     let life1 = Listdata.controlAction({
-      CHOICE: 'userHomeLife',
+      CHOICE: 'homeLife',
       NAME: 'life'
     })
-    let userHomeLife = life1.find((obj) => obj.UID == UID)
-    userHomeLife.Age = userHomeLife.Age - life
-    if (userHomeLife.Age < 0) {
-      userHomeLife.Age = 0
+    let homeLife = life1.find((obj) => obj.UID == UID)
+    homeLife.Age = homeLife.Age - life
+    if (homeLife.Age < 0) {
+      homeLife.Age = 0
     }
     Listdata.controlAction({
-      CHOICE: 'userHomeLife',
+      CHOICE: 'homeLife',
       NAME: 'life',
       DATA: life1
     })
@@ -736,7 +679,7 @@ class GP {
   homeexistWarehouseThingName(parameter) {
     const { UID, name } = parameter
     const Warehouse = Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -755,7 +698,7 @@ class GP {
   homeexistWarehouseThingById(parameter) {
     const { UID, id } = parameter
     const Warehouse = Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -814,7 +757,7 @@ class GP {
       let z = this.homesearchThingById({ id: rangelandannimals2.x[i] })
       let Warehouse = Listdata.controlActionInitial({
         NAME: UID,
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         INITIAL: []
       })
       Warehouse = User.addDataThing({
@@ -824,7 +767,7 @@ class GP {
       })
       Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         DATA: Warehouse
       })
       MSG = MSG + ` 【${z.name}】`

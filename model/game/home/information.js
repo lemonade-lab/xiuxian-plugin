@@ -6,26 +6,10 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  userDataShow(UID) {
-    return {
-      path: 'user/information',
-      name: 'information',
-      data: {
-        user_id: UID,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
-      }
-    }
-  }
-
-  /**
-   * 显示数据
-   * @param {*} UID
-   * @returns
-   */
-  userWarehouseShow(UID) {
+  showWarehouse(UID) {
     let life = Listdata.controlAction({
       NAME: 'life',
-      CHOICE: 'userHomeLife'
+      CHOICE: 'homeLife'
     })
     life = life.find((item) => item.UID == UID)
     const GP = Listdata.controlAction({
@@ -37,7 +21,7 @@ class Information {
       NAME: UID
     })
     const Warehouse = Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -125,7 +109,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  userhomeShow(UID) {
+  showhomeUser(UID) {
     const GP = Listdata.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
@@ -141,11 +125,11 @@ class Information {
     })
     let life = Listdata.controlAction({
       NAME: 'life',
-      CHOICE: 'userHomeLife'
+      CHOICE: 'homeLife'
     })
     life = life.find((item) => item.UID == UID)
     const ifexisthome1 = Listdata.controlActionInitial({
-      CHOICE: 'user_home_position',
+      CHOICE: 'fixed_position',
       NAME: 'position',
       INITIAL: []
     })
@@ -177,14 +161,14 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  userLooklandShow(UID) {
+  showLookland(UID) {
     let life = Listdata.controlAction({
       NAME: 'life',
-      CHOICE: 'userHomeLife'
+      CHOICE: 'homeLife'
     })
     life = life.find((item) => item.UID == UID)
     const landgoods = Listdata.controlActionInitial({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
     })
@@ -218,9 +202,9 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  userLookrangelandShow(UID) {
+  showLookrangeland(UID) {
     const rangelandannimals = Listdata.controlActionInitial({
-      CHOICE: 'user_home_rangelandannimals',
+      CHOICE: 'homeRangelandannimals',
       NAME: UID,
       INITIAL: []
     })

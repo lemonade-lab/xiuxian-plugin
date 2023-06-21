@@ -41,15 +41,15 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
-    const { state, msg } = GameApi.Action.miniGo(UID)
-    if (state == 4001) {
-      e.reply(msg)
+    const { state: stateGo, msg: msgGo } = GameApi.Action.miniGo(UID)
+    if (stateGo == 4001) {
+      e.reply(msgGo)
       return false
     }
     let region = ifexisthome.region
@@ -63,7 +63,7 @@ export class Homeland extends plugin {
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -123,9 +123,9 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let region = ifexisthome.region
@@ -144,7 +144,7 @@ export class Homeland extends plugin {
     let thingAcount = code[1] // 种子数量
     let name = thingName.replace('种子', '')
     let quantity = GameApi.Method.leastOne(thingAcount)
-    let searchsthing = HomeApi.GP.userWarehouseSearch({
+    let searchsthing = HomeApi.GP.searchWarehouseByName({
       UID,
       name: thingName
     }) // 查找种子
@@ -161,7 +161,7 @@ export class Homeland extends plugin {
     let doge = searchsthing.doge
     let timemin = doge * 4
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     }) // 获取home文件
@@ -187,7 +187,7 @@ export class Homeland extends plugin {
       return false
     }
     let landgoods = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
     })
@@ -209,12 +209,12 @@ export class Homeland extends plugin {
       quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: UID,
       DATA: landgoods
     })
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -224,7 +224,7 @@ export class Homeland extends plugin {
       quantity: -quantity
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -241,9 +241,9 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let region = ifexisthome.region
@@ -258,7 +258,7 @@ export class Homeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
     let landgoods1 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
     })
@@ -291,7 +291,7 @@ export class Homeland extends plugin {
     let q = 10 - stolen
     let z = stolen * 0.1
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -307,7 +307,7 @@ export class Homeland extends plugin {
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
       let Warehouse = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
       })
@@ -317,12 +317,12 @@ export class Homeland extends plugin {
         quantity: other
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
       let landgoods = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_landgoods',
+        CHOICE: 'fixed_goods',
         NAME: UID,
         INITIAL: []
       })
@@ -332,14 +332,14 @@ export class Homeland extends plugin {
         quantity: -acount1
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_landgoods',
+        CHOICE: 'fixed_goods',
         NAME: UID,
         DATA: landgoods
       })
       home.Landgrid += a
       home.homeexperience += x
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_user',
+        CHOICE: 'homeUser',
         NAME: UID,
         DATA: home
       })
@@ -354,7 +354,7 @@ export class Homeland extends plugin {
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
       let Warehouse = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
       })
@@ -365,12 +365,12 @@ export class Homeland extends plugin {
         quantity: other
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
       let landgoods = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_landgoods',
+        CHOICE: 'fixed_goods',
         NAME: UID
       })
       let landgoodsThing = landgoods.thing
@@ -378,13 +378,13 @@ export class Homeland extends plugin {
       nongzuowu.quarter -= 1
       nongzuowu.time = nowTime
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_landgoods',
+        CHOICE: 'fixed_goods',
         NAME: UID,
         DATA: landgoods
       })
       home.homeexperience += x
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_user',
+        CHOICE: 'homeUser',
         NAME: UID,
         DATA: home
       })
@@ -405,12 +405,16 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.userLooklandShow({
+    if (state == 4001) {
+      e.reply(msg)
+      return false
+    }
+    const { path, name, data } = HomeApi.Information.showLookland({
       UID
     })
     e.reply(await BotApi.obtainingImages({ path, name, data }))
@@ -420,9 +424,9 @@ export class Homeland extends plugin {
   // 偷药
   async Stealvegetables(e) {
     if (!this.verify(e)) return false
-    const { state, msg } = GameApi.Action.Go(e.user_id)
-    if (state == 4001) {
-      e.reply(msg)
+    const { state: stateGp, msg: msgGo } = GameApi.Action.Go(e.user_id)
+    if (stateGp == 4001) {
+      e.reply(msgGo)
       return false
     }
     const user = {
@@ -444,9 +448,9 @@ export class Homeland extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(user.A)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(user.A)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let region = ifexisthome1.region
@@ -468,7 +472,7 @@ export class Homeland extends plugin {
     }
     let thing = e.msg.replace(/^(#|\/)偷药/, '')
     let landgoods2 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: user.B,
       INITIAL: []
     })
@@ -495,7 +499,7 @@ export class Homeland extends plugin {
     let crop = HomeApi.GP.homesearchThingName({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: user.A,
       INITIAL: []
     })
@@ -510,7 +514,7 @@ export class Homeland extends plugin {
       DATA: Warehouse
     })
     let landgoods1 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: user.B,
       INITIAL: []
     })
@@ -518,7 +522,7 @@ export class Homeland extends plugin {
     const target = landgoods1.thing.find((obj) => obj.name === nameIwant)
     target.stolen = target.stolen - 1
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_landgoods',
+      CHOICE: 'fixed_goods',
       NAME: user.B,
       DATA: landgoods1
     })
@@ -529,7 +533,7 @@ export class Homeland extends plugin {
     })
     home.homeexperience += z
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: user.A,
       DATA: home
     })
@@ -576,7 +580,7 @@ export class Homeland extends plugin {
       e.reply('您现在不在对方洞府所在地内，偷看请到对方洞府所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.userLooklandShow({
+    const { path, name, data } = HomeApi.Information.showLookland({
       UID: user.B
     })
     e.reply(await BotApi.obtainingImages({ path, name, data }))

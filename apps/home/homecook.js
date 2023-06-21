@@ -44,14 +44,18 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
+    }
+    if (state == 4001) {
+      e.reply(msg)
       return false
     }
     let msg1 = []
     let goods = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -67,8 +71,8 @@ export class Homecook extends plugin {
       e.reply(`你没有锅具`)
       return false
     }
-    let msg = [`您仓库里只有以下锅具，请选择的所要用的锅具\n${msg1}`]
-    e.reply(msg)
+    let tmp = [`您仓库里只有以下锅具，请选择的所要用的锅具\n${msg1}`]
+    e.reply(tmp)
     this.setContext('choose_cook')
   }
 
@@ -82,7 +86,7 @@ export class Homecook extends plugin {
       return false
     }
     let cook1 = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -119,7 +123,7 @@ export class Homecook extends plugin {
     } else if (choice == 2) {
       let msg1 = []
       let goods = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
       })
@@ -162,7 +166,7 @@ export class Homecook extends plugin {
       return false
     }
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -269,7 +273,7 @@ export class Homecook extends plugin {
         )
       }
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -482,10 +486,14 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
-      return
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
+    }
+    if (state == 4001) {
+      e.reply(msg)
+      return false
     }
     let thing = e.msg.replace(/^(#|\/)吃/, '')
     let code = thing.split('*')
@@ -554,7 +562,7 @@ export class Homecook extends plugin {
       quantity: -1
     })
     GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse,
       INITIAL: []
@@ -570,9 +578,9 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
@@ -604,7 +612,7 @@ export class Homecook extends plugin {
       DATA: cook
     })
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -624,7 +632,7 @@ export class Homecook extends plugin {
       quantity: 1
     })
     GameApi.Listdata.controlAction({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
@@ -651,9 +659,13 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
+    }
+    if (state == 4001) {
+      e.reply(msg)
       return false
     }
     const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
@@ -663,16 +675,16 @@ export class Homecook extends plugin {
       e.reply(`需要前往各大主城中的${addressName}`)
       return false
     }
-    let msg = ['___[炼丹阁]___\n#炼丹阁购买+物品名']
+    let tmp = ['___[炼丹阁]___\n#炼丹阁购买+物品名']
     let wanmin = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
       INITIAL: []
     })
     wanmin.forEach((item) => {
-      msg.push('丹方名字：' + item.name + '\n丹方提供者：' + item.UID + '\n灵晶：' + item.doge)
+      tmp.push('丹方名字：' + item.name + '\n丹方提供者：' + item.UID + '\n灵晶：' + item.doge)
     })
-    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
+    e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: tmp } }))
     return false
   }
 
@@ -683,9 +695,9 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
@@ -714,7 +726,7 @@ export class Homecook extends plugin {
       return false
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_user',
+      CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
     })
@@ -730,7 +742,7 @@ export class Homecook extends plugin {
     }
     let money = commoditiesDoge * 0.5
     let Warehouse = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
@@ -740,7 +752,7 @@ export class Homecook extends plugin {
       quantity: 1
     })
     GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_Warehouse',
+      CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse,
       INITIAL: []
@@ -768,9 +780,9 @@ export class Homecook extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const archive = HomeApi.GP.Archive(UID)
-    if (archive != 0) {
-      e.reply(`${archive}`)
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
       return false
     }
     let thing0 = e.msg.replace(/^(#|\/)用/, '')
@@ -805,7 +817,7 @@ export class Homecook extends plugin {
         quantity: -1
       })
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
@@ -882,7 +894,7 @@ export class Homecook extends plugin {
     useraction[UID] = setTimeout(() => {
       forwardsetTime[UID] = 0
       let Warehouse1 = GameApi.Listdata.controlActionInitial({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
       })
@@ -952,7 +964,7 @@ export class Homecook extends plugin {
         )
       }
       GameApi.Listdata.controlAction({
-        CHOICE: 'user_home_Warehouse',
+        CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse1
       })
