@@ -119,6 +119,11 @@ class Method {
     return randomNum <= (percent / 100) * (max - min + 1) + min
   }
 
+  /**
+   * 时间格式化
+   * @param {*} time
+   * @returns
+   */
   convertTime(time) {
     const ms = time % 1000
     time = (time - ms) / 1000
@@ -129,6 +134,16 @@ class Method {
     const hrs = time % 24
     const days = (time - hrs) / 24
     return `${days}d${hrs}h${mins}m${secs}s`
+  }
+
+  // 如果a>=b，返回自然数，不用交换位置
+  sortRule(a, b) {
+    return a.rank - b.rank
+  }
+
+  randomArr(array) {
+    const location = Math.floor(Math.random() * array.length)
+    return array[location]
   }
 }
 export default new Method()

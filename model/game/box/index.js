@@ -1,5 +1,11 @@
 import Listdata from '../data/listdata.js'
+import Method from '../wrap/method.js'
 class GP {
+  /**
+   * @param {*} position
+   * @param {*} type
+   * @returns
+   */
   getTypeThing(position, type) {
     const dropsItemList = Listdata.controlAction({
       NAME: 'goods',
@@ -15,6 +21,12 @@ class GP {
     return sum
   }
 
+  /**
+   *
+   * @param {*} position
+   * @param {*} type
+   * @returns
+   */
   randomTypeThing(position, type) {
     const dropsItemList = Listdata.controlAction({
       NAME: 'goods',
@@ -94,6 +106,11 @@ class GP {
     }
   }
 
+  /**
+   *
+   * @param {*} param0
+   * @returns
+   */
   synthesisResult({ ans, type }) {
     // 这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
     let drawingList = Listdata.controlAction({
@@ -109,20 +126,19 @@ class GP {
         item.fire <= ans.fire &&
         item.earth <= ans.earth
     )
-
     if (drawingList.length == 0) {
       // 没有对应图纸
       const res = { name: '无用的残渣' }
       return res
     } else if (drawingList.length > 3) {
       // 可能的结果过多，取三个最好的
-      drawingList.sort(sortRule)
+      drawingList.sort(Method.sortRule)
       const slice = drawingList.slice(0, 3)
       // 随机取一个
-      return randomArr(slice)
+      return Method.randomArr(slice)
     } else {
       // 直接随机取
-      return randomArr(drawingList)
+      return Method.randomArr(drawingList)
     }
   }
 
@@ -138,12 +154,3 @@ class GP {
 }
 
 export default new GP()
-
-function sortRule(a, b) {
-  return a.rank - b.rank // 如果a>=b，返回自然数，不用交换位置
-}
-
-function randomArr(array) {
-  const location = Math.floor(Math.random() * array.length)
-  return array[location]
-}
