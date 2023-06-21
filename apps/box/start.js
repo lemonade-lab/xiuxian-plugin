@@ -11,7 +11,8 @@ export class BoxStart extends plugin {
 
   async createMsg(e) {
     if (!this.verify(e)) return false
-    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
+    const UID = e.user_id
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }

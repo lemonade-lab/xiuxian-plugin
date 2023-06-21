@@ -87,11 +87,11 @@ export class BoxSecretplace extends plugin {
   async forward(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Action.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(UID)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -163,11 +163,11 @@ export class BoxSecretplace extends plugin {
   async delivery(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    if (!GameApi.Player.getUserLifeSatus(e.user_id)) {
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Action.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(UID)
     if (state == 4001) {
       e.reply(msg)
       return false

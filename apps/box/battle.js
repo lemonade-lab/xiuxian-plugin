@@ -26,7 +26,7 @@ export class BoxBattle extends plugin {
       e.reply(`已仙鹤`)
       return false
     }
-    const { state, msg } = GameApi.Action.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(UID)
     if (state == 4001) {
       e.reply(msg)
       return false

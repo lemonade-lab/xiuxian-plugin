@@ -62,7 +62,7 @@ export class Homerangeland extends plugin {
       return
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
-    const { state, msg } = GameApi.Action.miniGo(e.user_id)
+    const { state, msg } = GameApi.Action.miniGo(UID)
     if (state == 4001) {
       e.reply(msg)
       return false

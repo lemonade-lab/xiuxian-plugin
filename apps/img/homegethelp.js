@@ -20,7 +20,7 @@ export class HomeGetHelp extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'home_help' })
     if (!data) {
-      return
+      return false
     }
     const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 4, data }))
     BotApi.Robot.surveySet({ e, isreply })
@@ -30,7 +30,7 @@ export class HomeGetHelp extends plugin {
     if (!this.verify(e)) return false
     const data = BotApi.getboxhelp({ name: 'home_admin' })
     if (!data) {
-      return
+      return false
     }
     const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 5, data }))
     BotApi.Robot.surveySet({ e, isreply })
