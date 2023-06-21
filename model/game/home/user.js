@@ -63,7 +63,7 @@ class GP {
     /** 判断时间是否相同 */
     const LifeHome = Listdata.read('life', 'homeLife')
     // 不存在
-    if (!LifeHome) {
+    if (!LifeHome[UID]) {
       // 初始化
       this.createHomePlayer(UID)
       return {
@@ -92,7 +92,7 @@ class GP {
     // 存在家园位置
     return {
       state: 2000,
-      msg: '存在洞府'
+      msg: '已存在洞府'
     }
   }
 

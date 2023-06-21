@@ -44,6 +44,7 @@ export const __PATH = {
   homeLife: algorithm.getProcessCwd(`${GPPath}/home/life`), // 家园存档
   homeRangelandannimals: algorithm.getProcessCwd(`${GPPath}/home/rangelandannimals`), // 牧场
   homeRangeland: algorithm.getProcessCwd(`${GPPath}/home/rangeland`), // 牧场
+  homePosition: algorithm.getProcessCwd(`${GPPath}/home/position`), // 家园点位
 
   user_home_minefield: algorithm.getProcessCwd(`${GPPath}/home/minefield`),
   user_home_cook: algorithm.getProcessCwd(`${GPPath}/home/cook`),

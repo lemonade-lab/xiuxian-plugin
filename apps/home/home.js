@@ -1,13 +1,13 @@
 import { BotApi, GameApi, HomeApi, plugin } from '../../model/api/index.js'
-const forwardsetTime = []
-const useraction = []
+const forwardsetTime = {}
+const useraction = {}
 // 秋雨
 export class Homestart extends plugin {
   constructor() {
     super({
       rule: [
         {
-          reg: /^(#|\/)建立洞府.*$/,
+          reg: /^(#|\/)开辟洞府.*$/,
           fnc: 'buildhome'
         },
         {
@@ -32,6 +32,99 @@ export class Homestart extends plugin {
         }
       ]
     })
+  }
+
+  async buildhome(e) {
+    if (!this.verify(e)) return false
+    const UID = e.user_id
+    if (!GameApi.Player.getUserLifeSatus(UID)) {
+      e.reply('已仙鹤')
+      return false
+    }
+    const { state, msg } = HomeApi.GP.Archive(UID)
+    if (state == 2000) {
+      e.reply(msg)
+      return false
+    }
+    /** 查看家园表 */
+    const PositionList = GameApi.Listdata.controlActionInitial({
+      NAME: 'position',
+      CHOICE: 'homePosition',
+      INITIAL: []
+    })
+
+    const ifexishome = PositionList.find((item) => item.UID == UID)
+    if (ifexishome) {
+      e.reply('已建有洞府~')
+      return false
+    }
+
+    if (forwardsetTime[UID]) {
+      e.reply(`联盟人员正在加紧修建洞府...`)
+      return false
+    }
+
+    /** 开始修建 */
+    const address = e.msg.replace(/^(#|\/)开辟洞府/, '')
+    const addressName = '联盟'
+    if (!GameApi.Map.mapAction({ UID: e.user_id, addressName })) {
+      e.reply(`需[(#|/)前往+城池名+${addressName}]寻求联盟帮助`)
+      return false
+    }
+
+    // 查看点位表
+    const point0 = GameApi.Listdata.controlAction({
+      NAME: 'point',
+      CHOICE: 'generate_position'
+    })
+
+    // 搜索点位
+    const point = point0.find((item) => item.name == address)
+    if (!point) {
+      e.reply('未知地点')
+      return false
+    }
+
+    //
+    const PointId = point.id.split('-')
+    const region = PointId[1]
+    const LevelData = GameApi.Listdata.controlAction({
+      NAME: UID,
+      CHOICE: 'playerLevel'
+    })
+    if (LevelData.gaspractice.realm < PointId[3] - 1) {
+      e.reply('您选择的地点您还无法前往\n请道友重新选择')
+      return false
+    }
+
+    /**
+     * 设置修建行为冷却
+     */
+    forwardsetTime[UID] = setTimeout(() => {
+      // 清除定时
+      delete forwardsetTime[UID]
+      const positionhome = GameApi.Listdata.controlActionInitial({
+        NAME: 'position',
+        CHOICE: 'homePosition',
+        INITIAL: []
+      })
+      positionhome.push({
+        UID,
+        address,
+        x: point.x,
+        y: point.y,
+        region,
+        createTime: new Date().getTime()
+      })
+      GameApi.Listdata.controlAction({
+        NAME: 'position',
+        CHOICE: 'homePosition',
+        DATA: positionhome
+      })
+      e.reply(`成功在${address}开辟了自己的洞府`)
+    }, 1000 * 10)
+
+    return false
   }
 
   async myhome(e) {
@@ -72,101 +165,6 @@ export class Homestart extends plugin {
     }
     const { path, name, data } = HomeApi.Information.showWarehouse(UID)
     e.reply(await BotApi.obtainingImages({ path, data, name }))
-    return false
-  }
-
-  async buildhome(e) {
-    if (!this.verify(e)) return false
-    const UID = e.user_id
-    if (!GameApi.Player.getUserLifeSatus(UID)) {
-      e.reply('已仙鹤')
-      return false
-    }
-    const { state, msg } = HomeApi.GP.Archive(UID)
-    if (state == 2000) {
-      e.reply(msg)
-      return false
-    }
-    if (state == 4001) {
-      e.reply(msg)
-      return false
-    }
-
-    const PositionList = GameApi.Listdata.controlAction({
-      NAME: 'position',
-      CHOICE: 'position'
-    })
-
-    const ifexishome = PositionList.find((item) => item.UID == UID)
-    if (ifexishome) {
-      e.reply('已建有洞府~')
-      return false
-    }
-
-    /**
-     * 开始修建
-     */
-    const address = e.msg.replace(/^(#|\/)建立洞府/, '')
-    const action = GameApi.Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'playerAction'
-    })
-    const addressName = '极西联盟'
-    const map = GameApi.Map.mapExistence({
-      action,
-      addressName
-    })
-    if (!map) {
-      e.reply(`第一次建立洞府，需到${addressName}寻求联盟帮助`)
-      return false
-    }
-    const point0 = GameApi.Listdata.controlAction({
-      NAME: 'point',
-      CHOICE: 'generate_position'
-    })
-    const point = point0.find((item) => item.name == address)
-    if (!point) {
-      return false
-    }
-    const x = point.x
-    const y = point.y
-    const PointId = point.id.split('-')
-    const region = PointId[1]
-    const LevelData = GameApi.Listdata.controlAction({
-      NAME: UID,
-      CHOICE: 'playerLevel'
-    })
-    if (LevelData.gaspractice.realm < PointId[3] - 1) {
-      e.reply('您选择的地点您还无法前往\n请道友重新选择')
-      return false
-    }
-    const the = 10
-    const time1 = the >= 0 ? the : 1
-    useraction[UID] = setTimeout(() => {
-      forwardsetTime[UID] = 0
-      const positionhome = GameApi.Listdata.controlActionInitial({
-        NAME: 'position',
-        CHOICE: 'position',
-        INITIAL: []
-      })
-      const time = new Date().getTime()
-      positionhome.push({
-        UID,
-        createTime: time.getTime(),
-        address,
-        x,
-        y,
-        region
-      })
-      GameApi.Listdata.controlAction({
-        NAME: 'position',
-        CHOICE: 'position',
-        DATA: positionhome
-      })
-      e.reply(`成功在${address}建立了自己的洞府`)
-    }, 1000 * time1)
-    forwardsetTime[UID] = 1
-    e.reply(`联盟人员正在加紧修建你的住所...\n预计需要${time1}秒`)
     return false
   }
 
@@ -265,7 +263,7 @@ export class Homestart extends plugin {
       ACCOUNT: -h
     })
     HomeApi.GP.addDoge({ UID, money: -money })
-    e.reply(`联盟建筑队正在扩建洞府，预计需要${time}秒`)
+    e.reply(`联盟联盟人员正在扩建洞府，预计需要${time}秒`)
     return false
   }
 
@@ -327,13 +325,17 @@ export class Homestart extends plugin {
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
     if (ifexisthome == undefined) {
-      e.reply('您都还没建立过洞府')
+      e.reply('您都还没开辟过洞府')
+      return false
+    }
+    if (useraction[UID]) {
+      e.reply(`联盟人员正在加紧修建...`)
       return false
     }
     const address = e.msg.replace(/^(#|\/)搬迁洞府到/, '')
     if (ifexisthome.address == address) {
       e.reply(
-        `你的洞府就在${address}，建筑队看了看你的洞府，再看了看你要搬的地点，随后投来了异样的眼光`
+        `你的洞府就在${address}，联盟人员看了看你的洞府，再看了看你要搬的地点，随后投来了异样的眼光`
       )
       return false
     }
@@ -379,18 +381,18 @@ export class Homestart extends plugin {
       return false
     }
     if (home.doge < 2000) {
-      e.reply(`这点灵晶可请不动建筑队帮扩建洞府哦!要想请动他们，至少准备2000灵晶`)
+      e.reply(`这点灵晶可请不动联盟人员帮扩建洞府哦!要想请动他们，至少准备2000灵晶`)
       return false
     }
     const the = 5
     const time1 = the >= 0 ? the : 1
     let positionhome = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'position',
+      CHOICE: 'homePosition',
       NAME: 'position',
       INITIAL: []
     })
     useraction[UID] = setTimeout(() => {
-      forwardsetTime[UID] = 0
+      delete forwardsetTime[UID]
       const target = positionhome.find((obj) => obj.UID === UID)
       let minefield = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_home_minefield',
@@ -427,11 +429,9 @@ export class Homestart extends plugin {
       })
       HomeApi.GP.addDoge({ UID, money: -2000 })
       e.reply(
-        `成功在${address}建立了新的洞府，花费2000灵晶(原来洞府所在地如果占领了的话将会撤走哦!)`
+        `成功在${address}开辟了新的洞府，花费2000灵晶(原来洞府所在地如果占领了的话将会撤走哦!)`
       )
     }, 1000 * time1)
-    forwardsetTime[UID] = 1
-    e.reply(`建筑人员正在加紧修建你的新住所...\n预计需要${time1}秒`)
     return false
   }
 }

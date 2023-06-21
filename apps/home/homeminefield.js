@@ -68,7 +68,7 @@ export class Homeminefield extends plugin {
       return false
     }
     let positionhome = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'position',
+      CHOICE: 'homePosition',
       NAME: 'position',
       INITIAL: []
     })
@@ -203,7 +203,7 @@ export class Homeminefield extends plugin {
       return false
     }
     const position = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'position',
+      CHOICE: 'homePosition',
       NAME: 'position',
       INITIAL: []
     })
