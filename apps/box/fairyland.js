@@ -18,7 +18,7 @@ export class Boxfairyland extends plugin {
     const ifexistplay = GameApi.Player.getUserLifeSatus(UID)
     if (!ifexistplay) {
       e.reply(`已仙鹤`)
-      return
+      return false
     }
     e.reply('待世界升级~')
     return false
