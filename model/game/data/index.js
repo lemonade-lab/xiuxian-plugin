@@ -2,31 +2,31 @@ import genertate from './generate.js'
 import algorithm from './algorithm.js'
 
 /* 存档地址 */
-const GPPath = '/xiuxianfile'
+const GPPath = '/xiuxian-player'
 
 export const getPathAddress = (key) => __PATH[key]
 
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
-  playerExtend: algorithm.getFliePath(`${GPPath}/extend`), // 增浮
-  playerAction: algorithm.getFliePath(`${GPPath}/action`), // 地图行为
-  playerBattle: algorithm.getFliePath(`${GPPath}/battle`), // 战斗
-  playerEquipment: algorithm.getFliePath(`${GPPath}/equipment`), // 装备
-  playerSpecial: algorithm.getFliePath(`${GPPath}/special`), // 特殊值
-  playerLevel: algorithm.getFliePath(`${GPPath}/level`), // 境界
-  playerTalent: algorithm.getFliePath(`${GPPath}/talent`), // 天赋
-  playerBag: algorithm.getFliePath(`${GPPath}/najie`), // 背包
-  playerLife: algorithm.getFliePath(`${GPPath}/life`), // 寿命
-  playerMaterial: algorithm.getFliePath(`${GPPath}/material`), //
-  playerBank: algorithm.getFliePath(`${GPPath}/bank`), // 金银坊
-  generate_exchange: algorithm.getFliePath(`${GPPath}/exchange`), // 虚空境
+  playerExtend: algorithm.getFliePath(`${GPPath}/box/extend`), // 增浮
+  playerAction: algorithm.getFliePath(`${GPPath}/box/action`), // 地图行为
+  playerBattle: algorithm.getFliePath(`${GPPath}/box/battle`), // 战斗
+  playerEquipment: algorithm.getFliePath(`${GPPath}/box/equipment`), // 装备
+  playerSpecial: algorithm.getFliePath(`${GPPath}/box/special`), // 特殊值
+  playerLevel: algorithm.getFliePath(`${GPPath}/box/level`), // 境界
+  playerTalent: algorithm.getFliePath(`${GPPath}/box/talent`), // 天赋
+  playerBag: algorithm.getFliePath(`${GPPath}/box/najie`), // 背包
+  playerLife: algorithm.getFliePath(`${GPPath}/box/life`), // 寿命
+  playerMaterial: algorithm.getFliePath(`${GPPath}/box/material`), //
+  playerBank: algorithm.getFliePath(`${GPPath}/box/bank`), // 金银坊
+  generate_exchange: algorithm.getFliePath(`${GPPath}/box/exchange`), // 虚空境
+
   /* 基础数据：插件内 */
   fixed_point: algorithm.getReq('/resources/datafixed/point'), // 点位
   fixed_position: algorithm.getReq('/resources/datafixed/position'), // 区域位
   fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'), // 装备
   fixed_goods: algorithm.getReq('/resources/datafixed/goods'), // 物品
-  fixed_occupation: algorithm.getReq('/resources/datafixed/occupation'), //
   fixed_talent: algorithm.getReq('/resources/datafixed/talent'), // 灵根
   fixed_material: algorithm.getReq('/resources/datafixed/material'), //
   fixed_monster: algorithm.getReq('/resources/datafixed/monster'), // 怪物
@@ -39,35 +39,32 @@ export const __PATH = {
 
   /* 家园路径 */
 
-  // 玩家存档
-  user_home_user: algorithm.getReq('/resources/databirth/home/user'),
-  user_home_landgoods: algorithm.getReq('/resources/databirth/home/landgoods'),
-  userHomeLife: algorithm.getReq('/resources/databirth/home/life'),
-  user_home_minefield: algorithm.getReq('/resources/databirth/home/minefield'),
-  user_home_position: algorithm.getReq('/resources/databirth/home/position'),
-  user_home_Warehouse: algorithm.getReq('/resources/databirth/home/Warehouse'),
-  user_home_cook: algorithm.getReq('/resources/databirth/home/cook'),
-  user_home_food: algorithm.getReq('/resources/databirth/home/food'),
-  user_home_wanmin: algorithm.getReq('/resources/databirth/home/wanmin'),
-  user_home_state: algorithm.getReq('/resources/databirth/home/state'),
-  user_home_rangelandannimals: algorithm.getReq('/resources/databirth/home/rangelandannimals'),
-  user_home_rangeland: algorithm.getReq('/resources/databirth/home/rangeland'),
+  user_home_user: algorithm.getFliePath(`${GPPath}/home/user`),
+  user_home_landgoods: algorithm.getFliePath(`${GPPath}/home/landgoods`),
+  userHomeLife: algorithm.getFliePath(`${GPPath}/home/life`),
+  user_home_minefield: algorithm.getFliePath(`${GPPath}/home/minefield`),
+  user_home_position: algorithm.getFliePath(`${GPPath}/home/position`),
+  user_home_Warehouse: algorithm.getFliePath(`${GPPath}/home/Warehouse`),
+  user_home_cook: algorithm.getFliePath(`${GPPath}/home/cook`),
+  user_home_food: algorithm.getFliePath(`${GPPath}/home/food`),
+  user_home_wanmin: algorithm.getFliePath(`${GPPath}/home/wanmin`),
+  user_home_state: algorithm.getFliePath(`${GPPath}/home/state`),
+  user_home_rangelandannimals: algorithm.getFliePath(`${GPPath}/home/rangelandannimals`),
+  user_home_rangeland: algorithm.getFliePath(`${GPPath}/home/rangeland`),
 
   /* 宗门路径 */
 
-  assGP: algorithm.getReq('/resources/databirth/assGP'), // 玩家的基础信息
-  assRelation: algorithm.getReq('/resources/databirth/assRelation'), // 所有宗门的基础存档
+  assGP: algorithm.getFliePath(`${GPPath}/ass/gp`), // 玩家的基础信息
+  assRelation: algorithm.getFliePath(`${GPPath}/ass/relation`), // 所有宗门的基础存档
+  association: algorithm.getFliePath(`${GPPath}/ass/item`), // 宗门的基础信息
+  assTreasure: algorithm.getFliePath(`${GPPath}/ass/Ttreasure`), // 宗门的藏宝阁
+  assinterimArchive: algorithm.getFliePath(`${GPPath}/ass/archive`), // 宗门的秘境
 
-  association: algorithm.getReq('/resources/databirth/assItem'), // 宗门的基础信息
-  assTreasure: algorithm.getReq('/resources/databirth/assTreasure'), // 宗门的藏宝阁
-  assinterimArchive: algorithm.getReq('/resources/databirth/assinterimArchive'), // 宗门的秘境
-
-  // 固定数据
-  assProduct: algorithm.getReq('/resources/datafixed/assProduct'), // 宗门所有物品
   assassTreasu: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 隐藏宗门的藏宝阁
   assRelate: algorithm.getReq('/resources/datafixed/assRelate') // 宗门相关资料
 
   /**
+   * | assRelate |
    * AssLabyrinth
    * BaseTreasureVault 基础的藏宝阁数据
    * BlessPlace  驻地
@@ -91,8 +88,7 @@ class DateIndex {
     genertate.createList(__PATH.generate_all, 'goods', [])
     genertate.createList(__PATH.generate_all, 'goods', [
       ...genertate.getlist(__PATH.fixed_equipment, 'json'), // 物品
-      ...genertate.getlist(__PATH.fixed_goods, 'json'), // 装备
-      ...genertate.getlist(__PATH.assProduct, 'json') // 宗门系列
+      ...genertate.getlist(__PATH.fixed_goods, 'json') // 装备
     ])
     /** 万宝楼：回血丹与基础的新手装备 */
     genertate.createList(__PATH.generate_all, 'commodities', [])
