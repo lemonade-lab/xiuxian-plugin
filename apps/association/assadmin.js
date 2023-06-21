@@ -109,12 +109,15 @@ export class AssociationAdmin extends plugin {
       // 初始化宗门数据
       const AssData = getAss(ADATA[location], date, nowTime, UID, 4, 100000)
 
+      // 写入宗门数据
+      AssociationApi.assUser.setAssOrGP('association', ADATA[location], AssData)
+
       // 玩家存档
       let assGP = GameApi.Listdata.controlAction({
         NAME: UID,
         CHOICE: 'assGP'
       })
-      assGP.AID = ADATA[location].id
+      assGP.AID = ADATA[location]
       assGP.assJob10 = 10
       assGP.contributionPoints = 0
       assGP.historyContribution = 0
@@ -124,29 +127,33 @@ export class AssociationAdmin extends plugin {
       // 更新玩家天赋,并写入存档
       AssociationApi.assUser.assUpdataEfficiency(assGP)
 
-      // ??
-      AssociationApi.assUser.setAssOrGP('association', ADATA[location], AssData)
-      // 普通宗门的
+      // 基础藏宝阁数据
       let assthing = GameApi.Listdata.controlAction({
         NAME: 'BaseTreasureVault',
         CHOICE: 'assRelate'
       })
-      // 隐藏宗门的
+
+      // 隐藏宗门的数据
       let assthin = GameApi.Listdata.controlAction({
         NAME: ADATA[location],
         CHOICE: 'assassTreasu'
       })
+
       for (let i = 0; i < assthin.length; i++) {
         assthing[i].push.apply(assthin[i])
       }
-      // 存储藏宝阁
+
+      // 初始化藏宝阁数据
       AssociationApi.assUser.setAssOrGP('assTreasure', ADATA[location], assthing)
+
       const assRelationList = GameApi.Listdata.controlAction({
         NAME: 'assRelation',
         CHOICE: 'assRelation'
       })
-      // 检查宗门名称表
+
+      // 读取该宗门名称
       const assRelation = assRelationList.find((item) => item.id == ADATA[location])
+
       e.reply(`成功找到${assRelation.name}遗址,建立了传承宗门${assRelation.name}`)
       return false
     }
