@@ -5,7 +5,7 @@ export class assTreasure extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)(宗门藏宝阁|藏宝阁)$/,
+          reg: /^(#|\/)藏宝阁$/,
           fnc: 'treasureCabinetList'
         },
         {
@@ -37,6 +37,7 @@ export class assTreasure extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
     const ass = GameApi.Listdata.controlAction({
@@ -140,6 +141,7 @@ export class assTreasure extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
 
@@ -188,6 +190,7 @@ export class assTreasure extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
 
@@ -264,17 +267,15 @@ export class assTreasure extends plugin {
     if (!ifexistplay) {
       return false
     }
-
     const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
-    e.reply(
-      `你当前还剩${assGP.contributionPoints}贡献点，历史贡献值总和为${assGP.historyContribution}`
-    )
+    e.reply(`历史总贡献${assGP.historyContribution}\n当前${assGP.contributionPoints}贡献`)
     return false
   }
 }

@@ -21,7 +21,7 @@ export class Assstart extends plugin {
           fnc: 'giftAssociation'
         },
         {
-          reg: /^(#|\/)(宗门列表)$/,
+          reg: /^(#|\/)宗门列表$/,
           fnc: 'appointmentList'
         },
         {
@@ -48,7 +48,7 @@ export class Assstart extends plugin {
     })
 
     if (assGP.AID == 0) {
-      e.reply('乃一介散修')
+      e.reply('一介散修')
       return false
     }
     const ass = GameApi.Listdata.controlAction({
@@ -106,6 +106,7 @@ export class Assstart extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
     const ass = GameApi.Listdata.controlAction({
@@ -207,6 +208,7 @@ export class Assstart extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
     const nowTime = new Date().getTime() // 获取当前时间戳
@@ -278,6 +280,7 @@ export class Assstart extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
 
@@ -339,6 +342,7 @@ export class Assstart extends plugin {
     if (allNames.length == 0) {
       temp.push('暂时没有宗门数据')
     }
+    const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
       const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == theName)
@@ -354,31 +358,24 @@ export class Assstart extends plugin {
       }
       const BeastList = ['无神兽', '麒麟', '青龙', '白虎', '朱雀', '玄武']
       let thisAssBeast = BeastList[Number(thisAss.divineBeast)]
+      temp.push(`宗名: ${assRelation.name}(Lv.${thisAss.level})`)
       temp.push(
-        `序号:${1 + i} ` +
-          '\n' +
-          `宗名: ${assRelation.name}` +
-          '\n' +
-          `人数: ${thisAss.allMembers.length}/${
-            AssociationApi.assUser.numberMaximums[thisAss.level - 1]
-          }` +
-          '\n' +
-          `等级: ${thisAss.level}` +
-          '\n' +
-          `宗门驻地: ${theAssXiuxian}` +
-          '\n' +
-          `宗主: ${thisAss.master}` +
-          '\n' +
-          `宗门神兽: ${thisAssBeast}`
+        `宗主: ${LifeData[thisAss.master].name}(${thisAss.allMembers.length}/${
+          AssociationApi.assUser.numberMaximums[thisAss.level - 1]
+        })`
       )
+      temp.push(`宗门驻地: ${theAssXiuxian}`)
+      temp.push(`宗门神兽: ${thisAssBeast}`)
     }
-    BotApi.obtainingImages({
-      path: 'msg',
-      name: 'msg',
-      data: {
-        msg: temp
-      }
-    })
+    e.reply(
+      await BotApi.obtainingImages({
+        path: 'msg',
+        name: 'msg',
+        data: {
+          msg: temp
+        }
+      })
+    )
     return false
   }
 }

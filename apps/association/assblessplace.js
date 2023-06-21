@@ -5,7 +5,7 @@ export class AssBlessPlace extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)洞天福地列表$/,
+          reg: /^(#|\/)洞天福地$/,
           fnc: 'blessPlaceList'
         },
         {
@@ -21,7 +21,7 @@ export class AssBlessPlace extends plugin {
           fnc: 'constructionGuild'
         },
         {
-          reg: /^(#|\/)查看宗门建筑$/,
+          reg: /^(#|\/)宗门建筑$/,
           fnc: 'showAssociationBuilder'
         },
         {
@@ -224,6 +224,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
 
@@ -309,6 +310,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
 
@@ -398,6 +400,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
 

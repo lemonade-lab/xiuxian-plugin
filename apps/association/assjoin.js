@@ -116,7 +116,7 @@ export class AssociationJoin extends plugin {
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     const joinUID = e.msg.replace(/^(#|\/)招收/, '')
-    if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
+    if (!ifexistplay || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
     const assGP = GameApi.Listdata.controlAction({
@@ -124,6 +124,7 @@ export class AssociationJoin extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
     const ass = GameApi.Listdata.controlAction({

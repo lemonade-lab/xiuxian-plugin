@@ -212,7 +212,6 @@ class Battle {
         battleMsg.msg.push(`第${battle.Z}回合:你造成${battleHurt.hurtA}伤害,并击败了对方!`)
         battleMsg.msg.push('你击败了对方!')
         battleB.nowblood = 0
-        BotApi.obtainingImages({ e, data: battleMsg.msg })
         break
       } else {
         battleMsg.msg.push(`第${battle.Z}回合:你造成${battleHurt.hurtA}伤害`)

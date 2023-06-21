@@ -9,7 +9,7 @@ export class AssociationExtend extends plugin {
           fnc: 'identifyToken'
         },
         {
-          reg: /^(#|\/)宗门玩法存档$/,
+          reg: /^(#|\/)宗门信息$/,
           fnc: 'showAssGP'
         },
         {
@@ -56,6 +56,7 @@ export class AssociationExtend extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
       return false
     }
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == assGP.AID)

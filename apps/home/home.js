@@ -49,8 +49,7 @@ export class Homestart extends plugin {
     const { path, name, data } = HomeApi.Information.userhomeShow({
       UID
     })
-    const img = await BotApi.obtainingImages({ path, name, data })
-    e.reply(img)
+    e.reply(await BotApi.obtainingImages({ path, name, data }))
     return false
   }
 

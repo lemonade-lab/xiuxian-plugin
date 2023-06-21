@@ -1,6 +1,9 @@
 - group: 宗门玩法
   list:
     - icon: help-icon_52
+      title: '(#|/)宗门信息'
+      desc: '宗门相关资料'
+    - icon: help-icon_52
       title: '(#|/)开宗立派'
       desc: '创建宗门'
     - icon: help-icon_81
@@ -25,7 +28,7 @@
 - group: 宗门驻地
   list:
     - icon: help-icon_59
-      title: '(#|/)洞天福地列表'
+      title: '(#|/)洞天福地'
       desc: '查看所有可以入驻的洞天'
     - icon: help-icon_59
       title: '(#|/)开采灵脉'
@@ -37,7 +40,7 @@
       title: '(#|/)修建xxx'
       desc: '修建宗门设施'
     - icon: help-icon_55
-      title: '(#|/)查看宗门建筑'
+      title: '(#|/)宗门建筑'
       desc: '看看宗门都有哪些建筑'
     - icon: help-icon_59
       title: '(#|/)集合攻打+宗门名'
