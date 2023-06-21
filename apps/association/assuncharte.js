@@ -391,7 +391,12 @@ export class AssUncharted extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.AID == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.assJob < 8) {
+      e.reply('权限不足')
       return false
     }
     let ass = GameApi.Listdata.controlAction({

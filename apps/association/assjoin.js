@@ -42,6 +42,11 @@ export class AssociationJoin extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.assJob < 8) {
+      e.reply(`权限不足`)
       return false
     }
     const LevelData = GameApi.Listdata.controlAction({
@@ -54,11 +59,6 @@ export class AssociationJoin extends plugin {
     })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
-      return false
-    }
-
-    if (assGP.assJob < 8) {
-      e.reply(`权限不足`)
       return false
     }
 
@@ -183,7 +183,12 @@ export class AssociationJoin extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.AID == 0 || assGP.assJob < 8) {
+    if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.assJob < 8) {
+      e.reply('取消不足')
       return false
     }
 
@@ -221,13 +226,13 @@ export class AssociationJoin extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0) {
-      e.reply('乃一介散修')
+      e.reply('一介散修')
       return false
     }
-    // if (assGP.assJob < 8) {
-    //   console.log('不足')
-    //   return false
-    // }
+    if (assGP.assJob < 8) {
+      console.log('权限不足')
+      return false
+    }
     let AssData = GameApi.Listdata.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'

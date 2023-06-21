@@ -44,6 +44,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0 || assGP.assJob < 8) {
+      e.reply('权限不足')
       return false
     }
     let AID = e.msg.replace(/^(#|\/)集合攻打/, '')
@@ -156,6 +157,7 @@ export class AssBlessPlace extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0 || assGP.assJob < 10) {
+      e.reply('权限不足')
       return false
     }
     const ass = GameApi.Listdata.controlAction({

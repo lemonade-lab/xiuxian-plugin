@@ -118,7 +118,7 @@ export class AssociationAdmin extends plugin {
         CHOICE: 'assGP'
       })
       assGP.AID = ADATA[location]
-      assGP.assJob10 = 10
+      assGP.assJob = 10
       assGP.contributionPoints = 0
       assGP.historyContribution = 0
       assGP.favorability = 0
@@ -241,7 +241,7 @@ export class AssociationAdmin extends plugin {
     AssociationApi.assUser.setAssOrGP('assRelation', 'assRelation', relationAll)
 
     assGP.AID = associationID
-    assGP.assJob10 = 10
+    assGP.assJob = 10
     assGP.contributionPoints = 0
     assGP.historyContribution = 0
     assGP.favorability = 0
@@ -275,6 +275,7 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0 || assGP.assJob < 8) {
+      e.reply('权限不足')
       return false
     }
     const ass = GameApi.Listdata.controlAction({
@@ -358,6 +359,7 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID == 0 || assGP.assJob < 10) {
+      e.reply('权限不足')
       return false
     }
     let memberUID = e.msg.replace(/^(#|\/)提拔/, '')
@@ -410,6 +412,7 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'association'
     })
     if (assGP.AID == 0 || assGP.assJob < 10) {
+      e.reply('权限不足')
       return false
     }
     if (AssociationApi.assUser.assRelationList.findIndex((item) => item.id == ass.id) <= 3) {
@@ -443,6 +446,7 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assGP'
     })
     if (GPA.AID == 0 || GPA.assJob < 8) {
+      e.reply('权限不足')
       return false
     }
 

@@ -31,7 +31,16 @@ export class AssociationJobUp extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.AID == 0 || assGP.assJob > 9 || assGP.contributionPoints < 400) {
+    if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.contributionPoints < 400) {
+      e.reply('贡献不足')
+      return false
+    }
+    if (assGP.assJob > 9) {
+      e.reply('已达上限')
       return false
     }
     assGP.contributionPoints -= 400
@@ -52,7 +61,12 @@ export class AssociationJobUp extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.AID == 0 || assGP.assJob >= 10) {
+    if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.assJob >= 10) {
+      e.reply('已达上限')
       return false
     }
     const ass = GameApi.Listdata.controlAction({
@@ -128,7 +142,13 @@ export class AssociationJobUp extends plugin {
       NAME: UID,
       CHOICE: 'assGP'
     })
-    if (assGP.AID == 0 || assGP.assJob >= 8) {
+
+    if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.assJob >= 10) {
+      e.reply('已达上限')
       return false
     }
     if (assGP.contributionPoints < 200) {
@@ -145,10 +165,16 @@ export class AssociationJobUp extends plugin {
       NAME: battleUID,
       CHOICE: 'assGP'
     })
+    if (assGP.AID == 0) {
+      e.reply('一介散修')
+      return false
+    }
+    if (assGP.assJob >= 10) {
+      e.reply('已达上限')
+      return false
+    }
     if (
-      battleGP.AID == 0 ||
       assGP.AID != battleGP.AID ||
-      battleGP.assJob >= 10 ||
       battleGP.assJob < assGP.assJob ||
       battleGP.assJob > assGP.assJob + 2
     ) {
