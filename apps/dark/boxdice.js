@@ -88,7 +88,7 @@ export class BoxDice extends plugin {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    if (LevelData.level.gaspractice.realm < 1) {
+    if (LevelData.gaspractice.realm < 1) {
       return false
     }
     /** 扣除 */

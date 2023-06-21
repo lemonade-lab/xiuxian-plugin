@@ -140,7 +140,7 @@ export class BoxBattle extends plugin {
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    const money = 10000 * LevelData.level.gaspractice.realm
+    const money = 10000 * LevelData.gaspractice.realm
     if (money == 0) {
       e.reply('[天机门]李逍遥\n凡人不可捷越')
       return false

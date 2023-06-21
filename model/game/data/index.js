@@ -9,59 +9,59 @@ export const getPathAddress = (key) => __PATH[key]
 /* 数据索引 */
 export const __PATH = {
   /* 玩家存档:已不在插件内 */
-  playerExtend: algorithm.getFliePath(`${GPPath}/box/extend`), // 增浮
-  playerAction: algorithm.getFliePath(`${GPPath}/box/action`), // 地图行为
-  playerBattle: algorithm.getFliePath(`${GPPath}/box/battle`), // 战斗
-  playerEquipment: algorithm.getFliePath(`${GPPath}/box/equipment`), // 装备
-  playerSpecial: algorithm.getFliePath(`${GPPath}/box/special`), // 特殊值
-  playerLevel: algorithm.getFliePath(`${GPPath}/box/level`), // 境界
-  playerTalent: algorithm.getFliePath(`${GPPath}/box/talent`), // 天赋
-  playerBag: algorithm.getFliePath(`${GPPath}/box/najie`), // 背包
-  playerLife: algorithm.getFliePath(`${GPPath}/box/life`), // 寿命
-  playerMaterial: algorithm.getFliePath(`${GPPath}/box/material`), //
-  playerBank: algorithm.getFliePath(`${GPPath}/box/bank`), // 金银坊
-  generate_exchange: algorithm.getFliePath(`${GPPath}/box/exchange`), // 虚空境
+  playerExtend: algorithm.getProcessCwd(`${GPPath}/box/extend`), // 增浮
+  playerAction: algorithm.getProcessCwd(`${GPPath}/box/action`), // 地图行为
+  playerBattle: algorithm.getProcessCwd(`${GPPath}/box/battle`), // 战斗
+  playerEquipment: algorithm.getProcessCwd(`${GPPath}/box/equipment`), // 装备
+  playerSpecial: algorithm.getProcessCwd(`${GPPath}/box/special`), // 特殊值
+  playerLevel: algorithm.getProcessCwd(`${GPPath}/box/level`), // 境界
+  playerTalent: algorithm.getProcessCwd(`${GPPath}/box/talent`), // 天赋
+  playerBag: algorithm.getProcessCwd(`${GPPath}/box/najie`), // 背包
+  playerLife: algorithm.getProcessCwd(`${GPPath}/box/life`), // 寿命
+  playerMaterial: algorithm.getProcessCwd(`${GPPath}/box/material`), //
+  playerBank: algorithm.getProcessCwd(`${GPPath}/box/bank`), // 金银坊
+  generate_exchange: algorithm.getProcessCwd(`${GPPath}/box/exchange`), // 虚空境
 
   /* 基础数据：插件内 */
-  fixed_point: algorithm.getReq('/resources/datafixed/point'), // 点位
-  fixed_position: algorithm.getReq('/resources/datafixed/position'), // 区域位
-  fixed_equipment: algorithm.getReq('/resources/datafixed/equipment'), // 装备
-  fixed_goods: algorithm.getReq('/resources/datafixed/goods'), // 物品
-  fixed_talent: algorithm.getReq('/resources/datafixed/talent'), // 灵根
-  fixed_material: algorithm.getReq('/resources/datafixed/material'), //
-  fixed_monster: algorithm.getReq('/resources/datafixed/monster'), // 怪物
-  fixed_levels: algorithm.getReq('/resources/datafixed/levels'), // 境界
+  fixed_point: algorithm.getPath('/resources/datafixed/point'), // 点位
+  fixed_position: algorithm.getPath('/resources/datafixed/position'), // 区域位
+  fixed_equipment: algorithm.getPath('/resources/datafixed/equipment'), // 装备
+  fixed_goods: algorithm.getPath('/resources/datafixed/goods'), // 物品
+  fixed_talent: algorithm.getPath('/resources/datafixed/talent'), // 灵根
+  fixed_material: algorithm.getPath('/resources/datafixed/material'), //
+  fixed_monster: algorithm.getPath('/resources/datafixed/monster'), // 怪物
+  fixed_levels: algorithm.getPath('/resources/datafixed/levels'), // 境界
 
   /* 生成数据：插件内 */
-  generate_all: algorithm.getReq('/resources/databirth/all'), // 所有数据
-  generate_position: algorithm.getReq('/resources/databirth/position'), // 位置
-  generate_dogshop: algorithm.getReq('/resources/databirth/dogshop'), // 灵瑶阁
+  generate_all: algorithm.getPath('/resources/databirth/all'), // 所有数据
+  generate_position: algorithm.getPath('/resources/databirth/position'), // 位置
+  generate_dogshop: algorithm.getPath('/resources/databirth/dogshop'), // 灵瑶阁
 
   /* 家园路径 */
 
-  user_home_user: algorithm.getFliePath(`${GPPath}/home/user`),
-  user_home_landgoods: algorithm.getFliePath(`${GPPath}/home/landgoods`),
-  userHomeLife: algorithm.getFliePath(`${GPPath}/home/life`),
-  user_home_minefield: algorithm.getFliePath(`${GPPath}/home/minefield`),
-  user_home_position: algorithm.getFliePath(`${GPPath}/home/position`),
-  user_home_Warehouse: algorithm.getFliePath(`${GPPath}/home/Warehouse`),
-  user_home_cook: algorithm.getFliePath(`${GPPath}/home/cook`),
-  user_home_food: algorithm.getFliePath(`${GPPath}/home/food`),
-  user_home_wanmin: algorithm.getFliePath(`${GPPath}/home/wanmin`),
-  user_home_state: algorithm.getFliePath(`${GPPath}/home/state`),
-  user_home_rangelandannimals: algorithm.getFliePath(`${GPPath}/home/rangelandannimals`),
-  user_home_rangeland: algorithm.getFliePath(`${GPPath}/home/rangeland`),
+  user_home_user: algorithm.getProcessCwd(`${GPPath}/home/user`),
+  user_home_landgoods: algorithm.getProcessCwd(`${GPPath}/home/landgoods`),
+  userHomeLife: algorithm.getProcessCwd(`${GPPath}/home/life`),
+  user_home_minefield: algorithm.getProcessCwd(`${GPPath}/home/minefield`),
+  user_home_position: algorithm.getProcessCwd(`${GPPath}/home/position`),
+  user_home_Warehouse: algorithm.getProcessCwd(`${GPPath}/home/Warehouse`),
+  user_home_cook: algorithm.getProcessCwd(`${GPPath}/home/cook`),
+  user_home_food: algorithm.getProcessCwd(`${GPPath}/home/food`),
+  user_home_wanmin: algorithm.getProcessCwd(`${GPPath}/home/wanmin`),
+  user_home_state: algorithm.getProcessCwd(`${GPPath}/home/state`),
+  user_home_rangelandannimals: algorithm.getProcessCwd(`${GPPath}/home/rangelandannimals`),
+  user_home_rangeland: algorithm.getProcessCwd(`${GPPath}/home/rangeland`),
 
   /* 宗门路径 */
 
-  assGP: algorithm.getFliePath(`${GPPath}/ass/gp`), // 玩家的基础信息
-  assRelation: algorithm.getFliePath(`${GPPath}/ass/relation`), // 所有宗门的基础存档
-  association: algorithm.getFliePath(`${GPPath}/ass/item`), // 宗门的基础信息
-  assTreasure: algorithm.getFliePath(`${GPPath}/ass/Ttreasure`), // 宗门的藏宝阁
-  assinterimArchive: algorithm.getFliePath(`${GPPath}/ass/archive`), // 宗门的秘境
+  assGP: algorithm.getProcessCwd(`${GPPath}/ass/gp`), // 玩家的基础信息
+  assRelation: algorithm.getProcessCwd(`${GPPath}/ass/relation`), // 所有宗门的基础存档
+  association: algorithm.getProcessCwd(`${GPPath}/ass/item`), // 宗门的基础信息
+  assTreasure: algorithm.getProcessCwd(`${GPPath}/ass/Ttreasure`), // 宗门的藏宝阁
+  assinterimArchive: algorithm.getProcessCwd(`${GPPath}/ass/archive`), // 宗门的秘境
 
-  assassTreasu: algorithm.getReq('/resources/datafixed/assTreasureVault'), // 隐藏宗门的藏宝阁
-  assRelate: algorithm.getReq('/resources/datafixed/assRelate') // 宗门相关资料
+  assassTreasu: algorithm.getPath('/resources/datafixed/assTreasureVault'), // 隐藏宗门的藏宝阁
+  assRelate: algorithm.getPath('/resources/datafixed/assRelate') // 宗门相关资料
 
   /**
    * | assRelate |

@@ -1,10 +1,10 @@
 import fs from 'node:fs'
 import YAML from 'yaml'
-import { MyDirPath } from '../../../app.config.js'
+import { DirPath } from '../../../app.config.js'
 /** 自定义配置地址 */
-const __diryaml = `${MyDirPath}/config/cooling.yaml`
+const __diryaml = `${DirPath}/config/cooling.yaml`
 
-const NameList = `${MyDirPath}/config/namelist.yaml`
+const NameList = `${DirPath}/config/namelist.yaml`
 
 class Defset {
   /**
@@ -13,7 +13,7 @@ class Defset {
    */
   getConfig({ name }) {
     /* 获得配置地址 */
-    const file = `${MyDirPath}/config/${name}.yaml`
+    const file = `${DirPath}/config/${name}.yaml`
     /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data
@@ -21,7 +21,7 @@ class Defset {
 
   getDefset = ({ name }) => {
     /* 获得配置地址 */
-    const file = `${MyDirPath}/resources/defset/${name}.yaml`
+    const file = `${DirPath}/resources/defset/${name}.yaml`
     /* 读取配置 */
     const data = YAML.parse(fs.readFileSync(file, 'utf8'))
     return data

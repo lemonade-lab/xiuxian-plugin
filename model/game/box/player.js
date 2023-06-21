@@ -135,6 +135,10 @@ class Player {
       name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
     }
     const name = Method.Anyarray(FullName.full) + Method.Anyarray(FullName.name)
+    /**
+     * ******
+     * ******
+     */
     const LifeData = Listdata.controlActionInitial({
       CHOICE: 'playerLife',
       NAME: 'life',
@@ -149,12 +153,15 @@ class Player {
       status: 1 // 是否死亡
     }
     /** 更新用户表 */
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'playerLife',
       NAME: 'life',
-      DATA: LifeData,
-      INITIAL: {}
+      DATA: LifeData
     })
+    /**
+     * ******
+     * ******
+     */
     // 签到
     const SignData = Listdata.controlActionInitial({
       CHOICE: 'playerLife',
@@ -167,20 +174,27 @@ class Player {
       signDay: 0, // 签到日为 0
       sginMath: 0 // 签到的月份,不同月重置size
     }
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'playerLife',
       NAME: 'sign',
-      DATA: SignData,
-      INITIAL: {}
+      DATA: SignData
     })
-    // 天赋
+
+    /**
+     * ****
+     * ****
+     */
+
+    // 临时属性
     Listdata.controlAction({ NAME: UID, CHOICE: 'playerExtend', DATA: {} })
+
     /** 更新装备 */
     Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment',
       DATA: []
     })
+
     /** 更新天赋面板 */
     Talent.updataEfficiency(UID)
     /** 更新战斗面板 */
@@ -199,25 +213,28 @@ class Player {
       NAME: 'life',
       INITIAL: {}
     })
-    return LifeData[UID]
+    if (LifeData[UID]) {
+      return LifeData[UID]
+    }
+    return false
   }
 
   /**
-   * 得到用户寿命状态
+   * 判断是否已死亡
    * @param UID  UID
    * @returns
    */
   getUserLifeSatus(UID) {
-    let find = this.getUserLife(UID)
-    if (find) {
-      if (find.status == 0) {
+    let LifeData = this.getUserLife(UID)
+    if (LifeData) {
+      if (LifeData.status == 0) {
         return false
       }
       return true
     }
     // 创建新人
-    const CreateGO = this.createPlayer(UID)
-    if (!CreateGO) {
+    const PlaterData = this.createPlayer(UID)
+    if (!PlaterData) {
       return false
     }
     return true

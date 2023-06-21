@@ -29,11 +29,7 @@ export class Boxadminaction extends plugin {
   async deleteAllusers(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    GameApi.Listdata.controlAction({
-      NAME: 'life',
-      CHOICE: 'playerLife',
-      DATA: {}
-    })
+    GameApi.Listdata.write('life', 'playerLife', {})
     GameApi.Wrap.deleteAllReids()
     e.reply('删除完成')
     return false

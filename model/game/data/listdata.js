@@ -2,20 +2,72 @@ import { __PATH } from './index.js'
 import algorithm from './algorithm.js'
 class Listdata {
   /**
+   * 写入数据
+   * @param {*} NAME
+   * @param {*} CHOICE
+   * @param {*} DATA
+   */
+  write(NAME, CHOICE, DATA) {
+    algorithm.postData({
+      NAME,
+      PATH: __PATH[CHOICE],
+      DATA
+    })
+  }
+
+  /**
+   *
+   * 读取数据
+   * @param {*} NAME
+   * @param {*} CHOICE
+   * @returns
+   */
+  read(NAME, CHOICE) {
+    return algorithm.getData({
+      NAME,
+      PATH: __PATH[CHOICE]
+    })
+  }
+
+  /**
+   * 初始化读取
+   * @param {*} NAME
+   * @param {*} CHOICE
+   * @param {*} INITIAL
+   * @returns
+   */
+  readInitial(NAME, CHOICE, INITIAL) {
+    if (!algorithm.existFile(__PATH[CHOICE], NAME)) {
+      algorithm.postData({
+        NAME,
+        PATH: __PATH[CHOICE],
+        DATA: INITIAL
+      })
+      return INITIAL
+    } else {
+      const Data = algorithm.getData({
+        NAME,
+        PATH: __PATH[CHOICE]
+      })
+      return Data
+    }
+  }
+
+  /**
    * 若无data则是读取操作，返回data
    * @param { NAME, CHOICE, DATA }param0
    * @returns
    */
   controlAction({ NAME, CHOICE, DATA }) {
     if (DATA) {
-      algorithm.dataAction({
+      algorithm.postData({
         NAME,
         PATH: __PATH[CHOICE],
         DATA
       })
       return
     }
-    return algorithm.dataAction({
+    return algorithm.getData({
       NAME,
       PATH: __PATH[CHOICE]
     })
@@ -28,23 +80,22 @@ class Listdata {
    */
   controlActionInitial({ NAME, CHOICE, DATA, INITIAL }) {
     if (DATA) {
-      algorithm.dataAction({
+      algorithm.postData({
         NAME,
         PATH: __PATH[CHOICE],
         DATA
       })
       return
     }
-    // 读取的时候需要检查
-    // 判断是否存在,不存在需要初始化
     if (!algorithm.existFile(__PATH[CHOICE], NAME)) {
-      algorithm.dataAction({
+      algorithm.postData({
         NAME,
         PATH: __PATH[CHOICE],
         DATA: INITIAL
       })
+      return INITIAL
     } else {
-      const Data = algorithm.dataActionNew({
+      const Data = algorithm.getData({
         NAME,
         PATH: __PATH[CHOICE]
       })
@@ -57,8 +108,8 @@ class Listdata {
    * @param {表名} NAME
    * @returns 随机返回该表的子元素
    */
-  randomListThing({ NAME, CHOICE }) {
-    const LIST = algorithm.dataAction({
+  randomListThing(NAME, CHOICE) {
+    const LIST = algorithm.getData({
       NAME,
       PATH: __PATH[CHOICE]
     })

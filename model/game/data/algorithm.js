@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { MyDirPath } from '../../../app.config.js'
+import { DirPath } from '../../../app.config.js'
 
 /** fs算法 */
 class Algorithm {
@@ -78,58 +78,42 @@ class Algorithm {
   }
 
   /**
-   *
-   * @param { NAME, PATH, DATA } parameter
-   * @returns 若存在不存在数据参数则是读取操作
+   * 得到数据
+   * @param {*} PATH
+   * @param {*} NAME
+   * @returns
    */
-  dataAction({ NAME, PATH, DATA }) {
+  getData(NAME, PATH) {
     const DIR = path.join(`${PATH}/${NAME}.json`)
-    if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
-      return
-    }
-    const data = JSON.parse(
-      fs.readFileSync(DIR, 'utf8', (err, data) => {
-        if (err) {
-          return 'error'
-        }
-        return data
-      })
-    )
+    const data = JSON.parse(fs.readFileSync(DIR, 'utf8'))
     return data
   }
 
   /**
-   * 存在数据传入则为读写操作
-   * 读取操作时文件不存在则返回false
-   * @param { NAME, PATH, DATA } parameter
-   * @returns
+   * 推送数据
+   * @param {*} NAME
+   * @param {*} PATH
+   * @param {*} DATA
    */
-  dataActionNew({ NAME, PATH, DATA }) {
+  postData(NAME, PATH, DATA) {
     const DIR = path.join(`${PATH}/${NAME}.json`)
-    if (DATA) {
-      fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
-      return
-    }
-    try {
-      const data = JSON.parse(
-        fs.readFileSync(DIR, 'utf8', (err, data) => {
-          if (err) {
-            return 'error'
-          }
-          return data
-        })
-      )
-      return data
-    } catch {
-      return false
-    }
+    fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
   }
 
-  /* 输入需要初始化目录的地址 */
-  ctrateFile(req) {
+  /** 得到该路径的完整路径 */
+  getPath(req) {
+    /* 根据目录初始化地址 */
+    this.ctratePath(req)
+    return path.join(DirPath, req)
+  }
+
+  /**
+   * 插件目录生成路径
+   * @param {*} req
+   */
+  ctratePath(req) {
     let name = req.split('/')
-    let newname = MyDirPath
+    let newname = DirPath
     name.forEach((item) => {
       newname += `${item}/`
       if (!fs.existsSync(`${newname}`)) {
@@ -138,7 +122,18 @@ class Algorithm {
     })
   }
 
-  ctrateFilePath(req) {
+  /** 得到该路径的完整路径 */
+  getProcessCwd(req) {
+    /* 根据目录初始化地址 */
+    this.ctrateProcessCwd(req)
+    return path.join(process.cwd(), req)
+  }
+
+  /**
+   * 执行目录生成路径
+   * @param {*} req
+   */
+  ctrateProcessCwd(req) {
     let name = req.split('/')
     let newname = process.cwd()
     name.forEach((item) => {
@@ -147,20 +142,6 @@ class Algorithm {
         fs.mkdirSync(`${newname}`)
       }
     })
-  }
-
-  /** 得到该路径的完整路径 */
-  getReq(req) {
-    /* 根据目录初始化地址 */
-    this.ctrateFile(req)
-    return path.join(MyDirPath, req)
-  }
-
-  /** 得到该路径的完整路径 */
-  getFliePath(req) {
-    /* 根据目录初始化地址 */
-    this.ctrateFilePath(req)
-    return path.join(process.cwd(), req)
   }
 }
 export default new Algorithm()

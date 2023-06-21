@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { AppName, MyDirPath } from './app.config.js'
+import { AppName, DirPath } from './app.config.js'
 import createdata from './model/game/data/createdata.js'
 
 /** 检测配置 */
@@ -37,7 +37,7 @@ travel(filepath, (val) => {
 })
 let apps = {}
 for (let item of sum) {
-  const address = `${MyDirPath}${item.replace(/\\/g, '/').replace(`${firstName}`, '')}`
+  const address = `${DirPath}${item.replace(/\\/g, '/').replace(`${firstName}`, '')}`
   let allExport = await import(`file:${address}`)
   let keys = Object.keys(allExport)
   for (let key of keys) {

@@ -1,9 +1,9 @@
 import userAction from './action.js'
 import { exec } from 'child_process'
-import { AppName, MyDirPath } from '../../app.config.js'
+import { AppName, DirPath } from '../../app.config.js'
 class Exec {
   execStart = ({ cmd, e }) => {
-    exec(cmd, { cwd: MyDirPath }, (error, stdout) => {
+    exec(cmd, { cwd: DirPath }, (error, stdout) => {
       const msg = []
       if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
         msg.push(`${AppName}|已是最新版`)
