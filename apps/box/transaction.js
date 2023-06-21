@@ -226,7 +226,7 @@ function transactionMessage(e) {
     return false
   }
   const addressName = '万宝楼'
-  if (!GameApi.WrapMap.mapAction({ UID: e.user_id, addressName })) {
+  if (!GameApi.Map.mapAction({ UID: e.user_id, addressName })) {
     e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     return false
   }

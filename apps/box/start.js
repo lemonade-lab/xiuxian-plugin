@@ -30,13 +30,13 @@ export class BoxStart extends plugin {
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
     const CDID = '8'
     const nowTime = new Date().getTime()
-    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
       e.reply(coolingMsg)
       return false
     }
-    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
-    GameApi.Wrap.deleteAction(UID)
+    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
+    GameApi.Action.deleteAction(UID)
     // 重生后life重置,不需要做其他修改
     GameApi.Player.createPlayer(e.user_id)
     const { path, name, data } = GameApi.Information.userDataShow(e.user_id)

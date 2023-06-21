@@ -67,7 +67,7 @@ export class AssUncharted extends plugin {
   async goGuildSecrets(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const { state, msg } = GameApi.Wrap.Go(UID)
+    const { state, msg } = GameApi.Action.Go(UID)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -169,7 +169,7 @@ export class AssUncharted extends plugin {
     // 初始化临时存档，选择随机地图，添加状态
     const nowTime = new Date().getTime()
 
-    GameApi.Wrap.setAction(UID, {
+    GameApi.Action.setAction(UID, {
       actionID: 6,
       startTime: nowTime
     })
@@ -247,7 +247,7 @@ export class AssUncharted extends plugin {
     const ClassCD = ':LabyrinthMove'
     const nowTime = new Date().getTime()
 
-    const cdSecond = GameApi.Wrap.getRedis(UID, ClassCD)
+    const cdSecond = GameApi.Burial.get(UID, ClassCD)
     if (cdSecond.expire) {
       e.reply(`休整一下再出发吧，剩余${cdSecond.expire}秒！`)
       return false
@@ -289,7 +289,7 @@ export class AssUncharted extends plugin {
         }修为`
       )
     } else if (random < 0.65) {
-      GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
+      GameApi.Burial.set(UID, ClassCD, nowTime, CDTime)
       GameApi.Levels.addExperience(UID, 0, assinterimArchive.incentivesLevel)
       e.reply(
         `这是一块灵气充裕之地，你静心修炼一会儿，获得了${
@@ -298,7 +298,7 @@ export class AssUncharted extends plugin {
       )
     } else if (random < 0.85) {
       // 遇怪
-      GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
+      GameApi.Burial.set(UID, ClassCD, nowTime, CDTime)
       const battle = GameApi.Listdata.controlAction({
         NAME: UID,
         CHOICE: 'playerBattle'
@@ -357,7 +357,7 @@ export class AssUncharted extends plugin {
       )
     } else {
       // 宝箱
-      GameApi.Wrap.setRedis(UID, ClassCD, nowTime, CDTime)
+      GameApi.Burial.set(UID, ClassCD, nowTime, CDTime)
       const chestsType = Math.ceil(Math.random() * 6)
       let chestsLevel
       // 0 - 15
@@ -578,11 +578,11 @@ export class AssUncharted extends plugin {
       }
       AssociationApi.assUser.deleteAss('assinterimArchive', UID)
     }
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
     if (action.actionID != 6) {
       return false
     }
-    GameApi.Wrap.deleteAction(UID)
+    GameApi.Action.deleteAction(UID)
     e.reply(`已成功脱离秘境`)
     return false
   }

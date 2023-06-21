@@ -72,10 +72,10 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
     if (!action) return false
     if (action.actionID == 2) {
-      GameApi.Wrap.deleteAction(UID)
+      GameApi.Action.deleteAction(UID)
       // 取消行为
       clearTimeout(GameApi.Place.getUserAction(UID))
       e.reply('已回到原地')
@@ -91,7 +91,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -138,7 +138,7 @@ export class BoxSecretplace extends plugin {
       UID,
       setTimeout(() => {
         /* 这里清除行为 */
-        GameApi.Wrap.deleteAction(UID)
+        GameApi.Action.deleteAction(UID)
         action.x = mx
         action.y = my
         action.region = PointId[1]
@@ -152,7 +152,7 @@ export class BoxSecretplace extends plugin {
       }, 1000 * time)
     )
     // 设置行为赶路
-    GameApi.Wrap.setAction(UID, {
+    GameApi.Action.setAction(UID, {
       actionID: 2,
       startTime: 1000 * time
     })
@@ -167,7 +167,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -237,7 +237,7 @@ export class BoxSecretplace extends plugin {
     const time = the > 0 ? the : 1
     setTimeout(() => {
       // 清除行为
-      GameApi.Wrap.deleteAction(UID)
+      GameApi.Action.deleteAction(UID)
       action.x = mx
       action.y = my
       action.region = positionID[1]
@@ -250,7 +250,7 @@ export class BoxSecretplace extends plugin {
       e.reply([segment.at(UID), `成功传送至${address}`])
     }, 1000 * time)
     // 传送行为记录
-    GameApi.Wrap.setAction(UID, {
+    GameApi.Action.setAction(UID, {
       actionID: 3,
       startTime: 1000 * time
     })

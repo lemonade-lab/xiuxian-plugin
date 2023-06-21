@@ -1,5 +1,5 @@
 import Listdata from '../data/listdata.js'
-import Wrap from '../wrap/index.js'
+import Burial from '../wrap/burial.js'
 import User from './user.js'
 // 秋雨
 class UserAction {
@@ -71,7 +71,7 @@ class UserAction {
     } else {
       const time = (Math.trunc(homelevel) + 1) * 10
       const nowTime = new Date().getTime()
-      Wrap.setAction(UID, {
+      Burial.setAction(UID, {
         actionID: 5,
         startTime: nowTime,
         time1: time

@@ -29,7 +29,7 @@ export class BoxBag extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false

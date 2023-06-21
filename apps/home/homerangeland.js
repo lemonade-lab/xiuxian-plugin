@@ -62,7 +62,7 @@ export class Homerangeland extends plugin {
       return
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
-    const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
+    const { state, msg } = GameApi.Action.miniGo(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -642,7 +642,7 @@ export class Homerangeland extends plugin {
   // 偷
   async Stealanimals(e) {
     if (!this.verify(e)) return false
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -729,7 +729,7 @@ export class Homerangeland extends plugin {
       name: rangelandannimals.name1
     })
     e.reply(`您获得了${MSG}`)
-    GameApi.Wrap.setRedis(user.A, CDid, nowTime, CDTime)
+    GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
   }
 
   // 查看他人牧场

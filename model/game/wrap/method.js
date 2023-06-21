@@ -118,5 +118,17 @@ class Method {
     const randomNum = Math.floor(Math.random() * (max - min + 1)) + min
     return randomNum <= (percent / 100) * (max - min + 1) + min
   }
+
+  convertTime(time) {
+    const ms = time % 1000
+    time = (time - ms) / 1000
+    const secs = time % 60
+    time = (time - secs) / 60
+    const mins = time % 60
+    time = (time - mins) / 60
+    const hrs = time % 24
+    const days = (time - hrs) / 24
+    return `${days}d${hrs}h${mins}m${secs}s`
+  }
 }
 export default new Method()

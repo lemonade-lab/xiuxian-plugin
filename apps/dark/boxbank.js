@@ -16,16 +16,8 @@ export class BoxBank extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const StorageList = GameApi.Listdata.controlActionInitial({
-      NAME: 'storage',
-      CHOICE: 'playerBank',
-      INITIAL: {}
-    })
-    const WhiteBarList = GameApi.Listdata.controlActionInitial({
-      NAME: 'whiteBar',
-      CHOICE: 'playerBank',
-      INITIAL: {}
-    })
+    const StorageList = GameApi.Listdata.readInitial('storage', 'playerBank', {})
+    const WhiteBarList = GameApi.Listdata.readInitial('whiteBar', 'playerBank', {})
     const msg = []
     if (!Object.prototype.hasOwnProperty.call(StorageList, UID)) {
       msg.push('无存款记录')

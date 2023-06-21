@@ -98,7 +98,7 @@ export class Homestart extends plugin {
       CHOICE: 'playerAction'
     })
     const addressName = '极西联盟'
-    const map = GameApi.WrapMap.mapExistence({
+    const map = GameApi.Map.mapExistence({
       action,
       addressName
     })
@@ -201,7 +201,7 @@ export class Homestart extends plugin {
       e.reply(`${archive}`)
       return false
     }
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
     if (action.actionID != 5) {
       return false
     }

@@ -8,11 +8,7 @@ class Listdata {
    * @param {*} DATA
    */
   write(NAME, CHOICE, DATA) {
-    algorithm.postData({
-      NAME,
-      PATH: __PATH[CHOICE],
-      DATA
-    })
+    algorithm.postData(NAME, __PATH[CHOICE], DATA)
   }
 
   /**
@@ -23,10 +19,7 @@ class Listdata {
    * @returns
    */
   read(NAME, CHOICE) {
-    return algorithm.getData({
-      NAME,
-      PATH: __PATH[CHOICE]
-    })
+    return algorithm.getData(NAME, __PATH[CHOICE])
   }
 
   /**
@@ -38,17 +31,10 @@ class Listdata {
    */
   readInitial(NAME, CHOICE, INITIAL) {
     if (!algorithm.existFile(__PATH[CHOICE], NAME)) {
-      algorithm.postData({
-        NAME,
-        PATH: __PATH[CHOICE],
-        DATA: INITIAL
-      })
+      algorithm.postData(NAME, __PATH[CHOICE], INITIAL)
       return INITIAL
     } else {
-      const Data = algorithm.getData({
-        NAME,
-        PATH: __PATH[CHOICE]
-      })
+      const Data = algorithm.getData(NAME, __PATH[CHOICE])
       return Data
     }
   }
@@ -60,17 +46,10 @@ class Listdata {
    */
   controlAction({ NAME, CHOICE, DATA }) {
     if (DATA) {
-      algorithm.postData({
-        NAME,
-        PATH: __PATH[CHOICE],
-        DATA
-      })
+      algorithm.postData(NAME, __PATH[CHOICE], DATA)
       return
     }
-    return algorithm.getData({
-      NAME,
-      PATH: __PATH[CHOICE]
-    })
+    return algorithm.getData(NAME, __PATH[CHOICE])
   }
 
   /**
@@ -80,25 +59,14 @@ class Listdata {
    */
   controlActionInitial({ NAME, CHOICE, DATA, INITIAL }) {
     if (DATA) {
-      algorithm.postData({
-        NAME,
-        PATH: __PATH[CHOICE],
-        DATA
-      })
+      algorithm.postData(NAME, __PATH[CHOICE], DATA)
       return
     }
     if (!algorithm.existFile(__PATH[CHOICE], NAME)) {
-      algorithm.postData({
-        NAME,
-        PATH: __PATH[CHOICE],
-        DATA: INITIAL
-      })
+      algorithm.postData(NAME, __PATH[CHOICE], INITIAL)
       return INITIAL
     } else {
-      const Data = algorithm.getData({
-        NAME,
-        PATH: __PATH[CHOICE]
-      })
+      const Data = algorithm.getData(NAME, __PATH[CHOICE])
       return Data
     }
   }
@@ -109,10 +77,7 @@ class Listdata {
    * @returns 随机返回该表的子元素
    */
   randomListThing(NAME, CHOICE) {
-    const LIST = algorithm.getData({
-      NAME,
-      PATH: __PATH[CHOICE]
-    })
+    const LIST = algorithm.getData(NAME, __PATH[CHOICE])
     return LIST[Math.floor(Math.random() * LIST.length)]
   }
 

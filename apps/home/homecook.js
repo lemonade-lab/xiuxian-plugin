@@ -91,7 +91,7 @@ export class Homecook extends plugin {
       e.reply(`你没有这样的锅具，请重新选择`)
       return false
     }
-    GameApi.Wrap.setAction(UID, {
+    GameApi.Action.setAction(UID, {
       name: choice,
       startTime: 1000 * 60
     })
@@ -171,7 +171,7 @@ export class Homecook extends plugin {
       e.reply(`好像没有这种食谱，请重新选择!`)
       return false
     }
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
 
     let nameIwant = action.name
     let zhushi = food.zhushi
@@ -329,7 +329,7 @@ export class Homecook extends plugin {
       return false
     }
     let doge = (zhushi1.doge + tiaoliao1.doge + fushi1.doge) * 2
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
     let nameIwant = action.name
     let guo = Warehouse.thing.find((item) => item.name === nameIwant)
     let shuxing1 = HomeApi.GP.attribute({ thing: zhushi1 })
@@ -577,7 +577,7 @@ export class Homecook extends plugin {
     }
     const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
-    const map = GameApi.WrapMap.mapExistence({ action, addressName })
+    const map = GameApi.Map.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}才能发布`)
       return false
@@ -660,7 +660,7 @@ export class Homecook extends plugin {
     }
     const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
-    const map = GameApi.WrapMap.mapExistence({ action, addressName })
+    const map = GameApi.Map.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}`)
       return false
@@ -692,7 +692,7 @@ export class Homecook extends plugin {
     }
     const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
-    const map = GameApi.WrapMap.mapExistence({ action, addressName })
+    const map = GameApi.Map.mapExistence({ action, addressName })
     if (!map) {
       e.reply(`需要前往各大主城中的${addressName}才能购买`)
       return false
@@ -961,7 +961,7 @@ export class Homecook extends plugin {
     }, 1000 * time * quantity)
     forwardsetTime[UID] = 1
     e.reply(`正在给你制作【${quantity}】份【${code[0]}】...\n预计需要${time * quantity}秒`)
-    GameApi.Wrap.setRedis(UID, CDid, nowTime, CDTime)
+    GameApi.Burial.set(UID, CDid, nowTime, CDTime)
     return false
   }
 }

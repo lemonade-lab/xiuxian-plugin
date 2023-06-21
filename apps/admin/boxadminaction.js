@@ -21,7 +21,7 @@ export class Boxadminaction extends plugin {
   async deleteAllReids(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    GameApi.Wrap.deleteAllReids()
+    GameApi.Burial.deleteAll()
     e.reply('删除完成')
     return false
   }
@@ -30,7 +30,7 @@ export class Boxadminaction extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     GameApi.Listdata.write('life', 'playerLife', {})
-    GameApi.Wrap.deleteAllReids()
+    GameApi.Burial.deleteAll()
     e.reply('删除完成')
     return false
   }

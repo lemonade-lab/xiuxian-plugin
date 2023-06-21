@@ -1,5 +1,5 @@
 import Listdata from '../data/listdata.js'
-import Wrap from '../wrap/index.js'
+import Burial from '../wrap/burial.js'
 import Defset from '../data/defset.js'
 import Method from '../wrap/method.js'
 import Talent from './talent.js'
@@ -28,7 +28,7 @@ class Player {
     })
     // 清除死亡uid
     for (let UID of die) {
-      Wrap.deleteAction(UID)
+      Burial.deleteAction(UID)
     }
   }
 

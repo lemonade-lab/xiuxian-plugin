@@ -1,17 +1,18 @@
-const timeObj = {}
-
 class Place {
+  constructor() {
+    this.timeObj = {}
+  }
+
   getUserAction(key) {
-    return timeObj[key]
+    return this.timeObj[key]
   }
 
   setUserAction(key, val) {
-    timeObj[key] = val
+    this.timeObj[key] = val
   }
 
   deleteUserAction(key) {
-    delete timeObj[key]
+    delete this.timeObj[key]
   }
 }
-
 export default new Place()

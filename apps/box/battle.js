@@ -26,7 +26,7 @@ export class BoxBattle extends plugin {
       e.reply(`已仙鹤`)
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -35,7 +35,7 @@ export class BoxBattle extends plugin {
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({ name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
-    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
       e.reply(coolingMsg)
       return false
@@ -67,7 +67,7 @@ export class BoxBattle extends plugin {
         ACCOUNT: -1
       })
     }
-    GameApi.Wrap.setRedis(UIDA, CDID, nowTime, CDTime)
+    GameApi.Burial.set(UIDA, CDID, nowTime, CDTime)
     // 增加
     const SpecialData = GameApi.Listdata.controlAction({
       NAME: UIDA,

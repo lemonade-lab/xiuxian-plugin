@@ -1,7 +1,9 @@
-import Wrap from '../game/wrap/index.js'
-import WrapMap from '../game/wrap/map.js'
+import Burial from '../game/wrap/burial.js'
+import Map from '../game/wrap/map.js'
 import Place from '../game/wrap/place.js'
 import Method from '../game/wrap/method.js'
+import Redis from '../game/wrap/redis.js'
+import Action from '../game/home/action.js'
 
 import Defset from '../game/data/defset.js'
 import Schedule from '../game/data/schedule.js'
@@ -19,19 +21,21 @@ import Talent from '../game/box/talent.js'
 import Bag from '../game/box/bag.js'
 import Special from '../game/box/special.js'
 export const GameApi = {
+  Action,
   Special,
   Bag,
   Talent,
   Player,
   Method,
   Place,
-  Wrap,
+  Burial,
   GP,
   Defset,
   Schedule,
   Createdata,
   Listdata,
-  WrapMap,
+  Map,
+  Redis,
   Monster,
   Battle,
   Information,

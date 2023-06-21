@@ -161,13 +161,13 @@ function UnionMessage(e) {
     e.reply('已仙鹤')
     return false
   }
-  const { state, msg } = GameApi.Wrap.Go(e.user_id)
+  const { state, msg } = GameApi.Action.Go(e.user_id)
   if (state == 4001) {
     e.reply(msg)
     return false
   }
   const addressName = '联盟'
-  if (!GameApi.WrapMap.mapAction({ UID: e.user_id, addressName })) {
+  if (!GameApi.Map.mapAction({ UID: e.user_id, addressName })) {
     e.reply(`需[(#|/)前往+城池名+${addressName}]`)
     return false
   }

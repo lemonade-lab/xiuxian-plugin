@@ -47,7 +47,7 @@ export class Homeland extends plugin {
       return false
     }
     const ifexisthome = HomeApi.GP.existhome(UID)
-    const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
+    const { state, msg } = GameApi.Action.miniGo(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -420,7 +420,7 @@ export class Homeland extends plugin {
   // 偷菜
   async Stealvegetables(e) {
     if (!this.verify(e)) return false
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -534,7 +534,7 @@ export class Homeland extends plugin {
       DATA: home
     })
     e.reply(`成功盗取数量为${other}的${thing},并增加${z}的家园经验`)
-    GameApi.Wrap.setRedis(user.A, CDid, nowTime, CDTime)
+    GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
     return false
   }
 

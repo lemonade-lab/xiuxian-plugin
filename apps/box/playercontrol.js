@@ -18,13 +18,13 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.GoMini(e.user_id)
+    const { state, msg } = GameApi.Action.miniGo(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
     }
     const nowTime = new Date().getTime()
-    GameApi.Wrap.setAction(UID, {
+    GameApi.Action.setAction(UID, {
       actionID: 0,
       startTime: nowTime
     })
@@ -39,13 +39,13 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
     }
     const nowTime = new Date().getTime()
-    GameApi.Wrap.setAction(UID, {
+    GameApi.Action.setAction(UID, {
       actionID: 1,
       startTime: nowTime
     })
@@ -60,7 +60,7 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
     if (!action) return false
     if (action.actionID != 0) return false
     const startTime = action.startTime
@@ -71,10 +71,10 @@ export class BoxGPControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.Wrap.deleteAction(UID)
+      GameApi.Action.deleteAction(UID)
       return false
     }
-    GameApi.Wrap.deleteAction(UID)
+    GameApi.Action.deleteAction(UID)
     this.upgrade(UID, time, action.actionID, e)
     return false
   }
@@ -86,7 +86,7 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    let action = GameApi.Wrap.getAction(UID)
+    let action = GameApi.Action.getAction(UID)
     if (!action) return false
     if (action.actionID != 1) return false
     const startTime = action.startTime
@@ -97,10 +97,10 @@ export class BoxGPControl extends plugin {
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
       e.reply('只是呆了一会儿...')
-      GameApi.Wrap.deleteAction(UID)
+      GameApi.Action.deleteAction(UID)
       return false
     }
-    GameApi.Wrap.deleteAction(UID)
+    GameApi.Action.deleteAction(UID)
     this.upgrade(UID, time, action.actionID, e)
     return false
   }

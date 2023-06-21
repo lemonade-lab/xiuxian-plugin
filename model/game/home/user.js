@@ -112,11 +112,7 @@ class GP {
    * @returns
    */
   Archiverangeland(UID) {
-    let life = Listdata.controlActionInitial({
-      NAME: 'life',
-      CHOICE: 'userHomeLife',
-      INITIAL: []
-    })
+    let life = Listdata.readInitial('life', 'userHomeLife', [])
     let fond = life.find((item) => item.UID == UID)
     let Msg = ''
     if (!fond) {
@@ -167,11 +163,7 @@ class GP {
    * @returns
    */
   existhomeplugins(UID) {
-    const life = Listdata.controlActionInitial({
-      NAME: 'life',
-      CHOICE: 'userHomeLife',
-      INITIAL: []
-    })
+    const life = Listdata.readInitial('life', 'userHomeLife', [])
     const find = life.find((item) => item.UID == UID)
     if (find == undefined) {
       return 1

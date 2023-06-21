@@ -16,7 +16,7 @@ export class BoxBattleSite extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -27,7 +27,7 @@ export class BoxBattleSite extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Kill ? cf.CD.Kill : 5
-    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
       e.reply(coolingMsg)
       return false
@@ -137,7 +137,7 @@ export class BoxBattleSite extends plugin {
         })
       }
     }
-    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
     const { path, name, data } = GameApi.Information.showBattle({
       UID: e.user_id,
       msgLeft,
@@ -155,7 +155,7 @@ export class BoxBattleSite extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { MSG } = GameApi.Wrap.GoMini(e.user_id)
+    const { MSG } = GameApi.Action.miniGo(e.user_id)
     if (MSG) {
       e.reply(MSG)
       return false

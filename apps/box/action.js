@@ -74,12 +74,12 @@ export class BoxAction extends plugin {
           const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
           const CDID = '12'
           const nowTime = new Date().getTime()
-          const { state: coolingState } = GameApi.Wrap.cooling(e.user_id, CDID)
+          const { state: coolingState } = GameApi.Burial.cooling(e.user_id, CDID)
           if (coolingState == 4001) {
             experience = 0
             return false
           }
-          GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
+          GameApi.Burial.set(UID, CDID, nowTime, CDTime)
           switch (id[2]) {
             case '1': {
               if (LevelData.gaspractice.realm >= 3) {

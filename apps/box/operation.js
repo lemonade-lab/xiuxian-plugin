@@ -12,7 +12,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { state, msg } = GameApi.Wrap.Go(e.user_id)
+    const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
       return false
@@ -52,12 +52,12 @@ export class BoxMoneyOperation extends plugin {
     const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5
     const CDID = '5'
     const nowTime = new Date().getTime()
-    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
       e.reply(coolingMsg)
       return false
     }
-    GameApi.Wrap.setRedis(A, CDID, nowTime, CDTime)
+    GameApi.Burial.set(A, CDID, nowTime, CDTime)
     GameApi.Bag.addBagThing({
       UID: A,
       name,

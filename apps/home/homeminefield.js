@@ -100,7 +100,7 @@ export class Homeminefield extends plugin {
       e.reply(`你已经是该灵矿的主人了!`)
       return false
     }
-    GameApi.Wrap.setRedis(A, CDid, nowTime, CDTime)
+    GameApi.Burial.set(A, CDid, nowTime, CDTime)
     if (minefieldName1 == undefined) {
       minefield.push({
         UID,

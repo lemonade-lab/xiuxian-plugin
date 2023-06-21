@@ -27,12 +27,12 @@ export class BoxModify extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Name ? cf.CD.Name : 5
-    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
       e.reply(coolingMsg)
       return false
     }
-    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
     const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
     LifeData[UID].name = theName
     GameApi.Listdata.controlAction({
@@ -61,12 +61,12 @@ export class BoxModify extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Autograph ? cf.CD.Autograph : 5
-    const { state: coolingState, msg: coolingMsg } = GameApi.Wrap.cooling(e.user_id, CDID)
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
       e.reply(coolingMsg)
       return false
     }
-    GameApi.Wrap.setRedis(UID, CDID, nowTime, CDTime)
+    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
     const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
     LifeData[UID].autograph = theMsg
     GameApi.Listdata.controlAction({
@@ -86,7 +86,7 @@ function modifiyMessage(e) {
     e.reply('已仙鹤')
     return false
   }
-  const { state, msg } = GameApi.Wrap.Go(e.user_id)
+  const { state, msg } = GameApi.Action.Go(e.user_id)
   if (state == 4001) {
     e.reply(msg)
     return false
