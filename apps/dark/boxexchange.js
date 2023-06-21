@@ -77,11 +77,10 @@ export class BoxExchange extends plugin {
       account,
       money: money * account
     }
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      DATA: exchange,
-      INITIAL: {}
+      DATA: exchange
     })
     GameApi.Bag.addBagThing({
       UID,
@@ -133,11 +132,10 @@ export class BoxExchange extends plugin {
       ACCOUNT: exchange[LifeData[UID].createTime].account
     })
     delete exchange[LifeData[UID].createTime]
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      DATA: exchange,
-      INITIAL: {}
+      DATA: exchange
     })
     e.reply(`成功下架个人物品`)
     return false
@@ -206,11 +204,10 @@ export class BoxExchange extends plugin {
     })
     delete exchange[y]
     // 更新商城
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       NAME: 'exchange',
       CHOICE: 'generate_exchange',
-      DATA: exchange,
-      INITIAL: {}
+      DATA: exchange
     })
     e.reply(`成功选购${ID}`)
     return false

@@ -144,11 +144,10 @@ export class Homestart extends plugin {
         y,
         region
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         NAME: 'position',
         CHOICE: 'position',
-        DATA: positionhome,
-        INITIAL: []
+        DATA: positionhome
       })
       e.reply(`成功在${address}建立了自己的家园`)
     }, 1000 * time1)
@@ -223,11 +222,10 @@ export class Homestart extends plugin {
     home.homeexperience = homeexperience - home.homeexperienceMax
     home.homelevel += 1
     home.homeexperienceMax = home.homelevel * 10000 + 10000
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home',
       NAME: UID,
-      DATA: home,
-      INITIAL: []
+      DATA: home
     })
     HomeApi.GP.deleteAction(UID)
     e.reply(`你的家园已成功扩建`)
@@ -321,11 +319,10 @@ export class Homestart extends plugin {
         let qq = target1.UID
         if (qq == UID) {
           let minefield1 = minefield.filter((item) => item.UID != UID)
-          GameApi.Listdata.controlActionInitial({
+          GameApi.Listdata.controlAction({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
-            DATA: minefield1,
-            INITIAL: []
+            DATA: minefield1
           })
         }
       }
@@ -335,11 +332,10 @@ export class Homestart extends plugin {
       target.x = x
       target.y = y
       target.region = region
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_position',
         NAME: 'position',
-        DATA: positionhome,
-        INITIAL: []
+        DATA: positionhome
       })
       HomeApi.GP.userWarehouse({
         UID,

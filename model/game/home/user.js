@@ -130,11 +130,10 @@ class GP {
           rangeland: 1
         }
         fond = Object.assign(fond, rangeland)
-        Listdata.controlActionInitial({
+        Listdata.controlAction({
           NAME: 'life',
           CHOICE: 'userHomeLife',
-          DATA: life,
-          INITIAL: []
+          DATA: life
         })
         try {
           Listdata.controlAction({
@@ -228,11 +227,10 @@ class GP {
         UID,
         time
       })
-      Listdata.controlActionInitial({
+      Listdata.controlAction({
         CHOICE: 'userHomeLife',
         NAME: 'life',
-        DATA: life,
-        INITIAL: []
+        DATA: life
       })
       return true
     } catch {
@@ -269,11 +267,10 @@ class GP {
     if (home.doge > 20000000) {
       home.doge = 20000000
     }
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'user_home_home',
       NAME: UID,
-      DATA: home,
-      INITIAL: []
+      DATA: home
     })
   }
 
@@ -288,11 +285,10 @@ class GP {
       INITIAL: []
     })
     home.Landgrid += ACCOUNT
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'user_home_home',
       NAME: UID,
-      DATA: home,
-      INITIAL: []
+      DATA: home
     })
   }
 
@@ -468,11 +464,10 @@ class GP {
       INITIAL: []
     })
     home.homeexperience += experience
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'user_home_home',
       NAME: UID,
-      DATA: home,
-      INITIAL: []
+      DATA: home
     })
   }
 
@@ -482,7 +477,7 @@ class GP {
    * @returns
    */
   collectMinerals({ UID, time }) {
-    let Warehouse = Listdata.controlActionInitial({
+    let Warehouse = Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID
     })
@@ -506,11 +501,10 @@ class GP {
         quantity: thingTime[index]
       })
     })
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     return [
       `获得了\n富煤晶石【${parseInt(time / 1800)}】个,玄铁晶石【${parseInt(
@@ -836,11 +830,10 @@ class GP {
         DATA1: z,
         quantity: 1
       })
-      Listdata.controlActionInitial({
+      Listdata.controlAction({
         NAME: UID,
         CHOICE: 'user_home_Warehouse',
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       MSG = MSG + ` 【${z.name}】`
     }
@@ -853,10 +846,9 @@ class GP {
    */
   addAll(parameter) {
     let { data } = parameter
-    let all = Listdata.controlActionInitial({
+    let all = Listdata.controlAction({
       CHOICE: 'home_all',
-      NAME: 'all',
-      INITIAL: []
+      NAME: 'all'
     })
     let boxall = Listdata.controlAction({
       CHOICE: 'generate_all',
@@ -864,11 +856,10 @@ class GP {
     })
     let all1 = all.concat(data)
     let all2 = boxall.concat(data)
-    Listdata.controlActionInitial({
+    Listdata.controlAction({
       CHOICE: 'home_all',
       NAME: 'all',
-      DATA: all1,
-      INITIAL: []
+      DATA: all1
     })
     Listdata.controlAction({
       CHOICE: 'generate_all',

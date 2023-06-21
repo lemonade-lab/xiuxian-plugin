@@ -76,11 +76,10 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     let najie = GameApi.Listdata.controlAction({
       NAME: UID,
@@ -160,11 +159,10 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     let najie = GameApi.Listdata.controlAction({
       NAME: UID,
@@ -209,11 +207,10 @@ export class Homemove extends plugin {
         Warehouse.thing = Warehouse.thing.filter(
           (item) => !['', null, undefined, NaN, false, true].includes(item)
         )
-        GameApi.Listdata.controlActionInitial({
+        GameApi.Listdata.controlAction({
           CHOICE: 'user_home_Warehouse',
           NAME: UID,
-          DATA: Warehouse,
-          INITIAL: []
+          DATA: Warehouse
         })
       } else {
         if (searchsthing != 1) {
@@ -234,11 +231,10 @@ export class Homemove extends plugin {
             }
           }
           Warehouse.thing[i] = searchsthing
-          GameApi.Listdata.controlActionInitial({
+          GameApi.Listdata.controlAction({
             CHOICE: 'user_home_Warehouse',
             NAME: UID,
-            DATA: Warehouse,
-            INITIAL: []
+            DATA: Warehouse
           })
         } else {
           let searchsthing1 = HomeApi.GP.homeexistAllThingById({
@@ -247,11 +243,10 @@ export class Homemove extends plugin {
           if (searchsthing1 != 1) {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
-            GameApi.Listdata.controlActionInitial({
+            GameApi.Listdata.controlAction({
               CHOICE: 'user_home_Warehouse',
               NAME: UID,
-              DATA: Warehouse,
-              INITIAL: []
+              DATA: Warehouse
             })
           }
         }
@@ -270,11 +265,10 @@ export class Homemove extends plugin {
       hasValue !== -1 && (total[hasValue].acount = total[hasValue].acount + cur.acount)
       return total
     }, [])
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     let landgoods = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_landgoods',
@@ -287,11 +281,10 @@ export class Homemove extends plugin {
       })
       if (searchsthing != 1) {
         landgoods.thing[i].id = searchsthing.id
-        GameApi.Listdata.controlActionInitial({
+        GameApi.Listdata.controlAction({
           CHOICE: 'user_home_landgoods',
           NAME: UID,
-          DATA: landgoods,
-          INITIAL: []
+          DATA: landgoods
         })
       } else {
         let searchsthing1 = HomeApi.GP.homeexistAllThingById({
@@ -299,11 +292,10 @@ export class Homemove extends plugin {
         })
         if (searchsthing1 != 1) {
           landgoods.thing[i].name = searchsthing1.name
-          GameApi.Listdata.controlActionInitial({
+          GameApi.Listdata.controlAction({
             CHOICE: 'user_home_landgoods',
             NAME: UID,
-            DATA: landgoods,
-            INITIAL: []
+            DATA: landgoods
           })
         }
       }
@@ -326,22 +318,20 @@ export class Homemove extends plugin {
     const landgoods = {
       thing: []
     }
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_landgoods',
       NAME: UID,
-      DATA: landgoods,
-      INITIAL: []
+      DATA: landgoods
     })
-    const home = GameApi.Listdata.controlActionInitial({
+    const home = GameApi.Listdata.controlAction({
       CHOICE: 'user_home_user',
       NAME: UID
     })
     home.Landgrid = home.LandgridMax
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_user',
       NAME: UID,
-      DATA: home,
-      INITIAL: []
+      DATA: home
     })
     e.reply(`重置完成！`)
   }

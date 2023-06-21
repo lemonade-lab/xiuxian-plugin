@@ -109,11 +109,10 @@ export class Homeminefield extends plugin {
         createTime: nowTime,
         timeMax
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
-        DATA: minefield,
-        INITIAL: []
+        DATA: minefield
       })
       HomeApi.GP.addHomeexperience({ UID, experience: 300 })
       e.reply(`成功占领了${address}的灵矿，获得300家园经验`)
@@ -140,11 +139,10 @@ export class Homeminefield extends plugin {
           minefieldName.UID = A
           minefieldName.createTime = nowTime
           minefieldName.timeMax = timeMax
-          GameApi.Listdata.controlActionInitial({
+          GameApi.Listdata.controlAction({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
-            DATA: minefield,
-            INITIAL: []
+            DATA: minefield
           })
           HomeApi.GP.addHomeexperience({ UID, experience: 700 })
           e.reply(
@@ -240,11 +238,10 @@ export class Homeminefield extends plugin {
       let experience = parseInt((time2 / 1800) * 20)
       HomeApi.GP.addHomeexperience({ UID, experience })
       target.createTime = nowTime
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
-        DATA: minefield,
-        INITIAL: []
+        DATA: minefield
       })
       e.reply(`恭喜你，${msg}\n家园经验增加${experience}`)
       return false
@@ -360,11 +357,10 @@ export class Homeminefield extends plugin {
         DATA1: searchswupin,
         quantity
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       e.reply(`成功炼制出${quantity}块【${wupin}】`)
     }, 1000 * time1)
@@ -439,11 +435,10 @@ export class Homeminefield extends plugin {
         DATA1: searchswupin,
         quantity: -quantity
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       e.reply(`成功提炼出${quantity * 5}块【${mei}】`)
     }, 1000 * time1)
@@ -584,11 +579,10 @@ export class Homeminefield extends plugin {
         quantity: 1
       })
       // 写入仓库
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       e.reply(`你成功锻造出【${thing}】`)
     }, 1000 * time1)
@@ -649,11 +643,10 @@ export class Homeminefield extends plugin {
     }
     if (c == 10) {
       e.reply(`${thing}放进分解池子，啥也没出`)
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       return false
     }
@@ -664,11 +657,10 @@ export class Homeminefield extends plugin {
       DATA1: ifexist1,
       quantity
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     e.reply(`成功分解了${quantity}把${thingName}，得到${quantity}块${sp[c]}`)
     return false
@@ -723,11 +715,10 @@ export class Homeminefield extends plugin {
     }
     let guo1 = HomeApi.GP.homeexistAllThingByName({ name: thing })
     guo.durable = guo1.durable
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     e.reply(`成功修好了${thing}`)
     return false

@@ -92,11 +92,10 @@ export class Homemoney extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     let commoditiesDoge1 = searchsthing.doge * quantity
     let lt = [0.7, 0.8, 0.9, 1, 1, 1, 1]
@@ -233,11 +232,10 @@ export class Homemoney extends plugin {
       DATA1: ifexist,
       quantity
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     HomeApi.GP.addDoge({ UID, money: -commoditiesDoge })
     e.reply(

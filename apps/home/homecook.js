@@ -268,11 +268,10 @@ export class Homecook extends plugin {
           `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，食谱有些许磨损，\n${msg}`
         )
       }
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
     }, 1000 * time1)
     forwardsetTime[UID] = 1
@@ -397,11 +396,10 @@ export class Homecook extends plugin {
         cookThing: peifang,
         thingAcount: 1
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_cook',
         NAME: 'cook',
-        DATA: peifang,
-        INITIAL: []
+        DATA: peifang
       })
       let foodThing = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_food',
@@ -419,11 +417,10 @@ export class Homecook extends plugin {
         foodThing: food,
         thingAcount: 1
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_food',
         NAME: 'food',
-        DATA: foodThing,
-        INITIAL: []
+        DATA: foodThing
       })
       HomeApi.GP.addAll({ data: peifang2 })
       HomeApi.GP.addAll({ data: food })
@@ -463,11 +460,10 @@ export class Homecook extends plugin {
         DATA1: tiaoliao1,
         quantity: -1
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       e.reply(
         `恭喜你，成功炒出【${food.name}】，消耗${nameIwant}一点耐久度，获得了${name}的试用食谱，熟练度为0，熟练度为100后可前往炼丹阁申请发布流通食谱`
@@ -627,11 +623,10 @@ export class Homecook extends plugin {
       DATA1: target,
       quantity: 1
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_Warehouse',
       NAME: UID,
-      DATA: Warehouse,
-      INITIAL: []
+      DATA: Warehouse
     })
     let wanmin1 = GameApi.Listdata.controlActionInitial({
       CHOICE: 'user_home_wanmin',
@@ -639,11 +634,10 @@ export class Homecook extends plugin {
       INITIAL: []
     })
     wanmin1 = HomeApi.GP.addDataThing({ DATA: wanmin1, DATA1: target, quantity: 1 })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
-      DATA: wanmin1,
-      INITIAL: []
+      DATA: wanmin1
     })
     e.reply(
       `恭喜${UID}成功在炼丹阁发布一份食谱，玩家可前往炼丹阁购买，发布者可获得50%出售收益的版权费`
@@ -812,11 +806,10 @@ export class Homecook extends plugin {
         DATA1: guo,
         quantity: -1
       })
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse,
-        INITIAL: []
+        DATA: Warehouse
       })
       e.reply(`你的${thing1[0]}不是锅，刚放到火上就被烧没了!`)
       return false
@@ -960,11 +953,10 @@ export class Homecook extends plugin {
           `恭喜你，成功炒出【${quantity}】份【${recipes1.name}】，消耗${thing1[0]}【${quantity}】点耐久度，食谱有些许磨损，\n${msg}`
         )
       }
-      GameApi.Listdata.controlActionInitial({
+      GameApi.Listdata.controlAction({
         CHOICE: 'user_home_Warehouse',
         NAME: UID,
-        DATA: Warehouse1,
-        INITIAL: []
+        DATA: Warehouse1
       })
     }, 1000 * time * quantity)
     forwardsetTime[UID] = 1

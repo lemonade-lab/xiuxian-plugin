@@ -74,11 +74,7 @@ export class Boxunion extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!UnionMessage(e)) return false
-    const SignData = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'playerLife',
-      NAME: 'sign',
-      INITIAL: {}
-    })
+    const SignData = GameApi.Listdata.readInitial('sign', 'playerLife', {})
     const NowTime = new Date().getTime()
     const NowMath = new Date().getMonth()
     const NowDay = new Date().getDay()
@@ -98,11 +94,10 @@ export class Boxunion extends plugin {
     }
     SignData[UID].sginMath = NowMath
     // 保存
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Listdata.controlAction({
       CHOICE: 'playerLife',
       NAME: 'sign',
-      DATA: SignData,
-      INITIAL: {}
+      DATA: SignData
     })
     if (SignData[UID].signSize % 7 == 0) {
       const randomthing = GameApi.GP.randomThing()
