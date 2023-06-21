@@ -163,7 +163,7 @@ export class Assstart extends plugin {
       CHOICE: 'assGP'
     })
     if (assGP.AID != 0 || assGP.volunteerAss != 0) {
-      e.reply(`你已有宗门或已有意向宗门，请先清空志愿`)
+      e.reply(`你已有宗门或已有意向宗门，请先清空招收`)
       return false
     }
 

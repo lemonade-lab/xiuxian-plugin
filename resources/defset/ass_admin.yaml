@@ -16,17 +16,17 @@
 - group: 宗门玩法
   list:
     - icon: help-icon_55
-      title: '(#|/)查看简历+UID'
+      title: '(#|/)查看+UID'
       desc: '查看申请加入玩家的信息'
     - icon: help-icon_55
-      title: '(#|/)批准录取+UID'
+      title: '(#|/)招收+UID'
       desc: '同意该玩家加入宗门'
     - icon: help-icon_55
-      title: '(#|/)驳回申请+UID'
+      title: '(#|/)驳回招收+UID'
       desc: '拒绝该玩家的入宗申请'
     - icon: help-icon_55
-      title: '(#|/)清空志愿'
+      title: '(#|/)清空招收'
       desc: '主动撤回提交的入宗申请'
     - icon: help-icon_55
-      title: '(#|/)展示简历'
+      title: '(#|/)宗门招收'
       desc: '查看所有申请人的UID号'

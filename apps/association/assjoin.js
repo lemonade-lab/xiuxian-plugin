@@ -5,23 +5,23 @@ export class AssociationJoin extends plugin {
     super({
       rule: [
         {
-          reg: /^(#|\/)查看简历.*$/,
+          reg: /^(#|\/)查看.*$/,
           fnc: 'viewResume'
         },
         {
-          reg: /^(#|\/)批准录取.*$/,
+          reg: /^(#|\/)招收.*$/,
           fnc: 'approvalAdmission'
         },
         {
-          reg: /^(#|\/)驳回申请.*$/,
+          reg: /^(#|\/)驳回招收.*$/,
           fnc: 'denialApplication'
         },
         {
-          reg: /^(#|\/)清空志愿$/,
+          reg: /^(#|\/)清空招收$/,
           fnc: 'clearVolunteer'
         },
         {
-          reg: /^(#|\/)展示简历$/,
+          reg: /^(#|\/)宗门招收$/,
           fnc: 'showAllResume'
         }
       ]
@@ -36,7 +36,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinUID = e.msg.replace(/^(#|\/)查看简历/, '')
+    const joinUID = e.msg.replace(/^(#|\/)查看/, '')
     const assGP = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
@@ -115,7 +115,7 @@ export class AssociationJoin extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    const joinUID = e.msg.replace(/^(#|\/)批准录取/, '')
+    const joinUID = e.msg.replace(/^(#|\/)招收/, '')
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
@@ -173,7 +173,7 @@ export class AssociationJoin extends plugin {
       return false
     }
 
-    const joinUID = e.msg.replace(/^(#|\/)驳回申请/, '')
+    const joinUID = e.msg.replace(/^(#|\/)驳回招收/, '')
 
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
@@ -233,10 +233,10 @@ export class AssociationJoin extends plugin {
       CHOICE: 'association'
     })
     if (AssData.applyJoinList.length == 0) {
-      e.reply(`未没有收到简历！快去招收弟子吧！`)
+      e.reply(`未有待招收弟子,快去提升宗门知名度吧！`)
       return false
     }
-    let temp = ['_[简历列表]_']
+    let temp = ['_[待招收列表]_']
     let i = 0
     for (let item of AssData.applyJoinList) {
       i++
