@@ -34,7 +34,7 @@ export class Homemove extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     const region2 = ifexisthome.region
     const action1 = GameApi.Listdata.controlAction({
       NAME: UID,
@@ -104,7 +104,7 @@ export class Homemove extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     const home = GameApi.Listdata.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,

@@ -115,7 +115,7 @@ class Information {
       NAME: UID
     })
     const home = Listdata.controlActionInitial({
-      CHOICE: 'user_home_home',
+      CHOICE: 'homeDoge',
       NAME: UID,
       INITIAL: []
     })

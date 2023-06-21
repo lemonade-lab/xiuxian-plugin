@@ -61,7 +61,7 @@ export class Homerangeland extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     const { state, msg } = GameApi.Action.miniGo(UID)
     if (state == 4001) {
       e.reply(msg)
@@ -134,7 +134,7 @@ export class Homerangeland extends plugin {
       return
     }
     // 确认位置
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     let region = ifexisthome.region
     let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
@@ -239,7 +239,7 @@ export class Homerangeland extends plugin {
       return
     }
     // 确认位置
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     let region = ifexisthome.region
     let action = HomeApi.GameApi.Listdata.controlAction({
       NAME: UID,
@@ -350,7 +350,7 @@ export class Homerangeland extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return
@@ -371,7 +371,7 @@ export class Homerangeland extends plugin {
       return
     }
     let home = GameApi.Listdata.controlActionInitial({
-      CHOICE: 'user_home_home',
+      CHOICE: 'homeDoge',
       NAME: UID,
       INITIAL: []
     })
@@ -469,7 +469,7 @@ export class Homerangeland extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return
@@ -657,7 +657,7 @@ export class Homerangeland extends plugin {
     if (!user.B) {
       return false
     }
-    const ifexisthome1 = HomeApi.GP.existhome(user.B)
+    const ifexisthome1 = HomeApi.GP.getPositionHome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方还没建立过洞府`)
       return
@@ -745,7 +745,7 @@ export class Homerangeland extends plugin {
     if (!user.B) {
       return
     }
-    const ifexisthome1 = HomeApi.GP.existhome(user.B)
+    const ifexisthome1 = HomeApi.GP.getPositionHome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方没建立过洞府`)
       return

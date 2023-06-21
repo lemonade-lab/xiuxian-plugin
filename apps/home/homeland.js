@@ -46,7 +46,7 @@ export class Homeland extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     const { state: stateGo, msg: msgGo } = GameApi.Action.miniGo(UID)
     if (stateGo == 4001) {
       e.reply(msgGo)
@@ -118,7 +118,7 @@ export class Homeland extends plugin {
     // 不开放私聊功能
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -236,7 +236,7 @@ export class Homeland extends plugin {
   async shouhuo(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
@@ -439,7 +439,7 @@ export class Homeland extends plugin {
     if (!user.B) {
       return false
     }
-    const ifexisthome1 = HomeApi.GP.existhome(user.B)
+    const ifexisthome1 = HomeApi.GP.getPositionHome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方还没建立过洞府`)
       return false
@@ -555,7 +555,7 @@ export class Homeland extends plugin {
     if (!user.B) {
       return
     }
-    const ifexisthome1 = HomeApi.GP.existhome(user.B)
+    const ifexisthome1 = HomeApi.GP.getPositionHome(user.B)
     if (!ifexisthome1) {
       e.reply(`对方没建立过洞府`)
       return

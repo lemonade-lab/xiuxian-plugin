@@ -184,7 +184,7 @@ export class Homestart extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     const ActionData = GameApi.Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
@@ -323,7 +323,7 @@ export class Homestart extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (ifexisthome == undefined) {
       e.reply('您都还没开辟过洞府')
       return false

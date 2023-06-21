@@ -53,7 +53,7 @@ class GP {
   }
 
   /**
-   *
+   * 验证洞府是否存在
    * @param {*} UID
    * @returns
    */
@@ -81,7 +81,7 @@ class GP {
       }
     }
     // 查看家园位置
-    const ifexisthome = this.existhome(UID)
+    const ifexisthome = this.getPositionHome(UID)
     // 不存在家园位置
     if (!ifexisthome) {
       return {
@@ -97,7 +97,7 @@ class GP {
   }
 
   /**
-   *
+   * 初始化存档
    * @param {*} UID
    * @returns
    */
@@ -106,7 +106,7 @@ class GP {
       // 写入家园数据
       Listdata.controlAction({
         NAME: UID,
-        CHOICE: 'user_home_home',
+        CHOICE: 'homeDoge',
         DATA: {
           homelevel: 0,
           homeexperience: 0,
@@ -175,14 +175,14 @@ class GP {
   }
 
   /**
-   * 寻找家园位置
+   * 得到家园位置
    * @param {*} UID
    * @returns
    */
-  existhome(UID) {
+  getPositionHome(UID) {
     const positionhome = Listdata.controlActionInitial({
       NAME: 'position',
-      CHOICE: 'fixed_position',
+      CHOICE: 'homePosition',
       INITIAL: []
     })
     const find = positionhome.find((item) => item.UID == UID)
@@ -195,17 +195,17 @@ class GP {
    */
   addDoge({ UID, money }) {
     const home = Listdata.controlActionInitial({
-      CHOICE: 'user_home_home',
       NAME: UID,
-      INITIAL: []
+      CHOICE: 'homeDoge',
+      INITIAL: [] // ？？todo
     })
     home.doge += money
     if (home.doge > 20000000) {
       home.doge = 20000000
     }
     Listdata.controlAction({
-      CHOICE: 'user_home_home',
       NAME: UID,
+      CHOICE: 'homeDoge',
       DATA: home
     })
   }
@@ -216,14 +216,14 @@ class GP {
    */
   addLandgrid({ UID, ACCOUNT }) {
     let home = Listdata.controlActionInitial({
-      CHOICE: 'user_home_home',
       NAME: UID,
+      CHOICE: 'homeDoge',
       INITIAL: []
     })
     home.Landgrid += ACCOUNT
     Listdata.controlAction({
-      CHOICE: 'user_home_home',
       NAME: UID,
+      CHOICE: 'homeDoge',
       DATA: home
     })
   }
@@ -246,7 +246,7 @@ class GP {
     if (x > 600) {
       quarter = 2
     }
-    let a = {
+    return {
       id: crop.id,
       name: name1,
       acount: landgoods.acount,
@@ -257,7 +257,6 @@ class GP {
       quarter,
       mature: x
     }
-    return a
   }
 
   /**
@@ -271,7 +270,7 @@ class GP {
     id = id.split('-')
     let id1 = id[0] + '-2-' + id[2] + '-' + id[3]
     let animal1 = this.homesearchThingById({ id: id1 })
-    let a = {
+    return {
       id: id1,
       name: rangelandannimals.name,
       name1: animal1.name,
@@ -283,7 +282,6 @@ class GP {
       judgment: 1,
       acount: 1
     }
-    return a
   }
 
   /**
@@ -394,13 +392,13 @@ class GP {
    */
   addHomeexperience({ UID, experience }) {
     let home = Listdata.controlActionInitial({
-      CHOICE: 'user_home_home',
+      CHOICE: 'homeDoge',
       NAME: UID,
       INITIAL: []
     })
     home.homeexperience += experience
     Listdata.controlAction({
-      CHOICE: 'user_home_home',
+      CHOICE: 'homeDoge',
       NAME: UID,
       DATA: home
     })
@@ -580,8 +578,7 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  addCookThing(parameter) {
-    let { cook, cookThing, thingAcount } = parameter
+  addCookThing({ cook, cookThing, thingAcount }) {
     if (thingAcount == 0) {
       return cook
     }
@@ -606,8 +603,7 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  addFoodThing(parameter) {
-    let { food, foodThing, thingAcount } = parameter
+  addFoodThing({ food, foodThing, thingAcount }) {
     if (thingAcount == 0) {
       return food
     }
@@ -653,8 +649,7 @@ class GP {
    *
    * @param {*} parameter
    */
-  addLife(parameter) {
-    const { UID, life } = parameter
+  addLife({ UID, life }) {
     let life1 = Listdata.controlAction({
       CHOICE: 'homeLife',
       NAME: 'life'
@@ -676,8 +671,7 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  homeexistWarehouseThingName(parameter) {
-    const { UID, name } = parameter
+  homeexistWarehouseThingName({ UID, name }) {
     const Warehouse = Listdata.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
@@ -695,8 +689,7 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  homeexistWarehouseThingById(parameter) {
-    const { UID, id } = parameter
+  homeexistWarehouseThingById({ UID, id }) {
     const Warehouse = Listdata.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
@@ -779,8 +772,7 @@ class GP {
    *
    * @param {*} parameter
    */
-  addAll(parameter) {
-    let { data } = parameter
+  addAll({ data }) {
     let all = Listdata.controlAction({
       CHOICE: 'home_all',
       NAME: 'all'
@@ -808,22 +800,17 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  shiwubj(parameter) {
-    let { zhushi1, fushi1, tiaoliao1, quantity } = parameter
-    let MSG
+  shiwubj({ zhushi1, fushi1, tiaoliao1, quantity }) {
     if (zhushi1 == undefined || zhushi1.acount < quantity) {
-      MSG = `您的仓库里${zhushi1.name}数量不够!`
-      return MSG
+      return `您的仓库里${zhushi1.name}数量不够!`
     }
     zhushi1.acount = zhushi1.acount - quantity
     if (fushi1 == undefined || fushi1.acount < quantity) {
-      MSG = `您的仓库里${fushi1.name}数量不够!`
-      return MSG
+      return `您的仓库里${fushi1.name}数量不够!`
     }
     fushi1.acount = fushi1.acount - quantity
     if (tiaoliao1 == undefined || tiaoliao1.acount < quantity) {
-      MSG = `您的仓库里${tiaoliao1.name}数量不够!`
-      return MSG
+      return `您的仓库里${tiaoliao1.name}数量不够!`
     }
     return 1
   }

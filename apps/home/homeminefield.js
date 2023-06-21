@@ -56,7 +56,7 @@ export class Homeminefield extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     let region2 = ifexisthome.region
     let action = GameApi.Listdata.controlAction({
       NAME: UID,
@@ -191,7 +191,7 @@ export class Homeminefield extends plugin {
       e.reply(msg)
       return false
     }
-    const ifexisthome = HomeApi.GP.existhome(UID)
+    const ifexisthome = HomeApi.GP.getPositionHome(UID)
     let region2 = ifexisthome.region
     let action = GameApi.Listdata.controlAction({
       NAME: UID,
