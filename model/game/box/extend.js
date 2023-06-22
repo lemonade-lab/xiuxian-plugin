@@ -38,7 +38,7 @@ class Extend {
    * @param {*} Initial
    */
   readInitial(UID, Initial) {
-    Data.readInitial(UID, 'playerExtend', Initial)
+    return Data.readInitial(UID, 'playerExtend', Initial)
   }
 
   /**

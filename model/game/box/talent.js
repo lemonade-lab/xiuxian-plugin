@@ -1,11 +1,11 @@
 import Data from '../data/index.js'
 class Talent {
-  write(UID, DATA) {
-    Data.write(UID, 'fixed_talent', DATA)
+  write(name, DATA) {
+    Data.write(name, 'fixed_talent', DATA)
   }
 
-  read(UID) {
-    Data.readInitial(UID, 'fixed_talent')
+  read(name) {
+    return Data.read(name, 'fixed_talent')
   }
 
   /**
@@ -65,7 +65,7 @@ class Talent {
    */
   getTalentName(arr) {
     let name = ''
-    const TalentName = this.readInitial('name')
+    const TalentName = this.read('name')
     for (let item of arr) {
       name += TalentName[item]
     }
