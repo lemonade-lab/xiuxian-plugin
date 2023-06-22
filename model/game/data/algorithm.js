@@ -30,8 +30,7 @@ class Algorithm {
    * @param {*} name
    */
   deleteFile(filePath, fileName) {
-    const dir = `${filePath}/${fileName}.json`
-    if (existsSync(join(dir))) {
+    if (existsSync(join(`${filePath}/${fileName}.json`))) {
       rmSync()
     }
   }
@@ -92,9 +91,7 @@ class Algorithm {
    * @returns
    */
   getData(NAME, PATH) {
-    const DIR = join(`${PATH}/${NAME}.json`)
-    const data = JSON.parse(readFileSync(DIR, 'utf8'))
-    return data
+    return JSON.parse(readFileSync(join(`${PATH}/${NAME}.json`), 'utf8'))
   }
 
   /**
@@ -104,52 +101,25 @@ class Algorithm {
    * @param {*} DATA
    */
   postData(NAME, PATH, DATA) {
-    const DIR = join(`${PATH}/${NAME}.json`)
-    writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
+    writeFileSync(join(`${PATH}/${NAME}.json`), JSON.stringify(DATA, '', '\t'), 'utf8')
   }
 
   /** 得到该路径的完整路径 */
   getPath(req) {
     /* 根据目录初始化地址 */
-    this.ctratePath(req)
-    return join(DirPath, req)
-  }
-
-  /**
-   * 插件目录生成路径
-   * @param {*} req
-   */
-  ctratePath(req) {
-    let name = req.split('/')
-    let newname = DirPath
-    name.forEach((item) => {
-      newname += `${item}/`
-      if (!existsSync(`${newname}`)) {
-        mkdirSync(`${newname}`)
-      }
+    mkdirSync(join(DirPath, req), { recursive: true }, (err) => {
+      console.log(err)
     })
+    return join(DirPath, req)
   }
 
   /** 得到该路径的完整路径 */
   getProcessCwd(req) {
     /* 根据目录初始化地址 */
-    this.ctrateProcessCwd(req)
-    return join(process.cwd(), req)
-  }
-
-  /**
-   * 执行目录生成路径
-   * @param {*} req
-   */
-  ctrateProcessCwd(req) {
-    let name = req.split('/')
-    let newname = process.cwd()
-    name.forEach((item) => {
-      newname += `${item}/`
-      if (!existsSync(`${newname}`)) {
-        mkdirSync(`${newname}`)
-      }
+    mkdirSync(join(process.cwd(), req), { recursive: true }, (err) => {
+      console.log(err)
     })
+    return join(process.cwd(), req)
   }
 }
 export default new Algorithm()
