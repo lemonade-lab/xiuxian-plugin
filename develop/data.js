@@ -7,7 +7,7 @@ import { dealTpl } from './puppeteer/puppeteer.js'
 const tplFile = `${resolve().replace(/\\/g, '/')}/resources/html/user/information/information.html`
 
 /* 需要填充的数据 */
-// const data = getConfig({ name: 'help' })
+// const data = getConfig(  'help' )
 
 const UID = 1715713638
 const data = {

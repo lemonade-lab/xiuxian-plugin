@@ -12,7 +12,7 @@ export class Boxadminmoney extends plugin {
   async gifts(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const UID = BotApi.Robot.at({ e })
+    const UID = BotApi.Robot.at(e)
     if (!UID) return false
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -38,7 +38,7 @@ export class Boxadminmoney extends plugin {
   async deduction(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const UID = BotApi.Robot.at({ e })
+    const UID = BotApi.Robot.at(e)
     if (!UID) return false
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

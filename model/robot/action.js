@@ -3,7 +3,7 @@ class Robot {
   /**
    * 折合消息
    */
-  makeMsg = ({ data }) => {
+  makeMsg = (data) => {
     const msgList = []
     for (let item of data) {
       msgList.push({
@@ -21,14 +21,14 @@ class Robot {
    * @param { e, data } param0
    * @returns
    */
-  forwardMsg = ({ e, data }) => {
+  forwardMsg = (e, data) => {
     if (data.length == 1) {
       e.reply(data[0])
       return
     }
     /* 制作合并转发消息以备发送 */
     try {
-      e.reply(Bot.makeForwardMsg(this.makeMsg({ data })))
+      e.reply(Bot.makeForwardMsg(this.makeMsg(data)))
     } catch {
       console.info('出错', data)
     }
@@ -38,11 +38,11 @@ class Robot {
    * @param { e, isreply } param0
    * @returns
    */
-  surveySet = ({ e, isreply }) => {
+  surveySet = (e, isreply) => {
     if (!e.group) {
       return
     }
-    const cf = getConfig({ name: 'cooling' })
+    const cf = getConfig('cooling')
     let timeout = cf.timeout ? cf.timeout.size : 60
     if (timeout > 15 && isreply && isreply.message_id) {
       setTimeout(() => {
@@ -55,7 +55,7 @@ class Robot {
    * @param { e } param0
    * @returns
    */
-  at = ({ e }) => {
+  at = (e) => {
     if (!e.message.some((item) => item.type === 'at')) {
       return false
     }
@@ -67,17 +67,16 @@ class Robot {
   }
 
   /**
-   * 私聊发送消息
-   * @param { UID, msg } param0
+   *
+   * @param {*} id
+   * @param {*} msg
    */
-  privateChat = ({ UID, msg }) => {
-    Bot.pickUser(UID).sendMsg(msg)
+  privateChat = (id, msg) => {
+    Bot.pickUser(id).sendMsg(msg)
   }
 
-  controlMessage = ({ e }) => {
-    const { whitecrowd, blackid } = getConfig({
-      name: 'namelist'
-    })
+  controlMessage = (e) => {
+    const { whitecrowd, blackid } = getConfig('namelist')
     if (whitecrowd.indexOf(e.group_id) == -1) return false
     if (blackid.indexOf(e.user_id) != -1) return false
     return true

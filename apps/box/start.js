@@ -18,16 +18,14 @@ export class BoxStart extends plugin {
     }
     const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
   async reCreateMsg(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
     const CDID = 8
     const nowTime = new Date().getTime()
@@ -42,7 +40,7 @@ export class BoxStart extends plugin {
     GameApi.Player.createPlayer(e.user_id)
     const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 }

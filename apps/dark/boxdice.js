@@ -57,7 +57,7 @@ export class BoxDice extends plugin {
     const isreply = await e.reply(
       await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
     )
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 

@@ -23,9 +23,7 @@ export class BoxModify extends plugin {
     }
     const CDID = 3
     const nowTime = new Date().getTime()
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Name ? cf.CD.Name : 5
     const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
@@ -42,7 +40,7 @@ export class BoxModify extends plugin {
     })
     const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
@@ -57,9 +55,7 @@ export class BoxModify extends plugin {
     }
     const CDID = 4
     const nowTime = new Date().getTime()
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Autograph ? cf.CD.Autograph : 5
     const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
@@ -76,7 +72,7 @@ export class BoxModify extends plugin {
     })
     const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 }

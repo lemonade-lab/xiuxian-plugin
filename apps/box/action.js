@@ -68,9 +68,7 @@ export class BoxAction extends plugin {
           if (thingAcount > 2200) {
             thingAcount = 2200
           }
-          const cf = GameApi.Defset.getConfig({
-            name: 'cooling'
-          })
+          const cf = GameApi.Defset.getConfig('cooling')
           const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
           const CDID = 12
           const nowTime = new Date().getTime()
@@ -167,7 +165,7 @@ export class BoxAction extends plugin {
       e.reply('学过了')
       return false
     }
-    if (talent.AllSorcery.length >= GameApi.Defset.getConfig({ name: 'cooling' }).myconfig.gongfa) {
+    if (talent.AllSorcery.length >= GameApi.Defset.getConfig('cooling').myconfig.gongfa) {
       e.reply('你反复看了又看,却怎么也学不进')
       return false
     }
@@ -266,7 +264,7 @@ export class BoxAction extends plugin {
           GameApi.Talent.updataEfficiency(UID)
           const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-          BotApi.Robot.surveySet({ e, isreply })
+          BotApi.Robot.surveySet(e, isreply)
           break
         }
         case '2': {
@@ -282,7 +280,7 @@ export class BoxAction extends plugin {
           })
           const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-          BotApi.Robot.surveySet({ e, isreply })
+          BotApi.Robot.surveySet(e, isreply)
           break
         }
         default: {

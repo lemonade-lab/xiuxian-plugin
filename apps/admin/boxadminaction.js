@@ -14,7 +14,7 @@ export class Boxadminaction extends plugin {
   async allForcecheckout(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    BotApi.Exec.execStart({ cmd: 'git  pull', e })
+    BotApi.Exec.execStart(e, 'git  pull')
     return false
   }
 

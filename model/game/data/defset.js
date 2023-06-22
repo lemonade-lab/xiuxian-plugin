@@ -11,7 +11,7 @@ class Defset {
    * @param { app, name } param0
    * @returns
    */
-  getConfig({ name }) {
+  getConfig(name) {
     /* 获得配置地址 */
     const file = `${DirPath}/config/${name}.yaml`
     /* 读取配置 */
@@ -19,7 +19,7 @@ class Defset {
     return data
   }
 
-  getDefset = ({ name }) => {
+  getDefset = (name) => {
     /* 获得配置地址 */
     const file = `${DirPath}/resources/defset/${name}.yaml`
     /* 读取配置 */

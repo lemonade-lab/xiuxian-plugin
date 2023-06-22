@@ -16,7 +16,7 @@ export class BoxFeedback extends plugin {
     4.填写标题与内容后建立
     https://gitee.com/ningmengchongshui/xiuxian-plugin/issues
     `)
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 }

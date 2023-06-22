@@ -20,7 +20,7 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const UIDB = BotApi.Robot.at({ e })
+    const UIDB = BotApi.Robot.at(e)
     if (!UIDB) return false
     if (!GameApi.Player.getUserLifeSatus(UIDB)) {
       e.reply('已仙鹤')
@@ -36,9 +36,7 @@ export class BoxGPControl extends plugin {
       e.reply(msgB)
       return false
     }
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Ambiguous ? cf.CD.Ambiguous : 5
     const CDID = 14
     const nowTime = new Date().getTime()
@@ -67,7 +65,7 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const UIDB = BotApi.Robot.at({ e })
+    const UIDB = BotApi.Robot.at(e)
     if (!UIDB) return false
     if (!GameApi.Player.getUserLifeSatus(UIDB)) {
       e.reply('已仙鹤')
@@ -172,9 +170,7 @@ export class BoxGPControl extends plugin {
     if (!action) return false
     if (action.actionID != 0) return false
     const startTime = action.startTime
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const timeUnit = cf.biguan.time ? cf.biguan.time : 5
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
@@ -198,9 +194,7 @@ export class BoxGPControl extends plugin {
     if (!action) return false
     if (action.actionID != 1) return false
     const startTime = action.startTime
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const timeUnit = cf.work.time ? cf.work.time : 5
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
     if (time < timeUnit) {
@@ -217,9 +211,7 @@ export class BoxGPControl extends plugin {
 function upgrade(e, UID, time, name) {
   const talent = GameApi.Data.read(UID, 'playerTalent')
   const buff = Math.floor(talent.talentsize / 100) + Number(1)
-  const config = GameApi.Defset.getConfig({
-    name: 'cooling'
-  })
+  const config = GameApi.Defset.getConfig('cooling')
   let other = Math.floor(config[name].size * time * buff)
   if (Math.random() * (100 - 1) + 1 < 20) {
     other -= Math.floor(other / 3)

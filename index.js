@@ -7,7 +7,7 @@ import createdata from './model/game/data/createdata.js'
 createdata.createConfig()
 
 /** 读取配置 */
-// const task = BotApi.getConfig({  name: 'task' })
+// const task = BotApi.getConfig( 'task' )
 
 /** 启动寿命记时 */
 // const fnc = GameApi.Player.startLife()

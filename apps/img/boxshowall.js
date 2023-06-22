@@ -15,15 +15,13 @@ export class Boxshowall extends plugin {
   async showMap(e) {
     if (!this.verify(e)) return false
     const isreply = e.reply(await BotApi.obtainingImages({ path: 'map', name: 'map' }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
   async showConfig(e) {
     if (!this.verify(e)) return false
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const Ttwist = cf.switch ? cf.switch.twist : true
     const Tcome = cf.switch ? cf.switch.come : true
     const isreply = e.reply(
@@ -37,35 +35,35 @@ export class Boxshowall extends plugin {
         }
       })
     )
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
   async adminSuper(e) {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
-    const data = BotApi.getboxhelp({ name: 'admin' })
+    const data = BotApi.getboxhelp('admin')
     if (!data) return false
-    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 0, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    const isreply = e.reply(await BotApi.ImgCache.helpcache(0, data))
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
   async boxhelp(e) {
     if (!this.verify(e)) return false
-    const data = BotApi.getboxhelp({ name: 'help' })
+    const data = BotApi.getboxhelp('help')
     if (!data) return false
-    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 1, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    const isreply = e.reply(await BotApi.ImgCache.helpcache(1, data))
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
   async dark_help(e) {
     if (!this.verify(e)) return false
-    const data = BotApi.getboxhelp({ name: 'dark_help' })
+    const data = BotApi.getboxhelp('dark_help')
     if (!data) return false
-    const isreply = e.reply(await BotApi.ImgCache.helpcache({ i: 2, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    const isreply = e.reply(await BotApi.ImgCache.helpcache(2, data))
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 }

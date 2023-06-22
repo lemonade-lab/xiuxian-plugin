@@ -18,7 +18,7 @@ export class BoxBag extends plugin {
     }
     const { path, name, data } = GameApi.Information.showUserBag(UID)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
@@ -38,9 +38,7 @@ export class BoxBag extends plugin {
       NAME: UID,
       CHOICE: 'playerBag'
     })
-    const najiePrice = GameApi.Defset.getConfig({
-      name: 'cooling'
-    }).najiePrice[najie.grade]
+    const najiePrice = GameApi.Defset.getConfig('cooling').najiePrice[najie.grade]
     if (!najiePrice) {
       return false
     }

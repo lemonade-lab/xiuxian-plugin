@@ -23,9 +23,7 @@ export class BoxBattleSite extends plugin {
     }
     const CDID = 10
     const nowTime = new Date().getTime()
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Kill ? cf.CD.Kill : 5
     const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
@@ -144,7 +142,7 @@ export class BoxBattleSite extends plugin {
       msgRight
     })
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
@@ -172,7 +170,7 @@ export class BoxBattleSite extends plugin {
     const isreply = await e.reply(
       await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
     )
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 }

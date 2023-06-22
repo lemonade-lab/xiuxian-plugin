@@ -7,7 +7,7 @@ class Cache {
    * @param { data, i } param0
    * @returns
    */
-  async helpcache({ data, i }) {
+  async helpcache(data, i) {
     const tmp = md5(JSON.stringify(data))
     if (!Object.prototype.hasOwnProperty.call(helpData, i)) {
       helpData[i] = {
@@ -27,7 +27,7 @@ class Cache {
    * @param { name } param0
    * @returns
    */
-  readCahe({ name }) {
+  readCahe(name) {
     if (!Object.prototype.hasOwnProperty.call(allData, name)) {
       return {}
     }
@@ -42,7 +42,7 @@ class Cache {
    * @param { name, data }  param0
    * @returns
    */
-  addCahe({ name, data }) {
+  addCahe(name, data) {
     const time = new Date().getTime().getMinutes()
     if (!Object.prototype.hasOwnProperty.call(allData, name)) {
       allData[name] = {

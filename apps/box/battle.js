@@ -13,7 +13,7 @@ export class BoxBattle extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const UIDA = UID
-    let UIDB = BotApi.Robot.at({ e })
+    let UIDB = BotApi.Robot.at(e)
     if (!UIDB || UIDA == UIDB) {
       UIDB = e.msg.replace(/^(#|\/)打劫/, '')
       if (!UIDB || UIDA == UIDB) return false
@@ -33,7 +33,7 @@ export class BoxBattle extends plugin {
     }
     const CDID = 11
     const nowTime = new Date().getTime()
-    const cf = GameApi.Defset.getConfig({ name: 'cooling' })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
     const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {

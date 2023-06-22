@@ -19,7 +19,7 @@ export class BoxInformation extends plugin {
     }
     const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
@@ -32,7 +32,7 @@ export class BoxInformation extends plugin {
     }
     const { path, name, data } = GameApi.Information.showUserEquipment(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
@@ -45,7 +45,7 @@ export class BoxInformation extends plugin {
     }
     const { path, name, data } = GameApi.Information.showUserTalent(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 }

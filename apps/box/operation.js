@@ -19,7 +19,7 @@ export class BoxMoneyOperation extends plugin {
       return false
     }
     const A = e.user_id
-    const B = BotApi.Robot.at({ e })
+    const B = BotApi.Robot.at(e)
     if (!B || B == A) return false
     const existB = GameApi.Player.getUserLifeSatus(B)
     if (!existB) {
@@ -47,9 +47,7 @@ export class BoxMoneyOperation extends plugin {
       e.reply(`似乎没有[${name}]*${acount}`)
       return false
     }
-    const cf = GameApi.Defset.getConfig({
-      name: 'cooling'
-    })
+    const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5
     const CDID = 5
     const nowTime = new Date().getTime()

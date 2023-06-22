@@ -81,7 +81,7 @@ class Levels {
    */
   setSpecial(UID, CDID) {
     const nowTime = new Date().getTime()
-    const cf = Defset.getConfig({ name: 'cooling' })
+    const cf = Defset.getConfig('cooling')
     const CDTime = cf.CD[this.CdMap[CDID]] ? cf.CD[this.CdMap[CDID]] : 5
     Burial.set(UID, CDID, nowTime, CDTime)
   }

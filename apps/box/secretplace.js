@@ -24,7 +24,7 @@ export class BoxSecretplace extends plugin {
       CHOICE: 'playerAction'
     })
     const isreply = e.reply(`坐标(${action.x},${action.y},${action.z})`)
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 
@@ -61,7 +61,7 @@ export class BoxSecretplace extends plugin {
     const isreply = await e.reply(
       await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } })
     )
-    BotApi.Robot.surveySet({ e, isreply })
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 

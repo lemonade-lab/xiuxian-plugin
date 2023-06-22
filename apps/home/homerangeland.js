@@ -650,7 +650,7 @@ export class Homerangeland extends plugin {
       UID: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user.B = BotApi.Robot.at({ e })
+    user.B = BotApi.Robot.at(e)
     if (!user.B) {
       return false
     }
@@ -735,7 +735,7 @@ export class Homerangeland extends plugin {
       UID: 0,
       p: Math.floor(Math.random() * (99 - 1) + 1)
     }
-    user.B = BotApi.Robot.at({ e })
+    user.B = BotApi.Robot.at(e)
     if (!user.B) {
       return
     }
