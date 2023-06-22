@@ -11,7 +11,7 @@ class Information {
       NAME: UID,
       CHOICE: 'playerEquipment'
     })
-    const talent = Listdata.controlAction({
+    const TalentData = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -27,14 +27,11 @@ class Information {
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    let linggenName = Talent.getTalentName(talent)
+    let linggenName = Talent.getTalentName(TalentData.talent)
     let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
-    let name = ''
-    for (var i = 0; i < linggenName.length; i++) {
-      name = name + linggenName[i]
-    }
-    let size = Math.trunc(talent.talentsize)
-    if (talent.talentshow != 0) {
+    let name = linggenName
+    let size = Math.trunc(TalentData.talentsize)
+    if (TalentData.talentshow != 0) {
       size = '未知'
       name = '未知'
     } else {
@@ -65,7 +62,7 @@ class Information {
         linggenName: name,
         battle,
         equipment,
-        talent,
+        talent: TalentData,
         talentsize: size,
         user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
       }
@@ -104,18 +101,15 @@ class Information {
    * 功法信息
    */
   userTalentShow(UID) {
-    const talent = Listdata.controlAction({
+    const TalentData = Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
-    let linggenName = Talent.getTalentName(talent)
+    let linggenName = Talent.getTalentName(TalentData.talent)
     let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
-    let name = ''
-    for (var i = 0; i < linggenName.length; i++) {
-      name = name + linggenName[i]
-    }
-    let size = Math.trunc(talent.talentsize)
-    if (talent.talentshow != 0) {
+    let name = linggenName
+    let size = Math.trunc(TalentData.talentsize)
+    if (TalentData.talentshow != 0) {
       size = '未知'
       name = '未知'
     } else {
@@ -126,7 +120,7 @@ class Information {
       name: 'skills',
       data: {
         UID,
-        skills: talent.AllSorcery,
+        skills: TalentData.AllSorcery,
         linggenName: name,
         talentsize: size,
         life: LifeData[UID],

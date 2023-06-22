@@ -614,10 +614,7 @@ export class Homerangeland extends plugin {
         NAME: UID,
         DATA: rangelandannimals1
       })
-      let MSG = HomeApi.GP.Slaughter({
-        UID,
-        name: rangelandannimals.name1
-      })
+      let MSG = HomeApi.GP.Slaughter(UID, rangelandannimals.name1)
       e.reply(`您获得了${MSG}`)
     }
   }
@@ -724,10 +721,7 @@ export class Homerangeland extends plugin {
       NAME: user.B,
       DATA: rangelandannimals1
     })
-    let MSG = HomeApi.GP.Slaughter({
-      UID: user.A,
-      name: rangelandannimals.name1
-    })
+    let MSG = HomeApi.GP.Slaughter(user.A, rangelandannimals.name1)
     e.reply(`您获得了${MSG}`)
     GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
   }

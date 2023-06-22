@@ -266,10 +266,10 @@ class GP {
    */
   addRangelandannimals({ rangelandannimals, nowTime }) {
     let id = rangelandannimals.id
-    let animal = this.homesearchThingById({ id })
+    let animal = Listdata.searchThingById(id)
     id = id.split('-')
     let id1 = id[0] + '-2-' + id[2] + '-' + id[3]
-    let animal1 = this.homesearchThingById({ id: id1 })
+    let animal1 = Listdata.searchThingById(id1)
     return {
       id: id1,
       name: rangelandannimals.name,
@@ -341,20 +341,6 @@ class GP {
       NAME: 'all'
     })
     let wupin = all.find((item) => item.name == name)
-    return wupin
-  }
-
-  /**
-   *
-   * @param {*} param0
-   * @returns
-   */
-  homesearchThingById({ id }) {
-    const all = Listdata.controlAction({
-      CHOICE: 'home_all',
-      NAME: 'all'
-    })
-    let wupin = all.find((item) => item.id == id)
     return wupin
   }
 
@@ -552,13 +538,12 @@ class GP {
 
   /**
    *
-   * @param {*} parameter
+   * @param {*} obj
    * @returns
    */
-  foodjudge(parameter) {
-    const { name } = parameter
+  foodjudge(obj) {
     let x
-    let wuping = this.homesearchThingName({ name })
+    let wuping = this.homesearchThingName(obj)
     if (wuping == 1) {
       return wuping
     }
@@ -649,20 +634,19 @@ class GP {
    *
    * @param {*} parameter
    */
-  addLife({ UID, life }) {
-    let life1 = Listdata.controlAction({
-      CHOICE: 'homeLife',
+  addLife(UID, life) {
+    const LifeData = Listdata.controlAction({
+      CHOICE: 'playerLife',
       NAME: 'life'
     })
-    let homeLife = life1.find((obj) => obj.UID == UID)
-    homeLife.Age = homeLife.Age - life
-    if (homeLife.Age < 0) {
-      homeLife.Age = 0
+    LifeData[UID].Age -= life
+    if (LifeData[UID].Age < 0) {
+      LifeData[UID].Age = 0
     }
     Listdata.controlAction({
-      CHOICE: 'homeLife',
+      CHOICE: 'playerLife',
       NAME: 'life',
-      DATA: life1
+      DATA: LifeData
     })
   }
 
@@ -671,33 +655,15 @@ class GP {
    * @param {*} parameter
    * @returns
    */
-  homeexistWarehouseThingName({ UID, name }) {
+  homeexistWarehouseThingName(UID, name) {
     const Warehouse = Listdata.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
     })
     const ifexist = Warehouse.thing.find((item) => item.name == name)
-    if (ifexist == undefined) {
-      return 1
-    }
-    return ifexist
-  }
-
-  /**
-   *
-   * @param {*} parameter
-   * @returns
-   */
-  homeexistWarehouseThingById({ UID, id }) {
-    const Warehouse = Listdata.controlActionInitial({
-      CHOICE: 'homeWarehouse',
-      NAME: UID,
-      INITIAL: []
-    })
-    const ifexist = Warehouse.thing.find((item) => item.id == id)
-    if (ifexist == undefined) {
-      return 1
+    if (!ifexist) {
+      return false
     }
     return ifexist
   }
@@ -713,8 +679,8 @@ class GP {
       NAME: 'goods'
     })
     const ifexist = goods.find((item) => item.name == name)
-    if (ifexist == undefined) {
-      return 1
+    if (!ifexist) {
+      return false
     }
     return ifexist
   }
@@ -724,14 +690,14 @@ class GP {
    * @param {*} param0
    * @returns
    */
-  homeexistAllThingById({ id }) {
+  homeexistAllThingById(id) {
     const goods = Listdata.controlAction({
       CHOICE: 'generate_all',
       NAME: 'goods'
     })
     const ifexist = goods.find((item) => item.id == id)
-    if (ifexist == undefined) {
-      return 1
+    if (!ifexist) {
+      return false
     }
     return ifexist
   }
@@ -741,13 +707,13 @@ class GP {
    * @param {*} param0
    * @returns
    */
-  Slaughter({ UID, name }) {
+  Slaughter(UID, name) {
     let rangelandannimals2 = User.homesearchThingName({
       name
     })
     let MSG = ``
     for (let i = 0; i < rangelandannimals2.x.length; i++) {
-      let z = this.homesearchThingById({ id: rangelandannimals2.x[i] })
+      let z = Listdata.searchThingById(rangelandannimals2.x[i])
       let Warehouse = Listdata.controlActionInitial({
         NAME: UID,
         CHOICE: 'homeWarehouse',
@@ -772,7 +738,7 @@ class GP {
    *
    * @param {*} parameter
    */
-  addAll({ data }) {
+  addAll(data) {
     let all = Listdata.controlAction({
       CHOICE: 'home_all',
       NAME: 'all'
@@ -793,26 +759,6 @@ class GP {
       NAME: 'all',
       DATA: all2
     })
-  }
-
-  /**
-   *
-   * @param {*} parameter
-   * @returns
-   */
-  shiwubj({ zhushi1, fushi1, tiaoliao1, quantity }) {
-    if (zhushi1 == undefined || zhushi1.acount < quantity) {
-      return `您的仓库里${zhushi1.name}数量不够!`
-    }
-    zhushi1.acount = zhushi1.acount - quantity
-    if (fushi1 == undefined || fushi1.acount < quantity) {
-      return `您的仓库里${fushi1.name}数量不够!`
-    }
-    fushi1.acount = fushi1.acount - quantity
-    if (tiaoliao1 == undefined || tiaoliao1.acount < quantity) {
-      return `您的仓库里${tiaoliao1.name}数量不够!`
-    }
-    return 1
   }
 }
 export default new GP()

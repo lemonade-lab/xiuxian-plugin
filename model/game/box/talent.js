@@ -1,5 +1,28 @@
 import Listdata from '../data/listdata.js'
 class Talent {
+  constructor() {
+    this.equi = {
+      attack: 0,
+      defense: 0,
+      blood: 0,
+      burst: 0,
+      burstmax: 0,
+      speed: 0
+    }
+    this.extendData = {
+      times: [],
+      perpetual: {
+        attack: 0,
+        defense: 0,
+        blood: 0,
+        burst: 0,
+        burstmax: 0,
+        speed: 0,
+        efficiency: 0
+      }
+    }
+  }
+
   /**
    * 更新面板
    * @param {*} UID
@@ -21,8 +44,9 @@ class Talent {
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
-    const levelmini = LevelList[LevelData.gaspractice.realm]
-    const levelmax = LevelMaxList[LevelData.bodypractice.realm]
+    // 当前境界数据
+    const gaspractice = LevelList[LevelData.gaspractice.realm]
+    const bodypractice = LevelMaxList[LevelData.bodypractice.realm]
     const UserBattle = Listdata.controlAction({
       CHOICE: 'playerBattle',
       NAME: UID
@@ -32,42 +56,26 @@ class Talent {
       CHOICE: 'playerExtend',
       INITIAL: {}
     })
-    const panel = {
-      attack: levelmini.attack + levelmax.attack,
-      defense: levelmini.defense + levelmax.defense,
-      blood: levelmini.blood + levelmax.blood,
-      burst: levelmini.burst + levelmax.burst,
-      burstmax: levelmini.burstmax + levelmax.burstmax,
-      speed: levelmini.speed + levelmax.speed,
-      power: 0
-    }
-    const equ = {
-      attack: 0,
-      defense: 0,
-      blood: 0,
-      burst: 0,
-      burstmax: 0,
-      speed: 0
-    }
+    const equ = this.equi
     equipment.forEach((item) => {
-      equ.attack = equ.attack + item.attack
-      equ.defense = equ.defense + item.defense
-      equ.blood = equ.blood + item.blood
-      equ.burst = equ.burst + item.burst
-      equ.burstmax = equ.burstmax + item.burstmax
-      equ.speed = equ.speed + item.speed
+      equ.attack += item.attack
+      equ.defense += item.defense
+      equ.blood += item.blood
+      equ.burst += item.burst
+      equ.burstmax += item.burstmax
+      equ.speed += item.speed
     })
     /* 计算插件临时属性及永久属性 */
     if (extend != {}) {
       extend = Object.values(extend)
       extend.forEach((item) => {
         /* 永久属性计算 */
-        equ.attack = equ.attack + item.perpetual.attack
-        equ.defense = equ.defense + item.perpetual.defense
-        equ.blood = equ.blood + item.perpetual.blood
-        equ.burst = equ.burst + item.perpetual.burst
-        equ.burstmax = equ.burstmax + item.perpetual.burstmax
-        equ.speed = equ.speed + item.perpetual.speed
+        equ.attack += item.perpetual.attacks
+        equ.defense += item.perpetual.defense
+        equ.blood += item.perpetual.blood
+        equ.burst += item.perpetual.burst
+        equ.burstmax += item.perpetual.burstmax
+        equ.speed += item.perpetual.speed
         /* 临时属性计算 */
         if (item.times.length != 0) {
           item.times.forEach((timesitem) => {
@@ -78,9 +86,22 @@ class Talent {
         }
       })
     }
+
     /* 血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限 */
-    const bloodLimit = levelmini.blood + levelmax.blood + equ.blood
+    const bloodLimit = gaspractice.blood + bodypractice.blood + equ.blood
     /* 双境界面板之和 */
+
+    const panel = {
+      // 基础攻击
+      attack: gaspractice.attack + bodypractice.attack,
+      defense: gaspractice.defense + bodypractice.defense,
+      blood: gaspractice.blood + bodypractice.blood,
+      burst: gaspractice.burst + bodypractice.burst,
+      burstmax: gaspractice.burstmax + bodypractice.burstmax,
+      speed: gaspractice.speed + bodypractice.speed,
+      power: 0
+    }
+    // 百分比效果
     panel.attack = Math.floor(panel.attack * (equ.attack * 0.01 + 1))
     panel.defense = Math.floor(panel.defense * (equ.defense * 0.01 + 1))
     panel.blood = bloodLimit
@@ -197,17 +218,16 @@ class Talent {
    * @param {*} data
    * @returns
    */
-  getTalentName(data) {
-    const nameArr = []
-    data.talent.forEach((talentitem) => {
-      const talentList = Listdata.controlAction({
-        NAME: 'talent_list',
-        CHOICE: 'fixed_talent'
-      })
-      const name = talentList.find((item) => item.id == talentitem).name
-      nameArr.push(name)
+  getTalentName(arr) {
+    let name = ''
+    const TalentName = Listdata.controlAction({
+      NAME: 'name',
+      CHOICE: 'fixed_talent'
     })
-    return nameArr
+    for (let item of arr) {
+      name += TalentName[item]
+    }
+    return name
   }
 
   /**
@@ -221,18 +241,7 @@ class Talent {
       INITIAL: {}
     })
     if (!extend[FLAG]) {
-      extend[FLAG] = {
-        times: [],
-        perpetual: {
-          attack: 0,
-          defense: 0,
-          blood: 0,
-          burst: 0,
-          burstmax: 0,
-          speed: 0,
-          efficiency: 0
-        }
-      }
+      extend[FLAG] = this.extendData
     }
     extend[FLAG].perpetual[TYPE] = VALUE
     Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })

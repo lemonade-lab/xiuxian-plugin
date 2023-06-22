@@ -1,6 +1,21 @@
 import Listdata from '../data/listdata.js'
 import Method from '../wrap/method.js'
 class GP {
+  constructor() {
+    this.extendData = {
+      times: [],
+      perpetual: {
+        attack: 0,
+        defense: 0,
+        blood: 0,
+        burst: 0,
+        burstmax: 0,
+        speed: 0,
+        efficiency: 0
+      }
+    }
+  }
+
   /**
    * @param {*} position
    * @param {*} type
@@ -65,18 +80,7 @@ class GP {
       INITIAL: {}
     })
     if (!extend[FLAG]) {
-      extend[FLAG] = {
-        times: [],
-        perpetual: {
-          attack: 0,
-          defense: 0,
-          blood: 0,
-          burst: 0,
-          burstmax: 0,
-          speed: 0,
-          efficiency: 0
-        }
-      }
+      extend[FLAG] = this.extendData
     }
     const find = extend[FLAG].times.findIndex((item) => item.type == TYPE)
     const time = new Date().getTime()
@@ -140,16 +144,6 @@ class GP {
       // 直接随机取
       return Method.randomArr(drawingList)
     }
-  }
-
-  /**
-   * 根据id搜索数组
-   * @param {*} id
-   * @returns
-   */
-  searchThingById(id) {
-    const goods = Listdata.controlAction({ NAME: 'goods', CHOICE: 'generate_all' })
-    return goods.find((item) => item.id == id)
   }
 }
 

@@ -490,9 +490,9 @@ export class AssUncharted extends plugin {
           if (assinterimArchive.treasureChests[i].type == 4 && lastNum >= 10) {
             thingId = assinterimArchive.treasureChests[i].type + '-2-' + lastNum
           }
-          let addThing = GameApi.GP.searchThingById(thingId)
+          let addThing = GameApi.Listdata.searchThingById(thingId)
           if (!addThing) {
-            addThing = GameApi.GP.searchThingById('6-1-2')
+            addThing = GameApi.Listdata.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
             UID,
@@ -543,16 +543,16 @@ export class AssUncharted extends plugin {
             (item) => item.id == assinterimArchive.assResident
           )
           if (assinterimArchive.incentivesLevel > 12) {
-            addThing = GameApi.GP.searchThingById(find.specialty.best)
+            addThing = GameApi.Listdata.searchThingById(find.specialty.best)
           } else if (assinterimArchive.incentivesLevel >= 8) {
             const location = Math.trunc(Math.random() * find.specialty.special.length)
-            addThing = GameApi.GP.searchThingById(find.specialty.special[location])
+            addThing = GameApi.Listdata.searchThingById(find.specialty.special[location])
           } else {
             const location = Math.trunc(Math.random() * find.specialty.common.length)
-            addThing = GameApi.GP.searchThingById(find.specialty.common[location])
+            addThing = GameApi.Listdata.searchThingById(find.specialty.common[location])
           }
           if (!addThing) {
-            addThing = GameApi.GP.searchThingById('6-1-2')
+            addThing = GameApi.Listdata.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
             UID,
@@ -562,9 +562,9 @@ export class AssUncharted extends plugin {
           e.reply(`你获得了${addThing.name}`)
         } else {
           const location = Math.trunc(Math.random() * idList.length)
-          let addThing = GameApi.GP.searchThingById(idList[location])
+          let addThing = GameApi.Listdata.searchThingById(idList[location])
           if (!addThing) {
-            addThing = GameApi.GP.searchThingById('6-1-2')
+            addThing = GameApi.Listdata.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
             UID,

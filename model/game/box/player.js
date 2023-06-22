@@ -4,6 +4,48 @@ import Defset from '../data/defset.js'
 import Method from '../wrap/method.js'
 import Talent from './talent.js'
 class Player {
+  constructor() {
+    this.playerSpecialData = {
+      spiritual: 100, // 灵力
+      spiritualUpper: 100, // 灵力上限
+      prestige: 50, // 煞气
+      reputation: 0, // 声望
+      virtues: 0
+    }
+    this.playerLevelData = {
+      gaspractice: {
+        experience: 0, // 经验
+        realm: 0 // 境界
+      },
+      bodypractice: {
+        experience: 0,
+        realm: 0
+      },
+      soul: {
+        experience: 0,
+        realm: 0
+      }
+    }
+    this.playerActionData = {
+      game: 1, // 游戏状态
+      Couple: 1, // 双修
+      newnoe: 1 // 新人
+    }
+    this.playerBagData = {
+      grade: 1,
+      thing: []
+    }
+    this.FullName = {
+      full: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+      name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+    }
+    this.playerTalent = {
+      talentshow: 1, // 显示0,隐藏1
+      talentsize: 0, // 天赋
+      AllSorcery: [] // 功法
+    }
+  }
+
   /** 更新寿命信息 */
   startLife() {
     const LifeData = Listdata.controlActionInitial({
@@ -57,32 +99,13 @@ class Player {
     Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial',
-      DATA: {
-        spiritual: 100, // 灵力
-        spiritualUpper: 100, // 灵力上限
-        prestige: 50, // 煞气
-        reputation: 0, // 声望
-        virtues: 0
-      }
+      DATA: this.playerSpecialData
     })
     // 境界信息
     Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel',
-      DATA: {
-        gaspractice: {
-          experience: 0, // 经验
-          realm: 0 // 境界
-        },
-        bodypractice: {
-          experience: 0,
-          realm: 0
-        },
-        soul: {
-          experience: 0,
-          realm: 0
-        }
-      }
+      DATA: this.playerLevelData
     })
     const PosirionList = Listdata.controlAction({
       CHOICE: 'generate_position',
@@ -98,9 +121,7 @@ class Player {
       NAME: UID,
       CHOICE: 'playerAction',
       DATA: {
-        game: 1, // 游戏状态
-        Couple: 1, // 双修
-        newnoe: 1, // 新人
+        ...this.playerActionData,
         x: coordinate.mx,
         y: coordinate.my,
         z: positionID[0], // 位面
@@ -112,29 +133,18 @@ class Player {
     Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
-      DATA: {
-        grade: 1,
-        lingshimax: 50000, // 废弃
-        lingshi: 0, // 废弃
-        thing: []
-      }
+      DATA: this.playerBagData
     })
     const newtalent = Talent.getTalent()
     Listdata.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent',
       DATA: {
-        talent: newtalent, // 灵根
-        talentshow: 1, // 显示0,隐藏1
-        talentsize: 0, // 天赋
-        AllSorcery: [] // 功法
+        ...this.playerTalent,
+        talent: newtalent // 灵根
       }
     })
-    const FullName = {
-      full: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
-      name: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
-    }
-    const name = Method.Anyarray(FullName.full) + Method.Anyarray(FullName.name)
+    const name = Method.Anyarray(this.FullName.full) + Method.Anyarray(this.FullName.name)
     /**
      * ******
      * ******

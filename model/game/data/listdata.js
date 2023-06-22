@@ -108,5 +108,15 @@ class Listdata {
     })
     return ifexist
   }
+
+  /**
+   * 根据id搜索数组
+   * @param {*} id
+   * @returns
+   */
+  searchThingById(id) {
+    const goods = Listdata.controlAction({ NAME: 'goods', CHOICE: 'generate_all' })
+    return goods.find((item) => item.id == id)
+  }
 }
 export default new Listdata()

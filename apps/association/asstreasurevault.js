@@ -246,7 +246,7 @@ export class assTreasure extends plugin {
     AssociationApi.assUser.checkFacility(ass)
     assGP.contributionPoints -= exchangeThing.redeemPoint
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-    const addThing = GameApi.GP.searchThingById(exchangeThing.id)
+    const addThing = GameApi.Listdata.searchThingById(exchangeThing.id)
     GameApi.Bag.addBagThing({
       UID,
       name: addThing.name,

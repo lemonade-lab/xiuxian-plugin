@@ -130,11 +130,8 @@ export class Homemove extends plugin {
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
     let quantity = GameApi.Method.leastOne(thingAcount)
-    const searchsthing = HomeApi.GP.homeexistWarehouseThingName({
-      name: thingName,
-      UID
-    })
-    if (searchsthing == 1 || searchsthing.acount < quantity) {
+    const searchsthing = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
+    if (!searchsthing || searchsthing.acount < quantity) {
       e.reply('数量不足')
       return
     }
@@ -204,7 +201,7 @@ export class Homemove extends plugin {
           DATA: Warehouse
         })
       } else {
-        if (searchsthing != 1) {
+        if (searchsthing) {
           searchsthing.acount = Warehouse.thing[i].acount
           let id = searchsthing.id.split('-')
           if (id[0] == '13' && id[1] == '2') {
@@ -228,10 +225,8 @@ export class Homemove extends plugin {
             DATA: Warehouse
           })
         } else {
-          let searchsthing1 = HomeApi.GP.homeexistAllThingById({
-            id: Warehouse.thing[i].id
-          })
-          if (searchsthing1 != 1) {
+          let searchsthing1 = HomeApi.GP.homeexistAllThingById(Warehouse.thing[i].id)
+          if (searchsthing1) {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
             GameApi.Listdata.controlAction({
@@ -270,7 +265,7 @@ export class Homemove extends plugin {
       let searchsthing = HomeApi.GP.homeexistAllThingByName({
         name: landgoods.thing[i].name
       })
-      if (searchsthing != 1) {
+      if (searchsthing) {
         landgoods.thing[i].id = searchsthing.id
         GameApi.Listdata.controlAction({
           CHOICE: 'fixed_goods',
@@ -278,10 +273,8 @@ export class Homemove extends plugin {
           DATA: landgoods
         })
       } else {
-        let searchsthing1 = HomeApi.GP.homeexistAllThingById({
-          id: landgoods.thing[i].id
-        })
-        if (searchsthing1 != 1) {
+        let searchsthing1 = HomeApi.GP.homeexistAllThingById(landgoods.thing[i].id)
+        if (searchsthing1) {
           landgoods.thing[i].name = searchsthing1.name
           GameApi.Listdata.controlAction({
             CHOICE: 'fixed_goods',

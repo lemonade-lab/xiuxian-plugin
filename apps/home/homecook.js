@@ -426,8 +426,8 @@ export class Homecook extends plugin {
         NAME: 'food',
         DATA: foodThing
       })
-      HomeApi.GP.addAll({ data: peifang2 })
-      HomeApi.GP.addAll({ data: food })
+      HomeApi.GP.addAll(peifang2)
+      HomeApi.GP.addAll(food)
       let Warehouse = GameApi.Listdata.controlActionInitial({
         CHOICE: 'user_Warehouse',
         NAME: UID,
@@ -547,7 +547,7 @@ export class Homecook extends plugin {
         }
         case '寿命': {
           let life = parseInt(shiwu.life)
-          HomeApi.GP.addLife({ UID, life })
+          HomeApi.GP.addLife(UID, life)
           e.reply(`成功服用${shiwu.name},年轻了${life}年`)
           break
         }
@@ -591,8 +591,8 @@ export class Homecook extends plugin {
       return false
     }
     let thing = e.msg.replace(/^(#|\/)发布/, '')
-    let caipu = HomeApi.GP.homeexistWarehouseThingName({ UID, name: thing })
-    if (caipu == 1) {
+    let caipu = HomeApi.GP.homeexistWarehouseThingName(UID, thing)
+    if (!caipu) {
       e.reply(`你没有该物品`)
       return false
     }
@@ -710,8 +710,8 @@ export class Homecook extends plugin {
     let thing = e.msg.replace(/^(#|\/)炼丹阁购买/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
-    let shipu = HomeApi.GP.homeexistWarehouseThingName({ UID, thingName })
-    if (shipu != 1) {
+    let shipu = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
+    if (!shipu) {
       e.reply(`您已经有该丹方，请把该丹方消耗完再来吧!`)
       return false
     }

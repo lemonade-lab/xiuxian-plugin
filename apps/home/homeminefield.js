@@ -293,7 +293,7 @@ export class Homeminefield extends plugin {
     let searchsthing = HomeApi.GP.homeexistAllThingByName({
       name: thingName
     })
-    if (searchsthing == 1) {
+    if (!searchsthing) {
       e.reply(`世界没有[${thingName}]`)
       return false
     }
@@ -301,20 +301,14 @@ export class Homeminefield extends plugin {
       e.reply('这玩意儿咋炼？')
       return false
     }
-    let meiThing = HomeApi.GP.homeexistWarehouseThingName({
-      UID,
-      name: mei
-    })
-    let WarehouseThing = HomeApi.GP.homeexistWarehouseThingName({
-      UID,
-      name: thingName
-    })
-    if (WarehouseThing == 1 || WarehouseThing.acount < quantity) {
+    let WarehouseThing = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
+    if (!WarehouseThing || WarehouseThing.acount < quantity) {
       e.reply(`你[${thingName}]数量不够`)
       return false
     }
+    let meiThing = HomeApi.GP.homeexistWarehouseThingName(UID, mei)
     let n = 5 * quantity
-    if (meiThing == undefined || meiThing.acount < n) {
+    if (!meiThing || meiThing.acount < n) {
       e.reply(`${mei}不足，无法炼制,炼制一颗矿石需要5块${mei}`)
       return false
     }
@@ -326,19 +320,13 @@ export class Homeminefield extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      WarehouseThing = HomeApi.GP.homeexistWarehouseThingName({
-        UID,
-        name: thingName
-      })
-      if (WarehouseThing == 1 || WarehouseThing.acount < quantity) {
+      WarehouseThing = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
+      if (!WarehouseThing || WarehouseThing.acount < quantity) {
         e.reply(`你[${thingName}]数量不够`)
         return false
       }
-      let meiThing = HomeApi.GP.homeexistWarehouseThingName({
-        UID,
-        name: mei
-      })
-      if (meiThing == undefined || meiThing.acount < n) {
+      let meiThing = HomeApi.GP.homeexistWarehouseThingName(UID, mei)
+      if (!meiThing || meiThing.acount < n) {
         e.reply(`${mei}不足，无法炼制,炼制一颗矿石需要5块${mei}`)
         return false
       }
@@ -397,15 +385,12 @@ export class Homeminefield extends plugin {
     let searchsthing = HomeApi.GP.homeexistAllThingByName({
       name: mei
     })
-    let searchswupin = HomeApi.GP.homeexistWarehouseThingName({
-      UID,
-      name: thingName
-    })
-    if (searchswupin == 1 || searchswupin.acount < quantity) {
+    let searchswupin = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
+    if (!searchswupin || searchswupin.acount < quantity) {
       e.reply(`你[${thingName}]不够`)
       return false
     }
-    if (searchsthing == 1) {
+    if (!searchsthing) {
       e.reply(`这个世界没有[${mei}]`)
       return false
     }
@@ -417,11 +402,8 @@ export class Homeminefield extends plugin {
         NAME: UID,
         INITIAL: []
       })
-      let WarehouseThing = HomeApi.GP.homeexistWarehouseThingName({
-        UID,
-        name: thingName
-      })
-      if (WarehouseThing == 1 || WarehouseThing.acount < quantity) {
+      let WarehouseThing = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
+      if (!WarehouseThing || WarehouseThing.acount < quantity) {
         e.reply(`你[${thingName}]数量不够`)
         return false
       }
