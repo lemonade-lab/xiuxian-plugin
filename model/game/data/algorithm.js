@@ -31,7 +31,7 @@ class Algorithm {
    */
   deleteFile(filePath, fileName) {
     if (existsSync(join(`${filePath}/${fileName}.json`))) {
-      rmSync()
+      rmSync(join(`${filePath}/${fileName}.json`))
     }
   }
 
