@@ -7,7 +7,7 @@ class Cache {
    * @param { data, i } param0
    * @returns
    */
-  async helpcache(data, i) {
+  async helpcache(i, data) {
     const tmp = md5(JSON.stringify(data))
     if (!Object.prototype.hasOwnProperty.call(helpData, i)) {
       helpData[i] = {
