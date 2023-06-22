@@ -48,7 +48,7 @@ function levelUp(e, UID, CDID, ID, p) {
   }
   const LevelMsg = GameApi.Levels.getMsg(UID, ID)
   // 取值范围 [1 68 ] 突破概率为 (realm-68)/68 最高境界为34
-  if (!GameApi.Method.isTrueInRange(ID, p, (p - LevelMsg.realm) / p)) {
+  if (!GameApi.Method.isTrueInRange(ID, p, p - LevelMsg.realm)) {
     // 设置突破冷却
     GameApi.Levels.setSpecial(UID, CDID)
     /** 随机顺序损失经验  */
