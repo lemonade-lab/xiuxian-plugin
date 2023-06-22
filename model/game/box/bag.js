@@ -1,9 +1,19 @@
 import Data from '../data/index.js'
 class Bag {
+  /**
+   * 写入
+   * @param {*} UID
+   * @param {*} DATA
+   */
   write(UID, DATA) {
     Data.write(UID, 'playerBag', DATA)
   }
 
+  /**
+   * 读取
+   * @param {*} UID
+   * @returns
+   */
   read(UID) {
     return Data.read(UID, 'playerBag')
   }

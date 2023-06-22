@@ -1,5 +1,11 @@
 import Data from '../data/index.js'
 import Talent from './talent.js'
+import Equipment from './equipment.js'
+import Levels from './levels.js'
+import Special from './special.js'
+import Battel from './battle.js'
+import Life from './life.js'
+import Bag from './bag.js'
 class Information {
   /**
    * 个人信息
@@ -7,28 +13,13 @@ class Information {
    * @returns
    */
   showUserPlayer(UID) {
-    const equipment = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerEquipment'
-    })
-    const TalentData = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerTalent'
-    })
-    const LevelData = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerLevel'
-    })
-    const SpecialData = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerSpecial'
-    })
-    const battle = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerBattle'
-    })
+    const equipment = Equipment.read(UID)
+    const TalentData = Talent.read(UID)
+    const LevelData = Levels.read(UID)
+    const SpecialData = Special.read(UID)
+    const battle = Battel.read(UID)
     let linggenName = Talent.getTalentName(TalentData.talent)
-    let LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    let LifeData = Life.read('life')
     let name = linggenName
     let size = Math.trunc(TalentData.talentsize)
     if (TalentData.talentshow != 0) {
@@ -37,6 +28,7 @@ class Information {
     } else {
       size = `+${size}%`
     }
+    // 固定数据读取
     const GaspracticeData = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
@@ -49,6 +41,7 @@ class Information {
       CHOICE: 'fixed_levels',
       NAME: 'soul'
     })
+    //
     return {
       path: 'user/information',
       name: 'information',
@@ -81,15 +74,9 @@ class Information {
    * @returns
    */
   showUserEquipment(UID) {
-    const battle = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerBattle'
-    })
-    const equipment = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerEquipment'
-    })
-    const LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    const battle = Battel.read(UID)
+    const equipment = Equipment.read(UID)
+    const LifeData = Life.read('life')
     return {
       path: 'user/equipment',
       name: 'equipment',
@@ -107,12 +94,9 @@ class Information {
    * 功法信息
    */
   showUserTalent(UID) {
-    const TalentData = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerTalent'
-    })
+    const TalentData = Talent.read(UID)
     let linggenName = Talent.getTalentName(TalentData.talent)
-    let LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    let LifeData = Life.read('life')
     let name = linggenName
     let size = Math.trunc(TalentData.talentsize)
     if (TalentData.talentshow != 0) {
@@ -140,12 +124,9 @@ class Information {
    * @returns
    */
   showUserBag(UID) {
-    let LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
-    const battle = Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerBattle'
-    })
-    const najie = Data.controlAction({ NAME: UID, CHOICE: 'playerBag' })
+    let LifeData = Life.read('life')
+    const battle = Battel.read(UID)
+    const najie = Bag.read(UID)
     const thing = najie.thing
     const thingList = []
     const danyaoList = []

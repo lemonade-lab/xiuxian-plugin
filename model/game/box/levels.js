@@ -93,14 +93,14 @@ class Levels {
    * @returns
    */
   getMsg(UID, id) {
-    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = this.read(UID)
     return UserLevel[this.LEVELMAP[id]]
   }
 
   // 提升境界
   enhanceRealm(UID, id) {
     const LevelList = Data.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
-    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = this.read(UID)
     let realm = UserLevel[this.LEVELMAP[id]].realm
     realm += 1
     // 境界上限了
@@ -123,7 +123,7 @@ class Levels {
     // 调整境界
     UserLevel[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息  */
-    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    this.write(UID, UserLevel)
     return {
       state: 2000,
       msg: `境界提升至${LevelList[realm].name}`
@@ -134,7 +134,7 @@ class Levels {
   fallingRealm(UID, id) {
     // 读取境界
     const LevelList = Data.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
-    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = this.read(UID)
     let realm = UserLevel[this.LEVELMAP[id]].realm
     realm -= 1
     // 已经是最低境界
@@ -147,7 +147,7 @@ class Levels {
     // 调整境界
     UserLevel[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息 */
-    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    this.write(UID, UserLevel)
     return {
       state: 2000,
       msg: `境界跌落至${LevelList[realm].name}`
@@ -156,9 +156,9 @@ class Levels {
 
   /** 经验增加 */
   addExperience(UID, id, size) {
-    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = this.read(UID)
     UserLevel[this.LEVELMAP[id]].experience += size
-    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    this.write(UID, UserLevel)
     return {
       state: 2000,
       msg: `${this.NAMEMAP[id]}增加${size}`
@@ -167,14 +167,13 @@ class Levels {
 
   /* 经验减少 */
   reduceExperience(UID, id, size) {
-    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = this.read(UID)
     UserLevel[this.LEVELMAP[id]].experience -= size
-    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    this.write(UID, UserLevel)
     return {
       state: 2000,
       msg: `${this.NAMEMAP[id]}增加${size}`
     }
   }
 }
-
 export default new Levels()

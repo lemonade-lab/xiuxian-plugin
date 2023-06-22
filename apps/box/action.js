@@ -177,7 +177,7 @@ export class BoxAction extends plugin {
       CHOICE: 'playerTalent',
       DATA: talent
     })
-    GameApi.Extend.updataEfficiency(UID)
+    GameApi.Talent.updataEfficiency(UID)
     GameApi.Bag.addBagThing({
       UID,
       name: najieThing.name,
@@ -210,7 +210,7 @@ export class BoxAction extends plugin {
       CHOICE: 'playerTalent',
       DATA: talent
     })
-    GameApi.Extend.updataEfficiency(UID)
+    GameApi.Talent.updataEfficiency(UID)
     GameApi.Bag.addBagThing({ UID, name: islearned.name, ACCOUNT: 1 })
     e.reply(`忘了[${thingName}]`)
     return false
@@ -263,7 +263,7 @@ export class BoxAction extends plugin {
             CHOICE: 'playerTalent',
             DATA: talent
           })
-          GameApi.Extend.updataEfficiency(UID)
+          GameApi.Talent.updataEfficiency(UID)
           const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })

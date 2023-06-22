@@ -1,6 +1,5 @@
 import Data from '../data/index.js'
 import Method from '../wrap/method.js'
-import Extend from './extend.js'
 class GP {
   constructor() {
     this.extendData = {
@@ -68,47 +67,6 @@ class GP {
       CHOICE: 'generate_all'
     })
     return dropsItemList[Math.floor(Math.random() * dropsItemList.length)]
-  }
-
-  /**
-   * @param { NAME, FLAG, TYPE, VALUE, ENDTIME } param0
-   * @returns
-   */
-  addExtendTimes({ NAME, FLAG, TYPE, VALUE, ENDTIME }) {
-    const extend = Data.controlActionInitial({
-      NAME,
-      CHOICE: 'playerExtend',
-      INITIAL: {}
-    })
-    if (!extend[FLAG]) {
-      extend[FLAG] = this.extendData
-    }
-    const find = extend[FLAG].times.findIndex((item) => item.type == TYPE)
-    const time = new Date().getTime()
-    if (
-      find != -1 &&
-      extend[FLAG].times[find].timeLimit > time &&
-      extend[FLAG].times[find].value >= VALUE
-    ) {
-      Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
-      Extend.updatePanel(NAME)
-    } else if (
-      find != -1 &&
-      (extend[FLAG].times[find].timeLimit <= time || extend[FLAG].times[find].value < VALUE)
-    ) {
-      extend[FLAG].times[find].value = VALUE
-      extend[FLAG].times[find].timeLimit = ENDTIME
-      Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
-      Extend.updatePanel(NAME)
-    } else {
-      extend[FLAG].times.push({
-        type: TYPE,
-        value: VALUE,
-        timeLimit: ENDTIME
-      })
-      Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
-      Extend.updatePanel(NAME)
-    }
   }
 
   /**
