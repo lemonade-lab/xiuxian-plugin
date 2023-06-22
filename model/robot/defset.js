@@ -8,3 +8,11 @@ export function getConfig(name) {
   const data = parse(readFileSync(file, 'utf8'))
   return data
 }
+
+export function getDefset(name) {
+  /* 获得配置地址 */
+  const file = `${DirPath}/resources/defset/${name}.yaml`
+  /* 读取配置 */
+  const data = parse(readFileSync(file, 'utf8'))
+  return data
+}

@@ -1,8 +1,7 @@
-import { getConfig } from './defset.js'
+import { getDefset } from './defset.js'
 import { DirPath } from '../../app.config.js'
 /** 生成帮助图 */
 export function getboxhelp(name) {
-  const data = getConfig(name)
   return {
     /** heml路径 */
     tplFile: `${DirPath}/resources/html/help/help.html`,
@@ -11,6 +10,6 @@ export function getboxhelp(name) {
     /** 版本 */
     version: 'v2.0',
     /** 数据 */
-    data
+    data: getDefset(name)
   }
 }
