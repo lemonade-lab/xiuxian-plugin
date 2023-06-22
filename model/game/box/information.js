@@ -37,13 +37,17 @@ class Information {
     } else {
       size = `+${size}%`
     }
-    const LevelList = Data.controlAction({
+    const GaspracticeData = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = Data.controlAction({
+    const BodypracticeData = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
+    })
+    const SoulData = Data.controlAction({
+      CHOICE: 'fixed_levels',
+      NAME: 'soul'
     })
     return {
       path: 'user/information',
@@ -52,12 +56,14 @@ class Information {
         UID,
         life: LifeData[UID],
         GP: {},
+        special: SpecialData,
         level: {
-          ...SpecialData,
-          levelname: LevelList[LevelData.gaspractice.realm].name, // 练气名
-          experience: LevelData.gaspractice.experience, // 练气经验
-          levelnamemax: LevelMaxList[LevelData.bodypractice.realm].name, // 练体名
-          experiencemax: LevelData.bodypractice.experience // 练体经验
+          gaspracticeName: GaspracticeData[LevelData.gaspractice.realm].name,
+          gaspracticeExperience: LevelData.gaspractice.experience,
+          bodypracticeName: BodypracticeData[LevelData.bodypractice.realm].name,
+          bodypracticeExperience: LevelData.bodypractice.experience,
+          soulName: SoulData[LevelData.soul.realm].name,
+          soulExperience: LevelData.soul.experience
         },
         linggenName: name,
         battle,
