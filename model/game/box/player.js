@@ -3,6 +3,7 @@ import Burial from '../wrap/burial.js'
 import Defset from '../data/defset.js'
 import Method from '../wrap/method.js'
 import Talent from './talent.js'
+import Extend from './extend.js'
 class Player {
   constructor() {
     this.playerSpecialData = {
@@ -206,9 +207,9 @@ class Player {
     })
 
     /** 更新天赋面板 */
-    Talent.updataEfficiency(UID)
+    Extend.updataEfficiency(UID)
     /** 更新战斗面板 */
-    Talent.updatePanel(UID)
+    Extend.updatePanel(UID)
     return true
   }
 

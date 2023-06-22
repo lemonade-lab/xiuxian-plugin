@@ -1,5 +1,6 @@
 import Data from '../data/index.js'
 import Method from '../wrap/method.js'
+import Extend from './extend.js'
 class GP {
   constructor() {
     this.extendData = {
@@ -90,7 +91,7 @@ class GP {
       extend[FLAG].times[find].value >= VALUE
     ) {
       Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
-      this.updatePanel(NAME)
+      Extend.updatePanel(NAME)
     } else if (
       find != -1 &&
       (extend[FLAG].times[find].timeLimit <= time || extend[FLAG].times[find].value < VALUE)
@@ -98,7 +99,7 @@ class GP {
       extend[FLAG].times[find].value = VALUE
       extend[FLAG].times[find].timeLimit = ENDTIME
       Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
-      this.updatePanel(NAME)
+      Extend.updatePanel(NAME)
     } else {
       extend[FLAG].times.push({
         type: TYPE,
@@ -106,7 +107,7 @@ class GP {
         timeLimit: ENDTIME
       })
       Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
-      this.updatePanel(NAME)
+      Extend.updatePanel(NAME)
     }
   }
 
