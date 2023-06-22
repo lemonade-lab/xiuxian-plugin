@@ -1,5 +1,5 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import { writeFileSync, rmSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
 import Method from '../wrap/method.js'
 import Data from '../data/index.js'
 import Talent from '../box/talent.js'
@@ -132,7 +132,7 @@ class GP {
         })
       } else {
         if (ass.allMembers.length < 2) {
-          fs.rmSync(`${__PATH.assOciation}/${assGP.AID}.json`)
+          rmSync(`${__PATH.assOciation}/${assGP.AID}.json`)
         } else {
           ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
           // 给掌门
@@ -208,7 +208,7 @@ class GP {
    */
   readAssNames(name) {
     // 指定路径
-    let allNames = fs.readdirSync(__PATH[name])
+    let allNames = readdirSync(__PATH[name])
     // 赛选.json
     allNames = allNames.filter((file) => file.endsWith('.json'))
     return allNames
@@ -295,8 +295,8 @@ class GP {
       find.unchartedName = assOciationName
     }
     assRelation.splice(location, 1, find)
-    fs.writeFileSync(
-      path.join(`${__PATH.assRelation}/assRelation.json`),
+    writeFileSync(
+      join(`${__PATH.assRelation}/assRelation.json`),
       JSON.stringify(assRelation, '', '\t'),
       'utf-8',
       (err) => {

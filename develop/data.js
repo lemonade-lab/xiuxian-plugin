@@ -1,12 +1,10 @@
-import path from 'node:path'
+import { resolve } from 'node:path'
 import { dealTpl } from './puppeteer/puppeteer.js'
 // import { getConfig } from './defset/defset.js'
 /* 数据调试 */
 
 /* 选择调试文件并重启 */
-const tplFile = `${path
-  .resolve()
-  .replace(/\\/g, '/')}/resources/html/user/information/information.html`
+const tplFile = `${resolve().replace(/\\/g, '/')}/resources/html/user/information/information.html`
 
 /* 需要填充的数据 */
 // const data = getConfig({ name: 'help' })

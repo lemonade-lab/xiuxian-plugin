@@ -1,5 +1,5 @@
-import fs from 'node:fs'
-import YAML from 'yaml'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { parse, stringify } from 'yaml'
 import { DirPath } from '../../../app.config.js'
 /** 自定义配置地址 */
 const __diryaml = `${DirPath}/config/cooling.yaml`
@@ -15,7 +15,7 @@ class Defset {
     /* 获得配置地址 */
     const file = `${DirPath}/config/${name}.yaml`
     /* 读取配置 */
-    const data = YAML.parse(fs.readFileSync(file, 'utf8'))
+    const data = parse(readFileSync(file, 'utf8'))
     return data
   }
 
@@ -23,7 +23,7 @@ class Defset {
     /* 获得配置地址 */
     const file = `${DirPath}/resources/defset/${name}.yaml`
     /* 读取配置 */
-    const data = YAML.parse(fs.readFileSync(file, 'utf8'))
+    const data = parse(readFileSync(file, 'utf8'))
     return data
   }
 
@@ -36,10 +36,10 @@ class Defset {
       return '无此开关选项'
     }
     const [name0, name1] = map[name].split('.')
-    const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
+    const data = parse(readFileSync(`${__diryaml}`, 'utf8'))
     data[name0][name1] = swich
-    const yamlStr = YAML.stringify(data)
-    fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
+    const yamlStr = stringify(data)
+    writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
     return `${name}${swich ? '开启' : '关闭'}`
   }
 
@@ -71,26 +71,26 @@ class Defset {
       return '无次项配置信息'
     }
     const [name0, name1] = map[name].split('.')
-    const data = YAML.parse(fs.readFileSync(`${__diryaml}`, 'utf8'))
+    const data = parse(readFileSync(`${__diryaml}`, 'utf8'))
     data[name0][name1] = Number(size)
-    const yamlStr = YAML.stringify(data)
-    fs.writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
+    const yamlStr = stringify(data)
+    writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
     return `修改${name}为${size}`
   }
 
   startGame(GID, Gname) {
-    const data = YAML.parse(fs.readFileSync(NameList, 'utf8'))
+    const data = parse(readFileSync(NameList, 'utf8'))
     data.whitecrowd.push(GID)
-    const yamlStr = YAML.stringify(data)
-    fs.writeFileSync(NameList, yamlStr, 'utf8')
+    const yamlStr = stringify(data)
+    writeFileSync(NameList, yamlStr, 'utf8')
     return `[${Gname}]启动成功~`
   }
 
   stopGame(GID, Gname) {
-    const data = YAML.parse(fs.readFileSync(NameList, 'utf8'))
+    const data = parse(readFileSync(NameList, 'utf8'))
     data.whitecrowd = data.whitecrowd.filter((item) => item != GID)
-    const yamlStr = YAML.stringify(data)
-    fs.writeFileSync(NameList, yamlStr, 'utf8')
+    const yamlStr = stringify(data)
+    writeFileSync(NameList, yamlStr, 'utf8')
     return `[${Gname}]停止成功~`
   }
 }

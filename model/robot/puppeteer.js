@@ -1,7 +1,7 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import template from 'art-template'
+import { writeFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import lodash from 'lodash'
+import template from 'art-template'
 /* 启动Chromium */
 import puppeteer from 'puppeteer'
 /* 事件监听 */
@@ -148,15 +148,15 @@ class Puppeteer {
   }
 
   ctrateFile(name) {
-    const PathFile = path.resolve().replace(/\\/g, '/')
-    if (!fs.existsSync(`${PathFile}/xiuxiandata`)) {
-      fs.mkdirSync(`${PathFile}/xiuxiandata`)
+    const PathFile = resolve().replace(/\\/g, '/')
+    if (!existsSync(`${PathFile}/xiuxiandata`)) {
+      mkdirSync(`${PathFile}/xiuxiandata`)
     }
-    if (!fs.existsSync(`${PathFile}/xiuxiandata/html`)) {
-      fs.mkdirSync(`${PathFile}/xiuxiandata/html`)
+    if (!existsSync(`${PathFile}/xiuxiandata/html`)) {
+      mkdirSync(`${PathFile}/xiuxiandata/html`)
     }
-    if (!fs.existsSync(`${PathFile}/xiuxiandata/html/${name}`)) {
-      fs.mkdirSync(`${PathFile}/xiuxiandata/html/${name}`)
+    if (!existsSync(`${PathFile}/xiuxiandata/html/${name}`)) {
+      mkdirSync(`${PathFile}/xiuxiandata/html/${name}`)
     }
   }
 
@@ -164,12 +164,12 @@ class Puppeteer {
   dealTpl(name, data) {
     let { tplFile, saveId = name } = data
     /** 这个地址应该要配置自己的,只有保存了临时本地文件了之后，浏览器才能去截图生成 */
-    let savePath = `${path.resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}/${saveId}.html`
+    let savePath = `${resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}/${saveId}.html`
     /** 读取html模板 */
     if (!this.html[tplFile]) {
       this.ctrateFile(name)
       try {
-        this.html[tplFile] = fs.readFileSync(tplFile, 'utf8')
+        this.html[tplFile] = readFileSync(tplFile, 'utf8')
       } catch (error) {
         console.error(`加载html错误:${tplFile}`)
         return false
@@ -179,7 +179,7 @@ class Puppeteer {
     }
     /* 将模板源代码编译成函数并立刻执行 */
     let tmpHtml = template.render(this.html[tplFile], data)
-    fs.writeFileSync(savePath, tmpHtml)
+    writeFileSync(savePath, tmpHtml)
     console.debug(`[xiuxian][html模板] ${savePath}`)
     return savePath
   }

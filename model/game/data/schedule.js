@@ -1,6 +1,6 @@
-import fs from 'node:fs'
+import { cp, existsSync, unlink, readdirSync } from 'node:fs'
 import algorithm from './algorithm.js'
-import schedule from 'node-schedule'
+import { scheduleJob } from 'node-schedule'
 
 /** 数据备份 */
 class Schedule {
@@ -15,7 +15,7 @@ class Schedule {
    * @param {  time } param0
    */
   scheduleJobflie({ time }) {
-    schedule.scheduleJob(time, () => {
+    scheduleJob(time, () => {
       const myDate = new Date().getTime()
       const Y = myDate.getFullYear()
       const M = myDate.getMonth() + 1
@@ -23,7 +23,7 @@ class Schedule {
       const h = myDate.getHours()
       const m = myDate.getMinutes()
       const s = myDate.getSeconds()
-      fs.cp(this.DATA_PATH, `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`, {
+      cp(this.DATA_PATH, `${this.BACKUPS_PATH}/${Y}-${M}-${D}-${h}-${m}-${s}`, {
         recursive: true
       })
     })
@@ -35,18 +35,18 @@ class Schedule {
    */
   backupRecovery({ name }) {
     /* 查看自己的地址在不在？我的叫做boxdata */
-    if (!fs.existsSync(this.BACKUPS_PATH)) {
+    if (!existsSync(this.BACKUPS_PATH)) {
       return ['无备份数据']
     }
     /* 查看这个备份名字在不在 */
-    if (!fs.existsSync(`${this.BACKUPS_PATH}/${name}`)) {
+    if (!existsSync(`${this.BACKUPS_PATH}/${name}`)) {
       return ['无此备份']
     }
     /* 得到存档的json文件地址 */
     const newsum = algorithm.getfilepath(this.DATA_PATH, '.json')
     newsum.forEach((item) => {
       /* /循环删除数据 */
-      fs.unlink(item)
+      unlink(item)
     })
     /** 获得这个备份下的所有子目录 */
     const namefileSubdirectory = algorithm.getMenu(`${this.BACKUPS_PATH}/${name}`)
@@ -54,9 +54,9 @@ class Schedule {
     namefileSubdirectory.forEach((itemname) => {
       /* 得到所有json名 */
       const jsonName = []
-      const files = fs
-        .readdirSync(`${this.BACKUPS_PATH}/${name}/${itemname}`)
-        .filter((file) => file.endsWith('.json'))
+      const files = readdirSync(`${this.BACKUPS_PATH}/${name}/${itemname}`).filter((file) =>
+        file.endsWith('.json')
+      )
       for (let file of files) {
         file = file.replace('.json', '')
         jsonName.push(file)
@@ -66,8 +66,8 @@ class Schedule {
         let y = `${this.BACKUPS_PATH}/${name}/${itemname}/${item}.json`
         let x = `${this.DATA_PATH}/${itemname}/${item}.json`
         /* 不存在就复制 */
-        if (!fs.existsSync(x)) {
-          fs.cp(y, x)
+        if (!existsSync(x)) {
+          cp(y, x)
         }
       })
     })

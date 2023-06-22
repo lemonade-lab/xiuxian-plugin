@@ -1,5 +1,5 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import { readdirSync, statSync } from 'node:fs'
+import { join } from 'node:path'
 import { AppName, DirPath } from './app.config.js'
 import createdata from './model/game/data/createdata.js'
 
@@ -20,12 +20,12 @@ const filepath = `./${firstName}/apps`
 const name = []
 const sum = []
 const travel = (dir, callback) => {
-  for (let file of fs.readdirSync(dir)) {
+  for (let file of readdirSync(dir)) {
     if (file.search('.js') != -1) {
       name.push(file.replace('.js', ''))
     }
-    let pathname = path.join(dir, file)
-    if (fs.statSync(pathname).isDirectory()) {
+    let pathname = join(dir, file)
+    if (statSync(pathname).isDirectory()) {
       travel(pathname, callback)
     } else {
       callback(pathname)

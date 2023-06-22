@@ -1,5 +1,13 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import {
+  existsSync,
+  rmSync,
+  readdirSync,
+  statSync,
+  readFileSync,
+  mkdirSync,
+  writeFileSync
+} from 'node:fs'
+import { join } from 'node:path'
 import { DirPath } from '../../../app.config.js'
 
 /** fs算法 */
@@ -10,7 +18,7 @@ class Algorithm {
    * @param fileName
    */
   existFile(filePath, fileName) {
-    if (fs.existsSync(path.join(`${filePath}/${fileName}.json`))) {
+    if (existsSync(join(`${filePath}/${fileName}.json`))) {
       return true
     }
     return false
@@ -23,8 +31,8 @@ class Algorithm {
    */
   deleteFile(filePath, fileName) {
     const dir = `${filePath}/${fileName}.json`
-    if (fs.existsSync(path.join(dir))) {
-      fs.rmSync()
+    if (existsSync(join(dir))) {
+      rmSync()
     }
   }
 
@@ -33,12 +41,12 @@ class Algorithm {
    * @returns 该地址的子目录数组
    */
   getMenu(path) {
-    const files = fs.readdirSync(path)
+    const files = readdirSync(path)
     const shield = ['.git']
     const sum = []
     for (let item of files) {
       const newpath = `${path}/${item}`
-      const stat = fs.statSync(newpath)
+      const stat = statSync(newpath)
       // 不是文件？
       if (!stat.isFile()) {
         // 是目录名
@@ -61,9 +69,9 @@ class Algorithm {
   getfilepath(menupath, type) {
     const newsum = []
     const travel = (dir, callback) => {
-      for (let file of fs.readdirSync(dir)) {
-        let pathname = path.join(dir, file)
-        if (fs.statSync(pathname).isDirectory()) {
+      for (let file of readdirSync(dir)) {
+        let pathname = join(dir, file)
+        if (statSync(pathname).isDirectory()) {
           travel(pathname, callback)
         } else {
           callback(pathname)
@@ -84,8 +92,8 @@ class Algorithm {
    * @returns
    */
   getData(NAME, PATH) {
-    const DIR = path.join(`${PATH}/${NAME}.json`)
-    const data = JSON.parse(fs.readFileSync(DIR, 'utf8'))
+    const DIR = join(`${PATH}/${NAME}.json`)
+    const data = JSON.parse(readFileSync(DIR, 'utf8'))
     return data
   }
 
@@ -96,15 +104,15 @@ class Algorithm {
    * @param {*} DATA
    */
   postData(NAME, PATH, DATA) {
-    const DIR = path.join(`${PATH}/${NAME}.json`)
-    fs.writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
+    const DIR = join(`${PATH}/${NAME}.json`)
+    writeFileSync(DIR, JSON.stringify(DATA, '', '\t'), 'utf8')
   }
 
   /** 得到该路径的完整路径 */
   getPath(req) {
     /* 根据目录初始化地址 */
     this.ctratePath(req)
-    return path.join(DirPath, req)
+    return join(DirPath, req)
   }
 
   /**
@@ -116,8 +124,8 @@ class Algorithm {
     let newname = DirPath
     name.forEach((item) => {
       newname += `${item}/`
-      if (!fs.existsSync(`${newname}`)) {
-        fs.mkdirSync(`${newname}`)
+      if (!existsSync(`${newname}`)) {
+        mkdirSync(`${newname}`)
       }
     })
   }
@@ -126,7 +134,7 @@ class Algorithm {
   getProcessCwd(req) {
     /* 根据目录初始化地址 */
     this.ctrateProcessCwd(req)
-    return path.join(process.cwd(), req)
+    return join(process.cwd(), req)
   }
 
   /**
@@ -138,8 +146,8 @@ class Algorithm {
     let newname = process.cwd()
     name.forEach((item) => {
       newname += `${item}/`
-      if (!fs.existsSync(`${newname}`)) {
-        fs.mkdirSync(`${newname}`)
+      if (!existsSync(`${newname}`)) {
+        mkdirSync(`${newname}`)
       }
     })
   }

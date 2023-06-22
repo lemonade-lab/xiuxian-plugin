@@ -1,5 +1,5 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import { writeFileSync, readdirSync, statSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 /** 游戏index数据生成 */
 class GenerateData {
   /**
@@ -8,9 +8,9 @@ class GenerateData {
    * @param {数据} sum
    */
   createList(PATH, name, sum) {
-    const dir = path.join(PATH, `${name}.json`)
+    const dir = join(PATH, `${name}.json`)
     const theARR = JSON.stringify(sum, '', '\t')
-    fs.writeFileSync(dir, theARR, 'utf8')
+    writeFileSync(dir, theARR, 'utf8')
   }
 
   /**
@@ -22,9 +22,9 @@ class GenerateData {
     const newsum = []
     const data = []
     const travel = (dir, callback) => {
-      fs.readdirSync(dir).forEach((file) => {
-        var pathname = path.join(dir, file)
-        if (fs.statSync(pathname).isDirectory()) {
+      readdirSync(dir).forEach((file) => {
+        var pathname = join(dir, file)
+        if (statSync(pathname).isDirectory()) {
           travel(pathname, callback)
         } else {
           callback(pathname)
@@ -38,7 +38,7 @@ class GenerateData {
       }
     })
     newsum.forEach((file) => {
-      data.push(...JSON.parse(fs.readFileSync(file)))
+      data.push(...JSON.parse(readFileSync(file)))
     })
     return data
   }

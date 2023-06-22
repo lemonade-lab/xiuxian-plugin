@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import { existsSync, cp } from 'node:fs'
 import { DirPath } from '../../../app.config.js'
 
 /** 自定义配置 */
@@ -29,10 +29,10 @@ class CreateData {
       let x = `${ConfigPath}/${itemConfig}`
       let y = `${DefsetPath}/${itemConfig}`
       // 发现配置不存在
-      if (!fs.existsSync(x)) {
+      if (!existsSync(x)) {
         // 补缺配置
-        if (fs.existsSync(y)) {
-          fs.cp(y, x, (err) => {
+        if (existsSync(y)) {
+          cp(y, x, (err) => {
             if (err) {
               console.info(err)
             }
@@ -50,8 +50,8 @@ class CreateData {
       let x = `${ConfigPath}/${itemConfig}`
       let y = `${DefsetPath}/${itemConfig}`
       // 直接复制
-      if (fs.existsSync(y)) {
-        fs.cp(y, x, (err) => {
+      if (existsSync(y)) {
+        cp(y, x, (err) => {
           if (err) {
             console.info(err)
           }
