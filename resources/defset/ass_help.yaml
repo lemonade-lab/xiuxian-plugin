@@ -8,7 +8,7 @@
       desc: '建立门派'
     - icon: help-icon_81
       title: '(#|/)鉴定门派令牌'
-      desc: '获取建立门派或门派升级的令牌'
+      desc: '获取等级令牌'
     - icon: help-icon_52
       title: '(#|/)申请加入+门派名'
       desc: '向某门派发出申请'

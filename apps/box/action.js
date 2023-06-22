@@ -72,11 +72,12 @@ export class BoxAction extends plugin {
             name: 'cooling'
           })
           const CDTime = cf.CD.Practice ? cf.CD.Practice : 5
-          const CDID = '12'
+          const CDID = 12
           const nowTime = new Date().getTime()
-          const { state: coolingState } = GameApi.Burial.cooling(e.user_id, CDID)
+          const { state: coolingState, msg: msgCooling } = GameApi.Burial.cooling(e.user_id, CDID)
           if (coolingState == 4001) {
             experience = 0
+            e.reply(msgCooling)
             return false
           }
           GameApi.Burial.set(UID, CDID, nowTime, CDTime)

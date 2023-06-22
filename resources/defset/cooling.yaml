@@ -2,23 +2,23 @@
 CD:
   #门派维护
   #突破
-  Level_up: 5
+  Level_up: 3
   #破体
-  LevelMax_up: 5
+  LevelMax_up: 3
   #道宣
   Autograph: 60
   #改名
-  Name: 1240
+  Name: 60
   #重生
   Reborn: 360
   #赠送
-  Transfer: 60
+  Transfer: 30
   #攻击
-  Attack: 5
+  Attack: 3
   #击杀
   Kill: 3
   #修行
-  Practice: 5
+  Practice: 3
 
 timeout:
   size: 60

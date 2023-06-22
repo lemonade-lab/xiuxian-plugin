@@ -21,7 +21,7 @@ export class BoxBattleSite extends plugin {
       e.reply(msg)
       return false
     }
-    const CDID = '10'
+    const CDID = 10
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({
       name: 'cooling'

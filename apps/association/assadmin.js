@@ -6,11 +6,11 @@ export class AssociationAdmin extends plugin {
       name: 'AssociationAdmin',
       rule: [
         {
-          reg: /^(#|\/)开宗立派.*$/,
+          reg: /^(#|\/)开宗立派$/,
           fnc: 'createAssociation'
         },
         {
-          reg: /^(#|\/)(升级门派|门派升级)$/,
+          reg: /^(#|\/)门派升级$/,
           fnc: 'lvupAssociation'
         },
         {

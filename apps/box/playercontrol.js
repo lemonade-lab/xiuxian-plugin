@@ -26,7 +26,37 @@ export class BoxGPControl extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    e.reply('待更新~')
+    const { state: stateA, msg: msgA } = GameApi.Action.miniGo(UID)
+    if (stateA == 4001) {
+      e.reply(msgA)
+      return false
+    }
+    const { state: stateB, msg: msgB } = GameApi.Action.miniGo(UIDB)
+    if (stateB == 4001) {
+      e.reply(msgB)
+      return false
+    }
+    const cf = GameApi.Defset.getConfig({
+      name: 'cooling'
+    })
+    const CDTime = cf.CD.Ambiguous ? cf.CD.Ambiguous : 5
+    const CDID = 14
+    const nowTime = new Date().getTime()
+    const { state: coolingState, msg: msgCooling } = GameApi.Burial.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(msgCooling)
+      return false
+    }
+    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
+    const LevelDataA = GameApi.Data.read(UID, 'playerLevel')
+    const LevelDataB = GameApi.Data.read(UIDB, 'playerLevel')
+    const sizeA = Math.floor(LevelDataA.gaspractice.experience * 0.15) // 主动的
+    const sizeB = Math.floor(LevelDataB.gaspractice.experience * 0.1) // 被动的
+    LevelDataA.gaspractice.experience += sizeA
+    LevelDataB.gaspractice.experience += sizeB
+    GameApi.Data.write(UIDB, 'playerLevel', LevelDataB)
+    GameApi.Data.write(UID, 'playerLevel', LevelDataA)
+    e.reply('你两情投意合,奇怪的修为增加了~')
     return false
   }
 

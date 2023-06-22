@@ -29,7 +29,7 @@ export class BoxStart extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
-    const CDID = '8'
+    const CDID = 8
     const nowTime = new Date().getTime()
     const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {

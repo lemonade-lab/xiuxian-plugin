@@ -1,26 +1,20 @@
-- group:
+- group: 洞府管理
   list:
-    - icon: help-icon_59
-      title: '(#|/)发洞府补偿+灵晶数+@人'
-      desc: '个人补偿灵晶'
-    - icon: help-icon_59
-      title: '(#|/)发洞府福利+灵晶数'
-      desc: '全服补偿灵晶'
-    - icon: help-icon_59
-      title: '(#|/)发洞府物品+洞府物品名字+数量+@人'
-      desc: '个人赠送洞府物品'
-
-- group:
-  list:
-    - icon: help-icon_59
-      title: '(#|/)洞府更新'
-      desc: '更新洞府插件'
     - icon: help-icon_52
-      title: '(#|/)洞府数据'
-      desc: '查看备份'
-    - icon: help-icon_52
-      title: '(#|/)洞府复原+数据名'
-      desc: '复原洞府数据'
-    - icon: help-icon_52
-      title: '(#|/)门派重置配置'
-      desc: '重置配置'
+      title: '(#|/)我的洞府'
+      desc: '查看洞府基本信息'
+    - icon: help-icon_58
+      title: '(#|/)洞府仓库'
+      desc: '查看仓库物品'
+    - icon: help-icon_58
+      title: '(#|/)洞府扩建'
+      desc: '提升洞府等级，解锁更多玩法'
+    - icon: help-icon_58
+      title: '(#|/)查看洞府扩建'
+      desc: '查看联盟人员的施工进度'
+    - icon: help-icon_58
+      title: '(#|/)建立洞府+地点'
+      desc: '在选择的地点建立第一个洞府'
+    - icon: help-icon_58
+      title: '(#|/)搬迁洞府到+地点'
+      desc: '建立洞府后搬迁'

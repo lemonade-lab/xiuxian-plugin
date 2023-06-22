@@ -31,7 +31,7 @@ export class BoxBattle extends plugin {
       e.reply(msg)
       return false
     }
-    const CDID = '11'
+    const CDID = 11
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({ name: 'cooling' })
     const CDTime = cf.CD.Attack ? cf.CD.Attack : 5

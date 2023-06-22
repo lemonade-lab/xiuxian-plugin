@@ -21,7 +21,7 @@ export class BoxModify extends plugin {
       e.reply('这名可真是稀奇')
       return false
     }
-    const CDID = '3'
+    const CDID = 3
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({
       name: 'cooling'
@@ -55,7 +55,7 @@ export class BoxModify extends plugin {
       e.reply('请正确设置,且道宣最多50字符')
       return false
     }
-    const CDID = '4'
+    const CDID = 4
     const nowTime = new Date().getTime()
     const cf = GameApi.Defset.getConfig({
       name: 'cooling'

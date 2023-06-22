@@ -33,6 +33,12 @@
     - icon: 21
       title: '(#|/)归来'
       desc: '锻炼气血'
+    - icon: 21
+      title: '(#|/)传功+@道友'
+      desc: '传输修为'
+    - icon: 21
+      title: '(#|/)双修+@道友'
+      desc: '一起嘿嘿嘿'
 
 - group:
   list:

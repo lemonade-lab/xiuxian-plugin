@@ -51,7 +51,7 @@ export class BoxMoneyOperation extends plugin {
       name: 'cooling'
     })
     const CDTime = cf.CD.Transfer ? cf.CD.Transfer : 5
-    const CDID = '5'
+    const CDID = 5
     const nowTime = new Date().getTime()
     const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
     if (coolingState == 4001) {
