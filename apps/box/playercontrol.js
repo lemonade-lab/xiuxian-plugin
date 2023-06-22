@@ -153,7 +153,7 @@ export class BoxGPControl extends plugin {
       return false
     }
     GameApi.Action.delete(UID)
-    upgrade(UID, time, action.actionID, e)
+    upgrade(e, UID, time, 'biguan')
     return false
   }
 
@@ -179,25 +179,18 @@ export class BoxGPControl extends plugin {
       return false
     }
     GameApi.Action.delete(UID)
-    upgrade(e, UID, time, action.actionID)
+    upgrade(e, UID, time, 'work')
     return false
   }
 }
 
 function upgrade(e, UID, time, name) {
-  const talent = GameApi.Data.controlAction({
-    NAME: UID,
-    CHOICE: 'playerTalent'
-  })
+  const talent = GameApi.Data.read(UID, 'playerTalent')
   const buff = Math.floor(talent.talentsize / 100) + Number(1)
-  const appSize = GameApi.Defset.getConfig({
+  const config = GameApi.Defset.getConfig({
     name: 'cooling'
   })
-  let map = {
-    闭关: 'biguan',
-    降妖: 'work'
-  }
-  let other = Math.floor(appSize[map[name]].size * time * buff)
+  let other = Math.floor(config[name].size * time * buff)
   if (Math.random() * (100 - 1) + 1 < 20) {
     other -= Math.floor(other / 3)
   }

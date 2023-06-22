@@ -55,7 +55,7 @@ export class AssociationJoin extends plugin {
     })
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
@@ -94,7 +94,7 @@ export class AssociationJoin extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.volunteerAss,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (!ass) {
       assGP.volunteerAss = 0
@@ -105,7 +105,7 @@ export class AssociationJoin extends plugin {
       assGP.volunteerAss = 0
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
       AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-      AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+      AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
       e.reply(`清除成功！`)
       return false
     }
@@ -129,7 +129,7 @@ export class AssociationJoin extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const find = ass.applyJoinList.findIndex((item) => item == joinUID)
     const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该门派目前人数上限
@@ -156,7 +156,7 @@ export class AssociationJoin extends plugin {
 
       ass.allMembers.push(joinUID)
       ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
-      AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+      AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
       AssociationApi.assUser.assUpdataEfficiency(joinGP)
       e.reply(`门派成功招收到一位新弟子${joinUID}`)
       return false
@@ -195,7 +195,7 @@ export class AssociationJoin extends plugin {
 
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     let find = ass.applyJoinList.findIndex((item) => item == joinUID)
     if (find == -1) {
@@ -210,7 +210,7 @@ export class AssociationJoin extends plugin {
     joinGP.volunteerAss = 0
     ass.applyJoinList = ass.applyJoinList.filter((item) => item != joinUID)
     AssociationApi.assUser.setAssOrGP('assGP', joinUID, joinGP)
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
     e.reply(`已拒绝！`)
     return false
   }
@@ -236,7 +236,7 @@ export class AssociationJoin extends plugin {
     }
     let AssData = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (AssData.applyJoinList.length == 0) {
       e.reply(`未有待招收弟子,快去提升门派知名度吧！`)

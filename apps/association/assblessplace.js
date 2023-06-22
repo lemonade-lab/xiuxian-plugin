@@ -26,13 +26,13 @@ export class AssBlessPlace extends plugin {
         },
         {
           reg: /^(#|\/)集合攻打.*$/,
-          fnc: 'associationBattle'
+          fnc: 'assOciationBattle'
         }
       ]
     })
   }
 
-  async associationBattle(e) {
+  async assOciationBattle(e) {
     if (!this.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -58,7 +58,7 @@ export class AssBlessPlace extends plugin {
     AID = assRelation.id
     const battleAss = GameApi.Data.controlAction({
       NAME: AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (battleAss.resident.name == 0 || battleAss.id == assGP.AID) {
       return false
@@ -66,7 +66,7 @@ export class AssBlessPlace extends plugin {
     // 读取被攻打的门派势力范围
     const attackAss = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
 
     const positionList = GameApi.Data.controlAction({
@@ -160,7 +160,7 @@ export class AssBlessPlace extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     let blessedName = e.msg.replace(/^(#|\/)入驻洞天/, '')
     blessedName = blessedName.trim()
@@ -186,13 +186,13 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    const allNames = AssociationApi.assUser.readAssNames('association')
+    const allNames = AssociationApi.assUser.readAssNames('assOciation')
 
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
       const thisAss = GameApi.Data.controlAction({
         NAME: theName,
-        CHOICE: 'association'
+        CHOICE: 'assOciation'
       })
       if (thisAss.resident.name == dongTan.name) {
         e.reply(`你尝试带着门派入驻${dongTan.name}，却发现有门派捷足先登了，只能通过开战强夺山门了`)
@@ -205,7 +205,7 @@ export class AssBlessPlace extends plugin {
       i.status = 0
       return i
     })
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
     e.reply(`入驻成功,${ass.id}当前山门为:${dongTan.name},原有建设值继承70%，需要重新修建以启用`)
     return false
   }
@@ -226,7 +226,7 @@ export class AssBlessPlace extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
 
     if (ass.resident.name == 0) {
@@ -278,7 +278,7 @@ export class AssBlessPlace extends plugin {
 
     assGP.contributionPoints += Math.trunc(num / 2000)
     assGP.historyContribution += Math.trunc(num / 2000)
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(
       `成功开采灵脉\n为门派灵石池贡献了${giftLingshi}灵石\n你获得了${Math.trunc(num / 2000)}贡献点`
@@ -309,7 +309,7 @@ export class AssBlessPlace extends plugin {
 
     let ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (ass.resident.name == 0) {
       e.reply(`你的门派还没有山门`)
@@ -372,7 +372,7 @@ export class AssBlessPlace extends plugin {
     AssociationApi.assUser.checkFacility(ass)
     ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     let msg = ass.facility[location].status == 0 ? '未启用' : '启用'
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
@@ -402,7 +402,7 @@ export class AssBlessPlace extends plugin {
 
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
 
     let msg = [`__[门派建筑]__`]

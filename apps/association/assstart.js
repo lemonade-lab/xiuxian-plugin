@@ -53,7 +53,7 @@ export class Assstart extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     console.log(ass)
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == ass.id)
@@ -102,7 +102,7 @@ export class Assstart extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const nowTime = new Date().getTime() // 获取当前日期的时间戳
     const oldTime = assGP.time[1]
@@ -163,18 +163,18 @@ export class Assstart extends plugin {
       return false
     }
 
-    let associationName = e.msg.replace(/^(#|\/)申请加入/, '')
-    associationName = associationName.trim()
+    let assOciationName = e.msg.replace(/^(#|\/)申请加入/, '')
+    assOciationName = assOciationName.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find(
-      (item) => item.name == associationName
+      (item) => item.name == assOciationName
     )
     if (!assRelation) {
       return false
     }
-    associationName = assRelation.id
+    assOciationName = assRelation.id
     const ass = GameApi.Data.controlAction({
-      NAME: associationName,
-      CHOICE: 'association'
+      NAME: assOciationName,
+      CHOICE: 'assOciation'
     })
     const mostMem = AssociationApi.assUser.numberMaximums[ass.level - 1] // 该门派目前人数上限
     const nowMem = ass.allMembers.length // 该门派目前人数
@@ -182,9 +182,9 @@ export class Assstart extends plugin {
       e.reply(`${assRelation.name}的弟子已招满`)
       return false
     }
-    assGP.volunteerAss = associationName
+    assGP.volunteerAss = assOciationName
     ass.applyJoinList.push(UID)
-    AssociationApi.assUser.setAssOrGP('association', associationName, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', assOciationName, ass)
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
     e.reply(`已成功发出申请！`)
     return false
@@ -215,19 +215,19 @@ export class Assstart extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (assGP.assJob < 10) {
       ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID) // 原来的职位表删掉这个B
       assGP.AID = 0
       assGP.assJob = 0
       assGP.favorability = 0
-      AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
+      AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass) // 记录到存档
       AssociationApi.assUser.assUpdataEfficiency(assGP)
       e.reply('退出门派成功')
     } else {
       if (ass.allMembers.length < 2) {
-        AssociationApi.assUser.deleteAss('association', assGP.AID) // 删除门派
+        AssociationApi.assUser.deleteAss('assOciation', assGP.AID) // 删除门派
         AssociationApi.assUser.deleteAss('assTreasure', assGP.AID) // 删除藏宝阁
         assGP.AID = 0
         assGP.assJob = 0
@@ -254,7 +254,7 @@ export class Assstart extends plugin {
         }
         ass.master = randMember.UID
         randMember.assJob = 10
-        AssociationApi.assUser.setAssOrGP('association', ass.id, ass) // 记录到存档
+        AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass) // 记录到存档
         AssociationApi.assUser.assUpdataEfficiency(randMember)
         e.reply(`退出门派成功,退出后,掌门职位由[${randMember.UID}]接管`)
       }
@@ -295,7 +295,7 @@ export class Assstart extends plugin {
     const size = najieThing.price * najieThing.acount
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == assGP.AID)
     if (
@@ -317,7 +317,7 @@ export class Assstart extends plugin {
       name,
       ACCOUNT: -ACCOUNT
     })
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
     AssociationApi.assUser.setAssOrGP('assGP', assGP.UID, assGP)
     e.reply(`捐赠成功,门派灵石池目前有${ass.spiritStoneAns}灵石`)
     return false
@@ -331,7 +331,7 @@ export class Assstart extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const allNames = AssociationApi.assUser.readAssNames('association')
+    const allNames = AssociationApi.assUser.readAssNames('assOciation')
     let temp = ['门派列表']
     if (allNames.length == 0) {
       temp.push('暂时没有门派数据')
@@ -342,7 +342,7 @@ export class Assstart extends plugin {
       const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == theName)
       const thisAss = GameApi.Data.controlAction({
         NAME: theName,
-        CHOICE: 'association'
+        CHOICE: 'assOciation'
       })
       let theAssXiuxian = 0
       if (thisAss.resident.name == 0) {

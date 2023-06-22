@@ -33,7 +33,7 @@ export class AssociationExtend extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assRelation.id,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const location = AssociationApi.assUser.buildNameList.findIndex((item) => item == buildName)
     if (location == -1) {

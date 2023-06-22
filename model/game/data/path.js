@@ -56,17 +56,19 @@ export const __PATH = {
 
   assGP: algorithm.getProcessCwd(`${GPPath}/ass/gp`), // 玩家的基础信息
   assRelation: algorithm.getProcessCwd(`${GPPath}/ass/relation`), // 所有门派的基础存档
-  association: algorithm.getProcessCwd(`${GPPath}/ass/item`), // 门派的基础信息
-  assTreasure: algorithm.getProcessCwd(`${GPPath}/ass/Ttreasure`), // 门派的藏宝阁
-  assinterimArchive: algorithm.getProcessCwd(`${GPPath}/ass/archive`), // 门派的秘境
+  assOciation: algorithm.getProcessCwd(`${GPPath}/ass/ociation`), // 门派的基础信息
+  assTreasure: algorithm.getProcessCwd(`${GPPath}/ass/treasure`), // 门派的藏宝阁
+  assArchive: algorithm.getProcessCwd(`${GPPath}/ass/archive`), // 门派的秘境
 
-  assassTreasu: algorithm.getPath('/resources/datafixed/assTreasureVault'), // 隐藏门派的藏宝阁
-  assRelate: algorithm.getPath('/resources/datafixed/assRelate') // 门派相关资料
-
+  assTreasureVault: algorithm.getPath('/resources/datafixed/treasurevault'), // 隐藏门派的藏宝阁
+  /**
+   * Ass000000 基础
+   * Ass000001 - Ass000004 传承宗门
+   */
+  assRelate: algorithm.getPath('/resources/datafixed/relate') // 门派相关资料
   /**
    * | assRelate |
    * AssLabyrinth
-   * BaseTreasureVault 基础的藏宝阁数据
    * BlessPlace  山门
    */
 }

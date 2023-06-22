@@ -77,16 +77,16 @@ export class AssociationAdmin extends plugin {
 
     let ADATA = []
     if (najieThingB) {
-      if (!AssociationApi.assUser.existAss('association', 'Ass000001')) {
+      if (!AssociationApi.assUser.existAss('assOciation', 'Ass000001')) {
         ADATA.push('Ass000001')
       }
-      if (!AssociationApi.assUser.existAss('association', 'Ass000002')) {
+      if (!AssociationApi.assUser.existAss('assOciation', 'Ass000002')) {
         ADATA.push('Ass000002')
       }
-      if (!AssociationApi.assUser.existAss('association', 'Ass000003')) {
+      if (!AssociationApi.assUser.existAss('assOciation', 'Ass000003')) {
         ADATA.push('Ass000003')
       }
-      if (!AssociationApi.assUser.existAss('association', 'Ass000004')) {
+      if (!AssociationApi.assUser.existAss('assOciation', 'Ass000004')) {
         ADATA.push('Ass000004')
       }
     }
@@ -114,7 +114,7 @@ export class AssociationAdmin extends plugin {
       const AssData = getAss(ADATA[location], date, nowTime, UID, 4, 100000)
 
       // 写入门派数据
-      AssociationApi.assUser.setAssOrGP('association', ADATA[location], AssData)
+      AssociationApi.assUser.setAssOrGP('assOciation', ADATA[location], AssData)
 
       // 玩家存档
       let assGP = GameApi.Data.controlAction({
@@ -133,14 +133,14 @@ export class AssociationAdmin extends plugin {
 
       // 基础藏宝阁数据
       let assthing = GameApi.Data.controlAction({
-        NAME: 'BaseTreasureVault',
-        CHOICE: 'assRelate'
+        NAME: 'Ass000000',
+        CHOICE: 'assTreasureVault'
       })
 
       // 隐藏门派的数据
       let assthin = GameApi.Data.controlAction({
         NAME: ADATA[location],
-        CHOICE: 'assassTreasu'
+        CHOICE: 'assTreasureVault'
       })
 
       for (let i = 0; i < assthin.length; i++) {
@@ -198,11 +198,11 @@ export class AssociationAdmin extends plugin {
       this.reply('非法门派,请重新输入:')
       return false
     }
-    const associationName = theMsg[0].text
+    const assOciationName = theMsg[0].text
     if (
-      associationName.length < 2 ||
-      associationName.length > 6 ||
-      !/^[\u4e00-\u9fa5]+$/.test(associationName)
+      assOciationName.length < 2 ||
+      assOciationName.length > 6 ||
+      !/^[\u4e00-\u9fa5]+$/.test(assOciationName)
     ) {
       this.setContext('setAssociationName')
       this.reply('非法门派,请重新输入:')
@@ -213,7 +213,7 @@ export class AssociationAdmin extends plugin {
       CHOICE: 'assRelation'
     })
     // 检查门派名称表
-    const assRelation = assRelationList.find((item) => item.name == associationName)
+    const assRelation = assRelationList.find((item) => item.name == assOciationName)
     if (assRelation) {
       this.setContext('setAssociationName')
       this.reply('非法门派,请重新输入:')
@@ -234,17 +234,17 @@ export class AssociationAdmin extends plugin {
         AssociationApi.assUser.assRelationList[AssociationApi.assUser.assRelationList.length - 1].id
       replace = Number(id.replace('Ass00000', '')) + 1
     }
-    const associationID = 'Ass00000' + replace
+    const assOciationID = 'Ass00000' + replace
 
     let relationAll = AssociationApi.assUser.assRelationList
     relationAll.push({
-      id: associationID, // 门派文件名
-      name: associationName, // 门派名称
-      unchartedName: associationID
+      id: assOciationID, // 门派文件名
+      name: assOciationName, // 门派名称
+      unchartedName: assOciationID
     })
     AssociationApi.assUser.setAssOrGP('assRelation', 'assRelation', relationAll)
 
-    assGP.AID = associationID
+    assGP.AID = assOciationID
     assGP.assJob = 10
     assGP.contributionPoints = 0
     assGP.historyContribution = 0
@@ -254,12 +254,12 @@ export class AssociationAdmin extends plugin {
     // 写入玩家门派数据
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
 
-    theAssociation(associationID, UID)
+    theAssociation(assOciationID, UID)
     let read = GameApi.Data.controlAction({
-      NAME: 'BaseTreasureVault',
-      CHOICE: 'assRelate'
+      NAME: 'Ass000000',
+      CHOICE: 'assTreasureVault'
     })
-    AssociationApi.assUser.setAssOrGP('assTreasure', associationID, read) // 存储藏宝阁
+    AssociationApi.assUser.setAssOrGP('assTreasure', assOciationID, read) // 存储藏宝阁
     AssociationApi.assUser.assUpdataEfficiency(assGP)
     this.reply('门派建立成功')
     /** 结束上下文 */
@@ -284,7 +284,7 @@ export class AssociationAdmin extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (ass.level == AssociationApi.assUser.numberMaximums.length) {
       return false
@@ -329,7 +329,7 @@ export class AssociationAdmin extends plugin {
 
     ass.spiritStoneAns -= ass.level * 30000
     ass.level += 1
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
     const GPList = ass.allMembers
     for (let GPID of GPList) {
       const UID = GPID
@@ -372,7 +372,7 @@ export class AssociationAdmin extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const isinass = ass.allMembers.find((item) => item == memberUID)
     if (!isinass) {
@@ -410,7 +410,7 @@ export class AssociationAdmin extends plugin {
     })
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (assGP.AID == 0 || assGP.assJob < 10) {
       e.reply('权限不足')
@@ -420,16 +420,16 @@ export class AssociationAdmin extends plugin {
       e.reply(`传承门派,勿忘初心`)
       return false
     }
-    let associationName = e.msg.replace(/^(#|\/)门派改名/, '')
-    associationName = associationName.trim()
+    let assOciationName = e.msg.replace(/^(#|\/)门派改名/, '')
+    assOciationName = assOciationName.trim()
     if (ass.spiritStoneAns < 10000) {
       e.reply('需要[下品灵石]*10000委托联盟向天下告知~')
       return false
     }
     ass.spiritStoneAns -= 10000
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
-    AssociationApi.assUser.renameAssociation(ass.id, 1, associationName)
-    e.reply(`成功委托联盟更改门派名称为${associationName}`)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
+    AssociationApi.assUser.renameAssociation(ass.id, 1, assOciationName)
+    e.reply(`成功委托联盟更改门派名称为${assOciationName}`)
     return false
   }
 
@@ -465,7 +465,7 @@ export class AssociationAdmin extends plugin {
     }
     const bss = GameApi.Data.controlAction({
       NAME: GPB.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (GPA.AID != GPB.AID) {
       return false
@@ -478,7 +478,7 @@ export class AssociationAdmin extends plugin {
     GPB.favorability = 0
     GPB.assJob = 0
     GPB.AID = 0
-    AssociationApi.assUser.setAssOrGP('association', bss.id, bss)
+    AssociationApi.assUser.setAssOrGP('assOciation', bss.id, bss)
     AssociationApi.assUser.assUpdataEfficiency(GPB)
     e.reply('已踢出！')
     return false
@@ -555,7 +555,7 @@ function theAssociation(name, holderUID) {
   const date = GameApi.Method.timeChange(nowTime)
   const Association = getAss(name, date, nowTime, holderUID)
   const treasureVault = [[], [], []]
-  AssociationApi.assUser.setAssOrGP('association', name, Association)
+  AssociationApi.assUser.setAssOrGP('assOciation', name, Association)
   AssociationApi.assUser.setAssOrGP('assTreasure', name, treasureVault)
   return false
 }

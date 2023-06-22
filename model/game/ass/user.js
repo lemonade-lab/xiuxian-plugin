@@ -17,8 +17,8 @@ class GP {
     })
     //  隐藏物品
     this.baseTreasureVaultList = Data.controlAction({
-      NAME: 'BaseTreasureVault',
-      CHOICE: 'assRelate'
+      NAME: 'Ass000000',
+      CHOICE: 'assTreasureVault'
     })
     // 山门
     this.blessPlaceList = Data.controlAction({
@@ -114,11 +114,11 @@ class GP {
     // 两边都有存档，但是死了，或者重生了，需要执行插件删档
 
     // 检测门派, 先退宗，再重置
-    if (this.existAss('association', assGP.AID)) {
+    if (this.existAss('assOciation', assGP.AID)) {
       // 读取门派信息
       let ass = Data.controlAction({
         NAME: assGP.AID,
-        CHOICE: 'association'
+        CHOICE: 'assOciation'
       })
 
       if (assGP.assJob < 10) {
@@ -127,12 +127,12 @@ class GP {
         // 记录到存档
         Data.controlAction({
           NAME: ass.id,
-          CHOICE: 'association',
+          CHOICE: 'assOciation',
           DATA: ass
         })
       } else {
         if (ass.allMembers.length < 2) {
-          fs.rmSync(`${__PATH.association}/${assGP.AID}.json`)
+          fs.rmSync(`${__PATH.assOciation}/${assGP.AID}.json`)
         } else {
           ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
           // 给掌门
@@ -154,7 +154,7 @@ class GP {
 
           Data.controlAction({
             NAME: ass.id,
-            CHOICE: 'association',
+            CHOICE: 'assOciation',
             DATA: ass
           })
 
@@ -170,14 +170,14 @@ class GP {
       // 得到数据
       const ass = Data.controlAction({
         NAME: assGP.volunteerAss,
-        CHOICE: 'association'
+        CHOICE: 'assOciation'
       })
       if (!Method.isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
         // 写入数据
         Data.controlAction({
           NAME: ass.id,
-          CHOICE: 'association',
+          CHOICE: 'assOciation',
           DATA: ass
         })
       }
@@ -194,7 +194,7 @@ class GP {
 
   /**
    * 检测门派存档或用户门派信息是否存在
-   * @param filePathType ["assGP" , "association" ]
+   * @param filePathType ["assGP" , "assOciation" ]
    * @param fileName
    */
   existAss(filePathType, fileName) {
@@ -216,7 +216,7 @@ class GP {
 
   /**
    * 写入数据
-   * @param fileName  ["assGP" , "association" ]
+   * @param fileName  ["assGP" , "assOciation" ]
    * @param itemName
    * @param data
    */
@@ -249,7 +249,7 @@ class GP {
     // 读取门派数据
     let ass = Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (ass.resident.id != 0) {
       effective += ass.resident.efficiency
@@ -283,16 +283,16 @@ class GP {
    * 重命名门派
    * @param {*} ass
    * @param {*} type
-   * @param {*} associationName
+   * @param {*} assOciationName
    */
-  renameAssociation(ass, type, associationName) {
+  renameAssociation(ass, type, assOciationName) {
     let assRelation = this.assRelationList
     const find = assRelation.find((item) => item.id == ass)
     const location = assRelation.findIndex((item) => item.id == ass)
     if (type == 1) {
-      find.name = associationName
+      find.name = assOciationName
     } else {
-      find.unchartedName = associationName
+      find.unchartedName = assOciationName
     }
     assRelation.splice(location, 1, find)
     fs.writeFileSync(
@@ -322,7 +322,7 @@ class GP {
 
     Data.controlAction({
       NAME: ass.id,
-      CHOICE: 'association',
+      CHOICE: 'assOciation',
       DATA: ass
     })
 

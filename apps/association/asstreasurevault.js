@@ -41,7 +41,7 @@ export class assTreasure extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     if (ass.facility[1].status == 0) {
       return false
@@ -149,7 +149,7 @@ export class assTreasure extends plugin {
     })
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
 
     const length = Math.ceil(ass.level / 3)
@@ -192,7 +192,7 @@ export class assTreasure extends plugin {
 
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
     const thingName = e.msg.replace(/^(#|\/)置换/, '')
 

@@ -71,7 +71,7 @@ export class AssociationJobUp extends plugin {
     }
     const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
-      CHOICE: 'association'
+      CHOICE: 'assOciation'
     })
 
     const actionA = GameApi.Data.controlAction({
@@ -121,7 +121,7 @@ export class AssociationJobUp extends plugin {
       e.reply(`你谋划篡位，被掌门识破了，不仅被逐出门派，还让增加了15点煞气值`)
     }
     AssociationApi.assUser.assUpdataEfficiency(assGP)
-    AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
+    AssociationApi.assUser.setAssOrGP('assOciation', ass.id, ass)
     GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial',
