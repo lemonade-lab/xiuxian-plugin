@@ -16,19 +16,7 @@ export class BoxLevel extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const CDID = 6
-    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
-    if (coolingState == 4001) {
-      e.reply(coolingMsg)
-      return false
-    }
-    const res = GameApi.Levels.enhanceRealm(UID, 0)
-    const { msg } = res
-    e.reply(msg)
-    const nowTime = new Date().getTime()
-    const cf = GameApi.Defset.getConfig({ name: 'cooling' })
-    const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
-    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
+    levelUp(e, UID, 6, 0, 82)
     return false
   }
 
@@ -39,19 +27,42 @@ export class BoxLevel extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const CDID = 7
-    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
-    if (coolingState == 4001) {
-      e.reply(coolingMsg)
-      return false
-    }
-    const res = GameApi.Levels.enhanceRealm(UID, 1)
-    const { msg } = res
-    e.reply(msg)
-    const nowTime = new Date().getTime()
-    const cf = GameApi.Defset.getConfig({ name: 'cooling' })
-    const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
-    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
+    levelUp(e, UID, 7, 1, 68)
     return false
   }
+}
+
+/**
+ * @param {消息对象} e
+ * @param {编号} UID
+ * @param {冷却} CDID
+ * @param {境界} ID
+ * @param {概率} p
+ * @returns
+ */
+function levelUp(e, UID, CDID, ID, p) {
+  const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
+  if (coolingState == 4001) {
+    e.reply(coolingMsg)
+    return false
+  }
+  const LevelMsg = GameApi.Levels.getMsg(UID, ID)
+  // 取值范围 [1 68 ] 突破概率为 (realm-68)/68 最高境界为34
+  if (!GameApi.Method.isTrueInRange(ID, p, (p - LevelMsg.realm) / p)) {
+    // 设置突破冷却
+    GameApi.Levels.setSpecial(UID, CDID)
+    /** 随机顺序损失经验  */
+    const keyArray = Object.keys(GameApi.Levels.CopywritingLevel)
+    const randomKey = keyArray[Math.floor(Math.random() * keyArray.length)]
+    const size = Math.floor(LevelMsg.experience / randomKey)
+    GameApi.Levels.reduceExperience(UID, ID, size)
+    e.reply(GameApi.Levels.getCopywriting(ID, randomKey, size))
+    return false
+  }
+  const res = GameApi.Levels.enhanceRealm(UID, ID)
+  const { msg } = res
+  e.reply(msg)
+  // 设置
+  GameApi.Levels.setSpecial(UID, CDID)
+  return false
 }

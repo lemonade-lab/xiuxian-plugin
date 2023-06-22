@@ -1,4 +1,6 @@
+import Defset from '../data/defset.js'
 import Listdata from '../data/listdata.js'
+import Burial from '../wrap/burial.js'
 
 class Levels {
   constructor() {
@@ -12,6 +14,64 @@ class Levels {
       1: '气血',
       2: '魂力'
     }
+    this.CopywritingLevel = {
+      0: '突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美!险些走火入魔,丧失了size[name]',
+      1: '突破时想到鸡哥了,险些走火入魔,丧失了size[name]',
+      2: '突破时突然想起后花园种有药草,强行打断突破,嘴角流血,丧失了size[name]',
+      3: '突破失败,丧失了size[name]',
+      4: '突破失败,你刚刚气沉丹田就被一口老痰差点噎死,丧失了size[name]',
+      5: '噗～你一口老血喷了出,突破失败,丧失了size[name]',
+      6: '砰!你突破时身后的柜子动了一下,吓得你一时不敢突破并丧失了size[name]',
+      7: '突破失败,你也不知道为啥,并且丧失了size[name]',
+      8: '突破失败,可能是因为姿势不对吧,你尝试换了个姿势,发现丧失了size[name]',
+      9: '突破失败,你差一点就成功了,你决定再试一次,可惜刚入定就被反噬,丧失了size[name]',
+      10: '突破失败,因为今天是KFC疯狂星期四,决定不突破了去吃了KFC,回来直接变身喷射战士,并丧失了size[name]'
+    }
+    this.LevelMiniName = {
+      0: '初期',
+      1: '中期',
+      2: '后期',
+      3: '巅峰',
+      4: '圆满'
+    }
+    this.CdMap = {
+      6: 'Level_up',
+      7: 'LevelMax_up'
+    }
+  }
+
+  /**
+   * 随机一个失败文案
+   */
+
+  getCopywriting(id, randomKey, size) {
+    const name = this.NAMEMAP[id]
+    const copywriting = this.CopywritingLevel[randomKey]
+    const result = copywriting.replace('size[name]', `${size}[${name}]`)
+    return result
+  }
+
+  /**
+   * 设置突破冷却
+   * @param {} UID
+   * @param {*} CDID
+   */
+  setSpecial(UID, CDID) {
+    const nowTime = new Date().getTime()
+    const cf = Defset.getConfig({ name: 'cooling' })
+    const CDTime = cf.CD[this.CdMap[CDID]] ? cf.CD[this.CdMap[CDID]] : 5
+    Burial.set(UID, CDID, nowTime, CDTime)
+  }
+
+  /**
+   * 得到境界
+   * @param {*} UID
+   * @param {*} id
+   * @returns
+   */
+  getMsg(UID, id) {
+    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    return UserLevel[this.LEVELMAP[id]]
   }
 
   // 提升境界
