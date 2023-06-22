@@ -1,5 +1,4 @@
-import { writeFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs'
 import lodash from 'lodash'
 import template from 'art-template'
 /* 启动Chromium */
@@ -7,6 +6,7 @@ import puppeteer from 'puppeteer'
 /* 事件监听 */
 import chokidar from 'chokidar'
 import { cfg } from '../api/index.js'
+import { DirPath } from '../../app.config.js'
 class Puppeteer {
   constructor() {
     /* puppeteer实例保存 */
@@ -57,9 +57,7 @@ class Puppeteer {
     this.browser = await puppeteer.launch(this.Config).catch((err) => {
       console.error(err.toString())
       if (String(err).includes('correct Chromium')) {
-        console.error(
-          '没有正确安装Chromium,可以尝试执行\n安装命令: node ./node_modules/puppeteer/install.js'
-        )
+        console.error('没有正确安装或配置 Chromium')
       }
     })
     this.lock = false
@@ -70,7 +68,7 @@ class Puppeteer {
     console.info('puppeteer Chromium 启动成功')
     /** 监听Chromium实例是否断开 */
     this.browser.on('disconnected', (e) => {
-      console.error('Chromium实例关闭或崩溃!\n请及时#重启,后尝试恢复')
+      console.error('puppeteer Chromium 实例关闭或崩溃!')
       this.browser = false
     })
     return this.browser
@@ -147,27 +145,17 @@ class Puppeteer {
     return segment.image(buff)
   }
 
-  ctrateFile(name) {
-    const PathFile = resolve().replace(/\\/g, '/')
-    if (!existsSync(`${PathFile}/xiuxiandata`)) {
-      mkdirSync(`${PathFile}/xiuxiandata`)
-    }
-    if (!existsSync(`${PathFile}/xiuxiandata/html`)) {
-      mkdirSync(`${PathFile}/xiuxiandata/html`)
-    }
-    if (!existsSync(`${PathFile}/xiuxiandata/html/${name}`)) {
-      mkdirSync(`${PathFile}/xiuxiandata/html/${name}`)
-    }
-  }
-
   /** 模板 */
   dealTpl(name, data) {
     let { tplFile, saveId = name } = data
     /** 这个地址应该要配置自己的,只有保存了临时本地文件了之后，浏览器才能去截图生成 */
-    let savePath = `${resolve().replace(/\\/g, '/')}/xiuxiandata/html/${name}/${saveId}.html`
+    let savePath = `${DirPath}/data/html/${name}/${saveId}.html`
     /** 读取html模板 */
     if (!this.html[tplFile]) {
-      this.ctrateFile(name)
+      // 创建目录，如果已存在则不做任何操作
+      mkdirSync(`${DirPath}/data/html/${name}`, { recursive: true }, (err) => {
+        console.log(err)
+      })
       try {
         this.html[tplFile] = readFileSync(tplFile, 'utf8')
       } catch (error) {

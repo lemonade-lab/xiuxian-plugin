@@ -46,13 +46,9 @@
 
 #### 修改存档
 
-> Yunzai-Bot/xiuxian-player
+> /xiuxian-player
 
 建议使用 VScode 软件进行编辑
-
-#### 数据备份
-
-> Yunzai-Bot/xiuxiandata
 
 #### 配置地址
 
