@@ -1,24 +1,6 @@
 [
   [
     {
-      "id": "6-1-1",
-      "name": "洗根水",
-      "type": "",
-      "privileges": 2,
-      "redeemPoint": 30,
-      "attack": 0,
-      "defense": 0,
-      "blood": 0,
-      "burst": 0,
-      "burstmax": 0,
-      "size": 0,
-      "experience": 0,
-      "experiencemax": 0,
-      "speed": 0,
-      "acount": 1,
-      "price": 0
-    },
-    {
       "id": "6-1-2",
       "name": "望灵珠",
       "type": "",

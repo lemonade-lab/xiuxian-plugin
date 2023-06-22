@@ -8,7 +8,7 @@ body {
 }
 .user_top {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2, 50%);
   background-image: url('../../allimg//user/home/home-top-left.jpg');
   background-size: 100% 100%;
 }

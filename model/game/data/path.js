@@ -49,7 +49,7 @@ export const __PATH = {
   user_home_minefield: algorithm.getProcessCwd(`${GPPath}/home/minefield`),
   user_home_cook: algorithm.getProcessCwd(`${GPPath}/home/cook`),
   user_home_food: algorithm.getProcessCwd(`${GPPath}/home/food`),
-  user_home_wanmin: algorithm.getProcessCwd(`${GPPath}/home/wanmin`),
+  user_home_wanmin: algorithm.getProcessCwd(`${GPPath}/home/wanmin`), // 练丹阁
   user_home_state: algorithm.getProcessCwd(`${GPPath}/home/state`),
 
   /* 门派路径 */

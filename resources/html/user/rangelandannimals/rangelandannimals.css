@@ -76,7 +76,7 @@ body {
   border-bottom-left-radius: 25px;
   background-color: rgba(19, 21, 22, 0.666);
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, 25%);
   margin-bottom: 10px;
 }
 

@@ -64,7 +64,7 @@
         </div>
         <div
           class="user_top_right_font2"
-          style="display: grid; grid-template-columns: auto auto auto auto"
+          style="display: grid; grid-template-columns: repeat(4, 25%)"
         >
           {{each equipment item}}
           <div>{{item.name}}</div>
@@ -77,7 +77,7 @@
         <div class="user_top_right_font0">[已学功法]</div>
         <div
           class="user_top_right_font2"
-          style="display: grid; grid-template-columns: auto auto auto auto"
+          style="display: grid; grid-template-columns: repeat(4, 25%)"
         >
           {{each talent.AllSorcery item}}
           <div>《{{item.name}}》</div>
@@ -98,7 +98,7 @@
 
     .user_top {
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: repeat(2, 50%);
       background-image: url('{{pluResPath}}/resources/html/img/user/information/left.jpg');
       background-size: 100% 100%;
     }
