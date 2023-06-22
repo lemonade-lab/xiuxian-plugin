@@ -1,5 +1,5 @@
 import Redis from './redis.js'
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import { CDMAP, ACTIONMAP, ReadiName } from './config.js'
 class Action {
   /**
@@ -60,7 +60,7 @@ class Action {
         msg: `${ACTIONMAP[action.actionID]}中...`
       }
     }
-    const GP = Listdata.controlAction({
+    const GP = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })

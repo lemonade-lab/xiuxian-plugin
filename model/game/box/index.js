@@ -1,4 +1,4 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import Method from '../wrap/method.js'
 class GP {
   constructor() {
@@ -22,7 +22,7 @@ class GP {
    * @returns
    */
   getTypeThing(position, type) {
-    const dropsItemList = Listdata.controlAction({
+    const dropsItemList = Data.controlAction({
       NAME: 'goods',
       CHOICE: 'generate_all'
     })
@@ -43,7 +43,7 @@ class GP {
    * @returns
    */
   randomTypeThing(position, type) {
-    const dropsItemList = Listdata.controlAction({
+    const dropsItemList = Data.controlAction({
       NAME: 'goods',
       CHOICE: 'generate_all'
     })
@@ -62,7 +62,7 @@ class GP {
    * @returns
    */
   randomThing() {
-    const dropsItemList = Listdata.controlAction({
+    const dropsItemList = Data.controlAction({
       NAME: 'dropsItem',
       CHOICE: 'generate_all'
     })
@@ -74,7 +74,7 @@ class GP {
    * @returns
    */
   addExtendTimes({ NAME, FLAG, TYPE, VALUE, ENDTIME }) {
-    const extend = Listdata.controlActionInitial({
+    const extend = Data.controlActionInitial({
       NAME,
       CHOICE: 'playerExtend',
       INITIAL: {}
@@ -89,7 +89,7 @@ class GP {
       extend[FLAG].times[find].timeLimit > time &&
       extend[FLAG].times[find].value >= VALUE
     ) {
-      Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
+      Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
       this.updatePanel(NAME)
     } else if (
       find != -1 &&
@@ -97,7 +97,7 @@ class GP {
     ) {
       extend[FLAG].times[find].value = VALUE
       extend[FLAG].times[find].timeLimit = ENDTIME
-      Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
+      Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
       this.updatePanel(NAME)
     } else {
       extend[FLAG].times.push({
@@ -105,7 +105,7 @@ class GP {
         value: VALUE,
         timeLimit: ENDTIME
       })
-      Listdata.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
+      Data.controlAction({ NAME, CHOICE: 'playerExtend', DATA: extend })
       this.updatePanel(NAME)
     }
   }
@@ -117,7 +117,7 @@ class GP {
    */
   synthesisResult({ ans, type }) {
     // 这里可以写成返回对象，物品+msg，来给炼制增加不同的过程反馈
-    let drawingList = Listdata.controlAction({
+    let drawingList = Data.controlAction({
       NAME: 'AllDrawing',
       CHOICE: 'fixed_material'
     })

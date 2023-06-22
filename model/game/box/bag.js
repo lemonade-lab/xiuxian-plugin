@@ -1,15 +1,23 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 class Bag {
+  write(UID, DATA) {
+    Data.write(UID, 'playerBag', DATA)
+  }
+
+  read(UID) {
+    return Data.read(UID, 'playerBag')
+  }
+
   /**
    * 给UID添加物品name的数量为account
    * @param { UID, name, ACCOUNT } param0
    * @returns
    */
   addBagThing({ UID, name, ACCOUNT }) {
-    const THING = Listdata.searchAllThing('name', name)
+    const THING = Data.searchAllThing('name', name)
     if (!THING) return false
     /* 两者匹配 */
-    let BAG = Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID })
+    let BAG = this.read(UID)
     const FINDDATA = BAG.thing.find((item) => item.id == THING.id)
     /* 匹配成功 */
     if (!FINDDATA) {
@@ -27,7 +35,7 @@ class Bag {
         BAG.thing.push(THING)
       }
     }
-    Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID, DATA: BAG })
+    this.write(UID, BAG)
     return true
   }
 
@@ -37,7 +45,7 @@ class Bag {
    * @returns 返回该物品
    */
   searchBagByName({ UID, name }) {
-    const bag = Listdata.controlAction({ CHOICE: 'playerBag', NAME: UID })
+    const bag = this.read(UID)
     return bag.thing.find((item) => item.name == name)
   }
 }

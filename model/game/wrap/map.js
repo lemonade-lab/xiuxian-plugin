@@ -1,8 +1,8 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 class WrapMap {
   /* 输入:模糊搜索名字并判断是否在此地 */
   mapExistence = ({ action, addressName }) => {
-    const point = Listdata.controlAction({
+    const point = Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -23,7 +23,7 @@ class WrapMap {
    */
 
   mapAction = ({ UID, addressName }) => {
-    const action = Listdata.controlAction({
+    const action = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })

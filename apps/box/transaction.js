@@ -19,7 +19,7 @@ export class BoxTransaction extends plugin {
     if (!transactionMessage(e)) return false
     const msg = ['___[万宝楼]___']
     msg.push('[(#|/)购买+物品名*数量]')
-    const commoditiesList = GameApi.Listdata.controlAction({
+    const commoditiesList = GameApi.Data.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
@@ -73,7 +73,7 @@ export class BoxTransaction extends plugin {
     const UID = e.user_id
     if (!transactionMessage(e)) return false
     const [thingName, quantity] = e.msg.replace(/^(#|\/)购买/, '').split('*')
-    const Commodities = GameApi.Listdata.controlAction({
+    const Commodities = GameApi.Data.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
     })
@@ -143,7 +143,7 @@ export class BoxTransaction extends plugin {
     if (!this.verify(e)) return false
     const UID = e.user_id
     if (!transactionMessage(e)) return false
-    let bag = GameApi.Listdata.controlAction({
+    let bag = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -160,7 +160,7 @@ export class BoxTransaction extends plugin {
       return false
     }
     bag.thing = []
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: bag
@@ -187,7 +187,7 @@ export class BoxTransaction extends plugin {
       e.reply(`[蜀山派]叶凡\n此处不收[${type}]`)
       return false
     }
-    let bag = GameApi.Listdata.controlAction({
+    let bag = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -210,7 +210,7 @@ export class BoxTransaction extends plugin {
       return false
     }
     bag.thing = arr
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: bag

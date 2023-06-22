@@ -1,5 +1,5 @@
 import Defset from '../data/defset.js'
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import Burial from '../wrap/burial.js'
 
 class Levels {
@@ -41,6 +41,29 @@ class Levels {
   }
 
   /**
+   * @param {*} id
+   * @param {*} DATA
+   */
+  write(UID, DATA) {
+    Data.controlAction({
+      CHOICE: 'playerLevel',
+      NAME: UID,
+      DATA
+    })
+  }
+
+  /**
+   * @param {*} id
+   * @returns
+   */
+  read(UID) {
+    return Data.controlAction({
+      CHOICE: 'playerLevel',
+      NAME: UID
+    })
+  }
+
+  /**
    * 随机一个失败文案
    */
 
@@ -70,14 +93,14 @@ class Levels {
    * @returns
    */
   getMsg(UID, id) {
-    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
     return UserLevel[this.LEVELMAP[id]]
   }
 
   // 提升境界
   enhanceRealm(UID, id) {
-    const LevelList = Listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
-    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const LevelList = Data.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
+    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
     let realm = UserLevel[this.LEVELMAP[id]].realm
     realm += 1
     // 境界上限了
@@ -100,7 +123,7 @@ class Levels {
     // 调整境界
     UserLevel[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息  */
-    Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
     return {
       state: 2000,
       msg: `境界提升至${LevelList[realm].name}`
@@ -110,8 +133,8 @@ class Levels {
   // 掉落境界
   fallingRealm(UID, id) {
     // 读取境界
-    const LevelList = Listdata.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
-    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const LevelList = Data.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
+    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
     let realm = UserLevel[this.LEVELMAP[id]].realm
     realm -= 1
     // 已经是最低境界
@@ -124,7 +147,7 @@ class Levels {
     // 调整境界
     UserLevel[this.LEVELMAP[id]].realm = realm
     /** 保存境界信息 */
-    Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
     return {
       state: 2000,
       msg: `境界跌落至${LevelList[realm].name}`
@@ -133,9 +156,9 @@ class Levels {
 
   /** 经验增加 */
   addExperience(UID, id, size) {
-    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
     UserLevel[this.LEVELMAP[id]].experience += size
-    Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
     return {
       state: 2000,
       msg: `${this.NAMEMAP[id]}增加${size}`
@@ -144,9 +167,9 @@ class Levels {
 
   /* 经验减少 */
   reduceExperience(UID, id, size) {
-    const UserLevel = Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
+    const UserLevel = Data.controlAction({ NAME: UID, CHOICE: 'playerLevel' })
     UserLevel[this.LEVELMAP[id]].experience -= size
-    Listdata.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
+    Data.controlAction({ NAME: UID, CHOICE: 'playerLevel', DATA: UserLevel })
     return {
       state: 2000,
       msg: `${this.NAMEMAP[id]}增加${size}`

@@ -1,8 +1,8 @@
-import Listdata from './data/listdata.js'
+import Data from './data/index.js'
 const alldata = {}
-const full = Listdata.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
-const MonsterName = Listdata.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
-const map = Listdata.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
+const full = Data.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
+const MonsterName = Data.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
+const map = Data.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
 /** 怪物生成 */
 class Monster {
   /**

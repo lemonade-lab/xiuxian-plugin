@@ -27,7 +27,7 @@ export class AssociationJobUp extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -57,7 +57,7 @@ export class AssociationJobUp extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -69,16 +69,16 @@ export class AssociationJobUp extends plugin {
       e.reply('已达上限')
       return false
     }
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
 
-    const actionA = GameApi.Listdata.controlAction({
+    const actionA = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
-    const actionB = GameApi.Listdata.controlAction({
+    const actionB = GameApi.Data.controlAction({
       NAME: ass.master,
       CHOICE: 'playerAction'
     })
@@ -92,7 +92,7 @@ export class AssociationJobUp extends plugin {
       A: UID,
       B: ass.master
     })
-    const SpecialData = GameApi.Listdata.controlAction({
+    const SpecialData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial'
     })
@@ -100,7 +100,7 @@ export class AssociationJobUp extends plugin {
     if (victory == UID) {
       assGP.assJob = 10
       ass.allMembers = ass.allMembers.filter((item) => item != ass.master)
-      const masterGP = GameApi.Listdata.controlAction({
+      const masterGP = GameApi.Data.controlAction({
         NAME: ass.master,
         CHOICE: 'assGP'
       })
@@ -122,7 +122,7 @@ export class AssociationJobUp extends plugin {
     }
     AssociationApi.assUser.assUpdataEfficiency(assGP)
     AssociationApi.assUser.setAssOrGP('association', ass.id, ass)
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial',
       DATA: SpecialData
@@ -138,7 +138,7 @@ export class AssociationJobUp extends plugin {
       return false
     }
 
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -161,7 +161,7 @@ export class AssociationJobUp extends plugin {
     if (!ifexists || !AssociationApi.assUser.existAss('assGP', battleUID)) {
       return false
     }
-    const battleGP = GameApi.Listdata.controlAction({
+    const battleGP = GameApi.Data.controlAction({
       NAME: battleUID,
       CHOICE: 'assGP'
     })
@@ -180,11 +180,11 @@ export class AssociationJobUp extends plugin {
     ) {
       return false
     }
-    const actionA = GameApi.Listdata.controlAction({
+    const actionA = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
-    const actionB = GameApi.Listdata.controlAction({
+    const actionB = GameApi.Data.controlAction({
       NAME: battleUID,
       CHOICE: 'playerAction'
     })

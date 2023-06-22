@@ -26,11 +26,11 @@ export class BoxMoneyOperation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const actionA = GameApi.Listdata.controlAction({
+    const actionA = GameApi.Data.controlAction({
       NAME: A,
       CHOICE: 'playerAction'
     })
-    const actionB = GameApi.Listdata.controlAction({
+    const actionB = GameApi.Data.controlAction({
       NAME: B,
       CHOICE: 'playerAction'
     })
@@ -69,7 +69,7 @@ export class BoxMoneyOperation extends plugin {
       name,
       ACCOUNT: acount
     })
-    const LifeData = GameApi.Listdata.controlAction({
+    const LifeData = GameApi.Data.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife'
     })

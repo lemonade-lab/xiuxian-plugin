@@ -36,7 +36,7 @@ export class Homemove extends plugin {
     }
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
     const region2 = ifexisthome.region
-    const action1 = GameApi.Listdata.controlAction({
+    const action1 = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -63,7 +63,7 @@ export class Homemove extends plugin {
       e.reply('数量不足')
       return
     }
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -73,12 +73,12 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
-    let najie = GameApi.Listdata.controlAction({
+    let najie = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -87,7 +87,7 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: najie
@@ -105,7 +105,7 @@ export class Homemove extends plugin {
       return false
     }
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
-    const home = GameApi.Listdata.controlActionInitial({
+    const home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -116,7 +116,7 @@ export class Homemove extends plugin {
       return
     }
     const region2 = ifexisthome.region
-    const action1 = GameApi.Listdata.controlAction({
+    const action1 = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -140,7 +140,7 @@ export class Homemove extends plugin {
       e.reply('锅太大了，放不进储物袋')
       return
     }
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -150,12 +150,12 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
-    let najie = GameApi.Listdata.controlAction({
+    let najie = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -164,7 +164,7 @@ export class Homemove extends plugin {
       DATA1: searchsthing,
       quantity
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: najie
@@ -181,7 +181,7 @@ export class Homemove extends plugin {
       e.reply(msg)
       return false
     }
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -195,7 +195,7 @@ export class Homemove extends plugin {
         Warehouse.thing = Warehouse.thing.filter(
           (item) => !['', null, undefined, NaN, false, true].includes(item)
         )
-        GameApi.Listdata.controlAction({
+        GameApi.Data.controlAction({
           CHOICE: 'homeWarehouse',
           NAME: UID,
           DATA: Warehouse
@@ -219,7 +219,7 @@ export class Homemove extends plugin {
             }
           }
           Warehouse.thing[i] = searchsthing
-          GameApi.Listdata.controlAction({
+          GameApi.Data.controlAction({
             CHOICE: 'homeWarehouse',
             NAME: UID,
             DATA: Warehouse
@@ -229,7 +229,7 @@ export class Homemove extends plugin {
           if (searchsthing1) {
             searchsthing1.acount = Warehouse.thing[i].acount
             Warehouse.thing[i] = searchsthing1
-            GameApi.Listdata.controlAction({
+            GameApi.Data.controlAction({
               CHOICE: 'homeWarehouse',
               NAME: UID,
               DATA: Warehouse
@@ -238,7 +238,7 @@ export class Homemove extends plugin {
         }
       }
     }
-    let Warehouse1 = GameApi.Listdata.controlActionInitial({
+    let Warehouse1 = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -251,12 +251,12 @@ export class Homemove extends plugin {
       hasValue !== -1 && (total[hasValue].acount = total[hasValue].acount + cur.acount)
       return total
     }, [])
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
-    let landgoods = GameApi.Listdata.controlActionInitial({
+    let landgoods = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
@@ -267,7 +267,7 @@ export class Homemove extends plugin {
       })
       if (searchsthing) {
         landgoods.thing[i].id = searchsthing.id
-        GameApi.Listdata.controlAction({
+        GameApi.Data.controlAction({
           CHOICE: 'fixed_goods',
           NAME: UID,
           DATA: landgoods
@@ -276,7 +276,7 @@ export class Homemove extends plugin {
         let searchsthing1 = HomeApi.GP.homeexistAllThingById(landgoods.thing[i].id)
         if (searchsthing1) {
           landgoods.thing[i].name = searchsthing1.name
-          GameApi.Listdata.controlAction({
+          GameApi.Data.controlAction({
             CHOICE: 'fixed_goods',
             NAME: UID,
             DATA: landgoods
@@ -299,17 +299,17 @@ export class Homemove extends plugin {
     const landgoods = {
       thing: []
     }
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'fixed_goods',
       NAME: UID,
       DATA: landgoods
     })
-    const home = GameApi.Listdata.controlAction({
+    const home = GameApi.Data.controlAction({
       CHOICE: 'homeUser',
       NAME: UID
     })
     home.Landgrid = home.LandgridMax
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeUser',
       NAME: UID,
       DATA: home

@@ -54,7 +54,7 @@ export class Homecook extends plugin {
       return false
     }
     let msg1 = []
-    let goods = GameApi.Listdata.controlActionInitial({
+    let goods = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -85,7 +85,7 @@ export class Homecook extends plugin {
       e.reply(`做饭结束`)
       return false
     }
-    let cook1 = GameApi.Listdata.controlActionInitial({
+    let cook1 = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -122,7 +122,7 @@ export class Homecook extends plugin {
       return false
     } else if (choice == 2) {
       let msg1 = []
-      let goods = GameApi.Listdata.controlActionInitial({
+      let goods = GameApi.Data.controlActionInitial({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
@@ -165,7 +165,7 @@ export class Homecook extends plugin {
       e.reply(`你输入的丹方名中必须要以丹方结尾，请重新输入!`)
       return false
     }
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -272,7 +272,7 @@ export class Homecook extends plugin {
           `恭喜你，成功炒出【${recipes1.name}】，消耗${nameIwant}一点耐久度，丹方有些许磨损，\n${msg}`
         )
       }
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
@@ -312,7 +312,7 @@ export class Homecook extends plugin {
       e.reply(`你输入的丹方名中必须要丹方结尾，请重新输入!`)
       return false
     }
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -358,7 +358,7 @@ export class Homecook extends plugin {
         proficiency: 100
       }
     ]
-    let cook = GameApi.Listdata.controlActionInitial({
+    let cook = GameApi.Data.controlActionInitial({
       CHOICE: 'user_cook',
       NAME: 'cook',
       INITIAL: data
@@ -400,12 +400,12 @@ export class Homecook extends plugin {
         cookThing: peifang,
         thingAcount: 1
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'user_cook',
         NAME: 'cook',
         DATA: peifang
       })
-      let foodThing = GameApi.Listdata.controlActionInitial({
+      let foodThing = GameApi.Data.controlActionInitial({
         CHOICE: 'user_food',
         NAME: 'food',
         INITIAL: data
@@ -421,14 +421,14 @@ export class Homecook extends plugin {
         foodThing: food,
         thingAcount: 1
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'user_food',
         NAME: 'food',
         DATA: foodThing
       })
       HomeApi.GP.addAll(peifang2)
       HomeApi.GP.addAll(food)
-      let Warehouse = GameApi.Listdata.controlActionInitial({
+      let Warehouse = GameApi.Data.controlActionInitial({
         CHOICE: 'user_Warehouse',
         NAME: UID,
         INITIAL: []
@@ -464,7 +464,7 @@ export class Homecook extends plugin {
         DATA1: tiaoliao1,
         quantity: -1
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'user_Warehouse',
         NAME: UID,
         DATA: Warehouse
@@ -500,7 +500,7 @@ export class Homecook extends plugin {
     let code1 = code[0] + ' · ' + code[1]
     let nowTime = new Date().getTime()
     let endtime = nowTime + 300000
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -561,7 +561,7 @@ export class Homecook extends plugin {
       DATA1: shiwu,
       quantity: -1
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse,
@@ -583,7 +583,7 @@ export class Homecook extends plugin {
       e.reply(msg)
       return false
     }
-    const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
+    const action = GameApi.Data.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
     const map = GameApi.Map.mapExistence({ action, addressName })
     if (!map) {
@@ -600,18 +600,18 @@ export class Homecook extends plugin {
       e.reply(`该丹方的熟练度未到达100，暂时不给予发布资格`)
       return false
     }
-    const cook = GameApi.Listdata.controlActionInitial({
+    const cook = GameApi.Data.controlActionInitial({
       CHOICE: 'user_home_cook',
       NAME: 'cook'
     })
     let target = cook.find((obj) => obj.name === caipu.name)
     delete target.proficiency
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Data.controlActionInitial({
       CHOICE: 'user_home_cook',
       NAME: 'cook',
       DATA: cook
     })
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -631,18 +631,18 @@ export class Homecook extends plugin {
       DATA1: target,
       quantity: 1
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
     })
-    let wanmin1 = GameApi.Listdata.controlActionInitial({
+    let wanmin1 = GameApi.Data.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
       INITIAL: []
     })
     wanmin1 = HomeApi.GP.addDataThing({ DATA: wanmin1, DATA1: target, quantity: 1 })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
       DATA: wanmin1
@@ -668,7 +668,7 @@ export class Homecook extends plugin {
       e.reply(msg)
       return false
     }
-    const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
+    const action = GameApi.Data.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
     const map = GameApi.Map.mapExistence({ action, addressName })
     if (!map) {
@@ -676,7 +676,7 @@ export class Homecook extends plugin {
       return false
     }
     let tmp = ['___[炼丹阁]___\n#炼丹阁购买+物品名']
-    let wanmin = GameApi.Listdata.controlActionInitial({
+    let wanmin = GameApi.Data.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
       INITIAL: []
@@ -700,7 +700,7 @@ export class Homecook extends plugin {
       e.reply(msg)
       return false
     }
-    const action = GameApi.Listdata.controlAction({ CHOICE: 'playerAction', NAME: UID })
+    const action = GameApi.Data.controlAction({ CHOICE: 'playerAction', NAME: UID })
     const addressName = '炼丹阁'
     const map = GameApi.Map.mapExistence({ action, addressName })
     if (!map) {
@@ -715,7 +715,7 @@ export class Homecook extends plugin {
       e.reply(`您已经有该丹方，请把该丹方消耗完再来吧!`)
       return false
     }
-    let ifexist1 = GameApi.Listdata.controlActionInitial({
+    let ifexist1 = GameApi.Data.controlActionInitial({
       CHOICE: 'user_home_wanmin',
       NAME: 'wanmin',
       INITIAL: []
@@ -725,7 +725,7 @@ export class Homecook extends plugin {
       e.reply(`不卖:${thingName}`)
       return false
     }
-    let home = GameApi.Listdata.controlActionInitial({
+    let home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -741,7 +741,7 @@ export class Homecook extends plugin {
       return false
     }
     let money = commoditiesDoge * 0.5
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -751,7 +751,7 @@ export class Homecook extends plugin {
       DATA1: ifexist,
       quantity: 1
     })
-    GameApi.Listdata.controlActionInitial({
+    GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse,
@@ -788,7 +788,7 @@ export class Homecook extends plugin {
     let thing0 = e.msg.replace(/^(#|\/)用/, '')
     let thing1 = thing0.split('炒')
     let code = thing1[1].split('*')
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'user_Warehouse',
       NAME: UID,
       INITIAL: []
@@ -816,7 +816,7 @@ export class Homecook extends plugin {
         DATA1: guo,
         quantity: -1
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
@@ -893,7 +893,7 @@ export class Homecook extends plugin {
     const time = 20
     useraction[UID] = setTimeout(() => {
       forwardsetTime[UID] = 0
-      let Warehouse1 = GameApi.Listdata.controlActionInitial({
+      let Warehouse1 = GameApi.Data.controlActionInitial({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
@@ -963,7 +963,7 @@ export class Homecook extends plugin {
           `恭喜你，成功炒出【${quantity}】份【${recipes1.name}】，消耗${thing1[0]}【${quantity}】点耐久度，丹方有些许磨损，\n${msg}`
         )
       }
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse1

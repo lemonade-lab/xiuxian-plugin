@@ -19,7 +19,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -35,7 +35,7 @@ export class BoxSecretplace extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -44,7 +44,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const addressId = `${action.z}-${action.region}-${action.address}`
-    const point = GameApi.Listdata.controlAction({
+    const point = GameApi.Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -97,14 +97,14 @@ export class BoxSecretplace extends plugin {
       return false
     }
     /* 检查地点 */
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
     const x = action.x
     const y = action.y
     const address = e.msg.replace(/^(#|\/)前往/, '')
-    const Point = GameApi.Listdata.controlAction({
+    const Point = GameApi.Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -116,7 +116,7 @@ export class BoxSecretplace extends plugin {
     const mx = point.x
     const my = point.y
     const PointId = point.id.split('-')
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -127,7 +127,7 @@ export class BoxSecretplace extends plugin {
     }
     const a = x - mx >= 0 ? x - mx : mx - x
     const b = y - my >= 0 ? y - my : my - y
-    const battle = GameApi.Listdata.controlAction({
+    const battle = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
@@ -143,7 +143,7 @@ export class BoxSecretplace extends plugin {
         action.y = my
         action.region = PointId[1]
         action.address = PointId[2]
-        GameApi.Listdata.controlAction({
+        GameApi.Data.controlAction({
           NAME: UID,
           CHOICE: 'playerAction',
           DATA: action
@@ -172,14 +172,14 @@ export class BoxSecretplace extends plugin {
       e.reply(msg)
       return false
     }
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
     const x = action.x
     const y = action.y
     const address = e.msg.replace(/^(#|\/)传送/, '')
-    const Posirion = GameApi.Listdata.controlAction({
+    const Posirion = GameApi.Data.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
@@ -188,7 +188,7 @@ export class BoxSecretplace extends plugin {
       return false
     }
     const positionID = position.id.split('-')
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -196,7 +196,7 @@ export class BoxSecretplace extends plugin {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
-    const point = GameApi.Listdata.controlAction({
+    const point = GameApi.Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -242,7 +242,7 @@ export class BoxSecretplace extends plugin {
       action.y = my
       action.region = positionID[1]
       action.address = positionID[2]
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         NAME: UID,
         CHOICE: 'playerAction',
         DATA: action

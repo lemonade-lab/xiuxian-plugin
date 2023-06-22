@@ -40,11 +40,11 @@ export class BoxBattle extends plugin {
       e.reply(coolingMsg)
       return false
     }
-    const actionA = GameApi.Listdata.controlAction({
+    const actionA = GameApi.Data.controlAction({
       NAME: UIDA,
       CHOICE: 'playerAction'
     })
-    const actionB = GameApi.Listdata.controlAction({
+    const actionB = GameApi.Data.controlAction({
       NAME: UIDB,
       CHOICE: 'playerAction'
     })
@@ -69,12 +69,12 @@ export class BoxBattle extends plugin {
     }
     GameApi.Burial.set(UIDA, CDID, nowTime, CDTime)
     // 增加
-    const SpecialData = GameApi.Listdata.controlAction({
+    const SpecialData = GameApi.Data.controlAction({
       NAME: UIDA,
       CHOICE: 'playerSpecial'
     })
     SpecialData.prestige += 1
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UIDA,
       CHOICE: 'playerSpecial',
       DATA: SpecialData
@@ -86,7 +86,7 @@ export class BoxBattle extends plugin {
       c: UIDA
     }
     user.c = GameApi.Battle.battle({ e, A: UIDA, B: UIDB })
-    const LevelB = GameApi.Listdata.controlAction({
+    const LevelB = GameApi.Data.controlAction({
       NAME: UIDB,
       CHOICE: 'playerSpecial'
     })
@@ -95,7 +95,7 @@ export class BoxBattle extends plugin {
       user.a = UIDB
       user.b = user.c
     }
-    const LifeData = GameApi.Listdata.controlAction({
+    const LifeData = GameApi.Data.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife'
     })
@@ -104,7 +104,7 @@ export class BoxBattle extends plugin {
       e.reply(`${LifeData[user.a].name}战胜了${LifeData[user.b].name}`)
       return false
     }
-    let bagB = GameApi.Listdata.controlAction({
+    let bagB = GameApi.Data.controlAction({
       NAME: user.b,
       CHOICE: 'playerBag'
     })
@@ -113,7 +113,7 @@ export class BoxBattle extends plugin {
     }
     const thing = GameApi.Method.Anyarray(bagB.thing)
     bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: user.b,
       CHOICE: 'playerBag',
       DATA: bagB
@@ -136,7 +136,7 @@ export class BoxBattle extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -145,7 +145,7 @@ export class BoxBattle extends plugin {
       e.reply('[天机门]李逍遥\n凡人不可捷越')
       return false
     }
-    const SpecialData = GameApi.Listdata.controlAction({
+    const SpecialData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial'
     })
@@ -167,7 +167,7 @@ export class BoxBattle extends plugin {
       ACCOUNT: -money
     })
     SpecialData.prestige -= 1
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial',
       DATA: SpecialData

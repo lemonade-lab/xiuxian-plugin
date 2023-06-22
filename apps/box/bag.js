@@ -16,7 +16,7 @@ export class BoxBag extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.addBagThingShow(UID)
+    const { path, name, data } = GameApi.Information.showUserBag(UID)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -34,7 +34,7 @@ export class BoxBag extends plugin {
       e.reply(msg)
       return false
     }
-    const najie = GameApi.Listdata.controlAction({
+    const najie = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag'
     })
@@ -53,7 +53,7 @@ export class BoxBag extends plugin {
       return false
     }
     najie.grade += 1
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: najie

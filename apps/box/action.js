@@ -43,7 +43,7 @@ export class BoxAction extends plugin {
       e.reply(`你看看${thingName}，想想怎么吞都吞不下去吧`)
       return false
     }
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -51,7 +51,7 @@ export class BoxAction extends plugin {
       case '1': {
         let blood = parseInt(najieThing.blood)
         GameApi.Player.updataUserBlood({ UID, SIZE: Number(blood) })
-        const battle = GameApi.Listdata.controlAction({
+        const battle = GameApi.Data.controlAction({
           NAME: UID,
           CHOICE: 'playerBattle'
         })
@@ -157,7 +157,7 @@ export class BoxAction extends plugin {
     if (id[0] != 5) {
       return false
     }
-    const talent = GameApi.Listdata.controlAction({
+    const talent = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -171,12 +171,12 @@ export class BoxAction extends plugin {
       return false
     }
     talent.AllSorcery.push(najieThing)
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent',
       DATA: talent
     })
-    GameApi.Talent.updataEfficiency(UID)
+    GameApi.Extend.updataEfficiency(UID)
     GameApi.Bag.addBagThing({
       UID,
       name: najieThing.name,
@@ -194,7 +194,7 @@ export class BoxAction extends plugin {
       return false
     }
     const thingName = e.msg.replace(/^(#|\/)忘掉/, '')
-    const talent = GameApi.Listdata.controlAction({
+    const talent = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -204,12 +204,12 @@ export class BoxAction extends plugin {
       return false
     }
     talent.AllSorcery = talent.AllSorcery.filter((item) => item.name != thingName)
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent',
       DATA: talent
     })
-    GameApi.Talent.updataEfficiency(UID)
+    GameApi.Extend.updataEfficiency(UID)
     GameApi.Bag.addBagThing({ UID, name: islearned.name, ACCOUNT: 1 })
     e.reply(`忘了[${thingName}]`)
     return false
@@ -244,7 +244,7 @@ export class BoxAction extends plugin {
     if (id[1] == 1) {
       switch (id[2]) {
         case '1': {
-          const LevelData = GameApi.Listdata.controlAction({
+          const LevelData = GameApi.Data.controlAction({
             NAME: UID,
             CHOICE: 'playerLevel'
           })
@@ -252,34 +252,34 @@ export class BoxAction extends plugin {
             e.reply('[灵根]已定\n此生不可再洗髓')
             break
           }
-          const talent = GameApi.Listdata.controlAction({
+          const talent = GameApi.Data.controlAction({
             NAME: UID,
             CHOICE: 'playerTalent'
           })
           talent.talent = GameApi.Talent.getTalent()
-          GameApi.Listdata.controlAction({
+          GameApi.Data.controlAction({
             NAME: UID,
             CHOICE: 'playerTalent',
             DATA: talent
           })
-          GameApi.Talent.updataEfficiency(UID)
-          const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
+          GameApi.Extend.updataEfficiency(UID)
+          const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })
           break
         }
         case '2': {
-          const talent = GameApi.Listdata.controlAction({
+          const talent = GameApi.Data.controlAction({
             NAME: UID,
             CHOICE: 'playerTalent'
           })
           talent.talentshow = 0
-          GameApi.Listdata.controlAction({
+          GameApi.Data.controlAction({
             NAME: UID,
             CHOICE: 'playerTalent',
             DATA: talent
           })
-          const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
+          const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet({ e, isreply })
           break

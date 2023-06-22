@@ -1,4 +1,4 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import Talent from './talent.js'
 class Information {
   /**
@@ -6,29 +6,29 @@ class Information {
    * @param UID  param0
    * @returns
    */
-  userDataShow(UID) {
-    const equipment = Listdata.controlAction({
+  showUserPlayer(UID) {
+    const equipment = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment'
     })
-    const TalentData = Listdata.controlAction({
+    const TalentData = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
-    const LevelData = Listdata.controlAction({
+    const LevelData = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
-    const SpecialData = Listdata.controlAction({
+    const SpecialData = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial'
     })
-    const battle = Listdata.controlAction({
+    const battle = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
     let linggenName = Talent.getTalentName(TalentData.talent)
-    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    let LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     let name = linggenName
     let size = Math.trunc(TalentData.talentsize)
     if (TalentData.talentshow != 0) {
@@ -37,11 +37,11 @@ class Information {
     } else {
       size = `+${size}%`
     }
-    const LevelList = Listdata.controlAction({
+    const LevelList = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = Listdata.controlAction({
+    const LevelMaxList = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
@@ -74,16 +74,16 @@ class Information {
    * @param {*} param0
    * @returns
    */
-  userEquipmentShow(UID) {
-    const battle = Listdata.controlAction({
+  showUserEquipment(UID) {
+    const battle = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    const equipment = Listdata.controlAction({
+    const equipment = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment'
     })
-    const LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    const LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     return {
       path: 'user/equipment',
       name: 'equipment',
@@ -100,13 +100,13 @@ class Information {
   /**
    * 功法信息
    */
-  userTalentShow(UID) {
-    const TalentData = Listdata.controlAction({
+  showUserTalent(UID) {
+    const TalentData = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
     let linggenName = Talent.getTalentName(TalentData.talent)
-    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    let LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
     let name = linggenName
     let size = Math.trunc(TalentData.talentsize)
     if (TalentData.talentshow != 0) {
@@ -133,13 +133,13 @@ class Information {
    * 背包
    * @returns
    */
-  addBagThingShow(UID) {
-    let LifeData = Listdata.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
-    const battle = Listdata.controlAction({
+  showUserBag(UID) {
+    let LifeData = Data.controlAction({ NAME: 'life', CHOICE: 'playerLife' })
+    const battle = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    const najie = Listdata.controlAction({ NAME: UID, CHOICE: 'playerBag' })
+    const najie = Data.controlAction({ NAME: UID, CHOICE: 'playerBag' })
     const thing = najie.thing
     const thingList = []
     const danyaoList = []
@@ -182,7 +182,7 @@ class Information {
    * 战斗信息
    */
 
-  showBattle({ UID, msgLeft, msgRight }) {
+  showUserBattle({ UID, msgLeft, msgRight }) {
     return {
       path: 'battle',
       name: 'battle',

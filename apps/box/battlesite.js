@@ -33,7 +33,7 @@ export class BoxBattleSite extends plugin {
       return false
     }
     const Mname = e.msg.replace(/^(#|\/)击杀/, '')
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -52,7 +52,7 @@ export class BoxBattleSite extends plugin {
       buff.msg = Math.floor(Math.random() * (5 - 2)) + Number(2)
       msgLeft.push('怪物突然变异了!')
     }
-    const Levellist = GameApi.Listdata.controlAction({
+    const Levellist = GameApi.Data.controlAction({
       NAME: 'gaspractice',
       CHOICE: 'fixed_levels'
     })
@@ -66,11 +66,11 @@ export class BoxBattleSite extends plugin {
       burstmax: LevelMax.burstmax + LevelMax.id * buff.msg,
       speed: LevelMax.speed + buff.msg
     }
-    const battle = GameApi.Listdata.controlAction({
+    const battle = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    const talent = GameApi.Listdata.controlAction({
+    const talent = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -89,7 +89,7 @@ export class BoxBattleSite extends plugin {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
         const randomthinf = GameApi.GP.randomThing()
-        let najie = GameApi.Listdata.controlAction({
+        let najie = GameApi.Data.controlAction({
           NAME: UID,
           CHOICE: 'playerBag'
         })
@@ -138,7 +138,7 @@ export class BoxBattleSite extends plugin {
       }
     }
     GameApi.Burial.set(UID, CDID, nowTime, CDTime)
-    const { path, name, data } = GameApi.Information.showBattle({
+    const { path, name, data } = GameApi.Information.showUserBattle({
       UID: e.user_id,
       msgLeft,
       msgRight
@@ -160,7 +160,7 @@ export class BoxBattleSite extends plugin {
       e.reply(MSG)
       return false
     }
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })

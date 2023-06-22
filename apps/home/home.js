@@ -47,7 +47,7 @@ export class Homestart extends plugin {
       return false
     }
     /** 查看家园表 */
-    const PositionList = GameApi.Listdata.controlActionInitial({
+    const PositionList = GameApi.Data.controlActionInitial({
       NAME: 'position',
       CHOICE: 'homePosition',
       INITIAL: []
@@ -73,7 +73,7 @@ export class Homestart extends plugin {
     }
 
     // 查看点位表
-    const point0 = GameApi.Listdata.controlAction({
+    const point0 = GameApi.Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -88,7 +88,7 @@ export class Homestart extends plugin {
     //
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -103,7 +103,7 @@ export class Homestart extends plugin {
     forwardsetTime[UID] = setTimeout(() => {
       // 清除定时
       delete forwardsetTime[UID]
-      const positionhome = GameApi.Listdata.controlActionInitial({
+      const positionhome = GameApi.Data.controlActionInitial({
         NAME: 'position',
         CHOICE: 'homePosition',
         INITIAL: []
@@ -116,7 +116,7 @@ export class Homestart extends plugin {
         region,
         createTime: new Date().getTime()
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         NAME: 'position',
         CHOICE: 'homePosition',
         DATA: positionhome
@@ -185,7 +185,7 @@ export class Homestart extends plugin {
       return false
     }
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
-    const ActionData = GameApi.Listdata.controlAction({
+    const ActionData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -193,7 +193,7 @@ export class Homestart extends plugin {
       e.reply('请回到洞府~')
       return false
     }
-    const home = GameApi.Listdata.controlAction({
+    const home = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'homeUser'
     })
@@ -292,7 +292,7 @@ export class Homestart extends plugin {
       e.reply(`你提前回来查看，但是工人还在努力的扩建中，预计还有${time2}秒，请耐心等待一下把`)
       return false
     }
-    let home = GameApi.Listdata.controlActionInitial({
+    let home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -301,7 +301,7 @@ export class Homestart extends plugin {
     home.homeexperience = homeexperience - home.homeexperienceMax
     home.homelevel += 1
     home.homeexperienceMax = home.homelevel * 10000 + 10000
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home
@@ -339,7 +339,7 @@ export class Homestart extends plugin {
       )
       return false
     }
-    const point0 = GameApi.Listdata.controlAction({
+    const point0 = GameApi.Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
     })
@@ -351,7 +351,7 @@ export class Homestart extends plugin {
     const y = point.y
     const PointId = point.id.split('-')
     const region = PointId[1]
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })
@@ -368,7 +368,7 @@ export class Homestart extends plugin {
       e.reply(`你的仓库里没有木板!`)
       return false
     }
-    const home = GameApi.Listdata.controlActionInitial({
+    const home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -386,7 +386,7 @@ export class Homestart extends plugin {
     }
     const the = 5
     const time1 = the >= 0 ? the : 1
-    let positionhome = GameApi.Listdata.controlActionInitial({
+    let positionhome = GameApi.Data.controlActionInitial({
       CHOICE: 'homePosition',
       NAME: 'position',
       INITIAL: []
@@ -394,7 +394,7 @@ export class Homestart extends plugin {
     useraction[UID] = setTimeout(() => {
       delete forwardsetTime[UID]
       const target = positionhome.find((obj) => obj.UID === UID)
-      let minefield = GameApi.Listdata.controlActionInitial({
+      let minefield = GameApi.Data.controlActionInitial({
         CHOICE: 'user_home_minefield',
         NAME: 'minefield',
         INITIAL: []
@@ -404,7 +404,7 @@ export class Homestart extends plugin {
         let qq = target1.UID
         if (qq == UID) {
           let minefield1 = minefield.filter((item) => item.UID != UID)
-          GameApi.Listdata.controlAction({
+          GameApi.Data.controlAction({
             CHOICE: 'user_home_minefield',
             NAME: 'minefield',
             DATA: minefield1
@@ -417,7 +417,7 @@ export class Homestart extends plugin {
       target.x = x
       target.y = y
       target.region = region
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'user_position',
         NAME: 'position',
         DATA: positionhome

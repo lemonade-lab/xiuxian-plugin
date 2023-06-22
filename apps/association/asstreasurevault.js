@@ -31,7 +31,7 @@ export class assTreasure extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -39,19 +39,19 @@ export class assTreasure extends plugin {
       e.reply('一介散修')
       return false
     }
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
     if (ass.facility[1].status == 0) {
       return false
     }
-    const positionList = GameApi.Listdata.controlAction({
+    const positionList = GameApi.Data.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -89,7 +89,7 @@ export class assTreasure extends plugin {
     if (id[0] > 5 || id[2] > 19) {
       return false
     }
-    const assTreasureCabinet = GameApi.Listdata.controlAction({
+    const assTreasureCabinet = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'assTreasure'
     })
@@ -132,7 +132,7 @@ export class assTreasure extends plugin {
       return false
     }
 
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -143,11 +143,11 @@ export class assTreasure extends plugin {
 
     let msg = ['___[门派藏宝阁]___']
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = GameApi.Listdata.controlAction({
+    let assTreasureCabinet = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'assTreasure'
     })
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -181,7 +181,7 @@ export class assTreasure extends plugin {
       return false
     }
 
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -190,7 +190,7 @@ export class assTreasure extends plugin {
       return false
     }
 
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -200,12 +200,12 @@ export class assTreasure extends plugin {
       return false
     }
 
-    const positionList = GameApi.Listdata.controlAction({
+    const positionList = GameApi.Data.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -220,7 +220,7 @@ export class assTreasure extends plugin {
       return false
     }
     let basetreasureCabinet = AssociationApi.assUser.baseTreasureVaultList
-    let assTreasureCabinet = GameApi.Listdata.controlAction({
+    let assTreasureCabinet = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'assTreasure'
     })
@@ -246,7 +246,7 @@ export class assTreasure extends plugin {
     AssociationApi.assUser.checkFacility(ass)
     assGP.contributionPoints -= exchangeThing.redeemPoint
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-    const addThing = GameApi.Listdata.searchThingById(exchangeThing.id)
+    const addThing = GameApi.Data.searchThingById(exchangeThing.id)
     GameApi.Bag.addBagThing({
       UID,
       name: addThing.name,
@@ -263,7 +263,7 @@ export class assTreasure extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })

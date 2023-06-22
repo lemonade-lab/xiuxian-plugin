@@ -1,4 +1,4 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 // 秋雨
 class Information {
   /**
@@ -7,20 +7,20 @@ class Information {
    * @returns
    */
   showWarehouse(UID) {
-    let life = Listdata.controlAction({
+    let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
     })
     life = life.find((item) => item.UID == UID)
-    const GP = Listdata.controlAction({
+    const GP = Data.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
     })
-    const battle = Listdata.controlAction({
+    const battle = Data.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    const Warehouse = Listdata.controlActionInitial({
+    const Warehouse = Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -110,25 +110,25 @@ class Information {
    * @returns
    */
   showhomeUser(UID) {
-    const GP = Listdata.controlAction({
+    const GP = Data.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
     })
-    const home = Listdata.controlActionInitial({
+    const home = Data.controlActionInitial({
       CHOICE: 'homeDoge',
       NAME: UID,
       INITIAL: []
     })
-    const battle = Listdata.controlAction({
+    const battle = Data.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
-    let life = Listdata.controlAction({
+    let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
     })
     life = life.find((item) => item.UID == UID)
-    const ifexisthome1 = Listdata.controlActionInitial({
+    const ifexisthome1 = Data.controlActionInitial({
       CHOICE: 'fixed_position',
       NAME: 'position',
       INITIAL: []
@@ -162,12 +162,12 @@ class Information {
    * @returns
    */
   showLookland(UID) {
-    let life = Listdata.controlAction({
+    let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
     })
     life = life.find((item) => item.UID == UID)
-    const landgoods = Listdata.controlActionInitial({
+    const landgoods = Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
@@ -203,7 +203,7 @@ class Information {
    * @returns
    */
   showLookrangeland(UID) {
-    const rangelandannimals = Listdata.controlActionInitial({
+    const rangelandannimals = Data.controlActionInitial({
       CHOICE: 'homeRangelandannimals',
       NAME: UID,
       INITIAL: []

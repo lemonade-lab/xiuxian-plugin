@@ -1,4 +1,4 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import Burial from '../wrap/burial.js'
 import Defset from '../data/defset.js'
 import Method from '../wrap/method.js'
@@ -48,7 +48,7 @@ class Player {
 
   /** 更新寿命信息 */
   startLife() {
-    const LifeData = Listdata.controlActionInitial({
+    const LifeData = Data.controlActionInitial({
       NAME: 'life',
       CHOICE: 'playerLife',
       INITIAL: {}
@@ -63,7 +63,7 @@ class Player {
         die.push(LifeData[UID].UID)
       }
     }
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife',
       DATA: LifeData
@@ -80,15 +80,15 @@ class Player {
    */
   createPlayer(UID) {
     const NowTime = new Date().getTime()
-    const LevelList = Listdata.controlAction({
+    const LevelList = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'gaspractice'
     })
-    const LevelMaxList = Listdata.controlAction({
+    const LevelMaxList = Data.controlAction({
       CHOICE: 'fixed_levels',
       NAME: 'bodypractice'
     })
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle',
       DATA: {
@@ -96,18 +96,18 @@ class Player {
       }
     })
     // 特殊值
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial',
       DATA: this.playerSpecialData
     })
     // 境界信息
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel',
       DATA: this.playerLevelData
     })
-    const PosirionList = Listdata.controlAction({
+    const PosirionList = Data.controlAction({
       CHOICE: 'generate_position',
       NAME: 'position'
     })
@@ -117,7 +117,7 @@ class Player {
       mx: Math.floor((position.x2 - position.x1) * Math.random()) + position.x1,
       my: Math.floor((position.y2 - position.y1) * Math.random()) + position.y1
     }
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction',
       DATA: {
@@ -130,13 +130,13 @@ class Player {
         Exchange: 0
       }
     })
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBag',
       DATA: this.playerBagData
     })
     const newtalent = Talent.getTalent()
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent',
       DATA: {
@@ -149,7 +149,7 @@ class Player {
      * ******
      * ******
      */
-    const LifeData = Listdata.controlActionInitial({
+    const LifeData = Data.controlActionInitial({
       CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
@@ -163,7 +163,7 @@ class Player {
       status: 1 // 是否死亡
     }
     /** 更新用户表 */
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'playerLife',
       NAME: 'life',
       DATA: LifeData
@@ -173,7 +173,7 @@ class Player {
      * ******
      */
     // 签到
-    const SignData = Listdata.controlActionInitial({
+    const SignData = Data.controlActionInitial({
       CHOICE: 'playerLife',
       NAME: 'sign',
       INITIAL: {}
@@ -184,7 +184,7 @@ class Player {
       signDay: 0, // 签到日为 0
       sginMath: 0 // 签到的月份,不同月重置size
     }
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'playerLife',
       NAME: 'sign',
       DATA: SignData
@@ -196,10 +196,10 @@ class Player {
      */
 
     // 临时属性
-    Listdata.controlAction({ NAME: UID, CHOICE: 'playerExtend', DATA: {} })
+    Data.controlAction({ NAME: UID, CHOICE: 'playerExtend', DATA: {} })
 
     /** 更新装备 */
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment',
       DATA: []
@@ -218,7 +218,7 @@ class Player {
    * @returns 不存在则undifind
    */
   getUserLife(UID) {
-    const LifeData = Listdata.controlActionInitial({
+    const LifeData = Data.controlActionInitial({
       CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
@@ -263,7 +263,7 @@ class Player {
    */
   getAllUser() {
     const GPList = []
-    const life = Listdata.controlActionInitial({
+    const life = Data.controlActionInitial({
       CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
@@ -279,7 +279,7 @@ class Player {
    * @param {*} param0
    */
   updataUserBlood({ UID, SIZE }) {
-    const battle = Listdata.controlAction({
+    const battle = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
@@ -287,7 +287,7 @@ class Player {
     if (battle.nowblood > battle.blood) {
       battle.nowblood = battle.blood
     }
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle',
       DATA: battle

@@ -53,7 +53,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = GameApi.Listdata.controlAction({
+    let action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -62,7 +62,7 @@ export class Homeland extends plugin {
       e.reply('您现在不在洞府里，开垦土地必须返回洞府')
       return false
     }
-    let home = GameApi.Listdata.controlActionInitial({
+    let home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -103,7 +103,7 @@ export class Homeland extends plugin {
     home.Landgrid = home.Land * 25
     home.LandgridMax = home.Landgrid
     home.homeexperience += 1000
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'user_home',
       NAME: UID,
       DATA: home
@@ -129,7 +129,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = GameApi.Listdata.controlAction({
+    let action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -160,7 +160,7 @@ export class Homeland extends plugin {
     let lattice = searchsthing.lattice // 获取种子所需格子
     let doge = searchsthing.doge
     let timemin = doge * 4
-    let home = GameApi.Listdata.controlActionInitial({
+    let home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -186,7 +186,7 @@ export class Homeland extends plugin {
       e.reply(`世界没有[${thingName}]`)
       return false
     }
-    let landgoods = GameApi.Listdata.controlActionInitial({
+    let landgoods = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
@@ -208,12 +208,12 @@ export class Homeland extends plugin {
       DATA1: searchsthing1,
       quantity
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'fixed_goods',
       NAME: UID,
       DATA: landgoods
     })
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -223,7 +223,7 @@ export class Homeland extends plugin {
       DATA1: searchsthing,
       quantity: -quantity
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
@@ -247,7 +247,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome.region
-    let action = GameApi.Listdata.controlAction({
+    let action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -257,7 +257,7 @@ export class Homeland extends plugin {
       return false
     }
     let thing = e.msg.replace(/^(#|\/)收获/, '')
-    let landgoods1 = GameApi.Listdata.controlActionInitial({
+    let landgoods1 = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: UID,
       INITIAL: []
@@ -290,7 +290,7 @@ export class Homeland extends plugin {
     let stolen = landgoods1.stolen
     let q = 10 - stolen
     let z = stolen * 0.1
-    let home = GameApi.Listdata.controlActionInitial({
+    let home = GameApi.Data.controlActionInitial({
       CHOICE: 'homeUser',
       NAME: UID,
       INITIAL: []
@@ -306,7 +306,7 @@ export class Homeland extends plugin {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
-      let Warehouse = GameApi.Listdata.controlActionInitial({
+      let Warehouse = GameApi.Data.controlActionInitial({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
@@ -316,12 +316,12 @@ export class Homeland extends plugin {
         DATA1: crop,
         quantity: other
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
-      let landgoods = GameApi.Listdata.controlActionInitial({
+      let landgoods = GameApi.Data.controlActionInitial({
         CHOICE: 'fixed_goods',
         NAME: UID,
         INITIAL: []
@@ -331,14 +331,14 @@ export class Homeland extends plugin {
         DATA1: thing,
         quantity: -acount1
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'fixed_goods',
         NAME: UID,
         DATA: landgoods
       })
       home.Landgrid += a
       home.homeexperience += x
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeUser',
         NAME: UID,
         DATA: home
@@ -353,7 +353,7 @@ export class Homeland extends plugin {
       let other = parseInt(10 * acount1 * z)
       let c = (crop.doge / 5) * other
       let x = parseInt(c)
-      let Warehouse = GameApi.Listdata.controlActionInitial({
+      let Warehouse = GameApi.Data.controlActionInitial({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         INITIAL: []
@@ -364,12 +364,12 @@ export class Homeland extends plugin {
         DATA1: crop,
         quantity: other
       })
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeWarehouse',
         NAME: UID,
         DATA: Warehouse
       })
-      let landgoods = GameApi.Listdata.controlActionInitial({
+      let landgoods = GameApi.Data.controlActionInitial({
         CHOICE: 'fixed_goods',
         NAME: UID
       })
@@ -377,13 +377,13 @@ export class Homeland extends plugin {
       const nongzuowu = landgoodsThing.find((obj) => obj.name === name)
       nongzuowu.quarter -= 1
       nongzuowu.time = nowTime
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'fixed_goods',
         NAME: UID,
         DATA: landgoods
       })
       home.homeexperience += x
-      GameApi.Listdata.controlAction({
+      GameApi.Data.controlAction({
         CHOICE: 'homeUser',
         NAME: UID,
         DATA: home
@@ -454,7 +454,7 @@ export class Homeland extends plugin {
       return false
     }
     let region = ifexisthome1.region
-    let action = GameApi.Listdata.controlAction({
+    let action = GameApi.Data.controlAction({
       NAME: user.A,
       CHOICE: 'playerAction'
     })
@@ -471,7 +471,7 @@ export class Homeland extends plugin {
       return false
     }
     let thing = e.msg.replace(/^(#|\/)偷药/, '')
-    let landgoods2 = GameApi.Listdata.controlActionInitial({
+    let landgoods2 = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: user.B,
       INITIAL: []
@@ -498,7 +498,7 @@ export class Homeland extends plugin {
     let other = 1
     let crop = HomeApi.GP.homesearchThingName({ name: thing })
     let z = parseInt((crop.doge / 5) * other)
-    let Warehouse = GameApi.Listdata.controlActionInitial({
+    let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: user.A,
       INITIAL: []
@@ -508,12 +508,12 @@ export class Homeland extends plugin {
       DATA1: crop,
       quantity: other
     })
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'user_Warehouse',
       NAME: user.A,
       DATA: Warehouse
     })
-    let landgoods1 = GameApi.Listdata.controlActionInitial({
+    let landgoods1 = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: user.B,
       INITIAL: []
@@ -521,18 +521,18 @@ export class Homeland extends plugin {
     let nameIwant = thing
     const target = landgoods1.thing.find((obj) => obj.name === nameIwant)
     target.stolen = target.stolen - 1
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'fixed_goods',
       NAME: user.B,
       DATA: landgoods1
     })
-    let home = GameApi.Listdata.controlActionInitial({
+    let home = GameApi.Data.controlActionInitial({
       CHOICE: 'user_home',
       NAME: user.A,
       INITIAL: []
     })
     home.homeexperience += z
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       CHOICE: 'homeUser',
       NAME: user.A,
       DATA: home
@@ -571,7 +571,7 @@ export class Homeland extends plugin {
       return
     }
     let region = ifexisthome1.region
-    let action = GameApi.Listdata.controlAction({
+    let action = GameApi.Data.controlAction({
       NAME: user.A,
       CHOICE: 'playerAction'
     })

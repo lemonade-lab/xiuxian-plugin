@@ -1,4 +1,4 @@
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import User from './user.js'
 // 秋雨
 class GP {
@@ -9,11 +9,11 @@ class GP {
    */
   addWarehouseThing({ UID, name, ACCOUNT }) {
     // 搜索物品
-    const FindThing = Listdata.searchAllThing('name', name)
+    const FindThing = Data.searchAllThing('name', name)
     // 不存在
     if (!FindThing) return false
     // 读取数据
-    let Warehouse = Listdata.controlAction({
+    let Warehouse = Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID
     })
@@ -30,7 +30,7 @@ class GP {
       // 推送新的
       Warehouse.thing.push(WarehouseThing)
     }
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
@@ -44,7 +44,7 @@ class GP {
    * @returns
    */
   searchWarehouseByName({ UID, name }) {
-    const Warehouse = Listdata.controlAction({
+    const Warehouse = Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID
     })
@@ -59,9 +59,9 @@ class GP {
    */
   Archive(UID) {
     // 初始化成功
-    const LifeData = Listdata.read('life', 'playerLife')
+    const LifeData = Data.read('life', 'playerLife')
     /** 判断时间是否相同 */
-    const LifeHome = Listdata.read('life', 'homeLife')
+    const LifeHome = Data.read('life', 'homeLife')
     // 不存在
     if (!LifeHome[UID]) {
       // 初始化
@@ -104,7 +104,7 @@ class GP {
   createHomePlayer(UID) {
     try {
       // 写入家园数据
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'homeDoge',
         DATA: {
@@ -118,7 +118,7 @@ class GP {
         }
       })
       // 加入家园仓库数据
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'homeWarehouse',
         DATA: {
@@ -129,7 +129,7 @@ class GP {
         }
       })
       // 写入家园
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'fixed_goods',
         DATA: {
@@ -137,7 +137,7 @@ class GP {
         }
       })
       // 寿命表
-      const LifeData = Listdata.controlActionInitial({
+      const LifeData = Data.controlActionInitial({
         CHOICE: 'homeLife',
         NAME: 'life',
         INITIAL: {}
@@ -146,13 +146,13 @@ class GP {
         state: 0,
         createTime: new Date().getTime()
       }
-      Listdata.controlAction({
+      Data.controlAction({
         CHOICE: 'homeLife',
         NAME: 'life',
         DATA: LifeData
       })
       //
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'homeRangeland',
         DATA: {
@@ -161,7 +161,7 @@ class GP {
         }
       })
       //
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'homeRangelandannimals',
         DATA: {
@@ -180,7 +180,7 @@ class GP {
    * @returns
    */
   getPositionHome(UID) {
-    const positionhome = Listdata.controlActionInitial({
+    const positionhome = Data.controlActionInitial({
       NAME: 'position',
       CHOICE: 'homePosition',
       INITIAL: []
@@ -194,7 +194,7 @@ class GP {
    * @param {*} param0
    */
   addDoge({ UID, money }) {
-    const home = Listdata.controlActionInitial({
+    const home = Data.controlActionInitial({
       NAME: UID,
       CHOICE: 'homeDoge',
       INITIAL: [] // ？？todo
@@ -203,7 +203,7 @@ class GP {
     if (home.doge > 20000000) {
       home.doge = 20000000
     }
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'homeDoge',
       DATA: home
@@ -215,13 +215,13 @@ class GP {
    * @param {*} param0
    */
   addLandgrid({ UID, ACCOUNT }) {
-    let home = Listdata.controlActionInitial({
+    let home = Data.controlActionInitial({
       NAME: UID,
       CHOICE: 'homeDoge',
       INITIAL: []
     })
     home.Landgrid += ACCOUNT
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'homeDoge',
       DATA: home
@@ -266,10 +266,10 @@ class GP {
    */
   addRangelandannimals({ rangelandannimals, nowTime }) {
     let id = rangelandannimals.id
-    let animal = Listdata.searchThingById(id)
+    let animal = Data.searchThingById(id)
     id = id.split('-')
     let id1 = id[0] + '-2-' + id[2] + '-' + id[3]
-    let animal1 = Listdata.searchThingById(id1)
+    let animal1 = Data.searchThingById(id1)
     return {
       id: id1,
       name: rangelandannimals.name,
@@ -336,7 +336,7 @@ class GP {
    * @returns
    */
   homesearchThingName({ name }) {
-    const all = Listdata.controlAction({
+    const all = Data.controlAction({
       CHOICE: 'home_all',
       NAME: 'all'
     })
@@ -377,13 +377,13 @@ class GP {
    * @param {*} param0
    */
   addHomeexperience({ UID, experience }) {
-    let home = Listdata.controlActionInitial({
+    let home = Data.controlActionInitial({
       CHOICE: 'homeDoge',
       NAME: UID,
       INITIAL: []
     })
     home.homeexperience += experience
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'homeDoge',
       NAME: UID,
       DATA: home
@@ -396,7 +396,7 @@ class GP {
    * @returns
    */
   collectMinerals({ UID, time }) {
-    let Warehouse = Listdata.controlAction({
+    let Warehouse = Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID
     })
@@ -420,7 +420,7 @@ class GP {
         quantity: thingTime[index]
       })
     })
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       DATA: Warehouse
@@ -613,7 +613,7 @@ class GP {
    * @param {*} param0
    */
   addNowblood({ UID, nowblood }) {
-    let battle = Listdata.controlAction({
+    let battle = Data.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID
     })
@@ -623,7 +623,7 @@ class GP {
     } else {
       battle.nowblood = battle.nowblood + nowblood
     }
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'user_home_battle',
       NAME: UID,
       DATA: battle
@@ -635,7 +635,7 @@ class GP {
    * @param {*} parameter
    */
   addLife(UID, life) {
-    const LifeData = Listdata.controlAction({
+    const LifeData = Data.controlAction({
       CHOICE: 'playerLife',
       NAME: 'life'
     })
@@ -643,7 +643,7 @@ class GP {
     if (LifeData[UID].Age < 0) {
       LifeData[UID].Age = 0
     }
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'playerLife',
       NAME: 'life',
       DATA: LifeData
@@ -656,7 +656,7 @@ class GP {
    * @returns
    */
   homeexistWarehouseThingName(UID, name) {
-    const Warehouse = Listdata.controlActionInitial({
+    const Warehouse = Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,
       INITIAL: []
@@ -674,7 +674,7 @@ class GP {
    * @returns
    */
   homeexistAllThingByName(name) {
-    const goods = Listdata.controlAction({
+    const goods = Data.controlAction({
       CHOICE: 'generate_all',
       NAME: 'goods'
     })
@@ -691,7 +691,7 @@ class GP {
    * @returns
    */
   homeexistAllThingById(id) {
-    const goods = Listdata.controlAction({
+    const goods = Data.controlAction({
       CHOICE: 'generate_all',
       NAME: 'goods'
     })
@@ -713,8 +713,8 @@ class GP {
     })
     let MSG = ``
     for (let i = 0; i < rangelandannimals2.x.length; i++) {
-      let z = Listdata.searchThingById(rangelandannimals2.x[i])
-      let Warehouse = Listdata.controlActionInitial({
+      let z = Data.searchThingById(rangelandannimals2.x[i])
+      let Warehouse = Data.controlActionInitial({
         NAME: UID,
         CHOICE: 'homeWarehouse',
         INITIAL: []
@@ -724,7 +724,7 @@ class GP {
         DATA1: z,
         quantity: 1
       })
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'homeWarehouse',
         DATA: Warehouse
@@ -739,22 +739,22 @@ class GP {
    * @param {*} parameter
    */
   addAll(data) {
-    let all = Listdata.controlAction({
+    let all = Data.controlAction({
       CHOICE: 'home_all',
       NAME: 'all'
     })
-    let boxall = Listdata.controlAction({
+    let boxall = Data.controlAction({
       CHOICE: 'generate_all',
       NAME: 'all'
     })
     let all1 = all.concat(data)
     let all2 = boxall.concat(data)
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'home_all',
       NAME: 'all',
       DATA: all1
     })
-    Listdata.controlAction({
+    Data.controlAction({
       CHOICE: 'generate_all',
       NAME: 'all',
       DATA: all2

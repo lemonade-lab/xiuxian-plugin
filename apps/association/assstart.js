@@ -42,7 +42,7 @@ export class Assstart extends plugin {
       return false
     }
     // 数据验证
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -51,7 +51,7 @@ export class Assstart extends plugin {
       e.reply('一介散修')
       return false
     }
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -64,11 +64,11 @@ export class Assstart extends plugin {
     const msg = [`__[${assRelation.name}]__`]
     for (let item in ass.allMembers) {
       const UIDNum = ass.allMembers[item]
-      const LEvelData = GameApi.Listdata.controlAction({
+      const LEvelData = GameApi.Data.controlAction({
         NAME: UIDNum,
         CHOICE: 'playerLevel'
       })
-      const assGPA = GameApi.Listdata.controlAction({
+      const assGPA = GameApi.Data.controlAction({
         NAME: UIDNum,
         CHOICE: 'assGP'
       })
@@ -92,7 +92,7 @@ export class Assstart extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -100,7 +100,7 @@ export class Assstart extends plugin {
       e.reply('一介散修')
       return false
     }
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -150,7 +150,7 @@ export class Assstart extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -172,7 +172,7 @@ export class Assstart extends plugin {
       return false
     }
     associationName = assRelation.id
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: associationName,
       CHOICE: 'association'
     })
@@ -198,7 +198,7 @@ export class Assstart extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -213,7 +213,7 @@ export class Assstart extends plugin {
       e.reply(`加入门派不满${time}小时,无法退出`)
       return false
     }
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -244,7 +244,7 @@ export class Assstart extends plugin {
         let randMember = { assJob: 0 }
         for (let item in ass.allMembers) {
           const UIDNum = ass.allMembers[item]
-          const assGPA = GameApi.Listdata.controlAction({
+          const assGPA = GameApi.Data.controlAction({
             NAME: UIDNum,
             CHOICE: 'assGP'
           })
@@ -270,7 +270,7 @@ export class Assstart extends plugin {
     if (!ifexistplay) {
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -293,7 +293,7 @@ export class Assstart extends plugin {
       return false
     }
     const size = najieThing.price * najieThing.acount
-    const ass = GameApi.Listdata.controlAction({
+    const ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -336,11 +336,11 @@ export class Assstart extends plugin {
     if (allNames.length == 0) {
       temp.push('暂时没有门派数据')
     }
-    const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
+    const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
     for (let i = 0; i < allNames.length; i++) {
       const theName = allNames[i].replace('.json', '')
       const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.id == theName)
-      const thisAss = GameApi.Listdata.controlAction({
+      const thisAss = GameApi.Data.controlAction({
         NAME: theName,
         CHOICE: 'association'
       })

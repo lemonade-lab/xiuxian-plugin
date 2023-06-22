@@ -16,7 +16,7 @@ export class BoxStart extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -40,7 +40,7 @@ export class BoxStart extends plugin {
     GameApi.Action.delete(UID)
     // 重生后life重置,不需要做其他修改
     GameApi.Player.createPlayer(e.user_id)
-    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false

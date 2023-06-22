@@ -1,5 +1,5 @@
 import { BotApi } from '../api/botapi.js'
-import Listdata from './data/listdata.js'
+import Data from './data/index.js'
 const Sneakattack = [
   '你个老六偷袭,却连怪物的防御都破不了,被怪物一巴掌给拍死了!',
   '你找准时机,突然暴起冲向怪物,但是怪物及时反应,转眼被怪物咬死!',
@@ -29,7 +29,7 @@ class Battle {
         battleMsg.msg.push(Sneakattack[Math.random() * Sneakattack.length])
         battleA.nowblood = 0
         battleMsg.UID = 0
-        Listdata.controlAction({
+        Data.controlAction({
           NAME: e.user_id,
           CHOICE: 'playerBattle',
           DATA: battleA
@@ -96,7 +96,7 @@ class Battle {
       }
     }
     battleMsg.msg.push(`[血量剩余]:${battleA.nowblood}`)
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: e.user_id,
       CHOICE: 'playerBattle',
       DATA: battleA
@@ -119,11 +119,11 @@ class Battle {
       hurtA: 0,
       hurtB: 0
     }
-    const battleA = Listdata.controlAction({
+    const battleA = Data.controlAction({
       NAME: A,
       CHOICE: 'playerBattle'
     })
-    const battleB = Listdata.controlAction({
+    const battleB = Data.controlAction({
       NAME: B,
       CHOICE: 'playerBattle'
     })
@@ -140,7 +140,7 @@ class Battle {
         battleA.nowblood = 0
         battleMsg.UID = B
         BotApi.obtainingImages({ e, data: battleMsg.msg })
-        Listdata.controlAction({
+        Data.controlAction({
           NAME: A,
           CHOICE: 'playerBattle',
           DATA: battleA
@@ -152,7 +152,7 @@ class Battle {
         battleMsg.msg.push('你仅出一招,就击败了对方!')
         battleB.nowblood = 0
         BotApi.obtainingImages({ e, data: battleMsg.msg })
-        Listdata.controlAction({
+        Data.controlAction({
           NAME: B,
           CHOICE: 'playerBattle',
           DATA: battleB
@@ -218,12 +218,12 @@ class Battle {
       }
     }
     battleMsg.msg.push(`[血量状态]:${battleA.nowblood}`)
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: A,
       CHOICE: 'playerBattle',
       DATA: battleA
     })
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: B,
       CHOICE: 'playerBattle',
       DATA: battleB
@@ -244,7 +244,7 @@ class Battle {
 
   /* 雷劫伤害 */
   Thunderbolt_damage(UID) {
-    const talent = Listdata.controlAction({
+    const talent = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
@@ -261,7 +261,7 @@ class Battle {
       }
     }
     let n = Math.round(Math.random() * 5 + 5)
-    const battle = Listdata.controlAction({
+    const battle = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })

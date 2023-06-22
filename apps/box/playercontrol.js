@@ -53,7 +53,7 @@ export class BoxGPControl extends plugin {
       e.reply(msgB)
       return false
     }
-    const LevelDataA = GameApi.Listdata.read(UID, 'playerLevel')
+    const LevelDataA = GameApi.Data.read(UID, 'playerLevel')
     if (LevelDataA.gaspractice.realm >= 21) {
       e.reply('至少元婴期!')
       return false
@@ -62,7 +62,7 @@ export class BoxGPControl extends plugin {
       e.reply('所剩修为低于2200~')
       return false
     }
-    const LevelDataB = GameApi.Listdata.read(UIDB, 'playerLevel')
+    const LevelDataB = GameApi.Data.read(UIDB, 'playerLevel')
     if (
       LevelDataB.gaspractice.realm > LevelDataA.gaspractice.realm - 9 &&
       LevelDataB.gaspractice.realm < LevelDataA.gaspractice.realm + 9
@@ -74,7 +74,7 @@ export class BoxGPControl extends plugin {
       /** 失败则a直接掉境界 */
       LevelDataA.gaspractice.realm -= 1
       LevelDataA.gaspractice.experience = 0
-      GameApi.Listdata.write(UID, 'playerLevel', LevelDataA)
+      GameApi.Data.write(UID, 'playerLevel', LevelDataA)
       e.reply('失败了~,你掉落了一个境界！')
       return false
     }
@@ -82,9 +82,9 @@ export class BoxGPControl extends plugin {
     const size = Math.floor(LevelDataA.gaspractice.experience * 0.35)
     LevelDataB.gaspractice.experience += size
     LevelDataA.gaspractice.experience = 0
-    GameApi.Listdata.write(UIDB, 'playerLevel', LevelDataB)
-    GameApi.Listdata.write(UID, 'playerLevel', LevelDataA)
-    const LifeData = GameApi.Listdata.read('life', 'playerFile')
+    GameApi.Data.write(UIDB, 'playerLevel', LevelDataB)
+    GameApi.Data.write(UID, 'playerLevel', LevelDataA)
+    const LifeData = GameApi.Data.read('life', 'playerFile')
     e.reply(`${LifeData[UID]}成功传功[修为]*${size}给${LifeData[UIDB]}`)
     return false
   }
@@ -185,7 +185,7 @@ export class BoxGPControl extends plugin {
 }
 
 function upgrade(e, UID, time, name) {
-  const talent = GameApi.Listdata.controlAction({
+  const talent = GameApi.Data.controlAction({
     NAME: UID,
     CHOICE: 'playerTalent'
   })
@@ -211,7 +211,7 @@ function upgrade(e, UID, time, name) {
   GameApi.Levels.addExperience(UID, othername, other)
   // 更新血量
   GameApi.Player.updataUserBlood({ UID, SIZE: 90 })
-  const LifeData = GameApi.Listdata.controlAction({
+  const LifeData = GameApi.Data.controlAction({
     NAME: 'life',
     CHOICE: 'playerLife'
   })

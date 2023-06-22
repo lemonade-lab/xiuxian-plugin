@@ -55,7 +55,7 @@ export class AssUncharted extends plugin {
     }
 
     for (let assId of assList) {
-      const assUncharted = GameApi.Listdata.controlAction({
+      const assUncharted = GameApi.Data.controlAction({
         NAME: assId,
         CHOICE: 'association'
       })
@@ -85,7 +85,7 @@ export class AssUncharted extends plugin {
       return false
     }
     // 秘境所属门派
-    let ass = GameApi.Listdata.controlAction({
+    let ass = GameApi.Data.controlAction({
       NAME: weizhi.id,
       CHOICE: 'association'
     })
@@ -94,13 +94,13 @@ export class AssUncharted extends plugin {
       return false
     }
 
-    const positionList = GameApi.Listdata.controlAction({
+    const positionList = GameApi.Data.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'
     })
     const position = positionList.find((item) => item.name == ass.resident.name)
 
-    const action = GameApi.Listdata.controlAction({
+    const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
     })
@@ -142,7 +142,7 @@ export class AssUncharted extends plugin {
       e.reply(`该门派的灵石池已无法支撑秘境的运转！`)
       return false
     }
-    const assGP = GameApi.Listdata.controlAction({
+    const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -197,7 +197,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay || !AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
-    const GP = GameApi.Listdata.controlAction({
+    const GP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
@@ -207,7 +207,7 @@ export class AssUncharted extends plugin {
     }
     let direction = e.msg.replace(/^(#|\/)秘境移动向/, '')
     direction = direction.trim()
-    const assinterimArchive = GameApi.Listdata.controlAction({
+    const assinterimArchive = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assinterimArchive'
     })
@@ -297,7 +297,7 @@ export class AssUncharted extends plugin {
     } else if (random < 0.85) {
       // 遇怪
       GameApi.Burial.set(UID, ClassCD, nowTime, CDTime)
-      const battle = GameApi.Listdata.controlAction({
+      const battle = GameApi.Data.controlAction({
         NAME: UID,
         CHOICE: 'playerBattle'
       })
@@ -319,7 +319,7 @@ export class AssUncharted extends plugin {
         buff = (buff / 10).toFixed(2)
       }
 
-      const LevelList = GameApi.Listdata.controlAction({
+      const LevelList = GameApi.Data.controlAction({
         NAME: 'gaspractice',
         CHOICE: 'fixed_levels'
       })
@@ -385,7 +385,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay) {
       return false
     }
-    let assGP = GameApi.Listdata.controlAction({
+    let assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -397,7 +397,7 @@ export class AssUncharted extends plugin {
       e.reply('权限不足')
       return false
     }
-    let ass = GameApi.Listdata.controlAction({
+    let ass = GameApi.Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -433,7 +433,7 @@ export class AssUncharted extends plugin {
     if (!AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
-    const assinterimArchive = GameApi.Listdata.controlAction({
+    const assinterimArchive = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assinterimArchive'
     })
@@ -464,7 +464,7 @@ export class AssUncharted extends plugin {
     if (!AssociationApi.assUser.existAss('assinterimArchive', UID)) {
       return false
     }
-    const assinterimArchive = GameApi.Listdata.controlAction({
+    const assinterimArchive = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assinterimArchive'
     })
@@ -490,9 +490,9 @@ export class AssUncharted extends plugin {
           if (assinterimArchive.treasureChests[i].type == 4 && lastNum >= 10) {
             thingId = assinterimArchive.treasureChests[i].type + '-2-' + lastNum
           }
-          let addThing = GameApi.Listdata.searchThingById(thingId)
+          let addThing = GameApi.Data.searchThingById(thingId)
           if (!addThing) {
-            addThing = GameApi.Listdata.searchThingById('6-1-2')
+            addThing = GameApi.Data.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
             UID,
@@ -526,7 +526,7 @@ export class AssUncharted extends plugin {
     }
 
     if (AssociationApi.assUser.existAss('assinterimArchive', UID)) {
-      const assinterimArchive = GameApi.Listdata.controlAction({
+      const assinterimArchive = GameApi.Data.controlAction({
         NAME: UID,
         CHOICE: 'assinterimArchive'
       })
@@ -543,16 +543,16 @@ export class AssUncharted extends plugin {
             (item) => item.id == assinterimArchive.assResident
           )
           if (assinterimArchive.incentivesLevel > 12) {
-            addThing = GameApi.Listdata.searchThingById(find.specialty.best)
+            addThing = GameApi.Data.searchThingById(find.specialty.best)
           } else if (assinterimArchive.incentivesLevel >= 8) {
             const location = Math.trunc(Math.random() * find.specialty.special.length)
-            addThing = GameApi.Listdata.searchThingById(find.specialty.special[location])
+            addThing = GameApi.Data.searchThingById(find.specialty.special[location])
           } else {
             const location = Math.trunc(Math.random() * find.specialty.common.length)
-            addThing = GameApi.Listdata.searchThingById(find.specialty.common[location])
+            addThing = GameApi.Data.searchThingById(find.specialty.common[location])
           }
           if (!addThing) {
-            addThing = GameApi.Listdata.searchThingById('6-1-2')
+            addThing = GameApi.Data.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
             UID,
@@ -562,9 +562,9 @@ export class AssUncharted extends plugin {
           e.reply(`你获得了${addThing.name}`)
         } else {
           const location = Math.trunc(Math.random() * idList.length)
-          let addThing = GameApi.Listdata.searchThingById(idList[location])
+          let addThing = GameApi.Data.searchThingById(idList[location])
           if (!addThing) {
-            addThing = GameApi.Listdata.searchThingById('6-1-2')
+            addThing = GameApi.Data.searchThingById('6-1-2')
           }
           GameApi.Bag.addBagThing({
             UID,

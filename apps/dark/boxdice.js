@@ -14,7 +14,7 @@ export class BoxDice extends plugin {
     if (!diceMessage(e)) return false
     const msg = ['___[万花坊]___']
     msg.push('[(#|/)命运转盘+物品名*数量]')
-    const commoditiesList = GameApi.Listdata.controlAction({
+    const commoditiesList = GameApi.Data.controlAction({
       NAME: 'wheeldisc',
       CHOICE: 'generate_all'
     })
@@ -67,7 +67,7 @@ export class BoxDice extends plugin {
     if (!diceMessage(e)) return false
     const thingName = e.msg.replace(/^(#|\/)命运转盘/, '')
     const [NAME, ACCOUNT] = thingName.split('*')
-    const commoditiesList = GameApi.Listdata.controlAction({
+    const commoditiesList = GameApi.Data.controlAction({
       NAME: 'wheeldisc',
       CHOICE: 'generate_all'
     })
@@ -84,7 +84,7 @@ export class BoxDice extends plugin {
       e.reply(`似乎没有[${NAME}]*${ACCOUNT}`)
       return false
     }
-    const LevelData = GameApi.Listdata.controlAction({
+    const LevelData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerLevel'
     })

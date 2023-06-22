@@ -33,14 +33,14 @@ export class BoxModify extends plugin {
       return false
     }
     GameApi.Burial.set(UID, CDID, nowTime, CDTime)
-    const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
+    const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
     LifeData[UID].name = theName
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife',
       DATA: LifeData
     })
-    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false
@@ -67,14 +67,14 @@ export class BoxModify extends plugin {
       return false
     }
     GameApi.Burial.set(UID, CDID, nowTime, CDTime)
-    const LifeData = GameApi.Listdata.readInitial('life', 'playerLife', {})
+    const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
     LifeData[UID].autograph = theMsg
-    GameApi.Listdata.controlAction({
+    GameApi.Data.controlAction({
       NAME: 'life',
       CHOICE: 'playerLife',
       DATA: LifeData
     })
-    const { path, name, data } = GameApi.Information.userDataShow(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet({ e, isreply })
     return false

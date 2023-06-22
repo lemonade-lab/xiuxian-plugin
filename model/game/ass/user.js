@@ -1,32 +1,32 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import Method from '../wrap/method.js'
-import Listdata from '../data/listdata.js'
+import Data from '../data/index.js'
 import Talent from '../box/talent.js'
 import Player from '../box/player.js'
-import { __PATH } from '../data/index.js'
+import { __PATH } from '../data/path.js'
 import algorithm from '../data/algorithm.js'
 // 汐颜
 class GP {
   constructor() {
     // 固定表数据
     // 门派：位置
-    this.assLabyrinthList = Listdata.controlAction({
+    this.assLabyrinthList = Data.controlAction({
       NAME: 'AssLabyrinth',
       CHOICE: 'assRelate'
     })
     //  隐藏物品
-    this.baseTreasureVaultList = Listdata.controlAction({
+    this.baseTreasureVaultList = Data.controlAction({
       NAME: 'BaseTreasureVault',
       CHOICE: 'assRelate'
     })
     // 山门
-    this.blessPlaceList = Listdata.controlAction({
+    this.blessPlaceList = Data.controlAction({
       NAME: 'BlessPlace',
       CHOICE: 'assRelate'
     })
     // 门派 ???
-    this.assRelationList = Listdata.controlActionInitial({
+    this.assRelationList = Data.controlActionInitial({
       NAME: 'assRelation',
       CHOICE: 'assRelation',
       // 初始化
@@ -93,7 +93,7 @@ class GP {
     //  验证存档
     if (!this.existAss('assGP', UID)) {
       // 不存在则初始化
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: UID,
         CHOICE: 'assGP',
         DATA: GPData
@@ -101,7 +101,7 @@ class GP {
     }
 
     // 读取用户数据
-    let assGP = Listdata.controlAction({
+    let assGP = Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
     })
@@ -116,7 +116,7 @@ class GP {
     // 检测门派, 先退宗，再重置
     if (this.existAss('association', assGP.AID)) {
       // 读取门派信息
-      let ass = Listdata.controlAction({
+      let ass = Data.controlAction({
         NAME: assGP.AID,
         CHOICE: 'association'
       })
@@ -125,7 +125,7 @@ class GP {
         // 原来的职位表删掉这个B
         ass.allMembers = ass.allMembers.filter((item) => item != assGP.UID)
         // 记录到存档
-        Listdata.controlAction({
+        Data.controlAction({
           NAME: ass.id,
           CHOICE: 'association',
           DATA: ass
@@ -139,7 +139,7 @@ class GP {
           let randMember = { assJob: 0 }
           for (let item in ass.allMembers) {
             const UIDNum = ass.allMembers[item]
-            const assGPA = Listdata.controlAction({
+            const assGPA = Data.controlAction({
               NAME: UIDNum,
               CHOICE: 'assGP'
             })
@@ -152,7 +152,7 @@ class GP {
           randMember.assJob = 10
           // 记录到存档
 
-          Listdata.controlAction({
+          Data.controlAction({
             NAME: ass.id,
             CHOICE: 'association',
             DATA: ass
@@ -168,14 +168,14 @@ class GP {
     // 检查
     if (assGP.volunteerAss != 0) {
       // 得到数据
-      const ass = Listdata.controlAction({
+      const ass = Data.controlAction({
         NAME: assGP.volunteerAss,
         CHOICE: 'association'
       })
       if (!Method.isNotNull(ass)) {
         ass.applyJoinList = ass.applyJoinList.filter((item) => item != UID)
         // 写入数据
-        Listdata.controlAction({
+        Data.controlAction({
           NAME: ass.id,
           CHOICE: 'association',
           DATA: ass
@@ -184,7 +184,7 @@ class GP {
     }
 
     // 写入数据
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP',
       DATA: GPData
@@ -221,7 +221,7 @@ class GP {
    * @param data
    */
   setAssOrGP(fileName, itemName, data) {
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: itemName,
       CHOICE: fileName,
       DATA: data
@@ -237,7 +237,7 @@ class GP {
     // 没有门派
     if (assGP.AID == 0) {
       assGP.effective = 0
-      Listdata.controlAction({
+      Data.controlAction({
         NAME: assGP.UID,
         CHOICE: 'assGP',
         DATA: assGP
@@ -247,7 +247,7 @@ class GP {
     // 有门派
     let effective = 0
     // 读取门派数据
-    let ass = Listdata.controlAction({
+    let ass = Data.controlAction({
       NAME: assGP.AID,
       CHOICE: 'association'
     })
@@ -269,7 +269,7 @@ class GP {
       VALUE: assGP.effective
     })
     // 更新用户
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: assGP.UID,
       CHOICE: 'assGP',
       DATA: assGP
@@ -320,7 +320,7 @@ class GP {
       }
     }
 
-    Listdata.controlAction({
+    Data.controlAction({
       NAME: ass.id,
       CHOICE: 'association',
       DATA: ass
@@ -331,7 +331,7 @@ class GP {
       for (let GPID of GPList) {
         const UID = GPID
         if (this.existAss('assGP', UID)) {
-          const assOrGP = Listdata.controlAction({
+          const assOrGP = Data.controlAction({
             NAME: UID,
             CHOICE: 'assGP'
           })
