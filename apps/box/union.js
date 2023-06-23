@@ -100,7 +100,7 @@ export class Boxunion extends plugin {
       DATA: SignData
     })
     if (SignData[UID].signSize % 7 == 0) {
-      const randomthing = GameApi.GP.randomThing()
+      const randomthing = GameApi.GP.getRandomThing()
       GameApi.Bag.addBagThing({
         UID,
         name: randomthing.name,
@@ -145,7 +145,7 @@ export class Boxunion extends plugin {
       CHOICE: 'playerAction',
       DATA: action
     })
-    const randomthing = GameApi.GP.randomThing()
+    const randomthing = GameApi.GP.getRandomThing()
     GameApi.Bag.addBagThing({
       UID,
       name: randomthing.name,

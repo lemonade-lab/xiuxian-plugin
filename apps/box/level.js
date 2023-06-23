@@ -52,8 +52,7 @@ function levelUp(e, UID, CDID, ID, p) {
     // 设置突破冷却
     GameApi.Levels.setSpecial(UID, CDID)
     /** 随机顺序损失经验  */
-    const keyArray = Object.keys(GameApi.Levels.CopywritingLevel)
-    const randomKey = keyArray[Math.floor(Math.random() * keyArray.length)]
+    const randomKey = GameApi.Levels.getRandomKey()
     const size = Math.floor(LevelMsg.experience / randomKey)
     GameApi.Levels.reduceExperience(UID, ID, size)
     e.reply(GameApi.Levels.getCopywriting(ID, randomKey, size))

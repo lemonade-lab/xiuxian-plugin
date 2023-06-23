@@ -86,7 +86,7 @@ export class BoxBattleSite extends plugin {
     if (battleMsg.UID != 0) {
       const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
       if (m < (mon.level + 1) * 6) {
-        const randomthinf = GameApi.GP.randomThing()
+        const randomthinf = GameApi.GP.getRandomThing()
         let najie = GameApi.Data.controlAction({
           NAME: UID,
           CHOICE: 'playerBag'

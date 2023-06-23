@@ -102,7 +102,7 @@ export class BoxDice extends plugin {
       return false
     }
     /* 随机物品 */
-    const randomthing = GameApi.GP.randomThing()
+    const randomthing = GameApi.GP.getRandomThing()
     GameApi.Bag.addBagThing({
       UID,
       name: randomthing.name,

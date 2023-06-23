@@ -24,15 +24,6 @@ class Battle {
   }
 
   /**
-   * 读取
-   * @param {*} UID
-   * @returns
-   */
-  read(UID) {
-    return Data.read(UID, 'playerBattle')
-  }
-
-  /**
    * 更新面板
    * @param {*} UID
    */

@@ -41,6 +41,7 @@ class Levels {
   }
 
   /**
+   * 写入
    * @param {*} id
    * @param {*} DATA
    */
@@ -53,6 +54,7 @@ class Levels {
   }
 
   /**
+   * 读取
    * @param {*} id
    * @returns
    */
@@ -64,9 +66,18 @@ class Levels {
   }
 
   /**
+   * 随机key
+   * @returns
+   */
+  getRandomKey() {
+    const keyArray = Object.keys(this.CopywritingLevel)
+    const randomKey = keyArray[Math.floor(Math.random() * keyArray.length)]
+    return Number(randomKey)
+  }
+
+  /**
    * 随机一个失败文案
    */
-
   getCopywriting(id, randomKey, size) {
     const name = this.NAMEMAP[id]
     const copywriting = this.CopywritingLevel[randomKey]
@@ -97,7 +108,12 @@ class Levels {
     return UserLevel[this.LEVELMAP[id]]
   }
 
-  // 提升境界
+  /**
+   * 提升境界
+   * @param {*} UID
+   * @param {*} id
+   * @returns
+   */
   enhanceRealm(UID, id) {
     const LevelList = Data.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
     const UserLevel = this.read(UID)
@@ -130,7 +146,12 @@ class Levels {
     }
   }
 
-  // 掉落境界
+  /**
+   * 掉落境界
+   * @param {*} UID
+   * @param {*} id
+   * @returns
+   */
   fallingRealm(UID, id) {
     // 读取境界
     const LevelList = Data.controlAction({ NAME: this.LEVELMAP[id], CHOICE: 'fixed_levels' })
@@ -154,7 +175,13 @@ class Levels {
     }
   }
 
-  /** 经验增加 */
+  /**
+   * 经验增加
+   * @param {*} UID
+   * @param {*} id
+   * @param {*} size
+   * @returns
+   */
   addExperience(UID, id, size) {
     const UserLevel = this.read(UID)
     UserLevel[this.LEVELMAP[id]].experience += size
@@ -165,7 +192,13 @@ class Levels {
     }
   }
 
-  /* 经验减少 */
+  /**
+   * 经验减少
+   * @param {*} UID
+   * @param {*} id
+   * @param {*} size
+   * @returns
+   */
   reduceExperience(UID, id, size) {
     const UserLevel = this.read(UID)
     UserLevel[this.LEVELMAP[id]].experience -= size

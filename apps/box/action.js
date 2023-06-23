@@ -49,17 +49,9 @@ export class BoxAction extends plugin {
     })
     switch (id[1]) {
       case '1': {
-        let blood = parseInt(najieThing.blood)
-        GameApi.Player.updataUserBlood({ UID, SIZE: Number(blood) })
-        const battle = GameApi.Data.controlAction({
-          NAME: UID,
-          CHOICE: 'playerBattle'
-        })
-        e.reply(
-          `成功服用${thingName}，当前血量为：${battle.nowblood}（${Math.trunc(
-            (battle.nowblood / battle.blood) * 100
-          )}%）`
-        )
+        let size = parseInt(najieThing.blood)
+        const blood = GameApi.Player.addBlood(UID, size)
+        e.reply(`成功服用${thingName}\n恢复了${size}%的血量\n当前血量:${blood}`)
         break
       }
       case '2': {

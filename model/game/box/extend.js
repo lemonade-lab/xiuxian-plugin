@@ -18,7 +18,7 @@ class Extend {
   }
 
   /**
-   *
+   * 写入
    * @param {*} UID
    * @param {*} DATA
    */
@@ -27,7 +27,7 @@ class Extend {
   }
 
   /**
-   *
+   * 读取
    * @param {*} UID
    * @param {*} Initial
    */

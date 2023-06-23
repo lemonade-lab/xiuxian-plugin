@@ -47,7 +47,9 @@ class Player {
     }
   }
 
-  /** 更新寿命信息 */
+  /**
+   * 更新寿命信息
+   */
   startLife() {
     const LifeData = Data.controlActionInitial({
       NAME: 'life',
@@ -76,6 +78,7 @@ class Player {
   }
 
   /**
+   * 初始化用户信息
    * @param UID  param0
    * @returns
    */
@@ -251,6 +254,11 @@ class Player {
     return true
   }
 
+  /**
+   * 判断是否存在该用户
+   * @param {*} UID
+   * @returns
+   */
   isUser(UID) {
     let find = this.getUserLife(UID)
     if (find) {
@@ -260,39 +268,66 @@ class Player {
   }
 
   /**
-   * @returns 返回所有用户UID
+   * 得到所有用户UID
+   * @returns
    */
   getAllUser() {
     const GPList = []
-    const life = Data.controlActionInitial({
+    const LifeData = Data.controlActionInitial({
       CHOICE: 'playerLife',
       NAME: 'life',
       INITIAL: {}
     })
-    for (let UID in life) {
+    for (let UID in LifeData) {
       GPList.push(UID)
     }
     return GPList
   }
 
   /**
-   * 更新用户血量
-   * @param {*} param0
+   * 提升血量
+   * @param {*} UID
+   * @param {*} SIZE
+   * @returns
    */
-  updataUserBlood({ UID, SIZE }) {
-    const battle = Data.controlAction({
+  addBlood(UID, SIZE) {
+    const BattleData = Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    battle.nowblood += Math.floor(battle.blood * SIZE * 0.01)
-    if (battle.nowblood > battle.blood) {
-      battle.nowblood = battle.blood
+    // 血量 增加 原来的百分之几
+    BattleData.nowblood += Math.floor((BattleData.blood * SIZE) / 100)
+    if (BattleData.nowblood > BattleData.blood) {
+      BattleData.nowblood = BattleData.blood
     }
     Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle',
-      DATA: battle
+      DATA: BattleData
     })
+    return BattleData.nowblood
+  }
+
+  /**
+   * 下降血量
+   * @param {*} UID
+   * @param {*} SIZE
+   */
+  reduceBlood(UID, SIZE) {
+    const BattleData = Data.controlAction({
+      NAME: UID,
+      CHOICE: 'playerBattle'
+    })
+    BattleData.nowblood -= Math.floor(BattleData.blood * SIZE * 0.01)
+    if (BattleData.nowblood < 0) {
+      BattleData.nowblood = 0
+    }
+    Data.controlAction({
+      NAME: UID,
+      CHOICE: 'playerBattle',
+      DATA: BattleData
+    })
+    return BattleData.nowblood
   }
 }
 export default new Player()

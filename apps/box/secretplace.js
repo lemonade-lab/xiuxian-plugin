@@ -77,7 +77,7 @@ export class BoxSecretplace extends plugin {
     if (action.actionID == 2) {
       GameApi.Action.delete(UID)
       // 取消行为
-      clearTimeout(GameApi.Place.getUserAction(UID))
+      clearTimeout(GameApi.Place.get(UID))
       e.reply('已回到原地')
       return false
     }
@@ -101,8 +101,6 @@ export class BoxSecretplace extends plugin {
       NAME: UID,
       CHOICE: 'playerAction'
     })
-    const x = action.x
-    const y = action.y
     const address = e.msg.replace(/^(#|\/)前往/, '')
     const Point = GameApi.Data.controlAction({
       NAME: 'point',
@@ -110,31 +108,31 @@ export class BoxSecretplace extends plugin {
     })
     const point = Point.find((item) => item.name == address)
     if (!point) {
+      e.replace(`未知地点[${address}]`)
       return false
     }
     /* */
+    const x = action.x
+    const y = action.y
     const mx = point.x
     const my = point.y
     const PointId = point.id.split('-')
-    const LevelData = GameApi.Data.controlAction({
-      NAME: UID,
-      CHOICE: 'playerLevel'
-    })
+    const LevelsMsg = GameApi.Levels.getMsg(UID, 0)
     // 境界不足
-    if (LevelData.gaspractice.realm < PointId[3] - 1) {
+    if (LevelsMsg.realm < PointId[3] - 1) {
       e.reply('[修仙联盟]守境者\n道友请留步')
       return false
     }
     const a = x - mx >= 0 ? x - mx : mx - x
     const b = y - my >= 0 ? y - my : my - y
-    const battle = GameApi.Data.controlAction({
+    const BattleData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
-    const the = Math.floor(a + b - (a + b) * battle.speed * 0.01)
+    const the = Math.floor(a + b - (a + b) * BattleData.speed * 0.01)
     const time = the >= 0 ? the : 1
     // 设置定时器,并得到定时器id
-    GameApi.Place.setUserAction(
+    GameApi.Place.set(
       UID,
       setTimeout(() => {
         /* 这里清除行为 */
@@ -151,6 +149,13 @@ export class BoxSecretplace extends plugin {
         e.reply([segment.at(UID), `成功抵达${address}`])
       }, 1000 * time)
     )
+
+    /**
+     * 增加随机事件,当时间大于2分钟的时候,两分钟后触发随机事件
+     * 该事件触发前提是,走路行为是存在的,不存时将取消该行为
+     *
+     */
+
     // 设置行为赶路
     GameApi.Action.set(UID, {
       actionID: 2,
