@@ -108,7 +108,7 @@ export class BoxSecretplace extends plugin {
     })
     const point = Point.find((item) => item.name == address)
     if (!point) {
-      e.replace(`未知地点[${address}]`)
+      e.reply(`未知地点[${address}]`)
       return false
     }
     /* */
