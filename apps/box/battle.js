@@ -91,12 +91,26 @@ export class BoxBattle extends plugin {
     /**
      * 如果平局,直接返回
      */
+    const firstArray = BMSG.msg.slice(0, 16)
+    const secondArray = BMSG.msg.slice(16)
     if (BMSG.victory == 0) {
       /** 平局了,保存双方存档即可 */
-      const isreply = await e.reply(
-        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
-      )
-      BotApi.Robot.surveySet(e, isreply)
+      if (firstArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+          )
+        )
+      }
+      if (secondArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: secondArray } })
+          )
+        )
+      }
       return false
     }
 
@@ -120,10 +134,22 @@ export class BoxBattle extends plugin {
 
     if (!GameApi.Method.isTrueInRange(1, 100, Math.floor(user.prestige))) {
       // 没有触发抢劫
-      const isreply = await e.reply(
-        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
-      )
-      BotApi.Robot.surveySet(e, isreply)
+      if (firstArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+          )
+        )
+      }
+      if (secondArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: secondArray } })
+          )
+        )
+      }
       return false
     }
 
@@ -137,10 +163,22 @@ export class BoxBattle extends plugin {
 
     if (BagData.thing.length == 0) {
       /** 背包没东西 */
-      const isreply = await e.reply(
-        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
-      )
-      BotApi.Robot.surveySet(e, isreply)
+      if (firstArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+          )
+        )
+      }
+      if (secondArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: secondArray } })
+          )
+        )
+      }
       return
     }
     /**
@@ -164,15 +202,27 @@ export class BoxBattle extends plugin {
       name: thing.name,
       ACCOUNT: thing.acount
     })
-    BMSG.msg.push(
+    secondArray.push(
       `${LifeData[user.PartyA].name}夺走了${LifeData[user.PartyA].name}的[${thing.name}]*${
         thing.acount
       }`
     )
-    const isreply = await e.reply(
-      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
-    )
-    BotApi.Robot.surveySet(e, isreply)
+    if (firstArray.length != 0) {
+      BotApi.Robot.surveySet(
+        e,
+        await e.reply(
+          await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+        )
+      )
+    }
+    if (secondArray.length != 0) {
+      BotApi.Robot.surveySet(
+        e,
+        await e.reply(
+          await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: secondArray } })
+        )
+      )
+    }
     return false
   }
 

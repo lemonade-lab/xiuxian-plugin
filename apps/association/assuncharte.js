@@ -334,17 +334,28 @@ export class AssUncharted extends plugin {
         { battleA: battle, UIDA: UID, NAMEA: LifeData[UID].name },
         { battleB: monsters, UIDB: 1, NAMEB: '怪物' }
       )
+      const firstArray = BMSG.msg.slice(0, 16)
+      const secondArray = BMSG.msg.slice(16)
       if (BMSG.victory == UID) {
         GameApi.Levels.addExperience(UID, 1, assArchive.incentivesLevel)
-        BMSG.msg.push(`获得了${250 * assArchive.incentivesLevel}气血`)
+        secondArray.push(`获得了${250 * assArchive.incentivesLevel}气血`)
       }
-      e.reply(
-        await BotApi.obtainingImages({
-          path: 'msg',
-          name: 'msg',
-          data: { msg: BMSG.msg }
-        })
-      )
+      if (firstArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+          )
+        )
+      }
+      if (secondArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: secondArray } })
+          )
+        )
+      }
     } else {
       // 宝箱
       GameApi.Burial.set(UID, ClassCD, nowTime, CDTime)

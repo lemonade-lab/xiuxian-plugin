@@ -2,21 +2,6 @@ import Data from '../data/index.js'
 import Battle from './battle.js'
 
 class Extend {
-  constructor() {
-    this.extendData = {
-      times: [],
-      perpetual: {
-        attack: 0,
-        defense: 0,
-        blood: 0,
-        burst: 0,
-        burstmax: 0,
-        speed: 0,
-        efficiency: 0
-      }
-    }
-  }
-
   /**
    * 写入
    * @param {*} UID
@@ -43,7 +28,18 @@ class Extend {
   addExtendPerpetual({ NAME: UID, FLAG, TYPE, VALUE }) {
     const extend = this.readInitial(UID, {})
     if (!extend[FLAG]) {
-      extend[FLAG] = this.extendData
+      extend[FLAG] = {
+        times: [],
+        perpetual: {
+          attack: 0,
+          defense: 0,
+          blood: 0,
+          burst: 0,
+          burstmax: 0,
+          speed: 0,
+          efficiency: 0
+        }
+      }
     }
     extend[FLAG].perpetual[TYPE] = VALUE
     // 写入
@@ -61,7 +57,18 @@ class Extend {
     // 读取数据
     const extend = this.readInitial(NAME, {})
     if (!extend[FLAG]) {
-      extend[FLAG] = this.extendData
+      extend[FLAG] = {
+        times: [],
+        perpetual: {
+          attack: 0,
+          defense: 0,
+          blood: 0,
+          burst: 0,
+          burstmax: 0,
+          speed: 0,
+          efficiency: 0
+        }
+      }
     }
     const find = extend[FLAG].times.findIndex((item) => item.type == TYPE)
     const time = new Date().getTime()

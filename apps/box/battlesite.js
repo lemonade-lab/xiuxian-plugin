@@ -69,14 +69,29 @@ export class BoxBattleSite extends plugin {
       { battleA: battle, UIDA: UID, NAMEA: LifeData[UID].name },
       { battleB: monsters, UIDB: 1, NAMEB: Mname }
     )
+    const firstArray = BMSG.msg.slice(0, 16)
+    const secondArray = BMSG.msg.slice(16)
     // 保存信息
     GameApi.Data.write(UID, 'playerBattle', BMSG.battleA)
     if (BMSG.victory == 0 || BMSG.victory == 1) {
       /** 跟怪物打平手了 或者 被打败了~ 丢人 */
-      const isreply = await e.reply(
-        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
-      )
-      BotApi.Robot.surveySet(e, isreply)
+
+      if (firstArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+          )
+        )
+      }
+      if (secondArray.length != 0) {
+        BotApi.Robot.surveySet(
+          e,
+          await e.reply(
+            await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: secondArray } })
+          )
+        )
+      }
       return false
     }
     let msgRight = []
@@ -136,9 +151,17 @@ export class BoxBattleSite extends plugin {
       })
     }
     GameApi.Burial.set(UID, CDID, nowTime, CDTime)
+    if (firstArray.length != 0) {
+      BotApi.Robot.surveySet(
+        e,
+        await e.reply(
+          await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: firstArray } })
+        )
+      )
+    }
     const { path, name, data } = GameApi.Information.showUserBattle({
       UID: e.user_id,
-      msgLeft: BMSG.msg,
+      msgLeft: secondArray,
       msgRight
     })
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))

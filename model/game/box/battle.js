@@ -3,17 +3,6 @@ import levels from './levels.js'
 import Equipment from './equipment.js'
 import Extend from './extend.js'
 class Battle {
-  constructor() {
-    this.equi = {
-      attack: 0,
-      defense: 0,
-      blood: 0,
-      burst: 0,
-      burstmax: 0,
-      speed: 0
-    }
-  }
-
   /**
    * 写入
    * @param {*} UID
@@ -57,22 +46,37 @@ class Battle {
     // 临时属性读取
     let extend = Extend.readInitial(UID, {})
 
-    // 装备数据记录
-    const equ = this.equi
-    equipment.forEach((item) => {
-      equ.attack += item.attack
-      equ.defense += item.defense
-      equ.blood += item.blood
-      equ.burst += item.burst
-      equ.burstmax += item.burstmax
-      equ.speed += item.speed
-    })
+    const panel = {
+      attack: gaspractice.attack + bodypractice.attack,
+      defense: gaspractice.defense + bodypractice.defense,
+      blood: gaspractice.blood + bodypractice.blood,
+      burst: soul.burst,
+      burstmax: soul.burstmax + gaspractice.burstmax,
+      speed: gaspractice.speed + bodypractice.speed,
+      power: 0
+    }
 
-    console.log(extend)
+    // 装备数据记录
+    const equ = {
+      attack: 0,
+      defense: 0,
+      blood: 0,
+      burst: 0,
+      burstmax: 0,
+      speed: 0
+    }
+    for (let item of equipment) {
+      equ.attack = equ.attack + item.attack
+      equ.defense = equ.defense + item.defense
+      equ.blood = equ.blood + item.blood
+      equ.burst = equ.burst + item.burst
+      equ.burstmax = equ.burstmax + item.burstmax
+      equ.speed = equ.speed + item.speed
+    }
+
     /* 计算插件临时属性及永久属性 */
     if (Object.keys(extend).length !== 0) {
       extend = Object.values(extend)
-      console.log(extend)
       extend.forEach((item) => {
         /* 永久属性计算 */
         equ.attack += item.perpetual.attacks
@@ -92,8 +96,6 @@ class Battle {
       })
     }
 
-    /* 血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限 */
-    const bloodLimit = gaspractice.blood + bodypractice.blood + equ.blood
     /* 双境界面板之和 */
 
     /**
@@ -102,19 +104,10 @@ class Battle {
      * 练魂 仅有双暴
      */
 
-    // 统计基础数据
-    const panel = {
-      // 基础攻击
-      attack: gaspractice.attack + bodypractice.attack,
-      defense: gaspractice.defense + bodypractice.defense,
-      blood: gaspractice.blood + bodypractice.blood,
-      burst: soul.burst,
-      burstmax: gaspractice.burstmax + soul.burstmax,
-      speed: gaspractice.speed + bodypractice.speed + soul.speed,
-      power: 0
-    }
+    /* 血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限 */
+    const bloodLimit = gaspractice.blood + BodypracticeList.blood + equ.blood
 
-    // 百分比效果
+    /* 双境界面板之和 */
     panel.attack = Math.floor(panel.attack * (equ.attack * 0.01 + 1))
     panel.defense = Math.floor(panel.defense * (equ.defense * 0.01 + 1))
     panel.blood = bloodLimit
