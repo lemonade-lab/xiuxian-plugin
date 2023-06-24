@@ -42,12 +42,14 @@ class Battle {
     const LevelData = levels.read(UID)
 
     // 固定数据读取
-    const LevelList = Data.controlAction({ NAME: 'gaspractice', CHOICE: 'fixed_levels' })
-    const LevelMaxList = Data.controlAction({ NAME: 'bodypractice', CHOICE: 'fixed_levels' })
+    const GaspracticeList = Data.controlAction({ NAME: 'gaspractice', CHOICE: 'fixed_levels' })
+    const BodypracticeList = Data.controlAction({ NAME: 'bodypractice', CHOICE: 'fixed_levels' })
+    const SoulList = Data.controlAction({ NAME: 'soul', CHOICE: 'fixed_levels' })
 
     // 当前境界数据
-    const gaspractice = LevelList[LevelData.gaspractice.realm]
-    const bodypractice = LevelMaxList[LevelData.bodypractice.realm]
+    const gaspractice = GaspracticeList[LevelData.gaspractice.realm]
+    const bodypractice = BodypracticeList[LevelData.bodypractice.realm]
+    const soul = SoulList[LevelData.soul.realm]
 
     // 读取
     const UserBattle = this.read(UID)
@@ -94,15 +96,21 @@ class Battle {
     const bloodLimit = gaspractice.blood + bodypractice.blood + equ.blood
     /* 双境界面板之和 */
 
+    /**
+     * 练体 无双暴
+     * 练气 无暴击率
+     * 练魂 仅有双暴
+     */
+
     // 统计基础数据
     const panel = {
       // 基础攻击
       attack: gaspractice.attack + bodypractice.attack,
       defense: gaspractice.defense + bodypractice.defense,
       blood: gaspractice.blood + bodypractice.blood,
-      burst: gaspractice.burst + bodypractice.burst,
-      burstmax: gaspractice.burstmax + bodypractice.burstmax,
-      speed: gaspractice.speed + bodypractice.speed,
+      burst: soul.burst,
+      burstmax: gaspractice.burstmax + soul.burstmax,
+      speed: gaspractice.speed + bodypractice.speed + soul.speed,
       power: 0
     }
 
