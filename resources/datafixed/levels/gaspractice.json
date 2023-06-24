@@ -7,9 +7,9 @@
     "defense": 396,
     "blood": 2000,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 1
+    "speed": 0
   },
   "1": {
     "name": "练气一层",
@@ -19,9 +19,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 1
   },
   "2": {
     "name": "练气二层",
@@ -31,7 +31,7 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
     "speed": 2
   },
@@ -43,9 +43,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 3
   },
   "4": {
     "name": "练气四层",
@@ -55,9 +55,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 4
   },
   "5": {
     "name": "练气五层",
@@ -67,9 +67,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 5
   },
   "6": {
     "name": "练气六层",
@@ -79,9 +79,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 6
   },
   "7": {
     "name": "练气七层",
@@ -91,9 +91,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 7
   },
   "8": {
     "name": "练气八层",
@@ -103,9 +103,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 8
   },
   "9": {
     "name": "练气九层",
@@ -115,9 +115,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 9
   },
   "10": {
     "name": "练气十层",
@@ -127,9 +127,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 10
   },
   "11": {
     "name": "练气十一层",
@@ -139,9 +139,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 11
   },
   "12": {
     "name": "练气十二层",
@@ -151,9 +151,9 @@
     "defense": 731,
     "blood": 3791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 2
+    "speed": 12
   },
   "13": {
     "name": "筑基初期",
@@ -163,9 +163,9 @@
     "defense": 1283,
     "blood": 6833,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 3
+    "speed": 13
   },
   "14": {
     "name": "筑基中期",
@@ -175,9 +175,9 @@
     "defense": 1283,
     "blood": 6833,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 3
+    "speed": 14
   },
   "15": {
     "name": "筑基后期",
@@ -187,9 +187,9 @@
     "defense": 1283,
     "blood": 6833,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 3
+    "speed": 15
   },
   "16": {
     "name": "筑基巅峰",
@@ -199,9 +199,9 @@
     "defense": 1283,
     "blood": 6833,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 3
+    "speed": 16
   },
   "17": {
     "name": "金丹初期",
@@ -211,9 +211,9 @@
     "defense": 2151,
     "blood": 11767,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 4
+    "speed": 17
   },
   "18": {
     "name": "金丹中期",
@@ -223,9 +223,9 @@
     "defense": 2151,
     "blood": 11767,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 4
+    "speed": 18
   },
   "19": {
     "name": "金丹后期",
@@ -235,9 +235,9 @@
     "defense": 2151,
     "blood": 11767,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 4
+    "speed": 19
   },
   "20": {
     "name": "金丹巅峰",
@@ -247,9 +247,9 @@
     "defense": 2151,
     "blood": 11767,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 4
+    "speed": 20
   },
   "21": {
     "name": "元婴初期",
@@ -259,9 +259,9 @@
     "defense": 3462,
     "blood": 19471,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 5
+    "speed": 21
   },
   "22": {
     "name": "元婴中期",
@@ -271,9 +271,9 @@
     "defense": 3462,
     "blood": 19471,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 5
+    "speed": 22
   },
   "23": {
     "name": "元婴后期",
@@ -283,9 +283,9 @@
     "defense": 3462,
     "blood": 19471,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 5
+    "speed": 23
   },
   "24": {
     "name": "元婴巅峰",
@@ -295,9 +295,9 @@
     "defense": 3462,
     "blood": 19471,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 5
+    "speed": 24
   },
   "25": {
     "name": "化神初期",
@@ -307,9 +307,9 @@
     "defense": 5381,
     "blood": 31131,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 6
+    "speed": 25
   },
   "26": {
     "name": "化神中期",
@@ -319,9 +319,9 @@
     "defense": 5381,
     "blood": 31131,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 6
+    "speed": 26
   },
   "27": {
     "name": "化神后期",
@@ -331,9 +331,9 @@
     "defense": 5381,
     "blood": 31131,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 6
+    "speed": 27
   },
   "28": {
     "name": "化神巅峰",
@@ -343,9 +343,9 @@
     "defense": 5381,
     "blood": 31131,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 6
+    "speed": 28
   },
   "29": {
     "name": "洞虚初期",
@@ -355,9 +355,9 @@
     "defense": 8130,
     "blood": 48425,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 7
+    "speed": 29
   },
   "30": {
     "name": "洞虚中期",
@@ -367,9 +367,9 @@
     "defense": 8130,
     "blood": 48425,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 7
+    "speed": 30
   },
   "31": {
     "name": "洞虚后期",
@@ -379,9 +379,9 @@
     "defense": 8130,
     "blood": 48425,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 7
+    "speed": 31
   },
   "32": {
     "name": "洞虚巅峰",
@@ -391,9 +391,9 @@
     "defense": 8130,
     "blood": 48425,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 7
+    "speed": 32
   },
   "33": {
     "name": "合体初期",
@@ -403,9 +403,9 @@
     "defense": 12031,
     "blood": 73829,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 8
+    "speed": 33
   },
   "34": {
     "name": "合体中期",
@@ -415,9 +415,9 @@
     "defense": 12031,
     "blood": 73829,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 8
+    "speed": 34
   },
   "35": {
     "name": "合体后期",
@@ -427,9 +427,9 @@
     "defense": 12031,
     "blood": 73829,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 8
+    "speed": 35
   },
   "36": {
     "name": "合体巅峰",
@@ -439,9 +439,9 @@
     "defense": 12031,
     "blood": 73829,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 8
+    "speed": 36
   },
   "37": {
     "name": "大乘初期",
@@ -451,9 +451,9 @@
     "defense": 17567,
     "blood": 111194,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 9
+    "speed": 37
   },
   "38": {
     "name": "大乘中期",
@@ -463,9 +463,9 @@
     "defense": 17567,
     "blood": 111194,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 9
+    "speed": 38
   },
   "39": {
     "name": "大乘后期",
@@ -475,9 +475,9 @@
     "defense": 17567,
     "blood": 111194,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 9
+    "speed": 39
   },
   "40": {
     "name": "大乘巅峰",
@@ -487,9 +487,9 @@
     "defense": 17567,
     "blood": 111194,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 9
+    "speed": 40
   },
   "41": {
     "name": "渡劫",
@@ -499,9 +499,9 @@
     "defense": 25525,
     "blood": 166791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 10
+    "speed": 41
   },
   "42": {
     "name": "仙人",
@@ -511,8 +511,8 @@
     "defense": 65525,
     "blood": 486791,
     "burst": 0,
-    "burstmax": 25,
+    "burstmax": 50,
     "size": 1,
-    "speed": 15
+    "speed": 42
   }
 }

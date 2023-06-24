@@ -41,7 +41,7 @@
         "burst": 4,
         "burstmax": 40,
         "size": 1,
-        "speed": 3
+        "speed": 4
     },
     "4": {
         "name": "通幽",
@@ -52,7 +52,7 @@
         "burst": 5,
         "burstmax": 50,
         "size": 1,
-        "speed": 3
+        "speed": 5
     },
     "5": {
         "name": "用智",
@@ -60,10 +60,10 @@
         "attack": 0,
         "defense": 0,
         "blood": 0,
-        "burst": 10,
+        "burst": 6,
         "burstmax": 60,
         "size": 1,
-        "speed": 3
+        "speed": 6
     },
     "6": {
         "name": "小巧",
@@ -71,10 +71,10 @@
         "attack": 0,
         "defense": 0,
         "blood": 0,
-        "burst": 15,
+        "burst": 7,
         "burstmax": 70,
         "size": 1,
-        "speed": 3
+        "speed": 7
     },
     "7": {
         "name": "斗力",
@@ -82,10 +82,10 @@
         "attack": 0,
         "defense": 0,
         "blood": 0,
-        "burst": 20,
+        "burst": 8,
         "burstmax": 80,
         "size": 1,
-        "speed": 3
+        "speed": 8
     },
     "8": {
         "name": "若愚",
@@ -93,10 +93,10 @@
         "attack": 0,
         "defense": 0,
         "blood": 0,
-        "burst": 25,
+        "burst": 9,
         "burstmax": 90,
         "size": 1,
-        "speed": 3
+        "speed": 9
     },
     "9": {
         "name": "守拙",
@@ -104,9 +104,9 @@
         "attack": 0,
         "defense": 0,
         "blood": 0,
-        "burst": 30,
+        "burst": 10,
         "burstmax": 100,
         "size": 1,
-        "speed": 3
+        "speed": 10
     }
 }

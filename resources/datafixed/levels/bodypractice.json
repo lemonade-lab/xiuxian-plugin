@@ -6,9 +6,9 @@
         "defense": 604,
         "blood": 2000,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 1
+        "speed": 0
     },
     "1": {
         "name": "炼皮初期",
@@ -17,9 +17,9 @@
         "defense": 800,
         "blood": 3791,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 5
+        "speed": 1
     },
     "2": {
         "name": "炼皮中期",
@@ -28,9 +28,9 @@
         "defense": 850,
         "blood": 3791,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 5
+        "speed": 3
     },
     "3": {
         "name": "炼皮后期",
@@ -39,9 +39,9 @@
         "defense": 900,
         "blood": 3791,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 5
+        "speed": 3
     },
     "4": {
         "name": "炼皮巅峰",
@@ -50,9 +50,9 @@
         "defense": 950,
         "blood": 3791,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 5
+        "speed": 4
     },
     "5": {
         "name": "炼肉初期",
@@ -61,9 +61,9 @@
         "defense": 1200,
         "blood": 6833,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 6
+        "speed": 5
     },
     "6": {
         "name": "炼肉中期",
@@ -72,7 +72,7 @@
         "defense": 1300,
         "blood": 6833,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
         "speed": 6
     },
@@ -83,9 +83,9 @@
         "defense": 1400,
         "blood": 6833,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 6
+        "speed": 7
     },
     "8": {
         "name": "炼肉巅峰",
@@ -94,9 +94,9 @@
         "defense": 1500,
         "blood": 6833,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 6
+        "speed": 8
     },
     "9": {
         "name": "炼筋初期",
@@ -105,9 +105,9 @@
         "defense": 1910,
         "blood": 11767,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 7
+        "speed": 9
     },
     "10": {
         "name": "炼筋中期",
@@ -116,9 +116,9 @@
         "defense": 2010,
         "blood": 11767,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 7
+        "speed": 10
     },
     "11": {
         "name": "炼筋后期",
@@ -127,9 +127,9 @@
         "defense": 2110,
         "blood": 11767,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 7
+        "speed": 11
     },
     "12": {
         "name": "炼筋巅峰",
@@ -138,9 +138,9 @@
         "defense": 2210,
         "blood": 11767,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 7
+        "speed": 12
     },
     "13": {
         "name": "炼骨初期",
@@ -149,9 +149,9 @@
         "defense": 2703,
         "blood": 19471,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 8
+        "speed": 13
     },
     "14": {
         "name": "炼骨中期",
@@ -160,9 +160,9 @@
         "defense": 2803,
         "blood": 19471,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 8
+        "speed": 14
     },
     "15": {
         "name": "炼骨后期",
@@ -171,9 +171,9 @@
         "defense": 2903,
         "blood": 19471,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 8
+        "speed": 15
     },
     "16": {
         "name": "炼骨巅峰",
@@ -182,9 +182,9 @@
         "defense": 3003,
         "blood": 19471,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 8
+        "speed": 16
     },
     "17": {
         "name": "炼血初期",
@@ -193,9 +193,9 @@
         "defense": 3906,
         "blood": 31131,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 9
+        "speed": 17
     },
     "18": {
         "name": "炼血中期",
@@ -204,9 +204,9 @@
         "defense": 4006,
         "blood": 31131,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 9
+        "speed": 18
     },
     "19": {
         "name": "炼血后期",
@@ -215,9 +215,9 @@
         "defense": 4106,
         "blood": 31131,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 9
+        "speed": 19
     },
     "20": {
         "name": "炼血巅峰",
@@ -226,9 +226,9 @@
         "defense": 4206,
         "blood": 31131,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 9
+        "speed": 20
     },
     "21": {
         "name": "炼脏初期",
@@ -237,9 +237,9 @@
         "defense": 5743,
         "blood": 48425,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 10
+        "speed": 21
     },
     "22": {
         "name": "炼脏中期",
@@ -248,9 +248,9 @@
         "defense": 6043,
         "blood": 48425,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 10
+        "speed": 22
     },
     "23": {
         "name": "炼脏后期",
@@ -259,9 +259,9 @@
         "defense": 6343,
         "blood": 48425,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 10
+        "speed": 23
     },
     "24": {
         "name": "炼脏巅峰",
@@ -270,9 +270,9 @@
         "defense": 6643,
         "blood": 48425,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 10
+        "speed": 24
     },
     "25": {
         "name": "炼魂初期",
@@ -281,9 +281,9 @@
         "defense": 8027,
         "blood": 73829,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 11
+        "speed": 25
     },
     "26": {
         "name": "炼魂中期",
@@ -292,9 +292,9 @@
         "defense": 8527,
         "blood": 73829,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 11
+        "speed": 26
     },
     "27": {
         "name": "炼魂后期",
@@ -303,9 +303,9 @@
         "defense": 9027,
         "blood": 73829,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 11
+        "speed": 27
     },
     "28": {
         "name": "炼魂巅峰",
@@ -314,9 +314,9 @@
         "defense": 9827,
         "blood": 73829,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 11
+        "speed": 28
     },
     "29": {
         "name": "炼神初期",
@@ -325,9 +325,9 @@
         "defense": 10514,
         "blood": 111194,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 12
+        "speed": 29
     },
     "30": {
         "name": "炼神中期",
@@ -336,9 +336,9 @@
         "defense": 11514,
         "blood": 111194,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 12
+        "speed": 30
     },
     "31": {
         "name": "炼神后期",
@@ -347,9 +347,9 @@
         "defense": 12514,
         "blood": 111194,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 12
+        "speed": 31
     },
     "32": {
         "name": "炼神巅峰",
@@ -358,9 +358,9 @@
         "defense": 13514,
         "blood": 111194,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 12
+        "speed": 32
     },
     "33": {
         "name": "破体",
@@ -369,9 +369,9 @@
         "defense": 21404,
         "blood": 166791,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 13
+        "speed": 33
     },
     "34": {
         "name": "圣人",
@@ -380,8 +380,8 @@
         "defense": 61404,
         "blood": 486791,
         "burst": 0,
-        "burstmax": 25,
+        "burstmax": 0,
         "size": 1,
-        "speed": 21
+        "speed": 34
     }
 }
