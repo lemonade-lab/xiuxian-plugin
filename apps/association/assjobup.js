@@ -87,11 +87,7 @@ export class AssociationJobUp extends plugin {
       return false
     }
 
-    const victory = GameApi.Battle.battle({
-      e,
-      A: UID,
-      B: ass.master
-    })
+    const victory = GameApi.Battle.battle(e, UID, ass.master)
     const SpecialData = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerSpecial'
@@ -192,7 +188,7 @@ export class AssociationJobUp extends plugin {
       e.reply('没有找到对方在哪里，无法挑战！')
       return false
     }
-    const victory = GameApi.Battle.battle({ e, A: UID, B: battleUID })
+    const victory = GameApi.Battle.battle(e, UID, battleUID)
     if (victory == UID) {
       assGP.assJob += 1
       battleGP.assJob -= 1

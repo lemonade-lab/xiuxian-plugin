@@ -31,7 +31,7 @@ export class BoxadminConfig extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)修仙开启/, '')
-    e.reply(GameApi.Defset.updataSwich({ name, swich: true }))
+    e.reply(GameApi.Defset.updataSwich(name, true))
     return false
   }
 
@@ -39,7 +39,7 @@ export class BoxadminConfig extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const name = e.msg.replace(/^(#|\/)修仙关闭/, '')
-    e.reply(GameApi.Defset.updataSwich({ name, swich: false }))
+    e.reply(GameApi.Defset.updataSwich(name, false))
     return false
   }
 
@@ -47,7 +47,7 @@ export class BoxadminConfig extends plugin {
     if (!e.isMaster) return false
     if (!this.verify(e)) return false
     const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
-    e.reply(GameApi.Defset.updataConfig({ name, size }))
+    e.reply(GameApi.Defset.updataConfig(name, size))
     return false
   }
 

@@ -73,12 +73,7 @@ export class BoxBattleSite extends plugin {
       CHOICE: 'playerTalent'
     })
     const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-    const battleMsg = GameApi.Battle.monsterbattle({
-      e,
-      battleA: battle,
-      battleB: monsters,
-      battleNameB: Mname
-    })
+    const battleMsg = GameApi.Battle.monsterbattle(e, battle, monsters, Mname)
     for (let item of battleMsg.msg) {
       msgLeft.push(item)
     }

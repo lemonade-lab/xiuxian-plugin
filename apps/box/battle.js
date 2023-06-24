@@ -85,7 +85,7 @@ export class BoxBattle extends plugin {
       b: UIDB,
       c: UIDA
     }
-    user.c = GameApi.Battle.battle({ e, A: UIDA, B: UIDB })
+    user.c = GameApi.Battle.battle(e, UIDA, UIDB)
     const LevelB = GameApi.Data.controlAction({
       NAME: UIDB,
       CHOICE: 'playerSpecial'

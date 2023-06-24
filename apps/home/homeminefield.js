@@ -120,7 +120,7 @@ export class Homeminefield extends plugin {
       let time1 = 3
       useraction[UID] = setTimeout(() => {
         forwardsetTime[UID] = 0
-        let qq = GameApi.Battle.battle({ e, A, B })
+        let qq = GameApi.Battle.battle(e, A, B)
         let minefieldName = minefield.find((obj) => obj.address === address)
         if (qq != B) {
           let timeMax = minefieldName.timeMax

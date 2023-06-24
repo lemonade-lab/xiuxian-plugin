@@ -12,7 +12,6 @@ class Data {
   }
 
   /**
-   *
    * 读取数据
    * @param {*} NAME
    * @param {*} CHOICE
@@ -40,6 +39,7 @@ class Data {
   }
 
   /**
+   * tudo
    * 若无data则是读取操作，返回data
    * @param { NAME, CHOICE, DATA }param0
    * @returns
@@ -53,6 +53,7 @@ class Data {
   }
 
   /**
+   * tudo
    * 当读取失败时则指定初始化
    * @param { NAME, CHOICE, DATA, INITIAL } param0
    * @returns

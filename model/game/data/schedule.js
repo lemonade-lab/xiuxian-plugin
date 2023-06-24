@@ -12,9 +12,10 @@ class Schedule {
   }
 
   /**
-   * @param {  time } param0
+   * 开始备份
+   * @param {*} time
    */
-  scheduleJobflie({ time }) {
+  scheduleJobflie(time) {
     scheduleJob(time, () => {
       const myDate = new Date().getTime()
       const Y = myDate.getFullYear()
@@ -30,10 +31,11 @@ class Schedule {
   }
 
   /**
-   * @param { name } param0
+   * 恢复备份
+   * @param {*} name
    * @returns
    */
-  backupRecovery({ name }) {
+  backupRecovery(name) {
     /* 查看自己的地址在不在？我的叫做boxdata */
     if (!existsSync(this.BACKUPS_PATH)) {
       return ['无备份数据']

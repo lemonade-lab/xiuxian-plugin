@@ -8,7 +8,8 @@ const NameList = `${DirPath}/config/namelist.yaml`
 
 class Defset {
   /**
-   * @param { app, name } param0
+   *
+   * @param {*} name
    * @returns
    */
   getConfig(name) {
@@ -19,6 +20,11 @@ class Defset {
     return data
   }
 
+  /**
+   *
+   * @param {*} name
+   * @returns
+   */
   getDefset = (name) => {
     /* 获得配置地址 */
     const file = `${DirPath}/resources/defset/${name}.yaml`
@@ -27,7 +33,13 @@ class Defset {
     return data
   }
 
-  updataSwich({ name, swich }) {
+  /**
+   *
+   * @param {*} name
+   * @param {*} swich
+   * @returns
+   */
+  updataSwich(name, swich) {
     const map = {
       戳一戳: 'switch.twist',
       自动降临: 'switch.come'
@@ -44,10 +56,12 @@ class Defset {
   }
 
   /**
-   * @param { name, size }param0
+   *
+   * @param {*} name
+   * @param {*} size
    * @returns
    */
-  updataConfig({ name, size }) {
+  updataConfig(name, size) {
     const map = {
       突破冷却: 'CD.Level_up',
       破体冷却: 'CD.LevelMax_up',
@@ -78,6 +92,12 @@ class Defset {
     return `修改${name}为${size}`
   }
 
+  /**
+   *
+   * @param {*} GID
+   * @param {*} Gname
+   * @returns
+   */
   startGame(GID, Gname) {
     const data = parse(readFileSync(NameList, 'utf8'))
     data.whitecrowd.push(GID)
@@ -86,6 +106,12 @@ class Defset {
     return `[${Gname}]启动成功~`
   }
 
+  /**
+   *
+   * @param {*} GID
+   * @param {*} Gname
+   * @returns
+   */
   stopGame(GID, Gname) {
     const data = parse(readFileSync(NameList, 'utf8'))
     data.whitecrowd = data.whitecrowd.filter((item) => item != GID)

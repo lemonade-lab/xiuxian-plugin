@@ -19,19 +19,26 @@ class Special {
   }
 
   /**
+   * 增加特殊属性
    * @param {*} UID
-   * @param {*} name
+   * @param {*} arr
    * @param {*} SIZE
    */
-  addSpecial(UID, name, SIZE) {
+  addSpecial(UID, arr, SIZE) {
     const data = this.write(UID)
-    data[name] += Math.trunc(SIZE)
+    data[arr] += Math.trunc(SIZE)
     this.write(UID, data)
   }
 
-  reduceSpecial(UID, name, SIZE) {
+  /**
+   * 减少特殊属性
+   * @param {*} UID
+   * @param {*} arr
+   * @param {*} SIZE
+   */
+  reduceSpecial(UID, arr, SIZE) {
     const data = this.write(UID)
-    data[name] -= Math.trunc(SIZE)
+    data[arr] -= Math.trunc(SIZE)
     this.write(UID, data)
   }
 }

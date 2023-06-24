@@ -43,9 +43,7 @@ export class Boxadminaction extends plugin {
         path: 'msg',
         name: 'msg',
         data: {
-          msg: GameApi.Schedule.backupRecovery({
-            name: e.msg.replace(/^(#|\/)修仙复原/, '')
-          })
+          msg: GameApi.Schedule.backupRecovery(e.msg.replace(/^(#|\/)修仙复原/, ''))
         }
       })
     )

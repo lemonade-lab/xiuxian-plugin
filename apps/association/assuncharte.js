@@ -330,11 +330,7 @@ export class AssUncharted extends plugin {
         burstmax: LevelMax.burstmax + LevelMax.id * 10,
         speed: LevelMax.speed + 5
       }
-      const battleMsg = GameApi.Battle.monsterbattle({
-        e,
-        battleA: battle,
-        battleB: monsters
-      })
+      const battleMsg = GameApi.Battle.monsterbattle(e, battle, monsters)
       let msg = ['——[不巧遇见了怪物]——']
       battleMsg.msg.forEach((item) => {
         msg.push(item)
