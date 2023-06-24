@@ -118,11 +118,19 @@ export class Homeminefield extends plugin {
       e.reply(`成功占领了${address}的灵矿，获得300洞府经验`)
     } else {
       let time1 = 3
+      const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
       useraction[UID] = setTimeout(() => {
         forwardsetTime[UID] = 0
-        let qq = GameApi.Battle.battle(e, A, B)
+        const BattleDataA = GameApi.Data.read(A, 'playerBattle')
+        const BattleDataB = GameApi.Data.read(B, 'playerBattle')
+        let BMSG = GameApi.Fight.start(
+          { battleA: BattleDataA, UIDA: A, NAMEA: LifeData[A].name },
+          { battleB: BattleDataB, UIDB: B, NAMEB: LifeData[B].name }
+        )
+        GameApi.Data.write(A, 'playerBattle', BMSG.battleA)
+        GameApi.Data.write(B, 'playerBattle', BMSG.battleB)
         let minefieldName = minefield.find((obj) => obj.address === address)
-        if (qq != B) {
+        if (BMSG.victory != B) {
           let timeMax = minefieldName.timeMax
           let time3 = minefieldName.createTime
           let time1 = Math.floor((nowTime - time3) / 1000)

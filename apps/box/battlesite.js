@@ -42,13 +42,9 @@ export class BoxBattleSite extends plugin {
       return false
     }
     const MnameBuff = GameApi.Monster.add(action.region, Mname)
-    const msgLeft = []
-    const buff = {
-      msg: 1
-    }
+    let buff = 1
     if (MnameBuff) {
-      buff.msg = Math.floor(Math.random() * (5 - 2)) + Number(2)
-      msgLeft.push('怪物突然变异了!')
+      buff = Math.floor(Math.random() * (5 - 2)) + Number(2)
     }
     const Levellist = GameApi.Data.controlAction({
       NAME: 'gaspractice',
@@ -56,84 +52,93 @@ export class BoxBattleSite extends plugin {
     })
     const LevelMax = Levellist[mon.level + 1]
     const monsters = {
-      nowblood: LevelMax.blood * buff.msg,
-      attack: LevelMax.attack * buff.msg,
-      defense: LevelMax.defense * buff.msg,
-      blood: LevelMax.blood * buff.msg,
-      burst: LevelMax.burst + LevelMax.id * buff.msg,
-      burstmax: LevelMax.burstmax + LevelMax.id * buff.msg,
-      speed: LevelMax.speed + buff.msg
+      nowblood: LevelMax.blood * buff,
+      attack: LevelMax.attack * buff,
+      defense: LevelMax.defense * buff,
+      blood: LevelMax.blood * buff,
+      burst: LevelMax.burst + LevelMax.id * buff,
+      burstmax: LevelMax.burstmax + LevelMax.id * buff,
+      speed: LevelMax.speed + buff
     }
     const battle = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
     })
+    const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
+    const BMSG = GameApi.Fight.start(
+      { battleA: battle, UIDA: UID, NAMEA: LifeData[UID].name },
+      { battleB: monsters, UIDB: 1, NAMEB: Mname }
+    )
+    // 保存信息
+    GameApi.Data.write(UID, 'playerBattle', BMSG.battleA)
+    if (BMSG.victory == 0 || BMSG.victory == 1) {
+      /** 跟怪物打平手了 或者 被打败了~ 丢人 */
+      const isreply = await e.reply(
+        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
+      )
+      BotApi.Robot.surveySet(e, isreply)
+      return false
+    }
+    let msgRight = []
     const talent = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
     })
     const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-    const battleMsg = GameApi.Battle.monsterbattle(e, battle, monsters, Mname)
-    for (let item of battleMsg.msg) {
-      msgLeft.push(item)
+    const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
+    if (m < (mon.level + 1) * 6) {
+      const randomthinf = GameApi.GP.getRandomThing()
+      let najie = GameApi.Data.controlAction({
+        NAME: UID,
+        CHOICE: 'playerBag'
+      })
+      if (najie.thing.length <= najie.grade * 10) {
+        GameApi.Bag.addBagThing({
+          UID,
+          name: randomthinf.name,
+          ACCOUNT: randomthinf.acount
+        })
+        msgRight.push(`[${randomthinf.name}]*1`)
+      } else {
+        msgRight.push('储物袋已满')
+      }
     }
-    const msgRight = []
-    if (battleMsg.UID != 0) {
-      const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
-      if (m < (mon.level + 1) * 6) {
-        const randomthinf = GameApi.GP.getRandomThing()
-        let najie = GameApi.Data.controlAction({
-          NAME: UID,
-          CHOICE: 'playerBag'
-        })
-        if (najie.thing.length <= najie.grade * 10) {
-          GameApi.Bag.addBagThing({
-            UID,
-            name: randomthinf.name,
-            ACCOUNT: randomthinf.acount
-          })
-          msgRight.push(`[${randomthinf.name}]*1`)
-        } else {
-          msgRight.push('储物袋已满')
-        }
-      }
-      if (m < (mon.level + 1) * 7) {
-        const SIZE = mon.level * 25 * mybuff
-        msgRight.push(`[气血]*${SIZE}`)
-        GameApi.Levels.addExperience(UID, 1, SIZE)
-      }
-      if (m < (mon.level + 1) * 8) {
-        const lingshi = GameApi.Method.leastOne(mon.level * 2)
-        msgRight.push(`[上品灵石]*${lingshi}`)
-        GameApi.Bag.addBagThing({
-          UID,
-          name: '上品灵石',
-          ACCOUNT: lingshi
-        })
-      }
-      if (m < (mon.level + 1) * 9) {
-        const lingshi = GameApi.Method.leastOne(mon.level * 20)
-        msgRight.push(`[中品灵石]*${lingshi}`)
-        GameApi.Bag.addBagThing({
-          UID,
-          name: '中品灵石',
-          ACCOUNT: lingshi
-        })
-      }
-      if (m >= (mon.level + 1) * 9) {
-        const lingshi = GameApi.Method.leastOne(mon.level * 200)
-        msgRight.push(`[下品灵石]*${lingshi}`)
-        GameApi.Bag.addBagThing({
-          UID,
-          name: '下品灵石',
-          ACCOUNT: lingshi
-        })
-      }
+    if (m < (mon.level + 1) * 7) {
+      const SIZE = mon.level * 25 * mybuff
+      msgRight.push(`[气血]*${SIZE}`)
+      GameApi.Levels.addExperience(UID, 1, SIZE)
+    }
+    if (m < (mon.level + 1) * 8) {
+      const lingshi = GameApi.Method.leastOne(mon.level * 2)
+      msgRight.push(`[上品灵石]*${lingshi}`)
+      GameApi.Bag.addBagThing({
+        UID,
+        name: '上品灵石',
+        ACCOUNT: lingshi
+      })
+    }
+    if (m < (mon.level + 1) * 9) {
+      const lingshi = GameApi.Method.leastOne(mon.level * 20)
+      msgRight.push(`[中品灵石]*${lingshi}`)
+      GameApi.Bag.addBagThing({
+        UID,
+        name: '中品灵石',
+        ACCOUNT: lingshi
+      })
+    }
+    if (m >= (mon.level + 1) * 9) {
+      const lingshi = GameApi.Method.leastOne(mon.level * 200)
+      msgRight.push(`[下品灵石]*${lingshi}`)
+      GameApi.Bag.addBagThing({
+        UID,
+        name: '下品灵石',
+        ACCOUNT: lingshi
+      })
     }
     GameApi.Burial.set(UID, CDID, nowTime, CDTime)
     const { path, name, data } = GameApi.Information.showUserBattle({
       UID: e.user_id,
-      msgLeft,
+      msgLeft: BMSG.msg,
       msgRight
     })
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))

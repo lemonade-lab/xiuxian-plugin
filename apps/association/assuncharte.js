@@ -320,7 +320,6 @@ export class AssUncharted extends plugin {
         CHOICE: 'fixed_levels'
       })
       const LevelMax = LevelList[levelId]
-
       const monsters = {
         nowblood: Math.floor(LevelMax.blood * buff),
         attack: Math.floor(LevelMax.attack * buff),
@@ -330,19 +329,20 @@ export class AssUncharted extends plugin {
         burstmax: LevelMax.burstmax + LevelMax.id * 10,
         speed: LevelMax.speed + 5
       }
-      const battleMsg = GameApi.Battle.monsterbattle(e, battle, monsters)
-      let msg = ['——[不巧遇见了怪物]——']
-      battleMsg.msg.forEach((item) => {
-        msg.push(item)
-      })
-      GameApi.Levels.addExperience(UID, 1, assArchive.incentivesLevel)
-
-      msg.push(`获得了${250 * assArchive.incentivesLevel}气血`)
+      const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
+      const BMSG = GameApi.Fight.start(
+        { battleA: battle, UIDA: UID, NAMEA: LifeData[UID].name },
+        { battleB: monsters, UIDB: 1, NAMEB: '怪物' }
+      )
+      if (BMSG.victory == UID) {
+        GameApi.Levels.addExperience(UID, 1, assArchive.incentivesLevel)
+        BMSG.msg.push(`获得了${250 * assArchive.incentivesLevel}气血`)
+      }
       e.reply(
         await BotApi.obtainingImages({
           path: 'msg',
           name: 'msg',
-          data: { msg }
+          data: { msg: BMSG.msg }
         })
       )
     } else {

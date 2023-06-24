@@ -79,53 +79,100 @@ export class BoxBattle extends plugin {
       CHOICE: 'playerSpecial',
       DATA: SpecialData
     })
-    // 战斗记录
-    const user = {
-      a: UIDA,
-      b: UIDB,
-      c: UIDA
+    const BattleDataA = GameApi.Data.read(UIDA, 'playerBattle')
+    const BattleDataB = GameApi.Data.read(UIDB, 'playerBattle')
+    const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
+    const BMSG = GameApi.Fight.start(
+      { battleA: BattleDataA, UIDA, NAMEA: LifeData[UIDA].name },
+      { battleB: BattleDataB, UIDB, NAMEB: LifeData[UIDB].name }
+    )
+    GameApi.Data.write(UIDA, 'playerBattle', BMSG.battleA)
+    GameApi.Data.write(UIDB, 'playerBattle', BMSG.battleB)
+    /**
+     * 如果平局,直接返回
+     */
+    if (BMSG.victory == 0) {
+      /** 平局了,保存双方存档即可 */
+      const isreply = await e.reply(
+        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
+      )
+      BotApi.Robot.surveySet(e, isreply)
+      return false
     }
-    user.c = GameApi.Battle.battle(e, UIDA, UIDB)
-    const LevelB = GameApi.Data.controlAction({
+
+    const SpecialB = GameApi.Data.controlAction({
       NAME: UIDB,
       CHOICE: 'playerSpecial'
     })
-    if (user.c != UIDA) {
-      user.c = UIDA
-      user.a = UIDB
-      user.b = user.c
+
+    const user = {
+      PartyA: UIDA, // 默认a赢了
+      PartyB: UIDB,
+      prestige: SpecialB.prestige
     }
-    const LifeData = GameApi.Data.controlAction({
-      NAME: 'life',
-      CHOICE: 'playerLife'
-    })
-    const P = Math.floor(Math.random() * (99 - 1) + 1)
-    if (P <= LevelB.prestige) {
-      e.reply(`${LifeData[user.a].name}战胜了${LifeData[user.b].name}`)
+
+    if (BMSG.victory == UIDB) {
+      /** 结果是b赢了 */
+      user.PartyA = UIDB
+      user.PartyB = UIDA
+      user.prestige = SpecialData.prestige
+    }
+
+    if (!GameApi.Method.isTrueInRange(1, 100, Math.floor(user.prestige))) {
+      // 没有触发抢劫
+      const isreply = await e.reply(
+        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
+      )
+      BotApi.Robot.surveySet(e, isreply)
       return false
     }
-    let bagB = GameApi.Data.controlAction({
-      NAME: user.b,
+
+    /**
+     * 查看败者背包
+     */
+    let BagData = GameApi.Data.controlAction({
+      NAME: user.PartyB,
       CHOICE: 'playerBag'
     })
-    if (bagB.thing.length == 0) {
-      e.reply(`${LifeData[user.a].name}战胜了${LifeData[user.b].name}`)
+
+    if (BagData.thing.length == 0) {
+      /** 背包没东西 */
+      const isreply = await e.reply(
+        await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
+      )
+      BotApi.Robot.surveySet(e, isreply)
+      return
     }
-    const thing = GameApi.Method.Anyarray(bagB.thing)
-    bagB.thing = bagB.thing.filter((item) => item.name != thing.name)
+    /**
+     * 随机得到一个物品
+     */
+    const thing = GameApi.Method.Anyarray(BagData.thing)
+    /**
+     * 扣除物品
+     */
+    BagData.thing = BagData.thing.filter((item) => item.name != thing.name)
+    /**
+     * 交换物品
+     */
     GameApi.Data.controlAction({
-      NAME: user.b,
+      NAME: user.PartyB,
       CHOICE: 'playerBag',
-      DATA: bagB
+      DATA: BagData
     })
     GameApi.Bag.addBagThing({
-      UID: user.a,
+      UID: user.PartyA,
       name: thing.name,
       ACCOUNT: thing.acount
     })
-    e.reply(
-      `${LifeData[user.a].name}夺走了${LifeData[user.b].name}的[${thing.name}]*${thing.acount}`
+    BMSG.msg.push(
+      `${LifeData[user.PartyA].name}夺走了${LifeData[user.PartyA].name}的[${thing.name}]*${
+        thing.acount
+      }`
     )
+    const isreply = await e.reply(
+      await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg: BMSG.msg } })
+    )
+    BotApi.Robot.surveySet(e, isreply)
     return false
   }
 

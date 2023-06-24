@@ -10,7 +10,7 @@ import Schedule from '../game/data/schedule.js'
 import Createdata from '../game/data/createdata.js'
 import Data from '../game/data/index.js'
 
-import Battle from '../game/battel.js'
+import Fight from '../game/fight.js'
 import Monster from '../game/monster.js'
 
 import GP from '../game/box/index.js'
@@ -21,6 +21,7 @@ import Levels from '../game/box/levels.js'
 import Player from '../game/box/player.js'
 import Bag from '../game/box/bag.js'
 import Special from '../game/box/special.js'
+import Battle from '../game/box/battle.js'
 export const GameApi = {
   Extend,
   Action,
@@ -41,5 +42,6 @@ export const GameApi = {
   Monster,
   Battle,
   Information,
-  Levels
+  Levels,
+  Fight
 }
