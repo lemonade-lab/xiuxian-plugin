@@ -243,7 +243,7 @@ export class Homemove extends plugin {
       NAME: UID,
       INITIAL: []
     })
-    Warehouse1.thing = Warehouse1.thing.reduce((total, cur, index) => {
+    Warehouse1.thing = Warehouse1.thing.reduce((total, cur) => {
       let hasValue = total.findIndex((current) => {
         return current.id === cur.id
       })

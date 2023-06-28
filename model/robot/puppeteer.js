@@ -62,7 +62,7 @@ class Puppeteer {
     }
     console.info('puppeteer Chromium 启动成功')
     /** 监听Chromium实例是否断开 */
-    this.browser.on('disconnected', (e) => {
+    this.browser.on('disconnected', () => {
       console.error('puppeteer Chromium 实例关闭或崩溃!')
       this.browser = false
     })
@@ -137,7 +137,10 @@ class Puppeteer {
     /* 重启？？？ */
     this.restart()
     /* 构造image元素 */
-    return segment.image(buff)
+    if (global.segment) {
+      return global.segment.image(buff)
+    }
+    return Buffer.from(buff, 'base64')
   }
 
   /** 模板 */
