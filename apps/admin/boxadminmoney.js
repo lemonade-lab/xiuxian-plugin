@@ -11,14 +11,14 @@ export class Boxadminmoney extends plugin {
 
   async gifts(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = BotApi.Robot.at(e)
     if (!UID) return false
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)修仙馈赠/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)修仙馈赠/, '')
     const [name, ACCOUNT] = thingName.split('*')
     const isBag = GameApi.Bag.addBagThing({
       UID,
@@ -37,14 +37,14 @@ export class Boxadminmoney extends plugin {
 
   async deduction(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = BotApi.Robot.at(e)
     if (!UID) return false
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)修仙扣除/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)修仙扣除/, '')
     const [name, ACCOUNT] = thingName.split('*')
     const thing = GameApi.Bag.searchBagByName({
       UID,

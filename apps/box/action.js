@@ -12,13 +12,13 @@ export class BoxAction extends plugin {
   }
 
   async take(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    let [thingName, thingAcount] = e.msg.replace(/^(#|\/)服用/, '').split('*')
+    let [thingName, thingAcount] = e.cmd_msg.replace(/^(#|\/)服用/, '').split('*')
     const najieThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
@@ -129,13 +129,13 @@ export class BoxAction extends plugin {
   }
 
   async study(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)学习/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)学习/, '')
     const najieThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
@@ -178,13 +178,13 @@ export class BoxAction extends plugin {
   }
 
   async forget(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)忘掉/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)忘掉/, '')
     const talent = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerTalent'
@@ -207,13 +207,13 @@ export class BoxAction extends plugin {
   }
 
   async consumption(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)消耗/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)消耗/, '')
     const najieThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName

@@ -7,7 +7,7 @@ export class BoxMoneyOperation extends plugin {
   }
 
   async giveMoney(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -37,7 +37,7 @@ export class BoxMoneyOperation extends plugin {
     if (actionA.region != actionB.region) {
       return `此地未找到此人`
     }
-    let thingName = e.msg.replace(/^(#|\/)赠送/, '')
+    let thingName = e.cmd_msg.replace(/^(#|\/)赠送/, '')
     const [name, acount] = thingName.split('*')
     const money = GameApi.Bag.searchBagByName({
       UID: A,

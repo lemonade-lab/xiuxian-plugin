@@ -21,7 +21,7 @@ export class AssociationJobUp extends plugin {
   }
 
   async FetchJob(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -51,7 +51,7 @@ export class AssociationJobUp extends plugin {
   }
 
   async commitRegicide(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -127,7 +127,7 @@ export class AssociationJobUp extends plugin {
   }
 
   async launchJobChallenge(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -152,7 +152,7 @@ export class AssociationJobUp extends plugin {
       return false
     }
 
-    const battleUID = e.msg.replace(/^(#|\/)发起职位挑战/, '')
+    const battleUID = e.cmd_msg.replace(/^(#|\/)发起职位挑战/, '')
     const ifexists = AssociationApi.assUser.existArchive(battleUID)
     if (!ifexists || !AssociationApi.assUser.existAss('assGP', battleUID)) {
       return false

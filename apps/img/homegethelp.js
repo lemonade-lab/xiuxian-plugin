@@ -17,7 +17,7 @@ export class HomeGetHelp extends plugin {
   }
 
   async homeHelp(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const data = BotApi.getboxhelp('home_help')
     if (!data) {
       return false
@@ -27,7 +27,7 @@ export class HomeGetHelp extends plugin {
   }
 
   async homeAdmin(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const data = BotApi.getboxhelp('home_admin')
     if (!data) {
       return false

@@ -33,7 +33,7 @@ export class Assstart extends plugin {
   }
 
   async showAssociation(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 门派存档验证
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -86,7 +86,7 @@ export class Assstart extends plugin {
 
   // 门派俸禄
   async giftAssociation(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -144,7 +144,7 @@ export class Assstart extends plugin {
 
   // 加入门派
   async JoinAssociation(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -163,7 +163,7 @@ export class Assstart extends plugin {
       return false
     }
 
-    let assOciationName = e.msg.replace(/^(#|\/)申请加入/, '')
+    let assOciationName = e.cmd_msg.replace(/^(#|\/)申请加入/, '')
     assOciationName = assOciationName.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find(
       (item) => item.name == assOciationName
@@ -192,7 +192,7 @@ export class Assstart extends plugin {
 
   // 退出门派
   async ExitAssociation(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -264,7 +264,7 @@ export class Assstart extends plugin {
 
   // 捐赠灵石
   async giveAssociationMoney(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -278,7 +278,7 @@ export class Assstart extends plugin {
       e.reply('一介散修')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)贡献/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)贡献/, '')
     const [name, ACCOUNT] = thingName.split('*')
     const najieThing = GameApi.Bag.searchBagByName({
       UID,
@@ -325,7 +325,7 @@ export class Assstart extends plugin {
 
   // 门派列表
   async appointmentList(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

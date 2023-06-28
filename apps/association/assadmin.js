@@ -365,7 +365,7 @@ export class AssociationAdmin extends plugin {
       e.reply('权限不足')
       return false
     }
-    let memberUID = e.msg.replace(/^(#|\/)提拔/, '')
+    let memberUID = e.cmd_msg.replace(/^(#|\/)提拔/, '')
     memberUID = memberUID.trim()
     if (UID == memberUID) {
       return false
@@ -420,7 +420,7 @@ export class AssociationAdmin extends plugin {
       e.reply(`传承门派,勿忘初心`)
       return false
     }
-    let assOciationName = e.msg.replace(/^(#|\/)门派改名/, '')
+    let assOciationName = e.cmd_msg.replace(/^(#|\/)门派改名/, '')
     assOciationName = assOciationName.trim()
     if (ass.spiritStoneAns < 10000) {
       e.reply('需要[下品灵石]*10000委托联盟向天下告知~')
@@ -450,7 +450,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let menpai = e.msg.replace(/^(#|\/)/, '')
+    let menpai = e.cmd_msg.replace(/^(#|\/)/, '')
     menpai = menpai.replace('逐出门派', '')
     const memberUID = menpai
     if (UID == memberUID) {

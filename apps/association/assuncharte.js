@@ -37,7 +37,7 @@ export class AssUncharted extends plugin {
   }
 
   async assUnchartedList(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -65,7 +65,7 @@ export class AssUncharted extends plugin {
   }
 
   async goGuildSecrets(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const { state, msg } = GameApi.Action.Go(UID)
     if (state == 4001) {
@@ -76,7 +76,7 @@ export class AssUncharted extends plugin {
     if (!ifexistplay) {
       return false
     }
-    let didian = e.msg.replace(/^(#|\/)探索门派秘境/, '')
+    let didian = e.cmd_msg.replace(/^(#|\/)探索门派秘境/, '')
     didian = didian.trim()
     const weizhi = AssociationApi.assUser.assRelationList.find(
       (item) => item.unchartedName == didian
@@ -191,7 +191,7 @@ export class AssUncharted extends plugin {
   }
 
   async labyrinthMove(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !AssociationApi.assUser.existAss('assArchive', UID)) {
@@ -205,7 +205,7 @@ export class AssUncharted extends plugin {
       e.reply('血量不足...')
       return false
     }
-    let direction = e.msg.replace(/^(#|\/)秘境移动向/, '')
+    let direction = e.cmd_msg.replace(/^(#|\/)秘境移动向/, '')
     direction = direction.trim()
     const assArchive = GameApi.Data.controlAction({
       NAME: UID,
@@ -382,7 +382,7 @@ export class AssUncharted extends plugin {
   }
 
   async renameAssUncharted(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -408,7 +408,7 @@ export class AssUncharted extends plugin {
       e.reply(`门派秘境未建设好！`)
       return false
     }
-    let newName = e.msg.replace(/^(#|\/)门派秘境更名/, '')
+    let newName = e.cmd_msg.replace(/^(#|\/)门派秘境更名/, '')
     if (newName.length < 2 || newName.length > 6 || !/^[\u4e00-\u9fa5]+$/.test(newName)) {
       e.reply('非法秘境~')
       return false
@@ -426,7 +426,7 @@ export class AssUncharted extends plugin {
   }
 
   async showUnchartedGain(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -457,7 +457,7 @@ export class AssUncharted extends plugin {
   }
 
   async openChest(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -521,7 +521,7 @@ export class AssUncharted extends plugin {
   }
 
   async escapeUncharted(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

@@ -10,7 +10,7 @@ export class BoxLevel extends plugin {
   }
 
   async levelUp(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -21,7 +21,7 @@ export class BoxLevel extends plugin {
   }
 
   async levelMaxUp(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

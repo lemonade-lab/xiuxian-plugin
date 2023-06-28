@@ -10,7 +10,7 @@ export class BoxBattleSite extends plugin {
   }
 
   async userKill(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -30,7 +30,7 @@ export class BoxBattleSite extends plugin {
       e.reply(coolingMsg)
       return false
     }
-    const Mname = e.msg.replace(/^(#|\/)击杀/, '')
+    const Mname = e.cmd_msg.replace(/^(#|\/)击杀/, '')
     const action = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerAction'
@@ -170,7 +170,7 @@ export class BoxBattleSite extends plugin {
   }
 
   async userExploremonsters(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

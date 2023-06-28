@@ -14,7 +14,7 @@ export class BoxGPControl extends plugin {
   }
 
   async ambiguous(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -59,7 +59,7 @@ export class BoxGPControl extends plugin {
   }
 
   async transmissionPower(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -118,7 +118,7 @@ export class BoxGPControl extends plugin {
   }
 
   async biguan(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -139,7 +139,7 @@ export class BoxGPControl extends plugin {
   }
 
   async dagong(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -160,7 +160,7 @@ export class BoxGPControl extends plugin {
   }
 
   async chuGuan(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -184,7 +184,7 @@ export class BoxGPControl extends plugin {
   }
 
   async endWork(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

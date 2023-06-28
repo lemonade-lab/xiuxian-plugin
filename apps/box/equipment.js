@@ -10,13 +10,13 @@ export class BoxEquipment extends plugin {
   }
 
   async addEquipment(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)装备/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)装备/, '')
     const najieThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
@@ -45,13 +45,13 @@ export class BoxEquipment extends plugin {
   }
 
   async deleteEquipment(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const thingName = e.msg.replace(/^(#|\/)卸下/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)卸下/, '')
     let equipment = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerEquipment'

@@ -45,7 +45,7 @@ export class Homeminefield extends plugin {
   // 占领灵矿
   async Occupy_the_mine(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -188,7 +188,7 @@ export class Homeminefield extends plugin {
   // 领取晶石
   async collectMinerals(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -261,7 +261,7 @@ export class Homeminefield extends plugin {
 
   async refining(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -281,7 +281,7 @@ export class Homeminefield extends plugin {
       e.reply(`你的洞府还太小，根本放不下炼制所需器具!`)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)炼制/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)炼制/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let wupin = thingName.replace('晶石', '')
@@ -367,7 +367,7 @@ export class Homeminefield extends plugin {
 
   async coal(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -378,7 +378,7 @@ export class Homeminefield extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)提炼/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)提炼/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let wupin = thingName.replace('晶石', '')
@@ -440,7 +440,7 @@ export class Homeminefield extends plugin {
   // 查看占领时间
   async look_minerals(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -474,7 +474,7 @@ export class Homeminefield extends plugin {
   }
 
   async forging(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -485,7 +485,7 @@ export class Homeminefield extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)锻造/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)锻造/, '')
     let all = GameApi.Data.controlActionInitial({
       CHOICE: 'all',
       NAME: 'all',
@@ -583,7 +583,7 @@ export class Homeminefield extends plugin {
 
   // 分解
   async resolve(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -594,7 +594,7 @@ export class Homeminefield extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)分解/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)分解/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let thingAcount = parseInt(code[1]) // 数量
@@ -658,7 +658,7 @@ export class Homeminefield extends plugin {
 
   // 修理
   async repair(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -669,7 +669,7 @@ export class Homeminefield extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)修理/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)修理/, '')
     let Warehouse = GameApi.Data.controlActionInitial({
       CHOICE: 'homeWarehouse',
       NAME: UID,

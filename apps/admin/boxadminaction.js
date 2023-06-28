@@ -12,7 +12,7 @@ export class Boxadminaction extends plugin {
 
   async deleteAllReids(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     GameApi.Burial.deleteAll()
     e.reply('删除完成')
     return false
@@ -20,7 +20,7 @@ export class Boxadminaction extends plugin {
 
   async deleteAllusers(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     GameApi.Data.write('life', 'playerLife', {})
     GameApi.Burial.deleteAll()
     e.reply('删除完成')
@@ -29,13 +29,13 @@ export class Boxadminaction extends plugin {
 
   async dataRecovery(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     e.reply(
       BotApi.obtainingImages({
         path: 'msg',
         name: 'msg',
         data: {
-          msg: GameApi.Schedule.backupRecovery(e.msg.replace(/^(#|\/)修仙复原/, ''))
+          msg: GameApi.Schedule.backupRecovery(e.cmd_msg.replace(/^(#|\/)修仙复原/, ''))
         }
       })
     )

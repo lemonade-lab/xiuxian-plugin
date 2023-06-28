@@ -33,7 +33,7 @@ export class AssBlessPlace extends plugin {
   }
 
   async assOciationBattle(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -47,7 +47,7 @@ export class AssBlessPlace extends plugin {
       e.reply('权限不足')
       return false
     }
-    let AID = e.msg.replace(/^(#|\/)集合攻打/, '')
+    let AID = e.cmd_msg.replace(/^(#|\/)集合攻打/, '')
     AID = AID.trim()
     const assRelation = AssociationApi.assUser.assRelationList.find((item) => item.name == AID)
     if (!assRelation) {
@@ -136,7 +136,7 @@ export class AssBlessPlace extends plugin {
 
   // 秘境地点
   async blessPlaceList(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     let addres = '洞天福地'
     let weizhi = AssociationApi.assUser.blessPlaceList
     GoBlessPlace(e, weizhi, addres)
@@ -144,7 +144,7 @@ export class AssBlessPlace extends plugin {
 
   // 入驻洞天
   async settledBlessedPlace(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -162,7 +162,7 @@ export class AssBlessPlace extends plugin {
       NAME: assGP.AID,
       CHOICE: 'assOciation'
     })
-    let blessedName = e.msg.replace(/^(#|\/)入驻洞天/, '')
+    let blessedName = e.cmd_msg.replace(/^(#|\/)入驻洞天/, '')
     blessedName = blessedName.trim()
     // 洞天不存在
     const dongTan = AssociationApi.assUser.blessPlaceList.find((item) => item.name == blessedName)
@@ -287,7 +287,7 @@ export class AssBlessPlace extends plugin {
   }
 
   async constructionGuild(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -316,7 +316,7 @@ export class AssBlessPlace extends plugin {
       return false
     }
 
-    let buildName = e.msg.replace(/^(#|\/)修建/, '')
+    let buildName = e.cmd_msg.replace(/^(#|\/)修建/, '')
     buildName = buildName.trim()
 
     // 门派不存在
@@ -384,7 +384,7 @@ export class AssBlessPlace extends plugin {
   }
 
   async showAssociationBuilder(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

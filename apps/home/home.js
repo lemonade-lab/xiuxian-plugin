@@ -35,7 +35,7 @@ export class Homestart extends plugin {
   }
 
   async buildhome(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -65,7 +65,7 @@ export class Homestart extends plugin {
     }
 
     /** 开始修建 */
-    const address = e.msg.replace(/^(#|\/)开辟洞府/, '')
+    const address = e.cmd_msg.replace(/^(#|\/)开辟洞府/, '')
     const addressName = '联盟'
     if (!GameApi.Map.mapAction({ UID: e.user_id, addressName })) {
       e.reply(`需[(#|/)前往+城池名+${addressName}]寻求联盟帮助`)
@@ -128,7 +128,7 @@ export class Homestart extends plugin {
   }
 
   async myhome(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -147,7 +147,7 @@ export class Homestart extends plugin {
   }
 
   async Warehouse(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -171,7 +171,7 @@ export class Homestart extends plugin {
   // 洞府扩建
   async extensionhome(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 验证主存档
     if (!GameApi.Player.getUserLifeSatus(UID)) {
@@ -269,7 +269,7 @@ export class Homestart extends plugin {
 
   async unextensionhome(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -312,7 +312,7 @@ export class Homestart extends plugin {
 
   async movehome(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -332,7 +332,7 @@ export class Homestart extends plugin {
       e.reply(`联盟人员正在加紧修建...`)
       return false
     }
-    const address = e.msg.replace(/^(#|\/)搬迁洞府到/, '')
+    const address = e.cmd_msg.replace(/^(#|\/)搬迁洞府到/, '')
     if (ifexisthome.address == address) {
       e.reply(
         `你的洞府就在${address}，联盟人员看了看你的洞府，再看了看你要搬的地点，随后投来了异样的眼光`

@@ -26,7 +26,7 @@ export class Homemove extends plugin {
 
   async movewarehouse(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)
@@ -45,7 +45,7 @@ export class Homemove extends plugin {
       e.reply('您现在不在洞府里，无法隔空取物哦！')
       return
     }
-    const thing = e.msg.replace(/^(#|\/)转移到仓库/, '')
+    const thing = e.cmd_msg.replace(/^(#|\/)转移到仓库/, '')
     const code = thing.split('*')
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
@@ -96,7 +96,7 @@ export class Homemove extends plugin {
   }
 
   async movenajie(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)
@@ -125,7 +125,7 @@ export class Homemove extends plugin {
       e.reply('您现在不在洞府里，无法隔空取物哦！')
       return
     }
-    const thing = e.msg.replace(/^(#|\/)转移到储物袋/, '')
+    const thing = e.cmd_msg.replace(/^(#|\/)转移到储物袋/, '')
     const code = thing.split('*')
     const thingName = code[0] // 物品
     const thingAcount = code[1] // 数量
@@ -173,7 +173,7 @@ export class Homemove extends plugin {
   }
 
   async updateWarehouse(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)
@@ -288,7 +288,7 @@ export class Homemove extends plugin {
   }
 
   async chongzhinongtian(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)

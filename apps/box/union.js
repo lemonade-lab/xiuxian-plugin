@@ -12,7 +12,7 @@ export class Boxunion extends plugin {
   }
 
   async unionShop(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     if (!UnionMessage(e)) return false
     const msg = ['___[联盟商会]___']
     msg.push('[(#|/)兑换+物品名*数量]')
@@ -64,14 +64,14 @@ export class Boxunion extends plugin {
   }
 
   async unionBuy(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     if (!UnionMessage(e)) return false
     e.reply('[尚未开张~]')
     return false
   }
 
   async userSignIn(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!UnionMessage(e)) return false
     const SignData = GameApi.Data.readInitial('sign', 'playerLife', {})
@@ -120,7 +120,7 @@ export class Boxunion extends plugin {
   }
 
   async userCheckin(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!UnionMessage(e)) return false
     const LevelData = GameApi.Data.controlAction({

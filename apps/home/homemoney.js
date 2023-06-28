@@ -25,7 +25,7 @@ export class Homemoney extends plugin {
   }
 
   async Mylingshi(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -50,7 +50,7 @@ export class Homemoney extends plugin {
 
   // 出售商品
   async Homesale(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -61,7 +61,7 @@ export class Homemoney extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)售卖/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)售卖/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let thingAcount = code[1] // 数量
@@ -116,7 +116,7 @@ export class Homemoney extends plugin {
   }
 
   async dogshop(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -171,7 +171,7 @@ export class Homemoney extends plugin {
   }
 
   async Buy_home(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -182,7 +182,7 @@ export class Homemoney extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)采购/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)采购/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let thingAcount = code[1] // 数量

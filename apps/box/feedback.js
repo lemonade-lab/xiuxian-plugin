@@ -7,7 +7,7 @@ export class BoxFeedback extends plugin {
   }
 
   async substitution(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const isreply = await e.reply(`
     [问题反馈]
     1.打开下方链接

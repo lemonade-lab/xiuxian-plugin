@@ -13,7 +13,6 @@ setMessage(AppName, (e) => {
     e.user_avatar = e.msg.author.avatar
   }
   // e消息不能被顶替掉....
-  // 只能新增
   /* 建议开发时在此处打印,用于观察 */
   console.info(e)
   return e

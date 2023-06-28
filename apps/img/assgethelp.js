@@ -17,7 +17,7 @@ export class AssGetHelp extends plugin {
   }
 
   async assHelpImg(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const data = BotApi.getboxhelp('ass_help')
     if (!data) return false
     const isreply = e.reply(await BotApi.ImgCache.helpcache(6, data))
@@ -26,7 +26,7 @@ export class AssGetHelp extends plugin {
   }
 
   async assHelpAdmin(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const data = BotApi.getboxhelp('ass_admin')
     if (!data) return false
     const isreply = e.reply(await BotApi.ImgCache.helpcache(7, data))

@@ -15,7 +15,7 @@ export class BoxTransaction extends plugin {
   }
 
   async showComodities(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     if (!transactionMessage(e)) return false
     const msg = ['___[万宝楼]___']
     msg.push('[(#|/)购买+物品名*数量]')
@@ -69,10 +69,10 @@ export class BoxTransaction extends plugin {
   }
 
   async buyComodities(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!transactionMessage(e)) return false
-    const [thingName, quantity] = e.msg.replace(/^(#|\/)购买/, '').split('*')
+    const [thingName, quantity] = e.cmd_msg.replace(/^(#|\/)购买/, '').split('*')
     const Commodities = GameApi.Data.controlAction({
       NAME: 'commodities',
       CHOICE: 'generate_all'
@@ -106,10 +106,10 @@ export class BoxTransaction extends plugin {
   }
 
   async sellComodities(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!transactionMessage(e)) return false
-    const [thingName, quantity] = e.msg.replace(/^(#|\/)出售/, '').split('*')
+    const [thingName, quantity] = e.cmd_msg.replace(/^(#|\/)出售/, '').split('*')
     const najieThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
@@ -140,7 +140,7 @@ export class BoxTransaction extends plugin {
   }
 
   async substitution(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!transactionMessage(e)) return false
     let bag = GameApi.Data.controlAction({
@@ -171,10 +171,10 @@ export class BoxTransaction extends plugin {
   }
 
   async shellAllType(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!transactionMessage(e)) return false
-    const type = e.msg.replace(/^(#|\/)一键出售/, '')
+    const type = e.cmd_msg.replace(/^(#|\/)一键出售/, '')
     const maptype = {
       武器: '1',
       护具: '2',

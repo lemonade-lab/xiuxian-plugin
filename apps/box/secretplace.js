@@ -13,7 +13,7 @@ export class BoxSecretplace extends plugin {
   }
 
   async xyzaddress(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -29,7 +29,7 @@ export class BoxSecretplace extends plugin {
   }
 
   async showCity(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -66,7 +66,7 @@ export class BoxSecretplace extends plugin {
   }
 
   async falsePiont(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -85,7 +85,7 @@ export class BoxSecretplace extends plugin {
   }
 
   async forward(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -101,7 +101,7 @@ export class BoxSecretplace extends plugin {
       NAME: UID,
       CHOICE: 'playerAction'
     })
-    const address = e.msg.replace(/^(#|\/)前往/, '')
+    const address = e.cmd_msg.replace(/^(#|\/)前往/, '')
     const Point = GameApi.Data.controlAction({
       NAME: 'point',
       CHOICE: 'generate_position'
@@ -166,7 +166,7 @@ export class BoxSecretplace extends plugin {
   }
 
   async delivery(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -183,7 +183,7 @@ export class BoxSecretplace extends plugin {
     })
     const x = action.x
     const y = action.y
-    const address = e.msg.replace(/^(#|\/)传送/, '')
+    const address = e.cmd_msg.replace(/^(#|\/)传送/, '')
     const Posirion = GameApi.Data.controlAction({
       NAME: 'position',
       CHOICE: 'generate_position'

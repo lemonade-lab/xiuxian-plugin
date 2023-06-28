@@ -10,12 +10,12 @@ export class BoxBattle extends plugin {
   }
 
   async duel(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const UIDA = UID
     let UIDB = BotApi.Robot.at(e)
     if (!UIDB || UIDA == UIDB) {
-      UIDB = e.msg.replace(/^(#|\/)打劫/, '')
+      UIDB = e.cmd_msg.replace(/^(#|\/)打劫/, '')
       if (!UIDB || UIDA == UIDB) return false
     }
     if (!GameApi.Player.isUser(UIDB)) {
@@ -227,7 +227,7 @@ export class BoxBattle extends plugin {
   }
 
   async handWashing(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

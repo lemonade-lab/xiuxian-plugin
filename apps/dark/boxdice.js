@@ -10,7 +10,7 @@ export class BoxDice extends plugin {
   }
 
   async userDice(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     if (!diceMessage(e)) return false
     const msg = ['___[万花坊]___']
     msg.push('[(#|/)命运转盘+物品名*数量]')
@@ -62,10 +62,10 @@ export class BoxDice extends plugin {
   }
 
   async wheelDestiny(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!diceMessage(e)) return false
-    const thingName = e.msg.replace(/^(#|\/)命运转盘/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)命运转盘/, '')
     const [NAME, ACCOUNT] = thingName.split('*')
     const commoditiesList = GameApi.Data.controlAction({
       NAME: 'wheeldisc',

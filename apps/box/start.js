@@ -10,7 +10,7 @@ export class BoxStart extends plugin {
   }
 
   async createMsg(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -23,7 +23,7 @@ export class BoxStart extends plugin {
   }
 
   async reCreateMsg(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850

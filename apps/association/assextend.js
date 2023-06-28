@@ -21,9 +21,9 @@ export class AssociationExtend extends plugin {
   }
 
   async buildFactoryGood(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     if (!e.isMaster) return false
-    let msg = e.msg.replace(/^(#|\/)建好/, '')
+    let msg = e.cmd_msg.replace(/^(#|\/)建好/, '')
     msg = msg.trim()
     const code = msg.split('*')
     const [AID, buildName] = code
@@ -73,7 +73,7 @@ export class AssociationExtend extends plugin {
   }
 
   async identifyToken(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

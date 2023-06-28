@@ -35,7 +35,7 @@ export class Homeland extends plugin {
   // 开垦土地
   async ReceiveLand(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -116,7 +116,7 @@ export class Homeland extends plugin {
   // 种植
   async zhongxia(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
@@ -138,7 +138,7 @@ export class Homeland extends plugin {
       e.reply('您现在不在洞府里，种地必须要返回洞府种哦')
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)种下/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)种下/, '')
     let code = thing.split('*')
     let thingName = code[0] // 种子名字
     let thingAcount = code[1] // 种子数量
@@ -234,7 +234,7 @@ export class Homeland extends plugin {
 
   // 收获
   async shouhuo(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
@@ -256,7 +256,7 @@ export class Homeland extends plugin {
       e.reply('您现在不在洞府里，必须要返回洞府才能收获哦')
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)收获/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)收获/, '')
     let landgoods1 = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: UID,
@@ -399,7 +399,7 @@ export class Homeland extends plugin {
 
   // 查看药田
   async lookland(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -423,7 +423,7 @@ export class Homeland extends plugin {
 
   // 偷药
   async Stealvegetables(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const { state: stateGp, msg: msgGo } = GameApi.Action.Go(e.user_id)
     if (stateGp == 4001) {
       e.reply(msgGo)
@@ -470,7 +470,7 @@ export class Homeland extends plugin {
       e.reply(CD)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)偷药/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)偷药/, '')
     let landgoods2 = GameApi.Data.controlActionInitial({
       CHOICE: 'fixed_goods',
       NAME: user.B,
@@ -544,7 +544,7 @@ export class Homeland extends plugin {
 
   // 查看他人药田
   async otherlookland(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const user = {
       A: e.user_id,
       C: 0,

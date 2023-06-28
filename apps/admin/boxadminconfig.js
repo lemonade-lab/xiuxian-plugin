@@ -13,31 +13,31 @@ export class BoxadminConfig extends plugin {
 
   async boxaSwitchOpen(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
-    const name = e.msg.replace(/^(#|\/)修仙开启/, '')
+    if (!super.verify(e)) return false
+    const name = e.cmd_msg.replace(/^(#|\/)修仙开启/, '')
     e.reply(GameApi.Defset.updataSwich(name, true))
     return false
   }
 
   async boxaSwitchOff(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
-    const name = e.msg.replace(/^(#|\/)修仙关闭/, '')
+    if (!super.verify(e)) return false
+    const name = e.cmd_msg.replace(/^(#|\/)修仙关闭/, '')
     e.reply(GameApi.Defset.updataSwich(name, false))
     return false
   }
 
   async updataConfig(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
-    const [name, size] = e.msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
+    if (!super.verify(e)) return false
+    const [name, size] = e.cmd_msg.replace(/^(#|\/)修仙配置更改/, '').split('*')
     e.reply(GameApi.Defset.updataConfig(name, size))
     return false
   }
 
   async reUpdataConfig(e) {
     if (!e.isMaster) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     GameApi.Createdata.recreateConfig()
     e.reply('配置已重置')
     return false

@@ -12,7 +12,7 @@ export class BoxExchange extends plugin {
   }
 
   async supermarket(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -33,13 +33,13 @@ export class BoxExchange extends plugin {
   }
 
   async onsell(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const [thingName, account, money] = e.msg.replace(/^(#|\/)上架/, '').split('*')
+    const [thingName, account, money] = e.cmd_msg.replace(/^(#|\/)上架/, '').split('*')
     const bagThing = GameApi.Bag.searchBagByName({
       UID,
       name: thingName
@@ -76,7 +76,7 @@ export class BoxExchange extends plugin {
   }
 
   async Offsell(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -126,14 +126,14 @@ export class BoxExchange extends plugin {
   }
 
   async purchase(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
     // 寻找id
-    let ID = e.msg.replace(/^(#|\/)选购/, '')
+    let ID = e.cmd_msg.replace(/^(#|\/)选购/, '')
     let x = 888888888
     let y = 888888888
     let exchange = GameApi.Data.controlActionInitial({

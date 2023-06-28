@@ -38,7 +38,7 @@ export class Homecook extends plugin {
 
   async Occupy_the_mine(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -480,7 +480,7 @@ export class Homecook extends plugin {
 
   async eat(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -495,7 +495,7 @@ export class Homecook extends plugin {
       e.reply(msg)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)吃/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)吃/, '')
     let code = thing.split('*')
     let code1 = code[0] + ' · ' + code[1]
     let nowTime = new Date().getTime()
@@ -572,7 +572,7 @@ export class Homecook extends plugin {
 
   async fabucaipu(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -590,7 +590,7 @@ export class Homecook extends plugin {
       e.reply(`需要前往各大主城中的${addressName}才能发布`)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)发布/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)发布/, '')
     let caipu = HomeApi.GP.homeexistWarehouseThingName(UID, thing)
     if (!caipu) {
       e.reply(`你没有该物品`)
@@ -653,7 +653,7 @@ export class Homecook extends plugin {
 
   async wanmin(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -689,7 +689,7 @@ export class Homecook extends plugin {
   }
 
   async wanminbug(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -707,7 +707,7 @@ export class Homecook extends plugin {
       e.reply(`需要前往各大主城中的${addressName}才能购买`)
       return false
     }
-    let thing = e.msg.replace(/^(#|\/)炼丹阁购买/, '')
+    let thing = e.cmd_msg.replace(/^(#|\/)炼丹阁购买/, '')
     let code = thing.split('*')
     let thingName = code[0] // 物品
     let shipu = HomeApi.GP.homeexistWarehouseThingName(UID, thingName)
@@ -774,7 +774,7 @@ export class Homecook extends plugin {
 
   async stir_fry(e) {
     // 不开放私聊功能
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -785,7 +785,7 @@ export class Homecook extends plugin {
       e.reply(msg)
       return false
     }
-    let thing0 = e.msg.replace(/^(#|\/)用/, '')
+    let thing0 = e.cmd_msg.replace(/^(#|\/)用/, '')
     let thing1 = thing0.split('炒')
     let code = thing1[1].split('*')
     let Warehouse = GameApi.Data.controlActionInitial({

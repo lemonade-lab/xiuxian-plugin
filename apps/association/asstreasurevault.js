@@ -25,7 +25,7 @@ export class assTreasure extends plugin {
   }
 
   async reclaimItem(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -64,7 +64,7 @@ export class assTreasure extends plugin {
       e.reply(`请先回门派`)
       return false
     }
-    let thingName = e.msg.replace(/^(#|\/)藏宝阁回收/, '')
+    let thingName = e.cmd_msg.replace(/^(#|\/)藏宝阁回收/, '')
 
     const searchThing = GameApi.Bag.searchBagByName({
       UID,
@@ -125,7 +125,7 @@ export class assTreasure extends plugin {
 
   // 藏宝阁
   async treasureCabinetList(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -174,7 +174,7 @@ export class assTreasure extends plugin {
 
   // 置换
   async convertedLtem(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -194,7 +194,7 @@ export class assTreasure extends plugin {
       NAME: assGP.AID,
       CHOICE: 'assOciation'
     })
-    const thingName = e.msg.replace(/^(#|\/)置换/, '')
+    const thingName = e.cmd_msg.replace(/^(#|\/)置换/, '')
 
     if (ass.facility[1].status == 0 || thingName == '') {
       return false
@@ -257,7 +257,7 @@ export class assTreasure extends plugin {
   }
 
   async showContribute(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

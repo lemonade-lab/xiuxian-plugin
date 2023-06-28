@@ -10,7 +10,7 @@ export class BoxBank extends plugin {
   }
 
   async moneyWorkshop(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -37,13 +37,13 @@ export class BoxBank extends plugin {
   }
 
   async substitution(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const [account, LeftName, RightName] = e.msg.replace(/^(#|\/)金银置换/, '').split('*')
+    const [account, LeftName, RightName] = e.cmd_msg.replace(/^(#|\/)金银置换/, '').split('*')
     const quantity = convertStoneQuantity(account, LeftName, RightName)
     if (!quantity) return
     const money = GameApi.Bag.searchBagByName({

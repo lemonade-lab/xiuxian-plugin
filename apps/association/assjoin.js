@@ -29,14 +29,14 @@ export class AssociationJoin extends plugin {
   }
 
   async viewResume(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
       return false
     }
 
-    const joinUID = e.msg.replace(/^(#|\/)查看/, '')
+    const joinUID = e.cmd_msg.replace(/^(#|\/)查看/, '')
     const assGP = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'assGP'
@@ -72,7 +72,7 @@ export class AssociationJoin extends plugin {
   }
 
   async clearVolunteer(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -112,10 +112,10 @@ export class AssociationJoin extends plugin {
   }
 
   async approvalAdmission(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
-    const joinUID = e.msg.replace(/^(#|\/)招收/, '')
+    const joinUID = e.cmd_msg.replace(/^(#|\/)招收/, '')
     if (!ifexistplay || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
     }
@@ -167,14 +167,14 @@ export class AssociationJoin extends plugin {
   }
 
   async denialApplication(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
       return false
     }
 
-    const joinUID = e.msg.replace(/^(#|\/)驳回招收/, '')
+    const joinUID = e.cmd_msg.replace(/^(#|\/)驳回招收/, '')
 
     if (!ifexistplay || !e.isGroup || !AssociationApi.assUser.existAss('assGP', joinUID)) {
       return false
@@ -216,7 +216,7 @@ export class AssociationJoin extends plugin {
   }
 
   async showAllResume(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

@@ -10,10 +10,10 @@ export class BoxModify extends plugin {
   }
 
   async changeName(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!modifiyMessage(e)) return false
-    let theName = e.msg.replace(/^(#|\/)更改道号/, '')
+    let theName = e.cmd_msg.replace(/^(#|\/)更改道号/, '')
     if (theName.length == 0) {
       return false
     }
@@ -45,10 +45,10 @@ export class BoxModify extends plugin {
   }
 
   async changeAutograph(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     if (!modifiyMessage(e)) return false
-    let theMsg = e.msg.replace(/^(#|\/)更改道宣/, '')
+    let theMsg = e.cmd_msg.replace(/^(#|\/)更改道宣/, '')
     if (theMsg.length == 0 || theMsg.length > 50) {
       e.reply('请正确设置,且道宣最多50字符')
       return false
