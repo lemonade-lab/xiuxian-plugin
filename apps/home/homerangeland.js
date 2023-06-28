@@ -632,7 +632,7 @@ export class Homerangeland extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const { path, name, data } = HomeApi.Information.showLookrangeland(UID)
+    const { path, name, data } = HomeApi.Information.showLookrangeland(UID,e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 
@@ -763,7 +763,7 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在对方洞府所在地内，偷看请到对方洞府所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.showLookrangeland(user.B)
+    const { path, name, data } = HomeApi.Information.showLookrangeland(user.B,e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 }

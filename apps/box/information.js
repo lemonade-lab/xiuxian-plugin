@@ -17,7 +17,7 @@ export class BoxInformation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false
@@ -30,7 +30,7 @@ export class BoxInformation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.showUserEquipment(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserEquipment(e.user_id,e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false
@@ -43,7 +43,7 @@ export class BoxInformation extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.showUserTalent(e.user_id)
+    const { path, name, data } = GameApi.Information.showUserTalent(e.user_id,e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false

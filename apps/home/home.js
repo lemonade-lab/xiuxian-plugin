@@ -139,9 +139,7 @@ export class Homestart extends plugin {
       e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.showhomeUser({
-      UID
-    })
+    const { path, name, data } = HomeApi.Information.showhomeUser( UID,e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
     return false
   }
@@ -163,7 +161,7 @@ export class Homestart extends plugin {
       e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.showWarehouse(UID)
+    const { path, name, data } = HomeApi.Information.showWarehouse(UID,e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, data, name }))
     return false
   }

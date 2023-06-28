@@ -254,7 +254,7 @@ export class BoxAction extends plugin {
             DATA: talent
           })
           GameApi.Talent.updataEfficiency(UID)
-          const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
+          const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.showUserPlayer)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet(e, isreply)
           break
@@ -270,7 +270,7 @@ export class BoxAction extends plugin {
             CHOICE: 'playerTalent',
             DATA: talent
           })
-          const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id)
+          const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.user_avatar)
           const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
           BotApi.Robot.surveySet(e, isreply)
           break

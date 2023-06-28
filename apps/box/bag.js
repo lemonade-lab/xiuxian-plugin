@@ -16,7 +16,7 @@ export class BoxBag extends plugin {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.showUserBag(UID)
+    const { path, name, data } = GameApi.Information.showUserBag(UID,e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false

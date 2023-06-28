@@ -6,7 +6,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showWarehouse(UID) {
+  showWarehouse(UID,user_avatar) {
     let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
@@ -99,7 +99,7 @@ class Information {
         cubList,
         fargment,
         other,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar
       }
     }
   }
@@ -109,7 +109,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showhomeUser(UID) {
+  showhomeUser(UID,user_avatar) {
     const GP = Data.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
@@ -151,7 +151,7 @@ class Information {
         Land: home.Land,
         doge: home.doge,
         address: ifexisthome.address,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar
       }
     }
   }
@@ -161,7 +161,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showLookland(UID) {
+  showLookland(UID,user_avatar) {
     let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
@@ -192,7 +192,7 @@ class Information {
         landgoods,
         thing,
         landList,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar
       }
     }
   }
@@ -202,7 +202,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showLookrangeland(UID) {
+  showLookrangeland(UID,user_avatar) {
     const rangelandannimals = Data.controlActionInitial({
       CHOICE: 'homeRangelandannimals',
       NAME: UID,
@@ -231,7 +231,7 @@ class Information {
         rangelandannimals,
         thing,
         rangelandannimalsList,
-        user_avatar: `https://q1.qlogo.cn/g?b=qq&s=0&nk=${UID}`
+        user_avatar
       }
     }
   }
