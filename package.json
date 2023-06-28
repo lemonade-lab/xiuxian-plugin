@@ -1,21 +1,16 @@
 {
-  "name": "xiuxian",
+  "name": "xiuxian-plugin",
   "version": "2.1.0",
-  "description": "xiuxian@2.1",
-  "main": "main.js",
+  "description": "凡人修仙文字游戏",
   "scripts": {
     "serve": "node main.js",
     "dev:img": "nodemon main.js",
     "format": "npx prettier --write .",
     "lint": "eslint . --ext .js,.ts --fix --ignore-path .gitignore"
   },
-  "type": "module",
-  "keywords": [
-    "xiuxian-plugin",
-    "yunzai-bot"
-  ],
   "author": "ningmengchongshui",
   "license": "GPL-2.0",
+  "type": "module",
   "devDependencies": {
     "art-template": "^4.13.2",
     "eslint": "^8.43.0",
@@ -27,5 +22,14 @@
     "prettier": "^2.8.8",
     "redis": "^4.1.0",
     "yaml": "^2.1.1"
-  }
+  },
+  "imports": {
+    "#xiuxian-api": "./model/api/index.js"
+  },
+  "engines": {
+    "node": ">=16.3.0"
+  },
+  "keywords": [
+    "yunzai-bot"
+  ]
 }

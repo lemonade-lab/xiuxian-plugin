@@ -1,4 +1,4 @@
-import { plugin, GameApi, AssociationApi } from '../../model/api/index.js'
+import { plugin, GameApi, AssociationApi } from '#xiuxian-api'
 // 汐颜
 export class AssociationJobUp extends plugin {
   constructor() {

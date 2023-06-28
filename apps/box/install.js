@@ -1,4 +1,4 @@
-import { GameApi, plugin } from '../../model/api/index.js'
+import { GameApi, plugin } from '#xiuxian-api'
 export class BoxInstall extends plugin {
   constructor() {
     super({

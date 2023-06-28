@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '#xiuxian-api'
 export class BoxDice extends plugin {
   constructor() {
     super({

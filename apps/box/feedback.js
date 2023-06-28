@@ -1,4 +1,4 @@
-import { plugin, BotApi } from '../../model/api/index.js'
+import { plugin, BotApi } from '#xiuxian-api'
 export class BoxFeedback extends plugin {
   constructor() {
     super({

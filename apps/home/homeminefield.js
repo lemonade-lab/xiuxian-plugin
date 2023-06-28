@@ -1,4 +1,4 @@
-import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
+import { GameApi, HomeApi, plugin } from '#xiuxian-api'
 const forwardsetTime = []
 const useraction = []
 // 秋雨

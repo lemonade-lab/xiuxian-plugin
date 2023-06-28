@@ -1,4 +1,4 @@
-import { GameApi, HomeApi, plugin } from '../../model/api/index.js'
+import { GameApi, HomeApi, plugin } from '#xiuxian-api'
 // 秋雨
 export class Homemove extends plugin {
   constructor() {

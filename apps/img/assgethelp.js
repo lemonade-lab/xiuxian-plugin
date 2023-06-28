@@ -1,4 +1,4 @@
-import { plugin, BotApi } from '../../model/api/index.js'
+import { plugin, BotApi } from '#xiuxian-api'
 // 汐颜
 export class AssGetHelp extends plugin {
   constructor() {

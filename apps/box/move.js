@@ -1,4 +1,4 @@
-import { plugin } from '../../model/api/index.js'
+import { plugin } from '#xiuxian-api'
 export class BoxMove extends plugin {
   constructor() {
     super({

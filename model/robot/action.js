@@ -65,22 +65,6 @@ class Robot {
     }
     return false
   }
-
-  /**
-   *
-   * @param {*} id
-   * @param {*} msg
-   */
-  privateChat = (id, msg) => {
-    Bot.pickUser(id).sendMsg(msg)
-  }
-
-  controlMessage = (e) => {
-    const { whitecrowd, blackid } = getConfig('namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
-    return true
-  }
 }
 export default new Robot()
 /**

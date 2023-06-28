@@ -15,7 +15,6 @@ export class plugin extends plugins {
   // 统一验证方法
   verify(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    if (!BotApi.Robot.controlMessage(e)) return false
     return true
   }
 }

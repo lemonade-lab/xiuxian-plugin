@@ -1,4 +1,4 @@
-import { BotApi, GameApi, plugin } from '../../model/api/index.js'
+import { BotApi, GameApi, plugin } from '#xiuxian-api'
 /** 购买物品是原价的1.2倍 */
 const ExchangeRate = 1.2
 export class BoxTransaction extends plugin {

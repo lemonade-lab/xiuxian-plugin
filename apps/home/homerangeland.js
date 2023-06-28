@@ -1,4 +1,4 @@
-import { HomeApi, GameApi, BotApi, plugin } from '../../model/api/index.js'
+import { HomeApi, GameApi, BotApi, plugin } from '#xiuxian-api'
 // 秋雨
 export class Homerangeland extends plugin {
   constructor() {
