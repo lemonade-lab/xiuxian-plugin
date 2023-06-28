@@ -4,8 +4,6 @@ import { DirPath } from '../../../app.config.js'
 /** 自定义配置地址 */
 const __diryaml = `${DirPath}/config/cooling.yaml`
 
-const NameList = `${DirPath}/config/namelist.yaml`
-
 class Defset {
   /**
    *
@@ -90,34 +88,6 @@ class Defset {
     const yamlStr = stringify(data)
     writeFileSync(`${__diryaml}`, yamlStr, 'utf8')
     return `修改${name}为${size}`
-  }
-
-  /**
-   *
-   * @param {*} GID
-   * @param {*} Gname
-   * @returns
-   */
-  startGame(GID, Gname) {
-    const data = parse(readFileSync(NameList, 'utf8'))
-    data.whitecrowd.push(GID)
-    const yamlStr = stringify(data)
-    writeFileSync(NameList, yamlStr, 'utf8')
-    return `[${Gname}]启动成功~`
-  }
-
-  /**
-   *
-   * @param {*} GID
-   * @param {*} Gname
-   * @returns
-   */
-  stopGame(GID, Gname) {
-    const data = parse(readFileSync(NameList, 'utf8'))
-    data.whitecrowd = data.whitecrowd.filter((item) => item != GID)
-    const yamlStr = stringify(data)
-    writeFileSync(NameList, yamlStr, 'utf8')
-    return `[${Gname}]停止成功~`
   }
 }
 export default new Defset()

@@ -6,25 +6,9 @@ export class BoxadminConfig extends plugin {
         { reg: /^(#|\/)修仙开启.*$/, fnc: 'boxaSwitchOpen' },
         { reg: /^(#|\/)修仙关闭.*$/, fnc: 'boxaSwitchOff' },
         { reg: /^(#|\/)修仙配置更改.*$/, fnc: 'updataConfig' },
-        { reg: /^(#|\/)修仙重置配置$/, fnc: 'updataConfigRe' },
-        { reg: /^(#|\/)凡人修仙启动$/, fnc: 'boxStart' },
-        { reg: /^(#|\/)凡人修仙停止$/, fnc: 'boxStop' }
+        { reg: /^(#|\/)修仙重置配置$/, fnc: 'updataConfigRe' }
       ]
     })
-  }
-
-  async boxStart(e) {
-    if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    e.reply(GameApi.Defset.startGame(e.group_id, e.group_name))
-    return false
-  }
-
-  async boxStop(e) {
-    if (!e.isMaster) return false
-    if (!e.isGroup || e.user_id == 80000000) return false
-    e.reply(GameApi.Defset.stopGame(e.group_id, e.group_name))
-    return false
   }
 
   async boxaSwitchOpen(e) {

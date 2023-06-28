@@ -31,12 +31,12 @@
   background-color: #cee6c1d1;
 }
 
-.user_top_msg{
+.user_top_msg {
   font-size: 25px;
   color: #033026;
   padding: 15px;
   background-color: #cee6c1d1;
-  display: grid; 
+  display: grid;
   grid-template-columns: repeat(2, 50%);
 }
 
@@ -56,7 +56,7 @@
   background-color: #cee6c1d1;
 }
 
-.user_font_msg{
+.user_font_msg {
   text-align: left;
   padding-left: 80px;
 }

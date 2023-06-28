@@ -2,13 +2,13 @@ import { obtainingImages } from '../robot/img.js'
 import ImgCache from '../robot/cache.js'
 import { getboxhelp } from '../robot/help.js'
 import Robot from '../robot/action.js'
-import Exec from '../robot/exex.js'
 import { getConfig } from '../robot/defset.js'
+import { createUrlImg } from '../robot/url.js'
 export const BotApi = {
+  createUrlImg,
   getConfig,
   obtainingImages,
   ImgCache,
   getboxhelp,
-  Robot,
-  Exec
+  Robot
 }

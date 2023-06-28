@@ -19,17 +19,5 @@
 - group:
   list:
     - icon: 2
-      title: '(#|/)凡人修仙启动'
-      desc: '群聊中触发'
-    - icon: 2
-      title: '(#|/)修凡人修仙停止'
-      desc: '群聊中触发'
-
-- group:
-  list:
-    - icon: 5
-      title: '(#|/)修仙更新'
-      desc: '已支持(#|/)全部更新'
-    - icon: 2
       title: '(#|/)修仙配置'
       desc: '配置与扩展功能'

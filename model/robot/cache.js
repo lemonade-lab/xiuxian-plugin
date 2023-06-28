@@ -4,7 +4,9 @@ const helpData = {}
 const allData = {}
 class Cache {
   /**
-   * @param { data, i } param0
+   *
+   * @param {*} i
+   * @param {*} data
    * @returns
    */
   async helpcache(i, data) {
@@ -24,7 +26,8 @@ class Cache {
   }
 
   /**
-   * @param { name } param0
+   *
+   * @param {*} name
    * @returns
    */
   readCahe(name) {
@@ -39,7 +42,9 @@ class Cache {
   }
 
   /**
-   * @param { name, data }  param0
+   *
+   * @param {*} name
+   * @param {*} data
    * @returns
    */
   addCahe(name, data) {
