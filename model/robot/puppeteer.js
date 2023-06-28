@@ -5,7 +5,6 @@ import template from 'art-template'
 import puppeteer from 'puppeteer'
 /* 事件监听 */
 import chokidar from 'chokidar'
-import { cfg } from '../api/index.js'
 import { DirPath } from '../../app.config.js'
 class Puppeteer {
   constructor() {
@@ -38,10 +37,6 @@ class Puppeteer {
     this.watcher = {}
 
     /* 路径 */
-    if (cfg.bot?.chromium_path) {
-      /** chromium其他路径 */
-      this.Config.executablePath = cfg.bot.chromium_path
-    }
   }
 
   /**

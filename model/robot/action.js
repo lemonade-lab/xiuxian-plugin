@@ -25,6 +25,9 @@ class Robot {
    * @returns
    */
   at = (e) => {
+    if (!e.message) {
+      return false
+    }
     if (!e.message.some((item) => item.type === 'at')) {
       return false
     }
