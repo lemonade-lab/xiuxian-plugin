@@ -46,6 +46,7 @@ export class Homeminefield extends plugin {
   async Occupy_the_mine(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -189,6 +190,7 @@ export class Homeminefield extends plugin {
   async collectMinerals(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -262,6 +264,7 @@ export class Homeminefield extends plugin {
   async refining(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -368,6 +371,7 @@ export class Homeminefield extends plugin {
   async coal(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -441,6 +445,7 @@ export class Homeminefield extends plugin {
   async look_minerals(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -475,6 +480,7 @@ export class Homeminefield extends plugin {
 
   async forging(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -584,6 +590,7 @@ export class Homeminefield extends plugin {
   // 分解
   async resolve(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -659,6 +666,7 @@ export class Homeminefield extends plugin {
   // 修理
   async repair(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

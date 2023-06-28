@@ -26,6 +26,7 @@ export class Homemoney extends plugin {
 
   async Mylingshi(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -51,6 +52,7 @@ export class Homemoney extends plugin {
   // 出售商品
   async Homesale(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -117,6 +119,7 @@ export class Homemoney extends plugin {
 
   async dogshop(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -172,6 +175,7 @@ export class Homemoney extends plugin {
 
   async Buy_home(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

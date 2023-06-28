@@ -34,6 +34,7 @@ export class AssBlessPlace extends plugin {
 
   async assOciationBattle(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -137,6 +138,7 @@ export class AssBlessPlace extends plugin {
   // 秘境地点
   async blessPlaceList(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     let addres = '洞天福地'
     let weizhi = AssociationApi.assUser.blessPlaceList
     GoBlessPlace(e, weizhi, addres)
@@ -145,6 +147,7 @@ export class AssBlessPlace extends plugin {
   // 入驻洞天
   async settledBlessedPlace(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -288,6 +291,7 @@ export class AssBlessPlace extends plugin {
 
   async constructionGuild(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -385,6 +389,7 @@ export class AssBlessPlace extends plugin {
 
   async showAssociationBuilder(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 用户不存在
     const ifexistplay = AssociationApi.assUser.existArchive(UID)

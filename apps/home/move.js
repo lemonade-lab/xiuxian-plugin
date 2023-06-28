@@ -27,6 +27,7 @@ export class Homemove extends plugin {
   async movewarehouse(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)
@@ -97,6 +98,7 @@ export class Homemove extends plugin {
 
   async movenajie(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)
@@ -174,6 +176,7 @@ export class Homemove extends plugin {
 
   async updateWarehouse(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)
@@ -289,6 +292,7 @@ export class Homemove extends plugin {
 
   async chongzhinongtian(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 有无存档
     const { state, msg } = HomeApi.GP.Archive(UID)

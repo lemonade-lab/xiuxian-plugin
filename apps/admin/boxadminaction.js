@@ -13,6 +13,7 @@ export class Boxadminaction extends plugin {
   async deleteAllReids(e) {
     if (!e.isMaster) return false
     if (!super.verify(e)) return false
+    e = super.escape(e)
     GameApi.Burial.deleteAll()
     e.reply('删除完成')
     return false
@@ -21,6 +22,7 @@ export class Boxadminaction extends plugin {
   async deleteAllusers(e) {
     if (!e.isMaster) return false
     if (!super.verify(e)) return false
+    e = super.escape(e)
     GameApi.Data.write('life', 'playerLife', {})
     GameApi.Burial.deleteAll()
     e.reply('删除完成')
@@ -30,6 +32,7 @@ export class Boxadminaction extends plugin {
   async dataRecovery(e) {
     if (!e.isMaster) return false
     if (!super.verify(e)) return false
+    e = super.escape(e)
     e.reply(
       BotApi.obtainingImages({
         path: 'msg',

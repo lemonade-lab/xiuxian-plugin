@@ -11,6 +11,7 @@ export class BoxModify extends plugin {
 
   async changeName(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!modifiyMessage(e)) return false
     let theName = e.cmd_msg.replace(/^(#|\/)更改道号/, '')
@@ -38,7 +39,7 @@ export class BoxModify extends plugin {
       CHOICE: 'playerLife',
       DATA: LifeData
     })
-    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.user_avatar)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id, e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false
@@ -46,6 +47,7 @@ export class BoxModify extends plugin {
 
   async changeAutograph(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!modifiyMessage(e)) return false
     let theMsg = e.cmd_msg.replace(/^(#|\/)更改道宣/, '')
@@ -70,7 +72,7 @@ export class BoxModify extends plugin {
       CHOICE: 'playerLife',
       DATA: LifeData
     })
-    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.user_avatar)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id, e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false

@@ -38,6 +38,7 @@ export class AssUncharted extends plugin {
 
   async assUnchartedList(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 无存档
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -66,6 +67,7 @@ export class AssUncharted extends plugin {
 
   async goGuildSecrets(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const { state, msg } = GameApi.Action.Go(UID)
     if (state == 4001) {
@@ -192,6 +194,7 @@ export class AssUncharted extends plugin {
 
   async labyrinthMove(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay || !AssociationApi.assUser.existAss('assArchive', UID)) {
@@ -383,6 +386,7 @@ export class AssUncharted extends plugin {
 
   async renameAssUncharted(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -427,6 +431,7 @@ export class AssUncharted extends plugin {
 
   async showUnchartedGain(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -458,6 +463,7 @@ export class AssUncharted extends plugin {
 
   async openChest(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -522,6 +528,7 @@ export class AssUncharted extends plugin {
 
   async escapeUncharted(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

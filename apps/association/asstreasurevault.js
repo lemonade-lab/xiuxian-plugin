@@ -26,6 +26,7 @@ export class assTreasure extends plugin {
 
   async reclaimItem(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -126,6 +127,7 @@ export class assTreasure extends plugin {
   // 藏宝阁
   async treasureCabinetList(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -175,6 +177,7 @@ export class assTreasure extends plugin {
   // 置换
   async convertedLtem(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -258,6 +261,7 @@ export class assTreasure extends plugin {
 
   async showContribute(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

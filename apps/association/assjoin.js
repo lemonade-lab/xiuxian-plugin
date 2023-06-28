@@ -30,6 +30,7 @@ export class AssociationJoin extends plugin {
 
   async viewResume(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -73,6 +74,7 @@ export class AssociationJoin extends plugin {
 
   async clearVolunteer(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -113,6 +115,7 @@ export class AssociationJoin extends plugin {
 
   async approvalAdmission(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     const joinUID = e.cmd_msg.replace(/^(#|\/)招收/, '')
@@ -168,6 +171,7 @@ export class AssociationJoin extends plugin {
 
   async denialApplication(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -217,6 +221,7 @@ export class AssociationJoin extends plugin {
 
   async showAllResume(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

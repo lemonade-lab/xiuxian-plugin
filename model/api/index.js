@@ -9,5 +9,11 @@ export class plugin extends plugins {
     if (!e.isGroup || e.user_id == 80000000) return false
     return true
   }
+  escape(e) {
+    if (typeof e.msg == 'string') {
+      e.cmd_msg = e.msg
+    }
+    return e
+  }
 }
 export { BotApi, GameApi, HomeApi, AssociationApi }

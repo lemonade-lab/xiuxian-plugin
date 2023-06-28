@@ -11,6 +11,7 @@ export class BoxBattle extends plugin {
 
   async duel(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const UIDA = UID
     let UIDB = BotApi.Robot.at(e)
@@ -228,6 +229,7 @@ export class BoxBattle extends plugin {
 
   async handWashing(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

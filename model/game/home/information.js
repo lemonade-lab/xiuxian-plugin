@@ -6,7 +6,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showWarehouse(UID,user_avatar) {
+  showWarehouse(UID, user_avatar) {
     let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
@@ -109,7 +109,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showhomeUser(UID,user_avatar) {
+  showhomeUser(UID, user_avatar) {
     const GP = Data.controlAction({
       CHOICE: 'user_home_GP',
       NAME: UID
@@ -161,7 +161,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showLookland(UID,user_avatar) {
+  showLookland(UID, user_avatar) {
     let life = Data.controlAction({
       NAME: 'life',
       CHOICE: 'homeLife'
@@ -202,7 +202,7 @@ class Information {
    * @param {*} UID
    * @returns
    */
-  showLookrangeland(UID,user_avatar) {
+  showLookrangeland(UID, user_avatar) {
     const rangelandannimals = Data.controlActionInitial({
       CHOICE: 'homeRangelandannimals',
       NAME: UID,

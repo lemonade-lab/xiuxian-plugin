@@ -11,12 +11,13 @@ export class BoxStart extends plugin {
 
   async createMsg(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.user_avatar)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id, e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false
@@ -24,6 +25,7 @@ export class BoxStart extends plugin {
 
   async reCreateMsg(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const cf = GameApi.Defset.getConfig('cooling')
     const CDTime = cf.CD.Reborn ? cf.CD.Reborn : 850
@@ -38,7 +40,7 @@ export class BoxStart extends plugin {
     GameApi.Action.delete(UID)
     // 重生后life重置,不需要做其他修改
     GameApi.Player.createPlayer(e.user_id)
-    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id,e.user_avatar)
+    const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id, e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false

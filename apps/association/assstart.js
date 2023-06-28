@@ -34,6 +34,7 @@ export class Assstart extends plugin {
 
   async showAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 门派存档验证
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
@@ -87,6 +88,7 @@ export class Assstart extends plugin {
   // 门派俸禄
   async giftAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -145,6 +147,7 @@ export class Assstart extends plugin {
   // 加入门派
   async JoinAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -193,6 +196,7 @@ export class Assstart extends plugin {
   // 退出门派
   async ExitAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -265,6 +269,7 @@ export class Assstart extends plugin {
   // 捐赠灵石
   async giveAssociationMoney(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -326,6 +331,7 @@ export class Assstart extends plugin {
   // 门派列表
   async appointmentList(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

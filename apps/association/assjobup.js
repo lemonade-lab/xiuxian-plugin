@@ -22,6 +22,7 @@ export class AssociationJobUp extends plugin {
 
   async FetchJob(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -52,6 +53,7 @@ export class AssociationJobUp extends plugin {
 
   async commitRegicide(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -128,6 +130,7 @@ export class AssociationJobUp extends plugin {
 
   async launchJobChallenge(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

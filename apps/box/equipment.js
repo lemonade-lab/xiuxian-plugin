@@ -11,6 +11,7 @@ export class BoxEquipment extends plugin {
 
   async addEquipment(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -46,6 +47,7 @@ export class BoxEquipment extends plugin {
 
   async deleteEquipment(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

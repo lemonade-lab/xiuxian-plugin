@@ -11,6 +11,7 @@ export class BoxBattleSite extends plugin {
 
   async userKill(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -171,6 +172,7 @@ export class BoxBattleSite extends plugin {
 
   async userExploremonsters(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

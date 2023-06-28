@@ -51,6 +51,7 @@ export class Homerangeland extends plugin {
   // 修建兽场
   async EstablishRangeland(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -123,6 +124,7 @@ export class Homerangeland extends plugin {
   // 搭建草场
   async seeding(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -228,6 +230,7 @@ export class Homerangeland extends plugin {
   // 栽种树林
   async Plantforest(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -349,6 +352,7 @@ export class Homerangeland extends plugin {
   async Raisefish(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
@@ -468,6 +472,7 @@ export class Homerangeland extends plugin {
   async Breed(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexisthome = HomeApi.GP.getPositionHome(UID)
     if (!GameApi.Player.getUserLifeSatus(UID)) {
@@ -575,6 +580,7 @@ export class Homerangeland extends plugin {
   // 宰杀动物
   async Slaughter(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -622,6 +628,7 @@ export class Homerangeland extends plugin {
   // 查看兽场
   async Checkpasture(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -632,13 +639,14 @@ export class Homerangeland extends plugin {
       e.reply(`${archive}`)
       return
     }
-    const { path, name, data } = HomeApi.Information.showLookrangeland(UID,e.user_avatar)
+    const { path, name, data } = HomeApi.Information.showLookrangeland(UID, e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 
   // 偷
   async Stealanimals(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const { state, msg } = GameApi.Action.Go(e.user_id)
     if (state == 4001) {
       e.reply(msg)
@@ -729,6 +737,7 @@ export class Homerangeland extends plugin {
   // 查看他人兽场
   async Checkotherpasture(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const user = {
       A: e.user_id,
       C: 0,
@@ -763,7 +772,7 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在对方洞府所在地内，偷看请到对方洞府所在地后进行偷看')
       return
     }
-    const { path, name, data } = HomeApi.Information.showLookrangeland(user.B,e.user_avatar)
+    const { path, name, data } = HomeApi.Information.showLookrangeland(user.B, e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
   }
 }

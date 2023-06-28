@@ -36,6 +36,7 @@ export class AssociationAdmin extends plugin {
    */
   async createAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -191,6 +192,7 @@ export class AssociationAdmin extends plugin {
   /** 获取门派名称 */
   async setAssociationName(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const theMsg = this.e.message
     if (theMsg[0].type != 'text') {
@@ -269,6 +271,7 @@ export class AssociationAdmin extends plugin {
   // 升级门派
   async lvupAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -352,6 +355,7 @@ export class AssociationAdmin extends plugin {
   // 任命职位
   async setAppointment(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -399,6 +403,7 @@ export class AssociationAdmin extends plugin {
 
   async renameAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {
@@ -435,6 +440,7 @@ export class AssociationAdmin extends plugin {
 
   async deleteUserAssociation(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     const ifexistplay = AssociationApi.assUser.existArchive(UID)
     if (!ifexistplay) {

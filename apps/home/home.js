@@ -36,6 +36,7 @@ export class Homestart extends plugin {
 
   async buildhome(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -129,6 +130,7 @@ export class Homestart extends plugin {
 
   async myhome(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -139,13 +141,14 @@ export class Homestart extends plugin {
       e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.showhomeUser( UID,e.user_avatar)
+    const { path, name, data } = HomeApi.Information.showhomeUser(UID, e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, name, data }))
     return false
   }
 
   async Warehouse(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -161,7 +164,7 @@ export class Homestart extends plugin {
       e.reply(msg)
       return false
     }
-    const { path, name, data } = HomeApi.Information.showWarehouse(UID,e.user_avatar)
+    const { path, name, data } = HomeApi.Information.showWarehouse(UID, e.user_avatar)
     e.reply(await BotApi.obtainingImages({ path, data, name }))
     return false
   }
@@ -170,6 +173,7 @@ export class Homestart extends plugin {
   async extensionhome(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     // 验证主存档
     if (!GameApi.Player.getUserLifeSatus(UID)) {
@@ -268,6 +272,7 @@ export class Homestart extends plugin {
   async unextensionhome(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -311,6 +316,7 @@ export class Homestart extends plugin {
   async movehome(e) {
     // 不开放私聊功能
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

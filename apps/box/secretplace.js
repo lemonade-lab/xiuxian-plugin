@@ -14,6 +14,7 @@ export class BoxSecretplace extends plugin {
 
   async xyzaddress(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -30,6 +31,7 @@ export class BoxSecretplace extends plugin {
 
   async showCity(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -67,6 +69,7 @@ export class BoxSecretplace extends plugin {
 
   async falsePiont(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -86,6 +89,7 @@ export class BoxSecretplace extends plugin {
 
   async forward(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
@@ -167,6 +171,7 @@ export class BoxSecretplace extends plugin {
 
   async delivery(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

@@ -12,7 +12,7 @@ class Information {
    * @param UID  param0
    * @returns
    */
-  showUserPlayer(UID,user_avatar) {
+  showUserPlayer(UID, user_avatar) {
     const equipment = Equipment.read(UID)
     const TalentData = Talent.read(UID)
     const LevelData = Levels.read(UID)
@@ -62,7 +62,8 @@ class Information {
         battle,
         equipment,
         talent: TalentData,
-        talentsize: size,user_avatar
+        talentsize: size,
+        user_avatar
       }
     }
   }
@@ -72,7 +73,7 @@ class Information {
    * @param {*} param0
    * @returns
    */
-  showUserEquipment(UID,user_avatar) {
+  showUserEquipment(UID, user_avatar) {
     const battle = Battel.read(UID)
     const equipment = Equipment.read(UID)
     const LifeData = Life.read('life')
@@ -83,7 +84,8 @@ class Information {
         UID,
         battle,
         life: LifeData[UID],
-        equipment,user_avatar
+        equipment,
+        user_avatar
       }
     }
   }
@@ -91,7 +93,7 @@ class Information {
   /**
    * 功法信息
    */
-  showUserTalent(UID,user_avatar) {
+  showUserTalent(UID, user_avatar) {
     const TalentData = Talent.read(UID)
     let linggenName = Talent.getTalentName(TalentData.talent)
     let LifeData = Life.read('life')
@@ -111,7 +113,8 @@ class Information {
         skills: TalentData.AllSorcery,
         linggenName: name,
         talentsize: size,
-        life: LifeData[UID],user_avatar
+        life: LifeData[UID],
+        user_avatar
       }
     }
   }
@@ -120,7 +123,7 @@ class Information {
    * 背包
    * @returns
    */
-  showUserBag(UID,user_avatar) {
+  showUserBag(UID, user_avatar) {
     let LifeData = Life.read('life')
     const battle = Battel.read(UID)
     const najie = Bag.read(UID)

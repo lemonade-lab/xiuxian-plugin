@@ -11,6 +11,7 @@ export class BoxDice extends plugin {
 
   async userDice(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     if (!diceMessage(e)) return false
     const msg = ['___[万花坊]___']
     msg.push('[(#|/)命运转盘+物品名*数量]')
@@ -63,6 +64,7 @@ export class BoxDice extends plugin {
 
   async wheelDestiny(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!diceMessage(e)) return false
     const thingName = e.cmd_msg.replace(/^(#|\/)命运转盘/, '')

@@ -16,6 +16,7 @@ export class BoxMove extends plugin {
    */
   async mapW(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     e.reply('待世界升级')
     return false
   }
@@ -25,6 +26,7 @@ export class BoxMove extends plugin {
    */
   async mapA(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     e.reply('待世界升级')
     return false
   }
@@ -34,6 +36,7 @@ export class BoxMove extends plugin {
    */
   async mapS(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     e.reply('待世界升级')
     return false
   }
@@ -43,6 +46,7 @@ export class BoxMove extends plugin {
    */
   async mapD(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     e.reply('待世界升级')
     return false
   }

@@ -8,6 +8,7 @@ export class BoxMoneyOperation extends plugin {
 
   async giveMoney(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')

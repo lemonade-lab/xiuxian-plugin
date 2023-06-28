@@ -11,12 +11,13 @@ export class BoxBag extends plugin {
 
   async showBag(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
       return false
     }
-    const { path, name, data } = GameApi.Information.showUserBag(UID,e.user_avatar)
+    const { path, name, data } = GameApi.Information.showUserBag(UID, e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)
     return false
@@ -24,6 +25,7 @@ export class BoxBag extends plugin {
 
   async bagUp(e) {
     if (!super.verify(e)) return false
+    e = super.escape(e)
     const UID = e.user_id
     if (!GameApi.Player.getUserLifeSatus(UID)) {
       e.reply('已仙鹤')
