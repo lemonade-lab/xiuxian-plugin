@@ -65,5 +65,7 @@ function levelUp(e, UID, CDID, ID, p) {
   e.reply(msg)
   // 设置
   GameApi.Levels.setSpecial(UID, CDID)
+  // 更新面板
+  GameApi.Battle.updatePanel(UID)
   return false
 }
