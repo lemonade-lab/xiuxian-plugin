@@ -7,7 +7,7 @@ Ylemon-Bot 频道版[`☞维护`](http://ningmengchongshui.gitee.io/lemonade)
 #### 根目录执行
 
 ```
-git clone --depth=1 -b dev https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/
+git clone --depth=1 -b main https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin/
 ```
 
 ## 《凡人修仙》经营
