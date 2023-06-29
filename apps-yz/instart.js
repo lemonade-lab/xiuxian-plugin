@@ -12,7 +12,7 @@ export class BoxInstall extends plugin {
     })
   }
   async createinstall(e) {
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const UID = e.user_id
     const cf = GameApi.Defset.getConfig('cooling')
     const T = cf.switch ? cf.switch.come : true

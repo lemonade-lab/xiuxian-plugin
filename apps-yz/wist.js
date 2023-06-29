@@ -10,7 +10,7 @@ export class Wist extends plugin {
 
   async helpWist(e) {
     if (e.self_id != e.target_id) return false
-    if (!this.verify(e)) return false
+    if (!super.verify(e)) return false
     const cf = GameApi.Defset.getConfig('cooling')
     const T = cf.switch ? cf.switch.twist : true
     if (!T) return false

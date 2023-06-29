@@ -40,6 +40,10 @@ class Battle {
     const bodypractice = BodypracticeList[LevelData.bodypractice.realm]
     const soul = SoulList[LevelData.soul.realm]
 
+    console.log(gaspractice)
+    console.log(bodypractice)
+    console.log(soul)
+
     // 读取
     const UserBattle = this.read(UID)
 
@@ -105,8 +109,7 @@ class Battle {
      */
 
     /* 血量上限 换装导致血量溢出时需要----------------计算错误:不能增加血量上限 */
-    const bloodLimit = gaspractice.blood + BodypracticeList.blood + equ.blood
-
+    const bloodLimit = gaspractice.blood + bodypractice.blood + equ.blood
     /* 双境界面板之和 */
     panel.attack = Math.floor(panel.attack * (equ.attack * 0.01 + 1))
     panel.defense = Math.floor(panel.defense * (equ.defense * 0.01 + 1))
@@ -122,7 +125,6 @@ class Battle {
       panel.burst * 100 +
       panel.burstmax * 10 +
       panel.speed * 50
-    // 写入
     this.write(UID, panel)
   }
 }
