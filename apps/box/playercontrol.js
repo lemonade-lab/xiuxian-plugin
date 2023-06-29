@@ -23,6 +23,10 @@ export class BoxGPControl extends plugin {
     }
     const UIDB = BotApi.Robot.at(e)
     if (!UIDB) return false
+    if (UID == UIDB) {
+      e.reply('咦惹~')
+      return false
+    }
     if (!GameApi.Player.getUserLifeSatus(UIDB)) {
       e.reply('已仙鹤')
       return false
@@ -175,16 +179,14 @@ export class BoxGPControl extends plugin {
     if (!action) return false
     if (action.actionID != 0) return false
     const startTime = action.startTime
-    const cf = GameApi.Defset.getConfig('cooling')
-    const timeUnit = cf.biguan.time ? cf.biguan.time : 5
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
-    if (time < timeUnit) {
+    if (time <= 1) {
       e.reply('只是呆了一会儿...')
       GameApi.Action.delete(UID)
       return false
     }
     GameApi.Action.delete(UID)
-    upgrade(e, UID, time, 'biguan')
+    upgrade(e, UID, time, '闭关', 'biguan', 0)
     return false
   }
 
@@ -200,35 +202,32 @@ export class BoxGPControl extends plugin {
     if (!action) return false
     if (action.actionID != 1) return false
     const startTime = action.startTime
-    const cf = GameApi.Defset.getConfig('cooling')
-    const timeUnit = cf.work.time ? cf.work.time : 5
     const time = Math.floor((new Date().getTime() - startTime) / 60000)
-    if (time < timeUnit) {
+    if (time <= 1) {
       e.reply('只是呆了一会儿...')
       GameApi.Action.delete(UID)
       return false
     }
     GameApi.Action.delete(UID)
-    upgrade(e, UID, time, 'work')
+    upgrade(e, UID, time, '降妖', 'work', 1)
     return false
   }
 }
 
-function upgrade(e, UID, time, name) {
+function upgrade(e, UID, time, name, key, othername) {
   const talent = GameApi.Data.read(UID, 'playerTalent')
   const buff = Math.floor(talent.talentsize / 100) + Number(1)
   const config = GameApi.Defset.getConfig('cooling')
-  let other = Math.floor(config[name].size * time * buff)
+  let other = Math.floor(config[key].size * time * buff)
   if (Math.random() * (100 - 1) + 1 < 20) {
     other -= Math.floor(other / 3)
   }
-  let othername = 0
   let msg = `闭关结束\n[修为]*${other}`
-  if (name != '闭关') {
-    othername = 1
+  if (othername != 0) {
     msg = `降妖归来\n[气血]*${other}`
   }
   // 经验增加
+  console.log(othername)
   GameApi.Levels.addExperience(UID, othername, other)
   // 更新血量
   const blood = GameApi.Player.addBlood(UID, 90)
