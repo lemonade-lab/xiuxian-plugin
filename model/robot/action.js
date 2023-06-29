@@ -24,7 +24,6 @@ class Robot {
    */
   at = (e) => {
     /** 检查到字段:alemon */
-    console.log(e)
     if (typeof e.at === 'boolean') {
       if (typeof e.isPrivate == 'boolean') {
         // 是私域
