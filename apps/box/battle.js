@@ -12,6 +12,7 @@ export class BoxBattle extends plugin {
   async duel(e) {
     if (!super.verify(e)) return false
     e = super.escape(e)
+    console.log('debuger')
     const UID = e.user_id
     const UIDA = UID
     let UIDB = BotApi.Robot.at(e)

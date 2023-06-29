@@ -24,8 +24,17 @@ class Robot {
    */
   at = (e) => {
     /** 检查到字段:alemon */
+    console.log(e)
     if (typeof e.at === 'boolean') {
-      if (e.at) return e.atuid[0].id
+      if (typeof e.isPrivate == 'boolean') {
+        // 是私域
+        if (e.isPrivate) {
+          if (e.at) return e.atuid[0].id
+        } else {
+          // 公域会有机器人at 因此id在第二位
+          if (e.at) return e.atuid[1].id
+        }
+      }
       return false
     }
     /* 检查字段:yunzai */
