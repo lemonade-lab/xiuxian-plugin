@@ -230,12 +230,12 @@ function upgrade(e, UID, time, name, key, othername) {
   console.log(othername)
   GameApi.Levels.addExperience(UID, othername, other)
   // 更新血量
-  const blood = GameApi.Player.addBlood(UID, time)
+  const blood = GameApi.Player.addBlood(UID, time * 10)
   const LifeData = GameApi.Data.controlAction({
     NAME: 'life',
     CHOICE: 'playerLife'
   })
-  msg += `\n恢复了${time >= 100 ? 100 : time}%的血量`
+  msg += `\n恢复了${time * 10 >= 100 ? 100 : time * 10}%的血量`
   msg += `\n当前血量:${blood}`
   msg += `\n${name}结束`
   e.reply(`${LifeData[UID].name}${msg}`)
