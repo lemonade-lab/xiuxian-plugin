@@ -120,7 +120,7 @@ export class BoxGPControl extends plugin {
     LevelDataA.gaspractice.experience = 0
     GameApi.Data.write(UIDB, 'playerLevel', LevelDataB)
     GameApi.Data.write(UID, 'playerLevel', LevelDataA)
-    const LifeData = GameApi.Data.read('life', 'playerFile')
+    const LifeData = GameApi.Data.read('life', 'playerLife', {})
     e.reply(`${LifeData[UID]}成功传功[修为]*${size}给${LifeData[UIDB]}`)
     return false
   }

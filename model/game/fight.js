@@ -45,6 +45,8 @@ class Fight {
 
   /* 战斗模型 */
   start({ battleA, UIDA, NAMEA }, { battleB, UIDB, NAMEB }) {
+    console.log(battleA)
+    console.log(battleB)
     // 战斗消息
     const msg = []
     // 战斗伤害记录
@@ -155,7 +157,7 @@ class Fight {
 
       if (round >= 16) {
         /** 30个回合过去了 */
-        msg.push(`[${NAMEA}]与${NAMEB}势均力敌~经过了${round}回合都奈何不了对方`)
+        msg.push(`[${NAMEA}]与[${NAMEB}]势均力敌~经过了${round}回合都奈何不了对方`)
         break
       }
 

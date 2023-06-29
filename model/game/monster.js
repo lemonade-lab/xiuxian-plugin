@@ -1,8 +1,8 @@
 import Data from './data/index.js'
 const alldata = {}
 const full = Data.controlAction({ NAME: 'full', CHOICE: 'fixed_monster' })
-const MonsterName = Data.controlAction({ NAME: 'name', CHOICE: 'fixed_monster' })
 const map = Data.controlAction({ NAME: 'map', CHOICE: 'fixed_monster' })
+
 /** 怪物生成 */
 class Monster {
   /**
@@ -43,7 +43,6 @@ class Monster {
   }
 
   /**
-   *
    * @param {*} i 地域
    * @returns
    */
@@ -51,9 +50,10 @@ class Monster {
     const [mini, max] = map[i].split('.')
     alldata[i].label = new Date().getHours()
     alldata[i].data = {}
-    for (let j = 0; j < max; j++) {
+    const maxSize = max > 10 ? 10 : max
+    for (let j = 0; j < maxSize; j++) {
       const alevel = Math.floor(Math.random() * (max - mini + 1) + Number(mini))
-      const name = full[Math.floor(Math.random() * full.length)] + MonsterName[alevel]
+      const name = full[Math.floor(Math.random() * full.length)]
       alldata[i].data[name] = {
         killNum: 1,
         level: alevel

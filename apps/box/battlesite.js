@@ -42,25 +42,11 @@ export class BoxBattleSite extends plugin {
       e.reply(`这里没有[${Mname}],去别处看看吧`)
       return false
     }
-    const MnameBuff = GameApi.Monster.add(action.region, Mname)
-    let buff = 1
-    if (MnameBuff) {
-      buff = Math.floor(Math.random() * (5 - 2)) + Number(2)
-    }
     const Levellist = GameApi.Data.controlAction({
       NAME: 'gaspractice',
       CHOICE: 'fixed_levels'
     })
-    const LevelMax = Levellist[mon.level + 1]
-    const monsters = {
-      nowblood: LevelMax.blood * buff,
-      attack: LevelMax.attack * buff,
-      defense: LevelMax.defense * buff,
-      blood: LevelMax.blood * buff,
-      burst: LevelMax.burst + LevelMax.id * buff,
-      burstmax: LevelMax.burstmax + LevelMax.id * buff,
-      speed: LevelMax.speed + buff
-    }
+    const LevelMax = Levellist[mon.level]
     const battle = GameApi.Data.controlAction({
       NAME: UID,
       CHOICE: 'playerBattle'
@@ -68,7 +54,19 @@ export class BoxBattleSite extends plugin {
     const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
     const BMSG = GameApi.Fight.start(
       { battleA: battle, UIDA: UID, NAMEA: LifeData[UID].name },
-      { battleB: monsters, UIDB: 1, NAMEB: Mname }
+      {
+        battleB: {
+          nowblood: LevelMax.blood,
+          attack: LevelMax.attack,
+          defense: LevelMax.defense,
+          blood: LevelMax.blood,
+          burst: LevelMax.burst + mon.level,
+          burstmax: LevelMax.burstmax + mon.level,
+          speed: LevelMax.speed
+        },
+        UIDB: 1,
+        NAMEB: Mname
+      }
     )
     const firstArray = BMSG.msg.slice(0, 16)
     const secondArray = BMSG.msg.slice(16)
