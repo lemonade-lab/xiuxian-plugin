@@ -140,7 +140,11 @@ export class Assstart extends plugin {
     })
     AssociationApi.assUser.checkFacility(ass)
     AssociationApi.assUser.setAssOrGP('assGP', UID, assGP)
-    e.reply([BotApi.segment.at(UID), `门派俸禄领取[下品灵石]*${giftNumber}`])
+    if (global.segment) {
+      e.reply([segment.at(UID), `门派俸禄领取[下品灵石]*${giftNumber}`])
+    } else {
+      e.reply(`${UID}门派俸禄领取[下品灵石]*${giftNumber}`)
+    }
     return false
   }
 

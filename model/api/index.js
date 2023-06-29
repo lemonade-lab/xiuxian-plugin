@@ -10,12 +10,10 @@ export class plugin extends plugins {
     return true
   }
   escape(e) {
-    if (e.user_id) {
-      e.user_avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${e.user_id}`
-    }
     if (typeof e.msg == 'string') {
       // 指令
       e.cmd_msg = e.msg
+      e.user_avatar = `https://q1.qlogo.cn/g?b=qq&s=0&nk=${e.user_id}`
     }
     return e
   }

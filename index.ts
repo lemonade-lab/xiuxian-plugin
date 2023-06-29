@@ -1,10 +1,12 @@
 import { createApps, setMessage } from 'alemon'
 import { AppName } from './app.config.js'
+import createdata from './model/game/data/createdata.js'
 
-/**
- * 重定向message
- */
-setMessage(AppName, (e) => {
+/** 检测配置 */
+createdata.createConfig()
+
+/**  重定向message */
+setMessage(AppName, (e: any) => {
   e.isMaster = false // 非主人
   if (e.msg?.author.id) {
     // 用户id
@@ -12,13 +14,9 @@ setMessage(AppName, (e) => {
     // 用户头像
     e.user_avatar = e.msg.author.avatar
   }
-  // e消息不能被顶替掉....
-  /* 建议开发时在此处打印,用于观察 */
-  console.info(e)
+  // e.msg是重要字段|不能被顶替掉
   return e
 })
 
-/**
- * 创建应用
- */
+/** 创建应用 */
 await createApps(AppName)

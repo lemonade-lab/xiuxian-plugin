@@ -150,7 +150,11 @@ export class BoxSecretplace extends plugin {
           CHOICE: 'playerAction',
           DATA: action
         })
-        e.reply([segment.at(UID), `成功抵达${address}`])
+        if (global.segment) {
+          e.reply([segment.at(UID), `成功抵达${address}`])
+        } else {
+          e.reply(`${UID}成功抵达${address}`)
+        }
       }, 1000 * time)
     )
 
@@ -257,7 +261,11 @@ export class BoxSecretplace extends plugin {
         CHOICE: 'playerAction',
         DATA: action
       })
-      e.reply([segment.at(UID), `成功传送至${address}`])
+      if (global.segment) {
+        e.reply([segment.at(UID), `成功传送至${address}`])
+      } else {
+        e.reply(`${UID}成功传送至${address}`)
+      }
     }, 1000 * time)
     // 传送行为记录
     GameApi.Action.set(UID, {
