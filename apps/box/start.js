@@ -17,6 +17,7 @@ export class BoxStart extends plugin {
       e.reply('已仙鹤')
       return false
     }
+    console.log(e.user_avatar)
     const { path, name, data } = GameApi.Information.showUserPlayer(e.user_id, e.user_avatar)
     const isreply = e.reply(await BotApi.obtainingImages({ path, name, data }))
     BotApi.Robot.surveySet(e, isreply)

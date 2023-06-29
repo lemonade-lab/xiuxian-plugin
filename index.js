@@ -59,8 +59,8 @@ async function startApps(DirName) {
   }
   return apps
 }
-let apps = await startApps('apps')
-let ayz = await startApps('apps-yz')
-apps = { apps, ...ayz }
+const app = await startApps('apps')
+const ayz = await startApps('apps-yz')
+const apps = { ...app, ...ayz }
 console.info(`《凡人修仙》启动`)
 export { apps }
