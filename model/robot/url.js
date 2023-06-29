@@ -7,8 +7,7 @@ export function createUrlImg(url) {
     height: 1100
   })
   page.goto(url)
-  let buff = null
-  buff = page.screenshot({
+  const buff = page.screenshot({
     clip: {
       x: 400,
       y: 80,

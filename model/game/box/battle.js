@@ -40,10 +40,6 @@ class Battle {
     const bodypractice = BodypracticeList[LevelData.bodypractice.realm]
     const soul = SoulList[LevelData.soul.realm]
 
-    console.log(gaspractice)
-    console.log(bodypractice)
-    console.log(soul)
-
     // 读取
     const UserBattle = this.read(UID)
 
