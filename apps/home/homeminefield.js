@@ -90,18 +90,15 @@ export class Homeminefield extends plugin {
       B = minefieldName1.UID
     }
     let A = UID
-    const CDid = '1'
-    const CDTime = 60
-    const CD = HomeApi.GP.generateCD({ UID: A, CDid })
-    if (CD != 0) {
-      e.reply(CD)
+    const CDID = 11
+    const cf = GameApi.Defset.getConfig('cooling')
+    const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
-    if (A == B) {
-      e.reply(`你已经是该灵矿的主人了!`)
-      return false
-    }
-    GameApi.Burial.set(A, CDid, nowTime, CDTime)
+    GameApi.Burial.set(A, CDID, nowTime, CDTime)
     if (minefieldName1 == undefined) {
       minefield.push({
         UID,

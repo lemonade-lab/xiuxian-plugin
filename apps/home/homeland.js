@@ -466,11 +466,13 @@ export class Homeland extends plugin {
       e.reply('您现在不在对方洞府所在地内，偷药请到对方洞府所在地后进行偷药')
       return false
     }
-    const CDid = '0'
-    const CDTime = 30
-    const CD = HomeApi.GP.generateCD({ UID: user.A, CDid })
-    if (CD != 0) {
-      e.reply(CD)
+    const CDID = 11
+    const nowTime = new Date().getTime()
+    const cf = GameApi.Defset.getConfig('cooling')
+    const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     let thing = e.cmd_msg.replace(/^(#|\/)偷药/, '')
@@ -487,7 +489,6 @@ export class Homeland extends plugin {
     let a = landgoods.stolen
     let time = landgoods.time
     let mature = landgoods.mature * 60
-    let nowTime = new Date().getTime()
     let time1 = Math.floor((nowTime - time) / 1000)
     // 判断是否够最低收益时间
     if (mature > time1) {
@@ -541,7 +542,7 @@ export class Homeland extends plugin {
       DATA: home
     })
     e.reply(`成功盗取数量为${other}的${thing},并增加${z}的洞府经验`)
-    GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
+    GameApi.Burial.set(user.A, CDID, nowTime, CDTime)
     return false
   }
 

@@ -117,8 +117,9 @@ class Fight {
 
     let round = 0
 
+    let T = true
     // 战斗循环
-    while (true) {
+    while (T) {
       round++
 
       /**

@@ -347,34 +347,6 @@ class GP {
   /**
    *
    * @param {*} param0
-   * @returns
-   */
-  generateCD({ UID, CDid }) {
-    const CDname = [' 偷药 ', ' 占领矿场 ', ' 偷动物 ', ' 做饭 ']
-    const remainTime = redis.ttl('xiuxian:GP:' + UID + ':' + CDid)
-    const time = {
-      h: 0,
-      m: 0,
-      s: 0
-    }
-    if (remainTime != -1) {
-      time.h = Math.floor(remainTime / 60 / 60)
-      time.h = time.h < 0 ? 0 : time.h
-      time.m = Math.floor((remainTime - time.h * 60 * 60) / 60)
-      time.m = time.m < 0 ? 0 : time.m
-      time.s = Math.floor(remainTime - time.h * 60 * 60 - time.m * 60)
-      time.s = time.s < 0 ? 0 : time.s
-      if (time.h == 0 && time.m == 0 && time.s == 0) {
-        return 0
-      }
-      return CDname[CDid] + '冷却:' + time.h + 'h' + time.m + 'm' + time.s + 's'
-    }
-    return 0
-  }
-
-  /**
-   *
-   * @param {*} param0
    */
   addHomeexperience({ UID, experience }) {
     let home = Data.controlActionInitial({

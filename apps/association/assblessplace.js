@@ -518,55 +518,7 @@ async function AssBattle(e, battleA, battleB) {
       msg.push('你们催动法力,造成' + hurt + '伤害')
     }
   }
-  // 循环回合，默认从B攻击开始
-  var x = 1
-  var y = 0
-  var z = 1
-  while (true) {
-    x++
-    z++
-    // 分片发送消息
-    if (x == 15) {
-      e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
-      msg = []
-      x = 0
-      y++
-      if (y == 2) {
-        UID = battleA.nowblood > battleB.nowblood ? 1 : 0
-        // 就打2轮回
-        break
-      }
-    }
-    // B开始
-    let hurt = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 1
-    if (GameApi.Method.isProbability(battleB.burst)) {
-      hurt += Math.floor((hurt * battleB.burstmax) / 100)
-    }
-    battleA.nowblood = battleA.nowblood - hurt
-    if (battleA.nowblood < 0) {
-      msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
-      e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
-      e.reply('你们的进攻被击退了！！')
-      UID = 0
-      break
-    } else {
-      msg.push('第' + z + '回合:对方依靠大阵回击，造成' + hurt + '伤害')
-    }
-    // A开始
-    hurt = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 1
-    if (GameApi.Method.isProbability(battleA.burst)) {
-      hurt += Math.floor((hurt * battleA.burstmax) / 100)
-    }
-    battleB.nowblood = battleB.nowblood - hurt
-    if (battleB.nowblood < 0) {
-      msg.push('第' + z + '回合:你们结阵攻伐，造成' + hurt + '伤害')
-      e.reply(await BotApi.obtainingImages({ path: 'msg', name: 'msg', data: { msg } }))
-      e.reply('你们击破了对面的山门！')
-      break
-    } else {
-      msg.push('第' + z + '回合:你们结阵攻伐，造成' + hurt + '伤害')
-    }
-  }
+  // dotu 删除错误战斗
   return UID
 }
 

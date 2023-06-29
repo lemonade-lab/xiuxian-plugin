@@ -888,12 +888,13 @@ export class Homecook extends plugin {
       name1: code[0],
       doge: shipu.doge
     })
-    const CDid = '3'
-    const CDTime = 20 * quantity
-    let nowTime = new Date().getTime()
-    const CD = HomeApi.GP.generateCD({ UID, CDid })
-    if (CD != 0) {
-      e.reply(CD)
+    const CDID = 11
+    const nowTime = new Date().getTime()
+    const cf = GameApi.Defset.getConfig('cooling')
+    const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
       return false
     }
     const time = 20
@@ -977,7 +978,7 @@ export class Homecook extends plugin {
     }, 1000 * time * quantity)
     forwardsetTime[UID] = 1
     e.reply(`正在给你制作【${quantity}】份【${code[0]}】...\n预计需要${time * quantity}秒`)
-    GameApi.Burial.set(UID, CDid, nowTime, CDTime)
+    GameApi.Burial.set(UID, CDID, nowTime, CDTime)
     return false
   }
 }

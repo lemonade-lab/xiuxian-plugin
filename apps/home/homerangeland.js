@@ -686,12 +686,14 @@ export class Homerangeland extends plugin {
       e.reply('您现在不在对方洞府所在地内，请到对方洞府所在地')
       return
     }
-    const CDid = '0'
-    const CDTime = 30
-    const CD = HomeApi.GP.generateCD({ UID: user.A, CDid })
-    if (CD != 0) {
-      e.reply(CD)
-      return
+    const CDID = 11
+    const nowTime = new Date().getTime()
+    const cf = GameApi.Defset.getConfig('cooling')
+    const CDTime = cf.CD.Attack ? cf.CD.Attack : 5
+    const { state: coolingState, msg: coolingMsg } = GameApi.Burial.cooling(e.user_id, CDID)
+    if (coolingState == 4001) {
+      e.reply(coolingMsg)
+      return false
     }
     let thing = e.cmd_msg.replace(/^(#|\/)偷动物/, '')
     let rangelandannimals2 = GameApi.Data.controlActionInitial({
@@ -707,7 +709,6 @@ export class Homerangeland extends plugin {
     let a = rangelandannimals.stolen
     let time = rangelandannimals.time
     let mature = rangelandannimals.mature * 60
-    let nowTime = new Date().getTime()
     let time1 = Math.floor((nowTime - time) / 1000)
     // 判断是否够最低收益时间
     if (mature > time1) {
@@ -731,7 +732,7 @@ export class Homerangeland extends plugin {
     })
     let MSG = HomeApi.GP.Slaughter(user.A, rangelandannimals.name1)
     e.reply(`您获得了${MSG}`)
-    GameApi.Burial.set(user.A, CDid, nowTime, CDTime)
+    GameApi.Burial.set(user.A, CDID, nowTime, CDTime)
   }
 
   // 查看他人兽场
