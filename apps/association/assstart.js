@@ -143,7 +143,8 @@ export class Assstart extends plugin {
     if (global.segment) {
       e.reply([segment.at(UID), `门派俸禄领取[下品灵石]*${giftNumber}`])
     } else {
-      e.reply(`${UID}门派俸禄领取[下品灵石]*${giftNumber}`)
+      const LifeData = GameApi.Data.readInitial('life', 'playerLife', {})
+      e.reply(`${LifeData[UID].name}门派俸禄领取[下品灵石]*${giftNumber}`)
     }
     return false
   }
