@@ -69,7 +69,7 @@ class Fight {
     const sizeA = battleA.attack - battleB.defense
     HurtA.original = sizeA > 50 ? sizeA : 50
     // 暴击结算
-    HurtA.outbreak = Math.floor((HurtA.original * battleA.burstmax) / 100)
+    HurtA.outbreak = Math.floor((HurtA.original * (100 + battleA.burstmax)) / 100)
 
     // 敏捷判断 如果 A敏捷 < B敏捷 - 5
     if (battleA.speed < battleB.speed - 5) {
@@ -115,7 +115,7 @@ class Fight {
     // 原始伤害计算
     HurtB.original = sizeB > 50 ? sizeB : 50
     // 暴击伤害计算
-    HurtB.outbreak = Math.floor((HurtB.original * battleB.burstmax) / 100)
+    HurtB.outbreak = Math.floor((HurtB.original * (100 + battleB.burstmax)) / 100)
 
     let round = 0
 

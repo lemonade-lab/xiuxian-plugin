@@ -100,7 +100,8 @@ export class BoxBattleSite extends plugin {
     })
     const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
     const m = Math.floor(Math.random() * (100 - 1)) + Number(1)
-    if (m < (mon.level + 1) * 6) {
+    const p = generateRandomNumber(mon.level)
+    if (m < p + 3) {
       const randomthinf = GameApi.GP.getRandomThing()
       let najie = GameApi.Data.controlAction({
         NAME: UID,
@@ -117,12 +118,12 @@ export class BoxBattleSite extends plugin {
         msgRight.push('储物袋已满')
       }
     }
-    if (m < (mon.level + 1) * 7) {
+    if (m < p + 6) {
       const SIZE = mon.level * 25 * mybuff
       msgRight.push(`[气血]*${SIZE}`)
       GameApi.Levels.addExperience(UID, 1, SIZE)
     }
-    if (m < (mon.level + 1) * 8) {
+    if (m < p + 9) {
       const lingshi = GameApi.Method.leastOne(mon.level * 2)
       msgRight.push(`[上品灵石]*${lingshi}`)
       GameApi.Bag.addBagThing({
@@ -131,7 +132,7 @@ export class BoxBattleSite extends plugin {
         ACCOUNT: lingshi
       })
     }
-    if (m < (mon.level + 1) * 9) {
+    if (m < p + 10) {
       const lingshi = GameApi.Method.leastOne(mon.level * 20)
       msgRight.push(`[中品灵石]*${lingshi}`)
       GameApi.Bag.addBagThing({
@@ -140,7 +141,7 @@ export class BoxBattleSite extends plugin {
         ACCOUNT: lingshi
       })
     }
-    if (m >= (mon.level + 1) * 9) {
+    if (m >= p + 5) {
       const lingshi = GameApi.Method.leastOne(mon.level * 200)
       msgRight.push(`[下品灵石]*${lingshi}`)
       GameApi.Bag.addBagThing({
@@ -196,4 +197,11 @@ export class BoxBattleSite extends plugin {
     BotApi.Robot.surveySet(e, isreply)
     return false
   }
+}
+
+function generateRandomNumber(n) {
+  var lowerBound = (n - 1) * 10 + 1 // 下限
+  var upperBound = n * 10 // 上限
+  var randomNumber = Math.floor(Math.random() * (upperBound - lowerBound + 1)) + lowerBound // 随机生成数字
+  return randomNumber
 }
