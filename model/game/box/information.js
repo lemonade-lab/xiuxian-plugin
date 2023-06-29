@@ -53,10 +53,13 @@ class Information {
         level: {
           gaspracticeName: GaspracticeData[LevelData.gaspractice.realm].name,
           gaspracticeExperience: LevelData.gaspractice.experience,
+          gaspracticeExperienceLimit: GaspracticeData[LevelData.gaspractice.realm].exp,
           bodypracticeName: BodypracticeData[LevelData.bodypractice.realm].name,
           bodypracticeExperience: LevelData.bodypractice.experience,
+          bodypracticeExperienceLimit: BodypracticeData[LevelData.bodypractice.realm].exp,
           soulName: SoulData[LevelData.soul.realm].name,
-          soulExperience: LevelData.soul.experience
+          soulExperience: LevelData.soul.experience,
+          soulExperienceLimit: SoulData[LevelData.soul.realm].exp
         },
         linggenName: name,
         battle,
