@@ -25,6 +25,7 @@ export class HomeGetHelp extends plugin {
     }
     const isreply = e.reply(await BotApi.ImgCache.helpcache(4, data))
     BotApi.Robot.surveySet(e, isreply)
+    return false
   }
 
   async homeAdmin(e) {
@@ -36,5 +37,6 @@ export class HomeGetHelp extends plugin {
     }
     const isreply = e.reply(await BotApi.ImgCache.helpcache(5, data))
     BotApi.Robot.surveySet(e, isreply)
+    return false
   }
 }

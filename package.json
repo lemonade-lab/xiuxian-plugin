@@ -3,8 +3,8 @@
   "version": "2.1.0",
   "description": "凡人修仙文字游戏",
   "scripts": {
-    "serve": "node main.js",
-    "dev:img": "nodemon main.js",
+    "serve": "node develop/index.js",
+    "dev:img": "nodemon develop/index.js",
     "format": "npx prettier --write .",
     "lint": "eslint . --ext .js,.ts --fix --ignore-path .gitignore"
   },
@@ -24,7 +24,6 @@
     "nodemon": "^2.0.20",
     "pm2": "^5.2.0",
     "prettier": "^2.8.8",
-    "redis": "^4.1.0",
     "yaml": "^2.1.1"
   },
   "imports": {
