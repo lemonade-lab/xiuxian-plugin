@@ -7,9 +7,7 @@ class Robot {
    * @returns
    */
   surveySet = (e, isreply) => {
-    if (!e.group) {
-      return
-    }
+    if (!e.group) return
     const cf = getConfig('cooling')
     let timeout = cf.timeout ? cf.timeout.size : 60
     if (timeout > 15 && isreply && isreply.message_id) {
@@ -25,16 +23,16 @@ class Robot {
    * @returns
    */
   at = (e) => {
-    if (!e.message) {
+    /** 检查到字段:alemon */
+    if (typeof e.at === 'boolean') {
+      if (e.at) return e.atuid[0].id
       return false
     }
-    if (!e.message.some((item) => item.type === 'at')) {
-      return false
-    }
+    /* 检查字段:yunzai */
+    if (!e.message) return false
+    if (!e.message.some((item) => item.type === 'at')) return false
     const atItem = e.message.filter((item) => item.type === 'at')
-    if (atItem[0].qq) {
-      return atItem[0].qq
-    }
+    if (atItem[0].qq) return atItem[0].qq
     return false
   }
 }

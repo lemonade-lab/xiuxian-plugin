@@ -140,7 +140,7 @@ class Puppeteer {
     if (global.segment) {
       return global.segment.image(buff)
     }
-    return Buffer.from(buff, 'base64')
+    return buff
   }
 
   /** 模板 */
