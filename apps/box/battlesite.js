@@ -60,9 +60,9 @@ export class BoxBattleSite extends plugin {
           attack: LevelMax.attack,
           defense: LevelMax.defense,
           blood: LevelMax.blood,
-          burst: LevelMax.burst + mon.level,
+          burst: mon.level + 13,
           burstmax: LevelMax.burstmax + mon.level,
-          speed: LevelMax.speed
+          speed: LevelMax.speed + 5
         },
         UIDB: 1,
         NAMEB: Mname
