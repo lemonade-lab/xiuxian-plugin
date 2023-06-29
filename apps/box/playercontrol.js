@@ -55,8 +55,10 @@ export class BoxGPControl extends plugin {
     const LevelDataB = GameApi.Data.read(UIDB, 'playerLevel')
     const sizeA = Math.floor(LevelDataA.gaspractice.experience * 0.15) // 主动的
     const sizeB = Math.floor(LevelDataB.gaspractice.experience * 0.1) // 被动的
-    LevelDataA.gaspractice.experience += sizeA
-    LevelDataB.gaspractice.experience += sizeB
+    const expA = sizeA > 2200 ? 2200 : sizeA
+    const expB = sizeB > 2200 ? 2200 : sizeB
+    LevelDataA.gaspractice.experience += expA
+    LevelDataB.gaspractice.experience += expB
     GameApi.Data.write(UIDB, 'playerLevel', LevelDataB)
     GameApi.Data.write(UID, 'playerLevel', LevelDataA)
     e.reply('你两情投意合,奇怪的修为增加了~')
