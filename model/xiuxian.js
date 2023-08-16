@@ -4,43 +4,39 @@ import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 
 import data from './XiuxianData.js'
 import { Writeit, Read_it } from './duanzaofu.js'
-import { AppName } from '../app.config.js'
+import { AppName ,MyDirPath} from '../app.config.js'
 import config from './Config.js'
 import Show from './show.js'
-/**
- * 全局
- */
-//插件根目录
-const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}${AppName}`
+
 // 文件存放路径
 export const __PATH = {
   //更新日志
-  updata_log_path: path.join(__dirname, 'vertion.txt'),
+  updata_log_path: path.join(MyDirPath, 'vertion.txt'),
   //用户数据
-  player_path: path.join(__dirname, '/resources/data/xiuxian_player'),
+  player_path: path.join(MyDirPath, '/resources/data/xiuxian_player'),
   //装备
-  equipment_path: path.join(__dirname, '/resources/data/xiuxian_equipment'),
+  equipment_path: path.join(MyDirPath, '/resources/data/xiuxian_equipment'),
   //纳戒
-  najie_path: path.join(__dirname, '/resources/data/xiuxian_najie'),
+  najie_path: path.join(MyDirPath, '/resources/data/xiuxian_najie'),
   //丹药
-  danyao_path: path.join(__dirname, '/resources/data/xiuxian_danyao'),
+  danyao_path: path.join(MyDirPath, '/resources/data/xiuxian_danyao'),
   //源数据
-  lib_path: path.join(__dirname, '/resources/data/item'),
-  Timelimit: path.join(__dirname, '/resources/data/Timelimit'),
-  Exchange: path.join(__dirname, '/resources/data/Exchange'),
-  shop: path.join(__dirname, '/resources/data/shop'),
-  log_path: path.join(__dirname, '/resources/data/suduku'),
-  association: path.join(__dirname, '/resources/data/association'),
-  tiandibang: path.join(__dirname, '/resources/data/tiandibang'),
-  qinmidu: path.join(__dirname, '/resources/data/qinmidu'),
-  backup: path.join(__dirname, '/resources/backup'),
-  player_pifu_path: path.join(__dirname, '/resources/img/player_pifu'),
-  shitu: path.join(__dirname, '/resources/data/shitu'),
-  equipment_pifu_path: path.join(__dirname, '/resources/img/equipment_pifu'),
-  duanlu: path.join(__dirname, '/resources/data/duanlu'),
-  temp_path: path.join(__dirname, '/resources/data/temp'),
-  custom: path.join(__dirname, '/resources/data/custom'),
-  auto_backup: path.join(__dirname, '/resources/data/auto_backup')
+  lib_path: path.join(MyDirPath, '/resources/data/item'),
+  Timelimit: path.join(MyDirPath, '/resources/data/Timelimit'),
+  Exchange: path.join(MyDirPath, '/resources/data/Exchange'),
+  shop: path.join(MyDirPath, '/resources/data/shop'),
+  log_path: path.join(MyDirPath, '/resources/data/suduku'),
+  association: path.join(MyDirPath, '/resources/data/association'),
+  tiandibang: path.join(MyDirPath, '/resources/data/tiandibang'),
+  qinmidu: path.join(MyDirPath, '/resources/data/qinmidu'),
+  backup: path.join(MyDirPath, '/resources/backup'),
+  player_pifu_path: path.join(MyDirPath, '/resources/img/player_pifu'),
+  shitu: path.join(MyDirPath, '/resources/data/shitu'),
+  equipment_pifu_path: path.join(MyDirPath, '/resources/img/equipment_pifu'),
+  duanlu: path.join(MyDirPath, '/resources/data/duanlu'),
+  temp_path: path.join(MyDirPath, '/resources/data/temp'),
+  custom: path.join(MyDirPath, '/resources/data/custom'),
+  auto_backup: path.join(MyDirPath, '/resources/data/auto_backup')
 }
 
 const 体质概率 = 0.2

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import Config from './Config.js'
 import path from 'path'
-import { AppName } from '../app.config.js'
+import { MyDirPath} from '../app.config.js'
 /*
   数据封装
  */
@@ -10,18 +10,16 @@ class XiuxianData {
     //获取配置文件参数
     this.configData = Config.getConfig('version', 'version')
 
-    //文件路径参数
     //插件根目录
-    const __dirname = path.resolve() + path.sep + 'plugins' + path.sep + AppName
     this.filePathMap = {
-      player: path.join(__dirname, '/resources/data/xiuxian_player'), //用户数据
-      equipment: path.join(__dirname, '/resources/data/xiuxian_equipment'),
-      najie: path.join(__dirname, '/resources/data/xiuxian_najie'),
-      lib: path.join(__dirname, '/resources/data/item'),
-      Timelimit: path.join(__dirname, '/resources/data/Timelimit'), //限定
-      Level: path.join(__dirname, '/resources/data/Level'), //境界
-      association: path.join(__dirname, '/resources/data/association'),
-      occupation: path.join(__dirname, '/resources/data/occupation')
+      player: path.join(MyDirPath, '/resources/data/xiuxian_player'), //用户数据
+      equipment: path.join(MyDirPath, '/resources/data/xiuxian_equipment'),
+      najie: path.join(MyDirPath, '/resources/data/xiuxian_najie'),
+      lib: path.join(MyDirPath, '/resources/data/item'),
+      Timelimit: path.join(MyDirPath, '/resources/data/Timelimit'), //限定
+      Level: path.join(MyDirPath, '/resources/data/Level'), //境界
+      association: path.join(MyDirPath, '/resources/data/association'),
+      occupation: path.join(MyDirPath, '/resources/data/occupation')
     }
     this.lib_path = this.filePathMap.lib
     this.Timelimit = this.filePathMap.Timelimit
