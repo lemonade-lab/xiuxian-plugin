@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "path";
 import { AppName } from "../app.config.js";
-export const appsOut = async ({ AppsName }) => {
+export const appsOut = async (AppsName='apps') => {
   const firstName = `plugins/${AppName}`;
   const filepath = `./${firstName}/${AppsName}`;
   const name = [];
