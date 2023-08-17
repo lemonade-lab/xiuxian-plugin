@@ -200,7 +200,10 @@ export class AdminSuper extends plugin {
         arr.Place_actionplus = 1 //沉迷状态
         arr.end_time = new Date().getTime() //结束的时间也修改为当前时间
         delete arr.group_id //结算完去除group_id
-        await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+        await redis.set(
+          'xiuxian@1.3.0:' + player_id + ':action',
+          JSON.stringify(arr)
+        )
       }
     }
     e.reply('行动结束！')
@@ -305,13 +308,20 @@ async function clearNajieThing(thingType, thingName) {
     .map((file) => {
       const usrId = file.replace('.json', '')
       const najie = fs.readFileSync(`${path}/${file}`)
-      const thingInNajie = JSON.parse(najie)[thingType]?.find((thing) => thing.name == thingName)
+      const thingInNajie = JSON.parse(najie)[thingType]?.find(
+        (thing) => thing.name == thingName
+      )
       if (!thingInNajie) return false
       let thingNumber = thingInNajie.数量
       Add_najie_thing(usrId, thingName, thingType, -thingNumber)
       if (thingType == '装备') {
         ;['劣', '普', '优', '精', '绝', '顶'].map(async (pinji) => {
-          const thingNum = await exist_najie_thing(usrId, thingName, thingType, pinji)
+          const thingNum = await exist_najie_thing(
+            usrId,
+            thingName,
+            thingType,
+            pinji
+          )
           if (thingNum) {
             Add_najie_thing(usrId, thingName, thingType, -thingNum, pinji)
             thingNumber += thingNum

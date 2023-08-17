@@ -86,7 +86,9 @@ export class Level extends plugin {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
       return false
@@ -97,9 +99,13 @@ export class Level extends plugin {
       e.reply('请先#刷新信息')
       return false
     }
-    now_level_id = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).level_id
+    now_level_id = data.LevelMax_list.find(
+      (item) => item.level_id == player.Physique_id
+    ).level_id
     let now_exp = player.血气
-    let need_exp = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).exp
+    let need_exp = data.LevelMax_list.find(
+      (item) => item.level_id == player.Physique_id
+    ).exp
     if (now_exp < need_exp) {
       e.reply(`血气不足,再积累${need_exp - now_exp}血气后方可突破`)
       return false
@@ -112,12 +118,22 @@ export class Level extends plugin {
     var Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
-    let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time') //获得上次的时间戳,
+    let last_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time'
+    ) //获得上次的时间戳,
     last_time = parseInt(last_time)
     if (now_Time < last_time + shuangxiuTimeout) {
-      let Couple_m = Math.trunc((last_time + shuangxiuTimeout - now_Time) / 60 / 1000)
-      let Couple_s = Math.trunc(((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000)
-      e.reply('突破正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`, false, { at: true })
+      let Couple_m = Math.trunc(
+        (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
+      )
+      let Couple_s = Math.trunc(
+        ((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000
+      )
+      e.reply(
+        '突破正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`,
+        false,
+        { at: true }
+      )
       return false
     }
     let rand = Math.random()
@@ -132,7 +148,10 @@ export class Level extends plugin {
       let bad_time = Math.random() //增加多种突破失败情况，顺滑突破丢失修为曲线
       if (bad_time > 0.9) {
         await Add_血气(usr_qq, -1 * need_exp * 0.4)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time', now_Time)
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          now_Time
+        )
         e.reply(
           `突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` +
             need_exp * 0.4 +
@@ -143,14 +162,26 @@ export class Level extends plugin {
         return false
       } else if (bad_time > 0.8) {
         await Add_血气(usr_qq, -1 * need_exp * 0.2)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time', now_Time)
-        e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + need_exp * 0.2 + '血气', false, {
-          at: true
-        })
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          now_Time
+        )
+        e.reply(
+          `突破瓶颈时想到树脂满了,险些走火入魔，丧失了` +
+            need_exp * 0.2 +
+            '血气',
+          false,
+          {
+            at: true
+          }
+        )
         return false
       } else if (bad_time > 0.7) {
         await Add_血气(usr_qq, -1 * need_exp * 0.1)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time', now_Time)
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          now_Time
+        )
         e.reply(
           `突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` +
             need_exp * 0.1 +
@@ -160,14 +191,20 @@ export class Level extends plugin {
         )
         return false
       } else if (bad_time > 0.1) {
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time', now_Time)
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          now_Time
+        )
         e.reply(`破体失败，不要气馁,等到${Time}分钟后再尝试吧`, false, {
           at: true
         })
         return false
       } else {
         await Add_血气(usr_qq, -1 * need_exp * 0.2)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time', now_Time)
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+          now_Time
+        )
         e.reply(
           `突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` +
             need_exp * 0.2 +
@@ -189,7 +226,12 @@ export class Level extends plugin {
             data.changzhuxianchon[random2].name +
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
-        await Add_najie_thing(usr_qq, data.changzhuxianchon[random2].name, '仙宠', 1)
+        await Add_najie_thing(
+          usr_qq,
+          data.changzhuxianchon[random2].name,
+          '仙宠',
+          1
+        )
       }
     } else {
       let random = Math.random()
@@ -201,7 +243,12 @@ export class Level extends plugin {
             data.changzhuxianchon[random2].name +
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
-        await Add_najie_thing(usr_qq, data.changzhuxianchon[random2].name, '仙宠', 1)
+        await Add_najie_thing(
+          usr_qq,
+          data.changzhuxianchon[random2].name,
+          '仙宠',
+          1
+        )
       }
     }
     player.Physique_id = now_level_id + 1
@@ -210,9 +257,14 @@ export class Level extends plugin {
     let equipment = await Read_equipment(usr_qq)
     await Write_equipment(usr_qq, equipment)
     await Add_HP(usr_qq, 999999999999)
-    let level = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).level
+    let level = data.LevelMax_list.find(
+      (item) => item.level_id == player.Physique_id
+    ).level
     e.reply(`突破成功至${level}`, false, { at: true })
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time', now_Time)
+    await redis.set(
+      'xiuxian@1.3.0:' + usr_qq + ':last_LevelMaxup_time',
+      now_Time
+    )
     return false
   }
 
@@ -224,7 +276,9 @@ export class Level extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //获取游戏状态
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -233,7 +287,9 @@ export class Level extends plugin {
     //读取信息
     let player = await Read_player(usr_qq)
     //境界
-    let now_level = data.Level_list.find((item) => item.level_id == player.level_id).level
+    let now_level = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level
     //拦截渡劫期
     if (now_level == '渡劫期') {
       //检查仙门是否开启！
@@ -251,7 +307,9 @@ export class Level extends plugin {
       e.reply('请先#刷新信息')
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     //真仙突破
     if (
       now_level_id >= 51 &&
@@ -260,7 +318,9 @@ export class Level extends plugin {
       player.灵根.name != '九转轮回体' &&
       player.灵根.name != '九重魔功'
     ) {
-      e.reply(`你灵根不齐，无成帝的资格！请先夺天地之造化，修补灵根后再来突破吧`)
+      e.reply(
+        `你灵根不齐，无成帝的资格！请先夺天地之造化，修补灵根后再来突破吧`
+      )
       return false
     }
     //凡人突破
@@ -269,7 +329,9 @@ export class Level extends plugin {
     }
     let now_exp = player.修为
     //修为
-    let need_exp = data.Level_list.find((item) => item.level_id == player.level_id).exp
+    let need_exp = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).exp
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`)
       return false
@@ -278,12 +340,22 @@ export class Level extends plugin {
     var Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
-    let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time') //获得上次的时间戳,
+    let last_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time'
+    ) //获得上次的时间戳,
     last_time = parseInt(last_time)
     if (now_Time < last_time + shuangxiuTimeout) {
-      let Couple_m = Math.trunc((last_time + shuangxiuTimeout - now_Time) / 60 / 1000)
-      let Couple_s = Math.trunc(((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000)
-      e.reply('突破正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`, false, { at: true })
+      let Couple_m = Math.trunc(
+        (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
+      )
+      let Couple_s = Math.trunc(
+        ((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000
+      )
+      e.reply(
+        '突破正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`,
+        false,
+        { at: true }
+      )
       return false
     }
     //随机数
@@ -304,7 +376,10 @@ export class Level extends plugin {
       let bad_time = Math.random() //增加多种突破失败情况，顺滑突破丢失修为曲线
       if (bad_time > 0.9) {
         await Add_修为(usr_qq, -1 * need_exp * 0.4)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time) //获得上次的时间戳
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          now_Time
+        ) //获得上次的时间戳
         e.reply(
           `突然听到一声鸡叫,鸡..鸡..鸡...鸡你太美！！！是翠翎恐蕈，此地不适合突破，快跑！险些走火入魔，丧失了` +
             need_exp * 0.4 +
@@ -315,14 +390,26 @@ export class Level extends plugin {
         return false
       } else if (bad_time > 0.8) {
         await Add_修为(usr_qq, -1 * need_exp * 0.2)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time) //获得上次的时间戳
-        e.reply(`突破瓶颈时想到树脂满了,险些走火入魔，丧失了` + need_exp * 0.2 + '修为', false, {
-          at: true
-        })
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          now_Time
+        ) //获得上次的时间戳
+        e.reply(
+          `突破瓶颈时想到树脂满了,险些走火入魔，丧失了` +
+            need_exp * 0.2 +
+            '修为',
+          false,
+          {
+            at: true
+          }
+        )
         return false
       } else if (bad_time > 0.7) {
         await Add_修为(usr_qq, -1 * need_exp * 0.1)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time) //获得上次的时间戳
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          now_Time
+        ) //获得上次的时间戳
         e.reply(
           `突破瓶颈时想起背后是药园，刚种下掣电树种子，不能被破坏了，打断突破，嘴角流血，丧失了` +
             need_exp * 0.1 +
@@ -332,14 +419,20 @@ export class Level extends plugin {
         )
         return false
       } else if (bad_time > 0.1) {
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time) //获得上次的时间戳
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          now_Time
+        ) //获得上次的时间戳
         e.reply(`突破失败，不要气馁,等到${Time}分钟后再尝试吧`, false, {
           at: true
         })
         return false
       } else {
         await Add_修为(usr_qq, -1 * need_exp * 0.2)
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time) //获得上次的时间戳
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time',
+          now_Time
+        ) //获得上次的时间戳
         e.reply(
           `突破瓶颈时想起怡红院里的放肆,想起了金银坊里的狂热,险些走火入魔，丧失了` +
             need_exp * 0.2 +
@@ -361,7 +454,12 @@ export class Level extends plugin {
             data.changzhuxianchon[random2].name +
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
-        await Add_najie_thing(usr_qq, data.changzhuxianchon[random2].name, '仙宠', 1)
+        await Add_najie_thing(
+          usr_qq,
+          data.changzhuxianchon[random2].name,
+          '仙宠',
+          1
+        )
       }
     } else {
       let random = Math.random()
@@ -373,7 +471,12 @@ export class Level extends plugin {
             data.changzhuxianchon[random2].name +
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
-        await Add_najie_thing(usr_qq, data.changzhuxianchon[random2].name, '仙宠', 1)
+        await Add_najie_thing(
+          usr_qq,
+          data.changzhuxianchon[random2].name,
+          '仙宠',
+          1
+        )
       }
     }
     //境界提升,修为扣除,攻防血重新加载,当前血量拉满
@@ -386,7 +489,9 @@ export class Level extends plugin {
     //补血
     await Add_HP(usr_qq, 999999999999)
     //查境界名
-    let level = data.Level_list.find((item) => item.level_id == player.level_id).level
+    let level = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level
     e.reply(`突破成功,当前境界为${level}`, false, { at: true })
     //记录cd
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_Levelup_time', now_Time)
@@ -464,7 +569,9 @@ export class Level extends plugin {
     if (!verc({ e })) return false
     let player = await Read_player(usr_qq)
     //境界
-    let now_level = data.Level_list.find((item) => item.level_id == player.level_id).level
+    let now_level = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level
     if (now_level != '渡劫期') {
       e.reply(`你非渡劫期修士！`)
       return false
@@ -480,7 +587,9 @@ export class Level extends plugin {
     }
     //看看当前血量
     let now_HP = player.当前血量
-    let list_HP = data.Level_list.find((item) => item.level == now_level).基础血量
+    let list_HP = data.Level_list.find(
+      (item) => item.level == now_level
+    ).基础血量
     if (now_HP < list_HP * 0.9) {
       player.当前血量 = 1
       await Write_player(usr_qq, player)
@@ -488,11 +597,15 @@ export class Level extends plugin {
       return false
     }
     //境界id
-    let now_level_id = data.Level_list.find((item) => item.level == now_level).level_id
+    let now_level_id = data.Level_list.find(
+      (item) => item.level == now_level
+    ).level_id
     //修为
     let now_exp = player.修为
     //修为
-    let need_exp = data.Level_list.find((item) => item.level_id == now_level_id).exp
+    let need_exp = data.Level_list.find(
+      (item) => item.level_id == now_level_id
+    ).exp
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可突破`)
       return false
@@ -576,7 +689,9 @@ export class Level extends plugin {
     //不开放私聊
     if (!verc({ e })) return false
     //获取游戏状态
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -585,7 +700,9 @@ export class Level extends plugin {
     //读取信息
     let player = await Read_player(usr_qq)
     //境界
-    let now_level = data.Level_list.find((item) => item.level_id == player.level_id).level
+    let now_level = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level
     if (now_level != '渡劫期') {
       e.reply(`你非渡劫期修士！`)
       return false
@@ -614,10 +731,14 @@ export class Level extends plugin {
       e.reply('请先#刷新信息')
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     let now_exp = player.修为
     //修为
-    let need_exp = data.Level_list.find((item) => item.level_id == player.level_id).exp
+    let need_exp = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).exp
     if (now_exp < need_exp) {
       e.reply(`修为不足,再积累${need_exp - now_exp}修为后方可成仙！`)
       return false
@@ -645,7 +766,9 @@ export class Level extends plugin {
         //有宗门
         if (player.宗门.职位 != '宗主') {
           let ass = data.getAssociation(player.宗门.宗门名称)
-          ass[player.宗门.职位] = ass[player.宗门.职位].filter((item) => item != usr_qq)
+          ass[player.宗门.职位] = ass[player.宗门.职位].filter(
+            (item) => item != usr_qq
+          )
           ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq)
           data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
@@ -655,7 +778,9 @@ export class Level extends plugin {
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            fs.rmSync(`${data.filePathMap.association}/${player.宗门.宗门名称}.json`)
+            fs.rmSync(
+              `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
+            )
             delete player.宗门 //删除存档里的宗门信息
             data.setData('player', usr_qq, player)
             await player_efficiency(usr_qq)
@@ -685,7 +810,9 @@ export class Level extends plugin {
             data.setData('player', randmember_qq, randmember) //记录到存档
             data.setData('player', usr_qq, player)
             data.setAssociation(ass.宗门名称, ass) //记录到宗门
-            e.reply(`飞升前,遵循你的嘱托,${randmember.名号}将继承你的衣钵,成为新一任的宗主`)
+            e.reply(
+              `飞升前,遵循你的嘱托,${randmember.名号}将继承你的衣钵,成为新一任的宗主`
+            )
           }
         }
       }

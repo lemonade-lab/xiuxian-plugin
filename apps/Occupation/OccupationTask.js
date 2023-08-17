@@ -88,8 +88,8 @@ export class OccupationTask extends plugin {
             ]
             const sum2 = [0.2, 0.3, 0.2, 0.2, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             const sum3 = [
-              0.17, 0.22, 0.17, 0.17, 0.17, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024, 0.012,
-              0.011
+              0.17, 0.22, 0.17, 0.17, 0.17, 0.024, 0.024, 0.024, 0.024, 0.024,
+              0.024, 0.024, 0.012, 0.011
             ]
             let msg = [segment.at(player_id)]
             msg.push(`\n恭喜你获得了经验${exp},草药:`)
@@ -102,7 +102,12 @@ export class OccupationTask extends plugin {
                 continue
               }
               msg.push(`\n${names[item]}${Math.floor(newsum[item])}个`)
-              await Add_najie_thing(player_id, names[item], '草药', Math.floor(newsum[item]))
+              await Add_najie_thing(
+                player_id,
+                names[item],
+                '草药',
+                Math.floor(newsum[item])
+              )
             }
             await Add_职业经验(player_id, exp)
             let arr = action
@@ -114,7 +119,10 @@ export class OccupationTask extends plugin {
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
             delete arr.group_id //结算完去除group_id
-            await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+            await redis.set(
+              'xiuxian@1.3.0:' + player_id + ':action',
+              JSON.stringify(arr)
+            )
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)
             } else {
@@ -136,11 +144,15 @@ export class OccupationTask extends plugin {
             //以下1到5为每种的数量
             let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time) //(1.8+随机0到0.4)x时间(分钟)
             let rate =
-              data.occupation_exp_list.find((item) => item.id == player.occupation_level).rate * 10
+              data.occupation_exp_list.find(
+                (item) => item.id == player.occupation_level
+              ).rate * 10
             let exp = 0
             let ext = ''
             exp = time * 10
-            ext = `你是采矿师，获得采矿经验${exp}，额外获得矿石${Math.floor(rate * 100)}%，`
+            ext = `你是采矿师，获得采矿经验${exp}，额外获得矿石${Math.floor(
+              rate * 100
+            )}%，`
             let end_amount = Math.floor(4 * (rate + 1) * mine_amount1) //普通矿石
             let num = Math.floor(((rate / 12) * time) / 30) //锻造
             const A = [
@@ -173,10 +185,19 @@ export class OccupationTask extends plugin {
             await Add_najie_thing(player_id, '庚金', '材料', end_amount)
             await Add_najie_thing(player_id, '玄土', '材料', end_amount)
             await Add_najie_thing(player_id, A[xuanze], '材料', num)
-            await Add_najie_thing(player_id, B[xuanze], '材料', Math.trunc(num / 48))
+            await Add_najie_thing(
+              player_id,
+              B[xuanze],
+              '材料',
+              Math.trunc(num / 48)
+            )
             await Add_职业经验(player_id, exp)
-            msg.push(`\n采矿归来，${ext}\n收获庚金×${end_amount}\n玄土×${end_amount}`)
-            msg.push(`\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num / 48)}`)
+            msg.push(
+              `\n采矿归来，${ext}\n收获庚金×${end_amount}\n玄土×${end_amount}`
+            )
+            msg.push(
+              `\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num / 48)}`
+            )
             let arr = action
             //把状态都关了
             arr.mine = 1 //采矿状态
@@ -187,7 +208,10 @@ export class OccupationTask extends plugin {
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
             delete arr.group_id //结算完去除group_id
-            await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+            await redis.set(
+              'xiuxian@1.3.0:' + player_id + ':action',
+              JSON.stringify(arr)
+            )
             //msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)

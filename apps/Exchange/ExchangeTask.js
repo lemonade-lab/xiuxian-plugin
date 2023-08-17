@@ -1,5 +1,9 @@
 import { plugin, config } from '../../api/api.js'
-import { Add_najie_thing, Write_Exchange, Read_Exchange } from '../../model/xiuxian.js'
+import {
+  Add_najie_thing,
+  Write_Exchange,
+  Read_Exchange
+} from '../../model/xiuxian.js'
 export class ExchangeTask extends plugin {
   constructor() {
     super({
@@ -33,7 +37,13 @@ export class ExchangeTask extends plugin {
       const quanity = Exchange[i].aconut
       if (Exchange[i].name.class == '装备' || Exchange[i].name.class == '仙宠')
         thing = Exchange[i].name
-      await Add_najie_thing(usr_qq, thing, Exchange[i].name.class, quanity, Exchange[i].name.pinji)
+      await Add_najie_thing(
+        usr_qq,
+        thing,
+        Exchange[i].name.class,
+        quanity,
+        Exchange[i].name.pinji
+      )
       Exchange.splice(i, 1)
       i--
     }

@@ -65,18 +65,32 @@ export class Garden extends plugin {
       shuliang = 6
     }
     let msg = [
-      `宗门名称: ${ass.宗门名称}` + '\n' + `药园可栽种: ${shuliang} 棵药草` + '\n' + `药园药草如下:`
+      `宗门名称: ${ass.宗门名称}` +
+        '\n' +
+        `药园可栽种: ${shuliang} 棵药草` +
+        '\n' +
+        `药园药草如下:`
     ]
     let nowTime = new Date().getTime() //获取当前时间
 
-    for (var i = 0; i < ass.药园.作物.length; i++) {
+    for (let i = 0; i < ass.药园.作物.length; i++) {
       zuowu = ass.药园.作物
-      if (zuowu[i].name == '天灵花' || zuowu[i].name == '皇草' || zuowu[i].name == '创世花')
+      if (
+        zuowu[i].name == '天灵花' ||
+        zuowu[i].name == '皇草' ||
+        zuowu[i].name == '创世花'
+      )
         continue
-      let vegetable_Oldtime = await redis.get('xiuxian:' + ass.宗门名称 + zuowu[i].name) //获得上次的成熟时间戳,
+      let vegetable_Oldtime = await redis.get(
+        'xiuxian:' + ass.宗门名称 + zuowu[i].name
+      ) //获得上次的成熟时间戳,
       let chengshu_t = Math.trunc((vegetable_Oldtime - nowTime) / 86400000) //成熟天数
-      let chengshu_m = Math.trunc(((vegetable_Oldtime - nowTime) % 86400000) / 60 / 60 / 1000) //成熟小时
-      let chengshu_s = Math.trunc(((vegetable_Oldtime - nowTime) % 3600000) / 60 / 1000) //成熟分钟
+      let chengshu_m = Math.trunc(
+        ((vegetable_Oldtime - nowTime) % 86400000) / 60 / 60 / 1000
+      ) //成熟小时
+      let chengshu_s = Math.trunc(
+        ((vegetable_Oldtime - nowTime) % 3600000) / 60 / 1000
+      ) //成熟分钟
       if (chengshu_t <= 0 && chengshu_m <= 0 && chengshu_s <= 0) {
         chengshu_t = 0
         chengshu_m = 0
@@ -117,27 +131,36 @@ export class Garden extends plugin {
     //获取当前时间戳
     let nowTime = now.getTime()
     //获得时间戳
-    let last_garden_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_garden_time')
+    let last_garden_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':last_garden_time'
+    )
     //
     last_garden_time = parseInt(last_garden_time)
-    var time = config.getConfig('xiuxian', 'xiuxian').CD.garden //时间（分钟）
+    let time = config.getConfig('xiuxian', 'xiuxian').CD.garden //时间（分钟）
     let transferTimeout = parseInt(60000 * time) //
     if (nowTime < last_garden_time + transferTimeout) {
-      let waittime_m = Math.trunc((last_garden_time + transferTimeout - nowTime) / 60 / 1000)
-      let waittime_s = Math.trunc(((last_garden_time + transferTimeout - nowTime) % 60000) / 1000)
+      let waittime_m = Math.trunc(
+        (last_garden_time + transferTimeout - nowTime) / 60 / 1000
+      )
+      let waittime_s = Math.trunc(
+        ((last_garden_time + transferTimeout - nowTime) % 60000) / 1000
+      )
       e.reply(
-        `每${transferTimeout / 1000 / 60}分钟拔苗一次。` + `cd: ${waittime_m}分${waittime_s}秒`
+        `每${transferTimeout / 1000 / 60}分钟拔苗一次。` +
+          `cd: ${waittime_m}分${waittime_s}秒`
       )
       return false
     }
 
     let vegetable = ass.药园.作物
     let vagetable_name = e.msg.replace('#拔苗助长', '')
-    for (var i = 0; i < vegetable.length; i++) {
+    for (let i = 0; i < vegetable.length; i++) {
       if (vegetable[i].name == vagetable_name) {
         let ts = vegetable[i].ts
         let nowTime = new Date().getTime() //获取当前时间
-        let vegetable_Oldtime = await redis.get('xiuxian:' + ass.宗门名称 + vagetable_name) //获得上次的成熟时间戳,
+        let vegetable_Oldtime = await redis.get(
+          'xiuxian:' + ass.宗门名称 + vagetable_name
+        ) //获得上次的成熟时间戳,
         if (nowTime + 1000 * 60 * 30 < vegetable_Oldtime) {
           //判断是否成熟
           e.reply(
@@ -146,19 +169,33 @@ export class Garden extends plugin {
             }成熟度`
           )
           vegetable_Oldtime -= 1000 * 60 * 30 //每次拔苗助长减少 预定成熟的时间
-          await redis.set('xiuxian:' + ass.宗门名称 + vagetable_name, vegetable_Oldtime) //存入缓存
+          await redis.set(
+            'xiuxian:' + ass.宗门名称 + vagetable_name,
+            vegetable_Oldtime
+          ) //存入缓存
           //记录本次获得时间戳
-          await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_garden_time', nowTime)
+          await redis.set(
+            'xiuxian@1.3.0:' + usr_qq + ':last_garden_time',
+            nowTime
+          )
           return false
         } else {
-          e.reply(`作物${vagetable_name}已成熟，被${usr_qq}${player.名号}摘取,放入纳戒了`)
+          e.reply(
+            `作物${vagetable_name}已成熟，被${usr_qq}${player.名号}摘取,放入纳戒了`
+          )
           await Add_najie_thing(usr_qq, vagetable_name, '草药', 1)
-          var vegetable_OutTime = nowTime + 1000 * 60 * 60 * 24 * ts //设置新一轮成熟时间戳
+          let vegetable_OutTime = nowTime + 1000 * 60 * 60 * 24 * ts //设置新一轮成熟时间戳
           ass.药园.作物[i].start_time = nowTime //将当前时间写入药园作物中
           await data.setAssociation(ass.宗门名称, ass) //刷新写入作物时间戳
-          await redis.set('xiuxian:' + ass.宗门名称 + vagetable_name, vegetable_OutTime) //存入缓存
+          await redis.set(
+            'xiuxian:' + ass.宗门名称 + vagetable_name,
+            vegetable_OutTime
+          ) //存入缓存
           //记录本次获得时间戳
-          await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_garden_time', nowTime)
+          await redis.set(
+            'xiuxian@1.3.0:' + usr_qq + ':last_garden_time',
+            nowTime
+          )
           return false
         }
       }
@@ -189,7 +226,7 @@ export class Garden extends plugin {
     let ifexistplay1 = data.existData('player', qq)
     if (!ifexistplay) return false
     if (!ifexistplay1) return false
-    var GayCD = {}
+    let GayCD = {}
     const cd = 2 //设置冷却时间，单位为分钟
     let id = e.group_id + e.user_id
     if (GayCD[id]) {

@@ -84,6 +84,7 @@ export class BlessPlace extends plugin {
     }
     //职位不符
     if (player.宗门.职位 == '宗主') {
+      console.log('通过')
     } else {
       e.reply('只有宗主可以操作')
       return false
@@ -95,7 +96,9 @@ export class BlessPlace extends plugin {
     let blessed_name = e.msg.replace('#入驻洞天', '')
     blessed_name = blessed_name.trim()
     //洞天不存在
-    let dongTan = await data.bless_list.find((item) => item.name == blessed_name)
+    let dongTan = await data.bless_list.find(
+      (item) => item.name == blessed_name
+    )
     if (!dongTan) return false
 
     if (ass.宗门驻地 == blessed_name) {
@@ -110,7 +113,7 @@ export class BlessPlace extends plugin {
     File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有的宗门名称
 
     //遍历所有的宗门
-    for (var i = 0; i < File.length; i++) {
+    for (let i = 0; i < File.length; i++) {
       let this_name = File[i].replace('.json', '')
       let this_ass = await data.getAssociation(this_name)
 
@@ -225,7 +228,11 @@ export class BlessPlace extends plugin {
     let nowTime = now.getTime() //获取当前日期的时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Explor(usr_qq) //获得上次宗门签到日期
-    if (Today.Y == lastsign_time.Y && Today.M == lastsign_time.M && Today.D == lastsign_time.D) {
+    if (
+      Today.Y == lastsign_time.Y &&
+      Today.M == lastsign_time.M &&
+      Today.D == lastsign_time.D
+    ) {
       e.reply(`今日已经开采过灵脉，不可以竭泽而渔哦，明天再来吧`)
       return false
     }
@@ -233,8 +240,11 @@ export class BlessPlace extends plugin {
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':getLastsign_Explor', nowTime) //redis设置签到时间
 
     //给奖励
-    let dongTan = await data.bless_list.find((item) => item.name == ass.宗门驻地)
-    if (!dongTan) dongTan = await data.bless_list.find((item) => item.name == '昆仑山')
+    let dongTan = await data.bless_list.find(
+      (item) => item.name == ass.宗门驻地
+    )
+    if (!dongTan)
+      dongTan = await data.bless_list.find((item) => item.name == '昆仑山')
     let gift_lingshi = 0
     if (ass.宗门神兽 == '麒麟') {
       gift_lingshi = (1200 * (dongTan.level + 1) * player.level_id) / 2
@@ -254,7 +264,11 @@ export class BlessPlace extends plugin {
     }
     await Add_灵石(usr_qq, num)
     data.setAssociation(ass.宗门名称, ass)
-    e.reply(`本次开采灵脉获得${gift_lingshi * 2}灵石，上交一半给宗门，最后获得${num}灵石`)
+    e.reply(
+      `本次开采灵脉获得${
+        gift_lingshi * 2
+      }灵石，上交一半给宗门，最后获得${num}灵石`
+    )
 
     return false
   }
@@ -277,9 +291,11 @@ export class BlessPlace extends plugin {
       e.reply(`你的宗门还没有驻地，不能探索秘境哦`)
       return false
     }
-    var didian = e.msg.replace('#探索宗门秘境', '')
+    let didian = e.msg.replace('#探索宗门秘境', '')
     didian = didian.trim()
-    let weizhi = await data.guildSecrets_list.find((item) => item.name == didian)
+    let weizhi = await data.guildSecrets_list.find(
+      (item) => item.name == didian
+    )
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -293,7 +309,7 @@ export class BlessPlace extends plugin {
     data.setAssociation(ass.宗门名称, ass)
 
     await Add_灵石(usr_qq, -Price)
-    var time = config.getConfig('xiuxian', 'xiuxian').CD.secretplace //时间（分钟）
+    let time = config.getConfig('xiuxian', 'xiuxian').CD.secretplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
       action: '历练', //动作
@@ -338,12 +354,14 @@ export class BlessPlace extends plugin {
       e.reply(`你的宗门还没有驻地，不能探索秘境哦`)
       return false
     }
-    var didian = e.msg.replace('#沉迷宗门秘境', '')
+    let didian = e.msg.replace('#沉迷宗门秘境', '')
     let code = didian.split('*')
     didian = code[0]
     let i = await convert2integer(code[1])
     if (i > 12) return false
-    let weizhi = await data.guildSecrets_list.find((item) => item.name == didian)
+    let weizhi = await data.guildSecrets_list.find(
+      (item) => item.name == didian
+    )
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -364,7 +382,7 @@ export class BlessPlace extends plugin {
     data.setAssociation(ass.宗门名称, ass)
 
     await Add_灵石(usr_qq, -Price)
-    var time = i * 10 * 5 + 10 //时间（分钟）
+    let time = i * 10 * 5 + 10 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
       action: '历练', //动作
@@ -415,7 +433,7 @@ export class BlessPlace extends plugin {
     if (ass.灵石池 < 0) {
       ass.灵石池 = 0
     }
-    var denji = Number(ass.宗门建设等级)
+    let denji = Number(ass.宗门建设等级)
 
     //灵石池扣除
     let lsckc = Math.trunc(denji * 10000)
@@ -454,7 +472,7 @@ async function GoBlessPlace(e, weizhi, addres) {
   File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有的宗门名称
   let adr = addres
   let msg = ['***' + adr + '***']
-  for (var i = 0; i < weizhi.length; i++) {
+  for (let i = 0; i < weizhi.length; i++) {
     let ass = '无'
     for (let j of File) {
       let this_name = j.replace('.json', '')

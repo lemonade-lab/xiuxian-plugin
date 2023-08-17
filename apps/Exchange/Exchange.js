@@ -56,10 +56,15 @@ export class Exchange extends plugin {
     ExchangeCD = parseInt(ExchangeCD)
     let transferTimeout = parseInt(60000 * time0)
     if (now_time < ExchangeCD + transferTimeout) {
-      let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000)
-      let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000)
+      let ExchangeCDm = Math.trunc(
+        (ExchangeCD + transferTimeout - now_time) / 60 / 1000
+      )
+      let ExchangeCDs = Math.trunc(
+        ((ExchangeCD + transferTimeout - now_time) % 60000) / 1000
+      )
       e.reply(
-        `每${transferTimeout / 1000 / 60}分钟操作一次，` + `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
+        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
+          `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
       )
       //存在CD。直接返回
       return false
@@ -90,7 +95,13 @@ export class Exchange extends plugin {
     let thing_class = Exchange[x].name.class
     let thing_amount = Exchange[x].aconut
     if (thing_class == '装备' || thing_class == '仙宠') {
-      await Add_najie_thing(usr_qq, Exchange[x].name, thing_class, thing_amount, Exchange[x].pinji2)
+      await Add_najie_thing(
+        usr_qq,
+        Exchange[x].name,
+        thing_class,
+        thing_amount,
+        Exchange[x].pinji2
+      )
     } else {
       await Add_najie_thing(usr_qq, thing_name, thing_class, thing_amount)
     }
@@ -159,7 +170,9 @@ export class Exchange extends plugin {
       if (thing_piji) {
         thing_value = code[2]
         thing_amount = code[3]
-        equ = najie.装备.find((item) => item.name == thing_name && item.pinji == thing_piji)
+        equ = najie.装备.find(
+          (item) => item.name == thing_name && item.pinji == thing_piji
+        )
       } else {
         let najie = await Read_najie(usr_qq)
         equ = najie.装备.find((item) => item.name == thing_name)
@@ -176,7 +189,12 @@ export class Exchange extends plugin {
     }
     thing_value = await convert2integer(thing_value)
     thing_amount = await convert2integer(thing_amount)
-    let x = await exist_najie_thing(usr_qq, thing_name, thing_exist.class, thing_piji)
+    let x = await exist_najie_thing(
+      usr_qq,
+      thing_name,
+      thing_exist.class,
+      thing_piji
+    )
     //判断戒指中是否存在
     if (!x || x < thing_amount) {
       e.reply(`你没有那么多[${thing_name}]`)
@@ -213,7 +231,13 @@ export class Exchange extends plugin {
         whole: whole,
         now_time: now_time
       }
-      await Add_najie_thing(usr_qq, equ.name, thing_exist.class, -thing_amount, thing_piji)
+      await Add_najie_thing(
+        usr_qq,
+        equ.name,
+        thing_exist.class,
+        -thing_amount,
+        thing_piji
+      )
     } else {
       wupin = {
         qq: usr_qq,
@@ -223,7 +247,12 @@ export class Exchange extends plugin {
         whole: whole,
         now_time: now_time
       }
-      await Add_najie_thing(usr_qq, thing_name, thing_exist.class, -thing_amount)
+      await Add_najie_thing(
+        usr_qq,
+        thing_name,
+        thing_exist.class,
+        -thing_amount
+      )
     }
     //
     Exchange.push(wupin)
@@ -255,10 +284,15 @@ export class Exchange extends plugin {
     ExchangeCD = parseInt(ExchangeCD)
     let transferTimeout = parseInt(60000 * time0)
     if (now_time < ExchangeCD + transferTimeout) {
-      let ExchangeCDm = Math.trunc((ExchangeCD + transferTimeout - now_time) / 60 / 1000)
-      let ExchangeCDs = Math.trunc(((ExchangeCD + transferTimeout - now_time) % 60000) / 1000)
+      let ExchangeCDm = Math.trunc(
+        (ExchangeCD + transferTimeout - now_time) / 60 / 1000
+      )
+      let ExchangeCDs = Math.trunc(
+        ((ExchangeCD + transferTimeout - now_time) % 60000) / 1000
+      )
       e.reply(
-        `每${transferTimeout / 1000 / 60}分钟操作一次，` + `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
+        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
+          `CD: ${ExchangeCDm}分${ExchangeCDs}秒`
       )
       //存在CD。直接返回
       return false
@@ -302,7 +336,13 @@ export class Exchange extends plugin {
     if (player.灵石 > money) {
       //加物品
       if (thing_class == '装备' || thing_class == '仙宠') {
-        await Add_najie_thing(usr_qq, Exchange[x].name, thing_class, n, Exchange[x].pinji2)
+        await Add_najie_thing(
+          usr_qq,
+          Exchange[x].name,
+          thing_class,
+          n,
+          Exchange[x].pinji2
+        )
       } else {
         await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       }

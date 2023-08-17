@@ -115,7 +115,8 @@ export class UserHome extends plugin {
       let usr_qq = player_id
       let player = await data.getData('player', usr_qq)
       if (player.魔道值 > 999) num[3]++
-      else if ((player.lunhui > 0 || player.level_id > 41) && player.魔道值 < 1) num[0]++
+      else if ((player.lunhui > 0 || player.level_id > 41) && player.魔道值 < 1)
+        num[0]++
       else if (player.lunhui > 0 || player.level_id > 41) num[1]++
       else num[2]++
     }
@@ -162,7 +163,10 @@ export class UserHome extends plugin {
       顶: 6
     }
     pj = pj[code[1]]
-    if (pj > 5 || (thing_exist.atk < 10 && thing_exist.def < 10 && thing_exist.HP < 10)) {
+    if (
+      pj > 5 ||
+      (thing_exist.atk < 10 && thing_exist.def < 10 && thing_exist.HP < 10)
+    ) {
       e.reply(`${thing_name}(${code[1]})不支持打磨`)
       return false
     }
@@ -176,7 +180,8 @@ export class UserHome extends plugin {
       return false
     }
     //都通过了
-    for (let i = 0; i < 3; i++) await Add_najie_thing(usr_qq, thing_name, '装备', -1, pj)
+    for (let i = 0; i < 3; i++)
+      await Add_najie_thing(usr_qq, thing_name, '装备', -1, pj)
     await Add_najie_thing(usr_qq, thing_name, '装备', 1, pj + 1)
     e.reply('打磨成功获得' + thing_name)
     return false
@@ -197,7 +202,16 @@ export class UserHome extends plugin {
     }
     let lingshi = 0
     let najie = await Read_najie(usr_qq)
-    let type = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let type = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     for (let i of type) {
       let thing = najie[i].find((item) => item.name == thing_name)
       if (thing) {
@@ -206,7 +220,13 @@ export class UserHome extends plugin {
         } else {
           lingshi += thing.出售价 * 2 * thing.数量
         }
-        await Add_najie_thing(usr_qq, thing.name, thing.class, -thing.数量, thing.pinji)
+        await Add_najie_thing(
+          usr_qq,
+          thing.name,
+          thing.class,
+          -thing.数量,
+          thing.pinji
+        )
       }
     }
     await Add_灵石(usr_qq, lingshi)
@@ -243,7 +263,10 @@ export class UserHome extends plugin {
       }
     }
     action.push(name)
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':duihuan', JSON.stringify(action))
+    await redis.set(
+      'xiuxian@1.3.0:' + usr_qq + ':duihuan',
+      JSON.stringify(action)
+    )
     let msg = []
     for (var k = 0; k < data.duihuan[i].thing.length; k++) {
       await Add_najie_thing(
@@ -252,7 +275,12 @@ export class UserHome extends plugin {
         data.duihuan[i].thing[k].class,
         data.duihuan[i].thing[k].数量
       )
-      msg.push('\n' + data.duihuan[i].thing[k].name + 'x' + data.duihuan[i].thing[k].数量)
+      msg.push(
+        '\n' +
+          data.duihuan[i].thing[k].name +
+          'x' +
+          data.duihuan[i].thing[k].数量
+      )
     }
     e.reply('恭喜获得:' + msg)
     return false
@@ -480,28 +508,39 @@ export class UserHome extends plugin {
       let player_lingshi = await Read_player(usr_qq)
       player_lingshi = player_lingshi.灵石
       if (player_lingshi < lingshi) {
-        e.reply([segment.at(usr_qq), `灵石不足,你目前只有${player_lingshi}灵石`])
+        e.reply([
+          segment.at(usr_qq),
+          `灵石不足,你目前只有${player_lingshi}灵石`
+        ])
         return false
       }
       let najie = await Read_najie(usr_qq)
       if (najie.灵石上限 < najie.灵石 + lingshi) {
         await Add_najie_灵石(usr_qq, najie.灵石上限 - najie.灵石)
         await Add_灵石(usr_qq, -najie.灵石上限 + najie.灵石)
-        e.reply([segment.at(usr_qq), `已为您放入${najie.灵石上限 - najie.灵石}灵石,纳戒存满了`])
+        e.reply([
+          segment.at(usr_qq),
+          `已为您放入${najie.灵石上限 - najie.灵石}灵石,纳戒存满了`
+        ])
         return false
       }
       await Add_najie_灵石(usr_qq, lingshi)
       await Add_灵石(usr_qq, -lingshi)
       e.reply([
         segment.at(usr_qq),
-        `储存完毕,你目前还有${player_lingshi - lingshi}灵石,纳戒内有${najie.灵石 + lingshi}灵石`
+        `储存完毕,你目前还有${player_lingshi - lingshi}灵石,纳戒内有${
+          najie.灵石 + lingshi
+        }灵石`
       ])
       return false
     }
     if (func == '取') {
       let najie = await Read_najie(usr_qq)
       if (najie.灵石 < lingshi) {
-        e.reply([segment.at(usr_qq), `纳戒灵石不足,你目前最多取出${najie.灵石}灵石`])
+        e.reply([
+          segment.at(usr_qq),
+          `纳戒灵石不足,你目前最多取出${najie.灵石}灵石`
+        ])
         return false
       }
       let player_lingshi = await Read_player(usr_qq)
@@ -582,7 +621,9 @@ export class UserHome extends plugin {
           }
         }
       } else {
-        equ = najie.装备.find((item) => item.name == thing_name && item.pinji == pj)
+        equ = najie.装备.find(
+          (item) => item.name == thing_name && item.pinji == pj
+        )
       }
       await instead_equipment(usr_qq, equ)
       let img = await get_equipment_img(e)
@@ -625,7 +666,11 @@ export class UserHome extends plugin {
         player.addluckyNo = thing_exist.xingyun
         player.幸运 += thing_exist.xingyun
         data.setData('player', usr_qq, player)
-        e.reply(`${thing_name}服用成功，将在之后的 ${quantity * 10}次冒险旅途中为你提高幸运值！`)
+        e.reply(
+          `${thing_name}服用成功，将在之后的 ${
+            quantity * 10
+          }次冒险旅途中为你提高幸运值！`
+        )
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
         return false
       }
@@ -644,7 +689,9 @@ export class UserHome extends plugin {
       if (thing_exist.type == '仙缘') {
         dy.ped = 5 * quantity
         dy.beiyong1 = thing_exist.gailv
-        e.reply(`${thing_name}赐予${player.名号}仙缘,${player.名号}得到了仙兽的祝福`)
+        e.reply(
+          `${thing_name}赐予${player.名号}仙缘,${player.名号}得到了仙兽的祝福`
+        )
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
         await Write_danyao(usr_qq, dy)
         return false
@@ -662,7 +709,9 @@ export class UserHome extends plugin {
         if (dy.beiyong2 > 0) {
           dy.beiyong2 += thing_exist.机缘 * quantity
         }
-        e.reply(`丹韵入体,身体内蕴含的仙丹药效增加了${thing_exist.机缘 * quantity}次`)
+        e.reply(
+          `丹韵入体,身体内蕴含的仙丹药效增加了${thing_exist.机缘 * quantity}次`
+        )
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
         await Write_danyao(usr_qq, dy)
         return false
@@ -682,7 +731,9 @@ export class UserHome extends plugin {
       if (thing_exist.type == '神赐') {
         dy.beiyong2 = quantity
         dy.beiyong3 = thing_exist.概率
-        e.reply(`${player.名号}获得了神兽的恩赐,赐福的概率增加了,当前剩余次数${dy.beiyong2}`)
+        e.reply(
+          `${player.名号}获得了神兽的恩赐,赐福的概率增加了,当前剩余次数${dy.beiyong2}`
+        )
         await Write_danyao(usr_qq, dy)
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
         return false
@@ -705,9 +756,9 @@ export class UserHome extends plugin {
         }
         player.锻造天赋 = player.锻造天赋 + thing_exist.天赋 * quantity
         e.reply(
-          `服用成功,您额外获得了${thing_exist.天赋 * quantity}天赋上限,您当前炼器天赋为${
-            player.锻造天赋
-          }`
+          `服用成功,您额外获得了${
+            thing_exist.天赋 * quantity
+          }天赋上限,您当前炼器天赋为${player.锻造天赋}`
         )
         await Write_player(usr_qq, player)
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
@@ -720,7 +771,9 @@ export class UserHome extends plugin {
         }
         dy.xingyun = quantity
         dy.beiyong5 = thing_exist.额外数量
-        e.reply(`服用成功,您下一次的炼器获得了额外的炼器格子[${thing_exist.额外数量}]`)
+        e.reply(
+          `服用成功,您下一次的炼器获得了额外的炼器格子[${thing_exist.额外数量}]`
+        )
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
         await Write_danyao(usr_qq, dy)
         return false
@@ -733,7 +786,11 @@ export class UserHome extends plugin {
       }
       if (thing_exist.type == '入魔') {
         await Add_魔道值(usr_qq, quantity * thing_exist.modao)
-        e.reply(`${quantity}道黑色魔气入体,增加了${quantity * thing_exist.modao}魔道值`)
+        e.reply(
+          `${quantity}道黑色魔气入体,增加了${
+            quantity * thing_exist.modao
+          }魔道值`
+        )
         await Add_najie_thing(usr_qq, thing_name, '丹药', -quantity)
         return false
       }
@@ -823,7 +880,8 @@ export class UserHome extends plugin {
             (equipment[type[j]].atk / z[equipment[type[j]].pinji]) * z[random]
           equipment[type[j]].def =
             (equipment[type[j]].def / z[equipment[type[j]].pinji]) * z[random]
-          equipment[type[j]].HP = (equipment[type[j]].HP / z[equipment[type[j]].pinji]) * z[random]
+          equipment[type[j]].HP =
+            (equipment[type[j]].HP / z[equipment[type[j]].pinji]) * z[random]
           equipment[type[j]].pinji = random
         }
         await Write_equipment(usr_qq, equipment)
@@ -842,9 +900,9 @@ export class UserHome extends plugin {
         await player_efficiency(usr_qq)
         e.reply([
           segment.at(usr_qq),
-          `  服用成功,剩余 ${thing_name}数量: ${x - 1}，新的灵根为 "${player.灵根.type}"：${
-            player.灵根.name
-          }`,
+          `  服用成功,剩余 ${thing_name}数量: ${x - 1}，新的灵根为 "${
+            player.灵根.type
+          }"：${player.灵根.name}`,
           '\n可以在【#我的练气】中查看'
         ])
         return false
@@ -857,7 +915,10 @@ export class UserHome extends plugin {
         await Add_najie_thing(usr_qq, thing_name, '道具', -1)
         player.linggenshow = 0
         await Write_player(usr_qq, player)
-        e.reply(`你眼前一亮，看到了自己的灵根,` + `"${player.灵根.type}"：${player.灵根.name}`)
+        e.reply(
+          `你眼前一亮，看到了自己的灵根,` +
+            `"${player.灵根.type}"：${player.灵根.name}`
+        )
         return false
       }
       let qh = data.qianghua.find((item) => item.name == thing_exist.name)
@@ -867,7 +928,8 @@ export class UserHome extends plugin {
           return false
         } else if (
           qh.class == '神人' &&
-          (player.魔道值 > 0 || (player.灵根.type != '转生' && player.level_id < 42))
+          (player.魔道值 > 0 ||
+            (player.灵根.type != '转生' && player.level_id < 42))
         ) {
           e.reply(`你尝试使用它,但是失败了`)
           return false
@@ -964,7 +1026,11 @@ export class UserHome extends plugin {
     commodities_price = Math.trunc(commodities_price)
     //判断金额
     if (lingshi < commodities_price) {
-      e.reply(`口袋里的灵石不足以支付${thing_name},还需要${commodities_price - lingshi}灵石`)
+      e.reply(
+        `口袋里的灵石不足以支付${thing_name},还需要${
+          commodities_price - lingshi
+        }灵石`
+      )
       return false
     }
     //符合就往戒指加
@@ -1049,7 +1115,12 @@ export class UserHome extends plugin {
       }
     }
     thing_amount = await convert2integer(thing_amount)
-    let x = await exist_najie_thing(usr_qq, thing_name, thing_exist.class, thing_piji)
+    let x = await exist_najie_thing(
+      usr_qq,
+      thing_name,
+      thing_exist.class,
+      thing_piji
+    )
     //判断戒指中是否存在
     if (!x) {
       //没有
@@ -1063,15 +1134,29 @@ export class UserHome extends plugin {
       return false
     }
     //数量够,数量减少,灵石增加
-    await Add_najie_thing(usr_qq, thing_name, thing_exist.class, -thing_amount, thing_piji)
+    await Add_najie_thing(
+      usr_qq,
+      thing_name,
+      thing_exist.class,
+      -thing_amount,
+      thing_piji
+    )
     let commodities_price
     commodities_price = thing_exist.出售价 * thing_amount
-    if (data.zalei.find((item) => item.name == thing_name.replace(/[0-9]+/g, ''))) {
-      let sell = najie.装备.find((item) => item.name == thing_name && thing_piji == item.pinji)
+    if (
+      data.zalei.find((item) => item.name == thing_name.replace(/[0-9]+/g, ''))
+    ) {
+      let sell = najie.装备.find(
+        (item) => item.name == thing_name && thing_piji == item.pinji
+      )
       commodities_price = sell.出售价 * thing_amount
     }
     await Add_灵石(usr_qq, commodities_price)
-    e.reply(`出售成功!  获得${commodities_price}灵石,还剩余${thing_name}*${x - thing_amount} `)
+    e.reply(
+      `出售成功!  获得${commodities_price}灵石,还剩余${thing_name}*${
+        x - thing_amount
+      } `
+    )
     return false
   }
 }

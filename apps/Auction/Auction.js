@@ -1,5 +1,11 @@
 import { plugin, common, verc, config } from '../../api/api.js'
-import { __PATH, existplayer, Read_player, isNotNull, openAU } from '../../model/xiuxian.js'
+import {
+  __PATH,
+  existplayer,
+  Read_player,
+  isNotNull,
+  openAU
+} from '../../model/xiuxian.js'
 export class Auction extends plugin {
   constructor() {
     super({
@@ -111,7 +117,9 @@ export class Auction extends plugin {
     // await redis.set('xiuxian:AuctionofficialTask_E', e.group_id); NOTE: 过时的
     try {
       await redis.del(redisGlKey)
-    } catch (_) {}
+    } catch (err) {
+      console.log(err)
+    }
     await redis.sAdd(redisGlKey, String(e.group_id))
     e.reply('星阁体系在本群开启！')
     return false
@@ -168,7 +176,10 @@ export class Auction extends plugin {
     // 是否到拍卖时间
     let auction = await redis.get('xiuxian:AuctionofficialTask')
     if (!isNotNull(auction)) {
-      const { openHour, closeHour } = config.getConfig('xiuxian', 'xiuxian').Auction
+      const { openHour, closeHour } = config.getConfig(
+        'xiuxian',
+        'xiuxian'
+      ).Auction
       e.reply(`不在拍卖时间，开启时间为每天${openHour}时~${closeHour}时`)
       return false
     }

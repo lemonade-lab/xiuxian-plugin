@@ -95,8 +95,12 @@ export class Xijietask extends plugin {
             let B_player = {
               名号: monster.name,
               攻击: parseInt(monster.atk * A_player.攻击),
-              防御: parseInt((monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05)),
-              当前血量: parseInt((monster.blood * A_player.当前血量) / (1 + weizhi.Grade * 0.05)),
+              防御: parseInt(
+                (monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05)
+              ),
+              当前血量: parseInt(
+                (monster.blood * A_player.当前血量) / (1 + weizhi.Grade * 0.05)
+              ),
               暴击率: monster.baoji,
               灵根: monster.灵根,
               法球倍率: monster.灵根.法球倍率
@@ -110,7 +114,8 @@ export class Xijietask extends plugin {
               A_player.当前血量 += Data_battle.A_xue
             } else {
               Data_battle = await zd_battle(B_player, A_player)
-              last_msg += A_player.名号 + '杀气过重,被' + B_player.名号 + '发现了'
+              last_msg +=
+                A_player.名号 + '杀气过重,被' + B_player.名号 + '发现了'
               A_player.当前血量 += Data_battle.B_xue
             }
             let msgg = Data_battle.msg
@@ -128,10 +133,15 @@ export class Xijietask extends plugin {
               arr.end_time = new Date().getTime() + action_time
               arr.time = action_time
               arr.xijie = -1 //进入二阶段
-              last_msg += ',经过一番战斗,击败对手,剩余' + A_player.当前血量 + '血量,开始搜刮物品'
+              last_msg +=
+                ',经过一番战斗,击败对手,剩余' +
+                A_player.当前血量 +
+                '血量,开始搜刮物品'
             } else if (msgg.find((item) => item == B_win)) {
-              var num = weizhi.Grade
-              last_msg += ',经过一番战斗,败下阵来,被抓进了地牢\n在地牢中你找到了秘境之匙x' + num
+              let num = weizhi.Grade
+              last_msg +=
+                ',经过一番战斗,败下阵来,被抓进了地牢\n在地牢中你找到了秘境之匙x' +
+                num
               await Add_najie_thing(player_id, '秘境之匙', '道具', num)
               //结算完去除
               delete arr.group_id
@@ -161,7 +171,10 @@ export class Xijietask extends plugin {
               }
             }
             //写入redis
-            await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+            await redis.set(
+              'xiuxian@1.3.0:' + player_id + ':action',
+              JSON.stringify(arr)
+            )
             msg.push('\n' + last_msg)
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)
@@ -194,13 +207,16 @@ export class Xijietask extends plugin {
             } else {
               let x = shop[i].Grade * 2
               while (x > 0 && thing != false) {
-                var t //临时存储物品名
-                var thing_index = Math.trunc(Math.random() * thing.length)
+                let t //临时存储物品名
+                let thing_index = Math.trunc(Math.random() * thing.length)
                 t = thing[thing_index]
                 thing_name.push(t)
                 shop = await Read_shop()
-                for (var j = 0; j < shop[i].one.length; j++) {
-                  if (shop[i].one[j].name == t.name && shop[i].one[j].数量 > 0) {
+                for (let j = 0; j < shop[i].one.length; j++) {
+                  if (
+                    shop[i].one[j].name == t.name &&
+                    shop[i].one[j].数量 > 0
+                  ) {
                     shop[i].one[j].数量 = 0
                     await Write_shop(shop)
                     break
@@ -210,10 +226,12 @@ export class Xijietask extends plugin {
                 x--
               }
               last_msg += '经过一番搜寻' + arr.A_player.名号 + '找到了'
-              for (var j = 0; j < thing_name.length; j++) {
-                last_msg += '\n' + thing_name[j].name + ' x ' + thing_name[j].数量
+              for (let j = 0; j < thing_name.length; j++) {
+                last_msg +=
+                  '\n' + thing_name[j].name + ' x ' + thing_name[j].数量
               }
-              last_msg += '\n刚出门就被万仙盟的人盯上了,他们仗着人多，你一人无法匹敌，于是撒腿就跑'
+              last_msg +=
+                '\n刚出门就被万仙盟的人盯上了,他们仗着人多，你一人无法匹敌，于是撒腿就跑'
             }
             arr.action = '逃跑'
             time = 30 //时间（分钟）
@@ -224,7 +242,10 @@ export class Xijietask extends plugin {
             arr.thing = thing_name
             arr.cishu = shop[i].Grade + 1
             //写入redis
-            await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+            await redis.set(
+              'xiuxian@1.3.0:' + player_id + ':action',
+              JSON.stringify(arr)
+            )
             msg.push('\n' + last_msg)
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)

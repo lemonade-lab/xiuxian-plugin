@@ -30,7 +30,9 @@ export class GamesTask extends plugin {
     }
     for (let player_id of playerList) {
       //获取游戏状态
-      let game_action = await redis.get('xiuxian@1.3.0:' + player_id + ':game_action')
+      let game_action = await redis.get(
+        'xiuxian@1.3.0:' + player_id + ':game_action'
+      )
       //防止继续其他娱乐行为
       if (game_action == 0) {
         await redis.set('xiuxian@1.3.0:' + player_id + ':game_action', 1)

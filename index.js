@@ -1,10 +1,11 @@
 import { appsOut } from './robot/index.js'
-const apps = await appsOut('apps')
+import { AppName } from './app.config.js'
+const apps = await appsOut()
   .then((req) => {
-    logger.info(`xiuxian@1.3.0 start ~`)
+    console.info(`${AppName} start ~`)
     return req
   })
   .catch((err) => {
-    logger.info(`xiuxian@1.3.0 stop ~`)
+    console.error(err)
   })
 export { apps }

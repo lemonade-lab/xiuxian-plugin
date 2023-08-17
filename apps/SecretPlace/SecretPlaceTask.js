@@ -79,7 +79,8 @@ export class SecretPlaceTask extends plugin {
               仙宠: player.仙宠
             }
             let buff = 1
-            if (weizhi.name == '大千世界' || weizhi.name == '仙界矿场') buff = 0.6
+            if (weizhi.name == '大千世界' || weizhi.name == '仙界矿场')
+              buff = 0.6
             let monster_length = data.monster_list.length
             let monster_index = Math.trunc(Math.random() * monster_length)
             let monster = data.monster_list[monster_index]
@@ -190,8 +191,12 @@ export class SecretPlaceTask extends plugin {
             //结算
             let qixue = 0
             if (msgg.find((item) => item == A_win)) {
-              xiuwei = Math.trunc(2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5)
-              qixue = Math.trunc(2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1)
+              xiuwei = Math.trunc(
+                2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5
+              )
+              qixue = Math.trunc(
+                2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1
+              )
               if (thing_name) {
                 await Add_najie_thing(player_id, thing_name, thing_class, n)
               }
@@ -216,7 +221,9 @@ export class SecretPlaceTask extends plugin {
                 let index = Math.trunc(Math.random() * length)
                 let kouliang = data.xianchonkouliang[index]
                 last_msg +=
-                  '\n七彩流光的神奇仙谷[' + kouliang.name + ']深埋在土壤中，是仙兽们的最爱。'
+                  '\n七彩流光的神奇仙谷[' +
+                  kouliang.name +
+                  ']深埋在土壤中，是仙兽们的最爱。'
                 await Add_najie_thing(player_id, kouliang.name, '仙宠口粮', 1)
               }
               if (random > 0.1 && random < 0.1002) {
@@ -248,7 +255,10 @@ export class SecretPlaceTask extends plugin {
             //结算完去除group_id
             delete arr.group_id
             //写入redis
-            await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+            await redis.set(
+              'xiuxian@1.3.0:' + player_id + ':action',
+              JSON.stringify(arr)
+            )
             //先完结再结算
             await Add_血气(player_id, qixue)
             await Add_修为(player_id, xiuwei)

@@ -123,7 +123,9 @@ export class duanzao extends plugin {
             newwupin.push({
               name: j.name,
               type: j.type,
-              评分: Math.trunc((j.atk * 1.2 + j.def * 1.5 + j.HP * 1.5) * 10000),
+              评分: Math.trunc(
+                (j.atk * 1.2 + j.def * 1.5 + j.HP * 1.5) * 10000
+              ),
               制作者: author,
               使用者: usr_player.名号 + '(' + D + ')'
             })
@@ -189,7 +191,10 @@ export class duanzao extends plugin {
     }
     for (let player_id of playerList) {
       let action = null
-      await redis.set('xiuxian@1.3.0:' + player_id + ':action10', JSON.stringify(action))
+      await redis.set(
+        'xiuxian@1.3.0:' + player_id + ':action10',
+        JSON.stringify(action)
+      )
     }
     e.reply('清除完成')
     return false
@@ -212,7 +217,10 @@ export class duanzao extends plugin {
           item.预计时长 = 0
           await Write_duanlu(newtripod)
           let action = null
-          await redis.set('xiuxian@1.3.0:' + user_qq + ':action10', JSON.stringify(action))
+          await redis.set(
+            'xiuxian@1.3.0:' + user_qq + ':action10',
+            JSON.stringify(action)
+          )
           e.reply('材料成功清除')
           return false
         }
@@ -249,7 +257,9 @@ export class duanzao extends plugin {
     if (!(await existplayer(user_qq))) return false
     //不开放私聊
     //获取游戏状态
-    const game_action = await redis.get('xiuxian@1.3.0:' + user_qq + ':game_action')
+    const game_action = await redis.get(
+      'xiuxian@1.3.0:' + user_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -369,8 +379,12 @@ export class duanzao extends plugin {
           let now_time = new Date().getTime()
           if (now_time <= action_end_time) {
             let m = parseInt((action_end_time - now_time) / 1000 / 60)
-            let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
-            e.reply('正在' + action.action + '中，剩余时间:' + m + '分' + s + '秒')
+            let s = parseInt(
+              (action_end_time - now_time - m * 60 * 1000) / 1000
+            )
+            e.reply(
+              '正在' + action.action + '中，剩余时间:' + m + '分' + s + '秒'
+            )
             return false
           }
         }
@@ -391,7 +405,10 @@ export class duanzao extends plugin {
           }
         }
         await Write_danyao(user_qq, dy)
-        await redis.set('xiuxian@1.3.0:' + user_qq + ':action10', JSON.stringify(arr)) //redis设置动作
+        await redis.set(
+          'xiuxian@1.3.0:' + user_qq + ':action10',
+          JSON.stringify(arr)
+        ) //redis设置动作
         e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`)
         return false
       }
@@ -571,7 +588,8 @@ export class duanzao extends plugin {
         //计算经验收益
 
         //灵根影响值
-        let v = player.隐藏灵根.控器 / (Math.abs(max[1] - player.隐藏灵根.type) + 5)
+        let v =
+          player.隐藏灵根.控器 / (Math.abs(max[1] - player.隐藏灵根.type) + 5)
         //天赋影响值
         let k = ((player.锻造天赋 + 100) * v) / 200 + 1
         //基础值
@@ -593,7 +611,10 @@ export class duanzao extends plugin {
         await Write_duanlu(newtripod)
         //清除时间
         action = new Date().getTime()
-        await redis.set('xiuxian@1.3.0:' + user_qq + ':action10', JSON.stringify(action))
+        await redis.set(
+          'xiuxian@1.3.0:' + user_qq + ':action10',
+          JSON.stringify(action)
+        )
         e.reply(`恭喜你获得了[${wuqiname}·${houzhui}],炼器经验增加了[${z}]`)
         return false
       }

@@ -1,5 +1,10 @@
 import { plugin, common, config } from '../../api/api.js'
-import { Add_najie_thing, Add_灵石, Read_player, openAU } from '../../model/xiuxian.js'
+import {
+  Add_najie_thing,
+  Add_灵石,
+  Read_player,
+  openAU
+} from '../../model/xiuxian.js'
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({
@@ -42,7 +47,9 @@ export class AuctionofficialTask extends plugin {
         const player = await Read_player(auction.last_offer_player)
         msg += `最高出价是${player.名号}叫出的${auction.last_price}`
       }
-      auction.groupList.forEach((group_id) => this.pushInfo(group_id, true, msg))
+      auction.groupList.forEach((group_id) =>
+        this.pushInfo(group_id, true, msg)
+      )
       return false
     }
 
@@ -55,9 +62,12 @@ export class AuctionofficialTask extends plugin {
     const nowTime = new Date().getTime()
 
     if (wupin.last_offer_price + interMinu * 60 * 1000 > nowTime) {
-      const m = parseInt((last_offer_price + interMinu * 60 * 1000 - nowTime) / 1000 / 60)
+      const m = parseInt(
+        (last_offer_price + interMinu * 60 * 1000 - nowTime) / 1000 / 60
+      )
       const s = parseInt(
-        (last_offer_price + interMinu * 60 * 1000 - nowTime - m * 60 * 1000) / 1000
+        (last_offer_price + interMinu * 60 * 1000 - nowTime - m * 60 * 1000) /
+          1000
       )
       msg = `星阁限定物品【${wupin.thing.name}】拍卖中\n距离拍卖结束还有${m}分${s}秒\n目前最高价${wupin.last_price}`
 

@@ -231,7 +231,9 @@ export async function Read_it() {
 }
 export async function alluser() {
   let B = []
-  let A = fs.readdirSync(__PATH.player_path).filter((file) => file.endsWith('.json'))
+  let A = fs
+    .readdirSync(__PATH.player_path)
+    .filter((file) => file.endsWith('.json'))
   for (let item of A) B.push(item.substring(0, item.lastIndexOf('.')))
 
   return B

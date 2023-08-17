@@ -1,71 +1,87 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/danfang/danfang.css"
+    />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/danfang/danfang.css" />
-</head>
-
-<body>
-  <div>
-    <div class="user_bottom1">
-      <div class="use_data">
-        <div class="user_font use_data_head" style="text-align: center; padding-left: 0px">
-          <div>丹方</div>
-          <div style="font-size: 0.8em">炼制指令：#炼制+丹药名</div>
-          <div style="font-size: 0.8em">炼制成功率 = 丹方成功率 + 玩家职业等级成功率</div>
-        </div>
-        <div class="use_data_body">
-          {{each danfang_list item}}
-          <div class="user_font">
-            <div>
-              <div style="display: inline-block">【{{item.type}}】{{item.name}}</div>
-              <div class="rate" style="width: 50px">{{~~(item.rate*100)}}%</div>
-              <div class="rate" style="width: 50px">lv.{{item.level_limit}}</div>
-            </div>
-            <div class="info">
-              {{item.type}}：{{if item.type=="血量"}}{{item.HP}}{{else if
-              item.type=="修为"}}{{item.exp2}}{{else if item.type=="血气"}}{{item.exp2}}{{/if}}
-            </div>
-            <div>
-              <div class="info">配方：</div>
-              <div style="padding: 10px">
-                {{each item.materials material}}
-                <div class="info" style="width: 250px">{{material.name}}×{{material.amount}}</div>
-                {{/each}}
-              </div>
+  <body>
+    <div>
+      <div class="user_bottom1">
+        <div class="use_data">
+          <div
+            class="user_font use_data_head"
+            style="text-align: center; padding-left: 0px"
+          >
+            <div>丹方</div>
+            <div style="font-size: 0.8em">炼制指令：#炼制+丹药名</div>
+            <div style="font-size: 0.8em">
+              炼制成功率 = 丹方成功率 + 玩家职业等级成功率
             </div>
           </div>
-          {{/each}}
+          <div class="use_data_body">
+            {{each danfang_list item}}
+            <div class="user_font">
+              <div>
+                <div style="display: inline-block">
+                  【{{item.type}}】{{item.name}}
+                </div>
+                <div class="rate" style="width: 50px">
+                  {{~~(item.rate*100)}}%
+                </div>
+                <div class="rate" style="width: 50px">
+                  lv.{{item.level_limit}}
+                </div>
+              </div>
+              <div class="info">
+                {{item.type}}：{{if item.type=="血量"}}{{item.HP}}{{else if
+                item.type=="修为"}}{{item.exp2}}{{else if
+                item.type=="血气"}}{{item.exp2}}{{/if}}
+              </div>
+              <div>
+                <div class="info">配方：</div>
+                <div style="padding: 10px">
+                  {{each item.materials material}}
+                  <div class="info" style="width: 250px">
+                    {{material.name}}×{{material.amount}}
+                  </div>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 
-<style>
-  @font-face {
-    font-family: 'tttgbnumber';
-    src: url('{{pluResPath}}/font/tttgbnumber.ttf');
-    font-weight: normal;
-    font-style: normal;
-  }
+  <style>
+    @font-face {
+      font-family: 'tttgbnumber';
+      src: url('{{pluResPath}}/font/tttgbnumber.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-  body {
-    transform: scale(1);
-    width: 100%;
-    text-align: center;
-    background-image: url('{{pluResPath}}/img/danfang/danfang.jpg');
-    background-size: 100% auto;
-  }
+    body {
+      transform: scale(1);
+      width: 100%;
+      text-align: center;
+      background-image: url('{{pluResPath}}/img/danfang/danfang.jpg');
+      background-size: 100% auto;
+    }
 
-  .user_top_img_bottom {
-    margin: auto;
-    background-image: url('{{pluResPath}}/img/state/user_state.png');
-    background-size: 100% auto;
-    width: 280px;
-    height: 280px;
-  }
-</style>
-
+    .user_top_img_bottom {
+      margin: auto;
+      background-image: url('{{pluResPath}}/img/state/user_state.png');
+      background-size: 100% auto;
+      width: 280px;
+      height: 280px;
+    }
+  </style>
 </html>

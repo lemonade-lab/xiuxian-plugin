@@ -1,99 +1,104 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/fairyrealm/fairyrealm.css"
+    />
+  </head>
 
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/fairyrealm/fairyrealm.css" />
-</head>
-
-<body>
-  <div>
-    <div class="user_bottom1">
-      <div class="use_data">
-        <div class="user_font head" style="text-align: center; padding-left: 0px">
-          <div>仙境</div>
-          <span style="font-size: 0.8em">指令：#镇守仙境+仙境名</span>
-        </div>
-      </div>
-      {{each didian_list item}}
-      <div class="use_data">
-        <div class="card">
-          <div class="use_data_head">
-            <div class="user_font">
-              <div>
-                <div style="display: inline-block">【{{item.Grade}}】{{item.name}}</div>
-                <div class="price">{{item.Price}}灵石+100000修为</div>
-              </div>
-            </div>
+  <body>
+    <div>
+      <div class="user_bottom1">
+        <div class="use_data">
+          <div
+            class="user_font head"
+            style="text-align: center; padding-left: 0px"
+          >
+            <div>仙境</div>
+            <span style="font-size: 0.8em">指令：#镇守仙境+仙境名</span>
           </div>
-          <div class="use_data_body">
-            <div class="user_font">
-              <div>
+        </div>
+        {{each didian_list item}}
+        <div class="use_data">
+          <div class="card">
+            <div class="use_data_head">
+              <div class="user_font">
                 <div>
-                  <div class="info">低级奖励：</div>
-                  <div style="padding-left: 20px">
-                    {{each item.one thing}}
-                    <div class="info2">{{thing.name}}</div>
-                    {{/each}}
+                  <div style="display: inline-block">
+                    【{{item.Grade}}】{{item.name}}
                   </div>
-                </div>
-                <div>
-                  <div class="info">中级奖励：</div>
-                  <div style="padding-left: 20px">
-                    {{each item.two thing}}
-                    <div class="info2">{{thing.name}}</div>
-                    {{/each}}
-                  </div>
-                </div>
-                <div>
-                  <div class="info">高级奖励：</div>
-                  <div style="padding-left: 20px">
-                    {{each item.three thing}}
-                    <div class="info2">{{thing.name}}</div>
-                    {{/each}}
-                  </div>
+                  <div class="price">{{item.Price}}灵石+100000修为</div>
                 </div>
               </div>
             </div>
+            <div class="use_data_body">
+              <div class="user_font">
+                <div>
+                  <div>
+                    <div class="info">低级奖励：</div>
+                    <div style="padding-left: 20px">
+                      {{each item.one thing}}
+                      <div class="info2">{{thing.name}}</div>
+                      {{/each}}
+                    </div>
+                  </div>
+                  <div>
+                    <div class="info">中级奖励：</div>
+                    <div style="padding-left: 20px">
+                      {{each item.two thing}}
+                      <div class="info2">{{thing.name}}</div>
+                      {{/each}}
+                    </div>
+                  </div>
+                  <div>
+                    <div class="info">高级奖励：</div>
+                    <div style="padding-left: 20px">
+                      {{each item.three thing}}
+                      <div class="info2">{{thing.name}}</div>
+                      {{/each}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        {{/each}}
       </div>
-      {{/each}}
     </div>
-  </div>
-</body>
+  </body>
 
+  <style>
+    @font-face {
+      font-family: 'tttgbnumber';
+      src: url('{{pluResPath}}/font/tttgbnumber.ttf');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-<style>
-  @font-face {
-    font-family: 'tttgbnumber';
-    src: url('{{pluResPath}}/font/tttgbnumber.ttf');
-    font-weight: normal;
-    font-style: normal;
-  }
+    body {
+      transform: scale(1);
+      width: 100%;
+      text-align: center;
+      background-image: url('{{pluResPath}}/img/fairyrealm/fairyrealm.jpg');
+      background-size: 100% auto;
+    }
 
-  body {
-    transform: scale(1);
-    width: 100%;
-    text-align: center;
-    background-image: url('{{pluResPath}}/img/fairyrealm/fairyrealm.jpg');
-    background-size: 100% auto;
-  }
+    .user_top_img_bottom {
+      margin: auto;
+      background-image: url('{{pluResPath}}/img/state/user_state.png');
+      background-size: 100% auto;
+      width: 280px;
+      height: 280px;
+    }
 
-
-  .user_top_img_bottom {
-    margin: auto;
-    background-image: url('{{pluResPath}}/img/state/user_state.png');
-    background-size: 100% auto;
-    width: 280px;
-    height: 280px;
-  }
-
-  .card {
-    border-radius: 20px;
-    background-size: cover;
-    background-image: url('{{pluResPath}}/img/fairyrealm/card.jpg');
-  }
-</style>
-
+    .card {
+      border-radius: 20px;
+      background-size: cover;
+      background-image: url('{{pluResPath}}/img/fairyrealm/card.jpg');
+    }
+  </style>
 </html>

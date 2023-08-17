@@ -68,9 +68,9 @@ export class UserAction extends plugin {
     najie.等级 += 1
     await Write_najie(usr_qq, najie)
     e.reply(
-      `你的纳戒升级成功,花了${najie_price[najie.等级 - 1]}灵石,目前纳戒灵石存储上限为${
-        najie.灵石上限
-      },可以使用【#我的纳戒】来查看`
+      `你的纳戒升级成功,花了${
+        najie_price[najie.等级 - 1]
+      }灵石,目前纳戒灵石存储上限为${najie.灵石上限},可以使用【#我的纳戒】来查看`
     )
     return false
   }

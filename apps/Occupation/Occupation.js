@@ -140,7 +140,9 @@ export class Occupation extends plugin {
       return false
     }
     let now_level_id
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 17 && occupation == '采矿师') {
       e.reply('包工头:就你这小身板还来挖矿？再去修炼几年吧')
       return false
@@ -148,7 +150,11 @@ export class Occupation extends plugin {
     let thing_name = occupation + '转职凭证'
     let thing_class = '道具'
     let n = -1
-    let thing_quantity = await exist_najie_thing(usr_qq, thing_name, thing_class)
+    let thing_quantity = await exist_najie_thing(
+      usr_qq,
+      thing_name,
+      thing_class
+    )
     if (!thing_quantity) {
       //没有
       e.reply(`你没有【${thing_name}】`)
@@ -172,13 +178,16 @@ export class Occupation extends plugin {
     if (action == null) {
       action = []
     }
-    var arr = {
+    let arr = {
       职业名: player.occupation,
       职业经验: player.occupation_exp,
       职业等级: player.occupation_level
     }
     action = arr
-    await redis.set('xiuxian:player:' + usr_qq + ':fuzhi', JSON.stringify(action))
+    await redis.set(
+      'xiuxian:player:' + usr_qq + ':fuzhi',
+      JSON.stringify(action)
+    )
     player.occupation = occupation
     player.occupation_level = 1
     player.occupation_exp = 0
@@ -214,9 +223,14 @@ export class Occupation extends plugin {
     player.occupation = a
     player.occupation_exp = b
     player.occupation_level = c
-    await redis.set('xiuxian:player:' + usr_qq + ':fuzhi', JSON.stringify(action))
+    await redis.set(
+      'xiuxian:player:' + usr_qq + ':fuzhi',
+      JSON.stringify(action)
+    )
     await Write_player(usr_qq, player)
-    e.reply(`恭喜${player.名号}转职为[${player.occupation}],您的副职为${action.职业名}`)
+    e.reply(
+      `恭喜${player.名号}转职为[${player.occupation}],您的副职为${action.职业名}`
+    )
     return false
   }
 
@@ -227,7 +241,9 @@ export class Occupation extends plugin {
     //不开放私聊
     if (!verc({ e })) return false
     //获取游戏状态
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -243,10 +259,10 @@ export class Occupation extends plugin {
     time = time.replace('分钟', '')
     if (parseInt(time) == parseInt(time)) {
       time = parseInt(time)
-      var y = 15 //时间
-      var x = 48 //循环次数
+      let y = 15 //时间
+      let x = 48 //循环次数
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -326,15 +342,15 @@ export class Occupation extends plugin {
     let start_time = action.end_time - action.time
     let now_time = new Date().getTime()
     let time
-    var y = 15 //固定时间
-    var x = 48 //循环次数
+    let y = 15 //固定时间
+    let x = 48 //循环次数
 
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -349,7 +365,7 @@ export class Occupation extends plugin {
       time = parseInt(action.time / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -375,14 +391,19 @@ export class Occupation extends plugin {
     //结束的时间也修改为当前时间
     arr.end_time = new Date().getTime()
     delete arr.group_id //结算完去除group_id
-    await redis.set('xiuxian@1.3.0:' + e.user_id + ':action', JSON.stringify(arr))
+    await redis.set(
+      'xiuxian@1.3.0:' + e.user_id + ':action',
+      JSON.stringify(arr)
+    )
   }
   async mine(e) {
     if (!verc({ e })) return false
     let usr_qq = e.user_id //用户qq
     if (!(await existplayer(usr_qq))) return false
     //获取游戏状态
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -399,10 +420,10 @@ export class Occupation extends plugin {
     time = time.replace('分钟', '')
     if (parseInt(time) == parseInt(time)) {
       time = parseInt(time)
-      var y = 30 //时间
-      var x = 24 //循环次数
+      let y = 30 //时间
+      let x = 24 //循环次数
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -468,11 +489,11 @@ export class Occupation extends plugin {
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
-      var y = 30 //时间
-      var x = 24 //循环次数
+      let y = 30 //时间
+      let x = 24 //循环次数
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -487,7 +508,7 @@ export class Occupation extends plugin {
       time = parseInt(action.time / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -516,7 +537,10 @@ export class Occupation extends plugin {
     //结束的时间也修改为当前时间
     arr.end_time = new Date().getTime()
     delete arr.group_id //结算完去除group_id
-    await redis.set('xiuxian@1.3.0:' + e.user_id + ':action', JSON.stringify(arr))
+    await redis.set(
+      'xiuxian@1.3.0:' + e.user_id + ':action',
+      JSON.stringify(arr)
+    )
   }
 
   async plant_jiesuan(user_id, time, is_random, group_id) {
@@ -551,7 +575,8 @@ export class Occupation extends plugin {
     ]
     const sum2 = [0.2, 0.3, 0.2, 0.2, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     const sum3 = [
-      0.17, 0.22, 0.17, 0.17, 0.17, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024, 0.012, 0.011
+      0.17, 0.22, 0.17, 0.17, 0.17, 0.024, 0.024, 0.024, 0.024, 0.024, 0.024,
+      0.024, 0.012, 0.011
     ]
     msg.push(`\n恭喜你获得了经验${exp},草药:`)
     let newsum = sum3.map((item) => item * sum)
@@ -563,7 +588,12 @@ export class Occupation extends plugin {
         continue
       }
       msg.push(`\n${names[item]}${Math.floor(newsum[item])}个`)
-      await Add_najie_thing(usr_qq, names[item], '草药', Math.floor(newsum[item]))
+      await Add_najie_thing(
+        usr_qq,
+        names[item],
+        '草药',
+        Math.floor(newsum[item])
+      )
     }
     await Add_职业经验(usr_qq, exp)
     if (group_id) {
@@ -580,11 +610,16 @@ export class Occupation extends plugin {
     let player = data.getData('player', usr_qq)
     let msg = [segment.at(usr_qq)]
     let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time)
-    let rate = data.occupation_exp_list.find((item) => item.id == player.occupation_level).rate * 10
+    let rate =
+      data.occupation_exp_list.find(
+        (item) => item.id == player.occupation_level
+      ).rate * 10
     let exp = 0
     let ext = ''
     exp = time * 10
-    ext = `你是采矿师，获得采矿经验${exp}，额外获得矿石${Math.floor(rate * 100)}%,`
+    ext = `你是采矿师，获得采矿经验${exp}，额外获得矿石${Math.floor(
+      rate * 100
+    )}%,`
     let end_amount = Math.floor(4 * (rate + 1) * mine_amount1) //普通矿石
     let num = Math.floor(((rate / 12) * time) / 30) //锻造
     const A = [
@@ -709,7 +744,9 @@ export class Occupation extends plugin {
         x = 0
       }
       if (x < material.amount * n) {
-        e.reply(`纳戒中拥有${material.name}${x}份，炼制需要${material.amount * n}份`)
+        e.reply(
+          `纳戒中拥有${material.name}${x}份，炼制需要${material.amount * n}份`
+        )
         return false
       }
     }
@@ -723,7 +760,9 @@ export class Occupation extends plugin {
       let random = Math.random()
       if (random < player.仙宠.加成) {
         n *= 2
-        e.reply('你的仙宠' + player.仙宠.name + '辅佐了你进行炼丹,成功获得了双倍丹药')
+        e.reply(
+          '你的仙宠' + player.仙宠.name + '辅佐了你进行炼丹,成功获得了双倍丹药'
+        )
       } else {
         e.reply('你的仙宠只是在旁边看着')
       }
@@ -746,10 +785,14 @@ export class Occupation extends plugin {
       } else {
         if (newrandom2 >= 0.4) {
           await Add_najie_thing(usr_qq, '极品' + danyao, '丹药', n)
-          e.reply(`${tmp_msg}得到"极品"${danyao}${n}颗，获得炼丹经验${total_exp}`)
+          e.reply(
+            `${tmp_msg}得到"极品"${danyao}${n}颗，获得炼丹经验${total_exp}`
+          )
         } else {
           await Add_najie_thing(usr_qq, '仙品' + danyao, '丹药', n)
-          e.reply(`${tmp_msg}得到"仙品"${danyao}${n}颗，获得炼丹经验${total_exp}`)
+          e.reply(
+            `${tmp_msg}得到"仙品"${danyao}${n}颗，获得炼丹经验${total_exp}`
+          )
         }
       }
     }
@@ -784,12 +827,16 @@ export class Occupation extends plugin {
     let rate = 0
 
     if (player.occupation_level > 0) {
-      rate = data.occupation_exp_list.find((item) => item.id == player.occupation_level).rate
+      rate = data.occupation_exp_list.find(
+        (item) => item.id == player.occupation_level
+      ).rate
       rate = rate * 10
       rate = rate * 0.025
     }
     if (player.occupation == '炼器师') {
-      tmp_msg1 += `你是炼器师，额外增加成功率${Math.floor(rate * 10)}%(以乘法算)，`
+      tmp_msg1 += `你是炼器师，额外增加成功率${Math.floor(
+        rate * 10
+      )}%(以乘法算)，`
       suc_rate *= 1 + rate
       if (player.occupation_level >= 24) {
         suc_rate = 0.8
@@ -851,7 +898,7 @@ export class Occupation extends plugin {
     if (action != null) {
       if (action.end_time > new Date().getTime()) {
         msg = action.arm
-        var msg_data = {
+        let msg_data = {
           msg,
           type
         }
@@ -868,7 +915,7 @@ export class Occupation extends plugin {
     let File = fs.readdirSync(__PATH.player_path)
     File = File.filter((file) => file.endsWith('.json'))
     let File_length = File.length
-    for (var k = 0; k < File_length; k++) {
+    for (let k = 0; k < File_length; k++) {
       let this_qq = File[k].replace('.json', '')
       this_qq = parseInt(this_qq)
       let players = await Read_player(this_qq)
@@ -905,15 +952,18 @@ export class Occupation extends plugin {
       }
       i++
     }
-    for (var k = 0; k < 3; k++) {
+    for (let k = 0; k < 3; k++) {
       msg.push(mubiao[Math.trunc(Math.random() * i)])
     }
     let arr = {
       arm: msg,
       end_time: new Date().getTime() + 60000 * 60 * 20 //结束时间
     }
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':shangjing', JSON.stringify(arr))
-    var msg_data = {
+    await redis.set(
+      'xiuxian@1.3.0:' + usr_qq + ':shangjing',
+      JSON.stringify(arr)
+    )
+    let msg_data = {
       msg,
       type
     }
@@ -957,7 +1007,7 @@ export class Occupation extends plugin {
       e.reply('每日限杀,请等待20小时后新的赏金目标') //悬赏做完了(20h后刷新)
       return false
     }
-    var num = e.msg.replace('#讨伐目标', '')
+    let num = e.msg.replace('#讨伐目标', '')
     num = num.trim() - 1
     let qq
     try {
@@ -968,7 +1018,7 @@ export class Occupation extends plugin {
     }
     let last_msg = ''
     if (qq != 1) {
-      var player_B = await Read_player(qq)
+      let player_B = await Read_player(qq)
       player_B.当前血量 = player_B.血量上限
 
       player_B.法球倍率 = player_B.灵根.法球倍率
@@ -1005,7 +1055,7 @@ export class Occupation extends plugin {
           player_B.名号 +
           '失去了1000000灵石,罪恶得到了洗刷,魔道值-50,无名侠客获得了部分灵石,自己的正气提升了,同时获得了更多的悬赏加成'
       } else if (msg.find((item) => item == B_win)) {
-        var shangjing = Math.trunc(action.arm[num].赏金 * 0.8)
+        let shangjing = Math.trunc(action.arm[num].赏金 * 0.8)
         player.当前血量 = 0
         player.灵石 += shangjing
         player.魔道值 -= 5
@@ -1014,6 +1064,7 @@ export class Occupation extends plugin {
         last_msg += player_B.名号 + '反杀了你,只获得了部分辛苦钱'
       }
       if (msg.length > 100) {
+        console.log('通过')
       } else {
         await ForwardMsg(e, msg)
       }
@@ -1025,7 +1076,10 @@ export class Occupation extends plugin {
       last_msg += '你惩戒了仙路窃贼,获得了部分灵石' //直接获胜
     }
     action.arm.splice(num, 1)
-    await redis.set('xiuxian@1.3.0:' + usr_qq + ':shangjing', JSON.stringify(action))
+    await redis.set(
+      'xiuxian@1.3.0:' + usr_qq + ':shangjing',
+      JSON.stringify(action)
+    )
     if (
       last_msg == '你惩戒了仙路窃贼,获得了部分灵石' ||
       last_msg == player_B.名号 + '反杀了你,只获得了部分辛苦钱'
@@ -1063,7 +1117,7 @@ export class Occupation extends plugin {
       e.reply('世间没有这人') //查无此人
       return false
     }
-    var arr = {
+    let arr = {
       名号: player_B.名号,
       QQ: qq,
       赏金: money
@@ -1100,11 +1154,11 @@ export class Occupation extends plugin {
       e.reply('悬赏已经被抢空了') //没人被悬赏
       return false
     }
-    for (var i = 0; i < action.length - 1; i++) {
-      var count = 0
-      for (var j = 0; j < action.length - i - 1; j++) {
+    for (let i = 0; i < action.length - 1; i++) {
+      let count = 0
+      for (let j = 0; j < action.length - i - 1; j++) {
         if (action[j].赏金 < action[j + 1].赏金) {
-          var t
+          let t
           t = action[j]
           action[j] = action[j + 1]
           action[j + 1] = t
@@ -1115,7 +1169,7 @@ export class Occupation extends plugin {
     }
     await redis.set('xiuxian@1.3.0:' + 1 + ':shangjing', JSON.stringify(action))
     let type = 1
-    var msg_data = {
+    let msg_data = {
       msg: action,
       type
     }
@@ -1146,7 +1200,7 @@ export class Occupation extends plugin {
     }
     let action = await redis.get('xiuxian@1.3.0:' + 1 + ':shangjing')
     action = await JSON.parse(action)
-    var num = e.msg.replace('#刺杀目标', '')
+    let num = e.msg.replace('#刺杀目标', '')
     num = num.trim() - 1
     let qq
     try {
@@ -1181,8 +1235,12 @@ export class Occupation extends plugin {
         if (!ishaveyss) {
           //如果A没有隐身水，直接返回不执行
           let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
-          let s = parseInt((B_action_end_time - now_time - m * 60 * 1000) / 1000)
-          e.reply('对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒')
+          let s = parseInt(
+            (B_action_end_time - now_time - m * 60 * 1000) / 1000
+          )
+          e.reply(
+            '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
+          )
           return false
         }
       }
@@ -1213,10 +1271,14 @@ export class Occupation extends plugin {
       await Write_player(qq, player_B)
       player.灵石 += Math.trunc(action[num].赏金 * 0.3)
       await Write_player(usr_qq, player)
-      last_msg += '【全服公告】' + player_B.名号 + '被' + player.名号 + '悄无声息的刺杀了'
+      last_msg +=
+        '【全服公告】' + player_B.名号 + '被' + player.名号 + '悄无声息的刺杀了'
       //优化下文案，比如xxx在刺杀xxx中
       action.splice(num, 1)
-      await redis.set('xiuxian@1.3.0:' + 1 + ':shangjing', JSON.stringify(action))
+      await redis.set(
+        'xiuxian@1.3.0:' + 1 + ':shangjing',
+        JSON.stringify(action)
+      )
     } else if (msg.find((item) => item == B_win)) {
       player.当前血量 = 0
       await Write_player(usr_qq, player)
@@ -1229,6 +1291,7 @@ export class Occupation extends plugin {
         player.名号 //优化下文案，比如xxx在刺杀xxx中
     }
     if (msg.length > 100) {
+      console.log('通过')
     } else {
       await ForwardMsg(e, msg)
     }

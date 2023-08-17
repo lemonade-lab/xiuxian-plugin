@@ -63,11 +63,13 @@ export class Tiandibang extends plugin {
     let File_length = File.length
     let temp = []
     let t
-    for (var k = 0; k < File_length; k++) {
+    for (let k = 0; k < File_length; k++) {
       let this_qq = File[k].replace('.json', '')
       this_qq = parseInt(this_qq)
       let player = await Read_player(this_qq)
-      let level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+      let level_id = data.Level_list.find(
+        (item) => item.level_id == player.level_id
+      ).level_id
       temp[k] = {
         名号: player.名号,
         境界: level_id,
@@ -85,9 +87,9 @@ export class Tiandibang extends plugin {
         积分: 0
       }
     }
-    for (var i = 0; i < File_length - 1; i++) {
-      var count = 0
-      for (var j = 0; j < File_length - i - 1; j++) {
+    for (let i = 0; i < File_length - 1; i++) {
+      let count = 0
+      for (let j = 0; j < File_length - i - 1; j++) {
         if (temp[j].积分 < temp[j + 1].积分) {
           t = temp[j]
           temp[j] = temp[j + 1]
@@ -114,7 +116,7 @@ export class Tiandibang extends plugin {
     //查看存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    var reg = new RegExp(/积分兑换/)
+    let reg = new RegExp(/积分兑换/)
     let msg = e.msg.replace(reg, '')
     msg = msg.replace('#', '')
     let thing_name = msg.replace('积分兑换', '')
@@ -142,7 +144,11 @@ export class Tiandibang extends plugin {
       }
     }
     if (tiandibang[m].积分 < data.tianditang[i].积分) {
-      e.reply(`积分不足,还需${data.tianditang[i].积分 - tiandibang[m].积分}积分兑换${thing_name}`)
+      e.reply(
+        `积分不足,还需${
+          data.tianditang[i].积分 - tiandibang[m].积分
+        }积分兑换${thing_name}`
+      )
       return false
     }
     tiandibang[m].积分 -= data.tianditang[i].积分
@@ -199,7 +205,7 @@ export class Tiandibang extends plugin {
       tiandibang = await Read_tiandibang()
     }
     let x = tiandibang.length
-    for (var i = 0; i < tiandibang.length; i++) {
+    for (let i = 0; i < tiandibang.length; i++) {
       if (tiandibang[i].qq == usr_qq) {
         x = i
         break
@@ -207,7 +213,9 @@ export class Tiandibang extends plugin {
     }
     if (x == tiandibang.length) {
       let player = await Read_player(usr_qq)
-      let level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+      let level_id = data.Level_list.find(
+        (item) => item.level_id == player.level_id
+      ).level_id
       let A_player = {
         名号: player.名号,
         境界: level_id,
@@ -250,7 +258,7 @@ export class Tiandibang extends plugin {
     let x = tiandibang.length
     let l = 10
     let msg = ['***天地榜(每日免费三次)***\n       周一0点清空积分']
-    for (var i = 0; i < tiandibang.length; i++) {
+    for (let i = 0; i < tiandibang.length; i++) {
       if (tiandibang[i].qq == usr_qq) {
         x = i
         break
@@ -264,21 +272,36 @@ export class Tiandibang extends plugin {
       l = tiandibang.length
     }
     if (x < l) {
-      for (var m = 0; m < l; m++) {
+      for (let m = 0; m < l; m++) {
         msg.push(
-          '名次：' + (m + 1) + '\n名号：' + tiandibang[m].名号 + '\n积分：' + tiandibang[m].积分
+          '名次：' +
+            (m + 1) +
+            '\n名号：' +
+            tiandibang[m].名号 +
+            '\n积分：' +
+            tiandibang[m].积分
         )
       }
     } else if (x >= l && tiandibang.length - x < l) {
-      for (var m = tiandibang.length - l; m < tiandibang.length; m++) {
+      for (let m = tiandibang.length - l; m < tiandibang.length; m++) {
         msg.push(
-          '名次：' + (m + 1) + '\n名号：' + tiandibang[m].名号 + '\n积分：' + tiandibang[m].积分
+          '名次：' +
+            (m + 1) +
+            '\n名号：' +
+            tiandibang[m].名号 +
+            '\n积分：' +
+            tiandibang[m].积分
         )
       }
     } else {
-      for (var m = x - 5; m < x + 5; m++) {
+      for (let m = x - 5; m < x + 5; m++) {
         msg.push(
-          '名次：' + (m + 1) + '\n名号：' + tiandibang[m].名号 + '\n积分：' + tiandibang[m].积分
+          '名次：' +
+            (m + 1) +
+            '\n名号：' +
+            tiandibang[m].名号 +
+            '\n积分：' +
+            tiandibang[m].积分
         )
       }
     }
@@ -292,7 +315,9 @@ export class Tiandibang extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //获取游戏状态
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -321,7 +346,7 @@ export class Tiandibang extends plugin {
       tiandibang = await Read_tiandibang()
     }
     let x = tiandibang.length
-    for (var m = 0; m < tiandibang.length; m++) {
+    for (let m = 0; m < tiandibang.length; m++) {
       if (tiandibang[m].qq == usr_qq) {
         x = m
         break
@@ -339,7 +364,11 @@ export class Tiandibang extends plugin {
     let nowTime = now.getTime() //获取当前日期的时间戳
     let Today = await shijianc(nowTime)
     let lastbisai_time = await getLastbisai(usr_qq) //获得上次签到日期
-    if (Today.Y != lastbisai_time.Y || Today.M != lastbisai_time.M || Today.D != lastbisai_time.D) {
+    if (
+      Today.Y != lastbisai_time.Y ||
+      Today.M != lastbisai_time.M ||
+      Today.D != lastbisai_time.D
+    ) {
       await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastbisai_time', nowTime) //redis设置签到时间
       tiandibang[x].次数 = 3
     }
@@ -459,6 +488,7 @@ export class Tiandibang extends plugin {
       }
       await Add_灵石(usr_qq, lingshi)
       if (msg.length > 50) {
+        console.log('通过')
       } else {
         await ForwardMsg(e, msg)
       }
@@ -513,6 +543,7 @@ export class Tiandibang extends plugin {
       }
       await Add_灵石(usr_qq, lingshi)
       if (msg.length > 50) {
+        console.log('通过')
       } else {
         await ForwardMsg(e, msg)
       }
@@ -520,9 +551,9 @@ export class Tiandibang extends plugin {
     }
     tiandibang = await Read_tiandibang()
     let t
-    for (var i = 0; i < tiandibang.length - 1; i++) {
-      var count = 0
-      for (var j = 0; j < tiandibang.length - i - 1; j++) {
+    for (let i = 0; i < tiandibang.length - 1; i++) {
+      let count = 0
+      for (let j = 0; j < tiandibang.length - i - 1; j++) {
         if (tiandibang[j].积分 < tiandibang[j + 1].积分) {
           t = tiandibang[j]
           tiandibang[j] = tiandibang[j + 1]
@@ -566,7 +597,9 @@ export class Tiandibang extends plugin {
       return false
     }
     let player = await Read_player(usr_qq)
-    let level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    let level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     tiandibang[m].名号 = player.名号
     tiandibang[m].境界 = level_id
     tiandibang[m].攻击 = player.攻击
@@ -673,11 +706,13 @@ async function re_bangdang() {
   let File_length = File.length
   let temp = []
   let t
-  for (var k = 0; k < File_length; k++) {
+  for (let k = 0; k < File_length; k++) {
     let this_qq = File[k].replace('.json', '')
     this_qq = parseInt(this_qq)
     let player = await Read_player(this_qq)
-    let level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    let level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     temp[k] = {
       名号: player.名号,
       境界: level_id,
@@ -695,9 +730,9 @@ async function re_bangdang() {
       积分: 0
     }
   }
-  for (var i = 0; i < File_length - 1; i++) {
-    var count = 0
-    for (var j = 0; j < File_length - i - 1; j++) {
+  for (let i = 0; i < File_length - 1; i++) {
+    let count = 0
+    for (let j = 0; j < File_length - i - 1; j++) {
       if (temp[j].积分 < temp[j + 1].积分) {
         t = temp[j]
         temp[j] = temp[j + 1]

@@ -111,7 +111,9 @@ export class Daolv extends plugin {
         return false
       }
     }
-    let last_game_timeA = await redis.get('xiuxian@1.3.0:' + A + ':last_game_time')
+    let last_game_timeA = await redis.get(
+      'xiuxian@1.3.0:' + A + ':last_game_time'
+    )
     if (last_game_timeA == 0) {
       e.reply(`猜大小正在进行哦，结束了再求婚吧!`)
       return false
@@ -139,11 +141,15 @@ export class Daolv extends plugin {
       if (now_time <= B_action_end_time) {
         let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
         let s = parseInt((B_action_end_time - now_time - m * 60 * 1000) / 1000)
-        e.reply('对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒')
+        e.reply(
+          '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
+        )
         return false
       }
     }
-    let last_game_timeB = await redis.get('xiuxian@1.3.0:' + B + ':last_game_time')
+    let last_game_timeB = await redis.get(
+      'xiuxian@1.3.0:' + B + ':last_game_time'
+    )
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他结束再求婚吧!`)
       return false
@@ -170,7 +176,9 @@ export class Daolv extends plugin {
     user_B = B
     let player_A = await Read_player(A)
     let msg = [segment.at(B), '\n']
-    msg.push(`${player_A.名号}想和你缔结道侣,你愿意吗？\n回复【我愿意】or【我拒绝】`)
+    msg.push(
+      `${player_A.名号}想和你缔结道侣,你愿意吗？\n回复【我愿意】or【我拒绝】`
+    )
     e.reply(msg)
     chaoshi(e)
     return false
@@ -219,7 +227,9 @@ export class Daolv extends plugin {
         return false
       }
     }
-    let last_game_timeA = await redis.get('xiuxian@1.3.0:' + A + ':last_game_time')
+    let last_game_timeA = await redis.get(
+      'xiuxian@1.3.0:' + A + ':last_game_time'
+    )
     if (last_game_timeA == 0) {
       e.reply(`猜大小正在进行哦，结束了再来吧!`)
       return false
@@ -247,11 +257,15 @@ export class Daolv extends plugin {
       if (now_time <= B_action_end_time) {
         let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
         let s = parseInt((B_action_end_time - now_time - m * 60 * 1000) / 1000)
-        e.reply('对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒')
+        e.reply(
+          '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
+        )
         return false
       }
     }
-    let last_game_timeB = await redis.get('xiuxian@1.3.0:' + B + ':last_game_time')
+    let last_game_timeB = await redis.get(
+      'xiuxian@1.3.0:' + B + ':last_game_time'
+    )
     if (last_game_timeB == 0) {
       e.reply(`对方猜大小正在进行哦，等他结束再找他吧!`)
       return false

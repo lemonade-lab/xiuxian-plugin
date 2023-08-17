@@ -4,7 +4,7 @@ import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 
 import data from './XiuxianData.js'
 import { Writeit, Read_it } from './duanzaofu.js'
-import { AppName ,MyDirPath} from '../app.config.js'
+import { AppName, MyDirPath } from '../app.config.js'
 import config from './Config.js'
 import Show from './show.js'
 
@@ -44,7 +44,8 @@ const 伪灵根概率 = 0.37
 const 真灵根概率 = 0.29
 const 天灵根概率 = 0.08
 const 圣体概率 = 0.01
-const 变异灵根概率 = 1 - 体质概率 - 伪灵根概率 - 真灵根概率 - 天灵根概率 - 圣体概率
+const 变异灵根概率 =
+  1 - 体质概率 - 伪灵根概率 - 真灵根概率 - 天灵根概率 - 圣体概率
 
 //检查存档是否存在，存在返回true;
 export async function existplayer(usr_qq) {
@@ -123,7 +124,13 @@ export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
       if (aconut >= power_Grade) {
         player.power_place = 0
         await Write_player(usr_qq, player)
-        msg.push('\n' + player.名号 + '成功度过了第' + aconut + '道雷劫！可以#登仙，飞升仙界啦！')
+        msg.push(
+          '\n' +
+            player.名号 +
+            '成功度过了第' +
+            aconut +
+            '道雷劫！可以#登仙，飞升仙界啦！'
+        )
         e.reply(msg)
         return 0
       } else {
@@ -202,21 +209,29 @@ export async function Write_equipment(usr_qq, equipment) {
   player.攻击 =
     data.Level_list.find((item) => item.level_id == player.level_id).基础攻击 +
     player.攻击加成 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础攻击
+    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+      .基础攻击
   player.防御 =
     data.Level_list.find((item) => item.level_id == player.level_id).基础防御 +
     player.防御加成 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础防御
+    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+      .基础防御
   player.血量上限 =
     data.Level_list.find((item) => item.level_id == player.level_id).基础血量 +
     player.生命加成 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础血量
+    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+      .基础血量
   player.暴击率 =
     data.Level_list.find((item) => item.level_id == player.level_id).基础暴击 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础暴击
+    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+      .基础暴击
   let type = ['武器', '护具', '法宝']
   for (let i of type) {
-    if (equipment[i].atk > 10 || equipment[i].def > 10 || equipment[i].HP > 10) {
+    if (
+      equipment[i].atk > 10 ||
+      equipment[i].def > 10 ||
+      equipment[i].HP > 10
+    ) {
       player.攻击 += equipment[i].atk
       player.防御 += equipment[i].def
       player.血量上限 += equipment[i].HP
@@ -496,8 +511,12 @@ export async function get_power_img(e) {
     this_association = player.宗门
   }
   //境界名字需要查找境界名
-  let levelMax = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).level
-  let need_xueqi = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).exp
+  let levelMax = data.LevelMax_list.find(
+    (item) => item.level_id == player.Physique_id
+  ).level
+  let need_xueqi = data.LevelMax_list.find(
+    (item) => item.level_id == player.Physique_id
+  ).exp
   let playercopy = {
     user_id: usr_qq,
     nickname: player.名号,
@@ -585,7 +604,9 @@ export async function get_player_img(e) {
     count++
   }
   //境界名字需要查找境界名
-  let level = data.Level_list.find((item) => item.level_id == player.level_id).level
+  let level = data.Level_list.find(
+    (item) => item.level_id == player.level_id
+  ).level
   let power =
     (player.攻击 * 0.9 +
       player.防御 * 1.1 +
@@ -598,9 +619,15 @@ export async function get_player_img(e) {
   let power2 = (player.攻击 + player.防御 * 1.1 + player.血量上限 * 0.5) / 10000
   power2 = Number(power2)
   power2 = power2.toFixed(2)
-  let level2 = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).level
-  let need_exp = data.Level_list.find((item) => item.level_id == player.level_id).exp
-  let need_exp2 = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).exp
+  let level2 = data.LevelMax_list.find(
+    (item) => item.level_id == player.Physique_id
+  ).level
+  let need_exp = data.Level_list.find(
+    (item) => item.level_id == player.level_id
+  ).exp
+  let need_exp2 = data.LevelMax_list.find(
+    (item) => item.level_id == player.Physique_id
+  ).exp
   let occupation = player.occupation
   let occupation_level
   let occupation_level_name
@@ -646,9 +673,15 @@ export async function get_player_img(e) {
   } else {
     法宝评级 = pinji[equipment.法宝.pinji]
   }
-  let rank_lianqi = data.Level_list.find((item) => item.level_id == player.level_id).level
-  let expmax_lianqi = data.Level_list.find((item) => item.level_id == player.level_id).exp
-  let rank_llianti = data.LevelMax_list.find((item) => item.level_id == player.Physique_id).level
+  let rank_lianqi = data.Level_list.find(
+    (item) => item.level_id == player.level_id
+  ).level
+  let expmax_lianqi = data.Level_list.find(
+    (item) => item.level_id == player.level_id
+  ).exp
+  let rank_llianti = data.LevelMax_list.find(
+    (item) => item.level_id == player.Physique_id
+  ).level
   let expmax_llianti = need_exp2
   let rank_liandan = occupation_level_name
   let expmax_liandan = occupation_need_exp
@@ -795,30 +828,44 @@ export async function get_association_img(e) {
     weizhi = '仙界'
   }
   //门槛
-  let level = data.Level_list.find((item) => item.level_id === ass.最低加入境界).level
+  let level = data.Level_list.find(
+    (item) => item.level_id === ass.最低加入境界
+  ).level
   // 副宗主
   let fuzong = []
   for (item in ass.副宗主) {
     fuzong[item] =
-      '道号：' + data.getData('player', ass.副宗主[item]).名号 + 'QQ：' + ass.副宗主[item]
+      '道号：' +
+      data.getData('player', ass.副宗主[item]).名号 +
+      'QQ：' +
+      ass.副宗主[item]
   }
   //长老
   const zhanglao = []
   for (item in ass.长老) {
     zhanglao[item] =
-      '道号：' + data.getData('player', ass.长老[item]).名号 + 'QQ：' + ass.长老[item]
+      '道号：' +
+      data.getData('player', ass.长老[item]).名号 +
+      'QQ：' +
+      ass.长老[item]
   }
   //内门弟子
   const neimen = []
   for (item in ass.内门弟子) {
     neimen[item] =
-      '道号：' + data.getData('player', ass.内门弟子[item]).名号 + 'QQ：' + ass.内门弟子[item]
+      '道号：' +
+      data.getData('player', ass.内门弟子[item]).名号 +
+      'QQ：' +
+      ass.内门弟子[item]
   }
   //外门弟子
   const waimen = []
   for (item in ass.外门弟子) {
     waimen[item] =
-      '道号：' + data.getData('player', ass.外门弟子[item]).名号 + 'QQ：' + ass.外门弟子[item]
+      '道号：' +
+      data.getData('player', ass.外门弟子[item]).名号 +
+      'QQ：' +
+      ass.外门弟子[item]
   }
   let state = '需要维护'
   let now = new Date()
@@ -1105,7 +1152,9 @@ export async function get_adminset_img(e) {
 
 export async function get_ranking_power_img(e, Data, usr_paiming, thisplayer) {
   let usr_qq = e.user_id
-  let level = data.Level_list.find((item) => item.level_id == thisplayer.level_id).level
+  let level = data.Level_list.find(
+    (item) => item.level_id == thisplayer.level_id
+  ).level
   let ranking_power_data = {
     user_id: usr_qq,
     mdz: thisplayer.魔道值,
@@ -1121,7 +1170,13 @@ export async function get_ranking_power_img(e, Data, usr_paiming, thisplayer) {
   })
 }
 
-export async function get_ranking_money_img(e, Data, usr_paiming, thisplayer, thisnajie) {
+export async function get_ranking_money_img(
+  e,
+  Data,
+  usr_paiming,
+  thisplayer,
+  thisnajie
+) {
   let usr_qq = e.user_id
   const najie_lingshi = Math.trunc(thisnajie.灵石)
   const lingshi = Math.trunc(thisplayer.灵石 + thisnajie.灵石)
@@ -1164,7 +1219,9 @@ export async function get_ningmenghome_img(e, thing_type) {
       thing_type == '道具' ||
       thing_type == '草药'
     ) {
-      commodities_list = commodities_list.filter((item) => item.class == thing_type)
+      commodities_list = commodities_list.filter(
+        (item) => item.class == thing_type
+      )
     } else if (
       thing_type == '武器' ||
       thing_type == '护具' ||
@@ -1174,7 +1231,9 @@ export async function get_ningmenghome_img(e, thing_type) {
       thing_type == '血气' ||
       thing_type == '天赋'
     ) {
-      commodities_list = commodities_list.filter((item) => item.type == thing_type)
+      commodities_list = commodities_list.filter(
+        (item) => item.type == thing_type
+      )
     }
   }
   let ningmenghome_data = {
@@ -1303,13 +1362,15 @@ export function GetPower(atk, def, hp, bao) {
  * @returns 无
  */
 export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
-  var x = Number(n)
+  let x = Number(n)
   if (x == 0) {
     return
   }
   let najie = await Read_najie(usr_qq)
-  let trr = najie.仙宠.find((item) => item.name == thing_name && item.等级 == thing_level)
-  var name = thing_name
+  let trr = najie.仙宠.find(
+    (item) => item.name == thing_name && item.等级 == thing_level
+  )
+  let name = thing_name
   if (x > 0 && !isNotNull(trr)) {
     //无中生有
     let newthing = data.xianchon.find((item) => item.name == name)
@@ -1321,18 +1382,31 @@ export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
       newthing.等级 = thing_level
     }
     najie.仙宠.push(newthing)
-    najie.仙宠.find((item) => item.name == name && item.等级 == newthing.等级).数量 = x
-    let xianchon = najie.仙宠.find((item) => item.name == name && item.等级 == newthing.等级)
-    najie.仙宠.find((item) => item.name == name && item.等级 == newthing.等级).加成 =
-      xianchon.等级 * xianchon.每级增加
-    najie.仙宠.find((item) => item.name == name && item.等级 == newthing.等级).islockd = 0
+    najie.仙宠.find(
+      (item) => item.name == name && item.等级 == newthing.等级
+    ).数量 = x
+    let xianchon = najie.仙宠.find(
+      (item) => item.name == name && item.等级 == newthing.等级
+    )
+    najie.仙宠.find(
+      (item) => item.name == name && item.等级 == newthing.等级
+    ).加成 = xianchon.等级 * xianchon.每级增加
+    najie.仙宠.find(
+      (item) => item.name == name && item.等级 == newthing.等级
+    ).islockd = 0
     await Write_najie(usr_qq, najie)
     return
   }
-  najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 += x
-  if (najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 < 1) {
+  najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 +=
+    x
+  if (
+    najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 <
+    1
+  ) {
     //假如用完了,需要删掉数组中的元素,用.filter()把!=该元素的过滤出来
-    najie.仙宠 = najie.仙宠.filter((item) => item.name != thing_name || item.等级 != trr.等级)
+    najie.仙宠 = najie.仙宠.filter(
+      (item) => item.name != thing_name || item.等级 != trr.等级
+    )
   }
   await Write_najie(usr_qq, najie)
   return
@@ -1504,7 +1578,9 @@ export async function Add_职业经验(usr_qq, exp = 0) {
   exp = player.occupation_exp + exp
   let level = player.occupation_level
   while (true) {
-    let need_exp = data.occupation_exp_list.find((item) => item.id == level).experience
+    let need_exp = data.occupation_exp_list.find(
+      (item) => item.id == level
+    ).experience
     if (need_exp > exp) {
       break
     } else {
@@ -1567,7 +1643,9 @@ export async function player_efficiency(usr_qq) {
     if (ass.宗门驻地 == 0) {
       Assoc_efficiency = ass.宗门等级 * 0.05
     } else {
-      let dongTan = await data.bless_list.find((item) => item.name == ass.宗门驻地)
+      let dongTan = await data.bless_list.find(
+        (item) => item.name == ass.宗门驻地
+      )
       try {
         Assoc_efficiency = ass.宗门等级 * 0.05 + dongTan.efficiency
       } catch {
@@ -1600,7 +1678,11 @@ export async function player_efficiency(usr_qq) {
   }
 
   player.修炼效率提升 =
-    linggen_efficiency + Assoc_efficiency + gongfa_efficiency + xianchong_efficiency + bgdan //修炼效率综合
+    linggen_efficiency +
+    Assoc_efficiency +
+    gongfa_efficiency +
+    xianchong_efficiency +
+    bgdan //修炼效率综合
   data.setData('player', usr_qq, player)
   return
 }
@@ -1614,7 +1696,13 @@ export async function player_efficiency(usr_qq) {
  */
 
 //修改纳戒物品锁定状态
-export async function re_najie_thing(usr_qq, thing_name, thing_class, thing_pinji, lock) {
+export async function re_najie_thing(
+  usr_qq,
+  thing_name,
+  thing_class,
+  thing_pinji,
+  lock
+) {
   let najie = await Read_najie(usr_qq)
   if (thing_class == '装备' && (thing_pinji || thing_pinji == 0)) {
     for (let i of najie['装备']) {
@@ -1632,13 +1720,29 @@ export async function re_najie_thing(usr_qq, thing_name, thing_class, thing_pinj
 //检查纳戒内物品是否存在
 //判断物品
 //要用await
-export async function exist_najie_thing(usr_qq, thing_name, thing_class, thing_pinji) {
+export async function exist_najie_thing(
+  usr_qq,
+  thing_name,
+  thing_class,
+  thing_pinji
+) {
   let najie = await Read_najie(usr_qq)
   let ifexist
   if (thing_class == '装备' && (thing_pinji || thing_pinji == 0)) {
-    ifexist = najie.装备.find((item) => item.name == thing_name && item.pinji == thing_pinji)
+    ifexist = najie.装备.find(
+      (item) => item.name == thing_name && item.pinji == thing_pinji
+    )
   } else {
-    let type = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let type = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     for (let i of type) {
       ifexist = najie[i].find((item) => item.name == thing_name)
       if (ifexist) break
@@ -1711,9 +1815,13 @@ export async function Add_najie_thing(usr_qq, name, thing_class, x, pinji) {
       }
     }
     if (typeof name != 'object') {
-      najie[thing_class].find((item) => item.name == name && item.pinji == pinji).数量 += x
+      najie[thing_class].find(
+        (item) => item.name == name && item.pinji == pinji
+      ).数量 += x
     } else {
-      najie[thing_class].find((item) => item.name == name.name && item.pinji == pinji).数量 += x
+      najie[thing_class].find(
+        (item) => item.name == name.name && item.pinji == pinji
+      ).数量 += x
     }
     najie.装备 = najie.装备.filter((item) => item.数量 > 0)
     await Write_najie(usr_qq, najie)
@@ -1781,11 +1889,23 @@ export async function Add_najie_thing(usr_qq, name, thing_class, x, pinji) {
 //替换装备
 export async function instead_equipment(usr_qq, equipment_data) {
   //装备name
-  await Add_najie_thing(usr_qq, equipment_data, '装备', -1, equipment_data.pinji)
+  await Add_najie_thing(
+    usr_qq,
+    equipment_data,
+    '装备',
+    -1,
+    equipment_data.pinji
+  )
   let equipment = await Read_equipment(usr_qq)
   if (equipment_data.type == '武器') {
     //把读取装备，把武器放回戒指
-    await Add_najie_thing(usr_qq, equipment.武器, '装备', 1, equipment.武器.pinji)
+    await Add_najie_thing(
+      usr_qq,
+      equipment.武器,
+      '装备',
+      1,
+      equipment.武器.pinji
+    )
     //根据名字找武器
     equipment.武器 = equipment_data
     //武器写入装备
@@ -1793,13 +1913,25 @@ export async function instead_equipment(usr_qq, equipment_data) {
     return
   }
   if (equipment_data.type == '护具') {
-    await Add_najie_thing(usr_qq, equipment.护具, '装备', 1, equipment.护具.pinji)
+    await Add_najie_thing(
+      usr_qq,
+      equipment.护具,
+      '装备',
+      1,
+      equipment.护具.pinji
+    )
     equipment.护具 = equipment_data
     await Write_equipment(usr_qq, equipment)
     return
   }
   if (equipment_data.type == '法宝') {
-    await Add_najie_thing(usr_qq, equipment.法宝, '装备', 1, equipment.法宝.pinji)
+    await Add_najie_thing(
+      usr_qq,
+      equipment.法宝,
+      '装备',
+      1,
+      equipment.法宝.pinji
+    )
     equipment.法宝 = equipment_data
     await Write_equipment(usr_qq, equipment)
     return
@@ -1811,9 +1943,9 @@ export async function dujie(user_qq) {
   let player = await Read_player(usr_qq)
   //根据当前血量才算
   //计算系数
-  var new_blood = player.当前血量
-  var new_defense = player.防御
-  var new_attack = player.攻击
+  let new_blood = player.当前血量
+  let new_defense = player.防御
+  let new_attack = player.攻击
   //渡劫期基础血量为1600000。防御800000，攻击800000
   new_blood = new_blood / 100000
   new_defense = new_defense / 100000
@@ -1823,9 +1955,9 @@ export async function dujie(user_qq) {
   new_defense = (new_defense * 6) / 10
   new_attack = (new_attack * 2) / 10
   //基础厚度
-  var N = new_blood + new_defense
+  let N = new_blood + new_defense
   //你的系数
-  var x = N * new_attack
+  let x = N * new_attack
   //系数只取到后两位
   //灵根加成
   if (player.灵根.type == '真灵根') {
@@ -1873,9 +2005,11 @@ export async function Get_xiuwei(usr_qq) {
   if (!isNotNull(player.level_id)) {
     return
   }
-  now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+  now_level_id = data.Level_list.find(
+    (item) => item.level_id == player.level_id
+  ).level_id
   if (now_level_id < 65) {
-    for (var i = 1; i < now_level_id; i++) {
+    for (let i = 1; i < now_level_id; i++) {
       sum_exp = sum_exp + data.Level_list.find((temp) => temp.level_id == i).exp
     }
   } else {
@@ -1894,9 +2028,15 @@ export async function get_random_talent() {
     talent = data.talent_list.filter((item) => item.type == '伪灵根')
   } else if (get_random_res(真灵根概率 / (1 - 伪灵根概率 - 体质概率))) {
     talent = data.talent_list.filter((item) => item.type == '真灵根')
-  } else if (get_random_res(天灵根概率 / (1 - 真灵根概率 - 伪灵根概率 - 体质概率))) {
+  } else if (
+    get_random_res(天灵根概率 / (1 - 真灵根概率 - 伪灵根概率 - 体质概率))
+  ) {
     talent = data.talent_list.filter((item) => item.type == '天灵根')
-  } else if (get_random_res(圣体概率 / (1 - 真灵根概率 - 伪灵根概率 - 体质概率 - 天灵根概率))) {
+  } else if (
+    get_random_res(
+      圣体概率 / (1 - 真灵根概率 - 伪灵根概率 - 体质概率 - 天灵根概率)
+    )
+  ) {
     talent = data.talent_list.filter((item) => item.type == '圣体')
   } else {
     talent = data.talent_list.filter((item) => item.type == '变异灵根')
@@ -1945,20 +2085,23 @@ export async function sleep(time) {
 // 时间转换
 export function timestampToTime(timestamp) {
   //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-  var date = new Date(timestamp)
-  var Y = date.getFullYear() + '-'
-  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
-  var D = date.getDate() + ' '
-  var h = date.getHours() + ':'
-  var m = date.getMinutes() + ':'
-  var s = date.getSeconds()
+  let date = new Date(timestamp)
+  let Y = date.getFullYear() + '-'
+  let M =
+    (date.getMonth() + 1 < 10
+      ? '0' + (date.getMonth() + 1)
+      : date.getMonth() + 1) + '-'
+  let D = date.getDate() + ' '
+  let h = date.getHours() + ':'
+  let m = date.getMinutes() + ':'
+  let s = date.getSeconds()
   return Y + M + D + h + m + s
 }
 
 //根据时间戳获取年月日时分秒
 export async function shijianc(time) {
   let dateobj = {}
-  var date = new Date(time)
+  let date = new Date(time)
   dateobj.Y = date.getFullYear()
   dateobj.M = date.getMonth() + 1
   dateobj.D = date.getDate()
@@ -2412,7 +2555,7 @@ export async function existshop(didian) {
       break
     }
   }
-  for (var j = 0; j < shop[i].one.length; j++) {
+  for (let j = 0; j < shop[i].one.length; j++) {
     if (shop[i].one[j].数量 > 0) {
       thing.push(shop[i].one[j])
     }
@@ -2448,7 +2591,11 @@ export async function zd_battle(AA_player, BB_player) {
     A_player.攻击 = Math.trunc(A_player.攻击 * buff)
     A_player.防御 = Math.trunc(A_player.防御 * buff)
     A_player.当前血量 = Math.trunc(A_player.当前血量 * buff)
-    msg.push(`${A_player.名号}与装备产生了共鸣,自身全属性提高${Math.trunc((buff - 1) * 100)}%`)
+    msg.push(
+      `${A_player.名号}与装备产生了共鸣,自身全属性提高${Math.trunc(
+        (buff - 1) * 100
+      )}%`
+    )
   }
   if (B_player.隐藏灵根 && B_player.id) {
     let wx = []
@@ -2461,29 +2608,55 @@ export async function zd_battle(AA_player, BB_player) {
     B_player.攻击 = Math.trunc(B_player.攻击 * buff)
     B_player.防御 = Math.trunc(B_player.防御 * buff)
     B_player.当前血量 = Math.trunc(B_player.当前血量 * buff)
-    msg.push(`${B_player.名号}与装备产生了共鸣,自身全属性提高${Math.trunc((buff - 1) * 100)}%`)
+    msg.push(
+      `${B_player.名号}与装备产生了共鸣,自身全属性提高${Math.trunc(
+        (buff - 1) * 100
+      )}%`
+    )
   }
   if (B_player.魔道值 > 999) {
     let buff = Math.trunc(B_player.魔道值 / 1000) / 100 + 1
     if (buff > 1.3) buff = 1.3
     if (B_player.灵根.name == '九重魔功') buff += 0.2
-    msg.push('魔道值为' + B_player.名号 + '提供了' + Math.trunc((buff - 1) * 100) + '%的增伤')
-  } else if (B_player.魔道值 < 1 && (B_player.灵根.type == '转生' || B_player.level_id > 41)) {
+    msg.push(
+      '魔道值为' +
+        B_player.名号 +
+        '提供了' +
+        Math.trunc((buff - 1) * 100) +
+        '%的增伤'
+    )
+  } else if (
+    B_player.魔道值 < 1 &&
+    (B_player.灵根.type == '转生' || B_player.level_id > 41)
+  ) {
     let buff = B_player.神石 * 0.0015
     if (buff > 0.3) buff = 0.3
     if (B_player.灵根.name == '九转轮回体') buff += 0.2
-    msg.push('神石为' + B_player.名号 + '提供了' + Math.trunc(buff * 100) + '%的减伤')
+    msg.push(
+      '神石为' + B_player.名号 + '提供了' + Math.trunc(buff * 100) + '%的减伤'
+    )
   }
   if (A_player.魔道值 > 999) {
     let buff = Math.trunc(A_player.魔道值 / 1000) / 100 + 1
     if (buff > 1.3) buff = 1.3
     if (A_player.灵根.name == '九重魔功') buff += 0.2
-    msg.push('魔道值为' + A_player.名号 + '提供了' + Math.trunc((buff - 1) * 100) + '%的增伤')
-  } else if (A_player.魔道值 < 1 && (A_player.灵根.type == '转生' || A_player.level_id > 41)) {
+    msg.push(
+      '魔道值为' +
+        A_player.名号 +
+        '提供了' +
+        Math.trunc((buff - 1) * 100) +
+        '%的增伤'
+    )
+  } else if (
+    A_player.魔道值 < 1 &&
+    (A_player.灵根.type == '转生' || A_player.level_id > 41)
+  ) {
     let buff = A_player.神石 * 0.0015
     if (buff > 0.3) buff = 0.3
     if (A_player.灵根.name == '九转轮回体') buff += 0.2
-    msg.push('神石为' + A_player.名号 + '提供了' + Math.trunc(buff * 100) + '%的减伤')
+    msg.push(
+      '神石为' + A_player.名号 + '提供了' + Math.trunc(buff * 100) + '%的减伤'
+    )
   }
   while (A_player.当前血量 > 0 && B_player.当前血量 > 0) {
     cnt2 = Math.trunc(cnt / 2)
@@ -2524,7 +2697,9 @@ export async function zd_battle(AA_player, BB_player) {
       } else if (equipment.武器.name == '炼血竹枪' && ran > 0.75) {
         A_player.攻击 *= 2
         A_player.当前血量 = Math.trunc(A_player.当前血量 * 1.2)
-        msg.push(`${A_player.名号}触发了炼血竹枪被动,攻击力提高了100%,血量回复了20%`)
+        msg.push(
+          `${A_player.名号}触发了炼血竹枪被动,攻击力提高了100%,血量回复了20%`
+        )
       } else if (equipment.武器.name == '少阴玉剑' && ran > 0.85) {
         A_player.当前血量 = Math.trunc(A_player.当前血量 * 1.4)
         msg.push(`${A_player.名号}触发了少阴玉剑被动,血量回复了40%`)
@@ -2535,7 +2710,7 @@ export async function zd_battle(AA_player, BB_player) {
     伤害 = Math.trunc(baoji * 伤害 + 法球伤害 + A_player.防御 * 0.1)
     //技能
     let count = 0 //限制次数
-    for (var i = 0; i < jineng1.length; i++) {
+    for (let i = 0; i < jineng1.length; i++) {
       if (
         (jineng1[i].class == '常驻' &&
           (cnt2 == jineng1[i].cnt || jineng1[i].cnt == -1) &&
@@ -2554,14 +2729,16 @@ export async function zd_battle(AA_player, BB_player) {
         if (jineng1[i].msg2 == '') {
           msg.push(A_player.名号 + jineng1[i].msg1)
         } else {
-          msg.push(A_player.名号 + jineng1[i].msg1 + B_player.名号 + jineng1[i].msg2)
+          msg.push(
+            A_player.名号 + jineng1[i].msg1 + B_player.名号 + jineng1[i].msg2
+          )
         }
         伤害 = 伤害 * jineng1[i].beilv + jineng1[i].other
         count++
       }
       if (count == 3) break
     }
-    for (var i = 0; i < jineng2.length; i++) {
+    for (let i = 0; i < jineng2.length; i++) {
       if (
         (B_player.学习的功法 &&
           jineng2[i].class == '功法' &&
@@ -2577,7 +2754,9 @@ export async function zd_battle(AA_player, BB_player) {
         if (jineng2[i].msg2 == '') {
           msg.push(B_player.名号 + jineng2[i].msg1)
         } else {
-          msg.push(B_player.名号 + jineng2[i].msg1 + A_player.名号 + jineng2[i].msg2)
+          msg.push(
+            B_player.名号 + jineng2[i].msg1 + A_player.名号 + jineng2[i].msg2
+          )
         }
         伤害 = 伤害 * jineng2[i].beilv + jineng2[i].other
       }
@@ -2587,7 +2766,10 @@ export async function zd_battle(AA_player, BB_player) {
       if (buff > 1.3) buff = 1.3
       if (A_player.灵根.name == '九重魔功') buff += 0.2
     }
-    if (B_player.魔道值 < 1 && (B_player.灵根.type == '转生' || B_player.level_id > 41)) {
+    if (
+      B_player.魔道值 < 1 &&
+      (B_player.灵根.type == '转生' || B_player.level_id > 41)
+    ) {
       let buff2 = B_player.神石 * 0.0015
       if (buff2 > 0.3) buff2 = 0.3
       if (B_player.灵根.name == '九转轮回体') buff2 += 0.2
@@ -2747,7 +2929,9 @@ export async function get_supermarket_img(e, thing_class) {
     Exchange_list[i].num = i + 1
   }
   if (thing_class) {
-    Exchange_list = Exchange_list.filter((item) => item.name.class == thing_class)
+    Exchange_list = Exchange_list.filter(
+      (item) => item.name.class == thing_class
+    )
   }
 
   Exchange_list.sort(function (a, b) {
@@ -2902,7 +3086,9 @@ export async function Synchronization_ASS(e) {
   for (let ass_name of assList) {
     let ass = await data.getAssociation(ass_name)
     let player = data.getData('player', ass.宗主)
-    let now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    let now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     //补
     if (!isNotNull(ass.power)) {
       ass.power = 0
@@ -3042,7 +3228,16 @@ export async function synchronization(e) {
       await Write_danyao(usr_qq, arr)
     }
 
-    let suoding = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let suoding = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     for (let j of suoding) {
       najie[j].forEach((item) => {
         if (!isNotNull(item.islockd)) {
@@ -3079,15 +3274,20 @@ export async function synchronization(e) {
     for (let j of najie.仙宠口粮) {
       j.class = '仙宠口粮'
     }
-    let linggeng = data.talent_list.find((item) => item.name == player.灵根.name)
+    let linggeng = data.talent_list.find(
+      (item) => item.name == player.灵根.name
+    )
     if (linggeng) player.灵根 = linggeng
 
     //隐藏灵根
     if (player.隐藏灵根)
-      player.隐藏灵根 = data.yincang.find((item) => item.name == player.隐藏灵根.name)
+      player.隐藏灵根 = data.yincang.find(
+        (item) => item.name == player.隐藏灵根.name
+      )
     //重新根据id去重置仙门
-    let now_level_id = await data.Level_list.find((item) => item.level_id == player.level_id)
-      .level_id
+    let now_level_id = await data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 42) {
       player.power_place = 1
     }
@@ -3139,8 +3339,8 @@ export async function foundthing(thing_name) {
     'xianchonkouliang',
     'duanzhaocailiao'
   ]
-  for (var i of thing) {
-    for (var j of data[i]) {
+  for (let i of thing) {
+    for (let j of data[i]) {
       if (j.name == thing_name) return j
     }
   }
@@ -3151,13 +3351,13 @@ export async function foundthing(thing_name) {
     await Writeit([])
     A = await Read_it()
   }
-  for (var j of A) {
+  for (let j of A) {
     if (j.name == thing_name) return j
   }
   thing_name = thing_name.replace(/[0-9]+/g, '')
   thing = ['duanzhaowuqi', 'duanzhaohuju', 'duanzhaobaowu', 'zalei']
-  for (var i of thing) {
-    for (var j of data[i]) {
+  for (let i of thing) {
+    for (let j of data[i]) {
       if (j.name == thing_name) return j
     }
   }

@@ -30,7 +30,11 @@ export class tzzyt extends plugin {
     const equipment = data.getData('equipment', usr_qq)
     const type = ['武器', '护具', '法宝']
     for (let j of type) {
-      if (equipment[j].atk < 10 && equipment[j].def < 10 && equipment[j].HP < 10) {
+      if (
+        equipment[j].atk < 10 &&
+        equipment[j].def < 10 &&
+        equipment[j].HP < 10
+      ) {
         e.reply('请更换其他固定数值装备爬塔')
         return false
       }
@@ -65,14 +69,18 @@ export class tzzyt extends plugin {
       KilledTime: -1,
       Reward: Reward
     }
-    var Time = 2
+    let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
     let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + 'CD') //获得上次的时间戳,
     last_time = parseInt(last_time)
     if (now_Time < last_time + shuangxiuTimeout) {
-      let Couple_m = Math.trunc((last_time + shuangxiuTimeout - now_Time) / 60 / 1000)
-      let Couple_s = Math.trunc(((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000)
+      let Couple_m = Math.trunc(
+        (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
+      )
+      let Couple_s = Math.trunc(
+        ((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000
+      )
       e.reply('正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`)
       return false
     }
@@ -84,12 +92,15 @@ export class tzzyt extends plugin {
       : bosszt.isWeak
       ? Math.trunc(bosszt.Attack * 0.7)
       : bosszt.Attack
-    let BOSSCurrentDefence = bosszt.isWeak ? Math.trunc(bosszt.Defence * 0.7) : bosszt.Defence
+    let BOSSCurrentDefence = bosszt.isWeak
+      ? Math.trunc(bosszt.Defence * 0.7)
+      : bosszt.Defence
     while (player.当前血量 > 0 && bosszt.Health > 0) {
       let Random = Math.random()
       if (!(BattleFrame & 1)) {
         let Player_To_BOSS_Damage =
-          Harm(player.攻击, BOSSCurrentDefence) + Math.trunc(player.攻击 * player.灵根.法球倍率)
+          Harm(player.攻击, BOSSCurrentDefence) +
+          Math.trunc(player.攻击 * player.灵根.法球倍率)
         let SuperAttack = Math.random() < player.暴击率 ? 1.5 : 1
         msg.push(`第${Math.trunc(BattleFrame / 2) + 1}回合：`)
         if (Random > 0.5 && BattleFrame == 0) {
@@ -114,12 +125,15 @@ export class tzzyt extends plugin {
           bosszt.Health = 0
         }
         msg.push(
-          `${player.名号}${ifbaoji(SuperAttack)}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${
-            bosszt.Health
-          }`
+          `${player.名号}${ifbaoji(
+            SuperAttack
+          )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${bosszt.Health}`
         )
       } else {
-        let BOSS_To_Player_Damage = Harm(BOSSCurrentAttack, Math.trunc(player.防御 * 0.1))
+        let BOSS_To_Player_Damage = Harm(
+          BOSSCurrentAttack,
+          Math.trunc(player.防御 * 0.1)
+        )
         if (Random > 0.94) {
           msg.push('未知妖物的攻击被你破解了')
           BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 0.6)
@@ -133,7 +147,8 @@ export class tzzyt extends plugin {
         player.当前血量 -= BOSS_To_Player_Damage
         bosszt.isAngry ? --bosszt.isAngry : 0
         bosszt.isWeak ? --bosszt.isWeak : 0
-        if (!bosszt.isAngry && BOSSCurrentAttack > bosszt.Attack) BOSSCurrentAttack = bosszt.Attack
+        if (!bosszt.isAngry && BOSSCurrentAttack > bosszt.Attack)
+          BOSSCurrentAttack = bosszt.Attack
         if (!bosszt.isWeak && BOSSCurrentDefence < bosszt.Defence)
           BOSSCurrentDefence = bosszt.Defence
         if (player.当前血量 < 0) {
@@ -165,7 +180,10 @@ export class tzzyt extends plugin {
     if (player.当前血量 <= 0) {
       player.当前血量 = 0
       player.灵石 -= Math.trunc(Reward * 2)
-      e.reply([segment.at(usr_qq), `\n你未能通过此层镇妖塔！灵石-${Math.trunc(Reward * 2)}`])
+      e.reply([
+        segment.at(usr_qq),
+        `\n你未能通过此层镇妖塔！灵石-${Math.trunc(Reward * 2)}`
+      ])
       data.setData('player', usr_qq, player)
     }
     return false
@@ -180,7 +198,11 @@ export class tzzyt extends plugin {
     const equipment = await data.getData('equipment', usr_qq)
     const type = ['武器', '护具', '法宝']
     for (let j of type) {
-      if (equipment[j].atk < 10 && equipment[j].def < 10 && equipment[j].HP < 10) {
+      if (
+        equipment[j].atk < 10 &&
+        equipment[j].def < 10 &&
+        equipment[j].HP < 10
+      ) {
         e.reply('请更换其他固定数值装备爬塔')
         return false
       }
@@ -223,12 +245,15 @@ export class tzzyt extends plugin {
         : bosszt.isWeak
         ? Math.trunc(bosszt.Attack * 0.7)
         : bosszt.Attack
-      let BOSSCurrentDefence = bosszt.isWeak ? Math.trunc(bosszt.Defence * 0.7) : bosszt.Defence
+      let BOSSCurrentDefence = bosszt.isWeak
+        ? Math.trunc(bosszt.Defence * 0.7)
+        : bosszt.Defence
       while (player.当前血量 > 0 && bosszt.Health > 0) {
         let Random = Math.random()
         if (!(BattleFrame & 1)) {
           let Player_To_BOSS_Damage =
-            Harm(player.攻击, BOSSCurrentDefence) + Math.trunc(player.攻击 * player.灵根.法球倍率)
+            Harm(player.攻击, BOSSCurrentDefence) +
+            Math.trunc(player.攻击 * player.灵根.法球倍率)
           let SuperAttack = Math.random() < player.暴击率 ? 1.5 : 1
           msg.push(`第${Math.trunc(BattleFrame / 2) + 1}回合：`)
           if (Random > 0.5 && BattleFrame == 0) {
@@ -255,10 +280,15 @@ export class tzzyt extends plugin {
           msg.push(
             `${player.名号}${ifbaoji(
               SuperAttack
-            )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${bosszt.Health}`
+            )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${
+              bosszt.Health
+            }`
           )
         } else {
-          let BOSS_To_Player_Damage = Harm(BOSSCurrentAttack, Math.trunc(player.防御 * 0.1))
+          let BOSS_To_Player_Damage = Harm(
+            BOSSCurrentAttack,
+            Math.trunc(player.防御 * 0.1)
+          )
           if (Random > 0.94) {
             msg.push('未知妖物的攻击被你破解了')
             BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 0.6)
@@ -297,7 +327,10 @@ export class tzzyt extends plugin {
       }
     }
     player.灵石 += lingshi
-    e.reply([segment.at(usr_qq), `\n恭喜你获得灵石${lingshi},本次通过${cengshu}层,失去部分灵石`])
+    e.reply([
+      segment.at(usr_qq),
+      `\n恭喜你获得灵石${lingshi},本次通过${cengshu}层,失去部分灵石`
+    ])
     data.setData('player', usr_qq, player)
     return false
   }

@@ -1,6 +1,12 @@
 import { plugin, common, config, data } from '../../api/api.js'
 import fs from 'fs'
-import { isNotNull, Add_najie_thing, Harm, Write_shop, Read_shop } from '../../model/xiuxian.js'
+import {
+  isNotNull,
+  Add_najie_thing,
+  Harm,
+  Write_shop,
+  Read_shop
+} from '../../model/xiuxian.js'
 import { AppName } from '../../app.config.js'
 
 export class Taopaotask extends plugin {
@@ -87,8 +93,12 @@ export class Taopaotask extends plugin {
             let B_player = {
               名号: monster.name,
               攻击: parseInt(monster.atk * A_player.攻击),
-              防御: parseInt((monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05)),
-              当前血量: parseInt((monster.blood * A_player.当前血量) / (1 + weizhi.Grade * 0.05)),
+              防御: parseInt(
+                (monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05)
+              ),
+              当前血量: parseInt(
+                (monster.blood * A_player.当前血量) / (1 + weizhi.Grade * 0.05)
+              ),
               暴击率: monster.baoji,
               灵根: monster.灵根,
               法球倍率: monster.灵根.法球倍率
@@ -103,7 +113,9 @@ export class Taopaotask extends plugin {
             if (Random < 0.1) {
               A_player.当前血量 -= npc_damage
               last_msg +=
-                B_player.名号 + '似乎不屑追你,只是随手丢出神通,剩余血量' + A_player.当前血量
+                B_player.名号 +
+                '似乎不屑追你,只是随手丢出神通,剩余血量' +
+                A_player.当前血量
             } else if (Random < 0.25) {
               A_player.当前血量 -= Math.trunc(npc_damage * 0.3)
               last_msg +=
@@ -139,7 +151,8 @@ export class Taopaotask extends plugin {
             } else {
               A_player.当前血量 -= Math.trunc(npc_damage * 0.5)
               last_msg +=
-                '身体快到极限了嘛,你暗暗问道,脚下逃跑的步伐更加迅速,剩余血量' + A_player.当前血量
+                '身体快到极限了嘛,你暗暗问道,脚下逃跑的步伐更加迅速,剩余血量' +
+                A_player.当前血量
             }
             if (A_player.当前血量 < 0) {
               A_player.当前血量 = 0
@@ -157,15 +170,16 @@ export class Taopaotask extends plugin {
               arr.cishu--
               arr.A_player = A_player
             } else {
-              var num = weizhi.Grade + 1
+              let num = weizhi.Grade + 1
               last_msg +=
-                '\n在躲避追杀中,没能躲过此劫,被抓进了天牢\n在天牢中你找到了秘境之匙x' + num
+                '\n在躲避追杀中,没能躲过此劫,被抓进了天牢\n在天牢中你找到了秘境之匙x' +
+                num
               await Add_najie_thing(player_id, '秘境之匙', '道具', num)
               delete arr.group_id
               shop[i].state = 0
               await Write_shop(shop)
-              var time = 60 //时间（分钟）
-              var action_time = 60000 * time //持续时间，单位毫秒
+              let time = 60 //时间（分钟）
+              let action_time = 60000 * time //持续时间，单位毫秒
               arr.action = '天牢'
               arr.xijie = 1 //关闭洗劫
               arr.end_time = new Date().getTime() + action_time
@@ -187,7 +201,7 @@ export class Taopaotask extends plugin {
               arr.xijie = 1 //关闭洗劫
               arr.end_time = new Date().getTime()
               delete arr.group_id
-              for (var j = 0; j < arr.thing.length; j++) {
+              for (let j = 0; j < arr.thing.length; j++) {
                 await Add_najie_thing(
                   player_id,
                   arr.thing[j].name,
@@ -204,7 +218,10 @@ export class Taopaotask extends plugin {
               await Write_shop(shop)
             }
             //写入redis
-            await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+            await redis.set(
+              'xiuxian@1.3.0:' + player_id + ':action',
+              JSON.stringify(arr)
+            )
             msg.push('\n' + last_msg)
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)

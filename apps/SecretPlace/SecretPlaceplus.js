@@ -157,7 +157,9 @@ export class SecretPlaceplus extends plugin {
       e.reply('请#同步信息')
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 22) {
       e.reply('没有达到化神之前还是不要去了')
       return false
@@ -169,7 +171,9 @@ export class SecretPlaceplus extends plugin {
     if (i > 12) {
       return false
     }
-    let weizhi = await data.forbiddenarea_list.find((item) => item.name == didian)
+    let weizhi = await data.forbiddenarea_list.find(
+      (item) => item.name == didian
+    )
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -178,7 +182,9 @@ export class SecretPlaceplus extends plugin {
       return false
     }
     if (player.修为 < weizhi.experience * 10 * i) {
-      e.reply('你需要积累' + weizhi.experience * 10 * i + '修为，才能抵抗禁地魔气！')
+      e.reply(
+        '你需要积累' + weizhi.experience * 10 * i + '修为，才能抵抗禁地魔气！'
+      )
       return false
     }
     let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具')
@@ -252,7 +258,9 @@ export class SecretPlaceplus extends plugin {
       await Add_灵石(usr_qq, -50000)
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 21) {
       e.reply('到了地图上的地点，结果你发现,你尚未达到化神,无法抵御灵气压制')
       return false
@@ -267,7 +275,9 @@ export class SecretPlaceplus extends plugin {
       return false
     }
     if (player.修为 < 1000000) {
-      e.reply('到了地图上的地点，发现洞府前有一句前人留下的遗言:‘至少有10w修为才能抵御仙威！’')
+      e.reply(
+        '到了地图上的地点，发现洞府前有一句前人留下的遗言:‘至少有10w修为才能抵御仙威！’'
+      )
       return false
     }
     let Price = weizhi.Price * 10
@@ -345,7 +355,9 @@ export class SecretPlaceplus extends plugin {
       return false
     }
     player = await Read_player(usr_qq)
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 42 && player.lunhui == 0) {
       return false
     }

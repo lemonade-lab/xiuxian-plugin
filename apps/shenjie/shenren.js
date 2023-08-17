@@ -48,7 +48,10 @@ export class shenren extends plugin {
       return false
     }
     let player = await Read_player(usr_qq)
-    if (player.魔道值 > 0 || (player.灵根.type != '转生' && player.level_id < 42)) {
+    if (
+      player.魔道值 > 0 ||
+      (player.灵根.type != '转生' && player.level_id < 42)
+    ) {
       e.reply('你尝试供奉神石,但是失败了')
       return false
     }
@@ -88,7 +91,9 @@ export class shenren extends plugin {
     //查看存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -118,14 +123,23 @@ export class shenren extends plugin {
       Today.D != lastdagong_time.D
     ) {
       await redis.set('xiuxian@1.3.0:' + usr_qq + ':lastdagong_time', nowTime) //redis设置签到时间
-      var n = 1
+      let n = 1
       if (player.灵根.name == '二转轮回体') {
         n = 2
-      } else if (player.灵根.name == '三转轮回体' || player.灵根.name == '四转轮回体') {
+      } else if (
+        player.灵根.name == '三转轮回体' ||
+        player.灵根.name == '四转轮回体'
+      ) {
         n = 3
-      } else if (player.灵根.name == '五转轮回体' || player.灵根.name == '六转轮回体') {
+      } else if (
+        player.灵根.name == '五转轮回体' ||
+        player.灵根.name == '六转轮回体'
+      ) {
         n = 4
-      } else if (player.灵根.name == '七转轮回体' || player.灵根.name == '八转轮回体') {
+      } else if (
+        player.灵根.name == '七转轮回体' ||
+        player.灵根.name == '八转轮回体'
+      ) {
         n = 4
       } else if (player.灵根.name == '九转轮回体') {
         n = 5
@@ -134,7 +148,10 @@ export class shenren extends plugin {
       await Write_player(usr_qq, player)
     }
     player = await Read_player(usr_qq)
-    if (player.魔道值 > 0 || (player.灵根.type != '转生' && player.level_id < 42)) {
+    if (
+      player.魔道值 > 0 ||
+      (player.灵根.type != '转生' && player.level_id < 42)
+    ) {
       e.reply('你没有资格进入神界')
       return false
     }
@@ -155,7 +172,7 @@ export class shenren extends plugin {
       player.神界次数--
     }
     await Write_player(usr_qq, player)
-    var time = 30 //时间（分钟）
+    let time = 30 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
       action: '神界', //动作
@@ -187,7 +204,10 @@ export class shenren extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     let player = await Read_player(usr_qq)
-    if (player.魔道值 > 0 || (player.灵根.type != '转生' && player.level_id < 42)) {
+    if (
+      player.魔道值 > 0 ||
+      (player.灵根.type != '转生' && player.level_id < 42)
+    ) {
       e.reply('你尝试领悟神石,但是失败了')
       return false
     }

@@ -98,7 +98,9 @@ export class Games extends plugin {
     if (!flag) {
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     //用id当作收益用
     //收益用
     var money = now_level_id * 1000
@@ -147,7 +149,8 @@ export class Games extends plugin {
     else if (rand > 0.7) {
       await Add_灵石(usr_qq, -money)
       ql1 = '花了'
-      ql2 = '灵石,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！'
+      ql2 =
+        '灵石,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！'
       e.reply([segment.at(usr_qq), ql1 + money + ql2])
       return false
     }
@@ -198,20 +201,31 @@ export class Games extends plugin {
     //最后的游戏时间
     //last_game_time
     //获得时间戳
-    let last_game_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_game_time')
+    let last_game_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':last_game_time'
+    )
     last_game_time = parseInt(last_game_time)
     let transferTimeout = parseInt(60000 * time)
     if (now_time < last_game_time + transferTimeout) {
-      let game_m = Math.trunc((last_game_time + transferTimeout - now_time) / 60 / 1000)
-      let game_s = Math.trunc(((last_game_time + transferTimeout - now_time) % 60000) / 1000)
-      e.reply(`每${transferTimeout / 1000 / 60}分钟游玩一次。` + `cd: ${game_m}分${game_s}秒`)
+      let game_m = Math.trunc(
+        (last_game_time + transferTimeout - now_time) / 60 / 1000
+      )
+      let game_s = Math.trunc(
+        ((last_game_time + transferTimeout - now_time) % 60000) / 1000
+      )
+      e.reply(
+        `每${transferTimeout / 1000 / 60}分钟游玩一次。` +
+          `cd: ${game_m}分${game_s}秒`
+      )
       //存在CD。直接返回
       return false
     }
     //记录本次执行时间
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_game_time', now_time)
     //判断是否已经在进行
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //为0，就是在进行了
     if (game_action == 0) {
       //在进行
@@ -236,7 +250,9 @@ export class Games extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     //得到此人的状态
     //判断是否是投入用户
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     if (!ifexistplay || game_action == 1) {
       //不是就返回
       return false
@@ -272,7 +288,10 @@ export class Games extends plugin {
         } else {
           //直接清除，并记录
           //重新记录本次时间
-          await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_game_time', now_time) //存入缓存
+          await redis.set(
+            'xiuxian@1.3.0:' + usr_qq + ':last_game_time',
+            now_time
+          ) //存入缓存
           //清除游戏状态
           await redis.set('xiuxian@1.3.0:' + usr_qq + ':game_action', 1)
           //清除未投入判断
@@ -298,7 +317,9 @@ export class Games extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     //得到此人的状态
     //判断是否是投入用户
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     if (!ifexistplay || game_action == 1) {
       //不是就返回
       return false
@@ -350,7 +371,8 @@ export class Games extends plugin {
       //积累
       if (isNotNull(player.金银坊胜场)) {
         player.金银坊胜场 = parseInt(player.金银坊胜场) + 1
-        player.金银坊收入 = parseInt(player.金银坊收入) + parseInt(yazhu[usr_qq])
+        player.金银坊收入 =
+          parseInt(player.金银坊收入) + parseInt(yazhu[usr_qq])
       } else {
         player.金银坊胜场 = 1
         player.金银坊收入 = parseInt(yazhu[usr_qq])
@@ -391,7 +413,8 @@ export class Games extends plugin {
       //增加金银坊投资记录
       if (isNotNull(player.金银坊败场)) {
         player.金银坊败场 = parseInt(player.金银坊败场) + 1
-        player.金银坊支出 = parseInt(player.金银坊支出) + parseInt(yazhu[usr_qq])
+        player.金银坊支出 =
+          parseInt(player.金银坊支出) + parseInt(yazhu[usr_qq])
       } else {
         player.金银坊败场 = 1
         player.金银坊支出 = parseInt(yazhu[usr_qq])
@@ -418,7 +441,9 @@ export class Games extends plugin {
       clearTimeout(gametime[usr_qq])
       //如果扣了之后，钱被扣光了，就提示
       if (now_money <= 0) {
-        msg.push('\n媚娘：没钱了也想跟老娘耍？\n你已经裤衩都输光了...快去降妖赚钱吧！')
+        msg.push(
+          '\n媚娘：没钱了也想跟老娘耍？\n你已经裤衩都输光了...快去降妖赚钱吧！'
+        )
       }
       e.reply(msg)
       return false
@@ -432,9 +457,15 @@ export class Games extends plugin {
     //获取人物信息
     let player_data = data.getData('player', qq)
     let victory = isNotNull(player_data.金银坊胜场) ? player_data.金银坊胜场 : 0
-    let victory_num = isNotNull(player_data.金银坊收入) ? player_data.金银坊收入 : 0
-    let defeated = isNotNull(player_data.金银坊败场) ? player_data.金银坊败场 : 0
-    let defeated_num = isNotNull(player_data.金银坊支出) ? player_data.金银坊支出 : 0
+    let victory_num = isNotNull(player_data.金银坊收入)
+      ? player_data.金银坊收入
+      : 0
+    let defeated = isNotNull(player_data.金银坊败场)
+      ? player_data.金银坊败场
+      : 0
+    let defeated_num = isNotNull(player_data.金银坊支出)
+      ? player_data.金银坊支出
+      : 0
     if (parseInt(victory) + parseInt(defeated) == 0) {
       shenglv = 0
     } else {
@@ -478,19 +509,31 @@ export class Games extends plugin {
     let shuangxiuTimeout = parseInt(60000 * Time)
     //自己的cd
     let now_Time = new Date().getTime() //获取当前时间戳
-    let last_timeA = await redis.get('xiuxian@1.3.0:' + A + ':last_shuangxiu_time') //获得上次的时间戳,
+    let last_timeA = await redis.get(
+      'xiuxian@1.3.0:' + A + ':last_shuangxiu_time'
+    ) //获得上次的时间戳,
     last_timeA = parseInt(last_timeA)
     if (now_Time < last_timeA + shuangxiuTimeout) {
-      let Couple_m = Math.trunc((last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000)
-      let Couple_s = Math.trunc(((last_timeA + shuangxiuTimeout - now_Time) % 60000) / 1000)
+      let Couple_m = Math.trunc(
+        (last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000
+      )
+      let Couple_s = Math.trunc(
+        ((last_timeA + shuangxiuTimeout - now_Time) % 60000) / 1000
+      )
       e.reply(`双修冷却:  ${Couple_m}分 ${Couple_s}秒`)
       return false
     }
-    let last_timeB = await redis.get('xiuxian@1.3.0:' + B + ':last_shuangxiu_time') //获得上次的时间戳,
+    let last_timeB = await redis.get(
+      'xiuxian@1.3.0:' + B + ':last_shuangxiu_time'
+    ) //获得上次的时间戳,
     last_timeB = parseInt(last_timeB)
     if (now_Time < last_timeB + shuangxiuTimeout) {
-      let Couple_m = Math.trunc((last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000)
-      let Couple_s = Math.trunc(((last_timeB + shuangxiuTimeout - now_Time) % 60000) / 1000)
+      let Couple_m = Math.trunc(
+        (last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000
+      )
+      let Couple_s = Math.trunc(
+        ((last_timeB + shuangxiuTimeout - now_Time) % 60000) / 1000
+      )
       e.reply(`对方双修冷却:  ${Couple_m}分 ${Couple_s}秒`)
       return false
     }
@@ -535,7 +578,11 @@ export class Games extends plugin {
         await Add_修为(A, parseInt(y))
         await Add_修为(B, parseInt(y))
         await add_qinmidu(A, B, 30)
-        e.reply('你们双方情意相通，缠绵一晚，都增加了' + parseInt(y) + '修为,亲密度增加了30点')
+        e.reply(
+          '你们双方情意相通，缠绵一晚，都增加了' +
+            parseInt(y) +
+            '修为,亲密度增加了30点'
+        )
         return false
       } else if (option > 0.5 && option <= 0.6) {
         x = 21000
@@ -543,14 +590,22 @@ export class Games extends plugin {
         await Add_修为(A, parseInt(y))
         await Add_修为(B, parseInt(y))
         await add_qinmidu(A, B, 20)
-        e.reply('你们双方交心交神，努力修炼，都增加了' + parseInt(y) + '修为,亲密度增加了20点')
+        e.reply(
+          '你们双方交心交神，努力修炼，都增加了' +
+            parseInt(y) +
+            '修为,亲密度增加了20点'
+        )
       } else if (option > 0.6 && option <= 0.7) {
         x = 14000
         y = Math.trunc(xiuwei * x)
         await Add_修为(A, parseInt(y))
         await Add_修为(B, parseInt(y))
         await add_qinmidu(A, B, 15)
-        e.reply('你们双方共同修炼，过程平稳，都增加了' + parseInt(y) + '修为,亲密度增加了15点')
+        e.reply(
+          '你们双方共同修炼，过程平稳，都增加了' +
+            parseInt(y) +
+            '修为,亲密度增加了15点'
+        )
       } else if (option > 0.7 && option <= 0.9) {
         x = 520
         y = Math.trunc(1 * x)
@@ -558,7 +613,9 @@ export class Games extends plugin {
         await Add_修为(B, parseInt(y))
         await add_qinmidu(A, B, 10)
         e.reply(
-          '你们双方努力修炼，但是并进不了状态，都增加了' + parseInt(y) + '修为,亲密度增加了10点'
+          '你们双方努力修炼，但是并进不了状态，都增加了' +
+            parseInt(y) +
+            '修为,亲密度增加了10点'
         )
       } else {
         e.reply('你们双修时心神合一，但是不知道哪来的小孩，惊断了状态')

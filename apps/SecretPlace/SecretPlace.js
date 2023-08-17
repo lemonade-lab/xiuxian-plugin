@@ -188,14 +188,18 @@ export class SecretPlace extends plugin {
       e.reply('请#同步信息')
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 22) {
       e.reply('没有达到化神之前还是不要去了')
       return false
     }
     let didian = await e.msg.replace('#前往禁地', '')
     didian = didian.trim()
-    let weizhi = await data.forbiddenarea_list.find((item) => item.name == didian)
+    let weizhi = await data.forbiddenarea_list.find(
+      (item) => item.name == didian
+    )
     // if (player.power_place == 0 && weizhi.id != 666) {
     //     e.reply("仙人不得下凡")
     //     return  false;
@@ -274,7 +278,9 @@ export class SecretPlace extends plugin {
       await Add_灵石(usr_qq, -50000)
       return false
     }
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 21) {
       e.reply('到了地图上的地点，结果你发现,你尚未达到化神,无法抵御灵气压制')
       return false
@@ -289,7 +295,9 @@ export class SecretPlace extends plugin {
       return false
     }
     if (player.修为 < 100000) {
-      e.reply('到了地图上的地点，发现洞府前有一句前人留下的遗言:‘至少有10w修为才能抵御仙威！’')
+      e.reply(
+        '到了地图上的地点，发现洞府前有一句前人留下的遗言:‘至少有10w修为才能抵御仙威！’'
+      )
       return false
     }
     let dazhe = 1
@@ -367,7 +375,9 @@ export class SecretPlace extends plugin {
       return false
     }
     let now_level_id
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (now_level_id < 42 && player.lunhui == 0) {
       return false
     }
@@ -428,7 +438,9 @@ export class SecretPlace extends plugin {
       return false
     }
     //获取游戏状态
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -440,7 +452,11 @@ export class SecretPlace extends plugin {
     //不为空，有状态
     if (action != null) {
       //是在秘境状态
-      if (action.Place_action == '0' || action.Place_actionplus == '0' || action.mojie == '0') {
+      if (
+        action.Place_action == '0' ||
+        action.Place_actionplus == '0' ||
+        action.mojie == '0'
+      ) {
         //把状态都关了
         let arr = action
         arr.is_jiesuan = 1 //结算状态
@@ -452,7 +468,10 @@ export class SecretPlace extends plugin {
         arr.mojie = 1
         arr.end_time = new Date().getTime() //结束的时间也修改为当前时间
         delete arr.group_id //结算完去除group_id
-        await redis.set('xiuxian@1.3.0:' + usr_qq + ':action', JSON.stringify(arr))
+        await redis.set(
+          'xiuxian@1.3.0:' + usr_qq + ':action',
+          JSON.stringify(arr)
+        )
         e.reply('你已逃离！')
         return false
       }

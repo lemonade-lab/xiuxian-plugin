@@ -132,7 +132,9 @@ export class TopList extends plugin {
       //(攻击+防御+生命*0.5)*暴击率=理论战力
       let player = await Read_player(player_id)
       //计算并保存到数组
-      let power = (player.攻击 + player.防御 * 0.8 + player.血量上限 * 0.6) * (player.暴击率 + 1)
+      let power =
+        (player.攻击 + player.防御 * 0.8 + player.血量上限 * 0.6) *
+        (player.暴击率 + 1)
       if (player.level_id >= 42) {
         //跳过仙人的记录
         continue
@@ -195,7 +197,9 @@ export class TopList extends plugin {
         return false
       }
       //境界名字需要查找境界名
-      let level = data.Level_list.find((item) => item.level_id == player.level_id).level
+      let level = data.Level_list.find(
+        (item) => item.level_id == player.level_id
+      ).level
       temp[i] = {
         总修为: sum_exp,
         境界: level,
@@ -259,7 +263,13 @@ export class TopList extends plugin {
     await sleep(500)
     let thisplayer = await data.getData('player', usr_qq)
     let thisnajie = await data.getData('najie', usr_qq)
-    let img = await get_ranking_money_img(e, Data, usr_paiming, thisplayer, thisnajie)
+    let img = await get_ranking_money_img(
+      e,
+      Data,
+      usr_paiming,
+      thisplayer,
+      thisnajie
+    )
     e.reply(img)
     return false
   }

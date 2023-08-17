@@ -67,7 +67,14 @@ export class Forum extends plugin {
       return false
     }
     await Add_灵石(usr_qq, Forum[x].whole)
-    e.reply(player.名号 + '取消' + Forum[x].name + '成功,返还' + Forum[x].whole + '灵石')
+    e.reply(
+      player.名号 +
+        '取消' +
+        Forum[x].name +
+        '成功,返还' +
+        Forum[x].whole +
+        '灵石'
+    )
     Forum.splice(x, 1)
     await Write_Forum(Forum)
     return false
@@ -151,16 +158,23 @@ export class Forum extends plugin {
     let flag = await Go(e)
     if (!flag) return false
     //防并发cd
-    var time = 0.5 //分钟cd
+    let time = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
     let ForumCD = await redis.get('xiuxian@1.3.0:' + usr_qq + ':ForumCD')
     ForumCD = parseInt(ForumCD)
     let transferTimeout = parseInt(60000 * time)
     if (now_time < ForumCD + transferTimeout) {
-      let ForumCDm = Math.trunc((ForumCD + transferTimeout - now_time) / 60 / 1000)
-      let ForumCDs = Math.trunc(((ForumCD + transferTimeout - now_time) % 60000) / 1000)
-      e.reply(`每${transferTimeout / 1000 / 60}分钟操作一次，` + `CD: ${ForumCDm}分${ForumCDs}秒`)
+      let ForumCDm = Math.trunc(
+        (ForumCD + transferTimeout - now_time) / 60 / 1000
+      )
+      let ForumCDs = Math.trunc(
+        ((ForumCD + transferTimeout - now_time) % 60000) / 1000
+      )
+      e.reply(
+        `每${transferTimeout / 1000 / 60}分钟操作一次，` +
+          `CD: ${ForumCDm}分${ForumCDs}秒`
+      )
       //存在CD。直接返回
       return false
     }

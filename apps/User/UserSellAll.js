@@ -84,29 +84,43 @@ export class UserSellAll extends plugin {
     let player = await Read_player(usr_qq)
     let sanwei = []
     sanwei[0] =
-      data.Level_list.find((item) => item.level_id == player.level_id).基础攻击 +
+      data.Level_list.find((item) => item.level_id == player.level_id)
+        .基础攻击 +
       player.攻击加成 +
-      data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础攻击
+      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+        .基础攻击
     sanwei[1] =
-      data.Level_list.find((item) => item.level_id == player.level_id).基础防御 +
+      data.Level_list.find((item) => item.level_id == player.level_id)
+        .基础防御 +
       player.防御加成 +
-      data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础防御
+      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+        .基础防御
     sanwei[2] =
-      data.Level_list.find((item) => item.level_id == player.level_id).基础血量 +
+      data.Level_list.find((item) => item.level_id == player.level_id)
+        .基础血量 +
       player.生命加成 +
-      data.LevelMax_list.find((item) => item.level_id == player.Physique_id).基础血量
+      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
+        .基础血量
     let equipment = await data.getData('equipment', usr_qq)
     //智能选择装备
     let type = ['武器', '护具', '法宝']
     for (let j of type) {
       let max
       let max_equ
-      if (equipment[j].atk < 10 && equipment[j].def < 10 && equipment[j].HP < 10)
+      if (
+        equipment[j].atk < 10 &&
+        equipment[j].def < 10 &&
+        equipment[j].HP < 10
+      )
         max =
           equipment[j].atk * sanwei[0] * 0.43 +
           equipment[j].def * sanwei[1] * 0.16 +
           equipment[j].HP * sanwei[2] * 0.41
-      else max = equipment[j].atk * 0.43 + equipment[j].def * 0.16 + equipment[j].HP * 0.41
+      else
+        max =
+          equipment[j].atk * 0.43 +
+          equipment[j].def * 0.16 +
+          equipment[j].HP * 0.41
       for (let i of najie['装备']) {
         //先判断装备存不存在
         let thing_exist = await foundthing(i.name)
@@ -117,7 +131,10 @@ export class UserSellAll extends plugin {
           let temp
           //再判断装备数值类型
           if (i.atk < 10 && i.def < 10 && i.HP < 10)
-            temp = i.atk * sanwei[0] * 0.43 + i.def * sanwei[1] * 0.16 + i.HP * sanwei[2] * 0.41
+            temp =
+              i.atk * sanwei[0] * 0.43 +
+              i.def * sanwei[1] * 0.16 +
+              i.HP * sanwei[2] * 0.41
           else temp = i.atk * 0.43 + i.def * 0.16 + i.HP * 0.41
           //选出最佳装备
           if (max < temp) {
@@ -140,7 +157,16 @@ export class UserSellAll extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     let najie = await data.getData('najie', usr_qq)
-    let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let wupin = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     let wupin1 = []
     if (e.msg != '#一键锁定') {
       let thing = e.msg.replace('#一键锁定', '')
@@ -174,7 +200,16 @@ export class UserSellAll extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     let najie = await data.getData('najie', usr_qq)
-    let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let wupin = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     let wupin1 = []
     if (e.msg != '#一键解锁') {
       let thing = e.msg.replace('#一键解锁', '')
@@ -220,7 +255,16 @@ export class UserSellAll extends plugin {
       return false
     }
     let A_najie = await data.getData('najie', A_qq)
-    let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let wupin = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     let wupin1 = []
     if (e.msg != '#一键赠送') {
       let thing = e.msg.replace('#一键赠送', '')
@@ -262,7 +306,16 @@ export class UserSellAll extends plugin {
     if (!ifexistplay) return false
     let najie = await data.getData('najie', usr_qq)
     let lingshi = 0
-    let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let wupin = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     let wupin1 = []
     if (e.msg != '#一键回收') {
       let thing = e.msg.replace('#一键回收', '')
@@ -347,13 +400,25 @@ export class UserSellAll extends plugin {
     thing_pinji = pj[thing[1]]
     let ifexist
     if (un_lock == '锁定') {
-      ifexist = await re_najie_thing(usr_qq, thing_name, thing_exist.class, thing_pinji, 1)
+      ifexist = await re_najie_thing(
+        usr_qq,
+        thing_name,
+        thing_exist.class,
+        thing_pinji,
+        1
+      )
       if (ifexist) {
         e.reply(`${thing_exist.class}:${thing_name}已锁定`)
         return false
       }
     } else if (un_lock == '解锁') {
-      ifexist = await re_najie_thing(usr_qq, thing_name, thing_exist.class, thing_pinji, 0)
+      ifexist = await re_najie_thing(
+        usr_qq,
+        thing_name,
+        thing_exist.class,
+        thing_pinji,
+        0
+      )
       if (ifexist) {
         e.reply(`${thing_exist.class}:${thing_name}已解锁`)
         return false
@@ -378,7 +443,16 @@ export class UserSellAll extends plugin {
     if (!ifexistplay) return false
     let commodities_price = 0
     let najie = await data.getData('najie', usr_qq)
-    let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let wupin = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     let wupin1 = []
     if (e.msg != '#一键出售') {
       let thing = e.msg.replace('#一键出售', '')
@@ -453,7 +527,16 @@ export class UserSellAll extends plugin {
     //有无存档
     let najie = await data.getData('najie', usr_qq)
     let commodities_price = 0
-    let wupin = ['装备', '丹药', '道具', '功法', '草药', '材料', '仙宠', '仙宠口粮']
+    let wupin = [
+      '装备',
+      '丹药',
+      '道具',
+      '功法',
+      '草药',
+      '材料',
+      '仙宠',
+      '仙宠口粮'
+    ]
     for (let i of wupin) {
       for (let l of najie[i]) {
         if (l && l.islockd == 0) {

@@ -53,7 +53,7 @@ export class TreasureCabinet extends plugin {
       player.宗门.lingshi_donate = 0
     }
     //贡献值为捐献灵石除10000
-    var gonxianzhi = Math.trunc(player.宗门.lingshi_donate / 10000)
+    let gonxianzhi = Math.trunc(player.宗门.lingshi_donate / 10000)
     e.reply(
       '你为宗门的贡献值为[' +
         gonxianzhi +
@@ -77,6 +77,7 @@ export class TreasureCabinet extends plugin {
     }
     //职位不符
     if (player.宗门.职位 == '宗主') {
+      console.log('通过')
     } else {
       e.reply('只有宗主可以操作')
       return false
@@ -124,7 +125,9 @@ export class TreasureCabinet extends plugin {
 
     ass.灵石池 -= 2000000
     await data.setAssociation(ass.宗门名称, ass)
-    e.reply(`召唤成功，神兽${ass.宗门神兽}投下一道分身，开始守护你的宗门，绑定神兽后不可更换哦`)
+    e.reply(
+      `召唤成功，神兽${ass.宗门神兽}投下一道分身，开始守护你的宗门，绑定神兽后不可更换哦`
+    )
     return false
   }
 
@@ -150,7 +153,11 @@ export class TreasureCabinet extends plugin {
     let nowTime = now.getTime() //获取当前日期的时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Bonus(usr_qq) //获得上次宗门签到日期
-    if (Today.Y == lastsign_time.Y && Today.M == lastsign_time.M && Today.D == lastsign_time.D) {
+    if (
+      Today.Y == lastsign_time.Y &&
+      Today.M == lastsign_time.M &&
+      Today.D == lastsign_time.D
+    ) {
       e.reply(`今日已经接受过神兽赐福了，明天再来吧`)
       return false
     }

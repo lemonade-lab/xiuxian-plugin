@@ -1,6 +1,12 @@
 import fs from 'fs'
 import { plugin, verc, data, config } from '../../api/api.js'
-import { Add_灵石, ForwardMsg, Add_HP, Harm, zd_battle } from '../../model/xiuxian.js'
+import {
+  Add_灵石,
+  ForwardMsg,
+  Add_HP,
+  Harm,
+  zd_battle
+} from '../../model/xiuxian.js'
 let WorldBOSSBattleCD = [] //CD
 let WorldBOSSBattleLock = 0 //BOSS战斗锁，防止打架频率过高造成奖励多发
 let WorldBOSSBattleUnLockTimer = 0 //防止战斗锁因意外锁死
@@ -98,13 +104,18 @@ export class BOSS extends plugin {
       }
       let CurrentQQ
       let TotalDamage = 0
-      for (let i = 0; i < (PlayerList.length <= 20 ? PlayerList.length : 20); i++)
+      for (
+        let i = 0;
+        i < (PlayerList.length <= 20 ? PlayerList.length : 20);
+        i++
+      )
         TotalDamage += PlayerRecord.TotalDamage[PlayerList[i]]
       let msg = ['****妖王周本贡献排行榜****']
-      for (var i = 0; i < PlayerList.length; i++) {
+      for (let i = 0; i < PlayerList.length; i++) {
         if (i < 20) {
           let Reward = Math.trunc(
-            (PlayerRecord.TotalDamage[PlayerList[i]] / TotalDamage) * WorldBossStatusStr.Reward
+            (PlayerRecord.TotalDamage[PlayerList[i]] / TotalDamage) *
+              WorldBossStatusStr.Reward
           )
           Reward = Reward < 200000 ? 200000 : Reward
           msg.push(
@@ -114,7 +125,9 @@ export class BOSS extends plugin {
               `名号:${PlayerRecord.Name[PlayerList[i]]}` +
               '\n' +
               `总伤害:${PlayerRecord.TotalDamage[PlayerList[i]]}` +
-              `\n${WorldBossStatusStr.Health == 0 ? `已得到灵石` : `预计得到灵石`}:${Reward}`
+              `\n${
+                WorldBossStatusStr.Health == 0 ? `已得到灵石` : `预计得到灵石`
+              }:${Reward}`
           )
         }
         if (PlayerRecord.QQ[PlayerList[i]] == e.user_id) CurrentQQ = i + 1
@@ -140,7 +153,7 @@ export class BOSS extends plugin {
       return false
     }
     let usr_qq = e.user_id
-    var Time = 5
+    let Time = 5
     let now_Time = new Date().getTime() //获取当前时间戳
     Time = parseInt(60000 * Time)
     let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + 'BOSSCD') //获得上次的时间戳,
@@ -178,7 +191,9 @@ export class BOSS extends plugin {
           (300000 - (new Date().getTime() - WorldBOSSBattleCD[usr_qq])) / 1000
         )
         if (Seconds <= 300 && Seconds >= 0) {
-          e.reply(`刚刚一战消耗了太多气力，还是先歇息一会儿吧~(剩余${Seconds}秒)`)
+          e.reply(
+            `刚刚一战消耗了太多气力，还是先歇息一会儿吧~(剩余${Seconds}秒)`
+          )
           return false
         }
       }
@@ -258,16 +273,22 @@ export class BOSS extends plugin {
       }
       if (msg.find((item) => item == A_win)) {
         TotalDamage = Math.trunc(
-          WorldBossStatus.Healthmax * 0.05 + Harm(player.攻击 * 0.85, Boss.防御) * 6
+          WorldBossStatus.Healthmax * 0.05 +
+            Harm(player.攻击 * 0.85, Boss.防御) * 6
         )
         WorldBossStatus.Health -= TotalDamage
-        e.reply(`${player.名号}击败了[${Boss.名号}],重创[妖王],造成伤害${TotalDamage}`)
+        e.reply(
+          `${player.名号}击败了[${Boss.名号}],重创[妖王],造成伤害${TotalDamage}`
+        )
       } else if (msg.find((item) => item == B_win)) {
         TotalDamage = Math.trunc(
-          WorldBossStatus.Healthmax * 0.03 + Harm(player.攻击 * 0.85, Boss.防御) * 4
+          WorldBossStatus.Healthmax * 0.03 +
+            Harm(player.攻击 * 0.85, Boss.防御) * 4
         )
         WorldBossStatus.Health -= TotalDamage
-        e.reply(`${player.名号}被[${Boss.名号}]击败了,只对[妖王]造成了${TotalDamage}伤害`)
+        e.reply(
+          `${player.名号}被[${Boss.名号}]击败了,只对[妖王]造成了${TotalDamage}伤害`
+        )
       }
       await Add_HP(usr_qq, Data_battle.A_xue)
       await sleep(1000)
@@ -293,7 +314,9 @@ export class BOSS extends plugin {
         e.reply('妖王被击杀！玩家们可以根据贡献获得奖励！')
         await sleep(1000)
         let msg2 =
-          '【全服公告】' + player.名号 + '亲手结果了妖王的性命,为民除害,额外获得1000000灵石奖励！'
+          '【全服公告】' +
+          player.名号 +
+          '亲手结果了妖王的性命,为民除害,额外获得1000000灵石奖励！'
         const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
         const groupList = await redis.sMembers(redisGlKey)
         for (const group_id of groupList) {
@@ -315,13 +338,21 @@ export class BOSS extends plugin {
         if (PlayerList.length > 20) Show_MAX = 20
         else Show_MAX = PlayerList.length
         let TotalDamage = 0
-        for (let i = 0; i < (PlayerList.length <= 20 ? PlayerList.length : 20); i++)
+        for (
+          let i = 0;
+          i < (PlayerList.length <= 20 ? PlayerList.length : 20);
+          i++
+        )
           TotalDamage += PlayerRecordJSON.TotalDamage[PlayerList[i]]
-        for (var i = 0; i < PlayerList.length; i++) {
-          let CurrentPlayer = await data.getData('player', PlayerRecordJSON.QQ[PlayerList[i]])
+        for (let i = 0; i < PlayerList.length; i++) {
+          let CurrentPlayer = await data.getData(
+            'player',
+            PlayerRecordJSON.QQ[PlayerList[i]]
+          )
           if (i < Show_MAX) {
             let Reward = Math.trunc(
-              (PlayerRecordJSON.TotalDamage[PlayerList[i]] / TotalDamage) * WorldBossStatus.Reward
+              (PlayerRecordJSON.TotalDamage[PlayerList[i]] / TotalDamage) *
+                WorldBossStatus.Reward
             )
             Reward = Reward < 200000 ? 200000 : Reward
             Rewardmsg.push(
@@ -335,17 +366,32 @@ export class BOSS extends plugin {
                 `获得灵石奖励${Reward}`
             )
             CurrentPlayer.灵石 += Reward
-            data.setData('player', PlayerRecordJSON.QQ[PlayerList[i]], CurrentPlayer)
+            data.setData(
+              'player',
+              PlayerRecordJSON.QQ[PlayerList[i]],
+              CurrentPlayer
+            )
             Bot.logger.mark(
-              `[妖王周本] 结算:${PlayerRecordJSON.QQ[PlayerList[i]]}增加奖励${Reward}`
+              `[妖王周本] 结算:${
+                PlayerRecordJSON.QQ[PlayerList[i]]
+              }增加奖励${Reward}`
             )
             continue
           } else {
             CurrentPlayer.灵石 += 200000
-            Bot.logger.mark(`[妖王周本] 结算:${PlayerRecordJSON.QQ[PlayerList[i]]}增加奖励200000`)
-            data.setData('player', PlayerRecordJSON.QQ[PlayerList[i]], CurrentPlayer)
+            Bot.logger.mark(
+              `[妖王周本] 结算:${
+                PlayerRecordJSON.QQ[PlayerList[i]]
+              }增加奖励200000`
+            )
+            data.setData(
+              'player',
+              PlayerRecordJSON.QQ[PlayerList[i]],
+              CurrentPlayer
+            )
           }
-          if (i == PlayerList.length - 1) Rewardmsg.push('其余参与的修仙者均获得200000灵石奖励！')
+          if (i == PlayerList.length - 1)
+            Rewardmsg.push('其余参与的修仙者均获得200000灵石奖励！')
         }
         await ForwardMsg(e, Rewardmsg)
       }
@@ -406,7 +452,10 @@ async function pushInfo(id, is_group, msg) {
 
 //获取妖王是否已开启
 async function BossIsAlive() {
-  return (await redis.get('Xiuxian:WorldBossStatus')) && (await redis.get('xiuxian@1.3.0Record'))
+  return (
+    (await redis.get('Xiuxian:WorldBossStatus')) &&
+    (await redis.get('xiuxian@1.3.0Record'))
+  )
 }
 
 //排序
@@ -453,11 +502,13 @@ async function GetAverageDamage() {
   File = File.filter((file) => file.endsWith('.json'))
   let temp = []
   let TotalPlayer = 0
-  for (var i = 0; i < File.length; i++) {
+  for (let i = 0; i < File.length; i++) {
     let this_qq = File[i].replace('.json', '')
     this_qq = parseInt(this_qq)
     let player = await data.getData('player', this_qq)
-    let level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    let level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
     if (level_id >= 42) {
       temp[TotalPlayer] = parseInt(player.攻击)
       Bot.logger.mark(`[妖王] ${this_qq}玩家攻击:${temp[TotalPlayer]}`)
@@ -469,7 +520,8 @@ async function GetAverageDamage() {
     return b - a
   })
   let AverageDamage = 0
-  if (TotalPlayer > 15) for (let i = 2; i < temp.length - 4; i++) AverageDamage += temp[i]
+  if (TotalPlayer > 15)
+    for (let i = 2; i < temp.length - 4; i++) AverageDamage += temp[i]
   else for (let i = 0; i < temp.length; i++) AverageDamage += temp[i]
   AverageDamage =
     TotalPlayer > 15

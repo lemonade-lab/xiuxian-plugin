@@ -72,17 +72,17 @@ export class mojietask extends plugin {
           end_time = end_time - action.time
           //时间过了
           if (now_time > end_time) {
-            var thing_name
-            var thing_class
-            var x = 0.98
+            let thing_name
+            let thing_class
+            let x = 0.98
             let random1 = Math.random()
-            var y = 0.4
+            let y = 0.4
             let random2 = Math.random()
-            var z = 0.15
+            let z = 0.15
             let random3 = Math.random()
             let random4
-            var m = ''
-            var n = 1
+            let m = ''
+            let n = 1
             let t1
             let t2
             let last_msg = ''
@@ -90,7 +90,9 @@ export class mojietask extends plugin {
             if (random1 <= x) {
               if (random2 <= y) {
                 if (random3 <= z) {
-                  random4 = Math.floor(Math.random() * data.mojie[0].three.length)
+                  random4 = Math.floor(
+                    Math.random() * data.mojie[0].three.length
+                  )
                   thing_name = data.mojie[0].three[random4].name
                   thing_class = data.mojie[0].three[random4].class
                   m = `抬头一看，金光一闪！有什么东西从天而降，定睛一看，原来是[${thing_name}]`
@@ -127,7 +129,8 @@ export class mojietask extends plugin {
                 last_msg += '仙宠使你在探索中欧气满满，所以在'
               }
               n++
-              last_msg += '探索过程中意外发现了两份机缘,最终获取机缘数量将翻倍\n'
+              last_msg +=
+                '探索过程中意外发现了两份机缘,最终获取机缘数量将翻倍\n'
             }
             if (player.islucky > 0) {
               player.islucky--
@@ -148,8 +151,12 @@ export class mojietask extends plugin {
             //结算
             let qixue = 0
             let xiuwei = 0
-            xiuwei = Math.trunc(2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5)
-            qixue = Math.trunc(2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1)
+            xiuwei = Math.trunc(
+              2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5
+            )
+            qixue = Math.trunc(
+              2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1
+            )
             if (await exist_najie_thing(player_id, '修魔丹', '道具')) {
               xiuwei *= 100
               xiuwei = Math.trunc(xiuwei)
@@ -164,7 +171,13 @@ export class mojietask extends plugin {
               await Add_najie_thing(player_id, thing_name, thing_class, n)
             }
             last_msg +=
-              m + ',获得修为' + xiuwei + ',气血' + qixue + ',剩余次数' + (action.cishu - 1)
+              m +
+              ',获得修为' +
+              xiuwei +
+              ',气血' +
+              qixue +
+              ',剩余次数' +
+              (action.cishu - 1)
             msg.push('\n' + player.名号 + last_msg + fyd_msg)
             let arr = action
             if (arr.cishu == 1) {
@@ -180,7 +193,10 @@ export class mojietask extends plugin {
               //结算完去除group_id
               delete arr.group_id
               //写入redis
-              await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+              await redis.set(
+                'xiuxian@1.3.0:' + player_id + ':action',
+                JSON.stringify(arr)
+              )
               //先完结再结算
               await Add_血气(player_id, qixue)
               await Add_修为(player_id, xiuwei)
@@ -192,7 +208,10 @@ export class mojietask extends plugin {
               }
             } else {
               arr.cishu--
-              await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+              await redis.set(
+                'xiuxian@1.3.0:' + player_id + ':action',
+                JSON.stringify(arr)
+              )
               //先完结再结算
               await Add_血气(player_id, qixue)
               await Add_修为(player_id, xiuwei)

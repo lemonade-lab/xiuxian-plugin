@@ -2,7 +2,11 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{pluResPath}}/html/gongfa/gongfa.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{pluResPath}}/html/gongfa/gongfa.css"
+    />
   </head>
 
   <body>
@@ -24,18 +28,32 @@
           {{each XianChong_have item}}
           <div class="item">
             <div class="item_title font_item_title">{{item.name}}</div>
-            <div class="item_int" style="padding-left: 26px">类型：{{item.type}}</div>
-            <div class="item_int" style="padding-left: 26px">初始加成：{{item.初始加成*100}}%</div>
-            <div class="item_int" style="padding-left: 26px">每级增加：{{item.每级增加*100}}%</div>
-            <div class="item_int" style="padding-left: 26px">加成：{{item.加成*100}}%</div>
+            <div class="item_int" style="padding-left: 26px">
+              类型：{{item.type}}
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              初始加成：{{item.初始加成*100}}%
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              每级增加：{{item.每级增加*100}}%
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              加成：{{item.加成*100}}%
+            </div>
             {{if item.灵魂绑定==0}}
             <div class="item_int" style="padding-left: 26px">灵魂绑定：否</div>
             {{/if}} {{if item.灵魂绑定==1}}
             <div class="item_int" style="padding-left: 26px">灵魂绑定：是</div>
             {{/if}}
-            <div class="item_int" style="padding-left: 26px">品级：{{item.品级}}</div>
-            <div class="item_int" style="padding-left: 26px">等级上限：{{item.等级上限}}</div>
-            <div class="item_int" style="padding-left: 26px">价格：{{item.出售价}}</div>
+            <div class="item_int" style="padding-left: 26px">
+              品级：{{item.品级}}
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              等级上限：{{item.等级上限}}
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              价格：{{item.出售价}}
+            </div>
           </div>
           {{/each}}
         </div>
@@ -49,18 +67,32 @@
           {{each XianChong_need item}}
           <div class="item">
             <div class="item_title font_item_title">{{item.name}}</div>
-            <div class="item_int" style="padding-left: 26px">类型：{{item.type}}</div>
-            <div class="item_int" style="padding-left: 26px">初始加成：{{item.初始加成*100}}%</div>
-            <div class="item_int" style="padding-left: 26px">每级增加：{{item.每级增加*100}}%</div>
-            <div class="item_int" style="padding-left: 26px">加成：{{item.加成*100}}%</div>
+            <div class="item_int" style="padding-left: 26px">
+              类型：{{item.type}}
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              初始加成：{{item.初始加成*100}}%
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              每级增加：{{item.每级增加*100}}%
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              加成：{{item.加成*100}}%
+            </div>
             {{if item.灵魂绑定==0}}
             <div class="item_int" style="padding-left: 26px">灵魂绑定：否</div>
             {{/if}} {{if item.灵魂绑定==1}}
             <div class="item_int" style="padding-left: 26px">灵魂绑定：是</div>
             {{/if}}
-            <div class="item_int" style="padding-left: 26px">品级：{{item.品级}}</div>
-            <div class="item_int" style="padding-left: 26px">等级上限：{{item.等级上限}}</div>
-            <div class="item_int" style="padding-left: 26px">价格：{{item.出售价}}</div>
+            <div class="item_int" style="padding-left: 26px">
+              品级：{{item.品级}}
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              等级上限：{{item.等级上限}}
+            </div>
+            <div class="item_int" style="padding-left: 26px">
+              价格：{{item.出售价}}
+            </div>
           </div>
           {{/each}}
         </div>
@@ -76,7 +108,9 @@
           {{each Kouliang item}}
           <div class="item">
             <div class="item_title font_item_title">{{item.name}}</div>
-            <div class="item_int" style="padding-left: 26px">等级：{{item.level}}</div>
+            <div class="item_int" style="padding-left: 26px">
+              等级：{{item.level}}
+            </div>
             <div class="item_int" style="padding-left: 26px">
               价格：{{(item.出售价).toFixed(0)}}
             </div>

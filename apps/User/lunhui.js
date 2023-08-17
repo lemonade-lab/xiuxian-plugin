@@ -59,7 +59,9 @@ export class lunhui extends plugin {
     }
     let equipment = await Read_equipment(usr_qq)
     if (equipment.武器.HP < 0) {
-      e.reply(`身上携带邪祟之物，无法进行轮回,请将[${equipment.武器.name}]放下后再进行轮回`)
+      e.reply(
+        `身上携带邪祟之物，无法进行轮回,请将[${equipment.武器.name}]放下后再进行轮回`
+      )
       return false
     }
     if (player.轮回点 <= 0) {
@@ -95,7 +97,9 @@ export class lunhui extends plugin {
         e.reply('轮回后降临凡界，仙宗命牌失效！')
         if (player.宗门.职位 != '宗主') {
           let ass = data.getAssociation(player.宗门.宗门名称)
-          ass[player.宗门.职位] = ass[player.宗门.职位].filter((item) => item != usr_qq)
+          ass[player.宗门.职位] = ass[player.宗门.职位].filter(
+            (item) => item != usr_qq
+          )
           ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq)
           data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
@@ -105,11 +109,15 @@ export class lunhui extends plugin {
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            fs.rmSync(`${data.filePathMap.association}/${player.宗门.宗门名称}.json`)
+            fs.rmSync(
+              `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
+            )
             delete player.宗门 //删除存档里的宗门信息
             data.setData('player', usr_qq, player)
             await player_efficiency(usr_qq)
-            e.reply('一声巨响,原本的宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹')
+            e.reply(
+              '一声巨响,原本的宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹'
+            )
           } else {
             ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
             delete player.宗门 //删除这个B存档里的宗门信息
@@ -135,7 +143,9 @@ export class lunhui extends plugin {
             data.setData('player', randmember_qq, randmember) //记录到存档
             data.setData('player', usr_qq, player)
             data.setAssociation(ass.宗门名称, ass) //记录到宗门
-            e.reply(`轮回前,遵循你的嘱托,${randmember.名号}将继承你的衣钵,成为新一任的宗主`)
+            e.reply(
+              `轮回前,遵循你的嘱托,${randmember.名号}将继承你的衣钵,成为新一任的宗主`
+            )
           }
         }
       }

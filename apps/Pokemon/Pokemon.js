@@ -1,6 +1,15 @@
 import { plugin, verc, data } from '../../api/api.js'
-import { exist_najie_thing, Read_najie, isNotNull, Write_player } from '../../model/xiuxian.js'
-import { Add_najie_thing, convert2integer, Add_仙宠 } from '../../model/xiuxian.js'
+import {
+  exist_najie_thing,
+  Read_najie,
+  isNotNull,
+  Write_player
+} from '../../model/xiuxian.js'
+import {
+  Add_najie_thing,
+  convert2integer,
+  Add_仙宠
+} from '../../model/xiuxian.js'
 export class Pokemon extends plugin {
   constructor() {
     super({
@@ -54,7 +63,7 @@ export class Pokemon extends plugin {
     }
     //放回
     let last = 114514
-    for (var i = 0; najie.仙宠.length > i; i++) {
+    for (let i = 0; najie.仙宠.length > i; i++) {
       if (najie.仙宠[i].name == name) {
         last = najie.仙宠[i]
         break
@@ -96,7 +105,7 @@ export class Pokemon extends plugin {
     let list = ['仙胎', '仙仔', '仙兽', '仙道', '仙灵']
     let list_level = [20, 40, 60, 80, 100]
     let x = 114514
-    for (var i = 0; list.length > i; i++) {
+    for (let i = 0; list.length > i; i++) {
       if (list[i] == player.仙宠.品级) {
         x = i
         break
@@ -160,11 +169,17 @@ export class Pokemon extends plugin {
       e.reply('此乃凡物,仙宠不吃' + thing_name)
       return false
     }
-    if (player.仙宠.等级 == player.仙宠.等级上限 && player.仙宠.品级 != '仙灵') {
+    if (
+      player.仙宠.等级 == player.仙宠.等级上限 &&
+      player.仙宠.品级 != '仙灵'
+    ) {
       e.reply('等级已达到上限,请主人尽快为仙宠突破品级')
       return false
     }
-    if (player.仙宠.品级 == '仙灵' && player.仙宠.等级 == player.仙宠.等级上限) {
+    if (
+      player.仙宠.品级 == '仙灵' &&
+      player.仙宠.等级 == player.仙宠.等级上限
+    ) {
       e.reply('您的仙宠已达到天赋极限')
       return false
     }

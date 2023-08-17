@@ -111,7 +111,13 @@ export class MoneyOperation extends plugin {
       if (isNaN(thing_amount)) {
         thing_amount = 1
       }
-      await Add_najie_thing(B_qq, thing_name, thing_exist.class, thing_amount, thing_piji)
+      await Add_najie_thing(
+        B_qq,
+        thing_name,
+        thing_exist.class,
+        thing_amount,
+        thing_piji
+      )
     }
     e.reply(`发放成功,增加${thing_name} x ${thing_amount}`)
     return false
@@ -178,10 +184,18 @@ export class MoneyOperation extends plugin {
       }
       for (let i = 0; i < File_length; i++) {
         let this_qq = File[i].replace('.json', '')
-        await Add_najie_thing(this_qq, thing_name, thing_exist.class, thing_amount, thing_piji)
+        await Add_najie_thing(
+          this_qq,
+          thing_name,
+          thing_exist.class,
+          thing_amount,
+          thing_piji
+        )
       }
     }
-    e.reply(`发放成功,目前共有${File_length}个玩家,每人增加${thing_name} x ${thing_amount}`)
+    e.reply(
+      `发放成功,目前共有${File_length}个玩家,每人增加${thing_name} x ${thing_amount}`
+    )
     return false
   }
 
@@ -243,12 +257,18 @@ export class MoneyOperation extends plugin {
       }
       let now = new Date()
       let nowTime = now.getTime() //获取当前时间戳
-      let lastgetbung_time = await redis.get('xiuxian@1.3.0:' + A_qq + ':last_getbung_time')
+      let lastgetbung_time = await redis.get(
+        'xiuxian@1.3.0:' + A_qq + ':last_getbung_time'
+      )
       lastgetbung_time = parseInt(lastgetbung_time)
       let transferTimeout = parseInt(cf.CD.transfer * 60000)
       if (nowTime < lastgetbung_time + transferTimeout) {
-        let waittime_m = Math.trunc((lastgetbung_time + transferTimeout - nowTime) / 60 / 1000)
-        let waittime_s = Math.trunc(((lastgetbung_time + transferTimeout - nowTime) % 60000) / 1000)
+        let waittime_m = Math.trunc(
+          (lastgetbung_time + transferTimeout - nowTime) / 60 / 1000
+        )
+        let waittime_s = Math.trunc(
+          ((lastgetbung_time + transferTimeout - nowTime) % 60000) / 1000
+        )
         e.reply(
           `每${transferTimeout / 1000 / 60}分钟赠送灵石一次，正在CD中，` +
             `剩余cd: ${waittime_m}分${waittime_s}秒`
@@ -310,7 +330,9 @@ export class MoneyOperation extends plugin {
       if (thing_exist.class == '装备') {
         if (thing_piji) {
           quantity = code[2]
-          equ = najie.装备.find((item) => item.name == thing_name && item.pinji == thing_piji)
+          equ = najie.装备.find(
+            (item) => item.name == thing_name && item.pinji == thing_piji
+          )
         } else {
           equ = najie.装备.find((item) => item.name == thing_name)
           for (var i of najie.装备) {
@@ -325,16 +347,39 @@ export class MoneyOperation extends plugin {
         equ = najie.仙宠.find((item) => item.name == thing_name)
       }
       quantity = await convert2integer(quantity)
-      let x = await exist_najie_thing(A_qq, thing_name, thing_exist.class, thing_piji)
+      let x = await exist_najie_thing(
+        A_qq,
+        thing_name,
+        thing_exist.class,
+        thing_piji
+      )
       if (x < quantity || !x) {
         e.reply(`你还没有这么多[${thing_name}]`)
         return false
       }
-      await Add_najie_thing(A_qq, thing_name, thing_exist.class, -quantity, thing_piji)
+      await Add_najie_thing(
+        A_qq,
+        thing_name,
+        thing_exist.class,
+        -quantity,
+        thing_piji
+      )
       if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
-        await Add_najie_thing(B_qq, equ, thing_exist.class, quantity, thing_piji)
+        await Add_najie_thing(
+          B_qq,
+          equ,
+          thing_exist.class,
+          quantity,
+          thing_piji
+        )
       } else {
-        await Add_najie_thing(B_qq, thing_name, thing_exist.class, quantity, thing_piji)
+        await Add_najie_thing(
+          B_qq,
+          thing_name,
+          thing_exist.class,
+          quantity,
+          thing_piji
+        )
       }
       e.reply([
         segment.at(A_qq),
@@ -376,7 +421,15 @@ export class MoneyOperation extends plugin {
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':honbaoacount', acount)
     //然后扣灵石
     await Add_灵石(usr_qq, -lingshi * acount)
-    e.reply('【全服公告】' + player.名号 + '发了' + acount + '个' + lingshi + '灵石的红包！')
+    e.reply(
+      '【全服公告】' +
+        player.名号 +
+        '发了' +
+        acount +
+        '个' +
+        lingshi +
+        '灵石的红包！'
+    )
     return false
   }
 
@@ -390,13 +443,19 @@ export class MoneyOperation extends plugin {
     let player = await data.getData('player', usr_qq)
     //抢红包要有一分钟的CD
     let now_time = new Date().getTime()
-    let lastgetbung_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_getbung_time')
+    let lastgetbung_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':last_getbung_time'
+    )
     lastgetbung_time = parseInt(lastgetbung_time)
     const cf = config.getConfig('xiuxian', 'xiuxian')
     let transferTimeout = parseInt(cf.CD.honbao * 60000)
     if (now_time < lastgetbung_time + transferTimeout) {
-      let waittime_m = Math.trunc((lastgetbung_time + transferTimeout - now_time) / 60 / 1000)
-      let waittime_s = Math.trunc(((lastgetbung_time + transferTimeout - now_time) % 60000) / 1000)
+      let waittime_m = Math.trunc(
+        (lastgetbung_time + transferTimeout - now_time) / 60 / 1000
+      )
+      let waittime_s = Math.trunc(
+        ((lastgetbung_time + transferTimeout - now_time) % 60000) / 1000
+      )
       e.reply(
         `每${transferTimeout / 1000 / 60}分钟抢一次，正在CD中，` +
           `剩余cd: ${waittime_m}分${waittime_s}秒`
@@ -430,7 +489,9 @@ export class MoneyOperation extends plugin {
     //拿出来的要给玩家
     await Add_灵石(usr_qq, addlingshi)
     //给个提示
-    e.reply('【全服公告】' + player.名号 + '抢到一个' + addlingshi + '灵石的红包！')
+    e.reply(
+      '【全服公告】' + player.名号 + '抢到一个' + addlingshi + '灵石的红包！'
+    )
     //记录时间
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_getbung_time', now_time)
     return false
@@ -470,22 +531,52 @@ export class MoneyOperation extends plugin {
         if (random3 < z) {
           if (random4 < p) {
             lingshi = 2000000
-            m = player.名号 + '打开了[' + thing_name + ']金光一现！' + lingshi + '颗灵石！'
+            m =
+              player.名号 +
+              '打开了[' +
+              thing_name +
+              ']金光一现！' +
+              lingshi +
+              '颗灵石！'
           } else {
             lingshi = 1000000
-            m = player.名号 + '打开了[' + thing_name + ']金光一现!' + lingshi + '颗灵石！'
+            m =
+              player.名号 +
+              '打开了[' +
+              thing_name +
+              ']金光一现!' +
+              lingshi +
+              '颗灵石！'
           }
         } else {
           lingshi = 400000
-          m = player.名号 + '打开了[' + thing_name + ']你很开心的得到了' + lingshi + '颗灵石！'
+          m =
+            player.名号 +
+            '打开了[' +
+            thing_name +
+            ']你很开心的得到了' +
+            lingshi +
+            '颗灵石！'
         }
       } else {
         lingshi = 180000
-        m = player.名号 + '打开了[' + thing_name + ']你很开心的得到了' + lingshi + '颗灵石！'
+        m =
+          player.名号 +
+          '打开了[' +
+          thing_name +
+          ']你很开心的得到了' +
+          lingshi +
+          '颗灵石！'
       }
     } else {
       lingshi = 100000
-      m = player.名号 + '打开了[' + thing_name + ']你很开心的得到了' + lingshi + '颗灵石！'
+      m =
+        player.名号 +
+        '打开了[' +
+        thing_name +
+        ']你很开心的得到了' +
+        lingshi +
+        '颗灵石！'
     }
     await Add_灵石(usr_qq, lingshi)
     e.reply(m)

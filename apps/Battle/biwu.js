@@ -137,8 +137,14 @@ export class biwu extends plugin {
       技能: B_QQ[num].选择技能,
       use: -1
     }
-    await redis.set('xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A))
-    await redis.set('xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B))
+    await redis.set(
+      'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+      JSON.stringify(action_A)
+    )
+    await redis.set(
+      'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+      JSON.stringify(action_B)
+    )
     let buff_A = {}
     let buff_B = {}
     let msgg = []
@@ -147,47 +153,65 @@ export class biwu extends plugin {
       for (const i in action_A.技能) {
         action_A.技能[i].cd++
         let cd =
-          data.jineng.find((item) => item.name == action_A.技能[i].name).cd - action_A.技能[i].cd
+          data.jineng.find((item) => item.name == action_A.技能[i].name).cd -
+          action_A.技能[i].cd
         if (cd < 0) cd = 0
         msg_A.push(`\n${i * 1 + 1}、${action_A.技能[i].name} cd:${cd}`)
       }
-      await redis.set('xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A))
+      await redis.set(
+        'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+        JSON.stringify(action_A)
+      )
       Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg_A)
 
       msg_B = [`指令样式:#释放技能1\n第${cnt}回合,是否释放以下技能:`]
       for (const i in action_B.技能) {
         action_B.技能[i].cd++
         let cd =
-          data.jineng.find((item) => item.name == action_B.技能[i].name).cd - action_B.技能[i].cd
+          data.jineng.find((item) => item.name == action_B.技能[i].name).cd -
+          action_B.技能[i].cd
         if (cd < 0) cd = 0
         msg_B.push(`\n${i * 1 + 1}、${action_B.技能[i].name} cd:${cd}`)
       }
-      await redis.set('xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B))
+      await redis.set(
+        'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+        JSON.stringify(action_B)
+      )
       Bot.pickMember(e.group_id, B_QQ[num].QQ).sendMsg(msg_B)
       await sleep(20000)
       let msg = []
       //A
-      action_A = await JSON.parse(await redis.get('xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai'))
+      action_A = await JSON.parse(
+        await redis.get('xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai')
+      )
       //清空cd
       if (action_A.技能[action_A.use]) action_A.技能[action_A.use].cd = 0
       //优先判断buff效果
       if (buff_B.四象封印) {
         buff_B.四象封印--
-        msg.push(`${A_player.名号}因为四象封印之力，技能失效,剩余回合${buff_B.四象封印}\n`)
+        msg.push(
+          `${A_player.名号}因为四象封印之力，技能失效,剩余回合${buff_B.四象封印}\n`
+        )
         action_A.use = -1
       }
       if (buff_B.阴风蚀骨) {
         const atk = data.jineng.find((item) => item.name == `阴风蚀骨`).pr
         A_player.攻击 *= 1 - atk
         buff_B.阴风蚀骨--
-        msg.push(`${A_player.名号}受到侵蚀,攻击力降低${atk * 100}%,剩余回合${buff_B.阴风蚀骨}\n`)
+        msg.push(
+          `${A_player.名号}受到侵蚀,攻击力降低${atk * 100}%,剩余回合${
+            buff_B.阴风蚀骨
+          }\n`
+        )
       }
       if (buff_B.万年俱灰) {
         const atk = data.jineng.find((item) => item.name == `万年俱灰`).pr
         A_player.攻击 *= 1 - atk
         buff_B.万年俱灰--
         msg.push(
-          `${A_player.名号}受到对方立场影响,攻击力降低${atk * 100}%,剩余回合${buff_B.万年俱灰}\n`
+          `${A_player.名号}受到对方立场影响,攻击力降低${atk * 100}%,剩余回合${
+            buff_B.万年俱灰
+          }\n`
         )
       }
       if (buff_B.玄冰封印) {
@@ -195,7 +219,9 @@ export class biwu extends plugin {
         A_player.暴击率 = bj
         buff_B.玄冰封印--
         msg.push(
-          `${A_player.名号}因为玄冰封印之力,暴击率降至${bj * 100}%,剩余回合${buff_B.玄冰封印}\n`
+          `${A_player.名号}因为玄冰封印之力,暴击率降至${bj * 100}%,剩余回合${
+            buff_B.玄冰封印
+          }\n`
         )
       }
       if (buff_A.心烦意乱) {
@@ -203,20 +229,30 @@ export class biwu extends plugin {
         B_player.防御 *= 1 - def
         buff_A.心烦意乱--
         msg.push(
-          `${B_player.名号}心态受到影响,防御力降低${def * 100}%,剩余回合${buff_A.心烦意乱}\n`
+          `${B_player.名号}心态受到影响,防御力降低${def * 100}%,剩余回合${
+            buff_A.心烦意乱
+          }\n`
         )
       }
       if (buff_A.失魂落魄) {
         const def = data.jineng.find((item) => item.name == `失魂落魄`).pr
         B_player.防御 *= 1 - def
         buff_A.失魂落魄--
-        msg.push(`${B_player.名号}丢了魂,防御力降低${def * 100}%,剩余回合${buff_A.失魂落魄}\n`)
+        msg.push(
+          `${B_player.名号}丢了魂,防御力降低${def * 100}%,剩余回合${
+            buff_A.失魂落魄
+          }\n`
+        )
       }
       if (buff_A.祝水咒) {
         const hp = data.jineng.find((item) => item.name == `祝水咒`).pr
         A_player.当前血量 += Math.trunc(A_player.血量上限 * hp)
         buff_A.祝水咒--
-        msg.push(`${A_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${buff_A.祝水咒}\n`)
+        msg.push(
+          `${A_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${
+            buff_A.祝水咒
+          }\n`
+        )
       }
       //伤害计算
       let A_baoji = baojishanghai(A_player.暴击率)
@@ -228,10 +264,16 @@ export class biwu extends plugin {
         if (action_A.技能[action_A.use].name == '四象封印') {
           buff_A.四象封印 = action_A.技能[action_A.use].last
         } else if (action_A.技能[action_A.use].name == '桃园结义') {
-          B_player.当前血量 += Math.trunc(B_player.当前血量 * action_A.技能[action_A.use].pr)
-          A_player.当前血量 += Math.trunc(A_player.当前血量 * action_A.技能[action_A.use].pr)
+          B_player.当前血量 += Math.trunc(
+            B_player.当前血量 * action_A.技能[action_A.use].pr
+          )
+          A_player.当前血量 += Math.trunc(
+            A_player.当前血量 * action_A.技能[action_A.use].pr
+          )
         } else if (action_A.技能[action_A.use].name == '长生诀') {
-          A_player.当前血量 += Math.trunc(A_player.血量上限 * action_A.技能[action_A.use].pr)
+          A_player.当前血量 += Math.trunc(
+            A_player.血量上限 * action_A.技能[action_A.use].pr
+          )
         } else if (action_A.技能[action_A.use].name == '祝水咒') {
           buff_A.祝水咒 = action_A.技能[action_A.use].last
         } else if (action_A.技能[action_A.use].name == '阴风蚀骨') {
@@ -253,41 +295,55 @@ export class biwu extends plugin {
         const harm = data.jineng.find((item) => item.name == `诛仙三剑`).pr
         A_伤害 *= 1 + harm
         buff_A.诛仙三剑--
-        msg.push(`${A_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_A.诛仙三剑}\n`)
+        msg.push(
+          `${A_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${
+            buff_A.诛仙三剑
+          }\n`
+        )
       }
       A_伤害 = Math.trunc(A_伤害)
       B_player.当前血量 -= A_伤害
       msg.push(
-        `第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(A_baoji)}造成伤害${A_伤害}，${
-          B_player.名号
-        }剩余血量${B_player.当前血量}\n`
+        `第${cnt}回合,${A_player.名号}普通攻击，${ifbaoji(
+          A_baoji
+        )}造成伤害${A_伤害}，${B_player.名号}剩余血量${B_player.当前血量}\n`
       )
       if (B_player.当前血量 <= 0) {
         msgg.push(msg)
         break
       }
       //B
-      action_B = await JSON.parse(await redis.get('xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai'))
+      action_B = await JSON.parse(
+        await redis.get('xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai')
+      )
       //清空cd
       if (action_B.技能[action_B.use]) action_B.技能[action_B.use].cd = 0
       //优先判断buff效果
       if (buff_A.四象封印) {
         buff_A.四象封印--
-        msg.push(`${B_player.名号}因为四象封印之力，技能失效,剩余回合${buff_A.四象封印}\n`)
+        msg.push(
+          `${B_player.名号}因为四象封印之力，技能失效,剩余回合${buff_A.四象封印}\n`
+        )
         action_B.use = -1
       }
       if (buff_A.阴风蚀骨) {
         const atk = data.jineng.find((item) => item.name == `阴风蚀骨`).pr
         B_player.攻击 *= 1 - atk
         buff_A.阴风蚀骨--
-        msg.push(`${B_player.名号}受到侵蚀,攻击力降低${atk * 100}%,剩余回合${buff_A.阴风蚀骨}\n`)
+        msg.push(
+          `${B_player.名号}受到侵蚀,攻击力降低${atk * 100}%,剩余回合${
+            buff_A.阴风蚀骨
+          }\n`
+        )
       }
       if (buff_A.万年俱灰) {
         const atk = data.jineng.find((item) => item.name == `万年俱灰`).pr
         B_player.攻击 *= 1 - atk
         buff_A.万年俱灰--
         msg.push(
-          `${B_player.名号}受到对方立场影响,攻击力降低${atk * 100}%,剩余回合${buff_A.万年俱灰}\n`
+          `${B_player.名号}受到对方立场影响,攻击力降低${atk * 100}%,剩余回合${
+            buff_A.万年俱灰
+          }\n`
         )
       }
       if (buff_A.玄冰封印) {
@@ -295,7 +351,9 @@ export class biwu extends plugin {
         B_player.暴击率 = bj
         buff_A.玄冰封印--
         msg.push(
-          `${B_player.名号}因为玄冰封印之力,暴击率降至${bj * 100}%,剩余回合${buff_A.玄冰封印}\n`
+          `${B_player.名号}因为玄冰封印之力,暴击率降至${bj * 100}%,剩余回合${
+            buff_A.玄冰封印
+          }\n`
         )
       }
       if (buff_B.心烦意乱) {
@@ -303,20 +361,30 @@ export class biwu extends plugin {
         A_player.防御 *= 1 - def
         buff_B.心烦意乱--
         msg.push(
-          `${A_player.名号}心态受到影响,防御力降低${def * 100}%,剩余回合${buff_B.心烦意乱}\n`
+          `${A_player.名号}心态受到影响,防御力降低${def * 100}%,剩余回合${
+            buff_B.心烦意乱
+          }\n`
         )
       }
       if (buff_B.失魂落魄) {
         const def = data.jineng.find((item) => item.name == `失魂落魄`).pr
         A_player.防御 *= 1 - def
         buff_B.失魂落魄--
-        msg.push(`${A_player.名号}丢了魂,防御力降低${def * 100}%,剩余回合${buff_B.失魂落魄}\n`)
+        msg.push(
+          `${A_player.名号}丢了魂,防御力降低${def * 100}%,剩余回合${
+            buff_B.失魂落魄
+          }\n`
+        )
       }
       if (buff_B.祝水咒) {
         const hp = data.jineng.find((item) => item.name == `祝水咒`).pr
         B_player.当前血量 += Math.trunc(B_player.血量上限 * hp)
         buff_B.祝水咒--
-        msg.push(`${B_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${buff_B.祝水咒}\n`)
+        msg.push(
+          `${B_player.名号}受到水神的洗礼,血量回复${hp * 100}%,剩余回合${
+            buff_B.祝水咒
+          }\n`
+        )
       }
       let B_baoji = baojishanghai(B_player.暴击率)
       let B_伤害 = Harm(B_player.攻击, A_player.防御)
@@ -326,10 +394,16 @@ export class biwu extends plugin {
         if (action_B.技能[action_B.use].name == '四象封印') {
           buff_B.四象封印 = action_B.技能[action_B.use].last
         } else if (action_B.技能[action_B.use].name == '桃园结义') {
-          B_player.当前血量 += Math.trunc(B_player.当前血量 * action_B.技能[action_B.use].pr)
-          A_player.当前血量 += Math.trunc(A_player.当前血量 * (1 + action_B.技能[action_B.use].pr))
+          B_player.当前血量 += Math.trunc(
+            B_player.当前血量 * action_B.技能[action_B.use].pr
+          )
+          A_player.当前血量 += Math.trunc(
+            A_player.当前血量 * (1 + action_B.技能[action_B.use].pr)
+          )
         } else if (action_B.技能[action_B.use].name == '长生诀') {
-          B_player.当前血量 += Math.trunc(B_player.血量上限 * action_B.技能[action_B.use].pr)
+          B_player.当前血量 += Math.trunc(
+            B_player.血量上限 * action_B.技能[action_B.use].pr
+          )
         } else if (action_B.技能[action_B.use].name == '祝水咒') {
           buff_B.祝水咒 = action_B.技能[action_B.use].last
         } else if (action_B.技能[action_B.use].name == '阴风蚀骨') {
@@ -351,14 +425,18 @@ export class biwu extends plugin {
         const harm = data.jineng.find((item) => item.name == `诛仙三剑`).pr
         B_伤害 *= 1 + harm
         buff_B.诛仙三剑--
-        msg.push(`${B_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${buff_B.诛仙三剑}\n`)
+        msg.push(
+          `${B_player.名号}携诛仙剑影,伤害提升${harm * 100}%,剩余回合${
+            buff_B.诛仙三剑
+          }\n`
+        )
       }
       B_伤害 = Math.trunc(B_伤害)
       A_player.当前血量 -= B_伤害
       msg.push(
-        `第${cnt}回合,${B_player.名号}普通攻击，${ifbaoji(B_baoji)}造成伤害${B_伤害}，${
-          A_player.名号
-        }剩余血量${A_player.当前血量}`
+        `第${cnt}回合,${B_player.名号}普通攻击，${ifbaoji(
+          B_baoji
+        )}造成伤害${B_伤害}，${A_player.名号}剩余血量${A_player.当前血量}`
       )
       //持续回合减少
       cnt++
@@ -368,8 +446,14 @@ export class biwu extends plugin {
       msgg.push(msg)
       action_A.use = -1
       action_B.use = -1
-      await redis.set('xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A))
-      await redis.set('xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B))
+      await redis.set(
+        'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+        JSON.stringify(action_A)
+      )
+      await redis.set(
+        'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+        JSON.stringify(action_B)
+      )
       //回复初始属性
       A_player.攻击 = A.攻击
       A_player.防御 = A.防御
@@ -390,8 +474,14 @@ export class biwu extends plugin {
     action_B = null
     A_QQ[num].QQ = null
     B_QQ[num].QQ = null
-    await redis.set('xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai', JSON.stringify(action_A))
-    await redis.set('xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai', JSON.stringify(action_B))
+    await redis.set(
+      'xiuxian@1.3.0:' + A_QQ[num].QQ + ':bisai',
+      JSON.stringify(action_A)
+    )
+    await redis.set(
+      'xiuxian@1.3.0:' + B_QQ[num].QQ + ':bisai',
+      JSON.stringify(action_B)
+    )
     return false
   }
 
@@ -407,7 +497,9 @@ export class biwu extends plugin {
           for (let m in code) {
             j[`选择技能`].push(
               JSON.parse(
-                JSON.stringify(data.jineng.find((item) => item.name == j.技能[code[m] - 1]))
+                JSON.stringify(
+                  data.jineng.find((item) => item.name == j.技能[code[m] - 1])
+                )
               )
             )
             msg.push(j.技能[code[m] - 1])
@@ -423,7 +515,9 @@ export class biwu extends plugin {
           for (let m in code) {
             j[`选择技能`].push(
               JSON.parse(
-                JSON.stringify(data.jineng.find((item) => item.name == j.技能[code[m] - 1]))
+                JSON.stringify(
+                  data.jineng.find((item) => item.name == j.技能[code[m] - 1])
+                )
               )
             )
             msg.push(j.技能[code[m] - 1])
@@ -454,7 +548,10 @@ export class biwu extends plugin {
       }
     }
     action.use = jineng
-    await redis.set('xiuxian@1.3.0:' + e.user_id + ':bisai', JSON.stringify(action))
+    await redis.set(
+      'xiuxian@1.3.0:' + e.user_id + ':bisai',
+      JSON.stringify(action)
+    )
     e.reply(`选择成功,下回合释放技能:${action.技能[jineng].name}`)
     return false
   }

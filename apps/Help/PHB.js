@@ -1,6 +1,12 @@
 import { plugin, verc } from '../../api/api.js'
 import fs from 'fs'
-import { existplayer, sortBy, ForwardMsg, Read_player, __PATH } from '../../model/xiuxian.js'
+import {
+  existplayer,
+  sortBy,
+  ForwardMsg,
+  Read_player,
+  __PATH
+} from '../../model/xiuxian.js'
 import { AppName } from '../../app.config.js'
 export class PHB extends plugin {
   constructor() {
@@ -39,7 +45,7 @@ export class PHB extends plugin {
       file = file.replace('.json', '')
       playerList.push(file)
     }
-    var i = 0
+    let i = 0
     for (let player_id of playerList) {
       //(攻击+防御*0.8+生命*0.5)*暴击率=理论战力
       let player = await Read_player(player_id)
@@ -57,14 +63,14 @@ export class PHB extends plugin {
     //根据力量排序
     temp.sort(sortBy('power'))
     console.log(temp)
-    var length
+    let length
     if (temp.length > 20) {
       //只要十个
       length = 20
     } else {
       length = temp.length
     }
-    var j
+    let j
     for (j = 0; j < length; j++) {
       msg.push(
         '第' +
@@ -99,7 +105,7 @@ export class PHB extends plugin {
       file = file.replace('.json', '')
       playerList.push(file)
     }
-    var i = 0
+    let i = 0
     for (let player_id of playerList) {
       //(攻击+防御+生命*0.5)*暴击率=理论战力
       let player = await Read_player(player_id)
@@ -117,14 +123,14 @@ export class PHB extends plugin {
     //根据力量排序
     temp.sort(sortBy('power'))
     console.log(temp)
-    var length
+    let length
     if (temp.length > 20) {
       //只要十个
       length = 20
     } else {
       length = temp.length
     }
-    var j
+    let j
     for (j = 0; j < length; j++) {
       msg.push(
         '第' +

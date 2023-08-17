@@ -1,7 +1,16 @@
 import { plugin, verc, data, config } from '../../api/api.js'
 import fs from 'fs'
-import { Read_player, existplayer, get_random_talent, getLastsign } from '../../model/xiuxian.js'
-import { Write_equipment, Write_player, Write_najie } from '../../model/xiuxian.js'
+import {
+  Read_player,
+  existplayer,
+  get_random_talent,
+  getLastsign
+} from '../../model/xiuxian.js'
+import {
+  Write_equipment,
+  Write_player,
+  Write_najie
+} from '../../model/xiuxian.js'
 import {
   shijianc,
   get_random_fromARR,
@@ -174,16 +183,23 @@ export class UserStart extends plugin {
     }
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
-    let lastrestart_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time') //获得上次重生时间戳,
+    let lastrestart_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time'
+    ) //获得上次重生时间戳,
     lastrestart_time = parseInt(lastrestart_time)
     const cf = config.getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.reborn
     let rebornTime = parseInt(60000 * time)
     if (nowTime < lastrestart_time + rebornTime) {
-      let waittime_m = Math.trunc((lastrestart_time + rebornTime - nowTime) / 60 / 1000)
-      let waittime_s = Math.trunc(((lastrestart_time + rebornTime - nowTime) % 60000) / 1000)
+      let waittime_m = Math.trunc(
+        (lastrestart_time + rebornTime - nowTime) / 60 / 1000
+      )
+      let waittime_s = Math.trunc(
+        ((lastrestart_time + rebornTime - nowTime) % 60000) / 1000
+      )
       e.reply(
-        `每${rebornTime / 60 / 1000}分钟只能转世一次` + `剩余cd:${waittime_m}分 ${waittime_s}秒`
+        `每${rebornTime / 60 / 1000}分钟只能转世一次` +
+          `剩余cd:${waittime_m}分 ${waittime_s}秒`
       )
       return false
     }
@@ -214,7 +230,9 @@ export class UserStart extends plugin {
       return false
     } else if (choice == '断绝此生') {
       //得到重生次数
-      let acount = await redis.get('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount')
+      let acount = await redis.get(
+        'xiuxian@1.3.0:' + usr_qq + ':reCreate_acount'
+      )
       //
       if (acount >= 15) {
         e.reply('灵魂虚弱，已不可转世！')
@@ -228,7 +246,9 @@ export class UserStart extends plugin {
         if (player.宗门.职位 != '宗主') {
           //不是宗主
           let ass = data.getAssociation(player.宗门.宗门名称)
-          ass[player.宗门.职位] = ass[player.宗门.职位].filter((item) => item != usr_qq)
+          ass[player.宗门.职位] = ass[player.宗门.职位].filter(
+            (item) => item != usr_qq
+          )
           ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
           await data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
@@ -237,7 +257,9 @@ export class UserStart extends plugin {
           //是宗主
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            fs.rmSync(`${data.filePathMap.association}/${player.宗门.宗门名称}.json`)
+            fs.rmSync(
+              `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
+            )
           } else {
             ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
             //随机一个幸运儿的QQ,优先挑选等级高的
@@ -269,7 +291,10 @@ export class UserStart extends plugin {
         '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断！！'
       ])
       await this.Create_player(e)
-      await redis.set('xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time', nowTime) //redis设置本次改名时间戳
+      await redis.set(
+        'xiuxian@1.3.0:' + usr_qq + ':last_reCreate_time',
+        nowTime
+      ) //redis设置本次改名时间戳
       await redis.set('xiuxian@1.3.0:' + usr_qq + ':reCreate_acount', acount)
     } else {
       this.setContext('RE_xiuxian')
@@ -344,7 +369,9 @@ export class UserStart extends plugin {
       let nowTime = now.getTime() //获取当前日期的时间戳
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       let Today = await shijianc(nowTime)
-      let lastsetname_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_setname_time') //获得上次改名日期,
+      let lastsetname_time = await redis.get(
+        'xiuxian@1.3.0:' + usr_qq + ':last_setname_time'
+      ) //获得上次改名日期,
       lastsetname_time = parseInt(lastsetname_time)
       lastsetname_time = await shijianc(lastsetname_time)
       if (
@@ -385,7 +412,9 @@ export class UserStart extends plugin {
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       //
       let Today = await shijianc(nowTime)
-      let lastsetxuanyan_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':last_setxuanyan_time')
+      let lastsetxuanyan_time = await redis.get(
+        'xiuxian@1.3.0:' + usr_qq + ':last_setxuanyan_time'
+      )
       //获得上次改道宣日期,
       lastsetxuanyan_time = parseInt(lastsetxuanyan_time)
       lastsetxuanyan_time = await shijianc(lastsetxuanyan_time)
@@ -419,7 +448,11 @@ export class UserStart extends plugin {
     let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000) //获得昨天日期
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign(usr_qq) //获得上次签到日期
-    if (Today.Y == lastsign_time.Y && Today.M == lastsign_time.M && Today.D == lastsign_time.D) {
+    if (
+      Today.Y == lastsign_time.Y &&
+      Today.M == lastsign_time.M &&
+      Today.D == lastsign_time.D
+    ) {
       e.reply(`今日已经签到过了`)
       return false
     }

@@ -11,7 +11,7 @@ app.use('/img', express.static('resources/img'))
 
 /*  挂载 */
 app.get('/', (req, res) => {
-  var html = getData()
+  let html = getData()
   res.send(html)
 })
 

@@ -49,14 +49,18 @@ export class DSC extends plugin {
       KilledTime: -1,
       Reward: Reward
     }
-    var Time = 2
+    let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
     let last_time = await redis.get('xiuxian@1.3.0:' + usr_qq + 'CD') //获得上次的时间戳,
     last_time = parseInt(last_time)
     if (now_Time < last_time + shuangxiuTimeout) {
-      let Couple_m = Math.trunc((last_time + shuangxiuTimeout - now_Time) / 60 / 1000)
-      let Couple_s = Math.trunc(((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000)
+      let Couple_m = Math.trunc(
+        (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
+      )
+      let Couple_s = Math.trunc(
+        ((last_time + shuangxiuTimeout - now_Time) % 60000) / 1000
+      )
       e.reply('正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`)
       return false
     }
@@ -68,11 +72,14 @@ export class DSC extends plugin {
       : bosszt.isWeak
       ? Math.trunc(bosszt.Attack * 0.7)
       : bosszt.Attack
-    let BOSSCurrentDefence = bosszt.isWeak ? Math.trunc(bosszt.Defence * 0.7) : bosszt.Defence
+    let BOSSCurrentDefence = bosszt.isWeak
+      ? Math.trunc(bosszt.Defence * 0.7)
+      : bosszt.Defence
     while (player.当前血量 > 0 && bosszt.Health > 0) {
       if (!(BattleFrame & 1)) {
         let Player_To_BOSS_Damage =
-          Harm(player.攻击, BOSSCurrentDefence) + Math.trunc(player.攻击 * player.灵根.法球倍率)
+          Harm(player.攻击, BOSSCurrentDefence) +
+          Math.trunc(player.攻击 * player.灵根.法球倍率)
         let SuperAttack = 2 < player.暴击率 ? 1.5 : 1
         msg.push(`第${Math.trunc(BattleFrame / 2) + 1}回合：`)
         if (BattleFrame == 0) {
@@ -86,16 +93,20 @@ export class DSC extends plugin {
           bosszt.Health = 0
         }
         msg.push(
-          `${player.名号}${ifbaoji(SuperAttack)}消耗了${Player_To_BOSS_Damage}，此段剩余${
-            bosszt.Health
-          }未炼化`
+          `${player.名号}${ifbaoji(
+            SuperAttack
+          )}消耗了${Player_To_BOSS_Damage}，此段剩余${bosszt.Health}未炼化`
         )
       } else {
-        let BOSS_To_Player_Damage = Harm(BOSSCurrentAttack, Math.trunc(player.防御 * 0.1))
+        let BOSS_To_Player_Damage = Harm(
+          BOSSCurrentAttack,
+          Math.trunc(player.防御 * 0.1)
+        )
         player.当前血量 -= BOSS_To_Player_Damage
         bosszt.isAngry ? --bosszt.isAngry : 0
         bosszt.isWeak ? --bosszt.isWeak : 0
-        if (!bosszt.isAngry && BOSSCurrentAttack > bosszt.Attack) BOSSCurrentAttack = bosszt.Attack
+        if (!bosszt.isAngry && BOSSCurrentAttack > bosszt.Attack)
+          BOSSCurrentAttack = bosszt.Attack
         if (!bosszt.isWeak && BOSSCurrentDefence < bosszt.Defence)
           BOSSCurrentDefence = bosszt.Defence
         if (player.当前血量 < 0) {
@@ -127,7 +138,10 @@ export class DSC extends plugin {
     if (player.当前血量 <= 0) {
       player.当前血量 = 0
       player.修为 -= Math.trunc(Reward * 2)
-      e.reply([segment.at(usr_qq), `\n你未能通过此层锻神池！修为-${Math.trunc(Reward * 2)}`])
+      e.reply([
+        segment.at(usr_qq),
+        `\n你未能通过此层锻神池！修为-${Math.trunc(Reward * 2)}`
+      ])
       data.setData('player', usr_qq, player)
     }
     return false
@@ -172,30 +186,38 @@ export class DSC extends plugin {
         : bosszt.isWeak
         ? Math.trunc(bosszt.Attack * 0.7)
         : bosszt.Attack
-      let BOSSCurrentDefence = bosszt.isWeak ? Math.trunc(bosszt.Defence * 0.7) : bosszt.Defence
+      let BOSSCurrentDefence = bosszt.isWeak
+        ? Math.trunc(bosszt.Defence * 0.7)
+        : bosszt.Defence
       while (player.当前血量 > 0 && bosszt.Health > 0) {
         if (!(BattleFrame & 1)) {
           let Player_To_BOSS_Damage =
-            Harm(player.攻击, BOSSCurrentDefence) + Math.trunc(player.攻击 * player.灵根.法球倍率)
+            Harm(player.攻击, BOSSCurrentDefence) +
+            Math.trunc(player.攻击 * player.灵根.法球倍率)
           let SuperAttack = 2 < player.暴击率 ? 1.5 : 1
           msg.push(`第${Math.trunc(BattleFrame / 2) + 1}回合：`)
           if (BattleFrame == 0) {
             msg.push('你进入锻神池，开始了！')
             Player_To_BOSS_Damage = 0
           }
-          Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * SuperAttack)
+          Player_To_BOSS_Damage = Math.trunc(
+            Player_To_BOSS_Damage * SuperAttack
+          )
           bosszt.Health -= Player_To_BOSS_Damage
           TotalDamage += Player_To_BOSS_Damage
           if (bosszt.Health < 0) {
             bosszt.Health = 0
           }
           msg.push(
-            `${player.名号}${ifbaoji(SuperAttack)}消耗了${Player_To_BOSS_Damage}，此段剩余${
-              bosszt.Health
-            }未炼化`
+            `${player.名号}${ifbaoji(
+              SuperAttack
+            )}消耗了${Player_To_BOSS_Damage}，此段剩余${bosszt.Health}未炼化`
           )
         } else {
-          let BOSS_To_Player_Damage = Harm(BOSSCurrentAttack, Math.trunc(player.防御 * 0.1))
+          let BOSS_To_Player_Damage = Harm(
+            BOSSCurrentAttack,
+            Math.trunc(player.防御 * 0.1)
+          )
           player.当前血量 -= BOSS_To_Player_Damage
           bosszt.isAngry ? --bosszt.isAngry : 0
           bosszt.isWeak ? --bosszt.isWeak : 0
@@ -223,7 +245,10 @@ export class DSC extends plugin {
       }
     }
     player.血气 += xueqi
-    e.reply([segment.at(usr_qq), `\n恭喜你获得血气${xueqi},本次通过${cengshu}层,失去部分修为`])
+    e.reply([
+      segment.at(usr_qq),
+      `\n恭喜你获得血气${xueqi},本次通过${cengshu}层,失去部分修为`
+    ])
     data.setData('player', usr_qq, player)
     return false
   }

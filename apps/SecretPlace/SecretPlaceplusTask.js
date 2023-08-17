@@ -104,17 +104,17 @@ export class SecretPlaceplusTask extends plugin {
             let msgg = Data_battle.msg
             let A_win = `${A_player.名号}击败了${B_player.名号}`
             let B_win = `${B_player.名号}击败了${A_player.名号}`
-            var thing_name
-            var thing_class
+            let thing_name
+            let thing_class
             const cf = config.getConfig('xiuxian', 'xiuxian')
-            var x = cf.SecretPlace.one
+            let x = cf.SecretPlace.one
             let random1 = Math.random()
-            var y = cf.SecretPlace.two
+            let y = cf.SecretPlace.two
             let random2 = Math.random()
-            var z = cf.SecretPlace.three
+            let z = cf.SecretPlace.three
             let random3 = Math.random()
             let random4
-            var m = ''
+            let m = ''
             let fyd_msg = ''
             //查找秘境
             let t1
@@ -128,7 +128,7 @@ export class SecretPlaceplusTask extends plugin {
               }
             }
 
-            var n = 1
+            let n = 1
             let last_msg = ''
             if (random1 <= x) {
               if (random2 <= y) {
@@ -185,7 +185,8 @@ export class SecretPlaceplusTask extends plugin {
                   last_msg += '仙宠使你在探索中欧气满满，所以在'
                 }
                 n *= 2
-                last_msg += '探索过程中意外发现了两份机缘,最终获取机缘数量将翻倍\n'
+                last_msg +=
+                  '探索过程中意外发现了两份机缘,最终获取机缘数量将翻倍\n'
               }
               if (player.islucky > 0) {
                 player.islucky--
@@ -209,8 +210,12 @@ export class SecretPlaceplusTask extends plugin {
             //结算
             let qixue = 0
             if (msgg.find((item) => item == A_win)) {
-              xiuwei = Math.trunc(2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5)
-              qixue = Math.trunc(2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1)
+              xiuwei = Math.trunc(
+                2000 + (100 * now_level_id * now_level_id * t1 * 0.1) / 5
+              )
+              qixue = Math.trunc(
+                2000 + 100 * now_physique_id * now_physique_id * t2 * 0.1
+              )
               if (thing_name) {
                 await Add_najie_thing(player_id, thing_name, thing_class, n)
               }
@@ -235,7 +240,9 @@ export class SecretPlaceplusTask extends plugin {
                 let index = Math.trunc(Math.random() * length)
                 let kouliang = data.xianchonkouliang[index]
                 last_msg +=
-                  '\n七彩流光的神奇仙谷[' + kouliang.name + ']深埋在土壤中，是仙兽们的最爱。'
+                  '\n七彩流光的神奇仙谷[' +
+                  kouliang.name +
+                  ']深埋在土壤中，是仙兽们的最爱。'
                 await Add_najie_thing(player_id, kouliang.name, '仙宠口粮', 1)
               }
               if (random > 0.1 && random < 0.1002) {
@@ -269,7 +276,10 @@ export class SecretPlaceplusTask extends plugin {
               //结算完去除group_id
               delete arr.group_id
               //写入redis
-              await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+              await redis.set(
+                'xiuxian@1.3.0:' + player_id + ':action',
+                JSON.stringify(arr)
+              )
               //先完结再结算
               await Add_血气(player_id, qixue)
               await Add_修为(player_id, xiuwei)
@@ -282,7 +292,10 @@ export class SecretPlaceplusTask extends plugin {
               }
             } else {
               arr.cishu--
-              await redis.set('xiuxian@1.3.0:' + player_id + ':action', JSON.stringify(arr))
+              await redis.set(
+                'xiuxian@1.3.0:' + player_id + ':action',
+                JSON.stringify(arr)
+              )
               //先完结再结算
               await Add_血气(player_id, qixue)
               await Add_修为(player_id, xiuwei)

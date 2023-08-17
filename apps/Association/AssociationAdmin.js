@@ -66,7 +66,9 @@ export class AssociationAdmin extends plugin {
     if (!ifexistplay) return false
     let player = data.getData('player', usr_qq)
     let now_level_id
-    now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+    now_level_id = data.Level_list.find(
+      (item) => item.level_id == player.level_id
+    ).level_id
 
     if (now_level_id < 22) {
       e.reply('修为达到化神再来吧')
@@ -164,7 +166,11 @@ export class AssociationAdmin extends plugin {
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
     let player = data.getData('player', usr_qq)
-    if (player.宗门.职位 == '宗主' || player.宗门.职位 == '副宗主' || player.宗门.职位 == '长老') {
+    if (
+      player.宗门.职位 == '宗主' ||
+      player.宗门.职位 == '副宗主' ||
+      player.宗门.职位 == '长老'
+    ) {
     } else {
       e.reply('只有宗主、副宗主或长老可以操作')
       return false
@@ -191,7 +197,9 @@ export class AssociationAdmin extends plugin {
     ass.大阵血量 += lingshi * xian
     ass.灵石池 -= lingshi
     await data.setAssociation(ass.宗门名称, ass)
-    e.reply(`维护成功,宗门还有${ass.灵石池}灵石,护宗大阵增加了${lingshi * xian}血量`)
+    e.reply(
+      `维护成功,宗门还有${ass.灵石池}灵石,护宗大阵增加了${lingshi * xian}血量`
+    )
   }
 
   //升级宗门
@@ -234,7 +242,9 @@ export class AssociationAdmin extends plugin {
     await player_efficiency(usr_qq)
     e.reply(
       '宗门升级成功' +
-        `当前宗门等级为${ass.宗门等级},宗门人数上限提高到:${宗门人数上限[ass.宗门等级 - 1]}`
+        `当前宗门等级为${ass.宗门等级},宗门人数上限提高到:${
+          宗门人数上限[ass.宗门等级 - 1]
+        }`
     )
     return false
   }
@@ -277,7 +287,10 @@ export class AssociationAdmin extends plugin {
       e.reply('你想造反吗！？')
       return false
     }
-    if (player.宗门.职位 == '副宗主' && (now_apmt == '副宗主' || now_apmt == '长老')) {
+    if (
+      player.宗门.职位 == '副宗主' &&
+      (now_apmt == '副宗主' || now_apmt == '长老')
+    ) {
       e.reply(`宗门${now_apmt}任免请上报宗主！`)
       return false
     }
@@ -339,7 +352,9 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (ass.灵石池 < ass.宗门等级 * 50000) {
-      e.reply(`目前宗门维护需要${ass.宗门等级 * 50000}灵石,本宗门灵石池储量不足`)
+      e.reply(
+        `目前宗门维护需要${ass.宗门等级 * 50000}灵石,本宗门灵石池储量不足`
+      )
       return false
     }
     ass.灵石池 -= ass.宗门等级 * 50000
@@ -358,7 +373,11 @@ export class AssociationAdmin extends plugin {
     let usr_qq = e.user_id
     let player = await data.getData('player', usr_qq)
     if (!isNotNull(player.宗门)) return false
-    if (player.宗门.职位 == '宗主' || player.宗门.职位 == '副宗主' || player.宗门.职位 == '长老') {
+    if (
+      player.宗门.职位 == '宗主' ||
+      player.宗门.职位 == '副宗主' ||
+      player.宗门.职位 == '长老'
+    ) {
     } else {
       e.reply('只有宗主、副宗主或长老可以操作')
       return false
@@ -366,7 +385,9 @@ export class AssociationAdmin extends plugin {
     var jiar = e.msg.replace('#设置门槛', '')
     jiar = jiar.trim()
     if (!data.Level_list.some((item) => item.level == jiar)) return false
-    let jr_level_id = data.Level_list.find((item) => item.level == jiar).level_id
+    let jr_level_id = data.Level_list.find(
+      (item) => item.level == jiar
+    ).level_id
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.power == 0 && jr_level_id > 41) {
       jr_level_id = 41
@@ -421,7 +442,9 @@ export class AssociationAdmin extends plugin {
         e.reply('？？？') //踢自己？
         return false
       }
-      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter((item) => item != member_qq)
+      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter(
+        (item) => item != member_qq
+      )
       bss['所有成员'] = bss['所有成员'].filter((item) => item != member_qq)
       data.setAssociation(bss.宗门名称, bss)
       delete playerB.宗门
@@ -439,7 +462,9 @@ export class AssociationAdmin extends plugin {
         e.reply(`宗门${playerB.宗门.职位}任免请上报宗主！`)
         return false
       }
-      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter((item) => item != member_qq)
+      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter(
+        (item) => item != member_qq
+      )
       bss['所有成员'] = bss['所有成员'].filter((item) => item != member_qq)
       data.setAssociation(bss.宗门名称, bss)
       delete playerB.宗门
@@ -457,7 +482,9 @@ export class AssociationAdmin extends plugin {
         e.reply(`宗门${playerB.宗门.职位}任免请上报宗主！`)
         return false
       }
-      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter((item) => item != member_qq)
+      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter(
+        (item) => item != member_qq
+      )
       bss['所有成员'] = bss['所有成员'].filter((item) => item != member_qq)
       await data.setAssociation(bss.宗门名称, bss)
       await delete playerB.宗门
@@ -507,7 +534,9 @@ export class AssociationAdmin extends plugin {
         e.reply('？？？') // 自己踢自己？？
         return false
       }
-      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter((item) => item != member_qq)
+      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter(
+        (item) => item != member_qq
+      )
       bss['所有成员'] = bss['所有成员'].filter((item) => item != member_qq)
       data.setAssociation(bss.宗门名称, bss)
       delete playerB.宗门
@@ -525,7 +554,9 @@ export class AssociationAdmin extends plugin {
         e.reply(`宗门${playerB.宗门.职位}任免请上报宗主！`)
         return false
       }
-      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter((item) => item != member_qq)
+      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter(
+        (item) => item != member_qq
+      )
       bss['所有成员'] = bss['所有成员'].filter((item) => item != member_qq)
       await data.setAssociation(bss.宗门名称, bss)
       await delete playerB.宗门
@@ -543,7 +574,9 @@ export class AssociationAdmin extends plugin {
         e.reply(`宗门${playerB.宗门.职位}任免请上报宗主！`)
         return false
       }
-      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter((item) => item != member_qq)
+      bss[playerB.宗门.职位] = bss[playerB.宗门.职位].filter(
+        (item) => item != member_qq
+      )
       bss['所有成员'] = bss['所有成员'].filter((item) => item != member_qq)
       await data.setAssociation(bss.宗门名称, bss)
       await delete playerB.宗门
@@ -565,7 +598,9 @@ export class AssociationAdmin extends plugin {
 async function new_Association(name, holder_qq, e) {
   let usr_qq = e.user_id
   let player = data.getData('player', usr_qq)
-  var now_level_id = data.Level_list.find((item) => item.level_id == player.level_id).level_id
+  var now_level_id = data.Level_list.find(
+    (item) => item.level_id == player.level_id
+  ).level_id
   var x
   let xian
   let dj

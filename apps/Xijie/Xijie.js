@@ -36,7 +36,7 @@ export class Xijie extends plugin {
   async chongzhi(e) {
     if (!verc({ e })) return false
     if (!e.isMaster) return false
-    var didian = e.msg.replace('#重置', '')
+    let didian = e.msg.replace('#重置', '')
     didian = didian.trim()
     let shop
     try {
@@ -66,7 +66,9 @@ export class Xijie extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
 
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -86,12 +88,21 @@ export class Xijie extends plugin {
         return false
       }
     }
-    let lastxijie_time = await redis.get('xiuxian@1.3.0:' + usr_qq + ':lastxijie_time')
+    let lastxijie_time = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':lastxijie_time'
+    )
     lastxijie_time = parseInt(lastxijie_time)
     if (now_time < lastxijie_time + 7200000) {
-      let lastxijie_m = Math.trunc((lastxijie_time + 7200000 - now_time) / 60 / 1000)
-      let lastxijie_s = Math.trunc(((lastxijie_time + 7200000 - now_time) % 60000) / 1000)
-      e.reply(`每120分钟洗劫一次，正在CD中，` + `剩余cd: ${lastxijie_m}分${lastxijie_s}秒`)
+      let lastxijie_m = Math.trunc(
+        (lastxijie_time + 7200000 - now_time) / 60 / 1000
+      )
+      let lastxijie_s = Math.trunc(
+        ((lastxijie_time + 7200000 - now_time) % 60000) / 1000
+      )
+      e.reply(
+        `每120分钟洗劫一次，正在CD中，` +
+          `剩余cd: ${lastxijie_m}分${lastxijie_s}秒`
+      )
       return false
     }
     //判断是否在开启时段
@@ -100,7 +111,7 @@ export class Xijie extends plugin {
       e.reply(`每日20-21点商店修整中,请过会再来`)
       return false
     }
-    var didian = e.msg.replace('#洗劫', '')
+    let didian = e.msg.replace('#洗劫', '')
     didian = didian.trim()
     let shop
     try {
@@ -162,7 +173,7 @@ export class Xijie extends plugin {
     if (player.魔道值 > 999) {
       A_player.魔值 = 1
     }
-    var time = 15 //时间（分钟）
+    let time = 15 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
       action: '洗劫', //动作
@@ -197,7 +208,9 @@ export class Xijie extends plugin {
     //查看存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let game_action = await redis.get('xiuxian@1.3.0:' + usr_qq + ':game_action')
+    let game_action = await redis.get(
+      'xiuxian@1.3.0:' + usr_qq + ':game_action'
+    )
     //防止继续其他娱乐行为
     if (game_action == 0) {
       e.reply('修仙：游戏进行中...')
@@ -217,7 +230,7 @@ export class Xijie extends plugin {
         return false
       }
     }
-    var didian = e.msg.replace('#探查', '')
+    let didian = e.msg.replace('#探查', '')
     didian = didian.trim()
     let shop
     try {

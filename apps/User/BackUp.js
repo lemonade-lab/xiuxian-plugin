@@ -74,7 +74,9 @@ export class BackUp extends plugin {
       // redis
       const redisObj = {}
       const redisKeys = await redis.keys('xiuxian:*')
-      const redisTypes = await Promise.all(redisKeys.map((key) => redis.type(key)))
+      const redisTypes = await Promise.all(
+        redisKeys.map((key) => redis.type(key))
+      )
       const redisValues = await Promise.all(
         redisKeys.map((key, i) => {
           switch (redisTypes[i]) {
@@ -85,7 +87,9 @@ export class BackUp extends plugin {
           }
         })
       )
-      redisKeys.forEach((key, i) => (redisObj[key] = [redisTypes[i], redisValues[i]]))
+      redisKeys.forEach(
+        (key, i) => (redisObj[key] = [redisTypes[i], redisValues[i]])
+      )
 
       // 看看前置工作有没有完成
       if (!fs.existsSync(__PATH.backup)) {
@@ -106,7 +110,10 @@ export class BackUp extends plugin {
         fs.mkdirSync(`${saveFolder}/${folderName}`)
 
         const writeTask = saveData[index].map((sd, i) =>
-          fs.promises.writeFile(`${saveFolder}/${folderName}/${dataFname[index][i]}`, sd)
+          fs.promises.writeFile(
+            `${saveFolder}/${folderName}/${dataFname[index][i]}`,
+            sd
+          )
         )
         return Promise.all(writeTask)
       })
@@ -245,7 +252,10 @@ export class BackUp extends plugin {
 
         // 然后再写入备份的
         const writeTask = loadData[index].map((ld, i) =>
-          fs.promises.writeFile(`${__PATH[folderName]}/${dataFname[index][i]}`, ld)
+          fs.promises.writeFile(
+            `${__PATH[folderName]}/${dataFname[index][i]}`,
+            ld
+          )
         )
 
         // 写入备份的redis
