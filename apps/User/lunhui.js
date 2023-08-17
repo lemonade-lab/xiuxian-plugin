@@ -27,7 +27,6 @@ export class lunhui extends plugin {
   }
 
   async lunhui(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -452,7 +451,6 @@ export class lunhui extends plugin {
   }
 
   async yeslunhui(e) {
-    if (!verc({ e })) return false
     /** 内容 */
     let usr_qq = e.user_id
     let new_msg = this.e.message

@@ -32,7 +32,6 @@ export class motou extends plugin {
   }
 
   async add_lingeng(e) {
-    if (!verc({ e })) return false
     //固定写法
     let usr_qq = e.user_id
     //有无存档
@@ -232,7 +231,6 @@ export class motou extends plugin {
     return false
   }
   async RE_lingeng(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let player = await Read_player(usr_qq)
     /** 内容 */
@@ -270,7 +268,6 @@ export class motou extends plugin {
   }
 
   async mojie(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //查看存档
     let ifexistplay = await existplayer(usr_qq)
@@ -335,7 +332,6 @@ export class motou extends plugin {
   }
 
   async xianji(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //查看存档
     let ifexistplay = await existplayer(usr_qq)

@@ -57,7 +57,6 @@ export class BOSS2 extends plugin {
   }
   //金角大王结束指令
   async DeleteWorldBoss(e) {
-    if (!verc({ e })) return false
     if (e.isMaster) {
       if (await BossIsAlive()) {
         await redis.del('Xiuxian:WorldBossStatus2')
@@ -68,7 +67,6 @@ export class BOSS2 extends plugin {
   }
   //金角大王状态指令
   async LookUpWorldBossStatus(e) {
-    if (!verc({ e })) return false
     if (await BossIsAlive()) {
       let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus2')
       if (WorldBossStatusStr) {
@@ -91,7 +89,6 @@ export class BOSS2 extends plugin {
 
   //金角大王伤害贡献榜
   async ShowDamageList(e) {
-    if (!verc({ e })) return false
     if (await BossIsAlive()) {
       let PlayerRecord = await redis.get('xiuxian@1.3.0Record2')
       let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus2')
@@ -145,7 +142,6 @@ export class BOSS2 extends plugin {
   }
   //与金角大王战斗
   async WorldBossBattle(e) {
-    if (!verc({ e })) return false
     if (e.isPrivate) return false
 
     if (!(await BossIsAlive())) {

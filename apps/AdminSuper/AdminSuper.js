@@ -53,7 +53,7 @@ export class AdminSuper extends plugin {
   }
   async jiesan_ass(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     let didian = e.msg.replace('#解散宗门', '')
     didian = didian.trim()
     let ass = data.getAssociation(didian)
@@ -75,7 +75,6 @@ export class AdminSuper extends plugin {
     return false
   }
   async show_log(e) {
-    if (!verc({ e })) return false
     let j
     const reader = await Read_updata_log()
     let str = []
@@ -134,7 +133,7 @@ export class AdminSuper extends plugin {
 
   async Deleteexchange(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     e.reply('开始清除！')
     let Exchange
     try {
@@ -173,7 +172,7 @@ export class AdminSuper extends plugin {
 
   async Allrelieve(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     e.reply('开始行动！')
     let playerList = []
     let files = fs
@@ -211,7 +210,7 @@ export class AdminSuper extends plugin {
 
   async relieve(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === 'at')
     if (!isat) return false
@@ -249,7 +248,7 @@ export class AdminSuper extends plugin {
 
   async Knockdown(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === 'at')
     if (!isat) return false

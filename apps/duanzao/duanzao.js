@@ -80,7 +80,6 @@ export class duanzao extends plugin {
     })
   }
   async bestfile(e) {
-    if (!verc({ e })) return false
     let wupin
     try {
       wupin = await Read_it()
@@ -178,7 +177,6 @@ export class duanzao extends plugin {
     return false
   }
   async all_clearthat(e) {
-    if (!verc({ e })) return false
     if (!e.isMaster) return false
     await Write_duanlu([])
     let playerList = []
@@ -200,7 +198,6 @@ export class duanzao extends plugin {
     return false
   }
   async clearthat(e) {
-    if (!verc({ e })) return false
     const user_qq = e.user_id //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) return false
@@ -230,7 +227,6 @@ export class duanzao extends plugin {
   }
 
   async getmybook(e) {
-    if (!verc({ e })) return false
     const user_qq = e.user_id //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) {
@@ -251,7 +247,6 @@ export class duanzao extends plugin {
   }
 
   async givein(e) {
-    if (!verc({ e })) return false
     const user_qq = e.user_id //用户qq
     //有无存档
     if (!(await existplayer(user_qq))) return false
@@ -349,7 +344,6 @@ export class duanzao extends plugin {
   }
 
   async startit(e) {
-    if (!verc({ e })) return false
     let user_qq = e.user_id
     if (!(await existplayer(user_qq))) return false
     const A = await looktripod(user_qq)
@@ -415,7 +409,6 @@ export class duanzao extends plugin {
     }
   }
   async openit(e) {
-    if (!verc({ e })) return false
     let user_qq = e.user_id
     //有无存档
     if (!(await existplayer(user_qq))) return false
@@ -621,7 +614,6 @@ export class duanzao extends plugin {
     }
   }
   async mytript(e) {
-    if (!verc({ e })) return false
     const user_qq = e.user_id
     if (!(await existplayer(user_qq))) return false
     const A = await looktripod(user_qq)
@@ -663,7 +655,6 @@ export class duanzao extends plugin {
   }
 
   async getnewname(e) {
-    if (!verc({ e })) return false
     const user_qq = e.user_id //用户qq
     if (!(await existplayer(user_qq))) return false
     let thing = e.msg.replace('#', '')

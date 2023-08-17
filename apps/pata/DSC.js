@@ -20,7 +20,6 @@ export class DSC extends plugin {
     })
   }
   async WorldBossBattle(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -149,7 +148,6 @@ export class DSC extends plugin {
 
   //与未知妖物战斗
   async all_WorldBossBattle(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let xueqi = 0
     let cengshu = 0

@@ -42,7 +42,7 @@ export class Auction extends plugin {
   async xingGE(e) {
     let usr_qq = e.user_id
     if (usr_qq == 80000000) return false
-    if (!verc({ e })) return false
+
     //固定写法
     //判断是否为匿名创建存档
     //有无存档
@@ -70,7 +70,6 @@ export class Auction extends plugin {
       e.reply('只有只因器人主人可以开启')
       return false
     }
-    if (!verc({ e })) return false
 
     // 如果星阁已经开了，将本群加入Redis
     // INFO: 缺省判断是否在进行，GroupList判断哪些群开启了星阁体系
@@ -130,7 +129,6 @@ export class Auction extends plugin {
       e.reply('只有只因器人主人可以取消')
       return false
     }
-    if (!verc({ e })) return false
 
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     if (!redis.sIsMember(redisGlKey, String(e.group_id))) {
@@ -147,7 +145,6 @@ export class Auction extends plugin {
       e.reply('只有只因器人主人可以关闭')
       return false
     }
-    if (!verc({ e })) return false
 
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     await redis.del('xiuxian:AuctionofficialTask')
@@ -163,7 +160,7 @@ export class Auction extends plugin {
   /*竞价10000 */
   async offer_priceXINGGE(e) {
     let usr_qq = e.user_id
-    if (!verc({ e })) return false
+
     if (usr_qq == 80000000) return false
     //固定写法
     //判断是否为匿名创建存档
@@ -229,7 +226,7 @@ export class Auction extends plugin {
     if (usr_qq == 80000000) {
       return false
     }
-    if (!verc({ e })) return false
+
     //固定写法
     //判断是否为匿名创建存档
     //有无存档

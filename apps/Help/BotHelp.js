@@ -39,14 +39,12 @@ export class BotHelp extends plugin {
   }
 
   async Xiuxianhelpcopy(e) {
-    if (!verc({ e })) return false
     let data = await Help.gethelpcopy(e)
     if (!data) return false
     let img = await this.cache(data)
     await e.reply(img)
   }
   async Xiuxianhelp(e) {
-    if (!verc({ e })) return false
     let data = await Help.get(e)
     if (!data) return false
     let img = await this.cache(data)
@@ -54,7 +52,6 @@ export class BotHelp extends plugin {
   }
 
   async adminsuper(e) {
-    if (!verc({ e })) return false
     let data = await Help.setup(e)
     if (!data) return false
     let img = await this.cache(data)
@@ -62,7 +59,6 @@ export class BotHelp extends plugin {
   }
 
   async AssociationAdmin(e) {
-    if (!verc({ e })) return false
     let data = await Help.Association(e)
     if (!data) return false
     let img = await this.cache(data)
@@ -70,7 +66,6 @@ export class BotHelp extends plugin {
   }
 
   async shituhelp(e) {
-    if (!verc({ e })) return false
     e.reply('维护中')
     return false
     let data = await Help2.shituhelp(e)

@@ -52,7 +52,6 @@ export class Showningmeng extends plugin {
   }
   //柠檬堂
   async show_ningmenghome(e) {
-    if (!verc({ e })) return false
     let thing_type = e.msg.replace('#柠檬堂', '')
     let img = await get_ningmenghome_img(e, thing_type)
     e.reply(img)
@@ -60,14 +59,12 @@ export class Showningmeng extends plugin {
   }
   //万宝楼
   async show_valuables(e) {
-    if (!verc({ e })) return false
     let img = await get_valuables_img(e)
     e.reply(img)
     return false
   }
   //仙宠楼
   async Show_XianChong(e) {
-    if (!verc({ e })) return false
     let img = await get_XianChong_img(e)
     e.reply(img)
     return false
@@ -75,7 +72,6 @@ export class Showningmeng extends plugin {
 
   //武器楼
   async Show_WuQi(e) {
-    if (!verc({ e })) return false
     let img = await get_wuqi_img(e)
     e.reply(img)
     return false
@@ -83,14 +79,12 @@ export class Showningmeng extends plugin {
 
   //丹药楼
   async Show_DanYao(e) {
-    if (!verc({ e })) return false
     let img = await get_danyao_img(e)
     e.reply(img)
     return false
   }
   //功法楼
   async Show_GongFa(e) {
-    if (!verc({ e })) return false
     let img = await get_gongfa_img(e)
     e.reply(img)
     return false
@@ -98,7 +92,6 @@ export class Showningmeng extends plugin {
 
   //道具楼
   async Show_DaoJu(e) {
-    if (!verc({ e })) return false
     let img = await get_daoju_img(e)
     e.reply(img)
     return false

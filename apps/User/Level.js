@@ -65,7 +65,6 @@ export class Level extends plugin {
 
   //突破
   async auto_up(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -82,7 +81,6 @@ export class Level extends plugin {
   }
 
   async LevelMax_up(e, luck) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -270,7 +268,6 @@ export class Level extends plugin {
 
   //突破
   async Level_up(e, luck) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //有无账号
     let ifexistplay = await existplayer(usr_qq)
@@ -499,7 +496,6 @@ export class Level extends plugin {
   }
 
   async yes(e) {
-    if (!verc({ e })) return false
     /** 内容 */
     let usr_qq = e.user_id
     let new_msg = this.e.message
@@ -560,13 +556,12 @@ export class Level extends plugin {
 
   //渡劫
   async fate_up(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //有无账号
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //不开放私聊
-    if (!verc({ e })) return false
+
     let player = await Read_player(usr_qq)
     //境界
     let now_level = data.Level_list.find(
@@ -681,13 +676,12 @@ export class Level extends plugin {
   //#羽化登仙
   //专门为渡劫期设计的指令
   async Level_up_Max(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //有无账号
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //不开放私聊
-    if (!verc({ e })) return false
+
     //获取游戏状态
     let game_action = await redis.get(
       'xiuxian@1.3.0:' + usr_qq + ':game_action'

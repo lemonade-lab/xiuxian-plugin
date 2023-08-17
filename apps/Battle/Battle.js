@@ -33,7 +33,6 @@ export class Battle extends plugin {
 
   //打劫
   async Dajie(e) {
-    if (!verc({ e })) return false
     const nowDate = new Date()
     const todayDate = new Date(nowDate)
     const { openHour, closeHour } = this.set.Auction
@@ -315,7 +314,6 @@ export class Battle extends plugin {
 
   //比武
   async biwu(e) {
-    if (!verc({ e })) return false
     let A = e.user_id
     //先判断
     let ifexistplay_A = await existplayer(A)

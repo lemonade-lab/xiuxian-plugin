@@ -101,7 +101,6 @@ export class Occupation extends plugin {
     })
   }
   async zhuanzhi(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -122,7 +121,6 @@ export class Occupation extends plugin {
     return false
   }
   async chose_occupation(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -196,7 +194,6 @@ export class Occupation extends plugin {
     return false
   }
   async chose_occupation2(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -235,11 +232,10 @@ export class Occupation extends plugin {
   }
 
   async plant(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id //用户qq
     if (!(await existplayer(usr_qq))) return false
     //不开放私聊
-    if (!verc({ e })) return false
+
     //获取游戏状态
     let game_action = await redis.get(
       'xiuxian@1.3.0:' + usr_qq + ':game_action'
@@ -318,7 +314,6 @@ export class Occupation extends plugin {
   }
 
   async qingchushangjinbang(e) {
-    if (!verc({ e })) return false
     if (!e.isMaster) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
@@ -332,7 +327,6 @@ export class Occupation extends plugin {
   }
 
   async plant_back(e) {
-    if (!verc({ e })) return false
     let action = await this.getPlayerAction(e.user_id)
     if (action.plant == 1) {
       return false
@@ -397,7 +391,6 @@ export class Occupation extends plugin {
     )
   }
   async mine(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id //用户qq
     if (!(await existplayer(usr_qq))) return false
     //获取游戏状态
@@ -478,7 +471,6 @@ export class Occupation extends plugin {
   }
 
   async mine_back(e) {
-    if (!verc({ e })) return false
     let action = await this.getPlayerAction(e.user_id)
     if (action.mine == 1) return false
     //结算
@@ -665,13 +657,11 @@ export class Occupation extends plugin {
   }
 
   async show_danfang(e) {
-    if (!verc({ e })) return false
     let img = await get_danfang_img(e)
     e.reply(img)
     return false
   }
   async yaoxiao(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let dy = await Read_danyao(usr_qq)
     let player = await Read_player(usr_qq)
@@ -702,14 +692,12 @@ export class Occupation extends plugin {
   }
 
   async show_tuzhi(e) {
-    if (!verc({ e })) return false
     let img = await get_tuzhi_img(e)
     e.reply(img)
     return false
   }
 
   async liandan(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -800,7 +788,6 @@ export class Occupation extends plugin {
   }
 
   async lianqi(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -882,7 +869,6 @@ export class Occupation extends plugin {
     )
   }
   async search_sb(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -975,7 +961,6 @@ export class Occupation extends plugin {
     return false
   }
   async taofa_sb(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -1144,7 +1129,6 @@ export class Occupation extends plugin {
     return false
   }
   async shangjingbang(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -1181,7 +1165,6 @@ export class Occupation extends plugin {
     return false
   }
   async cisha_sb(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false

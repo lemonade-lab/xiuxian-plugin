@@ -34,7 +34,6 @@ export class Xijie extends plugin {
     })
   }
   async chongzhi(e) {
-    if (!verc({ e })) return false
     if (!e.isMaster) return false
     let didian = e.msg.replace('#重置', '')
     didian = didian.trim()
@@ -60,7 +59,6 @@ export class Xijie extends plugin {
     return false
   }
   async xijie(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //查看存档
     let ifexistplay = await existplayer(usr_qq)
@@ -203,7 +201,6 @@ export class Xijie extends plugin {
   }
 
   async tancha(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //查看存档
     let ifexistplay = await existplayer(usr_qq)

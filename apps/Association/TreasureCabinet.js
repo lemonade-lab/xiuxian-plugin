@@ -35,7 +35,6 @@ export class TreasureCabinet extends plugin {
   }
   //我的贡献
   async gonxian(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //用户不存在
     let ifexistplay = data.existData('player', usr_qq)
@@ -64,7 +63,6 @@ export class TreasureCabinet extends plugin {
   async Summon_Divine_Beast(e) {
     //8级宗门，有驻地，灵石200w
 
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //用户不存在
     let ifexistplay = data.existData('player', usr_qq)
@@ -132,7 +130,6 @@ export class TreasureCabinet extends plugin {
   }
 
   async Beast_Bonus(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //用户不存在
     let ifexistplay = data.existData('player', usr_qq)

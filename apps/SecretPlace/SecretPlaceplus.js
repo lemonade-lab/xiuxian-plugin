@@ -37,7 +37,6 @@ export class SecretPlaceplus extends plugin {
   }
 
   async Xiuxianstate(e) {
-    if (!verc({ e })) return false
     let flag = await Go(e)
     if (!flag) {
       return false
@@ -47,7 +46,6 @@ export class SecretPlaceplus extends plugin {
 
   //秘境地点
   async Secretplace(e) {
-    if (!verc({ e })) return false
     let addres = '秘境'
     let weizhi = data.didian_list
     await Goweizhi(e, weizhi, addres)
@@ -55,7 +53,6 @@ export class SecretPlaceplus extends plugin {
 
   //禁地
   async Forbiddenarea(e) {
-    if (!verc({ e })) return false
     let addres = '禁地'
     let weizhi = data.forbiddenarea_list
     await jindi(e, weizhi, addres)
@@ -63,13 +60,11 @@ export class SecretPlaceplus extends plugin {
 
   //限定仙府
   async Timeplace(e) {
-    if (!verc({ e })) return false
     e.reply('仙府乃民间传说之地,请自行探索')
   }
 
   //仙境
   async Fairyrealm(e) {
-    if (!verc({ e })) return false
     let addres = '仙境'
     let weizhi = data.Fairyrealm_list
     await Goweizhi(e, weizhi, addres)
@@ -77,7 +72,6 @@ export class SecretPlaceplus extends plugin {
 
   //沉迷秘境
   async Gosecretplace(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -141,7 +135,6 @@ export class SecretPlaceplus extends plugin {
 
   //沉迷禁地
   async Goforbiddenarea(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -227,7 +220,6 @@ export class SecretPlaceplus extends plugin {
 
   //探索仙府
   async GoTimeplace(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -327,7 +319,6 @@ export class SecretPlaceplus extends plugin {
 
   //前往仙境
   async Gofairyrealm(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {

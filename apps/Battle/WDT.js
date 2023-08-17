@@ -28,7 +28,6 @@ export class WDT extends plugin {
 
   //打劫
   async biwu(e) {
-    if (!verc({ e })) return false
     //得到主动方qq
     let A = e.user_id
 

@@ -53,41 +53,36 @@ export class showData extends plugin {
   //修仙设置
   async show_adminset(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     let img = await get_adminset_img(e)
     e.reply(img)
     return false
   }
 
   async show_power(e) {
-    if (!verc({ e })) return false
     let img = await get_power_img(e)
     e.reply(img)
     return false
   }
   async show_equipment(e) {
-    if (!verc({ e })) return false
     let img = await get_equipment_img(e)
     e.reply(img)
     return false
   }
 
   async show_Levelzhiye(e) {
-    if (!verc({ e })) return false
     let img = await get_statezhiye_img(e)
     e.reply(img)
     return false
   }
 
   async show_Level(e) {
-    if (!verc({ e })) return false
     let img = await get_state_img(e)
     e.reply(img)
     return false
   }
 
   async show_LevelMax(e) {
-    if (!verc({ e })) return false
     let img = await get_statemax_img(e)
     e.reply(img)
     return false
@@ -95,7 +90,6 @@ export class showData extends plugin {
 
   //我的宗门
   async show_association(e) {
-    if (!verc({ e })) return false
     let img = await get_association_img(e)
     e.reply(img)
     return false

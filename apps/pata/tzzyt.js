@@ -22,7 +22,6 @@ export class tzzyt extends plugin {
 
   //与未知妖物战斗
   async WorldBossBattle(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -190,7 +189,6 @@ export class tzzyt extends plugin {
   }
 
   async all_WorldBossBattle(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false

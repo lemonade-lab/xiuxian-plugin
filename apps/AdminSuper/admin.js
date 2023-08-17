@@ -18,7 +18,7 @@ export class admin extends plugin {
   }
   async checkout(e) {
     if (!e.isMaster) return false
-    if (!verc({ e })) return false
+
     exec(
       'git  pull',
       { cwd: `${process.cwd()}/plugins/${AppName}/` },

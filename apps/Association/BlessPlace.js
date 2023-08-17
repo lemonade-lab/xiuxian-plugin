@@ -55,7 +55,6 @@ export class BlessPlace extends plugin {
 
   //福地地点
   async List_blessPlace(e) {
-    if (!verc({ e })) return false
     let addres = '洞天福地'
     let weizhi = data.bless_list
     GoBlessPlace(e, weizhi, addres)
@@ -63,7 +62,6 @@ export class BlessPlace extends plugin {
 
   //秘境地点
   async mij(e) {
-    if (!verc({ e })) return false
     let addres = '宗门秘境'
     let weizhi = data.guildSecrets_list
     Goweizhi(e, weizhi, addres)
@@ -71,7 +69,6 @@ export class BlessPlace extends plugin {
 
   //入驻洞天
   async Settled_Blessed_Place(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //用户不存在
     let ifexistplay = data.existData('player', usr_qq)
@@ -209,7 +206,6 @@ export class BlessPlace extends plugin {
   }
 
   async exploitation_vein(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -275,7 +271,6 @@ export class BlessPlace extends plugin {
 
   //降临秘境
   async Go_Guild_Secrets(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -338,7 +333,6 @@ export class BlessPlace extends plugin {
 
   //沉迷秘境
   async Go_Guild_Secretsplus(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let flag = await Go(e)
     if (!flag) {
@@ -410,7 +404,6 @@ export class BlessPlace extends plugin {
     return false
   }
   async construction_Guild(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //用户不存在
     let ifexistplay = data.existData('player', usr_qq)

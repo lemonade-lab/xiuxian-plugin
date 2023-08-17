@@ -59,7 +59,6 @@ export class Games extends plugin {
   }
 
   async Refusecouple(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let player = await Read_player(usr_qq)
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':couple', 1)
@@ -68,7 +67,6 @@ export class Games extends plugin {
   }
 
   async Allowcouple(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     let player = await Read_player(usr_qq)
     await redis.set('xiuxian@1.3.0:' + usr_qq + ':couple', 0)
@@ -78,7 +76,6 @@ export class Games extends plugin {
 
   //怡红院
   async Xiuianplay(e) {
-    if (!verc({ e })) return false
     const cf = config.getConfig('xiuxian', 'xiuxian')
     let switchgame = cf.switch.play
     if (switchgame != true) {
@@ -168,7 +165,6 @@ export class Games extends plugin {
 
   //金银坊
   async Moneynumber(e) {
-    if (!verc({ e })) return false
     const cf = config.getConfig('xiuxian', 'xiuxian')
     //金银坊开关
     let gameswitch = cf.switch.Moneynumber
@@ -242,7 +238,6 @@ export class Games extends plugin {
   //这里冲突了，拆函数！
   //梭哈|投入999
   async Moneycheck(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //获取当前时间戳
     let now_time = new Date().getTime()
@@ -309,7 +304,6 @@ export class Games extends plugin {
 
   //大|小
   async Moneycheckguess(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //获取当前时间戳
     let now_time = new Date().getTime()
@@ -451,7 +445,6 @@ export class Games extends plugin {
   }
 
   async Moneyrecord(e) {
-    if (!verc({ e })) return false
     let qq = e.user_id
     let shenglv
     //获取人物信息
@@ -486,7 +479,6 @@ export class Games extends plugin {
 
   //双修
   async Couple(e) {
-    if (!verc({ e })) return false
     const cf = config.getConfig('xiuxian', 'xiuxian')
     //双修开关
     let gameswitch = cf.switch.couple

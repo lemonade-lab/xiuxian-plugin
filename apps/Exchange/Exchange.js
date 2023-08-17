@@ -42,7 +42,6 @@ export class Exchange extends plugin {
     })
   }
   async Offsell(e) {
-    if (!verc({ e })) return false
     //固定写法
     let usr_qq = e.user_id
     //有无存档
@@ -114,7 +113,6 @@ export class Exchange extends plugin {
 
   //上架
   async onsell(e) {
-    if (!verc({ e })) return false
     //固定写法
     let usr_qq = e.user_id
     //判断是否为匿名创建存档
@@ -263,7 +261,6 @@ export class Exchange extends plugin {
   }
 
   async show_supermarket(e) {
-    if (!verc({ e })) return false
     let thing_class = e.msg.replace('#冲水堂', '')
     let img = await get_supermarket_img(e, thing_class)
     e.reply(img)
@@ -271,7 +268,6 @@ export class Exchange extends plugin {
   }
 
   async purchase(e) {
-    if (!verc({ e })) return false
     let usr_qq = e.user_id
     //全局状态判断
     let flag = await Go(e)
