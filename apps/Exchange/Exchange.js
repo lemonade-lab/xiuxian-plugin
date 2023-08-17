@@ -49,7 +49,7 @@ export class Exchange extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //防并发cd
-    var time0 = 0.5 //分钟cd
+    let time0 = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
     let ExchangeCD = await redis.get('xiuxian@1.3.0:' + usr_qq + ':ExchangeCD')
@@ -176,7 +176,7 @@ export class Exchange extends plugin {
       } else {
         let najie = await Read_najie(usr_qq)
         equ = najie.装备.find((item) => item.name == thing_name)
-        for (var i of najie.装备) {
+        for (let i of najie.装备) {
           //遍历列表有没有比那把强的
           if (i.name == thing_name && i.pinji < equ.pinji) {
             equ = i
@@ -277,7 +277,7 @@ export class Exchange extends plugin {
     let flag = await Go(e)
     if (!flag) return false
     //防并发cd
-    var time0 = 0.5 //分钟cd
+    let time0 = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
     let ExchangeCD = await redis.get('xiuxian@1.3.0:' + usr_qq + ':ExchangeCD')

@@ -170,7 +170,7 @@ export class UserSellAll extends plugin {
     let wupin1 = []
     if (e.msg != '#一键锁定') {
       let thing = e.msg.replace('#一键锁定', '')
-      for (var i of wupin) {
+      for (let i of wupin) {
         if (thing == i) {
           wupin1.push(i)
           thing = thing.replace(i, '')
@@ -182,7 +182,7 @@ export class UserSellAll extends plugin {
         return false
       }
     }
-    for (var i of wupin) {
+    for (let i of wupin) {
       for (let l of najie[i]) {
         //纳戒中的数量
         l.islockd = 1
@@ -213,7 +213,7 @@ export class UserSellAll extends plugin {
     let wupin1 = []
     if (e.msg != '#一键解锁') {
       let thing = e.msg.replace('#一键解锁', '')
-      for (var i of wupin) {
+      for (let i of wupin) {
         if (thing == i) {
           wupin1.push(i)
           thing = thing.replace(i, '')
@@ -225,7 +225,7 @@ export class UserSellAll extends plugin {
         return false
       }
     }
-    for (var i of wupin) {
+    for (let i of wupin) {
       for (let l of najie[i]) {
         //纳戒中的数量
         l.islockd = 0
@@ -268,7 +268,7 @@ export class UserSellAll extends plugin {
     let wupin1 = []
     if (e.msg != '#一键赠送') {
       let thing = e.msg.replace('#一键赠送', '')
-      for (var i of wupin) {
+      for (let i of wupin) {
         if (thing == i) {
           wupin1.push(i)
           thing = thing.replace(i, '')
@@ -280,7 +280,7 @@ export class UserSellAll extends plugin {
         return false
       }
     }
-    for (var i of wupin) {
+    for (let i of wupin) {
       for (let l of A_najie[i]) {
         if (l && l.islockd == 0) {
           let quantity = l.数量
@@ -319,7 +319,7 @@ export class UserSellAll extends plugin {
     let wupin1 = []
     if (e.msg != '#一键回收') {
       let thing = e.msg.replace('#一键回收', '')
-      for (var i of wupin) {
+      for (let i of wupin) {
         if (thing == i) {
           wupin1.push(i)
           thing = thing.replace(i, '')
@@ -331,7 +331,7 @@ export class UserSellAll extends plugin {
         return false
       }
     }
-    for (var i of wupin) {
+    for (let i of wupin) {
       for (let l of najie[i]) {
         //纳戒中的数量
         let thing_exist = await foundthing(l.name)
@@ -456,7 +456,7 @@ export class UserSellAll extends plugin {
     let wupin1 = []
     if (e.msg != '#一键出售') {
       let thing = e.msg.replace('#一键出售', '')
-      for (var i of wupin) {
+      for (let i of wupin) {
         if (thing == i) {
           wupin1.push(i)
           thing = thing.replace(i, '')
@@ -562,7 +562,7 @@ export class UserSellAll extends plugin {
     //检索方法
     let najie = await data.getData('najie', usr_qq)
     let xiuwei = 0
-    for (var l of najie.丹药) {
+    for (let l of najie.丹药) {
       if (l.type == '修为') {
         //纳戒中的数量
         let quantity = await exist_najie_thing(usr_qq, l.name, l.class)
@@ -586,7 +586,7 @@ export class UserSellAll extends plugin {
     //检索方法
     let najie = await data.getData('najie', usr_qq)
     let xueqi = 0
-    for (var l of najie.丹药) {
+    for (let l of najie.丹药) {
       if (l.type == '血气') {
         //纳戒中的数量
         let quantity = await exist_najie_thing(usr_qq, l.name, l.class)
@@ -610,7 +610,7 @@ export class UserSellAll extends plugin {
     let gongfa = []
     let player = await Read_player(usr_qq)
     let name = ''
-    for (var l of najie.功法) {
+    for (let l of najie.功法) {
       let islearned = player.学习的功法.find((item) => item == l.name)
       if (!islearned) {
         await Add_najie_thing(usr_qq, l.name, '功法', -1)

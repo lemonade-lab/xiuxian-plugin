@@ -96,22 +96,22 @@ export class SecretPlaceTask extends plugin {
             let msgg = Data_battle.msg
             let A_win = `${A_player.名号}击败了${B_player.名号}`
             let B_win = `${B_player.名号}击败了${A_player.名号}`
-            var thing_name
-            var thing_class
+            let thing_name
+            let thing_class
             const cf = config.getConfig('xiuxian', 'xiuxian')
-            var x = cf.SecretPlace.one
+            let x = cf.SecretPlace.one
             let random1 = Math.random()
-            var y = cf.SecretPlace.two
+            let y = cf.SecretPlace.two
             let random2 = Math.random()
-            var z = cf.SecretPlace.three
+            let z = cf.SecretPlace.three
             let random3 = Math.random()
             let random4
-            var m = ''
+            let m = ''
             let fyd_msg = ''
             //查找秘境
             let t1
             let t2
-            var n = 1
+            let n = 1
             let last_msg = ''
             if (random1 <= x) {
               if (random2 <= y) {

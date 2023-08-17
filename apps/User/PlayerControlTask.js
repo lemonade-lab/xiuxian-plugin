@@ -76,7 +76,7 @@ export class PlayerControlTask extends plugin {
             now_level_id = data.Level_list.find(
               (item) => item.level_id == player.level_id
             ).level_id
-            var size = cf.biguan.size
+            let size = cf.biguan.size
             let xiuwei = parseInt(
               size * now_level_id * (player.修炼效率提升 + 1)
             ) //增加的修为
@@ -220,7 +220,7 @@ export class PlayerControlTask extends plugin {
             now_level_id = data.Level_list.find(
               (item) => item.level_id == player.level_id
             ).level_id
-            var size = cf.work.size
+            let size = cf.work.size
             let lingshi = parseInt(
               size * now_level_id * (1 + player.修炼效率提升) * 0.5
             )

@@ -12,7 +12,7 @@ import {
 } from '../../model/xiuxian.js'
 import { Add_灵石, Add_修为 } from '../../model/xiuxian.js'
 let gane_key_user = [] //怡红院限制
-var yazhu = [] //投入
+let yazhu = [] //投入
 let gametime = [] //临时游戏CD
 export class Games extends plugin {
   constructor() {
@@ -103,12 +103,12 @@ export class Games extends plugin {
     ).level_id
     //用id当作收益用
     //收益用
-    var money = now_level_id * 1000
+    let money = now_level_id * 1000
     //如果是渡劫期。大概收益用为33*1000=3.3w
     //为防止丹药修为报废，这个收益要成曲线下降
     //得到的修为
     //先是1:1的收益
-    var addlevel
+    let addlevel
     //到了结丹中期收益变低
     //都不是凡人了，还天天祸害人间？
     if (now_level_id < 10) {
@@ -117,10 +117,10 @@ export class Games extends plugin {
       addlevel = (9 / now_level_id) * money
     }
     //随机数
-    var rand = Math.random()
-    var ql1 =
+    let rand = Math.random()
+    let ql1 =
       "门口的大汉粗鲁的将你赶出来:'哪来的野小子,没钱还敢来学人家公子爷寻欢作乐?' 被人看出你囊中羞涩,攒到"
-    var ql2 = '灵石再来吧！'
+    let ql2 = '灵石再来吧！'
     if (player.灵石 < money) {
       e.reply(ql1 + money + ql2)
       return false
@@ -179,7 +179,7 @@ export class Games extends plugin {
     //用户信息查询
     let player = data.getData('player', usr_qq)
     let now_time = new Date().getTime()
-    var money = 10000
+    let money = 10000
     //判断灵石
     if (player.灵石 < money) {
       //直接清除，并记录
@@ -196,7 +196,7 @@ export class Games extends plugin {
       return false
     }
     //设置
-    var time = cf.CD.gambling //
+    let time = cf.CD.gambling //
     //获取当前时间
     //最后的游戏时间
     //last_game_time
@@ -277,7 +277,7 @@ export class Games extends plugin {
         //得到投入数
         yazhu[usr_qq] = parseInt(es)
         //这里限制一下，至少押1w
-        var money = 10000
+        let money = 10000
         //如果投入的数大于0
         if (yazhu[usr_qq] >= money) {
           //如果押的钱不够
@@ -340,7 +340,7 @@ export class Games extends plugin {
     let randtime = Math.trunc(Math.random() * 6) + 1
     //点子
     let touzi
-    var n
+    let n
     //防止娶不到整，我们自己取
     for (n = 1; n <= randtime; n++) {
       //是1.111就取1 --是2.0就取到2。没有7.0是不可能取到7的。也就是得到6
@@ -354,9 +354,9 @@ export class Games extends plugin {
     if ((es == '大' && touzi > 3) || (es == '小' && touzi < 4)) {
       //赢了
       //获奖倍率
-      var x = cf.percentage.Moneynumber
-      var y = 1
-      var z = cf.size.Money * 10000
+      let x = cf.percentage.Moneynumber
+      let y = 1
+      let z = cf.size.Money * 10000
       //增加金银坊投资记录
       //投入大于一百万
       if (yazhu[usr_qq] >= z) {
@@ -505,7 +505,7 @@ export class Games extends plugin {
       e.reply('你咋这么爱撸自己呢?')
       return false
     }
-    var Time = cf.CD.couple //6个小时
+    let Time = cf.CD.couple //6个小时
     let shuangxiuTimeout = parseInt(60000 * Time)
     //自己的cd
     let now_Time = new Date().getTime() //获取当前时间戳

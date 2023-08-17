@@ -335,7 +335,7 @@ export class MoneyOperation extends plugin {
           )
         } else {
           equ = najie.装备.find((item) => item.name == thing_name)
-          for (var i of najie.装备) {
+          for (let i of najie.装备) {
             //遍历列表有没有比那把强的
             if (i.name == thing_name && i.pinji < equ.pinji) {
               equ = i

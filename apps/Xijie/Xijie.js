@@ -156,7 +156,7 @@ export class Xijie extends plugin {
     shop[i].state = 1
     await Write_shop(shop)
     if (player.灵根 == null || player.灵根 == undefined) {
-      player.灵根 = await get_random_talent()
+      player.灵根 = await s()
       player.修炼效率提升 += player.灵根.eff
     }
     //锁定属性

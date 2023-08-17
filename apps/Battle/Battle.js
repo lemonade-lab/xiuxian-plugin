@@ -128,8 +128,8 @@ export class Battle extends plugin {
     let playerA = data.getData('player', A)
     let playerB = data.getData('player', B)
     if (isNotNull(playerA.宗门) && isNotNull(playerB.宗门)) {
-      var assA = data.getAssociation(playerA.宗门.宗门名称)
-      var assB = data.getAssociation(playerB.宗门.宗门名称)
+      let assA = data.getAssociation(playerA.宗门.宗门名称)
+      let assB = data.getAssociation(playerB.宗门.宗门名称)
       if (assA.宗门名称 == assB.宗门名称) {
         e.reply('门派禁止内讧')
         return false
@@ -277,9 +277,9 @@ export class Battle extends plugin {
         let qixue = Math.trunc(100 * now_level_idBB)
         B_player.血气 += qixue
         await Write_player(B, B_player)
-        var time2 = 60 //时间（分钟）
-        var action_time2 = 60000 * time2 //持续时间，单位毫秒
-        var action2 = await redis.get('xiuxian@1.3.0:' + A + ':action')
+        let time2 = 60 //时间（分钟）
+        let action_time2 = 60000 * time2 //持续时间，单位毫秒
+        let action2 = await redis.get('xiuxian@1.3.0:' + A + ':action')
         action2 = await JSON.parse(action2)
         action2.action = '禁闭'
         action2.end_time = new Date().getTime() + action_time2

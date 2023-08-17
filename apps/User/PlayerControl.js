@@ -61,10 +61,10 @@ export class PlayerControl extends plugin {
     time = time.replace('钟', '')
     if (parseInt(time) == parseInt(time)) {
       time = parseInt(time)
-      var y = 30 //时间
-      var x = 240 //循环次数
+      let y = 30 //时间
+      let x = 240 //循环次数
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -146,10 +146,10 @@ export class PlayerControl extends plugin {
     time = time.replace('钟', '')
     if (parseInt(time) == parseInt(time)) {
       time = parseInt(time) //你选择的时间
-      var y = 15 //固定时间
-      var x = 48 //循环次数
+      let y = 15 //固定时间
+      let x = 48 //循环次数
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -226,15 +226,15 @@ export class PlayerControl extends plugin {
 
     const cf = config.getConfig('xiuxian', 'xiuxian')
 
-    var y = cf.biguan.time //固定时间
-    var x = cf.biguan.cycle //循环次数
+    let y = cf.biguan.time //固定时间
+    let x = cf.biguan.cycle //循环次数
 
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -248,7 +248,7 @@ export class PlayerControl extends plugin {
       time = parseInt(action.time / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -293,15 +293,15 @@ export class PlayerControl extends plugin {
     let now_time = new Date().getTime()
     let time
     const cf = config.getConfig('xiuxian', 'xiuxian')
-    var y = cf.work.time //固定时间
-    var x = cf.work.cycle //循环次数
+    let y = cf.work.time //固定时间
+    let x = cf.work.cycle //循环次数
 
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -316,7 +316,7 @@ export class PlayerControl extends plugin {
       time = parseInt(action.time / 1000 / 60)
       //超过就按最低的算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
-      for (var i = x; i > 0; i--) {
+      for (let i = x; i > 0; i--) {
         if (time >= y * i) {
           time = y * i
           break
@@ -369,7 +369,7 @@ export class PlayerControl extends plugin {
     ).level_id
     //闭关收益倍率计算 倍率*境界id*天赋*时间
     const cf = config.getConfig('xiuxian', 'xiuxian')
-    var size = cf.biguan.size
+    let size = cf.biguan.size
     //增加的修为
     let xiuwei = parseInt(size * now_level_id * (player.修炼效率提升 + 1))
     //恢复的血量
@@ -506,7 +506,7 @@ export class PlayerControl extends plugin {
       (item) => item.level_id == player.level_id
     ).level_id
     const cf = config.getConfig('xiuxian', 'xiuxian')
-    var size = cf.work.size
+    let size = cf.work.size
     let lingshi = parseInt(
       size * now_level_id * (1 + player.修炼效率提升) * 0.5
     )

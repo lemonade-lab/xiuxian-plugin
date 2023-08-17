@@ -239,7 +239,7 @@ export class UserHome extends plugin {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    var name = e.msg.replace('#活动兑换', '')
+    let name = e.msg.replace('#活动兑换', '')
     name = name.trim()
     let i //获取对应npc列表的位置
     for (i = 0; i < data.duihuan.length; i++) {
@@ -256,7 +256,7 @@ export class UserHome extends plugin {
     if (action == null) {
       action = []
     }
-    for (var k = 0; k < action.length; k++) {
+    for (let k = 0; k < action.length; k++) {
       if (action[k] == name) {
         e.reply('你已经兑换过该兑换码了')
         return false
@@ -268,7 +268,7 @@ export class UserHome extends plugin {
       JSON.stringify(action)
     )
     let msg = []
-    for (var k = 0; k < data.duihuan[i].thing.length; k++) {
+    for (let k = 0; k < data.duihuan[i].thing.length; k++) {
       await Add_najie_thing(
         usr_qq,
         data.duihuan[i].thing[k].name,
@@ -297,7 +297,7 @@ export class UserHome extends plugin {
     let cundang = ['存档']
     let najie = ['纳戒']
     let equipment = ['装备']
-    for (var k = 0; k < File_length; k++) {
+    for (let k = 0; k < File_length; k++) {
       let usr_qq = File[k].replace('.json', '')
       try {
         await Read_player(usr_qq)
@@ -434,7 +434,7 @@ export class UserHome extends plugin {
   async find_thing(e) {
     if (!verc({ e })) return false
     let usr_qq = e.user_id
-    var reg = new RegExp(/哪里有/)
+    let reg = new RegExp(/哪里有/)
     let msg = e.msg.replace(reg, '')
     msg = msg.replace('#', '')
     let thing_name = msg.replace('哪里有', '')
@@ -460,10 +460,10 @@ export class UserHome extends plugin {
       e.reply('查找物品需要【寻物纸】')
       return false
     }
-    for (var i of didian) {
-      for (var j of data[i]) {
+    for (let i of didian) {
+      for (let j of data[i]) {
         let n = ['one', 'two', 'three']
-        for (var k of n) {
+        for (let k of n) {
           if (j[k] && j[k].find((item) => item.name == thing_name)) {
             found.push(j.name + '\n')
             break
@@ -490,7 +490,7 @@ export class UserHome extends plugin {
     let flag = await Go(e)
     if (!flag) return false
     //检索方法
-    var reg = new RegExp(/取|存/)
+    let reg = new RegExp(/取|存/)
     let func = reg.exec(e.msg)
     let msg = e.msg.replace(reg, '')
     msg = msg.replace('#', '')
@@ -566,7 +566,7 @@ export class UserHome extends plugin {
     let player = await Read_player(usr_qq)
     let najie = await Read_najie(usr_qq)
     //检索方法
-    var reg = new RegExp(/装备|服用|消耗|学习/)
+    let reg = new RegExp(/装备|服用|消耗|学习/)
     let func = reg.exec(e.msg)
     let msg = e.msg.replace(reg, '')
     msg = msg.replace('#', '')
@@ -614,7 +614,7 @@ export class UserHome extends plugin {
       let equ
       if (!pj) {
         equ = najie.装备.find((item) => item.name == thing_name)
-        for (var i of najie.装备) {
+        for (let i of najie.装备) {
           //遍历列表有没有比那把强的
           if (i.name == thing_name && i.pinji > equ.pinji) {
             equ = i
@@ -873,7 +873,7 @@ export class UserHome extends plugin {
         let equipment = await Read_equipment(usr_qq)
         let type = ['武器', '护具', '法宝']
         let z = [0.8, 1, 1.1, 1.2, 1.3, 1.5]
-        for (var j in type) {
+        for (let j in type) {
           let random = Math.trunc(Math.random() * 6)
           if (!z[equipment[type[j]].pinji]) continue
           equipment[type[j]].atk =
@@ -1105,7 +1105,7 @@ export class UserHome extends plugin {
           e.reply(`你没有[${thing_name}]这样的${thing_exist.class}`)
           return false
         }
-        for (var i of najie.装备) {
+        for (let i of najie.装备) {
           //遍历列表有没有比那把强的
           if (i.name == thing_name && i.pinji < equ.pinji) {
             equ = i

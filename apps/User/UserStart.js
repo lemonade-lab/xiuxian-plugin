@@ -350,7 +350,7 @@ export class UserStart extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //检索方法
-    var reg = new RegExp(/改名|设置道宣/)
+    let reg = new RegExp(/改名|设置道宣/)
     let func = reg.exec(e.msg)
     //
     if (func == '改名') {

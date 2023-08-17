@@ -115,7 +115,7 @@ export class Level extends plugin {
       return false
     }
     const cf = config.getConfig('xiuxian', 'xiuxian')
-    var Time = cf.CD.level_up
+    let Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
     let last_time = await redis.get(
@@ -337,7 +337,7 @@ export class Level extends plugin {
       return false
     }
     const cf = config.getConfig('xiuxian', 'xiuxian')
-    var Time = cf.CD.level_up
+    let Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
     let last_time = await redis.get(
@@ -614,7 +614,7 @@ export class Level extends plugin {
     //当前系数计算
     let x = await dujie(usr_qq)
     //默认为3
-    var y = 3
+    let y = 3
     if (player.灵根.type == '伪灵根') {
       y = 3
     } else if (player.灵根.type == '真灵根') {
@@ -631,9 +631,9 @@ export class Level extends plugin {
       y = 12
     }
     //渡劫系数区间
-    var n = 1380 //最低
-    var p = 280 //变动
-    var m = n + p
+    let n = 1380 //最低
+    let p = 280 //变动
+    let m = n + p
     if (x <= n) {
       //没有达到最低要求
       player.当前血量 = 0
@@ -648,7 +648,7 @@ export class Level extends plugin {
     }
     dj++
     //渡劫成功率
-    var l = (x - n) / (p + y * 0.1)
+    let l = (x - n) / (p + y * 0.1)
     l = l * 100
     l = l.toFixed(2)
     e.reply('天道：就你，也敢逆天改命？')
