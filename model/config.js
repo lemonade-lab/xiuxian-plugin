@@ -1,19 +1,19 @@
-import YAML from "yaml";
-import fs from "fs";
-import chokidar from "chokidar";
-import lodash from "lodash";
-import { AppName } from "../app.config.js";
+import YAML from 'yaml'
+import fs from 'fs'
+import chokidar from 'chokidar'
+import lodash from 'lodash'
+import { AppName } from '../app.config.js'
 
 class config {
   constructor() {
     /** 默认配置文件路径 */
-    this.defsetPath = `./plugins/${AppName}/defset/`;
-    this.defset = {};
+    this.defsetPath = `./plugins/${AppName}/defset/`
+    this.defset = {}
     /** 用户自己配置的配置文件路径 */
-    this.configPath = `./plugins/${AppName}/config/`;
-    this.config = {};
+    this.configPath = `./plugins/${AppName}/config/`
+    this.config = {}
     /** 监听文件 */
-    this.watcher = { config: {}, defset: {} };
+    this.watcher = { config: {}, defset: {} }
   }
 
   /**
@@ -23,7 +23,7 @@ class config {
    * @returns {*}
    */
   getdefset(app, name) {
-    return this.getYaml(app, name, "config");
+    return this.getYaml(app, name, 'config')
   }
 
   /**
@@ -33,16 +33,16 @@ class config {
    * @returns {{[p: string]: *}|*}
    */
   getconfig(app, name) {
-    let ignore = [];
+    let ignore = []
 
     if (ignore.includes(`${app}.${name}`)) {
-      return this.getYaml(app, name, "config");
+      return this.getYaml(app, name, 'config')
     }
 
     return {
       ...this.getdefset(app, name),
-      ...this.getYaml(app, name, "config"),
-    };
+      ...this.getYaml(app, name, 'config')
+    }
   }
 
   /**
@@ -52,16 +52,16 @@ class config {
    * @param type 默认跑配置-defset，用户配置-config
    */
   getYaml(app, name, type) {
-    let file = this.getFilePath(app, name, type);
-    let key = `${app}.${name}`;
+    let file = this.getFilePath(app, name, type)
+    let key = `${app}.${name}`
 
-    if (this[type][key]) return this[type][key];
+    if (this[type][key]) return this[type][key]
 
-    this[type][key] = YAML.parse(fs.readFileSync(file, "utf8"));
+    this[type][key] = YAML.parse(fs.readFileSync(file, 'utf8'))
 
-    this.watch(file, app, name, type);
+    this.watch(file, app, name, type)
 
-    return this[type][key];
+    return this[type][key]
   }
 
   /**
@@ -73,37 +73,37 @@ class config {
    */
   getFilePath(app, name, type) {
     //如果type=defset，返回默认配置文件的路径,路径为根目录
-    if (type == "defset") return `${this.defsetPath}${app}/${name}.yaml`;
-    else return `${this.configPath}${app}/${name}.yaml`;
+    if (type == 'defset') return `${this.defsetPath}${app}/${name}.yaml`
+    else return `${this.configPath}${app}/${name}.yaml`
   }
 
   /** 监听配置文件 */
-  watch(file, app, name, type = "defset") {
-    let key = `${app}.${name}`;
+  watch(file, app, name, type = 'defset') {
+    let key = `${app}.${name}`
 
-    if (this.watcher[type][key]) return;
+    if (this.watcher[type][key]) return
 
-    const watcher = chokidar.watch(file);
-    watcher.on("change", (path) => {
-      delete this[type][key];
-      logger.mark(`[修改配置文件][${type}][${app}][${name}]`);
+    const watcher = chokidar.watch(file)
+    watcher.on('change', (path) => {
+      delete this[type][key]
+      console.mark(`[修改配置文件][${type}][${app}][${name}]`)
       if (this[`change_${app}${name}`]) {
-        this[`change_${app}${name}`]();
+        this[`change_${app}${name}`]()
       }
-    });
+    })
 
-    this.watcher[type][key] = watcher;
+    this.watcher[type][key] = watcher
   }
 
   saveSet(app, name, type, data) {
-    let file = this.getFilePath(app, name, type);
+    let file = this.getFilePath(app, name, type)
     if (lodash.isEmpty(data)) {
-      fs.existsSync(file) && fs.unlinkSync(file);
+      fs.existsSync(file) && fs.unlinkSync(file)
     } else {
-      let yaml = YAML.stringify(data);
-      fs.writeFileSync(file, yaml, "utf8");
+      let yaml = YAML.stringify(data)
+      fs.writeFileSync(file, yaml, 'utf8')
     }
   }
 }
 
-export default new config();
+export default new config()

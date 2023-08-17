@@ -1,6 +1,6 @@
-import { appsOut } from "./robot/index.js";
+import { appsOut } from './robot/index.js'
 const apps = await appsOut().then((req) => {
-  logger.info(`xiuxian@1.2.1 start ~`);
-  return req;
-});
-export { apps };
+  console.info(`xiuxian@1.2.1 start ~`)
+  return req
+})
+export { apps }
