@@ -59,9 +59,7 @@ export class secretplace extends plugin {
   //秘境地点
   async Secretplace(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let addres = '秘境'
     let weizhi = data.didian_list
     Goweizhi(e, weizhi, addres)
@@ -70,9 +68,7 @@ export class secretplace extends plugin {
   //禁地
   async Forbiddenarea(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let addres = '禁地'
     let weizhi = data.forbiddenarea_list
     Goweizhi(e, weizhi, addres)
@@ -81,9 +77,7 @@ export class secretplace extends plugin {
   //限定仙府
   async Timeplace(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let addres = '仙府'
     let weizhi = data.timeplace_list
     Goweizhi(e, weizhi, addres)
@@ -92,9 +86,7 @@ export class secretplace extends plugin {
   //仙境
   async Fairyrealm(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let addres = '仙境'
     let weizhi = data.Fairyrealm_list
     Goweizhi(e, weizhi, addres)
@@ -103,9 +95,7 @@ export class secretplace extends plugin {
   //降临秘境
   async Gosecretplace(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     const T = await Go(e)
     if (!T) {
@@ -161,9 +151,7 @@ export class secretplace extends plugin {
   //前往禁地
   async Goforbiddenarea(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     const T = await Go(e)
     if (!T) return false
@@ -224,9 +212,7 @@ export class secretplace extends plugin {
   //探索仙府
   async GoTimeplace(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     const T = await Go(e)
     if (!T) return false
@@ -277,9 +263,7 @@ export class secretplace extends plugin {
   //前往仙境
   async Gofairyrealm(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     const T = await Go(e)
     if (!T) return false
@@ -338,9 +322,7 @@ export class secretplace extends plugin {
 
   async Giveup(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) {

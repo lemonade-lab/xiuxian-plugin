@@ -63,9 +63,7 @@ export class adminsuper extends plugin {
 
   async Worldstatistics(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let acount = 0
     let lower = 0
     let senior = 0
@@ -184,9 +182,7 @@ export class adminsuper extends plugin {
 
   async Deleteforum(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let forum
     try {
       forum = await Read_forum()
@@ -205,9 +201,7 @@ export class adminsuper extends plugin {
   async DeleteBoss(e) {
     if (!e.isMaster) return false
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //boss分为金角大王、银角大王、魔王
     //魔王boss
     await redis.set('BossMaxplus', 1)
@@ -224,9 +218,7 @@ export class adminsuper extends plugin {
 
   async OpenBoss(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let User_maxplus = 1 //所有仙人数
     User_maxplus = Number(User_maxplus)
     let User_max = 1 //所有高段
@@ -331,9 +323,6 @@ export class adminsuper extends plugin {
 
   async Deletepurchase(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     let thingqq = e.msg.replace('#', '')
     //拿到物品与数量
@@ -375,9 +364,7 @@ export class adminsuper extends plugin {
 
   async Deleteexchange(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     e.reply('开始清除！')
     let exchange
     try {
@@ -428,9 +415,7 @@ export class adminsuper extends plugin {
 
   async Allrelieve(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     e.reply('开始行动！')
     let playerList = []
     let files = fs
@@ -468,9 +453,7 @@ export class adminsuper extends plugin {
 
   async relieve(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === 'at')
     if (!isat) {
@@ -514,9 +497,7 @@ export class adminsuper extends plugin {
 
   async Knockdown(e) {
     if (!e.isMaster || !e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //没有at信息直接返回,不执行
     let isat = e.message.some((item) => item.type === 'at')
     if (!isat) {

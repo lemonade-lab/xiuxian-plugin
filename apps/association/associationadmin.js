@@ -58,9 +58,7 @@ export class associationadmin extends plugin {
   //判断是否满足创建宗门条件
   async Create_association(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -109,9 +107,7 @@ export class associationadmin extends plugin {
   /** 获取宗门名称 */
   async Get_association_name(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let new_msg = this.e.message
     if (new_msg[0].type != 'text') {
@@ -162,9 +158,7 @@ export class associationadmin extends plugin {
   //护宗大阵
   async huz(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -179,9 +173,7 @@ export class associationadmin extends plugin {
   }
   async weihu(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -224,9 +216,7 @@ export class associationadmin extends plugin {
   //升级宗门
   async lvup_association(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) {
@@ -272,9 +262,7 @@ export class associationadmin extends plugin {
   //任命职位
   async Set_appointment(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let isat = e.message.some((item) => item.type === 'at')
     if (!isat) {
@@ -341,9 +329,7 @@ export class associationadmin extends plugin {
   //宗门维护
   async Maintenance(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) {
@@ -387,9 +373,7 @@ export class associationadmin extends plugin {
   //设置最低加入境界
   async jiaru(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let player = await data.getData('player', usr_qq)
     if (!isNotNull(player.宗门)) {
@@ -419,9 +403,7 @@ export class associationadmin extends plugin {
 
   async Deleteusermax(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -485,9 +467,7 @@ export class associationadmin extends plugin {
 
   async Deleteuser(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false

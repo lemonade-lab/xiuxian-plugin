@@ -47,9 +47,7 @@ export class toplist extends plugin {
   //封神榜
   async TOP_Immortal(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) {
@@ -118,9 +116,7 @@ export class toplist extends plugin {
   //#至尊榜
   async TOP_genius(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) {
@@ -188,9 +184,7 @@ export class toplist extends plugin {
 
   async TOP_xiuwei(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
@@ -239,9 +233,7 @@ export class toplist extends plugin {
   //TOP_lingshi
   async TOP_lingshi(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false

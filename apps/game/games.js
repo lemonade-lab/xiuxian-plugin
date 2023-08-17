@@ -63,9 +63,6 @@ export class games extends plugin {
   async Refusecouple(e) {
     let usr_qq = e.user_id
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     //全局状态判断
     const T = await Go(e)
@@ -81,9 +78,7 @@ export class games extends plugin {
     let usr_qq = e.user_id
     //不开放私聊
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //全局状态判断
     const T = await Go(e)
     if (!T) {
@@ -98,9 +93,7 @@ export class games extends plugin {
   //怡红院
   async Xiuianplay(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let switchgame = config.getconfig('xiuxian', 'xiuxian').switch.play
 
     if (switchgame != true) return false
@@ -199,9 +192,7 @@ export class games extends plugin {
     //用户固定写法
     let usr_qq = e.user_id
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //全局状态判断
     const T = await Go(e)
     if (!T) return false
@@ -266,9 +257,7 @@ export class games extends plugin {
   //梭哈|押注999
   async Moneycheck(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //统一用户ID名
     let usr_qq = e.user_id
     //获取当前时间戳
@@ -351,9 +340,7 @@ export class games extends plugin {
   //大|小
   async Moneycheckguess(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //统一用户ID名
     let usr_qq = e.user_id
     //获取当前时间戳
@@ -513,9 +500,7 @@ export class games extends plugin {
   async Moneyrecord(e) {
     let qq = e.user_id
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //全局状态判断
     const T = await Go(e)
     if (!T) {
@@ -564,9 +549,7 @@ export class games extends plugin {
   //来张卡片
   async getOneCard(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let template_path = await common.getTemplatePath()
     let cards = [
       'A',
@@ -622,9 +605,7 @@ export class games extends plugin {
   //双修
   async Couple(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //双修开关
     let gameswitch = config.getconfig('xiuxian', 'xiuxian').switch.couple
     if (gameswitch != true) {

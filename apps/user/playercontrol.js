@@ -43,9 +43,6 @@ export class playercontrol extends plugin {
 
     //不开放私聊
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     //获取游戏状态
     let game_action = await redis.get(
@@ -122,9 +119,6 @@ export class playercontrol extends plugin {
   async Dagong(e) {
     //不开放私聊
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     let usr_qq = e.user_id //用户qq
     //有无存档
@@ -218,9 +212,7 @@ export class playercontrol extends plugin {
    */
   async chuGuan(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let action = await this.getPlayerAction(e.user_id)
     let state = await this.getPlayerState(action)
     if (state == '空闲') {
@@ -298,9 +290,7 @@ export class playercontrol extends plugin {
    */
   async endWork(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let action = await this.getPlayerAction(e.user_id)
     let state = await this.getPlayerState(action)
     if (state == '空闲') {

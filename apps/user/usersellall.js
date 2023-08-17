@@ -44,9 +44,7 @@ export class usersellall extends plugin {
   //一键出售
   async Sell_all_comodities(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
@@ -90,9 +88,6 @@ export class usersellall extends plugin {
   //#(装备|服用|使用)物品*数量
   async all_xiuweidan(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     let usr_qq = e.user_id
     //有无存档
@@ -119,9 +114,7 @@ export class usersellall extends plugin {
 
   async all_zhuangbei(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
@@ -190,9 +183,7 @@ export class usersellall extends plugin {
 
   async all_learn(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //有无存档
     let ifexistplay = await existplayer(usr_qq)

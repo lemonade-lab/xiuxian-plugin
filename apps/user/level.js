@@ -51,9 +51,7 @@ export class level extends plugin {
 
   async levelMax_up(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) {
@@ -182,9 +180,7 @@ export class level extends plugin {
   //突破
   async level_up(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //有无账号
     let ifexistplay = await existplayer(usr_qq)
@@ -375,9 +371,6 @@ export class level extends plugin {
 
     //不开放私聊
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     //获取游戏状态
     let game_action = await redis.get(
@@ -558,9 +551,6 @@ export class level extends plugin {
 
     //不开放私聊
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     //获取游戏状态
     let game_action = await redis.get(

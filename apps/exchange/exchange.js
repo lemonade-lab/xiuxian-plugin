@@ -42,9 +42,7 @@ export class exchange extends plugin {
 
   async Offsell(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //固定写法
     let usr_qq = e.user_id
     //判断是否为匿名创建存档
@@ -172,9 +170,7 @@ export class exchange extends plugin {
   //上架
   async onsell(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //固定写法
     let usr_qq = e.user_id
     //有无存档
@@ -327,9 +323,7 @@ export class exchange extends plugin {
 
   async supermarket(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let exchange
     try {
       exchange = await Read_exchange()
@@ -373,9 +367,7 @@ export class exchange extends plugin {
 
   async purchase(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //全局状态判断
     const T = await Go(e)

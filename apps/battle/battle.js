@@ -25,9 +25,7 @@ export class battle extends plugin {
   //比武
   async biwu(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let A = e.user_id
 
     //先判断

@@ -48,9 +48,7 @@ export class association extends plugin {
   //宗门俸禄
   async gift_association(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -95,9 +93,7 @@ export class association extends plugin {
   //加入宗门
   async Join_association(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -159,9 +155,7 @@ export class association extends plugin {
   //退出宗门
   async Exit_association(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
@@ -239,9 +233,6 @@ export class association extends plugin {
   //捐赠灵石
   async give_association_lingshi(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
@@ -303,9 +294,7 @@ export class association extends plugin {
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let player = data.getData('player', usr_qq)
     if (!isNotNull(player.宗门)) return false
     let ass = data.getAssociation(player.宗门.宗门名称)
@@ -338,9 +327,7 @@ export class association extends plugin {
   //宗门列表
   async List_appointment(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false

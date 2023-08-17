@@ -40,9 +40,7 @@ export class bossall extends plugin {
   //怪物状态
   async Bosstate(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let bossMaxplus = await redis.get('BossMaxplus')
     let msg = ['《怪物时间》\n11:30——12:30\n18:30——19:30\n指令:#讨伐+怪物名']
     if (bossMaxplus == 0) {
@@ -111,9 +109,7 @@ export class bossall extends plugin {
   //讨伐魔王
   async BossMaxplus(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //看状态
     const T = await Go(e)
@@ -210,9 +206,7 @@ export class bossall extends plugin {
   //讨伐金角大王
   async BossMax(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //看状态
     const T = await Go(e)
@@ -314,9 +308,7 @@ export class bossall extends plugin {
   //讨伐银角大王
   async BossMini(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //看状态
     const T = await Go(e)

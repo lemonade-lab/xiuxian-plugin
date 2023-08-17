@@ -55,9 +55,7 @@ export class moneyoperation extends plugin {
 
   async MoneyWord(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //这是自己的
     let usr_qq = e.user_id
     //自己没存档
@@ -100,9 +98,7 @@ export class moneyoperation extends plugin {
 
   async Deduction(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     if (!e.isMaster) return false
 
     //对方
@@ -143,9 +139,7 @@ export class moneyoperation extends plugin {
 
   async Give_lingshi(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //这是自己的
     let A_qq = e.user_id
     //自己没存档
@@ -247,9 +241,7 @@ export class moneyoperation extends plugin {
   //发红包
   async Give_honbao(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     //这是自己的
     let usr_qq = e.user_id
     //自己没存档
@@ -331,9 +323,7 @@ export class moneyoperation extends plugin {
   //抢红包
   async uer_honbao(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
 
     //自己没存档
@@ -410,9 +400,6 @@ export class moneyoperation extends plugin {
   //发福利
   async Allfuli(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
 
     if (!e.isMaster) return false
 
@@ -488,9 +475,7 @@ export class moneyoperation extends plugin {
   //发补偿
   async Fuli(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     if (!e.isMaster) return false
     //获取发送灵石数量
     let lingshi = e.msg.replace('#', '')
@@ -561,9 +546,7 @@ export class moneyoperation extends plugin {
 
   async openwallet(e) {
     if (!e.isGroup || e.user_id == 80000000) return false
-    const { whitecrowd, blackid } = config.getconfig('parameter', 'namelist')
-    if (whitecrowd.indexOf(e.group_id) == -1) return false
-    if (blackid.indexOf(e.user_id) != -1) return false
+
     let usr_qq = e.user_id
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
