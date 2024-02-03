@@ -1,10 +1,10 @@
 # 云崽修仙插件
 
-## 重制版
+## 重制版 V1.4
 
-> 仅 Yunzai 机器人可用
+> 仅 Yunzai 系列机器人可用
 
-> 1.4 版本规划中。。。。。
+> 版本规划中。。。。。
 
 - 部署
 
@@ -12,10 +12,10 @@
 git clone --depth=1 -b build https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
 ```
 
-- 本地源码
+- 源码
 
 ```sh
-git clone https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
+git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
 ```
 
 ## 最新版

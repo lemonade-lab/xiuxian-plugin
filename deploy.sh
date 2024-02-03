@@ -15,6 +15,7 @@ rm -rf dist/index.js
 rm -rf dist/package.json
 rm -rf dist/config
 rm -rf dist/resources
+rm -rf dist/guoba.support.js
 
 npm run format
 
@@ -23,7 +24,7 @@ npm run build
 cp -rf package.json dist/package.json
 cp -rf config dist/config
 cp -rf resources dist/resources
-
+cp -rf guoba.support.js dist/guoba.support.js
 
 #--------------
 # 推送
