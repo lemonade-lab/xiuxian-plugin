@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "ignoreDeprecations": "5.0",
+    "allowJs": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["src", "index.d.ts"],
+  "exclude": [
+    "node_modules",
+    ".cache",
+    ".vscode",
+    "dist",
+    "config",
+    "data",
+    "logs"
+  ]
+}
