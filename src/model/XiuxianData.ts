@@ -1,24 +1,24 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
-import { getConfig } from './Config.js'
-import path from 'path'
-import { MyDirPath } from '../../config.js'
+import { join } from 'path'
+import { cwd } from '../../config.js'
+
+function getPath(name) {
+  return join(cwd, '/resources/data', name)
+}
 
 /**
  *
  */
 class XiuxianData {
-  //获取配置文件参数
-  configData = getConfig('version', 'version')
-
   filePathMap = {
-    player: path.join(MyDirPath, '/resources/data/xiuxian_player'), //用户数据
-    equipment: path.join(MyDirPath, '/resources/data/xiuxian_equipment'),
-    najie: path.join(MyDirPath, '/resources/data/xiuxian_najie'),
-    lib: path.join(MyDirPath, '/resources/data/item'),
-    Timelimit: path.join(MyDirPath, '/resources/data/Timelimit'), //限定
-    Level: path.join(MyDirPath, '/resources/data/Level'), //境界
-    association: path.join(MyDirPath, '/resources/data/association'),
-    occupation: path.join(MyDirPath, '/resources/data/occupation')
+    player: getPath('/xiuxian_player'), //用户数据
+    equipment: join(cwd, '/resources/data/xiuxian_equipment'),
+    najie: join(cwd, '/resources/data/xiuxian_najie'),
+    lib: join(cwd, '/resources/data/item'),
+    Timelimit: join(cwd, '/resources/data/Timelimit'), //限定
+    Level: join(cwd, '/resources/data/Level'), //境界
+    association: join(cwd, '/resources/data/association'),
+    occupation: join(cwd, '/resources/data/occupation')
   }
 
   lib_path = this.filePathMap.lib
@@ -201,7 +201,7 @@ class XiuxianData {
   existData(file_path_type, file_name) {
     let file_path
     file_path = this.filePathMap[file_path_type]
-    let dir = path.join(file_path + '/' + file_name + '.json')
+    let dir = join(file_path + '/' + file_name + '.json')
     if (existsSync(dir)) {
       return true
     }
@@ -220,11 +220,11 @@ class XiuxianData {
     if (user_qq) {
       //带user_qqthe查询数据文件
       file_path = this.filePathMap[file_name]
-      dir = path.join(file_path + '/' + user_qq + '.json')
+      dir = join(file_path + '/' + user_qq + '.json')
     } else {
       //不带参数the查询item下文件
       file_path = this.filePathMap.lib
-      dir = path.join(file_path + '/' + file_name + '.json')
+      dir = join(file_path + '/' + file_name + '.json')
     }
     try {
       data = readFileSync(dir, 'utf8')
@@ -247,10 +247,10 @@ class XiuxianData {
     let dir
     if (user_qq) {
       file_path = this.filePathMap[file_name]
-      dir = path.join(file_path + '/' + user_qq + '.json')
+      dir = join(file_path + '/' + user_qq + '.json')
     } else {
       file_path = this.filePathMap.lib
-      dir = path.join(file_path + '/' + file_name + '.json')
+      dir = join(file_path + '/' + file_name + '.json')
     }
     let new_ARR = JSON.stringify(data) //json转string
     if (existsSync(dir)) {
@@ -268,7 +268,7 @@ class XiuxianData {
     let dir
     let data
     file_path = this.filePathMap.association
-    dir = path.join(file_path + '/' + file_name + '.json')
+    dir = join(file_path + '/' + file_name + '.json')
     try {
       data = readFileSync(dir, 'utf8')
     } catch (error) {
@@ -289,7 +289,7 @@ class XiuxianData {
     let file_path
     let dir
     file_path = this.filePathMap.association
-    dir = path.join(file_path + '/' + file_name + '.json')
+    dir = join(file_path + '/' + file_name + '.json')
     let new_ARR = JSON.stringify(data) //json转string
     writeFileSync(dir, new_ARR, 'utf-8')
     return

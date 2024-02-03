@@ -191,8 +191,11 @@
             <div class="item_int2">评级：【{{weapon评级}}】</div>
           </div>
           <div class="item">
-            <div class="item_title2">{{equipment.protective_clothing.name}}</div>
-            {{if equipment.protective_clothing.atk>10 || equipment.protective_clothing.def>10 ||
+            <div class="item_title2">
+              {{equipment.protective_clothing.name}}
+            </div>
+            {{if equipment.protective_clothing.atk>10 ||
+            equipment.protective_clothing.def>10 ||
             equipment.protective_clothing.HP>10}}
             <div class="item_int2">属性:无</div>
             <div class="item_int2">
@@ -218,13 +221,15 @@
               血量:{{(equipment.protective_clothing.HP*100).toFixed(0)}}%
             </div>
             {{/if}}
-            <div class="item_int2">暴击：{{equipment.protective_clothing.bao}}</div>
+            <div class="item_int2">
+              暴击：{{equipment.protective_clothing.bao}}
+            </div>
             <div class="item_int2">评级：【{{protective_clothing评级}}】</div>
           </div>
           <div class="item">
             <div class="item_title2">{{equipment.magic_weapon.name}}</div>
-            {{if equipment.magic_weapon.atk>10 || equipment.magic_weapon.def>10 ||
-            equipment.magic_weapon.HP>10}}
+            {{if equipment.magic_weapon.atk>10 || equipment.magic_weapon.def>10
+            || equipment.magic_weapon.HP>10}}
             <div class="item_int2">属性:无</div>
             <div class="item_int2">
               攻击：{{(equipment.magic_weapon.atk).toFixed(0)}}

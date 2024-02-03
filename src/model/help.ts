@@ -1,11 +1,9 @@
 import base from './base.js'
 import { getConfig } from './Config.js'
 export default class Help extends base {
-  versionData = null
   constructor(e) {
     super()
     this.model = 'help'
-    this.versionData = getConfig('version', 'version')
   }
 
   static get(e) {
@@ -28,7 +26,7 @@ export default class Help extends base {
     return {
       ...this.screenData,
       saveId: 'help',
-      version: this.versionData.version,
+      version: '1.4.0',
       helpData: getConfig('help', name)
     }
   }

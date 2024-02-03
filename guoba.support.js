@@ -1,8 +1,5 @@
 import path from 'path'
-import { getConfig } from './model/Config.js'
-import { AppName, MyDirPath } from './config.js'
-const link = `https://gitee.com/ningmengchongshui/${AppName}/`
-const pkg = getConfig('version', 'version')
+import { AppName, cwd } from './config.js'
 export function supportGuoba() {
   return {
     pluginInfo: {
@@ -10,13 +7,13 @@ export function supportGuoba() {
       title: 'xiuxian@1.4.0',
       author: '',
       authorLink: '',
-      link,
+      link: `https://gitee.com/ningmengchongshui/xiuxian-plugin`,
       isV3: true,
       isV2: false,
-      description: `xiuxian@1.4.0${pkg.version}]`,
+      description: `xiuxian@1.4.0`,
       icon: 'mdi:stove',
       iconColor: '#d19f56',
-      iconPath: path.join(MyDirPath, 'resources/img/xiuxian.png')
+      iconPath: path.join(cwd, 'resources/img/xiuxian.png')
     }
   }
 }

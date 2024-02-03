@@ -1,6 +1,6 @@
 import { parse } from 'yaml'
 import { readFileSync } from 'fs'
-import { MyDirPath } from '../../config.js'
+import { cwd } from '../../config.js'
 /**
  *
  * @param app
@@ -8,5 +8,5 @@ import { MyDirPath } from '../../config.js'
  * @returns
  */
 export function getConfig(app: string, name: string) {
-  return parse(readFileSync(`${MyDirPath}/config/${app}/${name}.yaml`, 'utf8'))
+  return parse(readFileSync(`${cwd}/config/${app}/${name}.yaml`, 'utf8'))
 }
