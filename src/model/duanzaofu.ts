@@ -1,17 +1,18 @@
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
-import { __PATH } from './xiuxian.js'
 import data from './XiuxianData.js'
 import { Write_player } from './xiuxian.js'
-export async function settripod(qq) {
+import { __PATH } from './PATH.js'
+
+export function settripod(qq) {
   let tripod1
   try {
-    tripod1 = await Read_tripod()
+    tripod1 = Read_tripod()
   } catch {
-    await Write_duanlu([])
-    tripod1 = await Read_tripod()
+    Write_duanlu([])
+    tripod1 = Read_tripod()
   }
-  const A = await looktripod(qq)
+  const A = looktripod(qq)
   if (A != 1) {
     const newtripod = {
       qq: qq,
@@ -25,27 +26,27 @@ export async function settripod(qq) {
       预计时长: 0
     }
     tripod1.push(newtripod)
-    await Write_duanlu(tripod1)
+    Write_duanlu(tripod1)
   }
   //增加锻造天赋
-  const player = await data.getData('player', qq)
+  const player = data.getData('player', qq)
   let tianfu = Math.floor(40 * Math.random() + 80)
   player.锻造天赋 = tianfu
   //增加隐藏灵根
-  const a = await readall('隐藏灵根')
+  const a = readall('隐藏灵根')
   const newa = Math.floor(Math.random() * a.length)
   player.隐藏灵根 = a[newa]
-  await Write_player(qq, player)
-  const B = `获得煅炉，天赋[${player.锻造天赋}],隐藏灵根为[${player.隐藏灵根.name}]`
-  return B
+  Write_player(qq, player)
+  return `获得煅炉，天赋[${player.锻造天赋}],隐藏灵根为[${player.隐藏灵根.name}]`
 }
-export async function looktripod(qq) {
+
+export function looktripod(qq) {
   let tripod
   try {
-    tripod = await Read_tripod()
+    tripod = Read_tripod()
   } catch {
-    await Write_duanlu([])
-    tripod = await Read_tripod()
+    Write_duanlu([])
+    tripod = Read_tripod()
   }
   for (let item of tripod) {
     if (qq == item.qq) {
@@ -54,35 +55,37 @@ export async function looktripod(qq) {
   }
   return 0
 }
-export async function Read_mytripod(qq) {
+
+export function Read_mytripod(qq) {
   let tripod
   try {
-    tripod = await Read_tripod()
+    tripod = Read_tripod()
   } catch {
-    await Write_duanlu([])
-    tripod = await Read_tripod()
+    Write_duanlu([])
+    tripod = Read_tripod()
   }
-
   for (let item of tripod) {
     if (qq == item.qq) {
       return item
     }
   }
 }
-export async function Read_tripod() {
-  let dir = join(`${__PATH.duanlu}/duanlu.json`)
-  let duanlu = readFileSync(dir, 'utf8')
-  duanlu = JSON.parse(duanlu)
-  return duanlu
+
+export function Read_tripod() {
+  return JSON.parse(readFileSync(join(`${__PATH.duanlu}/duanlu.json`), 'utf8'))
 }
-export async function Write_duanlu(duanlu) {
-  let dir = join(__PATH.duanlu, `duanlu.json`)
-  let new_ARR = JSON.stringify(duanlu)
-  writeFileSync(dir, new_ARR, 'utf8')
+
+export function Write_duanlu(duanlu) {
+  writeFileSync(
+    join(__PATH.duanlu, `duanlu.json`),
+    JSON.stringify(duanlu),
+    'utf8'
+  )
   return
 }
+
 //数量矫正, 违规数量改成1
-export async function jiaozheng(value) {
+export function jiaozheng(value) {
   let size = value
   if (isNaN(parseFloat(size)) && !isFinite(size)) {
     return Number(1)
@@ -93,30 +96,27 @@ export async function jiaozheng(value) {
   }
   return Number(size)
 }
-//读取item 中某个json文件中的属性
-export async function readthat(thing_name, weizhi) {
-  let dir = join(`${__PATH.lib_path}/${weizhi}.json`)
-  let weizhi1 = readFileSync(dir, 'utf8')
 
-  weizhi1 = JSON.parse(weizhi1)
-  for (let item of weizhi1) {
+//读取item 中某个json文件中的属性
+export function readthat(thing_name, weizhi) {
+  const weizhi1 = JSON.parse(
+    readFileSync(join(`${__PATH.lib_path}/${weizhi}.json`), 'utf8')
+  )
+  for (const item of weizhi1) {
     if (item.name == thing_name) {
       return item
     }
   }
   return
 }
-//读取item某个文件的全部物品
-export async function readall(weizhi) {
-  let dir = join(`${__PATH.lib_path}/${weizhi}.json`)
-  let weizhi1 = readFileSync(dir, 'utf8')
 
-  weizhi1 = JSON.parse(weizhi1)
-
-  return weizhi1
+export function readall(weizhi) {
+  return JSON.parse(
+    readFileSync(join(`${__PATH.lib_path}/${weizhi}.json`), 'utf8')
+  )
 }
-//对值相同的五行进行挑选
-export async function getxuanze(shuju, linggentype) {
+
+export function getxuanze(shuju, linggentype) {
   let i
   const shuzu = [1, 2, 3, 4, 5]
   const wuxing = ['金', '木', '土', '水', '火', '金', '木', '土', '水', '火']
@@ -142,7 +142,8 @@ export async function getxuanze(shuju, linggentype) {
   }
   return false
 }
-export async function mainyuansu(shuju) {
+
+export function mainyuansu(shuju) {
   const B = ['金', '木', '土', '水', '火']
   for (let item in shuju) {
     if (shuju[item] != 0) {
@@ -150,9 +151,8 @@ export async function mainyuansu(shuju) {
     }
   }
 }
-//判断相生相克只有两个值不为0
 
-export async function Restraint(shuju, main) {
+export function Restraint(shuju, main) {
   let newshuzu = []
   let shuju2 = []
   const shuzu = ['金', '木', '土', '水', '火', '金', '木', '土', '水', '火']
@@ -194,24 +194,25 @@ export async function Restraint(shuju, main) {
   jiaceng = 0.08
   return [houzui, jiaceng]
 }
-export async function Writeit(custom) {
-  let dir = join(__PATH.custom, `custom.json`)
-  let new_ARR = JSON.stringify(custom)
-  writeFileSync(dir, new_ARR, 'utf8')
+
+export function Writeit(custom) {
+  writeFileSync(
+    join(__PATH.custom, `custom.json`),
+    JSON.stringify(custom),
+    'utf8'
+  )
   return
 }
-export async function Read_it() {
-  let dir = join(`${__PATH.custom}/custom.json`)
-  let custom = readFileSync(dir, 'utf8')
-  custom = JSON.parse(custom)
-  return custom
+
+export function Read_it() {
+  return JSON.parse(readFileSync(join(`${__PATH.custom}/custom.json`), 'utf8'))
 }
+
 export async function alluser() {
   let B = []
   let A = readdirSync(__PATH.player_path).filter((file) =>
     file.endsWith('.json')
   )
   for (let item of A) B.push(item.substring(0, item.lastIndexOf('.')))
-
   return B
 }

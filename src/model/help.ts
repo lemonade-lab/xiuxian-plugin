@@ -1,70 +1,51 @@
 import base from './base.js'
-import xiuxianCfg from './Config.js'
+import { getConfig } from './Config.js'
 export default class Help extends base {
   versionData = null
   constructor(e) {
-    super(e)
+    super()
     this.model = 'help'
-    this.versionData = xiuxianCfg.getConfig('version', 'version')
+    this.versionData = getConfig('version', 'version')
   }
 
-  static async get(e) {
-    let html = new Help(e)
-    return await html.getData()
+  static get(e) {
+    return new Help(e).getData()
   }
 
-  static async gethelpcopy(e) {
-    let html = new Help(e)
-    return await html.getDatahelpcopy()
+  static gethelpcopy(e) {
+    return new Help(e).getDatahelpcopy()
   }
 
-  static async setup(e) {
-    let html = new Help(e)
-    return await html.Getset()
+  static setup(e) {
+    return new Help(e).Getset()
   }
 
-  static async Association(e) {
-    let html = new Help(e)
-    return await html.GetAssociationt()
+  static Association(e) {
+    return new Help(e).GetAssociationt()
   }
 
-  async getDatahelpcopy() {
-    let helpData = xiuxianCfg.getConfig('help', 'helpcopy')
+  getDATA(name: string) {
     return {
       ...this.screenData,
       saveId: 'help',
       version: this.versionData.version,
-      helpData
+      helpData: getConfig('help', name)
     }
   }
 
-  async getData() {
-    let helpData = xiuxianCfg.getConfig('help', 'help')
-    return {
-      ...this.screenData,
-      saveId: 'help',
-      version: this.versionData.version,
-      helpData
-    }
+  getDatahelpcopy() {
+    return this.getDATA('helpcopy')
   }
 
-  async Getset() {
-    let helpData = xiuxianCfg.getConfig('help', 'set')
-    return {
-      ...this.screenData,
-      saveId: 'help',
-      version: this.versionData.version,
-      helpData
-    }
+  getData() {
+    return this.getDATA('help')
   }
 
-  async GetAssociationt() {
-    let helpData = xiuxianCfg.getConfig('help', 'Association')
-    return {
-      ...this.screenData,
-      saveId: 'help',
-      version: this.versionData.version,
-      helpData
-    }
+  Getset() {
+    return this.getDATA('set')
+  }
+
+  GetAssociationt() {
+    return this.getDATA('Association')
   }
 }

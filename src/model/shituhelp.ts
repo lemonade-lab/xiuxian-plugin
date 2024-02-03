@@ -1,26 +1,22 @@
 import base from './base.js'
-import xiuxianCfg from './Config.js'
-
+import { getConfig } from './Config.js'
 export default class Help2 extends base {
   versionData = null
   model = null
-  constructor(e) {
-    super(e)
+  constructor() {
+    super()
     this.model = 'shituhelp'
-    this.versionData = xiuxianCfg.getConfig('version', 'version')
+    this.versionData = getConfig('version', 'version')
   }
-
-  static async shituhelp(e) {
-    let html = new Help2(e)
-    return await html.shituhelp()
+  static shituhelp() {
+    return new Help2().shituhelp()
   }
-
-  async shituhelp() {
+  shituhelp() {
     return {
       ...this.screenData,
       saveId: 'help',
       version: this.versionData.version,
-      helpData: xiuxianCfg.getConfig('help', 'shituhelp')
+      helpData: getConfig('help', 'shituhelp')
     }
   }
 }

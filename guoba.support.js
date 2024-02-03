@@ -1,8 +1,8 @@
 import path from 'path'
-import Config from './model/Config.js'
+import { getConfig } from './model/Config.js'
 import { AppName, MyDirPath } from './config.js'
 const link = `https://gitee.com/ningmengchongshui/${AppName}/`
-const pkg = Config.getConfig('version', 'version')
+const pkg = getConfig('version', 'version')
 export function supportGuoba() {
   return {
     pluginInfo: {

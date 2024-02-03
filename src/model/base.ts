@@ -4,9 +4,7 @@ export default class base {
   e = null
   model = null
   _path = null
-  constructor(e) {
-    this.e = e
-    this.userId = e?.user_id
+  constructor() {
     this.model = AppName
     this._path = process.cwd().replace(/\\/g, '/')
   }
@@ -23,7 +21,6 @@ export default class base {
    */
   get screenData() {
     return {
-      saveId: this.userId,
       tplFile: `./plugins/${AppName}/resources/html/${this.model}/${this.model}.html`,
       /** 绝对路径 */
       pluResPath: `${this._path}/plugins/${AppName}/resources/`

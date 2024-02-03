@@ -1,10 +1,14 @@
-import fs, { existsSync, readFileSync, writeFileSync } from 'fs'
-import Config from './Config.js'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { getConfig } from './Config.js'
 import path from 'path'
 import { MyDirPath } from '../../config.js'
+
+/**
+ *
+ */
 class XiuxianData {
   //获取配置文件参数
-  configData = Config.getConfig('version', 'version')
+  configData = getConfig('version', 'version')
 
   filePathMap = {
     player: path.join(MyDirPath, '/resources/data/xiuxian_player'), //用户数据
@@ -196,7 +200,7 @@ class XiuxianData {
     let file_path
     file_path = this.filePathMap[file_path_type]
     let dir = path.join(file_path + '/' + file_name + '.json')
-    if (fs.existsSync(dir)) {
+    if (existsSync(dir)) {
       return true
     }
     return false
@@ -227,8 +231,7 @@ class XiuxianData {
       return 'error'
     }
     //将字符串数据转变成json格式
-    data = JSON.parse(data)
-    return data
+    return JSON.parse(data)
   }
 
   /**
@@ -290,4 +293,8 @@ class XiuxianData {
     return
   }
 }
+
+/**
+ *
+ */
 export default new XiuxianData()
