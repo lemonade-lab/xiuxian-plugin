@@ -31,7 +31,7 @@ class XiuxianData {
 
   //加载talent列表
   talent_list = JSON.parse(
-    readFileSync(`${this.lib_path}/talent列表.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/灵根列表.json`, 'utf-8')
   )
   //加载怪物列表
   monster_list = JSON.parse(
@@ -67,9 +67,9 @@ class XiuxianData {
   daoju_list = JSON.parse(
     readFileSync(`${this.lib_path}/道具列表.json`, 'utf-8')
   )
-  //加载skill列表
+  //加载功法列表
   gongfa_list = JSON.parse(
-    readFileSync(`${this.lib_path}/skill列表.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/功法列表.json`, 'utf-8')
   )
   //加载草药列表
   caoyao_list = JSON.parse(
@@ -100,9 +100,9 @@ class XiuxianData {
   timeplace_list = JSON.parse(
     readFileSync(`${this.Timelimit}/限定仙府.json`, 'utf-8')
   )
-  //加载限定skill
+  //加载限定功法
   timegongfa_list = JSON.parse(
-    readFileSync(`${this.Timelimit}/限定skill.json`, 'utf-8')
+    readFileSync(`${this.Timelimit}/限定功法.json`, 'utf-8')
   )
   //加载限定装备
   timeequipmen_list = JSON.parse(
@@ -129,7 +129,7 @@ class XiuxianData {
     readFileSync(`${this.Occupation}/装备图纸.json`, 'utf-8')
   )
 
-  //加载八品skill列表
+  //加载八品功法列表
   bapin = JSON.parse(readFileSync(`${this.lib_path}/八品.json`, 'utf-8'))
   //加载星阁列表
   xingge = JSON.parse(
@@ -172,22 +172,20 @@ class XiuxianData {
   duanzhaocailiao = JSON.parse(
     readFileSync(`${this.lib_path}/锻造材料.json`, 'utf-8')
   )
-  //锻造weapon列表
+  //锻造武器列表
   duanzhaowuqi = JSON.parse(
-    readFileSync(`${this.lib_path}/锻造weapon.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/锻造武器.json`, 'utf-8')
   )
-  //锻造protective_clothing列表
+  //锻造护具列表
   duanzhaohuju = JSON.parse(
-    readFileSync(`${this.lib_path}/锻造protective_clothing.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/锻造护具.json`, 'utf-8')
   )
   //锻造宝物列表
   duanzhaobaowu = JSON.parse(
     readFileSync(`${this.lib_path}/锻造宝物.json`, 'utf-8')
   )
   //hide_talent列表
-  yincang = JSON.parse(
-    readFileSync(`${this.lib_path}/hide_talent.json`, 'utf-8')
-  )
+  yincang = JSON.parse(readFileSync(`${this.lib_path}/隐藏灵根.json`, 'utf-8'))
   //锻造杂类列表
   zalei = JSON.parse(readFileSync(`${this.lib_path}/锻造杂类.json`, 'utf-8'))
   //加载技能列表

@@ -6,11 +6,6 @@
 
 > 1.4 版本规划中。。。。。
 
-```sh
-npm install pnpm -g
-pnpm install alemonjs@1.2.0-rc.28
-```
-
 - 部署
 
 ```sh

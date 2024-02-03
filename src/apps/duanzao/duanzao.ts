@@ -400,7 +400,7 @@ export class duanzao extends plugin {
           'xiuxian@1.4.0:' + user_qq + ':action10',
           JSON.stringify(arr)
         ) //redis设置动作
-        e.reply(`现在开始锻造weapon,最少需锻造30分钟,高级装备需要更多温养时间`)
+        e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`)
         return false
       }
     }
@@ -463,7 +463,7 @@ export class duanzao extends plugin {
         }
 
         let newrandom = Math.random()
-        let xuanze = ['锻造weapon', '锻造protective_clothing', '锻造宝物']
+        let xuanze = ['锻造武器', '锻造护具', '锻造宝物']
         let weizhi
         let wehizhi1
         if (jiuwei[0] > jiuwei[1] * 2) {
