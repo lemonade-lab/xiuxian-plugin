@@ -1,4 +1,3 @@
-import { plugin, common, config, data } from '../../api/api.js'
 import { readdirSync } from 'fs'
 import {
   isNotNull,
@@ -6,9 +5,11 @@ import {
   zd_battle,
   existshop,
   Write_shop,
-  Read_shop
+  Read_shop,
+  getConfig
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
+import { plugin } from '../../../import.js'
 export class Xijietask extends plugin {
   constructor() {
     super({
@@ -17,7 +18,7 @@ export class Xijietask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.action_task,
       name: 'Xijietask',
@@ -54,11 +55,11 @@ export class Xijietask extends plugin {
           }
         }
 
-        //最后发送的消息
+        //最后发送the消息
         let msg = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
-        //现在的时间
+        //现在the时间
         let now_time = new Date().getTime()
 
         //有洗劫状态:这个直接结算即可
@@ -68,7 +69,7 @@ export class Xijietask extends plugin {
           //时间过了
           if (now_time >= end_time) {
             let weizhi = action.Place_address
-            let i //获取对应npc列表的位置
+            let i //获取对应npc列表the位置
             for (i = 0; i < data.npc_list.length; i++) {
               if (data.npc_list[i].name == weizhi.name) {
                 break
@@ -93,35 +94,32 @@ export class Xijietask extends plugin {
             }
             //设定npc数值
             let B_player = {
-              名号: monster.name,
-              攻击: parseInt(monster.atk * A_player.攻击),
-              防御: parseInt(
-                (monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05)
-              ),
-              当前血量: parseInt(
-                (monster.blood * A_player.当前血量) / (1 + weizhi.Grade * 0.05)
-              ),
+              name: monster.name,
+              攻击: monster.atk * A_player.攻击,
+              防御: (monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05),
+              now_bool:
+                (monster.blood * A_player.now_bool) / (1 + weizhi.Grade * 0.05),
               暴击率: monster.baoji,
-              灵根: monster.灵根,
-              法球倍率: monster.灵根.法球倍率
+              talent: monster.talent,
+              法球倍率: monster.talent.法球倍率
             }
             let Data_battle
             let last_msg = ''
             if (A_player.魔值 == 0) {
               //根据魔道值决定先后手顺序
               Data_battle = await zd_battle(A_player, B_player)
-              last_msg += A_player.名号 + '悄悄靠近' + B_player.名号
-              A_player.当前血量 += Data_battle.A_xue
+              last_msg += A_player.name + '悄悄靠近' + B_player.name
+              A_player.now_bool += Data_battle.A_xue
             } else {
               Data_battle = await zd_battle(B_player, A_player)
               last_msg +=
-                A_player.名号 + '杀气过重,被' + B_player.名号 + '发现了'
-              A_player.当前血量 += Data_battle.B_xue
+                A_player.name + '杀气过重,被' + B_player.name + '发现了'
+              A_player.now_bool += Data_battle.B_xue
             }
             let msgg = Data_battle.msg
             console.log(msgg)
-            let A_win = `${A_player.名号}击败了${B_player.名号}`
-            let B_win = `${B_player.名号}击败了${A_player.名号}`
+            let A_win = `${A_player.name}击败了${B_player.name}`
+            let B_win = `${B_player.name}击败了${A_player.name}`
             let arr = action
             let time
             let action_time
@@ -135,7 +133,7 @@ export class Xijietask extends plugin {
               arr.xijie = -1 //进入二阶段
               last_msg +=
                 ',经过一番战斗,击败对手,剩余' +
-                A_player.当前血量 +
+                A_player.now_bool +
                 '血量,开始搜刮物品'
             } else if (msgg.find((item) => item == B_win)) {
               let num = weizhi.Grade
@@ -162,9 +160,9 @@ export class Xijietask extends plugin {
               const groupList = await redis.sMembers(redisGlKey)
               const xx =
                 '【全服公告】' +
-                A_player.名号 +
+                A_player.name +
                 '被' +
-                B_player.名号 +
+                B_player.name +
                 '抓进了地牢,希望大家遵纪守法,引以为戒'
               for (const group_id of groupList) {
                 this.pushInfo(group_id, true, xx)
@@ -225,13 +223,13 @@ export class Xijietask extends plugin {
                 thing = await existshop(weizhi.name)
                 x--
               }
-              last_msg += '经过一番搜寻' + arr.A_player.名号 + '找到了'
+              last_msg += '经过一番搜寻' + arr.A_player.name + '找到了'
               for (let j = 0; j < thing_name.length; j++) {
                 last_msg +=
                   '\n' + thing_name[j].name + ' x ' + thing_name[j].数量
               }
               last_msg +=
-                '\n刚出门就被万仙盟的人盯上了,他们仗着人多，你一人无法匹敌，于是撒腿就跑'
+                '\n刚出门就被万仙盟the人盯上了,他们仗着人多，你一人无法匹敌，于是撒腿就跑'
             }
             arr.action = '逃跑'
             time = 30 //时间（分钟）

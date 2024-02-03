@@ -1,5 +1,4 @@
 import { rmSync } from 'fs'
-import { plugin, data } from '../../api/api.js'
 import {
   existplayer,
   Write_player,
@@ -10,6 +9,7 @@ import {
   get_random_fromARR
 } from '../../model/index.js'
 import { Add_najie_thing, Add_HP } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class lunhui extends plugin {
   constructor() {
     super({
@@ -38,8 +38,8 @@ export class lunhui extends plugin {
     let lhxq = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lunhui')
     if (lhxq != 1) {
       e.reply(
-        '轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展。\n' +
-          '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦的十之八九。\n' +
+        '轮回之术乃逆天造化之术，须清空仙人所有thenow_exp气血才可施展。\n' +
+          '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦the十之八九。\n' +
           '回复:【确认轮回】或者【先不轮回】进行选择'
       )
       this.setContext('yeslunhui')
@@ -57,9 +57,9 @@ export class lunhui extends plugin {
       return false
     }
     let equipment = await Read_equipment(usr_qq)
-    if (equipment.武器.HP < 0) {
+    if (equipment.weapon.HP < 0) {
       e.reply(
-        `身上携带邪祟之物，无法进行轮回,请将[${equipment.武器.name}]放下后再进行轮回`
+        `身上携带邪祟之物，无法进行轮回,请将[${equipment.weapon.name}]放下后再进行轮回`
       )
       return false
     }
@@ -69,7 +69,7 @@ export class lunhui extends plugin {
           `被天庭发现，但因为没有轮回点未被关入天牢，\n` +
           `仅被警告一次，轮回失败！`
       )
-      player.当前血量 = 10
+      player.now_bool = 10
       await data.setData('player', usr_qq, player)
       return false
     }
@@ -77,11 +77,11 @@ export class lunhui extends plugin {
     let a = Math.random()
     if (a <= 1 / 9) {
       e.reply(
-        `本次轮回的最后关头，终究还是未能躲过天机！\n` +
+        `本次轮回the最后关头，终究还是未能躲过天机！\n` +
           `被天庭搜捕归案，关入天牢受尽折磨，轮回失败！`
       )
-      player.当前血量 = 1
-      player.修为 -= 10000000
+      player.now_bool = 1
+      player.now_exp -= 10000000
       player.血气 += 5141919
       player.灵石 -= 10000000
       data.setData('player', usr_qq, player)
@@ -111,18 +111,18 @@ export class lunhui extends plugin {
             rmSync(
               `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
             )
-            delete player.宗门 //删除存档里的宗门信息
+            delete player.宗门 //删除存档里the宗门信息
             data.setData('player', usr_qq, player)
             await player_efficiency(usr_qq)
             e.reply(
-              '一声巨响,原本的宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹'
+              '一声巨响,原本the宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹'
             )
           } else {
-            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
-            delete player.宗门 //删除这个B存档里的宗门信息
+            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+            delete player.宗门 //删除这个B存档里the宗门信息
             data.setData('player', usr_qq, player)
             await player_efficiency(usr_qq)
-            //随机一个幸运儿的QQ,优先挑选等级高的
+            //随机一个幸运儿theQQ,优先挑选等级高the
             let randmember_qq
             if (ass.副宗主.length > 0) {
               randmember_qq = await get_random_fromARR(ass.副宗主)
@@ -133,24 +133,24 @@ export class lunhui extends plugin {
             } else {
               randmember_qq = await get_random_fromARR(ass.所有成员)
             }
-            let randmember = await data.getData('player', randmember_qq) //获取幸运儿的存档
+            let randmember = await data.getData('player', randmember_qq) //获取幸运儿the存档
             ass[randmember.宗门.职位] = ass[randmember.宗门.职位].filter(
               (item) => item != randmember_qq
-            ) //原来的职位表删掉这个幸运儿
-            ass['宗主'] = randmember_qq //新的职位表加入这个幸运儿
+            ) //原来the职位表删掉这个幸运儿
+            ass['宗主'] = randmember_qq //新the职位表加入这个幸运儿
             randmember.宗门.职位 = '宗主' //成员存档里改职位
             data.setData('player', randmember_qq, randmember) //记录到存档
             data.setData('player', usr_qq, player)
             data.setAssociation(ass.宗门名称, ass) //记录到宗门
             e.reply(
-              `轮回前,遵循你的嘱托,${randmember.名号}将继承你的衣钵,成为新一任的宗主`
+              `轮回前,遵循你the嘱托,${randmember.name}将继承你the衣钵,成为新一任the宗主`
             )
           }
         }
       }
     }
     if (player.lunhui == 9) {
-      player.灵根 = {
+      player.talent = {
         id: 700999,
         name: '九转轮回体',
         type: '转生',
@@ -158,7 +158,7 @@ export class lunhui extends plugin {
         法球倍率: 1
       }
       let thing_name = '九转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -170,11 +170,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -183,7 +183,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 8) {
-      player.灵根 = {
+      player.talent = {
         id: 700998,
         name: '八转轮回体',
         type: '转生',
@@ -191,7 +191,7 @@ export class lunhui extends plugin {
         法球倍率: 0.42
       }
       let thing_name = '八转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -203,11 +203,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -216,7 +216,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 7) {
-      player.灵根 = {
+      player.talent = {
         id: 700997,
         name: '七转轮回体',
         type: '转生',
@@ -224,7 +224,7 @@ export class lunhui extends plugin {
         法球倍率: 0.39
       }
       let thing_name = '七转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -236,11 +236,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -249,7 +249,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 6) {
-      player.灵根 = {
+      player.talent = {
         id: 700996,
         name: '六转轮回体',
         type: '转生',
@@ -257,7 +257,7 @@ export class lunhui extends plugin {
         法球倍率: 0.36
       }
       let thing_name = '六转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -269,11 +269,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -282,7 +282,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 5) {
-      player.灵根 = {
+      player.talent = {
         id: 700995,
         name: '五转轮回体',
         type: '转生',
@@ -290,7 +290,7 @@ export class lunhui extends plugin {
         法球倍率: 0.33
       }
       let thing_name = '五转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -302,11 +302,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -315,7 +315,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 4) {
-      player.灵根 = {
+      player.talent = {
         id: 700994,
         name: '四转轮回体',
         type: '转生',
@@ -323,7 +323,7 @@ export class lunhui extends plugin {
         法球倍率: 0.3
       }
       let thing_name = '四转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -335,11 +335,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -348,7 +348,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 3) {
-      player.灵根 = {
+      player.talent = {
         id: 700993,
         name: '三转轮回体',
         type: '转生',
@@ -356,7 +356,7 @@ export class lunhui extends plugin {
         法球倍率: 0.26
       }
       let thing_name = '三转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -368,11 +368,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -381,7 +381,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 2) {
-      player.灵根 = {
+      player.talent = {
         id: 700992,
         name: '二转轮回体',
         type: '转生',
@@ -389,7 +389,7 @@ export class lunhui extends plugin {
         法球倍率: 0.23
       }
       let thing_name = '二转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -401,11 +401,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -414,7 +414,7 @@ export class lunhui extends plugin {
       return false
     }
     if (player.lunhui == 1) {
-      player.灵根 = {
+      player.talent = {
         id: 700991,
         name: '一转轮回体',
         type: '转生',
@@ -422,7 +422,7 @@ export class lunhui extends plugin {
         法球倍率: 0.2
       }
       let thing_name = '一转轮回'
-      let thing_class = '功法'
+      let thing_class = 'skill'
       let n = 1
       await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       player.level_id = 9
@@ -434,11 +434,11 @@ export class lunhui extends plugin {
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
-        player.修为 = 0
+        player.now_exp = 0
         player.血气 = 0
       }
       if (player.lunhuiBH == 1) {
-        player.修为 -= 10000000
+        player.now_exp -= 10000000
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
@@ -470,8 +470,8 @@ export class lunhui extends plugin {
     } else {
       this.setContext('yeslunhui')
       await this.reply(
-        '轮回之术乃逆天造化之术，须清空仙人所有的修为气血才可施展\n' +
-          '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦的十之八九' +
+        '轮回之术乃逆天造化之术，须清空仙人所有thenow_exp气血才可施展\n' +
+          '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦the十之八九' +
           '回复:【确认轮回】或者【先不轮回】进行选择'
       )
       return false

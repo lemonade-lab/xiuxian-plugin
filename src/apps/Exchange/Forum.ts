@@ -1,4 +1,4 @@
-import { plugin } from '../../api/api.js'
+import { plugin } from '../../../import.js'
 import {
   existplayer,
   exist_najie_thing,
@@ -7,7 +7,7 @@ import {
   __PATH,
   convert2integer,
   Add_najie_thing,
-  Add_灵石,
+  Add_money,
   Go,
   get_forum_img,
   Write_Forum,
@@ -22,7 +22,7 @@ export class Forum extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#聚宝堂(装备|丹药|功法|道具|草药|仙宠|材料)?$',
+          reg: '^#聚宝堂(装备|丹药|skill|道具|草药|仙宠|材料)?$',
           fnc: 'show_supermarket'
         },
         {
@@ -57,17 +57,17 @@ export class Forum extends plugin {
       Forum = await Read_Forum()
     }
     if (x >= Forum.length) {
-      e.reply(`没有编号为${x + 1}的宝贝需求`)
+      e.reply(`没有编号为${x + 1}the宝贝需求`)
       return false
     }
     //对比qq是否相等
     if (Forum[x].qq != usr_qq) {
-      e.reply('不能取消别人的宝贝需求')
+      e.reply('不能取消别人the宝贝需求')
       return false
     }
-    await Add_灵石(usr_qq, Forum[x].whole)
+    await Add_money(usr_qq, Forum[x].whole)
     e.reply(
-      player.名号 +
+      player.name +
         '取消' +
         Forum[x].name +
         '成功,返还' +
@@ -124,7 +124,7 @@ export class Forum extends plugin {
       e.reply(`灵石不足,还需要${off + whole - player.灵石}灵石`)
       return false
     }
-    await Add_灵石(usr_qq, -(off + whole))
+    await Add_money(usr_qq, -(off + whole))
     const wupin = {
       qq: usr_qq,
       name: thing_name,
@@ -218,7 +218,7 @@ export class Forum extends plugin {
 
     await Add_najie_thing(usr_qq, thing_name, thing_class, -n)
     //扣钱
-    await Add_灵石(usr_qq, money)
+    await Add_money(usr_qq, money)
     //加钱
     await Add_najie_thing(thingqq, thing_name, thing_class, n)
     Forum[x].aconut = Forum[x].aconut - n
@@ -226,6 +226,6 @@ export class Forum extends plugin {
     //删除该位置信息
     Forum = Forum.filter((item) => item.aconut > 0)
     await Write_Forum(Forum)
-    e.reply(`${player.名号}在聚宝堂收获了${money}灵石！`)
+    e.reply(`${player.name}在聚宝堂收获了${money}灵石！`)
   }
 }

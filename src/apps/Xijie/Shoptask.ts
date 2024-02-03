@@ -1,6 +1,6 @@
-import { plugin, config, data } from '../../api/api.js'
-import { Write_shop, Read_shop } from '../../model/index.js'
+import { Write_shop, Read_shop, getConfig, data } from '../../model/index.js'
 
+import { plugin } from '../../../import.js'
 export class Shoptask extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class Shoptask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.shop,
       name: 'Shoptask',

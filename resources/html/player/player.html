@@ -27,7 +27,7 @@
         </div>
         <!--右-->
         <div class="user_top_right">
-          <div class="user_top_font_right">道号：{{player.名号}}</div>
+          <div class="user_top_font_right">道号：{{player.name}}</div>
           <div class="user_top_font_right">QQ：{{user_id}}</div>
           <div class="user_top_font_right">
             性别：({{['未知','女','男','扶她'][player.sex]}})
@@ -37,7 +37,7 @@
             <div class="blood_box">
               <div class="blood_bar" {{strand_hp.style}}></div>
               <div class="blood_volume">
-                {{(player.当前血量).toFixed(0)}}/{{(player.血量上限).toFixed(0)}}
+                {{(player.now_bool).toFixed(0)}}/{{(player.血量上限).toFixed(0)}}
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
           <div class="user_font wupin">
             <div class="item">
               <div class="item_title font_left">
-                {{rank_lianqi}}{{if player.修为 >= expmax_lianqi}}[UP]{{/if}}
+                {{rank_lianqi}}{{if player.now_exp >= expmax_lianqi}}[UP]{{/if}}
               </div>
               <div class="item_int">
                 <div class="xuetiao">
@@ -96,7 +96,7 @@
                   </div>
                 </div>
               </div>
-              <div class="item_int">{{player.修为}}/{{expmax_lianqi}}</div>
+              <div class="item_int">{{player.now_exp}}/{{expmax_lianqi}}</div>
             </div>
             <div class="item">
               <div class="item_title font_left">
@@ -140,9 +140,9 @@
           <div class="item">
             <div class="item_title font_left">
               <div></div>
-              灵根：【{{player.灵根.type}}】{{if player.灵根.type !=
-              "无"}}{{player.灵根.name}}<br />
-              被动：【额外增伤】攻击+{{(player.灵根.法球倍率*100).toFixed(1)}}%{{/if}}
+              talent：【{{player.talent.type}}】{{if player.talent.type !=
+              "无"}}{{player.talent.name}}<br />
+              被动：【额外增伤】攻击+{{(player.talent.法球倍率*100).toFixed(1)}}%{{/if}}
               镇妖：【{{player.镇妖塔层数}}层】<br />
               神魂：【{{player.神魄段数}}层】<br />
               幸运:【{{(player.幸运*100).toFixed(1)}}%】<br />
@@ -160,97 +160,97 @@
         <div class="user_font user_font_title">[装备信息]</div>
         <div class="user_font wupin">
           <div class="item">
-            <div class="item_title2">{{equipment.武器.name}}</div>
-            {{if equipment.武器.atk>10 || equipment.武器.def>10 ||
-            equipment.武器.HP>10}}
+            <div class="item_title2">{{equipment.weapon.name}}</div>
+            {{if equipment.weapon.atk>10 || equipment.weapon.def>10 ||
+            equipment.weapon.HP>10}}
             <div class="item_int2">属性:无</div>
             <div class="item_int2">
-              攻击：{{(equipment.武器.atk).toFixed(0)}}
+              攻击：{{(equipment.weapon.atk).toFixed(0)}}
             </div>
             <div class="item_int2">
-              防御：{{(equipment.武器.def).toFixed(0)}}
+              防御：{{(equipment.weapon.def).toFixed(0)}}
             </div>
             <div class="item_int2">
-              血量：{{(equipment.武器.HP).toFixed(0)}}
+              血量：{{(equipment.weapon.HP).toFixed(0)}}
             </div>
             {{else}}
             <div class="item_int2">
-              属性:{{['金','木','土','水','火'][equipment.武器.id-1]}}
+              属性:{{['金','木','土','水','火'][equipment.weapon.id-1]}}
             </div>
             <div class="item_int2">
-              攻击:{{(equipment.武器.atk*100).toFixed(0)}}%
+              攻击:{{(equipment.weapon.atk*100).toFixed(0)}}%
             </div>
             <div class="item_int2">
-              防御:{{(equipment.武器.def*100).toFixed(0)}}%
+              防御:{{(equipment.weapon.def*100).toFixed(0)}}%
             </div>
             <div class="item_int2">
-              血量:{{(equipment.武器.HP*100).toFixed(0)}}%
+              血量:{{(equipment.weapon.HP*100).toFixed(0)}}%
             </div>
             {{/if}}
-            <div class="item_int2">暴击：{{equipment.武器.bao}}</div>
-            <div class="item_int2">评级：【{{武器评级}}】</div>
+            <div class="item_int2">暴击：{{equipment.weapon.bao}}</div>
+            <div class="item_int2">评级：【{{weapon评级}}】</div>
           </div>
           <div class="item">
-            <div class="item_title2">{{equipment.护具.name}}</div>
-            {{if equipment.护具.atk>10 || equipment.护具.def>10 ||
-            equipment.护具.HP>10}}
+            <div class="item_title2">{{equipment.protective_clothing.name}}</div>
+            {{if equipment.protective_clothing.atk>10 || equipment.protective_clothing.def>10 ||
+            equipment.protective_clothing.HP>10}}
             <div class="item_int2">属性:无</div>
             <div class="item_int2">
-              攻击：{{(equipment.护具.atk).toFixed(0)}}
+              攻击：{{(equipment.protective_clothing.atk).toFixed(0)}}
             </div>
             <div class="item_int2">
-              防御：{{(equipment.护具.def).toFixed(0)}}
+              防御：{{(equipment.protective_clothing.def).toFixed(0)}}
             </div>
             <div class="item_int2">
-              血量：{{(equipment.护具.HP).toFixed(0)}}
+              血量：{{(equipment.protective_clothing.HP).toFixed(0)}}
             </div>
             {{else}}
             <div class="item_int2">
-              属性:{{['金','木','土','水','火'][equipment.护具.id-1]}}
+              属性:{{['金','木','土','水','火'][equipment.protective_clothing.id-1]}}
             </div>
             <div class="item_int2">
-              攻击:{{(equipment.护具.atk*100).toFixed(0)}}%
+              攻击:{{(equipment.protective_clothing.atk*100).toFixed(0)}}%
             </div>
             <div class="item_int2">
-              防御:{{(equipment.护具.def*100).toFixed(0)}}%
+              防御:{{(equipment.protective_clothing.def*100).toFixed(0)}}%
             </div>
             <div class="item_int2">
-              血量:{{(equipment.护具.HP*100).toFixed(0)}}%
+              血量:{{(equipment.protective_clothing.HP*100).toFixed(0)}}%
             </div>
             {{/if}}
-            <div class="item_int2">暴击：{{equipment.护具.bao}}</div>
-            <div class="item_int2">评级：【{{护具评级}}】</div>
+            <div class="item_int2">暴击：{{equipment.protective_clothing.bao}}</div>
+            <div class="item_int2">评级：【{{protective_clothing评级}}】</div>
           </div>
           <div class="item">
-            <div class="item_title2">{{equipment.法宝.name}}</div>
-            {{if equipment.法宝.atk>10 || equipment.法宝.def>10 ||
-            equipment.法宝.HP>10}}
+            <div class="item_title2">{{equipment.magic_weapon.name}}</div>
+            {{if equipment.magic_weapon.atk>10 || equipment.magic_weapon.def>10 ||
+            equipment.magic_weapon.HP>10}}
             <div class="item_int2">属性:无</div>
             <div class="item_int2">
-              攻击：{{(equipment.法宝.atk).toFixed(0)}}
+              攻击：{{(equipment.magic_weapon.atk).toFixed(0)}}
             </div>
             <div class="item_int2">
-              防御：{{(equipment.法宝.def).toFixed(0)}}
+              防御：{{(equipment.magic_weapon.def).toFixed(0)}}
             </div>
             <div class="item_int2">
-              血量：{{(equipment.法宝.HP).toFixed(0)}}
+              血量：{{(equipment.magic_weapon.HP).toFixed(0)}}
             </div>
             {{else}}
             <div class="item_int2">
-              属性:{{['金','木','土','水','火'][equipment.法宝.id-1]}}
+              属性:{{['金','木','土','水','火'][equipment.magic_weapon.id-1]}}
             </div>
             <div class="item_int2">
-              攻击:{{(equipment.法宝.atk*100).toFixed(0)}}%
+              攻击:{{(equipment.magic_weapon.atk*100).toFixed(0)}}%
             </div>
             <div class="item_int2">
-              防御:{{(equipment.法宝.def*100).toFixed(0)}}%
+              防御:{{(equipment.magic_weapon.def*100).toFixed(0)}}%
             </div>
             <div class="item_int2">
-              血量:{{(equipment.法宝.HP*100).toFixed(0)}}%
+              血量:{{(equipment.magic_weapon.HP*100).toFixed(0)}}%
             </div>
             {{/if}}
-            <div class="item_int2">暴击：{{equipment.法宝.bao}}</div>
-            <div class="item_int2">评级：【{{法宝评级}}】</div>
+            <div class="item_int2">暴击：{{equipment.magic_weapon.bao}}</div>
+            <div class="item_int2">评级：【{{magic_weapon评级}}】</div>
           </div>
           <div class="item">
             {{if player.仙宠 == ""}}

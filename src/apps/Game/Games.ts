@@ -1,4 +1,4 @@
-import { plugin, puppeteer, data, config, Show } from '../../api/api.js'
+import { plugin } from '../../../import.js'
 import {
   Read_player,
   existplayer,
@@ -8,12 +8,10 @@ import {
   find_qinmidu,
   exist_hunyin,
   Go,
-  setu
+  setu,
+  Add_money,
+  Add_now_exp
 } from '../../model/index.js'
-import { Add_灵石, Add_修为 } from '../../model/index.js'
-let gane_key_user = [] //怡红院限制
-let yazhu = [] //投入
-let gametime = [] //临时游戏CD
 export class Games extends plugin {
   constructor() {
     super({
@@ -62,7 +60,7 @@ export class Games extends plugin {
     let usr_qq = e.user_id
     let player = await Read_player(usr_qq)
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':couple', 1)
-    e.reply(player.名号 + '开启了拒绝模式')
+    e.reply(player.name + '开启了拒绝模式')
     return false
   }
 
@@ -70,13 +68,13 @@ export class Games extends plugin {
     let usr_qq = e.user_id
     let player = await Read_player(usr_qq)
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':couple', 0)
-    e.reply(player.名号 + '开启了允许模式')
+    e.reply(player.name + '开启了允许模式')
     return false
   }
 
   //怡红院
   async Xiuianplay(e) {
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     let switchgame = cf.switch.play
     if (switchgame != true) {
       return false
@@ -102,9 +100,9 @@ export class Games extends plugin {
     //收益用
     let money = now_level_id * 1000
     //如果是渡劫期。大概收益用为33*1000=3.3w
-    //为防止丹药修为报废，这个收益要成曲线下降
-    //得到的修为
-    //先是1:1的收益
+    //为防止丹药now_exp报废，这个收益要成曲线下降
+    //得到thenow_exp
+    //先是1:1the收益
     let addlevel
     //到了结丹中期收益变低
     //都不是凡人了，还天天祸害人间？
@@ -116,26 +114,26 @@ export class Games extends plugin {
     //随机数
     let rand = Math.random()
     let ql1 =
-      "门口的大汉粗鲁的将你赶出来:'哪来的野小子,没钱还敢来学人家公子爷寻欢作乐?' 被人看出你囊中羞涩,攒到"
+      "门口the大汉粗鲁the将你赶出来:'哪来the野小子,没钱还敢来学人家公子爷寻欢作乐?' 被人看出你囊中羞涩,攒到"
     let ql2 = '灵石再来吧！'
     if (player.灵石 < money) {
       e.reply(ql1 + money + ql2)
       return false
     }
-    //加修为
+    //加now_exp
     if (rand < 0.5) {
       let randexp = 90 + parseInt(Math.random() * 20)
       e.reply(
         '花费了' +
           money +
-          '灵石,你好好放肆了一番,奇怪的修为增加了' +
+          '灵石,你好好放肆了一番,奇怪thenow_exp增加了' +
           randexp +
-          '!在鱼水之欢中你顿悟了,修为增加了' +
+          '!在鱼水之欢中你顿悟了,now_exp增加了' +
           addlevel +
           '!'
       )
-      await Add_修为(usr_qq, addlevel)
-      await Add_灵石(usr_qq, -money)
+      await Add_now_exp(usr_qq, addlevel)
+      await Add_money(usr_qq, -money)
       let gameswitch = cf.switch.Xiuianplay_key
       if (gameswitch == true) {
         setu(e)
@@ -144,7 +142,7 @@ export class Games extends plugin {
     }
     //被教训
     else if (rand > 0.7) {
-      await Add_灵石(usr_qq, -money)
+      await Add_money(usr_qq, -money)
       ql1 = '花了'
       ql2 =
         '灵石,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！'
@@ -153,9 +151,9 @@ export class Games extends plugin {
     }
     //被坑了
     else {
-      await Add_灵石(usr_qq, -money)
+      await Add_money(usr_qq, -money)
       ql1 =
-        '这一次，你进了一个奇怪的小巷子，那里衣衫褴褛的漂亮姐姐说要找你玩点有刺激的，你想都没想就进屋了。\n'
+        '这一次，你进了一个奇怪the小巷子，那里衣衫褴褛the漂亮姐姐说要找你玩点有刺激the，你想都没想就进屋了。\n'
       ql2 =
         '没想到进屋后不多时遍昏睡过去。醒来发现自己被脱光扔在郊外,浑身上下只剩一条裤衩子了。仰天长啸：也不过是从头再来！'
       e.reply([segment.at(usr_qq), ql1 + ql2])
@@ -165,7 +163,7 @@ export class Games extends plugin {
 
   //金银坊
   async Moneynumber(e) {
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     //金银坊开关
     let gameswitch = cf.switch.Moneynumber
     if (gameswitch != true) return false
@@ -194,7 +192,7 @@ export class Games extends plugin {
     //设置
     let time = cf.CD.gambling //
     //获取当前时间
-    //最后的游戏时间
+    //最后the游戏时间
     //last_game_time
     //获得时间戳
     let last_game_time = await redis.get(
@@ -243,7 +241,7 @@ export class Games extends plugin {
     let now_time = new Date().getTime()
     //文档
     let ifexistplay = await existplayer(usr_qq)
-    //得到此人的状态
+    //得到此人the状态
     //判断是否是投入用户
     let game_action = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
@@ -254,7 +252,7 @@ export class Games extends plugin {
     }
     //梭哈|投入999。如果是投入。就留下999
     let es = e.msg.replace('#投入', '').trim()
-    //去掉投入，发现得到的是梭哈
+    //去掉投入，发现得到the是梭哈
     //梭哈，全部灵石
     if (es == '#梭哈') {
       let player = await Read_player(usr_qq)
@@ -273,9 +271,9 @@ export class Games extends plugin {
         yazhu[usr_qq] = parseInt(es)
         //这里限制一下，至少押1w
         let money = 10000
-        //如果投入的数大于0
+        //如果投入the数大于0
         if (yazhu[usr_qq] >= money) {
-          //如果押的钱不够
+          //如果押the钱不够
           //值未真。并记录此人信息
           gane_key_user[usr_qq]
           e.reply('媚娘：投入完成,发送[大]或[小]')
@@ -309,7 +307,7 @@ export class Games extends plugin {
     let now_time = new Date().getTime()
     //文档
     let ifexistplay = await existplayer(usr_qq)
-    //得到此人的状态
+    //得到此人the状态
     //判断是否是投入用户
     let game_action = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
@@ -322,7 +320,7 @@ export class Games extends plugin {
       return false
     }
     //判断是否投入金额
-    //是对应的投入用户。
+    //是对应the投入用户。
     //检查此人是否已经投入
     if (!gane_key_user) {
       e.reply('媚娘：公子，你还没投入呢')
@@ -337,13 +335,13 @@ export class Games extends plugin {
     let n
     //防止娶不到整，我们自己取
     for (n = 1; n <= randtime; n++) {
-      //是1.111就取1 --是2.0就取到2。没有7.0是不可能取到7的。也就是得到6
+      //是1.111就取1 --是2.0就取到2。没有7.0是不可能取到7the。也就是得到6
       //随机并取整
       touzi = n
     }
-    //发送固定点数的touzi
+    //发送固定点数thetouzi
     e.reply(segment.dice(touzi))
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     //你说大，touzi是大。赢了
     if ((es == '大' && touzi > 3) || (es == '小' && touzi < 4)) {
       //赢了
@@ -354,7 +352,7 @@ export class Games extends plugin {
       //增加金银坊投资记录
       //投入大于一百万
       if (yazhu[usr_qq] >= z) {
-        //扣一半的投入
+        //扣一半the投入
         x = cf.percentage.punishment
         //并提示这是被扣了一半
         y = 0
@@ -373,8 +371,8 @@ export class Games extends plugin {
       }
       //把记录写入
       data.setData('player', usr_qq, player)
-      //得到的
-      Add_灵石(usr_qq, yazhu[usr_qq])
+      //得到the
+      Add_money(usr_qq, yazhu[usr_qq])
       if (y == 1) {
         e.reply([
           segment.at(usr_qq),
@@ -385,7 +383,7 @@ export class Games extends plugin {
       } else {
         e.reply([
           segment.at(usr_qq),
-          `骰子最终为 ${touzi} 你虽然猜对了，但是金银坊怀疑你出老千，准备打断你的腿的时候，你选择破财消灾。`,
+          `骰子最终为 ${touzi} 你虽然猜对了，但是金银坊怀疑你出老千，准备打断你the腿the时候，你选择破财消灾。`,
           '\n',
           `现在拥有灵石:${player.灵石 + yazhu[usr_qq]}`
         ])
@@ -415,8 +413,8 @@ export class Games extends plugin {
       }
       //把记录写入
       data.setData('player', usr_qq, player)
-      //只要花灵石的地方就要查看是否存在游戏状态
-      Add_灵石(usr_qq, -yazhu[usr_qq])
+      //只要花灵石the地方就要查看是否存在游戏状态
+      Add_money(usr_qq, -yazhu[usr_qq])
       let msg = [
         segment.at(usr_qq),
         `骰子最终为 ${touzi} 你猜错了！`,
@@ -464,7 +462,7 @@ export class Games extends plugin {
     } else {
       shenglv = ((victory / (victory + defeated)) * 100).toFixed(2)
     }
-    const data1 = await new Show(e).get_jinyin({
+    const data1 = await new Show().get_jinyin({
       user_qq: qq,
       victory,
       victory_num,
@@ -479,7 +477,7 @@ export class Games extends plugin {
 
   //双修
   async Couple(e) {
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     //双修开关
     let gameswitch = cf.switch.couple
     if (gameswitch != true) {
@@ -499,11 +497,11 @@ export class Games extends plugin {
     }
     let Time = cf.CD.couple //6个小时
     let shuangxiuTimeout = parseInt(60000 * Time)
-    //自己的cd
+    //自己thecd
     let now_Time = new Date().getTime() //获取当前时间戳
     let last_timeA = await redis.get(
       'xiuxian@1.4.0:' + A + ':last_shuangxiu_time'
-    ) //获得上次的时间戳,
+    ) //获得上次the时间戳,
     last_timeA = parseInt(last_timeA)
     if (now_Time < last_timeA + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
@@ -517,7 +515,7 @@ export class Games extends plugin {
     }
     let last_timeB = await redis.get(
       'xiuxian@1.4.0:' + B + ':last_shuangxiu_time'
-    ) //获得上次的时间戳,
+    ) //获得上次the时间戳,
     last_timeB = parseInt(last_timeB)
     if (now_Time < last_timeB + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
@@ -567,50 +565,50 @@ export class Games extends plugin {
       if (option > 0 && option <= 0.5) {
         x = 28000
         y = Math.trunc(xiuwei * x)
-        await Add_修为(A, parseInt(y))
-        await Add_修为(B, parseInt(y))
+        await Add_now_exp(A, parseInt(y))
+        await Add_now_exp(B, parseInt(y))
         await add_qinmidu(A, B, 30)
         e.reply(
           '你们双方情意相通，缠绵一晚，都增加了' +
             parseInt(y) +
-            '修为,亲密度增加了30点'
+            'now_exp,亲密度增加了30点'
         )
         return false
       } else if (option > 0.5 && option <= 0.6) {
         x = 21000
         y = Math.trunc(xiuwei * x)
-        await Add_修为(A, parseInt(y))
-        await Add_修为(B, parseInt(y))
+        await Add_now_exp(A, parseInt(y))
+        await Add_now_exp(B, parseInt(y))
         await add_qinmidu(A, B, 20)
         e.reply(
           '你们双方交心交神，努力修炼，都增加了' +
             parseInt(y) +
-            '修为,亲密度增加了20点'
+            'now_exp,亲密度增加了20点'
         )
       } else if (option > 0.6 && option <= 0.7) {
         x = 14000
         y = Math.trunc(xiuwei * x)
-        await Add_修为(A, parseInt(y))
-        await Add_修为(B, parseInt(y))
+        await Add_now_exp(A, parseInt(y))
+        await Add_now_exp(B, parseInt(y))
         await add_qinmidu(A, B, 15)
         e.reply(
           '你们双方共同修炼，过程平稳，都增加了' +
             parseInt(y) +
-            '修为,亲密度增加了15点'
+            'now_exp,亲密度增加了15点'
         )
       } else if (option > 0.7 && option <= 0.9) {
         x = 520
         y = Math.trunc(1 * x)
-        await Add_修为(A, parseInt(y))
-        await Add_修为(B, parseInt(y))
+        await Add_now_exp(A, parseInt(y))
+        await Add_now_exp(B, parseInt(y))
         await add_qinmidu(A, B, 10)
         e.reply(
           '你们双方努力修炼，但是并进不了状态，都增加了' +
             parseInt(y) +
-            '修为,亲密度增加了10点'
+            'now_exp,亲密度增加了10点'
         )
       } else {
-        e.reply('你们双修时心神合一，但是不知道哪来的小孩，惊断了状态')
+        e.reply('你们双修时心神合一，但是不知道哪来the小孩，惊断了状态')
       }
       return false
     }

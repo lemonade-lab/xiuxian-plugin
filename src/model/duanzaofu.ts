@@ -32,12 +32,12 @@ export function settripod(qq) {
   const player = data.getData('player', qq)
   let tianfu = Math.floor(40 * Math.random() + 80)
   player.锻造天赋 = tianfu
-  //增加隐藏灵根
-  const a = readall('隐藏灵根')
+  //增加hide_talent
+  const a = readall('hide_talent')
   const newa = Math.floor(Math.random() * a.length)
-  player.隐藏灵根 = a[newa]
+  player.hide_talent = a[newa]
   Write_player(qq, player)
-  return `获得煅炉，天赋[${player.锻造天赋}],隐藏灵根为[${player.隐藏灵根.name}]`
+  return `获得煅炉，天赋[${player.锻造天赋}],hide_talent为[${player.hide_talent.name}]`
 }
 
 export function looktripod(qq) {
@@ -97,7 +97,7 @@ export function jiaozheng(value) {
   return Number(size)
 }
 
-//读取item 中某个json文件中的属性
+//读取item 中某个json文件中the属性
 export function readthat(thing_name, weizhi) {
   const weizhi1 = JSON.parse(
     readFileSync(join(`${__PATH.lib_path}/${weizhi}.json`), 'utf8')

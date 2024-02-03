@@ -1,4 +1,4 @@
-import { plugin, data, config } from '../../api/api.js'
+import { plugin } from '../../../import.js'
 import {
   timestampToTime,
   shijianc,
@@ -82,7 +82,7 @@ export class Garden extends plugin {
         continue
       let vegetable_Oldtime = await redis.get(
         'xiuxian:' + ass.宗门名称 + zuowu[i].name
-      ) //获得上次的成熟时间戳,
+      ) //获得上次the成熟时间戳,
       let chengshu_t = Math.trunc((vegetable_Oldtime - nowTime) / 86400000) //成熟天数
       let chengshu_m = Math.trunc(
         ((vegetable_Oldtime - nowTime) % 86400000) / 60 / 60 / 1000
@@ -134,7 +134,7 @@ export class Garden extends plugin {
     )
     //
     last_garden_time = parseInt(last_garden_time)
-    let time = config.getConfig('xiuxian', 'xiuxian').CD.garden //时间（分钟）
+    let time = getConfig('xiuxian', 'xiuxian').CD.garden //时间（分钟）
     let transferTimeout = parseInt(60000 * time) //
     if (nowTime < last_garden_time + transferTimeout) {
       let waittime_m = Math.trunc(
@@ -158,7 +158,7 @@ export class Garden extends plugin {
         let nowTime = new Date().getTime() //获取当前时间
         let vegetable_Oldtime = await redis.get(
           'xiuxian:' + ass.宗门名称 + vagetable_name
-        ) //获得上次的成熟时间戳,
+        ) //获得上次the成熟时间戳,
         if (nowTime + 1000 * 60 * 30 < vegetable_Oldtime) {
           //判断是否成熟
           e.reply(
@@ -166,7 +166,7 @@ export class Garden extends plugin {
               vegetable_Oldtime - nowTime - 1000 * 60 * 30
             }成熟度`
           )
-          vegetable_Oldtime -= 1000 * 60 * 30 //每次拔苗助长减少 预定成熟的时间
+          vegetable_Oldtime -= 1000 * 60 * 30 //每次拔苗助长减少 预定成熟the时间
           await redis.set(
             'xiuxian:' + ass.宗门名称 + vagetable_name,
             vegetable_Oldtime
@@ -179,7 +179,7 @@ export class Garden extends plugin {
           return false
         } else {
           e.reply(
-            `作物${vagetable_name}已成熟，被${usr_qq}${player.名号}摘取,放入纳戒了`
+            `作物${vagetable_name}已成熟，被${usr_qq}${player.name}摘取,放入纳戒了`
           )
           await Add_najie_thing(usr_qq, vagetable_name, '草药', 1)
           let vegetable_OutTime = nowTime + 1000 * 60 * 60 * 24 * ts //设置新一轮成熟时间戳
@@ -247,11 +247,11 @@ export class Garden extends plugin {
           e.reply(`剑帝一剑【残云封天】，封！`)
           e.group.muteMember(qq, num2 * 6)
         } else if (num3 < num4) {
-          e.reply(`虚空中出现一只大手，砍出一剑，${player1.名号}没有了动静`)
+          e.reply(`虚空中出现一只大手，砍出一剑，${player1.name}没有了动静`)
           e.group.muteMember(qq, num2 * 9)
         } else {
           e.reply(
-            `${user_id}${player.名号}一手按压在剑帝信物上，一道剑光从剑帝信物上发出，化成符文冲入${qq}${player1.名号}口中，封！`
+            `${user_id}${player.name}一手按压在剑帝信物上，一道剑光从剑帝信物上发出，化成符文冲入${qq}${player1.name}口中，封！`
           )
           e.group.muteMember(qq, num2 * 8)
         }
@@ -264,7 +264,7 @@ export class Garden extends plugin {
           e.group.muteMember(qq, num2 * 8)
         } else {
           e.reply(
-            `一手按压在剑帝信物上，一道剑光从剑帝信物上发出，化成符文冲入${qq}${player1.名号}口中，封！`
+            `一手按压在剑帝信物上，一道剑光从剑帝信物上发出，化成符文冲入${qq}${player1.name}口中，封！`
           )
           e.group.muteMember(qq, num2 * 8)
         }
@@ -281,7 +281,7 @@ export class Garden extends plugin {
           delete GayCD[id]
         }
       }, cd * 60 * 1000)
-      //执行的逻辑功能
+      //执行the逻辑功能
 
       return false
     } else {
@@ -295,7 +295,7 @@ export class Garden extends plugin {
 }
 
 /**
- * 创立新的药园
+ * 创立新the药园
  * @param name 宗门名称
  * @param user_qq qq号
  */
@@ -315,28 +315,28 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         },
         {
           name: '大吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 7,
-          desc: '大吉祥草的护佑'
+          desc: '大吉祥草the护佑'
         },
         {
           name: '仙草',
@@ -363,28 +363,28 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         },
         {
           name: '大吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 7,
-          desc: '大吉祥草的护佑'
+          desc: '大吉祥草the护佑'
         },
         {
           name: '仙草',
@@ -411,28 +411,28 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         },
         {
           name: '大吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 7,
-          desc: '大吉祥草的护佑'
+          desc: '大吉祥草the护佑'
         },
         {
           name: '仙草',
@@ -459,28 +459,28 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         },
         {
           name: '大吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 7,
-          desc: '大吉祥草的护佑'
+          desc: '大吉祥草the护佑'
         },
         {
           name: '仙草',
@@ -507,28 +507,28 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         },
         {
           name: '大吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 7,
-          desc: '大吉祥草的护佑'
+          desc: '大吉祥草the护佑'
         },
         {
           name: '仙草',
@@ -548,28 +548,28 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         },
         {
           name: '大吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 7,
-          desc: '大吉祥草的护佑'
+          desc: '大吉祥草the护佑'
         }
       ]
     }
@@ -582,21 +582,21 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         },
         {
           name: '小吉祥草',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 3,
-          desc: '小吉祥草的护佑，拥有抵御雷劫的力量'
+          desc: '小吉祥草the护佑，拥有抵御雷劫the力量'
         }
       ]
     }
@@ -609,14 +609,14 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         },
         {
           name: '掣电树',
           start_time: nowTime,
           who_plant: user_qq,
           ts: 2,
-          desc: '汲取了地脉灵气的巨大藤蔓形成的草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
+          desc: '汲取了地脉灵气the巨大藤蔓形成the草树。\n从树冠中源源不断释放出电力，隐隐有着雷光闪烁。\n5米内禁止玩火，雷火反应发生爆炸'
         }
       ]
     }
@@ -629,7 +629,7 @@ async function new_Garden(association_name, user_qq) {
           start_time: nowTime,
           who_plant: user_qq,
           ts: 1,
-          desc: '汲取了地脉灵气形成的草'
+          desc: '汲取了地脉灵气形成the草'
         }
       ]
     }
@@ -668,7 +668,7 @@ function sortBy(field) {
 
 //获取上次签到时间
 async function getLastsign_Asso(usr_qq) {
-  //查询redis中的人物动作
+  //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastsign_Asso_time')
   if (time != null) {
     let data = await shijianc(parseInt(time))

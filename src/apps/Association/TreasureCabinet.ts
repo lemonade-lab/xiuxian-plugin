@@ -1,4 +1,3 @@
-import { plugin, data } from '../../api/api.js'
 import {
   Read_danyao,
   Write_danyao,
@@ -7,6 +6,7 @@ import {
   __PATH,
   shijianc
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class TreasureCabinet extends plugin {
   constructor() {
     super({
@@ -19,7 +19,7 @@ export class TreasureCabinet extends plugin {
       priority: 9999,
       rule: [
         {
-          reg: '^#我的贡献$',
+          reg: '^#我the贡献$',
           fnc: 'gonxian'
         },
         {
@@ -33,7 +33,7 @@ export class TreasureCabinet extends plugin {
       ]
     })
   }
-  //我的贡献
+  //我the贡献
   async gonxian(e) {
     let usr_qq = e.user_id
     //用户不存在
@@ -54,9 +54,9 @@ export class TreasureCabinet extends plugin {
     //贡献值为捐献灵石除10000
     let gonxianzhi = Math.trunc(player.宗门.lingshi_donate / 10000)
     e.reply(
-      '你为宗门的贡献值为[' +
+      '你为宗门the贡献值为[' +
         gonxianzhi +
-        '],可以在#宗门藏宝阁 使用贡献值兑换宗门物品,感谢您对宗门做出的贡献'
+        '],可以在#宗门藏宝阁 使用贡献值兑换宗门物品,感谢您对宗门做出the贡献'
     )
   }
 
@@ -83,11 +83,11 @@ export class TreasureCabinet extends plugin {
 
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.宗门等级 < 8) {
-      e.reply(`宗门等级不足，尚不具备召唤神兽的资格`)
+      e.reply(`宗门等级不足，尚不具备召唤神兽the资格`)
       return false
     }
     if (ass.宗门建设等级 < 50) {
-      e.reply(`宗门建设等级不足,木头墙木头地板的不怕神兽把宗门拆了？`)
+      e.reply(`宗门建设等级不足,木头墙木头地板the不怕神兽把宗门拆了？`)
       return false
     }
     if (ass.宗门驻地 == 0) {
@@ -99,32 +99,32 @@ export class TreasureCabinet extends plugin {
       return false
     }
     if (ass.宗门神兽 != 0) {
-      e.reply(`你的宗门已经有神兽了`)
+      e.reply(`你the宗门已经有神兽了`)
       return false
     }
     //校验都通过了，可以召唤神兽了
     let random = Math.random()
     if (random > 0.8) {
-      //给丹药,隐藏神兽,赐福时气血和修为都加,宗门驻地等级提高一级
+      //给丹药,hide_神兽,赐福时气血和now_exp都加,宗门驻地等级提高一级
       ass.宗门神兽 = '麒麟'
     } else if (random > 0.6) {
-      //给功法，赐福加修为
+      //给skill，赐福加now_exp
       ass.宗门神兽 = '青龙'
     } else if (random > 0.4) {
-      //给护具，赐福加气血
+      //给protective_clothing，赐福加气血
       ass.宗门神兽 = '玄武'
     } else if (random > 0.2) {
-      //给法宝，赐福加修为
+      //给magic_weapon，赐福加now_exp
       ass.宗门神兽 = '朱雀'
     } else {
-      //给武器 赐福加气血
+      //给weapon 赐福加气血
       ass.宗门神兽 = '白虎'
     }
 
     ass.灵石池 -= 2000000
     await data.setAssociation(ass.宗门名称, ass)
     e.reply(
-      `召唤成功，神兽${ass.宗门神兽}投下一道分身，开始守护你的宗门，绑定神兽后不可更换哦`
+      `召唤成功，神兽${ass.宗门神兽}投下一道分身，开始守护你the宗门，绑定神兽后不可更换哦`
     )
     return false
   }
@@ -142,12 +142,12 @@ export class TreasureCabinet extends plugin {
     }
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.宗门神兽 == 0) {
-      e.reply('你的宗门还没有神兽的护佑，快去召唤神兽吧')
+      e.reply('你the宗门还没有神兽the护佑，快去召唤神兽吧')
       return false
     }
 
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
+    let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Bonus(usr_qq) //获得上次宗门签到日期
     if (
@@ -191,7 +191,7 @@ export class TreasureCabinet extends plugin {
         }
         await Add_najie_thing(usr_qq, item_name, item_class, 1)
       } else if (ass.宗门神兽 == '青龙') {
-        //给功法，赐福加修为
+        //给skill，赐福加now_exp
         if (randomB > 0.9) {
           location = Math.floor(Math.random() * data.qinlong.length)
           item_name = data.qinlong[location].name
@@ -203,7 +203,7 @@ export class TreasureCabinet extends plugin {
         }
         await Add_najie_thing(usr_qq, item_name, item_class, 1)
       } else if (ass.宗门神兽 == '玄武') {
-        //给护具，赐福加气血
+        //给protective_clothing，赐福加气血
         if (randomB > 0.9) {
           location = Math.floor(Math.random() * data.xuanwu.length)
           item_name = data.xuanwu[location].name
@@ -215,7 +215,7 @@ export class TreasureCabinet extends plugin {
         }
         await Add_najie_thing(usr_qq, item_name, item_class, 1)
       } else if (ass.宗门神兽 == '朱雀') {
-        //给法宝，赐福加修
+        //给magic_weapon，赐福加修
         if (randomB > 0.9) {
           location = Math.floor(Math.random() * data.xuanwu.length)
           item_name = data.xuanwu[location].name
@@ -227,7 +227,7 @@ export class TreasureCabinet extends plugin {
         }
         await Add_najie_thing(usr_qq, item_name, item_class, 1)
       } else {
-        //白虎给武器 赐福加气血
+        //白虎给weapon 赐福加气血
         if (randomB > 0.9) {
           location = Math.floor(Math.random() * data.xuanwu.length)
           item_name = data.xuanwu[location].name
@@ -253,7 +253,7 @@ export class TreasureCabinet extends plugin {
 }
 
 async function getLastsign_Bonus(usr_qq) {
-  //查询redis中的人物动作
+  //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Bonus')
   if (time != null) {
     let data = await shijianc(parseInt(time))

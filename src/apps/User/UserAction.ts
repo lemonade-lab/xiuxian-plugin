@@ -1,14 +1,14 @@
-import { plugin, config } from '../../api/api.js'
 import {
   Read_player,
   existplayer,
   Read_najie,
   Write_najie,
-  Add_灵石,
+  Add_money,
   __PATH,
   Go,
   get_najie_img
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class UserAction extends plugin {
   constructor() {
     super({
@@ -18,7 +18,7 @@ export class UserAction extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#我的纳戒$',
+          reg: '^#我the纳戒$',
           fnc: 'Show_najie'
         },
         {
@@ -29,7 +29,7 @@ export class UserAction extends plugin {
     })
   }
 
-  //#我的纳戒
+  //#我the纳戒
   async Show_najie(e) {
     let usr_qq = e.user_id
     //有无存档
@@ -50,25 +50,27 @@ export class UserAction extends plugin {
     if (!ifexistplay) return false
     let najie = await Read_najie(usr_qq)
     let player = await Read_player(usr_qq)
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     let najie_num = cf.najie_num
     let najie_price = cf.najie_price
     if (najie.等级 == najie_num.length) {
-      e.reply('你的纳戒已经是最高级的了')
+      e.reply('你the纳戒已经是最高级the了')
       return false
     }
     if (player.灵石 < najie_price[najie.等级]) {
       e.reply(`灵石不足,还需要准备${najie_price[najie.等级] - player.灵石}灵石`)
       return false
     }
-    await Add_灵石(usr_qq, -najie_price[najie.等级])
+    await Add_money(usr_qq, -najie_price[najie.等级])
     najie.灵石上限 = najie_num[najie.等级]
     najie.等级 += 1
     await Write_najie(usr_qq, najie)
     e.reply(
-      `你的纳戒升级成功,花了${
+      `你the纳戒升级成功,花了${
         najie_price[najie.等级 - 1]
-      }灵石,目前纳戒灵石存储上限为${najie.灵石上限},可以使用【#我的纳戒】来查看`
+      }灵石,目前纳戒灵石存储上限为${
+        najie.灵石上限
+      },可以使用【#我the纳戒】来查看`
     )
     return false
   }

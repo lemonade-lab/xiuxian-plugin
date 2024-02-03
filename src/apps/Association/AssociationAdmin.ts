@@ -1,4 +1,3 @@
-import { plugin, config, data } from '../../api/api.js'
 import {
   timestampToTime,
   shijianc,
@@ -6,10 +5,7 @@ import {
   convert2integer,
   setFileValue
 } from '../../model/index.js'
-const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27]
-const 副宗主人数上限 = [1, 1, 1, 1, 2, 2, 3, 3]
-const 长老人数上限 = [1, 2, 3, 4, 5, 7, 8, 9]
-const 内门弟子上限 = [2, 3, 4, 5, 6, 8, 10, 12]
+import { plugin } from '../../../import.js'
 export class AssociationAdmin extends plugin {
   constructor() {
     super({
@@ -70,7 +66,7 @@ export class AssociationAdmin extends plugin {
     ).level_id
 
     if (now_level_id < 22) {
-      e.reply('修为达到化神再来吧')
+      e.reply('now_exp达到化神再来吧')
       return false
     }
     if (isNotNull(player.宗门)) {
@@ -78,7 +74,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (player.灵石 < 10000) {
-      e.reply('开宗立派是需要本钱的,攒到一万灵石再来吧')
+      e.reply('开宗立派是需要本钱the,攒到一万灵石再来吧')
       return false
     }
 
@@ -86,7 +82,7 @@ export class AssociationAdmin extends plugin {
     this.setContext('Get_association_name')
     /** 回复 */
     await e.reply(
-      '请发送宗门的名字,一旦设立,无法再改,请慎重取名,(宗门名字最多6个中文字符)',
+      '请发送宗门the名字,一旦设立,无法再改,请慎重取名,(宗门名字最多6个中文字符)',
       false,
       { at: true }
     )
@@ -111,7 +107,7 @@ export class AssociationAdmin extends plugin {
     }
     let reg = /[^\u4e00-\u9fa5]/g //汉字检验正则
     let res = reg.test(association_name)
-    //res为true表示存在汉字以外的字符
+    //res为true表示存在汉字以外the字符
     if (res) {
       this.setContext('Get_association_name')
       await this.reply('宗门名字只能使用中文,请重新输入:')
@@ -272,11 +268,11 @@ export class AssociationAdmin extends plugin {
     let ass = await data.getAssociation(player.宗门.宗门名称)
     let isinass = ass.所有成员.some((item) => item == member_qq) //这个命名可太糟糕了
     if (!isinass) {
-      e.reply('只能设置宗门内弟子的职位')
+      e.reply('只能设置宗门内弟子the职位')
       return false
     }
-    let member = data.getData('player', member_qq) //获取这个B的存档
-    let now_apmt = member.宗门.职位 //这个B现在的职位
+    let member = data.getData('player', member_qq) //获取这个Bthe存档
+    let now_apmt = member.宗门.职位 //这个B现在the职位
     if (player.宗门.职位 == '副宗主' && now_apmt == '宗主') {
       e.reply('你想造反吗！？')
       return false
@@ -289,11 +285,11 @@ export class AssociationAdmin extends plugin {
       return false
     }
     let full_apmt = ass.所有成员.length
-    //检索输入的第一个职位
+    //检索输入the第一个职位
     let reg = new RegExp(/副宗主|长老|外门弟子|内门弟子/)
-    let appointment = reg.exec(e.msg) //获取输入的职位
+    let appointment = reg.exec(e.msg) //获取输入the职位
     if (appointment == now_apmt) {
-      e.reply(`此人已经是本宗门的${appointment}`)
+      e.reply(`此人已经是本宗门the${appointment}`)
       return false
     }
     if (appointment == '长老') {
@@ -305,17 +301,17 @@ export class AssociationAdmin extends plugin {
       full_apmt = 内门弟子上限[ass.宗门等级 - 1]
     }
     if (ass[appointment].length >= full_apmt) {
-      e.reply(`本宗门的${appointment}人数已经达到上限`)
+      e.reply(`本宗门the${appointment}人数已经达到上限`)
       return false
     }
     member.宗门.职位 = appointment //成员存档里改职位
-    ass[now_apmt] = ass[now_apmt].filter((item) => item != member_qq) //原来的职位表删掉这个B
-    ass[appointment].push(member_qq) //新的职位表加入这个B
+    ass[now_apmt] = ass[now_apmt].filter((item) => item != member_qq) //原来the职位表删掉这个B
+    ass[appointment].push(member_qq) //新the职位表加入这个B
     data.setData('player', member_qq, member) //记录到存档
     data.setAssociation(ass.宗门名称, ass) //记录到宗门
     e.reply([
       segment.at(member_qq),
-      `${ass.宗门名称} ${player.宗门.职位} 已经成功将${member.名号}任命为${appointment}!`
+      `${ass.宗门名称} ${player.宗门.职位} 已经成功将${member.name}任命为${appointment}!`
     ])
     return false
   }
@@ -335,8 +331,8 @@ export class AssociationAdmin extends plugin {
     }
     let ass = await data.getAssociation(player.宗门.宗门名称)
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
-    let time = config.getConfig('xiuxian', 'xiuxian').CD.association
+    let nowTime = now.getTime() //获取当前日期the时间戳
+    let time = getConfig('xiuxian', 'xiuxian').CD.association
     let nextmt_time = await shijianc(ass.维护时间 + 60000 * time) //获得下次宗门维护日期,7天后
     if (ass.维护时间 > nowTime - 1000 * 60 * 60 * 24 * 7) {
       e.reply(
@@ -581,7 +577,7 @@ export class AssociationAdmin extends plugin {
 }
 
 /**
- * 创立新的宗门
+ * 创立新the宗门
  * @param name 宗门名称
  * @param holder_qq 宗主qq号
  */

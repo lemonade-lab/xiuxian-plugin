@@ -19,7 +19,7 @@
           >
             <div>师徒商店</div>
             <div style="font-size: 0.8em">购买指令：#师徒兑换+物品名</div>
-            <div style="font-size: 0.8em">{{name}}的积分：{{jifen}}</div>
+            <div style="font-size: 0.8em">{{name}}the积分：{{jifen}}</div>
           </div>
           <div class="use_data_body">
             {{each commodities_list item}}
@@ -37,7 +37,7 @@
               <div class="info" style="width: 130px">暴：{{item.bao*100}}%</div>
               {{else if item.class=="丹药"}}
               <div class="info">效果：{{item.exp}}{{item.xueqi}}</div>
-              {{else if item.class=="功法"}}
+              {{else if item.class=="skill"}}
               <div class="info">
                 修炼加成：{{(item.修炼加成*100).toFixed(0)}}%
               </div>

@@ -1,7 +1,7 @@
-import { plugin, config } from '../../api/api.js'
-import { Read_najie, __PATH } from '../../model/index.js'
+import { Read_najie, __PATH, getConfig } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { copyFileSync, readdirSync } from 'fs'
+import { plugin } from '../../../import.js'
 export class BackUptask extends plugin {
   constructor() {
     super({
@@ -11,7 +11,7 @@ export class BackUptask extends plugin {
       priority: 1000,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.temp_task,
       name: 'BackUptask',

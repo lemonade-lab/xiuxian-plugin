@@ -1,8 +1,9 @@
-import { plugin, config } from '../../api/api.js'
+import { plugin } from '../../../import.js'
 import {
   Add_najie_thing,
   Write_Exchange,
-  Read_Exchange
+  Read_Exchange,
+  getConfig
 } from '../../model/index.js'
 export class ExchangeTask extends plugin {
   constructor() {
@@ -13,7 +14,7 @@ export class ExchangeTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.AutoBackUpTask,
       name: 'ExchangeTask',

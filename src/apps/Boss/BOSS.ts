@@ -1,15 +1,12 @@
 import { readdirSync } from 'fs'
-import { plugin, data, config } from '../../api/api.js'
 import {
-  Add_灵石,
+  Add_money,
   ForwardMsg,
   Add_HP,
   Harm,
   zd_battle
 } from '../../model/index.js'
-let WorldBOSSBattleCD = [] //CD
-let WorldBOSSBattleLock = 0 //BOSS战斗锁，防止打架频率过高造成奖励多发
-let WorldBOSSBattleUnLockTimer = 0 //防止战斗锁因意外锁死
+import { plugin } from '../../../import.js'
 export class BOSS extends plugin {
   constructor() {
     super({
@@ -318,7 +315,7 @@ export class BOSS extends plugin {
         for (const group_id of groupList) {
           await pushInfo(group_id, true, msg2)
         }
-        await Add_灵石(usr_qq, 1000000)
+        await Add_money(usr_qq, 1000000)
         console.error(`[妖王] 结算:${usr_qq}增加奖励1000000`)
 
         WorldBossStatus.KilledTime = new Date().getTime()

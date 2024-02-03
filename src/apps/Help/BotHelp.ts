@@ -1,11 +1,8 @@
-import { plugin, puppeteer } from '../../api/api.js'
 import Help from '../../model/help.js'
 import Help2 from '../../model/shituhelp.js'
 import md5 from 'md5'
-let helpData = {
-  md5: '',
-  img: ''
-}
+
+import { plugin } from '../../../import.js'
 export class BotHelp extends plugin {
   constructor() {
     super({

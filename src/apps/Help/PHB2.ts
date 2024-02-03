@@ -1,4 +1,3 @@
-import { plugin } from '../../api/api.js'
 import {
   existplayer,
   sortBy,
@@ -8,6 +7,7 @@ import {
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
+import { plugin } from '../../../import.js'
 export class PHB2 extends plugin {
   constructor() {
     super({
@@ -52,7 +52,7 @@ export class PHB2 extends plugin {
       temp[i] = {
         power: power,
         qq: player_id,
-        name: player.名号,
+        name: player.name,
         level_id: player.level_id
       }
       i++
@@ -111,7 +111,7 @@ export class PHB2 extends plugin {
       temp[i] = {
         power: power,
         qq: player_id,
-        name: player.名号,
+        name: player.name,
         level_id: player.level_id
       }
       i++

@@ -5,3 +5,4 @@ import data from './XiuxianData.js'
 import Show from './show.js'
 export { data, Show }
 export * from './Config.js'
+export * from './pe.js'

@@ -1,5 +1,4 @@
 import { readdirSync, rmSync } from 'fs'
-import { plugin, data, config } from '../../api/api.js'
 import {
   Read_player,
   existplayer,
@@ -14,9 +13,12 @@ import {
   Write_danyao,
   Go,
   get_player_img,
-  __PATH
+  __PATH,
+  Add_HP,
+  Add_now_exp,
+  Add_najie_thing
 } from '../../model/index.js'
-import { Add_HP, Add_修为, Add_najie_thing } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class UserStart extends plugin {
   constructor() {
     super({
@@ -33,7 +35,7 @@ export class UserStart extends plugin {
           fnc: 'reCreate_player'
         },
         {
-          reg: '^#我的练气$',
+          reg: '^#我the练气$',
           fnc: 'Show_player'
         },
         {
@@ -69,28 +71,28 @@ export class UserStart extends plugin {
     let new_player = {
       id: e.user_id,
       sex: 0, //性别
-      名号: `路人甲${n}号`,
+      name: `路人甲${n}号`,
       宣言: '这个人很懒还没有写',
       level_id: 1, //练气境界
       Physique_id: 1, //练体境界
       race: 1, //种族
-      修为: 1, //练气经验
+      now_exp: 1, //练气经验
       血气: 1, //练体经验
       灵石: 10000,
-      灵根: talent,
+      talent: talent,
       神石: 0,
       favorability: 0,
       breakthrough: false,
       linggen: [],
-      linggenshow: 1, //灵根显示，隐藏
-      学习的功法: [],
-      修炼效率提升: talent.eff,
+      linggenshow: 1, //talent显示，hide_
+      studytheskill: [],
+      Improving_cultivation_efficiency: talent.eff,
       连续签到天数: 0,
       攻击加成: 0,
       防御加成: 0,
       生命加成: 0,
       power_place: 1, //仙界状态
-      当前血量: 8000,
+      now_bool: 8000,
       lunhui: 0,
       lunhuiBH: 0,
       轮回点: 10,
@@ -110,9 +112,11 @@ export class UserStart extends plugin {
     await Write_player(usr_qq, new_player)
     //初始化装备
     let new_equipment = {
-      武器: data.equipment_list.find((item) => item.name == '烂铁匕首'),
-      护具: data.equipment_list.find((item) => item.name == '破铜护具'),
-      法宝: data.equipment_list.find((item) => item.name == '廉价炮仗')
+      weapon: data.equipment_list.find((item) => item.name == '烂铁匕首'),
+      protective_clothing: data.equipment_list.find(
+        (item) => item.name == '破铜protective_clothing'
+      ),
+      magic_weapon: data.equipment_list.find((item) => item.name == '廉价炮仗')
     }
     await Write_equipment(usr_qq, new_equipment)
     //初始化纳戒
@@ -123,7 +127,7 @@ export class UserStart extends plugin {
       装备: [],
       丹药: [],
       道具: [],
-      功法: [],
+      skill: [],
       草药: [],
       材料: [],
       仙宠: [],
@@ -181,7 +185,7 @@ export class UserStart extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':last_reCreate_time'
     ) //获得上次重生时间戳,
     lastrestart_time = parseInt(lastrestart_time)
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.reborn
     let rebornTime = parseInt(60000 * time)
     if (nowTime < lastrestart_time + rebornTime) {
@@ -201,7 +205,7 @@ export class UserStart extends plugin {
     this.setContext('RE_xiuxian')
     /** 回复 */
     await e.reply(
-      '一旦转世一切当世与你无缘,你真的要重生吗?回复:【断绝此生】或者【再继仙缘】进行选择',
+      '一旦转世一切当世与你无缘,你真the要重生吗?回复:【断绝此生】或者【再继仙缘】进行选择',
       false,
       { at: true }
     )
@@ -242,7 +246,7 @@ export class UserStart extends plugin {
           ass[player.宗门.职位] = ass[player.宗门.职位].filter(
             (item) => item != usr_qq
           )
-          ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
+          ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
           await data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
           await data.setData('player', usr_qq, player)
@@ -254,8 +258,8 @@ export class UserStart extends plugin {
               `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
             )
           } else {
-            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
-            //随机一个幸运儿的QQ,优先挑选等级高的
+            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+            //随机一个幸运儿theQQ,优先挑选等级高the
             let randmember_qq
             if (ass.长老.length > 0) {
               randmember_qq = await get_random_fromARR(ass.长老)
@@ -264,11 +268,11 @@ export class UserStart extends plugin {
             } else {
               randmember_qq = await get_random_fromARR(ass.所有成员)
             }
-            let randmember = await data.getData('player', randmember_qq) //获取幸运儿的存档
+            let randmember = await data.getData('player', randmember_qq) //获取幸运儿the存档
             ass[randmember.宗门.职位] = ass[randmember.宗门.职位].filter(
               (item) => item != randmember_qq
-            ) //原来的职位表删掉这个幸运儿
-            ass['宗主'] = randmember_qq //新的职位表加入这个幸运儿
+            ) //原来the职位表删掉这个幸运儿
+            ass['宗主'] = randmember_qq //新the职位表加入这个幸运儿
             randmember.宗门.职位 = '宗主' //成员存档里改职位
             await data.setData('player', randmember_qq, randmember) //记录到存档
             await data.setAssociation(ass.宗门名称, ass) //记录到宗门
@@ -281,7 +285,7 @@ export class UserStart extends plugin {
       e.reply([segment.at(usr_qq), '当前存档已清空!开始重生'])
       e.reply([
         segment.at(usr_qq),
-        '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同的花，千百年的回眸，一花凋零，一花绽。是否为同一朵，任后人去评断！！'
+        '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同the花，千百年the回眸，一花凋零，一花绽。是否为同一朵，任后人去评断！！'
       ])
       await this.Create_player(e)
       await redis.set(
@@ -301,7 +305,7 @@ export class UserStart extends plugin {
     return false
   }
 
-  //#我的练气
+  //#我the练气
   async Show_player(e) {
     let usr_qq = e.user_id
     //有无存档
@@ -330,7 +334,7 @@ export class UserStart extends plugin {
     }
     player.sex = msg == '男' ? 2 : 1
     await data.setData('player', usr_qq, player)
-    e.reply(`${player.名号}的性别已成功设置为 ${msg}。`)
+    e.reply(`${player.name}the性别已成功设置为 ${msg}。`)
   }
 
   //改名
@@ -356,7 +360,7 @@ export class UserStart extends plugin {
       }
       let player = {}
       let now = new Date()
-      let nowTime = now.getTime() //获取当前日期的时间戳
+      let nowTime = now.getTime() //获取当前日期the时间戳
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       let Today = await shijianc(nowTime)
       let lastsetname_time = await redis.get(
@@ -377,11 +381,11 @@ export class UserStart extends plugin {
         e.reply('改名需要1000灵石')
         return false
       }
-      player.名号 = new_name
+      player.name = new_name
       redis.set('xiuxian@1.4.0:' + usr_qq + ':last_setname_time', nowTime) //redis设置本次改名时间戳
       player.灵石 -= 1000
       await Write_player(usr_qq, player)
-      //Add_灵石(usr_qq, -100);
+      //Add_money(usr_qq, -100);
       this.Show_player(e)
       return false
     }
@@ -398,7 +402,7 @@ export class UserStart extends plugin {
       }
       let player = {}
       let now = new Date()
-      let nowTime = now.getTime() //获取当前日期的时间戳
+      let nowTime = now.getTime() //获取当前日期the时间戳
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       //
       let Today = await shijianc(nowTime)
@@ -433,7 +437,7 @@ export class UserStart extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
+    let nowTime = now.getTime() //获取当前日期the时间戳
     let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000) //获得昨天日期
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign(usr_qq) //获得上次签到日期
@@ -465,12 +469,12 @@ export class UserStart extends plugin {
     data.setData('player', usr_qq, player)
     //给奖励
     let gift_xiuwei = player.连续签到天数 * 3000
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     await Add_najie_thing(usr_qq, '秘境之匙', '道具', cf.Sign.ticket)
-    await Add_修为(usr_qq, gift_xiuwei)
+    await Add_now_exp(usr_qq, gift_xiuwei)
     let msg = [
       segment.at(usr_qq),
-      `已经连续签到${player.连续签到天数}天了，获得了${gift_xiuwei}修为,秘境之匙x${cf.Sign.ticket}`
+      `已经连续签到${player.连续签到天数}天了，获得了${gift_xiuwei}now_exp,秘境之匙x${cf.Sign.ticket}`
     ]
     e.reply(msg)
     return false

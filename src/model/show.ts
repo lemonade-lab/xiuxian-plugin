@@ -23,11 +23,11 @@ export default class Game extends base {
   get_shitujifenData(myData) {
     return this.getData(myData, 'shitujifen')
   }
-  //我的弟子
+  //我the弟子
   get_shituData(myData) {
     return this.getData(myData, 'shitu')
   }
-  //我的师门
+  //我the师门
   get_shifuData(myData) {
     return this.getData(myData, 'shifu')
   }
@@ -87,7 +87,7 @@ export default class Game extends base {
   get_msg(myData) {
     return this.getData(myData, 'msg')
   }
-  //我的宗门
+  //我the宗门
   get_associationData(myData) {
     return this.getData(myData, 'association')
   }
@@ -121,18 +121,18 @@ export default class Game extends base {
     return this.getData(myData, 'valuables')
   }
 
-  //法宝楼
+  //magic_weapon楼
   get_valuables_fabaoData(myData) {
     return this.getData(myData, 'valuables_fabao')
     this.model = 'valuables_fabao'
   }
 
-  //武器楼
+  //weapon楼
   get_valuables_wuqiData(myData) {
     return this.getData(myData, 'valuables_wuqi')
   }
 
-  //护具楼
+  //protective_clothing楼
   get_valuables_hujuData(myData) {
     return this.getData(myData, 'valuables_huju')
   }
@@ -142,7 +142,7 @@ export default class Game extends base {
     return this.getData(myData, 'valuables_drug')
   }
 
-  //功法楼
+  //skill楼
   get_valuables_skillData(myData) {
     return this.getData(myData, 'valuables_skill')
   }
@@ -157,7 +157,7 @@ export default class Game extends base {
     return this.getData(myData, 'sudoku')
   }
 
-  //修为榜
+  //now_exp榜
   get_ranking_powerData(myData) {
     return this.getData(myData, 'ranking_power')
   }

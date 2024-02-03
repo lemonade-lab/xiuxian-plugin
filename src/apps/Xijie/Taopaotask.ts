@@ -1,14 +1,14 @@
-import { plugin, common, config, data } from '../../api/api.js'
 import { readdirSync } from 'fs'
 import {
   isNotNull,
   Add_najie_thing,
   Harm,
   Write_shop,
-  Read_shop
+  Read_shop,
+  getConfig
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-
+import { common, plugin } from '../../../import.js'
 export class Taopaotask extends plugin {
   constructor() {
     super({
@@ -17,7 +17,7 @@ export class Taopaotask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.actionplus_task,
       name: 'Taopaotask',
@@ -39,8 +39,9 @@ export class Taopaotask extends plugin {
       log_mag = log_mag + '查询' + player_id + '是否有动作,'
       //得到动作
 
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = await JSON.parse(action)
+      let action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         let push_address //消息推送地址
@@ -53,11 +54,11 @@ export class Taopaotask extends plugin {
           }
         }
 
-        //最后发送的消息
+        //最后发送the消息
         let msg = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
-        //现在的时间
+        //现在the时间
         let now_time = new Date().getTime()
         //有洗劫状态:这个直接结算即可
         if (action.xijie == '-2') {
@@ -66,7 +67,7 @@ export class Taopaotask extends plugin {
           //时间过了
           if (now_time >= end_time) {
             let weizhi = action.Place_address
-            let i //获取对应npc列表的位置
+            let i //获取对应npc列表the位置
             for (i = 0; i < data.npc_list.length; i++) {
               if (data.npc_list[i].name == '万仙盟') {
                 break
@@ -91,17 +92,14 @@ export class Taopaotask extends plugin {
             }
             //设定npc数值
             let B_player = {
-              名号: monster.name,
-              攻击: parseInt(monster.atk * A_player.攻击),
-              防御: parseInt(
-                (monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05)
-              ),
-              当前血量: parseInt(
-                (monster.blood * A_player.当前血量) / (1 + weizhi.Grade * 0.05)
-              ),
+              name: monster.name,
+              攻击: monster.atk * A_player.攻击,
+              防御: (monster.def * A_player.防御) / (1 + weizhi.Grade * 0.05),
+              now_bool:
+                (monster.blood * A_player.now_bool) / (1 + weizhi.Grade * 0.05),
               暴击率: monster.baoji,
-              灵根: monster.灵根,
-              法球倍率: monster.灵根.法球倍率
+              talent: monster.talent,
+              法球倍率: monster.talent.法球倍率
             }
             let Random = Math.random()
             let npc_damage = Math.trunc(
@@ -111,51 +109,51 @@ export class Taopaotask extends plugin {
             )
             let last_msg = ''
             if (Random < 0.1) {
-              A_player.当前血量 -= npc_damage
+              A_player.now_bool -= npc_damage
               last_msg +=
-                B_player.名号 +
+                B_player.name +
                 '似乎不屑追你,只是随手丢出神通,剩余血量' +
-                A_player.当前血量
+                A_player.now_bool
             } else if (Random < 0.25) {
-              A_player.当前血量 -= Math.trunc(npc_damage * 0.3)
+              A_player.now_bool -= Math.trunc(npc_damage * 0.3)
               last_msg +=
                 '你引起了' +
-                B_player.名号 +
-                '的兴趣,' +
-                B_player.名号 +
+                B_player.name +
+                'the兴趣,' +
+                B_player.name +
                 '决定试探你,只用了三分力,剩余血量' +
-                A_player.当前血量
+                A_player.now_bool
             } else if (Random < 0.5) {
-              A_player.当前血量 -= Math.trunc(npc_damage * 1.5)
+              A_player.now_bool -= Math.trunc(npc_damage * 1.5)
               last_msg +=
-                '你的逃跑让' +
-                B_player.名号 +
+                '你the逃跑让' +
+                B_player.name +
                 '愤怒,' +
-                B_player.名号 +
-                '使用了更加强大的一次攻击,剩余血量' +
-                A_player.当前血量
+                B_player.name +
+                '使用了更加强大the一次攻击,剩余血量' +
+                A_player.now_bool
             } else if (Random < 0.7) {
-              A_player.当前血量 -= Math.trunc(npc_damage * 1.3)
+              A_player.now_bool -= Math.trunc(npc_damage * 1.3)
               last_msg +=
-                '你成功的吸引了所有的仇恨,' +
-                B_player.名号 +
-                '已经快要抓到你了,强大的攻击已经到了你的面前,剩余血量' +
-                A_player.当前血量
+                '你成功the吸引了所有the仇恨,' +
+                B_player.name +
+                '已经快要抓到你了,强大the攻击已经到了你the面前,剩余血量' +
+                A_player.now_bool
             } else if (Random < 0.9) {
-              A_player.当前血量 -= Math.trunc(npc_damage * 1.8)
+              A_player.now_bool -= Math.trunc(npc_damage * 1.8)
               last_msg +=
                 '你们近乎贴脸飞行,' +
-                B_player.名号 +
-                '的攻势愈加猛烈,已经快招架不住了,剩余血量' +
-                A_player.当前血量
+                B_player.name +
+                'the攻势愈加猛烈,已经快招架不住了,剩余血量' +
+                A_player.now_bool
             } else {
-              A_player.当前血量 -= Math.trunc(npc_damage * 0.5)
+              A_player.now_bool -= Math.trunc(npc_damage * 0.5)
               last_msg +=
-                '身体快到极限了嘛,你暗暗问道,脚下逃跑的步伐更加迅速,剩余血量' +
-                A_player.当前血量
+                '身体快到极限了嘛,你暗暗问道,脚下逃跑the步伐更加迅速,剩余血量' +
+                A_player.now_bool
             }
-            if (A_player.当前血量 < 0) {
-              A_player.当前血量 = 0
+            if (A_player.now_bool < 0) {
+              A_player.now_bool = 0
             }
             let arr = action
             let shop = await Read_shop()
@@ -165,7 +163,7 @@ export class Taopaotask extends plugin {
                 break
               }
             }
-            if (A_player.当前血量 > 0) {
+            if (A_player.now_bool > 0) {
               arr.A_player = A_player
               arr.cishu--
               arr.A_player = A_player
@@ -187,9 +185,9 @@ export class Taopaotask extends plugin {
               const groupList = await redis.sMembers(redisGlKey)
               const xx =
                 '【全服公告】' +
-                A_player.名号 +
+                A_player.name +
                 '被' +
-                B_player.名号 +
+                B_player.name +
                 '抓进了地牢,希望大家遵纪守法,引以为戒'
               for (const group_id of groupList) {
                 this.pushInfo(group_id, true, xx)
@@ -197,7 +195,7 @@ export class Taopaotask extends plugin {
             }
             if (arr.cishu == 0) {
               //说明成功了
-              last_msg += '\n你成功躲过了万仙盟的追杀,躲进了宗门'
+              last_msg += '\n你成功躲过了万仙盟the追杀,躲进了宗门'
               arr.xijie = 1 //关闭洗劫
               arr.end_time = new Date().getTime()
               delete arr.group_id

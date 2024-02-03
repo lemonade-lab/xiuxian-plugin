@@ -4,19 +4,26 @@ import { getConfig } from './Config.js'
 import Show from './show.js'
 import { __PATH } from './PATH.js'
 import {
+  GetPower,
+  Read_Exchange,
+  Read_Forum,
   Read_equipment,
   Read_najie,
   Read_player,
   Read_qinmidu,
+  Strand,
+  Write_Exchange,
+  Write_Forum,
   Write_qinmidu,
   bigNumberTransform,
+  getPlayerAction,
   get_random_talent,
   isNotNull,
   player_efficiency
 } from './xiuxian.js'
 
 /**
- * 返回该玩家的仙宠图片
+ * 返回该玩家the仙宠图片
  * @param e
  * @returns
  */
@@ -47,19 +54,19 @@ export async function get_XianChong_img(e) {
     Kouliang.push(Kouliang_list[i])
   }
   let player_data = {
-    nickname: player.名号,
+    nickname: player.name,
     XianChong_have,
     XianChong_need,
     Kouliang
   }
-  const data1 = await new Show(e).get_xianchong(player_data)
+  const data1 = await new Show().get_xianchong(player_data)
   return await puppeteer.screenshot('xianchong', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的道具图片
+ * 返回该玩家the道具图片
  * @return image
  */
 
@@ -87,18 +94,18 @@ export async function get_daoju_img(e) {
   }
   let player_data = {
     user_id: usr_qq,
-    nickname: player.名号,
+    nickname: player.name,
     daoju_have,
     daoju_need
   }
-  const data1 = await new Show(e).get_daojuData(player_data)
+  const data1 = await new Show().get_daojuData(player_data)
   return await puppeteer.screenshot('daoju', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的武器图片
+ * 返回该玩家theweapon图片
  * @return image
  */
 export async function get_wuqi_img(e) {
@@ -128,9 +135,9 @@ export async function get_wuqi_img(e) {
       ) {
         wuqi_have.push(j)
       } else if (
-        (equipment['武器'].name == j.name ||
-          equipment['法宝'].name == j.name ||
-          equipment['护具'].name == j.name) &&
+        (equipment['weapon'].name == j.name ||
+          equipment['magic_weapon'].name == j.name ||
+          equipment['protective_clothing'].name == j.name) &&
         !wuqi_have.find((item) => item.name == j.name)
       ) {
         wuqi_have.push(j)
@@ -142,18 +149,18 @@ export async function get_wuqi_img(e) {
 
   let player_data = {
     user_id: usr_qq,
-    nickname: player.名号,
+    nickname: player.name,
     wuqi_have,
     wuqi_need
   }
-  const data1 = await new Show(e).get_wuqiData(player_data)
+  const data1 = await new Show().get_wuqiData(player_data)
   return await puppeteer.screenshot('wuqi', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的丹药图片
+ * 返回该玩家the丹药图片
  * @return image
  */
 export async function get_danyao_img(e) {
@@ -181,18 +188,18 @@ export async function get_danyao_img(e) {
   }
   let player_data = {
     user_id: usr_qq,
-    nickname: player.名号,
+    nickname: player.name,
     danyao_have,
     danyao_need
   }
-  const data1 = await new Show(e).get_danyaoData(player_data)
+  const data1 = await new Show().get_danyaoData(player_data)
   return await puppeteer.screenshot('danyao', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的功法图片
+ * 返回该玩家theskill图片
  * @return image
  */
 export async function get_gongfa_img(e) {
@@ -203,7 +210,7 @@ export async function get_gongfa_img(e) {
     return
   }
   let player = await data.getData('player', usr_qq)
-  let xuexi_gongfa = player.学习的功法
+  let xuexi_gongfa = player.studytheskill
   let gongfa_have = []
   let gongfa_need = []
   const gongfa = ['gongfa_list', 'timegongfa_list']
@@ -221,18 +228,18 @@ export async function get_gongfa_img(e) {
   }
   let player_data = {
     user_id: usr_qq,
-    nickname: player.名号,
+    nickname: player.name,
     gongfa_have,
     gongfa_need
   }
-  const data1 = await new Show(e).get_gongfaData(player_data)
+  const data1 = await new Show().get_gongfaData(player_data)
   return await puppeteer.screenshot('gongfa', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的法体
+ * 返回该玩家the法体
  * @return image
  */
 export async function get_power_img(e) {
@@ -266,7 +273,7 @@ export async function get_power_img(e) {
   ).exp
   let playercopy = {
     user_id: usr_qq,
-    nickname: player.名号,
+    nickname: player.name,
     need_xueqi: need_xueqi,
     xueqi: player.血气,
     levelMax: levelMax,
@@ -275,24 +282,24 @@ export async function get_power_img(e) {
     神魄段数: player.神魄段数,
     hgd: player.favorability,
     player_maxHP: player.血量上限,
-    player_nowHP: player.当前血量,
-    learned_gongfa: player.学习的功法,
+    player_nowHP: player.now_bool,
+    learned_gongfa: player.studytheskill,
     association: this_association
   }
-  const data1 = await new Show(e).get_playercopyData(playercopy)
+  const data1 = await new Show().get_playercopyData(playercopy)
   return await puppeteer.screenshot('playercopy', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的存档图片
+ * 返回该玩家the存档图片
  * @return image
  */
 export async function get_player_img(e) {
-  let 法宝评级
-  let 护具评级
-  let 武器评级
+  let magic_weapon评级
+  let protective_clothing评级
+  let weapon评级
   let usr_qq = e.user_id
   let ifexistplay = data.existData('player', usr_qq)
   if (!ifexistplay) {
@@ -312,16 +319,16 @@ export async function get_player_img(e) {
   if (player.宣言 == null || player.宣言 == undefined) {
     player.宣言 = '这个人很懒什么都没写'
   }
-  if (player.灵根 == null || player.灵根 == undefined) {
-    player.灵根 = await get_random_talent()
+  if (player.talent == null || player.talent == undefined) {
+    player.talent = await get_random_talent()
   }
   data.setData('player', usr_qq, player)
-  await player_efficiency(usr_qq) // 注意这里刷新了修炼效率提升
+  await player_efficiency(usr_qq) // 注意这里刷新了Improving_cultivation_efficiency
   if ((await player.linggenshow) != 0) {
-    player.灵根.type = '无'
-    player.灵根.name = '未知'
-    player.灵根.法球倍率 = '0'
-    player.修炼效率提升 = '0'
+    player.talent.type = '无'
+    player.talent.name = '未知'
+    player.talent.法球倍率 = '0'
+    player.Improving_cultivation_efficiency = '0'
   }
   if (!isNotNull(player.level_id)) {
     e.reply('请先#一键同步')
@@ -332,7 +339,7 @@ export async function get_player_img(e) {
     return
   }
   let nd = '无'
-  if (player.隐藏灵根) nd = player.隐藏灵根.name
+  if (player.hide_talent) nd = player.hide_talent.name
   let zd = ['攻击', '防御', '生命加成', '防御加成', '攻击加成']
   let num = []
   let p = []
@@ -359,13 +366,11 @@ export async function get_player_img(e) {
       player.防御 * 1.1 +
       player.血量上限 * 0.6 +
       player.暴击率 * player.攻击 * 0.5 +
-      player.灵根.法球倍率 * player.攻击) /
+      player.talent.法球倍率 * player.攻击) /
     10000
-  power = Number(power)
-  power = power.toFixed(2)
+  power = Number(power.toFixed(2))
   let power2 = (player.攻击 + player.防御 * 1.1 + player.血量上限 * 0.5) / 10000
-  power2 = Number(power2)
-  power2 = power2.toFixed(2)
+  power2 = Number(power2.toFixed(2))
   let level2 = data.LevelMax_list.find(
     (item) => item.level_id == player.Physique_id
   ).level
@@ -405,20 +410,20 @@ export async function get_player_img(e) {
     this_association = player.宗门
   }
   let pinji = ['劣', '普', '优', '精', '极', '绝', '顶']
-  if (!isNotNull(equipment.武器.pinji)) {
-    武器评级 = '无'
+  if (!isNotNull(equipment.weapon.pinji)) {
+    weapon评级 = '无'
   } else {
-    武器评级 = pinji[equipment.武器.pinji]
+    weapon评级 = pinji[equipment.weapon.pinji]
   }
-  if (!isNotNull(equipment.护具.pinji)) {
-    护具评级 = '无'
+  if (!isNotNull(equipment.protective_clothing.pinji)) {
+    protective_clothing评级 = '无'
   } else {
-    护具评级 = pinji[equipment.护具.pinji]
+    protective_clothing评级 = pinji[equipment.protective_clothing.pinji]
   }
-  if (!isNotNull(equipment.法宝.pinji)) {
-    法宝评级 = '无'
+  if (!isNotNull(equipment.magic_weapon.pinji)) {
+    magic_weapon评级 = '无'
   } else {
-    法宝评级 = pinji[equipment.法宝.pinji]
+    magic_weapon评级 = pinji[equipment.magic_weapon.pinji]
   }
   let rank_lianqi = data.Level_list.find(
     (item) => item.level_id == player.level_id
@@ -432,17 +437,18 @@ export async function get_player_img(e) {
   let expmax_llianti = need_exp2
   let rank_liandan = occupation_level_name
   let expmax_liandan = occupation_need_exp
-  let strand_hp = Strand(player.当前血量, player.血量上限)
-  let strand_lianqi = Strand(player.修为, expmax_lianqi)
+  let strand_hp = Strand(player.now_bool, player.血量上限)
+  let strand_lianqi = Strand(player.now_exp, expmax_lianqi)
   let strand_llianti = Strand(player.血气, expmax_llianti)
   let strand_liandan = Strand(occupation_exp, expmax_liandan)
   let Power = GetPower(player.攻击, player.防御, player.血量上限, player.暴击率)
   let PowerMini = bigNumberTransform(Power)
-  let bao = parseInt(player.暴击率 * 100) + '%'
-  equipment.武器.bao = parseInt(equipment.武器.bao * 100) + '%'
-  equipment.护具.bao = parseInt(equipment.护具.bao * 100) + '%'
-  equipment.法宝.bao = parseInt(equipment.法宝.bao * 100) + '%'
-  lingshi = bigNumberTransform(lingshi)
+  let bao = player.暴击率 * 100 + '%'
+  equipment.weapon.bao = equipment.weapon.bao * 100 + '%'
+  equipment.protective_clothing.bao =
+    equipment.protective_clothing.bao * 100 + '%'
+  equipment.magic_weapon.bao = equipment.magic_weapon.bao * 100 + '%'
+  lingshi = Number(bigNumberTransform(lingshi))
   let hunyin = '未知'
   let A = usr_qq
   let qinmidu
@@ -458,10 +464,10 @@ export async function get_player_img(e) {
       if (qinmidu[i].婚姻 > 0) {
         if (qinmidu[i].QQ_A == A) {
           let B = await Read_player(qinmidu[i].QQ_B)
-          hunyin = B.名号
+          hunyin = B.name
         } else {
           let A = await Read_player(qinmidu[i].QQ_A)
-          hunyin = A.名号
+          hunyin = A.name
         }
         break
       }
@@ -480,7 +486,7 @@ export async function get_player_img(e) {
     rank_liandan, // 炼丹境界
     expmax_liandan, // 炼丹需求经验
     equipment, // 装备数据
-    talent: parseInt(player.修炼效率提升 * 100), //
+    talent: player.Improving_cultivation_efficiency * 100, //
     player_action: status, // 当前状态
     this_association, // 宗门信息
     strand_hp,
@@ -489,12 +495,12 @@ export async function get_player_img(e) {
     strand_liandan,
     PowerMini, // 玩家战力
     bao,
-    nickname: player.名号,
-    linggen: player.灵根, //
+    nickname: player.name,
+    linggen: player.talent, //
     declaration: player.宣言,
     need_exp: need_exp,
     need_exp2: need_exp2,
-    exp: player.修为,
+    exp: player.now_exp,
     exp2: player.血气,
     zdl: power,
     镇妖塔层数: player.镇妖塔层数,
@@ -506,7 +512,7 @@ export async function get_player_img(e) {
     level2: level2,
     lingshi: lingshi,
     player_maxHP: player.血量上限,
-    player_nowHP: player.当前血量,
+    player_nowHP: player.now_bool,
     player_atk: kxjs[0],
     player_atk2: p[0],
     player_def: kxjs[1],
@@ -523,17 +529,17 @@ export async function get_player_img(e) {
     occupation_level: occupation_level_name,
     occupation_exp: occupation_exp,
     occupation_need_exp: occupation_need_exp,
-    arms: equipment.武器,
-    armor: equipment.护具,
-    treasure: equipment.法宝,
+    arms: equipment.weapon,
+    armor: equipment.protective_clothing,
+    treasure: equipment.magic_weapon,
     association: this_association,
-    learned_gongfa: player.学习的功法,
+    learned_gongfa: player.studytheskill,
     婚姻状况: hunyin,
-    武器评级: 武器评级,
-    护具评级: 护具评级,
-    法宝评级: 法宝评级
+    weapon评级: weapon评级,
+    protective_clothing评级: protective_clothing评级,
+    magic_weapon评级: magic_weapon评级
   }
-  const data1 = await new Show(e).get_playerData(player_data)
+  const data1 = await new Show().get_playerData(player_data)
   return await puppeteer.screenshot('player', {
     ...data1
   })
@@ -568,7 +574,7 @@ export async function get_supermarket_img(e, thing_class) {
     user_id: usr_qq,
     Exchange_list: Exchange_list
   }
-  const data1 = await new Show(e).get_supermarketData(supermarket_data)
+  const data1 = await new Show().get_supermarketData(supermarket_data)
   let img = await puppeteer.screenshot('supermarket', {
     ...data1
   })
@@ -602,7 +608,7 @@ export async function get_forum_img(e, thing_class) {
     user_id: usr_qq,
     Forum: Forum
   }
-  const data1 = await new Show(e).get_forumData(forum_data)
+  const data1 = await new Show().get_forumData(forum_data)
   let img = await puppeteer.screenshot('forum', {
     ...data1
   })
@@ -622,7 +628,7 @@ export async function get_danfang_img(e) {
     user_id: usr_qq,
     danfang_list: danfang_list
   }
-  const data1 = await new Show(e).get_danfangData(danfang_data)
+  const data1 = await new Show().get_danfangData(danfang_data)
   let img = await puppeteer.screenshot('danfang', {
     ...data1
   })
@@ -642,7 +648,7 @@ export async function get_tuzhi_img(e, all_level) {
     user_id: usr_qq,
     tuzhi_list: tuzhi_list
   }
-  const data1 = await new Show(e).get_tuzhiData(tuzhi_data)
+  const data1 = await new Show().get_tuzhiData(tuzhi_data)
   let img = await puppeteer.screenshot('tuzhi', {
     ...data1
   })
@@ -664,7 +670,7 @@ export async function get_ningmenghome_img(e, thing_type) {
     if (
       thing_type == '装备' ||
       thing_type == '丹药' ||
-      thing_type == '功法' ||
+      thing_type == 'skill' ||
       thing_type == '道具' ||
       thing_type == '草药'
     ) {
@@ -672,10 +678,10 @@ export async function get_ningmenghome_img(e, thing_type) {
         (item) => item.class == thing_type
       )
     } else if (
-      thing_type == '武器' ||
-      thing_type == '护具' ||
-      thing_type == '法宝' ||
-      thing_type == '修为' ||
+      thing_type == 'weapon' ||
+      thing_type == 'protective_clothing' ||
+      thing_type == 'magic_weapon' ||
+      thing_type == 'now_exp' ||
       thing_type == '血量' ||
       thing_type == '血气' ||
       thing_type == '天赋'
@@ -689,7 +695,7 @@ export async function get_ningmenghome_img(e, thing_type) {
     user_id: usr_qq,
     commodities_list: commodities_list
   }
-  const data1 = await new Show(e).get_ningmenghomeData(ningmenghome_data)
+  const data1 = await new Show().get_ningmenghomeData(ningmenghome_data)
   let img = await puppeteer.screenshot('ningmenghome', {
     ...data1
   })
@@ -708,7 +714,7 @@ export async function get_valuables_img(e) {
   let valuables_data = {
     user_id: usr_qq
   }
-  const data1 = await new Show(e).get_valuablesData(valuables_data)
+  const data1 = await new Show().get_valuablesData(valuables_data)
   let img = await puppeteer.screenshot('valuables', {
     ...data1
   })
@@ -716,7 +722,7 @@ export async function get_valuables_img(e) {
 }
 
 /**
- * 我的宗门
+ * 我the宗门
  * @return image
  */
 export async function get_association_img(e) {
@@ -759,7 +765,7 @@ export async function get_association_img(e) {
   for (item in ass.副宗主) {
     fuzong[item] =
       '道号：' +
-      data.getData('player', ass.副宗主[item]).名号 +
+      data.getData('player', ass.副宗主[item]).name +
       'QQ：' +
       ass.副宗主[item]
   }
@@ -768,7 +774,7 @@ export async function get_association_img(e) {
   for (item in ass.长老) {
     zhanglao[item] =
       '道号：' +
-      data.getData('player', ass.长老[item]).名号 +
+      data.getData('player', ass.长老[item]).name +
       'QQ：' +
       ass.长老[item]
   }
@@ -777,7 +783,7 @@ export async function get_association_img(e) {
   for (item in ass.内门弟子) {
     neimen[item] =
       '道号：' +
-      data.getData('player', ass.内门弟子[item]).名号 +
+      data.getData('player', ass.内门弟子[item]).name +
       'QQ：' +
       ass.内门弟子[item]
   }
@@ -786,13 +792,13 @@ export async function get_association_img(e) {
   for (item in ass.外门弟子) {
     waimen[item] =
       '道号：' +
-      data.getData('player', ass.外门弟子[item]).名号 +
+      data.getData('player', ass.外门弟子[item]).name +
       'QQ：' +
       ass.外门弟子[item]
   }
   let state = '需要维护'
   let now = new Date()
-  let nowTime = now.getTime() //获取当前日期的时间戳
+  let nowTime = now.getTime() //获取当前日期the时间戳
   if (ass.维护时间 > nowTime - 1000 * 60 * 60 * 24 * 7) {
     state = '不需要维护'
   }
@@ -815,7 +821,7 @@ export async function get_association_img(e) {
   let association_data = {
     user_id: usr_qq,
     ass: ass,
-    mainname: mainqq.名号,
+    mainname: mainqq.name,
     mainqq: ass.宗主,
     xiulian: xiulian,
     weizhi: weizhi,
@@ -827,14 +833,14 @@ export async function get_association_img(e) {
     waimen: waimen,
     state: state
   }
-  const data1 = await new Show(e).get_associationData(association_data)
+  const data1 = await new Show().get_associationData(association_data)
   return await puppeteer.screenshot('association', {
     ...data1
   })
 }
 
 /**
- * 返回该玩家的装备图片
+ * 返回该玩家the装备图片
  * @return image
  */
 export async function get_equipment_img(e) {
@@ -844,29 +850,29 @@ export async function get_equipment_img(e) {
   if (!ifexistplay) {
     return
   }
-  const bao = Math.trunc(parseInt(player.暴击率 * 100))
+  const bao = Math.trunc(player.暴击率 * 100)
   let equipment = await data.getData('equipment', usr_qq)
   let player_data = {
     user_id: usr_qq,
     mdz: player.魔道值,
-    nickname: player.名号,
-    arms: equipment.武器,
-    armor: equipment.护具,
-    treasure: equipment.法宝,
+    nickname: player.name,
+    arms: equipment.weapon,
+    armor: equipment.protective_clothing,
+    treasure: equipment.magic_weapon,
     player_atk: player.攻击,
     player_def: player.防御,
     player_bao: bao,
     player_maxHP: player.血量上限,
-    player_nowHP: player.当前血量,
+    player_nowHP: player.now_bool,
     pifu: Number(player.装备皮肤)
   }
-  const data1 = await new Show(e).get_equipmnetData(player_data)
+  const data1 = await new Show().get_equipmnetData(player_data)
   return await puppeteer.screenshot('equipment', {
     ...data1
   })
 }
 /**
- * 返回该玩家的纳戒图片
+ * 返回该玩家the纳戒图片
  * @return image
  */
 export async function get_najie_img(e) {
@@ -879,30 +885,30 @@ export async function get_najie_img(e) {
   let najie = await Read_najie(usr_qq)
   const lingshi = Math.trunc(najie.灵石)
   const lingshi2 = Math.trunc(najie.灵石上限)
-  let strand_hp = Strand(player.当前血量, player.血量上限)
+  let strand_hp = Strand(player.now_bool, player.血量上限)
   let strand_lingshi = Strand(najie.灵石, najie.灵石上限)
   let player_data = {
     user_id: usr_qq,
     player: player,
     najie: najie,
     mdz: player.魔道值,
-    nickname: player.名号,
+    nickname: player.name,
     najie_lv: najie.等级,
     player_maxHP: player.血量上限,
-    player_nowHP: player.当前血量,
+    player_nowHP: player.now_bool,
     najie_maxlingshi: lingshi2,
     najie_lingshi: lingshi,
     najie_equipment: najie.装备,
     najie_danyao: najie.丹药,
     najie_daoju: najie.道具,
-    najie_gongfa: najie.功法,
+    najie_gongfa: najie.skill,
     najie_caoyao: najie.草药,
     najie_cailiao: najie.材料,
     strand_hp: strand_hp,
     strand_lingshi: strand_lingshi,
     pifu: player.练气皮肤
   }
-  const data1 = await new Show(e).get_najieData(player_data)
+  const data1 = await new Show().get_najieData(player_data)
   return await puppeteer.screenshot('najie', {
     ...data1
   })
@@ -934,7 +940,7 @@ export async function get_state_img(e, all_level) {
     user_id: usr_qq,
     Level_list: Level_list
   }
-  const data1 = await new Show(e).get_stateData(state_data)
+  const data1 = await new Show().get_stateData(state_data)
   return await puppeteer.screenshot('state', {
     ...data1
   })
@@ -962,7 +968,7 @@ export async function get_statezhiye_img(e, all_level) {
     user_id: usr_qq,
     Level_list: Level_list
   }
-  const data1 = await new Show(e).get_stateDatazhiye(state_data)
+  const data1 = await new Show().get_stateDatazhiye(state_data)
   return await puppeteer.screenshot('statezhiye', {
     ...data1
   })
@@ -994,7 +1000,7 @@ export async function get_statemax_img(e, all_level) {
     user_id: usr_qq,
     LevelMax_list: LevelMax_list
   }
-  const data1 = await new Show(e).get_statemaxData(statemax_data)
+  const data1 = await new Show().get_statemaxData(statemax_data)
   return await puppeteer.screenshot('statemax', {
     ...data1
   })
@@ -1013,7 +1019,7 @@ export async function get_talent_img(e) {
     user_id: usr_qq,
     talent_list: talent_list
   }
-  const data1 = await new Show(e).get_talentData(talent_data)
+  const data1 = await new Show().get_talentData(talent_data)
   return await puppeteer.screenshot('talent', {
     ...data1
   })
@@ -1067,7 +1073,7 @@ export async function get_adminset_img(e) {
     SecretPlacetwo: cf.SecretPlace.two,
     SecretPlacethree: cf.SecretPlace.three
   }
-  const data1 = await new Show(e).get_adminsetData(adminset)
+  const data1 = await new Show().get_adminsetData(adminset)
   return await puppeteer.screenshot('adminset', {
     ...data1
   })
@@ -1081,13 +1087,13 @@ export async function get_ranking_power_img(e, Data, usr_paiming, thisplayer) {
   let ranking_power_data = {
     user_id: usr_qq,
     mdz: thisplayer.魔道值,
-    nickname: thisplayer.名号,
-    exp: thisplayer.修为,
+    nickname: thisplayer.name,
+    exp: thisplayer.now_exp,
     level: level,
     usr_paiming: usr_paiming,
     allplayer: Data
   }
-  const data1 = await new Show(e).get_ranking_powerData(ranking_power_data)
+  const data1 = await new Show().get_ranking_powerData(ranking_power_data)
   return await puppeteer.screenshot('ranking_power', {
     ...data1
   })
@@ -1105,13 +1111,13 @@ export async function get_ranking_money_img(
   const lingshi = Math.trunc(thisplayer.灵石 + thisnajie.灵石)
   let ranking_money_data = {
     user_id: usr_qq,
-    nickname: thisplayer.名号,
+    nickname: thisplayer.name,
     lingshi: lingshi,
     najie_lingshi: najie_lingshi,
     usr_paiming: usr_paiming,
     allplayer: Data
   }
-  const data1 = await new Show(e).get_ranking_moneyData(ranking_money_data)
+  const data1 = await new Show().get_ranking_moneyData(ranking_money_data)
   return await puppeteer.screenshot('ranking_money', {
     ...data1
   })

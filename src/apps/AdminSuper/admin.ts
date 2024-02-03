@@ -1,6 +1,7 @@
 import { exec } from 'child_process'
 import { plugin } from '../../../import.js'
 import { AppName } from '../../../config.js'
+
 export class admin extends plugin {
   constructor() {
     super({
@@ -16,14 +17,14 @@ export class admin extends plugin {
       ]
     })
   }
+
   async checkout(e) {
     if (!e.isMaster) return false
-
     exec(
       'git  pull',
       { cwd: `${process.cwd()}/plugins/${AppName}/` },
       function (error, stdout, stderr) {
-        if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
+        if (/(Already up[ -]to[ -]date|已经是最新the)/.test(stdout)) {
           e.reply('目前已经是最新版xiuxian@1.4.0了~')
           return false
         }

@@ -1,4 +1,4 @@
-import { plugin } from '../../api/api.js'
+import { plugin } from '../../../import.js'
 import {
   existplayer,
   exist_najie_thing,
@@ -8,7 +8,7 @@ import {
   __PATH,
   convert2integer,
   Add_najie_thing,
-  Add_灵石,
+  Add_money,
   Go,
   get_supermarket_img,
   Write_Exchange,
@@ -23,7 +23,7 @@ export class Exchange extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#冲水堂(装备|丹药|功法|道具|草药|仙宠|材料)?$',
+          reg: '^#冲水堂(装备|丹药|skill|道具|草药|仙宠|材料)?$',
           fnc: 'show_supermarket'
         },
         {
@@ -81,13 +81,13 @@ export class Exchange extends plugin {
       Exchange = await Read_Exchange()
     }
     if (x >= Exchange.length) {
-      e.reply(`没有编号为${x + 1}的物品`)
+      e.reply(`没有编号为${x + 1}the物品`)
       return false
     }
     let thingqq = Exchange[x].qq
     //对比qq是否相等
     if (thingqq != usr_qq) {
-      e.reply('不能下架别人上架的物品')
+      e.reply('不能下架别人上架the物品')
       return false
     }
     let thing_name = Exchange[x].name.name
@@ -107,7 +107,7 @@ export class Exchange extends plugin {
     Exchange.splice(x, 1)
     await Write_Exchange(Exchange)
     await redis.set('xiuxian@1.4.0:' + thingqq + ':Exchange', 0)
-    e.reply(player.名号 + '下架' + thing_name + '成功！')
+    e.reply(player.name + '下架' + thing_name + '成功！')
     return false
   }
 
@@ -175,7 +175,7 @@ export class Exchange extends plugin {
         let najie = await Read_najie(usr_qq)
         equ = najie.装备.find((item) => item.name == thing_name)
         for (let i of najie.装备) {
-          //遍历列表有没有比那把强的
+          //遍历列表有没有比那把强the
           if (i.name == thing_name && i.pinji < equ.pinji) {
             equ = i
           }
@@ -214,7 +214,7 @@ export class Exchange extends plugin {
       e.reply('就这点灵石还想上架')
       return false
     }
-    await Add_灵石(usr_qq, -off)
+    await Add_money(usr_qq, -off)
     let wupin
     if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
       let pinji2 = ['劣', '普', '优', '精', '极', '绝', '顶']
@@ -311,7 +311,7 @@ export class Exchange extends plugin {
     }
     let thingqq = Exchange[x].qq
     if (thingqq == usr_qq) {
-      e.reply('自己买自己的东西？我看你是闲得蛋疼！')
+      e.reply('自己买自己the东西？我看你是闲得蛋疼！')
       return false
     }
     //根据qq得到物品
@@ -343,15 +343,15 @@ export class Exchange extends plugin {
         await Add_najie_thing(usr_qq, thing_name, thing_class, n)
       }
       //扣钱
-      await Add_灵石(usr_qq, -money)
+      await Add_money(usr_qq, -money)
       //加钱
-      await Add_灵石(thingqq, money)
+      await Add_money(thingqq, money)
       Exchange[x].aconut = Exchange[x].aconut - n
       Exchange[x].whole = Exchange[x].whole - money
       //删除该位置信息
       Exchange = Exchange.filter((item) => item.aconut > 0)
       await Write_Exchange(Exchange)
-      e.reply(`${player.名号}在冲水堂购买了${n}个【${thing_name}】！`)
+      e.reply(`${player.name}在冲水堂购买了${n}个【${thing_name}】！`)
     } else {
       e.reply('醒醒，你没有那么多钱！')
       return false

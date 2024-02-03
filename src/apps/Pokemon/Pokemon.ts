@@ -1,15 +1,14 @@
-import { plugin, data } from '../../api/api.js'
 import {
   exist_najie_thing,
   Read_najie,
   isNotNull,
-  Write_player
-} from '../../model/index.js'
-import {
+  Write_player,
   Add_najie_thing,
   convert2integer,
-  Add_仙宠
+  Add_仙宠,
+  data
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class Pokemon extends plugin {
   constructor() {
     super({
@@ -52,7 +51,7 @@ export class Pokemon extends plugin {
       }
     }
     if (player.仙宠.灵魂绑定 == 1) {
-      e.reply('你已经与' + player.仙宠.name + '绑定了灵魂,无法更换别的仙宠！')
+      e.reply('你已经与' + player.仙宠.name + '绑定了灵魂,无法更换别the仙宠！')
       return false
     }
     let thing = data.xianchon.find((item) => item.name == name) //查找仙宠
@@ -76,7 +75,8 @@ export class Pokemon extends plugin {
       await Add_仙宠(usr_qq, player.仙宠.name, 1, player.仙宠.等级)
     }
     if (player.仙宠.type == '修炼') {
-      player.修炼效率提升 = player.修炼效率提升 - player.仙宠.加成
+      player.Improving_cultivation_efficiency =
+        player.Improving_cultivation_efficiency - player.仙宠.加成
     }
     if (player.仙宠.type == '幸运') {
       player.幸运 = player.幸运 - player.仙宠.加成
@@ -87,7 +87,8 @@ export class Pokemon extends plugin {
       player.幸运 = player.幸运 + last.加成
     }
     if (last.type == '修炼') {
-      player.修炼效率提升 = player.修炼效率提升 + last.加成
+      player.Improving_cultivation_efficiency =
+        player.Improving_cultivation_efficiency + last.加成
     }
     //增减仙宠方法
     await Add_仙宠(usr_qq, last.name, -1, last.等级)
@@ -133,14 +134,14 @@ export class Pokemon extends plugin {
       let thing = data.xianchon.find((item) => item.id == player.仙宠.id + 1) //查找下个等级仙宠
       console.log(thing)
       player.仙宠 = thing
-      player.仙宠.等级 = player_level //赋值之前的等级
-      player.仙宠.加成 = last_jiachen //赋值之前的加成
+      player.仙宠.等级 = player_level //赋值之前the等级
+      player.仙宠.加成 = last_jiachen //赋值之前the加成
       await Add_najie_thing(usr_qq, name, '道具', -1)
       await Write_player(usr_qq, player)
       e.reply('恭喜进阶【' + player.仙宠.name + '】成功')
     } else {
       let need = Number(list_level[x]) - Number(player_level)
-      e.reply('仙宠的灵泉集韵不足,还需要【' + need + '】级方可进阶')
+      e.reply('仙宠the灵泉集韵不足,还需要【' + need + '】级方可进阶')
       return false
     }
   }
@@ -177,10 +178,10 @@ export class Pokemon extends plugin {
       player.仙宠.品级 == '仙灵' &&
       player.仙宠.等级 == player.仙宠.等级上限
     ) {
-      e.reply('您的仙宠已达到天赋极限')
+      e.reply('您the仙宠已达到天赋极限')
       return false
     }
-    //纳戒中的数量
+    //纳戒中the数量
     let thing_quantity = await exist_najie_thing(usr_qq, thing_name, '仙宠口粮')
     if (thing_quantity < thing_value || !thing_quantity) {
       //没有
@@ -190,14 +191,14 @@ export class Pokemon extends plugin {
     //纳戒数量减少
     await Add_najie_thing(usr_qq, thing_name, '仙宠口粮', -thing_value)
     //待完善加成
-    let jiachen = ifexist.level * thing_value //加的等级
+    let jiachen = ifexist.level * thing_value //加the等级
     if (jiachen > player.仙宠.等级上限 - player.仙宠.等级) {
       jiachen = player.仙宠.等级上限 - player.仙宠.等级
     }
     //保留
     player.仙宠.加成 += jiachen * player.仙宠.每级增加
     if (player.仙宠.type == '修炼') {
-      player.修炼效率提升 += jiachen * player.仙宠.每级增加
+      player.Improving_cultivation_efficiency += jiachen * player.仙宠.每级增加
     }
     if (player.仙宠.type == '幸运') {
       player.幸运 += jiachen * player.仙宠.每级增加
@@ -206,14 +207,14 @@ export class Pokemon extends plugin {
       player.仙宠.等级 += jiachen
     } else {
       if (player.仙宠.品级 == '仙灵') {
-        e.reply('您的仙宠已达到天赋极限')
+        e.reply('您the仙宠已达到天赋极限')
       } else {
         e.reply('等级已达到上限,请主人尽快为仙宠突破品级')
       }
       player.仙宠.等级 = player.仙宠.等级上限
     }
     await data.setData('player', usr_qq, player)
-    e.reply(`喂养成功，仙宠的等级增加了${jiachen},当前为${player.仙宠.等级}`)
+    e.reply(`喂养成功，仙宠the等级增加了${jiachen},当前为${player.仙宠.等级}`)
     return false
   }
 }

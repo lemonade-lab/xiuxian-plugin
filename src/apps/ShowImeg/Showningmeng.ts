@@ -1,6 +1,5 @@
-import { plugin } from '../../api/api.js'
-import { __PATH } from '../../model/index.js'
 import {
+  __PATH,
   get_gongfa_img,
   get_danyao_img,
   get_wuqi_img,
@@ -9,6 +8,7 @@ import {
   get_valuables_img,
   get_ningmenghome_img
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class Showningmeng extends plugin {
   constructor(e) {
     super({
@@ -30,7 +30,7 @@ export class Showningmeng extends plugin {
           fnc: 'Show_DanYao'
         },
         {
-          reg: '^#功法楼$',
+          reg: '^#skill楼$',
           fnc: 'Show_GongFa'
         },
         {
@@ -43,7 +43,7 @@ export class Showningmeng extends plugin {
         },
 
         {
-          reg: '^#柠檬堂(装备|丹药|功法|道具|草药|武器|护具|法宝|血量|修为|血气|天赋)?$',
+          reg: '^#柠檬堂(装备|丹药|skill|道具|草药|weapon|protective_clothing|magic_weapon|血量|now_exp|血气|天赋)?$',
           fnc: 'show_ningmenghome'
         }
       ]
@@ -70,7 +70,7 @@ export class Showningmeng extends plugin {
     return false
   }
 
-  //武器楼
+  //weapon楼
   async Show_WuQi(e) {
     let img = await get_wuqi_img(e)
     e.reply(img)
@@ -83,7 +83,7 @@ export class Showningmeng extends plugin {
     e.reply(img)
     return false
   }
-  //功法楼
+  //skill楼
   async Show_GongFa(e) {
     let img = await get_gongfa_img(e)
     e.reply(img)

@@ -1,4 +1,3 @@
-import { plugin, data } from '../../api/api.js'
 import {
   Read_player,
   existplayer,
@@ -9,16 +8,18 @@ import {
   sleep,
   synchronization,
   Synchronization_ASS,
-  Add_灵石,
+  Add_money,
   Add_najie_thing,
-  Add_修为,
-  Add_player_学习功法,
+  Add_now_exp,
+  Add_player_studyskill,
   Add_血气,
   __PATH,
   instead_equipment,
   Read_najie,
-  get_equipment_img
+  get_equipment_img,
+  data
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class UserSellAll extends plugin {
   constructor() {
     super({
@@ -32,7 +33,7 @@ export class UserSellAll extends plugin {
           fnc: 'Sell_all_comodities'
         },
         {
-          reg: '^#一键服用修为丹$',
+          reg: '^#一键服用now_exp丹$',
           fnc: 'all_xiuweidan'
         },
         {
@@ -40,7 +41,7 @@ export class UserSellAll extends plugin {
           fnc: 'all_xueqidan'
         },
         {
-          reg: '^#一键学习$',
+          reg: '^#一键study$',
           fnc: 'all_learn'
         },
         {
@@ -102,7 +103,7 @@ export class UserSellAll extends plugin {
         .基础血量
     let equipment = await data.getData('equipment', usr_qq)
     //智能选择装备
-    let type = ['武器', '护具', '法宝']
+    let type = ['weapon', 'protective_clothing', 'magic_weapon']
     for (let j of type) {
       let max
       let max_equ
@@ -159,7 +160,7 @@ export class UserSellAll extends plugin {
       '装备',
       '丹药',
       '道具',
-      '功法',
+      'skill',
       '草药',
       '材料',
       '仙宠',
@@ -182,7 +183,7 @@ export class UserSellAll extends plugin {
     }
     for (let i of wupin) {
       for (let l of najie[i]) {
-        //纳戒中的数量
+        //纳戒中the数量
         l.islockd = 1
       }
     }
@@ -201,7 +202,7 @@ export class UserSellAll extends plugin {
       '装备',
       '丹药',
       '道具',
-      '功法',
+      'skill',
       '草药',
       '材料',
       '仙宠',
@@ -224,7 +225,7 @@ export class UserSellAll extends plugin {
     }
     for (let i of wupin) {
       for (let l of najie[i]) {
-        //纳戒中的数量
+        //纳戒中the数量
         l.islockd = 0
       }
     }
@@ -234,7 +235,7 @@ export class UserSellAll extends plugin {
   }
 
   async all_give(e) {
-    //这是自己的
+    //这是自己the
     let A_qq = e.user_id
     //自己没存档
     let ifexistplay = await existplayer(A_qq)
@@ -255,7 +256,7 @@ export class UserSellAll extends plugin {
       '装备',
       '丹药',
       '道具',
-      '功法',
+      'skill',
       '草药',
       '材料',
       '仙宠',
@@ -280,7 +281,7 @@ export class UserSellAll extends plugin {
       for (let l of A_najie[i]) {
         if (l && l.islockd == 0) {
           let quantity = l.数量
-          //纳戒中的数量
+          //纳戒中the数量
           if (i == '装备' || i == '仙宠') {
             await Add_najie_thing(B_qq, l, l.class, quantity, l.pinji)
             await Add_najie_thing(A_qq, l, l.class, -quantity, l.pinji)
@@ -305,7 +306,7 @@ export class UserSellAll extends plugin {
       '装备',
       '丹药',
       '道具',
-      '功法',
+      'skill',
       '草药',
       '材料',
       '仙宠',
@@ -328,7 +329,7 @@ export class UserSellAll extends plugin {
     }
     for (let i of wupin) {
       for (let l of najie[i]) {
-        //纳戒中的数量
+        //纳戒中the数量
         let thing_exist = await foundthing(l.name)
         if (thing_exist) {
           continue
@@ -341,7 +342,7 @@ export class UserSellAll extends plugin {
         }
       }
     }
-    await Add_灵石(usr_qq, lingshi)
+    await Add_money(usr_qq, lingshi)
     e.reply(`回收成功!  获得${lingshi}灵石 `)
     return false
   }
@@ -379,7 +380,7 @@ export class UserSellAll extends plugin {
     }
     let thing_exist = await foundthing(thing_name)
     if (!thing_exist) {
-      e.reply(`你瓦特了吧，这方世界没有这样的东西:${thing_name}`)
+      e.reply(`你瓦特了吧，这方世界没有这样the东西:${thing_name}`)
       return false
     }
     let pj = {
@@ -418,7 +419,7 @@ export class UserSellAll extends plugin {
         return false
       }
     }
-    e.reply(`你没有【${thing_name}】这样的${thing_exist.class}`)
+    e.reply(`你没有【${thing_name}】这样the${thing_exist.class}`)
     return false
   }
 
@@ -439,7 +440,7 @@ export class UserSellAll extends plugin {
       '装备',
       '丹药',
       '道具',
-      '功法',
+      'skill',
       '草药',
       '材料',
       '仙宠',
@@ -462,14 +463,14 @@ export class UserSellAll extends plugin {
       for (let i of wupin) {
         for (let l of najie[i]) {
           if (l && l.islockd == 0) {
-            //纳戒中的数量
+            //纳戒中the数量
             let quantity = l.数量
             await Add_najie_thing(usr_qq, l.name, l.class, -quantity, l.pinji)
             commodities_price = commodities_price + l.出售价 * quantity
           }
         }
       }
-      await Add_灵石(usr_qq, commodities_price)
+      await Add_money(usr_qq, commodities_price)
       e.reply(`出售成功!  获得${commodities_price}灵石 `)
       return false
     }
@@ -479,7 +480,7 @@ export class UserSellAll extends plugin {
     for (let i of wupin) {
       for (let l of najie[i]) {
         if (l && l.islockd == 0) {
-          //纳戒中的数量
+          //纳戒中the数量
           let quantity = l.数量
           goods.push('\n' + l.name + '*' + quantity)
           goodsNum++
@@ -522,7 +523,7 @@ export class UserSellAll extends plugin {
       '装备',
       '丹药',
       '道具',
-      '功法',
+      'skill',
       '草药',
       '材料',
       '仙宠',
@@ -531,14 +532,14 @@ export class UserSellAll extends plugin {
     for (let i of wupin) {
       for (let l of najie[i]) {
         if (l && l.islockd == 0) {
-          //纳戒中的数量
+          //纳戒中the数量
           let quantity = l.数量
           await Add_najie_thing(usr_qq, l.name, l.class, -quantity, l.pinji)
           commodities_price = commodities_price + l.出售价 * quantity
         }
       }
     }
-    await Add_灵石(usr_qq, commodities_price)
+    await Add_money(usr_qq, commodities_price)
     e.reply(`出售成功!  获得${commodities_price}灵石 `)
     return false
   }
@@ -553,15 +554,15 @@ export class UserSellAll extends plugin {
     let najie = await data.getData('najie', usr_qq)
     let xiuwei = 0
     for (let l of najie.丹药) {
-      if (l.type == '修为') {
-        //纳戒中的数量
+      if (l.type == 'now_exp') {
+        //纳戒中the数量
         let quantity = await exist_najie_thing(usr_qq, l.name, l.class)
         await Add_najie_thing(usr_qq, l.name, l.class, -quantity)
         xiuwei = xiuwei + l.exp * quantity
       }
     }
-    await Add_修为(usr_qq, xiuwei)
-    e.reply(`服用成功,修为增加${xiuwei}`)
+    await Add_now_exp(usr_qq, xiuwei)
+    e.reply(`服用成功,now_exp增加${xiuwei}`)
     return false
   }
 
@@ -577,7 +578,7 @@ export class UserSellAll extends plugin {
     let xueqi = 0
     for (let l of najie.丹药) {
       if (l.type == '血气') {
-        //纳戒中的数量
+        //纳戒中the数量
         let quantity = await exist_najie_thing(usr_qq, l.name, l.class)
         await Add_najie_thing(usr_qq, l.name, l.class, -quantity)
         xueqi = xueqi + l.xueqi * quantity
@@ -598,18 +599,18 @@ export class UserSellAll extends plugin {
     let gongfa = []
     let player = await Read_player(usr_qq)
     let name = ''
-    for (let l of najie.功法) {
-      let islearned = player.学习的功法.find((item) => item == l.name)
+    for (let l of najie.skill) {
+      let islearned = player.studytheskill.find((item) => item == l.name)
       if (!islearned) {
-        await Add_najie_thing(usr_qq, l.name, '功法', -1)
-        await Add_player_学习功法(usr_qq, l.name)
+        await Add_najie_thing(usr_qq, l.name, 'skill', -1)
+        await Add_player_studyskill(usr_qq, l.name)
         name = name + ' ' + l.name
       }
     }
     if (name) {
-      e.reply(`你学会了${name},可以在【#我的炼体】中查看`)
+      e.reply(`你学会了${name},可以在【#我the炼体】中查看`)
     } else {
-      e.reply('无新功法')
+      e.reply('无新skill')
     }
     return false
   }

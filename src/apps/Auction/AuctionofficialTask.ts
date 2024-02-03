@@ -1,10 +1,10 @@
-import { plugin, common, config } from '../../api/api.js'
 import {
   Add_najie_thing,
-  Add_灵石,
+  Add_money,
   Read_player,
   openAU
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({
@@ -14,9 +14,9 @@ export class AuctionofficialTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('xiuxian', 'xiuxian')
+    this.set = getConfig('xiuxian', 'xiuxian')
     this.task = {
-      cron: config.getConfig('task', 'task').action_task,
+      cron: getConfig('task', 'task').action_task,
       name: 'AuctionofficialTask',
       fnc: () => this.AuctionofficialTask()
     }
@@ -45,7 +45,7 @@ export class AuctionofficialTask extends plugin {
         msg += '暂无人出价'
       } else {
         const player = await Read_player(auction.last_offer_player)
-        msg += `最高出价是${player.名号}叫出的${auction.last_price}`
+        msg += `最高出价是${player.name}叫出the${auction.last_price}`
       }
       auction.groupList.forEach((group_id) =>
         this.pushInfo(group_id, true, msg)
@@ -77,9 +77,9 @@ export class AuctionofficialTask extends plugin {
     } else {
       const last_offer_player = wupin.last_offer_player
       if (last_offer_player === 0) {
-        msg = `流拍，${wupin.thing.name}已退回神秘人的纳戒`
+        msg = `流拍，${wupin.thing.name}已退回神秘人the纳戒`
       } else {
-        await Add_灵石(last_offer_player, -wupin.last_price)
+        await Add_money(last_offer_player, -wupin.last_price)
         await Add_najie_thing(
           last_offer_player,
           wupin.thing.name,
@@ -88,7 +88,7 @@ export class AuctionofficialTask extends plugin {
           wupin.thing.pinji
         )
         const player = await Read_player(last_offer_player)
-        msg = `拍卖结束，${player.名号}最终拍得该物品！`
+        msg = `拍卖结束，${player.name}最终拍得该物品！`
       }
 
       for (const group_id of group_ids) {

@@ -1,5 +1,5 @@
-import { plugin, data } from '../../api/api.js'
 import { existplayer, ifbaoji, Harm } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class tzzyt extends plugin {
   constructor() {
     super({
@@ -27,7 +27,7 @@ export class tzzyt extends plugin {
     if (!ifexistplay) return false
     let player = await data.getData('player', usr_qq)
     const equipment = data.getData('equipment', usr_qq)
-    const type = ['武器', '护具', '法宝']
+    const type = ['weapon', 'protective_clothing', 'magic_weapon']
     for (let j of type) {
       if (
         equipment[j].atk < 10 &&
@@ -71,7 +71,7 @@ export class tzzyt extends plugin {
     let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = parseInt(60000 * Time)
-    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD') //获得上次的时间戳,
+    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD') //获得上次the时间戳,
     last_time = parseInt(last_time)
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
@@ -94,25 +94,25 @@ export class tzzyt extends plugin {
     let BOSSCurrentDefence = bosszt.isWeak
       ? Math.trunc(bosszt.Defence * 0.7)
       : bosszt.Defence
-    while (player.当前血量 > 0 && bosszt.Health > 0) {
+    while (player.now_bool > 0 && bosszt.Health > 0) {
       let Random = Math.random()
       if (!(BattleFrame & 1)) {
         let Player_To_BOSS_Damage =
           Harm(player.攻击, BOSSCurrentDefence) +
-          Math.trunc(player.攻击 * player.灵根.法球倍率)
+          Math.trunc(player.攻击 * player.talent.法球倍率)
         let SuperAttack = Math.random() < player.暴击率 ? 1.5 : 1
         msg.push(`第${Math.trunc(BattleFrame / 2) + 1}回合：`)
         if (Random > 0.5 && BattleFrame == 0) {
-          msg.push('你的进攻被反手了！')
+          msg.push('你the进攻被反手了！')
           Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 0.3)
         } else if (Random > 0.94) {
-          msg.push('你的攻击被破解了')
+          msg.push('你the攻击被破解了')
           Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 6)
         } else if (Random > 0.9) {
-          msg.push('你的攻击被挡了一部分')
+          msg.push('你the攻击被挡了一部分')
           Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 0.8)
         } else if (Random < 0.1) {
-          msg.push('你抓到了未知妖物的破绽')
+          msg.push('你抓到了未知妖物the破绽')
           Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 1.2)
         }
         Player_To_BOSS_Damage = Math.trunc(
@@ -124,7 +124,7 @@ export class tzzyt extends plugin {
           bosszt.Health = 0
         }
         msg.push(
-          `${player.名号}${ifbaoji(
+          `${player.name}${ifbaoji(
             SuperAttack
           )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${bosszt.Health}`
         )
@@ -134,27 +134,27 @@ export class tzzyt extends plugin {
           Math.trunc(player.防御 * 0.1)
         )
         if (Random > 0.94) {
-          msg.push('未知妖物的攻击被你破解了')
+          msg.push('未知妖物the攻击被你破解了')
           BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 0.6)
         } else if (Random > 0.9) {
-          msg.push('未知妖物的攻击被你挡了一部分')
+          msg.push('未知妖物the攻击被你挡了一部分')
           BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 0.8)
         } else if (Random < 0.1) {
-          msg.push('未知妖物抓到了你的破绽')
+          msg.push('未知妖物抓到了你the破绽')
           BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 1.2)
         }
-        player.当前血量 -= BOSS_To_Player_Damage
+        player.now_bool -= BOSS_To_Player_Damage
         bosszt.isAngry ? --bosszt.isAngry : 0
         bosszt.isWeak ? --bosszt.isWeak : 0
         if (!bosszt.isAngry && BOSSCurrentAttack > bosszt.Attack)
           BOSSCurrentAttack = bosszt.Attack
         if (!bosszt.isWeak && BOSSCurrentDefence < bosszt.Defence)
           BOSSCurrentDefence = bosszt.Defence
-        if (player.当前血量 < 0) {
-          player.当前血量 = 0
+        if (player.now_bool < 0) {
+          player.now_bool = 0
         }
         msg.push(
-          `未知妖物攻击了${player.名号}，造成伤害${BOSS_To_Player_Damage}，${player.名号}剩余血量${player.当前血量}`
+          `未知妖物攻击了${player.name}，造成伤害${BOSS_To_Player_Damage}，${player.name}剩余血量${player.now_bool}`
         )
       }
       BattleFrame++
@@ -169,15 +169,15 @@ export class tzzyt extends plugin {
     if (bosszt.Health <= 0) {
       player.镇妖塔层数 += 5
       player.灵石 += Reward
-      player.当前血量 += Reward * 21
+      player.now_bool += Reward * 21
       e.reply([
         segment.at(usr_qq),
         `\n恭喜通过此层镇妖塔，层数+5！增加灵石${Reward}回复血量${Reward * 21}`
       ])
       data.setData('player', usr_qq, player)
     }
-    if (player.当前血量 <= 0) {
-      player.当前血量 = 0
+    if (player.now_bool <= 0) {
+      player.now_bool = 0
       player.灵石 -= Math.trunc(Reward * 2)
       e.reply([
         segment.at(usr_qq),
@@ -194,7 +194,7 @@ export class tzzyt extends plugin {
     if (!ifexistplay) return false
     let player = await data.getData('player', usr_qq)
     const equipment = await data.getData('equipment', usr_qq)
-    const type = ['武器', '护具', '法宝']
+    const type = ['weapon', 'protective_clothing', 'magic_weapon']
     for (let j of type) {
       if (
         equipment[j].atk < 10 &&
@@ -207,7 +207,7 @@ export class tzzyt extends plugin {
     }
     let lingshi = 0
     let cengshu = 0
-    while (player.当前血量 > 0) {
+    while (player.now_bool > 0) {
       let ZYTcs = player.镇妖塔层数
       let Health = 0
       let Attack = 0
@@ -246,25 +246,25 @@ export class tzzyt extends plugin {
       let BOSSCurrentDefence = bosszt.isWeak
         ? Math.trunc(bosszt.Defence * 0.7)
         : bosszt.Defence
-      while (player.当前血量 > 0 && bosszt.Health > 0) {
+      while (player.now_bool > 0 && bosszt.Health > 0) {
         let Random = Math.random()
         if (!(BattleFrame & 1)) {
           let Player_To_BOSS_Damage =
             Harm(player.攻击, BOSSCurrentDefence) +
-            Math.trunc(player.攻击 * player.灵根.法球倍率)
+            Math.trunc(player.攻击 * player.talent.法球倍率)
           let SuperAttack = Math.random() < player.暴击率 ? 1.5 : 1
           msg.push(`第${Math.trunc(BattleFrame / 2) + 1}回合：`)
           if (Random > 0.5 && BattleFrame == 0) {
-            msg.push('你的进攻被反手了！')
+            msg.push('你the进攻被反手了！')
             Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 0.3)
           } else if (Random > 0.94) {
-            msg.push('你的攻击被破解了')
+            msg.push('你the攻击被破解了')
             Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 6)
           } else if (Random > 0.9) {
-            msg.push('你的攻击被挡了一部分')
+            msg.push('你the攻击被挡了一部分')
             Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 0.8)
           } else if (Random < 0.1) {
-            msg.push('你抓到了未知妖物的破绽')
+            msg.push('你抓到了未知妖物the破绽')
             Player_To_BOSS_Damage = Math.trunc(Player_To_BOSS_Damage * 1.2)
           }
           Player_To_BOSS_Damage = Math.trunc(
@@ -276,7 +276,7 @@ export class tzzyt extends plugin {
             bosszt.Health = 0
           }
           msg.push(
-            `${player.名号}${ifbaoji(
+            `${player.name}${ifbaoji(
               SuperAttack
             )}造成伤害${Player_To_BOSS_Damage}，未知妖物剩余血量${
               bosszt.Health
@@ -288,27 +288,27 @@ export class tzzyt extends plugin {
             Math.trunc(player.防御 * 0.1)
           )
           if (Random > 0.94) {
-            msg.push('未知妖物的攻击被你破解了')
+            msg.push('未知妖物the攻击被你破解了')
             BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 0.6)
           } else if (Random > 0.9) {
-            msg.push('未知妖物的攻击被你挡了一部分')
+            msg.push('未知妖物the攻击被你挡了一部分')
             BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 0.8)
           } else if (Random < 0.1) {
-            msg.push('未知妖物抓到了你的破绽')
+            msg.push('未知妖物抓到了你the破绽')
             BOSS_To_Player_Damage = Math.trunc(BOSS_To_Player_Damage * 1.2)
           }
-          player.当前血量 -= BOSS_To_Player_Damage
+          player.now_bool -= BOSS_To_Player_Damage
           bosszt.isAngry ? --bosszt.isAngry : 0
           bosszt.isWeak ? --bosszt.isWeak : 0
           if (!bosszt.isAngry && BOSSCurrentAttack > bosszt.Attack)
             BOSSCurrentAttack = bosszt.Attack
           if (!bosszt.isWeak && BOSSCurrentDefence < bosszt.Defence)
             BOSSCurrentDefence = bosszt.Defence
-          if (player.当前血量 < 0) {
-            player.当前血量 = 0
+          if (player.now_bool < 0) {
+            player.now_bool = 0
           }
           msg.push(
-            `未知妖物攻击了${player.名号}，造成伤害${BOSS_To_Player_Damage}，${player.名号}剩余血量${player.当前血量}`
+            `未知妖物攻击了${player.name}，造成伤害${BOSS_To_Player_Damage}，${player.name}剩余血量${player.now_bool}`
           )
         }
         BattleFrame++
@@ -318,9 +318,9 @@ export class tzzyt extends plugin {
         cengshu += 5
         lingshi += Reward
         if (Reward > 0) player.灵石 -= 20000
-        player.当前血量 = player.血量上限
-      } else if (player.当前血量 <= 0) {
-        player.当前血量 = 0
+        player.now_bool = player.血量上限
+      } else if (player.now_bool <= 0) {
+        player.now_bool = 0
         player.灵石 -= Math.trunc(Reward * 2)
       }
     }

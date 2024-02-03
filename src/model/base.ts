@@ -8,11 +8,9 @@ export default class base {
     this.model = AppName
     this._path = process.cwd().replace(/\\/g, '/')
   }
-
   get prefix() {
     return `Yz:${AppName}:${this.model}:`
   }
-
   /**
    * 截图默认数据
    * @param saveId html保存id

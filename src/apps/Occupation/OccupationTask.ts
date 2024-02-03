@@ -1,8 +1,8 @@
-import { plugin, common, data, config } from '../../api/api.js'
 import fs from 'fs'
-import { isNotNull } from '../../model/index.js'
+import { getConfig, isNotNull } from '../../model/index.js'
 import { Add_najie_thing, Add_职业经验 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
+import { plugin } from '../../../import.js'
 export class OccupationTask extends plugin {
   constructor() {
     super({
@@ -12,7 +12,7 @@ export class OccupationTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.action_task,
       name: 'OccupationTask',
@@ -45,15 +45,15 @@ export class OccupationTask extends plugin {
             push_address = action.group_id
           }
         }
-        //最后发送的消息
+        //最后发送the消息
         let msg = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
-        //现在的时间
+        //现在the时间
         let now_time = new Date().getTime()
         //闭关状态
         if (action.plant == '0') {
-          //这里改一改,要在结束时间的前一分钟提前结算
+          //这里改一改,要在结束时间the前一分钟提前结算
           //时间过了
           end_time = end_time - 60000 * 2
           if (now_time > end_time) {
@@ -131,7 +131,7 @@ export class OccupationTask extends plugin {
           }
         }
         if (action.mine == '0') {
-          //这里改一改,要在结束时间的前一分钟提前结算
+          //这里改一改,要在结束时间the前一分钟提前结算
           //时间过了
           end_time = end_time - 60000 * 2
           if (now_time > end_time) {
@@ -141,7 +141,7 @@ export class OccupationTask extends plugin {
               return false
             }
             let time = parseInt(action.time) / 1000 / 60 //最高480分钟
-            //以下1到5为每种的数量
+            //以下1到5为每种the数量
             let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time) //(1.8+随机0到0.4)x时间(分钟)
             let rate =
               data.occupation_exp_list.find(
@@ -212,7 +212,7 @@ export class OccupationTask extends plugin {
               'xiuxian@1.4.0:' + player_id + ':action',
               JSON.stringify(arr)
             )
-            //msg.push("\n增加修为:" + xiuwei * time, "血量增加:" + blood * time);
+            //msg.push("\n增加now_exp:" + xiuwei * time, "血量增加:" + blood * time);
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)
             } else {

@@ -1,4 +1,3 @@
-import { plugin, data } from '../../api/api.js'
 import { __PATH } from '../../model/index.js'
 import {
   existplayer,
@@ -8,6 +7,7 @@ import {
   Write_player,
   shijianc
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class shenren extends plugin {
   constructor() {
     super({
@@ -29,7 +29,7 @@ export class shenren extends plugin {
           fnc: 'canwu'
         },
         {
-          reg: '^#敲开闪闪发光的石头$',
+          reg: '^#敲开闪闪发光the石头$',
           fnc: 'open_shitou'
         }
       ]
@@ -49,7 +49,7 @@ export class shenren extends plugin {
     let player = await Read_player(usr_qq)
     if (
       player.魔道值 > 0 ||
-      (player.灵根.type != '转生' && player.level_id < 42)
+      (player.talent.type != '转生' && player.level_id < 42)
     ) {
       e.reply('你尝试供奉神石,但是失败了')
       return false
@@ -65,12 +65,12 @@ export class shenren extends plugin {
     //查看存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let x = await exist_najie_thing(usr_qq, '闪闪发光的石头', '道具')
+    let x = await exist_najie_thing(usr_qq, '闪闪发光the石头', '道具')
     if (!x) {
-      e.reply('你没有闪闪发光的石头')
+      e.reply('你没有闪闪发光the石头')
       return false
     }
-    await Add_najie_thing(usr_qq, '闪闪发光的石头', '道具', -1)
+    await Add_najie_thing(usr_qq, '闪闪发光the石头', '道具', -1)
     let random = Math.random()
     let thing
     if (random < 0.5) {
@@ -96,7 +96,7 @@ export class shenren extends plugin {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -112,7 +112,7 @@ export class shenren extends plugin {
     }
     let player = await Read_player(usr_qq)
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
+    let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastdagong_time = await getLastdagong(usr_qq) //获得上次签到日期
     if (
@@ -121,24 +121,24 @@ export class shenren extends plugin {
     ) {
       await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastdagong_time', nowTime) //redis设置签到时间
       let n = 1
-      if (player.灵根.name == '二转轮回体') {
+      if (player.talent.name == '二转轮回体') {
         n = 2
       } else if (
-        player.灵根.name == '三转轮回体' ||
-        player.灵根.name == '四转轮回体'
+        player.talent.name == '三转轮回体' ||
+        player.talent.name == '四转轮回体'
       ) {
         n = 3
       } else if (
-        player.灵根.name == '五转轮回体' ||
-        player.灵根.name == '六转轮回体'
+        player.talent.name == '五转轮回体' ||
+        player.talent.name == '六转轮回体'
       ) {
         n = 4
       } else if (
-        player.灵根.name == '七转轮回体' ||
-        player.灵根.name == '八转轮回体'
+        player.talent.name == '七转轮回体' ||
+        player.talent.name == '八转轮回体'
       ) {
         n = 4
-      } else if (player.灵根.name == '九转轮回体') {
+      } else if (player.talent.name == '九转轮回体') {
         n = 5
       }
       player.神界次数 = n
@@ -147,7 +147,7 @@ export class shenren extends plugin {
     player = await Read_player(usr_qq)
     if (
       player.魔道值 > 0 ||
-      (player.灵根.type != '转生' && player.level_id < 42)
+      (player.talent.type != '转生' && player.level_id < 42)
     ) {
       e.reply('你没有资格进入神界')
       return false
@@ -202,7 +202,7 @@ export class shenren extends plugin {
     let player = await Read_player(usr_qq)
     if (
       player.魔道值 > 0 ||
-      (player.灵根.type != '转生' && player.level_id < 42)
+      (player.talent.type != '转生' && player.level_id < 42)
     ) {
       e.reply('你尝试领悟神石,但是失败了')
       return false
@@ -230,7 +230,7 @@ export class shenren extends plugin {
 }
 
 async function getLastdagong(usr_qq) {
-  //查询redis中的人物动作
+  //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastdagong_time')
   console.log(time)
   if (time != null) {

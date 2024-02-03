@@ -27,13 +27,13 @@
         </div>
         <!--右-->
         <div class="user_top_right">
-          <div class="user_top_font_right">道号：{{player.名号}}</div>
+          <div class="user_top_font_right">道号：{{player.name}}</div>
           <div class="user_top_font_right">
             生命：
             <div class="blood_box">
               <div class="blood_bar" {{strand_hp.style}}></div>
               <div class="blood_volume">
-                {{player.当前血量}}/{{player.血量上限}}
+                {{player.now_bool}}/{{player.血量上限}}
               </div>
             </div>
           </div>
@@ -96,7 +96,7 @@
             {{if item.HPp > 0}}
             <div class="item_int">恢复百分比：{{item.HPp*100}}%</div>
             {{/if}} {{if item.exp > 0}}
-            <div class="item_int">增加修为：{{item.exp}}</div>
+            <div class="item_int">增加now_exp：{{item.exp}}</div>
             {{/if}} {{if item.xingyun > 0}}
             <div class="item_int">
               增加幸运：{{(item.xingyun*100).toFixed(1)}}%
@@ -133,12 +133,12 @@
     </div>
     {{/if}}
     <!--下-->
-    {{if najie.功法.length > 0}}
+    {{if najie.skill.length > 0}}
     <div class="card_box">
       <div class="use_data">
-        <div class="user_font user_font_title">【功法】</div>
+        <div class="user_font user_font_title">【skill】</div>
         <div class="user_font wupin">
-          {{each najie.功法 item}}
+          {{each najie.skill item}}
           <div class="item">
             <div class="item_title">
               {{item.name}}({{['未锁定','已锁定'][item.islockd]}})

@@ -1,15 +1,13 @@
 import { readdirSync } from 'fs'
-import { plugin, data, config } from '../../api/api.js'
 import {
-  Add_灵石,
+  Add_money,
   ForwardMsg,
   Add_HP,
   Harm,
   zd_battle
 } from '../../model/index.js'
-let WorldBOSSBattleCD = [] //CD
-let WorldBOSSBattleLock = 0 //BOSS战斗锁，防止打架频率过高造成奖励多发
-let WorldBOSSBattleUnLockTimer = 0 //防止战斗锁因意外锁死
+import { plugin } from '../../../import.js'
+
 export class BOSS2 extends plugin {
   constructor() {
     super({
@@ -40,7 +38,7 @@ export class BOSS2 extends plugin {
         }
       ]
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.BossTask2,
       name: 'BossTask2',
@@ -119,7 +117,7 @@ export class BOSS2 extends plugin {
             '第' +
               `${i + 1}` +
               '名:\n' +
-              `名号:${PlayerRecord.Name[PlayerList[i]]}` +
+              `name:${PlayerRecord.Name[PlayerList[i]]}` +
               '\n' +
               `总伤害:${PlayerRecord.TotalDamage[PlayerList[i]]}` +
               `\n${
@@ -152,7 +150,7 @@ export class BOSS2 extends plugin {
     let Time = 5
     let now_Time = new Date().getTime() //获取当前时间戳
     Time = parseInt(60000 * Time)
-    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'BOSSCD') //获得上次的时间戳,
+    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'BOSSCD') //获得上次the时间戳,
     last_time = parseInt(last_time)
     if (now_Time < last_time + Time) {
       let Couple_m = Math.trunc((last_time + Time - now_Time) / 60 / 1000)
@@ -167,7 +165,7 @@ export class BOSS2 extends plugin {
         return false
       }
       if (player.level_id < 22) {
-        e.reply('修为至少达到化神初期才能参与挑战')
+        e.reply('now_exp至少达到化神初期才能参与挑战')
         return false
       }
       let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
@@ -182,7 +180,7 @@ export class BOSS2 extends plugin {
           return false
         }
       }
-      if (player.当前血量 <= player.血量上限 * 0.1) {
+      if (player.now_bool <= player.血量上限 * 0.1) {
         e.reply('还是先疗伤吧，别急着参战了')
         return false
       }
@@ -215,7 +213,7 @@ export class BOSS2 extends plugin {
           Name = []
         QQGroup[0] = usr_qq
         DamageGroup[0] = 0
-        Name[0] = player.名号
+        Name[0] = player.name
         PlayerRecordJSON = {
           QQ: QQGroup,
           TotalDamage: DamageGroup,
@@ -233,35 +231,35 @@ export class BOSS2 extends plugin {
         }
         if (!Userid && Userid != 0) {
           PlayerRecordJSON.QQ[i] = usr_qq
-          PlayerRecordJSON.Name[i] = player.名号
+          PlayerRecordJSON.Name[i] = player.name
           PlayerRecordJSON.TotalDamage[i] = 0
           Userid = i
         }
       }
       let TotalDamage = 0
       let Boss = {
-        名号: '银角大王',
+        name: '银角大王',
         攻击: parseInt(player.攻击 * (0.8 + 0.4 * Math.random())),
         防御: parseInt(player.防御 * (0.8 + 0.4 * Math.random())),
-        当前血量: parseInt(player.血量上限 * (0.8 + 0.4 * Math.random())),
+        now_bool: parseInt(player.血量上限 * (0.8 + 0.4 * Math.random())),
         暴击率: player.暴击率,
-        灵根: player.灵根,
-        法球倍率: player.灵根.法球倍率
+        talent: player.talent,
+        法球倍率: player.talent.法球倍率
       }
-      player.法球倍率 = player.灵根.法球倍率
+      player.法球倍率 = player.talent.法球倍率
       if (WorldBOSSBattleUnLockTimer) clearTimeout(WorldBOSSBattleUnLockTimer)
       SetWorldBOSSBattleUnLockTimer(e)
       if (WorldBOSSBattleLock != 0) {
         e.reply(
-          '好像有人正在和银角大王激战，现在去怕是有未知的凶险，还是等等吧！'
+          '好像有人正在和银角大王激战，现在去怕是有未知the凶险，还是等等吧！'
         )
         return false
       }
       WorldBOSSBattleLock = 1
       let Data_battle = await zd_battle(player, Boss)
       let msg = Data_battle.msg
-      let A_win = `${player.名号}击败了${Boss.名号}`
-      let B_win = `${Boss.名号}击败了${player.名号}`
+      let A_win = `${player.name}击败了${Boss.name}`
+      let B_win = `${Boss.name}击败了${player.name}`
       if (msg.length <= 60) await ForwardMsg(e, msg)
       else {
         let msgg = JSON.parse(JSON.stringify(msg))
@@ -281,7 +279,7 @@ export class BOSS2 extends plugin {
         )
         WorldBossStatus.Health -= TotalDamage
         e.reply(
-          `${player.名号}击败了[${Boss.名号}],重创[金角大王],造成伤害${TotalDamage}`
+          `${player.name}击败了[${Boss.name}],重创[金角大王],造成伤害${TotalDamage}`
         )
       } else if (msg.find((item) => item == B_win)) {
         TotalDamage = Math.trunc(
@@ -290,7 +288,7 @@ export class BOSS2 extends plugin {
         )
         WorldBossStatus.Health -= TotalDamage
         e.reply(
-          `${player.名号}被[${Boss.名号}]击败了,只对[金角大王]造成了${TotalDamage}伤害`
+          `${player.name}被[${Boss.name}]击败了,只对[金角大王]造成了${TotalDamage}伤害`
         )
       }
       await Add_HP(usr_qq, Data_battle.A_xue)
@@ -307,7 +305,7 @@ export class BOSS2 extends plugin {
         e.reply(
           `危及时刻,万先盟-韩立前来助阵,对[金角大王]造成${Math.trunc(
             WorldBossStatus.Health * 0.15
-          )}伤害,并治愈了你的伤势`
+          )}伤害,并治愈了你the伤势`
         )
         await Add_HP(usr_qq, player.血量上限)
       }
@@ -320,14 +318,14 @@ export class BOSS2 extends plugin {
         await sleep(1000)
         let msg2 =
           '【全服公告】' +
-          player.名号 +
-          '亲手结果了金角大王的性命,为民除害,额外获得500000灵石奖励！'
+          player.name +
+          '亲手结果了金角大王the性命,为民除害,额外获得500000灵石奖励！'
         const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
         const groupList = await redis.sMembers(redisGlKey)
         for (const group_id of groupList) {
           await pushInfo(group_id, true, msg2)
         }
-        await Add_灵石(usr_qq, 500000)
+        await Add_money(usr_qq, 500000)
         console.error(`[金角大王] 结算:${usr_qq}增加奖励500000`)
 
         WorldBossStatus.KilledTime = new Date().getTime()
@@ -364,7 +362,7 @@ export class BOSS2 extends plugin {
               '第' +
                 `${i + 1}` +
                 '名:\n' +
-                `名号:${CurrentPlayer.名号}` +
+                `name:${CurrentPlayer.name}` +
                 '\n' +
                 `伤害:${PlayerRecordJSON.TotalDamage[PlayerList[i]]}` +
                 '\n' +
@@ -396,7 +394,7 @@ export class BOSS2 extends plugin {
             )
           }
           if (i == PlayerList.length - 1)
-            Rewardmsg.push('其余参与的修仙者均获得200000灵石奖励！')
+            Rewardmsg.push('其余参与the修仙者均获得200000灵石奖励！')
         }
         await ForwardMsg(e, Rewardmsg)
       }
@@ -483,7 +481,7 @@ async function SortPlayer(PlayerRecordJSON) {
     return SortResult
   }
 }
-//设置防止锁卡死的计时器
+//设置防止锁卡死the计时器
 async function SetWorldBOSSBattleUnLockTimer(e) {
   WorldBOSSBattleUnLockTimer = setTimeout(() => {
     if (WorldBOSSBattleLock == 1) {

@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'fs'
 import { join } from 'path'
 /**
  * 读取json文件
- * @param dirname 相对于根目录的路径
+ * @param dirname 相对于根目录the路径
  * @returns
  */
 export function readJSON<T>(dirname: string): T | undefined {

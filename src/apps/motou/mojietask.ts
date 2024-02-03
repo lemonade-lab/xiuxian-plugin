@@ -1,17 +1,17 @@
-import { plugin, common, config, data } from '../../api/api.js'
 import { readdirSync } from 'fs'
 import {
   Read_player,
   isNotNull,
   Add_najie_thing,
   Add_血气,
-  Add_修为,
+  Add_now_exp,
   exist_najie_thing,
   Read_temp,
-  Write_temp
+  Write_temp,
+  getConfig
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-
+import { plugin } from '../../../import.js'
 export class mojietask extends plugin {
   constructor() {
     super({
@@ -21,7 +21,7 @@ export class mojietask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.actionplus_task,
       name: 'mojietask',
@@ -57,11 +57,11 @@ export class mojietask extends plugin {
           }
         }
 
-        //最后发送的消息
+        //最后发送the消息
         let msg = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
-        //现在的时间
+        //现在the时间
         let now_time = new Date().getTime()
         //用户信息
         let player = await Read_player(player_id)
@@ -135,7 +135,7 @@ export class mojietask extends plugin {
             if (player.islucky > 0) {
               player.islucky--
               if (player.islucky != 0) {
-                fyd_msg = `  \n福源丹的效力将在${player.islucky}次探索后失效\n`
+                fyd_msg = `  \n福源丹the效力将在${player.islucky}次探索后失效\n`
               } else {
                 fyd_msg = `  \n本次探索后，福源丹已失效\n`
                 player.幸运 -= player.addluckyNo
@@ -172,13 +172,13 @@ export class mojietask extends plugin {
             }
             last_msg +=
               m +
-              ',获得修为' +
+              ',获得now_exp' +
               xiuwei +
               ',气血' +
               qixue +
               ',剩余次数' +
               (action.cishu - 1)
-            msg.push('\n' + player.名号 + last_msg + fyd_msg)
+            msg.push('\n' + player.name + last_msg + fyd_msg)
             let arr = action
             if (arr.cishu == 1) {
               //把状态都关了
@@ -188,7 +188,7 @@ export class mojietask extends plugin {
               arr.Place_action = 1 //秘境
               arr.Place_actionplus = 1 //沉迷状态
               ;(arr.mojie = 1), //魔界状态---关闭
-                //结束的时间也修改为当前时间
+                //结束the时间也修改为当前时间
                 (arr.end_time = new Date().getTime())
               //结算完去除group_id
               delete arr.group_id
@@ -199,7 +199,7 @@ export class mojietask extends plugin {
               )
               //先完结再结算
               await Add_血气(player_id, qixue)
-              await Add_修为(player_id, xiuwei)
+              await Add_now_exp(player_id, xiuwei)
               //发送消息
               if (is_group) {
                 await this.pushInfo(push_address, is_group, msg)
@@ -214,11 +214,11 @@ export class mojietask extends plugin {
               )
               //先完结再结算
               await Add_血气(player_id, qixue)
-              await Add_修为(player_id, xiuwei)
+              await Add_now_exp(player_id, xiuwei)
               try {
                 let temp = await Read_temp()
                 let p = {
-                  msg: player.名号 + last_msg + fyd_msg,
+                  msg: player.name + last_msg + fyd_msg,
                   qq_group: push_address
                 }
                 temp.push(p)
@@ -227,7 +227,7 @@ export class mojietask extends plugin {
                 await Write_temp([])
                 let temp = await Read_temp()
                 let p = {
-                  msg: player.名号 + last_msg + fyd_msg,
+                  msg: player.name + last_msg + fyd_msg,
                   qq: player_id,
                   qq_group: push_address
                 }

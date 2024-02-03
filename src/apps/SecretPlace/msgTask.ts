@@ -1,5 +1,5 @@
-import { plugin, common, puppeteer, config, Show } from '../../api/api.js'
-import { Read_temp, Write_temp } from '../../model/index.js'
+import { Read_temp, Write_temp, getConfig } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class msgTask extends plugin {
   constructor() {
     super({
@@ -9,7 +9,7 @@ export class msgTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.temp_task,
       name: 'msgTask',

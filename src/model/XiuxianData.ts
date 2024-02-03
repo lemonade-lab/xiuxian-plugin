@@ -29,9 +29,9 @@ class XiuxianData {
 
   Occupation = this.filePathMap.occupation
 
-  //加载灵根列表
+  //加载talent列表
   talent_list = JSON.parse(
-    readFileSync(`${this.lib_path}/灵根列表.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/talent列表.json`, 'utf-8')
   )
   //加载怪物列表
   monster_list = JSON.parse(
@@ -67,9 +67,9 @@ class XiuxianData {
   daoju_list = JSON.parse(
     readFileSync(`${this.lib_path}/道具列表.json`, 'utf-8')
   )
-  //加载功法列表
+  //加载skill列表
   gongfa_list = JSON.parse(
-    readFileSync(`${this.lib_path}/功法列表.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/skill列表.json`, 'utf-8')
   )
   //加载草药列表
   caoyao_list = JSON.parse(
@@ -100,9 +100,9 @@ class XiuxianData {
   timeplace_list = JSON.parse(
     readFileSync(`${this.Timelimit}/限定仙府.json`, 'utf-8')
   )
-  //加载限定功法
+  //加载限定skill
   timegongfa_list = JSON.parse(
-    readFileSync(`${this.Timelimit}/限定功法.json`, 'utf-8')
+    readFileSync(`${this.Timelimit}/限定skill.json`, 'utf-8')
   )
   //加载限定装备
   timeequipmen_list = JSON.parse(
@@ -129,7 +129,7 @@ class XiuxianData {
     readFileSync(`${this.Occupation}/装备图纸.json`, 'utf-8')
   )
 
-  //加载八品功法列表
+  //加载八品skill列表
   bapin = JSON.parse(readFileSync(`${this.lib_path}/八品.json`, 'utf-8'))
   //加载星阁列表
   xingge = JSON.parse(
@@ -172,20 +172,22 @@ class XiuxianData {
   duanzhaocailiao = JSON.parse(
     readFileSync(`${this.lib_path}/锻造材料.json`, 'utf-8')
   )
-  //锻造武器列表
+  //锻造weapon列表
   duanzhaowuqi = JSON.parse(
-    readFileSync(`${this.lib_path}/锻造武器.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/锻造weapon.json`, 'utf-8')
   )
-  //锻造护具列表
+  //锻造protective_clothing列表
   duanzhaohuju = JSON.parse(
-    readFileSync(`${this.lib_path}/锻造护具.json`, 'utf-8')
+    readFileSync(`${this.lib_path}/锻造protective_clothing.json`, 'utf-8')
   )
   //锻造宝物列表
   duanzhaobaowu = JSON.parse(
     readFileSync(`${this.lib_path}/锻造宝物.json`, 'utf-8')
   )
-  //隐藏灵根列表
-  yincang = JSON.parse(readFileSync(`${this.lib_path}/隐藏灵根.json`, 'utf-8'))
+  //hide_talent列表
+  yincang = JSON.parse(
+    readFileSync(`${this.lib_path}/hide_talent.json`, 'utf-8')
+  )
   //锻造杂类列表
   zalei = JSON.parse(readFileSync(`${this.lib_path}/锻造杂类.json`, 'utf-8'))
   //加载技能列表
@@ -207,7 +209,7 @@ class XiuxianData {
   }
 
   /**
-   * 获取文件数据(user_qq为空查询item下的file_name文件)
+   * 获取文件数据(user_qq为空查询item下thefile_name文件)
    * @param file_name  [player,equipment,najie]
    * @param user_qq
    */
@@ -216,11 +218,11 @@ class XiuxianData {
     let dir
     let data
     if (user_qq) {
-      //带user_qq的查询数据文件
+      //带user_qqthe查询数据文件
       file_path = this.filePathMap[file_name]
       dir = path.join(file_path + '/' + user_qq + '.json')
     } else {
-      //不带参数的查询item下文件
+      //不带参数the查询item下文件
       file_path = this.filePathMap.lib
       dir = path.join(file_path + '/' + file_name + '.json')
     }

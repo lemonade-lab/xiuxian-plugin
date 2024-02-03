@@ -1,4 +1,3 @@
-import { plugin, common, config, data } from '../../api/api.js'
 import {
   player_efficiency,
   Read_player,
@@ -7,16 +6,17 @@ import {
   exist_najie_thing,
   Add_najie_thing,
   Add_血气,
-  Add_修为,
+  Add_now_exp,
   Read_danyao,
   Write_danyao,
   setFileValue
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class PlayerControl extends plugin {
   constructor() {
     super({
       name: 'PlayerControl',
-      dsc: '控制人物的行为',
+      dsc: '控制人物the行为',
       event: 'message',
       priority: 600,
       rule: [
@@ -78,7 +78,7 @@ export class PlayerControl extends plugin {
       time = 30
     }
 
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -143,7 +143,7 @@ export class PlayerControl extends plugin {
     time = time.replace('分', '')
     time = time.replace('钟', '')
     if (parseInt(time) == parseInt(time)) {
-      time = parseInt(time) //你选择的时间
+      time = parseInt(time) //你选择the时间
       let y = 15 //固定时间
       let x = 48 //循环次数
       //如果是 >=16*33 ----   >=30
@@ -163,11 +163,11 @@ export class PlayerControl extends plugin {
     }
 
     let player = await Read_player(usr_qq)
-    if (player.当前血量 < 200) {
+    if (player.now_bool < 200) {
       e.reply('你都伤成这样了,先去疗伤吧')
       return false
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -221,7 +221,7 @@ export class PlayerControl extends plugin {
     let now_time = new Date().getTime()
     let time
 
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
 
     let y = cf.biguan.time //固定时间
     let x = cf.biguan.cycle //循环次数
@@ -229,7 +229,7 @@ export class PlayerControl extends plugin {
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -243,7 +243,7 @@ export class PlayerControl extends plugin {
     } else {
       //属于结束了未结算
       time = parseInt(action.time / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -267,7 +267,7 @@ export class PlayerControl extends plugin {
     arr.working = 1 //降妖状态
     arr.power_up = 1 //渡劫状态
     arr.Place_action = 1 //秘境
-    arr.end_time = new Date().getTime() //结束的时间也修改为当前时间
+    arr.end_time = new Date().getTime() //结束the时间也修改为当前时间
     delete arr.group_id //结算完去除group_id
     await redis.set(
       'xiuxian@1.4.0:' + e.user_id + ':action',
@@ -288,14 +288,14 @@ export class PlayerControl extends plugin {
     let start_time = action.end_time - action.time
     let now_time = new Date().getTime()
     let time
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     let y = cf.work.time //固定时间
     let x = cf.work.cycle //循环次数
 
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -310,7 +310,7 @@ export class PlayerControl extends plugin {
     } else {
       //属于结束了未结算
       time = parseInt(action.time / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -336,7 +336,7 @@ export class PlayerControl extends plugin {
     arr.working = 1 //降妖状态
     arr.power_up = 1 //渡劫状态
     arr.Place_action = 1 //秘境
-    //结束的时间也修改为当前时间
+    //结束the时间也修改为当前时间
     arr.end_time = new Date().getTime()
     delete arr.group_id //结算完去除group_id
     await redis.set(
@@ -349,7 +349,7 @@ export class PlayerControl extends plugin {
    * @param usr_qq
    * @param time持续时间(单位用分钟)
    * @param is_random是否触发随机事件  true,false
-   * @param group_id  回复消息的地址，如果为空，则私聊
+   * @param group_id  回复消息the地址，如果为空，则私聊
    * @return  falses {Promise<void>}
    */
   async biguan_jiesuan(user_id, time, is_random, group_id) {
@@ -364,18 +364,20 @@ export class PlayerControl extends plugin {
       (item) => item.level_id == player.level_id
     ).level_id
     //闭关收益倍率计算 倍率*境界id*天赋*时间
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     let size = cf.biguan.size
-    //增加的修为
-    let xiuwei = parseInt(size * now_level_id * (player.修炼效率提升 + 1))
-    //恢复的血量
+    //增加thenow_exp
+    let xiuwei = parseInt(
+      size * now_level_id * (player.Improving_cultivation_efficiency + 1)
+    )
+    //恢复the血量
     let blood = parseInt(player.血量上限 * 0.02)
-    //额外修为
+    //额外now_exp
     let other_xiuwei = 0
 
     let msg = [segment.at(usr_qq)]
     //炼丹师丹药修正
-    let transformation = '修为'
+    let transformation = 'now_exp'
     let xueqi = 0
     let dy = await Read_danyao(usr_qq)
     if (dy.biguan > 0) {
@@ -399,7 +401,7 @@ export class PlayerControl extends plugin {
         if (transformation == '血气') {
           msg.push('\n本次闭关顿悟,受到炼神之力修正,额外增加血气:' + xueqi)
         } else {
-          msg.push('\n本次闭关顿悟,额外增加修为:' + rand * time)
+          msg.push('\n本次闭关顿悟,额外增加now_exp:' + rand * time)
         }
       }
       //走火入魔
@@ -414,7 +416,8 @@ export class PlayerControl extends plugin {
           )
         } else {
           msg.push(
-            '\n由于你闭关时隔壁装修,导致你差点走火入魔,修为下降' + rand * time
+            '\n由于你闭关时隔壁装修,导致你差点走火入魔,now_exp下降' +
+              rand * time
           )
         }
       }
@@ -427,22 +430,22 @@ export class PlayerControl extends plugin {
     ) {
       other_x = Math.trunc(xiuwei * 0.15 * time)
       await Add_najie_thing(usr_qq, '魔界秘宝', '道具', -1)
-      msg.push('\n消耗了道具[魔界秘宝],额外增加' + other_x + '修为')
-      await Add_修为(usr_qq, other_x)
+      msg.push('\n消耗了道具[魔界秘宝],额外增加' + other_x + 'now_exp')
+      await Add_now_exp(usr_qq, other_x)
     }
     if (
       (await exist_najie_thing(usr_qq, '神界秘宝', '道具')) &&
       player.魔道值 < 1 &&
-      (player.灵根.type == '转生' || player.level_id > 41)
+      (player.talent.type == '转生' || player.level_id > 41)
     ) {
       qixue = Math.trunc(xiuwei * 0.1 * time)
       await Add_najie_thing(usr_qq, '神界秘宝', '道具', -1)
       msg.push('\n消耗了道具[神界秘宝],额外增加' + qixue + '血气')
       await Add_血气(usr_qq, qixue)
     }
-    //设置修为，设置血量
+    //设置now_exp，设置血量
 
-    await setFileValue(usr_qq, blood * time, '当前血量')
+    await setFileValue(usr_qq, blood * time, 'now_bool')
 
     //给出消息提示
     if (transformation == '血气') {
@@ -452,7 +455,7 @@ export class PlayerControl extends plugin {
         transformation
       ) //丹药修正
       msg.push(
-        '\n受到炼神之力的影响,增加血气:' + xiuwei * time * dy.beiyong4,
+        '\n受到炼神之力the影响,增加血气:' + xiuwei * time * dy.beiyong4,
         '  获得治疗,血量增加:' + blood * time
       )
     } else {
@@ -464,7 +467,7 @@ export class PlayerControl extends plugin {
         )
       } else {
         msg.push(
-          '\n增加修为:' + xiuwei * time,
+          '\n增加now_exp:' + xiuwei * time,
           '  获得治疗,血量增加:' + blood * time
         )
       }
@@ -488,7 +491,7 @@ export class PlayerControl extends plugin {
    * @param usr_qq
    * @param time持续时间(单位用分钟)
    * @param is_random是否触发随机事件  true,false
-   * @param group_id  回复消息的地址，如果为空，则私聊
+   * @param group_id  回复消息the地址，如果为空，则私聊
    * @return  falses {Promise<void>}
    */
   async dagong_jiesuan(user_id, time, is_random, group_id) {
@@ -501,12 +504,12 @@ export class PlayerControl extends plugin {
     now_level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id
-    const cf = config.getConfig('xiuxian', 'xiuxian')
+    const cf = getConfig('xiuxian', 'xiuxian')
     let size = cf.work.size
     let lingshi = parseInt(
-      size * now_level_id * (1 + player.修炼效率提升) * 0.5
+      size * now_level_id * (1 + player.Improving_cultivation_efficiency) * 0.5
     )
-    let other_lingshi = 0 //额外的灵石
+    let other_lingshi = 0 //额外the灵石
     let Time = time
     let msg = [segment.at(usr_qq)]
     if (is_random) {
@@ -520,11 +523,11 @@ export class PlayerControl extends plugin {
         rand = Math.trunc(rand * 10) + 5
         other_lingshi = -1 * rand * Time
         msg.push(
-          '\n由于你的疏忽,货物被人顺手牵羊,老板大发雷霆,灵石减少' + rand * Time
+          '\n由于你the疏忽,货物被人顺手牵羊,老板大发雷霆,灵石减少' + rand * Time
         )
       }
     }
-    let get_lingshi = Math.trunc(lingshi * time + other_lingshi * 1.5) //最后获取到的灵石
+    let get_lingshi = Math.trunc(lingshi * time + other_lingshi * 1.5) //最后获取到the灵石
 
     //设置灵石
     await setFileValue(usr_qq, get_lingshi, '灵石')
@@ -546,7 +549,7 @@ export class PlayerControl extends plugin {
   }
 
   /**
-   * 获取缓存中的人物状态信息
+   * 获取缓存中the人物状态信息
    * @param usr_qq
    * @return  falses {Promise<void>}
    */

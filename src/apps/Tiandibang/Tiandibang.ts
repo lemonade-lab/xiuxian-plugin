@@ -1,17 +1,17 @@
-import path from 'path'
-import { plugin, puppeteer, Show, data, config } from '../../api/api.js'
-import { __PATH } from '../../model/index.js'
+import { join } from 'path'
 import {
+  __PATH,
   ForwardMsg,
   Read_player,
   shijianc,
-  Add_灵石,
+  Add_money,
   existplayer,
   Add_najie_thing,
   exist_najie_thing,
   zd_battle
 } from '../../model/index.js'
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
+import { plugin } from '../../../import.js'
 export class Tiandibang extends plugin {
   constructor() {
     super({
@@ -50,7 +50,7 @@ export class Tiandibang extends plugin {
         }
       ]
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.saiji,
       name: 're_bangdang',
@@ -71,15 +71,15 @@ export class Tiandibang extends plugin {
         (item) => item.level_id == player.level_id
       ).level_id
       temp[k] = {
-        名号: player.名号,
+        name: player.name,
         境界: level_id,
         攻击: player.攻击,
         防御: player.防御,
-        当前血量: player.血量上限,
+        now_bool: player.血量上限,
         暴击率: player.暴击率,
-        灵根: player.灵根,
-        法球倍率: player.灵根.法球倍率,
-        学习的功法: player.学习的功法,
+        talent: player.talent,
+        法球倍率: player.talent.法球倍率,
+        studytheskill: player.studytheskill,
         魔道值: player.魔道值,
         神石: player.神石,
         qq: this_qq,
@@ -121,7 +121,7 @@ export class Tiandibang extends plugin {
     let thing_name = msg.replace('积分兑换', '')
     let ifexist = data.tianditang.find((item) => item.name == thing_name)
     if (!ifexist) {
-      e.reply(`天地堂还没有这样的东西:${thing_name}`)
+      e.reply(`天地堂还没有这样the东西:${thing_name}`)
       return false
     }
     let tiandibang
@@ -155,7 +155,7 @@ export class Tiandibang extends plugin {
     await Write_tiandibang(tiandibang)
     e.reply([
       `兑换成功!  获得[${thing_name}],剩余[${tiandibang[m].积分}]积分  `,
-      '\n可以在【我的纳戒】中查看'
+      '\n可以在【我the纳戒】中查看'
     ])
     return false
   }
@@ -214,15 +214,15 @@ export class Tiandibang extends plugin {
         (item) => item.level_id == player.level_id
       ).level_id
       let A_player = {
-        名号: player.名号,
+        name: player.name,
         境界: level_id,
         攻击: player.攻击,
         防御: player.防御,
-        当前血量: player.血量上限,
+        now_bool: player.血量上限,
         暴击率: player.暴击率,
-        灵根: player.灵根,
-        法球倍率: player.灵根.法球倍率,
-        学习的功法: player.学习的功法,
+        talent: player.talent,
+        法球倍率: player.talent.法球倍率,
+        studytheskill: player.studytheskill,
         qq: usr_qq,
         次数: 0,
         积分: 0
@@ -272,8 +272,8 @@ export class Tiandibang extends plugin {
         msg.push(
           '名次：' +
             (m + 1) +
-            '\n名号：' +
-            tiandibang[m].名号 +
+            '\nname：' +
+            tiandibang[m].name +
             '\n积分：' +
             tiandibang[m].积分
         )
@@ -283,8 +283,8 @@ export class Tiandibang extends plugin {
         msg.push(
           '名次：' +
             (m + 1) +
-            '\n名号：' +
-            tiandibang[m].名号 +
+            '\nname：' +
+            tiandibang[m].name +
             '\n积分：' +
             tiandibang[m].积分
         )
@@ -294,8 +294,8 @@ export class Tiandibang extends plugin {
         msg.push(
           '名次：' +
             (m + 1) +
-            '\n名号：' +
-            tiandibang[m].名号 +
+            '\nname：' +
+            tiandibang[m].name +
             '\n积分：' +
             tiandibang[m].积分
         )
@@ -318,7 +318,7 @@ export class Tiandibang extends plugin {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -356,7 +356,7 @@ export class Tiandibang extends plugin {
     let def = 1
     let blood = 1
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
+    let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastbisai_time = await getLastbisai(usr_qq) //获得上次签到日期
     if (
@@ -377,7 +377,7 @@ export class Tiandibang extends plugin {
       if (zbl) {
         tiandibang[x].次数 = 1
         await Add_najie_thing(usr_qq, '摘榜令', '道具', -1)
-        last_msg.push(`${tiandibang[x].名号}使用了摘榜令\n`)
+        last_msg.push(`${tiandibang[x].name}使用了摘榜令\n`)
       } else {
         e.reply('今日挑战次数用光了,请明日再来吧')
         return false
@@ -412,24 +412,24 @@ export class Tiandibang extends plugin {
           blood = 1.3
         }
         B_player = {
-          名号: tiandibang[k].名号,
+          name: tiandibang[k].name,
           攻击: tiandibang[k].攻击,
           防御: tiandibang[k].防御,
-          当前血量: tiandibang[k].当前血量,
+          now_bool: tiandibang[k].now_bool,
           暴击率: tiandibang[k].暴击率,
-          学习的功法: tiandibang[k].学习的功法,
-          灵根: tiandibang[k].灵根,
+          studytheskill: tiandibang[k].studytheskill,
+          talent: tiandibang[k].talent,
           法球倍率: tiandibang[k].法球倍率
         }
       }
       let A_player = {
-        名号: tiandibang[x].名号,
+        name: tiandibang[x].name,
         攻击: parseInt(tiandibang[x].攻击) * atk,
         防御: parseInt(tiandibang[x].防御 * def),
-        当前血量: parseInt(tiandibang[x].当前血量 * blood),
+        now_bool: parseInt(tiandibang[x].now_bool * blood),
         暴击率: tiandibang[x].暴击率,
-        学习的功法: tiandibang[x].学习的功法,
-        灵根: tiandibang[x].灵根,
+        studytheskill: tiandibang[x].studytheskill,
+        talent: tiandibang[x].talent,
         法球倍率: tiandibang[x].法球倍率
       }
       if (k == -1) {
@@ -437,20 +437,20 @@ export class Tiandibang extends plugin {
         def = 0.8 + 0.4 * Math.random()
         blood = 0.8 + 0.4 * Math.random()
         B_player = {
-          名号: '灵修兽',
+          name: '灵修兽',
           攻击: parseInt(tiandibang[x].攻击) * atk,
           防御: parseInt(tiandibang[x].防御 * def),
-          当前血量: parseInt(tiandibang[x].当前血量 * blood),
+          now_bool: parseInt(tiandibang[x].now_bool * blood),
           暴击率: tiandibang[x].暴击率,
-          学习的功法: tiandibang[x].学习的功法,
-          灵根: tiandibang[x].灵根,
+          studytheskill: tiandibang[x].studytheskill,
+          talent: tiandibang[x].talent,
           法球倍率: tiandibang[x].法球倍率
         }
       }
       let Data_battle = await zd_battle(A_player, B_player)
       let msg = Data_battle.msg
-      let A_win = `${A_player.名号}击败了${B_player.名号}`
-      let B_win = `${B_player.名号}击败了${A_player.名号}`
+      let A_win = `${A_player.name}击败了${B_player.name}`
+      let B_win = `${B_player.name}击败了${A_player.name}`
       if (msg.find((item) => item == A_win)) {
         if (k == -1) {
           tiandibang[x].积分 += 1500
@@ -461,7 +461,7 @@ export class Tiandibang extends plugin {
         }
         tiandibang[x].次数 -= 1
         last_msg.push(
-          `${A_player.名号}击败了[${B_player.名号}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}击败了[${B_player.name}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
         )
         Write_tiandibang(tiandibang)
       } else if (msg.find((item) => item == B_win)) {
@@ -474,14 +474,14 @@ export class Tiandibang extends plugin {
         }
         tiandibang[x].次数 -= 1
         last_msg.push(
-          `${A_player.名号}被[${B_player.名号}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}被[${B_player.name}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
         )
         Write_tiandibang(tiandibang)
       } else {
         e.reply(`战斗过程出错`)
         return false
       }
-      await Add_灵石(usr_qq, lingshi)
+      await Add_money(usr_qq, lingshi)
       if (msg.length > 50) {
         console.log('通过')
       } else {
@@ -490,38 +490,38 @@ export class Tiandibang extends plugin {
       e.reply(last_msg)
     } else {
       let A_player = {
-        名号: tiandibang[x].名号,
+        name: tiandibang[x].name,
         攻击: tiandibang[x].攻击,
         防御: tiandibang[x].防御,
-        当前血量: tiandibang[x].当前血量,
+        now_bool: tiandibang[x].now_bool,
         暴击率: tiandibang[x].暴击率,
-        学习的功法: tiandibang[x].学习的功法,
-        灵根: tiandibang[x].灵根,
+        studytheskill: tiandibang[x].studytheskill,
+        talent: tiandibang[x].talent,
         法球倍率: tiandibang[x].法球倍率
       }
       atk = 0.8 + 0.4 * Math.random()
       def = 0.8 + 0.4 * Math.random()
       blood = 0.8 + 0.4 * Math.random()
       let B_player = {
-        名号: '灵修兽',
+        name: '灵修兽',
         攻击: parseInt(tiandibang[x].攻击) * atk,
         防御: parseInt(tiandibang[x].防御 * def),
-        当前血量: parseInt(tiandibang[x].当前血量 * blood),
+        now_bool: parseInt(tiandibang[x].now_bool * blood),
         暴击率: tiandibang[x].暴击率,
-        学习的功法: tiandibang[x].学习的功法,
-        灵根: tiandibang[x].灵根,
+        studytheskill: tiandibang[x].studytheskill,
+        talent: tiandibang[x].talent,
         法球倍率: tiandibang[x].法球倍率
       }
       let Data_battle = await zd_battle(A_player, B_player)
       let msg = Data_battle.msg
-      let A_win = `${A_player.名号}击败了${B_player.名号}`
-      let B_win = `${B_player.名号}击败了${A_player.名号}`
+      let A_win = `${A_player.name}击败了${B_player.name}`
+      let B_win = `${B_player.name}击败了${A_player.name}`
       if (msg.find((item) => item == A_win)) {
         tiandibang[x].积分 += 1500
         tiandibang[x].次数 -= 1
         lingshi = tiandibang[x].积分 * 8
         last_msg.push(
-          `${A_player.名号}击败了[${B_player.名号}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}击败了[${B_player.name}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
         )
         Write_tiandibang(tiandibang)
       } else if (msg.find((item) => item == B_win)) {
@@ -529,14 +529,14 @@ export class Tiandibang extends plugin {
         tiandibang[x].次数 -= 1
         lingshi = tiandibang[x].积分 * 6
         last_msg.push(
-          `${A_player.名号}被[${B_player.名号}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}被[${B_player.name}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
         )
         Write_tiandibang(tiandibang)
       } else {
         e.reply(`战斗过程出错`)
         return false
       }
-      await Add_灵石(usr_qq, lingshi)
+      await Add_money(usr_qq, lingshi)
       if (msg.length > 50) {
         console.log('通过')
       } else {
@@ -594,15 +594,15 @@ export class Tiandibang extends plugin {
     let level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id
-    tiandibang[m].名号 = player.名号
+    tiandibang[m].name = player.name
     tiandibang[m].境界 = level_id
     tiandibang[m].攻击 = player.攻击
     tiandibang[m].防御 = player.防御
-    tiandibang[m].当前血量 = player.血量上限
+    tiandibang[m].now_bool = player.血量上限
     tiandibang[m].暴击率 = player.暴击率
-    tiandibang[m].学习的功法 = player.学习的功法
-    ;(tiandibang[m].灵根 = player.灵根),
-      (tiandibang[m].法球倍率 = player.灵根.法球倍率),
+    tiandibang[m].studytheskill = player.studytheskill
+    ;(tiandibang[m].talent = player.talent),
+      (tiandibang[m].法球倍率 = player.talent.法球倍率),
       Write_tiandibang(tiandibang)
     tiandibang = await Read_tiandibang()
     tiandibang[m].暴击率 = Math.trunc(tiandibang[m].暴击率 * 100)
@@ -610,14 +610,14 @@ export class Tiandibang extends plugin {
     msg.push(
       '名次：' +
         (m + 1) +
-        '\n名号：' +
-        tiandibang[m].名号 +
+        '\nname：' +
+        tiandibang[m].name +
         '\n攻击：' +
         tiandibang[m].攻击 +
         '\n防御：' +
         tiandibang[m].防御 +
         '\n血量：' +
-        tiandibang[m].当前血量 +
+        tiandibang[m].now_bool +
         '\n暴击：' +
         tiandibang[m].暴击率 +
         '%\n积分：' +
@@ -644,14 +644,14 @@ export class Tiandibang extends plugin {
   }
 }
 async function Write_tiandibang(wupin) {
-  let dir = path.join(__PATH.tiandibang, `tiandibang.json`)
+  let dir = join(__PATH.tiandibang, `tiandibang.json`)
   let new_ARR = JSON.stringify(wupin)
   writeFileSync(dir, new_ARR, 'utf8')
   return false
 }
 
 async function Read_tiandibang() {
-  let dir = path.join(`${__PATH.tiandibang}/tiandibang.json`)
+  let dir = join(`${__PATH.tiandibang}/tiandibang.json`)
   let tiandibang = readFileSync(dir, 'utf8')
   //将字符串数据转变成数组格式
   tiandibang = JSON.parse(tiandibang)
@@ -659,7 +659,7 @@ async function Read_tiandibang() {
 }
 
 async function getLastbisai(usr_qq) {
-  //查询redis中的人物动作
+  //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastbisai_time')
   console.log(time)
   if (time != null) {
@@ -674,11 +674,11 @@ async function get_tianditang_img(e, jifen) {
   let player = await Read_player(usr_qq)
   let commodities_list = data.tianditang
   let tianditang_data = {
-    name: player.名号,
+    name: player.name,
     jifen,
     commodities_list: commodities_list
   }
-  const data1 = await new Show(e).get_tianditangData(tianditang_data)
+  const data1 = await new Show().get_tianditangData(tianditang_data)
   let img = await puppeteer.screenshot('tianditang', {
     ...data1
   })
@@ -699,15 +699,15 @@ async function re_bangdang() {
       (item) => item.level_id == player.level_id
     ).level_id
     temp[k] = {
-      名号: player.名号,
+      name: player.name,
       境界: level_id,
       攻击: player.攻击,
       防御: player.防御,
-      当前血量: player.血量上限,
+      now_bool: player.血量上限,
       暴击率: player.暴击率,
-      灵根: player.灵根,
-      法球倍率: player.灵根.法球倍率,
-      学习的功法: player.学习的功法,
+      talent: player.talent,
+      法球倍率: player.talent.法球倍率,
+      studytheskill: player.studytheskill,
       魔道值: player.魔道值,
       神石: player.神石,
       qq: this_qq,

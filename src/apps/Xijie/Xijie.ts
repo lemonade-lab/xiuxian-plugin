@@ -1,16 +1,15 @@
-import { plugin, puppeteer, data, Show } from '../../api/api.js'
-import { __PATH } from '../../model/index.js'
+import { Show, __PATH, data } from '../../model/index.js'
 import {
   existplayer,
   Read_player,
-  Add_灵石,
+  Add_money,
   Write_player,
   shijianc,
   existshop,
   Write_shop,
   Read_shop
 } from '../../model/index.js'
-
+import { plugin, puppeteer } from '../../../import.js'
 export class Xijie extends plugin {
   constructor() {
     super({
@@ -68,11 +67,11 @@ export class Xijie extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     let now_time = new Date().getTime()
@@ -153,19 +152,19 @@ export class Xijie extends plugin {
 
     shop[i].state = 1
     await Write_shop(shop)
-    if (player.灵根 == null || player.灵根 == undefined) {
-      player.灵根 = await s()
-      player.修炼效率提升 += player.灵根.eff
+    if (player.talent == null || player.talent == undefined) {
+      player.talent = await s()
+      player.Improving_cultivation_efficiency += player.talent.eff
     }
     //锁定属性
     let A_player = {
-      名号: player.名号,
+      name: player.name,
       攻击: parseInt(player.攻击),
-      防御: parseInt(player.防御 * buff),
-      当前血量: parseInt(player.血量上限 * buff),
+      防御: player.防御 * buff,
+      now_bool: player.血量上限 * buff,
       暴击率: player.暴击率,
-      灵根: player.灵根,
-      法球倍率: player.灵根.法球倍率,
+      talent: player.talent,
+      法球倍率: player.talent.法球倍率,
       魔值: 0
     }
     if (player.魔道值 > 999) {
@@ -186,7 +185,7 @@ export class Xijie extends plugin {
       xijie: '0', //洗劫状态开启
       plant: '1', //采药-开启
       mine: '1', //采矿-开启
-      //这里要保存秘境特别需要留存的信息
+      //这里要保存秘境特别需要留存the信息
       Place_address: shop[i],
       A_player: A_player
     }
@@ -209,11 +208,11 @@ export class Xijie extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -221,8 +220,8 @@ export class Xijie extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -248,10 +247,10 @@ export class Xijie extends plugin {
     let player = await Read_player(usr_qq)
     let Price = shop[i].price * 0.3
     if (player.灵石 < Price) {
-      e.reply('你需要更多的灵石去打探消息')
+      e.reply('你需要更多the灵石去打探消息')
       return false
     }
-    await Add_灵石(usr_qq, -Price)
+    await Add_money(usr_qq, -Price)
     let thing = await existshop(didian)
     let level = shop[i].Grade
     let state = shop[i].state
@@ -280,7 +279,7 @@ export class Xijie extends plugin {
       state,
       thing
     }
-    const data1 = await new Show(e).get_didianData(didian_data)
+    const data1 = await new Show().get_didianData(didian_data)
     let img = await puppeteer.screenshot('shop', {
       ...data1
     })

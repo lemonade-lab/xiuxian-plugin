@@ -1,42 +1,42 @@
 [
   {
     "id": 1,
-    "name": "金灵根"
+    "name": "金talent"
   },
   {
     "id": 2,
-    "name": "木灵根"
+    "name": "木talent"
   },
   {
     "id": 3,
-    "name": "水灵根"
+    "name": "水talent"
   },
   {
     "id": 4,
-    "name": "火灵根"
+    "name": "火talent"
   },
   {
     "id": 5,
-    "name": "土灵根"
+    "name": "土talent"
   },
   {
     "id": 6,
-    "name": "雷灵根"
+    "name": "雷talent"
   },
   {
     "id": 7,
-    "name": "光灵根"
+    "name": "光talent"
   },
   {
     "id": 8,
-    "name": "暗灵根"
+    "name": "暗talent"
   },
   {
     "id": 9,
-    "name": "冰灵根"
+    "name": "冰talent"
   },
   {
     "id": 10,
-    "name": "风灵根"
+    "name": "风talent"
   }
 ]

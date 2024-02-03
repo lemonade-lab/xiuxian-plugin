@@ -50,11 +50,11 @@
 
               {{else if item.class=="丹药"}}
               <div class="info">
-                {{item.type}}：{{if item.type=='修为'}}{{item.exp}}{{else if
+                {{item.type}}：{{if item.type=='now_exp'}}{{item.exp}}{{else if
                 item.type=='血气'}}{{item.xueqi}}{{else if
                 item.type=='血量'}}{{item.HP}}{{/if}}
               </div>
-              {{else if item.class=="功法"}}
+              {{else if item.class=="skill"}}
               <div class="info">修炼加成：{{item.修炼加成*100}}%</div>
 
               {{else if item.class=="道具"}}

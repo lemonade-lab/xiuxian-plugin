@@ -1,4 +1,3 @@
-import { plugin } from '../../api/api.js'
 import {
   __PATH,
   get_equipment_img,
@@ -9,6 +8,7 @@ import {
   get_statemax_img,
   get_association_img
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class showData extends plugin {
   constructor(e) {
     super({
@@ -18,11 +18,11 @@ export class showData extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#我的装备$',
+          reg: '^#我the装备$',
           fnc: 'show_equipment'
         },
         {
-          reg: '^#我的炼体$',
+          reg: '^#我the炼体$',
           fnc: 'show_power'
         },
         {
@@ -38,7 +38,7 @@ export class showData extends plugin {
           fnc: 'show_LevelMax'
         },
         {
-          reg: '^#我的宗门$',
+          reg: '^#我the宗门$',
           fnc: 'show_association'
         },
         {
@@ -88,7 +88,7 @@ export class showData extends plugin {
     return false
   }
 
-  //我的宗门
+  //我the宗门
   async show_association(e) {
     let img = await get_association_img(e)
     e.reply(img)

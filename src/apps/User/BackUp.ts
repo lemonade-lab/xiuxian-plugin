@@ -7,8 +7,8 @@ import fs, {
   statSync,
   writeFileSync
 } from 'fs'
-import { plugin, config } from '../../api/api.js'
-import { __PATH } from '../../model/index.js'
+import { __PATH, getConfig } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class BackUp extends plugin {
   constructor() {
     super({
@@ -33,7 +33,7 @@ export class BackUp extends plugin {
     })
     this.saving = false
     this.task = {
-      cron: config.getConfig('task', 'task').AutoBackUpTask,
+      cron: getConfig('task', 'task').AutoBackUpTask,
       name: 'AutoBackUp',
       fnc: this.saveBackUp
     }
@@ -242,7 +242,7 @@ export class BackUp extends plugin {
 
       // 导入
       const finishTask = needLoad.map(async (folderName, index) => {
-        // 删一删原本的存档
+        // 删一删原本the存档
         const originFname = readdirSync(`${__PATH[folderName]}`)
         const clearTask = originFname.map((fn) => {
           if (!fn.endsWith('.json')) return Promise.resolve()
@@ -251,19 +251,19 @@ export class BackUp extends plugin {
         })
         await Promise.all(clearTask)
 
-        // 删原本的redis
+        // 删原本theredis
         if (includeBackup) {
           const originRedisKeys = await redis.keys('xiuxian:*')
           const clearRedisTask = originRedisKeys.map((key) => redis.del(key))
           await Promise.all(clearRedisTask)
         }
 
-        // 然后再写入备份的
+        // 然后再写入备份the
         const writeTask = loadData[index].map((ld, i) =>
           promises.writeFile(`${__PATH[folderName]}/${dataFname[index][i]}`, ld)
         )
 
-        // 写入备份的redis
+        // 写入备份theredis
         if (includeBackup) {
           await Promise.all(
             Object.keys(redisObj).map((key) => {

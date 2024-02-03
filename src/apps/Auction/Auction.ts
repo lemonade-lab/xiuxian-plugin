@@ -1,4 +1,3 @@
-import { plugin, common, config } from '../../api/api.js'
 import {
   __PATH,
   existplayer,
@@ -6,6 +5,7 @@ import {
   isNotNull,
   openAU
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class Auction extends plugin {
   constructor() {
     super({
@@ -36,7 +36,7 @@ export class Auction extends plugin {
         }
       ]
     })
-    this.set = config.getConfig('xiuxian', 'xiuxian')
+    this.set = getConfig('xiuxian', 'xiuxian')
   }
 
   async xingGE(e) {
@@ -60,7 +60,7 @@ export class Auction extends plugin {
       msg += '暂无人出价'
     } else {
       const player = await Read_player(auction.last_offer_player)
-      msg += `最高出价是${player.名号}叫出的${auction.last_price}`
+      msg += `最高出价是${player.name}叫出the${auction.last_price}`
     }
     await e.reply(msg)
   }
@@ -102,7 +102,7 @@ export class Auction extends plugin {
         msg += '暂无人出价'
       } else {
         const player = await Read_player(auction.last_offer_player)
-        msg += `最高出价是${player.名号}叫出的${auction.last_price}`
+        msg += `最高出价是${player.name}叫出the${auction.last_price}`
       }
       await e.reply(msg)
     }
@@ -113,7 +113,7 @@ export class Auction extends plugin {
     //   JSON.stringify(Date.now() + addTIME)
     // );
 
-    // await redis.set('xiuxian:AuctionofficialTask_E', e.group_id); NOTE: 过时的
+    // await redis.set('xiuxian:AuctionofficialTask_E', e.group_id); NOTE: 过时the
     try {
       await redis.del(redisGlKey)
     } catch (err) {
@@ -173,10 +173,7 @@ export class Auction extends plugin {
     // 是否到拍卖时间
     let auction = await redis.get('xiuxian:AuctionofficialTask')
     if (!isNotNull(auction)) {
-      const { openHour, closeHour } = config.getConfig(
-        'xiuxian',
-        'xiuxian'
-      ).Auction
+      const { openHour, closeHour } = getConfig('xiuxian', 'xiuxian').Auction
       e.reply(`不在拍卖时间，开启时间为每天${openHour}时~${closeHour}时`)
       return false
     }
@@ -206,14 +203,14 @@ export class Auction extends plugin {
 
     // if (auction.group_id.indexOf(e.group_id) < 0) {
     //   auction.group_id += '|' + e.group_id;
-    // } NOTE: 过时的
+    // } NOTE: 过时the
     // 关掉了
     // await redis.sAdd(redisGlKey, String(e.group_id));
     auction.groupList = await redis.sMembers(redisGlKey)
 
-    const msg = `${player.名号}叫价${new_price} `
+    const msg = `${player.name}叫价${new_price} `
     auction.groupList.forEach((group_id) => pushInfo(group_id, true, msg))
-    // ↑新的：RetuEase
+    // ↑新the：RetuEase
 
     auction.last_price = new_price
     auction.last_offer_player = usr_qq
@@ -243,7 +240,7 @@ export class Auction extends plugin {
       tmp = '暂无人出价'
     } else {
       let player = await Read_player(auction.last_offer_player)
-      tmp = `最高出价是${player.名号}叫出的${auction.last_price}`
+      tmp = `最高出价是${player.name}叫出the${auction.last_price}`
     }
     let msg = '___[星尘拍卖行]___\n'
     msg += `目前正在拍卖【${auction.thing.name}】\n${tmp}`

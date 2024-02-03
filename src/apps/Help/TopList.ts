@@ -1,4 +1,3 @@
-import { plugin, data } from '../../api/api.js'
 import {
   existplayer,
   Get_xiuwei,
@@ -13,6 +12,7 @@ import {
   get_ranking_power_img
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
+import { plugin } from '../../../import.js'
 import { readdirSync } from 'fs'
 export class TopList extends plugin {
   constructor() {
@@ -76,7 +76,7 @@ export class TopList extends plugin {
       temp[i] = {
         power: power,
         qq: player_id,
-        name: player.名号,
+        name: player.name,
         level_id: player.level_id
       }
       i++
@@ -134,14 +134,14 @@ export class TopList extends plugin {
         (player.攻击 + player.防御 * 0.8 + player.血量上限 * 0.6) *
         (player.暴击率 + 1)
       if (player.level_id >= 42) {
-        //跳过仙人的记录
+        //跳过仙人the记录
         continue
       }
       power = Math.trunc(power)
       temp[i] = {
         power: power,
         qq: player_id,
-        name: player.名号,
+        name: player.name,
         level_id: player.level_id
       }
       i++
@@ -198,14 +198,14 @@ export class TopList extends plugin {
         (item) => item.level_id == player.level_id
       ).level
       temp[i] = {
-        总修为: sum_exp,
+        总now_exp: sum_exp,
         境界: level,
-        名号: player.名号,
+        name: player.name,
         qq: this_qq
       }
     }
     //排序
-    temp.sort(sortBy('总修为'))
+    temp.sort(sortBy('总now_exp'))
     usr_paiming = temp.findIndex((temp) => temp.qq === usr_qq) + 1
     let Data = []
     if (File_length > 10) {
@@ -241,7 +241,7 @@ export class TopList extends plugin {
         ls1: najie.灵石,
         ls2: player.灵石,
         灵石: lingshi,
-        名号: player.名号,
+        name: player.name,
         qq: this_qq
       }
     }

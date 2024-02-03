@@ -1,4 +1,3 @@
-import { plugin, data } from '../../api/api.js'
 import { __PATH } from '../../model/index.js'
 import {
   existplayer,
@@ -7,6 +6,7 @@ import {
   Add_najie_thing,
   Write_player
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class motou extends plugin {
   constructor() {
     super({
@@ -47,26 +47,26 @@ export class motou extends plugin {
       e.reply('你没有魔石')
       return false
     }
-    if (player.灵根.type != '魔头') {
+    if (player.talent.type != '魔头') {
       /** 设置上下文 */
       this.setContext('RE_lingeng')
       /** 回复 */
       await e.reply(
-        '一旦转为魔根,将会舍弃当前灵根。回复:【放弃魔根】或者【转世魔根】进行选择',
+        '一旦转为魔根,将会舍弃当前talent。回复:【放弃魔根】或者【转世魔根】进行选择',
         false,
         { at: true }
       )
       return false
     }
     let random = Math.random()
-    if (player.灵根.name == '一重魔功') {
+    if (player.talent.name == '一重魔功') {
       if (x < 20) {
         e.reply('魔石不足20个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -20)
       if (random < 0.9) {
-        player.灵根 = {
+        player.talent = {
           id: 100992,
           name: '二重魔功',
           type: '魔头',
@@ -74,20 +74,20 @@ export class motou extends plugin {
           法球倍率: 0.27
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根二重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent二重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '二重魔功') {
+    } else if (player.talent.name == '二重魔功') {
       if (x < 30) {
         e.reply('魔石不足30个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -30)
       if (random < 0.8) {
-        player.灵根 = {
+        player.talent = {
           id: 100993,
           name: '三重魔功',
           type: '魔头',
@@ -95,20 +95,20 @@ export class motou extends plugin {
           法球倍率: 0.31
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根三重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent三重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '三重魔功') {
+    } else if (player.talent.name == '三重魔功') {
       if (x < 30) {
         e.reply('魔石不足30个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -30)
       if (random < 0.7) {
-        player.灵根 = {
+        player.talent = {
           id: 100994,
           name: '四重魔功',
           type: '魔头',
@@ -116,20 +116,20 @@ export class motou extends plugin {
           法球倍率: 0.36
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根四重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent四重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '四重魔功') {
+    } else if (player.talent.name == '四重魔功') {
       if (x < 40) {
         e.reply('魔石不足40个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -40)
       if (random < 0.6) {
-        player.灵根 = {
+        player.talent = {
           id: 100995,
           name: '五重魔功',
           type: '魔头',
@@ -137,20 +137,20 @@ export class motou extends plugin {
           法球倍率: 0.4
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根五重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent五重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '五重魔功') {
+    } else if (player.talent.name == '五重魔功') {
       if (x < 40) {
         e.reply('魔石不足40个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -40)
       if (random < 0.5) {
-        player.灵根 = {
+        player.talent = {
           id: 100996,
           name: '六重魔功',
           type: '魔头',
@@ -158,20 +158,20 @@ export class motou extends plugin {
           法球倍率: 0.43
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根六重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent六重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '六重魔功') {
+    } else if (player.talent.name == '六重魔功') {
       if (x < 40) {
         e.reply('魔石不足40个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -40)
       if (random < 0.4) {
-        player.灵根 = {
+        player.talent = {
           id: 100997,
           name: '七重魔功',
           type: '魔头',
@@ -179,20 +179,20 @@ export class motou extends plugin {
           法球倍率: 0.47
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根七重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent七重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '七重魔功') {
+    } else if (player.talent.name == '七重魔功') {
       if (x < 50) {
         e.reply('魔石不足50个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -50)
       if (random < 0.3) {
-        player.灵根 = {
+        player.talent = {
           id: 100998,
           name: '八重魔功',
           type: '魔头',
@@ -200,20 +200,20 @@ export class motou extends plugin {
           法球倍率: 0.5
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根八重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent八重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
-    } else if (player.灵根.name == '八重魔功') {
+    } else if (player.talent.name == '八重魔功') {
       if (x < 50) {
         e.reply('魔石不足50个,当前魔石数量' + x + '个')
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -50)
       if (random < 0.2) {
-        player.灵根 = {
+        player.talent = {
           id: 100999,
           name: '九重魔功',
           type: '魔头',
@@ -221,10 +221,10 @@ export class motou extends plugin {
           法球倍率: 1.2
         }
         await Write_player(usr_qq, player)
-        e.reply('恭喜你,灵根突破成功,当前灵根九重魔功!')
+        e.reply('恭喜你,talent突破成功,当前talent九重魔功!')
         return false
       } else {
-        e.reply('灵根突破失败')
+        e.reply('talent突破失败')
         return false
       }
     }
@@ -252,7 +252,7 @@ export class motou extends plugin {
         return false
       }
       await Add_najie_thing(usr_qq, '魔石', '道具', -10)
-      player.灵根 = {
+      player.talent = {
         id: 100991,
         name: '一重魔功',
         type: '魔头',
@@ -280,7 +280,7 @@ export class motou extends plugin {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -299,12 +299,12 @@ export class motou extends plugin {
       e.reply('你不是魔头')
       return false
     }
-    if (player.修为 < 4000000) {
-      e.reply('修为不足')
+    if (player.now_exp < 4000000) {
+      e.reply('now_exp不足')
       return false
     }
     player.魔道值 -= 100
-    player.修为 -= 4000000
+    player.now_exp -= 4000000
     await Write_player(usr_qq, player)
     let time = 60 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒

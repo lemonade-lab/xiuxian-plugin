@@ -10,9 +10,11 @@ import {
   Write_Exchange,
   get_player_img,
   Read_player,
-  __PATH
+  __PATH,
+  data,
+  Show
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
 export class AdminSuper extends plugin {
   constructor() {
     super({
@@ -46,7 +48,7 @@ export class AdminSuper extends plugin {
           fnc: 'jiesan_ass'
         },
         {
-          reg: '#将米娜桑的纳戒里叫.*的的的(装备|道具|丹药|功法|草药|材料|仙宠|口粮)(抹除|替换为叫.*之之之(装备|道具|丹药|功法|草药|材料|仙宠|口粮))$',
+          reg: '#将米娜桑the纳戒里叫.*thethethe(装备|道具|丹药|skill|草药|材料|仙宠|口粮)(抹除|替换为叫.*之之之(装备|道具|丹药|skill|草药|材料|仙宠|口粮))$',
           fnc: 'replaceThing'
         }
       ]
@@ -111,9 +113,9 @@ export class AdminSuper extends plugin {
       str[str.length - 1 - j] = T
     }
     for (j = str.length - 1; j > -1; j--) {
-      if (str[j] == '零' || str[j] == '打铁的') {
+      if (str[j] == '零' || str[j] == '打铁the') {
         let m = j
-        while (str[m - 1] != '零' && str[m - 1] != '打铁的' && m > 0) {
+        while (str[m - 1] != '零' && str[m - 1] != '打铁the' && m > 0) {
           T = str[m]
           str[m] = str[m - 1]
           str[m - 1] = T
@@ -124,7 +126,7 @@ export class AdminSuper extends plugin {
     let log_data = {
       log: str
     }
-    const data1 = await new Show(e).get_logData(log_data)
+    const data1 = await new Show().get_logData(log_data)
     let img = await puppeteer.screenshot('log', {
       ...data1
     })
@@ -156,7 +158,7 @@ export class AdminSuper extends plugin {
     return false
   }
 
-  //#我的信息
+  //#我the信息
   async Show_player(e) {
     let usr_qq = e.user_id
     //有无存档
@@ -186,23 +188,23 @@ export class AdminSuper extends plugin {
     for (let player_id of playerList) {
       //清除游戏状态
       await redis.set('xiuxian@1.4.0:' + player_id + ':game_action', 1)
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = JSON.parse(action)
+      const action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         await redis.del('xiuxian@1.4.0:' + player_id + ':action')
-        let arr = action
-        arr.is_jiesuan = 1 //结算状态
-        arr.shutup = 1 //闭关状态
-        arr.working = 1 //降妖状态
-        arr.power_up = 1 //渡劫状态
-        arr.Place_action = 1 //秘境
-        arr.Place_actionplus = 1 //沉迷状态
-        arr.end_time = new Date().getTime() //结束的时间也修改为当前时间
-        delete arr.group_id //结算完去除group_id
+        action.is_jiesuan = 1 //结算状态
+        action.shutup = 1 //闭关状态
+        action.working = 1 //降妖状态
+        action.power_up = 1 //渡劫状态
+        action.Place_action = 1 //秘境
+        action.Place_actionplus = 1 //沉迷状态
+        action.end_time = new Date().getTime() //结束the时间也修改为当前时间
+        delete action.group_id //结算完去除group_id
         await redis.set(
           'xiuxian@1.4.0:' + player_id + ':action',
-          JSON.stringify(arr)
+          JSON.stringify(action)
         )
       }
     }
@@ -224,22 +226,22 @@ export class AdminSuper extends plugin {
     if (!ifexistplay) return false
     //清除游戏状态
     await redis.set('xiuxian@1.4.0:' + qq + ':game_action', 1)
-    //查询redis中的人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + qq + ':action')
-    action = JSON.parse(action)
+    //查询redis中the人物动作
+    const action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + qq + ':action')
+    )
     //不为空，有状态
     if (action != null) {
       //把状态都关了
-      let arr = action
-      arr.is_jiesuan = 1 //结算状态
-      arr.shutup = 1 //闭关状态
-      arr.working = 1 //降妖状态
-      arr.power_up = 1 //渡劫状态
-      arr.Place_action = 1 //秘境
-      arr.Place_actionplus = 1 //沉迷状态
-      arr.end_time = new Date().getTime() //结束的时间也修改为当前时间
-      delete arr.group_id //结算完去除group_id
-      await redis.set('xiuxian@1.4.0:' + qq + ':action', JSON.stringify(arr))
+      action.is_jiesuan = 1 //结算状态
+      action.shutup = 1 //闭关状态
+      action.working = 1 //降妖状态
+      action.power_up = 1 //渡劫状态
+      action.Place_action = 1 //秘境
+      action.Place_actionplus = 1 //沉迷状态
+      action.end_time = new Date().getTime() //结束the时间也修改为当前时间
+      delete action.group_id //结算完去除group_id
+      await redis.set('xiuxian@1.4.0:' + qq + ':action', JSON.stringify(action))
       e.reply('已解除！')
       return false
     }
@@ -263,7 +265,7 @@ export class AdminSuper extends plugin {
       e.reply('没存档你打个锤子！')
       return false
     }
-    let player = await Read_player(qq)
+    const player = Read_player(qq)
     player.power_place = 1
     e.reply('已打落凡间！')
     await Write_player(qq, player)
@@ -272,15 +274,15 @@ export class AdminSuper extends plugin {
 
   async replaceThing(e) {
     if (!e.isMaster) return false
-    const msg1 = e.msg.replace('#将米娜桑的纳戒里叫', '')
-    const [thingName, msg2] = msg1.split('的的的')
+    const msg1 = e.msg.replace('#将米娜桑the纳戒里叫', '')
+    const [thingName, msg2] = msg1.split('thethethe')
 
-    // #将米娜桑的纳戒里叫.*的的的(装备|道具|丹药|功法|草药|材料|盒子|仙宠|口粮|项链|食材)(抹除|替换为叫.*之之之(装备|道具|丹药|功法|草药|材料|盒子|仙宠|口粮|项链|食材))$
+    // #将米娜桑the纳戒里叫.*thethethe(装备|道具|丹药|skill|草药|材料|盒子|仙宠|口粮|项链|食材)(抹除|替换为叫.*之之之(装备|道具|丹药|skill|草药|材料|盒子|仙宠|口粮|项链|食材))$
     if (e.msg.endsWith('抹除')) {
       const thingType = msg2.replace(/抹除$/, '')
       if (!thingName || !thingType)
         return e.reply(
-          '格式错误，正确格式范例：#将米娜桑的纳戒里叫1w的的的道具替换为叫1k之之之道具'
+          '格式错误，正确格式范例：#将米娜桑the纳戒里叫1wthethethe道具替换为叫1k之之之道具'
         )
       await clearNajieThing(thingType, thingName)
       return e.reply('全部抹除完成')
@@ -292,6 +294,7 @@ export class AdminSuper extends plugin {
     const [newThingName, newThingType] = msg3.split('之之之')
     const objArr = await clearNajieThing(thingType, thingName)
     objArr.map((uid_tnum) => {
+      if (!uid_tnum) return
       const usrId = Object.entries(uid_tnum)[0][0]
       Add_najie_thing(usrId, newThingName, newThingType, uid_tnum.usrId * N)
     })
@@ -319,10 +322,16 @@ async function clearNajieThing(thingType, thingName) {
             usrId,
             thingName,
             thingType,
-            pinji
+            Number(pinji)
           )
           if (thingNum) {
-            Add_najie_thing(usrId, thingName, thingType, -thingNum, pinji)
+            Add_najie_thing(
+              usrId,
+              thingName,
+              thingType,
+              -thingNum,
+              Number(pinji)
+            )
             thingNumber += thingNum
           }
         })

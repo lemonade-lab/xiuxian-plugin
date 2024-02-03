@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { plugin } from '../../api/api.js'
 import { fstadd_qinmidu, sleep, __PATH } from '../../model/index.js'
 import {
   exist_najie_thing,
@@ -11,6 +10,7 @@ import {
   add_qinmidu,
   Add_najie_thing
 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 let x = 0
 let chaoshi_time
 let user_A
@@ -60,9 +60,9 @@ export class Daolv extends plugin {
             3309758991   20
          */
     let flag = 0 //关系人数
-    let msg = [] //回复的消息
+    let msg = [] //回复the消息
     msg.push(`\n-----qq----- -亲密度-`)
-    //遍历所有人的qq
+    //遍历所有人theqq
     let File = fs.readdirSync(__PATH.player_path)
     File = File.filter((file) => file.endsWith('.json'))
     for (let i = 0; i < File.length; i++) {
@@ -71,7 +71,7 @@ export class Daolv extends plugin {
       if (A == B) {
         continue
       }
-      //A与B的亲密度
+      //A与Bthe亲密度
       let pd = await find_qinmidu(A, B)
       if (pd == false) {
         continue
@@ -80,7 +80,7 @@ export class Daolv extends plugin {
       msg.push(`\n${B}\t ${pd}`)
     }
     if (flag == 0) {
-      e.reply(`其实一个人也不错的`)
+      e.reply(`其实一个人也不错the`)
     } else {
       for (let i = 0; i < msg.length; i += 8) {
         e.reply(msg.slice(i, i + 8), false, { at: true })
@@ -100,7 +100,7 @@ export class Daolv extends plugin {
     A_action = JSON.parse(A_action)
     if (A_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
         let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
@@ -134,7 +134,7 @@ export class Daolv extends plugin {
     B_action = JSON.parse(B_action)
     if (B_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let B_action_end_time = B_action.end_time
       if (now_time <= B_action_end_time) {
         let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
@@ -175,7 +175,7 @@ export class Daolv extends plugin {
     let player_A = await Read_player(A)
     let msg = [segment.at(B), '\n']
     msg.push(
-      `${player_A.名号}想和你缔结道侣,你愿意吗？\n回复【我愿意】or【我拒绝】`
+      `${player_A.name}想和你缔结道侣,你愿意吗？\n回复【我愿意】or【我拒绝】`
     )
     e.reply(msg)
     chaoshi(e)
@@ -192,11 +192,11 @@ export class Daolv extends plugin {
         if (i != qinmidu.length) {
           qinmidu[i].婚姻 = 1
           await Write_qinmidu(qinmidu)
-          e.reply(`${player_B.名号}同意了你的请求`)
+          e.reply(`${player_B.name}同意了你the请求`)
           await Add_najie_thing(user_A, '定情信物', '道具', -1)
         }
       } else if (e.msg == '我拒绝') {
-        e.reply(`${player_B.名号}拒绝了你的请求`)
+        e.reply(`${player_B.name}拒绝了你the请求`)
       }
       clearTimeout(chaoshi_time)
       x = 0
@@ -214,7 +214,7 @@ export class Daolv extends plugin {
     A_action = JSON.parse(A_action)
     if (A_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
         let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
@@ -248,7 +248,7 @@ export class Daolv extends plugin {
     B_action = JSON.parse(B_action)
     if (B_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let B_action_end_time = B_action.end_time
       if (now_time <= B_action_end_time) {
         let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
@@ -293,7 +293,7 @@ export class Daolv extends plugin {
     user_B = B
     let player_A = await Read_player(A)
     let msg = [segment.at(B), '\n']
-    msg.push(`${player_A.名号}要和你断绝姻缘\n回复【我同意】or【我拒绝】`)
+    msg.push(`${player_A.name}要和你断绝姻缘\n回复【我同意】or【我拒绝】`)
     e.reply(msg)
     chaoshi(e)
     return false
@@ -310,9 +310,9 @@ export class Daolv extends plugin {
         if (e.msg == '我同意') {
           qinmidu[i].婚姻 = 0
           await Write_qinmidu(qinmidu)
-          e.reply(`${player_A.名号}和${player_B.名号}和平分手`)
+          e.reply(`${player_A.name}和${player_B.name}和平分手`)
         } else if (e.msg == '我拒绝') {
-          e.reply(`${player_B.名号}拒绝了${player_A.名号}提出的建议`)
+          e.reply(`${player_B.name}拒绝了${player_A.name}提出the建议`)
         }
       }
       clearTimeout(chaoshi_time)
@@ -353,7 +353,7 @@ export class Daolv extends plugin {
 
     await add_qinmidu(A, B, 60)
     await Add_najie_thing(A, '百合花篮', '道具', -1)
-    e.reply(`你们的亲密度增加了60`)
+    e.reply(`你们the亲密度增加了60`)
     return false
   }
 }

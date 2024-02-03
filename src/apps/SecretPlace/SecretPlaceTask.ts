@@ -1,17 +1,18 @@
-import { plugin, common, config, data } from '../../api/api.js'
 import fs from 'fs'
 import {
   Read_player,
   isNotNull,
   Add_najie_thing,
-  Add_修为,
+  Add_now_exp,
   Add_血气,
   Add_HP,
   Read_danyao,
   Write_danyao,
-  zd_battle
+  zd_battle,
+  getConfig
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
+import { plugin } from '../../../import.js'
 export class SecretPlaceTask extends plugin {
   constructor() {
     super({
@@ -21,7 +22,7 @@ export class SecretPlaceTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.action_task,
       name: 'SecretPlaceTask',
@@ -54,28 +55,28 @@ export class SecretPlaceTask extends plugin {
             push_address = action.group_id
           }
         }
-        //最后发送的消息
+        //最后发送the消息
         let msg = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
-        //现在的时间
+        //现在the时间
         let now_time = new Date().getTime()
         //用户信息
         let player = await Read_player(player_id)
         //有秘境状态:这个直接结算即可
         if (action.Place_action == '0') {
-          //这里改一改,要在结束时间的前两分钟提前结算
+          //这里改一改,要在结束时间the前两分钟提前结算
           end_time = end_time - 60000 * 2
           //时间过了
           if (now_time > end_time) {
             let weizhi = action.Place_address
             let A_player = {
-              名号: player.名号,
+              name: player.name,
               攻击: player.攻击,
               防御: player.防御,
-              当前血量: player.当前血量,
+              now_bool: player.now_bool,
               暴击率: player.暴击率,
-              法球倍率: player.灵根.法球倍率,
+              法球倍率: player.talent.法球倍率,
               仙宠: player.仙宠
             }
             let buff = 1
@@ -85,20 +86,20 @@ export class SecretPlaceTask extends plugin {
             let monster_index = Math.trunc(Math.random() * monster_length)
             let monster = data.monster_list[monster_index]
             let B_player = {
-              名号: monster.名号,
+              name: monster.name,
               攻击: parseInt(monster.攻击 * player.攻击 * buff),
               防御: parseInt(monster.防御 * player.防御 * buff),
-              当前血量: parseInt(monster.当前血量 * player.血量上限 * buff),
+              now_bool: parseInt(monster.now_bool * player.血量上限 * buff),
               暴击率: monster.暴击率 * buff,
               法球倍率: 0.1
             }
             let Data_battle = await zd_battle(A_player, B_player)
             let msgg = Data_battle.msg
-            let A_win = `${A_player.名号}击败了${B_player.名号}`
-            let B_win = `${B_player.名号}击败了${A_player.名号}`
+            let A_win = `${A_player.name}击败了${B_player.name}`
+            let B_win = `${B_player.name}击败了${A_player.name}`
             let thing_name
             let thing_class
-            const cf = config.getConfig('xiuxian', 'xiuxian')
+            const cf = getConfig('xiuxian', 'xiuxian')
             let x = cf.SecretPlace.one
             let random1 = Math.random()
             let y = cf.SecretPlace.two
@@ -172,7 +173,7 @@ export class SecretPlaceTask extends plugin {
               if (player.islucky > 0) {
                 player.islucky--
                 if (player.islucky != 0) {
-                  fyd_msg = `  \n福源丹的效力将在${player.islucky}次探索后失效\n`
+                  fyd_msg = `  \n福源丹the效力将在${player.islucky}次探索后失效\n`
                 } else {
                   fyd_msg = `  \n本次探索后，福源丹已失效\n`
                   player.幸运 -= player.addluckyNo
@@ -201,9 +202,9 @@ export class SecretPlaceTask extends plugin {
                 await Add_najie_thing(player_id, thing_name, thing_class, n)
               }
               last_msg += `${m}不巧撞见[${
-                B_player.名号
-              }],经过一番战斗,击败对手,获得修为${xiuwei},气血${qixue},剩余血量${
-                A_player.当前血量 + Data_battle.A_xue
+                B_player.name
+              }],经过一番战斗,击败对手,获得now_exp${xiuwei},气血${qixue},剩余血量${
+                A_player.now_bool + Data_battle.A_xue
               }`
               let random = Math.random() //万分之一出神迹
               let newrandom = 0.995
@@ -221,28 +222,28 @@ export class SecretPlaceTask extends plugin {
                 let index = Math.trunc(Math.random() * length)
                 let kouliang = data.xianchonkouliang[index]
                 last_msg +=
-                  '\n七彩流光的神奇仙谷[' +
+                  '\n七彩流光the神奇仙谷[' +
                   kouliang.name +
-                  ']深埋在土壤中，是仙兽们的最爱。'
+                  ']深埋在土壤中，是仙兽们the最爱。'
                 await Add_najie_thing(player_id, kouliang.name, '仙宠口粮', 1)
               }
               if (random > 0.1 && random < 0.1002) {
                 last_msg +=
                   '\n' +
-                  B_player.名号 +
-                  '倒下后,你正准备离开此地，看见路边草丛里有个长相奇怪的石头，顺手放进了纳戒。'
-                await Add_najie_thing(player_id, '长相奇怪的小石头', '道具', 1)
+                  B_player.name +
+                  '倒下后,你正准备离开此地，看见路边草丛里有个长相奇怪the石头，顺手放进了纳戒。'
+                await Add_najie_thing(player_id, '长相奇怪the小石头', '道具', 1)
               }
             } else if (msgg.find((item) => item == B_win)) {
               xiuwei = 800
               last_msg =
                 '不巧撞见[' +
-                B_player.名号 +
-                '],经过一番战斗,败下阵来,还好跑得快,只获得了修为' +
+                B_player.name +
+                '],经过一番战斗,败下阵来,还好跑得快,只获得了now_exp' +
                 xiuwei +
                 ']'
             }
-            msg.push('\n' + player.名号 + last_msg + fyd_msg)
+            msg.push('\n' + player.name + last_msg + fyd_msg)
             let arr = action
             //把状态都关了
             arr.shutup = 1 //闭关状态
@@ -250,7 +251,7 @@ export class SecretPlaceTask extends plugin {
             arr.power_up = 1 //渡劫状态
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
-            //结束的时间也修改为当前时间
+            //结束the时间也修改为当前时间
             arr.end_time = new Date().getTime()
             //结算完去除group_id
             delete arr.group_id
@@ -261,7 +262,7 @@ export class SecretPlaceTask extends plugin {
             )
             //先完结再结算
             await Add_血气(player_id, qixue)
-            await Add_修为(player_id, xiuwei)
+            await Add_now_exp(player_id, xiuwei)
             await Add_HP(player_id, Data_battle.A_xue)
             //发送消息
             if (is_group) {

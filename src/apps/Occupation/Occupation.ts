@@ -1,5 +1,4 @@
 import { readdirSync } from 'fs'
-import { plugin, puppeteer, data, Show } from '../../api/api.js'
 import {
   existplayer,
   Write_player,
@@ -7,7 +6,7 @@ import {
   exist_najie_thing,
   Add_najie_thing,
   Add_职业经验,
-  Add_灵石,
+  Add_money,
   sleep,
   ForwardMsg,
   convert2integer,
@@ -17,6 +16,7 @@ import {
   get_tuzhi_img
 } from '../../model/index.js'
 import { Read_player, __PATH, Read_danyao } from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class Occupation extends plugin {
   constructor() {
     super({
@@ -58,7 +58,7 @@ export class Occupation extends plugin {
           fnc: 'show_danfang'
         },
         {
-          reg: '^#我的药效$',
+          reg: '^#我the药效$',
           fnc: 'yaoxiao'
         },
         {
@@ -117,7 +117,7 @@ export class Occupation extends plugin {
     }
     player.occupation = occupation
     await Write_player(usr_qq, player)
-    e.reply(`恭喜${player.名号}转职为[${occupation}]`)
+    e.reply(`恭喜${player.name}转职为[${occupation}]`)
     return false
   }
   async chose_occupation(e) {
@@ -168,7 +168,7 @@ export class Occupation extends plugin {
       player.occupation_level = 1
       player.occupation_exp = 0
       await Write_player(usr_qq, player)
-      e.reply(`恭喜${player.名号}转职为[${occupation}]`)
+      e.reply(`恭喜${player.name}转职为[${occupation}]`)
       return false
     }
     let action = await redis.get('xiuxian:player:' + usr_qq + ':fuzhi') //副职
@@ -190,7 +190,7 @@ export class Occupation extends plugin {
     player.occupation_level = 1
     player.occupation_exp = 0
     await Write_player(usr_qq, player)
-    e.reply(`恭喜${player.名号}转职为[${occupation}],您的副职为${arr.职业名}`)
+    e.reply(`恭喜${player.name}转职为[${occupation}],您the副职为${arr.职业名}`)
     return false
   }
   async chose_occupation2(e) {
@@ -226,7 +226,7 @@ export class Occupation extends plugin {
     )
     await Write_player(usr_qq, player)
     e.reply(
-      `恭喜${player.名号}转职为[${player.occupation}],您的副职为${action.职业名}`
+      `恭喜${player.name}转职为[${player.occupation}],您the副职为${action.职业名}`
     )
     return false
   }
@@ -273,7 +273,7 @@ export class Occupation extends plugin {
       time = 30
     }
 
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -342,7 +342,7 @@ export class Occupation extends plugin {
     if (end_time > now_time) {
       //属于提前结束
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -357,7 +357,7 @@ export class Occupation extends plugin {
     } else {
       //属于结束了未结算
       time = parseInt(action.time / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -382,7 +382,7 @@ export class Occupation extends plugin {
     arr.working = 1 //降妖状态
     arr.power_up = 1 //渡劫状态
     arr.Place_action = 1 //秘境
-    //结束的时间也修改为当前时间
+    //结束the时间也修改为当前时间
     arr.end_time = new Date().getTime()
     delete arr.group_id //结算完去除group_id
     await redis.set(
@@ -405,7 +405,7 @@ export class Occupation extends plugin {
     let player = await Read_player(usr_qq)
     if (player.occupation != '采矿师') {
       e.reply('你挖矿许可证呢？非法挖矿，罚款200灵石')
-      await Add_灵石(usr_qq, -200)
+      await Add_money(usr_qq, -200)
       return false
     }
     //获取时间
@@ -430,7 +430,7 @@ export class Occupation extends plugin {
       //不设置时间默认30分钟
       time = 30
     }
-    //查询redis中的人物动作
+    //查询redis中the人物动作
     let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
     action = JSON.parse(action)
     if (action != null) {
@@ -483,7 +483,7 @@ export class Occupation extends plugin {
       time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
       let y = 30 //时间
       let x = 24 //循环次数
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -498,7 +498,7 @@ export class Occupation extends plugin {
     } else {
       //属于结束了未结算
       time = parseInt(action.time / 1000 / 60)
-      //超过就按最低的算，即为满足30分钟才结算一次
+      //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
         if (time >= y * i) {
@@ -526,7 +526,7 @@ export class Occupation extends plugin {
     arr.working = 1 //降妖状态
     arr.power_up = 1 //渡劫状态
     arr.Place_action = 1 //秘境
-    //结束的时间也修改为当前时间
+    //结束the时间也修改为当前时间
     arr.end_time = new Date().getTime()
     delete arr.group_id //结算完去除group_id
     await redis.set(
@@ -703,7 +703,7 @@ export class Occupation extends plugin {
     if (!ifexistplay) return false
     let player = await Read_player(usr_qq)
     if (player.occupation != '炼丹师') {
-      e.reply('丹是上午炼的,药是中午吃的,人是下午走的')
+      e.reply('丹是上午炼the,药是中午吃the,人是下午走the')
       return false
     }
     let t = e.msg.replace('#炼制', '').split('*')
@@ -715,7 +715,7 @@ export class Occupation extends plugin {
     let tmp_msg = ''
     let danfang = data.danfang_list.find((item) => item.name == danyao)
     if (!isNotNull(danfang)) {
-      e.reply(`世界上没有丹药[${danyao}]的配方`)
+      e.reply(`世界上没有丹药[${danyao}]the配方`)
       return false
     }
     if (danfang.level_limit > player.occupation_level) {
@@ -749,10 +749,10 @@ export class Occupation extends plugin {
       if (random < player.仙宠.加成) {
         n *= 2
         e.reply(
-          '你的仙宠' + player.仙宠.name + '辅佐了你进行炼丹,成功获得了双倍丹药'
+          '你the仙宠' + player.仙宠.name + '辅佐了你进行炼丹,成功获得了双倍丹药'
         )
       } else {
-        e.reply('你的仙宠只是在旁边看着')
+        e.reply('你the仙宠只是在旁边看着')
       }
     }
     if (
@@ -803,7 +803,7 @@ export class Occupation extends plugin {
     let tmp_msg2 = ''
     let tuzhi = data.tuzhi_list.find((item) => item.name == equipment_name)
     if (!tuzhi) {
-      e.reply(`世界上没有[${equipment_name}]的图纸`)
+      e.reply(`世界上没有[${equipment_name}]the图纸`)
       return false
     }
     let materials = tuzhi.materials
@@ -857,7 +857,7 @@ export class Occupation extends plugin {
     }
     let pinji = Math.trunc(Math.random() * 7)
     if (pinji > 5) {
-      e.reply('在你细致的把控下，一把绝世极品即将问世！！！！')
+      e.reply('在你细致the把控下，一把绝世极品即将问世！！！！')
       await sleep(10000)
     }
     await Add_najie_thing(usr_qq, equipment_name, '装备', 1, pinji)
@@ -874,7 +874,7 @@ export class Occupation extends plugin {
     if (!ifexistplay) return false
     let player = await Read_player(usr_qq)
     if (player.occupation != '侠客') {
-      e.reply('只有专业的侠客才能获取悬赏')
+      e.reply('只有专业the侠客才能获取悬赏')
       return false
     }
     let msg = []
@@ -888,7 +888,7 @@ export class Occupation extends plugin {
           msg,
           type
         }
-        const data1 = await new Show(e).get_msg(msg_data)
+        const data1 = await new Show().get_msg(msg_data)
         let img = await puppeteer.screenshot('msg', {
           ...data1
         })
@@ -907,7 +907,7 @@ export class Occupation extends plugin {
       let players = await Read_player(this_qq)
       if (players.魔道值 > 999 && this_qq != usr_qq) {
         mubiao[i] = {
-          名号: players.名号,
+          name: players.name,
           赏金: Math.trunc(
             (1000000 *
               (1.2 + 0.05 * player.occupation_level) *
@@ -924,7 +924,7 @@ export class Occupation extends plugin {
     }
     while (i < 4) {
       mubiao[i] = {
-        名号: 'DD大妖王',
+        name: 'DD大妖王',
         赏金: Math.trunc(
           (1000000 *
             (1.2 + 0.05 * player.occupation_level) *
@@ -953,7 +953,7 @@ export class Occupation extends plugin {
       msg,
       type
     }
-    const data1 = await new Show(e).get_msg(msg_data)
+    const data1 = await new Show().get_msg(msg_data)
     let img = await puppeteer.screenshot('msg', {
       ...data1
     })
@@ -968,7 +968,7 @@ export class Occupation extends plugin {
     A_action = JSON.parse(A_action)
     if (A_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
         let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
@@ -989,7 +989,7 @@ export class Occupation extends plugin {
       return false
     }
     if (action.arm.length == 0) {
-      e.reply('每日限杀,请等待20小时后新的赏金目标') //悬赏做完了(20h后刷新)
+      e.reply('每日限杀,请等待20小时后新the赏金目标') //悬赏做完了(20h后刷新)
       return false
     }
     let num = e.msg.replace('#讨伐目标', '')
@@ -1004,32 +1004,32 @@ export class Occupation extends plugin {
     let last_msg = ''
     if (qq != 1) {
       let player_B = await Read_player(qq)
-      player_B.当前血量 = player_B.血量上限
+      player_B.now_bool = player_B.血量上限
 
-      player_B.法球倍率 = player_B.灵根.法球倍率
+      player_B.法球倍率 = player_B.talent.法球倍率
       let buff = 1 + player.occupation_level * 0.055
       let player_A = {
         id: player.id,
-        名号: player.名号,
+        name: player.name,
         攻击: parseInt(player.攻击 * buff),
         防御: parseInt(player.防御),
-        当前血量: parseInt(player.血量上限 * buff),
+        now_bool: parseInt(player.血量上限 * buff),
         暴击率: player.暴击率,
-        学习的功法: player.学习的功法,
+        studytheskill: player.studytheskill,
         魔道值: player.魔道值,
-        灵根: player.灵根,
-        法球倍率: player.灵根.法球倍率,
+        talent: player.talent,
+        法球倍率: player.talent.法球倍率,
         仙宠: player.仙宠,
         神石: player.神石
       }
       let Data_battle = await zd_battle(player_A, player_B)
       let msg = Data_battle.msg
-      let A_win = `${player_A.名号}击败了${player_B.名号}`
-      let B_win = `${player_B.名号}击败了${player_A.名号}`
+      let A_win = `${player_A.name}击败了${player_B.name}`
+      let B_win = `${player_B.name}击败了${player_A.name}`
       if (msg.find((item) => item == A_win)) {
         player_B.魔道值 -= 50
         player_B.灵石 -= 1000000
-        player_B.当前血量 = 0
+        player_B.now_bool = 0
         await Write_player(qq, player_B)
         player.灵石 += action.arm[num].赏金
         player.魔道值 -= 5
@@ -1037,16 +1037,16 @@ export class Occupation extends plugin {
         await Add_职业经验(usr_qq, 2255)
         last_msg +=
           '【全服公告】' +
-          player_B.名号 +
-          '失去了1000000灵石,罪恶得到了洗刷,魔道值-50,无名侠客获得了部分灵石,自己的正气提升了,同时获得了更多的悬赏加成'
+          player_B.name +
+          '失去了1000000灵石,罪恶得到了洗刷,魔道值-50,无名侠客获得了部分灵石,自己the正气提升了,同时获得了更多the悬赏加成'
       } else if (msg.find((item) => item == B_win)) {
         let shangjing = Math.trunc(action.arm[num].赏金 * 0.8)
-        player.当前血量 = 0
+        player.now_bool = 0
         player.灵石 += shangjing
         player.魔道值 -= 5
         await Write_player(usr_qq, player)
         await Add_职业经验(usr_qq, 1100)
-        last_msg += player_B.名号 + '反杀了你,只获得了部分辛苦钱'
+        last_msg += player_B.name + '反杀了你,只获得了部分辛苦钱'
       }
       if (msg.length > 100) {
         console.log('通过')
@@ -1067,7 +1067,7 @@ export class Occupation extends plugin {
     )
     if (
       last_msg == '你惩戒了仙路窃贼,获得了部分灵石' ||
-      last_msg == player_B.名号 + '反杀了你,只获得了部分辛苦钱'
+      last_msg == player_B.name + '反杀了你,只获得了部分辛苦钱'
     ) {
       e.reply(last_msg)
     } else {
@@ -1103,7 +1103,7 @@ export class Occupation extends plugin {
       return false
     }
     let arr = {
-      名号: player_B.名号,
+      name: player_B.name,
       QQ: qq,
       赏金: money
     }
@@ -1119,7 +1119,7 @@ export class Occupation extends plugin {
     await Write_player(usr_qq, player)
     e.reply('悬赏成功!')
     let msg = ''
-    msg += '【全服公告】' + player_B.名号 + '被悬赏了' + money + '灵石'
+    msg += '【全服公告】' + player_B.name + '被悬赏了' + money + '灵石'
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     const groupList = await redis.sMembers(redisGlKey)
     for (const group_id of groupList) {
@@ -1157,7 +1157,7 @@ export class Occupation extends plugin {
       msg: action,
       type
     }
-    const data1 = await new Show(e).get_msg(msg_data)
+    const data1 = await new Show().get_msg(msg_data)
     let img = await puppeteer.screenshot('msg', {
       ...data1
     })
@@ -1172,7 +1172,7 @@ export class Occupation extends plugin {
     A_action = JSON.parse(A_action)
     if (A_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
         let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
@@ -1193,7 +1193,7 @@ export class Occupation extends plugin {
       return false
     }
     if (qq == usr_qq) {
-      e.reply('咋的，自己干自己？')
+      e.reply('咋the，自己干自己？')
       return false
     }
     let player = await Read_player(usr_qq)
@@ -1203,7 +1203,7 @@ export class Occupation extends plugin {
     }
     let last_msg = ''
     let player_B = await Read_player(qq)
-    if (player_B.当前血量 == 0) {
+    if (player_B.now_bool == 0) {
       e.reply(`对方已经没有血了,请等一段时间再刺杀他吧`)
       return false
     }
@@ -1211,7 +1211,7 @@ export class Occupation extends plugin {
     B_action = JSON.parse(B_action)
     if (B_action != null) {
       let now_time = new Date().getTime()
-      //人物任务的动作是否结束
+      //人物任务the动作是否结束
       let B_action_end_time = B_action.end_time
       if (now_time <= B_action_end_time) {
         let ishaveyss = await exist_najie_thing(usr_qq, '隐身水', '道具')
@@ -1228,34 +1228,38 @@ export class Occupation extends plugin {
         }
       }
     }
-    player_B.法球倍率 = player_B.灵根.法球倍率
-    player_B.当前血量 = player_B.血量上限
+    player_B.法球倍率 = player_B.talent.法球倍率
+    player_B.now_bool = player_B.血量上限
     let player_A = {
       id: player.id,
-      名号: player.名号,
+      name: player.name,
       攻击: parseInt(player.攻击 * buff),
       防御: parseInt(player.防御),
-      当前血量: parseInt(player.血量上限),
+      now_bool: parseInt(player.血量上限),
       暴击率: player.暴击率,
-      学习的功法: player.学习的功法,
-      灵根: player.灵根,
+      studytheskill: player.studytheskill,
+      talent: player.talent,
       魔道值: player.魔道值,
       神石: player.神石,
-      法球倍率: player.灵根.法球倍率,
+      法球倍率: player.talent.法球倍率,
       仙宠: player.仙宠
     }
     let Data_battle = await zd_battle(player_A, player_B)
     let msg = Data_battle.msg
-    let A_win = `${player_A.名号}击败了${player_B.名号}`
-    let B_win = `${player_B.名号}击败了${player_A.名号}`
+    let A_win = `${player_A.name}击败了${player_B.name}`
+    let B_win = `${player_B.name}击败了${player_A.name}`
     if (msg.find((item) => item == A_win)) {
-      player_B.当前血量 = 0
-      player_B.修为 -= action[num].赏金
+      player_B.now_bool = 0
+      player_B.now_exp -= action[num].赏金
       await Write_player(qq, player_B)
       player.灵石 += Math.trunc(action[num].赏金 * 0.3)
       await Write_player(usr_qq, player)
       last_msg +=
-        '【全服公告】' + player_B.名号 + '被' + player.名号 + '悄无声息的刺杀了'
+        '【全服公告】' +
+        player_B.name +
+        '被' +
+        player.name +
+        '悄无声息the刺杀了'
       //优化下文案，比如xxx在刺杀xxx中
       action.splice(num, 1)
       await redis.set(
@@ -1263,15 +1267,15 @@ export class Occupation extends plugin {
         JSON.stringify(action)
       )
     } else if (msg.find((item) => item == B_win)) {
-      player.当前血量 = 0
+      player.now_bool = 0
       await Write_player(usr_qq, player)
       last_msg +=
         '【全服公告】' +
-        player.名号 +
+        player.name +
         '刺杀失败,' +
-        player_B.名号 +
+        player_B.name +
         '勃然大怒,单手就反杀了' +
-        player.名号 //优化下文案，比如xxx在刺杀xxx中
+        player.name //优化下文案，比如xxx在刺杀xxx中
     }
     if (msg.length > 100) {
       console.log('通过')
@@ -1287,7 +1291,7 @@ export class Occupation extends plugin {
   }
 
   /**
-   * 获取缓存中的人物状态信息
+   * 获取缓存中the人物状态信息
    * @param usr_qq
    * @return  falses {Promise<void>}
    */

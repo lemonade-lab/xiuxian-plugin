@@ -1,5 +1,10 @@
-import { plugin, config } from '../../api/api.js'
-import { Write_Forum, Read_Forum, Add_灵石 } from '../../model/index.js'
+import { plugin } from '../../../import.js'
+import {
+  Write_Forum,
+  Read_Forum,
+  Add_money,
+  getConfig
+} from '../../model/index.js'
 export class ForumTask extends plugin {
   constructor() {
     super({
@@ -9,7 +14,7 @@ export class ForumTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = config.getConfig('task', 'task')
+    this.set = getConfig('task', 'task')
     this.task = {
       cron: this.set.AutoBackUpTask,
       name: 'ForumTask',
@@ -32,7 +37,7 @@ export class ForumTask extends plugin {
       if (time < 3) break
       const usr_qq = Forum[i].qq
       const lingshi = Forum[i].whole
-      await Add_灵石(usr_qq, lingshi)
+      await Add_money(usr_qq, lingshi)
       Forum.splice(i, 1)
       i--
     }

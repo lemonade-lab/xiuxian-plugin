@@ -1,4 +1,3 @@
-import { plugin, puppeteer, data, Show } from '../../api/api.js'
 import { __PATH } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import {
@@ -30,6 +29,7 @@ import {
   Read_equipment
 } from '../../model/index.js'
 import { readdirSync } from 'fs'
+import { plugin } from '../../../import.js'
 export class duanzao extends plugin {
   constructor() {
     super({
@@ -59,7 +59,7 @@ export class duanzao extends plugin {
           fnc: 'clearthat'
         },
         {
-          reg: '^#我的锻炉',
+          reg: '^#我the锻炉',
           fnc: 'mytript'
         },
         {
@@ -86,7 +86,7 @@ export class duanzao extends plugin {
       wupin = await Read_it()
     }
     let newwupin = []
-    const type = ['武器', '护具', '法宝']
+    const type = ['weapon', 'protective_clothing', 'magic_weapon']
     const nowTime = Date.now()
     // if 根本还没记录时间或者过了时间，就遍历生成，额外往wupin里添加owner_name（号）属性，并重写回去custom.json
     if (
@@ -112,7 +112,7 @@ export class duanzao extends plugin {
           if (exist) {
             if (j.author_name) {
               const player = await data.getData('player', j.author_name)
-              author = player.名号
+              author = player.name
             }
             const usr_player = await data.getData('player', i)
             wupin[wpId].owner_name = i
@@ -124,7 +124,7 @@ export class duanzao extends plugin {
                 (j.atk * 1.2 + j.def * 1.5 + j.HP * 1.5) * 10000
               ),
               制作者: author,
-              使用者: usr_player.名号 + '(' + D + ')'
+              使用者: usr_player.name + '(' + D + ')'
             })
             break
           }
@@ -132,14 +132,14 @@ export class duanzao extends plugin {
       }
       await Writeit(wupin) // 重写custom.json
     }
-    // 否则，直接按照custom.json记录的数据生成newwupin
+    // 否则，直接按照custom.json记录the数据生成newwupin
     else {
       for (const wp of wupin) {
         let D = '无门无派'
         let author = '神秘匠师'
         if (wp.author_name) {
           const player = await data.getData('player', wp.author_name)
-          author = player.名号
+          author = player.name
         }
         const usr_player = await data.getData('player', wp.owner_name)
         if (usr_player.宗门) D = usr_player.宗门.宗门名称
@@ -149,7 +149,7 @@ export class duanzao extends plugin {
           type: wp.type,
           评分: Math.trunc((wp.atk * 1.2 + wp.def * 1.5 + wp.HP * 1.5) * 10000),
           制作者: author,
-          使用者: usr_player.名号 + '(' + D + ')'
+          使用者: usr_player.name + '(' + D + ')'
         })
       }
     }
@@ -167,7 +167,7 @@ export class duanzao extends plugin {
     let bd_date = {
       newwupin
     }
-    const data1 = await new Show(e).get_shenbing(bd_date)
+    const data1 = await new Show().get_shenbing(bd_date)
     const tu = await puppeteer.screenshot('shenbing', {
       ...data1
     })
@@ -401,7 +401,7 @@ export class duanzao extends plugin {
           'xiuxian@1.4.0:' + user_qq + ':action10',
           JSON.stringify(arr)
         ) //redis设置动作
-        e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`)
+        e.reply(`现在开始锻造weapon,最少需锻造30分钟,高级装备需要更多温养时间`)
         return false
       }
     }
@@ -463,27 +463,27 @@ export class duanzao extends plugin {
         }
 
         let newrandom = Math.random()
-        let xuanze = ['锻造武器', '锻造护具', '锻造宝物']
+        let xuanze = ['锻造weapon', '锻造protective_clothing', '锻造宝物']
         let weizhi
         let wehizhi1
         if (jiuwei[0] > jiuwei[1] * 2) {
           weizhi = xuanze[0]
-          wehizhi1 = '武器'
+          wehizhi1 = 'weapon'
         } else if (jiuwei[0] * 2 < jiuwei[1]) {
           weizhi = xuanze[1]
-          wehizhi1 = '护具'
+          wehizhi1 = 'protective_clothing'
         } else if (newrandom > 0.8) {
           weizhi = xuanze[2]
-          wehizhi1 = '法宝'
+          wehizhi1 = 'magic_weapon'
         } else if (jiuwei[0] > jiuwei[1]) {
           weizhi = xuanze[0]
-          wehizhi1 = '武器'
+          wehizhi1 = 'weapon'
         } else {
           weizhi = xuanze[1]
-          wehizhi1 = '护具'
+          wehizhi1 = 'protective_clothing'
         }
 
-        //寻找符合标准的装备
+        //寻找符合标准the装备
         const newwupin = await readall(weizhi)
         let bizhi = []
 
@@ -507,7 +507,7 @@ export class duanzao extends plugin {
         }
         const wuqiname = newwupin[new1].name
         const num = jiuwei[0] + jiuwei[1] + jiuwei[2]
-        //计算所用时间(毫秒)带来的收益
+        //计算所用时间(毫秒)带来the收益
         const overtime = (80 * num + 10) * 1000 * 60
         const nowtime = Math.abs((overtime - newtime) / 1000 / 60)
         if (nowtime < 2) {
@@ -538,7 +538,7 @@ export class duanzao extends plugin {
             qianzhui++
           }
         }
-        max = await getxuanze(shuzu, player.隐藏灵根.type)
+        max = await getxuanze(shuzu, player.hide_talent.type)
         let fangyuxuejian = 0
         if (qianzhui == 5) {
           houzhui = '五行杂灵'
@@ -578,9 +578,10 @@ export class duanzao extends plugin {
         await Add_najie_thing(user_qq, zhuangbei, '装备', 1)
         //计算经验收益
 
-        //灵根影响值
+        //talent影响值
         let v =
-          player.隐藏灵根.控器 / (Math.abs(max[1] - player.隐藏灵根.type) + 5)
+          player.hide_talent.控器 /
+          (Math.abs(max[1] - player.hide_talent.type) + 5)
         //天赋影响值
         let k = ((player.锻造天赋 + 100) * v) / 200 + 1
         //基础值
@@ -623,13 +624,13 @@ export class duanzao extends plugin {
     let a = await Read_mytripod(user_qq)
 
     if (a.材料 == []) {
-      e.reply(`锻炉里空空如也,没什么好看的`)
+      e.reply(`锻炉里空空如也,没什么好看the`)
       return false
     }
     let shuju = []
     let shuju2 = []
     let xuanze = 0
-    let b = '您的锻炉里,拥有\n'
+    let b = '您the锻炉里,拥有\n'
     for (let item in a.材料) {
       for (let item1 in shuju) {
         if (shuju[item1] == a.材料[item]) {
@@ -667,7 +668,7 @@ export class duanzao extends plugin {
     }
     const newname = await foundthing(new_name)
     if (newname) {
-      e.reply(`这个世间已经拥有这把武器了`)
+      e.reply(`这个世间已经拥有这把weapon了`)
       return false
     }
     if (newname.length > 8) {
@@ -695,20 +696,20 @@ export class duanzao extends plugin {
           if (
             item.atk >= 1.5 ||
             item.def >= 1.2 ||
-            (item.type == '法宝' && (item.atk >= 1 || item.def >= 1)) ||
+            (item.type == 'magic_weapon' && (item.atk >= 1 || item.def >= 1)) ||
             item.atk + item.def > 1.95
           ) {
             item.name = new_name
             A.push(item)
             await Write_najie(user_qq, thingall)
             await Writeit(A)
-            e.reply(`附名成功,您的${thing_name}更名为${new_name}`)
+            e.reply(`附名成功,您the${thing_name}更名为${new_name}`)
             return false
           }
         }
       }
     }
-    e.reply(`您的装备太弱了,无法赋予名字`)
+    e.reply(`您the装备太弱了,无法赋予名字`)
     return false
   }
 }

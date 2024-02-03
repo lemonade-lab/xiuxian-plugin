@@ -1,7 +1,6 @@
 import { readdirSync } from 'fs'
-import { plugin, config, data } from '../../api/api.js'
 import {
-  Add_灵石,
+  Add_money,
   Add_najie_thing,
   isNotNull,
   Read_player,
@@ -12,7 +11,7 @@ import {
   Goweizhi,
   Go
 } from '../../model/index.js'
-const 宗门灵石池上限 = [2000000, 5000000, 8000000, 11000000, 15000000, 20000000]
+import { plugin } from '../../../import.js'
 export class BlessPlace extends plugin {
   constructor() {
     super({
@@ -89,7 +88,7 @@ export class BlessPlace extends plugin {
 
     let ass = data.getAssociation(player.宗门.宗门名称)
 
-    //输入的洞天是否存在
+    //输入the洞天是否存在
     let blessed_name = e.msg.replace('#入驻洞天', '')
     blessed_name = blessed_name.trim()
     //洞天不存在
@@ -99,7 +98,7 @@ export class BlessPlace extends plugin {
     if (!dongTan) return false
 
     if (ass.宗门驻地 == blessed_name) {
-      e.reply(`咋的，要给自己宗门拆了重建啊`)
+      e.reply(`咋the，要给自己宗门拆了重建啊`)
       return false
     }
 
@@ -107,15 +106,15 @@ export class BlessPlace extends plugin {
 
     let dir = data.filePathMap.association
     let File = readdirSync(dir)
-    File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有的宗门名称
+    File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
 
-    //遍历所有的宗门
+    //遍历所有the宗门
     for (let i = 0; i < File.length; i++) {
       let this_name = File[i].replace('.json', '')
       let this_ass = await data.getAssociation(this_name)
 
       if (this_ass.宗门驻地 == dongTan.name) {
-        //找到了驻地为当前洞天的宗门，说明该洞天被人占据
+        //找到了驻地为当前洞天the宗门，说明该洞天被人占据
         //开始战力计算，抢夺洞天
 
         let attackPower = 0
@@ -177,17 +176,17 @@ export class BlessPlace extends plugin {
           data.setAssociation(ass.宗门名称, ass)
           data.setAssociation(this_ass.宗门名称, this_ass)
           e.reply(
-            `当前洞天已有宗门占据，${ass.宗门名称}造成了${attackPower}伤害！,一举攻破了${this_ass.宗门名称} ${defendPower}的防御，将对方赶了出去,占据了${dongTan.name}`
+            `当前洞天已有宗门占据，${ass.宗门名称}造成了${attackPower}伤害！,一举攻破了${this_ass.宗门名称} ${defendPower}the防御，将对方赶了出去,占据了${dongTan.name}`
           )
         } else if (attackPower < defendPower) {
           data.setAssociation(this_ass.宗门名称, this_ass)
           e.reply(
-            `${ass.宗门名称}进攻了${this_ass.宗门名称}，对${this_ass.宗门名称}的防御造成了${attackPower}，可一瞬间${this_ass.宗门名称}的防御就回复到了${defendPower}`
+            `${ass.宗门名称}进攻了${this_ass.宗门名称}，对${this_ass.宗门名称}the防御造成了${attackPower}，可一瞬间${this_ass.宗门名称}the防御就回复到了${defendPower}`
           )
         } else {
           data.setAssociation(this_ass.宗门名称, this_ass)
           e.reply(
-            `${ass.宗门名称}进攻了${this_ass.宗门名称}，对${this_ass.宗门名称}的防御造成了${attackPower}，可一瞬间${this_ass.宗门名称}的防御就回复到了${defendPower}`
+            `${ass.宗门名称}进攻了${this_ass.宗门名称}，对${this_ass.宗门名称}the防御造成了${attackPower}，可一瞬间${this_ass.宗门名称}the防御就回复到了${defendPower}`
           )
         }
 
@@ -216,12 +215,12 @@ export class BlessPlace extends plugin {
     let ass = data.getAssociation(player.宗门.宗门名称)
 
     if (ass.宗门驻地 == 0) {
-      e.reply(`你的宗门还没有驻地哦，没有灵脉可以开采`)
+      e.reply(`你the宗门还没有驻地哦，没有灵脉可以开采`)
       return false
     }
 
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
+    let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Explor(usr_qq) //获得上次宗门签到日期
     if (
@@ -258,7 +257,7 @@ export class BlessPlace extends plugin {
     } else {
       ass.灵石池 += num
     }
-    await Add_灵石(usr_qq, num)
+    await Add_money(usr_qq, num)
     data.setAssociation(ass.宗门名称, ass)
     e.reply(
       `本次开采灵脉获得${
@@ -283,7 +282,7 @@ export class BlessPlace extends plugin {
     }
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.宗门驻地 == 0) {
-      e.reply(`你的宗门还没有驻地，不能探索秘境哦`)
+      e.reply(`你the宗门还没有驻地，不能探索秘境哦`)
       return false
     }
     let didian = e.msg.replace('#探索宗门秘境', '')
@@ -303,8 +302,8 @@ export class BlessPlace extends plugin {
     ass.灵石池 += Price * 0.05
     data.setAssociation(ass.宗门名称, ass)
 
-    await Add_灵石(usr_qq, -Price)
-    let time = config.getConfig('xiuxian', 'xiuxian').CD.secretplace //时间（分钟）
+    await Add_money(usr_qq, -Price)
+    let time = getConfig('xiuxian', 'xiuxian').CD.secretplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
       action: '历练', //动作
@@ -315,7 +314,7 @@ export class BlessPlace extends plugin {
       Place_action: '0', //秘境状态---开启
       Place_actionplus: '1', //沉迷秘境状态---关闭
       power_up: '1', //渡劫状态--关闭
-      //这里要保存秘境特别需要留存的信息
+      //这里要保存秘境特别需要留存the信息
       Place_address: weizhi,
       XF: ass.power
     }
@@ -345,7 +344,7 @@ export class BlessPlace extends plugin {
     }
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.宗门驻地 == 0) {
-      e.reply(`你的宗门还没有驻地，不能探索秘境哦`)
+      e.reply(`你the宗门还没有驻地，不能探索秘境哦`)
       return false
     }
     let didian = e.msg.replace('#沉迷宗门秘境', '')
@@ -367,7 +366,7 @@ export class BlessPlace extends plugin {
     if (isNotNull(number) && number >= i) {
       await Add_najie_thing(usr_qq, '秘境之匙', '道具', -i)
     } else {
-      e.reply('你没有足够数量的秘境之匙')
+      e.reply('你没有足够数量the秘境之匙')
       return false
     }
     let Price = weizhi.Price * i * 10
@@ -375,7 +374,7 @@ export class BlessPlace extends plugin {
     ass.灵石池 += Price * 0.05
     data.setAssociation(ass.宗门名称, ass)
 
-    await Add_灵石(usr_qq, -Price)
+    await Add_money(usr_qq, -Price)
     let time = i * 10 * 5 + 10 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -388,7 +387,7 @@ export class BlessPlace extends plugin {
       Place_actionplus: '0', //沉迷秘境状态---关闭
       power_up: '1', //渡劫状态--关闭
       cishu: 10 * i,
-      //这里要保存秘境特别需要留存的信息
+      //这里要保存秘境特别需要留存the信息
       Place_address: weizhi,
       XF: ass.power
     }
@@ -416,7 +415,7 @@ export class BlessPlace extends plugin {
     }
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.宗门驻地 == 0) {
-      e.reply(`你的宗门还没有驻地，无法建设宗门`)
+      e.reply(`你the宗门还没有驻地，无法建设宗门`)
       return false
     }
     if (denji < 0) {
@@ -446,9 +445,9 @@ export class BlessPlace extends plugin {
   }
 }
 
-//获取上次开采灵石的时间
+//获取上次开采灵石the时间
 async function getLastsign_Explor(usr_qq) {
-  //查询redis中的人物动作
+  //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Explor')
   if (time != null) {
     let data = await shijianc(parseInt(time))
@@ -462,7 +461,7 @@ async function getLastsign_Explor(usr_qq) {
 async function GoBlessPlace(e, weizhi, addres) {
   let dir = data.filePathMap.association
   let File = readdirSync(dir)
-  File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有的宗门名称
+  File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
   let adr = addres
   let msg = ['***' + adr + '***']
   for (let i = 0; i < weizhi.length; i++) {

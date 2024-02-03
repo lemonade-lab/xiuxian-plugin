@@ -8,7 +8,6 @@ import {
   setFileValue
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
-
 export class Association extends plugin {
   constructor() {
     super({
@@ -59,7 +58,7 @@ export class Association extends plugin {
       return false
     }
     let now = new Date()
-    let nowTime = now.getTime() //获取当前日期的时间戳
+    let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Asso(usr_qq) //获得上次宗门签到日期
     if (
@@ -144,14 +143,14 @@ export class Association extends plugin {
         (item) => item.level_id === ass.最低加入境界
       ).level
       e.reply(
-        `${association_name}招收弟子的最低境界要求为:${level},当前未达到要求`
+        `${association_name}招收弟子the最低境界要求为:${level},当前未达到要求`
       )
       return false
     }
     let mostmem = 宗门人数上限[ass.宗门等级 - 1] //该宗门目前人数上限
     let nowmem = ass.所有成员.length //该宗门目前人数
     if (mostmem <= nowmem) {
-      e.reply(`${association_name}的弟子人数已经达到目前等级最大,无法加入`)
+      e.reply(`${association_name}the弟子人数已经达到目前等级最大,无法加入`)
       return false
     }
     let now = new Date()
@@ -181,11 +180,11 @@ export class Association extends plugin {
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
     let addTime
-    let time = config.getConfig('xiuxian', 'xiuxian').CD.joinassociation //分钟
+    let time = getConfig('xiuxian', 'xiuxian').CD.joinassociation //分钟
     if (typeof player.宗门.time == 'undefined') {
       addTime = player.宗门.加入时间[1] + 60000 * time
     } else {
-      //新版本的数据变成了time
+      //新版本the数据变成了time
       addTime = player.宗门.time[1] + 60000 * time
     }
     if (addTime > nowTime) {
@@ -208,18 +207,18 @@ export class Association extends plugin {
       let ass = data.getAssociation(player.宗门.宗门名称)
       if (ass.所有成员.length < 2) {
         rmSync(`${data.filePathMap.association}/${player.宗门.宗门名称}.json`)
-        delete player.宗门 //删除存档里的宗门信息
+        delete player.宗门 //删除存档里the宗门信息
         data.setData('player', usr_qq, player)
         await player_efficiency(usr_qq)
         e.reply(
-          '退出宗门成功,退出后宗门空无一人。\n一声巨响,原本的宗门轰然倒塌,随着流沙沉没,世间再无半分痕迹'
+          '退出宗门成功,退出后宗门空无一人。\n一声巨响,原本the宗门轰然倒塌,随着流沙沉没,世间再无半分痕迹'
         )
       } else {
-        ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来的成员表删掉这个B
-        delete player.宗门 //删除这个B存档里的宗门信息
+        ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+        delete player.宗门 //删除这个B存档里the宗门信息
         data.setData('player', usr_qq, player)
         await player_efficiency(usr_qq)
-        //随机一个幸运儿的QQ,优先挑选等级高的
+        //随机一个幸运儿theQQ,优先挑选等级高the
         let randmember_qq
         if (ass.副宗主.length > 0) {
           randmember_qq = await get_random_fromARR(ass.副宗主)
@@ -230,16 +229,16 @@ export class Association extends plugin {
         } else {
           randmember_qq = await get_random_fromARR(ass.所有成员)
         }
-        let randmember = await data.getData('player', randmember_qq) //获取幸运儿的存档
+        let randmember = await data.getData('player', randmember_qq) //获取幸运儿the存档
         ass[randmember.宗门.职位] = ass[randmember.宗门.职位].filter(
           (item) => item != randmember_qq
-        ) //原来的职位表删掉这个幸运儿
-        ass['宗主'] = randmember_qq //新的职位表加入这个幸运儿
+        ) //原来the职位表删掉这个幸运儿
+        ass['宗主'] = randmember_qq //新the职位表加入这个幸运儿
         randmember.宗门.职位 = '宗主' //成员存档里改职位
         data.setData('player', randmember_qq, randmember) //记录到存档
         data.setData('player', usr_qq, player)
         data.setAssociation(ass.宗门名称, ass) //记录到宗门
-        e.reply(`退出宗门成功,退出后,宗主职位由${randmember.名号}接管`)
+        e.reply(`退出宗门成功,退出后,宗主职位由${randmember.name}接管`)
       }
     }
     player.favorability = 0
@@ -281,7 +280,7 @@ export class Association extends plugin {
     }
     if (ass.灵石池 + lingshi > 宗门灵石池上限[ass.宗门等级 - 1] * xf) {
       e.reply(
-        `${ass.宗门名称}的灵石池最多还能容纳${
+        `${ass.宗门名称}the灵石池最多还能容纳${
           宗门灵石池上限[ass.宗门等级 - 1] * xf - ass.灵石池
         }灵石,请重新捐赠`
       )
@@ -320,7 +319,7 @@ export class Association extends plugin {
         member_data.宗门.lingshi_donate = 0 //未定义捐赠数量则为0
       }
       donate_list[i] = {
-        name: member_data.名号,
+        name: member_data.name,
         lingshi_donate: member_data.宗门.lingshi_donate
       }
     }
@@ -344,7 +343,7 @@ export class Association extends plugin {
     if (!ifexistplay) return
     let dir = data.filePathMap.association
     let File = readdirSync(dir)
-    File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有的宗门名称
+    File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
     let temp = []
     if (File.length == 0) {
       e.reply('暂时没有宗门数据')
@@ -404,7 +403,7 @@ export class Association extends plugin {
     let zongmeng_data = {
       temp
     }
-    const data1 = await new Show(e).get_zongmeng_data(zongmeng_data)
+    const data1 = await new Show().get_zongmeng_data(zongmeng_data)
     let img = await puppeteer.screenshot('zongmeng', {
       ...data1
     })
@@ -420,7 +419,7 @@ export class Association extends plugin {
  */
 function isNotMaintenance(ass) {
   let now = new Date()
-  let nowTime = now.getTime() //获取当前日期的时间戳
+  let nowTime = now.getTime() //获取当前日期the时间戳
   if (ass.维护时间 > nowTime - 1000 * 60 * 60 * 24 * 7) {
     return false
   }
@@ -447,7 +446,7 @@ function sortBy(field) {
 
 //获取上次签到时间
 async function getLastsign_Asso(usr_qq) {
-  //查询redis中的人物动作
+  //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastsign_Asso_time')
   if (time != null) {
     let data = await shijianc(parseInt(time))
