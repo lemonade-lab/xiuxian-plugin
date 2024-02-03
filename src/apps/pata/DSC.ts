@@ -1,5 +1,5 @@
 import { plugin, data } from '../../api/api.js'
-import { existplayer, ifbaoji, Harm } from '../../model/xiuxian.js'
+import { existplayer, ifbaoji, Harm } from '../../model/index.js'
 export class DSC extends plugin {
   constructor() {
     super({

@@ -6,7 +6,7 @@ import {
   isNotNull,
   __PATH,
   shijianc
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class TreasureCabinet extends plugin {
   constructor() {
     super({

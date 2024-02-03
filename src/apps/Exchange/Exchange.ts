@@ -13,7 +13,7 @@ import {
   get_supermarket_img,
   Write_Exchange,
   Read_Exchange
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Exchange extends plugin {
   constructor() {
     super({

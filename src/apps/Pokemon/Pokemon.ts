@@ -4,12 +4,12 @@ import {
   Read_najie,
   isNotNull,
   Write_player
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import {
   Add_najie_thing,
   convert2integer,
   Add_仙宠
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Pokemon extends plugin {
   constructor() {
     super({

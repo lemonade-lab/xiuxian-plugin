@@ -9,7 +9,7 @@ import {
   exist_najie_thing,
   Read_temp,
   Write_temp
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 
 export class mojietask extends plugin {

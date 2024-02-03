@@ -4,7 +4,7 @@ import {
   Add_灵石,
   Read_player,
   openAU
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({

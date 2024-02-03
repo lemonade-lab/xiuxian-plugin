@@ -9,7 +9,7 @@ import {
   Add_HP,
   Add_血气,
   zd_battle
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class WDT extends plugin {
   constructor() {
     super({

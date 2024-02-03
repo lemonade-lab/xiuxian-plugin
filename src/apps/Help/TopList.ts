@@ -11,7 +11,7 @@ import {
   __PATH,
   get_ranking_money_img,
   get_ranking_power_img
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
 export class TopList extends plugin {

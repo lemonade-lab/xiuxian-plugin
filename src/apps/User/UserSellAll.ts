@@ -18,7 +18,7 @@ import {
   instead_equipment,
   Read_najie,
   get_equipment_img
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class UserSellAll extends plugin {
   constructor() {
     super({

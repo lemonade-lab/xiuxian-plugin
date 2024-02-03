@@ -8,7 +8,7 @@ import {
   __PATH,
   Go,
   get_najie_img
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class UserAction extends plugin {
   constructor() {
     super({

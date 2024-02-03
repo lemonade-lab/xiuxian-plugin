@@ -8,7 +8,7 @@ import {
   Read_danyao,
   Write_danyao,
   setFileValue
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
 export class PlayerControlTask extends plugin {

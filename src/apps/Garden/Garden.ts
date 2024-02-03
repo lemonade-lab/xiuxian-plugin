@@ -5,7 +5,7 @@ import {
   exist_najie_thing,
   ForwardMsg,
   Add_najie_thing
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Garden extends plugin {
   constructor() {
     super({

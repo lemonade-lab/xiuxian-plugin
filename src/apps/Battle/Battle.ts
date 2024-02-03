@@ -9,7 +9,7 @@ import {
   Add_HP,
   Read_player,
   zd_battle
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Battle extends plugin {
   constructor() {
     super({

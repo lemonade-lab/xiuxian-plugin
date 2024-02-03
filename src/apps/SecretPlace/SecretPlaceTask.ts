@@ -10,7 +10,7 @@ import {
   Read_danyao,
   Write_danyao,
   zd_battle
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 export class SecretPlaceTask extends plugin {
   constructor() {

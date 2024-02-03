@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { plugin } from '../../api/api.js'
-import { fstadd_qinmidu, sleep, __PATH } from '../../model/xiuxian.js'
+import { fstadd_qinmidu, sleep, __PATH } from '../../model/index.js'
 import {
   exist_najie_thing,
   existplayer,
@@ -10,7 +10,7 @@ import {
   Write_qinmidu,
   add_qinmidu,
   Add_najie_thing
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 let x = 0
 let chaoshi_time
 let user_A

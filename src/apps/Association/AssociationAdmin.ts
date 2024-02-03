@@ -5,7 +5,7 @@ import {
   player_efficiency,
   convert2integer,
   setFileValue
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27]
 const 副宗主人数上限 = [1, 1, 1, 1, 2, 2, 3, 3]
 const 长老人数上限 = [1, 2, 3, 4, 5, 7, 8, 9]

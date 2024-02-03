@@ -1,12 +1,12 @@
 import { plugin, data } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 import {
   existplayer,
   Read_player,
   exist_najie_thing,
   Add_najie_thing,
   Write_player
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class motou extends plugin {
   constructor() {
     super({

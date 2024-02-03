@@ -6,7 +6,7 @@ import {
   Add_HP,
   Harm,
   zd_battle
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 let WorldBOSSBattleCD = [] //CD
 let WorldBOSSBattleLock = 0 //BOSS战斗锁，防止打架频率过高造成奖励多发
 let WorldBOSSBattleUnLockTimer = 0 //防止战斗锁因意外锁死

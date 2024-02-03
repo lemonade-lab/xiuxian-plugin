@@ -1,6 +1,6 @@
-import { plugin } from '../../api/api.js'
-import { AppName } from '../../../config.js'
 import { exec } from 'child_process'
+import { plugin } from '../../../import.js'
+import { AppName } from '../../../config.js'
 export class admin extends plugin {
   constructor() {
     super({

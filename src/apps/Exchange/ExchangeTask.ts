@@ -3,7 +3,7 @@ import {
   Add_najie_thing,
   Write_Exchange,
   Read_Exchange
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class ExchangeTask extends plugin {
   constructor() {
     super({

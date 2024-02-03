@@ -1,5 +1,5 @@
 import { plugin, common, puppeteer, config, Show } from '../../api/api.js'
-import { Read_temp, Write_temp } from '../../model/xiuxian.js'
+import { Read_temp, Write_temp } from '../../model/index.js'
 export class msgTask extends plugin {
   constructor() {
     super({

@@ -1,5 +1,5 @@
 import { plugin, data } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 import {
   existplayer,
   Read_player,
@@ -7,7 +7,7 @@ import {
   Add_najie_thing,
   Write_player,
   shijianc
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class shenren extends plugin {
   constructor() {
     super({

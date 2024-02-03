@@ -5,7 +5,7 @@ import {
   Read_player,
   isNotNull,
   openAU
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Auction extends plugin {
   constructor() {
     super({

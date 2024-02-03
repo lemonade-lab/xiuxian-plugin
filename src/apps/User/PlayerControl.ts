@@ -11,7 +11,7 @@ import {
   Read_danyao,
   Write_danyao,
   setFileValue
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class PlayerControl extends plugin {
   constructor() {
     super({

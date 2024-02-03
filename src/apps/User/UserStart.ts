@@ -15,8 +15,8 @@ import {
   Go,
   get_player_img,
   __PATH
-} from '../../model/xiuxian.js'
-import { Add_HP, Add_修为, Add_najie_thing } from '../../model/xiuxian.js'
+} from '../../model/index.js'
+import { Add_HP, Add_修为, Add_najie_thing } from '../../model/index.js'
 export class UserStart extends plugin {
   constructor() {
     super({

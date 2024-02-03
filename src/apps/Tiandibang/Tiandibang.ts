@@ -1,6 +1,6 @@
 import path from 'path'
 import { plugin, puppeteer, Show, data, config } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 import {
   ForwardMsg,
   Read_player,
@@ -10,7 +10,7 @@ import {
   Add_najie_thing,
   exist_najie_thing,
   zd_battle
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
 export class Tiandibang extends plugin {
   constructor() {

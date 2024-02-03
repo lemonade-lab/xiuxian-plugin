@@ -9,8 +9,8 @@ import {
   exist_hunyin,
   Go,
   setu
-} from '../../model/xiuxian.js'
-import { Add_灵石, Add_修为 } from '../../model/xiuxian.js'
+} from '../../model/index.js'
+import { Add_灵石, Add_修为 } from '../../model/index.js'
 let gane_key_user = [] //怡红院限制
 let yazhu = [] //投入
 let gametime = [] //临时游戏CD

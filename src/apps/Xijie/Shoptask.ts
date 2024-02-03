@@ -1,5 +1,5 @@
 import { plugin, config, data } from '../../api/api.js'
-import { Write_shop, Read_shop } from '../../model/xiuxian.js'
+import { Write_shop, Read_shop } from '../../model/index.js'
 
 export class Shoptask extends plugin {
   constructor() {

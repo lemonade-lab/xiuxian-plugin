@@ -1,5 +1,4 @@
 import { readFileSync, readdirSync, rmSync } from 'fs'
-import { plugin, puppeteer, data, Show } from '../../api/api.js'
 import { AppName } from '../../../config.js'
 import {
   existplayer,
@@ -9,9 +8,11 @@ import {
   exist_najie_thing,
   Read_Exchange,
   Write_Exchange,
-  get_player_img
-} from '../../model/xiuxian.js'
-import { Read_player, __PATH } from '../../model/xiuxian.js'
+  get_player_img,
+  Read_player,
+  __PATH
+} from '../../model/index.js'
+import { plugin } from '../../../import.js'
 export class AdminSuper extends plugin {
   constructor() {
     super({

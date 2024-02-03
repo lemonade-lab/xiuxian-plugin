@@ -15,8 +15,8 @@ import {
   zd_battle,
   get_danfang_img,
   get_tuzhi_img
-} from '../../model/xiuxian.js'
-import { Read_player, __PATH, Read_danyao } from '../../model/xiuxian.js'
+} from '../../model/index.js'
+import { Read_player, __PATH, Read_danyao } from '../../model/index.js'
 export class Occupation extends plugin {
   constructor() {
     super({

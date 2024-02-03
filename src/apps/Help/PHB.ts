@@ -5,7 +5,7 @@ import {
   ForwardMsg,
   Read_player,
   __PATH
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
 export class PHB extends plugin {

@@ -11,7 +11,7 @@ import {
   Add_修为,
   Goweizhi,
   jindi
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class SecretPlaceplus extends plugin {
   constructor() {
     super({

@@ -11,7 +11,7 @@ import {
   ForwardMsg,
   Goweizhi,
   Go
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 const 宗门灵石池上限 = [2000000, 5000000, 8000000, 11000000, 15000000, 20000000]
 export class BlessPlace extends plugin {
   constructor() {

@@ -12,7 +12,7 @@ import {
   get_forum_img,
   Write_Forum,
   Read_Forum
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Forum extends plugin {
   constructor() {
     super({

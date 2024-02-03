@@ -8,7 +8,7 @@ import {
   get_state_img,
   get_statemax_img,
   get_association_img
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class showData extends plugin {
   constructor(e) {
     super({

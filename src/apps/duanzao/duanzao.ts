@@ -1,5 +1,5 @@
 import { plugin, puppeteer, data, Show } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import {
   looktripod,
@@ -28,7 +28,7 @@ import {
   Read_danyao,
   Write_danyao,
   Read_equipment
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { readdirSync } from 'fs'
 export class duanzao extends plugin {
   constructor() {

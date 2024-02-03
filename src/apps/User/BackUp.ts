@@ -8,7 +8,7 @@ import fs, {
   writeFileSync
 } from 'fs'
 import { plugin, config } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 export class BackUp extends plugin {
   constructor() {
     super({

@@ -1,5 +1,5 @@
 import { plugin, config } from '../../api/api.js'
-import { Read_najie, __PATH } from '../../model/xiuxian.js'
+import { Read_najie, __PATH } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { copyFileSync, readdirSync } from 'fs'
 export class BackUptask extends plugin {

@@ -1,5 +1,5 @@
 import { plugin, puppeteer, data, Show } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 import {
   existplayer,
   Read_player,
@@ -9,7 +9,7 @@ import {
   existshop,
   Write_shop,
   Read_shop
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 
 export class Xijie extends plugin {
   constructor() {

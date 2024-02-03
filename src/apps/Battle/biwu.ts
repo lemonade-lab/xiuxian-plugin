@@ -7,7 +7,7 @@ import {
   Harm,
   baojishanghai,
   ForwardMsg
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 let A_QQ = []
 let B_QQ = []
 export class biwu extends plugin {

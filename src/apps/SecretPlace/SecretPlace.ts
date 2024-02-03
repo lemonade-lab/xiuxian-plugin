@@ -6,7 +6,7 @@ import {
   sleep,
   exist_najie_thing,
   Add_najie_thing
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import {
   Add_灵石,
   Add_修为,
@@ -16,7 +16,7 @@ import {
   Goweizhi,
   jindi,
   Go
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class SecretPlace extends plugin {
   constructor() {
     super({

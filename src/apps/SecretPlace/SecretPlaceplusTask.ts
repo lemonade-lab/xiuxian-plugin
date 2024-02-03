@@ -13,7 +13,7 @@ import {
   Read_temp,
   Write_temp,
   zd_battle
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
 export class SecretPlaceplusTask extends plugin {

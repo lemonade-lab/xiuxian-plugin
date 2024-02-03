@@ -1,5 +1,4 @@
 import { readdirSync, rmSync } from 'fs'
-import { plugin, puppeteer, Show, data, config } from '../../api/api.js'
 import {
   timestampToTime,
   shijianc,
@@ -7,11 +6,9 @@ import {
   ForwardMsg,
   player_efficiency,
   setFileValue
-} from '../../model/xiuxian.js'
-const 宗门人数上限 = [6, 9, 12, 15, 18, 21, 24, 27]
-const 宗门灵石池上限 = [
-  2000000, 5000000, 8000000, 11000000, 15000000, 20000000, 25000000, 30000000
-]
+} from '../../model/index.js'
+import { plugin } from '../../../import.js'
+
 export class Association extends plugin {
   constructor() {
     super({

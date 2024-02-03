@@ -7,7 +7,7 @@ import {
   existshop,
   Write_shop,
   Read_shop
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 export class Xijietask extends plugin {
   constructor() {

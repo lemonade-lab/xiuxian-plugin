@@ -16,7 +16,7 @@ import {
   Add_najie_thing,
   dujie,
   LevelTask
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { clearInterval } from 'timers'
 let dj = 0
 export class Level extends plugin {

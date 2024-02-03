@@ -8,7 +8,7 @@ import {
   Add_修为,
   Read_temp,
   Write_temp
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 export class shenjietask extends plugin {
   constructor() {

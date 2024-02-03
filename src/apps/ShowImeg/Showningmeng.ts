@@ -1,5 +1,5 @@
 import { plugin } from '../../api/api.js'
-import { __PATH } from '../../model/xiuxian.js'
+import { __PATH } from '../../model/index.js'
 import {
   get_gongfa_img,
   get_danyao_img,
@@ -8,7 +8,7 @@ import {
   get_XianChong_img,
   get_valuables_img,
   get_ningmenghome_img
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class Showningmeng extends plugin {
   constructor(e) {
     super({

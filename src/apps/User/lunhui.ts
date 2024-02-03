@@ -8,8 +8,8 @@ import {
   isNotNull,
   player_efficiency,
   get_random_fromARR
-} from '../../model/xiuxian.js'
-import { Add_najie_thing, Add_HP } from '../../model/xiuxian.js'
+} from '../../model/index.js'
+import { Add_najie_thing, Add_HP } from '../../model/index.js'
 export class lunhui extends plugin {
   constructor() {
     super({

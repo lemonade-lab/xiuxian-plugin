@@ -13,7 +13,7 @@ import {
   __PATH,
   Add_修为,
   Add_血气
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 export class MoneyOperation extends plugin {
   constructor() {
     super({

@@ -28,7 +28,7 @@ import {
   foundthing,
   convert2integer,
   get_equipment_img
-} from '../../model/xiuxian.js'
+} from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readall } from '../../model/duanzaofu.js'
 import { readdirSync } from 'fs'

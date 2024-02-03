@@ -1,5 +1,5 @@
 import { plugin, config } from '../../api/api.js'
-import { Write_Forum, Read_Forum, Add_灵石 } from '../../model/xiuxian.js'
+import { Write_Forum, Read_Forum, Add_灵石 } from '../../model/index.js'
 export class ForumTask extends plugin {
   constructor() {
     super({
