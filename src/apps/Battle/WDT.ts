@@ -99,10 +99,7 @@ export class WDT extends plugin {
       e.reply('咋the，自娱自乐？')
       return
     }
-    let playerA = data.getData('player', A)
-    let playerB = data.getData('player', B)
-    let A_action = await redis.get('xiuxian@1.4.0:' + A + ':action')
-    A_action = JSON.parse(A_action)
+    let A_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + A + ':action'))
     if (A_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -118,15 +115,14 @@ export class WDT extends plugin {
     let last_game_timeB = await redis.get(
       'xiuxian@1.4.0:' + B + ':last_game_time'
     )
-    if (last_game_timeB == 0) {
+    if (last_game_timeB == '0') {
       e.reply(`对方猜大小正在进行哦，等他结束再来比武吧!`)
       return true
     }
 
     let isBbusy = false //给B是否忙碌加个标志位，用来判断要不要扣隐身水
 
-    let B_action = await redis.get('xiuxian@1.4.0:' + B + ':action')
-    B_action = JSON.parse(B_action)
+    let B_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + B + ':action'))
     if (B_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -149,10 +145,9 @@ export class WDT extends plugin {
 
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
-    let last_biwu_time = await redis.get(
-      'xiuxian@1.4.0:' + A + ':last_biwu_time'
+    let last_biwu_time = Number(
+      await redis.get('xiuxian@1.4.0:' + A + ':last_biwu_time')
     ) //获得上次打劫the时间戳,
-    last_biwu_time = last_biwu_time
     let robTimeout = 60000 * cf.CD.biwu
     if (nowTime < last_biwu_time + robTimeout) {
       let waittime_m = Math.trunc(
@@ -170,8 +165,9 @@ export class WDT extends plugin {
     let Time = cf.CD.couple //6个小时
     let shuangxiuTimeout = 60000 * Time
     let now_Time = new Date().getTime() //获取当前时间戳
-    let last_timeA = await redis.get('xiuxian@1.4.0:' + A + ':last_biwu_time') //获得上次the时间戳,
-    last_timeA = last_timeA
+    let last_timeA = Number(
+      await redis.get('xiuxian@1.4.0:' + A + ':last_biwu_time')
+    )
     if (now_Time < last_timeA + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -183,8 +179,9 @@ export class WDT extends plugin {
       return
     }
 
-    let last_timeB = await redis.get('xiuxian@1.4.0:' + B + ':last_biwu_time') //获得上次the时间戳,
-    last_timeB = last_timeB
+    let last_timeB = Number(
+      await redis.get('xiuxian@1.4.0:' + B + ':last_biwu_time')
+    )
     if (now_Time < last_timeB + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -241,7 +238,7 @@ export class WDT extends plugin {
       A_player.魔道值 += 1
       data.setData('player', A, A_player)
       final_msg.push(
-        ` 经过一番大战,${A_win}获得了胜利,${A_player.name}获得${qixue}气血，${B_player.name}获得${qixue2}气血，双方都获得了${JL}the灵石。`
+        ` 经过一番大战,${A_win}获得了胜利,${A_player.name}获得${qixue}气血，${B_player.name}获得${qixue2}气血，双方都获得了${JL}themoney。`
       )
     } else if (msg.find((item) => item == B_win)) {
       let qixue = Math.trunc(500 * now_level_idBB)
@@ -255,7 +252,7 @@ export class WDT extends plugin {
       B_player.魔道值 += 1
       data.setData('player', playerBB, B_player)
       final_msg.push(
-        `经过一番大战,${B_win}获得了胜利,${B_player.name}获得${qixue2}气血，${A_player.name}获得${qixue}气血，双方都获得了${JL}the灵石。`
+        `经过一番大战,${B_win}获得了胜利,${B_player.name}获得${qixue2}气血，${A_player.name}获得${qixue}气血，双方都获得了${JL}themoney。`
       )
     } else {
       e.reply(`战斗过程出错`)

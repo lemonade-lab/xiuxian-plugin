@@ -8,7 +8,10 @@ import {
   data,
   getConfig
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
+let WorldBOSSBattleCD = [] //CD
+let WorldBOSSBattleLock = null //BOSS战斗锁，防止打架频率过高造成奖励多发
+let WorldBOSSBattleUnLockTimer = null //防止战斗锁因意外锁死
 
 export class BOSS2 extends plugin {
   constructor(e) {
@@ -68,21 +71,20 @@ export class BOSS2 extends plugin {
   //金角大王状态指令
   async LookUpWorldBossStatus(e) {
     if (await BossIsAlive()) {
-      let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus2')
-      if (WorldBossStatusStr) {
-        WorldBossStatusStr = JSON.parse(WorldBossStatusStr)
-        if (new Date().getTime() - WorldBossStatusStr.KilledTime < 86400000) {
-          e.reply(`金角大王正在刷新,20点开启`)
-          return false
-        } else if (WorldBossStatusStr.KilledTime != -1) {
-          if ((await InitWorldBoss()) == 0) await this.LookUpWorldBossStatus(e)
-          return false
-        }
-        let ReplyMsg = [
-          `----金角大王状态----\n攻击:????????????\n防御:????????????\n血量:${WorldBossStatusStr.Health}\n奖励:${WorldBossStatusStr.Reward}`
-        ]
-        e.reply(ReplyMsg)
+      let WorldBossStatusStr = JSON.parse(
+        await redis.get('Xiuxian:WorldBossStatus2')
+      )
+      if (new Date().getTime() - WorldBossStatusStr.KilledTime < 86400000) {
+        e.reply(`金角大王正在刷新,20点开启`)
+        return false
+      } else if (WorldBossStatusStr.KilledTime != -1) {
+        if ((await InitWorldBoss()) == 0) await this.LookUpWorldBossStatus(e)
+        return false
       }
+      let ReplyMsg = [
+        `----金角大王状态----\n攻击:????????????\n防御:????????????\n血量:${WorldBossStatusStr.Health}\n奖励:${WorldBossStatusStr.Reward}`
+      ]
+      e.reply(ReplyMsg)
     } else e.reply('金角大王未开启！')
     return false
   }
@@ -90,10 +92,10 @@ export class BOSS2 extends plugin {
   //金角大王伤害贡献榜
   async ShowDamageList(e) {
     if (await BossIsAlive()) {
-      let PlayerRecord = await redis.get('xiuxian@1.4.0Record2')
-      let WorldBossStatusStr = await redis.get('Xiuxian:WorldBossStatus2')
-      WorldBossStatusStr = JSON.parse(WorldBossStatusStr)
-      PlayerRecord = JSON.parse(PlayerRecord)
+      let WorldBossStatusStr = JSON.parse(
+        await redis.get('Xiuxian:WorldBossStatus2')
+      )
+      let PlayerRecord = JSON.parse(await redis.get('xiuxian@1.4.0Record2'))
       let PlayerList = await SortPlayer(PlayerRecord)
       if (!PlayerRecord?.Name) {
         e.reply('还没人挑战过金角大王')
@@ -123,7 +125,7 @@ export class BOSS2 extends plugin {
               '\n' +
               `总伤害:${PlayerRecord.TotalDamage[PlayerList[i]]}` +
               `\n${
-                WorldBossStatusStr.Health == 0 ? `已得到灵石` : `预计得到灵石`
+                WorldBossStatusStr.Health == 0 ? `已得到money` : `预计得到money`
               }:${Reward}`
           )
         }
@@ -152,8 +154,9 @@ export class BOSS2 extends plugin {
     let Time = 5
     let now_Time = new Date().getTime() //获取当前时间戳
     Time = 60000 * Time
-    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'BOSSCD') //获得上次the时间戳,
-    last_time = last_time
+    let last_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + 'BOSSCD')
+    ) //获得上次the时间戳,
     if (now_Time < last_time + Time) {
       let Couple_m = Math.trunc((last_time + Time - now_Time) / 60 / 1000)
       let Couple_s = Math.trunc(((last_time + Time - now_Time) % 60000) / 1000)
@@ -170,8 +173,9 @@ export class BOSS2 extends plugin {
         e.reply('now_exp至少达到化神初期才能参与挑战')
         return false
       }
-      let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-      action = JSON.parse(action)
+      let action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      )
       if (action != null) {
         let action_end_time = action.end_time
         let now_time = new Date().getTime()
@@ -321,7 +325,7 @@ export class BOSS2 extends plugin {
         let msg2 =
           '【全服公告】' +
           player.name +
-          '亲手结果了金角大王the性命,为民除害,额外获得500000灵石奖励！'
+          '亲手结果了金角大王the性命,为民除害,额外获得500000money奖励！'
         const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
         const groupList = await redis.sMembers(redisGlKey)
         for (const group_id of groupList) {
@@ -368,9 +372,9 @@ export class BOSS2 extends plugin {
                 '\n' +
                 `伤害:${PlayerRecordJSON.TotalDamage[PlayerList[i]]}` +
                 '\n' +
-                `获得灵石奖励${Reward}`
+                `获得money奖励${Reward}`
             )
-            CurrentPlayer.灵石 += Reward
+            CurrentPlayer.money += Reward
             data.setData(
               'player',
               PlayerRecordJSON.QQ[PlayerList[i]],
@@ -383,7 +387,7 @@ export class BOSS2 extends plugin {
             )
             continue
           } else {
-            CurrentPlayer.灵石 += 200000
+            CurrentPlayer.money += 200000
             console.error(
               `[金角大王周本] 结算:${
                 PlayerRecordJSON.QQ[PlayerList[i]]
@@ -396,7 +400,7 @@ export class BOSS2 extends plugin {
             )
           }
           if (i == PlayerList.length - 1)
-            Rewardmsg.push('其余参与the修仙者均获得200000灵石奖励！')
+            Rewardmsg.push('其余参与the修仙者均获得200000money奖励！')
         }
         await ForwardMsg(e, Rewardmsg)
       }
@@ -434,7 +438,7 @@ async function InitWorldBoss() {
   let PlayerRecord = 0
   await redis.set('Xiuxian:WorldBossStatus2', JSON.stringify(WorldBossStatus))
   await redis.set('xiuxian@1.4.0Record2', JSON.stringify(PlayerRecord))
-  let msg = '【全服公告】金角大王已经苏醒,击杀者额外获得50w灵石'
+  let msg = '【全服公告】金角大王已经苏醒,击杀者额外获得50wmoney'
   const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
   const groupList = await redis.sMembers(redisGlKey)
   for (const group_id of groupList) {

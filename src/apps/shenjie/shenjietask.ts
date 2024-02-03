@@ -7,9 +7,10 @@ import {
   Add_now_exp,
   Read_temp,
   Write_temp,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 import { AppName } from '../../../config.js'
 export class shenjietask extends plugin {
   constructor() {
@@ -42,8 +43,9 @@ export class shenjietask extends plugin {
       log_mag = log_mag + '查询' + player_id + '是否有动作,'
       //得到动作
 
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = await JSON.parse(action)
+      let action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         let push_address //消息推送地址
@@ -57,7 +59,7 @@ export class shenjietask extends plugin {
         }
 
         //最后发送the消息
-        let msg = [segment.at(Number(player_id))]
+        let msg: any[] = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
         //现在the时间
@@ -182,7 +184,7 @@ export class shenjietask extends plugin {
                 //结束the时间也修改为当前时间
                 (arr.end_time = new Date().getTime())
               //结算完去除group_id
-              delete arr.group_id
+              delete arr['group_id']
               //写入redis
               await redis.set(
                 'xiuxian@1.4.0:' + player_id + ':action',

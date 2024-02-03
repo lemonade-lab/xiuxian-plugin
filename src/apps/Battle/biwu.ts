@@ -5,7 +5,10 @@ import {
   ifbaoji,
   Harm,
   baojishanghai,
-  ForwardMsg
+  ForwardMsg,
+  data,
+  B_QQ,
+  A_QQ
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 
@@ -113,12 +116,12 @@ export class biwu extends plugin {
     let msg_A = [`指令样式:#选择技能1,2,3\n请选择你本局携带the技能:`]
     for (const i in A_QQ[num].技能) {
       const cd = data.jineng.find((item) => item.name == A_QQ[num].技能[i]).cd
-      msg_A.push(`\n${i * 1 + 1}、${A_QQ[num].技能[i]} cd:${cd}`)
+      msg_A.push(`\n${Number(i) * 1 + 1}、${A_QQ[num].技能[i]} cd:${cd}`)
     }
     let msg_B = [`指令样式:#选择技能1,2,3\n请选择你本局携带the技能:`]
     for (const i in B_QQ[num].技能) {
       const cd = data.jineng.find((item) => item.name == B_QQ[num].技能[i]).cd
-      msg_B.push(`\n${i * 1 + 1}、${B_QQ[num].技能[i]} cd:${cd}`)
+      msg_B.push(`\n${Number(i) * 1 + 1}、${B_QQ[num].技能[i]} cd:${cd}`)
     }
     //推送私人
     Bot.pickMember(e.group_id, A_QQ[num].QQ).sendMsg(msg_A)
@@ -143,9 +146,9 @@ export class biwu extends plugin {
       'xiuxian@1.4.0:' + B_QQ[num].QQ + ':bisai',
       JSON.stringify(action_B)
     )
-    let buff_A = {}
-    let buff_B = {}
-    let msgg = []
+    let buff_A: any = {}
+    let buff_B: any = {}
+    let msgg: any[] = []
     while (A_player.now_bool > 0 && B_player.now_bool > 0) {
       msg_A = [`指令样式:#释放技能1\n第${cnt}回合,是否释放以下技能:`]
       for (const i in action_A.技能) {
@@ -154,7 +157,7 @@ export class biwu extends plugin {
           data.jineng.find((item) => item.name == action_A.技能[i].name).cd -
           action_A.技能[i].cd
         if (cd < 0) cd = 0
-        msg_A.push(`\n${i * 1 + 1}、${action_A.技能[i].name} cd:${cd}`)
+        msg_A.push(`\n${Number(i) * 1 + 1}、${action_A.技能[i].name} cd:${cd}`)
       }
       await redis.set(
         'xiuxian@1.4.0:' + A_QQ[num].QQ + ':bisai',
@@ -169,7 +172,7 @@ export class biwu extends plugin {
           data.jineng.find((item) => item.name == action_B.技能[i].name).cd -
           action_B.技能[i].cd
         if (cd < 0) cd = 0
-        msg_B.push(`\n${i * 1 + 1}、${action_B.技能[i].name} cd:${cd}`)
+        msg_B.push(`\n${Number(i) * 1 + 1}、${action_B.技能[i].name} cd:${cd}`)
       }
       await redis.set(
         'xiuxian@1.4.0:' + B_QQ[num].QQ + ':bisai',
@@ -528,8 +531,9 @@ export class biwu extends plugin {
   }
 
   async release(e) {
-    let action = await redis.get('xiuxian@1.4.0:' + e.user_id + ':bisai')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + e.user_id + ':bisai')
+    )
     if (!action) return false
     let jineng = e.msg.replace('#释放技能', '')
     jineng = Number(jineng) - 1

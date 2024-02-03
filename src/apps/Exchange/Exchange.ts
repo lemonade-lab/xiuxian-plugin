@@ -51,8 +51,9 @@ export class Exchange extends plugin {
     let time0 = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
-    let ExchangeCD = await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
-    ExchangeCD = ExchangeCD
+    let ExchangeCD = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
+    )
     let transferTimeout = 60000 * time0
     if (now_time < ExchangeCD + transferTimeout) {
       let ExchangeCDm = Math.trunc(
@@ -210,15 +211,15 @@ export class Exchange extends plugin {
     let off = Math.trunc(whole * 0.03)
     if (off < 100000) off = 100000
     let player = await Read_player(usr_qq)
-    if (player.灵石 < off) {
-      e.reply('就这点灵石还想上架')
+    if (player.money < off) {
+      e.reply('就这点money还想上架')
       return false
     }
     await Add_money(usr_qq, -off)
     let wupin
     if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
       let pinji2 = ['劣', '普', '优', '精', '极', '绝', '顶']
-      pj = pinji2[thing_piji]
+      const pj = pinji2[thing_piji]
       wupin = {
         qq: usr_qq,
         name: equ,
@@ -276,8 +277,9 @@ export class Exchange extends plugin {
     let time0 = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
-    let ExchangeCD = await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
-    ExchangeCD = ExchangeCD
+    let ExchangeCD = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
+    )
     let transferTimeout = 60000 * time0
     if (now_time < ExchangeCD + transferTimeout) {
       let ExchangeCDm = Math.trunc(
@@ -328,8 +330,8 @@ export class Exchange extends plugin {
       return false
     }
     let money = n * thing_price
-    //查灵石
-    if (player.灵石 > money) {
+    //查money
+    if (player.money > money) {
       //加物品
       if (thing_class == '装备' || thing_class == '仙宠') {
         await Add_najie_thing(

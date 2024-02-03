@@ -1,17 +1,22 @@
 import typescript from '@rollup/plugin-typescript'
 import multiEntry from '@rollup/plugin-multi-entry'
 // import terser from '@rollup/plugin-terser'
+
+const dist = 'dist/index.js'
+
 export default {
   input: 'main.ts',
   output: {
-    file: 'index.js',
-    format: 'mjs'
+    file: dist,
+    format: 'module',
+    // 是否生成 sourcemap 文件
+    sourcemap: false
   },
   plugins: [
     typescript(),
     multiEntry({
       // 指定要匹配the文件路径模式
-      include: ['index.js']
+      include: [dist]
     })
     // 压缩
     // terser()

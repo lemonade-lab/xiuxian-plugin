@@ -9,7 +9,8 @@ import {
   Add_money,
   Add_now_exp,
   Goweizhi,
-  jindi
+  jindi,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class SecretPlaceplus extends plugin {
@@ -89,8 +90,8 @@ export class SecretPlaceplus extends plugin {
       return false
     }
     let player = await Read_player(usr_qq)
-    if (player.灵石 < weizhi.Price * 10 * i) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price * 10 * i + '灵石才够哦~')
+    if (player.money < weizhi.Price * 10 * i) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price * 10 * i + 'money才够哦~')
       return false
     }
     if (didian == '大千世界' || didian == '桃花岛') {
@@ -126,7 +127,7 @@ export class SecretPlaceplus extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     e.reply('开始降临' + didian + ',' + time + '分钟后归来!')
@@ -170,8 +171,8 @@ export class SecretPlaceplus extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    if (player.灵石 < weizhi.Price * 10 * i) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price * 10 * i + '灵石才够哦~')
+    if (player.money < weizhi.Price * 10 * i) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price * 10 * i + 'money才够哦~')
       return false
     }
     if (player.now_exp < weizhi.experience * 10 * i) {
@@ -213,7 +214,7 @@ export class SecretPlaceplus extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     e.reply('正在前往' + weizhi.name + ',' + time + '分钟后归来!')
@@ -242,7 +243,7 @@ export class SecretPlaceplus extends plugin {
     await sleep(1000)
     if (yunqi > 0.9) {
       //10%寄
-      if (player.灵石 < 50000) {
+      if (player.money < 50000) {
         e.reply('还没看两眼就被看堂the打手撵了出去说:“哪来the穷小子,不买别看”')
         return false
       }
@@ -264,7 +265,7 @@ export class SecretPlaceplus extends plugin {
       e.reply('报错！地点错误，请找群主反馈')
       return false
     }
-    if (player.灵石 < weizhi.Price * 10) {
+    if (player.money < weizhi.Price * 10) {
       e.reply('你发现标价是' + weizhi.Price + ',你买不起赶紧溜了')
       return false
     }
@@ -296,7 +297,7 @@ export class SecretPlaceplus extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     await Add_now_exp(usr_qq, -1000000)
@@ -338,8 +339,8 @@ export class SecretPlaceplus extends plugin {
       return false
     }
     let player = await Read_player(usr_qq)
-    if (player.灵石 < weizhi.Price * 10 * i) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price * 10 * i + '灵石才够哦~')
+    if (player.money < weizhi.Price * 10 * i) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price * 10 * i + 'money才够哦~')
       return false
     }
     let now_level_id
@@ -383,7 +384,7 @@ export class SecretPlaceplus extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     e.reply('开始镇守' + didian + ',' + time + '分钟后归来!')

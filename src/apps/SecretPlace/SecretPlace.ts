@@ -12,7 +12,9 @@ import {
   add_qinmidu,
   Goweizhi,
   jindi,
-  Go
+  Go,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class SecretPlace extends plugin {
@@ -116,8 +118,8 @@ export class SecretPlace extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    if (player.灵石 < weizhi.Price) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price + '灵石才够哦~')
+    if (player.money < weizhi.Price) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price + 'money才够哦~')
       return false
     }
     if (didian == '桃花岛') {
@@ -155,7 +157,7 @@ export class SecretPlace extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     e.reply('开始降临' + didian + ',' + time + '分钟后归来!')
@@ -198,8 +200,8 @@ export class SecretPlace extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    if (player.灵石 < weizhi.Price) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price + '灵石才够哦~')
+    if (player.money < weizhi.Price) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price + 'money才够哦~')
       return false
     }
     if (player.now_exp < weizhi.experience) {
@@ -229,7 +231,7 @@ export class SecretPlace extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     e.reply('正在前往' + weizhi.name + ',' + time + '分钟后归来!')
@@ -258,7 +260,7 @@ export class SecretPlace extends plugin {
     await sleep(1000)
     if (yunqi > 0.9) {
       //10%寄
-      if (player.灵石 < 50000) {
+      if (player.money < 50000) {
         e.reply('还没看两眼就被看堂the打手撵了出去说:“哪来the穷小子,不买别看”')
         return false
       }
@@ -280,7 +282,7 @@ export class SecretPlace extends plugin {
       e.reply('报错！地点错误，请找群主反馈')
       return false
     }
-    if (player.灵石 < weizhi.Price) {
+    if (player.money < weizhi.Price) {
       e.reply('你发现标价是' + weizhi.Price + ',你买不起赶紧溜了')
       return false
     }
@@ -322,7 +324,7 @@ export class SecretPlace extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     await Add_now_exp(usr_qq, -100000)
@@ -359,8 +361,8 @@ export class SecretPlace extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    if (player.灵石 < weizhi.Price) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price + '灵石才够哦~')
+    if (player.money < weizhi.Price) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price + 'money才够哦~')
       return false
     }
     let now_level_id
@@ -411,7 +413,7 @@ export class SecretPlace extends plugin {
       Place_address: weizhi
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     e.reply('开始镇守' + didian + ',' + time + '分钟后归来!')
@@ -430,13 +432,14 @@ export class SecretPlace extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     //不为空，有状态
     if (action != null) {
       //是在秘境状态
@@ -455,7 +458,7 @@ export class SecretPlace extends plugin {
         arr.Place_actionplus = 1 //沉迷状态
         arr.mojie = 1
         arr.end_time = new Date().getTime() //结束the时间也修改为当前时间
-        delete arr.group_id //结算完去除group_id
+        delete arr['group_id'] //结算完去除group_id
         await redis.set(
           'xiuxian@1.4.0:' + usr_qq + ':action',
           JSON.stringify(arr)

@@ -25,10 +25,11 @@ import {
   Write_najie,
   Read_danyao,
   Write_danyao,
-  Read_equipment
+  Read_equipment,
+  Show
 } from '../../model/index.js'
 import { readdirSync } from 'fs'
-import { plugin } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
 export class duanzao extends plugin {
   constructor() {
     super({
@@ -90,7 +91,7 @@ export class duanzao extends plugin {
     // if 根本还没记录时间或者过了时间，就遍历生成，额外往wupin里添加owner_name（号）属性，并重写回去custom.json
     if (
       !(await redis.exists('xiuxian:bestfileCD')) ||
-      (await redis.get('xiuxian:bestfileCD')) - nowTime > 30 * 60 * 1000
+      Number(await redis.get('xiuxian:bestfileCD')) - nowTime > 30 * 60 * 1000
     ) {
       await redis.set('xiuxian:bestfileCD', nowTime)
 
@@ -253,7 +254,7 @@ export class duanzao extends plugin {
       'xiuxian@1.4.0:' + user_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -362,8 +363,9 @@ export class duanzao extends plugin {
           e.reply(`炉子为空,无法炼制`)
           return false
         }
-        let action = await redis.get('xiuxian@1.4.0:' + user_qq + ':action10')
-        action = JSON.parse(action)
+        let action = JSON.parse(
+          await redis.get('xiuxian@1.4.0:' + user_qq + ':action10')
+        )
         if (action != null) {
           //人物有动作查询动作结束时间
           let action_end_time = action.end_time
@@ -440,8 +442,9 @@ export class duanzao extends plugin {
         }
         //关闭状态
 
-        let action = await redis.get('xiuxian@1.4.0:' + user_qq + ':action10')
-        action = JSON.parse(action)
+        let action = JSON.parse(
+          await redis.get('xiuxian@1.4.0:' + user_qq + ':action10')
+        )
 
         //判断属性九维值
         let cailiao
@@ -521,9 +524,9 @@ export class duanzao extends plugin {
         let i
         let qianzhui = 0
         const wuwei = [jiuwei[4], jiuwei[5], jiuwei[6], jiuwei[7], jiuwei[8]]
-        const wuxing = ['金', '木', '土', '水', '火']
+        const wuxing: string[] = ['金', '木', '土', '水', '火']
         let max = wuwei[0]
-        let shuzu = [wuwei[0]]
+        let shuzu: (string | number)[] = [wuwei[0]]
         for (i = 0; i < wuwei.length; i++) {
           if (max < wuwei[i]) {
             max = wuwei[i]
@@ -535,7 +538,15 @@ export class duanzao extends plugin {
             qianzhui++
           }
         }
-        max = await getxuanze(shuzu, player.hide_talent.type)
+
+        let maxd
+
+        const val = await getxuanze(shuzu, player.hide_talent.type)
+
+        if (val) {
+          maxd = val
+        }
+
         let fangyuxuejian = 0
         if (qianzhui == 5) {
           houzhui = '五行杂灵'
@@ -547,7 +558,7 @@ export class duanzao extends plugin {
           houzhui = '三灵共堂'
           xishu += 0.05
         } else if (qianzhui == 2) {
-          const shuzufu = await Restraint(wuwei, max[0])
+          const shuzufu = await Restraint(wuwei, maxd[0])
           houzhui = shuzufu[0]
           xishu += shuzufu[1]
           if (shuzufu[1] == 0.5) {
@@ -620,7 +631,7 @@ export class duanzao extends plugin {
 
     let a = await Read_mytripod(user_qq)
 
-    if (a.材料 == []) {
+    if (a.材料?.length == 0) {
       e.reply(`锻炉里空空如也,没什么好看the`)
       return false
     }

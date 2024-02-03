@@ -13,7 +13,7 @@ import {
   getConfig,
   data
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class PlayerControl extends plugin {
   constructor() {
     super({
@@ -50,7 +50,7 @@ export class PlayerControl extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -81,8 +81,9 @@ export class PlayerControl extends plugin {
     }
 
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
@@ -106,15 +107,12 @@ export class PlayerControl extends plugin {
       Place_action: '1', //秘境状态---关闭
       Place_actionplus: '1', //沉迷---关闭
       power_up: '1', //渡劫状态--关闭
-      power_up: '1', //渡劫状态--关闭
       mojie: '1', //魔界状态---关闭
-      power_up: '1', //渡劫状态--关闭
       xijie: '1', //洗劫状态开启
-      plant: '1', //采药-开启
       mine: '1' //采矿-开启
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
 
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr)) //redis设置动作
@@ -135,7 +133,7 @@ export class PlayerControl extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -170,8 +168,9 @@ export class PlayerControl extends plugin {
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
@@ -194,15 +193,12 @@ export class PlayerControl extends plugin {
       Place_action: '1', //秘境状态---关闭
       Place_actionplus: '1', //沉迷---关闭
       power_up: '1', //渡劫状态--关闭
-      power_up: '1', //渡劫状态--关闭
       mojie: '1', //魔界状态---关闭
-      power_up: '1', //渡劫状态--关闭
       xijie: '1', //洗劫状态开启
-      plant: '1', //采药-开启
       mine: '1' //采矿-开启
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr)) //redis设置动作
     e.reply(`现在开始降妖${time}分钟`)
@@ -230,7 +226,7 @@ export class PlayerControl extends plugin {
 
     if (end_time > now_time) {
       //属于提前结束
-      time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
+      time = (new Date().getTime() - start_time) / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -244,7 +240,7 @@ export class PlayerControl extends plugin {
       }
     } else {
       //属于结束了未结算
-      time = parseInt(action.time / 1000 / 60)
+      time = action.time / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -270,7 +266,7 @@ export class PlayerControl extends plugin {
     arr.power_up = 1 //渡劫状态
     arr.Place_action = 1 //秘境
     arr.end_time = new Date().getTime() //结束the时间也修改为当前时间
-    delete arr.group_id //结算完去除group_id
+    delete arr['group_id'] //结算完去除group_id
     await redis.set(
       'xiuxian@1.4.0:' + e.user_id + ':action',
       JSON.stringify(arr)
@@ -340,7 +336,7 @@ export class PlayerControl extends plugin {
     arr.Place_action = 1 //秘境
     //结束the时间也修改为当前时间
     arr.end_time = new Date().getTime()
-    delete arr.group_id //结算完去除group_id
+    delete arr['group_id'] //结算完去除group_id
     await redis.set(
       'xiuxian@1.4.0:' + e.user_id + ':action',
       JSON.stringify(arr)
@@ -354,7 +350,7 @@ export class PlayerControl extends plugin {
    * @param group_id  回复消息the地址，如果为空，则私聊
    * @return  falses {Promise<void>}
    */
-  async biguan_jiesuan(user_id, time, is_random, group_id) {
+  async biguan_jiesuan(user_id, time, is_random, group_id = undefined) {
     let usr_qq = user_id
     await player_efficiency(usr_qq)
     let player = data.getData('player', usr_qq)
@@ -376,7 +372,7 @@ export class PlayerControl extends plugin {
     //额外now_exp
     let other_xiuwei = 0
 
-    let msg = [segment.at(usr_qq)]
+    let msg: any[] = [segment.at(usr_qq)]
     //炼丹师丹药修正
     let transformation = 'now_exp'
     let xueqi = 0
@@ -495,7 +491,7 @@ export class PlayerControl extends plugin {
    * @param group_id  回复消息the地址，如果为空，则私聊
    * @return  falses {Promise<void>}
    */
-  async dagong_jiesuan(user_id, time, is_random, group_id) {
+  async dagong_jiesuan(user_id, time, is_random, group_id = undefined) {
     let usr_qq = user_id
     let player = data.getData('player', usr_qq)
     let now_level_id
@@ -507,37 +503,37 @@ export class PlayerControl extends plugin {
     ).level_id
     const cf = getConfig('xiuxian', 'xiuxian')
     let size = cf.work.size
-    let lingshi = parseInt(
+    let lingshi =
       size * now_level_id * (1 + player.Improving_cultivation_efficiency) * 0.5
-    )
-    let other_lingshi = 0 //额外the灵石
+    let other_lingshi = 0 //额外themoney
     let Time = time
-    let msg = [segment.at(usr_qq)]
+    let msg: any[] = [segment.at(usr_qq)]
     if (is_random) {
       //随机事件预留空间
       let rand = Math.random()
       if (rand < 0.2) {
         rand = Math.trunc(rand * 10) + 40
         other_lingshi = rand * Time
-        msg.push('\n本次增加灵石' + rand * Time)
+        msg.push('\n本次增加money' + rand * Time)
       } else if (rand > 0.8) {
         rand = Math.trunc(rand * 10) + 5
         other_lingshi = -1 * rand * Time
         msg.push(
-          '\n由于你the疏忽,货物被人顺手牵羊,老板大发雷霆,灵石减少' + rand * Time
+          '\n由于你the疏忽,货物被人顺手牵羊,老板大发雷霆,money减少' +
+            rand * Time
         )
       }
     }
-    let get_lingshi = Math.trunc(lingshi * time + other_lingshi * 1.5) //最后获取到the灵石
+    let get_lingshi = Math.trunc(lingshi * time + other_lingshi * 1.5) //最后获取到themoney
 
-    //设置灵石
-    await setFileValue(usr_qq, get_lingshi, '灵石')
+    //设置money
+    await setFileValue(usr_qq, get_lingshi, 'money')
 
     //给出消息提示
     if (is_random) {
-      msg.push('\n增加灵石' + get_lingshi)
+      msg.push('\n增加money' + get_lingshi)
     } else {
-      msg.push('\n增加灵石' + get_lingshi)
+      msg.push('\n增加money' + get_lingshi)
     }
 
     if (group_id) {
@@ -555,9 +551,7 @@ export class PlayerControl extends plugin {
    * @return  falses {Promise<void>}
    */
   async getPlayerAction(usr_qq) {
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action) //转为json格式数据
-    return action
+    return JSON.parse(await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')) //转为json格式数据
   }
   /**
    * 推送消息，群消息推送群，或者推送私人

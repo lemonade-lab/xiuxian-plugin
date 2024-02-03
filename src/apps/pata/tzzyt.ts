@@ -70,9 +70,8 @@ export class tzzyt extends plugin {
     }
     let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
-    let shuangxiuTimeout = parseInt(60000 * Time)
-    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD') //获得上次the时间戳,
-    last_time = parseInt(last_time)
+    let shuangxiuTimeout = 60000 * Time
+    let last_time = Number(await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD')) //获得上次the时间戳,
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -168,20 +167,20 @@ export class tzzyt extends plugin {
     await redis.set('xiuxian@1.4.0:' + usr_qq + 'CD', now_Time)
     if (bosszt.Health <= 0) {
       player.镇妖塔层数 += 5
-      player.灵石 += Reward
+      player.money += Reward
       player.now_bool += Reward * 21
       e.reply([
         segment.at(usr_qq),
-        `\n恭喜通过此层镇妖塔，层数+5！增加灵石${Reward}回复血量${Reward * 21}`
+        `\n恭喜通过此层镇妖塔，层数+5！增加money${Reward}回复血量${Reward * 21}`
       ])
       data.setData('player', usr_qq, player)
     }
     if (player.now_bool <= 0) {
       player.now_bool = 0
-      player.灵石 -= Math.trunc(Reward * 2)
+      player.money -= Math.trunc(Reward * 2)
       e.reply([
         segment.at(usr_qq),
-        `\n你未能通过此层镇妖塔！灵石-${Math.trunc(Reward * 2)}`
+        `\n你未能通过此层镇妖塔！money-${Math.trunc(Reward * 2)}`
       ])
       data.setData('player', usr_qq, player)
     }
@@ -317,17 +316,17 @@ export class tzzyt extends plugin {
         player.镇妖塔层数 += 5
         cengshu += 5
         lingshi += Reward
-        if (Reward > 0) player.灵石 -= 20000
+        if (Reward > 0) player.money -= 20000
         player.now_bool = player.血量上限
       } else if (player.now_bool <= 0) {
         player.now_bool = 0
-        player.灵石 -= Math.trunc(Reward * 2)
+        player.money -= Math.trunc(Reward * 2)
       }
     }
-    player.灵石 += lingshi
+    player.money += lingshi
     e.reply([
       segment.at(usr_qq),
-      `\n恭喜你获得灵石${lingshi},本次通过${cengshu}层,失去部分灵石`
+      `\n恭喜你获得money${lingshi},本次通过${cengshu}层,失去部分money`
     ])
     data.setData('player', usr_qq, player)
     return false

@@ -20,7 +20,7 @@ import {
   Go,
   Add_仙宠,
   Add_player_studyskill,
-  Add_najie_灵石,
+  Add_najie_money,
   isNotNull,
   Read_equipment,
   Update_equipment,
@@ -42,7 +42,7 @@ export class UserHome extends plugin {
       priority: 10,
       rule: [
         {
-          reg: '^#(存|取)灵石(.*)$',
+          reg: '^#(存|取)money(.*)$',
           fnc: 'Take_lingshi'
         },
         {
@@ -160,9 +160,9 @@ export class UserHome extends plugin {
       绝: 5,
       顶: 6
     }
-    pj = pj[code[1]]
+    const tpj = pj[code[1]]
     if (
-      pj > 5 ||
+      tpj > 5 ||
       (thing_exist.atk < 10 && thing_exist.def < 10 && thing_exist.HP < 10)
     ) {
       e.reply(`${thing_name}(${code[1]})不支持打磨`)
@@ -179,8 +179,8 @@ export class UserHome extends plugin {
     }
     //都通过了
     for (let i = 0; i < 3; i++)
-      await Add_najie_thing(usr_qq, thing_name, '装备', -1, pj)
-    await Add_najie_thing(usr_qq, thing_name, '装备', 1, pj + 1)
+      await Add_najie_thing(usr_qq, thing_name, '装备', -1, tpj)
+    await Add_najie_thing(usr_qq, thing_name, '装备', 1, tpj + 1)
     e.reply('打磨成功获得' + thing_name)
     return false
   }
@@ -227,7 +227,7 @@ export class UserHome extends plugin {
       }
     }
     await Add_money(usr_qq, lingshi)
-    e.reply(`回收成功,获得${lingshi}灵石`)
+    e.reply(`回收成功,获得${lingshi}money`)
     return false
   }
   async huodong(e) {
@@ -247,8 +247,9 @@ export class UserHome extends plugin {
       e.reply('兑换码不存在!')
       return false
     }
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':duihuan') //兑换码
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':duihuan')
+    ) //兑换码)
     if (action == null) {
       action = []
     }
@@ -473,7 +474,7 @@ export class UserHome extends plugin {
     return false
   }
 
-  //存取灵石
+  //存取money
   async Take_lingshi(e) {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
@@ -485,62 +486,62 @@ export class UserHome extends plugin {
     let func = reg.exec(e.msg)
     let msg = e.msg.replace(reg, '')
     msg = msg.replace('#', '')
-    let lingshi = msg.replace('灵石', '')
-    if (func == '存' && lingshi == '全部') {
+    let lingshi = msg.replace('money', '')
+    if (/存/.test(e.msg) && lingshi == '全部') {
       let P = await Read_player(usr_qq)
-      lingshi = P.灵石
+      lingshi = P.money
     }
-    if (func == '取' && lingshi == '全部') {
+    if (/取/.test(e.msg) && lingshi == '全部') {
       let N = await Read_najie(usr_qq)
-      lingshi = N.灵石
+      lingshi = N.money
     }
     lingshi = await convert2integer(lingshi)
-    if (func == '存') {
+    if (/存/.test(e.msg)) {
       let player_lingshi = await Read_player(usr_qq)
-      player_lingshi = player_lingshi.灵石
+      player_lingshi = player_lingshi.money
       if (player_lingshi < lingshi) {
         e.reply([
           segment.at(usr_qq),
-          `灵石不足,你目前只有${player_lingshi}灵石`
+          `money不足,你目前只有${player_lingshi}money`
         ])
         return false
       }
       let najie = await Read_najie(usr_qq)
-      if (najie.灵石上限 < najie.灵石 + lingshi) {
-        await Add_najie_灵石(usr_qq, najie.灵石上限 - najie.灵石)
-        await Add_money(usr_qq, -najie.灵石上限 + najie.灵石)
+      if (najie.money上限 < najie.money + lingshi) {
+        await Add_najie_money(usr_qq, najie.money上限 - najie.money)
+        await Add_money(usr_qq, -najie.money上限 + najie.money)
         e.reply([
           segment.at(usr_qq),
-          `已为您放入${najie.灵石上限 - najie.灵石}灵石,纳戒存满了`
+          `已为您放入${najie.money上限 - najie.money}money,纳戒存满了`
         ])
         return false
       }
-      await Add_najie_灵石(usr_qq, lingshi)
+      await Add_najie_money(usr_qq, lingshi)
       await Add_money(usr_qq, -lingshi)
       e.reply([
         segment.at(usr_qq),
-        `储存完毕,你目前还有${player_lingshi - lingshi}灵石,纳戒内有${
-          najie.灵石 + lingshi
-        }灵石`
+        `储存完毕,你目前还有${player_lingshi - lingshi}money,纳戒内有${
+          najie.money + lingshi
+        }money`
       ])
       return false
     }
-    if (func == '取') {
+    if (/取/.test(e.msg)) {
       let najie = await Read_najie(usr_qq)
-      if (najie.灵石 < lingshi) {
+      if (najie.money < lingshi) {
         e.reply([
           segment.at(usr_qq),
-          `纳戒灵石不足,你目前最多取出${najie.灵石}灵石`
+          `纳戒money不足,你目前最多取出${najie.money}money`
         ])
         return false
       }
       let player_lingshi = await Read_player(usr_qq)
-      player_lingshi = player_lingshi.灵石
-      await Add_najie_灵石(usr_qq, -lingshi)
+      player_lingshi = player_lingshi.money
+      await Add_najie_money(usr_qq, -lingshi)
       await Add_money(usr_qq, lingshi)
       e.reply([
         segment.at(usr_qq),
-        `本次取出灵石${lingshi},你the纳戒还剩余${najie.灵石 - lingshi}灵石`
+        `本次取出money${lingshi},你the纳戒还剩余${najie.money - lingshi}money`
       ])
       return false
     }
@@ -566,7 +567,7 @@ export class UserHome extends plugin {
     let quantity = code[1]
     quantity = await convert2integer(quantity)
     //装备优化
-    if (func == '装备' && code[0] && code[0] > 100) {
+    if (/装备/.test(e.msg) && code[0] && code[0] > 100) {
       try {
         thing_name = najie.装备[code[0] - 101].name
         code[1] = najie.装备[code[0] - 101].pinji
@@ -589,8 +590,7 @@ export class UserHome extends plugin {
       极: 4,
       绝: 5,
       顶: 6
-    }
-    pj = pj[code[1]]
+    }[code[1]]
     let x = await exist_najie_thing(usr_qq, thing_name, thing_exist.class, pj)
     if (!x) {
       e.reply(`你没有【${thing_name}】这样the【${thing_exist.class}】`)
@@ -600,7 +600,7 @@ export class UserHome extends plugin {
       e.reply(`你只有${thing_name}x${x}`)
       return false
     }
-    if (func == '装备') {
+    if (/装备/.test(e.msg)) {
       let equ
       if (!pj) {
         equ = najie.装备.find((item) => item.name == thing_name)
@@ -620,7 +620,7 @@ export class UserHome extends plugin {
       e.reply(img)
       return false
     }
-    if (func == '服用') {
+    if (/服用/.test(e.msg)) {
       let dy = await Read_danyao(usr_qq)
       if (thing_exist.class != '丹药') return false
       if (thing_exist.type == '血量') {
@@ -823,7 +823,7 @@ export class UserHome extends plugin {
         }
       }
     }
-    if (func == '消耗') {
+    if (/消耗/.test(e.msg)) {
       if (thing_name == '轮回阵旗') {
         player.lunhuiBH = 1
         data.setData('player', usr_qq, player)
@@ -832,7 +832,7 @@ export class UserHome extends plugin {
         return false
       }
       if (thing_name == '仙梦之匙') {
-        if (player.仙宠 == []) {
+        if (player.仙宠?.length == 0) {
           e.reply('你还没有出战仙宠')
           return false
         }
@@ -937,7 +937,7 @@ export class UserHome extends plugin {
       e.reply(`功能开发中,敬请期待`)
       return false
     }
-    if (func == 'study') {
+    if (/study/.test(e.msg)) {
       let player = await Read_player(usr_qq)
       let islearned = player.studytheskill.find((item) => item == thing_name)
       if (islearned) {
@@ -1002,7 +1002,7 @@ export class UserHome extends plugin {
     }
     let quantity = await convert2integer(code[1])
     let player = await Read_player(usr_qq)
-    let lingshi = player.灵石
+    let lingshi = player.money
     //如果没钱，或者为负数
     if (lingshi <= 0) {
       e.reply(`掌柜：就你这穷酸样，也想来柠檬堂？走走走！`)
@@ -1015,9 +1015,9 @@ export class UserHome extends plugin {
     //判断金额
     if (lingshi < commodities_price) {
       e.reply(
-        `口袋里the灵石不足以支付${thing_name},还需要${
+        `口袋里themoney不足以支付${thing_name},还需要${
           commodities_price - lingshi
-        }灵石`
+        }money`
       )
       return false
     }
@@ -1026,9 +1026,9 @@ export class UserHome extends plugin {
     await Add_money(usr_qq, -commodities_price)
     //发送消息
     e.reply([
-      `购买成功!  获得[${thing_name}]*${quantity},花[${commodities_price}]灵石,剩余[${
+      `购买成功!  获得[${thing_name}]*${quantity},花[${commodities_price}]money,剩余[${
         lingshi - commodities_price
-      }]灵石  `,
+      }]money  `,
       '\n可以在【我the纳戒】中查看'
     ])
     return false
@@ -1120,7 +1120,7 @@ export class UserHome extends plugin {
       e.reply(`你目前只有[${thing_name}]*${x}`)
       return false
     }
-    //数量够,数量减少,灵石增加
+    //数量够,数量减少,money增加
     await Add_najie_thing(
       usr_qq,
       thing_name,
@@ -1140,7 +1140,7 @@ export class UserHome extends plugin {
     }
     await Add_money(usr_qq, commodities_price)
     e.reply(
-      `出售成功!  获得${commodities_price}灵石,还剩余${thing_name}*${
+      `出售成功!  获得${commodities_price}money,还剩余${thing_name}*${
         x - thing_amount
       } `
     )

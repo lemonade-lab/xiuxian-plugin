@@ -89,7 +89,7 @@ export class Level extends plugin {
     let game_action = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -117,11 +117,10 @@ export class Level extends plugin {
     const cf = getConfig('xiuxian', 'xiuxian')
     let Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
-    let shuangxiuTimeout = parseInt(60000 * Time)
-    let last_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time'
+    let shuangxiuTimeout = 60000 * Time
+    let last_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time')
     ) //获得上次the时间戳,
-    last_time = parseInt(last_time)
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -269,7 +268,7 @@ export class Level extends plugin {
   }
 
   //突破
-  async Level_up(e, luck) {
+  async Level_up(e, luck = false) {
     let usr_qq = e.user_id
     //有无账号
     let ifexistplay = await existplayer(usr_qq)
@@ -279,7 +278,7 @@ export class Level extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -339,10 +338,9 @@ export class Level extends plugin {
     let Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = 60000 * Time
-    let last_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time'
-    ) //获得上次the时间戳,
-    last_time = parseInt(last_time)
+    let last_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time')
+    )
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -634,7 +632,7 @@ export class Level extends plugin {
     if (x <= n) {
       //没有达到最低要求
       player.now_bool = 0
-      player.now_exp -= parseInt(need_exp / 4)
+      player.now_exp -= need_exp / 4
       await Write_player(usr_qq, player)
       e.reply('天空一声巨响，未降下雷劫，就被天道the气势震死了。')
       return false
@@ -647,7 +645,7 @@ export class Level extends plugin {
     //渡劫成功率
     let l = (x - n) / (p + y * 0.1)
     l = l * 100
-    l = l.toFixed(2)
+    l = Number(l.toFixed(2))
     e.reply('天道：就你，也敢逆天改命？')
     e.reply(
       '[' +
@@ -689,7 +687,7 @@ export class Level extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -704,8 +702,9 @@ export class Level extends plugin {
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     //不为空
     if (action != null) {
       let action_end_time = action.end_time

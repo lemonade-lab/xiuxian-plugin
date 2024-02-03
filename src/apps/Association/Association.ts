@@ -9,7 +9,7 @@ import {
   data,
   宗门人数上限,
   getConfig,
-  宗门灵石池上限,
+  宗门money池上限,
   Show
 } from '../../model/index.js'
 import { plugin, puppeteer } from '../../../import.js'
@@ -30,7 +30,7 @@ export class Association extends plugin {
           fnc: 'Exit_association'
         },
         {
-          reg: '^#宗门(上交|上缴|捐赠)灵石[1-9]d*',
+          reg: '^#宗门(上交|上缴|捐赠)money[1-9]d*',
           fnc: 'give_association_lingshi'
         },
         {
@@ -98,16 +98,19 @@ export class Association extends plugin {
     let fuli = Number(Math.trunc(ass.宗门建设等级 * 2000))
     let gift_lingshi = Math.trunc(ass.宗门等级 * 1200 * n + fuli)
     gift_lingshi = gift_lingshi / 2
-    if (ass.灵石池 - gift_lingshi < 0) {
-      e.reply(`宗门灵石池不够发放俸禄啦，快去为宗门做贡献吧`)
+    if (ass.money池 - gift_lingshi < 0) {
+      e.reply(`宗门money池不够发放俸禄啦，快去为宗门做贡献吧`)
       return false
     }
-    ass.灵石池 -= gift_lingshi
-    player.灵石 += gift_lingshi
+    ass.money池 -= gift_lingshi
+    player.money += gift_lingshi
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastsign_Asso_time', nowTime) //redis设置签到时间
     data.setData('player', usr_qq, player)
     data.setAssociation(ass.宗门名称, ass)
-    let msg = [segment.at(usr_qq), `宗门俸禄领取成功,获得了${gift_lingshi}灵石`]
+    let msg: any[] = [
+      segment.at(usr_qq),
+      `宗门俸禄领取成功,获得了${gift_lingshi}money`
+    ]
     e.reply(msg)
     return false
   }
@@ -252,7 +255,7 @@ export class Association extends plugin {
     return false
   }
 
-  //捐赠灵石
+  //捐赠money
   async give_association_lingshi(e) {
     let usr_qq = e.user_id
     let ifexistplay = data.existData('player', usr_qq)
@@ -261,22 +264,22 @@ export class Association extends plugin {
     if (!isNotNull(player.宗门)) {
       return false
     }
-    //获取灵石数量
-    let reg = new RegExp(/#宗门(上交|上缴|捐赠)灵石/)
+    //获取money数量
+    let reg = new RegExp(/#宗门(上交|上缴|捐赠)money/)
     let lingshi = e.msg.replace(reg, '')
     lingshi = lingshi.trim() //去掉空格
     if (!isNaN(parseFloat(lingshi)) && isFinite(lingshi)) {
     } else {
       return false
     }
-    //校验输入灵石数
+    //校验输入money数
     if (parseInt(lingshi) == parseInt(lingshi) && parseInt(lingshi) > 0) {
       lingshi = parseInt(lingshi)
     } else {
       return false
     }
-    if (player.灵石 < lingshi) {
-      e.reply(`你身上只有${player.灵石}灵石,数量不足`)
+    if (player.money < lingshi) {
+      e.reply(`你身上只有${player.money}money,数量不足`)
       return false
     }
     let ass = data.getAssociation(player.宗门.宗门名称)
@@ -284,26 +287,26 @@ export class Association extends plugin {
     if (ass.power == 1) {
       xf = 10
     }
-    if (ass.灵石池 + lingshi > 宗门灵石池上限[ass.宗门等级 - 1] * xf) {
+    if (ass.money池 + lingshi > 宗门money池上限[ass.宗门等级 - 1] * xf) {
       e.reply(
-        `${ass.宗门名称}the灵石池最多还能容纳${
-          宗门灵石池上限[ass.宗门等级 - 1] * xf - ass.灵石池
-        }灵石,请重新捐赠`
+        `${ass.宗门名称}themoney池最多还能容纳${
+          宗门money池上限[ass.宗门等级 - 1] * xf - ass.money池
+        }money,请重新捐赠`
       )
       return false
     }
-    ass.灵石池 += lingshi
+    ass.money池 += lingshi
     if (!isNotNull(player.宗门.lingshi_donate)) {
       player.宗门.lingshi_donate = 0 //未定义捐赠数量则为0
     }
     player.宗门.lingshi_donate += lingshi
     data.setData('player', usr_qq, player)
     data.setAssociation(ass.宗门名称, ass)
-    await setFileValue(usr_qq, -lingshi, '灵石')
+    await setFileValue(usr_qq, -lingshi, 'money')
     e.reply(
-      `捐赠成功,你身上还有${player.灵石 - lingshi}灵石,宗门灵石池目前有${
-        ass.灵石池
-      }灵石`
+      `捐赠成功,你身上还有${player.money - lingshi}money,宗门money池目前有${
+        ass.money池
+      }money`
     )
     return false
   }
@@ -330,10 +333,10 @@ export class Association extends plugin {
       }
     }
     donate_list.sort(sortBy('lingshi_donate'))
-    let msg = [`${ass.宗门名称} 灵石捐献记录表`]
+    let msg = [`${ass.宗门名称} money捐献记录表`]
     for (let i = 0; i < donate_list.length; i++) {
       msg.push(
-        `第${i + 1}名  ${donate_list[i].name}  捐赠灵石:${
+        `第${i + 1}名  ${donate_list[i].name}  捐赠money:${
           donate_list[i].lingshi_donate
         }`
       )

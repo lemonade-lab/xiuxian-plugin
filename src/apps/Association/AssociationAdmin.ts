@@ -79,8 +79,8 @@ export class AssociationAdmin extends plugin {
       e.reply('已经有宗门了')
       return false
     }
-    if (player.灵石 < 10000) {
-      e.reply('开宗立派是需要本钱the,攒到一万灵石再来吧')
+    if (player.money < 10000) {
+      e.reply('开宗立派是需要本钱the,攒到一万money再来吧')
       return false
     }
 
@@ -138,7 +138,7 @@ export class AssociationAdmin extends plugin {
     }
     data.setData('player', usr_qq, player)
     await new_Association(association_name, usr_qq, e)
-    await setFileValue(usr_qq, -10000, '灵石')
+    await setFileValue(usr_qq, -10000, 'money')
     await this.reply('宗门创建成功')
     /** 结束上下文 */
     this.finish('Get_association_name')
@@ -178,14 +178,14 @@ export class AssociationAdmin extends plugin {
       e.reply('你尚未加入宗门')
       return false
     }
-    //获取灵石数量
+    //获取money数量
     let reg = new RegExp(/#维护护宗大阵/)
     let lingshi = e.msg.replace(reg, '')
-    //校验输入灵石数
+    //校验输入money数
     lingshi = await convert2integer(lingshi)
     let ass = data.getAssociation(player.宗门.宗门名称)
-    if (ass.灵石池 < lingshi) {
-      e.reply(`宗门灵石池只有${ass.灵石池}灵石,数量不足`)
+    if (ass.money池 < lingshi) {
+      e.reply(`宗门money池只有${ass.money池}money,数量不足`)
       return false
     }
     let xian = 5
@@ -193,10 +193,10 @@ export class AssociationAdmin extends plugin {
       xian = 2
     }
     ass.大阵血量 += lingshi * xian
-    ass.灵石池 -= lingshi
+    ass.money池 -= lingshi
     await data.setAssociation(ass.宗门名称, ass)
     e.reply(
-      `维护成功,宗门还有${ass.灵石池}灵石,护宗大阵增加了${lingshi * xian}血量`
+      `维护成功,宗门还有${ass.money池}money,护宗大阵增加了${lingshi * xian}血量`
     )
   }
 
@@ -223,16 +223,16 @@ export class AssociationAdmin extends plugin {
     if (ass.power == 1) {
       xian = 10
     }
-    if (ass.灵石池 < ass.宗门等级 * 300000 * xian) {
+    if (ass.money池 < ass.宗门等级 * 300000 * xian) {
       e.reply(
-        `本宗门目前灵石池中仅有${ass.灵石池}灵石,当前宗门升级需要${
+        `本宗门目前money池中仅有${ass.money池}money,当前宗门升级需要${
           ass.宗门等级 * 300000 * xian
-        }灵石,数量不足`
+        }money,数量不足`
       )
       return false
     }
 
-    ass.灵石池 -= ass.宗门等级 * 300000 * xian
+    ass.money池 -= ass.宗门等级 * 300000 * xian
     ass.宗门等级 += 1
     data.setData('player', usr_qq, player)
     data.setAssociation(ass.宗门名称, ass)
@@ -350,13 +350,13 @@ export class AssociationAdmin extends plugin {
       )
       return false
     }
-    if (ass.灵石池 < ass.宗门等级 * 50000) {
+    if (ass.money池 < ass.宗门等级 * 50000) {
       e.reply(
-        `目前宗门维护需要${ass.宗门等级 * 50000}灵石,本宗门灵石池储量不足`
+        `目前宗门维护需要${ass.宗门等级 * 50000}money,本宗门money池储量不足`
       )
       return false
     }
-    ass.灵石池 -= ass.宗门等级 * 50000
+    ass.money池 -= ass.宗门等级 * 50000
     ass.维护时间 = nowTime
     await data.setAssociation(ass.宗门名称, ass) //记录到宗门
     nextmt_time = await shijianc(ass.维护时间 + 60000 * time)
@@ -616,7 +616,7 @@ async function new_Association(name, holder_qq, e) {
     宗门名称: name,
     宗门等级: 1,
     创立时间: [date, nowTime],
-    灵石池: 0,
+    money池: 0,
     宗门驻地: 0,
     宗门建设等级: 0,
     宗门神兽: 0,

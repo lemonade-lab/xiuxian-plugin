@@ -72,7 +72,7 @@ export class Forum extends plugin {
         Forum[x].name +
         '成功,返还' +
         Forum[x].whole +
-        '灵石'
+        'money'
     )
     Forum.splice(x, 1)
     await Write_Forum(Forum)
@@ -120,8 +120,8 @@ export class Forum extends plugin {
     let off = Math.trunc(whole * 0.03)
     if (off < 100000) off = 100000
     let player = await Read_player(usr_qq)
-    if (player.灵石 < off + whole) {
-      e.reply(`灵石不足,还需要${off + whole - player.灵石}灵石`)
+    if (player.money < off + whole) {
+      e.reply(`money不足,还需要${off + whole - player.money}money`)
       return false
     }
     await Add_money(usr_qq, -(off + whole))
@@ -157,9 +157,10 @@ export class Forum extends plugin {
     let time = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
-    let ForumCD = await redis.get('xiuxian@1.4.0:' + usr_qq + ':ForumCD')
-    ForumCD = parseInt(ForumCD)
-    let transferTimeout = parseInt(60000 * time)
+    let ForumCD = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':ForumCD')
+    )
+    let transferTimeout = 60000 * time
     if (now_time < ForumCD + transferTimeout) {
       let ForumCDm = Math.trunc(
         (ForumCD + transferTimeout - now_time) / 60 / 1000
@@ -226,6 +227,6 @@ export class Forum extends plugin {
     //删除该位置信息
     Forum = Forum.filter((item) => item.aconut > 0)
     await Write_Forum(Forum)
-    e.reply(`${player.name}在聚宝堂收获了${money}灵石！`)
+    e.reply(`${player.name}在聚宝堂收获了${money}money！`)
   }
 }

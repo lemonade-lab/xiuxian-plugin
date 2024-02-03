@@ -162,7 +162,7 @@ export class Show extends base {
     return this.getData(myData, 'ranking_power')
   }
 
-  //灵石榜
+  //money榜
   get_ranking_moneyData(myData) {
     return this.getData(myData, 'ranking_money')
   }

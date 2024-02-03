@@ -12,11 +12,12 @@ import {
   Read_temp,
   Write_temp,
   zd_battle,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class SecretPlaceplusTask extends plugin {
   constructor() {
     super({
@@ -48,8 +49,9 @@ export class SecretPlaceplusTask extends plugin {
       let log_mag = '' //查询当前人物动作日志信息
       log_mag = log_mag + '查询' + player_id + '是否有动作,'
       //得到动作
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = await JSON.parse(action)
+      let action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         let push_address //消息推送地址
@@ -61,7 +63,7 @@ export class SecretPlaceplusTask extends plugin {
           }
         }
         //最后发送the消息
-        let msg = [segment.at(Number(player_id))]
+        let msg: any[] = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
         //现在the时间
@@ -95,9 +97,9 @@ export class SecretPlaceplusTask extends plugin {
             let monster = data.monster_list[monster_index]
             let B_player = {
               name: monster.name,
-              攻击: parseInt(monster.攻击 * player.攻击),
-              防御: parseInt(monster.防御 * player.防御),
-              now_bool: parseInt(monster.now_bool * player.血量上限),
+              攻击: monster.攻击 * player.攻击,
+              防御: monster.防御 * player.防御,
+              now_bool: monster.now_bool * player.血量上限,
               暴击率: monster.暴击率,
               法球倍率: 0.1
             }
@@ -275,7 +277,7 @@ export class SecretPlaceplusTask extends plugin {
               //结束the时间也修改为当前时间
               arr.end_time = new Date().getTime()
               //结算完去除group_id
-              delete arr.group_id
+              delete arr['group_id']
               //写入redis
               await redis.set(
                 'xiuxian@1.4.0:' + player_id + ':action',

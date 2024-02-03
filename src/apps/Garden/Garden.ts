@@ -82,9 +82,9 @@ export class Garden extends plugin {
         zuowu[i].name == '创世花'
       )
         continue
-      let vegetable_Oldtime = await redis.get(
-        'xiuxian:' + ass.宗门名称 + zuowu[i].name
-      ) //获得上次the成熟时间戳,
+      let vegetable_Oldtime = Number(
+        await redis.get('xiuxian:' + ass.宗门名称 + zuowu[i].name)
+      )
       let chengshu_t = Math.trunc((vegetable_Oldtime - nowTime) / 86400000) //成熟天数
       let chengshu_m = Math.trunc(
         ((vegetable_Oldtime - nowTime) % 86400000) / 60 / 60 / 1000
@@ -97,14 +97,13 @@ export class Garden extends plugin {
         chengshu_m = 0
         chengshu_s = 0
       }
-      let msg1 = [
+      msg.push(
         `作物: ${zuowu[i].name} ` +
           '\n' +
           `描述: ${zuowu[i].desc}` +
           '\n' +
           `成长时间:${chengshu_t}天${chengshu_m}小时${chengshu_s}分钟`
-      ]
-      msg.push(msg1)
+      )
     }
     await ForwardMsg(e, msg)
     return false
@@ -131,13 +130,11 @@ export class Garden extends plugin {
     //获取当前时间戳
     let nowTime = now.getTime()
     //获得时间戳
-    let last_garden_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':last_garden_time'
+    let last_garden_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_garden_time')
     )
-    //
-    last_garden_time = parseInt(last_garden_time)
     let time = getConfig('xiuxian', 'xiuxian').CD.garden //时间（分钟）
-    let transferTimeout = parseInt(60000 * time) //
+    let transferTimeout = 60000 * time //
     if (nowTime < last_garden_time + transferTimeout) {
       let waittime_m = Math.trunc(
         (last_garden_time + transferTimeout - nowTime) / 60 / 1000
@@ -158,9 +155,9 @@ export class Garden extends plugin {
       if (vegetable[i].name == vagetable_name) {
         let ts = vegetable[i].ts
         let nowTime = new Date().getTime() //获取当前时间
-        let vegetable_Oldtime = await redis.get(
-          'xiuxian:' + ass.宗门名称 + vagetable_name
-        ) //获得上次the成熟时间戳,
+        let vegetable_Oldtime = Number(
+          await redis.get('xiuxian:' + ass.宗门名称 + vagetable_name)
+        )
         if (nowTime + 1000 * 60 * 30 < vegetable_Oldtime) {
           //判断是否成熟
           e.reply(
@@ -253,7 +250,7 @@ export class Garden extends plugin {
           e.group.muteMember(qq, num2 * 9)
         } else {
           e.reply(
-            `${user_id}${player.name}一手按压在剑帝信物上，一道剑光从剑帝信物上发出，化成符文冲入${qq}${player1.name}口中，封！`
+            `${e.user_id}${player.name}一手按压在剑帝信物上，一道剑光从剑帝信物上发出，化成符文冲入${qq}${player1.name}口中，封！`
           )
           e.group.muteMember(qq, num2 * 8)
         }

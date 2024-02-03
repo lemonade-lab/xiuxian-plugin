@@ -2,7 +2,7 @@ import fs from 'fs'
 import { data, getConfig, isNotNull } from '../../model/index.js'
 import { Add_najie_thing, Add_职业经验 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class OccupationTask extends plugin {
   constructor() {
     super({
@@ -33,8 +33,9 @@ export class OccupationTask extends plugin {
       let log_mag = '' //查询当前人物动作日志信息
       log_mag = log_mag + '查询' + player_id + '是否有动作,'
       //得到动作
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = JSON.parse(action)
+      let action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         let push_address //消息推送地址
@@ -46,7 +47,7 @@ export class OccupationTask extends plugin {
           }
         }
         //最后发送the消息
-        let msg = [segment.at(Number(player_id))]
+        let msg: any[] = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
         //现在the时间
@@ -91,7 +92,7 @@ export class OccupationTask extends plugin {
               0.17, 0.22, 0.17, 0.17, 0.17, 0.024, 0.024, 0.024, 0.024, 0.024,
               0.024, 0.024, 0.012, 0.011
             ]
-            let msg = [segment.at(player_id)]
+            let msg: any[] = [segment.at(player_id)]
             msg.push(`\n恭喜你获得了经验${exp},草药:`)
             let newsum = sum3.map((item) => item * sum)
             if (player.level_id < 36) {
@@ -118,7 +119,7 @@ export class OccupationTask extends plugin {
             arr.power_up = 1 //渡劫状态
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
-            delete arr.group_id //结算完去除group_id
+            delete arr['group_id'] //结算完去除group_id
             await redis.set(
               'xiuxian@1.4.0:' + player_id + ':action',
               JSON.stringify(arr)
@@ -207,7 +208,7 @@ export class OccupationTask extends plugin {
             arr.power_up = 1 //渡劫状态
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
-            delete arr.group_id //结算完去除group_id
+            delete arr['group_id'] //结算完去除group_id
             await redis.set(
               'xiuxian@1.4.0:' + player_id + ':action',
               JSON.stringify(arr)

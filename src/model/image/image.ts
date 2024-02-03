@@ -245,8 +245,8 @@ export async function get_gongfa_img(e) {
 export async function get_power_img(e) {
   let usr_qq = e.user_id
   let player = await data.getData('player', usr_qq)
-  let lingshi = Math.trunc(player.灵石)
-  if (player.灵石 > 999999999999) {
+  let lingshi = Math.trunc(player.money)
+  if (player.money > 999999999999) {
     lingshi = 999999999999
   }
   data.setData('player', usr_qq, player)
@@ -312,8 +312,8 @@ export async function get_player_img(e) {
   if (player_status.time != null) {
     status = player_status.action + '(剩余时间:' + player_status.time + ')'
   }
-  let lingshi = Math.trunc(player.灵石)
-  if (player.灵石 > 999999999999) {
+  let lingshi = Math.trunc(player.money)
+  if (player.money > 999999999999) {
     lingshi = 999999999999
   }
   if (player.宣言 == null || player.宣言 == undefined) {
@@ -635,7 +635,7 @@ export async function get_danfang_img(e) {
   return img
 }
 
-export async function get_tuzhi_img(e, all_level) {
+export async function get_tuzhi_img(e) {
   let usr_qq = e.user_id
   let ifexistplay = data.existData('player', usr_qq)
   if (!ifexistplay) {
@@ -883,10 +883,10 @@ export async function get_najie_img(e) {
   }
   let player = await data.getData('player', usr_qq)
   let najie = await Read_najie(usr_qq)
-  const lingshi = Math.trunc(najie.灵石)
-  const lingshi2 = Math.trunc(najie.灵石上限)
+  const lingshi = Math.trunc(najie.money)
+  const lingshi2 = Math.trunc(najie.money上限)
   let strand_hp = Strand(player.now_bool, player.血量上限)
-  let strand_lingshi = Strand(najie.灵石, najie.灵石上限)
+  let strand_lingshi = Strand(najie.money, najie.money上限)
   let player_data = {
     user_id: usr_qq,
     player: player,
@@ -918,7 +918,7 @@ export async function get_najie_img(e) {
  * 返回境界列表图片
  * @return image
  */
-export async function get_state_img(e, all_level) {
+export async function get_state_img(e, all_level = false) {
   let usr_qq = e.user_id
   let ifexistplay = data.existData('player', usr_qq)
   if (!ifexistplay) {
@@ -946,7 +946,7 @@ export async function get_state_img(e, all_level) {
   })
 }
 
-export async function get_statezhiye_img(e, all_level) {
+export async function get_statezhiye_img(e, all_level = false) {
   let usr_qq = e.user_id
   let ifexistplay = data.existData('player', usr_qq)
   if (!ifexistplay) {
@@ -978,7 +978,7 @@ export async function get_statezhiye_img(e, all_level) {
  * 返回境界列表图片
  * @return image
  */
-export async function get_statemax_img(e, all_level) {
+export async function get_statemax_img(e, all_level = false) {
   let usr_qq = e.user_id
   let ifexistplay = data.existData('player', usr_qq)
   if (!ifexistplay) {
@@ -1107,8 +1107,8 @@ export async function get_ranking_money_img(
   thisnajie
 ) {
   let usr_qq = e.user_id
-  const najie_lingshi = Math.trunc(thisnajie.灵石)
-  const lingshi = Math.trunc(thisplayer.灵石 + thisnajie.灵石)
+  const najie_lingshi = Math.trunc(thisnajie.money)
+  const lingshi = Math.trunc(thisplayer.money + thisnajie.money)
   let ranking_money_data = {
     user_id: usr_qq,
     nickname: thisplayer.name,

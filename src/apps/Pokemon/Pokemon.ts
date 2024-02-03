@@ -60,14 +60,14 @@ export class Pokemon extends plugin {
       return false
     }
     //放回
-    let last = 114514
+    let last
     for (let i = 0; najie.仙宠.length > i; i++) {
       if (najie.仙宠[i].name == name) {
         last = najie.仙宠[i]
         break
       }
     }
-    if (last == 114514) {
+    if (!last) {
       e.reply('你没有' + name)
       return false
     }

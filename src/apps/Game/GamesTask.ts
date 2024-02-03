@@ -1,7 +1,7 @@
 import { readdirSync } from 'fs'
 import { getConfig } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class GamesTask extends plugin {
   constructor() {
     super({
@@ -35,7 +35,7 @@ export class GamesTask extends plugin {
         'xiuxian@1.4.0:' + player_id + ':game_action'
       )
       //防止继续其他娱乐行为
-      if (game_action == 0) {
+      if (game_action == '0') {
         await redis.set('xiuxian@1.4.0:' + player_id + ':game_action', 1)
         return false
       }

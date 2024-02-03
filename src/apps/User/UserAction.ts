@@ -58,19 +58,21 @@ export class UserAction extends plugin {
       e.reply('你the纳戒已经是最高级the了')
       return false
     }
-    if (player.灵石 < najie_price[najie.等级]) {
-      e.reply(`灵石不足,还需要准备${najie_price[najie.等级] - player.灵石}灵石`)
+    if (player.money < najie_price[najie.等级]) {
+      e.reply(
+        `money不足,还需要准备${najie_price[najie.等级] - player.money}money`
+      )
       return false
     }
     await Add_money(usr_qq, -najie_price[najie.等级])
-    najie.灵石上限 = najie_num[najie.等级]
+    najie.money上限 = najie_num[najie.等级]
     najie.等级 += 1
     await Write_najie(usr_qq, najie)
     e.reply(
       `你the纳戒升级成功,花了${
         najie_price[najie.等级 - 1]
-      }灵石,目前纳戒灵石存储上限为${
-        najie.灵石上限
+      }money,目前纳戒money存储上限为${
+        najie.money上限
       },可以使用【#我the纳戒】来查看`
     )
     return false

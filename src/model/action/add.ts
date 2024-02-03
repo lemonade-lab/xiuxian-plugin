@@ -3,18 +3,18 @@ import { Read_najie, Read_player, Read_qinmidu, Read_shitu } from './read'
 import { Write_najie, Write_player, Write_qinmidu, Write_shitu } from './write'
 import { isNotNull } from '../utils'
 
-export async function Add_najie_灵石(usr_qq, lingshi) {
+export async function Add_najie_money(usr_qq, lingshi) {
   let najie = await Read_najie(usr_qq)
-  najie.灵石 += Math.trunc(lingshi)
+  najie.money += Math.trunc(lingshi)
   await Write_najie(usr_qq, najie)
   return
 }
 
-//now_exp数量和灵石数量正增加,负减少
+//now_exp数量和money数量正增加,负减少
 //使用时记得加await
-export async function Add_money(usr_qq, 灵石数量 = 0) {
+export async function Add_money(usr_qq, money数量 = 0) {
   let player = await Read_player(usr_qq)
-  player.灵石 += Math.trunc(灵石数量)
+  player.money += Math.trunc(money数量)
   await Write_player(usr_qq, player)
   return
 }

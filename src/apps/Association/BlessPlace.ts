@@ -11,7 +11,7 @@ import {
   Goweizhi,
   Go,
   data,
-  宗门灵石池上限,
+  宗门money池上限,
   getConfig
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
@@ -256,17 +256,17 @@ export class BlessPlace extends plugin {
       xf = 10
     }
     let num = Math.trunc(gift_lingshi)
-    if (ass.灵石池 + num > 宗门灵石池上限[ass.宗门等级 - 1] * xf) {
-      ass.灵石池 = 宗门灵石池上限[ass.宗门等级 - 1] * xf
+    if (ass.money池 + num > 宗门money池上限[ass.宗门等级 - 1] * xf) {
+      ass.money池 = 宗门money池上限[ass.宗门等级 - 1] * xf
     } else {
-      ass.灵石池 += num
+      ass.money池 += num
     }
     await Add_money(usr_qq, num)
     data.setAssociation(ass.宗门名称, ass)
     e.reply(
       `本次开采灵脉获得${
         gift_lingshi * 2
-      }灵石，上交一半给宗门，最后获得${num}灵石`
+      }money，上交一半给宗门，最后获得${num}money`
     )
 
     return false
@@ -298,12 +298,12 @@ export class BlessPlace extends plugin {
       return false
     }
 
-    if (player.灵石 < weizhi.Price) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price + '灵石才够哦~')
+    if (player.money < weizhi.Price) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price + 'money才够哦~')
       return false
     }
     let Price = weizhi.Price
-    ass.灵石池 += Price * 0.05
+    ass.money池 += Price * 0.05
     data.setAssociation(ass.宗门名称, ass)
 
     await Add_money(usr_qq, -Price)
@@ -363,8 +363,8 @@ export class BlessPlace extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    if (player.灵石 < weizhi.Price * i * 10) {
-      e.reply('没有灵石寸步难行,攒到' + weizhi.Price * i * 10 + '灵石才够哦~')
+    if (player.money < weizhi.Price * i * 10) {
+      e.reply('没有money寸步难行,攒到' + weizhi.Price * i * 10 + 'money才够哦~')
       return false
     }
     let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具')
@@ -376,7 +376,7 @@ export class BlessPlace extends plugin {
     }
     let Price = weizhi.Price * i * 10
 
-    ass.灵石池 += Price * 0.05
+    ass.money池 += Price * 0.05
     data.setAssociation(ass.宗门名称, ass)
 
     await Add_money(usr_qq, -Price)
@@ -428,22 +428,22 @@ export class BlessPlace extends plugin {
       ass.宗门建设等级 = 0
       denji = 0
     }
-    if (ass.灵石池 < 0) {
-      ass.灵石池 = 0
+    if (ass.money池 < 0) {
+      ass.money池 = 0
     }
     denji = Number(ass.宗门建设等级)
 
-    //灵石池扣除
+    //money池扣除
     let lsckc = Math.trunc(denji * 10000)
-    if (ass.灵石池 < lsckc) {
-      e.reply(`宗门灵石池不足，还需[` + lsckc + ']灵石')
+    if (ass.money池 < lsckc) {
+      e.reply(`宗门money池不足，还需[` + lsckc + ']money')
     } else {
-      ass.灵石池 -= lsckc
+      ass.money池 -= lsckc
       let add = Math.trunc(player.level_id / 7) + 1
       ass.宗门建设等级 += add
       await data.setAssociation(ass.宗门名称, ass)
       e.reply(
-        `成功消耗 宗门${lsckc}灵石 建设宗门，增加了${add}点建设度,当前宗门建设等级为${ass.宗门建设等级}`
+        `成功消耗 宗门${lsckc}money 建设宗门，增加了${add}点建设度,当前宗门建设等级为${ass.宗门建设等级}`
       )
     }
 
@@ -451,7 +451,7 @@ export class BlessPlace extends plugin {
   }
 }
 
-//获取上次开采灵石the时间
+//获取上次开采moneythe时间
 async function getLastsign_Explor(usr_qq) {
   //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Explor')

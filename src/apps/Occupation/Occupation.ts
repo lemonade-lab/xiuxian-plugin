@@ -16,9 +16,11 @@ import {
   get_tuzhi_img,
   Read_player,
   __PATH,
-  Read_danyao
+  Read_danyao,
+  data,
+  Show
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { common, plugin, puppeteer } from '../../../import.js'
 export class Occupation extends plugin {
   constructor() {
     super({
@@ -173,8 +175,9 @@ export class Occupation extends plugin {
       e.reply(`恭喜${player.name}转职为[${occupation}]`)
       return false
     }
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':fuzhi') //副职
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian:player:' + usr_qq + ':fuzhi')
+    )
     if (action == null) {
       action = []
     }
@@ -205,8 +208,9 @@ export class Occupation extends plugin {
     if (!ifexistplay) return false
 
     let player = await Read_player(usr_qq)
-    let action = await redis.get('xiuxian:player:' + usr_qq + ':fuzhi') //副职
-    action = await JSON.parse(action)
+    let action = await JSON.parse(
+      await redis.get('xiuxian:player:' + usr_qq + ':fuzhi')
+    ) //副职)
     if (action == null) {
       action = []
       e.reply(`您还没有副职哦`)
@@ -243,7 +247,7 @@ export class Occupation extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
@@ -276,8 +280,9 @@ export class Occupation extends plugin {
     }
 
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
@@ -306,7 +311,7 @@ export class Occupation extends plugin {
       mine: '1' //采矿-开启
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
 
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr)) //redis设置动作
@@ -320,8 +325,9 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let action = await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
+    )
     action = null
     e.reply('清除完成')
     await redis.set('xiuxian@1.4.0:' + 1 + ':shangjing', JSON.stringify(action))
@@ -343,7 +349,7 @@ export class Occupation extends plugin {
 
     if (end_time > now_time) {
       //属于提前结束
-      time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
+      time = (new Date().getTime() - start_time) / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -358,7 +364,7 @@ export class Occupation extends plugin {
       }
     } else {
       //属于结束了未结算
-      time = parseInt(action.time / 1000 / 60)
+      time = action.time / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -386,7 +392,7 @@ export class Occupation extends plugin {
     arr.Place_action = 1 //秘境
     //结束the时间也修改为当前时间
     arr.end_time = new Date().getTime()
-    delete arr.group_id //结算完去除group_id
+    delete arr['group_id'] //结算完去除group_id
     await redis.set(
       'xiuxian@1.4.0:' + e.user_id + ':action',
       JSON.stringify(arr)
@@ -400,13 +406,13 @@ export class Occupation extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
     let player = await Read_player(usr_qq)
     if (player.occupation != '采矿师') {
-      e.reply('你挖矿许可证呢？非法挖矿，罚款200灵石')
+      e.reply('你挖矿许可证呢？非法挖矿，罚款200money')
       await Add_money(usr_qq, -200)
       return false
     }
@@ -433,8 +439,9 @@ export class Occupation extends plugin {
       time = 30
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
@@ -463,7 +470,7 @@ export class Occupation extends plugin {
       xijie: '1' //洗劫状态开启
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
 
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr)) //redis设置动作
@@ -480,11 +487,11 @@ export class Occupation extends plugin {
     let start_time = action.end_time - action.time
     let now_time = new Date().getTime()
     let time
+    let y = 30 //时间
+    let x = 24 //循环次数
     if (end_time > now_time) {
       //属于提前结束
-      time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
-      let y = 30 //时间
-      let x = 24 //循环次数
+      time = (new Date().getTime() - start_time) / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -499,7 +506,7 @@ export class Occupation extends plugin {
       }
     } else {
       //属于结束了未结算
-      time = parseInt(action.time / 1000 / 60)
+      time = action.time / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -530,17 +537,17 @@ export class Occupation extends plugin {
     arr.Place_action = 1 //秘境
     //结束the时间也修改为当前时间
     arr.end_time = new Date().getTime()
-    delete arr.group_id //结算完去除group_id
+    delete arr['group_id'] //结算完去除group_id
     await redis.set(
       'xiuxian@1.4.0:' + e.user_id + ':action',
       JSON.stringify(arr)
     )
   }
 
-  async plant_jiesuan(user_id, time, is_random, group_id) {
+  async plant_jiesuan(user_id, time, is_random, group_id = undefined) {
     let usr_qq = user_id
     let player = data.getData('player', usr_qq)
-    let msg = [segment.at(usr_qq)]
+    let msg: any[] = [segment.at(usr_qq)]
     let exp = 0
     exp = time * 10
     let k = 1
@@ -599,10 +606,10 @@ export class Occupation extends plugin {
     return false
   }
 
-  async mine_jiesuan(user_id, time, is_random, group_id) {
+  async mine_jiesuan(user_id, time, is_random, group_id = undefined) {
     let usr_qq = user_id
     let player = data.getData('player', usr_qq)
-    let msg = [segment.at(usr_qq)]
+    let msg: any[] = [segment.at(usr_qq)]
     let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time)
     let rate =
       data.occupation_exp_list.find(
@@ -880,8 +887,9 @@ export class Occupation extends plugin {
       return false
     }
     let msg = []
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':shangjing')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':shangjing')
+    )
     let type = 0
     if (action != null) {
       if (action.end_time > new Date().getTime()) {
@@ -905,7 +913,7 @@ export class Occupation extends plugin {
     let File_length = File.length
     for (let k = 0; k < File_length; k++) {
       let this_qq = File[k].replace('.json', '')
-      this_qq = parseInt(this_qq)
+      this_qq = this_qq
       let players = await Read_player(this_qq)
       if (players.魔道值 > 999 && this_qq != usr_qq) {
         mubiao[i] = {
@@ -966,8 +974,9 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let A_action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    A_action = JSON.parse(A_action)
+    let A_action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (A_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -984,8 +993,9 @@ export class Occupation extends plugin {
       e.reply('侠客资质不足,需要进行训练')
       return false
     }
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':shangjing')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':shangjing')
+    )
     if (action == null) {
       e.reply('还没有接取到悬赏,请查看后再来吧') //没接取悬赏
       return false
@@ -1004,6 +1014,8 @@ export class Occupation extends plugin {
       return false
     }
     let last_msg = ''
+
+    //
     if (qq != 1) {
       let player_B = await Read_player(qq)
       player_B.now_bool = player_B.血量上限
@@ -1030,21 +1042,21 @@ export class Occupation extends plugin {
       let B_win = `${player_B.name}击败了${player_A.name}`
       if (msg.find((item) => item == A_win)) {
         player_B.魔道值 -= 50
-        player_B.灵石 -= 1000000
+        player_B.money -= 1000000
         player_B.now_bool = 0
         await Write_player(qq, player_B)
-        player.灵石 += action.arm[num].赏金
+        player.money += action.arm[num].赏金
         player.魔道值 -= 5
         await Write_player(usr_qq, player)
         await Add_职业经验(usr_qq, 2255)
         last_msg +=
           '【全服公告】' +
           player_B.name +
-          '失去了1000000灵石,罪恶得到了洗刷,魔道值-50,无名侠客获得了部分灵石,自己the正气提升了,同时获得了更多the悬赏加成'
+          '失去了1000000money,罪恶得到了洗刷,魔道值-50,无名侠客获得了部分money,自己the正气提升了,同时获得了更多the悬赏加成'
       } else if (msg.find((item) => item == B_win)) {
         let shangjing = Math.trunc(action.arm[num].赏金 * 0.8)
         player.now_bool = 0
-        player.灵石 += shangjing
+        player.money += shangjing
         player.魔道值 -= 5
         await Write_player(usr_qq, player)
         await Add_职业经验(usr_qq, 1100)
@@ -1056,20 +1068,22 @@ export class Occupation extends plugin {
         await ForwardMsg(e, msg)
       }
     } else {
-      player.灵石 += action.arm[num].赏金
+      player.money += action.arm[num].赏金
       player.魔道值 -= 5
       await Write_player(usr_qq, player)
       await Add_职业经验(usr_qq, 2255)
-      last_msg += '你惩戒了仙路窃贼,获得了部分灵石' //直接获胜
+      last_msg += '你惩戒了仙路窃贼,获得了部分money' //直接获胜
     }
     action.arm.splice(num, 1)
     await redis.set(
       'xiuxian@1.4.0:' + usr_qq + ':shangjing',
       JSON.stringify(action)
     )
+
+    //
     if (
-      last_msg == '你惩戒了仙路窃贼,获得了部分灵石' ||
-      last_msg == player_B.name + '反杀了你,只获得了部分辛苦钱'
+      last_msg == '你惩戒了仙路窃贼,获得了部分money' ||
+      last_msg == player.name + '反杀了你,只获得了部分辛苦钱'
     ) {
       e.reply(last_msg)
     } else {
@@ -1093,8 +1107,8 @@ export class Occupation extends plugin {
     if (money < 300000) {
       money = 300000
     }
-    if (player.灵石 < money) {
-      e.reply('您手头这点灵石,似乎在说笑')
+    if (player.money < money) {
+      e.reply('您手头这点money,似乎在说笑')
       return false
     }
     let player_B
@@ -1109,19 +1123,20 @@ export class Occupation extends plugin {
       QQ: qq,
       赏金: money
     }
-    let action = await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
+    )
     if (action != null) {
       action.push(arr)
     } else {
       action = []
       action.push(arr)
     }
-    player.灵石 -= money
+    player.money -= money
     await Write_player(usr_qq, player)
     e.reply('悬赏成功!')
     let msg = ''
-    msg += '【全服公告】' + player_B.name + '被悬赏了' + money + '灵石'
+    msg += '【全服公告】' + player_B.name + '被悬赏了' + money + 'money'
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     const groupList = await redis.sMembers(redisGlKey)
     for (const group_id of groupList) {
@@ -1134,8 +1149,9 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let action = await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
+    )
     if (action == null) {
       e.reply('悬赏已经被抢空了') //没人被悬赏
       return false
@@ -1170,8 +1186,9 @@ export class Occupation extends plugin {
     let usr_qq = e.user_id
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let A_action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    A_action = JSON.parse(A_action)
+    let A_action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (A_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -1183,8 +1200,9 @@ export class Occupation extends plugin {
         return false
       }
     }
-    let action = await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
-    action = await JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
+    )
     let num = e.msg.replace('#刺杀目标', '')
     num = num.trim() - 1
     let qq
@@ -1209,8 +1227,9 @@ export class Occupation extends plugin {
       e.reply(`对方已经没有血了,请等一段时间再刺杀他吧`)
       return false
     }
-    let B_action = await redis.get('xiuxian@1.4.0:' + qq + ':action')
-    B_action = JSON.parse(B_action)
+    let B_action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + qq + ':action')
+    )
     if (B_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -1252,7 +1271,7 @@ export class Occupation extends plugin {
       player_B.now_bool = 0
       player_B.now_exp -= action[num].赏金
       await Write_player(qq, player_B)
-      player.灵石 += Math.trunc(action[num].赏金 * 0.3)
+      player.money += Math.trunc(action[num].赏金 * 0.3)
       await Write_player(usr_qq, player)
       last_msg +=
         '【全服公告】' +
@@ -1296,9 +1315,7 @@ export class Occupation extends plugin {
    * @return  falses {Promise<void>}
    */
   async getPlayerAction(usr_qq) {
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action) //转为json格式数据
-    return action
+    return JSON.parse(await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')) //转为json格式数据
   }
   async pushInfo(id, is_group, msg) {
     if (is_group) {

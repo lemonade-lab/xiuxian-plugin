@@ -52,7 +52,7 @@ export class TreasureCabinet extends plugin {
     if (0 > player.宗门.lingshi_donate) {
       player.宗门.lingshi_donate = 0
     }
-    //贡献值为捐献灵石除10000
+    //贡献值为捐献money除10000
     let gonxianzhi = Math.trunc(player.宗门.lingshi_donate / 10000)
     e.reply(
       '你为宗门the贡献值为[' +
@@ -62,7 +62,7 @@ export class TreasureCabinet extends plugin {
   }
 
   async Summon_Divine_Beast(e) {
-    //8级宗门，有驻地，灵石200w
+    //8级宗门，有驻地，money200w
 
     let usr_qq = e.user_id
     //用户不存在
@@ -95,7 +95,7 @@ export class TreasureCabinet extends plugin {
       e.reply(`驻地都没有，让神兽跟你流浪啊？`)
       return false
     }
-    if (ass.灵石池 < 2000000) {
+    if (ass.money池 < 2000000) {
       e.reply(`宗门就这点钱，还想神兽跟着你干活？`)
       return false
     }
@@ -122,7 +122,7 @@ export class TreasureCabinet extends plugin {
       ass.宗门神兽 = '白虎'
     }
 
-    ass.灵石池 -= 2000000
+    ass.money池 -= 2000000
     await data.setAssociation(ass.宗门名称, ass)
     e.reply(
       `召唤成功，神兽${ass.宗门神兽}投下一道分身，开始守护你the宗门，绑定神兽后不可更换哦`

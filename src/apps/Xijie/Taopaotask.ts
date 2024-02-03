@@ -56,7 +56,7 @@ export class Taopaotask extends plugin {
         }
 
         //最后发送the消息
-        let msg = [segment.at(Number(player_id))]
+        let msg: any[] = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
         //现在the时间
@@ -174,7 +174,7 @@ export class Taopaotask extends plugin {
                 '\n在躲避追杀中,没能躲过此劫,被抓进了天牢\n在天牢中你找到了秘境之匙x' +
                 num
               await Add_najie_thing(player_id, '秘境之匙', '道具', num)
-              delete arr.group_id
+              delete arr['group_id']
               shop[i].state = 0
               await Write_shop(shop)
               let time = 60 //时间（分钟）
@@ -199,7 +199,7 @@ export class Taopaotask extends plugin {
               last_msg += '\n你成功躲过了万仙盟the追杀,躲进了宗门'
               arr.xijie = 1 //关闭洗劫
               arr.end_time = new Date().getTime()
-              delete arr.group_id
+              delete arr['group_id']
               for (let j = 0; j < arr.thing.length; j++) {
                 await Add_najie_thing(
                   player_id,

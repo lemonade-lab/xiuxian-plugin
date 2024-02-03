@@ -160,8 +160,7 @@ export class Battle extends plugin {
 
     let isBbusy = false //给B是否忙碌加个标志位，用来判断要不要扣隐身水
 
-    let B_action = await redis.get('xiuxian@1.4.0:' + B + ':action')
-    B_action = JSON.parse(B_action)
+    let B_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + B + ':action'))
     if (B_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -183,10 +182,9 @@ export class Battle extends plugin {
 
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
-    let last_dajie_time = await redis.get(
-      'xiuxian@1.4.0:' + A + ':last_dajie_time'
-    ) //获得上次打劫the时间戳,
-    last_dajie_time = last_dajie_time
+    let last_dajie_time = Number(
+      await redis.get('xiuxian@1.4.0:' + A + ':last_dajie_time')
+    )
     const cf = getConfig('xiuxian', 'xiuxian')
     let robTimeout = 60000 * cf.CD.rob
     if (nowTime < last_dajie_time + robTimeout) {
@@ -209,7 +207,7 @@ export class Battle extends plugin {
       e.reply(`${B_player.name} 重伤未愈,就不要再打他了`)
       return false
     }
-    if (B_player.灵石 < 30002) {
+    if (B_player.money < 30002) {
       e.reply(`${B_player.name} 穷得快赶上水脚脚了,就不要再打他了`)
       return false
     }
@@ -254,24 +252,24 @@ export class Battle extends plugin {
         return false
       }
       let mdzJL = A_player.魔道值
-      let lingshi = Math.trunc(B_player.灵石 / 5)
+      let lingshi = Math.trunc(B_player.money / 5)
       let qixue = Math.trunc(100 * now_level_idAA)
       let mdz = Math.trunc(lingshi / 10000)
-      if (lingshi >= B_player.灵石) {
-        lingshi = B_player.灵石 / 2
+      if (lingshi >= B_player.money) {
+        lingshi = B_player.money / 2
       }
-      A_player.灵石 += lingshi
-      B_player.灵石 -= lingshi
+      A_player.money += lingshi
+      B_player.money -= lingshi
       A_player.血气 += qixue
       A_player.魔道值 += mdz
-      A_player.灵石 += mdzJL
+      A_player.money += mdzJL
       await Write_player(A, A_player)
       await Write_player(B, B_player)
       final_msg.push(
-        ` 经过一番大战,${A_win},成功抢走${lingshi}灵石,${A_player.name}获得${qixue}血气，`
+        ` 经过一番大战,${A_win},成功抢走${lingshi}money,${A_player.name}获得${qixue}血气，`
       )
     } else if (msg.find((item) => item == B_win)) {
-      if (A_player.灵石 < 30002) {
+      if (A_player.money < 30002) {
         let qixue = Math.trunc(100 * now_level_idBB)
         B_player.血气 += qixue
         await Write_player(B, B_player)
@@ -290,18 +288,18 @@ export class Battle extends plugin {
           `经过一番大战,${A_player.name}被${B_player.name}击败了,${B_player.name}获得${qixue}血气,${A_player.name} 真是偷鸡不成蚀把米,被关禁闭60分钟`
         )
       } else {
-        let lingshi = Math.trunc(A_player.灵石 / 4)
+        let lingshi = Math.trunc(A_player.money / 4)
         let qixue = Math.trunc(100 * now_level_idBB)
         if (lingshi <= 0) {
           lingshi = 0
         }
-        A_player.灵石 -= lingshi
-        B_player.灵石 += lingshi
+        A_player.money -= lingshi
+        B_player.money += lingshi
         B_player.血气 += qixue
         await Write_player(A, A_player)
         await Write_player(B, B_player)
         final_msg.push(
-          `经过一番大战,${A_player.name}被${B_player.name}击败了,${B_player.name}获得${qixue}血气,${A_player.name} 真是偷鸡不成蚀把米,被劫走${lingshi}灵石`
+          `经过一番大战,${A_player.name}被${B_player.name}击败了,${B_player.name}获得${qixue}血气,${A_player.name} 真是偷鸡不成蚀把米,被劫走${lingshi}money`
         )
       }
     } else {

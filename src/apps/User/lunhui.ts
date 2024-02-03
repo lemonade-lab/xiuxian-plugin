@@ -37,7 +37,7 @@ export class lunhui extends plugin {
       await Write_player(usr_qq, player)
     }
     let lhxq = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lunhui')
-    if (lhxq != 1) {
+    if (lhxq != '1') {
       e.reply(
         '轮回之术乃逆天造化之术，须清空仙人所有thenow_exp气血才可施展。\n' +
           '传说只有得到"轮回阵旗"进行辅助轮回，才会抵御轮回之苦the十之八九。\n' +
@@ -45,7 +45,7 @@ export class lunhui extends plugin {
       )
       this.setContext('yeslunhui')
       return false
-    } else if (lhxq == 1) {
+    } else if (lhxq == '1') {
       await redis.set('xiuxian@1.4.0:' + usr_qq + ':lunhui', 0)
     }
     //判断等级
@@ -84,7 +84,7 @@ export class lunhui extends plugin {
       player.now_bool = 1
       player.now_exp -= 10000000
       player.血气 += 5141919
-      player.灵石 -= 10000000
+      player.money -= 10000000
       data.setData('player', usr_qq, player)
       return false
     }

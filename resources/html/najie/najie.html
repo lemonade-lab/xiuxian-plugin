@@ -42,7 +42,7 @@
             储量：
             <div class="blood_box">
               <div class="blood_bar" {{strand_lingshi.style}}></div>
-              <div class="blood_volume">{{najie.灵石}}/{{najie.灵石上限}}</div>
+              <div class="blood_volume">{{najie.money}}/{{najie.money上限}}</div>
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@
             {{/if}}
             <div class="item_int">暴击：{{(item.bao*100).toFixed(0)}}%</div>
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
             <div class="item_int">代号：{{$index+101}}</div>
           </div>
           {{/each}}
@@ -105,7 +105,7 @@
             <div class="item_int">增加血气：{{item.xueqi}}</div>
             {{/if}}
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
           </div>
           {{/each}}
         </div>
@@ -125,7 +125,7 @@
             </div>
             <div class="item_int">说明：{{item.desc}}</div>
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
           </div>
           {{/each}}
         </div>
@@ -149,7 +149,7 @@
             </div>
             {{/if}}
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
           </div>
           {{/each}}
         </div>
@@ -168,7 +168,7 @@
               {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
             </div>
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
           </div>
           {{/each}}
         </div>
@@ -185,7 +185,7 @@
               {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
             </div>
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
           </div>
           {{/each}}
         </div>
@@ -215,7 +215,7 @@
             </div>
             {{/if}}
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
             <div class="item_int">代号：{{$index+1001}}</div>
           </div>
           {{/each}}
@@ -233,7 +233,7 @@
               {{item.name}}({{['未锁定','已锁定'][item.islockd]}})
             </div>
             <div class="item_int">数量：{{item.数量}}</div>
-            <div class="item_int">出售价：{{item.出售价}}灵石</div>
+            <div class="item_int">出售价：{{item.出售价}}money</div>
           </div>
           {{/each}}
         </div>

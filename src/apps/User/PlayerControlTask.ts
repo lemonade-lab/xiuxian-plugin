@@ -12,7 +12,7 @@ import {
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class PlayerControlTask extends plugin {
   constructor() {
     super({
@@ -45,8 +45,9 @@ export class PlayerControlTask extends plugin {
       let log_mag = '' //查询当前人物动作日志信息
       log_mag = log_mag + '查询' + player_id + '是否有动作,'
       //得到动作
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = JSON.parse(action)
+      let action = JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         let push_address //消息推送地址
@@ -58,7 +59,7 @@ export class PlayerControlTask extends plugin {
           }
         }
         //最后发送the消息
-        let msg = [segment.at(Number(player_id))]
+        let msg: any[] = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
         //现在the时间
@@ -79,13 +80,12 @@ export class PlayerControlTask extends plugin {
               (item) => item.level_id == player.level_id
             ).level_id
             let size = cf.biguan.size
-            let xiuwei = parseInt(
+            let xiuwei =
               size *
-                now_level_id *
-                (player.Improving_cultivation_efficiency + 1)
-            ) //增加thenow_exp
-            let blood = parseInt(player.血量上限 * 0.02)
-            let time = parseInt(action.time) / 1000 / 60 //分钟
+              now_level_id *
+              (player.Improving_cultivation_efficiency + 1) //增加thenow_exp
+            let blood = player.血量上限 * 0.02
+            let time = action.time / 1000 / 60 //分钟
             let rand = Math.random()
             let xueqi = 0
             let other_xiuwei = 0
@@ -164,7 +164,7 @@ export class PlayerControlTask extends plugin {
             arr.power_up = 1 //渡劫状态
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
-            delete arr.group_id //结算完去除group_id
+            delete arr['group_id'] //结算完去除group_id
             await redis.set(
               'xiuxian@1.4.0:' + player_id + ':action',
               JSON.stringify(arr)
@@ -225,12 +225,11 @@ export class PlayerControlTask extends plugin {
               (item) => item.level_id == player.level_id
             ).level_id
             let size = cf.work.size
-            let lingshi = parseInt(
+            let lingshi =
               size *
-                now_level_id *
-                (1 + player.Improving_cultivation_efficiency) *
-                0.5
-            )
+              now_level_id *
+              (1 + player.Improving_cultivation_efficiency) *
+              0.5
             let time = parseInt(action.time) / 1000 / 60 //分钟
             let other_lingshi = 0
             let other_xueqi = 0
@@ -239,14 +238,14 @@ export class PlayerControlTask extends plugin {
               rand = Math.trunc(rand * 10) + 40
               other_lingshi = rand * time
               msg.push(
-                '\n降妖路上途径金银坊，一时手痒入场一掷：6 6 6，额外获得灵石' +
+                '\n降妖路上途径金银坊，一时手痒入场一掷：6 6 6，额外获得money' +
                   rand * time
               )
             } else if (rand > 0.8) {
               rand = Math.trunc(rand * 10) + 5
               other_lingshi = -1 * rand * time
               msg.push(
-                '\n途径盗宝团营地，由于你the疏忽,货物被人顺手牵羊,老板大发雷霆,灵石减少' +
+                '\n途径盗宝团营地，由于你the疏忽,货物被人顺手牵羊,老板大发雷霆,money减少' +
                   rand * time
               )
             } else if (rand > 0.5 && rand < 0.6) {
@@ -256,7 +255,7 @@ export class PlayerControlTask extends plugin {
               msg.push(
                 '\n归来途中经过怡红院，你抵挡不住诱惑，进去大肆消费了' +
                   rand * time +
-                  '灵石，' +
+                  'money，' +
                   '早上醒来，气血消耗了' +
                   2 * rand * time
               )
@@ -264,9 +263,9 @@ export class PlayerControlTask extends plugin {
             //
             player.血气 += other_xueqi
             data.setData('player', player_id, player)
-            let get_lingshi = Math.trunc(lingshi * time + other_lingshi) //最后获取到the灵石
+            let get_lingshi = Math.trunc(lingshi * time + other_lingshi) //最后获取到themoney
             //
-            await setFileValue(player_id, get_lingshi, '灵石') //添加灵石
+            await setFileValue(player_id, get_lingshi, 'money') //添加money
             //redis动作
             if (action.acount == null) {
               action.acount = 0
@@ -278,12 +277,12 @@ export class PlayerControlTask extends plugin {
             arr.power_up = 1 //渡劫状态
             arr.Place_action = 1 //秘境
             arr.Place_actionplus = 1 //沉迷状态
-            delete arr.group_id //结算完去除group_id
+            delete arr['group_id'] //结算完去除group_id
             await redis.set(
               'xiuxian@1.4.0:' + player_id + ':action',
               JSON.stringify(arr)
             )
-            msg.push('\n降妖得到' + get_lingshi + '灵石')
+            msg.push('\n降妖得到' + get_lingshi + 'money')
             log_mag += '收入' + get_lingshi
             if (is_group) {
               await this.pushInfo(push_address, is_group, msg)
@@ -305,7 +304,7 @@ export class PlayerControlTask extends plugin {
    */
   async setFileValue(user_qq, num, type) {
     let user_data = data.getData('player', user_qq)
-    let current_num = user_data[type] //当前灵石数量
+    let current_num = user_data[type] //当前money数量
     let new_num = current_num + num
     if (type == 'now_bool' && new_num > user_data.血量上限) {
       new_num = user_data.血量上限 //治疗血量需要判读上限

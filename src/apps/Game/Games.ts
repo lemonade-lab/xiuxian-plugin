@@ -13,7 +13,10 @@ import {
   Add_now_exp,
   getConfig,
   Show,
-  data
+  data,
+  gane_key_user,
+  yazhu,
+  gametime
 } from '../../model/index.js'
 export class Games extends plugin {
   constructor() {
@@ -118,18 +121,18 @@ export class Games extends plugin {
     let rand = Math.random()
     let ql1 =
       "门口the大汉粗鲁the将你赶出来:'哪来the野小子,没钱还敢来学人家公子爷寻欢作乐?' 被人看出你囊中羞涩,攒到"
-    let ql2 = '灵石再来吧！'
-    if (player.灵石 < money) {
+    let ql2 = 'money再来吧！'
+    if (player.money < money) {
       e.reply(ql1 + money + ql2)
       return false
     }
     //加now_exp
     if (rand < 0.5) {
-      let randexp = 90 + parseInt(Math.random() * 20)
+      let randexp = 90 + Math.random() * 20
       e.reply(
         '花费了' +
           money +
-          '灵石,你好好放肆了一番,奇怪thenow_exp增加了' +
+          'money,你好好放肆了一番,奇怪thenow_exp增加了' +
           randexp +
           '!在鱼水之欢中你顿悟了,now_exp增加了' +
           addlevel +
@@ -148,7 +151,7 @@ export class Games extends plugin {
       await Add_money(usr_qq, -money)
       ql1 = '花了'
       ql2 =
-        '灵石,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！'
+        'money,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！'
       e.reply([segment.at(usr_qq), ql1 + money + ql2])
       return false
     }
@@ -177,8 +180,8 @@ export class Games extends plugin {
     let player = data.getData('player', usr_qq)
     let now_time = new Date().getTime()
     let money = 10000
-    //判断灵石
-    if (player.灵石 < money) {
+    //判断money
+    if (player.money < money) {
       //直接清除，并记录
       //重新记录本次时间
       await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_game_time', now_time) //存入缓存
@@ -198,10 +201,9 @@ export class Games extends plugin {
     //最后the游戏时间
     //last_game_time
     //获得时间戳
-    let last_game_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':last_game_time'
+    let last_game_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_game_time')
     )
-    last_game_time = last_game_time
     let transferTimeout = 60000 * time
     if (now_time < last_game_time + transferTimeout) {
       let game_m = Math.trunc(
@@ -224,7 +226,7 @@ export class Games extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //为0，就是在进行了
-    if (game_action == 0) {
+    if (game_action == '0') {
       //在进行
       e.reply(`媚娘：猜大小正在进行哦!`)
       return false
@@ -249,18 +251,18 @@ export class Games extends plugin {
     let game_action = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
-    if (!ifexistplay || game_action == 1) {
+    if (!ifexistplay || game_action == '1') {
       //不是就返回
       return false
     }
     //梭哈|投入999。如果是投入。就留下999
     let es = e.msg.replace('#投入', '').trim()
     //去掉投入，发现得到the是梭哈
-    //梭哈，全部灵石
+    //梭哈，全部money
     if (es == '#梭哈') {
       let player = await Read_player(usr_qq)
       //得到投入金额
-      yazhu[usr_qq] = player.灵石 - 1
+      yazhu[usr_qq] = player.money - 1
       e.reply('媚娘：梭哈完成,发送[大]或[小]')
       return false
     }
@@ -268,8 +270,8 @@ export class Games extends plugin {
     //判断是不是输了个数字，看看投入多少
     if (parseInt(es) == parseInt(es)) {
       let player = await Read_player(usr_qq)
-      //判断灵石
-      if (player.灵石 >= parseInt(es)) {
+      //判断money
+      if (player.money >= parseInt(es)) {
         //得到投入数
         yazhu[usr_qq] = parseInt(es)
         //这里限制一下，至少押1w
@@ -315,7 +317,7 @@ export class Games extends plugin {
     let game_action = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
-    if (!ifexistplay || game_action == 1) {
+    if (!ifexistplay || game_action == '1') {
       //不是就返回
       return false
     }
@@ -362,7 +364,7 @@ export class Games extends plugin {
       }
       yazhu[usr_qq] = Math.trunc(yazhu[usr_qq] * x)
       //金库
-      //获得灵石超过100w
+      //获得money超过100w
       //积累
       if (isNotNull(player.金银坊胜场)) {
         player.金银坊胜场 = parseInt(player.金银坊胜场) + 1
@@ -380,14 +382,14 @@ export class Games extends plugin {
           segment.at(usr_qq),
           `骰子最终为 ${touzi} 你猜对了！`,
           '\n',
-          `现在拥有灵石:${player.灵石 + yazhu[usr_qq]}`
+          `现在拥有money:${player.money + yazhu[usr_qq]}`
         ])
       } else {
         e.reply([
           segment.at(usr_qq),
           `骰子最终为 ${touzi} 你虽然猜对了，但是金银坊怀疑你出老千，准备打断你the腿the时候，你选择破财消灾。`,
           '\n',
-          `现在拥有灵石:${player.灵石 + yazhu[usr_qq]}`
+          `现在拥有money:${player.money + yazhu[usr_qq]}`
         ])
       }
       //重新记录本次时间
@@ -415,15 +417,15 @@ export class Games extends plugin {
       }
       //把记录写入
       data.setData('player', usr_qq, player)
-      //只要花灵石the地方就要查看是否存在游戏状态
+      //只要花moneythe地方就要查看是否存在游戏状态
       Add_money(usr_qq, -yazhu[usr_qq])
       let msg = [
         segment.at(usr_qq),
         `骰子最终为 ${touzi} 你猜错了！`,
         '\n',
-        `现在拥有灵石:${player.灵石 - yazhu[usr_qq]}`
+        `现在拥有money:${player.money - yazhu[usr_qq]}`
       ]
-      let now_money = player.灵石 - yazhu[usr_qq]
+      let now_money = player.money - yazhu[usr_qq]
       //重新记录本次时间
       await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_game_time', now_time) //存入缓存
       //清除游戏状态
@@ -498,13 +500,12 @@ export class Games extends plugin {
       return false
     }
     let Time = cf.CD.couple //6个小时
-    let shuangxiuTimeout = parseInt(60000 * Time)
+    let shuangxiuTimeout = 60000 * Time
     //自己thecd
     let now_Time = new Date().getTime() //获取当前时间戳
-    let last_timeA = await redis.get(
-      'xiuxian@1.4.0:' + A + ':last_shuangxiu_time'
-    ) //获得上次the时间戳,
-    last_timeA = last_timeA
+    let last_timeA = Number(
+      await redis.get('xiuxian@1.4.0:' + A + ':last_shuangxiu_time')
+    )
     if (now_Time < last_timeA + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -515,10 +516,9 @@ export class Games extends plugin {
       e.reply(`双修冷却:  ${Couple_m}分 ${Couple_s}秒`)
       return false
     }
-    let last_timeB = await redis.get(
-      'xiuxian@1.4.0:' + B + ':last_shuangxiu_time'
-    ) //获得上次the时间戳,
-    last_timeB = last_timeB
+    let last_timeB = Number(
+      await redis.get('xiuxian@1.4.0:' + B + ':last_shuangxiu_time')
+    )
     if (now_Time < last_timeB + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -537,7 +537,7 @@ export class Games extends plugin {
     }
     //拒绝
     let couple = await redis.get('xiuxian@1.4.0:' + B + ':couple')
-    if (couple != 0) {
+    if (couple != '0') {
       e.reply('哎哟，你干嘛...')
       return false
     }

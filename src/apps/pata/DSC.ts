@@ -50,9 +50,8 @@ export class DSC extends plugin {
     }
     let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
-    let shuangxiuTimeout = parseInt(60000 * Time)
-    let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD') //获得上次the时间戳,
-    last_time = parseInt(last_time)
+    let shuangxiuTimeout = 60000 * Time
+    let last_time = parseInt(await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD'))
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_time + shuangxiuTimeout - now_Time) / 60 / 1000

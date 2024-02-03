@@ -194,7 +194,7 @@ export class Auction extends plugin {
         return false
       }
     }
-    if (player.灵石 < new_price) {
+    if (player.money < new_price) {
       e.reply('没这么多钱也想浑水摸鱼?')
       return false
     }

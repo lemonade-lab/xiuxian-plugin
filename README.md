@@ -4,14 +4,20 @@
 
 > 仅 Yunzai 机器人可用
 
-> 接近一年未更新了。。。
-
 > 1.4 版本规划中。。。。。
 
 ```sh
 npm install pnpm -g
 pnpm install alemonjs@1.2.0-rc.28
 ```
+
+- 部署
+
+```sh
+git clone --depth=1 -b build https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
+```
+
+- 本地源码
 
 ```sh
 git clone https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin

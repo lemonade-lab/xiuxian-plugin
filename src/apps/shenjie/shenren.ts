@@ -92,13 +92,14 @@ export class shenren extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
@@ -115,6 +116,7 @@ export class shenren extends plugin {
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastdagong_time = await getLastdagong(usr_qq) //获得上次签到日期
+    if (!lastdagong_time) return
     if (
       (Today.Y != lastdagong_time.Y && Today.M != lastdagong_time.M) ||
       Today.D != lastdagong_time.D
@@ -152,11 +154,11 @@ export class shenren extends plugin {
       e.reply('你没有资格进入神界')
       return false
     }
-    if (player.灵石 < 2200000) {
-      e.reply('灵石不足')
+    if (player.money < 2200000) {
+      e.reply('money不足')
       return false
     }
-    player.灵石 -= 2200000
+    player.money -= 2200000
     if (
       Today.Y == lastdagong_time.Y &&
       Today.M == lastdagong_time.M &&

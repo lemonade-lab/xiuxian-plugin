@@ -98,8 +98,7 @@ export class Daolv extends plugin {
     if (!ifexistplay_A || e.isPrivate) {
       return false
     }
-    let A_action = await redis.get('xiuxian@1.4.0:' + A + ':action')
-    A_action = JSON.parse(A_action)
+    let A_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + A + ':action'))
     if (A_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -114,7 +113,7 @@ export class Daolv extends plugin {
     let last_game_timeA = await redis.get(
       'xiuxian@1.4.0:' + A + ':last_game_time'
     )
-    if (last_game_timeA == 0) {
+    if (last_game_timeA == '0') {
       e.reply(`猜大小正在进行哦，结束了再求婚吧!`)
       return false
     }
@@ -132,8 +131,7 @@ export class Daolv extends plugin {
       e.reply('修仙者不可对凡人出手!')
       return false
     }
-    let B_action = await redis.get('xiuxian@1.4.0:' + B + ':action')
-    B_action = JSON.parse(B_action)
+    let B_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + B + ':action'))
     if (B_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -150,7 +148,7 @@ export class Daolv extends plugin {
     let last_game_timeB = await redis.get(
       'xiuxian@1.4.0:' + B + ':last_game_time'
     )
-    if (last_game_timeB == 0) {
+    if (last_game_timeB == '0') {
       e.reply(`对方猜大小正在进行哦，等他结束再求婚吧!`)
       return false
     }
@@ -175,7 +173,7 @@ export class Daolv extends plugin {
     user_A = A
     user_B = B
     let player_A = await Read_player(A)
-    let msg = [segment.at(B), '\n']
+    let msg: any[] = [segment.at(B), '\n']
     msg.push(
       `${player_A.name}想和你缔结道侣,你愿意吗？\n回复【我愿意】or【我拒绝】`
     )
@@ -212,8 +210,7 @@ export class Daolv extends plugin {
     if (!ifexistplay_A || e.isPrivate) {
       return false
     }
-    let A_action = await redis.get('xiuxian@1.4.0:' + A + ':action')
-    A_action = JSON.parse(A_action)
+    let A_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + A + ':action'))
     if (A_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -228,7 +225,7 @@ export class Daolv extends plugin {
     let last_game_timeA = await redis.get(
       'xiuxian@1.4.0:' + A + ':last_game_time'
     )
-    if (last_game_timeA == 0) {
+    if (last_game_timeA == '0') {
       e.reply(`猜大小正在进行哦，结束了再来吧!`)
       return false
     }
@@ -246,8 +243,7 @@ export class Daolv extends plugin {
       e.reply('修仙者不可对凡人出手!')
       return false
     }
-    let B_action = await redis.get('xiuxian@1.4.0:' + B + ':action')
-    B_action = JSON.parse(B_action)
+    let B_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + B + ':action'))
     if (B_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
@@ -264,7 +260,7 @@ export class Daolv extends plugin {
     let last_game_timeB = await redis.get(
       'xiuxian@1.4.0:' + B + ':last_game_time'
     )
-    if (last_game_timeB == 0) {
+    if (last_game_timeB == '0') {
       e.reply(`对方猜大小正在进行哦，等他结束再找他吧!`)
       return false
     }
@@ -294,7 +290,7 @@ export class Daolv extends plugin {
     user_A = A
     user_B = B
     let player_A = await Read_player(A)
-    let msg = [segment.at(B), '\n']
+    let msg: any[] = [segment.at(B), '\n']
     msg.push(`${player_A.name}要和你断绝姻缘\n回复【我同意】or【我拒绝】`)
     e.reply(msg)
     chaoshi(e)

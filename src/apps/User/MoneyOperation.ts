@@ -69,7 +69,7 @@ export class MoneyOperation extends plugin {
       e.reply('对方无存档')
       return false
     }
-    //获取发送灵石数量
+    //获取发送money数量
     let thing_name = e.msg.replace('#发', '')
     let code = thing_name.split('*')
     thing_name = code[0]
@@ -79,7 +79,7 @@ export class MoneyOperation extends plugin {
     if (isNaN(thing_amount)) {
       thing_amount = 1
     }
-    if (thing_name == '灵石') {
+    if (thing_name == 'money') {
       await Add_money(B_qq, thing_amount)
     } else if (thing_name == 'now_exp') {
       await Add_now_exp(B_qq, thing_amount)
@@ -130,7 +130,7 @@ export class MoneyOperation extends plugin {
     let File = readdirSync(__PATH.player_path)
     File = File.filter((file) => file.endsWith('.json'))
     let File_length = File.length
-    //获取发送灵石数量
+    //获取发送money数量
     let thing_name = e.msg.replace('#全体发', '')
     let code = thing_name.split('*')
     thing_name = code[0]
@@ -140,7 +140,7 @@ export class MoneyOperation extends plugin {
     if (isNaN(thing_amount)) {
       thing_amount = 1
     }
-    if (thing_name == '灵石') {
+    if (thing_name == 'money') {
       for (let i = 0; i < File_length; i++) {
         let this_qq = File[i].replace('.json', '')
         await Add_money(this_qq, thing_amount)
@@ -205,12 +205,12 @@ export class MoneyOperation extends plugin {
     //自己没存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    //获取发送灵石数量
+    //获取发送money数量
     let lingshi = e.msg.replace('#', '')
     lingshi = lingshi.replace('交税', '')
     lingshi = await convert2integer(lingshi)
     let player = await Read_player(usr_qq)
-    if (player.灵石 <= lingshi) {
+    if (player.money <= lingshi) {
       e.reply('醒醒，你没有那么多')
       return false
     }
@@ -238,28 +238,27 @@ export class MoneyOperation extends plugin {
     }
     let A_player = await data.getData('player', A_qq)
     let B_player = await data.getData('player', B_qq)
-    //获取发送灵石数量
+    //获取发送money数量
     let msg = e.msg.replace('#赠送', '')
     const cf = getConfig('xiuxian', 'xiuxian')
-    if (msg.startsWith('灵石')) {
-      let lingshi = msg.replace('灵石*', '')
-      //校验输入灵石数
+    if (msg.startsWith('money')) {
+      let lingshi = msg.replace('money*', '')
+      //校验输入money数
       lingshi = await convert2integer(lingshi)
       //没有输入正确数字或＜1000;
-      //检验A有没有那么多灵石
+      //检验A有没有那么多money
       const cost = cf.percentage.cost
       let lastlingshi = lingshi + Math.trunc(lingshi * cost)
-      if (A_player.灵石 < lastlingshi) {
-        e.reply([segment.at(A_qq), `你身上似乎没有${lastlingshi}灵石`])
+      if (A_player.money < lastlingshi) {
+        e.reply([segment.at(A_qq), `你身上似乎没有${lastlingshi}money`])
         return false
       }
       let now = new Date()
       let nowTime = now.getTime() //获取当前时间戳
-      let lastgetbung_time = await redis.get(
-        'xiuxian@1.4.0:' + A_qq + ':last_getbung_time'
+      let lastgetbung_time = Number(
+        await redis.get('xiuxian@1.4.0:' + A_qq + ':last_getbung_time')
       )
-      lastgetbung_time = parseInt(lastgetbung_time)
-      let transferTimeout = parseInt(cf.CD.transfer * 60000)
+      let transferTimeout = cf.CD.transfer * 60000
       if (nowTime < lastgetbung_time + transferTimeout) {
         let waittime_m = Math.trunc(
           (lastgetbung_time + transferTimeout - nowTime) / 60 / 1000
@@ -268,7 +267,7 @@ export class MoneyOperation extends plugin {
           ((lastgetbung_time + transferTimeout - nowTime) % 60000) / 1000
         )
         e.reply(
-          `每${transferTimeout / 1000 / 60}分钟赠送灵石一次，正在CD中，` +
+          `每${transferTimeout / 1000 / 60}分钟赠送money一次，正在CD中，` +
             `剩余cd: ${waittime_m}分${waittime_s}秒`
         )
         return false
@@ -279,9 +278,9 @@ export class MoneyOperation extends plugin {
       e.reply([
         segment.at(A_qq),
         segment.at(B_qq),
-        `${B_player.name} 获得了由 ${A_player.name}赠送the${lingshi}灵石`
+        `${B_player.name} 获得了由 ${A_player.name}赠送the${lingshi}money`
       ])
-      //记录本次获得赠送灵石the时间戳
+      //记录本次获得赠送moneythe时间戳
       await redis.set('xiuxian@1.4.0:' + A_qq + ':last_getbung_time', nowTime)
       return false
     } else {
@@ -394,7 +393,7 @@ export class MoneyOperation extends plugin {
     //自己没存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    //获取发送灵石数量
+    //获取发送money数量
     let lingshi = e.msg.replace('#', '')
     lingshi = lingshi.replace('发红包', '')
     let flag = await Go(e)
@@ -407,16 +406,16 @@ export class MoneyOperation extends plugin {
     lingshi = await convert2integer(lingshi)
     acount = await convert2integer(acount)
     let player = await data.getData('player', usr_qq)
-    //对比自己the灵石，看看够不够！
-    if (player.灵石 <= lingshi * acount) {
-      e.reply(`红包数要比自身灵石数小噢`)
+    //对比自己themoney，看看够不够！
+    if (player.money <= lingshi * acount) {
+      e.reply(`红包数要比自身money数小噢`)
       return false
     }
     lingshi = Math.trunc(lingshi / 10000) * 10000
-    //发送the灵石要当到数据库里。大家都能取
+    //发送themoney要当到数据库里。大家都能取
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':honbao', lingshi)
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':honbaoacount', acount)
-    //然后扣灵石
+    //然后扣money
     await Add_money(usr_qq, -lingshi * acount)
     e.reply(
       '【全服公告】' +
@@ -425,7 +424,7 @@ export class MoneyOperation extends plugin {
         acount +
         '个' +
         lingshi +
-        '灵石the红包！'
+        'moneythe红包！'
     )
     return false
   }
@@ -439,12 +438,11 @@ export class MoneyOperation extends plugin {
     let player = await data.getData('player', usr_qq)
     //抢红包要有一分钟theCD
     let now_time = new Date().getTime()
-    let lastgetbung_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':last_getbung_time'
+    let lastgetbung_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_getbung_time')
     )
-    lastgetbung_time = parseInt(lastgetbung_time)
     const cf = getConfig('xiuxian', 'xiuxian')
-    let transferTimeout = parseInt(cf.CD.honbao * 60000)
+    let transferTimeout = cf.CD.honbao * 60000
     if (now_time < lastgetbung_time + transferTimeout) {
       let waittime_m = Math.trunc(
         (lastgetbung_time + transferTimeout - now_time) / 60 / 1000
@@ -469,16 +467,17 @@ export class MoneyOperation extends plugin {
       return false
     }
     //这里有错
-    let acount = await redis.get('xiuxian@1.4.0:' + honbao_qq + ':honbaoacount')
-    acount = Number(acount)
+    let acount = Number(
+      await redis.get('xiuxian@1.4.0:' + honbao_qq + ':honbaoacount')
+    )
     //根据个数判断
     if (acount <= 0) {
       e.reply('他the红包被光啦！')
       return false
     }
-    //看看一个有多少灵石
+    //看看一个有多少money
     const lingshi = await redis.get('xiuxian@1.4.0:' + honbao_qq + ':honbao')
-    const addlingshi = Math.trunc(lingshi)
+    const addlingshi = Math.trunc(Number(lingshi))
     //减少个数
     acount--
     await redis.set('xiuxian@1.4.0:' + honbao_qq + ':honbaoacount', acount)
@@ -486,7 +485,7 @@ export class MoneyOperation extends plugin {
     await Add_money(usr_qq, addlingshi)
     //给个提示
     e.reply(
-      '【全服公告】' + player.name + '抢到一个' + addlingshi + '灵石the红包！'
+      '【全服公告】' + player.name + '抢到一个' + addlingshi + 'moneythe红包！'
     )
     //记录时间
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_getbung_time', now_time)
@@ -532,7 +531,7 @@ export class MoneyOperation extends plugin {
               thing_name +
               ']金光一现！' +
               lingshi +
-              '颗灵石！'
+              '颗money！'
           } else {
             lingshi = 1000000
             m =
@@ -541,7 +540,7 @@ export class MoneyOperation extends plugin {
               thing_name +
               ']金光一现!' +
               lingshi +
-              '颗灵石！'
+              '颗money！'
           }
         } else {
           lingshi = 400000
@@ -551,7 +550,7 @@ export class MoneyOperation extends plugin {
             thing_name +
             ']你很开心the得到了' +
             lingshi +
-            '颗灵石！'
+            '颗money！'
         }
       } else {
         lingshi = 180000
@@ -561,7 +560,7 @@ export class MoneyOperation extends plugin {
           thing_name +
           ']你很开心the得到了' +
           lingshi +
-          '颗灵石！'
+          '颗money！'
       }
     } else {
       lingshi = 100000
@@ -571,7 +570,7 @@ export class MoneyOperation extends plugin {
         thing_name +
         ']你很开心the得到了' +
         lingshi +
-        '颗灵石！'
+        '颗money！'
     }
     await Add_money(usr_qq, lingshi)
     e.reply(m)

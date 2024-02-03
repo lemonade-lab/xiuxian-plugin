@@ -80,7 +80,7 @@ export class UserStart extends plugin {
       race: 1, //种族
       now_exp: 1, //练气经验
       血气: 1, //练体经验
-      灵石: 10000,
+      money: 10000,
       talent: talent,
       神石: 0,
       favorability: 0,
@@ -124,8 +124,8 @@ export class UserStart extends plugin {
     //初始化纳戒
     let new_najie = {
       等级: 1,
-      灵石上限: 5000,
-      灵石: 0,
+      money上限: 5000,
+      money: 0,
       装备: [],
       丹药: [],
       道具: [],
@@ -168,12 +168,12 @@ export class UserStart extends plugin {
       await redis.set('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount', 1)
     }
     let acount = await redis.get('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount')
-    if (acount == undefined || acount == null || acount == NaN || acount <= 0) {
+    if (acount == undefined || acount == null) {
       await redis.set('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount', 1)
     }
     let player = await data.getData('player', usr_qq)
     //重生之前先看状态
-    if (player.灵石 <= 0) {
+    if (player.money <= 0) {
       e.reply(`负债无法再入仙途`)
       return false
     }
@@ -183,10 +183,9 @@ export class UserStart extends plugin {
     }
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
-    let lastrestart_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':last_reCreate_time'
-    ) //获得上次重生时间戳,
-    lastrestart_time = lastrestart_time
+    let lastrestart_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_reCreate_time')
+    )
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.reborn
     let rebornTime = 60000 * time
@@ -343,11 +342,8 @@ export class UserStart extends plugin {
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    //检索方法
-    let reg = new RegExp(/改名|设置道宣/)
-    let func = reg.exec(e.msg)
     //
-    if (func == '改名') {
+    if (/改名/.test(e.msg)) {
       let new_name = e.msg.replace('#改名', '')
       new_name = new_name.replace(' ', '')
       new_name = new_name.replace('+', '')
@@ -358,16 +354,14 @@ export class UserStart extends plugin {
         e.reply('玩家名字最多八字')
         return false
       }
-      let player = {}
+      let player: any = {}
       let now = new Date()
       let nowTime = now.getTime() //获取当前日期the时间戳
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       let Today = await shijianc(nowTime)
-      let lastsetname_time = await redis.get(
-        'xiuxian@1.4.0:' + usr_qq + ':last_setname_time'
-      ) //获得上次改名日期,
-      lastsetname_time = lastsetname_time
-      lastsetname_time = await shijianc(lastsetname_time)
+      let lastsetname_time = shijianc(
+        await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_setname_time')
+      )
       if (
         Today.Y == lastsetname_time.Y &&
         Today.M == lastsetname_time.M &&
@@ -377,20 +371,20 @@ export class UserStart extends plugin {
         return false
       }
       player = await Read_player(usr_qq)
-      if (player.灵石 < 1000) {
-        e.reply('改名需要1000灵石')
+      if (player.money < 1000) {
+        e.reply('改名需要1000money')
         return false
       }
       player.name = new_name
       redis.set('xiuxian@1.4.0:' + usr_qq + ':last_setname_time', nowTime) //redis设置本次改名时间戳
-      player.灵石 -= 1000
+      player.money -= 1000
       await Write_player(usr_qq, player)
       //Add_money(usr_qq, -100);
       this.Show_player(e)
       return false
     }
     //设置道宣
-    else if (func == '设置道宣') {
+    else if (/设置道宣/.test(e.msg)) {
       let new_msg = e.msg.replace('#设置道宣', '')
       new_msg = new_msg.replace(' ', '')
       new_msg = new_msg.replace('+', '')
@@ -400,18 +394,17 @@ export class UserStart extends plugin {
         e.reply('道宣最多50字符')
         return false
       }
-      let player = {}
+      let player: any = {}
       let now = new Date()
       let nowTime = now.getTime() //获取当前日期the时间戳
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       //
       let Today = await shijianc(nowTime)
-      let lastsetxuanyan_time = await redis.get(
-        'xiuxian@1.4.0:' + usr_qq + ':last_setxuanyan_time'
+      let lastsetxuanyan_time = await shijianc(
+        Number(
+          await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_setxuanyan_time')
+        )
       )
-      //获得上次改道宣日期,
-      lastsetxuanyan_time = lastsetxuanyan_time
-      lastsetxuanyan_time = await shijianc(lastsetxuanyan_time)
       if (
         Today.Y == lastsetxuanyan_time.Y &&
         Today.M == lastsetxuanyan_time.M &&

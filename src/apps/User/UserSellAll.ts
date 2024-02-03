@@ -343,7 +343,7 @@ export class UserSellAll extends plugin {
       }
     }
     await Add_money(usr_qq, lingshi)
-    e.reply(`回收成功!  获得${lingshi}灵石 `)
+    e.reply(`回收成功!  获得${lingshi}money `)
     return false
   }
   async locked(e) {
@@ -471,7 +471,7 @@ export class UserSellAll extends plugin {
         }
       }
       await Add_money(usr_qq, commodities_price)
-      e.reply(`出售成功!  获得${commodities_price}灵石 `)
+      e.reply(`出售成功!  获得${commodities_price}money `)
       return false
     }
     let goodsNum = 0
@@ -540,7 +540,7 @@ export class UserSellAll extends plugin {
       }
     }
     await Add_money(usr_qq, commodities_price)
-    e.reply(`出售成功!  获得${commodities_price}灵石 `)
+    e.reply(`出售成功!  获得${commodities_price}money `)
     return false
   }
 

@@ -6,8 +6,10 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "noEmit": false,
-    "declaration": true,
-    "outDir": "dist",
+    // "outDir": "dist/src",
+    // "declaration": true,
+    // "declarationDir": "dist/types",
+    // "composite": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "ignoreDeprecations": "5.0",
@@ -17,6 +19,7 @@
   },
   "ts-node": {
     "esm": true,
+    "transpileOnly": true,
     "experimentalSpecifierResolution": "node"
   },
   "include": ["src", "index.d.ts"],

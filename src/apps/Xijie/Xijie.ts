@@ -88,10 +88,9 @@ export class Xijie extends plugin {
         return false
       }
     }
-    let lastxijie_time = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':lastxijie_time'
+    let lastxijie_time = Number(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastxijie_time')
     )
-    lastxijie_time = lastxijie_time
     if (now_time < lastxijie_time + 7200000) {
       let lastxijie_m = Math.trunc(
         (lastxijie_time + 7200000 - now_time) / 60 / 1000
@@ -137,15 +136,15 @@ export class Xijie extends plugin {
     let player = await Read_player(usr_qq)
     let Price = shop[i].price * shop[i].Grade
     let buff = shop[i].Grade + 1
-    if (player.灵石 < Price) {
-      e.reply('灵石不足,无法进行强化')
+    if (player.money < Price) {
+      e.reply('money不足,无法进行强化')
       return false
     } else {
-      player.灵石 -= Price
+      player.money -= Price
       msg +=
         '你消费了' +
         Price +
-        '灵石,防御力和生命值提高了' +
+        'money,防御力和生命值提高了' +
         Math.trunc((buff - buff / (1 + shop[i].Grade * 0.05)) * 100) +
         '%'
     }
@@ -249,8 +248,8 @@ export class Xijie extends plugin {
     }
     let player = await Read_player(usr_qq)
     let Price = shop[i].price * 0.3
-    if (player.灵石 < Price) {
-      e.reply('你需要更多the灵石去打探消息')
+    if (player.money < Price) {
+      e.reply('你需要更多themoney去打探消息')
       return false
     }
     await Add_money(usr_qq, -Price)

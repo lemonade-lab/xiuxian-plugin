@@ -1130,9 +1130,9 @@ export async function jindi(e, weizhi, addres) {
         '极品：' +
         weizhi[i].Best[0] +
         '\n' +
-        '灵石：' +
+        'money：' +
         weizhi[i].Price +
-        '灵石' +
+        'money' +
         '\n' +
         'now_exp：' +
         weizhi[i].experience +
@@ -1155,9 +1155,9 @@ export async function Goweizhi(e, weizhi, addres) {
         '极品：' +
         weizhi[i].Best[0] +
         '\n' +
-        '灵石：' +
+        'money：' +
         weizhi[i].Price +
-        '灵石'
+        'money'
     )
   }
   await ForwardMsg(e, msg)
@@ -1172,7 +1172,7 @@ export async function Goweizhi(e, weizhi, addres) {
  */
 export async function setFileValue(user_qq, num, type) {
   let user_data = data.getData('player', user_qq)
-  let current_num = user_data[type] //当前灵石数量
+  let current_num = user_data[type] //当前money数量
   let new_num = current_num + num
   if (type == 'now_bool' && new_num > user_data.血量上限) {
     new_num = user_data.血量上限 //治疗血量需要判读上限

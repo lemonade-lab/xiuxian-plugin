@@ -187,7 +187,7 @@ export class TopList extends plugin {
     let temp = []
     for (let i = 0; i < File_length; i++) {
       let this_qq = File[i].replace('.json', '')
-      this_qq = parseInt(this_qq)
+      this_qq = this_qq
       let player = await Read_player(this_qq)
       let sum_exp = await Get_xiuwei(this_qq)
       if (!isNotNull(player.level_id)) {
@@ -234,20 +234,20 @@ export class TopList extends plugin {
     let temp = []
     for (let i = 0; i < File_length; i++) {
       let this_qq = File[i].replace('.json', '')
-      this_qq = parseInt(this_qq)
+      this_qq = this_qq
       let player = await Read_player(this_qq)
       let najie = await Read_najie(this_qq)
-      let lingshi = player.灵石 + najie.灵石
+      let lingshi = player.money + najie.money
       temp[i] = {
-        ls1: najie.灵石,
-        ls2: player.灵石,
-        灵石: lingshi,
+        ls1: najie.money,
+        ls2: player.money,
+        money: lingshi,
         name: player.name,
         qq: this_qq
       }
     }
     //排序
-    temp.sort(sortBy('灵石'))
+    temp.sort(sortBy('money'))
     let Data = []
     usr_paiming = temp.findIndex((temp) => temp.qq === usr_qq) + 1
     if (File_length > 10) {

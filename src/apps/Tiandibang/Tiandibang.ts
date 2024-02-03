@@ -8,10 +8,13 @@ import {
   existplayer,
   Add_najie_thing,
   exist_najie_thing,
-  zd_battle
+  zd_battle,
+  getConfig,
+  data,
+  Show
 } from '../../model/index.js'
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
-import { plugin } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
 export class Tiandibang extends plugin {
   constructor() {
     super({
@@ -65,7 +68,7 @@ export class Tiandibang extends plugin {
     let t
     for (let k = 0; k < File_length; k++) {
       let this_qq = File[k].replace('.json', '')
-      this_qq = parseInt(this_qq)
+      this_qq = this_qq
       let player = await Read_player(this_qq)
       let level_id = data.Level_list.find(
         (item) => item.level_id == player.level_id
@@ -314,13 +317,14 @@ export class Tiandibang extends plugin {
       'xiuxian@1.4.0:' + usr_qq + ':game_action'
     )
     //防止继续其他娱乐行为
-    if (game_action == 0) {
+    if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
@@ -359,6 +363,7 @@ export class Tiandibang extends plugin {
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastbisai_time = await getLastbisai(usr_qq) //获得上次签到日期
+    if (!lastbisai_time) return
     if (
       Today.Y != lastbisai_time.Y ||
       Today.M != lastbisai_time.M ||
@@ -424,9 +429,9 @@ export class Tiandibang extends plugin {
       }
       let A_player = {
         name: tiandibang[x].name,
-        攻击: parseInt(tiandibang[x].攻击) * atk,
-        防御: parseInt(tiandibang[x].防御 * def),
-        now_bool: parseInt(tiandibang[x].now_bool * blood),
+        攻击: tiandibang[x].攻击 * atk,
+        防御: tiandibang[x].防御 * def,
+        now_bool: tiandibang[x].now_bool * blood,
         暴击率: tiandibang[x].暴击率,
         studytheskill: tiandibang[x].studytheskill,
         talent: tiandibang[x].talent,
@@ -438,9 +443,9 @@ export class Tiandibang extends plugin {
         blood = 0.8 + 0.4 * Math.random()
         B_player = {
           name: '灵修兽',
-          攻击: parseInt(tiandibang[x].攻击) * atk,
-          防御: parseInt(tiandibang[x].防御 * def),
-          now_bool: parseInt(tiandibang[x].now_bool * blood),
+          攻击: tiandibang[x].攻击 * atk,
+          防御: tiandibang[x].防御 * def,
+          now_bool: tiandibang[x].now_bool * blood,
           暴击率: tiandibang[x].暴击率,
           studytheskill: tiandibang[x].studytheskill,
           talent: tiandibang[x].talent,
@@ -461,7 +466,7 @@ export class Tiandibang extends plugin {
         }
         tiandibang[x].次数 -= 1
         last_msg.push(
-          `${A_player.name}击败了[${B_player.name}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}击败了[${B_player.name}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]money`
         )
         Write_tiandibang(tiandibang)
       } else if (msg.find((item) => item == B_win)) {
@@ -474,7 +479,7 @@ export class Tiandibang extends plugin {
         }
         tiandibang[x].次数 -= 1
         last_msg.push(
-          `${A_player.name}被[${B_player.name}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}被[${B_player.name}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]money`
         )
         Write_tiandibang(tiandibang)
       } else {
@@ -521,7 +526,7 @@ export class Tiandibang extends plugin {
         tiandibang[x].次数 -= 1
         lingshi = tiandibang[x].积分 * 8
         last_msg.push(
-          `${A_player.name}击败了[${B_player.name}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}击败了[${B_player.name}],当前积分[${tiandibang[x].积分}],获得了[${lingshi}]money`
         )
         Write_tiandibang(tiandibang)
       } else if (msg.find((item) => item == B_win)) {
@@ -529,7 +534,7 @@ export class Tiandibang extends plugin {
         tiandibang[x].次数 -= 1
         lingshi = tiandibang[x].积分 * 6
         last_msg.push(
-          `${A_player.name}被[${B_player.name}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]灵石`
+          `${A_player.name}被[${B_player.name}]打败了,当前积分[${tiandibang[x].积分}],获得了[${lingshi}]money`
         )
         Write_tiandibang(tiandibang)
       } else {
@@ -661,7 +666,6 @@ async function Read_tiandibang() {
 async function getLastbisai(usr_qq) {
   //查询redis中the人物动作
   let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastbisai_time')
-  console.log(time)
   if (time != null) {
     let data = await shijianc(parseInt(time))
     return data
@@ -693,7 +697,7 @@ async function re_bangdang() {
   let t
   for (let k = 0; k < File_length; k++) {
     let this_qq = File[k].replace('.json', '')
-    this_qq = parseInt(this_qq)
+    this_qq = this_qq
     let player = await Read_player(this_qq)
     let level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id

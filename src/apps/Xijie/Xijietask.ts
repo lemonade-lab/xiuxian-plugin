@@ -144,7 +144,7 @@ export class Xijietask extends plugin {
                 num
               await Add_najie_thing(player_id, '秘境之匙', '道具', num)
               //结算完去除
-              delete arr.group_id
+              delete arr['group_id']
               let shop = await Read_shop()
               for (i = 0; i < shop.length; i++) {
                 if (shop[i].name == weizhi.name) {
