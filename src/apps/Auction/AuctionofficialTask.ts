@@ -2,9 +2,10 @@ import {
   Add_najie_thing,
   Add_money,
   Read_player,
-  openAU
+  openAU,
+  getConfig
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({
@@ -62,13 +63,10 @@ export class AuctionofficialTask extends plugin {
     const nowTime = new Date().getTime()
 
     if (wupin.last_offer_price + interMinu * 60 * 1000 > nowTime) {
-      const m = parseInt(
-        (last_offer_price + interMinu * 60 * 1000 - nowTime) / 1000 / 60
-      )
-      const s = parseInt(
+      const m = (last_offer_price + interMinu * 60 * 1000 - nowTime) / 1000 / 60
+      const s =
         (last_offer_price + interMinu * 60 * 1000 - nowTime - m * 60 * 1000) /
-          1000
-      )
+        1000
       msg = `星阁限定物品【${wupin.thing.name}】拍卖中\n距离拍卖结束还有${m}分${s}秒\n目前最高价${wupin.last_price}`
 
       for (const group_id of group_ids) {

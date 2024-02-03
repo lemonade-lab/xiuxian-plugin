@@ -4,7 +4,9 @@ import {
   shijianc,
   exist_najie_thing,
   ForwardMsg,
-  Add_najie_thing
+  Add_najie_thing,
+  data,
+  getConfig
 } from '../../model/index.js'
 export class Garden extends plugin {
   constructor() {

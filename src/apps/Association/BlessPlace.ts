@@ -9,7 +9,10 @@ import {
   shijianc,
   ForwardMsg,
   Goweizhi,
-  Go
+  Go,
+  data,
+  宗门灵石池上限,
+  getConfig
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class BlessPlace extends plugin {
@@ -223,6 +226,7 @@ export class BlessPlace extends plugin {
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Explor(usr_qq) //获得上次宗门签到日期
+    if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
       Today.M == lastsign_time.M &&
@@ -305,6 +309,7 @@ export class BlessPlace extends plugin {
     await Add_money(usr_qq, -Price)
     let time = getConfig('xiuxian', 'xiuxian').CD.secretplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
+
     let arr = {
       action: '历练', //动作
       end_time: new Date().getTime() + action_time, //结束时间
@@ -319,7 +324,7 @@ export class BlessPlace extends plugin {
       XF: ass.power
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     // setTimeout(() => {
@@ -392,7 +397,7 @@ export class BlessPlace extends plugin {
       XF: ass.power
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     // setTimeout(() => {
@@ -418,6 +423,7 @@ export class BlessPlace extends plugin {
       e.reply(`你the宗门还没有驻地，无法建设宗门`)
       return false
     }
+    let denji = 6
     if (denji < 0) {
       ass.宗门建设等级 = 0
       denji = 0
@@ -425,7 +431,7 @@ export class BlessPlace extends plugin {
     if (ass.灵石池 < 0) {
       ass.灵石池 = 0
     }
-    let denji = Number(ass.宗门建设等级)
+    denji = Number(ass.宗门建设等级)
 
     //灵石池扣除
     let lsckc = Math.trunc(denji * 10000)

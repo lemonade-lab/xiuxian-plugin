@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { cwd } from '../../config.js'
+import { cwd } from '../../../config.js'
 // 文件存放路径
 export const __PATH = {
   //更新日志

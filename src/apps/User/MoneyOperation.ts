@@ -11,7 +11,9 @@ import {
   convert2integer,
   __PATH,
   Add_now_exp,
-  Add_血气
+  Add_血气,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class MoneyOperation extends plugin {
@@ -406,7 +408,7 @@ export class MoneyOperation extends plugin {
     acount = await convert2integer(acount)
     let player = await data.getData('player', usr_qq)
     //对比自己the灵石，看看够不够！
-    if (player.灵石 <= parseInt(lingshi * acount)) {
+    if (player.灵石 <= lingshi * acount) {
       e.reply(`红包数要比自身灵石数小噢`)
       return false
     }

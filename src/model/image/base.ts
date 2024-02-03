@@ -1,4 +1,4 @@
-import { AppName } from '../../config.js'
+import { AppName } from '../../../config.js'
 export default class base {
   userId = null
   e = null

@@ -13,9 +13,11 @@ import {
   Go,
   zd_battle,
   get_danfang_img,
-  get_tuzhi_img
+  get_tuzhi_img,
+  Read_player,
+  __PATH,
+  Read_danyao
 } from '../../model/index.js'
-import { Read_player, __PATH, Read_danyao } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class Occupation extends plugin {
   constructor() {
@@ -281,8 +283,8 @@ export class Occupation extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中，剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -438,8 +440,8 @@ export class Occupation extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中，剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -971,8 +973,8 @@ export class Occupation extends plugin {
       //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
-        let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((A_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (A_action_end_time - now_time) / 1000 / 60
+        let s = (A_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + A_action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -1011,9 +1013,9 @@ export class Occupation extends plugin {
       let player_A = {
         id: player.id,
         name: player.name,
-        攻击: parseInt(player.攻击 * buff),
-        防御: parseInt(player.防御),
-        now_bool: parseInt(player.血量上限 * buff),
+        攻击: player.攻击 * buff,
+        防御: player.防御,
+        now_bool: player.血量上限 * buff,
         暴击率: player.暴击率,
         studytheskill: player.studytheskill,
         魔道值: player.魔道值,
@@ -1175,8 +1177,8 @@ export class Occupation extends plugin {
       //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
-        let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((A_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (A_action_end_time - now_time) / 1000 / 60
+        let s = (A_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + A_action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -1217,10 +1219,8 @@ export class Occupation extends plugin {
         let ishaveyss = await exist_najie_thing(usr_qq, '隐身水', '道具')
         if (!ishaveyss) {
           //如果A没有隐身水，直接返回不执行
-          let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
-          let s = parseInt(
-            (B_action_end_time - now_time - m * 60 * 1000) / 1000
-          )
+          let m = (B_action_end_time - now_time) / 1000 / 60
+          let s = (B_action_end_time - now_time - m * 60 * 1000) / 1000
           e.reply(
             '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
           )
@@ -1233,9 +1233,9 @@ export class Occupation extends plugin {
     let player_A = {
       id: player.id,
       name: player.name,
-      攻击: parseInt(player.攻击 * buff),
-      防御: parseInt(player.防御),
-      now_bool: parseInt(player.血量上限),
+      攻击: player.攻击 * buff,
+      防御: player.防御,
+      now_bool: player.血量上限,
       暴击率: player.暴击率,
       studytheskill: player.studytheskill,
       talent: player.talent,

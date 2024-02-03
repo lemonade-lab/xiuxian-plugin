@@ -9,7 +9,8 @@ import {
   Read_najie,
   __PATH,
   get_ranking_money_img,
-  get_ranking_power_img
+  get_ranking_power_img,
+  data
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { plugin } from '../../../import.js'

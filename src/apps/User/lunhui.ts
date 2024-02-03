@@ -3,10 +3,11 @@ import {
   existplayer,
   Write_player,
   Read_equipment,
-  Write_equipment,
+  Update_equipment,
   isNotNull,
   player_efficiency,
-  get_random_fromARR
+  get_random_fromARR,
+  data
 } from '../../model/index.js'
 import { Add_najie_thing, Add_HP } from '../../model/index.js'
 import { plugin } from '../../../import.js'
@@ -165,7 +166,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -198,7 +199,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -231,7 +232,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -264,7 +265,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -297,7 +298,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -330,7 +331,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -363,7 +364,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -396,7 +397,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {
@@ -429,7 +430,7 @@ export class lunhui extends plugin {
       player.power_place = 1
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       //补血
       await Add_HP(usr_qq, 99999999)
       if (player.lunhuiBH == 0) {

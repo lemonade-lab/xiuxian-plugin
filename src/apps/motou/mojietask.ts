@@ -8,7 +8,8 @@ import {
   exist_najie_thing,
   Read_temp,
   Write_temp,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { plugin } from '../../../import.js'

@@ -2,7 +2,7 @@ import { rmSync } from 'fs'
 import {
   existplayer,
   Write_player,
-  Write_equipment,
+  Update_equipment,
   isNotNull,
   player_efficiency,
   get_random_fromARR,
@@ -14,7 +14,9 @@ import {
   Add_血气,
   Add_najie_thing,
   dujie,
-  LevelTask
+  LevelTask,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { clearInterval } from 'timers'
 import { plugin } from '../../../import.js'
@@ -253,7 +255,7 @@ export class Level extends plugin {
     player.血气 -= need_exp
     await Write_player(usr_qq, player)
     let equipment = await Read_equipment(usr_qq)
-    await Write_equipment(usr_qq, equipment)
+    await Update_equipment(usr_qq, equipment)
     await Add_HP(usr_qq, 999999999999)
     let level = data.LevelMax_list.find(
       (item) => item.level_id == player.Physique_id
@@ -336,7 +338,7 @@ export class Level extends plugin {
     const cf = getConfig('xiuxian', 'xiuxian')
     let Time = cf.CD.level_up
     let now_Time = new Date().getTime() //获取当前时间戳
-    let shuangxiuTimeout = parseInt(60000 * Time)
+    let shuangxiuTimeout = 60000 * Time
     let last_time = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time'
     ) //获得上次the时间戳,
@@ -482,7 +484,7 @@ export class Level extends plugin {
     await Write_player(usr_qq, player)
     //刷新装备
     let equipment = await Read_equipment(usr_qq)
-    await Write_equipment(usr_qq, equipment)
+    await Update_equipment(usr_qq, equipment)
     //补血
     await Add_HP(usr_qq, 999999999999)
     //查境界名
@@ -709,8 +711,8 @@ export class Level extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -749,7 +751,7 @@ export class Level extends plugin {
       player.now_exp -= need_exp
       await Write_player(usr_qq, player)
       let equipment = await Read_equipment(usr_qq)
-      await Write_equipment(usr_qq, equipment)
+      await Update_equipment(usr_qq, equipment)
       await Add_HP(usr_qq, 99999999)
       //突破成仙人
       if (now_level_id >= 42) {

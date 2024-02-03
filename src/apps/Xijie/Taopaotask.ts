@@ -5,7 +5,8 @@ import {
   Harm,
   Write_shop,
   Read_shop,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { common, plugin } from '../../../import.js'

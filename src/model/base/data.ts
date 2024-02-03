@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
-import { cwd } from '../../config.js'
+import { cwd } from '../../../config.js'
 
 function getPath(name) {
   return join(cwd, '/resources/data', name)
@@ -299,4 +299,4 @@ class XiuxianData {
 /**
  *
  */
-export default new XiuxianData()
+export const data = new XiuxianData()

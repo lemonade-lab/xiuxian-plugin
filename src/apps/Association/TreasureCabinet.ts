@@ -4,7 +4,8 @@ import {
   Add_najie_thing,
   isNotNull,
   __PATH,
-  shijianc
+  shijianc,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class TreasureCabinet extends plugin {
@@ -150,6 +151,7 @@ export class TreasureCabinet extends plugin {
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Bonus(usr_qq) //获得上次宗门签到日期
+    if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
       Today.M == lastsign_time.M &&

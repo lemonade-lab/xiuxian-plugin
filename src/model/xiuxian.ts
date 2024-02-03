@@ -1,22 +1,35 @@
-import {
-  copyFileSync,
-  existsSync,
-  readFileSync,
-  readdirSync,
-  writeFileSync
-} from 'fs'
-import { join } from 'path'
-import data from './XiuxianData.js'
-import { Writeit, Read_it } from './duanzaofu.js'
+import { existsSync, readdirSync } from 'fs'
 import { AppName } from '../../config.js'
-import { __PATH } from './PATH.js'
+import { __PATH } from './base/PATH.js'
 import {
   伪talent概率,
   体质概率,
   圣体概率,
   天talent概率,
   真talent概率
-} from './pe.js'
+} from './base/config.js'
+import {
+  Write_danyao,
+  Write_najie,
+  Write_player,
+  Write_qinmidu,
+  Write_shitu,
+  Writeit
+} from './action/write.js'
+import {
+  Read_danyao,
+  Read_equipment,
+  Read_it,
+  Read_najie,
+  Read_player,
+  Read_qinmidu,
+  Read_shitu,
+  Read_shop
+} from './action/read.js'
+import { isNotNull } from './utils.js'
+import { data } from './base/data.js'
+import { Add_najie_thing, exist_najie_thing } from './action/addmax.js'
+import { Update_equipment } from './action/update.js'
 
 /**
  * 检查存档是否存在，存在返回true;
@@ -45,30 +58,6 @@ export async function convert2integer(amount) {
   } else {
     return parseInt(amount)
   }
-}
-
-/**
- *
- * @returns
- */
-export async function Read_updata_log() {
-  let dir = join(`${__PATH.updata_log_path}`)
-  let update_log = readFileSync(dir, 'utf8')
-  return update_log
-}
-
-/**
- * 读取存档信息，返回成一个JavaScript对象
- * @param usr_qq
- * @returns
- */
-export function Read_player(usr_qq) {
-  //将字符串数据转变成数组格式
-  return JSON.parse(
-    decodeURIComponent(
-      readFileSync(join(`${__PATH.player_path}/${usr_qq}.json`), 'utf8')
-    )
-  )
 }
 
 /**
@@ -160,117 +149,6 @@ export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
 }
 
 /**
- * 写入存档信息,第二个参数是一个JavaScript对象
- * @param usr_qq
- * @param player
- * @returns
- */
-export async function Write_player(usr_qq, player) {
-  let dir = join(__PATH.player_path, `${usr_qq}.json`)
-  let new_ARR = JSON.stringify(player)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-
-//读取装备信息，返回成一个JavaScript对象
-
-/**
- *
- * @param usr_qq
- * @returns
- */
-export function Read_equipment(usr_qq) {
-  return JSON.parse(
-    readFileSync(join(`${__PATH.equipment_path}/${usr_qq}.json`), 'utf8')
-  )
-}
-
-//写入装备信息,第二个参数是一个JavaScript对象
-
-/**
- *
- * @param usr_qq
- * @param equipment
- * @returns
- */
-export async function Write_equipment(usr_qq, equipment) {
-  let player = await Read_player(usr_qq)
-  player.攻击 =
-    data.Level_list.find((item) => item.level_id == player.level_id).基础攻击 +
-    player.攻击加成 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-      .基础攻击
-  player.防御 =
-    data.Level_list.find((item) => item.level_id == player.level_id).基础防御 +
-    player.防御加成 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-      .基础防御
-  player.血量上限 =
-    data.Level_list.find((item) => item.level_id == player.level_id).基础血量 +
-    player.生命加成 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-      .基础血量
-  player.暴击率 =
-    data.Level_list.find((item) => item.level_id == player.level_id).基础暴击 +
-    data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-      .基础暴击
-  let type = ['weapon', 'protective_clothing', 'magic_weapon']
-  for (let i of type) {
-    if (
-      equipment[i].atk > 10 ||
-      equipment[i].def > 10 ||
-      equipment[i].HP > 10
-    ) {
-      player.攻击 += equipment[i].atk
-      player.防御 += equipment[i].def
-      player.血量上限 += equipment[i].HP
-    } else {
-      player.攻击 = Math.trunc(player.攻击 * (1 + equipment[i].atk))
-      player.防御 = Math.trunc(player.防御 * (1 + equipment[i].def))
-      player.血量上限 = Math.trunc(player.血量上限 * (1 + equipment[i].HP))
-    }
-    player.暴击率 += equipment[i].bao
-  }
-  player.暴击伤害 = player.暴击率 + 1.5
-  if (player.暴击伤害 > 2.5) player.暴击伤害 = 2.5
-  if (player.仙宠.type == '暴伤') player.暴击伤害 += player.仙宠.加成
-  await Write_player(usr_qq, player)
-  await Add_HP(usr_qq, 0)
-  writeFileSync(
-    join(__PATH.equipment_path, `${usr_qq}.json`),
-    JSON.stringify(equipment),
-    'utf8'
-  )
-  return
-}
-
-//读取纳戒信息，返回成一个JavaScript对象
-
-/**
- *
- * @param usr_qq
- * @returns
- */
-export function Read_najie(usr_qq) {
-  let najie = readFileSync(join(`${__PATH.najie_path}/${usr_qq}.json`), 'utf8')
-  //将字符串数据转变成数组格式
-  try {
-    return JSON.parse(najie)
-  } catch {
-    //转换不了，纳戒错误
-    fixed(usr_qq)
-    return Read_najie(usr_qq)
-  }
-}
-
-export function fixed(usr_qq) {
-  return copyFileSync(
-    `${__PATH.auto_backup}/najie/${usr_qq}.json`,
-    `${__PATH.najie_path}/${usr_qq}.json`
-  )
-}
-
-/**
  * @description: 进度条渲染
  * @param {Number} res 百分比小数
  * @return {*} css样式
@@ -356,65 +234,6 @@ export function bigNumberTransform(value) {
 export function GetPower(atk, def, hp, bao) {
   return (atk + def * 0.8 + hp * 0.6) * (bao + 1)
 }
-/**
- * 增加减少纳戒内物品
- * @param usr_qq 操作存档theqq号
- * @param thing_name  仙宠名称
- * @param n  操作the数量,取+增加,取 -减少
- * @param thing_level  仙宠等级
- * @returns 无
- */
-export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
-  let x = Number(n)
-  if (x == 0) {
-    return
-  }
-  let najie = await Read_najie(usr_qq)
-  let trr = najie.仙宠.find(
-    (item) => item.name == thing_name && item.等级 == thing_level
-  )
-  let name = thing_name
-  if (x > 0 && !isNotNull(trr)) {
-    //无中生有
-    let newthing = data.xianchon.find((item) => item.name == name)
-    if (!isNotNull(newthing)) {
-      console.log('没有这个东西')
-      return
-    }
-    if (thing_level != null) {
-      newthing.等级 = thing_level
-    }
-    najie.仙宠.push(newthing)
-    najie.仙宠.find(
-      (item) => item.name == name && item.等级 == newthing.等级
-    ).数量 = x
-    let xianchon = najie.仙宠.find(
-      (item) => item.name == name && item.等级 == newthing.等级
-    )
-    najie.仙宠.find(
-      (item) => item.name == name && item.等级 == newthing.等级
-    ).加成 = xianchon.等级 * xianchon.每级增加
-    najie.仙宠.find(
-      (item) => item.name == name && item.等级 == newthing.等级
-    ).islockd = 0
-    await Write_najie(usr_qq, najie)
-    return
-  }
-  najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 +=
-    x
-  if (
-    najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 <
-    1
-  ) {
-    //假如用完了,需要删掉数组中the元素,用.filter()把!=该元素the过滤出来
-    najie.仙宠 = najie.仙宠.filter(
-      (item) => item.name != thing_name || item.等级 != trr.等级
-    )
-  }
-  await Write_najie(usr_qq, najie)
-  return
-}
-
 //图开关
 export async function setu(e) {
   e.reply(
@@ -480,162 +299,7 @@ export async function datachange(data) {
     return data
   }
 }
-//写入纳戒信息,第二个参数是一个JavaScript对象
-export async function Write_najie(usr_qq, najie) {
-  let dir = join(__PATH.najie_path, `${usr_qq}.json`)
-  let new_ARR = JSON.stringify(najie)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
 
-//now_exp数量和灵石数量正增加,负减少
-//使用时记得加await
-export async function Add_money(usr_qq, 灵石数量 = 0) {
-  let player = await Read_player(usr_qq)
-  player.灵石 += Math.trunc(灵石数量)
-  await Write_player(usr_qq, player)
-  return
-}
-
-export async function Add_now_exp(usr_qq, now_exp数量 = 0) {
-  let player = await Read_player(usr_qq)
-  player.now_exp += Math.trunc(now_exp数量)
-  await Write_player(usr_qq, player)
-  return
-}
-export async function Add_魔道值(usr_qq, 魔道值 = 0) {
-  let player = await Read_player(usr_qq)
-  player.魔道值 += Math.trunc(魔道值)
-  await Write_player(usr_qq, player)
-  return
-}
-export async function Add_血气(usr_qq, 血气 = 0) {
-  let player = await Read_player(usr_qq)
-  player.血气 += Math.trunc(血气)
-  await Write_player(usr_qq, player)
-  return
-}
-export async function Add_HP(usr_qq, blood = 0) {
-  let player = await Read_player(usr_qq)
-  player.now_bool += Math.trunc(blood)
-  if (player.now_bool > player.血量上限) {
-    player.now_bool = player.血量上限
-  }
-  if (player.now_bool < 0) {
-    player.now_bool = 0
-  }
-  await Write_player(usr_qq, player)
-  return
-}
-/**
- *
- * @param {*} usr_qq 用户qq
- * @param {*} exp 经验值
- * @returns
- */
-export async function Add_职业经验(usr_qq, exp = 0) {
-  let player = await Read_player(usr_qq)
-  if (exp == 0) {
-    return
-  }
-  exp = player.occupation_exp + exp
-  let level = player.occupation_level
-  while (true) {
-    let need_exp = data.occupation_exp_list.find(
-      (item) => item.id == level
-    ).experience
-    if (need_exp > exp) {
-      break
-    } else {
-      exp -= need_exp
-      level++
-    }
-  }
-  player.occupation_exp = exp
-  player.occupation_level = level
-  await Write_player(usr_qq, player)
-  return
-}
-
-export async function Add_najie_灵石(usr_qq, lingshi) {
-  let najie = await Read_najie(usr_qq)
-  najie.灵石 += Math.trunc(lingshi)
-  await Write_najie(usr_qq, najie)
-  return
-}
-
-export async function Add_player_studyskill(usr_qq, gongfa_name) {
-  let player = await Read_player(usr_qq)
-  player.studytheskill.push(gongfa_name)
-  data.setData('player', usr_qq, player)
-  await player_efficiency(usr_qq)
-  return
-}
-
-//---------------------------------------------分界线------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//修炼效率综合
-export async function player_efficiency(usr_qq) {
-  //这里有问题
-  let player = await data.getData('player', usr_qq) //修仙个人信息
-  let ass
-  let Assoc_efficiency //宗门效率加成
-  let linggen_efficiency //talent效率加成
-  let gongfa_efficiency = 0 //skill效率加成
-  let xianchong_efficiency = 0 // 仙宠效率加成
-  if (!isNotNull(player.宗门)) {
-    //是否存在宗门信息
-    Assoc_efficiency = 0 //不存在，宗门效率为0
-  } else {
-    ass = await data.getAssociation(player.宗门.宗门名称) //修仙对应宗门信息
-    if (ass.宗门驻地 == 0) {
-      Assoc_efficiency = ass.宗门等级 * 0.05
-    } else {
-      let dongTan = await data.bless_list.find(
-        (item) => item.name == ass.宗门驻地
-      )
-      try {
-        Assoc_efficiency = ass.宗门等级 * 0.05 + dongTan.efficiency
-      } catch {
-        Assoc_efficiency = ass.宗门等级 * 0.05 + 0.5
-      }
-    }
-  }
-  linggen_efficiency = player.talent.eff //talent修炼速率
-  label1: for (let i in player.studytheskill) {
-    //存在skill，遍历skill加成
-    let gongfa = ['gongfa_list', 'timegongfa_list']
-    //这里是查看了skill表
-    for (let j of gongfa) {
-      let ifexist = data[j].find((item) => item.name == player.studytheskill[i])
-      if (ifexist) {
-        gongfa_efficiency += ifexist.修炼加成
-        continue label1
-      }
-    }
-    player.studytheskill.splice(i, 1)
-  }
-  if (player.仙宠.type == '修炼') {
-    // 是否存在修炼仙宠
-    xianchong_efficiency = player.仙宠.加成 // 存在修炼仙宠，仙宠效率为仙宠效率加成
-  }
-  let dy = await Read_danyao(usr_qq)
-  let bgdan = dy.biguanxl
-  if (
-    parseInt(player.Improving_cultivation_efficiency) !=
-    parseInt(player.Improving_cultivation_efficiency)
-  ) {
-    player.Improving_cultivation_efficiency = 0
-  }
-
-  player.Improving_cultivation_efficiency =
-    linggen_efficiency +
-    Assoc_efficiency +
-    gongfa_efficiency +
-    xianchong_efficiency +
-    bgdan //修炼效率综合
-  data.setData('player', usr_qq, player)
-  return
-}
 /**
  *
  * @param {*} usr_qq 玩家qq
@@ -667,175 +331,6 @@ export async function re_najie_thing(
   return true
 }
 
-//检查纳戒内物品是否存在
-//判断物品
-//要用await
-export async function exist_najie_thing(
-  usr_qq,
-  thing_name,
-  thing_class,
-  thing_pinji = 0
-) {
-  let najie = await Read_najie(usr_qq)
-  let ifexist
-  if (thing_class == '装备' && (thing_pinji || thing_pinji == 0)) {
-    ifexist = najie.装备.find(
-      (item) => item.name == thing_name && item.pinji == thing_pinji
-    )
-  } else {
-    let type = [
-      '装备',
-      '丹药',
-      '道具',
-      'skill',
-      '草药',
-      '材料',
-      '仙宠',
-      '仙宠口粮'
-    ]
-    for (let i of type) {
-      ifexist = najie[i].find((item) => item.name == thing_name)
-      if (ifexist) break
-    }
-  }
-  if (ifexist) {
-    return ifexist.数量
-  }
-  return false
-}
-/**
- *
- * @param {*} usr_qq 用户qq
- * @param {*} thing_name 物品名
- * @param {*} thing_class 物品类别
- * @param {*} thing_pinji 品级 数字0-6
- * @returns
- */
-
-/**
- * 增加减少纳戒内物品
- * @param usr_qq 操作存档theqq号
- * @param name  物品名称
- * @param thing_class  物品类别
- * @param x  操作the数量,取+增加,取 -减少
- * @param pinji 品级 数字0-6
- * @returns 无
- */
-export async function Add_najie_thing(usr_qq, name, thing_class, x, pinji = 0) {
-  if (x == 0) return
-  let najie = await Read_najie(usr_qq)
-  //写入
-  //这部分写得很冗余,但能跑
-  if (thing_class == '装备') {
-    if (!pinji && pinji != 0) {
-      pinji = Math.trunc(Math.random() * 6)
-    }
-    let z = [0.8, 1, 1.1, 1.2, 1.3, 1.5, 2]
-    if (x > 0) {
-      if (typeof name != 'object') {
-        let list = [
-          'equipment_list',
-          'timeequipmen_list',
-          'duanzhaowuqi',
-          'duanzhaohuju',
-          'duanzhaobaowu'
-        ]
-        for (let i of list) {
-          let thing = data[i].find((item) => item.name == name)
-          if (thing) {
-            let equ = JSON.parse(JSON.stringify(thing))
-            equ.pinji = pinji
-            equ.atk *= z[pinji]
-            equ.def *= z[pinji]
-            equ.HP *= z[pinji]
-            equ.数量 = x
-            equ.islockd = 0
-            najie[thing_class].push(equ)
-            await Write_najie(usr_qq, najie)
-            return
-          }
-        }
-      } else {
-        if (!name.pinji) name.pinji = pinji
-        name.数量 = x
-        name.islockd = 0
-        najie[thing_class].push(name)
-        await Write_najie(usr_qq, najie)
-        return
-      }
-    }
-    if (typeof name != 'object') {
-      najie[thing_class].find(
-        (item) => item.name == name && item.pinji == pinji
-      ).数量 += x
-    } else {
-      najie[thing_class].find(
-        (item) => item.name == name.name && item.pinji == pinji
-      ).数量 += x
-    }
-    najie.装备 = najie.装备.filter((item) => item.数量 > 0)
-    await Write_najie(usr_qq, najie)
-    return
-  } else if (thing_class == '仙宠') {
-    if (x > 0) {
-      if (typeof name != 'object') {
-        let thing = data.xianchon.find((item) => item.name == name)
-        if (thing) {
-          thing = JSON.parse(JSON.stringify(thing))
-          thing.数量 = x
-          thing.islockd = 0
-          najie[thing_class].push(thing)
-          await Write_najie(usr_qq, najie)
-          return
-        }
-      } else {
-        name.数量 = x
-        name.islockd = 0
-        najie[thing_class].push(name)
-        await Write_najie(usr_qq, najie)
-        return
-      }
-    }
-    if (typeof name != 'object') {
-      najie[thing_class].find((item) => item.name == name).数量 += x
-    } else {
-      najie[thing_class].find((item) => item.name == name.name).数量 += x
-    }
-    najie.仙宠 = najie.仙宠.filter((item) => item.数量 > 0)
-    await Write_najie(usr_qq, najie)
-    return
-  }
-  let exist = await exist_najie_thing(usr_qq, name, thing_class)
-  if (x > 0 && !exist) {
-    let thing
-    let list = [
-      'danyao_list',
-      'newdanyao_list',
-      'timedanyao_list',
-      'daoju_list',
-      'gongfa_list',
-      'timegongfa_list',
-      'caoyao_list',
-      'xianchonkouliang',
-      'duanzhaocailiao'
-    ]
-    for (let i of list) {
-      thing = data[i].find((item) => item.name == name)
-      if (thing) {
-        najie[thing_class].push(thing)
-        najie[thing_class].find((item) => item.name == name).数量 = x
-        najie[thing_class].find((item) => item.name == name).islockd = 0
-        await Write_najie(usr_qq, najie)
-        return
-      }
-    }
-  }
-  najie[thing_class].find((item) => item.name == name).数量 += x
-  najie[thing_class] = najie[thing_class].filter((item) => item.数量 > 0)
-  await Write_najie(usr_qq, najie)
-  return
-}
-
 //替换装备
 export async function instead_equipment(usr_qq, equipment_data) {
   //装备name
@@ -859,7 +354,7 @@ export async function instead_equipment(usr_qq, equipment_data) {
     //根据名字找weapon
     equipment.weapon = equipment_data
     //weapon写入装备
-    await Write_equipment(usr_qq, equipment)
+    await Update_equipment(usr_qq, equipment)
     return
   }
   if (equipment_data.type == 'protective_clothing') {
@@ -871,7 +366,7 @@ export async function instead_equipment(usr_qq, equipment_data) {
       equipment.protective_clothing.pinji
     )
     equipment.protective_clothing = equipment_data
-    await Write_equipment(usr_qq, equipment)
+    await Update_equipment(usr_qq, equipment)
     return
   }
   if (equipment_data.type == 'magic_weapon') {
@@ -883,7 +378,7 @@ export async function instead_equipment(usr_qq, equipment_data) {
       equipment.magic_weapon.pinji
     )
     equipment.magic_weapon = equipment_data
-    await Write_equipment(usr_qq, equipment)
+    await Update_equipment(usr_qq, equipment)
     return
   }
   return
@@ -1115,83 +610,12 @@ export async function dataverification(e) {
   return 0
 }
 
-/**
- * 判断对象是否不为undefined且不为null
- * @param obj 对象
- * @returns
- */
-export function isNotNull(obj) {
-  if (obj == undefined || obj == null) return false
-  return true
-}
-
 export function isNotBlank(value) {
   if (value ?? '' !== '') {
     return true
   } else {
     return false
   }
-}
-
-export async function Read_qinmidu() {
-  let dir = join(`${__PATH.qinmidu}/qinmidu.json`)
-  let qinmidu = readFileSync(dir, 'utf8')
-  //将字符串数据转变成数组格式
-  qinmidu = JSON.parse(qinmidu)
-  return qinmidu
-}
-
-export async function Write_qinmidu(qinmidu) {
-  let dir = join(__PATH.qinmidu, `qinmidu.json`)
-  let new_ARR = JSON.stringify(qinmidu)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-export async function fstadd_qinmidu(A, B) {
-  let qinmidu
-  try {
-    qinmidu = await Read_qinmidu()
-  } catch {
-    //没有表要先建立一个！
-    await Write_qinmidu([])
-    qinmidu = await Read_qinmidu()
-  }
-  let player = {
-    QQ_A: A,
-    QQ_B: B,
-    亲密度: 0,
-    婚姻: 0
-  }
-  qinmidu.push(player)
-  await Write_qinmidu(qinmidu)
-  return
-}
-
-export async function add_qinmidu(A, B, qinmi) {
-  let qinmidu
-  try {
-    qinmidu = await Read_qinmidu()
-  } catch {
-    //没有表要先建立一个！
-    await Write_qinmidu([])
-    qinmidu = await Read_qinmidu()
-  }
-  let i
-  for (i = 0; i < qinmidu.length; i++) {
-    if (
-      (qinmidu[i].QQ_A == A && qinmidu[i].QQ_B == B) ||
-      (qinmidu[i].QQ_A == B && qinmidu[i].QQ_B == A)
-    ) {
-      break
-    }
-  }
-  if (i == qinmidu.length) {
-    await fstadd_qinmidu(A, B)
-    qinmidu = await Read_qinmidu()
-  }
-  qinmidu[i].亲密度 += qinmi
-  await Write_qinmidu(qinmidu)
-  return
 }
 
 export async function find_qinmidu(A, B) {
@@ -1269,65 +693,6 @@ export async function exist_hunyin(A) {
   }
 }
 
-export async function Write_shitu(shitu) {
-  let dir = join(__PATH.shitu, `shitu.json`)
-  let new_ARR = JSON.stringify(shitu)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-export function Read_shitu() {
-  return JSON.parse(readFileSync(join(`${__PATH.shitu}/shitu.json`), 'utf8'))
-}
-
-export async function fstadd_shitu(A) {
-  let shitu
-  try {
-    shitu = await Read_shitu()
-  } catch {
-    //没有表要先建立一个！
-    await Write_shitu([])
-    shitu = await Read_shitu()
-  }
-  let player = {
-    师傅: A,
-    收徒: 0,
-    未出师徒弟: 0,
-    任务阶段: 0,
-    renwu1: 0,
-    renwu2: 0,
-    renwu3: 0,
-    师徒BOOS剩余血量: 100000000,
-    已出师徒弟: []
-  }
-  shitu.push(player)
-  await Write_shitu(shitu)
-  return
-}
-
-export async function add_shitu(A, num) {
-  let shitu
-  try {
-    shitu = await Read_shitu()
-  } catch {
-    //没有表要先建立一个！
-    await Write_shitu([])
-    shitu = await Read_shitu()
-  }
-  let i
-  for (i = 0; i < shitu.length; i++) {
-    if (shitu[i].A == A) {
-      break
-    }
-  }
-  if (i == shitu.length) {
-    await fstadd_shitu(A)
-    shitu = await Read_shitu()
-  }
-  shitu[i].收徒 += num
-  await Write_shitu(shitu)
-  return
-}
-
 export async function find_shitu(A) {
   let shitu
   try {
@@ -1371,30 +736,7 @@ export async function find_tudi(A) {
     return shitu[i].师徒
   }
 }
-export function Read_danyao(usr_qq) {
-  //将字符串数据转变成数组格式
-  return JSON.parse(
-    readFileSync(join(`${__PATH.danyao_path}/${usr_qq}.json`), 'utf8')
-  )
-}
 
-export async function Write_danyao(usr_qq, danyao) {
-  let dir = join(__PATH.danyao_path, `${usr_qq}.json`)
-  let new_ARR = JSON.stringify(danyao)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-
-export async function Read_temp() {
-  return JSON.parse(readFileSync(join(`${__PATH.temp_path}/temp.json`), 'utf8'))
-}
-
-export async function Write_temp(temp) {
-  let dir = join(__PATH.temp_path, `temp.json`)
-  let new_ARR = JSON.stringify(temp)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
 /**
  * 常用查询合集
  */
@@ -1432,17 +774,6 @@ export async function Go(e) {
     }
   }
   return true
-}
-
-export async function Write_shop(shop) {
-  let dir = join(__PATH.shop, `shop.json`)
-  let new_ARR = JSON.stringify(shop)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-
-export function Read_shop() {
-  return JSON.parse(readFileSync(join(`${__PATH.shop}/shop.json`), 'utf8'))
 }
 
 //判断是否还有物品
@@ -1762,39 +1093,6 @@ export function ifbaoji(baoji) {
     return '触发暴击，'
   }
 }
-//写入交易表
-export async function Write_Exchange(wupin) {
-  let dir = join(__PATH.Exchange, `Exchange.json`)
-  let new_ARR = JSON.stringify(wupin)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-
-//写入交易表
-export async function Write_Forum(wupin) {
-  let dir = join(__PATH.Exchange, `Forum.json`)
-  let new_ARR = JSON.stringify(wupin)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return
-}
-
-//读交易表
-export async function Read_Exchange() {
-  let dir = join(`${__PATH.Exchange}/Exchange.json`)
-  let Exchange = readFileSync(dir, 'utf8')
-  //将字符串数据转变成数组格式
-  Exchange = JSON.parse(Exchange)
-  return Exchange
-}
-
-//读交易表
-export async function Read_Forum() {
-  let dir = join(`${__PATH.Exchange}/Forum.json`)
-  let Forum = readFileSync(dir, 'utf8')
-  //将字符串数据转变成数组格式
-  Forum = JSON.parse(Forum)
-  return Forum
-}
 
 export async function openAU() {
   const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
@@ -2106,9 +1404,9 @@ export async function synchronization(e) {
     if (now_level_id < 42) {
       player.power_place = 1
     }
-    await Write_najie(usr_qq, najie)
-    await Write_player(usr_qq, player)
-    await Write_equipment(usr_qq, equipment)
+    Write_najie(usr_qq, najie)
+    Write_player(usr_qq, player)
+    await Update_equipment(usr_qq, equipment)
   }
   e.reply('存档同步结束')
 

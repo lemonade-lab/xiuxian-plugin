@@ -326,8 +326,8 @@ export class Tiandibang extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -504,9 +504,9 @@ export class Tiandibang extends plugin {
       blood = 0.8 + 0.4 * Math.random()
       let B_player = {
         name: '灵修兽',
-        攻击: parseInt(tiandibang[x].攻击) * atk,
-        防御: parseInt(tiandibang[x].防御 * def),
-        now_bool: parseInt(tiandibang[x].now_bool * blood),
+        攻击: tiandibang[x].攻击 * atk,
+        防御: tiandibang[x].防御 * def,
+        now_bool: tiandibang[x].now_bool * blood,
         暴击率: tiandibang[x].暴击率,
         studytheskill: tiandibang[x].studytheskill,
         talent: tiandibang[x].talent,

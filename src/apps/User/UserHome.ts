@@ -23,15 +23,15 @@ import {
   Add_najie_灵石,
   isNotNull,
   Read_equipment,
-  Write_equipment,
+  Update_equipment,
   foundthing,
   convert2integer,
   get_equipment_img,
-  data
+  data,
+  readall
 } from '../../model/index.js'
-import { AppName } from '../../../config.js'
-import { readall } from '../../model/duanzaofu.js'
 import { readdirSync } from 'fs'
+import { AppName } from '../../../config.js'
 import { plugin } from '../../../import.js'
 export class UserHome extends plugin {
   constructor() {
@@ -286,7 +286,7 @@ export class UserHome extends plugin {
       e.reply('只有主人可以执行操作')
       return false
     }
-    let File = fs.readdirSync(__PATH.player_path)
+    let File = readdirSync(__PATH.player_path)
     File = File.filter((file) => file.endsWith('.json'))
     let File_length = File.length
     let cundang = ['存档']
@@ -874,7 +874,7 @@ export class UserHome extends plugin {
             (equipment[type[j]].HP / z[equipment[type[j]].pinji]) * z[random]
           equipment[type[j]].pinji = random
         }
-        await Write_equipment(usr_qq, equipment)
+        await Update_equipment(usr_qq, equipment)
         await Add_najie_thing(usr_qq, '重铸石', '道具', -1)
         e.reply('使用成功,发送#我the装备查看属性')
         return false
@@ -929,7 +929,7 @@ export class UserHome extends plugin {
         player.生命加成 += qh.血量 * quantity
         await Write_player(usr_qq, player)
         let equipment = await Read_equipment(usr_qq)
-        await Write_equipment(usr_qq, equipment)
+        await Update_equipment(usr_qq, equipment)
         await Add_najie_thing(usr_qq, thing_name, '道具', -quantity)
         e.reply(`${qh.msg}`)
         return false

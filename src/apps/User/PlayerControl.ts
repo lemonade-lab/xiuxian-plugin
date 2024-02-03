@@ -9,7 +9,9 @@ import {
   Add_now_exp,
   Read_danyao,
   Write_danyao,
-  setFileValue
+  setFileValue,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class PlayerControl extends plugin {
@@ -86,8 +88,8 @@ export class PlayerControl extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -175,8 +177,8 @@ export class PlayerControl extends plugin {
       let action_end_time = action.end_time
       let now_time = new Date().getTime()
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -294,7 +296,7 @@ export class PlayerControl extends plugin {
 
     if (end_time > now_time) {
       //属于提前结束
-      time = parseInt((new Date().getTime() - start_time) / 1000 / 60)
+      time = (new Date().getTime() - start_time) / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -309,7 +311,7 @@ export class PlayerControl extends plugin {
       }
     } else {
       //属于结束了未结算
-      time = parseInt(action.time / 1000 / 60)
+      time = action.time / 1000 / 60
       //超过就按最低the算，即为满足30分钟才结算一次
       //如果是 >=16*33 ----   >=30
       for (let i = x; i > 0; i--) {
@@ -367,11 +369,10 @@ export class PlayerControl extends plugin {
     const cf = getConfig('xiuxian', 'xiuxian')
     let size = cf.biguan.size
     //增加thenow_exp
-    let xiuwei = parseInt(
+    let xiuwei =
       size * now_level_id * (player.Improving_cultivation_efficiency + 1)
-    )
     //恢复the血量
-    let blood = parseInt(player.血量上限 * 0.02)
+    let blood = player.血量上限 * 0.02
     //额外now_exp
     let other_xiuwei = 0
 

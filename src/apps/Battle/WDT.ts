@@ -7,7 +7,9 @@ import {
   Add_money,
   Add_HP,
   Add_血气,
-  zd_battle
+  zd_battle,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class WDT extends plugin {
@@ -44,7 +46,7 @@ export class WDT extends plugin {
       'xiuxian@1.4.0:' + A + ':last_game_time'
     )
     //设置游戏状态
-    if (last_game_timeA == 0) {
+    if (last_game_timeA == '0') {
       e.reply(`猜大小正在进行哦!`)
       return true
     }
@@ -106,8 +108,8 @@ export class WDT extends plugin {
       //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
-        let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((A_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (A_action_end_time - now_time) / 1000 / 60
+        let s = (A_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + A_action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return
       }
@@ -134,10 +136,8 @@ export class WDT extends plugin {
         let ishaveyss = await exist_najie_thing(A, '剑xx', '道具')
         if (!ishaveyss) {
           //如果A没有隐身水，直接返回不执行
-          let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
-          let s = parseInt(
-            (B_action_end_time - now_time - m * 60 * 1000) / 1000
-          )
+          let m = (B_action_end_time - now_time) / 1000 / 60
+          let s = (B_action_end_time - now_time - m * 60 * 1000) / 1000
           e.reply(
             '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
           )
@@ -152,8 +152,8 @@ export class WDT extends plugin {
     let last_biwu_time = await redis.get(
       'xiuxian@1.4.0:' + A + ':last_biwu_time'
     ) //获得上次打劫the时间戳,
-    last_biwu_time = parseInt(last_biwu_time)
-    let robTimeout = parseInt(60000 * cf.CD.biwu)
+    last_biwu_time = last_biwu_time
+    let robTimeout = 60000 * cf.CD.biwu
     if (nowTime < last_biwu_time + robTimeout) {
       let waittime_m = Math.trunc(
         (last_biwu_time + robTimeout - nowTime) / 60 / 1000
@@ -168,10 +168,10 @@ export class WDT extends plugin {
     let B_player = await Read_player(B)
     let A_player = await Read_player(A)
     let Time = cf.CD.couple //6个小时
-    let shuangxiuTimeout = parseInt(60000 * Time)
+    let shuangxiuTimeout = 60000 * Time
     let now_Time = new Date().getTime() //获取当前时间戳
     let last_timeA = await redis.get('xiuxian@1.4.0:' + A + ':last_biwu_time') //获得上次the时间戳,
-    last_timeA = parseInt(last_timeA)
+    last_timeA = last_timeA
     if (now_Time < last_timeA + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -184,7 +184,7 @@ export class WDT extends plugin {
     }
 
     let last_timeB = await redis.get('xiuxian@1.4.0:' + B + ':last_biwu_time') //获得上次the时间戳,
-    last_timeB = parseInt(last_timeB)
+    last_timeB = last_timeB
     if (now_Time < last_timeB + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000

@@ -3,9 +3,10 @@ import {
   existplayer,
   Read_player,
   isNotNull,
-  openAU
+  openAU,
+  getConfig
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class Auction extends plugin {
   constructor() {
     super({
@@ -48,13 +49,11 @@ export class Auction extends plugin {
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let auction = await redis.get('xiuxian:AuctionofficialTask')
+    let auction = JSON.parse(await redis.get('xiuxian:AuctionofficialTask'))
     if (!isNotNull(auction)) {
       e.reply('目前没有拍卖正在进行')
       return false
     }
-    auction = JSON.parse(auction)
-
     let msg = `___[星阁]___\n目前正在拍卖【${auction.thing.name}】\n`
     if (auction.last_offer_player === 0) {
       msg += '暂无人出价'
@@ -171,7 +170,7 @@ export class Auction extends plugin {
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     if (!(await redis.sIsMember(redisGlKey, String(e.group_id)))) return false
     // 是否到拍卖时间
-    let auction = await redis.get('xiuxian:AuctionofficialTask')
+    let auction = JSON.parse(await redis.get('xiuxian:AuctionofficialTask'))
     if (!isNotNull(auction)) {
       const { openHour, closeHour } = getConfig('xiuxian', 'xiuxian').Auction
       e.reply(`不在拍卖时间，开启时间为每天${openHour}时~${closeHour}时`)
@@ -179,7 +178,6 @@ export class Auction extends plugin {
     }
 
     let player = await Read_player(usr_qq)
-    auction = JSON.parse(auction)
     // let start_price = auction.start_price;
     let last_price = auction.last_price
     let new_price = e.msg.replace('#星阁出价', '')
@@ -189,7 +187,7 @@ export class Auction extends plugin {
     }
     new_price = Number(new_price)
     if (!new_price) {
-      new_price = parseInt(Math.ceil(last_price * 1.1))
+      new_price = Math.ceil(last_price * 1.1)
     } else {
       if (new_price < Math.ceil(last_price * 1.1)) {
         e.reply(`最新价格为${last_price}，每次加价不少于10 %！`)
@@ -229,12 +227,11 @@ export class Auction extends plugin {
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let auction = await redis.get('xiuxian:auction')
+    let auction = JSON.parse(await redis.get('xiuxian:auction'))
     if (!isNotNull(auction)) {
       e.reply('目前没有拍卖正在进行')
       return false
     }
-    auction = JSON.parse(auction)
     let tmp = ''
     if (auction.last_offer_player == 0) {
       tmp = '暂无人出价'

@@ -7,7 +7,9 @@ import {
   Add_najie_thing,
   Add_HP,
   Read_player,
-  zd_battle
+  zd_battle,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class Battle extends plugin {
@@ -59,7 +61,7 @@ export class Battle extends plugin {
       'xiuxian@1.4.0:' + A + ':last_game_time'
     )
     //设置游戏状态
-    if (last_game_timeA == 0) {
+    if (last_game_timeA == '0') {
       e.reply(`猜大小正在进行哦!`)
       return false
     }
@@ -135,15 +137,14 @@ export class Battle extends plugin {
       }
     }
 
-    let A_action = await redis.get('xiuxian@1.4.0:' + A + ':action')
-    A_action = JSON.parse(A_action)
+    let A_action = JSON.parse(await redis.get('xiuxian@1.4.0:' + A + ':action'))
     if (A_action != null) {
       let now_time = new Date().getTime()
       //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
-        let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((A_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (A_action_end_time - now_time) / 1000 / 60
+        let s = (A_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + A_action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -152,7 +153,7 @@ export class Battle extends plugin {
     let last_game_timeB = await redis.get(
       'xiuxian@1.4.0:' + B + ':last_game_time'
     )
-    if (last_game_timeB == 0) {
+    if (last_game_timeB == '0') {
       e.reply(`对方猜大小正在进行哦，等他赚够了再打劫也不迟!`)
       return false
     }
@@ -170,10 +171,8 @@ export class Battle extends plugin {
         let ishaveyss = await exist_najie_thing(A, '隐身水', '道具')
         if (!ishaveyss) {
           //如果A没有隐身水，直接返回不执行
-          let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
-          let s = parseInt(
-            (B_action_end_time - now_time - m * 60 * 1000) / 1000
-          )
+          let m = (B_action_end_time - now_time) / 1000 / 60
+          let s = (B_action_end_time - now_time - m * 60 * 1000) / 1000
           e.reply(
             '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
           )
@@ -187,9 +186,9 @@ export class Battle extends plugin {
     let last_dajie_time = await redis.get(
       'xiuxian@1.4.0:' + A + ':last_dajie_time'
     ) //获得上次打劫the时间戳,
-    last_dajie_time = parseInt(last_dajie_time)
+    last_dajie_time = last_dajie_time
     const cf = getConfig('xiuxian', 'xiuxian')
-    let robTimeout = parseInt(60000 * cf.CD.rob)
+    let robTimeout = 60000 * cf.CD.rob
     if (nowTime < last_dajie_time + robTimeout) {
       let waittime_m = Math.trunc(
         (last_dajie_time + robTimeout - nowTime) / 60 / 1000
@@ -278,8 +277,9 @@ export class Battle extends plugin {
         await Write_player(B, B_player)
         let time2 = 60 //时间（分钟）
         let action_time2 = 60000 * time2 //持续时间，单位毫秒
-        let action2 = await redis.get('xiuxian@1.4.0:' + A + ':action')
-        action2 = await JSON.parse(action2)
+        let action2 = JSON.parse(
+          await redis.get('xiuxian@1.4.0:' + A + ':action')
+        )
         action2.action = '禁闭'
         action2.end_time = new Date().getTime() + action_time2
         await redis.set(

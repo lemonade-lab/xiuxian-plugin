@@ -1,4 +1,4 @@
-import path from 'path'
+import { join } from 'path'
 import { AppName, cwd } from './config.js'
 export function supportGuoba() {
   return {
@@ -13,7 +13,7 @@ export function supportGuoba() {
       description: `xiuxian@1.4.0`,
       icon: 'mdi:stove',
       iconColor: '#d19f56',
-      iconPath: path.join(cwd, 'resources/img/xiuxian.png')
+      iconPath: join(cwd, 'resources/img/xiuxian.png')
     }
   }
 }

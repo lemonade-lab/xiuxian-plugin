@@ -1,26 +1,26 @@
-import { puppeteer } from '../../import.js'
-import data from './XiuxianData.js'
-import { getConfig } from './Config.js'
-import Show from './show.js'
-import { __PATH } from './PATH.js'
+import { puppeteer } from '../../../import.js'
+import { getConfig } from '../Config.js'
+import { Show } from '../show.js'
+import { __PATH } from '../base/PATH.js'
 import {
   GetPower,
+  Strand,
+  bigNumberTransform,
+  getPlayerAction,
+  get_random_talent
+} from '../xiuxian.js'
+import { data } from '../base/data.js'
+import {
   Read_Exchange,
   Read_Forum,
   Read_equipment,
   Read_najie,
   Read_player,
-  Read_qinmidu,
-  Strand,
-  Write_Exchange,
-  Write_Forum,
-  Write_qinmidu,
-  bigNumberTransform,
-  getPlayerAction,
-  get_random_talent,
-  isNotNull,
-  player_efficiency
-} from './xiuxian.js'
+  Read_qinmidu
+} from '../action/read.js'
+import { player_efficiency } from '../action/addmax.js'
+import { Write_Exchange, Write_Forum, Write_qinmidu } from '../action/write.js'
+import { isNotNull } from '../utils.js'
 
 /**
  * 返回该玩家the仙宠图片

@@ -1,8 +1,7 @@
-import Help from '../../model/help.js'
-import Help2 from '../../model/shituhelp.js'
 import md5 from 'md5'
-
-import { plugin } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
+import { helpData } from '../../model/index.js'
+import Help from '../../model/image/help.js'
 export class BotHelp extends plugin {
   constructor() {
     super({
@@ -65,10 +64,6 @@ export class BotHelp extends plugin {
   async shituhelp(e) {
     e.reply('维护中')
     return false
-    let data = await Help2.shituhelp(e)
-    if (!data) return false
-    let img = await this.cache(data)
-    await e.reply(img)
   }
 
   async cache(data) {

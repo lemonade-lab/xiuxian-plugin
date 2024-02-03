@@ -1,4 +1,4 @@
-import { plugin } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
 import {
   Read_player,
   existplayer,
@@ -10,7 +10,10 @@ import {
   Go,
   setu,
   Add_money,
-  Add_now_exp
+  Add_now_exp,
+  getConfig,
+  Show,
+  data
 } from '../../model/index.js'
 export class Games extends plugin {
   constructor() {
@@ -198,8 +201,8 @@ export class Games extends plugin {
     let last_game_time = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':last_game_time'
     )
-    last_game_time = parseInt(last_game_time)
-    let transferTimeout = parseInt(60000 * time)
+    last_game_time = last_game_time
+    let transferTimeout = 60000 * time
     if (now_time < last_game_time + transferTimeout) {
       let game_m = Math.trunc(
         (last_game_time + transferTimeout - now_time) / 60 / 1000
@@ -363,11 +366,10 @@ export class Games extends plugin {
       //积累
       if (isNotNull(player.金银坊胜场)) {
         player.金银坊胜场 = parseInt(player.金银坊胜场) + 1
-        player.金银坊收入 =
-          parseInt(player.金银坊收入) + parseInt(yazhu[usr_qq])
+        player.金银坊收入 = parseInt(player.金银坊收入) + yazhu[usr_qq]
       } else {
         player.金银坊胜场 = 1
-        player.金银坊收入 = parseInt(yazhu[usr_qq])
+        player.金银坊收入 = yazhu[usr_qq]
       }
       //把记录写入
       data.setData('player', usr_qq, player)
@@ -502,7 +504,7 @@ export class Games extends plugin {
     let last_timeA = await redis.get(
       'xiuxian@1.4.0:' + A + ':last_shuangxiu_time'
     ) //获得上次the时间戳,
-    last_timeA = parseInt(last_timeA)
+    last_timeA = last_timeA
     if (now_Time < last_timeA + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeA + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -516,7 +518,7 @@ export class Games extends plugin {
     let last_timeB = await redis.get(
       'xiuxian@1.4.0:' + B + ':last_shuangxiu_time'
     ) //获得上次the时间戳,
-    last_timeB = parseInt(last_timeB)
+    last_timeB = last_timeB
     if (now_Time < last_timeB + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_timeB + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -565,46 +567,46 @@ export class Games extends plugin {
       if (option > 0 && option <= 0.5) {
         x = 28000
         y = Math.trunc(xiuwei * x)
-        await Add_now_exp(A, parseInt(y))
-        await Add_now_exp(B, parseInt(y))
+        await Add_now_exp(A, y)
+        await Add_now_exp(B, y)
         await add_qinmidu(A, B, 30)
         e.reply(
           '你们双方情意相通，缠绵一晚，都增加了' +
-            parseInt(y) +
+            y +
             'now_exp,亲密度增加了30点'
         )
         return false
       } else if (option > 0.5 && option <= 0.6) {
         x = 21000
         y = Math.trunc(xiuwei * x)
-        await Add_now_exp(A, parseInt(y))
-        await Add_now_exp(B, parseInt(y))
+        await Add_now_exp(A, y)
+        await Add_now_exp(B, y)
         await add_qinmidu(A, B, 20)
         e.reply(
           '你们双方交心交神，努力修炼，都增加了' +
-            parseInt(y) +
+            y +
             'now_exp,亲密度增加了20点'
         )
       } else if (option > 0.6 && option <= 0.7) {
         x = 14000
         y = Math.trunc(xiuwei * x)
-        await Add_now_exp(A, parseInt(y))
-        await Add_now_exp(B, parseInt(y))
+        await Add_now_exp(A, y)
+        await Add_now_exp(B, y)
         await add_qinmidu(A, B, 15)
         e.reply(
           '你们双方共同修炼，过程平稳，都增加了' +
-            parseInt(y) +
+            y +
             'now_exp,亲密度增加了15点'
         )
       } else if (option > 0.7 && option <= 0.9) {
         x = 520
         y = Math.trunc(1 * x)
-        await Add_now_exp(A, parseInt(y))
-        await Add_now_exp(B, parseInt(y))
+        await Add_now_exp(A, y)
+        await Add_now_exp(B, y)
         await add_qinmidu(A, B, 10)
         e.reply(
           '你们双方努力修炼，但是并进不了状态，都增加了' +
-            parseInt(y) +
+            y +
             'now_exp,亲密度增加了10点'
         )
       } else {

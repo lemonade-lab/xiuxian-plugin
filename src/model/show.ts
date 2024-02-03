@@ -1,6 +1,6 @@
-import base from './base.js'
+import base from './image/base.js'
 
-export default class Game extends base {
+export class Show extends base {
   constructor() {
     super()
     this.model = 'show'

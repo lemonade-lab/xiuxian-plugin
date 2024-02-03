@@ -4,7 +4,7 @@ import {
   existplayer,
   get_random_talent,
   getLastsign,
-  Write_equipment,
+  Update_equipment,
   Write_player,
   Write_najie,
   shijianc,
@@ -16,7 +16,9 @@ import {
   __PATH,
   Add_HP,
   Add_now_exp,
-  Add_najie_thing
+  Add_najie_thing,
+  getConfig,
+  data
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class UserStart extends plugin {
@@ -118,7 +120,7 @@ export class UserStart extends plugin {
       ),
       magic_weapon: data.equipment_list.find((item) => item.name == '廉价炮仗')
     }
-    await Write_equipment(usr_qq, new_equipment)
+    await Update_equipment(usr_qq, new_equipment)
     //初始化纳戒
     let new_najie = {
       等级: 1,
@@ -184,10 +186,10 @@ export class UserStart extends plugin {
     let lastrestart_time = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':last_reCreate_time'
     ) //获得上次重生时间戳,
-    lastrestart_time = parseInt(lastrestart_time)
+    lastrestart_time = lastrestart_time
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.reborn
-    let rebornTime = parseInt(60000 * time)
+    let rebornTime = 60000 * time
     if (nowTime < lastrestart_time + rebornTime) {
       let waittime_m = Math.trunc(
         (lastrestart_time + rebornTime - nowTime) / 60 / 1000
@@ -227,15 +229,13 @@ export class UserStart extends plugin {
       return false
     } else if (choice == '断绝此生') {
       //得到重生次数
-      let acount = await redis.get(
-        'xiuxian@1.4.0:' + usr_qq + ':reCreate_acount'
+      let acount = Number(
+        await redis.get('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount')
       )
-      //
       if (acount >= 15) {
         e.reply('灵魂虚弱，已不可转世！')
         return false
       }
-      acount = Number(acount)
       acount++
       //重生牵扯到宗门模块
       let player = await data.getData('player', usr_qq)
@@ -366,7 +366,7 @@ export class UserStart extends plugin {
       let lastsetname_time = await redis.get(
         'xiuxian@1.4.0:' + usr_qq + ':last_setname_time'
       ) //获得上次改名日期,
-      lastsetname_time = parseInt(lastsetname_time)
+      lastsetname_time = lastsetname_time
       lastsetname_time = await shijianc(lastsetname_time)
       if (
         Today.Y == lastsetname_time.Y &&
@@ -410,7 +410,7 @@ export class UserStart extends plugin {
         'xiuxian@1.4.0:' + usr_qq + ':last_setxuanyan_time'
       )
       //获得上次改道宣日期,
-      lastsetxuanyan_time = parseInt(lastsetxuanyan_time)
+      lastsetxuanyan_time = lastsetxuanyan_time
       lastsetxuanyan_time = await shijianc(lastsetxuanyan_time)
       if (
         Today.Y == lastsetxuanyan_time.Y &&
@@ -441,6 +441,7 @@ export class UserStart extends plugin {
     let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000) //获得昨天日期
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign(usr_qq) //获得上次签到日期
+    if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
       Today.M == lastsign_time.M &&

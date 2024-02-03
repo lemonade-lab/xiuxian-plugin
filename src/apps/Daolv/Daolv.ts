@@ -1,5 +1,4 @@
-import fs from 'fs'
-import { fstadd_qinmidu, sleep, __PATH } from '../../model/index.js'
+import { readdirSync } from 'fs'
 import {
   exist_najie_thing,
   existplayer,
@@ -8,7 +7,10 @@ import {
   Read_qinmidu,
   Write_qinmidu,
   add_qinmidu,
-  Add_najie_thing
+  Add_najie_thing,
+  fstadd_qinmidu,
+  sleep,
+  __PATH
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 let x = 0
@@ -63,7 +65,7 @@ export class Daolv extends plugin {
     let msg = [] //回复the消息
     msg.push(`\n-----qq----- -亲密度-`)
     //遍历所有人theqq
-    let File = fs.readdirSync(__PATH.player_path)
+    let File = readdirSync(__PATH.player_path)
     File = File.filter((file) => file.endsWith('.json'))
     for (let i = 0; i < File.length; i++) {
       let B = File[i].replace('.json', '')
@@ -103,8 +105,8 @@ export class Daolv extends plugin {
       //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
-        let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((A_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (A_action_end_time - now_time) / 1000 / 60
+        let s = (A_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + A_action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -137,8 +139,8 @@ export class Daolv extends plugin {
       //人物任务the动作是否结束
       let B_action_end_time = B_action.end_time
       if (now_time <= B_action_end_time) {
-        let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((B_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (B_action_end_time - now_time) / 1000 / 60
+        let s = (B_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply(
           '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
         )
@@ -217,8 +219,8 @@ export class Daolv extends plugin {
       //人物任务the动作是否结束
       let A_action_end_time = A_action.end_time
       if (now_time <= A_action_end_time) {
-        let m = parseInt((A_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((A_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (A_action_end_time - now_time) / 1000 / 60
+        let s = (A_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + A_action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -251,8 +253,8 @@ export class Daolv extends plugin {
       //人物任务the动作是否结束
       let B_action_end_time = B_action.end_time
       if (now_time <= B_action_end_time) {
-        let m = parseInt((B_action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((B_action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (B_action_end_time - now_time) / 1000 / 60
+        let s = (B_action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply(
           '对方正在' + B_action.action + '中,剩余时间:' + m + '分' + s + '秒'
         )

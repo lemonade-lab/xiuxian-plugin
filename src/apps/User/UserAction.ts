@@ -6,7 +6,8 @@ import {
   Add_money,
   __PATH,
   Go,
-  get_najie_img
+  get_najie_img,
+  getConfig
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class UserAction extends plugin {

@@ -6,10 +6,11 @@ import {
   existshop,
   Write_shop,
   Read_shop,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-import { plugin } from '../../../import.js'
+import { common, plugin } from '../../../import.js'
 export class Xijietask extends plugin {
   constructor() {
     super({
@@ -41,8 +42,9 @@ export class Xijietask extends plugin {
       log_mag = log_mag + '查询' + player_id + '是否有动作,'
       //得到动作
 
-      let action = await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      action = await JSON.parse(action)
+      let action = await JSON.parse(
+        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
+      )
       //不为空，存在动作
       if (action != null) {
         let push_address //消息推送地址
@@ -56,7 +58,7 @@ export class Xijietask extends plugin {
         }
 
         //最后发送the消息
-        let msg = [segment.at(Number(player_id))]
+        let msg: any[] = [segment.at(Number(player_id))]
         //动作结束时间
         let end_time = action.end_time
         //现在the时间

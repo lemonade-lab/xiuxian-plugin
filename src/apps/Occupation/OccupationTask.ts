@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { getConfig, isNotNull } from '../../model/index.js'
+import { data, getConfig, isNotNull } from '../../model/index.js'
 import { Add_najie_thing, Add_职业经验 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { plugin } from '../../../import.js'

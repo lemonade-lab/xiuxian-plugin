@@ -1,4 +1,4 @@
-import base from './base.js'
+import base from './image/base.js'
 import { getConfig } from './Config.js'
 export default class Help2 extends base {
   model = null

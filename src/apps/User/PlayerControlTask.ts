@@ -7,7 +7,8 @@ import {
   Read_danyao,
   Write_danyao,
   setFileValue,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'

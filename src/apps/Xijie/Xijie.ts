@@ -1,5 +1,7 @@
-import { Show, __PATH, data } from '../../model/index.js'
 import {
+  Show,
+  __PATH,
+  data,
   existplayer,
   Read_player,
   Add_money,
@@ -72,15 +74,16 @@ export class Xijie extends plugin {
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     let now_time = new Date().getTime()
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time
       if (now_time <= action_end_time) {
-        let m = parseInt((action_end_time - now_time) / 1000 / 60)
-        let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+        let m = (action_end_time - now_time) / 1000 / 60
+        let s = (action_end_time - now_time - m * 60 * 1000) / 1000
         e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
         return false
       }
@@ -88,7 +91,7 @@ export class Xijie extends plugin {
     let lastxijie_time = await redis.get(
       'xiuxian@1.4.0:' + usr_qq + ':lastxijie_time'
     )
-    lastxijie_time = parseInt(lastxijie_time)
+    lastxijie_time = lastxijie_time
     if (now_time < lastxijie_time + 7200000) {
       let lastxijie_m = Math.trunc(
         (lastxijie_time + 7200000 - now_time) / 60 / 1000
@@ -153,7 +156,6 @@ export class Xijie extends plugin {
     shop[i].state = 1
     await Write_shop(shop)
     if (player.talent == null || player.talent == undefined) {
-      player.talent = await s()
       player.Improving_cultivation_efficiency += player.talent.eff
     }
     //锁定属性
@@ -190,7 +192,7 @@ export class Xijie extends plugin {
       A_player: A_player
     }
     if (e.isGroup) {
-      arr.group_id = e.group_id
+      arr['group_id'] = e.group_id
     }
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
     await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastxijie_time', now_time)
@@ -213,8 +215,9 @@ export class Xijie extends plugin {
       return false
     }
     //查询redis中the人物动作
-    let action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
-    action = JSON.parse(action)
+    let action = JSON.parse(
+      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    )
     if (action != null) {
       //人物有动作查询动作结束时间
       let action_end_time = action.end_time

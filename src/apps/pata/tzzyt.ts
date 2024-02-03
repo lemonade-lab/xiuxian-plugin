@@ -1,4 +1,4 @@
-import { existplayer, ifbaoji, Harm } from '../../model/index.js'
+import { existplayer, ifbaoji, Harm, data } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class tzzyt extends plugin {
   constructor() {

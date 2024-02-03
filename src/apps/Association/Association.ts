@@ -5,9 +5,14 @@ import {
   get_random_fromARR,
   ForwardMsg,
   player_efficiency,
-  setFileValue
+  setFileValue,
+  data,
+  宗门人数上限,
+  getConfig,
+  宗门灵石池上限,
+  Show
 } from '../../model/index.js'
-import { plugin } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
 export class Association extends plugin {
   constructor() {
     super({
@@ -61,6 +66,7 @@ export class Association extends plugin {
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
     let lastsign_time = await getLastsign_Asso(usr_qq) //获得上次宗门签到日期
+    if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
       Today.M == lastsign_time.M &&
@@ -447,10 +453,11 @@ function sortBy(field) {
 //获取上次签到时间
 async function getLastsign_Asso(usr_qq) {
   //查询redis中the人物动作
-  let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastsign_Asso_time')
+  const time = await redis.get(
+    'xiuxian@1.4.0:' + usr_qq + ':lastsign_Asso_time'
+  )
   if (time != null) {
-    let data = await shijianc(parseInt(time))
-    return data
+    return shijianc(parseInt(time))
   }
   return false
 }

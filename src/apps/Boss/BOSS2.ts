@@ -4,12 +4,14 @@ import {
   ForwardMsg,
   Add_HP,
   Harm,
-  zd_battle
+  zd_battle,
+  data,
+  getConfig
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 
 export class BOSS2 extends plugin {
-  constructor() {
+  constructor(e) {
     super({
       name: 'Yunzai_Bot_修仙_BOSS',
       dsc: 'BOSS模块',
@@ -42,7 +44,7 @@ export class BOSS2 extends plugin {
     this.task = {
       cron: this.set.BossTask2,
       name: 'BossTask2',
-      fnc: () => this.CreateWorldBoss()
+      fnc: () => this.CreateWorldBoss(e)
     }
   }
 
@@ -149,9 +151,9 @@ export class BOSS2 extends plugin {
     let usr_qq = e.user_id
     let Time = 5
     let now_Time = new Date().getTime() //获取当前时间戳
-    Time = parseInt(60000 * Time)
+    Time = 60000 * Time
     let last_time = await redis.get('xiuxian@1.4.0:' + usr_qq + 'BOSSCD') //获得上次the时间戳,
-    last_time = parseInt(last_time)
+    last_time = last_time
     if (now_Time < last_time + Time) {
       let Couple_m = Math.trunc((last_time + Time - now_Time) / 60 / 1000)
       let Couple_s = Math.trunc(((last_time + Time - now_Time) % 60000) / 1000)
@@ -174,8 +176,8 @@ export class BOSS2 extends plugin {
         let action_end_time = action.end_time
         let now_time = new Date().getTime()
         if (now_time <= action_end_time) {
-          let m = parseInt((action_end_time - now_time) / 1000 / 60)
-          let s = parseInt((action_end_time - now_time - m * 60 * 1000) / 1000)
+          let m = (action_end_time - now_time) / 1000 / 60
+          let s = (action_end_time - now_time - m * 60 * 1000) / 1000
           e.reply('正在' + action.action + '中,剩余时间:' + m + '分' + s + '秒')
           return false
         }
@@ -207,7 +209,7 @@ export class BOSS2 extends plugin {
         return false
       }
       let PlayerRecordJSON, Userid
-      if (PlayerRecord == 0) {
+      if (PlayerRecord == '0') {
         let QQGroup = [],
           DamageGroup = [],
           Name = []
@@ -239,9 +241,9 @@ export class BOSS2 extends plugin {
       let TotalDamage = 0
       let Boss = {
         name: '银角大王',
-        攻击: parseInt(player.攻击 * (0.8 + 0.4 * Math.random())),
-        防御: parseInt(player.防御 * (0.8 + 0.4 * Math.random())),
-        now_bool: parseInt(player.血量上限 * (0.8 + 0.4 * Math.random())),
+        攻击: player.攻击 * (0.8 + 0.4 * Math.random()),
+        防御: player.防御 * (0.8 + 0.4 * Math.random()),
+        now_bool: player.血量上限 * (0.8 + 0.4 * Math.random()),
         暴击率: player.暴击率,
         talent: player.talent,
         法球倍率: player.talent.法球倍率
@@ -411,8 +413,8 @@ export class BOSS2 extends plugin {
 //初始化金角大王
 async function InitWorldBoss() {
   let AverageDamageStruct = await GetAverageDamage()
-  let player_quantity = parseInt(AverageDamageStruct.player_quantity)
-  let AverageDamage = parseInt(AverageDamageStruct.AverageDamage)
+  let player_quantity = AverageDamageStruct.player_quantity
+  let AverageDamage = AverageDamageStruct.AverageDamage
   let Reward = 6000000
   WorldBOSSBattleLock = 0
   if (player_quantity == 0) {
@@ -507,7 +509,7 @@ async function GetAverageDamage() {
   let TotalPlayer = 0
   for (let i = 0; i < File.length; i++) {
     let this_qq = File[i].replace('.json', '')
-    this_qq = parseInt(this_qq)
+    this_qq = this_qq
     let player = await data.getData('player', this_qq)
     if (player.level_id > 21 && player.level_id < 42 && player.lunhui == 0) {
       temp[TotalPlayer] = parseInt(player.攻击)

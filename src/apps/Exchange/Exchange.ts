@@ -52,8 +52,8 @@ export class Exchange extends plugin {
     //获取当前时间
     let now_time = new Date().getTime()
     let ExchangeCD = await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
-    ExchangeCD = parseInt(ExchangeCD)
-    let transferTimeout = parseInt(60000 * time0)
+    ExchangeCD = ExchangeCD
+    let transferTimeout = 60000 * time0
     if (now_time < ExchangeCD + transferTimeout) {
       let ExchangeCDm = Math.trunc(
         (ExchangeCD + transferTimeout - now_time) / 60 / 1000
@@ -277,8 +277,8 @@ export class Exchange extends plugin {
     //获取当前时间
     let now_time = new Date().getTime()
     let ExchangeCD = await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
-    ExchangeCD = parseInt(ExchangeCD)
-    let transferTimeout = parseInt(60000 * time0)
+    ExchangeCD = ExchangeCD
+    let transferTimeout = 60000 * time0
     if (now_time < ExchangeCD + transferTimeout) {
       let ExchangeCDm = Math.trunc(
         (ExchangeCD + transferTimeout - now_time) / 60 / 1000

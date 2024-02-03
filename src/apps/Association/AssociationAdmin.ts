@@ -3,7 +3,13 @@ import {
   shijianc,
   player_efficiency,
   convert2integer,
-  setFileValue
+  setFileValue,
+  data,
+  宗门人数上限,
+  getConfig,
+  副宗主人数上限,
+  内门弟子上限,
+  长老人数上限
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class AssociationAdmin extends plugin {
@@ -285,33 +291,37 @@ export class AssociationAdmin extends plugin {
       return false
     }
     let full_apmt = ass.所有成员.length
-    //检索输入the第一个职位
-    let reg = new RegExp(/副宗主|长老|外门弟子|内门弟子/)
-    let appointment = reg.exec(e.msg) //获取输入the职位
-    if (appointment == now_apmt) {
-      e.reply(`此人已经是本宗门the${appointment}`)
+
+    let name = '宗主'
+
+    if (/宗主/.test(e.msg)) {
+      e.reply(`此人已经是本宗门the${name}`)
       return false
     }
-    if (appointment == '长老') {
+    if (/长老/.test(e.msg)) {
+      name = '长老'
       full_apmt = 长老人数上限[ass.宗门等级 - 1]
     }
-    if (appointment == '副宗主') {
+    if (/副宗主/.test(e.msg)) {
+      name = '副宗主'
       full_apmt = 副宗主人数上限[ass.宗门等级 - 1]
-    } else if (appointment == '内门弟子') {
+    } else if (/内门弟子/.test(e.msg)) {
+      name = '内门弟子'
       full_apmt = 内门弟子上限[ass.宗门等级 - 1]
     }
-    if (ass[appointment].length >= full_apmt) {
-      e.reply(`本宗门the${appointment}人数已经达到上限`)
+    //
+    if (ass[name].length >= full_apmt) {
+      e.reply(`本宗门the${name}人数已经达到上限`)
       return false
     }
-    member.宗门.职位 = appointment //成员存档里改职位
+    member.宗门.职位 = name //成员存档里改职位
     ass[now_apmt] = ass[now_apmt].filter((item) => item != member_qq) //原来the职位表删掉这个B
-    ass[appointment].push(member_qq) //新the职位表加入这个B
+    ass[name].push(member_qq) //新the职位表加入这个B
     data.setData('player', member_qq, member) //记录到存档
     data.setAssociation(ass.宗门名称, ass) //记录到宗门
     e.reply([
       segment.at(member_qq),
-      `${ass.宗门名称} ${player.宗门.职位} 已经成功将${member.name}任命为${appointment}!`
+      `${ass.宗门名称} ${player.宗门.职位} 已经成功将${member.name}任命为${name}!`
     ])
     return false
   }

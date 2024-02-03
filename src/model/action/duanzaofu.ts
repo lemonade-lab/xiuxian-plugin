@@ -1,8 +1,10 @@
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
-import data from './XiuxianData.js'
-import { Write_player } from './xiuxian.js'
-import { __PATH } from './PATH.js'
+import { __PATH } from '../base/PATH.js'
+import { data } from '../base/data.js'
+//
+import { Read_tripod, readall } from './read.js'
+import { Write_duanlu, Write_player } from './write.js'
 
 export function settripod(qq) {
   let tripod1
@@ -56,34 +58,6 @@ export function looktripod(qq) {
   return 0
 }
 
-export function Read_mytripod(qq) {
-  let tripod
-  try {
-    tripod = Read_tripod()
-  } catch {
-    Write_duanlu([])
-    tripod = Read_tripod()
-  }
-  for (let item of tripod) {
-    if (qq == item.qq) {
-      return item
-    }
-  }
-}
-
-export function Read_tripod() {
-  return JSON.parse(readFileSync(join(`${__PATH.duanlu}/duanlu.json`), 'utf8'))
-}
-
-export function Write_duanlu(duanlu) {
-  writeFileSync(
-    join(__PATH.duanlu, `duanlu.json`),
-    JSON.stringify(duanlu),
-    'utf8'
-  )
-  return
-}
-
 //数量矫正, 违规数量改成1
 export function jiaozheng(value) {
   let size = value
@@ -108,12 +82,6 @@ export function readthat(thing_name, weizhi) {
     }
   }
   return
-}
-
-export function readall(weizhi) {
-  return JSON.parse(
-    readFileSync(join(`${__PATH.lib_path}/${weizhi}.json`), 'utf8')
-  )
 }
 
 export function getxuanze(shuju, linggentype) {
@@ -193,19 +161,6 @@ export function Restraint(shuju, main) {
   houzui = `地${main}双生`
   jiaceng = 0.08
   return [houzui, jiaceng]
-}
-
-export function Writeit(custom) {
-  writeFileSync(
-    join(__PATH.custom, `custom.json`),
-    JSON.stringify(custom),
-    'utf8'
-  )
-  return
-}
-
-export function Read_it() {
-  return JSON.parse(readFileSync(join(`${__PATH.custom}/custom.json`), 'utf8'))
 }
 
 export async function alluser() {
