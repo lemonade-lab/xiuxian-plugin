@@ -3,42 +3,42 @@ import { Read_najie, Read_player, Read_qinmidu, Read_shitu } from './read'
 import { Write_najie, Write_player, Write_qinmidu, Write_shitu } from './write'
 import { isNotNull } from '../utils'
 
-export async function Add_najie_money(usr_qq, lingshi) {
-  let najie = await Read_najie(usr_qq)
+export async function Add_najie_money(user_id, lingshi) {
+  let najie = await Read_najie(user_id)
   najie.money += Math.trunc(lingshi)
-  await Write_najie(usr_qq, najie)
+  await Write_najie(user_id, najie)
   return
 }
 
 //now_exp数量和money数量正增加,负减少
 //使用时记得加await
-export async function Add_money(usr_qq, money数量 = 0) {
-  let player = await Read_player(usr_qq)
+export async function Add_money(user_id, money数量 = 0) {
+  let player = await Read_player(user_id)
   player.money += Math.trunc(money数量)
-  await Write_player(usr_qq, player)
+  await Write_player(user_id, player)
   return
 }
 
-export async function Add_now_exp(usr_qq, now_exp数量 = 0) {
-  let player = await Read_player(usr_qq)
+export async function Add_now_exp(user_id, now_exp数量 = 0) {
+  let player = await Read_player(user_id)
   player.now_exp += Math.trunc(now_exp数量)
-  await Write_player(usr_qq, player)
+  await Write_player(user_id, player)
   return
 }
-export async function Add_魔道值(usr_qq, 魔道值 = 0) {
-  let player = await Read_player(usr_qq)
+export async function Add_魔道值(user_id, 魔道值 = 0) {
+  let player = await Read_player(user_id)
   player.魔道值 += Math.trunc(魔道值)
-  await Write_player(usr_qq, player)
+  await Write_player(user_id, player)
   return
 }
-export async function Add_血气(usr_qq, 血气 = 0) {
-  let player = await Read_player(usr_qq)
+export async function Add_血气(user_id, 血气 = 0) {
+  let player = await Read_player(user_id)
   player.血气 += Math.trunc(血气)
-  await Write_player(usr_qq, player)
+  await Write_player(user_id, player)
   return
 }
-export async function Add_HP(usr_qq, blood = 0) {
-  let player = await Read_player(usr_qq)
+export async function Add_HP(user_id, blood = 0) {
+  let player = await Read_player(user_id)
   player.now_bool += Math.trunc(blood)
   if (player.now_bool > player.血量上限) {
     player.now_bool = player.血量上限
@@ -46,17 +46,17 @@ export async function Add_HP(usr_qq, blood = 0) {
   if (player.now_bool < 0) {
     player.now_bool = 0
   }
-  await Write_player(usr_qq, player)
+  await Write_player(user_id, player)
   return
 }
 /**
  *
- * @param {*} usr_qq 用户qq
+ * @param {*} user_id 用户qq
  * @param {*} exp 经验值
  * @returns
  */
-export async function Add_职业经验(usr_qq, exp = 0) {
-  let player = await Read_player(usr_qq)
+export async function Add_职业经验(user_id, exp = 0) {
+  let player = await Read_player(user_id)
   if (exp == 0) {
     return
   }
@@ -75,24 +75,24 @@ export async function Add_职业经验(usr_qq, exp = 0) {
   }
   player.occupation_exp = exp
   player.occupation_level = level
-  await Write_player(usr_qq, player)
+  await Write_player(user_id, player)
   return
 }
 
 /**
  * 增加减少纳戒内物品
- * @param usr_qq 操作存档theqq号
+ * @param user_id 操作存档theqq号
  * @param thing_name  仙宠名称
  * @param n  操作the数量,取+增加,取 -减少
  * @param thing_level  仙宠等级
  * @returns 无
  */
-export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
+export async function Add_仙宠(user_id, thing_name, n, thing_level = null) {
   let x = Number(n)
   if (x == 0) {
     return
   }
-  let najie = await Read_najie(usr_qq)
+  let najie = await Read_najie(user_id)
   let trr = najie.仙宠.find(
     (item) => item.name == thing_name && item.等级 == thing_level
   )
@@ -120,7 +120,7 @@ export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
     najie.仙宠.find(
       (item) => item.name == name && item.等级 == newthing.等级
     ).islockd = 0
-    await Write_najie(usr_qq, najie)
+    await Write_najie(user_id, najie)
     return
   }
   najie.仙宠.find((item) => item.name == name && item.等级 == trr.等级).数量 +=
@@ -134,7 +134,7 @@ export async function Add_仙宠(usr_qq, thing_name, n, thing_level = null) {
       (item) => item.name != thing_name || item.等级 != trr.等级
     )
   }
-  await Write_najie(usr_qq, najie)
+  await Write_najie(user_id, najie)
   return
 }
 
@@ -232,4 +232,23 @@ export async function fstadd_shitu(A) {
   shitu.push(player)
   await Write_shitu(shitu)
   return
+}
+
+/**
+ * 增加player文件某属性the值（在原本the基础上增加）
+ * @param user_id
+ * @param num 属性thevalue
+ * @param type 修改the属性
+ * @return  false  falses {Promise<void>}
+ */
+export async function setFileValue(user_id, num, type) {
+  let user_data = data.getData('player', user_id)
+  let current_num = user_data[type] //当前money数量
+  let new_num = current_num + num
+  if (type == 'now_bool' && new_num > user_data.血量上限) {
+    new_num = user_data.血量上限 //治疗血量需要判读上限
+  }
+  user_data[type] = new_num
+  await data.setData('player', user_id, user_data)
+  return false
 }

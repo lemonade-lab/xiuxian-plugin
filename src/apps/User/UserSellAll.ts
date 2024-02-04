@@ -76,12 +76,12 @@ export class UserSellAll extends plugin {
     })
   }
   async all_zhuangbei(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //检索方法
-    let najie = await data.getData('najie', usr_qq)
-    let player = await Read_player(usr_qq)
+    let najie = await data.getData('najie', user_id)
+    let player = await Read_player(user_id)
     let sanwei = []
     sanwei[0] =
       data.Level_list.find((item) => item.level_id == player.level_id)
@@ -101,7 +101,7 @@ export class UserSellAll extends plugin {
       player.生命加成 +
       data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
         .基础血量
-    let equipment = await data.getData('equipment', usr_qq)
+    let equipment = await data.getData('equipment', user_id)
     //智能选择装备
     let type = ['weapon', 'protective_clothing', 'magic_weapon']
     for (let j of type) {
@@ -143,7 +143,7 @@ export class UserSellAll extends plugin {
           }
         }
       }
-      if (max_equ) await instead_equipment(usr_qq, max_equ)
+      if (max_equ) await instead_equipment(user_id, max_equ)
     }
     let img = await get_equipment_img(e)
     e.reply(img)
@@ -151,11 +151,11 @@ export class UserSellAll extends plugin {
   }
 
   async all_locked(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let wupin = [
       '装备',
       '丹药',
@@ -187,17 +187,17 @@ export class UserSellAll extends plugin {
         l.islockd = 1
       }
     }
-    await Write_najie(usr_qq, najie)
+    await Write_najie(user_id, najie)
     e.reply(`一键锁定完成`)
     return false
   }
 
   async all_unlocked(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let wupin = [
       '装备',
       '丹药',
@@ -229,7 +229,7 @@ export class UserSellAll extends plugin {
         l.islockd = 0
       }
     }
-    await Write_najie(usr_qq, najie)
+    await Write_najie(user_id, najie)
     e.reply(`一键解锁完成`)
     return false
   }
@@ -296,11 +296,11 @@ export class UserSellAll extends plugin {
     return false
   }
   async Sell_all_huishou(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let lingshi = 0
     let wupin = [
       '装备',
@@ -334,7 +334,7 @@ export class UserSellAll extends plugin {
         if (thing_exist) {
           continue
         }
-        await Add_najie_thing(usr_qq, l.name, l.class, -l.数量, l.pinji)
+        await Add_najie_thing(user_id, l.name, l.class, -l.数量, l.pinji)
         if (l.class == '材料' || l.class == '草药') {
           lingshi += l.出售价 * l.数量
         } else {
@@ -342,21 +342,21 @@ export class UserSellAll extends plugin {
         }
       }
     }
-    await Add_money(usr_qq, lingshi)
+    await Add_money(user_id, lingshi)
     e.reply(`回收成功!  获得${lingshi}money `)
     return false
   }
   async locked(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //命令判断
     let msg = e.msg.replace(/^(#|\/)/, '')
     let un_lock = msg.substr(0, 2)
     let thing = msg.substr(2).split('*')
     let thing_name = thing[0]
-    let najie = await Read_najie(usr_qq)
+    let najie = await Read_najie(user_id)
     thing[0] = parseInt(thing[0])
     let thing_pinji
     //装备优化
@@ -396,7 +396,7 @@ export class UserSellAll extends plugin {
     let ifexist
     if (un_lock == '锁定') {
       ifexist = await re_najie_thing(
-        usr_qq,
+        user_id,
         thing_name,
         thing_exist.class,
         thing_pinji,
@@ -408,7 +408,7 @@ export class UserSellAll extends plugin {
       }
     } else if (un_lock == '解锁') {
       ifexist = await re_najie_thing(
-        usr_qq,
+        user_id,
         thing_name,
         thing_exist.class,
         thing_pinji,
@@ -430,12 +430,12 @@ export class UserSellAll extends plugin {
   }
   //一键出售
   async Sell_all_comodities(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let commodities_price = 0
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let wupin = [
       '装备',
       '丹药',
@@ -465,12 +465,12 @@ export class UserSellAll extends plugin {
           if (l && l.islockd == 0) {
             //纳戒中the数量
             let quantity = l.数量
-            await Add_najie_thing(usr_qq, l.name, l.class, -quantity, l.pinji)
+            await Add_najie_thing(user_id, l.name, l.class, -quantity, l.pinji)
             commodities_price = commodities_price + l.出售价 * quantity
           }
         }
       }
-      await Add_money(usr_qq, commodities_price)
+      await Add_money(user_id, commodities_price)
       e.reply(`出售成功!  获得${commodities_price}money `)
       return false
     }
@@ -515,9 +515,9 @@ export class UserSellAll extends plugin {
     this.finish('noticeSellAllGoods')
     /**出售*/
 
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let commodities_price = 0
     let wupin = [
       '装备',
@@ -534,76 +534,76 @@ export class UserSellAll extends plugin {
         if (l && l.islockd == 0) {
           //纳戒中the数量
           let quantity = l.数量
-          await Add_najie_thing(usr_qq, l.name, l.class, -quantity, l.pinji)
+          await Add_najie_thing(user_id, l.name, l.class, -quantity, l.pinji)
           commodities_price = commodities_price + l.出售价 * quantity
         }
       }
     }
-    await Add_money(usr_qq, commodities_price)
+    await Add_money(user_id, commodities_price)
     e.reply(`出售成功!  获得${commodities_price}money `)
     return false
   }
 
   //#(装备|服用|使用)物品*数量
   async all_xiuweidan(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //检索方法
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let xiuwei = 0
     for (let l of najie.丹药) {
       if (l.type == 'now_exp') {
         //纳戒中the数量
-        let quantity = await exist_najie_thing(usr_qq, l.name, l.class)
-        await Add_najie_thing(usr_qq, l.name, l.class, -quantity)
+        let quantity = await exist_najie_thing(user_id, l.name, l.class)
+        await Add_najie_thing(user_id, l.name, l.class, -quantity)
         xiuwei = xiuwei + l.exp * quantity
       }
     }
-    await Add_now_exp(usr_qq, xiuwei)
+    await Add_now_exp(user_id, xiuwei)
     e.reply(`服用成功,now_exp增加${xiuwei}`)
     return false
   }
 
   //#(装备|服用|使用)物品*数量
   async all_xueqidan(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
 
     //检索方法
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let xueqi = 0
     for (let l of najie.丹药) {
       if (l.type == '血气') {
         //纳戒中the数量
-        let quantity = await exist_najie_thing(usr_qq, l.name, l.class)
-        await Add_najie_thing(usr_qq, l.name, l.class, -quantity)
+        let quantity = await exist_najie_thing(user_id, l.name, l.class)
+        await Add_najie_thing(user_id, l.name, l.class, -quantity)
         xueqi = xueqi + l.xueqi * quantity
       }
     }
-    await Add_血气(usr_qq, xueqi)
+    await Add_血气(user_id, xueqi)
     e.reply(`服用成功,血气增加${xueqi}`)
     return false
   }
 
   async all_learn(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //检索方法
-    let najie = await data.getData('najie', usr_qq)
+    let najie = await data.getData('najie', user_id)
     let gongfa = []
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let name = ''
     for (let l of najie.skill) {
       let islearned = player.studytheskill.find((item) => item == l.name)
       if (!islearned) {
-        await Add_najie_thing(usr_qq, l.name, 'skill', -1)
-        await Add_player_studyskill(usr_qq, l.name)
+        await Add_najie_thing(user_id, l.name, 'skill', -1)
+        await Add_player_studyskill(user_id, l.name)
         name = name + ' ' + l.name
       }
     }

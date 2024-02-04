@@ -71,11 +71,11 @@ export class BlessPlace extends plugin {
 
   //入驻洞天
   async Settled_Blessed_Place(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //用户不存在
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     //无宗门
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
@@ -107,7 +107,7 @@ export class BlessPlace extends plugin {
 
     //洞天是否已绑定宗门
 
-    let dir = data.filePathMap.association
+    let dir = data.__PATH.association
     let File = readdirSync(dir)
     File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
 
@@ -208,10 +208,10 @@ export class BlessPlace extends plugin {
   }
 
   async exploitation_vein(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     if (!isNotNull(player.宗门)) {
       return false
     }
@@ -225,7 +225,7 @@ export class BlessPlace extends plugin {
     let now = new Date()
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
-    let lastsign_time = await getLastsign_Explor(usr_qq) //获得上次宗门签到日期
+    let lastsign_time = await getLastsign_Explor(user_id) //获得上次宗门签到日期
     if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
@@ -236,7 +236,7 @@ export class BlessPlace extends plugin {
       return false
     }
     //都通过了，可以进行开采了
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Explor', nowTime) //redis设置签到时间
+    await redis.set('xiuxian@1.4.0:' + user_id + ':getLastsign_Explor', nowTime) //redis设置签到时间
 
     //给奖励
     let dongTan = await data.bless_list.find(
@@ -261,7 +261,7 @@ export class BlessPlace extends plugin {
     } else {
       ass.money池 += num
     }
-    await Add_money(usr_qq, num)
+    await Add_money(user_id, num)
     data.setAssociation(ass.宗门名称, ass)
     e.reply(
       `本次开采灵脉获得${
@@ -274,12 +274,12 @@ export class BlessPlace extends plugin {
 
   //降临秘境
   async Go_Guild_Secrets(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (!player.宗门) {
       e.reply('请先加入宗门')
       return false
@@ -306,7 +306,7 @@ export class BlessPlace extends plugin {
     ass.money池 += Price * 0.05
     data.setAssociation(ass.宗门名称, ass)
 
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     let time = getConfig('xiuxian', 'xiuxian').CD.secretplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
 
@@ -326,7 +326,7 @@ export class BlessPlace extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     // setTimeout(() => {
     //         SecretPlaceMax(e, weizhi);
     //     }, 60000 );
@@ -337,12 +337,12 @@ export class BlessPlace extends plugin {
 
   //沉迷秘境
   async Go_Guild_Secretsplus(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (!player.宗门) {
       e.reply('请先加入宗门')
       return false
@@ -367,9 +367,9 @@ export class BlessPlace extends plugin {
       e.reply('没有money寸步难行,攒到' + weizhi.Price * i * 10 + 'money才够哦~')
       return false
     }
-    let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具')
+    let number = await exist_najie_thing(user_id, '秘境之匙', '道具')
     if (isNotNull(number) && number >= i) {
-      await Add_najie_thing(usr_qq, '秘境之匙', '道具', -i)
+      await Add_najie_thing(user_id, '秘境之匙', '道具', -i)
     } else {
       e.reply('你没有足够数量the秘境之匙')
       return false
@@ -379,7 +379,7 @@ export class BlessPlace extends plugin {
     ass.money池 += Price * 0.05
     data.setAssociation(ass.宗门名称, ass)
 
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     let time = i * 10 * 5 + 10 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -399,7 +399,7 @@ export class BlessPlace extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     // setTimeout(() => {
     //         SecretPlaceMax(e, weizhi);
     //     }, 60000 );
@@ -408,11 +408,11 @@ export class BlessPlace extends plugin {
     return false
   }
   async construction_Guild(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //用户不存在
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     //无宗门
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
@@ -452,9 +452,9 @@ export class BlessPlace extends plugin {
 }
 
 //获取上次开采moneythe时间
-async function getLastsign_Explor(usr_qq) {
+async function getLastsign_Explor(user_id) {
   //查询redis中the人物动作
-  let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Explor')
+  let time = await redis.get('xiuxian@1.4.0:' + user_id + ':getLastsign_Explor')
   if (time != null) {
     let data = await shijianc(parseInt(time))
     return data
@@ -465,7 +465,7 @@ async function getLastsign_Explor(usr_qq) {
  * 地点查询
  */
 async function GoBlessPlace(e, weizhi, addres) {
-  let dir = data.filePathMap.association
+  let dir = data.__PATH.association
   let File = readdirSync(dir)
   File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
   let adr = addres

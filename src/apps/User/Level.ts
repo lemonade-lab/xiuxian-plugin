@@ -67,10 +67,10 @@ export class Level extends plugin {
 
   //突破
   async auto_up(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.level_id > 31 || player.lunhui == 0) return false
     e.reply('已为你开启10次自动突破')
     let num = 1
@@ -83,17 +83,17 @@ export class Level extends plugin {
   }
 
   async LevelMax_up(e, luck) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let now_level_id
     if (!isNotNull(player.Physique_id)) {
       e.reply('请先#刷新信息')
@@ -119,7 +119,7 @@ export class Level extends plugin {
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = 60000 * Time
     let last_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time')
     ) //获得上次the时间戳,
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
@@ -140,15 +140,15 @@ export class Level extends plugin {
     if (luck) {
       e.reply('你使用了幸运草，减少50%失败概率。')
       prob = prob + (1 - prob) * 0.5
-      await Add_najie_thing(usr_qq, '幸运草', '道具', -1)
+      await Add_najie_thing(user_id, '幸运草', '道具', -1)
     }
     //失败了
     if (rand > prob) {
       let bad_time = Math.random() //增加多种突破失败情况，顺滑突破丢失now_exp曲线
       if (bad_time > 0.9) {
-        await Add_血气(usr_qq, -1 * need_exp * 0.4)
+        await Add_血气(user_id, -1 * need_exp * 0.4)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
           now_Time
         )
         e.reply(
@@ -160,9 +160,9 @@ export class Level extends plugin {
         )
         return false
       } else if (bad_time > 0.8) {
-        await Add_血气(usr_qq, -1 * need_exp * 0.2)
+        await Add_血气(user_id, -1 * need_exp * 0.2)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
           now_Time
         )
         e.reply(
@@ -176,9 +176,9 @@ export class Level extends plugin {
         )
         return false
       } else if (bad_time > 0.7) {
-        await Add_血气(usr_qq, -1 * need_exp * 0.1)
+        await Add_血气(user_id, -1 * need_exp * 0.1)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
           now_Time
         )
         e.reply(
@@ -191,7 +191,7 @@ export class Level extends plugin {
         return false
       } else if (bad_time > 0.1) {
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
           now_Time
         )
         e.reply(`破体失败，不要气馁,等到${Time}分钟后再尝试吧`, false, {
@@ -199,9 +199,9 @@ export class Level extends plugin {
         })
         return false
       } else {
-        await Add_血气(usr_qq, -1 * need_exp * 0.2)
+        await Add_血气(user_id, -1 * need_exp * 0.2)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
           now_Time
         )
         e.reply(
@@ -226,7 +226,7 @@ export class Level extends plugin {
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
         await Add_najie_thing(
-          usr_qq,
+          user_id,
           data.changzhuxianchon[random2].name,
           '仙宠',
           1
@@ -243,7 +243,7 @@ export class Level extends plugin {
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
         await Add_najie_thing(
-          usr_qq,
+          user_id,
           data.changzhuxianchon[random2].name,
           '仙宠',
           1
@@ -252,16 +252,16 @@ export class Level extends plugin {
     }
     player.Physique_id = now_level_id + 1
     player.血气 -= need_exp
-    await Write_player(usr_qq, player)
-    let equipment = await Read_equipment(usr_qq)
-    await Update_equipment(usr_qq, equipment)
-    await Add_HP(usr_qq, 999999999999)
+    await Write_player(user_id, player)
+    let equipment = await Read_equipment(user_id)
+    await Update_equipment(user_id, equipment)
+    await Add_HP(user_id, 999999999999)
     let level = data.LevelMax_list.find(
       (item) => item.level_id == player.Physique_id
     ).level
     e.reply(`突破成功至${level}`, false, { at: true })
     await redis.set(
-      'xiuxian@1.4.0:' + usr_qq + ':last_LevelMaxup_time',
+      'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
       now_Time
     )
     return false
@@ -269,13 +269,13 @@ export class Level extends plugin {
 
   //突破
   async Level_up(e, luck = false) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无账号
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -283,7 +283,7 @@ export class Level extends plugin {
       return false
     }
     //读取信息
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     //境界
     let now_level = data.Level_list.find(
       (item) => item.level_id == player.level_id
@@ -339,7 +339,7 @@ export class Level extends plugin {
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = 60000 * Time
     let last_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':last_Levelup_time')
     )
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
@@ -361,20 +361,20 @@ export class Level extends plugin {
     if (luck) {
       e.reply('你使用了幸运草，减少50%失败概率。')
       prob = prob + (1 - prob) * 0.5
-      await Add_najie_thing(usr_qq, '幸运草', '道具', -1)
+      await Add_najie_thing(user_id, '幸运草', '道具', -1)
     }
     //突破失败了！
     if (player.breakthrough) {
       prob += 0.2
       player.breakthrough = false
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
     }
     if (rand > prob) {
       let bad_time = Math.random() //增加多种突破失败情况，顺滑突破丢失now_exp曲线
       if (bad_time > 0.9) {
-        await Add_now_exp(usr_qq, -1 * need_exp * 0.4)
+        await Add_now_exp(user_id, -1 * need_exp * 0.4)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_Levelup_time',
           now_Time
         ) //获得上次the时间戳
         e.reply(
@@ -386,9 +386,9 @@ export class Level extends plugin {
         )
         return false
       } else if (bad_time > 0.8) {
-        await Add_now_exp(usr_qq, -1 * need_exp * 0.2)
+        await Add_now_exp(user_id, -1 * need_exp * 0.2)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_Levelup_time',
           now_Time
         ) //获得上次the时间戳
         e.reply(
@@ -402,9 +402,9 @@ export class Level extends plugin {
         )
         return false
       } else if (bad_time > 0.7) {
-        await Add_now_exp(usr_qq, -1 * need_exp * 0.1)
+        await Add_now_exp(user_id, -1 * need_exp * 0.1)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_Levelup_time',
           now_Time
         ) //获得上次the时间戳
         e.reply(
@@ -417,7 +417,7 @@ export class Level extends plugin {
         return false
       } else if (bad_time > 0.1) {
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_Levelup_time',
           now_Time
         ) //获得上次the时间戳
         e.reply(`突破失败，不要气馁,等到${Time}分钟后再尝试吧`, false, {
@@ -425,9 +425,9 @@ export class Level extends plugin {
         })
         return false
       } else {
-        await Add_now_exp(usr_qq, -1 * need_exp * 0.2)
+        await Add_now_exp(user_id, -1 * need_exp * 0.2)
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time',
+          'xiuxian@1.4.0:' + user_id + ':last_Levelup_time',
           now_Time
         ) //获得上次the时间戳
         e.reply(
@@ -452,7 +452,7 @@ export class Level extends plugin {
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
         await Add_najie_thing(
-          usr_qq,
+          user_id,
           data.changzhuxianchon[random2].name,
           '仙宠',
           1
@@ -469,7 +469,7 @@ export class Level extends plugin {
             '],将伴随与你,愿你修仙路上不再独身一人.`'
         )
         await Add_najie_thing(
-          usr_qq,
+          user_id,
           data.changzhuxianchon[random2].name,
           '仙宠',
           1
@@ -479,25 +479,25 @@ export class Level extends plugin {
     //境界提升,now_exp扣除,攻防血重新加载,now_bool拉满
     player.level_id = now_level_id + 1
     player.now_exp -= need_exp
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     //刷新装备
-    let equipment = await Read_equipment(usr_qq)
-    await Update_equipment(usr_qq, equipment)
+    let equipment = await Read_equipment(user_id)
+    await Update_equipment(user_id, equipment)
     //补血
-    await Add_HP(usr_qq, 999999999999)
+    await Add_HP(user_id, 999999999999)
     //查境界名
     let level = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level
     e.reply(`突破成功,当前境界为${level}`, false, { at: true })
     //记录cd
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_Levelup_time', now_Time)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':last_Levelup_time', now_Time)
     return false
   }
 
   async yes(e) {
     /** 内容 */
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
     let now = new Date()
@@ -507,7 +507,7 @@ export class Level extends plugin {
       this.finish('yes')
       return false
     } else if (choice == '确认突破') {
-      redis.set('xiuxian@1.4.0:' + usr_qq + ':levelup', 1)
+      redis.set('xiuxian@1.4.0:' + user_id + ':levelup', 1)
       e.reply('请再次#突破，或#幸运突破！')
       //console.log(this.getContext().recall);
       this.finish('yes')
@@ -533,8 +533,8 @@ export class Level extends plugin {
   }
 
   async Level_up_luck(e) {
-    let usr_qq = e.user_id
-    let x = await exist_najie_thing(usr_qq, '幸运草', '道具')
+    let user_id = e.user_id
+    let x = await exist_najie_thing(user_id, '幸运草', '道具')
     if (!x) {
       e.reply('醒醒，你没有道具【幸运草】!')
       return false
@@ -544,8 +544,8 @@ export class Level extends plugin {
   }
 
   async LevelMax_up_luck(e) {
-    let usr_qq = e.user_id
-    let x = await exist_najie_thing(usr_qq, '幸运草', '道具')
+    let user_id = e.user_id
+    let x = await exist_najie_thing(user_id, '幸运草', '道具')
     if (!x) {
       e.reply('醒醒，你没有道具【幸运草】!')
       return false
@@ -556,13 +556,13 @@ export class Level extends plugin {
 
   //渡劫
   async fate_up(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无账号
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //不开放私聊
 
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     //境界
     let now_level = data.Level_list.find(
       (item) => item.level_id == player.level_id
@@ -587,7 +587,7 @@ export class Level extends plugin {
     ).基础血量
     if (now_HP < list_HP * 0.9) {
       player.now_bool = 1
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       e.reply(player.name + '血量亏损，强行渡劫后晕倒在地！')
       return false
     }
@@ -607,7 +607,7 @@ export class Level extends plugin {
     }
 
     //当前系数计算
-    let x = await dujie(usr_qq)
+    let x = await dujie(user_id)
     //默认为3
     let y = 3
     if (player.talent.type == '伪talent') {
@@ -633,7 +633,7 @@ export class Level extends plugin {
       //没有达到最低要求
       player.now_bool = 0
       player.now_exp -= need_exp / 4
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       e.reply('天空一声巨响，未降下雷劫，就被天道the气势震死了。')
       return false
     }
@@ -676,15 +676,15 @@ export class Level extends plugin {
   //#羽化登仙
   //专门为渡劫期设计the指令
   async Level_up_Max(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无账号
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //不开放私聊
 
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -692,7 +692,7 @@ export class Level extends plugin {
       return false
     }
     //读取信息
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     //境界
     let now_level = data.Level_list.find(
       (item) => item.level_id == player.level_id
@@ -703,7 +703,7 @@ export class Level extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     //不为空
     if (action != null) {
@@ -748,13 +748,13 @@ export class Level extends plugin {
       now_level_id = now_level_id + 1
       player.level_id = now_level_id
       player.now_exp -= need_exp
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
-      await Add_HP(usr_qq, 99999999)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
+      await Add_HP(user_id, 99999999)
       //突破成仙人
       if (now_level_id >= 42) {
-        let player = data.getData('player', usr_qq)
+        let player = data.getData('player', user_id)
         if (!isNotNull(player.宗门)) {
           return false
         }
@@ -762,31 +762,29 @@ export class Level extends plugin {
         if (player.宗门.职位 != '宗主') {
           let ass = data.getAssociation(player.宗门.宗门名称)
           ass[player.宗门.职位] = ass[player.宗门.职位].filter(
-            (item) => item != usr_qq
+            (item) => item != user_id
           )
-          ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq)
+          ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id)
           data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
-          data.setData('player', usr_qq, player)
-          await player_efficiency(usr_qq)
+          data.setData('player', user_id, player)
+          await player_efficiency(user_id)
           e.reply('退出宗门成功')
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            rmSync(
-              `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
-            )
+            rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
             delete player.宗门 //删除存档里the宗门信息
-            data.setData('player', usr_qq, player)
-            await player_efficiency(usr_qq)
+            data.setData('player', user_id, player)
+            await player_efficiency(user_id)
             e.reply(
               '一声巨响,原本the宗门轰然倒塌,随着流沙沉没,世间再无半分痕迹'
             )
           } else {
-            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+            ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id) //原来the成员表删掉这个B
             delete player.宗门 //删除这个B存档里the宗门信息
-            data.setData('player', usr_qq, player)
-            await player_efficiency(usr_qq)
+            data.setData('player', user_id, player)
+            await player_efficiency(user_id)
             //随机一个幸运儿theQQ,优先挑选等级高the
             let randmember_qq
             if (ass.副宗主.length > 0) {
@@ -805,7 +803,7 @@ export class Level extends plugin {
             ass['宗主'] = randmember_qq //新the职位表加入这个幸运儿
             randmember.宗门.职位 = '宗主' //成员存档里改职位
             data.setData('player', randmember_qq, randmember) //记录到存档
-            data.setData('player', usr_qq, player)
+            data.setData('player', user_id, player)
             data.setAssociation(ass.宗门名称, ass) //记录到宗门
             e.reply(
               `飞升前,遵循你the嘱托,${randmember.name}将继承你the衣钵,成为新一任the宗主`

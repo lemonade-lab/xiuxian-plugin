@@ -11,7 +11,10 @@ import {
   zd_battle,
   getConfig,
   data,
-  Show
+  Show,
+  Read_tiandibang,
+  Write_tiandibang,
+  getLastbisai
 } from '../../model/index.js'
 import { readFileSync, readdirSync, writeFileSync } from 'fs'
 import { plugin, puppeteer } from '../../../import.js'
@@ -114,9 +117,9 @@ export class Tiandibang extends plugin {
       return false
     }
 
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let reg = new RegExp(/积分兑换/)
     let msg = e.msg.replace(reg, '')
@@ -132,7 +135,7 @@ export class Tiandibang extends plugin {
     let m = tiandibang.length
     let i
     for (m = 0; m < tiandibang.length; m++) {
-      if (tiandibang[m].qq == usr_qq) {
+      if (tiandibang[m].qq == user_id) {
         break
       }
     }
@@ -154,7 +157,7 @@ export class Tiandibang extends plugin {
       return false
     }
     tiandibang[m].积分 -= data.tianditang[i].积分
-    await Add_najie_thing(usr_qq, thing_name, data.tianditang[i].class, 1)
+    await Add_najie_thing(user_id, thing_name, data.tianditang[i].class, 1)
     await Write_tiandibang(tiandibang)
     e.reply([
       `兑换成功!  获得[${thing_name}],剩余[${tiandibang[m].积分}]积分  `,
@@ -164,9 +167,9 @@ export class Tiandibang extends plugin {
   }
 
   async tianditang(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let tiandibang
     try {
@@ -178,7 +181,7 @@ export class Tiandibang extends plugin {
     }
     let m = tiandibang.length
     for (m = 0; m < tiandibang.length; m++) {
-      if (tiandibang[m].qq == usr_qq) {
+      if (tiandibang[m].qq == user_id) {
         break
       }
     }
@@ -192,9 +195,9 @@ export class Tiandibang extends plugin {
   }
 
   async cansai(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let tiandibang
     try {
@@ -206,13 +209,13 @@ export class Tiandibang extends plugin {
     }
     let x = tiandibang.length
     for (let i = 0; i < tiandibang.length; i++) {
-      if (tiandibang[i].qq == usr_qq) {
+      if (tiandibang[i].qq == user_id) {
         x = i
         break
       }
     }
     if (x == tiandibang.length) {
-      let player = await Read_player(usr_qq)
+      let player = await Read_player(user_id)
       let level_id = data.Level_list.find(
         (item) => item.level_id == player.level_id
       ).level_id
@@ -226,7 +229,7 @@ export class Tiandibang extends plugin {
         talent: player.talent,
         法球倍率: player.talent.法球倍率,
         studytheskill: player.studytheskill,
-        qq: usr_qq,
+        qq: user_id,
         次数: 0,
         积分: 0
       }
@@ -242,9 +245,9 @@ export class Tiandibang extends plugin {
   }
 
   async my_point(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let tiandibang
     try {
@@ -258,7 +261,7 @@ export class Tiandibang extends plugin {
     let l = 10
     let msg = ['***天地榜(每日免费三次)***\n       周一0点清空积分']
     for (let i = 0; i < tiandibang.length; i++) {
-      if (tiandibang[i].qq == usr_qq) {
+      if (tiandibang[i].qq == user_id) {
         x = i
         break
       }
@@ -309,12 +312,12 @@ export class Tiandibang extends plugin {
   }
 
   async pk(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -323,7 +326,7 @@ export class Tiandibang extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -346,7 +349,7 @@ export class Tiandibang extends plugin {
     }
     let x = tiandibang.length
     for (let m = 0; m < tiandibang.length; m++) {
-      if (tiandibang[m].qq == usr_qq) {
+      if (tiandibang[m].qq == user_id) {
         x = m
         break
       }
@@ -362,14 +365,14 @@ export class Tiandibang extends plugin {
     let now = new Date()
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
-    let lastbisai_time = await getLastbisai(usr_qq) //获得上次签到日期
+    let lastbisai_time = await getLastbisai(user_id) //获得上次签到日期
     if (!lastbisai_time) return
     if (
       Today.Y != lastbisai_time.Y ||
       Today.M != lastbisai_time.M ||
       Today.D != lastbisai_time.D
     ) {
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastbisai_time', nowTime) //redis设置签到时间
+      await redis.set('xiuxian@1.4.0:' + user_id + ':lastbisai_time', nowTime) //redis设置签到时间
       tiandibang[x].次数 = 3
     }
     if (
@@ -378,10 +381,10 @@ export class Tiandibang extends plugin {
       Today.D == lastbisai_time.D &&
       tiandibang[x].次数 < 1
     ) {
-      let zbl = await exist_najie_thing(usr_qq, '摘榜令', '道具')
+      let zbl = await exist_najie_thing(user_id, '摘榜令', '道具')
       if (zbl) {
         tiandibang[x].次数 = 1
-        await Add_najie_thing(usr_qq, '摘榜令', '道具', -1)
+        await Add_najie_thing(user_id, '摘榜令', '道具', -1)
         last_msg.push(`${tiandibang[x].name}使用了摘榜令\n`)
       } else {
         e.reply('今日挑战次数用光了,请明日再来吧')
@@ -486,7 +489,7 @@ export class Tiandibang extends plugin {
         e.reply(`战斗过程出错`)
         return false
       }
-      await Add_money(usr_qq, lingshi)
+      await Add_money(user_id, lingshi)
       if (msg.length > 50) {
         console.log('通过')
       } else {
@@ -541,7 +544,7 @@ export class Tiandibang extends plugin {
         e.reply(`战斗过程出错`)
         return false
       }
-      await Add_money(usr_qq, lingshi)
+      await Add_money(user_id, lingshi)
       if (msg.length > 50) {
         console.log('通过')
       } else {
@@ -568,14 +571,14 @@ export class Tiandibang extends plugin {
   }
 
   async update_jineng(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     if (!e.isGroup) {
       e.reply('此功能暂时不开放私聊')
       return false
     }
 
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let tiandibang
     try {
@@ -587,7 +590,7 @@ export class Tiandibang extends plugin {
     }
     let m = tiandibang.length
     for (m = 0; m < tiandibang.length; m++) {
-      if (tiandibang[m].qq == usr_qq) {
+      if (tiandibang[m].qq == user_id) {
         break
       }
     }
@@ -595,7 +598,7 @@ export class Tiandibang extends plugin {
       e.reply('请先报名!')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id
@@ -648,50 +651,25 @@ export class Tiandibang extends plugin {
     return false
   }
 }
-async function Write_tiandibang(wupin) {
-  let dir = join(__PATH.tiandibang, `tiandibang.json`)
-  let new_ARR = JSON.stringify(wupin)
-  writeFileSync(dir, new_ARR, 'utf8')
-  return false
-}
-
-async function Read_tiandibang() {
-  let dir = join(`${__PATH.tiandibang}/tiandibang.json`)
-  let tiandibang = readFileSync(dir, 'utf8')
-  //将字符串数据转变成数组格式
-  tiandibang = JSON.parse(tiandibang)
-  return tiandibang
-}
-
-async function getLastbisai(usr_qq) {
-  //查询redis中the人物动作
-  let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastbisai_time')
-  if (time != null) {
-    let data = await shijianc(parseInt(time))
-    return data
-  }
-  return false
-}
 
 async function get_tianditang_img(e, jifen) {
-  let usr_qq = e.user_id
-  let player = await Read_player(usr_qq)
-  let commodities_list = data.tianditang
-  let tianditang_data = {
+  let player = await Read_player(e.user_id)
+  const data1 = await new Show().get_tianditangData({
     name: player.name,
     jifen,
-    commodities_list: commodities_list
-  }
-  const data1 = await new Show().get_tianditangData(tianditang_data)
-  let img = await puppeteer.screenshot('tianditang', {
-    ...data1
+    commodities_list: data.tianditang
   })
-  return img
+  return puppeteer.screenshot('tianditang', data1)
 }
 
+/**
+ *
+ * @returns
+ */
 async function re_bangdang() {
-  let File = readdirSync(__PATH.player_path)
-  File = File.filter((file) => file.endsWith('.json'))
+  let File = readdirSync(__PATH.player_path).filter((file) =>
+    file.endsWith('.json')
+  )
   let File_length = File.length
   let temp = []
   let t

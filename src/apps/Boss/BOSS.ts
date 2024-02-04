@@ -152,12 +152,12 @@ export class BOSS extends plugin {
       e.reply('妖王未开启！')
       return false
     }
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let Time = 5
     let now_Time = new Date().getTime() //获取当前时间戳
     Time = 60000 * Time
     let last_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + 'BOSSCD')
+      await redis.get('xiuxian@1.4.0:' + user_id + 'BOSSCD')
     ) //获得上次的时间戳,
     if (now_Time < last_time + Time) {
       let Couple_m = Math.trunc((last_time + Time - now_Time) / 60 / 1000)
@@ -165,14 +165,14 @@ export class BOSS extends plugin {
       e.reply('正在CD中，' + `剩余cd:  ${Couple_m}分 ${Couple_s}秒`)
       return false
     }
-    if (data.existData('player', usr_qq)) {
-      let player = await data.getData('player', usr_qq)
+    if (data.existData('player', user_id)) {
+      let player = await data.getData('player', user_id)
       if (player.level_id < 42 && player.lunhui == 0) {
         e.reply('你在仙界吗')
         return false
       }
       let action = JSON.parse(
-        await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+        await redis.get('xiuxian@1.4.0:' + user_id + ':action')
       )
       if (action != null) {
         let action_end_time = action.end_time
@@ -188,9 +188,9 @@ export class BOSS extends plugin {
         e.reply('还是先疗伤吧，别急着参战了')
         return false
       }
-      if (WorldBOSSBattleCD[usr_qq]) {
+      if (WorldBOSSBattleCD[user_id]) {
         let Seconds = Math.trunc(
-          (300000 - (new Date().getTime() - WorldBOSSBattleCD[usr_qq])) / 1000
+          (300000 - (new Date().getTime() - WorldBOSSBattleCD[user_id])) / 1000
         )
         if (Seconds <= 300 && Seconds >= 0) {
           e.reply(
@@ -215,7 +215,7 @@ export class BOSS extends plugin {
         let QQGroup = [],
           DamageGroup = [],
           Name = []
-        QQGroup[0] = usr_qq
+        QQGroup[0] = user_id
         DamageGroup[0] = 0
         Name[0] = player.名号
         PlayerRecordJSON = {
@@ -228,13 +228,13 @@ export class BOSS extends plugin {
         PlayerRecordJSON = JSON.parse(PlayerRecord)
         let i
         for (i = 0; i < PlayerRecordJSON.QQ.length; i++) {
-          if (PlayerRecordJSON.QQ[i] == usr_qq) {
+          if (PlayerRecordJSON.QQ[i] == user_id) {
             Userid = i
             break
           }
         }
         if (!Userid && Userid != 0) {
-          PlayerRecordJSON.QQ[i] = usr_qq
+          PlayerRecordJSON.QQ[i] = user_id
           PlayerRecordJSON.Name[i] = player.名号
           PlayerRecordJSON.TotalDamage[i] = 0
           Userid = i
@@ -293,7 +293,7 @@ export class BOSS extends plugin {
           `${player.名号}被[${Boss.名号}]击败了,只对[妖王]造成了${TotalDamage}伤害`
         )
       }
-      await Add_HP(usr_qq, Data_battle.A_xue)
+      await Add_HP(user_id, Data_battle.A_xue)
       await sleep(1000)
       let random = Math.random()
       if (random < 0.05 && msg.find((item) => item == A_win)) {
@@ -307,7 +307,7 @@ export class BOSS extends plugin {
             WorldBossStatus.Health * 0.15
           )}伤害,并治愈了你的伤势`
         )
-        await Add_HP(usr_qq, player.血量上限)
+        await Add_HP(user_id, player.血量上限)
       }
       await sleep(1000)
       PlayerRecordJSON.TotalDamage[Userid] += TotalDamage
@@ -325,8 +325,8 @@ export class BOSS extends plugin {
         for (const group_id of groupList) {
           await pushInfo(group_id, true, msg2)
         }
-        await Add_money(usr_qq, 1000000)
-        console.error(`[妖王] 结算:${usr_qq}增加奖励1000000`)
+        await Add_money(user_id, 1000000)
+        console.error(`[妖王] 结算:${user_id}增加奖励1000000`)
 
         WorldBossStatus.KilledTime = new Date().getTime()
         redis.set('Xiuxian:WorldBossStatus', JSON.stringify(WorldBossStatus))
@@ -398,7 +398,7 @@ export class BOSS extends plugin {
         }
         await ForwardMsg(e, Rewardmsg)
       }
-      WorldBOSSBattleCD[usr_qq] = new Date().getTime()
+      WorldBOSSBattleCD[user_id] = new Date().getTime()
       WorldBOSSBattleLock = 0
       return false
     } else {
@@ -501,7 +501,7 @@ async function sleep(time) {
 
 //获取玩家平均实力和化神以上人数
 async function GetAverageDamage() {
-  let File = readdirSync(data.filePathMap.player)
+  let File = readdirSync(data.__PATH.player)
   File = File.filter((file) => file.endsWith('.json'))
   let temp = []
   let TotalPlayer = 0

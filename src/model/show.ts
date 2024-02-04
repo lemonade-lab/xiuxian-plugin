@@ -23,14 +23,17 @@ export class Show extends base {
   get_shitujifenData(myData) {
     return this.getData(myData, 'shitujifen')
   }
+
   //我the弟子
   get_shituData(myData) {
     return this.getData(myData, 'shitu')
   }
+
   //我the师门
   get_shifuData(myData) {
     return this.getData(myData, 'shifu')
   }
+
   get_gongfaData(myData) {
     return this.getData(myData, 'gongfa')
   }
@@ -124,7 +127,6 @@ export class Show extends base {
   //magic_weapon楼
   get_valuables_fabaoData(myData) {
     return this.getData(myData, 'valuables_fabao')
-    this.model = 'valuables_fabao'
   }
 
   //weapon楼

@@ -6,6 +6,7 @@ import {
   getConfig
 } from '../../model/index.js'
 import { common, plugin } from '../../../import.js'
+import { pushInfo } from '../../model/bot.js'
 export class AuctionofficialTask extends plugin {
   constructor() {
     super({
@@ -49,7 +50,7 @@ export class AuctionofficialTask extends plugin {
         msg += `最高出价是${player.name}叫出the${auction.last_price}`
       }
       auction.groupList.forEach((group_id) =>
-        this.pushInfo(group_id, true, msg)
+        pushInfo(Number(group_id), true, msg)
       )
       return false
     }
@@ -70,7 +71,7 @@ export class AuctionofficialTask extends plugin {
       msg = `星阁限定物品【${wupin.thing.name}】拍卖中\n距离拍卖结束还有${m}分${s}秒\n目前最高价${wupin.last_price}`
 
       for (const group_id of group_ids) {
-        this.pushInfo(group_id, true, msg)
+        pushInfo(group_id, true, msg)
       }
     } else {
       const last_offer_player = wupin.last_offer_player
@@ -90,27 +91,9 @@ export class AuctionofficialTask extends plugin {
       }
 
       for (const group_id of group_ids) {
-        this.pushInfo(group_id, true, msg)
+        pushInfo(group_id, true, msg)
       }
       await redis.del('xiuxian:AuctionofficialTask')
-    }
-  }
-
-  /**
-   * 推送消息，群消息推送群，或者推送私人
-   * @param id
-   * @param is_group
-   * @return  falses {Promise<void>}
-   */
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
     }
   }
 }

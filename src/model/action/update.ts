@@ -8,12 +8,12 @@ import { join } from 'path'
 
 /**
  *
- * @param usr_qq
+ * @param user_id
  * @param equipment
  * @returns
  */
-export async function Update_equipment(usr_qq, equipment) {
-  let player = await Read_player(usr_qq)
+export async function Update_equipment(user_id, equipment) {
+  let player = await Read_player(user_id)
   player.攻击 =
     data.Level_list.find((item) => item.level_id == player.level_id).基础攻击 +
     player.攻击加成 +
@@ -53,10 +53,10 @@ export async function Update_equipment(usr_qq, equipment) {
   player.暴击伤害 = player.暴击率 + 1.5
   if (player.暴击伤害 > 2.5) player.暴击伤害 = 2.5
   if (player.仙宠.type == '暴伤') player.暴击伤害 += player.仙宠.加成
-  Write_player(usr_qq, player)
-  await Add_HP(usr_qq, 0)
+  Write_player(user_id, player)
+  await Add_HP(user_id, 0)
   writeFileSync(
-    join(__PATH.equipment_path, `${usr_qq}.json`),
+    join(__PATH.equipment_path, `${user_id}.json`),
     JSON.stringify(equipment),
     'utf8'
   )

@@ -34,16 +34,16 @@ export class motou extends plugin {
 
   async add_lingeng(e) {
     //固定写法
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.魔道值 < 1000) {
       e.reply('你不是魔头')
       return false
     }
-    let x = await exist_najie_thing(usr_qq, '魔石', '道具')
+    let x = await exist_najie_thing(user_id, '魔石', '道具')
     if (!x) {
       e.reply('你没有魔石')
       return false
@@ -65,7 +65,7 @@ export class motou extends plugin {
         e.reply('魔石不足20个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -20)
+      await Add_najie_thing(user_id, '魔石', '道具', -20)
       if (random < 0.9) {
         player.talent = {
           id: 100992,
@@ -74,7 +74,7 @@ export class motou extends plugin {
           eff: 0.42,
           法球倍率: 0.27
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent二重魔功!')
         return false
       } else {
@@ -86,7 +86,7 @@ export class motou extends plugin {
         e.reply('魔石不足30个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -30)
+      await Add_najie_thing(user_id, '魔石', '道具', -30)
       if (random < 0.8) {
         player.talent = {
           id: 100993,
@@ -95,7 +95,7 @@ export class motou extends plugin {
           eff: 0.48,
           法球倍率: 0.31
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent三重魔功!')
         return false
       } else {
@@ -107,7 +107,7 @@ export class motou extends plugin {
         e.reply('魔石不足30个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -30)
+      await Add_najie_thing(user_id, '魔石', '道具', -30)
       if (random < 0.7) {
         player.talent = {
           id: 100994,
@@ -116,7 +116,7 @@ export class motou extends plugin {
           eff: 0.54,
           法球倍率: 0.36
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent四重魔功!')
         return false
       } else {
@@ -128,7 +128,7 @@ export class motou extends plugin {
         e.reply('魔石不足40个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -40)
+      await Add_najie_thing(user_id, '魔石', '道具', -40)
       if (random < 0.6) {
         player.talent = {
           id: 100995,
@@ -137,7 +137,7 @@ export class motou extends plugin {
           eff: 0.6,
           法球倍率: 0.4
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent五重魔功!')
         return false
       } else {
@@ -149,7 +149,7 @@ export class motou extends plugin {
         e.reply('魔石不足40个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -40)
+      await Add_najie_thing(user_id, '魔石', '道具', -40)
       if (random < 0.5) {
         player.talent = {
           id: 100996,
@@ -158,7 +158,7 @@ export class motou extends plugin {
           eff: 0.66,
           法球倍率: 0.43
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent六重魔功!')
         return false
       } else {
@@ -170,7 +170,7 @@ export class motou extends plugin {
         e.reply('魔石不足40个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -40)
+      await Add_najie_thing(user_id, '魔石', '道具', -40)
       if (random < 0.4) {
         player.talent = {
           id: 100997,
@@ -179,7 +179,7 @@ export class motou extends plugin {
           eff: 0.72,
           法球倍率: 0.47
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent七重魔功!')
         return false
       } else {
@@ -191,7 +191,7 @@ export class motou extends plugin {
         e.reply('魔石不足50个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -50)
+      await Add_najie_thing(user_id, '魔石', '道具', -50)
       if (random < 0.3) {
         player.talent = {
           id: 100998,
@@ -200,7 +200,7 @@ export class motou extends plugin {
           eff: 0.78,
           法球倍率: 0.5
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent八重魔功!')
         return false
       } else {
@@ -212,7 +212,7 @@ export class motou extends plugin {
         e.reply('魔石不足50个,当前魔石数量' + x + '个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -50)
+      await Add_najie_thing(user_id, '魔石', '道具', -50)
       if (random < 0.2) {
         player.talent = {
           id: 100999,
@@ -221,7 +221,7 @@ export class motou extends plugin {
           eff: 1.2,
           法球倍率: 1.2
         }
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         e.reply('恭喜你,talent突破成功,当前talent九重魔功!')
         return false
       } else {
@@ -232,8 +232,8 @@ export class motou extends plugin {
     return false
   }
   async RE_lingeng(e) {
-    let usr_qq = e.user_id
-    let player = await Read_player(usr_qq)
+    let user_id = e.user_id
+    let player = await Read_player(user_id)
     /** 内容 */
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -243,7 +243,7 @@ export class motou extends plugin {
       this.finish('RE_lingeng')
       return false
     } else if (choice == '转世魔根') {
-      let x = await exist_najie_thing(usr_qq, '魔石', '道具')
+      let x = await exist_najie_thing(user_id, '魔石', '道具')
       if (!x) {
         e.reply('你没有魔石')
         return false
@@ -252,7 +252,7 @@ export class motou extends plugin {
         e.reply('你魔石不足10个')
         return false
       }
-      await Add_najie_thing(usr_qq, '魔石', '道具', -10)
+      await Add_najie_thing(user_id, '魔石', '道具', -10)
       player.talent = {
         id: 100991,
         name: '一重魔功',
@@ -260,7 +260,7 @@ export class motou extends plugin {
         eff: 0.36,
         法球倍率: 0.23
       }
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       e.reply('恭喜你,转世魔头成功!')
       /** 结束上下文 */
       this.finish('RE_lingeng')
@@ -269,12 +269,12 @@ export class motou extends plugin {
   }
 
   async mojie(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -283,7 +283,7 @@ export class motou extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -296,7 +296,7 @@ export class motou extends plugin {
         return false
       }
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.魔道值 < 1000) {
       e.reply('你不是魔头')
       return false
@@ -307,7 +307,7 @@ export class motou extends plugin {
     }
     player.魔道值 -= 100
     player.now_exp -= 4000000
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     let time = 60 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -328,22 +328,22 @@ export class motou extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('开始进入魔界,' + time + '分钟后归来!')
     return false
   }
 
   async xianji(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.魔道值 < 1000) {
       e.reply('你不是魔头')
       return false
     }
-    let x = await exist_najie_thing(usr_qq, '魔石', '道具')
+    let x = await exist_najie_thing(user_id, '魔石', '道具')
     if (!x) {
       e.reply('你没有魔石')
       return false
@@ -352,7 +352,7 @@ export class motou extends plugin {
       e.reply('魔石不足8个,当前魔石数量' + x + '个')
       return false
     }
-    await Add_najie_thing(usr_qq, '魔石', '道具', -8)
+    await Add_najie_thing(user_id, '魔石', '道具', -8)
     let wuping_length
     let wuping_index
     let wuping
@@ -360,7 +360,7 @@ export class motou extends plugin {
     wuping_index = Math.trunc(Math.random() * wuping_length)
     wuping = data.xingge[0].one[wuping_index]
     e.reply('获得了' + wuping.name)
-    await Add_najie_thing(usr_qq, wuping.name, wuping.class, 1)
+    await Add_najie_thing(user_id, wuping.name, wuping.class, 1)
     return false
   }
 }

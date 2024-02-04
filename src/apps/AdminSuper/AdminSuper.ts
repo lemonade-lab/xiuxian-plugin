@@ -3,7 +3,6 @@ import { AppName } from '../../../config.js'
 import {
   existplayer,
   Write_player,
-  Read_updata_log,
   Add_najie_thing,
   exist_najie_thing,
   Read_Exchange,
@@ -14,7 +13,7 @@ import {
   data,
   Show
 } from '../../model/index.js'
-import { plugin, puppeteer } from '../../../import.js'
+import { type Message, plugin, puppeteer } from '../../../import.js'
 export class AdminSuper extends plugin {
   constructor() {
     super({
@@ -40,10 +39,6 @@ export class AdminSuper extends plugin {
           fnc: 'Deleteexchange'
         },
         {
-          reg: /^(#|\/)查看日志$/,
-          fnc: 'show_log'
-        },
-        {
           reg: /^(#|\/)解散宗门.*$/,
           fnc: 'jiesan_ass'
         },
@@ -54,7 +49,7 @@ export class AdminSuper extends plugin {
       ]
     })
   }
-  async jiesan_ass(e) {
+  async jiesan_ass(e: Message) {
     if (!e.isMaster) return false
 
     let didian = e.msg.replace(/#解散宗门/, '')
@@ -73,64 +68,8 @@ export class AdminSuper extends plugin {
         }
       }
     }
-    rmSync(`${data.filePathMap.association}/${didian}.json`)
+    rmSync(`${data.__PATH.association}/${didian}.json`)
     e.reply('解散成功!')
-    return false
-  }
-  async show_log(e) {
-    let j
-    const reader = await Read_updata_log()
-    let str = []
-    let line_log = reader.trim().split('\n') //读取数据并按行分割
-    line_log.forEach((item, index) => {
-      // 删除空项
-      if (!item) {
-        line_log.splice(index, 1)
-      }
-    })
-    for (let y = 0; y < line_log.length; y++) {
-      let temp = line_log[y].trim().split(/\s+/) //读取数据并按空格分割
-      let i = 0
-      if (temp.length == 4) {
-        str.push(temp[0])
-        i = 1
-      }
-      let t = ''
-      for (let x = i; x < temp.length; x++) {
-        t += temp[x]
-        //console.log(t)
-        if (x == temp.length - 2 || x == temp.length - 3) {
-          t += '\t'
-        }
-      }
-      str.push(t)
-      //str += "\n";
-    }
-    let T
-    for (j = 0; j < str.length / 2; j++) {
-      T = str[j]
-      str[j] = str[str.length - 1 - j]
-      str[str.length - 1 - j] = T
-    }
-    for (j = str.length - 1; j > -1; j--) {
-      if (str[j] == '零' || str[j] == '打铁the') {
-        let m = j
-        while (str[m - 1] != '零' && str[m - 1] != '打铁the' && m > 0) {
-          T = str[m]
-          str[m] = str[m - 1]
-          str[m - 1] = T
-          m--
-        }
-      }
-    }
-    let log_data = {
-      log: str
-    }
-    const data1 = await new Show().get_logData(log_data)
-    let img = await puppeteer.screenshot('log', {
-      ...data1
-    })
-    e.reply(img)
     return false
   }
 
@@ -147,11 +86,11 @@ export class AdminSuper extends plugin {
       Exchange = await Read_Exchange()
     }
     for (let i of Exchange) {
-      let usr_qq = i.qq
+      let user_id = i.qq
       let thing = i.name.name
       let quanity = i.aconut
       if (i.name.class == '装备' || i.name.class == '仙宠') thing = i.name
-      await Add_najie_thing(usr_qq, thing, i.name.class, quanity, i.name.pinji)
+      await Add_najie_thing(user_id, thing, i.name.class, quanity, i.name.pinji)
     }
     await Write_Exchange([])
     e.reply('清除完成！')
@@ -160,9 +99,9 @@ export class AdminSuper extends plugin {
 
   //#我the信息
   async Show_player(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     if (!e.isGroup) {
       e.reply('此功能暂时不开放私聊')

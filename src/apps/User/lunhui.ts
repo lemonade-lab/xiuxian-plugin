@@ -28,15 +28,15 @@ export class lunhui extends plugin {
   }
 
   async lunhui(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     if (!isNotNull(player.lunhui)) {
       player.lunhui = 0
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
     }
-    let lhxq = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lunhui')
+    let lhxq = await redis.get('xiuxian@1.4.0:' + user_id + ':lunhui')
     if (lhxq != '1') {
       e.reply(
         '轮回之术乃逆天造化之术，须清空仙人所有thenow_exp气血才可施展。\n' +
@@ -46,7 +46,7 @@ export class lunhui extends plugin {
       this.setContext('yeslunhui')
       return false
     } else if (lhxq == '1') {
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':lunhui', 0)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':lunhui', 0)
     }
     //判断等级
     if (player.lunhui >= 9) {
@@ -57,7 +57,7 @@ export class lunhui extends plugin {
       e.reply(`法境未到仙无法轮回！`)
       return false
     }
-    let equipment = await Read_equipment(usr_qq)
+    let equipment = await Read_equipment(user_id)
     if (equipment.weapon.HP < 0) {
       e.reply(
         `身上携带邪祟之物，无法进行轮回,请将[${equipment.weapon.name}]放下后再进行轮回`
@@ -71,7 +71,7 @@ export class lunhui extends plugin {
           `仅被警告一次，轮回失败！`
       )
       player.now_bool = 10
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       return false
     }
     player.轮回点--
@@ -85,7 +85,7 @@ export class lunhui extends plugin {
       player.now_exp -= 10000000
       player.血气 += 5141919
       player.money -= 10000000
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
       return false
     }
     player.lunhui += 1
@@ -98,31 +98,29 @@ export class lunhui extends plugin {
         if (player.宗门.职位 != '宗主') {
           let ass = data.getAssociation(player.宗门.宗门名称)
           ass[player.宗门.职位] = ass[player.宗门.职位].filter(
-            (item) => item != usr_qq
+            (item) => item != user_id
           )
-          ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq)
+          ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id)
           data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
-          data.setData('player', usr_qq, player)
-          await player_efficiency(usr_qq)
+          data.setData('player', user_id, player)
+          await player_efficiency(user_id)
           e.reply('退出宗门成功')
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            rmSync(
-              `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
-            )
+            rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
             delete player.宗门 //删除存档里the宗门信息
-            data.setData('player', usr_qq, player)
-            await player_efficiency(usr_qq)
+            data.setData('player', user_id, player)
+            await player_efficiency(user_id)
             e.reply(
               '一声巨响,原本the宗门轰然倒塌,随着流沙沉没,仙界中再无半分痕迹'
             )
           } else {
-            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+            ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id) //原来the成员表删掉这个B
             delete player.宗门 //删除这个B存档里the宗门信息
-            data.setData('player', usr_qq, player)
-            await player_efficiency(usr_qq)
+            data.setData('player', user_id, player)
+            await player_efficiency(user_id)
             //随机一个幸运儿theQQ,优先挑选等级高the
             let randmember_qq
             if (ass.副宗主.length > 0) {
@@ -141,7 +139,7 @@ export class lunhui extends plugin {
             ass['宗主'] = randmember_qq //新the职位表加入这个幸运儿
             randmember.宗门.职位 = '宗主' //成员存档里改职位
             data.setData('player', randmember_qq, randmember) //记录到存档
-            data.setData('player', usr_qq, player)
+            data.setData('player', user_id, player)
             data.setAssociation(ass.宗门名称, ass) //记录到宗门
             e.reply(
               `轮回前,遵循你the嘱托,${randmember.name}将继承你the衣钵,成为新一任the宗主`
@@ -161,14 +159,14 @@ export class lunhui extends plugin {
       let thing_name = '九转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -179,7 +177,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为九转轮回！已能成帝！`)
       return false
     }
@@ -194,14 +192,14 @@ export class lunhui extends plugin {
       let thing_name = '八转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -212,7 +210,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为八转轮回！`)
       return false
     }
@@ -227,14 +225,14 @@ export class lunhui extends plugin {
       let thing_name = '七转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -245,7 +243,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为七转轮回！`)
       return false
     }
@@ -260,14 +258,14 @@ export class lunhui extends plugin {
       let thing_name = '六转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -278,7 +276,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为六转轮回！`)
       return false
     }
@@ -293,14 +291,14 @@ export class lunhui extends plugin {
       let thing_name = '五转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -311,7 +309,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为五转轮回！`)
       return false
     }
@@ -326,14 +324,14 @@ export class lunhui extends plugin {
       let thing_name = '四转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -344,7 +342,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为四转轮回！`)
       return false
     }
@@ -359,14 +357,14 @@ export class lunhui extends plugin {
       let thing_name = '三转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -377,7 +375,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为三转轮回！`)
       return false
     }
@@ -392,14 +390,14 @@ export class lunhui extends plugin {
       let thing_name = '二转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -410,7 +408,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为二转轮回！`)
       return false
     }
@@ -425,14 +423,14 @@ export class lunhui extends plugin {
       let thing_name = '一转轮回'
       let thing_class = 'skill'
       let n = 1
-      await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+      await Add_najie_thing(user_id, thing_name, thing_class, n)
       player.level_id = 9
       player.power_place = 1
-      await Write_player(usr_qq, player)
-      let equipment = await Read_equipment(usr_qq)
-      await Update_equipment(usr_qq, equipment)
+      await Write_player(user_id, player)
+      let equipment = await Read_equipment(user_id)
+      await Update_equipment(user_id, equipment)
       //补血
-      await Add_HP(usr_qq, 99999999)
+      await Add_HP(user_id, 99999999)
       if (player.lunhuiBH == 0) {
         player.Physique_id = Math.ceil(player.Physique_id / 2)
         player.now_exp = 0
@@ -443,7 +441,7 @@ export class lunhui extends plugin {
         player.血气 -= 10000000
         player.lunhuiBH = 0
       }
-      await data.setData('player', usr_qq, player)
+      await data.setData('player', user_id, player)
       e.reply(`你已打破规则，轮回成功，现在你为一转轮回！`)
       return false
     }
@@ -453,7 +451,7 @@ export class lunhui extends plugin {
 
   async yeslunhui(e) {
     /** 内容 */
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
     let now = new Date()
@@ -463,7 +461,7 @@ export class lunhui extends plugin {
       this.finish('yeslunhui')
       return false
     } else if (choice == '确认轮回') {
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':lunhui', 1)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':lunhui', 1)
       e.reply('请再次输入#轮回！')
       //console.log(this.getContext().recall);
       this.finish('yeslunhui')

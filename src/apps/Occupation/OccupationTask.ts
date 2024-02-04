@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { data, getConfig, isNotNull } from '../../model/index.js'
+import { data, getConfig, isNotNull, pushInfo } from '../../model/index.js'
 import { Add_najie_thing, Add_职业经验 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { common, plugin } from '../../../import.js'
@@ -125,9 +125,9 @@ export class OccupationTask extends plugin {
               JSON.stringify(arr)
             )
             if (is_group) {
-              await this.pushInfo(push_address, is_group, msg)
+              await pushInfo(push_address, is_group, msg)
             } else {
-              await this.pushInfo(player_id, is_group, msg)
+              await pushInfo(player_id, is_group, msg)
             }
           }
         }
@@ -215,25 +215,13 @@ export class OccupationTask extends plugin {
             )
             //msg.push("\n增加now_exp:" + xiuwei * time, "血量增加:" + blood * time);
             if (is_group) {
-              await this.pushInfo(push_address, is_group, msg)
+              await pushInfo(push_address, is_group, msg)
             } else {
-              await this.pushInfo(player_id, is_group, msg)
+              await pushInfo(player_id, is_group, msg)
             }
           }
         }
       }
-    }
-  }
-
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
     }
   }
 }

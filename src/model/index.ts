@@ -1,7 +1,6 @@
 export * from './xiuxian.js'
 export * from './image/image.js'
 export * from './show.js'
-export * from './Config.js'
 //
 export * from './base/config.js'
 export * from './base/PATH.js'
@@ -15,3 +14,5 @@ export * from './action/update.js'
 export * from './action/duanzaofu.js'
 //
 export * from './utils.js'
+
+export * from './bot.js'

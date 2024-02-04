@@ -10,6 +10,7 @@ import {
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { common, plugin } from '../../../import.js'
+import { pushInfo } from '../../model/bot.js'
 export class Taopaotask extends plugin {
   constructor() {
     super({
@@ -191,7 +192,7 @@ export class Taopaotask extends plugin {
                 B_player.name +
                 '抓进了地牢,希望大家遵纪守法,引以为戒'
               for (const group_id of groupList) {
-                this.pushInfo(group_id, true, xx)
+                pushInfo(Number(group_id), true, xx)
               }
             }
             if (arr.cishu == 0) {
@@ -223,30 +224,13 @@ export class Taopaotask extends plugin {
             )
             msg.push('\n' + last_msg)
             if (is_group) {
-              await this.pushInfo(push_address, is_group, msg)
+              pushInfo(push_address, is_group, msg)
             } else {
-              await this.pushInfo(player_id, is_group, msg)
+              pushInfo(player_id, is_group, msg)
             }
           }
         }
       }
-    }
-  }
-  /**
-   * 推送消息，群消息推送群，或者推送私人
-   * @param id
-   * @param is_group
-   * @return  false  falses {Promise<void>}
-   */
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
     }
   }
 }

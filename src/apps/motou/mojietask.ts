@@ -9,7 +9,8 @@ import {
   Read_temp,
   Write_temp,
   getConfig,
-  data
+  data,
+  pushInfo
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { common, plugin } from '../../../import.js'
@@ -204,9 +205,9 @@ export class mojietask extends plugin {
               await Add_now_exp(player_id, xiuwei)
               //发送消息
               if (is_group) {
-                await this.pushInfo(push_address, is_group, msg)
+                await pushInfo(push_address, is_group, msg)
               } else {
-                await this.pushInfo(player_id, is_group, msg)
+                await pushInfo(player_id, is_group, msg)
               }
             } else {
               arr.cishu--
@@ -240,24 +241,6 @@ export class mojietask extends plugin {
           }
         }
       }
-    }
-  }
-
-  /**
-   * 推送消息，群消息推送群，或者推送私人
-   * @param id
-   * @param is_group
-   * @return  falses {Promise<void>}
-   */
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
     }
   }
 }

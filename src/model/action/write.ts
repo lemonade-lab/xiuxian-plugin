@@ -1,15 +1,16 @@
 import { writeFileSync } from 'fs'
 import { join } from 'path'
 import { __PATH } from '../base/PATH.js'
+
 /**
  * 写入存档信息,第二个参数是一个JavaScript对象
- * @param usr_qq
+ * @param user_id
  * @param player
  * @returns
  */
-export function Write_player(usr_qq, player) {
+export function Write_player(user_id, player) {
   return writeFileSync(
-    join(__PATH.player_path, `${usr_qq}.json`),
+    join(__PATH.player_path, `${user_id}.json`),
     JSON.stringify(player),
     'utf8'
   )
@@ -41,9 +42,9 @@ export async function Write_shop(shop) {
   )
 }
 
-export async function Write_danyao(usr_qq, danyao) {
+export async function Write_danyao(user_id, danyao) {
   return writeFileSync(
-    join(__PATH.danyao_path, `${usr_qq}.json`),
+    join(__PATH.danyao_path, `${user_id}.json`),
     JSON.stringify(danyao),
     'utf8'
   )
@@ -74,9 +75,9 @@ export function Write_qinmidu(qinmidu) {
 }
 
 //写入纳戒信息,第二个参数是一个JavaScript对象
-export function Write_najie(usr_qq, najie) {
+export function Write_najie(user_id, najie) {
   return writeFileSync(
-    join(__PATH.najie_path, `${usr_qq}.json`),
+    join(__PATH.najie_path, `${user_id}.json`),
     JSON.stringify(najie),
     'utf8'
   )
@@ -96,4 +97,13 @@ export function Writeit(custom) {
     JSON.stringify(custom),
     'utf8'
   )
+}
+
+export function Write_tiandibang(wupin) {
+  writeFileSync(
+    join(__PATH.tiandibang, `tiandibang.json`),
+    JSON.stringify(wupin),
+    'utf8'
+  )
+  return false
 }

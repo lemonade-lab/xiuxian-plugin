@@ -196,14 +196,14 @@ export class duanzao extends plugin {
     return false
   }
   async clearthat(e) {
-    const user_qq = e.user_id //用户qq
+    const user_id = e.user_id //用户qq
     //有无存档
-    if (!(await existplayer(user_qq))) return false
-    const A = await looktripod(user_qq)
+    if (!(await existplayer(user_id))) return false
+    const A = await looktripod(user_id)
     if (A == 1) {
       let newtripod = await Read_tripod()
       for (let item of newtripod) {
-        if (user_qq == item.qq) {
+        if (user_id == item.qq) {
           item.材料 = []
           item.数量 = []
           item.TIME = 0
@@ -213,7 +213,7 @@ export class duanzao extends plugin {
           await Write_duanlu(newtripod)
           let action = null
           await redis.set(
-            'xiuxian@1.4.0:' + user_qq + ':action10',
+            'xiuxian@1.4.0:' + user_id + ':action10',
             JSON.stringify(action)
           )
           e.reply('材料成功清除')
@@ -225,12 +225,12 @@ export class duanzao extends plugin {
   }
 
   async getmybook(e) {
-    const user_qq = e.user_id //用户qq
+    const user_id = e.user_id //用户qq
     //有无存档
-    if (!(await existplayer(user_qq))) {
+    if (!(await existplayer(user_id))) {
       return false
     }
-    const player = await data.getData('player', user_qq)
+    const player = await data.getData('player', user_id)
     if (player.occupation != '炼器师') {
       e.reply(`你还不是炼器师哦,宝贝`)
       return false
@@ -239,31 +239,31 @@ export class duanzao extends plugin {
       e.reply(`您已经测评过了`)
       return false
     }
-    const b = await settripod(user_qq)
+    const b = await settripod(user_id)
     e.reply(b)
     return false
   }
 
   async givein(e) {
-    const user_qq = e.user_id //用户qq
+    const user_id = e.user_id //用户qq
     //有无存档
-    if (!(await existplayer(user_qq))) return false
+    if (!(await existplayer(user_id))) return false
     //不开放私聊
     //获取游戏状态
     const game_action = await redis.get(
-      'xiuxian@1.4.0:' + user_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    const A = await looktripod(user_qq)
+    const A = await looktripod(user_id)
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来煅炉吧`)
       return false
     }
-    const player = await data.getData('player', user_qq)
+    const player = await data.getData('player', user_id)
     if (player.occupation != '炼器师') {
       e.reply(`切换到炼器师后再来吧,宝贝`)
       return false
@@ -279,7 +279,7 @@ export class duanzao extends plugin {
       e.reply(`凡界物品无法放入煅炉`)
       return false
     }
-    let mynum = await exist_najie_thing(user_qq, thing_name, '材料')
+    let mynum = await exist_najie_thing(user_id, thing_name, '材料')
     if (mynum < thing_acount) {
       e.reply(`材料不足,无法放入`)
       return false
@@ -287,7 +287,7 @@ export class duanzao extends plugin {
 
     //开始放入
 
-    const tripod = await Read_mytripod(user_qq)
+    const tripod = await Read_mytripod(user_id)
     if (tripod.状态 == 1) {
       e.reply(`正在炼制中,无法熔炼更多材料`)
       return false
@@ -301,7 +301,7 @@ export class duanzao extends plugin {
       num += Number(tripod.数量[item])
     }
     let dyew = 0
-    let dy = await Read_danyao(user_qq)
+    let dy = await Read_danyao(user_id)
     if (dy.beiyong5 > 0) {
       dyew = dy.beiyong5
     }
@@ -327,11 +327,11 @@ export class duanzao extends plugin {
       newtripod = await Read_tripod()
     }
     for (let item of newtripod) {
-      if (user_qq == item.qq) {
+      if (user_id == item.qq) {
         item.材料.push(thing_name)
         item.数量.push(thing_acount)
         await Write_duanlu(newtripod)
-        await Add_najie_thing(user_qq, thing_name, '材料', -thing_acount)
+        await Add_najie_thing(user_id, thing_name, '材料', -thing_acount)
         const yongyou = num + Number(thing_acount)
         e.reply(
           `熔炼成功,当前煅炉内拥有[${yongyou}]个材料,根据您现有等级,您还可以放入[${shengyu}]个材料`
@@ -342,9 +342,9 @@ export class duanzao extends plugin {
   }
 
   async startit(e) {
-    let user_qq = e.user_id
-    if (!(await existplayer(user_qq))) return false
-    const A = await looktripod(user_qq)
+    let user_id = e.user_id
+    if (!(await existplayer(user_id))) return false
+    const A = await looktripod(user_id)
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来锻造吧`)
       return false
@@ -358,13 +358,13 @@ export class duanzao extends plugin {
       newtripod = await Read_tripod()
     }
     for (let item of newtripod) {
-      if (user_qq == item.qq) {
+      if (user_id == item.qq) {
         if (item.材料.length == 0) {
           e.reply(`炉子为空,无法炼制`)
           return false
         }
         let action = JSON.parse(
-          await redis.get('xiuxian@1.4.0:' + user_qq + ':action10')
+          await redis.get('xiuxian@1.4.0:' + user_id + ':action10')
         )
         if (action != null) {
           //人物有动作查询动作结束时间
@@ -388,16 +388,16 @@ export class duanzao extends plugin {
           end_time: new Date().getTime() + action_time, //结束时间
           time: action_time //持续时间
         }
-        let dy = await Read_danyao(user_qq)
+        let dy = await Read_danyao(user_id)
         if (dy.xingyun >= 1) {
           dy.xingyun--
           if (dy.xingyun == 0) {
             dy.beiyong5 = 0
           }
         }
-        await Write_danyao(user_qq, dy)
+        await Write_danyao(user_id, dy)
         await redis.set(
-          'xiuxian@1.4.0:' + user_qq + ':action10',
+          'xiuxian@1.4.0:' + user_id + ':action10',
           JSON.stringify(arr)
         ) //redis设置动作
         e.reply(`现在开始锻造武器,最少需锻造30分钟,高级装备需要更多温养时间`)
@@ -406,16 +406,16 @@ export class duanzao extends plugin {
     }
   }
   async openit(e) {
-    let user_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    if (!(await existplayer(user_qq))) return false
-    const A = await looktripod(user_qq)
+    if (!(await existplayer(user_id))) return false
+    const A = await looktripod(user_id)
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来锻造吧`)
       return false
     }
     let newtripod
-    const player = await data.getData('player', user_qq)
+    const player = await data.getData('player', user_id)
     if (player.occupation != '炼器师') {
       e.reply(`切换到炼器师后再来吧,宝贝`)
       return false
@@ -427,7 +427,7 @@ export class duanzao extends plugin {
       newtripod = await Read_tripod()
     }
     for (let item of newtripod) {
-      if (user_qq == item.qq) {
+      if (user_id == item.qq) {
         if (item.TIME == 0) {
           e.reply(`煅炉里面空空如也,也许自己还没有启动它`)
           return false
@@ -443,7 +443,7 @@ export class duanzao extends plugin {
         //关闭状态
 
         let action = JSON.parse(
-          await redis.get('xiuxian@1.4.0:' + user_qq + ':action10')
+          await redis.get('xiuxian@1.4.0:' + user_id + ':action10')
         )
 
         //判断属性九维值
@@ -583,7 +583,7 @@ export class duanzao extends plugin {
           author_name: player.id,
           出售价: Math.floor(1000000 * sum)
         }
-        await Add_najie_thing(user_qq, zhuangbei, '装备', 1)
+        await Add_najie_thing(user_id, zhuangbei, '装备', 1)
         //计算经验收益
 
         //talent影响值
@@ -602,7 +602,7 @@ export class duanzao extends plugin {
         if (player.仙宠.type == '炼器') {
           z = Math.floor(z * (1 + (player.仙宠.等级 / 25) * 0.1))
         }
-        Add_职业经验(user_qq, z)
+        Add_职业经验(user_id, z)
         //关闭所有状态
         item.状态 = 0
         item.TIME = 0
@@ -612,7 +612,7 @@ export class duanzao extends plugin {
         //清除时间
         action = new Date().getTime()
         await redis.set(
-          'xiuxian@1.4.0:' + user_qq + ':action10',
+          'xiuxian@1.4.0:' + user_id + ':action10',
           JSON.stringify(action)
         )
         e.reply(`恭喜你获得了[${wuqiname}·${houzhui}],炼器经验增加了[${z}]`)
@@ -621,15 +621,15 @@ export class duanzao extends plugin {
     }
   }
   async mytript(e) {
-    const user_qq = e.user_id
-    if (!(await existplayer(user_qq))) return false
-    const A = await looktripod(user_qq)
+    const user_id = e.user_id
+    if (!(await existplayer(user_id))) return false
+    const A = await looktripod(user_id)
     if (A != 1) {
       e.reply(`请先去#炼器师能力评测,再来煅炉吧`)
       return false
     }
 
-    let a = await Read_mytripod(user_qq)
+    let a = await Read_mytripod(user_id)
 
     if (a.材料?.length == 0) {
       e.reply(`锻炉里空空如也,没什么好看the`)
@@ -662,14 +662,14 @@ export class duanzao extends plugin {
   }
 
   async getnewname(e) {
-    const user_qq = e.user_id //用户qq
-    if (!(await existplayer(user_qq))) return false
+    const user_id = e.user_id //用户qq
+    if (!(await existplayer(user_id))) return false
     let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('赋名', '')
     const code = thing.split('*')
     const thing_name = code[0] //原物品
     let new_name = code[1] //新名字
-    const thingnum = await exist_najie_thing(user_qq, thing_name, '装备')
+    const thingnum = await exist_najie_thing(user_id, thing_name, '装备')
     if (!thingnum) {
       e.reply(`你没有这件装备`)
       return false
@@ -696,7 +696,7 @@ export class duanzao extends plugin {
         return false
       }
     }
-    const thingall = await Read_najie(user_qq)
+    const thingall = await Read_najie(user_id)
 
     for (let item of thingall.装备) {
       if (item.name == thing_name) {
@@ -709,7 +709,7 @@ export class duanzao extends plugin {
           ) {
             item.name = new_name
             A.push(item)
-            await Write_najie(user_qq, thingall)
+            await Write_najie(user_id, thingall)
             await Writeit(A)
             e.reply(`附名成功,您the${thing_name}更名为${new_name}`)
             return false

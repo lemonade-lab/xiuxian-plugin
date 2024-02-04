@@ -1,7 +1,6 @@
 import { exec } from 'child_process'
-import { plugin } from '../../../import.js'
+import { type Message, plugin } from '../../../import.js'
 import { AppName } from '../../../config.js'
-
 export class admin extends plugin {
   constructor() {
     super({
@@ -18,7 +17,7 @@ export class admin extends plugin {
     })
   }
 
-  async checkout(e) {
+  async checkout(e: Message) {
     if (!e.isMaster) return false
     exec(
       'git  pull',

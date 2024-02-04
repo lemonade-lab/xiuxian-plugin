@@ -63,17 +63,17 @@ export class Games extends plugin {
   }
 
   async Refusecouple(e) {
-    let usr_qq = e.user_id
-    let player = await Read_player(usr_qq)
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':couple', 1)
+    let user_id = e.user_id
+    let player = await Read_player(user_id)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':couple', 1)
     e.reply(player.name + '开启了拒绝模式')
     return false
   }
 
   async Allowcouple(e) {
-    let usr_qq = e.user_id
-    let player = await Read_player(usr_qq)
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':couple', 0)
+    let user_id = e.user_id
+    let player = await Read_player(user_id)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':couple', 0)
     e.reply(player.name + '开启了允许模式')
     return false
   }
@@ -86,10 +86,10 @@ export class Games extends plugin {
       return false
     }
     //统一用户ID名
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //全局状态判断
     //得到用户信息
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let now_level_id
     if (!isNotNull(player.level_id)) {
       e.reply('请先#同步信息')
@@ -138,8 +138,8 @@ export class Games extends plugin {
           addlevel +
           '!'
       )
-      await Add_now_exp(usr_qq, addlevel)
-      await Add_money(usr_qq, -money)
+      await Add_now_exp(user_id, addlevel)
+      await Add_money(user_id, -money)
       let gameswitch = cf.switch.Xiuianplay_key
       if (gameswitch == true) {
         setu(e)
@@ -148,21 +148,21 @@ export class Games extends plugin {
     }
     //被教训
     else if (rand > 0.7) {
-      await Add_money(usr_qq, -money)
+      await Add_money(user_id, -money)
       ql1 = '花了'
       ql2 =
         'money,本想好好放肆一番,却赶上了扫黄,无奈在衙门被教育了一晚上,最终大彻大悟,下次还来！'
-      e.reply([segment.at(usr_qq), ql1 + money + ql2])
+      e.reply([segment.at(user_id), ql1 + money + ql2])
       return false
     }
     //被坑了
     else {
-      await Add_money(usr_qq, -money)
+      await Add_money(user_id, -money)
       ql1 =
         '这一次，你进了一个奇怪the小巷子，那里衣衫褴褛the漂亮姐姐说要找你玩点有刺激the，你想都没想就进屋了。\n'
       ql2 =
         '没想到进屋后不多时遍昏睡过去。醒来发现自己被脱光扔在郊外,浑身上下只剩一条裤衩子了。仰天长啸：也不过是从头再来！'
-      e.reply([segment.at(usr_qq), ql1 + ql2])
+      e.reply([segment.at(user_id), ql1 + ql2])
       return false
     }
   }
@@ -173,25 +173,25 @@ export class Games extends plugin {
     //金银坊开关
     let gameswitch = cf.switch.Moneynumber
     if (gameswitch != true) return false
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) return false
     //用户信息查询
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     let now_time = new Date().getTime()
     let money = 10000
     //判断money
     if (player.money < money) {
       //直接清除，并记录
       //重新记录本次时间
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_game_time', now_time) //存入缓存
+      await redis.set('xiuxian@1.4.0:' + user_id + ':last_game_time', now_time) //存入缓存
       //清除游戏状态
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':game_action', 1)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':game_action', 1)
       //清除未投入判断
       //清除金额
-      yazhu[usr_qq] = 0
+      yazhu[user_id] = 0
       //清除游戏定时检测CD
-      clearTimeout(gametime[usr_qq])
+      clearTimeout(gametime[user_id])
       e.reply('媚娘：钱不够也想玩？')
       return false
     }
@@ -202,7 +202,7 @@ export class Games extends plugin {
     //last_game_time
     //获得时间戳
     let last_game_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_game_time')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':last_game_time')
     )
     let transferTimeout = 60000 * time
     if (now_time < last_game_time + transferTimeout) {
@@ -220,10 +220,10 @@ export class Games extends plugin {
       return false
     }
     //记录本次执行时间
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_game_time', now_time)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':last_game_time', now_time)
     //判断是否已经在进行
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //为0，就是在进行了
     if (game_action == '0') {
@@ -234,22 +234,22 @@ export class Games extends plugin {
     //不为0   没有参与投入和梭哈
     e.reply(`媚娘：发送[#投入+数字]或[#梭哈]`, true)
     //写入游戏状态为真-在进行了
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':game_action', 0)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':game_action', 0)
     return false
   }
 
   //这里冲突了，拆函数！
   //梭哈|投入999
   async Moneycheck(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //获取当前时间戳
     let now_time = new Date().getTime()
     //文档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     //得到此人the状态
     //判断是否是投入用户
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     if (!ifexistplay || game_action == '1') {
       //不是就返回
@@ -260,43 +260,43 @@ export class Games extends plugin {
     //去掉投入，发现得到the是梭哈
     //梭哈，全部money
     if (es == '#梭哈') {
-      let player = await Read_player(usr_qq)
+      let player = await Read_player(user_id)
       //得到投入金额
-      yazhu[usr_qq] = player.money - 1
+      yazhu[user_id] = player.money - 1
       e.reply('媚娘：梭哈完成,发送[大]或[小]')
       return false
     }
     //不是梭哈，看看是不是数字
     //判断是不是输了个数字，看看投入多少
     if (parseInt(es) == parseInt(es)) {
-      let player = await Read_player(usr_qq)
+      let player = await Read_player(user_id)
       //判断money
       if (player.money >= parseInt(es)) {
         //得到投入数
-        yazhu[usr_qq] = parseInt(es)
+        yazhu[user_id] = parseInt(es)
         //这里限制一下，至少押1w
         let money = 10000
         //如果投入the数大于0
-        if (yazhu[usr_qq] >= money) {
+        if (yazhu[user_id] >= money) {
           //如果押the钱不够
           //值未真。并记录此人信息
-          gane_key_user[usr_qq]
+          gane_key_user[user_id]
           e.reply('媚娘：投入完成,发送[大]或[小]')
           return false
         } else {
           //直接清除，并记录
           //重新记录本次时间
           await redis.set(
-            'xiuxian@1.4.0:' + usr_qq + ':last_game_time',
+            'xiuxian@1.4.0:' + user_id + ':last_game_time',
             now_time
           ) //存入缓存
           //清除游戏状态
-          await redis.set('xiuxian@1.4.0:' + usr_qq + ':game_action', 1)
+          await redis.set('xiuxian@1.4.0:' + user_id + ':game_action', 1)
           //清除未投入判断
           //清除金额
-          yazhu[usr_qq] = 0
+          yazhu[user_id] = 0
           //清除游戏定时检测CD
-          clearTimeout(gametime[usr_qq])
+          clearTimeout(gametime[user_id])
           e.reply('媚娘：钱不够也想玩？')
           return false
         }
@@ -307,21 +307,21 @@ export class Games extends plugin {
 
   //大|小
   async Moneycheckguess(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //获取当前时间戳
     let now_time = new Date().getTime()
     //文档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     //得到此人the状态
     //判断是否是投入用户
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     if (!ifexistplay || game_action == '1') {
       //不是就返回
       return false
     }
-    if (isNaN(yazhu[usr_qq])) {
+    if (isNaN(yazhu[user_id])) {
       return false
     }
     //判断是否投入金额
@@ -331,7 +331,7 @@ export class Games extends plugin {
       e.reply('媚娘：公子，你还没投入呢')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let es = e.msg
     //随机数并取整【1，7）
     let randtime = Math.trunc(Math.random() * 6) + 1
@@ -356,51 +356,51 @@ export class Games extends plugin {
       let z = cf.size.Money * 10000
       //增加金银坊投资记录
       //投入大于一百万
-      if (yazhu[usr_qq] >= z) {
+      if (yazhu[user_id] >= z) {
         //扣一半the投入
         x = cf.percentage.punishment
         //并提示这是被扣了一半
         y = 0
       }
-      yazhu[usr_qq] = Math.trunc(yazhu[usr_qq] * x)
+      yazhu[user_id] = Math.trunc(yazhu[user_id] * x)
       //金库
       //获得money超过100w
       //积累
       if (isNotNull(player.金银坊胜场)) {
         player.金银坊胜场 = parseInt(player.金银坊胜场) + 1
-        player.金银坊收入 = parseInt(player.金银坊收入) + yazhu[usr_qq]
+        player.金银坊收入 = parseInt(player.金银坊收入) + yazhu[user_id]
       } else {
         player.金银坊胜场 = 1
-        player.金银坊收入 = yazhu[usr_qq]
+        player.金银坊收入 = yazhu[user_id]
       }
       //把记录写入
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
       //得到the
-      Add_money(usr_qq, yazhu[usr_qq])
+      Add_money(user_id, yazhu[user_id])
       if (y == 1) {
         e.reply([
-          segment.at(usr_qq),
+          segment.at(user_id),
           `骰子最终为 ${touzi} 你猜对了！`,
           '\n',
-          `现在拥有money:${player.money + yazhu[usr_qq]}`
+          `现在拥有money:${player.money + yazhu[user_id]}`
         ])
       } else {
         e.reply([
-          segment.at(usr_qq),
+          segment.at(user_id),
           `骰子最终为 ${touzi} 你虽然猜对了，但是金银坊怀疑你出老千，准备打断你the腿the时候，你选择破财消灾。`,
           '\n',
-          `现在拥有money:${player.money + yazhu[usr_qq]}`
+          `现在拥有money:${player.money + yazhu[user_id]}`
         ])
       }
       //重新记录本次时间
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_game_time', now_time) //存入缓存
+      await redis.set('xiuxian@1.4.0:' + user_id + ':last_game_time', now_time) //存入缓存
       //清除游戏状态
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':game_action', 1)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':game_action', 1)
       //清除未投入判断
       //清除金额
-      yazhu[usr_qq] = 0
+      yazhu[user_id] = 0
       //清除游戏CD
-      clearTimeout(gametime[usr_qq])
+      clearTimeout(gametime[user_id])
       return false
     }
     //你说大，但是touzi<4,是输了
@@ -410,31 +410,31 @@ export class Games extends plugin {
       if (isNotNull(player.金银坊败场)) {
         player.金银坊败场 = parseInt(player.金银坊败场) + 1
         player.金银坊支出 =
-          parseInt(player.金银坊支出) + parseInt(yazhu[usr_qq])
+          parseInt(player.金银坊支出) + parseInt(yazhu[user_id])
       } else {
         player.金银坊败场 = 1
-        player.金银坊支出 = parseInt(yazhu[usr_qq])
+        player.金银坊支出 = parseInt(yazhu[user_id])
       }
       //把记录写入
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
       //只要花moneythe地方就要查看是否存在游戏状态
-      Add_money(usr_qq, -yazhu[usr_qq])
+      Add_money(user_id, -yazhu[user_id])
       let msg = [
-        segment.at(usr_qq),
+        segment.at(user_id),
         `骰子最终为 ${touzi} 你猜错了！`,
         '\n',
-        `现在拥有money:${player.money - yazhu[usr_qq]}`
+        `现在拥有money:${player.money - yazhu[user_id]}`
       ]
-      let now_money = player.money - yazhu[usr_qq]
+      let now_money = player.money - yazhu[user_id]
       //重新记录本次时间
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_game_time', now_time) //存入缓存
+      await redis.set('xiuxian@1.4.0:' + user_id + ':last_game_time', now_time) //存入缓存
       //清除游戏状态
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':game_action', 1)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':game_action', 1)
       //清除未投入判断
       //清除金额
-      yazhu[usr_qq] = 0
+      yazhu[user_id] = 0
       //清除游戏CD
-      clearTimeout(gametime[usr_qq])
+      clearTimeout(gametime[user_id])
       //如果扣了之后，钱被扣光了，就提示
       if (now_money <= 0) {
         msg.push(
@@ -467,7 +467,7 @@ export class Games extends plugin {
       shenglv = ((victory / (victory + defeated)) * 100).toFixed(2)
     }
     const data1 = await new Show().get_jinyin({
-      user_qq: qq,
+      user_id: qq,
       victory,
       victory_num,
       defeated,

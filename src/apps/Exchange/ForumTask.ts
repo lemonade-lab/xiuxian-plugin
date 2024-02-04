@@ -35,9 +35,9 @@ export class ForumTask extends plugin {
     for (let i = 0; i < Forum.length; i++) {
       const time = (now_time - Forum[i].now_time) / 24 / 60 / 60 / 1000
       if (time < 3) break
-      const usr_qq = Forum[i].qq
+      const user_id = Forum[i].qq
       const lingshi = Forum[i].whole
-      await Add_money(usr_qq, lingshi)
+      await Add_money(user_id, lingshi)
       Forum.splice(i, 1)
       i--
     }

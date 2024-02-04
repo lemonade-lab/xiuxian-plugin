@@ -18,9 +18,11 @@ import {
   __PATH,
   Read_danyao,
   data,
-  Show
+  Show,
+  pushInfo,
+  getPlayerActionData
 } from '../../model/index.js'
-import { common, plugin, puppeteer } from '../../../import.js'
+import { plugin, puppeteer } from '../../../import.js'
 export class Occupation extends plugin {
   constructor() {
     super({
@@ -105,10 +107,10 @@ export class Occupation extends plugin {
     })
   }
   async zhuanzhi(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '猎户') {
       e.reply('你不是猎户,无法自选职业')
       return false
@@ -120,21 +122,21 @@ export class Occupation extends plugin {
       return false
     }
     player.occupation = occupation
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     e.reply(`恭喜${player.name}转职为[${occupation}]`)
     return false
   }
   async chose_occupation(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
 
     let occupation = e.msg.replace('#转职', '')
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let player_occupation = player.occupation
     let x = data.occupation_list.find((item) => item.name == occupation)
     if (!isNotNull(x)) {
@@ -153,7 +155,7 @@ export class Occupation extends plugin {
     let thing_class = '道具'
     let n = -1
     let thing_quantity = await exist_najie_thing(
-      usr_qq,
+      user_id,
       thing_name,
       thing_class
     )
@@ -166,17 +168,17 @@ export class Occupation extends plugin {
       e.reply(`你已经是[${player_occupation}]了，可使用[职业转化凭证]重新转职`)
       return false
     }
-    await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+    await Add_najie_thing(user_id, thing_name, thing_class, n)
     if (player.occupation.length == 0) {
       player.occupation = occupation
       player.occupation_level = 1
       player.occupation_exp = 0
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       e.reply(`恭喜${player.name}转职为[${occupation}]`)
       return false
     }
     let action = JSON.parse(
-      await redis.get('xiuxian:player:' + usr_qq + ':fuzhi')
+      await redis.get('xiuxian:player:' + user_id + ':fuzhi')
     )
     if (action == null) {
       action = []
@@ -188,28 +190,28 @@ export class Occupation extends plugin {
     }
     action = arr
     await redis.set(
-      'xiuxian:player:' + usr_qq + ':fuzhi',
+      'xiuxian:player:' + user_id + ':fuzhi',
       JSON.stringify(action)
     )
     player.occupation = occupation
     player.occupation_level = 1
     player.occupation_exp = 0
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     e.reply(`恭喜${player.name}转职为[${occupation}],您the副职为${arr.职业名}`)
     return false
   }
   async chose_occupation2(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
 
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let action = await JSON.parse(
-      await redis.get('xiuxian:player:' + usr_qq + ':fuzhi')
+      await redis.get('xiuxian:player:' + user_id + ':fuzhi')
     ) //副职)
     if (action == null) {
       action = []
@@ -227,10 +229,10 @@ export class Occupation extends plugin {
     player.occupation_exp = b
     player.occupation_level = c
     await redis.set(
-      'xiuxian:player:' + usr_qq + ':fuzhi',
+      'xiuxian:player:' + user_id + ':fuzhi',
       JSON.stringify(action)
     )
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     e.reply(
       `恭喜${player.name}转职为[${player.occupation}],您the副职为${action.职业名}`
     )
@@ -238,20 +240,20 @@ export class Occupation extends plugin {
   }
 
   async plant(e) {
-    let usr_qq = e.user_id //用户qq
-    if (!(await existplayer(usr_qq))) return false
+    let user_id = e.user_id //用户qq
+    if (!(await existplayer(user_id))) return false
     //不开放私聊
 
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '采药师') {
       e.reply('您采药，您配吗?')
       return false
@@ -281,7 +283,7 @@ export class Occupation extends plugin {
 
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -314,7 +316,7 @@ export class Occupation extends plugin {
       arr['group_id'] = e.group_id
     }
 
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr)) //redis设置动作
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr)) //redis设置动作
     e.reply(`现在开始采药${time}分钟`)
 
     return false
@@ -322,8 +324,8 @@ export class Occupation extends plugin {
 
   async qingchushangjinbang(e) {
     if (!e.isMaster) return false
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let action = JSON.parse(
       await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
@@ -335,7 +337,7 @@ export class Occupation extends plugin {
   }
 
   async plant_back(e) {
-    let action = await this.getPlayerAction(e.user_id)
+    let action = await getPlayerActionData(e.user_id)
     if (action.plant == 1) {
       return false
     }
@@ -399,21 +401,21 @@ export class Occupation extends plugin {
     )
   }
   async mine(e) {
-    let usr_qq = e.user_id //用户qq
-    if (!(await existplayer(usr_qq))) return false
+    let user_id = e.user_id //用户qq
+    if (!(await existplayer(user_id))) return false
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
       e.reply('修仙：游戏进行中...')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '采矿师') {
       e.reply('你挖矿许可证呢？非法挖矿，罚款200money')
-      await Add_money(usr_qq, -200)
+      await Add_money(user_id, -200)
       return false
     }
     //获取时间
@@ -440,7 +442,7 @@ export class Occupation extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -473,14 +475,14 @@ export class Occupation extends plugin {
       arr['group_id'] = e.group_id
     }
 
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr)) //redis设置动作
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr)) //redis设置动作
     e.reply(`现在开始采矿${time}分钟`)
 
     return false
   }
 
   async mine_back(e) {
-    let action = await this.getPlayerAction(e.user_id)
+    let action = await getPlayerActionData(e.user_id)
     if (action.mine == 1) return false
     //结算
     let end_time = action.end_time
@@ -545,9 +547,8 @@ export class Occupation extends plugin {
   }
 
   async plant_jiesuan(user_id, time, is_random, group_id = undefined) {
-    let usr_qq = user_id
-    let player = data.getData('player', usr_qq)
-    let msg: any[] = [segment.at(usr_qq)]
+    let player = data.getData('player', user_id)
+    let msg: any[] = [segment.at(user_id)]
     let exp = 0
     exp = time * 10
     let k = 1
@@ -590,26 +591,25 @@ export class Occupation extends plugin {
       }
       msg.push(`\n${names[item]}${Math.floor(newsum[item])}个`)
       await Add_najie_thing(
-        usr_qq,
+        user_id,
         names[item],
         '草药',
         Math.floor(newsum[item])
       )
     }
-    await Add_职业经验(usr_qq, exp)
+    await Add_职业经验(user_id, exp)
     if (group_id) {
-      await this.pushInfo(group_id, true, msg)
+      await pushInfo(group_id, true, msg)
     } else {
-      await this.pushInfo(usr_qq, false, msg)
+      await pushInfo(user_id, false, msg)
     }
 
     return false
   }
 
   async mine_jiesuan(user_id, time, is_random, group_id = undefined) {
-    let usr_qq = user_id
-    let player = data.getData('player', usr_qq)
-    let msg: any[] = [segment.at(usr_qq)]
+    let player = data.getData('player', user_id)
+    let msg: any[] = [segment.at(user_id)]
     let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time)
     let rate =
       data.occupation_exp_list.find(
@@ -650,17 +650,17 @@ export class Occupation extends plugin {
     let xuanze = Math.trunc(Math.random() * A.length)
     end_amount *= player.level_id / 40
     end_amount = Math.floor(end_amount)
-    await Add_najie_thing(usr_qq, '庚金', '材料', end_amount)
-    await Add_najie_thing(usr_qq, '玄土', '材料', end_amount)
-    await Add_najie_thing(usr_qq, A[xuanze], '材料', num)
-    await Add_najie_thing(usr_qq, B[xuanze], '材料', Math.trunc(num / 48))
-    await Add_职业经验(usr_qq, exp)
+    await Add_najie_thing(user_id, '庚金', '材料', end_amount)
+    await Add_najie_thing(user_id, '玄土', '材料', end_amount)
+    await Add_najie_thing(user_id, A[xuanze], '材料', num)
+    await Add_najie_thing(user_id, B[xuanze], '材料', Math.trunc(num / 48))
+    await Add_职业经验(user_id, exp)
     msg.push(`\n采矿归来，${ext}\n收获庚金×${end_amount}\n玄土×${end_amount}`)
     msg.push(`\n${A[xuanze]}x${num}\n${B[xuanze]}x${Math.trunc(num / 48)}`)
     if (group_id) {
-      await this.pushInfo(group_id, true, msg)
+      await pushInfo(group_id, true, msg)
     } else {
-      await this.pushInfo(usr_qq, false, msg)
+      await pushInfo(user_id, false, msg)
     }
     return false
   }
@@ -671,9 +671,9 @@ export class Occupation extends plugin {
     return false
   }
   async yaoxiao(e) {
-    let usr_qq = e.user_id
-    let dy = await Read_danyao(usr_qq)
-    let player = await Read_player(usr_qq)
+    let user_id = e.user_id
+    let dy = await Read_danyao(user_id)
+    let player = await Read_player(user_id)
     let m = '丹药效果:'
     if (dy.ped > 0) {
       m += `\n仙缘丹药力${dy.beiyong1 * 100}%药效${dy.ped}次`
@@ -707,10 +707,10 @@ export class Occupation extends plugin {
   }
 
   async liandan(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '炼丹师') {
       e.reply('丹是上午炼the,药是中午吃the,人是下午走the')
       return false
@@ -736,7 +736,7 @@ export class Occupation extends plugin {
     tmp_msg += '消耗'
     for (let i in materials) {
       let material = materials[i]
-      let x = await exist_najie_thing(usr_qq, material.name, '草药')
+      let x = await exist_najie_thing(user_id, material.name, '草药')
       if (x == false) {
         x = 0
       }
@@ -750,7 +750,12 @@ export class Occupation extends plugin {
     for (let i in materials) {
       let material = materials[i]
       tmp_msg += `${material.name}×${material.amount * n}，`
-      await Add_najie_thing(usr_qq, material.name, '草药', -material.amount * n)
+      await Add_najie_thing(
+        user_id,
+        material.name,
+        '草药',
+        -material.amount * n
+      )
     }
     let total_exp = exp[1] * n
     if (player.仙宠.type == '炼丹') {
@@ -770,37 +775,37 @@ export class Occupation extends plugin {
       danyao == '九阶玄元丹' ||
       danyao == '起死回生丹'
     ) {
-      await Add_najie_thing(usr_qq, danyao, '丹药', n)
+      await Add_najie_thing(user_id, danyao, '丹药', n)
       e.reply(`${tmp_msg}得到${danyao}${n}颗，获得炼丹经验${total_exp}`)
     } else {
       let dengjixiuzheng = player.occupation_level
       let newrandom = Math.random()
       let newrandom2 = Math.random()
       if (newrandom >= 0.1 + (dengjixiuzheng * 3) / 100) {
-        await Add_najie_thing(usr_qq, '凡品' + danyao, '丹药', n)
+        await Add_najie_thing(user_id, '凡品' + danyao, '丹药', n)
         e.reply(`${tmp_msg}得到"凡品"${danyao}${n}颗，获得炼丹经验${total_exp}`)
       } else {
         if (newrandom2 >= 0.4) {
-          await Add_najie_thing(usr_qq, '极品' + danyao, '丹药', n)
+          await Add_najie_thing(user_id, '极品' + danyao, '丹药', n)
           e.reply(
             `${tmp_msg}得到"极品"${danyao}${n}颗，获得炼丹经验${total_exp}`
           )
         } else {
-          await Add_najie_thing(usr_qq, '仙品' + danyao, '丹药', n)
+          await Add_najie_thing(user_id, '仙品' + danyao, '丹药', n)
           e.reply(
             `${tmp_msg}得到"仙品"${danyao}${n}颗，获得炼丹经验${total_exp}`
           )
         }
       }
     }
-    await Add_职业经验(usr_qq, total_exp)
+    await Add_职业经验(user_id, total_exp)
   }
 
   async lianqi(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '炼器师') {
       e.reply('铜都不炼你还炼器？')
       return false
@@ -843,7 +848,7 @@ export class Occupation extends plugin {
     tmp_msg1 += '消耗'
     for (let i in materials) {
       let material = materials[i]
-      let x = await exist_najie_thing(usr_qq, material.name, '材料')
+      let x = await exist_najie_thing(user_id, material.name, '材料')
       if (x < material.amount || !x) {
         e.reply(`纳戒中拥有${material.name}×${x}，打造需要${material.amount}份`)
         return false
@@ -852,7 +857,7 @@ export class Occupation extends plugin {
     for (let i in materials) {
       let material = materials[i]
       tmp_msg1 += `${material.name}×${material.amount}，`
-      await Add_najie_thing(usr_qq, material.name, '材料', -material.amount)
+      await Add_najie_thing(user_id, material.name, '材料', -material.amount)
     }
     let rand1 = Math.random()
     if (rand1 > suc_rate) {
@@ -869,8 +874,8 @@ export class Occupation extends plugin {
       e.reply('在你细致the把控下，一把绝世极品即将问世！！！！')
       await sleep(10000)
     }
-    await Add_najie_thing(usr_qq, equipment_name, '装备', 1, pinji)
-    await Add_职业经验(usr_qq, res_exp)
+    await Add_najie_thing(user_id, equipment_name, '装备', 1, pinji)
+    await Add_职业经验(user_id, res_exp)
     e.reply(
       `${tmp_msg1}打造成功，获得${equipment_name}(${
         ['劣', '普', '优', '精', '极', '绝', '顶'][pinji]
@@ -878,17 +883,17 @@ export class Occupation extends plugin {
     )
   }
   async search_sb(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '侠客') {
       e.reply('只有专业the侠客才能获取悬赏')
       return false
     }
     let msg = []
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':shangjing')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':shangjing')
     )
     let type = 0
     if (action != null) {
@@ -915,7 +920,7 @@ export class Occupation extends plugin {
       let this_qq = File[k].replace('.json', '')
       this_qq = this_qq
       let players = await Read_player(this_qq)
-      if (players.魔道值 > 999 && this_qq != usr_qq) {
+      if (players.魔道值 > 999 && this_qq != user_id) {
         mubiao[i] = {
           name: players.name,
           赏金: Math.trunc(
@@ -956,7 +961,7 @@ export class Occupation extends plugin {
       end_time: new Date().getTime() + 60000 * 60 * 20 //结束时间
     }
     await redis.set(
-      'xiuxian@1.4.0:' + usr_qq + ':shangjing',
+      'xiuxian@1.4.0:' + user_id + ':shangjing',
       JSON.stringify(arr)
     )
     let msg_data = {
@@ -971,11 +976,11 @@ export class Occupation extends plugin {
     return false
   }
   async taofa_sb(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let A_action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (A_action != null) {
       let now_time = new Date().getTime()
@@ -988,13 +993,13 @@ export class Occupation extends plugin {
         return false
       }
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.occupation != '侠客') {
       e.reply('侠客资质不足,需要进行训练')
       return false
     }
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':shangjing')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':shangjing')
     )
     if (action == null) {
       e.reply('还没有接取到悬赏,请查看后再来吧') //没接取悬赏
@@ -1047,8 +1052,8 @@ export class Occupation extends plugin {
         await Write_player(qq, player_B)
         player.money += action.arm[num].赏金
         player.魔道值 -= 5
-        await Write_player(usr_qq, player)
-        await Add_职业经验(usr_qq, 2255)
+        await Write_player(user_id, player)
+        await Add_职业经验(user_id, 2255)
         last_msg +=
           '【全服公告】' +
           player_B.name +
@@ -1058,8 +1063,8 @@ export class Occupation extends plugin {
         player.now_bool = 0
         player.money += shangjing
         player.魔道值 -= 5
-        await Write_player(usr_qq, player)
-        await Add_职业经验(usr_qq, 1100)
+        await Write_player(user_id, player)
+        await Add_职业经验(user_id, 1100)
         last_msg += player_B.name + '反杀了你,只获得了部分辛苦钱'
       }
       if (msg.length > 100) {
@@ -1070,13 +1075,13 @@ export class Occupation extends plugin {
     } else {
       player.money += action.arm[num].赏金
       player.魔道值 -= 5
-      await Write_player(usr_qq, player)
-      await Add_职业经验(usr_qq, 2255)
+      await Write_player(user_id, player)
+      await Add_职业经验(user_id, 2255)
       last_msg += '你惩戒了仙路窃贼,获得了部分money' //直接获胜
     }
     action.arm.splice(num, 1)
     await redis.set(
-      'xiuxian@1.4.0:' + usr_qq + ':shangjing',
+      'xiuxian@1.4.0:' + user_id + ':shangjing',
       JSON.stringify(action)
     )
 
@@ -1090,16 +1095,16 @@ export class Occupation extends plugin {
       const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
       const groupList = await redis.sMembers(redisGlKey)
       for (const group_id of groupList) {
-        this.pushInfo(group_id, true, last_msg)
+        pushInfo(Number(group_id), true, last_msg)
       }
     }
   }
 
   async xuanshang_sb(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let qq = e.msg.replace('#悬赏', '')
     let code = qq.split('*')
     qq = code[0]
@@ -1133,21 +1138,21 @@ export class Occupation extends plugin {
       action.push(arr)
     }
     player.money -= money
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     e.reply('悬赏成功!')
     let msg = ''
     msg += '【全服公告】' + player_B.name + '被悬赏了' + money + 'money'
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     const groupList = await redis.sMembers(redisGlKey)
     for (const group_id of groupList) {
-      this.pushInfo(group_id, true, msg)
+      pushInfo(Number(group_id), true, msg)
     }
     await redis.set('xiuxian@1.4.0:' + 1 + ':shangjing', JSON.stringify(action))
     return false
   }
   async shangjingbang(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let action = JSON.parse(
       await redis.get('xiuxian@1.4.0:' + 1 + ':shangjing')
@@ -1183,11 +1188,11 @@ export class Occupation extends plugin {
     return false
   }
   async cisha_sb(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let A_action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (A_action != null) {
       let now_time = new Date().getTime()
@@ -1212,11 +1217,11 @@ export class Occupation extends plugin {
       e.reply('不要伤及无辜') //输错了，没有该目标
       return false
     }
-    if (qq == usr_qq) {
+    if (qq == user_id) {
       e.reply('咋the，自己干自己？')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let buff = 1
     if (player.occupation == '侠客') {
       buff = 1 + player.occupation_level * 0.055
@@ -1235,7 +1240,7 @@ export class Occupation extends plugin {
       //人物任务the动作是否结束
       let B_action_end_time = B_action.end_time
       if (now_time <= B_action_end_time) {
-        let ishaveyss = await exist_najie_thing(usr_qq, '隐身水', '道具')
+        let ishaveyss = await exist_najie_thing(user_id, '隐身水', '道具')
         if (!ishaveyss) {
           //如果A没有隐身水，直接返回不执行
           let m = (B_action_end_time - now_time) / 1000 / 60
@@ -1272,7 +1277,7 @@ export class Occupation extends plugin {
       player_B.now_exp -= action[num].赏金
       await Write_player(qq, player_B)
       player.money += Math.trunc(action[num].赏金 * 0.3)
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       last_msg +=
         '【全服公告】' +
         player_B.name +
@@ -1287,7 +1292,7 @@ export class Occupation extends plugin {
       )
     } else if (msg.find((item) => item == B_win)) {
       player.now_bool = 0
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       last_msg +=
         '【全服公告】' +
         player.name +
@@ -1304,28 +1309,8 @@ export class Occupation extends plugin {
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
     const groupList = await redis.sMembers(redisGlKey)
     for (const group_id of groupList) {
-      this.pushInfo(group_id, true, last_msg)
+      pushInfo(Number(group_id), true, last_msg)
     }
     return false
-  }
-
-  /**
-   * 获取缓存中the人物状态信息
-   * @param usr_qq
-   * @return  falses {Promise<void>}
-   */
-  async getPlayerAction(usr_qq) {
-    return JSON.parse(await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')) //转为json格式数据
-  }
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
-    }
   }
 }

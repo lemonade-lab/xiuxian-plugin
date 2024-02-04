@@ -1,4 +1,10 @@
-import { existplayer, ifbaoji, Harm, data } from '../../model/index.js'
+import {
+  existplayer,
+  ifbaoji,
+  Harm,
+  data,
+  ForwardMsg
+} from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class tzzyt extends plugin {
   constructor() {
@@ -22,11 +28,11 @@ export class tzzyt extends plugin {
 
   //与未知妖物战斗
   async WorldBossBattle(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
-    const equipment = data.getData('equipment', usr_qq)
+    let player = await data.getData('player', user_id)
+    const equipment = data.getData('equipment', user_id)
     const type = ['weapon', 'protective_clothing', 'magic_weapon']
     for (let j of type) {
       if (
@@ -71,7 +77,7 @@ export class tzzyt extends plugin {
     let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = 60000 * Time
-    let last_time = Number(await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD')) //获得上次the时间戳,
+    let last_time = Number(await redis.get('xiuxian@1.4.0:' + user_id + 'CD')) //获得上次the时间戳,
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -164,35 +170,35 @@ export class tzzyt extends plugin {
       await ForwardMsg(e, msg)
       e.reply('战斗过长，仅展示部分内容')
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + 'CD', now_Time)
+    await redis.set('xiuxian@1.4.0:' + user_id + 'CD', now_Time)
     if (bosszt.Health <= 0) {
       player.镇妖塔层数 += 5
       player.money += Reward
       player.now_bool += Reward * 21
       e.reply([
-        segment.at(usr_qq),
+        segment.at(user_id),
         `\n恭喜通过此层镇妖塔，层数+5！增加money${Reward}回复血量${Reward * 21}`
       ])
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
     }
     if (player.now_bool <= 0) {
       player.now_bool = 0
       player.money -= Math.trunc(Reward * 2)
       e.reply([
-        segment.at(usr_qq),
+        segment.at(user_id),
         `\n你未能通过此层镇妖塔！money-${Math.trunc(Reward * 2)}`
       ])
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
     }
     return false
   }
 
   async all_WorldBossBattle(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
-    const equipment = await data.getData('equipment', usr_qq)
+    let player = await data.getData('player', user_id)
+    const equipment = await data.getData('equipment', user_id)
     const type = ['weapon', 'protective_clothing', 'magic_weapon']
     for (let j of type) {
       if (
@@ -325,31 +331,10 @@ export class tzzyt extends plugin {
     }
     player.money += lingshi
     e.reply([
-      segment.at(usr_qq),
+      segment.at(user_id),
       `\n恭喜你获得money${lingshi},本次通过${cengshu}层,失去部分money`
     ])
-    data.setData('player', usr_qq, player)
+    data.setData('player', user_id, player)
     return false
   }
-}
-
-//发送转发消息
-//输入data一个数组,元素是字符串,每一个元素都是一条消息.
-async function ForwardMsg(e, data) {
-  //console.error(data);
-  let msgList = []
-  for (let i of data) {
-    msgList.push({
-      message: i,
-      nickname: Bot.nickname,
-      user_id: Bot.uin
-    })
-  }
-  if (msgList.length == 1) {
-    await e.reply(msgList[0].message)
-  } else {
-    //console.log(msgList);
-    await e.reply(await Bot.makeForwardMsg(msgList))
-  }
-  return false
 }

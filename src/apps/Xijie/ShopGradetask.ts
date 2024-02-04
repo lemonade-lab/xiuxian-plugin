@@ -17,10 +17,12 @@ export class ShopGradetask extends plugin {
   }
   async ShopGradetask() {
     let shop = await Read_shop()
-    for (let i = 0; i < shop.length; i++) {
-      shop[i].Grade--
-      if (shop[i].Grade < 1) {
-        shop[i].Grade = 1
+    if (Array.isArray(shop)) {
+      for (let i = 0; i < shop.length; i++) {
+        shop[i].Grade--
+        if (shop[i].Grade < 1) {
+          shop[i].Grade = 1
+        }
       }
     }
     await Write_shop(shop)

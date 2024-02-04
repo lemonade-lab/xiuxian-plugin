@@ -7,9 +7,10 @@ import {
   data,
   宗门人数上限,
   getConfig,
-  副宗主人数上限,
-  内门弟子上限,
-  长老人数上限
+  Maximum_number_of_secondary_masters,
+  Upper_limit_of_inner_disciples,
+  Maximum_number_of_elders,
+  isNotNull
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class AssociationAdmin extends plugin {
@@ -62,10 +63,10 @@ export class AssociationAdmin extends plugin {
 
   //判断是否满足创建宗门条件
   async Create_association(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     let now_level_id
     now_level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
@@ -98,7 +99,7 @@ export class AssociationAdmin extends plugin {
 
   /** 获取宗门名称 */
   async Get_association_name(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let new_msg = this.e.message
     if (new_msg[0].type != 'text') {
       this.setContext('Get_association_name')
@@ -130,15 +131,15 @@ export class AssociationAdmin extends plugin {
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
     let date = timestampToTime(nowTime)
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     player.宗门 = {
       宗门名称: association_name,
       职位: '宗主',
       time: [date, nowTime]
     }
-    data.setData('player', usr_qq, player)
-    await new_Association(association_name, usr_qq, e)
-    await setFileValue(usr_qq, -10000, 'money')
+    data.setData('player', user_id, player)
+    await new_Association(association_name, user_id, e)
+    await setFileValue(user_id, -10000, 'money')
     await this.reply('宗门创建成功')
     /** 结束上下文 */
     this.finish('Get_association_name')
@@ -147,10 +148,10 @@ export class AssociationAdmin extends plugin {
 
   //护宗大阵
   async huz(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
       return false
@@ -160,10 +161,10 @@ export class AssociationAdmin extends plugin {
     return false
   }
   async weihu(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     if (
       player.宗门.职位 == '宗主' ||
       player.宗门.职位 == '副宗主' ||
@@ -202,10 +203,10 @@ export class AssociationAdmin extends plugin {
 
   //升级宗门
   async lvup_association(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
       return false
@@ -234,9 +235,9 @@ export class AssociationAdmin extends plugin {
 
     ass.money池 -= ass.宗门等级 * 300000 * xian
     ass.宗门等级 += 1
-    data.setData('player', usr_qq, player)
+    data.setData('player', user_id, player)
     data.setAssociation(ass.宗门名称, ass)
-    await player_efficiency(usr_qq)
+    await player_efficiency(user_id)
     e.reply(
       '宗门升级成功' +
         `当前宗门等级为${ass.宗门等级},宗门人数上限提高到:${
@@ -248,13 +249,13 @@ export class AssociationAdmin extends plugin {
 
   //任命职位
   async Set_appointment(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let isat = e.message.some((item) => item.type === 'at')
     //没有at信息直接返回,不执行
     if (!isat) return false
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
       return false
@@ -266,7 +267,7 @@ export class AssociationAdmin extends plugin {
 
     let atItem = e.message.filter((item) => item.type === 'at') //获取at信息
     let member_qq = atItem[0].qq
-    if (usr_qq == member_qq) {
+    if (user_id == member_qq) {
       e.reply('???')
       return false
     } //at宗主自己,这不扯犊子呢
@@ -300,14 +301,14 @@ export class AssociationAdmin extends plugin {
     }
     if (/长老/.test(e.msg)) {
       name = '长老'
-      full_apmt = 长老人数上限[ass.宗门等级 - 1]
+      full_apmt = Maximum_number_of_elders[ass.宗门等级 - 1]
     }
     if (/副宗主/.test(e.msg)) {
       name = '副宗主'
-      full_apmt = 副宗主人数上限[ass.宗门等级 - 1]
+      full_apmt = Maximum_number_of_secondary_masters[ass.宗门等级 - 1]
     } else if (/内门弟子/.test(e.msg)) {
       name = '内门弟子'
-      full_apmt = 内门弟子上限[ass.宗门等级 - 1]
+      full_apmt = Upper_limit_of_inner_disciples[ass.宗门等级 - 1]
     }
     //
     if (ass[name].length >= full_apmt) {
@@ -328,10 +329,10 @@ export class AssociationAdmin extends plugin {
 
   //宗门维护
   async Maintenance(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     if (!isNotNull(player.宗门)) {
       return false
     }
@@ -368,8 +369,8 @@ export class AssociationAdmin extends plugin {
 
   //设置最低加入境界
   async jiaru(e) {
-    let usr_qq = e.user_id
-    let player = await data.getData('player', usr_qq)
+    let user_id = e.user_id
+    let player = await data.getData('player', user_id)
     if (!isNotNull(player.宗门)) return false
     if (
       player.宗门.职位 == '宗主' ||
@@ -402,10 +403,10 @@ export class AssociationAdmin extends plugin {
   }
 
   async Deleteusermax(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     if (!isNotNull(player.宗门)) {
       return false
     }
@@ -416,7 +417,7 @@ export class AssociationAdmin extends plugin {
 
     let member_qq = menpai
 
-    if (usr_qq == member_qq) {
+    if (user_id == member_qq) {
       e.reply('???')
       return false
     }
@@ -435,7 +436,7 @@ export class AssociationAdmin extends plugin {
     let bss = data.getAssociation(playerB.宗门.宗门名称)
     if (ass.宗门名称 != bss.宗门名称) return false
     if (player.宗门.职位 == '宗主') {
-      if (usr_qq == member_qq) {
+      if (user_id == member_qq) {
         e.reply('？？？') //踢自己？
         return false
       }
@@ -495,17 +496,17 @@ export class AssociationAdmin extends plugin {
   }
 
   async Deleteuser(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     if (!isNotNull(player.宗门)) return false
     let atItem = e.message.filter((item) => item.type === 'at') //获取at信息
     if (!atItem) {
       return false
     } //没有at信息直接返回,不执行
     let member_qq = atItem[0].qq
-    if (usr_qq == member_qq) {
+    if (user_id == member_qq) {
       e.reply('???')
       return false
     }
@@ -526,7 +527,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
     if (player.宗门.职位 == '宗主') {
-      if (usr_qq == member_qq) {
+      if (user_id == member_qq) {
         e.reply('？？？') // 自己踢自己？？
         return false
       }
@@ -592,8 +593,8 @@ export class AssociationAdmin extends plugin {
  * @param holder_qq 宗主qq号
  */
 async function new_Association(name, holder_qq, e) {
-  let usr_qq = e.user_id
-  let player = data.getData('player', usr_qq)
+  let user_id = e.user_id
+  let player = data.getData('player', user_id)
   let now_level_id = data.Level_list.find(
     (item) => item.level_id == player.level_id
   ).level_id
@@ -643,14 +644,4 @@ async function new_Association(name, holder_qq, e) {
   }
   data.setAssociation(name, Association)
   return
-}
-
-/**
- * 判断对象是否不为undefined且不为null
- * @param obj 对象
- * @returns obj==null/undefined,return false,other return true
- */
-function isNotNull(obj) {
-  if (obj == undefined || obj == null) return false
-  return true
 }

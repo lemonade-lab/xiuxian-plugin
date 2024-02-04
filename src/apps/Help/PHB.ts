@@ -30,8 +30,8 @@ export class PHB extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let msg = ['___[魔道榜]___']
     let playerList = []
@@ -89,8 +89,8 @@ export class PHB extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let msg = ['___[强化榜]___']
     let playerList = []

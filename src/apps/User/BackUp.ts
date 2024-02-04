@@ -1,4 +1,4 @@
-import fs, {
+import {
   existsSync,
   mkdirSync,
   promises,
@@ -7,7 +7,7 @@ import fs, {
   statSync,
   writeFileSync
 } from 'fs'
-import { __PATH, getConfig } from '../../model/index.js'
+import { __PATH, getConfig, getTimeStr } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class BackUp extends plugin {
   constructor() {
@@ -293,16 +293,4 @@ export class BackUp extends plugin {
       throw err
     }
   }
-}
-
-// 格式化时间显示
-function getTimeStr(timeStamp) {
-  return new Intl.DateTimeFormat('zh-CN', {
-    second: '2-digit',
-    minute: '2-digit',
-    hour: '2-digit',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  }).format(timeStamp)
 }

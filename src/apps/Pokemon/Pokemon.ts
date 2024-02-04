@@ -34,14 +34,14 @@ export class Pokemon extends plugin {
   }
 
   async Fight(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     let name = e.msg.replace(/^(#|\/)/, '')
     name = name.replace('出战仙宠', '')
     let num = parseInt(name)
-    let najie = await Read_najie(usr_qq)
+    let najie = await Read_najie(user_id)
     if (num && num > 1000) {
       try {
         name = najie.仙宠[num - 1001].name
@@ -72,7 +72,7 @@ export class Pokemon extends plugin {
       return false
     }
     if (isNotNull(player.仙宠.name)) {
-      await Add_仙宠(usr_qq, player.仙宠.name, 1, player.仙宠.等级)
+      await Add_仙宠(user_id, player.仙宠.name, 1, player.仙宠.等级)
     }
     if (player.仙宠.type == '修炼') {
       player.Improving_cultivation_efficiency =
@@ -91,16 +91,16 @@ export class Pokemon extends plugin {
         player.Improving_cultivation_efficiency + last.加成
     }
     //增减仙宠方法
-    await Add_仙宠(usr_qq, last.name, -1, last.等级)
-    await Write_player(usr_qq, player) //写入
+    await Add_仙宠(user_id, last.name, -1, last.等级)
+    await Write_player(user_id, player) //写入
     e.reply('成功出战' + name)
   }
 
   async Advanced(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = data.existData('player', usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     let list = ['仙胎', '仙仔', '仙兽', '仙道', '仙灵']
     let list_level = [20, 40, 60, 80, 100]
     let x = 114514
@@ -121,7 +121,7 @@ export class Pokemon extends plugin {
     let number_n = x + 1
     number_n.toString //等级转换字符串
     let name = number_n + '级仙石'
-    let quantity = await exist_najie_thing(usr_qq, name, '道具') //查找纳戒
+    let quantity = await exist_najie_thing(user_id, name, '道具') //查找纳戒
     if (!quantity) {
       //没有
       e.reply(`你没有[${name}]`)
@@ -136,8 +136,8 @@ export class Pokemon extends plugin {
       player.仙宠 = thing
       player.仙宠.等级 = player_level //赋值之前the等级
       player.仙宠.加成 = last_jiachen //赋值之前the加成
-      await Add_najie_thing(usr_qq, name, '道具', -1)
-      await Write_player(usr_qq, player)
+      await Add_najie_thing(user_id, name, '道具', -1)
+      await Write_player(user_id, player)
       e.reply('恭喜进阶【' + player.仙宠.name + '】成功')
     } else {
       let need = Number(list_level[x]) - Number(player_level)
@@ -147,11 +147,11 @@ export class Pokemon extends plugin {
   }
 
   async feed(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //用户不存在
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     if (player.仙宠 == '') {
       //有无仙宠
       e.reply('你没有仙宠')
@@ -182,14 +182,18 @@ export class Pokemon extends plugin {
       return false
     }
     //纳戒中the数量
-    let thing_quantity = await exist_najie_thing(usr_qq, thing_name, '仙宠口粮')
+    let thing_quantity = await exist_najie_thing(
+      user_id,
+      thing_name,
+      '仙宠口粮'
+    )
     if (thing_quantity < thing_value || !thing_quantity) {
       //没有
       e.reply(`【${thing_name}】数量不足`)
       return false
     }
     //纳戒数量减少
-    await Add_najie_thing(usr_qq, thing_name, '仙宠口粮', -thing_value)
+    await Add_najie_thing(user_id, thing_name, '仙宠口粮', -thing_value)
     //待完善加成
     let jiachen = ifexist.level * thing_value //加the等级
     if (jiachen > player.仙宠.等级上限 - player.仙宠.等级) {
@@ -213,7 +217,7 @@ export class Pokemon extends plugin {
       }
       player.仙宠.等级 = player.仙宠.等级上限
     }
-    await data.setData('player', usr_qq, player)
+    await data.setData('player', user_id, player)
     e.reply(`喂养成功，仙宠the等级增加了${jiachen},当前为${player.仙宠.等级}`)
     return false
   }

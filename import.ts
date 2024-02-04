@@ -8,3 +8,12 @@ const common = (await import('' + '../../lib/common/common.js')).default
 const puppeteer = (await import('' + '../../lib/puppeteer/puppeteer.js'))
   .default
 export { plugin, common, puppeteer }
+import { type GroupMessage } from 'icqq'
+/**
+ * yunzai消息类型
+ */
+export interface Message extends GroupMessage {
+  isMaster: boolean
+  msg: string
+  reply: (...arg: any) => Promise<any>
+}

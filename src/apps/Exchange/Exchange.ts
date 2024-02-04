@@ -43,16 +43,16 @@ export class Exchange extends plugin {
   }
   async Offsell(e) {
     //固定写法
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //防并发cd
     let time0 = 0.5 //分钟cd
     //获取当前时间
     let now_time = new Date().getTime()
     let ExchangeCD = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':ExchangeCD')
     )
     let transferTimeout = 60000 * time0
     if (now_time < ExchangeCD + transferTimeout) {
@@ -71,8 +71,8 @@ export class Exchange extends plugin {
     }
     let Exchange
     //记录本次执行时间
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD', now_time)
-    let player = await Read_player(usr_qq)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':ExchangeCD', now_time)
+    let player = await Read_player(user_id)
     let x = parseInt(e.msg.replace('#下架', '')) - 1
     try {
       Exchange = await Read_Exchange()
@@ -87,7 +87,7 @@ export class Exchange extends plugin {
     }
     let thingqq = Exchange[x].qq
     //对比qq是否相等
-    if (thingqq != usr_qq) {
+    if (thingqq != user_id) {
       e.reply('不能下架别人上架the物品')
       return false
     }
@@ -96,14 +96,14 @@ export class Exchange extends plugin {
     let thing_amount = Exchange[x].aconut
     if (thing_class == '装备' || thing_class == '仙宠') {
       await Add_najie_thing(
-        usr_qq,
+        user_id,
         Exchange[x].name,
         thing_class,
         thing_amount,
         Exchange[x].pinji2
       )
     } else {
-      await Add_najie_thing(usr_qq, thing_name, thing_class, thing_amount)
+      await Add_najie_thing(user_id, thing_name, thing_class, thing_amount)
     }
     Exchange.splice(x, 1)
     await Write_Exchange(Exchange)
@@ -115,13 +115,13 @@ export class Exchange extends plugin {
   //上架
   async onsell(e) {
     //固定写法
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //判断是否为匿名创建存档
-    if (usr_qq == 80000000) return false
+    if (user_id == 80000000) return false
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let najie = await Read_najie(usr_qq)
+    let najie = await Read_najie(user_id)
     let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('上架', '')
     let code = thing.split('*')
@@ -173,7 +173,7 @@ export class Exchange extends plugin {
           (item) => item.name == thing_name && item.pinji == thing_piji
         )
       } else {
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(user_id)
         equ = najie.装备.find((item) => item.name == thing_name)
         for (let i of najie.装备) {
           //遍历列表有没有比那把强the
@@ -189,7 +189,7 @@ export class Exchange extends plugin {
     thing_value = await convert2integer(thing_value)
     thing_amount = await convert2integer(thing_amount)
     let x = await exist_najie_thing(
-      usr_qq,
+      user_id,
       thing_name,
       thing_exist.class,
       thing_piji
@@ -210,18 +210,18 @@ export class Exchange extends plugin {
     let whole = Math.trunc(thing_value * thing_amount)
     let off = Math.trunc(whole * 0.03)
     if (off < 100000) off = 100000
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.money < off) {
       e.reply('就这点money还想上架')
       return false
     }
-    await Add_money(usr_qq, -off)
+    await Add_money(user_id, -off)
     let wupin
     if (thing_exist.class == '装备' || thing_exist.class == '仙宠') {
       let pinji2 = ['劣', '普', '优', '精', '极', '绝', '顶']
       const pj = pinji2[thing_piji]
       wupin = {
-        qq: usr_qq,
+        qq: user_id,
         name: equ,
         price: thing_value,
         pinji2: thing_piji,
@@ -231,7 +231,7 @@ export class Exchange extends plugin {
         now_time: now_time
       }
       await Add_najie_thing(
-        usr_qq,
+        user_id,
         equ.name,
         thing_exist.class,
         -thing_amount,
@@ -239,7 +239,7 @@ export class Exchange extends plugin {
       )
     } else {
       wupin = {
-        qq: usr_qq,
+        qq: user_id,
         name: thing_exist,
         price: thing_value,
         aconut: thing_amount,
@@ -247,7 +247,7 @@ export class Exchange extends plugin {
         now_time: now_time
       }
       await Add_najie_thing(
-        usr_qq,
+        user_id,
         thing_name,
         thing_exist.class,
         -thing_amount
@@ -269,7 +269,7 @@ export class Exchange extends plugin {
   }
 
   async purchase(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //全局状态判断
     let flag = await Go(e)
     if (!flag) return false
@@ -278,7 +278,7 @@ export class Exchange extends plugin {
     //获取当前时间
     let now_time = new Date().getTime()
     let ExchangeCD = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':ExchangeCD')
     )
     let transferTimeout = 60000 * time0
     if (now_time < ExchangeCD + transferTimeout) {
@@ -296,8 +296,8 @@ export class Exchange extends plugin {
       return false
     }
     //记录本次执行时间
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':ExchangeCD', now_time)
-    let player = await Read_player(usr_qq)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':ExchangeCD', now_time)
+    let player = await Read_player(user_id)
     let Exchange
     try {
       Exchange = await Read_Exchange()
@@ -312,7 +312,7 @@ export class Exchange extends plugin {
       return false
     }
     let thingqq = Exchange[x].qq
-    if (thingqq == usr_qq) {
+    if (thingqq == user_id) {
       e.reply('自己买自己the东西？我看你是闲得蛋疼！')
       return false
     }
@@ -335,17 +335,17 @@ export class Exchange extends plugin {
       //加物品
       if (thing_class == '装备' || thing_class == '仙宠') {
         await Add_najie_thing(
-          usr_qq,
+          user_id,
           Exchange[x].name,
           thing_class,
           n,
           Exchange[x].pinji2
         )
       } else {
-        await Add_najie_thing(usr_qq, thing_name, thing_class, n)
+        await Add_najie_thing(user_id, thing_name, thing_class, n)
       }
       //扣钱
-      await Add_money(usr_qq, -money)
+      await Add_money(user_id, -money)
       //加钱
       await Add_money(thingqq, money)
       Exchange[x].aconut = Exchange[x].aconut - n

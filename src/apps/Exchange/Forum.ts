@@ -42,12 +42,12 @@ export class Forum extends plugin {
   }
   async Offsell(e) {
     //固定写法
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let Forum
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let x = parseInt(e.msg.replace('#取消', '')) - 1
     try {
       Forum = await Read_Forum()
@@ -61,11 +61,11 @@ export class Forum extends plugin {
       return false
     }
     //对比qq是否相等
-    if (Forum[x].qq != usr_qq) {
+    if (Forum[x].qq != user_id) {
       e.reply('不能取消别人the宝贝需求')
       return false
     }
-    await Add_money(usr_qq, Forum[x].whole)
+    await Add_money(user_id, Forum[x].whole)
     e.reply(
       player.name +
         '取消' +
@@ -82,13 +82,13 @@ export class Forum extends plugin {
   //上架
   async onsell(e) {
     //固定写法
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //判断是否为匿名创建存档
-    if (usr_qq == 80000000) {
+    if (user_id == 80000000) {
       return false
     }
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('发布', '')
@@ -119,14 +119,14 @@ export class Forum extends plugin {
     let whole = Math.trunc(thing_value * thing_amount)
     let off = Math.trunc(whole * 0.03)
     if (off < 100000) off = 100000
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.money < off + whole) {
       e.reply(`money不足,还需要${off + whole - player.money}money`)
       return false
     }
-    await Add_money(usr_qq, -(off + whole))
+    await Add_money(user_id, -(off + whole))
     const wupin = {
-      qq: usr_qq,
+      qq: user_id,
       name: thing_name,
       price: thing_value,
       class: thing_exist.class,
@@ -149,7 +149,7 @@ export class Forum extends plugin {
   }
 
   async purchase(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //全局状态判断
     let flag = await Go(e)
     if (!flag) return false
@@ -158,7 +158,7 @@ export class Forum extends plugin {
     //获取当前时间
     let now_time = new Date().getTime()
     let ForumCD = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':ForumCD')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':ForumCD')
     )
     let transferTimeout = 60000 * time
     if (now_time < ForumCD + transferTimeout) {
@@ -176,8 +176,8 @@ export class Forum extends plugin {
       return false
     }
     //记录本次执行时间
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':ForumCD', now_time)
-    let player = await Read_player(usr_qq)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':ForumCD', now_time)
+    let player = await Read_player(user_id)
     let Forum
     try {
       Forum = await Read_Forum()
@@ -192,7 +192,7 @@ export class Forum extends plugin {
       return false
     }
     let thingqq = Forum[x].qq
-    if (thingqq == usr_qq) {
+    if (thingqq == user_id) {
       e.reply('没事找事做?')
       return false
     }
@@ -205,7 +205,7 @@ export class Forum extends plugin {
     if (!t[1]) {
       n = thing_amount
     }
-    const num = await exist_najie_thing(usr_qq, thing_name, thing_class)
+    const num = await exist_najie_thing(user_id, thing_name, thing_class)
     if (!num) {
       e.reply(`你没有【${thing_name}】`)
       return false
@@ -217,9 +217,9 @@ export class Forum extends plugin {
     if (n > thing_amount) n = thing_amount
     let money = n * thing_price
 
-    await Add_najie_thing(usr_qq, thing_name, thing_class, -n)
+    await Add_najie_thing(user_id, thing_name, thing_class, -n)
     //扣钱
-    await Add_money(usr_qq, money)
+    await Add_money(user_id, money)
     //加钱
     await Add_najie_thing(thingqq, thing_name, thing_class, n)
     Forum[x].aconut = Forum[x].aconut - n

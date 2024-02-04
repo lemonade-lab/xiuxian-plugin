@@ -32,9 +32,9 @@ export class UserAction extends plugin {
 
   //#我the纳戒
   async Show_najie(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let img = await get_najie_img(e)
     e.reply(img)
@@ -45,12 +45,12 @@ export class UserAction extends plugin {
   async Lv_up_najie(e) {
     let flag = await Go(e)
     if (!flag) return false
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let najie = await Read_najie(usr_qq)
-    let player = await Read_player(usr_qq)
+    let najie = await Read_najie(user_id)
+    let player = await Read_player(user_id)
     const cf = getConfig('xiuxian', 'xiuxian')
     let najie_num = cf.najie_num
     let najie_price = cf.najie_price
@@ -64,10 +64,10 @@ export class UserAction extends plugin {
       )
       return false
     }
-    await Add_money(usr_qq, -najie_price[najie.等级])
+    await Add_money(user_id, -najie_price[najie.等级])
     najie.money上限 = najie_num[najie.等级]
     najie.等级 += 1
-    await Write_najie(usr_qq, najie)
+    await Write_najie(user_id, najie)
     e.reply(
       `你the纳戒升级成功,花了${
         najie_price[najie.等级 - 1]

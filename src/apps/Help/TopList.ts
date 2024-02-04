@@ -45,8 +45,8 @@ export class TopList extends plugin {
 
   //封神榜
   async TOP_Immortal(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let msg = ['___[封神榜]___']
     let playerList = []
@@ -112,8 +112,8 @@ export class TopList extends plugin {
 
   //#至尊榜
   async TOP_genius(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let msg = ['___[至尊榜]___']
     let playerList = []
@@ -176,8 +176,8 @@ export class TopList extends plugin {
   }
 
   async TOP_xiuwei(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
 
     let usr_paiming
@@ -207,7 +207,7 @@ export class TopList extends plugin {
     }
     //排序
     temp.sort(sortBy('总now_exp'))
-    usr_paiming = temp.findIndex((temp) => temp.qq === usr_qq) + 1
+    usr_paiming = temp.findIndex((temp) => temp.qq === user_id) + 1
     let Data = []
     if (File_length > 10) {
       File_length = 10
@@ -216,7 +216,7 @@ export class TopList extends plugin {
       temp[i].名次 = i + 1
       Data[i] = temp[i]
     }
-    let thisplayer = await data.getData('player', usr_qq)
+    let thisplayer = await data.getData('player', user_id)
     let img = await get_ranking_power_img(e, Data, usr_paiming, thisplayer)
     e.reply(img)
     return false
@@ -224,8 +224,8 @@ export class TopList extends plugin {
 
   //TOP_lingshi
   async TOP_lingshi(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let usr_paiming
     let File = readdirSync(__PATH.player_path)
@@ -249,7 +249,7 @@ export class TopList extends plugin {
     //排序
     temp.sort(sortBy('money'))
     let Data = []
-    usr_paiming = temp.findIndex((temp) => temp.qq === usr_qq) + 1
+    usr_paiming = temp.findIndex((temp) => temp.qq === user_id) + 1
     if (File_length > 10) {
       File_length = 10
     } //最多显示前十
@@ -258,8 +258,8 @@ export class TopList extends plugin {
       Data[i] = temp[i]
     }
     await sleep(500)
-    let thisplayer = await data.getData('player', usr_qq)
-    let thisnajie = await data.getData('najie', usr_qq)
+    let thisplayer = await data.getData('player', user_id)
+    let thisnajie = await data.getData('najie', user_id)
     let img = await get_ranking_money_img(
       e,
       Data,

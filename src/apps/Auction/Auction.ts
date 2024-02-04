@@ -7,6 +7,7 @@ import {
   getConfig
 } from '../../model/index.js'
 import { common, plugin } from '../../../import.js'
+import { pushInfo } from '../../model/bot.js'
 export class Auction extends plugin {
   constructor() {
     super({
@@ -41,13 +42,13 @@ export class Auction extends plugin {
   }
 
   async xingGE(e) {
-    let usr_qq = e.user_id
-    if (usr_qq == 80000000) return false
+    let user_id = e.user_id
+    if (user_id == 80000000) return false
 
     //固定写法
     //判断是否为匿名创建存档
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let auction = JSON.parse(await redis.get('xiuxian:AuctionofficialTask'))
     if (!isNotNull(auction)) {
@@ -158,13 +159,13 @@ export class Auction extends plugin {
 
   /*竞价10000 */
   async offer_priceXINGGE(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
 
-    if (usr_qq == 80000000) return false
+    if (user_id == 80000000) return false
     //固定写法
     //判断是否为匿名创建存档
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     // 此群是否开启星阁体系
     const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
@@ -177,11 +178,11 @@ export class Auction extends plugin {
       return false
     }
 
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     // let start_price = auction.start_price;
     let last_price = auction.last_price
     let new_price = e.msg.replace('#星阁出价', '')
-    if (auction.last_offer_player == usr_qq) {
+    if (auction.last_offer_player == user_id) {
       e.reply('不能自己给自己抬价哦!')
       return false
     }
@@ -211,21 +212,21 @@ export class Auction extends plugin {
     // ↑新the：RetuEase
 
     auction.last_price = new_price
-    auction.last_offer_player = usr_qq
+    auction.last_offer_player = user_id
     auction.last_offer_price = new Date().getTime() // NOTE: Big SB
     await redis.set('xiuxian:AuctionofficialTask', JSON.stringify(auction))
   }
 
   async show_auction(e) {
-    let usr_qq = e.user_id
-    if (usr_qq == 80000000) {
+    let user_id = e.user_id
+    if (user_id == 80000000) {
       return false
     }
 
     //固定写法
     //判断是否为匿名创建存档
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let auction = JSON.parse(await redis.get('xiuxian:auction'))
     if (!isNotNull(auction)) {
@@ -242,23 +243,5 @@ export class Auction extends plugin {
     let msg = '___[星尘拍卖行]___\n'
     msg += `目前正在拍卖【${auction.thing.name}】\n${tmp}`
     e.reply(msg)
-  }
-}
-
-/**
- * 推送消息，群消息推送群，或者推送私人
- * @param id
- * @param is_group
- * @return  falses {Promise<void>}
- */
-async function pushInfo(id, is_group, msg) {
-  if (is_group) {
-    await Bot.pickGroup(id)
-      .sendMsg(msg)
-      .catch((err) => {
-        console.error(err)
-      })
-  } else {
-    await common.relpyPrivate(id, msg)
   }
 }

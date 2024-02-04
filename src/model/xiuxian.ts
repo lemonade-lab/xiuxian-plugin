@@ -1,13 +1,14 @@
 import { existsSync, readdirSync } from 'fs'
 import { AppName } from '../../config.js'
-import { __PATH } from './base/PATH.js'
 import {
-  伪talent概率,
-  体质概率,
+  Pseudo_talent_probability,
+  physical_probability,
   圣体概率,
   天talent概率,
-  真talent概率
+  True_Talent_Probability
 } from './base/config.js'
+import { data } from './base/data.js'
+import { __PATH } from './base/PATH.js'
 import {
   Write_danyao,
   Write_najie,
@@ -26,20 +27,24 @@ import {
   Read_shitu,
   Read_shop
 } from './action/read.js'
-import { isNotNull } from './utils.js'
-import { data } from './base/data.js'
+import {
+  get_random_fromARR,
+  get_random_res,
+  isNotNull,
+  shijianc,
+  sleep
+} from './utils.js'
 import { Add_najie_thing, exist_najie_thing } from './action/addmax.js'
 import { Update_equipment } from './action/update.js'
+import { ForwardMsg } from './bot.js'
 
 /**
  * 检查存档是否存在，存在返回true;
- * @param usr_qq
+ * @param user_id
  * @returns
  */
-export async function existplayer(usr_qq) {
-  let exist_player
-  exist_player = existsSync(`${__PATH.player_path}/${usr_qq}.json`)
-  if (exist_player) {
+export async function existplayer(user_id) {
+  if (existsSync(`${__PATH.player_path}/${user_id}.json`)) {
     return true
   }
   return false
@@ -51,10 +56,8 @@ export async function existplayer(usr_qq) {
  * @returns
  */
 export async function convert2integer(amount) {
-  let number = 1
-  let reg = new RegExp(/^[1-9][0-9]{0,12}$/)
-  if (!reg.test(amount)) {
-    return number
+  if (!/^[1-9][0-9]{0,12}$/.test(amount)) {
+    return 1
   } else {
     return parseInt(amount)
   }
@@ -70,19 +73,19 @@ export async function convert2integer(amount) {
  * @returns
  */
 export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
-  let usr_qq = e.user_id
-  const msg: any[] = [segment.at(Number(usr_qq))]
+  let user_id = e.user_id
+  const msg: any[] = [segment.at(Number(user_id))]
   //用户信息
-  let player = await Read_player(usr_qq)
+  let player = await Read_player(user_id)
   //当前系数计算
-  let power_distortion = await dujie(usr_qq)
+  let power_distortion = await dujie(user_id)
   const yaocaolist = ['凝血草', '小吉祥草', '大吉祥草']
   for (const j in yaocaolist) {
-    const num = await exist_najie_thing(usr_qq, yaocaolist[j], '草药')
+    const num = await exist_najie_thing(user_id, yaocaolist[j], '草药')
     if (num) {
       msg.push(`[${yaocaolist[j]}]为你提高了雷抗\n`)
       power_distortion = Math.trunc(power_distortion * (1 + 0.2 * Number(j)))
-      await Add_najie_thing(usr_qq, yaocaolist[j], '草药', -1)
+      await Add_najie_thing(user_id, yaocaolist[j], '草药', -1)
     }
     let variable = Math.random() * (power_m - power_n) + power_n
     //根据雷伤害the次数畸变.最高可达到+1.2
@@ -93,7 +96,7 @@ export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
       //判断目前是第几雷，第九就是过了
       if (aconut >= power_Grade) {
         player.power_place = 0
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         msg.push(
           '\n' +
             player.name +
@@ -108,7 +111,7 @@ export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
         let act = variable - power_n
         act = act / (power_m - power_n)
         player.now_bool = Math.trunc(player.now_bool - player.now_bool * act)
-        await Write_player(usr_qq, player)
+        await Write_player(user_id, player)
         msg.push(
           '\n本次雷伤：' +
             variable.toFixed(2) +
@@ -129,7 +132,7 @@ export async function LevelTask(e, power_n, power_m, power_Grade, aconut) {
       //扣一半now_exp
       player.now_exp = Math.trunc(player.now_exp * 0.5)
       player.power_place = 1
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
       //未挡住雷杰
       msg.push(
         '\n本次雷伤' +
@@ -161,11 +164,10 @@ export function Strand(now, max) {
   } else {
     mini = num
   }
-  let strand = {
+  return {
     style: `style=width:${mini}%`,
     num: num
   }
-  return strand
 }
 
 /**
@@ -234,25 +236,31 @@ export function bigNumberTransform(value) {
 export function GetPower(atk, def, hp, bao) {
   return (atk + def * 0.8 + hp * 0.6) * (bao + 1)
 }
-//图开关
+
+/**
+ * 图开关
+ * @param e
+ * @returns
+ */
 export async function setu(e) {
   e.reply(
     `玩命加载图片中,请稍后...   ` +
       '\n(一分钟后还没有出图片,大概率被夹了,这个功能谨慎使用,机器人容易寄)'
   )
-  let url
-  //setu接口地址
-  url = 'https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0'
+  let url = 'https://api.lolicon.app/setu/v2?proxy=i.pixiv.re&r18=0'
   let msg = []
   let res
   //
   try {
-    let response = await fetch(url)
-    res = await response.json()
+    // 只有await能被 try捕获，应为等会阻塞，并变成同步操作
+    res = await fetch(url).then((res) => {
+      res.json()
+    })
   } catch (error) {
     console.log('Request Failed', error)
   }
-  if (res !== '{}') {
+  // 转换成字符串再比较
+  if (JSON.stringify(res) !== '{}') {
     console.log('res不为空')
   } else {
     console.log('res为空')
@@ -278,6 +286,7 @@ export async function setu(e) {
       '\nLink: ' +
       link
   )
+  // 进程沉睡
   await sleep(1000)
   //最后回复消息
   e.reply(segment.image(link))
@@ -287,7 +296,11 @@ export async function setu(e) {
   return true
 }
 
-//改变数据格式
+/**
+ * 改变数据格式
+ * @param data
+ * @returns
+ */
 export async function datachange(data) {
   if (data / 1000000000000 > 1) {
     return Math.floor((data * 100) / 1000000000000) / 100 + '万亿'
@@ -302,22 +315,21 @@ export async function datachange(data) {
 
 /**
  *
- * @param {*} usr_qq 玩家qq
- * @param {*} thing_name 物品名
- * @param {*} thing_class 物品类别
- * @param {*} thing_pinji 可选参数，装备品阶，数字0-6等
- * @returns 物品数量或者false
+ * @param user_id
+ * @param thing_name
+ * @param thing_class
+ * @param thing_pinji
+ * @param lock
+ * @returns
  */
-
-//修改纳戒物品锁定状态
 export async function re_najie_thing(
-  usr_qq,
+  user_id,
   thing_name,
   thing_class,
   thing_pinji,
   lock
 ) {
-  let najie = await Read_najie(usr_qq)
+  let najie = await Read_najie(user_id)
   if (thing_class == '装备' && (thing_pinji || thing_pinji == 0)) {
     for (let i of najie['装备']) {
       if (i.name == thing_name && i.pinji == thing_pinji) i.islockd = lock
@@ -327,25 +339,30 @@ export async function re_najie_thing(
       if (i.name == thing_name) i.islockd = lock
     }
   }
-  await Write_najie(usr_qq, najie)
+  await Write_najie(user_id, najie)
   return true
 }
 
-//替换装备
-export async function instead_equipment(usr_qq, equipment_data) {
+/**
+ * 替换装备
+ * @param user_id
+ * @param equipment_data
+ * @returns
+ */
+export async function instead_equipment(user_id, equipment_data) {
   //装备name
   await Add_najie_thing(
-    usr_qq,
+    user_id,
     equipment_data,
     '装备',
     -1,
     equipment_data.pinji
   )
-  let equipment = Read_equipment(usr_qq)
+  const equipment = Read_equipment(user_id)
   if (equipment_data.type == 'weapon') {
     //把读取装备，把weapon放回戒指
     await Add_najie_thing(
-      usr_qq,
+      user_id,
       equipment.weapon,
       '装备',
       1,
@@ -354,38 +371,43 @@ export async function instead_equipment(usr_qq, equipment_data) {
     //根据名字找weapon
     equipment.weapon = equipment_data
     //weapon写入装备
-    await Update_equipment(usr_qq, equipment)
+    await Update_equipment(user_id, equipment)
     return
   }
   if (equipment_data.type == 'protective_clothing') {
     await Add_najie_thing(
-      usr_qq,
+      user_id,
       equipment.protective_clothing,
       '装备',
       1,
       equipment.protective_clothing.pinji
     )
     equipment.protective_clothing = equipment_data
-    await Update_equipment(usr_qq, equipment)
+    await Update_equipment(user_id, equipment)
     return
   }
   if (equipment_data.type == 'magic_weapon') {
     await Add_najie_thing(
-      usr_qq,
+      user_id,
       equipment.magic_weapon,
       '装备',
       1,
       equipment.magic_weapon.pinji
     )
     equipment.magic_weapon = equipment_data
-    await Update_equipment(usr_qq, equipment)
+    await Update_equipment(user_id, equipment)
     return
   }
   return
 }
-export async function dujie(user_qq) {
-  let usr_qq = user_qq
-  let player = await Read_player(usr_qq)
+
+/**
+ *
+ * @param user_id
+ * @returns
+ */
+export async function dujie(user_id) {
+  const player = await Read_player(user_id)
   //根据now_bool才算
   //计算系数
   let new_blood = player.now_bool
@@ -414,36 +436,14 @@ export async function dujie(user_qq) {
   }
   return Number(x.toFixed(2))
 }
-//发送转发消息
-//输入data一个数组,元素是字符串,每一个元素都是一条消息.
-export async function ForwardMsg(e, data) {
-  let msgList = []
-  for (let i of data) {
-    msgList.push({
-      message: i,
-      nickname: Bot.nickname,
-      user_id: Bot.uin
-    })
-  }
-  if (msgList.length == 1) {
-    await e.reply(msgList[0].message)
-  } else {
-    await e.reply(await Bot.makeForwardMsg(msgList))
-  }
-  return
-}
 
-//对象数组排序
-export function sortBy(field) {
-  //从大到小,b和a反一下就是从小到大
-  return function (b, a) {
-    return a[field] - b[field]
-  }
-}
-
-//获取总now_exp
-export async function Get_xiuwei(usr_qq) {
-  let player = await Read_player(usr_qq)
+/**
+ * 获取总now_exp
+ * @param user_id
+ * @returns
+ */
+export async function Get_xiuwei(user_id) {
+  let player = await Read_player(user_id)
   let sum_exp = 0
   let now_level_id
   if (!isNotNull(player.level_id)) {
@@ -463,22 +463,43 @@ export async function Get_xiuwei(usr_qq) {
   return sum_exp
 }
 
-//获取随机talent
+/**
+ * 获取随机talent
+ * @returns
+ */
 export async function get_random_talent() {
   let talent
-  if (get_random_res(体质概率)) {
+  if (get_random_res(physical_probability)) {
     talent = data.talent_list.filter((item) => item.type == '体质')
-  } else if (get_random_res(伪talent概率 / (1 - 体质概率))) {
+  } else if (
+    get_random_res(Pseudo_talent_probability / (1 - physical_probability))
+  ) {
     talent = data.talent_list.filter((item) => item.type == '伪talent')
-  } else if (get_random_res(真talent概率 / (1 - 伪talent概率 - 体质概率))) {
+  } else if (
+    get_random_res(
+      True_Talent_Probability /
+        (1 - Pseudo_talent_probability - physical_probability)
+    )
+  ) {
     talent = data.talent_list.filter((item) => item.type == '真talent')
   } else if (
-    get_random_res(天talent概率 / (1 - 真talent概率 - 伪talent概率 - 体质概率))
+    get_random_res(
+      天talent概率 /
+        (1 -
+          True_Talent_Probability -
+          Pseudo_talent_probability -
+          physical_probability)
+    )
   ) {
     talent = data.talent_list.filter((item) => item.type == '天talent')
   } else if (
     get_random_res(
-      圣体概率 / (1 - 真talent概率 - 伪talent概率 - 体质概率 - 天talent概率)
+      圣体概率 /
+        (1 -
+          True_Talent_Probability -
+          Pseudo_talent_probability -
+          physical_probability -
+          天talent概率)
     )
   ) {
     talent = data.talent_list.filter((item) => item.type == '圣体')
@@ -490,86 +511,29 @@ export async function get_random_talent() {
 }
 
 /**
- * 输入概率随机返回布尔类型数据
- * @param P 概率
- * @returns 随机返回 false or true
+ * 获取上次签到时间
+ * @param user_id
+ * @returns
  */
-export function get_random_res(P) {
-  if (P > 1) {
-    P = 1
-  }
-  if (P < 0) {
-    P = 0
-  }
-  let rand = Math.random()
-  if (rand < P) {
-    return true
-  }
-  return false
-}
-
-/**
- * 输入数组随机返回其中一个
- * @param ARR 输入the数组
- * @returns 随机返回一个元素
- */
-export function get_random_fromARR(ARR) {
-  //let L = ARR.length;
-  let randindex = Math.trunc(Math.random() * ARR.length)
-  return ARR[randindex]
-}
-
-//sleep
-export async function sleep(time) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time)
-  })
-}
-
-// 时间转换
-export function timestampToTime(timestamp) {
-  //时间戳为10位需*1000，时间戳为13位the话不需乘1000
-  let date = new Date(timestamp)
-  let Y = date.getFullYear() + '-'
-  let M =
-    (date.getMonth() + 1 < 10
-      ? '0' + (date.getMonth() + 1)
-      : date.getMonth() + 1) + '-'
-  let D = date.getDate() + ' '
-  let h = date.getHours() + ':'
-  let m = date.getMinutes() + ':'
-  let s = date.getSeconds()
-  return Y + M + D + h + m + s
-}
-
-//根据时间戳获取年月日时分秒
-export function shijianc(time) {
-  const date = new Date(time)
-  return {
-    Y: date.getFullYear(),
-    M: date.getMonth() + 1,
-    D: date.getDate(),
-    h: date.getHours(),
-    m: date.getMinutes(),
-    s: date.getSeconds()
-  }
-}
-
-//获取上次签到时间
-export async function getLastsign(usr_qq) {
+export async function getLastsign(user_id) {
   //查询redis中the人物动作
-  let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastsign_time')
+  let time = await redis.get('xiuxian@1.4.0:' + user_id + ':lastsign_time')
   if (time != null) {
     let data = await shijianc(parseInt(time))
     return data
   }
   return false
 }
-//获取当前人物状态
-export async function getPlayerAction(usr_qq) {
+
+/**
+ * 获取当前人物状态
+ * @param user_id
+ * @returns
+ */
+export async function getPlayerAction(user_id) {
   //查询redis中the人物动作
   const action = JSON.parse(
-    await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    await redis.get('xiuxian@1.4.0:' + user_id + ':action')
   )
   //动作不为空闲
   if (action != null) {
@@ -590,32 +554,23 @@ export async function getPlayerAction(usr_qq) {
   }
 }
 
-//锁定
+/**
+ * 锁定
+ * @param e
+ * @returns
+ */
 export async function dataverification(e) {
-  if (!e.isGroup) {
-    //禁私聊
-    return 1
-  }
-  let usr_qq = e.user_id
-  if (usr_qq == 80000000) {
+  if (!e.isGroup) return 1
+  if (e.user_id == 80000000) {
     //非匿名
     return 1
   }
-  let ifexistplay = await existplayer(usr_qq)
-  if (!ifexistplay) {
+  if (!(await existplayer(e.user_id))) {
     //无存档
     return 1 //假
   }
   //真
   return 0
-}
-
-export function isNotBlank(value) {
-  if (value ?? '' !== '') {
-    return true
-  } else {
-    return false
-  }
 }
 
 export async function find_qinmidu(A, B) {
@@ -658,7 +613,12 @@ export async function find_qinmidu(A, B) {
     return qinmidu[i].亲密度
   }
 }
-//查询Athe婚姻，如果有婚姻则返回对方qq，若无则返回false
+
+/**
+ * 查询Athe婚姻，如果有婚姻则返回对方qq，若无则返回false
+ * @param A
+ * @returns
+ */
 export async function exist_hunyin(A) {
   let qinmidu
   try {
@@ -685,12 +645,8 @@ export async function exist_hunyin(A) {
     }
   }
   //A存在已婚则返回对方qq
-  if (flag != 0) {
-    //console.log(flag);
-    return flag
-  } else {
-    return false
-  }
+  if (flag != 0) return flag
+  return false
 }
 
 export async function find_shitu(A) {
@@ -718,9 +674,13 @@ export async function find_shitu(A) {
   }
 }
 
+/**
+ *
+ * @param A
+ * @returns
+ */
 export async function find_tudi(A) {
-  let shitu
-  shitu = await Read_shitu()
+  const shitu = await Read_shitu()
   let i
   let QQ = []
   for (i = 0; i < shitu.length; i++) {
@@ -731,6 +691,7 @@ export async function find_tudi(A) {
   if (i == shitu.length) {
     return false
   } else if (QQ.length != 0) {
+    // ??  ??
     return 0
   } else {
     return shitu[i].师徒
@@ -741,18 +702,15 @@ export async function find_tudi(A) {
  * 常用查询合集
  */
 export async function Go(e) {
-  let usr_qq = e.user_id
+  let user_id = e.user_id
   //不开放私聊
-  if (!e.isGroup) {
-    return 0
-  }
+  if (!e.isGroup) return 0
   //有无存档
-  let ifexistplay = await existplayer(usr_qq)
-  if (!ifexistplay) {
+  if (!(await existplayer(user_id))) {
     return 0
   }
   //获取游戏状态
-  let game_action = await redis.get('xiuxian@1.4.0:' + usr_qq + ':game_action')
+  let game_action = await redis.get('xiuxian@1.4.0:' + user_id + ':game_action')
   //防止继续其他娱乐行为
   if (game_action == '0') {
     e.reply('修仙：游戏进行中...')
@@ -760,7 +718,7 @@ export async function Go(e) {
   }
   //查询redis中the人物动作
   const action = JSON.parse(
-    await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+    await redis.get('xiuxian@1.4.0:' + user_id + ':action')
   )
   if (action != null) {
     //人物有动作查询动作结束时间
@@ -797,9 +755,18 @@ export async function existshop(didian) {
     return false
   }
 }
+
+/**
+ * 战斗系统
+ * @param AA_player
+ * @param BB_player
+ * @returns
+ */
 export async function zd_battle(AA_player, BB_player) {
+  // 应该是 交换数据  防止数据互相引用
   let A_player = JSON.parse(JSON.stringify(BB_player))
   let B_player = JSON.parse(JSON.stringify(AA_player))
+
   let cnt = 0 //回合数
   let cnt2
   let A_xue = 0 //最后要扣多少血
@@ -1044,17 +1011,20 @@ export async function zd_battle(AA_player, BB_player) {
   return Data_nattle
 }
 
+/**
+ *
+ * @param baojilv
+ * @returns
+ */
 export function baojishanghai(baojilv) {
-  if (baojilv > 1) {
-    baojilv = 1
-  } //暴击率最高为100%,即1
-  let rand = Math.random()
+  if (baojilv > 1) baojilv = 1
   let bl = 1
-  if (rand < baojilv) {
+  if (Math.random() < baojilv) {
     bl = baojilv + 1.5 //这个是暴击伤害倍率//满暴击时暴伤2为50%
   }
   return bl
 }
+
 //攻击攻击防御计算伤害
 export function Harm(atk, def) {
   let x
@@ -1070,6 +1040,7 @@ export function Harm(atk, def) {
   x = Math.trunc(x * atk * rand)
   return x
 }
+
 //判断克制关系
 export function kezhi(equ, wx) {
   let wuxing = ['金', '木', '土', '水', '火', '金']
@@ -1085,25 +1056,21 @@ export function kezhi(equ, wx) {
     }
   return 0
 }
+
 //通过暴击伤害返回输出用the文本
 export function ifbaoji(baoji) {
-  if (baoji == 1) {
-    return ''
-  } else {
-    return '触发暴击，'
-  }
+  if (baoji == 1) return ''
+  return '触发暴击，'
 }
 
 export async function openAU() {
   const redisGlKey = 'xiuxian:AuctionofficialTask_GroupList'
-
   const random = Math.floor(Math.random() * data.xingge[0].one.length)
   const thing_data = data.xingge[0].one[random]
   const thing_value = Math.floor(thing_data.出售价)
   const thing_amount = 1
   const now_time = new Date().getTime()
   const groupList = await redis.sMembers(redisGlKey)
-
   const wupin = {
     thing: thing_data,
     start_price: thing_value,
@@ -1163,29 +1130,8 @@ export async function Goweizhi(e, weizhi, addres) {
   await ForwardMsg(e, msg)
 }
 
-/**
- * 增加player文件某属性the值（在原本the基础上增加）
- * @param user_qq
- * @param num 属性thevalue
- * @param type 修改the属性
- * @returns {Promise<void>}
- */
-export async function setFileValue(user_qq, num, type) {
-  let user_data = data.getData('player', user_qq)
-  let current_num = user_data[type] //当前money数量
-  let new_num = current_num + num
-  if (type == 'now_bool' && new_num > user_data.血量上限) {
-    new_num = user_data.血量上限 //治疗血量需要判读上限
-  }
-  user_data[type] = new_num
-  await data.setData('player', user_qq, user_data)
-  return
-}
-
 export async function Synchronization_ASS(e) {
-  if (!e.isMaster) {
-    return
-  }
+  if (!e.isMaster) return
   e.reply('宗门开始同步')
   let assList = []
   let files = readdirSync(
@@ -1242,9 +1188,7 @@ export async function Synchronization_ASS(e) {
 }
 
 export async function synchronization(e) {
-  if (!e.isMaster) {
-    return
-  }
+  if (!e.isMaster) return
   e.reply('存档开始同步')
   let playerList = []
   let files = readdirSync(
@@ -1255,10 +1199,10 @@ export async function synchronization(e) {
     playerList.push(file)
   }
   for (let player_id of playerList) {
-    let usr_qq = player_id
-    let player = await data.getData('player', usr_qq)
-    let najie = await Read_najie(usr_qq)
-    let equipment = await Read_equipment(usr_qq)
+    let user_id = player_id
+    let player = await data.getData('player', user_id)
+    let najie = await Read_najie(user_id)
+    let equipment = await Read_equipment(user_id)
     let ziduan = [
       '镇妖塔层数',
       '神魄段数',
@@ -1316,13 +1260,13 @@ export async function synchronization(e) {
       player.breakthrough = false
     }
     if (!isNotNull(player.id)) {
-      player.id = usr_qq
+      player.id = user_id
     }
     if (!isNotNull(player.轮回点) || player.轮回点 > 10) {
       player.轮回点 = 10 - player.lunhui
     }
     try {
-      await Read_danyao(usr_qq)
+      await Read_danyao(user_id)
     } catch {
       const arr = {
         biguan: 0, //闭关状态
@@ -1337,7 +1281,7 @@ export async function synchronization(e) {
         beiyong4: 0,
         beiyong5: 0
       }
-      await Write_danyao(usr_qq, arr)
+      await Write_danyao(user_id, arr)
     }
 
     let suoding = [
@@ -1404,9 +1348,9 @@ export async function synchronization(e) {
     if (now_level_id < 42) {
       player.power_place = 1
     }
-    Write_najie(usr_qq, najie)
-    Write_player(usr_qq, player)
-    await Update_equipment(usr_qq, equipment)
+    Write_najie(user_id, najie)
+    Write_player(user_id, player)
+    await Update_equipment(user_id, equipment)
   }
   e.reply('存档同步结束')
 

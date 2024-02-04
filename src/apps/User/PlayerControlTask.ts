@@ -8,11 +8,12 @@ import {
   Write_danyao,
   setFileValue,
   getConfig,
-  data
+  data,
+  pushInfo
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { readdirSync } from 'fs'
-import { common, plugin } from '../../../import.js'
+import { plugin } from '../../../import.js'
 export class PlayerControlTask extends plugin {
   constructor() {
     super({
@@ -196,9 +197,9 @@ export class PlayerControlTask extends plugin {
               JSON.stringify(arr)
             )
             if (is_group) {
-              await this.pushInfo(push_address, is_group, msg)
+              await pushInfo(push_address, is_group, msg)
             } else {
-              await this.pushInfo(player_id, is_group, msg)
+              await pushInfo(player_id, is_group, msg)
             }
 
             if (dy.lianti <= 0) {
@@ -285,50 +286,13 @@ export class PlayerControlTask extends plugin {
             msg.push('\n降妖得到' + get_lingshi + 'money')
             log_mag += '收入' + get_lingshi
             if (is_group) {
-              await this.pushInfo(push_address, is_group, msg)
+              await pushInfo(push_address, is_group, msg)
             } else {
-              await this.pushInfo(player_id, is_group, msg)
+              await pushInfo(player_id, is_group, msg)
             }
           }
         }
       }
-    }
-  }
-
-  /**
-   * 增加player文件某属性the值（在原本the基础上增加）
-   * @param user_qq
-   * @param num 属性thevalue
-   * @param type 修改the属性
-   * @return  false  falses {Promise<void>}
-   */
-  async setFileValue(user_qq, num, type) {
-    let user_data = data.getData('player', user_qq)
-    let current_num = user_data[type] //当前money数量
-    let new_num = current_num + num
-    if (type == 'now_bool' && new_num > user_data.血量上限) {
-      new_num = user_data.血量上限 //治疗血量需要判读上限
-    }
-    user_data[type] = new_num
-    await data.setData('player', user_qq, user_data)
-    return false
-  }
-
-  /**
-   * 推送消息，群消息推送群，或者推送私人
-   * @param id
-   * @param is_group
-   * @return  false  falses {Promise<void>}
-   */
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
     }
   }
 }

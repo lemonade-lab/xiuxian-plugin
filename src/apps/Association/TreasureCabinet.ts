@@ -36,11 +36,11 @@ export class TreasureCabinet extends plugin {
   }
   //我the贡献
   async gonxian(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //用户不存在
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     //无宗门
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
@@ -64,11 +64,11 @@ export class TreasureCabinet extends plugin {
   async Summon_Divine_Beast(e) {
     //8级宗门，有驻地，money200w
 
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //用户不存在
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     //无宗门
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
@@ -131,11 +131,11 @@ export class TreasureCabinet extends plugin {
   }
 
   async Beast_Bonus(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //用户不存在
-    let ifexistplay = data.existData('player', usr_qq)
+    let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
-    let player = data.getData('player', usr_qq)
+    let player = data.getData('player', user_id)
     //无宗门
     if (!isNotNull(player.宗门)) {
       e.reply('你尚未加入宗门')
@@ -150,7 +150,7 @@ export class TreasureCabinet extends plugin {
     let now = new Date()
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
-    let lastsign_time = await getLastsign_Bonus(usr_qq) //获得上次宗门签到日期
+    let lastsign_time = await getLastsign_Bonus(user_id) //获得上次宗门签到日期
     if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
@@ -161,12 +161,12 @@ export class TreasureCabinet extends plugin {
       return false
     }
 
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Bonus', nowTime) //redis设置签到时间
+    await redis.set('xiuxian@1.4.0:' + user_id + ':getLastsign_Bonus', nowTime) //redis设置签到时间
 
     let random = Math.random()
     let flag = 0.5
     //根据好感度获取概率
-    let dy = await Read_danyao(usr_qq)
+    let dy = await Read_danyao(user_id)
     if (dy.beiyong2 > 0) {
       dy.beiyong2--
     }
@@ -174,7 +174,7 @@ export class TreasureCabinet extends plugin {
     if (dy.beiyong2 == 0) {
       dy.beiyong3 = 0
     }
-    await Write_danyao(usr_qq, dy)
+    await Write_danyao(user_id, dy)
     if (random > 0.7) {
       let location
       let item_name
@@ -191,7 +191,7 @@ export class TreasureCabinet extends plugin {
           item_name = data.danyao_list[location].name
           item_class = data.danyao_list[location].class
         }
-        await Add_najie_thing(usr_qq, item_name, item_class, 1)
+        await Add_najie_thing(user_id, item_name, item_class, 1)
       } else if (ass.宗门神兽 == '青龙') {
         //给skill，赐福加now_exp
         if (randomB > 0.9) {
@@ -203,7 +203,7 @@ export class TreasureCabinet extends plugin {
           item_name = data.gongfa_list[location].name
           item_class = data.gongfa_list[location].class
         }
-        await Add_najie_thing(usr_qq, item_name, item_class, 1)
+        await Add_najie_thing(user_id, item_name, item_class, 1)
       } else if (ass.宗门神兽 == '玄武') {
         //给protective_clothing，赐福加气血
         if (randomB > 0.9) {
@@ -215,7 +215,7 @@ export class TreasureCabinet extends plugin {
           item_name = data.equipment_list[location].name
           item_class = data.equipment_list[location].class
         }
-        await Add_najie_thing(usr_qq, item_name, item_class, 1)
+        await Add_najie_thing(user_id, item_name, item_class, 1)
       } else if (ass.宗门神兽 == '朱雀') {
         //给magic_weapon，赐福加修
         if (randomB > 0.9) {
@@ -227,7 +227,7 @@ export class TreasureCabinet extends plugin {
           item_name = data.equipment_list[location].name
           item_class = data.equipment_list[location].class
         }
-        await Add_najie_thing(usr_qq, item_name, item_class, 1)
+        await Add_najie_thing(user_id, item_name, item_class, 1)
       } else {
         //白虎给weapon 赐福加气血
         if (randomB > 0.9) {
@@ -239,7 +239,7 @@ export class TreasureCabinet extends plugin {
           item_name = data.equipment_list[location].name
           item_class = data.equipment_list[location].class
         }
-        await Add_najie_thing(usr_qq, item_name, item_class, 1)
+        await Add_najie_thing(user_id, item_name, item_class, 1)
       }
       if (randomB > 0.9) {
         e.reply(`看见你来了,${ass.宗门神兽}很高兴，仔细挑选了${item_name}给你`)
@@ -254,9 +254,9 @@ export class TreasureCabinet extends plugin {
   }
 }
 
-async function getLastsign_Bonus(usr_qq) {
+async function getLastsign_Bonus(user_id) {
   //查询redis中the人物动作
-  let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':getLastsign_Bonus')
+  let time = await redis.get('xiuxian@1.4.0:' + user_id + ':getLastsign_Bonus')
   if (time != null) {
     let data = await shijianc(parseInt(time))
     return data

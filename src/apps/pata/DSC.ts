@@ -1,4 +1,10 @@
-import { existplayer, ifbaoji, Harm, data } from '../../model/index.js'
+import {
+  existplayer,
+  ifbaoji,
+  Harm,
+  data,
+  ForwardMsg
+} from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class DSC extends plugin {
   constructor() {
@@ -20,10 +26,10 @@ export class DSC extends plugin {
     })
   }
   async WorldBossBattle(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     if (player.神魄段数 > 6000) {
       e.reply('已达到上限')
       return false
@@ -51,7 +57,7 @@ export class DSC extends plugin {
     let Time = 2
     let now_Time = new Date().getTime() //获取当前时间戳
     let shuangxiuTimeout = 60000 * Time
-    let last_time = parseInt(await redis.get('xiuxian@1.4.0:' + usr_qq + 'CD'))
+    let last_time = parseInt(await redis.get('xiuxian@1.4.0:' + user_id + 'CD'))
     if (now_Time < last_time + shuangxiuTimeout) {
       let Couple_m = Math.trunc(
         (last_time + shuangxiuTimeout - now_Time) / 60 / 1000
@@ -122,37 +128,37 @@ export class DSC extends plugin {
       await ForwardMsg(e, msg)
       e.reply('战斗过长，仅展示部分内容')
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + 'CD', now_Time)
+    await redis.set('xiuxian@1.4.0:' + user_id + 'CD', now_Time)
     if (bosszt.Health <= 0) {
       player.神魄段数 += 5
       player.血气 += Reward
       player.now_bool = player.血量上限
       e.reply([
-        segment.at(usr_qq),
+        segment.at(user_id),
         `\n你成功突破一段神魄，段数+5！血气增加${Reward} 血量补偿满血！`
       ])
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
     }
     if (player.now_bool <= 0) {
       player.now_bool = 0
       player.now_exp -= Math.trunc(Reward * 2)
       e.reply([
-        segment.at(usr_qq),
+        segment.at(user_id),
         `\n你未能通过此层锻神池！now_exp-${Math.trunc(Reward * 2)}`
       ])
-      data.setData('player', usr_qq, player)
+      data.setData('player', user_id, player)
     }
     return false
   }
 
   //与未知妖物战斗
   async all_WorldBossBattle(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let xueqi = 0
     let cengshu = 0
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     while (player.now_bool > 0) {
       let 神魄段数 = player.神魄段数
       //人数the万倍
@@ -243,31 +249,10 @@ export class DSC extends plugin {
     }
     player.血气 += xueqi
     e.reply([
-      segment.at(usr_qq),
+      segment.at(user_id),
       `\n恭喜你获得血气${xueqi},本次通过${cengshu}层,失去部分now_exp`
     ])
-    data.setData('player', usr_qq, player)
+    data.setData('player', user_id, player)
     return false
   }
-}
-
-//发送转发消息
-//输入data一个数组,元素是字符串,每一个元素都是一条消息.
-async function ForwardMsg(e, data) {
-  //console.error(data);
-  let msgList = []
-  for (let i of data) {
-    msgList.push({
-      message: i,
-      nickname: Bot.nickname,
-      user_id: Bot.uin
-    })
-  }
-  if (msgList.length == 1) {
-    await e.reply(msgList[0].message)
-  } else {
-    //console.log(msgList);
-    await e.reply(await Bot.makeForwardMsg(msgList))
-  }
-  return false
 }

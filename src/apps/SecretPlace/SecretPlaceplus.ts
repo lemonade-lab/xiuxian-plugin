@@ -73,7 +73,7 @@ export class SecretPlaceplus extends plugin {
 
   //沉迷秘境
   async Gosecretplace(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
@@ -89,7 +89,7 @@ export class SecretPlaceplus extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.money < weizhi.Price * 10 * i) {
       e.reply('没有money寸步难行,攒到' + weizhi.Price * 10 * i + 'money才够哦~')
       return false
@@ -98,15 +98,15 @@ export class SecretPlaceplus extends plugin {
       e.reply('该秘境不支持沉迷哦')
       return false
     }
-    let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具')
+    let number = await exist_najie_thing(user_id, '秘境之匙', '道具')
     if (isNotNull(number) && number >= i) {
-      await Add_najie_thing(usr_qq, '秘境之匙', '道具', -i)
+      await Add_najie_thing(user_id, '秘境之匙', '道具', -i)
     } else {
       e.reply('你没有足够数量the秘境之匙')
       return false
     }
     let Price = weizhi.Price * 10 * i
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     const time = i * 10 * 5 + 10 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -129,19 +129,19 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('开始降临' + didian + ',' + time + '分钟后归来!')
     return false
   }
 
   //沉迷禁地
   async Goforbiddenarea(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let now_level_id
     if (!isNotNull(player.level_id)) {
       e.reply('请先#同步信息')
@@ -183,17 +183,17 @@ export class SecretPlaceplus extends plugin {
       )
       return false
     }
-    let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具')
+    let number = await exist_najie_thing(user_id, '秘境之匙', '道具')
     if (isNotNull(number) && number >= i) {
-      await Add_najie_thing(usr_qq, '秘境之匙', '道具', -i)
+      await Add_najie_thing(user_id, '秘境之匙', '道具', -i)
     } else {
       e.reply('你没有足够数量the秘境之匙')
       return false
     }
     let Price = weizhi.Price * 10 * i
     let Exp = weizhi.experience * 10 * i
-    await Add_money(usr_qq, -Price)
-    await Add_now_exp(usr_qq, -Exp)
+    await Add_money(user_id, -Price)
+    await Add_now_exp(user_id, -Exp)
     const time = i * 10 * 5 + 10 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -216,19 +216,19 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('正在前往' + weizhi.name + ',' + time + '分钟后归来!')
     return false
   }
 
   //探索仙府
   async GoTimeplace(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let didianlist = ['无欲天仙', '仙遗之地']
     let suiji = Math.round(Math.random()) //随机一个地方
     let yunqi = Math.random() //运气随机数
@@ -250,7 +250,7 @@ export class SecretPlaceplus extends plugin {
       e.reply(
         '价格为50w,你觉得特别特别便宜,赶紧全款拿下了,历经九九八十天,到了后发现居然是仙湖游乐场！'
       )
-      await Add_money(usr_qq, -50000)
+      await Add_money(user_id, -50000)
       return false
     }
     now_level_id = data.Level_list.find(
@@ -276,7 +276,7 @@ export class SecretPlaceplus extends plugin {
       return false
     }
     let Price = weizhi.Price * 10
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     const time = 22 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -299,8 +299,8 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
-    await Add_now_exp(usr_qq, -1000000)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
+    await Add_now_exp(user_id, -1000000)
     if (suiji == 0) {
       e.reply(
         '你买下了那份地图,历经九九八十一天,终于到达了地图上the仙府,洞府上模糊得刻着[' +
@@ -322,7 +322,7 @@ export class SecretPlaceplus extends plugin {
 
   //前往仙境
   async Gofairyrealm(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
@@ -338,7 +338,7 @@ export class SecretPlaceplus extends plugin {
     if (!isNotNull(weizhi)) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.money < weizhi.Price * 10 * i) {
       e.reply('没有money寸步难行,攒到' + weizhi.Price * 10 * i + 'money才够哦~')
       return false
@@ -348,22 +348,22 @@ export class SecretPlaceplus extends plugin {
       e.reply('打工本不支持沉迷哦')
       return false
     }
-    player = await Read_player(usr_qq)
+    player = await Read_player(user_id)
     now_level_id = data.Level_list.find(
       (item) => item.level_id == player.level_id
     ).level_id
     if (now_level_id < 42 && player.lunhui == 0) {
       return false
     }
-    let number = await exist_najie_thing(usr_qq, '秘境之匙', '道具')
+    let number = await exist_najie_thing(user_id, '秘境之匙', '道具')
     if (isNotNull(number) && number >= i) {
-      await Add_najie_thing(usr_qq, '秘境之匙', '道具', -i)
+      await Add_najie_thing(user_id, '秘境之匙', '道具', -i)
     } else {
       e.reply('你没有足够数量the秘境之匙')
       return false
     }
     let Price = weizhi.Price * 10 * i
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     const time = i * 10 * 5 + 10 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -386,7 +386,7 @@ export class SecretPlaceplus extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('开始镇守' + didian + ',' + time + '分钟后归来!')
     return false
   }

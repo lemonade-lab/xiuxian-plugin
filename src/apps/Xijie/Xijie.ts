@@ -60,13 +60,13 @@ export class Xijie extends plugin {
     return false
   }
   async xijie(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
 
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -75,7 +75,7 @@ export class Xijie extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     let now_time = new Date().getTime()
     if (action != null) {
@@ -89,7 +89,7 @@ export class Xijie extends plugin {
       }
     }
     let lastxijie_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastxijie_time')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':lastxijie_time')
     )
     if (now_time < lastxijie_time + 7200000) {
       let lastxijie_m = Math.trunc(
@@ -133,7 +133,7 @@ export class Xijie extends plugin {
       return false
     }
     let msg = ''
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let Price = shop[i].price * shop[i].Grade
     let buff = shop[i].Grade + 1
     if (player.money < Price) {
@@ -150,7 +150,7 @@ export class Xijie extends plugin {
     }
     //开始准备洗劫
     player.魔道值 += 25 * shop[i].Grade
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
 
     shop[i].state = 1
     await Write_shop(shop)
@@ -193,20 +193,20 @@ export class Xijie extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastxijie_time', now_time)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':lastxijie_time', now_time)
     msg += '\n开始前往' + didian + ',祝你好运!'
     e.reply(msg, true)
     return false
   }
 
   async tancha(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -215,7 +215,7 @@ export class Xijie extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -246,13 +246,13 @@ export class Xijie extends plugin {
     if (i == shop.length) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let Price = shop[i].price * 0.3
     if (player.money < Price) {
       e.reply('你需要更多themoney去打探消息')
       return false
     }
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     let thing = await existshop(didian)
     let level = shop[i].Grade
     let state = shop[i].state

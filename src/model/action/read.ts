@@ -2,33 +2,34 @@ import { copyFileSync, readFileSync } from 'fs'
 import { join } from 'path'
 import { __PATH } from '../base/PATH.js'
 import { Write_duanlu } from './write.js'
+import { shijianc } from '../utils.js'
 
 /**
  *
- * @param usr_qq
+ * @param user_id
  * @returns
  */
-export function Read_equipment(usr_qq) {
+export function Read_equipment(user_id) {
   return JSON.parse(
-    readFileSync(join(`${__PATH.equipment_path}/${usr_qq}.json`), 'utf8')
+    readFileSync(join(`${__PATH.equipment_path}/${user_id}.json`), 'utf8')
   )
 }
 
 /**
  *
- * @param usr_qq
+ * @param user_id
  * @returns
  */
-export function Read_najie(usr_qq) {
+export function Read_najie(user_id) {
   return JSON.parse(
-    readFileSync(join(`${__PATH.najie_path}/${usr_qq}.json`), 'utf8')
+    readFileSync(join(`${__PATH.najie_path}/${user_id}.json`), 'utf8')
   )
 }
 
-export function fixed(usr_qq) {
+export function fixed(user_id) {
   return copyFileSync(
-    `${__PATH.auto_backup}/najie/${usr_qq}.json`,
-    `${__PATH.najie_path}/${usr_qq}.json`
+    `${__PATH.auto_backup}/najie/${user_id}.json`,
+    `${__PATH.najie_path}/${user_id}.json`
   )
 }
 
@@ -48,9 +49,9 @@ export function Read_shop() {
   return JSON.parse(readFileSync(join(`${__PATH.shop}/shop.json`), 'utf8'))
 }
 
-export function Read_danyao(usr_qq) {
+export function Read_danyao(user_id) {
   return JSON.parse(
-    readFileSync(join(`${__PATH.danyao_path}/${usr_qq}.json`), 'utf8')
+    readFileSync(join(`${__PATH.danyao_path}/${user_id}.json`), 'utf8')
   )
 }
 
@@ -63,22 +64,14 @@ export function Read_shitu() {
 }
 
 /**
- *
- * @returns
- */
-export function Read_updata_log() {
-  return readFileSync(join(`${__PATH.updata_log_path}`), 'utf8')
-}
-
-/**
  * 读取存档信息，返回成一个JavaScript对象
- * @param usr_qq
+ * @param user_id
  * @returns
  */
-export function Read_player(usr_qq) {
+export function Read_player(user_id) {
   return JSON.parse(
     decodeURIComponent(
-      readFileSync(join(`${__PATH.player_path}/${usr_qq}.json`), 'utf8')
+      readFileSync(join(`${__PATH.player_path}/${user_id}.json`), 'utf8')
     )
   )
 }
@@ -116,4 +109,29 @@ export function readall(weizhi) {
   return JSON.parse(
     readFileSync(join(`${__PATH.lib_path}/${weizhi}.json`), 'utf8')
   )
+}
+
+/**
+ * 获取缓存中the人物状态信息
+ * @param user_id
+ * @return  falses {Promise<void>}
+ */
+export async function getPlayerActionData(user_id) {
+  return JSON.parse(await redis.get('xiuxian@1.4.0:' + user_id + ':action')) //转为json格式数据
+}
+
+export function Read_tiandibang() {
+  //将字符串数据转变成数组格式
+  return JSON.parse(
+    readFileSync(join(`${__PATH.tiandibang}/tiandibang.json`), 'utf8')
+  )
+}
+
+export async function getLastbisai(user_id) {
+  //查询redis中the人物动作
+  let time = await redis.get('xiuxian@1.4.0:' + user_id + ':lastbisai_time')
+  if (time != null) {
+    return shijianc(parseInt(time))
+  }
+  return false
 }

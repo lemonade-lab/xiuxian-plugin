@@ -1,4 +1,4 @@
-import base from './image/base.js'
+import base from '../image/base.js'
 export default class Version extends base {
   constructor() {
     super()

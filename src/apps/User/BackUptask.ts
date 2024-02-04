@@ -29,12 +29,12 @@ export class BackUptask extends plugin {
       playerList.push(file)
     }
     for (let player_id of playerList) {
-      let usr_qq = player_id
+      let user_id = player_id
       try {
-        await Read_najie(usr_qq)
+        await Read_najie(user_id)
         copyFileSync(
-          `${__PATH.najie_path}/${usr_qq}.json`,
-          `${__PATH.auto_backup}/najie/${usr_qq}.json`
+          `${__PATH.najie_path}/${user_id}.json`,
+          `${__PATH.auto_backup}/najie/${user_id}.json`
         )
       } catch {
         continue

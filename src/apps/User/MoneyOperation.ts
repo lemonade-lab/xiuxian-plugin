@@ -201,20 +201,20 @@ export class MoneyOperation extends plugin {
 
   async MoneyWord(e) {
     //这是自己the
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //自己没存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //获取发送money数量
     let lingshi = e.msg.replace(/^(#|\/)/, '')
     lingshi = lingshi.replace('交税', '')
     lingshi = await convert2integer(lingshi)
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.money <= lingshi) {
       e.reply('醒醒，你没有那么多')
       return false
     }
-    await Add_money(usr_qq, -lingshi)
+    await Add_money(user_id, -lingshi)
     e.reply('成功交税' + lingshi)
     return false
   }
@@ -389,9 +389,9 @@ export class MoneyOperation extends plugin {
   //发红包
   async Give_honbao(e) {
     //这是自己the
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //自己没存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //获取发送money数量
     let lingshi = e.msg.replace(/^(#|\/)/, '')
@@ -405,7 +405,7 @@ export class MoneyOperation extends plugin {
     let acount = code[1]
     lingshi = await convert2integer(lingshi)
     acount = await convert2integer(acount)
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     //对比自己themoney，看看够不够！
     if (player.money <= lingshi * acount) {
       e.reply(`红包数要比自身money数小噢`)
@@ -413,10 +413,10 @@ export class MoneyOperation extends plugin {
     }
     lingshi = Math.trunc(lingshi / 10000) * 10000
     //发送themoney要当到数据库里。大家都能取
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':honbao', lingshi)
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':honbaoacount', acount)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':honbao', lingshi)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':honbaoacount', acount)
     //然后扣money
-    await Add_money(usr_qq, -lingshi * acount)
+    await Add_money(user_id, -lingshi * acount)
     e.reply(
       '【全服公告】' +
         player.name +
@@ -431,15 +431,15 @@ export class MoneyOperation extends plugin {
 
   //抢红包
   async uer_honbao(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //自己没存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     //抢红包要有一分钟theCD
     let now_time = new Date().getTime()
     let lastgetbung_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_getbung_time')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':last_getbung_time')
     )
     const cf = getConfig('xiuxian', 'xiuxian')
     let transferTimeout = cf.CD.honbao * 60000
@@ -482,32 +482,32 @@ export class MoneyOperation extends plugin {
     acount--
     await redis.set('xiuxian@1.4.0:' + honbao_qq + ':honbaoacount', acount)
     //拿出来the要给玩家
-    await Add_money(usr_qq, addlingshi)
+    await Add_money(user_id, addlingshi)
     //给个提示
     e.reply(
       '【全服公告】' + player.name + '抢到一个' + addlingshi + 'moneythe红包！'
     )
     //记录时间
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':last_getbung_time', now_time)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':last_getbung_time', now_time)
     return false
   }
 
   async openwallet(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     let thing_name = '水脚脚the钱包'
     //x是纳戒内有the数量
-    let acount = await exist_najie_thing(usr_qq, thing_name, '装备')
+    let acount = await exist_najie_thing(user_id, thing_name, '装备')
     //没有
     if (!acount) {
       e.reply(`你没有[${thing_name}]这样the装备`)
       return false
     }
     //扣掉装备
-    await Add_najie_thing(usr_qq, thing_name, '装备', -1)
+    await Add_najie_thing(user_id, thing_name, '装备', -1)
     //获得随机
     const x = 0.4
     let random1 = Math.random()
@@ -572,7 +572,7 @@ export class MoneyOperation extends plugin {
         lingshi +
         '颗money！'
     }
-    await Add_money(usr_qq, lingshi)
+    await Add_money(user_id, lingshi)
     e.reply(m)
     return false
   }

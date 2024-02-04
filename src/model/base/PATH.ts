@@ -1,32 +1,38 @@
-import { join } from 'path'
-import { cwd } from '../../../config.js'
-// 文件存放路径
+import { getPath } from './get.js'
+
+/**
+ * 文件存放路径
+ */
 export const __PATH = {
-  //更新日志
-  updata_log_path: join(cwd, 'vertion.txt'),
   //用户数据
-  player_path: join(cwd, '/resources/data/xiuxian_player'),
+  player_path: getPath('/xiuxian_player'),
   //装备
-  equipment_path: join(cwd, '/resources/data/xiuxian_equipment'),
+  equipment_path: getPath('/xiuxian_equipment'),
   //纳戒
-  najie_path: join(cwd, '/resources/data/xiuxian_najie'),
+  najie_path: getPath('/xiuxian_najie'),
   //丹药
-  danyao_path: join(cwd, '/resources/data/xiuxian_danyao'),
+  danyao_path: getPath('/xiuxian_danyao'),
   //源数据
-  lib_path: join(cwd, '/resources/data/item'),
-  Timelimit: join(cwd, '/resources/data/Timelimit'),
-  Exchange: join(cwd, '/resources/data/Exchange'),
-  shop: join(cwd, '/resources/data/shop'),
-  log_path: join(cwd, '/resources/data/suduku'),
-  association: join(cwd, '/resources/data/association'),
-  tiandibang: join(cwd, '/resources/data/tiandibang'),
-  qinmidu: join(cwd, '/resources/data/qinmidu'),
-  backup: join(cwd, '/resources/backup'),
-  player_pifu_path: join(cwd, '/resources/img/player_pifu'),
-  shitu: join(cwd, '/resources/data/shitu'),
-  equipment_pifu_path: join(cwd, '/resources/img/equipment_pifu'),
-  duanlu: join(cwd, '/resources/data/duanlu'),
-  temp_path: join(cwd, '/resources/data/temp'),
-  custom: join(cwd, '/resources/data/custom'),
-  auto_backup: join(cwd, '/resources/data/auto_backup')
+  lib_path: getPath('/item'),
+  Timelimit: getPath('/Timelimit'),
+  Exchange: getPath('/Exchange'),
+  shop: getPath('/shop'),
+  log_path: getPath('/suduku'),
+  association: getPath('/association'),
+  tiandibang: getPath('/tiandibang'),
+  qinmidu: getPath('/qinmidu'),
+  backup: getPath('/backup'),
+  player_pifu_path: getPath('/player_pifu'),
+  shitu: getPath('/shitu'),
+  equipment_pifu_path: getPath('/equipment_pifu'),
+  duanlu: getPath('/duanlu'),
+  temp_path: getPath('/temp'),
+  custom: getPath('/custom'),
+  auto_backup: getPath('/auto_backup'),
+  player: getPath('/xiuxian_player'), //用户数据
+  equipment: getPath('/xiuxian_equipment'),
+  najie: getPath('/xiuxian_najie'),
+  lib: getPath('/item'),
+  Level: getPath('/Level'), //境界
+  occupation: getPath('/occupation')
 }

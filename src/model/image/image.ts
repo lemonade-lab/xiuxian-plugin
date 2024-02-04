@@ -1,5 +1,5 @@
 import { puppeteer } from '../../../import.js'
-import { getConfig } from '../Config.js'
+import { getConfig } from '../utils.js'
 import { Show } from '../show.js'
 import { __PATH } from '../base/PATH.js'
 import {
@@ -29,13 +29,13 @@ import { isNotNull } from '../utils.js'
  */
 export async function get_XianChong_img(e) {
   let i
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
-  let najie = await Read_najie(usr_qq)
+  let player = await data.getData('player', user_id)
+  let najie = await Read_najie(user_id)
   let XianChong_have = []
   let XianChong_need = []
   let Kouliang = []
@@ -76,13 +76,13 @@ export async function get_XianChong_img(e) {
  * @returns
  */
 export async function get_daoju_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
-  let najie = await Read_najie(usr_qq)
+  let player = await data.getData('player', user_id)
+  let najie = await Read_najie(user_id)
   let daoju_have = []
   let daoju_need = []
   for (const i of data.daoju_list) {
@@ -93,7 +93,7 @@ export async function get_daoju_img(e) {
     }
   }
   let player_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     nickname: player.name,
     daoju_have,
     daoju_need
@@ -109,14 +109,14 @@ export async function get_daoju_img(e) {
  * @return image
  */
 export async function get_wuqi_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
-  let najie = await Read_najie(usr_qq)
-  let equipment = await Read_equipment(usr_qq)
+  let player = await data.getData('player', user_id)
+  let najie = await Read_najie(user_id)
+  let equipment = await Read_equipment(user_id)
   let wuqi_have = []
   let wuqi_need = []
   const wuqi_list = [
@@ -148,7 +148,7 @@ export async function get_wuqi_img(e) {
   }
 
   let player_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     nickname: player.name,
     wuqi_have,
     wuqi_need
@@ -164,13 +164,13 @@ export async function get_wuqi_img(e) {
  * @return image
  */
 export async function get_danyao_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  const player = await Read_player(usr_qq)
-  const najie = await Read_najie(usr_qq)
+  const player = await Read_player(user_id)
+  const najie = await Read_najie(user_id)
   let danyao_have = []
   let danyao_need = []
   const danyao = ['danyao_list', 'timedanyao_list', 'newdanyao_list']
@@ -187,7 +187,7 @@ export async function get_danyao_img(e) {
     }
   }
   let player_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     nickname: player.name,
     danyao_have,
     danyao_need
@@ -204,12 +204,12 @@ export async function get_danyao_img(e) {
  */
 export async function get_gongfa_img(e) {
   let i
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
+  let player = await data.getData('player', user_id)
   let xuexi_gongfa = player.studytheskill
   let gongfa_have = []
   let gongfa_need = []
@@ -227,7 +227,7 @@ export async function get_gongfa_img(e) {
     }
   }
   let player_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     nickname: player.name,
     gongfa_have,
     gongfa_need
@@ -243,14 +243,14 @@ export async function get_gongfa_img(e) {
  * @return image
  */
 export async function get_power_img(e) {
-  let usr_qq = e.user_id
-  let player = await data.getData('player', usr_qq)
+  let user_id = e.user_id
+  let player = await data.getData('player', user_id)
   let lingshi = Math.trunc(player.money)
   if (player.money > 999999999999) {
     lingshi = 999999999999
   }
-  data.setData('player', usr_qq, player)
-  await player_efficiency(usr_qq)
+  data.setData('player', user_id, player)
+  await player_efficiency(user_id)
   if (!isNotNull(player.level_id)) {
     e.reply('请先#同步信息')
     return
@@ -272,7 +272,7 @@ export async function get_power_img(e) {
     (item) => item.level_id == player.Physique_id
   ).exp
   let playercopy = {
-    user_id: usr_qq,
+    user_id: user_id,
     nickname: player.name,
     need_xueqi: need_xueqi,
     xueqi: player.血气,
@@ -300,14 +300,14 @@ export async function get_player_img(e) {
   let magic_weapon评级
   let protective_clothing评级
   let weapon评级
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
-  let equipment = await data.getData('equipment', usr_qq)
-  let player_status = await getPlayerAction(usr_qq)
+  let player = await data.getData('player', user_id)
+  let equipment = await data.getData('equipment', user_id)
+  let player_status = await getPlayerAction(user_id)
   let status = '空闲'
   if (player_status.time != null) {
     status = player_status.action + '(剩余时间:' + player_status.time + ')'
@@ -322,8 +322,8 @@ export async function get_player_img(e) {
   if (player.talent == null || player.talent == undefined) {
     player.talent = await get_random_talent()
   }
-  data.setData('player', usr_qq, player)
-  await player_efficiency(usr_qq) // 注意这里刷新了Improving_cultivation_efficiency
+  data.setData('player', user_id, player)
+  await player_efficiency(user_id) // 注意这里刷新了Improving_cultivation_efficiency
   if ((await player.linggenshow) != 0) {
     player.talent.type = '无'
     player.talent.name = '未知'
@@ -450,7 +450,7 @@ export async function get_player_img(e) {
   equipment.magic_weapon.bao = equipment.magic_weapon.bao * 100 + '%'
   lingshi = Number(bigNumberTransform(lingshi))
   let hunyin = '未知'
-  let A = usr_qq
+  let A = user_id
   let qinmidu
   try {
     qinmidu = await Read_qinmidu()
@@ -477,7 +477,7 @@ export async function get_player_img(e) {
   let player_data = {
     neidan: nd,
     pifu: action,
-    user_id: usr_qq,
+    user_id: user_id,
     player, // 玩家数据
     rank_lianqi, // 练气境界
     expmax_lianqi, // 练气需求经验
@@ -546,8 +546,8 @@ export async function get_player_img(e) {
 }
 
 export async function get_supermarket_img(e, thing_class) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
@@ -571,7 +571,7 @@ export async function get_supermarket_img(e, thing_class) {
     return b.now_time - a.now_time
   })
   let supermarket_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     Exchange_list: Exchange_list
   }
   const data1 = await new Show().get_supermarketData(supermarket_data)
@@ -582,8 +582,8 @@ export async function get_supermarket_img(e, thing_class) {
 }
 
 export async function get_forum_img(e, thing_class) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
@@ -605,7 +605,7 @@ export async function get_forum_img(e, thing_class) {
     return b.now_time - a.now_time
   })
   let forum_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     Forum: Forum
   }
   const data1 = await new Show().get_forumData(forum_data)
@@ -616,8 +616,8 @@ export async function get_forum_img(e, thing_class) {
 }
 
 export async function get_danfang_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
@@ -625,7 +625,7 @@ export async function get_danfang_img(e) {
   let danfang_list = data.danfang_list
 
   let danfang_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     danfang_list: danfang_list
   }
   const data1 = await new Show().get_danfangData(danfang_data)
@@ -636,8 +636,8 @@ export async function get_danfang_img(e) {
 }
 
 export async function get_tuzhi_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
@@ -645,7 +645,7 @@ export async function get_tuzhi_img(e) {
   let tuzhi_list = data.tuzhi_list
 
   let tuzhi_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     tuzhi_list: tuzhi_list
   }
   const data1 = await new Show().get_tuzhiData(tuzhi_data)
@@ -660,8 +660,8 @@ export async function get_tuzhi_img(e) {
  * @return image
  */
 export async function get_ningmenghome_img(e, thing_type) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
@@ -692,7 +692,7 @@ export async function get_ningmenghome_img(e, thing_type) {
     }
   }
   let ningmenghome_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     commodities_list: commodities_list
   }
   const data1 = await new Show().get_ningmenghomeData(ningmenghome_data)
@@ -706,13 +706,13 @@ export async function get_ningmenghome_img(e, thing_type) {
  * @return image
  */
 export async function get_valuables_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
   let valuables_data = {
-    user_id: usr_qq
+    user_id: user_id
   }
   const data1 = await new Show().get_valuablesData(valuables_data)
   let img = await puppeteer.screenshot('valuables', {
@@ -727,14 +727,14 @@ export async function get_valuables_img(e) {
  */
 export async function get_association_img(e) {
   let item
-  let usr_qq = e.user_id
+  let user_id = e.user_id
   //无存档
-  let ifexistplay = data.existData('player', usr_qq)
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
   //门派
-  let player = data.getData('player', usr_qq)
+  let player = data.getData('player', user_id)
   if (!isNotNull(player.宗门)) {
     return
   }
@@ -819,7 +819,7 @@ export async function get_association_img(e) {
     ass.宗门神兽 = '无'
   }
   let association_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     ass: ass,
     mainname: mainqq.name,
     mainqq: ass.宗主,
@@ -844,16 +844,16 @@ export async function get_association_img(e) {
  * @return image
  */
 export async function get_equipment_img(e) {
-  let usr_qq = e.user_id
-  let player = await data.getData('player', usr_qq)
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let player = await data.getData('player', user_id)
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
   const bao = Math.trunc(player.暴击率 * 100)
-  let equipment = await data.getData('equipment', usr_qq)
+  let equipment = await data.getData('equipment', user_id)
   let player_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     mdz: player.魔道值,
     nickname: player.name,
     arms: equipment.weapon,
@@ -876,19 +876,19 @@ export async function get_equipment_img(e) {
  * @return image
  */
 export async function get_najie_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
-  let najie = await Read_najie(usr_qq)
+  let player = await data.getData('player', user_id)
+  let najie = await Read_najie(user_id)
   const lingshi = Math.trunc(najie.money)
   const lingshi2 = Math.trunc(najie.money上限)
   let strand_hp = Strand(player.now_bool, player.血量上限)
   let strand_lingshi = Strand(najie.money, najie.money上限)
   let player_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     player: player,
     najie: najie,
     mdz: player.魔道值,
@@ -919,12 +919,12 @@ export async function get_najie_img(e) {
  * @return image
  */
 export async function get_state_img(e, all_level = false) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
+  let player = await data.getData('player', user_id)
   let Level_id = player.level_id
   let Level_list = data.Level_list
   //循环删除表信息
@@ -937,7 +937,7 @@ export async function get_state_img(e, all_level = false) {
     }
   }
   let state_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     Level_list: Level_list
   }
   const data1 = await new Show().get_stateData(state_data)
@@ -947,12 +947,12 @@ export async function get_state_img(e, all_level = false) {
 }
 
 export async function get_statezhiye_img(e, all_level = false) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
+  let player = await data.getData('player', user_id)
   let Level_id = player.occupation_level
   let Level_list = data.occupation_exp_list
   //循环删除表信息
@@ -965,7 +965,7 @@ export async function get_statezhiye_img(e, all_level = false) {
     }
   }
   let state_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     Level_list: Level_list
   }
   const data1 = await new Show().get_stateDatazhiye(state_data)
@@ -979,12 +979,12 @@ export async function get_statezhiye_img(e, all_level = false) {
  * @return image
  */
 export async function get_statemax_img(e, all_level = false) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
+  let player = await data.getData('player', user_id)
   let Level_id = player.Physique_id
   let LevelMax_list = data.LevelMax_list
   //循环删除表信息
@@ -997,7 +997,7 @@ export async function get_statemax_img(e, all_level = false) {
     }
   }
   let statemax_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     LevelMax_list: LevelMax_list
   }
   const data1 = await new Show().get_statemaxData(statemax_data)
@@ -1007,16 +1007,16 @@ export async function get_statemax_img(e, all_level = false) {
 }
 
 export async function get_talent_img(e) {
-  let usr_qq = e.user_id
-  let ifexistplay = data.existData('player', usr_qq)
+  let user_id = e.user_id
+  let ifexistplay = data.existData('player', user_id)
   if (!ifexistplay) {
     return
   }
-  let player = await data.getData('player', usr_qq)
+  let player = await data.getData('player', user_id)
   let Level_id = player.Physique_id
   let talent_list = data.talent_list
   let talent_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     talent_list: talent_list
   }
   const data1 = await new Show().get_talentData(talent_data)
@@ -1080,12 +1080,12 @@ export async function get_adminset_img(e) {
 }
 
 export async function get_ranking_power_img(e, Data, usr_paiming, thisplayer) {
-  let usr_qq = e.user_id
+  let user_id = e.user_id
   let level = data.Level_list.find(
     (item) => item.level_id == thisplayer.level_id
   ).level
   let ranking_power_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     mdz: thisplayer.魔道值,
     nickname: thisplayer.name,
     exp: thisplayer.now_exp,
@@ -1106,11 +1106,11 @@ export async function get_ranking_money_img(
   thisplayer,
   thisnajie
 ) {
-  let usr_qq = e.user_id
+  let user_id = e.user_id
   const najie_lingshi = Math.trunc(thisnajie.money)
   const lingshi = Math.trunc(thisplayer.money + thisnajie.money)
   let ranking_money_data = {
-    user_id: usr_qq,
+    user_id: user_id,
     nickname: thisplayer.name,
     lingshi: lingshi,
     najie_lingshi: najie_lingshi,

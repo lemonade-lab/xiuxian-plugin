@@ -37,16 +37,16 @@ export class shenren extends plugin {
   }
 
   async add_lingeng(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let x = await exist_najie_thing(usr_qq, '神石', '道具')
+    let x = await exist_najie_thing(user_id, '神石', '道具')
     if (!x) {
       e.reply('你没有神石')
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (
       player.魔道值 > 0 ||
       (player.talent.type != '转生' && player.level_id < 42)
@@ -55,22 +55,22 @@ export class shenren extends plugin {
       return false
     }
     player.神石 += x
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     e.reply('供奉成功,当前供奉进度' + player.神石 + '/200')
-    await Add_najie_thing(usr_qq, '神石', '道具', -x)
+    await Add_najie_thing(user_id, '神石', '道具', -x)
     return false
   }
   async open_shitou(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let x = await exist_najie_thing(usr_qq, '闪闪发光the石头', '道具')
+    let x = await exist_najie_thing(user_id, '闪闪发光the石头', '道具')
     if (!x) {
       e.reply('你没有闪闪发光the石头')
       return false
     }
-    await Add_najie_thing(usr_qq, '闪闪发光the石头', '道具', -1)
+    await Add_najie_thing(user_id, '闪闪发光the石头', '道具', -1)
     let random = Math.random()
     let thing
     if (random < 0.5) {
@@ -79,17 +79,17 @@ export class shenren extends plugin {
       thing = '魔石'
     }
     e.reply('你打开了石头,获得了' + thing + 'x2')
-    await Add_najie_thing(usr_qq, thing, '道具', 2)
+    await Add_najie_thing(user_id, thing, '道具', 2)
     return false
   }
 
   async shenjie(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -98,7 +98,7 @@ export class shenren extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     if (action != null) {
       //人物有动作查询动作结束时间
@@ -111,17 +111,17 @@ export class shenren extends plugin {
         return false
       }
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let now = new Date()
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Today = await shijianc(nowTime)
-    let lastdagong_time = await getLastdagong(usr_qq) //获得上次签到日期
+    let lastdagong_time = await getLastdagong(user_id) //获得上次签到日期
     if (!lastdagong_time) return
     if (
       (Today.Y != lastdagong_time.Y && Today.M != lastdagong_time.M) ||
       Today.D != lastdagong_time.D
     ) {
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastdagong_time', nowTime) //redis设置签到时间
+      await redis.set('xiuxian@1.4.0:' + user_id + ':lastdagong_time', nowTime) //redis设置签到时间
       let n = 1
       if (player.talent.name == '二转轮回体') {
         n = 2
@@ -144,9 +144,9 @@ export class shenren extends plugin {
         n = 5
       }
       player.神界次数 = n
-      await Write_player(usr_qq, player)
+      await Write_player(user_id, player)
     }
-    player = await Read_player(usr_qq)
+    player = await Read_player(user_id)
     if (
       player.魔道值 > 0 ||
       (player.talent.type != '转生' && player.level_id < 42)
@@ -170,7 +170,7 @@ export class shenren extends plugin {
     } else {
       player.神界次数--
     }
-    await Write_player(usr_qq, player)
+    await Write_player(user_id, player)
     let time = 30 //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
     let arr = {
@@ -191,17 +191,17 @@ export class shenren extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('开始进入神界,' + time + '分钟后归来!')
     return false
   }
 
   async canwu(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //查看存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (
       player.魔道值 > 0 ||
       (player.talent.type != '转生' && player.level_id < 42)
@@ -209,7 +209,7 @@ export class shenren extends plugin {
       e.reply('你尝试领悟神石,但是失败了')
       return false
     }
-    let x = await exist_najie_thing(usr_qq, '神石', '道具')
+    let x = await exist_najie_thing(user_id, '神石', '道具')
     if (!x) {
       e.reply('你没有神石')
       return false
@@ -218,7 +218,7 @@ export class shenren extends plugin {
       e.reply('神石不足8个,当前神石数量' + x + '个')
       return false
     }
-    await Add_najie_thing(usr_qq, '神石', '道具', -8)
+    await Add_najie_thing(user_id, '神石', '道具', -8)
     let wuping_length
     let wuping_index
     let wuping
@@ -226,14 +226,14 @@ export class shenren extends plugin {
     wuping_index = Math.trunc(Math.random() * wuping_length)
     wuping = data.timedanyao_list[wuping_index]
     e.reply('获得了' + wuping.name)
-    await Add_najie_thing(usr_qq, wuping.name, wuping.class, 1)
+    await Add_najie_thing(user_id, wuping.name, wuping.class, 1)
     return false
   }
 }
 
-async function getLastdagong(usr_qq) {
+async function getLastdagong(user_id) {
   //查询redis中the人物动作
-  let time = await redis.get('xiuxian@1.4.0:' + usr_qq + ':lastdagong_time')
+  let time = await redis.get('xiuxian@1.4.0:' + user_id + ':lastdagong_time')
   console.log(time)
   if (time != null) {
     let data = await shijianc(parseInt(time))

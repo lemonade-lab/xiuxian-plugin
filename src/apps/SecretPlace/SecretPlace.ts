@@ -106,12 +106,12 @@ export class SecretPlace extends plugin {
 
   //降临秘境
   async Gosecretplace(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let didian = e.msg.replace('#降临秘境', '')
     didian = didian.trim()
     let weizhi = await data.didian_list.find((item) => item.name == didian)
@@ -123,20 +123,20 @@ export class SecretPlace extends plugin {
       return false
     }
     if (didian == '桃花岛') {
-      let exist_B = await exist_hunyin(usr_qq)
+      let exist_B = await exist_hunyin(user_id)
       if (!exist_B) {
         e.reply(`还请少侠找到道侣之后再来探索吧`)
         return false
       }
-      let qinmidu = await find_qinmidu(usr_qq, exist_B)
+      let qinmidu = await find_qinmidu(user_id, exist_B)
       if (qinmidu < 550) {
         e.reply('少侠还是先和道侣再联络联络感情吧')
         return false
       }
-      await add_qinmidu(usr_qq, exist_B, -50)
+      await add_qinmidu(user_id, exist_B, -50)
     }
     let Price = weizhi.Price
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.secretplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
@@ -159,19 +159,19 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('开始降临' + didian + ',' + time + '分钟后归来!')
     return false
   }
 
   //前往禁地
   async Goforbiddenarea(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let now_level_id
     if (!isNotNull(player.level_id)) {
       e.reply('请先#同步信息')
@@ -209,8 +209,8 @@ export class SecretPlace extends plugin {
       return false
     }
     let Price = weizhi.Price
-    await Add_money(usr_qq, -Price)
-    await Add_now_exp(usr_qq, -weizhi.experience)
+    await Add_money(user_id, -Price)
+    await Add_now_exp(user_id, -weizhi.experience)
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.forbiddenarea //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
@@ -233,19 +233,19 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('正在前往' + weizhi.name + ',' + time + '分钟后归来!')
     return false
   }
 
   //探索仙府
   async GoTimeplace(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let didianlist = ['无欲天仙', '仙遗之地']
     let suiji = Math.round(Math.random()) //随机一个地方
     let yunqi = Math.random() //运气随机数
@@ -267,7 +267,7 @@ export class SecretPlace extends plugin {
       e.reply(
         '价格为5w,你觉得特别特别便宜,赶紧全款拿下了,历经九九八十天,到了后发现居然是仙湖游乐场！'
       )
-      await Add_money(usr_qq, -50000)
+      await Add_money(user_id, -50000)
       return false
     }
     now_level_id = data.Level_list.find(
@@ -294,16 +294,16 @@ export class SecretPlace extends plugin {
     }
     let dazhe = 1
     if (
-      (await exist_najie_thing(usr_qq, '仙府通行证', '道具')) &&
+      (await exist_najie_thing(user_id, '仙府通行证', '道具')) &&
       player.魔道值 < 1 &&
       (player.talent.type == '转生' || player.level_id > 41)
     ) {
       dazhe = 0
       e.reply(player.name + '使用了道具仙府通行证,本次仙府免费')
-      await Add_najie_thing(usr_qq, '仙府通行证', '道具', -1)
+      await Add_najie_thing(user_id, '仙府通行证', '道具', -1)
     }
     let Price = weizhi.Price * dazhe
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.timeplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
@@ -326,8 +326,8 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
-    await Add_now_exp(usr_qq, -100000)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
+    await Add_now_exp(user_id, -100000)
     if (suiji == 0) {
       e.reply(
         '你买下了那份地图,历经九九八十一天,终于到达了地图上the仙府,洞府上模糊得刻着[' +
@@ -349,12 +349,12 @@ export class SecretPlace extends plugin {
 
   //前往仙境
   async Gofairyrealm(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     let flag = await Go(e)
     if (!flag) {
       return false
     }
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     let didian = e.msg.replace('#镇守仙境', '')
     didian = didian.trim()
     let weizhi = await data.Fairyrealm_list.find((item) => item.name == didian)
@@ -374,25 +374,25 @@ export class SecretPlace extends plugin {
     }
     let dazhe = 1
     if (
-      (await exist_najie_thing(usr_qq, '杀神崖通行证', '道具')) &&
+      (await exist_najie_thing(user_id, '杀神崖通行证', '道具')) &&
       player.魔道值 < 1 &&
       (player.talent.type == '转生' || player.level_id > 41) &&
       didian == '杀神崖'
     ) {
       dazhe = 0
       e.reply(player.name + '使用了道具杀神崖通行证,本次仙境免费')
-      await Add_najie_thing(usr_qq, '杀神崖通行证', '道具', -1)
+      await Add_najie_thing(user_id, '杀神崖通行证', '道具', -1)
     } else if (
-      (await exist_najie_thing(usr_qq, '仙境优惠券', '道具')) &&
+      (await exist_najie_thing(user_id, '仙境优惠券', '道具')) &&
       player.魔道值 < 1 &&
       (player.talent.type == '转生' || player.level_id > 41)
     ) {
       dazhe = 0.5
       e.reply(player.name + '使用了道具仙境优惠券,本次消耗减少50%')
-      await Add_najie_thing(usr_qq, '仙境优惠券', '道具', -1)
+      await Add_najie_thing(user_id, '仙境优惠券', '道具', -1)
     }
     let Price = weizhi.Price * dazhe
-    await Add_money(usr_qq, -Price)
+    await Add_money(user_id, -Price)
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.secretplace //时间（分钟）
     let action_time = 60000 * time //持续时间，单位毫秒
@@ -415,21 +415,21 @@ export class SecretPlace extends plugin {
     if (e.isGroup) {
       arr['group_id'] = e.group_id
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':action', JSON.stringify(arr))
+    await redis.set('xiuxian@1.4.0:' + user_id + ':action', JSON.stringify(arr))
     e.reply('开始镇守' + didian + ',' + time + '分钟后归来!')
     return false
   }
 
   async Giveup(e) {
-    let usr_qq = e.user_id
-    let ifexistplay = await existplayer(usr_qq)
+    let user_id = e.user_id
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) {
       e.reply('没存档你逃个锤子!')
       return false
     }
     //获取游戏状态
     let game_action = await redis.get(
-      'xiuxian@1.4.0:' + usr_qq + ':game_action'
+      'xiuxian@1.4.0:' + user_id + ':game_action'
     )
     //防止继续其他娱乐行为
     if (game_action == '0') {
@@ -438,7 +438,7 @@ export class SecretPlace extends plugin {
     }
     //查询redis中the人物动作
     let action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':action')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':action')
     )
     //不为空，有状态
     if (action != null) {
@@ -460,7 +460,7 @@ export class SecretPlace extends plugin {
         arr.end_time = new Date().getTime() //结束the时间也修改为当前时间
         delete arr['group_id'] //结算完去除group_id
         await redis.set(
-          'xiuxian@1.4.0:' + usr_qq + ':action',
+          'xiuxian@1.4.0:' + user_id + ':action',
           JSON.stringify(arr)
         )
         e.reply('你已逃离！')

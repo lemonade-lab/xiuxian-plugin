@@ -57,11 +57,11 @@ export class UserStart extends plugin {
   }
   //#踏入仙途
   async Create_player(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //判断是否为匿名创建存档
-    if (usr_qq == 80000000) return false
+    if (user_id == 80000000) return false
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (ifexistplay) {
       this.Show_player(e)
       return false
@@ -111,7 +111,7 @@ export class UserStart extends plugin {
       师徒任务阶段: 0,
       师徒积分: 0
     }
-    await Write_player(usr_qq, new_player)
+    await Write_player(user_id, new_player)
     //初始化装备
     let new_equipment = {
       weapon: data.equipment_list.find((item) => item.name == '烂铁匕首'),
@@ -120,7 +120,7 @@ export class UserStart extends plugin {
       ),
       magic_weapon: data.equipment_list.find((item) => item.name == '廉价炮仗')
     }
-    await Update_equipment(usr_qq, new_equipment)
+    await Update_equipment(user_id, new_equipment)
     //初始化纳戒
     let new_najie = {
       等级: 1,
@@ -135,8 +135,8 @@ export class UserStart extends plugin {
       仙宠: [],
       仙宠口粮: []
     }
-    await Write_najie(usr_qq, new_najie)
-    await Add_HP(usr_qq, 999999)
+    await Write_najie(user_id, new_najie)
+    await Add_HP(user_id, 999999)
     const arr = {
       biguan: 0, //闭关状态
       biguanxl: 0, //增加效率
@@ -150,28 +150,30 @@ export class UserStart extends plugin {
       beiyong4: 0,
       beiyong5: 0
     }
-    await Write_danyao(usr_qq, arr)
+    await Write_danyao(user_id, arr)
     await this.Show_player(e)
     return false
   }
 
   //重新修仙
   async reCreate_player(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) {
       e.reply('没存档你转世个锤子!')
       return false
     } else {
       //没有存档，初始化次数
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount', 1)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':reCreate_acount', 1)
     }
-    let acount = await redis.get('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount')
+    let acount = await redis.get(
+      'xiuxian@1.4.0:' + user_id + ':reCreate_acount'
+    )
     if (acount == undefined || acount == null) {
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount', 1)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':reCreate_acount', 1)
     }
-    let player = await data.getData('player', usr_qq)
+    let player = await data.getData('player', user_id)
     //重生之前先看状态
     if (player.money <= 0) {
       e.reply(`负债无法再入仙途`)
@@ -184,7 +186,7 @@ export class UserStart extends plugin {
     let now = new Date()
     let nowTime = now.getTime() //获取当前时间戳
     let lastrestart_time = Number(
-      await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_reCreate_time')
+      await redis.get('xiuxian@1.4.0:' + user_id + ':last_reCreate_time')
     )
     const cf = getConfig('xiuxian', 'xiuxian')
     const time = cf.CD.reborn
@@ -215,7 +217,7 @@ export class UserStart extends plugin {
 
   //重生方法
   async RE_xiuxian(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     /** 内容 */
     let new_msg = this.e.message
     let choice = new_msg[0].text
@@ -229,7 +231,7 @@ export class UserStart extends plugin {
     } else if (choice == '断绝此生') {
       //得到重生次数
       let acount = Number(
-        await redis.get('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount')
+        await redis.get('xiuxian@1.4.0:' + user_id + ':reCreate_acount')
       )
       if (acount >= 15) {
         e.reply('灵魂虚弱，已不可转世！')
@@ -237,27 +239,25 @@ export class UserStart extends plugin {
       }
       acount++
       //重生牵扯到宗门模块
-      let player = await data.getData('player', usr_qq)
+      let player = await data.getData('player', user_id)
       if (isNotNull(player.宗门)) {
         if (player.宗门.职位 != '宗主') {
           //不是宗主
           let ass = data.getAssociation(player.宗门.宗门名称)
           ass[player.宗门.职位] = ass[player.宗门.职位].filter(
-            (item) => item != usr_qq
+            (item) => item != user_id
           )
-          ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+          ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id) //原来the成员表删掉这个B
           await data.setAssociation(ass.宗门名称, ass)
           delete player.宗门
-          await data.setData('player', usr_qq, player)
+          await data.setData('player', user_id, player)
         } else {
           //是宗主
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            rmSync(
-              `${data.filePathMap.association}/${player.宗门.宗门名称}.json`
-            )
+            rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
           } else {
-            ass['所有成员'] = ass['所有成员'].filter((item) => item != usr_qq) //原来the成员表删掉这个B
+            ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id) //原来the成员表删掉这个B
             //随机一个幸运儿theQQ,优先挑选等级高the
             let randmember_qq
             if (ass.长老.length > 0) {
@@ -278,20 +278,20 @@ export class UserStart extends plugin {
           }
         }
       }
-      rmSync(`${__PATH.player_path}/${usr_qq}.json`)
-      rmSync(`${__PATH.equipment_path}/${usr_qq}.json`)
-      rmSync(`${__PATH.najie_path}/${usr_qq}.json`)
-      e.reply([segment.at(usr_qq), '当前存档已清空!开始重生'])
+      rmSync(`${__PATH.player_path}/${user_id}.json`)
+      rmSync(`${__PATH.equipment_path}/${user_id}.json`)
+      rmSync(`${__PATH.najie_path}/${user_id}.json`)
+      e.reply([segment.at(user_id), '当前存档已清空!开始重生'])
       e.reply([
-        segment.at(usr_qq),
+        segment.at(user_id),
         '来世，信则有，不信则无，岁月悠悠，世间终会出现两朵相同the花，千百年the回眸，一花凋零，一花绽。是否为同一朵，任后人去评断！！'
       ])
       await this.Create_player(e)
       await redis.set(
-        'xiuxian@1.4.0:' + usr_qq + ':last_reCreate_time',
+        'xiuxian@1.4.0:' + user_id + ':last_reCreate_time',
         nowTime
       ) //redis设置本次改名时间戳
-      await redis.set('xiuxian@1.4.0:' + usr_qq + ':reCreate_acount', acount)
+      await redis.set('xiuxian@1.4.0:' + user_id + ':reCreate_acount', acount)
     } else {
       this.setContext('RE_xiuxian')
       await this.reply('请回复:【断绝此生】或者【再继仙缘】进行选择', false, {
@@ -306,9 +306,9 @@ export class UserStart extends plugin {
 
   //#我the练气
   async Show_player(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let img = await get_player_img(e)
     e.reply(img)
@@ -316,11 +316,11 @@ export class UserStart extends plugin {
   }
 
   async Set_sex(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
-    let player = await Read_player(usr_qq)
+    let player = await Read_player(user_id)
     if (player.sex != 0) {
       e.reply('每个存档仅可设置一次性别！')
       return false
@@ -332,15 +332,15 @@ export class UserStart extends plugin {
       return false
     }
     player.sex = msg == '男' ? 2 : 1
-    await data.setData('player', usr_qq, player)
+    await data.setData('player', user_id, player)
     e.reply(`${player.name}the性别已成功设置为 ${msg}。`)
   }
 
   //改名
   async Change_player_name(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无存档
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     //
     if (/改名/.test(e.msg)) {
@@ -360,7 +360,7 @@ export class UserStart extends plugin {
       //let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000);//获得昨天日期
       let Today = await shijianc(nowTime)
       let lastsetname_time = shijianc(
-        await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_setname_time')
+        await redis.get('xiuxian@1.4.0:' + user_id + ':last_setname_time')
       )
       if (
         Today.Y == lastsetname_time.Y &&
@@ -370,16 +370,16 @@ export class UserStart extends plugin {
         e.reply('每日只能改名一次')
         return false
       }
-      player = await Read_player(usr_qq)
+      player = await Read_player(user_id)
       if (player.money < 1000) {
         e.reply('改名需要1000money')
         return false
       }
       player.name = new_name
-      redis.set('xiuxian@1.4.0:' + usr_qq + ':last_setname_time', nowTime) //redis设置本次改名时间戳
+      redis.set('xiuxian@1.4.0:' + user_id + ':last_setname_time', nowTime) //redis设置本次改名时间戳
       player.money -= 1000
-      await Write_player(usr_qq, player)
-      //Add_money(usr_qq, -100);
+      await Write_player(user_id, player)
+      //Add_money(user_id, -100);
       this.Show_player(e)
       return false
     }
@@ -402,7 +402,7 @@ export class UserStart extends plugin {
       let Today = await shijianc(nowTime)
       let lastsetxuanyan_time = await shijianc(
         Number(
-          await redis.get('xiuxian@1.4.0:' + usr_qq + ':last_setxuanyan_time')
+          await redis.get('xiuxian@1.4.0:' + user_id + ':last_setxuanyan_time')
         )
       )
       if (
@@ -414,10 +414,10 @@ export class UserStart extends plugin {
         return false
       }
       //这里有问题，写不进去
-      player = await Read_player(usr_qq)
+      player = await Read_player(user_id)
       player.宣言 = new_msg //
-      redis.set('xiuxian@1.4.0:' + usr_qq + ':last_setxuanyan_time', nowTime) //redis设置本次设道置宣时间戳
-      await Write_player(usr_qq, player)
+      redis.set('xiuxian@1.4.0:' + user_id + ':last_setxuanyan_time', nowTime) //redis设置本次设道置宣时间戳
+      await Write_player(user_id, player)
       this.Show_player(e)
       return false
     }
@@ -425,15 +425,15 @@ export class UserStart extends plugin {
 
   //签到
   async daily_gift(e) {
-    let usr_qq = e.user_id
+    let user_id = e.user_id
     //有无账号
-    let ifexistplay = await existplayer(usr_qq)
+    let ifexistplay = await existplayer(user_id)
     if (!ifexistplay) return false
     let now = new Date()
     let nowTime = now.getTime() //获取当前日期the时间戳
     let Yesterday = await shijianc(nowTime - 24 * 60 * 60 * 1000) //获得昨天日期
     let Today = await shijianc(nowTime)
-    let lastsign_time = await getLastsign(usr_qq) //获得上次签到日期
+    let lastsign_time = await getLastsign(user_id) //获得上次签到日期
     if (!lastsign_time) return
     if (
       Today.Y == lastsign_time.Y &&
@@ -453,21 +453,21 @@ export class UserStart extends plugin {
     } else {
       Sign_Yesterday = false
     }
-    await redis.set('xiuxian@1.4.0:' + usr_qq + ':lastsign_time', nowTime) //redis设置签到时间
-    let player = await data.getData('player', usr_qq)
+    await redis.set('xiuxian@1.4.0:' + user_id + ':lastsign_time', nowTime) //redis设置签到时间
+    let player = await data.getData('player', user_id)
     if (player.连续签到天数 == 7 || !Sign_Yesterday) {
       //签到连续7天或者昨天没有签到,连续签到天数清零
       player.连续签到天数 = 0
     }
     player.连续签到天数 += 1
-    data.setData('player', usr_qq, player)
+    data.setData('player', user_id, player)
     //给奖励
     let gift_xiuwei = player.连续签到天数 * 3000
     const cf = getConfig('xiuxian', 'xiuxian')
-    await Add_najie_thing(usr_qq, '秘境之匙', '道具', cf.Sign.ticket)
-    await Add_now_exp(usr_qq, gift_xiuwei)
+    await Add_najie_thing(user_id, '秘境之匙', '道具', cf.Sign.ticket)
+    await Add_now_exp(user_id, gift_xiuwei)
     let msg = [
-      segment.at(usr_qq),
+      segment.at(user_id),
       `已经连续签到${player.连续签到天数}天了，获得了${gift_xiuwei}now_exp,秘境之匙x${cf.Sign.ticket}`
     ]
     e.reply(msg)

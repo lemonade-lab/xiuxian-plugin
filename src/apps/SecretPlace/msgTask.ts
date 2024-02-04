@@ -1,4 +1,10 @@
-import { Read_temp, Show, Write_temp, getConfig } from '../../model/index.js'
+import {
+  Read_temp,
+  Show,
+  Write_temp,
+  getConfig,
+  pushInfo
+} from '../../model/index.js'
 import { common, plugin, puppeteer } from '../../../import.js'
 export class msgTask extends plugin {
   constructor() {
@@ -48,27 +54,9 @@ export class msgTask extends plugin {
         let img = await puppeteer.screenshot('temp', {
           ...data1
         })
-        await this.pushInfo(i, true, img)
+        await pushInfo(i, true, img)
       }
       await Write_temp([])
-    }
-  }
-
-  /**
-   * 推送消息，群消息推送群，或者推送私人
-   * @param id
-   * @param is_group
-   * @return  falses {Promise<void>}
-   */
-  async pushInfo(id, is_group, msg) {
-    if (is_group) {
-      await Bot.pickGroup(id)
-        .sendMsg(msg)
-        .catch((err) => {
-          console.error(err)
-        })
-    } else {
-      await common.relpyPrivate(id, msg)
     }
   }
 }

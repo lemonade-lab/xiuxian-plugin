@@ -33,13 +33,13 @@ export class ExchangeTask extends plugin {
     for (let i = 0; i < Exchange.length; i++) {
       const time = (now_time - Exchange[i].now_time) / 24 / 60 / 60 / 1000
       if (time < 3) break
-      const usr_qq = Exchange[i].qq
+      const user_id = Exchange[i].qq
       let thing = Exchange[i].name.name
       const quanity = Exchange[i].aconut
       if (Exchange[i].name.class == '装备' || Exchange[i].name.class == '仙宠')
         thing = Exchange[i].name
       await Add_najie_thing(
-        usr_qq,
+        user_id,
         thing,
         Exchange[i].name.class,
         quanity,
