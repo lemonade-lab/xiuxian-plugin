@@ -29,3 +29,7 @@ git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./pl
 > 必要环境 18.18.2>Node.js>16.14.0 + Redis>5.0.0
 
 > 源码仓库[点击查看](https://github.com/ningmengchongshui/xiuxian-plugin)
+
+## 联系
+
+QQ-Group 806943302
