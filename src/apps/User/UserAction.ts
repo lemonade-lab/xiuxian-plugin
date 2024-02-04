@@ -19,11 +19,11 @@ export class UserAction extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#我the纳戒$',
+          reg: /^(#|\/)我the纳戒$/,
           fnc: 'Show_najie'
         },
         {
-          reg: '^#升级纳戒$',
+          reg: /^(#|\/)升级纳戒$/,
           fnc: 'Lv_up_najie'
         }
       ]

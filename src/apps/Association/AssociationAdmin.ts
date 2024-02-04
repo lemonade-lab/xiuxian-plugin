@@ -21,39 +21,39 @@ export class AssociationAdmin extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#开宗立派$',
+          reg: /^(#|\/)开宗立派$/,
           fnc: 'Create_association'
         },
         {
-          reg: '^#(升级宗门|宗门升级)$',
+          reg: /^(#|\/)(升级宗门|宗门升级)$/,
           fnc: 'lvup_association'
         },
         {
-          reg: '^任命.*',
+          reg: /^任命.*/,
           fnc: 'Set_appointment'
         },
         {
-          reg: '^#(宗门维护|维护宗门)$',
+          reg: /^(#|\/)(宗门维护|维护宗门)$/,
           fnc: 'Maintenance'
         },
         {
-          reg: '^#查看护宗大阵$',
+          reg: /^(#|\/)查看护宗大阵$/,
           fnc: 'huz'
         },
         {
-          reg: '^#维护护宗大阵.*$',
+          reg: /^(#|\/)维护护宗大阵.*$/,
           fnc: 'weihu'
         },
         {
-          reg: '^#设置门槛.*$',
+          reg: /^(#|\/)设置门槛.*$/,
           fnc: 'jiaru'
         },
         /*{
-          reg: '^#逐出师门.*$',
+          reg: /^(#|\/)逐出师门.*$/,
           fnc: 'Deleteuser',
         },*/
         {
-          reg: '^#逐出.*$',
+          reg: /^(#|\/)逐出.*$/,
           fnc: 'Deleteusermax'
         }
       ]
@@ -410,7 +410,7 @@ export class AssociationAdmin extends plugin {
       return false
     }
 
-    let menpai = e.msg.replace('#', '')
+    let menpai = e.msg.replace(/^(#|\/)/, '')
 
     menpai = menpai.replace('逐出', '')
 

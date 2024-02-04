@@ -29,27 +29,27 @@ export class UserStart extends plugin {
       event: 'message',
       rule: [
         {
-          reg: '^#踏入仙途$',
+          reg: /^(#|\/)踏入仙途$/,
           fnc: 'Create_player'
         },
         {
-          reg: '^#再入仙途$',
+          reg: /^(#|\/)再入仙途$/,
           fnc: 'reCreate_player'
         },
         {
-          reg: '^#我the练气$',
+          reg: /^(#|\/)我the练气$/,
           fnc: 'Show_player'
         },
         {
-          reg: '^#设置性别.*$',
+          reg: /^(#|\/)设置性别.*$/,
           fnc: 'Set_sex'
         },
         {
-          reg: '^#(改名.*)|(设置道宣.*)$',
+          reg: /^(#|\/)(改名.*)|(设置道宣.*)$/,
           fnc: 'Change_player_name'
         },
         {
-          reg: '^#修仙签到$',
+          reg: /^(#|\/)修仙签到$/,
           fnc: 'daily_gift'
         }
       ]

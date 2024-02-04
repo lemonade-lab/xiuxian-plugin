@@ -24,31 +24,31 @@ export class Tiandibang extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#天地榜$',
+          reg: /^(#|\/)天地榜$/,
           fnc: 'my_point'
         },
         {
-          reg: '^#比试$',
+          reg: /^(#|\/)比试$/,
           fnc: 'pk'
         },
         {
-          reg: '^#更新属性$',
+          reg: /^(#|\/)更新属性$/,
           fnc: 'update_jineng'
         },
         {
-          reg: '^#清空积分',
+          reg: /^(#|\/)清空积分/,
           fnc: 'bd_jiesuan'
         },
         {
-          reg: '^#报名比赛',
+          reg: /^(#|\/)报名比赛/,
           fnc: 'cansai'
         },
         {
-          reg: '^#天地堂',
+          reg: /^(#|\/)天地堂/,
           fnc: 'tianditang'
         },
         {
-          reg: '^#积分兑换(.*)$',
+          reg: /^(#|\/)积分兑换(.*)$/,
           fnc: 'duihuan'
         }
       ]
@@ -120,7 +120,7 @@ export class Tiandibang extends plugin {
     if (!ifexistplay) return false
     let reg = new RegExp(/积分兑换/)
     let msg = e.msg.replace(reg, '')
-    msg = msg.replace('#', '')
+    msg = msg.replace(/^(#|\/)/, '')
     let thing_name = msg.replace('积分兑换', '')
     let ifexist = data.tianditang.find((item) => item.name == thing_name)
     if (!ifexist) {

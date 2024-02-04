@@ -25,31 +25,31 @@ export class MoneyOperation extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#赠送.*$',
+          reg: /^(#|\/)赠送.*$/,
           fnc: 'Give'
         },
         {
-          reg: '^#发红包.*$',
+          reg: /^(#|\/)发红包.*$/,
           fnc: 'Give_honbao'
         },
         {
-          reg: '^#抢红包$',
+          reg: /^(#|\/)抢红包$/,
           fnc: 'uer_honbao'
         },
         {
-          reg: '^#发.*$',
+          reg: /^(#|\/)发.*$/,
           fnc: 'wup'
         },
         {
-          reg: '^#全体发.*$',
+          reg: /^(#|\/)全体发.*$/,
           fnc: 'wup_all'
         },
         {
-          reg: '^#打开钱包$',
+          reg: /^(#|\/)打开钱包$/,
           fnc: 'openwallet'
         },
         {
-          reg: '#交税[1-9]d*',
+          reg: /^(#|\/)交税[1-9]d*/,
           fnc: 'MoneyWord'
         }
       ]
@@ -206,7 +206,7 @@ export class MoneyOperation extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //获取发送money数量
-    let lingshi = e.msg.replace('#', '')
+    let lingshi = e.msg.replace(/^(#|\/)/, '')
     lingshi = lingshi.replace('交税', '')
     lingshi = await convert2integer(lingshi)
     let player = await Read_player(usr_qq)
@@ -394,7 +394,7 @@ export class MoneyOperation extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //获取发送money数量
-    let lingshi = e.msg.replace('#', '')
+    let lingshi = e.msg.replace(/^(#|\/)/, '')
     lingshi = lingshi.replace('发红包', '')
     let flag = await Go(e)
     if (!flag) {

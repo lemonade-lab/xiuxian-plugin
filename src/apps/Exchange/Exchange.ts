@@ -23,19 +23,19 @@ export class Exchange extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#冲水堂(装备|丹药|skill|道具|草药|仙宠|材料)?$',
+          reg: /^(#|\/)冲水堂(装备|丹药|skill|道具|草药|仙宠|材料)?$/,
           fnc: 'show_supermarket'
         },
         {
-          reg: '^#上架.*$',
+          reg: /^(#|\/)上架.*$/,
           fnc: 'onsell'
         },
         {
-          reg: '^#下架[1-9]d*',
+          reg: /^(#|\/)下架[1-9]d*/,
           fnc: 'Offsell'
         },
         {
-          reg: '^#选购.*$',
+          reg: /^(#|\/)选购.*$/,
           fnc: 'purchase'
         }
       ]
@@ -122,7 +122,7 @@ export class Exchange extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     let najie = await Read_najie(usr_qq)
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('上架', '')
     let code = thing.split('*')
     let thing_name = code[0] //物品

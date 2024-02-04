@@ -30,35 +30,35 @@ export class Level extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#突破$',
+          reg: /^(#|\/)突破$/,
           fnc: 'Level_up_normal'
         },
         {
-          reg: '^#幸运突破$',
+          reg: /^(#|\/)幸运突破$/,
           fnc: 'Level_up_luck'
         },
         {
-          reg: '^#破体$',
+          reg: /^(#|\/)破体$/,
           fnc: 'LevelMax_up_normal'
         },
         {
-          reg: '^#幸运破体$',
+          reg: /^(#|\/)幸运破体$/,
           fnc: 'LevelMax_up_luck'
         },
         {
-          reg: '^#渡劫$',
+          reg: /^(#|\/)渡劫$/,
           fnc: 'fate_up'
         },
         {
-          reg: '^#服用$',
+          reg: /^(#|\/)服用$/,
           fnc: 'Useitems'
         },
         {
-          reg: '^#登仙$',
+          reg: /^(#|\/)登仙$/,
           fnc: 'Level_up_Max'
         },
         {
-          reg: '^#自动突破$',
+          reg: /^(#|\/)自动突破$/,
           fnc: 'auto_up'
         }
       ]

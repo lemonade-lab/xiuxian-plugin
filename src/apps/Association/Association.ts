@@ -22,27 +22,27 @@ export class Association extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#加入宗门.*$',
+          reg: /^(#|\/)加入宗门.*$/,
           fnc: 'Join_association'
         },
         {
-          reg: '^#退出宗门$',
+          reg: /^(#|\/)退出宗门$/,
           fnc: 'Exit_association'
         },
         {
-          reg: '^#宗门(上交|上缴|捐赠)money[1-9]d*',
+          reg: /^(#|\/)宗门(上交|上缴|捐赠)money[1-9]d*/,
           fnc: 'give_association_lingshi'
         },
         {
-          reg: '^#宗门俸禄$',
+          reg: /^(#|\/)宗门俸禄$/,
           fnc: 'gift_association'
         },
         {
-          reg: '^#宗门捐献记录$',
+          reg: /^(#|\/)宗门捐献记录$/,
           fnc: 'Logs_donate'
         },
         {
-          reg: '^#宗门列表$',
+          reg: /^(#|\/)宗门列表$/,
           fnc: 'List_appointment'
         }
       ]

@@ -17,11 +17,11 @@ export class PHB extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#魔道榜$',
+          reg: /^(#|\/)魔道榜$/,
           fnc: 'TOP_Immortal'
         },
         {
-          reg: '^#强化榜$',
+          reg: /^(#|\/)强化榜$/,
           fnc: 'TOP_genius'
         }
       ]

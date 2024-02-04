@@ -5,6 +5,7 @@ import {
   Add_money,
   getConfig
 } from '../../model/index.js'
+
 export class ForumTask extends plugin {
   constructor() {
     super({
@@ -21,7 +22,6 @@ export class ForumTask extends plugin {
       fnc: () => this.Forumtask()
     }
   }
-
   async Forumtask() {
     let Forum
     try {

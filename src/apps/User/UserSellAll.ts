@@ -29,47 +29,47 @@ export class UserSellAll extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#一键出售(.*)$',
+          reg: /^(#|\/)一键出售(.*)$/,
           fnc: 'Sell_all_comodities'
         },
         {
-          reg: '^#一键服用now_exp丹$',
+          reg: /^(#|\/)一键服用now_exp丹$/,
           fnc: 'all_xiuweidan'
         },
         {
-          reg: '^#一键服用血气丹$',
+          reg: /^(#|\/)一键服用血气丹$/,
           fnc: 'all_xueqidan'
         },
         {
-          reg: '^#一键study$',
+          reg: /^(#|\/)一键study$/,
           fnc: 'all_learn'
         },
         {
-          reg: '^#一键同步$',
+          reg: /^(#|\/)一键同步$/,
           fnc: 'all_tongbu'
         },
         {
-          reg: '^#(锁定|解锁).*$',
+          reg: /^(#|\/)(锁定|解锁).*$/,
           fnc: 'locked'
         },
         {
-          reg: '^#一键回收(.*)$',
+          reg: /^(#|\/)一键回收(.*)$/,
           fnc: 'Sell_all_huishou'
         },
         {
-          reg: '^#一键赠送(.*)$',
+          reg: /^(#|\/)一键赠送(.*)$/,
           fnc: 'all_give'
         },
         {
-          reg: '^#一键锁定(.*)$',
+          reg: /^(#|\/)一键锁定(.*)$/,
           fnc: 'all_locked'
         },
         {
-          reg: '^#一键解锁(.*)$',
+          reg: /^(#|\/)一键解锁(.*)$/,
           fnc: 'all_unlocked'
         },
         {
-          reg: '^#一键装备$',
+          reg: /^(#|\/)一键装备$/,
           fnc: 'all_zhuangbei'
         }
       ]
@@ -352,7 +352,7 @@ export class UserSellAll extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //命令判断
-    let msg = e.msg.replace('#', '')
+    let msg = e.msg.replace(/^(#|\/)/, '')
     let un_lock = msg.substr(0, 2)
     let thing = msg.substr(2).split('*')
     let thing_name = thing[0]

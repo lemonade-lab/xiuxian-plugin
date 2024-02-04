@@ -17,23 +17,23 @@ export class Garden extends plugin {
       priority: 600, //小功能高一些
       rule: [
         {
-          reg: '^#拔苗助长.*$',
+          reg: /^(#|\/)拔苗助长.*$/,
           fnc: 'Get_vegetable'
         },
         {
-          reg: '^#偷菜*$',
+          reg: /^(#|\/)偷菜*$/,
           fnc: 'Get_morevegetable'
         },
         {
-          reg: '^#药园*$',
+          reg: /^(#|\/)药园*$/,
           fnc: 'Vegetable'
         },
         {
-          reg: '^(禁言术|残云封天剑).*$',
+          reg: /^(禁言术|残云封天剑).*$/,
           fnc: 'Silencing'
         },
         {
-          reg: '^(除你禁言|废除).*$',
+          reg: /^(除你禁言|废除).*$/,
           fnc: 'Banislifted'
         }
       ]

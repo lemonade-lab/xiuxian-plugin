@@ -16,23 +16,23 @@ export class Auction extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#星阁出价.*$',
+          reg: /^(#|\/)星阁出价.*$/,
           fnc: 'offer_priceXINGGE'
         },
         {
-          reg: '^#星阁拍卖行$',
+          reg: /^(#|\/)星阁拍卖行$/,
           fnc: 'xingGE'
         },
         {
-          reg: '^#开启星阁体系$',
+          reg: /^(#|\/)开启星阁体系$/,
           fnc: 'openAction'
         },
         {
-          reg: '^#取消星阁体系$',
+          reg: /^(#|\/)取消星阁体系$/,
           fnc: 'cancalAction'
         },
         {
-          reg: '^#关闭星阁体系$',
+          reg: /^(#|\/)关闭星阁体系$/,
           fnc: 'offAction'
         }
       ]

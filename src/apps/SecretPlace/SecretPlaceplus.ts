@@ -22,15 +22,15 @@ export class SecretPlaceplus extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#沉迷秘境.*$',
+          reg: /^(#|\/)沉迷秘境.*$/,
           fnc: 'Gosecretplace'
         },
         {
-          reg: '^#沉迷禁地.*$',
+          reg: /^(#|\/)沉迷禁地.*$/,
           fnc: 'Goforbiddenarea'
         },
         {
-          reg: '^#沉迷仙境.*$',
+          reg: /^(#|\/)沉迷仙境.*$/,
           fnc: 'Gofairyrealm'
         }
       ]

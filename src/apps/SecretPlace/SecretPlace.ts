@@ -26,43 +26,43 @@ export class SecretPlace extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#修仙状态$',
+          reg: /^(#|\/)修仙状态$/,
           fnc: 'Xiuxianstate'
         },
         {
-          reg: '^#秘境$',
+          reg: /^(#|\/)秘境$/,
           fnc: 'Secretplace'
         },
         {
-          reg: '^#降临秘境.*$',
+          reg: /^(#|\/)降临秘境.*$/,
           fnc: 'Gosecretplace'
         },
         {
-          reg: '^#禁地$',
+          reg: /^(#|\/)禁地$/,
           fnc: 'Forbiddenarea'
         },
         {
-          reg: '^#前往禁地.*$',
+          reg: /^(#|\/)前往禁地.*$/,
           fnc: 'Goforbiddenarea'
         },
         {
-          reg: '^#仙府$',
+          reg: /^(#|\/)仙府$/,
           fnc: 'Timeplace'
         },
         {
-          reg: '^#探索仙府$',
+          reg: /^(#|\/)探索仙府$/,
           fnc: 'GoTimeplace'
         },
         {
-          reg: '^#仙境$',
+          reg: /^(#|\/)仙境$/,
           fnc: 'Fairyrealm'
         },
         {
-          reg: '^#镇守仙境.*$',
+          reg: /^(#|\/)镇守仙境.*$/,
           fnc: 'Gofairyrealm'
         },
         {
-          reg: '^#逃离',
+          reg: /^(#|\/)逃离/,
           fnc: 'Giveup'
         }
       ]

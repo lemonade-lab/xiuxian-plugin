@@ -21,7 +21,7 @@ export class WDT extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^比武$',
+          reg: /^比武$/,
           fnc: 'biwu'
         }
       ]

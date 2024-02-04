@@ -10,7 +10,7 @@ import {
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class Showningmeng extends plugin {
-  constructor(e) {
+  constructor() {
     super({
       name: 'Showningmeng',
       dsc: '修仙存档展示',
@@ -18,32 +18,32 @@ export class Showningmeng extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#万宝楼$',
+          reg: /^(#|\/)万宝楼$/,
           fnc: 'show_valuables'
         },
         {
-          reg: '^#装备楼$',
+          reg: /^(#|\/)装备楼$/,
           fnc: 'Show_WuQi'
         },
         {
-          reg: '^#丹药楼$',
+          reg: /^(#|\/)丹药楼$/,
           fnc: 'Show_DanYao'
         },
         {
-          reg: '^#skill楼$',
+          reg: /^(#|\/)skill楼$/,
           fnc: 'Show_GongFa'
         },
         {
-          reg: '^#道具楼$',
+          reg: /^(#|\/)道具楼$/,
           fnc: 'Show_DaoJu'
         },
         {
-          reg: '^#仙宠楼$',
+          reg: /^(#|\/)仙宠楼$/,
           fnc: 'Show_XianChong'
         },
 
         {
-          reg: '^#柠檬堂(装备|丹药|skill|道具|草药|weapon|protective_clothing|magic_weapon|血量|now_exp|血气|天赋)?$',
+          reg: /^(#|\/)柠檬堂(装备|丹药|skill|道具|草药|weapon|protective_clothing|magic_weapon|血量|now_exp|血气|天赋)?$/,
           fnc: 'show_ningmenghome'
         }
       ]

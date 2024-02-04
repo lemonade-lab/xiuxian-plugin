@@ -42,55 +42,55 @@ export class UserHome extends plugin {
       priority: 10,
       rule: [
         {
-          reg: '^#(存|取)money(.*)$',
+          reg: /^(#|\/)(存|取)money(.*)$/,
           fnc: 'Take_lingshi'
         },
         {
-          reg: '^#(装备|消耗|服用|study)((.*)|(.*)*(.*))$',
+          reg: /^(#|\/)(装备|消耗|服用|study)((.*)|(.*)*(.*))$/,
           fnc: 'Player_use'
         },
         {
-          reg: '^#购买((.*)|(.*)*(.*))$',
+          reg: /^(#|\/)购买((.*)|(.*)*(.*))$/,
           fnc: 'Buy_comodities'
         },
         {
-          reg: '^#出售.*$',
+          reg: /^(#|\/)出售.*$/,
           fnc: 'Sell_comodities'
         },
         {
-          reg: '^#哪里有(.*)$',
+          reg: /^(#|\/)哪里有(.*)$/,
           fnc: 'find_thing'
         },
         {
-          reg: '^#检查存档.*$',
+          reg: /^(#|\/)检查存档.*$/,
           fnc: 'check_player'
         },
         {
-          reg: '^#抽(天地卡池|灵界卡池|凡界卡池)$',
+          reg: /^(#|\/)抽(天地卡池|灵界卡池|凡界卡池)$/,
           fnc: 'sk'
         },
         {
-          reg: '^#供奉奇怪the石头$',
+          reg: /^(#|\/)供奉奇怪the石头$/,
           fnc: 'Add_lhd'
         },
         {
-          reg: '^#活动兑换.*$',
+          reg: /^(#|\/)活动兑换.*$/,
           fnc: 'huodong'
         },
         {
-          reg: '^#回收.*$',
+          reg: /^(#|\/)回收.*$/,
           fnc: 'huishou'
         },
         {
-          reg: '^#打磨.*$',
+          reg: /^(#|\/)打磨.*$/,
           fnc: 'refining'
         },
         {
-          reg: '^#修仙世界$',
+          reg: /^(#|\/)修仙世界$/,
           fnc: 'world'
         },
         {
-          reg: '^#修仙攻略$',
+          reg: /^(#|\/)修仙攻略$/,
           fnc: 'gonglue'
         }
       ]
@@ -142,7 +142,7 @@ export class UserHome extends plugin {
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let thing_name = e.msg.replace('#', '')
+    let thing_name = e.msg.replace(/^(#|\/)/, '')
     thing_name = thing_name.replace('打磨', '')
     let code = thing_name.split('*')
     thing_name = code[0]
@@ -386,7 +386,7 @@ export class UserHome extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     let tianluoRandom
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('抽', '')
     if (thing == '天地卡池') {
       let x = await exist_najie_thing(usr_qq, '天罗地网', '道具')
@@ -429,7 +429,7 @@ export class UserHome extends plugin {
     let usr_qq = e.user_id
     let reg = new RegExp(/哪里有/)
     let msg = e.msg.replace(reg, '')
-    msg = msg.replace('#', '')
+    msg = msg.replace(/^(#|\/)/, '')
     let thing_name = msg.replace('哪里有', '')
     let didian = [
       'guildSecrets_list',
@@ -485,7 +485,7 @@ export class UserHome extends plugin {
     let reg = new RegExp(/取|存/)
     let func = reg.exec(e.msg)
     let msg = e.msg.replace(reg, '')
-    msg = msg.replace('#', '')
+    msg = msg.replace(/^(#|\/)/, '')
     let lingshi = msg.replace('money', '')
     if (/存/.test(e.msg) && lingshi == '全部') {
       let P = await Read_player(usr_qq)
@@ -560,7 +560,7 @@ export class UserHome extends plugin {
     let reg = new RegExp(/装备|服用|消耗|study/)
     let func = reg.exec(e.msg)
     let msg = e.msg.replace(reg, '')
-    msg = msg.replace('#', '')
+    msg = msg.replace(/^(#|\/)/, '')
     let code = msg.split('*')
     let thing_name = code[0]
     code[0] = parseInt(code[0])
@@ -991,7 +991,7 @@ export class UserHome extends plugin {
     if (!flag) {
       return false
     }
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('购买', '')
     let code = thing.split('*')
     let thing_name = code[0]
@@ -1041,7 +1041,7 @@ export class UserHome extends plugin {
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
     //命令判断
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('出售', '')
     let code = thing.split('*')
     let thing_name = code[0] //物品

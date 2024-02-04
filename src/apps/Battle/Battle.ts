@@ -21,11 +21,11 @@ export class Battle extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^打劫$',
+          reg: /^打劫$/,
           fnc: 'Dajie'
         },
         {
-          reg: '^(以武会友)$',
+          reg: /^(以武会友)$/,
           fnc: 'biwu'
         }
       ]

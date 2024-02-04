@@ -11,7 +11,7 @@ export class admin extends plugin {
       priority: 400,
       rule: [
         {
-          reg: '^#修仙更新',
+          reg: /^(#|\/)修仙更新/,
           fnc: 'checkout'
         }
       ]

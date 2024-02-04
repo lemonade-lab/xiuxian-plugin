@@ -27,35 +27,35 @@ export class Games extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#怡红院$',
+          reg: /^(#|\/)怡红院$/,
           fnc: 'Xiuianplay'
         },
         {
-          reg: '^#金银坊$',
+          reg: /^(#|\/)金银坊$/,
           fnc: 'Moneynumber'
         },
         {
-          reg: '^#(梭哈)|(投入.*)$',
+          reg: /^(#|\/)(梭哈)|(投入.*)$/,
           fnc: 'Moneycheck'
         },
         {
-          reg: '^(大|小)$',
+          reg: /^(大|小)$/,
           fnc: 'Moneycheckguess'
         },
         {
-          reg: '^#金银坊记录$',
+          reg: /^(#|\/)金银坊记录$/,
           fnc: 'Moneyrecord'
         },
         {
-          reg: '^双修$',
+          reg: /^双修$/,
           fnc: 'Couple'
         },
         {
-          reg: '^#拒绝双修$',
+          reg: /^(#|\/)拒绝双修$/,
           fnc: 'Refusecouple'
         },
         {
-          reg: '^#允许双修$',
+          reg: /^(#|\/)允许双修$/,
           fnc: 'Allowcouple'
         }
       ]

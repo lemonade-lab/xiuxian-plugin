@@ -20,7 +20,7 @@ export class lunhui extends plugin {
       priority: 200,
       rule: [
         {
-          reg: '^#轮回$',
+          reg: /^(#|\/)轮回$/,
           fnc: 'lunhui'
         }
       ]

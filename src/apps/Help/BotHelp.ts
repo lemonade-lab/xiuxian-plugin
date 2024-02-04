@@ -11,23 +11,23 @@ export class BotHelp extends plugin {
       priority: 400,
       rule: [
         {
-          reg: '^#修仙帮助$',
+          reg: /^(#|\/)修仙帮助$/,
           fnc: 'Xiuxianhelp'
         },
         {
-          reg: '^#修仙管理$',
+          reg: /^(#|\/)修仙管理$/,
           fnc: 'adminsuper'
         },
         {
-          reg: '^#宗门管理$',
+          reg: /^(#|\/)宗门管理$/,
           fnc: 'AssociationAdmin'
         },
         {
-          reg: '^#修仙扩展$',
+          reg: /^(#|\/)修仙扩展$/,
           fnc: 'Xiuxianhelpcopy'
         },
         {
-          reg: '^#师徒帮助$',
+          reg: /^(#|\/)师徒帮助$/,
           fnc: 'shituhelp'
         }
       ]
@@ -35,27 +35,27 @@ export class BotHelp extends plugin {
   }
 
   async Xiuxianhelpcopy(e) {
-    let data = await Help.gethelpcopy(e)
+    let data = await Help.gethelpcopy()
     if (!data) return false
     let img = await this.cache(data)
     await e.reply(img)
   }
   async Xiuxianhelp(e) {
-    let data = await Help.get(e)
+    let data = await Help.get()
     if (!data) return false
     let img = await this.cache(data)
     await e.reply(img)
   }
 
   async adminsuper(e) {
-    let data = await Help.setup(e)
+    let data = await Help.setup()
     if (!data) return false
     let img = await this.cache(data)
     await e.reply(img)
   }
 
   async AssociationAdmin(e) {
-    let data = await Help.Association(e)
+    let data = await Help.Association()
     if (!data) return false
     let img = await this.cache(data)
     await e.reply(img)

@@ -17,19 +17,19 @@ export class shenren extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#供奉神石$',
+          reg: /^(#|\/)供奉神石$/,
           fnc: 'add_lingeng'
         },
         {
-          reg: '^#踏入神界$',
+          reg: /^(#|\/)踏入神界$/,
           fnc: 'shenjie'
         },
         {
-          reg: '^#参悟神石$',
+          reg: /^(#|\/)参悟神石$/,
           fnc: 'canwu'
         },
         {
-          reg: '^#敲开闪闪发光the石头$',
+          reg: /^(#|\/)敲开闪闪发光the石头$/,
           fnc: 'open_shitou'
         }
       ]

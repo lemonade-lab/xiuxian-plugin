@@ -24,31 +24,31 @@ export class AdminSuper extends plugin {
       priority: 100,
       rule: [
         {
-          reg: '^#解封.*$',
+          reg: /^(#|\/)解封.*$/,
           fnc: 'relieve'
         },
         {
-          reg: '^#解除所有$',
+          reg: /^(#|\/)解除所有$/,
           fnc: 'Allrelieve'
         },
         {
-          reg: '^#打落凡间.*$',
+          reg: /^(#|\/)打落凡间.*$/,
           fnc: 'Knockdown'
         },
         {
-          reg: '^#清除冲水堂$',
+          reg: /^(#|\/)清除冲水堂$/,
           fnc: 'Deleteexchange'
         },
         {
-          reg: '^#查看日志$',
+          reg: /^(#|\/)查看日志$/,
           fnc: 'show_log'
         },
         {
-          reg: '^#解散宗门.*$',
+          reg: /^(#|\/)解散宗门.*$/,
           fnc: 'jiesan_ass'
         },
         {
-          reg: '#将米娜桑the纳戒里叫.*thethethe(装备|道具|丹药|skill|草药|材料|仙宠|口粮)(抹除|替换为叫.*之之之(装备|道具|丹药|skill|草药|材料|仙宠|口粮))$',
+          reg: /^(#|\/)将米娜桑the纳戒里叫.*thethethe(装备|道具|丹药|skill|草药|材料|仙宠|口粮)(抹除|替换为叫.*之之之(装备|道具|丹药|skill|草药|材料|仙宠|口粮))$/,
           fnc: 'replaceThing'
         }
       ]
@@ -57,7 +57,7 @@ export class AdminSuper extends plugin {
   async jiesan_ass(e) {
     if (!e.isMaster) return false
 
-    let didian = e.msg.replace('#解散宗门', '')
+    let didian = e.msg.replace(/#解散宗门/, '')
     didian = didian.trim()
     let ass = data.getAssociation(didian)
     if (ass == 'error') {
@@ -274,7 +274,7 @@ export class AdminSuper extends plugin {
 
   async replaceThing(e) {
     if (!e.isMaster) return false
-    const msg1 = e.msg.replace('#将米娜桑the纳戒里叫', '')
+    const msg1 = e.msg.replace(/#将米娜桑the纳戒里叫/, '')
     const [thingName, msg2] = msg1.split('thethethe')
 
     // #将米娜桑the纳戒里叫.*thethethe(装备|道具|丹药|skill|草药|材料|盒子|仙宠|口粮|项链|食材)(抹除|替换为叫.*之之之(装备|道具|丹药|skill|草药|材料|盒子|仙宠|口粮|项链|食材))$

@@ -26,27 +26,27 @@ export class Daolv extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^(结为道侣)$',
+          reg: /^(结为道侣)$/,
           fnc: 'qiuhun'
         },
         {
-          reg: '^(我愿意|我拒绝)$',
+          reg: /^(我愿意|我拒绝)$/,
           fnc: 'xuanze'
         },
         {
-          reg: '^(断绝姻缘)$',
+          reg: /^(断绝姻缘)$/,
           fnc: 'lihun'
         },
         {
-          reg: '^(我同意|我拒绝)$',
+          reg: /^(我同意|我拒绝)$/,
           fnc: 'xuanze2'
         },
         {
-          reg: '^赠予百合花篮$',
+          reg: /^赠予百合花篮$/,
           fnc: 'get_dift'
         },
         {
-          reg: '^#查询亲密度$',
+          reg: /^(#|\/)查询亲密度$/,
           fnc: 'SearchQingmidu'
         }
       ]

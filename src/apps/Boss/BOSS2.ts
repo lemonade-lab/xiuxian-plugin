@@ -14,7 +14,7 @@ let WorldBOSSBattleLock = null //BOSS战斗锁，防止打架频率过高造成�
 let WorldBOSSBattleUnLockTimer = null //防止战斗锁因意外锁死
 
 export class BOSS2 extends plugin {
-  constructor(e) {
+  constructor() {
     super({
       name: 'Yunzai_Bot_修仙_BOSS',
       dsc: 'BOSS模块',
@@ -22,23 +22,23 @@ export class BOSS2 extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#开启金角大王$',
+          reg: /^(#|\/)开启金角大王$/,
           fnc: 'CreateWorldBoss'
         },
         {
-          reg: '^#关闭金角大王$',
+          reg: /^(#|\/)关闭金角大王$/,
           fnc: 'DeleteWorldBoss'
         },
         {
-          reg: '^#金角大王状态$',
+          reg: /^(#|\/)金角大王状态$/,
           fnc: 'LookUpWorldBossStatus'
         },
         {
-          reg: '^#金角大王贡献榜$',
+          reg: /^(#|\/)金角大王贡献榜$/,
           fnc: 'ShowDamageList'
         },
         {
-          reg: '^#讨伐金角大王$',
+          reg: /^(#|\/)讨伐金角大王$/,
           fnc: 'WorldBossBattle'
         }
       ]
@@ -47,7 +47,7 @@ export class BOSS2 extends plugin {
     this.task = {
       cron: this.set.BossTask2,
       name: 'BossTask2',
-      fnc: () => this.CreateWorldBoss(e)
+      fnc: () => this.InitWorldBoss()
     }
   }
 

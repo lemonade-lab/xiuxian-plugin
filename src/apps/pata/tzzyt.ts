@@ -9,11 +9,11 @@ export class tzzyt extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#挑战镇妖塔$',
+          reg: /^(#|\/)挑战镇妖塔$/,
           fnc: 'WorldBossBattle'
         },
         {
-          reg: '^#一键挑战镇妖塔$',
+          reg: /^(#|\/)一键挑战镇妖塔$/,
           fnc: 'all_WorldBossBattle'
         }
       ]

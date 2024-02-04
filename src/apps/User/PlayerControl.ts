@@ -23,19 +23,19 @@ export class PlayerControl extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '(^#降妖$)|(^#降妖(.*)(分|分钟)$)',
+          reg: /(^#|\/)降妖((.*)(分|分钟))?$/,
           fnc: 'Dagong'
         },
         {
-          reg: '(^#闭关$)|(^#闭关(.*)(分|分钟)$)',
+          reg: /(^#|\/)闭关((.*)(分|分钟))?$/,
           fnc: 'Biguan'
         },
         {
-          reg: '^#出关$',
+          reg: /^(#|\/)出关$/,
           fnc: 'chuGuan'
         },
         {
-          reg: '^#降妖归来$',
+          reg: /^(#|\/)降妖归来$/,
           fnc: 'endWork'
         }
       ]
@@ -56,7 +56,7 @@ export class PlayerControl extends plugin {
     }
 
     //获取时间
-    let time = e.msg.replace('#', '')
+    let time = e.msg.replace(/^(#|\/)/, '')
     time = time.replace('闭关', '')
     time = time.replace('分', '')
     time = time.replace('钟', '')
@@ -138,7 +138,7 @@ export class PlayerControl extends plugin {
       return false
     }
     //获取时间
-    let time = e.msg.replace('#', '')
+    let time = e.msg.replace(/^(#|\/)/, '')
     time = time.replace('降妖', '')
     time = time.replace('分', '')
     time = time.replace('钟', '')

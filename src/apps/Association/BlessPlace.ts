@@ -24,31 +24,31 @@ export class BlessPlace extends plugin {
       priority: 9999,
       rule: [
         {
-          reg: '^#洞天福地列表$',
+          reg: /^(#|\/)洞天福地列表$/,
           fnc: 'List_blessPlace'
         },
         {
-          reg: '^#开采灵脉$',
+          reg: /^(#|\/)开采灵脉$/,
           fnc: 'exploitation_vein'
         },
         {
-          reg: '^#入驻洞天.*$',
+          reg: /^(#|\/)入驻洞天.*$/,
           fnc: 'Settled_Blessed_Place'
         },
         {
-          reg: '^#建设宗门$',
+          reg: /^(#|\/)建设宗门$/,
           fnc: 'construction_Guild'
         },
         {
-          reg: '^#宗门秘境$',
+          reg: /^(#|\/)宗门秘境$/,
           fnc: 'mij'
         },
         {
-          reg: '^#探索宗门秘境.*$',
+          reg: /^(#|\/)探索宗门秘境.*$/,
           fnc: 'Go_Guild_Secrets'
         },
         {
-          reg: '^#沉迷宗门秘境.*$',
+          reg: /^(#|\/)沉迷宗门秘境.*$/,
           fnc: 'Go_Guild_Secretsplus'
         }
       ]

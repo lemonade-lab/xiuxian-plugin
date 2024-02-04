@@ -30,75 +30,75 @@ export class Occupation extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#转职.*$',
+          reg: /^(#|\/)转职.*$/,
           fnc: 'chose_occupation'
         },
         {
-          reg: '^#转换副职$',
+          reg: /^(#|\/)转换副职$/,
           fnc: 'chose_occupation2'
         },
         {
-          reg: '^#猎户转.*$',
+          reg: /^(#|\/)猎户转.*$/,
           fnc: 'zhuanzhi'
         },
         {
-          reg: '(^#采药$)|(^#采药(.*)(分|分钟)$)',
+          reg: /(^#采药$)|(^#采药(.*)(分|分钟)$)/,
           fnc: 'plant'
         },
         {
-          reg: '^#结束采药$',
+          reg: /^(#|\/)结束采药$/,
           fnc: 'plant_back'
         },
         {
-          reg: '(^#采矿$)|(^#采矿(.*)(分|分钟)$)',
+          reg: /(^#采矿$)|(^#采矿(.*)(分|分钟)$)/,
           fnc: 'mine'
         },
         {
-          reg: '^#结束采矿$',
+          reg: /^(#|\/)结束采矿$/,
           fnc: 'mine_back'
         },
         {
-          reg: '^#丹药配方$',
+          reg: /^(#|\/)丹药配方$/,
           fnc: 'show_danfang'
         },
         {
-          reg: '^#我the药效$',
+          reg: /^(#|\/)我the药效$/,
           fnc: 'yaoxiao'
         },
         {
-          reg: '^#装备图纸$',
+          reg: /^(#|\/)装备图纸$/,
           fnc: 'show_tuzhi'
         },
         {
-          reg: '^#炼制.*(\\*[0-9]*)?$',
+          reg: /^(#|\/)炼制.*(\\*[0-9]*)?$/,
           fnc: 'liandan'
         },
         {
-          reg: '^#打造.*(\\*[0-9]*)?$',
+          reg: /^(#|\/)打造.*(\\*[0-9]*)?$/,
           fnc: 'lianqi'
         },
         {
-          reg: '^#悬赏目标$',
+          reg: /^(#|\/)悬赏目标$/,
           fnc: 'search_sb'
         },
         {
-          reg: '^#讨伐目标.*$',
+          reg: /^(#|\/)讨伐目标.*$/,
           fnc: 'taofa_sb'
         },
         {
-          reg: '^#悬赏.*$',
+          reg: /^(#|\/)悬赏.*$/,
           fnc: 'xuanshang_sb'
         },
         {
-          reg: '^#赏金榜$',
+          reg: /^(#|\/)赏金榜$/,
           fnc: 'shangjingbang'
         },
         {
-          reg: '^#刺杀目标.*$',
+          reg: /^(#|\/)刺杀目标.*$/,
           fnc: 'cisha_sb'
         },
         {
-          reg: '^#清空赏金榜$',
+          reg: /^(#|\/)清空赏金榜$/,
           fnc: 'qingchushangjinbang'
         }
       ]

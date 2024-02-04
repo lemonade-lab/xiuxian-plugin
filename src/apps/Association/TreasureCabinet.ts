@@ -20,15 +20,15 @@ export class TreasureCabinet extends plugin {
       priority: 9999,
       rule: [
         {
-          reg: '^#我the贡献$',
+          reg: /^(#|\/)我the贡献$/,
           fnc: 'gonxian'
         },
         {
-          reg: '^#召唤神兽$',
+          reg: /^(#|\/)召唤神兽$/,
           fnc: 'Summon_Divine_Beast'
         },
         {
-          reg: '^#神兽赐福$',
+          reg: /^(#|\/)神兽赐福$/,
           fnc: 'Beast_Bonus'
         }
       ]

@@ -1,25 +1,25 @@
 import base from './base.js'
 import { getConfig } from '../Config.js'
 export default class Help extends base {
-  constructor(e) {
+  constructor() {
     super()
     this.model = 'help'
   }
 
-  static get(e) {
-    return new Help(e).getData()
+  static get() {
+    return new Help().getData()
   }
 
-  static gethelpcopy(e) {
-    return new Help(e).getDatahelpcopy()
+  static gethelpcopy() {
+    return new Help().getDatahelpcopy()
   }
 
-  static setup(e) {
-    return new Help(e).Getset()
+  static setup() {
+    return new Help().Getset()
   }
 
-  static Association(e) {
-    return new Help(e).GetAssociationt()
+  static Association() {
+    return new Help().GetAssociationt()
   }
 
   getDATA(name: string) {

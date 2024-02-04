@@ -39,39 +39,39 @@ export class duanzao extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#炼器师能力评测',
+          reg: /^(#|\/)炼器师能力评测/,
           fnc: 'getmybook'
         },
         {
-          reg: '^#熔炼.*$',
+          reg: /^(#|\/)熔炼.*$/,
           fnc: 'givein'
         },
         {
-          reg: '^#开始炼制',
+          reg: /^(#|\/)开始炼制/,
           fnc: 'startit'
         },
         {
-          reg: '^#开炉',
+          reg: /^(#|\/)开炉/,
           fnc: 'openit'
         },
         {
-          reg: '^#清空锻炉',
+          reg: /^(#|\/)清空锻炉/,
           fnc: 'clearthat'
         },
         {
-          reg: '^#我the锻炉',
+          reg: /^(#|\/)我the锻炉/,
           fnc: 'mytript'
         },
         {
-          reg: '^#赋名.*$',
+          reg: /^(#|\/)赋名.*$/,
           fnc: 'getnewname'
         },
         {
-          reg: '^#全体清空锻炉',
+          reg: /^(#|\/)全体清空锻炉/,
           fnc: 'all_clearthat'
         },
         {
-          reg: '^#神兵榜',
+          reg: /^(#|\/)神兵榜/,
           fnc: 'bestfile'
         }
       ]
@@ -268,7 +268,7 @@ export class duanzao extends plugin {
       e.reply(`切换到炼器师后再来吧,宝贝`)
       return false
     }
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('熔炼', '')
     const code = thing.split('*')
     const thing_name = code[0] //物品
@@ -664,7 +664,7 @@ export class duanzao extends plugin {
   async getnewname(e) {
     const user_qq = e.user_id //用户qq
     if (!(await existplayer(user_qq))) return false
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('赋名', '')
     const code = thing.split('*')
     const thing_name = code[0] //原物品

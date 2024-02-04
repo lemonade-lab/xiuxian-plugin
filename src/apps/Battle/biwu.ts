@@ -21,15 +21,15 @@ export class biwu extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^切磋$',
+          reg: /^切磋$/,
           fnc: 'biwu'
         },
         {
-          reg: '^#选择技能.*$',
+          reg: /^(#|\/)选择技能.*$/,
           fnc: 'choice'
         },
         {
-          reg: '^#释放技能.*$',
+          reg: /^(#|\/)释放技能.*$/,
           fnc: 'release'
         }
       ]

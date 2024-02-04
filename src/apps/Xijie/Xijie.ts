@@ -20,15 +20,15 @@ export class Xijie extends plugin {
       event: 'message',
       rule: [
         {
-          reg: '^#洗劫.*$',
+          reg: /^(#|\/)洗劫.*$/,
           fnc: 'xijie'
         },
         {
-          reg: '^#探查.*$',
+          reg: /^(#|\/)探查.*$/,
           fnc: 'tancha'
         },
         {
-          reg: '^#重置.*$',
+          reg: /^(#|\/)重置.*$/,
           fnc: 'chongzhi'
         }
       ]

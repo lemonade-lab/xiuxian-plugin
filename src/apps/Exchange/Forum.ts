@@ -22,19 +22,19 @@ export class Forum extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#聚宝堂(装备|丹药|skill|道具|草药|仙宠|材料)?$',
+          reg: /^(#|\/)聚宝堂(装备|丹药|skill|道具|草药|仙宠|材料)?$/,
           fnc: 'show_supermarket'
         },
         {
-          reg: '^#发布.*$',
+          reg: /^(#|\/)发布.*$/,
           fnc: 'onsell'
         },
         {
-          reg: '^#取消[1-9]d*',
+          reg: /^(#|\/)取消[1-9]d*/,
           fnc: 'Offsell'
         },
         {
-          reg: '^#接取.*$',
+          reg: /^(#|\/)接取.*$/,
           fnc: 'purchase'
         }
       ]
@@ -90,7 +90,7 @@ export class Forum extends plugin {
     //有无存档
     let ifexistplay = await existplayer(usr_qq)
     if (!ifexistplay) return false
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('发布', '')
     let code = thing.split('*')
     let thing_name = code[0] //物品

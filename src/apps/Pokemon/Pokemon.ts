@@ -18,15 +18,15 @@ export class Pokemon extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#出战仙宠.*$',
+          reg: /^(#|\/)出战仙宠.*$/,
           fnc: 'Fight'
         },
         {
-          reg: '^#喂给仙宠.*$',
+          reg: /^(#|\/)喂给仙宠.*$/,
           fnc: 'feed'
         },
         {
-          reg: '^#进阶仙宠$',
+          reg: /^(#|\/)进阶仙宠$/,
           fnc: 'Advanced'
         }
       ]
@@ -38,7 +38,7 @@ export class Pokemon extends plugin {
     let ifexistplay = data.existData('player', usr_qq)
     if (!ifexistplay) return false
     let player = data.getData('player', usr_qq)
-    let name = e.msg.replace('#', '')
+    let name = e.msg.replace(/^(#|\/)/, '')
     name = name.replace('出战仙宠', '')
     let num = parseInt(name)
     let najie = await Read_najie(usr_qq)
@@ -157,7 +157,7 @@ export class Pokemon extends plugin {
       e.reply('你没有仙宠')
       return false
     }
-    let thing = e.msg.replace('#', '')
+    let thing = e.msg.replace(/^(#|\/)/, '')
     thing = thing.replace('喂给仙宠', '')
     let code = thing.split('*')
     let thing_name = code[0] //物品

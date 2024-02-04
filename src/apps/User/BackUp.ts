@@ -18,15 +18,15 @@ export class BackUp extends plugin {
       priority: 1000,
       rule: [
         {
-          reg: '^#备份存档$',
+          reg: /^(#|\/)备份存档$/,
           fnc: 'saveBackUp'
         },
         {
-          reg: '^#存档列表$',
+          reg: /^(#|\/)存档列表$/,
           fnc: 'checkBackUp'
         },
         {
-          reg: '^#读取存档(.*)',
+          reg: /^(#|\/)读取存档(.*)/,
           fnc: 'loadBackUp'
         }
       ]

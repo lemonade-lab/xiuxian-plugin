@@ -9,11 +9,11 @@ export class DSC extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#炼神魄$',
+          reg: /^(#|\/)炼神魄$/,
           fnc: 'WorldBossBattle'
         },
         {
-          reg: '^#一键炼神魄$',
+          reg: /^(#|\/)一键炼神魄$/,
           fnc: 'all_WorldBossBattle'
         }
       ]

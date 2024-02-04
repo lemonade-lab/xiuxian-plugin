@@ -17,15 +17,15 @@ export class motou extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#供奉魔石$',
+          reg: /^(#|\/)供奉魔石$/,
           fnc: 'add_lingeng'
         },
         {
-          reg: '^#堕入魔界$',
+          reg: /^(#|\/)堕入魔界$/,
           fnc: 'mojie'
         },
         {
-          reg: '^#献祭魔石$',
+          reg: /^(#|\/)献祭魔石$/,
           fnc: 'xianji'
         }
       ]

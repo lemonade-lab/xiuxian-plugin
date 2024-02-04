@@ -24,19 +24,19 @@ export class TopList extends plugin {
       priority: 600,
       rule: [
         {
-          reg: '^#天榜$',
+          reg: /^(#|\/)天榜$/,
           fnc: 'TOP_xiuwei'
         },
         {
-          reg: '^#灵榜$',
+          reg: /^(#|\/)灵榜$/,
           fnc: 'TOP_lingshi'
         },
         {
-          reg: '^#封神榜$',
+          reg: /^(#|\/)封神榜$/,
           fnc: 'TOP_Immortal'
         },
         {
-          reg: '^#至尊榜$',
+          reg: /^(#|\/)至尊榜$/,
           fnc: 'TOP_genius'
         }
       ]
