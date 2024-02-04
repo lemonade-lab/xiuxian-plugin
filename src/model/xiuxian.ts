@@ -471,18 +471,22 @@ export async function Get_xiuwei(user_id) {
 export async function get_random_talent() {
   let talent
   if (get_random_res(physical_probability)) {
-    talent = data.talent_list().filter((item) => item.type == '体质')
+    talent = data.getTheData('灵根列表').filter((item) => item.type == '体质')
   } else if (
     get_random_res(Pseudo_talent_probability / (1 - physical_probability))
   ) {
-    talent = data.talent_list().filter((item) => item.type == '伪talent')
+    talent = data
+      .getTheData('灵根列表')
+      .filter((item) => item.type == '伪talent')
   } else if (
     get_random_res(
       True_Talent_Probability /
         (1 - Pseudo_talent_probability - physical_probability)
     )
   ) {
-    talent = data.talent_list().filter((item) => item.type == '真talent')
+    talent = data
+      .getTheData('灵根列表')
+      .filter((item) => item.type == '真talent')
   } else if (
     get_random_res(
       天talent概率 /
@@ -492,7 +496,9 @@ export async function get_random_talent() {
           physical_probability)
     )
   ) {
-    talent = data.talent_list().filter((item) => item.type == '天talent')
+    talent = data
+      .getTheData('灵根列表')
+      .filter((item) => item.type == '天talent')
   } else if (
     get_random_res(
       圣体概率 /
@@ -503,9 +509,11 @@ export async function get_random_talent() {
           天talent概率)
     )
   ) {
-    talent = data.talent_list().filter((item) => item.type == '圣体')
+    talent = data.getTheData('灵根列表').filter((item) => item.type == '圣体')
   } else {
-    talent = data.talent_list().filter((item) => item.type == '变异talent')
+    talent = data
+      .getTheData('灵根列表')
+      .filter((item) => item.type == '变异talent')
   }
   let newtalent = get_random_fromARR(talent)
   return newtalent

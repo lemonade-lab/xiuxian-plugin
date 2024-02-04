@@ -11,6 +11,8 @@ import { getConfig } from '../utils/utils.js'
  * 加载的数据需要及时清除
  */
 
+type NameType = '灵根列表' | '怪物列表' | '商品列表'
+
 /**
  *
  */
@@ -20,11 +22,21 @@ class XiuxianData {
    * @param name
    * @returns
    */
-  getPathData(name: string, path = __PATH.lib) {
-    return JSON.parse(readFileSync(`${path}/${name}.json`, 'utf-8'))
+  getPathData(name: string, key: keyof typeof __PATH = 'lib_path') {
+    return JSON.parse(readFileSync(`${__PATH[key]}/${name}.json`, 'utf-8'))
   }
 
   test = getConfig('task', 'task')
+
+  /**
+   * 读取数据
+   * @param key
+   * @param val
+   * @returns
+   */
+  getTheData(val: NameType, key: keyof typeof __PATH = 'lib_path') {
+    return JSON.parse(readFileSync(`${__PATH[key]}/${val}.json`, 'utf-8'))
+  }
 
   //加载talent列表
   talent_list = () => {
@@ -184,46 +196,46 @@ class XiuxianData {
   }
   //加载限定仙府
   timeplace_list = () => {
-    return this.getPathData('限定仙府', __PATH.Timelimit)
+    return this.getPathData('限定仙府', 'Timelimit')
   }
   //加载限定功法
 
   timegongfa_list = () => {
-    return this.getPathData('限定功法', __PATH.Timelimit)
+    return this.getPathData('限定功法', 'Timelimit')
   }
   //加载限定装备
   timeequipmen_list = () => {
-    return this.getPathData('限定装备', __PATH.Timelimit)
+    return this.getPathData('限定装备', 'Timelimit')
   }
   //加载限定丹药
   timedanyao_list = () => {
-    return this.getPathData('限限定丹药定装备', __PATH.Timelimit)
+    return this.getPathData('限限定丹药定装备', 'Timelimit')
   }
   qinlong = () => {
-    return this.getPathData('青龙', __PATH.Timelimit)
+    return this.getPathData('青龙', 'Timelimit')
   }
   qilin = () => {
-    return this.getPathData('麒麟', __PATH.Timelimit)
+    return this.getPathData('麒麟', 'Timelimit')
   }
   xuanwu = () => {
-    return this.getPathData('玄武朱雀白虎', __PATH.Timelimit)
+    return this.getPathData('玄武朱雀白虎', 'Timelimit')
   }
   //加载职业列表
   occupation_list = () => {
-    return this.getPathData('职业列表', __PATH.occupation)
+    return this.getPathData('职业列表', 'occupation')
   }
   //加载职业经验列表
   occupation_exp_list = () => {
-    return this.getPathData('experience', __PATH.occupation)
+    return this.getPathData('experience', 'occupation')
   }
   //加载丹方列表
 
   danfang_list = () => {
-    return this.getPathData('炼丹配方', __PATH.occupation)
+    return this.getPathData('炼丹配方', 'occupation')
   }
   //加载图纸列表
   tuzhi_list = () => {
-    return this.getPathData('装备图纸', __PATH.occupation)
+    return this.getPathData('装备图纸', 'occupation')
   }
   /**
    * 检测存档存在
