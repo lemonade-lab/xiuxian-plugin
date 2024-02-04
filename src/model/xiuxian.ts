@@ -33,7 +33,7 @@ import {
   isNotNull,
   shijianc,
   sleep
-} from './utils.js'
+} from './utils/utils.js'
 import { Add_najie_thing, exist_najie_thing } from './action/addmax.js'
 import { Update_equipment } from './action/update.js'
 import { ForwardMsg } from './bot.js'
@@ -449,12 +449,13 @@ export async function Get_xiuwei(user_id) {
   if (!isNotNull(player.level_id)) {
     return
   }
-  now_level_id = data.Level_list.find(
-    (item) => item.level_id == player.level_id
-  ).level_id
+  now_level_id = data
+    .Level_list()
+    .find((item) => item.level_id == player.level_id).level_id
   if (now_level_id < 65) {
     for (let i = 1; i < now_level_id; i++) {
-      sum_exp = sum_exp + data.Level_list.find((temp) => temp.level_id == i).exp
+      sum_exp =
+        sum_exp + data.Level_list().find((temp) => temp.level_id == i).exp
     }
   } else {
     sum_exp = -999999999
@@ -470,18 +471,18 @@ export async function Get_xiuwei(user_id) {
 export async function get_random_talent() {
   let talent
   if (get_random_res(physical_probability)) {
-    talent = data.talent_list.filter((item) => item.type == '体质')
+    talent = data.talent_list().filter((item) => item.type == '体质')
   } else if (
     get_random_res(Pseudo_talent_probability / (1 - physical_probability))
   ) {
-    talent = data.talent_list.filter((item) => item.type == '伪talent')
+    talent = data.talent_list().filter((item) => item.type == '伪talent')
   } else if (
     get_random_res(
       True_Talent_Probability /
         (1 - Pseudo_talent_probability - physical_probability)
     )
   ) {
-    talent = data.talent_list.filter((item) => item.type == '真talent')
+    talent = data.talent_list().filter((item) => item.type == '真talent')
   } else if (
     get_random_res(
       天talent概率 /
@@ -491,7 +492,7 @@ export async function get_random_talent() {
           physical_probability)
     )
   ) {
-    talent = data.talent_list.filter((item) => item.type == '天talent')
+    talent = data.talent_list().filter((item) => item.type == '天talent')
   } else if (
     get_random_res(
       圣体概率 /
@@ -502,9 +503,9 @@ export async function get_random_talent() {
           天talent概率)
     )
   ) {
-    talent = data.talent_list.filter((item) => item.type == '圣体')
+    talent = data.talent_list().filter((item) => item.type == '圣体')
   } else {
-    talent = data.talent_list.filter((item) => item.type == '变异talent')
+    talent = data.talent_list().filter((item) => item.type == '变异talent')
   }
   let newtalent = get_random_fromARR(talent)
   return newtalent
@@ -1144,9 +1145,9 @@ export async function Synchronization_ASS(e) {
   for (let ass_name of assList) {
     let ass = await data.getAssociation(ass_name)
     let player = data.getData('player', ass.宗主)
-    let now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     //补
     if (!isNotNull(ass.power)) {
       ass.power = 0
@@ -1331,20 +1332,20 @@ export async function synchronization(e) {
     for (let j of najie.仙宠口粮) {
       j.class = '仙宠口粮'
     }
-    let linggeng = data.talent_list.find(
-      (item) => item.name == player.talent.name
-    )
+    let linggeng = data
+      .talent_list()
+      .find((item) => item.name == player.talent.name)
     if (linggeng) player.talent = linggeng
 
     //hide_talent
     if (player.hide_talent)
-      player.hide_talent = data.yincang.find(
-        (item) => item.name == player.hide_talent.name
-      )
+      player.hide_talent = data
+        .yincang()
+        .find((item) => item.name == player.hide_talent.name)
     //重新根据id去重置仙门
-    let now_level_id = await data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = await data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (now_level_id < 42) {
       player.power_place = 1
     }

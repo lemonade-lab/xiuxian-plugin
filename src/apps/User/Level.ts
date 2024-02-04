@@ -16,7 +16,8 @@ import {
   dujie,
   LevelTask,
   getConfig,
-  data
+  data,
+  __PATH
 } from '../../model/index.js'
 import { clearInterval } from 'timers'
 import { plugin } from '../../../import.js'
@@ -99,13 +100,13 @@ export class Level extends plugin {
       e.reply('请先#刷新信息')
       return false
     }
-    now_level_id = data.LevelMax_list.find(
-      (item) => item.level_id == player.Physique_id
-    ).level_id
+    now_level_id = data
+      .LevelMax_list()
+      .find((item) => item.level_id == player.Physique_id).level_id
     let now_exp = player.血气
-    let need_exp = data.LevelMax_list.find(
-      (item) => item.level_id == player.Physique_id
-    ).exp
+    let need_exp = data
+      .LevelMax_list()
+      .find((item) => item.level_id == player.Physique_id).exp
     if (now_exp < need_exp) {
       e.reply(`血气不足,再积累${need_exp - now_exp}血气后方可突破`)
       return false
@@ -256,9 +257,9 @@ export class Level extends plugin {
     let equipment = await Read_equipment(user_id)
     await Update_equipment(user_id, equipment)
     await Add_HP(user_id, 999999999999)
-    let level = data.LevelMax_list.find(
-      (item) => item.level_id == player.Physique_id
-    ).level
+    let level = data
+      .LevelMax_list()
+      .find((item) => item.level_id == player.Physique_id).level
     e.reply(`突破成功至${level}`, false, { at: true })
     await redis.set(
       'xiuxian@1.4.0:' + user_id + ':last_LevelMaxup_time',
@@ -285,9 +286,9 @@ export class Level extends plugin {
     //读取信息
     let player = await Read_player(user_id)
     //境界
-    let now_level = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level
+    let now_level = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level
     //拦截渡劫期
     if (now_level == '渡劫期') {
       //检查仙门是否开启！
@@ -305,9 +306,9 @@ export class Level extends plugin {
       e.reply('请先#刷新信息')
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     //真仙突破
     if (
       now_level_id >= 51 &&
@@ -327,9 +328,9 @@ export class Level extends plugin {
     }
     let now_exp = player.now_exp
     //now_exp
-    let need_exp = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).exp
+    let need_exp = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).exp
     if (now_exp < need_exp) {
       e.reply(`now_exp不足,再积累${need_exp - now_exp}now_exp后方可突破`)
       return false
@@ -486,9 +487,9 @@ export class Level extends plugin {
     //补血
     await Add_HP(user_id, 999999999999)
     //查境界名
-    let level = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level
+    let level = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level
     e.reply(`突破成功,当前境界为${level}`, false, { at: true })
     //记录cd
     await redis.set('xiuxian@1.4.0:' + user_id + ':last_Levelup_time', now_Time)
@@ -564,9 +565,9 @@ export class Level extends plugin {
 
     let player = await Read_player(user_id)
     //境界
-    let now_level = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level
+    let now_level = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level
     if (now_level != '渡劫期') {
       e.reply(`你非渡劫期修士！`)
       return false
@@ -582,9 +583,9 @@ export class Level extends plugin {
     }
     //看看now_bool
     let now_HP = player.now_bool
-    let list_HP = data.Level_list.find(
-      (item) => item.level == now_level
-    ).基础血量
+    let list_HP = data
+      .Level_list()
+      .find((item) => item.level == now_level).基础血量
     if (now_HP < list_HP * 0.9) {
       player.now_bool = 1
       await Write_player(user_id, player)
@@ -592,15 +593,15 @@ export class Level extends plugin {
       return false
     }
     //境界id
-    let now_level_id = data.Level_list.find(
-      (item) => item.level == now_level
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level == now_level).level_id
     //now_exp
     let now_exp = player.now_exp
     //now_exp
-    let need_exp = data.Level_list.find(
-      (item) => item.level_id == now_level_id
-    ).exp
+    let need_exp = data
+      .Level_list()
+      .find((item) => item.level_id == now_level_id).exp
     if (now_exp < need_exp) {
       e.reply(`now_exp不足,再积累${need_exp - now_exp}now_exp后方可突破`)
       return false
@@ -694,9 +695,9 @@ export class Level extends plugin {
     //读取信息
     let player = await Read_player(user_id)
     //境界
-    let now_level = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level
+    let now_level = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level
     if (now_level != '渡劫期') {
       e.reply(`你非渡劫期修士！`)
       return false
@@ -726,14 +727,14 @@ export class Level extends plugin {
       e.reply('请先#刷新信息')
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     let now_exp = player.now_exp
     //now_exp
-    let need_exp = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).exp
+    let need_exp = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).exp
     if (now_exp < need_exp) {
       e.reply(`now_exp不足,再积累${need_exp - now_exp}now_exp后方可成仙！`)
       return false
@@ -773,7 +774,7 @@ export class Level extends plugin {
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
+            rmSync(`${__PATH.association}/${player.宗门.宗门名称}.json`)
             delete player.宗门 //删除存档里the宗门信息
             data.setData('player', user_id, player)
             await player_efficiency(user_id)

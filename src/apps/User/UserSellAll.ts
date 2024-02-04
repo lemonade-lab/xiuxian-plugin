@@ -82,25 +82,28 @@ export class UserSellAll extends plugin {
     //检索方法
     let najie = await data.getData('najie', user_id)
     let player = await Read_player(user_id)
+
+    const Level_list = data.Level_list()
+    const LevelMax_list = data.LevelMax_list()
+
     let sanwei = []
+
     sanwei[0] =
-      data.Level_list.find((item) => item.level_id == player.level_id)
-        .基础攻击 +
+      Level_list.find((item) => item.level_id == player.level_id).基础攻击 +
       player.攻击加成 +
-      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-        .基础攻击
+      LevelMax_list.find((item) => item.level_id == player.Physique_id).基础攻击
+
     sanwei[1] =
-      data.Level_list.find((item) => item.level_id == player.level_id)
-        .基础防御 +
+      Level_list.find((item) => item.level_id == player.level_id).基础防御 +
       player.防御加成 +
-      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-        .基础防御
+      LevelMax_list.find((item) => item.level_id == player.Physique_id).基础防御
+
     sanwei[2] =
-      data.Level_list.find((item) => item.level_id == player.level_id)
-        .基础血量 +
+      Level_list.find((item) => item.level_id == player.level_id).基础血量 +
       player.生命加成 +
-      data.LevelMax_list.find((item) => item.level_id == player.Physique_id)
-        .基础血量
+      LevelMax_list.find((item) => item.level_id == player.Physique_id).基础血量
+
+    //
     let equipment = await data.getData('equipment', user_id)
     //智能选择装备
     let type = ['weapon', 'protective_clothing', 'magic_weapon']

@@ -7,7 +7,8 @@ import {
   isNotNull,
   player_efficiency,
   get_random_fromARR,
-  data
+  data,
+  __PATH
 } from '../../model/index.js'
 import { Add_najie_thing, Add_HP } from '../../model/index.js'
 import { plugin } from '../../../import.js'
@@ -109,7 +110,7 @@ export class lunhui extends plugin {
         } else {
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
+            rmSync(`${__PATH.association}/${player.宗门.宗门名称}.json`)
             delete player.宗门 //删除存档里the宗门信息
             data.setData('player', user_id, player)
             await player_efficiency(user_id)

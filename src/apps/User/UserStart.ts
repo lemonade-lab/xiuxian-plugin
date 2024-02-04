@@ -114,11 +114,13 @@ export class UserStart extends plugin {
     await Write_player(user_id, new_player)
     //初始化装备
     let new_equipment = {
-      weapon: data.equipment_list.find((item) => item.name == '烂铁匕首'),
-      protective_clothing: data.equipment_list.find(
-        (item) => item.name == '破铜protective_clothing'
-      ),
-      magic_weapon: data.equipment_list.find((item) => item.name == '廉价炮仗')
+      weapon: data.equipment_list().find((item) => item.name == '烂铁匕首'),
+      protective_clothing: data
+        .equipment_list()
+        .find((item) => item.name == '破铜protective_clothing'),
+      magic_weapon: data
+        .equipment_list()
+        .find((item) => item.name == '廉价炮仗')
     }
     await Update_equipment(user_id, new_equipment)
     //初始化纳戒
@@ -255,7 +257,7 @@ export class UserStart extends plugin {
           //是宗主
           let ass = data.getAssociation(player.宗门.宗门名称)
           if (ass.所有成员.length < 2) {
-            rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
+            rmSync(`${__PATH.association}/${player.宗门.宗门名称}.json`)
           } else {
             ass['所有成员'] = ass['所有成员'].filter((item) => item != user_id) //原来the成员表删掉这个B
             //随机一个幸运儿theQQ,优先挑选等级高the

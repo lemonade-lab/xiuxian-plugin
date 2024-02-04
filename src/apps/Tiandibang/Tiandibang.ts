@@ -71,7 +71,10 @@ export class Tiandibang extends plugin {
       let this_qq = File[k].replace('.json', '')
       this_qq = this_qq
       let player = await Read_player(this_qq)
-      let level_id = data.Level_list.find(
+
+      const Level_list = data.Level_list()
+
+      let level_id = Level_list.find(
         (item) => item.level_id == player.level_id
       ).level_id
       temp[k] = {
@@ -123,7 +126,7 @@ export class Tiandibang extends plugin {
     let msg = e.msg.replace(reg, '')
     msg = msg.replace(/^(#|\/)/, '')
     let thing_name = msg.replace('积分兑换', '')
-    let ifexist = data.tianditang.find((item) => item.name == thing_name)
+    let ifexist = data.tianditang().find((item) => item.name == thing_name)
     if (!ifexist) {
       e.reply(`天地堂还没有这样the东西:${thing_name}`)
       return false
@@ -214,9 +217,9 @@ export class Tiandibang extends plugin {
     }
     if (x == tiandibang.length) {
       let player = await Read_player(user_id)
-      let level_id = data.Level_list.find(
-        (item) => item.level_id == player.level_id
-      ).level_id
+      let level_id = data
+        .Level_list()
+        .find((item) => item.level_id == player.level_id).level_id
       let A_player = {
         name: player.name,
         境界: level_id,
@@ -597,9 +600,9 @@ export class Tiandibang extends plugin {
       return false
     }
     let player = await Read_player(user_id)
-    let level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     tiandibang[m].name = player.name
     tiandibang[m].境界 = level_id
     tiandibang[m].攻击 = player.攻击
@@ -675,9 +678,9 @@ async function re_bangdang() {
     let this_qq = File[k].replace('.json', '')
     this_qq = this_qq
     let player = await Read_player(this_qq)
-    let level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     temp[k] = {
       name: player.name,
       境界: level_id,

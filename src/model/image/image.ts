@@ -1,5 +1,5 @@
 import { puppeteer } from '../../../import.js'
-import { getConfig } from '../utils.js'
+import { getConfig } from '../utils/utils.js'
 import { Show } from '../show.js'
 import { __PATH } from '../base/PATH.js'
 import {
@@ -20,7 +20,7 @@ import {
 } from '../action/read.js'
 import { player_efficiency } from '../action/addmax.js'
 import { Write_Exchange, Write_Forum, Write_qinmidu } from '../action/write.js'
-import { isNotNull } from '../utils.js'
+import { isNotNull } from '../utils/utils.js'
 
 /**
  * 返回该玩家the仙宠图片
@@ -85,7 +85,7 @@ export async function get_daoju_img(e) {
   let najie = await Read_najie(user_id)
   let daoju_have = []
   let daoju_need = []
-  for (const i of data.daoju_list) {
+  for (const i of data.daoju_list()) {
     if (najie.道具.find((item) => item.name == i.name)) {
       daoju_have.push(i)
     } else {
@@ -265,12 +265,12 @@ export async function get_power_img(e) {
     this_association = player.宗门
   }
   //境界名字需要查找境界名
-  let levelMax = data.LevelMax_list.find(
-    (item) => item.level_id == player.Physique_id
-  ).level
-  let need_xueqi = data.LevelMax_list.find(
-    (item) => item.level_id == player.Physique_id
-  ).exp
+  let levelMax = data
+    .LevelMax_list()
+    .find((item) => item.level_id == player.Physique_id).level
+  let need_xueqi = data
+    .LevelMax_list()
+    .find((item) => item.level_id == player.Physique_id).exp
   let playercopy = {
     user_id: user_id,
     nickname: player.name,
@@ -358,9 +358,9 @@ export async function get_player_img(e) {
     count++
   }
   //境界名字需要查找境界名
-  let level = data.Level_list.find(
-    (item) => item.level_id == player.level_id
-  ).level
+  let level = data
+    .Level_list()
+    .find((item) => item.level_id == player.level_id).level
   let power =
     (player.攻击 * 0.9 +
       player.防御 * 1.1 +
@@ -371,15 +371,15 @@ export async function get_player_img(e) {
   power = Number(power.toFixed(2))
   let power2 = (player.攻击 + player.防御 * 1.1 + player.血量上限 * 0.5) / 10000
   power2 = Number(power2.toFixed(2))
-  let level2 = data.LevelMax_list.find(
-    (item) => item.level_id == player.Physique_id
-  ).level
-  let need_exp = data.Level_list.find(
-    (item) => item.level_id == player.level_id
-  ).exp
-  let need_exp2 = data.LevelMax_list.find(
-    (item) => item.level_id == player.Physique_id
-  ).exp
+  let level2 = data
+    .LevelMax_list()
+    .find((item) => item.level_id == player.Physique_id).level
+  let need_exp = data
+    .Level_list()
+    .find((item) => item.level_id == player.level_id).exp
+  let need_exp2 = data
+    .LevelMax_list()
+    .find((item) => item.level_id == player.Physique_id).exp
   let occupation = player.occupation
   let occupation_level
   let occupation_level_name
@@ -392,13 +392,13 @@ export async function get_player_img(e) {
     occupation_need_exp = '-'
   } else {
     occupation_level = player.occupation_level
-    occupation_level_name = data.occupation_exp_list.find(
-      (item) => item.id == occupation_level
-    ).name
+    occupation_level_name = data
+      .occupation_exp_list()
+      .find((item) => item.id == occupation_level).name
     occupation_exp = player.occupation_exp
-    occupation_need_exp = data.occupation_exp_list.find(
-      (item) => item.id == occupation_level
-    ).experience
+    occupation_need_exp = data
+      .occupation_exp_list()
+      .find((item) => item.id == occupation_level).experience
   }
   let this_association
   if (!isNotNull(player.宗门)) {
@@ -425,15 +425,15 @@ export async function get_player_img(e) {
   } else {
     magic_weapon评级 = pinji[equipment.magic_weapon.pinji]
   }
-  let rank_lianqi = data.Level_list.find(
-    (item) => item.level_id == player.level_id
-  ).level
-  let expmax_lianqi = data.Level_list.find(
-    (item) => item.level_id == player.level_id
-  ).exp
-  let rank_llianti = data.LevelMax_list.find(
-    (item) => item.level_id == player.Physique_id
-  ).level
+  let rank_lianqi = data
+    .Level_list()
+    .find((item) => item.level_id == player.level_id).level
+  let expmax_lianqi = data
+    .Level_list()
+    .find((item) => item.level_id == player.level_id).exp
+  let rank_llianti = data
+    .LevelMax_list()
+    .find((item) => item.level_id == player.Physique_id).level
   let expmax_llianti = need_exp2
   let rank_liandan = occupation_level_name
   let expmax_liandan = occupation_need_exp
@@ -674,7 +674,7 @@ export async function get_ningmenghome_img(e, thing_type) {
       thing_type == '道具' ||
       thing_type == '草药'
     ) {
-      commodities_list = commodities_list.filter(
+      commodities_list = commodities_list().filter(
         (item) => item.class == thing_type
       )
     } else if (
@@ -686,7 +686,7 @@ export async function get_ningmenghome_img(e, thing_type) {
       thing_type == '血气' ||
       thing_type == '天赋'
     ) {
-      commodities_list = commodities_list.filter(
+      commodities_list = commodities_list().filter(
         (item) => item.type == thing_type
       )
     }
@@ -757,9 +757,9 @@ export async function get_association_img(e) {
     weizhi = '仙界'
   }
   //门槛
-  let level = data.Level_list.find(
-    (item) => item.level_id === ass.最低加入境界
-  ).level
+  let level = data
+    .Level_list()
+    .find((item) => item.level_id === ass.最低加入境界).level
   // 副宗主
   let fuzong = []
   for (item in ass.副宗主) {
@@ -804,7 +804,9 @@ export async function get_association_img(e) {
   }
   //计算修炼效率
   let xiulian
-  let dongTan = await data.bless_list.find((item) => item.name == ass.宗门驻地)
+  let dongTan = await data
+    .bless_list()
+    .find((item) => item.name == ass.宗门驻地)
   if (ass.宗门驻地 == 0) {
     xiulian = ass.宗门等级 * 0.05 * 100
   } else {
@@ -933,7 +935,7 @@ export async function get_state_img(e, all_level = false) {
       if (i > Level_id - 6 && i < Level_id + 6) {
         continue
       }
-      Level_list = await Level_list.filter((item) => item.level_id != i)
+      Level_list = await Level_list().filter((item) => item.level_id != i)
     }
   }
   let state_data = {
@@ -961,7 +963,7 @@ export async function get_statezhiye_img(e, all_level = false) {
       if (i > Level_id - 6 && i < Level_id + 6) {
         continue
       }
-      Level_list = await Level_list.filter((item) => item.id != i)
+      Level_list = await Level_list().filter((item) => item.id != i)
     }
   }
   let state_data = {
@@ -993,7 +995,7 @@ export async function get_statemax_img(e, all_level = false) {
       if (i > Level_id - 6 && i < Level_id + 6) {
         continue
       }
-      LevelMax_list = await LevelMax_list.filter((item) => item.level_id != i)
+      LevelMax_list = await LevelMax_list().filter((item) => item.level_id != i)
     }
   }
   let statemax_data = {
@@ -1081,9 +1083,9 @@ export async function get_adminset_img(e) {
 
 export async function get_ranking_power_img(e, Data, usr_paiming, thisplayer) {
   let user_id = e.user_id
-  let level = data.Level_list.find(
-    (item) => item.level_id == thisplayer.level_id
-  ).level
+  let level = data
+    .Level_list()
+    .find((item) => item.level_id == thisplayer.level_id).level
   let ranking_power_data = {
     user_id: user_id,
     mdz: thisplayer.魔道值,

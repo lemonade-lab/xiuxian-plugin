@@ -911,7 +911,7 @@ export class UserHome extends plugin {
         )
         return false
       }
-      let qh = data.qianghua.find((item) => item.name == thing_exist.name)
+      let qh = data.qianghua().find((item) => item.name == thing_exist.name)
       if (qh) {
         if (qh.class == '魔头' && player.魔道值 < 1000) {
           e.reply(`你还是提升点魔道值再用吧!`)
@@ -966,7 +966,7 @@ export class UserHome extends plugin {
       this.finish('DUIHUAN')
       return false
     } else if (les == '兑换') {
-      let ifexist2 = data.bapin.find((item) => item.name == gonfa)
+      let ifexist2 = data.bapin().find((item) => item.name == gonfa)
       if (ifexist2) {
         await Add_najie_thing(user_id, '残卷', '道具', -10)
         await Add_najie_thing(user_id, gonfa, 'skill', 1)
@@ -995,7 +995,9 @@ export class UserHome extends plugin {
     thing = thing.replace('购买', '')
     let code = thing.split('*')
     let thing_name = code[0]
-    let ifexist = data.commodities_list.find((item) => item.name == thing_name)
+    let ifexist = data
+      .commodities_list()
+      .find((item) => item.name == thing_name)
     if (!ifexist) {
       e.reply(`柠檬堂还没有这样the东西:${thing_name}`)
       return false
@@ -1131,7 +1133,9 @@ export class UserHome extends plugin {
     let commodities_price
     commodities_price = thing_exist.出售价 * thing_amount
     if (
-      data.zalei.find((item) => item.name == thing_name.replace(/[0-9]+/g, ''))
+      data
+        .zalei()
+        .find((item) => item.name == thing_name.replace(/[0-9]+/g, ''))
     ) {
       let sell = najie.装备.find(
         (item) => item.name == thing_name && thing_piji == item.pinji

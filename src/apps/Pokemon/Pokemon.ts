@@ -54,7 +54,7 @@ export class Pokemon extends plugin {
       e.reply('你已经与' + player.仙宠.name + '绑定了灵魂,无法更换别the仙宠！')
       return false
     }
-    let thing = data.xianchon.find((item) => item.name == name) //查找仙宠
+    let thing = data.xianchon().find((item) => item.name == name) //查找仙宠
     if (!isNotNull(thing)) {
       e.reply('这方世界不存在' + name)
       return false
@@ -131,7 +131,7 @@ export class Pokemon extends plugin {
     let last_jiachen = player.仙宠.加成
     if (player_level == list_level[x]) {
       //判断是否满级
-      let thing = data.xianchon.find((item) => item.id == player.仙宠.id + 1) //查找下个等级仙宠
+      let thing = data.xianchon().find((item) => item.id == player.仙宠.id + 1) //查找下个等级仙宠
       console.log(thing)
       player.仙宠 = thing
       player.仙宠.等级 = player_level //赋值之前the等级
@@ -162,7 +162,9 @@ export class Pokemon extends plugin {
     let code = thing.split('*')
     let thing_name = code[0] //物品
     let thing_value = await convert2integer(code[1]) //数量
-    let ifexist = data.xianchonkouliang.find((item) => item.name == thing_name) //查找
+    let ifexist = data
+      .xianchonkouliang()
+      .find((item) => item.name == thing_name) //查找
     if (!isNotNull(ifexist)) {
       e.reply('此乃凡物,仙宠不吃' + thing_name)
       return false

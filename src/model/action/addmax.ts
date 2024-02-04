@@ -1,4 +1,4 @@
-import { isNotNull, shijianc } from '../utils'
+import { isNotNull, shijianc } from '../utils/utils'
 import { data } from '../base/data'
 import { Read_danyao, Read_najie, Read_player } from './read'
 import { Write_najie } from './write'
@@ -75,7 +75,7 @@ export async function Add_najie_thing(
   } else if (thing_class == '仙宠') {
     if (x > 0) {
       if (typeof name != 'object') {
-        let thing = data.xianchon.find((item) => item.name == name)
+        let thing = data.xianchon().find((item) => item.name == name)
         if (thing) {
           thing = JSON.parse(JSON.stringify(thing))
           thing.数量 = x
@@ -158,9 +158,9 @@ export async function player_efficiency(user_id) {
     if (ass.宗门驻地 == 0) {
       Assoc_efficiency = ass.宗门等级 * 0.05
     } else {
-      let dongTan = await data.bless_list.find(
-        (item) => item.name == ass.宗门驻地
-      )
+      let dongTan = await data
+        .bless_list()
+        .find((item) => item.name == ass.宗门驻地)
       try {
         Assoc_efficiency = ass.宗门等级 * 0.05 + dongTan.efficiency
       } catch {

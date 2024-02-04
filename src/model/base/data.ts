@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
-import { __PATH as __path } from './PATH.js'
-import { getConfig } from '../utils.js'
+import { __PATH } from './PATH.js'
+import { getConfig } from '../utils/utils.js'
 
 /**
  * tudo
@@ -15,147 +15,223 @@ import { getConfig } from '../utils.js'
  *
  */
 class XiuxianData {
-  __PATH = __path
-
   /**
    * lib_path
    * @param name
    * @returns
    */
-  getPathData(name: string, path = this.__PATH.lib) {
+  getPathData(name: string, path = __PATH.lib) {
     return JSON.parse(readFileSync(`${path}/${name}.json`, 'utf-8'))
   }
 
   test = getConfig('task', 'task')
 
   //加载talent列表
-  talent_list = this.getPathData('灵根列表')
+  talent_list = () => {
+    return this.getPathData('灵根列表')
+  }
   //加载怪物列表
-  monster_list = this.getPathData('怪物列表')
+  monster_list = () => {
+    return this.getPathData('怪物列表')
+  }
   //加载商品列表
-  commodities_list = this.getPathData('商品列表')
+  commodities_list = () => {
+    return this.getPathData('商品列表')
+  }
   //练气境界
-  Level_list = this.getPathData('练气境界')
+  Level_list = () => {
+    return this.getPathData('练气境界')
+  }
   //师徒积分
-  shitujifen = this.getPathData('积分商城')
+  shitujifen = () => {
+    return this.getPathData('积分商城')
+  }
   //练体境界
-  LevelMax_list = this.getPathData('炼体境界')
+  LevelMax_list = () => {
+    return this.getPathData('炼体境界')
+  }
   //加载装备列表
-  equipment_list = this.getPathData('装备列表')
+  equipment_list = () => {
+    return this.getPathData('装备列表')
+  }
   //加载丹药列表
-  danyao_list = this.getPathData('丹药列表')
+  danyao_list = () => {
+    return this.getPathData('丹药列表')
+  }
   //加载炼丹师丹药列表
-  newdanyao_list = this.getPathData('炼丹师丹药')
+  newdanyao_list = () => {
+    return this.getPathData('炼丹师丹药')
+  }
   //加载道具列表
-  daoju_list = this.getPathData('道具列表')
+  daoju_list = () => {
+    return this.getPathData('道具列表')
+  }
   //加载功法列表
-  gongfa_list = this.getPathData('功法列表')
+  gongfa_list = () => {
+    return this.getPathData('功法列表')
+  }
 
   //加载草药列表
-  caoyao_list = this.getPathData('草药列表')
+  caoyao_list = () => {
+    return this.getPathData('草药列表')
+  }
 
   //加载地点列表
-  didian_list = this.getPathData('地点列表')
+  didian_list = () => {
+    return this.getPathData('地点列表')
+  }
 
   //加载洞天福地列表
-  bless_list = this.getPathData('洞天福地')
+  bless_list = () => {
+    return this.getPathData('洞天福地')
+  }
   //加载宗门秘境
-  guildSecrets_list = this.getPathData('宗门秘境')
+  guildSecrets_list = () => {
+    return this.getPathData('宗门秘境')
+  }
   //加载禁地列表
-  forbiddenarea_list = this.getPathData('禁地列表')
+  forbiddenarea_list = () => {
+    return this.getPathData('禁地列表')
+  }
   //加载仙域列表
-  Fairyrealm_list = this.getPathData('仙境列表')
+  Fairyrealm_list = () => {
+    return this.getPathData('仙境列表')
+  }
 
   //加载八品功法列表
-  bapin = this.getPathData('八品')
+  bapin = () => {
+    return this.getPathData('八品')
+  }
   //加载星阁列表
-  xingge = this.getPathData('星阁拍卖行列表')
+  xingge = () => {
+    return this.getPathData('星阁拍卖行列表')
+  }
   //天地
-  tianditang = this.getPathData('天地堂')
+  tianditang = () => {
+    return this.getPathData('天地堂')
+  }
   //仙宠
-  changzhuxianchon = this.getPathData('常驻仙宠')
+  changzhuxianchon = () => {
+    return this.getPathData('常驻仙宠')
+  }
 
-  xianchon = this.getPathData('仙宠列表')
+  xianchon = () => {
+    return this.getPathData('仙宠列表')
+  }
 
-  xianchonkouliang = this.getPathData('仙宠口粮列表')
+  xianchonkouliang = () => {
+    return this.getPathData('仙宠口粮列表')
+  }
 
   //npc
-  npc_list = this.getPathData('npc列表')
+  npc_list = () => {
+    return this.getPathData('npc列表')
+  }
   //
-  shop_list = this.getPathData('shop列表')
-
+  shop_list = () => {
+    return this.getPathData('shop列表')
+  }
   //魔界
-  mojie = this.getPathData('魔界列表')
-
+  mojie = () => {
+    return this.getPathData('魔界列表')
+  }
   //兑换码
-  duihuan = this.getPathData('兑换列表')
-
+  duihuan = () => {
+    return this.getPathData('兑换列表')
+  }
   //神界
-  shenjie = this.getPathData('神界列表')
-
+  shenjie = () => {
+    return this.getPathData('神界列表')
+  }
   //加载技能列表
-  jineng1 = this.getPathData('技能列表1')
-
-  jineng2 = this.getPathData('技能列表2')
-
+  jineng1 = () => {
+    return this.getPathData('技能列表1')
+  }
+  jineng2 = () => {
+    return this.getPathData('技能列表2')
+  }
   //加载强化列表
-  qianghua = this.getPathData('强化列表')
-
+  qianghua = () => {
+    return this.getPathData('强化列表')
+  }
   //锻造材料列表
-  duanzhaocailiao = this.getPathData('锻造材料')
-
+  duanzhaocailiao = () => {
+    return this.getPathData('锻造材料')
+  }
   //锻造武器列表
-  duanzhaowuqi = this.getPathData('锻造武器')
+  duanzhaowuqi = () => {
+    return this.getPathData('锻造武器')
+  }
   //锻造护具列表
-  duanzhaohuju = this.getPathData('锻造护具')
+  duanzhaohuju = () => {
+    return this.getPathData('锻造护具')
+  }
   //锻造宝物列表
-  duanzhaobaowu = this.getPathData('锻造宝物')
+  duanzhaobaowu = () => {
+    return this.getPathData('锻造宝物')
+  }
   //hide_talent列表
-  yincang = this.getPathData('隐藏灵根')
+  yincang = () => {
+    return this.getPathData('隐藏灵根')
+  }
   //锻造杂类列表
-  zalei = this.getPathData('锻造杂类')
+  zalei = () => {
+    return this.getPathData('锻造杂类')
+  }
   //加载技能列表
-  jineng = this.getPathData('技能列表')
-
+  jineng = () => {
+    return this.getPathData('技能列表')
+  }
   //加载限定仙府
-  timeplace_list = this.getPathData('限定仙府', this.__PATH.Timelimit)
-
+  timeplace_list = () => {
+    return this.getPathData('限定仙府', __PATH.Timelimit)
+  }
   //加载限定功法
 
-  timegongfa_list = this.getPathData('限定功法', this.__PATH.Timelimit)
-
+  timegongfa_list = () => {
+    return this.getPathData('限定功法', __PATH.Timelimit)
+  }
   //加载限定装备
-  timeequipmen_list = this.getPathData('限定装备', this.__PATH.Timelimit)
-
+  timeequipmen_list = () => {
+    return this.getPathData('限定装备', __PATH.Timelimit)
+  }
   //加载限定丹药
-  timedanyao_list = this.getPathData('限限定丹药定装备', this.__PATH.Timelimit)
-
-  qinlong = this.getPathData('青龙', this.__PATH.Timelimit)
-
-  qilin = this.getPathData('麒麟', this.__PATH.Timelimit)
-
-  xuanwu = this.getPathData('玄武朱雀白虎', this.__PATH.Timelimit)
-
+  timedanyao_list = () => {
+    return this.getPathData('限限定丹药定装备', __PATH.Timelimit)
+  }
+  qinlong = () => {
+    return this.getPathData('青龙', __PATH.Timelimit)
+  }
+  qilin = () => {
+    return this.getPathData('麒麟', __PATH.Timelimit)
+  }
+  xuanwu = () => {
+    return this.getPathData('玄武朱雀白虎', __PATH.Timelimit)
+  }
   //加载职业列表
-  occupation_list = this.getPathData('职业列表', this.__PATH.occupation)
-
+  occupation_list = () => {
+    return this.getPathData('职业列表', __PATH.occupation)
+  }
   //加载职业经验列表
-  occupation_exp_list = this.getPathData('experience', this.__PATH.occupation)
-
+  occupation_exp_list = () => {
+    return this.getPathData('experience', __PATH.occupation)
+  }
   //加载丹方列表
 
-  danfang_list = this.getPathData('炼丹配方', this.__PATH.occupation)
-
+  danfang_list = () => {
+    return this.getPathData('炼丹配方', __PATH.occupation)
+  }
   //加载图纸列表
-  tuzhi_list = this.getPathData('装备图纸', this.__PATH.occupation)
-
+  tuzhi_list = () => {
+    return this.getPathData('装备图纸', __PATH.occupation)
+  }
   /**
    * 检测存档存在
    * @param file_path_type ["player" , "association" ]
    * @param file_name
    */
   existData(file_path_type, file_name) {
-    if (existsSync(join(`${this.__PATH[file_path_type]}/${file_name}.json`))) {
+    if (existsSync(join(`${__PATH[file_path_type]}/${file_name}.json`))) {
       return true
     }
     return false
@@ -171,11 +247,11 @@ class XiuxianData {
     let dir
     if (user_id) {
       //带user_idthe查询数据文件
-      file_path = this.__PATH[file_name]
+      file_path = __PATH[file_name]
       dir = join(file_path + '/' + user_id + '.json')
     } else {
       //不带参数the查询item下文件
-      file_path = this.__PATH.lib
+      file_path = __PATH.lib
       dir = join(file_path + '/' + file_name + '.json')
     }
     try {
@@ -197,10 +273,10 @@ class XiuxianData {
     let file_path
     let dir
     if (user_id) {
-      file_path = this.__PATH[file_name]
+      file_path = __PATH[file_name]
       dir = join(file_path + '/' + user_id + '.json')
     } else {
-      file_path = this.__PATH.lib
+      file_path = __PATH.lib
       dir = join(file_path + '/' + file_name + '.json')
     }
     if (existsSync(dir)) {
@@ -218,7 +294,7 @@ class XiuxianData {
       //将字符串数据转变成json格式
       return JSON.parse(
         readFileSync(
-          join(this.__PATH.association + '/' + file_name + '.json'),
+          join(__PATH.association + '/' + file_name + '.json'),
           'utf8'
         )
       )
@@ -235,7 +311,7 @@ class XiuxianData {
    */
   setAssociation(file_name, data) {
     return writeFileSync(
-      join(`${this.__PATH.association}/${file_name}.json`),
+      join(`${__PATH.association}/${file_name}.json`),
       JSON.stringify(data),
       'utf-8'
     )

@@ -6,7 +6,8 @@ import {
   Harm,
   zd_battle,
   getConfig,
-  data
+  data,
+  __PATH
 } from '../../model/index.js'
 import { common, plugin } from '../../../import.js'
 let WorldBOSSBattleCD = [] //CD
@@ -500,7 +501,7 @@ async function sleep(time) {
 
 //获取玩家平均实力和化神以上人数
 async function GetAverageDamage() {
-  let File = readdirSync(data.__PATH.player)
+  let File = readdirSync(__PATH.player)
   File = File.filter((file) => file.endsWith('.json'))
   let temp = []
   let TotalPlayer = 0
@@ -508,9 +509,9 @@ async function GetAverageDamage() {
     let this_qq = File[i].replace('.json', '')
     this_qq = this_qq
     let player = await data.getData('player', this_qq)
-    let level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (level_id >= 42) {
       temp[TotalPlayer] = parseInt(player.攻击)
       console.error(`[妖王] ${this_qq}玩家攻击:${temp[TotalPlayer]}`)

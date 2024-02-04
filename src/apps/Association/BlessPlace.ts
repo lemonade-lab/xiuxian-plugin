@@ -12,7 +12,8 @@ import {
   Go,
   data,
   宗门money池上限,
-  getConfig
+  getConfig,
+  __PATH
 } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class BlessPlace extends plugin {
@@ -95,9 +96,9 @@ export class BlessPlace extends plugin {
     let blessed_name = e.msg.replace('#入驻洞天', '')
     blessed_name = blessed_name.trim()
     //洞天不存在
-    let dongTan = await data.bless_list.find(
-      (item) => item.name == blessed_name
-    )
+    let dongTan = await data
+      .bless_list()
+      .find((item) => item.name == blessed_name)
     if (!dongTan) return false
 
     if (ass.宗门驻地 == blessed_name) {
@@ -107,7 +108,7 @@ export class BlessPlace extends plugin {
 
     //洞天是否已绑定宗门
 
-    let dir = data.__PATH.association
+    let dir = __PATH.association
     let File = readdirSync(dir)
     File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
 
@@ -239,11 +240,11 @@ export class BlessPlace extends plugin {
     await redis.set('xiuxian@1.4.0:' + user_id + ':getLastsign_Explor', nowTime) //redis设置签到时间
 
     //给奖励
-    let dongTan = await data.bless_list.find(
-      (item) => item.name == ass.宗门驻地
-    )
+    let dongTan = await data
+      .bless_list()
+      .find((item) => item.name == ass.宗门驻地)
     if (!dongTan)
-      dongTan = await data.bless_list.find((item) => item.name == '昆仑山')
+      dongTan = await data.bless_list().find((item) => item.name == '昆仑山')
     let gift_lingshi = 0
     if (ass.宗门神兽 == '麒麟') {
       gift_lingshi = (1200 * (dongTan.level + 1) * player.level_id) / 2
@@ -291,9 +292,9 @@ export class BlessPlace extends plugin {
     }
     let didian = e.msg.replace('#探索宗门秘境', '')
     didian = didian.trim()
-    let weizhi = await data.guildSecrets_list.find(
-      (item) => item.name == didian
-    )
+    let weizhi = await data
+      .guildSecrets_list()
+      .find((item) => item.name == didian)
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -357,9 +358,9 @@ export class BlessPlace extends plugin {
     didian = code[0]
     let i = await convert2integer(code[1])
     if (i > 12) return false
-    let weizhi = await data.guildSecrets_list.find(
-      (item) => item.name == didian
-    )
+    let weizhi = await data
+      .guildSecrets_list()
+      .find((item) => item.name == didian)
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -465,7 +466,7 @@ async function getLastsign_Explor(user_id) {
  * 地点查询
  */
 async function GoBlessPlace(e, weizhi, addres) {
-  let dir = data.__PATH.association
+  let dir = __PATH.association
   let File = readdirSync(dir)
   File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
   let adr = addres

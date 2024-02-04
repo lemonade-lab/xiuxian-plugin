@@ -10,7 +10,8 @@ import {
   get_player_img,
   Read_player,
   __PATH,
-  data
+  data,
+  Redis
 } from '../../model/index.js'
 import { type Message, plugin } from '../../../import.js'
 export class AdminSuper extends plugin {
@@ -67,7 +68,7 @@ export class AdminSuper extends plugin {
         }
       }
     }
-    rmSync(`${data.__PATH.association}/${didian}.json`)
+    rmSync(`${__PATH.association}/${didian}.json`)
     e.reply('解散成功!')
     return false
   }
@@ -125,13 +126,14 @@ export class AdminSuper extends plugin {
     }
     for (let player_id of playerList) {
       //清除游戏状态
-      await redis.set('xiuxian@1.4.0:' + player_id + ':game_action', 1)
-      const action = JSON.parse(
-        await redis.get('xiuxian@1.4.0:' + player_id + ':action')
-      )
+      await Redis.set(player_id, 'game_action', '1')
+      //
+      const action = await Redis.getJSON(player_id, 'action')
+
       //不为空，存在动作
       if (action != null) {
-        await redis.del('xiuxian@1.4.0:' + player_id + ':action')
+        await Redis.del(player_id, 'action')
+
         action.is_jiesuan = 1 //结算状态
         action.shutup = 1 //闭关状态
         action.working = 1 //降妖状态
@@ -139,11 +141,10 @@ export class AdminSuper extends plugin {
         action.Place_action = 1 //秘境
         action.Place_actionplus = 1 //沉迷状态
         action.end_time = new Date().getTime() //结束the时间也修改为当前时间
+
         delete action.group_id //结算完去除group_id
-        await redis.set(
-          'xiuxian@1.4.0:' + player_id + ':action',
-          JSON.stringify(action)
-        )
+
+        await Redis.setJSON(player_id, action, action)
       }
     }
     e.reply('行动结束！')
@@ -162,12 +163,11 @@ export class AdminSuper extends plugin {
     //检查存档
     let ifexistplay = await existplayer(qq)
     if (!ifexistplay) return false
+
     //清除游戏状态
-    await redis.set('xiuxian@1.4.0:' + qq + ':game_action', 1)
+    await Redis.set(qq, 'game_action', '1')
     //查询redis中the人物动作
-    const action = JSON.parse(
-      await redis.get('xiuxian@1.4.0:' + qq + ':action')
-    )
+    const action = await Redis.getJSON(qq, 'action')
     //不为空，有状态
     if (action != null) {
       //把状态都关了

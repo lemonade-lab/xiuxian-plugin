@@ -72,13 +72,13 @@ export class PlayerControlTask extends plugin {
           if (now_time > end_time) {
             log_mag += '当前人物未结算，结算状态'
             let player = data.getData('player', player_id)
-            let now_level_id
+
             if (!isNotNull(player.level_id)) {
               return false
             }
-            now_level_id = data.Level_list.find(
-              (item) => item.level_id == player.level_id
-            ).level_id
+            let now_level_id = data
+              .Level_list()
+              .find((item) => item.level_id == player.level_id).level_id
             let size = cf.biguan.size
             let xiuwei =
               size *
@@ -217,13 +217,14 @@ export class PlayerControlTask extends plugin {
             //现在大于结算时间，即为结算
             log_mag = log_mag + '当前人物未结算，结算状态'
             let player = data.getData('player', player_id)
-            let now_level_id
+
             if (!isNotNull(player.level_id)) {
               return false
             }
-            now_level_id = data.Level_list.find(
-              (item) => item.level_id == player.level_id
-            ).level_id
+
+            let now_level_id = data
+              .Level_list()
+              .find((item) => item.level_id == player.level_id).level_id
             let size = cf.work.size
             let lingshi =
               size *

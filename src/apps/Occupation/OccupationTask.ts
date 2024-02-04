@@ -144,9 +144,9 @@ export class OccupationTask extends plugin {
             //以下1到5为每种the数量
             let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time) //(1.8+随机0到0.4)x时间(分钟)
             let rate =
-              data.occupation_exp_list.find(
-                (item) => item.id == player.occupation_level
-              ).rate * 10
+              data
+                .occupation_exp_list()
+                .find((item) => item.id == player.occupation_level).rate * 10
             let exp = 0
             let ext = ''
             exp = time * 10

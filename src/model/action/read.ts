@@ -2,7 +2,7 @@ import { copyFileSync, readFileSync } from 'fs'
 import { join } from 'path'
 import { __PATH } from '../base/PATH.js'
 import { Write_duanlu } from './write.js'
-import { shijianc } from '../utils.js'
+import { shijianc } from '../utils/utils.js'
 
 /**
  *

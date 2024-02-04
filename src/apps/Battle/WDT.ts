@@ -74,9 +74,9 @@ export class WDT extends plugin {
       e.reply('请先#同步信息')
       return
     }
-    now_level_idAA = data.Level_list.find(
-      (item) => item.level_id == playerAA.level_id
-    ).level_id
+    now_level_idAA = data
+      .Level_list()
+      .find((item) => item.level_id == playerAA.level_id).level_id
 
     //对方
     //读取信息
@@ -84,16 +84,14 @@ export class WDT extends plugin {
     //境界
     //根据名字取找境界id
 
-    let now_level_idBB
-
     if (!isNotNull(playerBB.level_id)) {
       e.reply('对方为错误存档！')
       return
     }
 
-    now_level_idBB = data.Level_list.find(
-      (item) => item.level_id == playerBB.level_id
-    ).level_id
+    let now_level_idBB = data
+      .Level_list()
+      .find((item) => item.level_id == playerBB.level_id).level_id
 
     if (A == B) {
       e.reply('咋the，自娱自乐？')

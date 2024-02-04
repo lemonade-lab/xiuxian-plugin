@@ -114,7 +114,7 @@ export class SecretPlace extends plugin {
     let player = await Read_player(user_id)
     let didian = e.msg.replace('#降临秘境', '')
     didian = didian.trim()
-    let weizhi = await data.didian_list.find((item) => item.name == didian)
+    let weizhi = await data.didian_list().find((item) => item.name == didian)
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -172,7 +172,7 @@ export class SecretPlace extends plugin {
       return false
     }
     let player = await Read_player(user_id)
-    let now_level_id
+
     if (!isNotNull(player.level_id)) {
       e.reply('请先#同步信息')
       return false
@@ -181,18 +181,18 @@ export class SecretPlace extends plugin {
       e.reply('请#同步信息')
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (now_level_id < 22) {
       e.reply('没有达到化神之前还是不要去了')
       return false
     }
     let didian = await e.msg.replace('#前往禁地', '')
     didian = didian.trim()
-    let weizhi = await data.forbiddenarea_list.find(
-      (item) => item.name == didian
-    )
+    let weizhi = await data
+      .forbiddenarea_list()
+      .find((item) => item.name == didian)
     // if (player.power_place == 0 && weizhi.id != 666) {
     //     e.reply("仙人不得下凡")
     //     return  false;
@@ -252,7 +252,7 @@ export class SecretPlace extends plugin {
     await sleep(1000)
     e.reply('你在冲水堂发现有人上架了一份仙府地图')
     let didian = didianlist[suiji] //赋值
-    let now_level_id
+
     if (!isNotNull(player.level_id)) {
       e.reply('请先#同步信息')
       return false
@@ -270,14 +270,14 @@ export class SecretPlace extends plugin {
       await Add_money(user_id, -50000)
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (now_level_id < 21) {
       e.reply('到了地图上the地点，结果你发现,你尚未达到化神,无法抵御灵气压制')
       return false
     }
-    let weizhi = await data.timeplace_list.find((item) => item.name == didian)
+    let weizhi = await data.timeplace_list().find((item) => item.name == didian)
     if (!isNotNull(weizhi)) {
       e.reply('报错！地点错误，请找群主反馈')
       return false
@@ -357,7 +357,9 @@ export class SecretPlace extends plugin {
     let player = await Read_player(user_id)
     let didian = e.msg.replace('#镇守仙境', '')
     didian = didian.trim()
-    let weizhi = await data.Fairyrealm_list.find((item) => item.name == didian)
+    let weizhi = await data
+      .Fairyrealm_list()
+      .find((item) => item.name == didian)
     if (!isNotNull(weizhi)) {
       return false
     }
@@ -365,10 +367,10 @@ export class SecretPlace extends plugin {
       e.reply('没有money寸步难行,攒到' + weizhi.Price + 'money才够哦~')
       return false
     }
-    let now_level_id
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (now_level_id < 42 && player.lunhui == 0) {
       return false
     }

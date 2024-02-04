@@ -90,7 +90,7 @@ export class Games extends plugin {
     //全局状态判断
     //得到用户信息
     let player = await Read_player(user_id)
-    let now_level_id
+
     if (!isNotNull(player.level_id)) {
       e.reply('请先#同步信息')
       return false
@@ -99,9 +99,9 @@ export class Games extends plugin {
     if (!flag) {
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     //用id当作收益用
     //收益用
     let money = now_level_id * 1000

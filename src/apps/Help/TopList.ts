@@ -195,9 +195,9 @@ export class TopList extends plugin {
         return false
       }
       //境界名字需要查找境界名
-      let level = data.Level_list.find(
-        (item) => item.level_id == player.level_id
-      ).level
+      let level = data
+        .Level_list()
+        .find((item) => item.level_id == player.level_id).level
       temp[i] = {
         总now_exp: sum_exp,
         境界: level,

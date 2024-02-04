@@ -11,10 +11,11 @@ import {
   getConfig,
   宗门money池上限,
   Show,
-  isNotNull
+  isNotNull,
+  __PATH
 } from '../../model/index.js'
 import { plugin, puppeteer } from '../../../import.js'
-import { sortBy } from '../../model/utils.js'
+import { sortBy } from '../../model/utils/utils.js'
 export class Association extends plugin {
   constructor() {
     super({
@@ -137,9 +138,9 @@ export class Association extends plugin {
       return false
     }
     let ass = data.getAssociation(association_name)
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (now_level_id >= 42 && ass.power == 0) {
       e.reply('仙人不可下界！')
       return false
@@ -150,9 +151,9 @@ export class Association extends plugin {
     }
 
     if (ass.最低加入境界 > now_level_id) {
-      let level = data.Level_list.find(
-        (item) => item.level_id === ass.最低加入境界
-      ).level
+      let level = data
+        .Level_list()
+        .find((item) => item.level_id === ass.最低加入境界).level
       e.reply(
         `${association_name}招收弟子the最低境界要求为:${level},当前未达到要求`
       )
@@ -217,7 +218,7 @@ export class Association extends plugin {
     } else {
       let ass = data.getAssociation(player.宗门.宗门名称)
       if (ass.所有成员.length < 2) {
-        rmSync(`${data.__PATH.association}/${player.宗门.宗门名称}.json`)
+        rmSync(`${__PATH.association}/${player.宗门.宗门名称}.json`)
         delete player.宗门 //删除存档里the宗门信息
         data.setData('player', user_id, player)
         await player_efficiency(user_id)
@@ -352,7 +353,7 @@ export class Association extends plugin {
     let user_id = e.user_id
     let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return
-    let dir = data.__PATH.association
+    let dir = __PATH.association
     let File = readdirSync(dir)
     File = File.filter((file) => file.endsWith('.json')) //这个数组内容是所有the宗门名称
     let temp = []
@@ -368,9 +369,9 @@ export class Association extends plugin {
       if (this_ass.宗门驻地 == 0) {
         this_ass_xiuxian = this_ass.宗门等级 * 0.05 * 100
       } else {
-        let dongTan = await data.bless_list.find(
-          (item) => item.name == this_ass.宗门驻地
-        )
+        let dongTan = await data
+          .bless_list()
+          .find((item) => item.name == this_ass.宗门驻地)
         try {
           this_ass_xiuxian =
             this_ass.宗门等级 * 0.05 * 100 + dongTan.efficiency * 100
@@ -393,9 +394,9 @@ export class Association extends plugin {
       } else {
         power = '仙界'
       }
-      let level = data.Level_list.find(
-        (item) => item.level_id == this_ass.最低加入境界
-      ).level
+      let level = data
+        .Level_list()
+        .find((item) => item.level_id == this_ass.最低加入境界).level
       let arr = {
         宗名: this_ass.宗门名称,
         人数: this_ass.所有成员.length,

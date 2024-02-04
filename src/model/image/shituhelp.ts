@@ -1,5 +1,5 @@
 import base from './base.js'
-import { getConfig } from '../utils.js'
+import { getConfig } from '../utils/utils.js'
 export default class Help2 extends base {
   model = null
   constructor() {

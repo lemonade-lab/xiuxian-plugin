@@ -1,6 +1,6 @@
 import { parse } from 'yaml'
 import { readFileSync } from 'fs'
-import { cwd } from '../../config.js'
+import { cwd } from '../../../config.js'
 
 /**
  *
@@ -22,7 +22,11 @@ export function isNotNull(obj) {
   return true
 }
 
-//对象数组排序
+/**
+ * 对象数组排序
+ * @param field
+ * @returns
+ */
 export function sortBy(field) {
   //从大到小,b和a反一下就是从小到大
   return function (b, a) {
@@ -30,14 +34,22 @@ export function sortBy(field) {
   }
 }
 
-//sleep
+/**
+ * sleep
+ * @param time
+ * @returns
+ */
 export async function sleep(time) {
   return new Promise((resolve) => {
     setTimeout(resolve, time)
   })
 }
 
-// 格式化时间显示
+/**
+ * 格式化时间显示
+ * @param timeStamp
+ * @returns
+ */
 export function getTimeStr(timeStamp) {
   return new Intl.DateTimeFormat('zh-CN', {
     second: '2-digit',

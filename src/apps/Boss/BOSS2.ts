@@ -6,10 +6,11 @@ import {
   Harm,
   zd_battle,
   data,
-  getConfig
+  getConfig,
+  __PATH
 } from '../../model/index.js'
 import { common, plugin } from '../../../import.js'
-import { sleep } from '../../model/utils.js'
+import { sleep } from '../../model/utils/utils.js'
 let WorldBOSSBattleCD = [] //CD
 let WorldBOSSBattleLock = null //BOSS战斗锁，防止打架频率过高造成奖励多发
 let WorldBOSSBattleUnLockTimer = null //防止战斗锁因意外锁死
@@ -500,7 +501,7 @@ async function SetWorldBOSSBattleUnLockTimer(e) {
 
 //获取玩家平均实力和化神以上人数
 async function GetAverageDamage() {
-  let File = readdirSync(data.__PATH.player)
+  let File = readdirSync(__PATH.player)
   File = File.filter((file) => file.endsWith('.json'))
   let temp = []
   let TotalPlayer = 0

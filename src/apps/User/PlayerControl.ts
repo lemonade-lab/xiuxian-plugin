@@ -359,9 +359,9 @@ export class PlayerControl extends plugin {
     if (!isNotNull(player.level_id)) {
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     //闭关收益倍率计算 倍率*境界id*天赋*时间
     const cf = getConfig('xiuxian', 'xiuxian')
     let size = cf.biguan.size
@@ -494,13 +494,12 @@ export class PlayerControl extends plugin {
    */
   async dagong_jiesuan(user_id, time, is_random, group_id = undefined) {
     let player = data.getData('player', user_id)
-    let now_level_id
     if (!isNotNull(player.level_id)) {
       return false
     }
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     const cf = getConfig('xiuxian', 'xiuxian')
     let size = cf.work.size
     let lingshi =

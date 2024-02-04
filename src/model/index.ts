@@ -13,6 +13,7 @@ export * from './action/addmax.js'
 export * from './action/update.js'
 export * from './action/duanzaofu.js'
 //
-export * from './utils.js'
+export * from './utils/utils.js'
+export * from './utils/redis.js'
 
 export * from './bot.js'

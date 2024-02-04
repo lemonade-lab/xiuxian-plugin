@@ -1,5 +1,5 @@
 import base from './base.js'
-import { getConfig } from '../utils.js'
+import { getConfig } from '../utils/utils.js'
 export default class Help extends base {
   constructor() {
     super()

@@ -67,10 +67,9 @@ export class AssociationAdmin extends plugin {
     let ifexistplay = data.existData('player', user_id)
     if (!ifexistplay) return false
     let player = data.getData('player', user_id)
-    let now_level_id
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    let now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
 
     if (now_level_id < 22) {
       e.reply('now_exp达到化神再来吧')
@@ -381,12 +380,12 @@ export class AssociationAdmin extends plugin {
       e.reply('只有宗主、副宗主或长老可以操作')
       return false
     }
-    let jiar = e.msg.replace('#设置门槛', '')
-    jiar = jiar.trim()
-    if (!data.Level_list.some((item) => item.level == jiar)) return false
-    let jr_level_id = data.Level_list.find(
-      (item) => item.level == jiar
-    ).level_id
+    let jiar = e.msg.replace('#设置门槛', '').trim()
+
+    const Level_list = data.Level_list()
+
+    if (!Level_list.some((item) => item.level == jiar)) return false
+    let jr_level_id = Level_list.find((item) => item.level == jiar).level_id
     let ass = data.getAssociation(player.宗门.宗门名称)
     if (ass.power == 0 && jr_level_id > 41) {
       jr_level_id = 41
@@ -595,9 +594,9 @@ export class AssociationAdmin extends plugin {
 async function new_Association(name, holder_qq, e) {
   let user_id = e.user_id
   let player = data.getData('player', user_id)
-  let now_level_id = data.Level_list.find(
-    (item) => item.level_id == player.level_id
-  ).level_id
+  let now_level_id = data
+    .Level_list()
+    .find((item) => item.level_id == player.level_id).level_id
   let x
   let xian
   let dj

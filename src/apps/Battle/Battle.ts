@@ -82,13 +82,16 @@ export class Battle extends plugin {
     //出手the
     //读取信息
     let playerAA = await Read_player(A)
-    //境界
-    let now_level_idAA
+
+    const Level_list = data.Level_list()
+
     if (!isNotNull(playerAA.level_id)) {
       e.reply('请先#同步信息')
       return false
     }
-    now_level_idAA = data.Level_list.find(
+
+    //境界
+    let now_level_idAA = Level_list.find(
       (item) => item.level_id == playerAA.level_id
     ).level_id
 
@@ -105,7 +108,7 @@ export class Battle extends plugin {
       return false
     }
 
-    now_level_idBB = data.Level_list.find(
+    now_level_idBB = Level_list.find(
       (item) => item.level_id == playerBB.level_id
     ).level_id
 

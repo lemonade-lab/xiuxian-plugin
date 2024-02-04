@@ -116,7 +116,7 @@ export class Occupation extends plugin {
       return false
     }
     let occupation = e.msg.replace('#猎户转', '')
-    let x = data.occupation_list.find((item) => item.name == occupation)
+    let x = data.occupation_list().find((item) => item.name == occupation)
     if (!isNotNull(x)) {
       e.reply(`没有[${occupation}]这项职业`)
       return false
@@ -138,15 +138,15 @@ export class Occupation extends plugin {
     let occupation = e.msg.replace('#转职', '')
     let player = await Read_player(user_id)
     let player_occupation = player.occupation
-    let x = data.occupation_list.find((item) => item.name == occupation)
+    let x = data.occupation_list().find((item) => item.name == occupation)
     if (!isNotNull(x)) {
       e.reply(`没有[${occupation}]这项职业`)
       return false
     }
     let now_level_id
-    now_level_id = data.Level_list.find(
-      (item) => item.level_id == player.level_id
-    ).level_id
+    now_level_id = data
+      .Level_list()
+      .find((item) => item.level_id == player.level_id).level_id
     if (now_level_id < 17 && occupation == '采矿师') {
       e.reply('包工头:就你这小身板还来挖矿？再去修炼几年吧')
       return false
@@ -612,9 +612,9 @@ export class Occupation extends plugin {
     let msg: any[] = [segment.at(user_id)]
     let mine_amount1 = Math.floor((1.8 + Math.random() * 0.4) * time)
     let rate =
-      data.occupation_exp_list.find(
-        (item) => item.id == player.occupation_level
-      ).rate * 10
+      data
+        .occupation_exp_list()
+        .find((item) => item.id == player.occupation_level).rate * 10
     let exp = 0
     let ext = ''
     exp = time * 10
@@ -722,7 +722,7 @@ export class Occupation extends plugin {
     let danyao = t[0]
     let n = await convert2integer(t[1])
     let tmp_msg = ''
-    let danfang = data.danfang_list.find((item) => item.name == danyao)
+    let danfang = data.danfang_list().find((item) => item.name == danyao)
     if (!isNotNull(danfang)) {
       e.reply(`世界上没有丹药[${danyao}]the配方`)
       return false
@@ -815,7 +815,7 @@ export class Occupation extends plugin {
     let suc_rate = 0
     let tmp_msg1 = ''
     let tmp_msg2 = ''
-    let tuzhi = data.tuzhi_list.find((item) => item.name == equipment_name)
+    let tuzhi = data.tuzhi_list().find((item) => item.name == equipment_name)
     if (!tuzhi) {
       e.reply(`世界上没有[${equipment_name}]the图纸`)
       return false
@@ -828,9 +828,9 @@ export class Occupation extends plugin {
     let rate = 0
 
     if (player.occupation_level > 0) {
-      rate = data.occupation_exp_list.find(
-        (item) => item.id == player.occupation_level
-      ).rate
+      rate = data
+        .occupation_exp_list()
+        .find((item) => item.id == player.occupation_level).rate
       rate = rate * 10
       rate = rate * 0.025
     }

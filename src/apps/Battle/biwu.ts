@@ -115,12 +115,12 @@ export class biwu extends plugin {
     const B = JSON.parse(JSON.stringify(B_player))
     let msg_A = [`指令样式:#选择技能1,2,3\n请选择你本局携带the技能:`]
     for (const i in A_QQ[num].技能) {
-      const cd = data.jineng.find((item) => item.name == A_QQ[num].技能[i]).cd
+      const cd = data.jineng().find((item) => item.name == A_QQ[num].技能[i]).cd
       msg_A.push(`\n${Number(i) * 1 + 1}、${A_QQ[num].技能[i]} cd:${cd}`)
     }
     let msg_B = [`指令样式:#选择技能1,2,3\n请选择你本局携带the技能:`]
     for (const i in B_QQ[num].技能) {
-      const cd = data.jineng.find((item) => item.name == B_QQ[num].技能[i]).cd
+      const cd = data.jineng().find((item) => item.name == B_QQ[num].技能[i]).cd
       msg_B.push(`\n${Number(i) * 1 + 1}、${B_QQ[num].技能[i]} cd:${cd}`)
     }
     //推送私人
@@ -154,7 +154,7 @@ export class biwu extends plugin {
       for (const i in action_A.技能) {
         action_A.技能[i].cd++
         let cd =
-          data.jineng.find((item) => item.name == action_A.技能[i].name).cd -
+          data.jineng().find((item) => item.name == action_A.技能[i].name).cd -
           action_A.技能[i].cd
         if (cd < 0) cd = 0
         msg_A.push(`\n${Number(i) * 1 + 1}、${action_A.技能[i].name} cd:${cd}`)
@@ -169,7 +169,7 @@ export class biwu extends plugin {
       for (const i in action_B.技能) {
         action_B.技能[i].cd++
         let cd =
-          data.jineng.find((item) => item.name == action_B.技能[i].name).cd -
+          data.jineng().find((item) => item.name == action_B.技能[i].name).cd -
           action_B.技能[i].cd
         if (cd < 0) cd = 0
         msg_B.push(`\n${Number(i) * 1 + 1}、${action_B.技能[i].name} cd:${cd}`)
@@ -196,7 +196,7 @@ export class biwu extends plugin {
         action_A.use = -1
       }
       if (buff_B.阴风蚀骨) {
-        const atk = data.jineng.find((item) => item.name == `阴风蚀骨`).pr
+        const atk = data.jineng().find((item) => item.name == `阴风蚀骨`).pr
         A_player.攻击 *= 1 - atk
         buff_B.阴风蚀骨--
         msg.push(
@@ -206,7 +206,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_B.万年俱灰) {
-        const atk = data.jineng.find((item) => item.name == `万年俱灰`).pr
+        const atk = data.jineng().find((item) => item.name == `万年俱灰`).pr
         A_player.攻击 *= 1 - atk
         buff_B.万年俱灰--
         msg.push(
@@ -215,8 +215,9 @@ export class biwu extends plugin {
           }\n`
         )
       }
+      const jineng = data.jineng()
       if (buff_B.玄冰封印) {
-        const bj = data.jineng.find((item) => item.name == `玄冰封印`).pr
+        const bj = jineng.find((item) => item.name == `玄冰封印`).pr
         A_player.暴击率 = bj
         buff_B.玄冰封印--
         msg.push(
@@ -226,7 +227,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_A.心烦意乱) {
-        const def = data.jineng.find((item) => item.name == `心烦意乱`).pr
+        const def = jineng.find((item) => item.name == `心烦意乱`).pr
         B_player.防御 *= 1 - def
         buff_A.心烦意乱--
         msg.push(
@@ -236,7 +237,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_A.失魂落魄) {
-        const def = data.jineng.find((item) => item.name == `失魂落魄`).pr
+        const def = jineng.find((item) => item.name == `失魂落魄`).pr
         B_player.防御 *= 1 - def
         buff_A.失魂落魄--
         msg.push(
@@ -246,7 +247,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_A.祝水咒) {
-        const hp = data.jineng.find((item) => item.name == `祝水咒`).pr
+        const hp = data.jineng().find((item) => item.name == `祝水咒`).pr
         A_player.now_bool += Math.trunc(A_player.血量上限 * hp)
         buff_A.祝水咒--
         msg.push(
@@ -293,7 +294,7 @@ export class biwu extends plugin {
         msg.push(`${A_player.name}${action_A.技能[action_A.use].msg}\n`)
       }
       if (buff_A.诛仙三剑) {
-        const harm = data.jineng.find((item) => item.name == `诛仙三剑`).pr
+        const harm = data.jineng().find((item) => item.name == `诛仙三剑`).pr
         A_伤害 *= 1 + harm
         buff_A.诛仙三剑--
         msg.push(
@@ -327,8 +328,9 @@ export class biwu extends plugin {
         )
         action_B.use = -1
       }
+      const jinengs = data.jineng()
       if (buff_A.阴风蚀骨) {
-        const atk = data.jineng.find((item) => item.name == `阴风蚀骨`).pr
+        const atk = jinengs.find((item) => item.name == `阴风蚀骨`).pr
         B_player.攻击 *= 1 - atk
         buff_A.阴风蚀骨--
         msg.push(
@@ -338,7 +340,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_A.万年俱灰) {
-        const atk = data.jineng.find((item) => item.name == `万年俱灰`).pr
+        const atk = jinengs.find((item) => item.name == `万年俱灰`).pr
         B_player.攻击 *= 1 - atk
         buff_A.万年俱灰--
         msg.push(
@@ -348,7 +350,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_A.玄冰封印) {
-        const bj = data.jineng.find((item) => item.name == `玄冰封印`).pr
+        const bj = jinengs.find((item) => item.name == `玄冰封印`).pr
         B_player.暴击率 = bj
         buff_A.玄冰封印--
         msg.push(
@@ -358,7 +360,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_B.心烦意乱) {
-        const def = data.jineng.find((item) => item.name == `心烦意乱`).pr
+        const def = jinengs.find((item) => item.name == `心烦意乱`).pr
         A_player.防御 *= 1 - def
         buff_B.心烦意乱--
         msg.push(
@@ -368,7 +370,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_B.失魂落魄) {
-        const def = data.jineng.find((item) => item.name == `失魂落魄`).pr
+        const def = jinengs.find((item) => item.name == `失魂落魄`).pr
         A_player.防御 *= 1 - def
         buff_B.失魂落魄--
         msg.push(
@@ -378,7 +380,7 @@ export class biwu extends plugin {
         )
       }
       if (buff_B.祝水咒) {
-        const hp = data.jineng.find((item) => item.name == `祝水咒`).pr
+        const hp = jinengs.find((item) => item.name == `祝水咒`).pr
         B_player.now_bool += Math.trunc(B_player.血量上限 * hp)
         buff_B.祝水咒--
         msg.push(
@@ -423,7 +425,7 @@ export class biwu extends plugin {
         msg.push(`${B_player.name}${action_B.技能[action_B.use].msg}\n`)
       }
       if (buff_B.诛仙三剑) {
-        const harm = data.jineng.find((item) => item.name == `诛仙三剑`).pr
+        const harm = jinengs.find((item) => item.name == `诛仙三剑`).pr
         B_伤害 *= 1 + harm
         buff_B.诛仙三剑--
         msg.push(
@@ -498,7 +500,7 @@ export class biwu extends plugin {
             j[`选择技能`].push(
               JSON.parse(
                 JSON.stringify(
-                  data.jineng.find((item) => item.name == j.技能[code[m] - 1])
+                  data.jineng().find((item) => item.name == j.技能[code[m] - 1])
                 )
               )
             )
@@ -516,7 +518,7 @@ export class biwu extends plugin {
             j[`选择技能`].push(
               JSON.parse(
                 JSON.stringify(
-                  data.jineng.find((item) => item.name == j.技能[code[m] - 1])
+                  data.jineng().find((item) => item.name == j.技能[code[m] - 1])
                 )
               )
             )
@@ -541,7 +543,7 @@ export class biwu extends plugin {
     else {
       if (
         action.技能[jineng].cd <
-        data.jineng.find((item) => item.name == action.技能[jineng].name).cd
+        data.jineng().find((item) => item.name == action.技能[jineng].name).cd
       ) {
         e.reply(`${action.技能[jineng].name}技能cd中`)
         return false
