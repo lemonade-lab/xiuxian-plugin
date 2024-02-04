@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
 import { __PATH as __path } from './PATH.js'
+import { getConfig } from '../utils.js'
 
 /**
  * tudo
@@ -24,6 +25,8 @@ class XiuxianData {
   getPathData(name: string, path = this.__PATH.lib) {
     return JSON.parse(readFileSync(`${path}/${name}.json`, 'utf-8'))
   }
+
+  test = getConfig('task', 'task')
 
   //加载talent列表
   talent_list = this.getPathData('灵根列表')

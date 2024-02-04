@@ -1,8 +1,8 @@
-import fs from 'fs'
+import { readdirSync } from 'fs'
 import { data, getConfig, isNotNull, pushInfo } from '../../model/index.js'
 import { Add_najie_thing, Add_职业经验 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-import { common, plugin } from '../../../import.js'
+import { plugin } from '../../../import.js'
 export class OccupationTask extends plugin {
   constructor() {
     super({
@@ -12,9 +12,8 @@ export class OccupationTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.action_task,
+      cron: data.test.action_task,
       name: 'OccupationTask',
       fnc: () => this.OccupationTask()
     }
@@ -22,9 +21,9 @@ export class OccupationTask extends plugin {
 
   async OccupationTask() {
     let playerList = []
-    let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter((file) => file.endsWith('.json'))
+    let files = readdirSync(
+      './plugins/' + AppName + '/resources/data/xiuxian_player'
+    ).filter((file) => file.endsWith('.json'))
     for (let file of files) {
       file = file.replace('.json', '')
       playerList.push(file)

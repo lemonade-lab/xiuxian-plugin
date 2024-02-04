@@ -22,9 +22,8 @@ export class shenjietask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.actionplus_task,
+      cron: data.test.actionplus_task,
       name: 'shenjietask',
       fnc: () => this.shenjietask()
     }

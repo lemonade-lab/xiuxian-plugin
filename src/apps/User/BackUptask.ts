@@ -1,4 +1,4 @@
-import { Read_najie, __PATH, getConfig } from '../../model/index.js'
+import { Read_najie, __PATH, data, getConfig } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { copyFileSync, readdirSync } from 'fs'
 import { plugin } from '../../../import.js'
@@ -11,9 +11,8 @@ export class BackUptask extends plugin {
       priority: 1000,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.temp_task,
+      cron: data.test.temp_task,
       name: 'BackUptask',
       fnc: () => this.saveBackUp()
     }

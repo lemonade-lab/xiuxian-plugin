@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs'
-import { getConfig } from '../../model/index.js'
+import { data, getConfig } from '../../model/index.js'
 import { AppName } from '../../../config.js'
 import { common, plugin } from '../../../import.js'
 export class GamesTask extends plugin {
@@ -11,9 +11,8 @@ export class GamesTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.GamesTask,
+      cron: data.test.GamesTask,
       name: 'GamesTask',
       fnc: () => this.Gamestask()
     }

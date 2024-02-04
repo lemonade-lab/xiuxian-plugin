@@ -48,8 +48,8 @@ export class Showningmeng extends plugin {
         }
       ]
     })
-    this.path = __PATH.player_path
   }
+
   //柠檬堂
   async show_ningmenghome(e) {
     let thing_type = e.msg.replace('#柠檬堂', '')

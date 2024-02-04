@@ -44,9 +44,8 @@ export class BOSS2 extends plugin {
         }
       ]
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.BossTask2,
+      cron: data.test.BossTask2,
       name: 'BossTask2',
       fnc: () => this.InitWorldBoss()
     }

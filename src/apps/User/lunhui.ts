@@ -454,8 +454,6 @@ export class lunhui extends plugin {
     let user_id = e.user_id
     let new_msg = this.e.message
     let choice = new_msg[0].text
-    let now = new Date()
-    let nowTime = now.getTime() //获取当前时间戳
     if (choice == '先不轮回') {
       await this.reply('放弃轮回')
       this.finish('yeslunhui')

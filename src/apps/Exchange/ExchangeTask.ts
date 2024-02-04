@@ -3,7 +3,8 @@ import {
   Add_najie_thing,
   Write_Exchange,
   Read_Exchange,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 export class ExchangeTask extends plugin {
   constructor() {
@@ -14,9 +15,8 @@ export class ExchangeTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.AutoBackUpTask,
+      cron: data.test.AutoBackUpTask,
       name: 'ExchangeTask',
       fnc: () => this.Exchangetask()
     }

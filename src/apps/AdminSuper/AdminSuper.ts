@@ -10,10 +10,9 @@ import {
   get_player_img,
   Read_player,
   __PATH,
-  data,
-  Show
+  data
 } from '../../model/index.js'
-import { type Message, plugin, puppeteer } from '../../../import.js'
+import { type Message, plugin } from '../../../import.js'
 export class AdminSuper extends plugin {
   constructor() {
     super({

@@ -23,9 +23,8 @@ export class PlayerControlTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.action_task,
+      cron: data.test.action_task,
       name: 'PlayerControlTask',
       fnc: () => this.Playercontroltask()
     }

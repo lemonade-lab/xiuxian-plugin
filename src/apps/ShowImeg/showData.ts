@@ -47,7 +47,6 @@ export class showData extends plugin {
         }
       ]
     })
-    this.path = __PATH.player_path
   }
 
   //修仙设置

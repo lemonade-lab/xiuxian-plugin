@@ -3,7 +3,8 @@ import {
   Write_Forum,
   Read_Forum,
   Add_money,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 
 export class ForumTask extends plugin {
@@ -15,9 +16,8 @@ export class ForumTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.AutoBackUpTask,
+      cron: data.test.AutoBackUpTask,
       name: 'ForumTask',
       fnc: () => this.Forumtask()
     }

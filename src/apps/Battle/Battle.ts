@@ -30,14 +30,13 @@ export class Battle extends plugin {
         }
       ]
     })
-    this.set = getConfig('xiuxian', 'xiuxian')
   }
 
   //打劫
   async Dajie(e) {
     const nowDate = new Date()
     const todayDate = new Date(nowDate)
-    const { openHour, closeHour } = this.set.Auction
+    const { openHour, closeHour } = getConfig('xiuxian', 'xiuxian').Auction
     const todayTime = todayDate.setHours(0, 0, 0, 0)
     const openTime = todayTime + openHour * 60 * 60 * 1000
     const nowTime1 = nowDate.getTime()

@@ -2,7 +2,7 @@ import {
   Read_temp,
   Show,
   Write_temp,
-  getConfig,
+  data,
   pushInfo
 } from '../../model/index.js'
 import { common, plugin, puppeteer } from '../../../import.js'
@@ -15,9 +15,8 @@ export class msgTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.temp_task,
+      cron: data.test.temp_task,
       name: 'msgTask',
       fnc: () => this.msgTask()
     }

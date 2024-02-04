@@ -7,7 +7,7 @@ import {
   statSync,
   writeFileSync
 } from 'fs'
-import { __PATH, getConfig, getTimeStr } from '../../model/index.js'
+import { __PATH, data, getTimeStr } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class BackUp extends plugin {
   constructor() {
@@ -33,7 +33,7 @@ export class BackUp extends plugin {
     })
     this.saving = false
     this.task = {
-      cron: getConfig('task', 'task').AutoBackUpTask,
+      cron: data.test.AutoBackUpTask,
       name: 'AutoBackUp',
       fnc: this.saveBackUp
     }

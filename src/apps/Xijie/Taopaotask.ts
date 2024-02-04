@@ -19,9 +19,8 @@ export class Taopaotask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.actionplus_task,
+      cron: data.test.actionplus_task,
       name: 'Taopaotask',
       fnc: () => this.Taopaotask()
     }

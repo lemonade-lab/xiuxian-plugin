@@ -1,4 +1,4 @@
-import { Write_shop, Read_shop, getConfig } from '../../model/index.js'
+import { Write_shop, Read_shop, getConfig, data } from '../../model/index.js'
 import { plugin } from '../../../import.js'
 export class ShopGradetask extends plugin {
   constructor() {
@@ -8,9 +8,8 @@ export class ShopGradetask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.ExchangeTask,
+      cron: data.test.ExchangeTask,
       name: 'ShopGradetask',
       fnc: () => this.ShopGradetask()
     }

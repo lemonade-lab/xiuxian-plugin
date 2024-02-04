@@ -11,9 +11,8 @@ export class Shoptask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.shop,
+      cron: data.test.shop,
       name: 'Shoptask',
       fnc: () => this.Shoptask()
     }

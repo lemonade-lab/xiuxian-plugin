@@ -1,4 +1,4 @@
-import fs from 'fs'
+import { readdirSync } from 'fs'
 import {
   Read_player,
   isNotNull,
@@ -14,7 +14,7 @@ import {
   pushInfo
 } from '../../model/index.js'
 import { AppName } from '../../../config.js'
-import { common, plugin } from '../../../import.js'
+import { plugin } from '../../../import.js'
 export class SecretPlaceTask extends plugin {
   constructor() {
     super({
@@ -24,9 +24,8 @@ export class SecretPlaceTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.action_task,
+      cron: data.test.action_task,
       name: 'SecretPlaceTask',
       fnc: () => this.Secretplacetask()
     }
@@ -34,9 +33,9 @@ export class SecretPlaceTask extends plugin {
   async Secretplacetask() {
     //获取缓存中人物列表
     let playerList = []
-    let files = fs
-      .readdirSync('./plugins/' + AppName + '/resources/data/xiuxian_player')
-      .filter((file) => file.endsWith('.json'))
+    let files = readdirSync(
+      './plugins/' + AppName + '/resources/data/xiuxian_player'
+    ).filter((file) => file.endsWith('.json'))
     for (let file of files) {
       file = file.replace('.json', '')
       playerList.push(file)

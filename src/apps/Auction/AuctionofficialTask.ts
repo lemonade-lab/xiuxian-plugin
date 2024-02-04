@@ -3,7 +3,8 @@ import {
   Add_money,
   Read_player,
   openAU,
-  getConfig
+  getConfig,
+  data
 } from '../../model/index.js'
 import { common, plugin } from '../../../import.js'
 import { pushInfo } from '../../model/bot.js'
@@ -16,9 +17,8 @@ export class AuctionofficialTask extends plugin {
       priority: 300,
       rule: []
     })
-    this.set = getConfig('xiuxian', 'xiuxian')
     this.task = {
-      cron: getConfig('task', 'task').action_task,
+      cron: data.test.action_task,
       name: 'AuctionofficialTask',
       fnc: () => this.AuctionofficialTask()
     }
@@ -33,7 +33,7 @@ export class AuctionofficialTask extends plugin {
       // 判断是否在开启时间
       const nowDate = new Date()
       const todayDate = new Date(nowDate)
-      const { openHour, closeHour } = this.set.Auction
+      const { openHour, closeHour } = getConfig('xiuxian', 'xiuxian').Auction
       const todayTime = todayDate.setHours(0, 0, 0, 0)
       const openTime = todayTime + openHour * 60 * 60 * 1000
       const nowTime = nowDate.getTime()
@@ -60,7 +60,7 @@ export class AuctionofficialTask extends plugin {
     let msg = ''
     const group_ids = wupin.groupList
     const last_offer_price = wupin.last_offer_price
-    const interMinu = this.set.Auction.interval
+    const interMinu = getConfig('xiuxian', 'xiuxian').Auction.interval
     const nowTime = new Date().getTime()
 
     if (wupin.last_offer_price + interMinu * 60 * 1000 > nowTime) {

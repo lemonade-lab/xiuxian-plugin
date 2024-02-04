@@ -38,7 +38,6 @@ export class Auction extends plugin {
         }
       ]
     })
-    this.set = getConfig('xiuxian', 'xiuxian')
   }
 
   async xingGE(e) {
@@ -89,7 +88,7 @@ export class Auction extends plugin {
     // 如果没开，判断是否在开启时间
     const nowDate = new Date()
     const todayDate = new Date(nowDate)
-    const { openHour, closeHour } = this.set.Auction
+    const { openHour, closeHour } = getConfig('xiuxian', 'xiuxian').Auction
     const todayTime = todayDate.setHours(0, 0, 0, 0)
     const openTime = todayTime + openHour * 60 * 60 * 1000
     const nowTime = nowDate.getTime()

@@ -9,14 +9,13 @@ import {
   Add_najie_thing,
   exist_najie_thing,
   zd_battle,
-  getConfig,
   data,
   Show,
   Read_tiandibang,
   Write_tiandibang,
   getLastbisai
 } from '../../model/index.js'
-import { readFileSync, readdirSync, writeFileSync } from 'fs'
+import { readdirSync } from 'fs'
 import { plugin, puppeteer } from '../../../import.js'
 export class Tiandibang extends plugin {
   constructor() {
@@ -56,9 +55,8 @@ export class Tiandibang extends plugin {
         }
       ]
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.saiji,
+      cron: data.test.saiji,
       name: 're_bangdang',
       fnc: () => this.re_bangdang()
     }

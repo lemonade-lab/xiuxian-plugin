@@ -20,9 +20,8 @@ export class Xijietask extends plugin {
       event: 'message',
       rule: []
     })
-    this.set = getConfig('task', 'task')
     this.task = {
-      cron: this.set.action_task,
+      cron: data.test.action_task,
       name: 'Xijietask',
       fnc: () => this.Xijietask()
     }
