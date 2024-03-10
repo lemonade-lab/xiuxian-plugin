@@ -52,15 +52,15 @@ class XiuxianData {
   }
   //练气境界
   Level_list = () => {
-    return this.getPathData('练气境界')
+    return this.getPathData('练气境界', 'Level')
+  }
+  //练体境界
+  LevelMax_list = () => {
+    return this.getPathData('炼体境界', 'Level')
   }
   //师徒积分
   shitujifen = () => {
     return this.getPathData('积分商城')
-  }
-  //练体境界
-  LevelMax_list = () => {
-    return this.getPathData('炼体境界')
   }
   //加载装备列表
   equipment_list = () => {
