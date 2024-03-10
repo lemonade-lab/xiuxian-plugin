@@ -13,6 +13,7 @@ fi
 ## delete
 rm -rf dist/index.js
 rm -rf dist/package.json
+rm -rf dist/README.md
 rm -rf dist/config
 rm -rf dist/resources
 rm -rf dist/guoba.support.js
@@ -21,6 +22,7 @@ npm run format
 
 ## post
 npm run build
+cp -rf README.md dist/README.md
 cp -rf package.json dist/package.json
 cp -rf config dist/config
 cp -rf resources dist/resources
