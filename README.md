@@ -1,16 +1,8 @@
 # 云崽修仙插件
 
-## 重制版 V1.4
+这是一款为云崽设计的修仙插件
 
-> 仅 Yunzai 系列机器人可用
-
-> 版本规划中。。。。。
-
-- 部署
-
-```sh
-git clone --depth=1 -b build https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
-```
+使用typescript进行编写。在使用前，需要进行编译后才能使用。
 
 - 源码
 
@@ -18,17 +10,23 @@ git clone --depth=1 -b build https://gitee.com/ningmengchongshui/xiuxian-plugin.
 git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
 ```
 
-## 最新版
+- 进入目录
 
-### 基础环境
+```
+cd ./plugins/xiuxian-plugin
+```
 
-> [https://alemonjs.com/](https://alemonjs.com/)
+- 安装依赖
 
-> 必要环境 Windows>=7/Linux>=7.6 + Chrome/Chromium/Edge
+```
+pnpm install 
+```
 
-> 必要环境 18.18.2>Node.js>16.14.0 + Redis>5.0.0
+- 执行打包
 
-> 源码仓库[点击查看](https://github.com/ningmengchongshui/xiuxian-plugin)
+```
+npm run build
+```
 
 ## 联系
 
