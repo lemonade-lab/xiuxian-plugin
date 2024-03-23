@@ -1,5 +1,11 @@
 import { join } from 'path'
-import { AppName, cwd } from './config.js'
+import { dirname, basename } from 'path'
+import { fileURLToPath } from 'url'
+const __dirname = dirname(fileURLToPath(import.meta.url))
+// 插件名
+const AppName = basename(__dirname)
+// 插件路径
+const cwd = __dirname.replace(/\\/g, '/')
 export function supportGuoba() {
   return {
     pluginInfo: {
