@@ -35,3 +35,7 @@ hs_err_pid*
 .rollup.cache
 
 dist
+
+index.js
+
+data

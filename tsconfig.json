@@ -5,7 +5,6 @@
     "noImplicitAny": false,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "noEmit": false,
     // "outDir": "dist/src",
     // "declaration": true,
     // "declarationDir": "dist/types",
@@ -13,6 +12,9 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "ignoreDeprecations": "5.0",
+    "jsx": "react",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "allowJs": false,
     "suppressImplicitAnyIndexErrors": true,
     "typeRoots": ["node_modules/@types"]

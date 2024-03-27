@@ -4,7 +4,9 @@ import typescript from '@rollup/plugin-typescript'
 export default {
   input: 'index.ts',
   output: {
-    dir: 'dist',
+    // dir: 'dist',
+    // 指定输出文件路径为 index.js
+    file: 'index.js',
     format: 'module',
     // 是否生成 sourcemap 文件
     sourcemap: false
