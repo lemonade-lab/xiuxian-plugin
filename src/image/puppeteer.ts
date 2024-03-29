@@ -64,7 +64,7 @@ export const ALunchConfig = new BaseConfig<PuppeteerLaunchOptions>({
   //
   protocolTimeout: 0,
   // 请求头
-  //   headless: 'new',
+  headless: true,
   //
   args: [
     '--disable-gpu',
@@ -74,7 +74,12 @@ export const ALunchConfig = new BaseConfig<PuppeteerLaunchOptions>({
     '--no-sandbox',
     '--no-zygote',
     '--single-process'
-  ]
+  ],
+  // 设置浏览器默认尺寸
+  defaultViewport: {
+    width: 414,
+    height: 896
+  }
 })
 
 export class Puppeteer {

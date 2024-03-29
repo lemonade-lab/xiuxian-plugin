@@ -11,6 +11,11 @@
     "build": "rollup -c",
     "format": "npx prettier --write ."
   },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "puppeteer": "^22.6.1"
+  },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-multi-entry": "^6.0.0",
@@ -26,7 +31,6 @@
     "icqq": "^0.6.8",
     "md5": "^2.3.0",
     "prettier": "2.8.7",
-    "puppeteer": "^22.6.1",
     "redis": "^4.6.12",
     "rollup": "^3.28.1",
     "ts-node": "^10.9.1",
@@ -34,8 +38,6 @@
     "typescript": "^5.0.4",
     "yaml": "^2.1.1",
     "@babel/core": "^7.24.3",
-    "@babel/preset-react": "^7.24.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@babel/preset-react": "^7.24.1"
   }
 }

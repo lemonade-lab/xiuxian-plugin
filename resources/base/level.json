@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "练气一层",
+    "attack": 999,
+    "defense": 999,
+    "blood": 999
+  },
+  {
+    "id": 2,
+    "name": "练气二层",
+    "attack": 999,
+    "defense": 999,
+    "blood": 999
+  },
+  {
+    "id": 3,
+    "name": "练气三层",
+    "attack": 999,
+    "defense": 999,
+    "blood": 999
+  }
+]
