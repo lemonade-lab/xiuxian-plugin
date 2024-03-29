@@ -1,0 +1,10 @@
+{
+  "title": "xiuxian-plugin",
+  "version": "1.4.0",
+  "list": [
+    {
+      "arg": "#踏入仙途",
+      "doc": "创建存档"
+    }
+  ]
+}

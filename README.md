@@ -23,8 +23,8 @@ cd ./xiuxian-plugin
 - 安装依赖
 
 ```
-npm install pnpm -g
-pnpm install
+npm install yarn -g
+yarn
 ```
 
 - 执行打包
