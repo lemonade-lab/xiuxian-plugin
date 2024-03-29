@@ -12,11 +12,14 @@
     "format": "npx prettier --write ."
   },
   "dependencies": {
+    "puppeteer": "^22.6.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "puppeteer": "^22.6.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.3",
+    "@babel/preset-react": "^7.24.1",
+    "@commitlint/cli": "^19.2.1",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-multi-entry": "^6.0.0",
     "@rollup/plugin-terser": "^0.4.4",
@@ -28,6 +31,7 @@
     "@types/ws": "^8.5.5",
     "art-template": "^4.13.2",
     "dotenv": "^16.3.1",
+    "husky": "^9.0.11",
     "icqq": "^0.6.8",
     "md5": "^2.3.0",
     "prettier": "2.8.7",
@@ -36,8 +40,11 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.6.2",
     "typescript": "^5.0.4",
-    "yaml": "^2.1.1",
-    "@babel/core": "^7.24.3",
-    "@babel/preset-react": "^7.24.1"
+    "yaml": "^2.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
