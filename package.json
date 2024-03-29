@@ -44,7 +44,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "prettier --write .",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
