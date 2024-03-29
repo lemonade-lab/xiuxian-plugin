@@ -1,5 +1,5 @@
 import { type Message, plugin } from '../../../import.js'
-import { getHelpComponent } from '../../image/index.js'
+import component from '../../image/index.js'
 export class help extends plugin {
   constructor() {
     super({
@@ -17,7 +17,7 @@ export class help extends plugin {
   }
 
   async xiuxianHelp(e: Message) {
-    getHelpComponent('修仙帮助').then((img) => {
+    component.help('修仙帮助').then((img) => {
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
     return false

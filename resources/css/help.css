@@ -1,6 +1,14 @@
-html,
+html {
+  margin: 0;
+}
+
 body {
   margin: 0;
-  color: '#cf8420';
-  background-image: url('../img/00.jpg');
+  background-image: url('../img/24.jpg');
+  background-size: 100% auto;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }
