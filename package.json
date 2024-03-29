@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "ts-node main.ts",
     "build": "rollup -c",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "lint": "commitlint -E HUSKY_GIT_PARAMS",
+    "prepare": "husky"
   },
   "dependencies": {
     "puppeteer": "^22.6.1",
@@ -41,10 +43,5 @@
     "tslib": "^2.6.2",
     "typescript": "^5.0.4",
     "yaml": "^2.1.1"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }
