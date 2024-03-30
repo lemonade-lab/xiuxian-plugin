@@ -22,20 +22,14 @@ export class admin extends plugin {
     if (!e.isMaster) return false
     exec('git  pull', { cwd: join(cwd, AppName) }, (error, stdout, stderr) => {
       if (/(Already up[ -]to[ -]date|已经是最新the)/.test(stdout)) {
-        e.reply('目前已经是最新版了')
+        e.reply('update ok')
         return false
       }
       if (error) {
-        e.reply(
-          'xiuxian@1.4.0更新失败！\nError code: ' +
-            error.code +
-            '\n' +
-            error.stack +
-            '\n 请稍后重试。'
-        )
+        e.reply('Error code: ' + error.code + '\n' + error.stack + '\n')
         return false
       }
-      e.reply('更新成功,请[#重启]')
+      e.reply('update ok')
     })
     return false
   }

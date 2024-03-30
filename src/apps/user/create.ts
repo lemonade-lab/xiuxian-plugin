@@ -1,4 +1,6 @@
 import { type Message, plugin } from '../../../import.js'
+import { getUserMessageByUid } from '../../model/message.js'
+import component from '../../image/index.js'
 export class user extends plugin {
   constructor() {
     super({
@@ -16,7 +18,10 @@ export class user extends plugin {
   }
 
   async createData(e: Message) {
-    e.reply('创建数据')
+    const data = getUserMessageByUid(e.user_id)
+    component.message(data).then((img) => {
+      if (typeof img !== 'boolean') e.reply(segment.image(img))
+    })
     return false
   }
 }

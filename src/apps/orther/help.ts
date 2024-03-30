@@ -17,7 +17,7 @@ export class help extends plugin {
   }
 
   async xiuxianHelp(e: Message) {
-    component.help('修仙帮助').then((img) => {
+    component.hello('').then((img) => {
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
     return false

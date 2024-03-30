@@ -6,6 +6,8 @@ import { join } from 'path'
 import { cwd } from '../../config.ts'
 // component
 import HelloComponent from '../component/hellox.tsx'
+import MessageComponent from '../component/message.tsx'
+import { UserMessageType } from '../model/types.ts'
 class Component {
   pup: typeof Puppeteer.prototype
   dir = ''
@@ -29,8 +31,12 @@ class Component {
     return address
   }
 
-  help(data: string, name: string = 'help.html') {
+  hello(_, name: string = 'help.html') {
     return this.pup.toFile(this.create(<HelloComponent />, name))
+  }
+
+  message(data: UserMessageType, name: string = 'help.html') {
+    return this.pup.toFile(this.create(<MessageComponent data={data} />, name))
   }
 }
 export default new Component(join(cwd, 'resources', 'cache'))
