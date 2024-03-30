@@ -1,10 +1,9 @@
 html,
 body {
-    margin: 0;
-    width: 100%;
+  margin: 0;
+  width: 100%;
 }
 
-
 :root {
-    --bg-color: rgba(46, 44, 44, 0.788);
+  --bg-color: rgba(46, 44, 44, 0.788);
 }
