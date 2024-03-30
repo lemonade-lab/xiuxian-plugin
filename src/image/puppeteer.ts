@@ -74,12 +74,13 @@ export const ALunchConfig = new BaseConfig<PuppeteerLaunchOptions>({
     '--no-sandbox',
     '--no-zygote',
     '--single-process'
-  ],
+  ]
   // 设置浏览器默认尺寸
-  defaultViewport: {
-    width: 414,
-    height: 896
-  }
+  // defaultViewport: {
+  //   width: 1280,
+  //   height: 853,
+  //   isMobile: true
+  // }
 })
 
 export class Puppeteer {

@@ -1,0 +1,10 @@
+html,
+body {
+    margin: 0;
+    width: 100%;
+}
+
+
+:root {
+    --bg-color: rgba(46, 44, 44, 0.788);
+}

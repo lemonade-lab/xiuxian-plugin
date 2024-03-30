@@ -1,5 +1,5 @@
 {
-  "watch": ["src/component", "src/server"],
+  "watch": ["src/component", "src/server", "src/image"],
   "ext": "ts,json,js,tsx,jsx",
   "exec": "ts-node src/server/main.tsx",
   "env": {

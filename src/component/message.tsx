@@ -8,12 +8,23 @@ export default function App({ data }: { data: UserMessageType }) {
       </head>
       <body>
         <div id="root">
-          <div>昵称：{data.uid}</div>
-          <div>昵称：{data.name}</div>
-          <div>道宣：{data.autograph}</div>
-          <div>攻击: {data.level.attack}</div>
-          <div>防御: {data.level.defense}</div>
-          <div>血量: {data.level.blood}</div>
+          <div className="nav">
+            <div className="nav-box">
+              <div>{data.uid}</div>
+              <div>昵称：{data.name}</div>
+              <div>境界: {1}</div>
+            </div>
+          </div>
+          <div className="autograph">
+            <div className="autograph-box">道宣：{data.autograph}</div>
+          </div>
+          <div className="level">
+            <div className="level-box">
+              <div>攻击: {data.level.attack}</div>
+              <div>防御: {data.level.defense}</div>
+              <div>血量: {data.level.blood}</div>
+            </div>
+          </div>
         </div>
       </body>
     </html>
