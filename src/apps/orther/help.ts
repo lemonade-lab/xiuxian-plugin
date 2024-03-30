@@ -1,12 +1,9 @@
-import { type Message, plugin } from '../../../import.js'
+import { type Message, plugin, define } from '../../../import.js'
 import component from '../../image/index.js'
 export class help extends plugin {
   constructor() {
     super({
-      name: '帮助图片',
-      dsc: '帮助图片',
-      event: 'message',
-      priority: 400,
+      ...define,
       rule: [
         {
           reg: /^(#|\/)修仙帮助/,
@@ -15,9 +12,13 @@ export class help extends plugin {
       ]
     })
   }
-
+  /**
+   * 修仙帮助
+   * @param e
+   * @returns
+   */
   async xiuxianHelp(e: Message) {
-    component.hello('').then((img) => {
+    component.hello().then((img) => {
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
     return false

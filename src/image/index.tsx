@@ -19,7 +19,7 @@ class Component {
     })
   }
   /**
-   *
+   * 渲染字符串
    * @param element
    * @param name
    * @returns
@@ -30,13 +30,23 @@ class Component {
     writeFileSync(address, `<!DOCTYPE html>${html}`)
     return address
   }
-
-  hello(_, name: string = 'help.html') {
-    return this.pup.toFile(this.create(<HelloComponent />, name))
+  /**
+   *  hello
+   * @param _
+   * @param name
+   * @returns
+   */
+  hello(_ = '', name: string = 'help.html') {
+    return this.pup.render(this.create(<HelloComponent />, name))
   }
-
+  /**
+   * 用户消息
+   * @param data
+   * @param name
+   * @returns
+   */
   message(data: UserMessageType, name: string = 'help.html') {
-    return this.pup.toFile(this.create(<MessageComponent data={data} />, name))
+    return this.pup.render(this.create(<MessageComponent data={data} />, name))
   }
 }
 export default new Component(join(cwd, 'resources', 'cache'))

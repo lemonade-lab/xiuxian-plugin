@@ -1,14 +1,11 @@
 import { exec } from 'child_process'
 import { join } from 'path'
-import { type Message, plugin } from '../../../import.js'
+import { type Message, plugin, define } from '../../../import.js'
 import { AppName, cwd } from '../../../config.js'
 export class admin extends plugin {
   constructor() {
     super({
-      name: '管理|更新插件',
-      dsc: '管理和更新代码',
-      event: 'message',
-      priority: 400,
+      ...define,
       rule: [
         {
           reg: /^(#|\/)修仙更新/,
@@ -17,7 +14,11 @@ export class admin extends plugin {
       ]
     })
   }
-
+  /**
+   * 修仙更新
+   * @param e
+   * @returns
+   */
   async checkout(e: Message) {
     if (!e.isMaster) return false
     exec('git  pull', { cwd: join(cwd, AppName) }, (error, stdout, stderr) => {

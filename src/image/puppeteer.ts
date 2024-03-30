@@ -168,7 +168,7 @@ export class Puppeteer {
    * @param timeout 响应检查
    * @returns buffer
    */
-  async toFile(
+  async render(
     htmlPath: string | Buffer | URL,
     Options?: ScreenshotFileOptions
   ) {
@@ -204,63 +204,6 @@ export class Puppeteer {
       return buff
     } catch (err) {
       console.error('[puppeteer] newPage', err)
-      return false
-    }
-  }
-
-  /**
-   * 对url截图进行截图
-   * @param val url地址
-   * @returns buffer
-   */
-  async toUrl(Options: ScreenshotUrlOptions) {
-    if (!(await this.isStart())) return false
-    try {
-      // 经常出现超时错误
-      const page = await this.#browser.newPage().catch((err) => {
-        console.error(err)
-      })
-      if (!page) return false
-      const query =
-        Options.params == undefined ? '' : queryString.stringify(Options.params)
-      const isurl =
-        Options.params == undefined ? Options.url : `${Options.url}?${query}`
-      await page.setCacheEnabled(
-        Options.cache == undefined ? true : Options.cache
-      )
-      // 等待资源加载完成后进行
-      await page.goto(isurl, {
-        timeout: Options.timeout ?? 120000,
-        waitUntil: Options.waitUntil ?? 'networkidle2'
-      })
-      console.info('[screenshot] open', isurl)
-      const body = await page.$(Options.tab ?? 'body')
-      if (!body) {
-        await page.close()
-        console.error('[screenshot] tab err')
-        return false
-      }
-      await new Promise((resolve) => setTimeout(resolve, Options.time ?? 1000))
-      const buff: string | false | Buffer = await body
-        .screenshot(
-          Options.rand ?? {
-            type: 'jpeg',
-            quality: 90,
-            path: ''
-          }
-        )
-        .catch((err) => {
-          console.error('[screenshot] page body', err)
-          return false
-        })
-      await page.close()
-      if (!buff) {
-        console.error('[screenshot] buffer err', Options.url)
-        return false
-      }
-      return buff
-    } catch (err) {
-      console.error('[screenshot] newPage', err)
       return false
     }
   }

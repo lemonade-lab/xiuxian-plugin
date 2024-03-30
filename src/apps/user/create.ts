@@ -1,13 +1,10 @@
-import { type Message, plugin } from '../../../import.js'
+import { type Message, plugin, define } from '../../../import.js'
 import { getUserMessageByUid } from '../../model/message.js'
 import component from '../../image/index.js'
 export class user extends plugin {
   constructor() {
     super({
-      name: '用户注册',
-      dsc: '用户注册',
-      event: 'message',
-      priority: 400,
+      ...define,
       rule: [
         {
           reg: /^(#|\/)踏入仙途/,
@@ -16,7 +13,11 @@ export class user extends plugin {
       ]
     })
   }
-
+  /**
+   * 踏入仙途
+   * @param e
+   * @returns
+   */
   async createData(e: Message) {
     const data = getUserMessageByUid(e.user_id)
     component.message(data).then((img) => {
