@@ -1,5 +1,5 @@
 import { type Message, plugin } from '../../../import.js'
-export class admin extends plugin {
+export class user extends plugin {
   constructor() {
     super({
       name: '用户注册',

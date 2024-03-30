@@ -5,7 +5,7 @@ import { mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 import { cwd } from '../../config.ts'
 // component
-import HelpComponent from './component/help.tsx'
+import HelloComponent from '../component/hellox.tsx'
 class Component {
   pup: typeof Puppeteer.prototype
   dir = ''
@@ -30,7 +30,7 @@ class Component {
   }
 
   help(data: string, name: string = 'help.html') {
-    return this.pup.toFile(this.create(<HelpComponent data={data} />, name))
+    return this.pup.toFile(this.create(<HelloComponent />, name))
   }
 }
 export default new Component(join(cwd, 'resources', 'cache'))

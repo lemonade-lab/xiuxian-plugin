@@ -1,13 +1,13 @@
 import React from 'react'
-export default function App({ data }) {
+export default function App() {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../css/help.css"></link>
+        <link rel="stylesheet" href="../css/hello.css"></link>
       </head>
       <body>
         <div id="root">
-          <h1>{data} Hello, world!</h1>
+          <h1> Hello, world!</h1>
         </div>
       </body>
     </html>
