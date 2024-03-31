@@ -1,4 +1,4 @@
-import { type Message, plugin, define } from '../../../import.js'
+import { type Event, plugin, define } from '../../../import.js'
 import { getUserMessageByUid } from '../../model/message.js'
 import component from '../../image/index.js'
 export class user extends plugin {
@@ -18,7 +18,7 @@ export class user extends plugin {
    * @param e
    * @returns
    */
-  async createData(e: Message) {
+  async createData(e: Event) {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建

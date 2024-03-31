@@ -1,23 +1,15 @@
-/**
- * *********
- * yunzai模块动态导入
- * *********
- */
 const plugin = (await import('' + '../../lib/plugins/plugin.js')).default
-const common = (await import('' + '../../lib/common/common.js')).default
-const puppeteer = (await import('' + '../../lib/puppeteer/puppeteer.js'))
-  .default
-export { plugin, common, puppeteer }
+const common = (await import('' + '../../lib/common/common.js')).default.default
+export { plugin, common }
 import { type GroupMessage } from 'icqq'
 /**
- * yunzai消息类型
+ * Yunzai-event
  */
-export interface Message extends GroupMessage {
+export interface Event extends GroupMessage {
   isMaster: boolean
   msg: string
   reply: (...arg: any) => Promise<any>
 }
-
 export const define = {
   name: 'xiuxian',
   dsc: 'xiuxian',

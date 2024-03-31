@@ -1,6 +1,6 @@
 import { exec } from 'child_process'
 import { join } from 'path'
-import { type Message, plugin, define } from '../../../import.js'
+import { type Event, plugin, define } from '../../../import.js'
 import { AppName, cwd } from '../../../config.js'
 export class admin extends plugin {
   constructor() {
@@ -19,7 +19,7 @@ export class admin extends plugin {
    * @param e
    * @returns
    */
-  async checkout(e: Message) {
+  async checkout(e: Event) {
     if (!e.isMaster) return false
     exec('git  pull', { cwd: join(cwd, AppName) }, (error, stdout, stderr) => {
       if (/(Already up[ -]to[ -]date|已经是最新the)/.test(stdout)) {

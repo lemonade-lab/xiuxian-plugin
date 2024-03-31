@@ -1,4 +1,4 @@
-import { type Message, plugin, define } from '../../../import.js'
+import { type Event, plugin, define } from '../../../import.js'
 import component from '../../image/index.js'
 export class help extends plugin {
   constructor() {
@@ -17,7 +17,7 @@ export class help extends plugin {
    * @param e
    * @returns
    */
-  async xiuxianHelp(e: Message) {
+  async xiuxianHelp(e: Event) {
     component.hello().then((img) => {
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
