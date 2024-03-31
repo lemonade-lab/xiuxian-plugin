@@ -11,4 +11,7 @@ index.js
 # npm
 yarn.lock
 
+# 
+data
 resources/cache
+

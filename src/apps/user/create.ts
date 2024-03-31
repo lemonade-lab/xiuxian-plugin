@@ -19,8 +19,13 @@ export class user extends plugin {
    * @returns
    */
   async createData(e: Message) {
-    const data = getUserMessageByUid(e.user_id)
+    // 获取账号
+    const uid = e.user_id
+    // 尝试读取数据，如果没有数据将自动创建
+    const data = getUserMessageByUid(uid)
+    // 数据植入组件
     component.message(data).then((img) => {
+      // 获取到图片后发送
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
     return false

@@ -15,7 +15,7 @@ for (const item of routes) {
   router.get(item.url, (ctx) => {
     // 如果收到了截至指令。就会生产截图真是图片测试
     const req = ctx.request.query
-    if (req?.name == 'ok') {
+    if (req?.test == 'ok') {
       // 如果受到指令
       component[item.key](item.data).then((img) => {
         if (typeof img !== 'boolean') {
@@ -35,4 +35,5 @@ app.use(router.routes())
 app.listen(PORT, () => {
   console.log('Server is running on port ' + PORT)
   console.log('http://localhost:' + PORT)
+  console.log('http://localhost:' + PORT + '?test=ok')
 })

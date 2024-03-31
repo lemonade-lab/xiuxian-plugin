@@ -1,7 +1,7 @@
 import React from 'react'
 import MessageComponent from '../component/message.tsx'
 import HelloComponent from '../component/hellox.tsx'
-import { UserMessageBase } from '../model/base.ts'
+import { getUserMessageByUid } from '../model/message.ts'
 export const routes = [
   {
     url: '/',
@@ -12,7 +12,7 @@ export const routes = [
   {
     url: '/message',
     key: 'message',
-    data: UserMessageBase,
-    element: <MessageComponent data={UserMessageBase} />
+    data: getUserMessageByUid(794161769),
+    element: <MessageComponent data={getUserMessageByUid(794161769)} />
   }
 ]

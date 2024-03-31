@@ -1,5 +1,6 @@
 import React from 'react'
 import { UserMessageType } from '../model/types'
+import { LevelNameMap } from '../model/level'
 export default function App({ data }: { data: UserMessageType }) {
   return (
     <html>
@@ -12,7 +13,7 @@ export default function App({ data }: { data: UserMessageType }) {
             <div className="nav-box">
               <div>{data.uid}</div>
               <div>昵称：{data.name}</div>
-              <div>境界: {1}</div>
+              <div>境界: {LevelNameMap[data.level_id]}</div>
             </div>
           </div>
           <div className="autograph">
