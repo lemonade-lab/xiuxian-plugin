@@ -14,6 +14,7 @@ export default function App({ data }: { data: UserMessageType }) {
               <div>{data.uid}</div>
               <div>昵称：{data.name}</div>
               <div>境界: {LevelNameMap[data.level_id]}</div>
+              <div>灵石: {data.money}</div>
             </div>
           </div>
           <div className="autograph">

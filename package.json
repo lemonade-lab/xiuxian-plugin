@@ -11,6 +11,7 @@
     "build": "rollup -c",
     "format": "npx prettier --write .",
     "lint": "commitlint --config .commitlint.config.cjs -e -V",
+    "update": "npx ts-node src/system/update.ts ",
     "server": "nodemon",
     "prepare": "husky"
   },
