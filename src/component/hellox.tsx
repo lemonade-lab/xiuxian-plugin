@@ -3,7 +3,7 @@ export default function App() {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../css/hello.css"></link>
+        <link rel="stylesheet" href="../../css/hello.css"></link>
       </head>
       <body>
         <div id="root">

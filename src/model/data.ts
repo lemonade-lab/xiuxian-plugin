@@ -38,7 +38,7 @@ export function writeArchiveData(
     recursive: true
   })
   writeFile(dir, JSON.stringify(data), 'utf-8', (err) => {
-    if(err) console.error(err)
+    if (err) console.error(err)
   })
 }
 

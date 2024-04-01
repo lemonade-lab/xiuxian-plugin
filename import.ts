@@ -10,6 +10,7 @@ export interface Event extends GroupMessage {
   msg: string
   reply: (...arg: any) => Promise<any>
 }
+
 export const define = {
   name: 'xiuxian',
   dsc: 'xiuxian',

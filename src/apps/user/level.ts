@@ -14,7 +14,6 @@ export class level extends plugin {
     })
   }
   /**
-   * 踏入仙途
    * @param e
    * @returns
    */
@@ -22,8 +21,11 @@ export class level extends plugin {
     // 获取账号
     const uid = e.user_id
     const data = Level.up(uid)
+    if (data.name === '柠檬冲水') {
+      data.name = e.sender.nickname
+    }
     // 数据植入组件
-    component.message(data).then((img) => {
+    component.message(data, uid).then((img) => {
       // 获取到图片后发送
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })

@@ -5,7 +5,7 @@ export default function App({ data }: { data: UserMessageType }) {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../css/message.css"></link>
+        <link rel="stylesheet" href="../../css/message.css"></link>
       </head>
       <body>
         <div id="root">

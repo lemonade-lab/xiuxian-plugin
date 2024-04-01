@@ -24,9 +24,13 @@ class Component {
    * @param name
    * @returns
    */
-  create(element: React.ReactNode, name: string) {
+  create(element: React.ReactNode, dirr: string, name: string) {
     const html = renderToString(element)
-    const address = join(this.dir, name)
+    const dir = join(this.dir, dirr)
+    mkdirSync(dir, {
+      recursive: true
+    })
+    const address = join(dir, name)
     writeFileSync(address, `<!DOCTYPE html>${html}`)
     return address
   }
@@ -36,8 +40,8 @@ class Component {
    * @param name
    * @returns
    */
-  hello(_ = '', name: string = 'help.html') {
-    return this.pup.render(this.create(<HelloComponent />, name))
+  hello() {
+    return this.pup.render(this.create(<HelloComponent />, 'hello', 'help.html'))
   }
   /**
    * 用户消息
@@ -45,8 +49,10 @@ class Component {
    * @param name
    * @returns
    */
-  message(data: UserMessageType, name: string = 'help.html') {
-    return this.pup.render(this.create(<MessageComponent data={data} />, name))
+  message(data: UserMessageType, uid: number) {
+    return this.pup.render(
+      this.create(<MessageComponent data={data} />, 'message', `${uid}.html`)
+    )
   }
 }
 export default new Component(join(cwd, 'resources', 'cache'))
