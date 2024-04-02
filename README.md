@@ -6,6 +6,8 @@
 
 在使用前,需要进行编译后才能使用
 
+版本持续更新中。。。
+
 ## 部署
 
 - plugins 目录中执行
@@ -34,6 +36,26 @@ npm run build
 ```
 
 打包后生产 `index.js`
+
+## 更新
+
+- plugins 目录中执行
+
+```sh
+git pull
+```
+
+- 加载更新脚本
+
+```sh
+npm run update
+```
+
+- 执行打包
+
+```sh
+npm run build
+```
 
 ## 联系
 
