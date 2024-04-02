@@ -41,7 +41,9 @@ class Component {
    * @returns
    */
   hello() {
-    return this.pup.render(this.create(<HelloComponent />, 'hello', 'help.html'))
+    return this.pup.render(
+      this.create(<HelloComponent />, 'hello', 'help.html')
+    )
   }
   /**
    * 用户消息

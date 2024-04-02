@@ -10,6 +10,7 @@ const BaseLevel = {
 
 // 境界名
 export const LevelNameMap = {
+  '0': '凡人',
   '1': '练气一层',
   '2': '练气二层',
   '3': '练气三层',

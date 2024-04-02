@@ -1,10 +1,8 @@
-@import url('./root.css');
-
 body {
-  background-image: url('../img/00.jpg');
+  background-image: url('../img/24.jpg');
   background-size: 100% auto;
-  color: #ffffff;
-  font-size: 3rem;
+  color: #fffffff0;
+  font-size: 2rem;
 }
 
 #root {
@@ -12,14 +10,47 @@ body {
   height: 100%;
 }
 
+.menu-button {
+  background-color: #f9f2f2de;
+  color: #635b5bfa;
+  border-radius: 6px;
+  font-size: 20px;
+  padding: 2px 8px;
+  margin: 6px;
+}
+
 .nav {
   padding: 1rem;
+}
+
+.nav-menu {
+  padding: 1rem;
+}
+
+.nav-menu-title {
+  color: var(--title-color);
+  font-weight: 600;
+  text-shadow: var(--title-text-shadow);
+}
+
+.nav-menu-help {
+  background-color: #ffffff;
+  color: #000;
 }
 
 .nav-box {
   background-color: var(--bg-color);
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-box-avatar {
+  background-size: 100% 100%;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 50%;
 }
 
 .autograph {
@@ -29,7 +60,7 @@ body {
 .autograph-box {
   background-color: var(--bg-color);
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
 }
 
 .level {
@@ -39,5 +70,5 @@ body {
 .level-box {
   background-color: var(--bg-color);
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
 }

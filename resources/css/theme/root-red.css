@@ -1,0 +1,13 @@
+html,
+body {
+  margin: 0;
+  width: 100%;
+}
+
+:root {
+  --bg-color: rgba(238, 140, 140, 0.79);
+  --border-radius: 9px;
+
+  --title-color: #7cd5f6cc;
+  --title-text-shadow: 2px 2px 4px #ffffff;
+}
