@@ -61,10 +61,8 @@ export class user extends plugin {
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
     const data = getUserMessageByUid(uid)
-
     // 得到配置
     const index = Themes.indexOf(data.theme)
-
     // 如果存在
     if (Themes[index + 1]) {
       // 切换
@@ -73,8 +71,8 @@ export class user extends plugin {
     } else {
       // 不存在。返回第一个
       data.theme = Themes[0]
-      writeArchiveData('player', uid, data)
     }
+    writeArchiveData('player', uid, data)
 
     if (data.name === '柠檬冲水') {
       data.name = e.sender.nickname
