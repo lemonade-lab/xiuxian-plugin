@@ -116,8 +116,10 @@ export default function App({ data, status }: ComponentType) {
             <div className="box-help-box">
               <span className="menu-button-flat">*修仙帮助</span>
               <span className="menu-button">#改名+字符</span>
+              <span className="menu-button">#采矿</span>
               <span className="menu-button">#商店</span>
               <span className="menu-button">#购买+商品名</span>
+              <span className="menu-button">#学习+功法名</span>
             </div>
           </div>
         </div>
