@@ -21,17 +21,21 @@ export class admin extends plugin {
    */
   async checkout(e: Event) {
     if (!e.isMaster) return false
-    exec('git  pull', { cwd: join(cwd, AppName) }, (error, stdout, stderr) => {
-      if (/(Already up[ -]to[ -]date|已经是最新the)/.test(stdout)) {
+    exec(
+      'git pull && npm run update && npm run build',
+      { cwd: join(cwd, AppName) },
+      (error, stdout, stderr) => {
+        if (/(Already up[ -]to[ -]date|已经是最新the)/.test(stdout)) {
+          e.reply('update ok')
+          return false
+        }
+        if (error) {
+          e.reply('Error code: ' + error.code + '\n' + error.stack + '\n')
+          return false
+        }
         e.reply('update ok')
-        return false
       }
-      if (error) {
-        e.reply('Error code: ' + error.code + '\n' + error.stack + '\n')
-        return false
-      }
-      e.reply('update ok')
-    })
+    )
     return false
   }
 }

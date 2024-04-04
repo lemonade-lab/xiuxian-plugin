@@ -57,6 +57,18 @@ npm run update
 npm run build
 ```
 
+## 功能演示
+
+> 2024-4-4 更新
+
+![替代文本](./resources/demo/dark.jpg)
+
+![替代文本](./resources/demo/blue.jpg)
+
+![替代文本](./resources/demo/purple.jpg)
+
+![替代文本](./resources/demo/red.jpg)
+
 ## 联系
 
 QQ-Group 806943302
