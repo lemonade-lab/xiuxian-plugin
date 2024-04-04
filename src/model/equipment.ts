@@ -157,6 +157,30 @@ function getAgileById(id: number) {
   }
 }
 
+function getPriceById(id: number) {
+  if (id <= 0) {
+    return BaseEquipment.price
+  } else if (id < 13) {
+    return BaseEquipment.price * (id + 3) * 0.3
+  } else if (13 >= id && id < 17) {
+    return BaseEquipment.price * id * 2 * 0.4
+  } else if (17 >= id && id < 21) {
+    return BaseEquipment.price * id * 3 * 0.5
+  } else if (21 >= id && id < 25) {
+    return BaseEquipment.price * id * 4 * 0.6
+  } else if (25 >= id && id < 29) {
+    return BaseEquipment.price * id * 5 * 0.7
+  } else if (29 >= id && id < 33) {
+    return BaseEquipment.price * id * 6 * 0.8
+  } else if (33 >= id && id < 37) {
+    return BaseEquipment.price * id * 7 * 0.9
+  } else if (37 >= id && id < 46) {
+    return BaseEquipment.price * id * 10 * 1.0
+  } else {
+    return BaseEquipment.price * id * 10 * 1.2
+  }
+}
+
 /**
  * @param id
  */
@@ -171,6 +195,7 @@ export function getEuipmentById(id: number) {
     blood: Math.floor(getBloodById(id)),
     agile: Math.floor(getAgileById(id)),
     critical_hit_rate: Math.floor(getCriticalHitRateById(id)),
-    critical_damage: Math.floor(getCriticalDamageById(id))
+    critical_damage: Math.floor(getCriticalDamageById(id)),
+    price: Math.floor(getPriceById(id))
   }
 }
