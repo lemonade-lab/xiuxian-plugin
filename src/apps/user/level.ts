@@ -1,10 +1,14 @@
 import { type Event, plugin, define } from '../../../import.js'
 import component from '../../image/index.js'
+import {
+  LEVEL_PROBABILITY_RANGE,
+  LEVEL_SIZE,
+  LEVEL_UP_LIMIT
+} from '../../model/config.js'
 import { writeArchiveData } from '../../model/data.js'
 import { getLevelById } from '../../model/level.js'
 import { getUserMessageByUid } from '../../model/message.js'
 import { getRandomNumber, getUserName } from '../../model/utils.js'
-import Level from '../../system/level.js'
 export class level extends plugin {
   constructor() {
     super({
@@ -46,7 +50,11 @@ export class level extends plugin {
       ((NowLevel.blood + data.base.blood) / level.blood) * 100
     )
     // 可以突破的前提是。其中一个接近
-    if (attack < 98 && defense < 98 && blood < 98) {
+    if (
+      attack < LEVEL_UP_LIMIT &&
+      defense < LEVEL_UP_LIMIT &&
+      blood < LEVEL_UP_LIMIT
+    ) {
       const max =
         attack > defense
           ? attack > blood
@@ -58,12 +66,15 @@ export class level extends plugin {
       e.reply(`尚未感应到瓶颈(${max}/99%)`)
       return
     }
-    const $attack = Math.floor((attack > 100 ? 100 : attack) / 8)
-    const $defense = Math.floor((defense > 100 ? 100 : defense) / 8)
-    const $blood = Math.floor(blood > 100 ? 100 : blood / 12)
+    const $attack = Math.floor((attack > 100 ? 100 : attack) / LEVEL_SIZE[0])
+    const $defense = Math.floor((defense > 100 ? 100 : defense) / LEVEL_SIZE[1])
+    const $blood = Math.floor(blood > 100 ? 100 : blood / LEVEL_SIZE[2])
     // 最低 30？ 最大不过  75的概率。
     const p = $attack + $defense + $blood
-    const ran = getRandomNumber(40, 100)
+    const ran = getRandomNumber(
+      LEVEL_PROBABILITY_RANGE[0],
+      LEVEL_PROBABILITY_RANGE[1]
+    )
     // 不管成功失败都全部清零
     data.base.attack = 0
     data.base.defense = 0

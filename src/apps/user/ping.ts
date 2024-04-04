@@ -4,7 +4,12 @@ import { getUserMessageByUid } from '../../model/message'
 import RedisClient from '../../model/redis'
 import { getUserName } from '../../model/utils'
 import component from '../../image/index'
-import { MINING } from '../../model/config'
+import {
+  DOOR_CLOSE_SIZE,
+  MINING,
+  MINING_BLOOL,
+  MINING_MONEY
+} from '../../model/config'
 import { getLevelById } from '../../model/level'
 import { KillNameMap, ReverseKillNameMap } from '../../model/base'
 import { getKillById } from '../../model/kills'
@@ -78,7 +83,7 @@ export class ping extends plugin {
     const size = Math.floor((Now - time) / (1000 * 30))
     await RedisClient.del('door', uid)
     if (size >= 1) {
-      const blool = size * 100
+      const blool = size * DOOR_CLOSE_SIZE
       const cur = data.blood + blool
       // 还没有装备
       // const equipment = getEuipmentById()
@@ -128,17 +133,17 @@ export class ping extends plugin {
       return
     }
     // 看看精血
-    if (data.blood <= 200) {
+    if (data.blood <= MINING_BLOOL) {
       e.reply('精血不足,先休息休息吧')
       return
     }
-    data.blood -= 200
-    data.money += 1
+    data.blood -= MINING_BLOOL
+    data.money += MINING_MONEY
     RedisClient.set('mining', uid, '采集冷却', {
       time: now
     })
     writeArchiveData('player', uid, data)
-    e.reply('采得一块灵石')
+    e.reply(`采得${MINING_MONEY}块灵石`)
     return false
   }
 
