@@ -39,7 +39,7 @@ npm run build
 
 ## 更新
 
-- plugins 目录中执行
+- xiuxian-plugin 目录中执行
 
 ```sh
 git pull
