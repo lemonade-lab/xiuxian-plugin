@@ -146,8 +146,8 @@ export function getLevelById(id: number) {
   return {
     id: id,
     name: LevelNameMap[id],
-    attack: getAttackById(id),
-    defense: getDefenseById(id),
-    blood: getBloodById(id)
+    attack: Math.floor(getAttackById(id)),
+    defense: Math.floor(getDefenseById(id)),
+    blood: Math.floor(getBloodById(id))
   }
 }

@@ -8,7 +8,7 @@ export class admin extends plugin {
       ...define,
       rule: [
         {
-          reg: /^(#|\/)修仙更新/,
+          reg: /^(#|\/)?修仙更新$/,
           fnc: 'checkout'
         }
       ]

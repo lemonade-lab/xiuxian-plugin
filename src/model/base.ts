@@ -14,4 +14,4 @@ export const UserMessageBase = {
 }
 
 // 淡黑，分红
-export const Themes = ['dark', 'red']
+export const Themes = ['dark', 'red', 'purple', 'blue']

@@ -21,3 +21,16 @@ export function getUserMessageByUid(uid: number) {
   writeArchiveData('player', uid, UserMessageBase)
   return UserMessageBase
 }
+
+/**
+ * 根据uid得到信息
+ * 如果得不到就初始化
+ * @param uid
+ */
+export function getReStartUserMessageByUid(uid: number) {
+  UserMessageBase.uid = uid
+  const level = getLevelById(UserMessageBase.level_id)
+  UserMessageBase.level = level
+  writeArchiveData('player', uid, UserMessageBase)
+  return UserMessageBase
+}

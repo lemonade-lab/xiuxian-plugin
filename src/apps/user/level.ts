@@ -7,7 +7,7 @@ export class level extends plugin {
       ...define,
       rule: [
         {
-          reg: /^(#|\/)突破/,
+          reg: /^(#|\/)?突破$/,
           fnc: 'levelUp'
         }
       ]

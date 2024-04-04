@@ -1,5 +1,5 @@
 body {
-  background-image: url('../img/24.jpg');
+  background-image: var(--background-image);
   background-size: 100% auto;
   color: #fffffff0;
   font-size: 2rem;

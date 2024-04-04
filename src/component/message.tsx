@@ -5,10 +5,8 @@ export default function App({ data }: { data: UserMessageType }) {
   return (
     <html>
       <head>
-        <link
-          rel="stylesheet"
-          href={`../../css/theme/root-${data.theme}.css`}
-        ></link>
+        <link rel="stylesheet" href="../../css/root.css"></link>
+        <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
         <link rel="stylesheet" href="../../css/message.css"></link>
       </head>
       <body>
@@ -47,7 +45,7 @@ export default function App({ data }: { data: UserMessageType }) {
           <div className="autograph">
             <div className="autograph-box">
               道宣：{data.autograph}{' '}
-              <span className="menu-button">#改宣+字符</span>
+              <span className="menu-button">#签名+字符</span>
             </div>
           </div>
           <div className="level">

@@ -1,0 +1,10 @@
+:root {
+    --bg-color: rgb(83 107 153 / 73%);
+    --border-radius: 9px;
+
+    --title-color: #d4d5e0e0;
+    --title-text-shadow: 2px 2px 4px #4067ade3;
+
+
+    --background-image: url('../img/28.jpg');
+}

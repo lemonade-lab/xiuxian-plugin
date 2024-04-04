@@ -188,7 +188,7 @@ export class Puppeteer {
         .screenshot(
           Options?.SOptions ?? {
             type: 'jpeg',
-            quality: 90
+            quality: 100
           }
         )
         .catch((err) => {

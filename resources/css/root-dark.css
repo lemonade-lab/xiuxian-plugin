@@ -1,13 +1,9 @@
-html,
-body {
-  margin: 0;
-  width: 100%;
-}
-
 :root {
   --bg-color: rgb(60 58 58 / 79%);
   --border-radius: 9px;
 
   --title-color: #e9a425e8;
   --title-text-shadow: 2px 2px 4px #474645;
+
+  --background-image: url('../img/24.jpg');
 }

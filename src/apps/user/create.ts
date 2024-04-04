@@ -1,5 +1,8 @@
 import { type Event, plugin, define } from '../../../import.js'
-import { getUserMessageByUid } from '../../model/message.js'
+import {
+  getReStartUserMessageByUid,
+  getUserMessageByUid
+} from '../../model/message.js'
 import component from '../../image/index.js'
 import { Themes } from '../../model/base.js'
 import { writeArchiveData } from '../../model/data.js'
@@ -9,15 +12,23 @@ export class user extends plugin {
       ...define,
       rule: [
         {
-          reg: /^(#|\/)(个人信息|踏入仙途)/,
+          reg: /^(#|\/)?(个人信息|踏入仙途)$/,
           fnc: 'createData'
         },
         {
-          reg: /^(#|\/)更改道号/,
+          reg: /^(#|\/)?再入仙途$/,
+          fnc: 'reCreate'
+        },
+        {
+          reg: /^(#|\/)?改名/,
           fnc: 'updateUserName'
         },
         {
-          reg: /^(#|\/)更换主题/,
+          reg: /^(#|\/)?签名/,
+          fnc: 'updateUserAutograph'
+        },
+        {
+          reg: /^(#|\/)?更换主题$/,
           fnc: 'setTheme'
         }
       ]
@@ -45,17 +56,30 @@ export class user extends plugin {
   }
 
   /**
-   *
+   * 载入仙途
    * @param e
    * @returns
    */
-  async updateUserName(e: Event) {
+  async reCreate(e: Event) {
     // 获取账号
     const uid = e.user_id
-    e.reply('待更新')
+    // 尝试读取数据，如果没有数据将自动创建
+    const data = getReStartUserMessageByUid(uid)
+    if (data.name === '柠檬冲水') {
+      data.name = e.sender.nickname
+    }
+    // 数据植入组件
+    component.message(data, uid).then((img) => {
+      // 获取到图片后发送
+      if (typeof img !== 'boolean') e.reply(segment.image(img))
+    })
     return false
   }
 
+  /**
+   * 更换主题
+   * @param e
+   */
   async setTheme(e: Event) {
     // 获取账号
     const uid = e.user_id
@@ -82,5 +106,81 @@ export class user extends plugin {
       // 获取到图片后发送
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
+  }
+
+  /**
+   * 改名
+   * @param e
+   * @returns
+   */
+  async updateUserName(e: Event) {
+    const uid = e.user_id
+    const nickname = e.msg
+      .replace(/^(#|\/)?改名/, '')
+      .replace(/[^\u4e00-\u9fa5]/g, '')
+    if (nickname.length < 1) {
+      e.reply('名字不符合要求哦')
+      return
+    }
+    // 尝试读取数据，如果没有数据将自动创建
+    const data = getUserMessageByUid(uid)
+    if (data.name !== nickname) {
+      data.name = nickname
+      // 写入
+      writeArchiveData('player', uid, data)
+    }
+    // 数据植入组件
+    component.message(data, uid).then((img) => {
+      // 获取到图片后发送
+      if (typeof img !== 'boolean') e.reply(segment.image(img))
+    })
+    return false
+  }
+
+  /**
+   * 签名
+   * @param e
+   * @returns
+   */
+  async updateUserAutograph(e: Event) {
+    const uid = e.user_id
+    const autograph = e.msg
+      .replace(/^(#|\/)?签名/, '')
+      .replace(/[^\u4e00-\u9fa5]/g, '')
+    if (autograph.length < 1) {
+      e.reply('名字不符合要求哦')
+      return
+    }
+    // 尝试读取数据，如果没有数据将自动创建
+    const data = getUserMessageByUid(uid)
+    data.autograph = autograph
+    // 写入
+    writeArchiveData('player', uid, data)
+    // 数据植入组件
+    component.message(data, uid).then((img) => {
+      // 获取到图片后发送
+      if (typeof img !== 'boolean') e.reply(segment.image(img))
+    })
+    return false
+  }
+
+  /**
+   *
+   * @param e
+   * @returns
+   */
+  async cultivation(e: Event) {
+    e.reply('待更新')
+    return false
+  }
+
+  /**
+   *
+   * @param e
+   * @returns
+   */
+  async shoping(e: Event) {
+    e.reply('待更新')
+    return false
   }
 }
