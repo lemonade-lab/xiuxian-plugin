@@ -8,6 +8,8 @@
 
 版本持续更新中。。。
 
+![替代文本](./resources/demo/purple.jpg)
+
 ## 部署
 
 - plugins 目录中执行
@@ -18,20 +20,34 @@ git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git
 
 - 进入 xiuxian-plugin 目录
 
-```
+```sh
 cd ./xiuxian-plugin
 ```
 
 - 安装依赖
 
-```
+```sh
 npm install yarn -g
 yarn
 ```
 
+or
+
+```sh
+npm install pnpm -g
+pnpm install
+```
+
+or
+
+```sh
+npm install cnpm -g
+cnpm install
+```
+
 - 执行打包
 
-```
+```sh
 npm run build
 ```
 
@@ -64,8 +80,6 @@ npm run build
 ![替代文本](./resources/demo/dark.jpg)
 
 ![替代文本](./resources/demo/blue.jpg)
-
-![替代文本](./resources/demo/purple.jpg)
 
 ![替代文本](./resources/demo/red.jpg)
 
