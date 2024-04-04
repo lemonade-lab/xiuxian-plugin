@@ -156,10 +156,10 @@
   width: 100%;
   left: 0;
   color: #ffffffe6;
-  white-space: nowrap;
   font-weight: 600;
-
   background: var(--uid-background-bolor);
-
   border-radius: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
