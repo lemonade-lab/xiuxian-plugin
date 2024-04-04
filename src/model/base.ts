@@ -29,7 +29,6 @@ export const UserMessageBase = {
   autograph: '无',
   money: 200,
   theme: 'dark',
-  experience: 0,
   level_id: 0,
   base: BaseExperience,
   level: BaseLevel,
