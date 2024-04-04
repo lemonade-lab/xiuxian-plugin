@@ -60,7 +60,7 @@ export class level extends plugin {
     }
     const $attack = Math.floor((attack > 100 ? 100 : attack) / 8)
     const $defense = Math.floor((defense > 100 ? 100 : defense) / 8)
-    const $blood = Math.floor(blood > 100 ? 100 : blood / 8)
+    const $blood = Math.floor(blood > 100 ? 100 : blood / 12)
     // 最低 30？ 最大不过  75的概率。
     const p = $attack + $defense + $blood
     const ran = getRandomNumber(40, 100)
