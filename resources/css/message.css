@@ -45,6 +45,15 @@ body {
   display: flex;
   justify-content: space-between;
   position: relative;
+  box-shadow: var(--box-shadow);
+}
+
+.nav-box-item {
+  display: flex;
+}
+
+.nav-box-item-img {
+  margin-right: 8px;
 }
 
 .nav-box-blool {
@@ -78,21 +87,22 @@ body {
   left: 0%;
   color: #ffffffe6;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .menu-button-flat {
-  background-color: #f9f2f2de;
+  background-color: #e7e1e1de;
   color: #635b5bfa;
-  border-radius: 6px;
+  border-radius: 6px 6px 0 0;
   font-size: 20px;
   padding: 2px 8px;
   position: absolute;
-  top: -16px;
+  top: -26px;
   left: 13px;
 }
 
 .autograph {
-  padding: 1rem;
+  padding: 2rem 1rem;
 }
 
 .autograph-box {
@@ -100,10 +110,11 @@ body {
   padding: 1rem;
   border-radius: var(--border-radius);
   position: relative;
+  box-shadow: var(--box-shadow);
 }
 
 .level {
-  padding: 1rem;
+  padding: 2rem 1rem;
 }
 
 .level-box {
@@ -113,4 +124,9 @@ body {
   display: flex;
   justify-content: space-between;
   position: relative;
+  box-shadow: var(--box-shadow);
+}
+
+.level-box-item {
+  display: flex;
 }

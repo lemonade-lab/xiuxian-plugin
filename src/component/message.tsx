@@ -24,21 +24,28 @@ export default function App({ data }: { data: UserMessageType }) {
             </div>
             <div className="nav-box">
               <div>
-                <div>
-                  <span>昵称：{data.name}</span>
+                <div className="nav-box-item">
+                  <img className="nav-box-item-img" src="../../svg/name.svg" />
+                  <span>{data.name}</span>
                   <span className="menu-button">#改名+字符</span>
                 </div>
 
-                <div>
-                  <span>境界：{LevelNameMap[data.level_id]}</span>
+                <div className="nav-box-item">
+                  <img className="nav-box-item-img" src="../../svg/level.svg" />
+                  <span>{LevelNameMap[data.level_id]}</span>
                   <span className="menu-button">#突破</span>
                 </div>
-                <div>
-                  <span>修为：{data.experience}</span>
+                <div className="nav-box-item">
+                  <img
+                    className="nav-box-item-img"
+                    src="../../svg/experience.svg"
+                  />
+                  <span>{data.experience}</span>
                   <span className="menu-button">#闭关</span>
                 </div>
-                <div>
-                  <span>灵石：{data.money}</span>{' '}
+                <div className="nav-box-item">
+                  <img className="nav-box-item-img" src="../../svg/money.svg" />
+                  <span>{data.money}</span>{' '}
                   <span className="menu-button">#商店</span>
                 </div>
               </div>
@@ -61,15 +68,24 @@ export default function App({ data }: { data: UserMessageType }) {
           </div>
           <div className="autograph">
             <div className="autograph-box">
-              <span>道宣：{data.autograph}</span>
+              <span>{data.autograph}</span>
               <span className="menu-button-flat">#签名+字符</span>
             </div>
           </div>
           <div className="level">
             <div className="level-box">
-              <div>攻击：{data.level.attack}</div>
-              <div>防御：{data.level.defense}</div>
-              <div>血量：{data.level.blood}</div>
+              <div className="level-box-item">
+                <img className="nav-box-item-img" src="../../svg/attack.svg" />
+                {data.level.attack}
+              </div>
+              <div className="level-box-item">
+                <img className="nav-box-item-img" src="../../svg/defense.svg" />
+                {data.level.defense}
+              </div>
+              <div className="level-box-item">
+                <img className="nav-box-item-img" src="../../svg/blood.svg" />
+                {data.level.blood}
+              </div>
               <span className="menu-button-flat">#装备信息</span>
             </div>
           </div>

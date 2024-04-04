@@ -2,8 +2,10 @@
   --bg-color: rgb(60 58 58 / 79%);
   --border-radius: 9px;
 
-  --title-color: #8e5c01e8;
+  --title-color: #3d3527d9;
   --title-text-shadow: 2px 2px 4px #dfdfdf;
 
   --background-image: url('../img/24.jpg');
+
+  --box-shadow: 2px 2px 4px #3d3527d9;
 }
