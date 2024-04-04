@@ -49,8 +49,6 @@ export default function App({ data, status }: ComponentType) {
   const blood = level.blood + equipment.blood + data.base.blood
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
-  const kills: string[] = Object.keys(data.kills)
-
   return (
     <html>
       <head>

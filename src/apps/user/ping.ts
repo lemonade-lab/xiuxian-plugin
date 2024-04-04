@@ -172,10 +172,10 @@ export class ping extends plugin {
     for (const item in EquipmentNameMap) {
       const Euipemt = getEuipmentById(Number(item))
       arr.push(
-        `${Euipemt.id}号功法:${Euipemt.name}-灵石:${Euipemt.price}-攻击:${Euipemt.attack}%-防御:${Euipemt.defense}-血量:${Euipemt.blood}`
+        `${Euipemt.id}号武器:${Euipemt.name}-灵石:${Euipemt.price}-攻击:${Euipemt.attack}%-防御:${Euipemt.defense}-血量:${Euipemt.blood}`
       )
     }
-    const msg = arr.slice(0, (data.level_id + 1) * 2)
+    const msg = arr.slice(0, (data.level_id + 1) * 3)
     e.reply(msg.join('\n'))
     return false
   }
