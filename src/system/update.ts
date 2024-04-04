@@ -25,14 +25,20 @@ function readFilesInDirectory(directoryPath: string): string[] {
 }
 const fileNames = readFilesInDirectory(ArchivePath['player'])
 for (const fileName of fileNames) {
-  const uid = Number(fileName.split('.')[0])
+  const split = fileName.split('.')
+  if (split.length <= 0) continue
+  const uid = Number(split[0])
+  if (!uid) continue
   const data = readArchiveData('player', uid)
   for (const key in UserMessageBase) {
     // 不存在的key。
     if (!Object.prototype.hasOwnProperty.call(data, key)) {
       data[key] = UserMessageBase[key]
     }
-    if (typeof UserMessageBase[key] !== 'object') {
+    if (
+      typeof UserMessageBase[key] !== 'object' ||
+      Array.isArray(UserMessageBase[key])
+    ) {
       continue
     }
     for (const key2 in UserMessageBase[key]) {

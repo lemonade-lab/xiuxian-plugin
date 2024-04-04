@@ -11,6 +11,8 @@ export const routes = [
   {
     url: '/message',
     key: 'message',
-    element: <MessageComponent data={getUserMessageByUid(794161769)} />
+    element: (
+      <MessageComponent data={getUserMessageByUid(794161769)} status={null} />
+    )
   }
 ]
