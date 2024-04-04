@@ -7,9 +7,16 @@ type ComponentType = {
   power: number
   now: number
   blood: number
+  status: null | boolean
 }
 
-export default function App({ data, power, now, blood }: ComponentType) {
+export default function App({
+  data,
+  power,
+  now,
+  blood,
+  status = null
+}: ComponentType) {
   const pro = Math.floor((now / blood) * 100)
   const color = `linear-gradient(to right, ${
     ThemesColor[data.theme].left
@@ -26,6 +33,13 @@ export default function App({ data, power, now, blood }: ComponentType) {
       </div>
       <div className="nav-box">
         <span className="menu-button-flat">#个人信息</span>
+        <span className="nav-talent">
+          <span className="nav-talent-item nav-talent-item-1">金</span>
+          <span className="nav-talent-item nav-talent-item-2">木</span>
+          <span className="nav-talent-item nav-talent-item-3">水</span>
+          <span className="nav-talent-item nav-talent-item-4">火</span>
+          <span className="nav-talent-item nav-talent-item-5">土</span>
+        </span>
         <div className="nav-box-flex">
           <div className="nav-box-item">
             <img className="nav-box-item-img" src="../../svg/name.svg" />
@@ -41,6 +55,7 @@ export default function App({ data, power, now, blood }: ComponentType) {
             className="nav-box-img"
             src={`https://q1.qlogo.cn/g?b=qq&s=0&nk=${data.uid}`}
           />
+          {status && <span className="nav-state">闭关</span>}
           <div
             className="nav-box-uid"
             style={{

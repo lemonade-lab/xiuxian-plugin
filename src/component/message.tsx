@@ -4,9 +4,10 @@ import NavMessage from './nav.jsx'
 
 type ComponentType = {
   data: UserMessageType
+  status: null | boolean
 }
 
-export default function App({ data }: ComponentType) {
+export default function App({ data, status }: ComponentType) {
   // 修为 --- 战力指数
   const attack = data.level.attack + data.equipment.attack + data.base.attack
   const defense =
@@ -25,8 +26,8 @@ export default function App({ data }: ComponentType) {
     <html>
       <head>
         <link rel="stylesheet" href="../../css/root.css"></link>
-        <link rel="stylesheet" href="../../css/nav.css"></link>
         <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
+        <link rel="stylesheet" href="../../css/nav.css"></link>
         <link rel="stylesheet" href="../../css/message.css"></link>
       </head>
       <body>
@@ -36,6 +37,7 @@ export default function App({ data }: ComponentType) {
             power={power}
             now={data.blood}
             blood={blood}
+            status={status}
           />
           <div className="autograph">
             <div className="autograph-box">

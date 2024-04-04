@@ -8,6 +8,7 @@ import { cwd } from '../../config.ts'
 import HelloComponent from '../component/hellox.tsx'
 import MessageComponent from '../component/message.tsx'
 import { UserMessageType } from '../model/types.ts'
+import Redis from '../model/redis.ts'
 class Component {
   pup: typeof Puppeteer.prototype
   dir = ''
@@ -51,9 +52,15 @@ class Component {
    * @param name
    * @returns
    */
-  message(data: UserMessageType, uid: number) {
+  async message(data: UserMessageType, uid: number) {
+    const state = await Redis.get('biguan', data.uid)
+    const status = state?.type ? true : false
     return this.pup.render(
-      this.create(<MessageComponent data={data} />, 'message', `${uid}.html`)
+      this.create(
+        <MessageComponent data={data} status={status} />,
+        'message',
+        `${uid}.html`
+      )
     )
   }
 }

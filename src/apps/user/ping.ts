@@ -61,18 +61,16 @@ export class ping extends plugin {
     const Now = Date.now()
     // 30 s 一次
     const size = Math.floor((Now - time) / (1000 * 30))
-    if (size <= 1) {
-      e.reply('闭关结束')
-      return
-    }
     RedisClient.del('biguan', uid)
-    const blool = size * 100
-    const cur = data.blood + blool
-    const max = data.base.blood + data.equipment.blood + data.level.blood
-    data.blood = cur > max ? max : cur
-    writeArchiveData('player', uid, data)
-    const baseBlood = Math.floor((Now - time) / (1000 * 60))
-    data.base.blood += baseBlood
+    if (size >= 1) {
+      const blool = size * 100
+      const cur = data.blood + blool
+      const max = data.base.blood + data.equipment.blood + data.level.blood
+      data.blood = cur > max ? max : cur
+      const baseBlood = Math.floor((Now - time) / (1000 * 60))
+      data.base.blood += baseBlood
+      writeArchiveData('player', uid, data)
+    }
     // 修正名字
     data.name = getUserName(data.name, e.sender.nickname)
     // 闭关也能加 base血量。但是很低
