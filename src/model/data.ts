@@ -8,7 +8,7 @@ import { ArchiveType, DataType, ResourcesType } from './types'
  * @param uid
  * @returns
  */
-export function readArchiveData(key: keyof ArchiveType, uid: number) {
+export function readArchiveData(key: keyof ArchiveType, uid: number | string) {
   const dir = join(ArchivePath[key], `${uid}.json`)
   mkdirSync(dirname(dir), {
     recursive: true
@@ -30,7 +30,7 @@ export function readArchiveData(key: keyof ArchiveType, uid: number) {
  */
 export function writeArchiveData(
   key: keyof ArchiveType,
-  uid: number,
+  uid: number | string,
   data: Object
 ) {
   const dir = join(ArchivePath[key], `${uid}.json`)
