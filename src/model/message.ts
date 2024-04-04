@@ -23,8 +23,7 @@ export function getUserMessageByUid(uid: number) {
 }
 
 /**
- * 根据uid得到信息
- * 如果得不到就初始化
+ * 根据uid得到重新信息
  * @param uid
  */
 export function getReStartUserMessageByUid(uid: number) {

@@ -1,54 +1,4 @@
-import { BaseLevel } from './base'
-
-// 境界名
-export const LevelNameMap = {
-  '0': '凡人',
-  '1': '练气一层',
-  '2': '练气二层',
-  '3': '练气三层',
-  '4': '练气四层',
-  '5': '练气五层',
-  '6': '练气六层',
-  '7': '练气七层',
-  '8': '练气八层',
-  '9': '练气九层',
-  '10': '练气十层',
-  '11': '练气十一层',
-  '12': '练气十二层',
-  '13': '筑基初期',
-  '14': '筑基中期',
-  '15': '筑基后期',
-  '16': '筑基大圆满',
-  '17': '金丹初期',
-  '18': '金丹中期',
-  '19': '金丹后期',
-  '20': '金丹大圆满',
-  '21': '元婴初期',
-  '22': '元婴中期',
-  '23': '元婴后期',
-  '24': '元婴大圆满',
-  '25': '化神初期',
-  '26': '化神中期',
-  '27': '化神后期',
-  '28': '化神大圆满',
-  '29': '洞虚初期',
-  '30': '洞虚中期',
-  '31': '洞虚后期',
-  '32': '洞虚大圆满',
-  '33': '大乘初期',
-  '34': '大乘中期',
-  '35': '大乘后期',
-  '36': '大乘大圆满',
-  '37': '渡劫期',
-  '38': '地仙',
-  '39': '天仙',
-  '40': '真仙',
-  '41': '金仙',
-  '42': '大罗金仙',
-  '43': '仙王',
-  '44': '仙帝',
-  '45': '超凡入圣'
-}
+import { BaseLevel, LevelNameMap } from './base'
 
 /**
  * 得到指定境界的攻击力
@@ -75,7 +25,7 @@ function getAttackById(id: number) {
   } else if (37 <= id && id < 46) {
     return BaseLevel.attack * id * 10 * 1.0
   } else {
-    return 0
+    return BaseLevel.attack * id * 10 * 1.2
   }
 }
 
@@ -102,7 +52,7 @@ function getDefenseById(id: number) {
   } else if (37 >= id && id < 46) {
     return BaseLevel.defense * id * 10 * 0.8
   } else {
-    return 0
+    return BaseLevel.defense * id * 10 * 1.2
   }
 }
 
@@ -131,7 +81,7 @@ function getBloodById(id: number) {
   } else if (37 >= id && id < 46) {
     return BaseLevel.blood * id * 10 * 1.0
   } else {
-    return 0
+    return BaseLevel.blood * id * 10 * 1.2
   }
 }
 
@@ -143,6 +93,7 @@ export function getLevelById(id: number) {
   // 计算得到境界数
   return {
     id: id,
+    // 如果境界，则name必然存在
     name: LevelNameMap[id],
     attack: Math.floor(getAttackById(id)),
     defense: Math.floor(getDefenseById(id)),

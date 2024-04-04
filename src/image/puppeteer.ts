@@ -187,8 +187,7 @@ export class Puppeteer {
       const buff: string | false | Buffer = await body
         .screenshot(
           Options?.SOptions ?? {
-            type: 'jpeg',
-            quality: 100
+            type: 'png'
           }
         )
         .catch((err) => {

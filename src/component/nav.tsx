@@ -1,6 +1,5 @@
 import React from 'react'
-import { LevelNameMap } from '../model/level'
-import { ThemesColor } from '../model/base'
+import { LevelNameMap, ThemesColor } from '../model/base'
 import { UserMessageType } from '../model/types'
 
 type ComponentType = {

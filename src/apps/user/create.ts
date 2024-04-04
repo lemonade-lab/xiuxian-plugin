@@ -6,6 +6,7 @@ import {
 import component from '../../image/index.js'
 import { Themes } from '../../model/base.js'
 import { writeArchiveData } from '../../model/data.js'
+import { getUserName } from '../../model/utils.js'
 export class user extends plugin {
   constructor() {
     super({
@@ -44,9 +45,7 @@ export class user extends plugin {
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
     const data = getUserMessageByUid(uid)
-    if (data.name === '柠檬冲水') {
-      data.name = e.sender.nickname.replace(/[^\u4e00-\u9fa5]/g, '')
-    }
+    data.name = getUserName(data.name, e.sender.nickname)
     // 数据植入组件
     component.message(data, uid).then((img) => {
       // 获取到图片后发送
@@ -65,9 +64,7 @@ export class user extends plugin {
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
     const data = getReStartUserMessageByUid(uid)
-    if (data.name === '柠檬冲水') {
-      data.name = e.sender.nickname.replace(/[^\u4e00-\u9fa5]/g, '')
-    }
+    data.name = getUserName(data.name, e.sender.nickname)
     // 数据植入组件
     component.message(data, uid).then((img) => {
       // 获取到图片后发送
@@ -97,10 +94,7 @@ export class user extends plugin {
       data.theme = Themes[0]
     }
     writeArchiveData('player', uid, data)
-
-    if (data.name === '柠檬冲水') {
-      data.name = e.sender.nickname.replace(/[^\u4e00-\u9fa5]/g, '')
-    }
+    data.name = getUserName(data.name, e.sender.nickname)
     // 数据植入组件
     component.message(data, uid).then((img) => {
       // 获取到图片后发送
@@ -161,26 +155,6 @@ export class user extends plugin {
       // 获取到图片后发送
       if (typeof img !== 'boolean') e.reply(segment.image(img))
     })
-    return false
-  }
-
-  /**
-   *
-   * @param e
-   * @returns
-   */
-  async cultivation(e: Event) {
-    e.reply('待更新')
-    return false
-  }
-
-  /**
-   *
-   * @param e
-   * @returns
-   */
-  async shoping(e: Event) {
-    e.reply('待更新')
     return false
   }
 }
