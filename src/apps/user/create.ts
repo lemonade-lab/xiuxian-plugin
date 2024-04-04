@@ -13,7 +13,7 @@ export class user extends plugin {
       ...define,
       rule: [
         {
-          reg: /^(#|\/)?(个人信息|踏入仙途)$/,
+          reg: /^(#|\/|\*)?(个人信息|踏入仙途|修仙帮助)$/,
           fnc: 'createData'
         },
         {
