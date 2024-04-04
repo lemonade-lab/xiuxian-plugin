@@ -1,13 +1,14 @@
-/**
- * 存档刷新系统。用来发现存档内与当前版本不符合的字符。
- * 并做重新写入
- */
-
 import { readdirSync, statSync } from 'fs'
 import { ArchivePath } from '../model/path'
 import { join } from 'path'
 import { readArchiveData, writeArchiveData } from '../model/data'
 import { UserMessageBase } from '../model/base'
+
+/**
+ *
+ * @param directoryPath
+ * @returns
+ */
 function readFilesInDirectory(directoryPath: string): string[] {
   let fileNames: string[] = []
   const files = readdirSync(directoryPath)
@@ -23,56 +24,52 @@ function readFilesInDirectory(directoryPath: string): string[] {
   })
   return fileNames
 }
+
+/**
+ *
+ * @param target
+ * @param source
+ * @returns
+ */
+function mergeObjects(target, source) {
+  for (const key in source) {
+    // 不存在的 key
+    if (!Object.prototype.hasOwnProperty.call(target, key)) {
+      target[key] = source[key]
+    } else {
+      // 如果是对象，则递归比较
+      if (typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        target[key] = mergeObjects(target[key], source[key])
+      } else {
+        // 基础类型不相等或者数组
+        if (
+          typeof target[key] !== typeof source[key] ||
+          Array.isArray(target[key]) !== Array.isArray(source[key])
+        ) {
+          target[key] = source[key]
+        }
+      }
+    }
+  }
+  return target
+}
+
 const fileNames = readFilesInDirectory(ArchivePath['player'])
+
 for (const fileName of fileNames) {
   const split = fileName.split('.')
   if (split.length <= 0) continue
   const uid = split[0]
   if (!uid) continue
   const data = readArchiveData('player', uid)
-  for (const key in UserMessageBase) {
-    // 不存在的key。
-    if (!Object.prototype.hasOwnProperty.call(data, key)) {
-      data[key] = UserMessageBase[key]
-    }
-
-    // 基础类型不相等
-    if (typeof data[key] !== typeof UserMessageBase[key]) {
-      data[key] = UserMessageBase[key]
-    }
-
-    // 数组
-    if (Array.isArray(data[key]) !== Array.isArray(UserMessageBase[key])) {
-      data[key] = UserMessageBase[key]
-    }
-
-    // 不是对象 或者是数组
-    if (
-      typeof UserMessageBase[key] !== 'object' ||
-      Array.isArray(UserMessageBase[key])
-    ) {
-      continue
-    }
-
-    // 深度比对
-    for (const key2 in UserMessageBase[key]) {
-      // 不存在的key。
-      if (!Object.prototype.hasOwnProperty.call(data[key], key2)) {
-        data[key][key2] = UserMessageBase[key][key2]
-      }
-
-      // 基础类型不相等
-      if (typeof data[key] !== typeof UserMessageBase[key][key2]) {
-        data[key][key2] = UserMessageBase[key][key2]
-      }
-
-      // 数组
-      if (
-        Array.isArray(data[key]) !== Array.isArray(UserMessageBase[key][key2])
-      ) {
-        data[key][key2] = typeof UserMessageBase[key][key2]
-      }
+  if (!data) continue
+  // 清理key
+  for (const key in data) {
+    // base 不存在
+    if (!Object.prototype.hasOwnProperty.call(UserMessageBase, key)) {
+      delete data[key]
     }
   }
-  writeArchiveData('player', uid, data)
+  const mergedData = mergeObjects(data, UserMessageBase)
+  writeArchiveData('player', uid, mergedData)
 }

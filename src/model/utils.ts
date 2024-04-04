@@ -1,7 +1,19 @@
+/**
+ *
+ * @param min
+ * @param max
+ * @returns
+ */
 export function getRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+/**
+ *
+ * @param name1
+ * @param name
+ * @returns
+ */
 export function getUserName(name1: string, name: string) {
   if (name1 !== '柠檬冲水') {
     return name1
