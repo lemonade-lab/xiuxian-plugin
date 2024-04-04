@@ -17,23 +17,24 @@ export default function App({ data }: { data: UserMessageType }) {
         <div id="root">
           <div className="nav">
             <div className="nav-menu">
-              <span className="nav-menu-title">修仙之练气十万年</span>{' '}
+              <span className="nav-menu-title">修仙之练气十万年</span>
               <span className="menu-button">#再入仙途</span>
               <span className="menu-button">#更换主题</span>
-              <span className="menu-button">#个人信息</span>
+              <span className="menu-button">#突破</span>
+              <span className="menu-button">#闭关</span>
+              <span className="menu-button">#出关</span>
             </div>
             <div className="nav-box">
+              <span className="menu-button-flat">#个人信息</span>
               <div>
                 <div className="nav-box-item">
                   <img className="nav-box-item-img" src="../../svg/name.svg" />
                   <span>{data.name}</span>
-                  <span className="menu-button">#改名+字符</span>
                 </div>
 
                 <div className="nav-box-item">
                   <img className="nav-box-item-img" src="../../svg/level.svg" />
                   <span>{LevelNameMap[data.level_id]}</span>
-                  <span className="menu-button">#突破</span>
                 </div>
                 <div className="nav-box-item">
                   <img
@@ -41,12 +42,10 @@ export default function App({ data }: { data: UserMessageType }) {
                     src="../../svg/experience.svg"
                   />
                   <span>{data.experience}</span>
-                  <span className="menu-button">#闭关</span>
                 </div>
                 <div className="nav-box-item">
                   <img className="nav-box-item-img" src="../../svg/money.svg" />
                   <span>{data.money}</span>{' '}
-                  <span className="menu-button">#商店</span>
                 </div>
               </div>
               <div className="nav-box-avatar">
@@ -87,6 +86,13 @@ export default function App({ data }: { data: UserMessageType }) {
                 {data.level.blood}
               </div>
               <span className="menu-button-flat">#装备信息</span>
+            </div>
+          </div>
+          <div className="box-help">
+            <div className="box-help-box">
+              <span className="menu-button-flat">*修仙帮助</span>
+              <span className="menu-button">#改名+字符</span>
+              <span className="menu-button">#商店</span>
             </div>
           </div>
         </div>

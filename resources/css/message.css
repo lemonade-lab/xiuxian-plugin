@@ -46,6 +46,7 @@ body {
   justify-content: space-between;
   position: relative;
   box-shadow: var(--box-shadow);
+  margin: 1rem 0 0 0;
 }
 
 .nav-box-item {
@@ -102,7 +103,7 @@ body {
 }
 
 .autograph {
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 1rem 1rem;
 }
 
 .autograph-box {
@@ -114,7 +115,7 @@ body {
 }
 
 .level {
-  padding: 2rem 1rem;
+  padding: 2rem 1rem 1rem 1rem;
 }
 
 .level-box {
@@ -129,4 +130,17 @@ body {
 
 .level-box-item {
   display: flex;
+}
+
+.box-help {
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.box-help-box {
+  padding: 4px;
+  position: relative;
+  display: flex;
+  background-color: var(--inset-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--inset-box-shadow);
 }

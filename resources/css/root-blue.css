@@ -8,4 +8,7 @@
   --background-image: url('../img/28.jpg');
 
   --box-shadow: 2px 2px 4px #d4d5e0e0;
+
+  --inset-box-shadow: inset 0px 0px 21px #ffffffd9;
+  --inset-bg-color: rgba(83, 107, 153, 0.578);
 }
