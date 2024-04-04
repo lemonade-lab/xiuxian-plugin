@@ -33,18 +33,34 @@ export class level extends plugin {
       e.reply('已达巅峰')
       return
     }
+    const NowLevel = getLevelById(data.level_id)
     // 计算概率
-    const attack = (data.level.attack + data.base.attack) / level.attack
-    const defense = (data.level.defense + data.base.defense) / level.defense
-    const blood = (data.level.blood + data.base.blood) / level.blood
+    const attack = Math.floor(
+      ((NowLevel.attack + data.base.attack) / level.attack) * 100
+    )
+    const defense = Math.floor(
+      ((NowLevel.defense + data.base.defense) / level.defense) * 100
+    )
+    const blood = Math.floor(
+      ((NowLevel.blood + data.base.blood) / level.blood) * 100
+    )
     // 可以突破的前提是。其中一个接近
-    if (attack < 99 && attack < 99 && attack < 99) {
-      e.reply('尚未感应到瓶颈')
+    if (attack < 98 && defense < 98 && blood < 98) {
+      const max =
+        attack > defense
+          ? attack > blood
+            ? attack
+            : blood
+          : defense > blood
+          ? defense
+          : blood
+      e.reply(`尚未感应到瓶颈(${max}/99%)`)
       return
     }
-    const $attack = Math.floor((attack > 100 ? 100 : attack) / 50)
-    const $defense = Math.floor((defense > 100 ? 100 : defense) / 50)
-    const $blood = Math.floor(blood > 100 ? 100 : blood / 50)
+    const $attack = Math.floor((attack > 100 ? 100 : attack) / 8)
+    const $defense = Math.floor((defense > 100 ? 100 : defense) / 8)
+    const $blood = Math.floor(blood > 100 ? 100 : blood / 8)
+    // 最低 30？ 最大不过  75的概率。
     const p = $attack + $defense + $blood
     const ran = getRandomNumber(40, 100)
     if (p < ran) {

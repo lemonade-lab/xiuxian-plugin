@@ -26,10 +26,9 @@
   color: #fffffffa;
   border-radius: 6px 6px 0 0;
   font-size: 20px;
-  padding: 2px 8px;
   position: absolute;
   display: flex;
-  right: -21px;
+  right: -11px;
   top: -23px;
 }
 
@@ -132,7 +131,7 @@
   font-size: 20px;
   color: #ffffff;
   text-align: center;
-  bottom: -16px;
+  bottom: -25px;
 }
 
 .nav-box-img {

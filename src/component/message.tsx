@@ -1,6 +1,8 @@
 import React from 'react'
 import { UserMessageType } from '../model/types'
 import NavMessage from './nav.jsx'
+import { getLevelById } from '../model/level.js'
+import { KillNameMap } from '../model/base.js'
 
 type ComponentType = {
   data: UserMessageType
@@ -8,19 +10,31 @@ type ComponentType = {
 }
 
 export default function App({ data, status }: ComponentType) {
+  const level = getLevelById(data.level_id)
+
+  const equipment = {
+    attack: 0,
+    defense: 0,
+    agile: 0,
+    critical_hit_rate: 0,
+    critical_damage: 0,
+    blood: 0
+  }
+
   // 修为 --- 战力指数
-  const attack = data.level.attack + data.equipment.attack + data.base.attack
-  const defense =
-    data.level.defense + data.equipment.defense + data.base.defense
-  const blood = data.level.blood + data.equipment.blood + data.base.blood
+  const attack = level.attack + equipment.attack + data.base.attack
+  const defense = level.defense + equipment.defense + data.base.defense
+  const blood = level.blood + equipment.blood + data.base.blood
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
   // 敏捷
-  const agile = data.equipment.agile
+  const agile = equipment.agile
   // 暴击率
-  const critical_hit_rate = data.equipment.critical_hit_rate
+  const critical_hit_rate = equipment.critical_hit_rate
   // 暴击伤害
-  const critical_damage = data.equipment.critical_damage
+  const critical_damage = equipment.critical_damage
+
+  const kills: string[] = Object.keys(data.kills)
 
   return (
     <html>
@@ -88,11 +102,22 @@ export default function App({ data, status }: ComponentType) {
               </div>
             </div>
           </div>
+          {kills.length > 0 && (
+            <div className="kills">
+              <div className="kills-box">
+                {kills.map((item, index) => (
+                  <span key={index}>《{KillNameMap[item]}》 </span>
+                ))}
+                <span className="menu-button-flat">#功法信息</span>
+              </div>
+            </div>
+          )}
           <div className="box-help">
             <div className="box-help-box">
               <span className="menu-button-flat">*修仙帮助</span>
               <span className="menu-button">#改名+字符</span>
               <span className="menu-button">#商店</span>
+              <span className="menu-button">#购买+商品名</span>
             </div>
           </div>
         </div>

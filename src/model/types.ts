@@ -1,4 +1,4 @@
-import { UserMessageBase } from './base'
+import { BaseKill, UserMessageBase } from './base'
 import { ArchivePath, ResourcesPath } from './path'
 export type UserMessageType = typeof UserMessageBase
 export type DataType = {
@@ -6,3 +6,4 @@ export type DataType = {
 }
 export type ArchiveType = typeof ArchivePath
 export type ResourcesType = typeof ResourcesPath
+export type KillTyle = typeof BaseKill

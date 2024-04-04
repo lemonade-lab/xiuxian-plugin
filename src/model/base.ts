@@ -1,3 +1,9 @@
+export const BaseKill = {
+  price: 36,
+  // 100%
+  efficiency: 100
+}
+
 export const BaseEquipment = {
   attack: 23, // 攻击
   defense: 9, // 防御
@@ -27,14 +33,25 @@ export const UserMessageBase = {
   name: '柠檬冲水',
   blood: 100,
   autograph: '无',
-  money: 200,
+  money: 34,
   theme: 'dark',
   level_id: 0,
+  // 修炼效率
+  efficiency: 0,
   base: BaseExperience,
-  level: BaseLevel,
-  equipment: BaseEquipment,
-  // 装备
-  equipments: []
+  // 功法，只记录 id
+  kills: {
+    // key id  val 数量
+  },
+  // 装备，只记录id
+  equipments: {},
+  // 背包
+  bags: {
+    // 功法
+    kills: {},
+    // 装备
+    equipments: {}
+  }
 }
 
 // 主题
@@ -59,6 +76,21 @@ export const ThemesColor = {
 
 // 淡黑
 export const Themes = Object.keys(ThemesColor)
+
+/**
+ * 反转键值对
+ * @param obj
+ * @returns
+ */
+function reverseObject(obj) {
+  const reversedObj = {}
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      reversedObj[obj[key]] = key
+    }
+  }
+  return reversedObj
+}
 
 // 境界名
 export const LevelNameMap = {
@@ -213,3 +245,13 @@ export const EquipmentNameMap = {
   '99': '烈焰斧',
   '100': '幽冥刃'
 }
+
+// 反转key
+export const ReverseEquipmentNameMap = reverseObject(EquipmentNameMap)
+
+export const KillNameMap = {
+  '0': '灵气吐纳法'
+}
+
+// 反转key
+export const ReverseKillNameMap = reverseObject(KillNameMap)

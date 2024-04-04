@@ -1,7 +1,25 @@
-import { mkdirSync, readFileSync, writeFile } from 'fs'
+import { existsSync, mkdirSync, readFileSync, writeFile } from 'fs'
 import { dirname, join } from 'path'
 import { ArchivePath, ResourcesPath } from './path'
 import { ArchiveType, DataType, ResourcesType } from './types'
+
+/**
+ * 是否存在用户存档
+ * @param key
+ * @param uid
+ * @returns
+ */
+export function existsArchiveSync(
+  key: keyof ArchiveType,
+  uid: number | string
+) {
+  const dir = join(ArchivePath[key], `${uid}.json`)
+  mkdirSync(dirname(dir), {
+    recursive: true
+  })
+  return existsSync(dir)
+}
+
 /**
  * 读取玩家数据
  * @param key

@@ -9,7 +9,7 @@ function getAttackById(id: number) {
   if (id <= 0) {
     return BaseLevel.attack
   } else if (id < 13) {
-    return BaseLevel.defense * (id + 3) * 0.3
+    return BaseLevel.attack * (id + 3) * 0.3
   } else if (13 <= id && id < 17) {
     return BaseLevel.attack * id * 2 * 0.4
   } else if (17 <= id && id < 21) {
@@ -92,6 +92,7 @@ function getBloodById(id: number) {
 export function getLevelById(id: number) {
   // 计算得到境界数
   return {
+    ...BaseLevel,
     id: id,
     // 如果境界，则name必然存在
     name: LevelNameMap[id],

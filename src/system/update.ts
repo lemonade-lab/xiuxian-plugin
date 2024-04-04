@@ -35,15 +35,42 @@ for (const fileName of fileNames) {
     if (!Object.prototype.hasOwnProperty.call(data, key)) {
       data[key] = UserMessageBase[key]
     }
+
+    // 基础类型不相等
+    if (typeof data[key] !== typeof UserMessageBase[key]) {
+      data[key] = UserMessageBase[key]
+    }
+
+    // 数组
+    if (Array.isArray(data[key]) !== Array.isArray(UserMessageBase[key])) {
+      data[key] = UserMessageBase[key]
+    }
+
+    // 不是对象 或者是数组
     if (
       typeof UserMessageBase[key] !== 'object' ||
       Array.isArray(UserMessageBase[key])
     ) {
       continue
     }
+
+    // 深度比对
     for (const key2 in UserMessageBase[key]) {
+      // 不存在的key。
       if (!Object.prototype.hasOwnProperty.call(data[key], key2)) {
         data[key][key2] = UserMessageBase[key][key2]
+      }
+
+      // 基础类型不相等
+      if (typeof data[key] !== typeof UserMessageBase[key][key2]) {
+        data[key][key2] = UserMessageBase[key][key2]
+      }
+
+      // 数组
+      if (
+        Array.isArray(data[key]) !== Array.isArray(UserMessageBase[key][key2])
+      ) {
+        data[key][key2] = typeof UserMessageBase[key][key2]
       }
     }
   }

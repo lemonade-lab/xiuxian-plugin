@@ -63,8 +63,8 @@ export default function App({
             }}
           >
             {data.uid}
-            <span className="nav-box-blool">{`${now}/${blood}-${pro}%`}</span>
           </div>
+          <span className="nav-box-blool">{`${now}/${blood}-${pro}%`}</span>
         </div>
         <div className="nav-box-flex">
           <div className="nav-box-item">
@@ -74,6 +74,10 @@ export default function App({
           <div className="nav-box-item">
             <img className="nav-box-item-img" src="../../svg/money.svg" />
             <span>{data.money}</span>{' '}
+          </div>
+          <div className="nav-box-item">
+            <img className="nav-box-item-img" src="../../svg/efficiency.svg" />
+            <span>{data.efficiency}</span>{' '}
           </div>
         </div>
       </div>

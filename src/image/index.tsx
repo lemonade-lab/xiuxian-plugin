@@ -53,8 +53,8 @@ class Component {
    * @returns
    */
   async message(data: UserMessageType, uid: number) {
-    const state = await Redis.get('biguan', data.uid)
-    const status = state?.type ? true : false
+    const state = await Redis.get('door', data.uid)
+    const status = state?.type !== null ? true : false
     return this.pup.render(
       this.create(
         <MessageComponent data={data} status={status} />,
