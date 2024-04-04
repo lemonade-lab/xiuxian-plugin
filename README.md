@@ -35,15 +35,18 @@
 
 ## 部署
 
-- plugins 目录中执行
-
 ```sh
-git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git
+#  miao-yunzai 目录
+git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
+# 进入xiuxian
+cd ./plugins/xiuxian-plugin
 ```
 
-- 进入 xiuxian-plugin 目录
-
 ```sh
+# 或者 plugins 目录中执行
+cd ./plugins
+git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git
+# 进入xiuxian
 cd ./xiuxian-plugin
 ```
 
@@ -54,16 +57,14 @@ npm install yarn -g
 yarn
 ```
 
-or
-
 ```sh
+# 或者
 npm install pnpm -g
 pnpm install
 ```
 
-or
-
 ```sh
+# 或者
 npm install cnpm -g
 cnpm install
 ```
