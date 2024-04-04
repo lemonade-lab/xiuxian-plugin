@@ -22,7 +22,7 @@ export default function App({ data }: { data: UserMessageType }) {
                 <div>UID：{data.uid}</div>
                 <div>
                   <span>昵称：{data.name}</span>
-                  <span className="menu-button">#更名+字符</span>
+                  <span className="menu-button">#改名+字符</span>
                 </div>
                 <div>
                   <span>境界：{LevelNameMap[data.level_id]}</span>
