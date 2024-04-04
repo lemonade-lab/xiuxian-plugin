@@ -11,4 +11,14 @@
 
   --inset-box-shadow: inset 0px 0px 21px #ffffffd9;
   --inset-bg-color: rgba(238, 140, 140, 0.596);
+
+  --box-shadow-bool: 2px 2px 4px #ff0000ba;
+
+  --uid-background-bolor: linear-gradient(
+    45deg,
+    rgb(244 155 155 / 79%),
+    #a74742d9
+  );
+
+  --font-color: #10e633dc;
 }

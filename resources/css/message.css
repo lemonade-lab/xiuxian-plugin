@@ -10,98 +10,6 @@ body {
   height: 100%;
 }
 
-.menu-button {
-  background-color: #f9f2f2de;
-  color: #635b5bfa;
-  border-radius: 6px;
-  font-size: 20px;
-  padding: 2px 8px;
-  margin: 6px;
-}
-
-.nav {
-  padding: 1rem;
-}
-
-.nav-menu {
-  padding: 1rem;
-}
-
-.nav-menu-title {
-  color: var(--title-color);
-  font-weight: 600;
-  text-shadow: var(--title-text-shadow);
-}
-
-.nav-menu-help {
-  background-color: #ffffff;
-  color: #000;
-}
-
-.nav-box {
-  background-color: var(--bg-color);
-  padding: 2rem 1rem 1rem 1rem;
-  border-radius: var(--border-radius);
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  box-shadow: var(--box-shadow);
-  margin: 1rem 0 0 0;
-}
-
-.nav-box-item {
-  display: flex;
-}
-
-.nav-box-item-img {
-  margin-right: 8px;
-}
-
-.nav-box-blool {
-  position: absolute;
-  top: 0;
-  border-radius: 8px 8px 0 0;
-  height: 18px;
-  width: 100%;
-  left: 0%;
-  font-size: 16px;
-  color: #ffffff;
-  text-align: center;
-}
-
-.nav-box-img {
-  background-size: 100% 100%;
-  width: 13rem;
-  height: 13rem;
-  border-radius: 50%;
-}
-
-.nav-box-avatar {
-  position: relative;
-}
-
-.nav-box-uid {
-  position: absolute;
-  bottom: -8px;
-  text-align: center;
-  width: 100%;
-  left: 0%;
-  color: #ffffffe6;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-.menu-button-flat {
-  background-color: #e7e1e1de;
-  color: #635b5bfa;
-  border-radius: 6px 6px 0 0;
-  font-size: 20px;
-  padding: 2px 8px;
-  position: absolute;
-  top: -26px;
-  left: 13px;
-}
-
 .autograph {
   padding: 2rem 1rem 1rem 1rem;
 }
@@ -123,13 +31,20 @@ body {
   padding: 1rem;
   border-radius: var(--border-radius);
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   position: relative;
   box-shadow: var(--box-shadow);
 }
 
 .level-box-item {
   display: flex;
+  flex: 1 0 auto;
+
+  flex-basis: 50%;
+}
+
+.level-box-item-font {
+  color: var(--font-color);
 }
 
 .box-help {

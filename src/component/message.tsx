@@ -1,70 +1,42 @@
 import React from 'react'
 import { UserMessageType } from '../model/types'
-import { LevelNameMap } from '../model/level'
-export default function App({ data }: { data: UserMessageType }) {
-  const max = data.level.blood + data.equipment.blood
-  const now = data.blood
-  const pro = Math.floor((now / max) * 100)
-  const color = `linear-gradient(to right, #f3d109d9 ${pro}%, #ff0000d9 ${pro}%)`
+import NavMessage from './nav.jsx'
+
+type ComponentType = {
+  data: UserMessageType
+}
+
+export default function App({ data }: ComponentType) {
+  // 修为 --- 战力指数
+  const attack = data.level.attack + data.equipment.attack + data.base.attack
+  const defense =
+    data.level.defense + data.equipment.defense + data.base.defense
+  const blood = data.level.blood + data.equipment.blood + data.base.blood
+  const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
+
+  // 敏捷
+  const agile = data.equipment.agile
+  // 暴击率
+  const critical_hit_rate = data.equipment.critical_hit_rate
+  // 暴击伤害
+  const critical_damage = data.equipment.critical_damage
+
   return (
     <html>
       <head>
         <link rel="stylesheet" href="../../css/root.css"></link>
+        <link rel="stylesheet" href="../../css/nav.css"></link>
         <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
         <link rel="stylesheet" href="../../css/message.css"></link>
       </head>
       <body>
         <div id="root">
-          <div className="nav">
-            <div className="nav-menu">
-              <span className="nav-menu-title">修仙之练气十万年</span>
-              <span className="menu-button">#再入仙途</span>
-              <span className="menu-button">#更换主题</span>
-              <span className="menu-button">#突破</span>
-              <span className="menu-button">#闭关</span>
-              <span className="menu-button">#出关</span>
-            </div>
-            <div className="nav-box">
-              <span className="menu-button-flat">#个人信息</span>
-              <div>
-                <div className="nav-box-item">
-                  <img className="nav-box-item-img" src="../../svg/name.svg" />
-                  <span>{data.name}</span>
-                </div>
-
-                <div className="nav-box-item">
-                  <img className="nav-box-item-img" src="../../svg/level.svg" />
-                  <span>{LevelNameMap[data.level_id]}</span>
-                </div>
-                <div className="nav-box-item">
-                  <img
-                    className="nav-box-item-img"
-                    src="../../svg/experience.svg"
-                  />
-                  <span>{data.experience}</span>
-                </div>
-                <div className="nav-box-item">
-                  <img className="nav-box-item-img" src="../../svg/money.svg" />
-                  <span>{data.money}</span>{' '}
-                </div>
-              </div>
-              <div className="nav-box-avatar">
-                <img
-                  className="nav-box-img"
-                  src={`https://q1.qlogo.cn/g?b=qq&s=0&nk=${data.uid}`}
-                />
-                <div className="nav-box-uid">{data.uid}</div>
-              </div>
-              <div
-                className="nav-box-blool"
-                style={{
-                  background: color
-                }}
-              >
-                {`${now}/${max}-${pro}%`}
-              </div>
-            </div>
-          </div>
+          <NavMessage
+            data={data}
+            power={power}
+            now={data.blood}
+            blood={blood}
+          />
           <div className="autograph">
             <div className="autograph-box">
               <span>{data.autograph}</span>
@@ -73,19 +45,45 @@ export default function App({ data }: { data: UserMessageType }) {
           </div>
           <div className="level">
             <div className="level-box">
+              <span className="menu-button-flat">#装备信息</span>
               <div className="level-box-item">
                 <img className="nav-box-item-img" src="../../svg/attack.svg" />
-                {data.level.attack}
+                <span>{attack}</span>
+                <span className="level-box-item-font">{`(+${+data.base
+                  .attack})`}</span>
               </div>
               <div className="level-box-item">
                 <img className="nav-box-item-img" src="../../svg/defense.svg" />
-                {data.level.defense}
+                <span>{`${defense}`}</span>
+                <span className="level-box-item-font">
+                  {`(+${data.base.defense})`}
+                </span>
               </div>
               <div className="level-box-item">
                 <img className="nav-box-item-img" src="../../svg/blood.svg" />
-                {data.level.blood}
+                <span>{`${blood}`}</span>
+                <span className="level-box-item-font">
+                  {`(+${data.base.blood})`}
+                </span>
               </div>
-              <span className="menu-button-flat">#装备信息</span>
+              <div className="level-box-item">
+                <img className="nav-box-item-img" src="../../svg/agile.svg" />
+                <span>{`${agile}`}</span>
+              </div>
+              <div className="level-box-item">
+                <img
+                  className="nav-box-item-img"
+                  src="../../svg/critical_hit_rate.svg"
+                />
+                <span>{`${critical_hit_rate}`}</span>
+              </div>
+              <div className="level-box-item">
+                <img
+                  className="nav-box-item-img"
+                  src="../../svg/critical_damage.svg"
+                />
+                <span>{`${critical_damage}`}</span>
+              </div>
             </div>
           </div>
           <div className="box-help">

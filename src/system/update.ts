@@ -32,6 +32,14 @@ for (const fileName of fileNames) {
     if (!Object.prototype.hasOwnProperty.call(data, key)) {
       data[key] = UserMessageBase[key]
     }
+    if (typeof UserMessageBase[key] !== 'object') {
+      continue
+    }
+    for (const key2 in UserMessageBase[key]) {
+      if (!Object.prototype.hasOwnProperty.call(data[key], key2)) {
+        data[key][key2] = UserMessageBase[key][key2]
+      }
+    }
   }
   writeArchiveData('player', uid, data)
 }

@@ -1,0 +1,102 @@
+.nav {
+  padding: 1rem;
+}
+
+.menu-button {
+  background-color: #f9f2f2de;
+  color: #635b5bfa;
+  border-radius: 6px;
+  font-size: 20px;
+  padding: 2px 8px;
+  margin: 6px;
+}
+
+.menu-button-flat {
+  background-color: #e7e1e1de;
+  color: #635b5bfa;
+  border-radius: 6px 6px 0 0;
+  font-size: 20px;
+  padding: 2px 8px;
+  position: absolute;
+  top: -26px;
+  left: 13px;
+}
+
+.nav-menu {
+  padding: 1rem;
+}
+
+.nav-menu-title {
+  color: var(--title-color);
+  font-weight: 600;
+  text-shadow: var(--title-text-shadow);
+}
+
+.nav-menu-help {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.nav-box {
+  background-color: var(--bg-color);
+  padding: 1rem 1rem 2rem 1rem;
+  border-radius: 9px 9px 0 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  box-shadow: var(--box-shadow);
+  margin: 1rem 0 0 0;
+}
+
+.nav-box-flex {
+  flex: 1;
+  margin: auto;
+}
+
+.nav-box-item {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-box-item-img {
+  margin-right: 8px;
+}
+
+.nav-box-blool {
+  position: absolute;
+  border-radius: 0 0 8px 8px;
+  height: 18px;
+  width: 100%;
+  left: 0%;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  bottom: -16px;
+}
+
+.nav-box-img {
+  background-size: 100% 100%;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 50%;
+}
+
+.nav-box-avatar {
+  position: relative;
+  text-align: center;
+}
+
+.nav-box-uid {
+  position: absolute;
+  bottom: -8px;
+  text-align: center;
+  width: 100%;
+  left: 0;
+  color: #ffffffe6;
+  white-space: nowrap;
+  font-weight: 600;
+
+  background: var(--uid-background-bolor);
+
+  border-radius: 20px;
+}
