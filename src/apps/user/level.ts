@@ -2,6 +2,7 @@ import { type Event, plugin, define } from '../../../import.js'
 import component from '../../image/index.js'
 import { writeArchiveData } from '../../model/data.js'
 import { getLevelById } from '../../model/level.js'
+import { getUserMessageByUid } from '../../model/message.js'
 import { getRandomNumber, getUserName } from '../../model/utils.js'
 import Level from '../../system/level.js'
 export class level extends plugin {
@@ -24,7 +25,7 @@ export class level extends plugin {
   async levelUp(e: Event) {
     // 获取账号
     const uid = e.user_id
-    const data = Level.up(uid)
+    const data = getUserMessageByUid(uid)
     /**
      * 突破就是以三维为基，触发一定概率的事件
      */
@@ -63,15 +64,17 @@ export class level extends plugin {
     // 最低 30？ 最大不过  75的概率。
     const p = $attack + $defense + $blood
     const ran = getRandomNumber(40, 100)
+    // 不管成功失败都全部清零
+    data.base.attack = 0
+    data.base.defense = 0
+    data.base.blood = 0
     if (p < ran) {
       e.reply(`有${p}%的可能打破瓶颈，但是失败了~`)
-      // 失败的时候,积累清0
-      data.base.attack = 0
-      data.base.defense = 0
-      data.base.blood = 0
       writeArchiveData('player', uid, data)
       return
     }
+    data.level_id += 1
+    writeArchiveData('player', uid, data)
     // 修正名字
     data.name = getUserName(data.name, e.sender.nickname)
     // 数据植入组件
