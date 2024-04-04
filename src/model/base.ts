@@ -5,12 +5,13 @@ export const BaseKill = {
 }
 
 export const BaseEquipment = {
-  attack: 23, // 攻击
-  defense: 9, // 防御
-  blood: 3, // 血量
+  attack: 56, // 攻击
+  defense: 23, // 防御
+  blood: 9, // 血量
   agile: 0, // 敏捷
   critical_hit_rate: 0, // 暴击率
-  critical_damage: 0 // 暴击伤害
+  critical_damage: 0, // 暴击伤害
+  price: 99 // 价格
 }
 
 // 基础境界 不会影响 双暴
@@ -36,20 +37,12 @@ export const UserMessageBase = {
   money: 34,
   theme: 'dark',
   level_id: 0,
-  // 修炼效率
   efficiency: 0,
   base: BaseExperience,
-  // 功法，只记录 id
-  kills: {
-    // key id  val 数量
-  },
-  // 装备，只记录id
+  kills: {},
   equipments: {},
-  // 背包
   bags: {
-    // 功法
     kills: {},
-    // 装备
     equipments: {}
   }
 }
@@ -82,7 +75,7 @@ export const Themes = Object.keys(ThemesColor)
  * @param obj
  * @returns
  */
-function reverseObject(obj) {
+export function reverseObject(obj) {
   const reversedObj = {}
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -90,6 +83,24 @@ function reverseObject(obj) {
     }
   }
   return reversedObj
+}
+
+export function getType(msg) {
+  if (/^武器/.test(msg)) {
+    return 0
+  } else if (/^武器/.test(msg)) {
+    return 1
+  }
+  return -1
+}
+
+export function isDateMap(type, name) {
+  if (type === 0) {
+    return ReverseKillNameMap[name]
+  } else if (type === 1) {
+    return ReverseEquipmentNameMap[name]
+  }
+  return -1
 }
 
 // 境界名
@@ -143,7 +154,7 @@ export const LevelNameMap = {
 }
 
 export const EquipmentNameMap = {
-  '0': '匕首',
+  '0': '残破匕首',
   '1': '火龙剑',
   '2': '雷霆枪',
   '3': '风刃刀',

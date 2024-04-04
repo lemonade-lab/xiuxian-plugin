@@ -7,15 +7,18 @@ import { cwd } from '../../config.ts'
 // component
 import HelloComponent from '../component/hellox.tsx'
 import MessageComponent from '../component/message.tsx'
+import KillComponent from '../component/kill.tsx'
+import EquipmentComponent from '../component/equiment.tsx'
 import { UserMessageType } from '../model/types.ts'
+
 import Redis from '../model/redis.ts'
 class Component {
-  pup: typeof Puppeteer.prototype
-  dir = ''
+  puppeteer: typeof Puppeteer.prototype
+  #dir = ''
   constructor(dir: string) {
-    this.pup = new Puppeteer()
-    this.dir = dir
-    mkdirSync(this.dir, {
+    this.puppeteer = new Puppeteer()
+    this.#dir = dir
+    mkdirSync(this.#dir, {
       recursive: true
     })
   }
@@ -25,9 +28,9 @@ class Component {
    * @param name
    * @returns
    */
-  create(element: React.ReactNode, dirr: string, name: string) {
+  create(element: React.ReactNode, dirs: string, name: string) {
     const html = renderToString(element)
-    const dir = join(this.dir, dirr)
+    const dir = join(this.#dir, dirs)
     mkdirSync(dir, {
       recursive: true
     })
@@ -42,7 +45,7 @@ class Component {
    * @returns
    */
   hello() {
-    return this.pup.render(
+    return this.puppeteer.render(
       this.create(<HelloComponent />, 'hello', 'help.html')
     )
   }
@@ -55,10 +58,45 @@ class Component {
   async message(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.pup.render(
+    return this.puppeteer.render(
       this.create(
         <MessageComponent data={data} status={status} />,
         'message',
+        `${uid}.html`
+      )
+    )
+  }
+
+  /**
+   *
+   * @param data
+   * @param uid
+   * @returns
+   */
+  async kill(data: UserMessageType, uid: number) {
+    const state = await Redis.get('door', data.uid)
+    const status = state?.type !== null ? true : false
+    return this.puppeteer.render(
+      this.create(
+        <KillComponent data={data} status={status} />,
+        'kill',
+        `${uid}.html`
+      )
+    )
+  }
+  /**
+   *
+   * @param data
+   * @param uid
+   * @returns
+   */
+  async equipment(data: UserMessageType, uid: number) {
+    const state = await Redis.get('door', data.uid)
+    const status = state?.type !== null ? true : false
+    return this.puppeteer.render(
+      this.create(
+        <EquipmentComponent data={data} status={status} />,
+        'equipment',
         `${uid}.html`
       )
     )

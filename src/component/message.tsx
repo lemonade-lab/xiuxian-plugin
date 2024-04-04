@@ -3,6 +3,7 @@ import { UserMessageType } from '../model/types'
 import NavMessage from './nav.jsx'
 import { getLevelById } from '../model/level.js'
 import { KillNameMap } from '../model/base.js'
+import { getEuipmentById } from '../model/equipment.js'
 
 type ComponentType = {
   data: UserMessageType
@@ -19,6 +20,14 @@ export default function App({ data, status }: ComponentType) {
     critical_hit_rate: 0,
     critical_damage: 0,
     blood: 0
+  }
+
+  const equipments = Object.keys(data.equipments)
+  for (const ID of equipments) {
+    const data = getEuipmentById(Number(ID))
+    for (const key in data) {
+      equipment[key] = data[key]
+    }
   }
 
   // 修为 --- 战力指数
@@ -114,11 +123,12 @@ export default function App({ data, status }: ComponentType) {
           )}
           <div className="box-help">
             <div className="box-help-box">
-              <span className="menu-button-flat">*修仙帮助</span>
+              <span className="menu-button-flat">修仙小助手</span>
               <span className="menu-button">#改名+字符</span>
               <span className="menu-button">#采矿</span>
               <span className="menu-button">#商店</span>
-              <span className="menu-button">#购买+商品名</span>
+              <span className="menu-button">#购买武器/功法+物品名</span>
+              <span className="menu-button">#装备武器+武器名</span>
               <span className="menu-button">#学习+功法名</span>
             </div>
           </div>

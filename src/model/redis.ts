@@ -1,16 +1,14 @@
 const Keys = ['door', 'mining'] as const
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
-  baseKey = 'xiuxian@1.4'
-
+  #baseKey = 'xiuxian@1.4'
   #message = {
     type: null,
     msg: null,
     data: null
   }
-
   getKey(key: RedisKeyEnum, uid: number) {
-    return `${this.baseKey}:${key}:${uid}`
+    return `${this.#baseKey}:${key}:${uid}`
   }
 
   /**

@@ -1,6 +1,7 @@
 import { type Event, plugin, define } from '../../../import'
 import { ReverseKillNameMap } from '../../model/base'
 import { writeArchiveData } from '../../model/data'
+import { getKillById } from '../../model/kills'
 import { getUserMessageByUid } from '../../model/message'
 export class bag extends plugin {
   constructor() {
@@ -10,6 +11,10 @@ export class bag extends plugin {
         {
           reg: /^(#|\/)?学习/,
           fnc: 'study'
+        },
+        {
+          reg: /^(#|\/)?装备武器/,
+          fnc: 'addEuitment'
         }
       ]
     })
@@ -45,10 +50,20 @@ export class bag extends plugin {
     if (data.bags.kills[ID] <= 0) {
       delete data.bags.kills[ID]
     }
+    const sData = getKillById(ID)
+    data.efficiency += sData.efficiency
     data.kills[ID] = true
     // 保存
     writeArchiveData('player', uid, data)
     e.reply(`学得${name}`)
     return false
+  }
+
+  /**
+   *
+   * @param e
+   */
+  async addEuitment(e: Event) {
+    e.reply('待更新')
   }
 }

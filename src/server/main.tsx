@@ -16,7 +16,7 @@ for (const item of routes) {
     // 如果收到了截至指令。就会生产截图真是图片测试
     const req = ctx.request.query
     if (req?.test == 'ok') {
-      component.pup
+      component.puppeteer
         .render(component.create(item.element, 'test', 'test.html'))
         .then((img) => {
           if (typeof img !== 'boolean') {

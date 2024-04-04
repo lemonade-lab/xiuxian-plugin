@@ -1,5 +1,7 @@
 import { UserMessageBase } from './base'
 import { readArchiveData, writeArchiveData } from './data'
+import { getEuipmentById } from './equipment'
+import { getKillById } from './kills'
 
 /**
  * 根据uid得到信息
@@ -23,4 +25,13 @@ export function getReStartUserMessageByUid(uid: number) {
   UserMessageBase.uid = uid
   writeArchiveData('player', uid, UserMessageBase)
   return UserMessageBase
+}
+
+export function getDataByType(type: number, id: number) {
+  if (type === 0) {
+    return getKillById[id]
+  } else if (type === 1) {
+    return getEuipmentById[id]
+  }
+  return -1
 }

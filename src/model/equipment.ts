@@ -9,7 +9,7 @@ function getAttackById(id: number) {
   if (id <= 0) {
     return BaseEquipment.attack
   } else if (id < 13) {
-    return BaseEquipment.defense * (id + 3) * 0.3
+    return BaseEquipment.attack * (id + 3) * 0.3
   } else if (13 <= id && id < 17) {
     return BaseEquipment.attack * id * 2 * 0.4
   } else if (17 <= id && id < 21) {
