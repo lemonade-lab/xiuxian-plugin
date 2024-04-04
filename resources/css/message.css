@@ -55,6 +55,7 @@ body {
   padding: 4px;
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   background-color: var(--inset-bg-color);
   border-radius: var(--border-radius);
   box-shadow: var(--inset-box-shadow);
