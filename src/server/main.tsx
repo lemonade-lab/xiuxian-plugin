@@ -16,12 +16,16 @@ for (const item of routes) {
     // 如果收到了截至指令。就会生产截图真是图片测试
     const req = ctx.request.query
     if (req?.test == 'ok') {
-      // 如果受到指令
-      component[item.key](item.data).then((img) => {
-        if (typeof img !== 'boolean') {
-          writeFileSync(join(process.cwd(), './resources/cache/test.jpg'), img)
-        }
-      })
+      component.pup
+        .render(component.create(item.element, 'test', 'test.html'))
+        .then((img) => {
+          if (typeof img !== 'boolean') {
+            writeFileSync(
+              join(process.cwd(), './resources/cache/test.jpg'),
+              img
+            )
+          }
+        })
     }
     const html = renderToString(item.element)
     ctx.body = `<!DOCTYPE html>${html}`

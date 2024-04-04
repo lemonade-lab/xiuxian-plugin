@@ -6,13 +6,11 @@ export const routes = [
   {
     url: '/',
     key: '',
-    data: '',
     element: <HelloComponent />
   },
   {
     url: '/message',
     key: 'message',
-    data: getUserMessageByUid(794161769),
     element: <MessageComponent data={getUserMessageByUid(794161769)} />
   }
 ]
