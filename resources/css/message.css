@@ -44,7 +44,6 @@ body {
   border-radius: var(--border-radius);
   display: flex;
   justify-content: space-between;
-
   position: relative;
 }
 
@@ -60,11 +59,36 @@ body {
   text-align: center;
 }
 
-.nav-box-avatar {
+.nav-box-img {
   background-size: 100% 100%;
   width: 13rem;
   height: 13rem;
   border-radius: 50%;
+}
+
+.nav-box-avatar {
+  position: relative;
+}
+
+.nav-box-uid {
+  position: absolute;
+  bottom: -8px;
+  text-align: center;
+  width: 100%;
+  left: 0%;
+  color: #ffffffe6;
+  white-space: nowrap;
+}
+
+.menu-button-flat {
+  background-color: #f9f2f2de;
+  color: #635b5bfa;
+  border-radius: 6px;
+  font-size: 20px;
+  padding: 2px 8px;
+  position: absolute;
+  top: -16px;
+  left: 13px;
 }
 
 .autograph {
@@ -75,6 +99,7 @@ body {
   background-color: var(--bg-color);
   padding: 1rem;
   border-radius: var(--border-radius);
+  position: relative;
 }
 
 .level {
@@ -85,4 +110,7 @@ body {
   background-color: var(--bg-color);
   padding: 1rem;
   border-radius: var(--border-radius);
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 }

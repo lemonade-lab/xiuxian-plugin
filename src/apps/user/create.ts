@@ -45,7 +45,7 @@ export class user extends plugin {
     // 尝试读取数据，如果没有数据将自动创建
     const data = getUserMessageByUid(uid)
     if (data.name === '柠檬冲水') {
-      data.name = e.sender.nickname
+      data.name = e.sender.nickname.replace(/[^\u4e00-\u9fa5]/g, '')
     }
     // 数据植入组件
     component.message(data, uid).then((img) => {
@@ -66,7 +66,7 @@ export class user extends plugin {
     // 尝试读取数据，如果没有数据将自动创建
     const data = getReStartUserMessageByUid(uid)
     if (data.name === '柠檬冲水') {
-      data.name = e.sender.nickname
+      data.name = e.sender.nickname.replace(/[^\u4e00-\u9fa5]/g, '')
     }
     // 数据植入组件
     component.message(data, uid).then((img) => {
@@ -99,7 +99,7 @@ export class user extends plugin {
     writeArchiveData('player', uid, data)
 
     if (data.name === '柠檬冲水') {
-      data.name = e.sender.nickname
+      data.name = e.sender.nickname.replace(/[^\u4e00-\u9fa5]/g, '')
     }
     // 数据植入组件
     component.message(data, uid).then((img) => {

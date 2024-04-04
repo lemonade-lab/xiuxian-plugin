@@ -24,7 +24,6 @@ export default function App({ data }: { data: UserMessageType }) {
             </div>
             <div className="nav-box">
               <div>
-                <div>UID：{data.uid}</div>
                 <div>
                   <span>昵称：{data.name}</span>
                   <span className="menu-button">#改名+字符</span>
@@ -43,10 +42,13 @@ export default function App({ data }: { data: UserMessageType }) {
                   <span className="menu-button">#商店</span>
                 </div>
               </div>
-              <img
-                className="nav-box-avatar"
-                src={`https://q1.qlogo.cn/g?b=qq&s=0&nk=${data.uid}`}
-              ></img>
+              <div className="nav-box-avatar">
+                <img
+                  className="nav-box-img"
+                  src={`https://q1.qlogo.cn/g?b=qq&s=0&nk=${data.uid}`}
+                />
+                <div className="nav-box-uid">{data.uid}</div>
+              </div>
               <div
                 className="nav-box-blool"
                 style={{
@@ -60,7 +62,7 @@ export default function App({ data }: { data: UserMessageType }) {
           <div className="autograph">
             <div className="autograph-box">
               <span>道宣：{data.autograph}</span>
-              <span className="menu-button">#签名+字符</span>
+              <span className="menu-button-flat">#签名+字符</span>
             </div>
           </div>
           <div className="level">
@@ -68,6 +70,7 @@ export default function App({ data }: { data: UserMessageType }) {
               <div>攻击：{data.level.attack}</div>
               <div>防御：{data.level.defense}</div>
               <div>血量：{data.level.blood}</div>
+              <span className="menu-button-flat">#装备信息</span>
             </div>
           </div>
         </div>
