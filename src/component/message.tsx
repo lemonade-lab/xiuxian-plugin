@@ -132,6 +132,7 @@ export default function App({ data, status }: ComponentType) {
               <span className="menu-button">#出关</span>
               <span className="menu-button">#储物袋</span>
               <span className="menu-button">#万宝楼</span>
+              <span className="menu-button">#打劫@道友</span>
             </div>
           </div>
         </div>
