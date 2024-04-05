@@ -7,6 +7,9 @@ import { type GroupMessage } from 'icqq'
  */
 export interface Event extends GroupMessage {
   isMaster: boolean
+  group: {
+    recallMsg: any
+  }
   msg: string
   reply: (...arg: any) => Promise<any>
 }
