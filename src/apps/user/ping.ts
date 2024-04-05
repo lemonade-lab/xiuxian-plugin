@@ -1,6 +1,6 @@
 import { type Event, plugin, define } from '../../../import'
 import { existsArchiveSync, writeArchiveData } from '../../model/data'
-import { getDataByType, getUserMessageByUid } from '../../model/message'
+import { getUserMessageByUid } from '../../model/message'
 import RedisClient from '../../model/redis'
 import { getUserName } from '../../model/utils'
 import component from '../../image/index'
@@ -11,15 +11,7 @@ import {
   MINING_MONEY
 } from '../../model/config'
 import { getLevelById } from '../../model/level'
-import {
-  EquipmentNameMap,
-  KillNameMap,
-  ReverseKillNameMap,
-  getType,
-  isDateMap
-} from '../../model/base'
-import { getKillById } from '../../model/kills'
-import { getEuipmentById } from '../../model/equipment'
+
 export class ping extends plugin {
   constructor() {
     super({
@@ -32,14 +24,6 @@ export class ping extends plugin {
         {
           reg: /^(#|\/)?出关$/,
           fnc: 'doorClose'
-        },
-        {
-          reg: /^(#|\/)?商店$/,
-          fnc: 'shoping'
-        },
-        {
-          reg: /^(#|\/)?购买(武器|功法)/,
-          fnc: 'buy'
         },
         {
           reg: /^(#|\/)?采矿$/,
@@ -151,81 +135,6 @@ export class ping extends plugin {
     })
     writeArchiveData('player', uid, data)
     e.reply(`采得${MINING_MONEY}块灵石`)
-    return false
-  }
-
-  /**
-   * 商店
-   * @param e
-   * @returns
-   */
-  async shoping(e: Event) {
-    const uid = e.user_id
-    const data = getUserMessageByUid(uid)
-    const arr: string[] = []
-    for (const item in KillNameMap) {
-      const kill = getKillById(Number(item))
-      arr.push(
-        `${kill.id}号功法:${kill.name}-灵石:${kill.price}-天赋值:${kill.efficiency}%`
-      )
-    }
-    for (const item in EquipmentNameMap) {
-      const Euipemt = getEuipmentById(Number(item))
-      arr.push(
-        `${Euipemt.id}号武器:${Euipemt.name}-灵石:${Euipemt.price}-攻击:${Euipemt.attack}%-防御:${Euipemt.defense}-血量:${Euipemt.blood}`
-      )
-    }
-    const msg = arr.slice(0, (data.level_id + 1) * 3)
-    e.reply(msg.join('\n'))
-    return false
-  }
-
-  /**
-   * 购买
-   * @param e
-   * @returns
-   */
-  async buy(e: Event) {
-    const uid = e.user_id
-    // 类型转换
-    const type = getType(e.msg)
-    const name = e.msg
-      .replace(/^(#|\/)?购买(武器|功法)/, '')
-      .replace(/[^\u4e00-\u9fa5]/g, '')
-    const ID = isDateMap(type, name)
-    if (!ID) {
-      e.reply(`此方世界没有《${name}》`)
-      return
-    }
-    const data = getUserMessageByUid(uid)
-    // 看看money
-    const sData = getDataByType(type, Number(ID))
-    if (data.money < sData.price) {
-      e.reply(`灵石不足${sData.price}`)
-      return
-    }
-    if (type === 0) {
-      data.money -= sData.price
-      const count = data.bags.kills[ID]
-      if (!count || count <= 0) {
-        data.bags.kills[ID] = 1
-      } else {
-        data.bags.kills[ID] += 1
-      }
-    } else if (type === 1) {
-      data.money -= sData.price
-      const count = data.bags.equipments[ID]
-      if (!count || count <= 0) {
-        data.bags.equipments[ID] = 1
-      } else {
-        data.bags.equipments[ID] += 1
-      }
-    } else {
-      return false
-    }
-    // 保存
-    writeArchiveData('player', uid, data)
-    e.reply(`购得${name}`)
     return false
   }
 }

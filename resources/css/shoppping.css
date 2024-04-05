@@ -10,6 +10,34 @@ body {
   height: 100%;
 }
 
+.kills {
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.kills-box {
+  background-color: var(--bg-color);
+  padding: 10px 1rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  box-shadow: var(--box-shadow);
+}
+
+.kills-box-item {
+  display: flex;
+}
+
+.kills-box-item-j {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 1rem;
+}
+
+.kills-box-item-font {
+  color: var(--font-color);
+}
+
 .equiment {
   padding: 2rem 1rem 1rem 1rem;
 }
@@ -22,6 +50,7 @@ body {
   flex-wrap: wrap;
   position: relative;
   box-shadow: var(--box-shadow);
+  flex-direction: column;
 }
 
 .equiment-box-item {

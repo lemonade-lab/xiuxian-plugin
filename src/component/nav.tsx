@@ -1,6 +1,7 @@
 import React from 'react'
 import { LevelNameMap, ThemesColor } from '../model/base'
 import { UserMessageType } from '../model/types'
+import HeaderComponent from './header.js'
 
 type ComponentType = {
   data: UserMessageType
@@ -23,14 +24,7 @@ export default function App({
   } ${pro}%,${ThemesColor[data.theme].right}  ${pro}%)`
   return (
     <div className="nav">
-      <div className="nav-menu">
-        <span className="nav-menu-title">修仙之练气十万年</span>
-        <span className="menu-button">#再入仙途</span>
-        <span className="menu-button">#更换主题</span>
-        <span className="menu-button">#突破</span>
-        <span className="menu-button">#闭关</span>
-        <span className="menu-button">#出关</span>
-      </div>
+      <HeaderComponent />
       <div className="nav-box">
         <span className="menu-button-flat">#个人信息</span>
         <span className="nav-talent">

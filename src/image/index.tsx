@@ -9,6 +9,9 @@ import HelloComponent from '../component/hellox.tsx'
 import MessageComponent from '../component/message.tsx'
 import KillComponent from '../component/kill.tsx'
 import EquipmentComponent from '../component/equiment.tsx'
+import ShoppingComponent from '../component/shopping.tsx'
+import BagComponent from '../component/bag.tsx'
+
 import { UserMessageType } from '../model/types.ts'
 
 import Redis from '../model/redis.ts'
@@ -99,6 +102,30 @@ class Component {
         'equipment',
         `${uid}.html`
       )
+    )
+  }
+
+  /**
+   *
+   * @param data
+   * @param uid
+   * @returns
+   */
+  async shopping(data: UserMessageType, uid: number) {
+    return this.puppeteer.render(
+      this.create(<ShoppingComponent data={data} />, 'shopping', `${uid}.html`)
+    )
+  }
+
+  /**
+   *
+   * @param data
+   * @param uid
+   * @returns
+   */
+  async bag(data: UserMessageType, uid: number) {
+    return this.puppeteer.render(
+      this.create(<BagComponent data={data} />, 'bag', `${uid}.html`)
     )
   }
 }

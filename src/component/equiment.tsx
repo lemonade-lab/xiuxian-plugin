@@ -21,8 +21,6 @@ export default function App({ data, status }: ComponentType) {
     blood: 0
   }
 
-  const equipments = Object.keys(data.equipments)
-
   const datas: {
     id: number
     name: any
@@ -35,11 +33,14 @@ export default function App({ data, status }: ComponentType) {
     price: number
   }[] = []
 
-  for (const ID of equipments) {
-    const data = getEuipmentById(Number(ID))
-    datas.push(data)
-    for (const key in data) {
-      equipment[key] = data[key]
+  for (const KEY in data.equipments) {
+    // 这个key 没有 标记
+    if (data.equipments[KEY] === null) continue
+    // 有标记
+    const db = getEuipmentById(Number(data.equipments[KEY]))
+    datas.push(db)
+    for (const key in db) {
+      equipment[key] = db[key]
     }
   }
 
@@ -67,62 +68,62 @@ export default function App({ data, status }: ComponentType) {
             status={status}
           />
           {datas.length > 0 && (
-            <div className="kills">
-              <div className="kills-box">
+            <div className="equiment">
+              <div className="equiment-box">
                 <span className="menu-button-flat">#功法信息</span>
                 {datas.map((item, index) => {
                   return (
-                    <div key={index} className="kills-box-item">
-                      <div className="kills-box-item-j">
+                    <div key={index} className="equiment-box-item">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/equitment.svg"
                         />
                         <span>{item.name}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/attack.svg"
                         />
                         <span>{item.attack}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/defense.svg"
                         />
                         <span>{item.defense}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/blood.svg"
                         />
                         <span>{item.blood}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/agile.svg"
                         />
                         <span>{item.agile}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/critical_hit_rate.svg"
                         />
                         <span>{item.critical_hit_rate}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/critical_damage.svg"
                         />
                         <span>{item.critical_damage}</span>
                       </div>
-                      <div className="kills-box-item-j">
+                      <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/money.svg"
@@ -135,6 +136,14 @@ export default function App({ data, status }: ComponentType) {
               </div>
             </div>
           )}
+
+          <div className="box-help">
+            <div className="box-help-box">
+              <span className="menu-button-flat">修仙小助手</span>
+              <span className="menu-button">#装备武器+武器名</span>
+              <span className="menu-button">#卸下武器+武器名</span>
+            </div>
+          </div>
         </div>
       </body>
     </html>

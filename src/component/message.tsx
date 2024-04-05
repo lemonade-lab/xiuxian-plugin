@@ -22,11 +22,13 @@ export default function App({ data, status }: ComponentType) {
     blood: 0
   }
 
-  const equipments = Object.keys(data.equipments)
-  for (const ID of equipments) {
-    const data = getEuipmentById(Number(ID))
-    for (const key in data) {
-      equipment[key] = data[key]
+  for (const KEY in data.equipments) {
+    // 这个key 没有 标记
+    if (data.equipments[KEY] === null) continue
+    // 有标记
+    const db = getEuipmentById(Number(data.equipments[KEY]))
+    for (const key in db) {
+      equipment[key] = db[key]
     }
   }
 
@@ -124,12 +126,12 @@ export default function App({ data, status }: ComponentType) {
           <div className="box-help">
             <div className="box-help-box">
               <span className="menu-button-flat">修仙小助手</span>
-              <span className="menu-button">#改名+字符</span>
               <span className="menu-button">#采矿</span>
-              <span className="menu-button">#商店</span>
-              <span className="menu-button">#购买武器/功法+物品名</span>
-              <span className="menu-button">#装备武器+武器名</span>
-              <span className="menu-button">#学习+功法名</span>
+              <span className="menu-button">#突破</span>
+              <span className="menu-button">#闭关</span>
+              <span className="menu-button">#出关</span>
+              <span className="menu-button">#储物袋</span>
+              <span className="menu-button">#万宝楼</span>
             </div>
           </div>
         </div>

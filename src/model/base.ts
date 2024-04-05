@@ -40,7 +40,20 @@ export const UserMessageBase = {
   efficiency: 0,
   base: BaseExperience,
   kills: {},
-  equipments: {},
+  equipments: {
+    // 武器  攻击
+    arms: null,
+    // 护甲 防御
+    armor: null,
+    // 裤子 血量
+    trousers: null,
+    // 靴子  敏捷
+    boot: null,
+    // 法器  爆伤
+    magic: null,
+    // 头冠  暴击率
+    helmet: null
+  },
   bags: {
     kills: {},
     equipments: {}
@@ -154,7 +167,7 @@ export const LevelNameMap = {
 }
 
 export const EquipmentNameMap = {
-  '0': '残破匕首',
+  '0': '烂匕首',
   '1': '火龙剑',
   '2': '雷霆枪',
   '3': '风刃刀',
@@ -258,11 +271,15 @@ export const EquipmentNameMap = {
 }
 
 // 反转key
-export const ReverseEquipmentNameMap = reverseObject(EquipmentNameMap)
+export const ReverseEquipmentNameMap: {
+  [key: string]: string
+} = reverseObject(EquipmentNameMap)
 
 export const KillNameMap = {
   '0': '灵气吐纳法'
 }
 
 // 反转key
-export const ReverseKillNameMap = reverseObject(KillNameMap)
+export const ReverseKillNameMap: {
+  [key: string]: string
+} = reverseObject(KillNameMap)

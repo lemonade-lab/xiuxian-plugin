@@ -36,7 +36,13 @@ export default function App({ data, status }: ComponentType) {
   const blood = level.blood + equipment.blood + data.base.blood
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
-  const kills: string[] = Object.keys(data.kills)
+  const kills = Object.keys(data.bags.kills).map((item) => {
+    const db = getKillById(Number(item))
+    return {
+      ...db,
+      acount: data.bags.kills[item]
+    }
+  })
 
   return (
     <html>
@@ -60,7 +66,6 @@ export default function App({ data, status }: ComponentType) {
               <div className="kills-box">
                 <span className="menu-button-flat">#功法信息</span>
                 {kills.map((item, index) => {
-                  const data = getKillById(Number(item))
                   return (
                     <div key={index} className="kills-box-item">
                       <div className="kills-box-item-j">
@@ -68,21 +73,21 @@ export default function App({ data, status }: ComponentType) {
                           className="nav-box-item-img"
                           src="../../svg/kills.svg"
                         />
-                        <span>{data.name}</span>
+                        <span>{item.name}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/efficiency.svg"
                         />
-                        <span>{data.efficiency}</span>
+                        <span>{item.efficiency}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/money.svg"
                         />
-                        <span>{data.price}</span>
+                        <span>{item.price}</span>
                       </div>
                     </div>
                   )
@@ -90,6 +95,12 @@ export default function App({ data, status }: ComponentType) {
               </div>
             </div>
           )}
+          <div className="box-help">
+            <div className="box-help-box">
+              <span className="menu-button-flat">修仙小助手</span>
+              <span className="menu-button">#学习+功法名</span>
+            </div>
+          </div>
         </div>
       </body>
     </html>

@@ -37,3 +37,17 @@ body {
 .kills-box-item-font {
   color: var(--font-color);
 }
+
+.box-help {
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.box-help-box {
+  padding: 4px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--inset-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--inset-box-shadow);
+}
