@@ -1,4 +1,4 @@
-const Keys = ['door', 'mining'] as const
+const Keys = ['door', 'mining', 'reCreate'] as const
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
   #baseKey = 'xiuxian@1.4'

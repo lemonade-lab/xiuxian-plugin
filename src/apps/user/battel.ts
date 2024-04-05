@@ -4,6 +4,7 @@ import { getUserMessageByUid } from '../../model/message'
 import { getUserName } from '../../model/utils'
 import { userBattle } from '../../system/battel'
 import Utils from '../../utils'
+import RedisClient from '../../model/redis'
 export class battel extends plugin {
   constructor() {
     super({
@@ -31,6 +32,14 @@ export class battel extends plugin {
       e.reply('血量不足')
       return
     }
+
+    // 不能在闭关
+    const Biguan = await RedisClient.get('door', uid)
+    if (Biguan.type) {
+      e.reply(Biguan.msg)
+      return
+    }
+
     data.name = getUserName(data.name, e.sender.nickname)
     // 你at了对方
     const uData = getUserMessageByUid(UID)
@@ -38,6 +47,14 @@ export class battel extends plugin {
       e.reply('对方已无战意')
       return
     }
+
+    // 不能在闭关
+    const bBiguan = await RedisClient.get('door', UID)
+    if (bBiguan.type) {
+      e.reply(bBiguan.msg)
+      return
+    }
+
     const { l, aData, bData } = userBattle(data, uData)
     if (l) {
       let size = 0
@@ -47,8 +64,6 @@ export class battel extends plugin {
         size = 1
       } else if (bData.money <= 2) {
         size = 2
-      } else if (bData.money >= 3) {
-        size = 3
       } else {
         size = 3
       }
@@ -67,8 +82,6 @@ export class battel extends plugin {
         size = 1
       } else if (aData.money <= 2) {
         size = 2
-      } else if (aData.money >= 3) {
-        size = 3
       } else {
         size = 3
       }

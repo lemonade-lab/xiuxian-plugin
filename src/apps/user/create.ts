@@ -7,6 +7,8 @@ import component from '../../image/index.js'
 import { Themes } from '../../model/base.js'
 import { writeArchiveData } from '../../model/data.js'
 import { getUserName } from '../../model/utils.js'
+import RedisClient from '../../model/redis'
+import { USER_RECREATE } from '../../model/config'
 export class user extends plugin {
   constructor() {
     super({
@@ -62,8 +64,21 @@ export class user extends plugin {
   async reCreate(e: Event) {
     // 获取账号
     const uid = e.user_id
+
+    const eMessage = await RedisClient.get('reCreate', uid)
+    const now = Date.now()
+    const time = now - (eMessage.data?.time ?? 0)
+    if (eMessage.type && time <= USER_RECREATE) {
+      e.reply(eMessage.msg)
+      return
+    }
+    RedisClient.set('reCreate', uid, '重生冷却中', {
+      time: now
+    })
+
     // 尝试读取数据，如果没有数据将自动创建
     const data = getReStartUserMessageByUid(uid)
+    writeArchiveData('player', uid, data)
     data.name = getUserName(data.name, e.sender.nickname)
     // 数据植入组件
     component.message(data, uid).then((img) => {

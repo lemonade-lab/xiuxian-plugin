@@ -23,6 +23,8 @@ export function getUserMessageByUid(uid: number) {
  */
 export function getReStartUserMessageByUid(uid: number) {
   UserMessageBase.uid = uid
+  // 重生少一半
+  UserMessageBase.money = 18
   writeArchiveData('player', uid, UserMessageBase)
   return UserMessageBase
 }

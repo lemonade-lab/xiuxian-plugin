@@ -18,3 +18,6 @@ export const MINING_BLOOL = 200
 
 // 挖矿所得灵石
 export const MINING_MONEY = 1
+
+// 重生控制 12h
+export const USER_RECREATE = 1000 * 60 * 60 * 12
