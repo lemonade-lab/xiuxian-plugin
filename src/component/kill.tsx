@@ -38,13 +38,7 @@ export default function App({ data, status }: ComponentType) {
   const blood = level.blood + equipment.blood + data.base.blood
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
-  const kills = Object.keys(data.bags.kills).map((item) => {
-    const db = getKillById(Number(item))
-    return {
-      ...db,
-      acount: data.bags.kills[item]
-    }
-  })
+  const kills = Object.keys(data.kills).map((item) => getKillById(Number(item)))
 
   return (
     <html>
