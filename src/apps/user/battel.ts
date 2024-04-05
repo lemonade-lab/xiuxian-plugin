@@ -35,7 +35,7 @@ export class battel extends plugin {
     // 你at了对方
     const uData = getUserMessageByUid(UID)
     if (uData.blood <= 0) {
-      e.reply('对方已无力作战')
+      e.reply('对方已无战意')
       return
     }
     const { l, aData, bData } = userBattle(data, uData)

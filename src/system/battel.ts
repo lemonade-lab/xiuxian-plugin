@@ -48,33 +48,33 @@ export function userBattle(aData: UserMessageType, bData: UserMessageType) {
   let l = true
   while (T) {
     // 左边攻击
-    bBase.blood -= aDamage
-    if (bBase.blood <= 0) {
-      bBase.blood = 0
+    bData.blood -= aDamage
+    if (bData.blood <= 0) {
+      bData.blood = 0
       l = true
       T = false
       break
     }
     // 右边触发被动伤害
-    aBase.blood -= Math.floor(bDamage / 2)
-    if (aBase.blood <= 0) {
-      aBase.blood = 0
+    aData.blood -= Math.floor(bDamage / 2)
+    if (aData.blood <= 0) {
+      aData.blood = 0
       l = false
       T = false
       break
     }
     // 右边攻击
-    aBase.blood -= Math.floor(bDamage)
-    if (aBase.blood <= 0) {
-      aBase.blood = 0
+    aData.blood -= Math.floor(bDamage)
+    if (aData.blood <= 0) {
+      aData.blood = 0
       l = false
       T = false
       break
     }
     // 左边触发被动伤害
-    bBase.blood -= Math.floor(aDamage / 2)
-    if (bBase.blood <= 0) {
-      bBase.blood = 0
+    bData.blood -= Math.floor(aDamage / 2)
+    if (bData.blood <= 0) {
+      bData.blood = 0
       l = true
       T = false
       break
