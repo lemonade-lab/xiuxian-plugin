@@ -22,11 +22,13 @@ export default function App({ data, status }: ComponentType) {
     blood: 0
   }
 
-  const equipments = Object.keys(data.equipments)
-  for (const ID of equipments) {
-    const data = getEuipmentById(Number(ID))
-    for (const key in data) {
-      equipment[key] = data[key]
+  for (const KEY in data.equipments) {
+    // 这个key 没有 标记
+    if (data.equipments[KEY] === null) continue
+    // 有标记
+    const db = getEuipmentById(Number(data.equipments[KEY]))
+    for (const key in db) {
+      equipment[key] = db[key]
     }
   }
 
