@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server'
 import { Puppeteer } from './puppeteer.ts'
 import { mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
-import { cwd } from '../../config.ts'
+import { cwd } from '../config.ts'
 // component
 import HelloComponent from '../component/hellox.tsx'
 import MessageComponent from '../component/message.tsx'
