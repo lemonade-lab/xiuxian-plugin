@@ -43,6 +43,11 @@ type EquipmentsType = {
   helmet: null | string
 }
 
+// 身份卡 ： 白 绿 蓝 紫 金
+const Identitys = [0, 1, 2, 3, 4] as const
+
+type IdentityType = (typeof Identitys)[number]
+
 //
 export const UserMessageBase = {
   uid: 17377405173,
@@ -50,11 +55,16 @@ export const UserMessageBase = {
   blood: 100,
   autograph: '无',
   money: 34,
+  // 主题
   theme: 'dark',
+  // 境界
   level_id: 0,
+  identity: 0 as IdentityType,
   efficiency: 0,
   base: BaseExperience,
+  // 功法
   kills: {},
+  // 装备
   equipments: {
     // 武器  攻击
     arms: null,
@@ -69,8 +79,11 @@ export const UserMessageBase = {
     // 头冠  暴击率
     helmet: null
   } as EquipmentsType,
+  // 背包
   bags: {
+    // 功法
     kills: {},
+    // 装备  --- 手续改成 EquipmentsType
     equipments: {}
   }
 }
@@ -103,32 +116,14 @@ export const Themes = Object.keys(ThemesColor)
  * @param obj
  * @returns
  */
-export function reverseObject(obj) {
+export function reverseObject(obj: object) {
   const reversedObj = {}
   for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       reversedObj[obj[key]] = key
     }
   }
   return reversedObj
-}
-
-export function getType(msg) {
-  if (/^武器/.test(msg)) {
-    return 0
-  } else if (/^武器/.test(msg)) {
-    return 1
-  }
-  return -1
-}
-
-export function isDateMap(type, name) {
-  if (type === 0) {
-    return ReverseKillNameMap[name]
-  } else if (type === 1) {
-    return ReverseEquipmentNameMap[name]
-  }
-  return -1
 }
 
 // 境界名
