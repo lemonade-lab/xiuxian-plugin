@@ -18,5 +18,17 @@ class Axios {
       method: 'GET'
     }).then((res) => res.data)
   }
+
+  /**
+   * 指定用户信息
+   * @returns
+   */
+  message(params) {
+    return this.server({
+      url: '/message',
+      method: 'GET',
+      params
+    }).then((res) => res.data)
+  }
 }
 export default new Axios()

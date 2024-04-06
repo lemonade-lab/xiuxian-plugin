@@ -1,0 +1,7 @@
+.message {
+    flex-grow: 1;
+    padding: 1rem;
+    margin: 1rem 0;
+    background-color: aliceblue;
+    border-radius: 0 8px 8px 0;
+}
