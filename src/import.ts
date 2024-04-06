@@ -8,10 +8,10 @@ import { type GroupMessage } from 'icqq'
 export interface Event extends GroupMessage {
   isMaster: boolean
   group: {
-    recallMsg: (...arg: any) => any
+    recallMsg: (...arg) => any
   }
   msg: string
-  reply: (...arg: any) => Promise<any>
+  reply: (...arg) => Promise<any>
 }
 
 export const define = {

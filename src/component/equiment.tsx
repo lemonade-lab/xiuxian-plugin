@@ -10,6 +10,18 @@ type ComponentType = {
   status: null | boolean
 }
 
+type DatasType = {
+  id: number | string
+  name: string
+  attack: number
+  defense: number
+  blood: number
+  agile: number
+  critical_hit_rate: number
+  critical_damage: number
+  price: number
+}
+
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
 
@@ -22,17 +34,7 @@ export default function App({ data, status }: ComponentType) {
     blood: 0
   }
 
-  const datas: {
-    id: number | string
-    name: string
-    attack: number
-    defense: number
-    blood: number
-    agile: number
-    critical_hit_rate: number
-    critical_damage: number
-    price: number
-  }[] = []
+  const datas: DatasType[] = []
 
   for (const KEY in data.equipments) {
     // 这个key 没有 标记

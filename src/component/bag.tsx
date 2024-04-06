@@ -9,21 +9,23 @@ type ComponentType = {
   data: UserMessageType
 }
 
+type DatasType = {
+  id: number | string
+  name: string
+  attack: number
+  defense: number
+  blood: number
+  agile: number
+  critical_hit_rate: number
+  critical_damage: number
+  price: number
+  acount: number
+}
+
 // 路径深度
 
 export default function App({ data }: ComponentType) {
-  const datas: {
-    id: number | string
-    name: string
-    attack: number
-    defense: number
-    blood: number
-    agile: number
-    critical_hit_rate: number
-    critical_damage: number
-    price: number
-    acount: number
-  }[] = []
+  const datas: DatasType[] = []
 
   for (const item in data.bags.equipments) {
     const db = getEuipmentById(Number(item))

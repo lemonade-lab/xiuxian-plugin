@@ -11,18 +11,20 @@ type ComponentType = {
   data: UserMessageType
 }
 
+type DatasType = {
+  id: number | string
+  name: string
+  attack: number
+  defense: number
+  blood: number
+  agile: number
+  critical_hit_rate: number
+  critical_damage: number
+  price: number
+}
+
 export default function App({ data }: ComponentType) {
-  const datas: {
-    id: number | string
-    name: string
-    attack: number
-    defense: number
-    blood: number
-    agile: number
-    critical_hit_rate: number
-    critical_damage: number
-    price: number
-  }[] = []
+  const datas: DatasType[] = []
 
   const max = (data.level_id + 1) * 3
   let i = 0
