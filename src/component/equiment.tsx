@@ -3,14 +3,12 @@ import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getEuipmentById } from '../model/equipment.js'
+import _ from './url.js'
 
 type ComponentType = {
   data: UserMessageType
   status: null | boolean
 }
-
-// 路径深度
-const _ = (src: string) => `../../${src}`
 
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
@@ -26,7 +24,7 @@ export default function App({ data, status }: ComponentType) {
 
   const datas: {
     id: number
-    name: any
+    name: string
     attack: number
     defense: number
     blood: number
@@ -80,56 +78,56 @@ export default function App({ data, status }: ComponentType) {
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/equitment.svg"
+                          src={_('svg/equitment.svg')}
                         />
                         <span>{item.name}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/attack.svg"
+                          src={_('svg/attack.svg')}
                         />
                         <span>{item.attack}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/defense.svg"
+                          src={_('svg/defense.svg')}
                         />
                         <span>{item.defense}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/blood.svg"
+                          src={_('svg/blood.svg')}
                         />
                         <span>{item.blood}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/agile.svg"
+                          src={_('svg/agile.svg')}
                         />
                         <span className="nav-box-item-img">{item.agile}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/critical_hit_rate.svg"
+                          src={_('svg/critical_hit_rate.svg')}
                         />
                         <span>{item.critical_hit_rate}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/critical_damage.svg"
+                          src={_('svg/critical_damage.svg')}
                         />
                         <span>{item.critical_damage}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/money.svg"
+                          src={_('svg/money.svg')}
                         />
                         <span>{item.price}</span>
                       </div>

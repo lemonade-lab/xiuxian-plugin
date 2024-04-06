@@ -3,18 +3,18 @@ import { UserMessageType } from '../model/types.js'
 import { getEuipmentById } from '../model/equipment.js'
 import { getKillById } from '../model/kills.js'
 import HeaderComponent from './header.js'
+import _ from './url.js'
 
 type ComponentType = {
   data: UserMessageType
 }
 
 // 路径深度
-const _ = (src: string) => `../../${src}`
 
 export default function App({ data }: ComponentType) {
   const datas: {
     id: number
-    name: any
+    name: string
     attack: number
     defense: number
     blood: number
@@ -72,7 +72,7 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/efficiency.svg"
+                          src={_('svg/efficiency.svg')}
                         />
                         <span className="nav-box-item-font">
                           {item.efficiency}
@@ -81,14 +81,14 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/money.svg"
+                          src={_('svg/money.svg')}
                         />
                         <span className="nav-box-item-font">{item.price}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/acount.svg"
+                          src={_('svg/acount.svg')}
                         />
                         <span className="nav-box-item-font">{item.acount}</span>
                       </div>
@@ -110,14 +110,14 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/equitment.svg"
+                            src={_('svg/equitment.svg')}
                           />
                           <span className="nav-box-item-font">{item.name}</span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/acount.svg"
+                            src={_('svg/acount.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.acount}
@@ -128,7 +128,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/attack.svg"
+                            src={_('svg/attack.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.attack}
@@ -137,7 +137,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/defense.svg"
+                            src={_('svg/defense.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.defense}
@@ -146,7 +146,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/blood.svg"
+                            src={_('svg/blood.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.blood}
@@ -155,7 +155,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/agile.svg"
+                            src={_('svg/agile.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.agile}
@@ -164,7 +164,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/critical_hit_rate.svg"
+                            src={_('svg/critical_hit_rate.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.critical_hit_rate}
@@ -173,7 +173,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/critical_damage.svg"
+                            src={_('svg/critical_damage.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.critical_damage}
@@ -182,7 +182,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src="../../svg/money.svg"
+                            src={_('svg/money.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.price}

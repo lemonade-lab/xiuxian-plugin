@@ -4,14 +4,12 @@ import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getKillById } from '../model/kills.js'
 import { getEuipmentById } from '../model/equipment.js'
+import _ from './url.js'
 
 type ComponentType = {
   data: UserMessageType
   status: null | boolean
 }
-
-// 路径深度
-const _ = (src: string) => `../../${src}`
 
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
@@ -70,21 +68,21 @@ export default function App({ data, status }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/kills.svg"
+                          src={_('svg/kills.svg')}
                         />
                         <span>{item.name}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/efficiency.svg"
+                          src={_('svg/efficiency.svg')}
                         />
                         <span>{item.efficiency}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/money.svg"
+                          src={_('svg/money.svg')}
                         />
                         <span>{item.price}</span>
                       </div>

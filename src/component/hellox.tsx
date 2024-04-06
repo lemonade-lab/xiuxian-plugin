@@ -1,7 +1,5 @@
 import React from 'react'
-
-// 路径深度
-const _ = (src: string) => `../../${src}`
+import _ from './url.js'
 
 export default function App() {
   return (
