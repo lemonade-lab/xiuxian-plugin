@@ -3,7 +3,7 @@ import Koa from 'koa'
 import KoaStatic from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import cors from 'koa-cors'
-import router from './router'
+import router from './router/router.js'
 import { authMiddleware } from './utils/jwt.js'
 
 // new

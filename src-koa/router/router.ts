@@ -1,10 +1,10 @@
 import Router from 'koa-router'
-import { ArchivePath } from '../src/model/path'
-import { readFilesInDirectory } from './utils'
+import { ArchivePath } from '../../src/model/path'
+import { readFilesInDirectory } from '../utils/utils'
 
-import { getUserMessageByUid } from '../src/model/message.ts'
-import { getKillById } from '../src/model/kills.ts'
-import { getEuipmentById } from '../src/model/equipment.ts'
+import { getUserMessageByUid } from '../../src/model/message'
+import { getKillById } from '../../src/model/kills'
+import { getEuipmentById } from '../../src/model/equipment'
 
 const router = new Router({
   prefix: '/api'

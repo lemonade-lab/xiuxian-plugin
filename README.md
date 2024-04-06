@@ -84,6 +84,14 @@ npm run build
 
 ## 开发
 
+- 启动图片热开发
+
+```sh
+npm run image:dev
+```
+
+访问地址 `http://localhost:8080/message`
+
 - 启动 WEB 管理器
 
 ```sh
@@ -95,13 +103,23 @@ npm run vite:dev
 
 前端地址 `http://localhost:5173/`
 
-- 启动图片热开发
+- 后端负载均衡
 
 ```sh
-npm run image:dev
+npm run koa:build #编译
+npm run start #后台运行
+npm run kill #杀死进程
 ```
 
-访问地址 `http://localhost:8080/message`
+- 前端负载均衡
+
+对项目进行打包后
+
+使用 Nginx 部署 dist 目录即可
+
+```sh
+npm run build #打包
+```
 
 ## 优势
 
