@@ -7,7 +7,7 @@
   "author": "ningmengchongshui",
   "license": "GPL-2.0",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup --config src/rollup.config.js",
     "update": "npx ts-node src/system/update.ts ",
     "format": "npx prettier --write .",
     "lint": "commitlint --config .commitlint.config.cjs -e -V",
