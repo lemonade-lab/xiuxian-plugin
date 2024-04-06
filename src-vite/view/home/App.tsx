@@ -3,6 +3,9 @@ import { useState } from 'react'
 import UserMessage from './user/Message'
 import Client from '../../api/axios'
 import './App.css'
+import { token } from '../../api/token'
+
+import { useNavigate } from 'react-router-dom'
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -15,6 +18,8 @@ export default function App() {
     uid: 0
   })
 
+  const navigate = useNavigate()
+
   const get = () => {
     Client.list().then((res) => {
       if (res.code == 200) {
@@ -25,8 +30,12 @@ export default function App() {
   }
 
   useEffect(() => {
-    get()
-  }, [])
+    if (!token.isLogin()) {
+      navigate('/login')
+    } else {
+      get()
+    }
+  })
 
   const onClick = (uid: number) => {
     Client.message({ uid }).then((res) => {

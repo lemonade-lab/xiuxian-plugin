@@ -3,11 +3,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import LoadDing from './loading.tsx'
-const App = lazy(() => import('./view/home/App.tsx'))
+const HomeApp = lazy(() => import('./view/home/App.tsx'))
+const LoginApp = lazy(() => import('./view/login/App.tsx'))
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <HomeApp />
+  },
+  {
+    path: '/login',
+    element: <LoginApp />
   }
 ])
 createRoot(document.getElementById('root')!).render(

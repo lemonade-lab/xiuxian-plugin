@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { token } from '../../api/token'
-import client from '../../api/axios'
 import '../styles.css'
+import client from '../../api/axios'
 
 export default function App() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [userName, setUserName] = useState('')
+  const [passWord, setPassWord] = useState('')
 
-  const navigate = useNavigate()
-
-  const handleLogin = () => {
-    console.log('handleLogin')
+  const handleLogn = () => {
+    console.log('handleLogon')
 
     // 构建请求数据
     const tData = {
-      username,
-      password
+      username: userName,
+      password: passWord
     }
 
     const uArr = tData.username.split('')
@@ -31,20 +27,15 @@ export default function App() {
     }
 
     client
-      .login(tData)
+      .logon(tData)
       .then((res) => {
         console.log('res', res)
         if (res.code == 5000) {
           alert('服务器错误，请稍后重试。。。')
         } else if (res.code == 4000) {
-          alert('账号或密码错误！')
+          alert(res.msg)
         } else if (res.code == 2000) {
-          token.set(res.data.token)
-          if (token.isLogin()) {
-            navigate('/')
-          } else {
-            alert('状态失效')
-          }
+          alert('注册成功，请前往登录')
         } else {
           alert('未知错误')
         }
@@ -55,37 +46,37 @@ export default function App() {
   }
 
   const handleKeyDown = (key) => {
-    if (key === 'Enter') handleLogin()
+    if (key === 'Enter') handleLogn()
   }
 
   return (
     <div className="com">
       <main className="comMain">
-        {/* <img className="comMainLogo" src={logoSvg} /> */}
+        {/* <img className="comMainLogo)} src={logoSvg} /> */}
         <div className="comMainLogin">
           <div className="header">
-            <h1 className="title">欢迎使用 修仙管理系统</h1>
+            <h1 className="title">正在注册 修仙 账户</h1>
           </div>
           <input
             type="text"
             className="input"
             placeholder="用户名"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e.key)}
           />
           <input
             type="password"
             className="input"
             placeholder="密码"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassWord(e.target.value)}
             onKeyDown={(e) => handleKeyDown(e.key)}
           />
-          <button className="loginButton" onClick={handleLogin}>
-            登录
+          <button className="loginButton" onClick={handleLogn}>
+            注册
           </button>
           <div className="registerLink">
-            还没有账号？
-            <a href="/logon">前往注册</a>
+            已经拥有账户？
+            <a href="/login">前往登录</a>
           </div>
         </div>
       </main>

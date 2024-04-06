@@ -2,7 +2,7 @@
   cursor: pointer;
   font-size: 20px;
 
-  background-color: rgb(4, 138, 255);
+  background-color: var(--bg-color);
 }
 
 .search {

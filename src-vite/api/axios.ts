@@ -10,6 +10,32 @@ class Axios {
   }
 
   /**
+   * 用户登录
+   * @param {*} data
+   * @returns
+   */
+  async login(data) {
+    return this.server({
+      method: 'post',
+      url: '/login',
+      data
+    }).then((res) => res.data)
+  }
+
+  /**
+   * 用户注册
+   * @param {*} data
+   * @returns
+   */
+  async logon(data) {
+    return this.server({
+      method: 'post',
+      url: '/logon',
+      data
+    }).then((res) => res.data)
+  }
+
+  /**
    * 用户列表
    */
   list() {
