@@ -2,28 +2,38 @@
 
 > 这是一款为喵仔设计的修仙插件，使用 ts 和 tsx 进行编写。在使用前,需要进行编译后才能使用
 
-![替代文本](./resources/demo/purple.jpg)
+![热开发工具效果](./resources/demo/purple.jpg)
 
 ## 部署
 
 - 安装项目
 
+miao-yunzai 目录
+
 ```sh
-#  miao-yunzai 目录
 git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
 # 进入xiuxian
 cd ./plugins/xiuxian-plugin
 ```
 
+或者 plugins 目录中执行
+
 ```sh
-# 或者 plugins 目录中执行
 cd ./plugins
+```
+
+```sh
 git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git
+```
+
+```sh
 # 进入xiuxian
 cd ./xiuxian-plugin
 ```
 
 - 安装依赖
+
+选择你可以执行的工具进行加载
 
 ```sh
 npm install yarn -g
@@ -44,11 +54,13 @@ cnpm install
 
 - 执行打包
 
+打包生产 `index.js`
+
 ```sh
 npm run build
 ```
 
-打包后生产 `index.js`
+插件识别文件,必须打包后才能生产
 
 ## 更新
 
@@ -89,7 +101,15 @@ npm run vite:dev
 npm run image:dev
 ```
 
-访问地址 `http://localhost:8080/`
+访问地址 `http://localhost:8080/message`
+
+## 优势
+
+该仓库使用一系列的现代化开发工具，确保问题能在开发时就能解决！
+
+对于图片的开发，采用了 tsx&koa&nodemon 的结合，不仅能热开发图片，还自制了`puppeteer`截图工具，确保机器人进行截图时能完美的保持原有效果。
+
+我们更倾向于项目的使用人员是游戏管理员，为此设计的 WEB 管理系统将有利于你更好的运营游戏
 
 ## 商用
 
