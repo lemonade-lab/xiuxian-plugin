@@ -23,7 +23,7 @@ export default function App({ data, status }: ComponentType) {
   }
 
   const datas: {
-    id: number
+    id: number | string
     name: string
     attack: number
     defense: number

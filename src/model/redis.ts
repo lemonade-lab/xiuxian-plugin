@@ -7,7 +7,7 @@ class Redis {
     msg: null,
     data: null
   }
-  getKey(key: RedisKeyEnum, uid: number) {
+  getKey(key: RedisKeyEnum, uid: number | string) {
     return `${this.#baseKey}:${key}:${uid}`
   }
 
@@ -17,7 +17,7 @@ class Redis {
    * @param uid
    * @returns
    */
-  async get(key: RedisKeyEnum, uid: number) {
+  async get(key: RedisKeyEnum, uid: number | string) {
     const data = await redis.get(this.getKey(key, uid))
     if (!data) return this.#message
     try {
@@ -32,7 +32,7 @@ class Redis {
    * @param key
    * @param uid
    */
-  async del(key: RedisKeyEnum, uid: number) {
+  async del(key: RedisKeyEnum, uid: number | string) {
     return redis.del(this.getKey(key, uid))
   }
 
@@ -43,7 +43,12 @@ class Redis {
    * @param msg
    * @param message
    */
-  async set(key: RedisKeyEnum, uid: number, msg: string, message: Object) {
+  async set(
+    key: RedisKeyEnum,
+    uid: number | string,
+    msg: string,
+    message: object
+  ) {
     const $message = {
       ...this.#message
     }

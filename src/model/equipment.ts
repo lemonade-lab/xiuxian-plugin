@@ -184,18 +184,18 @@ function getPriceById(id: number) {
 /**
  * @param id
  */
-export function getEuipmentById(id: number) {
+export function getEuipmentById(id: number | string) {
   // 计算得到境界数
   return {
     ...BaseEquipment,
     id: id,
     name: EquipmentNameMap[id],
-    attack: Math.floor(getAttackById(id)),
-    defense: Math.floor(getDefenseById(id)),
-    blood: Math.floor(getBloodById(id)),
-    agile: Math.floor(getAgileById(id)),
-    critical_hit_rate: Math.floor(getCriticalHitRateById(id)),
-    critical_damage: Math.floor(getCriticalDamageById(id)),
-    price: Math.floor(getPriceById(id))
+    attack: Math.floor(getAttackById(Number(id))),
+    defense: Math.floor(getDefenseById(Number(id))),
+    blood: Math.floor(getBloodById(Number(id))),
+    agile: Math.floor(getAgileById(Number(id))),
+    critical_hit_rate: Math.floor(getCriticalHitRateById(Number(id))),
+    critical_damage: Math.floor(getCriticalDamageById(Number(id))),
+    price: Math.floor(getPriceById(Number(id)))
   }
 }

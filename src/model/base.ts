@@ -50,7 +50,7 @@ type IdentityType = (typeof Identitys)[number]
 
 //
 export const UserMessageBase = {
-  uid: 17377405173,
+  uid: 17377405173 as string | number,
   name: '柠檬冲水',
   blood: 100,
   autograph: '无',

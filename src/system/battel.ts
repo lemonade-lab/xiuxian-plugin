@@ -1,11 +1,12 @@
-/**
- * 战斗模型
- */
-
 import { getEuipmentById } from '../model/equipment'
 import { getLevelById } from '../model/level'
 import { UserMessageType } from '../model/types'
 
+/**
+ *
+ * @param data
+ * @returns
+ */
 function getBaseVal(data: UserMessageType) {
   const level = getLevelById(data.level_id)
   const equipment = {

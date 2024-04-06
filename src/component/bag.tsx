@@ -13,7 +13,7 @@ type ComponentType = {
 
 export default function App({ data }: ComponentType) {
   const datas: {
-    id: number
+    id: number | string
     name: string
     attack: number
     defense: number

@@ -121,4 +121,4 @@ npm run image:dev
 
 Bot Dev QQ-Group 806943302
 
-Game Play QQ-Group 784310821
+Game Play QQ-Group 925976815
