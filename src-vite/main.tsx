@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import App from './view/App.tsx'
-
+import LoadDing from './loading.tsx'
+const App = lazy(() => import('./view/home/App.tsx'))
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />
+  }
+])
 createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<App />} />
-      </Routes>
-    </Router>
-  </React.StrictMode>
+  <Suspense fallback={<LoadDing />}>
+    <RouterProvider router={router} />
+  </Suspense>
 )

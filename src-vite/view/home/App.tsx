@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-
 import UserMessage from './user/Message'
-
-import Client from '../api/axios'
+import Client from '../../api/axios'
 import './App.css'
 
 export default function App() {
