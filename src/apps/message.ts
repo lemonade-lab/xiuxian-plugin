@@ -1,8 +1,8 @@
-import { type Event, plugin, define } from '../../../import'
-import { getUserMessageByUid } from '../../model/message'
-import { getUserName } from '../../model/utils'
+import { type Event, plugin, define } from '../import.js'
+import { getUserMessageByUid } from '../model/message.js'
+import { getUserName } from '../model/utils.js'
 
-import component from '../../image/index.js'
+import component from '../image/index.js'
 export class message extends plugin {
   constructor() {
     super({

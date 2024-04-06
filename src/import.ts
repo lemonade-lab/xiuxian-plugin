@@ -1,6 +1,6 @@
 const plugin = (await import('' + '../../lib/plugins/plugin.js')).default
-const common = (await import('' + '../../lib/common/common.js')).default.default
-export { plugin, common }
+// const common = (await import('' + '../../lib/common/common.js')).default.default
+export { plugin }
 import { type GroupMessage } from 'icqq'
 /**
  * Yunzai-event

@@ -1,11 +1,11 @@
 import React from 'react'
-import MessageComponent from '../component/message.tsx'
-import KillComponent from '../component/kill.tsx'
-import HelloComponent from '../component/hellox.tsx'
-import EquipmentComponent from '../component/equiment.tsx'
-import ShoppingComponent from '../component/shopping.tsx'
-import BagComponent from '../component/bag.tsx'
-import { getUserMessageByUid } from '../model/message.ts'
+import MessageComponent from '../src/component/message.tsx'
+import KillComponent from '../src/component/kill.tsx'
+import HelloComponent from '../src/component/hellox.tsx'
+import EquipmentComponent from '../src/component/equiment.tsx'
+import ShoppingComponent from '../src/component/shopping.tsx'
+import BagComponent from '../src/component/bag.tsx'
+import { getUserMessageByUid } from '../src/model/message.ts'
 
 export const routes = [
   {

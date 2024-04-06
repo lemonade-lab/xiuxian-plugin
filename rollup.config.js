@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript'
 // import multiEntry from '@rollup/plugin-multi-entry'
 // import terser from '@rollup/plugin-terser'
 export default {
-  input: 'main.ts',
+  input: 'src/main.ts',
   output: {
     // dir: 'dist',
     // 指定输出文件路径为 index.js

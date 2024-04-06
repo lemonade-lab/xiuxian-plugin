@@ -28,6 +28,21 @@ export const BaseExperience = {
   blood: 0
 }
 
+type EquipmentsType = {
+  // 武器  攻击
+  arms: null | string
+  // 护甲 防御
+  armor: null | string
+  // 裤子 血量
+  trousers: null | string
+  // 靴子  敏捷
+  boot: null | string
+  // 法器  爆伤
+  magic: null | string
+  // 头冠  暴击率
+  helmet: null | string
+}
+
 //
 export const UserMessageBase = {
   uid: 17377405173,
@@ -53,7 +68,7 @@ export const UserMessageBase = {
     magic: null,
     // 头冠  暴击率
     helmet: null
-  },
+  } as EquipmentsType,
   bags: {
     kills: {},
     equipments: {}

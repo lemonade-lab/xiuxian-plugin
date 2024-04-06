@@ -10,8 +10,14 @@ body {
   height: 100%;
 }
 
+.nav-box-item-font {
+  margin: auto;
+}
+
 .kills {
   padding: 2rem 1rem 1rem 1rem;
+
+  font-size: 20px;
 }
 
 .kills-box {
@@ -40,6 +46,8 @@ body {
 
 .equiment {
   padding: 2rem 1rem 1rem 1rem;
+
+  font-size: 20px;
 }
 
 .equiment-box {

@@ -1,11 +1,11 @@
-import { type Event, plugin, define } from '../../../import'
-import { writeArchiveData } from '../../model/data'
-import { getUserMessageByUid } from '../../model/message'
-import { ReverseEquipmentNameMap, ReverseKillNameMap } from '../../model/base'
-import { getKillById } from '../../model/kills'
-import { getEuipmentById } from '../../model/equipment'
-import component from '../../image/index.js'
-import { getUserName } from '../../model/utils.js'
+import { type Event, plugin, define } from '../import.js'
+import { writeArchiveData } from '../model/data.js'
+import { getUserMessageByUid } from '../model/message.js'
+import { ReverseEquipmentNameMap, ReverseKillNameMap } from '../model/base.js'
+import { getKillById } from '../model/kills.js'
+import { getEuipmentById } from '../model/equipment.js'
+import component from '../image/index.js'
+import { getUserName } from '../model/utils.js'
 export class buy extends plugin {
   constructor() {
     super({

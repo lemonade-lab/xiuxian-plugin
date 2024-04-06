@@ -9,6 +9,9 @@ type ComponentType = {
   status: null | boolean
 }
 
+// 路径深度
+const _ = (src: string) => `../../${src}`
+
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
 
@@ -53,10 +56,10 @@ export default function App({ data, status }: ComponentType) {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../../css/root.css"></link>
-        <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
-        <link rel="stylesheet" href="../../css/nav.css"></link>
-        <link rel="stylesheet" href="../../css/equiment.css"></link>
+        <link rel="stylesheet" href={_('css/root.css')}></link>
+        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
+        <link rel="stylesheet" href={_(`css/nav.css`)}></link>
+        <link rel="stylesheet" href={_(`css/equiment.css`)}></link>
       </head>
       <body>
         <div id="root">
@@ -107,7 +110,7 @@ export default function App({ data, status }: ComponentType) {
                           className="nav-box-item-img"
                           src="../../svg/agile.svg"
                         />
-                        <span>{item.agile}</span>
+                        <span className="nav-box-item-img">{item.agile}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img

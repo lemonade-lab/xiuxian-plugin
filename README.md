@@ -70,6 +70,21 @@ npm run update
 npm run build
 ```
 
+## 开发
+
+- 启动 WEB 管理器
+
+```sh
+npm run koa:dev
+npm run vite:dev
+```
+
+- 启动图片热开发
+
+```sh
+npm run image:dev
+```
+
 ## 商用
 
 > 该插件允许自由安装修改,插件内的素材部分来自于网络,在商用前,请自行替换素材

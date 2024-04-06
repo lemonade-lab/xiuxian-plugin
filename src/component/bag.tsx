@@ -8,6 +8,9 @@ type ComponentType = {
   data: UserMessageType
 }
 
+// 路径深度
+const _ = (src: string) => `../../${src}`
+
 export default function App({ data }: ComponentType) {
   const datas: {
     id: number
@@ -41,10 +44,10 @@ export default function App({ data }: ComponentType) {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../../css/root.css"></link>
-        <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
-        <link rel="stylesheet" href="../../css/nav.css"></link>
-        <link rel="stylesheet" href="../../css/bag.css"></link>
+        <link rel="stylesheet" href={_('css/root.css')}></link>
+        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
+        <link rel="stylesheet" href={_(`css/nav.css`)}></link>
+        <link rel="stylesheet" href={_(`css/bag.css`)}></link>
       </head>
       <body>
         <div id="root">
@@ -62,30 +65,32 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src="../../svg/kills.svg"
+                          src={_('svg/kills.svg')}
                         />
-                        <span>{item.name}</span>
+                        <span className="nav-box-item-font">{item.name}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/efficiency.svg"
                         />
-                        <span>{item.efficiency}</span>
+                        <span className="nav-box-item-font">
+                          {item.efficiency}
+                        </span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/money.svg"
                         />
-                        <span>{item.price}</span>
+                        <span className="nav-box-item-font">{item.price}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/acount.svg"
                         />
-                        <span>{item.acount}</span>
+                        <span className="nav-box-item-font">{item.acount}</span>
                       </div>
                     </div>
                   )
@@ -107,14 +112,16 @@ export default function App({ data }: ComponentType) {
                             className="nav-box-item-img"
                             src="../../svg/equitment.svg"
                           />
-                          <span>{item.name}</span>
+                          <span className="nav-box-item-font">{item.name}</span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/acount.svg"
                           />
-                          <span>{item.acount}</span>
+                          <span className="nav-box-item-font">
+                            {item.acount}
+                          </span>
                         </div>
                       </div>
                       <div className="equiment-box-item">
@@ -123,49 +130,63 @@ export default function App({ data }: ComponentType) {
                             className="nav-box-item-img"
                             src="../../svg/attack.svg"
                           />
-                          <span>{item.attack}</span>
+                          <span className="nav-box-item-font">
+                            {item.attack}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/defense.svg"
                           />
-                          <span>{item.defense}</span>
+                          <span className="nav-box-item-font">
+                            {item.defense}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/blood.svg"
                           />
-                          <span>{item.blood}</span>
+                          <span className="nav-box-item-font">
+                            {item.blood}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/agile.svg"
                           />
-                          <span>{item.agile}</span>
+                          <span className="nav-box-item-font">
+                            {item.agile}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/critical_hit_rate.svg"
                           />
-                          <span>{item.critical_hit_rate}</span>
+                          <span className="nav-box-item-font">
+                            {item.critical_hit_rate}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/critical_damage.svg"
                           />
-                          <span>{item.critical_damage}</span>
+                          <span className="nav-box-item-font">
+                            {item.critical_damage}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/money.svg"
                           />
-                          <span>{item.price}</span>
+                          <span className="nav-box-item-font">
+                            {item.price}
+                          </span>
                         </div>
                       </div>
                     </div>

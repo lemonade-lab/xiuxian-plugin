@@ -17,7 +17,7 @@ export class BaseConfig<D> {
    * @param val
    */
   set<T extends keyof D>(key: T, val: D[T]) {
-    this.#data[key] = val
+    if (this.#data) this.#data[key] = val
     return this
   }
   /**
@@ -89,7 +89,7 @@ export class Puppeteer {
   // 重启次数控制
   #restart = 200
   // 应用缓存
-  #browser: Browser
+  #browser: Browser | null = null
   // 状态
   #isBrowser = false
   // 配置
@@ -150,7 +150,7 @@ export class Puppeteer {
       this.#pic = 0
       console.info('[puppeteer] close')
       this.#isBrowser = false
-      this.#browser.close().catch((err) => {
+      this.#browser?.close().catch((err) => {
         console.error('[puppeteer] close', err)
       })
       console.info('[puppeteer] reopen')
@@ -175,7 +175,7 @@ export class Puppeteer {
   ) {
     if (!(await this.isStart())) return false
     try {
-      const page = await this.#browser.newPage().catch((err) => {
+      const page = await this.#browser?.newPage().catch((err) => {
         console.error(err)
       })
       if (!page) return false
@@ -183,6 +183,7 @@ export class Puppeteer {
         timeout: Options?.timeout ?? 120000
       })
       const body = await page.$(Options?.tab ?? 'body')
+      if (!body) return false
       console.info('[puppeteer] success')
       const buff: string | false | Buffer = await body
         .screenshot(

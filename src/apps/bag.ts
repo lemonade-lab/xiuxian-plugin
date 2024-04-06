@@ -1,10 +1,10 @@
-import { type Event, plugin, define } from '../../../import'
-import { ReverseEquipmentNameMap, ReverseKillNameMap } from '../../model/base'
-import { writeArchiveData } from '../../model/data'
-import { getKillById } from '../../model/kills'
-import { getUserMessageByUid } from '../../model/message'
-import { getUserName } from '../../model/utils'
-import component from '../../image/index'
+import { type Event, plugin, define } from '../import'
+import { ReverseEquipmentNameMap, ReverseKillNameMap } from '../model/base'
+import { writeArchiveData } from '../model/data'
+import { getKillById } from '../model/kills'
+import { getUserMessageByUid } from '../model/message'
+import { getUserName } from '../model/utils'
+import component from '../image/index'
 export class bag extends plugin {
   constructor() {
     super({

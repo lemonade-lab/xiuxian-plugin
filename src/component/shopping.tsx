@@ -10,6 +10,9 @@ type ComponentType = {
   data: UserMessageType
 }
 
+// 路径深度
+const _ = (src: string) => `../../${src}`
+
 export default function App({ data }: ComponentType) {
   const datas: {
     id: number
@@ -37,10 +40,10 @@ export default function App({ data }: ComponentType) {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../../css/root.css"></link>
-        <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
-        <link rel="stylesheet" href="../../css/nav.css"></link>
-        <link rel="stylesheet" href="../../css/shoppping.css"></link>
+        <link rel="stylesheet" href={_('css/root.css')}></link>
+        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
+        <link rel="stylesheet" href={_(`css/nav.css`)}></link>
+        <link rel="stylesheet" href={_(`css/shoppping.css`)}></link>
       </head>
       <body>
         <div id="root">
@@ -69,21 +72,23 @@ export default function App({ data }: ComponentType) {
                           className="nav-box-item-img"
                           src="../../svg/kills.svg"
                         />
-                        <span>{data.name}</span>
+                        <span className="nav-box-item-font">{data.name}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/efficiency.svg"
                         />
-                        <span>{data.efficiency}</span>
+                        <span className="nav-box-item-font">
+                          {data.efficiency}
+                        </span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
                           src="../../svg/money.svg"
                         />
-                        <span>{data.price}</span>
+                        <span className="nav-box-item-font">{data.price}</span>
                       </div>
                     </div>
                   )
@@ -105,7 +110,7 @@ export default function App({ data }: ComponentType) {
                             className="nav-box-item-img"
                             src="../../svg/equitment.svg"
                           />
-                          <span>{item.name}</span>
+                          <span className="nav-box-item-font">{item.name}</span>
                         </div>
                       </div>
                       <div className="equiment-box-item">
@@ -114,7 +119,9 @@ export default function App({ data }: ComponentType) {
                             className="nav-box-item-img"
                             src="../../svg/attack.svg"
                           />
-                          <span>{item.attack}</span>
+                          <span className="nav-box-item-font">
+                            {item.attack}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
@@ -128,35 +135,45 @@ export default function App({ data }: ComponentType) {
                             className="nav-box-item-img"
                             src="../../svg/blood.svg"
                           />
-                          <span>{item.blood}</span>
+                          <span className="nav-box-item-font">
+                            {item.blood}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/agile.svg"
                           />
-                          <span>{item.agile}</span>
+                          <span className="nav-box-item-font">
+                            {item.agile}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/critical_hit_rate.svg"
                           />
-                          <span>{item.critical_hit_rate}</span>
+                          <span className="nav-box-item-font">
+                            {item.critical_hit_rate}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/critical_damage.svg"
                           />
-                          <span>{item.critical_damage}</span>
+                          <span className="nav-box-item-font">
+                            {item.critical_damage}
+                          </span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
                             src="../../svg/money.svg"
                           />
-                          <span>{item.price}</span>
+                          <span className="nav-box-item-font">
+                            {item.price}
+                          </span>
                         </div>
                       </div>
                     </div>

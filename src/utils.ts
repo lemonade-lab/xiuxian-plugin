@@ -1,5 +1,5 @@
 import { MessageElem } from 'icqq'
-import { Event } from '../import.js'
+import { Event } from './import.js'
 class Utils {
   /**
    *
@@ -7,7 +7,7 @@ class Utils {
    * @returns
    */
   makeMsg = (data: any[]) => {
-    const msgList = []
+    const msgList: any[] = []
     for (let item of data) {
       msgList.push({
         message: item,
@@ -80,11 +80,8 @@ class Utils {
    * @returns
    */
   at = (e: Event) => {
-    const val = e.message.find(
-      (value: MessageElem, index: number, array: MessageElem[]) =>
-        value.type === 'at'
-    )
-    if (val.type == 'at' && val.qq !== 'all') return val.qq
+    const val = e.message.find((value: MessageElem) => value.type === 'at')
+    if (val && val.type == 'at' && val.qq !== 'all') return val.qq
     return false
   }
 

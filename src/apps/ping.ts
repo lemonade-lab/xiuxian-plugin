@@ -1,16 +1,16 @@
-import { type Event, plugin, define } from '../../../import'
-import { existsArchiveSync, writeArchiveData } from '../../model/data'
-import { getUserMessageByUid } from '../../model/message'
-import RedisClient from '../../model/redis'
-import { getUserName } from '../../model/utils'
-import component from '../../image/index'
+import { type Event, plugin, define } from '../import'
+import { existsArchiveSync, writeArchiveData } from '../model/data'
+import { getUserMessageByUid } from '../model/message'
+import RedisClient from '../model/redis'
+import { getUserName } from '../model/utils'
+import component from '../image/index'
 import {
   DOOR_CLOSE_SIZE,
   MINING,
   MINING_BLOOL,
   MINING_MONEY
-} from '../../model/config'
-import { getLevelById } from '../../model/level'
+} from '../model/config'
+import { getLevelById } from '../model/level'
 
 export class ping extends plugin {
   constructor() {

@@ -10,6 +10,9 @@ type ComponentType = {
   status: null | boolean
 }
 
+// 路径深度
+const _ = (src: string) => `../../${src}`
+
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
 
@@ -50,10 +53,10 @@ export default function App({ data, status }: ComponentType) {
   return (
     <html>
       <head>
-        <link rel="stylesheet" href="../../css/root.css"></link>
-        <link rel="stylesheet" href={`../../css/root-${data.theme}.css`}></link>
-        <link rel="stylesheet" href="../../css/nav.css"></link>
-        <link rel="stylesheet" href="../../css/message.css"></link>
+        <link rel="stylesheet" href={_('css/root.css')}></link>
+        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
+        <link rel="stylesheet" href={_(`css/nav.css`)}></link>
+        <link rel="stylesheet" href={_(`css/message.css`)}></link>
       </head>
       <body>
         <div id="root">

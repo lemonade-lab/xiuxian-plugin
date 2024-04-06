@@ -1,14 +1,14 @@
-import { type Event, plugin, define } from '../../../import.js'
-import component from '../../image/index.js'
+import { type Event, plugin, define } from '../import.js'
+import component from '../image/index.js'
 import {
   LEVEL_PROBABILITY_RANGE,
   LEVEL_SIZE,
   LEVEL_UP_LIMIT
-} from '../../model/config.js'
-import { writeArchiveData } from '../../model/data.js'
-import { getLevelById } from '../../model/level.js'
-import { getUserMessageByUid } from '../../model/message.js'
-import { getRandomNumber, getUserName } from '../../model/utils.js'
+} from '../model/config.js'
+import { writeArchiveData } from '../model/data.js'
+import { getLevelById } from '../model/level.js'
+import { getUserMessageByUid } from '../model/message.js'
+import { getRandomNumber, getUserName } from '../model/utils.js'
 export class level extends plugin {
   constructor() {
     super({
@@ -63,7 +63,7 @@ export class level extends plugin {
           : defense > blood
           ? defense
           : blood
-      e.reply(`尚未感应到瓶颈(${max}/99%)`)
+      e.reply(`尚未感应到瓶颈(${max}%/99%)`)
       return
     }
     const $attack = Math.floor((attack > 100 ? 100 : attack) / LEVEL_SIZE[0])
@@ -80,7 +80,7 @@ export class level extends plugin {
     data.base.defense = 0
     data.base.blood = 0
     if (p < ran) {
-      e.reply(`有${p}%的可能打破瓶颈，但是失败了~`)
+      e.reply(`有${p}%的可能打破瓶颈，但是失败了呢`)
       writeArchiveData('player', uid, data)
       return
     }
