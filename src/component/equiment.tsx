@@ -3,24 +3,14 @@ import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getEuipmentById } from '../model/equipment.js'
-import _ from './url.js'
 
 type ComponentType = {
   data: UserMessageType
   status: null | boolean
 }
 
-type DatasType = {
-  id: number | string
-  name: string
-  attack: number
-  defense: number
-  blood: number
-  agile: number
-  critical_hit_rate: number
-  critical_damage: number
-  price: number
-}
+// 路径深度
+const _ = (src: string) => `../../${src}`
 
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
@@ -34,7 +24,17 @@ export default function App({ data, status }: ComponentType) {
     blood: 0
   }
 
-  const datas: DatasType[] = []
+  const datas: {
+    id: number
+    name: any
+    attack: number
+    defense: number
+    blood: number
+    agile: number
+    critical_hit_rate: number
+    critical_damage: number
+    price: number
+  }[] = []
 
   for (const KEY in data.equipments) {
     // 这个key 没有 标记
@@ -80,56 +80,56 @@ export default function App({ data, status }: ComponentType) {
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/equitment.svg')}
+                          src="../../svg/equitment.svg"
                         />
                         <span>{item.name}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/attack.svg')}
+                          src="../../svg/attack.svg"
                         />
                         <span>{item.attack}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/defense.svg')}
+                          src="../../svg/defense.svg"
                         />
                         <span>{item.defense}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/blood.svg')}
+                          src="../../svg/blood.svg"
                         />
                         <span>{item.blood}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/agile.svg')}
+                          src="../../svg/agile.svg"
                         />
                         <span className="nav-box-item-img">{item.agile}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/critical_hit_rate.svg')}
+                          src="../../svg/critical_hit_rate.svg"
                         />
                         <span>{item.critical_hit_rate}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/critical_damage.svg')}
+                          src="../../svg/critical_damage.svg"
                         />
                         <span>{item.critical_damage}</span>
                       </div>
                       <div className="equiment-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/money.svg')}
+                          src="../../svg/money.svg"
                         />
                         <span>{item.price}</span>
                       </div>

@@ -35,5 +35,14 @@
     "experimentalSpecifierResolution": "node"
   },
   "include": ["src", "src-vite", "src-koa", "src-image"],
+  "exclude": [
+    "node_modules",
+    ".cache",
+    ".vscode",
+    "dist",
+    "config",
+    "data",
+    "logs"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

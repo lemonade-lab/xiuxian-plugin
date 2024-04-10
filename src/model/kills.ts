@@ -1,12 +1,12 @@
 import { KillNameMap, BaseKill } from './base'
-function getEfficiencyById(id: number) {
+function getEfficiencyById(id) {
   if (id <= 0) {
     return BaseKill.efficiency
   } else {
     return BaseKill.efficiency * 2
   }
 }
-function getPriceById(id: number) {
+function getPriceById(id) {
   if (id <= 0) {
     return BaseKill.price
   } else {
@@ -16,12 +16,14 @@ function getPriceById(id: number) {
 /**
  * @param id
  */
-export function getKillById(id: number | string) {
+export function getKillById(id: number) {
+  // 计算得到境界数
   return {
+    // 确保字段完整
     ...BaseKill,
     id: id,
     name: KillNameMap[id],
-    efficiency: Math.floor(getEfficiencyById(Number(id))),
-    price: Math.floor(getPriceById(Number(id)))
+    efficiency: Math.floor(getEfficiencyById(id)),
+    price: Math.floor(getPriceById(id))
   }
 }

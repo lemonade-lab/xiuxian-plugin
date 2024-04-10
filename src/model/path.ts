@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { cwd } from '../config'
+import { cwd } from '../../config'
 // 存档
 export const ArchivePath = {
   // 玩家数

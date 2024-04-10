@@ -4,12 +4,14 @@ import NavMessage from './nav.jsx'
 import { getLevelById } from '../model/level.js'
 import { KillNameMap } from '../model/base.js'
 import { getEuipmentById } from '../model/equipment.js'
-import _ from './url.js'
 
 type ComponentType = {
   data: UserMessageType
   status: null | boolean
 }
+
+// 路径深度
+const _ = (src: string) => `../../${src}`
 
 export default function App({ data, status }: ComponentType) {
   const level = getLevelById(data.level_id)
@@ -75,40 +77,40 @@ export default function App({ data, status }: ComponentType) {
             <div className="level-box">
               <span className="menu-button-flat">#装备信息</span>
               <div className="level-box-item">
-                <img className="nav-box-item-img" src={_('svg/attack.svg')} />
+                <img className="nav-box-item-img" src="../../svg/attack.svg" />
                 <span>{attack}</span>
                 <span className="level-box-item-font">{`(+${+data.base
                   .attack})`}</span>
               </div>
               <div className="level-box-item">
-                <img className="nav-box-item-img" src={_('svg/defense.svg')} />
+                <img className="nav-box-item-img" src="../../svg/defense.svg" />
                 <span>{`${defense}`}</span>
                 <span className="level-box-item-font">
                   {`(+${data.base.defense})`}
                 </span>
               </div>
               <div className="level-box-item">
-                <img className="nav-box-item-img" src={_('svg/blood.svg')} />
+                <img className="nav-box-item-img" src="../../svg/blood.svg" />
                 <span>{`${blood}`}</span>
                 <span className="level-box-item-font">
                   {`(+${data.base.blood})`}
                 </span>
               </div>
               <div className="level-box-item">
-                <img className="nav-box-item-img" src={_('svg/agile.svg')} />
+                <img className="nav-box-item-img" src="../../svg/agile.svg" />
                 <span>{`${agile}`}</span>
               </div>
               <div className="level-box-item">
                 <img
                   className="nav-box-item-img"
-                  src={_('svg/critical_hit_rate.svg')}
+                  src="../../svg/critical_hit_rate.svg"
                 />
                 <span>{`${critical_hit_rate}`}</span>
               </div>
               <div className="level-box-item">
                 <img
                   className="nav-box-item-img"
-                  src={_('svg/critical_damage.svg')}
+                  src="../../svg/critical_damage.svg"
                 />
                 <span>{`${critical_damage}`}</span>
               </div>

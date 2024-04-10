@@ -3,7 +3,6 @@ import { UserMessageType } from '../model/types.js'
 import { getEuipmentById } from '../model/equipment.js'
 import { EquipmentNameMap, KillNameMap } from '../model/base.js'
 import { getKillById } from '../model/kills.js'
-import _ from './url.js'
 
 import HeaderComponent from './header.js'
 
@@ -11,22 +10,23 @@ type ComponentType = {
   data: UserMessageType
 }
 
-type DatasType = {
-  id: number | string
-  name: string
-  attack: number
-  defense: number
-  blood: number
-  agile: number
-  critical_hit_rate: number
-  critical_damage: number
-  price: number
-}
+// 路径深度
+const _ = (src: string) => `../../${src}`
 
 export default function App({ data }: ComponentType) {
-  const datas: DatasType[] = []
+  const datas: {
+    id: number
+    name: any
+    attack: number
+    defense: number
+    blood: number
+    agile: number
+    critical_hit_rate: number
+    critical_damage: number
+    price: number
+  }[] = []
 
-  const max = (data.level_id + 1) * 3
+  let max = (data.level_id + 1) * 3
   let i = 0
 
   for (const item in EquipmentNameMap) {
@@ -70,14 +70,14 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/kills.svg')}
+                          src="../../svg/kills.svg"
                         />
                         <span className="nav-box-item-font">{data.name}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/efficiency.svg')}
+                          src="../../svg/efficiency.svg"
                         />
                         <span className="nav-box-item-font">
                           {data.efficiency}
@@ -86,7 +86,7 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/money.svg')}
+                          src="../../svg/money.svg"
                         />
                         <span className="nav-box-item-font">{data.price}</span>
                       </div>
@@ -108,7 +108,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/equitment.svg')}
+                            src="../../svg/equitment.svg"
                           />
                           <span className="nav-box-item-font">{item.name}</span>
                         </div>
@@ -117,7 +117,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/attack.svg')}
+                            src="../../svg/attack.svg"
                           />
                           <span className="nav-box-item-font">
                             {item.attack}
@@ -126,14 +126,14 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/defense.svg')}
+                            src="../../svg/defense.svg"
                           />
                           <span>{item.defense}</span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/blood.svg')}
+                            src="../../svg/blood.svg"
                           />
                           <span className="nav-box-item-font">
                             {item.blood}
@@ -142,7 +142,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/agile.svg')}
+                            src="../../svg/agile.svg"
                           />
                           <span className="nav-box-item-font">
                             {item.agile}
@@ -151,7 +151,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/critical_hit_rate.svg')}
+                            src="../../svg/critical_hit_rate.svg"
                           />
                           <span className="nav-box-item-font">
                             {item.critical_hit_rate}
@@ -160,7 +160,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/critical_damage.svg')}
+                            src="../../svg/critical_damage.svg"
                           />
                           <span className="nav-box-item-font">
                             {item.critical_damage}
@@ -169,7 +169,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/money.svg')}
+                            src="../../svg/money.svg"
                           />
                           <span className="nav-box-item-font">
                             {item.price}

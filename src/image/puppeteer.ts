@@ -195,7 +195,7 @@ export class Puppeteer {
           console.error('[puppeteer]', 'screenshot', err)
           return false
         })
-      await page.close().catch((err) => {
+      await page.close().catch((err: any) => {
         console.error('[puppeteer]', 'page close', err)
       })
       if (!buff) {
