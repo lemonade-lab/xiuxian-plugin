@@ -8,7 +8,7 @@ import { getKillById } from './kills'
  * 如果得不到就初始化
  * @param uid
  */
-export function getUserMessageByUid(uid: number | string) {
+export function getUserMessageByUid(uid: number) {
   const data = readArchiveData('player', uid)
   // 计算数值
   if (data) return data

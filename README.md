@@ -84,14 +84,6 @@ npm run build
 
 ## 开发
 
-- 启动图片热开发
-
-```sh
-npm run image:dev
-```
-
-访问地址 `http://localhost:8080/message`
-
 - 启动 WEB 管理器
 
 ```sh
@@ -103,23 +95,13 @@ npm run vite:dev
 
 前端地址 `http://localhost:5173/`
 
-- 后端负载均衡
+- 启动图片热开发
 
 ```sh
-npm run koa:build #编译
-npm run start #后台运行
-npm run kill #杀死进程
+npm run image:dev
 ```
 
-- 前端负载均衡
-
-对项目进行打包后
-
-使用 Nginx 部署 dist 目录即可
-
-```sh
-npm run build #打包
-```
+访问地址 `http://localhost:8080/message`
 
 ## 优势
 
@@ -139,4 +121,4 @@ npm run build #打包
 
 Bot Dev QQ-Group 806943302
 
-Game Play QQ-Group 925976815
+Game Play QQ-Group 784310821

@@ -49,7 +49,7 @@ export function readArchiveData(key: keyof ArchiveType, uid: number | string) {
 export function writeArchiveData(
   key: keyof ArchiveType,
   uid: number | string,
-  data: object
+  data: Object
 ) {
   const dir = join(ArchivePath[key], `${uid}.json`)
   mkdirSync(dirname(dir), {

@@ -9,8 +9,7 @@ import { join } from 'path'
 // new
 const app = new Koa()
 const router = new Router()
-// eslint-disable-next-line react-refresh/only-export-components
-const Port = 8080
+const PORT = 8080
 // for all component
 for (const item of routes) {
   router.get(item.url, (ctx) => {
@@ -37,8 +36,8 @@ app.use(KoaStatic('resources'))
 // routes
 app.use(router.routes())
 // listen 800
-app.listen(Port, () => {
-  console.log('Server is running on port ' + Port)
-  console.log('http://localhost:' + Port)
-  console.log('http://localhost:' + Port + '?test=ok')
+app.listen(PORT, () => {
+  console.log('Server is running on port ' + PORT)
+  console.log('http://localhost:' + PORT)
+  console.log('http://localhost:' + PORT + '?test=ok')
 })

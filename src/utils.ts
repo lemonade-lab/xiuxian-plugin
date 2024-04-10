@@ -6,15 +6,9 @@ class Utils {
    * @param data
    * @returns
    */
-  makeMsg = (data: string[]) => {
-    const msgList: {
-      message: string
-      /*我的昵称*/
-      nickname: string
-      /*我的账号*/
-      user_id: number
-    }[] = []
-    for (const item of data) {
+  makeMsg = (data: any[]) => {
+    const msgList: any[] = []
+    for (let item of data) {
       msgList.push({
         message: item,
         /*我的昵称*/
@@ -32,7 +26,7 @@ class Utils {
    * @param data
    * @returns
    */
-  forwardMsg = async (e: Event, data: string[]) => {
+  forwardMsg = async (e: Event, data: any[]) => {
     if (data.length == 1) {
       await e.reply(data[0])
       return
@@ -52,7 +46,7 @@ class Utils {
    * @param data
    * @returns
    */
-  forwardMsgSurveySet = async (e: Event, data: string[]) => {
+  forwardMsgSurveySet = async (e: Event, data: any[]) => {
     if (data.length == 1) {
       const isreply = await e.reply(data[0])
       this.surveySet(e, isreply)
