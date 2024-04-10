@@ -11,6 +11,7 @@ import KillComponent from '../component/kill.tsx'
 import EquipmentComponent from '../component/equiment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
+import AuctionComponent from '../component/auction.tsx'
 
 import { UserMessageType } from '../model/types.ts'
 
@@ -126,6 +127,18 @@ class Component {
   async bag(data: UserMessageType, uid: number) {
     return this.puppeteer.render(
       this.create(<BagComponent data={data} />, 'bag', `${uid}.html`)
+    )
+  }
+
+  /**
+   *
+   * @param data
+   * @param uid
+   * @returns
+   */
+  async auction(data: UserMessageType, uid: number) {
+    return this.puppeteer.render(
+      this.create(<AuctionComponent data={data} />, 'bag', `${uid}.html`)
     )
   }
 }
