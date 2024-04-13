@@ -1,9 +1,12 @@
 import koaRouter from 'koa-router'
-import { readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+// import { readFileSync, writeFileSync } from 'fs'
+// import { join } from 'path'
 import { generateToken } from '../utils/jwt'
 
 const router = new koaRouter({ prefix: '/api' })
+
+const username = '123456'
+const password = '123456'
 
 /**
  * 用户注册
@@ -40,8 +43,8 @@ router.post('/logon', async (ctx) => {
   }
 
   ctx.body = {
-    code: 2000,
-    msg: '注册成功'
+    code: 4000,
+    msg: '暂不支持注册'
   }
 })
 
@@ -65,15 +68,25 @@ router.post('/login', async (ctx) => {
     }
     return
   }
-  const res = {}
-  /**
-   * 发放token
-   */
-  ctx.body = {
-    code: 2000,
-    msg: '登录成功',
-    data: {
-      token: generateToken(res)
+  const res = {
+    username,
+    password
+  }
+
+  if (body.username == username && body.password) {
+    // 发放token
+    ctx.body = {
+      code: 2000,
+      msg: '登录成功',
+      data: {
+        token: generateToken(res)
+      }
+    }
+  } else {
+    ctx.body = {
+      code: 4000,
+      msg: '账号或密码错误',
+      data: null
     }
   }
 })
@@ -107,3 +120,5 @@ router.put('/password', async (ctx) => {
     msg: '待生产'
   }
 })
+
+export default router

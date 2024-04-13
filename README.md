@@ -103,6 +103,8 @@ npm run vite:dev
 
 前端地址 `http://localhost:5173/`
 
+账户密码 `123456`
+
 - 后端负载均衡
 
 ```sh
