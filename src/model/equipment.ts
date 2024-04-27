@@ -184,7 +184,7 @@ function getPriceById(id: number) {
 /**
  * @param id
  */
-export function getEuipmentById(id: number | string) {
+export function getEquipmentById(id: number | string) {
   // 计算得到境界数
   return {
     ...BaseEquipment,

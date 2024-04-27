@@ -18,7 +18,7 @@ router.get('/jwt', async (ctx) => {
 /**
  * 校验token并得到ws-url
  */
-router.get('/geteway', async (ctx) => {
+router.get('/getaway', async (ctx) => {
   try {
     const token = ctx.headers.authorization
     ctx.state.user = verifyToken(token)

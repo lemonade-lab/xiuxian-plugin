@@ -1,4 +1,4 @@
-export const BaseKill = {
+export const BaseSkill = {
   price: 36,
   // 100%
   efficiency: 100
@@ -44,9 +44,9 @@ type EquipmentsType = {
 }
 
 // 身份卡 ： 白 绿 蓝 紫 金
-const Identitys = [0, 1, 2, 3, 4] as const
+const Identities = [0, 1, 2, 3, 4] as const
 
-type IdentityType = (typeof Identitys)[number]
+type IdentityType = (typeof Identities)[number]
 
 //
 export const UserMessageBase = {
@@ -285,11 +285,11 @@ export const ReverseEquipmentNameMap: {
   [key: string]: string
 } = reverseObject(EquipmentNameMap)
 
-export const KillNameMap = {
+export const SkillNameMap = {
   '0': '灵气吐纳法'
 }
 
 // 反转key
-export const ReverseKillNameMap: {
+export const ReverseSkillNameMap: {
   [key: string]: string
-} = reverseObject(KillNameMap)
+} = reverseObject(SkillNameMap)

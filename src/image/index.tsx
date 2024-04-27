@@ -5,10 +5,10 @@ import { mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 import { cwd } from '../config.ts'
 // component
-import HelloComponent from '../component/hellox.tsx'
+import HelloComponent from '../component/hello.tsx'
 import MessageComponent from '../component/message.tsx'
-import KillComponent from '../component/kill.tsx'
-import EquipmentComponent from '../component/equiment.tsx'
+import KillComponent from '../component/skill.tsx'
+import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
 

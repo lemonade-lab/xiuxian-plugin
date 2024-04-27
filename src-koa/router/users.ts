@@ -32,9 +32,9 @@ router.post('/logon', async (ctx) => {
   /**
    * 验证请求合法性
    */
-  const { length: Ulength } = body.username.split('')
-  const { length: Plength } = body.password.split('')
-  if (Ulength < 6 || Ulength > 12 || Plength < 6 || Plength > 12) {
+  const { length: ULength } = body.username.split('')
+  const { length: PLength } = body.password.split('')
+  if (ULength < 6 || ULength > 12 || PLength < 6 || PLength > 12) {
     ctx.body = {
       code: 4000,
       msg: '非法注册'

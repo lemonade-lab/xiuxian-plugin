@@ -3,8 +3,8 @@ import { ArchivePath } from '../../src/model/path'
 import { readFilesInDirectory } from '../utils/utils'
 
 import { getUserMessageByUid } from '../../src/model/message'
-import { getKillById } from '../../src/model/kills'
-import { getEuipmentById } from '../../src/model/equipment'
+import { getSkillById } from '../../src/model/skills'
+import { getEquipmentById } from '../../src/model/equipment'
 
 const router = new Router({
   prefix: '/api'
@@ -27,14 +27,14 @@ router.get('/', (ctx) => {
 
 /**
  * 获得指定装备信息
- * /kill
+ * /skill
  * get
  * id = 213
  */
-router.get('/kill', (ctx) => {
+router.get('/skill', (ctx) => {
   const query = ctx.query
   if (typeof query.id === 'string' || typeof query.id === 'number') {
-    const data = getKillById(query.id)
+    const data = getSkillById(query.id)
     ctx.body = {
       code: 200,
       msg: '请求成功',
@@ -58,7 +58,7 @@ router.get('/kill', (ctx) => {
 router.get('/arms', (ctx) => {
   const query = ctx.query
   if (typeof query.id === 'string' || typeof query.id === 'number') {
-    const data = getEuipmentById(query.id)
+    const data = getEquipmentById(query.id)
     ctx.body = {
       code: 200,
       msg: '请求成功',

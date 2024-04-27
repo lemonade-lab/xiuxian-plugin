@@ -1,8 +1,8 @@
 import React from 'react'
 import { UserMessageType } from '../model/types.js'
-import { getEuipmentById } from '../model/equipment.js'
-import { EquipmentNameMap, KillNameMap } from '../model/base.js'
-import { getKillById } from '../model/kills.js'
+import { getEquipmentById } from '../model/equipment.js'
+import { EquipmentNameMap, SkillNameMap } from '../model/base.js'
+import { getSkillById } from '../model/skills.js'
 import _ from './url.js'
 
 import HeaderComponent from './header.js'
@@ -31,11 +31,11 @@ export default function App({ data }: ComponentType) {
 
   for (const item in EquipmentNameMap) {
     i++
-    datas.push(getEuipmentById(Number(item)))
+    datas.push(getEquipmentById(Number(item)))
     if (i >= max) break
   }
 
-  const kills: string[] = Object.keys(KillNameMap)
+  const kills: string[] = Object.keys(SkillNameMap)
 
   return (
     <html>
@@ -64,13 +64,13 @@ export default function App({ data }: ComponentType) {
               <div className="kills-box">
                 <span className="menu-button-flat">功法</span>
                 {kills.map((item, index) => {
-                  const data = getKillById(Number(item))
+                  const data = getSkillById(Number(item))
                   return (
                     <div key={index} className="kills-box-item">
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/kills.svg')}
+                          src={_('svg/skills.svg')}
                         />
                         <span className="nav-box-item-font">{data.name}</span>
                       </div>

@@ -1,5 +1,5 @@
 /**
- *
+ * 获取随机数
  * @param min
  * @param max
  * @returns
@@ -9,7 +9,7 @@ export function getRandomNumber(min: number, max: number): number {
 }
 
 /**
- *
+ * 获取用户昵称
  * @param name1
  * @param name
  * @returns

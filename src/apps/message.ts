@@ -14,7 +14,7 @@ export class message extends plugin {
         },
         {
           reg: /^(#|\/)?装备信息$/,
-          fnc: 'getEquitmentMessage'
+          fnc: 'getEquipmentMessage'
         }
       ]
     })
@@ -37,7 +37,7 @@ export class message extends plugin {
     })
   }
 
-  async getEquitmentMessage(e: Event) {
+  async getEquipmentMessage(e: Event) {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建

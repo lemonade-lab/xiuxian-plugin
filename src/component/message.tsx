@@ -2,8 +2,8 @@ import React from 'react'
 import { UserMessageType } from '../model/types'
 import NavMessage from './nav.jsx'
 import { getLevelById } from '../model/level.js'
-import { KillNameMap } from '../model/base.js'
-import { getEuipmentById } from '../model/equipment.js'
+import { SkillNameMap } from '../model/base.js'
+import { getEquipmentById } from '../model/equipment.js'
 import _ from './url.js'
 
 type ComponentType = {
@@ -27,7 +27,7 @@ export default function App({ data, status }: ComponentType) {
     // 这个key 没有 标记
     if (data.equipments[KEY] === null) continue
     // 有标记
-    const db = getEuipmentById(Number(data.equipments[KEY]))
+    const db = getEquipmentById(Number(data.equipments[KEY]))
     for (const key in db) {
       equipment[key] = db[key]
     }
@@ -118,7 +118,7 @@ export default function App({ data, status }: ComponentType) {
             <div className="kills">
               <div className="kills-box">
                 {kills.map((item, index) => (
-                  <span key={index}>《{KillNameMap[item]}》 </span>
+                  <span key={index}>《{SkillNameMap[item]}》 </span>
                 ))}
                 <span className="menu-button-flat">#功法信息</span>
               </div>

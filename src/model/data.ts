@@ -1,7 +1,8 @@
-import { existsSync, mkdirSync, readFileSync, writeFile } from 'fs'
+import { existsSync, mkdirSync, readFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { ArchivePath, ResourcesPath } from './path'
 import { ArchiveType, DataType, ResourcesType } from './types'
+import { JSONFilePreset } from 'lowdb/node'
 
 /**
  * 是否存在用户存档
@@ -31,7 +32,7 @@ export function readArchiveData(key: keyof ArchiveType, uid: number | string) {
   mkdirSync(dirname(dir), {
     recursive: true
   })
-  // steing
+  // setting
   try {
     const data = readFileSync(dir, 'utf-8')
     return JSON.parse(data) as DataType[keyof ArchiveType]
@@ -46,7 +47,7 @@ export function readArchiveData(key: keyof ArchiveType, uid: number | string) {
  * @param uid
  * @param data
  */
-export function writeArchiveData(
+export async function writeArchiveData(
   key: keyof ArchiveType,
   uid: number | string,
   data: object
@@ -55,9 +56,11 @@ export function writeArchiveData(
   mkdirSync(dirname(dir), {
     recursive: true
   })
-  writeFile(dir, JSON.stringify(data), 'utf-8', (err) => {
-    if (err) console.error(err)
-  })
+  // writeFile(dir, JSON.stringify(data), 'utf-8', (err) => {
+  //   if (err) console.error(err)
+  // })
+  const db = await JSONFilePreset(dir, data)
+  await db.write()
 }
 
 /**
@@ -69,7 +72,7 @@ export function readData(key: keyof ResourcesType, name: string) {
   mkdirSync(dirname(dir), {
     recursive: true
   })
-  // steing
+  // setting
   try {
     const data = readFileSync(dir, 'utf-8')
     return JSON.parse(data)

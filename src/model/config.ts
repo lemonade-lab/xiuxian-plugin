@@ -14,7 +14,7 @@ export const LEVEL_SIZE = [8, 8, 12]
 export const DOOR_CLOSE_SIZE = 100
 
 // 挖矿扣除血量
-export const MINING_BLOOL = 200
+export const MINING_BLOOD = 200
 
 // 挖矿所得灵石
 export const MINING_MONEY = 1

@@ -2,10 +2,10 @@ import { type Event, plugin, define } from '../import'
 import { writeArchiveData } from '../model/data'
 import { getUserMessageByUid } from '../model/message'
 import { getUserName } from '../model/utils'
-import { userBattle } from '../system/battel'
+import { userBattle } from '../system/battle'
 import Utils from '../utils'
 import RedisClient from '../model/redis'
-export class battel extends plugin {
+export class battle extends plugin {
   constructor() {
     super({
       ...define,

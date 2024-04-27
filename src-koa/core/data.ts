@@ -14,7 +14,7 @@ export function readArchiveData(key: keyof ArchiveType, uid: number | string) {
   mkdirSync(dirname(dir), {
     recursive: true
   })
-  // steing
+  // setting
   try {
     const data = readFileSync(dir, 'utf-8')
     return JSON.parse(data)

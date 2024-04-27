@@ -1,4 +1,4 @@
-import { getEuipmentById } from '../model/equipment'
+import { getEquipmentById } from '../model/equipment'
 import { getLevelById } from '../model/level'
 import { UserMessageType } from '../model/types'
 
@@ -21,7 +21,7 @@ function getBaseVal(data: UserMessageType) {
     // 这个key 没有 标记
     if (data.equipments[KEY] === null) continue
     // 有标记
-    const db = getEuipmentById(Number(data.equipments[KEY]))
+    const db = getEquipmentById(Number(data.equipments[KEY]))
     for (const key in db) {
       equipment[key] = db[key]
     }

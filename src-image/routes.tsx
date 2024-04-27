@@ -1,8 +1,8 @@
 import React from 'react'
 import MessageComponent from '../src/component/message.tsx'
-import KillComponent from '../src/component/kill.tsx'
-import HelloComponent from '../src/component/hellox.tsx'
-import EquipmentComponent from '../src/component/equiment.tsx'
+import SkillComponent from '../src/component/skill.tsx'
+import HelloComponent from '../src/component/hello.tsx'
+import EquipmentComponent from '../src/component/equipment.tsx'
 import ShoppingComponent from '../src/component/shopping.tsx'
 import BagComponent from '../src/component/bag.tsx'
 import { getUserMessageByUid } from '../src/model/message.ts'
@@ -19,9 +19,9 @@ export const routes = [
     )
   },
   {
-    url: '/kill',
+    url: '/skill',
     element: (
-      <KillComponent data={getUserMessageByUid(794161769)} status={null} />
+      <SkillComponent data={getUserMessageByUid(794161769)} status={null} />
     )
   },
   {
@@ -39,5 +39,3 @@ export const routes = [
     element: <BagComponent data={getUserMessageByUid(794161769)} />
   }
 ]
-
-//

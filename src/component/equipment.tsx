@@ -2,7 +2,7 @@ import React from 'react'
 import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
-import { getEuipmentById } from '../model/equipment.js'
+import { getEquipmentById } from '../model/equipment.js'
 import _ from './url.js'
 
 type ComponentType = {
@@ -40,7 +40,7 @@ export default function App({ data, status }: ComponentType) {
     // 这个key 没有 标记
     if (data.equipments[KEY] === null) continue
     // 有标记
-    const db = getEuipmentById(Number(data.equipments[KEY]))
+    const db = getEquipmentById(Number(data.equipments[KEY]))
     datas.push(db)
     for (const key in db) {
       equipment[key] = db[key]

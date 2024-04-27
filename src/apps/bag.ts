@@ -1,7 +1,7 @@
 import { type Event, plugin, define } from '../import'
-import { ReverseEquipmentNameMap, ReverseKillNameMap } from '../model/base'
+import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base'
 import { writeArchiveData } from '../model/data'
-import { getKillById } from '../model/kills'
+import { getSkillById } from '../model/skills'
 import { getUserMessageByUid } from '../model/message'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
@@ -20,11 +20,11 @@ export class bag extends plugin {
         },
         {
           reg: /^(#|\/)?装备武器/,
-          fnc: 'addEuitment'
+          fnc: 'addEquipment'
         },
         {
           reg: /^(#|\/)?卸下武器/,
-          fnc: 'deleTeEuitment'
+          fnc: 'deleTeEquipment'
         }
       ]
     })
@@ -59,7 +59,7 @@ export class bag extends plugin {
     const name = e.msg
       .replace(/^(#|\/)?学习/, '')
       .replace(/[^\u4e00-\u9fa5]/g, '')
-    const ID = ReverseKillNameMap[name]
+    const ID = ReverseSkillNameMap[name]
     if (!ID) {
       e.reply(`此方世界没有功法《${name}》`)
       return
@@ -79,7 +79,7 @@ export class bag extends plugin {
     if (data.bags.kills[ID] <= 0) {
       delete data.bags.kills[ID]
     }
-    const sData = getKillById(Number(ID))
+    const sData = getSkillById(Number(ID))
     data.efficiency += sData.efficiency
     data.kills[ID] = true
     // 保存
@@ -92,7 +92,7 @@ export class bag extends plugin {
    *
    * @param e
    */
-  async addEuitment(e: Event) {
+  async addEquipment(e: Event) {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?装备武器/, '')
@@ -128,7 +128,7 @@ export class bag extends plugin {
    * @param e
    * @returns
    */
-  async deleTeEuitment(e: Event) {
+  async deleTeEquipment(e: Event) {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?卸下武器/, '')

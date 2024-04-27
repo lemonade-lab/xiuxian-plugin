@@ -7,7 +7,7 @@ import component from '../image/index'
 import {
   DOOR_CLOSE_SIZE,
   MINING,
-  MINING_BLOOL,
+  MINING_BLOOD,
   MINING_MONEY
 } from '../model/config'
 import { getLevelById } from '../model/level'
@@ -124,11 +124,11 @@ export class ping extends plugin {
       return
     }
     // 看看精血
-    if (data.blood <= MINING_BLOOL) {
+    if (data.blood <= MINING_BLOOD) {
       e.reply('精血不足,先休息休息吧')
       return
     }
-    data.blood -= MINING_BLOOL
+    data.blood -= MINING_BLOOD
     data.money += MINING_MONEY
     RedisClient.set('mining', uid, '采集冷却', {
       time: now

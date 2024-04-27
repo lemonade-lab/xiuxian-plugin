@@ -2,8 +2,8 @@ import React from 'react'
 import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
-import { getKillById } from '../model/kills.js'
-import { getEuipmentById } from '../model/equipment.js'
+import { getSkillById } from '../model/skills.js'
+import { getEquipmentById } from '../model/equipment.js'
 import _ from './url.js'
 
 type ComponentType = {
@@ -27,7 +27,7 @@ export default function App({ data, status }: ComponentType) {
     // 这个key 没有 标记
     if (data.equipments[KEY] === null) continue
     // 有标记
-    const db = getEuipmentById(Number(data.equipments[KEY]))
+    const db = getEquipmentById(Number(data.equipments[KEY]))
     for (const key in db) {
       equipment[key] = db[key]
     }
@@ -39,7 +39,7 @@ export default function App({ data, status }: ComponentType) {
   const blood = level.blood + equipment.blood + data.base.blood
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
-  const kills = Object.keys(data.kills).map((item) => getKillById(Number(item)))
+  const kills = Object.keys(data.kills).map((item) => getSkillById(Number(item)))
 
   return (
     <html>
@@ -47,7 +47,7 @@ export default function App({ data, status }: ComponentType) {
         <link rel="stylesheet" href={_('css/root.css')}></link>
         <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
         <link rel="stylesheet" href={_(`css/nav.css`)}></link>
-        <link rel="stylesheet" href={_(`css/kill.css`)}></link>
+        <link rel="stylesheet" href={_(`css/skill.css`)}></link>
       </head>
       <body>
         <div id="root">
@@ -68,7 +68,7 @@ export default function App({ data, status }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/kills.svg')}
+                          src={_('svg/skills.svg')}
                         />
                         <span>{item.name}</span>
                       </div>

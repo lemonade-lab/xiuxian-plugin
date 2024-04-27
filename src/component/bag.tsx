@@ -1,7 +1,7 @@
 import React from 'react'
 import { UserMessageType } from '../model/types.js'
-import { getEuipmentById } from '../model/equipment.js'
-import { getKillById } from '../model/kills.js'
+import { getEquipmentById } from '../model/equipment.js'
+import { getSkillById } from '../model/skills.js'
 import HeaderComponent from './header.js'
 import _ from './url.js'
 
@@ -28,7 +28,7 @@ export default function App({ data }: ComponentType) {
   const datas: DatasType[] = []
 
   for (const item in data.bags.equipments) {
-    const db = getEuipmentById(Number(item))
+    const db = getEquipmentById(Number(item))
     datas.push({
       ...db,
       acount: data.bags.equipments[item]
@@ -36,7 +36,7 @@ export default function App({ data }: ComponentType) {
   }
 
   const kills = Object.keys(data.bags.kills).map((item) => {
-    const db = getKillById(Number(item))
+    const db = getSkillById(Number(item))
     return {
       ...db,
       acount: data.bags.kills[item]
@@ -67,7 +67,7 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/kills.svg')}
+                          src={_('svg/skills.svg')}
                         />
                         <span className="nav-box-item-font">{item.name}</span>
                       </div>

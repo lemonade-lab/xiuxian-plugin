@@ -1,9 +1,9 @@
 import { type Event, plugin, define } from '../import.js'
 import { writeArchiveData } from '../model/data.js'
 import { getUserMessageByUid } from '../model/message.js'
-import { ReverseEquipmentNameMap, ReverseKillNameMap } from '../model/base.js'
-import { getKillById } from '../model/kills.js'
-import { getEuipmentById } from '../model/equipment.js'
+import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base.js'
+import { getSkillById } from '../model/skills.js'
+import { getEquipmentById } from '../model/equipment.js'
 import component from '../image/index.js'
 import { getUserName } from '../model/utils.js'
 export class buy extends plugin {
@@ -21,7 +21,7 @@ export class buy extends plugin {
         },
         {
           reg: /^(#|\/)?购买武器/,
-          fnc: 'buyEquitment'
+          fnc: 'buyEquipment'
         }
       ]
     })
@@ -51,7 +51,7 @@ export class buy extends plugin {
    * @param e
    * @returns
    */
-  async buyEquitment(e: Event) {
+  async buyEquipment(e: Event) {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?购买武器/, '')
@@ -63,7 +63,7 @@ export class buy extends plugin {
     }
     const data = getUserMessageByUid(uid)
     // 看看money
-    const sData = getEuipmentById(Number(ID))
+    const sData = getEquipmentById(Number(ID))
     if (data.money < sData.price) {
       e.reply(`灵石不足${sData.price}`)
       return
@@ -91,14 +91,14 @@ export class buy extends plugin {
     const name = e.msg
       .replace(/^(#|\/)?购买功法/, '')
       .replace(/[^\u4e00-\u9fa5]/g, '')
-    const ID = ReverseKillNameMap[name]
+    const ID = ReverseSkillNameMap[name]
     if (!ID) {
       e.reply(`此方世界没有《${name}》`)
       return
     }
     const data = getUserMessageByUid(uid)
     // 看看money
-    const sData = getKillById(Number(ID))
+    const sData = getSkillById(Number(ID))
     if (data.money < sData.price) {
       e.reply(`灵石不足${sData.price}`)
       return
