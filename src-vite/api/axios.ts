@@ -1,4 +1,5 @@
 import axios, { type AxiosRequestConfig } from 'axios'
+import { token } from './token'
 class Axios {
   baseURL = '/api'
 
@@ -38,10 +39,13 @@ class Axios {
   /**
    * 用户列表
    */
-  list() {
+  async list() {
     return this.server({
       url: '/player',
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        authorization: token.get()
+      }
     }).then((res) => res.data)
   }
 

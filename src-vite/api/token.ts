@@ -1,30 +1,25 @@
+import { KJUR } from 'jsrsasign'
+import { ScratchTokenKey } from './localStorage'
+
 export class Token {
-  #key = 'xiuxian-token-1'
+  #key = ScratchTokenKey
 
   // 提前10分钟失效
   #base = 1000 * 60 * 10
 
-  token = null
-
-  message = null
-
   /**
-   * 切换key
-   * @param {} val
+   *
+   * @returns
    */
-  key(val) {
-    this.#key = val
-  }
-
   get() {
     return localStorage.getItem(this.#key)
   }
 
   /**
    *
-   * @param val
+   * @param {*} val
    */
-  set(val: string) {
+  set(val) {
     localStorage.setItem(this.#key, val)
   }
 
@@ -37,20 +32,56 @@ export class Token {
   }
 
   /**
+   *
+   * @returns
+   */
+  getRole() {
+    const msg = this.getMessage()
+    if (msg?.typing === 3) {
+      return 'teacher'
+    }
+    return ''
+  }
+
+  /**
    * 获取信息
    * @returns
    */
   getDecodedToken() {
-    if (this.message) return this.message
     const token = this.get()
-    if (!token) return
-    const data = token.split('.')[1]
-    if (!data) return
-    const de = atob(data)
-    this.token = token
-    const message = JSON.parse(de)
-    this.message = message
-    return message
+    if (!token) return false
+    try {
+      const data = KJUR.jws.JWS.parse(token)
+      if (!data) return false
+      return data.payloadObj
+    } catch {
+      return false
+    }
+  }
+
+  /**
+   *
+   * @returns
+   */
+  onMessage() {
+    const msg = this.getDecodedToken()
+    if (!msg) return false
+    return msg
+  }
+
+  /**
+   *
+   * @param {*} msg
+   * @returns
+   */
+  onLoin(msg) {
+    const time = msg.exp
+    if (Date.now() + this.#base < time) {
+      this.del()
+      console.log('令牌已过期')
+      return false
+    }
+    return true
   }
 
   /**
@@ -73,8 +104,6 @@ export class Token {
    * 删除登录
    */
   del() {
-    this.message = null
-    this.token = null
     localStorage.removeItem(this.#key)
   }
 }

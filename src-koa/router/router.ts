@@ -5,6 +5,7 @@ import { readFilesInDirectory } from '../utils/utils'
 import { getUserMessageByUid } from '../../src/model/message'
 import { getSkillById } from '../../src/model/skills'
 import { getEquipmentById } from '../../src/model/equipment'
+import { CODE_ERROE, CODE_OK } from '../config'
 
 const router = new Router({
   prefix: '/api'
@@ -103,13 +104,21 @@ router.get('/message', (ctx) => {
  * get
  */
 router.get('/player', (ctx) => {
-  const fileNames = readFilesInDirectory(ArchivePath['player'])
-  ctx.body = {
-    code: 200,
-    msg: '请求成功',
-    data: {
-      count: fileNames.length,
-      list: fileNames.map((fileName) => fileName.split('.')[0])
+  try {
+    const fileNames = readFilesInDirectory(ArchivePath['player'])
+    ctx.body = {
+      code: CODE_OK,
+      msg: '请求成功',
+      data: {
+        count: fileNames.length,
+        list: fileNames.map((fileName) => fileName.split('.')[0])
+      }
+    }
+  } catch (err) {
+    ctx.body = {
+      code: CODE_ERROE,
+      msg: '请求成功',
+      data: err
     }
   }
 })

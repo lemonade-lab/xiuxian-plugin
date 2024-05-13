@@ -1,3 +1,4 @@
+// no-undef
 module.exports = {
   apps: [
     {
