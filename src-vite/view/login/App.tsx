@@ -107,12 +107,12 @@ export default function App() {
   }
 
   return (
-    <div className="com">
-      <main className="comMain">
+    <div className="w-full h-full flex bg-main-bg-color select-none font-semibold items-center justify-center">
+      <main className="w-40rem bg-white rounded-1rem flex items-center flex-col">
         {show ? (
-          <div className="comMainLogin">
+          <div className="flex flex-col items-center p-0 4rem 2rem 4rem rounded-1rem">
             <div className="header">
-              <h1 className="title">欢迎使用修仙管理系统</h1>
+              <h1 className="title   ">欢迎使用修仙管理系统</h1>
             </div>
             <input
               type="text"
@@ -137,7 +137,7 @@ export default function App() {
             </div>
           </div>
         ) : (
-          <div className="comMainLogin">
+          <div className="flex flex-col items-center p-0 4rem 2rem 4rem rounded-1rem">
             <div className="header">
               <h1 className="title">正在注册修仙账户</h1>
             </div>

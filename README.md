@@ -140,5 +140,3 @@ npm run build #打包
 ## 联系
 
 Bot Dev QQ-Group 806943302
-
-Game Play QQ-Group 925976815
