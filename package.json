@@ -7,10 +7,9 @@
   "author": "ningmengchongshui",
   "license": "GPL-2.0",
   "scripts": {
-    "build": "rollup --config rollup.config.js && tsc && npm run vite:build",
+    "build": "npm run rollup:build && tsc && npm run vite:build",
+    "rollup:build": "rollup --config rollup.config.js",
     "update": "npx ts-node src/system/update.ts ",
-    "format": "npx prettier --write .",
-    "eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "image:dev": "nodemon --config src-image/nodemon.json",
     "vite:dev": "vite",
     "vite:build": "vite build",
@@ -20,6 +19,8 @@
     "list": "pm2 stop",
     "logs": "pm2 logs",
     "kill": "pm2 kill",
+    "format": "npx prettier --write .",
+    "eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "husky"
   },
   "dependencies": {
@@ -71,6 +72,7 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "file-type": "^18.5.0",
     "form-data": "^4.0.0",
+    "gsap": "^3.12.5",
     "husky": "^9.0.11",
     "icqq": "^0.6.10",
     "image-size": "^1.0.2",
@@ -106,6 +108,7 @@
     "sass": "^1.74.1",
     "sequelize": "^6.37.1",
     "tailwindcss": "^3.4.3",
+    "terser": "^5.31.0",
     "ts-node": "^10.9.1",
     "typedoc": "^0.25.4",
     "typescript": "^5.0.4",
