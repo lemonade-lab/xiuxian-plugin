@@ -3,7 +3,10 @@ import { renderToString } from 'react-dom/server'
 import { Puppeteer } from './puppeteer.ts'
 import { mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
+//
 import { cwd } from '../config.ts'
+import { UserMessageType } from '../model/types.ts'
+import Redis from '../model/redis.ts'
 // component
 import HelloComponent from '../component/hello.tsx'
 import MessageComponent from '../component/message.tsx'
@@ -11,10 +14,7 @@ import KillComponent from '../component/skill.tsx'
 import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
-
-import { UserMessageType } from '../model/types.ts'
-
-import Redis from '../model/redis.ts'
+//
 class Component {
   puppeteer: typeof Puppeteer.prototype
   #dir = ''

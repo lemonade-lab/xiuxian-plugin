@@ -1,4 +1,9 @@
 import { SkillNameMap, BaseSkill } from './base'
+/**
+ *
+ * @param id
+ * @returns
+ */
 function getEfficiencyById(id: number) {
   if (id <= 0) {
     return BaseSkill.efficiency
@@ -6,6 +11,11 @@ function getEfficiencyById(id: number) {
     return BaseSkill.efficiency * 2
   }
 }
+/**
+ *
+ * @param id
+ * @returns
+ */
 function getPriceById(id: number) {
   if (id <= 0) {
     return BaseSkill.price

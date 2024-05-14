@@ -52,7 +52,6 @@ message.response(/^(#|\/)?学习/, async (e) => {
   e.reply(`学得${name}`)
   return false
 })
-
 message.response(/^(#|\/)?装备武器/, async (e) => {
   const uid = e.user_id
   const name = e.msg
@@ -83,7 +82,6 @@ message.response(/^(#|\/)?装备武器/, async (e) => {
   writeArchiveData('player', uid, data)
   e.reply(`装备 [${name}]`)
 })
-
 message.response(/^(#|\/)?卸下武器/, async (e) => {
   const uid = e.user_id
   const name = e.msg
@@ -111,5 +109,4 @@ message.response(/^(#|\/)?卸下武器/, async (e) => {
   e.reply(`卸下 [${name}]`)
   return
 })
-
 export default message

@@ -2,9 +2,8 @@ const plugin = (await import('' + '../../lib/plugins/plugin.js')).default
 // const common = (await import('' + '../../lib/common/common.js')).default.default
 export { plugin }
 import { type GroupMessage } from 'icqq'
-/**
- * Yunzai-event
- */
+
+// Yunzai-event
 export interface Event extends GroupMessage {
   isMaster: boolean
   group: {
@@ -16,6 +15,7 @@ export interface Event extends GroupMessage {
   reply: (...arg) => Promise<any>
 }
 
+//
 export const define = {
   name: 'xiuxian',
   dsc: 'xiuxian',
@@ -23,7 +23,10 @@ export const define = {
   priority: 999
 }
 
+//
 type MessageFunction = (e: Event) => Promise<boolean | undefined | void>
+
+//
 export class Messages {
   count = 0
   rule: {
@@ -39,7 +42,7 @@ export class Messages {
       fnc: propName
     })
   }
-  ok() {
+  get ok() {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const App = this
     class Children extends plugin {
@@ -58,6 +61,7 @@ export class Messages {
     return Children
   }
 }
+
 export class Events {
   count = 0
   data: {
@@ -67,7 +71,7 @@ export class Events {
     this.count++
     this.data[this.count] = val
   }
-  ok() {
+  get ok() {
     return this.data
   }
 }
