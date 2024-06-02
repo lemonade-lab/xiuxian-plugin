@@ -1,8 +1,7 @@
-import { existsSync, mkdirSync, readFileSync } from 'fs'
+import { existsSync, mkdirSync, readFileSync, writeFile } from 'fs'
 import { dirname, join } from 'path'
 import { ArchivePath, ResourcesPath } from './path'
 import { ArchiveType, DataType, ResourcesType } from './types'
-import { JSONFilePreset } from 'lowdb/node'
 
 /**
  * 是否存在用户存档
@@ -56,11 +55,9 @@ export async function writeArchiveData(
   mkdirSync(dirname(dir), {
     recursive: true
   })
-  // writeFile(dir, JSON.stringify(data), 'utf-8', (err) => {
-  //   if (err) console.error(err)
-  // })
-  const db = await JSONFilePreset(dir, data)
-  await db.write()
+  writeFile(dir, JSON.stringify(data), 'utf-8', (err) => {
+    if (err) console.error(err)
+  })
 }
 
 /**
