@@ -27,33 +27,16 @@ export class Token {
    * 获取信息
    * @returns
    */
-  getMessage() {
-    return this.getDecodedToken()
-  }
-
-  /**
-   *
-   * @returns
-   */
-  getRole() {
-    const msg = this.getMessage()
-    if (msg?.typing === 3) {
-      return 'teacher'
-    }
-    return ''
-  }
-
-  /**
-   * 获取信息
-   * @returns
-   */
   getDecodedToken() {
     const token = this.get()
     if (!token) return false
     try {
       const data = KJUR.jws.JWS.parse(token)
       if (!data) return false
-      return data.payloadObj
+      return data.payloadObj as {
+        id: number
+        exp: number
+      }
     } catch {
       return false
     }
