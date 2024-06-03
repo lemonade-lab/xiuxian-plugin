@@ -20,6 +20,25 @@ export class MyData<T> {
   }
 
   /**
+   * 推送用户
+   * @param key
+   */
+  async push(key: string | number) {
+    const k = `${this.#key}-list`
+    const uids = await redis.get(k)
+    // 不存在
+    if (!uids) {
+      redis.set(k, JSON.stringify([key]))
+    } else {
+      const data = JSON.parse(uids) as (string | number)[]
+      if (!data.includes) {
+        data.push(key)
+        redis.set(k, JSON.stringify(data))
+      }
+    }
+  }
+
+  /**
    *
    * @param key
    */
@@ -40,16 +59,44 @@ export class MyData<T> {
    * 得到所有用户数据
    */
   async findAll() {
-    return new Promise(() => {
-      //
+    return new Promise((resolve, reject) => {
+      const k = `${this.#key}-list`
+      redis
+        .get(k)
+        .then(async (uids) => {
+          if (!uids) {
+            // 无数据
+            resolve([])
+          } else {
+            // 收集数据
+            const data = []
+            for (const key of uids) {
+              await this.findOne(key)
+                .then((res) => {
+                  if (res) data.push(data)
+                })
+                .catch(console.error)
+            }
+            resolve(data)
+          }
+        })
+        .catch(reject)
     })
   }
 
   /**
-   * 数据长度
+   * 玩家量
+   * @returns
    */
   async count() {
-    //
+    const k = `${this.#key}-list`
+    const uids = await redis.get(k)
+    if (!uids) {
+      return 0
+    } else {
+      const data = JSON.parse(uids) as (string | number)[]
+      return data.length
+    }
   }
 
   /**
@@ -72,6 +119,8 @@ export class MyData<T> {
           this.lock.delete(key)
           // 不存在
           if (!res) {
+            // 载入uid
+            this.push(key)
             resolve(this.#init)
             return
           }
