@@ -115,7 +115,7 @@ export default function App() {
               }
 
               <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                {[0, 1, 2].map((item, index) => (
+                {[0, 1, 2].map((_, index) => (
                   <tr key={index}>
                     <td className="size-px whitespace-nowrap">
                       <div className="ps-6 py-3">
