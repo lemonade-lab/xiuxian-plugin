@@ -1,10 +1,5 @@
 import { join } from 'path'
 import { cwd } from '../config'
-// 存档
-export const ArchivePath = {
-  // 玩家数
-  player: join(cwd, '/data/player')
-}
 // 基础数据
 export const ResourcesPath = {
   // 配置文件

@@ -1,11 +1,9 @@
 import Router from 'koa-router'
-import { ArchivePath } from '../../src/model/path'
-import { readFilesInDirectory } from '../utils/utils'
 
-import { getUserMessageByUid } from '../../src/model/message'
 import { getSkillById } from '../../src/model/skills'
 import { getEquipmentById } from '../../src/model/equipment'
-import { CODE_ERROE, CODE_OK } from '../config'
+import { CODE_ERROE } from '../config'
+import { DB } from '../../src/model/db-system'
 
 const router = new Router({
   prefix: '/api'
@@ -80,10 +78,10 @@ router.get('/arms', (ctx) => {
  * get
  * uid = 123456
  */
-router.get('/message', (ctx) => {
+router.get('/message', async (ctx) => {
   const query = ctx.query
   if (typeof query.uid === 'string' || typeof query.uid === 'number') {
-    const data = getUserMessageByUid(query.uid)
+    const data = await DB.findOne(query.uid)
     ctx.body = {
       code: 200,
       msg: '请求成功',
@@ -104,22 +102,10 @@ router.get('/message', (ctx) => {
  * get
  */
 router.get('/player', (ctx) => {
-  try {
-    const fileNames = readFilesInDirectory(ArchivePath['player'])
-    ctx.body = {
-      code: CODE_OK,
-      msg: '请求成功',
-      data: {
-        count: fileNames.length,
-        list: fileNames.map((fileName) => fileName.split('.')[0])
-      }
-    }
-  } catch (err) {
-    ctx.body = {
-      code: CODE_ERROE,
-      msg: '请求成功',
-      data: err
-    }
+  ctx.body = {
+    code: CODE_ERROE,
+    msg: '请求成功',
+    data: null
   }
 })
 export default router

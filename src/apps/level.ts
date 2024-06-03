@@ -4,18 +4,21 @@ import {
   LEVEL_SIZE,
   LEVEL_UP_LIMIT
 } from '../model/config.js'
-import { writeArchiveData } from '../model/data.js'
 import { getLevelById } from '../model/level.js'
-import { getUserMessageByUid } from '../model/message.js'
 import { getRandomNumber, getUserName } from '../model/utils.js'
 
 import { Messages } from '../import'
+import { DB } from '../model/db-system.js'
 const message = new Messages()
 
 message.response(/^(#|\/)?突破$/, async (e) => {
   // 获取账号
   const uid = e.user_id
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   /**
    * 突破就是以三维为基，触发一定概率的事件
    */
@@ -67,11 +70,13 @@ message.response(/^(#|\/)?突破$/, async (e) => {
   data.base.blood = 0
   if (p < ran) {
     e.reply(`有${p}%的可能打破瓶颈，但是失败了呢`)
-    writeArchiveData('player', uid, data)
+
+    DB.create(uid, data)
     return
   }
   data.level_id += 1
-  writeArchiveData('player', uid, data)
+
+  DB.create(uid, data)
   // 修正名字
   data.name = getUserName(data.name, e.sender.nickname)
   // 数据植入组件

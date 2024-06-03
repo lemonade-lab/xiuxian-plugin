@@ -5,7 +5,7 @@
   "main": "main.js",
   "type": "module",
   "author": "ningmengchongshui",
-  "license": "GPL-2.0",
+  "license": "MIT",
   "scripts": {
     "build": "npm run rollup:build && tsc && npm run vite:build",
     "rollup:build": "rollup --config rollup.config.js",

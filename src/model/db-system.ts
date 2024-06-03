@@ -28,7 +28,7 @@ export class MyData<T> {
   }
 
   /**
-   * 是否存在
+   * 是否存在指定数据
    * @param key
    * @returns
    */
@@ -53,20 +53,28 @@ export class MyData<T> {
   }
 
   /**
-   * 读取数据
+   * 查找数据
+   * @param key
+   * @returns
    */
-  findOne(key: string): Promise<T | false> {
+  findOne(key: string | number): Promise<T | false> {
     return new Promise((resolve, reject) => {
-      if (this.lock.has(key)) return reject(false)
+      if (this.lock.has(key)) {
+        reject(false)
+        return
+      }
       // 锁住行为
       this.lock.set(key, Date.now)
-
       // for in 存储
-
       redis
         .get(this.getKey(key))
         .then((res) => {
           this.lock.delete(key)
+          // 不存在
+          if (!res) {
+            resolve(this.#init)
+            return
+          }
           resolve(JSON.parse(res) as T)
         })
         .catch((err) => {
@@ -78,12 +86,12 @@ export class MyData<T> {
   }
 
   /**
-   *
+   * 创建数据
    * @param key
    * @param data
    * @returns
    */
-  create(key: string, data: T): Promise<boolean> {
+  create(key: string | number, data: T): Promise<boolean> {
     return new Promise((resolve, reject) => {
       if (this.lock.has(key)) {
         reject(false)
@@ -96,7 +104,7 @@ export class MyData<T> {
 
       // 开始写入数据
       redis
-        .set('x', JSON.stringify(data))
+        .set(this.getKey(key), JSON.stringify(data))
         .then(() => {
           this.lock.delete(key)
           resolve(true)
@@ -119,9 +127,12 @@ export class MyData<T> {
   }
 
   /**
-   * 更新数据的指定key
+   * 更新数据
+   * @param key
+   * @param data
+   * @returns
    */
-  async update(key: string, data: T) {
+  async update(key: string | number, data: T) {
     const d = await this.findOne(this.getKey(key))
     if (!d) return false
     return this.create(this.getKey(key), {
@@ -133,4 +144,5 @@ export class MyData<T> {
   //
 }
 
+// 数据库系统
 export const DB = new MyData('xiuxian:player', UserMessageBase)

@@ -70,12 +70,6 @@ npm run build
 git pull
 ```
 
-- 加载更新脚本
-
-```sh
-npm run update
-```
-
 - 执行打包
 
 ```sh

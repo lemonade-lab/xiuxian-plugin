@@ -9,7 +9,7 @@ type ComponentType = {
   power: number
   now: number
   blood: number
-  status: null | boolean
+  status?: null | boolean
 }
 
 export default function App({
@@ -17,7 +17,7 @@ export default function App({
   power,
   now,
   blood,
-  status = null
+  status = false
 }: ComponentType) {
   const pro = Math.floor((now / blood) * 100)
   const color = `linear-gradient(to right, ${

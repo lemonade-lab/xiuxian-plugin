@@ -1,22 +1,23 @@
-import {
-  getReStartUserMessageByUid,
-  getUserMessageByUid
-} from '../model/message.js'
+import { getReStartUserMessageByUid } from '../model/message.js'
 import component from '../image/index.js'
 import { Themes } from '../model/base.js'
-import { writeArchiveData } from '../model/data.js'
 import { getUserName } from '../model/utils.js'
 import RedisClient from '../model/redis.js'
 import { USER_RECREATE } from '../model/config.js'
 
 import { Messages } from '../import'
+import { DB } from '../model/db-system.js'
 const message = new Messages()
 
 message.response(/^(#|\/|\*)?(个人信息|踏入仙途|修仙帮助)$/, async (e) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   data.name = getUserName(data.name, e.sender.nickname)
   // 数据植入组件
   component.message(data, uid).then((img) => {
@@ -41,7 +42,6 @@ message.response(/^(#|\/)?再入仙途$/, async (e) => {
   })
   // 尝试读取数据，如果没有数据将自动创建
   const data = getReStartUserMessageByUid(uid)
-  writeArchiveData('player', uid, data)
   data.name = getUserName(data.name, e.sender.nickname)
   // 数据植入组件
   component.message(data, uid).then((img) => {
@@ -61,11 +61,16 @@ message.response(/^(#|\/)?改名/, async (e) => {
     return
   }
   // 尝试读取数据，如果没有数据将自动创建
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   if (data.name !== nickname) {
     data.name = nickname
     // 写入
-    writeArchiveData('player', uid, data)
+
+    DB.create(uid, data)
   }
   // 数据植入组件
   component.message(data, uid).then((img) => {
@@ -85,10 +90,16 @@ message.response(/^(#|\/)?签名/, async (e) => {
     return
   }
   // 尝试读取数据，如果没有数据将自动创建
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   data.autograph = autograph
   // 写入
-  writeArchiveData('player', uid, data)
+
+  DB.create(uid, data)
+
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
@@ -101,7 +112,11 @@ message.response(/^(#|\/)?更换主题$/, async (e) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   // 得到配置
   const index = Themes.indexOf(data.theme)
   // 如果存在
@@ -113,7 +128,7 @@ message.response(/^(#|\/)?更换主题$/, async (e) => {
     // 不存在。返回第一个
     data.theme = Themes[0]
   }
-  writeArchiveData('player', uid, data)
+  DB.create(uid, data)
   data.name = getUserName(data.name, e.sender.nickname)
   // 数据植入组件
   component.message(data, uid).then((img) => {

@@ -1,5 +1,3 @@
-import { existsArchiveSync, writeArchiveData } from '../model/data'
-import { getUserMessageByUid } from '../model/message'
 import RedisClient from '../model/redis'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
@@ -12,12 +10,13 @@ import {
 import { getLevelById } from '../model/level'
 
 import { Messages } from '../import'
+import { DB } from '../model/db-system'
 const message = new Messages()
 
 message.response(/^(#|\/)?闭关$/, async (e) => {
   const uid = e.user_id
-  if (!existsArchiveSync('player', uid)) {
-    getUserMessageByUid(uid)
+  if (!(await DB.exists(uid))) {
+    DB.findOne(uid)
   }
   const message = await RedisClient.get('door', uid)
   if (message.type) {
@@ -33,7 +32,11 @@ message.response(/^(#|\/)?闭关$/, async (e) => {
 
 message.response(/^(#|\/)?出关$/, async (e) => {
   const uid = e.user_id
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   const message = await RedisClient.get('door', uid)
   if (!message.type) {
     e.reply('没有在闭关哦')
@@ -58,7 +61,7 @@ message.response(/^(#|\/)?出关$/, async (e) => {
     // 后得的血量上限
     const baseBlood = Math.floor((Now - time) / (1000 * 60))
     data.base.blood += baseBlood
-    writeArchiveData('player', uid, data)
+    DB.create(uid, data)
   }
   // 修正名字
   data.name = getUserName(data.name, e.sender.nickname)
@@ -74,7 +77,11 @@ message.response(/^(#|\/)?采矿$/, async (e) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   // 不能在闭关
   const Biguan = await RedisClient.get('door', uid)
   if (Biguan.type) {
@@ -99,7 +106,9 @@ message.response(/^(#|\/)?采矿$/, async (e) => {
   RedisClient.set('mining', uid, '采集冷却', {
     time: now
   })
-  writeArchiveData('player', uid, data)
+
+  DB.create(uid, data)
+
   e.reply(`采得${MINING_MONEY}块灵石`)
   return false
 })

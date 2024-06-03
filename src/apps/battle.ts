@@ -1,16 +1,19 @@
-import { writeArchiveData } from '../model/data'
-import { getUserMessageByUid } from '../model/message'
 import { getUserName } from '../model/utils'
 import { userBattle } from '../system/battle'
 import Utils from '../utils'
 import RedisClient from '../model/redis'
 import { Messages } from '../import'
+import { DB } from '../model/db-system'
 const message = new Messages()
 message.response(/^(#|\/)?打劫/, async (e) => {
   const UID = Utils.at(e)
   if (!UID) return false
   const uid = e.user_id
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   if (data.blood <= 0) {
     e.reply('血量不足')
     return
@@ -25,7 +28,11 @@ message.response(/^(#|\/)?打劫/, async (e) => {
 
   data.name = getUserName(data.name, e.sender.nickname)
   // 你at了对方
-  const uData = getUserMessageByUid(UID)
+  const uData = await DB.findOne(UID)
+  if (!uData) {
+    e.reply('操作频繁')
+    return
+  }
   if (uData.blood <= 0) {
     e.reply('对方已无战意')
     return
@@ -76,8 +83,11 @@ message.response(/^(#|\/)?打劫/, async (e) => {
       e.reply(['你战败了,反而被抢走了', size, '颗灵石'].join(''))
     }
   }
-  writeArchiveData('player', uid, aData)
-  writeArchiveData('player', UID, bData)
+
+  DB.create(uid, aData)
+
+  DB.create(UID, bData)
+
   return false
 })
 

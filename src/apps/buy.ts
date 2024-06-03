@@ -1,17 +1,20 @@
-import { writeArchiveData } from '../model/data.js'
-import { getUserMessageByUid } from '../model/message.js'
 import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base.js'
 import { getSkillById } from '../model/skills.js'
 import { getEquipmentById } from '../model/equipment.js'
 import component from '../image/index.js'
 import { getUserName } from '../model/utils.js'
 import { Messages } from '../import'
+import { DB } from '../model/db-system.js'
 const message = new Messages()
 message.response(/^(#|\/)?万宝楼$/, async (e) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   data.name = getUserName(data.name, e.sender.nickname)
   // 数据植入组件
   component.shopping(data, uid).then((img) => {
@@ -30,7 +33,11 @@ message.response(/^(#|\/)?购买武器/, async (e) => {
     e.reply(`此方世界没有《${name}》`)
     return
   }
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   // 看看money
   const sData = getEquipmentById(Number(ID))
   if (data.money < sData.price) {
@@ -45,7 +52,9 @@ message.response(/^(#|\/)?购买武器/, async (e) => {
     data.bags.equipments[ID] += 1
   }
   // 保存
-  writeArchiveData('player', uid, data)
+
+  DB.create(uid, data)
+
   e.reply(`购得${name}`)
   return false
 })
@@ -59,7 +68,11 @@ message.response(/^(#|\/)?购买功法/, async (e) => {
     e.reply(`此方世界没有《${name}》`)
     return
   }
-  const data = getUserMessageByUid(uid)
+  const data = await DB.findOne(uid)
+  if (!data) {
+    e.reply('操作频繁')
+    return
+  }
   // 看看money
   const sData = getSkillById(Number(ID))
   if (data.money < sData.price) {
@@ -74,7 +87,8 @@ message.response(/^(#|\/)?购买功法/, async (e) => {
     data.bags.kills[ID] += 1
   }
   // 保存
-  writeArchiveData('player', uid, data)
+  DB.create(uid, data)
+
   e.reply(`购得${name}`)
   return false
 })

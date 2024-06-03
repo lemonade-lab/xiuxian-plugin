@@ -5,8 +5,7 @@ import HelloComponent from '../src/component/hello.tsx'
 import EquipmentComponent from '../src/component/equipment.tsx'
 import ShoppingComponent from '../src/component/shopping.tsx'
 import BagComponent from '../src/component/bag.tsx'
-import { getUserMessageByUid } from '../src/model/message.ts'
-
+import { UserMessageBase } from '../src/model/base.ts'
 export const routes = [
   {
     url: '/',
@@ -14,28 +13,22 @@ export const routes = [
   },
   {
     url: '/message',
-    element: (
-      <MessageComponent data={getUserMessageByUid(794161769)} status={null} />
-    )
+    element: <MessageComponent data={UserMessageBase} status={null} />
   },
   {
     url: '/skill',
-    element: (
-      <SkillComponent data={getUserMessageByUid(794161769)} status={null} />
-    )
+    element: <SkillComponent data={UserMessageBase} status={null} />
   },
   {
     url: '/equipment',
-    element: (
-      <EquipmentComponent data={getUserMessageByUid(794161769)} status={null} />
-    )
+    element: <EquipmentComponent data={UserMessageBase} status={null} />
   },
   {
     url: '/shopping',
-    element: <ShoppingComponent data={getUserMessageByUid(794161769)} />
+    element: <ShoppingComponent data={UserMessageBase} />
   },
   {
     url: '/bag',
-    element: <BagComponent data={getUserMessageByUid(794161769)} />
+    element: <BagComponent data={UserMessageBase} />
   }
 ]

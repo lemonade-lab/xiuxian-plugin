@@ -1,13 +1,11 @@
 import koaRouter from 'koa-router'
-// import { readFileSync, writeFileSync } from 'fs'
-// import { join } from 'path'
 import { generateToken } from '../utils/jwt'
-
+import { createRequire } from 'module'
+// init
+const require = createRequire(import.meta.url)
+const AdminData = require('../admin.json')
+//
 const router = new koaRouter({ prefix: '/api' })
-
-const username = '123456'
-const password = '123456'
-
 /**
  * 用户注册
  * x-wwww-from-urlencoded
@@ -68,12 +66,8 @@ router.post('/login', async (ctx) => {
     }
     return
   }
-  const res = {
-    username,
-    password
-  }
-
-  if (body.username == username && body.password) {
+  const res = AdminData.find((item) => item.username == body?.username)
+  if (res && res?.password == body.password) {
     // 发放token
     ctx.body = {
       code: 2000,

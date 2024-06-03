@@ -7,7 +7,7 @@ import _ from './url.js'
 
 type ComponentType = {
   data: UserMessageType
-  status: null | boolean
+  status?: null | boolean
 }
 
 type DatasType = {
@@ -22,7 +22,7 @@ type DatasType = {
   price: number
 }
 
-export default function App({ data, status }: ComponentType) {
+export default function App({ data, status = false }: ComponentType) {
   const level = getLevelById(data.level_id)
 
   const equipment = {
