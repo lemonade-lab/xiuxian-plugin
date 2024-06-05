@@ -46,6 +46,7 @@ export default function App({ data, status = false }: ComponentType) {
   return (
     <html>
       <head>
+        <link rel="stylesheet" href={_('css/output.css')}></link>
         <link rel="stylesheet" href={_('css/root.css')}></link>
         <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
         <link rel="stylesheet" href={_(`css/nav.css`)}></link>

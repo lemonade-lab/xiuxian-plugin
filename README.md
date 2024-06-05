@@ -33,26 +33,12 @@ cd ./xiuxian-plugin
 
 - 安装依赖
 
-选择你可以执行的工具进行加载
-
 ```sh
-npm install yarn -g
-yarn
-```
-
-```sh
-# 或者
 npm install pnpm -g
 pnpm install
 ```
 
-```sh
-# 或者
-npm install cnpm -g
-cnpm install
-```
-
-- 执行打包
+- 执行编译
 
 打包生产 `index.js`
 
@@ -60,7 +46,9 @@ cnpm install
 npm run build
 ```
 
-插件识别文件,必须打包后才能生产
+插件识别文件及图片样式
+
+必须打包后才能生产
 
 ## 更新
 
@@ -96,20 +84,19 @@ npm run build
 npm run image:dev
 ```
 
+```sh
+npm run css:watch
+```
+
 访问地址 `http://localhost:8080/message`
 
-- 启动 WEB 管理器
+- 启动 接口 服务
 
 ```sh
 npm run koa:dev
-npm run vite:dev
 ```
 
 后端地址 `http://localhost:9090/api`
-
-前端地址 `http://localhost:5173/`
-
-账户密码 `123456`
 
 - 后端负载均衡
 
@@ -119,15 +106,9 @@ npm run start #后台运行
 npm run kill #杀死进程
 ```
 
-- 前端负载均衡
+- 启动 web 服务
 
-对项目进行打包后
-
-使用 Nginx 部署 dist 目录即可
-
-```sh
-npm run build #打包
-```
+> 请阅读 web 分支
 
 ## 优势
 

@@ -7,13 +7,12 @@
   "author": "ningmengchongshui",
   "license": "MIT",
   "scripts": {
-    "build": "npm run rollup:build && tsc && npm run vite:build",
+    "build": "npm run rollup:build && tsc && npm run css",
     "rollup:build": "rollup --config rollup.config.js",
-    "update": "npx ts-node src/system/update.ts ",
-    "image:dev": "nodemon --config src-image/nodemon.json",
-    "vite:dev": "vite",
-    "vite:build": "vite build",
-    "koa:dev": "nodemon --config src-koa/nodemon.json",
+    "css": "tailwindcss -i ./src/input.css -o ./resources/css/output.css",
+    "css:watch": "tailwindcss -i ./src/input.css -o ./resources/css/output.css --watch",
+    "image:dev": "nodemon --config src-image/nodemon.json -q",
+    "koa:dev": "nodemon --config src-koa/nodemon.json -q",
     "start": "pm2 startOrRestart src-koa/pm2.config.cjs",
     "stop": "pm2 stop src-koa/pm2.config.cjs",
     "list": "pm2 stop",
@@ -59,7 +58,6 @@
     "@types/ws": "^8.5.5",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
@@ -111,7 +109,6 @@
     "ts-node": "^10.9.1",
     "typedoc": "^0.25.4",
     "typescript": "^5.0.4",
-    "vite": "^5.2.0",
     "ws": "^8.13.0"
   }
 }

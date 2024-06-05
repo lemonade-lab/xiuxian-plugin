@@ -4,7 +4,7 @@ const require = createRequire(import.meta.url)
 export default {
   content: [
     './node_modules/preline/dist/*.js',
-    './src-vite/**/*.{html,js,jsx,tsx,ts}'
+    './src/**/*.{html,js,jsx,tsx,ts}'
   ],
   theme: {
     extend: {}
