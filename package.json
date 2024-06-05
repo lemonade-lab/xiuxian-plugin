@@ -1,7 +1,7 @@
 {
-  "name": "xiuxian",
+  "name": "xiuxian-plugin",
   "version": "1.4.0",
-  "description": "xiuxian@1.4.0",
+  "description": "喵崽修仙插件",
   "main": "main.js",
   "type": "module",
   "author": "ningmengchongshui",
