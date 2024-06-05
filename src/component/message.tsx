@@ -117,7 +117,7 @@ export default function App({ data, status = false }: ComponentType) {
           </div>
           {kills.length > 0 && (
             <div className="kills">
-              <div className="kills-box">
+              <div className="kills-box flex flex-wrap">
                 {kills.map((item, index) => (
                   <span key={index}>《{SkillNameMap[item]}》 </span>
                 ))}

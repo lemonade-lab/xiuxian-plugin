@@ -6,6 +6,11 @@ import EquipmentComponent from '../src/component/equipment.tsx'
 import ShoppingComponent from '../src/component/shopping.tsx'
 import BagComponent from '../src/component/bag.tsx'
 import { UserMessageBase } from '../src/model/base.ts'
+
+UserMessageBase.kills = {
+  0: '0'
+}
+
 export const routes = [
   {
     url: '/',
