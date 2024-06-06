@@ -22,7 +22,11 @@ message.response(/^(#|\/|\*)?(个人信息|踏入仙途|修仙帮助)$/, async (
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
-    if (typeof img !== 'boolean') e.reply(segment.image(img))
+    if (typeof img !== 'boolean') {
+      e.reply(segment.image(img))
+    } else {
+      e.reply('图片生成失败~')
+    }
   })
   return false
 })
@@ -46,7 +50,11 @@ message.response(/^(#|\/)?再入仙途$/, async (e) => {
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
-    if (typeof img !== 'boolean') e.reply(segment.image(img))
+    if (typeof img !== 'boolean') {
+      e.reply(segment.image(img))
+    } else {
+      e.reply('图片生成失败~')
+    }
   })
   return false
 })
@@ -75,7 +83,11 @@ message.response(/^(#|\/)?改名/, async (e) => {
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
-    if (typeof img !== 'boolean') e.reply(segment.image(img))
+    if (typeof img !== 'boolean') {
+      e.reply(segment.image(img))
+    } else {
+      e.reply('图片生成失败~')
+    }
   })
   return false
 })
@@ -103,7 +115,11 @@ message.response(/^(#|\/)?签名/, async (e) => {
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
-    if (typeof img !== 'boolean') e.reply(segment.image(img))
+    if (typeof img !== 'boolean') {
+      e.reply(segment.image(img))
+    } else {
+      e.reply('图片生成失败~')
+    }
   })
   return false
 })
@@ -133,7 +149,11 @@ message.response(/^(#|\/)?更换主题$/, async (e) => {
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
-    if (typeof img !== 'boolean') e.reply(segment.image(img))
+    if (typeof img !== 'boolean') {
+      e.reply(segment.image(img))
+    } else {
+      e.reply('图片生成失败~')
+    }
   })
   return false
 })

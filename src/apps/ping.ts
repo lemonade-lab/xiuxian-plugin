@@ -68,7 +68,11 @@ message.response(/^(#|\/)?出关$/, async (e) => {
   // 数据植入组件
   component.message(data, uid).then((img) => {
     // 获取到图片后发送
-    if (typeof img !== 'boolean') e.reply(segment.image(img))
+    if (typeof img !== 'boolean') {
+      e.reply(segment.image(img))
+    } else {
+      e.reply('图片生成失败~')
+    }
   })
   return false
 })
