@@ -1,4 +1,4 @@
-import { Events } from './import'
+import { Events } from 'yunzai/core'
 import bag from './apps/bag'
 import battle from './apps/battle'
 import buy from './apps/buy'

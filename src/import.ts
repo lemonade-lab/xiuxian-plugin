@@ -1,7 +1,7 @@
-const plugin = (await import('' + '../../lib/plugins/plugin.js')).default
+import { Plugin as plugin } from 'yunzai/core'
+import { EventMap,type GroupMessage } from 'icqq'
 // const common = (await import('' + '../../lib/common/common.js')).default.default
 export { plugin }
-import { type GroupMessage } from 'icqq'
 
 // Yunzai-event
 export interface Event extends GroupMessage {
@@ -16,11 +16,16 @@ export interface Event extends GroupMessage {
 }
 
 //
-export const define = {
+export const define: {
+  name?: string
+  dsc?: string
+  event?: keyof EventMap
+  priority?: number
+} = {
   name: 'xiuxian',
   dsc: 'xiuxian',
   event: 'message',
-  priority: 999
+  priority: 9999
 }
 
 //
@@ -59,19 +64,5 @@ export class Messages {
       }
     }
     return Children
-  }
-}
-
-export class Events {
-  count = 0
-  data: {
-    [key: string]: typeof plugin
-  } = {}
-  use(val: typeof plugin) {
-    this.count++
-    this.data[this.count] = val
-  }
-  get ok() {
-    return this.data
   }
 }
