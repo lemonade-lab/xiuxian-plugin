@@ -5,5 +5,11 @@
   "singleQuote": true,
   "printWidth": 80,
   "trailingComma": "none",
-  "bracketSpacing": true
+  "useTabs": false,
+  "proseWrap": "preserve",
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "quoteProps": "consistent",
+  "vueIndentScriptAndStyle": true
 }

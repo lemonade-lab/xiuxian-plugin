@@ -1,5 +1,5 @@
-import { MessageElem } from 'icqq'
-import { Event } from './import.js'
+import { MessageElem } from 'icqq' 
+import {  EventType } from 'yunzai/core'
 class Utils {
   /**
    *
@@ -32,7 +32,7 @@ class Utils {
    * @param data
    * @returns
    */
-  forwardMsg = async (e: Event, data: string[]) => {
+  forwardMsg = async (e: EventType, data: string[]) => {
     if (data.length == 1) {
       await e.reply(data[0])
       return
@@ -52,7 +52,7 @@ class Utils {
    * @param data
    * @returns
    */
-  forwardMsgSurveySet = async (e: Event, data: string[]) => {
+  forwardMsgSurveySet = async (e: EventType, data: string[]) => {
     if (data.length == 1) {
       const isreply = await e.reply(data[0])
       this.surveySet(e, isreply)
@@ -69,7 +69,7 @@ class Utils {
    * @param isreply
    * @returns
    */
-  surveySet = async (e: Event, isreply) => {
+  surveySet = async (e: EventType, isreply) => {
     if (!e.group) return
     // ?
     const timeout = 60
@@ -85,7 +85,7 @@ class Utils {
    * @param e
    * @returns
    */
-  at = (e: Event) => {
+  at = (e: EventType) => {
     const val = e.message.find((value: MessageElem) => value.type === 'at')
     if (val && val.type == 'at' && val.qq !== 'all') return val.qq
     return false

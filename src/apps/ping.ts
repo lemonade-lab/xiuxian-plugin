@@ -8,8 +8,7 @@ import {
   MINING_MONEY
 } from '../model/config'
 import { getLevelById } from '../model/level'
-
-import { Messages } from '../import'
+import { Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system'
 const message = new Messages()
 

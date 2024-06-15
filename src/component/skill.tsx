@@ -4,7 +4,8 @@ import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getSkillById } from '../model/skills.js'
 import { getEquipmentById } from '../model/equipment.js'
-import _ from './url.js'
+import { createRequire } from 'yunzai/utils'
+const require = createRequire(import.meta.url)
 
 type ComponentType = {
   data: UserMessageType
@@ -44,65 +45,54 @@ export default function App({ data, status = false }: ComponentType) {
   )
 
   return (
-    <html>
-      <head>
-        <link rel="stylesheet" href={_('css/output.css')}></link>
-        <link rel="stylesheet" href={_('css/root.css')}></link>
-        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
-        <link rel="stylesheet" href={_(`css/nav.css`)}></link>
-        <link rel="stylesheet" href={_(`css/skill.css`)}></link>
-      </head>
-      <body>
-        <div id="root">
-          <NavMessage
-            data={data}
-            power={power}
-            now={data.blood}
-            blood={blood}
-            status={status}
-          />
-          {kills.length > 0 && (
-            <div className="kills">
-              <div className="kills-box">
-                <span className="menu-button-flat">#功法信息</span>
-                {kills.map((item, index) => {
-                  return (
-                    <div key={index} className="kills-box-item">
-                      <div className="kills-box-item-j">
-                        <img
-                          className="nav-box-item-img"
-                          src={_('svg/skills.svg')}
-                        />
-                        <span>{item.name}</span>
-                      </div>
-                      <div className="kills-box-item-j">
-                        <img
-                          className="nav-box-item-img"
-                          src={_('svg/efficiency.svg')}
-                        />
-                        <span>{item.efficiency}</span>
-                      </div>
-                      <div className="kills-box-item-j">
-                        <img
-                          className="nav-box-item-img"
-                          src={_('svg/money.svg')}
-                        />
-                        <span>{item.price}</span>
-                      </div>
-                    </div>
-                  )
-                })}
+    <div id="root">
+    <NavMessage
+      data={data}
+      power={power}
+      now={data.blood}
+      blood={blood}
+      status={status}
+    />
+    {kills.length > 0 && (
+      <div className="kills">
+        <div className="kills-box">
+          <span className="menu-button-flat">#功法信息</span>
+          {kills.map((item, index) => {
+            return (
+              <div key={index} className="kills-box-item">
+                <div className="kills-box-item-j">
+                  <img
+                    className="nav-box-item-img"
+                    src={require('../../resources/svg/skills.svg')}
+                  />
+                  <span>{item.name}</span>
+                </div>
+                <div className="kills-box-item-j">
+                  <img
+                    className="nav-box-item-img"
+                    src={require('../../resources/svg/efficiency.svg')}
+                  />
+                  <span>{item.efficiency}</span>
+                </div>
+                <div className="kills-box-item-j">
+                  <img
+                    className="nav-box-item-img"
+                    src={require('../../resources/svg/money.svg')}
+                  />
+                  <span>{item.price}</span>
+                </div>
               </div>
-            </div>
-          )}
-          <div className="box-help">
-            <div className="box-help-box">
-              <span className="menu-button-flat">修仙小助手</span>
-              <span className="menu-button">#学习+功法名</span>
-            </div>
-          </div>
+            )
+          })}
         </div>
-      </body>
-    </html>
+      </div>
+    )}
+    <div className="box-help">
+      <div className="box-help-box">
+        <span className="menu-button-flat">修仙小助手</span>
+        <span className="menu-button">#学习+功法名</span>
+      </div>
+    </div>
+  </div>
   )
 }

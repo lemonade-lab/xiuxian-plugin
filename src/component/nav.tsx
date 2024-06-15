@@ -2,7 +2,8 @@ import React from 'react'
 import { LevelNameMap, ThemesColor } from '../model/base'
 import { UserMessageType } from '../model/types'
 import HeaderComponent from './header.js'
-import _ from './url.js'
+import { createRequire } from 'yunzai/utils'
+const require = createRequire(import.meta.url)
 
 type ComponentType = {
   data: UserMessageType
@@ -37,11 +38,11 @@ export default function App({
         </span>
         <div className="nav-box-flex">
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/name.svg')} />
+            <img className="nav-box-item-img" src={require('../../resources/svg/name.svg')} />
             <span>{data.name}</span>
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/level.svg')} />
+            <img className="nav-box-item-img" src={require('../../resources/svg/level.svg')} />
             <span>{LevelNameMap[data.level_id]}</span>
           </div>
         </div>
@@ -63,15 +64,15 @@ export default function App({
         </div>
         <div className="nav-box-flex">
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/power.svg')} />
+            <img className="nav-box-item-img" src={require('../../resources/svg/power.svg')} />
             <span>{power}</span>
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/money.svg')} />
+            <img className="nav-box-item-img" src={require('../../resources/svg/money.svg')} />
             <span>{data.money}</span>{' '}
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={_('svg/efficiency.svg')} />
+            <img className="nav-box-item-img" src={require('../../resources/svg/efficiency.svg')} />
             <span>{data.efficiency}</span>{' '}
           </div>
         </div>

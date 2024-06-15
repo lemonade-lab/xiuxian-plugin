@@ -5,7 +5,7 @@ import { getUserName } from '../model/utils.js'
 import RedisClient from '../model/redis.js'
 import { USER_RECREATE } from '../model/config.js'
 
-import { Messages } from '../import'
+import { Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 const message = new Messages()
 

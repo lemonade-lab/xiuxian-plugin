@@ -1,10 +1,10 @@
 # 喵仔修仙插件
 
-> 这是一款为喵仔设计的修仙插件，使用 ts 和 tsx 进行编写。在使用前,需要进行编译后才能使用
-
 ![热开发工具效果](./resources/demo/purple.jpg)
 
 ## 部署
+
+这是 Yunzai V4 插件
 
 - 安装项目
 
@@ -38,32 +38,6 @@ npm install pnpm -g
 pnpm install
 ```
 
-- 执行编译
-
-打包生产 `index.js`
-
-```sh
-npm run build
-```
-
-插件识别文件及图片样式
-
-必须打包后才能生产
-
-## 更新
-
-- xiuxian-plugin 目录中执行
-
-```sh
-git pull
-```
-
-- 执行打包
-
-```sh
-npm run build
-```
-
 ## 进行
 
 - 开始游戏
@@ -77,18 +51,6 @@ npm run build
 可由玩家发送`/修复数据`
 
 ## 开发
-
-- 启动图片热开发
-
-```sh
-npm run image:dev
-```
-
-```sh
-npm run css:watch
-```
-
-访问地址 `http://localhost:8080/message`
 
 - 启动 接口 服务
 

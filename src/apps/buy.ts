@@ -3,7 +3,7 @@ import { getSkillById } from '../model/skills.js'
 import { getEquipmentById } from '../model/equipment.js'
 import component from '../image/index.js'
 import { getUserName } from '../model/utils.js'
-import { Messages } from '../import'
+import { Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 const message = new Messages()
 message.response(/^(#|\/)?万宝楼$/, async (e) => {

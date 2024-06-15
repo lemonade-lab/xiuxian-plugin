@@ -1,6 +1,6 @@
 import { getUserName } from '../model/utils.js'
 import component from '../image/index.js'
-import { Messages } from '../import'
+import { Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 import { UserMessageBase } from '../model/base.js'
 const message = new Messages()

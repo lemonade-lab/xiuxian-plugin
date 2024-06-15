@@ -7,7 +7,7 @@ import {
 import { getLevelById } from '../model/level.js'
 import { getRandomNumber, getUserName } from '../model/utils.js'
 
-import { Messages } from '../import'
+import { Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 const message = new Messages()
 /**

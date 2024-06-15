@@ -7,11 +7,6 @@
   "author": "ningmengchongshui",
   "license": "MIT",
   "scripts": {
-    "build": "npm run rollup:build && tsc && npm run css",
-    "rollup:build": "rollup --config rollup.config.js",
-    "css": "tailwindcss -i ./src/input.css -o ./resources/css/output.css",
-    "css:watch": "tailwindcss -i ./src/input.css -o ./resources/css/output.css --watch",
-    "image:dev": "nodemon --config src-image/nodemon.json -q",
     "koa:dev": "nodemon --config src-koa/nodemon.json -q",
     "start": "pm2 startOrRestart src-koa/pm2.config.cjs",
     "stop": "pm2 stop src-koa/pm2.config.cjs",

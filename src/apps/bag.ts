@@ -2,7 +2,7 @@ import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base'
 import { getSkillById } from '../model/skills'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
-import { Messages } from '../import'
+import { Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system'
 const message = new Messages()
 message.response(/^(#|\/)?储物袋/, async (e) => {

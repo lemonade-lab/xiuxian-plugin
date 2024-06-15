@@ -2,7 +2,7 @@ import { getUserName } from '../model/utils'
 import { userBattle } from '../system/battle'
 import Utils from '../utils'
 import RedisClient from '../model/redis'
-import { Messages } from '../import'
+import { Messages } from 'yunzai/core'
 import { DB } from '../model/db-system'
 const message = new Messages()
 message.response(/^(#|\/)?打劫/, async (e) => {

@@ -3,7 +3,8 @@ import { UserMessageType } from '../model/types.js'
 import { getEquipmentById } from '../model/equipment.js'
 import { EquipmentNameMap, SkillNameMap } from '../model/base.js'
 import { getSkillById } from '../model/skills.js'
-import _ from './url.js'
+import { createRequire } from 'yunzai/utils'
+const require = createRequire(import.meta.url)
 
 import HeaderComponent from './header.js'
 
@@ -38,16 +39,7 @@ export default function App({ data }: ComponentType) {
   const kills: string[] = Object.keys(SkillNameMap)
 
   return (
-    <html>
-      <head>
-        <link rel="stylesheet" href={_('css/output.css')}></link>
-        <link rel="stylesheet" href={_('css/root.css')}></link>
-        <link rel="stylesheet" href={_(`css/root-${data.theme}.css`)}></link>
-        <link rel="stylesheet" href={_(`css/nav.css`)}></link>
-        <link rel="stylesheet" href={_(`css/shoppping.css`)}></link>
-      </head>
-      <body>
-        <div id="root">
+    <div id="root">
           <div className="nav">
             <HeaderComponent />
           </div>
@@ -71,14 +63,14 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/skills.svg')}
+                          src={require('../../resources/svg/skills.svg')}
                         />
                         <span className="nav-box-item-font">{data.name}</span>
                       </div>
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/efficiency.svg')}
+                          src={require('../../resources/svg/efficiency.svg')}
                         />
                         <span className="nav-box-item-font">
                           {data.efficiency}
@@ -87,7 +79,7 @@ export default function App({ data }: ComponentType) {
                       <div className="kills-box-item-j">
                         <img
                           className="nav-box-item-img"
-                          src={_('svg/money.svg')}
+                          src={require('../../resources/svg/money.svg')}
                         />
                         <span className="nav-box-item-font">{data.price}</span>
                       </div>
@@ -109,7 +101,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/equitment.svg')}
+                            src={require('../../resources/svg/equitment.svg')}
                           />
                           <span className="nav-box-item-font">{item.name}</span>
                         </div>
@@ -118,7 +110,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/attack.svg')}
+                            src={require('../../resources/svg/attack.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.attack}
@@ -127,14 +119,14 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/defense.svg')}
+                            src={require('../../resources/svg/defense.svg')}
                           />
                           <span>{item.defense}</span>
                         </div>
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/blood.svg')}
+                            src={require('../../resources/svg/blood.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.blood}
@@ -143,7 +135,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/agile.svg')}
+                            src={require('../../resources/svg/agile.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.agile}
@@ -152,7 +144,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/critical_hit_rate.svg')}
+                            src={require('../../resources/svg/critical_hit_rate.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.critical_hit_rate}
@@ -161,7 +153,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/critical_damage.svg')}
+                            src={require('../../resources/svg/critical_damage.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.critical_damage}
@@ -170,7 +162,7 @@ export default function App({ data }: ComponentType) {
                         <div className="equiment-box-item-j">
                           <img
                             className="nav-box-item-img"
-                            src={_('svg/money.svg')}
+                            src={require('../../resources/svg/money.svg')}
                           />
                           <span className="nav-box-item-font">
                             {item.price}
@@ -184,7 +176,5 @@ export default function App({ data }: ComponentType) {
             </div>
           )}
         </div>
-      </body>
-    </html>
   )
 }
