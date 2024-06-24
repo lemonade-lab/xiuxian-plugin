@@ -39,7 +39,6 @@ class Image {
       html_name: 'help.html',
       html_head: Com.render(
         <>
-          <link rel="stylesheet" href={require('../../resources/css/output.css')}></link>
           <link rel="stylesheet" href={require('../../resources/css/hello.css')}></link>
         </>
       ),
@@ -61,7 +60,6 @@ class Image {
       html_name: `${uid}.html`,
       html_head: Com.render(
         <>
-          <link rel="stylesheet" href={require('../../resources/css/output.css')}></link>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
           <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
@@ -86,7 +84,6 @@ class Image {
       html_name: `${uid}.html`,
       html_head: Com.render(
         <>
-          <link rel="stylesheet" href={require('../../resources/css/output.css')}></link>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
           <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
@@ -111,7 +108,6 @@ class Image {
       html_name: `${uid}.html`,
       html_head: Com.render(
         <>
-          <link rel="stylesheet" href={require('../../resources/css/output.css')}></link>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
           <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
@@ -134,7 +130,6 @@ class Image {
       html_name: `${uid}.html`,
       html_head: Com.render(
         <>
-          <link rel="stylesheet" href={require('../../resources/css/output.css')}></link>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
           <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
@@ -157,7 +152,6 @@ class Image {
       html_name: `${uid}.html`,
       html_head: Com.render(
         <>
-          <link rel="stylesheet" href={require('../../resources/css/output.css')}></link>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
           <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
