@@ -2,7 +2,7 @@ import React from 'react'
 import { LevelNameMap, ThemesColor } from '../model/base'
 import { UserMessageType } from '../model/types'
 import HeaderComponent from './header.js'
-import { createRequire } from 'yunzai/utils'
+import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {

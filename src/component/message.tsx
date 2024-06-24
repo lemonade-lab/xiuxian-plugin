@@ -4,7 +4,7 @@ import NavMessage from './nav.jsx'
 import { getLevelById } from '../model/level.js'
 import { SkillNameMap } from '../model/base.js'
 import { getEquipmentById } from '../model/equipment.js'
-import { createRequire } from 'yunzai/utils'
+import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {

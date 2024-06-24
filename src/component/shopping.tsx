@@ -3,7 +3,7 @@ import { UserMessageType } from '../model/types.js'
 import { getEquipmentById } from '../model/equipment.js'
 import { EquipmentNameMap, SkillNameMap } from '../model/base.js'
 import { getSkillById } from '../model/skills.js'
-import { createRequire } from 'yunzai/utils'
+import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
 import HeaderComponent from './header.js'

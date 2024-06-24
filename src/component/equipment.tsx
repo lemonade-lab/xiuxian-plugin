@@ -3,7 +3,7 @@ import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getEquipmentById } from '../model/equipment.js'
-import { createRequire } from 'yunzai/utils'
+import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {

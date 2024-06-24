@@ -8,7 +8,7 @@ import KillComponent from '../component/skill.tsx'
 import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
-import { createRequire } from 'yunzai/utils'
+import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 // 初始化 组件渲染对象
 // eslint-disable-next-line react-refresh/only-export-components
