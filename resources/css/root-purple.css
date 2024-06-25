@@ -5,7 +5,7 @@
   --title-color: #4b6774cc;
   --title-text-shadow: 2px 2px 4px #ffffff;
 
-  --background-image: url('../img/03.jpg');
+  --background-image: url('@xiuxian/resources/img/03.jpg');
 
   --box-shadow: 2px 2px 4px #4b6774cc;
 

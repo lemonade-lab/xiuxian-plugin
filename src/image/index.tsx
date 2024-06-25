@@ -1,5 +1,6 @@
-import { Component, Puppeteer } from 'yunzai/utils'
 import React from 'react'
+import { createRequire } from 'module'
+import { Picture } from 'yunzai/utils'
 import { UserMessageType } from '../model/types.ts'
 import Redis from '../model/redis.ts'
 import HelloComponent from '../component/hello.tsx'
@@ -8,21 +9,20 @@ import KillComponent from '../component/skill.tsx'
 import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
-import { createRequire } from 'module'
+import { dirname } from 'node:path'
 const require = createRequire(import.meta.url)
-// 初始化 组件渲染对象
-// eslint-disable-next-line react-refresh/only-export-components
-const Com = new Component()
 
-class Image {
-  Pup: typeof Puppeteer.prototype = null
+const __dirname = dirname(require('../../README.md'))
 
-  /**
-  * 初始化运行Puppeteer
-  */
+console.log('__dirname', __dirname)
+
+const Paths = {
+  "@xiuxian": __dirname,
+}
+
+class Image extends Picture {
   constructor() {
-    // init
-    this.Pup = new Puppeteer()
+    super()
     // start
     this.Pup.start()
   }
@@ -34,10 +34,10 @@ class Image {
    * @returns
    */
   hello() {
-    const Address = Com.create(<HelloComponent />, {
+    const Address = this.Com.create(<HelloComponent />, {
       join_dir: 'hello',
       html_name: 'help.html',
-      html_head: Com.render(
+      html_head: this.Com.render(
         <>
           <link rel="stylesheet" href={require('../../resources/css/hello.css')}></link>
         </>
@@ -55,17 +55,18 @@ class Image {
   async message(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    const Address = Com.create(<MessageComponent data={data} status={status} />, {
+    const Address = this.Com.create(<MessageComponent data={data} status={status} />, {
       join_dir: 'message',
       html_name: `${uid}.html`,
-      html_head: Com.render(
+      html_head: this.Com.render(
         <>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/message.css`)}></link>
         </>
-      )
+      ),
+      file_paths: Paths,
+      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
     })
     return this.Pup.render(Address)
   }
@@ -79,17 +80,18 @@ class Image {
   async kill(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    const Address = Com.create(<KillComponent data={data} status={status} />, {
+    const Address = this.Com.create(<KillComponent data={data} status={status} />, {
       join_dir: 'kill',
       html_name: `${uid}.html`,
-      html_head: Com.render(
+      html_head: this.Com.render(
         <>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/skill.css`)}></link>
         </>
-      )
+      ),
+      file_paths: Paths,
+      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
     })
     return this.Pup.render(Address)
   }
@@ -103,17 +105,18 @@ class Image {
   async equipment(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    const Address = Com.create(<EquipmentComponent data={data} status={status} />, {
+    const Address = this.Com.create(<EquipmentComponent data={data} status={status} />, {
       join_dir: 'equipment',
       html_name: `${uid}.html`,
-      html_head: Com.render(
+      html_head: this.Com.render(
         <>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/equiment.css`)}></link>
         </>
-      )
+      ),
+      file_paths: Paths,
+      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
     })
     return this.Pup.render(Address)
   }
@@ -125,17 +128,18 @@ class Image {
    * @returns
    */
   async shopping(data: UserMessageType, uid: number) {
-    const Address = Com.create(<ShoppingComponent data={data} />, {
+    const Address = this.Com.create(<ShoppingComponent data={data} />, {
       join_dir: 'shopping',
       html_name: `${uid}.html`,
-      html_head: Com.render(
+      html_head: this.Com.render(
         <>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/shoppping.css`)}></link>
         </>
-      )
+      ),
+      file_paths: Paths,
+      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
     })
     return this.Pup.render(Address)
   }
@@ -147,17 +151,18 @@ class Image {
    * @returns
    */
   async bag(data: UserMessageType, uid: number) {
-    const Address = Com.create(<BagComponent data={data} />, {
+    const Address = this.Com.create(<BagComponent data={data} />, {
       join_dir: 'bag',
       html_name: `${uid}.html`,
-      html_head: Com.render(
+      html_head: this.Com.render(
         <>
           <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/root-${data.theme}.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
           <link rel="stylesheet" href={require(`../../resources/css/bag.css`)}></link>
         </>
-      )
+      ),
+      file_paths: Paths,
+      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
     })
     return this.Pup.render(Address)
   }

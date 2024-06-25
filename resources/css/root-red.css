@@ -5,7 +5,7 @@
   --title-color: #4b2f13cc;
   --title-text-shadow: 2px 2px 4px #ffffff;
 
-  --background-image: url('../img/00.jpg');
+  --background-image: url('@xiuxian/resources/img/00.jpg');
 
   --box-shadow: 2px 2px 4px #4b2f13cc;
 
@@ -14,11 +14,9 @@
 
   --box-shadow-bool: 2px 2px 4px #ff0000ba;
 
-  --uid-background-bolor: linear-gradient(
-    45deg,
-    rgb(244 155 155 / 79%),
-    #a74742d9
-  );
+  --uid-background-bolor: linear-gradient(45deg,
+      rgb(244 155 155 / 79%),
+      #a74742d9);
 
   --font-color: #10e633dc;
 
