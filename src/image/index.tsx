@@ -11,13 +11,8 @@ import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
 import { dirname } from 'node:path'
 const require = createRequire(import.meta.url)
-
-const __dirname = dirname(require('../../README.md'))
-
-console.log('__dirname', __dirname)
-
 const Paths = {
-  "@xiuxian": __dirname,
+  "@xiuxian": dirname(require('../../README.md')),
 }
 
 class Image extends Picture {
