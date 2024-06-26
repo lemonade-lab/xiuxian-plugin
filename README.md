@@ -11,7 +11,7 @@
 miao-yunzai 目录
 
 ```sh
-git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
+git clone  --depth=1 https://github.com/ningmengchongshui/xiuxian-plugin.git ./plugins/xiuxian-plugin
 # 进入xiuxian
 cd ./plugins/xiuxian-plugin
 ```
@@ -23,7 +23,7 @@ cd ./plugins
 ```
 
 ```sh
-git clone  --depth=1 https://gitee.com/ningmengchongshui/xiuxian-plugin.git
+git clone  --depth=1 https://github.com/ningmengchongshui/xiuxian-plugin.git
 ```
 
 ```sh
