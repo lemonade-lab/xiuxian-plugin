@@ -8,11 +8,11 @@ import {
   MINING_MONEY
 } from '../model/config'
 import { getLevelById } from '../model/level'
-import { Messages, segment } from 'yunzai/core'
+import { Messages, segment, EventType } from 'yunzai/core'
 import { DB } from '../model/db-system'
 const message = new Messages()
 
-message.response(/^(#|\/)?闭关$/, async (e) => {
+message.response(/^(#|\/)?闭关$/, async (e: EventType) => {
   const uid = e.user_id
   if (!(await DB.exists(uid))) {
     DB.findOne(uid)
@@ -29,7 +29,7 @@ message.response(/^(#|\/)?闭关$/, async (e) => {
   return false
 })
 
-message.response(/^(#|\/)?出关$/, async (e) => {
+message.response(/^(#|\/)?出关$/, async (e: EventType) => {
   const uid = e.user_id
   const data = await DB.findOne(uid)
   if (!data) {
@@ -76,7 +76,7 @@ message.response(/^(#|\/)?出关$/, async (e) => {
   return false
 })
 
-message.response(/^(#|\/)?采矿$/, async (e) => {
+message.response(/^(#|\/)?采矿$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建

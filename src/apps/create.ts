@@ -5,11 +5,11 @@ import { getUserName } from '../model/utils.js'
 import RedisClient from '../model/redis.js'
 import { USER_RECREATE } from '../model/config.js'
 
-import { Messages, segment } from 'yunzai/core'
+import { Messages, segment, EventType } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 const message = new Messages()
 
-message.response(/^(#|\/|\*)?(个人信息|踏入仙途|修仙帮助)$/, async (e) => {
+message.response(/^(#|\/|\*)?(个人信息|踏入仙途|修仙帮助)$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
@@ -31,7 +31,7 @@ message.response(/^(#|\/|\*)?(个人信息|踏入仙途|修仙帮助)$/, async (
   return false
 })
 
-message.response(/^(#|\/)?再入仙途$/, async (e) => {
+message.response(/^(#|\/)?再入仙途$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   const eMessage = await RedisClient.get('reCreate', uid)
@@ -59,7 +59,7 @@ message.response(/^(#|\/)?再入仙途$/, async (e) => {
   return false
 })
 
-message.response(/^(#|\/)?改名/, async (e) => {
+message.response(/^(#|\/)?改名/, async (e: EventType) => {
   const uid = e.user_id
   const nickname = e.msg
     .replace(/^(#|\/)?改名/, '')
@@ -92,7 +92,7 @@ message.response(/^(#|\/)?改名/, async (e) => {
   return false
 })
 
-message.response(/^(#|\/)?签名/, async (e) => {
+message.response(/^(#|\/)?签名/, async (e: EventType) => {
   const uid = e.user_id
   const autograph = e.msg
     .replace(/^(#|\/)?签名/, '')
@@ -124,7 +124,7 @@ message.response(/^(#|\/)?签名/, async (e) => {
   return false
 })
 
-message.response(/^(#|\/)?更换主题$/, async (e) => {
+message.response(/^(#|\/)?更换主题$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建

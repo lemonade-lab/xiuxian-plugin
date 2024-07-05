@@ -1,10 +1,10 @@
 import { getUserName } from '../model/utils.js'
 import component from '../image/index.js'
-import { Messages, segment } from 'yunzai/core'
+import { EventType, Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 import { UserMessageBase } from '../model/base.js'
 const message = new Messages()
-message.response(/^(#|\/)?功法信息$/, async (e) => {
+message.response(/^(#|\/)?功法信息$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
@@ -25,7 +25,7 @@ message.response(/^(#|\/)?功法信息$/, async (e) => {
   })
   return false
 })
-message.response(/^(#|\/)?装备信息$/, async (e) => {
+message.response(/^(#|\/)?装备信息$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
@@ -46,7 +46,7 @@ message.response(/^(#|\/)?装备信息$/, async (e) => {
   })
   return false
 })
-message.response(/^(#|\/)?修复数据$/, async (e) => {
+message.response(/^(#|\/)?修复数据$/, async (e: EventType) => {
   const uid = e.user_id
   const data = await DB.findOne(uid)
   if (!data) {

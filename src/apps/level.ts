@@ -7,13 +7,13 @@ import {
 import { getLevelById } from '../model/level.js'
 import { getRandomNumber, getUserName } from '../model/utils.js'
 
-import { Messages, segment } from 'yunzai/core'
+import { Messages, segment, EventType } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 const message = new Messages()
 /**
  * 突破就是以三维为基，触发一定概率的事件
  */
-message.response(/^(#|\/)?突破$/, async (e) => {
+message.response(/^(#|\/)?突破$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   const data = await DB.findOne(uid)

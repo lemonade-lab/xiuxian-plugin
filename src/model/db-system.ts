@@ -1,4 +1,5 @@
 import { UserMessageBase } from './base'
+import _ from 'lodash'
 
 export class MyData<T> {
   #key = 'xiuxian'
@@ -121,7 +122,7 @@ export class MyData<T> {
           if (!res) {
             // 载入uid
             this.push(key)
-            resolve(this.#init)
+           resolve(this.init(key))
             return
           }
           resolve(JSON.parse(res) as T)
@@ -172,7 +173,10 @@ export class MyData<T> {
    * @returns
    */
   init(key: string | number) {
-    return this.create(this.getKey(key), this.#init)
+    const d = _.cloneDeep(this.#init) as any
+    d.uid = key
+    this.create(key, d)
+    return d
   }
 
   /**

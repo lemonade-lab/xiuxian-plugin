@@ -2,10 +2,10 @@ import { getUserName } from '../model/utils'
 import { userBattle } from '../system/battle'
 import Utils from '../utils'
 import RedisClient from '../model/redis'
-import { Messages } from 'yunzai/core'
+import { Messages, EventType } from 'yunzai/core'
 import { DB } from '../model/db-system'
 const message = new Messages()
-message.response(/^(#|\/)?打劫/, async (e) => {
+message.response(/^(#|\/)?打劫/, async (e: EventType) => {
   const UID = Utils.at(e)
   if (!UID) return false
   const uid = e.user_id

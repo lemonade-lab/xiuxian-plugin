@@ -3,10 +3,10 @@ import { getSkillById } from '../model/skills.js'
 import { getEquipmentById } from '../model/equipment.js'
 import component from '../image/index.js'
 import { getUserName } from '../model/utils.js'
-import { Messages, segment } from 'yunzai/core'
+import { EventType, Messages, segment } from 'yunzai/core'
 import { DB } from '../model/db-system.js'
 const message = new Messages()
-message.response(/^(#|\/)?万宝楼$/, async (e) => {
+message.response(/^(#|\/)?万宝楼$/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
@@ -27,7 +27,7 @@ message.response(/^(#|\/)?万宝楼$/, async (e) => {
   })
   return false
 })
-message.response(/^(#|\/)?购买武器/, async (e) => {
+message.response(/^(#|\/)?购买武器/, async (e: EventType) => {
   const uid = e.user_id
   const name = e.msg
     .replace(/^(#|\/)?购买武器/, '')
@@ -62,7 +62,7 @@ message.response(/^(#|\/)?购买武器/, async (e) => {
   e.reply(`购得${name}`)
   return false
 })
-message.response(/^(#|\/)?购买功法/, async (e) => {
+message.response(/^(#|\/)?购买功法/, async (e: EventType) => {
   const uid = e.user_id
   const name = e.msg
     .replace(/^(#|\/)?购买功法/, '')

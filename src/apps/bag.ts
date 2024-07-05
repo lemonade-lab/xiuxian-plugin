@@ -2,10 +2,10 @@ import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base'
 import { getSkillById } from '../model/skills'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
-import { Messages, segment } from 'yunzai/core'
+import { Messages, segment, EventType } from 'yunzai/core'
 import { DB } from '../model/db-system'
 const message = new Messages()
-message.response(/^(#|\/)?储物袋/, async (e) => {
+message.response(/^(#|\/)?储物袋/, async (e: EventType) => {
   // 获取账号
   const uid = e.user_id
   // 尝试读取数据，如果没有数据将自动创建
@@ -26,7 +26,7 @@ message.response(/^(#|\/)?储物袋/, async (e) => {
   })
   return false
 })
-message.response(/^(#|\/)?学习/, async (e) => {
+message.response(/^(#|\/)?学习/, async (e: EventType) => {
   const uid = e.user_id
   const name = e.msg
     .replace(/^(#|\/)?学习/, '')
@@ -65,7 +65,7 @@ message.response(/^(#|\/)?学习/, async (e) => {
   e.reply(`学得${name}`)
   return false
 })
-message.response(/^(#|\/)?装备武器/, async (e) => {
+message.response(/^(#|\/)?装备武器/, async (e: EventType) => {
   const uid = e.user_id
   const name = e.msg
     .replace(/^(#|\/)?装备武器/, '')
@@ -99,7 +99,7 @@ message.response(/^(#|\/)?装备武器/, async (e) => {
   DB.create(uid, data)
   e.reply(`装备 [${name}]`)
 })
-message.response(/^(#|\/)?卸下武器/, async (e) => {
+message.response(/^(#|\/)?卸下武器/, async (e: EventType) => {
   const uid = e.user_id
   const name = e.msg
     .replace(/^(#|\/)?卸下武器/, '')
