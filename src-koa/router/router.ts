@@ -2,7 +2,7 @@ import Router from 'koa-router'
 
 import { getSkillById } from '../../src/model/skills'
 import { getEquipmentById } from '../../src/model/equipment'
-import { CODE_ERROE } from '../config'
+import { CODE_ERROR } from '../config'
 import { DB } from '../../src/model/db-system'
 
 const router = new Router({
@@ -103,7 +103,7 @@ router.get('/message', async (ctx) => {
  */
 router.get('/player', (ctx) => {
   ctx.body = {
-    code: CODE_ERROE,
+    code: CODE_ERROR,
     msg: '请求成功',
     data: null
   }

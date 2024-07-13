@@ -1,7 +1,0 @@
-export * from './apps/create'
-export * from './apps/level'
-export * from './apps/ping'
-export * from './apps/bag'
-export * from './apps/message'
-export * from './apps/buy'
-export * from './apps/battle'

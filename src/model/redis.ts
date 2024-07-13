@@ -1,4 +1,4 @@
-const Keys = ['door', 'mining', 'reCreate'] as const
+const Keys = ['door', 'mining', 'reCreate','sign'] as const
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
   #baseKey = 'xiuxian@1.4'
@@ -56,6 +56,16 @@ class Redis {
     $message.msg = msg
     $message.data = message
     return redis.set(this.getKey(key, uid), JSON.stringify($message))
+  }
+
+  /**
+   * 
+   * @param key 
+   * @param uid 
+   * @returns 
+   */
+  async exist(key: RedisKeyEnum, uid: number | string) {
+    return redis.exists(this.getKey(key, uid))
   }
 }
 export default new Redis()
