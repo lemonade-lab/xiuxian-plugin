@@ -7,7 +7,7 @@ import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system.js'
 const message = new Messages('message.group')
 message.use(
-  async (e) => {
+  async e => {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
@@ -31,7 +31,7 @@ message.use(
   [/^(#|\/)?万宝楼$/]
 )
 message.use(
-  async (e) => {
+  async e => {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?购买武器/, '')
@@ -69,7 +69,7 @@ message.use(
   [/^(#|\/)?购买武器/]
 )
 message.use(
-  async (e) => {
+  async e => {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?购买功法/, '')

@@ -14,7 +14,7 @@ const message = new Messages('message.group')
  * 突破就是以三维为基，触发一定概率的事件
  */
 message.use(
-  async (e) => {
+  async e => {
     // 获取账号
     const uid = e.user_id
     const data = await DB.findOne(uid)

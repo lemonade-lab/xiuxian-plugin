@@ -16,8 +16,8 @@
     "logs": "pm2 logs",
     "kill": "pm2 kill",
     "format": "npx prettier --write .",
-    "css":"tailwindcss -i ./src/input.css -o ./public/output.css",
-    "css:m":"tailwindcss -i ./src/input.css -o ./public/output.css -m",
+    "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
+    "css:m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
     "prepare": "husky",
     "build": "npm run css:m && rollup --config rollup.config.js"
   },
@@ -102,6 +102,7 @@
     "yunzai": "^1.0.1-rc.1"
   },
   "files": [
+    "public",
     "resources",
     "lib"
   ],

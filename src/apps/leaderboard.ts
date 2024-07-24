@@ -4,7 +4,7 @@ import component from '../image/index'
 const message = new Messages('message.group')
 
 message.use(
-  async (e) => {
+  async e => {
     const all = (await DB.findAll()) as Array<any>
 
     if (!all || all.length == 0) return false

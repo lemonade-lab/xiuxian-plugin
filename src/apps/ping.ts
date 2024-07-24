@@ -13,7 +13,7 @@ import { DB } from '../model/db-system'
 const message = new Messages('message.group')
 
 message.use(
-  async (e) => {
+  async e => {
     const uid = e.user_id
     if (!(await DB.exists(uid))) {
       DB.findOne(uid)
@@ -33,7 +33,7 @@ message.use(
 )
 
 message.use(
-  async (e) => {
+  async e => {
     const uid = e.user_id
     const data = await DB.findOne(uid)
     if (!data) {
@@ -83,7 +83,7 @@ message.use(
 )
 
 message.use(
-  async (e) => {
+  async e => {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
@@ -130,7 +130,7 @@ message.use(
 )
 
 message.use(
-  async (e) => {
+  async e => {
     const data = await DB.findOne(e.user_id)
     if (!data) {
       e.reply('操作频繁')

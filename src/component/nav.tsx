@@ -38,11 +38,17 @@ export default function App({
         </span>
         <div className="nav-box-flex">
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={require('../../resources/svg/name.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../resources/svg/name.svg')}
+            />
             <span>{data.name}</span>
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={require('../../resources/svg/level.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../resources/svg/level.svg')}
+            />
             <span>{LevelNameMap[data.level_id]}</span>
           </div>
         </div>
@@ -64,15 +70,24 @@ export default function App({
         </div>
         <div className="nav-box-flex">
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={require('../../resources/svg/power.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../resources/svg/power.svg')}
+            />
             <span>{power}</span>
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={require('../../resources/svg/money.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../resources/svg/money.svg')}
+            />
             <span>{data.money}</span>{' '}
           </div>
           <div className="nav-box-item">
-            <img className="nav-box-item-img" src={require('../../resources/svg/efficiency.svg')} />
+            <img
+              className="nav-box-item-img"
+              src={require('../../resources/svg/efficiency.svg')}
+            />
             <span>{data.efficiency}</span>{' '}
           </div>
         </div>

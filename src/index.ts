@@ -1,8 +1,6 @@
 import { applicationOptions, useAppStorage } from 'yunzai'
 import Apps from './apps'
-export default (config?: {
-  name: string
-}) => {
+export default (config?: { name: string }) => {
   const Data = useAppStorage()
   return applicationOptions({
     // 插件创建时
