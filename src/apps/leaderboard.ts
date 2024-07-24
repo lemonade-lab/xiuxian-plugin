@@ -1,10 +1,10 @@
-import { Messages, EventType, Segment } from 'yunzai'
+import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system'
 import component from '../image/index'
 const message = new Messages('message.group')
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const all = (await DB.findAll()) as Array<any>
 
     if (!all || all.length == 0) return false

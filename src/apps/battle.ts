@@ -2,11 +2,11 @@ import { getUserName } from '../model/utils'
 import { userBattle } from '../system/battle'
 import Utils from '../utils'
 import RedisClient from '../model/redis'
-import { Messages, EventType } from 'yunzai'
+import { Messages } from 'yunzai'
 import { DB } from '../model/db-system'
 const message = new Messages('message.group')
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const UID = Utils.at(e)
     if (!UID) return false
     const uid = e.user_id

@@ -5,12 +5,12 @@ import { getUserName } from '../model/utils.js'
 import RedisClient from '../model/redis.js'
 import { USER_RECREATE } from '../model/config.js'
 
-import { Messages, Segment, EventType } from 'yunzai'
+import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system.js'
 const message = new Messages('message')
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
@@ -37,7 +37,7 @@ message.use(
 )
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     // 获取账号
     const uid = e.user_id
     const eMessage = await RedisClient.get('reCreate', uid)
@@ -68,7 +68,7 @@ message.use(
 )
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const uid = e.user_id
     const nickname = e.msg
       .replace(/^(#|\/)?改名/, '')
@@ -107,7 +107,7 @@ message.use(
 )
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const uid = e.user_id
     const autograph = e.msg
       .replace(/^(#|\/)?签名/, '')
@@ -145,7 +145,7 @@ message.use(
 )
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
@@ -182,7 +182,7 @@ message.use(
 )
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     if (!e.isMaster) {
       e.reply('权限不足')
       return false

@@ -2,11 +2,11 @@ import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base'
 import { getSkillById } from '../model/skills'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
-import { Messages, Segment, EventType } from 'yunzai'
+import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system'
 const message = new Messages('message.group')
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     // 获取账号
     const uid = e.user_id
     // 尝试读取数据，如果没有数据将自动创建
@@ -30,7 +30,7 @@ message.use(
   [/^(#|\/)?储物袋/]
 )
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?学习/, '')
@@ -72,7 +72,7 @@ message.use(
   [/^(#|\/)?学习/]
 )
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?装备武器/, '')
@@ -109,7 +109,7 @@ message.use(
   [/^(#|\/)?装备武器/]
 )
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const uid = e.user_id
     const name = e.msg
       .replace(/^(#|\/)?卸下武器/, '')

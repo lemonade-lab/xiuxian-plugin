@@ -1,11 +1,11 @@
-import { Messages, EventType, setBotTask } from 'yunzai'
+import { Messages, setBotTask } from 'yunzai'
 import RedisClient from '../model/redis'
 import { DB } from '../model/db-system'
 
 const message = new Messages('message.group')
 
 message.use(
-  async (e: EventType) => {
+  async (e) => {
     const userData = await DB.findOne(e.user_id)
     if (!userData) {
       e.reply('操作频繁')

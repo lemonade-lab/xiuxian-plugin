@@ -9,11 +9,31 @@ import KillComponent from '../component/skill.tsx'
 import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
-import LeaderboardComponent, { LeaderboardDataType } from '../component/leaderboard.tsx'
+import LeaderboardComponent, {
+  LeaderboardDataType
+} from '../component/leaderboard.tsx'
 import { dirname } from 'node:path'
+//
 const require = createRequire(import.meta.url)
+//
 const Paths = {
-  "@xiuxian": dirname(require('../../README.md')),
+  '@xiuxian': dirname(require('../../README.md'))
+}
+//
+const RootLink = () => {
+  return (
+    <>
+      <link rel="stylesheet" href={require('../../public/output.css')}></link>
+      <link
+        rel="stylesheet"
+        href={require('../../resources/css/root.css')}
+      ></link>
+      <link
+        rel="stylesheet"
+        href={require(`../../resources/css/nav.css`)}
+      ></link>
+    </>
+  )
 }
 
 class Image extends Picture {
@@ -35,7 +55,10 @@ class Image extends Picture {
       html_name: 'help.html',
       html_head: (
         <>
-          <link rel="stylesheet" href={require('../../resources/css/hello.css')}></link>
+          <link
+            rel="stylesheet"
+            href={require('../../resources/css/hello.css')}
+          ></link>
         </>
       ),
       html_body: <HelloComponent />
@@ -56,14 +79,16 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/message.css`)}></link>
+          {RootLink}
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/message.css`)}
+          ></link>
         </>
       ),
       html_body: <MessageComponent data={data} status={status} />,
       file_paths: Paths,
-      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
     })
   }
 
@@ -81,14 +106,16 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/skill.css`)}></link>
+          {RootLink}
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/skill.css`)}
+          ></link>
         </>
       ),
       html_body: <KillComponent data={data} status={status} />,
       file_paths: Paths,
-      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
     })
   }
 
@@ -106,14 +133,16 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/equiment.css`)}></link>
+          {RootLink}
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/equiment.css`)}
+          ></link>
         </>
       ),
       html_body: <EquipmentComponent data={data} status={status} />,
       file_paths: Paths,
-      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
     })
   }
 
@@ -129,14 +158,16 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/shoppping.css`)}></link>
+          {RootLink}
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/shoppping.css`)}
+          ></link>
         </>
       ),
       html_body: <ShoppingComponent data={data} />,
       file_paths: Paths,
-      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
     })
   }
 
@@ -152,36 +183,31 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/bag.css`)}></link>
+          {RootLink}
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/bag.css`)}
+          ></link>
         </>
       ),
       html_body: <BagComponent data={data} />,
       file_paths: Paths,
-      'html_files': [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
     })
   }
 
   async leaderboard(data: LeaderboardDataType) {
-
     return this.screenshot({
       join_dir: 'leaderboard',
       html_name: `leaderboard.html`,
-      html_head: (
-        <>
-          <link rel="stylesheet" href={require('../../resources/css/root.css')}></link>
-          <link rel="stylesheet" href={require(`../../resources/css/nav.css`)}></link>
-          {/* <link rel="stylesheet" href={require(`../../resources/css/leaderboard.css`)}></link> */}
-        </>
-      ),
+      html_head: <>{RootLink}</>,
       html_body: <LeaderboardComponent {...data} />,
-      file_paths: Paths,
+      file_paths: Paths
     })
   }
 }
 
 /**
- * 
+ *
  */
 export default new Image()
