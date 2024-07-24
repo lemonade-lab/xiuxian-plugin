@@ -23,10 +23,7 @@ const Paths = {
 const RootLink = () => {
   return (
     <>
-      <link
-        rel="stylesheet"
-        href={require('../../public/output.css')}
-      ></link>
+      <link rel="stylesheet" href={require('../../public/output.css')}></link>
       <link
         rel="stylesheet"
         href={require('../../resources/css/root.css')}
