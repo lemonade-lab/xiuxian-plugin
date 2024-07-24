@@ -23,7 +23,9 @@ const Paths = {
 const RootLink = () => {
   return (
     <>
-      <link rel="stylesheet" href={require('../../public/output.css')}></link>
+      <link 
+      rel="stylesheet" 
+      href={require('../../resources/output.css')}></link>
       <link
         rel="stylesheet"
         href={require('../../resources/css/root.css')}
@@ -79,7 +81,7 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          {RootLink}
+        <RootLink />
           <link
             rel="stylesheet"
             href={require(`../../resources/css/message.css`)}
@@ -106,7 +108,7 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          {RootLink}
+         <RootLink />
           <link
             rel="stylesheet"
             href={require(`../../resources/css/skill.css`)}
@@ -133,7 +135,7 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          {RootLink}
+         <RootLink />
           <link
             rel="stylesheet"
             href={require(`../../resources/css/equiment.css`)}
@@ -158,7 +160,7 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          {RootLink}
+          <RootLink />
           <link
             rel="stylesheet"
             href={require(`../../resources/css/shoppping.css`)}
@@ -183,7 +185,7 @@ class Image extends Picture {
       html_name: `${uid}.html`,
       html_head: (
         <>
-          {RootLink}
+         <RootLink />
           <link
             rel="stylesheet"
             href={require(`../../resources/css/bag.css`)}
@@ -200,7 +202,7 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'leaderboard',
       html_name: `leaderboard.html`,
-      html_head: <>{RootLink}</>,
+      html_head: <><RootLink /></>,
       html_body: <LeaderboardComponent {...data} />,
       file_paths: Paths
     })
