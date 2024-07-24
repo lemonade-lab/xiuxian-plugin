@@ -25,7 +25,7 @@ const RootLink = () => {
     <>
       <link
         rel="stylesheet"
-        href={require('../../resources/output.css')}
+        href={require('../../public/output.css')}
       ></link>
       <link
         rel="stylesheet"

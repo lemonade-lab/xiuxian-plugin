@@ -1,6 +1,6 @@
 {
   "name": "yz-xiuxian",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.3",
   "description": "喵崽修仙插件",
   "main": "main.js",
   "type": "module",
@@ -16,8 +16,8 @@
     "logs": "pm2 logs",
     "kill": "pm2 kill",
     "format": "npx prettier --write .",
-    "css": "tailwindcss -i ./src/input.css -o ./resources/output.css",
-    "css:m": "tailwindcss -i ./src/input.css -o ./resources/output.css -m",
+    "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
+    "css:m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
     "prepare": "husky",
     "build": "npm run css:m && rollup --config rollup.config.js"
   },
@@ -83,6 +83,8 @@
     "yunzai": "^1.0.1-rc.1"
   },
   "files": [
+    "public",
+    "public/output.css",
     "resources",
     "lib"
   ],
