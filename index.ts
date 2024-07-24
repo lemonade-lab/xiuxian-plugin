@@ -1,1 +1,0 @@
-export { apps } from './src/main.js'

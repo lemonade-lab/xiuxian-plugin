@@ -12,7 +12,12 @@ index.js
 yarn.lock
 
 # 
+config
 data
+lib
+temp
+plugins
+renderers
 resources/cache
 
 

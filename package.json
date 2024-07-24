@@ -7,6 +7,8 @@
   "author": "ningmengchongshui",
   "license": "MIT",
   "scripts": {
+    "app": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/main.js",
+    "dev": "nodemon",
     "koa:dev": "nodemon --config src-koa/nodemon.json -q",
     "start": "pm2 startOrRestart src-koa/pm2.config.cjs",
     "stop": "pm2 stop src-koa/pm2.config.cjs",
@@ -15,12 +17,14 @@
     "kill": "pm2 kill",
     "format": "npx prettier --write .",
     "eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "rollup --config rollup.config.js"
   },
   "dependencies": {
-    "puppeteer": "^22.6.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "puppeteer": "^22.13.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.2.0",
+    "react-puppeteer": "^1.0.0-rc.7"
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",
@@ -101,9 +105,27 @@
     "sass": "^1.74.1",
     "tailwindcss": "^3.4.3",
     "terser": "^5.31.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typedoc": "^0.25.4",
-    "typescript": "^5.0.4",
-    "ws": "^8.13.0"
+    "typescript": "^5.5.4",
+    "ws": "^8.13.0",
+    "yunzai": "^1.0.1-rc.1"
+  },
+  "files": [
+    "resources",
+    "lib"
+  ],
+  "types": "lib/types",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/types/index.d.ts"
+    }
+  },
+  "keywords": [
+    "yunzai"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   }
 }

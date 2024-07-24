@@ -1,5 +1,5 @@
-import { MessageElem } from 'icqq' 
-import {  EventType,Bot } from 'yunzai/core'
+import { MessageElem } from 'icqq'
+import { EventType, Bot } from 'yunzai'
 class Utils {
   /**
    *

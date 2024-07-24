@@ -1,4 +1,5 @@
-const Keys = ['door', 'mining', 'reCreate','sign'] as const
+import { Redis as redis } from 'yunzai'
+const Keys = ['door', 'mining', 'reCreate', 'sign'] as const
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
   #baseKey = 'xiuxian@1.4'
@@ -59,13 +60,25 @@ class Redis {
   }
 
   /**
-   * 
-   * @param key 
-   * @param uid 
-   * @returns 
+   *
+   * @param key
+   * @param uid
+   * @returns
    */
   async exist(key: RedisKeyEnum, uid: number | string) {
     return redis.exists(this.getKey(key, uid))
+  }
+  /**
+   * 根据前缀删除key
+   * @param key
+   * @returns
+   */
+  async delKeysWithPrefix(key: RedisKeyEnum) {
+    const list = await redis.keys(`${this.#baseKey}:${key}:*`)
+    if (list.length == 0) return
+    for (const i of list) {
+      await redis.del(i)
+    }
   }
 }
 export default new Redis()
