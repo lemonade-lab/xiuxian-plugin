@@ -82,7 +82,7 @@
     "ws": "^8.13.0",
     "yunzai": "^1.0.1-rc.1"
   },
-  "files": [ 
+  "files": [
     "resources",
     "lib"
   ],
