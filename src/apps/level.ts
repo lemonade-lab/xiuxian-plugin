@@ -6,7 +6,6 @@ import {
 } from '../model/config.js'
 import { getLevelById } from '../model/level.js'
 import { getRandomNumber, getUserName } from '../model/utils.js'
-
 import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system.js'
 const message = new Messages('message.group')

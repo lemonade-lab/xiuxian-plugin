@@ -64,62 +64,62 @@ export default function App({ data, status = false }: ComponentType) {
         status={status}
       />
       {datas.length > 0 && (
-        <div className="equiment">
-          <div className="equiment-box">
+        <div className="equipment">
+          <div className="equipment-box">
             <span className="menu-button-flat">#功法信息</span>
             {datas.map((item, index) => {
               return (
-                <div key={index} className="equiment-box-item">
-                  <div className="equiment-box-item-j">
+                <div key={index} className="equipment-box-item">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/equitment.svg')}
                     />
                     <span>{item.name}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/attack.svg')}
                     />
                     <span>{item.attack}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/defense.svg')}
                     />
                     <span>{item.defense}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/blood.svg')}
                     />
                     <span>{item.blood}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/agile.svg')}
                     />
                     <span className="nav-box-item-img">{item.agile}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/critical_hit_rate.svg')}
                     />
                     <span>{item.critical_hit_rate}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/critical_damage.svg')}
                     />
                     <span>{item.critical_damage}</span>
                   </div>
-                  <div className="equiment-box-item-j">
+                  <div className="equipment-box-item-j">
                     <img
                       className="nav-box-item-img"
                       src={require('../../resources/svg/money.svg')}

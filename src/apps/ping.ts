@@ -51,8 +51,8 @@ message.use(
     const size = Math.floor((Now - time) / (1000 * 30))
     await RedisClient.del('door', uid)
     if (size >= 1) {
-      const blool = size * DOOR_CLOSE_SIZE
-      const cur = data.blood + blool
+      const blood = size * DOOR_CLOSE_SIZE
+      const cur = data.blood + blood
       // 还没有装备
       // const equipment = getEuipmentById()
       const equipment = {

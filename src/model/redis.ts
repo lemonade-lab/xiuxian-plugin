@@ -1,5 +1,7 @@
 import { Redis as redis } from 'yunzai'
-const Keys = ['door', 'mining', 'reCreate', 'sign'] as const
+import { SetOptions } from 'redis'
+
+const Keys = ['door', 'mining', 'reCreate', 'sign', 'leaderBoard'] as const
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
   #baseKey = 'xiuxian@1.4'
@@ -48,7 +50,8 @@ class Redis {
     key: RedisKeyEnum,
     uid: number | string,
     msg: string,
-    message: object
+    message: object,
+    option?: SetOptions
   ) {
     const $message = {
       ...this.#message
@@ -56,7 +59,7 @@ class Redis {
     $message.type = key
     $message.msg = msg
     $message.data = message
-    return redis.set(this.getKey(key, uid), JSON.stringify($message))
+    return redis.set(this.getKey(key, uid), JSON.stringify($message), option)
   }
 
   /**

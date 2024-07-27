@@ -7,6 +7,7 @@ export default function App() {
       <span className="menu-button">#再入仙途</span>
       <span className="menu-button">#更换主题</span>
       <span className="menu-button">#改名+字符</span>
+      <span className="menu-button">#签到</span>
     </div>
   )
 }

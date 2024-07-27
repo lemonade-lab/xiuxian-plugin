@@ -9,8 +9,8 @@ import KillComponent from '../component/skill.tsx'
 import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
-import LeaderboardComponent, {
-  LeaderboardDataType
+import LeaderBoardComponent, {
+  LeaderBoardDataType
 } from '../component/leaderboard.tsx'
 import { dirname } from 'node:path'
 //
@@ -136,7 +136,7 @@ class Image extends Picture {
           <RootLink />
           <link
             rel="stylesheet"
-            href={require(`../../resources/css/equiment.css`)}
+            href={require(`../../resources/css/equipment.css`)}
           ></link>
         </>
       ),
@@ -161,7 +161,7 @@ class Image extends Picture {
           <RootLink />
           <link
             rel="stylesheet"
-            href={require(`../../resources/css/shoppping.css`)}
+            href={require(`../../resources/css/shopping.css`)}
           ></link>
         </>
       ),
@@ -196,16 +196,20 @@ class Image extends Picture {
     })
   }
 
-  async leaderboard(data: LeaderboardDataType) {
+  async leaderBoard(data: LeaderBoardDataType) {
     return this.screenshot({
-      join_dir: 'leaderboard',
-      html_name: `leaderboard.html`,
+      join_dir: 'leaderBoard',
+      html_name: `leaderBoard.html`,
       html_head: (
         <>
           <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/leaderBoard.css`)}
+          ></link>
         </>
       ),
-      html_body: <LeaderboardComponent {...data} />,
+      html_body: <LeaderBoardComponent {...data} />,
       file_paths: Paths
     })
   }

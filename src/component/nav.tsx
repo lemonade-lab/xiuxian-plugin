@@ -66,7 +66,7 @@ export default function App({
           >
             {data.uid}
           </div>
-          <span className="nav-box-blool">{`${now}/${blood}-${pro}%`}</span>
+          <span className="nav-box-blood">{`${now}/${blood}-${pro}%`}</span>
         </div>
         <div className="nav-box-flex">
           <div className="nav-box-item">

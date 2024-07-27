@@ -12,7 +12,7 @@ type ComponentType = {
   data: UserMessageType
 }
 
-type DatasType = {
+type DataType = {
   id: number | string
   name: string
   attack: number
@@ -25,7 +25,7 @@ type DatasType = {
 }
 
 export default function App({ data }: ComponentType) {
-  const datas: DatasType[] = []
+  const datas: DataType[] = []
 
   const max = (data.level_id + 1) * 3
   let i = 0
@@ -89,14 +89,14 @@ export default function App({ data }: ComponentType) {
       )}
 
       {datas.length > 0 && (
-        <div className="equiment">
-          <div className="equiment-box">
+        <div className="equipment">
+          <div className="equipment-box">
             <span className="menu-button-flat">武器</span>
             {datas.map((item, index) => {
               return (
                 <div key={index}>
-                  <div className="equiment-box-item">
-                    <div className="equiment-box-item-j">
+                  <div className="equipment-box-item">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/equitment.svg')}
@@ -104,36 +104,36 @@ export default function App({ data }: ComponentType) {
                       <span className="nav-box-item-font">{item.name}</span>
                     </div>
                   </div>
-                  <div className="equiment-box-item">
-                    <div className="equiment-box-item-j">
+                  <div className="equipment-box-item">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/attack.svg')}
                       />
                       <span className="nav-box-item-font">{item.attack}</span>
                     </div>
-                    <div className="equiment-box-item-j">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/defense.svg')}
                       />
                       <span>{item.defense}</span>
                     </div>
-                    <div className="equiment-box-item-j">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/blood.svg')}
                       />
                       <span className="nav-box-item-font">{item.blood}</span>
                     </div>
-                    <div className="equiment-box-item-j">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/agile.svg')}
                       />
                       <span className="nav-box-item-font">{item.agile}</span>
                     </div>
-                    <div className="equiment-box-item-j">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/critical_hit_rate.svg')}
@@ -142,7 +142,7 @@ export default function App({ data }: ComponentType) {
                         {item.critical_hit_rate}
                       </span>
                     </div>
-                    <div className="equiment-box-item-j">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/critical_damage.svg')}
@@ -151,7 +151,7 @@ export default function App({ data }: ComponentType) {
                         {item.critical_damage}
                       </span>
                     </div>
-                    <div className="equiment-box-item-j">
+                    <div className="equipment-box-item-j">
                       <img
                         className="nav-box-item-img"
                         src={require('../../resources/svg/money.svg')}
