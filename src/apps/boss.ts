@@ -17,7 +17,7 @@ message.use(
     const level_list = await RedisClient.get('leaderBoard', 'levelList')
     if (level_list == null) return false
     const bossData = await RedisClient.get('boss', 'defender')
-    if (bossData.type != null) {
+    if (bossData.type) {
       e.reply('喵喵已开启')
       return false
     }
@@ -33,7 +33,7 @@ message.use(
       const newBoss = new Boss('喵喵', bossLevel)
       RedisClient.set('boss', 'defender', '', newBoss)
       await e.reply([`喵喵已刷新！\n喵喵等级：${LevelNameMap[bossLevel]}`])
-    }, '0 0 9 * * ?')
+    }, '0 0 21 * * *')
   },
   [/^(#|\/)?开启喵喵$/]
 )
@@ -41,8 +41,12 @@ message.use(
 message.use(
   async e => {
     let bossData = await RedisClient.get('boss', 'defender')
-    if (bossData.type == null) {
+    if (!bossData.type) {
       e.reply('喵喵未开启')
+      return false
+    }
+    if (bossData.data.blood <= 0) {
+      e.reply('喵喵已死亡,请等待喵喵刷新')
       return false
     }
     let data = await DB.findOne(e.user_id)
@@ -50,8 +54,8 @@ message.use(
       e.reply('请先创建角色')
       return false
     }
-    if (data.blood <= 0) {
-      e.reply('你已经死了，还想攻击喵喵？')
+    if (data.blood <= 50) {
+      e.reply('你的血量太低了，无法攻击喵喵')
       return false
     }
     // 闭关检测
@@ -61,7 +65,7 @@ message.use(
       return
     }
     const cd = await RedisClient.get('boss', 'attack:' + e.user_id)
-    if (!cd.type == null) {
+    if (cd.type) {
       e.reply('你已攻击过喵喵，请等待5分钟')
       return false
     }
@@ -70,7 +74,7 @@ message.use(
     await SetWorldBOSSBattleUnLockTimer(e)
     const message = []
     let allDamage = 0
-    while (data && data.blood > 0 && bossData.data.blood > 0) {
+    while (data.blood > 0 && bossData.data.blood > 0) {
       const { msg, user, boss, damage } = attackBoss(data, bossData.data)
       allDamage += damage
       data = user
@@ -80,22 +84,21 @@ message.use(
         await RedisClient.set('boss', 'defender', '', boss)
         user.blood = 1
         await DB.create(e.user_id, user)
+        await addToDamageLeaderBoard(e, data, allDamage)
         break
       }
       if (boss.blood <= 0) {
-        message.push('你击败了喵喵，额外获得1000灵石')
-        RedisClient.del('boss', 'defender')
-        user.money += 1000
-        await settleAccount(e)
+        e.reply('你击败了喵喵，额外获得2000灵石')
+        user.money += 2000
+        boss.blood = 0
+        await RedisClient.set('boss', 'defender', '', boss)
         await DB.create(e.user_id, user)
+        await addToDamageLeaderBoard(e, data, allDamage)
+        await settleAccount(e)
         break
       }
     }
-    await RedisClient.set('boss', 'damage', '', [
-      { user_id: e.user_id, damage: allDamage }
-    ])
 
-    await RedisClient.set('boss', 'attack:' + e.user_id, '', [], { EX: 300 })
     await utils.forwardMsg(e, message)
     WorldBOSSBattleLock = 0
   },
@@ -106,7 +109,7 @@ message.use(
   async e => {
     if (!e.isMaster) return false
     const boss = await RedisClient.get('boss', 'defender')
-    if (boss.type == null) {
+    if (!boss.type) {
       e.reply('喵喵未开启')
       return false
     }
@@ -120,7 +123,7 @@ message.use(
 message.use(
   async e => {
     const boss = await RedisClient.get('boss', 'defender')
-    if (boss.type == null) return false
+    if (!boss.type) return false
     e.reply(
       `喵喵等级：${LevelNameMap[boss.data.level_id]}\n血量: ${
         boss.data.blood
@@ -134,15 +137,11 @@ message.use(
   async e => {
     const damageList = await RedisClient.get('boss', 'damage')
     if (!damageList.type) return false
-    const leaderBoard = damageList.data
-      .sort((a, b) => b.damage - a.damage)
-      .slice(0, 10)
+    const leaderBoard = damageList.data.sort((a, b) => b.damage - a.damage)
     const msg = []
     for (const item of leaderBoard) {
-      const data = await DB.findOne(item.user_id)
-      if (!data) continue
       msg.push(
-        `第${leaderBoard.indexOf(item) + 1}名  ${data.name} 伤害：${
+        `第${leaderBoard.indexOf(item) + 1}名  ${item.name} 伤害：${
           item.damage
         }`
       )
@@ -164,24 +163,42 @@ async function SetWorldBOSSBattleUnLockTimer(e) {
 }
 
 async function settleAccount(e) {
-  const allMoney = 2000
+  const allMoney = 3000
   const damageList = await RedisClient.get('boss', 'damage')
   const msg = []
   if (!damageList) return false
   const leaderBoard = damageList.data.sort((a, b) => b.damage - a.damage)
+  const allDamage = damageList.data.reduce((a, b) => a + b.damage, 0)
   for (const item of leaderBoard) {
     const data = await DB.findOne(item.user_id)
     if (!data) continue
-    data.money += Math.floor(allMoney * (item.damage / leaderBoard[0].damage))
+    data.money += Math.floor(allMoney * (item.damage / allDamage))
     msg.push(
-      `${data.name}获得${Math.floor(
-        allMoney * (item.damage / leaderBoard[0].damage)
-      )}灵石`
+      `${data.name}获得${Math.floor(allMoney * (item.damage / allDamage))}灵石`
     )
     await DB.create(item.user_id, data)
   }
   await utils.forwardMsg(e, msg)
   RedisClient.del('boss', 'damage')
   RedisClient.delKeysWithPrefix('boss:attack')
+}
+
+/**
+ * 添加到伤害排行榜
+ * @param e
+ * @param data
+ * @param allDamage
+ */
+async function addToDamageLeaderBoard(e, data, allDamage) {
+  const dmg = await RedisClient.get('boss', 'damage')
+  if (!dmg.type) dmg.data = []
+  if (!dmg.data.find(item => item.user_id == e.user_id)) {
+    dmg.data.push({ user_id: e.user_id, damage: allDamage, name: data.name })
+  } else {
+    dmg.data.find(item => item.user_id == e.user_id).damage += allDamage
+  }
+  await RedisClient.set('boss', 'damage', '', dmg.data)
+
+  await RedisClient.set('boss', 'attack:' + e.user_id, '', [], { EX: 300 })
 }
 export default message

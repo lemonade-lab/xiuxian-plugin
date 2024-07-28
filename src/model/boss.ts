@@ -1,5 +1,6 @@
 import { getBaseVal } from '../system/battle'
 import { getLevelById } from './level'
+import { UserMessageType } from './types'
 
 export class Boss {
   name: string
@@ -11,9 +12,9 @@ export class Boss {
     this.name = name
     this.level_id = level_id
     const { attack, defense, blood } = getLevelById(level_id)
-    this.attack = Math.floor(attack * 1.5)
+    this.attack = attack
     this.defense = Math.floor(defense * 1.5)
-    this.blood = Math.floor(blood * 1.5)
+    this.blood = Math.floor(blood * 5)
   }
 }
 
@@ -51,12 +52,15 @@ export const getBossLevel = (user_Level: number) => {
   return level_id
 }
 
-export function attackBoss(user: any, boss: Boss) {
+export function attackBoss(user: UserMessageType, boss: Boss) {
   const { attack, defense } = getBaseVal(user)
 
   //攻击boss
   const msg = [`${user.name}向${boss.name}发起了攻击`]
-  const damage = Math.floor(attack * 0.8 - boss.defense * 0.5)
+  const damage =
+    Math.floor(attack * 0.8 - boss.defense * 0.5) > 0
+      ? Math.floor(attack * 0.8 - boss.defense * 0.5)
+      : 0
   boss.blood -= damage
   if (damage > 0) msg.push(`${user.name}对${boss.name}造成了${damage}点伤害`)
   else msg.push(`${user.name}攻击无效`)
@@ -64,7 +68,10 @@ export function attackBoss(user: any, boss: Boss) {
     msg.push(`${user.name}击败了${boss.name}`)
     return { msg, user, boss, damage }
   }
-  const boos_damage = Math.floor(boss.attack * 0.8 - defense * 0.5)
+  const boos_damage =
+    Math.floor(boss.attack * 0.8 - defense * 0.5) > 0
+      ? Math.floor(boss.attack * 0.8 - defense * 0.5)
+      : 0
   user.blood -= boos_damage
   msg.push(`${boss.name}对${user.name}造成了${boos_damage}点伤害`)
   if (user.blood <= 0) msg.push(`${user.name}已无力再战，请休息后再来`)
