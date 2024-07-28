@@ -17,7 +17,7 @@ message.use(
     const level_list = await RedisClient.get('leaderBoard', 'levelList')
     if (level_list == null) return false
     const bossData = await RedisClient.get('boss', 'defender')
-    if (bossData.type) {
+    if (bossData.type && bossData.data.blood > 0) {
       e.reply('喵喵已开启')
       return false
     }
@@ -32,8 +32,8 @@ message.use(
       await RedisClient.delKeysWithPrefix('boss')
       const newBoss = new Boss('喵喵', bossLevel)
       RedisClient.set('boss', 'defender', '', newBoss)
-      await e.reply([`喵喵已刷新！\n喵喵等级：${LevelNameMap[bossLevel]}`])
-    }, '0 0 21 * * *')
+      await e.reply([`喵喵已刷新! \n喵喵等级: ${LevelNameMap[bossLevel]}`])
+    }, '0 0 21 * * ?')
   },
   [/^(#|\/)?开启喵喵$/]
 )
@@ -88,8 +88,8 @@ message.use(
         break
       }
       if (boss.blood <= 0) {
-        e.reply('你击败了喵喵，额外获得2000灵石')
-        user.money += 2000
+        e.reply('你击败了喵喵，额外获得1000灵石')
+        user.money += 1000
         boss.blood = 0
         await RedisClient.set('boss', 'defender', '', boss)
         await DB.create(e.user_id, user)
@@ -161,9 +161,13 @@ async function SetWorldBOSSBattleUnLockTimer(e) {
     }
   }, 30000)
 }
-
+/**
+ * 按照伤害百分比结算
+ * @param e
+ * @returns
+ */
 async function settleAccount(e) {
-  const allMoney = 3000
+  const allMoney = 5000
   const damageList = await RedisClient.get('boss', 'damage')
   const msg = []
   if (!damageList) return false
@@ -192,10 +196,12 @@ async function settleAccount(e) {
 async function addToDamageLeaderBoard(e, data, allDamage) {
   const dmg = await RedisClient.get('boss', 'damage')
   if (!dmg.type) dmg.data = []
-  if (!dmg.data.find(item => item.user_id == e.user_id)) {
+  const userDmg = dmg.data.find(item => item.user_id == e.user_id)
+  if (!userDmg) {
     dmg.data.push({ user_id: e.user_id, damage: allDamage, name: data.name })
   } else {
-    dmg.data.find(item => item.user_id == e.user_id).damage += allDamage
+    userDmg.damage += allDamage
+    userDmg.name = data.name
   }
   await RedisClient.set('boss', 'damage', '', dmg.data)
 
