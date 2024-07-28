@@ -43,6 +43,15 @@ message.use(
       return
     }
 
+    if (data.level_id > 37 && uData.level_id <= 37) {
+      e.reply('仙人不可对凡人出手！')
+      return
+    }
+    if (uData.level_id == 0) {
+      e.reply('不可对普通人下手！')
+      return
+    }
+
     // 不能在闭关
     const bBiguan = await RedisClient.get('door', UID)
     if (bBiguan.type) {

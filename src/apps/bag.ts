@@ -27,7 +27,7 @@ message.use(
     })
     return false
   },
-  [/^(#|\/)?(储物袋)|(背包)/]
+  [/^(#|\/)?(储物袋|背包)$/]
 )
 message.use(
   async e => {

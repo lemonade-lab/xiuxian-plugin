@@ -9,3 +9,4 @@ node_modules
 /temp
 /lib
 yarn.lock
+public/output.css

@@ -1,7 +1,15 @@
 import { Redis as redis } from 'yunzai'
 import { SetOptions } from 'redis'
 
-const Keys = ['door', 'mining', 'reCreate', 'sign', 'leaderBoard'] as const
+const Keys = [
+  'door',
+  'mining',
+  'reCreate',
+  'sign',
+  'leaderBoard',
+  'boss'
+] as const
+
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
   #baseKey = 'xiuxian@1.4'
@@ -76,7 +84,7 @@ class Redis {
    * @param key
    * @returns
    */
-  async delKeysWithPrefix(key: RedisKeyEnum) {
+  async delKeysWithPrefix(key: string) {
     const list = await redis.keys(`${this.#baseKey}:${key}:*`)
     if (list.length == 0) return
     for (const i of list) {

@@ -7,6 +7,7 @@ import * as message from './apps/message'
 import * as ping from './apps/ping'
 import * as sign from './apps/sign'
 import * as leaderboard from './apps/leaderboard'
+import * as boss from './apps/boss'
 
 export default [
   bag.default.ok,
@@ -17,5 +18,6 @@ export default [
   message.default.ok,
   ping.default.ok,
   sign.default.ok,
-  leaderboard.default.ok
+  leaderboard.default.ok,
+  boss.default.ok
 ]
