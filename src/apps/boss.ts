@@ -78,6 +78,7 @@ message.use(
       if (msg) message.push(...msg)
       if (user.blood <= 0) {
         await RedisClient.set('boss', 'defender', '', boss)
+        user.blood = 1
         await DB.create(e.user_id, user)
         break
       }
