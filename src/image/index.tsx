@@ -12,6 +12,7 @@ import BagComponent from '../component/bag.tsx'
 import LeaderBoardComponent, {
   LeaderBoardDataType
 } from '../component/leaderboard.tsx'
+import ExchangeComponent, { ExchangeDataType } from '../component/exchange.tsx'
 import { dirname } from 'node:path'
 //
 const require = createRequire(import.meta.url)
@@ -210,6 +211,24 @@ class Image extends Picture {
         </>
       ),
       html_body: <LeaderBoardComponent {...data} />,
+      file_paths: Paths
+    })
+  }
+
+  async exchange(data: ExchangeDataType) {
+    return this.screenshot({
+      join_dir: 'exchange',
+      html_name: `exchange.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/exchange.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <ExchangeComponent {...data} />,
       file_paths: Paths
     })
   }

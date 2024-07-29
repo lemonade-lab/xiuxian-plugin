@@ -183,8 +183,6 @@ async function settleAccount(e) {
     await DB.create(item.user_id, data)
   }
   await utils.forwardMsg(e, msg)
-  RedisClient.del('boss', 'damage')
-  RedisClient.delKeysWithPrefix('boss:attack')
 }
 
 /**

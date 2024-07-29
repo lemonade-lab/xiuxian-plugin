@@ -10,6 +10,7 @@ import {
 import { getLevelById } from '../model/level'
 import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system'
+import { getEquipmentById } from '../model/equipment'
 const message = new Messages('message.group')
 
 message.use(
@@ -23,7 +24,9 @@ message.use(
       e.reply(message.msg)
       return
     }
+
     RedisClient.set('door', uid, '闭关中...', {
+      type: 'ping',
       time: Date.now()
     })
     e.reply('开始两耳不闻窗外事')
@@ -43,6 +46,11 @@ message.use(
     const message = await RedisClient.get('door', uid)
     if (!message.type) {
       e.reply('没有在闭关哦')
+      return
+    }
+
+    if (message.data.type && message.data.type !== 'ping') {
+      e.reply(message.msg)
       return
     }
     const time = message.data.time
@@ -80,6 +88,74 @@ message.use(
     return false
   },
   [/^(#|\/)?出关$/]
+)
+
+message.use(
+  async e => {
+    // 获取账号
+    const uid = e.user_id
+    // 尝试读取数据，如果没有数据将自动创建
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    await RedisClient.set('door', e.user_id, '锻体中...', {
+      type: 'exercise',
+      time: Date.now()
+    })
+    e.reply('你开始锻体了')
+    return false
+  },
+  [/^(#|\/)?锻体$/]
+)
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const Now = Date.now()
+    const message = await RedisClient.get('door', e.user_id)
+    if (!message.type) {
+      e.reply('你还没有开始锻体哦')
+      return
+    }
+    if (message.data.type !== 'exercise') {
+      e.reply(message.msg)
+      return
+    }
+    const time = message.data.time
+    const size = Math.floor((Now - time) / (1000 * 30))
+    await RedisClient.del('door', e.user_id)
+    if (size <= 0) {
+      e.reply('锻体时间太短，并没有得到什么锻炼')
+      return false
+    }
+    const attack = Math.floor(((Now - time) / (1000 * 60)) * 0.6)
+    const defense = Math.floor(((Now - time) / (1000 * 60)) * 0.2)
+    data.base.attack += attack
+    data.base.defense += defense
+
+    console.log('data', {
+      attack,
+      defense
+    })
+
+    await DB.create(uid, data)
+
+    component.message(data, uid).then(img => {
+      // 获取到图片后发送
+      if (typeof img !== 'boolean') {
+        e.reply(Segment.image(img))
+      } else {
+        e.reply('图片生成失败~')
+      }
+    })
+  },
+  [/^(#|\/)?结束锻体$/]
 )
 
 message.use(
