@@ -1,4 +1,9 @@
-import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base'
+import {
+  EquipmentNameMap,
+  ReverseEquipmentNameMap,
+  ReverseSkillNameMap,
+  SkillNameMap
+} from '../model/base'
 import { getSkillById } from '../model/skills'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
@@ -50,15 +55,19 @@ message.use(
       e.reply(`已学习`)
       return
     }
-    const count = data.bags.kills[ID]
-    if (!count || count <= 0) {
+    const item = data.bags.find(
+      item => item.id === Number(ID) && item.type === 'skill'
+    )
+    const count = item?.count
+    if (!item || count <= 0) {
       e.reply(`没有功法《${name}》`)
       return
     }
-    data.bags.kills[ID] -= 1
-    if (data.bags.kills[ID] <= 0) {
-      delete data.bags.kills[ID]
+    item.count -= 1
+    if (item.count <= 0) {
+      data.bags.splice(data.bags.indexOf(item), 1)
     }
+
     const sData = getSkillById(Number(ID))
     data.efficiency += sData.efficiency
     data.kills[ID] = true
@@ -91,14 +100,17 @@ message.use(
       e.reply(`已装备武器`)
       return
     }
-    const count = data.bags.equipments[ID]
-    if (!count || count <= 0) {
+    const item = data.bags.find(
+      item => item.id === Number(ID) && item.type === 'equipment'
+    )
+    const count = item?.count
+    if (!item || count <= 0) {
       e.reply(`没有武器 [${name}]`)
       return
     }
-    data.bags.equipments[ID] -= 1
-    if (data.bags.equipments[ID] <= 0) {
-      delete data.bags.equipments[ID]
+    item.count -= 1
+    if (item.count <= 0) {
+      data.bags.splice(data.bags.indexOf(item), 1)
     }
     // 记录武器
     data.equipments.arms = ID
@@ -129,11 +141,9 @@ message.use(
       return
     }
     data.equipments.arms = null
-    const count = data.bags.equipments[ID]
-    if (!count || count <= 0) {
-      data.bags.equipments[ID] = 1
-    } else {
-      data.bags.equipments[ID]++
+    const item = data.bags.find(item => item.id === Number(ID))
+    if (!item) {
+      data.bags.push({ id: Number(ID), count: 1, type: 'equipment', name })
     }
     // 保存
     DB.create(uid, data)
@@ -141,6 +151,56 @@ message.use(
     return
   },
   [/^(#|\/)?卸下武器/]
+)
+
+message.use(
+  async e => {
+    if (!e.isMaster) {
+      e.reply('权限不足')
+      return
+    }
+    const all = await DB.findAll()
+    for (const data of all) {
+      if (Object.prototype.toString.call(data.bags) === '[object Array]')
+        continue
+      if (
+        Object.keys(data.bags['kills']).length > 0 ||
+        Object.keys(data.bags['equipments']).length > 0
+      ) {
+        const newBag = []
+        for (const key in data.bags['kills']) {
+          const item = data.bags['kills'][key]
+          if (item) {
+            newBag.push({
+              id: key,
+              count: 1,
+              type: 'skill',
+              name: SkillNameMap[key]
+            })
+          }
+        }
+        for (const key in data.bags['equipments']) {
+          const item = data.bags['equipments'][key]
+          if (item) {
+            newBag.push({
+              id: key,
+              count: 1,
+              type: 'equipment',
+              name: EquipmentNameMap[key]
+            })
+          }
+        }
+        data.bags = newBag
+        await DB.create(data.uid, data)
+      } else {
+        data.bags = []
+        await DB.create(data.uid, data)
+      }
+    }
+    e.reply('同步数据成功')
+    return false
+  },
+  [/(#|\/)?同步旧版背包数据$/]
 )
 
 export default message

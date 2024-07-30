@@ -27,13 +27,7 @@ message.use(
     const boss = new Boss('喵喵', bossLevel)
     RedisClient.set('boss', 'defender', '', boss)
 
-    // 设置喵喵刷新任务
-    bossTask = setBotTask(async () => {
-      await RedisClient.delKeysWithPrefix('boss')
-      const newBoss = new Boss('喵喵', bossLevel)
-      RedisClient.set('boss', 'defender', '', newBoss)
-      await e.reply([`喵喵已刷新! \n喵喵等级: ${LevelNameMap[bossLevel]}`])
-    }, '0 0 21 * * ?')
+    await createBossTask(bossLevel, e)
   },
   [/^(#|\/)?开启喵喵$/]
 )
@@ -205,4 +199,14 @@ async function addToDamageLeaderBoard(e, data, allDamage) {
 
   await RedisClient.set('boss', 'attack:' + e.user_id, '', [], { EX: 300 })
 }
+
+async function createBossTask(bossLevel, e) {
+  bossTask = setBotTask(async () => {
+    await RedisClient.delKeysWithPrefix('boss')
+    const newBoss = new Boss('喵喵', bossLevel)
+    RedisClient.set('boss', 'defender', '', newBoss)
+    await e.reply([`喵喵已刷新! \n喵喵等级: ${LevelNameMap[bossLevel]}`])
+  }, '0 0 21 * * ?')
+}
+
 export default message

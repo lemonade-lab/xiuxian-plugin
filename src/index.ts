@@ -1,5 +1,7 @@
 import { applicationOptions, useAppStorage } from 'yunzai'
 import Apps from './apps'
+import redisClient from './model/redis'
+
 export default (config?: { name: string }) => {
   const Data = useAppStorage()
   return applicationOptions({
@@ -11,7 +13,10 @@ export default (config?: { name: string }) => {
       }
     },
     // 被执行时
-    mounted() {
+    async mounted(e) {
+      const msgCD = await redisClient.get('msgCD', e['user_id'])
+      if (msgCD.type != null) return []
+      await redisClient.set('msgCD', e['user_id'], '', {}, { EX: 5 })
       return Data
     }
   })

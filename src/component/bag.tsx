@@ -24,22 +24,20 @@ type DataType = {
 export default function App({ data }: ComponentType) {
   const datas: DataType[] = []
 
-  for (const item in data.bags.equipments) {
-    const db = getEquipmentById(Number(item))
+  data.bags.filter(item => item.type === 'equipment').map(item => {
+    const db = getEquipmentById(Number(item.id))
     datas.push({
       ...db,
-      account: data.bags.equipments[item]
+      account: item.count,
     })
-  }
-
-  const kills = Object.keys(data.bags.kills).map(item => {
-    const db = getSkillById(Number(item))
+  })
+  const kills = data.bags.filter(item => item.type === 'skill').map(item => {
+    const db = getSkillById(Number(item.id))
     return {
       ...db,
-      account: data.bags.kills[item]
+      account: item.count,
     }
   })
-
   return (
     <div id="root">
       <div className="nav">

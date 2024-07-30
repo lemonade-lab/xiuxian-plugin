@@ -80,12 +80,12 @@ export const UserMessageBase = {
     helmet: null
   } as EquipmentsType,
   // 背包
-  bags: {
-    // 功法
-    kills: {},
-    // 装备  --- 手续改成 EquipmentsType
-    equipments: {}
-  }
+  bags: [] as {
+    id: number
+    count: number
+    name: string
+    type: 'skill' | 'equipment'
+  }[]
 }
 
 // 主题

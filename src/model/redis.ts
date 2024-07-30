@@ -8,7 +8,8 @@ const Keys = [
   'sign',
   'leaderBoard',
   'boss',
-  'exchange'
+  'exchange',
+  'msgCD'
 ] as const
 
 type RedisKeyEnum = (typeof Keys)[number]

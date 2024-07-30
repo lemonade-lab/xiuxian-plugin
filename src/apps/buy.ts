@@ -53,11 +53,18 @@ message.use(
       return
     }
     data.money -= sData.price
-    const count = data.bags.equipments[ID]
-    if (!count || count <= 0) {
-      data.bags.equipments[ID] = 1
+    const item = data.bags.find(
+      v => v.id === Number(ID) && v.type === 'equipment'
+    )
+    if (!item) {
+      data.bags.push({
+        id: Number(ID),
+        type: 'equipment',
+        name,
+        count: 1
+      })
     } else {
-      data.bags.equipments[ID] += 1
+      item.count += 1
     }
     // 保存
 
@@ -91,11 +98,16 @@ message.use(
       return
     }
     data.money -= sData.price
-    const count = data.bags.kills[ID]
-    if (!count || count <= 0) {
-      data.bags.kills[ID] = 1
+    const item = data.bags.find(v => v.id === Number(ID) && v.type === 'skill')
+    if (!item) {
+      data.bags.push({
+        id: Number(ID),
+        type: 'skill',
+        name,
+        count: 1
+      })
     } else {
-      data.bags.kills[ID] += 1
+      item.count += 1
     }
     // 保存
     DB.create(uid, data)
