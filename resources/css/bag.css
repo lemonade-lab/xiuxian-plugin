@@ -44,13 +44,13 @@ body {
   color: var(--font-color);
 }
 
-.equiment {
+.equipment {
   padding: 2rem 1rem 1rem 1rem;
 
   font-size: 20px;
 }
 
-.equiment-box {
+.equipment-box {
   background-color: var(--bg-color);
   padding: 10px 1rem;
   border-radius: var(--border-radius);
@@ -61,18 +61,18 @@ body {
   flex-direction: column;
 }
 
-.equiment-box-item {
+.equipment-box-item {
   display: flex;
   flex-wrap: wrap;
 }
 
-.equiment-box-item-j {
+.equipment-box-item-j {
   display: flex;
   flex-wrap: wrap;
   margin-right: 1rem;
 }
 
-.equiment-box-item-font {
+.equipment-box-item-font {
   color: var(--font-color);
 }
 

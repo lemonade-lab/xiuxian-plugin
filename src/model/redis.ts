@@ -1,4 +1,16 @@
-const Keys = ['door', 'mining', 'reCreate'] as const
+import { Redis as redis } from 'yunzai'
+import { SetOptions } from 'redis'
+
+const Keys = [
+  'door',
+  'mining',
+  'reCreate',
+  'sign',
+  'leaderBoard',
+  'boss',
+  'exchange'
+] as const
+
 type RedisKeyEnum = (typeof Keys)[number]
 class Redis {
   #baseKey = 'xiuxian@1.4'
@@ -47,7 +59,8 @@ class Redis {
     key: RedisKeyEnum,
     uid: number | string,
     msg: string,
-    message: object
+    message: object,
+    option?: SetOptions
   ) {
     const $message = {
       ...this.#message
@@ -55,7 +68,29 @@ class Redis {
     $message.type = key
     $message.msg = msg
     $message.data = message
-    return redis.set(this.getKey(key, uid), JSON.stringify($message))
+    return redis.set(this.getKey(key, uid), JSON.stringify($message), option)
+  }
+
+  /**
+   *
+   * @param key
+   * @param uid
+   * @returns
+   */
+  async exist(key: RedisKeyEnum, uid: number | string) {
+    return redis.exists(this.getKey(key, uid))
+  }
+  /**
+   * 根据前缀删除key
+   * @param key
+   * @returns
+   */
+  async delKeysWithPrefix(key: string) {
+    const list = await redis.keys(`${this.#baseKey}:${key}:*`)
+    if (list.length == 0) return
+    for (const i of list) {
+      await redis.del(i)
+    }
   }
 }
 export default new Redis()

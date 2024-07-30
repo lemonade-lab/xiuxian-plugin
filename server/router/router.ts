@@ -2,7 +2,7 @@ import Router from 'koa-router'
 
 import { getSkillById } from '../../src/model/skills'
 import { getEquipmentById } from '../../src/model/equipment'
-import { CODE_ERROE } from '../config'
+import { CODE_ERROR } from '../config'
 import { DB } from '../../src/model/db-system'
 
 const router = new Router({
@@ -14,7 +14,7 @@ const router = new Router({
  * /
  * get
  */
-router.get('/', (ctx) => {
+router.get('/', ctx => {
   const query = ctx.query
   console.log('query', query)
   ctx.body = {
@@ -30,7 +30,7 @@ router.get('/', (ctx) => {
  * get
  * id = 213
  */
-router.get('/skill', (ctx) => {
+router.get('/skill', ctx => {
   const query = ctx.query
   if (typeof query.id === 'string' || typeof query.id === 'number') {
     const data = getSkillById(query.id)
@@ -54,7 +54,7 @@ router.get('/skill', (ctx) => {
  * get
  * id = 123
  */
-router.get('/arms', (ctx) => {
+router.get('/arms', ctx => {
   const query = ctx.query
   if (typeof query.id === 'string' || typeof query.id === 'number') {
     const data = getEquipmentById(query.id)
@@ -78,7 +78,7 @@ router.get('/arms', (ctx) => {
  * get
  * uid = 123456
  */
-router.get('/message', async (ctx) => {
+router.get('/message', async ctx => {
   const query = ctx.query
   if (typeof query.uid === 'string' || typeof query.uid === 'number') {
     const data = await DB.findOne(query.uid)
@@ -101,9 +101,9 @@ router.get('/message', async (ctx) => {
  * /player
  * get
  */
-router.get('/player', (ctx) => {
+router.get('/player', ctx => {
   ctx.body = {
-    code: CODE_ERROE,
+    code: CODE_ERROR,
     msg: '请求成功',
     data: null
   }

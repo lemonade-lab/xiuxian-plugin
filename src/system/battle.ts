@@ -7,7 +7,7 @@ import { UserMessageType } from '../model/types'
  * @param data
  * @returns
  */
-function getBaseVal(data: UserMessageType) {
+export function getBaseVal(data: UserMessageType) {
   const level = getLevelById(data.level_id)
   const equipment = {
     attack: 0,

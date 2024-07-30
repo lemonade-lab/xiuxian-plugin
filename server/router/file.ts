@@ -4,7 +4,7 @@ const router = new koaRouter({ prefix: '/api/test' })
 /**
  * 获取玩家最新操作记录
  */
-router.get('/jwt', async (ctx) => {
+router.get('/jwt', async ctx => {
   // 获取 GET 请求的 query 数据
   ctx.body = {
     code: 200,
@@ -18,7 +18,7 @@ router.get('/jwt', async (ctx) => {
 /**
  * 校验token并得到ws-url
  */
-router.get('/getaway', async (ctx) => {
+router.get('/getaway', async ctx => {
   try {
     const token = ctx.headers.authorization
     ctx.state.user = verifyToken(token)

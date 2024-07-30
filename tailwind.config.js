@@ -1,13 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
+/**
+ * @type {import('tailwindcss').Config}
+ */
 export default {
-  content: [
-    './node_modules/preline/dist/*.js',
-    './src/**/*.{html,js,jsx,tsx,ts}'
-  ],
-  theme: {
-    extend: {}
-  },
-  plugins: [require('preline/plugin')]
+  // 内容
+  content: ['src/**/*.{jsx.tsx.html}'],
+  plugins: []
 }

@@ -17,7 +17,7 @@ const secretKey = process.env.APP_SERVER_KEY ?? 'xiuxian-serve'
  * @param payload
  * @returns
  */
-export const generateToken = (payload) => {
+export const generateToken = payload => {
   return jwt.sign(payload, secretKey, { expiresIn: '1h' })
 }
 

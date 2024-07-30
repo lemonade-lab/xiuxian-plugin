@@ -9,7 +9,7 @@ import { join } from 'path'
 export function readFilesInDirectory(directoryPath: string): string[] {
   let fileNames: string[] = []
   const files = readdirSync(directoryPath)
-  files.forEach((file) => {
+  files.forEach(file => {
     const filePath = join(directoryPath, file)
     const stat = statSync(filePath)
     if (stat.isFile()) {

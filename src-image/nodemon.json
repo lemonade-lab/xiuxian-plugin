@@ -1,8 +1,0 @@
-{
-  "watch": ["src", "src-image"],
-  "ext": "ts,json,js,tsx,jsx",
-  "exec": "ts-node src-image/main.tsx",
-  "env": {
-    "NODE_ENV": "development"
-  }
-}

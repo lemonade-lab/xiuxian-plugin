@@ -1,46 +1,49 @@
 import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { Puppeteer } from './puppeteer.ts'
-import { mkdirSync, writeFileSync } from 'fs'
-import { join } from 'path'
-//
-import { cwd } from '../config.ts'
+import { createRequire } from 'module'
+import { Picture } from 'react-puppeteer'
 import { UserMessageType } from '../model/types.ts'
 import Redis from '../model/redis.ts'
-// component
 import HelloComponent from '../component/hello.tsx'
 import MessageComponent from '../component/message.tsx'
 import KillComponent from '../component/skill.tsx'
 import EquipmentComponent from '../component/equipment.tsx'
 import ShoppingComponent from '../component/shopping.tsx'
 import BagComponent from '../component/bag.tsx'
+import LeaderBoardComponent, {
+  LeaderBoardDataType
+} from '../component/leaderboard.tsx'
+import ExchangeComponent, { ExchangeDataType } from '../component/exchange.tsx'
+import { dirname } from 'node:path'
 //
-class Component {
-  puppeteer: typeof Puppeteer.prototype
-  #dir = ''
-  constructor(dir: string) {
-    this.puppeteer = new Puppeteer()
-    this.#dir = dir
-    mkdirSync(this.#dir, {
-      recursive: true
-    })
+const require = createRequire(import.meta.url)
+//
+const Paths = {
+  '@xiuxian': dirname(require('../../README.md'))
+}
+//
+const RootLink = () => {
+  return (
+    <>
+      <link rel="stylesheet" href={require('../../public/output.css')}></link>
+      <link
+        rel="stylesheet"
+        href={require('../../resources/css/root.css')}
+      ></link>
+      <link
+        rel="stylesheet"
+        href={require(`../../resources/css/nav.css`)}
+      ></link>
+    </>
+  )
+}
+
+class Image extends Picture {
+  constructor() {
+    super()
+    // start
+    this.Pup.start()
   }
-  /**
-   * 渲染字符串
-   * @param element
-   * @param name
-   * @returns
-   */
-  create(element: React.ReactNode, dirs: string, name: string) {
-    const html = renderToString(element)
-    const dir = join(this.#dir, dirs)
-    mkdirSync(dir, {
-      recursive: true
-    })
-    const address = join(dir, name)
-    writeFileSync(address, `<!DOCTYPE html>${html}`)
-    return address
-  }
+
   /**
    *  hello
    * @param _
@@ -48,10 +51,21 @@ class Component {
    * @returns
    */
   hello() {
-    return this.puppeteer.render(
-      this.create(<HelloComponent />, 'hello', 'help.html')
-    )
+    return this.screenshot({
+      join_dir: 'hello',
+      html_name: 'help.html',
+      html_head: (
+        <>
+          <link
+            rel="stylesheet"
+            href={require('../../resources/css/hello.css')}
+          ></link>
+        </>
+      ),
+      html_body: <HelloComponent />
+    })
   }
+
   /**
    * 用户消息
    * @param data
@@ -61,13 +75,22 @@ class Component {
   async message(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.puppeteer.render(
-      this.create(
-        <MessageComponent data={data} status={status} />,
-        'message',
-        `${uid}.html`
-      )
-    )
+    return this.screenshot({
+      join_dir: 'message',
+      html_name: `${uid}.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/message.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <MessageComponent data={data} status={status} />,
+      file_paths: Paths,
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+    })
   }
 
   /**
@@ -79,14 +102,24 @@ class Component {
   async kill(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.puppeteer.render(
-      this.create(
-        <KillComponent data={data} status={status} />,
-        'kill',
-        `${uid}.html`
-      )
-    )
+    return this.screenshot({
+      join_dir: 'kill',
+      html_name: `${uid}.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/skill.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <KillComponent data={data} status={status} />,
+      file_paths: Paths,
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+    })
   }
+
   /**
    *
    * @param data
@@ -96,13 +129,22 @@ class Component {
   async equipment(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.puppeteer.render(
-      this.create(
-        <EquipmentComponent data={data} status={status} />,
-        'equipment',
-        `${uid}.html`
-      )
-    )
+    return this.screenshot({
+      join_dir: 'equipment',
+      html_name: `${uid}.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/equipment.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <EquipmentComponent data={data} status={status} />,
+      file_paths: Paths,
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+    })
   }
 
   /**
@@ -112,9 +154,22 @@ class Component {
    * @returns
    */
   async shopping(data: UserMessageType, uid: number) {
-    return this.puppeteer.render(
-      this.create(<ShoppingComponent data={data} />, 'shopping', `${uid}.html`)
-    )
+    return this.screenshot({
+      join_dir: 'shopping',
+      html_name: `${uid}.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/shopping.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <ShoppingComponent data={data} />,
+      file_paths: Paths,
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+    })
   }
 
   /**
@@ -124,9 +179,62 @@ class Component {
    * @returns
    */
   async bag(data: UserMessageType, uid: number) {
-    return this.puppeteer.render(
-      this.create(<BagComponent data={data} />, 'bag', `${uid}.html`)
-    )
+    return this.screenshot({
+      join_dir: 'bag',
+      html_name: `${uid}.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/bag.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <BagComponent data={data} />,
+      file_paths: Paths,
+      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+    })
+  }
+
+  async leaderBoard(data: LeaderBoardDataType) {
+    return this.screenshot({
+      join_dir: 'leaderBoard',
+      html_name: `leaderBoard.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/leaderBoard.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <LeaderBoardComponent {...data} />,
+      file_paths: Paths
+    })
+  }
+
+  async exchange(data: ExchangeDataType) {
+    return this.screenshot({
+      join_dir: 'exchange',
+      html_name: `exchange.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/exchange.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <ExchangeComponent {...data} />,
+      file_paths: Paths
+    })
   }
 }
-export default new Component(join(cwd, 'resources', 'cache'))
+
+/**
+ *
+ */
+export default new Image()
