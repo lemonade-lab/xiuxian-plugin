@@ -8,8 +8,8 @@ const Keys = [
   'sign',
   'leaderBoard',
   'boss',
-  'exchange',
-  'msgCD'
+  'msgCD',
+  'instance'
 ] as const
 
 type RedisKeyEnum = (typeof Keys)[number]
@@ -92,6 +92,10 @@ class Redis {
     for (const i of list) {
       await redis.del(i)
     }
+  }
+  async keys(key: string) {
+    const keys = await redis.keys(`${this.#baseKey}:${key}:*`)
+    return keys.map(i => i.replace(this.#baseKey + ':', ''))
   }
 }
 export default new Redis()

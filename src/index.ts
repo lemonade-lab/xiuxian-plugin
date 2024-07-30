@@ -16,7 +16,15 @@ export default (config?: { name: string }) => {
     async mounted(e) {
       const msgCD = await redisClient.get('msgCD', e['user_id'])
       if (msgCD.type != null) return []
-      await redisClient.set('msgCD', e['user_id'], '', {}, { EX: 5 })
+      await redisClient.set(
+        'msgCD',
+        e['user_id'],
+        '',
+        {
+          msgCD: 2
+        },
+        { EX: 2 }
+      )
       return Data
     }
   })

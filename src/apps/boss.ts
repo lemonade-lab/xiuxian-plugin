@@ -23,6 +23,7 @@ message.use(
     }
     const level = level_list.data[0].level_id
     const bossLevel = getBossLevel(level)
+    await RedisClient.del('boss', 'damage')
     await e.reply([`喵喵已被唤醒！\n 喵喵等级：${LevelNameMap[bossLevel]}`])
     const boss = new Boss('喵喵', bossLevel)
     RedisClient.set('boss', 'defender', '', boss)
@@ -56,6 +57,11 @@ message.use(
     const ping = await RedisClient.get('door', e.user_id)
     if (ping.type) {
       e.reply(ping.msg)
+      return
+    }
+    const status = await RedisClient.get('instance', e.user_id)
+    if (status.type != null) {
+      e.reply(status.msg)
       return
     }
     const cd = await RedisClient.get('boss', 'attack:' + e.user_id)

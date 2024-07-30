@@ -24,6 +24,11 @@ message.use(
       e.reply(message.msg)
       return
     }
+    const status = await RedisClient.get('instance', e.user_id)
+    if (status.type != null) {
+      e.reply(status.msg)
+      return
+    }
 
     RedisClient.set('door', uid, '闭关中...', {
       type: 'ping',
@@ -46,6 +51,11 @@ message.use(
     const message = await RedisClient.get('door', uid)
     if (!message.type) {
       e.reply('没有在闭关哦')
+      return
+    }
+    const status = await RedisClient.get('instance', e.user_id)
+    if (status.type != null) {
+      e.reply(status.msg)
       return
     }
 
@@ -100,6 +110,16 @@ message.use(
       e.reply('操作频繁')
       return
     }
+    const status = await RedisClient.get('instance', e.user_id)
+    if (status.type != null) {
+      e.reply(status.msg)
+      return
+    }
+    const message = await RedisClient.get('door', uid)
+    if (message.type) {
+      e.reply(message.msg)
+      return
+    }
     await RedisClient.set('door', e.user_id, '锻体中...', {
       type: 'exercise',
       time: Date.now()
@@ -138,12 +158,6 @@ message.use(
     const defense = Math.floor(((Now - time) / (1000 * 60)) * 0.2)
     data.base.attack += attack
     data.base.defense += defense
-
-    console.log('data', {
-      attack,
-      defense
-    })
-
     await DB.create(uid, data)
 
     component.message(data, uid).then(img => {
@@ -172,6 +186,11 @@ message.use(
     const Biguan = await RedisClient.get('door', uid)
     if (Biguan.type) {
       e.reply(Biguan.msg)
+      return
+    }
+    const status = await RedisClient.get('instance', e.user_id)
+    if (status.type != null) {
+      e.reply(status.msg)
       return
     }
     // 当前身体空虚，精血不足。
@@ -220,6 +239,11 @@ message.use(
     const Biguan = await RedisClient.get('door', e.user_id)
     if (Biguan.type) {
       e.reply(Biguan.msg)
+      return
+    }
+    const status = await RedisClient.get('instance', e.user_id)
+    if (status.type != null) {
+      e.reply(status.msg)
       return
     }
     const now = Date.now()

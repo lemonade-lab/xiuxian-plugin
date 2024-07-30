@@ -87,6 +87,7 @@ message.use(
       .replace(/^(#|\/)?装备武器/, '')
       .replace(/[^\u4e00-\u9fa5]/g, '')
     const ID = ReverseEquipmentNameMap[name]
+
     if (!ID) {
       e.reply(`此方世界没有此物《${name}》`)
       return
@@ -103,8 +104,8 @@ message.use(
     const item = data.bags.find(
       item => item.id === Number(ID) && item.type === 'equipment'
     )
-    const count = item?.count
-    if (!item || count <= 0) {
+
+    if (!item || item.count <= 0) {
       e.reply(`没有武器 [${name}]`)
       return
     }
