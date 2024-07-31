@@ -134,7 +134,7 @@ message.use(
       obj.blood < LEVEL_UP_LIMIT
     ) {
       e.reply(
-        ` 尚未感应到瓶颈\n 当前攻击：${obj.attack}%\n 当前防御：${obj.defense}%\n 当前血量：${obj.blood}%`
+        ` 距离突破仍有一段距离\n 当前攻击：${obj.attack}%\n 当前防御：${obj.defense}%\n 当前血量：${obj.blood}%`
       )
       return
     }

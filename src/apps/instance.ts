@@ -94,6 +94,7 @@ setBotTask(async () => {
       await DB.create(user.uid, user)
       await Bot.pickGroup(data.data.group_id).sendMsg([
         segment.at(player.uid),
+        ' ',
         msg.join('\n')
       ])
     }

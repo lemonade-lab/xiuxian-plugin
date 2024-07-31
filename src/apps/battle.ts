@@ -61,40 +61,22 @@ message.use(
 
     const { l, aData, bData } = userBattle(data, uData)
     if (l) {
-      let size = 0
-      if (bData.money <= 0) {
-        size = 0
-      } else if (bData.money <= 1) {
-        size = 1
-      } else if (bData.money <= 2) {
-        size = 2
-      } else {
-        size = 3
-      }
-      if (size == 0) {
-        e.reply(['你战胜了'])
-      } else {
+      const size = Math.floor(0.03 * bData.money)
+      if (size > 0) {
         bData.money -= size
         aData.money += size
         e.reply(['你战胜了,抢走了', size, '颗灵石'].join(''))
+      } else {
+        e.reply('你战胜了, 但是对方没有钱')
       }
     } else {
-      let size = 0
-      if (aData.money <= 0) {
-        size = 0
-      } else if (aData.money <= 1) {
-        size = 1
-      } else if (aData.money <= 2) {
-        size = 2
-      } else {
-        size = 3
-      }
-      if (size == 0) {
-        e.reply(['你战败了'])
-      } else {
+      const size = Math.floor(0.03 * aData.money)
+      if (size > 0) {
         aData.money -= size
         bData.money += size
-        e.reply(['你战败了,反而被抢走了', size, '颗灵石'].join(''))
+        e.reply('你输了,被抢走了' + size + '颗灵石')
+      } else {
+        e.reply('你输了, 但是你没有钱，对方也拿你没办法')
       }
     }
 

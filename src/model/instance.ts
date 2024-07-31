@@ -78,6 +78,7 @@ export function InstanceSettleAccount(
     let rate = 0
     for (const index in instance.award.item) {
       rate += instance.award.item[index].rate
+
       if (Math.random() < rate) {
         const item = instance.award.item[index]
         const id = item.id
@@ -98,11 +99,11 @@ export function InstanceSettleAccount(
     }
     const ran = Math.random()
     if (ran < 0.3) {
-      user.base.defense += instance.id * 20
+      user.base.defense += instance.id ** 2 * 20
     } else if (ran < 0.6) {
-      user.base.attack += instance.id * 60
+      user.base.attack += instance.id ** 2 * 60
     } else {
-      user.base.blood += instance.id * 100
+      user.base.blood += instance.id ** 2 * 80
     }
   }
   return { msg, user }
@@ -115,7 +116,7 @@ function getAward(start, end) {
   const a1 = (1 - r) / (1 - Math.pow(r, n)) // 首项
 
   for (let i = start; i < end; i++) {
-    const rate = (a1 * Math.pow(r, i - start)).toFixed(4) || 0.01
+    const rate = Number((a1 * Math.pow(r, i - start)).toFixed(4))
     list.push({ id: i, num: 1, rate: rate, type: 'equipment' })
   }
 
