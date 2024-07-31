@@ -117,4 +117,47 @@ message.use(
   },
   [/^(#|\/)?购买功法/]
 )
+
+message.use(
+  async e => {
+    const list = e.msg.replace(/^(#|\/)?出售/, '').split('*')
+    if (!list) return false
+    const item = list[0]
+    const count = list[1] || 1
+    const uid = e.user_id
+    let money = 0
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const itemData = data.bags.find(v => v.name === item)
+    if (!itemData) {
+      e.reply(`没有${item}`)
+      return
+    }
+    if (itemData.count < Number(count)) {
+      e.reply(`没有${item}了`)
+      return
+    }
+    itemData.count -= Number(count)
+    if (itemData.count === 0) {
+      data.bags = data.bags.filter(v => v.name !== item)
+    }
+    if (itemData.type === 'equipment') {
+      const sData = getEquipmentById(itemData.id)
+      data.money += sData.price * Number(count)
+      money = sData.price * Number(count)
+    } else if (itemData.type === 'skill') {
+      const sData = getSkillById(itemData.id)
+      data.money += sData.price * Number(count)
+      money = sData.price * Number(count)
+    }
+    await DB.create(uid, data)
+    e.reply(`出售${item}x${count}，获得灵石${money}`)
+    return false
+  },
+  [/^(#|\/)?出售/]
+)
+
 export default message

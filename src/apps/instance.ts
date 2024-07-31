@@ -14,7 +14,7 @@ message.use(
       msg.push(
         `【${item.name}】 价格: ${item.price} \n 等级要求: ${
           LevelNameMap[item.min_level]
-        }\n 描述: ${item.desc} `
+        }\n 所需时间: ${item.cd}分钟 \n 描述: ${item.desc} `
       )
     }
     utils.forwardMsg(e, msg)
@@ -23,7 +23,12 @@ message.use(
 )
 message.use(
   async e => {
-    const data = await DB.findOne(e.user_id)
+    const [data, ping, status] = await Promise.all([
+      DB.findOne(e.user_id),
+      redisClient.get('door', e.user_id),
+      redisClient.get('instance', e.user_id)
+    ])
+
     if (!data) {
       e.reply('请先创建角色')
       return
@@ -32,12 +37,10 @@ message.use(
       e.reply('血量过低，无法探索秘境')
       return
     }
-    const ping = await redisClient.get('door', e.user_id)
     if (ping.type) {
       e.reply(ping.msg)
       return
     }
-    const status = await redisClient.get('instance', e.user_id)
     if (status.type) {
       e.reply(status.msg)
       return
@@ -48,7 +51,17 @@ message.use(
       return
     }
     const instance = InstanceList.find(item => item.name === msg)
-    await redisClient.set('instance', e.user_id, '探索中...', {
+    if (data.level_id < instance.min_level) {
+      e.reply(`你的等级不足，无法探索【${instance.name}】`)
+      return
+    }
+    if (data.money < instance.price) {
+      e.reply(`你连门票钱都付不起！`)
+      return
+    }
+    console.log(instance.award.item)
+
+    redisClient.set('instance', e.user_id, '探索中...', {
       instance_id: instance.id,
       time: Date.now(),
       group_id: e.group_id
@@ -71,7 +84,8 @@ setBotTask(async () => {
     const instance = InstanceList.find(
       item => item.id === data.data.instance_id
     )
-    if (Date.now() - data.data.time > 3 * 60000) {
+    const cd = instance.cd * 60000
+    if (Date.now() - data.data.time > cd) {
       await redisClient.del('instance', id)
       const { msg, user } = InstanceSettleAccount(instance.name, player)
       await DB.create(user.uid, user)

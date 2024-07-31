@@ -9,35 +9,57 @@ export const InstanceList = [
     price: 100,
     failed_rate: 0.2,
     desc: '这是一个充满挑战的试炼塔，你可以在这里提升自己的实力。',
+    cd: 3,
     award: {
-      money: 200,
-      item: [
-        { id: 0, num: 1, rate: 0.5, type: 'equipment' },
-        { id: 1, num: 1, rate: 0.3, type: 'equipment' },
-        { id: 2, num: 1, rate: 0.15, type: 'equipment' },
-        { id: 3, num: 1, rate: 0.04, type: 'equipment' },
-        { id: 4, num: 1, rate: 0.01, type: 'equipment' }
-      ]
+      item: getAward(0, 7)
     }
   },
   {
     id: 2,
-    name: '神秘森林',
+    name: '落日森林',
     min_level: 10,
-    price: 1000,
-    failed_rate: 0.1,
+    price: 500,
+    failed_rate: 0.3,
     desc: '这是一个神秘的森林，据说里面隐藏着许多宝藏。',
+    cd: 5,
     award: {
-      money: 2000,
-      item: [
-        { id: 5, num: 1, rate: 0.4, type: 'equipment' },
-        { id: 6, num: 1, rate: 0.2, type: 'equipment' },
-        { id: 7, num: 1, rate: 0.15, type: 'equipment' },
-        { id: 8, num: 1, rate: 0.07, type: 'equipment' },
-        { id: 9, num: 1, rate: 0.04, type: 'equipment' },
-        { id: 10, num: 1, rate: 0.02, type: 'equipment' },
-        { id: 11, num: 1, rate: 0.01, type: 'equipment' }
-      ]
+      item: getAward(7, 15)
+    }
+  },
+  {
+    id: 3,
+    name: '城市废墟',
+    min_level: 15,
+    price: 1000,
+    failed_rate: 0.4,
+    desc: '这是一个废弃的城市，里面充满了危险和宝藏。',
+    cd: 7,
+    award: {
+      item: getAward(15, 20)
+    }
+  },
+  {
+    id: 4,
+    name: '死亡沙漠',
+    min_level: 20,
+    price: 3000,
+    failed_rate: 0.5,
+    desc: '这是一个充满死亡气息的沙漠，只有最勇敢的人才能生存。',
+    cd: 10,
+    award: {
+      item: getAward(20, 25)
+    }
+  },
+  {
+    id: 5,
+    name: '神秘遗迹',
+    min_level: 25,
+    price: 6000,
+    failed_rate: 0.6,
+    desc: '这是一个古老的遗迹，据说里面隐藏着无尽的宝藏。',
+    cd: 15,
+    award: {
+      item: getAward(25, 30)
     }
   }
 ]
@@ -52,14 +74,16 @@ export function InstanceSettleAccount(
   if (!instance) {
     return
   }
-  if (ran > instance.failed_rate + user.level_id * 0.1) {
+  if (ran > instance.failed_rate + (user.level_id - instance.min_level) * 0.1) {
     msg.push(`探索时遇到危险，未能成功逃离`)
     user.blood = 1
   } else {
     msg.push(`【${instance.name}】探索任务完成`)
-    user.money += instance.award.money
+    // 保证有奖励
+    let rate = 0
     for (const index in instance.award.item) {
-      if (Math.random() < instance.award.item[index].rate) {
+      rate += instance.award.item[index].rate
+      if (Math.random() < rate) {
         const item = instance.award.item[index]
         const id = item.id
         const item1 = user.bags.find(b => b.id === id)
@@ -75,13 +99,22 @@ export function InstanceSettleAccount(
         }
         msg.push(`你获得了${item.num}个${EquipmentNameMap[id]}！`)
         break
-      } else {
-        const next = instance.award.item[index + 1]
-        if (next) {
-          next.rate += instance.award.item[index].rate
-        }
       }
     }
   }
   return { msg, user }
+}
+
+function getAward(start, end) {
+  const list = []
+  const n = end - start
+  const r = 0.5 // 公比
+  const a1 = (1 - r) / (1 - Math.pow(r, n)) // 首项
+
+  for (let i = start; i < end; i++) {
+    const rate = a1 * Math.pow(r, i - start)
+    list.push({ id: i, num: 1, rate: rate, type: 'equipment' })
+  }
+
+  return list
 }
