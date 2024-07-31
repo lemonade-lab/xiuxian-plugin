@@ -160,6 +160,7 @@ message.use(
   [/^(#|\/)?出售/]
 )
 let sureMap = {}
+let timeout = null
 message.use(
   async e => {
     const uid = e.user_id
@@ -169,16 +170,21 @@ message.use(
       e.reply('操作频繁')
       return
     }
-    if (data.bags.length === 0) {
+
+    const list = data.bags.filter(v => !v.isLocked)
+    if (list.length === 0) {
       e.reply('你没有东西可以出售')
       return
     }
-    const list = data.bags.filter(v => !v.isLocked)
     const msg = []
     list.forEach(v => {
       msg.push(`${v.name}*${v.count}`)
     })
     e.reply(`你确定出售\n${msg.join('\n')}吗？\n发送【确认出售】以确认`)
+    timeout = setTimeout(() => {
+      sureMap[uid] = false
+      e.reply('自动取消出售')
+    }, 1000 * 60 * 5)
     return false
   },
   [/^(#|\/)?一键出售$/]
@@ -198,8 +204,9 @@ message.use(
       return
     }
     let money = 0
-    data.bags.forEach(v => {
-      if (v.isLocked) return
+    const list = data.bags.filter(v => !v.isLocked)
+    const isLocked_List = data.bags.filter(v => v.isLocked)
+    list.forEach(v => {
       if (v.type === 'equipment') {
         const sData = getEquipmentById(v.id)
         data.money += sData.price * v.count
@@ -211,11 +218,51 @@ message.use(
       }
     })
     data.bags = []
+    if (isLocked_List.length > 0) {
+      data.bags = isLocked_List
+    }
     await DB.create(uid, data)
     e.reply(`出售所有物品，获得灵石${money}`)
     return false
   },
   [/^(#|\/)?确认出售$/]
+)
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    sureMap[uid] = false
+    if (timeout) clearTimeout(timeout)
+    e.reply('已取消出售')
+    return false
+  },
+  [/^(#|\/)?取消出售/]
+)
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const msg = e.msg.replace(/^(#|\/)?解锁/, '')
+    if (msg === '') {
+      e.reply('请输入解锁物品名称')
+      return
+    }
+    const item = data.bags.find(v => v.name === msg)
+    if (!item) {
+      e.reply(`没有${msg}`)
+      return
+    }
+    item.isLocked = false
+    await DB.create(uid, data)
+    e.reply(`已解锁${msg}`)
+    return false
+  },
+  [/^(#|\/)?解锁/]
 )
 
 message.use(
