@@ -159,5 +159,89 @@ message.use(
   },
   [/^(#|\/)?出售/]
 )
+let sureMap = {}
+message.use(
+  async e => {
+    const uid = e.user_id
+    sureMap[uid] = true
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    if (data.bags.length === 0) {
+      e.reply('你没有东西可以出售')
+      return
+    }
+    const list = data.bags.filter(v => !v.isLocked)
+    const msg = []
+    list.forEach(v => {
+      msg.push(`${v.name}*${v.count}`)
+    })
+    e.reply(`你确定出售\n${msg.join('\n')}吗？\n发送【确认出售】以确认`)
+    return false
+  },
+  [/^(#|\/)?一键出售$/]
+)
+message.use(
+  async e => {
+    if (!sureMap[e.user_id]) return false
+    delete sureMap[e.user_id]
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    if (data.bags.length === 0) {
+      e.reply('你没有东西可以出售')
+      return
+    }
+    let money = 0
+    data.bags.forEach(v => {
+      if (v.isLocked) return
+      if (v.type === 'equipment') {
+        const sData = getEquipmentById(v.id)
+        data.money += sData.price * v.count
+        money += sData.price * v.count
+      } else if (v.type === 'skill') {
+        const sData = getSkillById(v.id)
+        data.money += sData.price * v.count
+        money += sData.price * v.count
+      }
+    })
+    data.bags = []
+    await DB.create(uid, data)
+    e.reply(`出售所有物品，获得灵石${money}`)
+    return false
+  },
+  [/^(#|\/)?确认出售$/]
+)
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const msg = e.msg.replace(/^(#|\/)?锁定/, '')
+    if (msg === '') {
+      e.reply('请输入锁定物品名称')
+      return
+    }
+    const item = data.bags.find(v => v.name === msg)
+    if (!item) {
+      e.reply(`没有${msg}`)
+      return
+    }
+    item.isLocked = true
+    await DB.create(uid, data)
+    e.reply(`已锁定${msg}`)
+    return false
+  },
+  [/^(#|\/)?锁定/]
+)
 
 export default message

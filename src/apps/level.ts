@@ -103,4 +103,55 @@ message.use(
   [/^(#|\/)?突破$/]
 )
 
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const level = getLevelById(data.level_id + 1)
+    if (!level.name) {
+      e.reply('已达巅峰')
+      return
+    }
+    const NowLevel = getLevelById(data.level_id)
+    const obj = {
+      attack: Math.floor(
+        ((NowLevel.attack + data.base.attack) / level.attack) * 100
+      ),
+      defense: Math.floor(
+        ((NowLevel.defense + data.base.defense) / level.defense) * 100
+      ),
+      blood: Math.floor(
+        ((NowLevel.blood + data.base.blood) / level.blood) * 100
+      )
+    }
+    if (
+      obj.attack < LEVEL_UP_LIMIT &&
+      obj.defense < LEVEL_UP_LIMIT &&
+      obj.blood < LEVEL_UP_LIMIT
+    ) {
+      e.reply(
+        ` 尚未感应到瓶颈\n 当前攻击：${obj.attack}%\n 当前防御：${obj.defense}%\n 当前血量：${obj.blood}%`
+      )
+      return
+    }
+
+    const $attack = Math.floor(
+      (obj.attack > 100 ? 100 : obj.attack) / LEVEL_SIZE[0]
+    )
+    const $defense = Math.floor(
+      (obj.defense > 100 ? 100 : obj.defense) / LEVEL_SIZE[1]
+    )
+    const $blood = Math.floor(obj.blood > 100 ? 100 : obj.blood / LEVEL_SIZE[2])
+    const p = $attack + $defense + $blood
+
+    e.reply(`当前突破概率: ${p}`)
+    return false
+  },
+  [/(#|)?查看突破概率$/]
+)
+
 export default message

@@ -10,7 +10,6 @@ const message = new Messages('message.group')
 // 战斗锁
 let WorldBOSSBattleLock = 0
 let WorldBOSSBattleUnLockTimer = null
-let bossTask = null
 message.use(
   async e => {
     if (!e.isMaster) return false
@@ -27,8 +26,17 @@ message.use(
     await e.reply([`喵喵已被唤醒！\n 喵喵等级：${LevelNameMap[bossLevel]}`])
     const boss = new Boss('喵喵', bossLevel)
     RedisClient.set('boss', 'defender', '', boss)
-
-    await createBossTask(bossLevel, e)
+    const taskList = await RedisClient.get('boss', 'task')
+    if (!taskList.type) {
+      await RedisClient.set('boss', 'task', '', {
+        group_list: [e.group_id]
+      })
+      return false
+    }
+    RedisClient.set('boss', 'task', '', {
+      group_list: [...taskList.data.group_list, e.group_id]
+    })
+    return false
   },
   [/^(#|\/)?开启喵喵$/]
 )
@@ -89,7 +97,7 @@ message.use(
       }
       if (boss.blood <= 0) {
         e.reply('你击败了喵喵，额外获得1000灵石')
-        user.money += 1000
+        user.money += boss.level_id * 200
         boss.blood = 0
         await RedisClient.set('boss', 'defender', '', boss)
         await DB.create(e.user_id, user)
@@ -115,6 +123,17 @@ message.use(
     }
     RedisClient.delKeysWithPrefix('boss')
     if (bossTask) clearBotTask(bossTask)
+    const taskList = await RedisClient.get('boss', 'task')
+    if (taskList.type) {
+      const groupList = taskList.data.group_list
+      if (groupList.includes(e.group_id)) {
+        groupList.splice(groupList.indexOf(e.group_id), 1)
+        RedisClient.set('boss', 'task', '', {
+          group_list: groupList
+        })
+      }
+    }
+
     e.reply('喵喵已关闭')
   },
   [/^(#|\/)?关闭喵喵$/]
@@ -167,7 +186,9 @@ async function SetWorldBOSSBattleUnLockTimer(e) {
  * @returns
  */
 async function settleAccount(e) {
-  const allMoney = 5000
+  const boss = await RedisClient.get('boss', 'defender')
+  if (!boss.type) return false
+  const allMoney = 800 * boss.data.level_id
   const damageList = await RedisClient.get('boss', 'damage')
   const msg = []
   if (!damageList) return false
@@ -206,13 +227,21 @@ async function addToDamageLeaderBoard(e, data, allDamage) {
   await RedisClient.set('boss', 'attack:' + e.user_id, '', [], { EX: 300 })
 }
 
-async function createBossTask(bossLevel, e) {
-  bossTask = setBotTask(async () => {
-    await RedisClient.delKeysWithPrefix('boss')
-    const newBoss = new Boss('喵喵', bossLevel)
-    RedisClient.set('boss', 'defender', '', newBoss)
-    await e.reply([`喵喵已刷新! \n喵喵等级: ${LevelNameMap[bossLevel]}`])
-  }, '0 0 21 * * ?')
-}
+const bossTask = setBotTask(async () => {
+  const taskList = await RedisClient.get('boss', 'task')
+  if (!taskList.type) return
+  const levelList = await RedisClient.get('leaderBoard', 'levelList')
+  if (!levelList.type) return
+  const level = levelList.data[0].level_id
+  const bossLevel = getBossLevel(level)
+  await RedisClient.delKeysWithPrefix('boss')
+  const newBoss = new Boss('喵喵', bossLevel)
+  RedisClient.set('boss', 'defender', '', newBoss)
+  for (const item of taskList.data.group_list) {
+    await Bot.pickGroup(item.group_id).send(
+      `喵喵已刷新，等级：${LevelNameMap[bossLevel]}`
+    )
+  }
+}, '0 0 21 * * ?')
 
 export default message

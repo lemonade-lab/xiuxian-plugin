@@ -21,3 +21,6 @@ export const MINING_MONEY = 1
 
 // 重生控制 12h
 export const USER_RECREATE = 1000 * 60 * 60 * 12
+
+// 秘境冷却 3min
+export const INSTANCE_CD = 1000 * 60 * 3

@@ -85,6 +85,7 @@ export const UserMessageBase = {
     count: number
     name: string
     type: 'skill' | 'equipment'
+    isLocked?: boolean
   }[]
 }
 

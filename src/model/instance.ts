@@ -9,7 +9,6 @@ export const InstanceList = [
     price: 100,
     failed_rate: 0.2,
     desc: '这是一个充满挑战的试炼塔，你可以在这里提升自己的实力。',
-    cd: 3,
     award: {
       item: getAward(0, 7)
     }
@@ -21,19 +20,17 @@ export const InstanceList = [
     price: 500,
     failed_rate: 0.3,
     desc: '这是一个神秘的森林，据说里面隐藏着许多宝藏。',
-    cd: 5,
     award: {
       item: getAward(7, 15)
     }
   },
   {
     id: 3,
-    name: '城市废墟',
-    min_level: 15,
+    name: '遗迹废墟',
+    min_level: 13,
     price: 1000,
     failed_rate: 0.4,
-    desc: '这是一个废弃的城市，里面充满了危险和宝藏。',
-    cd: 7,
+    desc: '这是一个废弃的遗迹，里面充满了危险和宝藏。',
     award: {
       item: getAward(15, 20)
     }
@@ -41,11 +38,10 @@ export const InstanceList = [
   {
     id: 4,
     name: '死亡沙漠',
-    min_level: 20,
+    min_level: 17,
     price: 3000,
     failed_rate: 0.5,
     desc: '这是一个充满死亡气息的沙漠，只有最勇敢的人才能生存。',
-    cd: 10,
     award: {
       item: getAward(20, 25)
     }
@@ -53,11 +49,10 @@ export const InstanceList = [
   {
     id: 5,
     name: '神秘遗迹',
-    min_level: 25,
+    min_level: 21,
     price: 6000,
-    failed_rate: 0.6,
+    failed_rate: 0.5,
     desc: '这是一个古老的遗迹，据说里面隐藏着无尽的宝藏。',
-    cd: 15,
     award: {
       item: getAward(25, 30)
     }
@@ -101,6 +96,14 @@ export function InstanceSettleAccount(
         break
       }
     }
+    const ran = Math.random()
+    if (ran < 0.3) {
+      user.base.defense += instance.id * 20
+    } else if (ran < 0.6) {
+      user.base.attack += instance.id * 60
+    } else {
+      user.base.blood += instance.id * 100
+    }
   }
   return { msg, user }
 }
@@ -112,7 +115,7 @@ function getAward(start, end) {
   const a1 = (1 - r) / (1 - Math.pow(r, n)) // 首项
 
   for (let i = start; i < end; i++) {
-    const rate = a1 * Math.pow(r, i - start)
+    const rate = (a1 * Math.pow(r, i - start)).toFixed(4) || 0.01
     list.push({ id: i, num: 1, rate: rate, type: 'equipment' })
   }
 

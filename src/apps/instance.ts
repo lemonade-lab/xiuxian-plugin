@@ -1,9 +1,10 @@
-import { Messages, setBotTask, Bot, makeForwardMsg } from 'yunzai'
+import { Messages, setBotTask, Bot } from 'yunzai'
 import { DB } from '../model/db-system'
 import { InstanceList, InstanceSettleAccount } from '../model/instance'
 import redisClient from '../model/redis'
 import utils from '../utils'
 import { LevelNameMap } from '../model/base'
+import { INSTANCE_CD } from '../model/config'
 
 const message = new Messages('message.group')
 
@@ -14,7 +15,7 @@ message.use(
       msg.push(
         `【${item.name}】 价格: ${item.price} \n 等级要求: ${
           LevelNameMap[item.min_level]
-        }\n 所需时间: ${item.cd}分钟 \n 描述: ${item.desc} `
+        } \n 描述: ${item.desc} `
       )
     }
     utils.forwardMsg(e, msg)
@@ -51,6 +52,10 @@ message.use(
       return
     }
     const instance = InstanceList.find(item => item.name === msg)
+    if (!instance) {
+      e.reply('秘境不存在')
+      return
+    }
     if (data.level_id < instance.min_level) {
       e.reply(`你的等级不足，无法探索【${instance.name}】`)
       return
@@ -59,7 +64,6 @@ message.use(
       e.reply(`你连门票钱都付不起！`)
       return
     }
-    console.log(instance.award.item)
 
     redisClient.set('instance', e.user_id, '探索中...', {
       instance_id: instance.id,
@@ -84,8 +88,7 @@ setBotTask(async () => {
     const instance = InstanceList.find(
       item => item.id === data.data.instance_id
     )
-    const cd = instance.cd * 60000
-    if (Date.now() - data.data.time > cd) {
+    if (Date.now() - data.data.time > INSTANCE_CD) {
       await redisClient.del('instance', id)
       const { msg, user } = InstanceSettleAccount(instance.name, player)
       await DB.create(user.uid, user)
