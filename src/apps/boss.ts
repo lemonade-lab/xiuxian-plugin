@@ -96,7 +96,7 @@ message.use(
         break
       }
       if (boss.blood <= 0) {
-        e.reply('你击败了喵喵，额外获得1000灵石')
+        e.reply(`你击败了喵喵，额外获得${boss.level_id * 200}}灵石`)
         user.money += boss.level_id * 200
         boss.blood = 0
         await RedisClient.set('boss', 'defender', '', boss)

@@ -51,7 +51,7 @@ export const InstanceList = [
     name: '神秘遗迹',
     min_level: 21,
     price: 6000,
-    failed_rate: 0.5,
+    failed_rate: 0.55,
     desc: '这是一个古老的遗迹，据说里面隐藏着无尽的宝藏。',
     award: {
       item: getAward(25, 30)
@@ -99,11 +99,11 @@ export function InstanceSettleAccount(
     }
     const ran = Math.random()
     if (ran < 0.3) {
-      user.base.defense += instance.id ** 2 * 20
+      user.base.defense += Math.floor(instance.id ** 1.5 * 20)
     } else if (ran < 0.6) {
-      user.base.attack += instance.id ** 2 * 60
+      user.base.attack += Math.floor(instance.id ** 1.5 * 60)
     } else {
-      user.base.blood += instance.id ** 2 * 80
+      user.base.blood += Math.floor(instance.id ** 1.5 * 80)
     }
   }
   return { msg, user }

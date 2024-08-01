@@ -148,7 +148,7 @@ message.use(
     const $blood = Math.floor(obj.blood > 100 ? 100 : obj.blood / LEVEL_SIZE[2])
     const p = $attack + $defense + $blood
 
-    e.reply(`当前突破概率: ${p}`)
+    e.reply(`当前突破概率: ${p}\nPS: 低于40%时不可能成功哦`)
     return false
   },
   [/(#|)?查看突破概率$/]

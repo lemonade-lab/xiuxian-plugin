@@ -160,7 +160,7 @@ message.use(
   [/^(#|\/)?出售/]
 )
 let sureMap = {}
-let timeout = null
+let timeoutMap = {}
 message.use(
   async e => {
     const uid = e.user_id
@@ -181,9 +181,9 @@ message.use(
       msg.push(`${v.name}*${v.count}`)
     })
     e.reply(`你确定出售\n${msg.join('\n')}吗？\n发送【确认出售】以确认`)
-    timeout = setTimeout(() => {
+    timeoutMap[uid] = setTimeout(() => {
       sureMap[uid] = false
-      e.reply('自动取消出售')
+      e.reply([Segment.at(uid), ' 已自动取消出售'])
     }, 1000 * 60 * 5)
     return false
   },
@@ -193,6 +193,7 @@ message.use(
   async e => {
     if (!sureMap[e.user_id]) return false
     delete sureMap[e.user_id]
+    clearTimeout(timeoutMap[e.user_id])
     const uid = e.user_id
     const data = await DB.findOne(uid)
     if (!data) {
@@ -232,7 +233,7 @@ message.use(
   async e => {
     const uid = e.user_id
     sureMap[uid] = false
-    if (timeout) clearTimeout(timeout)
+    if (timeoutMap[uid]) clearTimeout(timeoutMap[uid])
     e.reply('已取消出售')
     return false
   },

@@ -70,6 +70,8 @@ message.use(
       time: Date.now(),
       group_id: e.group_id
     })
+    data.money -= instance.price
+    await DB.create(data.uid, data)
     e.reply(`开始探索【${instance.name}】`)
   },
   [/^(#|\/)?探索秘境/]
