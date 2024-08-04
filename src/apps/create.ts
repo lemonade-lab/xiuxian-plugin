@@ -5,7 +5,7 @@ import { getUserName } from '../model/utils.js'
 import RedisClient from '../model/redis.js'
 import { USER_RECREATE } from '../model/config.js'
 
-import { Messages, Segment } from 'yunzai'
+import { Messages, Segment, setBotTask } from 'yunzai'
 import { DB } from '../model/db-system.js'
 const message = new Messages('message')
 
@@ -193,5 +193,14 @@ message.use(
   },
   [/^(#|\/)?同步用户列表$/]
 )
+
+const userListTask = setBotTask(async () => {
+  await DB.pushAll()
+  console.log('同步用户列表')
+}, '0 0 0/1 * * ?')
+
+userListTask.on('error', err => {
+  console.error('同步用户列表失败', err)
+})
 
 export default message

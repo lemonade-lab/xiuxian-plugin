@@ -40,7 +40,7 @@ export default function App({ data, status = false }: ComponentType) {
   const blood = level.blood + equipment.blood + data.base.blood
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
-  const kills = Object.keys(data.kills).map(item => getSkillById(Number(item)))
+  const kills = Object.keys(data.skill).map(item => getSkillById(Number(item)))
 
   return (
     <div id="root">

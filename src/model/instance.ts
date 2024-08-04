@@ -10,40 +10,40 @@ export const InstanceList = [
     failed_rate: 0.2,
     desc: '这是一个充满挑战的试炼塔，你可以在这里提升自己的实力。',
     award: {
-      item: getAward(0, 7)
+      item: getAward(0, 8)
     }
   },
   {
     id: 2,
     name: '落日森林',
     min_level: 10,
-    price: 500,
+    price: 300,
     failed_rate: 0.3,
     desc: '这是一个神秘的森林，据说里面隐藏着许多宝藏。',
     award: {
-      item: getAward(7, 15)
+      item: getAward(8, 13)
     }
   },
   {
     id: 3,
     name: '遗迹废墟',
     min_level: 13,
-    price: 1000,
+    price: 800,
     failed_rate: 0.4,
     desc: '这是一个废弃的遗迹，里面充满了危险和宝藏。',
     award: {
-      item: getAward(15, 20)
+      item: getAward(13, 17)
     }
   },
   {
     id: 4,
     name: '死亡沙漠',
     min_level: 17,
-    price: 3000,
+    price: 3500,
     failed_rate: 0.5,
     desc: '这是一个充满死亡气息的沙漠，只有最勇敢的人才能生存。',
     award: {
-      item: getAward(20, 25)
+      item: getAward(17, 21)
     }
   },
   {
@@ -54,7 +54,29 @@ export const InstanceList = [
     failed_rate: 0.55,
     desc: '这是一个古老的遗迹，据说里面隐藏着无尽的宝藏。',
     award: {
-      item: getAward(25, 30)
+      item: getAward(21, 25)
+    }
+  },
+  {
+    id: 6,
+    name: '龙鳞岛',
+    min_level: 25,
+    price: 10000,
+    failed_rate: 0.6,
+    desc: '传说曾有一座被称作“龙鳞岛”的岛屿，其中隐藏着无限的宝藏。',
+    award: {
+      item: getAward(25, 29)
+    }
+  },
+  {
+    id: 7,
+    name: '破败神庙',
+    min_level: 29,
+    price: 15000,
+    failed_rate: 0.6,
+    desc: '不知是哪位神明的庙宇，竟破败到如此地步。',
+    award: {
+      item: getAward(29, 33)
     }
   }
 ]

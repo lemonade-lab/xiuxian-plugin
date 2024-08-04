@@ -43,11 +43,11 @@ export const getBossLevel = (user_Level: number) => {
     case user_Level < 37:
       level_id = 37
       break
-    case user_Level < 46:
-      level_id = 46
+    case user_Level < 45:
+      level_id = user_Level + 1
       break
     default:
-      level_id = 46
+      level_id = 45
   }
   return level_id
 }

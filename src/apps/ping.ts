@@ -1,16 +1,12 @@
 import RedisClient from '../model/redis'
 import { getUserName } from '../model/utils'
 import component from '../image/index'
-import {
-  DOOR_CLOSE_SIZE,
-  MINING,
-  MINING_BLOOD,
-  MINING_MONEY
-} from '../model/config'
+import { MINING, MINING_BLOOD, MINING_MONEY } from '../model/config'
 import { getLevelById } from '../model/level'
 import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system'
 import { getEquipmentById } from '../model/equipment'
+
 const message = new Messages('message.group')
 
 message.use(
@@ -27,6 +23,11 @@ message.use(
     const status = await RedisClient.get('instance', e.user_id)
     if (status.type != null) {
       e.reply(status.msg)
+      return
+    }
+    const taken = await RedisClient.get('taken', uid)
+    if (taken.type) {
+      e.reply(taken.msg)
       return
     }
 
@@ -69,19 +70,24 @@ message.use(
     const size = Math.floor((Now - time) / (1000 * 30))
     await RedisClient.del('door', uid)
     if (size >= 1) {
-      const blood = size * DOOR_CLOSE_SIZE
-      const cur = data.blood + blood
-      // 还没有装备
-      // const equipment = getEuipmentById()
-      const equipment = {
-        blood: 0
-      }
       const level = getLevelById(data.level_id)
-      const max = data.base.blood + equipment.blood + level.blood
-      data.blood = cur > max ? max : cur
+
+      let allBlood = data.base.blood + level.blood
+      for (const key in data.equipments) {
+        if (data.equipments[key] == null) continue
+        const equipment = getEquipmentById(Number(data.equipments[key]))
+        allBlood += equipment.blood
+      }
+
+      const num =
+        Math.floor(allBlood * 0.01) < 100 ? 100 : Math.floor(allBlood * 0.01)
+
+      const blood = size * num
+      const cur = data.blood + blood
+      data.blood = cur > allBlood ? allBlood : cur
       // 后得的血量上限
       const baseBlood = Math.floor((Now - time) / (1000 * 60))
-      data.base.blood += baseBlood
+      data.base.blood += baseBlood * data.level_id
       DB.create(uid, data)
     }
     // 修正名字
@@ -120,6 +126,11 @@ message.use(
       e.reply(message.msg)
       return
     }
+    const taken = await RedisClient.get('taken', uid)
+    if (taken.type) {
+      e.reply(taken.msg)
+      return
+    }
     await RedisClient.set('door', e.user_id, '锻体中...', {
       type: 'exercise',
       time: Date.now()
@@ -156,8 +167,8 @@ message.use(
     }
     const attack = Math.floor(((Now - time) / (1000 * 60)) * 0.6)
     const defense = Math.floor(((Now - time) / (1000 * 60)) * 0.2)
-    data.base.attack += attack
-    data.base.defense += defense
+    data.base.attack += attack * data.level_id
+    data.base.defense += defense * data.level_id
     await DB.create(uid, data)
 
     component.message(data, uid).then(img => {

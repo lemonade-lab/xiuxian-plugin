@@ -194,8 +194,8 @@ export function getEquipmentById(id: number | string) {
     defense: Math.floor(getDefenseById(Number(id))),
     blood: Math.floor(getBloodById(Number(id))),
     agile: Math.floor(getAgileById(Number(id))),
-    critical_hit_rate: Math.floor(getCriticalHitRateById(Number(id))),
-    critical_damage: Math.floor(getCriticalDamageById(Number(id))),
+    critical_hit_rate: Number(getCriticalHitRateById(Number(id)).toFixed(2)),
+    critical_damage: Number(getCriticalDamageById(Number(id)).toFixed(2)),
     price: Math.floor(getPriceById(Number(id)))
   }
 }

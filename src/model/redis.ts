@@ -2,14 +2,15 @@ import { Redis as redis } from 'yunzai'
 import { SetOptions } from 'redis'
 
 const Keys = [
-  'door',
-  'mining',
-  'reCreate',
-  'sign',
-  'leaderBoard',
-  'boss',
-  'msgCD',
-  'instance'
+  'door', // 闭关
+  'mining', // 挖矿
+  'reCreate', // 重创账号
+  'sign', // 签到
+  'leaderBoard', // 排行榜
+  'boss', // BOSS
+  'msgCD', // 消息CD
+  'instance', // 副本
+  'taken' // 渡劫
 ] as const
 
 type RedisKeyEnum = (typeof Keys)[number]

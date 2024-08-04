@@ -6,8 +6,11 @@ import {
 } from '../model/config.js'
 import { getLevelById } from '../model/level.js'
 import { getRandomNumber, getUserName } from '../model/utils.js'
-import { Messages, Segment } from 'yunzai'
+import { clearBotTask, Messages, Segment, setBotTask } from 'yunzai'
 import { DB } from '../model/db-system.js'
+import RedisClient from '../model/redis.js'
+import { LevelNameMap } from '../model/base.js'
+
 const message = new Messages('message.group')
 /**
  * 突破就是以三维为基，触发一定概率的事件
@@ -19,6 +22,10 @@ message.use(
     const data = await DB.findOne(uid)
     if (!data) {
       e.reply('操作频繁')
+      return
+    }
+    if (data.level_id === 37) {
+      e.reply('须渡劫才能前往仙界')
       return
     }
     // 寻找下一个境界
@@ -111,6 +118,168 @@ message.use(
       e.reply('操作频繁')
       return
     }
+    if (data.level_id < 37) {
+      e.reply('你不是渡劫期，怎么的，想挨批？')
+      return
+    }
+    if (data.level_id > 37) {
+      e.reply('你都已经成仙了，还想渡劫？')
+      return
+    }
+    const level = getLevelById(data.level_id + 1)
+    if (!level.name) {
+      e.reply('已达巅峰')
+      return
+    }
+    const taken = await RedisClient.get('taken', uid)
+    if (taken.type) {
+      e.reply('渡劫中，请稍等')
+      return
+    }
+    // 得到当前境界
+    const NowLevel = getLevelById(data.level_id)
+
+    // 得到当前三维 百分比值
+    const obj = {
+      attack: Math.floor(
+        ((NowLevel.attack + data.base.attack) / level.attack) * 100
+      ),
+      defense: Math.floor(
+        ((NowLevel.defense + data.base.defense) / level.defense) * 100
+      ),
+      blood: Math.floor(
+        ((NowLevel.blood + data.base.blood) / level.blood) * 100
+      )
+    }
+    /**
+     * 可以突破的前提是，其中一个数值超过境界限制。
+     */
+    if (
+      obj.attack < LEVEL_UP_LIMIT &&
+      obj.defense < LEVEL_UP_LIMIT &&
+      obj.blood < LEVEL_UP_LIMIT
+    ) {
+      // 对三维 进行 从大到小排序 sort((a, b) => b - a)
+      // 从小到大为 sort((a, b) => a - b)
+      const max = [obj.attack, obj.defense, obj.blood].sort((a, b) => b - a)
+      // 瓶颈，指的是有一个数值最接近
+      e.reply(`尚未感应到瓶颈(${max[0]}%/${LEVEL_UP_LIMIT}%)`)
+      return
+    }
+    const defense = data.base.defense
+
+    // TODO: 渡劫
+    const ran = getRandomNumber(0, 9)
+    const a: any = {}
+    switch (true) {
+      case ran < 4:
+        a.name = '一九天劫'
+        a.num = 9
+        break
+      case ran < 7:
+        a.name = '三九天劫'
+        a.num = 27
+        break
+      case ran < 9:
+        a.name = '七九天劫'
+        a.num = 63
+        break
+      case ran < 10:
+        a.name = '九九天劫'
+        a.num = 81
+        break
+      default:
+        a.name = '九九天劫'
+        a.num = 81
+        break
+    }
+    e.reply(`渡劫开始，你需要渡过${a.name}，一共${a.num}次攻击！`)
+
+    await RedisClient.set('taken', uid, '渡劫中...', {
+      time: Date.now()
+    })
+    let count = 0
+    const task = setBotTask(async () => {
+      count++
+      if (count > a.num) {
+        clearBotTask(task)
+        e.reply(`渡劫成功！`)
+        data.level_id += 1
+
+        // 不管成功失败都全部清零
+        data.base.attack = 0
+        data.base.defense = 0
+        data.base.blood = 0
+        await DB.create(uid, data)
+        await RedisClient.del('taken', uid)
+
+        await e.reply(`你已成功突破到${LevelNameMap[data.level_id]}！`)
+        return
+      }
+      let dam =
+        getRandomNumber(2000 + count * 100, 12000 + count * 250) -
+        Math.floor(defense * 0.627)
+      if (dam < 0) dam = 0
+      data.blood -= dam
+      await DB.create(uid, data)
+      e.reply(`渡劫中...第${count}次攻击！\n受到伤害${dam}`)
+      if (data.blood <= 0) {
+        e.reply(`渡劫失败！`)
+        data.blood = 0
+
+        // 不管成功失败都全部清零
+        data.base.attack = 0
+        data.base.defense = 0
+        data.base.blood = 0
+        await DB.create(uid, data)
+        await RedisClient.del('taken', uid)
+        clearBotTask(task)
+        return
+      }
+    }, '0/5 * * * * ?')
+  },
+  [/^(#|\/)?渡劫$/]
+)
+
+message.use(
+  async e => {
+    const ran = getRandomNumber(0, 9)
+    const a: any = {}
+    switch (true) {
+      case ran < 4:
+        a.name = '一九天劫'
+        a.num = 9
+        break
+      case ran < 7:
+        a.name = '三九天劫'
+        a.num = 27
+        break
+      case ran < 9:
+        a.name = '七九天劫'
+        a.num = 63
+        break
+      case ran < 10:
+        a.name = '九九天劫'
+        a.num = 81
+        break
+      default:
+        a.name = '九九天劫'
+        a.num = 81
+        break
+    }
+    e.reply(`你需要渡过${a.name}`)
+  },
+  [/^(#|\/)?渡劫抽卡$/]
+)
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
     const level = getLevelById(data.level_id + 1)
     if (!level.name) {
       e.reply('已达巅峰')
@@ -151,7 +320,7 @@ message.use(
     e.reply(`当前突破概率: ${p}\nPS: 低于40%时不可能成功哦`)
     return false
   },
-  [/(#|)?查看突破概率$/]
+  [/^(#|)?查看突破概率$/]
 )
 
 export default message

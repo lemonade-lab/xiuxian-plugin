@@ -50,7 +50,7 @@ message.use(
       e.reply('操作频繁')
       return
     }
-    const T = data.kills[ID]
+    const T = data.skill[ID]
     if (T) {
       e.reply(`已学习`)
       return
@@ -70,7 +70,7 @@ message.use(
 
     const sData = getSkillById(Number(ID))
     data.efficiency += sData.efficiency
-    data.kills[ID] = true
+    data.skill[ID] = true
     // 保存
 
     DB.create(uid, data)
@@ -152,56 +152,6 @@ message.use(
     return
   },
   [/^(#|\/)?卸下武器/]
-)
-
-message.use(
-  async e => {
-    if (!e.isMaster) {
-      e.reply('权限不足')
-      return
-    }
-    const all = await DB.findAll()
-    for (const data of all) {
-      if (Object.prototype.toString.call(data.bags) === '[object Array]')
-        continue
-      if (
-        Object.keys(data.bags['kills']).length > 0 ||
-        Object.keys(data.bags['equipments']).length > 0
-      ) {
-        const newBag = []
-        for (const key in data.bags['kills']) {
-          const item = data.bags['kills'][key]
-          if (item) {
-            newBag.push({
-              id: key,
-              count: 1,
-              type: 'skill',
-              name: SkillNameMap[key]
-            })
-          }
-        }
-        for (const key in data.bags['equipments']) {
-          const item = data.bags['equipments'][key]
-          if (item) {
-            newBag.push({
-              id: key,
-              count: 1,
-              type: 'equipment',
-              name: EquipmentNameMap[key]
-            })
-          }
-        }
-        data.bags = newBag
-        await DB.create(data.uid, data)
-      } else {
-        data.bags = []
-        await DB.create(data.uid, data)
-      }
-    }
-    e.reply('同步数据成功')
-    return false
-  },
-  [/(#|\/)?同步旧版背包数据$/]
 )
 
 export default message
