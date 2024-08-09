@@ -87,7 +87,7 @@ message.use(
       data.blood = cur > allBlood ? allBlood : cur
       // 后得的血量上限
       const baseBlood = Math.floor((Now - time) / (1000 * 60))
-      data.base.blood += baseBlood * data.level_id
+      data.base.blood += baseBlood * (data.level_id || 1)
       DB.create(uid, data)
     }
     // 修正名字
@@ -167,8 +167,9 @@ message.use(
     }
     const attack = Math.floor(((Now - time) / (1000 * 60)) * 0.6)
     const defense = Math.floor(((Now - time) / (1000 * 60)) * 0.2)
-    data.base.attack += attack * data.level_id
-    data.base.defense += defense * data.level_id
+
+    data.base.attack += attack * (data.level_id || 1)
+    data.base.defense += defense * (data.level_id || 1)
     await DB.create(uid, data)
 
     component.message(data, uid).then(img => {
@@ -267,7 +268,7 @@ message.use(
       return
     }
     const size = Math.floor(data.blood / MINING_BLOOD)
-    const money = Math.floor((size * MINING_MONEY * data.level_id) / 5)
+    const money = Math.floor((size * MINING_MONEY * (data.level_id || 1)) / 5)
     data.blood -= size * MINING_BLOOD
     data.money += money
 

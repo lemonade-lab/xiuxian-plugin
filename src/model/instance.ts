@@ -1,4 +1,5 @@
 import { EquipmentNameMap } from './base'
+import { MedicineList } from './medicine'
 import { UserMessageType } from './types'
 
 export const InstanceList = [
@@ -78,6 +79,50 @@ export const InstanceList = [
     award: {
       item: getAward(29, 33)
     }
+  },
+  {
+    id: 8,
+    name: '魔境',
+    min_level: 33,
+    price: 20000,
+    failed_rate: 0.65,
+    desc: '传说中，魔境之中隐藏着无尽的宝藏，但同时也充满了危险。',
+    award: {
+      item: getAward(33, 37)
+    }
+  },
+  {
+    id: 9,
+    name: '幽冥森林',
+    min_level: 37,
+    price: 30000,
+    failed_rate: 0.7,
+    desc: '幽冥森林中，有着无数的亡灵，但据说其中也隐藏着无尽的宝藏。',
+    award: {
+      item: getAward(37, 41)
+    }
+  },
+  {
+    id: 10,
+    name: '龙巢',
+    min_level: 41,
+    price: 45000,
+    failed_rate: 0.75,
+    desc: '传说中，龙巢之中隐藏着无尽的宝藏，但同时也充满了危险。',
+    award: {
+      item: getAward(41, 45)
+    }
+  },
+  {
+    id: 101,
+    name: '百花谷',
+    min_level: 0,
+    desc: '这是一个充满美丽花朵的谷地，据说里面隐藏着许多珍贵的草药。',
+    award: {
+      item: getAward1(1, 7)
+    },
+    price: 100,
+    failed_rate: 0.2
   }
 ]
 
@@ -105,27 +150,31 @@ export function InstanceSettleAccount(
         const item = instance.award.item[index]
         const id = item.id
         const item1 = user.bags.find(b => b.id === id)
+        const name =
+          item.type === 'equipment'
+            ? EquipmentNameMap[id]
+            : MedicineList.find(m => m.id === id).name
         if (!item1 || item1.count === 0) {
           user.bags.push({
             id: id,
             count: item.num,
             type: item.type as any,
-            name: EquipmentNameMap[id]
+            name: name
           })
         } else {
           item1.count += item.num
         }
-        msg.push(`你获得了${item.num}个${EquipmentNameMap[id]}！`)
+        msg.push(`你获得了${item.num}个${name}！`)
         break
       }
     }
     const ran = Math.random()
     if (ran < 0.3) {
-      user.base.defense += Math.floor(instance.id ** 1.5 * 20)
+      user.base.defense += Math.floor((instance.id % 100) ** 1.5 * 20)
     } else if (ran < 0.6) {
-      user.base.attack += Math.floor(instance.id ** 1.5 * 60)
+      user.base.attack += Math.floor((instance.id % 100) ** 1.5 * 60)
     } else {
-      user.base.blood += Math.floor(instance.id ** 1.5 * 80)
+      user.base.blood += Math.floor((instance.id % 100) ** 1.5 * 80)
     }
   }
   return { msg, user }
@@ -142,5 +191,18 @@ function getAward(start, end) {
     list.push({ id: i, num: 1, rate: rate, type: 'equipment' })
   }
 
+  return list
+}
+
+function getAward1(start, end) {
+  const list = []
+  const n = end - start
+  const r = 0.5 // 公比
+  const a1 = (1 - r) / (1 - Math.pow(r, n)) // 首项
+
+  for (let i = start; i < end; i++) {
+    const rate = Number((a1 * Math.pow(r, i - start)).toFixed(4))
+    list.push({ id: i, num: 1, rate: rate, type: 'medicine' })
+  }
   return list
 }

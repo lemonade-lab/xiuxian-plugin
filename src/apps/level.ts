@@ -10,6 +10,7 @@ import { clearBotTask, Messages, Segment, setBotTask } from 'yunzai'
 import { DB } from '../model/db-system.js'
 import RedisClient from '../model/redis.js'
 import { LevelNameMap } from '../model/base.js'
+import image from '../image/index.js'
 
 const message = new Messages('message.group')
 /**
@@ -321,6 +322,33 @@ message.use(
     return false
   },
   [/^(#|)?查看突破概率$/]
+)
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const level = getLevelById(data.level_id + 1)
+    if (!level.name) {
+      e.reply('已达巅峰')
+      return
+    }
+    const levelList = []
+    for (let i = 0; i < 10; i++) {
+      if (LevelNameMap[data.level_id + i]) {
+        levelList.push(data.level_id + i)
+      }
+    }
+
+    const img = await image.levelList(levelList)
+    if (img) await e.reply(Segment.image(img))
+    return false
+  },
+  [/^(#|\/)?练气境界$/]
 )
 
 export default message

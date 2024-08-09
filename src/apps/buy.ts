@@ -5,6 +5,9 @@ import component from '../image/index.js'
 import { getUserName } from '../model/utils.js'
 import { Messages, Segment } from 'yunzai'
 import { DB } from '../model/db-system.js'
+import { MedicineList } from '../model/medicine.js'
+import image from '../image/index.js'
+import { getLevelById } from '../model/level.js'
 const message = new Messages('message.group')
 message.use(
   async e => {
@@ -152,6 +155,10 @@ message.use(
       const sData = getSkillById(itemData.id)
       data.money += sData.price * Number(count)
       money = sData.price * Number(count)
+    } else if (itemData.type === 'medicine') {
+      const sData = MedicineList.find(v => v.name === item)
+      data.money += sData.price * Number(count)
+      money = sData.price * Number(count)
     }
     await DB.create(uid, data)
     e.reply(`出售${item}x${count}，获得灵石${money}`)
@@ -214,6 +221,10 @@ message.use(
         money += sData.price * v.count
       } else if (v.type === 'skill') {
         const sData = getSkillById(v.id)
+        data.money += sData.price * v.count
+        money += sData.price * v.count
+      } else if (v.type === 'medicine') {
+        const sData = MedicineList.find(v => v.name === v.name)
         data.money += sData.price * v.count
         money += sData.price * v.count
       }
@@ -290,6 +301,78 @@ message.use(
     return false
   },
   [/^(#|\/)?锁定/]
+)
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    const data = await DB.findOne(uid)
+    if (!data) {
+      e.reply('操作频繁')
+      return
+    }
+    const msg = e.msg.replace(/^(#|\/)?服用/, '')
+    if (msg === '') {
+      e.reply('请输入丹药名称')
+    }
+    let name = msg
+    let count = 1
+    if (msg.includes('*')) {
+      const arr = msg.split('*')
+      name = arr[0]
+      count = Number(arr[1])
+    }
+    const item = data.bags.find(v => v.name === name)
+    if (!item) {
+      e.reply(`没有${name}`)
+      return
+    }
+    if (item.type !== 'medicine') {
+      e.reply('这不是丹药')
+      return
+    }
+    if (item.count < count) {
+      e.reply('数量不足')
+    }
+    const sData = MedicineList.find(v => v.name === name)
+    if (!sData) {
+      e.reply('丹药不存在')
+      return
+    }
+    switch (sData.type) {
+      case 'blood':
+        if (sData.blood > 1) {
+          data.blood += sData.blood * count
+        } else {
+          const level = getLevelById(data.level_id)
+          let allBlood = data.base.blood + level.blood
+          for (const key in data.equipments) {
+            if (data.equipments[key] == null) continue
+            const equipment = getEquipmentById(Number(data.equipments[key]))
+            allBlood += equipment.blood
+          }
+          data.blood += Math.floor(allBlood * sData.blood)
+          data.blood = data.blood > allBlood ? allBlood : data.blood
+        }
+        break
+      case 'attack':
+        data.base.attack += sData.attack * count
+        break
+      case 'agile':
+        data.base.agile += sData.agile * count
+        break
+      default:
+        break
+    }
+    item.count -= count
+    if (item.count === 0) {
+      data.bags = data.bags.filter(v => v.name !== name)
+    }
+    await DB.create(uid, data)
+    const img = await image.message(data, uid)
+    if (img) e.reply(Segment.image(img))
+  },
+  [/^(#|\/)?服用/]
 )
 
 export default message

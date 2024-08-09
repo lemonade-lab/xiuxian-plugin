@@ -41,11 +41,17 @@ export default function App({ data, status = false }: ComponentType) {
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
   // 敏捷
-  const agile = equipment.agile + level.agile
+  const agile = equipment.agile + level.agile + data.base.agile
   // 暴击率
-  const critical_hit_rate = equipment.critical_hit_rate + level.critical_hit_rate
+  const critical_hit_rate =
+    equipment.critical_hit_rate +
+    level.critical_hit_rate +
+    data.base.critical_hit_rate
   // 暴击伤害
-  const critical_damage = equipment.critical_damage + level.critical_damage
+  const critical_damage =
+    equipment.critical_damage +
+    level.critical_damage +
+    data.base.critical_damage
 
   const kills: string[] = Object.keys(data.skill)
 

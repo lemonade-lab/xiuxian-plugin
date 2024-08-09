@@ -13,6 +13,7 @@ import LeaderBoardComponent, {
   LeaderBoardDataType
 } from '../component/leaderboard.tsx'
 import ExchangeComponent, { ExchangeDataType } from '../component/exchange.tsx'
+import LevelListComponent from '../component/levelList.tsx'
 import { dirname } from 'node:path'
 //
 const require = createRequire(import.meta.url)
@@ -230,6 +231,23 @@ class Image extends Picture {
       ),
       html_body: <ExchangeComponent {...data} />,
       file_paths: Paths
+    })
+  }
+
+  async levelList(data: Array<number>) {
+    return this.screenshot({
+      join_dir: 'levelList',
+      html_name: `levelList.html`,
+      html_head: (
+        <>
+          <RootLink />
+          <link
+            rel="stylesheet"
+            href={require(`../../resources/css/leaderBoard.css`)}
+          ></link>
+        </>
+      ),
+      html_body: <LevelListComponent list={data} />
     })
   }
 }

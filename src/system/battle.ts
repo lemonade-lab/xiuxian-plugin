@@ -66,10 +66,10 @@ export function userBattle(aData: UserMessageType, bData: UserMessageType) {
       // a先出手
       if (aDamage > 0) {
         if (Math.random() < aBase.critical_hit_rate) {
-          bData.blood -= Math.floor(aDamage * aBase.critical_damage + 1)
+          bData.blood -= Math.floor(aDamage * (aBase.critical_damage + 1))
           msg.push(
             `${aData.name}触发了暴击，对${bData.name}造成${Math.floor(
-              aDamage * aBase.critical_damage + 1
+              aDamage * (aBase.critical_damage + 1)
             )}点伤害`
           )
         } else {
@@ -88,10 +88,10 @@ export function userBattle(aData: UserMessageType, bData: UserMessageType) {
       }
       if (bDamage > 0) {
         if (Math.random() < bBase.critical_hit_rate) {
-          aData.blood -= Math.floor(bDamage * bBase.critical_damage + 1)
+          aData.blood -= Math.floor(bDamage * (bBase.critical_damage + 1))
           msg.push(
             `${bData.name}触发了暴击，对${aData.name}造成${Math.floor(
-              bDamage * bBase.critical_damage + 1
+              bDamage * (bBase.critical_damage + 1)
             )}点伤害`
           )
         } else {
@@ -113,10 +113,10 @@ export function userBattle(aData: UserMessageType, bData: UserMessageType) {
       msg.push(`${bData.name}敏捷更高，发现了${aData.name}，并抢先出手`)
       if (bDamage > 0) {
         if (Math.random() < bBase.critical_hit_rate) {
-          aData.blood -= Math.floor(bDamage * bBase.critical_damage + 1)
+          aData.blood -= Math.floor(bDamage * (bBase.critical_damage + 1))
           msg.push(
             `${bData.name}触发了暴击，对${aData.name}造成${Math.floor(
-              bDamage * bBase.critical_damage + 1
+              bDamage * (bBase.critical_damage + 1)
             )}点伤害`
           )
         } else {
@@ -133,10 +133,10 @@ export function userBattle(aData: UserMessageType, bData: UserMessageType) {
       }
       if (aDamage > 0) {
         if (Math.random() < aBase.critical_hit_rate) {
-          bData.blood -= Math.floor(aDamage * aBase.critical_damage + 1)
+          bData.blood -= Math.floor(aDamage * (aBase.critical_damage + 1))
           msg.push(
             `${aData.name}触发了暴击，对${bData.name}造成${Math.floor(
-              aDamage * aBase.critical_damage + 1
+              aDamage * (aBase.critical_damage + 1)
             )}点伤害`
           )
         } else {

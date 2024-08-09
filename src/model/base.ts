@@ -9,7 +9,7 @@ export const BaseEquipment = {
   defense: 23, // 防御
   blood: 9, // 血量
   agile: 1, // 敏捷
-  critical_hit_rate: 0.001, // 暴击率
+  critical_hit_rate: 0.0007, // 暴击率
   critical_damage: 0.001, // 暴击伤害
   price: 99 // 价格
 }
@@ -90,7 +90,7 @@ export const UserMessageBase = {
     id: number
     count: number
     name: string
-    type: 'skill' | 'equipment'
+    type: 'skill' | 'equipment' | 'medicine'
     isLocked?: boolean
   }[]
 }

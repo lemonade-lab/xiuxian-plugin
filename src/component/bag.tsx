@@ -4,6 +4,7 @@ import { getEquipmentById } from '../model/equipment.js'
 import { getSkillById } from '../model/skills.js'
 import HeaderComponent from './header.js'
 import { createRequire } from 'module'
+import { MedicineList } from '../model/medicine.js'
 const require = createRequire(import.meta.url)
 type ComponentType = {
   data: UserMessageType
@@ -33,6 +34,17 @@ export default function App({ data }: ComponentType) {
         account: item.count
       })
     })
+
+  const medicines = data.bags
+    .filter(item => item.type === 'medicine')
+    .map(item => {
+      const i = MedicineList.find(i => i.id === Number(item.id))
+      return {
+        ...i,
+        account: item.count
+      }
+    })
+
   const kills = data.bags
     .filter(item => item.type === 'skill')
     .map(item => {
@@ -158,6 +170,66 @@ export default function App({ data }: ComponentType) {
                       <span className="nav-box-item-font">
                         {item.critical_damage}
                       </span>
+                    </div>
+                    <div className="equipment-box-item-j">
+                      <img
+                        className="nav-box-item-img"
+                        src={require('../../resources/svg/money.svg')}
+                      />
+                      <span className="nav-box-item-font">{item.price}</span>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {medicines.length > 0 && (
+        <div className="equipment">
+          <div className="equipment-box">
+            <span className="menu-button-flat">丹药列表</span>
+            {medicines.map((item, index) => {
+              return (
+                <div key={index}>
+                  <div className="equipment-box-item">
+                    <div className="equipment-box-item-j">
+                      <img
+                        className="nav-box-item-img"
+                        src={require('../../resources/svg/equitment.svg')}
+                      />
+                      <span className="nav-box-item-font">{item.name}</span>
+                    </div>
+                    <div className="equipment-box-item-j">
+                      <img
+                        className="nav-box-item-img"
+                        src={require('../../resources/svg/acount.svg')}
+                      />
+                      <span className="nav-box-item-font">{item.account}</span>
+                    </div>
+                  </div>
+                  <div className="equipment-box-item">
+                    <div className="equipment-box-item-j">
+                      <img
+                        className="nav-box-item-img"
+                        src={require('../../resources/svg/attack.svg')}
+                      />
+                      <span className="nav-box-item-font">{item.attack}</span>
+                    </div>
+                    <div className="equipment-box-item-j">
+                      <img
+                        className="nav-box-item-img"
+                        src={require('../../resources/svg/blood.svg')}
+                      />
+                      <span className="nav-box-item-font">{item.blood}</span>
+                    </div>
+                    <div className="equipment-box-item-j">
+                      <img
+                        className="nav-box-item-img"
+                        src={require('../../resources/svg/agile.svg')}
+                      />
+                      <span className="nav-box-item-font">{item.agile}</span>
                     </div>
                     <div className="equipment-box-item-j">
                       <img
