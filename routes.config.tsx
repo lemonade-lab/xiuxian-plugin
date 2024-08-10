@@ -4,10 +4,9 @@ import { DB } from './src/model/db-system'
 import {
   Bag as BagComponent,
   Equipment as EquipmentComponent,
-  Hello as HelloComponent,
   Message as MessageComponent,
-  LeaderBoard as LeaderBoardComponent,
-  LevelList as LevelListComponent,
+  // LeaderBoard as LeaderBoardComponent,
+  // LevelList as LevelListComponent,
   Shopping as ShoppingComponent,
   Exchange as ExchangeComponent,
   Skill as KillComponent
@@ -21,26 +20,38 @@ const RootLink = () => {
   // 引入解析后的 css
   return <link rel="stylesheet" href={require('./public/output.css')} />
 }
+
+const html_files = [require('./resources/css/root.css')]
+
 // test
 const UID = 1715713638
 export default defineConfig([
   {
-    url: '/bag'
+    url: '/bag',
+    options: {
+      html_head: <RootLink />,
+      html_body: (
+        <BagComponent
+          data={(await DB.findOne(UID)) as any}
+        />
+      ),
+      file_paths: Paths,
+      html_files: html_files
+    }
   },
   {
-    url: '/equipment'
-  },
-  {
-    url: '/exchange'
-  },
-  {
-    url: '/exchange'
-  },
-  {
-    url: '/leaderboard'
-  },
-  {
-    url: '/levelList'
+    url: '/equipment',
+    options: {
+      html_head: <RootLink />,
+      html_body: (
+        <EquipmentComponent
+          data={(await DB.findOne(UID)) as any}
+          status={false}
+        />
+      ),
+      file_paths: Paths,
+      html_files: html_files
+    }
   },
   {
     url: '/message',
@@ -53,13 +64,34 @@ export default defineConfig([
         />
       ),
       file_paths: Paths,
-      html_files: [require('./resources/css/root.css')]
+      html_files: html_files
     }
   },
   {
-    url: '/shopping'
+    url: '/shopping',
+    options: {
+      html_head: <RootLink />,
+      html_body: (
+        <ShoppingComponent
+          data={(await DB.findOne(UID)) as any}
+        />
+      ),
+      file_paths: Paths,
+      html_files: html_files
+    }
   },
   {
-    url: '/skill'
+    url: '/skill',
+    options: {
+      html_head: <RootLink />,
+      html_body: (
+        <KillComponent
+          data={(await DB.findOne(UID)) as any}
+          status={false}
+        />
+      ),
+      file_paths: Paths,
+      html_files: html_files
+    }
   }
 ])

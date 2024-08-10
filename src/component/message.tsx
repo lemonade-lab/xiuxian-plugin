@@ -6,6 +6,7 @@ import { getLevelById } from '../model/level.js'
 import { SkillNameMap } from '../model/base.js'
 import { getEquipmentById } from '../model/equipment.js'
 import Help from './Help.js'
+import Box from './Box.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -78,91 +79,79 @@ export default function App({ data, status = false }: ComponentType) {
       {
         // 签名
       }
-      <div className="p-4 mt-2">
-        <div className="relative bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
-          <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
-            #签名+字符
-          </span>
-          <span className="flex flex-wrap relative p-4 ">{data.autograph}</span>
-        </div>
-      </div>
+
+      <Box title={'#签名+字符'}>
+        <span className="flex flex-wrap relative p-4 ">{data.autograph}</span>
+      </Box>
       {
         // 装备信息
       }
-      <div className="p-4 mt-2">
-        <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
-          <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
-            #装备信息
+
+      <Box title={' #装备信息'}>
+        <div className="flex flex-grow flex-shrink-0 w-1/2">
+          <img
+            className="mr-1"
+            src={require('../../resources/svg/attack.svg')}
+          />
+          <span className="pr-1">攻击</span>
+          <span>{attack}</span>
+          <span className="text-[var(--font-color)]">{`(+${+data.base
+            .attack})`}</span>
+        </div>
+        <div className="flex flex-grow flex-shrink-0 w-1/2">
+          <img
+            className="mr-1"
+            src={require('../../resources/svg/defense.svg')}
+          />
+          <span className="pr-1">防御</span>
+          <span>{`${defense}`}</span>
+          <span className="ltext-[var(--font-color)]">
+            {`(+${data.base.defense})`}
           </span>
-          <div className="flex flex-grow flex-shrink-0 w-1/2">
-            <img
-              className="mr-1"
-              src={require('../../resources/svg/attack.svg')}
-            />
-            <span className="pr-1">攻击</span>
-            <span>{attack}</span>
-            <span className="text-[var(--font-color)]">{`(+${+data.base
-              .attack})`}</span>
-          </div>
-          <div className="flex flex-grow flex-shrink-0 w-1/2">
-            <img
-              className="mr-1"
-              src={require('../../resources/svg/defense.svg')}
-            />
-            <span className="pr-1">防御</span>
-            <span>{`${defense}`}</span>
-            <span className="ltext-[var(--font-color)]">
-              {`(+${data.base.defense})`}
-            </span>
-          </div>
-          <div className="flex flex-grow flex-shrink-0 w-1/2">
-            <img
-              className="mr-1"
-              src={require('../../resources/svg/blood.svg')}
-            />
-            <span className="pr-1">血量</span>
-            <span>{`${blood}`}</span>
-            <span className="text-[var(--font-color)]">
-              {`(+${data.base.blood})`}
-            </span>
-          </div>
-          <div className="flex flex-grow flex-shrink-0 w-1/2">
-            <img
-              className="mr-1"
-              src={require('../../resources/svg/agile.svg')}
-            />
-            <span className="pr-1">敏捷</span>
-            <span>{`${agile}`}</span>
-          </div>
-          <div className="flex flex-grow flex-shrink-0 w-1/2">
-            <img
-              className="mr-1"
-              src={require('../../resources/svg/critical_hit_rate.svg')}
-            />
-            <span className="pr-1">爆率</span>
-            <span>{`${critical_hit_rate}`}</span>
-          </div>
-          <div className="flex flex-grow flex-shrink-0 w-1/2">
-            <img
-              className="mr-1"
-              src={require('../../resources/svg/critical_damage.svg')}
-            />
-            <span className="pr-1">暴伤</span>
-            <span>{`${critical_damage}`}</span>
-          </div>
         </div>
-      </div>
+        <div className="flex flex-grow flex-shrink-0 w-1/2">
+          <img
+            className="mr-1"
+            src={require('../../resources/svg/blood.svg')}
+          />
+          <span className="pr-1">血量</span>
+          <span>{`${blood}`}</span>
+          <span className="text-[var(--font-color)]">
+            {`(+${data.base.blood})`}
+          </span>
+        </div>
+        <div className="flex flex-grow flex-shrink-0 w-1/2">
+          <img
+            className="mr-1"
+            src={require('../../resources/svg/agile.svg')}
+          />
+          <span className="pr-1">敏捷</span>
+          <span>{`${agile}`}</span>
+        </div>
+        <div className="flex flex-grow flex-shrink-0 w-1/2">
+          <img
+            className="mr-1"
+            src={require('../../resources/svg/critical_hit_rate.svg')}
+          />
+          <span className="pr-1">爆率</span>
+          <span>{`${critical_hit_rate}`}</span>
+        </div>
+        <div className="flex flex-grow flex-shrink-0 w-1/2">
+          <img
+            className="mr-1"
+            src={require('../../resources/svg/critical_damage.svg')}
+          />
+          <span className="pr-1">暴伤</span>
+          <span>{`${critical_damage}`}</span>
+        </div>
+      </Box>
+
       {kills.length > 0 && (
-        <div className="p-4  mt-2 text-lg">
-          <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
-            {kills.map((item, index) => (
-              <span key={index}>《{SkillNameMap[item]}》 </span>
-            ))}
-            <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
-              #功法信息
-            </span>
-          </div>
-        </div>
+        <Box title={'#功法信息'}>
+          {kills.map((item, index) => (
+            <span key={index}>《{SkillNameMap[item]}》 </span>
+          ))}
+        </Box>
       )}
       <Help
         list={[

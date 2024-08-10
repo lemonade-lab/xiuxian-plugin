@@ -5,6 +5,7 @@ import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getEquipmentById } from '../model/equipment.js'
 import Help from './Help.js'
+import Box from './Box.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -72,75 +73,70 @@ export default function App({ data, status = false }: ComponentType) {
         status={status}
       />
       {datas.length > 0 && (
-        <div className="p-8 text-lg">
-          <div className="flex flex-wrap relative flex-col p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
-            <span className="rounded-t-lg absolute top-[-46px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] rounded-md text-sm px-1 py-1 m-1">
-              #功法信息
-            </span>
-            {datas.map((item, index) => {
-              return (
-                <div key={index} className="aflex flex-wrap">
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/equitment.svg')}
-                    />
-                    <span>{item.name}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/attack.svg')}
-                    />
-                    <span>{item.attack}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/defense.svg')}
-                    />
-                    <span>{item.defense}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/blood.svg')}
-                    />
-                    <span>{item.blood}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/agile.svg')}
-                    />
-                    <span className="mr-2">{item.agile}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/critical_hit_rate.svg')}
-                    />
-                    <span>{item.critical_hit_rate}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/critical_damage.svg')}
-                    />
-                    <span>{item.critical_damage}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/money.svg')}
-                    />
-                    <span>{item.price}</span>
-                  </div>
+        <Box title={'#功法信息'}>
+          {datas.map((item, index) => {
+            return (
+              <div key={index} className="flex flex-wrap">
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/equitment.svg')}
+                  />
+                  <span>{item.name}</span>
                 </div>
-              )
-            })}
-          </div>
-        </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/attack.svg')}
+                  />
+                  <span>{item.attack}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/defense.svg')}
+                  />
+                  <span>{item.defense}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/blood.svg')}
+                  />
+                  <span>{item.blood}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/agile.svg')}
+                  />
+                  <span className="mr-2">{item.agile}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/critical_hit_rate.svg')}
+                  />
+                  <span>{item.critical_hit_rate}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/critical_damage.svg')}
+                  />
+                  <span>{item.critical_damage}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/money.svg')}
+                  />
+                  <span>{item.price}</span>
+                </div>
+              </div>
+            )
+          })}
+        </Box>
       )}
       <Help list={['#装备武器+武器名', '#卸下武器+武器名']}></Help>
     </div>

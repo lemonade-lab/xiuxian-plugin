@@ -6,6 +6,7 @@ import { getLevelById } from '../model/level.js'
 import { getSkillById } from '../model/skills.js'
 import { getEquipmentById } from '../model/equipment.js'
 import Help from './Help.js'
+import Box from './Box.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -60,42 +61,36 @@ export default function App({ data, status = false }: ComponentType) {
         status={status}
       />
       {kills.length > 0 && (
-        <div className="p-8 text-lg">
-          <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
-            <span className="bg-gray-300 text-gray-700 rounded-t-lg text-lg px-2 py-1 absolute top-0 left-4">
-              #功法信息
-            </span>
-            {kills.map((item, index) => {
-              return (
-                <div key={index} className="flex">
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/skills.svg')}
-                    />
-                    <span>{item.name}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/efficiency.svg')}
-                    />
-                    <span>{item.efficiency}</span>
-                  </div>
-                  <div className="flex flex-wrap mr-4">
-                    <img
-                      className="mr-2"
-                      src={require('../../resources/svg/money.svg')}
-                    />
-                    <span>{item.price}</span>
-                  </div>
+        <Box title="#功法信息">
+          {kills.map((item, index) => {
+            return (
+              <div key={index} className="flex">
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/skills.svg')}
+                  />
+                  <span>{item.name}</span>
                 </div>
-              )
-            })}
-          </div>
-        </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/efficiency.svg')}
+                  />
+                  <span>{item.efficiency}</span>
+                </div>
+                <div className="flex flex-wrap mr-4">
+                  <img
+                    className="mr-2"
+                    src={require('../../resources/svg/money.svg')}
+                  />
+                  <span>{item.price}</span>
+                </div>
+              </div>
+            )
+          })}
+        </Box>
       )}
-
       <Help list={['#学习+功法名']}></Help>
     </div>
   )
