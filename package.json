@@ -15,6 +15,7 @@
     "css:w": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
     "prepare": "husky",
     "format": "npx prettier --write .",
+    "check-format": "git diff --exit-code",
     "build": "npm run css:m && rollup --config rollup.config.js"
   },
   "dependencies": {

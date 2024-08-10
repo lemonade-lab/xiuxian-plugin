@@ -30,11 +30,7 @@ export default defineConfig([
     url: '/bag',
     options: {
       html_head: <RootLink />,
-      html_body: (
-        <BagComponent
-          data={(await DB.findOne(UID)) as any}
-        />
-      ),
+      html_body: <BagComponent data={(await DB.findOne(UID)) as any} />,
       file_paths: Paths,
       html_files: html_files
     }
@@ -71,11 +67,7 @@ export default defineConfig([
     url: '/shopping',
     options: {
       html_head: <RootLink />,
-      html_body: (
-        <ShoppingComponent
-          data={(await DB.findOne(UID)) as any}
-        />
-      ),
+      html_body: <ShoppingComponent data={(await DB.findOne(UID)) as any} />,
       file_paths: Paths,
       html_files: html_files
     }
@@ -85,10 +77,7 @@ export default defineConfig([
     options: {
       html_head: <RootLink />,
       html_body: (
-        <KillComponent
-          data={(await DB.findOne(UID)) as any}
-          status={false}
-        />
+        <KillComponent data={(await DB.findOne(UID)) as any} status={false} />
       ),
       file_paths: Paths,
       html_files: html_files
