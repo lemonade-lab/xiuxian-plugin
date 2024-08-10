@@ -99,7 +99,7 @@ export default function App({
             // 状态
           }
           {status && (
-            <span className="absolute top-0 right-0 z-10 px-2 rounded-md bg-[var(--nav-state-color)]  before:bsolute  before:w-3  before:h-3  before:rounded-full  before:bottom-0  before:left-0">
+            <span className="absolute top-0 right-0 z-10 px-2 rounded-md bg-[var(--nav-state-color)]  before:absolute  before:w-3  before:h-3  before:rounded-full  before:bottom-0  before:left-0">
               闭关
             </span>
           )}

@@ -105,7 +105,7 @@ export default function App({ data, status = false }: ComponentType) {
           />
           <span className="pr-1">防御</span>
           <span>{`${defense}`}</span>
-          <span className="ltext-[var(--font-color)]">
+          <span className="text-[var(--font-color)]">
             {`(+${data.base.defense})`}
           </span>
         </div>
