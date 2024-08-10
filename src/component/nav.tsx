@@ -1,8 +1,9 @@
 import React from 'react'
+import { createRequire } from 'react-puppeteer'
 import { LevelNameMap, ThemesColor } from '../model/base'
 import { UserMessageType } from '../model/types'
 import HeaderComponent from './header.js'
-import { createRequire } from 'module'
+import classNames from 'classnames'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -20,72 +21,119 @@ export default function App({
   blood,
   status = false
 }: ComponentType) {
+  //
   const pro = Math.floor((now / blood) * 100)
+  //
   const color = `linear-gradient(to right, ${
     ThemesColor[data.theme].left
   } ${pro}%,${ThemesColor[data.theme].right}  ${pro}%)`
+  //
+  const List = [
+    {
+      title: '金',
+      className: 'bg-yellow-500'
+    },
+    {
+      title: '木',
+      className: 'bg-green-500'
+    },
+    {
+      title: '水',
+      className: 'bg-blue-500'
+    },
+    {
+      title: '火',
+      className: 'bg-red-500'
+    },
+    {
+      title: '土',
+      className: 'bg-indigo-500'
+    }
+  ]
+  //
   return (
-    <div className="nav">
+    <div className="p-4">
       <HeaderComponent />
-      <div className="nav-box">
-        <span className="menu-button-flat">#个人信息</span>
-        <span className="nav-talent">
-          <span className="nav-talent-item nav-talent-item-1">金</span>
-          <span className="nav-talent-item nav-talent-item-2">木</span>
-          <span className="nav-talent-item nav-talent-item-3">水</span>
-          <span className="nav-talent-item nav-talent-item-4">火</span>
-          <span className="nav-talent-item nav-talent-item-5">土</span>
+      <div className="flex justify-between relative nav-box bg-[var(--bg-color)] rounded-md mt-8 p-2">
+      <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
+      #个人信息
         </span>
-        <div className="nav-box-flex">
-          <div className="nav-box-item">
+        <span className="text-white rounded-t-lg text-lg absolute top-[-46px] flex right-0">
+          {List.map((item, index) => (
+            <span
+              key={index}
+              className={classNames(
+                'rounded-full m-1 size-8 text-center shadow border-2 border-white ',
+                item.className
+              )}
+            >
+              {item.title}
+            </span>
+          ))}
+        </span>
+        <div className="flex-1 m-auto">
+          <div className="flex justify-center">
             <img
-              className="nav-box-item-img"
+              className="mr-2"
               src={require('../../resources/svg/name.svg')}
             />
             <span>{data.name}</span>
           </div>
-          <div className="nav-box-item">
+          <div className="flex justify-center">
             <img
-              className="nav-box-item-img"
+              className="mr-2"
               src={require('../../resources/svg/level.svg')}
             />
             <span>{LevelNameMap[data.level_id]}</span>
           </div>
         </div>
-        <div className="nav-box-flex nav-box-avatar">
+        <div className="flex-1 m-auto relative text-center">
+          {
+            // 头像
+          }
           <img
-            className="nav-box-img"
+            className=" bg-cover m-auto bg-center size-36 rounded-full border-2 border-white"
             src={`https://q1.qlogo.cn/g?b=qq&s=0&nk=${data.uid}`}
           />
-          {status && <span className="nav-state">闭关</span>}
+          {
+            // 状态
+          }
+          {status && (
+            <span className="absolute top-0 right-0 z-10 px-2 rounded-md bg-[var(--nav-state-color)]  before:bsolute  before:w-3  before:h-3  before:rounded-full  before:bottom-0  before:left-0">
+              闭关
+            </span>
+          )}
           <div
-            className="nav-box-uid"
+            className="absolute bottom-0 text-center w-full left-0 text-white font-semibold bg-[var(--uid-background-color)] rounded-[20px]"
             style={{
               background: color
             }}
           >
             {data.uid}
           </div>
-          <span className="nav-box-blood">{`${now}/${blood}-${pro}%`}</span>
+          {
+            //
+          }
+          <span className="absolute w-full text-center left-0 text-white  text-sm ">{`${now}/${blood}-${pro}%`}</span>
         </div>
-        <div className="nav-box-flex">
-          <div className="nav-box-item">
+        <div className="flex-1 m-auto">
+          <div className="flex justify-center">
             <img
-              className="nav-box-item-img"
+              className="mr-2"
               src={require('../../resources/svg/power.svg')}
             />
             <span>{power}</span>
           </div>
-          <div className="nav-box-item">
+          <div className="flex justify-center">
             <img
-              className="nav-box-item-img"
+              className="mr-2"
               src={require('../../resources/svg/money.svg')}
             />
             <span>{data.money}</span>{' '}
           </div>
-          <div className="nav-box-item">
+          <div className="flex justify-center">
             <img
-              className="nav-box-item-img"
+              className="mr-2"
               src={require('../../resources/svg/efficiency.svg')}
             />
             <span>{data.efficiency}</span>{' '}

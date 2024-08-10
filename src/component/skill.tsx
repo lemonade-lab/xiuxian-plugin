@@ -1,10 +1,11 @@
 import React from 'react'
+import { createRequire } from 'react-puppeteer'
 import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getSkillById } from '../model/skills.js'
 import { getEquipmentById } from '../model/equipment.js'
-import { createRequire } from 'module'
+import Help from './Help.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -43,7 +44,14 @@ export default function App({ data, status = false }: ComponentType) {
   const kills = Object.keys(data.skill).map(item => getSkillById(Number(item)))
 
   return (
-    <div id="root">
+    <div
+      id="root"
+      data-theme={data.theme}
+      style={{
+        backgroundImage: 'var(--background-image)'
+      }}
+      className=" bg-[100%_auto] w-full h-full"
+    >
       <NavMessage
         data={data}
         power={power}
@@ -52,29 +60,31 @@ export default function App({ data, status = false }: ComponentType) {
         status={status}
       />
       {kills.length > 0 && (
-        <div className="kills">
-          <div className="kills-box">
-            <span className="menu-button-flat">#功法信息</span>
+        <div className="p-8 text-lg">
+          <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+            <span className="bg-gray-300 text-gray-700 rounded-t-lg text-lg px-2 py-1 absolute top-0 left-4">
+              #功法信息
+            </span>
             {kills.map((item, index) => {
               return (
-                <div key={index} className="kills-box-item">
-                  <div className="kills-box-item-j">
+                <div key={index} className="flex">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/skills.svg')}
                     />
                     <span>{item.name}</span>
                   </div>
-                  <div className="kills-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/efficiency.svg')}
                     />
                     <span>{item.efficiency}</span>
                   </div>
-                  <div className="kills-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/money.svg')}
                     />
                     <span>{item.price}</span>
@@ -85,12 +95,8 @@ export default function App({ data, status = false }: ComponentType) {
           </div>
         </div>
       )}
-      <div className="box-help">
-        <div className="box-help-box">
-          <span className="menu-button-flat">修仙小助手</span>
-          <span className="menu-button">#学习+功法名</span>
-        </div>
-      </div>
+
+      <Help list={['#学习+功法名']}></Help>
     </div>
   )
 }

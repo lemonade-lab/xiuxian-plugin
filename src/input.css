@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply text-white text-xl;
+  font-family: cursive;
+}
+
+.leaderBoard-header {
+  @apply text-center pb-5 mb-8 relative;
+}
+
+.leaderBoard-header::after {
+  @apply block w-12 h-1 bg-green-500 mx-auto mt-4;
+}
+
+.leaderBoard-header h1 {
+  @apply text-3xl font-bold uppercase m-0;
+}
+
+.leaderBoard-item {
+  @apply flex justify-between items-center p-5 border-b border-gray-300;
+}
+
+.leaderBoard-item:last-child {
+  @apply border-none;
+}
+
+.leaderBoard-item h2 {
+  @apply text-2xl font-semibold;
+}
+
+/* Highlight the first item */
+.leaderBoard-item:first-child {
+  @apply rounded-t-[8px];
+}
+
+/* Highlight the last item */
+.leaderBoard-item:last-child {
+  @apply rounded-b-[8px];
+}

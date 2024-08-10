@@ -1,9 +1,9 @@
 import React from 'react'
+import { createRequire } from 'react-puppeteer'
 import { UserMessageType } from '../model/types.js'
 import { getEquipmentById } from '../model/equipment.js'
 import { getSkillById } from '../model/skills.js'
 import HeaderComponent from './header.js'
-import { createRequire } from 'module'
 import { MedicineList } from '../model/medicine.js'
 const require = createRequire(import.meta.url)
 type ComponentType = {
@@ -55,45 +55,49 @@ export default function App({ data }: ComponentType) {
       }
     })
   return (
-    <div id="root">
-      <div className="nav">
+    <div
+      id="root"
+      data-theme={data.theme}
+      style={{
+        backgroundImage: 'var(--background-image)'
+      }}
+      className="bg-[100%_auto] w-full h-full"
+    >
+      <div className="p-4">
         <HeaderComponent />
       </div>
       {kills.length > 0 && (
-        <div className="kills">
-          <div className="kills-box">
-            <span className="menu-button-flat">#功法信息</span>
+        <div className="p-8 text-lg">
+          <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+            <span className="bg-gray-300 text-gray-700 rounded-t-lg text-lg px-2 py-1 absolute top-0 left-4">
+              #功法信息
+            </span>
             {kills.map((item, index) => {
               return (
-                <div key={index} className="kills-box-item">
-                  <div className="kills-box-item-j">
-                    <img
-                      className="nav-box-item-img"
-                      src={require('../../resources/svg/name.svg')}
-                    />
-                    <span className="nav-box-item-font">{item.name}</span>
-                  </div>
-                  <div className="kills-box-item-j">
-                    <img
-                      className="nav-box-item-img"
-                      src={require('../../resources/svg/efficiency.svg')}
-                    />
-                    <span className="nav-box-item-font">{item.efficiency}</span>
-                  </div>
-                  <div className="kills-box-item-j">
-                    <img
-                      className="nav-box-item-img"
-                      src={require('../../resources/svg/money.svg')}
-                    />
-                    <span className="nav-box-item-font">{item.price}</span>
-                  </div>
-                  <div className="kills-box-item-j">
-                    <img
-                      className="nav-box-item-img"
-                      src={require('../../resources/svg/acount.svg')}
-                    />
-                    <span className="nav-box-item-font">{item.account}</span>
-                  </div>
+                <div key={index} className="flex">
+                  {[
+                    {
+                      data: item.name,
+                      src: require('../../resources/svg/name.svg')
+                    },
+                    {
+                      data: item.efficiency,
+                      src: require('../../resources/svg/efficiency.svg')
+                    },
+                    {
+                      data: item.price,
+                      src: require('../../resources/svg/money.svg')
+                    },
+                    {
+                      data: item.account,
+                      src: require('../../resources/svg/acount.svg')
+                    }
+                  ].map((item, index) => (
+                    <div key={index} className="flex flex-wrap mr-4">
+                      <img className="mr-2" src={item.src} />
+                      <span className="mx-auto">{item.data}</span>
+                    </div>
+                  ))}
                 </div>
               )
             })}
@@ -102,81 +106,79 @@ export default function App({ data }: ComponentType) {
       )}
 
       {datas.length > 0 && (
-        <div className="equipment">
-          <div className="equipment-box">
-            <span className="menu-button-flat">#装备信息</span>
+        <div className="p-8 text-lg">
+          <div className="flex flex-wrap relative flex-col p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+            <span className="bg-gray-300 text-gray-700 rounded-t-lg text-lg px-2 py-1 absolute top-0 left-4">
+              #装备信息
+            </span>
             {datas.map((item, index) => {
               return (
                 <div key={index}>
-                  <div className="equipment-box-item">
-                    <div className="equipment-box-item-j">
+                  <div className="aflex flex-wrap">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/equitment.svg')}
                       />
-                      <span className="nav-box-item-font">{item.name}</span>
+                      <span className="mx-auto">{item.name}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/acount.svg')}
                       />
-                      <span className="nav-box-item-font">{item.account}</span>
+                      <span className="mx-auto">{item.account}</span>
                     </div>
                   </div>
-                  <div className="equipment-box-item">
-                    <div className="equipment-box-item-j">
+                  <div className="aflex flex-wrap">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/attack.svg')}
                       />
-                      <span className="nav-box-item-font">{item.attack}</span>
+                      <span className="mx-auto">{item.attack}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/defense.svg')}
                       />
-                      <span className="nav-box-item-font">{item.defense}</span>
+                      <span className="mx-auto">{item.defense}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/blood.svg')}
                       />
-                      <span className="nav-box-item-font">{item.blood}</span>
+                      <span className="mx-auto">{item.blood}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/agile.svg')}
                       />
-                      <span className="nav-box-item-font">{item.agile}</span>
+                      <span className="mx-auto">{item.agile}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/critical_hit_rate.svg')}
                       />
-                      <span className="nav-box-item-font">
-                        {item.critical_hit_rate}
-                      </span>
+                      <span className="mx-auto">{item.critical_hit_rate}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/critical_damage.svg')}
                       />
-                      <span className="nav-box-item-font">
-                        {item.critical_damage}
-                      </span>
+                      <span className="mx-auto">{item.critical_damage}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/money.svg')}
                       />
-                      <span className="nav-box-item-font">{item.price}</span>
+                      <span className="mx-auto">{item.price}</span>
                     </div>
                   </div>
                 </div>
@@ -187,56 +189,58 @@ export default function App({ data }: ComponentType) {
       )}
 
       {medicines.length > 0 && (
-        <div className="equipment">
-          <div className="equipment-box">
-            <span className="menu-button-flat">丹药列表</span>
+        <div className="p-8 text-lg">
+          <div className="flex flex-wrap relative flex-col p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+            <span className="bg-gray-300 text-gray-700 rounded-t-lg text-lg px-2 py-1 absolute top-0 left-4">
+              丹药列表
+            </span>
             {medicines.map((item, index) => {
               return (
                 <div key={index}>
-                  <div className="equipment-box-item">
-                    <div className="equipment-box-item-j">
+                  <div className="aflex flex-wrap">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/equitment.svg')}
                       />
-                      <span className="nav-box-item-font">{item.name}</span>
+                      <span className="mx-auto">{item.name}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/acount.svg')}
                       />
-                      <span className="nav-box-item-font">{item.account}</span>
+                      <span className="mx-auto">{item.account}</span>
                     </div>
                   </div>
-                  <div className="equipment-box-item">
-                    <div className="equipment-box-item-j">
+                  <div className="aflex flex-wrap">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/attack.svg')}
                       />
-                      <span className="nav-box-item-font">{item.attack}</span>
+                      <span className="mx-auto">{item.attack}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/blood.svg')}
                       />
-                      <span className="nav-box-item-font">{item.blood}</span>
+                      <span className="mx-auto">{item.blood}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/agile.svg')}
                       />
-                      <span className="nav-box-item-font">{item.agile}</span>
+                      <span className="mx-auto">{item.agile}</span>
                     </div>
-                    <div className="equipment-box-item-j">
+                    <div className="flex flex-wrap mr-4">
                       <img
-                        className="nav-box-item-img"
+                        className="mr-2"
                         src={require('../../resources/svg/money.svg')}
                       />
-                      <span className="nav-box-item-font">{item.price}</span>
+                      <span className="mx-auto">{item.price}</span>
                     </div>
                   </div>
                 </div>

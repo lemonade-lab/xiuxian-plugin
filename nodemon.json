@@ -1,5 +1,5 @@
 {
-  "exec": "npm run app",
+  "exec": "npm run img",
   "verbose": true,
   "delay": 1000,
   "restartable": "rs",

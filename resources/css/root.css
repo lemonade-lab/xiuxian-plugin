@@ -1,6 +1,63 @@
-html,
-body {
-  margin: 0;
-  width: 100%;
-  font-family: 'Inconsolata', serif;
+:root {
+  --bg-color: rgb(60 58 58 / 79%);
+  --border-radius: 9px;
+  --title-color: #3d3527d9;
+  --title-text-shadow: 2px 2px 4px #dfdfdf;
+  --background-image: url('@xiuxian/resources/img/24.jpg');
+  --box-shadow: 2px 2px 4px #3d3527d9;
+  --box-shadow-bool: 2px 2px 4px #ff0000ba;
+  --inset-box-shadow: inset 0px 0px 21px #ffffffd9;
+  --inset-bg-color: rgba(60, 58, 58, 0.532);
+  --uid-background-bolor: linear-gradient(45deg, #585858c9, #a5a5bfd9);
+  --font-color: #10e633dc;
+  --nav-state-clolor: #00bbd4;
+}
+
+#root[data-theme='blue'] {
+  --bg-color: rgb(83 107 153 / 73%);
+  --border-radius: 9px;
+  --title-color: #d4d5e0e0;
+  --title-text-shadow: 2px 2px 4px #4067ade3;
+  --background-image: url('@xiuxian/resources/img/28.jpg');
+  --box-shadow: 2px 2px 4px #d4d5e0e0;
+  --inset-box-shadow: inset 0px 0px 21px #ffffffd9;
+  --inset-bg-color: rgba(83, 107, 153, 0.578);
+  --box-shadow-bool: 2px 2px 4px #ff0000ba;
+  --uid-background-bolor: linear-gradient(45deg, #4067ad54, #143878eb);
+  --font-color: #10e633dc;
+  --nav-state-clolor: #0097d4;
+}
+
+#root[data-theme='purple'] {
+  --bg-color: rgb(164 178 205 / 92%);
+  --border-radius: 9px;
+  --title-color: #4b6774cc;
+  --title-text-shadow: 2px 2px 4px #ffffff;
+  --background-image: url('@xiuxian/resources/img/03.jpg');
+  --box-shadow: 2px 2px 4px #4b6774cc;
+  --inset-box-shadow: inset 0px 0px 21px #ffffffd9;
+  --inset-bg-color: rgba(164, 178, 205, 0.63);
+  --box-shadow-bool: 2px 2px 4px #ff0000ba;
+  --uid-background-bolor: linear-gradient(45deg, #bab3e8c9, #626288d9);
+  --font-color: #10e633dc;
+  --nav-state-clolor: #3cc7d9;
+}
+
+#root[data-theme='red'] {
+  --bg-color: rgba(238, 140, 140, 0.79);
+  --border-radius: 9px;
+  --title-color: #4b2f13cc;
+  --title-text-shadow: 2px 2px 4px #ffffff;
+  --background-image: url('@xiuxian/resources/img/00.jpg');
+  --box-shadow: 2px 2px 4px #4b2f13cc;
+  --inset-box-shadow: inset 0px 0px 21px #ffffffd9;
+  --inset-bg-color: rgba(238, 140, 140, 0.596);
+  --box-shadow-bool: 2px 2px 4px #ff0000ba;
+  --uid-background-bolor: linear-gradient(
+    45deg,
+    rgb(244 155 155 / 79%),
+    #a74742d9
+  );
+  --font-color: #10e633dc;
+  --nav-state-clolor: #7dac19;
 }

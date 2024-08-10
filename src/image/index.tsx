@@ -1,20 +1,25 @@
 import React from 'react'
-import { createRequire } from 'module'
+import { createRequire } from 'react-puppeteer'
 import { Picture } from 'react-puppeteer'
-import { UserMessageType } from '../model/types.ts'
-import Redis from '../model/redis.ts'
-import HelloComponent from '../component/hello.tsx'
-import MessageComponent from '../component/message.tsx'
-import KillComponent from '../component/skill.tsx'
-import EquipmentComponent from '../component/equipment.tsx'
-import ShoppingComponent from '../component/shopping.tsx'
-import BagComponent from '../component/bag.tsx'
-import LeaderBoardComponent, {
-  LeaderBoardDataType
-} from '../component/leaderboard.tsx'
-import ExchangeComponent, { ExchangeDataType } from '../component/exchange.tsx'
-import LevelListComponent from '../component/levelList.tsx'
 import { dirname } from 'node:path'
+
+import {
+  Bag as BagComponent,
+  Equipment as EquipmentComponent,
+  Hello as HelloComponent,
+  Message as MessageComponent,
+  LeaderBoard as LeaderBoardComponent,
+  LevelList as LevelListComponent,
+  Shopping as ShoppingComponent,
+  Exchange as ExchangeComponent,
+  Skill as KillComponent
+} from '../component/index.ts'
+
+import Redis from '../model/redis.ts'
+import { UserMessageType } from '../model/types.ts'
+import { LeaderBoardDataType } from '../component/leaderboard.tsx'
+import { ExchangeDataType } from '../component/exchange.tsx'
+
 //
 const require = createRequire(import.meta.url)
 //
@@ -23,19 +28,8 @@ const Paths = {
 }
 //
 const RootLink = () => {
-  return (
-    <>
-      <link rel="stylesheet" href={require('../../public/output.css')}></link>
-      <link
-        rel="stylesheet"
-        href={require('../../resources/css/root.css')}
-      ></link>
-      <link
-        rel="stylesheet"
-        href={require(`../../resources/css/nav.css`)}
-      ></link>
-    </>
-  )
+  // 引入解析后的 css
+  return <link rel="stylesheet" href={require('../../public/output.css')} />
 }
 
 class Image extends Picture {
@@ -55,14 +49,6 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'hello',
       html_name: 'help.html',
-      html_head: (
-        <>
-          <link
-            rel="stylesheet"
-            href={require('../../resources/css/hello.css')}
-          ></link>
-        </>
-      ),
       html_body: <HelloComponent />
     })
   }
@@ -79,18 +65,10 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'message',
       html_name: `${uid}.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/message.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <MessageComponent data={data} status={status} />,
       file_paths: Paths,
-      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root.css`)]
     })
   }
 
@@ -106,18 +84,10 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'kill',
       html_name: `${uid}.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/skill.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <KillComponent data={data} status={status} />,
       file_paths: Paths,
-      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root.css`)]
     })
   }
 
@@ -133,18 +103,10 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'equipment',
       html_name: `${uid}.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/equipment.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <EquipmentComponent data={data} status={status} />,
       file_paths: Paths,
-      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root.css`)]
     })
   }
 
@@ -158,18 +120,10 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'shopping',
       html_name: `${uid}.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/shopping.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <ShoppingComponent data={data} />,
       file_paths: Paths,
-      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root.css`)]
     })
   }
 
@@ -183,18 +137,10 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'bag',
       html_name: `${uid}.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/bag.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <BagComponent data={data} />,
       file_paths: Paths,
-      html_files: [require(`../../resources/css/root-${data.theme}.css`)]
+      html_files: [require(`../../resources/css/root.css`)]
     })
   }
 
@@ -202,15 +148,7 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'leaderBoard',
       html_name: `leaderBoard.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/leaderBoard.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <LeaderBoardComponent {...data} />,
       file_paths: Paths
     })
@@ -220,15 +158,7 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'exchange',
       html_name: `exchange.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/exchange.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <ExchangeComponent {...data} />,
       file_paths: Paths
     })
@@ -238,15 +168,7 @@ class Image extends Picture {
     return this.screenshot({
       join_dir: 'levelList',
       html_name: `levelList.html`,
-      html_head: (
-        <>
-          <RootLink />
-          <link
-            rel="stylesheet"
-            href={require(`../../resources/css/leaderBoard.css`)}
-          ></link>
-        </>
-      ),
+      html_head: <RootLink />,
       html_body: <LevelListComponent list={data} />
     })
   }

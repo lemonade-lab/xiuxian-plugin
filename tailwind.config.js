@@ -3,6 +3,6 @@
  */
 export default {
   // 内容
-  content: ['src/**/*.{jsx.tsx.html}'],
+  content: ['src/**/*.{jsx,tsx,html}'],
   plugins: []
 }

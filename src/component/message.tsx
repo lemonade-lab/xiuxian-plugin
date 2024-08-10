@@ -1,10 +1,11 @@
 import React from 'react'
+import { createRequire } from 'react-puppeteer'
 import { UserMessageType } from '../model/types'
 import NavMessage from './nav.jsx'
 import { getLevelById } from '../model/level.js'
 import { SkillNameMap } from '../model/base.js'
 import { getEquipmentById } from '../model/equipment.js'
-import { createRequire } from 'module'
+import Help from './Help.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -56,7 +57,17 @@ export default function App({ data, status = false }: ComponentType) {
   const kills: string[] = Object.keys(data.skill)
 
   return (
-    <div id="root">
+    <div
+      id="root"
+      data-theme={data.theme}
+      style={{
+        backgroundImage: 'var(--background-image)'
+      }}
+      className="bg-[100%_auto] w-full h-full"
+    >
+      {
+        // 消息
+      }
       <NavMessage
         data={data}
         power={power}
@@ -64,89 +75,106 @@ export default function App({ data, status = false }: ComponentType) {
         blood={blood}
         status={status}
       />
-      <div className="autograph">
-        <div className="autograph-box">
-          <span>{data.autograph}</span>
-          <span className="menu-button-flat">#签名+字符</span>
+      {
+        // 签名
+      }
+      <div className="p-4 mt-2">
+        <div className="relative bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+          <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
+            #签名+字符
+          </span>
+          <span className="flex flex-wrap relative p-4 ">{data.autograph}</span>
         </div>
       </div>
-      <div className="level">
-        <div className="level-box">
-          <span className="menu-button-flat">#装备信息</span>
-          <div className="level-box-item">
+      {
+        // 装备信息
+      }
+      <div className="p-4 mt-2">
+        <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+          <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
+            #装备信息
+          </span>
+          <div className="flex flex-grow flex-shrink-0 w-1/2">
             <img
-              className="nav-box-item-img"
+              className="mr-1"
               src={require('../../resources/svg/attack.svg')}
             />
+            <span className="pr-1">攻击</span>
             <span>{attack}</span>
-            <span className="level-box-item-font">{`(+${+data.base
+            <span className="text-[var(--font-color)]">{`(+${+data.base
               .attack})`}</span>
           </div>
-          <div className="level-box-item">
+          <div className="flex flex-grow flex-shrink-0 w-1/2">
             <img
-              className="nav-box-item-img"
+              className="mr-1"
               src={require('../../resources/svg/defense.svg')}
             />
+            <span className="pr-1">防御</span>
             <span>{`${defense}`}</span>
-            <span className="level-box-item-font">
+            <span className="ltext-[var(--font-color)]">
               {`(+${data.base.defense})`}
             </span>
           </div>
-          <div className="level-box-item">
+          <div className="flex flex-grow flex-shrink-0 w-1/2">
             <img
-              className="nav-box-item-img"
+              className="mr-1"
               src={require('../../resources/svg/blood.svg')}
             />
+            <span className="pr-1">血量</span>
             <span>{`${blood}`}</span>
-            <span className="level-box-item-font">
+            <span className="text-[var(--font-color)]">
               {`(+${data.base.blood})`}
             </span>
           </div>
-          <div className="level-box-item">
+          <div className="flex flex-grow flex-shrink-0 w-1/2">
             <img
-              className="nav-box-item-img"
+              className="mr-1"
               src={require('../../resources/svg/agile.svg')}
             />
+            <span className="pr-1">敏捷</span>
             <span>{`${agile}`}</span>
           </div>
-          <div className="level-box-item">
+          <div className="flex flex-grow flex-shrink-0 w-1/2">
             <img
-              className="nav-box-item-img"
+              className="mr-1"
               src={require('../../resources/svg/critical_hit_rate.svg')}
             />
+            <span className="pr-1">爆率</span>
             <span>{`${critical_hit_rate}`}</span>
           </div>
-          <div className="level-box-item">
+          <div className="flex flex-grow flex-shrink-0 w-1/2">
             <img
-              className="nav-box-item-img"
+              className="mr-1"
               src={require('../../resources/svg/critical_damage.svg')}
             />
+            <span className="pr-1">暴伤</span>
             <span>{`${critical_damage}`}</span>
           </div>
         </div>
       </div>
       {kills.length > 0 && (
-        <div className="kills">
-          <div className="kills-box flex flex-wrap">
+        <div className="p-4  mt-2 text-lg">
+          <div className="flex flex-wrap relative p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
             {kills.map((item, index) => (
               <span key={index}>《{SkillNameMap[item]}》 </span>
             ))}
-            <span className="menu-button-flat">#功法信息</span>
+            <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
+              #功法信息
+            </span>
           </div>
         </div>
       )}
-      <div className="box-help">
-        <div className="box-help-box">
-          <span className="menu-button-flat">修仙小助手</span>
-          <span className="menu-button">#采矿</span>
-          <span className="menu-button">#突破</span>
-          <span className="menu-button">#闭关</span>
-          <span className="menu-button">#出关</span>
-          <span className="menu-button">#储物袋</span>
-          <span className="menu-button">#万宝楼</span>
-          <span className="menu-button">#打劫@道友</span>
-        </div>
-      </div>
+      <Help
+        list={[
+          '#采矿',
+          '#突破',
+          '#闭关',
+          '#出关',
+          '#储物袋',
+          '#万宝楼',
+          '#打劫@道友'
+        ]}
+      ></Help>
     </div>
   )
 }

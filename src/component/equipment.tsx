@@ -1,9 +1,10 @@
 import React from 'react'
+import { createRequire } from 'react-puppeteer'
 import { UserMessageType } from '../model/types.js'
 import NavMessage from './nav.js'
 import { getLevelById } from '../model/level.js'
 import { getEquipmentById } from '../model/equipment.js'
-import { createRequire } from 'module'
+import Help from './Help.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -55,7 +56,14 @@ export default function App({ data, status = false }: ComponentType) {
   const power = attack + Math.floor(defense / 2) + Math.floor(blood / 3)
 
   return (
-    <div id="root">
+    <div
+      id="root"
+      data-theme={data.theme}
+      style={{
+        backgroundImage: 'var(--background-image)'
+      }}
+      className=" bg-[100%_auto] w-full h-full"
+    >
       <NavMessage
         data={data}
         power={power}
@@ -64,64 +72,66 @@ export default function App({ data, status = false }: ComponentType) {
         status={status}
       />
       {datas.length > 0 && (
-        <div className="equipment">
-          <div className="equipment-box">
-            <span className="menu-button-flat">#功法信息</span>
+        <div className="p-8 text-lg">
+          <div className="flex flex-wrap relative flex-col p-4 bg-[var(--bg-color)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)]">
+            <span className="rounded-t-lg absolute top-[-46px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] rounded-md text-sm px-1 py-1 m-1">
+              #功法信息
+            </span>
             {datas.map((item, index) => {
               return (
-                <div key={index} className="equipment-box-item">
-                  <div className="equipment-box-item-j">
+                <div key={index} className="aflex flex-wrap">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/equitment.svg')}
                     />
                     <span>{item.name}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/attack.svg')}
                     />
                     <span>{item.attack}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/defense.svg')}
                     />
                     <span>{item.defense}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/blood.svg')}
                     />
                     <span>{item.blood}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/agile.svg')}
                     />
-                    <span className="nav-box-item-img">{item.agile}</span>
+                    <span className="mr-2">{item.agile}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/critical_hit_rate.svg')}
                     />
                     <span>{item.critical_hit_rate}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/critical_damage.svg')}
                     />
                     <span>{item.critical_damage}</span>
                   </div>
-                  <div className="equipment-box-item-j">
+                  <div className="flex flex-wrap mr-4">
                     <img
-                      className="nav-box-item-img"
+                      className="mr-2"
                       src={require('../../resources/svg/money.svg')}
                     />
                     <span>{item.price}</span>
@@ -132,14 +142,7 @@ export default function App({ data, status = false }: ComponentType) {
           </div>
         </div>
       )}
-
-      <div className="box-help">
-        <div className="box-help-box">
-          <span className="menu-button-flat">修仙小助手</span>
-          <span className="menu-button">#装备武器+武器名</span>
-          <span className="menu-button">#卸下武器+武器名</span>
-        </div>
-      </div>
+      <Help list={['#装备武器+武器名', '#卸下武器+武器名']}></Help>
     </div>
   )
 }

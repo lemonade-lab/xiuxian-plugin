@@ -16,15 +16,18 @@
     "logs": "pm2 logs",
     "kill": "pm2 kill",
     "format": "npx prettier --write .",
+    "img": "node --no-warnings=ExperimentalWarning --loader ts-node/esm routes.server.ts",
     "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
     "css:m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
+    "css:w": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
     "prepare": "husky",
     "build": "npm run css:m && rollup --config rollup.config.js"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "puppeteer": "^22.13.1",
     "react": "^18.3.1",
-    "react-puppeteer": "^1.0.0-rc.7"
+    "react-puppeteer": "^1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",
