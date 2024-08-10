@@ -55,8 +55,8 @@ export default function App({
     <div className="p-4">
       <HeaderComponent />
       <div className="flex justify-between relative nav-box bg-[var(--bg-color)] rounded-md mt-8 p-2">
-      <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
-      #个人信息
+        <span className="rounded-t-lg absolute top-[-40px] left-4 bg-[#f9f2f2de] text-[#635b5bfa] text-sm px-1 py-1 m-1">
+          #个人信息
         </span>
         <span className="text-white rounded-t-lg text-lg absolute top-[-46px] flex right-0">
           {List.map((item, index) => (

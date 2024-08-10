@@ -10,11 +10,9 @@ const App: React.FC<LeaderBoardDataType> = ({ type, list }) => {
   return (
     <div
       id="root"
-
       style={{
         backgroundImage: 'var(--background-image)'
       }}
-
       className="bg-[100%_auto] w-full h-full max-w-[800px] mx-auto my-16 p-8 shadow-md rounded-[10px] overflow-hidden"
     >
       <header className="leaderBoard-header">
