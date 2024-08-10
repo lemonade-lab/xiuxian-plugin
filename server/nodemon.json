@@ -1,8 +1,0 @@
-{
-  "watch": ["src-koa"],
-  "ext": "ts,json,js,tsx,jsx",
-  "exec": "ts-node src-koa/main.ts",
-  "env": {
-    "NODE_ENV": "development"
-  }
-}
