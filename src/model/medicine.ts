@@ -8,10 +8,10 @@ export const MedicineList = [
   },
   {
     id: 2,
-    name: '神速丹',
-    price: 100,
-    agile: 50,
-    type: 'agile'
+    type: 'blood',
+    name: '回天丹',
+    price: 500,
+    blood: 0.05
   },
   {
     id: 3,
@@ -22,10 +22,10 @@ export const MedicineList = [
   },
   {
     id: 4,
-    type: 'blood',
-    name: '回天丹',
-    price: 1000,
-    blood: 0.05
+    type: 'agile',
+    name: '神速丹',
+    price: 100,
+    agile: 100
   },
   {
     id: 5,
