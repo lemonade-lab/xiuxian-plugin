@@ -202,6 +202,10 @@ message.use(
     let count = 0
     const task = setBotTask(async () => {
       count++
+
+      const data = await DB.findOne(uid)
+      if (!data) return
+
       if (count > a.num) {
         clearBotTask(task)
         e.reply(`渡劫成功！`)
@@ -217,6 +221,8 @@ message.use(
         await e.reply(`你已成功突破到${LevelNameMap[data.level_id]}！`)
         return
       }
+
+      // 计算伤害
       let dam =
         getRandomNumber(2000 + count * 100, 12000 + count * 250) -
         Math.floor(defense * 0.627)
@@ -224,6 +230,8 @@ message.use(
       data.blood -= dam
       await DB.create(uid, data)
       e.reply(`渡劫中...第${count}次攻击！\n受到伤害${dam}`)
+
+      // 如果血量小于0，则失败
       if (data.blood <= 0) {
         e.reply(`渡劫失败！`)
         data.blood = 0
