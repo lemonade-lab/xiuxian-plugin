@@ -1,10 +1,11 @@
-import { Messages, setBotTask, Bot } from 'yunzai'
+import { Messages, setBotTask, Bot, Segment } from 'yunzai'
 import { DB } from '../model/db-system'
 import { InstanceList, InstanceSettleAccount } from '../model/instance'
 import redisClient from '../model/redis'
 import utils from '../utils'
 import { LevelNameMap } from '../model/base'
 import { INSTANCE_CD } from '../model/config'
+import image from '../image/index'
 
 const message = new Messages('message.group')
 
@@ -79,6 +80,7 @@ message.use(
 
 setBotTask(async () => {
   const list = await redisClient.keys('instance')
+  const msgList = []
 
   if (!list.length) return
   for (const item of list) {
@@ -94,12 +96,32 @@ setBotTask(async () => {
       await redisClient.del('instance', id)
       const { msg, user } = InstanceSettleAccount(instance.name, player)
       await DB.create(user.uid, user)
-      await Bot.pickGroup(data.data.group_id).sendMsg([
-        segment.at(player.uid),
-        ' ',
-        msg.join('\n')
-      ])
+      msgList.push({
+        uid: user.uid,
+        group: data.data.group_id,
+        msg: user.name + msg.join('\n')
+      })
     }
+  }
+  if (msgList.length === 0) return
+  if (msgList.length > 1) {
+    const groupList = [...new Set(msgList.map(item => item.group))]
+    for (const group of groupList) {
+      const msg = msgList.filter(item => item.group === group)
+      if (msg.length > 1) {
+        const img = await image.msgList(msg)
+        const user = msg.map(item => item.uid)
+        await Bot.pickGroup(group).sendMsg(user.map(item => Segment.at(item)))
+        if (img) await Bot.pickGroup(group).sendMsg(Segment.image(img))
+      } else {
+        await Bot.pickGroup(group).sendMsg([Segment.at(msg[0].uid), msg[0].msg])
+      }
+    }
+  } else {
+    await Bot.pickGroup(msgList[0].group).sendMsg([
+      Segment.at(msgList[0].uid),
+      msgList[0].msg
+    ])
   }
 }, '0 0/1 * * * ? ')
 export default message

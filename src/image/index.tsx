@@ -12,7 +12,8 @@ import {
   LevelList as LevelListComponent,
   Shopping as ShoppingComponent,
   Exchange as ExchangeComponent,
-  Skill as KillComponent
+  Skill as KillComponent,
+  MsgList as MsgListComponent
 } from '../component/index.ts'
 
 import Redis from '../model/redis.ts'
@@ -170,6 +171,15 @@ class Image extends Picture {
       html_name: `levelList.html`,
       html_head: <RootLink />,
       html_body: <LevelListComponent list={data} />
+    })
+  }
+
+  async msgList(data: { group: number; msg: string; uid: number | string }[]) {
+    return this.screenshot({
+      join_dir: 'msgList',
+      html_name: `msgList.html`,
+      html_head: <RootLink />,
+      html_body: <MsgListComponent list={data} />
     })
   }
 }

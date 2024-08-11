@@ -121,8 +121,19 @@ export const InstanceList = [
     award: {
       item: getAward1(1, 7)
     },
-    price: 100,
+    price: 200,
     failed_rate: 0.2
+  },
+  {
+    id: 102,
+    name: '灵药谷',
+    min_level: 13,
+    desc: '这里是天地灵气汇聚之地，仙草灵药生长的摇篮。',
+    award: {
+      item: getAward1(7, 10)
+    },
+    price: 1000,
+    failed_rate: 0.4
   }
 ]
 

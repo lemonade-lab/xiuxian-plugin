@@ -40,5 +40,26 @@ export const MedicineList = [
     name: '神威丹',
     price: 1000,
     attack: 500
+  },
+  {
+    id: 7,
+    type: 'blood',
+    name: '神血丹',
+    price: 1000,
+    blood: 0.1
+  },
+  {
+    id: 8,
+    type: 'blood',
+    name: '复生丹',
+    price: 2000,
+    blood: 0.15
+  },
+  {
+    id: 9,
+    type: 'attack',
+    name: '神攻丹',
+    price: 2000,
+    attack: 3000
   }
 ]

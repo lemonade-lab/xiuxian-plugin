@@ -9,6 +9,7 @@ import Message from './message'
 import Nav from './nav'
 import Shopping from './shopping'
 import Skill from './skill'
+import MsgList from './msgList'
 export {
   Bag,
   Equipment,
@@ -20,5 +21,6 @@ export {
   Message,
   Nav,
   Shopping,
-  Skill
+  Skill,
+  MsgList
 }
