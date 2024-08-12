@@ -10,7 +10,8 @@ const Keys = [
   'boss', // BOSS
   'msgCD', // 消息CD
   'instance', // 副本
-  'taken' // 渡劫
+  'taken', // 渡劫
+  'rob' // 打劫
 ] as const
 
 type RedisKeyEnum = (typeof Keys)[number]

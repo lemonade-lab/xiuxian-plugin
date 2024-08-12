@@ -2,7 +2,7 @@ import { getUserName } from '../model/utils'
 import { userBattle } from '../system/battle'
 import Utils from '../utils'
 import RedisClient from '../model/redis'
-import { Messages } from 'yunzai'
+import { Messages, setBotTask } from 'yunzai'
 import { DB } from '../model/db-system'
 import utils from '../utils'
 const message = new Messages('message.group')
@@ -57,14 +57,17 @@ message.use(
       return
     }
     const { l, aData, bData, msg } = userBattle(data, uData)
+    let log = `${data.name}打劫${uData.name}${l ? '成功' : '失败'}`
     if (l) {
       const size = Math.floor(0.03 * bData.money)
       if (size > 0) {
         bData.money -= size
         aData.money += size
         e.reply(['你战胜了,抢走了', size, '颗灵石'].join(''))
+        log += `，抢走了${size}颗灵石`
       } else {
         e.reply('你战胜了, 但是对方没有钱')
+        log += '，对方没有钱'
       }
       utils.forwardMsg(e, msg)
     } else {
@@ -73,11 +76,33 @@ message.use(
         aData.money -= size
         bData.money += size
         e.reply('你输了,被抢走了' + size + '颗灵石')
+        log += `，被抢走了${size}颗灵石`
       } else {
         e.reply('你输了, 但是你没有钱，对方也拿你没办法')
+        log += '没钱，对方也拿你没办法'
       }
       utils.forwardMsg(e, msg)
     }
+    const robLog = await RedisClient.get('rob', 'log')
+
+    if (robLog.type) {
+      robLog.data.push({
+        robber: uid,
+        beRob: UID,
+        log,
+        time: Date.now()
+      })
+    } else {
+      robLog.data = [
+        {
+          robber: uid,
+          beRob: UID,
+          log,
+          time: Date.now()
+        }
+      ]
+    }
+    RedisClient.set('rob', 'log', '打劫记录', robLog.data)
 
     DB.create(uid, aData)
 
@@ -87,6 +112,39 @@ message.use(
   },
   [/^(#|\/)?打劫/]
 )
+
+message.use(
+  async e => {
+    const uid = e.user_id
+    const robLog = await RedisClient.get('rob', 'log')
+    if (!robLog.type) {
+      e.reply('没有打劫记录')
+      return
+    }
+    const list = robLog.data.filter((item: any) => {
+      return item.robber == uid || item.beRob == uid
+    })
+    utils.forwardMsg(
+      e,
+      list.map((item: any) => new Date(item.time).toLocaleString() + item.log)
+    )
+  },
+  [/^(#|\/)?打劫记录/]
+)
+/**
+ * 清理打劫记录
+ */
+setBotTask(async () => {
+  const robLog = await RedisClient.get('rob', 'log')
+  if (!robLog.type) return
+  for (const item of robLog.data) {
+    if (Date.now() - item.time > 1000 * 60 * 60 * 48) {
+      robLog.data.splice(robLog.data.indexOf(item), 1)
+    }
+  }
+  RedisClient.set('rob', 'log', '打劫记录', robLog.data)
+  console.log('打劫记录清理完成')
+}, '0 0 0/2 * * ? ')
 
 message.use(
   async e => {

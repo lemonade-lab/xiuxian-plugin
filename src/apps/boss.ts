@@ -40,6 +40,27 @@ message.use(
   },
   [/^(#|\/)?开启喵喵$/]
 )
+/**
+ * 定时刷新
+ */
+const bossTask = setBotTask(async () => {
+  const taskList = await RedisClient.get('boss', 'task')
+  if (!taskList.type) return
+  const levelList = await RedisClient.get('leaderBoard', 'levelList')
+  if (!levelList.type) return
+  const level = levelList.data[0].level_id
+  const bossLevel = getBossLevel(level)
+  await RedisClient.del('boss', 'damage')
+  await RedisClient.del('boss', 'defender')
+
+  const newBoss = new Boss('喵喵', bossLevel)
+  RedisClient.set('boss', 'defender', '', newBoss)
+  for (const item of taskList.data.group_list) {
+    await Bot.pickGroup(item.group_id).send(
+      `喵喵已刷新，等级：${LevelNameMap[bossLevel]}`
+    )
+  }
+}, '0 0 21 * * ?')
 
 message.use(
   async e => {
@@ -226,22 +247,5 @@ async function addToDamageLeaderBoard(e, data, allDamage) {
 
   await RedisClient.set('boss', 'attack:' + e.user_id, '', [], { EX: 300 })
 }
-
-const bossTask = setBotTask(async () => {
-  const taskList = await RedisClient.get('boss', 'task')
-  if (!taskList.type) return
-  const levelList = await RedisClient.get('leaderBoard', 'levelList')
-  if (!levelList.type) return
-  const level = levelList.data[0].level_id
-  const bossLevel = getBossLevel(level)
-  await RedisClient.delKeysWithPrefix('boss')
-  const newBoss = new Boss('喵喵', bossLevel)
-  RedisClient.set('boss', 'defender', '', newBoss)
-  for (const item of taskList.data.group_list) {
-    await Bot.pickGroup(item.group_id).send(
-      `喵喵已刷新，等级：${LevelNameMap[bossLevel]}`
-    )
-  }
-}, '0 0 21 * * ?')
 
 export default message

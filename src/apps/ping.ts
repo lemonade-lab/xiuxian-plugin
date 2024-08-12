@@ -274,7 +274,10 @@ message.use(
 
     await RedisClient.set('mining', e.user_id, '采集冷却', {
       time: Date.now(),
-      cd: Math.floor((size * MINING) / 1.5)
+      cd:
+        Math.floor((size * MINING) / 1.5) > 24 * 60 * 60 * 1000
+          ? 24 * 60 * 60 * 1000
+          : Math.floor((size * MINING) / 1.5)
     })
     await DB.create(e.user_id, data)
     e.reply(`采得${money}块灵石`)
