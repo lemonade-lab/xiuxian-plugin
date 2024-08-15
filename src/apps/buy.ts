@@ -351,7 +351,7 @@ message.use(
             const equipment = getEquipmentById(Number(data.equipments[key]))
             allBlood += equipment.blood
           }
-          data.blood += Math.floor(allBlood * sData.blood)
+          data.blood += Math.floor(allBlood * sData.blood) * count
           data.blood = data.blood > allBlood ? allBlood : data.blood
         }
         break

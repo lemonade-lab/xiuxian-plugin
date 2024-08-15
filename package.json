@@ -16,7 +16,11 @@
     "prepare": "husky",
     "format": "npx prettier --write .",
     "check-format": "git diff --exit-code",
-    "build": "npm run css:m && rollup --config rollup.config.js"
+    "build": "npm run css:m && rollup --config rollup.config.js",
+    "start": "pm2 start pm2.config.cjs",
+    "stop": "pm2 stop yz-xiuxian",
+    "restart": "pm2 restart yz-xiuxian",
+    "logs": "pm2 logs yz-xiuxian"
   },
   "dependencies": {
     "classnames": "^2.5.1",

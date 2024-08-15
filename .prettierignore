@@ -1,0 +1,6 @@
+data/
+config/
+lib/
+logs/
+node_modules/
+public/

@@ -35,41 +35,12 @@ message.use(
     if (!e.isMaster) return false
     const all = await DB.findAll()
     for (const user of all) {
-      for (const key in user.equipment) {
-        if (user.equipment[key] != null) {
-          const num = Number(user.equipment[key])
-          if (num < 10000) continue
-          const id = num % 10000
-          user.equipment[key] = String(id)
-        }
-      }
-      for (const item of user.bags) {
-        if (item.id >= 10000) item.id = String(item.id % 10000)
-      }
-      if (Object.keys(user.skill).length > 0) {
-        for (const key in user.skill) {
-          const num = Number(user.skill[key])
-          if (num < 10000) continue
-          const id = num % 10000
-          user.skill[id] = true
-        }
-      }
-      if (Object.keys(user.kills).length > 0) {
-        for (const key in user.kills) {
-          const num = Number(user.kills[key])
-          if (num < 10000) {
-            user.skill[key] = true
-            continue
-          }
-          const id = num % 10000
-          user.skill[id] = true
-        }
-        delete user.kills
-      }
+      user.bags = []
+      user.money += 100000
       await DB.create(user.uid, user)
     }
-    e.reply('已重置所有用户的装备')
+    e.reply('清空数据')
   },
-  [/^(#|\/)?修复数据$/]
+  [/^(#|\/)?修复用户数据$/]
 )
 export default message
