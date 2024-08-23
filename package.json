@@ -1,22 +1,22 @@
 {
   "name": "yz-xiuxian",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0-rc.4",
   "description": "喵崽修仙插件",
   "main": "main.js",
   "type": "module",
   "author": "ningmengchongshui",
   "license": "MIT",
   "scripts": {
-    "app": "node --no-warnings=ExperimentalWarning --loader ts-node/esm src/main.js",
-    "dev": "nodemon",
-    "img": "node --no-warnings=ExperimentalWarning --loader ts-node/esm routes.server.ts",
-    "css": "tailwindcss -i ./src/input.css -o ./public/output.css",
-    "css:m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
-    "css:w": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
+    "app": "npx tsx src/main.ts",
+    "img-app": "npx tsx routes.server.ts",
+    "img-dev": "nodemon --config routes.nodemon.json",
+    "css-app": "tailwindcss -i ./src/input.css -o ./public/output.css",
+    "css-dev": "tailwindcss -i ./src/input.css -o ./public/output.css --watch",
+    "css-m": "tailwindcss -i ./src/input.css -o ./public/output.css -m",
     "prepare": "husky",
     "format": "npx prettier --write .",
     "check-format": "git diff --exit-code",
-    "build": "npm run css:m && rollup --config rollup.config.js",
+    "build": "npm run css-m && rollup --config rollup.config.js",
     "start": "pm2 start pm2.config.cjs",
     "stop": "pm2 stop yz-xiuxian",
     "restart": "pm2 restart yz-xiuxian",
@@ -42,14 +42,8 @@
     "tailwindcss": "^3.4.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
-    "yunzai": "^1.0.1-rc.1"
+    "yunzai": "^1.0.4"
   },
-  "files": [
-    "public",
-    "public/output.css",
-    "resources",
-    "lib"
-  ],
   "types": "lib/types",
   "exports": {
     ".": {

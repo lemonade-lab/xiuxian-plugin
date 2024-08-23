@@ -11,23 +11,14 @@ yarn add yz-xiuxian -W
 - yunzai.config.js
 
 ```ts
-import xiuxian from 'yz-xiuxian'
+import { defineConfig } from 'yunzai'
 export default defineConfig({
-  applications: [xiuxian()]
+  // 在配置中，增加模块
+  applications: ['yz-xiuxian']
 })
 ```
 
-## 进行
-
-- 开始游戏
-
 发送`/个人信息`开启存档并展示游玩指令
-
-- 更新游戏
-
-当更新后发现错误数据时
-
-可由玩家发送`/修复数据`
 
 ## 商用
 
