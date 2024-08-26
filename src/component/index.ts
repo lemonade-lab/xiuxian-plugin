@@ -10,6 +10,7 @@ import Nav from './nav'
 import Shopping from './shopping'
 import Skill from './skill'
 import MsgList from './msgList'
+import Association from './association'
 export {
   Bag,
   Equipment,
@@ -22,5 +23,6 @@ export {
   Nav,
   Shopping,
   Skill,
-  MsgList
+  MsgList,
+  Association
 }

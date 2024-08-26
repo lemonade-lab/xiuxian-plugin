@@ -33,10 +33,14 @@ message.use(
 message.use(
   async e => {
     if (!e.isMaster) return false
+    await redis.del('xiuxian:association:all')
     const all = await DB.findAll()
     for (const user of all) {
-      user.bags = []
-      user.money += 100000
+      delete user.association
+      user.social = {
+        friends: [],
+        association: {}
+      }
       await DB.create(user.uid, user)
     }
     e.reply('清空数据')

@@ -54,6 +54,15 @@ const Identities = [0, 1, 2, 3, 4] as const
 
 type IdentityType = (typeof Identities)[number]
 
+export const AssociationStanding = {
+  0: '外门弟子',
+  1: '内门弟子',
+  2: '长老',
+  3: '大长老',
+  4: '副掌门',
+  5: '掌门'
+}
+
 //
 export const UserMessageBase = {
   uid: 1715713638 as string | number,
@@ -92,7 +101,20 @@ export const UserMessageBase = {
     name: string
     type: 'skill' | 'equipment' | 'medicine'
     isLocked?: boolean
-  }[]
+  }[],
+  social: {
+    friends: [],
+    association: {}
+  } as {
+    friends: {
+      id: number
+      likability: number
+    }[]
+    association: {
+      id: number
+      standing: number
+    }
+  }
 }
 
 // 主题

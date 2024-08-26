@@ -224,7 +224,7 @@ message.use(
         data.money += sData.price * v.count
         money += sData.price * v.count
       } else if (v.type === 'medicine') {
-        const sData = MedicineList.find(v => v.name === v.name)
+        const sData = MedicineList.find(i => i.name === v.name)
         data.money += sData.price * v.count
         money += sData.price * v.count
       }
@@ -314,6 +314,7 @@ message.use(
     const msg = e.msg.replace(/^(#|\/)?服用/, '')
     if (msg === '') {
       e.reply('请输入丹药名称')
+      return
     }
     let name = msg
     let count = 1
@@ -333,6 +334,7 @@ message.use(
     }
     if (item.count < count) {
       e.reply('数量不足')
+      return
     }
     const sData = MedicineList.find(v => v.name === name)
     if (!sData) {

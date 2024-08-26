@@ -13,13 +13,16 @@ import {
   Shopping as ShoppingComponent,
   Exchange as ExchangeComponent,
   Skill as KillComponent,
-  MsgList as MsgListComponent
+  MsgList as MsgListComponent,
+  Association as AssociationComponent
 } from '../component/index.ts'
 
 import Redis from '../model/redis.ts'
 import { UserMessageType } from '../model/types.ts'
 import { LeaderBoardDataType } from '../component/leaderboard.tsx'
 import { ExchangeDataType } from '../component/exchange.tsx'
+import { AssociationType } from '../model/association.ts'
+import { DB } from '../model/db-system.ts'
 
 //
 const require = createRequire(import.meta.url)
@@ -180,6 +183,16 @@ class Image extends Picture {
       html_name: `msgList.html`,
       html_head: <RootLink />,
       html_body: <MsgListComponent list={data} />
+    })
+  }
+
+  async association(data: AssociationType) {
+    const master = await DB.findOne(data.master)
+    return this.screenshot({
+      join_dir: 'association',
+      html_name: `association.html`,
+      html_head: <RootLink />,
+      html_body: <AssociationComponent data={data} master={master} />
     })
   }
 }

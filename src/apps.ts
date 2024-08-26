@@ -6,10 +6,12 @@ import * as level from './apps/level'
 import * as message from './apps/message'
 import * as ping from './apps/ping'
 import * as sign from './apps/sign'
-import * as leaderboard from './apps/leaderboard'
+import * as leaderBoard from './apps/leaderBoard.ts'
 import * as boss from './apps/boss'
 import * as instance from './apps/instance'
 import * as other from './apps/other'
+import * as associationUser from './apps/association/user'
+import * as associationManager from './apps/association/manager.ts'
 
 export default [
   bag.default.ok,
@@ -20,8 +22,10 @@ export default [
   message.default.ok,
   ping.default.ok,
   sign.default.ok,
-  leaderboard.default.ok,
+  leaderBoard.default.ok,
   boss.default.ok,
   instance.default.ok,
-  other.default.ok
+  other.default.ok,
+  associationUser.default.ok,
+  associationManager.default.ok
 ]
