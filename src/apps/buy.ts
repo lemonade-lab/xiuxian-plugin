@@ -143,6 +143,10 @@ message.use(
       e.reply(`没有${item}了`)
       return
     }
+    if (Number(count) <= 0) {
+      e.reply(`数量不能小于等于0`)
+      return
+    }
     itemData.count -= Number(count)
     if (itemData.count === 0) {
       data.bags = data.bags.filter(v => v.name !== item)
@@ -334,6 +338,11 @@ message.use(
     }
     if (item.count < count) {
       e.reply('数量不足')
+      return
+    }
+
+    if (count < 1) {
+      e.reply('数量不能小于1')
       return
     }
     const sData = MedicineList.find(v => v.name === name)

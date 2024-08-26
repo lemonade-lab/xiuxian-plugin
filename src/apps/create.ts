@@ -118,6 +118,7 @@ message.use(
     }
     if (autograph.length > 20) {
       e.reply('签名太长了哦')
+      return
     }
     // 尝试读取数据，如果没有数据将自动创建
     const data = await DB.findOne(uid)
