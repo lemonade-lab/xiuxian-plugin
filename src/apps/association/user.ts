@@ -82,7 +82,7 @@ message.use(
       e.reply('数据繁忙')
       return
     }
-    if (!user.social.association.id) {
+    if (!user.social.association?.id) {
       e.reply('您还未加入宗门')
       return
     }
@@ -93,7 +93,7 @@ message.use(
     }
     association.members = association.members.filter(id => id !== e.user_id)
     await associationDB.set(association.id, association)
-    user.social.association = {} as any
+    user.social.association = null
     await DB.create(e.user_id, user)
     e.reply(`退出宗门${association.name}成功`)
     return

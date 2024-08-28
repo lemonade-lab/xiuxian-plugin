@@ -1,4 +1,4 @@
-import { clearBotTask, Messages, setBotTask } from 'yunzai'
+import { clearBotTask, Messages, setBotTask, Bot } from 'yunzai'
 import RedisClient from '../model/redis'
 import { attackBoss, Boss, getBossLevel } from '../model/boss'
 import { LevelNameMap } from '../model/base'
@@ -56,7 +56,7 @@ const bossTask = setBotTask(async () => {
   const newBoss = new Boss('喵喵', bossLevel)
   RedisClient.set('boss', 'defender', '', newBoss)
   for (const item of taskList.data.group_list) {
-    await Bot.pickGroup(item.group_id).send(
+    await Bot.pickGroup(item.group_id).sendMsg(
       `喵喵已刷新，等级：${LevelNameMap[bossLevel]}`
     )
   }
