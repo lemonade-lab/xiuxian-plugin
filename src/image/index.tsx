@@ -177,7 +177,9 @@ class Image extends Picture {
     })
   }
 
-  async msgList(data: { group: number; msg: string; uid: number | string }[]) {
+  async msgList(
+    data: { group: number; msg: string; uid: number | string }[] | string[]
+  ) {
     return this.screenshot({
       join_dir: 'msgList',
       html_name: `msgList.html`,

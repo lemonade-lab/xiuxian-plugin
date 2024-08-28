@@ -6,26 +6,29 @@ const require = createRequire(import.meta.url)
 export default function App({ data, master }) {
   return (
     <div
-      className="relative bg-cover bg-center text-center"
+      className="text-center"
       style={{
         backgroundImage: `url(${require('../../resources/img/24.jpg')})`,
-        color: 'black'
+        backgroundSize: '100% auto',
+        color: 'black !important'
       }}
     >
-      <div className="max-w-sm mx-auto rounded-lg shadow-md p-8 z-10">
+      <div>
         <img
-          className="rounded-full w-24 h-24 mx-auto mb-4"
+          className="w-1/2 h-1/2"
+          style={{
+            borderRadius: '50%',
+            margin: '20px auto'
+          }}
           src={`https://q2.qlogo.cn/headimg_dl?dst_uin=${data.master}&spec=160`}
           alt={data.name}
         />
-        <h1 className="text-4xl font-bold mb-4 text-cyan-800">
-          宗门： {data.name}
-        </h1>
-        <p className="font-bold">宗主：{master.name}</p>
-        <p>宗门宣言：{data.notice || '无'}</p>
-        <p>宗门人数：{data.members.length}</p>
-        <p>宗门等级：{data.level}</p>
-        <p>宗门灵石：{data.money}</p>
+        <h1 className="text-5xl">宗门： {data.name}</h1>
+        <p className="text-3xl mt-8">宗主：{master.name}</p>
+        <p className="text-3xl mt-8">宗门宣言：{data.notice || '无'}</p>
+        <p className="text-3xl mt-8">宗门人数：{data.members.length}</p>
+        <p className="text-3xl mt-8">宗门等级：{data.level}</p>
+        <p className="text-3xl mt-8">宗门灵石：{data.money}</p>
       </div>
     </div>
   )

@@ -26,6 +26,10 @@ message.use(
       e.reply('请输入宗门名称')
       return
     }
+    if (name.length > 10) {
+      e.reply('宗门名称过长')
+      return
+    }
     const can = await associationDB.checkName(name)
     if (can) {
       e.reply('宗门名称重复')
@@ -54,6 +58,10 @@ message.use(
       e.reply('您还没有宗门')
       return
     }
+    if (user.social.association.standing !== 5) {
+      e.reply('您没有权限')
+      return
+    }
     const association = await associationDB.get(user.social.association.id)
     if (!association) {
       e.reply('宗门不存在')
@@ -62,6 +70,10 @@ message.use(
     const newName = e.msg.replace(/^(#|\/)?宗门改名/, '').trim()
     if (!newName) {
       e.reply('请输入新的宗门名称')
+      return
+    }
+    if (newName.length > 10) {
+      e.reply('宗门名称过长')
       return
     }
     const can = await associationDB.checkName(newName)
@@ -180,6 +192,49 @@ message.use(
     await e.reply(`任命${target.name}为${level}`)
     return
   },
-  [/^(#|\/)?任命(外门弟子|内门弟子|长老|堂主|副宗主)/]
+  [/^(#|\/)?任命(外门弟子|内门弟子|长老|大长老|副宗主)/]
+)
+
+message.use(
+  async (e: EventType) => {
+    const user = await DB.findOne(e.user_id)
+    if (!user) {
+      e.reply('数据繁忙')
+      return
+    }
+    if (!user.social.association?.id) {
+      e.reply('您还没有宗门')
+      return
+    }
+    const id = utils.at(e)
+    if (!id) {
+      e.reply('请艾特要转让的成员')
+      return
+    }
+    const target = await DB.findOne(id)
+    if (!target) {
+      e.reply('对方数据不存在')
+      return
+    }
+    if (!target.social.association?.id) {
+      e.reply('对方没有宗门')
+      return
+    }
+    if (target.social.association.id !== user.social.association.id) {
+      e.reply('对方不在您的宗门')
+      return
+    }
+    if (user.social.association.standing !== 5) {
+      e.reply('您不是宗主')
+      return
+    }
+    target.social.association.standing = 5
+    user.social.association.standing = 0
+    await DB.create(id, target)
+    await DB.create(e.user_id, user)
+    await e.reply(`转让宗门给${target.name}`)
+    return
+  },
+  [/^(#|\/)?转让宗门/]
 )
 export default message

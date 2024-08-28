@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRequire, defineConfig } from 'react-puppeteer'
 import { DB } from './src/model/db-system'
+import { associationDB } from './src/model/association'
 import {
   Bag as BagComponent,
   Equipment as EquipmentComponent,
@@ -8,7 +9,7 @@ import {
   // LeaderBoard as LeaderBoardComponent,
   // LevelList as LevelListComponent,
   Shopping as ShoppingComponent,
-  Exchange as ExchangeComponent,
+  Association as AssociationComponent,
   Skill as KillComponent
 } from './src/component/index.js'
 import { dirname } from 'path'
@@ -81,6 +82,19 @@ export default defineConfig([
       ),
       file_paths: Paths,
       html_files: html_files
+    }
+  },
+  {
+    url: '/association',
+    options: {
+      html_head: <RootLink />,
+      html_body: (
+        <AssociationComponent
+          data={await associationDB.get(3)}
+          master={{ name: '张三' }}
+        />
+      ),
+      file_paths: Paths
     }
   }
 ])

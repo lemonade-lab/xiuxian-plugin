@@ -8,8 +8,13 @@ const message = new Messages('message')
 message.use(
   async (e: EventType) => {
     const associations = await associationDB.getList()
-    const msg = `宗门列表：\n`
-    e.reply(msg + associations.map(item => item.name).join('\n'))
+    const msg = []
+    associations.map((item, index) => {
+      msg.push(`${index + 1}. ${item.name}\n`)
+    })
+    const img = await image.msgList(msg)
+    if (img) e.reply(Segment.image(img))
+    return
   },
   [/^(#|\/)?宗门列表/]
 )
@@ -84,6 +89,10 @@ message.use(
     }
     if (!user.social.association?.id) {
       e.reply('您还未加入宗门')
+      return
+    }
+    if (user.social.association.standing == 5) {
+      e.reply('您是宗主，无法退出宗门')
       return
     }
     const association = await associationDB.get(user.social.association.id)
