@@ -8,15 +8,28 @@
 yarn add yz-xiuxian -W
 ```
 
-- yunzai.config.js
+- 加载模块
+
+> 选择一个喜欢的配置进行
+
+`yunzai.config.json`
+
+```ts
+{
+ "applications":['yz-xiuxian']
+}
+```
+
+`yunzai.config.js`
 
 ```ts
 import { defineConfig } from 'yunzai'
 export default defineConfig({
-  // 在配置中，增加模块
   applications: ['yz-xiuxian']
 })
 ```
+
+- 开始
 
 发送`/个人信息`开启存档并展示游玩指令
 
