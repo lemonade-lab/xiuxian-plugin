@@ -1,5 +1,5 @@
 import { Messages } from 'yunzai'
-import { DB } from '../model/db-system'
+import { DB } from '@/model/db-system'
 
 const message = new Messages('message.group')
 message.use(

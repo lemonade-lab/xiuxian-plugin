@@ -1,9 +1,9 @@
 import React from 'react'
 import { createRequire } from 'react-puppeteer'
-import { UserMessageType } from '../model/types.js'
+import { UserMessageType } from '@/model/types.js'
 import NavMessage from './nav.js'
-import { getLevelById } from '../model/level.js'
-import { getEquipmentById } from '../model/equipment.js'
+import { getLevelById } from '@/model/level.js'
+import { getEquipmentById } from '@/model/equipment.js'
 import Help from './Help.js'
 import Box from './Box.js'
 const require = createRequire(import.meta.url)

@@ -1,14 +1,9 @@
-import {
-  EquipmentNameMap,
-  ReverseEquipmentNameMap,
-  ReverseSkillNameMap,
-  SkillNameMap
-} from '../model/base'
-import { getSkillById } from '../model/skills'
-import { getUserName } from '../model/utils'
-import component from '../image/index'
+import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '@/model/base'
+import { getSkillById } from '@/model/skills'
+import { getUserName } from '@/model/utils'
+import component from '@/image/index'
 import { Messages, Segment } from 'yunzai'
-import { DB } from '../model/db-system'
+import { DB } from '@/model/db-system'
 const message = new Messages('message.group')
 message.use(
   async e => {

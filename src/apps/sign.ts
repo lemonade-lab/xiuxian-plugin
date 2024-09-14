@@ -1,6 +1,6 @@
 import { Messages, setBotTask } from 'yunzai'
-import RedisClient from '../model/redis'
-import { DB } from '../model/db-system'
+import RedisClient from '@/model/redis'
+import { DB } from '@/model/db-system'
 
 const message = new Messages('message.group')
 

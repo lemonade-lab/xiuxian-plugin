@@ -1,16 +1,16 @@
-import component from '../image/index.js'
+import component from '@/image/index.js'
 import {
   LEVEL_PROBABILITY_RANGE,
   LEVEL_SIZE,
   LEVEL_UP_LIMIT
-} from '../model/config.js'
-import { getLevelById } from '../model/level.js'
-import { getRandomNumber, getUserName } from '../model/utils.js'
+} from '@/model/config.js'
+import { getLevelById } from '@/model/level.js'
+import { getRandomNumber, getUserName } from '@/model/utils.js'
 import { clearBotTask, Messages, Segment, setBotTask } from 'yunzai'
-import { DB } from '../model/db-system.js'
-import RedisClient from '../model/redis.js'
-import { LevelNameMap } from '../model/base.js'
-import image from '../image/index.js'
+import { DB } from '@/model/db-system.js'
+import RedisClient from '@/model/redis.js'
+import { LevelNameMap } from '@/model/base.js'
+import image from '@/image/index.js'
 
 const message = new Messages('message.group')
 /**

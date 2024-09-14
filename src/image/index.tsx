@@ -1,8 +1,6 @@
 import React from 'react'
-import { createRequire } from 'react-puppeteer'
-import { Picture } from 'react-puppeteer'
+import { createRequire, render } from 'react-puppeteer'
 import { dirname } from 'node:path'
-
 import {
   Bag as BagComponent,
   Equipment as EquipmentComponent,
@@ -16,13 +14,12 @@ import {
   MsgList as MsgListComponent,
   Association as AssociationComponent
 } from '../component/index.ts'
-
-import Redis from '../model/redis.ts'
-import { UserMessageType } from '../model/types.ts'
+import Redis from '@/model/redis.ts'
+import { UserMessageType } from '@/model/types.ts'
 import { LeaderBoardDataType } from '../component/leaderboard.tsx'
 import { ExchangeDataType } from '../component/exchange.tsx'
-import { AssociationType } from '../model/association.ts'
-import { DB } from '../model/db-system.ts'
+import { AssociationType } from '@/model/association.ts'
+import { DB } from '@/model/db-system.ts'
 
 //
 const require = createRequire(import.meta.url)
@@ -36,13 +33,7 @@ const RootLink = () => {
   return <link rel="stylesheet" href={require('../../public/output.css')} />
 }
 
-class Image extends Picture {
-  constructor() {
-    super()
-    // start
-    this.Pup.start()
-  }
-
+class Image {
   /**
    *  hello
    * @param _
@@ -50,7 +41,7 @@ class Image extends Picture {
    * @returns
    */
   hello() {
-    return this.screenshot({
+    return render({
       join_dir: 'hello',
       html_name: 'help.html',
       html_body: <HelloComponent />
@@ -66,7 +57,7 @@ class Image extends Picture {
   async message(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.screenshot({
+    return render({
       join_dir: 'message',
       html_name: `${uid}.html`,
       html_head: <RootLink />,
@@ -85,7 +76,7 @@ class Image extends Picture {
   async kill(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.screenshot({
+    return render({
       join_dir: 'kill',
       html_name: `${uid}.html`,
       html_head: <RootLink />,
@@ -104,7 +95,7 @@ class Image extends Picture {
   async equipment(data: UserMessageType, uid: number) {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
-    return this.screenshot({
+    return render({
       join_dir: 'equipment',
       html_name: `${uid}.html`,
       html_head: <RootLink />,
@@ -121,7 +112,7 @@ class Image extends Picture {
    * @returns
    */
   async shopping(data: UserMessageType, uid: number) {
-    return this.screenshot({
+    return render({
       join_dir: 'shopping',
       html_name: `${uid}.html`,
       html_head: <RootLink />,
@@ -138,7 +129,7 @@ class Image extends Picture {
    * @returns
    */
   async bag(data: UserMessageType, uid: number) {
-    return this.screenshot({
+    return render({
       join_dir: 'bag',
       html_name: `${uid}.html`,
       html_head: <RootLink />,
@@ -149,7 +140,7 @@ class Image extends Picture {
   }
 
   async leaderBoard(data: LeaderBoardDataType) {
-    return this.screenshot({
+    return render({
       join_dir: 'leaderBoard',
       html_name: `leaderBoard.html`,
       html_head: <RootLink />,
@@ -159,7 +150,7 @@ class Image extends Picture {
   }
 
   async exchange(data: ExchangeDataType) {
-    return this.screenshot({
+    return render({
       join_dir: 'exchange',
       html_name: `exchange.html`,
       html_head: <RootLink />,
@@ -169,7 +160,7 @@ class Image extends Picture {
   }
 
   async levelList(data: Array<number>) {
-    return this.screenshot({
+    return render({
       join_dir: 'levelList',
       html_name: `levelList.html`,
       html_head: <RootLink />,
@@ -180,7 +171,7 @@ class Image extends Picture {
   async msgList(
     data: { group: number; msg: string; uid: number | string }[] | string[]
   ) {
-    return this.screenshot({
+    return render({
       join_dir: 'msgList',
       html_name: `msgList.html`,
       html_head: <RootLink />,
@@ -190,7 +181,7 @@ class Image extends Picture {
 
   async association(data: AssociationType) {
     const master = await DB.findOne(data.master)
-    return this.screenshot({
+    return render({
       join_dir: 'association',
       html_name: `association.html`,
       html_head: <RootLink />,

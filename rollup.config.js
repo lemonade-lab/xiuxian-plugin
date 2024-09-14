@@ -1,33 +1,60 @@
+import { defineConfig } from 'rollup'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
 import typescript from '@rollup/plugin-typescript'
-/**
- * @type {import("rollup").RollupOptions[]}
- */
-export default [
+import alias from '@rollup/plugin-alias'
+import dts from 'rollup-plugin-dts'
+export default defineConfig([
   {
-    // src 目录
-    input: './src/index.ts',
+    input: 'src/index.ts',
     output: {
-      // lib 目录
       dir: 'lib',
       format: 'es',
       sourcemap: false,
-      // 保持结构
       preserveModules: true
     },
     plugins: [
       typescript({
         compilerOptions: {
-          declaration: true,
-          declarationDir: 'lib/types'
+          outDir: 'lib'
         },
         include: ['src/**/*']
       })
     ],
     onwarn: (warning, warn) => {
-      // 忽略与无法解析the导入相关the警告信息
       if (warning.code === 'UNRESOLVED_IMPORT') return
-      // 继续使用默认the警告处理
+      warn(warning)
+    }
+  },
+  {
+    input: 'src/index.ts',
+    output: {
+      dir: 'lib',
+      format: 'es',
+      sourcemap: false,
+      preserveModules: true
+    },
+    plugins: [
+      alias({
+        entries: [
+          {
+            find: '@',
+            replacement: resolve(dirname(fileURLToPath(import.meta.url)), 'src')
+          }
+        ]
+      }),
+      typescript({
+        compilerOptions: {
+          suppressImplicitAnyIndexErrors: true,
+          outDir: 'lib'
+        },
+        include: ['src/**/*']
+      }),
+      dts()
+    ],
+    onwarn: (warning, warn) => {
+      if (warning.code === 'UNRESOLVED_IMPORT') return
       warn(warning)
     }
   }
-]
+])

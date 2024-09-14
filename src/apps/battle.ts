@@ -1,9 +1,9 @@
-import { getUserName } from '../model/utils'
+import { getUserName } from '@/model/utils'
 import { userBattle } from '../system/battle'
 import Utils from '../utils'
-import RedisClient from '../model/redis'
+import RedisClient from '@/model/redis'
 import { Messages, setBotTask } from 'yunzai'
-import { DB } from '../model/db-system'
+import { DB } from '@/model/db-system'
 import utils from '../utils'
 const message = new Messages('message.group')
 message.use(

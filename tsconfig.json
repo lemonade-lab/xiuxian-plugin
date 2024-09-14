@@ -1,4 +1,11 @@
 {
-  "include": ["src", "server"],
-  "extends": "yunzai/tsconfig/tsconfig.json"
+  "compilerOptions": {
+    // pages
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*", "routes*.{ts,tsx}"],
+  "extends": "yunzai/tsconfig.json"
 }

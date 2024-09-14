@@ -1,10 +1,10 @@
 import React from 'react'
 import { createRequire } from 'react-puppeteer'
-import { UserMessageType } from '../model/types.js'
-import { getEquipmentById } from '../model/equipment.js'
-import { getSkillById } from '../model/skills.js'
+import { UserMessageType } from '@/model/types.js'
+import { getEquipmentById } from '@/model/equipment.js'
+import { getSkillById } from '@/model/skills.js'
 import HeaderComponent from './header.js'
-import { MedicineList } from '../model/medicine.js'
+import { MedicineList } from '@/model/medicine.js'
 import Box from './Box.js'
 const require = createRequire(import.meta.url)
 type ComponentType = {

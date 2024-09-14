@@ -1,5 +1,5 @@
 import React from 'react'
-import { LevelNameMap } from '../model/base'
+import { LevelNameMap } from '@/model/base'
 import { createRequire } from 'react-puppeteer'
 
 const require = createRequire(import.meta.url)

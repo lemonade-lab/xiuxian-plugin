@@ -1,7 +1,7 @@
 import { EventType, Messages, Segment } from 'yunzai'
-import { DB } from '../../model/db-system'
-import { associationDB } from '../../model/association'
-import image from '../../image'
+import { DB } from '@/model/db-system'
+import { associationDB } from '@/model/association'
+import image from '@/image'
 
 const message = new Messages('message')
 

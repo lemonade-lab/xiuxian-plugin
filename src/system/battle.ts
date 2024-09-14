@@ -1,6 +1,6 @@
-import { getEquipmentById } from '../model/equipment'
-import { getLevelById } from '../model/level'
-import { UserMessageType } from '../model/types'
+import { getEquipmentById } from '@/model/equipment'
+import { getLevelById } from '@/model/level'
+import { UserMessageType } from '@/model/types'
 
 /**
  *

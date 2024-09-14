@@ -1,7 +1,7 @@
 import { Messages, Segment, setBotTask } from 'yunzai'
-import { DB } from '../model/db-system'
-import component from '../image/index'
-import RedisClient from '../model/redis'
+import { DB } from '@/model/db-system'
+import component from '@/image/index'
+import RedisClient from '@/model/redis'
 const message = new Messages('message.group')
 
 message.use(

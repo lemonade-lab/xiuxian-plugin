@@ -1,13 +1,13 @@
-import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '../model/base.js'
-import { getSkillById } from '../model/skills.js'
-import { getEquipmentById } from '../model/equipment.js'
-import component from '../image/index.js'
-import { getUserName } from '../model/utils.js'
+import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '@/model/base.js'
+import { getSkillById } from '@/model/skills.js'
+import { getEquipmentById } from '@/model/equipment.js'
+import component from '@/image/index.js'
+import { getUserName } from '@/model/utils.js'
 import { Messages, Segment } from 'yunzai'
-import { DB } from '../model/db-system.js'
-import { MedicineList } from '../model/medicine.js'
-import image from '../image/index.js'
-import { getLevelById } from '../model/level.js'
+import { DB } from '@/model/db-system.js'
+import { MedicineList } from '@/model/medicine.js'
+import image from '@/image/index.js'
+import { getLevelById } from '@/model/level.js'
 const message = new Messages('message.group')
 message.use(
   async e => {
@@ -192,10 +192,13 @@ message.use(
       msg.push(`${v.name}*${v.count}`)
     })
     e.reply(`你确定出售\n${msg.join('\n')}吗？\n发送【确认出售】以确认`)
-    timeoutMap[uid] = setTimeout(() => {
-      sureMap[uid] = false
-      e.reply([Segment.at(uid), ' 已自动取消出售'])
-    }, 1000 * 60 * 5)
+    timeoutMap[uid] = setTimeout(
+      () => {
+        sureMap[uid] = false
+        e.reply([Segment.at(uid), ' 已自动取消出售'])
+      },
+      1000 * 60 * 5
+    )
     return false
   },
   [/^(#|\/)?一键出售$/]
