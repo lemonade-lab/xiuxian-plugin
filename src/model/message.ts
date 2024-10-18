@@ -1,5 +1,5 @@
-import { UserMessageBase } from './base'
-import { DB } from './db-system'
+import { UserMessageBase } from '@src/model/base'
+import { DB } from '@src/model/db-system'
 
 /**
  * 根据uid得到重新信息

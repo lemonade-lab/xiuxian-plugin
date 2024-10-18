@@ -1,11 +1,11 @@
-import RedisClient from '@/model/redis'
-import { getUserName } from '@/model/utils'
-import component from '@/image/index'
-import { MINING, MINING_BLOOD, MINING_MONEY } from '@/model/config'
-import { getLevelById } from '@/model/level'
-import { Messages, Segment } from 'yunzai'
-import { DB } from '@/model/db-system'
-import { getEquipmentById } from '@/model/equipment'
+import RedisClient from '@src/model/redis'
+import { getUserName } from '@src/model/utils'
+import component from '@src/image/index'
+import { MINING, MINING_BLOOD, MINING_MONEY } from '@src/model/config'
+import { getLevelById } from '@src/model/level'
+import { Messages, Segment } from 'yunzaijs'
+import { DB } from '@src/model/db-system'
+import { getEquipmentById } from '@src/model/equipment'
 
 const message = new Messages('message.group')
 

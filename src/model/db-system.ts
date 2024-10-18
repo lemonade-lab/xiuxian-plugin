@@ -1,5 +1,5 @@
-import { UserMessageBase } from './base'
-import { Redis as redis } from 'yunzai'
+import { UserMessageBase } from '@src/model/base'
+import { Redis as redis } from 'yunzaijs'
 import _ from 'lodash'
 
 export class MyData<T> {

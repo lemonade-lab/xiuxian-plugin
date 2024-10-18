@@ -1,5 +1,5 @@
-import { BaseEquipment, BaseSkill, UserMessageBase } from './base'
-import { ResourcesPath } from './path'
+import { BaseEquipment, BaseSkill, UserMessageBase } from '@src/model/base'
+import { ResourcesPath } from '@src/model/path'
 export type UserMessageType = typeof UserMessageBase
 export type DataType = {
   player: UserMessageType

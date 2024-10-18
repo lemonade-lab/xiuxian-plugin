@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRequire } from 'react-puppeteer'
+import { createRequire } from 'jsxp'
 
 const require = createRequire(import.meta.url)
 export default function MsgList({

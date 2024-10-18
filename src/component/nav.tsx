@@ -1,8 +1,8 @@
 import React from 'react'
-import { createRequire } from 'react-puppeteer'
-import { LevelNameMap, ThemesColor } from '@/model/base'
-import { UserMessageType } from '@/model/types'
-import HeaderComponent from './header.js'
+import { createRequire } from 'jsxp'
+import { LevelNameMap, ThemesColor } from '@src/model/base'
+import { UserMessageType } from '@src/model/types'
+import HeaderComponent from '@src/component/header.js'
 import classNames from 'classnames'
 const require = createRequire(import.meta.url)
 

@@ -1,6 +1,6 @@
-import { EquipmentNameMap } from './base'
-import { MedicineList } from './medicine'
-import { UserMessageType } from './types'
+import { EquipmentNameMap } from '@src/model/base'
+import { MedicineList } from '@src/model/medicine'
+import { UserMessageType } from '@src/model/types'
 
 export const InstanceList = [
   {

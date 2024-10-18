@@ -1,10 +1,10 @@
-import { getUserName } from '@/model/utils'
-import { userBattle } from '../system/battle'
-import Utils from '../utils'
-import RedisClient from '@/model/redis'
-import { Messages, setBotTask } from 'yunzai'
-import { DB } from '@/model/db-system'
-import utils from '../utils'
+import { getUserName } from '@src/model/utils'
+import { userBattle } from '@src/system/battle'
+import Utils from '@src/utils'
+import RedisClient from '@src/model/redis'
+import { Messages, setBotTask } from 'yunzaijs'
+import { DB } from '@src/model/db-system'
+import utils from '@src/utils'
 const message = new Messages('message.group')
 message.use(
   async e => {

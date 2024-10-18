@@ -1,12 +1,12 @@
 import React from 'react'
-import { createRequire } from 'react-puppeteer'
-import { UserMessageType } from '@/model/types.js'
-import NavMessage from './nav.js'
-import { getLevelById } from '@/model/level.js'
-import { getSkillById } from '@/model/skills.js'
-import { getEquipmentById } from '@/model/equipment.js'
-import Help from './Help.js'
-import Box from './Box.js'
+import { createRequire } from 'jsxp'
+import { UserMessageType } from '@src/model/types.js'
+import NavMessage from '@src/component/nav.js'
+import { getLevelById } from '@src/model/level.js'
+import { getSkillById } from '@src/model/skills.js'
+import { getEquipmentById } from '@src/model/equipment.js'
+import Help from '@src/component/Help.js'
+import Box from '@src/component/Box.js'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {

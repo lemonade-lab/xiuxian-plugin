@@ -1,8 +1,8 @@
-import { Messages, EventType } from 'yunzai'
-import { associationDB } from '@/model/association'
-import { DB } from '@/model/db-system'
-import utils from '@/utils'
-import { AssociationStanding } from '@/model/base'
+import { Messages, EventType } from 'yunzaijs'
+import { associationDB } from '@src/model/association'
+import { DB } from '@src/model/db-system'
+import utils from '@src/utils'
+import { AssociationStanding } from '@src/model/base'
 
 const message = new Messages('message.group')
 

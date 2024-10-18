@@ -1,12 +1,12 @@
-import { getReStartUserMessageByUid } from '@/model/message.js'
-import component from '@/image/index.js'
-import { Themes } from '@/model/base.js'
-import { getUserName } from '@/model/utils.js'
-import RedisClient from '@/model/redis.js'
-import { USER_RECREATE } from '@/model/config.js'
+import { getReStartUserMessageByUid } from '@src/model/message.js'
+import component from '@src/image/index.js'
+import { Themes } from '@src/model/base.js'
+import { getUserName } from '@src/model/utils.js'
+import RedisClient from '@src/model/redis.js'
+import { USER_RECREATE } from '@src/model/config.js'
 
-import { Messages, Segment, setBotTask } from 'yunzai'
-import { DB } from '@/model/db-system.js'
+import { Messages, Segment, setBotTask } from 'yunzaijs'
+import { DB } from '@src/model/db-system.js'
 const message = new Messages('message')
 
 message.use(

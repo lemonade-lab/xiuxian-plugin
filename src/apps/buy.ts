@@ -1,13 +1,16 @@
-import { ReverseEquipmentNameMap, ReverseSkillNameMap } from '@/model/base.js'
-import { getSkillById } from '@/model/skills.js'
-import { getEquipmentById } from '@/model/equipment.js'
-import component from '@/image/index.js'
-import { getUserName } from '@/model/utils.js'
-import { Messages, Segment } from 'yunzai'
-import { DB } from '@/model/db-system.js'
-import { MedicineList } from '@/model/medicine.js'
-import image from '@/image/index.js'
-import { getLevelById } from '@/model/level.js'
+import {
+  ReverseEquipmentNameMap,
+  ReverseSkillNameMap
+} from '@src/model/base.js'
+import { getSkillById } from '@src/model/skills.js'
+import { getEquipmentById } from '@src/model/equipment.js'
+import component from '@src/image/index.js'
+import { getUserName } from '@src/model/utils.js'
+import { Messages, Segment } from 'yunzaijs'
+import { DB } from '@src/model/db-system.js'
+import { MedicineList } from '@src/model/medicine.js'
+import image from '@src/image/index.js'
+import { getLevelById } from '@src/model/level.js'
 const message = new Messages('message.group')
 message.use(
   async e => {

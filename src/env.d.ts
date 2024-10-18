@@ -1,1 +1,2 @@
-/// <reference types="react-puppeteer/env" />
+/// <reference types="lvyjs/env" />
+/// <reference types="yunzaijs" />

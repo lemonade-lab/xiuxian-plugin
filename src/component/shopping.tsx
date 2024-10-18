@@ -1,14 +1,13 @@
 import React from 'react'
-import { createRequire } from 'react-puppeteer'
-import { UserMessageType } from '@/model/types.js'
-import { getEquipmentById } from '@/model/equipment.js'
-import { EquipmentNameMap, SkillNameMap } from '@/model/base.js'
-import { getSkillById } from '@/model/skills.js'
+import { createRequire } from 'jsxp'
+import { UserMessageType } from '@src/model/types.js'
+import { getEquipmentById } from '@src/model/equipment.js'
+import { EquipmentNameMap, SkillNameMap } from '@src/model/base.js'
+import { getSkillById } from '@src/model/skills.js'
 const require = createRequire(import.meta.url)
-
-import HeaderComponent from './header.js'
-import Help from './Help.js'
-import Box from './Box.js'
+import HeaderComponent from '@src/component/header.js'
+import Help from '@src/component/Help.js'
+import Box from '@src/component/Box.js'
 
 type ComponentType = {
   data: UserMessageType

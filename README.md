@@ -5,12 +5,10 @@
 - 安装项目
 
 ```sh
-yarn add yz-xiuxian -W
+yarn add yz-xiuxian jsxp -W
 ```
 
 - 加载模块
-
-> 选择一个喜欢的配置进行
 
 `yunzai.config.json`
 
@@ -18,15 +16,6 @@ yarn add yz-xiuxian -W
 {
  "applications":['yz-xiuxian']
 }
-```
-
-`yunzai.config.js`
-
-```ts
-import { defineConfig } from 'yunzai'
-export default defineConfig({
-  applications: ['yz-xiuxian']
-})
 ```
 
 - 开始

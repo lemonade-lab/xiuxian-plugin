@@ -1,8 +1,8 @@
-import { getUserName } from '@/model/utils.js'
-import component from '@/image/index.js'
-import { Messages, Segment } from 'yunzai'
-import { DB } from '@/model/db-system.js'
-import { UserMessageBase } from '@/model/base.js'
+import { getUserName } from '@src/model/utils.js'
+import component from '@src/image/index.js'
+import { Messages, Segment } from 'yunzaijs'
+import { DB } from '@src/model/db-system.js'
+import { UserMessageBase } from '@src/model/base.js'
 const message = new Messages('message.group')
 message.use(
   async e => {

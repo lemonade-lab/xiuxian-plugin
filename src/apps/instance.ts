@@ -1,11 +1,11 @@
-import { Messages, setBotTask, Bot, Segment } from 'yunzai'
-import { DB } from '@/model/db-system'
-import { InstanceList, InstanceSettleAccount } from '@/model/instance'
-import redisClient from '@/model/redis'
-import utils from '../utils'
-import { LevelNameMap } from '@/model/base'
-import { INSTANCE_CD } from '@/model/config'
-import image from '@/image/index'
+import { Messages, setBotTask, Bot, Segment } from 'yunzaijs'
+import { DB } from '@src/model/db-system'
+import { InstanceList, InstanceSettleAccount } from '@src/model/instance'
+import redisClient from '@src/model/redis'
+import utils from '@src/utils'
+import { LevelNameMap } from '@src/model/base'
+import { INSTANCE_CD } from '@src/model/config'
+import image from '@src/image/index'
 
 const message = new Messages('message.group')
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import { LevelNameMap } from '@/model/base'
-import { createRequire } from 'react-puppeteer'
+import { LevelNameMap } from '@src/model/base'
+import { createRequire } from 'jsxp'
 
 const require = createRequire(import.meta.url)
 export type LeaderBoardDataType = {

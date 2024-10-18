@@ -1,6 +1,6 @@
-import { getBaseVal } from '../system/battle'
-import { getLevelById } from './level'
-import { UserMessageType } from './types'
+import { getBaseVal } from '@src/system/battle'
+import { getLevelById } from '@src/model/level'
+import { UserMessageType } from '@src/model/types'
 
 export class Boss {
   name: string

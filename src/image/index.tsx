@@ -1,6 +1,5 @@
 import React from 'react'
-import { createRequire, render } from 'react-puppeteer'
-import { dirname } from 'node:path'
+import { render } from 'jsxp'
 import {
   Bag as BagComponent,
   Equipment as EquipmentComponent,
@@ -13,25 +12,13 @@ import {
   Skill as KillComponent,
   MsgList as MsgListComponent,
   Association as AssociationComponent
-} from '../component/index.ts'
-import Redis from '@/model/redis.ts'
-import { UserMessageType } from '@/model/types.ts'
-import { LeaderBoardDataType } from '../component/leaderboard.tsx'
-import { ExchangeDataType } from '../component/exchange.tsx'
-import { AssociationType } from '@/model/association.ts'
-import { DB } from '@/model/db-system.ts'
-
-//
-const require = createRequire(import.meta.url)
-//
-const Paths = {
-  '@xiuxian': dirname(require('../../README.md'))
-}
-//
-const RootLink = () => {
-  // 引入解析后的 css
-  return <link rel="stylesheet" href={require('../../public/output.css')} />
-}
+} from '@src/component/index.ts'
+import Redis from '@src/model/redis.ts'
+import { UserMessageType } from '@src/model/types.ts'
+import { LeaderBoardDataType } from '@src/component/leaderboard.tsx'
+import { ExchangeDataType } from '@src/component/exchange.tsx'
+import { AssociationType } from '@src/model/association.ts'
+import { DB } from '@src/model/db-system.ts'
 
 class Image {
   /**
@@ -42,9 +29,9 @@ class Image {
    */
   hello() {
     return render({
-      join_dir: 'hello',
-      html_name: 'help.html',
-      html_body: <HelloComponent />
+      path: 'hello',
+      name: 'help.html',
+      component: <HelloComponent />
     })
   }
 
@@ -58,12 +45,9 @@ class Image {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
     return render({
-      join_dir: 'message',
-      html_name: `${uid}.html`,
-      html_head: <RootLink />,
-      html_body: <MessageComponent data={data} status={status} />,
-      file_paths: Paths,
-      html_files: [require(`../../resources/css/root.css`)]
+      path: 'message',
+      name: `${uid}.html`,
+      component: <MessageComponent data={data} status={status} />
     })
   }
 
@@ -77,12 +61,9 @@ class Image {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
     return render({
-      join_dir: 'kill',
-      html_name: `${uid}.html`,
-      html_head: <RootLink />,
-      html_body: <KillComponent data={data} status={status} />,
-      file_paths: Paths,
-      html_files: [require(`../../resources/css/root.css`)]
+      path: 'kill',
+      name: `${uid}.html`,
+      component: <KillComponent data={data} status={status} />
     })
   }
 
@@ -96,12 +77,9 @@ class Image {
     const state = await Redis.get('door', data.uid)
     const status = state?.type !== null ? true : false
     return render({
-      join_dir: 'equipment',
-      html_name: `${uid}.html`,
-      html_head: <RootLink />,
-      html_body: <EquipmentComponent data={data} status={status} />,
-      file_paths: Paths,
-      html_files: [require(`../../resources/css/root.css`)]
+      path: 'equipment',
+      name: `${uid}.html`,
+      component: <EquipmentComponent data={data} status={status} />
     })
   }
 
@@ -113,12 +91,9 @@ class Image {
    */
   async shopping(data: UserMessageType, uid: number) {
     return render({
-      join_dir: 'shopping',
-      html_name: `${uid}.html`,
-      html_head: <RootLink />,
-      html_body: <ShoppingComponent data={data} />,
-      file_paths: Paths,
-      html_files: [require(`../../resources/css/root.css`)]
+      path: 'shopping',
+      name: `${uid}.html`,
+      component: <ShoppingComponent data={data} />
     })
   }
 
@@ -130,41 +105,34 @@ class Image {
    */
   async bag(data: UserMessageType, uid: number) {
     return render({
-      join_dir: 'bag',
-      html_name: `${uid}.html`,
-      html_head: <RootLink />,
-      html_body: <BagComponent data={data} />,
-      file_paths: Paths,
-      html_files: [require(`../../resources/css/root.css`)]
+      path: 'bag',
+      name: `${uid}.html`,
+      component: <BagComponent data={data} />
     })
   }
 
   async leaderBoard(data: LeaderBoardDataType) {
     return render({
-      join_dir: 'leaderBoard',
-      html_name: `leaderBoard.html`,
-      html_head: <RootLink />,
-      html_body: <LeaderBoardComponent {...data} />,
-      file_paths: Paths
+      path: 'leaderBoard',
+      name: `leaderBoard.html`,
+      component: <LeaderBoardComponent {...data} />
     })
   }
 
   async exchange(data: ExchangeDataType) {
     return render({
-      join_dir: 'exchange',
-      html_name: `exchange.html`,
-      html_head: <RootLink />,
-      html_body: <ExchangeComponent {...data} />,
-      file_paths: Paths
+      path: 'exchange',
+      name: `exchange.html`,
+      component: <ExchangeComponent {...data} />
     })
   }
 
   async levelList(data: Array<number>) {
     return render({
-      join_dir: 'levelList',
-      html_name: `levelList.html`,
-      html_head: <RootLink />,
-      html_body: <LevelListComponent list={data} />
+      path: 'levelList',
+      name: `levelList.html`,
+
+      component: <LevelListComponent list={data} />
     })
   }
 
@@ -172,25 +140,21 @@ class Image {
     data: { group: number; msg: string; uid: number | string }[] | string[]
   ) {
     return render({
-      join_dir: 'msgList',
-      html_name: `msgList.html`,
-      html_head: <RootLink />,
-      html_body: <MsgListComponent list={data} />
+      path: 'msgList',
+      name: `msgList.html`,
+
+      component: <MsgListComponent list={data} />
     })
   }
 
   async association(data: AssociationType) {
     const master = await DB.findOne(data.master)
     return render({
-      join_dir: 'association',
-      html_name: `association.html`,
-      html_head: <RootLink />,
-      html_body: <AssociationComponent data={data} master={master} />
+      path: 'association',
+      name: `association.html`,
+      component: <AssociationComponent data={data} master={master} />
     })
   }
 }
 
-/**
- *
- */
 export default new Image()

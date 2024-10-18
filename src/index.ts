@@ -1,6 +1,6 @@
-import { Application, applicationOptions } from 'yunzai'
-import redisClient from '@/model/redis'
-import Apps from './apps'
+import { Application, applicationOptions } from 'yunzaijs'
+import redisClient from '@src/model/redis'
+import Apps from '@src/apps'
 export default (config?: { name: string }) => {
   // 预先存储
   const Rules: {

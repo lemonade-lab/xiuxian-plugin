@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { cwd } from '@/config'
+import { cwd } from '@src/config'
 // 基础数据
 export const ResourcesPath = {
   // 配置文件

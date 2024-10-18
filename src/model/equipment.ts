@@ -1,4 +1,4 @@
-import { EquipmentNameMap, BaseEquipment } from './base'
+import { EquipmentNameMap, BaseEquipment } from '@src/model/base'
 
 /**
  * 得到指定攻击力

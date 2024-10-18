@@ -1,4 +1,4 @@
-import { SkillNameMap, BaseSkill } from './base'
+import { SkillNameMap, BaseSkill } from '@src/model/base'
 /**
  *
  * @param id

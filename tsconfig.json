@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    // pages
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@src/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "routes*.{ts,tsx}"],
-  "extends": "yunzai/tsconfig.json"
+  "include": ["src/**/*", "jsxp.config.tsx"],
+  "extends": "lvyjs/tsconfig.json"
 }

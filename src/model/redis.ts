@@ -1,4 +1,4 @@
-import { Redis as redis } from 'yunzai'
+import { Redis as redis } from 'yunzaijs'
 import { SetOptions } from 'redis'
 
 const Keys = [

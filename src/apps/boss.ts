@@ -1,9 +1,9 @@
-import { clearBotTask, Messages, setBotTask, Bot } from 'yunzai'
-import RedisClient from '@/model/redis'
-import { attackBoss, Boss, getBossLevel } from '@/model/boss'
-import { LevelNameMap } from '@/model/base'
-import { DB } from '@/model/db-system'
-import utils from '../utils'
+import { clearBotTask, Messages, setBotTask, Bot } from 'yunzaijs'
+import RedisClient from '@src/model/redis'
+import { attackBoss, Boss, getBossLevel } from '@src/model/boss'
+import { LevelNameMap } from '@src/model/base'
+import { DB } from '@src/model/db-system'
+import utils from '@src/utils'
 
 const message = new Messages('message.group')
 

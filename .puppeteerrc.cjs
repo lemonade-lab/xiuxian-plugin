@@ -1,4 +1,2 @@
-/**
- * @type {import("puppeteer").Configuration}
- */
-module.exports = require('react-puppeteer/.puppeteerrc')
+/** @type {import("puppeteer").Configuration} */
+module.exports = require('jsxp/.puppeteerrc')

@@ -1,4 +1,4 @@
-import { BaseLevel, LevelNameMap } from './base'
+import { BaseLevel, LevelNameMap } from '@src/model/base'
 
 /**
  * 得到指定境界的攻击力
