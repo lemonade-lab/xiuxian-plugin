@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRequire } from 'jsxp'
+import { createRequire, LinkStyleSheet } from 'jsxp'
 import { UserMessageType } from '@src/model/types.js'
 import NavMessage from '@src/component/nav.js'
 import { getLevelById } from '@src/model/level.js'
@@ -7,6 +7,7 @@ import { getSkillById } from '@src/model/skills.js'
 import { getEquipmentById } from '@src/model/equipment.js'
 import Help from '@src/component/Help.js'
 import Box from '@src/component/Box.js'
+import css_output from '@src/input.css'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
@@ -45,53 +46,60 @@ export default function App({ data, status = false }: ComponentType) {
   const kills = Object.keys(data.skill).map(item => getSkillById(Number(item)))
 
   return (
-    <div
-      id="root"
-      data-theme={data.theme}
-      style={{
-        backgroundImage: 'var(--background-image)'
-      }}
-      className=" bg-[100%_auto] w-full h-full"
-    >
-      <NavMessage
-        data={data}
-        power={power}
-        now={data.blood}
-        blood={blood}
-        status={status}
-      />
-      {kills.length > 0 && (
-        <Box title="#功法信息">
-          {kills.map((item, index) => {
-            return (
-              <div key={index} className="flex">
-                <div className="flex flex-wrap mr-4">
-                  <img
-                    className="mr-2"
-                    src={require('../../resources/svg/skills.svg')}
-                  />
-                  <span>{item.name}</span>
-                </div>
-                <div className="flex flex-wrap mr-4">
-                  <img
-                    className="mr-2"
-                    src={require('../../resources/svg/efficiency.svg')}
-                  />
-                  <span>{item.efficiency}</span>
-                </div>
-                <div className="flex flex-wrap mr-4">
-                  <img
-                    className="mr-2"
-                    src={require('../../resources/svg/money.svg')}
-                  />
-                  <span>{item.price}</span>
-                </div>
-              </div>
-            )
-          })}
-        </Box>
-      )}
-      <Help list={['#学习+功法名']}></Help>
-    </div>
+    <html>
+      <html>
+        <LinkStyleSheet src={css_output} />
+      </html>
+      <body>
+        <div
+          id="root"
+          data-theme={data.theme}
+          style={{
+            backgroundImage: 'var(--background-image)'
+          }}
+          className=" bg-[100%_auto] w-full h-full"
+        >
+          <NavMessage
+            data={data}
+            power={power}
+            now={data.blood}
+            blood={blood}
+            status={status}
+          />
+          {kills.length > 0 && (
+            <Box title="#功法信息">
+              {kills.map((item, index) => {
+                return (
+                  <div key={index} className="flex">
+                    <div className="flex flex-wrap mr-4">
+                      <img
+                        className="mr-2"
+                        src={require('../../resources/svg/skills.svg')}
+                      />
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="flex flex-wrap mr-4">
+                      <img
+                        className="mr-2"
+                        src={require('../../resources/svg/efficiency.svg')}
+                      />
+                      <span>{item.efficiency}</span>
+                    </div>
+                    <div className="flex flex-wrap mr-4">
+                      <img
+                        className="mr-2"
+                        src={require('../../resources/svg/money.svg')}
+                      />
+                      <span>{item.price}</span>
+                    </div>
+                  </div>
+                )
+              })}
+            </Box>
+          )}
+          <Help list={['#学习+功法名']}></Help>
+        </div>
+      </body>
+    </html>
   )
 }

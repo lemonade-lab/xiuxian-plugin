@@ -1,11 +1,12 @@
 import React from 'react'
-import { createRequire } from 'jsxp'
+import { createRequire, LinkStyleSheet } from 'jsxp'
 import { UserMessageType } from '@src/model/types.js'
 import { getEquipmentById } from '@src/model/equipment.js'
 import { getSkillById } from '@src/model/skills.js'
 import HeaderComponent from '@src/component/header.js'
 import { MedicineList } from '@src/model/medicine.js'
 import Box from '@src/component/Box.js'
+import css_output from '@src/input.css'
 const require = createRequire(import.meta.url)
 type ComponentType = {
   data: UserMessageType
@@ -55,8 +56,12 @@ export default function App({ data }: ComponentType) {
         account: item.count
       }
     })
+
   return (
     <html>
+      <html>
+        <LinkStyleSheet src={css_output} />
+      </html>
       <body>
         <div
           id="root"

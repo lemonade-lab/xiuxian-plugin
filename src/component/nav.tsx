@@ -4,6 +4,7 @@ import { LevelNameMap, ThemesColor } from '@src/model/base'
 import { UserMessageType } from '@src/model/types'
 import HeaderComponent from '@src/component/header.js'
 import classNames from 'classnames'
+import css_output from '@src/input.css'
 const require = createRequire(import.meta.url)
 
 type ComponentType = {
