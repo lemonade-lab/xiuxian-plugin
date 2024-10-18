@@ -13,6 +13,10 @@ module.exports = {
     // 内联url资源
     'postcss-url': {
       url: 'inline'
+    },
+    // 压缩css
+    'cssnano': {
+      preset: 'default'
     }
   }
 }
