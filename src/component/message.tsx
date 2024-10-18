@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRequire, LinkStyleSheet } from 'jsxp'
+import { LinkStyleSheet } from 'jsxp'
 import { UserMessageType } from '@src/model/types'
 import NavMessage from '@src/component/nav.jsx'
 import { getLevelById } from '@src/model/level.js'
@@ -8,7 +8,12 @@ import { getEquipmentById } from '@src/model/equipment.js'
 import Help from '@src/component/Help.js'
 import Box from '@src/component/Box.js'
 import css_output from '@src/input.css'
-const require = createRequire(import.meta.url)
+import img_attack from '@src/assets/svg/attack.svg'
+import img_defense from '@src/assets/svg/defense.svg'
+import img_blood from '@src/assets/svg/blood.svg'
+import img_agile from '@src/assets/svg/agile.svg'
+import img_critical_hit_rate from '@src/assets/svg/critical_hit_rate.svg'
+import img_critical_damage from '@src/assets/svg/critical_damage.svg'
 
 type ComponentType = {
   data: UserMessageType
@@ -97,20 +102,14 @@ export default function App({ data, status = false }: ComponentType) {
 
           <Box title={' #装备信息'}>
             <div className="flex flex-grow flex-shrink-0 w-1/2">
-              <img
-                className="mr-1"
-                src={require('@src/assets/svg/attack.svg')}
-              />
+              <img className="mr-1" src={img_attack} />
               <span className="pr-1">攻击</span>
               <span>{attack}</span>
               <span className="text-[var(--font-color)]">{`(+${+data.base
                 .attack})`}</span>
             </div>
             <div className="flex flex-grow flex-shrink-0 w-1/2">
-              <img
-                className="mr-1"
-                src={require('@src/assets/svg/defense.svg')}
-              />
+              <img className="mr-1" src={img_defense} />
               <span className="pr-1">防御</span>
               <span>{`${defense}`}</span>
               <span className="text-[var(--font-color)]">
@@ -118,10 +117,7 @@ export default function App({ data, status = false }: ComponentType) {
               </span>
             </div>
             <div className="flex flex-grow flex-shrink-0 w-1/2">
-              <img
-                className="mr-1"
-                src={require('@src/assets/svg/blood.svg')}
-              />
+              <img className="mr-1" src={img_blood} />
               <span className="pr-1">血量</span>
               <span>{`${blood}`}</span>
               <span className="text-[var(--font-color)]">
@@ -129,26 +125,17 @@ export default function App({ data, status = false }: ComponentType) {
               </span>
             </div>
             <div className="flex flex-grow flex-shrink-0 w-1/2">
-              <img
-                className="mr-1"
-                src={require('@src/assets/svg/agile.svg')}
-              />
+              <img className="mr-1" src={img_agile} />
               <span className="pr-1">敏捷</span>
               <span>{`${agile}`}</span>
             </div>
             <div className="flex flex-grow flex-shrink-0 w-1/2">
-              <img
-                className="mr-1"
-                src={require('@src/assets/svg/critical_hit_rate.svg')}
-              />
+              <img className="mr-1" src={img_critical_hit_rate} />
               <span className="pr-1">爆率</span>
               <span>{`${critical_hit_rate}`}</span>
             </div>
             <div className="flex flex-grow flex-shrink-0 w-1/2">
-              <img
-                className="mr-1"
-                src={require('@src/assets/svg/critical_damage.svg')}
-              />
+              <img className="mr-1" src={img_critical_damage} />
               <span className="pr-1">暴伤</span>
               <span>{`${critical_damage}`}</span>
             </div>

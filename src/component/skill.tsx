@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRequire, LinkStyleSheet } from 'jsxp'
+import { LinkStyleSheet } from 'jsxp'
 import { UserMessageType } from '@src/model/types.js'
 import NavMessage from '@src/component/nav.js'
 import { getLevelById } from '@src/model/level.js'
@@ -8,7 +8,9 @@ import { getEquipmentById } from '@src/model/equipment.js'
 import Help from '@src/component/Help.js'
 import Box from '@src/component/Box.js'
 import css_output from '@src/input.css'
-const require = createRequire(import.meta.url)
+import img_skills from '@src/assets/svg/skills.svg'
+import img_efficiency from '@src/assets/svg/efficiency.svg'
+import img_money from '@src/assets/svg/money.svg'
 
 type ComponentType = {
   data: UserMessageType
@@ -72,24 +74,15 @@ export default function App({ data, status = false }: ComponentType) {
                 return (
                   <div key={index} className="flex">
                     <div className="flex flex-wrap mr-4">
-                      <img
-                        className="mr-2"
-                        src={require('@src/assets/svg/skills.svg')}
-                      />
+                      <img className="mr-2" src={img_skills} />
                       <span>{item.name}</span>
                     </div>
                     <div className="flex flex-wrap mr-4">
-                      <img
-                        className="mr-2"
-                        src={require('@src/assets/svg/efficiency.svg')}
-                      />
+                      <img className="mr-2" src={img_efficiency} />
                       <span>{item.efficiency}</span>
                     </div>
                     <div className="flex flex-wrap mr-4">
-                      <img
-                        className="mr-2"
-                        src={require('@src/assets/svg/money.svg')}
-                      />
+                      <img className="mr-2" src={img_money} />
                       <span>{item.price}</span>
                     </div>
                   </div>

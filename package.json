@@ -7,7 +7,7 @@
   "author": "ningmengchongshui",
   "license": "MIT",
   "scripts": {
-    "app": "lvy dev --yunzai",
+    "dev": "lvy dev --yunzai",
     "view": "lvy dev --view",
     "build": "lvy build",
     "start": "pm2 start pm2.config.cjs",

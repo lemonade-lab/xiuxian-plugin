@@ -1,8 +1,7 @@
 import React from 'react'
-import { createRequire, LinkStyleSheet } from 'jsxp'
+import { LinkStyleSheet } from 'jsxp'
 import css_output from '@src/input.css'
-
-const require = createRequire(import.meta.url)
+import img_28 from '@src/assets/img/28.jpg'
 export default function MsgList({
   list
 }: {
@@ -18,7 +17,7 @@ export default function MsgList({
           <div
             id="root"
             style={{
-              backgroundImage: `url(${require('@src/assets/img/28.jpg')})`
+              backgroundImage: `url(${img_28})`
             }}
             className="w-full h-full bg-[100%_auto] text-white overflow-hidden"
           >
@@ -47,7 +46,7 @@ export default function MsgList({
           <div
             id="root"
             style={{
-              backgroundImage: `url(${require('@src/assets/img/28.jpg')})`
+              backgroundImage: `url(${img_28})`
             }}
             className="w-full h-full bg-[100%_auto] text-white overflow-hidden"
           >

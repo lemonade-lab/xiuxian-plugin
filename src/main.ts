@@ -1,3 +1,7 @@
+/**
+ *
+ * @param param0
+ */
 const useYunzaiJS = async ({ config }) => {
   const { Client, createLogin, Processor } = await import('yunzaijs')
   setTimeout(async () => {
@@ -7,8 +11,7 @@ const useYunzaiJS = async ({ config }) => {
       .catch(console.error)
   }, 0)
 }
-setTimeout(async () => {
-  useYunzaiJS({
-    config: './lib/yunzai.config.js'
-  })
-}, 0)
+
+useYunzaiJS({
+  config: 'lib/yunzai.config.js'
+})

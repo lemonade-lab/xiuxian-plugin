@@ -22,6 +22,34 @@ yarn add yz-xiuxian jsxp -W
 
 发送`/个人信息`开启存档并展示游玩指令
 
+## 开发
+
+```sh
+git clone https://github.com/lemonade-lab/xiuxian-plugin.git
+```
+
+```sh
+yarn install
+```
+
+- 开发
+
+```sh
+yarn dev
+```
+
+- 编译
+
+```sh
+yarn build
+```
+
+- 独立运行
+
+```sh
+yarn start
+```
+
 ## 商用
 
 > 该插件允许自由安装修改,插件内的素材部分来自网络,在商用前,请自行替换素材

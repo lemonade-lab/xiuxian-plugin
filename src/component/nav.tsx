@@ -1,11 +1,13 @@
 import React from 'react'
-import { createRequire } from 'jsxp'
 import { LevelNameMap, ThemesColor } from '@src/model/base'
 import { UserMessageType } from '@src/model/types'
 import HeaderComponent from '@src/component/header.js'
 import classNames from 'classnames'
-import css_output from '@src/input.css'
-const require = createRequire(import.meta.url)
+import img_name from '@src/assets/svg/name.svg'
+import img_level from '@src/assets/svg/level.svg'
+import img_power from '@src/assets/svg/power.svg'
+import img_money from '@src/assets/svg/money.svg'
+import img_efficiency from '@src/assets/svg/efficiency.svg'
 
 type ComponentType = {
   data: UserMessageType
@@ -74,11 +76,11 @@ export default function App({
         </span>
         <div className="flex-1 m-auto">
           <div className="flex justify-center">
-            <img className="mr-2" src={require('@src/assets/svg/name.svg')} />
+            <img className="mr-2" src={img_name} />
             <span>{data.name}</span>
           </div>
           <div className="flex justify-center">
-            <img className="mr-2" src={require('@src/assets/svg/level.svg')} />
+            <img className="mr-2" src={img_level} />
             <span>{LevelNameMap[data.level_id]}</span>
           </div>
         </div>
@@ -113,18 +115,15 @@ export default function App({
         </div>
         <div className="flex-1 m-auto">
           <div className="flex justify-center">
-            <img className="mr-2" src={require('@src/assets/svg/power.svg')} />
+            <img className="mr-2" src={img_power} />
             <span>{power}</span>
           </div>
           <div className="flex justify-center">
-            <img className="mr-2" src={require('@src/assets/svg/money.svg')} />
+            <img className="mr-2" src={img_money} />
             <span>{data.money}</span>{' '}
           </div>
           <div className="flex justify-center">
-            <img
-              className="mr-2"
-              src={require('@src/assets/svg/efficiency.svg')}
-            />
+            <img className="mr-2" src={img_efficiency} />
             <span>{data.efficiency}</span>{' '}
           </div>
         </div>
