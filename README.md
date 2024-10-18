@@ -1,4 +1,4 @@
-# Yunzai Next Xiuxian
+# YunzaiJS Xiuxian
 
 ## 部署
 

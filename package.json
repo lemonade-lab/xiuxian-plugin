@@ -1,8 +1,8 @@
 {
   "name": "yz-xiuxian",
   "version": "1.0.0-rc.6",
-  "description": "Next修仙插件",
-  "main": "main.js",
+  "description": "YUNZAIJS-XIUXIAN",
+  "main": "lib/index.js",
   "type": "module",
   "author": "ningmengchongshui",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "typescript": "^5.4.5",
     "yunzaijs": "^1.0.0-rc.4"
   },
-  "types": "lib/types",
+  "types": "lib",
   "exports": {
     ".": {
       "import": "./lib/index.js",
