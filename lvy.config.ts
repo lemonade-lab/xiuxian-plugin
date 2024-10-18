@@ -22,7 +22,7 @@ const useYunzaiJS = async ({ config }) => {
 export default defineConfig({
   plugins: [
     {
-      name: 'alemon',
+      name: 'yunzai',
       useApp: () => {
         if (process.argv.includes('--yunzai'))
           useYunzaiJS({
@@ -38,10 +38,12 @@ export default defineConfig({
     }
   ],
   build: {
+    // 别名映射
     alias: {
       entries: [{ find: '@src', replacement: join(__dirname, 'src') }]
     },
     typescript: {
+      // 去除注释
       removeComments: true
     }
   }
