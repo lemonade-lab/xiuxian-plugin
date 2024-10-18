@@ -1,7 +1,7 @@
 import React from 'react'
 import { BackgroundImage, LinkStyleSheet } from 'jsxp'
 import img_24 from '@src/assets/img/24.jpg'
-import css_output from '@src/input.css'
+import css_output from '@src/assets/css/input.css'
 export default function App({ data, master }) {
   return (
     <html>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { LinkStyleSheet } from 'jsxp'
-import css_output from '@src/input.css'
+import css_output from '@src/assets/css/input.css'
 import img_28 from '@src/assets/img/28.jpg'
 export default function MsgList({
   list

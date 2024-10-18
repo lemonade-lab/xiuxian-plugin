@@ -1,5 +1,5 @@
 import React from 'react'
-import css_output from '@src/input.css'
+import css_output from '@src/assets/css/input.css'
 import { LinkStyleSheet } from 'jsxp'
 
 interface DataType {

@@ -26,6 +26,7 @@ yarn add yz-xiuxian jsxp -W
 
 ```sh
 git clone https://github.com/lemonade-lab/xiuxian-plugin.git
+cd xiuxian-plugin
 ```
 
 ```sh

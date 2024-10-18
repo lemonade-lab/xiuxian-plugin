@@ -1,7 +1,7 @@
 import React from 'react'
 import { LevelNameMap } from '@src/model/base'
 import { LinkStyleSheet } from 'jsxp'
-import css_output from '@src/input.css'
+import css_output from '@src/assets/css/input.css'
 import img_28 from '@src/assets/img/28.jpg'
 export type LeaderBoardDataType = {
   list: Array<any>
@@ -30,7 +30,6 @@ const App: React.FC<LeaderBoardDataType> = ({ list }) => {
                   {LevelNameMap[item]}
                   {index == 0 && (
                     <span className="leaderBoard-badge text-2xl">
-                      {' '}
                       ——当前境界
                     </span>
                   )}
