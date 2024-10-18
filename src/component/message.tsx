@@ -99,7 +99,7 @@ export default function App({ data, status = false }: ComponentType) {
             <div className="flex flex-grow flex-shrink-0 w-1/2">
               <img
                 className="mr-1"
-                src={require('../../resources/svg/attack.svg')}
+                src={require('@src/assets/svg/attack.svg')}
               />
               <span className="pr-1">攻击</span>
               <span>{attack}</span>
@@ -109,7 +109,7 @@ export default function App({ data, status = false }: ComponentType) {
             <div className="flex flex-grow flex-shrink-0 w-1/2">
               <img
                 className="mr-1"
-                src={require('../../resources/svg/defense.svg')}
+                src={require('@src/assets/svg/defense.svg')}
               />
               <span className="pr-1">防御</span>
               <span>{`${defense}`}</span>
@@ -120,7 +120,7 @@ export default function App({ data, status = false }: ComponentType) {
             <div className="flex flex-grow flex-shrink-0 w-1/2">
               <img
                 className="mr-1"
-                src={require('../../resources/svg/blood.svg')}
+                src={require('@src/assets/svg/blood.svg')}
               />
               <span className="pr-1">血量</span>
               <span>{`${blood}`}</span>
@@ -131,7 +131,7 @@ export default function App({ data, status = false }: ComponentType) {
             <div className="flex flex-grow flex-shrink-0 w-1/2">
               <img
                 className="mr-1"
-                src={require('../../resources/svg/agile.svg')}
+                src={require('@src/assets/svg/agile.svg')}
               />
               <span className="pr-1">敏捷</span>
               <span>{`${agile}`}</span>
@@ -139,7 +139,7 @@ export default function App({ data, status = false }: ComponentType) {
             <div className="flex flex-grow flex-shrink-0 w-1/2">
               <img
                 className="mr-1"
-                src={require('../../resources/svg/critical_hit_rate.svg')}
+                src={require('@src/assets/svg/critical_hit_rate.svg')}
               />
               <span className="pr-1">爆率</span>
               <span>{`${critical_hit_rate}`}</span>
@@ -147,7 +147,7 @@ export default function App({ data, status = false }: ComponentType) {
             <div className="flex flex-grow flex-shrink-0 w-1/2">
               <img
                 className="mr-1"
-                src={require('../../resources/svg/critical_damage.svg')}
+                src={require('@src/assets/svg/critical_damage.svg')}
               />
               <span className="pr-1">暴伤</span>
               <span>{`${critical_damage}`}</span>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRequire, LinkStyleSheet } from 'jsxp'
+import { LinkStyleSheet } from 'jsxp'
 import { UserMessageType } from '@src/model/types.js'
 import { getEquipmentById } from '@src/model/equipment.js'
 import { getSkillById } from '@src/model/skills.js'
@@ -7,10 +7,22 @@ import HeaderComponent from '@src/component/header.js'
 import { MedicineList } from '@src/model/medicine.js'
 import Box from '@src/component/Box.js'
 import css_output from '@src/input.css'
-const require = createRequire(import.meta.url)
+import img_name from '@src/assets/svg/name.svg'
+import img_efficiency from '@src/assets/svg/efficiency.svg'
+import img_money from '@src/assets/svg/money.svg'
+import img_acount from '@src/assets/svg/acount.svg'
+import img_equitment from '@src/assets/svg/equitment.svg'
+import img_attack from '@src/assets/svg/attack.svg'
+import img_defense from '@src/assets/svg/defense.svg'
+import img_blood from '@src/assets/svg/blood.svg'
+import img_agile from '@src/assets/svg/agile.svg'
+import img_critical_hit_rate from '@src/assets/svg/critical_hit_rate.svg'
+import img_critical_damage from '@src/assets/svg/critical_damage.svg'
+
 type ComponentType = {
   data: UserMessageType
 }
+
 type DataType = {
   id: number | string
   name: string
@@ -82,19 +94,19 @@ export default function App({ data }: ComponentType) {
                     {[
                       {
                         data: item.name,
-                        src: require('../../resources/svg/name.svg')
+                        src: img_name
                       },
                       {
                         data: item.efficiency,
-                        src: require('../../resources/svg/efficiency.svg')
+                        src: img_efficiency
                       },
                       {
                         data: item.price,
-                        src: require('../../resources/svg/money.svg')
+                        src: img_money
                       },
                       {
                         data: item.account,
-                        src: require('../../resources/svg/acount.svg')
+                        src: img_acount
                       }
                     ].map((item, index) => (
                       <div key={index} className="flex flex-wrap mr-4">
@@ -115,70 +127,43 @@ export default function App({ data }: ComponentType) {
                   <div key={index}>
                     <div className="flex flex-wrap">
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/equitment.svg')}
-                        />
+                        <img className="mr-2" src={img_equitment} />
                         <span className="mx-auto">{item.name}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/acount.svg')}
-                        />
+                        <img className="mr-2" src={img_acount} />
                         <span className="mx-auto">{item.account}</span>
                       </div>
                     </div>
                     <div className="flex flex-wrap">
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/attack.svg')}
-                        />
+                        <img className="mr-2" src={img_attack} />
                         <span className="mx-auto">{item.attack}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/defense.svg')}
-                        />
+                        <img className="mr-2" src={img_defense} />
                         <span className="mx-auto">{item.defense}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/blood.svg')}
-                        />
+                        <img className="mr-2" src={img_blood} />
                         <span className="mx-auto">{item.blood}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/agile.svg')}
-                        />
+                        <img className="mr-2" src={img_agile} />
                         <span className="mx-auto">{item.agile}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/critical_hit_rate.svg')}
-                        />
+                        <img className="mr-2" src={img_critical_hit_rate} />
                         <span className="mx-auto">
                           {item.critical_hit_rate}
                         </span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/critical_damage.svg')}
-                        />
+                        <img className="mr-2" src={img_critical_damage} />
                         <span className="mx-auto">{item.critical_damage}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/money.svg')}
-                        />
+                        <img className="mr-2" src={img_money} />
                         <span className="mx-auto">{item.price}</span>
                       </div>
                     </div>
@@ -195,47 +180,29 @@ export default function App({ data }: ComponentType) {
                   <div key={index}>
                     <div className="flex flex-wrap">
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/equitment.svg')}
-                        />
+                        <img className="mr-2" src={img_equitment} />
                         <span className="mx-auto">{item.name}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/acount.svg')}
-                        />
+                        <img className="mr-2" src={img_acount} />
                         <span className="mx-auto">{item.account}</span>
                       </div>
                     </div>
                     <div className="flex flex-wrap">
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/attack.svg')}
-                        />
+                        <img className="mr-2" src={img_attack} />
                         <span className="mx-auto">{item.attack}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/blood.svg')}
-                        />
+                        <img className="mr-2" src={img_blood} />
                         <span className="mx-auto">{item.blood}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/agile.svg')}
-                        />
+                        <img className="mr-2" src={img_agile} />
                         <span className="mx-auto">{item.agile}</span>
                       </div>
                       <div className="flex flex-wrap mr-4">
-                        <img
-                          className="mr-2"
-                          src={require('../../resources/svg/money.svg')}
-                        />
+                        <img className="mr-2" src={img_money} />
                         <span className="mx-auto">{item.price}</span>
                       </div>
                     </div>

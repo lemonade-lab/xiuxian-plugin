@@ -1,13 +1,11 @@
 import React from 'react'
 import { LevelNameMap } from '@src/model/base'
-import { createRequire, LinkStyleSheet } from 'jsxp'
+import { LinkStyleSheet } from 'jsxp'
 import css_output from '@src/input.css'
-
-const require = createRequire(import.meta.url)
+import img_28 from '@src/assets/img/28.jpg'
 export type LeaderBoardDataType = {
   list: Array<any>
 }
-
 const App: React.FC<LeaderBoardDataType> = ({ list }) => {
   return (
     <html>
@@ -18,8 +16,7 @@ const App: React.FC<LeaderBoardDataType> = ({ list }) => {
         <div
           id="root"
           style={{
-            backgroundImage:
-              'url(' + require('../../resources/img/28.jpg') + ')'
+            backgroundImage: 'url(' + img_28 + ')'
           }}
           className="  bg-[100%_auto] w-full h-full max-w-[800px] mx-auto p-8 shadow-md rounded-[10px] overflow-hidden"
         >

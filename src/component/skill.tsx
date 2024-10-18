@@ -74,21 +74,21 @@ export default function App({ data, status = false }: ComponentType) {
                     <div className="flex flex-wrap mr-4">
                       <img
                         className="mr-2"
-                        src={require('../../resources/svg/skills.svg')}
+                        src={require('@src/assets/svg/skills.svg')}
                       />
                       <span>{item.name}</span>
                     </div>
                     <div className="flex flex-wrap mr-4">
                       <img
                         className="mr-2"
-                        src={require('../../resources/svg/efficiency.svg')}
+                        src={require('@src/assets/svg/efficiency.svg')}
                       />
                       <span>{item.efficiency}</span>
                     </div>
                     <div className="flex flex-wrap mr-4">
                       <img
                         className="mr-2"
-                        src={require('../../resources/svg/money.svg')}
+                        src={require('@src/assets/svg/money.svg')}
                       />
                       <span>{item.price}</span>
                     </div>

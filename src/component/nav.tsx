@@ -74,17 +74,11 @@ export default function App({
         </span>
         <div className="flex-1 m-auto">
           <div className="flex justify-center">
-            <img
-              className="mr-2"
-              src={require('../../resources/svg/name.svg')}
-            />
+            <img className="mr-2" src={require('@src/assets/svg/name.svg')} />
             <span>{data.name}</span>
           </div>
           <div className="flex justify-center">
-            <img
-              className="mr-2"
-              src={require('../../resources/svg/level.svg')}
-            />
+            <img className="mr-2" src={require('@src/assets/svg/level.svg')} />
             <span>{LevelNameMap[data.level_id]}</span>
           </div>
         </div>
@@ -119,23 +113,17 @@ export default function App({
         </div>
         <div className="flex-1 m-auto">
           <div className="flex justify-center">
-            <img
-              className="mr-2"
-              src={require('../../resources/svg/power.svg')}
-            />
+            <img className="mr-2" src={require('@src/assets/svg/power.svg')} />
             <span>{power}</span>
           </div>
           <div className="flex justify-center">
-            <img
-              className="mr-2"
-              src={require('../../resources/svg/money.svg')}
-            />
+            <img className="mr-2" src={require('@src/assets/svg/money.svg')} />
             <span>{data.money}</span>{' '}
           </div>
           <div className="flex justify-center">
             <img
               className="mr-2"
-              src={require('../../resources/svg/efficiency.svg')}
+              src={require('@src/assets/svg/efficiency.svg')}
             />
             <span>{data.efficiency}</span>{' '}
           </div>

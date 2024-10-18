@@ -18,7 +18,7 @@ export default function MsgList({
           <div
             id="root"
             style={{
-              backgroundImage: `url(${require('../../resources/img/28.jpg')})`
+              backgroundImage: `url(${require('@src/assets/img/28.jpg')})`
             }}
             className="w-full h-full bg-[100%_auto] text-white overflow-hidden"
           >
@@ -47,7 +47,7 @@ export default function MsgList({
           <div
             id="root"
             style={{
-              backgroundImage: `url(${require('../../resources/img/28.jpg')})`
+              backgroundImage: `url(${require('@src/assets/img/28.jpg')})`
             }}
             className="w-full h-full bg-[100%_auto] text-white overflow-hidden"
           >
