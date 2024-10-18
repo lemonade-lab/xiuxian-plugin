@@ -1,6 +1,2 @@
-# 忽略所有文件
 /*   
-# 不忽略
-!/public
-!/resources
 !/lib

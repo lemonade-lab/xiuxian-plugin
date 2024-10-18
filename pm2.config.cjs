@@ -1,6 +1,6 @@
 const cfg = require('yunzaijs/pm2')
 const app = cfg.apps[0]
-app.script = 'lib/main.js'
+app.script = 'node lib/app.js'
 module.exports = {
   apps: [app]
 }

@@ -5,12 +5,16 @@ import { createServer as useJSXP } from 'jsxp'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const useYunzaiJS = async () => {
+/**
+ * 使用yunzaijs框架
+ * @param param0
+ */
+const useYunzaiJS = async ({ config }) => {
   const { Client, createLogin, Processor } = await import('yunzaijs')
   setTimeout(async () => {
     await createLogin()
     Client.run()
-      .then(() => Processor.install(['yunzai.config.ts', 'yunzai.config.json']))
+      .then(() => Processor.install([config]))
       .catch(console.error)
   }, 0)
 }
@@ -20,7 +24,10 @@ export default defineConfig({
     {
       name: 'alemon',
       useApp: () => {
-        if (process.argv.includes('--yunzai')) useYunzaiJS()
+        if (process.argv.includes('--yunzai'))
+          useYunzaiJS({
+            config: 'src/yunzai.config.ts'
+          })
       }
     },
     {
