@@ -40,6 +40,9 @@ export default defineConfig({
   build: {
     alias: {
       entries: [{ find: '@src', replacement: join(__dirname, 'src') }]
+    },
+    typescript: {
+      removeComments: true
     }
   }
 })
