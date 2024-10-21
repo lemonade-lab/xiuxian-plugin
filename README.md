@@ -22,35 +22,14 @@ yarn add yz-xiuxian jsxp -W
 
 发送`/个人信息`开启存档并展示游玩指令
 
-## 开发
+## V3
 
 ```sh
-git clone https://github.com/xiuxianjs/xiuxian-plugin.git
-
-cd xiuxian-plugin
+git clone --depth=1 -b xiuxian@1.3 https://github.com/xiuxianjs/xiuxian-plugin.git ./plugins/xiuxian-plugin
+git clone --depth=1 -b xiuxian@1.2 https://github.com/xiuxianjs/xiuxian-plugin.git ./plugins/xiuxian-plugin
 ```
 
-```sh
-yarn install
-```
-
-- 开发
-
-```sh
-yarn dev
-```
-
-- 编译
-
-```sh
-yarn build
-```
-
-- 独立运行
-
-```sh
-yarn start
-```
+> 旧版本仅维护不更新。 
 
 ## 商用
 
