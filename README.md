@@ -8,13 +8,11 @@
 yarn add yz-xiuxian jsxp -W
 ```
 
-- 加载模块
-
-`yunzai.config.json`
+- `yunzai.config.json`
 
 ```ts
 {
- "applications":['yz-xiuxian']
+ "applications":["yz-xiuxian"]
 }
 ```
 
@@ -24,8 +22,15 @@ yarn add yz-xiuxian jsxp -W
 
 ## V3
 
+- 1.3
+
 ```sh
 git clone --depth=1 -b xiuxian@1.3 https://github.com/xiuxianjs/xiuxian-plugin.git ./plugins/xiuxian-plugin
+```
+
+- 1.2
+  
+```sh
 git clone --depth=1 -b xiuxian@1.2 https://github.com/xiuxianjs/xiuxian-plugin.git ./plugins/xiuxian-plugin
 ```
 
