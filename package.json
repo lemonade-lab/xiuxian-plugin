@@ -11,8 +11,8 @@
   },
   "scripts": {
     "app": "node index.js",
-    "dev": "npx lvy dev",
-    "view": "npx lvy dev --jsxp",
+    "dev": "npx lvy app.ts",
+    "view": "npx lvy app.ts --jsxp",
     "build": "lvy build",
     "bundle-install": "yarn --cwd frontend install",
     "bundle-desktop": "yarn --cwd frontend-desktop build",
@@ -27,7 +27,7 @@
   "dependencies": {
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
-    "jsxp": "^1.2.3",
+    "jsxp": "^1.4.0",
     "koa-bodyparser": "^4.4.1",
     "lodash-es": "^4.17.21",
     "md5": "^2.3.0",
@@ -38,10 +38,10 @@
     "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
-    "@alemonjs/db": "^0.0.13",
-    "@alemonjs/discord": "^2.1.0-alpha.19",
-    "@alemonjs/onebot": "^2.1.0-alpha.11",
-    "@alemonjs/process": "^0.0.7",
+    "@alemonjs/db": "^0.0.16",
+    "@alemonjs/discord": "^2.1.23",
+    "@alemonjs/onebot": "^2.1.16",
+    "@alemonjs/process": "^0.0.8",
     "@eslint/js": "^9.18.0",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-router": "^7.4.8",
@@ -49,7 +49,7 @@
     "@types/md5": "^2.3.5",
     "@types/node": "^22.10.5",
     "@types/node-schedule": "^2.1.7",
-    "alemonjs": "2.1.0-alpha.51",
+    "alemonjs": "2.1.80",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

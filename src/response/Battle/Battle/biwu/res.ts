@@ -67,8 +67,8 @@ const res = onResponse(selects, async e => {
   const playerB = playerDataB as Player;
 
   // 复制（避免副作用）
-  const a = { ...playerA } as Player;
-  const b = { ...playerB } as Player;
+  const a = { ...playerA };
+  const b = { ...playerB };
 
   if (a.灵根) {
     const v = extractFaQiu(a.灵根);

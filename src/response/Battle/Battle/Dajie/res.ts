@@ -273,13 +273,13 @@ const res = onResponse(selects, async e => {
   const faA = extractFaQiu(playerA.灵根);
 
   if (faA !== undefined) {
-    (playerA as PlayerWithFaQiu).法球倍率 = faA;
+    (playerA).法球倍率 = faA;
   }
 
   const faB = extractFaQiu(playerB.灵根);
 
   if (faB !== undefined) {
-    (playerB as PlayerWithFaQiu).法球倍率 = faB;
+    (playerB).法球倍率 = faB;
   }
 
   playerA.当前血量 = playerA.血量上限;

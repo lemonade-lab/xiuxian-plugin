@@ -38,10 +38,10 @@ function calculateSoldItemsPrice(
 
     if (category === '装备' && soldItem.pinji !== undefined) {
       // 装备类物品：同时匹配名称和品阶
-      item = list.find((l: any) => l && l.name === soldItem.name && l.pinji === soldItem.pinji);
+      item = list.find((l: any) => l?.name === soldItem.name && l.pinji === soldItem.pinji);
     } else {
       // 非装备类物品：仅匹配名称
-      item = list.find((l: any) => l && l.name === soldItem.name);
+      item = list.find((l: any) => l?.name === soldItem.name);
     }
 
     if (item && typeof item.出售价 === 'number') {

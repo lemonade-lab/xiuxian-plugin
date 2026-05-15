@@ -12,14 +12,14 @@ export const getMessageTypeName = (type: string): string => {
  * 获取优先级显示名称
  */
 export const getPriorityName = (priority: number): string => {
-  return PRIORITY_MAP[priority as keyof typeof PRIORITY_MAP] || '普通';
+  return PRIORITY_MAP[priority] || '普通';
 };
 
 /**
  * 获取状态显示名称
  */
 export const getStatusName = (status: number): string => {
-  return STATUS_MAP[status as keyof typeof STATUS_MAP] || '未知';
+  return STATUS_MAP[status] || '未知';
 };
 
 /**

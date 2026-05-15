@@ -39,7 +39,7 @@ const res = onResponse(selects, async e => {
   }
   await redis.set(cdKey, String(now));
 
-  const publicEvent = e as EventsMessageCreateEnum;
+  const publicEvent = e;
   const img = await getNajieImage(publicEvent);
 
   if (!img) {

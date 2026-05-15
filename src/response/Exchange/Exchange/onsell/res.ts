@@ -170,7 +170,7 @@ const res = onResponse(selects, async e => {
         return false;
       }
     } else {
-      selected = equips.reduce((p, c) => (c.pinji > p.pinji ? c : p)) as EquipLike;
+      selected = equips.reduce((p, c) => (c.pinji > p.pinji ? c : p));
       finalPinji = (selected as EquipLike).pinji;
     }
   } else if (itemClass === '仙宠') {
@@ -295,7 +295,7 @@ const res = onResponse(selects, async e => {
       amount,
       qq: userId,
       now_time: nowTime
-    } as ExchangeRecord;
+    };
     await addNajieThing(userId, thingName, itemClass, -amount);
   }
 

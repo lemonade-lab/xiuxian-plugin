@@ -39,7 +39,7 @@ function toNamedList(arr): Array<{ name: string; class?: string }> {
 
       return undefined;
     })
-    .filter(v => v !== undefined) as Array<{ name: string; class?: string }>;
+    .filter(v => v !== undefined);
 }
 
 const res = onResponse(selects, async e => {

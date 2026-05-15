@@ -46,10 +46,10 @@ export const GET = async (ctx: Context) => {
       queryParams.type = type as any;
     }
     if (!isNaN(status)) {
-      queryParams.status = status as any;
+      queryParams.status = status;
     }
     if (!isNaN(priority)) {
-      queryParams.priority = priority as any;
+      queryParams.priority = priority;
     }
     if (keyword) {
       queryParams.keyword = keyword;

@@ -144,7 +144,7 @@ const res = onResponse(selects, async e => {
       }
     }
   }
-  const img = await getEquipmentImage(e as Parameters<typeof getEquipmentImage>[0]);
+  const img = await getEquipmentImage(e);
 
   if (Buffer.isBuffer(img)) {
     void Send(Image(img));

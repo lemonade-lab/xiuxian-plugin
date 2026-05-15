@@ -101,7 +101,7 @@ const res = onResponse(selects, async e => {
 
         if (!found) {
           for (const t of equipTypes) {
-            const slot = equ[t] as { name?: string } | null | undefined;
+            const slot = equ[t];
 
             if (slot && slot.name === rec.name) {
               found = slot;

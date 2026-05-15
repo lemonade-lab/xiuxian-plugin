@@ -20,7 +20,7 @@ function getDayStruct(ts): DateStruct | null {
     return null;
   }
   try {
-    return shijianc(n) as DateStruct;
+    return shijianc(n);
   } catch {
     return null;
   }

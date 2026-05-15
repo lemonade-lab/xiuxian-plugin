@@ -37,7 +37,7 @@ const res = onResponse(selects, async e => {
   const ex = await redis.exists(keys.player(userId));
 
   if (ex > 0) {
-    const img = await getPlayerImage(e as Parameters<typeof getPlayerImage>[0]);
+    const img = await getPlayerImage(e);
 
     if (Buffer.isBuffer(img)) {
       void Send(Image(img));

@@ -145,9 +145,9 @@ export async function addNajieThing(
     if (category === '装备') {
       const eqPinji = (name as EquipmentLike).pinji ?? pinji ?? 0;
 
-      existItem = najie[category].find(item => item.name === (name as NajieItem).name && item.pinji === eqPinji);
+      existItem = najie[category].find(item => item.name === (name).name && item.pinji === eqPinji);
     } else {
-      existItem = najie[category].find(item => item.name === (name as NajieItem).name);
+      existItem = najie[category].find(item => item.name === (name).name);
     }
 
     if (existItem) {
@@ -158,7 +158,7 @@ export async function addNajieThing(
       }
     } else {
       // 没有则插入
-      const obj = { ...name } as NajieItem;
+      const obj = { ...name };
 
       obj.数量 = count;
       obj.islockd = 0;

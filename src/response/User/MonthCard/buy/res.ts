@@ -168,7 +168,7 @@ const res = onResponse(selects, async e => {
 
         // 装备按件添加
         for (let i = 0; i < count; i++) {
-          await addNajieThing(e.UserId, equipmentObj as any, '装备', 1);
+          await addNajieThing(e.UserId, equipmentObj, '装备', 1);
         }
       } else if (category === '仙宠') {
         /**
@@ -203,7 +203,7 @@ const res = onResponse(selects, async e => {
           await addNajieThing(e.UserId, itemName, '仙宠', count);
         }
       } else {
-        await addNajieThing(e.UserId, itemName, category as NajieCategory, count);
+        await addNajieThing(e.UserId, itemName, category, count);
       }
 
       const record: ExchangeRecord = {

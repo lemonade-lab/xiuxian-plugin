@@ -149,7 +149,7 @@ const startTask = async () => {
     }
 
     // 处理旧格式记录
-    await processLegacyRecords(exchangeRecords as LegacyExchangeRecord[], currentTime);
+    await processLegacyRecords(exchangeRecords, currentTime);
 
     // 过滤出未过期的记录
     const validRecords = exchangeRecords.filter(record => {

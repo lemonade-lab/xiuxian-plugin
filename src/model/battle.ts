@@ -59,8 +59,8 @@ export async function zdBattle(AplayerA: Player | BattleEntity, BplayerB: Player
     jineng2: await getDataList('Jineng2')
   };
 
-  const jineng1: Skill[] = data.jineng1 as Skill[];
-  const jineng2: Skill[] = data.jineng2 as Skill[];
+  const jineng1: Skill[] = data.jineng1;
+  const jineng2: Skill[] = data.jineng2;
   const wuxing = ['金', '木', '土', '水', '火'] as const;
   const type: EquipmentSlots[] = ['武器', '护具', '法宝'];
 
@@ -75,7 +75,7 @@ export async function zdBattle(AplayerA: Player | BattleEntity, BplayerB: Player
       }
     }
     for (const i of type) {
-      const item = equ?.[i] as (Equipment['武器'] & { id?: number }) | undefined;
+      const item = equ?.[i];
 
       if (item && typeof item.id === 'number' && item.id > 0 && item.id < 6) {
         buff += kezhi(item.id, wx);
@@ -97,7 +97,7 @@ export async function zdBattle(AplayerA: Player | BattleEntity, BplayerB: Player
       }
     }
     for (const i of type) {
-      const item = equ?.[i] as (Equipment['武器'] & { id?: number }) | undefined;
+      const item = equ?.[i];
 
       if (item && typeof item.id === 'number' && item.id > 0 && item.id < 6) {
         buff += kezhi(item.id, wx);

@@ -29,7 +29,7 @@ const res = onResponse(selects, async e => {
   } catch {
     const shopList = await getDataList('Shop');
 
-    await writeShop(shopList as ShopData);
+    await writeShop(shopList);
     shop = await readShop();
   }
 
