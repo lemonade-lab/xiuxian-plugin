@@ -11,14 +11,11 @@
   },
   "scripts": {
     "app": "node index.js",
-    "dev": "npx lvy app.ts",
+    "dev": "npx lvy app.ts --serverPort 17117",
     "view": "npx lvy app.ts --jsxp",
     "build": "lvy build",
-    "bundle-install": "yarn --cwd frontend install",
-    "bundle-desktop": "yarn --cwd frontend-desktop build",
-    "push": "yarn build && yarn bundle-desktop && npm publish",
-    "bundle-dev": "yarn --cwd frontend dev",
-    "bundle": "yarn --cwd frontend build",
+    "dev-fe": "yarn --cwd frontend dev",
+    "bundle": "yarn --cwd frontend install && yarn --cwd frontend build && yarn install && yarn build",
     "eslint": "eslint src --fix",
     "format": "prettier --write .",
     "check-format": "git diff --exit-code",
@@ -38,10 +35,11 @@
     "svg-captcha": "^1.4.0"
   },
   "devDependencies": {
-    "@alemonjs/db": "^0.0.16",
-    "@alemonjs/discord": "^2.1.23",
-    "@alemonjs/onebot": "^2.1.16",
+    "@alemonjs/db": "^0.0.20",
+    "@alemonjs/discord": "^2.1.25",
+    "@alemonjs/onebot": "^2.1.21",
     "@alemonjs/process": "^0.0.8",
+    "@alemonjs/qq-bot": "^2.1.35",
     "@eslint/js": "^9.18.0",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-router": "^7.4.8",
@@ -49,7 +47,8 @@
     "@types/md5": "^2.3.5",
     "@types/node": "^22.10.5",
     "@types/node-schedule": "^2.1.7",
-    "alemonjs": "2.1.80",
+    "alemonjs": "2.1.103",
+    "cssnano": "^8",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -58,33 +57,16 @@
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
-    "lvyjs": "0.2.25",
+    "lvyjs": "0.3.0-alpha.5",
     "prettier": "^3",
     "sass": "^1.90.0",
     "tailwindcss": "3",
-    "typescript-eslint": "^8.13.0"
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.19.1"
   },
   "alemonjs": {
     "web": {
       "root": "dist"
-    },
-    "desktop": {
-      "logo": "antd.ProjectOutlined",
-      "platform": [],
-      "command": [
-        {
-          "name": "xiuxian",
-          "icon": "antd.ProjectOutlined",
-          "command": "open.xiuxian"
-        }
-      ],
-      "sidebars": [
-        {
-          "name": "xiuxian",
-          "icon": "antd.ProjectOutlined",
-          "command": "open.xiuxian"
-        }
-      ]
     }
   },
   "packageManager": "yarn@1.22.22"

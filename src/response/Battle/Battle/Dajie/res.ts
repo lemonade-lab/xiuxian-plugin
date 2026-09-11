@@ -9,13 +9,9 @@ import { screenshot } from '@src/image';
 import { selects } from '@src/response/mw-captcha';
 import mw from '@src/response/mw-captcha';
 import { isKeys } from '@src/model/utils/isKeys';
-import type { ActionRecord, Player } from '@src/types';
+import type { ActionRecord } from '@src/types';
 
 export const regular = /^(#|＃|\/)?打劫$/;
-
-interface PlayerWithFaQiu extends Player {
-  法球倍率: number;
-}
 
 function extractFaQiu(lg: any): number | undefined {
   if (!lg || typeof lg !== 'object') {

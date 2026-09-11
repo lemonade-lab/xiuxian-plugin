@@ -1,5 +1,4 @@
 import { Image, useSend, Text } from 'alemonjs';
-import type { EventsMessageCreateEnum } from 'alemonjs';
 
 import { existplayer } from '@src/model/index';
 import { redis } from '@src/model/api';

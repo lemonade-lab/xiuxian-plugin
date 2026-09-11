@@ -1,7 +1,7 @@
 import { notUndAndNull } from './common.js';
 import { readEquipment } from './equipment.js';
 import * as _ from 'lodash-es';
-import type { Player, Equipment } from '../types/player.js';
+import type { Player } from '../types/player.js';
 import type { BattleEntity, BattleResult, Skill, EquipmentSlots } from '../types/model';
 import { getDataList } from './DataList.js';
 

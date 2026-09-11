@@ -13,13 +13,20 @@ export default function Login() {
         <Card className='shadow-lg'>
           <div className='space-y-6'>
             <div>
-              <Title level={3} className='mb-2'>管理员登录</Title>
+              <Title level={3} className='mb-2'>
+                管理员登录
+              </Title>
               <Text type='secondary'>请输入您的管理员账号和密码</Text>
             </div>
 
             {error && <Alert type='error' message='登录失败' description={error} showIcon className='mb-4' />}
 
-            <Form layout='vertical' onFinish={(values) => { void onFinish(values); }}>
+            <Form
+              layout='vertical'
+              onFinish={values => {
+                void onFinish(values);
+              }}
+            >
               <Form.Item
                 label='用户名'
                 name='username'
@@ -28,11 +35,7 @@ export default function Login() {
                   { min: 3, message: '用户名至少3个字符' }
                 ]}
               >
-                <Input
-                  prefix={<UserOutlined />}
-                  placeholder='请输入管理员用户名'
-                  autoComplete='username'
-                />
+                <Input prefix={<UserOutlined />} placeholder='请输入管理员用户名' autoComplete='username' />
               </Form.Item>
               <Form.Item
                 label='密码'
@@ -42,11 +45,7 @@ export default function Login() {
                   { min: 6, message: '密码至少6个字符' }
                 ]}
               >
-                <Input.Password
-                  prefix={<LockOutlined />}
-                  placeholder='请输入密码'
-                  autoComplete='current-password'
-                />
+                <Input.Password prefix={<LockOutlined />} placeholder='请输入密码' autoComplete='current-password' />
               </Form.Item>
               <Form.Item>
                 <Button type='primary' htmlType='submit' loading={loading} block>
