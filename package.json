@@ -11,7 +11,7 @@
   },
   "scripts": {
     "app": "node index.js",
-    "dev": "npx lvy app.ts --serverPort 17117",
+    "dev": "npx lvy app.ts --serverPort 17187",
     "view": "npx lvy app.ts --jsxp",
     "build": "lvy build",
     "dev-fe": "yarn --cwd frontend dev",

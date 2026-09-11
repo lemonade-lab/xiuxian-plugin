@@ -53,7 +53,7 @@ yarn view
 yarn bundle-dev
 ```
 
-> http://127.0.0.1:17117/app/
+> http://127.0.0.1:17187/app/
 
 默认账号密码 lemonade、123456
 
